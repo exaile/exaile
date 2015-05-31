@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-05-21 12:04+0200\n"
-"Last-Translator: Alexandre Badalo <alexandre.badalo@sapo.pt>\n"
+"PO-Revision-Date: 2015-05-31 02:26+0200\n"
+"Last-Translator: Melim Andrew <nokostya.translation@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/exaile/master/pt/>\n"
 "Language: pt\n"
@@ -524,7 +524,7 @@ msgstr "Álbum"
 
 #: ../xl/metadata/tags.py:41
 msgid "Arranger"
-msgstr ""
+msgstr "Arranjador"
 
 #: ../xl/metadata/tags.py:42 ../xlgui/widgets/playlist_columns.py:232
 #: ../xlgui/panel/collection.py:129 ../data/ui/widgets/tracklist_info.ui.h:2
@@ -588,18 +588,18 @@ msgstr "Género"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Agrupamento"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "Código ISRC"
 
 #: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricsviewer/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "Letras"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
@@ -607,7 +607,7 @@ msgstr "Compositor"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
-msgstr ""
+msgstr "Organização"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
@@ -619,7 +619,7 @@ msgstr "Artista original"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
-msgstr ""
+msgstr "Data original"
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
@@ -653,7 +653,7 @@ msgstr "Bitrate"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "Data de adição"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
@@ -674,24 +674,23 @@ msgstr "Localização"
 
 #: ../xl/metadata/tags.py:77
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Reproduzir"
+msgstr "tempo de reprodução"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "numero de vezes tocada"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
-msgstr ""
+msgstr "Desvio inicial"
 
 #: ../xl/metadata/tags.py:82
 msgid "Stop offset"
-msgstr ""
+msgstr "Desvio final"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -730,7 +729,7 @@ msgstr "Formato inválido de %s."
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Versão %(version)s não apoiada por %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
@@ -754,7 +753,7 @@ msgstr "Álbuns aleatórios"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "Repetição_Desligada"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
@@ -801,11 +800,11 @@ msgstr "Local"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Enfileirar"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Substituir Atual"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -813,7 +812,7 @@ msgstr "Anexar à Actual"
 
 #: ../xlgui/widgets/menuitems.py:146 ../xlgui/properties.py:1125
 msgid "Open Directory"
-msgstr ""
+msgstr "Abrir Diretório"
 
 #: ../xlgui/widgets/menuitems.py:168
 msgid ""

@@ -15,12 +15,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-from gi.repository import Gio
-from gi.repository import GLib
-
 from contextlib import closing
 
-import hashlib
 from urllib import quote_plus
 try:
     import xml.etree.cElementTree as ETree
@@ -28,6 +24,7 @@ except:
     import xml.etree.ElementTree as ETree
 
 from xl import (
+    common,
     covers,
     event,
     providers
@@ -48,7 +45,7 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     global LASTFM
-    LASTFM = LastFMCoverSearch()
+    LASTFM = LastFMCoverSearch(exaile)
     providers.register('covers', LASTFM)
 
 def disable(exaile):
@@ -65,6 +62,8 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
     url = 'http://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
 
+    def __init__(self, exaile):
+        self.user_agent = exaile.get_user_agent_string('lastfmcovers')
 
     def find_covers(self, track, limit=-1):
         """
@@ -88,9 +87,8 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
                 api_key=API_KEY
             )
             try:
-                with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(url).read())) as stream:
-                    data = stream.read()
-            except GLib.GError:
+                data = common.get_url_contents(url, self.user_agent)
+            except IOError:
                 continue
 
             try:
@@ -110,9 +108,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
     def get_cover_data(self, cover_url):
         try:
-            with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(cover_url).read())) as stream:
-                data = stream.read()
-        except GLib.GError:
+            return common.get_url_contents(cover_url, self.user_agent)
+        except IOError:
             return None
-        return data
 

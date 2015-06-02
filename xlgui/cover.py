@@ -55,6 +55,23 @@ from xlgui import (
 
 logger = logging.getLogger(__name__)
 
+
+def save_pixbuf(pixbuf, path, type_):
+    """Save a pixbuf to a local file.
+
+    :param pixbuf: Pixbuf to save
+    :type pixbuf: GdkPixbuf.Pixbuf
+    :param path: Path of file to save to
+    :type path: str
+    :param type_: Type of image file. See GdkPixbuf.savev for valid values.
+    :type type_: str
+    :return: None
+    """
+    # This wraps the horrible GdkPixbuf.savev API. Can be removed if one day
+    # PyGObject provides an override.
+    pixbuf.savev(path, type_, [None], [])
+
+
 class CoverManager(GObject.GObject):
     """
         Cover manager window
@@ -703,7 +720,7 @@ class CoverWidget(Gtk.EventBox):
             self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
 
         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
-        pixbuf.save(self.filename, 'png')
+        save_pixbuf(pixbuf, self.filename, 'png')
         selection.set_uris([Gio.File.new_for_path(self.filename).get_uri()])
 
     def do_drag_data_delete(self, context):
@@ -920,7 +937,7 @@ class CoverWindow(object):
                 type_ = 'jpeg'
             else:
                 type_ = 'png'
-            self.image_pixbuf.save(filename, type_)
+            save_pixbuf(self.image_pixbuf, filename, type_)
         dialog.destroy()
 
     def on_zoom_in_button_clicked(self, widget):
@@ -1098,7 +1115,7 @@ class CoverChooser(GObject.GObject):
             # Try to select the current cover of the track, fallback to first
             track_db_string = COVER_MANAGER.get_db_string(self.track)
             position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
-            self.previews_box.select_path((position,))
+            self.previews_box.select_path(Gtk.TreePath(position))
         else:
             self.builder.get_object('info_box').hide()
             self.builder.get_object('actions_box').hide()

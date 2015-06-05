@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">10000</property>
     <property name="value">1000</property>
@@ -70,9 +70,9 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="ypad">1</property>
                 <property name="label" translatable="yes">Playback engine: </property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -131,8 +131,8 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0.89999997615814209</property>
                 <property name="label" translatable="yes">Fade duration (ms):</property>
+                <property name="xalign">0.89999997615814209</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -187,8 +187,8 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0.89999997615814209</property>
                 <property name="label" translatable="yes">Crossfade duration (ms):</property>
+                <property name="xalign">0.89999997615814209</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -227,9 +227,9 @@
               <object class="GtkLabel" id="label6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="ypad">1</property>
                 <property name="label" translatable="yes">Audio Sink:  </property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -271,9 +271,9 @@
               <object class="GtkLabel" id="label6b">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="ypad">1</property>
                 <property name="label" translatable="yes">Device:  </property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -317,8 +317,8 @@
               <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Custom sink pipeline:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -450,8 +450,8 @@
               <object class="GtkLabel" id="label8">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0.89999997615814209</property>
                 <property name="label" translatable="yes">Delay between tracks (ms)</property>
+                <property name="xalign">0.89999997615814209</property>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -1,53 +1,62 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="window1">
+    <property name="can_focus">False</property>
     <child>
-      <object class="GtkVBox" id="playlist_page">
+      <object class="GtkBox" id="playlist_page">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
           <object class="GtkScrolledWindow" id="playlist_window">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
             <child>
               <placeholder/>
             </child>
           </object>
           <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="playlist_utilities_bar">
+          <object class="GtkBox" id="playlist_utilities_bar">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkHSeparator" id="hseparator1">
+              <object class="GtkSeparator" id="hseparator1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHBox" id="hbox1">
+              <object class="GtkBox" id="hbox1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="homogeneous">True</property>
                 <child>
-                  <object class="GtkHBox" id="hbox2">
+                  <object class="GtkBox" id="hbox2">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkAlignment" id="alignment2">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkHBox" id="controls_box">
+                          <object class="GtkBox" id="controls_box">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <child>
                               <object class="GtkToggleButton" id="shuffle_button">
                                 <property name="visible">True</property>
@@ -55,11 +64,12 @@
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
                                 <property name="relief">none</property>
-                                <signal name="button_press_event" handler="on_shuffle_button_press_event"/>
-                                <signal name="popup-menu" handler="on_shuffle_button_popup_menu"/>
+                                <signal name="button-press-event" handler="on_shuffle_button_press_event" swapped="no"/>
+                                <signal name="popup-menu" handler="on_shuffle_button_popup_menu" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="shuffle_button_image">
                                     <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
                                     <property name="icon_name">media-playlist-shuffle</property>
                                   </object>
                                 </child>
@@ -77,11 +87,12 @@
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Repeat playback</property>
                                 <property name="relief">none</property>
-                                <signal name="button_press_event" handler="on_repeat_button_press_event"/>
-                                <signal name="popup-menu" handler="on_repeat_button_popup_menu"/>
+                                <signal name="button-press-event" handler="on_repeat_button_press_event" swapped="no"/>
+                                <signal name="popup-menu" handler="on_repeat_button_popup_menu" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="repeat_button_image">
                                     <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
                                     <property name="icon_name">media-playlist-repeat</property>
                                   </object>
                                 </child>
@@ -99,10 +110,11 @@
                                 <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes">Dynamically add similar tracks to the playlist</property>
                                 <property name="relief">none</property>
-                                <signal name="toggled" handler="on_dynamic_button_toggled"/>
+                                <signal name="toggled" handler="on_dynamic_button_toggled" swapped="no"/>
                                 <child>
                                   <object class="GtkImage" id="dynamic_button_image">
                                     <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
                                     <property name="icon_name">media-playlist-dynamic</property>
                                   </object>
                                 </child>
@@ -117,29 +129,37 @@
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkAlignment" id="alignment1">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="right_padding">6</property>
                         <child>
                           <object class="GtkLabel" id="label1">
                             <property name="visible">True</property>
-                            <property name="xalign">1</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">_Search:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">search_entry</property>
+                            <property name="xalign">1</property>
                           </object>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -147,24 +167,28 @@
                   <object class="GtkEntry" id="search_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="secondary_icon_stock">gtk-clear</property>
-                    <property name="secondary_icon_activatable">True</property>
                     <property name="secondary_icon_sensitive">False</property>
-                    <signal name="activate" handler="on_search_entry_activate"/>
+                    <signal name="activate" handler="on_search_entry_activate" swapped="no"/>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>

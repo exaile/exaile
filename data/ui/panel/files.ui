@@ -176,8 +176,8 @@
               <object class="GtkEntry" id="files_search_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="primary_icon_stock">gtk-find</property>
-                <property name="secondary_icon_stock">gtk-clear</property>
+                <property name="primary_icon_name">edit-find</property>
+                <property name="secondary_icon_name">edit-clear</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_sensitive">False</property>
                 <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>

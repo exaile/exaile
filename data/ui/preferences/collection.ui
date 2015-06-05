@@ -10,14 +10,14 @@
         <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">3</property>
+        <property name="spacing">5</property>
         <child>
           <object class="GtkLabel" id="strip_list_label">
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
             <property name="label" translatable="yes">Words to strip from the beginning of artist tags when sorting (space separated):</property>
             <property name="justify">fill</property>
             <property name="wrap">True</property>
+            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="expand">False</property>

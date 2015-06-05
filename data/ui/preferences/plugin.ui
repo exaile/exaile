@@ -2,6 +2,21 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">system-software-install</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">system-software-update</property>
+  </object>
   <object class="GtkTreeStore" id="model">
     <columns>
       <!-- column-name plugin -->
@@ -414,41 +429,13 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="plugin_install_button">
+                                <property name="label" translatable="yes">I_nstall Plugin</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <child>
-                                  <object class="GtkBox" id="hbox6">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="spacing">2</property>
-                                    <child>
-                                      <object class="GtkImage" id="image2">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="stock">gtk-apply</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">False</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="label346">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Install</property>
-                                        <property name="use_underline">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
+                                <property name="image">image2</property>
+                                <property name="use_underline">True</property>
+                                <property name="always_show_image">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -653,41 +640,13 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="plugin_update_button">
+                                <property name="label" translatable="yes">_Update Plugin</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <child>
-                                  <object class="GtkBox" id="hbox10">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="spacing">2</property>
-                                    <child>
-                                      <object class="GtkImage" id="image4">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="stock">gtk-apply</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">False</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="label356">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Install Updates</property>
-                                        <property name="use_underline">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
+                                <property name="image">image3</property>
+                                <property name="use_underline">True</property>
+                                <property name="always_show_image">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -750,41 +709,14 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="install_plugin_button">
+                <property name="label" translatable="yes">Add _Plugin File</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_install_plugin_button_clicked" swapped="no"/>
-                <child>
-                  <object class="GtkBox" id="hbox2">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="spacing">3</property>
-                    <child>
-                      <object class="GtkImage" id="image1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-add</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Install Plugin File</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>

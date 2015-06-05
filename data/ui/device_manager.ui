@@ -177,6 +177,36 @@
       <action-widget response="0">ok_button</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">multimedia-player</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">media-eject</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-properties</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-remove</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">window-close</property>
+  </object>
   <object class="GtkWindow" id="device_manager">
     <property name="width_request">550</property>
     <property name="height_request">450</property>
@@ -230,11 +260,14 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkButton" id="btn_connect">
-                <property name="label">gtk-connect</property>
+                <property name="label">_Connect</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_connect_clicked" swapped="no"/>
               </object>
               <packing>
@@ -246,11 +279,14 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_disconnect">
-                <property name="label">gtk-disconnect</property>
+                <property name="label">_Disconnect</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image2</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_disconnect_clicked" swapped="no"/>
               </object>
               <packing>
@@ -262,11 +298,14 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_edit">
-                <property name="label">gtk-edit</property>
+                <property name="label">_Edit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image3</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_edit_clicked" swapped="no"/>
               </object>
               <packing>
@@ -278,11 +317,14 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_add">
-                <property name="label">gtk-add</property>
+                <property name="label">_Add</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image4</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_add_clicked" swapped="no"/>
               </object>
               <packing>
@@ -294,11 +336,14 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_remove">
-                <property name="label">gtk-remove</property>
+                <property name="label">_Remove</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image5</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_remove_clicked" swapped="no"/>
               </object>
               <packing>
@@ -313,11 +358,14 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_close">
-                <property name="label">gtk-close</property>
+                <property name="label">C_lose</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image6</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_close_clicked" swapped="no"/>
               </object>
               <packing>

@@ -2,6 +2,36 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">window-close</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-save</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-remove</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">view-refresh</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">view-refresh</property>
+  </object>
   <object class="GtkListStore" id="model">
     <columns>
       <!-- column-name location -->
@@ -31,12 +61,14 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancel_button">
-                <property name="label">gtk-cancel</property>
+                <property name="label">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -46,12 +78,14 @@
             </child>
             <child>
               <object class="GtkButton" id="apply_button">
-                <property name="label">gtk-apply</property>
+                <property name="label">_Apply</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image2</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -145,11 +179,14 @@
                 <property name="layout_style">start</property>
                 <child>
                   <object class="GtkButton" id="add_button">
-                    <property name="label">gtk-add</property>
+                    <property name="label">Add _Folder</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="image">image3</property>
+                    <property name="use_underline">True</property>
+                    <property name="xalign">0</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -160,12 +197,15 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="remove_button">
-                    <property name="label">gtk-remove</property>
+                    <property name="label">_Remove Folder</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="image">image4</property>
+                    <property name="use_underline">True</property>
+                    <property name="xalign">0</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_remove_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -176,10 +216,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="rescan_button">
-                    <property name="label" translatable="yes">Rescan Collection</property>
+                    <property name="label" translatable="yes">Rescan _Collection</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="image">image5</property>
+                    <property name="use_underline">True</property>
+                    <property name="xalign">0</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_rescan_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -190,10 +234,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="force_rescan_button">
-                    <property name="label" translatable="yes">Rescan Collection (slow)</property>
+                    <property name="label" translatable="yes">Rescan Collection (_slow)</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="image">image6</property>
+                    <property name="use_underline">True</property>
+                    <property name="xalign">0</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_force_rescan_button_clicked" swapped="no"/>
                   </object>
                   <packing>

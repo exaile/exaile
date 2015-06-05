@@ -5,22 +5,32 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-go-forward</property>
+    <property name="icon_name">go-next</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-go-back</property>
+    <property name="icon_name">go-previous</property>
   </object>
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-remove</property>
+    <property name="icon_name">list-remove</property>
   </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
+    <property name="icon_name">list-add</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">window-close</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-save</property>
   </object>
   <object class="GtkWindow" id="TrackPropertiesDialog">
     <property name="can_focus">False</property>
@@ -43,8 +53,7 @@
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="border_width">6</property>
-                    <child>
+                    <property name="border_width">6</property><child>
                       <object class="GtkViewport" id="viewport1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -171,6 +180,7 @@
                         <property name="receives_default">True</property>
                         <property name="image">image4</property>
                         <property name="use_underline">True</property>
+                        <property name="always_show_image">True</property>
                         <signal name="clicked" handler="on_add_tag_button_clicked" swapped="no"/>
                       </object>
                       <packing>
@@ -187,6 +197,7 @@
                         <property name="receives_default">True</property>
                         <property name="image">image3</property>
                         <property name="use_underline">True</property>
+                        <property name="always_show_image">True</property>
                         <signal name="toggled" handler="on_remove_tag_button_toggled" swapped="no"/>
                       </object>
                       <packing>
@@ -327,6 +338,18 @@
                     <child>
                       <placeholder/>
                     </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -355,7 +378,7 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Properties</property>
+                <property name="label" translatable="yes">File Properties</property>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -386,6 +409,7 @@
                     <property name="receives_default">True</property>
                     <property name="image">image2</property>
                     <property name="use_underline">True</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_prev_track_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -415,6 +439,7 @@
                     <property name="receives_default">True</property>
                     <property name="image">image1</property>
                     <property name="use_underline">True</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_next_track_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -450,11 +475,13 @@
                 <property name="spacing">10</property>
                 <child>
                   <object class="GtkButton" id="close_button">
-                    <property name="label">gtk-close</property>
+                    <property name="label">_Close</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="image">image5</property>
+                    <property name="use_underline">True</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_close_button_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -465,12 +492,14 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="apply_button">
-                    <property name="label">gtk-apply</property>
+                    <property name="label">_Apply</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="image">image6</property>
+                    <property name="use_underline">True</property>
+                    <property name="always_show_image">True</property>
                     <signal name="clicked" handler="on_apply_button_clicked" swapped="no"/>
                   </object>
                   <packing>

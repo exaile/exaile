@@ -39,7 +39,7 @@
                       <object class="GtkImage" id="image44">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-back</property>
+                        <property name="icon_name">go-previous</property>
                       </object>
                     </child>
                   </object>
@@ -61,7 +61,7 @@
                       <object class="GtkImage" id="image45">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-forward</property>
+                        <property name="icon_name">go-next</property>
                       </object>
                     </child>
                   </object>
@@ -82,7 +82,7 @@
                       <object class="GtkImage" id="image46">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-up</property>
+                        <property name="icon_name">go-up</property>
                       </object>
                     </child>
                   </object>
@@ -103,7 +103,7 @@
                       <object class="GtkImage" id="image43">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-refresh</property>
+                        <property name="icon_name">view-refresh</property>
                       </object>
                     </child>
                   </object>

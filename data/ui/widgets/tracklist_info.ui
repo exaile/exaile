@@ -15,7 +15,7 @@
             <property name="height_request">100</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="stock">gtk-missing-image</property>
+            <property name="icon_name">image-missing</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -64,6 +64,15 @@
                 <property name="no_show_all">True</property>
                 <property name="n_columns">3</property>
                 <property name="column_spacing">6</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
                 <child>
                   <placeholder/>
                 </child>

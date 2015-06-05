@@ -21,7 +21,9 @@
               <object class="GtkToolButton" id="save_as_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock_id">gtk-save-as</property>
+                <property name="label" translatable="yes">Save _As</property>
+                <property name="use_underline">True</property>
+                <property name="icon_name">document-save-as</property>
                 <signal name="clicked" handler="on_save_as_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -33,7 +35,7 @@
               <object class="GtkToolButton" id="zoom_in_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock_id">gtk-zoom-in</property>
+                <property name="icon_name">zoom-in</property>
                 <signal name="clicked" handler="on_zoom_in_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -45,7 +47,7 @@
               <object class="GtkToolButton" id="zoom_out_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock_id">gtk-zoom-out</property>
+                <property name="icon_name">zoom-out</property>
                 <signal name="clicked" handler="on_zoom_out_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -57,7 +59,7 @@
               <object class="GtkToolButton" id="zoom_100_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock_id">gtk-zoom-100</property>
+                <property name="icon_name">zoom-original</property>
                 <signal name="clicked" handler="on_zoom_100_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -69,7 +71,7 @@
               <object class="GtkToolButton" id="zoom_fit_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock_id">gtk-zoom-fit</property>
+                <property name="icon_name">zoom-fit-best</property>
                 <signal name="clicked" handler="on_zoom_fit_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -82,7 +84,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-close</property>
+                <property name="icon_name">window-close</property>
                 <signal name="clicked" handler="on_close_button_clicked" swapped="no"/>
                 <accelerator key="Escape" signal="clicked"/>
               </object>
@@ -116,7 +118,7 @@
                     <property name="height_request">0</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-missing-image</property>
+                    <property name="icon_name">image-missing</property>
                   </object>
                 </child>
               </object>

@@ -26,25 +26,10 @@
                 <property name="relief">none</property>
                 <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkBox" id="hbox2">
+                  <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="spacing">2</property>
-                    <child>
-                      <object class="GtkImage" id="image2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-add</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
+                    <property name="icon_name">list-add</property>
                   </object>
                 </child>
               </object>
@@ -64,25 +49,10 @@
                 <property name="relief">none</property>
                 <signal name="clicked" handler="on_import_button_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkBox" id="hbox3">
+                  <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="spacing">2</property>
-                    <child>
-                      <object class="GtkImage" id="image1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-harddisk</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
+                    <property name="icon_name">document-open</property>
                   </object>
                 </child>
               </object>
@@ -90,18 +60,6 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
               </packing>
             </child>
             <child>

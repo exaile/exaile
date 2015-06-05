@@ -183,7 +183,7 @@
                           <object class="GtkImage" id="image1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="stock">gtk-media-previous</property>
+                            <property name="icon_name">media-skip-backward</property>
                           </object>
                         </child>
                       </object>
@@ -206,7 +206,7 @@
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="stock">gtk-media-play</property>
+                            <property name="icon_name">media-playback-start</property>
                           </object>
                         </child>
                       </object>
@@ -230,7 +230,7 @@ Right Click for Stop After Track Feature</property>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="stock">gtk-media-stop</property>
+                            <property name="icon_name">media-playback-stop</property>
                           </object>
                         </child>
                       </object>
@@ -253,7 +253,7 @@ Right Click for Stop After Track Feature</property>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="stock">gtk-media-next</property>
+                            <property name="icon_name">media-skip-forward</property>
                           </object>
                         </child>
                       </object>

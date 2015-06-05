@@ -20,7 +20,8 @@ class Moodbar(Gtk.DrawingArea):
     def __init__(self, loader):
         super(Moodbar, self).__init__()
         self.loader = loader
-        # TODO: Handle screen-changed. See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
+        # TODO: Handle screen-changed.
+        # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
         self.surf = self.text = self.text_extents = self.tint = None
         self.seek_position = -1
@@ -28,11 +29,14 @@ class Moodbar(Gtk.DrawingArea):
 
     def load_mood(self, path):
         """
+        :param path: Path to mood file, or None to load empty mood
         :type path: bytes
+        :return: Whether the mood file is successfully loaded
+        :rtype: bool
         """
         self.surf = None
         if path is None:
-            return
+            return True
         try:
             self.surf = self.loader.load(path)
         except Exception:
@@ -78,8 +82,10 @@ class Moodbar(Gtk.DrawingArea):
             self.queue_draw_area(0, 0, alloc.width, alloc.height)
 
     def _on_draw(self, _, cr):
-        """
+        """Handler for the 'draw' signal.
+
         :type cr: cairo.Context
+        :rtype: bool
         """
         if self.surf is None:
             return False

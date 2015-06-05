@@ -19,7 +19,9 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 
-import moodbarloader
+import cache
+import generator
+import loader
 import moodbarprefs
 import moodbarwidget
 
@@ -44,7 +46,8 @@ class ExModbar(object):
         self.pr = progress_bar
         self.player = player
 
-        self.loader = moodbarloader.MoodbarLoader()
+        self.loader = loader.MoodbarLoader()
+        self.generator = generator.SpectrumMoodbarGenerator()
         self.moodbar = ''
         self.modwidth = 0
         self.curpos = 0
@@ -54,13 +57,13 @@ class ExModbar(object):
         self.seeking = False
         self.setuped = False
         self.runed = False
-        self.pid = 0
         self.uptime = 0
         self.ivalue = 0
         self.qvalue = 0
         self.moodsDir = os.path.join(xdg.get_cache_dir(), "moods")
         if not os.path.exists(self.moodsDir):
             os.mkdir(self.moodsDir)
+        self.cache = cache.ExaileMoodbarCache(self.moodsDir)
 
     def __inner_preference(klass):
         """functionality copy from notyfication"""
@@ -196,8 +199,7 @@ class ExModbar(object):
         if needGen:
             self.mod.load_mood(None)
             self.updateplayerpos()
-            self.pid = subprocess.Popen(['moodbar',
-                                         track.get_local_path(), '-o', modLoc])
+            self.generator.generate_async(track.get_loc_for_io(), self.cache.put)
         self.haveMod = not needGen
 
         if self.modTimer: GLib.source_remove(self.modTimer)

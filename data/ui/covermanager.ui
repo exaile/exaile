@@ -16,7 +16,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="xpad">3</property>
-    <property name="stock">gtk-find</property>
+    <property name="icon_name">edit-find</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>

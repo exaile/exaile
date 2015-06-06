@@ -22,7 +22,7 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="vbox1">
+          <object class="GtkBox" id="EmptyCollectionPanel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>

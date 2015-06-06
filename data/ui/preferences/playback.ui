@@ -66,7 +66,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="ypad">1</property>
             <property name="label" translatable="yes">Playback engine: </property>
           </object>
           <packing>
@@ -177,7 +176,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="ypad">1</property>
             <property name="label" translatable="yes">Audio Sink:  </property>
           </object>
           <packing>
@@ -208,7 +206,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="ypad">1</property>
             <property name="label" translatable="yes">Preview Device: </property>
           </object>
           <packing>

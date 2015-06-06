@@ -120,13 +120,15 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
         return False
 
     def on_condition_met(self):
-        parent = self.widget.get_parent()
-        if parent is not None:
-            parent.show()
+        #parent = self.widget.get_parent()
+        #if parent is not None:
+        #    parent.show()
+        self.widget.set_sensitive(True)
 
     def on_condition_failed(self):
-        self.widget.get_parent().hide()
+        #self.widget.get_parent().hide()
         self.widget.get_model().clear()
+        self.widget.set_sensitive(False)
         
     def done(self):
         return self.is_enabled

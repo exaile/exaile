@@ -18,6 +18,7 @@
     <property name="title" translatable="yes">Cover Finder</property>
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
+    <property name="type-hint">dialog</property>
     <child>
       <object class="GtkBox" id="main_container">
         <property name="visible">True</property>

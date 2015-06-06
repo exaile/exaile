@@ -32,16 +32,6 @@
     <property name="can_focus">False</property>
     <property name="icon_name">view-refresh</property>
   </object>
-  <object class="GtkListStore" id="model">
-    <columns>
-      <!-- column-name location -->
-      <column type="gchararray"/>
-      <!-- column-name monitored -->
-      <column type="gboolean"/>
-      <!-- column-name scan_startup -->
-      <column type="gboolean"/>
-    </columns>
-  </object>
   <object class="GtkDialog" id="CollectionManager">
     <property name="width_request">640</property>
     <property name="height_request">275</property>
@@ -266,5 +256,15 @@
       <action-widget response="-6">cancel_button</action-widget>
       <action-widget response="-10">apply_button</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkListStore" id="model">
+    <columns>
+      <!-- column-name location -->
+      <column type="gchararray"/>
+      <!-- column-name monitored -->
+      <column type="gboolean"/>
+      <!-- column-name scan_startup -->
+      <column type="gboolean"/>
+    </columns>
   </object>
 </interface>

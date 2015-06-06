@@ -214,6 +214,24 @@
           </packing>
         </child>
         <child>
+          <object class="GtkComboBox" id="player/audiosink_device">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="model">model3</property>
+            <property name="active">0</property>
+            <child>
+              <object class="GtkCellRendererText" id="renderer3"/>
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">6</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="label7">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -238,21 +256,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="player/resume_paused">
-            <property name="label" translatable="yes">Resume playback in paused state</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">9</property>
-            <property name="width">2</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkCheckButton" id="player/resume_playback">
             <property name="label" translatable="yes">Resume playback on start</property>
             <property name="visible">True</property>
@@ -265,6 +268,21 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">8</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/resume_paused">
+            <property name="label" translatable="yes">Resume playback in paused state</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">9</property>
             <property name="width">2</property>
           </packing>
         </child>
@@ -351,24 +369,6 @@
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">14</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBox" id="player/audiosink_device">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="model">model3</property>
-            <property name="active">0</property>
-            <child>
-              <object class="GtkCellRendererText" id="renderer3"/>
-              <attributes>
-                <attribute name="text">1</attribute>
-              </attributes>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">6</property>
           </packing>
         </child>
       </object>

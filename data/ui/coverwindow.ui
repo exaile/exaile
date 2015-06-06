@@ -20,7 +20,6 @@
             <child>
               <object class="GtkToolButton" id="save_as_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Save _As</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">document-save-as</property>
@@ -34,7 +33,6 @@
             <child>
               <object class="GtkToolButton" id="zoom_in_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Zoom _In</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">zoom-in</property>
@@ -48,7 +46,6 @@
             <child>
               <object class="GtkToolButton" id="zoom_out_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Zoom _Out</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">zoom-out</property>
@@ -62,7 +59,6 @@
             <child>
               <object class="GtkToolButton" id="zoom_100_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Original Size</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">zoom-original</property>
@@ -76,7 +72,6 @@
             <child>
               <object class="GtkToolButton" id="zoom_fit_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Best Fit</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">zoom-fit-best</property>
@@ -90,7 +85,6 @@
             <child>
               <object class="GtkToolButton" id="close_button">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Close</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">window-close</property>
@@ -142,7 +136,6 @@
         <child>
           <object class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="expand">False</property>

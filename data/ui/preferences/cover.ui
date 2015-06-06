@@ -10,14 +10,13 @@
         <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">5</property>
+        <property name="spacing">4</property>
         <child>
           <object class="GtkCheckButton" id="covers/use_tags">
             <property name="label" translatable="yes">Use covers embedded in tags</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -34,7 +33,6 @@
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">This option will search for cover image files in 
 the same folder as the music file.</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -89,7 +87,6 @@ the same folder as the music file.</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -107,9 +104,9 @@ the same folder as the music file.</property>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
                 <property name="label" translatable="yes">Cover Search Order:</property>
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>

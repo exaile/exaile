@@ -10,14 +10,13 @@
         <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
+        <property name="spacing">4</property>
         <child>
           <object class="GtkCheckButton" id="playlist/open_last">
             <property name="label" translatable="yes">Open last playlists on startup</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -32,7 +31,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -48,7 +46,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">Instead of appending, tracks added via double click in the panes will replace the content of the current playlist.</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -64,7 +61,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">When using a menu item to add/replace tracks on the playlist, start playback if there is track currently playing. This option was the default behavior before Exaile 0.3.3</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -80,7 +76,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">When you double click or press enter to play a track in a playlist, queue the track instead of playing it</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>

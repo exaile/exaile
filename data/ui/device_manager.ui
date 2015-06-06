@@ -110,8 +110,8 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Detected devices:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -224,6 +224,7 @@
     <property name="width_request">550</property>
     <property name="height_request">450</property>
     <property name="can_focus">False</property>
+    <property name="border_width">3</property>
     <property name="title" translatable="yes">Device Manager</property>
     <property name="default_width">700</property>
     <property name="default_height">450</property>
@@ -231,46 +232,35 @@
       <object class="GtkBox" id="hbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="spacing">3</property>
         <child>
-          <object class="GtkBox" id="vbox1">
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
             <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow1">
+              <object class="GtkTreeView" id="tree_devices">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkTreeView" id="tree_devices">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="treeview-selection1"/>
-                    </child>
-                  </object>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection1"/>
                 </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="padding">5</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="vbox2">
+          <object class="GtkButtonBox" id="vbox2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="layout_style">start</property>
             <child>
               <object class="GtkButton" id="btn_connect">
                 <property name="label">_Connect</property>
@@ -279,7 +269,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image1</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_connect_clicked" swapped="no"/>
               </object>
@@ -298,7 +287,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image2</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_disconnect_clicked" swapped="no"/>
               </object>
@@ -317,7 +305,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image3</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_edit_clicked" swapped="no"/>
               </object>
@@ -336,7 +323,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image4</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_add_clicked" swapped="no"/>
               </object>
@@ -355,7 +341,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image5</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_remove_clicked" swapped="no"/>
               </object>
@@ -367,9 +352,6 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
               <object class="GtkButton" id="btn_close">
                 <property name="label">C_lose</property>
                 <property name="visible">True</property>
@@ -377,7 +359,6 @@
                 <property name="receives_default">False</property>
                 <property name="image">image6</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_btn_close_clicked" swapped="no"/>
               </object>
@@ -385,15 +366,15 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="padding">3</property>
-                <property name="position">6</property>
+                <property name="position">5</property>
+                <property name="secondary">True</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="padding">5</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

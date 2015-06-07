@@ -378,7 +378,8 @@ class StopButtonControl(ButtonControl):
         """
             Indicates SPAT
         """
-        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+        _, state = event.get_state()
+        if state & Gdk.ModifierType.SHIFT_MASK:
             self._queue_spat = True
             self.update_state()
 

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-05-29 20:37+0200\n"
-"Last-Translator: Slobodan Simić <slsimic@gmail.com>\n"
+"PO-Revision-Date: 2015-06-10 13:19+0200\n"
+"Last-Translator: Slobodan Simić, Слободан Симић <slsimic@gmail.com>\n"
 "Language-Team: Serbian "
 "<https://hosted.weblate.org/projects/exaile/master/sr/>\n"
 "Language: sr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -674,9 +674,8 @@ msgid "Modified"
 msgstr ""
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Пусти"
+msgstr "Време пуштања"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
@@ -1279,9 +1278,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Да ли сте сигурани да желиште да обришеште изабрану листу нумера?"
+msgstr "Заиста желите да примените измене на све нумере?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -2521,7 +2519,7 @@ msgstr ""
 #: ../plugins/icecast/__init__.py:318
 #, fuzzy
 msgid "Icecast Search"
-msgstr "Претрага"
+msgstr "Претрага Icecast-а"
 
 #: ../plugins/icecast/__init__.py:342
 msgid "No Stations Found"
@@ -2536,9 +2534,8 @@ msgid "Search"
 msgstr "Претрага"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Име:"
+msgstr "Назив"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
@@ -3107,15 +3104,13 @@ msgid "Save analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:62
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "Преименуј листу нумера"
+msgstr "Анализирај листе пуштања"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "Преименуј листу нумера"
+msgstr "Анализирај листу пуштања"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3212,9 +3207,8 @@ msgid "BPM Counter"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
-#, fuzzy
 msgid "Update"
-msgstr "Надоградња"
+msgstr "Ажурирај"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
@@ -3729,9 +3723,8 @@ msgid "encodedby"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
-#, fuzzy
 msgid "composer"
-msgstr "Композитор"
+msgstr "композитор"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
 msgid "conductor"
@@ -3792,9 +3785,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
-#, fuzzy
 msgid "Search Tag"
-msgstr "Тражи: "
+msgstr "Тражи ознаку"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
@@ -3951,18 +3943,16 @@ msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
-#, fuzzy
 msgid "<none selected>"
-msgstr "<b>Ниједно проширење није изабрано</b>"
+msgstr "<ништа није изабрано>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Датотеке листе нумера"
+msgstr "Листе за анализирање"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
@@ -4492,9 +4482,8 @@ msgid "Removes voice from audio"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Датотеке листе нумера"
+msgstr "Аналитичар листи пуштања"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""

@@ -1022,7 +1022,6 @@ class MessageBar(Gtk.InfoBar):
             parent.child_set_property(self, 'expand', False)
 
         self.image = Gtk.Image()
-        self.image.set_property('yalign', 0)
         self.set_message_type(type)
 
         self.primary_text = Gtk.Label(label=text)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="liststore_libraries_location">
     <columns>
       <!-- column-name value -->
@@ -39,7 +39,7 @@
                       <object class="GtkImage" id="image44">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-back</property>
+                        <property name="icon_name">go-previous</property>
                       </object>
                     </child>
                   </object>
@@ -61,7 +61,7 @@
                       <object class="GtkImage" id="image45">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-forward</property>
+                        <property name="icon_name">go-next</property>
                       </object>
                     </child>
                   </object>
@@ -82,7 +82,7 @@
                       <object class="GtkImage" id="image46">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-up</property>
+                        <property name="icon_name">go-up</property>
                       </object>
                     </child>
                   </object>
@@ -103,7 +103,7 @@
                       <object class="GtkImage" id="image43">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-refresh</property>
+                        <property name="icon_name">view-refresh</property>
                       </object>
                     </child>
                   </object>
@@ -176,8 +176,8 @@
               <object class="GtkEntry" id="files_search_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="primary_icon_stock">gtk-find</property>
-                <property name="secondary_icon_stock">gtk-clear</property>
+                <property name="primary_icon_name">edit-find</property>
+                <property name="secondary_icon_name">edit-clear</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_sensitive">False</property>
                 <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>

@@ -707,7 +707,6 @@ class Statusbar(object):
                 '$collection_count'))
 
         self.info_label = Gtk.Label()
-        self.info_label.props.xpad = 3
 
         box = self.status_bar.get_message_area()
 

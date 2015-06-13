@@ -30,6 +30,7 @@ import subprocess
 import colorsys
 from xl import event, player, settings, xdg
 from xl.nls import gettext as _
+from xlgui import guiutil
 
 import logging
 logger = logging.getLogger(__name__)
@@ -91,19 +92,13 @@ class ExModbar(object):
     #Setup-------------------------------------------------------------------
 
     def changeBarToMod(self):
-        place = self.pr.get_parent()
         self.mod = moodbarwidget.Moodbar(self.loader)
         self.mod.set_size_request(-1, 24)
-        place.remove(self.pr)
-        place.add(self.mod)
-        self.mod.realize()
-        self.mod.show()
+        guiutil.gtk_widget_replace(self.pr, self.mod)
 
     def changeModToBar(self):
         if hasattr(self, 'mod'):
-            place = self.mod.get_parent()
-            place.remove(self.mod)
-            place.add(self.pr)
+            guiutil.gtk_widget_replace(self.mod, self.pr)
             self.mod.destroy()
 
     def setupUi(self):

@@ -25,29 +25,29 @@ class MoodbarGenerator:
         t = threading.Thread(name=self.__class__.__name__,
             target=self.generate, args=(uri, callback))
         t.daemon = True
-        t.run()
+        t.start()
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
     def generate(self, uri, callback=None):
-        f, tmppath = tempfile.mkstemp(prefix=b'moodbar.')
-        os.close(f)
-        inpath = Gio.File.new_for_uri(uri).get_path()
+        path = Gio.File.new_for_uri(uri).get_path()
         data = None
-        if inpath:
-            cmd = [b'moodbar', inpath, b'-o', tmppath]
-            status = subprocess.Popen(cmd).wait()
-            if status == 0:
+        if path:
+            # Reserve a temporary file.
+            fd, tmppath = tempfile.mkstemp(b'moodbar.')
+            os.close(fd)
+            f = None
+            try:
+                cmd = [b'moodbar', path, b'-o', tmppath]
+                subprocess.check_call(cmd)
                 f = open(tmppath, 'rb')
-                try:
-                    data = f.read()
-                except IOError:
+                data = f.read()
+            except (subprocess.CalledProcessError, IOError):
+                pass
+            finally:
+                if f:
                     f.close()
-                    # Swallow error
-        try:
-            os.remove(tmppath)
-        except IOError:
-            pass
+                os.remove(tmppath)
         if callback:
             callback(uri, data)
         return data

@@ -1385,7 +1385,11 @@ class Playlist(object):
             for item in items:
                 value = track.get_tag_raw(item)
                 if value is not None:
-                    meta[item] = value[0]
+                    # FIXME: This should join multiple values.
+                    v = value[0]
+                    if isinstance(v, unicode):
+                        v = v.encode('utf-8')
+                    meta[item] = v
             buffer += '\t%s\n' % urllib.urlencode(meta)
             try:
                 f.write(buffer.encode('utf-8'))

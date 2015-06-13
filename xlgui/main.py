@@ -238,8 +238,10 @@ class MainWindow(GObject.GObject):
         self.splitter = self.builder.get_object('splitter')
 
         self.progress_bar = playback.SeekProgressBar(player.PLAYER)
+        # Don't expand vertically; looks awful on Adwaita.
+        self.progress_bar.set_valign(Gtk.Align.CENTER)
         guiutil.gtk_widget_replace(
-            self.builder.get_object('playback_progressbar'),
+            self.builder.get_object('playback_progressbar_dummy'),
             self.progress_bar
         )
 

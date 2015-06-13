@@ -264,10 +264,11 @@ Right Click for Stop After Track Feature</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkProgressBar" id="playback_progressbar">
+                      <object class="GtkProgressBar" id="playback_progressbar_dummy">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                        <property name="valign">center</property>
                         <property name="pulse_step">0.10000000149</property>
                         <property name="text" translatable="yes">0:00 / 0:00</property>
                         <property name="show_text">True</property>
@@ -275,6 +276,7 @@ Right Click for Stop After Track Feature</property>
                       <packing>
                         <property name="expand">True</property>
                         <property name="fill">True</property>
+                        <property name="padding">3</property>
                         <property name="position">4</property>
                       </packing>
                     </child>

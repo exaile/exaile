@@ -72,7 +72,9 @@ class PlaybackProgressBar(Gtk.ProgressBar):
     def __init__(self, player):
         Gtk.ProgressBar.__init__(self)
         self.__player = player
-        
+
+        self.set_show_text(True)
+
         self.reset()
 
         self.formatter = ProgressBarFormatter(player)

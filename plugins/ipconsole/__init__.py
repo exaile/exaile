@@ -19,6 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import sys
+from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 import ipconsoleprefs

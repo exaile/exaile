@@ -74,7 +74,6 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="halign">start</property>
         <property name="font">Sans 12</property>
       </object>
       <packing>
@@ -148,7 +147,6 @@
       <object class="GtkComboBox" id="plugin/ipconsole/iptheme">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">start</property>
         <property name="model">liststore1</property>
         <property name="active">0</property>
         <child>

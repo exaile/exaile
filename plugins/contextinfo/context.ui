@@ -5,12 +5,12 @@
   <object class="GtkWindow" id="ContextPanelWindow">
     <property name="title" translatable="yes">Context</property>
     <child>
-      <object class="GtkVBox" id="ContextPanel">
+      <object class="GtkBox" id="ContextPanel">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="spacing">2</property>
         <child>
-          <object class="GtkHBox" id="ContextBar">
+          <object class="GtkBox" id="ContextBar">
             <property name="height_request">32</property>
             <property name="visible">True</property>
             <child>

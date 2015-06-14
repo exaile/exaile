@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="extension_events">cursor</property>
         <property name="border_width">3</property>
@@ -84,7 +84,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkBox" id="hbox2">
             <property name="visible">True</property>
             <child>
               <object class="GtkLinkButton" id="linkbutton1">

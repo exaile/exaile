@@ -4,11 +4,11 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="overlay_lbl">

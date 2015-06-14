@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <child>
           <object class="GtkFrame" id="frame1">
@@ -16,7 +16,7 @@
                 <property name="visible">True</property>
                 <property name="left_padding">12</property>
                 <child>
-                  <object class="GtkVBox" id="vbox2">
+                  <object class="GtkBox" id="vbox2">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkScrolledWindow" id="alarm_scrolledwindow">
@@ -36,7 +36,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHButtonBox" id="hbuttonbox1">
+                      <object class="GtkBox" id="hbuttonbox1">
                         <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <property name="homogeneous">True</property>
@@ -171,7 +171,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox1">
+                      <object class="GtkBox" id="hbox1">
                         <property name="visible">True</property>
                         <property name="spacing">10</property>
                         <child>
@@ -211,7 +211,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox2">
+                      <object class="GtkBox" id="hbox2">
                         <property name="visible">True</property>
                         <property name="spacing">10</property>
                         <child>
@@ -250,7 +250,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox3">
+                      <object class="GtkBox" id="hbox3">
                         <property name="visible">True</property>
                         <child>
                           <object class="GtkSpinButton" id="plugin/multialarmclock/fade_increment">
@@ -278,7 +278,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox4">
+                      <object class="GtkBox" id="hbox4">
                         <property name="visible">True</property>
                         <child>
                           <object class="GtkSpinButton" id="plugin/multialarmclock/fade_time">

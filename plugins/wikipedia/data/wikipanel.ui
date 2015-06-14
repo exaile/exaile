@@ -7,13 +7,13 @@
     <property name="default_width">100</property>
     <property name="default_height">100</property>
     <child>
-      <object class="GtkVBox" id="wikipanel">
+      <object class="GtkBox" id="wikipanel">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="buttonbox1">
+          <object class="GtkBox" id="buttonbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>

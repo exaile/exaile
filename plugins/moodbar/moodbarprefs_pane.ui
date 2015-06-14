@@ -11,7 +11,7 @@
   </object>
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
@@ -39,11 +39,11 @@
             <property name="left_padding">22</property>
             <property name="right_padding">5</property>
             <child>
-              <object class="GtkVBox" id="vbox3">
+              <object class="GtkBox" id="vbox3">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkHBox" id="hbox1">
+                  <object class="GtkBox" id="hbox1">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkLabel" id="label3">
@@ -104,7 +104,7 @@
             <property name="left_padding">21</property>
             <property name="right_padding">5</property>
             <child>
-              <object class="GtkVBox" id="vbox1">
+              <object class="GtkBox" id="vbox1">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -151,7 +151,7 @@
             <property name="left_padding">22</property>
             <property name="right_padding">5</property>
             <child>
-              <object class="GtkHBox" id="hbox2">
+              <object class="GtkBox" id="hbox2">
                 <property name="visible">True</property>
                 <property name="homogeneous">True</property>
                 <child>

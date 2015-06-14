@@ -18,7 +18,7 @@
   </object>
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
@@ -50,7 +50,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <property name="tooltip_text" translatable="yes">Additional amplification to apply to all files</property>
             <child>
@@ -86,7 +86,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkBox" id="hbox2">
             <property name="visible">True</property>
             <property name="tooltip_text" translatable="yes">Fallback correction for files that lack ReplayGain information</property>
             <child>

@@ -11,7 +11,7 @@
   </object>
   <object class="GtkWindow" id="preferences_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
@@ -31,7 +31,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkBox" id="hbox2">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="label3">

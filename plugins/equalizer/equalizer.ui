@@ -10,11 +10,11 @@
     <property name="type_hint">utility</property>
     <signal name="destroy" handler="on_main-window_destroy"/>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkBox" id="hbox2">
             <property name="visible">True</property>
             <child>
               <object class="GtkComboBoxEntry" id="combo-presets">
@@ -61,7 +61,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHSeparator" id="hseparator1">
+          <object class="GtkSeparator" id="hseparator1">
             <property name="visible">True</property>
           </object>
           <packing>
@@ -70,7 +70,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="label15">
@@ -107,10 +107,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox3">
+          <object class="GtkBox" id="hbox3">
             <property name="visible">True</property>
             <child>
-              <object class="GtkVBox" id="vbox2">
+              <object class="GtkBox" id="vbox2">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -142,7 +142,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVSeparator" id="vseparator1">
+              <object class="GtkSeparator" id="vseparator1">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
               </object>
@@ -152,7 +152,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox3">
+              <object class="GtkBox" id="vbox3">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -204,7 +204,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVSeparator" id="vseparator2">
+              <object class="GtkSeparator" id="vseparator2">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
               </object>
@@ -214,7 +214,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox4">
+              <object class="GtkBox" id="vbox4">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -247,7 +247,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox5">
+              <object class="GtkBox" id="vbox5">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -280,7 +280,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox6">
+              <object class="GtkBox" id="vbox6">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -313,7 +313,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox7">
+              <object class="GtkBox" id="vbox7">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -346,7 +346,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox8">
+              <object class="GtkBox" id="vbox8">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -379,7 +379,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox9">
+              <object class="GtkBox" id="vbox9">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -412,7 +412,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox10">
+              <object class="GtkBox" id="vbox10">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -445,7 +445,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox11">
+              <object class="GtkBox" id="vbox11">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -478,7 +478,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox12">
+              <object class="GtkBox" id="vbox12">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -511,7 +511,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox13">
+              <object class="GtkBox" id="vbox13">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>

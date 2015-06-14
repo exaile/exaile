@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
@@ -21,12 +21,12 @@
                 <property name="left_padding">6</property>
                 <property name="right_padding">6</property>
                 <child>
-                  <object class="GtkVBox" id="vbox2">
+                  <object class="GtkBox" id="vbox2">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkHBox" id="plugin/minimode/selected_controls">
+                      <object class="GtkBox" id="plugin/minimode/selected_controls">
                         <property name="visible">True</property>
                         <property name="homogeneous">True</property>
                         <child>
@@ -38,7 +38,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox2">
+                      <object class="GtkBox" id="hbox2">
                         <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
@@ -94,7 +94,7 @@
                 <property name="left_padding">6</property>
                 <property name="right_padding">6</property>
                 <child>
-                  <object class="GtkVBox" id="vbox1">
+                  <object class="GtkBox" id="vbox1">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">6</property>
@@ -109,7 +109,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox1">
+                      <object class="GtkBox" id="hbox1">
                         <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>

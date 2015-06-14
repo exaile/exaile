@@ -30,11 +30,11 @@
   </object>
   <object class="GtkWindow" id="cd_prefs_window">
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="label1">
@@ -73,7 +73,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkBox" id="hbox2">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="label2">
@@ -112,7 +112,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox3">
+          <object class="GtkBox" id="hbox3">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="label3">
@@ -139,7 +139,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox4">
+          <object class="GtkBox" id="hbox4">
             <property name="visible">True</property>
             <property name="spacing">6</property>
             <child>

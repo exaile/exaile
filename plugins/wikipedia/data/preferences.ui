@@ -4,7 +4,7 @@
   <object class="GtkWindow" id="prefs_window">
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkVBox" id="preferences_pane">
+      <object class="GtkBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">3</property>

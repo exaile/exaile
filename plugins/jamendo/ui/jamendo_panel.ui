@@ -4,17 +4,17 @@
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="JamendoPanelWindow">
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="border_width">5</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkVBox" id="vbox3">
+          <object class="GtkBox" id="vbox3">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">3</property>
             <child>
-              <object class="GtkHBox" id="hbox2">
+              <object class="GtkBox" id="hbox2">
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkComboBox" id="searchComboBox">
@@ -83,11 +83,11 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
-              <object class="GtkVBox" id="vbox2">
+              <object class="GtkBox" id="vbox2">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkHBox" id="hbox1">
+                  <object class="GtkBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="spacing">3</property>
                     <child>
@@ -126,7 +126,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox5">
+                  <object class="GtkBox" id="hbox5">
                     <property name="visible">True</property>
                     <property name="spacing">3</property>
                     <child>
@@ -163,7 +163,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox3">
+                  <object class="GtkBox" id="hbox3">
                     <property name="visible">True</property>
                     <property name="spacing">3</property>
                     <child>
@@ -219,7 +219,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="treeview_box">
+          <object class="GtkBox" id="treeview_box">
             <property name="visible">True</property>
             <child>
               <placeholder/>
@@ -230,7 +230,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox4">
+          <object class="GtkBox" id="hbox4">
             <property name="visible">True</property>
             <child>
               <object class="GtkLabel" id="statusLabel">

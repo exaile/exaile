@@ -2,11 +2,11 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkBox" id="preferences_pane">
+  <object class="GtkGrid" id="preferences_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="border_width">3</property>
-    <property name="orientation">vertical</property>
+    <property name="row_spacing">4</property>
+    <property name="column_spacing">2</property>
     <child>
       <object class="GtkCheckButton" id="screensaverpause/unpause">
         <property name="label" translatable="yes">Unpause when screensaver ends</property>
@@ -17,9 +17,8 @@
         <property name="draw_indicator">True</property>
       </object>
       <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
       </packing>
     </child>
   </object>

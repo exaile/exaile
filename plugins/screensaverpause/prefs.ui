@@ -6,6 +6,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="border_width">3</property>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkCheckButton" id="screensaverpause/unpause">
         <property name="label" translatable="yes">Unpause when screensaver ends</property>

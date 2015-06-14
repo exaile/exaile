@@ -9,6 +9,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">6</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
@@ -33,7 +34,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="font"/>
+                <property name="font">Sans 12</property>
               </object>
               <packing>
                 <property name="expand">False</property>

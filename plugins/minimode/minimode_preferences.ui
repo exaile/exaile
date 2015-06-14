@@ -218,7 +218,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHScale" id="plugin/minimode/transparency">
+                      <object class="GtkScale" id="plugin/minimode/transparency">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="adjustment">transparency_adjustment</property>

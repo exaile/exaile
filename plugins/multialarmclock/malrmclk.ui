@@ -175,7 +175,7 @@
                         <property name="visible">True</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkHScale" id="hscale1">
+                          <object class="GtkScale" id="hscale1">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">min_vol</property>
@@ -215,7 +215,7 @@
                         <property name="visible">True</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkHScale" id="hscale2">
+                          <object class="GtkScale" id="hscale2">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">max_vol</property>

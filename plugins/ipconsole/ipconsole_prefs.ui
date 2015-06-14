@@ -54,7 +54,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHScale" id="plugin/ipconsole/opacity">
+              <object class="GtkScale" id="plugin/ipconsole/opacity">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="adjustment">adjustment1</property>

@@ -114,7 +114,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="pre">
+                  <object class="GtkScale" id="pre">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -218,7 +218,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band0">
+                  <object class="GtkScale" id="band0">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -251,7 +251,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band1">
+                  <object class="GtkScale" id="band1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -284,7 +284,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band2">
+                  <object class="GtkScale" id="band2">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -317,7 +317,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band3">
+                  <object class="GtkScale" id="band3">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -350,7 +350,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band4">
+                  <object class="GtkScale" id="band4">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -383,7 +383,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band5">
+                  <object class="GtkScale" id="band5">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -416,7 +416,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band6">
+                  <object class="GtkScale" id="band6">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -449,7 +449,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band7">
+                  <object class="GtkScale" id="band7">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -482,7 +482,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band8">
+                  <object class="GtkScale" id="band8">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
@@ -515,7 +515,7 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="band9">
+                  <object class="GtkScale" id="band9">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>

@@ -168,7 +168,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use_alpha">True</property>
-                    <property name="color">#2e2e34343636</property>
+                    <property name="rgba">rgb(46,52,54)</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

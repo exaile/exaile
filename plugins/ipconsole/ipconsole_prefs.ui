@@ -154,7 +154,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="color">#000000000000</property>
+                    <property name="rgba">rgb(0,0,0)</property>
                   </object>
                 </child>
               </object>
@@ -177,7 +177,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="color">#000000000000</property>
+                    <property name="rgba">rgb(0,0,0)</property>
                   </object>
                 </child>
               </object>

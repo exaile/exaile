@@ -196,7 +196,7 @@
                     <property name="relief">none</property>
                     <property name="xalign">1</property>
                     <property name="title" translatable="yes">Base color</property>
-                    <property name="color">#c116ffff0000</property>
+                    <property name="rgba">rgb(138,226,52)</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

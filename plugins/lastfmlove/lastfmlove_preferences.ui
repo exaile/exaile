@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.20"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <child>
@@ -22,8 +22,8 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">1</property>
                 <property name="label" translatable="yes">API key:</property>
+                <property name="xalign">1</property>
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
@@ -33,8 +33,8 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">1</property>
                 <property name="label" translatable="yes">Secret:</property>
+                <property name="xalign">1</property>
               </object>
               <packing>
                 <property name="top_attach">1</property>
@@ -75,10 +75,10 @@
         </child>
         <child>
           <object class="GtkButton" id="plugin/lastfmlove/request_access_permission">
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_action_appearance">False</property>
             <child>
               <object class="GtkBox" id="hbox3">
                 <property name="visible">True</property>
@@ -90,7 +90,7 @@
                     <property name="can_focus">False</property>
                     <property name="xalign">1</property>
                     <property name="stock">gtk-network</property>
-                    <property name="icon-size">6</property>
+                    <property name="icon_size">6</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -102,8 +102,8 @@
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Request Access Permission</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="scale" value="1.5"/>
                     </attributes>
@@ -133,7 +133,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="stock">gtk-dialog-info</property>
-                <property name="icon-size">6</property>
+                <property name="icon_size">6</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -145,12 +145,12 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
                 <property name="ypad">4</property>
                 <property name="label" translatable="yes" comments="TRANSLATORS: Get the link title from the Last.fm page title">Go to &lt;b&gt;&lt;a href="http://www.last.fm/api/account"&gt;Your API Account&lt;/a&gt;&lt;/b&gt; page to get an &lt;b&gt;API key&lt;/b&gt; and &lt;b&gt;secret&lt;/b&gt; and enter them here. After you have entered these, &lt;b&gt;request access permission&lt;/b&gt; and confirm to complete the setup.</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>

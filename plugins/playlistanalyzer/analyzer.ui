@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.24"/>
-  <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="template_store">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-      <!-- column-name data -->
-      <column type="PyObject"/>
-    </columns>
-  </object>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="playlist_store">
     <columns>
       <!-- column-name name -->
@@ -22,9 +14,17 @@
     <columns>
       <!-- column-name Name -->
       <column type="gchararray"/>
-      <!-- column-name Template name -->
+      <!-- column-name Template -->
       <column type="gchararray"/>
       <!-- column-name Data -->
+      <column type="PyObject"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="template_store">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name data -->
       <column type="PyObject"/>
     </columns>
   </object>
@@ -146,8 +146,6 @@
                       <object class="GtkScrolledWindow" id="scrolledwindow1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">automatic</property>
-                        <property name="vscrollbar_policy">automatic</property>
                         <property name="shadow_type">etched-in</property>
                         <child>
                           <object class="GtkTreeView" id="template_list">
@@ -159,6 +157,9 @@
                             <property name="search_column">0</property>
                             <property name="fixed_height_mode">True</property>
                             <signal name="cursor-changed" handler="on_template_list_cursor_changed" swapped="no"/>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="treeview-selection1"/>
+                            </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="template_list_column">
                                 <property name="sizing">fixed</property>
@@ -186,9 +187,9 @@
                           <object class="GtkLabel" id="description_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;none selected&gt;</property>
                             <property name="wrap">True</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -201,6 +202,15 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="n_columns">3</property>
+                            <child>
+                              <placeholder/>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
                             <child>
                               <placeholder/>
                             </child>
@@ -371,8 +381,8 @@
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Playlist(s) to analyze</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -384,8 +394,6 @@
                       <object class="GtkScrolledWindow" id="scrolledwindow2">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">automatic</property>
-                        <property name="vscrollbar_policy">automatic</property>
                         <property name="shadow_type">etched-in</property>
                         <child>
                           <object class="GtkTreeView" id="playlists_list">
@@ -397,6 +405,9 @@
                             <property name="search_column">0</property>
                             <property name="fixed_height_mode">True</property>
                             <property name="show_expanders">False</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="treeview-selection2"/>
+                            </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="treecolumn2">
                                 <property name="sizing">fixed</property>
@@ -472,8 +483,6 @@
                             <property name="invisible_char">●</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
-                            <property name="primary_icon_sensitive">True</property>
-                            <property name="secondary_icon_sensitive">True</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>

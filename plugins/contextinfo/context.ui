@@ -1,18 +1,21 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="ContextPanelWindow">
+    <property name="can_focus">False</property>
     <property name="title" translatable="yes">Context</property>
     <child>
       <object class="GtkBox" id="ContextPanel">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkBox" id="ContextBar">
             <property name="height_request">32</property>
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
               <object class="GtkButton" id="PrevButton">
                 <property name="width_request">32</property>
@@ -25,8 +28,9 @@
                 <child>
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="stock">gtk-go-back</property>
-                    <property name="icon-size">2</property>
+                    <property name="icon_size">2</property>
                   </object>
                 </child>
               </object>
@@ -48,6 +52,7 @@
                 <child>
                   <object class="GtkImage" id="image4">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="stock">gtk-go-forward</property>
                   </object>
                 </child>
@@ -70,6 +75,7 @@
                 <child>
                   <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="stock">gtk-home</property>
                   </object>
                 </child>
@@ -92,8 +98,9 @@
                 <child>
                   <object class="GtkImage" id="RefreshButtonImage">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="stock">gtk-refresh</property>
-                    <property name="icon-size">2</property>
+                    <property name="icon_size">2</property>
                   </object>
                 </child>
               </object>
@@ -115,8 +122,9 @@
                 <child>
                   <object class="GtkImage" id="image3">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="stock">gtk-file</property>
-                    <property name="icon-size">2</property>
+                    <property name="icon_size">2</property>
                   </object>
                 </child>
               </object>
@@ -137,12 +145,15 @@
         <child>
           <object class="GtkFrame" id="ContextFrame">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="label_xalign">0</property>
             <child>
               <placeholder/>
             </child>
           </object>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>

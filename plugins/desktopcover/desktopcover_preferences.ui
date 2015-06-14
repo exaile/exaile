@@ -1,271 +1,26 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 2.12 -->
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">9999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkTable" id="preferences_pane">
-    <property name="visible">True</property>
-    <property name="border_width">5</property>
-    <property name="n_rows">7</property>
-    <property name="n_columns">3</property>
-    <property name="column_spacing">6</property>
-    <property name="row_spacing">6</property>
-    <child>
-      <object class="GtkLabel" id="label1">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">Anchor:</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="plugin/desktopcover/anchor">
-        <property name="visible">True</property>
-        <property name="model">anchor_liststore</property>
-        <property name="active">0</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext1"/>
-          <attributes>
-            <attribute name="text">1</attribute>
-          </attributes>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="right_attach">3</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label2">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">X offset:</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="top_attach">1</property>
-        <property name="bottom_attach">2</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="plugin/desktopcover/x">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="invisible_char">&#x25CF;</property>
-        <property name="adjustment">adjustment1</property>
-        <property name="snap_to_ticks">True</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="right_attach">2</property>
-        <property name="top_attach">1</property>
-        <property name="bottom_attach">2</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label3">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">pixels</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="right_attach">3</property>
-        <property name="top_attach">1</property>
-        <property name="bottom_attach">2</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label4">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">Y offset:</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="top_attach">2</property>
-        <property name="bottom_attach">3</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="plugin/desktopcover/y">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="invisible_char">&#x25CF;</property>
-        <property name="adjustment">adjustment2</property>
-        <property name="snap_to_ticks">True</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="right_attach">2</property>
-        <property name="top_attach">2</property>
-        <property name="bottom_attach">3</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label5">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">pixels</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="right_attach">3</property>
-        <property name="top_attach">2</property>
-        <property name="bottom_attach">3</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="plugin/desktopcover/override_size">
-        <property name="label" translatable="yes">Override cover size</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="right_attach">3</property>
-        <property name="top_attach">3</property>
-        <property name="bottom_attach">4</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="plugin/desktopcover/size">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="invisible_char">&#x25CF;</property>
-        <property name="adjustment">adjustment3</property>
-        <property name="snap_to_ticks">True</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="right_attach">2</property>
-        <property name="top_attach">4</property>
-        <property name="bottom_attach">5</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label6">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">Size:</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="top_attach">4</property>
-        <property name="bottom_attach">5</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label7">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">pixels</property>
-        <property name="single_line_mode">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="right_attach">3</property>
-        <property name="top_attach">4</property>
-        <property name="bottom_attach">5</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="plugin/desktopcover/fading">
-        <property name="label" translatable="yes">Use fading</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="right_attach">3</property>
-        <property name="top_attach">5</property>
-        <property name="bottom_attach">6</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label8">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Fading duration:</property>
-      </object>
-      <packing>
-        <property name="top_attach">6</property>
-        <property name="bottom_attach">7</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="plugin/desktopcover/fading_duration">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="invisible_char">&#x25CF;</property>
-        <property name="adjustment">adjustment4</property>
-        <property name="snap_to_ticks">True</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="right_attach">2</property>
-        <property name="top_attach">6</property>
-        <property name="bottom_attach">7</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label9">
-        <property name="visible">True</property>
-        <property name="xalign">0</property>
-        <property name="label" translatable="yes">ms</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="right_attach">3</property>
-        <property name="top_attach">6</property>
-        <property name="bottom_attach">7</property>
-        <property name="x_options">GTK_FILL</property>
-        <property name="y_options">GTK_FILL</property>
-      </packing>
-    </child>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">9999</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment3">
+    <property name="upper">9999</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment4">
+    <property name="upper">9999</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkListStore" id="anchor_liststore">
     <columns>
@@ -293,19 +48,277 @@
       </row>
     </data>
   </object>
-  <object class="GtkAdjustment" id="adjustment2">
-    <property name="upper">9999</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment3">
-    <property name="upper">9999</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment4">
-    <property name="upper">9999</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+  <object class="GtkTable" id="preferences_pane">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="n_rows">7</property>
+    <property name="n_columns">3</property>
+    <property name="column_spacing">6</property>
+    <property name="row_spacing">6</property>
+    <child>
+      <object class="GtkLabel" id="label1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Anchor:</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="plugin/desktopcover/anchor">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="model">anchor_liststore</property>
+        <property name="active">0</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext1"/>
+          <attributes>
+            <attribute name="text">1</attribute>
+          </attributes>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="right_attach">3</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">X offset:</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="top_attach">1</property>
+        <property name="bottom_attach">2</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="plugin/desktopcover/x">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="invisible_char">●</property>
+        <property name="adjustment">adjustment1</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="right_attach">2</property>
+        <property name="top_attach">1</property>
+        <property name="bottom_attach">2</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">pixels</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="right_attach">3</property>
+        <property name="top_attach">1</property>
+        <property name="bottom_attach">2</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Y offset:</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="top_attach">2</property>
+        <property name="bottom_attach">3</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="plugin/desktopcover/y">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="invisible_char">●</property>
+        <property name="adjustment">adjustment2</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="right_attach">2</property>
+        <property name="top_attach">2</property>
+        <property name="bottom_attach">3</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label5">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">pixels</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="right_attach">3</property>
+        <property name="top_attach">2</property>
+        <property name="bottom_attach">3</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/desktopcover/override_size">
+        <property name="label" translatable="yes">Override cover size</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="xalign">0.5</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="right_attach">3</property>
+        <property name="top_attach">3</property>
+        <property name="bottom_attach">4</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="plugin/desktopcover/size">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="invisible_char">●</property>
+        <property name="adjustment">adjustment3</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="right_attach">2</property>
+        <property name="top_attach">4</property>
+        <property name="bottom_attach">5</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label6">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Size:</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="top_attach">4</property>
+        <property name="bottom_attach">5</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label7">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">pixels</property>
+        <property name="single_line_mode">True</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="right_attach">3</property>
+        <property name="top_attach">4</property>
+        <property name="bottom_attach">5</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/desktopcover/fading">
+        <property name="label" translatable="yes">Use fading</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="xalign">0.5</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="right_attach">3</property>
+        <property name="top_attach">5</property>
+        <property name="bottom_attach">6</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label8">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Fading duration:</property>
+      </object>
+      <packing>
+        <property name="top_attach">6</property>
+        <property name="bottom_attach">7</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="plugin/desktopcover/fading_duration">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="invisible_char">●</property>
+        <property name="adjustment">adjustment4</property>
+        <property name="snap_to_ticks">True</property>
+        <property name="numeric">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="right_attach">2</property>
+        <property name="top_attach">6</property>
+        <property name="bottom_attach">7</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label9">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">ms</property>
+        <property name="xalign">0</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="right_attach">3</property>
+        <property name="top_attach">6</property>
+        <property name="bottom_attach">7</property>
+        <property name="x_options">GTK_FILL</property>
+        <property name="y_options">GTK_FILL</property>
+      </packing>
+    </child>
   </object>
 </interface>

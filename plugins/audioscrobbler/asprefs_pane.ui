@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.20"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="prefs_window">
     <property name="can_focus">False</property>
     <child>
@@ -12,12 +12,13 @@
         <child>
           <object class="GtkCheckButton" id="plugin/ascrobbler/submit">
             <property name="label" translatable="yes">Submit tracks using Audioscrobbler</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="border_width">5</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -29,12 +30,13 @@
         <child>
           <object class="GtkCheckButton" id="plugin/ascrobbler/menu_check">
             <property name="label" translatable="yes">Show menuitem to toggle submission</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="border_width">5</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -51,10 +53,12 @@
             <property name="receives_default">False</property>
             <property name="border_width">5</property>
             <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>
@@ -94,9 +98,9 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="xpad">6</property>
                 <property name="label" translatable="yes">Password:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="top_attach">1</property>
@@ -108,9 +112,9 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="xpad">6</property>
                 <property name="label" translatable="yes">Username:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
@@ -120,9 +124,9 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="xpad">6</property>
                 <property name="label" translatable="yes">URL:</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="top_attach">2</property>
@@ -143,10 +147,10 @@
             </child>
             <child>
               <object class="GtkButton" id="plugin/ascrobbler/verify_login">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkBox" id="hbox1">
                     <property name="visible">True</property>
@@ -158,7 +162,7 @@
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
                         <property name="stock">gtk-network</property>
-                        <property name="icon-size">6</property>
+                        <property name="icon_size">6</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -170,8 +174,8 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Verify Login Data</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="scale" value="1.5"/>
                         </attributes>
@@ -190,9 +194,6 @@
                 <property name="top_attach">3</property>
                 <property name="bottom_attach">4</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>

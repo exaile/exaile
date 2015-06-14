@@ -85,16 +85,6 @@
         <property name="row_spacing">4</property>
         <property name="column_spacing">2</property>
         <child>
-          <object class="GtkComboBoxEntry" id="combo-presets">
-            <property name="visible">True</property>
-            <signal name="changed" handler="on_combo-presets_changed"/>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="add-preset">
             <property name="label">gtk-add</property>
             <property name="visible">True</property>
@@ -545,6 +535,23 @@
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
             <property name="width">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="combo-presets">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_entry">True</property>
+            <signal name="changed" handler="on_combo-presets_changed" swapped="no"/>
+            <child internal-child="entry">
+              <object class="GtkEntry" id="combobox-entry">
+                <property name="can_focus">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
           </packing>
         </child>
       </object>

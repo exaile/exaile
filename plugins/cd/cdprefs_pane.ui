@@ -149,8 +149,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="cd_import/outpath">
+              <object class="GtkComboBox" id="cd_import/outpath">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_entry">True</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>

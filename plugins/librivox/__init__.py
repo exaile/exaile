@@ -380,6 +380,6 @@ class Status():
         msg_id=self.bar.push(context_id, status)
         return (context_id, msg_id)
     def unset_status(self, context_id, msg_id):
-        self.bar.remove_message(context_id, msg_id)
+        self.bar.remove(context_id, msg_id)
 
 

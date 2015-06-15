@@ -57,8 +57,8 @@
       <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Playback engine: </property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -106,7 +106,6 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">Fade duration:</property>
-        <property name="xalign">0.89999997615814209</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -148,7 +147,6 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">Crossfade duration:</property>
-        <property name="xalign">0.89999997615814209</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -174,7 +172,6 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="label">ms</property>
-        <property name="xalign">0.89999997615814209</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -187,7 +184,6 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="label">ms</property>
-        <property name="xalign">0.89999997615814209</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -198,8 +194,8 @@
       <object class="GtkLabel" id="label6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Audio Sink:  </property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -229,8 +225,8 @@
       <object class="GtkLabel" id="label6b">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Device:  </property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -260,8 +256,8 @@
       <object class="GtkLabel" id="label7">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Custom sink pipeline:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>

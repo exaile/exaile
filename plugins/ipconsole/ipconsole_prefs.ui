@@ -35,8 +35,8 @@
       <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Terminal opacity:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -61,8 +61,8 @@
       <object class="GtkLabel" id="label2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Font:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -85,8 +85,8 @@
       <object class="GtkLabel" id="label4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Text Color:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -110,8 +110,8 @@
       <object class="GtkLabel" id="label5">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Background Color:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -135,8 +135,8 @@
       <object class="GtkLabel" id="label6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">IPython Color Theme:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -167,6 +167,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>

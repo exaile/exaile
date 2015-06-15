@@ -13,6 +13,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
@@ -29,7 +30,6 @@
         <property name="halign">start</property>
         <property name="valign">start</property>
         <property name="label" translatable="yes">Summary:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -75,10 +75,10 @@
       <object class="GtkLabel" id="label5">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">&lt;i&gt;Message that should be displayed in the body of the notification. In each case, "%(title)s", "%(artist)s", and "%(album)s" will be replaced by their respective values. If the tag is not known, "Unknown" will be filled in its place.&lt;/i&gt;</property>
         <property name="use_markup">True</property>
         <property name="wrap">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -94,7 +94,6 @@
         <property name="valign">start</property>
         <property name="label" translatable="yes">Both artist and album:</property>
         <property name="justify">right</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -128,7 +127,6 @@
         <property name="halign">start</property>
         <property name="valign">start</property>
         <property name="label" translatable="yes">Only artist:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -161,7 +159,6 @@
         <property name="halign">start</property>
         <property name="valign">start</property>
         <property name="label" translatable="yes">Only album:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>

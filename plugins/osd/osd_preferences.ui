@@ -61,12 +61,12 @@
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underscores.
 &lt;a href="http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"&gt;Pango Text Attribute Markup&lt;/a&gt; is supported.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
             <property name="wrap_mode">word-char</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -97,8 +97,8 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Display duration:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -121,8 +121,8 @@
           <object class="GtkLabel" id="label5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">seconds</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">2</property>
@@ -133,8 +133,8 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Background:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -159,8 +159,8 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Border radius:</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -187,7 +187,8 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
+            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>

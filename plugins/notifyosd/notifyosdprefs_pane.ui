@@ -168,7 +168,6 @@
         <property name="use_markup">True</property>
         <property name="justify">fill</property>
         <property name="wrap">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -180,8 +179,8 @@
       <object class="GtkLabel" id="label6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Summary:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -205,8 +204,8 @@
       <object class="GtkLabel" id="label3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Artist line:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -229,8 +228,8 @@
       <object class="GtkLabel" id="label4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Album line:</property>
-        <property name="xalign">1</property>
       </object>
       <packing>
         <property name="left_attach">0</property>

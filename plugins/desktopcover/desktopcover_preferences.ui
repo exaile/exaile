@@ -57,9 +57,9 @@
       <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Anchor:</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -70,7 +70,6 @@
       <object class="GtkComboBox" id="plugin/desktopcover/anchor">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="hexpand">False</property>
         <property name="model">anchor_liststore</property>
         <property name="active">0</property>
         <child>
@@ -90,9 +89,9 @@
       <object class="GtkLabel" id="label2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">X offset:</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -103,8 +102,8 @@
       <object class="GtkSpinButton" id="plugin/desktopcover/x">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="hexpand">True</property>
         <property name="invisible_char">●</property>
+        <property name="width_chars">5</property>
         <property name="adjustment">adjustment1</property>
         <property name="snap_to_ticks">True</property>
         <property name="numeric">True</property>
@@ -118,9 +117,10 @@
       <object class="GtkLabel" id="label3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
         <property name="label" translatable="yes">pixels</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -131,9 +131,9 @@
       <object class="GtkLabel" id="label4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Y offset:</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -158,9 +158,9 @@
       <object class="GtkLabel" id="label5">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">pixels</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -173,6 +173,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
@@ -186,9 +187,9 @@
       <object class="GtkLabel" id="label6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Size:</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -213,9 +214,9 @@
       <object class="GtkLabel" id="label7">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">pixels</property>
         <property name="single_line_mode">True</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -228,6 +229,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
@@ -241,6 +243,7 @@
       <object class="GtkLabel" id="label8">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Fading duration:</property>
       </object>
       <packing>
@@ -266,8 +269,8 @@
       <object class="GtkLabel" id="label9">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">ms</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">2</property>

@@ -66,9 +66,9 @@
           <object class="GtkLabel" id="label6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">The order of controls can be changed by simply dragging them up or down. (Or press Alt+Up/Down.)</property>
             <property name="wrap">True</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -127,10 +127,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">start</property>
             <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underscores.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
-            <property name="xalign">0</property>
           </object>
           <packing>
             <property name="left_attach">1</property>

@@ -35,8 +35,8 @@
       <object class="GtkLabel" id="darkness_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Darkness level:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -78,6 +78,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="use_underline">True</property>
         <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
@@ -108,8 +109,8 @@
       <object class="GtkLabel" id="color_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="label" translatable="yes">Base color:</property>
-        <property name="xalign">0</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -123,7 +124,6 @@
         <property name="receives_default">True</property>
         <property name="halign">start</property>
         <property name="relief">none</property>
-        <property name="xalign">1</property>
         <property name="title" translatable="yes">Base color</property>
         <property name="rgba">rgb(138,226,52)</property>
       </object>

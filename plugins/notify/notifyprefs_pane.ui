@@ -27,6 +27,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
+        <property name="valign">start</property>
         <property name="label" translatable="yes">Summary:</property>
         <property name="xalign">1</property>
       </object>
@@ -90,6 +91,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
+        <property name="valign">start</property>
         <property name="label" translatable="yes">Both artist and album:</property>
         <property name="justify">right</property>
         <property name="xalign">1</property>
@@ -124,6 +126,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
+        <property name="valign">start</property>
         <property name="label" translatable="yes">Only artist:</property>
         <property name="xalign">1</property>
       </object>
@@ -156,6 +159,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
+        <property name="valign">start</property>
         <property name="label" translatable="yes">Only album:</property>
         <property name="xalign">1</property>
       </object>

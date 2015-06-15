@@ -7,62 +7,62 @@
     <property name="upper">12</property>
     <property name="value">0.001</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band1">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="value">0.001</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band2">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band3">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band4">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band5">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band6">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band7">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band8">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band9">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-pre">
     <property name="lower">-24</property>
@@ -556,6 +556,7 @@
           <object class="GtkComboBox" id="combo-presets">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
             <property name="has_entry">True</property>
             <signal name="changed" handler="on_combo-presets_changed" swapped="no"/>
             <child internal-child="entry">

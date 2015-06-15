@@ -374,7 +374,6 @@ class Status():
     '''Status bar'''
     def __init__(self):
         self.bar=Gtk.Statusbar()
-        self.bar.set_has_resize_grip(False)
         self.bar.show_all()
     def set_status(self, status):
         context_id=1

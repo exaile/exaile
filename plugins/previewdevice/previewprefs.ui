@@ -57,7 +57,6 @@
       <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="ypad">1</property>
         <property name="label" translatable="yes">Playback engine: </property>
         <property name="xalign">0</property>
       </object>
@@ -199,7 +198,6 @@
       <object class="GtkLabel" id="label6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="ypad">1</property>
         <property name="label" translatable="yes">Audio Sink:  </property>
         <property name="xalign">0</property>
       </object>
@@ -231,7 +229,6 @@
       <object class="GtkLabel" id="label6b">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="ypad">1</property>
         <property name="label" translatable="yes">Device:  </property>
         <property name="xalign">0</property>
       </object>

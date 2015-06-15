@@ -2,6 +2,26 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-save</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-save-as</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-delete</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">system-run</property>
+  </object>
   <object class="GtkListStore" id="playlist_store">
     <columns>
       <!-- column-name name -->
@@ -78,11 +98,13 @@
             </child>
             <child>
               <object class="GtkButton" id="preset_save_btn">
-                <property name="label">gtk-save</property>
+                <property name="label">_Save</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="no_show_all">True</property>
-                <property name="use_stock">True</property>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -91,11 +113,13 @@
             </child>
             <child>
               <object class="GtkButton" id="preset_saveas_btn">
-                <property name="label">gtk-save-as</property>
+                <property name="label">Save _As</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="no_show_all">True</property>
-                <property name="use_stock">True</property>
+                <property name="image">image2</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -104,11 +128,13 @@
             </child>
             <child>
               <object class="GtkButton" id="preset_delete_btn">
-                <property name="label">gtk-delete</property>
+                <property name="label">_Delete</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="no_show_all">True</property>
-                <property name="use_stock">True</property>
+                <property name="image">image3</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -184,6 +210,15 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="n_columns">3</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
                         <child>
                           <placeholder/>
                         </child>
@@ -457,11 +492,14 @@
             </child>
             <child>
               <object class="GtkButton" id="generate">
-                <property name="label" translatable="yes">Generate!</property>
+                <property name="label" translatable="yes">_Generate!</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">end</property>
+                <property name="image">image4</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_generate_clicked" swapped="no"/>
               </object>
               <packing>

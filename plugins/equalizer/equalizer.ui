@@ -70,6 +70,16 @@
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-remove</property>
+  </object>
   <object class="GtkWindow" id="main-window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Equalizer</property>
@@ -87,11 +97,13 @@
         <property name="column_spacing">2</property>
         <child>
           <object class="GtkButton" id="add-preset">
-            <property name="label">gtk-add</property>
+            <property name="label">_Add</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_stock">True</property>
+            <property name="image">image1</property>
+            <property name="use_underline">True</property>
+            <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_add-preset_clicked" swapped="no"/>
           </object>
           <packing>
@@ -101,11 +113,13 @@
         </child>
         <child>
           <object class="GtkButton" id="remove-preset">
-            <property name="label">gtk-remove</property>
+            <property name="label">_Remove</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_stock">True</property>
+            <property name="image">image2</property>
+            <property name="use_underline">True</property>
+            <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_remove-preset_clicked" swapped="no"/>
           </object>
           <packing>

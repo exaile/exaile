@@ -69,7 +69,7 @@
           <object class="GtkImage" id="image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="stock">gtk-revert-to-saved</property>
+            <property name="icon_name">document-revert</property>
           </object>
         </child>
       </object>

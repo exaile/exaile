@@ -24,7 +24,7 @@
         </child>
         <child>
           <object class="GtkEntry" id="collection/strip_list">
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>

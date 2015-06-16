@@ -56,7 +56,7 @@
     <child>
       <object class="GtkComboBox" id="cd_import/format">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">format_model</property>
         <property name="active">0</property>
         <child>
@@ -86,7 +86,7 @@
     <child>
       <object class="GtkComboBox" id="cd_import/quality">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">quality_model</property>
         <child>
           <object class="GtkCellRendererText" id="renderer2"/>
@@ -115,12 +115,12 @@
     <child>
       <object class="GtkComboBox" id="cd_import/outpath">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="hexpand">True</property>
         <property name="has_entry">True</property>
         <child internal-child="entry">
           <object class="GtkEntry" id="combobox-entry">
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
           </object>
         </child>
       </object>

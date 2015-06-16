@@ -45,7 +45,7 @@
     <child>
       <object class="GtkComboBox" id="plugin/awn/overlay">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="hexpand">True</property>
         <property name="model">overlay_liststore</property>
         <property name="active">0</property>

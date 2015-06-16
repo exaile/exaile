@@ -110,7 +110,7 @@
         <child>
           <object class="GtkComboBox" id="searchComboBox">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="hexpand">True</property>
             <property name="model">search_categories</property>
             <signal name="changed" handler="search_combobox_changed" swapped="no"/>
@@ -186,7 +186,7 @@
                 <child>
                   <object class="GtkComboBox" id="orderTypeComboBox">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="model">order_types</property>
                     <signal name="changed" handler="ordertype_combobox_changed" swapped="no"/>
                     <child>
@@ -217,7 +217,7 @@
                   <object class="GtkComboBox" id="orderDirectionComboBox">
                     <property name="width_request">60</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="model">order_directions</property>
                     <signal name="changed" handler="orderdirection_combobox_changed" swapped="no"/>
                     <child>

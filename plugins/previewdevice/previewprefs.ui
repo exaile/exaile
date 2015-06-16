@@ -68,7 +68,7 @@
     <child>
       <object class="GtkComboBox" id="preview_device/engine">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">model1</property>
         <property name="active">0</property>
         <child>
@@ -205,7 +205,7 @@
     <child>
       <object class="GtkComboBox" id="preview_device/audiosink">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">model2</property>
         <property name="active">0</property>
         <child>
@@ -236,7 +236,7 @@
     <child>
       <object class="GtkComboBox" id="preview_device/audiosink_device">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">model3</property>
         <property name="active">0</property>
         <child>

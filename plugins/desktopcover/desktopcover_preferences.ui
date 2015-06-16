@@ -69,7 +69,7 @@
     <child>
       <object class="GtkComboBox" id="plugin/desktopcover/anchor">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">anchor_liststore</property>
         <property name="active">0</property>
         <child>

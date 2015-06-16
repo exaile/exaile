@@ -146,7 +146,7 @@
     <child>
       <object class="GtkComboBox" id="plugin/ipconsole/iptheme">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="model">liststore1</property>
         <property name="active">0</property>
         <child>

@@ -174,7 +174,7 @@
             <child>
               <object class="GtkComboBox" id="type_selection">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <property name="model">type_model</property>
                 <signal name="changed" handler="on_type_selection_changed" swapped="no"/>
                 <child>

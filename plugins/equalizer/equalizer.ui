@@ -555,7 +555,7 @@
         <child>
           <object class="GtkComboBox" id="combo-presets">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="hexpand">True</property>
             <property name="has_entry">True</property>
             <signal name="changed" handler="on_combo-presets_changed" swapped="no"/>

@@ -128,11 +128,11 @@
     <child>
       <object class="GtkComboBox" id="plugin/ascrobbler/url">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="has_entry">True</property>
         <child internal-child="entry">
           <object class="GtkEntry" id="combobox-entry">
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
           </object>
         </child>
       </object>

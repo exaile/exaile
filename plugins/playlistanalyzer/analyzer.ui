@@ -80,7 +80,7 @@
             <child>
               <object class="GtkComboBox" id="preset_combo">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="model">preset_model</property>
                 <signal name="changed" handler="on_preset_combo_changed" swapped="no"/>

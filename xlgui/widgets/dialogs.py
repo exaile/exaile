@@ -114,7 +114,7 @@ class AboutDialog(object):
             xdg.get_data_path('images', 'exailelogo.png'))
         self.dialog.set_logo(logo)
         from xl.main import __version__
-        self.dialog.set_version('\n%s' % __version__)
+        self.dialog.set_version(__version__)
         self.dialog.connect('response', lambda dialog, response: dialog.destroy())
 
     def show(self):

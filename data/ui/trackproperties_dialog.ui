@@ -68,11 +68,11 @@
                     <child>
                       <object class="GtkComboBoxText" id="new_tag_combo">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="has_entry">True</property>
                         <child internal-child="entry">
                           <object class="GtkEntry" id="new_tag_entry">
-                            <property name="can_focus">False</property>
+                            <property name="can_focus">True</property>
                             <signal name="changed" handler="on_new_tag_entry_changed" swapped="no"/>
                           </object>
                         </child>

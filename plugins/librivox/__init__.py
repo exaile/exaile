@@ -374,13 +374,12 @@ class Status():
     '''Status bar'''
     def __init__(self):
         self.bar=Gtk.Statusbar()
-        self.bar.set_has_resize_grip(False)
         self.bar.show_all()
     def set_status(self, status):
         context_id=1
         msg_id=self.bar.push(context_id, status)
         return (context_id, msg_id)
     def unset_status(self, context_id, msg_id):
-        self.bar.remove_message(context_id, msg_id)
+        self.bar.remove(context_id, msg_id)
 
 

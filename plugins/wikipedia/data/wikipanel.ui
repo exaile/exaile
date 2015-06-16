@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="wikipanel_window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Wikipedia</property>
     <property name="default_width">100</property>
     <property name="default_height">100</property>
     <child>
-      <object class="GtkVBox" id="wikipanel">
+      <object class="GtkBox" id="wikipanel">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="buttonbox1">
+          <object class="GtkBox" id="buttonbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -27,7 +29,6 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_markup" translatable="yes">Home</property>
                 <property name="tooltip_text" translatable="yes">Home</property>
-                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_home_button_clicked" swapped="no"/>
@@ -35,7 +36,7 @@
                   <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-home</property>
+                    <property name="icon_name">go-home</property>
                   </object>
                 </child>
               </object>
@@ -54,14 +55,13 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Back</property>
-                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-back</property>
+                    <property name="icon_name">go-previous</property>
                   </object>
                 </child>
               </object>
@@ -82,7 +82,6 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_markup" translatable="yes">Refresh</property>
                 <property name="tooltip_text" translatable="yes">Refresh</property>
-                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <property name="focus_on_click">False</property>
                 <signal name="clicked" handler="on_refresh_button_clicked" swapped="no"/>
@@ -90,8 +89,8 @@
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-refresh</property>
-                    <property name="icon-size">2</property>
+                    <property name="icon_name">view-refresh</property>
+                    <property name="icon_size">2</property>
                   </object>
                 </child>
               </object>
@@ -110,14 +109,13 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Forward</property>
-                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <signal name="clicked" handler="on_forward_button_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-forward</property>
+                    <property name="icon_name">go-next</property>
                   </object>
                 </child>
               </object>

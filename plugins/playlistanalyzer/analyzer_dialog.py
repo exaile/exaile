@@ -163,7 +163,7 @@ class AnalyzerDialog(object):
     def __build_tag_combo(self, idx):
         
         model = Gtk.ListStore(GObject.TYPE_STRING, GObject.TYPE_PYOBJECT, GObject.TYPE_STRING)
-        widget = Gtk.ComboBox(model)
+        widget = Gtk.ComboBox.new_with_model(model)
         cell = Gtk.CellRendererText()
         widget.pack_start(cell, True)
         widget.add_attribute(cell, 'text', 0)

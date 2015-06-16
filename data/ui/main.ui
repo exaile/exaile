@@ -266,7 +266,7 @@ Right Click for Stop After Track Feature</property>
                     <child>
                       <object class="GtkProgressBar" id="playback_progressbar_dummy">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
                         <property name="valign">center</property>
                         <property name="pulse_step">0.10000000149</property>

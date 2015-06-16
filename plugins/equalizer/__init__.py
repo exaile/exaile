@@ -209,7 +209,7 @@ class EqualizerPlugin:
         #Put the presets into the presets combobox
         combobox = self.ui.get_object("combo-presets")
         combobox.set_model(self.presets)
-        combobox.set_text_column(0)
+        combobox.set_entry_text_column(0)
         combobox.set_active(0)
 
         self.ui.get_object('chk-enabled').set_active(

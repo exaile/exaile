@@ -983,7 +983,7 @@ class ComboEntryPreference(Preference):
             pass
 
         self.widget.set_model(self.list)
-        self.widget.set_text_column(0)
+        self.widget.set_entry_text_column(0)
 
         try:
             completion = Gtk.EntryCompletion()
@@ -993,7 +993,7 @@ class ComboEntryPreference(Preference):
                 self.completion_list = Gtk.ListStore(str, str)
 
                 title_renderer = Gtk.CellRendererText()
-                completion.pack_end(title_renderer, True, True, 0)
+                completion.pack_end(title_renderer, True)
                 completion.add_attribute(title_renderer, 'text', 1)
             except AttributeError:
                 completion_items = [[item] for item in self.completion_items]
@@ -1001,7 +1001,7 @@ class ComboEntryPreference(Preference):
 
             keyword_renderer = Gtk.CellRendererText()
             keyword_renderer.set_property('weight', Pango.Weight.BOLD)
-            completion.pack_end(keyword_renderer, True, True, 0)
+            completion.pack_end(keyword_renderer, True)
             completion.add_attribute(keyword_renderer, 'text', 0)
             completion.set_match_func(self.on_matching)
             completion.connect('match-selected', self.on_match_selected)

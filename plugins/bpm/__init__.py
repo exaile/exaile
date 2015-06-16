@@ -97,7 +97,7 @@ class BPMCounterPlugin(object):
 class BPMWidget(Gtk.Frame):
 
     def __init__(self, player):
-        Gtk.Frame.__init__(self, _('BPM Counter'))
+        Gtk.Frame.__init__(self, label=_('BPM Counter'))
         
         self.player = player
         self.taps = []
@@ -116,7 +116,7 @@ class BPMWidget(Gtk.Frame):
         self.apply_button = Gtk.Button(_('Apply BPM'))
         
         vbox = Gtk.VBox()
-        w, h = self.bpm_label.size_request()
+        h = self.bpm_label.size_request().height
         self.eventbox.add(self.bpm_label)
         self.eventbox.props.can_focus = True
         vbox.pack_start(self.eventbox, False, False, padding=h/2) # add some space

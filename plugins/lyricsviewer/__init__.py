@@ -373,7 +373,7 @@ class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
     def remove_item(self, name):
         index = self.search_item(name)
         if index:
-            GLib.idle_add(self.remove_text, index)
+            GLib.idle_add(self.remove, index)
             return True
         return False
 

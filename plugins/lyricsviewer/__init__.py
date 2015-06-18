@@ -166,7 +166,7 @@ class LyricsViewer(object):
                 'lyrics_search_method_added')
         event.remove_callback(self.on_option_set,
                 'plugin_lyricsviewer_option_set')
-        self.notebook.disconnect(self.style_handler)
+        #self.notebook.disconnect(self.style_handler)
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics()

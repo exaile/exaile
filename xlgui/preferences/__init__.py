@@ -157,14 +157,8 @@ class PreferencesDialog(object):
                 if isinstance(page.icon, GdkPixbuf.Pixbuf):
                     icon = page.icon
                 else:
-                    stock_id = Gtk.stock_lookup(page.icon)
-
-                    if stock_id is not None:
-                        icon = icons.MANAGER.pixbuf_from_stock(
-                            stock_id[0], Gtk.IconSize.MENU)
-                    else:
-                        icon = icons.MANAGER.pixbuf_from_icon_name(
-                            page.icon, Gtk.IconSize.MENU)
+                    icon = icons.MANAGER.pixbuf_from_icon_name(
+                        page.icon, Gtk.IconSize.MENU)
 
             self.model.append(self.plug_root, [page, page.name, icon])
 

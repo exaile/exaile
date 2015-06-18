@@ -35,7 +35,7 @@ import os
 name = _('History')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'history_preferences.ui')
-icon = Gtk.STOCK_GOTO_FIRST
+icon = 'document-open-recent'
 
 
 # defaults

@@ -45,7 +45,7 @@ class Inspector(Gtk.Window):
         scrolled_window = Gtk.ScrolledWindow()
         scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
-        webview = webkit2.WebView()
+        webview = WebKit2.WebView()
         scrolled_window.add(webview)
         scrolled_window.show_all()
 

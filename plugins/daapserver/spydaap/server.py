@@ -13,7 +13,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys,
+import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys
 from spydaap.daap import do
 
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):

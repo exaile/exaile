@@ -15,7 +15,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from gi.repository import Gtk
-from gi.repository import WebKit
+from gi.repository import WebKit2
 
 class Inspector(Gtk.Window):
     def __init__(self, inspector):
@@ -45,7 +45,7 @@ class Inspector(Gtk.Window):
         scrolled_window = Gtk.ScrolledWindow()
         scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
-        webview = webkit.WebView()
+        webview = webkit2.WebView()
         scrolled_window.add(webview)
         scrolled_window.show_all()
 

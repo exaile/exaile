@@ -347,7 +347,7 @@ class EqualizerPlugin:
             self.presets.append(["Full Bass and Treble",
                     0, 7.2, 5.6, 0, -7.2, -4.8, 1.6, 8, 11.2, 12, 12])
             self.presets.append(["Full Treble",
-                    0, -9.6, -9.6, -9.6, -4, 2.4, 11.2, 16, 16, 16, 16.8])
+                    5, -14.6, -14.6, -14.6, -9, -2.6, 6.2, 11, 11, 11, 11.8])
             self.presets.append(["Laptop Speakers and Headphones",
                     0, 4.8, 11.2, 5.6, -3.2, -2.4, 1.6, 4.8, 9.6, 11.9, 11.9])
             self.presets.append(["Large Hall",

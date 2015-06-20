@@ -98,7 +98,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         self.unparent()
         Gtk.Button.destroy(self)
 
-    def get_menu_position(self, menu, unknown):
+    def get_menu_position(self, *_):
         """
             Positions the menu at the right of the button
         """

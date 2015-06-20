@@ -38,7 +38,7 @@ import os
 name = _('Preview Device')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'previewprefs.ui')
-icon = Gtk.STOCK_MEDIA_PLAY
+icon = 'media-playback-start'
 
 
 def __autoconfig():

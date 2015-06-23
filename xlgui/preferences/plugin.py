@@ -27,13 +27,13 @@
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-import locale
 import logging
 
 from gi.repository import Gtk
 
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
+import xl.common
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
 
@@ -139,10 +139,14 @@ class PluginManager(object):
         self.list.set_model(None)
         self.model.clear()
         
-        plugins_dict = sorted(plugins_dict.iteritems(), key=lambda x: 'zzzz' if x[0] == uncategorized else locale.strxfrm(x[0]))
+        def categorykey(item):
+            if item[0] == uncategorized:
+                return '\xff' * 10
+            return xl.common.strxfrm(item[0])
+        plugins_dict = sorted(plugins_dict.iteritems(), key=categorykey)
 
         for category, plugins_list in plugins_dict:
-            plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
+            plugins_list.sort(key=lambda x: xl.common.strxfrm(x[1]))
         
             it = self.model.append(None, (None, category, '', False, '', False, True, False))
         

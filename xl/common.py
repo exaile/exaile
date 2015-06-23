@@ -95,6 +95,18 @@ def to_unicode(x, default_encoding=None):
     else:
         return unicode(x)
 
+def strxfrm(x):
+    """Like locale.strxfrm but also supports Unicode.
+
+    This works around a bug in Python 2 causing strxfrm to fail on unicode
+    objects that cannot be encoded with sys.getdefaultencoding (ASCII in most
+    cases): https://bugs.python.org/issue2481
+    """
+    import locale
+    if isinstance(x, unicode):
+        return locale.strxfrm(x.encode('utf-8', 'replace'))
+    return locale.strxfrm(x)
+
 def clamp(value, minimum, maximum):
     """
         Clamps a value to the given boundaries

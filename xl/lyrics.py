@@ -128,11 +128,11 @@ class LyricsManager(providers.ProviderHandler):
             :param provider: a lyrics provider
             :return: the appropriate cache key
         """
-        return str(
+        return (
             track.get_loc_for_io() +
-            provider.display_name +
-            track.get_tag_display('artist') +
-            track.get_tag_display('title')
+            provider.display_name.encode('utf-8') +
+            track.get_tag_display('artist').encode('utf-8') +
+            track.get_tag_display('title').encode('utf-8')
         )
 
     def set_preferred_order(self, order):

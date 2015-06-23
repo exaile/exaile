@@ -37,7 +37,10 @@ import string
 import thread
 import urllib2
 
-from xl import xdg
+from xl import (
+    common,
+    xdg,
+)
 from xl.nls import gettext as _
 from xl.settings import MANAGER
 from xlgui import icons
@@ -147,8 +150,7 @@ class PreferencesDialog(object):
                 except Exception:
                     logger.exception('Error loading preferences pane')
 
-        import locale
-        plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
+        plugin_pages.sort(key=lambda x: common.strxfrm(x.name))
 
         for page in plugin_pages:
             icon = self.default_icon

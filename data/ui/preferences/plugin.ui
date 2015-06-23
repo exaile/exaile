@@ -137,6 +137,7 @@
                   <object class="GtkBox" id="hbox3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="show_incompatible_cb">
                         <property name="label" translatable="yes">Show incompatible plugins</property>

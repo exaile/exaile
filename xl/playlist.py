@@ -2094,7 +2094,7 @@ class PlaylistManager(object):
         else:
             f = open(location, "w")
         for playlist in self.playlists:
-            f.write(playlist)
+            f.write(playlist.encode('utf-8'))
             f.write('\n')
 
         f.write("EOF\n")
@@ -2124,7 +2124,7 @@ class PlaylistManager(object):
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            playlists.append(line.strip())
+            playlists.append(line.strip().decode('utf-8'))
         f.close()
         return playlists
 

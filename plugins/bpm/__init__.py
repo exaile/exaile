@@ -39,36 +39,9 @@ from xl import (
 )
 
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui.guiutil import idle_add, GtkTemplate
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
-
-
-plugin = None
-
-
-def enable(exaile):
-    '''Called on plugin enable'''
-    if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
-    else:
-        _enable(None, exaile, None)
-        
-def _enable(eventname, exaile, nothing):
-
-    global plugin
-    if plugin is None:
-        plugin = BPMCounterPlugin()
-    
-    event.remove_callback(_enable, 'gui_loaded')
-    
-def disable(exaile):
-    '''Called on plugin disable'''
-    
-    global plugin
-    if plugin is not None:
-        plugin.disable_plugin()
-        plugin = None
    
     
 class BPMCounterPlugin(object):
@@ -78,10 +51,13 @@ class BPMCounterPlugin(object):
     # Provider API requirement
     name = 'BPM'
     
-    def __init__(self):
+    def enable(self, exaile):
+        pass
+    
+    def on_gui_loaded(self):
         providers.register('mainwindow-info-area-widget', self)
     
-    def disable_plugin(self):
+    def disable(self):
         """
             Called when the plugin is disabled
         """
@@ -92,12 +68,23 @@ class BPMCounterPlugin(object):
             mainwindow-info-area-widget provider API method
         """
         return BPMWidget(info_area.get_player())
-        
 
+
+plugin_class = BPMCounterPlugin
+
+
+@GtkTemplate('bpm.ui', relto=__file__)
 class BPMWidget(Gtk.Frame):
+
+    __gtype_name__ = 'BPMWidget'
+    
+    eventbox,       \
+    bpm_label,      \
+    apply_button    = GtkTemplate.Child.widgets(3)
 
     def __init__(self, player):
         Gtk.Frame.__init__(self, label=_('BPM Counter'))
+        self.init_template()
         
         self.player = player
         self.taps = []
@@ -110,29 +97,7 @@ class BPMWidget(Gtk.Frame):
         # if no tap received, then restart
         self.stale_time = settings.get_option('plugin/bpm/stale_period', 2.0)
         
-        #info_label = Gtk.Label(label=_('BPM Counter'))
-        self.eventbox = Gtk.EventBox()
-        self.bpm_label = Gtk.Label(label=_('Update'))
-        self.apply_button = Gtk.Button(_('Apply BPM'))
-        
-        vbox = Gtk.VBox()
-        h = self.bpm_label.size_request().height
-        self.eventbox.add(self.bpm_label)
-        self.eventbox.props.can_focus = True
-        vbox.pack_start(self.eventbox, False, False, padding=h/2) # add some space
-        vbox.pack_start(self.apply_button, False, False, 0)
-        
-        self.add(vbox)
-        
-        # attach events
-        self.eventbox.connect('focus-out-event', self.on_focus_out)
-        self.connect('destroy', self.on_destroy)
-        self.connect('button-release-event', self.on_click )
-        self.eventbox.connect('key-press-event', self.on_keydown )
-        
-        self.apply_button.connect('pressed', self.on_apply_button_pressed )
-    
-        # ok, register for some events
+        # Be notified when a new track is playing
         event.add_callback(self.playback_track_start, 'playback_track_start', self.player)
         
         # get the main exaile window, and dock our window next to it if possible
@@ -150,7 +115,7 @@ class BPMWidget(Gtk.Frame):
     # Exaile events
     #
         
-    @guiutil.idle_add()
+    @idle_add()
     def playback_track_start(self, type, player, track):
         self.track = track
         self.bpm = self.track.get_tag_raw('bpm', True)
@@ -162,31 +127,33 @@ class BPMWidget(Gtk.Frame):
     # UI Events
     #
     
+    @GtkTemplate.Callback
     def on_destroy(self, widget):
         # de-register the exaile events
         event.remove_callback(self.playback_track_start, 'playback_track_start', self.player)
     
-    
-    def on_apply_button_pressed(self, widget):
+    @GtkTemplate.Callback
+    def on_apply_button_clicked(self, widget):
         self.set_bpm()
     
-    
-    def on_keydown(self, widget, event):
-                
+    @GtkTemplate.Callback
+    def on_eventbox_key_press_event(self, widget, event):
+        
         if event.keyval == Gdk.KEY_Return:
             self.set_bpm()
             return False
-                
+             
         if widget == self.apply_button:
             return False
-            
+        
         if event.keyval == Gdk.KEY_Escape:
             self.taps = []
-            
+        
         self.add_bpm_tap()
         return True
     
-    def on_click(self, widget, event):
+    @GtkTemplate.Callback
+    def on_eventbox_button_release_event(self, widget, event):
         if widget == self.apply_button:
             return False
         
@@ -195,8 +162,9 @@ class BPMWidget(Gtk.Frame):
         
         self.add_bpm_tap()
         return True
-        
-    def on_focus_out(self, widget, event):
+    
+    @GtkTemplate.Callback
+    def on_eventbox_focus_out_event(self, widget, event):
         self.eventbox.set_state(Gtk.StateType.NORMAL)
         
             

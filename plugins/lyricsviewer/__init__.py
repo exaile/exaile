@@ -166,7 +166,7 @@ class LyricsViewer(object):
                 'lyrics_search_method_added')
         event.remove_callback(self.on_option_set,
                 'plugin_lyricsviewer_option_set')
-        self.notebook.disconnect(self.style_handler)
+        #self.notebook.disconnect(self.style_handler)
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics()
@@ -373,7 +373,7 @@ class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
     def remove_item(self, name):
         index = self.search_item(name)
         if index:
-            GLib.idle_add(self.remove_text, index)
+            GLib.idle_add(self.remove, index)
             return True
         return False
 

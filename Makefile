@@ -1,11 +1,12 @@
 PYTHON2_CMD	?= `command -v python2`
 
 PREFIX 		?= /usr/local
+EPREFIX		?= ${PREFIX}
 LIBINSTALLDIR 	?= /lib
 XDGCONFDIR 	?= /etc/xdg
 
-EXAILEBINDIR  = ${DESTDIR}${PREFIX}/bin
-EXAILELIBDIR 	= ${DESTDIR}${PREFIX}${LIBINSTALLDIR}/exaile
+EXAILEBINDIR  = ${DESTDIR}${EPREFIX}/bin
+EXAILELIBDIR 	= ${DESTDIR}${EPREFIX}${LIBINSTALLDIR}/exaile
 EXAILESHAREDIR 	= ${DESTDIR}${PREFIX}/share/exaile
 EXAILECONFDIR 	= ${DESTDIR}${XDGCONFDIR}/exaile
 
@@ -124,10 +125,10 @@ install-target: make-install-dirs
 		${DESTDIR}${PREFIX}/share/appdata/	
 	-install -m 644 exaile.1.gz ${DESTDIR}${PREFIX}/share/man/man1/
 	install -m 644 data/config/settings.ini ${EXAILECONFDIR}
-	tools/generate-launcher "${DESTDIR}" "${PREFIX}" "${LIBINSTALLDIR}" \
+	tools/generate-launcher "${DESTDIR}" "${PREFIX}" "${EPREFIX}" "${LIBINSTALLDIR}" \
 		"${PYTHON2_CMD}" && \
-	  chmod 755 ${DESTDIR}${PREFIX}/bin/exaile
-	sed "s|\@bindir\@|${PREFIX}/bin|" data/org.exaile.Exaile.service.in > \
+	  chmod 755 ${DESTDIR}${EPREFIX}/bin/exaile
+	sed "s|\@bindir\@|${EPREFIX}/bin|" data/org.exaile.Exaile.service.in > \
 		${DESTDIR}${PREFIX}/share/dbus-1/services/org.exaile.Exaile.service
 	${MAKE} -C plugins install
 

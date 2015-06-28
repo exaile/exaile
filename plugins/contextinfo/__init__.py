@@ -22,7 +22,7 @@ from xl.externals import pylast
 import contextprefs
 import re
 import urllib
-from gi.repository import WebKit
+from gi.repository import WebKit2
 import xlgui
 from inspector import Inspector
 
@@ -36,13 +36,13 @@ CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)+os.path.sep
 
 
-class BrowserPage(webkit.WebView, providers.ProviderHandler):
+class BrowserPage(WebKit2.WebView, providers.ProviderHandler):
 
     refresh_script = '''document.getElementById("%s").innerHTML="%s";onPageRefresh("%s");''';
     history_length = 6
 
     def __init__(self, builder, theme):
-        webkit.WebView.__init__(self)
+        WebKit2.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
 
         # HACK: so that the panel menu works

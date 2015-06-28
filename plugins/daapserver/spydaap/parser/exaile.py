@@ -14,7 +14,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen, re, spydaap, re, os, sys
+import mutagen, re, spydaap, os, sys
 from spydaap.daap import do
 import logging
 

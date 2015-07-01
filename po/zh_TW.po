@@ -430,40 +430,31 @@ msgstr "%dk"
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
-msgstr ""
-"Vorbis 是一個開放原始碼，相較 MP3 格式檔案容量小而有高輸出品質的失真音效壓縮"
-"編碼器。"
+msgstr "Vorbis 是一個開放原始碼，相較 MP3 格式檔案容量小而有高輸出品質的失真音效壓縮編碼器。"
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr ""
-"開放無損音效編碼器 (Free Lossless Audio Codec, FLAC) 是一開放原始碼編碼器，壓"
-"縮容量的同時也不會降低音質。"
+msgstr "開放無損音效編碼器 (Free Lossless Audio Codec, FLAC) 是一開放原始碼編碼器，壓縮容量的同時也不會降低音質。"
 
 #: ../xl/transcoder.py:78
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
-msgstr ""
-"蘋果的私有版權失真音效格式在位元編碼率低於 MP3 時，仍可得到較好的音質。"
+msgstr "蘋果的私有版權失真音效格式在位元編碼率低於 MP3 時，仍可得到較好的音質。"
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
-msgstr ""
-"一個私有且老舊的版權，但仍很流行的失真音效格式。VBR 有比 CBR 更好的品質，但可"
-"能無法與某些播放器相容。"
+msgstr "一個私有且老舊的版權，但仍很流行的失真音效格式。VBR 有比 CBR 更好的品質，但可能無法與某些播放器相容。"
 
 #: ../xl/transcoder.py:100
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
-msgstr ""
-"一個私有且老舊的版權，但仍很流行的失真音效格式。CBR 比起 VBR 音質較差，但能任"
-"何播放器相容。"
+msgstr "一個私有且老舊的版權，但仍很流行的失真音效格式。CBR 比起 VBR 音質較差，但能任何播放器相容。"
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
@@ -501,8 +492,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
-"狀態： %(status)s, 標題： %(title)s, 演出者： %(artist)s, 專輯： %(album)s, "
-"長度： 長度： %(length)s, 位置： %(progress)s%% [%(position)s]"
+"狀態： %(status)s, 標題： %(title)s, 演出者： %(artist)s, 專輯： %(album)s, 長度： 長度： "
+"%(length)s, 位置： %(progress)s%% [%(position)s]"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/widgets/playlist_columns.py:246
 #: ../xlgui/panel/collection.py:132 ../data/ui/widgets/tracklist_info.ui.h:1
@@ -927,7 +918,7 @@ msgstr "已選擇 %d 個"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr ""
+msgstr "佇列"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
@@ -1151,7 +1142,7 @@ msgstr "您輸入的播放清單名稱已經在使用中。"
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "儲存為"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1373,7 +1364,7 @@ msgstr "%s的封面"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "儲存檔案"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1417,7 +1408,7 @@ msgstr "掃描 %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "面板"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1689,7 +1680,7 @@ msgstr "編輯智慧型播放清單"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "匯出 %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
@@ -2150,10 +2141,8 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
-"當使用一個選單項目添加或替換在播放清單中的歌曲時，開始播放，如果是目前正在播"
-"放的歌曲。這個選項是預設行為在Exaile 0.3.3 之前當使用一個選單項目添加或替換在"
-"播放清單中的歌曲時，開始播放，如果是目前正在播放的歌曲。這個選項是預設行為在"
-"Exaile 0.3.3 之前"
+"當使用一個選單項目添加或替換在播放清單中的歌曲時，開始播放，如果是目前正在播放的歌曲。這個選項是預設行為在Exaile 0.3.3 "
+"之前當使用一個選單項目添加或替換在播放清單中的歌曲時，開始播放，如果是目前正在播放的歌曲。這個選項是預設行為在Exaile 0.3.3 之前"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
@@ -2357,8 +2346,7 @@ msgstr "使用半透明："
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
-msgstr ""
-"警告：若使用不支援composite的視窗管理程式，這個設定可能會造成顯示不正常。"
+msgstr "警告：若使用不支援composite的視窗管理程式，這個設定可能會造成顯示不正常。"
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
@@ -3582,8 +3570,8 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
-"<i>標籤 \"%(title)s\"，\"%(artist)s\"，和 \"%(album)s\" 取而代之的將是它們各"
-"自的值。標題將取代為“未知”，如果它是空的。</i>"
+"<i>標籤 \"%(title)s\"，\"%(artist)s\"，和 \"%(album)s\" "
+"取而代之的將是它們各自的值。標題將取代為“未知”，如果它是空的。</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
@@ -4002,7 +3990,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
-msgstr ""
+msgstr "預置"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
 #, fuzzy
@@ -4226,8 +4214,8 @@ msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
-"透過 GNOME 多媒體鍵系統對控制 Exaile 增加支援。相容於 GNOME 版本 >= 2.20.x透"
-"過 GNOME 多媒體鍵系統對控制 Exaile 增加支援。相容於 GNOME 版本 >= 2.20.x"
+"透過 GNOME 多媒體鍵系統對控制 Exaile 增加支援。相容於 GNOME 版本 >= 2.20.x透過 GNOME 多媒體鍵系統對控制 "
+"Exaile 增加支援。相容於 GNOME 版本 >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
@@ -4278,8 +4266,7 @@ msgid ""
 msgstr ""
 "在特定的時間播放音樂。\n"
 "\n"
-"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽"
-"的音樂有在播放清單中"
+"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽的音樂有在播放清單中"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4431,8 +4418,7 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
-"當歌曲播放/回復/停止時這個插件會顯示氣泡式通知圖示，與歌曲封面或是一個媒體圖"
-"示來指出最後的動作。\n"
+"當歌曲播放/回復/停止時這個插件會顯示氣泡式通知圖示，與歌曲封面或是一個媒體圖示來指出最後的動作。\n"
 "\n"
 "需求套件：python-notify\n"
 "建議套件：notify-osd建議套件：notify-osd"
@@ -4612,8 +4598,7 @@ msgid ""
 msgstr ""
 "在特定的時間和日期播放音樂。\n"
 "\n"
-"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽"
-"的音樂有在播放清單中"
+"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽的音樂有在播放清單中"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -4626,8 +4611,7 @@ msgid ""
 "PIL)"
 msgstr ""
 "顯示各種關於目前播放音軌的資訊。\n"
-"需求套件：libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (又名 "
-"PIL)"
+"需求套件：libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (又名 PIL)"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."

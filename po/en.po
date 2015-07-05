@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2015-07-05 18:26+0200\n"
+"Last-Translator: Marco Weidner <cokai@ymail.com>\n"
+"Language-Team: English "
+"<https://hosted.weblate.org/projects/exaile/master/en/>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -92,77 +93,77 @@ msgstr ""
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr ""
+msgstr "Niemals"
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Heute"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Gestern"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "Migration ausgehend von 0.2.14 fehlgeschlagen"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Verwendung: exaile [OPTIONEN] ... [VERZEICHNISPFAD]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Wiedergabe Optionen"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
-msgstr ""
+msgstr "Spiele nächsten Track"
 
 #: ../xl/main.py:501
 msgid "Play the previous track"
-msgstr ""
+msgstr "Spiele vorherigen Track"
 
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "Wiedergabe anhalten"
 
 #: ../xl/main.py:505
 msgid "Play"
-msgstr ""
+msgstr "Wiedergabe"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Wiedergabe pausieren oder fortsetzen"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Wiedergabe nach aktuellem Track anhalten"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "Sammlungs Optionen"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "PFAD"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "Track von Pfad zur Sammlung hinzufügen"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Wiedergabe Optionen"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
@@ -170,7 +171,7 @@ msgstr ""
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "Track Optionen"
 
 #: ../xl/main.py:532
 msgid "Query player"
@@ -179,7 +180,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -196,11 +197,11 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Zeige ein Popup mit den Daten aktuellen Tracks"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Zeige den Titel des aktuellen Tracks"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
@@ -217,7 +218,7 @@ msgstr ""
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
@@ -237,16 +238,16 @@ msgstr ""
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "Lautstärke Einstellungen"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "Erhöhe die Lautstärke um N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "Reduziere die Lautstärke um N%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
@@ -258,7 +259,7 @@ msgstr ""
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "Weitere Einstellungen"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
@@ -266,11 +267,11 @@ msgstr ""
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Zeige diese Hilfe Nachricht und beenden"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Zeige Programm Version und beenden."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -278,7 +279,7 @@ msgstr ""
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Sichtbarkeit der Oberfläche umschalten (wenn möglich)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -287,6 +288,8 @@ msgstr ""
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Erzwinge den Import von alten Daten von Version 0.2.x (dies überschreibt die "
+"aktuellen Daten)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
@@ -302,11 +305,11 @@ msgstr ""
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "VERZEICHNIS"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "Setze Daten Verzeichnis"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-11-22 08:06+0200\n"
+"PO-Revision-Date: 2015-07-18 12:02+0200\n"
 "Last-Translator: 0bytetest green <xenolith0bytetestcomgreen@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/exaile/master/"
-"ja/>\n"
+"Language-Team: Japanese "
+"<https://hosted.weblate.org/projects/exaile/master/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Launchpad-Export-Date: 2014-11-11 07:04+0000\n"
 
 #: ../xl/formatter.py:576
@@ -180,7 +180,7 @@ msgstr ""
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr "現在のプレイバックの状態とトラック情報をFORMATとして取り出す。"
+msgstr "現在のプレイバックの状態とトラック情報をFORMATとして取り出す"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
@@ -336,11 +336,11 @@ msgstr "デバッグ出力を表示する"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr "xl.event のデバッグを有効にする. 多量の出力を生成."
+msgstr "xl.event のデバッグを有効にする. 多量の出力を生成"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr "スレッド名をログメッセージに追加"
+msgstr "スレッド名をログメッセージに追加。"
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -674,7 +674,6 @@ msgid "Modified"
 msgstr "変更済み"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
 msgstr "演奏回数"
 
@@ -685,12 +684,12 @@ msgstr "再生時間"
 #: ../xl/metadata/tags.py:81
 #, fuzzy
 msgid "Start offset"
-msgstr "X オフセット:"
+msgstr "スタートオフセット"
 
 #: ../xl/metadata/tags.py:82
 #, fuzzy
 msgid "Stop offset"
-msgstr "X オフセット:"
+msgstr "ストップオフセット"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -980,9 +979,8 @@ msgid "Start Offset"
 msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X オフセット:"
+msgstr "ストップオフセット"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1095,7 +1093,7 @@ msgstr "トラックに相対パスを使用"
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "プレイリストを <b>%s</b> に保存完了"
+msgstr "プレイリストを <b>%s</b> に保存完了。"
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1126,7 +1124,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr "%(count)s 中 %(total)s を保存完了"
+msgstr "%(count)s 中 %(total)s を保存完了。"
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
@@ -1256,9 +1254,8 @@ msgid "Re_scan Collection"
 msgstr "コレクションの再スキャン(_S)"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "コレクションを再スキャン"
+msgstr "コレクションを再スキャン(低速)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1295,7 +1292,7 @@ msgstr "閉じる前に変更を適用しますか?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr "適用しない場合あなたの変更は失なわれます"
+msgstr "適用しない場合あなたの変更は失なわれます。"
 
 #: ../xlgui/properties.py:589
 #, python-format

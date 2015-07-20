@@ -50,17 +50,21 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="show_tabs">False</property>
+            <property name="show_border">False</property>
             <child>
-              <object class="GtkBox" id="vbox1">
+              <object class="GtkGrid" id="grid1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
+                <property name="row_spacing">4</property>
+                <property name="column_spacing">2</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="width_request">200</property>
                     <property name="height_request">160</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
                     <property name="border_width">2</property>
                     <property name="shadow_type">etched-in</property>
                     <child>
@@ -128,134 +132,80 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkBox" id="hbox3">
+                  <object class="GtkCheckButton" id="show_incompatible_cb">
+                    <property name="label" translatable="yes">Show incompatible plugins</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkCheckButton" id="show_incompatible_cb">
-                        <property name="label" translatable="yes">Show incompatible plugins</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="on_show_incompatible_cb_toggled" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="show_broken_cb">
-                        <property name="label" translatable="yes">Show potentially broken plugins</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="on_show_broken_cb_toggled" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="xalign">0.5</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_show_incompatible_cb_toggled" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">1</property>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkBox" id="hbox1">
-                    <property name="height_request">200</property>
+                  <object class="GtkCheckButton" id="show_broken_cb">
+                    <property name="label" translatable="yes">Show potentially broken plugins</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="border_width">3</property>
-                    <child>
-                      <object class="GtkFrame" id="frame1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="shadow_type">none</property>
-                        <child>
-                          <object class="GtkBox" id="vbox3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkLabel" id="author_label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="xpad">3</property>
-                                <property name="label">
-</property>
-                                <property name="wrap">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkScrolledWindow" id="scrolledwindow2">
-                                <property name="height_request">50</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="border_width">2</property>
-                                <property name="shadow_type">in</property>
-                                <child>
-                                  <object class="GtkTextView" id="description_view">
-                                    <property name="width_request">0</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="editable">False</property>
-                                    <property name="wrap_mode">word</property>
-                                    <property name="left_margin">3</property>
-                                    <property name="right_margin">3</property>
-                                    <property name="cursor_visible">False</property>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                        <child type="label">
-                          <object class="GtkLabel" id="name_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">No Plugin Selected</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="xalign">0.5</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_show_broken_cb_toggled" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="name_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">No Plugin Selected</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="author_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="wrap">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkTextView" id="description_view">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="wrap_mode">word</property>
+                    <property name="cursor_visible">False</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">5</property>
                   </packing>
                 </child>
               </object>
@@ -303,6 +253,7 @@
                   <object class="GtkFrame" id="frame2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkBox" id="vbox7">
@@ -517,6 +468,7 @@
                   <object class="GtkFrame" id="frame3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkBox" id="vbox11">

@@ -69,8 +69,8 @@ class Preference(object):
                 _('A restart is required for this change to take effect.'))
 
             button = self.message.add_button(_('Restart'), Gtk.ResponseType.ACCEPT)
-            button.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_REFRESH, Gtk.IconSize.BUTTON))
+            button.set_image(Gtk.Image.new_from_icon_name(
+                'view-refresh', Gtk.IconSize.BUTTON))
 
             self.message.connect('response', self.on_message_response)
 

@@ -129,7 +129,8 @@ class PlaylistNotebook(SmartNotebook):
         item = menu.simple_separator('clear-sep',[])
         item.register('playlist-closed-tab-menu', self)
         
-        item = menu.simple_menu_item('clear-history', ['clear-sep'], None, 'gtk-clear',
+        item = menu.simple_menu_item('clear-history', ['clear-sep'], 
+            _("_Clear Tab History"), 'edit-clear-all',
             self.clear_closed_tabs)
         item.register('playlist-closed-tab-menu', self)     
             

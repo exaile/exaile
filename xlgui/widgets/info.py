@@ -239,12 +239,12 @@ class TrackInfoPane(Gtk.Alignment):
             if track == self.__player.current and \
                not self.__player.is_stopped():
 
-                stock_id = Gtk.STOCK_MEDIA_PLAY
+                icon_name = 'media-playback-start'
 
                 if self.__player.is_paused():
-                    stock_id = Gtk.STOCK_MEDIA_PAUSE
+                    icon_name = 'media-playback-pause'
 
-                self.playback_image.set_from_stock(stock_id,
+                self.playback_image.set_from_icon_name(icon_name,
                     Gtk.IconSize.SMALL_TOOLBAR)
 
                 self.__show_progress()

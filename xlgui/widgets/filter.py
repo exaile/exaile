@@ -84,7 +84,7 @@ class FilterDialog(Gtk.Dialog):
         btn = Gtk.Button()
         btn.connect('clicked', lambda *x: self.filter.add_row())
         image = Gtk.Image()
-        image.set_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.BUTTON)
+        image.set_from_icon_name('list-add', Gtk.IconSize.BUTTON)
         btn.add(image)
         align = Gtk.Alignment.new(1, 0, 0, 0)
         align.add(btn)
@@ -255,7 +255,7 @@ class FilterWidget(Gtk.Table):
 
         remove_btn = Gtk.Button()
         image = Gtk.Image()
-        image.set_from_stock(Gtk.STOCK_REMOVE, Gtk.IconSize.BUTTON)
+        image.set_from_icon_name('list-remove', Gtk.IconSize.BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
             'clicked', self.__remove_clicked, self.n)

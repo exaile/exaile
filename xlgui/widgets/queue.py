@@ -38,7 +38,7 @@ def __create_queue_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('clear', [], None, 'gtk-clear',
+    items.append(smi('clear', [], _("_Clear Queue"), 'edit-clear-all',
         lambda w, n, o, c: o.player.queue.clear()))
     
     def _saveas_playlist_cb(widget, name, page, context):
@@ -50,10 +50,10 @@ def __create_queue_tab_context_menu():
             exaile.playlists.save_playlist(pl)
             page.container.create_tab_from_playlist(pl)
     
-    items.append(smi('saveas', ['clear'], None, 'gtk-save-as',
+    items.append(smi('saveas', ['clear'], _("_Save as Playlist"), 'document-save-as',
         _saveas_playlist_cb))
     items.append(sep('tab-close-sep', ['saveas']))
-    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
+    items.append(smi('tab-close', ['tab-close-sep'], _("C_lose Tab"), 'window-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('queue-tab-context', item)

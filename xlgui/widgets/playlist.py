@@ -149,7 +149,7 @@ class RemoveCurrentMenuItem(menu.MenuItem):
             Sets up the menu item
         """
         item = Gtk.ImageMenuItem.new_with_label(_('Remove Current Track From Playlist'))
-        item.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_REMOVE, Gtk.IconSize.MENU))
+        item.set_image(Gtk.Image.new_from_icon_name('list-remove', Gtk.IconSize.MENU))
         item.connect('activate', self.on_activate, parent, context)
 
         if player.PLAYER.is_stopped():
@@ -219,14 +219,14 @@ def __create_playlist_tab_context_menu():
             page.set_page_name(name)
             playlists.save_playlist(page.playlist)
     
-    items.append(smi('save', ['new-tab-sep'], None, 'gtk-save',
+    items.append(smi('save', ['new-tab-sep'], _("_Save"), 'document-save',
         _save_playlist_cb,
         condition_fn=lambda n, p, c: main.exaile().playlists.has_playlist_name(p.playlist.name)))
-    items.append(smi('saveas', ['save'], None, 'gtk-save-as',
+    items.append(smi('saveas', ['save'], _("Save _As"), 'document-save-as',
         _saveas_playlist_cb))
-    items.append(smi('rename', ['saveas'], _("Rename"), 'gtk-edit',
+    items.append(smi('rename', ['saveas'], _("_Rename"), None,
         lambda w, n, o, c: o.tab.start_rename()))
-    items.append(smi('clear', ['rename'], None, 'gtk-clear',
+    items.append(smi('clear', ['rename'], _("_Clear"), 'edit-clear-all',
         lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
     
@@ -236,7 +236,7 @@ def __create_playlist_tab_context_menu():
     items.append(menuitems.ExportPlaylistMenuItem('export', ['tab-close-sep'], _get_pl_func))
     items.append(menuitems.ExportPlaylistFilesMenuItem('export-files', ['export'], _get_pl_func))
     items.append(sep('tab-export-sep', ['export']))
-    items.append(smi('tab-close', ['tab-export-sep'], None, 'gtk-close',
+    items.append(smi('tab-close', ['tab-export-sep'], _("Close _Tab"), 'window-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context-menu', item)
@@ -272,17 +272,17 @@ class SPATMenuItem(menu.MenuItem):
             Generates the menu item
         """
         display_name = _('Stop Playback After This Track')
-        stock_id = Gtk.STOCK_STOP
+        icon_name = 'media-playback-stop'
 
         if context['selected-items']:
             selection_position = context['selected-items'][0][0]
 
             if selection_position == parent.playlist.spat_position:
                 display_name = _('Continue Playback After This Track')
-                stock_id = Gtk.STOCK_MEDIA_PLAY
+                icon_name = 'media-playback-play'
 
         menuitem = Gtk.ImageMenuItem.new_with_label(display_name)
-        menuitem.set_image(Gtk.Image.new_from_stock(stock_id,
+        menuitem.set_image(Gtk.Image.new_from_icon_name(icon_name,
             Gtk.IconSize.MENU))
         menuitem.connect('activate', self.on_menuitem_activate,
             parent, context)
@@ -327,8 +327,8 @@ def __create_playlist_context_menu():
         else:
             for position, track in tracks[::-1]:
                 del playlist[position]
-    items.append(smi('remove', [items[-1].name], None,
-        Gtk.STOCK_REMOVE, remove_tracks_cb))
+    items.append(smi('remove', [items[-1].name], _("_Remove from Playlist"),
+        'list-remove', remove_tracks_cb))
 
     items.append(RandomizeMenuItem([items[-1].name]))
 
@@ -346,8 +346,8 @@ def __create_playlist_context_menu():
 
     items.append(sep('sep2', [items[-1].name]))
 
-    items.append(smi('properties', [items[-1].name], None,
-        Gtk.STOCK_PROPERTIES, lambda w, n, o, c: o.show_properties_dialog()))
+    items.append(smi('properties', [items[-1].name], _("Track _Properties"),
+        'document-properties', lambda w, n, o, c: o.show_properties_dialog()))
 
     for item in items:
         providers.register('playlist-context-menu', item)

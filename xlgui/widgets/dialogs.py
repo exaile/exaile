@@ -203,15 +203,15 @@ class MultiTextEntryDialog(Gtk.Dialog):
                 for field in self.fields:
                     if len(field.get_text()) > 0:
                         # Unset possible previous marks
-                        field.set_icon_from_stock(
+                        field.set_icon_from_icon_name(
                             Gtk.EntryIconPosition.SECONDARY,
                             None
                         )
                     else:
                         # Mark via warning
-                        field.set_icon_from_stock(
+                        field.set_icon_from_icon_name(
                             Gtk.EntryIconPosition.SECONDARY,
-                            Gtk.STOCK_DIALOG_WARNING
+                            'dialog-warning'
                         )
         self.hide()
 

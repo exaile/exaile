@@ -135,7 +135,7 @@ def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent
 
 def PropertiesMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
         dialog_parent=None):
-    return menu.simple_menu_item(name, after, None,
+    return menu.simple_menu_item(name, after, _("_Track Properties"),
             'document-properties', _properties_cb,
             callback_args=[get_tracks_func, dialog_parent])
 

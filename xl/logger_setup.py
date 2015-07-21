@@ -85,7 +85,7 @@ class VerboseExceptionFormatter(logging.Formatter):
     def formatException(self, exc_info):
         # First get the original formatted exception.
         exc_text = super(VerboseExceptionFormatter, self).formatException(exc_info)
-        if not self._log_locals:
+        if not self._log_locals or exc_info[2] is None:
             return exc_text
         # Now we're going to format and add the locals information.
         output_lines = [exc_text, '\n']

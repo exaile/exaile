@@ -287,7 +287,7 @@ class DaapManager:
         hmenu = menu.Menu(None)
 
         def hmfactory(menu, parent, context):
-            item = Gtk.MenuItem.new_with_label(_('History'))
+            item = Gtk.MenuItem.new_with_mnemonic(_('History'))
             item.set_submenu(hmenu)
             sens = settings.get_option('plugin/daapclient/history', True)
             item.set_sensitive(sens)

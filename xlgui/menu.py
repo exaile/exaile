@@ -78,13 +78,13 @@ def __create_file_menu():
         dialog.connect('uris-selected', lambda d, uris:
             get_main().controller.open_uris(uris))
         dialog.show()
-    items.append(_smi('open-dirs', [items[-1].name], _("Open Directories"),
+    items.append(_smi('open-dirs', [items[-1].name], _("Open _Directories"),
         'folder-open', open_dirs_cb))
 
     items.append(_sep('open-sep', [items[-1].name]))
 
     items.append(_smi('import-playlist', [items[-1].name],
-        _("Import Playlist"), 'document-open', 
+        _("_Import Playlist"), 'document-open', 
         lambda *e: get_main().controller.get_panel('playlists').import_playlist()
     ))
     
@@ -106,13 +106,13 @@ def __create_file_menu():
         dialog.connect('message', on_message)
         dialog.show()
     items.append(_smi('export-playlist', [items[-1].name],
-        _("_Export Current Playlist"), 'document-save-as', export_playlist_cb))
+        _("E_xport Current Playlist"), 'document-save-as', export_playlist_cb))
     items.append(_sep('export-sep', [items[-1].name]))
 
     def close_tab_cb(*args):
         get_main().get_selected_page().tab.close()
     items.append(_smi('close-tab', [items[-1].name],
-        _("Close Tab"), 'window-close', close_tab_cb,
+        _("Close _Tab"), 'window-close', close_tab_cb,
         accelerator='<Control>w'))
     accelerators.append(Accelerator('<Control>w', close_tab_cb))
 
@@ -121,14 +121,14 @@ def __create_file_menu():
         def restart_cb(*args):
             from xl import main
             main.exaile().quit(True)
-        items.append(_smi('restart-application', [items[-1].name], _("Restart"),
+        items.append(_smi('restart-application', [items[-1].name], _("_Restart"),
             callback=restart_cb, accelerator='<Control>r'))
         accelerators.append(Accelerator('<Control>r', restart_cb))
 
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
-    items.append(_smi('quit-application', [items[-1].name], _("_Quit"),
+    items.append(_smi('quit-application', [items[-1].name], _("_Quit Exaile"),
         'application-exit', quit_cb, accelerator='<Control>q'))
     accelerators.append(Accelerator('<Control>q', quit_cb))
 
@@ -190,14 +190,14 @@ def __create_view_menu():
     items.append(menu.check_menu_item('playlist-utilities', [items[-1].name],
         _("_Playlist Utilities Bar"), playlist_utilities_is_checked, playlist_utilities_cb))
 
-    items.append(_smi('columns', [items[-1].name], _('_Columns'),
+    items.append(_smi('columns', [items[-1].name], _('C_olumns'),
         submenu=menu.ProviderMenu('playlist-columns-menu', get_main())))
 
     def clear_playlist_cb(*args):
         page = get_main().get_selected_page()
         if page:
             page.playlist.clear()
-    items.append(_smi('clear-playlist', [items[-1].name], _('C_lear playlist'),
+    items.append(_smi('clear-playlist', [items[-1].name], _('_Clear playlist'),
          'edit-clear-all', clear_playlist_cb, accelerator='<Control>l'))
     accelerators.append(Accelerator('<Control>l', clear_playlist_cb))
 
@@ -216,10 +216,10 @@ def __create_tools_menu():
     items.append(_smi('device-manager', [], _('_Device Manager'),
         'multimedia-player', lambda *x: get_main().controller.show_devices()))
     
-    items.append(_smi('scan-collection', [items[-1].name], _('Re_scan Collection'),
+    items.append(_smi('scan-collection', [items[-1].name], _('_Rescan Collection'),
         'view-refresh', get_main().controller.on_rescan_collection))
     
-    items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (slow)'),
+    items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (_slow)'),
         'view-refresh', get_main().controller.on_rescan_collection_forced))
 
     for item in items:

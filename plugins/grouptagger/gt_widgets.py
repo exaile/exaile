@@ -74,7 +74,7 @@ class GTShowTracksMenuItem(menu.MenuItem):
         else:
             display_name =  _('Show tracks with all selected')
         
-        menuitem = Gtk.MenuItem.new_with_label(display_name)
+        menuitem = Gtk.MenuItem.new_with_mnemonic(display_name)
         menuitem.connect('activate', lambda *e: gt_common.create_all_search_playlist( context['groups'], parent.exaile ))
         return menuitem
 

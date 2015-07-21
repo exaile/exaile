@@ -125,15 +125,15 @@ class ModesMenuItem(menu.MenuItem):
 
 class ShuffleModesMenuItem(ModesMenuItem):
     modetype = 'shuffle'
-    display_name = _("Shuffle")
+    display_name = _("S_huffle")
 
 class RepeatModesMenuItem(ModesMenuItem):
     modetype = 'repeat'
-    display_name = _("Repeat")
+    display_name = _("R_epeat")
 
 class DynamicModesMenuItem(ModesMenuItem):
     modetype = 'dynamic'
-    display_name = _("Dynamic")
+    display_name = _("_Dynamic")
 
 class RemoveCurrentMenuItem(menu.MenuItem):
     """
@@ -148,7 +148,7 @@ class RemoveCurrentMenuItem(menu.MenuItem):
         """
             Sets up the menu item
         """
-        item = Gtk.ImageMenuItem.new_with_label(_('Remove Current Track From Playlist'))
+        item = Gtk.ImageMenuItem.new_with_mnemonic(_('Remove _Current Track From Playlist'))
         item.set_image(Gtk.Image.new_from_icon_name('list-remove', Gtk.IconSize.MENU))
         item.connect('activate', self.on_activate, parent, context)
 
@@ -178,10 +178,10 @@ class RandomizeMenuItem(menu.MenuItem):
         """
             Sets up the menu item
         """
-        label = _('Randomize Playlist')
+        label = _('R_andomize Playlist')
 
         if not context['selection-empty']:
-            label = _('Randomize Selection')
+            label = _('R_andomize Selection')
 
         item = Gtk.MenuItem.new_with_mnemonic(label)
         item.connect('activate', self.on_activate, parent, context)
@@ -202,7 +202,7 @@ def __create_playlist_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
+    items.append(smi('new-tab', [], _("_New Playlist"), 'tab-new',
         lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
     items.append(sep('new-tab-sep', ['new-tab']))
     
@@ -271,17 +271,17 @@ class SPATMenuItem(menu.MenuItem):
         """
             Generates the menu item
         """
-        display_name = _('Stop Playback After This Track')
+        display_name = _('_Stop Playback After This Track')
         icon_name = 'media-playback-stop'
 
         if context['selected-items']:
             selection_position = context['selected-items'][0][0]
 
             if selection_position == parent.playlist.spat_position:
-                display_name = _('Continue Playback After This Track')
+                display_name = _('_Continue Playback After This Track')
                 icon_name = 'media-playback-play'
 
-        menuitem = Gtk.ImageMenuItem.new_with_label(display_name)
+        menuitem = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
         menuitem.set_image(Gtk.Image.new_from_icon_name(icon_name,
             Gtk.IconSize.MENU))
         menuitem.connect('activate', self.on_menuitem_activate,
@@ -346,7 +346,7 @@ def __create_playlist_context_menu():
 
     items.append(sep('sep2', [items[-1].name]))
 
-    items.append(smi('properties', [items[-1].name], _("Track _Properties"),
+    items.append(smi('properties', [items[-1].name], _("_Track Properties"),
         'document-properties', lambda w, n, o, c: o.show_properties_dialog()))
 
     for item in items:

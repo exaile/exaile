@@ -62,6 +62,8 @@ class RatingMenuItem(menu.MenuItem):
         self.get_tracks_func = get_tracks_func
         self.rating_set = False
 
+        # TODO: For accessibility it would be nice to add mnemonics or some
+        # other key shortcut thing to the RatingMenu, e.g. "+" and "-"
     def factory(self, menu, parent, context):
         item = rating.RatingMenuItem()
         item.connect('show', self.on_show, menu, parent, context)
@@ -96,7 +98,7 @@ def _enqueue_cb(widget, name, parent, context, get_tracks_func):
     player.QUEUE.extend(tracks)
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Enqueue"), 'list-add',
+    return menu.simple_menu_item(name, after, _("En_queue"), 'list-add',
             _enqueue_cb, callback_args=[get_tracks_func])
 
 # TODO: move logic into (GUI?) playlist
@@ -119,11 +121,11 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
             page.view.play_track_at(offset, tracks[0])
 
 def ReplaceCurrentMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Replace Current"), None,
+    return menu.simple_menu_item(name, after, _("_Replace Current"), None,
             _append_cb, callback_args=[get_tracks_func, True])
 
 def AppendMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Append to Current"),
+    return menu.simple_menu_item(name, after, _("_Append to Current"),
             'list-add', _append_cb, callback_args=[get_tracks_func])
 
 def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent):
@@ -146,7 +148,7 @@ def _open_directory_cb(widget, name, parent, context, get_tracks_func):
     common.open_file_directory(track.get_loc_for_io())
 
 def OpenDirectoryMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Open Directory"),
+    return menu.simple_menu_item(name, after, _("_Open Directory"),
             'folder-open', _open_directory_cb, callback_args=[get_tracks_func])
 
 def generic_trash_tracks_func(parent, context, tracks):
@@ -183,7 +185,7 @@ def _on_trash_tracks(widget, name, parent, context,
 def TrashMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
                   trash_tracks_func=generic_trash_tracks_func,
                   delete_tracks_func=generic_delete_tracks_func):
-    return menu.simple_menu_item(name, after, _('Move to Trash'), 'user-trash',
+    return menu.simple_menu_item(name, after, _('_Move to Trash'), 'user-trash',
         _on_trash_tracks, callback_args=[get_tracks_func,
             trash_tracks_func, delete_tracks_func])
 
@@ -221,25 +223,25 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
 # get_pl_func kwarg
 
 def RenamePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
-    return menu.simple_menu_item(name, after, _('Rename'), 'accessories-text-editor',
+    return menu.simple_menu_item(name, after, _('_Rename'), 'accessories-text-editor',
                           lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
                           condition_fn=lambda n, p, c: not isinstance(c['selected-playlist'], playlist.SmartPlaylist))
     
 def EditPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
-    return menu.simple_menu_item(name, after, _('Edit'), 'accessories-text-editor',
+    return menu.simple_menu_item(name, after, _('_Edit'), 'accessories-text-editor',
                           lambda w, n, o, c: o.edit_smart_playlist(get_pl_func(o, c)),
                           condition_fn=lambda n, p, c: isinstance(c['selected-playlist'], playlist.SmartPlaylist))
 
 def ExportPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
-    return menu.simple_menu_item(name, after, _('Export Playlist'), 'document-save-as',
+    return menu.simple_menu_item(name, after, _('E_xport Playlist'), 'document-save-as',
                           lambda w, n, o, c: dialogs.export_playlist_dialog(get_pl_func(o, c)))
 
 def ExportPlaylistFilesMenuItem(name, after, get_pl_func=generic_get_playlist_func):
-    return menu.simple_menu_item(name, after, _('Export Files'), 'document-save-as',
+    return menu.simple_menu_item(name, after, _('Export _Files'), 'document-save-as',
                           lambda w, n, o, c: dialogs.export_playlist_files(get_pl_func(o, c)))
 
 def DeletePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
-    return menu.simple_menu_item(name, after, _('Delete Playlist'), 'edit-delete',
+    return menu.simple_menu_item(name, after, _('_Delete Playlist'), 'edit-delete',
                           lambda w, n, o, c: o.remove_playlist(get_pl_func(o, c)))
     
 

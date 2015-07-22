@@ -233,7 +233,7 @@ def __create_history_tab_context_menu():
     items = []
     items.append(smi('save', [], _("Save History"), 'gtk-save',
         lambda w, n, o, c: o.save_history()))
-    items.append(smi('clear', ['save'], _("Clear History"), 'gtk-clear',
+    items.append(smi('clear', ['save'], _("_Clear History"), 'gtk-clear',
         lambda w, n, o, c: o.playlist._clear()))
     items.append(sep('tab-close-sep', ['clear']))
     items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',

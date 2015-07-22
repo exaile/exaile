@@ -53,7 +53,7 @@ def __create_queue_tab_context_menu():
     items.append(smi('saveas', ['clear'], _("_Save as Playlist"), 'document-save-as',
         _saveas_playlist_cb))
     items.append(sep('tab-close-sep', ['saveas']))
-    items.append(smi('tab-close', ['tab-close-sep'], _("C_lose Tab"), 'window-close',
+    items.append(smi('tab-close', ['tab-close-sep'], _("Close _Tab"), 'window-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('queue-tab-context', item)

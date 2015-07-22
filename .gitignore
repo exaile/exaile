@@ -1,6 +1,7 @@
 *.pyc
 *.pyo
-*.ui~
+*~
+*.ui#
 
 doc
 doc/api-objects.txt

@@ -876,7 +876,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         else:
             return
         
-        press_event = Gdk.Event(Gdk.EventType.BUTTON_PRESS)
+        press_event = Gdk.Event.new(Gdk.EventType.BUTTON_PRESS)
         press_event.button = 1
         new_fraction = self.__progressbar.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
@@ -900,7 +900,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         else:
             return
 
-        release_event = Gdk.Event(Gdk.EventType.BUTTON_RELEASE)
+        release_event = Gdk.Event.new(Gdk.EventType.BUTTON_RELEASE)
         release_event.button = 1
         new_fraction = self.__progressbar.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
@@ -924,9 +924,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         toplevel = self.get_toplevel()
         if toplevel.is_toplevel():
             conn = toplevel.connect('focus-out-event',
-            lambda w, e: self.emit('focus-out-event',
-                # HACK: GI: Gdk.EventFocus is not subclass of Gdk.Event.
-                Gdk.Event(e)))
+            lambda w, e: self.emit('focus-out-event', e.copy()))
             self.__prev_focus_out_conn = (toplevel, conn)
 
     def on_marker_menu_deactivate(self, menu):

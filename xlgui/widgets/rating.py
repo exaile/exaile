@@ -296,15 +296,13 @@ class RatingMenuItem(Gtk.MenuItem):
             x, y = self.translate_coordinates(self.rating_widget,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
-            # HACK: GI: event is not subclass of Gdk.Event.
-            self.rating_widget.emit('motion-notify-event', Gdk.Event(event))
+            self.rating_widget.emit('motion-notify-event', event.copy())
 
     def do_leave_notify_event(self, event):
         """
             Forwards the event to the rating widget
         """
-        # HACK: GI: event is not subclass of Gdk.Event.
-        self.rating_widget.emit('leave-notify-event', Gdk.Event(event))
+        self.rating_widget.emit('leave-notify-event', event.copy())
 
     def do_button_release_event(self, event):
         """
@@ -316,7 +314,7 @@ class RatingMenuItem(Gtk.MenuItem):
             x, y = self.translate_coordinates(self.rating_widget,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
-            self.rating_widget.emit('button-release-event', event)
+            self.rating_widget.emit('button-release-event', event.copy())
 
     def on_rating_changed(self, widget, rating):
         """

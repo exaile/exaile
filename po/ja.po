@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-07-18 12:02+0200\n"
+"PO-Revision-Date: 2015-07-23 17:34+0200\n"
 "Last-Translator: 0bytetest green <xenolith0bytetestcomgreen@gmail.com>\n"
 "Language-Team: Japanese "
 "<https://hosted.weblate.org/projects/exaile/master/ja/>\n"
@@ -682,12 +682,10 @@ msgid "Times played"
 msgstr "再生時間"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
 msgstr "スタートオフセット"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
 msgstr "ストップオフセット"
 

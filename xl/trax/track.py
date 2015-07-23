@@ -206,7 +206,7 @@ class Track(object):
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            :param uri:  The path to the track.
+            :param uri: the location, as either a uri or a file path.
             :param scan: Whether to try to read tags from the given uri.
                   Use only if the tags need to be set by a
                   different source.
@@ -256,7 +256,7 @@ class Track(object):
             :param loc: the location, as either a uri or a file path.
         """
         self.__unregister()
-        gloc = Gio.File.new_for_uri(loc)
+        gloc = Gio.File.new_for_commandline_arg(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
         event.log_event('track_tags_changed', self, '__loc')

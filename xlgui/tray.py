@@ -81,7 +81,7 @@ def __create_tray_context_menu():
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        icon_name=Gtk.STOCK_QUIT, callback=quit_cb))
+        _("_Quit Exaile"), 'application-exit', callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()

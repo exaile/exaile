@@ -335,8 +335,8 @@ class CollectionPanel(panel.Panel):
             'artist', Gtk.IconSize.SMALL_TOOLBAR)
         self.date_image = icons.MANAGER.pixbuf_from_icon_name(
             'office-calendar', Gtk.IconSize.SMALL_TOOLBAR)
-        self.album_image = icons.MANAGER.pixbuf_from_stock(
-            Gtk.STOCK_CDROM, Gtk.IconSize.SMALL_TOOLBAR)
+        self.album_image = icons.MANAGER.pixbuf_from_icon_name(
+            'image-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.genre_image = icons.MANAGER.pixbuf_from_icon_name(

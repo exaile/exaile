@@ -102,11 +102,11 @@ class Bookmarks:
 
 
         items = []
-        items.append(_smi('bookmark', [], _('Bookmark This Track'),
+        items.append(_smi('bookmark', [], _('_Bookmark This Track'),
             'bookmark-new', self.add_bookmark))
-        items.append(menu.MenuItem('delete', factory_factory(_('Delete Bookmark'),
+        items.append(menu.MenuItem('delete', factory_factory(_('_Delete Bookmark'),
             'gtk-close', submenu=self.delete_menu), ['bookmark']))
-        items.append(menu.MenuItem('clear', factory_factory(_('Clear Bookmarks'),
+        items.append(menu.MenuItem('clear', factory_factory(_('_Clear Bookmarks'),
             'gtk-clear', callback=self.clear), ['delete']))
         items.append(_sep('sep', ['clear']))
 
@@ -301,7 +301,7 @@ def _enable(exaile):
     # add tools menu items
     providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
     
-    item = _smi('bookmarks', ['plugin-sep'], _('Bookmarks'), 
+    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'), 
         'user-bookmarks', submenu=bm.menu)
     providers.register('menubar-tools-menu', item)
 

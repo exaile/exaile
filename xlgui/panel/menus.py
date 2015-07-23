@@ -171,17 +171,17 @@ def __create_playlist_panel_menus():
     
     # w, n, o, c: window, name, parent, context
 
-    menu.simple_menu_item('new-playlist', [], _('New Playlist'), 'gtk-new',
+    menu.simple_menu_item('new-playlist', [], _('_New Playlist'), 'tab-new',
                           lambda w, n, o, c: o.add_new_playlist()) \
         .register('playlist-panel-menu')
         
     menu.simple_menu_item('new-smart-playlist', ['new-playlist'],
-                          _('New Smart Playlist'), 'gtk-new',
+                          _('New _Smart Playlist'), 'tab-new',
                          lambda w, n, o, c: o.add_smart_playlist()) \
         .register('playlist-panel-menu')
         
     menu.simple_menu_item('import-playlist', ['new-smart-playlist'],
-                          _('Import Playlist'), 'gtk-open',
+                          _('_Import Playlist'), 'document-open',
                          lambda w, n, o, c: o.import_playlist()) \
         .register('playlist-panel-menu')
         
@@ -248,7 +248,7 @@ def __create_radio_panel_menus():
     
     # w, n, o, c: window, name, parent, context
 
-    menu.simple_menu_item('new-station', [], _('New Station'), 'gtk-new',
+    menu.simple_menu_item('new-station', [], _('_New Station'), 'list-add',
                           lambda w, n, o, c: o._on_add_button_clicked()) \
         .register('radio-panel-menu')
 

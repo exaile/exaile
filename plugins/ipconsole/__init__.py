@@ -154,7 +154,7 @@ def _enable(exaile):
             Create menu item.
     """
     # add menuitem to tools menu
-    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show IPython Console'),
+    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show _IPython Console'),
         callback=lambda *x: show_console(exaile)) 
     providers.register('menubar-tools-menu', item)
     

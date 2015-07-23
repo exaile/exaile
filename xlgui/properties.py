@@ -591,8 +591,8 @@ class TagRow(object):
             self.label.set_alignment(0.0, .50)
 
         self.clear_button = Gtk.Button()
-        self.clear_button.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_CLEAR, Gtk.IconSize.BUTTON))
+        self.clear_button.set_image(Gtk.Image.new_from_icon_name(
+            'edit-clear', Gtk.IconSize.BUTTON))
         self.clear_button.set_relief(Gtk.ReliefStyle.NONE)
         self.clear_button.connect("clicked", self.clear)
 
@@ -604,8 +604,8 @@ class TagRow(object):
         # Remove mode settings
         self.remove_mode = False
         self.remove_button = Gtk.Button()
-        self.remove_button.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_REMOVE, Gtk.IconSize.BUTTON))
+        self.remove_button.set_image(Gtk.Image.new_from_icon_name(
+            'list-remove', Gtk.IconSize.BUTTON))
         self.remove_button.connect("clicked", parent.remove_row, self.tag, self.multi_id)
 
         self.field.register_update_func(parent.update_tag)
@@ -1015,7 +1015,7 @@ class TagImageField(Gtk.HBox):
         self.pixbuf = pixbuf
 
         if pixbuf is None:
-            self.image.set_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.DIALOG)
+            self.image.set_from_icon_name('list-add', Gtk.IconSize.DIALOG)
             self.info_label.set_markup('')
         else:
             self.image.set_from_pixbuf(pixbuf.scale_simple(
@@ -1125,8 +1125,8 @@ class PropertyField(Gtk.HBox):
         if self.property_type == 'location':
             self.folder_button = Gtk.Button()
             self.folder_button.set_tooltip_text(_('Open Directory'))
-            self.folder_button.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_OPEN, Gtk.IconSize.BUTTON))
+            self.folder_button.set_image(Gtk.Image.new_from_icon_name(
+                'folder-open', Gtk.IconSize.BUTTON))
             self.pack_start(self.folder_button, False, False, 0)
             self.folder_button.connect("clicked", self.folder_button_clicked)
 

@@ -1216,7 +1216,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
     """
     def __init__(self, name, after):
         MoveMarkerMenuItem.__init__(self, name, after,
-            _('New Marker'), Gtk.STOCK_NEW)
+            _('New Marker'), 'list-add')
 
     def move_cancel(self):
         """
@@ -1268,13 +1268,12 @@ def __create_marker_context_menu():
         providers.unregister('playback-markers', context['current-marker'])
 
     items.append(menu.simple_menu_item('jumpto-marker',
-        [], icon_name=Gtk.STOCK_JUMP_TO,
-        callback=on_jumpto_item_activate))
+        [], _("_Jump to"), 'go-jump', on_jumpto_item_activate))
     items.append(MoveMarkerMenuItem('move-marker',
         [items[-1].name]))
     items.append(menu.simple_menu_item('remove-marker',
-        [items[-1].name], icon_name=Gtk.STOCK_REMOVE,
-        callback=on_remove_item_activate))
+        [items[-1].name], _("_Remove Marker"), 'list-remove',
+        on_remove_item_activate))
 
     for item in items:
         providers.register('playback-marker-context-menu', item)
@@ -1437,27 +1436,26 @@ def playpause(player):
 
 
 def PlayPauseMenuItem(name, player, after):
-    def factory(menu, parent, context):
+    def factory(name, after, player):
         if player.is_playing():
-            stock_id = Gtk.STOCK_MEDIA_PAUSE
+            icon_name = 'media-playback-pause'
+            label = _("_Pause")
         else:
-            stock_id = Gtk.STOCK_MEDIA_PLAY
-
-        item = Gtk.ImageMenuItem.new_from_stock(stock_id)
-        item.connect('activate', lambda *args: playpause( player ), name, parent, context)
-
-        return item
-    return menu.MenuItem(name, factory, after=after)
+            icon_name = 'media-playback-start'
+            label = _("P_lay")
+        return menu.simple_menu_item(name, after, label, icon_name,
+            callback=lambda *args: playpause(player) )
+    return factory(name, after, player)
 
 def NextMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_NEXT,
+    return menu.simple_menu_item(name, after, _("_Next Track"), 'media-skip-forward',
         callback=lambda *args: player.queue.next() )
 
 def PrevMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_PREVIOUS,
+    return menu.simple_menu_item(name, after, _("_Previous Track"), 'media-skip-backward',
         callback=lambda *args: player.queue.prev() )
 
 def StopMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_STOP,
+    return menu.simple_menu_item(name, after, _("_Stop"), 'media-playback-stop',
         callback=lambda *args: player.stop() )
 

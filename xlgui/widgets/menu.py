@@ -208,7 +208,7 @@ class Menu(Gtk.Menu):
         # GTK gets unhappy if we remove the menu items before it's done with them.
         self.connect('hide', lambda *e: GLib.idle_add(self.clear_menu))
         # Placeholder exists to make sure unity doesn't get confused (legacy?)
-        self.placeholder = Gtk.MenuItem.new_with_label('')
+        self.placeholder = Gtk.MenuItem.new_with_mnemonic('')
 
     def get_context(self):
         """

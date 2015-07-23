@@ -33,7 +33,7 @@ from xl.player import pipe
 from xl.nls import gettext as _
 
 name = _('Playback')
-icon = Gtk.STOCK_MEDIA_PLAY
+icon = 'media-playback-start'
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
 class EnginePreference(widgets.ComboPreference):

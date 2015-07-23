@@ -106,23 +106,23 @@ class GroupTaggerPlugin(object):
         self.tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
         
         self.tools_submenu.add_item( 
-            menu.simple_menu_item( 'gt_get_tags', [], _('Get all tags from collection'),
+            menu.simple_menu_item( 'gt_get_tags', [], _('_Get all tags from collection'),
                 callback=self.on_get_tags_menu ) 
         )
         
         self.tools_submenu.add_item( 
-            menu.simple_menu_item( 'gt_import', [], _('Import tags from directory'),
+            menu.simple_menu_item( 'gt_import', [], _('_Import tags from directory'),
                 callback=self.on_import_tags ) 
         )
         
         self.tools_submenu.add_item( 
-            menu.simple_menu_item( 'gt_rename', [], _('Mass rename/delete tags'),
+            menu.simple_menu_item( 'gt_rename', [], _('_Mass rename/delete tags'),
                 callback=self.on_mass_rename ) 
         )
         
         # group them together to make it not too long
         self.tools_menuitem = menu.simple_menu_item('grouptagger', ['plugin-sep'], 
-                _('GroupTagger'), submenu=self.tools_submenu )
+                _('_GroupTagger'), submenu=self.tools_submenu )
         providers.register( 'menubar-tools-menu', self.tools_menuitem )
         
         # playlist context menu items

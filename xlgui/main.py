@@ -416,11 +416,11 @@ class MainWindow(GObject.GObject):
         """
         widget.__hovered = True
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'process-stop', Gtk.IconSize.BUTTON))
         else:
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'media-playback-stop', Gtk.IconSize.BUTTON))
 
     def on_stop_button_leave_notify_event(self, widget, event):
         """
@@ -429,16 +429,16 @@ class MainWindow(GObject.GObject):
         widget.__hovered = False
         if not widget.is_focus() and \
            ~(event.get_state() & Gdk.ModifierType.SHIFT_MASK):
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'media-playback-stop', Gtk.IconSize.BUTTON))
 
     def on_stop_button_key_press_event(self, widget, event):
         """
             Shows SPAT icon on Shift key press
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'process-stop', Gtk.IconSize.BUTTON))
             widget.set_data('toggle_spat', True)
 
         if event.keyval in (Gdk.KEY_space, Gdk.KEY_Return):
@@ -452,8 +452,8 @@ class MainWindow(GObject.GObject):
             Resets the button icon
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'media-playback-stop', Gtk.IconSize.BUTTON))
             widget.set_data('toggle_spat', False)
 
     def on_stop_button_focus_out_event(self, widget, event):
@@ -462,8 +462,8 @@ class MainWindow(GObject.GObject):
             the button is still hovered
         """
         if not getattr(widget, '__hovered', False):
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'media-playback-stop', Gtk.IconSize.BUTTON))
 
     def on_stop_button_press_event(self, widget, event):
         """
@@ -476,7 +476,7 @@ class MainWindow(GObject.GObject):
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
                 self.on_spat_clicked,
-                Gtk.STOCK_STOP)
+                'process-stop')
             menu.popup(None, None, None, None, event.button, event.time)
 
     def on_stop_button_release_event(self, widget, event):
@@ -493,15 +493,15 @@ class MainWindow(GObject.GObject):
         """
         target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list())
         if target == 'exaile-index-list':
-            widget.set_image(Gtk.Image.new_from_stock(
-                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
+            widget.set_image(Gtk.Image.new_from_icon_name(
+                'process-stop', Gtk.IconSize.BUTTON))
 
     def on_stop_button_drag_leave(self, widget, context, time):
         """
             Resets the stop button
         """
-        widget.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
+        widget.set_image(Gtk.Image.new_from_icon_name(
+            'media-playback-stop', Gtk.IconSize.BUTTON))
 
     def on_stop_button_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
@@ -634,11 +634,11 @@ class MainWindow(GObject.GObject):
             already begun
         """
         if player.is_paused():
-            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+            image = Gtk.Image.new_from_icon_name('media-playback-start',
                 Gtk.IconSize.SMALL_TOOLBAR)
             tooltip = _('Continue Playback')
         else:
-            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+            image = Gtk.Image.new_from_icon_name('media-playback-pause',
                 Gtk.IconSize.SMALL_TOOLBAR)
             tooltip = _('Pause Playback')
 
@@ -817,7 +817,7 @@ class MainWindow(GObject.GObject):
 
         self._update_track_information()
         GLib.idle_add(self.playpause_button.set_image,
-            Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+            Gtk.Image.new_from_icon_name('media-playback-pause',
             Gtk.IconSize.SMALL_TOOLBAR))
         GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Pause Playback'))
@@ -829,7 +829,7 @@ class MainWindow(GObject.GObject):
         GLib.idle_add(self.window.set_title, 'Exaile')
 
         GLib.idle_add(self.playpause_button.set_image,
-            Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+            Gtk.Image.new_from_icon_name('media-playback-start',
             Gtk.IconSize.SMALL_TOOLBAR))
         GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Start Playback'))

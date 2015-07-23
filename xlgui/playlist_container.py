@@ -129,7 +129,8 @@ class PlaylistNotebook(SmartNotebook):
         item = menu.simple_separator('clear-sep',[])
         item.register('playlist-closed-tab-menu', self)
         
-        item = menu.simple_menu_item('clear-history', ['clear-sep'], None, 'gtk-clear',
+        item = menu.simple_menu_item('clear-history', ['clear-sep'], 
+            _("_Clear Tab History"), 'edit-clear-all',
             self.clear_closed_tabs)
         item.register('playlist-closed-tab-menu', self)     
             
@@ -138,7 +139,7 @@ class PlaylistNotebook(SmartNotebook):
         def factory(menu_, parent, context):
             if self.page_num(parent) == -1:
                 return None
-            item = Gtk.MenuItem.new_with_label(_("Recently Closed Tabs"))
+            item = Gtk.MenuItem.new_with_mnemonic(_("Recently Closed _Tabs"))
             if len(self.tab_history) > 0:
                 item.set_submenu(submenu)
             else:
@@ -518,7 +519,7 @@ class PlaylistContainer(Gtk.HBox):
             self.notebooks[0].add_default_tab()
             
         # menu item
-        item = menu.simple_menu_item('move-tab', [], _('Move to Other View'), None,
+        item = menu.simple_menu_item('move-tab', [], _('_Move to Other View'), None,
             lambda w, n, p, c: self._move_tab(p.tab),
             condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False )
         providers.register('playlist-tab-context-menu', item)

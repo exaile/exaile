@@ -99,7 +99,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         self.view_menu = menu.Menu(None)
         
         # setup/register the view menu
-        menu.simple_menu_item('panel-menu', ['show-playing-track'], _('Panels'),
+        menu.simple_menu_item('panel-menu', ['show-playing-track'], _('P_anels'),
                               submenu=self.view_menu) \
                             .register('menubar-view-menu')
         

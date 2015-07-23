@@ -133,7 +133,7 @@ class LoveMenuItem(MenuItem):
         """
         global LASTFMLOVER
 
-        item = Gtk.ImageMenuItem.new_with_label(_('Love This Track'))
+        item = Gtk.ImageMenuItem.new_with_mnemonic(_('_Love This Track'))
         item.set_image(Gtk.Image.new_from_icon_name(
             'love', Gtk.IconSize.MENU))
 

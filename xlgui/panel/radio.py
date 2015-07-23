@@ -248,8 +248,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.folder = self.tree.render_icon(
             Gtk.STOCK_DIRECTORY, Gtk.IconSize.SMALL_TOOLBAR)
-        self.refresh_image = icons.MANAGER.pixbuf_from_stock(
-            Gtk.STOCK_REFRESH)
+        self.refresh_image = icons.MANAGER.pixbuf_from_icon_name(
+            'view-refresh')
 
         self.custom = self.model.append(None, [self.folder, _("Saved Stations"), None])
         self.radio_root = self.model.append(None, [self.folder, _("Radio "

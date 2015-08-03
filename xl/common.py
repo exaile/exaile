@@ -785,4 +785,75 @@ class LazyDict(object):
         except KeyError:
             return default
 
+
+class _GioFileStream(object):
+    
+    __slots__ = ['stream']
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, *exc_info):
+        self.stream.close()
+    
+    def seek(self, offset, whence=os.SEEK_CUR):
+        if whence == os.SEEK_CUR:
+            self.stream.seek(offset, GLib.SeekType.CUR)
+        elif whence == os.SEEK_SET:
+            self.stream.seek(offset, GLib.SeekType.SET)
+        elif whence == os.SEEK_END:
+            self.stream.seek(offset, GLib.SeekType.END)
+        else:
+            raise IOError("Invalid whence")
+    
+    def tell(self):
+        return self.stream.tell()
+    
+
+class GioFileInputStream(_GioFileStream):
+    '''
+        Wrap a Gio.File so it looks like a python file object for reading.
+        
+        TODO: More complete wrapper
+    '''
+    __slots__ = ['stream', 'gfile']
+    
+    def __init__(self, gfile):
+        self.gfile = gfile
+        self.stream = Gio.DataInputStream.new(gfile.read())
+    
+    def next(self):
+        r = self.stream.read_line()[0]
+        if not r:
+            raise StopIteration()
+    
+    def read(self, size=None):
+        if size:
+            return self.stream.read_bytes(size).get_data()
+        else:
+            return self.gfile.load_contents()[1]
+    
+    def readline(self):
+        return self.stream.read_line()[0]
+
+
+class GioFileOutputStream(_GioFileStream):
+    '''
+        Wrapper around Gio.File for writing like a python file object
+    '''
+    __slots__ = ['stream']
+    
+    def __init__(self, gfile, mode):
+        if mode != 'w':
+            raise IOError("Not implemented")
+        
+        self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
+    
+    def flush(self):
+        self.stream.flush()
+    
+    def write(self, s):
+        return self.stream.write(s)
+
+
 # vim: et sts=4 sw=4

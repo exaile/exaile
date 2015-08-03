@@ -32,7 +32,6 @@ in playlists as well as methods to import and export from various file formats.
 from __future__ import with_statement
 import cgi
 from collections import namedtuple
-from contextlib import closing
 from datetime import datetime, timedelta
 from gi.repository import Gio
 import logging
@@ -58,7 +57,7 @@ from xl import (
     trax,
     xdg,
 )
-from xl.common import MetadataList
+from xl.common import GioFileInputStream, GioFileOutputStream, MetadataList
 from xl.nls import gettext as _
 from xl.metadata.tags import tag_data
 
@@ -341,7 +340,7 @@ class M3UConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
+        with GioFileOutputStream(Gio.File.new_for_uri(path)) as stream:
             stream.write('#EXTM3U\n')
 
             if playlist.name:
@@ -375,14 +374,10 @@ class M3UConverter(FormatConverter):
 
         logger.debug('Importing M3U playlist: %s' % path)
 
-        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
-            while True:
-                line = stream.read_line()[0]
+        with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
+            for line in stream:
                 lineno += 1
-
-                if not line:
-                    break
-
+                
                 line = line.strip()
 
                 if not line:
@@ -470,7 +465,7 @@ class PLSConverter(FormatConverter):
 
         pls_playlist.set('playlist', 'Version', 2)
 
-        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
+        with GioFileOutputStream(Gio.File.new_for_uri(path)) as stream:
             pls_playlist.write(stream)
 
     def import_from_file(self, path):
@@ -494,20 +489,14 @@ class PLSConverter(FormatConverter):
         logger.debug('Importing PLS playlist: %s' % path)
 
         try:
-            with closing(Gio.DataInputStream.new(gfile.read())) as stream:
-                # RawConfigParser.readfp() requires fp.readline()
-                stream.readline = stream.read_line
+            with GioFileInputStream(gfile) as stream:
                 pls_playlist.readfp(stream)
         except MissingSectionHeaderError:
             # Most likely version 1, thus only a list of URIs
             playlist = Playlist(self.name_from_path(path))
 
-            with closing(Gio.DataInputStream.new(gfile.read())) as stream:
-                while True:
-                    line = stream.read_line()[0]
-
-                    if not line:
-                        break
+            with GioFileInputStream(gfile) as stream:
+                for line in stream:
 
                     line = line.strip()
 
@@ -618,7 +607,7 @@ class ASXConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
+        with GioFileOutputStream(Gio.File.new_for_uri(path)) as stream:
             stream.write('<asx version="3.0">\n')
             stream.write('  <title>%s</title>\n' % escape(playlist.name))
 
@@ -657,7 +646,7 @@ class ASXConverter(FormatConverter):
 
         logger.debug('Importing ASX playlist: %s' % path)
 
-        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
+        with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
             parser = XMLParser(target=self.ASXPlaylistParser())
             parser.feed(stream.read())
 
@@ -795,7 +784,7 @@ class XSPFConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
+        with GioFileOutputStream(Gio.File.new_for_uri(path)) as stream:
             stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             stream.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
 
@@ -841,7 +830,7 @@ class XSPFConverter(FormatConverter):
         
         logger.debug('Importing XSPF playlist: %s' % path)
 
-        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
+        with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
             tree = ETree.ElementTree(file=stream)
             ns = "{http://xspf.org/ns/0/}"
             nodes = tree.find("%strackList" % ns).findall("%strack" % ns)

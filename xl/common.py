@@ -85,13 +85,16 @@ def log_exception(log=logger, message="Exception caught!"):
     """
     log.exception(message)
 
-def to_unicode(x, default_encoding=None):
+def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
+    # unicode() only accepts "string or buffer", so check the type of x first.
     if isinstance(x, unicode):
         return x
-    elif default_encoding and isinstance(x, str):
-        # This unicode constructor only accepts "string or buffer".
-        return unicode(x, default_encoding)
+    elif isinstance(x, str):
+        if encoding:
+            return unicode(x, encoding, errors)
+        else:
+            return unicode(x, errors=errors)
     else:
         return unicode(x)
 

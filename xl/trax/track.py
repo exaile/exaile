@@ -464,9 +464,9 @@ class Track(object):
         # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
             values = [
-                common.to_unicode(v, self.__tags.get('__encoding')) \
-                    if isinstance(v, basestring) else v \
-                for v in values \
+                common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
+                    if isinstance(v, basestring) else v
+                for v in values
                     if v not in (None, '')
             ]
 
@@ -553,8 +553,8 @@ class Track(object):
             value = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                basename = GLib.filename_display_name(gloc.get_basename())
-                value = u"%s (%s)" % (value, basename)
+                info = gloc.query_info('standard::display-name', 0, None)
+                value = u"%s (%s)" % (value, info.get_display_name().decode('utf-8'))
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
             if not sorttag:
@@ -563,7 +563,7 @@ class Track(object):
                 if isinstance(value, list):
                     value = [self.lower(v + u" " + v) for v in value]
                 else:
-                    value = self.lower(value + u" " + v)
+                    value = self.lower(value + u" " + value)
             if join:
                 value = self.join_values(value)
 
@@ -623,8 +623,8 @@ class Track(object):
                 value = _UNKNOWNSTR
                 if tag == 'title':
                     gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                    basename = GLib.filename_display_name(gloc.get_basename())
-                    value = u"%s (%s)" % (value, basename)
+                    info = gloc.query_info('standard::display-name', 0, None)
+                    value = u"%s (%s)" % (value, info.get_display_name().decode('utf-8'))
 
         if isinstance(value, list):
             value = [unicode(x) for x in value]
@@ -673,7 +673,6 @@ class Track(object):
             value = self.get_basename()
         else:
             value = self.__tags.get(tag)
-
 
         # Quote arguments
         if value is None:

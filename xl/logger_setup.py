@@ -157,9 +157,7 @@ def start_logging(debug, quiet, debugthreads,
     # Create log directory
     from . import xdg
     
-    logdir = os.path.join(xdg.get_data_dir(), 'logs')
-    if not os.path.exists(logdir):
-        os.makedirs(logdir)
+    logdir = xdg.get_logs_dir()
     
     # Logging to file; this also automatically rotates the logs
     logfile = logging.handlers.RotatingFileHandler(

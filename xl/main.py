@@ -112,6 +112,9 @@ class Exaile(object):
             
 
         # Make event debug imply debug
+        if self.options.DebugEventFull:
+            self.options.DebugEvent = True
+        
         if self.options.DebugEvent:
             self.options.Debug = True
 
@@ -138,7 +141,9 @@ class Exaile(object):
 
         if self.options.DebugEvent:
             event.EVENT_MANAGER.use_logger = True
-            self.options.Debug = True
+
+        if self.options.DebugEventFull:
+            event.EVENT_MANAGER.use_verbose_logger = True
 
         # initial mainloop setup. The actual loop is started later,
         # if necessary
@@ -534,6 +539,9 @@ class Exaile(object):
         group.add_option("--debug", dest="Debug", action="store_true",
                 default=False, help=_("Show debugging output"))
         group.add_option("--eventdebug", dest="DebugEvent",
+                action="store_true", default=False, help=_("Enable debugging"
+                " of xl.event. Generates LOTS of output"))
+        group.add_option("--eventdebug-full", dest="DebugEventFull",
                 action="store_true", default=False, help=_("Enable debugging"
                 " of xl.event. Generates LOTS of output"))
         group.add_option("--threaddebug", dest="DebugThreads",

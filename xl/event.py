@@ -219,9 +219,10 @@ class EventManager(object):
     """
         Manages all Events
     """
-    def __init__(self, use_logger=False, logger_filter=None):
+    def __init__(self, use_logger=False, logger_filter=None, verbose=False):
         self.callbacks = {}
         self.use_logger = use_logger
+        self.use_verbose_logger = verbose
         self.logger_filter = logger_filter
 
         # RLock is needed so that event callbacks can themselves send
@@ -237,6 +238,7 @@ class EventManager(object):
         
         emit_logmsg = self.use_logger and (not self.logger_filter or \
                    re.search(self.logger_filter, event.type))
+        emit_verbose = emit_logmsg and self.use_verbose_logger
         
         with self.lock:
             callbacks = set()
@@ -256,7 +258,7 @@ class EventManager(object):
                         except (KeyError, ValueError):
                             pass
                     elif event.time >= cb.time:
-                        if emit_logmsg:
+                        if emit_verbose:
                             logger.debug("Attempting to call "
                                     "%(function)s in response "
                                     "to %(event)s." % {

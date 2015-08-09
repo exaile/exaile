@@ -90,7 +90,7 @@ class SecondaryOutputPlugin(object):
         # Initialize the player objects needed
         #
 
-        self.player = player.get_player('preview_device')
+        self.player = player.player.ExailePlayer('preview_device')
         self.queue = player.queue.PlayQueue(
             self.player,
             location=os.path.join(
@@ -116,7 +116,7 @@ class SecondaryOutputPlugin(object):
         event.log_event('preview_device_disabling', self, None)
         self._destroy_gui_hooks()
         self._destroy_gui()
-        self.player.stop()
+        self.player.destroy()
 
         self.player = None
         self.queue = None

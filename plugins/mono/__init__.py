@@ -28,14 +28,14 @@
 from gi.repository import Gst
 
 import xl.providers
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 
 
 class Mono(ElementBin):
     index = 90
     name = 'mono'
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
         #self.elements[50] = Gst.ElementFactory.make('audioconvert')
         self.elements[60] = cf = Gst.ElementFactory.make('capsfilter')
         cf.props.caps = Gst.Caps.from_string('audio/x-raw,channels=1')
@@ -43,10 +43,10 @@ class Mono(ElementBin):
 
 
 def enable(exaile):
-    xl.providers.register('stream_element', Mono)
+    xl.providers.register('gst_audio_filter', Mono)
 
 def disable(exaile):
-    xl.providers.unregister('stream_element', Mono)
+    xl.providers.unregister('gst_audio_filter', Mono)
 
 
 # vi: et sts=4 sw=4 tw=80

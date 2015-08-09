@@ -72,8 +72,6 @@ class BrowserPage(WebKit2.WebView, providers.ProviderHandler):
             player.PLAYER)
         event.add_callback(self.on_playback_end, 'playback_track_end',
             player.PLAYER)
-        event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            player.PLAYER)
 
         self.get_settings().set_property('enable-developer-extras', True)
 
@@ -88,12 +86,6 @@ class BrowserPage(WebKit2.WebView, providers.ProviderHandler):
 
         # javascript debugger
         inspector = Inspector(self.get_web_inspector())
-
-    def on_tags_parsed(self, type, player, args):
-        (tr, args) = args
-        if not tr or tr.is_local():
-            return
-        #TODO
 
     def on_playback_start(self, obj=None, player=None, track=None):
         self.set_playing(track)

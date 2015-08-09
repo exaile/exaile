@@ -17,23 +17,23 @@
 from gi.repository import Gst
 
 import xl.providers
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 
 
 class Karaoke(ElementBin):
     index = 50
     name = 'karaoke'
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
         self.elements[50] = Gst.ElementFactory.make('audiokaraoke')
         self.setup_elements()
 
 
 def enable(exaile):
-    xl.providers.register('stream_element', Karaoke)
+    xl.providers.register('gst_audio_filter', Karaoke)
 
 def disable(exaile):
-    xl.providers.unregister('stream_element', Karaoke)
+    xl.providers.unregister('gst_audio_filter', Karaoke)
 
 
 # vi: et sts=4 sw=4 tw=80

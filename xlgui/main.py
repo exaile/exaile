@@ -306,8 +306,6 @@ class MainWindow(GObject.GObject):
             player.PLAYER)
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
             player.PLAYER)
-        event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            player.PLAYER)
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
         event.add_callback(self.on_buffering, 'playback_buffering',
             player.PLAYER)
@@ -585,16 +583,6 @@ class MainWindow(GObject.GObject):
         """
         percent = min(percent, 100)
         GLib.idle_add(self.statusbar.set_status, _("Buffering: %d%%...") % percent, 1)
-
-    def on_tags_parsed(self, type, player, args):
-        """
-            Called when tags are parsed from a stream/track
-        """
-        (tr, args) = args
-        if not tr or tr.is_local():
-            return
-        if player.parse_stream_tags(tr, args):
-            self._update_track_information()
 
     def on_track_tags_changed(self, type, track, tag):
         """

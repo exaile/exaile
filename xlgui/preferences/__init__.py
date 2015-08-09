@@ -265,6 +265,8 @@ class PreferencesDialog(object):
                     if not widget:
                         logger.warning('Invalid preferences widget: %s', klass.name)
                         continue
+                    
+                    
 
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
@@ -274,6 +276,11 @@ class PreferencesDialog(object):
                             klass.condition_widgets[name] = builder.get_object(name)
 
                     field = klass(self, widget)
+                    
+                    label_widget = builder.get_object('label:%s' % klass.name)
+                    if label_widget:
+                        field.label_widget = label_widget    
+                    
                     self.fields[page].append(field)
             except Exception:
                 logger.exception('Broken preferences class: %s', attr)

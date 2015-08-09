@@ -29,15 +29,18 @@ from gi.repository import Gtk
 
 from xlgui.preferences import widgets
 from xl import main, xdg
-from xl.player import pipe
 from xl.nls import gettext as _
+
+# TODO: If we ever add another engine, need to make sure that
+#       gstreamer-specific stuff doesn't accidentally get loaded
+from xl.player.gst.sink import get_devices, SINK_PRESETS
 
 name = _('Playback')
 icon = 'media-playback-start'
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
 class EnginePreference(widgets.ComboPreference):
-    default = "normal"
+    default = "gstreamer"
     name = 'player/engine'
     restart_required = True
 
@@ -60,7 +63,7 @@ class AudioSinkPreference(widgets.ComboPreference):
                 return -1
             return 1
                 
-        for name, preset in sorted(pipe.SINK_PRESETS.iteritems(), _sink_cmp):
+        for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
             model.append((name, preset['name']))
         self._set_value()
 
@@ -74,57 +77,55 @@ class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
         widgets.Conditional.__init__(self)
 
     def on_check_condition(self):
-        """
-            Specifies a condition to meet
+        return self.get_condition_value() == 'custom'
+    
+    def on_condition_met(self):
+        self.show_widget()
+    
+    def on_condition_failed(self):
+        self.hide_widget()
 
-            :returns: Whether the condition is met or not
-            :rtype: bool
-        """
-        iter = self.condition_widget.get_active_iter()
-        value = self.condition_widget.get_model().get_value(iter, 0)
-
-        if value == 'custom':
-            return True
-
-        return False
-        
 class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional):
-    default = ''
+    default = 'auto'
     name = "player/audiosink_device"
     condition_preference_name = 'player/audiosink'
 
     def __init__(self, preferences, widget):
+        self.is_enabled = False
         widgets.ComboPreference.__init__(self, preferences, widget)
         widgets.Conditional.__init__(self)
 
     def on_check_condition(self):
-        iter = self.condition_widget.get_active_iter()
-        value = self.condition_widget.get_model().get_value(iter, 0)        
-
-        devices = pipe.sink_enumerate_devices(value)
-        if devices:
-            # disable because the clear() causes a settings write
-            self.is_enabled = False
-
-            model = self.widget.get_model()
-            model.clear()
-
-            for device in devices:
-                model.append(device) 
-
-            self.is_enabled = True
-            self._set_value()
-            return True
-
-        self.is_enabled = False
-        return False
-
+        return self.get_condition_value() == 'auto'
+    
     def on_condition_met(self):
-        self.widget.set_sensitive(True)
+        
+        # disable because the clear() causes a settings write
+        self.is_enabled = False
+        
+        model = self.widget.get_model()
+        if model is None:
+            return
+        
+        model.clear()
+        
+        for device_name, device_id, _ in get_devices():            
+            model.append((device_id, device_name))
+        
+        self.is_enabled = True  
+        self._set_value()
+        
+        self.show_widget()
+        self.set_widget_sensitive(True)
 
     def on_condition_failed(self):
+        if self.get_condition_value() == 'custom':
+            self.hide_widget()
+        else:
+            self.show_widget()
+            self.set_widget_sensitive(False)
+        self.is_enabled = False
         self.widget.get_model().clear()
-        self.widget.set_sensitive(False)
         
     def done(self):
         return self.is_enabled
@@ -162,16 +163,7 @@ class EngineConditional(widgets.Conditional):
     conditional_engine = ''
 
     def on_check_condition(self):
-        """
-            Specifies the condition to meet
-
-            :returns: Whether the condition is met or not
-            :rtype: bool
-        """
-        iter = self.condition_widget.get_active_iter()
-        value = self.condition_widget.get_model().get_value(iter, 0)
-
-        if value == self.conditional_engine:
+        if self.get_condition_value() == self.conditional_engine:
             return True
 
         return False
@@ -179,7 +171,7 @@ class EngineConditional(widgets.Conditional):
 class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
     default = True
     name = 'player/auto_advance'
-    conditional_engine = 'normal'
+    conditional_engine = 'gstreamer'
 
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
@@ -197,11 +189,8 @@ class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
     def on_check_condition(self):
         if not self.condition_widgets['player/auto_advance'].get_active():
             return False
-            
-        iter = self.condition_widgets['player/engine'].get_active_iter()
-        value = self.condition_widgets['player/engine'].get_model().get_value(iter, 0)
-
-        if value == 'normal':
+        
+        if self.get_condition_value('player/engine') == 'gstreamer':
             return True
 
         return False
@@ -209,7 +198,7 @@ class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
 class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/user_fade_enabled'
-    conditional_engine = 'unified'
+    conditional_engine = 'gstreamer'
 
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
@@ -218,7 +207,7 @@ class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
 class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
     name = 'player/user_fade'
-    conditional_engine = 'unified'
+    conditional_engine = 'gstreamer'
 
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
@@ -227,7 +216,7 @@ class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
 class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/crossfading'
-    conditional_engine = 'unified'
+    conditional_engine = 'gstreamer'
 
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
@@ -236,7 +225,7 @@ class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
 class CrossfadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
     name = 'player/crossfade_duration'
-    conditional_engine = 'unified'
+    conditional_engine = 'gstreamer'
 
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)

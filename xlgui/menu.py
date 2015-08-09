@@ -26,6 +26,8 @@
 
 from gi.repository import Gtk
 
+import webbrowser
+
 from xl.nls import gettext as _
 from xl import settings, providers
 
@@ -228,10 +230,24 @@ def __create_tools_menu():
 def __create_help_menu():
     items = []
     accelerators = []
+    
+    def show_report_issue(*args):
+        webbrowser.open('https://github.com/exaile/exaile/issues')
+        
+    def show_user_guide(*args):
+        # TODO: Other languages
+        webbrowser.open('http://exaile.readthedocs.org/en/latest/user/index.html')
+    
     def show_about_dialog(widget, name, parent, context):
         dialog = dialogs.AboutDialog(parent.window)
         dialog.show()
-    items.append(_smi('about', [], _("_About"), 'help-about',
+    
+    items.append(_smi('guide', [], _("User's Guide (website)"), 'help',
+        show_user_guide))
+    items.append(_smi('report', [items[-1].name], _("Report an Issue (github)"), None,
+        show_report_issue))
+    items.append(_sep('about-sep', [items[-1].name]))
+    items.append(_smi('about', [items[-1].name], _("_About"), 'help-about',
         show_about_dialog))
     for item in items:
         providers.register('menubar-help-menu', item)

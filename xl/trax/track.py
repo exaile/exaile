@@ -553,8 +553,8 @@ class Track(object):
             value = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                info = gloc.query_info('standard::display-name', 0, None)
-                value = u"%s (%s)" % (value, info.get_display_name().decode('utf-8'))
+                basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
+                value = u"%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
             if not sorttag:
@@ -623,8 +623,8 @@ class Track(object):
                 value = _UNKNOWNSTR
                 if tag == 'title':
                     gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                    info = gloc.query_info('standard::display-name', 0, None)
-                    value = u"%s (%s)" % (value, info.get_display_name().decode('utf-8'))
+                    basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
+                    value = u"%s (%s)" % (value, basename)
 
         if isinstance(value, list):
             value = [unicode(x) for x in value]

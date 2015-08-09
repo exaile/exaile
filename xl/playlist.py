@@ -1466,7 +1466,7 @@ class Playlist(object):
             if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
-                    track.set_tag_raw(k, v[0], notify_changed=False)
+                    track.set_tag_raw(k, v[0].decode('utf-8'), notify_changed=False)
 
             trs.append(track)
 

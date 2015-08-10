@@ -243,6 +243,19 @@ class Exaile(object):
         # Migrate builtin OSD to plugin
         from xl.migrations.settings import osd
         osd.migrate()
+        
+        # Migrate engines
+        from xl.migrations.settings import engine
+        engine.migrate()
+        
+        # TODO: enable audio plugins separately from normal
+        #       plugins? What about plugins that use the player?
+        
+        # Gstreamer doesn't initialize itself automatically, and fails
+        # miserably when you try to inherit from something and GST hasn't
+        # been initialized yet. So this is here.
+        from gi.repository import Gst
+        Gst.init(None)
 
         # Initialize plugin manager
         from xl import plugins

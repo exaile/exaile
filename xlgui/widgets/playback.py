@@ -1319,6 +1319,8 @@ class VolumeControl(Gtk.Box):
             icon_name = 'audio-volume-%s' % self.icon_names[i]
             #TRANSLATORS: Volume percentage
             tooltip = _('%d%%') % (volume * 100)
+        else:
+            volume = 0
 
         if volume == 1.0:
             tooltip = _('Full Volume')

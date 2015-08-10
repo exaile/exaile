@@ -138,6 +138,24 @@ class Preference(object):
 
         if response == Gtk.ResponseType.ACCEPT:
             GLib.idle_add(main.exaile().quit, True)
+            
+    def hide_widget(self):
+        '''Hides the widget and optionally its associated label'''
+        self.widget.hide()
+        if hasattr(self, 'label_widget'):
+            self.label_widget.hide()
+            
+    def show_widget(self):
+        '''Shows the widget and optionally its associated label'''
+        self.widget.show_all()
+        if hasattr(self, 'label_widget'):
+            self.label_widget.show_all()
+            
+    def set_widget_sensitive(self, value):
+        '''Sets sensitivity of widget and optionally its associated label'''
+        self.widget.set_sensitive(value)
+        if hasattr(self, 'label_widget'):
+            self.label_widget.set_sensitive(value)
 
 class Conditional(object):
     """
@@ -151,6 +169,15 @@ class Conditional(object):
         event.add_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_name)
+
+    def get_condition_value(self):
+        '''
+            :returns: The currently selected value in the condition widget,
+                      presumes it is a combo box
+        '''
+        i = self.condition_widget.get_active_iter()
+        return self.condition_widget.get_model().get_value(i, 0)
+
 
     def on_check_condition(self):
         """
@@ -189,6 +216,9 @@ class CheckConditional(Conditional):
     """
         True if the conditional widget is active
     """
+    def get_condition_value(self):
+        return self.condition_widget.get_active()
+    
     def on_check_condition(self):
         """
             Specifies the condition to meet
@@ -196,7 +226,7 @@ class CheckConditional(Conditional):
             :returns: Whether the condition is met or not
             :rtype: bool
         """
-        return self.condition_widget.get_active()
+        return self.get_condition_value()
 
 class MultiConditional(object):
     """
@@ -209,6 +239,14 @@ class MultiConditional(object):
         event.add_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_names[0])
+
+    def get_condition_value(self, name):
+        '''
+            :returns: The currently selected value in the condition widget,
+                      presumes it is a combo box
+        '''
+        widget = self.condition_widgets[name]
+        return widget.get_model().get_value(widget.get_active_iter(), 0)
 
     def on_check_condition(self):
         """
@@ -918,7 +956,8 @@ class FontResetButtonPreference(Button, Conditional):
 
 class ComboPreference(Preference):
     """
-        A combo box
+        A combo box. The value stored in the settings must be the
+        first column of the combo box model.
     """
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)

@@ -25,7 +25,7 @@
 # from your version.
 
 from xl import providers, event, settings
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 
 from gi.repository import Gst
 
@@ -42,12 +42,12 @@ def enable(exaile):
     for elem in NEEDED_ELEMS:
         if not Gst.ElementFactory.find(elem):
             raise ImportError, "Needed gstreamer element %s missing."%elem
-    providers.register("stream_element", ReplaygainVolume)
-    providers.register("stream_element", ReplaygainLimiter)
+    providers.register("gst_audio_filter", ReplaygainVolume)
+    providers.register("gst_audio_filter", ReplaygainLimiter)
 
 def disable(exaile):
-    providers.unregister("stream_element", ReplaygainVolume)
-    providers.unregister("stream_element", ReplaygainLimiter)
+    providers.unregister("gst_audio_filter", ReplaygainVolume)
+    providers.unregister("gst_audio_filter", ReplaygainLimiter)
 
 
 class ReplaygainVolume(ElementBin):
@@ -59,8 +59,8 @@ class ReplaygainVolume(ElementBin):
     """
     index = 20
     name = "rgvolume"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
         self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[40] = self.audioconvert
         self.rgvol = Gst.ElementFactory.make("rgvolume")
@@ -95,8 +95,8 @@ class ReplaygainLimiter(ElementBin):
     """
     index = 80
     name = "rglimiter"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
         self.rglimit = Gst.ElementFactory.make("rglimiter")
         self.elements[50] = self.rglimit
         self.audioconvert = Gst.ElementFactory.make("audioconvert")

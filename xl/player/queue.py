@@ -55,7 +55,9 @@ class PlayQueue(playlist.Playlist):
         In this mode, when a new track is queued, the position is set 
         to play that track, and play will continue with that track 
         until the queue is exhausted, and then the assigned playlist 
-        will be continued. 
+        will be continued.
+        
+        TODO: Queue needs to be threadsafe!
     """
     def __init__(self, player, name, location=None):
         playlist.Playlist.__init__(self, name=name)
@@ -66,7 +68,7 @@ class PlayQueue(playlist.Playlist):
         
         # hack for making docs work
         if player is not None:
-            player._set_queue(self)
+            player.queue = self
         
         if location is not None:
             self.load_from_location(location)
@@ -303,38 +305,37 @@ class PlayQueue(playlist.Playlist):
         state = {}
         state['state'] = self.player.get_state()
         state['position'] = self.player.get_time()
-        state['_playtime_stamp'] = self.player._playtime_stamp
-        f = open(location, 'wb')
-        pickle.dump(state, f, protocol = 2)
-        f.close()
-
+        
+        with open(location, 'wb') as f:
+            pickle.dump(state, f, protocol = 2)
+    
     @common.threaded
     def _restore_player_state(self, location):
         if not settings.get_option("%s/resume_playback" % self.player._name, True):
             return
 
         try:
-            f = open(location, 'rb')
-            state = pickle.load(f)
-            f.close()
+            with open(location, 'rb') as f:
+                state = pickle.load(f)
         except:
             return
 
-        for req in ['state', 'position', '_playtime_stamp']:
+        for req in ['state', 'position']:
             if req not in state:
                 return
+            
+        self._do_restore_player_state(state)
+
+    @common.idle_add()
+    def _do_restore_player_state(self, state):
 
         if state['state'] in ['playing', 'paused']:
-            event.log_event("playback_player_resume", self.player, None)
-            vol = self.player._get_volume()
-            self.player._set_volume(0)
-            self.play(self.get_current())
-
-            if self.player.current:
-                self.player.seek(state['position'])
-                if state['state'] == 'paused' or \
-                        settings.get_option("%s/resume_paused" % self.player._name, False):
-                    self.player.toggle_pause()
-                self.player._playtime_stamp = state['_playtime_stamp']
-
-            self.player._set_volume(vol)
+            
+            start_at = None
+            if state['position'] is not None:
+                start_at = state['position']
+            
+            paused = state['state'] == 'paused' or \
+                     settings.get_option("%s/resume_paused" % self.player._name, False)
+            
+            self.player.play(self.get_current(), start_at=start_at, paused=paused)

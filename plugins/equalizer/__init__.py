@@ -32,7 +32,7 @@ from gi.repository import Gst
 from gi.repository import Gtk
 
 from xl import providers, event, settings, xdg
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 from xlgui.widgets import menu
 
 from xl.nls import gettext as _
@@ -40,7 +40,7 @@ from xl.nls import gettext as _
 import os, string
 
 def enable(exaile):
-    providers.register("postprocessing_element", GSTEqualizer)
+    providers.register("gst_audio_filter", GSTEqualizer)
     if exaile.loading:
         event.add_callback(_enable, 'gui_loaded')
     else:
@@ -54,7 +54,7 @@ def _enable(event_type, exaile, nothing):
     EQ_MAIN = EqualizerPlugin(exaile)
 
 def disable(exaile):
-    providers.unregister("postprocessing_element", GSTEqualizer)
+    providers.unregister("gst_audio_filter", GSTEqualizer)
     global EQ_MAIN
     EQ_MAIN.disable()
     EQ_MAIN = None
@@ -65,8 +65,8 @@ class GSTEqualizer(ElementBin):
     """
     index = 99
     name = "equalizer-10bands"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
 
         self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[40] = self.audioconvert

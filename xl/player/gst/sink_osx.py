@@ -1,13 +1,40 @@
+# Copyright (C) 2014-2015 Dustin Spicuzza
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+#
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
+# from your version.
+
+
 #
 # Because GST on OSX doesn't provide support for enumerating the audio
 # devices, we do it ourselves. 
 #
 
-import logging
+from gi.repository import Gst
 
-from xl import settings
 from xl.nls import gettext as _
 
+import logging
 logger = logging.getLogger(__name__)
 
 import ctypes
@@ -78,15 +105,23 @@ kAudioDevicePropertyStreamConfiguration = strord('slay')
 kAudioObjectPropertyElementMaster = 0
 
 
+def get_create_fn(device_id):
+    def _create_fn(name):
+        e = Gst.ElementFactory.make('osxaudiosink', name)
+        e.props.device = device_id
+        return e
+    
+    return _create_fn
+        
+
 def get_devices():
     '''
-        Returns a list of audio devices present on a machine running OSX.
+        Generator that yields audio devices present on a machine running OSX.
         
         Only tested on Mountain Lion x64, but I have no reason to believe
         it couldn't work on other versions of OSX
     '''
     
-    devices = []
     dataSize = ctypes.c_uint32()
     
     # query the number of devices on the system first
@@ -97,7 +132,7 @@ def get_devices():
 
     status = _coreaudio.AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, ctypes.byref(propertyAddress), 0, None, dataSize)
     if status != kAudioHardwareNoError:
-        return None
+        return
     
     # allocate an array for the device ids
     audioDevices = (c_uint32 * (dataSize.value/4))()
@@ -105,7 +140,7 @@ def get_devices():
     # get the data   
     status = _coreaudio.AudioObjectGetPropertyData(kAudioObjectSystemObject, ctypes.byref(propertyAddress), 0, None, dataSize, audioDevices)
     if status != kAudioHardwareNoError:
-        return None
+        return
     
     # now we have the device ids, get strings associated with them
     # and get rid of useless devices
@@ -151,9 +186,7 @@ def get_devices():
         name = _corefoundation.CFStringGetCStringPtr(namep, 0)
         _corefoundation.CFRelease(namep)
         
-        devices.append((deviceId, name.strip()))
-      
-    return devices
+        yield (name.strip(), str(deviceId), get_create_fn(deviceId))
          
 
 __setup_coreaudio()
@@ -164,12 +197,9 @@ def load_osxaudiosink(presets):
     preset = {
         "name"          : _("OSX CoreAudio"),
         "pipe"          : "osxaudiosink",
-        "get_devices"   : get_devices,
     }
     
     presets["osxaudiosink"] = preset
     
-    # make this default if there is no default
-    if settings.get_option('player/audiosink', None) == None:
-        settings.set_option('player/audiosink', 'osxaudiosink')
+    return get_devices
 

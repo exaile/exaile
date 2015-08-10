@@ -23,12 +23,8 @@
     </columns>
     <data>
       <row>
-        <col id="0">normal</col>
-        <col id="1" translatable="yes">Normal</col>
-      </row>
-      <row>
-        <col id="0">unified</col>
-        <col id="1" translatable="yes">Unified (unstable)</col>
+        <col id="0">gstreamer</col>
+        <col id="1" translatable="yes">GStreamer</col>
       </row>
     </data>
   </object>
@@ -96,7 +92,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="top_attach">4</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -109,7 +105,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
@@ -122,7 +118,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
@@ -137,7 +133,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">6</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -150,7 +146,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
     <child>
@@ -163,7 +159,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
     <child>
@@ -175,7 +171,7 @@
       </object>
       <packing>
         <property name="left_attach">2</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
     <child>
@@ -187,11 +183,11 @@
       </object>
       <packing>
         <property name="left_attach">2</property>
-        <property name="top_attach">2</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label6">
+      <object class="GtkLabel" id="label:preview_device/audiosink">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
@@ -199,7 +195,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">1</property>
       </packing>
     </child>
     <child>
@@ -217,20 +213,20 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">1</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label6b">
+      <object class="GtkLabel" id="label:preview_device/audiosink_device">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Device:  </property>
+        <property name="label" translatable="yes">Audio Device:</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">2</property>
       </packing>
     </child>
     <child>
@@ -248,12 +244,12 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">2</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label7">
+      <object class="GtkLabel" id="label:preview_device/custom_sink_pipe">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
@@ -261,7 +257,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
+        <property name="top_attach">3</property>
       </packing>
     </child>
     <child>
@@ -274,7 +270,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
+        <property name="top_attach">3</property>
         <property name="width">2</property>
       </packing>
     </child>

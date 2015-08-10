@@ -223,7 +223,7 @@ class HistoryPlaylistPage( NotebookPage ):
     
         name = 'History %s' % datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         
-        playlists = xlgui.get_controller().panels['playlists']        
+        playlists = xlgui.get_controller().get_panel('playlists')
         playlists.add_new_playlist( self.playlist, name )
 
     

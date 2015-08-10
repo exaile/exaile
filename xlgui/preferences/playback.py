@@ -154,6 +154,10 @@ class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
 class DisableNewTrackWhenPlaying(widgets.CheckPreference):
     default = False
     name = 'queue/disable_new_track_when_playing'
+    
+class GaplessPlayback(widgets.CheckPreference):
+    default = True
+    name = 'player/gapless_playback'
 
 class EngineConditional(widgets.Conditional):
     """

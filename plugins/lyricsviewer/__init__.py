@@ -193,8 +193,8 @@ class LyricsViewer(object):
         cursor_type = window.get_cursor().get_cursor_type().value_name
 
         if self.source_url != "":
-            x, y, mod = window.get_pointer()
-            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y)
+            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT,
+                    event.x, event.y)
             tag = textview.get_iter_at_location(x, y).get_tags()
             tooltip_text = textview.get_tooltip_text()
 
@@ -248,8 +248,13 @@ class LyricsViewer(object):
                 self.set_top_box_widgets(False, True)
             return False
 
-        if self._lyrics_id != 0:
+        g_thread = GLib.main_context_get_thread_default() or \
+                        GLib.main_context_default()
+
+        if ( self._lyrics_id != 0 and 
+                g_thread.find_source_by_id(self._lyrics_id) ):
             GLib.source_remove(self._lyrics_id)
+        
         self._lyrics_id = GLib.idle_add(do_update, refresh)
 
     @common.threaded

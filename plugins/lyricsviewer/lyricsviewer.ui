@@ -83,6 +83,7 @@
           <object class="GtkScrolledWindow" id="ScrolledWindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
             <child>
               <object class="GtkTextView" id="LyricsText">
                 <property name="width_request">1</property>

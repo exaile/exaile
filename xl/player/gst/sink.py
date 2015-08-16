@@ -61,10 +61,6 @@ SINK_PRESETS = {
         "name"      : "JACK",
         "pipe"      : "jackaudiosink"
     },
-    "directsound" : {
-        "name"      : "DirectSound",
-        "pipe"      : "directsoundsink"
-    },
     "custom" : {
         "name"      : _("Custom")
     }
@@ -211,6 +207,6 @@ if sys.platform == 'darwin':
     
 elif sys.platform == 'win32':
     import sink_windows
-    dev_fn = sink_windows.load_exaile_directsound_plugin(SINK_PRESETS)
+    dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
 

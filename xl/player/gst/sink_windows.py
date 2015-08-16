@@ -27,52 +27,113 @@
 
 '''
     The default GST DirectSound plugin does not support selecting
-    an output device via the property probe mechanism. For plugins
-    like the Preview Device, this is critical. 
-    
-    This should be removed once GST has proper support in mainline.
+    an output device. For plugins like the Preview Device, this is
+    critical.
 '''
 
-import logging
+
 import os.path
 import platform
 from gi.repository import GLib
 from gi.repository import Gst
 
-from xl import settings
 from xl.nls import gettext as _
 
+import logging
 logger = logging.getLogger(__name__)
 
-def get_devices():
-    return []
+class _SinkSettings:
+    sink = 'directsoundsink'
+    can_set_device = False
+    
+_sink_settings = _SinkSettings()
 
-def load_exaile_directsound_plugin(presets):
-    return get_devices
 
-    # TODO: fix these
-
+def __setup_custom_plugin():
+    '''Get rid of this once patch is in mainline'''
+    
+    sink = Gst.ElementFactory.make('directsoundsink')
+    if hasattr(sink.props, 'device'):
+        # Don't need custom plugin
+        _sink_settings.can_set_device = True
+        return
+    
     try:
         if platform.architecture()[0] == "32bit":
-            plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink.dll'))
+            plugin_path = os.path.abspath(os.path.join(__file__, '../../../../tools/win-installer/libgstexailedirectsoundsink.dll'))
         else:
-            plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink64.dll'))
+            plugin_path = os.path.abspath(os.path.join(__file__, '../../../../tools/win-installer/libgstexailedirectsoundsink64.dll'))
             
-        plugin = Gst.plugin_load_file(plugin_path)
-        Gst.registry_get_default().add_plugin(plugin)
+        plugin = Gst.Plugin.load_file(plugin_path)
+        Gst.Registry.get().add_plugin(plugin)
         
     except GLib.GError, e:
         logger.error("Error loading custom DirectSound plugin: %s" % str(e))
-        
     else:
-        # add to presets if successfully loaded
-        preset = {
-            "name"      : "DirectSound (Exaile %s)" % _('Custom'),
-            "pipe"      : "exailedirectsoundsink"
-        }
+        _sink_settings.sink = 'exailedirectsoundsink'
+        _sink_settings.can_set_device = True
+
+__setup_custom_plugin()
+
+
+if _sink_settings.can_set_device:
+    
+    import ctypes.wintypes
+    import ctypes as C
+    
+    _dsound_dll = C.windll.LoadLibrary("dsound.dll")
+    _DirectSoundEnumerateW = _dsound_dll.DirectSoundEnumerateW
+    
+    
+    
+    _LPDSENUMCALLBACK = C.WINFUNCTYPE(C.wintypes.BOOL,
+                                      C.wintypes.LPVOID,
+                                      C.wintypes.LPCWSTR,
+                                      C.wintypes.LPCWSTR,
+                                      C.wintypes.LPCVOID)
+    
+    _ole32_dll = C.oledll.ole32
+    _StringFromGUID2 = _ole32_dll.StringFromGUID2    
+
+    def get_create_fn(device_id):
+        def _create_fn(name):
+            e = Gst.ElementFactory.make(_sink_settings.sink, name)
+            e.props.device = device_id
+            return e
         
-        presets["exailedirectsound"] = preset
+        return _create_fn
+    
+    def get_devices():
         
-        # make this default if there is no default
-        if settings.get_option('player/audiosink', None) == None:
-            settings.set_option('player/audiosink', 'exailedirectsound')
+        devices = []
+        
+        def cb_enum(lpGUID, lpszDesc, lpszDrvName, _unused):
+            dev = ""
+            if lpGUID is not None:
+                buf = C.create_unicode_buffer(200)
+                if _StringFromGUID2(lpGUID, C.byref(buf), 200):
+                    dev = buf.value
+            
+            devices.append((lpszDesc, dev))
+            return True
+        
+        _DirectSoundEnumerateW(_LPDSENUMCALLBACK(cb_enum), None)
+        
+        for name, devid in devices:
+            yield (name, devid, get_create_fn(devid))
+
+else:
+    def get_devices():
+        return []
+
+def load_directsoundsink(presets):
+    
+    preset = {
+        "name"      : "DirectSound",
+        "pipe"      : "directsoundsink"
+    }
+    
+    presets['directsoundsink'] = preset
+        
+    return get_devices
+        

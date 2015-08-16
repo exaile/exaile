@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-07-23 17:34+0200\n"
+"PO-Revision-Date: 2015-08-16 14:07+0200\n"
 "Last-Translator: 0bytetest green <xenolith0bytetestcomgreen@gmail.com>\n"
 "Language-Team: Japanese "
 "<https://hosted.weblate.org/projects/exaile/master/ja/>\n"
@@ -176,7 +176,7 @@ msgstr "プレイヤーを調査"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "フォーマット"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -479,7 +479,7 @@ msgstr "非常に高速でフリーな可逆音声フォーマットで、圧縮
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX コアオーディオ"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -974,7 +974,7 @@ msgstr "スケジュール"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "開始オフセット"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 msgid "Stop Offset"
@@ -1113,11 +1113,11 @@ msgstr "保存せずに閉じる"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "すべてYES"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "すべてNO"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1154,7 +1154,7 @@ msgstr "入力されたプレイリストの名前は既に使用されていま
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "名前をつけて保存"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1280,9 +1280,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "トラックの編集中 %(total)d 中 %(current)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "選択されたプレイリストを永久に削除しますか?"
+msgstr "本当に変更をすべてのトラックに適用しますか?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1305,15 +1304,15 @@ msgstr ""
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG画像"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "PNG画像"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "画像"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
@@ -1322,16 +1321,16 @@ msgstr ""
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{幅}x{高さ} ピクセル"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{フォーマット} ({幅}x{高さ} ピクセル)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "カバー画像を選択"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
@@ -1382,7 +1381,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "ロード中..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
@@ -2552,9 +2551,8 @@ msgid "Search"
 msgstr "検索"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "名前:"
+msgstr "名前"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
@@ -2878,9 +2876,8 @@ msgid "Playback progress and seeking"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:45
-#, fuzzy
 msgid "Importing tracks"
-msgstr "\"%s をエクスポート"
+msgstr "トラックをエクスポート"
 
 #: ../plugins/grouptagger/gt_import.py:91
 #, fuzzy

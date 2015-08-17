@@ -113,8 +113,8 @@ class DesktopCover(Gtk.Window):
         ]
 
         screen = self.get_screen()
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.set_colormap(colormap)
+        visual = screen.get_rgba_visual() or screen.get_rgb_visual()
+        self.set_visual(visual)
 
         if player.PLAYER.current is not None:
             self.set_cover_from_track(player.PLAYER.current)
@@ -128,7 +128,7 @@ class DesktopCover(Gtk.Window):
             
         event.add_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
-        self.connect('expose-event', self.on_expose_event)
+        self.connect('draw', self.on_draw)
         self.connect('screen-changed', self.on_screen_changed)
 
     def destroy(self):
@@ -190,7 +190,7 @@ class DesktopCover(Gtk.Window):
         cover_offset_y = settings.get_option('plugin/desktopcover/y', 0)
         allocation = self.get_allocation()
         workarea = get_workarea_dimensions()
-        x, y = workarea.offset_x, workarea.offset_y
+        x, y = workarea.x, workarea.y
 
         if gravity in (Gdk.Gravity.NORTH_WEST, Gdk.Gravity.SOUTH_WEST):
             x += cover_offset_x
@@ -304,16 +304,11 @@ class DesktopCover(Gtk.Window):
         
         return False
 
-    def on_expose_event(self, widget, event):
+    def on_draw(self, widget, context):
         """
             Takes care of drawing the window
             transparently, if possible
         """
-        context = widget.props.window.cairo_create()
-
-        context.rectangle(event.area.x, event.area.y,
-            event.area.width, event.area.height)
-        context.clip()
 
         context.set_source_rgba(1, 1, 1, 0)
         context.set_operator(cairo.OPERATOR_SOURCE)
@@ -325,8 +320,8 @@ class DesktopCover(Gtk.Window):
             Updates the colormap
         """
         screen = widget.get_screen()
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.window.set_colormap(rgbamap)
+        visual = screen.get_rgba_visual() or screen.get_rgb_visual()
+        self.set_visual(visual)
 
     def on_playback_track_start(self, type, player, track):
         """

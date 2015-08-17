@@ -89,7 +89,8 @@ def get_workarea_size():
     """
         Returns the width and height of the work area
     """
-    return get_workarea_dimensions()[2:4]
+    d = get_workarea_dimensions()
+    return (d.width, d.height)
 
 def get_workarea_dimensions():
     """
@@ -97,18 +98,12 @@ def get_workarea_dimensions():
         of the work area, falls back to the screen
         dimensions if not available
 
-        :returns: Dimensions(offset_x, offset_y, width, height)
+        :returns: :class:`CairoRectangleInt`
     """
-    Dimensions = namedtuple('Dimensions', 'offset_x offset_y width height')
-
-    rootwindow = Gdk.get_default_root_window()
-    workarea = rootwindow.property_get(Gdk.atom_intern('_NET_WORKAREA'))
-
-    try:
-        return Dimensions(*workarea[2])
-    except TypeError: # Gdk.Window.property_get on Win32
-        # Chopping off bit depth
-        return Dimensions(*rootwindow.get_geometry()[:-1])
+    
+    screen = Gdk.Screen.get_default()
+    default_monitor = screen.get_primary_monitor()
+    return screen.get_monitor_workarea(default_monitor)
 
 def gtk_widget_replace(widget, replacement):
     """

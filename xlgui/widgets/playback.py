@@ -171,13 +171,14 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
 class Anchor(int):
     __gtype__ = GObject.TYPE_INT
+    
+for i, a in enumerate('CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()):
+    setattr(Anchor, a, Anchor(i))
 
 class Marker(GObject.GObject):
     """
         A marker pointing to a playback position
     """
-    for i, a in enumerate('CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()):
-        setattr(Anchor, a, Anchor(i))
     __gproperties__ = {
         'anchor': (
             Anchor,
@@ -226,7 +227,7 @@ class Marker(GObject.GObject):
         GObject.GObject.__init__(self)
 
         self.__values = {
-            'anchor': Gtk.Anchor.SOUTH,
+            'anchor': Anchor.SOUTH,
             'color': None,
             'label': None,
             'position': 0,
@@ -403,10 +404,11 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         'draw': 'override',
     }
     
-    def __init__(self, player, points):
+    def __init__(self, player, points, marker_scale):
         PlaybackProgressBar.__init__(self, player)
         self._points = points
         self._seeking = False
+        self._marker_scale = marker_scale
     
     def do_draw(self, context):
         """
@@ -417,20 +419,25 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         if not self._points:
             return
 
-        context.set_line_width(self.props.marker_scale / 0.9)
+        context.set_line_width(self._marker_scale / 0.9)
+        style = self.get_style_context()
 
         for marker, points in self._points.iteritems():
-            for x, y in points:
-                context.line_to(x, y)
+            for i, (x, y) in enumerate(points):
+                if i == 0:
+                    context.move_to(x, y)
+                else:
+                    context.line_to(x, y)
             context.close_path()
 
             if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
-                context.set_source_color(self.style.fg[Gtk.StateType.NORMAL])
+                c = style.get_color(Gtk.StateType.NORMAL)
+                context.set_source_rgba(c.red, c.green, c.blue, c.alpha)
             else:
                 if marker.props.color is not None:
                     base = marker.props.color
                 else:
-                    base = self.style.base[marker.props.state]
+                    base = style.get_color(marker.props.state)
 
                 context.set_source_rgba(
                     base.red / 256.0**2,
@@ -441,9 +448,10 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             context.fill_preserve()
 
             if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
-                context.set_source_color(self.style.fg[Gtk.StateType.NORMAL])
+                c = style.get_color(Gtk.StateType.NORMAL)
+                context.set_source_rgba(c.red, c.green, c.blue, c.alpha)
             else:
-                foreground = self.style.fg[marker.props.state]
+                foreground = style.get_color(marker.props.state)
                 context.set_source_rgba(
                     foreground.red / 256.0**2,
                     foreground.green / 256.0**2,
@@ -500,12 +508,12 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         
         points = {}
         
-        self.__progressbar = _SeekInternalProgressBar(player, points)
-        
         self.__player = player
         self.__values = {'marker-scale': 0.7}
         self._points = points
         
+        self.__progressbar = _SeekInternalProgressBar(player, points,
+                                                      self.__values['marker-scale'])
         self._progressbar_menu = None
         
         if use_markers:
@@ -737,6 +745,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         if gproperty.name == 'marker-scale':
             for marker in self._points.iterkeys():
                 self._points[marker] = self._get_points(marker)
+            self.__progressbar._marker_scale = self.__values['marker-scale']
             self.__progressbar.queue_draw()
 
     def do_size_allocate(self, allocation):
@@ -807,8 +816,6 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 marker.props.state = Gtk.StateType.PRELIGHT
 
         if event.button == 1 and self.__progressbar._seeking:
-            length = self.__player.current.get_tag_raw('__length')
-
             fraction = event.x / self.get_allocation().width
             fraction = max(0, fraction)
             fraction = min(fraction, 1)
@@ -952,7 +959,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             :type marker: :class:`Marker`
         """
         notify_id = marker.connect('notify', self.on_marker_notify)
-        marker.set_data('%s_notify_id' % id(self), notify_id)
+        setattr(marker, '%s_notify_id' % id(self), notify_id)
         self._points[marker] = self._get_points(marker)
         self.__progressbar.queue_draw()
 
@@ -963,7 +970,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             :param marker: the marker
             :type marker: :class:`Marker`
         """
-        notify_id = marker.get_data('%s_notify_id' % id(self))
+        notify_id = getattr(marker, '%s_notify_id' % id(self))
         if notify_id is not None:
             marker.disconnect(notify_id)
 
@@ -1028,8 +1035,8 @@ class MarkerContextMenu(menu.ProviderMenu):
             if label is None:
                 continue
 
-            markup_data = Pango.parse_markup(label)
-            label_item = Gtk.MenuItem.new_with_mnemonic(markup_data[1])
+            markup_data = Pango.parse_markup(label, -1, '0')
+            label_item = Gtk.MenuItem.new_with_mnemonic(markup_data[2])
             self.append(label_item)
 
             if len(self._markers) > 1:

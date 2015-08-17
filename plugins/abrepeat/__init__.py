@@ -117,7 +117,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
             if self.move_finish():
                 if providers.get_provider('playback-markers',
                                           'repeat-end') is None:
-                    position = event.x / widget.allocation.width
+                    position = event.x / widget.get_allocation().width
                     self.end_marker.props.position = position
                     providers.register('playback-markers', self.end_marker)
                     self.move_begin(self.end_marker)

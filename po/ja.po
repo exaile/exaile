@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-08-16 14:07+0200\n"
-"Last-Translator: 0bytetest green <xenolith0bytetestcomgreen@gmail.com>\n"
+"PO-Revision-Date: 2015-08-17 10:26+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Japanese "
 "<https://hosted.weblate.org/projects/exaile/master/ja/>\n"
 "Language: ja\n"
@@ -1321,12 +1321,12 @@ msgstr ""
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr "{幅}x{高さ} ピクセル"
+msgstr "{width}x{height} ピクセル"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr "{フォーマット} ({幅}x{高さ} ピクセル)"
+msgstr "{format} ({width}x{height} ピクセル)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"

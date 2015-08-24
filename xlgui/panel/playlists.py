@@ -261,15 +261,15 @@ class TrackWrapper(object):
         self.track = track
         self.playlist = playlist
 
-    def __str__(self):
+    def __unicode__(self):
         text = self.track.get_tag_raw('title')
-
-        if text: text = ' / '.join(text)
-        if text and self.track.get_tag_raw('artist'):
-            text += " - " + ' / '.join(self.track.get_tag_raw('artist'))
-
-        if not text: return self.track.get_loc_for_io()
-        return text
+        text = u' / '.join(text)
+        if text:
+            artists = self.track.get_tag_raw('artist')
+            if artists:
+                text += u' - ' + u' / '.join(artists)
+            return text
+        return self.track.get_loc_for_io()
 
 
 class BasePlaylistPanelMixin(GObject.GObject):
@@ -524,8 +524,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
         for track in playlist:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
-            ar = [self.track_image, str(wrapper), wrapper]
-            self.model.append(parent, ar)
+            row = (self.track_image, unicode(wrapper), wrapper)
+            self.model.append(parent, row)
 
         if expanded:
             self.tree.expand_row(

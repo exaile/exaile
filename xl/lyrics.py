@@ -270,8 +270,12 @@ class LyricsManager(providers.ProviderHandler):
             if lyrics:
                 # update cache
                 time = datetime.now()
+
+                if isinstance(lyrics, unicode):
+                    lyrics = lyrics.encode('utf8')
+
                 self.cache[key] = (zlib.compress(lyrics), source, url, time)
-                
+
         if not lyrics:
             # no lyrcs were found, raise an exception
             raise LyricsNotFoundException()

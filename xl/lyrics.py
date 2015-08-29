@@ -176,12 +176,10 @@ class LyricsManager(providers.ProviderHandler):
             try:
                 (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
-                pass
-            if lyrics:
-                break
-
-        if not lyrics:
-            # no lyrcs were found, raise an exception
+                continue
+            break
+        else:
+            # This only happens if all providers raised LyricsNotFoundException.
             raise LyricsNotFoundException()
 
         lyrics = lyrics.strip()
@@ -214,10 +212,9 @@ class LyricsManager(providers.ProviderHandler):
             try:
                 (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
-                pass
-            if lyrics:
-                lyrics = lyrics.strip()
-                lyrics_found.append((method.display_name,lyrics, source, url))
+                continue
+            lyrics = lyrics.strip()
+            lyrics_found.append((method.display_name, lyrics, source, url))
 
         if not lyrics_found:
             # no lyrics were found, raise an exception
@@ -265,10 +262,9 @@ class LyricsManager(providers.ProviderHandler):
         (lyrics, source, url) = method.find_lyrics(track)
         assert isinstance(lyrics, unicode)
 
-        if lyrics:
-            # update cache
-            time = datetime.now()
-            self.cache[key] = (zlib.compress(lyrics.encode('utf-8')), source, url, time)
+        # update cache
+        time = datetime.now()
+        self.cache[key] = (zlib.compress(lyrics.encode('utf-8')), source, url, time)
 
         return (lyrics, source, url)
 

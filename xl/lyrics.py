@@ -250,31 +250,25 @@ class LyricsManager(providers.ProviderHandler):
         cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
         key = self.__get_cache_key(track, method)
 
-        try:
-            # check cache for lyrics
-            if key in self.cache:
-                (lyrics, source, url, time) = self.cache[key]
-                # return if they are not expired
-                now = datetime.now()
-                if (now-time < timedelta(hours=cache_time) and not refresh):
-                    try:
-                        lyrics = zlib.decompress(lyrics)
-                    except:
-                        pass
-                    return (lyrics, source, url)
+        # check cache for lyrics
+        if key in self.cache:
+            (lyrics, source, url, time) = self.cache[key]
+            # return if they are not expired
+            now = datetime.now()
+            if (now-time < timedelta(hours=cache_time) and not refresh):
+                try:
+                    lyrics = zlib.decompress(lyrics)
+                except zlib.error as e:
+                    raise LyricsNotFoundException(e)
+                return (lyrics.decode('utf-8', errors='replace'), source, url)
 
-            (lyrics, source, url) = method.find_lyrics(track)
-        except LyricsNotFoundException:
-            pass
-        else:
-            if lyrics:
-                # update cache
-                time = datetime.now()
-                self.cache[key] = (zlib.compress(lyrics), source, url, time)
-                
-        if not lyrics:
-            # no lyrcs were found, raise an exception
-            raise LyricsNotFoundException()
+        (lyrics, source, url) = method.find_lyrics(track)
+        assert isinstance(lyrics, unicode)
+
+        if lyrics:
+            # update cache
+            time = datetime.now()
+            self.cache[key] = (zlib.compress(lyrics.encode('utf-8')), source, url, time)
 
         return (lyrics, source, url)
 
@@ -321,6 +315,9 @@ class LyricSearchMethod(object):
             Called by LyricsManager when lyrics are requested
 
             :param track: the track that we want lyrics for
+            :return: tuple of lyrics text, provider name, URL
+            :rtype: Tuple[unicode, basestring, basestring]
+            :raise: LyricsNotFoundException if not found
         """
         raise NotImplementedError
 

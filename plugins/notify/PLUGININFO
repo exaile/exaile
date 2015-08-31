@@ -1,5 +1,5 @@
 Version='0.0.3'
-Authors=['Adam Olsen <arolsen@gmail.com>']
+Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
 Name=_('Notify')
 Description=_('Pops up a notification when playback of a track starts. Requires pynotify')
 Category=_('Notifications')

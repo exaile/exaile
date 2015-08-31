@@ -223,16 +223,25 @@ class PluginsManager(object):
         
             :param info: The data returned from get_plugin_info()
         '''
-        
+        from gi.repository import GIRepository
+        gir = GIRepository.Repository.get_default()
+
         modules = info.get('RequiredModules', [])
         
         for module in modules:
-            try:
-                mdata = imp.find_module(module)
-                if mdata[0] is not None:
-                    mdata[0].close()
-            except:
-                return True
+            pair = module.split(':', 1)
+            if len(pair) > 1:
+                prefix, module = pair
+                if prefix == 'gi':
+                    if not gir.enumerate_versions(module):
+                        return True
+            else:
+                try:
+                    mdata = imp.find_module(module)
+                    if mdata[0] is not None:
+                        mdata[0].close()
+                except Exception:
+                    return True
             
         return False
 

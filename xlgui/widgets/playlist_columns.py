@@ -278,7 +278,7 @@ class RatingColumn(Column):
         self.cellrenderer.size_ratio = self.get_icon_size_ratio()
         self.saved_model = None
 
-    def data_func(self, col, cell, model, iter):
+    def data_func(self, col, cell, model, iter, user_data):
         track = model.get_value(iter, 0)
         cell.props.rating = track.get_rating()
         self.saved_model = model
@@ -385,7 +385,7 @@ class ScheduleTimeColumn(Column):
         event.add_callback(self.on_playback_player_end,
             'playback_player_end', player.PLAYER)
 
-    def data_func(self, col, cell, model, iter):
+    def data_func(self, col, cell, model, iter, user_data):
         """
             Sets the schedule time if appropriate
         """

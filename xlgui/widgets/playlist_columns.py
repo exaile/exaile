@@ -376,6 +376,7 @@ class ScheduleTimeColumn(Column):
 
     def __init__(self, *args):
         Column.__init__(self, *args)
+        self.timeout_id = None
 
         event.add_callback(self.on_queue_current_playlist_changed,
             'queue_current_playlist_changed', player.QUEUE)
@@ -428,20 +429,19 @@ class ScheduleTimeColumn(Column):
         """
             Enables realtime updates
         """
-        timeout_id = self.get_data('timeout_id')
+        timeout_id = self.timeout_id
 
         # Make sure to stop any timer still running
         if timeout_id is not None:
             GLib.source_remove(timeout_id)
 
-        self.set_data('timeout_id',
-            GLib.timeout_add_seconds(60, self.on_timeout))
+        self.timeout_id = GLib.timeout_add_seconds(60, self.on_timeout)
 
     def stop_timer(self):
         """
             Disables realtime updates
         """
-        timeout_id = self.get_data('timeout_id')
+        timeout_id = self.timeout_id
 
         if timeout_id is not None:
             GLib.source_remove(timeout_id)

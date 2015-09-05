@@ -132,58 +132,63 @@ class Exaile(object):
         import logging
         logger = logging.getLogger(__name__)
 
-        # Late import ensures xl.event uses correct logger
-        from xl import event
-
-        if self.options.EventFilter:
-            event.EVENT_MANAGER.logger_filter = self.options.EventFilter
-            self.options.DebugEvent = True
-
-        if self.options.DebugEvent:
-            event.EVENT_MANAGER.use_logger = True
-
-        if self.options.DebugEventFull:
-            event.EVENT_MANAGER.use_verbose_logger = True
-
-        # initial mainloop setup. The actual loop is started later,
-        # if necessary
-        self.mainloop_init()
-
-        #initialize DbusManager
-        if self.options.StartGui and self.options.Dbus:
-            from xl import xldbus
-            exit = xldbus.check_exit(self.options, self.args)
-            if exit == "exit":
-                sys.exit(0)
-            elif exit == "command":
-                if not self.options.StartAnyway:
+        try:
+            # Late import ensures xl.event uses correct logger
+            from xl import event
+    
+            if self.options.EventFilter:
+                event.EVENT_MANAGER.logger_filter = self.options.EventFilter
+                self.options.DebugEvent = True
+    
+            if self.options.DebugEvent:
+                event.EVENT_MANAGER.use_logger = True
+    
+            if self.options.DebugEventFull:
+                event.EVENT_MANAGER.use_verbose_logger = True
+    
+            # initial mainloop setup. The actual loop is started later,
+            # if necessary
+            self.mainloop_init()
+    
+            #initialize DbusManager
+            if self.options.StartGui and self.options.Dbus:
+                from xl import xldbus
+                exit = xldbus.check_exit(self.options, self.args)
+                if exit == "exit":
                     sys.exit(0)
-            self.dbus = xldbus.DbusManager(self)
-
-        # import version, see note above
-        global __version__
-        from xl.version import __version__
-
-        #load the rest.
-        self.__init()
-
-        #handle delayed commands
-        if self.options.StartGui and self.options.Dbus and \
-                self.options.StartAnyway and exit == "command":
-            xldbus.run_commands(self.options, self.dbus)
-
-        #connect dbus signals
-        if self.options.StartGui and self.options.Dbus:
-            self.dbus._connect_signals()
-
-        # On SIGTERM, quit normally.
-        import signal
-        signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
-
-        # run the GUIs mainloop, if needed
-        if self.options.StartGui:
-            import xlgui
-            xlgui.mainloop()
+                elif exit == "command":
+                    if not self.options.StartAnyway:
+                        sys.exit(0)
+                self.dbus = xldbus.DbusManager(self)
+    
+            # import version, see note above
+            global __version__
+            from xl.version import __version__
+    
+            #load the rest.
+            self.__init()
+    
+            #handle delayed commands
+            if self.options.StartGui and self.options.Dbus and \
+                    self.options.StartAnyway and exit == "command":
+                xldbus.run_commands(self.options, self.dbus)
+    
+            #connect dbus signals
+            if self.options.StartGui and self.options.Dbus:
+                self.dbus._connect_signals()
+    
+            # On SIGTERM, quit normally.
+            import signal
+            signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
+    
+            # run the GUIs mainloop, if needed
+            if self.options.StartGui:
+                import xlgui
+                xlgui.mainloop()
+        except KeyboardInterrupt:
+            logger.exception("User exited program")
+        except:
+            logger.exception("Unhandled exception")
 
     def __init(self):
         """

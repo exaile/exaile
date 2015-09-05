@@ -263,7 +263,9 @@ class TrackWrapper(object):
 
     def __unicode__(self):
         text = self.track.get_tag_raw('title')
-        text = u' / '.join(text)
+        if text is not None:
+            text = u' / '.join(text)
+            
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:

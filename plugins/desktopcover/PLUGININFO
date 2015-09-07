@@ -3,3 +3,4 @@ Authors=['Johannes Sasongko <sasongko@gmail.com>', 'Mathias Brodala <info@noctus
 Name=_('Desktop Cover')
 Description=_('Displays the current album cover on the desktop')
 Category=_('GUI')
+RequiredModules=['cairo']

@@ -31,6 +31,7 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
+from itertools import izip
 import logging
 import sys
 
@@ -371,6 +372,9 @@ class PlaylistPage(NotebookPage):
 
         self.playlist = playlist
         self.icon = None
+        
+        self.loading = None
+        self.loading_timer = None
 
         uifile = xdg.get_data_path("ui", "playlist.ui")
         self.builder = Gtk.Builder()
@@ -420,6 +424,10 @@ class PlaylistPage(NotebookPage):
         self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
         self.view.connect('button-press-event', self.on_view_button_press_event)
         self.view.model.connect('row-changed', self.on_row_changed)
+        self.view.model.connect('data-loading', self.on_data_loading)
+        
+        if self.view.model.data_loading:
+            self.on_data_loading(None, True)
 
         self.show_all()
 
@@ -574,6 +582,44 @@ class PlaylistPage(NotebookPage):
         # so this sets the icon correctly. 
         elif self.playlist.current_position == -1:
             self.tab.set_icon(None)
+            
+    def on_data_loading(self, model, loading):
+        '''Called when tracks are being loaded into the model'''
+        if loading:
+            if self.loading is None and self.loading_timer is None:
+                self.loading_timer = GLib.timeout_add(500, self.on_data_loading_timer)
+        else:
+            if self.loading_timer is not None:
+                GLib.source_remove(self.loading_timer)
+                self.loading_timer = None
+            
+            if self.loading is not None:
+                guiutil.gtk_widget_replace(self.loading, self.playlist_window)
+                self.loading.destroy()
+                self.loading = None
+                
+    def on_data_loading_timer(self):
+        
+        if self.loading_timer is None:
+            return
+        
+        self.loading_timer = None
+        
+        grid = Gtk.Grid()
+        sp = Gtk.Spinner()
+        sp.start()
+        lbl = Gtk.Label.new(_('Loading'))
+        
+        grid.attach(sp, 0, 0, 1, 1)
+        grid.attach(lbl, 1, 0, 1, 1)
+        
+        grid.set_halign(Gtk.Align.CENTER)
+        grid.set_valign(Gtk.Align.CENTER)
+        
+        self.loading = grid
+        
+        guiutil.gtk_widget_replace(self.playlist_window, self.loading)
+        self.loading.show_all()
 
     def on_view_button_press_event(self, view, e):
         """
@@ -899,7 +945,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.set_cursor(path)
                 self._insert_focusing = False
             GLib.idle_add(_set_cursor)
-
+            
     def do_button_press_event(self, e):
         """
             Adds some custom selection work to 
@@ -1203,11 +1249,23 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
 class PlaylistModel(Gtk.ListStore):
 
+    __gsignals__ = {
+        # Called with true indicates starting operation, False ends op
+        'data-loading': (
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_BOOLEAN,)
+        )
+    }
+    
     def __init__(self, playlist, columns, player):
         Gtk.ListStore.__init__(self, int) # real types are set later
         self.playlist = playlist
         self.columns = columns
         self.player = player
+        
+        self.data_loading = False
+        self.data_load_queue = []
 
         self.coltypes = [object, GdkPixbuf.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
         self.set_column_types(self.coltypes)
@@ -1237,7 +1295,7 @@ class PlaylistModel(Gtk.ListStore):
         event.add_callback(self.on_option_set, "gui_option_set")
                 
         self._setup_icons()
-        self.on_tracks_added(None, self.playlist, enumerate(self.playlist)) # populate the list
+        self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist))) # populate the list
 
     def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(
@@ -1284,9 +1342,6 @@ class PlaylistModel(Gtk.ListStore):
     def on_option_set(self, typ, obj, data):
         if data == "gui/playlist_font":
             GLib.idle_add(self._refresh_icons)
-        
-    def track_to_row_data(self, track, position):
-        return [track, self.icon_for_row(position).pixbuf] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
 
     def icon_for_row(self, row):
         # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
@@ -1317,8 +1372,7 @@ class PlaylistModel(Gtk.ListStore):
     ### Event callbacks to keep the model in sync with the playlist ###
 
     def on_tracks_added(self, event_type, playlist, tracks):
-        for position, track in tracks:
-            self.insert(position, self.track_to_row_data(track, position))
+        self._load_data(tracks)
 
     def on_tracks_removed(self, event_type, playlist, tracks):
         tracks.reverse()
@@ -1368,7 +1422,66 @@ class PlaylistModel(Gtk.ListStore):
                 track_data = [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
                 for i in range(len(track_data)):
                     row[2+i] = track_data[i]
-                
-        
-        
+
+    #
+    # Loading data into the playlist:
+    #
+    # - Profiler reveals that most of the playlist loading time is spent in two
+    #   places
+    #   - Formatting values
+    #   - Converting them to GValue objects for insert into the treeview
+    #
+    # Now, the program is annoyingly blocked when this happens, so we need to
+    # process new tracks on a different thread, and show some kind of loading
+    # indicator instead. That's what these four functions help us do.
+    #
     
+    def _load_data(self, tracks):
+        
+        # Don't allow race condition between adds.. there's probably a race
+        # condition for removal
+        if self.data_loading:
+            self.data_load_queue.extend(tracks)
+            return
+        
+        # get column types
+        coltypes = [self.get_column_type(i) for i in xrange(self.get_n_columns())]
+        formatters = [providers.get_provider('playlist-columns', name).formatter.format for name in self.columns]
+        self.data_loading = True
+        self.emit('data-loading', True)
+        
+        if len(tracks) > 50:
+            self._load_data_thread(coltypes, formatters, tracks)
+        else:
+            render_data = self._load_data_fn(coltypes, formatters, tracks)
+            self._load_data_done(render_data)
+    
+    @common.threaded
+    def _load_data_thread(self, coltypes, formatters, tracks):
+        render_data = self._load_data_fn(coltypes, formatters, tracks)
+        GLib.idle_add(self._load_data_done, render_data)
+    
+    def _load_data_fn(self, coltypes, formatters, tracks):
+    
+        Value = GObject.Value
+    
+        render_data = []
+    
+        for position, track in tracks:
+            track_data = [track, self.icon_for_row(position).pixbuf] + [formatter(track) for formatter in formatters]
+            render_data.append((position, [Value(typ, val) for typ, val in izip(coltypes, track_data)]))
+        
+        return render_data
+        
+    def _load_data_done(self, render_data):
+        for args in render_data:
+            self.insert(*args)
+        
+        self.data_loading = False
+        self.emit('data-loading', False)
+        
+        if self.data_load_queue:
+            tracks = self.data_load_queue
+            self.data_load_queue = None
+            
+            self._load_data(tracks)

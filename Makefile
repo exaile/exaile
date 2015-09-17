@@ -78,11 +78,11 @@ install: install-target install-locale
 install_no_locale: install-target
 
 install-target: make-install-dirs
-	install -m 644 exaile.py ${EXAILELIBDIR}	
+	install -m 644 exaile.py ${EXAILELIBDIR}
 	-install -m 644 xl/*.py[co] ${EXAILELIBDIR}/xl
 	install -m 644 xl/*.py ${EXAILELIBDIR}/xl
-	-install -m 644 xl/metadata/*.py[co] ${EXAILELIBDIR}/xl/externals
-	install -m 644 xl/metadata/*.py ${EXAILELIBDIR}/xl/externals
+	-install -m 644 xl/externals/*.py[co] ${EXAILELIBDIR}/xl/externals
+	install -m 644 xl/externals/*.py ${EXAILELIBDIR}/xl/externals
 	-install -m 644 xl/metadata/*.py[co] ${EXAILELIBDIR}/xl/metadata
 	install -m 644 xl/metadata/*.py ${EXAILELIBDIR}/xl/metadata
 	-install -m 644 xl/player/*.py[co] ${EXAILELIBDIR}/xl/player

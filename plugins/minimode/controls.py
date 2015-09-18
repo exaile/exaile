@@ -372,7 +372,11 @@ class StopButtonControl(ButtonControl):
         """
             Stops the playback
         """
-        player.PLAYER.stop()
+        if self._queue_spat:
+            p = player.QUEUE.current_playlist
+            p.spat_position = -1 if p.current_position == p.spat_position else p.current_position
+        else:
+            player.PLAYER.stop()
 
     def do_motion_notify_event(self, event):
         """

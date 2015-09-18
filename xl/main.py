@@ -747,8 +747,19 @@ class Exaile(object):
 
         if restart:
             logger.info("Restarting...")
+            logger_setup.stop_logging()
             python = sys.executable
-            os.execl(python, python, *sys.argv)
+            if sys.platform == 'win32':
+                # Python Win32 bug: it does not quote individual command line
+                # arguments. Here we do it ourselves and pass the whole thing
+                # as one string.
+                # See https://bugs.python.org/issue436259 (closed wontfix).
+                import subprocess
+                cmd = [python] + sys.argv
+                cmd = subprocess.list2cmdline(cmd)
+                os.execl(python, cmd)
+            else:
+                os.execl(python, python, *sys.argv)
 
         logger.info("Bye!")
         logger_setup.stop_logging()

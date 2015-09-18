@@ -60,7 +60,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     title = 'Last.fm'
     type = 'remote' # fetches remotely as opposed to locally
 
-    url = 'http://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
+    url = 'https://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
 
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lastfmcovers')

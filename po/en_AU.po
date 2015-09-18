@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-09 19:49+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: English (Australia) <https://hosted.weblate.org/projects/"
-"exaile/master/en_AU/>\n"
+"PO-Revision-Date: 2015-07-21 07:12+0200\n"
+"Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
+"Language-Team: English (Australia) "
+"<https://hosted.weblate.org/projects/exaile/master/en_AU/>\n"
 "Language: en_AU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.1\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
 
 #: ../xl/formatter.py:576
@@ -676,21 +676,20 @@ msgstr "Modified"
 #: ../xl/metadata/tags.py:78
 #, fuzzy
 msgid "Play time"
-msgstr "Play count"
+msgstr "Play time"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
 msgstr "Times played"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "X offset:"
+msgstr "Start offset"
 
 #: ../xl/metadata/tags.py:82
 #, fuzzy
 msgid "Stop offset"
-msgstr "X offset:"
+msgstr "Stop offset"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -983,9 +982,8 @@ msgid "Start Offset"
 msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X offset:"
+msgstr "Stop Offset"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1259,9 +1257,8 @@ msgid "Re_scan Collection"
 msgstr "Re_scan Collection"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Re-scan Collection"
+msgstr "Rescan Collection (slow)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1288,9 +1285,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Editing track %(current)d of %(total)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Are you sure you want to apply the changes to all tracks?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1638,15 +1634,13 @@ msgstr "not in the last"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Track Options"
+msgstr "Track is in"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
-#, fuzzy
 msgid "Track not in"
-msgstr "Track Options"
+msgstr "Track not in"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -1661,9 +1655,9 @@ msgid "Rename Playlist"
 msgstr "Rename Playlist"
 
 #: ../xlgui/panel/playlists.py:394
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Error loading podcast."
+msgstr "Error loading smart playlist: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1801,12 +1795,10 @@ msgid "About Exaile"
 msgstr "About Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
-#, fuzzy
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2010"
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
-#, fuzzy
 msgid ""
 "Copyright (C) 2008-2014 Various Contributors\n"
 "\n"
@@ -1824,7 +1816,7 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2014 Various Contributors\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -2291,9 +2283,8 @@ msgid "Status"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:5
-#, fuzzy
 msgid "Show incompatible plugins"
-msgstr "Could not disable plugin!"
+msgstr "Show incompatible plugins"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
@@ -2552,48 +2543,41 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
-#, fuzzy
 msgid "Contacting Icecast server..."
-msgstr "Contacting Shoutcast server..."
+msgstr "Contacting Icecast server..."
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
-#, fuzzy
 msgid "Error connecting to Icecast server."
-msgstr "Error connecting to Shoutcast server."
+msgstr "Error connecting to Icecast server."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
 msgstr "Enter the search keywords"
 
 #: ../plugins/icecast/__init__.py:318
-#, fuzzy
 msgid "Icecast Search"
-msgstr "Shoutcast Search"
+msgstr "Icecast Search"
 
 #: ../plugins/icecast/__init__.py:342
-#, fuzzy
 msgid "No Stations Found"
-msgstr "New Station"
+msgstr "No Stations Found"
 
 #: ../plugins/icecast/__init__.py:345
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Search Results"
+msgstr "Icecast Search Results"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
 msgstr "Search"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Name:"
+msgstr "Name"
 
 #: ../plugins/icecast/__init__.py:396
-#, fuzzy
 msgid "Format"
-msgstr "Normal"
+msgstr "Format"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
@@ -2915,14 +2899,12 @@ msgid "Playback progress and seeking"
 msgstr "Playback progress and seeking"
 
 #: ../plugins/grouptagger/gt_import.py:45
-#, fuzzy
 msgid "Importing tracks"
-msgstr "Importing CD..."
+msgstr "Importing tracks"
 
 #: ../plugins/grouptagger/gt_import.py:91
-#, fuzzy
 msgid "Importing groups"
-msgstr "Importing CD..."
+msgstr "Importing groups"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
@@ -2945,9 +2927,8 @@ msgid "Get all tags from collection"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
 msgid "Import tags from directory"
-msgstr "Set data directory"
+msgstr "Import tags from directory"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
@@ -2967,9 +2948,9 @@ msgid "No categorization tags found in selected tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "%s tracks found"
-msgstr "No lyrics found."
+msgstr "%s tracks found"
 
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
@@ -3123,9 +3104,8 @@ msgid "Retrieving song data..."
 msgstr "Retrieving song data..."
 
 #: ../plugins/console/__init__.py:109
-#, fuzzy
 msgid "Console"
-msgstr "IPython Console"
+msgstr "Console"
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3151,9 +3131,8 @@ msgid "Amazon Covers"
 msgstr "Amazon Covers"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
-#, fuzzy
 msgid "Modulus this number"
-msgstr "Disc number"
+msgstr "Modulus this number"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
@@ -3165,15 +3144,13 @@ msgid "Save analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:62
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "C_lear playlist"
+msgstr "Analyse playlists"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "C_lear playlist"
+msgstr "Analyse playlist"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3258,23 +3235,20 @@ msgid "DAAP Server"
 msgstr "DAAP Server"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
-#, fuzzy
 msgid "Contacting SomaFM server..."
-msgstr "Contacting Shoutcast server..."
+msgstr "Contacting SomaFM server..."
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
-#, fuzzy
 msgid "Error connecting to SomaFM server."
-msgstr "Error connecting to Shoutcast server."
+msgstr "Error connecting to SomaFM server."
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
-#, fuzzy
 msgid "Update"
-msgstr "Updates"
+msgstr "Update"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
@@ -3647,9 +3621,8 @@ msgid "IPython Color Theme:"
 msgstr "IPython Colour Theme:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
-#, fuzzy
 msgid "Launch IPython console when Exaile starts"
-msgstr "IPython Console - Exaile"
+msgstr "Launch IPython console when Exaile starts"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"

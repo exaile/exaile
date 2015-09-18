@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Simen Heggestøyl <Unknown>\n"
-"Language-Team: Norwegian Bokmal <nb@li.org>\n"
+"PO-Revision-Date: 2015-06-04 20:24+0200\n"
+"Last-Translator: Kurt Eilertsen <kurt@kheds.com>\n"
+"Language-Team: Norwegian Bokmål "
+"<https://hosted.weblate.org/projects/exaile/master/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -673,9 +674,8 @@ msgid "Modified"
 msgstr "Endret"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Avspillingsteller"
+msgstr "Avspillingstid"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
@@ -1257,9 +1257,8 @@ msgid "Re_scan Collection"
 msgstr "_Søk igjennom samlingen på nytt"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Søk igjennom samlingen igjen"
+msgstr "Søk igjennom samlingen (sakte)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1286,9 +1285,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Redigerer spor %(current)d av %(total)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Er du sikker på at du vil slette den valgte spillelisten permanent?"
+msgstr "Er du sikker på at du vil bruke endringene på alle spor?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1634,15 +1632,13 @@ msgstr ""
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Sporinnstillinger"
+msgstr "Spor er i"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
-#, fuzzy
 msgid "Track not in"
-msgstr "Sporinnstillinger"
+msgstr "Spor er ikke i"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"

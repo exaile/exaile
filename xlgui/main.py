@@ -249,6 +249,7 @@ class MainWindow(GObject.GObject):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
 
+        self.stop_button.toggle_spat = False
         self.stop_button.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.stop_button.connect('motion-notify-event',
             self.on_stop_button_motion_notify_event)
@@ -437,10 +438,10 @@ class MainWindow(GObject.GObject):
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             widget.set_image(Gtk.Image.new_from_icon_name(
                 'process-stop', Gtk.IconSize.BUTTON))
-            widget.set_data('toggle_spat', True)
+            widget.toggle_spat = True
 
         if event.keyval in (Gdk.KEY_space, Gdk.KEY_Return):
-            if widget.get_data('toggle_spat'):
+            if widget.toggle_spat:
                 self.on_spat_clicked()
             else:
                 player.PLAYER.stop()
@@ -452,7 +453,7 @@ class MainWindow(GObject.GObject):
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             widget.set_image(Gtk.Image.new_from_icon_name(
                 'media-playback-stop', Gtk.IconSize.BUTTON))
-            widget.set_data('toggle_spat', False)
+            widget.toggle_spat = False
 
     def on_stop_button_focus_out_event(self, widget, event):
         """

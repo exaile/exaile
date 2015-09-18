@@ -152,8 +152,8 @@ class CoverManager(GObject.GObject):
 
         self.progress_bar = builder.get_object('progressbar')
         self.progress_bar.set_text(_('Collecting albums and covers...'))
-        self.progress_bar.set_data('pulse-timeout',
-            GLib.timeout_add(100, self.on_progress_pulse_timeout))
+        self.progress_bar.pulse_timeout = \
+            GLib.timeout_add(100, self.on_progress_pulse_timeout)
         self.close_button = builder.get_object('close_button')
         self.stop_button = builder.get_object('stop_button')
         self.stop_button.set_sensitive(False)
@@ -299,7 +299,7 @@ class CoverManager(GObject.GObject):
             track = self.album_tracks[album][0]
             cover_chooser = CoverChooser(self.window, track)
             # Make sure we're updating the correct album after selection
-            cover_chooser.set_data('path', path)
+            cover_chooser.path = path
             cover_chooser.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
@@ -324,7 +324,7 @@ class CoverManager(GObject.GObject):
         self.previews_box.set_sensitive(False)
         self.fetch_button.set_sensitive(False)
         self.progress_bar.set_fraction(0)
-        GLib.source_remove(self.progress_bar.get_data('pulse-timeout'))
+        GLib.source_remove(self.progress_bar.pulse_timeout)
 
     def do_prefetch_completed(self, outstanding):
         """
@@ -353,7 +353,7 @@ class CoverManager(GObject.GObject):
         self.fetch_button.set_sensitive(False)
         self.progress_bar.set_fraction(0)
         # We need float for the fraction during progress
-        self.progress_bar.set_data('outstanding-total', float(outstanding))
+        self.progress_bar.outstanding_total = float(outstanding)
 
     def do_fetch_completed(self, outstanding):
         """
@@ -382,7 +382,7 @@ class CoverManager(GObject.GObject):
 
         self.progress_bar.set_text(progress_text)
 
-        fraction = progress / self.progress_bar.get_data('outstanding-total')
+        fraction = progress / self.progress_bar.outstanding_total
         self.progress_bar.set_fraction(fraction)
 
     def do_cover_fetched(self, album, pixbuf):
@@ -397,7 +397,7 @@ class CoverManager(GObject.GObject):
         """
             Updates the cover of the current album after user selection
         """
-        path = cover_chooser.get_data('path')
+        path = cover_chooser.path
 
         if path:
             album = self.model[path][0]

@@ -437,6 +437,8 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     def __init__(self):
         Gtk.VolumeButton.__init__(self)
         BaseControl.__init__(self)
+        
+        self.updating = False
 
         adjustment = Gtk.Adjustment(upper=1, step_incr=0.1, page_incr=0.2)
         self.set_adjustment(adjustment)
@@ -468,15 +470,15 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
             Override to take care of preventing
             signal handling and endless loops
         """
-        self.set_data('updating', True)
+        self.updating = True
         Gtk.VolumeButton.set_value(self, value)
-        self.set_data('updating', False)
+        self.updating = False
 
     def do_value_changed(self, value):
         """
             Changes the volume except if done internally
         """
-        if not self.get_data('updating'):
+        if not self.updating:
             settings.set_option('player/volume', value)
 
     def on_option_set(self, event, settings, option):

@@ -92,6 +92,10 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         self.use_fade = True
         if sys.platform == 'win32':
             self.use_fade = False
+            
+        self.fadeout_id = None
+        self.drag_origin = None
+        self.hide_id = None
         
         self.set_type_hint(Gdk.WindowTypeHint.NOTIFICATION)
         self.set_title('Exaile OSD')
@@ -148,8 +152,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             Gtk.Window.hide(self)
             return
         
-        if self.get_data('fadeout-id') is None:
-            self.set_data('fadeout-id', GLib.timeout_add(50, self.__fade_out))
+        if self.fadeout_id is None:
+            self.fadeout_id = GLib.timeout_add(50, self.__fade_out)
 
     def show(self):
         """
@@ -157,11 +161,12 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
         if self.use_fade:
             try:
-                GLib.source_remove(self.get_data('fadeout-id'))
+                GLib.source_remove(self.fadeout_id)
             except:
                 pass
-
-            self.set_data('fadeout-id', None)
+            finally:
+                self.fadeout_id = None
+            
             self.set_opacity(1)
         
         Gtk.Window.show_all(self)
@@ -173,8 +178,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         opacity = self.get_opacity()
 
         if opacity == 0:
-            GLib.source_remove(self.get_data('fadeout-id'))
-            self.set_data('fadeout-id', None)
+            GLib.source_remove(self.fadeout_id)
+            self.fadeout_id = None
 
             Gtk.Window.hide(self)
 
@@ -271,7 +276,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             Starts the dragging process
         """
         if e.button == 1:
-            self.set_data('drag-origin', Point(e.x, e.y))
+            self.drag_origin = Point(e.x, e.y)
             self.window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.FLEUR))
 
             return True
@@ -286,7 +291,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         if e.button == 1:
             settings.set_option('plugin/osd/position', list(self.get_position()))
 
-            self.set_data('drag-origin', None)
+            self.drag_origin = None
             self.window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.ARROW))
 
             return True
@@ -296,7 +301,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             Moves the window while dragging, makes sure 
             the window is always visible upon mouse hover
         """
-        drag_origin = self.get_data('drag-origin')
+        drag_origin = self.drag_origin
 
         if drag_origin is not None:
             position = Point(e.x_root, e.y_root)
@@ -308,10 +313,12 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
 
 
         try:
-            GLib.source_remove(self.get_data('hide-id'))
+            GLib.source_remove(self.hide_id)
         except:
             pass
-
+        finally:
+            self.hide_id = None
+        
         self.show()
 
     def do_leave_notify_event(self, e):
@@ -319,13 +326,15 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             Hides the window upon mouse leave
         """
         try:
-            GLib.source_remove(self.get_data('hide-id'))
+            GLib.source_remove(self.hide_id)
         except:
             pass
+        finally:
+            self.hide_id = None
 
         if self.props.autohide:
-            self.set_data('hide-id', GLib.timeout_add_seconds(
-                self.__options['display_duration'], self.hide))
+            self.hide_id = GLib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide)
 
         Gtk.Window.do_leave_notify_event(self, e)
 
@@ -340,13 +349,15 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         GLib.idle_add(self.show)
 
         try:
-            GLib.source_remove(self.get_data('hide-id'))
+            GLib.source_remove(self.hide_id)
         except:
             pass
+        finally:
+            self.hide_id = None
 
         if self.props.autohide:
-            self.set_data('hide-id', GLib.timeout_add_seconds(
-                self.__options['display_duration'], self.hide))
+            self.hide_id = GLib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide)
 
     def on_playback_toggle_pause(self, e, player, track):
         """
@@ -357,21 +368,23 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         GLib.idle_add(self.show)
 
         try:
-            GLib.source_remove(self.get_data('hide-id'))
+            GLib.source_remove(self.hide_id)
         except:
             pass
+        finally:
+            self.hide_id = None
 
         if self.props.autohide:
-            self.set_data('hide-id', GLib.timeout_add_seconds(
-                self.__options['display_duration'], self.hide))
+            self.hide_id = GLib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide)
 
     def on_playback_player_end(self, e, player, track):
         """
             Hides the OSD upon playback end
         """
         if self.props.autohide:
-            self.set_data('hide-id', GLib.timeout_add_seconds(
-                self.__options['display_duration'], self.hide))
+            self.hide_id = GLib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide)
 
     def on_option_set(self, event, settings, option):
         """

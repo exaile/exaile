@@ -1113,7 +1113,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         tracks = []
 
-        target = selection.get_target()
+        target = selection.get_target().name()
         if target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = common.MetadataList()
@@ -1162,7 +1162,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             else:
                 self.playlist.extend(tracks)
 
-        delete = context.action == Gdk.DragAction.MOVE
+        #delete = context.action == Gdk.DragAction.MOVE
+        # TODO: Selected? Suggested?
+        delete = context.get_selected_action() == Gdk.DragAction.MOVE
         context.finish(True, delete, etime)
 
         scroll_when_appending_tracks = settings.get_option(
@@ -1192,8 +1194,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.set_drag_dest_row(path, position)
 
         action = Gdk.DragAction.MOVE
-        x, y, modifier = self.get_window().get_pointer()
-        target = self.drag_dest_find_target(context, self.drag_dest_get_target_list())
+        _, _, _, modifier = self.get_window().get_pointer()
+        target = self.drag_dest_find_target(context, self.drag_dest_get_target_list()).name()
 
         if target == 'text/uri-list' or \
            (self._hack_is_osx and self._hack_osx_control_mask) or \
@@ -1203,7 +1205,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if self.dragdrop_copyonly and context.get_source_widget() != self:
             action = Gdk.DragAction.COPY
         
-        context.drag_status(action, etime)
+        Gdk.drag_status(context, action, etime)
 
         return True
 

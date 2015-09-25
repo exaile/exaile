@@ -1081,14 +1081,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     # If we drag onto  we copy, if we drag between we move
                     if position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE or \
                         position == Gtk.TreeViewDropPosition.INTO_OR_AFTER:
-                        context.drag_status(Gdk.DragAction.COPY, time)
+                        Gdk.drag_status(context, Gdk.DragAction.COPY, time)
                     else:
-                        context.drag_status(Gdk.DragAction.MOVE, time)
+                        Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                         # Change target as well
                         self.tree.enable_model_drag_dest([self.playlist_target],
                                                          Gdk.DragAction.DEFAULT)
                 else:
-                    context.drag_status(Gdk.DragAction.COPY, time)
+                    Gdk.drag_status(context, Gdk.DragAction.COPY, time)
             elif isinstance(drop_target, TrackWrapper):
                 # We are dragging onto another track
                 # make it a move operation if we are only dragging
@@ -1096,9 +1096,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # We do a copy if we are draggin from another playlist
                 if context.get_source_widget() == tv and \
                     dragging_playlist == False:
-                    context.drag_status(Gdk.DragAction.MOVE, time)
+                    Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 else:
-                    context.drag_status(Gdk.DragAction.COPY, time)
+                    Gdk.drag_status(context, Gdk.DragAction.COPY, time)
             else:
                 # Prevent drop operation by changing the targets
                 self.tree.enable_model_drag_dest(self.deny_targets,

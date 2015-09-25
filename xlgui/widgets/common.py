@@ -148,6 +148,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         Gtk.TreeView.__init__(self)
 
         self._SCROLL_EDGE_SIZE = 15 # As in gtktreeview.c
+        self.__autoscroll_timeout_id = None
 
         self.connect("drag-motion", self._on_drag_motion)
         self.connect("drag-leave", self._on_drag_leave)
@@ -176,8 +177,8 @@ class AutoScrollTreeView(Gtk.TreeView):
 
             Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
         """
-        x, y, modifier = self.props.window.get_pointer()
-        x, y = self.widget_to_tree_coords(x, y)
+        _, x, y, _ = self.props.window.get_pointer()
+        x, y = self.convert_widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge
         offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE) # 3: Scroll faster upwards
@@ -192,10 +193,10 @@ class AutoScrollTreeView(Gtk.TreeView):
                 return True
 
         vadjustment = self.get_vadjustment()
-        vadjustment.value = common.clamp(
-            vadjustment.value + offset,
+        vadjustment.props.value = common.clamp(
+            vadjustment.props.value + offset,
             0,
-            vadjustment.upper - vadjustment.page_size
+            vadjustment.props.upper - vadjustment.props.page_size
         )
         self.set_vadjustment(vadjustment)
 
@@ -267,7 +268,7 @@ class DragTreeView(AutoScrollTreeView):
             Sets the cover of dragged tracks as drag icon
         """
         self.dragging = True
-        context.drag_abort(Gtk.get_current_event_time())
+        Gdk.drag_abort(context, Gtk.get_current_event_time())
 
         if self.get_selection().count_selected_rows() > 1:
             self.drag_source_set_icon_stock(Gtk.STOCK_DND_MULTIPLE)
@@ -312,18 +313,18 @@ class DragTreeView(AutoScrollTreeView):
 
                 if len(albums) > 1:
                     # Create stacked-cover effect
-                    cover_pixbuf = GdkPixbuf.Pixbuf(
+                    cover_pixbuf = GdkPixbuf.Pixbuf.new(
                         GdkPixbuf.Colorspace.RGB,
                         True,
                         8,
                         width + 10, height + 10
                     )
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(
+                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width + 10, height + 10)
                     fill_pixbuf.fill(0x00000000) # Fill with transparent background
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(
+                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width, height)
                     fill_pixbuf.fill(0xccccccff)
 
@@ -334,7 +335,7 @@ class DragTreeView(AutoScrollTreeView):
                             5, 5
                         )
                     else:
-                        fill_pixbuf = cover_pixbuf.subpixbuf(
+                        fill_pixbuf = cover_pixbuf.new_subpixbuf(
                             5, 5, width, height)
                         fill_pixbuf.fill(0x999999ff)
 
@@ -350,7 +351,7 @@ class DragTreeView(AutoScrollTreeView):
         """
             Completes drag icon setup
         """
-        context.set_icon_pixbuf(pixbuf, 0, 0)
+        Gtk.drag_set_icon_pixbuf(context, pixbuf, 0, 0)
 
     def on_drag_motion(self, treeview, context, x, y, timestamp):
         """

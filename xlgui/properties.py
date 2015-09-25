@@ -1079,7 +1079,7 @@ class TagImageField(Gtk.HBox):
         """
             Allows setting the cover image via drag and drop
         """
-        if selection.target == 'text/uri-list':
+        if selection.target.name() == 'text/uri-list':
             filename = Gio.File.new_for_uri(selection.get_uris()[0]).get_path()
 
             try:

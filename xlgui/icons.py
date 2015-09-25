@@ -442,11 +442,11 @@ class ExtendedPixbuf:
             self.pixbuf, dest_width, dest_height, interp_type,
             overall_alpha, check_size, color1, color2))
 
-    def subpixbuf(self, src_x, src_y, width, height):
+    def new_subpixbuf(self, src_x, src_y, width, height):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(GdkPixbuf.Pixbuf.subpixbuf(
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_subpixbuf(
             self.pixbuf, src_x, src_y, width, height))
 
     def rotate_simple(self, angle):

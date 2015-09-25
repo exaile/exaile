@@ -490,7 +490,7 @@ class MainWindow(GObject.GObject):
         """
             Indicates possible SPAT during drag motion of tracks
         """
-        target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list())
+        target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list()).name()
         if target == 'exaile-index-list':
             widget.set_image(Gtk.Image.new_from_icon_name(
                 'process-stop', Gtk.IconSize.BUTTON))
@@ -509,7 +509,7 @@ class MainWindow(GObject.GObject):
         """
         source_widget = context.get_source_widget()
 
-        if selection.target == 'exaile-index-list' and isinstance(source_widget, PlaylistView):
+        if selection.target.name() == 'exaile-index-list' and isinstance(source_widget, PlaylistView):
             position = int(selection.data.split(',')[0])
             
             if position == source_widget.playlist.spat_position:

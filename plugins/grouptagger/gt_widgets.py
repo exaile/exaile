@@ -487,7 +487,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         
     def do_row_drop_possible(self, dest_path, selection_data):
         '''Can only drag to different categories'''
-        model, src_path = selection_data.tree_get_row_drag_data()
+        _, _, src_path = Gtk.tree_get_row_drag_data(selection_data)
         return len(dest_path) == 2 and src_path[0] != dest_path[0]
 
 

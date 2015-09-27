@@ -507,7 +507,7 @@ class MainWindow(GObject.GObject):
             Allows for triggering the SPAT feature
             by dropping tracks on the stop button
         """
-        source_widget = context.get_source_widget()
+        source_widget = Gtk.drag_get_source_widget(context)
 
         if selection.target.name() == 'exaile-index-list' and isinstance(source_widget, PlaylistView):
             position = int(selection.data.split(',')[0])

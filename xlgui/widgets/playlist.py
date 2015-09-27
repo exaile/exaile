@@ -1117,7 +1117,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = common.MetadataList()
-            source_playlist_view = context.get_source_widget()
+            source_playlist_view = Gtk.drag_get_source_widget(context)
             playlist = self.playlist
 
             # Get the playlist of the 
@@ -1202,7 +1202,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
            (not self._hack_is_osx and modifier & Gdk.ModifierType.CONTROL_MASK):
             action = Gdk.DragAction.COPY
         
-        if self.dragdrop_copyonly and context.get_source_widget() != self:
+        if self.dragdrop_copyonly and Gtk.drag_get_source_widget(context) != self:
             action = Gdk.DragAction.COPY
         
         Gdk.drag_status(context, action, etime)

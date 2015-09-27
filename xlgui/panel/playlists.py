@@ -29,6 +29,7 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import Gtk
 
 
 from xl import (
@@ -1094,7 +1095,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # make it a move operation if we are only dragging
                 # tracks within our widget
                 # We do a copy if we are draggin from another playlist
-                if context.get_source_widget() == tv and \
+                if Gtk.drag_get_source_widget(context) == tv and \
                     dragging_playlist == False:
                     Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 else:

@@ -363,7 +363,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         #if the drag originated from radio view deny it
         #TODO this might change if we are allowed to change the order of radio
-        if tv == context.get_source_widget():
+        if Gtk.drag_get_source_widget(context) == tv:
             context.drop_finish(False, etime)
             return
 

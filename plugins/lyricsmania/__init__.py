@@ -82,4 +82,5 @@ class LyricsMania(LyricSearchMethod):
         except :
             raise LyricsNotFoundException
 
+        lyrics = lyrics.decode('utf-8', errors='replace')
         return (lyrics, self.name, url)

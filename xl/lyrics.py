@@ -260,7 +260,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode)
+        assert isinstance(lyrics, unicode), (method, track)
 
         # update cache
         time = datetime.now()

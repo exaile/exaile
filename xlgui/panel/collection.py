@@ -179,7 +179,8 @@ class CollectionPanel(panel.Panel):
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.vbox = self.builder.get_object('CollectionPanel')
-        self.message = self.builder.get_object('EmptyCollectionPanel')
+        self.empty_collection_panel = self.builder.get_object('EmptyCollectionPanel')
+        self.populated_collection_panel = self.builder.get_object('PopulatedCollectionPanel')
         self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
@@ -229,19 +230,18 @@ class CollectionPanel(panel.Panel):
         if not self._show_collection_empty_message or \
             (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
-            GLib.idle_add(self.vbox.set_child_visible, True)
-            GLib.idle_add(self.message.set_child_visible, False)
-            GLib.idle_add(self.vbox.show_all)
-            GLib.idle_add(self.message.hide)
+            GLib.idle_add(self.populated_collection_panel.show_all)
+            GLib.idle_add(self.empty_collection_panel.hide)
+            GLib.idle_add(self.vbox.set_visible_child, \
+                self.populated_collection_panel)
 
         elif not self.collection.libraries and not \
             self.collection_empty_message:
             self.collection_empty_message = True
-            GLib.idle_add(self.vbox.set_child_visible, False)
-            GLib.idle_add(self.message.set_no_show_all, False)
-            GLib.idle_add(self.message.set_child_visible, True)
-            GLib.idle_add(self.vbox.hide)
-            GLib.idle_add(self.message.show_all)
+            GLib.idle_add(self.empty_collection_panel.show_all)
+            GLib.idle_add(self.populated_collection_panel.hide)
+            GLib.idle_add(self.vbox.set_visible_child, \
+                self.empty_collection_panel)
 
     def _connect_events(self):
         """
@@ -372,7 +372,7 @@ class CollectionPanel(panel.Panel):
         """
         self.tree = CollectionDragTreeView(self)
         self.tree.set_headers_visible(False)
-        container = self.builder.get_object('CollectionPanel')
+        container = self.populated_collection_panel
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.tree)

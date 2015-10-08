@@ -301,36 +301,47 @@ class BasePlaylistPanelMixin(GObject.GObject):
         self.playlist_nodes = {} # {playlist: iter} cache for custom playlists
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
+        # {Playlist: Gtk.Dialog} mapping to keep track of open "are you sure
+        # you want to delete" dialogs
+        self.deletion_dialogs = {}
 
     def remove_playlist(self, ignored=None):
         """
             Removes the selected playlist from the UI
             and from the underlying manager
         """
-        
-        dialog = Gtk.MessageDialog(None,
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-            _("Are you sure you want to permanently delete the selected playlist?"))
-        response = dialog.run()
-        dialog.destroy()
-        
-        if response != Gtk.ResponseType.YES:
-            return 
-        
         selected_playlist = self.tree.get_selected_page(raw=True)
-        if selected_playlist is not None:
-            if isinstance(selected_playlist, playlist.SmartPlaylist):
-                self.smart_manager.remove_playlist(
-                    selected_playlist.name)
-            else:
-                self.playlist_manager.remove_playlist(
-                    selected_playlist.name)
-                # Remove from {playlist: iter} cache.
-                del self.playlist_nodes[selected_playlist]
-            # Remove from UI.
-            selection = self.tree.get_selection()
-            (model, iter) = selection.get_selected()
-            self.model.remove(iter)
+        if selected_playlist is None:
+            return
+        dialog = self.deletion_dialogs.get(selected_playlist)
+        if dialog:
+            dialog.present()
+            return
+
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.YES:
+                if isinstance(selected_playlist, playlist.SmartPlaylist):
+                    self.smart_manager.remove_playlist(
+                        selected_playlist.name)
+                else:
+                    self.playlist_manager.remove_playlist(
+                        selected_playlist.name)
+                    # Remove from {playlist: iter} cache.
+                    del self.playlist_nodes[selected_playlist]
+                # Remove from UI.
+                selection = self.tree.get_selection()
+                (model, iter) = selection.get_selected()
+                self.model.remove(iter)
+            del self.deletion_dialogs[selected_playlist]
+            dialog.destroy()
+
+        dialog = Gtk.MessageDialog(self.parent,
+            Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
+            _('Delete the playlist "%s"?') % selected_playlist.name)
+        dialog.connect('response', on_response)
+        self.deletion_dialogs[selected_playlist] = dialog
+        dialog.present()
 
     def rename_playlist(self, playlist):
         """

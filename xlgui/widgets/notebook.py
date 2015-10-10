@@ -34,6 +34,19 @@ from xl import providers
 from xlgui import guiutil
 from xlgui.widgets import menu
 
+# Custom tab style; fixes some Adwaita ugliness
+TAB_CSS = Gtk.CssProvider()
+TAB_CSS.load_from_data(
+    '.notebook { '
+        # Remove gap before first tab
+        '-GtkNotebook-initial-gap: 0; '
+        # Remove gap between tabs
+        '-GtkNotebook-tab-overlap: 1; '
+    '} '
+    # Make tabs smaller (or bigger on some other themes, unfortunately)
+    '.notebook tab { padding: 6px } '
+)
+
 class SmartNotebook(Gtk.Notebook):
     def __init__(self):
         Gtk.Notebook.__init__(self)
@@ -42,15 +55,7 @@ class SmartNotebook(Gtk.Notebook):
         self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
-        # Override the theme's tab overlap setting.
-        # Notably, this removes the gap between tabs that occur when using
-        # Adwaita (GNOME's default theme), which sets this to -8.
-        css = Gtk.CssProvider()
-        css.load_from_data('''
-            GtkNotebook { -GtkNotebook-initial-gap: 0; -GtkNotebook-tab-overlap: 1 }
-            GtkNotebook tab { padding: 6px }
-        ''')
-        self.get_style_context().add_provider(css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.get_style_context().add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def get_current_tab(self):
         current_page = self.get_current_page()
@@ -127,14 +132,6 @@ class SmartNotebook(Gtk.Notebook):
         return True        
         
 
-# Reduce the notebook tabs' close button padding size.
-Gtk.rc_parse_string("""
-    style "thinWidget" {
-        xthickness = 0
-        ythickness = 0
-    }
-    widget "*.tabCloseButton" style "thinWidget"
-    """)
 class NotebookTab(Gtk.EventBox):
     """
         Class to represent a generic tab in a Gtk.Notebook.
@@ -198,11 +195,12 @@ class NotebookTab(Gtk.EventBox):
         
 
         self.button = button = Gtk.Button()
-        button.set_name("tabCloseButton")
         button.set_relief(Gtk.ReliefStyle.NONE)
+        button.set_halign(Gtk.Align.CENTER)
+        button.set_valign(Gtk.Align.CENTER)
         button.set_focus_on_click(False)
         button.set_tooltip_text(_("Close Tab"))
-        button.add(Gtk.Image.new_from_icon_name('window-close', Gtk.IconSize.MENU))
+        button.add(Gtk.Image.new_from_icon_name('window-close-symbolic', Gtk.IconSize.MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
         

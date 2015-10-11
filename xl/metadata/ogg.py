@@ -56,7 +56,6 @@ class OggFormat(BaseFormat):
                 picture = mutagen.flac.Picture(base64.standard_b64decode(d))
                 td['cover'] += [CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data)]
         return td
-# vim: et sts=4 sw=4
 
 
 class OggOpusFormat(OggFormat):

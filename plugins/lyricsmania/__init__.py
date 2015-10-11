@@ -82,5 +82,8 @@ class LyricsMania(LyricSearchMethod):
         except :
             raise LyricsNotFoundException
 
-        lyrics = lyrics.decode('utf-8', errors='replace')
+        # We end up with unicode in some systems, str (bytes) in others;
+        # no idea why and which one is correct.
+        if isinstance(lyrics, bytes):
+            lyrics = lyrics.decode('utf-8', errors='replace')
         return (lyrics, self.name, url)

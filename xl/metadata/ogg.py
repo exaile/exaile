@@ -29,9 +29,10 @@ from xl.metadata._base import (
     BaseFormat,
     CoverImage
 )
-from mutagen import oggvorbis
+from mutagen import oggvorbis, oggopus
 import mutagen.flac
 import base64
+
 
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
@@ -57,3 +58,6 @@ class OggFormat(BaseFormat):
         return td
 # vim: et sts=4 sw=4
 
+
+class OggOpusFormat(OggFormat):
+    MutagenType = oggopus.OggOpus

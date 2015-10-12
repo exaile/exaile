@@ -64,7 +64,7 @@ formats = {
         'ogg'   : ogg.OggFormat,
         'ogx'   : ogg.OggFormat,
         'okt'   : mod.ModFormat,
-        'opus'  : None,
+        'opus'  : ogg.OggOpusFormat,
         'ra'    : None,
         'ram'   : None,
         's3m'   : mod.ModFormat,

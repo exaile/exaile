@@ -6,7 +6,7 @@ import sys
 
 if sys.platform == 'win32':
     import string
-    invalid_chars = b'"\'*/:<>?\\'
+    invalid_chars = b'*/:<>?\\'
     TRANS = string.maketrans(invalid_chars, b'-' * len(invalid_chars))
 
 
@@ -48,8 +48,9 @@ class ExaileMoodbarCache(MoodbarCache):
         assert isinstance(uri, bytes)
         if uri.startswith(b'file://'):
             uri = uri[7:]
+        uri = uri.replace(b"'", b"")
         if sys.platform == 'win32':
-            uri = string.translate(uri, TRANS)
+            uri = string.replace(b'"', b'').translate(uri, TRANS)
         else:
             uri = uri.replace(b'/', b'-')
         return os.path.join(self.loc, uri + b'.mood')

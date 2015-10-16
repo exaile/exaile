@@ -73,7 +73,7 @@ class BPMCounterPlugin(object):
             for p in menu_providers:
                 providers.register(p, self.menuitem)
     
-    def disable(self):
+    def disable(self, exaile):
         """
             Called when the plugin is disabled
         """

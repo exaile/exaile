@@ -438,16 +438,17 @@ def position_menu(menu, *args):
     '''
         A function that will position a menu near a particular widget. This
         should be specified as the third argument to menu.popup(), with the
-        user data being a tuple of (window, widget)
+        user data being the widget.
         
-            menu.popup_menu(None, None, guiutil.position_menu, (self.window, widget),
+            menu.popup_menu(None, None, guiutil.position_menu, widget,
                             0, 0)
     '''
     # Prior to GTK+ 3.16, args contains only our user data.
     # Since 3.16, we get (orig_x, orig_y, data).
     # See https://git.gnome.org/browse/gtk+/commit/?id=8463d0ee62b4b22fa
-    window, widget = args[-1]
-    window_x, window_y = window.get_position()
+    widget = args[-1]
+    window = widget.get_window()
+    _, window_x, window_y = window.get_origin()
     widget_allocation = widget.get_allocation()
     menu_allocation = menu.get_allocation()
     position = (

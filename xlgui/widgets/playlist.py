@@ -517,10 +517,10 @@ class PlaylistPage(NotebookPage):
             prev = item
         menu.show_all()
         if event is not None:
-            menu.popup(None, None, guiutil.position_menu, (self.get_window(), widget), 
+            menu.popup(None, None, guiutil.position_menu, widget, 
                         event.button, event.time)
         else:
-            menu.popup(None, None, guiutil.position_menu, (self.get_window(), widget),
+            menu.popup(None, None, guiutil.position_menu, widget,
                         0, 0)
         menu.reposition()
 

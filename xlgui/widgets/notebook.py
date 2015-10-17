@@ -127,7 +127,7 @@ class SmartNotebook(Gtk.Notebook):
     def on_popup_menu(self, widget):
         page = self.get_current_tab()
         tab_label = self.get_tab_label(self.get_current_tab())
-        page.tab_menu.popup(None, None, guiutil.position_menu, (self.window, tab_label),
+        page.tab_menu.popup(None, None, guiutil.position_menu, tab_label,
                             0, 0)
         return True        
         

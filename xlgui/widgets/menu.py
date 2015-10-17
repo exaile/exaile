@@ -194,11 +194,13 @@ class Menu(Gtk.Menu):
         Generic flexible menu with reliable
         menu item order and context handling
     """
-    def __init__(self, parent, context_func=None):
+    def __init__(self, parent, context_func=None, inherit_context=False):
         """
             :param parent: the parent for this menu
             :param context_func: a function for context
                 retrieval
+            :param inherit_context: If a submenu, inherit context function from
+                                    parent menu
         """
         Gtk.Menu.__init__(self)
         self._parent = parent
@@ -209,6 +211,7 @@ class Menu(Gtk.Menu):
         self.connect('hide', lambda *e: GLib.idle_add(self.clear_menu))
         # Placeholder exists to make sure unity doesn't get confused (legacy?)
         self.placeholder = Gtk.MenuItem.new_with_mnemonic('')
+        self._inherit_context = inherit_context
 
     def get_context(self):
         """
@@ -218,7 +221,9 @@ class Menu(Gtk.Menu):
             :returns: {'key1': 'value1', ...}
             :rtype: dictionary
         """
-        if self.context_func is None:
+        if self._inherit_context:
+            return self.get_parent_shell().get_context()
+        elif self.context_func is None:
             return {}
         else:
             return self.context_func(self._parent)

@@ -258,6 +258,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
         context['selected-paths'] = lambda name, parent: parent.get_selected_paths()
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
+        context['selection-count'] = lambda name, parent: parent.get_selection_count()
         return context
 
 class SPATMenuItem(menu.MenuItem):

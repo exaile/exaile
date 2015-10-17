@@ -228,10 +228,10 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
 
-    def get_menu_position(self, menu, icon):
+    def get_menu_position(self, *args):
         """
             Returns coordinates for
             the best menu position
         """
-        return Gtk.StatusIcon.position_menu(menu, icon)
+        return Gtk.StatusIcon.position_menu(*args)
 

@@ -77,12 +77,6 @@ class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional)
         widgets.ScalePreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
 
-    def apply(self, value=None):
-        return_value = widgets.ScalePreference.apply(self, value)
-        GLib.idle_add(self.preferences.parent.queue_draw)
-
-        return return_value
-
 class TrackCountsPreference(widgets.CheckPreference):
     default = True
     name = 'gui/display_track_counts'

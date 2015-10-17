@@ -213,17 +213,20 @@ class MainWindow(GObject.GObject):
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_end(self.volume_control, False, False, 0)
 
+        self.alpha_style = None
+
         if settings.get_option('gui/use_alpha', False):
+            
             screen = self.window.get_screen()
-            colormap = screen.get_rgba_colormap()
-
-            if colormap is not None:
-                self.window.set_app_paintable(True)
-                self.window.set_colormap(colormap)
-
-                self.window.connect('expose-event', self.on_expose_event)
-                self.window.connect('screen-changed', self.on_screen_changed)
-
+            visual = screen.get_rgba_visual()
+            self.window.set_visual(visual)
+            self.window.connect('screen-changed', self.on_screen_changed)
+            
+            self.alpha_style = Gtk.CssProvider.new()
+            self.window.get_style_context().add_provider(self.alpha_style,
+                                                         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            self._update_alpha()
+            
         playlist_area = self.builder.get_object('playlist_area')
         self.playlist_container = PlaylistContainer('saved_tabs', player.PLAYER)
         for notebook in self.playlist_container.notebooks:
@@ -369,30 +372,26 @@ class MainWindow(GObject.GObject):
 
         ## Files Panel
         #panel = panels['files']
-
-    def on_expose_event(self, widget, event):
-        """
-            Paints the window alpha transparency
-        """
-        opacity = 1 - settings.get_option('gui/transparency', 0.3)
-        context = widget.props.window.cairo_create()
-        background = widget.style.bg[Gtk.StateType.NORMAL]
-        context.set_source_rgba(
-            float(background.red) / 256**2,
-            float(background.green) / 256**2,
-            float(background.blue) / 256**2,
-            opacity
+    
+    def _update_alpha(self):
+        if self.alpha_style is None:
+            return
+        
+        opac = 1.0 - float(settings.get_option('gui/transparency'))
+        
+        self.alpha_style.load_from_data(
+            '.background { ' +
+                ('background-color: alpha(@theme_bg_color, %s);' % opac) + 
+            '}'
         )
-        context.set_operator(cairo.OPERATOR_SOURCE)
-        context.paint()
 
     def on_screen_changed(self, widget, event):
         """
             Updates the colormap on screen change
         """
         screen = widget.get_screen()
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.window.set_colormap(colormap)
+        visual = screen.get_rgba_visual() or screen.get_rgb_visual()
+        self.window.set_visual(visual)
 
     def on_messagebar_response(self, widget, response):
         """
@@ -831,15 +830,15 @@ class MainWindow(GObject.GObject):
             self.title_formatter.props.format = settings.get_option(
                 option, self.title_formatter.props.format)
 
-        if option == 'gui/use_tray':
+        elif option == 'gui/use_tray':
             usetray = settings.get_option(option, False)
             if self.controller.tray_icon and not usetray:
                 GLib.idle_add(self.controller.tray_icon.destroy)
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
-	
-        if option == 'gui/show_info_area':
+    
+        elif option == 'gui/show_info_area':
             GLib.idle_add(self.info_area.set_no_show_all, False)
             if settings.get_option(option, True):
                 GLib.idle_add(self.info_area.show_all)
@@ -847,7 +846,7 @@ class MainWindow(GObject.GObject):
                 GLib.idle_add(self.info_area.hide)
             GLib.idle_add(self.info_area.set_no_show_all, True)
             
-        if option == 'gui/show_info_area_covers':
+        elif option == 'gui/show_info_area_covers':
             def _setup_info_covers():
                 cover = self.info_area.cover
                 cover.set_no_show_all(False)
@@ -858,6 +857,9 @@ class MainWindow(GObject.GObject):
                 cover.set_no_show_all(True)
                 
             GLib.idle_add(_setup_info_covers)
+            
+        elif option == 'gui/transparency':
+            GLib.idle_add(self._update_alpha)
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))

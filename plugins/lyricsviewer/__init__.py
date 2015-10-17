@@ -172,8 +172,8 @@ class LyricsViewer(object):
         self.update_lyrics()
 
     def on_track_tags_changed(self, eventtype, track, tag):
-         if player.PLAYER.current == track and tag in ["artist", "title"]:
-             self.update_lyrics()
+        if player.PLAYER.current == track and tag in ["artist", "title"]:
+            self.update_lyrics()
 
     def playback_cb(self, eventtype, player, data):
         self.update_lyrics()
@@ -193,8 +193,8 @@ class LyricsViewer(object):
         cursor_type = window.get_cursor().get_cursor_type().value_name
 
         if self.source_url != "":
-            x, y, mod = window.get_pointer()
-            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y)
+            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT,
+                                                    event.x, event.y)
             tag = textview.get_iter_at_location(x, y).get_tags()
             tooltip_text = textview.get_tooltip_text()
 

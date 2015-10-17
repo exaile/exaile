@@ -515,6 +515,7 @@ class PlaylistPage(NotebookPage):
             if prev is None:
                 menu.append(Gtk.SeparatorMenuItem())
             prev = item
+        menu.attach_to_widget(widget)
         menu.show_all()
         if event is not None:
             menu.popup(None, None, guiutil.position_menu, widget, 

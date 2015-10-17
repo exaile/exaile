@@ -130,7 +130,7 @@ class GroupTaggerView(Gtk.TreeView):
             cell.connect( 'edited', self.on_edit )
         
         self.text_column = cell
-        self.append_column( Gtk.TreeViewColumn( _('Group'), self.text_column, text=1, weight=3 ) )
+        self.append_column( Gtk.TreeViewColumn( _('Tag'), self.text_column, text=1, weight=3 ) )
         
         #
         # Menu setup
@@ -145,11 +145,11 @@ class GroupTaggerView(Gtk.TreeView):
             
         if editable:
             
-            item = smi( 'addgrp', [], _('Add new group'), \
+            item = smi( 'addgrp', [], _('Add new tag'), \
                         callback=self.on_menu_add_group )
             self.menu.add_item( item )
             
-            item = smi( 'delgrp', ['addgrp'], _('Delete group'), \
+            item = smi( 'delgrp', ['addgrp'], _('Delete tag'), \
                         callback=self.on_menu_delete_group, \
                         condition_fn=lambda n,p,c: False if len(c['groups']) == 0 else True)
             self.menu.add_item( item )
@@ -279,7 +279,7 @@ class GroupTaggerView(Gtk.TreeView):
         
     def on_menu_add_category(self, widget, name, parent, context):
         # TODO: instead of dialog, just add a new thing, make it editable?
-        input = dialogs.TextEntryDialog( _('New Category?'), _('Enter new group category name'))
+        input = dialogs.TextEntryDialog( _('New Category?'), _('Enter new category name'))
         
         if input.run() == Gtk.ResponseType.OK:
             category = input.get_value()
@@ -502,7 +502,7 @@ class GroupTaggerWidget(Gtk.VBox):
         self.view = GroupTaggerView( exaile, GroupTaggerTreeStore(), editable=True )
         self.store = self.view.get_model()
         
-        self.tag_button = Gtk.Button( _('Add Group') )
+        self.tag_button = Gtk.Button( _('Add Tag') )
         self.tag_button.connect( 'clicked', self.on_add_tag_click )
         
         self.title.set_alignment(0,0.5)
@@ -779,7 +779,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
         self.show_all()
 
     def _init_combo(self, model):
-        combo = Gtk.ComboBox(model)
+        combo = Gtk.ComboBox.new_with_model(model)
         cell = Gtk.CellRendererText()
         combo.pack_start(cell, True)
         combo.add_attribute(cell, 'text', 0)

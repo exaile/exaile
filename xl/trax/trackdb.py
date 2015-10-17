@@ -223,7 +223,7 @@ class TrackDB(object):
                             
                     setattr(self, attr, data)
                 else:
-                    setattr(self, attr, pdata[attr])
+                    setattr(self, attr, pdata.get(attr, getattr(self, attr)))
             except Exception:
                 # FIXME: Do something about this
                 logger.exception("Exception occurred while loading %s" % location)

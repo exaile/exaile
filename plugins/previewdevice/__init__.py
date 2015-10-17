@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gdk
+from gi.repository import Gtk
 
 import os
 
@@ -89,7 +90,7 @@ class SecondaryOutputPlugin(object):
         # Initialize the player objects needed
         #
 
-        self.player = player.get_player('preview_device')
+        self.player = player.player.ExailePlayer('preview_device')
         self.queue = player.queue.PlayQueue(
             self.player,
             location=os.path.join(
@@ -115,7 +116,7 @@ class SecondaryOutputPlugin(object):
         event.log_event('preview_device_disabling', self, None)
         self._destroy_gui_hooks()
         self._destroy_gui()
-        self.player.stop()
+        self.player.destroy()
 
         self.player = None
         self.queue = None
@@ -123,20 +124,20 @@ class SecondaryOutputPlugin(object):
         logger.debug('Preview Device Disabled')
 
     def _init_gui(self):
-        self.pane = gtk.HPaned()
+        self.pane = Gtk.HPaned()
 
         # stolen from main
         self.info_area = main.MainWindowTrackInfoPane(self.player)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
-        self.info_area.hide_all()
+        self.info_area.hide()
         self.info_area.set_no_show_all(True)
 
         volume_control = playback.VolumeControl(self.player)
-        self.info_area.get_action_area().pack_start(volume_control)
+        self.info_area.get_action_area().pack_start(volume_control, True, True, 0)
 
-        self.playpause_button = gtk.Button()
-        self.playpause_button.set_relief(gtk.RELIEF_NONE)
+        self.playpause_button = Gtk.Button()
+        self.playpause_button.set_relief(Gtk.ReliefStyle.NONE)
         self._on_playback_end(None, None, None)
         self.playpause_button.connect(
             'button-press-event',
@@ -145,16 +146,16 @@ class SecondaryOutputPlugin(object):
 
         self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
 
-        play_toolbar = gtk.HBox()
-        play_toolbar.pack_start(self.playpause_button, expand=False, fill=False)
-        play_toolbar.pack_start(self.progress_bar)
+        play_toolbar = Gtk.HBox()
+        play_toolbar.pack_start(self.playpause_button, False, False, 0)
+        play_toolbar.pack_start(self.progress_bar, True, True, 0)
 
         # stick our player controls into this box
-        self.pane1_box = gtk.VBox()
+        self.pane1_box = Gtk.VBox()
 
-        self.pane2_box = gtk.VBox()
-        self.pane2_box.pack_start(self.info_area, expand=False, fill=False)
-        self.pane2_box.pack_start(play_toolbar, expand=False, fill=False)
+        self.pane2_box = Gtk.VBox()
+        self.pane2_box.pack_start(self.info_area, False, False, 0)
+        self.pane2_box.pack_start(play_toolbar, False, False, 0)
 
         self.pane.pack1(self.pane1_box, resize=True, shrink=True)
         self.pane.pack2(self.pane2_box, resize=True, shrink=True)
@@ -237,12 +238,12 @@ class SecondaryOutputPlugin(object):
         parent = info_area.get_parent()
         parent.remove(info_area)
 
-        parent.pack_start(self.pane, expand=False, fill=False)
+        parent.pack_start(self.pane, False, False, 0)
         parent.reorder_child(self.pane, 0)
 
         # stick the main player controls into this box
-        self.pane1_box.pack_start(info_area, expand=False, fill=False)
-        self.pane1_box.pack_start(play_toolbar, expand=False, fill=False)
+        self.pane1_box.pack_start(info_area, False, False, 0)
+        self.pane1_box.pack_start(play_toolbar, False, False, 0)
 
         # and do it
         self.pane.show_all()
@@ -279,9 +280,9 @@ class SecondaryOutputPlugin(object):
         parent.remove(self.pane)
 
         # reattach
-        parent.pack_start(info_area, expand=False, fill=False)
+        parent.pack_start(info_area, False, False, 0)
         parent.reorder_child(info_area, 0)
-        parent.pack_start(play_toolbar, expand=False, fill=False)
+        parent.pack_start(play_toolbar, False, False, 0)
 
         # remove player events
         self._setup_events(event.remove_callback)
@@ -316,10 +317,10 @@ class SecondaryOutputPlugin(object):
         """
 
         if event.button == 1:
-            if event.type == gtk.gdk.BUTTON_PRESS and \
+            if event.type == Gdk.EventType.BUTTON_PRESS and \
                     (self.player.is_paused() or self.player.is_playing()):
                 self.player.toggle_pause()
-            elif event.type == gtk.gdk._2BUTTON_PRESS:
+            elif event.type == Gdk.EventType._2BUTTON_PRESS:
                 self.player.stop()
 
     @guiutil.idle_add()
@@ -332,7 +333,7 @@ class SecondaryOutputPlugin(object):
             if settings.get_option(option, True):
                 self.info_area.show_all()
             else:
-                self.info_area.hide_all()
+                self.info_area.hide()
             self.info_area.set_no_show_all(True)
 
         elif option == 'gui/show_info_area_covers':
@@ -341,7 +342,7 @@ class SecondaryOutputPlugin(object):
             if settings.get_option(option, True):
                 cover.show_all()
             else:
-                cover.hide_all()
+                cover.hide()
             cover.set_no_show_all(True)
 
     def _on_playback_resume(self, type, player, data):
@@ -358,8 +359,8 @@ class SecondaryOutputPlugin(object):
             self.resuming = False
             return
 
-        image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-                                         gtk.ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+                                         Gtk.IconSize.BUTTON)
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text(
             _('Pause Playback (double click to stop)'))
@@ -370,8 +371,8 @@ class SecondaryOutputPlugin(object):
             Called when playback ends
         """
 
-        image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-                                         gtk.ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+                                         Gtk.IconSize.BUTTON)
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text(_('Start Playback'))
 
@@ -390,12 +391,12 @@ class SecondaryOutputPlugin(object):
             already begun
         """
         if player.is_paused():
-            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-                                             gtk.ICON_SIZE_BUTTON)
+            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+                                             Gtk.IconSize.BUTTON)
             tooltip = _('Continue Playback')
         else:
-            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-                                             gtk.ICON_SIZE_BUTTON)
+            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+                                             Gtk.IconSize.BUTTON)
             tooltip = _('Pause Playback')
 
         self.playpause_button.set_image(image)

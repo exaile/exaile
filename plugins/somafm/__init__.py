@@ -181,7 +181,11 @@ class SomaFMRadioStation(RadioStation):
         """
         if playlist_id not in self.playlists:
             set_status(_('Contacting SomaFM server...'))
-            self.playlists[playlist_id] = playlist.import_playlist(url)
+            try:
+                self.playlists[playlist_id] = playlist.import_playlist(url)
+            except:
+                set_status(_("Error importing playlist"))
+                logger.exception("Error importing playlist")
             set_status('')
 
         return self.playlists[playlist_id]

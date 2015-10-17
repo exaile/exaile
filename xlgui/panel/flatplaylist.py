@@ -24,8 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xl import trax
 from xl.nls import gettext as _
@@ -40,9 +41,9 @@ class FlatPlaylistPanel(panel.Panel):
         Flat playlist panel; represents a single playlist
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
     ui_info = ('flatplaylist.ui', 'FlatPlaylistPanelWindow')
@@ -51,7 +52,7 @@ class FlatPlaylistPanel(panel.Panel):
         panel.Panel.__init__(self, parent, name, label)
 
         self.box = self.builder.get_object('FlatPlaylistPanel')
-        self.model = gtk.ListStore(int, str, object)
+        self.model = Gtk.ListStore(int, str, object)
         self.tracks = []
         self._setup_tree()
         if not hasattr(self.parent, 'do_import'):
@@ -77,34 +78,34 @@ class FlatPlaylistPanel(panel.Panel):
     def _setup_tree(self):
         self.tree = FlatPlaylistDragTreeView(self, False, True)
         selection = self.tree.get_selection()
-        selection.set_mode(gtk.SELECTION_MULTIPLE)
+        selection.set_mode(Gtk.SelectionMode.MULTIPLE)
 
         self.tree.set_headers_visible(True)
         self.tree.set_model(self.model)
-        self.scroll = gtk.ScrolledWindow()
-        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scroll = Gtk.ScrolledWindow()
+        self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.scroll.add(self.tree)
-        self.scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.box.pack_start(self.scroll, True, True)
+        self.scroll.set_shadow_type(Gtk.ShadowType.IN)
+        self.box.pack_start(self.scroll, True, True, 0)
 
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('#'))
+        text = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn(_('#'))
         col.pack_start(text, False)
         col.set_attributes(text, text=0)
         col.set_fixed_width(50)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         self.tree.append_column(col)
 
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Title'))
+        text = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn(_('Title'))
         col.pack_start(text, True)
         col.set_attributes(text, text=1)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        col.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
         col.set_cell_data_func(text, self._title_data_func)
         self.tree.append_column(col)
         self.box.show_all()
 
-    def _title_data_func(self, col, cell, model, iter):
+    def _title_data_func(self, col, cell, model, iter, _unused):
         if not model.iter_is_valid(iter): return
         item = model.get_value(iter, 2)
         cell.set_property('text', item.get_tag_display("title"))
@@ -132,7 +133,7 @@ class FlatPlaylistPanel(panel.Panel):
             if len(self.tree.get_selected_tracks()) >= 2:
                 (mods,paths) = selection.get_selected_rows()
                 if (path[0] in paths):
-                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
                         return False
                     return True
                 else:

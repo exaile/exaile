@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import main, providers, playlist, event
@@ -38,21 +38,22 @@ def __create_queue_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('clear', [], None, 'gtk-clear',
+    items.append(smi('clear', [], _("_Clear Queue"), 'edit-clear-all',
         lambda w, n, o, c: o.player.queue.clear()))
     
     def _saveas_playlist_cb(widget, name, page, context):
         exaile = main.exaile()
-        name = dialogs.ask_for_playlist_name(exaile.playlists, "")
+        name = dialogs.ask_for_playlist_name(
+            exaile.gui.main.window, exaile.playlists)
         if name is not None:
             pl = playlist.Playlist(name, page.playlist[:])
             exaile.playlists.save_playlist(pl)
             page.container.create_tab_from_playlist(pl)
     
-    items.append(smi('saveas', ['clear'], None, 'gtk-save-as',
+    items.append(smi('saveas', ['clear'], _("_Save as Playlist"), 'document-save-as',
         _saveas_playlist_cb))
     items.append(sep('tab-close-sep', ['saveas']))
-    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
+    items.append(smi('tab-close', ['tab-close-sep'], _("Close _Tab"), 'window-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('queue-tab-context', item)
@@ -62,13 +63,13 @@ class QueuePage(NotebookPage):
     menu_provider_name = 'queue-tab-context'
     def __init__(self, container, player):
         NotebookPage.__init__(self)
-        self.container = container
+        self.plcontainer = container
         self.player = player
         self.playlist = player.queue # a queue is a playlist object... 
         
-        self.swindow = gtk.ScrolledWindow()
-        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.pack_start(self.swindow, True, True)
+        self.swindow = Gtk.ScrolledWindow()
+        self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.pack_start(self.swindow, True, True, 0)
 
         self.view = PlaylistView(self.player.queue, self.player)
         self.view.dragdrop_copyonly = True
@@ -85,7 +86,7 @@ class QueuePage(NotebookPage):
         if len(self.player.queue) == 0:
             self.tab.set_closable(True)
         else:
-            self.container.show_queue(switch=False)
+            self.plcontainer.show_queue(switch=False)
             self.tab.set_closable(False)
 
 

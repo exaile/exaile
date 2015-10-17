@@ -14,8 +14,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import glib
-import gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import os.path
 
 from xl.nls import gettext as _
@@ -52,7 +54,7 @@ class RequestAccessPermissionButton(widgets.Button):
 
         self.message = dialogs.MessageBar(
             parent = preferences.builder.get_object('preferences_box'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
         self.errors = {
             pylast.STATUS_INVALID_API_KEY: _('The API key is invalid.')
@@ -74,21 +76,21 @@ class RequestAccessPermissionButton(widgets.Button):
                 password_hash=settings.get_option('plugin/ascrobbler/password', '')
             )
         except pylast.WSError as e:
-            glib.idle_add(
+            GLib.idle_add(
                 self.message.show_error, 
                 self.errors[int(e.get_id())],
                 _('Please make sure the entered data is correct.')
             )
         else:
-            application_launched = gtk.show_uri(
-                gtk.gdk.screen_get_default(),
+            application_launched = Gtk.show_uri(
+                Gdk.Screen.get_default(),
                 'http://www.last.fm/api/auth?api_key={0}'.format(api_key),
-                gtk.gdk.CURRENT_TIME
+                Gdk.CURRENT_TIME
             )
 
             if not application_launched:
                 url = 'http://www.last.fm/api/auth?api_key={0}'.format(api_key)
-                glib.idle_add(
+                GLib.idle_add(
                     self.message.show_warning,
                     _('Could not start web browser'),
                     _('Please copy the following URL and '

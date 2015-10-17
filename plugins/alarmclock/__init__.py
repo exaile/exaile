@@ -1,29 +1,13 @@
-import gtk, time, glib, thread
+
+from gi.repository import GLib
+
+import time, thread
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
 import acprefs
 from xl import settings
-ALARM=None
-RANG = dict()
 
-def enable(exaile):
-    """
-        Starts the timer
-    """
-    global ALARM
-    ALARM=Alarmclock()
-    ALARM.enable_alarm()
-
-def disable(exaile):
-    """
-        Stops the timer for this plugin
-    """
-    if ALARM: ALARM.disable_alarm()
-
-def get_preferences_pane():
-    if ALARM: ALARM.enable_alarm()
-    return acprefs
 
 class VolumeControl:
     def __init__(self):
@@ -81,19 +65,21 @@ class VolumeControl:
 class Alarmclock(object):
 
     def __init__(self):
+        self.last_activate=None
         self.timer_id=None
         self.volume_control=VolumeControl()
 
     def timout_alarm(self):
         """
-        Called every two seconds.  If the plugin is not enabled, it does
+        Called every 5 seconds.  If the plugin is not enabled, it does
         nothing.  If the current time matches the time specified, it starts
         playing
         """
+        
         self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
         self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
-        active_days_dict = [
+        active_days = [
             settings.get_option('plugin/alarmclock/sunday', False),
             settings.get_option('plugin/alarmclock/monday', False),
             settings.get_option('plugin/alarmclock/tuesday', False),
@@ -102,30 +88,42 @@ class Alarmclock(object):
             settings.get_option('plugin/alarmclock/friday', False),
             settings.get_option('plugin/alarmclock/saturday', False)
         ]
-
-        if not self.hour and self.minuts: return True
-        if not active_days_dict: return True
-
+        
+        if True not in active_days:
+            return True
+        
         current = time.strftime("%H:%M", time.localtime())
         curhour = int(current.split(":")[0])
         curminuts = int(current.split(":")[1])
         currentDay = int(time.strftime("%w", time.localtime()))
-        if curhour==self.hour and curminuts==self.minuts and active_days_dict[currentDay]==True:
-            check = time.strftime("%m %d %Y %H:%M")
-            if RANG.has_key(check): return True
-            track = player.PLAYER.current
-            if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()): return True
-            player.QUEUE.play()
-            self.volume_control.fade_in_thread()
-
-            RANG[check] = True
+        
+        if curhour==self.hour and curminuts==self.minuts and \
+            active_days[currentDay]==True:
+            
+            if current != self.last_activate:
+            
+                self.last_activate = current
+                track = player.PLAYER.current
+                if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()): return True
+                player.QUEUE.play()
+                self.volume_control.fade_in_thread()
+        else:
+            self.last_activate = None
 
         return True
 
-    def enable_alarm(self):
-        if self.timer_id !=  None :
-            glib.source_remove(self.timer_id)
-        self.timer_id = glib.timeout_add_seconds(5, self.timout_alarm)
+    def enable(self, exaile):
+        if self.timer_id is not None:
+            GLib.source_remove(self.timer_id)
+        self.timer_id = GLib.timeout_add_seconds(5, self.timout_alarm)
 
-    def disable_alarm(self):
-        glib.source_remove(self.timer_id)
+    def disable(self, exaile):
+        if self.timer_id is not None:
+            GLib.source_remove(self.timer_id)
+        self.timer_id = None
+        
+    def get_preferences_pane(self):
+        return acprefs
+
+
+plugin_class = Alarmclock

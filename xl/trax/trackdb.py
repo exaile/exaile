@@ -31,7 +31,7 @@ import shelve
 
 from copy import deepcopy
 
-import glib
+from gi.repository import GLib
 
 from xl import common, event
 from xl.nls import gettext as _
@@ -201,8 +201,7 @@ class TrackDB(object):
         except common.VersionError:
             raise
         except Exception:
-            logger.error("Failed to open music DB.")
-            common.log_exception(log=logger)
+            logger.exception("Failed to open music DB.")
             return
 
         for attr in self.pickle_attrs:
@@ -227,8 +226,7 @@ class TrackDB(object):
                     setattr(self, attr, pdata[attr])
             except Exception:
                 # FIXME: Do something about this
-                logger.warn("Exception occurred while loading %s" % location)
-                common.log_exception(log=logger)
+                logger.exception("Exception occurred while loading %s" % location)
 
         pdata.close()
 
@@ -276,8 +274,7 @@ class TrackDB(object):
                 raise common.VersionError, \
                     "DB was created on a newer Exaile."
         except Exception:
-            logger.error("Failed to open music DB for writing.")
-            common.log_exception(log=logger)
+            logger.exception("Failed to open music DB for writing.")
             return
 
         for attr in self.pickle_attrs:

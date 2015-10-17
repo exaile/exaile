@@ -1,22 +1,32 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
+  <object class="GtkListStore" id="liststore_libraries_location">
+    <columns>
+      <!-- column-name value -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="FilesPanelWindow">
+    <property name="can_focus">False</property>
     <property name="title" translatable="yes">Files</property>
     <child>
-      <object class="GtkVBox" id="FilesPanel">
+      <object class="GtkBox" id="FilesPanel">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkVBox" id="files_box">
+          <object class="GtkBox" id="files_box">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="border_width">3</property>
             <property name="orientation">vertical</property>
             <property name="spacing">3</property>
             <child>
-              <object class="GtkHBox" id="hbox20">
+              <object class="GtkBox" id="hbox20">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="files_back_button">
                     <property name="visible">True</property>
@@ -28,7 +38,8 @@
                     <child>
                       <object class="GtkImage" id="image44">
                         <property name="visible">True</property>
-                        <property name="stock">gtk-go-back</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">go-previous</property>
                       </object>
                     </child>
                   </object>
@@ -49,7 +60,8 @@
                     <child>
                       <object class="GtkImage" id="image45">
                         <property name="visible">True</property>
-                        <property name="stock">gtk-go-forward</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">go-next</property>
                       </object>
                     </child>
                   </object>
@@ -69,7 +81,8 @@
                     <child>
                       <object class="GtkImage" id="image46">
                         <property name="visible">True</property>
-                        <property name="stock">gtk-go-up</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">go-up</property>
                       </object>
                     </child>
                   </object>
@@ -89,7 +102,8 @@
                     <child>
                       <object class="GtkImage" id="image43">
                         <property name="visible">True</property>
-                        <property name="stock">gtk-refresh</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">view-refresh</property>
                       </object>
                     </child>
                   </object>
@@ -110,6 +124,7 @@
                     <child>
                       <object class="GtkImage" id="image47">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="icon_name">user-home</property>
                       </object>
                     </child>
@@ -134,14 +149,21 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="files_entry">
+              <object class="GtkComboBox" id="files_entry">
                 <property name="visible">True</property>
+                <property name="can_focus">True</property>
                 <property name="model">liststore_libraries_location</property>
+                <property name="has_entry">True</property>
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                   <attributes>
                     <attribute name="text">0</attribute>
                   </attributes>
+                </child>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry1">
+                    <property name="can_focus">True</property>
+                  </object>
                 </child>
               </object>
               <packing>
@@ -153,10 +175,11 @@
             <child>
               <object class="GtkEntry" id="files_search_entry">
                 <property name="visible">True</property>
-                <property name="primary_icon_stock">gtk-find</property>
+                <property name="can_focus">True</property>
+                <property name="primary_icon_name">edit-find</property>
+                <property name="secondary_icon_name">edit-clear</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_sensitive">False</property>
-                <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
               </object>
               <packing>
@@ -170,16 +193,12 @@
             </child>
           </object>
           <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="liststore_libraries_location">
-    <columns>
-      <!-- column-name value -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>

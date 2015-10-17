@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gtk
+from gi.repository import GLib
+from gi.repository import Gtk
 
 from xl import common, xdg
 from xl.nls import gettext as _
@@ -52,7 +52,7 @@ class ShowTabBarPreference(widgets.CheckPreference):
     name = 'gui/show_tabbar'
     
 def _get_system_default_font():
-    return gtk.widget_get_default_style().font_desc.to_string()
+    return Gtk.Widget.get_default_style().font_desc.to_string()
 
 class PlaylistFontPreference(widgets.FontButtonPreference):
     default = _get_system_default_font()
@@ -79,7 +79,7 @@ class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional)
 
     def apply(self, value=None):
         return_value = widgets.ScalePreference.apply(self, value)
-        glib.idle_add(self.preferences.parent.queue_draw)
+        GLib.idle_add(self.preferences.parent.queue_draw)
 
         return return_value
 

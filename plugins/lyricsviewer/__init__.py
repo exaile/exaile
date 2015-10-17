@@ -24,11 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
-import glib
-import pango
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GLib
+from gi.repository import Pango
+
 import os
 import webbrowser
+
+from gi.repository import GdkPixbuf
 
 from xl.nls import gettext as _
 from xl import (
@@ -91,12 +95,12 @@ class LyricsViewer(object):
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
         event.add_callback(self.on_option_set, 'plugin_lyricsviewer_option_set')
-        self.style_handler = self.notebook.connect('style-set', self.set_style)
+        #self.style_handler = self.notebook.connect('style-set', self.set_style)
 
         self.update_lyrics()
 
     def _initialize_widgets(self):
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(os.path.join(BASEDIR, self.ui))
         builder.connect_signals({
             'on_RefreshButton_clicked' : self.on_refresh_button_clicked,
@@ -117,26 +121,26 @@ class LyricsViewer(object):
 
         self.refresh_button = builder.get_object('RefreshButton')
         self.refresh_button_image = builder.get_object('RefreshLyrics')
-        self.loading_animation = gtk.gdk.PixbufAnimation(
+        self.loading_animation = GdkPixbuf.PixbufAnimation.new_from_file(
                 os.path.join(IMAGEDIR, self.loading_image))
 
        #track name title text
         self.track_text = builder.get_object('TrackText')
-        self.track_text.modify_font(pango.FontDescription("Bold"))
+        self.track_text.modify_font(Pango.FontDescription("Bold"))
         self.track_text_buffer = builder.get_object('TrackTextBuffer')
        #trackname end
 
        #the textview which cointains the lyrics
         self.lyrics_text = builder.get_object('LyricsText')
         self.lyrics_text_buffer = builder.get_object('LyricsTextBuffer')
-        self.lyrics_text.modify_font(pango.FontDescription(
+        self.lyrics_text.modify_font(Pango.FontDescription(
                 settings.get_option('plugin/lyricsviewer/lyrics_font')))
        #end lyrictextview
 
        #text url and source
         self.lyrics_source_text = builder.get_object('LyricsSourceText')
         self.lyrics_source_text.modify_font(
-                pango.FontDescription("Bold Italic"))
+                Pango.FontDescription("Bold Italic"))
         self.lyrics_source_text_buffer = builder.get_object(
                 'LyricsSourceTextBuffer')
 
@@ -146,11 +150,12 @@ class LyricsViewer(object):
         lyrics_source_tag_table.add(self.url_tag)
        #end text url and source
 
-        self.set_style(self.notebook)
+        # TODO: GI: Style must be set via a different mechanism 
+        #self.set_style(self.notebook)
     #end initialize_widgets
     def on_option_set(self, event, settings, option):
         if option == 'plugin/lyricsviewer/lyrics_font':
-            self.lyrics_text.modify_font(pango.FontDescription(
+            self.lyrics_text.modify_font(Pango.FontDescription(
                     settings.get_option(option)))
 
     def remove_callbacks(self):
@@ -161,14 +166,14 @@ class LyricsViewer(object):
                 'lyrics_search_method_added')
         event.remove_callback(self.on_option_set,
                 'plugin_lyricsviewer_option_set')
-        self.notebook.disconnect(self.style_handler)
+        #self.notebook.disconnect(self.style_handler)
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics()
 
     def on_track_tags_changed(self, eventtype, track, tag):
-         if player.PLAYER.current == track and tag in ["artist", "title"]:
-             self.update_lyrics()
+        if player.PLAYER.current == track and tag in ["artist", "title"]:
+            self.update_lyrics()
 
     def playback_cb(self, eventtype, player, data):
         self.update_lyrics()
@@ -184,26 +189,26 @@ class LyricsViewer(object):
             depending on its position.
         """
         tag = None
-        window = textview.get_window(gtk.TEXT_WINDOW_TEXT)
-        cursor_type = window.get_cursor().type.value_name
+        window = textview.get_window(Gtk.TextWindowType.TEXT)
+        cursor_type = window.get_cursor().get_cursor_type().value_name
 
         if self.source_url != "":
-            x, y, mod = window.get_pointer()
-            x, y = textview.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, x, y)
+            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT,
+                                                    event.x, event.y)
             tag = textview.get_iter_at_location(x, y).get_tags()
             tooltip_text = textview.get_tooltip_text()
 
             if (cursor_type == "GDK_XTERM" or self.source_url != tooltip_text) \
                     and tag:
                 #url_tag affected by the motion event
-                window.set_cursor(gtk.gdk.Cursor(gtk.gdk.HAND2))
+                window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.HAND2))
                 textview.set_tooltip_text(self.source_url)
                 return
 
         if cursor_type == "GDK_HAND2"  and not tag:
             #url_tag not affected by the motion event
             #restore default state
-            window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+            window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
             self.lyrics_source_text.set_tooltip_text(None)
 
     def on_url_tag_event(self, tag, widget, event, iter):
@@ -211,7 +216,7 @@ class LyricsViewer(object):
             Catches when the user clicks the url_tag .
             Opens a new page (or tab) in the preferred browser.
         """
-        if event.type == gtk.gdk.BUTTON_RELEASE:
+        if event.type == Gdk.EventType.BUTTON_RELEASE:
             self.open_url(self.source_url)
 
     @common.threaded
@@ -244,8 +249,8 @@ class LyricsViewer(object):
             return False
 
         if self._lyrics_id != 0:
-            glib.source_remove(self._lyrics_id)
-        self._lyrics_id = glib.idle_add(do_update, refresh)
+            GLib.source_remove(self._lyrics_id)
+        self._lyrics_id = GLib.idle_add(do_update, refresh)
 
     @common.threaded
     def get_lyrics(self, track, lyrics_id, refresh = False):
@@ -285,7 +290,7 @@ class LyricsViewer(object):
                     lyrics, source, url = lyr, sou, ur
                     break
         if self._lyrics_id == lyrics_id:
-            glib.idle_add(self.lyrics_text_buffer.set_text, lyrics)
+            GLib.idle_add(self.lyrics_text_buffer.set_text, lyrics)
             self.update_source_text(source, url)
 
     @guiutil.idle_add()
@@ -311,7 +316,7 @@ class LyricsViewer(object):
     def set_top_box_widgets(self, state, init = False):
         if state or init:
             self.refresh_button_image.set_from_icon_name(
-                    'view-refresh', gtk.ICON_SIZE_BUTTON)
+                    'view-refresh', Gtk.IconSize.BUTTON)
         else:
             self.refresh_button_image.set_from_animation(
                     self.loading_animation)
@@ -323,7 +328,7 @@ class LyricsViewer(object):
         """
             Sets lyricsviewer style according to the widget param passed
         """
-        states = [gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_SELECTED]
+        states = [Gtk.StateType.NORMAL, Gtk.StateType.ACTIVE, Gtk.StateType.SELECTED]
         widget_style = widget.get_style()
         bg = widget_style.bg
         fg = widget_style.fg
@@ -337,8 +342,8 @@ class LyricsViewer(object):
 
     @guiutil.idle_add()
     def modify_textview_look(self, textview, state, base_color, text_color):
-        textview.modify_base(state, gtk.gdk.color_parse(base_color))
-        textview.modify_text(state, gtk.gdk.color_parse(text_color))
+        textview.modify_base(state, Gdk.color_parse(base_color))
+        textview.modify_text(state, Gdk.color_parse(text_color))
 
     def get_panel(self):
         '''Returns panel for panel interface'''
@@ -347,20 +352,15 @@ class LyricsViewer(object):
             self._panel = NotebookPage(self.lyrics_panel, _('Lyrics'))
         return self._panel
 
-class LyricsMethodsComboBox(gtk.ComboBox, providers.ProviderHandler):
+class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
     """
-        An extended gtk.ComboBox class.
+        An extended Gtk.ComboBox class.
         Shows lyrics methods search registered
     """
     def __init__(self, exaile):
-        gtk.ComboBox.__init__(self)
+        Gtk.ComboBoxText.__init__(self)
         providers.ProviderHandler.__init__(self, 'lyrics')
-
-        liststore = gtk.ListStore(str)
-        self.set_model(liststore)
-        cell = gtk.CellRendererText()
-        self.pack_start(cell, True)
-        self.add_attribute(cell, 'text', 0)
+        
         self.model = self.get_model()
         # Default value, any registered lyrics provider
         self.append_text(_("Any"))
@@ -373,13 +373,13 @@ class LyricsMethodsComboBox(gtk.ComboBox, providers.ProviderHandler):
     def remove_item(self, name):
         index = self.search_item(name)
         if index:
-            glib.idle_add(self.remove_text, index)
+            GLib.idle_add(self.remove, index)
             return True
         return False
 
     def append_item(self, name):
         if not self.search_item(name):
-            glib.idle_add(self.append_text, name)
+            GLib.idle_add(self.append_text, name)
             return True
         return False
 
@@ -392,11 +392,7 @@ class LyricsMethodsComboBox(gtk.ComboBox, providers.ProviderHandler):
         return False
 
     def get_active_item(self):
-        active = self.get_active()
-        if active >= 0:
-            return (active, self.model[active][0])
-        else:
-            return (None, None)
+        return self.get_active(), self.get_active_text()
 
     def on_provider_added(self, provider):
         self.append_item(provider.display_name)

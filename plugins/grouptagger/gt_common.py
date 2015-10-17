@@ -29,8 +29,8 @@
 #
 
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
  
 import re
  
@@ -99,7 +99,7 @@ def set_track_groups(track, groups):
     track.set_tag_raw(get_tagname(), grouping )
     
     if not track.write_tags():
-        dialogs.error( None, "Error writing tags to %s" % gobject.markup_escape_text(track.get_loc_for_io()) )
+        dialogs.error( None, "Error writing tags to %s" % GObject.markup_escape_text(track.get_loc_for_io()) )
         return False
         
     return True
@@ -167,7 +167,7 @@ def create_custom_search_playlist( groups, exaile ):
     '''Create a playlist based on groups, and user input in a shiny dialog'''
 
     dialog = gt_widgets.GroupTaggerQueryDialog( groups )
-    if dialog.run() == gtk.RESPONSE_OK:
+    if dialog.run() == Gtk.ResponseType.OK:
         name, search_string = dialog.get_search_params()
         _create_search_playlist( name, search_string, exaile )
 

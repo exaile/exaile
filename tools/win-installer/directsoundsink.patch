@@ -1,88 +1,152 @@
-diff --git a/sys/directsound/Makefile.am b/sys/directsound/Makefile.am
-index b797551..4c1ba56 100644
---- a/sys/directsound/Makefile.am
-+++ b/sys/directsound/Makefile.am
-@@ -1,6 +1,9 @@
- plugin_LTLIBRARIES = libgstdirectsoundsink.la
+From 9251ac9d92deffbd77cfdbed59506b9514d77cd6 Mon Sep 17 00:00:00 2001
+From: Dustin Spicuzza <dustin@virtualroadside.com>
+Date: Sun, 16 Aug 2015 01:53:07 -0400
+Subject: [PATCH] Custom directsoundsink patch for Exaile
+
+---
+ configure.ac                           |  5 ++-
+ sys/directsound/gstdirectsoundplugin.c |  4 +-
+ sys/directsound/gstdirectsoundsink.c   | 74 +++++++++++++++++++++++++++++++++-
+ sys/directsound/gstdirectsoundsink.h   |  6 +++
+ 4 files changed, 83 insertions(+), 6 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6b44cea..7efe850 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -388,7 +388,7 @@ AG_GST_CHECK_FEATURE(DIRECTSOUND, [DirectSound plug-in], directsoundsink, [
+   save_LIBS="$LIBS"
+   CFLAGS="$CFLAGS $DIRECTSOUND_CFLAGS"
+   LDFLAGS="$LDFLAGS $DIRECTSOUND_LDFLAGS"
+-  LIBS="$LIBS -ldsound -ldxerr9 -luser32"
++  LIBS="$LIBS -ldsound -ldxerr9 -luser32 -lole32"
+   AC_MSG_CHECKING(for DirectSound LDFLAGS)
+   AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+ #include <windows.h>
+@@ -397,6 +397,7 @@ AG_GST_CHECK_FEATURE(DIRECTSOUND, [DirectSound plug-in], directsoundsink, [
+ ]], [[
+   DXGetErrorString9 (0);
+   DirectSoundCreate(NULL, NULL, NULL);
++  CLSIDFromString(NULL, NULL);
+ ]])
+ ],
+     [HAVE_DIRECTSOUND="yes"],
+@@ -408,7 +409,7 @@ AG_GST_CHECK_FEATURE(DIRECTSOUND, [DirectSound plug-in], directsoundsink, [
  
--libgstdirectsoundsink_la_SOURCES =  gstdirectsoundsink.c gstdirectsoundplugin.c
-+libgstdirectsoundsink_la_SOURCES =  \
-+	gstdirectsound.c            \		
-+	gstdirectsoundsink.c        \ 
-+	gstdirectsoundplugin.c
- libgstdirectsoundsink_la_CFLAGS = \
- 	$(GST_PLUGINS_BASE_CFLAGS) \
- 	$(GST_BASE_CFLAGS) \
-@@ -17,4 +20,4 @@ if !GST_PLUGIN_BUILD_STATIC
- libgstdirectsoundsink_la_LIBTOOLFLAGS = --tag=disable-static
- endif
+   if test "x$HAVE_DIRECTSOUND" = "xyes";  then
+     dnl this is much more than we want
+-    DIRECTSOUND_LIBS="-ldsound -ldxerr9 -luser32"
++    DIRECTSOUND_LIBS="-ldsound -ldxerr9 -luser32 -lole32"
+     AC_SUBST(DIRECTSOUND_CFLAGS)
+     AC_SUBST(DIRECTSOUND_LDFLAGS)
+     AC_SUBST(DIRECTSOUND_LIBS)
+diff --git a/sys/directsound/gstdirectsoundplugin.c b/sys/directsound/gstdirectsoundplugin.c
+index faee215..a3183f5 100644
+--- a/sys/directsound/gstdirectsoundplugin.c
++++ b/sys/directsound/gstdirectsoundplugin.c
+@@ -35,7 +35,7 @@
+ static gboolean
+ plugin_init (GstPlugin * plugin)
+ {
+-  if (!gst_element_register (plugin, "directsoundsink", GST_RANK_PRIMARY,
++  if (!gst_element_register (plugin, "exailedirectsoundsink", GST_RANK_PRIMARY,
+           GST_TYPE_DIRECTSOUND_SINK))
+     return FALSE;
  
--noinst_HEADERS = gstdirectsoundsink.h
-+noinst_HEADERS = gstdirectsound.h gstdirectsoundsink.h
-diff --git a/sys/directsound/gstdirectsound.c b/sys/directsound/gstdirectsound.c
-new file mode 100644
-index 0000000..bbcdebc
---- /dev/null
-+++ b/sys/directsound/gstdirectsound.c
-@@ -0,0 +1,199 @@
-+/* GStreamer
-+ * Copyright (C) 2005 Sebastien Moutte <sebastien@moutte.net>
-+ * Copyright (C) 2007-2009 Pioneers of the Inevitable <songbird@songbirdnest.com>
-+ *
-+ * gstdirectsound.c:
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Library General Public
-+ * License as published by the Free Software Foundation; either
-+ * version 2 of the License, or (at your option) any later version.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Library General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Library General Public
-+ * License along with this library; if not, write to the
-+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-+ * Boston, MA 02111-1307, USA.
-+ *
-+ * The development of this code was made possible due to the involvement
-+ * of Pioneers of the Inevitable, the creators of the Songbird Music player
-+ *
-+ */
+@@ -45,5 +45,5 @@ plugin_init (GstPlugin * plugin)
+ GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
+     GST_VERSION_MINOR,
+     directsound,
+-    "Direct Sound plugin library",
++    "Direct Sound plugin library (Exaile)",
+     plugin_init, VERSION, "LGPL", GST_PACKAGE_NAME, GST_PACKAGE_ORIGIN)
+diff --git a/sys/directsound/gstdirectsoundsink.c b/sys/directsound/gstdirectsoundsink.c
+index 56b0418..3788cf9 100644
+--- a/sys/directsound/gstdirectsoundsink.c
++++ b/sys/directsound/gstdirectsoundsink.c
+@@ -101,6 +101,10 @@ static gdouble gst_directsound_sink_get_volume (GstDirectSoundSink * sink);
+ static void gst_directsound_sink_set_mute (GstDirectSoundSink * sink,
+     gboolean mute);
+ static gboolean gst_directsound_sink_get_mute (GstDirectSoundSink * sink);
++static const gchar *gst_directsound_sink_get_device (GstDirectSoundSink *
++    dsoundsink);
++static void gst_directsound_sink_set_device (GstDirectSoundSink * dsoundsink,
++    const gchar * device_id);
+ 
+ static gboolean gst_directsound_sink_is_spdif_format (GstAudioRingBufferSpec *
+     spec);
+@@ -124,7 +128,8 @@ enum
+ {
+   PROP_0,
+   PROP_VOLUME,
+-  PROP_MUTE
++  PROP_MUTE,
++  PROP_DEVICE
+ };
+ 
+ #define gst_directsound_sink_parent_class parent_class
+@@ -137,6 +142,11 @@ gst_directsound_sink_finalize (GObject * object)
+ {
+   GstDirectSoundSink *dsoundsink = GST_DIRECTSOUND_SINK (object);
+ 
++  if (dsoundsink->device_id) {
++    g_free (dsoundsink->device_id);
++    dsoundsink->device_id = NULL;
++  }
 +
-+#ifdef HAVE_CONFIG_H
-+#include "config.h"
-+#endif
+   g_mutex_clear (&dsoundsink->dsound_lock);
+ 
+   G_OBJECT_CLASS (parent_class)->finalize (object);
+@@ -189,6 +199,12 @@ gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
+           "Mute state of this stream", DEFAULT_MUTE,
+           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+ 
++  g_object_class_install_property (gobject_class,
++      PROP_DEVICE,
++      g_param_spec_string ("device", "Device",
++          "DirectSound playback device as a GUID string",
++          NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 +
-+// note: INITGUID clashes with amstrmid.lib from winks, if both plugins are
-+//   statically built together.  we'll get around this by only defining the
-+//   directsound-specific GUIDs we actually use (see dsguids.c)
-+//#define INITGUID
-+
-+#include "gstdirectsound.h"
-+
-+#include <objbase.h>
-+#include <math.h>
-+
-+GST_DEBUG_CATEGORY (directsound);
-+
-+#define GST_CAT_DEFAULT directsound
-+
-+static gchar *
-+guid_to_string (LPGUID in)
-+{
-+  WCHAR buffer[256];
-+  if (StringFromGUID2 (in, buffer, sizeof buffer / sizeof buffer[0]) == 0)
-+    return NULL;
-+  return g_utf16_to_utf8 ((const gunichar2 *) buffer, -1, NULL, NULL, NULL);
-+}
-+
+   gst_element_class_set_static_metadata (element_class,
+       "Direct Sound Audio Sink", "Sink/Audio",
+       "Output to a sound card via Direct Sound",
+@@ -203,6 +219,7 @@ gst_directsound_sink_init (GstDirectSoundSink * dsoundsink)
+ {
+   dsoundsink->volume = 100;
+   dsoundsink->mute = FALSE;
++  dsoundsink->device_id = NULL;
+   dsoundsink->pDS = NULL;
+   dsoundsink->cached_caps = NULL;
+   dsoundsink->pDSBSecondary = NULL;
+@@ -226,6 +243,9 @@ gst_directsound_sink_set_property (GObject * object,
+     case PROP_MUTE:
+       gst_directsound_sink_set_mute (sink, g_value_get_boolean (value));
+       break;
++    case PROP_DEVICE:
++      gst_directsound_sink_set_device (sink, g_value_get_string (value));
++      break;
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+@@ -245,6 +265,9 @@ gst_directsound_sink_get_property (GObject * object,
+     case PROP_MUTE:
+       g_value_set_boolean (value, gst_directsound_sink_get_mute (sink));
+       break;
++    case PROP_DEVICE:
++      g_value_set_string (value, gst_directsound_sink_get_device (sink));
++      break;
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+@@ -378,22 +401,53 @@ gst_directsound_sink_query (GstBaseSink * sink, GstQuery * query)
+   return res;
+ }
+ 
 +static LPGUID
 +string_to_guid (const gchar * str)
 +{
 +  HRESULT ret;
-+  gunichar2 * wstr;
++  gunichar2 *wstr;
 +  LPGUID out;
 +
 +  wstr = g_utf8_to_utf16 (str, -1, NULL, NULL, NULL);
@@ -100,584 +164,18 @@ index 0000000..bbcdebc
 +  return out;
 +}
 +
-+static BOOL CALLBACK
-+cb_enum (LPGUID lpGUID, LPCWSTR lpszDesc, LPCWSTR lpszDrvName, LPVOID lpContext)
-+{
-+  GList ** list;
-+  gst_directsound_device * dev;
-+
-+  list = (GList **) lpContext;
-+  dev = gst_directsound_device_alloc ();
-+
-+  if (lpGUID == NULL) {
-+    /* default device */
-+    dev->id = g_strdup ("");
-+  }
-+  else {
-+    dev->id = guid_to_string (lpGUID);
-+    if (!dev->id) {
-+      gst_directsound_device_free (dev);
-+      return TRUE;
-+    }
-+  }
-+
-+  dev->name = g_utf16_to_utf8 ((const gunichar2 *) lpszDesc, -1, NULL, NULL,
-+      NULL);
-+  if (!dev->name) {
-+    gst_directsound_device_free (dev);
-+    return TRUE;
-+  }
-+
-+  *list = g_list_append (*list, dev);
-+
-+  return TRUE;
-+}
-+
-+gst_directsound_device *
-+gst_directsound_device_alloc ()
-+{
-+  gst_directsound_device * dev;
-+  dev = g_malloc (sizeof (gst_directsound_device));
-+  dev->id = NULL;
-+  dev->name = NULL;
-+  return dev;
-+}
-+
-+void
-+gst_directsound_device_free (gst_directsound_device * dev)
-+{
-+  if (!dev)
-+    return;
-+
-+  if (dev->id)
-+    g_free (dev->id);
-+  if (dev->name)
-+    g_free (dev->name);
-+
-+  g_free (dev);
-+}
-+
-+void
-+gst_directsound_device_free_func (gpointer data, gpointer user_data)
-+{
-+  gst_directsound_device_free ((gst_directsound_device *) data);
-+}
-+
-+GList *
-+gst_directsound_playback_device_list ()
-+{
-+    GList * out = NULL;
-+    if (FAILED (DirectSoundEnumerateW ((LPDSENUMCALLBACK) cb_enum, &out))) {
-+      if (out)
-+        gst_directsound_device_list_free (out);
-+      return NULL;
-+    }
-+    return out;
-+}
-+
-+GList *
-+gst_directsound_capture_device_list ()
-+{
-+    GList * out = NULL;
-+    if (FAILED (DirectSoundCaptureEnumerateW ((LPDSENUMCALLBACK) cb_enum, &out))) {
-+      if (out)
-+        gst_directsound_device_list_free (out);
-+      return NULL;
-+    }
-+    return out;
-+}
-+
-+void
-+gst_directsound_device_list_free (GList * list)
-+{
-+  g_list_foreach (list, gst_directsound_device_free_func, NULL);
-+  g_list_free (list);
-+}
-+
-+LPGUID
-+gst_directsound_get_device_guid (const gchar * id)
-+{
-+  return string_to_guid (id);
-+}
-+
-+void
-+gst_directsound_set_volume (LPDIRECTSOUNDBUFFER8 pDSB8, gdouble volume)
-+{
-+  HRESULT hr;
-+  long dsVolume;
-+
-+  /* DirectSound controls volume using units of 100th of a decibel,
-+   * ranging from -10000 to 0. We use a linear scale of 0 - 100
-+   * here, so remap.
-+   */
-+  if (volume == 0)
-+    dsVolume = -10000;
-+  else
-+    dsVolume = 100 * (long) (20 * log10 (volume));
-+
-+  dsVolume = CLAMP (dsVolume, -10000, 0);
-+
-+  GST_DEBUG ("Setting volume on secondary buffer to %d", (int) dsVolume);
-+
-+  hr = IDirectSoundBuffer8_SetVolume (pDSB8, dsVolume);
-+  if (G_UNLIKELY (FAILED(hr))) {
-+    GST_WARNING ("Setting volume on secondary buffer failed.");
-+  }
-+}
-diff --git a/sys/directsound/gstdirectsound.h b/sys/directsound/gstdirectsound.h
-new file mode 100644
-index 0000000..3ee3049
---- /dev/null
-+++ b/sys/directsound/gstdirectsound.h
-@@ -0,0 +1,70 @@
-+/* GStreamer
-+ * Copyright (C) 2005 Sebastien Moutte <sebastien@moutte.net>
-+ * Copyright (C) 2007-2009 Pioneers of the Inevitable <songbird@songbirdnest.com>
-+ *
-+ * gstdirectsound.h:
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Library General Public
-+ * License as published by the Free Software Foundation; either
-+ * version 2 of the License, or (at your option) any later version.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Library General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Library General Public
-+ * License along with this library; if not, write to the
-+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-+ * Boston, MA 02111-1307, USA.
-+ *
-+ * The development of this code was made possible due to the involvement
-+ * of Pioneers of the Inevitable, the creators of the Songbird Music player
-+ *
-+ */
-+
-+#ifndef __GST_DIRECTSOUND_H__
-+#define __GST_DIRECTSOUND_H__
-+
-+#include <gst/gst.h>
-+
-+#include <windows.h>
-+#include <dxerr9.h>
-+
-+/* use directsound v8 */
-+#ifdef DIRECTSOUND_VERSION
-+  #undef DIRECTSOUND_VERSION
-+#endif
-+
-+#define DIRECTSOUND_VERSION 0x0800
-+
-+#include <dsound.h>
-+
-+GST_DEBUG_CATEGORY_EXTERN (directsound);
-+
-+G_BEGIN_DECLS
-+
-+typedef struct
-+{
-+  gchar * id;
-+  gchar * name;
-+} gst_directsound_device;
-+
-+gst_directsound_device * gst_directsound_device_alloc ();
-+void gst_directsound_device_free (gst_directsound_device * dev);
-+void gst_directsound_device_free_func (gpointer data,
-+    gpointer user_data);
-+
-+GList * gst_directsound_playback_device_list ();
-+GList * gst_directsound_capture_device_list ();
-+void gst_directsound_device_list_free (GList * list);
-+
-+/* if non-null, use g_free to free the guid */
-+LPGUID gst_directsound_get_device_guid (const gchar * id);
-+
-+void gst_directsound_set_volume (LPDIRECTSOUNDBUFFER8 pDSB8, gdouble volume);
-+
-+G_END_DECLS
-+
-+#endif /* __GST_DIRECTSOUND_H__ */
-diff --git a/sys/directsound/gstdirectsoundplugin.c b/sys/directsound/gstdirectsoundplugin.c
-index 7eede97..bb51cbe 100644
---- a/sys/directsound/gstdirectsoundplugin.c
-+++ b/sys/directsound/gstdirectsoundplugin.c
-@@ -35,7 +35,7 @@
  static gboolean
- plugin_init (GstPlugin * plugin)
+ gst_directsound_sink_open (GstAudioSink * asink)
  {
--  if (!gst_element_register (plugin, "directsoundsink", GST_RANK_PRIMARY,
-+  if (!gst_element_register (plugin, "exailedirectsoundsink", GST_RANK_PRIMARY,
-           GST_TYPE_DIRECTSOUND_SINK))
-     return FALSE;
- 
-@@ -44,6 +44,6 @@ plugin_init (GstPlugin * plugin)
- 
- GST_PLUGIN_DEFINE2 (GST_VERSION_MAJOR,
-     GST_VERSION_MINOR,
--    directsound,
--    "Direct Sound plugin library",
-+    exailedirectsound,
-+    "Direct Sound plugin library (for Exaile)",
-     plugin_init, VERSION, "LGPL", GST_PACKAGE_NAME, GST_PACKAGE_ORIGIN)
-diff --git a/sys/directsound/gstdirectsoundsink.c b/sys/directsound/gstdirectsoundsink.c
-index 7385cff..ef1d6eb 100644
---- a/sys/directsound/gstdirectsoundsink.c
-+++ b/sys/directsound/gstdirectsoundsink.c
-@@ -54,6 +54,7 @@
- 
- #include "gstdirectsoundsink.h"
- #include <gst/audio/gstaudioiec61937.h>
-+#include <gst/interfaces/propertyprobe.h>
- 
- #include <math.h>
- 
-@@ -99,6 +100,9 @@ static void
- gst_directsound_sink_implements_interface_init (GstImplementsInterfaceClass *
-     iface);
- static void gst_directsound_sink_mixer_interface_init (GstMixerClass * iface);
-+static void
-+gst_directsound_sink_property_probe_interface_init (GstPropertyProbeInterface * 
-+    iface);
- 
- static GstStaticPadTemplate directsoundsink_sink_factory =
-     GST_STATIC_PAD_TEMPLATE ("sink",
-@@ -120,10 +124,12 @@ static GstStaticPadTemplate directsoundsink_sink_factory =
- enum
- {
-   PROP_0,
--  PROP_VOLUME
-+  PROP_VOLUME,
-+  PROP_DEVICE,
-+  PROP_DEVICE_NAME
- };
- 
--GST_BOILERPLATE_FULL (GstDirectSoundSink, gst_directsound_sink, GstAudioSink,
-+GST_BOILERPLATE_FULL (GstExaileDirectSoundSink, gst_directsound_sink, GstAudioSink,
-     GST_TYPE_AUDIO_SINK, gst_directsound_sink_interfaces_init);
- 
- /* interfaces stuff */
-@@ -141,18 +147,28 @@ gst_directsound_sink_interfaces_init (GType type)
-     NULL,
-     NULL,
-   };
-+  
-+  static const GInterfaceInfo probe_iface_info = {
-+    (GInterfaceInitFunc) gst_directsound_sink_property_probe_interface_init,
-+    NULL,
-+    NULL,
-+  };
- 
-   g_type_add_interface_static (type,
-       GST_TYPE_IMPLEMENTS_INTERFACE, &implements_interface_info);
-   g_type_add_interface_static (type, GST_TYPE_MIXER, &mixer_interface_info);
-+  g_type_add_interface_static (type, GST_TYPE_PROPERTY_PROBE,
-+      &probe_iface_info);
- }
- 
- static gboolean
- gst_directsound_sink_interface_supported (GstImplementsInterface * iface,
-     GType iface_type)
- {
--  g_return_val_if_fail (iface_type == GST_TYPE_MIXER, FALSE);
--
-+  if (iface_type != GST_TYPE_MIXER && iface_type != GST_TYPE_PROPERTY_PROBE) {
-+    return FALSE;
-+  }
-+  
-   /* for the sake of this example, we'll always support it. However, normally,
-    * you would check whether the device you've opened supports mixers. */
-   return TRUE;
-@@ -242,6 +258,98 @@ gst_directsound_sink_mixer_interface_init (GstMixerClass * iface)
-   iface->get_volume = gst_directsound_sink_mixer_get_volume;
- }
- 
-+static const GList *
-+probe_get_properties (GstPropertyProbe * probe)
-+{
-+  GObjectClass * klass = G_OBJECT_GET_CLASS (probe);
-+  static GList * list = NULL;
-+
-+  /* ###: from gstalsadeviceprobe.c
-+   * well, not perfect, but better than no locking at all.
-+   * In the worst case we leak a list node, so who cares? */
-+  GST_CLASS_LOCK (GST_OBJECT_CLASS (klass));
-+
-+  if (!list) {
-+    GParamSpec * pspec;
-+
-+    pspec = g_object_class_find_property (klass, "device");
-+    list = g_list_append (NULL, pspec);
-+  }
-+
-+  GST_CLASS_UNLOCK (GST_OBJECT_CLASS (klass));
-+
-+  return list;
-+}
-+
-+static void
-+probe_probe_property (GstPropertyProbe * probe, guint prop_id,
-+    const GParamSpec * pspec)
-+{
-+  /* we do nothing in here.  the actual "probe" occurs in get_values(),
-+   * which is a common practice when not caching responses.
-+   */
-+
-+  if (!g_str_equal (pspec->name, "device")) {
-+    G_OBJECT_WARN_INVALID_PROPERTY_ID (probe, prop_id, pspec);
-+  }
-+}
-+
-+static gboolean
-+probe_needs_probe (GstPropertyProbe * probe, guint prop_id,
-+    const GParamSpec * pspec)
-+{
-+  /* don't cache probed data */
-+  return TRUE;
-+}
-+
-+static GValueArray *
-+probe_get_values (GstPropertyProbe * probe, guint prop_id,
-+    const GParamSpec * pspec)
-+{
-+  GValueArray * array;
-+  GValue value = { 0, };
-+  GList * l, * list;
-+  gst_directsound_device * dev;
-+
-+  if (!g_str_equal (pspec->name, "device")) {
-+    G_OBJECT_WARN_INVALID_PROPERTY_ID (probe, prop_id, pspec);
-+    return NULL;
-+  }
-+
-+  list = gst_directsound_playback_device_list ();
-+
-+  if (list == NULL) {
-+    GST_LOG_OBJECT (probe, "No devices found");
-+    return NULL;
-+  }
-+
-+  array = g_value_array_new (g_list_length (list));
-+  g_value_init (&value, G_TYPE_STRING);
-+  for (l = list; l != NULL; l = l->next) {
-+    dev = (gst_directsound_device *) l->data;
-+    GST_LOG_OBJECT (probe, "Found device: id=[%s] name=[%s]", dev->id, dev->name);
-+    g_value_take_string (&value, dev->id);
-+    dev->id = NULL;
-+    gst_directsound_device_free (dev);
-+    l->data = NULL;
-+    g_value_array_append (array, &value);
-+  }
-+  g_value_unset (&value);
-+  g_list_free (list);
-+
-+  return array;
-+}
-+
-+static void
-+gst_directsound_sink_property_probe_interface_init (GstPropertyProbeInterface * iface)
-+{
-+  iface->get_properties = probe_get_properties;
-+  iface->probe_property = probe_probe_property;
-+  iface->needs_probe = probe_needs_probe;
-+  iface->get_values = probe_get_values;
-+}
-+
-+
- static void
- gst_directsound_sink_finalise (GObject * object)
- {
-@@ -254,10 +362,99 @@ gst_directsound_sink_finalise (GObject * object)
-     g_list_free (dsoundsink->tracks);
-     dsoundsink->tracks = NULL;
-   }
-+  
-+  if (dsoundsink->device_id) {
-+    g_free (dsoundsink->device_id);
-+    dsoundsink->device_id = NULL;
-+  }
-+
-+  if (dsoundsink->device_name) {
-+    g_free (dsoundsink->device_name);
-+    dsoundsink->device_name = NULL;
-+  }
- 
-   G_OBJECT_CLASS (parent_class)->finalize (object);
- }
- 
-+static gboolean
-+device_set_default (GstDirectSoundSink * sink)
-+{
-+  GList * list;
-+  gst_directsound_device * dev;
-+  gboolean ret;
-+
-+  /* obtain the device list */
-+  list = gst_directsound_playback_device_list ();
-+  if (!list)
-+    return FALSE;
-+
-+  ret = FALSE;
-+
-+  /* the first item is the default */
-+  if (g_list_length (list) >= 1) {
-+    dev = (gst_directsound_device *) list->data;
-+
-+    /* take the strings, no need to copy */
-+    sink->device_id = dev->id;
-+    sink->device_name = dev->name;
-+    dev->id = NULL;
-+    dev->name = NULL;
-+
-+    /* null out the item */
-+    gst_directsound_device_free (dev);
-+    list->data = NULL;
-+
-+    ret = TRUE;
-+  }
-+
-+  gst_directsound_device_list_free (list);
-+
-+  return ret;
-+}
-+
-+static gboolean
-+device_get_name (GstDirectSoundSink * sink)
-+{
-+  GList * l, * list;
-+  gst_directsound_device * dev;
-+  gboolean ret;
-+
-+  /* if there is no device set, then attempt to set up with the default,
-+   * which will also grab the name in the process.
-+   */
-+  if (!sink->device_id)
-+    return device_set_default (sink);
-+
-+  /* if we already have a name, free it */
-+  if (sink->device_name) {
-+    g_free (sink->device_name);
-+    sink->device_name = NULL;
-+  }
-+
-+  /* obtain the device list */
-+  list = gst_directsound_playback_device_list ();
-+  if (!list)
-+    return FALSE;
-+
-+  ret = FALSE;
-+
-+  /* look up the id */
-+  for (l = list; l != NULL; l = l->next) {
-+    dev = (gst_directsound_device *) l->data;
-+    if (g_str_equal (dev->id, sink->device_id)) {
-+      /* take the string, no need to copy */
-+      sink->device_name = dev->name;
-+      dev->name = NULL;
-+      ret = TRUE;
-+      break;
-+    }
-+  }
-+
-+  gst_directsound_device_list_free (list);
-+
-+  return ret;
-+}
-+
- static void
- gst_directsound_sink_base_init (gpointer g_class)
- {
-@@ -275,13 +472,13 @@ static void
- gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
- {
-   GObjectClass *gobject_class;
--  GstElementClass *gstelement_class;
-+  /*GstElementClass *gstelement_class;*/
-   GstBaseSinkClass *gstbasesink_class;
-   GstBaseAudioSinkClass *gstbaseaudiosink_class;
-   GstAudioSinkClass *gstaudiosink_class;
- 
-   gobject_class = (GObjectClass *) klass;
--  gstelement_class = (GstElementClass *) klass;
-+  /* gstelement_class = (GstElementClass *) klass; */
-   gstbasesink_class = (GstBaseSinkClass *) klass;
-   gstbaseaudiosink_class = (GstBaseAudioSinkClass *) klass;
-   gstaudiosink_class = (GstAudioSinkClass *) klass;
-@@ -316,6 +513,18 @@ gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
-       g_param_spec_double ("volume", "Volume",
-           "Volume of this stream", 0.0, 1.0, 1.0,
-           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
-+          
-+  g_object_class_install_property (gobject_class, 
-+      PROP_DEVICE,
-+      g_param_spec_string ("device", "Device",
-+          "DirectSound playback device as a GUID string",
-+          NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
-+
-+  g_object_class_install_property (gobject_class, 
-+      PROP_DEVICE_NAME,
-+      g_param_spec_string ("device-name", "Device name",
-+          "Human-readable name of the audio device",
-+          NULL, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
- }
- 
- static void
-@@ -341,6 +550,9 @@ gst_directsound_sink_init (GstDirectSoundSink * dsoundsink,
-   dsoundsink->volume = 100;
-   dsoundsink->dsound_lock = g_mutex_new ();
-   dsoundsink->first_buffer_after_reset = FALSE;
-+  
-+  dsoundsink->device_id = NULL;
-+  dsoundsink->device_name = NULL;
- 
-   gst_pad_set_acceptcaps_function (GST_BASE_SINK (dsoundsink)->sinkpad,
-       GST_DEBUG_FUNCPTR (gst_directsound_sink_acceptcaps));
-@@ -357,6 +569,17 @@ gst_directsound_sink_set_property (GObject * object,
-       sink->volume = (int) (g_value_get_double (value) * 100);
-       gst_directsound_sink_set_volume (sink);
-       break;
-+    case PROP_DEVICE:
-+      if (sink->device_id) {
-+        g_free (sink->device_id);
-+        sink->device_id = NULL;
-+      }
-+      if (sink->device_name) {
-+        g_free (sink->device_name);
-+        sink->device_name = NULL;
-+      }
-+      sink->device_id = g_strdup (g_value_get_string (value));
-+      break;
-     default:
-       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-       break;
-@@ -373,6 +596,16 @@ gst_directsound_sink_get_property (GObject * object,
-     case PROP_VOLUME:
-       g_value_set_double (value, (double) sink->volume / 100.);
-       break;
-+    case PROP_DEVICE:
-+      if (!sink->device_id)
-+        device_set_default (sink);
-+      g_value_set_string (value, sink->device_id);
-+      break;
-+    case PROP_DEVICE_NAME:
-+      if (!sink->device_name)
-+        device_get_name (sink);
-+      g_value_set_string (value, sink->device_name);
-+      break;
-     default:
-       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-       break;
-@@ -477,14 +710,23 @@ gst_directsound_sink_open (GstAudioSink * asink)
- {
-   GstDirectSoundSink *dsoundsink = GST_DIRECTSOUND_SINK (asink);
+   GstDirectSoundSink *dsoundsink;
    HRESULT hRes;
 +  LPGUID lpGuid = NULL;
-+  
-+  if (dsoundsink->device_id)
-+    lpGuid = gst_directsound_get_device_guid (dsoundsink->device_id);
  
+   dsoundsink = GST_DIRECTSOUND_SINK (asink);
+ 
++  if (dsoundsink->device_id)
++    lpGuid = string_to_guid (dsoundsink->device_id);
++
    /* create and initialize a DirecSound object */
 -  if (FAILED (hRes = DirectSoundCreate (NULL, &dsoundsink->pDS, NULL))) {
 +  if (FAILED (hRes = DirectSoundCreate (lpGuid, &dsoundsink->pDS, NULL))) {
@@ -688,44 +186,57 @@ index 7385cff..ef1d6eb 100644
 +      g_free (lpGuid);
      return FALSE;
    }
-+  
+ 
 +  if (lpGuid)
 +    g_free (lpGuid);
- 
++
    if (FAILED (hRes = IDirectSound_SetCooperativeLevel (dsoundsink->pDS,
                GetDesktopWindow (), DSSCL_PRIORITY))) {
+     GST_ELEMENT_ERROR (dsoundsink, RESOURCE, OPEN_READ,
+@@ -874,3 +928,19 @@ gst_directsound_sink_get_mute (GstDirectSoundSink * dsoundsink)
+ {
+   return FALSE;
+ }
++
++static const gchar *
++gst_directsound_sink_get_device (GstDirectSoundSink * dsoundsink)
++{
++  return dsoundsink->device_id;
++}
++
++static void
++gst_directsound_sink_set_device (GstDirectSoundSink * dsoundsink,
++    const gchar * device_id)
++{
++  if (dsoundsink->device_id) {
++    g_free (dsoundsink->device_id);
++  }
++  dsoundsink->device_id = g_strdup (device_id);
++}
 diff --git a/sys/directsound/gstdirectsoundsink.h b/sys/directsound/gstdirectsoundsink.h
-index 8bb10bf..32ee62e 100644
+index 3a83181..e50f543 100644
 --- a/sys/directsound/gstdirectsoundsink.h
 +++ b/sys/directsound/gstdirectsoundsink.h
-@@ -32,13 +32,11 @@
- #include <gst/gst.h>
- #include <gst/audio/gstaudiosink.h>
- #include <gst/interfaces/mixer.h>
-+#include "gstdirectsound.h"
-+
+@@ -40,6 +40,9 @@
+ #include <ks.h> 
+ #include <ksmedia.h> 
+ 
 +#define GstDirectSoundSink GstExaileDirectSoundSink
 +#define GstDirectSoundSinkClass GstExaileDirectSoundSinkClass
- 
--#include <windows.h>
--#include <dxerr9.h>
--#include <dsound.h>
--#include <mmreg.h> 
--#include <ks.h> 
--#include <ksmedia.h> 
- 
++
  G_BEGIN_DECLS
  #define GST_TYPE_DIRECTSOUND_SINK            (gst_directsound_sink_get_type())
-@@ -77,6 +75,12 @@ struct _GstDirectSoundSink
-   GList *tracks;
+ #define GST_DIRECTSOUND_SINK(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_DIRECTSOUND_SINK,GstDirectSoundSink))
+@@ -74,6 +77,9 @@ struct _GstDirectSoundSink
+   /* current volume setup by mixer interface */
+   glong volume;
+   gboolean mute;
++  
++  /* current directsound device ID */
++  gchar * device_id;
  
    GstCaps *cached_caps;
-+  
-+  /* current directSound device ID */
-+  gchar * device_id;
-+  
-+  /* current directSound device name */
-+  gchar * device_name;
- 
    /* lock used to protect writes and resets */
-   GMutex *dsound_lock;
+-- 
+2.4.3
+

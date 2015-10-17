@@ -27,9 +27,9 @@
 import os
 import xdg
 
-major = "3.4"
-minor = "5"
-extra = ""
+major = "4.0"
+minor = "0"
+extra = "dev"
 
 def get_current_revision(directory):
     """

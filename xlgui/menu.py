@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
+
+import webbrowser
 
 from xl.nls import gettext as _
 from xl import settings, providers
@@ -59,8 +61,8 @@ def __create_file_menu():
         dialog.connect('uris-selected', lambda d, uris:
             get_main().controller.open_uris(uris))
         dialog.show()
-    items.append(_smi('open', [items[-1].name], icon_name=gtk.STOCK_OPEN,
-        callback=open_cb, accelerator='<Control>o'))
+    items.append(_smi('open', [items[-1].name], _("_Open"), 'document-open', 
+        open_cb, accelerator='<Control>o'))
     accelerators.append(Accelerator('<Control>o', open_cb))
 
     def open_uri_cb(*args):
@@ -69,7 +71,7 @@ def __create_file_menu():
             get_main().controller.open_uri(uri))
         dialog.show()
     items.append(_smi('open-uri', [items[-1].name], _("Open _URL"),
-        'applications-internet', open_uri_cb, accelerator='<Control><Shift>o'))
+        'emblem-web', open_uri_cb, accelerator='<Control><Shift>o'))
     accelerators.append(Accelerator('<Control><Shift>o', open_uri_cb))
 
     def open_dirs_cb(*args):
@@ -78,13 +80,13 @@ def __create_file_menu():
         dialog.connect('uris-selected', lambda d, uris:
             get_main().controller.open_uris(uris))
         dialog.show()
-    items.append(_smi('open-dirs', [items[-1].name], _("Open Directories"),
-        None, open_dirs_cb))
+    items.append(_smi('open-dirs', [items[-1].name], _("Open _Directories"),
+        'folder-open', open_dirs_cb))
 
     items.append(_sep('open-sep', [items[-1].name]))
 
     items.append(_smi('import-playlist', [items[-1].name],
-        _("Import Playlist"), gtk.STOCK_OPEN, 
+        _("_Import Playlist"), 'document-open', 
         lambda *e: get_main().controller.get_panel('playlists').import_playlist()
     ))
     
@@ -97,22 +99,22 @@ def __create_file_menu():
             """
                 Show messages in the main window message area
             """
-            if message_type == gtk.MESSAGE_INFO:
+            if message_type == Gtk.MessageType.INFO:
                 main.message.show_info(markup=message)
-            elif message_type == gtk.MESSAGE_ERROR:
+            elif message_type == Gtk.MessageType.ERROR:
                 main.message.show_error(_('Playlist export failed!'), message)
             return True
         dialog = dialogs.PlaylistExportDialog(page.playlist, main.window)
         dialog.connect('message', on_message)
         dialog.show()
     items.append(_smi('export-playlist', [items[-1].name],
-        _("_Export Current Playlist"), gtk.STOCK_SAVE_AS, export_playlist_cb))
+        _("E_xport Current Playlist"), 'document-save-as', export_playlist_cb))
     items.append(_sep('export-sep', [items[-1].name]))
 
     def close_tab_cb(*args):
         get_main().get_selected_page().tab.close()
     items.append(_smi('close-tab', [items[-1].name],
-        _("Close Tab"), gtk.STOCK_CLOSE, callback=close_tab_cb,
+        _("Close _Tab"), 'window-close', close_tab_cb,
         accelerator='<Control>w'))
     accelerators.append(Accelerator('<Control>w', close_tab_cb))
 
@@ -121,15 +123,15 @@ def __create_file_menu():
         def restart_cb(*args):
             from xl import main
             main.exaile().quit(True)
-        items.append(_smi('restart-application', [items[-1].name], _("Restart"),
+        items.append(_smi('restart-application', [items[-1].name], _("_Restart"),
             callback=restart_cb, accelerator='<Control>r'))
         accelerators.append(Accelerator('<Control>r', restart_cb))
 
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
-    items.append(_smi('quit-application', [items[-1].name],
-        icon_name=gtk.STOCK_QUIT, callback=quit_cb, accelerator='<Control>q'))
+    items.append(_smi('quit-application', [items[-1].name], _("_Quit Exaile"),
+        'application-exit', quit_cb, accelerator='<Control>q'))
     accelerators.append(Accelerator('<Control>q', quit_cb))
 
     for item in items:
@@ -155,14 +157,15 @@ def __create_edit_menu():
     def cover_manager_cb(*args):
         from xlgui.cover import CoverManager
         dialog = CoverManager(get_main().window, get_main().collection)
-    items.append(_smi('cover-manager', [items[-1].name], _("C_overs"), None, cover_manager_cb))
+    items.append(_smi('cover-manager', [items[-1].name], _("C_overs"), 
+    	'image-x-generic', cover_manager_cb))
 
     def preferences_cb(*args):
         from xlgui.preferences import PreferencesDialog
         dialog = PreferencesDialog(get_main().window, get_main().controller)
         dialog.run()
-    items.append(_smi('preferences', [items[-1].name],
-        icon_name=gtk.STOCK_PREFERENCES, callback=preferences_cb))
+    items.append(_smi('preferences', [items[-1].name], _("_Preferences"),
+        'preferences-system', preferences_cb))
 
     for item in items:
         providers.register('menubar-edit-menu', item)
@@ -176,7 +179,7 @@ def __create_view_menu():
     def show_playing_track_cb(*args):
         get_main().playlist_container.show_current_track()
     items.append(menuitems.ShowCurrentTrackMenuItem('show-playing-track', [],
-        show_playing_track_cb, accelerator='<Control>j'))
+    	show_playing_track_cb, accelerator='<Control>j'))
     accelerators.append(Accelerator('<Control>j', show_playing_track_cb))
 
     items.append(_sep('show-playing-track-sep', [items[-1].name]))
@@ -189,15 +192,15 @@ def __create_view_menu():
     items.append(menu.check_menu_item('playlist-utilities', [items[-1].name],
         _("_Playlist Utilities Bar"), playlist_utilities_is_checked, playlist_utilities_cb))
 
-    items.append(_smi('columns', [items[-1].name], _('_Columns'),
+    items.append(_smi('columns', [items[-1].name], _('C_olumns'),
         submenu=menu.ProviderMenu('playlist-columns-menu', get_main())))
 
     def clear_playlist_cb(*args):
         page = get_main().get_selected_page()
         if page:
             page.playlist.clear()
-    items.append(_smi('clear-playlist', [items[-1].name], _('C_lear playlist'),
-         gtk.STOCK_CLEAR, clear_playlist_cb, accelerator='<Control>l'))
+    items.append(_smi('clear-playlist', [items[-1].name], _('_Clear playlist'),
+         'edit-clear-all', clear_playlist_cb, accelerator='<Control>l'))
     accelerators.append(Accelerator('<Control>l', clear_playlist_cb))
 
     for item in items:
@@ -213,16 +216,13 @@ def __create_playlist_menu():
 def __create_tools_menu():
     items = []
     items.append(_smi('device-manager', [], _('_Device Manager'),
-        gtk.STOCK_HARDDISK, lambda *x: get_main().controller.show_devices()))
+        'multimedia-player', lambda *x: get_main().controller.show_devices()))
     
-    items.append(_smi('scan-collection', [items[-1].name], _('Re_scan Collection'),
-        gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection))
+    items.append(_smi('scan-collection', [items[-1].name], _('_Rescan Collection'),
+        'view-refresh', get_main().controller.on_rescan_collection))
     
-    items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (slow)'),
-        gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection_forced))
-
-    items.append(_smi('track-properties', [items[-1].name], _('Track _Properties'),
-        gtk.STOCK_PROPERTIES, get_main().controller.on_track_properties))
+    items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (_slow)'),
+        'view-refresh', get_main().controller.on_rescan_collection_forced))
 
     for item in items:
         providers.register('menubar-tools-menu', item)
@@ -230,11 +230,25 @@ def __create_tools_menu():
 def __create_help_menu():
     items = []
     accelerators = []
+    
+    def show_report_issue(*args):
+        webbrowser.open('https://github.com/exaile/exaile/issues')
+        
+    def show_user_guide(*args):
+        # TODO: Other languages
+        webbrowser.open('http://exaile.readthedocs.org/en/latest/user/index.html')
+    
     def show_about_dialog(widget, name, parent, context):
         dialog = dialogs.AboutDialog(parent.window)
         dialog.show()
-    items.append(_smi('about', [], icon_name=gtk.STOCK_ABOUT,
-        callback=show_about_dialog))
+    
+    items.append(_smi('guide', [], _("User's Guide (website)"), 'help',
+        show_user_guide))
+    items.append(_smi('report', [items[-1].name], _("Report an Issue (github)"), None,
+        show_report_issue))
+    items.append(_sep('about-sep', [items[-1].name]))
+    items.append(_smi('about', [items[-1].name], _("_About"), 'help-about',
+        show_about_dialog))
     for item in items:
         providers.register('menubar-help-menu', item)
     for accelerator in accelerators:

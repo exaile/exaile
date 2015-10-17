@@ -60,8 +60,8 @@ class LyricsMania(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = artist.replace(' ','_').replace('\'','')
-        title = title.replace(' ','_').replace('\'','')
+        artist = artist.replace(' ','_').replace('\'','').lower()
+        title = title.replace(' ','_').replace('\'','').lower()
 
         url = 'http://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
 
@@ -82,4 +82,8 @@ class LyricsMania(LyricSearchMethod):
         except :
             raise LyricsNotFoundException
 
+        # We end up with unicode in some systems, str (bytes) in others;
+        # no idea why and which one is correct.
+        if isinstance(lyrics, bytes):
+            lyrics = lyrics.decode('utf-8', errors='replace')
         return (lyrics, self.name, url)

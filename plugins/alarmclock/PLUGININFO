@@ -1,5 +1,5 @@
 Version='0.1.5'
 Authors=['Adam Olsen <arolsen@gmail.com>', 'François Martorello <francois.martorello@gmail.com>']
 Name=_('Alarm Clock')
-Description=_('Plays music at a specific time.\n\nNote that when the specified time arrives, Exaile will just act like you pressed the play button, so be sure you have the music you want to hear in your playlist')
+Description=_('Plays music at a specific time.\n\nNote that when the specified time arrives, Exaile will play the songs in the queue.')
 Category=_('Utility')

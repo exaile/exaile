@@ -1,108 +1,69 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="FlatPlaylistPanelWindow">
+    <property name="can_focus">False</property>
     <property name="title" translatable="yes">Radio</property>
     <child>
-      <object class="GtkVBox" id="FlatPlaylistPanel">
+      <object class="GtkBox" id="FlatPlaylistPanel">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkBox" id="hbox1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
               <object class="GtkButton" id="add_button">
                 <property name="width_request">36</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip-text" translatable="yes">Append All Tracks to Playlist</property>
+                <property name="tooltip_text" translatable="yes">Append All Tracks to Playlist</property>
                 <property name="relief">none</property>
-                <signal handler="on_add_button_clicked" name="clicked"/>
+                <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkAlignment" id="alignment1">
+                  <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
-                    <property name="xscale">0</property>
-                    <property name="yscale">0</property>
-                    <child>
-                      <object class="GtkHBox" id="hbox2">
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <object class="GtkImage" id="image2">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-add</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">list-add</property>
                   </object>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkAlignment" id="alignment2">
+              <object class="GtkButton" id="import_button">
+                <property name="width_request">36</property>
                 <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Import CD</property>
+                <property name="relief">none</property>
+                <signal name="clicked" handler="on_import_button_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkButton" id="import_button">
-                    <property name="width_request">36</property>
+                  <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip-text" translatable="yes">Import CD</property>
-                    <property name="relief">none</property>
-                    <signal handler="on_import_button_clicked" name="clicked"/>
-                    <child>
-                      <object class="GtkHBox" id="hbox3">
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <object class="GtkImage" id="image1">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-harddisk</property>
-                          </object>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">document-open</property>
                   </object>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
               <placeholder/>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="position">3</property>
-              </packing>
             </child>
           </object>
           <packing>

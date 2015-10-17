@@ -27,7 +27,7 @@
 
 import os
 import sys
-import gio
+from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, NotWritable, NotReadable
 import urlparse
@@ -64,7 +64,7 @@ formats = {
         'ogg'   : ogg.OggFormat,
         'ogx'   : ogg.OggFormat,
         'okt'   : mod.ModFormat,
-        'opus'  : None,
+        'opus'  : ogg.OggOpusFormat,
         'ra'    : None,
         'ram'   : None,
         's3m'   : mod.ModFormat,
@@ -88,10 +88,9 @@ def get_format(loc):
         get a Format object appropriate for the file at loc.
         if no suitable object can be found, None is returned.
 
-        :param loc: The location to read from. can be any gio-parseable
-            path or uri.
+        :param loc: The location to read from as a Gio URI
     """
-    loc = gio.File(loc).get_path()
+    loc = Gio.File.new_for_uri(loc).get_path()
     if not loc:
         return None
         

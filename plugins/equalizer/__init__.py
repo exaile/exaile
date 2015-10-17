@@ -27,17 +27,20 @@
 # support python 2.5
 from __future__ import with_statement
 
+from gi.repository import GLib
+from gi.repository import Gst
+from gi.repository import Gtk
+
 from xl import providers, event, settings, xdg
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
-import gst, gtk, glib
 import os, string
 
 def enable(exaile):
-    providers.register("postprocessing_element", GSTEqualizer)
+    providers.register("gst_audio_filter", GSTEqualizer)
     if exaile.loading:
         event.add_callback(_enable, 'gui_loaded')
     else:
@@ -51,7 +54,7 @@ def _enable(event_type, exaile, nothing):
     EQ_MAIN = EqualizerPlugin(exaile)
 
 def disable(exaile):
-    providers.unregister("postprocessing_element", GSTEqualizer)
+    providers.unregister("gst_audio_filter", GSTEqualizer)
     global EQ_MAIN
     EQ_MAIN.disable()
     EQ_MAIN = None
@@ -62,16 +65,16 @@ class GSTEqualizer(ElementBin):
     """
     index = 99
     name = "equalizer-10bands"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
 
-        self.audioconvert = gst.element_factory_make("audioconvert")
+        self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[40] = self.audioconvert
 
-        self.preamp = gst.element_factory_make("volume")
+        self.preamp = Gst.ElementFactory.make("volume")
         self.elements[50] = self.preamp
 
-        self.eq10band = gst.element_factory_make("equalizer-10bands")
+        self.eq10band = Gst.ElementFactory.make("equalizer-10bands")
         self.elements[60] = self.eq10band
 
         self.setup_elements()
@@ -124,12 +127,12 @@ class EqualizerPlugin:
         self.window = None
 
         # add menu item to tools menu
-        self.MENU_ITEM = menu.simple_menu_item('equalizer', ['plugin-sep'], _('Equalizer'),
+        self.MENU_ITEM = menu.simple_menu_item('equalizer', ['plugin-sep'], _('_Equalizer'),
             callback=lambda *x: self.show_gui(exaile))
         providers.register('menubar-tools-menu', self.MENU_ITEM)
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
-        self.presets = gtk.ListStore(str, float, float, float, float,
+        self.presets = Gtk.ListStore(str, float, float, float, float,
                 float, float, float, float, float, float, float)
         self.load_presets()
 
@@ -190,7 +193,7 @@ class EqualizerPlugin:
                 'on_band9_format_value':self.adjust_band
                 }
 
-        self.ui = gtk.Builder()
+        self.ui = Gtk.Builder()
         self.ui.add_from_file( os.path.join( os.path.dirname(
                 os.path.realpath(__file__)), 'equalizer.ui'))
         self.ui.connect_signals(signals)
@@ -206,7 +209,7 @@ class EqualizerPlugin:
         #Put the presets into the presets combobox
         combobox = self.ui.get_object("combo-presets")
         combobox.set_model(self.presets)
-        combobox.set_text_column(0)
+        combobox.set_entry_text_column(0)
         combobox.set_active(0)
 
         self.ui.get_object('chk-enabled').set_active(
@@ -237,7 +240,7 @@ class EqualizerPlugin:
         """
         # Buildable.get_name clashes with Widget.get_name. See
         # https://bugzilla.gnome.org/show_bug.cgi?id=591085#c19
-        widget_name = gtk.Buildable.get_name(widget)
+        widget_name = Gtk.Buildable.get_name(widget)
         band = widget_name[-1]
         if widget.get_value() != settings.get_option(
                 "plugin/equalizer/band" + band):

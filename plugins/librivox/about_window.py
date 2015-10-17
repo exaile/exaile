@@ -14,7 +14,8 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-import gtk, pango
+from gi.repository import Gtk
+from gi.repository import Pango 
 
 class AboutWindow():
     def __init__(self):
@@ -22,37 +23,37 @@ class AboutWindow():
         self.book=None
         self.showing=False
 
-        self.win=gtk.Window()
+        self.win=Gtk.Window()
         self.win.set_title("About")
         self.win.set_default_size(300, 200)
         self.win.set_geometry_hints(self.win, min_width=100, min_height=100)
-        self.vbox=gtk.VBox()
+        self.vbox=Gtk.VBox()
         self.win.add(self.vbox)
 
-        self.scrollwin=gtk.ScrolledWindow()
-        self.scrollwin.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scrollwin=Gtk.ScrolledWindow()
+        self.scrollwin.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.vbox.pack_start(self.scrollwin, True, True, 0)
 
-        self.textview=gtk.TextView()
+        self.textview=Gtk.TextView()
         self.textview.set_cursor_visible(False)
         self.textview.set_editable(False)
-        self.textview.set_wrap_mode(gtk.WRAP_WORD)
-        self.textview.set_justification(gtk.JUSTIFY_LEFT)
+        self.textview.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.textview.set_justification(Gtk.Justification.LEFT)
         self.textview.set_left_margin(4)
         self.textview.set_left_margin(4)
 
         self.scrollwin.add(self.textview)
 
-        self.textbuffer=gtk.TextBuffer()
-        self.textbuffer.create_tag('bold', weight=pango.WEIGHT_BOLD)
+        self.textbuffer=Gtk.TextBuffer()
+        self.textbuffer.create_tag('bold', weight=Pango.Weight.BOLD)
         self.textview.set_buffer(self.textbuffer)
 
-        self.hbox=gtk.HBox()
+        self.hbox=Gtk.HBox()
         self.vbox.pack_start(self.hbox, False, False, 2)
 
-        self.closebutton=gtk.Button("Close")
+        self.closebutton=Gtk.Button("Close")
         self.closebutton.connect("pressed", self.closebutton_pressed)
-        self.closeimage=gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
+        self.closeimage=Gtk.Image.new_from_stock(Gtk.STOCK_CLOSE, Gtk.IconSize.MENU)
         self.closebutton.set_image(self.closeimage)
         self.hbox.pack_end(self.closebutton, False, False)
 

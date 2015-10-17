@@ -31,31 +31,21 @@
 #
 # Also takes care of parsing commandline options.
 
-import errno
-import logging
-import logging.handlers
 import os
 import platform
 import sys
 import threading
 
+from xl import logger_setup
 from xl.nls import gettext as _
 
-# Imported later to avoid PyGTK imports just for --help.
-gio = common = xdg = None
+# Imported later to avoid PyGObject imports just for --help.
+Gio = common = xdg = None
 
 def _do_heavy_imports():
-    global gio, common, xdg
+    global Gio, common, xdg
 
-    try:
-        import gio
-    except ImportError:
-        # on Win32 using the GStreamer SDK, requires import of
-        # pygtk first
-        import pygtk
-        pygtk.require('2.0')
-        import gio
-
+    from gi.repository import Gio
     from xl import common, xdg
 
 # placeholder, - xl.version can be slow to import, which would slow down
@@ -122,68 +112,83 @@ class Exaile(object):
             
 
         # Make event debug imply debug
+        if self.options.DebugEventFull:
+            self.options.DebugEvent = True
+        
         if self.options.DebugEvent:
             self.options.Debug = True
 
         try:
-            self.setup_logging()
+            logger_setup.start_logging(self.options.Debug,
+                                       self.options.Quiet,
+                                       self.options.DebugThreads,
+                                       self.options.ModuleFilter,
+                                       self.options.LevelFilter)
         except OSError, e:
             print >> sys.stderr, 'ERROR: could not setup logging: %s' % str(e)
             return
         
         global logger
+        import logging
         logger = logging.getLogger(__name__)
 
-        # Late import ensures xl.event uses correct logger
-        from xl import event
-
-        if self.options.EventFilter:
-            event.EVENT_MANAGER.logger_filter = self.options.EventFilter
-            self.options.DebugEvent = True
-
-        if self.options.DebugEvent:
-            event.EVENT_MANAGER.use_logger = True
-            self.options.Debug = True
-
-        # initial mainloop setup. The actual loop is started later,
-        # if necessary
-        self.mainloop_init()
-
-        #initialize DbusManager
-        if self.options.StartGui and self.options.Dbus:
-            from xl import xldbus
-            exit = xldbus.check_exit(self.options, self.args)
-            if exit == "exit":
-                sys.exit(0)
-            elif exit == "command":
-                if not self.options.StartAnyway:
+        try:
+            # Late import ensures xl.event uses correct logger
+            from xl import event
+    
+            if self.options.EventFilter:
+                event.EVENT_MANAGER.logger_filter = self.options.EventFilter
+                self.options.DebugEvent = True
+    
+            if self.options.DebugEvent:
+                event.EVENT_MANAGER.use_logger = True
+    
+            if self.options.DebugEventFull:
+                event.EVENT_MANAGER.use_verbose_logger = True
+    
+            # initial mainloop setup. The actual loop is started later,
+            # if necessary
+            self.mainloop_init()
+    
+            #initialize DbusManager
+            if self.options.StartGui and self.options.Dbus:
+                from xl import xldbus
+                exit = xldbus.check_exit(self.options, self.args)
+                if exit == "exit":
                     sys.exit(0)
-            self.dbus = xldbus.DbusManager(self)
-
-        # import version, see note above
-        global __version__
-        from xl.version import __version__
-
-        #load the rest.
-        self.__init()
-
-        #handle delayed commands
-        if self.options.StartGui and self.options.Dbus and \
-                self.options.StartAnyway and exit == "command":
-            xldbus.run_commands(self.options, self.dbus)
-
-        #connect dbus signals
-        if self.options.StartGui and self.options.Dbus:
-            self.dbus._connect_signals()
-
-        # On SIGTERM, quit normally.
-        import signal
-        signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
-
-        # run the GUIs mainloop, if needed
-        if self.options.StartGui:
-            import xlgui
-            xlgui.mainloop()
+                elif exit == "command":
+                    if not self.options.StartAnyway:
+                        sys.exit(0)
+                self.dbus = xldbus.DbusManager(self)
+    
+            # import version, see note above
+            global __version__
+            from xl.version import __version__
+    
+            #load the rest.
+            self.__init()
+    
+            #handle delayed commands
+            if self.options.StartGui and self.options.Dbus and \
+                    self.options.StartAnyway and exit == "command":
+                xldbus.run_commands(self.options, self.dbus)
+    
+            #connect dbus signals
+            if self.options.StartGui and self.options.Dbus:
+                self.dbus._connect_signals()
+    
+            # On SIGTERM, quit normally.
+            import signal
+            signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
+    
+            # run the GUIs mainloop, if needed
+            if self.options.StartGui:
+                import xlgui
+                xlgui.mainloop()
+        except KeyboardInterrupt:
+            logger.exception("User exited program")
+        except:
+            logger.exception("Unhandled exception")
 
     def __init(self):
         """
@@ -196,7 +201,7 @@ class Exaile(object):
         try:
             from xl import settings
         except common.VersionError:
-            common.log_exception(log=logger)
+            logger.exception("Error loading settings")
             sys.exit(1)
             
         logger.debug("Settings loaded from %s" % settings.location)
@@ -234,8 +239,7 @@ class Exaile(object):
                 migrator.migrate(force=self.options.ForceImport)
                 del migrator
             except:
-                common.log_exception(log=logger,
-                        message=_("Failed to migrate from 0.2.14"))
+                logger.exception("Failed to migrate from 0.2.14")
 
         # Migrate old rating options
         from xl.migrations.settings import rating
@@ -244,6 +248,19 @@ class Exaile(object):
         # Migrate builtin OSD to plugin
         from xl.migrations.settings import osd
         osd.migrate()
+        
+        # Migrate engines
+        from xl.migrations.settings import engine
+        engine.migrate()
+        
+        # TODO: enable audio plugins separately from normal
+        #       plugins? What about plugins that use the player?
+        
+        # Gstreamer doesn't initialize itself automatically, and fails
+        # miserably when you try to inherit from something and GST hasn't
+        # been initialized yet. So this is here.
+        from gi.repository import Gst
+        Gst.init(None)
 
         # Initialize plugin manager
         from xl import plugins
@@ -262,7 +279,7 @@ class Exaile(object):
             self.collection = collection.Collection("Collection",
                     location=os.path.join(xdg.get_data_dir(), 'music.db'))
         except common.VersionError:
-            common.log_exception(log=logger)
+            logger.exception("VersionError loading collection")
             sys.exit(1)
 
         from xl import event
@@ -336,7 +353,8 @@ class Exaile(object):
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
             # using arg[2:] because arg[1:] will include --startgui
-            args = [ gio.File(arg).get_uri() for arg in self.args ]
+            
+            args = [ Gio.File.new_for_path(arg).get_uri() for arg in self.args ]
             if len(args) > 0:
                 restore = False
                 self.gui.open_uri(args[0], play=True)
@@ -372,90 +390,6 @@ class Exaile(object):
 
         splash = Splash()
         splash.show()
-
-    def setup_logging(self):
-        console_format = "%(levelname)-8s: %(message)s"
-        loglevel = logging.INFO
-
-        if self.options.DebugThreads:
-            console_format = "%(threadName)s:" + console_format
-
-        if self.options.Debug:
-            loglevel = logging.DEBUG
-            console_format = "%(asctime)s,%(msecs)3d:" + console_format
-            console_format += " (%(name)s)" # add module name
-        elif self.options.Quiet:
-            loglevel = logging.WARNING
-
-        # Logfile level should always be INFO or higher
-        if self.options.Quiet:
-            logfilelevel = logging.INFO
-        else:
-            logfilelevel = loglevel
-
-        datefmt = "%H:%M:%S"
-
-        # Logging to terminal
-        logging.basicConfig(level=loglevel, format=console_format,
-                datefmt=datefmt)
-
-        class FilterLogger(logging.Logger):
-            class Filter(logging.Filter):
-                def filter(self, record):
-                    pass_record = True
-
-                    if FilterLogger.module is not None:
-                        pass_record = record.name == self.module
-
-                    if FilterLogger.level != logging.NOTSET and pass_record:
-                        pass_record = record.levelno == self.level
-
-                    return pass_record
-
-            module = None
-            level = logging.NOTSET
-
-            def __init__(self, name):
-                logging.Logger.__init__(self, name)
-
-                log_filter = self.Filter(name)
-                log_filter.module = FilterLogger.module
-                log_filter.level = FilterLogger.level
-                self.addFilter(log_filter)
-
-        FilterLogger.module = self.options.ModuleFilter
-        if self.options.LevelFilter is not None:
-            FilterLogger.level = getattr(logging, self.options.LevelFilter)
-        logging.setLoggerClass(FilterLogger)
-
-        # Create log directory
-        logdir = os.path.join(xdg.get_data_dir(), 'logs')
-        if not os.path.exists(logdir):
-            os.makedirs(logdir)
-
-        # Try to migrate logs from old location
-        from glob import glob
-        logfiles = glob(os.path.join(xdg.get_config_dir(), 'exaile.log*'))
-        for logfile in logfiles:
-            try:
-                # Try to move to new location
-                os.rename(logfile, os.path.join(logdir,
-                    os.path.basename(logfile)))
-            except OSError:
-                # Give up and simply remove
-                os.remove(logfile)
-
-        # Logging to file; this also automatically rotates the logs
-        logfile = logging.handlers.RotatingFileHandler(
-                os.path.join(logdir, 'exaile.log'),
-                mode='a', backupCount=5)
-        logfile.doRollover() # each session gets its own file
-        logfile.setLevel(logfilelevel)
-        formatter = logging.Formatter(
-                '%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-                datefmt=datefmt)
-        logfile.setFormatter(formatter)
-        logging.getLogger("").addHandler(logfile)
 
     def get_options(self, unicode_bug_happened=False):
         """
@@ -625,6 +559,9 @@ class Exaile(object):
         group.add_option("--eventdebug", dest="DebugEvent",
                 action="store_true", default=False, help=_("Enable debugging"
                 " of xl.event. Generates LOTS of output"))
+        group.add_option("--eventdebug-full", dest="DebugEventFull",
+                action="store_true", default=False, help=_("Enable debugging"
+                " of xl.event. Generates LOTS of output"))
         group.add_option("--threaddebug", dest="DebugThreads",
                 action="store_true", default=False, help=_("Add thread name"
                 " to logging messages."))
@@ -674,10 +611,17 @@ class Exaile(object):
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
-        import gobject
-
-        gobject.threads_init()
-
+        from gi.repository import GObject
+        
+        major, minor, patch = GObject.pygobject_version
+        logger.info("Using PyGObject %d.%d.%d", major, minor, patch)
+        
+        if major < 3 or \
+            (major == 3 and minor < 10) or \
+            (major == 3 and minor == 10 and patch < 2):
+            # Probably should exit?
+            logger.warning("Exaile requires PyGObject 3.10.2 or greater!")
+        
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
@@ -685,8 +629,8 @@ class Exaile(object):
             dbus.mainloop.glib.gthreads_init()
 
         if not self.options.StartGui:
-            import glib
-            loop = glib.MainLoop()
+            from gi.repository import GLib
+            loop = GLib.MainLoop()
             context = loop.get_context()
             t = threading.Thread(target=self.__mainloop, args=(context,))
             t.daemon = True
@@ -818,7 +762,7 @@ class Exaile(object):
                 os.execl(python, python, *sys.argv)
 
         logger.info("Bye!")
-        logging.shutdown()
+        logger_setup.stop_logging()
         sys.exit(0)
 
 def exaile():

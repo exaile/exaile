@@ -19,7 +19,13 @@
 #    Otherwise, (without threaded functions) UI is non responsive, while
 #    fetching that info...
 
-import gtk, gobject, os
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import Gtk
+
+import os
+
 import librivoxsearch as LS
 import about_window as AW
 from xl import (
@@ -106,29 +112,29 @@ class LVPanel():
         self._user_agent = exaile.get_user_agent_string('librivox')
         
         self.librivoxdir= os.path.dirname(__file__)
-        self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')
-        self.clock_icon=gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/clock.png')
+        self.abicon = GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir+'/ebook.png')
+        self.clock_icon=GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir+'/clock.png')
         self.chapter_icon=icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.gui_init(exaile)
         self.connect_events()
         self.getting_info=False
 
     def gui_init(self, exaile):
-        self.vbox=gtk.VBox()
+        self.vbox=Gtk.VBox()
         self.vbox.set_border_width(3)
-        self.search_label=gtk.Label("LibriVox.org")
+        self.search_label=Gtk.Label(label="LibriVox.org")
         self.vbox.pack_start(self.search_label, False, True, 4)
         self.entry=guiutil.SearchEntry()
         self.entry.connect("activate", self.run_search)
 
-        self.hbox=gtk.HBox()
+        self.hbox=Gtk.HBox()
         self.vbox.pack_start(self.hbox, False, True, 0)
         self.hbox.pack_start(self.entry.entry, True, True, 0)
-        self.searchbutton=gtk.Button()
+        self.searchbutton=Gtk.Button()
 
-        self.searchimage=gtk.Image()
-        self.searchimage.set_from_stock(gtk.STOCK_FIND, gtk.ICON_SIZE_MENU)
+        self.searchimage=Gtk.Image()
+        self.searchimage.set_from_stock(Gtk.STOCK_FIND, Gtk.IconSize.MENU)
         self.searchbutton.set_image(self.searchimage)
         self.searchbutton.connect("pressed", self.run_search)
         self.hbox.pack_start(self.searchbutton, False, True, 0)
@@ -136,21 +142,21 @@ class LVPanel():
         self.statusbar=Status()
         self.vbox.pack_start(self.statusbar.bar, False, True, 0)
 
-        self.scrlw=gtk.ScrolledWindow()
-        self.scrlw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.scrlw.set_shadow_type(gtk.SHADOW_IN)
+        self.scrlw=Gtk.ScrolledWindow()
+        self.scrlw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.scrlw.set_shadow_type(Gtk.ShadowType.IN)
         self.vbox.pack_start(self.scrlw, True, True, 0)
 
-        self.treestore = gtk.TreeStore(str, gtk.gdk.Pixbuf)
-        self.treeview=gtk.TreeView(self.treestore)
+        self.treestore = Gtk.TreeStore(str, GdkPixbuf.Pixbuf)
+        self.treeview=Gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
-        self.column = gtk.TreeViewColumn(None)
-        self.cell = gtk.CellRendererText()
+        self.column = Gtk.TreeViewColumn(None)
+        self.cell = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
-            import pango
+            from gi.repository import Pango
             self.cell.set_property( 'ellipsize-set', True)
-            self.cell.set_property( 'ellipsize', pango.ELLIPSIZE_END)
-        self.cellpb = gtk.CellRendererPixbuf()
+            self.cell.set_property( 'ellipsize', Pango.EllipsizeMode.END)
+        self.cellpb = Gtk.CellRendererPixbuf()
         self.column.pack_start(self.cellpb, False)
         self.column.pack_start(self.cell, True)
         self.column.set_attributes(self.cell, text=0)
@@ -158,18 +164,18 @@ class LVPanel():
         self.treeview.append_column(self.column)
         self.treeview.connect("row-expanded", self.on_row_exp)
 
-        self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/uri-list', 0, 0)], gtk.gdk.ACTION_COPY)
+        self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [Gtk.TargetEntry.new('text/uri-list', 0, 0)], Gdk.DragAction.COPY)
         self.treeview.connect("drag-data-get", self.drag_data_get)
         self.scrlw.add(self.treeview)
 
         self.title='LibriVox'
         self.vbox.show_all()
 
-        self.popup_menu=gtk.Menu()
-        self.add_to_pl=gtk.ImageMenuItem("Append to Current")
-        self.add_to_pl.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_MENU))
-        self.about_book=gtk.ImageMenuItem("About the Book")
-        self.about_book.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
+        self.popup_menu=Gtk.Menu()
+        self.add_to_pl=Gtk.ImageMenuItem.new_with_label("Append to Current")
+        self.add_to_pl.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.MENU))
+        self.about_book=Gtk.ImageMenuItem.new_with_label("About the Book")
+        self.about_book.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_ABOUT, Gtk.IconSize.MENU))
         self.popup_menu.add(self.add_to_pl)
         self.popup_menu.add(self.about_book)
         self.popup_menu.show_all()
@@ -228,7 +234,7 @@ class LVPanel():
                 path, col, cellx, celly = pthinfo
                 self.treeview.grab_focus()
                 self.treeview.set_cursor(path, col, 0)
-                self.popup_menu.popup( None, None, None, event.button, time)
+                self.popup_menu.popup( None, None, None, None, event.button, time)
             return 1
 
     @guiutil.idle_add()
@@ -272,7 +278,7 @@ class LVPanel():
 
                 if drop_info:
                     PLpath, position = drop_info
-                    if (position == gtk.TREE_VIEW_DROP_AFTER):
+                    if (position == Gtk.TreeViewDropPosition.AFTER):
                         after=True
                     else:
                         after=False
@@ -367,14 +373,13 @@ class LVPanel():
 class Status():
     '''Status bar'''
     def __init__(self):
-        self.bar=gtk.Statusbar()
-        self.bar.set_has_resize_grip(False)
+        self.bar=Gtk.Statusbar()
         self.bar.show_all()
     def set_status(self, status):
         context_id=1
         msg_id=self.bar.push(context_id, status)
         return (context_id, msg_id)
     def unset_status(self, context_id, msg_id):
-        self.bar.remove_message(context_id, msg_id)
+        self.bar.remove(context_id, msg_id)
 
 

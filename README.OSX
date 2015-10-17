@@ -1,19 +1,19 @@
 
-OSX Notes
+OS X Notes
 =========
 
 We're excited to announce that Exaile has experimental yet official support
-for OSX as of version 3.4.0, and is distributed in an official installer
-program. Current support for OSX is still considered experimental, and
-probably will continue to be until we migrate to GTK3.
+for OS X as of version 3.4.0, and is distributed in an official installer
+program. Current support for OS X is still considered experimental, and
+probably will continue to be until we migrate to GTK+ 3.
 
-Exaile has only been tested extensively on OSX 10.8 Mountain Lion. It may
-work on other versions of OSX, but they have not been tested.
+Exaile has only been tested extensively on OS X 10.8 Mountain Lion. It may
+work on other versions of OS X, but they have not been tested.
 
 Requirements
 ------------
 
-On OSX, Exaile requires the GStreamer SDK Runtime to be installed, otherwise
+On OS X, Exaile requires the GStreamer SDK Runtime to be installed, otherwise
 it will not function. 
 
 Download the SDK runtime for OSX here:
@@ -46,13 +46,13 @@ other formats because of licensing issues. If you require support for these
 types of files, use the following procedure when installing GStreamer SDK.
 
 - Run the GStreamer installation package
-- Click continue
+- Click "Continue"
 - Click "Agree" to agree to the license agreement
 - Click "Install for all users of this computer", and click "Continue"
 - Click "Customize"
 - Ensure the following package names are checked in addition to the defaults:
     - GStreamer codecs under the GPL license
-    - GStreamer restricted codecs 
+    - GStreamer restricted codecs
     - GStreamer plugins for network protocols
 
 - Click Install, and it should do the install for you
@@ -60,18 +60,18 @@ types of files, use the following procedure when installing GStreamer SDK.
 Known issues
 ------------
 
-The OSX version is about as functional as the Windows version, so most things
+The OS X version is about as functional as the Windows version, so most things
 will work without any problems. The CD plugin and other device plugins will
-not work on OSX.
+not work on OS X.
 
 Transparency may not work.
 
-Keyboard shortcuts aren't mapped to the option/command keys, and are still
+Keyboard shortcuts aren't mapped to the Option/Command keys, and are still
 mapped to CTRL.
 
-GTK2 seems to have a lot of odd problems on OSX, such as combo boxes immediately
+GTK+ 2 seems to have a lot of odd problems on OS X, such as combo boxes immediately
 switching when clicked. We anticipate that these will not be fixed until we
-migrate exaile to GTK3. 
+migrate exaile to GTK+ 3.
 
 
 

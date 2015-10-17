@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
+from gi.repository import Gio
 
 import cgi
 import json
@@ -160,7 +160,7 @@ class PlaylistAnalyzerPlugin(object):
             output URI, and also writes d3.min.js to the output directory.
         
             :param tmpl: Local pathname to template file
-            :param uri: URI of output file suitable for passing to gio.File
+            :param uri: URI of output file suitable for passing to Gio.File
             :param kwargs: Named parameters to substitute in template
         '''
         
@@ -173,10 +173,10 @@ class PlaylistAnalyzerPlugin(object):
         except:
             raise RuntimeError("Format string error in template (probably has unescaped % in it)")
         
-        outfile = gio.File(uri)
+        outfile = Gio.File.new_for_uri(uri)
         parent_dir = outfile.get_parent()
         if parent_dir:
-            parent_dir = gio.File(parent_dir.get_uri() + "/d3.min.js")
+            parent_dir = parent_dir.get_child("d3.min.js")
         
         with closing(outfile.replace('', False)) as fp:
             fp.write(contents)

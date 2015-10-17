@@ -29,9 +29,10 @@ from xl.metadata._base import (
     BaseFormat,
     CoverImage
 )
-from mutagen import oggvorbis
+from mutagen import oggvorbis, oggopus
 import mutagen.flac
 import base64
+
 
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
@@ -55,5 +56,7 @@ class OggFormat(BaseFormat):
                 picture = mutagen.flac.Picture(base64.standard_b64decode(d))
                 td['cover'] += [CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data)]
         return td
-# vim: et sts=4 sw=4
 
+
+class OggOpusFormat(OggFormat):
+    MutagenType = oggopus.OggOpus

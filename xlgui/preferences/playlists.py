@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xl import xdg
 from xl.nls import gettext as _

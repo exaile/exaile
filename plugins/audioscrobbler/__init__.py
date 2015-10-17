@@ -14,13 +14,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import _scrobbler as scrobbler
 import asprefs
 from xl import common, event, xdg, metadata, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu
-import glib, logging, time, pickle, os, gtk
+import logging, time, pickle, os
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +43,7 @@ def enable(exaile):
         __enb(None, exaile, None)
 
 def __enb(eventname, exaile, nothing):
-    glib.idle_add(_enable, exaile)
+    GLib.idle_add(_enable, exaile)
 
 def _enable(exaile):
 #    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
@@ -120,11 +123,11 @@ class ExaileScrobbler(object):
             menu.simple_separator('plugin-sep', ['track-properties']))
 
         def factory(menu_, parent, context):
-            item = gtk.CheckMenuItem(_('Enable audioscrobbling'))
+            item = Gtk.CheckMenuItem.new_with_label(_('Enable audioscrobbling'))
             item.set_active(self.submit)
-            key, mods = gtk.accelerator_parse('<Control>B')
+            key, mods = Gtk.accelerator_parse('<Control>B')
             item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                    gtk.ACCEL_VISIBLE)
+                    Gtk.AccelFlags.VISIBLE)
             item.connect('toggled', self._menu_entry_toggled)
             return item
 
@@ -167,7 +170,7 @@ class ExaileScrobbler(object):
                 scrobbler.login(username, password, hashpw=True, post_url=server)
             except:
                 self.connecting = False
-                common.log_exception()
+                logger.exception("Error logging in")
                 return
 
         logger.info("Connected to AudioScrobbler")
@@ -258,6 +261,5 @@ class ExaileScrobbler(object):
                     autoflush=True,
                     )
             except:
-                common.log_exception()
-                logger.warning("AS: Failed to submit track")
+                logger.exception("AS: Failed to submit track")
 

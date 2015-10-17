@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xlgui.preferences import widgets
 
@@ -35,7 +35,7 @@ import os
 name = _('History')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'history_preferences.ui')
-icon = gtk.STOCK_GOTO_FIRST
+icon = 'document-open-recent'
 
 
 # defaults

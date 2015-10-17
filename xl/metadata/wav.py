@@ -31,7 +31,7 @@ import sunau
 import aifc
 import os
 
-import gio
+from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat
 
@@ -46,8 +46,7 @@ class WavFormat(BaseFormat):
     writable = False
     def load(self):
         try:
-            loc = gio.File(self.loc).get_path()
-            ext = os.path.splitext(loc)[1][1:].lower()
+            ext = os.path.splitext(self.loc)[1][1:].lower()
             opener = type_map[ext]
             f = opener.open(self.loc, "rb")
             length = f.getnframes() / f.getframerate()

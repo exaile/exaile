@@ -1,5 +1,8 @@
-import glib
-import gtk
+
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import httplib
 import logging
 logger = logging.getLogger(__name__)
@@ -318,7 +321,7 @@ class IcecastRadioStation(RadioStation):
             _("Icecast Search"))
 
         result = dialog.run()
-        if result == gtk.RESPONSE_OK:
+        if result == Gtk.ResponseType.OK:
             keyword = dialog.get_value()
 
             self.do_search(keyword)
@@ -330,7 +333,7 @@ class IcecastRadioStation(RadioStation):
         """
         lists = self.search(keyword)
 
-        glib.idle_add(self.search_done, keyword, lists)
+        GLib.idle_add(self.search_done, keyword, lists)
 
     @guiutil.idle_add()
     def search_done(self, keyword, lists):
@@ -338,10 +341,9 @@ class IcecastRadioStation(RadioStation):
             Called when the search is finished
         """
         if not lists:
-            gtk.gdk.threads_enter()
             dialogs.info(self.exaile.gui.main.window, _('No Stations Found'))
-            gtk.gdk.threads_leave()
             return
+        
         dialog = ResultsDialog(_("Icecast Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)
@@ -351,7 +353,7 @@ class IcecastRadioStation(RadioStation):
     def _search_response(self, dialog, result, *e):
 
         dialog.hide()
-        if result == gtk.RESPONSE_OK:
+        if result == Gtk.ResponseType.OK:
             items = dialog.get_items()
             if not items: return
 
@@ -362,7 +364,7 @@ class IcecastRadioStation(RadioStation):
         pl = item.get_playlist()
         if not pl: return
 
-        glib.idle_add(self.done_getting_playlist, pl)
+        GLib.idle_add(self.done_getting_playlist, pl)
 
     @guiutil.idle_add()
     def done_getting_playlist(self, pl):
@@ -374,7 +376,7 @@ class IcecastRadioStation(RadioStation):
         """
         self._parent = parent
         menu = parent.get_menu()
-        menu.append(_("Search"), lambda *e: self.on_search(), gtk.STOCK_FIND)
+        menu.append(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
         return menu
 
 class ResultsDialog(dialogs.ListDialog):
@@ -385,15 +387,15 @@ class ResultsDialog(dialogs.ListDialog):
         col.set_expand(True)
         col.set_resizable(True)
         self.list.set_headers_visible(True)
-        text = gtk.CellRendererText()
+        text = Gtk.CellRendererText()
         text.set_property('xalign', 1.0)
-        col = gtk.TreeViewColumn(_('Bitrate'), text)
+        col = Gtk.TreeViewColumn(_('Bitrate'), text)
         col.set_cell_data_func(text, lambda column, cell, model, iter: \
             cell.set_property('text', model.get_value(iter, 0).bitrate))
         self.list.append_column(col)
-        text = gtk.CellRendererText()
+        text = Gtk.CellRendererText()
         text.set_property('xalign', 0.5)
-        col = gtk.TreeViewColumn(_('Format'), text)
+        col = Gtk.TreeViewColumn(_('Format'), text)
         col.set_cell_data_func(text, lambda column, cell, model, iter: \
             cell.set_property('text', model.get_value(iter, 0).format))
         self.list.append_column(col)

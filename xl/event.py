@@ -45,9 +45,8 @@ from new import instancemethod
 import re
 import threading
 import time
-import traceback
 import weakref
-import glib
+from gi.repository import GLib
 
 from xl import common
 from xl.nls import gettext as _
@@ -220,9 +219,10 @@ class EventManager(object):
     """
         Manages all Events
     """
-    def __init__(self, use_logger=False, logger_filter=None):
+    def __init__(self, use_logger=False, logger_filter=None, verbose=False):
         self.callbacks = {}
         self.use_logger = use_logger
+        self.use_verbose_logger = verbose
         self.logger_filter = logger_filter
 
         # RLock is needed so that event callbacks can themselves send
@@ -238,6 +238,7 @@ class EventManager(object):
         
         emit_logmsg = self.use_logger and (not self.logger_filter or \
                    re.search(self.logger_filter, event.type))
+        emit_verbose = emit_logmsg and self.use_verbose_logger
         
         with self.lock:
             callbacks = set()
@@ -257,7 +258,7 @@ class EventManager(object):
                         except (KeyError, ValueError):
                             pass
                     elif event.time >= cb.time:
-                        if emit_logmsg:
+                        if emit_verbose:
                             logger.debug("Attempting to call "
                                     "%(function)s in response "
                                     "to %(event)s." % {
@@ -267,8 +268,7 @@ class EventManager(object):
                                 event.data, *cb.args, **cb.kwargs)
                 except Exception:
                     # something went wrong inside the function we're calling
-                    common.log_exception(logger,
-                                message="Event callback exception caught!")
+                    logger.exception("Event callback exception caught!")
 
         if emit_logmsg:
             logger.debug("Sent '%(type)s' event from "
@@ -280,7 +280,7 @@ class EventManager(object):
         """
             Same as emit(), but does not block.
         """
-        glib.idle_add(self.emit, event)
+        GLib.idle_add(self.emit, event)
 
     def add_callback(self, function, type, obj, args, kwargs):
         """

@@ -31,9 +31,9 @@
 from __future__ import with_statement
 
 import inspect
-import gio
-import glib
-import gobject
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import GObject
 import logging
 import os
 import random
@@ -41,7 +41,6 @@ import string
 import subprocess
 import sys
 import threading
-import traceback
 import urllib2
 import urlparse
 from functools import wraps, partial
@@ -72,23 +71,44 @@ BASE_SORT_TAGS=('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'ti
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):
     """
-        Convenience function to log an exception + traceback
-
-        :param log: the logger object to use.  important to specify
-            so that it will be logged under the right module name.
-        :param message: a message describing the error condition.
+        Deprecated! Don't use this in newer code, use this instead::
+        
+            import logging
+            logger = logging.getLogger(__name__)
+            
+            .. 
+            
+            try:
+                ..
+            except:
+                logger.exception("Some message: %s", param)
     """
-    log.debug(message + "\n" + traceback.format_exc())
+    log.exception(message)
 
-def to_unicode(x, default_encoding=None):
+def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
+    # unicode() only accepts "string or buffer", so check the type of x first.
     if isinstance(x, unicode):
         return x
-    elif default_encoding and isinstance(x, str):
-        # This unicode constructor only accepts "string or buffer".
-        return unicode(x, default_encoding)
+    elif isinstance(x, str):
+        if encoding:
+            return unicode(x, encoding, errors)
+        else:
+            return unicode(x, errors=errors)
     else:
         return unicode(x)
+
+def strxfrm(x):
+    """Like locale.strxfrm but also supports Unicode.
+
+    This works around a bug in Python 2 causing strxfrm to fail on unicode
+    objects that cannot be encoded with sys.getdefaultencoding (ASCII in most
+    cases): https://bugs.python.org/issue2481
+    """
+    import locale
+    if isinstance(x, unicode):
+        return locale.strxfrm(x.encode('utf-8', 'replace'))
+    return locale.strxfrm(x)
 
 def clamp(value, minimum, maximum):
     """
@@ -196,7 +216,7 @@ def _idle_callback(func, callback, *args, **kwargs):
 
 def idle_add(callback=None):
     """
-        A decorator that will wrap the function in a glib.idle_add call
+        A decorator that will wrap the function in a GLib.idle_add call
 
         NOTE: Although this decorator will probably work in more cases than
         the gtkrun decorator does, you CANNOT expect to get a return value
@@ -209,7 +229,7 @@ def idle_add(callback=None):
     """
     def wrap(f):
         def wrapped(*args, **kwargs):
-            glib.idle_add(_idle_callback, f, callback,
+            GLib.idle_add(_idle_callback, f, callback,
                 *args, **kwargs)
 
         return wrapped
@@ -224,7 +244,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
             id[0] = None
             return function(*args, **kwargs)
         def delayer(*args, **kwargs):
-            if id[0]: glib.source_remove(id[0])
+            if id[0]: GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
@@ -251,16 +271,16 @@ def glib_wait(timeout):
     # the implementation later for the moment, and really I don't
     # think it makes sense to use functions that have changing args
     # with this decorator.
-    return _glib_wait_inner(timeout, glib.timeout_add)
+    return _glib_wait_inner(timeout, GLib.timeout_add)
 
 def glib_wait_seconds(timeout):
     """
-        Same as glib_wait, but uses glib.timeout_add_seconds instead
-        of glib.timeout_add and takes its timeout in seconds. See the
+        Same as glib_wait, but uses GLib.timeout_add_seconds instead
+        of GLib.timeout_add and takes its timeout in seconds. See the
         glib documention for why you might want to use one over the
         other.
     """
-    return _glib_wait_inner(timeout, glib.timeout_add_seconds)
+    return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
 
 def profileit(func):
     """
@@ -320,12 +340,11 @@ def open_file(path):
     else:
         subprocess.Popen(["xdg-open", path])
 
-def open_file_directory(path):
+def open_file_directory(path_or_uri):
     """
         Opens the parent directory of a file, selecting the file if possible.
     """
-    import gio
-    f = gio.File(path)
+    f = Gio.File.new_for_commandline_arg(path_or_uri)
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2
@@ -435,10 +454,10 @@ def walk(root):
         the next directory. Order of files within a directory
         and order of directory traversal is not specified.
 
-        :param root: a :class:`gio.File` representing the
+        :param root: a :class:`Gio.File` representing the
             directory to walk through
         :returns: a generator object
-        :rtype: :class:`gio.File`
+        :rtype: :class:`Gio.File`
     """
     queue = deque()
     queue.append(root)
@@ -449,7 +468,8 @@ def walk(root):
         try:
             for fileinfo in dir.enumerate_children("standard::type,"
                     "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified"):
+                    "standard::symlink-target,time::modified",
+                    Gio.FileQueryInfoFlags.NONE, None):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
@@ -457,26 +477,26 @@ def walk(root):
                     if not "://" in target and not os.path.isabs(target):
                         fil2 = dir.get_child(target)
                     else:
-                        fil2 = gio.File(target)
+                        fil2 = Gio.File.new_for_uri(target)
                     # already in the collection, we'll get it anyway
                     if fil2.has_prefix(root):
                         continue
                 type = fileinfo.get_file_type()
-                if type == gio.FILE_TYPE_DIRECTORY:
+                if type == Gio.FileType.DIRECTORY:
                     queue.append(fil)
-                elif type == gio.FILE_TYPE_REGULAR:
+                elif type == Gio.FileType.REGULAR:
                     yield fil
-        except gio.Error, e: # why doesnt gio offer more-specific errors?
-            log_exception(log=logger, message="Unhandled exception while walking on %s." % dir)
+        except GLib.Error: # why doesnt gio offer more-specific errors?
+            logger.exception("Unhandled exception while walking on %s.", dir)
 
 def walk_directories(root):
     """
         Walk through a Gio directory, yielding each subdirectory
 
-        :param root: a :class:`gio.File` representing the
+        :param root: a :class:`Gio.File` representing the
             directory to walk through
         :returns: a generator object
-        :rtype: :class:`gio.File`
+        :rtype: :class:`Gio.File`
     """
     yield root
     directory = None
@@ -484,14 +504,15 @@ def walk_directories(root):
 
     try:
         for fileinfo in root.enumerate_children(
-                'standard::name,standard::type'):
-            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY:
+                'standard::name,standard::type', Gio.FileQueryInfoFlags.NONE, None):
+            if fileinfo.get_file_type() == Gio.FileType.DIRECTORY:
                 directory = root.get_child(fileinfo.get_name())
 
                 for subdirectory in walk_directories(directory):
                     yield subdirectory
-    except gio.Error, e:
-        log_exception(log=logger, message="Unhandled exception while walking dirs on %s, %s, %s" % (root, directory, subdirectory))
+    except GLib.Error:
+        logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
+                         root, directory, subdirectory)
 
 class TimeSpan:
     """
@@ -648,26 +669,26 @@ class MetadataList(object):
         if not self.metadata[index]:
             self.metadata[index] = None
 
-class ProgressThread(gobject.GObject, threading.Thread):
+class ProgressThread(GObject.GObject, threading.Thread):
     """
         A basic thread with progress updates
     """
     __gsignals__ = {
         'progress-update': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_FIRST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         # TODO: Check if 'stopped' is required
         'done': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
+            GObject.SignalFlags.RUN_FIRST,
+            None,
             ()
         )
     }
 
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         threading.Thread.__init__(self)
         self.setDaemon(True)
 
@@ -766,5 +787,112 @@ class LazyDict(object):
             return self[item]
         except KeyError:
             return default
+
+
+class _GioFileStream(object):
+    
+    __slots__ = ['stream']
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, *exc_info):
+        self.stream.close()
+    
+    def seek(self, offset, whence=os.SEEK_CUR):
+        if whence == os.SEEK_CUR:
+            self.stream.seek(offset, GLib.SeekType.CUR)
+        elif whence == os.SEEK_SET:
+            self.stream.seek(offset, GLib.SeekType.SET)
+        elif whence == os.SEEK_END:
+            self.stream.seek(offset, GLib.SeekType.END)
+        else:
+            raise IOError("Invalid whence")
+    
+    def tell(self):
+        return self.stream.tell()
+    
+
+class GioFileInputStream(_GioFileStream):
+    '''
+        Wrap a Gio.File so it looks like a python file object for reading.
+        
+        TODO: More complete wrapper
+    '''
+    __slots__ = ['stream', 'gfile']
+    
+    def __init__(self, gfile):
+        self.gfile = gfile
+        self.stream = Gio.DataInputStream.new(gfile.read())
+    
+    def next(self):
+        r = self.stream.read_line()[0]
+        if not r:
+            raise StopIteration()
+    
+    def read(self, size=None):
+        if size:
+            return self.stream.read_bytes(size).get_data()
+        else:
+            return self.gfile.load_contents()[1]
+    
+    def readline(self):
+        return self.stream.read_line()[0]
+
+
+class GioFileOutputStream(_GioFileStream):
+    '''
+        Wrapper around Gio.File for writing like a python file object
+    '''
+    __slots__ = ['stream']
+    
+    def __init__(self, gfile, mode):
+        if mode != 'w':
+            raise IOError("Not implemented")
+        
+        self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
+    
+    def flush(self):
+        self.stream.flush()
+    
+    def write(self, s):
+        return self.stream.write(s)
+
+
+def subscribe_for_settings(section, options, self):
+    '''
+        Allows you designate attributes on an object to be dynamically
+        updated when a particular setting changes. If you want to be
+        notified of a setting update, use a @property for the attribute.
+        
+        Only works for a options in a single section
+        
+        :param section: Settings section
+        :param options: Dictionary of key: option name, value: attribute on
+                        'self' to set when the setting has been updated. The
+                        attribute must already have a default value in it
+        :param self:    Object to set attribute values on
+        
+        :returns: A function that can be called to unsubscribe
+        
+        .. versionadded:: 3.5.0
+    '''
+    
+    from xl import event
+    from xl import settings
+    
+    def _on_option_set(unused_name, unused_object, data):
+        attrname = options.get(data)
+        if attrname is not None:
+            setattr(self, attrname,
+                    settings.get_option(data, getattr(self, attrname)))
+    
+    for k in options.iterkeys():
+        if not k.startswith('%s/' % section):
+            raise ValueError("Option is not part of section %s" % section)
+        _on_option_set(None, None, k)
+    
+    return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
+
 
 # vim: et sts=4 sw=4

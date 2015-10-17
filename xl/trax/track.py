@@ -26,10 +26,9 @@
 # from your version.
 
 from copy import deepcopy
-import gio
-import glib
+from gi.repository import Gio
+from gi.repository import GLib
 import logging
-import os.path
 import time
 import unicodedata
 import weakref
@@ -80,11 +79,12 @@ class _MetadataCacher(object):
         self._cache = []
         self.timeout = timeout
         self.maxentries = maxentries
-        self._cleanup_id = 0
+        self._cleanup_id = None
 
     def __cleanup(self):
         if self._cleanup_id:
-            glib.source_remove(self._cleanup_id)
+            GLib.source_remove(self._cleanup_id)
+            self._cleanup_id = None
         current = time.time()
         thresh = current - self.timeout
         for item in self._cache[:]:
@@ -93,7 +93,7 @@ class _MetadataCacher(object):
         if self._cache:
             next_expiry = min([i[2] for i in self._cache])
             timeout = int((next_expiry + self.timeout) - current)
-            self._cleanup_id = glib.timeout_add_seconds(timeout,
+            self._cleanup_id = GLib.timeout_add_seconds(timeout,
                     self.__cleanup)
 
     def add(self, trackobj, formatobj):
@@ -106,7 +106,7 @@ class _MetadataCacher(object):
             least = min([(i[2], i) for i in self._cache])[1]
             self._cache.remove(least)
         if not self._cleanup_id:
-            self._cleanup_id = glib.timeout_add_seconds(self.timeout,
+            self._cleanup_id = GLib.timeout_add_seconds(self.timeout,
                     self.__cleanup)
 
     def remove(self, trackobj):
@@ -170,7 +170,7 @@ class Track(object):
                 uri = unpickles.get("__loc")
 
         if uri is not None:
-            uri = gio.File(uri).get_uri()
+            uri = Gio.File.new_for_uri(uri).get_uri()
             try:
                 tr = cls.__tracksdict[uri]
                 tr._init = False
@@ -206,7 +206,7 @@ class Track(object):
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            :param uri:  The path to the track.
+            :param uri: the location, as either a uri or a file path.
             :param scan: Whether to try to read tags from the given uri.
                   Use only if the tags need to be set by a
                   different source.
@@ -256,7 +256,7 @@ class Track(object):
             :param loc: the location, as either a uri or a file path.
         """
         self.__unregister()
-        gloc = gio.File(loc)
+        gloc = Gio.File.new_for_commandline_arg(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
         event.log_event('track_tags_changed', self, '__loc')
@@ -266,7 +266,7 @@ class Track(object):
             Returns whether the file exists
             This can be very slow, use with caution!
         """
-        return gio.File(self.get_loc_for_io()).query_exists()
+        return Gio.File.new_for_uri(self.get_loc_for_io()).query_exists(None)
 
     def get_loc_for_io(self):
         """
@@ -298,13 +298,13 @@ class Track(object):
             :returns: the file path or None
             :rtype: string or NoneType
         """
-        return gio.File(self.get_loc_for_io()).get_path()
+        return Gio.File.new_for_uri(self.get_loc_for_io()).get_path()
 
     def get_basename(self):
         """
             Returns the base name of a resource
         """
-        gfile = gio.File(self.get_loc_for_io())
+        gfile = Gio.File.new_for_uri(self.get_loc_for_io())
 
         return gfile.get_basename()
 
@@ -312,7 +312,7 @@ class Track(object):
         """
             Get the URI schema the file uses, e.g. file, http, smb.
         """
-        return gio.File(self.get_loc_for_io()).get_uri_scheme()
+        return Gio.File.new_for_uri(self.get_loc_for_io()).get_uri_scheme()
 
     def write_tags(self):
         """
@@ -332,8 +332,7 @@ class Track(object):
             logger.warning( "Could not write tags to file: %s" % e )
             return False
         except Exception, e:
-            common.log_exception(logger)
-            logger.warning( "Unknown exception: Could not write tags to file: %s" % e )
+            logger.exception( "Unknown exception: Could not write tags to file: %s" % e )
             return False
 
     def read_tags(self):
@@ -343,8 +342,9 @@ class Track(object):
             Returns False if unsuccessful, and a Format object from
             `xl.metadata` otherwise.
         """
+        loc = self.get_loc_for_io()
         try:
-            f = metadata.get_format(self.get_loc_for_io())
+            f = metadata.get_format(loc)
             if f is None:
                 self._scan_valid = False
                 return False # not a supported type
@@ -365,8 +365,9 @@ class Track(object):
                     self.set_tag_raw(tag, None)
 
             # fill out file specific items
-            gloc = gio.File(self.get_loc_for_io())
-            mtime = gloc.query_info("time::modified").get_modification_time()
+            gloc = Gio.File.new_for_uri(loc)
+            mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+            mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
             self.set_tag_raw('__modified', mtime)
             # TODO: this probably breaks on non-local files
             path = gloc.get_parent().get_path()
@@ -376,7 +377,7 @@ class Track(object):
             return f
         except Exception:
             self._scan_valid = False
-            common.log_exception()
+            logger.exception("Error reading tags for %s", loc)
             return False
 
     def is_local(self):
@@ -384,7 +385,7 @@ class Track(object):
             Determines whether a file is accessible on the local filesystem.
         """
         # TODO: determine this better
-        # Maybe use gio.File.is_native()?
+        # Maybe use Gio.File.is_native()?
         if self.get_local_path():
             return True
         return False
@@ -393,8 +394,8 @@ class Track(object):
         """
             Get the raw size of the file. Potentially slow.
         """
-        f = gio.File(self.get_loc_for_io())
-        return f.query_info("standard::size").get_size()
+        f = Gio.File.new_for_uri(self.get_loc_for_io())
+        return f.query_info("standard::size", Gio.FileQueryInfoFlags.NONE, None).get_size()
 
     def __repr__(self):
         return str(self)
@@ -463,9 +464,9 @@ class Track(object):
         # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
             values = [
-                common.to_unicode(v, self.__tags.get('__encoding')) \
-                    if isinstance(v, basestring) else v \
-                for v in values \
+                common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
+                    if isinstance(v, basestring) else v
+                for v in values
                     if v not in (None, '')
             ]
 
@@ -551,8 +552,8 @@ class Track(object):
         if not value:
             value = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
-                gloc = gio.File(self.__tags['__loc'])
-                basename = glib.filename_display_name(gloc.get_basename())
+                gloc = Gio.File.new_for_uri(self.__tags['__loc'])
+                basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
                 value = u"%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
@@ -562,7 +563,7 @@ class Track(object):
                 if isinstance(value, list):
                     value = [self.lower(v + u" " + v) for v in value]
                 else:
-                    value = self.lower(value + u" " + v)
+                    value = self.lower(value + u" " + value)
             if join:
                 value = self.join_values(value)
 
@@ -583,7 +584,7 @@ class Track(object):
                 add some identifying information to it.
         """
         if tag == '__loc':
-            uri = gio.File(self.__tags['__loc']).get_parse_name()
+            uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
             return uri.decode('utf-8')
 
         value = None
@@ -621,8 +622,8 @@ class Track(object):
             else:
                 value = _UNKNOWNSTR
                 if tag == 'title':
-                    gloc = gio.File(self.__tags['__loc'])
-                    basename = glib.filename_display_name(gloc.get_basename())
+                    gloc = Gio.File.new_for_uri(self.__tags['__loc'])
+                    basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
                     value = u"%s (%s)" % (value, basename)
 
         if isinstance(value, list):
@@ -672,7 +673,6 @@ class Track(object):
             value = self.get_basename()
         else:
             value = self.__tags.get(tag)
-
 
         # Quote arguments
         if value is None:

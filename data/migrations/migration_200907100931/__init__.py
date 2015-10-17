@@ -1,5 +1,4 @@
 import os
-import traceback
 from xl import xdg, trax, collection
 from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist

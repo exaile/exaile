@@ -47,7 +47,7 @@ class LyricWiki(LyricSearchMethod):
         artist = urllib.quote(artist.replace(' ','_'))
         title = urllib.quote(title.replace(' ','_'))
 
-        url = 'http://lyrics.wikia.com/%s:%s' % (artist, title)
+        url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 
         try:
             html = common.get_url_contents(url, self.user_agent)
@@ -65,7 +65,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 

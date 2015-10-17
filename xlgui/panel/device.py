@@ -26,9 +26,9 @@
 
 import threading
 
-import glib
-import gobject
-import gtk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xl import common, event
 from xl.nls import gettext as _
@@ -99,10 +99,10 @@ class DevicePanel(panel.Panel):
         generic panel for devices
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'collection-tree-loaded': (GObject.SignalFlags.RUN_LAST, None, ()),
     }
 
     ui_info = ('device.ui', 'DevicePanelWindow')
@@ -134,13 +134,13 @@ class DevicePanel(panel.Panel):
         thread = DeviceTransferThread(self.device)
         thread.connect('done', lambda *e: self.load_tree())
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Transferring to %s...") % self.name, gtk.STOCK_GO_UP)
+                _("Transferring to %s...") % self.name, 'go-up')
 
     def get_panel(self):
         return self.collectionpanel.get_panel()
 
     def add_panel(self, child, name):
-        label = gtk.Label(name)
+        label = Gtk.Label(label=name)
         self.notebook.append_page(child, label)
 
     def load_tree(self, *args):
@@ -148,9 +148,9 @@ class DevicePanel(panel.Panel):
 
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
     ui_info = ('device.ui', 'DevicePanelWindow')
@@ -177,7 +177,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         return self.fppanel.get_panel()
 
     def add_panel(self, child, name):
-        label = gtk.Label(name)
+        label = Gtk.Label(label=name)
         self.notebook.append_page(child, label)
 
     def load_tree(self, *e):

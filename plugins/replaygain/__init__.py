@@ -25,9 +25,9 @@
 # from your version.
 
 from xl import providers, event, settings
-from xl.player.pipe import ElementBin
+from xl.player.gst.gst_utils import ElementBin
 
-import gst
+from gi.repository import Gst
 
 try:
     import replaygainprefs
@@ -40,14 +40,14 @@ NEEDED_ELEMS = ["rgvolume", "rglimiter"]
 
 def enable(exaile):
     for elem in NEEDED_ELEMS:
-        if not gst.element_factory_find(elem):
+        if not Gst.ElementFactory.find(elem):
             raise ImportError, "Needed gstreamer element %s missing."%elem
-    providers.register("stream_element", ReplaygainVolume)
-    providers.register("stream_element", ReplaygainLimiter)
+    providers.register("gst_audio_filter", ReplaygainVolume)
+    providers.register("gst_audio_filter", ReplaygainLimiter)
 
 def disable(exaile):
-    providers.unregister("stream_element", ReplaygainVolume)
-    providers.unregister("stream_element", ReplaygainLimiter)
+    providers.unregister("gst_audio_filter", ReplaygainVolume)
+    providers.unregister("gst_audio_filter", ReplaygainLimiter)
 
 
 class ReplaygainVolume(ElementBin):
@@ -59,11 +59,11 @@ class ReplaygainVolume(ElementBin):
     """
     index = 20
     name = "rgvolume"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
-        self.audioconvert = gst.element_factory_make("audioconvert")
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
+        self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[40] = self.audioconvert
-        self.rgvol = gst.element_factory_make("rgvolume")
+        self.rgvol = Gst.ElementFactory.make("rgvolume")
         self.elements[50] = self.rgvol
         self.setup_elements()
 
@@ -95,11 +95,11 @@ class ReplaygainLimiter(ElementBin):
     """
     index = 80
     name = "rglimiter"
-    def __init__(self, player):
-        ElementBin.__init__(self, player, name=self.name)
-        self.rglimit = gst.element_factory_make("rglimiter")
+    def __init__(self):
+        ElementBin.__init__(self, name=self.name)
+        self.rglimit = Gst.ElementFactory.make("rglimiter")
         self.elements[50] = self.rglimit
-        self.audioconvert = gst.element_factory_make("audioconvert")
+        self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[60] = self.audioconvert
         self.setup_elements()
 

@@ -14,9 +14,8 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen, re, spydaap, re, os, sys
+import mutagen, re, spydaap, os, sys
 from spydaap.daap import do
-import traceback
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,8 +40,8 @@ class ExaileParser(spydaap.parser.Parser):
         }
 
     def understands(self, filename):
-        return true
-     #   return self.file_re.match(filename)
+        return True
+    #   return self.file_re.match(filename)
 
     # returns a list in exaile
     def handle_int_tags(self, map, md, daap):
@@ -58,10 +57,9 @@ class ExaileParser(spydaap.parser.Parser):
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
-                except Exception:
-                    logger.debug('exception caught parsing tag: {0}={1} from {2}'
-                        .format(k, tn, md))
-                    logger.debug(traceback.format_exc()) 
+                except:
+                    logger.exception('exception caught parsing tag: %s=%s from %s',
+                        k, tn, md)
 
     # We can't use functions in __init__ because exaile tracks no longer
     # give us access to .tags
@@ -73,7 +71,7 @@ class ExaileParser(spydaap.parser.Parser):
                     tag = [ t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
                 except Exception:
-                    logger.debug(traceback.format_exc()) 
+                    logger.exception("error decoding tags") 
 
     def parse(self, trk):
         try:
@@ -107,11 +105,8 @@ class ExaileParser(spydaap.parser.Parser):
                       ])
             return (d, name)
             
-        except Exception, e:
-            logger.warning('caught exception while processing {0}: {1}'
-                .format(trk, e))
-            logger.debug(traceback.format_exc())
-
+        except:
+            logger.exception('caught exception while processing %s', trk)
             return (None, None)    
 
 

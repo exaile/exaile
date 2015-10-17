@@ -3,3 +3,4 @@ Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>']
 Name=_('DAAP Client')
 Description=_('Allows playing of DAAP music shares.')
 Category=_('Media Sources')
+RequiredModules=['dbus']

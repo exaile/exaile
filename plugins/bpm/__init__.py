@@ -27,8 +27,10 @@
 
 import os
 import time
-import gtk
-import gobject
+
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GObject
  
 from xl import (
     event, 
@@ -37,37 +39,17 @@ from xl import (
 )
 
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui.guiutil import idle_add, GtkTemplate
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
 
+import bpmdetect
+autodetect_enabled = bpmdetect.autodetect_supported()
 
-plugin = None
-
-
-def enable(exaile):
-    '''Called on plugin enable'''
-    if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
-    else:
-        _enable(None, exaile, None)
-        
-def _enable(eventname, exaile, nothing):
-
-    global plugin
-    if plugin is None:
-        plugin = BPMCounterPlugin()
-    
-    event.remove_callback(_enable, 'gui_loaded')
-    
-def disable(exaile):
-    '''Called on plugin disable'''
-    
-    global plugin
-    if plugin is not None:
-        plugin.disable_plugin()
-        plugin = None
-   
+menu_providers = [
+    'track-panel-menu',
+    'playlist-context-menu',
+]
     
 class BPMCounterPlugin(object):
     """
@@ -75,29 +57,89 @@ class BPMCounterPlugin(object):
     """
     # Provider API requirement
     name = 'BPM'
+    menuitem = None
     
-    def __init__(self):
+    def enable(self, exaile):
+        pass
+    
+    def on_gui_loaded(self):
         providers.register('mainwindow-info-area-widget', self)
+        
+        if autodetect_enabled:
+            self.menuitem = menu.simple_menu_item('_bpm', ['enqueue'],
+                _('Autodetect BPM'), callback=self.on_auto_menuitem,
+                condition_fn=lambda n, p, c: not c['selection-empty'])
+            
+            for p in menu_providers:
+                providers.register(p, self.menuitem)
     
-    def disable_plugin(self):
+    def disable(self, exaile):
         """
             Called when the plugin is disabled
         """
         providers.unregister('mainwindow-info-area-widget', self)
         
+        if self.menuitem is not None:
+            for p in menu_providers:
+                providers.unregister(p, self.menuitem)
+        
     def create_widget(self, info_area):
         """
             mainwindow-info-area-widget provider API method
         """
-        return BPMWidget(info_area.get_player())
+        return BPMWidget(info_area.get_player(), self)
+
+    def on_auto_menuitem(self, menu, display_name, playlist_view, context):
+        tracks = context['selected-tracks']
+        if len(tracks) > 0:
+            self.autodetect_bpm(tracks[0])
+            
+    def autodetect_bpm(self, track):
         
+        def _on_complete(bpm, err):
+            if err is not None:
+                dialogs.error(None, err)
+            else:
+                self.set_bpm(track, bpm)
+        
+        bpmdetect.detect_bpm(track.get_loc_for_io(), _on_complete)
+    
+    def set_bpm(self, track, bpm):
+        '''Make sure we don't accidentally set BPM on things'''
+        
+        if track and bpm:
+            
+            bpm = int(bpm)
+            
+            msg = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
+                _('Set BPM of %d on %s?') % (bpm, track.get_tag_display('title')))
+            msg.set_default_response(Gtk.ResponseType.NO)
+            result = msg.run()
+            msg.destroy()
+        
+            if result == Gtk.ResponseType.YES:
+                track.set_tag_raw('bpm', bpm)
+                if not track.write_tags():
+                    dialogs.error(None, "Error writing BPM to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
 
-class BPMWidget(gtk.Frame):
+plugin_class = BPMCounterPlugin
 
-    def __init__(self, player):
-        gtk.Frame.__init__(self, _('BPM Counter'))
+
+@GtkTemplate('bpm.ui', relto=__file__)
+class BPMWidget(Gtk.Frame):
+
+    __gtype_name__ = 'BPMWidget'
+    
+    eventbox,       \
+    bpm_label,      \
+    apply_button    = GtkTemplate.Child.widgets(3)
+
+    def __init__(self, player, plugin):
+        Gtk.Frame.__init__(self, label=_('BPM Counter'))
+        self.init_template()
         
         self.player = player
+        self.plugin = plugin
         self.taps = []
         
         # TODO: Add preferences to adjust these settings..
@@ -108,29 +150,17 @@ class BPMWidget(gtk.Frame):
         # if no tap received, then restart
         self.stale_time = settings.get_option('plugin/bpm/stale_period', 2.0)
         
-        #info_label = gtk.Label(_('BPM Counter'))
-        self.eventbox = gtk.EventBox()
-        self.bpm_label = gtk.Label(_('Update'))
-        self.apply_button = gtk.Button(_('Apply BPM'))
+        # Autodetect plugin
         
-        vbox = gtk.VBox()
-        w, h = self.bpm_label.size_request()
-        self.eventbox.add(self.bpm_label)
-        self.eventbox.props.can_focus = True
-        vbox.pack_start(self.eventbox, False, False, padding=h/2) # add some space
-        vbox.pack_start(self.apply_button, False, False)
+        self.menu = None
+        if autodetect_enabled:
+            self.menu = menu.Menu(None)
+            
+            item = menu.simple_menu_item('_bpm', [], _('Autodetect BPM'),
+                                         callback=self.on_auto_menuitem)
+            self.menu.add_item(item)
         
-        self.add(vbox)
-        
-        # attach events
-        self.eventbox.connect('focus-out-event', self.on_focus_out)
-        self.connect('destroy', self.on_destroy)
-        self.connect('button-release-event', self.on_click )
-        self.eventbox.connect('key-press-event', self.on_keydown )
-        
-        self.apply_button.connect('pressed', self.on_apply_button_pressed )
-    
-        # ok, register for some events
+        # Be notified when a new track is playing
         event.add_callback(self.playback_track_start, 'playback_track_start', self.player)
         
         # get the main exaile window, and dock our window next to it if possible
@@ -148,7 +178,7 @@ class BPMWidget(gtk.Frame):
     # Exaile events
     #
         
-    @guiutil.idle_add()
+    @idle_add()
     def playback_track_start(self, type, player, track):
         self.track = track
         self.bpm = self.track.get_tag_raw('bpm', True)
@@ -160,43 +190,52 @@ class BPMWidget(gtk.Frame):
     # UI Events
     #
     
+    @GtkTemplate.Callback
     def on_destroy(self, widget):
         # de-register the exaile events
         event.remove_callback(self.playback_track_start, 'playback_track_start', self.player)
     
-    
-    def on_apply_button_pressed(self, widget):
+    @GtkTemplate.Callback
+    def on_apply_button_clicked(self, widget):
         self.set_bpm()
-    
-    
-    def on_keydown(self, widget, event):
-                
-        if event.keyval == gtk.keysyms.Return:
+        
+    @GtkTemplate.Callback
+    def on_eventbox_key_press_event(self, widget, event):
+        
+        if event.keyval == Gdk.KEY_Return:
             self.set_bpm()
             return False
-                
-        if widget == self.apply_button:
-            return False
-            
-        if event.keyval == gtk.keysyms.Escape:
-            self.taps = []
-            
-        self.add_bpm_tap()
-        return True
-    
-    def on_click(self, widget, event):
+             
         if widget == self.apply_button:
             return False
         
-        self.eventbox.set_state(gtk.STATE_SELECTED)
+        if event.keyval == Gdk.KEY_Escape:
+            self.taps = []
+        
+        self.add_bpm_tap()
+        return True
+    
+    @GtkTemplate.Callback
+    def on_eventbox_button_press_event(self, widget, event):
+        
+        if event.button == 3:
+            if self.menu is not None and self.track is not None:
+                self.menu.popup(event)
+            return
+        
+        self.eventbox.set_state(Gtk.StateType.SELECTED)
         self.eventbox.grab_focus()
         
         self.add_bpm_tap()
         return True
-        
-    def on_focus_out(self, widget, event):
-        self.eventbox.set_state(gtk.STATE_NORMAL)
-        
+    
+    @GtkTemplate.Callback
+    def on_eventbox_focus_out_event(self, widget, event):
+        self.eventbox.set_state(Gtk.StateType.NORMAL)
+    
+    def on_auto_menuitem(self, *args):
+        if self.track is not None:
+            self.plugin.autodetect_bpm(self.track)
             
     #
     # BPM Logic
@@ -229,19 +268,7 @@ class BPMWidget(gtk.Frame):
         
     def set_bpm(self):
         '''Make sure we don't accidentally set BPM on things'''
-        if self.track and self.bpm:
-            
-            msg = gtk.MessageDialog(self.get_toplevel(), gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-                _('Set BPM of %d on %s?') % (int(self.bpm), self.track.get_tag_display('title')))
-            msg.set_default_response( gtk.RESPONSE_NO )
-            result = msg.run()
-            msg.destroy()
-        
-            if result == gtk.RESPONSE_YES:
-                self.track.set_tag_raw('bpm', int(self.bpm))
-                if not self.track.write_tags():
-                    dialogs.error( None, "Error writing BPM to %s" % gobject.markup_escape_text(self.track.get_loc_for_io()) )
-        
+        self.plugin.set_bpm(self.track, self.bpm)
         self.update_ui()
     
     

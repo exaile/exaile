@@ -19,8 +19,9 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import sys
-import gtk
-import glib
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GLib
 import ipconsoleprefs
 from xl import settings, providers
 from xlgui.widgets import menu
@@ -34,7 +35,7 @@ except:
 
 
 import ipython_view as ip
-import pango
+from gi.repository import Pango
 import __builtin__, site
 
 FONT = "Luxi Mono 10"
@@ -76,19 +77,19 @@ class IPView(ip.IPythonView):
             self.destroy()
 
 
-class IPyConsole(gtk.Window):
+class IPyConsole(Gtk.Window):
     """
         A gtk Window with an embedded IPython Console.
     """
     def __init__(self, namespace):
-        gtk.Window.__init__(self)
+        Gtk.Window.__init__(self)
 
         self.set_title(_("IPython Console - Exaile"))
         self.set_size_request(750,550)
         self.set_resizable(True)
 
-        sw = gtk.ScrolledWindow()
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw = Gtk.ScrolledWindow()
+        sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
         ipv = IPView()
 
@@ -108,10 +109,10 @@ class IPyConsole(gtk.Window):
                                 
         iptheme = settings.get_option('plugin/ipconsole/iptheme', 'Linux')
 
-        ipv.modify_font(pango.FontDescription(console_font))
-        ipv.set_wrap_mode(gtk.WRAP_CHAR)
-        ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
-        ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(text_color))
+        ipv.modify_font(Pango.FontDescription(console_font))
+        ipv.set_wrap_mode(Gtk.WrapMode.CHAR)
+        ipv.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
+        ipv.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(text_color))
         
         if hasattr(ipv.IP, 'magic_colors'):
             ipv.IP.magic_colors(iptheme) # IPython color scheme
@@ -153,7 +154,7 @@ def _enable(exaile):
             Create menu item.
     """
     # add menuitem to tools menu
-    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show IPython Console'),
+    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show _IPython Console'),
         callback=lambda *x: show_console(exaile)) 
     providers.register('menubar-tools-menu', item)
     
@@ -169,15 +170,15 @@ def on_option_set(event, settings, option):
 
     if option == 'plugin/ipconsole/font' and PLUGIN:
         value = settings.get_option(option, FONT)
-        PLUGIN.ipv.modify_font(pango.FontDescription(value))
+        PLUGIN.ipv.modify_font(Pango.FontDescription(value))
 
     if option == 'plugin/ipconsole/text_color' and PLUGIN:
         value = settings.get_option(option, 'lavender')
-        PLUGIN.ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(value))
+        PLUGIN.ipv.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(value))
         
     if option == 'plugin/ipconsole/background_color' and PLUGIN:
         value = settings.get_option(option, 'black')
-        PLUGIN.ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(value))
+        PLUGIN.ipv.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(value))
 
     if option == 'plugin/ipconsole/iptheme' and PLUGIN:
         value = settings.get_option(option, 'Linux')
@@ -185,7 +186,7 @@ def on_option_set(event, settings, option):
 
 
 def __enb(evt, exaile, nothing):
-    glib.idle_add(_enable, exaile)
+    GLib.idle_add(_enable, exaile)
     event.add_callback(on_option_set, 'plugin_ipconsole_option_set')
 
 def enable(exaile):
@@ -238,7 +239,7 @@ if __name__ == '__main__':
         If run outside of exaile.
     """
     con = IPyConsole({})
-    con.connect('destroy', gtk.main_quit)
+    con.connect('destroy', Gtk.main_quit)
     con.show()
-    gtk.main()
+    Gtk.main()
 

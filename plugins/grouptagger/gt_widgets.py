@@ -25,10 +25,11 @@
 # from your version.
 
 
-import gtk
-import gobject
-import pango
-import glib
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Pango
 
 import re
 
@@ -73,7 +74,7 @@ class GTShowTracksMenuItem(menu.MenuItem):
         else:
             display_name =  _('Show tracks with all selected')
         
-        menuitem = gtk.MenuItem(display_name)
+        menuitem = Gtk.MenuItem.new_with_mnemonic(display_name)
         menuitem.connect('activate', lambda *e: gt_common.create_all_search_playlist( context['groups'], parent.exaile ))
         return menuitem
 
@@ -85,20 +86,20 @@ class GroupTaggerContextMenu(menu.Menu):
         return self._parent.get_context()
 
 
-class GroupTaggerView(gtk.TreeView):
+class GroupTaggerView(Gtk.TreeView):
     '''Treeview widget to display tag lists'''
 
     __gsignals__ = {
         
-        'category-changed': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING) ),
-        'category-edited': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
-        'group-changed': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING) ),
-        'group-edited': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_STRING, gobject.TYPE_STRING) ),
+        'category-changed': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING) ),
+        'category-edited': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_STRING, GObject.TYPE_STRING) ),
+        'group-changed': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING) ),
+        'group-edited': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_STRING, GObject.TYPE_STRING) ),
     }
     
     def __init__(self, exaile, model=None, editable=False):
     
-        gtk.TreeView.__init__(self,None)
+        super(GroupTaggerView, self).__init__(None)
         
         self.exaile = exaile
         
@@ -106,7 +107,7 @@ class GroupTaggerView(gtk.TreeView):
         
         self.set_model(model)
         self.set_enable_search( False )
-        self.get_selection().set_mode( gtk.SELECTION_MULTIPLE )
+        self.get_selection().set_mode( Gtk.SelectionMode.MULTIPLE )
         
         self._row_expanded_id = self.connect( 'row-expanded', self.on_row_expanded )
         self._row_collapsed_id = self.connect( 'row-collapsed', self.on_row_collapsed )
@@ -115,21 +116,21 @@ class GroupTaggerView(gtk.TreeView):
             self.set_reorderable(True)
         
         # Setup the first column, not shown by default
-        cell = gtk.CellRendererToggle()
-        cell.set_property( 'mode', gtk.CELL_RENDERER_MODE_ACTIVATABLE )
+        cell = Gtk.CellRendererToggle()
+        cell.set_property( 'mode', Gtk.CellRendererMode.ACTIVATABLE )
         cell.set_activatable( True )
         cell.connect( 'toggled', self.on_toggle)
         
-        self.click_column = gtk.TreeViewColumn( None, cell, active=0, visible=2 )
+        self.click_column = Gtk.TreeViewColumn( None, cell, active=0, visible=2 )
         
         # Setup the second column
-        cell = gtk.CellRendererText()
+        cell = Gtk.CellRendererText()
         cell.set_property( 'editable', editable )
         if editable:
             cell.connect( 'edited', self.on_edit )
         
         self.text_column = cell
-        self.append_column( gtk.TreeViewColumn( _('Group'), self.text_column, text=1, weight=3 ) )
+        self.append_column( Gtk.TreeViewColumn( _('Tag'), self.text_column, text=1, weight=3 ) )
         
         #
         # Menu setup
@@ -144,11 +145,11 @@ class GroupTaggerView(gtk.TreeView):
             
         if editable:
             
-            item = smi( 'addgrp', [], _('Add new group'), \
+            item = smi( 'addgrp', [], _('Add new tag'), \
                         callback=self.on_menu_add_group )
             self.menu.add_item( item )
             
-            item = smi( 'delgrp', ['addgrp'], _('Delete group'), \
+            item = smi( 'delgrp', ['addgrp'], _('Delete tag'), \
                         callback=self.on_menu_delete_group, \
                         condition_fn=lambda n,p,c: False if len(c['groups']) == 0 else True)
             self.menu.add_item( item )
@@ -250,7 +251,7 @@ class GroupTaggerView(gtk.TreeView):
         # TODO: instead of dialog, just add a new thing, make it editable?
         input = dialogs.TextEntryDialog( _('New tag value?'), _('Enter new tag value'))
         
-        if input.run() == gtk.RESPONSE_OK:
+        if input.run() == Gtk.ResponseType.OK:
             group = input.get_value()
             
             if group != "":    
@@ -278,9 +279,9 @@ class GroupTaggerView(gtk.TreeView):
         
     def on_menu_add_category(self, widget, name, parent, context):
         # TODO: instead of dialog, just add a new thing, make it editable?
-        input = dialogs.TextEntryDialog( _('New Category?'), _('Enter new group category name'))
+        input = dialogs.TextEntryDialog( _('New Category?'), _('Enter new category name'))
         
-        if input.run() == gtk.RESPONSE_OK:
+        if input.run() == Gtk.ResponseType.OK:
             category = input.get_value()
             
             if category != "":
@@ -309,10 +310,10 @@ class GroupTaggerView(gtk.TreeView):
 
     def on_mouse_release(self, widget, event):    
         if event.button == 3:
-            self.menu.popup(None, None, None, event.button, event.time)
+            self.menu.popup(None, None, None, None, event.button, event.time)
      
     def on_popup_menu(self, widget):
-        self.menu.popup(None, None, None, 0, 0)
+        self.menu.popup(None, None, None, None, 0, 0)
         return True
         
     def sync_expanded(self):
@@ -327,13 +328,9 @@ class GroupTaggerView(gtk.TreeView):
                 
         self.handler_unblock( self._row_expanded_id )
         self.handler_unblock( self._row_collapsed_id )
-    
-
-gobject.type_register(GroupTaggerView)
         
         
-        
-class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
+class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
         The tree model for grouptagger
     
@@ -344,11 +341,11 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
     '''
     
     def __init__(self):
-        gtk.TreeStore.__init__( self, gobject.TYPE_BOOLEAN, \
-                                gobject.TYPE_STRING, \
-                                gobject.TYPE_BOOLEAN, \
-                                gobject.TYPE_INT)
-        self.set_sort_column_id( 1, gtk.SORT_ASCENDING )
+        super(GroupTaggerTreeStore,self).__init__(GObject.TYPE_BOOLEAN, \
+                                GObject.TYPE_STRING, \
+                                GObject.TYPE_BOOLEAN, \
+                                GObject.TYPE_INT)
+        self.set_sort_column_id( 1, Gtk.SortType.ASCENDING )
         
     def add_category(self, category):
         '''Returns True if added new category, False otherwise'''
@@ -357,7 +354,7 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
             if row[1] == category:
                 return False
     
-        self.append( None, [True, category, False, pango.WEIGHT_BOLD] )
+        self.append( None, [True, category, False, Pango.Weight.BOLD] )
         return True
         
     def add_group(self, group, category=uncategorized, selected=True):
@@ -370,13 +367,13 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
                         row[0] = selected
                         return False
                 
-                self.append( row.iter, [selected, group, True, pango.WEIGHT_NORMAL] )
+                self.append( row.iter, [selected, group, True, Pango.Weight.NORMAL] )
                 return True
         
         # add new category
-        it = self.append(  None, [True, category, False, pango.WEIGHT_BOLD] )
+        it = self.append(  None, [True, category, False, Pango.Weight.BOLD] )
         # add value to that category
-        self.append( it, [selected, group, True, pango.WEIGHT_NORMAL] )
+        self.append( it, [selected, group, True, Pango.Weight.NORMAL] )
         return True
         
     def change_name(self, path, name):
@@ -476,9 +473,9 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
             { category: [expanded, [(active, group), ... ]], ... }
         '''
         for category, (expanded, groups) in group_categories.iteritems():
-            cat = self.append( None, [expanded, category, False, pango.WEIGHT_BOLD] )
+            cat = self.append( None, [expanded, category, False, Pango.Weight.BOLD] )
             for active, group in groups:
-                self.append( cat, [active, group, True, pango.WEIGHT_NORMAL] )
+                self.append( cat, [active, group, True, Pango.Weight.NORMAL] )
     
     #
     # DND interface
@@ -490,24 +487,22 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
         
     def do_row_drop_possible(self, dest_path, selection_data):
         '''Can only drag to different categories'''
-        model, src_path = selection_data.tree_get_row_drag_data()
+        _, _, src_path = Gtk.tree_get_row_drag_data(selection_data)
         return len(dest_path) == 2 and src_path[0] != dest_path[0]
-    
-gobject.type_register(GroupTaggerTreeStore)
 
 
-class GroupTaggerWidget(gtk.VBox):
+class GroupTaggerWidget(Gtk.VBox):
     '''Melds the tag view with an 'add' button'''
 
     def __init__(self, exaile):
-        gtk.VBox.__init__(self)
+        Gtk.VBox.__init__(self)
         
-        self.title = gtk.Label()
-        self.artist = gtk.Label()
+        self.title = Gtk.Label()
+        self.artist = Gtk.Label()
         self.view = GroupTaggerView( exaile, GroupTaggerTreeStore(), editable=True )
         self.store = self.view.get_model()
         
-        self.tag_button = gtk.Button( _('Add Group') )
+        self.tag_button = Gtk.Button( _('Add Tag') )
         self.tag_button.connect( 'clicked', self.on_add_tag_click )
         
         self.title.set_alignment(0,0.5)
@@ -518,15 +513,15 @@ class GroupTaggerWidget(gtk.VBox):
         self.artist.set_line_wrap(True)
         self.artist.hide()
         
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
         scroll.add( self.view )
         
-        self.pack_start( self.title, expand=False )
-        self.pack_start( self.artist, expand=False )
-        self.pack_start( scroll, True, True )
-        self.pack_start( self.tag_button, expand=False )
+        self.pack_start( self.title, False , True, 0)
+        self.pack_start( self.artist, False , True, 0)
+        self.pack_start( scroll, True, True, 0)
+        self.pack_start( self.tag_button, False , True, 0)
         
     def on_add_tag_click(self, widget):
         self.view.on_menu_add_group( self.view, None, None, self.view.get_context() )
@@ -540,7 +535,7 @@ class GroupTaggerWidget(gtk.VBox):
         if title is None:
             self.title.hide()
         else:
-            self.title.set_markup('<big><b>' + glib.markup_escape_text(title) + '</b></big>')
+            self.title.set_markup('<big><b>' + GLib.markup_escape_text(title) + '</b></big>')
             self.title.show()
             
     def set_artist(self, artist):
@@ -627,9 +622,9 @@ class GroupTaggerPanel(notebook.NotebookPage):
         self.tagger = GroupTaggerWidget( exaile )
         
         # add the widgets to this page
-        self.pack_start( self.tagger, expand=True ) 
+        self.pack_start( self.tagger, True , True, 0) 
         
-        self.set_name('grouptagger')
+        self.name = 'grouptagger'
         
     def get_page_name(self):
         return _('GroupTagger')
@@ -639,27 +634,27 @@ class GroupTaggerPanel(notebook.NotebookPage):
 
         
 
-class AllTagsListView(gtk.TreeView):
+class AllTagsListView(Gtk.TreeView):
     def __init__(self, model=None):
-        gtk.TreeView.__init__(self, model)
+        Gtk.TreeView.__init__(self, model)
         
-        self.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
+        self.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
         
         # Setup the first column
-        cell = gtk.CellRendererToggle()
-        cell.set_property('mode', gtk.CELL_RENDERER_MODE_ACTIVATABLE)
+        cell = Gtk.CellRendererToggle()
+        cell.set_property('mode', Gtk.CellRendererMode.ACTIVATABLE)
         cell.set_activatable(True)
         cell.connect('toggled', self.on_toggle)
         
-        self.append_column(gtk.TreeViewColumn(None, cell, active=0))
+        self.append_column(Gtk.TreeViewColumn(None, cell, active=0))
         
         # Setup the second column
-        self.append_column(gtk.TreeViewColumn(_('Group'), gtk.CellRendererText(), text=1))
+        self.append_column(Gtk.TreeViewColumn(_('Group'), Gtk.CellRendererText(), text=1))
         
         self.connect('key_press_event', self.on_key_press)
     
     def on_key_press(self, widget, event):
-        if event.keyval == gtk.keysyms.space:
+        if event.keyval == Gdk.KEY_space:
             model, paths = self.get_selection().get_selected_rows()
             
             sel = False
@@ -673,10 +668,10 @@ class AllTagsListView(gtk.TreeView):
         self.get_model()[path][0] = not cell.get_active()
     
     
-class AllTagsListStore(gtk.ListStore):
+class AllTagsListStore(Gtk.ListStore):
     def __init__(self):
-        gtk.ListStore.__init__(self, gobject.TYPE_BOOLEAN, gobject.TYPE_STRING)
-        self.set_sort_column_id(1, gtk.SORT_ASCENDING)
+        Gtk.ListStore.__init__(self, GObject.TYPE_BOOLEAN, GObject.TYPE_STRING)
+        self.set_sort_column_id(1, Gtk.SortType.ASCENDING)
     
     def add_group(self, group):
         self.append((False, group))
@@ -685,35 +680,35 @@ class AllTagsListStore(gtk.ListStore):
         return [row[1] for row in self if row[0] == True]
     
     
-class AllTagsDialog( gtk.Window ):
+class AllTagsDialog(Gtk.Window):
 
     def __init__(self, exaile, callback):
     
-        gtk.Window.__init__(self)
+        Gtk.Window.__init__(self)
         self.set_title(_('Get all tags from collection'))
         self.set_resizable(True)
         self.set_size_request( 150, 400 ) 
         
-        self.add(gtk.Frame())
+        self.add(Gtk.Frame())
         
-        vbox = gtk.VBox()
+        vbox = Gtk.VBox()
         
         self._callback = callback
         
         self.model = AllTagsListStore()
         self.view = AllTagsListView()
         
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
         scroll.add( self.view )
         scroll.hide()
         
-        vbox.pack_start(scroll, True, True)
+        vbox.pack_start(scroll, True, True, 0)
         
-        button = gtk.Button(_('Add selected to choices'))
+        button = Gtk.Button(_('Add selected to choices'))
         button.connect('clicked', self.on_add_selected_to_choices)
-        vbox.pack_end(button, False, False)
+        vbox.pack_end(button, False, False, 0)
         
         self.get_child().add(vbox)
         
@@ -729,7 +724,7 @@ class AllTagsDialog( gtk.Window ):
         self._callback(self.model.get_active_groups())
 
 
-class GroupTaggerQueryDialog(gtk.Dialog):      
+class GroupTaggerQueryDialog(Gtk.Dialog):      
     '''
         Dialog used to allow the user to select the behavior of the query
         used to filter out tracks that match a particular characteristic
@@ -737,26 +732,26 @@ class GroupTaggerQueryDialog(gtk.Dialog):
     
     def __init__(self, groups):
         
-        gtk.Dialog.__init__(self, _('Show tracks with groups') )
+        Gtk.Dialog.__init__(self, _('Show tracks with groups') )
         
         # setup combo box selections
-        self.group_model = gtk.ListStore(gobject.TYPE_STRING)
+        self.group_model = Gtk.ListStore(GObject.TYPE_STRING)
         groups_set = gt_common.get_groups_from_categories()
         groups_set |= set(groups)
         
         for group in groups_set:
             self.group_model.append( [group] )
         
-        self.combo_model = gtk.ListStore(gobject.TYPE_STRING)
+        self.combo_model = Gtk.ListStore(GObject.TYPE_STRING)
         self.choices = [ _('Must have this tag [AND]'), _('May have this tag [OR]'), _('Must not have this tag [NOT]'), _('Ignored') ]
         for choice in self.choices:
             self.combo_model.append( [choice] )
         
         # setup table
-        self.table = gtk.Table(rows=len(groups)+1, columns=2)
+        self.table = Gtk.Table(rows=len(groups)+1, columns=2)
         
-        self.table.attach(gtk.Label(_('Group')), 0, 1, 0, 1, ypadding=5)
-        self.table.attach(gtk.Label(_('Selected Tracks')), 1, 2, 0, 1, ypadding=5)
+        self.table.attach(Gtk.Label(label=_('Group')), 0, 1, 0, 1, ypadding=5)
+        self.table.attach(Gtk.Label(label=_('Selected Tracks')), 1, 2, 0, 1, ypadding=5)
         
         # TODO: Scrolled window
         self.combos = []
@@ -778,14 +773,14 @@ class GroupTaggerQueryDialog(gtk.Dialog):
             self.combos.append( (gcombo, combo) )
             
             
-        self.vbox.pack_start(self.table)
+        self.vbox.pack_start(self.table, True, True, 0)
         
-        self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
+        self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
         self.show_all()
 
     def _init_combo(self, model):
-        combo = gtk.ComboBox(model)
-        cell = gtk.CellRendererText()
+        combo = Gtk.ComboBox.new_with_model(model)
+        cell = Gtk.CellRendererText()
         combo.pack_start(cell, True)
         combo.add_attribute(cell, 'text', 0)
         return combo
@@ -853,4 +848,34 @@ class GroupTaggerQueryDialog(gtk.Dialog):
 
         return (name, regex)
 
- 
+class GroupTaggerAddRemoveDialog(Gtk.Dialog):
+    
+    def __init__(self, add, tracks, exaile):
+        
+        self.add = add
+        self.tracks = tracks
+
+        if self.add:
+            Gtk.Dialog.__init__(self, _("Add tags to all"))
+        else:
+            Gtk.Dialog.__init__(self, _("Remove tags from all"))
+
+        self.add_buttons(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
+        
+        # add the tagger widget
+        self.tagger = GroupTaggerWidget( exaile )
+        self.tagger.set_artist(None)
+        self.tagger.set_title(None)
+        
+        # add the widgets to this page
+        box = self.get_content_area()
+        box.pack_start( self.tagger, True , True, 0)
+        
+        self.tagger.view.show_click_column()
+        self.show_all()
+
+        # TODO: display the tracks being edited?
+
+    def get_active(self):
+        return list(self.tagger.view.get_model().iter_active())
+    

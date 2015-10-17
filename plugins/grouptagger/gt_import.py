@@ -1,10 +1,9 @@
 
-import logging
-import os.path
-import time
-
-import gtk
-import glib
+from gi.repository import (
+    Gdk,
+    GLib,
+    Gtk
+)
 
 from xl.common import ProgressThread
 from xl.collection import Collection, Library, CollectionScanThread
@@ -14,20 +13,36 @@ from xl.trax import search_tracks, TracksMatcher
 from xlgui.progress import ProgressManager
 from xlgui.widgets import dialogs
 
+from xlgui.guiutil import GtkTemplate
+
 from gt_common import get_track_groups, set_track_groups
 
+import logging
 logger = logging.getLogger(__name__)
 
-class GtImporter(object):
+
+@GtkTemplate('gt_import.ui', relto=__file__)
+class GtImporter(Gtk.Window):
     '''
         Shows a dialog that allows importing of grouping tags
         from a directory not included in the current collection.
     '''
     
+    __gtype_name__ = 'GtImporter'
+    
+    content_area,       \
+    ok_button,          \
+    tags_model,         \
+    tags_view,          \
+    tags_vbox,          \
+    radio_merge,        \
+    radio_replace       = GtkTemplate.Child.widgets(7)
+    
     def __init__(self, exaile, uris):
+        Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
+        self.init_template()
         
         self.exaile = exaile
-        self._init_builder()
         
         self.collection = Collection("GT Import Collection")
         
@@ -37,39 +52,12 @@ class GtImporter(object):
         self.manager = ProgressManager(self.content_area)
         
         self.rescan_thread = CollectionScanThread(self.collection)
-        self.rescan_thread.connect('done', lambda t: glib.idle_add(self._on_rescan_done))
+        self.rescan_thread.connect('done', lambda t: GLib.idle_add(self._on_rescan_done))
         
         self.update_thread = None
         self.import_thread = None
         
-        self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), gtk.STOCK_REFRESH)
-    
-    def _init_builder(self):
-        
-        builder = gtk.Builder()
-        builder.add_from_file(os.path.join(os.path.dirname(__file__), 'gt_import.ui'))
-        
-        # retrieve widgets
-        self.window = builder.get_object('window')
-        self.content_area = builder.get_object('content_area')
-        self.ok_button = builder.get_object('ok_button')
-        self.tags_model = builder.get_object('tags_model')
-        self.tags_view = builder.get_object('tags_view')
-        self.tags_vbox = builder.get_object('tags_vbox')
-        
-        self.radio_merge = builder.get_object('radio_merge')
-        self.radio_replace = builder.get_object('radio_replace')
-        
-        # signals
-        signals = { 'on_cancel_button_clicked': self._on_cancel_button_clicked,
-                    'on_import_checkbox_toggled': self._on_import_checkbox_toggled,
-                    'on_ok_button_clicked': self._on_ok_button_clicked,
-                    'on_window_destroy': self._on_window_destroy }
-        
-        builder.connect_signals(signals, None)
-    
-    def show(self):
-        return self.window.show()
+        self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), Gtk.STOCK_REFRESH)
     
     #
     # Status routines
@@ -88,7 +76,7 @@ class GtImporter(object):
         # now that the collection has loaded, import the groups from them
         self.import_thread = TrackImportThread(self.collection, self.exaile.collection)
         self.import_thread.connect('done', self._on_import_done)
-        self.manager.add_monitor(self.import_thread, _("Importing groups"), gtk.STOCK_JUMP_TO)
+        self.manager.add_monitor(self.import_thread, _("Importing groups"), Gtk.STOCK_JUMP_TO)
         
     def _on_import_done(self, thread):
         '''Called when the grouping data is retrieved'''
@@ -102,17 +90,11 @@ class GtImporter(object):
         logger.info('Group import finished, %s new tracks found' % len(track_data))
         
         if len(track_data) == 0:
-            self.window.destroy()
-             
-            # TODO: this isn't on another thread, but if we don't call
-            # threads_enter/leave then it deadlocks. Not sure why... 
+            self.destroy()
             
             locations = ';'.join([l.get_location() for l in self.collection.get_libraries()])
             
-            gtk.gdk.threads_enter()
-            dialogs.info(self.window, 'No new tracks found at "%s"' % locations)
-            gtk.gdk.threads_leave()
-            
+            dialogs.info(self.exaile.gui.main.window, 'No new tracks found at "%s"' % locations)
             return
         
         self.tags_view.freeze_child_notify()
@@ -136,13 +118,14 @@ class GtImporter(object):
         self.update_thread = None
         
         logger.info('Track update complete')
-        self.window.destroy()
+        self.destroy()
     
     #
     # Widget events
     #
     
-    def _on_cancel_button_clicked(self, widget):
+    @GtkTemplate.Callback
+    def on_cancel_button_clicked(self, widget):
         
         if self.rescan_thread is not None:
             self.rescan_thread.stop()
@@ -151,12 +134,14 @@ class GtImporter(object):
         elif self.update_thread is not None:
             self.update_thread.stop()
         
-        self.window.destroy()
-        
-    def _on_import_checkbox_toggled(self, cell, path):
+        self.destroy()
+    
+    @GtkTemplate.Callback
+    def on_import_checkbox_toggled(self, cell, path):
         self.tags_model[path][0] = not cell.get_active()
     
-    def _on_ok_button_clicked(self, widget):
+    @GtkTemplate.Callback
+    def on_ok_button_clicked(self, widget):
         
         self.ok_button.set_sensitive(False)
         self.tags_vbox.set_sensitive(False)
@@ -167,10 +152,10 @@ class GtImporter(object):
         self.update_thread = TrackUpdateThread(data, self.radio_replace.get_active())
         self.update_thread.connect('done', self._on_update_done)
         
-        self.manager.add_monitor(self.update_thread, _("Updating groups"), gtk.STOCK_CONVERT)
+        self.manager.add_monitor(self.update_thread, _("Updating groups"), Gtk.STOCK_CONVERT)
     
-        
-    def _on_window_destroy(self, widget):
+    @GtkTemplate.Callback
+    def on_window_destroy(self, widget):
         self.collection.close()
 
 
@@ -231,14 +216,14 @@ class TrackImportThread(ProgressThread):
             
                 self.track_data.append((old_group_str, new_group_str, matched_track, newgroups))
         
-            glib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
+            GLib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
             
             if self.do_stop:
                 return
             
         logger.info("Match information: %s exact dups, %s no change, %s differing tracks" % (exact_dups, no_change, len(self.track_data)))
         
-        glib.idle_add(self.emit, 'done')    
+        GLib.idle_add(self.emit, 'done')    
 
 class TrackUpdateThread(ProgressThread):
     '''
@@ -265,11 +250,11 @@ class TrackUpdateThread(ProgressThread):
                 curgroups = get_track_groups(curtrack) | newgroups
                 set_track_groups(curtrack, curgroups)
             
-            glib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
+            GLib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
             if self.do_stop:
                 return
             
-        glib.idle_add(self.emit, 'done')
+        GLib.idle_add(self.emit, 'done')
 
 def import_tags(exaile):
     '''
@@ -281,7 +266,8 @@ def import_tags(exaile):
         import_dialog = GtImporter(exaile, uris)
         import_dialog.show()
     
-    file_dialog = dialogs.DirectoryOpenDialog(title=_('Select directory to import grouping tags from'))
+    file_dialog = dialogs.DirectoryOpenDialog(exaile.gui.main.window,
+                                              title=_('Select directory to import grouping tags from'))
     file_dialog.connect('uris-selected', _on_uris_selected)
     file_dialog.run()
     file_dialog.destroy()

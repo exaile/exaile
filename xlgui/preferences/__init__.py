@@ -24,31 +24,34 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import inspect
 import logging
 import os
-import pygtk
-pygtk.require('2.0')
 import shlex
 import string
 import thread
-import traceback
 import urllib2
 
-from xl import xdg
+from xl import (
+    common,
+    xdg,
+)
 from xl.nls import gettext as _
 from xl.settings import MANAGER
 from xlgui import icons
-from xlgui.preferences.widgets import *
-from xlgui.preferences import (
+from . import (
     appearance,
     collection,
     cover,
     playback,
     playlists,
-    plugin
+    plugin,
+    widgets
 )
 
 logger = logging.getLogger(__name__)
@@ -76,7 +79,7 @@ class PreferencesDialog(object):
         self.builders = {}
         self.popup = None
 
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.set_translation_domain('exaile')
         self.builder.add_from_file(
             xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui'))
@@ -84,7 +87,7 @@ class PreferencesDialog(object):
 
         self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
-        self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.close())
 
         self.box = self.builder.get_object('preferences_box')
@@ -96,30 +99,30 @@ class PreferencesDialog(object):
         title_cellrenderer.props.ypad = 3
 
         self.default_icon = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_PROPERTIES, gtk.ICON_SIZE_MENU)
+            Gtk.STOCK_PROPERTIES, Gtk.IconSize.MENU)
 
         # sets up the default panes
         for page in self.PAGES:
             icon = self.default_icon
 
             if hasattr(page, 'icon'):
-                if isinstance(page.icon, gtk.gdk.Pixbuf):
+                if isinstance(page.icon, GdkPixbuf.Pixbuf):
                     icon = page.icon
                 else:
-                    stock_id = gtk.stock_lookup(page.icon)
+                    stock = Gtk.stock_lookup(page.icon)
 
-                    if stock_id is not None:
+                    if stock is not None:
                         icon = icons.MANAGER.pixbuf_from_stock(
-                            stock_id[0], gtk.ICON_SIZE_MENU)
+                            stock.stock_id , Gtk.IconSize.MENU)
                     else:
                         icon = icons.MANAGER.pixbuf_from_icon_name(
-                            page.icon, gtk.ICON_SIZE_MENU)
+                            page.icon, Gtk.IconSize.MENU)
 
             self.model.append(None, [page, page.name, icon])
 
         # Use icon name to allow overrides
         plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
-            'extension', gtk.ICON_SIZE_MENU)
+            'extension', Gtk.IconSize.MENU)
         self.plug_root = self.model.append(None,
             [plugin, _('Plugins'), plugin_icon])
 
@@ -128,10 +131,11 @@ class PreferencesDialog(object):
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
         # Disallow selection on rows with no widget to show
-        selection.set_select_function(lambda path:
-            self.model[path][0] is not None)
+        selection.set_select_function(
+            (lambda sel, model, path, issel, dat: model[path][0] is not None),
+            None)
 
-        glib.idle_add(selection.select_path, (0,))
+        GLib.idle_add(selection.select_path, (0,))
 
     def _load_plugin_pages(self):
         self._clear_children(self.plug_root)
@@ -144,31 +148,23 @@ class PreferencesDialog(object):
                 try:
                     plugin_pages.append(plugin.get_preferences_pane())
                 except Exception:
-                    logger.warning('Error loading preferences pane')
-                    traceback.print_exc()
+                    logger.exception('Error loading preferences pane')
 
-        import locale
-        plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
+        plugin_pages.sort(key=lambda x: common.strxfrm(x.name))
 
         for page in plugin_pages:
             icon = self.default_icon
 
             if hasattr(page, 'icon'):
-                if isinstance(page.icon, gtk.gdk.Pixbuf):
+                if isinstance(page.icon, GdkPixbuf.Pixbuf):
                     icon = page.icon
                 else:
-                    stock_id = gtk.stock_lookup(page.icon)
-
-                    if stock_id is not None:
-                        icon = icons.MANAGER.pixbuf_from_stock(
-                            stock_id[0], gtk.ICON_SIZE_MENU)
-                    else:
-                        icon = icons.MANAGER.pixbuf_from_icon_name(
-                            page.icon, gtk.ICON_SIZE_MENU)
+                    icon = icons.MANAGER.pixbuf_from_icon_name(
+                        page.icon, Gtk.IconSize.MENU)
 
             self.model.append(self.plug_root, [page, page.name, icon])
 
-        glib.idle_add(self.tree.expand_row,
+        GLib.idle_add(self.tree.expand_row,
             self.model.get_path(self.plug_root), False)
 
     def _clear_children(self, node):
@@ -219,14 +215,14 @@ class PreferencesDialog(object):
         child = self.panes.get(page)
         if not child:
             if hasattr(page, 'ui'):
-                import gtk
-                builder = gtk.Builder()
+                from gi.repository import Gtk
+                builder = Gtk.Builder()
                 builder.add_from_file(page.ui)
             else:
                 try:
-                    logger.warning('Please switch to gtk.Builder for preferences panes')
-                    import gtk.glade
-                    builder = gtk.glade.XML(page.glade, 'preferences_pane')
+                    logger.warning('Please switch to Gtk.Builder for preferences panes')
+                    import Gtk.glade
+                    builder = Gtk.glade.XML(page.glade, 'preferences_pane')
                     builder.get_object = builder.get_widget
                     builder.connect_signals = builder.signal_autoconnect
                 except ImportError:
@@ -246,7 +242,7 @@ class PreferencesDialog(object):
             page.page_enter(self)
 
         child.unparent()
-        self.box.pack_start(child, True, True)
+        self.box.pack_start(child, True, True, 0)
         self.last_child = child
         self.box.show_all()
 
@@ -267,8 +263,10 @@ class PreferencesDialog(object):
                     widget = builder.get_object(klass.name)
 
                     if not widget:
-                        logger.warning('Invalid preferences widget: %s' % klass.name)
+                        logger.warning('Invalid preferences widget: %s', klass.name)
                         continue
+                    
+                    
 
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
@@ -278,10 +276,14 @@ class PreferencesDialog(object):
                             klass.condition_widgets[name] = builder.get_object(name)
 
                     field = klass(self, widget)
+                    
+                    label_widget = builder.get_object('label:%s' % klass.name)
+                    if label_widget:
+                        field.label_widget = label_widget    
+                    
                     self.fields[page].append(field)
             except Exception:
-                logger.warning('Broken preferences class: %s' % attr)
-                traceback.print_exc()
+                logger.exception('Broken preferences class: %s', attr)
 
     def run(self):
         """

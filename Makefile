@@ -187,12 +187,12 @@ dist:
 	rm -rf dist/copy
 
 test:
-	nosetests -w tests
+	EXAILE_DIR=$(shell pwd) nosetests -w tests
 
 test_coverage:
 	rm -rf coverage/
 	rm -f .coverage
-	nosetests -w tests --with-coverage --cover-package=xl; \
+	EXAILE_DIR=$(shell pwd) nosetests -w tests --with-coverage --cover-package=xl; \
 	mkdir -p coverage; \
 	coverage html -d coverage
 

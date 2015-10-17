@@ -21,45 +21,34 @@ For better development experience, please use the IPython console plugin. This
 plugin is meant as a basic alternative without the extra dependencies.
 """
 
-import sys, traceback
+from gi.repository import GLib
+from gi.repository import Gtk
+from gi.repository import Gdk
+
+import os, sys, traceback
 from cStringIO import StringIO
-import glib, gtk
 from xl.nls import gettext as _
 
-class PyConsole(gtk.Window):
-    def __init__(self, dict):
-        gtk.Window.__init__(self)
+class PyConsole():
+    def __init__(self, dict, exaile):
         self.dict = dict
-
         self.buffer = StringIO()
 
-        self.set_border_width(12)
-        self.set_default_size(450, 250)
+        ui = Gtk.Builder()
+        ui.add_from_file( os.path.join( os.path.dirname(
+                os.path.realpath(__file__)), 'console_window.ui'))
 
-        vbox = gtk.VBox(False, 12)
-        self.add(vbox)
+        self.window = ui.get_object('simple_console_window')
+        self.close_handler = self.window.connect('delete-event', console_destroyed, exaile)
 
-        sw = gtk.ScrolledWindow()
-        vbox.pack_start(sw)
-        sw.set_shadow_type(gtk.SHADOW_IN)
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS) 
-        self.text_view = tv = gtk.TextView()
-        sw.add(tv)
-        tv.set_editable(False)
+        self.text_view = tv = ui.get_object('console_output')
+
         self.text_buffer = buff = tv.get_buffer()
         self.end_mark = buff.create_mark(None, buff.get_end_iter(), False)
-        tv.set_wrap_mode(gtk.WRAP_WORD)
 
-        hbox = gtk.HBox(False, 6)
-        vbox.pack_start(hbox, False)
-        label = gtk.Label('>>>')
-        hbox.pack_start(label, False)
-        self.entry = entry = gtk.Entry()
-        hbox.pack_start(entry)
+        self.entry = entry = ui.get_object('console_input')
         entry.connect('activate', self.entry_activated)
-
         entry.grab_focus()
-        vbox.show_all()
 
     def entry_activated(self, entry, user_data=None):
         """
@@ -87,11 +76,11 @@ class PyConsole(gtk.Window):
             result = self.buffer.getvalue()
             # Can't simply close and recreate later because help() stores and
             # reuses stdout.
-            self.buffer.truncate(0) 
+            self.buffer.truncate(0)
         result = '>>> %s\n%s' % (code, result)
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)
         # Can't use iter; won't scroll correctly.
-        self.text_view.scroll_to_mark(self.end_mark, 0)
+        self.text_view.scroll_to_mark(self.end_mark, 0, False, 0.5, 0.5)
         self.entry.grab_focus()
 
 PLUGIN = None
@@ -105,13 +94,11 @@ def enable(exaile):
 
 def _enable(eventname, exaile, eventdata):
     global PLUGIN
-    PLUGIN = PyConsole({'exaile': exaile})
-    PLUGIN.set_title(_("Console"))
-    PLUGIN.set_transient_for(exaile.gui.main.window)
-    PLUGIN.connect('destroy', console_destroyed, exaile)
-    PLUGIN.present()
+    PLUGIN = PyConsole({'exaile': exaile}, exaile)
+    PLUGIN.window.set_transient_for(exaile.gui.main.window)
+    PLUGIN.window.present()
 
-def console_destroyed(window, exaile):
+def console_destroyed(window, event, exaile):
     """Disable plugin on window destroy"""
     global PLUGIN
     if PLUGIN:
@@ -120,8 +107,8 @@ def console_destroyed(window, exaile):
 def disable(exaile):
     global PLUGIN
     if PLUGIN:
-        plugin = PLUGIN
+        PLUGIN.window.disconnect(PLUGIN.close_handler)
+        PLUGIN.window.destroy()
         PLUGIN = None
-        plugin.destroy()
 
 # vi: et sts=4 sw=4 ts=4

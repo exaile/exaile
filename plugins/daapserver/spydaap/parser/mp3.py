@@ -13,7 +13,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen.id3, mutagen.mp3, re, spydaap, re, os, struct, sys
+import mutagen.id3, mutagen.mp3, spydaap, re, os, struct, sys
 from spydaap.daap import do
 mutagen.id3.ID3.PEDANTIC = False
 

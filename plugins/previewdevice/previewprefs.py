@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xlgui.preferences import (
     playback,
@@ -38,7 +38,7 @@ import os
 name = _('Preview Device')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'previewprefs.ui')
-icon = gtk.STOCK_MEDIA_PLAY
+icon = 'media-playback-start'
 
 
 def __autoconfig():
@@ -60,22 +60,23 @@ def __autoconfig():
     if sink is None:
         return
         
-    settings.set_option( 'preview_device/audiosink', sink )
+    settings.set_option('preview_device/audiosink', sink)
     
     main_device = settings.get_option('player/audiosink_device', None)
     if main_device is None:
         return
     
-    from xl.player import pipe
-    devices = pipe.sink_enumerate_devices(sink)
-    if devices is not None:
-        # pick the first one that isn't the main device and isn't 'Auto'
-        # -> if the main device is '', then it's auto. So... we actually
-        # iterate backwards, assuming that the ordering matters
-        for device,name in reversed(devices):
-            if device != main_device and name != _('Auto'):
-                settings.set_option( 'preview_device/audiosink_device', device )
-                break
+    # TODO: If we ever add another engine, need to make sure that
+    #       gstreamer-specific stuff doesn't accidentally get loaded
+    from xl.player.gst.sink import get_devices
+
+    # pick the first one that isn't the main device and isn't 'Auto'
+    # -> if the main device is '', then it's auto. So... we actually
+    # iterate backwards, assuming that the ordering matters
+    for _unused, device_id, _unused in reversed(list(get_devices())):
+        if device_id != main_device and name != 'auto':
+            settings.set_option('preview_device/audiosink_device', device_id)
+            break
         
 __autoconfig()
 

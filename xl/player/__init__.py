@@ -29,45 +29,20 @@
 """
 
 __all__ = [
-        'adapters',
-        'pipe',
-        'queue',
-        'engine_normal',
-        'engine_unified'
-        ]
+    'adapters',
+    'gst',
+    'queue',
+    'PLAYER',
+    'QUEUE'
+]
 
-import gobject
-gobject.threads_init()
-import logging
 import os
 
-from xl import settings, xdg
+from xl import xdg
 
-import queue
+from . import player
+from . import queue
 
-logger = logging.getLogger(__name__)
-
-def get_player(*args, **kwargs):
-    pname = settings.get_option("player/engine", "normal")
-    if pname == "normal":
-        logger.debug("Normal playback engine selected.")
-        from xl.player.engine_normal import NormalPlayer
-        return NormalPlayer(*args, **kwargs)
-    elif pname == "unified":
-        logger.debug("Unified playback engine selected.")
-        from xl.player.engine_unified import UnifiedPlayer
-        return UnifiedPlayer(*args, **kwargs)
-    elif pname == 'rtfd_hack': # allows building docs
-        return None
-    else:
-        logger.warning("Couldn't find specified playback engine, "
-                "falling back to normal.")
-        from xl.player.engine_normal import NormalPlayer
-        return NormalPlayer(*args, **kwargs)
-
-
-# TODO: write a better interface than this
-PLAYER = get_player('player')
+PLAYER = player.ExailePlayer('player')
 QUEUE = queue.PlayQueue(PLAYER, 'queue',
         location=os.path.join(xdg.get_data_dir(), 'queue.state'))
-

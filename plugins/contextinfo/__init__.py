@@ -14,15 +14,15 @@ try:
 except ImportError:
     import Image
 import base64
-import glib
-import gobject
-import gtk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 import os
 from xl.externals import pylast
 import contextprefs
 import re
 import urllib
-import webkit
+from gi.repository import WebKit2
 import xlgui
 from inspector import Inspector
 
@@ -36,13 +36,13 @@ CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)+os.path.sep
 
 
-class BrowserPage(webkit.WebView, providers.ProviderHandler):
+class BrowserPage(WebKit2.WebView, providers.ProviderHandler):
 
     refresh_script = '''document.getElementById("%s").innerHTML="%s";onPageRefresh("%s");''';
     history_length = 6
 
     def __init__(self, builder, theme):
-        webkit.WebView.__init__(self)
+        WebKit2.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
 
         # HACK: so that the panel menu works
@@ -64,15 +64,13 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.setup_buttons()
 
         self.drag_source_set(
-                    gtk.gdk.BUTTON1_MASK, self.targets,
-                    gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-        self.drag_source_set_icon_stock(gtk.STOCK_DND)
+                    Gdk.ModifierType.BUTTON1_MASK, self.targets,
+                    Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+        self.drag_source_set_icon_stock(Gtk.STOCK_DND)
 
         event.add_callback(self.on_playback_start, 'playback_track_start',
             player.PLAYER)
         event.add_callback(self.on_playback_end, 'playback_track_end',
-            player.PLAYER)
-        event.add_callback(self.on_tags_parsed, 'tags_parsed',
             player.PLAYER)
 
         self.get_settings().set_property('enable-developer-extras', True)
@@ -84,16 +82,10 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         except:
             pass
 
-        glib.idle_add(self.on_home_clicked)
+        GLib.idle_add(self.on_home_clicked)
 
         # javascript debugger
         inspector = Inspector(self.get_web_inspector())
-
-    def on_tags_parsed(self, type, player, args):
-        (tr, args) = args
-        if not tr or tr.is_local():
-            return
-        #TODO
 
     def on_playback_start(self, obj=None, player=None, track=None):
         self.set_playing(track)
@@ -127,7 +119,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.refresh_button.connect('clicked', self.on_refresh_page)
         self.refresh_button_image = self.builder.get_object('RefreshButtonImage')
 
-        self.refresh_animation = gtk.gdk.PixbufAnimation(BASEDIR+'loader.gif')
+        self.refresh_animation = GdkPixbuf.PixbufAnimation(BASEDIR+'loader.gif')
 
         self.lyrics_button = self.builder.get_object('LyricsButton')
         self.lyrics_button.set_tooltip_text('Lyrics')
@@ -161,7 +153,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
     def on_page_loaded(self, type=None, obj=None, data=None):
         self.refresh_button.set_sensitive(True)
-        self.refresh_button_image.set_from_stock(gtk.STOCK_REFRESH, 1)
+        self.refresh_button_image.set_from_stock(Gtk.STOCK_REFRESH, 1)
 
     def on_field_refresh(self, type=None, obj=None, data=None):
         '''
@@ -170,7 +162,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
            errors may occur
         '''
         script = self.refresh_script % (data[0], u'%s' % data[1].replace('"', '\\"').replace('\n', '\\\n'), data[0])
-        glib.idle_add(self.execute_script, script)
+        GLib.idle_add(self.execute_script, script)
 
     def push(self, page):
         self.history = self.history[:self.history_index+1]
@@ -233,20 +225,20 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
     def drag_end(self, list, context):
         self.dragging = False
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+        self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
+            Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
 
     def drag_begin(self, w, context):
         if self.hover == None:
-            self.drag_source_set_icon_stock(gtk.STOCK_CANCEL)
+            self.drag_source_set_icon_stock(Gtk.STOCK_CANCEL)
             return True
         self.dragging = True
 
-        context.drag_abort(gtk.get_current_event_time())
+        context.drag_abort(Gtk.get_current_event_time())
         selection = self.get_selected_tracks()
         if len(selection)>1:
-            self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
-        elif len(selection)>0: self.drag_source_set_icon_stock(gtk.STOCK_DND)
+            self.drag_source_set_icon_stock(Gtk.STOCK_DND_MULTIPLE)
+        elif len(selection)>0: self.drag_source_set_icon_stock(Gtk.STOCK_DND)
         return False
     
     def get_selection_empty(self):
@@ -336,7 +328,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def _populate_popup(self, view, menu):
         type = self.hover.split('://')[0]
         if type == 'artist':
-            showincolitem = gtk.MenuItem(label="Show in collection")
+            showincolitem = Gtk.MenuItem.new_with_mnemonic("Show in collection")
             menu.append(showincolitem)
             showincolitem.connect('activate', self._show_artist)
             menu.show_all()
@@ -376,7 +368,7 @@ class ContextTheme(object):
         n = ex.exaile().gui.panel_notebook
         n.realize()
         style=n.get_style()
-        l=[gtk.STATE_NORMAL,gtk.STATE_ACTIVE,gtk.STATE_PRELIGHT,gtk.STATE_SELECTED,gtk.STATE_INSENSITIVE]
+        l=[Gtk.StateType.NORMAL,Gtk.StateType.ACTIVE,Gtk.StateType.PRELIGHT,Gtk.StateType.SELECTED,Gtk.StateType.INSENSITIVE]
         s=['normal', 'active', 'prelight', 'selected', 'insensitive']
         colors = {}
         for t in ['base', 'text', 'fg', 'bg']:
@@ -680,14 +672,14 @@ def __setup_context_page():
     ContextPage.ARTIST_ICO_PATH = xdg.get_data_path("images/16x16/artist.png")
     
     ContextPage.SEARCH_ICO_PATH = None
-    search_icon = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_FIND,
-        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG)
+    search_icon = Gtk.IconTheme.get_default().lookup_icon(Gtk.STOCK_FIND,
+        Gtk.IconSize.SMALL_TOOLBAR, Gtk.IconLookupFlags.NO_SVG)
     if search_icon is not None:
         ContextPage.SEARCH_ICON_PATH = search_icon.get_filename()
         
     ContextPage.ALBUM_ICO_PATH = None
-    album_icon = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_CDROM,
-        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG)
+    album_icon = Gtk.IconTheme.get_default().lookup_icon(Gtk.STOCK_CDROM,
+        Gtk.IconSize.SMALL_TOOLBAR, Gtk.IconLookupFlags.NO_SVG)
     if album_icon is not None:
         ContextPage.ALBUM_ICO_PATH = album_icon.get_filename()
     
@@ -1154,9 +1146,9 @@ class ContextPanel(panel.Panel):
         self.setup_widgets()
 
     def setup_widgets(self):
-        self._scrolled_window = gtk.ScrolledWindow()
-        self._scrolled_window.props.hscrollbar_policy = gtk.POLICY_AUTOMATIC
-        self._scrolled_window.props.vscrollbar_policy = gtk.POLICY_AUTOMATIC
+        self._scrolled_window = Gtk.ScrolledWindow()
+        self._scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
+        self._scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         self._scrolled_window.add(self._browser)
         self._scrolled_window.show_all()
 

@@ -25,10 +25,14 @@
 # from your version.
 
 from collections import namedtuple
-import gio
-import glib
-import gtk
+from gi.repository import Gio
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GObject
+from gi.repository import GLib
+from gi.repository import Gtk
 import os
+import os.path
 import threading
 
 from xl import event, settings, xdg
@@ -37,39 +41,56 @@ from xlgui import icons
 # moved idle_add to common, useful for more than just GUI stuff :)
 from xl.common import idle_add
 
+# Import from external namespace
+from xl.externals.gi_composites import GtkTemplate as _GtkTemplate
 
-def gtkrun(f):
-    """
-        A decorator that will make any function run in gtk threadsafe mode
+class GtkTemplate(_GtkTemplate):
+    '''
+        Use this class decorator in conjunction with :class:`.GtkCallback`
+        and :class:`GtkChild` to construct widgets from a GtkBuilder UI
+        file.
+    
+        This is an exaile-specific wrapper around the :class:`.GtkTemplate`
+        object to allow loading the UI template file in an Exaile-specific
+        way.
+        
+        :param *path: Path components to specify UI file
+        :param relto: If keyword arg 'relto' is specified, path will be
+                      relative to this. Otherwise, it will be relative to
+                      the Exaile data directory
+                      
+        .. versionadded:: 3.5.0
+    '''
+    def __init__(self, *path, **kwargs):
+        super(GtkTemplate, self).__init__(ui=ui_path(*path, **kwargs))
 
-        ALL CODE MODIFYING THE UI SHOULD BE WRAPPED IN THIS
-    """
-    raise DeprecationWarning('We no longer need to use this '
-        'function for xl/event.')
-    def wrapper(*args, **kwargs):
-        # if we're already in the main thread and you try to run
-        # threads_enter, stuff will break horribly, so test for the main
-        # thread and if we're currently in it we simply run the function
-        if threading.currentThread().getName() == 'MainThread':
-            return f(*args, **kwargs)
-        else:
-            gtk.gdk.threads_enter()
-            try:
-                return f(*args, **kwargs)
-            finally:
-                gtk.gdk.threads_leave()
-
-    wrapper.__name__ = f.__name__
-    wrapper.__dict__ = f.__dict__
-    wrapper.__doc__ = f.__doc__
-
-    return wrapper
+def ui_path(*path, **kwargs):
+    '''
+        Returns absolute path to a UI file. Each arg will be concatenated
+        to construct the final path.
+        
+        :param relto: If keyword arg 'relto' is specified, path will be
+                      relative to this. Otherwise, it will be relative to
+                      the Exaile data directory
+                      
+        .. versionadded:: 3.5.0
+    '''
+    
+    relto = kwargs.pop('relto', None)
+    if len(kwargs):
+        raise ValueError("Only 'relto' is allowed as a keyword argument")
+    
+    if relto is None:
+        return xdg.get_data_path(*path)
+    else:
+        return os.path.abspath(os.path.join(os.path.dirname(relto), *path))
 
 def get_workarea_size():
     """
         Returns the width and height of the work area
     """
-    return get_workarea_dimensions()[2:4]
+    d = get_workarea_dimensions()
+    return (d.width, d.height)
 
 def get_workarea_dimensions():
     """
@@ -77,18 +98,12 @@ def get_workarea_dimensions():
         of the work area, falls back to the screen
         dimensions if not available
 
-        :returns: Dimensions(offset_x, offset_y, width, height)
+        :returns: :class:`CairoRectangleInt`
     """
-    Dimensions = namedtuple('Dimensions', 'offset_x offset_y width height')
-
-    rootwindow = gtk.gdk.get_default_root_window()
-    workarea = rootwindow.property_get(gtk.gdk.atom_intern('_NET_WORKAREA'))
-
-    try:
-        return Dimensions(*workarea[2])
-    except TypeError: # gtk.gdk.Window.property_get on Win32
-        # Chopping off bit depth
-        return Dimensions(*rootwindow.get_geometry()[:-1])
+    
+    screen = Gdk.Screen.get_default()
+    default_monitor = screen.get_primary_monitor()
+    return screen.get_monitor_workarea(default_monitor)
 
 def gtk_widget_replace(widget, replacement):
     """
@@ -96,26 +111,26 @@ def gtk_widget_replace(widget, replacement):
         places it exactly at the original position
 
         :param widget: The original widget
-        :type widget: :class:`gtk.Widget`
+        :type widget: :class:`Gtk.Widget`
         :param replacement: The new widget
-        :type widget: :class:`gtk.Widget`
+        :type widget: :class:`Gtk.Widget`
     """
     parent = widget.get_parent()
 
     try:
         position = parent.get_children().index(widget)
-    except AttributeError: # None, not gtk.Container
+    except AttributeError: # None, not Gtk.Container
         return
     else:
         try:
             packing = parent.query_child_packing(widget)
-        except AttributeError: # Not gtk.Box
+        except AttributeError: # Not Gtk.Box
             pass
 
         try:
             tab_label = parent.get_tab_label(widget)
             tab_label_packing = parent.query_tab_label_packing(widget)
-        except AttributeError: # Not gtk.Notebook
+        except AttributeError: # Not Gtk.Notebook
             pass
 
         parent.remove(widget)
@@ -124,7 +139,7 @@ def gtk_widget_replace(widget, replacement):
 
         try:
             parent.set_child_packing(replacement, *packing)
-        except AttributeError: # Not gtk.Box
+        except AttributeError: # Not Gtk.Box
             pass
 
         try:
@@ -140,7 +155,7 @@ def gtk_widget_replace(widget, replacement):
 
         replacement.show_all()
 
-class ScalableImageWidget(gtk.Image):
+class ScalableImageWidget(Gtk.Image):
     """
         Custom resizeable image widget
     """
@@ -148,7 +163,7 @@ class ScalableImageWidget(gtk.Image):
         """
             Initializes the image
         """
-        gtk.Image.__init__(self)
+        Gtk.Image.__init__(self)
 
     def set_image_size(self, width, height):
         """
@@ -166,7 +181,7 @@ class ScalableImageWidget(gtk.Image):
             :param fill: True to expand the image, False to keep its ratio
             :type fill: boolean
         """
-        pixbuf = gtk.gdk.pixbuf_new_from_file(gio.File(location).get_path())
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(Gio.File.new_for_uri(location).get_path())
         self.set_image_pixbuf(pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
@@ -188,7 +203,7 @@ class ScalableImageWidget(gtk.Image):
             Sets the image from a pixbuf
 
             :param data: the pixbuf
-            :type data: :class:`gtk.gdk.Pixbuf`
+            :type data: :class:`GdkPixbuf.Pixbuf`
             :param fill: True to expand the image, False to keep its ratio
             :type fill: boolean
         """
@@ -201,14 +216,14 @@ class ScalableImageWidget(gtk.Image):
             height = int(origh * scale)
         self.width = width
         self.height = height
-        scaled = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+        scaled = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
         self.set_from_pixbuf(scaled)
 
         scaled = pixbuf = None
 
 class SearchEntry(object):
     """
-        A gtk.Entry that emits the "activated" signal when something has
+        A Gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
     def __init__(self, entry=None, timeout=500):
@@ -220,7 +235,7 @@ class SearchEntry(object):
         self.change_id = None
 
         if entry is None:
-            self.entry = entry = gtk.Entry()
+            self.entry = entry = Gtk.Entry()
             
         self._last_text = entry.get_text()
 
@@ -236,8 +251,8 @@ class SearchEntry(object):
         entry.props.secondary_icon_sensitive = not empty_search
 
         if self.change_id:
-            glib.source_remove(self.change_id)
-        self.change_id = glib.timeout_add(self.timeout,
+            GLib.source_remove(self.change_id)
+        self.change_id = GLib.timeout_add(self.timeout,
             self.entry_activate)
 
     def on_entry_icon_press(self, entry, icon_pos, event):
@@ -254,6 +269,7 @@ class SearchEntry(object):
         """
             Emit the activate signal
         """
+        self.change_id = None
         if self.entry.get_text() != self._last_text:
             self.entry.activate()
 
@@ -264,7 +280,7 @@ class SearchEntry(object):
         """
         return getattr(self.entry, attr)
 
-class Menu(gtk.Menu):
+class Menu(Gtk.Menu):
     """
         A proxy for making it easier to add icons to menu items
     """
@@ -272,7 +288,7 @@ class Menu(gtk.Menu):
         """
             Initializes the menu
         """
-        gtk.Menu.__init__(self)
+        Gtk.Menu.__init__(self)
         self._dynamic_builders = []    # list of (callback, args, kwargs)
         self._destroy_dynamic = []     # list of children added by dynamic
                                        # builders. Will be destroyed and
@@ -285,13 +301,13 @@ class Menu(gtk.Menu):
         """
             Appends a graphic as a menu item
         """
-        item = gtk.MenuItem()
-        image = gtk.Image()
+        item = Gtk.MenuItem.new()
+        image = Gtk.Image()
         image.set_from_pixbuf(pixbuf)
         item.add(image)
 
         if callback: item.connect('activate', callback, data)
-        gtk.Menu.append(self, item)
+        Gtk.Menu.append(self, item)
         item.show_all()
         return item
 
@@ -301,21 +317,21 @@ class Menu(gtk.Menu):
         """
         if stock_id:
             if label:
-                item = gtk.ImageMenuItem(label)
-                image = gtk.image_new_from_stock(stock_id,
-                    gtk.ICON_SIZE_MENU)
+                item = Gtk.ImageMenuItem.new_with_mnemonic(label)
+                image = Gtk.Image.new_from_stock(stock_id,
+                    Gtk.IconSize.MENU)
                 item.set_image(image)
             else:
-                item = gtk.ImageMenuItem(stock_id=stock_id)
+                item = Gtk.ImageMenuItem.new_from_stock(stock_id)
         else:
-            item = gtk.MenuItem(label)
+            item = Gtk.MenuItem.new_with_mnemonic(label)
 
         if callback: item.connect('activate', callback, data)
 
         if prepend:
-            gtk.Menu.prepend(self, item)
+            Gtk.Menu.prepend(self, item)
         else:
-            gtk.Menu.append(self, item)
+            Gtk.Menu.append(self, item)
 
         item.show_all()
         return item
@@ -336,7 +352,7 @@ class Menu(gtk.Menu):
         """
             Appends a menu item
         """
-        gtk.Menu.append(self, item)
+        Gtk.Menu.append(self, item)
         item.show_all()
 
     def append_menu(self, label, menu, stock_id=None):
@@ -348,10 +364,10 @@ class Menu(gtk.Menu):
             item.set_submenu(menu)
             return item
 
-        item = gtk.MenuItem(label)
+        item = Gtk.MenuItem.new_with_mnemonic(label)
         item.set_submenu(menu)
         item.show()
-        gtk.Menu.append(self, item)
+        Gtk.Menu.append(self, item)
 
         return item
 
@@ -359,10 +375,10 @@ class Menu(gtk.Menu):
         """
             Inserts a menu at the specified index
         """
-        item = gtk.MenuItem(label)
+        item = Gtk.MenuItem.new_with_mnemonic(label)
         item.set_submenu(menu)
         item.show()
-        gtk.Menu.insert(self, item, index)
+        Gtk.Menu.insert(self, item, index)
 
         return item
 
@@ -370,9 +386,9 @@ class Menu(gtk.Menu):
         """
             Adds a separator
         """
-        item = gtk.SeparatorMenuItem()
+        item = Gtk.SeparatorMenuItem()
         item.show()
-        gtk.Menu.append(self, item)
+        Gtk.Menu.append(self, item)
 
     def add_dynamic_builder(self, callback, *args, **kwargs):
         """
@@ -413,23 +429,26 @@ class Menu(gtk.Menu):
         """
         if len(e) == 1:
             event = e[0]
-            gtk.Menu.popup(self, None, None, None, event.button, event.time)
+            Gtk.Menu.popup(self, None, None, None, None, event.button, event.time)
         else:
-            gtk.Menu.popup(self, *e)
+            Gtk.Menu.popup(self, *e)
 
             
-def position_menu(menu, data):
+def position_menu(menu, *args):
     '''
         A function that will position a menu near a particular widget. This
         should be specified as the third argument to menu.popup(), with the
-        user data being a tuple of (window, widget)
+        user data being the widget.
         
-            menu.popup_menu(None, None, guiutil.position_menu, 
-                            0, 0, (self.window, widget))
+            menu.popup_menu(None, None, guiutil.position_menu, widget,
+                            0, 0)
     '''
-    
-    window, widget = data
-    window_x, window_y = window.get_position()
+    # Prior to GTK+ 3.16, args contains only our user data.
+    # Since 3.16, we get (orig_x, orig_y, data).
+    # See https://git.gnome.org/browse/gtk+/commit/?id=8463d0ee62b4b22fa
+    widget = args[-1]
+    window = widget.get_window()
+    _, window_x, window_y = window.get_origin()
     widget_allocation = widget.get_allocation()
     menu_allocation = menu.get_allocation()
     position = (
@@ -445,14 +464,16 @@ def finish(repeat=True):
     """
         Waits for current pending gtk events to finish
     """
-    while gtk.events_pending():
-        gtk.main_iteration()
+    while Gtk.events_pending():
+        Gtk.main_iteration()
         if not repeat: break
         
         
 
 def initialize_from_xml(this, other=None):
     '''
+        DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
+    
         Initializes the widgets and signals from a GtkBuilder XML file. Looks 
         for the following attributes in the instance you pass:
         
@@ -468,7 +489,7 @@ def initialize_from_xml(this, other=None):
         
         Returns the builder object when done
     '''
-    builder = gtk.Builder()
+    builder = Gtk.Builder()
     
     if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
         builder.add_from_file(this.ui_filename)
@@ -499,7 +520,7 @@ def initialize_from_xml(this, other=None):
                 signals[signal_name] = getattr(obj, signal_name)
             
     if signals is not None:
-        missing = builder.connect_signals(signals, None)
+        missing = builder.connect_signals(signals)
         if missing is not None:
             err = 'The following signals were found in %s but have no assigned handler: %s' % (this.ui_filename, str(missing))
             raise RuntimeError(err)
@@ -508,14 +529,14 @@ def initialize_from_xml(this, other=None):
 
 def persist_selection(widget, key_col, setting_name):
     '''
-        Given a widget that is using a gtk.ListStore, it will restore the
+        Given a widget that is using a Gtk.ListStore, it will restore the
         selected index given the contents of a setting. When the widget
         changes, it will save the choice. 
         
         Call this on the widget after you have loaded data
         into the widget. 
     
-        :param widget:         gtk.ComboBox or gtk.TreeView
+        :param widget:         Gtk.ComboBox or Gtk.TreeView
         :param col:            Integer column with unique key
         :param setting_name:   Setting to save key to/from
     '''

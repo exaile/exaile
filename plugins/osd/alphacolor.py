@@ -14,11 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import gtk.gdk
+from gi.repository import Gdk
 
-class AlphaColor(gtk.gdk.Color):
+class AlphaColor(Gdk.Color):
     """
-        Wrapper around :class:`gtk.gdk.Color`
+        Wrapper around :class:`Gdk.Color`
         to incorporate an alpha value
     """
     __gtype_name__ = 'Color'
@@ -67,7 +67,7 @@ class AlphaColor(gtk.gdk.Color):
         args = ()
         self.__alpha = kwargs.pop('alpha', 0)
 
-        gtk.gdk.Color.__init__(self, *args, **kwargs)
+        Gdk.Color.__init__(self, *args, **kwargs)
 
     def __get_alpha(self):
         return self.__alpha
@@ -139,7 +139,7 @@ def alphacolor_parse(spec):
             fraction = int(alpha_spec, 16) / float(16**digits - 1)
             alpha = int(fraction * 65535)
 
-    color = gtk.gdk.color_parse(spec)
+    color = Gdk.color_parse(spec)
 
     return AlphaColor(
         red=color.red,

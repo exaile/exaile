@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xl import (
     event,
@@ -80,7 +81,7 @@ def __create_tray_context_menu():
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        icon_name=gtk.STOCK_QUIT, callback=quit_cb))
+        _("_Quit Exaile"), 'application-exit', callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
@@ -186,30 +187,30 @@ class BaseTrayIcon(object):
         if event.button == 2:
             playback.playpause( player.PLAYER )
         if event.button == 3:
-            self.menu.popup(None, None, self.get_menu_position,
-                event.button, event.time, self)
+            self.menu.popup(None, None, self.get_menu_position, self,
+                event.button, event.time)
 
     def on_scroll_event(self, widget, event):
         """
             Changes volume and skips tracks on scroll
         """
-        if event.state & gtk.gdk.SHIFT_MASK:
-            if event.direction == gtk.gdk.SCROLL_UP:
+        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+            if event.direction == Gdk.ScrollDirection.UP:
                 player.QUEUE.prev()
-            elif event.direction == gtk.gdk.SCROLL_DOWN:
+            elif event.direction == Gdk.ScrollDirection.DOWN:
                 player.QUEUE.next()
         else:
-            if event.direction == gtk.gdk.SCROLL_UP:
+            if event.direction == Gdk.ScrollDirection.UP:
                 volume = settings.get_option('player/volume', 1)
                 settings.set_option('player/volume', min(volume + self.VOLUME_STEP, 1))
                 return True
-            elif event.direction == gtk.gdk.SCROLL_DOWN:
+            elif event.direction == Gdk.ScrollDirection.DOWN:
                 volume = settings.get_option('player/volume', 1)
                 settings.set_option('player/volume', max(0, volume - self.VOLUME_STEP))
                 return True
-            elif event.direction == gtk.gdk.SCROLL_LEFT:
+            elif event.direction == Gdk.ScrollDirection.LEFT:
                 player.QUEUE.prev()
-            elif event.direction == gtk.gdk.SCROLL_RIGHT:
+            elif event.direction == Gdk.ScrollDirection.RIGHT:
                 player.QUEUE.next()
 
     def on_playback_change_state(self, event, player, current):
@@ -217,20 +218,20 @@ class BaseTrayIcon(object):
             Updates tray icon appearance
             on playback state change
         """
-        glib.idle_add(self.update_icon)
+        GLib.idle_add(self.update_icon)
 
-class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
+class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """
         Wrapper around GtkStatusIcon
     """
     def __init__(self, main):
-        gtk.StatusIcon.__init__(self)
+        Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
 
-    def get_menu_position(self, menu, icon):
+    def get_menu_position(self, *args):
         """
             Returns coordinates for
             the best menu position
         """
-        return gtk.status_icon_position_menu(menu, icon)
+        return Gtk.StatusIcon.position_menu(*args)
 

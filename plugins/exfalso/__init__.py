@@ -15,7 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import gio, gtk
+from gi.repository import Gio
+from gi.repository import Gtk
 import quodlibet as ql
 
 # Modify Quod Libet's print_ function to default to not print anything (output=
@@ -62,10 +63,10 @@ class ExFalsoController:
         #   - ScrolledWindow > AllTreeView (TreeView)  # file list
         filesel = window.get_child().get_children()[0].get_children()[0]
         children = filesel.get_children()
-        self.dirlist = children[0].child
-        self.filelist = children[1].child
-        assert isinstance(self.dirlist, gtk.TreeView)
-        assert isinstance(self.filelist, gtk.TreeView)
+        self.dirlist = children[0].get_child()
+        self.filelist = children[1].get_child()
+        assert isinstance(self.dirlist, Gtk.TreeView)
+        assert isinstance(self.filelist, Gtk.TreeView)
 
     def _on_changed(self, library, items):
         # We can't directly use the items passed in because Ex Falso converts
@@ -132,7 +133,7 @@ class ExFalsoPlugin:
     def on_changed(self, paths):
         get_track = self.exaile.collection.get_track_by_loc
         for path in paths:
-            uri = gio.File(path).get_uri()
+            uri = Gio.File.new_for_path(path).get_uri()
             track = get_track(uri) or xl.trax.Track(uri)
             track.read_tags()
             xl.event.log_event('track_tags_changed', track, None)

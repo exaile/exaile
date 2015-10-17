@@ -14,15 +14,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import gtk
 import logging
 import os
-import urllib2 
-import webkit
+import urllib2
+
+from gi.repository import (
+    GLib,
+    Gtk,
+    WebKit2,
+)
 
 from xl import (
+    common,
     event,
-    player,
     providers,
     settings
 )
@@ -39,42 +43,32 @@ CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)+os.path.sep
 
 def enable(exaile):
-    """ """
     config.USER_AGENT = exaile.get_user_agent_string('wikipedia')
-    
-    if (exaile.loading):
+
+    if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
 
 def disable(exaile):
-    """ """
     global WIKIPANEL
     providers.unregister('main-panel', WIKIPANEL)
 
 def _enable(eventname, exaile, nothing):
-    global WIKIPANEL 
+    global WIKIPANEL
     WIKIPANEL = WikiPanel(exaile.gui.main.window)
-    providers.register('main-panel', WIKIPANEL)  
+    providers.register('main-panel', WIKIPANEL)
 
 def get_preferences_pane():
-    return preferences 
- 
-class BrowserPage(webkit.WebView):
-    """ """
+    return preferences
+
+class BrowserPage(WebKit2.WebView):
     history_length = 6
 
     def __init__(self, builder):
-        webkit.WebView.__init__(self)
-        
-        # webkit-gtk is very old, and has javascript bugs
-        settings = webkit.WebSettings()
-        settings.props.enable_scripts = False
-        self.set_settings(settings)
+        WebKit2.WebView.__init__(self)
 
         self.hometrack = None
-
-        self.set_maintains_back_forward_list(True)
 
         builder.connect_signals(self)
         event.add_callback(self.on_playback_start, 'playback_track_start')
@@ -86,11 +80,11 @@ class BrowserPage(webkit.WebView):
         self.hometrack = track
         self.load_wikipedia_page(track)
 
-    def on_home_button_clicked(self, widget=None,param=None):
+    def on_home_button_clicked(self, button):
         if self.hometrack is not None:
             self.load_wikipedia_page(self.hometrack)
 
-    def on_refresh_button_clicked(self, widget=None,param=None):
+    def on_refresh_button_clicked(self, button):
         self.reload()
 
     def on_back_button_clicked(self, button):
@@ -99,56 +93,52 @@ class BrowserPage(webkit.WebView):
     def on_forward_button_clicked(self, button):
         self.go_forward()
 
+    @common.threaded
     def load_wikipedia_page(self, track):
+        if track != self.hometrack:
+            return
+
         artist = track.get_tag_display('artist')
         language = settings.get_option('plugin/wikipedia/language', 'en')
         if language not in config.LANGUAGES:
             log.error('Provided language "%s" not found.' % language)
             language = 'en'
 
-        url = "http://%s.m.wikipedia.org/wiki/%s" % (language, artist)
-        url = url.replace(" ", "_")
-        headers = { 'User-Agent' : config.USER_AGENT }
-        req = urllib2.Request(url, None, headers)
+        artist = urllib2.quote(artist.encode('utf-8'), '')
+        url = "https://%s.m.wikipedia.org/wiki/Special:Search/%s" % (language, artist)
 
         try:
-            response = urllib2.urlopen(req)
+            html = common.get_url_contents(url, config.USER_AGENT)
         except urllib2.URLError, e:
             log.error(e)
             log.error(
-                "Error occured when trying to retrieve Wikipedia page "
+                "Error occurred when trying to retrieve Wikipedia page "
                 "for %s." % artist)
             html = """
                 <p style="color: red">No Wikipedia page found for <strong>%s</strong></p>
                 """ % artist
-        else:
-            html = response.read()
 
-        self.load_html_string(html, url)
+        GLib.idle_add(self.load_html, html, url)
 
 
 class WikiPanel(panel.Panel):
-    """ """
     # Specifies the path to the UI file and the name of the root element
     ui_info = (os.path.dirname(__file__) + "/data/wikipanel.ui", 'wikipanel_window')
 
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, 'wikipedia', _('Wikipedia'))
         self.parent = parent
-        # Typically here you'd set up your gui further, eg connect methods 
-        # to signals etc
         self._browser = BrowserPage(self.builder)
         self.setup_widgets()
 
     def destroy(self):
-        self._browser.destroy() 
- 
+        self._browser.destroy()
+
     def setup_widgets(self):
-        self._scrolled_window = gtk.ScrolledWindow()
-        self._scrolled_window.props.hscrollbar_policy = gtk.POLICY_AUTOMATIC
-        self._scrolled_window.props.vscrollbar_policy = gtk.POLICY_AUTOMATIC
+        self._scrolled_window = Gtk.ScrolledWindow()
+        self._scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
+        self._scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         self._scrolled_window.add(self._browser)
         frame = self.builder.get_object('rendering_frame')
         self._scrolled_window.show_all()
         frame.add(self._scrolled_window)
-        

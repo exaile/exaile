@@ -28,10 +28,12 @@
     Shared GUI widgets
 """
 
-import gio
-import glib
-import gobject
-import gtk
+from gi.repository import Gio
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 from urllib2 import urlparse
 
 from xl import (
@@ -41,10 +43,11 @@ from xl import (
     settings,
     trax
 )
+
 from xlgui.guiutil import get_workarea_size
 from xlgui import icons
 
-class AttachedWindow(gtk.Window):
+class AttachedWindow(Gtk.Window):
     """
         A window attachable to arbitrary widgets,
         follows the movement of its parent
@@ -52,46 +55,51 @@ class AttachedWindow(gtk.Window):
     __gsignals__ = {'show': 'override'}
 
     def __init__(self, parent):
-        gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
+        Gtk.Window.__init__(self, Gtk.WindowType.TOPLEVEL)
 
         self.set_decorated(False)
         self.props.skip_taskbar_hint = True
         self.set_keep_above(True)
 
+        # Only allow resizing
         self.realize()
-        self.window.set_functions(gtk.gdk.FUNC_RESIZE) # Only allow resizing
+        self.get_window().set_functions(Gdk.WMFunction.RESIZE)
 
         self.parent_widget = parent
         realize_id = self.parent_widget.connect('realize',
             self.on_parent_realize)
-        self.parent_widget.set_data('%s_realize_id' % id(self),
-            realize_id)
+        try:
+            realize_ids = self.parent_widget.realize_ids
+        except AttributeError:
+            realize_ids = self.parent_widget.realize_ids = {}
+        realize_ids[self] = realize_id
 
     def update_location(self):
         """
             Makes sure the window is
             always fully visible
         """
-        workarea = gtk.gdk.Rectangle(0, 0, *get_workarea_size())
-        parent = self.parent_widget.allocation
+        workarea = Gdk.Rectangle(0, 0, *get_workarea_size())
+        parent_alloc = self.parent_widget.get_allocation()
         toplevel_position = self.parent_widget.get_toplevel().get_position()
         # Use absolute screen position
-        parent.x += toplevel_position[0]
-        parent.y += toplevel_position[1]
+        parent_alloc.x += toplevel_position[0]
+        parent_alloc.y += toplevel_position[1]
 
-        if workarea.width - parent.x < self.allocation.width:
+        alloc = self.allocation()
+        if workarea.width - parent_alloc.x < alloc.width:
             # Parent rightmost
-            x = parent.x + parent.width - self.allocation.width
+            x = parent_alloc.x + parent_alloc.width - alloc.width
         else:
             # Parent leftmost
-            x = parent.x
+            x = parent_alloc.x
 
-        if workarea.height - parent.y < self.allocation.height:
+        if workarea.height - parent_alloc.y < alloc.height:
             # Parent at bottom
-            y = parent.y - self.allocation.height
+            y = parent_alloc.y - alloc.height
         else:
             # Parent at top
-            y = parent.y + parent.height
+            y = parent_alloc.y + parent_alloc.height
         
         self.move(x, y)
 
@@ -99,7 +107,7 @@ class AttachedWindow(gtk.Window):
         """
             Updates the location upon show
         """
-        gtk.Window.do_show(self)
+        Gtk.Window.do_show(self)
         self.update_location()
 
     def on_parent_realize(self, parent):
@@ -107,7 +115,7 @@ class AttachedWindow(gtk.Window):
             Prepares the window to
             follow its parent window
         """
-        realize_id = parent.get_data('%s_realize_id' % id(self))
+        realize_id = parent.realize_ids[self]
         
         if realize_id is not None:
             parent.disconnect(realize_id)
@@ -129,17 +137,18 @@ class AttachedWindow(gtk.Window):
         """
             Handles state changes of the topmost window
         """
-        if e.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED:
+        if e.changed_mask & Gdk.WindowState.ICONIFIED:
             self.hide()
 
-class AutoScrollTreeView(gtk.TreeView):
+class AutoScrollTreeView(Gtk.TreeView):
     """
         A TreeView which handles autoscrolling upon DnD operations
     """
     def __init__(self):
-        gtk.TreeView.__init__(self)
+        Gtk.TreeView.__init__(self)
 
         self._SCROLL_EDGE_SIZE = 15 # As in gtktreeview.c
+        self.__autoscroll_timeout_id = None
 
         self.connect("drag-motion", self._on_drag_motion)
         self.connect("drag-leave", self._on_drag_leave)
@@ -148,19 +157,19 @@ class AutoScrollTreeView(gtk.TreeView):
         """
             Initiates automatic scrolling
         """
-        if not self.get_data('autoscroll_timeout_id'):
-            self.set_data('autoscroll_timeout_id',
-                glib.timeout_add(50, self._on_autoscroll_timeout))
+        if not self.__autoscroll_timeout_id:
+            self.__autoscroll_timeout_id = GLib.timeout_add(
+                50, self._on_autoscroll_timeout)
 
     def _on_drag_leave(self, widget, context, timestamp):
         """
             Stops automatic scrolling
         """
-        autoscroll_timeout_id = self.get_data('autoscroll_timeout_id')
+        autoscroll_timeout_id = self.__autoscroll_timeout_id
         
         if autoscroll_timeout_id:
-            glib.source_remove(autoscroll_timeout_id)
-            self.set_data('autoscroll_timeout_id', None)
+            GLib.source_remove(autoscroll_timeout_id)
+            self.__autoscroll_timeout_id = None
 
     def _on_autoscroll_timeout(self):
         """
@@ -168,8 +177,8 @@ class AutoScrollTreeView(gtk.TreeView):
 
             Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
         """
-        x, y, modifier = self.props.window.get_pointer()
-        x, y = self.widget_to_tree_coords(x, y)
+        _, x, y, _ = self.props.window.get_pointer()
+        x, y = self.convert_widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge
         offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE) # 3: Scroll faster upwards
@@ -184,10 +193,10 @@ class AutoScrollTreeView(gtk.TreeView):
                 return True
 
         vadjustment = self.get_vadjustment()
-        vadjustment.value = common.clamp(
-            vadjustment.value + offset,
+        vadjustment.props.value = common.clamp(
+            vadjustment.props.value + offset,
             0,
-            vadjustment.upper - vadjustment.page_size
+            vadjustment.props.upper - vadjustment.props.page_size
         )
         self.set_vadjustment(vadjustment)
 
@@ -197,7 +206,7 @@ class DragTreeView(AutoScrollTreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
-    targets = [("text/uri-list", 0, 0)]
+    targets = [Gtk.TargetEntry.new("text/uri-list", 0, 0)]
     dragged_data = dict()
 
     def __init__(self, container, receive=True, source=True, drop_pos=None):
@@ -214,14 +223,14 @@ class DragTreeView(AutoScrollTreeView):
 
         if source:
             self.drag_source_set(
-                gtk.gdk.BUTTON1_MASK, self.targets,
-                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+                Gdk.ModifierType.BUTTON1_MASK, self.targets,
+                Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
 
         if receive:
             self.drop_pos = drop_pos
-            self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
-                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
-                gtk.gdk.ACTION_MOVE)
+            self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
+                Gdk.DragAction.COPY|Gdk.DragAction.DEFAULT|
+                Gdk.DragAction.MOVE)
             self.connect('drag_data_received',
                 self.container.drag_data_received)
             self.connect('drag_data_delete',
@@ -237,7 +246,7 @@ class DragTreeView(AutoScrollTreeView):
 
         if source:
             self.connect('drag-data-get', self.container.drag_get_data)
-            self.drag_source_set_icon_stock(gtk.STOCK_DND)
+            self.drag_source_set_icon_stock(Gtk.STOCK_DND)
 
     def get_selected_tracks(self):
         """
@@ -251,20 +260,20 @@ class DragTreeView(AutoScrollTreeView):
         """
         self.dragging = False
         self.unset_rows_drag_dest()
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+        self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
+            Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
 
     def on_drag_begin(self, widget, context):
         """
             Sets the cover of dragged tracks as drag icon
         """
         self.dragging = True
-        context.drag_abort(gtk.get_current_event_time())
+        Gdk.drag_abort(context, Gtk.get_current_event_time())
 
         if self.get_selection().count_selected_rows() > 1:
-            self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
+            self.drag_source_set_icon_stock(Gtk.STOCK_DND_MULTIPLE)
         else:
-            self.drag_source_set_icon_stock(gtk.STOCK_DND)
+            self.drag_source_set_icon_stock(Gtk.STOCK_DND)
         if self.show_cover_drag_icon:
             tracks = self.get_selected_tracks()
             self._on_drag_begin(widget, context, tracks)
@@ -304,18 +313,18 @@ class DragTreeView(AutoScrollTreeView):
 
                 if len(albums) > 1:
                     # Create stacked-cover effect
-                    cover_pixbuf = gtk.gdk.Pixbuf(
-                        gtk.gdk.COLORSPACE_RGB,
+                    cover_pixbuf = GdkPixbuf.Pixbuf.new(
+                        GdkPixbuf.Colorspace.RGB,
                         True,
                         8,
                         width + 10, height + 10
                     )
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(
+                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width + 10, height + 10)
                     fill_pixbuf.fill(0x00000000) # Fill with transparent background
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(
+                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width, height)
                     fill_pixbuf.fill(0xccccccff)
 
@@ -326,7 +335,7 @@ class DragTreeView(AutoScrollTreeView):
                             5, 5
                         )
                     else:
-                        fill_pixbuf = cover_pixbuf.subpixbuf(
+                        fill_pixbuf = cover_pixbuf.new_subpixbuf(
                             5, 5, width, height)
                         fill_pixbuf.fill(0x999999ff)
 
@@ -336,13 +345,13 @@ class DragTreeView(AutoScrollTreeView):
                         10, 10
                     )
 
-                glib.idle_add(self._set_drag_cover, context, cover_pixbuf)
+                GLib.idle_add(self._set_drag_cover, context, cover_pixbuf)
 
     def _set_drag_cover(self, context, pixbuf):
         """
             Completes drag icon setup
         """
-        context.set_icon_pixbuf(pixbuf, 0, 0)
+        Gtk.drag_set_icon_pixbuf(context, pixbuf, 0, 0)
 
     def on_drag_motion(self, treeview, context, x, y, timestamp):
         """
@@ -351,7 +360,7 @@ class DragTreeView(AutoScrollTreeView):
         if not self.receive:
             return False
         self.enable_model_drag_dest(self.targets,
-            gtk.gdk.ACTION_DEFAULT)
+            Gdk.DragAction.DEFAULT)
         if self.drop_pos is None:
             return False
         info = treeview.get_dest_row_at_pos(x, y)
@@ -360,16 +369,16 @@ class DragTreeView(AutoScrollTreeView):
         path, pos = info
         if self.drop_pos == 'into':
             # Only allow dropping into entries.
-            if pos == gtk.TREE_VIEW_DROP_BEFORE:
-                pos = gtk.TREE_VIEW_DROP_INTO_OR_BEFORE
-            elif pos == gtk.TREE_VIEW_DROP_AFTER:
-                pos = gtk.TREE_VIEW_DROP_INTO_OR_AFTER
+            if pos == Gtk.TreeViewDropPosition.BEFORE:
+                pos = Gtk.TreeViewDropPosition.INTO_OR_BEFORE
+            elif pos == Gtk.TreeViewDropPosition.AFTER:
+                pos = Gtk.TreeViewDropPosition.INTO_OR_AFTER
         elif self.drop_pos == 'between':
             # Only allow dropping between entries.
-            if pos == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
-                pos = gtk.TREE_VIEW_DROP_BEFORE
-            elif pos == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
-                pos = gtk.TREE_VIEW_DROP_AFTER
+            if pos == Gtk.TreeViewDropPosition.INTO_OR_BEFORE:
+                pos = Gtk.TreeViewDropPosition.BEFORE
+            elif pos == Gtk.TreeViewDropPosition.INTO_OR_AFTER:
+                pos = Gtk.TreeViewDropPosition.AFTER
         treeview.set_drag_dest_row(path, pos)
         context.drag_status(context.suggested_action, timestamp)
         return True
@@ -387,7 +396,7 @@ class DragTreeView(AutoScrollTreeView):
 
         if path:
             if event.button != 3:
-                if event.type == gtk.gdk._2BUTTON_PRESS:
+                if event.type == Gdk.EventType._2BUTTON_PRESS:
                     try:
                         return self.container.button_press(button, event)
                     except AttributeError:
@@ -397,10 +406,10 @@ class DragTreeView(AutoScrollTreeView):
                     return False
                 else:
                     if selection.path_is_selected(path[0]):
-                        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
                             selection.unselect_path(path[0])
                         return True
-                    elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    elif not event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
                         return True
                     return False
 
@@ -417,7 +426,7 @@ class DragTreeView(AutoScrollTreeView):
         """
         if event.button != 1 or \
            self.dragging or \
-           event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+           event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
             self.dragging = False
 
             try:
@@ -496,9 +505,9 @@ class DragTreeView(AutoScrollTreeView):
         # cause the gui to hang)
         if info.scheme in ('file', ''):
             try:
-                filetype = gio.File(loc).query_info(
-                    'standard::type').get_file_type()
-            except gio.Error:
+                filetype = Gio.File.new_for_uri(loc).query_info(
+                    'standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+            except GLib.Error:
                 filetype = None
 
         if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
@@ -510,28 +519,28 @@ class DragTreeView(AutoScrollTreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif filetype == gio.FILE_TYPE_DIRECTORY:
+        elif filetype == Gio.FileType.DIRECTORY:
             return (trax.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
 
-class ClickableCellRendererPixbuf(gtk.CellRendererPixbuf):
+class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
     """
-        Custom :class:`gtk.CellRendererPixbuf` emitting
+        Custom :class:`Gtk.CellRendererPixbuf` emitting
         an *clicked* signal upon activation of the pixbuf
     """
     __gsignals__ = {
         'clicked': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
-            (gobject.TYPE_PYOBJECT,),
-            gobject.signal_accumulator_true_handled
+            GObject.SignalFlags.RUN_LAST,
+            GObject.TYPE_BOOLEAN,
+            (GObject.TYPE_PYOBJECT,),
+            GObject.signal_accumulator_true_handled
         )
     }
 
     def __init__(self):
-        gtk.CellRendererPixbuf.__init__(self)
-        self.props.mode = gtk.CELL_RENDERER_MODE_ACTIVATABLE
+        Gtk.CellRendererPixbuf.__init__(self)
+        self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
 
     def do_activate(self, event, widget, path,
             background_area, cell_area, flags):
@@ -544,7 +553,7 @@ class ClickableCellRendererPixbuf(gtk.CellRendererPixbuf):
         pixbuf_width = self.props.pixbuf.get_width()
         pixbuf_height = self.props.pixbuf.get_height()
 
-        click_area = gtk.gdk.Rectangle(
+        click_area = Gdk.Rectangle(
             x=int(cell_area.x \
               + self.props.xpad \
               + self.props.xalign * cell_area.width \

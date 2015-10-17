@@ -1,6 +1,6 @@
 
 import logging
-import gobject
+from gi.repository import GObject
 from xl import collection, event, settings
 import spydaap.parser.exaile
 
@@ -72,7 +72,7 @@ def _enable(exaile):
         ds.start()
 
 def __enb(evname, exaile, wat):
-    gobject.idle_add(_enable, exaile)
+    GObject.idle_add(_enable, exaile)
 
 
 def enable(exaile):

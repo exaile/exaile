@@ -24,18 +24,26 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
-import time
+from gi.repository import GLib
+from gi.repository import Gtk
 
 from xl.common import clamp
 from xl.nls import gettext as _
 
-class ProgressMonitor(gtk.VBox):
+from xlgui.guiutil import GtkTemplate
+
+@GtkTemplate('ui', 'widgets', 'progress.ui')
+class ProgressMonitor(Gtk.Grid):
     """
         A graphical progress monitor
     """
+    
+    __gtype_name__ = 'ProgressMonitor'
+    
+    label,          \
+    box,            \
+    progressbar     = GtkTemplate.Child.widgets(3)
+    
     def __init__(self, manager, thread, description, image=None):
         """
             Initializes the monitor
@@ -47,41 +55,20 @@ class ProgressMonitor(gtk.VBox):
             :param description: the description for this process
             :type description: string
         """
-        gtk.VBox.__init__(self, spacing=3)
+        super(ProgressMonitor, self).__init__()
+        self.init_template()
 
         self.manager = manager
         self.thread = thread
         self._progress_updated = False
 
-        box = gtk.HBox(spacing=6)
-        self.pack_start(box)
-
         if image is not None:
-            box.pack_start(image, False)
-
-        label = gtk.Label(description)
-        label.props.xalign = 0
-        box.pack_start(label)
-
-        box = gtk.HBox(spacing=3)
-        self.pack_start(box)
-
-        alignment = gtk.Alignment(xscale=1, yscale=1)
-        alignment.set_padding(3, 3, 0, 0)
-        self.progressbar = gtk.ProgressBar()
-        self.progressbar.set_pulse_step(0.05)
-        alignment.add(self.progressbar)
-        box.pack_start(alignment)
-
-        button = gtk.Button()
-        button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
-        button.set_tooltip_text(_('Cancel'))
-        button.connect('clicked', self.on_button_clicked)
-        box.pack_start(button, False)
-
+            self.box.pack_start(image, False, True, 0)
+            
+        self.label.set_text(description)
+        
         self.show_all()
-        glib.timeout_add(50, self.pulsate_progress)
+        GLib.timeout_add(100, self.pulsate_progress)
 
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
@@ -127,7 +114,8 @@ class ProgressMonitor(gtk.VBox):
         """
         self.manager.remove_monitor(self)
 
-    def on_button_clicked(self, widget):
+    @GtkTemplate.Callback
+    def on_cancel_button_clicked(self, widget):
         """
             Stops the running thread
         """
@@ -148,7 +136,7 @@ class ProgressManager(object):
         """
             Initializes the manager
 
-            :param container: the gtk.VBox that will be holding the different
+            :param container: the Gtk.VBox that will be holding the different
             progress indicators
         """
         self.box = container
@@ -162,9 +150,9 @@ class ProgressManager(object):
             :param description: a description of the event
             :param stock_id: the stock id of an icon to display
         """
-        image = gtk.image_new_from_stock(stock_id, gtk.ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(stock_id, Gtk.IconSize.BUTTON)
         monitor = ProgressMonitor(self, thread, description, image)
-        self.box.pack_start(monitor, False)
+        self.box.pack_start(monitor, False, True, 0)
 
         return monitor
 

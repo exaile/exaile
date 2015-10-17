@@ -16,21 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import gtk
-import gobject
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GObject
 
-class CellRendererDays(gtk.CellRendererText):
+class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
     
     __gtype_name__ = 'CellRendererDays'
-    __gproperties__ = { 'days':(object, 'days', 'List of enabled days', gobject.PARAM_READWRITE) }
-    __gsignals__ = { 'days-changed':(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
+    __gproperties__ = { 'days':(object, 'days', 'List of enabled days', GObject.PARAM_READWRITE) }
+    __gsignals__ = { 'days-changed':(GObject.SignalFlags.RUN_FIRST, None,
                                     (str, object))}
     property_names = __gproperties__.keys()
 
     def __init__(self):
-        self.__gobject_init__()
-        self.model = gtk.ListStore(bool, str)
+        Gtk.CellRendererText.__init__(self)
+        self.model = Gtk.ListStore(bool, str)
         self.view = None
         self.view_window = None
         
@@ -42,22 +43,22 @@ class CellRendererDays(gtk.CellRendererText):
 
     def _create_view(self, treeview):
         '''Create the Window and View to display when editing'''
-        self.view_window = gtk.Window()
+        self.view_window = Gtk.Window()
         self.view_window.set_decorated(False)
         self.view_window.set_property('skip-taskbar-hint', True)
 
-        self.view = gtk.TreeView()
+        self.view = Gtk.TreeView()
         
         self.view.set_model(self.model)
         self.view.set_headers_visible(False)
         
-        cr = gtk.CellRendererToggle()
+        cr = Gtk.CellRendererToggle()
         cr.connect('toggled', self._toggle)
-        col = gtk.TreeViewColumn('Enabled', cr, active=0)
+        col = Gtk.TreeViewColumn('Enabled', cr, active=0)
         self.view.append_column(col)
         
-        cr = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Day', cr, text=1)
+        cr = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn('Day', cr, text=1)
         self.view.append_column(col)
 
         # events
@@ -99,9 +100,9 @@ class CellRendererDays(gtk.CellRendererText):
 
 
         # position the popup below the edited cell (and try hard to keep the popup within the toplevel window)
-        (tree_x, tree_y) = treeview.get_bin_window().get_origin()
-        (tree_w, tree_h) = treeview.window.get_geometry()[2:4]
-        (my_w, my_h) = self.view_window.window.get_geometry()[2:4]
+        (tree_x, tree_y) = treeview.get_bin_window().get_origin()[1:]
+        (tree_w, tree_h) = treeview.get_window().get_geometry()[2:4]
+        (my_w, my_h) = self.view_window.get_window().get_geometry()[2:4]
         x = tree_x + min(cell_area.x, tree_w - my_w + treeview.get_visible_rect().x)
         y = tree_y + min(cell_area.y, tree_h - my_h + treeview.get_visible_rect().y)
         self.view_window.move(x, y)
@@ -109,7 +110,7 @@ class CellRendererDays(gtk.CellRendererText):
         # save the path so we can return it in _done, and we aren't using dialog so we can't block....
         self._path = path        
             
-        return None # don't return any editable, our gtk.Dialog did the work already
+        return None # don't return any editable, our Gtk.Dialog did the work already
 
     def _done(self):
         '''Called when we are done editing'''
@@ -124,7 +125,7 @@ class CellRendererDays(gtk.CellRendererText):
     def _key_pressed(self, view, event):
         '''Key pressed event handler, finish editing on Return'''
         # event == None for day selected via doubleclick
-        if not event or event.type == gtk.gdk.KEY_PRESS and gtk.gdk.keyval_name(event.keyval) == 'Return':
+        if not event or event.type == Gdk.EventType.KEY_PRESS and Gdk.keyval_name(event.keyval) == 'Return':
             self._done()
             return True
 

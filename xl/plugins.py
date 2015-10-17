@@ -31,7 +31,6 @@ import os
 import shutil
 import sys
 import tarfile
-import traceback
 
 from xl.nls import gettext as _
 from xl import ( 
@@ -152,9 +151,7 @@ class PluginsManager(object):
             logger.debug("Loaded plugin %s" % pluginname)
             self.save_enabled()
         except Exception, e:
-            traceback.print_exc()
-            logger.warning("Unable to enable plugin %s" % pluginname)
-            common.log_exception(logger)
+            logger.exception("Unable to enable plugin %s", pluginname)
             raise e
 
     def disable_plugin(self, pluginname):
@@ -162,16 +159,14 @@ class PluginsManager(object):
             plugin = self.enabled_plugins[pluginname]
             del self.enabled_plugins[pluginname]
         except KeyError:
-            common.log_exception(logger, message="Plugin not found, possibly already disabled")
+            logger.exception("Plugin not found, possibly already disabled")
             return False
         try:
             plugin.disable(self.exaile)
             logger.debug("Unloaded plugin %s" % pluginname)
             self.save_enabled()
         except Exception, e:
-            traceback.print_exc()
-            logger.warning("Unable to fully disable plugin %s" % pluginname)
-            common.log_exception(logger)
+            logger.exception("Unable to fully disable plugin %s", pluginname)
             raise e
         return True
 
@@ -228,16 +223,25 @@ class PluginsManager(object):
         
             :param info: The data returned from get_plugin_info()
         '''
-        
+        from gi.repository import GIRepository
+        gir = GIRepository.Repository.get_default()
+
         modules = info.get('RequiredModules', [])
         
         for module in modules:
-            try:
-                mdata = imp.find_module(module)
-                if mdata[0] is not None:
-                    mdata[0].close()
-            except:
-                return True
+            pair = module.split(':', 1)
+            if len(pair) > 1:
+                prefix, module = pair
+                if prefix == 'gi':
+                    if not gir.enumerate_versions(module):
+                        return True
+            else:
+                try:
+                    mdata = imp.find_module(module)
+                    if mdata[0] is not None:
+                        mdata[0].close()
+                except Exception:
+                    return True
             
         return False
 

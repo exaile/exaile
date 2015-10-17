@@ -1,6 +1,6 @@
 Version='0.0.3'
-Authors=['Adam Olsen <arolsen@gmail.com>']
+Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
 Name=_('Notify')
-Description=_('Pops up a notification when playback of a track starts. Requires pynotify')
+Description=_('Pops up a notification when playback of a track starts. Requires libnotify and its typelib file')
 Category=_('Notifications')
-RequiredModules=['pynotify']
+RequiredModules=['gi:Notify']

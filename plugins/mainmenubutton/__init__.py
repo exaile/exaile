@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import atk
-import gtk
+from gi.repository import Atk
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import event, providers
@@ -26,16 +26,10 @@ def enable(exaile):
     """
         Enables the plugin
     """
-    try:
-        gtk.Notebook.get_action_widget
-    except AttributeError:
-        raise NotImplementedError(_('This plugin needs at least '
-                                    'PyGTK 2.22 and GTK 2.20.'))
+    if exaile.loading:
+        event.add_callback(on_gui_loaded, 'gui_loaded')
     else:
-        if exaile.loading:
-            event.add_callback(on_gui_loaded, 'gui_loaded')
-        else:
-            on_gui_loaded()
+        on_gui_loaded()
 
 def disable(exaile):
     """
@@ -52,36 +46,36 @@ def on_gui_loaded(*args):
     
     providers.register('main-panel-actions', MainMenuButton)
 
-class MainMenuButton(gtk.ToggleButton, notebook.NotebookAction):
+class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     """
     """
     __gsignals__ = {}
     
     name = 'main-menu'
-    position = gtk.PACK_START
+    position = Gtk.PackType.START
 
     def __init__(self, panel_notebook):
         """
             Adds the button to the main window 
             and moves the main menu items
         """
-        gtk.Button.__init__(self)
+        Gtk.ToggleButton.__init__(self)
         notebook.NotebookAction.__init__(self, panel_notebook)
 
-        self.set_image(gtk.image_new_from_icon_name('exaile', gtk.ICON_SIZE_BUTTON))
+        self.set_image(Gtk.Image.new_from_icon_name('exaile', Gtk.IconSize.BUTTON))
         self.set_tooltip_text(_('Main Menu'))
         self.set_focus_on_click(True)
-        self.set_relief(gtk.RELIEF_NONE)
+        self.set_relief(Gtk.ReliefStyle.NONE)
 
         accessible = self.get_accessible()
-        accessible.set_role(atk.ROLE_MENU)
+        accessible.set_role(Atk.Role.MENU)
         accessible.set_name(_('Main Menu'))
 
         builder = main.mainwindow().builder
         
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
-        self.menu = gtk.Menu()
+        self.menu = Gtk.Menu()
         self.menu.attach_to_widget(self, lambda *args: False)
         self.menu.connect('deactivate', self.on_menu_deactivate)
 
@@ -102,14 +96,15 @@ class MainMenuButton(gtk.ToggleButton, notebook.NotebookAction):
             menuitem.reparent(self.mainmenu)
 
         self.unparent()
-        gtk.Button.destroy(self)
+        Gtk.Button.destroy(self)
 
-    def get_menu_position(self, menu):
+    def get_menu_position(self, *_):
         """
             Positions the menu at the right of the button
         """
         # Origin includes window position and decorations
-        x, y = self.props.window.get_origin()
+        _, x, y = self.props.window.get_origin()
+        
         allocation = self.get_allocation()
 
         return (
@@ -140,8 +135,8 @@ class MainMenuButton(gtk.ToggleButton, notebook.NotebookAction):
         """
             Pops out the menu upon button toggle
         """
-        self.menu.popup(None, None, self.get_menu_position, 0,
-            gtk.get_current_event_time())
+        self.menu.popup(None, None, self.get_menu_position, None, 0,
+            Gtk.get_current_event_time())
 
     def on_menu_deactivate(self, menu):
         """

@@ -21,10 +21,7 @@ try:
     import IPython
     version = IPython.__version__
     
-    if version.startswith('0.10'):
-        from ipython_view import IPythonView
-    else:
-        from ipython_view2 import IPythonView
+    from ipython_view import IPythonView
 
 except (ImportError, AttributeError):
     logger.error('could not find a compatible version of IPython', exc_info=True)

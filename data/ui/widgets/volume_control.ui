@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkWindow" id="dummy_window">
-    <child>
-      <object class="GtkHBox" id="volume_control">
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkToggleButton" id="button">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="relief">none</property>
-            <property name="focus_on_click">False</property>
-            <signal name="toggled" handler="on_button_toggled" swapped="no"/>
-            <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
-            <child>
-              <object class="GtkImage" id="button_image">
-                <property name="visible">True</property>
-                <property name="icon_name">audio-volume-muted</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHScale" id="slider">
-            <property name="width_request">125</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="adjustment">slider_adjustment</property>
-            <property name="draw_value">False</property>
-            <signal name="value-changed" handler="on_slider_value_changed" swapped="no"/>
-            <signal name="key-press-event" handler="on_slider_key_press_event" swapped="no"/>
-            <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="slider_adjustment">
     <property name="upper">1</property>
     <property name="step_increment">0.050000000000000003</property>
     <property name="page_increment">0.10000000000000001</property>
   </object>
+  <template class="VolumeControl" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkToggleButton" id="button">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="events">GDK_KEY_PRESS_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
+        <property name="relief">none</property>
+        <property name="focus_on_click">False</property>
+        <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
+        <signal name="toggled" handler="on_button_toggled" swapped="no"/>
+        <child>
+          <object class="GtkImage" id="button_image">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="icon_name">audio-volume-muted</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScale" id="slider">
+        <property name="width_request">125</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="adjustment">slider_adjustment</property>
+        <property name="draw_value">False</property>
+        <signal name="key-press-event" handler="on_slider_key_press_event" swapped="no"/>
+        <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
+        <signal name="value-changed" handler="on_slider_value_changed" swapped="no"/>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </template>
 </interface>

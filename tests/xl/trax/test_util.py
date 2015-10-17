@@ -1,7 +1,7 @@
 import unittest
 
 import mox
-import gio
+from gi.repository import Gio
 try:
     from nose.plugins.skip import SkipTest
 except ImportError:
@@ -48,16 +48,16 @@ class TestGetTracksFromUri(unittest.TestCase):
         anything = self.mox.CreateMockAnything()
         anything.get_uri_scheme().AndReturn("file")
         if file_type == 'f':
-            file_type = gio.FILE_TYPE_REGULAR
+            file_type = Gio.FileType.REGULAR
         elif file_type == 'd':
-            file_type = gio.FILE_TYPE_DIRECTORY
+            file_type = Gio.FileType.DIRECTORY
         elif file_type == 'n':
-#            anything.query_exists().AndReturn(False)
+#            anything.query_exists(None).AndReturn(False)
 #            return anything
             pass
         else:
             raise NotImplementedError
-#        anything.query_exists().AndReturn(True)
+#        anything.query_exists(None).AndReturn(True)
         anything.query_info('standard::type').AndReturn(anything)
         anything.get_file_type().AndReturn(file_type)
         return anything
@@ -68,7 +68,7 @@ class TestGetTracksFromUri(unittest.TestCase):
         loc = '/tmp/foo'
         self.mox.StubOutWithMock(gio, 'File')
         f_anything = self.get_anything('n')
-        gio.File(loc).AndReturn(f_anything)
+        Gio.File(loc).AndReturn(f_anything)
         self.mox.ReplayAll()
         self.assertEqual(xl.trax.util.get_tracks_from_uri(loc), [])
         self.mox.VerifyAll()
@@ -79,8 +79,8 @@ class TestGetTracksFromUri(unittest.TestCase):
         loc = '/tmp/foo'
         self.mox.StubOutWithMock(gio, 'FileInfo')
         f_anything = self.mox.CreateMockAnything()
-        gio.FileInfo().AndReturn(f_anything)
-        f_anything.get_file_type().AndReturn(gio.FILE_TYPE_REGULAR)
+        Gio.FileInfo().AndReturn(f_anything)
+        f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
         self.mox.ReplayAll()
         self.assertEqual(xl.trax.util.get_tracks_from_uri(loc),
                 [xl.trax.track.Track(loc)])
@@ -94,7 +94,7 @@ class TestGetTracksFromUri(unittest.TestCase):
         # Gio call to find type
         self.mox.StubOutWithMock(gio, 'File')
         d_anything = self.get_anything('d')
-        gio.File(loc).AndReturn(d_anything)
+        Gio.File(loc).AndReturn(d_anything)
 
         # scanning
         self.mox.StubOutWithMock(xl.collection.Library, 'rescan')

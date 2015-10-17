@@ -31,10 +31,12 @@ import tempfile
 import threading
 
 import cairo
-import gio
-import glib
-import gobject
-import gtk
+from gi.repository import Gio
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xl import (
     common,
@@ -53,45 +55,62 @@ from xlgui import (
 
 logger = logging.getLogger(__name__)
 
-class CoverManager(gobject.GObject):
+
+def save_pixbuf(pixbuf, path, type_):
+    """Save a pixbuf to a local file.
+
+    :param pixbuf: Pixbuf to save
+    :type pixbuf: GdkPixbuf.Pixbuf
+    :param path: Path of file to save to
+    :type path: str
+    :param type_: Type of image file. See GdkPixbuf.savev for valid values.
+    :type type_: str
+    :return: None
+    """
+    # This wraps the horrible GdkPixbuf.savev API. Can be removed if one day
+    # PyGObject provides an override.
+    pixbuf.savev(path, type_, [None], [])
+
+
+class CoverManager(GObject.GObject):
     """
         Cover manager window
     """
     __gsignals__ = {
         'prefetch-started': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
+            GObject.SignalFlags.RUN_LAST,
+            None,
             ()
         ),
         'prefetch-progress': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         'prefetch-completed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         'fetch-started': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         'fetch-completed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         'fetch-progress': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         'cover-fetched': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_PYOBJECT, gtk.gdk.Pixbuf)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_PYOBJECT, GdkPixbuf.Pixbuf)
         )
     }
 
@@ -99,7 +118,7 @@ class CoverManager(gobject.GObject):
         """
             Initializes the window
         """
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
 
         # List of identifiers of albums without covers
         self.outstanding = []
@@ -112,7 +131,7 @@ class CoverManager(gobject.GObject):
         self.default_cover_pixbuf = icons.MANAGER.pixbuf_from_data(
             COVER_MANAGER.get_default_cover(), self.cover_size)
 
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
         builder.connect_signals(self)
 
@@ -121,7 +140,7 @@ class CoverManager(gobject.GObject):
 
         self.message = dialogs.MessageBar(
             parent=builder.get_object('content_area'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
 
         self.previews_box = builder.get_object('previews_box')
@@ -133,8 +152,8 @@ class CoverManager(gobject.GObject):
 
         self.progress_bar = builder.get_object('progressbar')
         self.progress_bar.set_text(_('Collecting albums and covers...'))
-        self.progress_bar.set_data('pulse-timeout',
-            glib.timeout_add(100, self.on_progress_pulse_timeout))
+        self.progress_bar.pulse_timeout = \
+            GLib.timeout_add(100, self.on_progress_pulse_timeout)
         self.close_button = builder.get_object('close_button')
         self.stop_button = builder.get_object('stop_button')
         self.stop_button.set_sensitive(False)
@@ -196,12 +215,12 @@ class CoverManager(gobject.GObject):
 
             try:
                 thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
-                    interp_type=gtk.gdk.INTERP_BILINEAR)
+                    interp_type=GdkPixbuf.InterpType.BILINEAR)
             except AttributeError: # cover_pixbuf is None
                 thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
 
-            label = '{0} - {1}'.format(*album)
+            label = u'{0} - {1}'.format(*album)
             iter = self.model.append((album, thumbnail_pixbuf, label))
             self.model_path_cache[album] = self.model.get_path(iter)
 
@@ -261,7 +280,7 @@ class CoverManager(gobject.GObject):
 
             # Do not bother showing the dialog if there is no cover
             if cover_pixbuf:
-                savedir = gio.File(track.get_loc_for_io()).get_parent()
+                savedir = Gio.File.new_for_uri(track.get_loc_for_io()).get_parent()
                 if savedir:
                     savedir = savedir.get_path()
                 cover_window = CoverWindow(self.window, cover_pixbuf, album[1],
@@ -280,7 +299,7 @@ class CoverManager(gobject.GObject):
             track = self.album_tracks[album][0]
             cover_chooser = CoverChooser(self.window, track)
             # Make sure we're updating the correct album after selection
-            cover_chooser.set_data('path', path)
+            cover_chooser.path = path
             cover_chooser.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
@@ -305,7 +324,7 @@ class CoverManager(gobject.GObject):
         self.previews_box.set_sensitive(False)
         self.fetch_button.set_sensitive(False)
         self.progress_bar.set_fraction(0)
-        glib.source_remove(self.progress_bar.get_data('pulse-timeout'))
+        GLib.source_remove(self.progress_bar.pulse_timeout)
 
     def do_prefetch_completed(self, outstanding):
         """
@@ -334,7 +353,7 @@ class CoverManager(gobject.GObject):
         self.fetch_button.set_sensitive(False)
         self.progress_bar.set_fraction(0)
         # We need float for the fraction during progress
-        self.progress_bar.set_data('outstanding-total', float(outstanding))
+        self.progress_bar.outstanding_total = float(outstanding)
 
     def do_fetch_completed(self, outstanding):
         """
@@ -363,7 +382,7 @@ class CoverManager(gobject.GObject):
 
         self.progress_bar.set_text(progress_text)
 
-        fraction = progress / self.progress_bar.get_data('outstanding-total')
+        fraction = progress / self.progress_bar.outstanding_total
         self.progress_bar.set_fraction(fraction)
 
     def do_cover_fetched(self, album, pixbuf):
@@ -372,13 +391,13 @@ class CoverManager(gobject.GObject):
         """
         path = self.model_path_cache[album]
         self.model[path][1] = pixbuf.scale_simple(*self.cover_size,
-            interp_type=gtk.gdk.INTERP_BILINEAR)
+            interp_type=GdkPixbuf.InterpType.BILINEAR)
 
     def on_cover_chosen(self, cover_chooser, track, cover_data):
         """
             Updates the cover of the current album after user selection
         """
-        path = cover_chooser.get_data('path')
+        path = cover_chooser.path
 
         if path:
             album = self.model[path][0]
@@ -417,7 +436,7 @@ class CoverManager(gobject.GObject):
             self.previews_box.select_path(path)
 
             if e.button == 3:
-                self.menu.popup(None, None, None, 3, e.time)
+                self.menu.popup(None, None, None, None, 3, e.time)
 
     def on_previews_box_popup_menu(self, menu):
         """
@@ -426,7 +445,7 @@ class CoverManager(gobject.GObject):
         paths = self.previews_box.get_selected_items()
 
         if paths:
-            self.menu.popup(None, None, None, 0, gtk.get_current_event_time())
+            self.menu.popup(None, None, None, None, 0, Gtk.get_current_event_time())
 
     def on_previews_box_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
         """
@@ -497,7 +516,7 @@ class CoverMenu(guiutil.Menu):
             Initializes the menu
         """
         guiutil.Menu.__init__(self)
-        self.widget = widget
+        self.w = widget
 
         self.append(_('Show Cover'), self.on_show_clicked)
         self.append(_('Fetch Cover'), self.on_fetch_clicked)
@@ -507,29 +526,29 @@ class CoverMenu(guiutil.Menu):
         """
             Shows the current cover
         """
-        self.widget.show_cover()
+        self.w.show_cover()
 
     def on_fetch_clicked(self, *e):
-        self.widget.fetch_cover()
+        self.w.fetch_cover()
 
     def on_remove_clicked(self, *e):
-        self.widget.remove_cover()
+        self.w.remove_cover()
 
-class CoverWidget(gtk.EventBox):
+class CoverWidget(Gtk.EventBox):
     """
         Represents the cover widget displayed by the track information
     """
     __gsignals__ = {
-        'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'cover-found': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
     def __init__(self, image):
         """
             Initializes the widget
 
             :param image: the image to wrap
-            :type image: :class:`gtk.Image`
+            :type image: :class:`Gtk.Image`
         """
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
         
         self.image = image
         self.cover_data = None
@@ -566,11 +585,11 @@ class CoverWidget(gtk.EventBox):
         self.__track = track
         
         self.set_blank()
-        self.drag_dest_set( gtk.DEST_DEFAULT_ALL,
-                            [('text/uri-list', 0, 0)],
-                            gtk.gdk.ACTION_COPY |
-                            gtk.gdk.ACTION_DEFAULT |
-                            gtk.gdk.ACTION_MOVE)
+        self.drag_dest_set( Gtk.DestDefaults.ALL,
+                            [Gtk.TargetEntry.new('text/uri-list', 0, 0)],
+                            Gdk.DragAction.COPY |
+                            Gdk.DragAction.DEFAULT |
+                            Gdk.DragAction.MOVE)
         
         @common.threaded
         def __get_cover():
@@ -581,7 +600,7 @@ class CoverWidget(gtk.EventBox):
             if not cover_data:
                 return
 
-            glib.idle_add(self.on_cover_chosen, None, track, cover_data)
+            GLib.idle_add(self.on_cover_chosen, None, track, cover_data)
         
         if track is not None:
             __get_cover()
@@ -596,7 +615,7 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
 
         if pixbuf:
-            savedir = gio.File(self.__track.get_loc_for_io()).get_parent()
+            savedir = Gio.File.new_for_uri(self.__track.get_loc_for_io()).get_parent()
             if savedir:
                 savedir = savedir.get_path()
             window = CoverWindow(self.get_toplevel(), pixbuf,
@@ -643,19 +662,19 @@ class CoverWidget(gtk.EventBox):
                 drag to other applications
             :type enabled: bool
         """
-        if enabled == self.get_data('drag_source_enabled'):
+        if enabled == getattr(self, '__drag_source_enabled', None):
             return
 
         if enabled:
-            self.drag_source_set(gtk.gdk.BUTTON1_MASK,
-                [('text/uri-list', 0, 0)],
-                gtk.gdk.ACTION_DEFAULT |
-                gtk.gdk.ACTION_MOVE
+            self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK,
+                [Gtk.TargetEntry.new('text/uri-list', 0, 0)],
+                Gdk.DragAction.DEFAULT |
+                Gdk.DragAction.MOVE
             )
         else:
             self.drag_source_unset()
 
-        self.set_data('drag_source_enabled', enabled)
+        self.__drag_source_enabled = enabled
 
     def do_button_press_event(self, event):
         """
@@ -664,7 +683,7 @@ class CoverWidget(gtk.EventBox):
         if self.__track is None or self.get_toplevel() is None:
             return
 
-        if event.type == gtk.gdk._2BUTTON_PRESS:
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.show_cover()
         elif event.button == 3:
             self.menu.popup(event)
@@ -675,7 +694,7 @@ class CoverWidget(gtk.EventBox):
         """
         opacity = 1 - settings.get_option('gui/transparency', 0.3)
         context = self.props.window.cairo_create()
-        background = self.style.bg[gtk.STATE_NORMAL]
+        background = self.style.bg[Gtk.StateType.NORMAL]
         context.set_source_rgba(
             float(background.red) / 256**2,
             float(background.green) / 256**2,
@@ -685,7 +704,7 @@ class CoverWidget(gtk.EventBox):
         context.set_operator(cairo.OPERATOR_SOURCE)
         context.paint()
 
-        gtk.EventBox.do_expose_event(self, event)
+        Gtk.EventBox.do_expose_event(self, event)
 
     def do_drag_begin(self, context):
         """
@@ -701,8 +720,8 @@ class CoverWidget(gtk.EventBox):
             self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
 
         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
-        pixbuf.save(self.filename, 'png')
-        selection.set_uris([gio.File(self.filename).get_uri()])
+        save_pixbuf(pixbuf, self.filename, 'png')
+        selection.set_uris([Gio.File.new_for_path(self.filename).get_uri()])
 
     def do_drag_data_delete(self, context):
         """
@@ -721,8 +740,8 @@ class CoverWidget(gtk.EventBox):
             db_string = 'localfile:%s' % uri
 
             try:
-                stream = gio.File(uri).read()
-            except gio.Error:
+                stream = Gio.File.new_for_uri(uri).read()
+            except GLib.Error:
                 return
 
             self.cover_data = stream.read()
@@ -762,7 +781,7 @@ class CoverWidget(gtk.EventBox):
             if not cover_data:
                 return
 
-            glib.idle_add(self.on_cover_chosen, None, cover_data)
+            GLib.idle_add(self.on_cover_chosen, None, cover_data)
 
     def on_quit_application(self, type, exaile, nothing):
         """
@@ -779,15 +798,15 @@ class CoverWindow(object):
         """Initializes and shows the cover
 
         :param parent: Parent window to attach to
-        :type parent: gtk.Window
+        :type parent: Gtk.Window
         :param pixbuf: Pixbuf of the cover image
-        :type pixbuf: gtk.gdk.Pixbuf
+        :type pixbuf: GdkPixbuf.Pixbuf
         :param album: Album title
         :type album: basestring
         :param savedir: Initial directory for the Save As functionality
         :type savedir: basestring
         """
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
         self.builder.connect_signals(self)
 
@@ -815,8 +834,8 @@ class CoverWindow(object):
         self.cover_window.set_title(title)
         self.cover_window.set_transient_for(parent)
         self.cover_window_width = 500
-        self.cover_window_height = 500 + self.toolbar.size_request()[1] + \
-                                   self.statusbar.size_request()[1]
+        self.cover_window_height = 500 + self.toolbar.size_request().height + \
+                                   self.statusbar.size_request().height
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
 
@@ -825,7 +844,7 @@ class CoverWindow(object):
         self.min_percent = 1
         self.max_percent = 500
         self.ratio = 1.5
-        self.image_interp = gtk.gdk.INTERP_BILINEAR
+        self.image_interp = GdkPixbuf.InterpType.BILINEAR
         self.image_fitted = True
         self.set_ratio_to_fit()
         self.update_widgets()
@@ -840,8 +859,8 @@ class CoverWindow(object):
     def available_image_height(self):
         """Returns the available vertical space for the image"""
         return self.cover_window.get_size()[1] - \
-               self.toolbar.size_request()[1] - \
-               self.statusbar.size_request()[1]
+               self.toolbar.size_request().height - \
+               self.statusbar.size_request().height
 
     def center_image(self):
         """Centers the image in the layout"""
@@ -853,18 +872,19 @@ class CoverWindow(object):
 
     def update_widgets(self):
         """Updates image, layout, scrolled window, tool bar and status bar"""
-        if self.cover_window.window:
-            self.cover_window.window.freeze_updates()
+        window = self.cover_window.get_window()
+        if window:
+            window.freeze_updates()
         self.apply_zoom()
         self.layout.set_size(self.image_pixbuf.get_width(), \
                              self.image_pixbuf.get_height())
         if self.image_fitted or \
            (self.image_pixbuf.get_width() == self.available_image_width() and \
            self.image_pixbuf.get_height() == self.available_image_height()):
-            self.scrolledwindow.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+            self.scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
         else:
-            self.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC,
-                                           gtk.POLICY_AUTOMATIC)
+            self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                           Gtk.PolicyType.AUTOMATIC)
         percent = int(100 * self.image_ratio)
         message = str(self.image_original_pixbuf.get_width()) + " x " + \
                       str(self.image_original_pixbuf.get_height()) + \
@@ -875,8 +895,8 @@ class CoverWindow(object):
         self.statusbar.push(self.statusbar.get_context_id(''), message)
         self.image.set_from_pixbuf(self.image_pixbuf)
         self.center_image()
-        if self.cover_window.window:
-            self.cover_window.window.thaw_updates()
+        if window:
+            window.thaw_updates()
 
     def apply_zoom(self):
         """Scales the image if needed"""
@@ -901,23 +921,23 @@ class CoverWindow(object):
         """
             Saves image to user-specified location
         """
-        dialog = gtk.FileChooserDialog(_("Save File"), self.cover_window,
-                gtk.FILE_CHOOSER_ACTION_SAVE,
-                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
+        dialog = Gtk.FileChooserDialog(_("Save File"), self.cover_window,
+                Gtk.FileChooserAction.SAVE,
+                (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT))
         names = settings.get_option('covers/localfile/preferred_names')
         filename = (names[0] if names else 'cover') + '.png'
         dialog.set_current_name(filename)
         if self.savedir:
             dialog.set_current_folder(self.savedir)
-        if dialog.run() == gtk.RESPONSE_ACCEPT:
+        if dialog.run() == Gtk.ResponseType.ACCEPT:
             filename = dialog.get_filename()
             lowfilename = filename.lower()
             if lowfilename.endswith('.jpg') or lowfilename.endswith('.jpeg'):
                 type_ = 'jpeg'
             else:
                 type_ = 'png'
-            self.image_pixbuf.save(filename, type_)
+            save_pixbuf(self.image_pixbuf, filename, type_)
         dialog.destroy()
 
     def on_zoom_in_button_clicked(self, widget):
@@ -956,7 +976,7 @@ class CoverWindow(object):
         """
             Hides the window
         """
-        self.cover_window.hide_all()
+        self.cover_window.hide()
 
     def cover_window_size_allocate(self, widget, allocation):
         if self.cover_window_width != allocation.width or \
@@ -967,19 +987,19 @@ class CoverWindow(object):
             self.cover_window_width = allocation.width
             self.cover_window_height = allocation.height
 
-class CoverChooser(gobject.GObject):
+class CoverChooser(GObject.GObject):
     """
         Fetches all album covers for a string, and allows the user to choose
         one out of the list
     """
     __gsignals__ = {
         'covers-fetched': (
-            gobject.SIGNAL_RUN_LAST,
+            GObject.SignalFlags.RUN_LAST,
             None,
             (object,)
         ),
         'cover-chosen': (
-            gobject.SIGNAL_RUN_LAST,
+            GObject.SignalFlags.RUN_LAST,
             None,
             (object, object)
         )
@@ -988,9 +1008,9 @@ class CoverChooser(gobject.GObject):
         """
             Expects the parent control, a track, an an optional search string
         """
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.parent = parent
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
         self.builder.connect_signals(self)
         self.window = self.builder.get_object('CoverChooser')
@@ -1003,7 +1023,7 @@ class CoverChooser(gobject.GObject):
 
         self.message = dialogs.MessageBar(
             parent=self.builder.get_object('main_container'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
         self.message.connect('response', self.on_message_response)
 
@@ -1016,19 +1036,19 @@ class CoverChooser(gobject.GObject):
 
         self.cover_image_box = self.builder.get_object('cover_image_box')
 
-        self.loading_indicator = gtk.Alignment()
+        self.loading_indicator = Gtk.Alignment()
         self.loading_indicator.props.xalign = 0.5
         self.loading_indicator.props.yalign = 0.5
         self.loading_indicator.set_size_request(350, 350)
-        self.cover_image_box.pack_start(self.loading_indicator)
+        self.cover_image_box.pack_start(self.loading_indicator, True, True, 0)
 
         try:
-            spinner = gtk.Spinner()
+            spinner = Gtk.Spinner()
             spinner.set_size_request(100, 100)
             spinner.start()
             self.loading_indicator.add(spinner)
         except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
-            self.loading_indicator.add(gtk.Label(_('Loading...')))
+            self.loading_indicator.add(Gtk.Label(label=_('Loading...')))
 
         self.size_label = self.builder.get_object('size_label')
         self.source_label = self.builder.get_object('source_label')
@@ -1067,7 +1087,7 @@ class CoverChooser(gobject.GObject):
                     self.covers_model.append([
                         (db_string, coverdata),
                         pixbuf,
-                        pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+                        pixbuf.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
                     ])
 
         self.emit('covers-fetched', db_strings)
@@ -1083,7 +1103,7 @@ class CoverChooser(gobject.GObject):
         self.previews_box.set_model(self.covers_model)
 
         if db_strings:
-            self.cover_image_box.pack_start(self.cover, True, True)
+            self.cover_image_box.pack_start(self.cover, True, True, 0)
             self.cover.show()
             self.set_button.set_sensitive(True)
 
@@ -1095,7 +1115,7 @@ class CoverChooser(gobject.GObject):
             # Try to select the current cover of the track, fallback to first
             track_db_string = COVER_MANAGER.get_db_string(self.track)
             position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
-            self.previews_box.select_path((position,))
+            self.previews_box.select_path(Gtk.TreePath(position))
         else:
             self.builder.get_object('info_box').hide()
             self.builder.get_object('actions_box').hide()
@@ -1161,6 +1181,6 @@ class CoverChooser(gobject.GObject):
         """
             Handles the response for closing
         """
-        if response == gtk.RESPONSE_CLOSE:
+        if response == Gtk.ResponseType.CLOSE:
             self.window.destroy()
 

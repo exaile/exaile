@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="covers_model">
     <columns>
       <!-- column-name coverdata -->
@@ -16,13 +18,15 @@
     <property name="title" translatable="yes">Cover Finder</property>
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
+    <property name="type-hint">dialog</property>
     <child>
-      <object class="GtkVBox" id="main_container">
+      <object class="GtkBox" id="main_container">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="info_box">
+          <object class="GtkBox" id="info_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">3</property>
@@ -30,7 +34,7 @@
               <object class="GtkLabel" id="size_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <attributes>
                   <attribute name="size" value="8000"/>
                 </attributes>
@@ -46,7 +50,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">The origin of this cover</property>
-                <property name="xalign">1</property>
+                <property name="halign">end</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                   <attribute name="size" value="8000"/>
@@ -66,7 +70,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="cover_image_box">
+          <object class="GtkBox" id="cover_image_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -83,18 +87,16 @@
           <object class="GtkIconView" id="previews_box">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin">0</property>
             <property name="item_orientation">horizontal</property>
             <property name="model">covers_model</property>
             <property name="row_spacing">0</property>
             <property name="column_spacing">0</property>
             <property name="item_padding">0</property>
-            <property name="margin">0</property>
             <signal name="item-activated" handler="on_previews_box_item_activated" swapped="no"/>
             <signal name="selection-changed" handler="on_previews_box_selection_changed" swapped="no"/>
             <child>
-              <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1">
-                <property name="follow_state">True</property>
-              </object>
+              <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
               <attributes>
                 <attribute name="pixbuf">2</attribute>
               </attributes>
@@ -110,19 +112,20 @@
           <placeholder/>
         </child>
         <child>
-          <object class="GtkHButtonBox" id="actions_box">
+          <object class="GtkButtonBox" id="actions_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkButton" id="cancel_button">
-                <property name="label">gtk-cancel</property>
+                <property name="label">_Abort</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
+                <property name="image">image2</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -138,9 +141,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="image">image1</property>
                 <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="on_set_button_clicked" swapped="no"/>
               </object>
               <packing>
@@ -162,6 +165,11 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-ok</property>
+    <property name="icon_name">document-save</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">window-close</property>
   </object>
 </interface>

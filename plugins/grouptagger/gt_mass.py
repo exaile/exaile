@@ -24,43 +24,34 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
-
-from os.path import join, dirname
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 
-from xlgui.guiutil import initialize_from_xml
+from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import dialogs
 
 import gt_common
 
-class GtMassRename(object):
+@GtkTemplate('gt_mass.ui', relto=__file__)
+class GtMassRename(Gtk.Window):
+    
+    __gtype_name__ = 'GTMassRename'
 
-    ui_filename = join(dirname(__file__), 'gt_mass.ui')
-    
-    ui_widgets = [
-        'window',
-        'found_label',
-        'playlists',
-        'replace',
-        'replace_entry',
-        'search_entry',
-        'tracks_list'
-    ]
-    
-    ui_signals = [
-        'on_find_clicked',
-        'on_replace_clicked'
-    ]
+    found_label,    \
+    playlists,      \
+    replace,        \
+    replace_entry,  \
+    search_entry,   \
+    tracks_list     = GtkTemplate.Child.widgets(6)
     
     def __init__(self, exaile):
+        Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
+        self.init_template()
         
         self.exaile = exaile
         
-        initialize_from_xml(self)
-        
-        self.tracks_list.get_model().set_sort_column_id(1, gtk.SORT_ASCENDING)
+        self.tracks_list.get_model().set_sort_column_id(1, Gtk.SortType.ASCENDING)
         
         # initialize playlist list
         model = self.playlists.get_model()
@@ -71,12 +62,13 @@ class GtMassRename(object):
         for pl in exaile.playlists.list_playlists():
             model.append((False, pl))
         
-        self.window.show_all()
+        self.show_all()
         
     def reset(self):
         self.tracks_list.get_model().clear()
         self.replace.set_sensitive(False)
 
+    @GtkTemplate.Callback
     def on_find_clicked(self, widget):
         
         self.search_str = self.search_entry.get_text().strip()
@@ -121,13 +113,14 @@ class GtMassRename(object):
         self.found_label = _('%s tracks found') % len(model)
         
         self.replace.set_sensitive(len(model) != 0)
-        
+    
+    @GtkTemplate.Callback
     def on_replace_clicked(self, widget):
         
         tracks = [row[2] for row in self.tracks_list.get_model() if row[1]]
         
         query = _("Replace '%s' with '%s' on %s tracks?") % (self.search_str, self.replace_str, len(tracks))
-        if dialogs.yesno(self.window, query) != gtk.RESPONSE_YES:
+        if dialogs.yesno(self, query) != Gtk.ResponseType.YES:
             return 
 
         for track in tracks:
@@ -143,12 +136,12 @@ class GtMassRename(object):
             if not gt_common.set_track_groups(track, groups):
                 return
         
-        dialogs.info(self.window, "Tags successfully renamed!")
+        dialogs.info(self, "Tags successfully renamed!")
         self.reset()
 
 def mass_rename(exaile):
     
-    if dialogs.yesno(None, _("You should rescan your collection before using mass tag rename to ensure that all tags are up to date. Rescan now?")) == gtk.RESPONSE_YES:
+    if dialogs.yesno(exaile.gui.main.window, _("You should rescan your collection before using mass tag rename to ensure that all tags are up to date. Rescan now?")) == Gtk.ResponseType.YES:
         exaile.gui.on_rescan_collection()
     
     GtMassRename(exaile)

@@ -36,9 +36,9 @@ collection.
 
 from __future__ import with_statement
 from collections import deque
-import glib
-import gobject
-import gio
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gio
 import logging
 import os
 import os.path
@@ -277,7 +277,7 @@ class Collection(trax.TrackDB):
             try:
                 self.save_to_location()
             except AttributeError:
-                common.log_exception(log=logger)
+                logger.exception("Exception occurred while saving")
 
         event.log_event('scan_progress_update', self, 100)
 
@@ -358,29 +358,29 @@ class Collection(trax.TrackDB):
             for prefix, lib in self.libraries.iteritems():
                 lib.delete(tr.get_loc_for_io())
 
-class LibraryMonitor(gobject.GObject):
+class LibraryMonitor(GObject.GObject):
     """
         Monitors library locations for changes
     """
     __gproperties__ = {
         'monitored': (
-            gobject.TYPE_BOOLEAN,
+            GObject.TYPE_BOOLEAN,
             'monitoring state',
             'Whether to monitor this library',
             False,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
         'location-added': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            [gio.File]
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            [Gio.File]
         ),
         'location-removed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            [gio.File]
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            [Gio.File]
         )
     }
     
@@ -389,10 +389,10 @@ class LibraryMonitor(gobject.GObject):
             :param library: the library to monitor
             :type library: :class:`Library`
         """
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.__library = library
-        self.__root = gio.File(library.location)
+        self.__root = Gio.File.new_for_uri(library.location)
         self.__monitored = False
         self.__monitors = {}
         self.__queue = {}
@@ -416,7 +416,7 @@ class LibraryMonitor(gobject.GObject):
                 self.__monitored = value
                 update_thread = threading.Thread(target=self.__update_monitors)
                 update_thread.daemon = True
-                glib.idle_add(update_thread.start)
+                GLib.idle_add(update_thread.start)
         else:
             raise AttributeError('unkown property %s' % property.name)
 
@@ -429,7 +429,7 @@ class LibraryMonitor(gobject.GObject):
                 logger.debug('Setting up library monitors')
 
                 for directory in common.walk_directories(self.__root):
-                    monitor = directory.monitor_directory()
+                    monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
                     monitor.connect('changed', self.on_location_changed)
                     self.__monitors[directory] = monitor
 
@@ -457,10 +457,10 @@ class LibraryMonitor(gobject.GObject):
             Updates the library on changes of the location
         """
         
-        if event == gio.FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+        if event == Gio.FileMonitorEvent.CHANGES_DONE_HINT:
             self.__process_change_queue(gfile)
-        elif event == gio.FILE_MONITOR_EVENT_CREATED or \
-             event == gio.FILE_MONITOR_EVENT_CHANGED:
+        elif event == Gio.FileMonitorEvent.CREATED or \
+             event == Gio.FileMonitorEvent.CHANGED:
             
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
@@ -469,22 +469,22 @@ class LibraryMonitor(gobject.GObject):
                 # File monitor only emits the DONE_HINT when using inotify,
                 # and only on single files. Give it some time, but don't 
                 # lose the change notification
-                glib.timeout_add(500, self.__process_change_queue, gfile)
+                GLib.timeout_add(500, self.__process_change_queue, gfile)
             
             # Set up new monitor if directory
-            fileinfo = gfile.query_info('standard::type')
+            fileinfo = gfile.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None)
 
-            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
+            if fileinfo.get_file_type() == Gio.FileType.DIRECTORY and \
                gfile not in self.__monitors:
                 
                 for directory in common.walk_directories(gfile):
-                    monitor = directory.monitor_directory()
+                    monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
                     monitor.connect('changed', self.on_location_changed)
                     self.__monitors[directory] = monitor
 
                     self.emit('location-added', directory)
 
-        elif event == gio.FILE_MONITOR_EVENT_DELETED:
+        elif event == Gio.FileMonitorEvent.DELETED:
             removed_tracks = []
 
             track = trax.Track(gfile.get_uri())
@@ -495,7 +495,7 @@ class LibraryMonitor(gobject.GObject):
             else:
                 # Deleted file was most likely a directory
                 for track in self.__library.collection:
-                    track_gfile = gio.File(track.get_loc_for_io())
+                    track_gfile = Gio.File.new_for_uri(track.get_loc_for_io())
 
                     if track_gfile.has_prefix(gfile):
                         removed_tracks += [track]
@@ -545,7 +545,7 @@ class Library(object):
         """
         self.location = location
         self.scan_interval = scan_interval
-        self.scan_id = 0
+        self.scan_id = None
         self.scanning = False
         self._startup_scan = startup_scan
         self.monitor = LibraryMonitor(self)
@@ -609,15 +609,13 @@ class Library(object):
             :param interval: scan interval in seconds
             :type interval: int
         """
-        if not interval:
-            if self.scan_id:
-                glib.source_remove(self.scan_id)
-                self.scan_id = 0
-        else:
-            if self.scan_id:
-                glib.source_remove(self.scan_id)
-
-            self.scan_id = glib.timeout_add_seconds(interval, self.rescan)
+        
+        if self.scan_id:
+            GLib.source_remove(self.scan_id)
+            self.scan_id = None
+        
+        if interval:
+            self.scan_id = GLib.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
         
@@ -636,7 +634,7 @@ class Library(object):
             Counts the number of files present in this directory
         """
         count = 0
-        for file in common.walk(gio.File(self.location)):
+        for file in common.walk(Gio.File.new_for_uri(self.location)):
             if self.collection:
                 if self.collection._scan_stopped:
                     break
@@ -676,7 +674,7 @@ class Library(object):
             album = joiner(tr.get_tag_raw('album'))
             artist = joiner(tr.get_tag_raw('artist'))
         except Exception:
-            logger.warning("Error while checking for compilation: " + `tr`)
+            logger.warning("Error while checking for compilation: " + repr(tr))
             return
         if not basedir or not album or not artist: return
         album = album.lower()
@@ -688,7 +686,7 @@ class Library(object):
             if not album in ccheck[basedir]:
                 ccheck[basedir][album] = deque()
         except TypeError:
-            common.log_exception(log=logger)
+            logger.exception("Error adding to compilation")
             return
 
         if ccheck[basedir][album] and \
@@ -705,7 +703,7 @@ class Library(object):
             Rescan the track at a given location
 
             :param gloc: the location
-            :type gloc: :class:`gio.File`
+            :type gloc: :class:`Gio.File`
             :param force_update: Force update of file (default only updates file
                                  when mtime has changed)
 
@@ -714,7 +712,8 @@ class Library(object):
         uri = gloc.get_uri()
         if not uri: # we get segfaults if this check is removed
             return None
-        mtime = gloc.query_info("time::modified").get_modification_time()
+        mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+        mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
         tr = self.collection.get_track_by_loc(uri)
         if tr:
             if force_update or tr.get_tag_raw('__modified') < mtime:
@@ -739,7 +738,7 @@ class Library(object):
             to the Collection
         """
         # TODO: use gio's cancellable support
-
+        
         if self.collection is None:
             return True
 
@@ -749,7 +748,7 @@ class Library(object):
         logger.info("Scanning library: %s", self.location)
         self.scanning = True
         db = self.collection
-        libloc = gio.File(self.location)
+        libloc = Gio.File.new_for_uri(self.location)
 
         count = 0
         dirtracks = deque()
@@ -757,8 +756,8 @@ class Library(object):
         ccheck = {}
         for fil in common.walk(libloc):
             count += 1
-            type = fil.query_info("standard::type").get_file_type()
-            if type == gio.FILE_TYPE_DIRECTORY:
+            type = fil.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+            if type == Gio.FileType.DIRECTORY:
                 if dirtracks:
                     for tr in dirtracks:
                         self._check_compilation(ccheck, compilations, tr)
@@ -776,7 +775,7 @@ class Library(object):
                 dirtracks = deque()
                 compilations = deque()
                 ccheck = {}
-            elif type == gio.FILE_TYPE_REGULAR:
+            elif type == Gio.FileType.REGULAR:
                 tr = self.update_track(fil, force_update=force_update)
                 if not tr:
                     continue
@@ -816,15 +815,15 @@ class Library(object):
             loc = tr.get_loc_for_io()
             if not loc:
                 continue
-            gloc = gio.File(loc)
+            gloc = Gio.File.new_for_uri(loc)
             try:
                 if not gloc.has_prefix(libloc):
                     continue
             except UnicodeDecodeError:
-                common.log_exception(log=logger)
+                logger.exception("Error decoding file location")
                 continue
 
-            if not gloc.query_exists():
+            if not gloc.query_exists(None):
                 removals.append(tr)
 
         for tr in removals:
@@ -839,9 +838,9 @@ class Library(object):
             Copies (or moves) a file into the library and adds it to the
             collection
         """
-        oldgloc = gio.File(loc)
+        oldgloc = Gio.File.new_for_uri(loc)
 
-        newgloc = gio.File(self.location).resolve_relative_path(
+        newgloc = Gio.File.new_for_uri(self.location).resolve_relative_path(
                 oldgloc.get_basename())
 
         if move:
@@ -863,7 +862,7 @@ class Library(object):
         if tr:
             self.collection.remove(tr)
             loc = tr.get_loc_for_io()
-            file = gio.File(loc)
+            file = Gio.File.new_for_uri(loc)
             if not file.delete():
                 logger.warning("Could not delete file %s." % loc)
 

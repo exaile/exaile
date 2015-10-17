@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAboutDialog" id="AboutDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -10,24 +10,8 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Exaile</property>
-    <property name="copyright" translatable="yes">© 2009-2014</property>
+    <property name="copyright" translatable="yes">© 2009-2015 Various Contributors</property>
     <property name="website">http://www.exaile.org</property>
-    <property name="license" translatable="yes">Copyright (C) 2008-2014 Various Contributors
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-</property>
     <property name="authors">Adam Olsen 
 Johannes Sasongko 
 Aren Olson
@@ -35,19 +19,22 @@ Mathias Brodala
 Andrew Starr-Bochicchio
 Brian Parma
 Dustin Spicuzza
-fidencio
+Fabiano Fidêncio
 Joseph S. Atkinson</property>
     <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here">Unknown translator</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg
 Josip Lisec</property>
+    <property name="logo_icon_name">image-missing</property>
+    <property name="license_type">gpl-2-0</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
+      <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
+          <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>

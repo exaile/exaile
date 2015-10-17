@@ -233,7 +233,7 @@ class CDDevice(KeyedDevice):
                     os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
             return _cdguipanel.CDPanel
         except:
-            common.log_exception(log=logger, message="Could not import cd gui panel")
+            logger.exception("Could not import cd gui panel")
             return 'flatplaylist'
 
     panel_type = property(_get_panel_type)

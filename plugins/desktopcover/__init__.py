@@ -16,8 +16,11 @@
 
 from __future__ import division
 import cairo
-import glib
-import gtk
+
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import Gtk
 
 from xl import (
     covers,
@@ -72,18 +75,18 @@ def disable(exaile):
 def get_preferences_pane():
     return desktopcover_preferences
 
-class DesktopCover(gtk.Window):
+class DesktopCover(Gtk.Window):
     gravity_map = {
-        'topleft': gtk.gdk.GRAVITY_NORTH_WEST,
-        'topright': gtk.gdk.GRAVITY_NORTH_EAST,
-        'bottomleft': gtk.gdk.GRAVITY_SOUTH_WEST,
-        'bottomright': gtk.gdk.GRAVITY_SOUTH_EAST
+        'topleft': Gdk.Gravity.NORTH_WEST,
+        'topright': Gdk.Gravity.NORTH_EAST,
+        'bottomleft': Gdk.Gravity.SOUTH_WEST,
+        'bottomright': Gdk.Gravity.SOUTH_EAST
     }
 
     def __init__(self):
-        gtk.Window.__init__(self)
+        Gtk.Window.__init__(self)
 
-        self.image = gtk.Image()
+        self.image = Gtk.Image()
         self.add(self.image)
         self.image.show()
 
@@ -110,12 +113,12 @@ class DesktopCover(gtk.Window):
         ]
 
         screen = self.get_screen()
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.set_colormap(colormap)
+        visual = screen.get_rgba_visual() or screen.get_rgb_visual()
+        self.set_visual(visual)
 
         if player.PLAYER.current is not None:
             self.set_cover_from_track(player.PLAYER.current)
-            glib.idle_add(self.update_position)
+            GLib.idle_add(self.update_position)
 
         for e in self._events:
             if 'playback' in e:
@@ -125,7 +128,7 @@ class DesktopCover(gtk.Window):
             
         event.add_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
-        self.connect('expose-event', self.on_expose_event)
+        self.connect('draw', self.on_draw)
         self.connect('screen-changed', self.on_screen_changed)
 
     def destroy(self):
@@ -140,7 +143,7 @@ class DesktopCover(gtk.Window):
         
         event.remove_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
-        gtk.Window.destroy(self)
+        Gtk.Window.destroy(self)
 
     def set_cover_from_track(self, track):
         """
@@ -165,16 +168,16 @@ class DesktopCover(gtk.Window):
         if fading and pixbuf is not None and self._cross_fade_id is None:
             # Prescale to allow for proper crossfading
             width, height = next_pixbuf.get_width(), next_pixbuf.get_height()
-            pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-            glib.idle_add(self.image.set_from_pixbuf, pixbuf)
+            pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+            GLib.idle_add(self.image.set_from_pixbuf, pixbuf)
 
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
 
-            self._cross_fade_id = glib.timeout_add(int(duration),
+            self._cross_fade_id = GLib.timeout_add(int(duration),
                 self.cross_fade, pixbuf, next_pixbuf, duration)
         else:
-            glib.idle_add(self.image.set_from_pixbuf, next_pixbuf)
+            GLib.idle_add(self.image.set_from_pixbuf, next_pixbuf)
 
     def update_position(self):
         """
@@ -187,14 +190,14 @@ class DesktopCover(gtk.Window):
         cover_offset_y = settings.get_option('plugin/desktopcover/y', 0)
         allocation = self.get_allocation()
         workarea = get_workarea_dimensions()
-        x, y = workarea.offset_x, workarea.offset_y
+        x, y = workarea.x, workarea.y
 
-        if gravity in (gtk.gdk.GRAVITY_NORTH_WEST, gtk.gdk.GRAVITY_SOUTH_WEST):
+        if gravity in (Gdk.Gravity.NORTH_WEST, Gdk.Gravity.SOUTH_WEST):
             x += cover_offset_x
         else:
             x += workarea.width - allocation.width - cover_offset_x
 
-        if gravity in (gtk.gdk.GRAVITY_NORTH_WEST, gtk.gdk.GRAVITY_NORTH_EAST):
+        if gravity in (Gdk.Gravity.NORTH_WEST, Gdk.Gravity.NORTH_EAST):
             y += cover_offset_y
         else:
             y += workarea.height - allocation.height - cover_offset_y
@@ -211,12 +214,12 @@ class DesktopCover(gtk.Window):
         if fading and self._fade_in_id is None:
             self.set_opacity(0)
 
-        gtk.Window.show(self)
+        Gtk.Window.show(self)
 
         if fading and self._fade_in_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
-            self._fade_in_id = glib.timeout_add(
+            self._fade_in_id = GLib.timeout_add(
                 int(duration), self.fade_in)
 
     def hide(self):
@@ -228,10 +231,10 @@ class DesktopCover(gtk.Window):
         if fading and self._fade_out_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
-            self._fade_out_id = glib.timeout_add(
+            self._fade_out_id = GLib.timeout_add(
                 int(duration), self.fade_out)
         else:
-            gtk.Window.hide(self)
+            Gtk.Window.hide(self)
             self.image.set_from_pixbuf(None)
 
     def fade_in(self):
@@ -256,7 +259,7 @@ class DesktopCover(gtk.Window):
         opacity = self.get_opacity()
 
         if opacity == 0:
-            gtk.Window.hide(self)
+            Gtk.Window.hide(self)
             self.image.set_from_pixbuf(None)
             self._fade_out_id = None
 
@@ -271,9 +274,9 @@ class DesktopCover(gtk.Window):
             Fades between two cover images
 
             :param pixbuf: the current cover image pixbuf
-            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
             :param next_pixbuf: the cover image pixbuf to fade to
-            :type next_pixbuf: :class:`gtk.gdk.Pixbuf`
+            :type next_pixbuf: :class:`GdkPixbuf.Pixbuf`
             :param duration: the overall time for the fading
             :type duration: int
         """
@@ -287,7 +290,7 @@ class DesktopCover(gtk.Window):
                 dest_width=width, dest_height=height,
                 offset_x=0, offset_y=0,
                 scale_x=1, scale_y=1,
-                interp_type=gtk.gdk.INTERP_BILINEAR,
+                interp_type=GdkPixbuf.InterpType.BILINEAR,
                 overall_alpha=int(alpha)
             )
 
@@ -301,16 +304,11 @@ class DesktopCover(gtk.Window):
         
         return False
 
-    def on_expose_event(self, widget, event):
+    def on_draw(self, widget, context):
         """
             Takes care of drawing the window
             transparently, if possible
         """
-        context = widget.props.window.cairo_create()
-
-        context.rectangle(event.area.x, event.area.y,
-            event.area.width, event.area.height)
-        context.clip()
 
         context.set_source_rgba(1, 1, 1, 0)
         context.set_operator(cairo.OPERATOR_SOURCE)
@@ -322,15 +320,15 @@ class DesktopCover(gtk.Window):
             Updates the colormap
         """
         screen = widget.get_screen()
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.window.set_colormap(rgbamap)
+        visual = screen.get_rgba_visual() or screen.get_rgb_visual()
+        self.set_visual(visual)
 
     def on_playback_track_start(self, type, player, track):
         """
             Updates the cover image and shows the window
         """
         self.set_cover_from_track(track)
-        glib.idle_add(self.update_position)
+        GLib.idle_add(self.update_position)
 
     def on_playback_player_end(self, type, player, track):
         """
@@ -343,7 +341,7 @@ class DesktopCover(gtk.Window):
            Updates the cover image after cover selection
         """
         self.set_cover_from_track(track)
-        glib.idle_add(self.update_position)
+        GLib.idle_add(self.update_position)
 
     def on_cover_removed(self, type, covers, track):
         """
@@ -358,7 +356,7 @@ class DesktopCover(gtk.Window):
         if option in ('plugin/desktopcover/anchor',
                 'plugin/desktopcover/x',
                 'plugin/desktopcover/y'):
-            glib.idle_add(self.update_position)
+            GLib.idle_add(self.update_position)
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
             self.set_cover_from_track(player.PLAYER.current)

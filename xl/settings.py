@@ -38,7 +38,7 @@ import logging
 import os
 import sys
 
-import glib
+from gi.repository import GLib
 
 logger = logging.getLogger(__name__)
 

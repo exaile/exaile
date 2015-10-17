@@ -1064,11 +1064,10 @@ class MainWindow(GObject.GObject):
                     self.controller.tray_icon = tray.TrayIcon(self)
                 
                 window.hide()
-            elif window.window.property_get('_NET_WM_STATE') is None:
-                if not settings.get_option('gui/use_tray', False) and \
-                    self.controller.tray_icon is not None:
-                    self.controller.tray_icon.destroy()
-                    self.controller.tray_icon = None
+            elif not settings.get_option('gui/use_tray', False) and \
+                self.controller.tray_icon is not None:
+                self.controller.tray_icon.destroy()
+                self.controller.tray_icon = None
 
         return False
 

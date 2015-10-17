@@ -27,7 +27,7 @@
 import os
 import xdg
 
-major = "3.5"
+major = "4.0"
 minor = "0"
 extra = "dev"
 

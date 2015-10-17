@@ -848,4 +848,34 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
         return (name, regex)
 
- 
+class GroupTaggerAddRemoveDialog(Gtk.Dialog):
+    
+    def __init__(self, add, tracks, exaile):
+        
+        self.add = add
+        self.tracks = tracks
+
+        if self.add:
+            Gtk.Dialog.__init__(self, _("Add tags to all"))
+        else:
+            Gtk.Dialog.__init__(self, _("Remove tags from all"))
+
+        self.add_buttons(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
+        
+        # add the tagger widget
+        self.tagger = GroupTaggerWidget( exaile )
+        self.tagger.set_artist(None)
+        self.tagger.set_title(None)
+        
+        # add the widgets to this page
+        box = self.get_content_area()
+        box.pack_start( self.tagger, True , True, 0)
+        
+        self.tagger.view.show_click_column()
+        self.show_all()
+
+        # TODO: display the tracks being edited?
+
+    def get_active(self):
+        return list(self.tagger.view.get_model().iter_active())
+    

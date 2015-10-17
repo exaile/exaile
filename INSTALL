@@ -8,10 +8,10 @@ Windows
 On Windows, using the official Windows installation program is recommended.
 If you want to build your own installer, see :ref:`win32_installer`.
 
-Install on OSX
+Install on OS X
 --------------
 
-On OSX, using the official OSX installation DMG is recommended. See 
+On OS X, using the official OS X installation DMG is recommended. See 
 :ref:`osx_notes`
 
 If you want to build your own installer, see :ref:`osx_installer`.
@@ -19,7 +19,7 @@ If you want to build your own installer, see :ref:`osx_installer`.
 Linux/*nix
 ----------
 
-On *nix-based systems (but not OSX), run the following to install::
+On *nix-based systems (but not OS X), run the following to install::
 
     $ make
     # make install
@@ -60,5 +60,3 @@ Environment variables that affect "make install":
 Additional Resources:
 [1] - XDG Base Directory Specification
     http://standards.freedesktop.org/basedir-spec/basedir-spec-0.6.html
-
-

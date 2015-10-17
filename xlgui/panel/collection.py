@@ -760,12 +760,14 @@ class CollectionDragTreeView(DragTreeView):
             return False
 
         result = widget.get_path_at_pos(x, y)
-        if result:
-            path = result[0]
+        if not result:
+            return False
+        
+        path = result[0]
 
-            model = widget.get_model()
-            tooltip.set_text(model[path][1]) # 1: title
-            widget.set_tooltip_row(tooltip, path)
+        model = widget.get_model()
+        tooltip.set_text(model[path][1]) # 1: title
+        widget.set_tooltip_row(tooltip, path)
 
         return True
 

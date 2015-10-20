@@ -11,13 +11,13 @@ Dependencies
 
 Essential:
 
-* python (>= 2.6)
-* pygst 0.10
-* gstreamer-plugins-good 0.10
+* python (== 2.7.x)
+* gtk+ >= 3.10
+* gstreamer >= 1.4
+* gstreamer-plugins-good >= 1.4
 * mutagen (>= 1.10)
 * dbus-python
-* pygtk (>= 2.17)
-* pygobject (>= 2.18, built with gio support)
+* pygobject (>= 3.10)
 
 Translation:
 

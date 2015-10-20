@@ -4,14 +4,14 @@ Frequently Asked Questions
 Error "no suitable plugin found" when playing a (.mp3, .m4a, etc)
 -----------------------------------------------------------------
 
-Exaile currently uses GStreamer 0.10 to decode/play audio files, and does not
+Exaile currently uses GStreamer 1.x to decode/play audio files, and does not
 directly decode audio itself. For playback to work, you need to have the
 correct GStreamer plugins installed. 
 
 .. note:: For Linux users, you may find that other GStreamer programs can
           play specific file type, but Exaile cannot. Check to make sure that
-          the correct plugins are installed for GStreamer 0.10, as other 
-          players may be using GStreamer 1.x instead. 
+          the correct plugins are installed for GStreamer 1.x, as other 
+          players may be using GStreamer 0.10 instead. 
 
 
 File tags don't update when I change them using an external program

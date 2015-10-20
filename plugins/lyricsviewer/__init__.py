@@ -86,7 +86,8 @@ class LyricsViewer(object):
         self.lyrics_found = []
 
         self._initialize_widgets()
-        self._lyrics_id = 0
+        self._lyrics_id = None
+        self._last_lyrics_search = None
         self._panel = None
 
         event.add_callback(self.playback_cb, 'playback_track_start')
@@ -124,20 +125,20 @@ class LyricsViewer(object):
         self.loading_animation = GdkPixbuf.PixbufAnimation.new_from_file(
                 os.path.join(IMAGEDIR, self.loading_image))
 
-       #track name title text
+        #track name title text
         self.track_text = builder.get_object('TrackText')
         self.track_text.modify_font(Pango.FontDescription("Bold"))
         self.track_text_buffer = builder.get_object('TrackTextBuffer')
-       #trackname end
+        #trackname end
 
-       #the textview which cointains the lyrics
+        #the textview which cointains the lyrics
         self.lyrics_text = builder.get_object('LyricsText')
         self.lyrics_text_buffer = builder.get_object('LyricsTextBuffer')
         self.lyrics_text.modify_font(Pango.FontDescription(
                 settings.get_option('plugin/lyricsviewer/lyrics_font')))
-       #end lyrictextview
+        #end lyrictextview
 
-       #text url and source
+        #text url and source
         self.lyrics_source_text = builder.get_object('LyricsSourceText')
         self.lyrics_source_text.modify_font(
                 Pango.FontDescription("Bold Italic"))
@@ -148,10 +149,11 @@ class LyricsViewer(object):
         lyrics_source_tag_table = builder.get_object('LyricsSourceTagTable')
         self.url_tag = builder.get_object('UrlTag')
         lyrics_source_tag_table.add(self.url_tag)
-       #end text url and source
+        #end text url and source
 
         # TODO: GI: Style must be set via a different mechanism 
         #self.set_style(self.notebook)
+        
     #end initialize_widgets
     def on_option_set(self, event, settings, option):
         if option == 'plugin/lyricsviewer/lyrics_font':
@@ -180,8 +182,7 @@ class LyricsViewer(object):
 
     def end_cb(self, eventtype, player, data):
         self.update_lyrics()
-
-    @guiutil.idle_add()
+    
     def on_lst_motion_event(self, textview, event):
         """
             Catches when the mouse moves on the TextView lyrics_source_text
@@ -232,52 +233,64 @@ class LyricsViewer(object):
             Calls the update_lyrics_text if lyrics are cached.
         """
         if self.lyrics_found:
-            self.update_lyrics_text(self._lyrics_id)
+            self.update_lyrics_text()
 
     def update_lyrics(self, refresh = False):
         def do_update(refresh):
+            lyrics_id = self._lyrics_id
+            self._lyrics_id = None
+            
             self.track_text_buffer.set_text("")
             self.lyrics_text_buffer.set_text("")
             self.lyrics_source_text_buffer.set_text("")
             self.lyrics_found = []
             if player.PLAYER.current:
                 self.set_top_box_widgets(False)
-                self.get_lyrics(player.PLAYER.current, self._lyrics_id, refresh)
+                self.get_lyrics(player.PLAYER.current, lyrics_id, refresh)
             else:
                 self.lyrics_text_buffer.set_text(_('Not playing.'))
                 self.set_top_box_widgets(False, True)
             return False
 
-        if self._lyrics_id != 0:
+        if self._lyrics_id is not None:
             GLib.source_remove(self._lyrics_id)
+            
         self._lyrics_id = GLib.idle_add(do_update, refresh)
+        self._last_lyrics_search = self._lyrics_id
 
     @common.threaded
     def get_lyrics(self, track, lyrics_id, refresh = False):
         lyrics_found = []
+        text_track = ''
         try:
             try:
                 text_track = (track.get_tag_raw('artist')[0] + \
                                      " - " + track.get_tag_raw('title')[0])
             except Exception:
                 raise lyrics.LyricsNotFoundException
-            self.track_text_buffer.set_text(text_track)
             lyrics_found = lyrics.MANAGER.find_all_lyrics(track, refresh)
         except lyrics.LyricsNotFoundException:
             lyrics_found = []
-            return
         finally:
-            if self._lyrics_id == lyrics_id:
-                self.lyrics_found = lyrics_found
-                self.update_lyrics_text(lyrics_id)
-                self.set_top_box_widgets(True)
+            self._get_lyrics_finish(lyrics_id, text_track, lyrics_found)
+    
+    @guiutil.idle_add()
+    def _get_lyrics_finish(self, lyrics_id, text_track, lyrics_found):
+        '''Only called from get_lyrics thread, thunk to ui thread'''
+        if self._last_lyrics_search != lyrics_id:
+            return
+        
+        self._lyrics_id = None
+        self.lyrics_found = lyrics_found
+        
+        self.track_text_buffer.set_text(text_track)
+        self.update_lyrics_text()
+        self.set_top_box_widgets(True)
 
-    def update_lyrics_text(self, lyrics_id):
+    def update_lyrics_text(self):
         """
             Updates the lyrics text view, showing the lyrics from the
             selected lyrics search method
-
-            :param lyrics_id: id of the lyrics found
         """
         lyrics = _("No lyrics found.")
         source = ""
@@ -289,11 +302,10 @@ class LyricsViewer(object):
                 if name == selected_method or index == 0:
                     lyrics, source, url = lyr, sou, ur
                     break
-        if self._lyrics_id == lyrics_id:
-            GLib.idle_add(self.lyrics_text_buffer.set_text, lyrics)
-            self.update_source_text(source, url)
-
-    @guiutil.idle_add()
+                
+        self.lyrics_text_buffer.set_text(lyrics)
+        self.update_source_text(source, url)
+    
     def update_source_text(self, source, url):
         """
             Sets the url tag in the source text buffer
@@ -311,8 +323,7 @@ class LyricsViewer(object):
             self.source_url = url
         else:
             self.lyrics_source_text_buffer.set_text("")
-
-    @guiutil.idle_add()
+    
     def set_top_box_widgets(self, state, init = False):
         if state or init:
             self.refresh_button_image.set_from_icon_name(
@@ -339,8 +350,7 @@ class LyricsViewer(object):
             for textview in (self.lyrics_source_text, self.track_text):
                 self.modify_textview_look(textview, state,
                         bg[rstate].to_string(), fg[rstate].to_string())
-
-    @guiutil.idle_add()
+    
     def modify_textview_look(self, textview, state, base_color, text_color):
         textview.modify_base(state, Gdk.color_parse(base_color))
         textview.modify_text(state, Gdk.color_parse(text_color))

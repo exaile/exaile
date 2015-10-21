@@ -32,16 +32,30 @@ translations.
 Environment Variables
 ^^^^^^^^^^^^^^^^^^^^^
 
+Note: normally it should be enough to set PREFIX, and potentially LIBINSTALLDIR
+on a 64-bit system.  The additional variables can provide further installation
+customization.
+
 Environment variables that affect "make install":
 
   LIBINSTALLDIR
-    The lib directory to be appended to PREFIX. 
-    Default: /lib
+    The full path to the lib directory.
+    Default: EPREFIX/lib
+  DATADIR
+    The full path to non-arcitecture dependent data files.
+    Default: PREFIX/share
+  MANPREFIX
+    The full path to the parent of the man page installation directory (same
+    as system DATADIR)
+    Default: PREFIX/share
+  EPREFIX
+    The executable installation prefix.
+    Default: PREFIX
   PREFIX
-    The installation prefix. 
+    The main installation prefix.
     Default: /usr/local
-    Note: If this default is changed, you may need to set the XDG_DATA_DIRS
-      environment variable to include the changed path. See [1].
+    Note: If this default is changed, you may need to set the LIBINSTALLDIR or
+      XDG_DATA_DIRS environment variables to include the changed path. See [1].
   XDGCONFDIR
     The directory to install system-wide config files in, following xdg spec. 
     Default: /etc/xdg 

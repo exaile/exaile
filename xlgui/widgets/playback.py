@@ -376,6 +376,7 @@ class MarkerManager(providers.ProviderHandler):
         """
         
         if player.current is None:
+            self.__timeout_id = None
             return
         
         track_length = player.current.get_tag_raw('__length')

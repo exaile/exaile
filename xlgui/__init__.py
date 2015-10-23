@@ -29,7 +29,13 @@ __all__ = ['main', 'panel', 'playlist']
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
+
 import logging
+logger = logging.getLogger(__name__)
+
+logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
+                                   Gtk.MINOR_VERSION,
+                                   Gtk.MICRO_VERSION)
 
 import sys
     
@@ -66,7 +72,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import guiutil
 
-logger = logging.getLogger(__name__)
+
 
 def mainloop():
     from xl.externals.sigint import InterruptibleLoopContext
@@ -113,10 +119,6 @@ class Main(object):
             icon_name = 'media-playlist-%s' % name
             icons.MANAGER.add_icon_name_from_directory(icon_name,
                 xdg.get_data_path('images'))
-        
-        logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
-                                           Gtk.MINOR_VERSION,
-                                           Gtk.MICRO_VERSION)
         
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder, exaile.collection)

@@ -32,6 +32,7 @@ make-install-dirs:
 	mkdir -p ${EXAILELIBDIR}/xl/externals
 	mkdir -p ${EXAILELIBDIR}/xl/metadata
 	mkdir -p ${EXAILELIBDIR}/xl/player
+	mkdir -p ${EXAILELIBDIR}/xl/player/gst
 	mkdir -p ${EXAILELIBDIR}/xl/migrations
 	mkdir -p ${EXAILELIBDIR}/xl/migrations/database
 	mkdir -p ${EXAILELIBDIR}/xl/migrations/settings
@@ -87,6 +88,8 @@ install-target: make-install-dirs
 	install -m 644 xl/metadata/*.py ${EXAILELIBDIR}/xl/metadata
 	-install -m 644 xl/player/*.py[co] ${EXAILELIBDIR}/xl/player
 	install -m 644 xl/player/*.py ${EXAILELIBDIR}/xl/player
+	-install -m 644 xl/player/gst/*.py[co] ${EXAILELIBDIR}/xl/player/gst
+	install -m 644 xl/player/gst/*.py ${EXAILELIBDIR}/xl/player/gst
 	-install -m 644 xl/migrations/*.py[co] ${EXAILELIBDIR}/xl/migrations
 	install -m 644 xl/migrations/*.py ${EXAILELIBDIR}/xl/migrations
 	-install -m 644 xl/migrations/database/*.py[co] ${EXAILELIBDIR}/xl/migrations/database/

@@ -51,17 +51,23 @@ set PYTHON_BIN=C:\Python26\%PYTHON_EXE%
 if not exist "%PYTHON_BIN%" goto nopython
 
 :python_found
-echo INFO    : Python: %PYTHON_BIN% >&2
+if "%EXAILE_CONSOLE%" == "Y" (
+    echo INFO    : Python: %PYTHON_BIN%>&2
+)
 
 goto start_exaile
 
 REM Various errors
 
 :nopython
-echo Python 2.7 was not detected. Please include the python directory in your
-echo PATH, or install it. You can download it at http://www.python.com/
-echo.
-pause && goto end
+echo Python 2.7 was not detected. Please include the python directory in your>&2
+echo PATH, or install it. You can download it at http://www.python.com/>&2
+if not "%EXAILE_CONSOLE%" == "Y" (
+	echo.>&2
+	pause
+)
+endlocal
+exit /B 1
 
 :start_exaile
 

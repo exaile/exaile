@@ -16,9 +16,17 @@ Gst.init(None)
 import logging
 logger = logging.getLogger(__name__)
 
-logger.info("Using GStreamer %s.%s.%s", Gst.VERSION_MAJOR,
-                                        Gst.VERSION_MINOR,
-                                        Gst.VERSION_MICRO)
+try:
+    __gst_version__ = '%s.%s.%s' % (Gst.VERSION_MAJOR,
+                                    Gst.VERSION_MINOR,
+                                    Gst.VERSION_MICRO)
+except AttributeError:
+    # Old version of GStreamer < 1.3.3
+    # https://bugzilla.gnome.org/show_bug.cgi?id=703021
+    __gst_version__ = '**unknown version < 1.3.3**'
+
+
+logger.info("Using GStreamer %s", __gst_version__)
 
 del logger
 del logging

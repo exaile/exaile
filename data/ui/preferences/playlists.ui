@@ -2,83 +2,78 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkWindow" id="preferences_window">
+  <object class="GtkGrid" id="preferences_pane">
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="row_spacing">4</property>
+    <property name="column_spacing">2</property>
     <child>
-      <object class="GtkGrid" id="preferences_pane">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="row_spacing">4</property>
-        <property name="column_spacing">2</property>
-        <child>
-          <object class="GtkCheckButton" id="playlist/open_last">
-            <property name="label" translatable="yes">Open last playlists on startup</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="playlist/ask_save">
-            <property name="label" translatable="yes">Prompt for saving custom playlists on close</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="playlist/replace_content">
-            <property name="label" translatable="yes">Replace content on side pane double click</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Instead of appending, tracks added via double click in the panes will replace the content of the current playlist.</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="playlist/append_menu_starts_playback">
-            <property name="label" translatable="yes">Appending/Replacing via menu item triggers playback</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">When using a menu item to add/replace tracks on the playlist, start playback if there is track currently playing. This option was the default behavior before Exaile 0.3.3</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="playlist/enqueue_by_default">
-            <property name="label" translatable="yes">Queue tracks by default instead of playing them</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">When you double click or press enter to play a track in a playlist, queue the track instead of playing it</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">4</property>
-          </packing>
-        </child>
+      <object class="GtkCheckButton" id="playlist/open_last">
+        <property name="label" translatable="yes">Open last playlists on startup</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_underline">True</property>
+        <property name="draw_indicator">True</property>
       </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="playlist/ask_save">
+        <property name="label" translatable="yes">Prompt for saving custom playlists on close</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_underline">True</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="playlist/replace_content">
+        <property name="label" translatable="yes">Replace content on side pane double click</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes">Instead of appending, tracks added via double click in the panes will replace the content of the current playlist.</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="playlist/append_menu_starts_playback">
+        <property name="label" translatable="yes">Appending/Replacing via menu item triggers playback</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes">When using a menu item to add/replace tracks on the playlist, start playback if there is track currently playing. This option was the default behavior before Exaile 0.3.3</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="playlist/enqueue_by_default">
+        <property name="label" translatable="yes">Queue tracks by default instead of playing them</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes">When you double click or press enter to play a track in a playlist, queue the track instead of playing it</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
     </child>
   </object>
 </interface>

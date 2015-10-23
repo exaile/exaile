@@ -116,7 +116,7 @@ def _init_template(self, cls, base_init_template):
             #      one is broken either -- but the stderr should show
             #      something useful with a Gtk-CRITICAL message)
             raise AttributeError("A missing child widget was set using " +
-                                 "GtkTemplate.Child and the entire"
+                                 "GtkTemplate.Child and the entire "
                                  "template is now broken (widgets: %s)" %
                                  ', '.join(self.__gtemplate_widgets__))
     

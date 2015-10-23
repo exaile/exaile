@@ -240,17 +240,36 @@ class MainWindow(GObject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
+        # In most (all?) RTL locales, the playback controls should still be LTR.
+        # Just in case that's not always the case, we provide a hidden option to
+        # force RTL layout instead. This can be removed once we're more certain
+        # that the default behavior (always LTR) is correct.
+        controls_direction = Gtk.TextDirection.RTL \
+            if settings.get_option('gui/rtl_playback_controls') \
+            else Gtk.TextDirection.LTR
+
+        self.play_image = Gtk.Image.new_from_icon_name('media-playback-start',
+            Gtk.IconSize.SMALL_TOOLBAR)
+        self.play_image.set_direction(controls_direction)
+        self.pause_image = Gtk.Image.new_from_icon_name('media-playback-pause',
+            Gtk.IconSize.SMALL_TOOLBAR)
+        self.pause_image.set_direction(controls_direction)
+
+        play_toolbar = self.builder.get_object('play_toolbar')
+        play_toolbar.set_direction(controls_direction)
+        for button in ('playpause', 'next', 'prev', 'stop'):
+            widget = self.builder.get_object('%s_button' % button)
+            setattr(self, '%s_button' % button, widget)
+            widget.get_child().set_direction(controls_direction)
+
         self.progress_bar = playback.SeekProgressBar(player.PLAYER)
+        self.progress_bar.get_child().set_direction(controls_direction)
         # Don't expand vertically; looks awful on Adwaita.
         self.progress_bar.set_valign(Gtk.Align.CENTER)
         guiutil.gtk_widget_replace(
             self.builder.get_object('playback_progressbar_dummy'),
             self.progress_bar
         )
-
-        for button in ('playpause', 'next', 'prev', 'stop'):
-            setattr(self, '%s_button' % button,
-                self.builder.get_object('%s_button' % button))
 
         self.stop_button.toggle_spat = False
         self.stop_button.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
@@ -622,12 +641,10 @@ class MainWindow(GObject.GObject):
             already begun
         """
         if player.is_paused():
-            image = Gtk.Image.new_from_icon_name('media-playback-start',
-                Gtk.IconSize.SMALL_TOOLBAR)
+            image = self.play_image
             tooltip = _('Continue Playback')
         else:
-            image = Gtk.Image.new_from_icon_name('media-playback-pause',
-                Gtk.IconSize.SMALL_TOOLBAR)
+            image = self.pause_image
             tooltip = _('Pause Playback')
 
         GLib.idle_add(self.playpause_button.set_image, image)
@@ -804,9 +821,7 @@ class MainWindow(GObject.GObject):
             return
 
         self._update_track_information()
-        GLib.idle_add(self.playpause_button.set_image,
-            Gtk.Image.new_from_icon_name('media-playback-pause',
-            Gtk.IconSize.SMALL_TOOLBAR))
+        GLib.idle_add(self.playpause_button.set_image, self.pause_image)
         GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Pause Playback'))
 
@@ -816,9 +831,7 @@ class MainWindow(GObject.GObject):
         """
         GLib.idle_add(self.window.set_title, 'Exaile')
 
-        GLib.idle_add(self.playpause_button.set_image,
-            Gtk.Image.new_from_icon_name('media-playback-start',
-            Gtk.IconSize.SMALL_TOOLBAR))
+        GLib.idle_add(self.playpause_button.set_image, self.play_image)
         GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Start Playback'))
 

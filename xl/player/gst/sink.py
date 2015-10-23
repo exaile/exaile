@@ -161,7 +161,7 @@ def create_device(player_name, return_errorsink=True):
 
 def _get_error_audiosink(msg):
         
-    sink = Gst.ElementFactory.make('fakesink')
+    sink = Gst.ElementFactory.make('fakesink', None)
     
     def handoff(s, b, p):
         s.message_full(Gst.MessageType.ERROR,

@@ -50,7 +50,7 @@ class DynamicAudioSink(Gst.Bin):
         
         # Create an identity object so we don't need to deal with linking
         # the audio sink with anything external to this bin
-        self.identity = Gst.ElementFactory.make('identity')
+        self.identity = Gst.ElementFactory.make('identity', None)
         self.identity.props.signal_handoffs = False
         self.add(self.identity)
         

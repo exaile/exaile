@@ -36,8 +36,8 @@ class Mono(ElementBin):
     name = 'mono'
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
-        #self.elements[50] = Gst.ElementFactory.make('audioconvert')
-        self.elements[60] = cf = Gst.ElementFactory.make('capsfilter')
+        #self.elements[50] = Gst.ElementFactory.make('audioconvert', None)
+        self.elements[60] = cf = Gst.ElementFactory.make('capsfilter', None)
         cf.props.caps = Gst.Caps.from_string('audio/x-raw,channels=1')
         self.setup_elements()
 

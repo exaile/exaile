@@ -25,7 +25,7 @@ class Karaoke(ElementBin):
     name = 'karaoke'
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
-        self.elements[50] = Gst.ElementFactory.make('audiokaraoke')
+        self.elements[50] = Gst.ElementFactory.make('audiokaraoke', None)
         self.setup_elements()
 
 

@@ -20,7 +20,7 @@ import sys
 from gi.repository import Gst, GObject, Gio
 
 def autodetect_supported():
-    return Gst.ElementFactory.make('bpmdetect') != None
+    return Gst.ElementFactory.make('bpmdetect', None) != None
 
 def detect_bpm(uri, on_complete):
     '''
@@ -70,14 +70,14 @@ def detect_bpm(uri, on_complete):
     
     # bpmdetect doesn't work properly with more than one channel, 
     # see https://bugzilla.gnome.org/show_bug.cgi?id=751457
-    cf = Gst.ElementFactory.make('capsfilter')
+    cf = Gst.ElementFactory.make('capsfilter', None)
     cf.props.caps = Gst.Caps.from_string('audio/x-raw,channels=1')
     
-    fakesink = Gst.ElementFactory.make('fakesink')
+    fakesink = Gst.ElementFactory.make('fakesink', None)
     fakesink.props.sync = False
     fakesink.props.signal_handoffs = False
     
-    bpmdetect = Gst.ElementFactory.make('bpmdetect')
+    bpmdetect = Gst.ElementFactory.make('bpmdetect', None)
     if bpmdetect is None:
         on_complete(None, "GStreamer BPM detection plugin not found")
         return
@@ -91,7 +91,7 @@ def detect_bpm(uri, on_complete):
     
     audio_sink.add_pad(Gst.GhostPad.new('sink', cf.get_static_pad('sink')))
     
-    playbin = Gst.ElementFactory.make('playbin')
+    playbin = Gst.ElementFactory.make('playbin', None)
     playbin.props.audio_sink = audio_sink
     
     bus = playbin.get_bus()

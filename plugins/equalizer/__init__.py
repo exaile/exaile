@@ -68,13 +68,13 @@ class GSTEqualizer(ElementBin):
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
 
-        self.audioconvert = Gst.ElementFactory.make("audioconvert")
+        self.audioconvert = Gst.ElementFactory.make("audioconvert", None)
         self.elements[40] = self.audioconvert
 
-        self.preamp = Gst.ElementFactory.make("volume")
+        self.preamp = Gst.ElementFactory.make("volume", None)
         self.elements[50] = self.preamp
 
-        self.eq10band = Gst.ElementFactory.make("equalizer-10bands")
+        self.eq10band = Gst.ElementFactory.make("equalizer-10bands", None)
         self.elements[60] = self.eq10band
 
         self.setup_elements()

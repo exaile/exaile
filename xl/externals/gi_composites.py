@@ -21,6 +21,7 @@ from os.path import abspath, join
 import inspect
 import warnings
 
+from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
 
@@ -59,11 +60,13 @@ def _connect_func(builder, obj, signal_name, handler_name,
     template_inst.__connected_template_signals__.add(handler_name)
 
 
-def _register_template(cls, ui_path):
+def _register_template(cls, template_bytes):
     '''Registers the template for the widget and hooks init_template'''
-    
-    with open(ui_path, 'rb') as fp:
-        cls.set_template(GLib.Bytes.new(fp.read()))
+
+    # This implementation won't work if there are nested templates, but
+    # we can't do that anyways due to PyGObject limitations so it's ok
+
+    cls.set_template(template_bytes)
     
     bound_methods = set()
     bound_widgets = set()
@@ -86,11 +89,7 @@ def _register_template(cls, ui_path):
     # because the methods are not bound yet
     cls.set_connect_func(_connect_func, cls)
     
-    # This might allow nested composites.. haven't tested it
-    bound_methods.update(getattr(cls, '__gtemplate_methods__', set()))
     cls.__gtemplate_methods__ = bound_methods
-    
-    bound_widgets.update(getattr(cls, '__gtemplate_widgets__', set()))
     cls.__gtemplate_widgets__ = bound_widgets
     
     base_init_template = cls.init_template
@@ -99,6 +98,12 @@ def _register_template(cls, ui_path):
 
 def _init_template(self, cls, base_init_template):
     '''This would be better as an override for Gtk.Widget'''
+    
+    # TODO: could disallow using a metaclass.. but this is good enough
+    # .. if you disagree, feel free to fix it and issue a PR :)
+    if self.__class__ is not cls:
+        raise TypeError("Inheritance from classes with @GtkTemplate decorators "
+                        "is not allowed at this time")
     
     connected_signals = set()
     self.__connected_template_signals__ = connected_signals
@@ -115,7 +120,7 @@ def _init_template(self, cls, base_init_template):
             #      it's not currently possible for us to know which 
             #      one is broken either -- but the stderr should show
             #      something useful with a Gtk-CRITICAL message)
-            raise AttributeError("A missing child widget was set using " +
+            raise AttributeError("A missing child widget was set using "
                                  "GtkTemplate.Child and the entire "
                                  "template is now broken (widgets: %s)" %
                                  ', '.join(self.__gtemplate_widgets__))
@@ -145,7 +150,7 @@ class _Child(object):
                 label1    \
                 label2    = GtkTemplate.Child.widgets(3)
         '''
-        return [_Child() for _ in xrange(count)]
+        return [_Child() for _ in range(count)]
 
 
 class _GtkTemplate(object):
@@ -161,6 +166,13 @@ class _GtkTemplate(object):
                 def __init__(self):
                     super(Foo, self).__init__()
                     self.init_template()
+
+        The 'ui' parameter can either be a file path or a GResource resource
+        path::
+
+            @GtkTemplate(ui='/org/example/foo.ui')
+            class Foo(Gtk.Box):
+                pass
                 
         To connect a signal to a method on your instance, do::
             
@@ -181,6 +193,9 @@ class _GtkTemplate(object):
         included with PyGI I suspect it might be better to do this
         in the GObject metaclass (or similar) so that init_template
         can be called automatically instead of forcing the user to do it.
+        
+        .. note:: Due to limitations in PyGObject, you may not inherit from
+                  python objects that use the GtkTemplate decorator.
     '''
     
     __ui_path__ = None
@@ -200,8 +215,9 @@ class _GtkTemplate(object):
     @staticmethod
     def set_ui_path(*path):
         '''
-            Call this *before* loading anything that uses GtkTemplate,
-            or it will fail to load your template file
+            If using file paths instead of resources, call this *before*
+            loading anything that uses GtkTemplate, or it will fail to load
+            your template file
             
             :param path: one or more path elements, will be joined together
                          to create the final path
@@ -213,15 +229,31 @@ class _GtkTemplate(object):
     
     
     def __init__(self, ui):
-        if isinstance(ui, (list, tuple)):
-            ui = join(ui)
-        if self.__ui_path__ is not None:
-            self.ui = join(_GtkTemplate.__ui_path__, ui)
-        else:
-            self.ui = ui
+        self.ui = ui
     
     def __call__(self, cls):
-        _register_template(cls, self.ui)
+
+        # Nested templates don't work
+        if hasattr(cls, '__gtemplate_methods__'):
+            raise TypeError("Cannot nest template classes")
+        
+        # Load the template either from a resource path or a file
+        # - Prefer the resource path first
+
+        try:
+            template_bytes = Gio.resources_lookup_data(self.ui, Gio.ResourceLookupFlags.NONE)
+        except GLib.GError:
+            ui = self.ui
+            if isinstance(ui, (list, tuple)):
+                ui = join(ui)
+
+            if _GtkTemplate.__ui_path__ is not None:
+                ui = join(_GtkTemplate.__ui_path__, ui)
+
+            with open(ui, 'rb') as fp:
+                template_bytes = GLib.Bytes.new(fp.read())
+
+        _register_template(cls, template_bytes)
         return cls
 
 

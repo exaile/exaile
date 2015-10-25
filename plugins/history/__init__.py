@@ -49,47 +49,18 @@ from xlgui.widgets.notebook import NotebookPage, NotebookTab
 from xlgui.widgets.playlist import PlaylistView
 
 import history_preferences
-
-plugin = None
-
-def get_preferences_pane():
-    return history_preferences
-
-
-def enable(exaile):
-    '''Called on plugin enable'''
-    if exaile.loading:
-        event.add_callback(_enable, 'exaile_loaded')
-    else:
-        _enable(None, exaile, None)
-        
-def _enable(eventname, exaile, nothing):
-
-    global plugin
-    plugin = HistoryPlugin(exaile)
-    
-def disable(exaile):
-    '''Called on plugin disable'''
-    
-    global plugin
-    if plugin is not None:
-        plugin.disable_plugin(exaile)
-        plugin = None
-
-def teardown(exaile):
-    '''Called on exaile quit'''
-    global plugin
-    if plugin is not None:
-        plugin.teardown_plugin(exaile)
         
 
 class HistoryPlugin(object):
     '''Implements logic for plugin'''
     
-    def __init__(self, exaile):
+    def get_preferences_pane(self):
+        return history_preferences
     
+    def enable(self, exaile):
         self.exaile = exaile
     
+    def on_gui_loaded(self):
         save_on_exit = settings.get_option('plugin/history/save_on_exit', history_preferences.save_on_exit_default)
         shown = settings.get_option('plugin/history/shown', False)
     
@@ -114,7 +85,7 @@ class HistoryPlugin(object):
         if save_on_exit and shown:
             self.show_history( True )
         
-    def teardown_plugin(self, exaile):
+    def teardown(self, exaile):
         '''Called when exaile is exiting'''
         
         if settings.get_option('plugin/history/save_on_exit', history_preferences.save_on_exit_default ):
@@ -125,7 +96,7 @@ class HistoryPlugin(object):
             
         self.show_history(False)
     
-    def disable_plugin(self, exaile):
+    def disable(self, exaile):
     
         '''Called when the plugin is disabled'''
         if self.menu:
@@ -164,6 +135,7 @@ class HistoryPlugin(object):
         else:
             self.history_tab.close()
 
+plugin_class = HistoryPlugin
         
 class HistoryPlaylistPage( NotebookPage ):
 

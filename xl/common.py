@@ -846,7 +846,7 @@ class GioFileOutputStream(_GioFileStream):
     '''
     __slots__ = ['stream']
     
-    def __init__(self, gfile, mode):
+    def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
         

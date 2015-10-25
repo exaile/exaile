@@ -47,46 +47,25 @@ from gt_common import *
 import gt_import
 import gt_mass
 
-plugin = None
 
 
-def get_preferences_pane():
-    return gt_prefs
-
-def enable(exaile):
-    '''Called on plugin enable'''
-    if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
-    else:
-        _enable(None, exaile, None)
-        
-def _enable(eventname, exaile, nothing):
-
-    global plugin
-    plugin = GroupTaggerPlugin(exaile)
-    
-    event.remove_callback(_enable, 'gui_loaded')
-    
-def disable(exaile):
-    '''Called on plugin disable'''
-    
-    global plugin
-    if plugin is not None:
-        plugin.disable_plugin(exaile)
-        plugin = None
-   
-    
 class GroupTaggerPlugin(object):
     '''Implements logic for plugin'''
 
-    def __init__(self, exaile):
+    def get_preferences_pane(self):
+        return gt_prefs
+
+    def enable(self, exaile):
+        self.exaile = exaile
+
+    def on_gui_loaded(self):
     
         self.track = None
         self.tag_dialog = None
         
         migrate_settings()
     
-        self.panel = gt_widgets.GroupTaggerPanel(exaile)
+        self.panel = gt_widgets.GroupTaggerPanel(self.exaile)
         self.panel.show_all()
         self.setup_panel_font(False)
         
@@ -103,7 +82,7 @@ class GroupTaggerPlugin(object):
         event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         # add our own submenu for functionality
-        tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
+        tools_submenu = menu.Menu( None, context_func=lambda p: self.exaile )
         
         tools_submenu.add_item( 
             menu.simple_menu_item( 'gt_get_tags', [], _('_Get all tags from collection'),
@@ -132,24 +111,24 @@ class GroupTaggerPlugin(object):
         track_subitem.add_item(menu.simple_menu_item( 'gt_search_all', [], 
                 _('Show tracks with all tags'),
                 callback=self.on_playlist_context_select_all_menu,
-                callback_args=[exaile]))
+                callback_args=[self.exaile]))
         
         track_subitem.add_item(menu.simple_menu_item( 'gt_search_custom', ['gt_search_all'], 
                 _('Show tracks with tags (custom)'),
                 callback=self.on_playlist_context_select_custom_menu,
-                callback_args=[exaile]))
+                callback_args=[self.exaile]))
         
         tag_cond_fn = lambda n, p, c: c['selection-count'] > 1
         
         track_subitem.add_item(menu.simple_menu_item('gt_tag_add_multi', ['gt_search_custom'],
                 _('Add tags to all'),
                 callback=self.on_add_tags, condition_fn=tag_cond_fn,
-                callback_args=[exaile]))
+                callback_args=[self.exaile]))
         
         track_subitem.add_item(menu.simple_menu_item('gt_tag_rm_multi', ['gt_tag_add_multi'],
                 _('Remove tags from all'),
                 callback=self.on_rm_tags, condition_fn=tag_cond_fn,
-                callback_args=[exaile]))
+                callback_args=[self.exaile]))
         
         self.provider_items.append(menu.simple_menu_item('grouptagger', ['rating'],
                 _('GroupTagger'), submenu=track_subitem))
@@ -166,7 +145,7 @@ class GroupTaggerPlugin(object):
         else:
             self.panel.tagger.set_categories( [], get_group_categories() )
     
-    def disable_plugin(self, exaile):
+    def disable(self, exaile):
         '''Called when the plugin is disabled'''
         
         if self.tools_menuitem:
@@ -368,4 +347,6 @@ class GroupTaggerPlugin(object):
         elif option == tagname_option:
             if self.track is not None:
                 GLib.idle_add(self.set_display_track, self.track, True)
+
+plugin_class = GroupTaggerPlugin
 

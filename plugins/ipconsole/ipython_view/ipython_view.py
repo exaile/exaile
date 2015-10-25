@@ -28,7 +28,10 @@ import re
 import sys
 import os
 
-from io import BytesIO as StringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO
 from functools import reduce
 
 try:

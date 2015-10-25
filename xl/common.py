@@ -286,18 +286,18 @@ def profileit(func):
     """
         Decorator to profile a function
     """
-    import hotshot, hotshot.stats
+    import cProfile, pstats
     @wraps(func)
     def wrapper(*args, **kwargs):
-        prof = hotshot.Profile("profiling.data")
+        prof = cProfile.Profile()
         res = prof.runcall(func, *args, **kwargs)
-        prof.close()
-        stats = hotshot.stats.load("profiling.data")
+        stats = pstats.Stats(prof)
         stats.strip_dirs()
         stats.sort_stats('time', 'calls')
         print ">>>---- Begin profiling print"
         stats.print_stats()
         print ">>>---- End profiling print"
+        prof = stats = None
         return res
     return wrapper
 

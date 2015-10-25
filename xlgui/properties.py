@@ -1177,24 +1177,18 @@ class AllButton(Gtk.ToggleButton):
         self.connect("toggled", self.set_all_mode)
         self.field = parent_field
         self.id_num = id_num
+        im = Gtk.Image.new_from_icon_name('edit-copy', Gtk.IconSize.BUTTON)
+        self.set_image(im)
         self.set_active(True)
         self.set_active(False)
 
     def set_all_mode(self, w=None, do_apply=True):
 
-        if self.get_active():
-            if do_apply and self.field.parent_row:
-                tag = self.field.parent_row.tag
-                multi_id = self.field.parent_row.multi_id
-                if self.field.all_func != None:
-                    self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
-            im = Gtk.Image()
-            im.set_from_stock(Gtk.STOCK_DND_MULTIPLE, Gtk.IconSize.BUTTON)
-            self.set_image(im)
-        else:
-            im = Gtk.Image()
-            im.set_from_stock(Gtk.STOCK_DND, Gtk.IconSize.BUTTON)
-            self.set_image(im)
+        if self.get_active and do_apply and self.field.parent_row:
+            tag = self.field.parent_row.tag
+            multi_id = self.field.parent_row.multi_id
+            if self.field.all_func != None:
+                self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
 
 
 class SavingProgressWindow(Gtk.Window):

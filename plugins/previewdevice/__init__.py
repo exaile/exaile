@@ -47,42 +47,19 @@ import previewprefs
 import logging
 logger = logging.getLogger(__name__)
 
-PREVIEW_PLUGIN = None
-
-
-def get_preferences_pane():
-    return previewprefs
-
-
-def enable(exaile):
-    '''Called on plugin enable'''
-    if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
-    else:
-        _enable(None, exaile, None)
-
-
-def _enable(eventname, exaile, nothing):
-
-    global PREVIEW_PLUGIN
-    PREVIEW_PLUGIN = SecondaryOutputPlugin(exaile)
-
-
-def disable(exaile):
-    '''Called on plugin disable'''
-
-    global PREVIEW_PLUGIN
-    if PREVIEW_PLUGIN is not None:
-        PREVIEW_PLUGIN.disable_plugin(exaile)
-        PREVIEW_PLUGIN = None
 
 
 class SecondaryOutputPlugin(object):
     '''Implements logic for plugin'''
 
-    def __init__(self, exaile):
+    def get_preferences_pane(self):
+        return previewprefs
 
+    def enable(self, exaile):
         self.exaile = exaile
+
+    def on_gui_loaded(self):
+
         self.hooked = False
         self.resuming = False
 
@@ -111,7 +88,7 @@ class SecondaryOutputPlugin(object):
             self._init_gui_hooks()
 
 
-    def disable_plugin(self, exaile):
+    def disable(self, exaile):
         logger.debug('Disabling Preview Device')
         event.log_event('preview_device_disabling', self, None)
         self._destroy_gui_hooks()
@@ -401,3 +378,6 @@ class SecondaryOutputPlugin(object):
 
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text(tooltip)
+
+
+plugin_class = SecondaryOutputPlugin

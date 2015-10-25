@@ -48,10 +48,7 @@ import time
 import weakref
 from gi.repository import GLib
 
-from xl import common
-from xl.nls import gettext as _
-
-# define this here so the interperter doesn't complain
+# define this here so the interpreter doesn't complain
 EVENT_MANAGER = None
 
 logger = logging.getLogger(__name__)
@@ -60,6 +57,9 @@ class Nothing(object):
     pass
 
 _NONE = Nothing() # used by event for a safe None replacement
+
+# Assumes that this module was imported on main thread 
+_UiThread = threading.current_thread()
 
 def log_event(type, obj, data):
     """
@@ -103,9 +103,37 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
 
+def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
+    """
+        Adds a callback to an event. The callback is guaranteed to
+        always be called on the UI thread.
+
+        You should ALWAYS specify one of the two options on what to listen
+        for. While not forbidden to listen to all events, doing so will
+        cause your callback to be called very frequently, and possibly may
+        cause slowness within the player itself.
+
+        :param function: the function to call when the event happens
+        :type function: callable
+        :param type: the *type* or *name* of the event to listen for, eg
+                `tracks_added`, `cover_changed`. Defaults to any event if
+                not specified.
+        :type type: string
+        :param obj: the object to listen to events from, e.g. `exaile.collection`
+                or `xl.covers.MANAGER`. Defaults to any object if not
+                specified.
+        :type obj: object
+
+        Any additional parameters will be passed to the callback.
+        
+        :returns: a convenience function that you can call to remove the callback.
+    """
+    global EVENT_MANAGER
+    return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs, ui=True)
+
 def remove_callback(function, type=None, obj=None):
     """
-        Removes a callback
+        Removes a callback. Can remove both ui and non-ui callbacks.
 
         The parameters passed should match those that were passed when adding
         the callback
@@ -118,6 +146,8 @@ class Event(object):
     """
         Represents an Event
     """
+    __slots__ = ['type', 'object', 'data', 'time']
+    
     def __init__(self, type, obj, data, time):
         """
             type: the 'type' or 'name' for this Event [string]
@@ -133,19 +163,21 @@ class Callback(object):
     """
         Represents a callback
     """
+    
+    __slots__ = ['wfunction', 'time', 'args', 'kwargs']
+    
     def __init__(self, function, time, args, kwargs):
         """
             @param function: the function to call
             @param time: the time this callback was added
         """
-        self.valid = True
-        self.wfunction = _getWeakRef(function, self.vanished)
+        self.wfunction = _getWeakRef(function)
         self.time = time
         self.args = args
         self.kwargs = kwargs
-
-    def vanished(self, ref):
-        self.valid = False
+        
+    def __repr__(self):
+        return '<Callback %s>' % self.wfunction()
 
 class _WeakMethod:
     """Represent a weak bound method, i.e. a method doesn't keep alive the
@@ -170,10 +202,9 @@ class _WeakMethod:
         self.cls = method.im_class
 
     def __call__(self):
-        if self.objRef() is None:
-            return None
-        else:
-            return instancemethod(self.fun, self.objRef(), self.cls)
+        objref = self.objRef()
+        if objref is not None:
+            return instancemethod(self.fun, objref, self.cls)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):
@@ -220,7 +251,10 @@ class EventManager(object):
         Manages all Events
     """
     def __init__(self, use_logger=False, logger_filter=None, verbose=False):
+        # sacrifice space for speed in emit
+        self.all_callbacks = {}
         self.callbacks = {}
+        self.ui_callbacks = {}
         self.use_logger = use_logger
         self.use_verbose_logger = verbose
         self.logger_filter = logger_filter
@@ -240,36 +274,64 @@ class EventManager(object):
                    re.search(self.logger_filter, event.type))
         emit_verbose = emit_logmsg and self.use_verbose_logger
         
+        global _UiThread
+        is_ui_thread = (threading.current_thread() == _UiThread)
+        
+        # note: a majority of the calls to emit are made on the
+        #       UI thread
+        
+        if is_ui_thread:
+            self._emit(event, self.all_callbacks, emit_logmsg, emit_verbose)
+        else:
+            # Don't issue the log message twice
+            GLib.idle_add(self._emit, event, self.ui_callbacks, emit_logmsg, emit_verbose)
+            self._emit(event, self.callbacks, False, emit_verbose)
+    
+    
+    def _emit(self, event, exc_callbacks, emit_logmsg, emit_verbose):
+        
+        # Accumulate in this set to ensure callbacks only get called once
+        callbacks = set()
+        
         with self.lock:
-            callbacks = set()
             for tcall in [_NONE, event.type]:
-                for ocall in [_NONE, event.object]:
-                    try:
-                        callbacks.update(self.callbacks[tcall][ocall])
-                    except KeyError:
-                        pass
+                tcb = exc_callbacks.get(tcall)
+                if tcb is not None:
+                    for ocall in [_NONE, event.object]:
+                        ocb = tcb.get(ocall)
+                        if ocb is not None:
+                            callbacks.update(ocb)
+        
+        # However, do not actually call the callbacks from within the lock
+        # -> Otherwise non-ui threads could accidentally block the UI if
+        #    they decide to run for too long
 
-            # now call them
-            for cb in callbacks:
-                try:
-                    if not cb.valid:
+        for cb in callbacks:
+            try:
+                fn = cb.wfunction()
+                if fn is None:
+                    # Remove callbacks that have been garbage collected.. but
+                    # really, should be using remove_callback to clean up after
+                    # your event handler 
+                    with self.lock:
                         try:
-                            self.callbacks[event.type][event.object].remove(cb)
+                            exc_callbacks[event.type][event.object].remove(cb)
                         except (KeyError, ValueError):
                             pass
-                    elif event.time >= cb.time:
-                        if emit_verbose:
-                            logger.debug("Attempting to call "
-                                    "%(function)s in response "
-                                    "to %(event)s." % {
-                                        'function': cb.wfunction(),
-                                        'event': event.type})
-                        cb.wfunction().__call__(event.type, event.object,
+                elif event.time >= cb.time:
+                    if emit_verbose:
+                        logger.debug("Attempting to call "
+                                "%(function)s in response "
+                                "to %(event)s." % {
+                                    'function': fn,
+                                    'event': event.type})
+                    fn.__call__(event.type, event.object,
                                 event.data, *cb.args, **cb.kwargs)
-                except Exception:
-                    # something went wrong inside the function we're calling
-                    logger.exception("Event callback exception caught!")
-
+                fn = None
+            except Exception:
+                # something went wrong inside the function we're calling
+                logger.exception("Event callback exception caught!")
+        
         if emit_logmsg:
             logger.debug("Sent '%(type)s' event from "
                     "'%(object)s' with data '%(data)s'." %
@@ -282,7 +344,7 @@ class EventManager(object):
         """
         GLib.idle_add(self.emit, event)
 
-    def add_callback(self, function, type, obj, args, kwargs):
+    def add_callback(self, function, type, obj, args, kwargs, ui=False):
         """
             Registers a callback.
             You should always specify at least one of type or object.
@@ -296,19 +358,28 @@ class EventManager(object):
             Returns a convenience function that you can call to 
             remove the callback.
         """
+        
+        if ui:
+            all_cbs = [self.ui_callbacks, self.all_callbacks]
+        else:
+            all_cbs = [self.callbacks, self.all_callbacks] 
+        
         with self.lock:
+            cb = Callback(function, time.time(), args, kwargs)
+            
             # add the specified categories if needed.
-            if not self.callbacks.has_key(type):
-                self.callbacks[type] = weakref.WeakKeyDictionary()
-            if obj is None:
-                obj = _NONE
-            try:
-                callbacks = self.callbacks[type][obj]
-            except KeyError:
-                callbacks = self.callbacks[type][obj] = []
-
-            # add the actual callback
-            callbacks.append(Callback(function, time.time(), args, kwargs))
+            for cbs in all_cbs:
+                if not cbs.has_key(type):
+                    cbs[type] = weakref.WeakKeyDictionary()
+                if obj is None:
+                    obj = _NONE
+                try:
+                    callbacks = cbs[type][obj]
+                except KeyError:
+                    callbacks = cbs[type][obj] = []
+    
+                # add the actual callback
+                callbacks.append(cb)
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
@@ -326,21 +397,27 @@ class EventManager(object):
         """
         if obj is None:
             obj = _NONE
-        remove = []
-
+        
         with self.lock:
-            try:
-                callbacks = self.callbacks[type][obj]
-                for cb in callbacks:
-                    if cb.wfunction() == function:
-                        remove.append(cb)
-            except KeyError:
-                return
-            except TypeError:
-                return
-
-            for cb in remove:
-                callbacks.remove(cb)
+            for cbs in [self.callbacks, self.all_callbacks, self.ui_callbacks]:
+                remove = []
+                try:
+                    callbacks = cbs[type][obj]
+                    for cb in callbacks:
+                        if cb.wfunction() == function:
+                            remove.append(cb)
+                except KeyError:
+                    continue
+                except TypeError:
+                    continue
+    
+                for cb in remove:
+                    callbacks.remove(cb)
+                
+                if len(callbacks) == 0:
+                    del cbs[type][obj]
+                    if len(cbs[type]) == 0:
+                        del cbs[type]
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):

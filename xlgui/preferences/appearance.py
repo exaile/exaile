@@ -24,10 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import common, xdg
+from xl import xdg
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
@@ -83,14 +82,12 @@ class TrackCountsPreference(widgets.CheckPreference):
 
     def apply(self, value=None):
         return_value = widgets.CheckPreference.apply(self, value)
-        self._reload_tree()
-
-        return return_value
-
-    @common.threaded
-    def _reload_tree(self):
+        
         import xlgui
         xlgui.get_controller().get_panel('collection').load_tree()
+
+        return return_value
+        
 
 class UseTrayPreference(widgets.CheckPreference):
     default = False

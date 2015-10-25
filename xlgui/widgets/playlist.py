@@ -207,26 +207,15 @@ def __create_playlist_tab_context_menu():
         lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
     items.append(sep('new-tab-sep', ['new-tab']))
     
-    # TODO: These two probably shouldn't reach back to main.. 
-    def _save_playlist_cb(widget, name, page, context):
-        main.exaile().playlists.save_playlist(page.playlist, overwrite=True)
-        
-    def _saveas_playlist_cb(widget, name, page, context):
-        exaile = main.exaile()
-        playlists = exaile.playlists
-        name = dialogs.ask_for_playlist_name(
-            exaile.gui.main.window, playlists, page.playlist.name)
-        if name is not None:
-            page.set_page_name(name)
-            playlists.save_playlist(page.playlist)
-    
     items.append(smi('save', ['new-tab-sep'], _("_Save"), 'document-save',
-        _save_playlist_cb,
-        condition_fn=lambda n, p, c: main.exaile().playlists.has_playlist_name(p.playlist.name)))
+        callback=lambda w, n, p, c: p.on_save(),
+        condition_fn=lambda n, p, c: p.can_save() and main.exaile().playlists.has_playlist_name(p.playlist.name)))
     items.append(smi('saveas', ['save'], _("Save _As"), 'document-save-as',
-        _saveas_playlist_cb))
+        callback=lambda w, n, p, c: p.on_saveas(),
+        condition_fn=lambda n, p, c: p.can_saveas()))
     items.append(smi('rename', ['saveas'], _("_Rename"), None,
-        lambda w, n, o, c: o.tab.start_rename()))
+        callback=lambda w, n, p, c: p.tab.start_rename(),
+        condition_fn=lambda n, p, c: p.tab.can_rename()))
     items.append(smi('clear', ['rename'], _("_Clear"), 'edit-clear-all',
         lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
@@ -356,11 +345,31 @@ def __create_playlist_context_menu():
 __create_playlist_context_menu()
 
 
-class PlaylistPage(NotebookPage):
+class PlaylistPageBase(NotebookPage):
+    '''
+        Base class for playlist pages. Subclasses can indicate that
+        they support the following operations:
+        
+        save:
+            - Define a function called 'on_save'
+            
+        save as:
+            - Define a function called 'on_saveas'
+    '''
+    
+    menu_provider_name = 'playlist-tab-context-menu'
+    
+    def can_save(self):
+        return hasattr(self, 'on_save')
+    
+    def can_saveas(self):
+        return hasattr(self, 'on_saveas')
+
+class PlaylistPage(PlaylistPageBase):
     """
         Displays a playlist and associated controls.
     """
-    menu_provider_name = 'playlist-tab-context-menu'
+    
     def __init__(self, playlist, player):
         """
             :param playlist: The :class:`xl.playlist.Playlist` to display
@@ -448,6 +457,23 @@ class PlaylistPage(NotebookPage):
         return self.search_entry
 
     ## End NotebookPage ##
+    
+    ## PlaylistPageBase API ##
+    
+    # TODO: These two probably shouldn't reach back to main.. 
+    def on_save(self):
+        main.exaile().playlists.save_playlist(self.playlist, overwrite=True)
+        
+    def on_saveas(self):
+        exaile = main.exaile()
+        playlists = exaile.playlists
+        name = dialogs.ask_for_playlist_name(
+            exaile.gui.main.window, playlists, self.playlist.name)
+        if name is not None:
+            self.set_page_name(name)
+            playlists.save_playlist(self.playlist)
+    
+    ## End PlaylistPageBase API ##
 
     def on_shuffle_button_press_event(self, widget, event):
         self.__show_toggle_menu(Playlist.shuffle_modes,

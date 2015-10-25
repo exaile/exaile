@@ -45,8 +45,8 @@ from xl.nls import gettext as _
 import xlgui
 from xlgui import main
 from xlgui.widgets import menu, dialogs
-from xlgui.widgets.notebook import NotebookPage, NotebookTab
-from xlgui.widgets.playlist import PlaylistView
+from xlgui.widgets.notebook import NotebookTab
+from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
 import history_preferences
         
@@ -137,17 +137,16 @@ class HistoryPlugin(object):
 
 plugin_class = HistoryPlugin
         
-class HistoryPlaylistPage( NotebookPage ):
+class HistoryPlaylistPage(PlaylistPageBase):
 
     # add two buttons on the bottom: 'save to playlist', and
     # clear history. Use the dirty key to figure out if we 
     # warn about clearing history.. 
     
-    menu_provider_name = 'history-tab-context-menu'
     reorderable = False
     
     def __init__(self, playlist, player):
-        NotebookPage.__init__(self)
+        PlaylistPageBase.__init__(self)
         
         self.playlist = playlist
         
@@ -182,6 +181,9 @@ class HistoryPlaylistPage( NotebookPage ):
 
     ## End NotebookPage ##
     
+    def on_save(self):
+        self.save_history()
+    
     def on_clear_history( self, widget ):
         self.playlist._clear()
     
@@ -207,14 +209,6 @@ def __create_history_tab_context_menu():
         lambda w, n, o, c: o.save_history()))
     items.append(smi('clear', ['save'], _("_Clear History"), 'gtk-clear',
         lambda w, n, o, c: o.playlist._clear()))
-    items.append(sep('tab-close-sep', ['clear']))
-    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
-        lambda w, n, o, c: o.tab.close()))
-    
-    for item in items:
-        providers.register( 'history-tab-context-menu', item )
-        
-__create_history_tab_context_menu()
         
         
 class HistoryPlaylist( Playlist ):
@@ -240,16 +234,13 @@ class HistoryPlaylist( Playlist ):
             Playlist.__delitem__( self, slice(0, max(0, len(self)-(maxlen-1)), None) )
 
         Playlist.__setitem__( self, slice(len(self),len(self),None), [track] )
-        
-    def _clear(self):
+    
+    def clear(self):
         Playlist.__delitem__( self, slice(None, None, None) )
- 
+    
     #
     # Suppress undesirable playlist functions, history playlist is immutable
     #
-    
-    def clear(self):
-        pass
         
     def set_shuffle_mode(self, mode):
         pass

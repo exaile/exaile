@@ -118,14 +118,14 @@ class PluginsManager(object):
         
         if hasattr(plugin, 'on_gui_loaded'):
             if self.exaile.loading:
-                event.add_callback(self.__on_new_plugin_loaded, 'gui_loaded',
+                event.add_ui_callback(self.__on_new_plugin_loaded, 'gui_loaded',
                                    None, plugin.on_gui_loaded)
             else:
                 plugin.on_gui_loaded()
             
         if hasattr(plugin, 'on_exaile_loaded'):
             if self.exaile.loading:
-                event.add_callback(self.__on_new_plugin_loaded, 'exaile_loaded',
+                event.add_ui_callback(self.__on_new_plugin_loaded, 'exaile_loaded',
                                    None, plugin.on_exaile_loaded)
             else:
                 plugin.on_exaile_loaded()

@@ -196,9 +196,9 @@ class ProviderHandler(object):
         if simple_init:
             for provider in MANAGER.get_providers(servicename, target):
                 self.on_provider_added(provider)
-        event.add_callback(self._add_callback,
+        event.add_ui_callback(self._add_callback,
             "%s_provider_added" % servicename)
-        event.add_callback(self._remove_callback,
+        event.add_ui_callback(self._remove_callback,
             "%s_provider_removed" % servicename)
 
     def _add_callback(self, name, obj, ptuple):

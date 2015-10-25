@@ -581,8 +581,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.builder.get_object('playlists_box')
-
-        self._refresh_id = None
+        
         self.playlist_name_info = 500
         self.track_target = Gtk.TargetEntry.new("text/uri-list", 0, 0)
         self.playlist_target = Gtk.TargetEntry.new("playlist_name", Gtk.TargetFlags.SAME_WIDGET, 
@@ -636,8 +635,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self._load_playlists()
 
     def _connect_events(self):
-        event.add_callback(self.refresh_playlists, 'track_tags_changed')
-        event.add_callback(self._on_playlist_added, 'playlist_added', self.playlist_manager)
+        event.add_ui_callback(self.refresh_playlists, 'track_tags_changed')
+        event.add_ui_callback(self._on_playlist_added, 'playlist_added', self.playlist_manager)
 
         self.tree.connect('key-release-event', self.on_key_released)
 
@@ -645,8 +644,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         pl = self.tree.get_selected_page(raw=True)
         if isinstance(pl, playlist.SmartPlaylist):
             self.edit_selected_smart_playlist()
-
-    @guiutil.idle_add()
+    
     def refresh_playlists(self, type, track, tag):
         """
             wrapper so that multiple events dont cause multiple
@@ -654,17 +652,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
             tag in ['title', 'artist']:
-            if self._refresh_id:
-                GLib.source_remove(self._refresh_id)
-            self._refresh_id = GLib.timeout_add(500,
-                    self._refresh_playlists)
+            self._refresh_playlists()
 
+    @common.glib_wait(500)
     def _refresh_playlists(self):
         """
             Callback for when tags have changed and the playlists
             need refreshing.
         """
-        self._refresh_id = None
         if settings.get_option('gui/sync_on_tag_change', True):
             for playlist in self.playlist_nodes:
                 self.update_playlist_node(playlist)

@@ -65,7 +65,7 @@ class DeviceTransferThread(common.ProgressThread):
         """
             Runs the thread
         """
-        event.add_callback(self.on_track_transfer_progress,
+        event.add_ui_callback(self.on_track_transfer_progress,
             'track_transfer_progress', self.device.transfer)
         try:
             self.device.start_transfer()

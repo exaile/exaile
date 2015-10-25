@@ -166,7 +166,7 @@ class Conditional(object):
     condition_widget = None
 
     def __init__(self):
-        event.add_callback(self.on_option_set, 'option_set')
+        event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_name)
 
@@ -236,7 +236,7 @@ class MultiConditional(object):
     condition_widgets = {}
 
     def __init__(self):
-        event.add_callback(self.on_option_set, 'option_set')
+        event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_names[0])
 

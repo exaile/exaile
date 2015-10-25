@@ -176,7 +176,7 @@ class PlaylistNotebook(SmartNotebook):
 
         self.on_option_set('gui_option_set', settings, 'gui/show_tabbar')
         self.on_option_set('gui_option_set', settings, 'gui/tab_placement')
-        event.add_callback(self.on_option_set, 'gui_option_set')
+        event.add_ui_callback(self.on_option_set, 'gui_option_set')
 
     def create_tab_from_playlist(self, playlist):
         """
@@ -475,11 +475,11 @@ class PlaylistNotebook(SmartNotebook):
             if not show_tabbar and self.get_n_pages() > 1:
                 show_tabbar = True
 
-            GLib.idle_add(self.set_show_tabs, show_tabbar)
+            self.set_show_tabs(show_tabbar)
 
         if option == 'gui/tab_placement':
             tab_placement = settings.get_option(option, 'top')
-            GLib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
+            self.set_tab_pos(self.tab_placement_map[tab_placement])
 
             
 class PlaylistContainer(Gtk.HBox):

@@ -91,8 +91,8 @@ class ManagerDialog(object):
         self.tree.append_column(col)
 
         self.populate_tree()
-        event.add_callback(self.populate_tree, 'device_added')
-        event.add_callback(self.populate_tree, 'device_removed')
+        event.add_ui_callback(self.populate_tree, 'device_added')
+        event.add_ui_callback(self.populate_tree, 'device_removed')
 
     def populate_tree(self, *args):
         self.model.clear()

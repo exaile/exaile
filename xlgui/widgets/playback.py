@@ -50,11 +50,10 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
     def __init__(self, player):
         formatter.ProgressTextFormatter.__init__(self, '', player)
-
-        event.add_callback(self.on_option_set,
-            'gui_option_set')
+        
         self.on_option_set('gui_option_set', settings,
             'gui/progress_bar_text_format')
+        event.add_ui_callback(self.on_option_set, 'gui_option_set')
 
     def on_option_set(self, event, settings, option):
         """
@@ -83,7 +82,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
                          'playback_toggle_pause', 'playback_error')
 
         for e in self.__events:
-            event.add_callback(getattr(self, 'on_%s' % e), e, self.__player)
+            event.add_ui_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def destroy(self):
         """
@@ -96,8 +95,8 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         """
             Resets the progress bar appearance
         """
-        GLib.idle_add(self.set_fraction, 0)
-        GLib.idle_add(self.set_text, _('Not Playing'))
+        self.set_fraction(0)
+        self.set_text(_('Not Playing'))
 
     def __enable_timer(self):
         """
@@ -134,8 +133,8 @@ class PlaybackProgressBar(Gtk.ProgressBar):
             self.reset()
             return False
 
-        GLib.idle_add(self.set_fraction, self.__player.get_progress())
-        GLib.idle_add(self.set_text, self.formatter.format())
+        self.set_fraction(self.__player.get_progress())
+        self.set_text(self.formatter.format())
 
         return True
 
@@ -296,7 +295,7 @@ class MarkerManager(providers.ProviderHandler):
         self.__timeout_id = None
 
         for e in self.__events:
-            event.add_callback(getattr(self, 'on_%s' % e), e)
+            event.add_ui_callback(getattr(self, 'on_%s' % e), e)
 
     def destroy(self):
         """
@@ -1313,7 +1312,7 @@ class VolumeControl(Gtk.Box):
         self.icon_names = ['low', 'medium', 'high']
         self.__update(self.restore_volume)
 
-        event.add_callback(self.on_option_set, '%s_option_set' % player._name)
+        event.add_ui_callback(self.on_option_set, '%s_option_set' % player._name)
 
     def __update(self, volume):
         """

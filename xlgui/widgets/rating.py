@@ -32,7 +32,7 @@ from gi.repository import Gtk
 from xl import event, settings
 from xl.common import clamp
 from xl.nls import gettext as _
-import xl.main
+
 from xlgui import icons
 
 class RatingWidget(Gtk.EventBox):
@@ -83,9 +83,9 @@ class RatingWidget(Gtk.EventBox):
 
         if self._player is not None:
         
-            event.add_callback( self.on_rating_update, 'playback_track_start', self._player )
-            event.add_callback( self.on_rating_update, 'playback_track_end', self._player )
-            event.add_callback( self.on_rating_update, 'rating_changed')
+            event.add_ui_callback( self.on_rating_update, 'playback_track_start', self._player )
+            event.add_ui_callback( self.on_rating_update, 'playback_track_end', self._player )
+            event.add_ui_callback( self.on_rating_update, 'rating_changed')
 
             self.on_rating_update('rating_changed', None, None)
 
@@ -220,11 +220,11 @@ class RatingWidget(Gtk.EventBox):
         """
         if self._player.current is not None:
             self._rating = self._player.current.get_rating()
-            GLib.idle_add(self._image.set_from_pixbuf,
+            self._image.set_from_pixbuf(
                 icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
-            GLib.idle_add(self.set_sensitive, True)
+            self.set_sensitive(True)
         else:
-            GLib.idle_add(self.set_sensitive, False)
+            self.set_sensitive(False)
 
 class RatingMenuItem(Gtk.MenuItem):
     """

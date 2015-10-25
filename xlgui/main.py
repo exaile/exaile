@@ -297,7 +297,7 @@ class MainWindow(GObject.GObject):
             self.on_stop_button_drag_data_received)
 
         self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
-        event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+        event.add_ui_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def _connect_events(self):
         """
@@ -319,31 +319,31 @@ class MainWindow(GObject.GObject):
 #            'on_track_properties_activate':self.controller.on_track_properties,
         })
 
-        event.add_callback(self.on_playback_resume, 'playback_player_resume',
+        event.add_ui_callback(self.on_playback_resume, 'playback_player_resume',
             player.PLAYER)
-        event.add_callback(self.on_playback_end, 'playback_player_end',
+        event.add_ui_callback(self.on_playback_end, 'playback_player_end',
             player.PLAYER)
-        event.add_callback(self.on_playback_end, 'playback_error',
+        event.add_ui_callback(self.on_playback_end, 'playback_error',
             player.PLAYER)
-        event.add_callback(self.on_playback_start, 'playback_track_start',
+        event.add_ui_callback(self.on_playback_start, 'playback_track_start',
             player.PLAYER)
-        event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
+        event.add_ui_callback(self.on_toggle_pause, 'playback_toggle_pause',
             player.PLAYER)
-        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
-        event.add_callback(self.on_buffering, 'playback_buffering',
+        event.add_ui_callback(self.on_track_tags_changed, 'track_tags_changed')
+        event.add_ui_callback(self.on_buffering, 'playback_buffering',
             player.PLAYER)
-        event.add_callback(self.on_playback_error, 'playback_error',
+        event.add_ui_callback(self.on_playback_error, 'playback_error',
             player.PLAYER)
 
-        event.add_callback(self.on_playlist_tracks_added,
+        event.add_ui_callback(self.on_playlist_tracks_added,
             'playlist_tracks_added')
-        event.add_callback(self.on_playlist_tracks_removed,
+        event.add_ui_callback(self.on_playlist_tracks_removed,
             'playlist_tracks_removed')
 
         # Settings
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area_covers')
-        event.add_callback(self._on_option_set, 'option_set')
+        event.add_ui_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):
         """
@@ -594,14 +594,14 @@ class MainWindow(GObject.GObject):
         """
             Called when there has been a playback error
         """
-        GLib.idle_add(self.message.show_error, _('Playback error encountered!'), message)
+        self.message.show_error(_('Playback error encountered!'), message)
 
     def on_buffering(self, type, player, percent):
         """
             Called when a stream is buffering
         """
         percent = min(percent, 100)
-        GLib.idle_add(self.statusbar.set_status, _("Buffering: %d%%...") % percent, 1)
+        self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
 
     def on_track_tags_changed(self, type, track, tag):
         """
@@ -620,20 +620,20 @@ class MainWindow(GObject.GObject):
         """
             Updates information on exaile load
         """
-        GLib.idle_add(self.statusbar.update_info)
+        self.statusbar.update_info()
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_playlist_tracks_added(self, type, playlist, tracks):
         """
             Updates information on track add
         """
-        GLib.idle_add(self.statusbar.update_info)
+        self.statusbar.update_info()
 
     def on_playlist_tracks_removed(self, type, playlist, tracks):
         """
             Updates information on track removal
         """
-        GLib.idle_add(self.statusbar.update_info)
+        self.statusbar.update_info()
 
     def on_toggle_pause(self, type, player, object):
         """
@@ -647,12 +647,9 @@ class MainWindow(GObject.GObject):
             image = self.pause_image
             tooltip = _('Pause Playback')
 
-        GLib.idle_add(self.playpause_button.set_image, image)
-        GLib.idle_add(self.playpause_button.set_tooltip_text, tooltip)
+        self.playpause_button.set_image(image)
+        self.playpause_button.set_tooltip_text(tooltip)
         self._update_track_information()
-
-        # refresh the current playlist
-        pl = self.get_selected_page()
 
     def on_playlist_container_switch_page(self, notebook, page, page_num):
         """
@@ -821,19 +818,17 @@ class MainWindow(GObject.GObject):
             return
 
         self._update_track_information()
-        GLib.idle_add(self.playpause_button.set_image, self.pause_image)
-        GLib.idle_add(self.playpause_button.set_tooltip_text,
-            _('Pause Playback'))
+        self.playpause_button.set_image(self.pause_image)
+        self.playpause_button.set_tooltip_text(_('Pause Playback'))
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends
         """
-        GLib.idle_add(self.window.set_title, 'Exaile')
+        self.window.set_title('Exaile')
 
-        GLib.idle_add(self.playpause_button.set_image, self.play_image)
-        GLib.idle_add(self.playpause_button.set_tooltip_text,
-            _('Start Playback'))
+        self.playpause_button.set_image(self.play_image)
+        self.playpause_button.set_tooltip_text(_('Start Playback'))
 
     def _on_option_set(self, name, object, option):
         """
@@ -846,33 +841,30 @@ class MainWindow(GObject.GObject):
         elif option == 'gui/use_tray':
             usetray = settings.get_option(option, False)
             if self.controller.tray_icon and not usetray:
-                GLib.idle_add(self.controller.tray_icon.destroy)
+                self.controller.tray_icon.destroy()
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
     
         elif option == 'gui/show_info_area':
-            GLib.idle_add(self.info_area.set_no_show_all, False)
+            self.info_area.set_no_show_all(False)
             if settings.get_option(option, True):
-                GLib.idle_add(self.info_area.show_all)
+                self.info_area.show_all()
             else:
-                GLib.idle_add(self.info_area.hide)
-            GLib.idle_add(self.info_area.set_no_show_all, True)
+                self.info_area.hide()
+            self.info_area.set_no_show_all(True)
             
         elif option == 'gui/show_info_area_covers':
-            def _setup_info_covers():
-                cover = self.info_area.cover
-                cover.set_no_show_all(False)
-                if settings.get_option(option, True):
-                    cover.show_all()
-                else:
-                    cover.hide()
-                cover.set_no_show_all(True)
-                
-            GLib.idle_add(_setup_info_covers)
+            cover = self.info_area.cover
+            cover.set_no_show_all(False)
+            if settings.get_option(option, True):
+                cover.show_all()
+            else:
+                cover.hide()
+            cover.set_no_show_all(True)
             
         elif option == 'gui/transparency':
-            GLib.idle_add(self._update_alpha)
+            self._update_alpha()
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))
@@ -920,8 +912,7 @@ class MainWindow(GObject.GObject):
         if not track:
             return
 
-        GLib.idle_add(self.window.set_title,
-            self.title_formatter.format(track))
+        self.window.set_title(self.title_formatter.format(track))
 
  
     def playpause(self):

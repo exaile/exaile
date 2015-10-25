@@ -168,7 +168,7 @@ class FilesPanel(panel.Panel):
         # Set up the location bar
         self.location_bar = self.builder.get_object('files_entry')
         self.location_bar.connect('changed', self.on_location_bar_changed)
-        event.add_callback(self.fill_libraries_location,
+        event.add_ui_callback(self.fill_libraries_location,
             'libraries_modified', self.collection)
         self.fill_libraries_location()
         self.entry = self.location_bar.get_children()[0]

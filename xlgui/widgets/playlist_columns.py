@@ -110,12 +110,12 @@ class Column(Gtk.TreeViewColumn):
         self.connect('notify::width', self.on_width_changed)
         self._setup_sizing()
 
-        event.add_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_option_set, "gui_option_set")
 
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
-            GLib.idle_add(self._setup_sizing)
+            self._setup_sizing()
 
     def on_width_changed(self, column, wid):
         if not self.container.button_pressed:
@@ -378,11 +378,11 @@ class ScheduleTimeColumn(Column):
         Column.__init__(self, *args)
         self.timeout_id = None
 
-        event.add_callback(self.on_queue_current_playlist_changed,
+        event.add_ui_callback(self.on_queue_current_playlist_changed,
             'queue_current_playlist_changed', player.QUEUE)
-        event.add_callback(self.on_playback_player_start,
+        event.add_ui_callback(self.on_playback_player_start,
             'playback_player_start', player.PLAYER)
-        event.add_callback(self.on_playback_player_end,
+        event.add_ui_callback(self.on_playback_player_end,
             'playback_player_end', player.PLAYER)
 
     def data_func(self, col, cell, model, iter, user_data):

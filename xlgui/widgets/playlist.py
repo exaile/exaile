@@ -411,20 +411,20 @@ class PlaylistPage(PlaylistPageBase):
         self.view = PlaylistView(playlist, player)
         self.playlist_window.add(self.view)
 
-        event.add_callback(self.on_mode_changed,
+        event.add_ui_callback(self.on_mode_changed,
             'playlist_shuffle_mode_changed', self.playlist,
             self.shuffle_button)
-        event.add_callback(self.on_mode_changed,
+        event.add_ui_callback(self.on_mode_changed,
             'playlist_repeat_mode_changed', self.playlist,
             self.repeat_button)
-        event.add_callback(self.on_mode_changed,
+        event.add_ui_callback(self.on_mode_changed,
             'playlist_dynamic_mode_changed', self.playlist,
             self.dynamic_button)
-        event.add_callback(self.on_dynamic_playlists_provider_changed,
+        event.add_ui_callback(self.on_dynamic_playlists_provider_changed,
             'dynamic_playlists_provider_added')
-        event.add_callback(self.on_dynamic_playlists_provider_changed,
+        event.add_ui_callback(self.on_dynamic_playlists_provider_changed,
             'dynamic_playlists_provider_removed')
-        event.add_callback(self.on_option_set,
+        event.add_ui_callback(self.on_option_set,
             'gui_option_set')
 
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
@@ -706,8 +706,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 Gdk.DragAction.COPY|Gdk.DragAction.DEFAULT|
                 Gdk.DragAction.MOVE)
 
-        event.add_callback(self.on_option_set, "gui_option_set")
-        event.add_callback(self.on_playback_start, "playback_track_start", self.player)
+        event.add_ui_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_playback_start, "playback_track_start", self.player)
         self.connect("cursor-changed", self.on_cursor_changed )
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
@@ -1303,26 +1303,26 @@ class PlaylistModel(Gtk.ListStore):
         self._redraw_timer = None
         self._redraw_queue = []
 
-        event.add_callback(self.on_tracks_added,
+        event.add_ui_callback(self.on_tracks_added,
                 "playlist_tracks_added", playlist)
-        event.add_callback(self.on_tracks_removed,
+        event.add_ui_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
-        event.add_callback(self.on_current_position_changed,
+        event.add_ui_callback(self.on_current_position_changed,
                 "playlist_current_position_changed", playlist)
-        event.add_callback(self.on_spat_position_changed,
+        event.add_ui_callback(self.on_spat_position_changed,
                 "playlist_spat_position_changed", playlist)
-        event.add_callback(self.on_playback_state_change,
+        event.add_ui_callback(self.on_playback_state_change,
                 "playback_track_start", self.player)
-        event.add_callback(self.on_playback_state_change,
+        event.add_ui_callback(self.on_playback_state_change,
                 "playback_track_end", self.player)
-        event.add_callback(self.on_playback_state_change,
+        event.add_ui_callback(self.on_playback_state_change,
                 "playback_player_pause", self.player)
-        event.add_callback(self.on_playback_state_change,
+        event.add_ui_callback(self.on_playback_state_change,
                 "playback_player_resume", self.player)
-        event.add_callback(self.on_track_tags_changed,
+        event.add_ui_callback(self.on_track_tags_changed,
                 "track_tags_changed")
 
-        event.add_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_option_set, "gui_option_set")
                 
         self._setup_icons()
         self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist))) # populate the list

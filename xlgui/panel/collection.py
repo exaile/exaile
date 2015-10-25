@@ -196,7 +196,7 @@ class CollectionPanel(panel.Panel):
         self.tracks = []
         self.sorted_tracks = []
 
-        event.add_callback(self._check_collection_empty, 'libraries_modified',
+        event.add_ui_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
         self.menu = menus.CollectionContextMenu(self)
@@ -229,19 +229,19 @@ class CollectionPanel(panel.Panel):
         if not self._show_collection_empty_message or \
             (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
-            GLib.idle_add(self.vbox.set_child_visible, True)
-            GLib.idle_add(self.message.set_child_visible, False)
-            GLib.idle_add(self.vbox.show_all)
-            GLib.idle_add(self.message.hide)
+            self.vbox.set_child_visible(True)
+            self.message.set_child_visible(False)
+            self.vbox.show_all()
+            self.message.hide()
 
         elif not self.collection.libraries and not \
             self.collection_empty_message:
             self.collection_empty_message = True
-            GLib.idle_add(self.vbox.set_child_visible, False)
-            GLib.idle_add(self.message.set_no_show_all, False)
-            GLib.idle_add(self.message.set_child_visible, True)
-            GLib.idle_add(self.vbox.hide)
-            GLib.idle_add(self.message.show_all)
+            self.vbox.set_child_visible(False)
+            self.message.set_no_show_all(False)
+            self.message.set_child_visible(True)
+            self.vbox.hide()
+            self.message.show_all()
 
     def _connect_events(self):
         """
@@ -257,10 +257,10 @@ class CollectionPanel(panel.Panel):
             'on_add_music_button_clicked': self.on_add_music_button_clicked
         })
         self.tree.connect('key-release-event', self.on_key_released)
-        event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
-        event.add_callback(self.refresh_tracks_in_tree, 
+        event.add_ui_callback(self.refresh_tags_in_tree, 'track_tags_changed')
+        event.add_ui_callback(self.refresh_tracks_in_tree, 
             'tracks_added', self.collection)
-        event.add_callback(self.refresh_tracks_in_tree, 
+        event.add_ui_callback(self.refresh_tracks_in_tree, 
             'tracks_removed', self.collection)
 
     def on_refresh_button_press_event(self, button, event):
@@ -486,7 +486,7 @@ class CollectionPanel(panel.Panel):
             self._refresh_tags_in_tree()
 
     def refresh_tracks_in_tree(self, type, obj, loc):
-        GLib.idle_add(self._refresh_tags_in_tree)
+        self._refresh_tags_in_tree()
 
     @common.glib_wait(500)
     def _refresh_tags_in_tree(self):

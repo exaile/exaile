@@ -148,9 +148,9 @@ class Main(object):
             self.tray_icon = tray.TrayIcon(self.main)
             
         from xl import event
-        event.add_callback(self.add_device_panel, 'device_connected')
-        event.add_callback(self.remove_device_panel, 'device_disconnected')
-        event.add_callback(self.on_gui_loaded, 'gui_loaded')
+        event.add_ui_callback(self.add_device_panel, 'device_connected')
+        event.add_ui_callback(self.remove_device_panel, 'device_disconnected')
+        event.add_ui_callback(self.on_gui_loaded, 'gui_loaded')
         
         logger.info("Done loading main window...")
         Main._main = self
@@ -354,8 +354,7 @@ class Main(object):
 
         # save open tabs
         self.main.playlist_container.save_current_tabs()
-
-    @guiutil.idle_add()
+    
     def add_device_panel(self, type, obj, device):
         from xl.collection import CollectionScanThread
         from xlgui.panel.device import DevicePanel, FlatPlaylistDevicePanel
@@ -385,8 +384,7 @@ class Main(object):
         thread.connect('done', panel.load_tree)
         self.progress_manager.add_monitor(thread,
             _("Scanning %s..." % device.name), Gtk.STOCK_REFRESH)
-
-    @guiutil.idle_add()
+    
     def remove_device_panel(self, type, obj, device):
         try:
             providers.unregister('main-panel',

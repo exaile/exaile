@@ -496,7 +496,7 @@ class IconManager(object):
             xdg.get_data_path('images', 'emptystar.png'))
 
         # nobody actually sets the rating option, so don't handle it for now
-        #event.add_callback(self.on_option_set, 'rating_option_set')
+        #event.add_ui_callback(self.on_option_set, 'rating_option_set')
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """

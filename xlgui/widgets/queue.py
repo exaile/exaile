@@ -49,9 +49,9 @@ class QueuePage(PlaylistPageBase):
         self.view.dragdrop_copyonly = True
         self.swindow.add(self.view)
 
-        event.add_callback(self.on_length_changed, 'playlist_current_position_changed', self.player.queue)
-        event.add_callback(self.on_length_changed, "playlist_tracks_added", self.player.queue)
-        event.add_callback(self.on_length_changed, "playlist_tracks_removed", self.player.queue)
+        event.add_ui_callback(self.on_length_changed, 'playlist_current_position_changed', self.player.queue)
+        event.add_ui_callback(self.on_length_changed, "playlist_tracks_added", self.player.queue)
+        event.add_ui_callback(self.on_length_changed, "playlist_tracks_removed", self.player.queue)
 
         self.show_all()
 

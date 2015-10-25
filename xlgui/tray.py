@@ -25,19 +25,15 @@
 # from your version.
 
 from gi.repository import Gdk
-from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 
 from xl import (
     event,
     player,
     providers,
-    settings,
-    xdg
+    settings
 )
 from xl.nls import gettext as _
-from xlgui import guiutil
 from xlgui.widgets.info import TrackToolTip
 from xlgui.widgets import rating, menu, menuitems, playlist, playback
 
@@ -125,10 +121,10 @@ class BaseTrayIcon(object):
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
 
-        event.add_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
-        event.add_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
-        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
-        event.add_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
 
     def disconnect_events(self):
         """
@@ -218,7 +214,7 @@ class BaseTrayIcon(object):
             Updates tray icon appearance
             on playback state change
         """
-        GLib.idle_add(self.update_icon)
+        self.update_icon()
 
 class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """

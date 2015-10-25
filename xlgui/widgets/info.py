@@ -127,9 +127,9 @@ class TrackInfoPane(Gtk.Alignment):
 
             if auto_update:
                 for e in p_evts:
-                    event.add_callback(getattr(self, 'on_%s' % e), e, self.__player)
+                    event.add_ui_callback(getattr(self, 'on_%s' % e), e, self.__player)
                 for e in events:
-                    event.add_callback(getattr(self, 'on_%s' % e), e)
+                    event.add_ui_callback(getattr(self, 'on_%s' % e), e)
 
                 self.set_track(self.__player.current)
             else:
@@ -300,25 +300,25 @@ class TrackInfoPane(Gtk.Alignment):
         """
             Clears the info pane on playback end
         """
-        GLib.idle_add(self.clear)
+        self.clear()
 
     def on_playback_track_start(self, event, player, track):
         """
             Updates the info pane on track start
         """
-        GLib.idle_add(self.set_track, track)
+        self.set_track(track)
 
     def on_playback_toggle_pause(self, event, player, track):
         """
             Updates the info pane on playback pause/resume
         """
-        GLib.idle_add(self.set_track, track)
+        self.set_track(track)
 
     def on_playback_error(self, event, player, message):
         """
             Clears the info pane on playback errors
         """
-        GLib.idle_add(self.clear)
+        self.clear()
 
     def on_track_tags_changed(self, event, track, tag):
         """
@@ -327,21 +327,21 @@ class TrackInfoPane(Gtk.Alignment):
         if self.__player is not None and \
            not self.__player.is_stopped() and \
            track is self.__track:
-            GLib.idle_add(self.set_track, track)
+            self.set_track(track)
 
     def on_cover_set(self, event, covers, track):
         """
             Updates the info pane on cover set
         """
         if track is self.__track:
-            GLib.idle_add(self.set_track, track)
+            self.set_track(track)
 
     def on_cover_removed(self, event, covers, track):
         """
             Updates the info pane on cover removal
         """
         if track is self.__track:
-            GLib.idle_add(self.set_track, track)
+            self.set_track(track)
     
 
 # TODO: Use single info label and formatter

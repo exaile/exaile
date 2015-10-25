@@ -116,7 +116,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.add_driver(value)
 
     def _add_driver_cb(self, type, object, driver):
-        GLib.idle_add(self.add_driver, driver)
+        self.add_driver(driver)
 
     def add_driver(self, driver):
         """
@@ -133,7 +133,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.tree.expand_row(self.model.get_path(node), False)
 
     def _remove_driver_cb(self, type, object, driver):
-        GLib.idle_add(self.remove_driver, driver)
+        self.remove_driver(driver)
 
     def remove_driver(self, driver):
         """
@@ -169,9 +169,9 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.tree.connect('row-activated', self.on_row_activated)
         self.tree.connect('key-release-event', self.on_key_released)
 
-        event.add_callback(self._add_driver_cb, 'station_added',
+        event.add_ui_callback(self._add_driver_cb, 'station_added',
                 self.manager)
-        event.add_callback(self._remove_driver_cb, 'station_removed',
+        event.add_ui_callback(self._remove_driver_cb, 'station_removed',
                 self.manager)
 
     def _on_add_button_clicked(self, *e):

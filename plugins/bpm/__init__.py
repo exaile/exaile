@@ -161,7 +161,7 @@ class BPMWidget(Gtk.Frame):
             self.menu.add_item(item)
         
         # Be notified when a new track is playing
-        event.add_callback(self.playback_track_start, 'playback_track_start', self.player)
+        event.add_ui_callback(self.playback_track_start, 'playback_track_start', self.player)
         
         # get the main exaile window, and dock our window next to it if possible
         
@@ -177,8 +177,7 @@ class BPMWidget(Gtk.Frame):
     #
     # Exaile events
     #
-        
-    @idle_add()
+    
     def playback_track_start(self, type, player, track):
         self.track = track
         self.bpm = self.track.get_tag_raw('bpm', True)

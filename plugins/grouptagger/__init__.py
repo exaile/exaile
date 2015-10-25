@@ -77,9 +77,9 @@ class GroupTaggerPlugin(object):
         providers.register('main-panel', self.panel)
         
         # ok, register for some events
-        event.add_callback( self.on_playback_track_start, 'playback_track_start' )
-        event.add_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
-        event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
+        event.add_ui_callback( self.on_playback_track_start, 'playback_track_start' )
+        event.add_ui_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
+        event.add_ui_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         # add our own submenu for functionality
         tools_submenu = menu.Menu( None, context_func=lambda p: self.exaile )
@@ -242,8 +242,7 @@ class GroupTaggerPlugin(object):
     #
     # Exaile events
     #
-        
-    @guiutil.idle_add()
+    
     def on_playback_track_start(self, type, player, track):
         '''Called when a new track starts'''
         self.set_display_track( track )
@@ -343,10 +342,10 @@ class GroupTaggerPlugin(object):
     def on_plugin_options_set(self, evtype, settings, option):
         '''Handles option changes'''
         if option == 'plugin/grouptagger/panel_font':
-            GLib.idle_add( self.setup_panel_font, True )
+            self.setup_panel_font(True)
         elif option == tagname_option:
             if self.track is not None:
-                GLib.idle_add(self.set_display_track, self.track, True)
+                self.set_display_track(self.track, True)
 
 plugin_class = GroupTaggerPlugin
 

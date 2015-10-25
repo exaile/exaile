@@ -217,7 +217,7 @@ class HistoryPlaylist( Playlist ):
         Playlist.__init__( self, _('History') )
         
         # catch the history
-        event.add_callback( self.__on_playback_track_start, 'playback_track_start', player )
+        event.add_ui_callback( self.__on_playback_track_start, 'playback_track_start', player )
         
         if player.is_paused() or player.is_playing():
             self.__on_playback_track_start( 'playback_track_start', player, player.current )

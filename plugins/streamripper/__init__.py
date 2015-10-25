@@ -57,8 +57,8 @@ class Streamripper(object):
         options.append('-D')
         options.append('%A/%a/%T')
         if settings.get_option('plugin/streamripper/single_file', False):
-			options.append("-a")
-			options.append("-A")
+            options.append("-a")
+            options.append("-A")
         options.append("-r")
         options.append(settings.get_option('plugin/streamripper/relay_port', '8888'))
         options.append("-d")
@@ -75,8 +75,8 @@ class Streamripper(object):
 
         if add_call:
             event.add_callback(self.quit_application, 'quit_application')
-            event.add_callback(self.start_track, 'playback_track_start', player.PLAYER)
-            event.add_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
+            event.add_ui_callback(self.start_track, 'playback_track_start', player.PLAYER)
+            event.add_ui_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
         return False
 
     def stop_ripping(self):

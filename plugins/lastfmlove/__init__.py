@@ -212,7 +212,7 @@ class LastFMLover(object):
         providers.register('playlist-context-menu', self.menu_item)
         providers.register('tray-icon-context', self.tray_menu_item)
 
-        event.add_callback(self.on_option_set, 'plugin_lastfmlove_option_set')
+        event.add_ui_callback(self.on_option_set, 'plugin_lastfmlove_option_set')
 
     def destroy(self):
         """

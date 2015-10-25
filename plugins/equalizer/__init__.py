@@ -42,7 +42,7 @@ import os, string
 def enable(exaile):
     providers.register("gst_audio_filter", GSTEqualizer)
     if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
+        event.add_ui_callback(_enable, 'gui_loaded')
     else:
         _enable(None, exaile, None)
 
@@ -79,7 +79,7 @@ class GSTEqualizer(ElementBin):
 
         self.setup_elements()
 
-        event.add_callback(self._on_option_set,
+        event.add_ui_callback(self._on_option_set,
                 "plugin_equalizer_option_set")
 
         setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]

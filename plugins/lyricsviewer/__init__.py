@@ -86,16 +86,14 @@ class LyricsViewer(object):
         self.lyrics_found = []
 
         self._initialize_widgets()
-        self._lyrics_id = None
-        self._last_lyrics_search = None
         self._panel = None
 
-        event.add_callback(self.playback_cb, 'playback_track_start')
-        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
-        event.add_callback(self.end_cb, 'playback_player_end')
-        event.add_callback(self.search_method_added_cb,
+        event.add_ui_callback(self.playback_cb, 'playback_track_start')
+        event.add_ui_callback(self.on_track_tags_changed, 'track_tags_changed')
+        event.add_ui_callback(self.end_cb, 'playback_player_end')
+        event.add_ui_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
-        event.add_callback(self.on_option_set, 'plugin_lyricsviewer_option_set')
+        event.add_ui_callback(self.on_option_set, 'plugin_lyricsviewer_option_set')
         #self.style_handler = self.notebook.connect('style-set', self.set_style)
 
         self.update_lyrics()
@@ -236,35 +234,24 @@ class LyricsViewer(object):
             self.update_lyrics_text()
 
     def update_lyrics(self, refresh = False):
-        def do_update(refresh):
-            lyrics_id = self._lyrics_id
-            self._lyrics_id = None
-            
-            self.track_text_buffer.set_text("")
-            self.lyrics_text_buffer.set_text("")
-            self.lyrics_source_text_buffer.set_text("")
-            self.lyrics_found = []
-            if player.PLAYER.current:
-                self.set_top_box_widgets(False)
-                self.get_lyrics(player.PLAYER.current, lyrics_id, refresh)
-            else:
-                self.lyrics_text_buffer.set_text(_('Not playing.'))
-                self.set_top_box_widgets(False, True)
-            return False
-
-        if self._lyrics_id is not None:
-            GLib.source_remove(self._lyrics_id)
-            
-        self._lyrics_id = GLib.idle_add(do_update, refresh)
-        self._last_lyrics_search = self._lyrics_id
-
+        self.track_text_buffer.set_text("")
+        self.lyrics_text_buffer.set_text("")
+        self.lyrics_source_text_buffer.set_text("")
+        self.lyrics_found = []
+        if player.PLAYER.current:
+            self.set_top_box_widgets(False)
+            self.get_lyrics(player.PLAYER.current, refresh)
+        else:
+            self.lyrics_text_buffer.set_text(_('Not playing.'))
+            self.set_top_box_widgets(False, True)
+        
     @common.threaded
-    def get_lyrics(self, track, lyrics_id, refresh = False):
+    def get_lyrics(self, track, refresh=False):
         lyrics_found = []
-        text_track = ''
+        track_text = ''
         try:
             try:
-                text_track = (track.get_tag_raw('artist')[0] + \
+                track_text = (track.get_tag_raw('artist')[0] + \
                                      " - " + track.get_tag_raw('title')[0])
             except Exception:
                 raise lyrics.LyricsNotFoundException
@@ -272,18 +259,18 @@ class LyricsViewer(object):
         except lyrics.LyricsNotFoundException:
             lyrics_found = []
         finally:
-            self._get_lyrics_finish(lyrics_id, text_track, lyrics_found)
+            self._get_lyrics_finish(track, track_text, lyrics_found)
     
     @guiutil.idle_add()
-    def _get_lyrics_finish(self, lyrics_id, text_track, lyrics_found):
+    def _get_lyrics_finish(self, track, track_text, lyrics_found):
         '''Only called from get_lyrics thread, thunk to ui thread'''
-        if self._last_lyrics_search != lyrics_id:
-            return
         
-        self._lyrics_id = None
+        if track != player.PLAYER.current:
+            return
+
         self.lyrics_found = lyrics_found
         
-        self.track_text_buffer.set_text(text_track)
+        self.track_text_buffer.set_text(track_text)
         self.update_lyrics_text()
         self.set_top_box_widgets(True)
 

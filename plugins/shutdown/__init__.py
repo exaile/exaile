@@ -54,7 +54,7 @@ class Shutdown():
         """
         if menuitem.get_active():
             self.do_shutdown = True
-            event.add_callback(self.on_playback_player_end, 'playback_player_end')
+            event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
             self.message.show_info(_('Shutdown scheduled'),
                 _('Computer will be shutdown at the end of playback.'))

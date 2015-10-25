@@ -77,7 +77,7 @@ class ExaileScrobbler(object):
         self.get_options('','','plugin/ascrobbler/cache_size')
         self.get_options('','','plugin/ascrobbler/user')
         self.load_cache()
-        event.add_callback(self.get_options, 'plugin_ascrobbler_option_set')
+        event.add_ui_callback(self.get_options, 'plugin_ascrobbler_option_set')
         event.add_callback(self._save_cache_cb, 'quit_application')
         
         # enable accelerator

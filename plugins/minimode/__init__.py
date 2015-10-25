@@ -134,7 +134,7 @@ class MiniMode(Gtk.Window):
 
         exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
-        event.add_callback(self.on_option_set, 'plugin_minimode_option_set')
+        event.add_ui_callback(self.on_option_set, 'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
             'plugin/minimode/button_in_mainwindow')
 

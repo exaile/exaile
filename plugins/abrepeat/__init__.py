@@ -61,7 +61,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         self.end_marker.props.label = _('Repeat End')
         self.end_marker.connect('reached', self.on_end_marker_reached)
 
-        event.add_callback(self.on_playback_track_end, 'playback_track_end')
+        event.add_ui_callback(self.on_playback_track_end, 'playback_track_end')
 
     def destroy(self):
         """

@@ -80,7 +80,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
         self.__dirty = True
         self.__controls = {}
 
-        event.add_callback(self.on_option_set,
+        event.add_ui_callback(self.on_option_set,
             'plugin_minimode_option_set')
 
     def destroy(self):
@@ -453,7 +453,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
             Gtk.STOCK_REMOVE, Gtk.IconSize.BUTTON))
         minus_button.set_label('')
 
-        event.add_callback(self.on_option_set, 'player_option_set')
+        event.add_ui_callback(self.on_option_set, 'player_option_set')
         self.on_option_set('player_option_set', settings, 'player/volume')
 
     def destroy(self):
@@ -486,8 +486,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
             Reflects external volume changes
         """
         if option == 'player/volume':
-            GLib.idle_add(self.set_value,
-                float(settings.get_option(option)))
+            self.set_value(float(settings.get_option(option)))
 
 class RestoreButtonControl(ButtonControl):
     """
@@ -570,7 +569,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
         self.set_cell_data_func(renderer, self.data_func)
         self.set_size_request(200, 0)
 
-        event.add_callback(self.on_option_set,
+        event.add_ui_callback(self.on_option_set,
             'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
             'plugin/minimode/track_title_format')
@@ -696,7 +695,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
             Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
-            GLib.idle_add(self.formatter.set_property,
+            self.formatter.set_property(
                 'format',
                 settings.get_option(option, _('$tracknumber - $title'))
             )
@@ -767,9 +766,9 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self.connect('drag-data-received', self.on_drag_data_received)
         self.view.connect('drag-motion', self.on_drag_motion)
         self.view.connect('drag-leave', self.on_drag_leave)
-        event.add_callback(self.on_track_tags_changed,
+        event.add_ui_callback(self.on_track_tags_changed,
             'track_tags_changed')
-        event.add_callback(self.on_option_set,
+        event.add_ui_callback(self.on_option_set,
             'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
             'plugin/minimode/track_title_format')
@@ -952,14 +951,14 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         track_position = playlist.index(track)
 
         if track in playlist and track_position == playlist.current_position:
-            GLib.idle_add(self.label.set_text, self.formatter.format(track))
+            self.label.set_text(self.formatter.format(track))
 
     def on_option_set(self, event, settings, option):
         """
             Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
-            GLib.idle_add(self.formatter.set_property,
+            self.formatter.set_property(
                 'format',
                 settings.get_option(option, _('$tracknumber - $title'))
             )
@@ -976,7 +975,7 @@ class ProgressButtonFormatter(Formatter):
         self.progress_formatter = ProgressTextFormatter(
             self.props.format, player.PLAYER)
 
-        event.add_callback(self.on_option_set,
+        event.add_ui_callback(self.on_option_set,
             'plugin_minimode_option_set')
 
     def format(self, current_time=None, total_time=None):

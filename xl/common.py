@@ -294,9 +294,9 @@ def profileit(func):
         stats = pstats.Stats(prof)
         stats.strip_dirs()
         stats.sort_stats('time', 'calls')
-        print ">>>---- Begin profiling print"
+        print(">>>---- Begin profiling print")
         stats.print_stats()
-        print ">>>---- End profiling print"
+        print(">>>---- End profiling print")
         prof = stats = None
         return res
     return wrapper
@@ -569,7 +569,7 @@ class MetadataList(object):
         self.__list = list(iterable)
         meta = list(metadata)
         if meta and len(meta) != len(self.__list):
-            raise ValueError, "Length of metadata must match length of items."
+            raise ValueError("Length of metadata must match length of items.")
         if not meta:
             meta = [None] * len(self.__list)
         self.metadata = meta
@@ -664,7 +664,7 @@ class MetadataList(object):
 
     def del_meta_key(self, index, key):
         if not self.metadata[index]:
-            raise KeyError, key
+            raise KeyError(key)
         del self.metadata[index][key]
         if not self.metadata[index]:
             self.metadata[index] = None

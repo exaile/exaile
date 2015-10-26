@@ -1,6 +1,6 @@
 
 Installation
-============ 
+============
 
 Windows
 -------
@@ -11,7 +11,7 @@ If you want to build your own installer, see :ref:`win32_installer`.
 Install on OSX
 --------------
 
-On OSX, using the official OSX installation DMG is recommended. See 
+On OSX, using the official OSX installation DMG is recommended. See
 :ref:`osx_notes`
 
 If you want to build your own installer, see :ref:`osx_installer`.
@@ -27,7 +27,7 @@ source code directory to install::
 
 The "make" step is optional and only compiles the modules and translations.
 
-There is also an install_no_locale target if you wish to install without 
+There is also an install_no_locale target if you wish to install without
 translations.
 
 To uninstall exaile please run
@@ -64,16 +64,16 @@ Environment variables that affect "make install":
     Note: If this default is changed, you may need to set the LIBINSTALLDIR or
       XDG_DATA_DIRS environment variables to include the changed path. See [1].
   XDGCONFDIR
-    The directory to install system-wide config files in, following xdg spec. 
+    The directory to install system-wide config files in, following xdg spec.
     Default: /etc/xdg 
-    Note: If this default is changed, you may need to set the XDG_CONFIG_DIRS 
+    Note: If this default is changed, you may need to set the XDG_CONFIG_DIRS
       environment variable to include the changed path. See [1].
   DESTDIR
     Destination directory to put the file structure under. Mainly of use for
       packagers.
     Default: not set (/)
   DEFAULTARGS
-    Default arguments that the 'exaile' launcher script (installed to 
+    Default arguments that the 'exaile' launcher script (installed to
     $PREFIX/bin/exaile) will pass to exaile on startup
 
 

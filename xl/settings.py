@@ -29,11 +29,19 @@
 """
 
 from __future__ import with_statement
-from ConfigParser import (
-    RawConfigParser,
-    NoSectionError,
-    NoOptionError
-)
+
+try:
+    from configparser import (
+        RawConfigParser,
+        NoSectionError,
+        NoOptionError
+    )
+except:
+    from ConfigParser import (
+        RawConfigParser,
+        NoSectionError,
+        NoOptionError
+    )
 import logging
 import os
 import sys

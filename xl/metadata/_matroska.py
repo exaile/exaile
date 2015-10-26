@@ -97,14 +97,6 @@ class Ebml:
             return unpack(">L", "\0" + chr(b1 & 0b00011111) + self.read(2))[0]
         elif b1 & 0b00010000:  # 4 bytes
             return unpack(">L", chr(b1 & 0b00001111) + self.read(3))[0]
-        elif b1 & 0x00001000:  # 5 bytes
-            return unpack(">Q", "\0\0\0" + chr(b1 & 0b00000111) + self.read(4))[0]
-        elif b1 & 0b00000100:  # 6 bytes
-            return unpack(">Q", "\0\0" + chr(b1 & 0b0000011) + self.read(5))[0]
-        elif b1 & 0b00000010:  # 7 bytes
-            return unpack(">Q", "\0" + chr(b1 & 0b00000001) + self.read(6))[0]
-        elif b1 & 0b00000001:  # 8 bytes
-            return unpack(">Q", "\0" + self.read(7))[0]
         else:
             raise EbmlException("invalid element ID (leading byte 0x%02X)" % b1)
 

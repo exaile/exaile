@@ -172,7 +172,7 @@ class Ebml:
         while self.tell() < to:
             try:
                 id = self.readID()
-            except EbmlException, e:
+            except EbmlException as e:
                 # Invalid EBML header. We can't reliably get any more data from
                 # this level, so just return anything we have.
                 warn(EbmlWarning(e))
@@ -200,7 +200,7 @@ class Ebml:
                 elif type_ is DATE:
                     us = self.readInteger(size, True) / 1000.0  # ns to us
                     from datetime import datetime, timedelta
-                    value = datetime(2001, 01, 01) + timedelta(microseconds=us)
+                    value = datetime(2001, 1, 1) + timedelta(microseconds=us)
                 elif type_ is MASTER:
                     tell = self.tell()
                     value = self.parse(tell, tell + size)
@@ -208,7 +208,7 @@ class Ebml:
                     value = BinaryData(self.read(size))
                 else:
                     assert False, type_
-            except (EbmlException, UnicodeDecodeError), e:
+            except (EbmlException, UnicodeDecodeError) as e:
                 warn(EbmlWarning(e))
             else:
                 try:
@@ -355,7 +355,7 @@ def dump_tags(location):
     except KeyError:
         timecodescale = 1000000
     length = info['Duration'][0] * timecodescale / 1e9
-    print "Length = %s seconds" % length
+    print("Length = %s seconds" % length)
     pprint(segment['Tags'][0]['Tag'])
 
 if __name__ == '__main__':

@@ -146,7 +146,7 @@ class Track(object):
         # subclassing interferes with the one-track-per-uri scheme and
         # with save and restore of tracks, so we disallow it.
         if cls != Track:
-            raise TypeError, "Track cannot be subclassed!"
+            raise TypeError("Track cannot be subclassed!")
 
         uri = None
         if len(args) > 0:
@@ -230,7 +230,7 @@ class Track(object):
             if scan:
                 self.read_tags()
         else:
-            raise ValueError, "Cannot create a Track from nothing"
+            raise ValueError("Cannot create a Track from nothing")
 
     def __register(self):
         """
@@ -327,11 +327,11 @@ class Track(object):
                 return False # not a supported type
             f.write_tags(self.__tags)
             return f
-        except IOError, e:
+        except IOError as e:
             # error writing to the file, probably
             logger.warning( "Could not write tags to file: %s" % e )
             return False
-        except Exception, e:
+        except Exception as e:
             logger.exception( "Unknown exception: Could not write tags to file: %s" % e )
             return False
 

@@ -333,6 +333,9 @@ class AudioStream(object):
                                                    '%s-filters' % self.name)
         
         self.playbin = Gst.ElementFactory.make("playbin", "%s-playbin" % self.name)
+        if self.playbin is None:
+            raise TypeError("gstreamer 1.x base plugins not installed!")
+        
         gst_utils.disable_video_text(self.playbin)
         
         self.playbin.connect("about-to-finish", self.on_about_to_finish)

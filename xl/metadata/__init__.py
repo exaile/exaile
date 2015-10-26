@@ -30,7 +30,11 @@ import sys
 from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, NotWritable, NotReadable
-import urlparse
+
+try:
+    import urllib.parse as urlparse
+except:
+    import urlparse
 
 from xl.metadata import (ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
         tta, wav, wv)

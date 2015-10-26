@@ -33,21 +33,24 @@
 
 import sys
 from struct import unpack
+from warnings import warn
 
 from gi.repository import GLib
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
 class EbmlException(Exception): pass
+class EbmlWarning(Warning): pass
 
-class BinaryData(str): pass
-class UnknownData: pass
+class BinaryData(str):
+    def __repr__(self):
+        return "<BinaryData>"
 
 class Ebml:
     """EBML parser.
 
     Usage: Ebml(location, tags).parse()
-    tags is a dictionary of the form { id: (name, type) }.
+    where `tags` is a dictionary of the form {id: (name, type)}.
     """
 
     ## Constructor and destructor
@@ -84,119 +87,86 @@ class Ebml:
 
     ## Element reading
 
-    def readSize(self):
-        b1 = self.read(1)
-        b1b = ord(b1)
-        if b1b & 0x80:
-            # 1 byte
-            return b1b & 0x7f
-        elif b1b & 0x40:
-            # 2 bytes
-            # JS: BE-ushort
-            return unpack(">H", chr(0x40 ^ b1b) + self.read(1))[0]
-        elif b1b & 0x20:
-            # 3 bytes
-            # JS: BE-ulong
-            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.read(2))[0]
-        elif b1b & 0x10:
-            # 4 bytes
-            # JS: BE-ulong
-            return unpack(">L", chr(0x10 ^ b1b) + self.read(3))[0]
-        elif b1b & 0x08:
-            # 5 bytes
-            # JS: uchar BE-ulong. We change this to BE uchar ulong.
-            high, low = unpack(">BL", chr(0x08 ^ b1b) + self.read(4))
-            return high * 4294967296 + low
-        elif b1b & 0x04:
-            # 6 bytes
-            # JS: BE-slong BE-ulong
-            high, low = unpack(">HL", chr(0x04 ^ b1b) + self.read(5))
-            return high * 4294967296 + low
-        elif b1b & 0x02:
-            # 7 bytes
-            # JS: BE-ulong BE-ulong
-            high, low = unpack(">LL",
-                    "\0" + chr(0x02 ^ b1b) + self.read(6))
-            return high * 4294967296 + low
-        elif b1b & 0x01:
-            # 8 bytes
-            # JS: BE-ulong BE-ulong
-            high, low = unpack(">LL", chr(0x01 ^ b1b) + self.read(7))
-            return high * 4294967296 + low
+    def readID(self):
+        b1 = ord(self.read(1))
+        if b1 & 0b10000000:  # 1 byte
+            return b1 & 0b01111111
+        elif b1 & 0b01000000:  # 2 bytes
+            return unpack(">H", chr(b1 & 0b00111111) + self.read(1))[0]
+        elif b1 & 0b00100000:  # 3 bytes
+            return unpack(">L", "\0" + chr(b1 & 0b00011111) + self.read(2))[0]
+        elif b1 & 0b00010000:  # 4 bytes
+            return unpack(">L", chr(b1 & 0b00001111) + self.read(3))[0]
+        elif b1 & 0x00001000:  # 5 bytes
+            return unpack(">Q", "\0\0\0" + chr(b1 & 0b00000111) + self.read(4))[0]
+        elif b1 & 0b00000100:  # 6 bytes
+            return unpack(">Q", "\0\0" + chr(b1 & 0b0000011) + self.read(5))[0]
+        elif b1 & 0b00000010:  # 7 bytes
+            return unpack(">Q", "\0" + chr(b1 & 0b00000001) + self.read(6))[0]
+        elif b1 & 0b00000001:  # 8 bytes
+            return unpack(">Q", "\0" + self.read(7))[0]
         else:
-            raise EbmlException(
-                    "invalid element size with leading byte 0x%X" % b1b)
+            raise EbmlException("invalid element ID (leading byte 0x%02X)" % b1)
 
-    def readInteger(self, length):
+    def readSize(self):
+        b1 = ord(self.read(1))
+        if b1 & 0b10000000:  # 1 byte
+            return b1 & 0b01111111
+        elif b1 & 0b01000000:  # 2 bytes
+            return unpack(">H", chr(b1 & 0b00111111) + self.read(1))[0]
+        elif b1 & 0b00100000:  # 3 bytes
+            return unpack(">L", "\0" + chr(b1 & 0b00011111) + self.read(2))[0]
+        elif b1 & 0b00010000:  # 4 bytes
+            return unpack(">L", chr(b1 & 0b00001111) + self.read(3))[0]
+        elif b1 & 0x00001000:  # 5 bytes
+            return unpack(">Q", "\0\0\0" + chr(b1 & 0b00000111) + self.read(4))[0]
+        elif b1 & 0b00000100:  # 6 bytes
+            return unpack(">Q", "\0\0" + chr(b1 & 0b0000011) + self.read(5))[0]
+        elif b1 & 0b00000010:  # 7 bytes
+            return unpack(">Q", "\0" + chr(b1 & 0b00000001) + self.read(6))[0]
+        elif b1 & 0b00000001:  # 8 bytes
+            return unpack(">Q", "\0" + self.read(7))[0]
+        else:
+            assert b1 == 0
+            raise EbmlException("undefined element size")
+
+    def readInteger(self, length, signed):
         if length == 1:
-            # 1 byte
             return ord(self.read(1))
         elif length == 2:
-            # 2 bytes
             return unpack(">H", self.read(2))[0]
         elif length == 3:
-            # 3 bytes
             return unpack(">L", "\0" + self.read(3))[0]
         elif length == 4:
-            # 4 bytes
             return unpack(">L", self.read(4))[0]
         elif length == 5:
-            # 5 bytes
-            high, low = unpack(">BL", self.read(5))
-            return high * 4294967296 + low
+            return unpack(">Q", "\0\0\0" + self.read(5))[0]
         elif length == 6:
-            # 6 bytes
-            high, low = unpack(">HL", self.read(6))
-            return high * 4294967296 + low
+            return unpack(">Q", "\0\0" + self.read(6))[0]
         elif length == 7:
-            # 7 bytes
-            high, low = unpack(">LL", "\0" + (self.read(7)))
-            return high * 4294967296 + low
+            return unpack(">Q", "\0" + (self.read(7)))[0]
         elif length == 8:
-            # 8 bytes
-            high, low = unpack(">LL", self.read(8))
-            return high * 4294967296 + low
+            return unpack(">Q", self.read(8))[0]
         else:
-            raise EbmlException(
-                    "don't know how to read %r-byte integer" % length)
+            raise EbmlException("don't know how to read %r-byte integer" % length)
+        if signed:
+            nbits = (8 - length) + 8 * (length - 1)
+            if value >= (1 << (nbits - 1)):
+                value -= 1 << nbits
+        return value
 
     def readFloat(self, length):
-        # Need to reverse the bytes for little-endian machines
         if length == 4:
-            # single
-            return unpack('@f', self.read(4)[::-1])[0]
+            return unpack('>f', self.read(4))[0]
         elif length == 8:
-            # double
-            return unpack('@d', self.read(8)[::-1])[0]
-        elif length == 10:
-            # extended (don't know how to handle it)
-            return 'EXTENDED'
+            return unpack('>d', self.read(8))[0]
         else:
             raise EbmlException("don't know how to read %r-byte float" % length)
-
-    def readID(self):
-        b1 = self.read(1)
-        b1b = ord(b1)
-        if b1b & 0x80:
-            # 1 byte
-            return b1b & 0x7f
-        elif b1b & 0x40:
-            # 2 bytes
-            return unpack(">H", chr(0x40 ^ b1b) + self.read(1))[0]
-        elif b1b & 0x20:
-            # 3 bytes
-            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.read(2))[0]
-        elif b1b & 0x10:
-            # 4 bytes
-            return unpack(">L", chr(0x10 ^ b1b) + self.read(3))[0]
-        else:
-            raise EbmlException(
-                    "invalid element ID with leading byte 0x%X" % b1b)
 
     ## Parsing
 
     def parse(self, from_=0, to=None):
-        """Parses EBML from `from_` to `to`.
+        """Parses EBML from `from_` (inclusive) to `to` (exclusive).
 
         Note that not all streams support seeking backwards, so prepare to handle
         an exception if you try to parse from arbitrary position.
@@ -212,32 +182,42 @@ class Ebml:
             except EbmlException, e:
                 # Invalid EBML header. We can't reliably get any more data from
                 # this level, so just return anything we have.
-                print >>sys.stderr, "ERROR:", e
+                warn(EbmlWarning(e))
                 return node
             size = self.readSize()
+            if size == 0b01111111:
+                warn(EbmlWarning("don't know how to handle unknown-sized element"))
+                size = to - self.tell()
             try:
                 key, type_ = self.tags[id]
             except KeyError:
                 self.seek(size, 1)
+                continue
+            try:
+                if type_ is SINT:
+                    value = self.readInteger(size, True)
+                elif type_ is UINT:
+                    value = self.readInteger(size, False)
+                elif type_ is FLOAT:
+                    value = self.readFloat(size)
+                elif type_ is STRING:
+                    value = unicode(self.read(size), 'ascii')
+                elif type_ is UTF8:
+                    value = unicode(self.read(size), 'utf-8')
+                elif type_ is DATE:
+                    us = self.readInteger(size, True) / 1000.0  # ns to us
+                    from datetime import datetime, timedelta
+                    value = datetime(2001, 01, 01) + timedelta(microseconds=us)
+                elif type_ is MASTER:
+                    tell = self.tell()
+                    value = self.parse(tell, tell + size)
+                elif type_ is BINARY:
+                    value = BinaryData(self.read(size))
+                else:
+                    assert False, type_
+            except (EbmlException, UnicodeDecodeError), e:
+                warn(EbmlWarning(e))
             else:
-                try:
-                    if type_ is MASTER:
-                        tell = self.tell()
-                        value = self.parse(tell, tell + size)
-                    elif type_ in (SINT, UINT, DATE):
-                        value = self.readInteger(size)
-                    elif type_ is FLOAT:
-                        value = self.readFloat(size)
-                    elif type_ is STRING:
-                        value = unicode(self.read(size), 'ascii')
-                    elif type_ is UTF8:
-                        value = unicode(self.read(size), 'utf-8')
-                    elif type_ is BINARY:
-                        value = BinaryData(self.read(size))
-                    else:
-                        assert False
-                except (EbmlException, UnicodeDecodeError), e:
-                    print >>sys.stderr, "WARNING:", e
                 try:
                     parentval = node[key]
                 except KeyError:

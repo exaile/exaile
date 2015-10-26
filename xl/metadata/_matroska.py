@@ -340,6 +340,11 @@ MatroskaTags = {
     0x1034: ('ContentCompression', MASTER),
     0x0254: ('ContentCompAlgo', UINT),
     0x0255: ('ContentCompSettings', BINARY),
+    # Attachment
+    0x0941A469: ('Attachment', MASTER),
+    0x21A7: ('AttachedFile', MASTER),
+    0x066E: ('FileName', UTF8),
+    0x065C: ('FileData', BINARY),
     # Chapters
     0x0043A770: ('Chapters', MASTER),
     0x05B9: ('EditionEntry', MASTER),

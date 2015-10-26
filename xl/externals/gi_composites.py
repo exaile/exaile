@@ -24,6 +24,7 @@ import warnings
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import Gtk
 
 __all__ = ['GtkTemplate']
 
@@ -65,6 +66,9 @@ def _register_template(cls, template_bytes):
 
     # This implementation won't work if there are nested templates, but
     # we can't do that anyways due to PyGObject limitations so it's ok
+    
+    if not hasattr(cls, 'set_template'):
+        raise TypeError("Requires PyGObject 3.13.2 or greater")
 
     cls.set_template(template_bytes)
     
@@ -232,6 +236,9 @@ class _GtkTemplate(object):
         self.ui = ui
     
     def __call__(self, cls):
+        
+        if not issubclass(cls, Gtk.Widget):
+            raise TypeError("Can only use @GtkTemplate on Widgets")
 
         # Nested templates don't work
         if hasattr(cls, '__gtemplate_methods__'):

@@ -17,7 +17,9 @@ Essential:
 * gstreamer-plugins-good >= 1.4
 * mutagen (>= 1.10)
 * dbus-python
-* pygobject (>= 3.10)
+* pygobject (>= 3.13.2)
+* python-cairo
+* GIR libraries for GTK+/GStreamer
 
 Translation:
 

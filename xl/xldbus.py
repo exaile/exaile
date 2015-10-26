@@ -111,9 +111,9 @@ def run_commands(options, iface):
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:
-                print _('Not playing.')
+                print(_('Not playing.'))
             else:
-                print value
+                print(value)
             comm = True
 
     argument_commands = (
@@ -130,14 +130,14 @@ def run_commands(options, iface):
             if command in ('IncreaseVolume', 'DecreaseVolume'):
                 iface.ChangeVolume(argument if command == 'IncreaseVolume' else -argument)
             else:
-                print getattr(iface, command)(argument)
+                print(getattr(iface, command)(argument))
 
             comm = True
 
     # Special handling for FormatQuery & FormatQueryTags
     format = options.FormatQuery
     if format is not None:
-        print iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length')
+        print(iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length'))
         comm = True
 
     run_commands = (
@@ -167,7 +167,7 @@ def run_commands(options, iface):
 
     for command in query_commands:
         if getattr(options, command):
-            print getattr(iface, command)(argument)
+            print(getattr(iface, command)(argument))
             comm = True
 
     to_implement = (

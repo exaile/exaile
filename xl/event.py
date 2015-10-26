@@ -41,10 +41,10 @@ from __future__ import with_statement
 
 from inspect import ismethod
 import logging
-from new import instancemethod
 import re
 import threading
 import time
+import types
 import weakref
 from gi.repository import GLib
 
@@ -204,7 +204,7 @@ class _WeakMethod:
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            return instancemethod(self.fun, objref, self.cls)
+            return types.MethodType(self.fun, objref, self.cls)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):

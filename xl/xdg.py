@@ -63,6 +63,8 @@ config_dirs = os.getenv("XDG_CONFIG_DIRS")
 if config_dirs is None:
     if sys.platform == 'win32':
         config_dirs = [exaile_dir]
+    elif 'freebsd' in sys.platform:
+        config_dirs = [data_dirs]
     else:
         config_dirs = ["/usr/local/etc/xdg/exaile", "/etc/xdg/exaile"]
 else:

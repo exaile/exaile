@@ -193,7 +193,7 @@ class _WeakMethod:
         """
         assert ismethod(method)
         if method.im_self is None:
-            raise ValueError, "We need a bound method!"
+            raise ValueError("We need a bound method!")
         if notifyDead is None:
             self.objRef = weakref.ref(method.im_self)
         else:

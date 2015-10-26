@@ -33,7 +33,7 @@ from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 
 @GtkTemplate('ui', 'widgets', 'progress.ui')
-class ProgressMonitor(Gtk.Grid):
+class ProgressMonitor(Gtk.Box):
     """
         A graphical progress monitor
     """
@@ -41,8 +41,7 @@ class ProgressMonitor(Gtk.Grid):
     __gtype_name__ = 'ProgressMonitor'
     
     label,          \
-    box,            \
-    progressbar     = GtkTemplate.Child.widgets(3)
+    progressbar     = GtkTemplate.Child.widgets(2)
     
     def __init__(self, manager, thread, description, image=None):
         """
@@ -63,7 +62,7 @@ class ProgressMonitor(Gtk.Grid):
         self._progress_updated = False
 
         if image is not None:
-            self.box.pack_start(image, False, True, 0)
+            self.pack_start(image, False, True, 0)
             
         self.label.set_text(description)
         

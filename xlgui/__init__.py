@@ -143,6 +143,8 @@ class Main(object):
         
         guiutil.gtk_widget_replace(panel_notebook, 
                                    self.panel_notebook)
+        self.panel_notebook.get_parent()    \
+            .child_set_property(self.panel_notebook, 'shrink', False)
 
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)

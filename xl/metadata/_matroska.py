@@ -395,8 +395,12 @@ def dump_tags(location):
     mka = parse(location)
     segment = mka['Segment'][0]
     info = segment['Info'][0]
-    length = info['Duration'][0] * info['TimecodeScale'][0] / 1e9
-    print "Length = %f seconds" % length
+    try:
+        timecodescale = info['TimecodeScale'][0]
+    except KeyError:
+        timecodescale = 1000000
+    length = info['Duration'][0] * timecodescale / 1e9
+    print "Length = %s seconds" % length
     pprint(segment['Tags'][0]['Tag'])
 
 if __name__ == '__main__':

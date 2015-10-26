@@ -57,7 +57,11 @@ class MkaFormat(_base.BaseFormat):
         mka = _matroska.parse(self.loc)
         segment = mka['Segment'][0]
         info = segment['Info'][0]
-        length = info['Duration'][0] * info['TimecodeScale'][0] / 1e9
+        try:
+            timecodescale = info['TimecodeScale'][0]
+        except KeyError:
+            timecodescale = 1000000
+        length = info['Duration'][0] * timecodescale / 1e9
         self.tags = tags = {'__length': length}
         for mkatags in segment['Tags']:
             for mkatag in mkatags['Tag']:

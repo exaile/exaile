@@ -38,8 +38,18 @@ import logging
 import os
 import random
 import time
-import urlparse
-import urllib
+
+try:
+    # python3 have not urllib2
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
+
+try:
+    # nor urlparse
+    import urllib.parse as urlparse
+except:
+    import urlparse
 
 try:
     import cPickle as pickle

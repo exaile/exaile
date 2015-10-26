@@ -49,6 +49,7 @@ import sys
 from gi.repository import GLib
 
 logger = logging.getLogger(__name__)
+PY2 = sys.version_info[0] == 2
 
 from xl import event, xdg
 from xl.common import VersionError, glib_wait_seconds
@@ -61,8 +62,10 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
 }
+
+if PY2:
+    TYPE_MAPPING['U'] = unicode
 
 MANAGER = None
 

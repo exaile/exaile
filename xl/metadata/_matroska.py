@@ -88,15 +88,16 @@ class Ebml:
     ## Element reading
 
     def readID(self):
-        b1 = ord(self.read(1))
+        b = self.read(1)
+        b1 = ord(b)
         if b1 & 0b10000000:  # 1 byte
-            return b1 & 0b01111111
+            return b
         elif b1 & 0b01000000:  # 2 bytes
-            return unpack(">H", chr(b1 & 0b00111111) + self.read(1))[0]
+            return unpack(">H", b + self.read(1))[0]
         elif b1 & 0b00100000:  # 3 bytes
-            return unpack(">L", "\0" + chr(b1 & 0b00011111) + self.read(2))[0]
+            return unpack(">L", "\0" + b + self.read(2))[0]
         elif b1 & 0b00010000:  # 4 bytes
-            return unpack(">L", chr(b1 & 0b00001111) + self.read(3))[0]
+            return unpack(">L", b + self.read(3))[0]
         else:
             raise EbmlException("invalid element ID (leading byte 0x%02X)" % b1)
 
@@ -265,94 +266,76 @@ class GioEbml(Ebml):
 # Tags not defined here are skipped while parsing.
 MatroskaTags = {
     # Segment
-    0x08538067: ('Segment', MASTER),
+    0x18538067: ('Segment', MASTER),
     # Segment Information
-    0x0549A966: ('Info', MASTER),
-    0x3384: ('SegmentFilename', UTF8),
-    0x0AD7B1: ('TimecodeScale', UINT),
-    0x0489: ('Duration', FLOAT),
-    0x0461: ('DateUTC', DATE),
-    0x3BA9: ('Title', UTF8),
-    0x0D80: ('MuxingApp', UTF8),
-    0x1741: ('WritingApp', UTF8),
+    0x1549A966: ('Info', MASTER),
+    0x7384: ('SegmentFilename', UTF8),
+    0x2AD7B1: ('TimecodeScale', UINT),
+    0x4489: ('Duration', FLOAT),
+    0x4461: ('DateUTC', DATE),
+    0x7BA9: ('Title', UTF8),
+    0x4D80: ('MuxingApp', UTF8),
+    0x5741: ('WritingApp', UTF8),
     # Track
-    0x0654AE6B: ('Tracks', MASTER),
-    0x2E: ('TrackEntry', MASTER),
-    0x57: ('TrackNumber', UINT),
-    0x03: ('TrackType', UINT),
-    0x29: ('FlagEnabled', UINT),
-    0x08: ('FlagDefault', UINT),
-    0x03E383: ('DefaultDuration', UINT),
-    0x03314F: ('TrackTimecodeScale', FLOAT),
-    0x137F: ('TrackOffset', SINT),
-    0x136E: ('Name', UTF8),
-    0x02B59C: ('Language', STRING),
-    0x06: ('CodecID', STRING),
-    0x058688: ('CodecName', UTF8),
-    0x1A9697: ('CodecSettings', UTF8),
-    0x1B4040: ('CodecInfoURL', STRING),
-    0x06B240: ('CodecDownloadURL', STRING),
-    0x2A: ('CodecDecodeAll', UINT),
-    0x2FAB: ('TrackOverlay', UINT),
+    0x1654AE6B: ('Tracks', MASTER),
+    0xAE: ('TrackEntry', MASTER),
+    0xD7: ('TrackNumber', UINT),
+    0x83: ('TrackType', UINT),
+    0xB9: ('FlagEnabled', UINT),
+    0x88: ('FlagDefault', UINT),
+    0x23E383: ('DefaultDuration', UINT),
+    0x536E: ('Name', UTF8),
+    0x22B59C: ('Language', STRING),
+    0x86: ('CodecID', STRING),
+    0x258688: ('CodecName', UTF8),
     # Video
-    0x60: ('Video', MASTER),
+    0xE0: ('Video', MASTER),
     # Audio
-    0x61: ('Audio', MASTER),
-    0x35: ('SamplingFrequency', FLOAT),
-    0x38B5: ('OutputSamplingFrequency', FLOAT),
-    0x1F: ('Channels', UINT),
-    0x3D7B: ('ChannelPositions', BINARY),
-    0x2264: ('BitDepth', UINT),
-    # Content Encoding
-    0x2D80: ('ContentEncodings', MASTER),
-    0x2240: ('ContentEncoding', MASTER),
-    0x1031: ('ContentEncodingOrder', UINT),
-    0x1032: ('ContentEncodingScope', UINT),
-    0x1033: ('ContentEncodingType', UINT),
-    0x1034: ('ContentCompression', MASTER),
-    0x0254: ('ContentCompAlgo', UINT),
-    0x0255: ('ContentCompSettings', BINARY),
+    0xE1: ('Audio', MASTER),
+    0xB5: ('SamplingFrequency', FLOAT),
+    0x78B5: ('OutputSamplingFrequency', FLOAT),
+    0x9F: ('Channels', UINT),
+    0x6264: ('BitDepth', UINT),
     # Attachment
-    0x0941A469: ('Attachment', MASTER),
-    0x21A7: ('AttachedFile', MASTER),
-    0x066E: ('FileName', UTF8),
-    0x065C: ('FileData', BINARY),
+    0x1941A469: ('Attachments', MASTER),
+    0x61A7: ('AttachedFile', MASTER),
+    0x466E: ('FileName', UTF8),
+    0x465C: ('FileData', BINARY),
     # Chapters
-    0x0043A770: ('Chapters', MASTER),
-    0x05B9: ('EditionEntry', MASTER),
-    0x05BC: ('EditionUID', UINT),
-    0x05BD: ('EditionFlagHidden', UINT),
-    0x05DB: ('EditionFlagDefault', UINT),
-    0x05DD: ('EditionManaged', UINT),
-    0x36: ('ChapterAtom', MASTER),
-    0x33C4: ('ChapterUID', UINT),
-    0x11: ('ChapterTimeStart', UINT),
-    0x12: ('ChapterTimeEnd', UINT),
-    0x18: ('ChapterFlagHidden', UINT),
-    0x0598: ('ChapterFlagEnabled', UINT),
-    0x23C3: ('ChapterPhysicalEquiv', UINT),
-    0x0F: ('ChapterTrack', MASTER),
-    0x09: ('ChapterTrackNumber', UINT),
-    0x00: ('ChapterDisplay', MASTER),
-    0x05: ('ChapString', UTF8),
-    0x037C: ('ChapLanguage', STRING),
-    0x037E: ('ChapCountry', STRING),
+    0x1043A770: ('Chapters', MASTER),
+    0x45B9: ('EditionEntry', MASTER),
+    0x45BC: ('EditionUID', UINT),
+    0x45BD: ('EditionFlagHidden', UINT),
+    0x45DB: ('EditionFlagDefault', UINT),
+    0x45DD: ('EditionFlagOrdered', UINT),
+    0xB6: ('ChapterAtom', MASTER),
+    0x73C4: ('ChapterUID', UINT),
+    0x91: ('ChapterTimeStart', UINT),
+    0x92: ('ChapterTimeEnd', UINT),
+    0x98: ('ChapterFlagHidden', UINT),
+    0x4598: ('ChapterFlagEnabled', UINT),
+    0x63C3: ('ChapterPhysicalEquiv', UINT),
+    0x8F: ('ChapterTrack', MASTER),
+    0x89: ('ChapterTrackNumber', UINT),
+    0x80: ('ChapterDisplay', MASTER),
+    0x85: ('ChapString', UTF8),
+    0x437C: ('ChapLanguage', STRING),
+    0x437E: ('ChapCountry', STRING),
     # Tagging
-    0x0254C367: ('Tags', MASTER),
-    0x3373: ('Tag', MASTER),
-    0x23C0: ('Targets', MASTER),
-    0x28CA: ('TargetTypevalue', UINT),
-    0x23CA: ('TargetType', STRING),
-    0x23C9: ('EditionUID', UINT),
-    0x23C4: ('ChapterUID', UINT),
-    0x23C5: ('TrackUID', UINT),
-    0x23C6: ('AttachmentUID', UINT),
-    0x27C8: ('SimpleTag', MASTER),
-    0x05A3: ('TagName', UTF8),
-    0x047A: ('TagLanguage', STRING),
-    0x0484: ('TagDefault', UINT),
-    0x0487: ('TagString', UTF8),
-    0x0485: ('TagBinary', BINARY),
+    0x1254C367: ('Tags', MASTER),
+    0x7373: ('Tag', MASTER),
+    0x63C0: ('Targets', MASTER),
+    0x68CA: ('TargetTypevalue', UINT),
+    0x63CA: ('TargetType', STRING),
+    0x63C5: ('TagTrackUID', UINT),
+    0x63C9: ('TagEditionUID', UINT),
+    0x63C4: ('TagChapterUID', UINT),
+    0x67C8: ('SimpleTag', MASTER),
+    0x45A3: ('TagName', UTF8),
+    0x447A: ('TagLanguage', STRING),
+    0x4484: ('TagDefault', UINT),
+    0x4487: ('TagString', UTF8),
+    0x4485: ('TagBinary', BINARY),
 }
 
 def parse(location):

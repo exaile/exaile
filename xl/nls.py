@@ -33,6 +33,8 @@ import sys
 import locale
 import os.path
 
+PY3 = sys.version_info[0] == 3
+
 try:
     # Set to user default, gracefully fallback on C otherwise
     locale.setlocale(locale.LC_ALL, '')
@@ -84,7 +86,11 @@ try:
     gettextfunc = gettextmod.gettext
 
     def gettext(text):
-        return gettextfunc(text).decode("utf-8")
+        if PY3:
+            # in python3 it's already unicode object
+            return gettextfunc(text)
+        else:
+            return gettextfunc(text).decode("utf-8")
 
     ngettextfunc = gettextmod.ngettext
 

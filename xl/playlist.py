@@ -412,7 +412,7 @@ class M3UConverter(FormatConverter):
                             if track.get_tag_raw(tag) is None:
                                 try:
                                     track.set_tag_raw(tag, value)
-                                except Exception, e:
+                                except Exception as e:
                                     # Python 3: raise UnknownPlaylistTrackError() from e
                                     # Python 2: .. no good solution 
                                     raise UnknownPlaylistTrackError("line %s: %s" % (lineno, e))
@@ -898,7 +898,7 @@ class Playlist(object):
         self.__tracks = MetadataList()
         for track in initial_tracks:
             if not isinstance(track, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s" % repr(type(track))
+                raise ValueError("Need trax.Track object, got %s" % repr(type(track)))
             self.__tracks.append(track)
         self.__shuffle_mode = self.shuffle_modes[0]
         self.__repeat_mode = self.repeat_modes[0]
@@ -959,7 +959,7 @@ class Playlist(object):
             return
         if position != -1:
             if position >= len(self.__tracks):
-                raise IndexError, "Cannot set position past end of playlist"
+                raise IndexError("Cannot set position past end of playlist")
             self.__tracks.set_meta_key(position, "playlist_current_position", True)
         self.__current_position = position
         if oldposition != -1:
@@ -1225,7 +1225,7 @@ class Playlist(object):
     def __set_mode(self, modename, mode):
         modes = getattr(self, "%s_modes"%modename)
         if mode not in modes:
-            raise TypeError, "Mode %s is invalid" % mode
+            raise TypeError("Mode %s is invalid" % mode)
         else:
             self.__dirty = True
             setattr(self, "_Playlist__%s_mode"%modename, mode)
@@ -1444,7 +1444,7 @@ class Playlist(object):
             if items.get("repeat_mode") == "playlist":
                 items['repeat_mode'] = "all"
         elif ver[0] > self.__playlist_format_version[0]:
-            raise IOError, "Cannot load playlist, unknown format"
+            raise IOError("Cannot load playlist, unknown format")
         elif ver > self.__playlist_format_version:
             logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
         f.close()
@@ -1525,7 +1525,7 @@ class Playlist(object):
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
-                    raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
+                    raise ValueError("Need trax.Track object, got %s" % repr(type(x)))
 
             (start, end, step) = self.__tuple_from_slice(i)
 
@@ -1536,7 +1536,7 @@ class Playlist(object):
 
             if step != 1:
                 if len(value) != len(oldtracks):
-                    raise ValueError, "Extended slice assignment must match sizes."
+                    raise ValueError("Extended slice assignment must match sizes.")
             self.__tracks.__setitem__(i, value)
             removed = MetadataList(zip(range(start, end, step), oldtracks),
                     oldtracks.metadata)
@@ -1546,7 +1546,7 @@ class Playlist(object):
             added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s" % repr(type(value))
+                raise ValueError("Need trax.Track object, got %s" % repr(type(value)))
             self.__tracks[i] = value
             removed = [(i, oldtracks)]
             added = [(i, value)]

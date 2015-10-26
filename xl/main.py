@@ -106,7 +106,7 @@ class Exaile(object):
             
         try:
             xdg._make_missing_dirs()
-        except OSError, e:
+        except OSError as e:
             print >> sys.stderr, 'ERROR: Could not create configuration directories: %s' % str(e)
             return
             
@@ -124,7 +124,7 @@ class Exaile(object):
                                        self.options.DebugThreads,
                                        self.options.ModuleFilter,
                                        self.options.LevelFilter)
-        except OSError, e:
+        except OSError as e:
             print >> sys.stderr, 'ERROR: could not setup logging: %s' % str(e)
             return
         
@@ -582,7 +582,7 @@ class Exaile(object):
 
     def version(self):
         from xl.version import __version__
-        print "Exaile", __version__
+        print("Exaile {}".format( __version__))
         sys.exit(0)
 
     def _add_default_playlists(self):

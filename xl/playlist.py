@@ -38,12 +38,7 @@ import logging
 import os
 import random
 import time
-
-try:
-    # python3 have not urllib2
-    import urllib.request as urllib2
-except ImportError:
-    import urllib2
+import urllib
 
 try:
     # nor urlparse

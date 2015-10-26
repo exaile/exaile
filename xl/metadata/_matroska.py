@@ -256,7 +256,7 @@ class GioEbml(Ebml):
 
     def open(self, location):
         f = Gio.File.new_for_uri(location)
-        self.buffer = Gio.BufferedInputStream(f.read())
+        self.buffer = Gio.BufferedInputStream.new(f.read())
         self._tell = 0
 
         self.size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size()
@@ -279,7 +279,7 @@ class GioEbml(Ebml):
         return self._tell
 
     def read(self, length):
-        result = self.buffer.read(length)
+        result = self.buffer.read_bytes(length).get_data()
         self._tell += len(result)
         return result
 

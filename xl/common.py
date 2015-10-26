@@ -41,11 +41,21 @@ import string
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
 from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
+
+try:
+    # python3 have not urllib2
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
+
+try:
+    # nor urlparse
+    import urllib.parse as urlparse
+except:
+    import urlparse
 
 logger = logging.getLogger(__name__)
 

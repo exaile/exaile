@@ -43,7 +43,11 @@ import sys
 import threading
 from functools import wraps, partial
 from collections import deque
-from UserDict import DictMixin
+
+try:
+    from UserDict import DictMixin
+except ImportError:
+    from collections import MutableMapping as DictMixin
 
 try:
     # python3 have not urllib2

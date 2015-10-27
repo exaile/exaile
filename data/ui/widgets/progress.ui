@@ -7,23 +7,10 @@
     <property name="can_focus">False</property>
     <property name="icon_name">process-stop</property>
   </object>
-  <template class="ProgressMonitor" parent="GtkGrid">
+  <template class="ProgressMonitor" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="column_spacing">3</property>
-    <child>
-      <object class="GtkProgressBar" id="progressbar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="hexpand">True</property>
-        <property name="pulse_step">0.050000000000000003</property>
-        <property name="show_text">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
+    <property name="spacing">3</property>
     <child>
       <object class="GtkButton" id="cancel_button">
         <property name="label">_Stop</property>
@@ -39,35 +26,40 @@
         <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">0</property>
       </packing>
     </child>
     <child>
-      <object class="GtkBox" id="box">
+      <object class="GtkProgressBar" id="progressbar">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="spacing">3</property>
-        <child>
-          <object class="GtkLabel" id="label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="hexpand">True</property>
-            <property name="label" translatable="yes">label</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
+        <property name="hexpand">True</property>
+        <property name="pulse_step">0.050000000000000003</property>
+        <property name="show_text">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-        <property name="width">2</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">label</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">2</property>
       </packing>
     </child>
   </template>

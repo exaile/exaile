@@ -8,6 +8,7 @@
     <property name="title" translatable="yes">Playlists</property>
     <child>
       <object class="GtkBox" id="playlists_box">
+        <property name="width_request">85</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">3</property>

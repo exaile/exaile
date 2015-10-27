@@ -350,8 +350,6 @@ class MainWindow(GObject.GObject):
             Sets up panel events
         """
         
-        self.panel_box = self.builder.get_object('panel_box')
-        
         # When there's nothing in the notebook, hide it
         self.controller.panel_notebook.connect('page-added', self.on_panel_notebook_add_page)
         self.controller.panel_notebook.connect('page-removed', self.on_panel_notebook_remove_page)
@@ -421,11 +419,13 @@ class MainWindow(GObject.GObject):
             
     def on_panel_notebook_add_page(self, notebook, page, page_num):
         if self.splitter.get_child1() is None:
-            self.splitter.pack1(self.panel_box)
+            self.splitter.pack1(self.controller.panel_notebook)
+            self.controller.panel_notebook.get_parent()    \
+                .child_set_property(self.controller.panel_notebook, 'shrink', False)
         
     def on_panel_notebook_remove_page(self, notebook, page, page_num):
         if notebook.get_n_pages() == 0:
-            self.splitter.remove(self.panel_box)
+            self.splitter.remove(self.controller.panel_notebook)
 
     def on_stop_button_motion_notify_event(self, widget, event):
         """

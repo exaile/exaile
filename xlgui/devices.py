@@ -33,62 +33,37 @@ from gi.repository import Gtk
 from xl.nls import gettext as _
 from xl import xdg, settings, event, devices
 from xlgui import collection
+from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
 
-
-
-class ManagerDialog(object):
+@GtkTemplate('ui', 'device_manager.ui')
+class ManagerDialog(Gtk.Window):
     """
         the device manager dialog
     """
 
-    def __init__(self, parent, main):
-        self.main = main
-        self.parent = parent
-        self.device_manager = self.main.exaile.devices
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'device_manager.ui'))
-        self.window = self.builder.get_object('device_manager')
-        self.window.set_transient_for(self.parent)
-        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
-        self.window.connect('delete-event', self.on_close)
+    __gtype_name__ = 'DeviceManager'
 
-        self.builder.connect_signals({
-            'on_btn_connect_clicked': self.on_connect,
-            'on_btn_disconnect_clicked': self.on_disconnect,
-            'on_btn_edit_clicked': self.on_edit,
-            'on_btn_add_clicked': self.on_add,
-            'on_btn_remove_clicked': self.on_remove,
-            'on_btn_close_clicked': self.on_close,
-            })
+    btn_add, btn_edit, btn_remove, tree_devices, model \
+        = GtkTemplate.Child.widgets(5)
+
+    def __init__(self, parent, main):
+        Gtk.Window.__init__(self)
+        self.init_template()
+
+        self.main = main
+        self.device_manager = self.main.exaile.devices
+        self.set_transient_for(parent)
 
         # TODO: make these actually work.  For now, they are hidden
-        for item in ('add', 'edit', 'remove'):
-            self.builder.get_object('btn_%s' % item).destroy()
+        self.btn_add.destroy()
+        self.btn_edit.destroy()
+        self.btn_remove.destroy()
 
-        # object should really be devices.Device, but it doesnt work :/
-        self.model = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str, str)
-        self.tree = self.builder.get_object('tree_devices')
-        self.tree.set_model(self.model)
-
-        render = Gtk.CellRendererPixbuf()
-        col = Gtk.TreeViewColumn(_("Icon"), render)
-        col.add_attribute(render, "pixbuf", 1)
-        self.tree.append_column(col)
-
-        render = Gtk.CellRendererText()
-        col = Gtk.TreeViewColumn(_("Device"), render)
-        col.set_expand(True)
-        col.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
-        col.add_attribute(render, "text", 2)
-        self.tree.append_column(col)
-
-        render = Gtk.CellRendererText()
-        col = Gtk.TreeViewColumn(_("Driver"), render)
-        col.add_attribute(render, "text", 3)
-        self.tree.append_column(col)
+        # GtkListStore self.model: first column (PyObject) should really be of
+        # type devices.Device, but that doesn't work with GtkBuilder.
 
         self.populate_tree()
         event.add_ui_callback(self.populate_tree, 'device_added')
@@ -100,7 +75,7 @@ class ManagerDialog(object):
             self.model.append([d, None, d.get_name(), d.__class__.__name__])
 
     def _get_selected_devices(self):
-        sel = self.tree.get_selection()
+        sel = self.tree_devices.get_selection()
         (model, paths) = sel.get_selected_rows()
         devices = []
         for path in paths:
@@ -110,31 +85,36 @@ class ManagerDialog(object):
 
         return devices
 
-
-    def on_connect(self, *args):
+    @GtkTemplate.Callback
+    def on_btn_connect_clicked(self, *args):
         devices = self._get_selected_devices()
 
         for d in devices:
             d.connect()
 
-    def on_disconnect(self, *args):
+    @GtkTemplate.Callback
+    def on_btn_disconnect_clicked(self, *args):
         devices = self._get_selected_devices()
 
         for d in devices:
             d.disconnect()
 
-    def on_edit(self, *args):
+    @GtkTemplate.Callback
+    def on_btn_edit_clicked(self, *args):
         logger.warning("NOT IMPLEMENTED")
 
-    def on_add(self, *args):
+    @GtkTemplate.Callback
+    def on_btn_add_clicked(self, *args):
         logger.warning("NOT IMPLEMENTED")
 
-    def on_remove(self, *args):
+    @GtkTemplate.Callback
+    def on_btn_remove_clicked(self, *args):
         logger.warning("NOT IMPLEMENTED")
 
-    def on_close(self, *args):
-        self.window.hide()
-        self.window.destroy()
+    @GtkTemplate.Callback
+    def on_btn_close_clicked(self, *args):
+        self.hide()
+        self.destroy()
 
     def run(self):
-        self.window.show_all()
+        self.show_all()

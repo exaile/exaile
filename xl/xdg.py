@@ -61,7 +61,7 @@ if config_dirs is None:
     if sys.platform == 'win32':
         config_dirs = [exaile_dir]
     else:
-        config_dirs = ["/etc/xdg/exaile"]
+        config_dirs = ["/usr/local/etc/xdg/exaile", "/etc/xdg/exaile"]
 else:
     config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(os.pathsep)]
 

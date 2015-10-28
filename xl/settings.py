@@ -107,6 +107,11 @@ class SettingsManager(RawConfigParser):
         if location is not None:
             self._timeout_save()
 
+    def __hash__(self):
+        # RawConfgParser doesn't have __hash__, preventing this from being used
+        # as dictionary key. Here we just reimplement object's __hash__.
+        return hash(id(self))
+
     @glib_wait_seconds(30)
     def _timeout_save(self):
         """Save every 30 seconds"""

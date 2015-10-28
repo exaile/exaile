@@ -84,7 +84,7 @@ class Order(object):
     """
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
-        self.__levels = map(self.__parse_level, levels)
+        self.__levels = list(map(self.__parse_level, levels))
         self.__formatters = [formatter.TrackFormatter(l[1]) for l 
             in self.__levels]
         self.__use_compilations = use_compilations

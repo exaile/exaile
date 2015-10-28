@@ -472,7 +472,7 @@ class TracksInList(object):
         Matches tracks contained in a list/dict/set. Copies the list.
     '''
     
-    __slots__ = ['_tracks', 'tag']
+    __slots__ = ['_tracks']
     tag = None
     def __init__(self, tracks):
         if isinstance(tracks, dict):

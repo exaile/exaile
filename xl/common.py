@@ -371,6 +371,9 @@ class LimitedCache(DictMixin):
         self.order = deque()
         self.cache = dict()
 
+    def __len__(self):
+        return len(self.cache)
+
     def __iter__(self):
         return self.cache.__iter__()
 

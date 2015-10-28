@@ -41,7 +41,7 @@ from xl import (
     providers
 )
 from xl.common import classproperty
-from xl.formatter import TrackFormatter
+from xl.formatter import TrackFormatter, YearTagFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets import rating, menu
@@ -314,6 +314,12 @@ class DateColumn(Column):
     display = _('Date')
     size = 50
 providers.register('playlist-columns', DateColumn)
+
+class YearColumn(Column):
+    name = 'year'
+    display = _('Year')
+    size = 45
+providers.register('playlist-columns', YearColumn)
 
 class GenreColumn(Column):
     name = 'genre'

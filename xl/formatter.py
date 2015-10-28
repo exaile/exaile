@@ -663,6 +663,25 @@ class RatingTagFormatter(TagFormatter):
         return ('%s%s' % (filled, empty)).decode('utf-8')
 providers.register('tag-formatting', RatingTagFormatter())
 
+class YearTagFormatter(TagFormatter):
+    """
+        A pseudo-tag that computes the year from the date column 
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'year')
+        
+    def format(self, track, parameters):
+        value = track.get_tag_raw('date')
+        if value is not None:
+            try:
+                return value[0].split('-')[0]
+            except:
+                pass
+            return value[0]
+            
+        return _("Unknown")
+providers.register('tag-formatting', YearTagFormatter())
+
 class DateTagFormatter(TagFormatter):
     """
         A generic formatter for timestamp formatting

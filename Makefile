@@ -1,17 +1,20 @@
-PYTHON2_CMD	= `command -v python2`
+PYTHON2_CMD   != command -v python2
 
-PREFIX		= /usr/local
-EPREFIX		= $(PREFIX)
-LIBINSTALLDIR	= $(EPREFIX)/lib
-DATADIR		= $(PREFIX)/share
-XDGCONFDIR	= /etc/xdg
-MANPREFIX	= $(PREFIX)/share
+PREFIX         = /usr/local
+EPREFIX        = $(PREFIX)
 
-EXAILEBINDIR	= $(DESTDIR)$(EPREFIX)/bin
-EXAILELIBDIR	= $(DESTDIR)$(LIBINSTALLDIR)/exaile
-EXAILESHAREDIR	= $(DESTDIR)$(DATADIR)/exaile
-EXAILECONFDIR	= $(DESTDIR)$(XDGCONFDIR)/exaile
-EXAILEMANDIR	= $(DESTDIR)$(MANPREFIX)/man
+LIBINSTALLDIR  = $(EPREFIX)/lib
+DATADIR        = $(PREFIX)/share
+MANPREFIX      = $(PREFIX)/share
+# /etc if PREFIX is /usr, $PREFIX/etc otherwise.
+ETCDIR        != [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc"
+XDGCONFDIR     = $(ETCDIR)/xdg
+
+EXAILEBINDIR   = $(DESTDIR)$(EPREFIX)/bin
+EXAILELIBDIR   = $(DESTDIR)$(LIBINSTALLDIR)/exaile
+EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
+EXAILECONFDIR  = $(DESTDIR)$(XDGCONFDIR)/exaile
+EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
 .PHONY: dist test coverage clean sanitycheck
 
@@ -75,8 +78,6 @@ uninstall:
 	rm -f $(EXAILEMANDIR)/man1/exaile.1.gz
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
-
-.NOTPARALLEL:	install-target install-locale make-install-dirs
 
 install: install-target install-locale
 
@@ -176,8 +177,8 @@ pot:
 	  find plugins -name "*.py" | grep -v treeviewtest >> po/POTFILES.in && \
 	  find plugins -name "*.ui" | grep -v treeviewtest | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
 	  find plugins -name PLUGININFO | grep -v treeviewtest >> po/POTFILES.in && \
-	  cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
-	    intltool-update --pot --gettext-package=messages --verbose && cd ..
+	  (cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
+	    intltool-update --pot --gettext-package=messages --verbose)
 
 potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

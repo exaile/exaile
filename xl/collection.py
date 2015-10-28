@@ -275,7 +275,8 @@ class Collection(trax.TrackDB):
                 break
         else: # didnt break
             try:
-                self.save_to_location()
+                if self.location is not None:
+                    self.save_to_location()
             except AttributeError:
                 logger.exception("Exception occurred while saving")
 

@@ -39,7 +39,7 @@ from xl import (
     providers
 )
 from xl.common import classproperty
-from xl.formatter import TrackFormatter, YearTagFormatter
+from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets import rating, menu
@@ -70,7 +70,7 @@ class Column(gtk.TreeViewColumn):
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.extrasize = 0
-        
+
         self._setup_font(font)
 
         if index == 2:
@@ -93,7 +93,7 @@ class Column(gtk.TreeViewColumn):
             self.cellrenderer.set_property('ellipsize', pango.ELLIPSIZE_END)
         except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
-            
+
         for name, val in self.cellproperties.iteritems():
             self.cellrenderer.set_property(name, val)
 
@@ -125,38 +125,38 @@ class Column(gtk.TreeViewColumn):
     def _setup_font(self, font):
         '''
             This should be set even for non-text columns.
-            
+
             ::param font:: is None or a pango.FontDescription
         '''
         default_font = gtk.widget_get_default_style().font_desc
         if font is None:
             font = default_font
-            
+
         def_font_sz = float(default_font.get_size())
-            
+
         try:
             self.cellrenderer.set_property('font-desc', font)
         except TypeError:
             pass
-                
+
         # how much has the font deviated from normal?
         self._font_ratio = font.get_size()/def_font_sz
-        
+
         try:
             # adjust the display size of the column
             ratio = self._font_ratio
-            
-            # small fonts can be problematic.. 
+
+            # small fonts can be problematic..
             # -> TODO: perhaps default widths could be specified
             #          in character widths instead? then we could
             #          calculate it instead of using arbitrary widths
             if ratio < 1:
                 ratio = ratio * 1.25
-            
+
             self.size = max(int(self.size*ratio),1)
         except AttributeError:
-            pass            
-           
+            pass
+
     def _setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
@@ -172,21 +172,21 @@ class Column(gtk.TreeViewColumn):
             else:
                 self.set_expand(False)
                 self.set_fixed_width(self.size+self.extrasize)
-             
+
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''
         sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
         return max(int(sz*self._font_ratio), 1)
-        
+
     def get_icon_size_ratio(self):
         '''Returns how much bigger or smaller an icon should be'''
         return self._font_ratio
-                
+
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:
             playlist = self.container.playlist
 
-            
+
             if playlist is not self.player.queue.current_playlist:
                 return
 

@@ -1128,8 +1128,12 @@ class Playlist(object):
                 next = None
 
         if next is None:
-            if repeat_mode == 'all' and len(self) > 0:
-                return self.__get_next(-1)
+            if repeat_mode == 'all':
+                if len(self) == 1:
+                    next = self[current_position]
+                    next_index = current_position
+                if len(self) > 1:
+                    return self.__get_next(-1)
 
         self.__next_data = (None, next_index, next)
         return next

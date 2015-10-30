@@ -136,8 +136,6 @@ class WikiPanel(panel.Panel):
 
     def setup_widgets(self):
         self._scrolled_window = Gtk.ScrolledWindow()
-        self._scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
-        self._scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         self._scrolled_window.add(self._browser)
         frame = self.builder.get_object('rendering_frame')
         self._scrolled_window.show_all()

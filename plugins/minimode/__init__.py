@@ -216,7 +216,9 @@ class MiniMode(Gtk.Window):
 
             self.__dirty = False
 
-        self.resize(*self.size_request())
+        min_width, natural_width = self.get_preferred_width()
+        min_height, natural_height = self.get_preferred_height()
+        self.resize(natural_width, natural_height)
         self.queue_draw()
         Gtk.Window.do_show(self)
         

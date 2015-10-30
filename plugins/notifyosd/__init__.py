@@ -63,7 +63,7 @@ class ExaileNotifyOsd(object):
     notify_change   = __inner_preference(notifyosdprefs.NotifyChange)
 
     def __init__(self):
-        self.notify         = Notify.Notification('Exaile')
+        self.notify         = Notify.Notification.new('Exaile')
         self.exaile         = None
         self.icon           = None
         self.pauseicon      = 'notification-audio-pause'

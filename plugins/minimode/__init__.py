@@ -255,8 +255,10 @@ class MiniMode(Gtk.Window):
         """
             Updates the colormap on screen change
         """
-        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.set_colormap(colormap)
+        visual = screen.get_rgba_visual()
+        if visual is None:
+            visual = screen.get_system_visual()
+        self.set_visual(visual)
 
         self.chain(screen)
 

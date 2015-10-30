@@ -220,9 +220,10 @@ class ExaileGstEngine(ExaileEngine):
             # The fader executes the stop offset, so reconfigure it
             
             if self.crossfade_enabled:
-                stream.reconfigure_fader(self.crossfade_duration)
+                stream.reconfigure_fader(self.crossfade_duration,
+                                         self.crossfade_duration)
             else:
-                stream.reconfigure_fader(None)
+                stream.reconfigure_fader(None, None)
     
     def pause(self):
         self.main_stream.pause()

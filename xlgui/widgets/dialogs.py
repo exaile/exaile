@@ -50,6 +50,8 @@ from xl.playlist import (
 )
 from xl.nls import gettext as _
 
+from xlgui.guiutil import GtkTemplate
+
 logger = logging.getLogger(__name__)
 
 def force_unicode(obj):
@@ -100,28 +102,25 @@ def yesno(parent, message):
     dlg.destroy()
     return response
 
-class AboutDialog(object):
+@GtkTemplate('ui', 'about_dialog.ui')
+class AboutDialog(Gtk.AboutDialog):
     """
         A dialog showing program info and more
     """
+    
+    __gtype_name__ = 'AboutDialog'
+    
     def __init__(self, parent=None):
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'about_dialog.ui'))
-
-        self.dialog = builder.get_object('AboutDialog')
-        self.dialog.set_transient_for(parent)
+        Gtk.AboutDialog.__init__(self)
+        self.init_template()
+    
+        self.set_transient_for(parent)
         logo = GdkPixbuf.Pixbuf.new_from_file(
             xdg.get_data_path('images', 'exailelogo.png'))
-        self.dialog.set_logo(logo)
+        self.set_logo(logo)
         from xl.main import __version__
-        self.dialog.set_version(__version__)
-        self.dialog.connect('response', lambda dialog, response: dialog.destroy())
+        self.set_version(__version__)
 
-    def show(self):
-        """
-            Shows the dialog
-        """
-        self.dialog.show()
 
 class MultiTextEntryDialog(Gtk.Dialog):
     """

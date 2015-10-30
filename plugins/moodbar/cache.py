@@ -1,3 +1,6 @@
+# Johannes Sasongko <sasongko@gmail.com>, 2015
+
+
 from __future__ import division, print_function, unicode_literals
 
 import os
@@ -28,11 +31,18 @@ class MoodbarCache:
 
 class ExaileMoodbarCache(MoodbarCache):
     def __init__(self, location):
+        try:
+            os.mkdir(location)
+        except OSError:
+            pass
         self.loc = location
 
     def get(self, uri):
-        with open(self._get_cache_path(uri), 'rb') as f:
-            return f.read()
+        try:
+            with open(self._get_cache_path(uri), 'rb') as f:
+                return f.read()
+        except IOError:
+            return None
 
     def put(self, uri, data):
         if data is None:

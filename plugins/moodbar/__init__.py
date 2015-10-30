@@ -1,411 +1,95 @@
-# Moodbar -  Replace standard progress bar with moodbar
-# Copyright (C) 2009-2010  Solyianov Michael <crantisz@gmail.com>
-#
-# this program is free software; you can redistribute it and/or modify
-# it under the terms of the gnu general public license as published by
-# the free software foundation; either version 3, or (at your option)
-# any later version.
-#
-# this program is distributed in the hope that it will be useful,
-# but without any warranty; without even the implied warranty of
-# merchantability or fitness for a particular purpose.  see the
-# gnu general public license for more details.
-#
-# you should have received a copy of the gnu general public license
-# along with this program; if not, write to the free software
-# foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
+# Johannes Sasongko <sasongko@gmail.com>, 2015
 
-from gi.repository import Gdk
-from gi.repository import Gtk
+
+from __future__ import division, print_function
+
+import os.path
+
 from gi.repository import GLib
 
-import cache
-import generator
-import loader
-import moodbarprefs
-import moodbarwidget
-
-import os
-import subprocess
-import colorsys
-from xl import event, player, settings, xdg
+import xl.event
 from xl.nls import gettext as _
-from xlgui import guiutil
+import xl.player
+import xl.xdg
+import xlgui.guiutil
 
-import logging
-logger = logging.getLogger(__name__)
+from cache import ExaileMoodbarCache
+from generator import SpectrumMoodbarGenerator
+from painter import MoodbarPainter
+from widget import Moodbar
 
-ExaileModbar = None
-PreviewMoodbar = None
+
+# TRANSLATORS: Time format for playback progress
+TIME_FORMAT = _("{minutes}:{seconds:02}")
+
+def format_time(seconds):
+    seconds = int(round(seconds))
+    minutes, seconds = divmod(seconds, 60)
+    return TIME_FORMAT.format(minutes=int(minutes), seconds=seconds)
 
 
-class ExModbar(object):
+class MoodbarPlugin:
+    def __init__(self, player=None):
+        if not player:
+            self.player = xl.player.PLAYER
 
-    # Setup and getting values------------------------------------------------
+    def enable(self, exaile):
+        self.exaile = exaile
+        self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
+        self.generator = SpectrumMoodbarGenerator()
+        self.moodbar = None
+        self.timer = None
 
-    def __init__(self, player, progress_bar):
-        self.pr = progress_bar
-        self.player = player
+    def on_gui_loaded(self):
+        self.moodbar = Moodbar(MoodbarPainter())
+        self.orig_seekbar = self.exaile.gui.main.progress_bar
+        xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, self.moodbar)
+        xl.event.add_ui_callback(self._on_playback_track_start, 'playback_track_start', self.player)
+        xl.event.add_ui_callback(self._on_playback_track_end, 'playback_track_end', self.player)
+        #event.add_callback(..., 'preview_device_enabled')
+        #event.add_callback(..., 'preview_device_disabling')
 
-        self.loader = loader.MoodbarLoader()
-        self.generator = generator.SpectrumMoodbarGenerator()
-        self.moodbar = ''
-        self.modwidth = 0
-        self.curpos = 0
-        self.modTimer = None
-        self.haveMod = False
-        self.playingTrack = ''
-        self.seeking = False
-        self.setuped = False
-        self.runed = False
-        self.uptime = 0
-        self.ivalue = 0
-        self.qvalue = 0
-        self.moodsDir = os.path.join(xdg.get_cache_dir(), "moods")
-        if not os.path.exists(self.moodsDir):
-            os.mkdir(self.moodsDir)
-        self.cache = cache.ExaileMoodbarCache(self.moodsDir)
-
-    def __inner_preference(klass):
-        """functionality copy from notyfication"""
-
-        def getter(self):
-            return settings.get_option(klass.name, klass.default or None)
-
-        def setter(self, val):
-            settings.set_option(klass.name, val)
-
-        return property(getter, setter)
-
-    defaultstyle = __inner_preference(moodbarprefs.DefaultStylePreference)
-    flat = __inner_preference(moodbarprefs.FlatPreference)
-    theme = __inner_preference(moodbarprefs.ThemePreference)
-    cursor = __inner_preference(moodbarprefs.CursorPreference)
-
-    darkness = __inner_preference(moodbarprefs.DarknessPreference)
-    color = __inner_preference(moodbarprefs.ColorPreference)
-
-    def get_size(self):
-        progress_loc = self.mod.get_allocation()
-        return progress_loc.width
-
-    #Setup-------------------------------------------------------------------
-
-    def changeBarToMod(self):
-        self.mod = moodbarwidget.Moodbar(self.loader)
-        self.mod.set_size_request(-1, 24)
-        guiutil.gtk_widget_replace(self.pr, self.mod)
-
-    def changeModToBar(self):
-        if hasattr(self, 'mod'):
-            guiutil.gtk_widget_replace(self.mod, self.pr)
-            self.mod.destroy()
-
-    def setupUi(self):
-        self.setuped = True
-        self.changeBarToMod()
-        self.mod.seeking = False
-        self.mod.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
-        self.mod.add_events(Gdk.EventMask.BUTTON_RELEASE_MASK)
-        self.mod.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
-        self.mod.connect("button-press-event", self.modSeekBegin)
-        self.mod.connect("button-release-event", self.modSeekEnd)
-        self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
-
-        track = self.player.current
-
-        self.lookformod(track)
-
-    def add_callbacks(self):
-        event.add_callback(
-            self.play_start,
-            'playback_track_start',
-            self.player
-        )
-        event.add_callback(
-            self.play_end,
-            'playback_player_end',
-            self.player
-        )
-        event.add_callback(self.option_set, 'plugin_moodbar_option_set')
-
-        # Initialize tint.
-        self.option_set('plugin_moodbar', settings, moodbarprefs.ColorPreference.name)
-
-    def remove_callbacks(self):
-        event.remove_callback(
-            self.play_start,
-            'playback_track_start',
-            self.player
-        )
-        event.remove_callback(
-            self.play_end,
-            'playback_player_end',
-            self.player
-        )
-        event.remove_callback(self.option_set, 'plugin_moodbar_option_set')
-
-    def option_set(self, event, settings, option):
-        opt_theme = moodbarprefs.ThemePreference.name
-        opt_color = moodbarprefs.ColorPreference.name
-        if option not in (opt_theme, opt_color):
+    def disable(self, exaile):
+        if not self.moodbar:
             return
-        if settings.get_option(opt_theme):
-            c = settings.get_option(opt_color)
-            if c is not None:
-                color = Gdk.RGBA()
-                if len(c) == 9 and c[0] == '#':
-                    alpha = int(c[-2:], 16) / 255.0
-                    c = c[:-2]
-                else:
-                    alpha = 1
-                if alpha == 1:
-                    alpha = 0.1
-                color.parse(c)
-                color.alpha = alpha
-                self.mod.set_tint(color)
-                return
-        self.mod.set_tint(None)
+        assert self.orig_seekbar
+        xlgui.guiutil.gtk_widget_replace(self.moodbar, self.orig_seekbar)
+        self.moodbar.destroy()
+        self.moodbar = None
 
-    def destroy(self):
-        if self.modTimer: GLib.source_remove(self.modTimer)
+    def _on_playback_track_start(self, event, player, track):
+        uri = player.current.get_loc_for_io()
+        data = self.cache.get(uri)
+        self.moodbar.set_mood(data)
+        self._on_timer()
+        self.timer = GLib.timeout_add_seconds(1, self._on_timer)
+        if not data and uri.startswith('file://'):
+            def callback(uri, data):
+                self.cache.put(uri, data)
+                self.moodbar.set_mood(data)
+            self.generator.generate_async(uri, callback)
 
-    # playing ----------------------------------------------------------------
-
-    def lookformod(self, track):
-        if not track or not (track.is_local() or track.get_tag_raw('__length')):
-            self.haveMod = False
-            return
-
-        self.playingTrack = str(track.get_loc_for_io())
-        self.playingTrack = self.playingTrack.replace("file://", "")
-        modLoc = self.moodsDir + '/' + self.playingTrack.replace('/',
-                                                                 '-') + ".mood"
-        modLoc = modLoc.replace("'", '')
-        needGen = False
-        self.curpos = self.player.get_progress()
-        if os.access(modLoc, 0):
-            self.modwidth = 0
-            if not self.mod.load_mood(modLoc):
-                needGen = True
-            self.updateplayerpos()
-        else:
-            needGen = True
-        if needGen:
-            self.mod.load_mood(None)
-            self.updateplayerpos()
-            self.generator.generate_async(track.get_loc_for_io(), self.cache.put)
-        self.haveMod = not needGen
-
-        if self.modTimer: GLib.source_remove(self.modTimer)
-        self.modTimer = GLib.timeout_add_seconds(1, self.updateMod)
-
-    def play_start(self, type, player, track):
-        self.lookformod(track)
-
-    def play_end(self, type, player, track):
-        if self.modTimer: GLib.source_remove(self.modTimer)
-        self.modTimer = None
-        self.haveMod = False
-        self.mod.load_mood(None)
-        self.mod.set_seek_position(None)
-        self.mod.set_text(None)
-
-    # update player's ui -----------------------------------------------------
-
-    def updateMod(self):
-        self.updateplayerpos()
-        if not self.haveMod:
-            logger.debug(_('Searching for mood...'))
-            modLoc = self.moodsDir + '/' + self.playingTrack.replace(
-                '/', '-') + ".mood"
-            modLoc = modLoc.replace("'", '')
-            if self.mod.load_mood(modLoc):
-                logger.debug(_("Mood found."))
-                self.haveMod = True
-                self.modwidth = 0
-        self.modTimer = GLib.timeout_add_seconds(1, self.updateMod)
-
-    def updateplayerpos(self):
-        if self.modTimer:
-            if not self.seeking:
-                self.curpos = self.player.get_progress()
-                self.mod.set_seek_position(self.curpos)
-            length = self.player.current.get_tag_raw('__length')
-            seconds = self.player.get_time()
-            remaining_seconds = length - seconds
-            text = ("%d:%02d / %d:%02d" %
-                    (seconds // 60, seconds % 60, remaining_seconds // 60,
-                     remaining_seconds % 60))
-            self.mod.set_text(text)
-        else:
-            if not self.seeking:
-                self.mod.set_seek_position(None)
-
-    #reading mod from file and update mood preview --------------------------
-
-    def readMod(self, moodLoc):
-        retur = True
-        self.moodbar = ''
+    def _on_timer(self):
         try:
-            if moodLoc == '':
-                for i in range(3000):
-                    self.moodbar = self.moodbar + chr(255)
-                return True
-            else:
-                f = open(moodLoc, 'rb')
-                for i in range(3000):
-                    r = f.read(1)
-                    if r == '':
-                        r = chr(0)
-                        retur = False
-                    self.moodbar = self.moodbar + r
-                f.close()
-                return retur
-
-        except:
-            logger.debug(_('Could not read moodbar.'))
-            self.moodbar = ''
-            for i in range(3000):
-                self.moodbar = self.moodbar + chr(0)
+            total_time = self.player.current.get_tag_raw('__length')
+        except AttributeError:  # No current track
             return False
+        current_time = self.player.get_time()
+        if total_time:
+            format = dict(
+                current=format_time(current_time),
+                remaining=format_time(total_time - current_time),
+            )
+            # TRANSLATORS: Format for playback progress text
+            self.moodbar.set_text(_("{current} / {remaining}").format(**format))
+            self.moodbar.set_seek_position(current_time / total_time)
+        else:
+            self.moodbar.set_text(format_time(current_time))
+        return True
 
-    #seeking-----------------------------------------------------------------
+    def _on_playback_track_end(self, event, player, track):
+        GLib.source_remove(self.timer)
+        self.timer = None
+        self.moodbar.set_mood(None)
 
-    def modSeekBegin(self, this, event):
-        self.seeking = True
-
-    def modSeekEnd(self, this, event):
-        self.seeking = False
-        track = self.player.current
-        if not track or not (track.is_local() or \
-                track.get_tag_raw('__length')):
-            return
-
-        mouse_x, mouse_y = event.get_coords()
-        progress_loc = self.get_size()
-        value = mouse_x / progress_loc
-        if value < 0: value = 0
-        if value > 1: value = 1
-
-        self.curpos = value
-        length = track.get_tag_raw('__length')
-        self.mod.set_seek_position(value)
-
-        seconds = float(value * length)
-        self.player.seek(seconds)
-
-    def modSeekMotionNotify(self, this, event):
-        if self.seeking:
-            track = self.player.current
-            if not track or not (track.is_local() or \
-                    track.get_tag_raw('__length')):
-                return
-
-            mouse_x, mouse_y = event.get_coords()
-            progress_loc = self.get_size()
-            value = mouse_x / progress_loc
-            if value < 0: value = 0
-            if value > 1: value = 1
-
-            self.curpos = value
-            self.mod.set_seek_position(value)
-            #todo: text
-
-    #------------------------------------------------------------------------
-
-
-def _enable_main_moodbar(exaile):
-    global ExaileModbar
-    logger.debug("Enabling main moodbar")
-    ExaileModbar = ExModbar(
-        player=player.PLAYER,
-        progress_bar=exaile.gui.main.progress_bar
-    )
-
-    #ExaileModbar.readMod('')
-    ExaileModbar.setupUi()
-    ExaileModbar.add_callbacks()
-
-
-def _disable_main_moodbar():
-    global ExaileModbar
-    logger.debug("Disabling main moodbar")
-    ExaileModbar.changeModToBar()
-    ExaileModbar.remove_callbacks()
-    ExaileModbar.destroy()
-    ExaileModbar = None
-
-
-def _enable_preview_moodbar(event, preview_plugin, nothing):
-    global PreviewMoodbar
-    logger.debug("Enabling preview moodbar")
-    PreviewMoodbar = ExModbar(
-        player=preview_plugin.player,
-        progress_bar=preview_plugin.progress_bar
-    )
-
-    #PreviewMoodbar.readMod('')
-    PreviewMoodbar.setupUi()
-    PreviewMoodbar.add_callbacks()
-
-
-def _disable_preview_moodbar(event, preview_plugin, nothing):
-    global PreviewMoodbar
-    logger.debug("Disabling preview moodbar")
-    PreviewMoodbar.changeModToBar()
-    PreviewMoodbar.remove_callbacks()
-    PreviewMoodbar.destroy()
-    PreviewMoodbar = None
-
-
-def enable(exaile):
-    try:
-        subprocess.call(['moodbar', '--help'], stdout=-1, stderr=-1)
-    except OSError:
-        raise NotImplementedError(_('Moodbar executable is not available.'))
-        return False
-
-    if exaile.loading:
-        event.add_callback(_enable, 'exaile_loaded')
-    else:
-        _enable(None, exaile, None)
-
-def _get_preview_plugin_if_active(exaile):
-    previewdevice = exaile.plugins.enabled_plugins.get('previewdevice', None)
-    return getattr(previewdevice, 'PREVIEW_PLUGIN', None)
-
-def _enable(eventname, exaile, nothing):
-    _enable_main_moodbar(exaile)
-
-    event.add_callback(_enable_preview_moodbar, 'preview_device_enabled')
-    event.add_callback(_disable_preview_moodbar, 'preview_device_disabling')
-
-    preview_plugin = _get_preview_plugin_if_active(exaile)
-    if getattr(preview_plugin, 'hooked', False):
-        _enable_preview_moodbar('', preview_plugin, None)
-
-
-def disable(exaile):
-    _disable_main_moodbar()
-
-    event.remove_callback(_enable_preview_moodbar, 'preview_device_enabled')
-    event.remove_callback(_disable_preview_moodbar, 'preview_device_disabling')
-
-    preview_plugin = _get_preview_plugin_if_active(exaile)
-    if getattr(preview_plugin, 'hooked', False):
-        _disable_preview_moodbar('', preview_plugin, None)
-
-
-def get_preferences_pane():
-    return moodbarprefs
-
-#have errors from time to time:
-#python: ../../src/xcb_lock.c:77: _XGetXCBBuffer: Assertion `((int) ((xcb_req) - (dpy->request)) >= 0)' failed.
-
-#exaile.py: Fatal IO error 11 (Resource temporarily unavailable) on X server :0.0.
-
-#Xlib: sequence lost (0xe0000 > 0xd4add) in reply type 0x0!
-#python: ../../src/xcb_io.c:176: process_responses: Assertion `!(req && current_request && !(((long) (req->sequence) - (long) (current_request)) <= 0))' failed.
-
-#0.0.4 haven't errors
+plugin_class = MoodbarPlugin

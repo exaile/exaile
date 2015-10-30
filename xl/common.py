@@ -228,6 +228,7 @@ def idle_add(callback=None):
             wrapped function is done running
     """
     def wrap(f):
+        @wraps(f)
         def wrapped(*args, **kwargs):
             GLib.idle_add(_idle_callback, f, callback,
                 *args, **kwargs)

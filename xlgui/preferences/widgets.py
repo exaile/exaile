@@ -1009,7 +1009,7 @@ class ComboEntryPreference(Preference):
                 text_renderer.set_property('weight', Pango.Weight.BOLD)
 
                 title_renderer = Gtk.CellRendererText()
-                self.widget.pack_start(title_renderer, False, True, 0)
+                self.widget.pack_start(title_renderer, False)
                 self.widget.add_attribute(title_renderer, 'text', 1)
             except AttributeError:
                 preset_items = [[item] for item in self.preset_items]

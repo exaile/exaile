@@ -114,7 +114,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
             del self.__controls[name]
 
         self.__controls[name] = control
-        self.pack_start(control, False)
+        self.pack_start(control, False, True, 0)
         control.show_all()
 
     def __delitem__(self, name):
@@ -565,7 +565,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
         self.synchronize()
 
         renderer = Gtk.CellRendererText()
-        self.pack_start(renderer, True, True, 0)
+        self.pack_start(renderer, True)
         self.set_cell_data_func(renderer, self.data_func)
         self.set_size_request(200, 0)
 

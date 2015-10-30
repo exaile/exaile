@@ -31,6 +31,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gtk
+import logging
 import os
 import os.path
 import threading
@@ -43,6 +44,9 @@ from xl.common import idle_add
 
 # Import from external namespace
 from xl.externals.gi_composites import GtkTemplate as _GtkTemplate
+
+logger = logging.getLogger(__name__)
+
 
 class GtkTemplate(_GtkTemplate):
     '''
@@ -107,8 +111,8 @@ def get_workarea_dimensions():
 
 def gtk_widget_replace(widget, replacement):
     """
-        Replaces one widget with another and
-        places it exactly at the original position
+        Replaces one widget with another and places it exactly at the
+        original position, keeping child properties
 
         :param widget: The original widget
         :type widget: :class:`Gtk.Widget`
@@ -117,43 +121,20 @@ def gtk_widget_replace(widget, replacement):
     """
     parent = widget.get_parent()
 
-    try:
-        position = parent.get_children().index(widget)
-    except AttributeError: # None, not Gtk.Container
+    if parent is None:
+        logger.error("widget doesn't have a parent.")
         return
-    else:
-        try:
-            packing = parent.query_child_packing(widget)
-        except AttributeError: # Not Gtk.Box
-            pass
 
-        try:
-            tab_label = parent.get_tab_label(widget)
-            tab_label_packing = parent.query_tab_label_packing(widget)
-        except AttributeError: # Not Gtk.Notebook
-            pass
+    props = {}
+    for pspec in parent.list_child_properties():
+        props[pspec.name] = parent.child_get_property(widget, pspec.name)
 
-        parent.remove(widget)
-        replacement.unparent()
-        parent.add(replacement)
+    parent.remove(widget)
+    parent.add(replacement)
 
-        try:
-            parent.set_child_packing(replacement, *packing)
-        except AttributeError: # Not Gtk.Box
-            pass
-
-        try:
-            parent.reorder_child(replacement, position)
-        except AttributeError:
-            pass
-
-        try:
-            parent.set_tab_label(replacement, tab_label)
-            parent.set_tab_label_packing(replacement, *tab_label_packing)
-        except AttributeError:
-            pass
-
-        replacement.show_all()
+    for name, value in props.items():
+        parent.child_set_property(replacement, name, value)
+    return
 
 class ScalableImageWidget(Gtk.Image):
     """

@@ -23,7 +23,6 @@
 # exception to your version of the code, but you are not obligated to
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
-
 """
     General functions and classes shared in the codebase
 """
@@ -645,13 +644,16 @@ class MetadataList(object):
 
 class ProgressThread(GObject.GObject, threading.Thread):
     """
-        A basic thread with progress updates
+        A basic thread with progress updates. The thread should emit
+        the progress-update signal periodically. The contents must
+        be number between 0 and 100, or a tuple of (n, total) where
+        n is the current step.
     """
     __gsignals__ = {
         'progress-update': (
             GObject.SignalFlags.RUN_FIRST,
             None,
-            (GObject.TYPE_INT,)
+            (GObject.TYPE_PYOBJECT,)
         ),
         # TODO: Check if 'stopped' is required
         'done': (
@@ -678,6 +680,58 @@ class ProgressThread(GObject.GObject, threading.Thread):
             signal is emitted regularly with the progress
         """
         pass
+    
+class SimpleProgressThread(ProgressThread):
+    '''
+        Simpler version of ProgressThread that uses a generator to
+        manage the thread and its progress. Instead of overriding
+        run, just pass a callable that returns a generator to
+        the constructor.
+        
+        The callable must either yield a number between 0 and 100,
+        or yield a tuple of (n, total) where n is the current step.
+        
+        ::
+        
+            def long_running_thing():
+                l = len(stuff)
+                try:
+                    for i in stuff:
+                        yield (i, l)
+                finally:
+                    # if the thread is stopped, GeneratorExit will
+                    # be raised the next time yield is called
+                    pass
+    '''
+    
+    def __init__(self, target, *args, **kwargs):
+        ProgressThread.__init__(self)
+        self.__target = (target, args, kwargs)
+        self.__stop = False
+    
+    def stop(self):
+        '''
+            Causes the thread to stop at the next yield point
+        '''
+        self.__stop = True
+        
+    def run(self):
+        '''
+            Runs a generator
+        '''
+        target, args, kwargs = self.__target
+        
+        try:
+            for progress in target(*args, **kwargs):
+                self.emit('progress-update', progress)
+                if self.__stop:
+                    break
+        except GeneratorExit:
+            pass
+        except Exception:
+            logger.exception("Unhandled exception")
+        finally:
+            self.emit('done')
 
 
 class PosetItem(object):

@@ -262,6 +262,9 @@ class EventManager(object):
         # RLock is needed so that event callbacks can themselves send
         # synchronous events and add or remove callbacks
         self.lock = threading.RLock()
+        
+        self.pending_ui = []
+        self.pending_ui_lock = threading.Lock()
 
     def emit(self, event):
         """
@@ -284,9 +287,22 @@ class EventManager(object):
             self._emit(event, self.all_callbacks, emit_logmsg, emit_verbose)
         else:
             # Don't issue the log message twice
-            GLib.idle_add(self._emit, event, self.ui_callbacks, emit_logmsg, emit_verbose)
+            with self.pending_ui_lock:
+                do_emit = not self.pending_ui
+                self.pending_ui.append((event, self.ui_callbacks, emit_logmsg, emit_verbose))
+            
+            if do_emit:
+                GLib.idle_add(self._emit_pending) 
             self._emit(event, self.callbacks, False, emit_verbose)
     
+    def _emit_pending(self):
+        
+        with self.pending_ui_lock:
+            events = self.pending_ui
+            self.pending_ui = []
+        
+        for event in events:
+            self._emit(*event)
     
     def _emit(self, event, exc_callbacks, emit_logmsg, emit_verbose):
         

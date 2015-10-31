@@ -401,7 +401,7 @@ class ListDialog(Gtk.Dialog):
             self.selection.set_mode(Gtk.SelectionMode.SINGLE)
 
         text = Gtk.CellRendererText()
-        col = Gtk.TreeViewColumn("Item")
+        col = Gtk.TreeViewColumn()
         col.pack_start(text, True)
 
         col.set_cell_data_func(text, self.cell_data_func)

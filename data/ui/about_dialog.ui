@@ -27,6 +27,7 @@ Aron Homberg
 Josip Lisec</property>
     <property name="logo_icon_name">image-missing</property>
     <property name="license_type">gpl-2-0</property>
+    <signal name="response" handler="on_response" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>

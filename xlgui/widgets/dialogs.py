@@ -121,6 +121,8 @@ class AboutDialog(Gtk.AboutDialog):
         from xl.main import __version__
         self.set_version(__version__)
 
+    def on_response(self, *_):
+        self.destroy()
 
 class MultiTextEntryDialog(Gtk.Dialog):
     """

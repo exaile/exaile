@@ -43,7 +43,7 @@ from gi.repository import GLib
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
-from xl.common import VersionError, glib_wait_seconds
+from xl.common import VersionError, glib_wait, glib_wait_seconds
 from xl.nls import gettext as _
 
 TYPE_MAPPING = {
@@ -133,7 +133,7 @@ class SettingsManager(RawConfigParser):
         self.copy_settings(settings)
         return settings
 
-    def set_option(self, option, value):
+    def set_option(self, option, value, save=True):
         """
             Set an option (in ``section/key`` syntax) to the specified value
 
@@ -141,6 +141,7 @@ class SettingsManager(RawConfigParser):
             :type option: string
             :param value: the value the option should be assigned
             :type value: any
+            :param save: If True, cause the settings to be written to file
         """
         value = self._val_to_str(value)
         splitvals = option.split('/')
@@ -153,6 +154,9 @@ class SettingsManager(RawConfigParser):
             self.set(section, key, value)
 
         self._dirty = True
+        
+        if save:
+            self.delayed_save()
 
         section = section.replace('/', '_')
 
@@ -274,6 +278,11 @@ class SettingsManager(RawConfigParser):
             return value
         else:
             raise ValueError(_("An Unknown type of setting was found!"))
+
+    @glib_wait(500)
+    def delayed_save(self):
+        '''Save options after a delay, waiting for multiple saves to accumulate'''
+        self.save()
 
     def save(self):
         """

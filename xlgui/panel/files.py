@@ -337,7 +337,7 @@ class FilesPanel(panel.Panel):
         """
         name = {self.colname: 'filename', self.colsize: 'size'}[col]
         name = "gui/files_%s_col_width" % name
-        settings.set_option(name, col.get_width())
+        settings.set_option(name, col.get_width(), save=False)
 
     @common.threaded
     def load_directory(self, directory, history=True, keyword=None, cursor=None):

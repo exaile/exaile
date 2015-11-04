@@ -37,6 +37,7 @@ from xl.nls import gettext as _
 from xl import event, main, settings, xdg
 from xlgui import guiutil
 from xlgui.widgets import dialogs
+from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
@@ -512,56 +513,141 @@ class SelectionListPreference(Preference):
         description = property(lambda self: self.__description)
         fixed = property(lambda self: self.__fixed)
 
-    def __init__(self, preferences, widget):
-        self.model = Gtk.ListStore(
-            str,  # 0: item
-            str,  # 1: title
-            str,  # 2: description
-            bool, # 3: enabled
-            bool  # 4: fixed
-        )
+    @GtkTemplate('ui', 'preferences', 'widgets',
+                 'selection_list_preference.ui')
+    class InternalWidget(Gtk.ScrolledWindow):
+        """
+            Internal class for making GtkTemplate work with subclassing
+        """
+
+        __gtype_name__ = 'InternalWidget'
+
+        model, tree, toggle_renderer, text_renderer, enabled_column, \
+            title_column, = GtkTemplate.Child.widgets(6)
+        selectionlp = None
+
+        def __init__(self, preference):
+            Gtk.ScrolledWindow.__init__(self)
+            self.init_template()
+            self.selectionlp = preference
+
+            self.tree.enable_model_drag_source(
+                Gdk.ModifierType.BUTTON1_MASK,
+                [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
+                Gdk.DragAction.MOVE
+            )
+            self.tree.enable_model_drag_dest(
+                [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
+                Gdk.DragAction.MOVE
+            )
+            self.tree.connect('drag-end', self.selectionlp.change)
+
+            self.enabled_column.set_cell_data_func(self.toggle_renderer,
+                                                   self.enabled_data_function)
+
+            self.title_column.set_cell_data_func(self.text_renderer,
+                                                 self.title_data_function)
+
+        @GtkTemplate.Callback
+        def on_row_activated(self, tree, path, column):
+            """
+                Updates the enabled column
+            """
+            if self.model[path][4]:
+                return
+
+            enabled = not self.model[path][3]
+            self.model[path][3] = enabled
         
+        def enabled_data_function(self, column, cell, model, iter, user_data):
+            """
+                Prepares sensitivity
+                of the enabled column
+            """
+            path = model.get_path(iter)
+            fixed = model[path][4]
+            cell.props.sensitive = not fixed
+
+        def title_data_function(self, column, cell, model, iter, user_data):
+            """
+                Prepares the markup to be
+                used for the title column
+            """
+            path = model.get_path(iter)
+            title, description = model[path][1], model[path][2]
+    
+            markup = '<b>%s</b>' % title
+    
+            if description is not None:
+                markup += '\n<span size="small">%s</span>' % description
+    
+            cell.props.markup = markup
+
+        def iter_prev(self, iter, model):
+            """
+                Returns the previous iter
+                Taken from PyGtk FAQ 13.51
+            """
+            path = model.get_path(iter)
+            position = path[-1]
+    
+            if position == 0:
+                return None
+    
+            prev_path = list(path)[:-1]
+            prev_path.append(position - 1)
+            prev = model.get_iter(tuple(prev_path))
+    
+            return prev
+
+        @GtkTemplate.Callback
+        def on_key_press_event(self, tree, event):
+            """
+                Allows for reordering via keyboard (Alt+<direction>)
+            """
+            if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
+                return
+    
+            if event.keyval not in (Gdk.KEY_Up, Gdk.KEY_Down):
+                return
+    
+            model, selected_iter = tree.get_selection().get_selected()
+    
+            if event.keyval == Gdk.KEY_Up:
+                previous_iter = self.iter_prev(selected_iter, model)
+                model.move_before(selected_iter, previous_iter)
+            elif event.keyval == Gdk.KEY_Down:
+                next_iter = model.iter_next(selected_iter)
+                model.move_after(selected_iter, next_iter)
+    
+            tree.scroll_to_cell(model.get_path(selected_iter))
+    
+            self.selectionlp.apply()
+    
+        @GtkTemplate.Callback
+        def on_toggled(self, cell, path):
+            """
+                Updates the enabled column
+            """
+            if self.model[path][4]:
+                return
+    
+            active = not cell.get_active()
+            cell.set_active(active)
+            self.model[path][3] = active
+    
+            self.selectionlp.apply()
+
+    def __init__(self, preferences, widget):
+        internal_widget = self.InternalWidget(self)
+        self.model = internal_widget.model
+
         for item in self.items:
-            self.model.append([item.id, item.title, item.description,
-                True, item.fixed])
+            row = [item.id, item.title, item.description, True, item.fixed]
+            self.model.append(row)
 
-        tree = Gtk.TreeView(self.model)
-        tree.set_headers_visible(False)
-        tree.set_rules_hint(True)
-        tree.enable_model_drag_source(
-            Gdk.ModifierType.BUTTON1_MASK,
-            [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
-            Gdk.DragAction.MOVE
-        )
-        tree.enable_model_drag_dest(
-            [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
-            Gdk.DragAction.MOVE
-        )
-        tree.connect('row-activated', self.on_row_activated)
-        tree.connect('key-press-event', self.on_key_press_event)
-        tree.connect('drag-end', self.change)
-
-        toggle_renderer = Gtk.CellRendererToggle()
-        toggle_renderer.connect('toggled', self.on_toggled)
-        enabled_column = Gtk.TreeViewColumn('Enabled', toggle_renderer, active=3)
-        enabled_column.set_cell_data_func(toggle_renderer,
-            self.enabled_data_function)
-        tree.append_column(enabled_column)
-
-        text_renderer = Gtk.CellRendererText()
-        text_renderer.props.ypad = 6
-        title_column = Gtk.TreeViewColumn('Title', text_renderer, text=1)
-        title_column.set_cell_data_func(text_renderer,
-            self.title_data_function)
-        tree.append_column(title_column)
-
-        scroll = Gtk.ScrolledWindow()
-        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        scroll.set_shadow_type(Gtk.ShadowType.IN)
-        scroll.add(tree)
-
-        guiutil.gtk_widget_replace(widget, scroll)
-        Preference.__init__(self, preferences, scroll)
+        guiutil.gtk_widget_replace(widget, internal_widget)
+        Preference.__init__(self, preferences, internal_widget)
 
     def _get_value(self):
         """
@@ -598,94 +684,6 @@ class SelectionListPreference(Preference):
             else:
                 row[3] = True
 
-    def enabled_data_function(self, column, cell, model, iter, user_data):
-        """
-            Prepares sensitivity
-            of the enabled column
-        """
-        path = model.get_path(iter)
-        fixed = model[path][4]
-        cell.props.sensitive = not fixed
-
-    def title_data_function(self, column, cell, model, iter, user_data):
-        """
-            Prepares the markup to be
-            used for the title column
-        """
-        path = model.get_path(iter)
-        title, description = model[path][1], model[path][2]
-
-        markup = '<b>%s</b>' % title
-
-        if description is not None:
-            markup += '\n<span size="small">%s</span>' % description
-
-        cell.props.markup = markup
-
-    def iter_prev(self, iter, model):
-        """
-            Returns the previous iter
-            Taken from PyGtk FAQ 13.51
-        """
-        path = model.get_path(iter)
-        position = path[-1]
-
-        if position == 0:
-            return None
-
-        prev_path = list(path)[:-1]
-        prev_path.append(position - 1)
-        prev = model.get_iter(tuple(prev_path))
-
-        return prev
-
-    def on_row_activated(self, tree, path, column):
-        """
-            Updates the enabled column
-        """
-        model = tree.get_model()
-
-        if model[path][4]:
-            return
-
-        enabled = not model[path][3]
-        model[path][3] = enabled
-
-    def on_key_press_event(self, tree, event):
-        """
-            Allows for reordering via keyboard (Alt+<direction>)
-        """
-        if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
-            return
-
-        if event.keyval not in (Gdk.KEY_Up, Gdk.KEY_Down):
-            return
-
-        model, selected_iter = tree.get_selection().get_selected()
-
-        if event.keyval == Gdk.KEY_Up:
-            previous_iter = self.iter_prev(selected_iter, model)
-            model.move_before(selected_iter, previous_iter)
-        elif event.keyval == Gdk.KEY_Down:
-            next_iter = model.iter_next(selected_iter)
-            model.move_after(selected_iter, next_iter)
-
-        tree.scroll_to_cell(model.get_path(selected_iter))
-
-        self.apply()
-
-    def on_toggled(self, cell, path):
-        """
-            Updates the enabled column
-        """
-        if self.model[path][4]:
-            return
-
-        active = not cell.get_active()
-        cell.set_active(active)
-        self.model[path][3] = active
-
-        self.apply()
 
 class ShortcutListPreference(Preference):
     """
@@ -1011,7 +1009,7 @@ class ComboEntryPreference(Preference):
                 text_renderer.set_property('weight', Pango.Weight.BOLD)
 
                 title_renderer = Gtk.CellRendererText()
-                self.widget.pack_start(title_renderer, False, True, 0)
+                self.widget.pack_start(title_renderer, False)
                 self.widget.add_attribute(title_renderer, 'text', 1)
             except AttributeError:
                 preset_items = [[item] for item in self.preset_items]

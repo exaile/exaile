@@ -834,8 +834,9 @@ class CoverWindow(object):
         self.cover_window.set_title(title)
         self.cover_window.set_transient_for(parent)
         self.cover_window_width = 500
-        self.cover_window_height = 500 + self.toolbar.size_request().height + \
-                                   self.statusbar.size_request().height
+        tb_min_height, tb_natural_height = self.toolbar.get_preferred_height()
+        sb_min_height, sb_natural_height = self.statusbar.get_preferred_height()
+        self.cover_window_height = 500 + tb_natural_height + sb_natural_height
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
 
@@ -858,9 +859,11 @@ class CoverWindow(object):
 
     def available_image_height(self):
         """Returns the available vertical space for the image"""
+        tb_min_height, tb_natural_height = self.toolbar.get_preferred_height()
+        sb_min_height, sb_natural_height = self.statusbar.get_preferred_height()
+
         return self.cover_window.get_size()[1] - \
-               self.toolbar.size_request().height - \
-               self.statusbar.size_request().height
+            tb_natural_height - sb_natural_height
 
     def center_image(self):
         """Centers the image in the layout"""

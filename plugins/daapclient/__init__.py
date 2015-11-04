@@ -257,13 +257,17 @@ class DaapHistory(common.LimitedCache):
             self.menu.add_item(menu_item)
         
     def load(self):
-        with open(self.location, 'rb') as f:
-            try:
-                d = pickle.load(f)
-                self.update(d)
-            except (IOError, EOFError):
-                # no file
-                pass
+        try:
+            with open(self.location, 'rb') as f:
+                try:
+                    d = pickle.load(f)
+                    self.update(d)
+                except (IOError, EOFError):
+                    # no file
+                    pass
+        except (IOError):
+            # file not present
+            pass
         
     def save(self):
         with open(self.location, 'wb') as f:

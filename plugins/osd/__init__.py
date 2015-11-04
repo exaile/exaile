@@ -222,11 +222,12 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
             Updates the used colormap
         """
-        colormap = screen.get_rgba_colormap() or \
-                   screen.get_rgb_colormap()
-        
+        visual = screen.get_rgba_visual()
+        if visual is None:
+            visual = screen.get_system_visual()
+
         self.unrealize()
-        self.set_colormap(colormap)
+        self.set_visual(visual)
         self.realize()
 
     def do_size_allocate(self, allocation):

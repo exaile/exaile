@@ -748,63 +748,6 @@ class Statusbar(object):
         """
         self.info_label.set_label(self.formatter.format())
 
-    def __get_grip_edge(self, widget):
-        """
-            Taken from GTK source, retrieves the
-            preferred edge for the resize grip
-        """
-        if widget.get_direction() == Gtk.TextDirection.LTR:
-            edge = Gdk.WindowEdge.SOUTH_EAST
-        else:
-            edge = Gdk.WindowEdge.SOUTH_WEST
-        return edge
-
-    def __get_grip_rect(self, widget):
-        """
-            Taken from GTK source, retrieves the
-            rectangle to draw the resize grip on
-        """
-        width = height = 18
-        allocation = widget.get_allocation()
-
-        width = min(width, allocation.width)
-        height = min(height, allocation.height - widget.style.ythickness)
-
-        if widget.get_direction() == Gtk.TextDirection.LTR:
-            x = allocation.x + allocation.width - width
-        else:
-            x = allocation.x + widget.style.xthickness
-
-        y = allocation.y + allocation.height - height
-
-        return (x, y, width, height)
-
-    def on_draw(self, widget, context):
-        """
-            Override required to make alpha
-            transparency work properly
-        """
-        if False:  # TODO: GI: widget.get_has_resize_grip()
-            edge = self.__get_grip_edge(widget)
-            rect = self.__get_grip_rect(widget)
-
-            widget.style.paint_resize_grip(
-                widget.window,
-                widget.get_state(),
-                event.area,
-                widget,
-                'statusbar',
-                edge,
-                rect.x, rect.y,
-                rect.width - widget.style.xthickness,
-                rect.height - widget.style.ythickness
-            )
-
-            frame = widget.get_children()[0]
-            box = frame.get_children()[0]
-            box.send_expose(event) # Bypass frame
-
-        return True
 
 # TODO: Check if we can get a progress indicator in here somehow
 class Splash(object):

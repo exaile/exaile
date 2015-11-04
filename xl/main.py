@@ -45,6 +45,11 @@ Gio = common = xdg = None
 def _do_heavy_imports():
     global Gio, common, xdg
 
+    import gi
+    gi.require_version('Gdk', '3.0')
+    gi.require_version('Gtk', '3.10')
+    gi.require_version('Gst', '1.0')
+    
     from gi.repository import Gio
     from xl import common, xdg
 

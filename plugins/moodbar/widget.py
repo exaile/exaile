@@ -27,8 +27,7 @@ class Moodbar(Gtk.DrawingArea):
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
         self.surf = self.text = self.text_extents = self.tint = None
-        self.seek_position = None
-        self.connect('draw', self._on_draw)
+        self._seek_position = None
 
     def set_mood(self, data):
         """
@@ -46,14 +45,19 @@ class Moodbar(Gtk.DrawingArea):
             self._invalidate()
             return True
 
-    def set_seek_position(self, pos):
+    @property
+    def seek_position(self):
+        return self._seek_position
+
+    @seek_position.setter
+    def seek_position(self, pos):
         """
         :param pos: Seek position, between 0 and 1 inclusive, or None to hide
         :type pos: float|None
         """
-        old_pos = self.seek_position
+        old_pos = self._seek_position
         if pos != old_pos:
-            self.seek_position = pos
+            self._seek_position = pos
             self._invalidate()
 
     def set_text(self, text):
@@ -84,7 +88,7 @@ class Moodbar(Gtk.DrawingArea):
         alloc = self.get_allocation()
         self.queue_draw_area(0, 0, alloc.width, alloc.height)
 
-    def _on_draw(self, _, cr):
+    def do_draw(self, cr):
         """Handler for the 'draw' signal.
 
         :type cr: cairo.Context
@@ -120,7 +124,7 @@ class Moodbar(Gtk.DrawingArea):
             cr.restore()
 
         # Seek position
-        pos = self.seek_position
+        pos = self._seek_position
         if pos is not None:
             cr.save()
             x = pos * width

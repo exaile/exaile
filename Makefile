@@ -1,6 +1,6 @@
 PYTHON2_CMD   != command -v python2
 
-PREFIX         = /usr/local
+PREFIX        ?= /usr/local
 EPREFIX        = $(PREFIX)
 
 LIBINSTALLDIR  = $(EPREFIX)/lib

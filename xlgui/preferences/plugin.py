@@ -25,18 +25,14 @@
 # from your version.
 
 from gi.repository import GLib
-from gi.repository import GObject
-from gi.repository import Gtk
-import logging
-
 from gi.repository import Gtk
 
-from xlgui.preferences import widgets
 from xl import main, plugins, xdg
 import xl.common
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
 
+import logging
 logger = logging.getLogger(__name__)
 
 name = _('Plugins')

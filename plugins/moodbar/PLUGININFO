@@ -1,5 +1,5 @@
 Version='1.0.0'
-Authors=['Solyanov Michael <Crantisz@gmail.com>', 'Johannes Sasongko <sasongko@gmail.com>']
+Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Moodbar')
-Description=_('Replaces the standard progress bar with a moodbar.\nDepends: moodbar')
+Description=_('Show visual representation of the music timeline.\nRequires: moodbar')
 Category=_('GUI')

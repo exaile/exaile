@@ -44,14 +44,19 @@ class MoodbarPlugin:
         self.moodbar = Moodbar(MoodbarPainter())
         self.orig_seekbar = self.exaile.gui.main.progress_bar
         xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, self.moodbar)
+        self.moodbar.show()
         xl.event.add_ui_callback(self._on_playback_track_start, 'playback_track_start', self.player)
         xl.event.add_ui_callback(self._on_playback_track_end, 'playback_track_end', self.player)
         #event.add_callback(..., 'preview_device_enabled')
         #event.add_callback(..., 'preview_device_disabling')
 
     def disable(self, exaile):
-        if not self.moodbar:
+        if not self.moodbar:  # Disabled more than once
             return
+        xl.event.remove_callback(self._on_playback_track_end, 'playback_track_start', self.player)
+        xl.event.remove_callback(self._on_playback_track_end, 'playback_track_end', self.player)
+        if self.timer:
+            GLib.source_remove(self.timer)
         assert self.orig_seekbar
         xlgui.guiutil.gtk_widget_replace(self.moodbar, self.orig_seekbar)
         self.moodbar.destroy()
@@ -59,17 +64,19 @@ class MoodbarPlugin:
 
     def _on_playback_track_start(self, event, player, track):
         uri = player.current.get_loc_for_io()
-        data = self.cache.get(uri)
+        data = self.cache.get(uri) if self.cache else None
         self.moodbar.set_mood(data)
         self._on_timer()
         self.timer = GLib.timeout_add_seconds(1, self._on_timer)
         if not data and uri.startswith('file://'):
             def callback(uri, data):
-                self.cache.put(uri, data)
+                if self.cache:
+                    self.cache.put(uri, data)
                 self.moodbar.set_mood(data)
             self.generator.generate_async(uri, callback)
 
     def _on_timer(self):
+        assert self.moodbar
         try:
             total_time = self.player.current.get_tag_raw('__length')
         except AttributeError:  # No current track
@@ -91,5 +98,7 @@ class MoodbarPlugin:
         GLib.source_remove(self.timer)
         self.timer = None
         self.moodbar.set_mood(None)
+        self.moodbar.set_seek_position(None)
+        self.moodbar.set_text(None)
 
 plugin_class = MoodbarPlugin

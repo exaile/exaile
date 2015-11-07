@@ -27,13 +27,13 @@ class Moodbar(Gtk.DrawingArea):
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
         self.surf = self.text = self.text_extents = self.tint = None
-        self.seek_position = -1
+        self.seek_position = None
         self.connect('draw', self._on_draw)
 
     def set_mood(self, data):
         """
-        :param data: Mood data
-        :type data: bytes
+        :param data: Mood data, or None to not show any
+        :type data: bytes|None
         :return: Whether the mood data is successfully set
         :rtype: bool
         """
@@ -48,8 +48,8 @@ class Moodbar(Gtk.DrawingArea):
 
     def set_seek_position(self, pos):
         """
-        :param pos: Seek position, between 0 and 1 inclusive
-        :type pos: float
+        :param pos: Seek position, between 0 and 1 inclusive, or None to hide
+        :type pos: float|None
         """
         old_pos = self.seek_position
         if pos != old_pos:
@@ -59,7 +59,7 @@ class Moodbar(Gtk.DrawingArea):
     def set_text(self, text):
         """Set the text in the middle of the moodbar.
 
-        :type text: str
+        :type text: str|None
         """
         old_text = self.text
         if text != old_text:
@@ -73,7 +73,7 @@ class Moodbar(Gtk.DrawingArea):
     def set_tint(self, tint):
         """Add a color layer to the whole moodbar, or None to disable.
 
-        :type tint: Gdk.ARGB
+        :type tint: Gdk.ARGB|None
         """
         old_tint = self.tint
         if tint != old_tint:
@@ -101,52 +101,51 @@ class Moodbar(Gtk.DrawingArea):
             cr.paint()
             cr.restore()
 
-        if self.surf:
-            # Text
-            text = self.text
-            if text:
-                cr.save()
-                # TODO: Do we need PangoCairo.update_layout anywhere?
-                ext = self.text_extents
-                scale = Pango.SCALE
-                tx = int((width - ext.width / scale) / 2 - ext.x / scale)
-                ty = int((height - ext.height / scale) / 2 - ext.y / scale)
-                cr.move_to(tx, ty)
-                cr.set_line_width(4)
-                PangoCairo.layout_path(cr, self.pango_layout)
-                cr.set_source_rgba(1, 1, 1, 0.8)
-                cr.stroke_preserve()
-                cr.set_source_rgb(0, 0, 0)
-                cr.fill()
-                cr.restore()
+        # Text
+        text = self.text
+        if text:
+            cr.save()
+            # TODO: Do we need PangoCairo.update_layout anywhere?
+            ext = self.text_extents
+            scale = Pango.SCALE
+            tx = int((width - ext.width / scale) / 2 - ext.x / scale)
+            ty = int((height - ext.height / scale) / 2 - ext.y / scale)
+            cr.move_to(tx, ty)
+            cr.set_line_width(4)
+            PangoCairo.layout_path(cr, self.pango_layout)
+            cr.set_source_rgba(1, 1, 1, 0.8)
+            cr.stroke_preserve()
+            cr.set_source_rgb(0, 0, 0)
+            cr.fill()
+            cr.restore()
 
-            # Seek position
-            pos = self.seek_position
-            if pos is not None:
-                cr.save()
-                x = pos * width
-                y = height * self.pos_size
-                xd = y
-                linesize = self.pos_linesize
-                top = linesize / 2 - 0.5
-                # Triangle
-                cr.move_to(x, y)
-                cr.line_to(x - xd, top)
-                cr.line_to(x + xd, top)
-                cr.close_path()
-                # White fill
-                cr.set_source_rgb(1, 1, 1)
-                cr.fill_preserve()
-                # Black stroke
-                cr.set_source_rgb(0, 0, 0)
-                cr.set_line_width(linesize)
-                cr.stroke()
-                cr.restore()
+        # Seek position
+        pos = self.seek_position
+        if pos is not None:
+            cr.save()
+            x = pos * width
+            y = height * self.pos_size
+            xd = y
+            linesize = self.pos_linesize
+            top = linesize / 2 - 0.5
+            # Triangle
+            cr.move_to(x, y)
+            cr.line_to(x - xd, top)
+            cr.line_to(x + xd, top)
+            cr.close_path()
+            # White fill
+            cr.set_source_rgb(1, 1, 1)
+            cr.fill_preserve()
+            # Black stroke
+            cr.set_source_rgb(0, 0, 0)
+            cr.set_line_width(linesize)
+            cr.stroke()
+            cr.restore()
 
         # Border
         cr.save()
         cr.rectangle(0, 0, width, height)
-        if self.surf:
+        if self.surf or pos is not None:
             cr.set_source_rgb(0, 0, 0)
         else:
             cr.set_source_rgb(0.63, 0.63, 0.63)

@@ -26,9 +26,8 @@
 
 
 '''
-    The default GST DirectSound plugin does not support selecting
-    an output device. For plugins like the Preview Device, this is
-    critical.
+    The default GST DirectSound plugin does not support Gst DeviceMonitor.
+    For plugins like the Preview Device, this is critical.
 '''
 
 
@@ -46,35 +45,12 @@ class _SinkSettings:
     sink = 'directsoundsink'
     can_set_device = False
     
+    def __init__(self):
+        sink = Gst.ElementFactory.make(self.sink)
+        if hasattr(sink.props, 'device'):
+            self.can_set_device = True
+    
 _sink_settings = _SinkSettings()
-
-
-def __setup_custom_plugin():
-    '''Get rid of this once patch is in mainline'''
-    
-    sink = Gst.ElementFactory.make('directsoundsink')
-    if hasattr(sink.props, 'device'):
-        # Don't need custom plugin
-        _sink_settings.can_set_device = True
-        return
-    
-    try:
-        if platform.architecture()[0] == "32bit":
-            plugin_path = os.path.abspath(os.path.join(__file__, '../../../../tools/win-installer/libgstexailedirectsoundsink.dll'))
-        else:
-            plugin_path = os.path.abspath(os.path.join(__file__, '../../../../tools/win-installer/libgstexailedirectsoundsink64.dll'))
-            
-        plugin = Gst.Plugin.load_file(plugin_path)
-        Gst.Registry.get().add_plugin(plugin)
-        
-    except GLib.GError, e:
-        logger.error("Error loading custom DirectSound plugin: %s" % str(e))
-    else:
-        _sink_settings.sink = 'exailedirectsoundsink'
-        _sink_settings.can_set_device = True
-
-__setup_custom_plugin()
-
 
 if _sink_settings.can_set_device:
     

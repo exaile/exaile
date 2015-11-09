@@ -91,7 +91,7 @@ class ExaileNotification(object):
                               'album': album
                               }
 
-        notif = Notify.Notification(summary, body)
+        notif = Notify.Notification.new(summary, body)
         cover_data = covers.MANAGER.get_cover(track,
             set_only=True, use_default=True)
         size = (48, 48) if self.resize else None

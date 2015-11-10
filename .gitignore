@@ -18,10 +18,24 @@ backup.bzr
 random
 exaile-dist.tar.bz2
 exaile-po.tar.bz2
+exaile-LATEST.exe
 build
 dist
 
 doc/_build
+
+tools/win-installer/_bin
+tools/win-installer/_build
+tools/win-installer/_build_env
+tools/win-installer/_build_env_installer
+tools/win-installer/_copy
+tools/win-installer/_dist
+tools/win-installer/_inst
+tools/win-installer/_sdk
+tools/win-installer/*sdk.tar.gz
+tools/win-installer/build_installer.sh
+tools/win-installer/build_sdk.sh
+tools/win-installer/clean.sh
 
 .DS_Store
 

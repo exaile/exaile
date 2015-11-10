@@ -58,6 +58,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/ui
 	mkdir -p $(EXAILESHAREDIR)/data/ui/panel
 	mkdir -p $(EXAILESHAREDIR)/data/ui/preferences
+	mkdir -p $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	mkdir -p $(EXAILESHAREDIR)/data/ui/widgets
 	mkdir -p $(EXAILESHAREDIR)/data/migrations
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
@@ -124,6 +125,7 @@ install-target: make-install-dirs
 	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
 	install -m 644 data/ui/panel/*.ui $(EXAILESHAREDIR)/data/ui/panel
 	install -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
+	install -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \

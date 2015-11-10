@@ -45,7 +45,10 @@ config_home = os.path.join(config_home, "exaile")
 cache_home = GLib.get_user_cache_dir()
 cache_home = os.path.join(cache_home, "exaile")
 
-logs_home = os.path.join(cache_home, "logs")
+if sys.platform == 'win32':
+    logs_home = os.path.join(data_home, "logs")
+else:
+    logs_home = os.path.join(cache_home, "logs")
 
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs is None:
@@ -142,4 +145,3 @@ def _make_missing_dirs():
         os.makedirs(logs_home)
 
 # vim: et sts=4 sw=4
-

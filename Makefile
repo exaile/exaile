@@ -158,11 +158,9 @@ install-locale:
 plugins_dist:
 	$(MAKE) -C plugins dist
 
-# The sed call in -h removes the indent from group headers to work around
-# help2man's incompatibility with optparse's grouping.
 manpage:
 	help2man -n "music manager and player" -N \
-	  -h './exaile --help | sed "s/^  //"' \
+	  -h './exaile --help \
 	  ./exaile \
 	  | gzip -9 > exaile.1.gz
 

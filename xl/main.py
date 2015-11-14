@@ -59,6 +59,164 @@ __version__ = None
 
 logger = None
 
+def create_argument_parser():
+    """Create command-line argument parser for Exaile"""
+
+    import argparse
+    # argparse hard-codes "usage:" uncapitalized. We replace this with an
+    # empty string and put "Usage:" in the actual usage string instead.
+    class Formatter(argparse.HelpFormatter):
+        def _format_usage(self, usage, actions, groups, prefix):
+            return super(self.__class__, self)._format_usage(usage, actions, groups, "")
+
+    p = argparse.ArgumentParser(
+        usage=_("Usage: exaile [OPTION...] [LOCATION...]"),
+        description=_("Launch Exaile, optionally adding tracks specified by"
+            " LOCATION to the active playlist."
+            " If Exaile is already running, this attempts to use the existing"
+            " instance instead of creating a new one."),
+        add_help=False, formatter_class=Formatter)
+
+    p.add_argument('locs', nargs='*', help=argparse.SUPPRESS)
+
+    group = p.add_argument_group(_('Playback Options'))
+    group.add_argument("-n", "--next", dest="Next", action="store_true",
+        default=False, help=_("Play the next track"))
+    group.add_argument("-p", "--prev", dest="Prev", action="store_true",
+        default=False,   help=_("Play the previous track"))
+    group.add_argument("-s", "--stop", dest="Stop", action="store_true",
+        default=False, help=_("Stop playback"))
+    group.add_argument("-a", "--play", dest="Play", action="store_true",
+        default=False, help=_("Play"))
+    group.add_argument("-u", "--pause", dest="Pause", action="store_true",
+        default=False, help=_("Pause"))
+    group.add_argument("-t", "--play-pause", dest="PlayPause",
+        action="store_true", default=False, help=_("Pause or resume playback"))
+    group.add_argument("--stop-after-current", dest="StopAfterCurrent",
+        action="store_true", default=False,
+        help=_("Stop playback after current track"))
+
+    group = p.add_argument_group(_('Collection Options'))
+    group.add_argument("--add", dest="Add",
+        # TRANSLATORS: Meta variable for --add and --export-playlist
+        metavar=_("LOCATION"),
+        help=_("Add tracks from LOCATION to the collection"))
+
+    group = p.add_argument_group(_('Playlist Options'))
+    group.add_argument("--export-playlist", dest="ExportPlaylist",
+        # TRANSLATORS: Meta variable for --add and --export-playlist
+        metavar=_("LOCATION"),
+        help=_('Export the current playlist to LOCATION'))
+
+    group = p.add_argument_group(_('Track Options'))
+    group.add_argument("-q", "--query", dest="Query", action="store_true",
+        default=False, help=_("Query player"))
+    group.add_argument("--format-query", dest="FormatQuery",
+        # TRANSLATORS: Meta variable for --format-query
+        metavar=_('FORMAT'),
+        help=_('Retrieve the current playback state and track information as FORMAT'))
+    group.add_argument("--format-query-tags", dest="FormatQueryTags",
+        # TRANSLATORS: Meta variable for --format-query-tags
+        metavar=_('TAGS'),
+        help=_('Tags to retrieve from the current track; use with --format-query'))
+    group.add_argument("--gui-query", dest="GuiQuery", action="store_true",
+        default=False, help=_("Show a popup with data of the current track"))
+    group.add_argument("--get-title", dest="GetTitle", action="store_true",
+        default=False, help=_("Print the title of current track"))
+    group.add_argument("--get-album", dest="GetAlbum", action="store_true",
+        default=False, help=_("Print the album of current track"))
+    group.add_argument("--get-artist", dest="GetArtist", action="store_true",
+        default=False, help=_("Print the artist of current track"))
+    group.add_argument("--get-length", dest="GetLength", action="store_true",
+        default=False, help=_("Print the length of current track"))
+    group.add_argument('--set-rating', dest="SetRating", type=int,
+        # TRANSLATORS: Variable for command line options with arguments
+        metavar=_('N'),
+        help=_('Set rating for current track to N%').replace("%", "%%"))
+    group.add_argument('--get-rating', dest='GetRating', action='store_true',
+        default=False, help=_('Get rating for current track'))
+    group.add_argument("--current-position", dest="CurrentPosition",
+        action="store_true", default=False,
+        help=_("Print the current playback position as time"))
+    group.add_argument("--current-progress", dest="CurrentProgress",
+        action="store_true", default=False,
+        help=_("Print the current playback progress as percentage"))
+
+    group = p.add_argument_group(_('Volume Options'))
+    group.add_argument("-i", "--increase-vol", dest="IncreaseVolume", type=int,
+        # TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
+        metavar=_("N"),
+        help=_("Increase the volume by N%").replace("%", "%%"))
+    group.add_argument("-l", "--decrease-vol", dest="DecreaseVolume", type=int,
+        # TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
+        metavar=_("N"),
+        help=_("Decrease the volume by N%").replace("%", "%%"))
+    group.add_argument("-m", "--toggle-mute", dest="ToggleMute",
+        action="store_true", default=False,
+        help=_("Mute or unmute the volume"))
+    group.add_argument("--get-volume", dest="GetVolume", action="store_true",
+        default=False, help=_("Print the current volume percentage"))
+
+    group = p.add_argument_group(_('Other Options'))
+    group.add_argument("--new", dest="NewInstance", action="store_true",
+        default=False, help=_("Start new instance"))
+    group.add_argument("-h", "--help", action="help",
+        help=_("Show this help message and exit"))
+    group.add_argument("--version", dest="ShowVersion", action="store_true",
+        help=_("Show program's version number and exit."))
+    group.add_argument("--start-minimized", dest="StartMinimized",
+        action="store_true", default=False,
+        help=_("Start minimized (to tray, if possible)"))
+    group.add_argument("--toggle-visible", dest="GuiToggleVisible",
+        action="store_true", default=False,
+        help=_("Toggle visibility of the GUI (if possible)"))
+    group.add_argument("--safemode", dest="SafeMode", action="store_true",
+        default=False, help=_("Start in safe mode - sometimes"
+        " useful when you're running into problems"))
+    group.add_argument("--force-import", dest="ForceImport",
+        action="store_true", default=False, help=_("Force import of old data"
+        " from version 0.2.x (overwrites current data)"))
+    group.add_argument("--no-import", dest="NoImport",
+        action="store_true", default=False, help=_("Do not import old data"
+        " from version 0.2.x"))
+    group.add_argument("--start-anyway", dest="StartAnyway",
+        action="store_true", default=False, help=_("Make control options like"
+        " --play start Exaile if it is not running"))
+
+    group = p.add_argument_group(_('Development/Debug Options'))
+    group.add_argument("--datadir", dest="UseDataDir",
+        metavar=_('DIRECTORY'), help=_("Set data directory"))
+    group.add_argument("--all-data-dir", dest="UseAllDataDir",
+        metavar=_('DIRECTORY'), help=_("Set data and config directory"))
+    group.add_argument("--modulefilter", dest="ModuleFilter",
+        metavar=_('MODULE'), help=_('Limit log output to MODULE'))
+    group.add_argument("--levelfilter", dest="LevelFilter",
+        metavar=_('LEVEL'), help=_('Limit log output to LEVEL'),
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'])
+    group.add_argument("--debug", dest="Debug", action="store_true",
+        default=False, help=_("Show debugging output"))
+    group.add_argument("--eventdebug", dest="DebugEvent",
+        action="store_true", default=False, help=_("Enable debugging of"
+        " xl.event. Generates lots of output"))
+    group.add_argument("--eventdebug-full", dest="DebugEventFull",
+        action="store_true", default=False, help=_("Enable full debugging of"
+        " xl.event. Generates LOTS of output"))
+    group.add_argument("--threaddebug", dest="DebugThreads",
+        action="store_true", default=False, help=_("Add thread name to logging"
+        " messages."))
+    group.add_argument("--eventfilter", dest="EventFilter", metavar=_('TYPE'),
+        help=_("Limit xl.event debug to output of TYPE"))
+    group.add_argument("--quiet", dest="Quiet", action="store_true",
+        default=False, help=_("Reduce level of output"))
+    group.add_argument('--startgui', dest='StartGui', action='store_true',
+        default=False)
+    group.add_argument('--no-dbus', dest='Dbus', action='store_false',
+        default=True, help=_("Disable D-Bus support"))
+    group.add_argument('--no-hal', dest='Hal', action='store_false',
+        default=True, help=_("Disable HAL support."))
+
+    return p
+
 class Exaile(object):
     _exaile = None
 
@@ -86,10 +244,7 @@ class Exaile(object):
         self.loading = True
 
         # NOTE: This automatically exits on --help.
-        try:
-            (self.options, self.args) = self.get_options().parse_args()
-        except UnicodeDecodeError:
-            (self.options, self.args) = self.get_options(unicode_bug_happened=True).parse_args()
+        self.options = create_argument_parser().parse_args()
 
         if self.options.ShowVersion:
             self.version()
@@ -158,7 +313,7 @@ class Exaile(object):
             #initialize DbusManager
             if self.options.StartGui and self.options.Dbus:
                 from xl import xldbus
-                exit = xldbus.check_exit(self.options, self.args)
+                exit = xldbus.check_exit(self.options, self.options.locs)
                 if exit == "exit":
                     sys.exit(0)
                 elif exit == "command":
@@ -359,7 +514,7 @@ class Exaile(object):
             # TODO: find a better place to put this
             # using arg[2:] because arg[1:] will include --startgui
             
-            args = [ Gio.File.new_for_path(arg).get_uri() for arg in self.args ]
+            args = [ Gio.File.new_for_path(arg).get_uri() for arg in self.options.locs ]
             if len(args) > 0:
                 restore = False
                 self.gui.open_uri(args[0], play=True)
@@ -395,195 +550,6 @@ class Exaile(object):
 
         splash = Splash()
         splash.show()
-
-    def get_options(self, unicode_bug_happened=False):
-        """
-            Get the options for exaile
-        """
-        from optparse import OptionParser, OptionGroup, IndentedHelpFormatter
-
-        if unicode_bug_happened:
-            
-            #
-            # Bug: https://bugs.launchpad.net/exaile/+bug/1154420
-            #
-            # For some locales, python doesn't merge the options and
-            # the headings and our translated text correctly. Unfortunately,
-            # there doesn't seem to be a good way to deal with the problem
-            # on Python 2.x . If we disable the usage/heading, at least
-            # the options will display, despite filling all the text as ???. 
-            #
-            
-            print >> sys.stderr, "exaile: Warning: Unicode error displaying --help, check locale settings"
-            
-            class OverrideHelpFormatter(IndentedHelpFormatter):
-                def format_usage(self, usage):
-                    return ''
-                def format_heading(self, heading):
-                    return ''
-        else:
-            class OverrideHelpFormatter(IndentedHelpFormatter):
-                """
-                    Merely for translation purposes
-                """
-                def format_usage(self, usage):
-                    return '%s\n' % usage
-        
-        usage = _("Usage: exaile [OPTION]... [URI]")
-        optionlabel = _('Options') # Merely for translation purposes
-        p = OptionParser(usage=usage, add_help_option=False,
-            formatter=OverrideHelpFormatter())
-
-        group = OptionGroup(p, _('Playback Options'))
-        group.add_option("-n", "--next", dest="Next", action="store_true",
-                default=False, help=_("Play the next track"))
-        group.add_option("-p", "--prev", dest="Prev", action="store_true",
-                default=False,   help=_("Play the previous track"))
-        group.add_option("-s", "--stop", dest="Stop", action="store_true",
-                default=False, help=_("Stop playback"))
-        group.add_option("-a", "--play", dest="Play", action="store_true",
-                default=False, help=_("Play"))
-        group.add_option("-u", "--pause", dest="Pause", action="store_true",
-                default=False, help=_("Pause"))
-        group.add_option("-t", "--play-pause", dest="PlayPause",
-                action="store_true", default=False,
-                help=_("Pause or resume playback"))
-        group.add_option("--stop-after-current", dest="StopAfterCurrent",
-                action="store_true", default=False,
-                help=_("Stop playback after current track"))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Collection Options'))
-        group.add_option("--add", dest="Add", action="store",
-                # TRANSLATORS: Meta variable for --add and --export-playlist
-                metavar=_("LOCATION"), help=_("Add tracks from LOCATION "
-                                              "to the collection"))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Playlist Options'))
-        group.add_option("--export-playlist", dest="ExportPlaylist",
-                         # TRANSLATORS: Meta variable for --add and --export-playlist
-                         action="store", metavar=_("LOCATION"),
-                         help=_('Exports the current playlist to LOCATION'))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Track Options'))
-        group.add_option("-q", "--query", dest="Query", action="store_true",
-                default=False, help=_("Query player"))
-        group.add_option("--format-query", dest="FormatQuery",
-                         # TRANSLATORS: Meta variable for --format-query
-                         action="store", metavar=_('FORMAT'),
-                         help=_('Retrieves the current playback state and track information as FORMAT'))
-        group.add_option("--format-query-tags", dest="FormatQueryTags",
-                         # TRANSLATORS: Meta variable for --format-query-tags
-                         action="store", metavar=_('TAGS'),
-                         help=_('TAGS to retrieve from the current track, use with --format-query'))
-        group.add_option("--gui-query", dest="GuiQuery",
-                action="store_true", default=False,
-                help=_("Show a popup with data of the current track"))
-        group.add_option("--get-title", dest="GetTitle", action="store_true",
-                default=False, help=_("Print the title of current track"))
-        group.add_option("--get-album", dest="GetAlbum", action="store_true",
-                default=False, help=_("Print the album of current track"))
-        group.add_option("--get-artist", dest="GetArtist", action="store_true",
-                default=False, help=_("Print the artist of current track"))
-        group.add_option("--get-length", dest="GetLength", action="store_true",
-                default=False, help=_("Print the length of current track"))
-        group.add_option('--set-rating', dest="SetRating",
-                # TRANSLATORS: Variable for command line options with arguments
-                action='store', type='int', metavar=_('N'),
-                help=_('Set rating for current track to N%'))
-        group.add_option('--get-rating', dest='GetRating', action='store_true',
-                default=False, help=_('Get rating for current track'))
-        group.add_option("--current-position", dest="CurrentPosition",
-                action="store_true", default=False,
-                help=_("Print the current playback position as time"))
-        group.add_option("--current-progress", dest="CurrentProgress",
-                action="store_true", default=False, help=_("Print the "
-                "current playback progress as percentage"))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Volume Options'))
-        group.add_option("-i", "--increase-vol", dest="IncreaseVolume",
-                # TRANSLATORS: Variable for command line options with arguments
-                action="store", type="int", metavar=_("N"),
-                help=_("Increases the volume by N%"))
-        group.add_option("-l", "--decrease-vol", dest="DecreaseVolume",
-                # TRANSLATORS: Variable for command line options with arguments
-                action="store", type="int", metavar=_("N"),
-                # TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-                help=_("Decreases the volume by N%"))
-        group.add_option("-m", "--toggle-mute", dest="ToggleMute",
-                action="store_true", default=False,
-                help=_("Mutes or unmutes the volume"))
-        group.add_option("--get-volume", dest="GetVolume", action="store_true",
-                default=False, help=_("Print the current volume percentage"))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Other Options'))
-        group.add_option("--new", dest="NewInstance", action="store_true",
-                default=False, help=_("Start new instance"))
-        group.add_option("-h", "--help", action="help",
-                help=_("Show this help message and exit"))
-        group.add_option("--version", dest="ShowVersion", action="store_true",
-                help=_("Show program's version number and exit."))
-        group.add_option("--start-minimized", dest="StartMinimized",
-                action="store_true", default=False,
-                help=_("Start minimized (to tray, if possible)"))
-        group.add_option("--toggle-visible", dest="GuiToggleVisible",
-                action="store_true", default=False,
-                help=_("Toggle visibility of the GUI (if possible)"))
-        group.add_option("--safemode", dest="SafeMode", action="store_true",
-                default=False, help=_("Start in safe mode - sometimes "
-                "useful when you're running into problems"))
-        group.add_option("--force-import", dest="ForceImport",
-                action="store_true", default=False, help=_("Force import of"
-                " old data from version 0.2.x (Overwrites current data)"))
-        group.add_option("--no-import", dest="NoImport",
-                action="store_true", default=False, help=_("Do not import "
-                "old data from version 0.2.x"))
-        group.add_option("--start-anyway", dest="StartAnyway",
-                action="store_true", default=False, help=_("Make control "
-                "options like --play start Exaile if it is not running"))
-        p.add_option_group(group)
-
-        group = OptionGroup(p, _('Development/Debug Options'))
-        group.add_option("--datadir", dest="UseDataDir",
-                metavar=_('DIRECTORY'), help=_("Set data directory"))
-        group.add_option("--all-data-dir", dest="UseAllDataDir",
-                metavar=_('DIRECTORY'), help=_("Set data and config directory"))
-        group.add_option("--modulefilter", dest="ModuleFilter",
-                action="store", type="string", metavar=_('MODULE'),
-                help=_('Limit log output to MODULE'))
-        group.add_option("--levelfilter", dest="LevelFilter",
-                action="store", metavar=_('LEVEL'),
-                help=_('Limit log output to LEVEL'),
-                choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'])
-        group.add_option("--debug", dest="Debug", action="store_true",
-                default=False, help=_("Show debugging output"))
-        group.add_option("--eventdebug", dest="DebugEvent",
-                action="store_true", default=False, help=_("Enable debugging"
-                " of xl.event. Generates LOTS of output"))
-        group.add_option("--eventdebug-full", dest="DebugEventFull",
-                action="store_true", default=False, help=_("Enable debugging"
-                " of xl.event. Generates LOTS of output"))
-        group.add_option("--threaddebug", dest="DebugThreads",
-                action="store_true", default=False, help=_("Add thread name"
-                " to logging messages."))
-        group.add_option("--eventfilter", dest="EventFilter",
-                action='store', type='string', metavar=_('TYPE'),
-                help=_("Limit xl.event debug to output of TYPE"))
-        group.add_option("--quiet", dest="Quiet", action="store_true",
-                default=False, help=_("Reduce level of output"))
-        group.add_option('--startgui', dest='StartGui', action='store_true',
-                default=False)
-        group.add_option('--no-dbus', dest='Dbus', action='store_false',
-                default=True, help=_("Disable D-Bus support"))
-        group.add_option('--no-hal', dest='Hal', action='store_false',
-                default=True, help=_("Disable HAL support."))
-        p.add_option_group(group)
-
-        return p
 
     def version(self):
         from xl.version import __version__

@@ -672,6 +672,15 @@ class TagField(Gtk.HBox):
     def register_all_func(self, f):
         self.all_func = f
 
+def dummy_scroll_handler(widget, _):
+    """scroll-event handler that just disables the default handler.
+
+    Tag field widgets should use this to prevent the user from accidentally
+    modifying tags by scrolling.
+    """
+    GObject.signal_stop_emission_by_name(widget, 'scroll-event')
+    return False
+
 class TagTextField(Gtk.HBox):
     def __init__(self, all_button=True):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
@@ -735,6 +744,7 @@ class TagNumField(Gtk.HBox):
         self.field = Gtk.SpinButton()
         self.field.set_range(min, max)
         self.field.set_increments(step, page)
+        self.field.connect('scroll-event', dummy_scroll_handler)
         self.all_func = None
         self.parent_row = None
 
@@ -789,6 +799,7 @@ class TagDblNumField(Gtk.HBox):
         for f in self.field:
             f.set_range(min, max)
             f.set_increments(step, page)
+            f.connect('scroll-event', dummy_scroll_handler)
 
         # TRANSLATORS: This is the 'of' between numbers in fields like
         # tracknumber, discnumber, etc. in the tagger.
@@ -920,6 +931,7 @@ class TagImageField(Gtk.HBox):
         self.type_model = builder.get_object('type_model')
         self.type_selection = builder.get_object('type_selection')
         self.type_selection.set_sensitive(False)
+        self.type_selection.connect('scroll-event', dummy_scroll_handler)
         self.description_entry = builder.get_object('description_entry')
         self.description_entry.set_sensitive(False)
 

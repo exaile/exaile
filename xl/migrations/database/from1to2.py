@@ -42,7 +42,7 @@ def migrate(db, pdata, oldversion, newversion):
         tags['__loc'] = uri
         pdata[k] = (tags, p[1], p[2])
 
-    if pdata.has_key('_serial_libraries'):
+    if '_serial_libraries' in pdata:
         libs = pdata['_serial_libraries']
         for l in libs:
             l['location'] = Gio.File.new_for_uri(l['location']).get_uri()

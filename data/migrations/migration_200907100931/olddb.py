@@ -113,7 +113,7 @@ class DBManager(object):
         """
         name = threading.currentThread().getName()
         if name == "MainThread": return
-        if self.pool.has_key(name):
+        if name in self.pool:
             self.pool[name].close()
             del self.pool[name]
             logger.debug("Closed db for thread %s" % name)
@@ -124,7 +124,7 @@ class DBManager(object):
         """
         name = threading.currentThread().getName()
         if name == "MainThread" or self.db_loc == ":memory:": return self.db
-        if not self.pool.has_key(name):
+        if name not in self.pool:
             db = self.__get_db()
             for tup in self.functions:
                 db.create_function(tup[0], tup[1], tup[2])

@@ -142,7 +142,7 @@ def main():
             if pid > 0:
                 # exit first parent
                 sys.exit(0)
-        except OSError, e:
+        except OSError as e:
             sys.stderr.write("fork #1 failed: %d (%s)\n" % (e.errno, e.strerror))
             sys.exit(1)
 
@@ -159,7 +159,7 @@ def main():
                 #print "Daemon PID %d" % pid
                 open(pidfile,'w').write("%d"%pid)
                 sys.exit(0)
-        except OSError, e:
+        except OSError as e:
             print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
             sys.exit(1)
         really_main()

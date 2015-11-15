@@ -908,7 +908,7 @@ class TransferQueue(object):
         if self.transferring:
             # FIXME: use a proper exception, and make this only error on
             # tracks that have already been transferred
-            raise Exception, "Cannot remove tracks while transferring"
+            raise Exception("Cannot remove tracks while transferring")
 
         for t in tracks:
             try:

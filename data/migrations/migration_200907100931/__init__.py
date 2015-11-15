@@ -178,7 +178,7 @@ def _migrate_old_settings(oldsettings):
     for (t, section, oldsetting, newspot, func) in _SETTINGS_MAP:
         value = None
         try:
-            if globals().has_key(func):
+            if func in globals():
                 func = globals()[func]
                 if callable(func):
                     value = func(section, oldsetting, oldsettings)

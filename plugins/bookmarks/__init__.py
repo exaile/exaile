@@ -257,12 +257,12 @@ class Bookmarks:
                         self.bookmarks.append((key,pos))
                         self.display_bookmark(key, pos)
                     logger.debug('loaded {0} bookmarks'.format(len(db)))
-                except Exception, s:
+                except Exception as s:
                     logger.error('BM: bad bookmark file: %s'%s)
                     return None
 
-        except IOError, (e,s):  # File might not exist
-            logger.error('BM: could not open file: %s'%s)
+        except IOError as e:  # File might not exist
+            logger.error('BM: could not open file: %s' % e.strerror)
 
 
     def save_db(self):

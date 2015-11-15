@@ -570,7 +570,7 @@ class MetadataList(object):
         self.__list = list(iterable)
         meta = list(metadata)
         if meta and len(meta) != len(self.__list):
-            raise ValueError, "Length of metadata must match length of items."
+            raise ValueError("Length of metadata must match length of items.")
         if not meta:
             meta = [None] * len(self.__list)
         self.metadata = meta
@@ -665,7 +665,7 @@ class MetadataList(object):
 
     def del_meta_key(self, index, key):
         if not self.metadata[index]:
-            raise KeyError, key
+            raise KeyError(key)
         del self.metadata[index][key]
         if not self.metadata[index]:
             self.metadata[index] = None

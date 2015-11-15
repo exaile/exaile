@@ -84,7 +84,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
         elif property.name == 'render-prelit':
             return self.__render_prelit
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -101,7 +101,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
         elif property.name == 'render-prelit':
             self.__render_prelit = value
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError('unknown property %s' % property.name)
 
         self.__render_pixbufs()
 

@@ -108,7 +108,7 @@ class PluginManager(object):
                 compatible = self.plugins.is_compatible(info)    
                 broken = self.plugins.is_potentially_broken(info)
                 
-            except Exception, e:
+            except Exception:
                 failed_list += [plugin]
                 continue
             
@@ -186,7 +186,7 @@ class PluginManager(object):
         if enabled:
             try:
                 self.plugins.disable_plugin(plugin)
-            except Exception, e:
+            except Exception as e:
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
 
@@ -196,7 +196,7 @@ class PluginManager(object):
         if enabled:
             try:
                 self.plugins.enable_plugin(plugin)
-            except Exception, e:
+            except Exception as e:
                 self.message.show_error(_('Could not enable plugin!'), str(e))
                 return
 
@@ -231,7 +231,7 @@ class PluginManager(object):
         if result == Gtk.ResponseType.OK:
             try:
                 self.plugins.install_plugin(dialog.get_filename())
-            except plugins.InvalidPluginError, e:
+            except plugins.InvalidPluginError as e:
                 self.message.show_error(
                     _('Plugin file installation failed!'), str(e))
 
@@ -278,13 +278,13 @@ class PluginManager(object):
         if enable:
             try:
                 self.plugins.enable_plugin(plugin)
-            except Exception, e:
+            except Exception as e:
                 self.message.show_error(_('Could not enable plugin!'), str(e))
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
-            except Exception, e:
+            except Exception as e:
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
 

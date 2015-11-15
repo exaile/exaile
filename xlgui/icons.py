@@ -781,7 +781,7 @@ class IconManager(object):
         key = '%s - %sx%s - %s' % (text, pixmap_width, pixmap_height,
             background_color)
         
-        if self._cache.has_key(key):
+        if key in self._cache:
             return self._cache[key]
 
         # TODO: GI: No pixmap

@@ -185,7 +185,7 @@ class TrackDB(object):
                 import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
                 _db = bsddb3.hashopen(location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
-            if pdata.has_key("_dbversion"):
+            if "_dbversion" in pdata:
                 if int(pdata['_dbversion']) > int(self._dbversion):
                     raise common.VersionError, \
                             "DB was created on a newer Exaile version."

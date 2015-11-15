@@ -840,11 +840,11 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
             for uri in self.get_uris():            
                 try:
                     playlists.append(import_playlist(uri))
-                except InvalidPlaylistTypeError, e:
+                except InvalidPlaylistTypeError as e:
                     error(None, 'Invalid playlist "%s": %s' % (uri, e))
                     self.destroy()
                     return
-                except Exception, e:
+                except Exception as e:
                     error(None, 'Invalid playlist "%s": (internal error): %s' % (uri, e))
                     self.destroy()
                     return
@@ -937,7 +937,7 @@ class PlaylistExportDialog(FileOperationDialog):
             
             try:
                 export_playlist(self.playlist, path, options)
-            except InvalidPlaylistTypeError, e:
+            except InvalidPlaylistTypeError as e:
                 self.emit('message', Gtk.MessageType.ERROR, str(e))
             else:
                 self.emit('message', Gtk.MessageType.INFO,

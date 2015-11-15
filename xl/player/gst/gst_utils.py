@@ -209,7 +209,7 @@ def parse_stream_tags(track, tag_list):
             try:
                 values = [unicode(v, 'utf-8') for v in values]
             except UnicodeDecodeError:
-                logger.debug('  ' +  + " [can't decode]: " + `str(values)`)
+                logger.debug("Can't decode: " + repr(values))
                 continue
         
         tags[k] = values

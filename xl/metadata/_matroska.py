@@ -172,7 +172,7 @@ class Ebml:
         while self.tell() < to:
             try:
                 id = self.readID()
-            except EbmlException, e:
+            except EbmlException as e:
                 # Invalid EBML header. We can't reliably get any more data from
                 # this level, so just return anything we have.
                 warn(EbmlWarning(e))

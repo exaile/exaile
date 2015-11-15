@@ -210,8 +210,8 @@ class Column(Gtk.TreeViewColumn):
                 cell.props.sensitive = True
 
     def __repr__(self):
-        return '%s(%s, %s, %s)' % (self.__class__.__name__,
-            `self.name`, `self.display`, `self.size`)
+        return '%s(%r, %r, %r)' % (self.__class__.__name__,
+            self.name, self.display, self.size)
 
 class TrackNumberColumn(Column):
     name = 'tracknumber'

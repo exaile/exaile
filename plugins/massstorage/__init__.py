@@ -48,7 +48,7 @@ def disable(exaile):
 class MassStorageDevice(Device):
     def __init__(self, mountpoints, name=""):
         if len(mountpoints) == 0:
-            raise ValueError, "Must specify at least one mount point"
+            raise ValueError("Must specify at least one mount point")
         if not name:
             name = mountpoints[0].split(os.sep)[-1]
         Device.__init__(self, name)
@@ -59,7 +59,7 @@ class MassStorageDevice(Device):
         self.mountpoints = [ str(x) for x in self._mountpoints if
                 str(x) is not "" and os.path.exists(unicode(x)) ]
         if self.mountpoints == []:
-            raise IOError, "Device is not mounted."
+            raise IOError("Device is not mounted.")
         for mountpoint in self.mountpoints:
             library = self.library_class(mountpoint)
             self.collection.add_library(library)

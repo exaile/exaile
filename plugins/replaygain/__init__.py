@@ -41,7 +41,7 @@ NEEDED_ELEMS = ["rgvolume", "rglimiter"]
 def enable(exaile):
     for elem in NEEDED_ELEMS:
         if not Gst.ElementFactory.find(elem):
-            raise ImportError, "Needed gstreamer element %s missing."%elem
+            raise ImportError("Needed gstreamer element %s missing." % elem)
     providers.register("gst_audio_filter", ReplaygainVolume)
     providers.register("gst_audio_filter", ReplaygainLimiter)
 

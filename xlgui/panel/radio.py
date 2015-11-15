@@ -523,12 +523,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         if isinstance(driver, xl.radio.RadioStation):
             try:
                 lists = driver.get_lists(no_cache=no_cache)
-            except RadioException, e:
+            except RadioException as e:
                 self._set_status(str(e), 2)
         else:
             try:
                 lists = driver.get_items(no_cache=no_cache)
-            except RadioException, e:
+            except RadioException as e:
                 self._set_status(str(e), 2)
 
         if not lists: return

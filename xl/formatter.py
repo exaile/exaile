@@ -713,7 +713,7 @@ class DateTagFormatter(TagFormatter):
 
         try:
             last_played = date.fromtimestamp(value)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             text = _('Never')
         else:
             today = date.today()

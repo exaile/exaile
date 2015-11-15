@@ -135,7 +135,7 @@ class ExaileTagConverter(object):
             try:
                 mpris_tag, mpris_val = ExaileTagConverter.convert_tag(
                         exaile_tag, val)
-            except OutputTypeMismatchException, e:
+            except OutputTypeMismatchException as e:
                 _LOG.exception(e)
                 continue
             if mpris_tag is None:

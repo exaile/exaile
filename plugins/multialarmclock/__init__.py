@@ -300,7 +300,7 @@ class AlarmClock:
                         logger.info('Old alarm file format found, converting.')
                         self.save_list()
                         
-                    except Exception, (e):                            
+                    except Exception as e:
                         logger.warning('Failed to load alarm data from file: {0}'.format(e))
                         
                 else:
@@ -309,8 +309,8 @@ class AlarmClock:
                         logger.debug('loaded alarm {0} ({1}) from file.'.format(alarm.name, alarm.time))
                         self.add_alarm(alarm)
 
-        except IOError, (e,s):  # File might not exist
-            logger.warning('Could not open file: {0}'.format( s))
+        except IOError as e:  # File might not exist
+            logger.warning('Could not open file: {0}'.format(e.strerror))
 
     @idle_add
     def save_list(self):
@@ -379,7 +379,7 @@ def check_alarms(main, exaile):
         if al.active and al.time == current and al.days[currentDay] == True:
             check = time.strftime("%m %d %Y %H:%M") # clever...
             
-            if main.RANG.has_key(check): 
+            if check in main.RANG:
                 logger.debug('Alarm {0} in RANG'.format(al.name))
                 return True
 

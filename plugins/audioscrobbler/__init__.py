@@ -196,7 +196,7 @@ class ExaileScrobbler(object):
                 int(track.get_tag_raw('__length')),
                 track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
             )
-        except Exception, e:
+        except Exception as e:
             logger.warning("Error submitting \"Now Playing\": %s" % e)
 
     def on_play(self, type, player, track):

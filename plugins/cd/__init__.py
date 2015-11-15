@@ -202,7 +202,7 @@ class CDPlaylist(playlist.Playlist):
         for i in range(self.info[1]):
             tr = self[i]
             tr.set_tag_raw('title',
-                    info['TTITLE' + `i`].decode('iso-8859-15', 'replace'))
+                    info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('album',
                     title[1].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('artist',

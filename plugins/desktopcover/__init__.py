@@ -51,7 +51,7 @@ def __migrate_anchor_setting():
         
         try:
             gravity = gravities[gravity]
-        except IndexError, TypeError:
+        except (IndexError, TypeError):
             gravity = 'topleft'
 
         settings.set_option('plugin/desktopcover/anchor', gravity)

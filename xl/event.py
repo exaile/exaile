@@ -193,7 +193,7 @@ class _WeakMethod:
         """
         assert ismethod(method)
         if method.im_self is None:
-            raise ValueError, "We need a bound method!"
+            raise ValueError("We need a bound method!")
         if notifyDead is None:
             self.objRef = weakref.ref(method.im_self)
         else:
@@ -369,7 +369,7 @@ class EventManager(object):
             
             # add the specified categories if needed.
             for cbs in all_cbs:
-                if not cbs.has_key(type):
+                if type not in cbs:
                     cbs[type] = weakref.WeakKeyDictionary()
                 if obj is None:
                     obj = _NONE

@@ -54,7 +54,7 @@ class MP4Format(BaseFormat):
     writable = True
 
     def _get_tag(self, f, name):
-        if not f.has_key(name):
+        if name not in f:
             return []
         elif name == 'covr':
             ret = []

@@ -266,8 +266,8 @@ class Exaile(object):
             
         try:
             xdg._make_missing_dirs()
-        except OSError, e:
-            print >> sys.stderr, 'ERROR: Could not create configuration directories: %s' % str(e)
+        except OSError as e:
+            print >> sys.stderr, 'ERROR: Could not create configuration directories: %s' % e
             return
             
 
@@ -284,8 +284,8 @@ class Exaile(object):
                                        self.options.DebugThreads,
                                        self.options.ModuleFilter,
                                        self.options.LevelFilter)
-        except OSError, e:
-            print >> sys.stderr, 'ERROR: could not setup logging: %s' % str(e)
+        except OSError as e:
+            print >> sys.stderr, 'ERROR: could not setup logging: %s' % e
             return
         
         global logger

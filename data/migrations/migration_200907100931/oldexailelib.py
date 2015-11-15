@@ -15,7 +15,7 @@ def already_added(t, added):
 
     h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.genre)
 
-    if added.has_key(h): return True
+    if h in added: return True
     added[h] = 1
     return False
 

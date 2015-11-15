@@ -160,7 +160,7 @@ plugins_dist:
 
 manpage:
 	help2man -n "music manager and player" -N \
-	  -h './exaile --help \
+	  -h './exaile --help' \
 	  ./exaile \
 	  | gzip -9 > exaile.1.gz
 

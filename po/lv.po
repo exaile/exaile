@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Jānis-Marks Gailis <jm-gailis@fai-vianet.fr>\n"
-"Language-Team: Latvian <lv@li.org>\n"
+"PO-Revision-Date: 2015-11-17 16:57+0000\n"
+"Last-Translator: Ronalds <birgermeister@tvnet.lv>\n"
+"Language-Team: Latvian "
+"<https://hosted.weblate.org/projects/exaile/master/lv/>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
+"X-Generator: Weblate 2.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -286,7 +287,7 @@ msgstr "Ieslēgt Grafiskā Interfeisa(GUI) redzamību (ja iespējams)"
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Sākt Drošajā Režīmā (safe mode) - domāts ja esi saskāries ar problēmām "
-"iepriekšējā reizē."
+"iepriekšējā reizē"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -338,7 +339,7 @@ msgstr "Rādīt Kļūdu Labojuma izvadi"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr "Ieslēgt xl.eveny Kļūdu Labojumu. Uzģenerē ĻOTI daudz datu."
+msgstr "Ieslēgt xl.event Kļūdu Labojumu. Uzģenerē ĻOTI daudz datu"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
@@ -362,7 +363,7 @@ msgstr "Atslēgt D-Bus atbalstu"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Atslēgt HAL atbalstu"
+msgstr "Atslēgt HAL atbalstu."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -457,7 +458,7 @@ msgid ""
 "than MP3 at lower bitrates."
 msgstr ""
 "Firmas Apple audio formāts, kas var panākt augstāku kvalitāti nekā MP3 ar "
-"tādu pašu lielumu. (Fomāts nav atvērtajā kodā)"
+"tādu pašu lielumu. (Fomāts nav atvērtajā kodā)."
 
 #: ../xl/transcoder.py:89
 msgid ""
@@ -503,7 +504,7 @@ msgstr ""
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr "Nespēlē"
+msgstr "Nespēlē."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -674,9 +675,8 @@ msgid "Modified"
 msgstr "Mainīts"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Atskaņot"
+msgstr "Atskaņošanas laiks"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
@@ -1279,11 +1279,9 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
-"Vai esat pārliecināts, ka vēlaties neatgriezeniski dzēst izvēlēto dziesmu "
-"sarakstu?"
+"Vai esat pārliecināts, ka vēlaties veikt izmaiņas visā mūzikas sarakstā?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1414,7 +1412,7 @@ msgstr "Skenē kolekciju..."
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr "Skenē %s"
+msgstr "Skenē %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
@@ -1629,9 +1627,8 @@ msgstr ""
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Dziesma"
+msgstr "Dziesma atrodas listē"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219

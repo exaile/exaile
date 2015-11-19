@@ -36,7 +36,10 @@ class MoodbarPainter:
         for p in xrange(0, 1000):
             p4 = p * 4
             p3 = p * 3
-            arr[p4:(p4+3)] = data[p3:(p3+3)]
+            # Cairo RGB24 is BGRX
+            arr[p4 + 0] = data[p3 + 2]
+            arr[p4 + 1] = data[p3 + 1]
+            arr[p4 + 2] = data[p3 + 0]
         return surf
 
 

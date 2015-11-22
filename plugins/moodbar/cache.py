@@ -24,7 +24,7 @@ import sys
 if sys.platform == 'win32':
     import string
     invalid_chars = b'*/:<>?\\'
-    TRANS = string.maketrans(invalid_chars, b'-' * len(invalid_chars))
+    SANITIZE_TRANS_TABLE = string.maketrans(invalid_chars, b'-' * len(invalid_chars))
 
 
 class MoodbarCache:
@@ -74,7 +74,7 @@ class ExaileMoodbarCache(MoodbarCache):
             uri = uri[7:]
         uri = uri.replace(b"'", b"")
         if sys.platform == 'win32':
-            uri = string.replace(b'"', b'').translate(uri, TRANS)
+            uri = uri.translate(SANITIZE_TRANS_TABLE, b'"')
         else:
             uri = uri.replace(b'/', b'-')
         return os.path.join(self.loc, uri + b'.mood')

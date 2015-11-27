@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gtk
 
@@ -24,15 +25,17 @@ name = _('Collection')
 icon = 'folder-music'
 ui = xdg.get_data_path('ui', 'preferences', 'collection.ui')
 
+
 def _get_default_strip_list():
-    return [] # currently, this is broken by the backend not also having access to the default set here, so we will just NOT set one. FIXME
-    #TRANSLATORS: Grammatical articles that are ignored while sorting the
-    #collection panel. For example, in French locales this could be
-    #the space-separated list "l' la le les".
-    #If this practice is not common in your locale, simply
-    #translate this to string with single space.
+    return []  # currently, this is broken by the backend not also having access to the default set here, so we will just NOT set one. FIXME
+    # TRANSLATORS: Grammatical articles that are ignored while sorting the
+    # collection panel. For example, in French locales this could be
+    # the space-separated list "l' la le les".
+    # If this practice is not common in your locale, simply
+    # translate this to string with single space.
     default_strip_list = _("the")
     return [v.lower() for v in default_strip_list.split(' ') if v is not '']
+
 
 class CollectionStripArtistPreference(widgets.ListPreference):
     default = _get_default_strip_list()
@@ -48,7 +51,8 @@ class CollectionStripArtistPreference(widgets.ListPreference):
             because we don't need shlex parsing. We actually
             want values like "l'" here.
         """
-        values = [v.lower() for v in self.widget.get_text().split(' ') if v is not '']
+        values = [v.lower()
+                  for v in self.widget.get_text().split(' ') if v is not '']
         return values
 
     def _populate_popup_cb(self, entry, menu):
@@ -65,6 +69,7 @@ class CollectionStripArtistPreference(widgets.ListPreference):
 
     def _reset_to_defaults_cb(self, item):
         self.widget.set_text(' '.join(_get_default_strip_list()))
+
 
 class FileBasedCompilationsPreference(widgets.CheckPreference):
     default = True

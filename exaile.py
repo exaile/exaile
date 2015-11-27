@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 import os
 import os.path
@@ -38,7 +39,7 @@ if sys.platform == 'linux2':
     try:
         import ctypes
         libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'exaile', 0, 0, 0) # 15 = PR_SET_NAME
+        libc.prctl(15, 'exaile', 0, 0, 0)  # 15 = PR_SET_NAME
     except Exception:
         pass
 
@@ -49,7 +50,8 @@ try:
 except ImportError:
     pass
 
-# Find out the location of exaile's working directory, and insert it to sys.path
+# Find out the location of exaile's working directory, and insert it to
+# sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
     cwd = os.getcwd()
@@ -65,15 +67,14 @@ if sys.platform == 'darwin':
     if not os.path.exists(gst_path):
         import tkMessageBox
         tkMessageBox.showwarning("GStreamer SDK was not detected!",
-            "Exaile requires the GStreamer SDK to function. Please read " +
-            "the README file distributed with Exaile for instructions " +
-            "to install it")
+                                 "Exaile requires the GStreamer SDK to function. Please read " +
+                                 "the README file distributed with Exaile for instructions " +
+                                 "to install it")
         exit(1)
 
     sys.path.append(gst_path)
     sys.argv.append('--no-dbus')
     sys.argv.append('--no-hal')
-
 
 
 def main():

@@ -48,6 +48,7 @@ from xl import (
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
 
+
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
     pattern = r"""
@@ -69,6 +70,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
       (?P<invalid>)                # Other ill-formed delimiter expressions
     )
     """
+
     def __init__(cls, name, bases, dct):
         super(_ParameterTemplateMetaclass, cls).__init__(name, bases, dct)
         if 'pattern' in dct:
@@ -80,6 +82,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
                 'arg': cls.argpattern,
             }
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
+
 
 class ParameterTemplate(Template):
     """
@@ -156,6 +159,7 @@ class ParameterTemplate(Template):
 
         return self.pattern.sub(convert, self.template)
 
+
 class Formatter(GObject.GObject):
     """
         A generic text formatter based on a format string
@@ -179,6 +183,7 @@ class Formatter(GObject.GObject):
             GObject.PARAM_READWRITE
         )
     }
+
     def __init__(self, format):
         """
             :param format: the initial format, see the documentation
@@ -245,11 +250,11 @@ class Formatter(GObject.GObject):
 
             if groups['parameters'] is not None:
                 # Split parameters on unescaped comma
-                parameters = [p.lstrip() \
-                    for p in re.split(r'(?<!\\),', groups['parameters'])]
+                parameters = [p.lstrip()
+                              for p in re.split(r'(?<!\\),', groups['parameters'])]
                 # Split arguments on unescaped equals sign
-                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2] \
-                    for p in parameters]
+                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2]
+                              for p in parameters]
                 # Turn list of lists into a proper dictionary
                 parameters = dict(parameters)
 
@@ -317,10 +322,12 @@ class Formatter(GObject.GObject):
 
         return self._template.safe_substitute(substitutions)
 
+
 class ProgressTextFormatter(Formatter):
     """
         A text formatter for progress indicators
     """
+
     def __init__(self, format, player):
         Formatter.__init__(self, format)
         self._player = player
@@ -337,7 +344,7 @@ class ProgressTextFormatter(Formatter):
             :rtype: string
         """
         total_remaining_time = 0
-        
+
         if current_time is None:
             current_time = self._player.get_time()
 
@@ -354,10 +361,10 @@ class ProgressTextFormatter(Formatter):
 
         playlist = self._player.queue.current_playlist
 
-        if playlist and playlist.current_position >= 0:        
+        if playlist and playlist.current_position >= 0:
             tracks = playlist[playlist.current_position:]
-            total_remaining_time = sum([t.get_tag_raw('__length') \
-                for t in tracks if t.get_tag_raw('__length')])
+            total_remaining_time = sum([t.get_tag_raw('__length')
+                                        for t in tracks if t.get_tag_raw('__length')])
             total_remaining_time -= current_time
 
         self._substitutions['current_time'] = \
@@ -371,10 +378,12 @@ class ProgressTextFormatter(Formatter):
 
         return Formatter.format(self)
 
+
 class TrackFormatter(Formatter):
     """
         A formatter for track data
     """
+
     def format(self, track, markup_escape=False):
         """
             Returns a string for places where
@@ -404,16 +413,19 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
+                substitute = GLib.markup_escape_text(
+                    substitute).decode('utf-8')
 
             self._substitutions[identifier] = substitute
 
         return Formatter.format(self)
 
+
 class TagFormatter():
     """
         A formatter provider for a tag of a track
     """
+
     def __init__(self, name):
         """
             :param name: the name of the tag
@@ -436,12 +448,14 @@ class TagFormatter():
         """
         pass
 
+
 class NumberTagFormatter(TagFormatter):
     """
         A generic formatter for numeric formatting
-        
+
         Removes count values, e.g. "b" in "a/b"
     """
+
     def __init__(self, name):
         """
             :param name: the name of the tag
@@ -465,9 +479,9 @@ class NumberTagFormatter(TagFormatter):
         if not value:
             return ''
 
-        try: # n/n
+        try:  # n/n
             value, count = value.split('/')
-        except ValueError: # n
+        except ValueError:  # n
             pass
 
         if not value:
@@ -480,26 +494,32 @@ class NumberTagFormatter(TagFormatter):
 
         return '%d' % value
 
+
 class TrackNumberTagFormatter(NumberTagFormatter):
     """
         A formatter for the tracknumber of a track
     """
+
     def __init__(self):
         TagFormatter.__init__(self, 'tracknumber')
 providers.register('tag-formatting', TrackNumberTagFormatter())
+
 
 class DiscNumberTagFormatter(NumberTagFormatter):
     """
         A formatter for the discnumber of a track
     """
+
     def __init__(self):
         TagFormatter.__init__(self, 'discnumber')
 providers.register('tag-formatting', DiscNumberTagFormatter())
+
 
 class ArtistTagFormatter(TagFormatter):
     """
         A formatter for the artist of a track
     """
+
     def __init__(self):
         TagFormatter.__init__(self, 'artist')
 
@@ -521,15 +541,17 @@ class ArtistTagFormatter(TagFormatter):
         """
         compilate = parameters.get('compilate', False)
         value = track.get_tag_display(self.name,
-            artist_compilations=compilate)
+                                      artist_compilations=compilate)
 
         return value
 providers.register('tag-formatting', ArtistTagFormatter())
+
 
 class TimeTagFormatter(TagFormatter):
     """
         A formatter for a time period
     """
+
     def format(self, track, parameters):
         """
             Formats a raw tag value
@@ -573,11 +595,15 @@ class TimeTagFormatter(TagFormatter):
 
         if format == 'verbose':
             if span.days > 0:
-                text += ngettext('%d day, ', '%d days, ', span.days) % span.days
+                text += ngettext('%d day, ', '%d days, ',
+                                 span.days) % span.days
             if span.hours > 0:
-                text += ngettext('%d hour, ', '%d hours, ', span.hours) % span.hours
-            text += ngettext('%d minute, ', '%d minutes, ', span.minutes) % span.minutes
-            text += ngettext('%d second', '%d seconds', span.seconds) % span.seconds
+                text += ngettext('%d hour, ', '%d hours, ',
+                                 span.hours) % span.hours
+            text += ngettext('%d minute, ', '%d minutes, ',
+                             span.minutes) % span.minutes
+            text += ngettext('%d second', '%d seconds',
+                             span.seconds) % span.seconds
 
         elif format == 'long':
             if span.days > 0:
@@ -595,51 +621,59 @@ class TimeTagFormatter(TagFormatter):
             if span.days > 0:
                 # TRANSLATORS: Short form of an amount of days
                 text += _('%dd ') % span.days
-            if span.hours > 0 or text: # always show hours when > 1 day
+            if span.hours > 0 or text:  # always show hours when > 1 day
                 # TRANSLATORS: Time duration (hours:minutes:seconds)
                 text += _('%d:%02d:%02d') % (
-                        span.hours, span.minutes, span.seconds)
+                    span.hours, span.minutes, span.seconds)
             else:
                 # TRANSLATORS: Time duration (minutes:seconds)
                 text += _('%d:%02d') % (span.minutes, span.seconds)
 
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
-                '"format" for tag "__length", possible arguments are '
-                '"short", "long" and "verbose"' % format)
+                             '"format" for tag "__length", possible arguments are '
+                             '"short", "long" and "verbose"' % format)
 
         return text
-    
+
+
 class LengthTagFormatter(TimeTagFormatter):
     """
         A formatter for the length of a track
     """
+
     def __init__(self):
         TimeTagFormatter.__init__(self, '__length')
 providers.register('tag-formatting', LengthTagFormatter())
+
 
 class StartOffsetTagFormatter(TimeTagFormatter):
     """
         A formatter for the track's start offset
     """
+
     def __init__(self):
         TimeTagFormatter.__init__(self, '__startoffset')
 providers.register('tag-formatting', StartOffsetTagFormatter())
+
 
 class StopOffsetTagFormatter(TimeTagFormatter):
     """
         A formatter for the track's stop offset
     """
+
     def __init__(self):
         TimeTagFormatter.__init__(self, '__stopoffset')
 providers.register('tag-formatting', StopOffsetTagFormatter())
 
+
 class RatingTagFormatter(TagFormatter):
     """
         A formatter for the rating of a track
-        
+
         Will return glyphs representing the rating like ★★★☆☆
     """
+
     def __init__(self):
         TagFormatter.__init__(self, '__rating')
 
@@ -663,13 +697,15 @@ class RatingTagFormatter(TagFormatter):
         return ('%s%s' % (filled, empty)).decode('utf-8')
 providers.register('tag-formatting', RatingTagFormatter())
 
+
 class YearTagFormatter(TagFormatter):
     """
         A pseudo-tag that computes the year from the date column 
     """
+
     def __init__(self):
         TagFormatter.__init__(self, 'year')
-        
+
     def format(self, track, parameters):
         value = track.get_tag_raw('date')
         if value is not None:
@@ -678,9 +714,10 @@ class YearTagFormatter(TagFormatter):
             except:
                 pass
             return value[0]
-            
+
         return _("Unknown")
 providers.register('tag-formatting', YearTagFormatter())
+
 
 class DateTagFormatter(TagFormatter):
     """
@@ -689,6 +726,7 @@ class DateTagFormatter(TagFormatter):
         Will return the localized string for *Today*, *Yesterday*
         or the respective localized date for earlier dates
     """
+
     def __init__(self, name):
         """
             :param name: the name of the tag
@@ -728,28 +766,34 @@ class DateTagFormatter(TagFormatter):
 
         return text
 
+
 class LastPlayedTagFormatter(DateTagFormatter):
     """
         A formatter for the last time a track was played
     """
+
     def __init__(self):
         DateTagFormatter.__init__(self, '__last_played')
 providers.register('tag-formatting', LastPlayedTagFormatter())
+
 
 class DateAddedTagFormatter(DateTagFormatter):
     """
         A formatter for the date a track
         was added to the collection
     """
+
     def __init__(self):
         DateTagFormatter.__init__(self, '__date_added')
 providers.register('tag-formatting', DateAddedTagFormatter())
+
 
 class LocationTagFormatter(TagFormatter):
     """
         A formatter for the location of a track,
         properly sanitized if necessary
     """
+
     def __init__(self):
         TagFormatter.__init__(self, '__loc')
 
@@ -770,10 +814,12 @@ class LocationTagFormatter(TagFormatter):
         return common.sanitize_url(track.get_tag_raw('__loc'))
 providers.register('tag-formatting', LocationTagFormatter())
 
+
 class CommentTagFormatter(TagFormatter):
     """
         A formatter for comments embedded in tracks
     """
+
     def __init__(self):
         TagFormatter.__init__(self, 'comment')
 

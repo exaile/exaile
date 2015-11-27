@@ -37,16 +37,19 @@ API_KEY = '3599c79a97fd61ce518b75922688bc38'
 
 LASTFM = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
     else:
         _enable(None, exaile, None)
 
+
 def _enable(eventname, exaile, nothing):
     global LASTFM
     LASTFM = LastFMCoverSearch(exaile)
     providers.register('covers', LASTFM)
+
 
 def disable(exaile):
     providers.unregister('covers', LASTFM)
@@ -58,7 +61,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     """
     name = 'lastfm'
     title = 'Last.fm'
-    type = 'remote' # fetches remotely as opposed to locally
+    type = 'remote'  # fetches remotely as opposed to locally
 
     url = 'https://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
 
@@ -111,4 +114,3 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
             return common.get_url_contents(cover_url, self.user_agent)
         except IOError:
             return None
-

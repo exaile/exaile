@@ -11,7 +11,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 
 from os.path import abspath, join, dirname
 
@@ -34,11 +35,12 @@ import mocks
 sys.path.pop()
 
 
-# -- General configuration -----------------------------------------------------
+# -- General configuration -----------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autosummary', 'sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage']
+extensions = ['sphinx.ext.autosummary', 'sphinx.ext.autodoc',
+              'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -103,9 +105,10 @@ pygments_style = 'sphinx'
 #modindex_common_prefix = []
 
 
-# -- Options for HTML output ---------------------------------------------------
+# -- Options for HTML output ---------------------------------------------
 
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
+# on_rtd is whether we are on readthedocs.org, this line of code grabbed
+# from docs.readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:  # only import and set the theme if we're building docs locally
@@ -184,7 +187,7 @@ html_static_path = ['_static']
 htmlhelp_basename = 'Exailedoc'
 
 
-# -- Options for LaTeX output --------------------------------------------------
+# -- Options for LaTeX output --------------------------------------------
 
 # The paper size ('letter' or 'a4').
 #latex_paper_size = 'letter'
@@ -195,8 +198,8 @@ htmlhelp_basename = 'Exailedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Exaile.tex', u'Exaile Documentation',
-   u'Adam Olsen \\textless{}arolsen@gmail.com\\textgreater{}, Johannes Sasongko \\textless{}sasongko@gmail.com\\textgreater{}, Aren Olsen \\textless{}reacocard@gmail.com\\textgreater{}, Mathias Brodala \\textless{}info@noctus.net\\textgreater{}', 'manual'),
+    ('index', 'Exaile.tex', u'Exaile Documentation',
+     u'Adam Olsen \\textless{}arolsen@gmail.com\\textgreater{}, Johannes Sasongko \\textless{}sasongko@gmail.com\\textgreater{}, Aren Olsen \\textless{}reacocard@gmail.com\\textgreater{}, Mathias Brodala \\textless{}info@noctus.net\\textgreater{}', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

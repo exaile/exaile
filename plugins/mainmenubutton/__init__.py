@@ -31,26 +31,29 @@ def enable(exaile):
     else:
         on_gui_loaded()
 
+
 def disable(exaile):
     """
         Disables the plugin
     """
-    
+
     providers.unregister('main-panel-actions', MainMenuButton)
+
 
 def on_gui_loaded(*args):
     """
         Creates the main menu button
         which takes care of the rest
     """
-    
+
     providers.register('main-panel-actions', MainMenuButton)
+
 
 class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     """
     """
     __gsignals__ = {}
-    
+
     name = 'main-menu'
     position = Gtk.PackType.START
 
@@ -62,7 +65,8 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         Gtk.ToggleButton.__init__(self)
         notebook.NotebookAction.__init__(self, panel_notebook)
 
-        self.set_image(Gtk.Image.new_from_icon_name('exaile', Gtk.IconSize.BUTTON))
+        self.set_image(Gtk.Image.new_from_icon_name(
+            'exaile', Gtk.IconSize.BUTTON))
         self.set_tooltip_text(_('Main Menu'))
         self.set_focus_on_click(True)
         self.set_relief(Gtk.ReliefStyle.NONE)
@@ -72,7 +76,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         accessible.set_name(_('Main Menu'))
 
         builder = main.mainwindow().builder
-        
+
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = Gtk.Menu()
@@ -104,7 +108,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         """
         # Origin includes window position and decorations
         _, x, y = self.props.window.get_origin()
-        
+
         allocation = self.get_allocation()
 
         return (
@@ -128,7 +132,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
             the Menu or Shift+F10 keys
         """
         self.set_active(True)
-        
+
         return True
 
     def on_toggled(self, button):
@@ -136,11 +140,10 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
             Pops out the menu upon button toggle
         """
         self.menu.popup(None, None, self.get_menu_position, None, 0,
-            Gtk.get_current_event_time())
+                        Gtk.get_current_event_time())
 
     def on_menu_deactivate(self, menu):
         """
             Removes button activation upon menu popdown
         """
         self.set_active(False)
-

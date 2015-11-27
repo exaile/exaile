@@ -41,20 +41,22 @@ class OggFormat(BaseFormat):
         'comment': 'description',
     }
     writable = True
-    
+
     def _set_tag(self, raw, tag, value):
         # vorbis has text based attributes, so convert everything to unicode
-        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
+        BaseFormat._set_tag(
+            self, raw, tag, [common.to_unicode(v) for v in value])
 
-    def read_tags(self, tags):        
+    def read_tags(self, tags):
         if "cover" in tags:
-            tags[tags.index("cover")]= "metadata_block_picture" 
-        td = super(OggFormat, self).read_tags(tags)        
+            tags[tags.index("cover")] = "metadata_block_picture"
+        td = super(OggFormat, self).read_tags(tags)
         if 'metadata_block_picture' in td:
             td['cover'] = []
             for d in td["metadata_block_picture"]:
                 picture = mutagen.flac.Picture(base64.standard_b64decode(d))
-                td['cover'] += [CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data)]
+                td['cover'] += [CoverImage(type=picture.type, desc=picture.desc,
+                                           mime=picture.mime, data=picture.data)]
         return td
 
 

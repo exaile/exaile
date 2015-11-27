@@ -39,13 +39,16 @@ name = _('Covers')
 icon = 'image-x-generic'
 ui = xdg.get_data_path('ui', 'preferences', 'cover.ui')
 
+
 class TagCoverFetching(widgets.CheckPreference):
     default = True
     name = 'covers/use_tags'
 
+
 class LocalCoverFetching(widgets.CheckPreference):
     default = True
     name = 'covers/use_localfile'
+
 
 class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditional):
     default = ['front', 'cover', 'album']
@@ -69,6 +72,7 @@ class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditi
         self.widget.set_text(', '.join(settings.get_option(
             self.name, self.default)))
 
+
 class CoverOrderPreference(widgets.OrderListPreference):
     """
         This little preference item shows kind of a complicated preference
@@ -90,6 +94,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
             covers.MANAGER.set_preferred_order(
                 self._get_value())
         return True
+
 
 class AutomaticCoverFetching(widgets.CheckPreference):
     default = True

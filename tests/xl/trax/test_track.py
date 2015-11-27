@@ -43,8 +43,8 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                self.TIMEOUT,
-                self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
+            self.TIMEOUT,
+            self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -56,8 +56,8 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                mox.IsA(types.IntType),
-                mox.IsA(types.MethodType)).AndReturn(timeout_id)
+            mox.IsA(types.IntType),
+            mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -70,8 +70,8 @@ class Test_MetadataCacher(unittest.TestCase):
         timeout_id = 1
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         GLib.timeout_add_seconds(
-                self.TIMEOUT,
-                mox.IsA(types.MethodType)).AndReturn(timeout_id)
+            self.TIMEOUT,
+            mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -81,6 +81,7 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_remove_not_exist(self):
         self.assertEqual(self.mc.remove('foo'), None)
+
 
 class TestTrack(unittest.TestCase):
 
@@ -93,7 +94,7 @@ class TestTrack(unittest.TestCase):
     def tearDown(self):
         self.mox.UnsetStubs()
 
-    ## Creation
+    # Creation
     def test_flyweight(self):
         """There can only be one object based on a url in args"""
         t1 = track.Track(test_data.TEST_TRACKS[0])
@@ -104,7 +105,7 @@ class TestTrack(unittest.TestCase):
         t1 = track.Track(test_data.TEST_TRACKS[0])
         t2 = track.Track(uri=test_data.TEST_TRACKS[1])
         self.assertTrue(t1 is not t2, "%s should not be %s" % (repr(t1),
-            repr(t2)))
+                                                               repr(t2)))
 
     def test_none_url(self):
         self.assertRaises(ValueError, track.Track)
@@ -115,18 +116,18 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr._pickles(), {
             '__loc': u'file:///foo',
             'artist': [u'bar']
-            })
+        })
 
     def test_unpickles(self):
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         self.assertEqual(tr1.get_loc_for_io(), u'uri')
 
     def test_unpickles_flyweight(self):
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         self.assertTrue(tr1 is tr2)
 
     def test_takes_nonurl(self):
@@ -135,8 +136,8 @@ class TestTrack(unittest.TestCase):
             print tr.get_loc_for_io()
             self.assertTrue(tr.get_local_path())
             self.assertTrue(tr.exists())
-    
-    ## Information
+
+    # Information
     def test_local_type(self):
         for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
@@ -155,15 +156,16 @@ class TestTrack(unittest.TestCase):
     def test_local_filesize(self):
         for tr_name in test_data.TEST_TRACKS_SIZE:
             tr = track.Track(tr_name)
-            self.assertEqual(tr.get_size(), test_data.TEST_TRACKS_SIZE[tr_name])
+            self.assertEqual(
+                tr.get_size(), test_data.TEST_TRACKS_SIZE[tr_name])
 
     def test_str(self):
         loc = test_data.TEST_TRACKS[0]
         tr = track.Track(loc)
         self.empty_track_of_tags(tr, ('__loc',))
-        self.assertEqual(str(tr), 
-                "'Unknown (%s)' from 'Unknown' by 'Unknown'"
-                % os.path.basename(loc))
+        self.assertEqual(str(tr),
+                         "'Unknown (%s)' from 'Unknown' by 'Unknown'"
+                         % os.path.basename(loc))
         tr.set_tag_raw('artist', 'art')
         tr.set_tag_raw('album', 'alb')
         tr.set_tag_raw('title', 'title')
@@ -286,7 +288,8 @@ class TestTrack(unittest.TestCase):
         self.empty_track_of_tags(tr, tags)
         for tag, val in tags.iteritems():
             tr.set_tag_raw(tag, val)
-        self.assertEqual(set(tr.list_tags()), set(['album', '__loc', 'artist', '__basename']))
+        self.assertEqual(set(tr.list_tags()), set(
+            ['album', '__loc', 'artist', '__basename']))
 
     def test_rating_empty(self):
         """Test get_rating when no rating has been set"""
@@ -302,7 +305,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/bar')
         self.assertRaises(ValueError, tr.set_rating, 'foo')
 
-    ## Tag Getting helper methods
+    # Tag Getting helper methods
     def test_split_numerical_none(self):
         self.assertEqual(track.Track.split_numerical(None), (None, 0))
 
@@ -334,7 +337,7 @@ class TestTrack(unittest.TestCase):
     def test_expand_doubles(self):
         value = u'ßæĳŋœƕǆǉǌǳҥҵ'
         self.assertEqual(track.Track.expand_doubles(value),
-                u'ssaeijngoehvdzljnjdzngts')
+                         u'ssaeijngoehvdzljnjdzngts')
 
     def test_lower(self):
         value = u'FooBar'
@@ -350,13 +353,13 @@ class TestTrack(unittest.TestCase):
         settings.set_option('collection/strip_list', value)
         track.Track._the_cuts_cb(None, None, 'collection/strip_list')
         self.assertEqual(track.Track._Track__the_cuts, value)
-    
+
     def test_strip_marks(self):
         value = u'The Hëllò Wóþλdâ'
         retval = u'The Hello Woþλda The Hëllò Wóþλdâ'
         self.assertEqual(track.Track.strip_marks(value), retval)
 
-    ## Sort tags
+    # Sort tags
     def test_get_sort_tag_no_join(self):
         tr = track.Track('/foo')
         value = u'hello'
@@ -433,7 +436,7 @@ class TestTrack(unittest.TestCase):
         tr.set_tag_raw('coverart', u'foobar')
         self.assertEqual(tr.get_tag_sort('coverart'), ret)
 
-    ## Display Tags
+    # Display Tags
     def test_get_display_tag_loc(self):
         tr = track.Track('/foo')
         self.assertEqual(tr.get_tag_display('__loc'), '/foo')
@@ -445,7 +448,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', u'foo')
         self.assertEqual(tr.get_tag_display('artist'),
-                track._VARIOUSARTISTSSTR)
+                         track._VARIOUSARTISTSSTR)
 
     def test_get_display_tag_discnumber(self):
         tr = track.Track('/foo')
@@ -496,9 +499,9 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', [u'foo', u'bar'])
         self.assertEqual(tr.get_tag_display('artist', join=False),
-                [u'foo', u'bar'])
+                         [u'foo', u'bar'])
 
-    ## Sort tags
+    # Sort tags
     def test_get_search_tag_loc(self):
         tr = track.Track('/foo')
         self.assertEqual(tr.get_tag_search('__loc'), '__loc=="file:///foo"')
@@ -548,14 +551,14 @@ class TestTrack(unittest.TestCase):
         tr.set_tag_raw('__bitrate', 48000)
         self.assertEqual(tr.get_tag_search('__bitrate'), '__bitrate=="48k"')
 
-    ## Disk tags
+    # Disk tags
     def test_get_disk_tag_length(self):
         if SkipTest is not None:
             raise SkipTest("Metadata's do not return length. Might never.")
         tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
         self.assertEqual(tr.get_tag_disk('__length'),
-                test_data.TEST_TRACKS_SIZE[tr_name])
+                         test_data.TEST_TRACKS_SIZE[tr_name])
 
     def test_get_disk_tag(self):
         tr_name = test_data.get_file_with_ext('.mp3')
@@ -570,7 +573,7 @@ class TestTrack(unittest.TestCase):
         tr_name = test_data.get_file_with_ext('.ogg')
         tr = track.Track(tr_name)
         self.assertEqual(set(tr.list_tags_disk()),
-                        set(('album', 'tracknumber', 'artist', 'title')))
+                         set(('album', 'tracknumber', 'artist', 'title')))
 
     def test_list_disk_tag_invalid_format(self):
         tr_name = '/tmp/foo.foo'

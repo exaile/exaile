@@ -41,6 +41,7 @@ from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
+
 class Preference(object):
     """
         Representing a Gtk.Entry preferences item
@@ -69,7 +70,8 @@ class Preference(object):
             self.message.set_secondary_text(
                 _('A restart is required for this change to take effect.'))
 
-            button = self.message.add_button(_('Restart'), Gtk.ResponseType.ACCEPT)
+            button = self.message.add_button(
+                _('Restart'), Gtk.ResponseType.ACCEPT)
             button.set_image(Gtk.Image.new_from_icon_name(
                 'view-refresh', Gtk.IconSize.BUTTON))
 
@@ -86,12 +88,12 @@ class Preference(object):
             Sets up the function to be called when this preference is changed
         """
         self.widget.connect('focus-out-event',
-            self.change, self.name, self._get_value())
+                            self.change, self.name, self._get_value())
 
         try:
             self.widget.connect('activate',
-                lambda *e: self.change(self.widget, None, self.name,
-                    self._get_value()))
+                                lambda *e: self.change(self.widget, None, self.name,
+                                                       self._get_value()))
         except TypeError:
             pass
 
@@ -118,7 +120,8 @@ class Preference(object):
         if hasattr(self, 'done') and not self.done():
             return False
 
-        oldvalue = self.preferences.settings.get_option(self.name, self.default)
+        oldvalue = self.preferences.settings.get_option(
+            self.name, self.default)
 
         if value is None:
             value = self._get_value()
@@ -139,24 +142,25 @@ class Preference(object):
 
         if response == Gtk.ResponseType.ACCEPT:
             GLib.idle_add(main.exaile().quit, True)
-            
+
     def hide_widget(self):
         '''Hides the widget and optionally its associated label'''
         self.widget.hide()
         if hasattr(self, 'label_widget'):
             self.label_widget.hide()
-            
+
     def show_widget(self):
         '''Shows the widget and optionally its associated label'''
         self.widget.show_all()
         if hasattr(self, 'label_widget'):
             self.label_widget.show_all()
-            
+
     def set_widget_sensitive(self, value):
         '''Sets sensitivity of widget and optionally its associated label'''
         self.widget.set_sensitive(value)
         if hasattr(self, 'label_widget'):
             self.label_widget.set_sensitive(value)
+
 
 class Conditional(object):
     """
@@ -169,7 +173,7 @@ class Conditional(object):
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
-            'option_set', settings, self.condition_preference_name)
+                      'option_set', settings, self.condition_preference_name)
 
     def get_condition_value(self):
         '''
@@ -178,7 +182,6 @@ class Conditional(object):
         '''
         i = self.condition_widget.get_active_iter()
         return self.condition_widget.get_model().get_value(i, 0)
-
 
     def on_check_condition(self):
         """
@@ -213,13 +216,15 @@ class Conditional(object):
             else:
                 self.on_condition_failed()
 
+
 class CheckConditional(Conditional):
     """
         True if the conditional widget is active
     """
+
     def get_condition_value(self):
         return self.condition_widget.get_active()
-    
+
     def on_check_condition(self):
         """
             Specifies the condition to meet
@@ -228,6 +233,7 @@ class CheckConditional(Conditional):
             :rtype: bool
         """
         return self.get_condition_value()
+
 
 class MultiConditional(object):
     """
@@ -239,7 +245,7 @@ class MultiConditional(object):
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
-            'option_set', settings, self.condition_preference_names[0])
+                      'option_set', settings, self.condition_preference_names[0])
 
     def get_condition_value(self, name):
         '''
@@ -287,6 +293,7 @@ class Button(Preference):
     """
         Represents a button for custom usage
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -308,6 +315,7 @@ class Button(Preference):
         """ Override """
         pass
 
+
 class HashedPreference(Preference):
     """
         Represents a text entry with automated hashing
@@ -322,9 +330,9 @@ class HashedPreference(Preference):
 
         self.widget.set_visibility(True)
         self._delete_text_id = self.widget.connect('delete-text',
-            self.on_delete_text)
+                                                   self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
-            self.on_insert_text)
+                                                   self.on_insert_text)
 
     def _setup_change(self):
         """
@@ -359,7 +367,8 @@ class HashedPreference(Preference):
             hashfunc.update(value)
             value = hashfunc.hexdigest()
 
-        oldvalue = self.preferences.settings.get_option(self.name, self.default)
+        oldvalue = self.preferences.settings.get_option(
+            self.name, self.default)
 
         if value != oldvalue:
             self.preferences.settings.set_option(self.name, value)
@@ -367,9 +376,9 @@ class HashedPreference(Preference):
         self.widget.set_text(value)
         self.widget.set_visibility(True)
         self._delete_text_id = self.widget.connect('delete-text',
-            self.on_delete_text)
+                                                   self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
-            self.on_insert_text)
+                                                   self.on_insert_text)
 
         return True
 
@@ -397,29 +406,33 @@ class HashedPreference(Preference):
         GLib.idle_add(self.widget.set_text, text)
         GLib.idle_add(self.widget.set_position, length)
 
+
 class CheckPreference(Preference):
     """
         A class to represent check boxes in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('toggled',
-            self.change)
+                            self.change)
 
     def _set_value(self):
         self.widget.set_active(
             self.preferences.settings.get_option(self.name,
-            self.default))
+                                                 self.default))
 
     def _get_value(self):
         return self.widget.get_active()
+
 
 class DirPreference(Preference):
     """
         Directory chooser button
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -439,10 +452,12 @@ class DirPreference(Preference):
     def _get_value(self):
         return self.widget.get_filename()
 
+
 class OrderListPreference(Preference):
     """
         A list box with reorderable items
     """
+
     def __init__(self, preferences, widget):
         self.model = Gtk.ListStore(str)
         Preference.__init__(self, preferences, widget)
@@ -462,7 +477,7 @@ class OrderListPreference(Preference):
             Sets the preferences for this widget
         """
         items = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                     self.default)
 
         self.model.clear()
         for item in items:
@@ -479,6 +494,7 @@ class OrderListPreference(Preference):
 
         return items
 
+
 class SelectionListPreference(Preference):
     """
         A list allowing for enabling/disabling
@@ -492,6 +508,7 @@ class SelectionListPreference(Preference):
         """
             Convenience class for preference item description
         """
+
         def __init__(self, id, title, description=None, fixed=False):
             """
                 :param id: the unique identifier
@@ -558,7 +575,7 @@ class SelectionListPreference(Preference):
 
             enabled = not self.model[path][3]
             self.model[path][3] = enabled
-        
+
         def enabled_data_function(self, column, cell, model, iter, user_data):
             """
                 Prepares sensitivity
@@ -575,12 +592,12 @@ class SelectionListPreference(Preference):
             """
             path = model.get_path(iter)
             title, description = model[path][1], model[path][2]
-    
+
             markup = '<b>%s</b>' % title
-    
+
             if description is not None:
                 markup += '\n<span size="small">%s</span>' % description
-    
+
             cell.props.markup = markup
 
         def iter_prev(self, iter, model):
@@ -590,14 +607,14 @@ class SelectionListPreference(Preference):
             """
             path = model.get_path(iter)
             position = path[-1]
-    
+
             if position == 0:
                 return None
-    
+
             prev_path = list(path)[:-1]
             prev_path.append(position - 1)
             prev = model.get_iter(tuple(prev_path))
-    
+
             return prev
 
         @GtkTemplate.Callback
@@ -607,23 +624,23 @@ class SelectionListPreference(Preference):
             """
             if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
                 return
-    
+
             if event.keyval not in (Gdk.KEY_Up, Gdk.KEY_Down):
                 return
-    
+
             model, selected_iter = tree.get_selection().get_selected()
-    
+
             if event.keyval == Gdk.KEY_Up:
                 previous_iter = self.iter_prev(selected_iter, model)
                 model.move_before(selected_iter, previous_iter)
             elif event.keyval == Gdk.KEY_Down:
                 next_iter = model.iter_next(selected_iter)
                 model.move_after(selected_iter, next_iter)
-    
+
             tree.scroll_to_cell(model.get_path(selected_iter))
-    
+
             self.selectionlp.apply()
-    
+
         @GtkTemplate.Callback
         def on_toggled(self, cell, path):
             """
@@ -631,11 +648,11 @@ class SelectionListPreference(Preference):
             """
             if self.model[path][4]:
                 return
-    
+
             active = not cell.get_active()
             cell.set_active(active)
             self.model[path][3] = active
-    
+
             self.selectionlp.apply()
 
     def __init__(self, preferences, widget):
@@ -667,11 +684,11 @@ class SelectionListPreference(Preference):
             return
 
         # Filter out invalid items
-        selected_items = [item for item in selected_items \
-            if item in available_items]
+        selected_items = [item for item in selected_items
+                          if item in available_items]
         # Cut out unselected items
-        unselected_items = [item for item in available_items \
-            if item not in selected_items]
+        unselected_items = [item for item in available_items
+                            if item not in selected_items]
         # Move unselected items to the end
         items = selected_items + unselected_items
         new_order = [available_items.index(item) for item in items]
@@ -690,6 +707,7 @@ class ShortcutListPreference(Preference):
         A list showing available items and allowing
         to assign/edit/remove key accelerators
     """
+
     def __init__(self, preferences, widget):
         self.list = Gtk.ListStore(str, str)
 
@@ -706,7 +724,8 @@ class ShortcutListPreference(Preference):
         accel_renderer.set_property('style', Pango.Style.OBLIQUE)
         accel_renderer.connect('accel-cleared', self.on_accel_cleared)
         accel_renderer.connect('accel-edited', self.on_accel_edited)
-        accel_column = Gtk.TreeViewColumn(_('Shortcut'), accel_renderer, text=1)
+        accel_column = Gtk.TreeViewColumn(
+            _('Shortcut'), accel_renderer, text=1)
         accel_column.set_expand(True)
 
         self.widget.append_column(title_column)
@@ -773,10 +792,12 @@ class ShortcutListPreference(Preference):
                 accel = ''
             self.list.append([action, accel])
 
+
 class TextViewPreference(Preference):
     """
         Represents a Gtk.TextView
     """
+
     def __init__(self, preferences, widget):
         """
             Initializes the object
@@ -801,7 +822,7 @@ class TextViewPreference(Preference):
         """
         self.widget.get_buffer().set_text(str(
             self.preferences.settings.get_option(self.name,
-            default=self.default)))
+                                                 default=self.default)))
 
     def _get_value(self):
         """
@@ -809,16 +830,18 @@ class TextViewPreference(Preference):
         """
         return self.get_all_text()
 
+
 class ListPreference(Preference):
     """
         A class to represent a space separated list in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
         items = self.preferences.settings.get_option(self.name,
-            default=self.default)
+                                                     default=self.default)
         try:
             items = u" ".join(items)
         except TypeError:
@@ -833,16 +856,18 @@ class ListPreference(Preference):
         values = [unicode(value, 'utf-8') for value in values]
         return values
 
+
 class SpinPreference(Preference):
     """
         A class to represent a numeric entry box with stepping buttons
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
         value = self.preferences.settings.get_option(self.name,
-            default=self.default)
+                                                     default=self.default)
         self.widget.set_value(value)
 
     def _setup_change(self):
@@ -851,37 +876,44 @@ class SpinPreference(Preference):
     def _get_value(self):
         return self.widget.get_value()
 
+
 class ScalePreference(SpinPreference):
     """
         Representation of Gtk.Scale widgets
     """
+
     def __init__(self, preferences, widget):
         SpinPreference.__init__(self, preferences, widget)
+
 
 class FloatPreference(Preference):
     """
         A class to represent a floating point number in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
         self.widget.set_text(str(
             self.preferences.settings.get_option(self.name,
-            default=self.default)))
+                                                 default=self.default)))
 
     def _get_value(self):
         return float(self.widget.get_text())
+
 
 class IntPreference(FloatPreference):
 
     def _get_value(self):
         return int(self.widget.get_text())
 
+
 class ColorButtonPreference(Preference):
     """
         A class to represent the color button
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -918,10 +950,12 @@ class ColorButtonPreference(Preference):
 
         return value
 
+
 class FontButtonPreference(ColorButtonPreference):
     """
         Font button
     """
+
     def __init__(self, preferences, widget):
         ColorButtonPreference.__init__(self, preferences, widget)
 
@@ -930,17 +964,19 @@ class FontButtonPreference(ColorButtonPreference):
 
     def _set_value(self):
         font = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                    self.default)
         self.widget.set_font_name(font)
 
     def _get_value(self):
         font = self.widget.get_font_name()
         return font
-        
+
+
 class FontResetButtonPreference(Button, Conditional):
     '''
         A button to reset a font button to a default font
     '''
+
     def __init__(self, preferences, widget):
         Button.__init__(self, preferences, widget)
         Conditional.__init__(self)
@@ -954,11 +990,13 @@ class FontResetButtonPreference(Button, Conditional):
         self.condition_widget.set_font_name(self.default)
         self.condition_widget.emit('font-set')
 
+
 class ComboPreference(Preference):
     """
         A combo box. The value stored in the settings must be the
         first column of the combo box model.
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -970,7 +1008,7 @@ class ComboPreference(Preference):
             Sets the preferences for this widget
         """
         item = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                    self.default)
 
         model = self.widget.get_model()
 
@@ -987,6 +1025,7 @@ class ComboPreference(Preference):
 
         return model.get_value(iter, 0)
 
+
 class ComboEntryPreference(Preference):
     """
         A combo box allowing for user defined
@@ -998,6 +1037,7 @@ class ComboEntryPreference(Preference):
         * preset_items (List of preset items or
           dictionary of items and their titles)
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -1060,7 +1100,7 @@ class ComboEntryPreference(Preference):
             when this preference is changed
         """
         self.widget.connect('changed', self.change, self.name,
-            self._get_value())
+                            self._get_value())
 
     def _set_value(self):
         """

@@ -38,16 +38,18 @@ from xlgui.widgets import menu
 TAB_CSS = Gtk.CssProvider()
 TAB_CSS.load_from_data(
     '.notebook { '
-        # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; '
-        # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; '
+    # Remove gap before first tab
+    '-GtkNotebook-initial-gap: 0; '
+    # Remove gap between tabs
+    '-GtkNotebook-tab-overlap: 1; '
     '} '
     # Make tabs smaller (or bigger on some other themes, unfortunately)
     '.notebook tab { padding: 6px } '
 )
 
+
 class SmartNotebook(Gtk.Notebook):
+
     def __init__(self):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
@@ -55,7 +57,8 @@ class SmartNotebook(Gtk.Notebook):
         self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
-        self.get_style_context().add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.get_style_context().add_provider(
+            TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def get_current_tab(self):
         current_page = self.get_current_page()
@@ -96,15 +99,15 @@ class SmartNotebook(Gtk.Notebook):
             Overrides Gtk.Notebook.remove_page
         '''
         if page_num == -1:
-            page_num = self.get_n_pages()-1
+            page_num = self.get_n_pages() - 1
         tab = self.get_tab_label(self.get_nth_page(page_num))
-        
+
         Gtk.Notebook.remove_page(self, page_num)
         tab.notebook = None
-        
+
         if self._add_tab_on_empty and self.get_n_pages() == 0:
             self.add_default_tab()
-            
+
     def remove_tab(self, tab):
         '''
             Remove a specific NotebookTab from the notebook
@@ -112,7 +115,7 @@ class SmartNotebook(Gtk.Notebook):
         page_num = self.page_num(tab.page)
         if page_num >= 0:
             self.remove_page(page_num)
-            
+
     def set_add_tab_on_empty(self, add_tab_on_empty):
         '''
             If set True, the SmartNotebook will always maintain at
@@ -123,21 +126,22 @@ class SmartNotebook(Gtk.Notebook):
     def on_button_press(self, widget, event):
         if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 2:
             self.add_default_tab()
-            
+
     def on_popup_menu(self, widget):
         page = self.get_current_tab()
         tab_label = self.get_tab_label(self.get_current_tab())
         page.tab_menu.popup(None, None, guiutil.position_menu, tab_label,
                             0, 0)
-        return True        
-        
+        return True
+
 
 class NotebookTab(Gtk.EventBox):
     """
         Class to represent a generic tab in a Gtk.Notebook.
     """
-    menu_provider_name = 'notebooktab' # Change this in subclasses!
+    menu_provider_name = 'notebooktab'  # Change this in subclasses!
     reorderable = True
+
     def __init__(self, notebook, page, display_left=False):
         """
             :param notebook: The notebook this tab will belong to
@@ -179,7 +183,7 @@ class NotebookTab(Gtk.EventBox):
             self.label.set_width_chars(4)  # Minimum, including ellipsis
 
         self.label.set_tooltip_text(self.page.get_page_name())
-        
+
         if self.can_rename():
             self.entry = Gtk.Entry()
             self.entry.set_width_chars(self.label.get_max_width_chars())
@@ -189,10 +193,11 @@ class NotebookTab(Gtk.EventBox):
             border.right = 1
             self.entry.set_inner_border(border)
             self.entry.connect('activate', self.on_entry_activate)
-            self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
-            self.entry.connect('key-press-event', self.on_entry_key_press_event)
+            self.entry.connect('focus-out-event',
+                               self.on_entry_focus_out_event)
+            self.entry.connect('key-press-event',
+                               self.on_entry_key_press_event)
             self.entry.set_no_show_all(True)
-        
 
         self.button = button = Gtk.Button()
         button.set_relief(Gtk.ReliefStyle.NONE)
@@ -200,10 +205,11 @@ class NotebookTab(Gtk.EventBox):
         button.set_valign(Gtk.Align.CENTER)
         button.set_focus_on_click(False)
         button.set_tooltip_text(_("Close Tab"))
-        button.add(Gtk.Image.new_from_icon_name('window-close-symbolic', Gtk.IconSize.MENU))
+        button.add(Gtk.Image.new_from_icon_name(
+            'window-close-symbolic', Gtk.IconSize.MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
-        
+
         # pack the widgets in
         if display_left:
             box.pack_start(button, False, False, 0)
@@ -211,7 +217,7 @@ class NotebookTab(Gtk.EventBox):
             box.pack_end(self.label, True, True, 0)
             if self.can_rename():
                 box.pack_end(self.entry, True, True, 0)
-            
+
         else:
             box.pack_start(self.icon, False, False, 0)
             box.pack_start(self.label, True, True, 0)
@@ -251,8 +257,8 @@ class NotebookTab(Gtk.EventBox):
         elif event.button == 2:
             self.close()
         elif event.button == 3:
-            self.page.tab_menu.popup( None, None, None, None,
-                    event.button, event.time)
+            self.page.tab_menu.popup(None, None, None, None,
+                                     event.button, event.time)
             return True
 
     def on_entry_activate(self, entry):
@@ -323,7 +329,7 @@ class NotebookPage(Gtk.VBox):
     """
         Base class representing a page. Should never be used directly.
     """
-    menu_provider_name = 'tab-context' #override this in subclasses
+    menu_provider_name = 'tab-context'  # override this in subclasses
     reorderable = True
     __gsignals__ = {
         'name-changed': (
@@ -337,24 +343,24 @@ class NotebookPage(Gtk.VBox):
             ()
         )
     }
+
     def __init__(self, child=None, page_name=None):
         Gtk.VBox.__init__(self)
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
-        
+
         if child is not None:
             self.pack_start(child, True, True, 0)
-            
+
         if page_name is not None:
             self.page_name = page_name
-        
 
     def focus(self):
         '''
             Grabs focus for this page. Should be overriden in subclasses.
         '''
         self.grab_focus()
-        
+
     def get_page_name(self):
         """
             Returns the name of this tab. Should be overriden in subclasses.
@@ -400,17 +406,16 @@ class NotebookActionService(providers.ProviderHandler):
     '''
         Provides interface for action widgets to be dynamically attached
         detached from notebooks.
-        
+
         Actions are widgets placed to the left or right of tabs on a notebook. 
     '''
-    
-    
+
     def __init__(self, notebook, servicename):
         '''
             :param notebook:     Notebook to attach to
             :param servicename:  Provider service name to use
         '''
-        
+
         providers.ProviderHandler.__init__(self, servicename, notebook)
 
         self.notebook = notebook
@@ -418,11 +423,11 @@ class NotebookActionService(providers.ProviderHandler):
         # Try to set up action widgets
         notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.START)
         notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.END)
-    
+
         self.__actions = {}
         for provider in self.get_providers():
             self.on_provider_added(provider)
-            
+
     def on_provider_added(self, provider):
         """
             Adds actions on provider addition
@@ -433,7 +438,8 @@ class NotebookActionService(providers.ProviderHandler):
             pass
         else:
             self.__actions[provider.name] = provider(self.notebook)
-            actions_box.pack_start(self.__actions[provider.name], False, False, 0)
+            actions_box.pack_start(
+                self.__actions[provider.name], False, False, 0)
             actions_box.show_all()
 
     def on_provider_removed(self, provider):
@@ -448,6 +454,5 @@ class NotebookActionService(providers.ProviderHandler):
             action = self.__actions[provider.name]
             actions_box.remove(action)
             action.destroy()
-            
-            del self.__actions[provider.name]
 
+            del self.__actions[provider.name]

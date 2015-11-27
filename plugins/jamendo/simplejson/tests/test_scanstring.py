@@ -5,7 +5,9 @@ from unittest import TestCase
 import simplejson as json
 import simplejson.decoder
 
+
 class TestScanString(TestCase):
+
     def test_py_scanstring(self):
         self._test_scanstring(simplejson.decoder.py_scanstring)
 
@@ -33,7 +35,8 @@ class TestScanString(TestCase):
             (u'{', 8))
 
         self.assertEquals(
-            scanstring('"A JSON payload should be an object or array, not a string."', 1, None, True),
+            scanstring(
+                '"A JSON payload should be an object or array, not a string."', 1, None, True),
             (u'A JSON payload should be an object or array, not a string.', 60))
 
         self.assertEquals(
@@ -61,7 +64,8 @@ class TestScanString(TestCase):
             (u'Extra comma', 14))
 
         self.assertEquals(
-            scanstring('{"Extra value after close": true} "misplaced quoted value"', 2, None, True),
+            scanstring(
+                '{"Extra value after close": true} "misplaced quoted value"', 2, None, True),
             (u'Extra value after close', 26))
 
         self.assertEquals(
@@ -73,7 +77,8 @@ class TestScanString(TestCase):
             (u'Illegal invocation', 21))
 
         self.assertEquals(
-            scanstring('{"Numbers cannot have leading zeroes": 013}', 2, None, True),
+            scanstring(
+                '{"Numbers cannot have leading zeroes": 013}', 2, None, True),
             (u'Numbers cannot have leading zeroes', 37))
 
         self.assertEquals(
@@ -81,7 +86,8 @@ class TestScanString(TestCase):
             (u'Numbers cannot be hex', 24))
 
         self.assertEquals(
-            scanstring('[[[[[[[[[[[[[[[[[[[["Too deep"]]]]]]]]]]]]]]]]]]]]', 21, None, True),
+            scanstring(
+                '[[[[[[[[[[[[[[[[[[[["Too deep"]]]]]]]]]]]]]]]]]]]]', 21, None, True),
             (u'Too deep', 30))
 
         self.assertEquals(

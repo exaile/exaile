@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -35,26 +36,32 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
 
 icons.MANAGER.add_icon_name_from_directory('audioscrobbler',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icon = 'audioscrobbler'
+
 
 class SubmitPreference(widgets.CheckPreference):
     default = True
     name = 'plugin/ascrobbler/submit'
 
+
 class MenuCheck(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/menu_check'
+
 
 class ScrobbleRemote(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/scrobble_remote'
 
+
 class UserPreference(widgets.Preference):
     name = 'plugin/ascrobbler/user'
 
+
 class PassPreference(widgets.HashedPreference):
     name = 'plugin/ascrobbler/password'
+
 
 class UrlPreference(widgets.ComboEntryPreference):
     name = 'plugin/ascrobbler/url'
@@ -63,6 +70,7 @@ class UrlPreference(widgets.ComboEntryPreference):
         'http://post.audioscrobbler.com/': 'Last.fm',
         'http://turtle.libre.fm/': 'Libre.fm'
     }
+
 
 class VerifyLoginButton(widgets.Button):
     name = 'plugin/ascrobbler/verify_login'
@@ -74,7 +82,7 @@ class VerifyLoginButton(widgets.Button):
         widgets.Button.__init__(self, preferences, widget)
 
         self.message = dialogs.MessageBar(
-            parent = preferences.builder.get_object('preferences_box'),
+            parent=preferences.builder.get_object('preferences_box'),
             buttons=Gtk.ButtonsType.CLOSE
         )
 
@@ -87,7 +95,7 @@ class VerifyLoginButton(widgets.Button):
         username = settings.get_option('plugin/ascrobbler/user', '')
         password = settings.get_option('plugin/ascrobbler/password', '')
         url = settings.get_option('plugin/ascrobbler/url',
-            'http://post.audioscrobbler.com/')
+                                  'http://post.audioscrobbler.com/')
         login_verified = False
 
         try:
@@ -123,4 +131,3 @@ class VerifyLoginButton(widgets.Button):
         """
         self.widget.set_sensitive(False)
         self.check_login()
-

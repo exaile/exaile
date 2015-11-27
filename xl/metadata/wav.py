@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 import wave
 import sunau
 import aifc
@@ -36,14 +35,16 @@ from gi.repository import Gio
 from xl.metadata._base import BaseFormat
 
 type_map = {
-        "aifc": aifc,
-        "aiff": aifc,
-        "au"  : sunau,
-        "wav" : wave,
-        }
+    "aifc": aifc,
+    "aiff": aifc,
+    "au": sunau,
+    "wav": wave,
+}
+
 
 class WavFormat(BaseFormat):
     writable = False
+
     def load(self):
         try:
             ext = os.path.splitext(self.loc)[1][1:].lower()
@@ -53,7 +54,3 @@ class WavFormat(BaseFormat):
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
             self.mutagen = {'__bitrate': -1, '__length': -1}
-
-
-
-

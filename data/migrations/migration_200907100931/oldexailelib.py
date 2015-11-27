@@ -1,6 +1,8 @@
-import traceback, os
+import traceback
+import os
 import oldtrack
 from xl import common
+
 
 def already_added(t, added):
     """
@@ -8,21 +10,28 @@ def already_added(t, added):
         has already been added to the list of tracks
     """
 
-    if not t.title: t.title = ""
-    if not t.album: t.album = ""
-    if not t.artist: t.artist = ""
-    if not t.genre: t.genre = ""
+    if not t.title:
+        t.title = ""
+    if not t.album:
+        t.album = ""
+    if not t.artist:
+        t.artist = ""
+    if not t.genre:
+        t.genre = ""
 
     h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.genre)
 
-    if h in added: return True
+    if h in added:
+        return True
     added[h] = 1
     return False
+
 
 class TrackData(object):
     """
         Represents a list of tracks
     """
+
     def __init__(self, tracks=None):
         """
             Initializes the list
@@ -45,18 +54,19 @@ class TrackData(object):
             pass
         self.paths[value.loc] = value
         self._inner[index] = value
- 
+
     def __len__(self):
         return len(self._inner)
 
     def index(self, item):
         return self._inner.index(item)
- 
+
     def append(self, track):
         """
             Adds a track to the list
         """
-        if not track: return
+        if not track:
+            return
         self.paths[track.loc] = track
         self._inner.append(track)
         self.update_total_length(track.get_duration(), appending=True)
@@ -65,7 +75,8 @@ class TrackData(object):
         """
             Removes a track from the list
         """
-        if not track: return
+        if not track:
+            return
         try:
             del self.paths[track.loc]
         except KeyError:
@@ -73,13 +84,13 @@ class TrackData(object):
         else:
             self._inner.remove(track)
         self.update_total_length(track.get_duration(), appending=False)
-    
+
     def update_total_length(self, track_duration, appending):
         if appending:
             self.total_length += track_duration
         else:
             self.total_length -= track_duration
-            
+
     def get_total_length(self):
         """ 
             Returns length of all tracks in the table as preformatted string
@@ -90,14 +101,19 @@ class TrackData(object):
         d, h = divmod(h, 24)
 
         text = []
-        if d: text.append(ngettext("%d day", "%d days", d) % d)
-        if h: text.append(ngettext("%d hour", "%d hours", h) % h)
-        if m: text.append(ngettext("%d minute", "%d minutes", m) % m)
-        if s: text.append(ngettext("%d second", "%d seconds", s) % s)
+        if d:
+            text.append(ngettext("%d day", "%d days", d) % d)
+        if h:
+            text.append(ngettext("%d hour", "%d hours", h) % h)
+        if m:
+            text.append(ngettext("%d minute", "%d minutes", m) % m)
+        if s:
+            text.append(ngettext("%d second", "%d seconds", s) % s)
 
         text = ", ".join(text)
 
         return text
+
 
 def load_tracks(db, current=None):
     """
@@ -149,9 +165,10 @@ def load_tracks(db, current=None):
 
         t = oldtrack.Track(*row)
         path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
-        t.type = "file" 
+        t.type = "file"
 
-        if already_added(t, added): continue
+        if already_added(t, added):
+            continue
 
         tracks.append(t)
     cur = db.cursor(new=True)
@@ -161,16 +178,18 @@ def load_tracks(db, current=None):
         while True:
             try:
                 row = cur.fetchone()
-                if not row: break
+                if not row:
+                    break
                 globals()[item][row[1]] = row[0]
-            except: 
+            except:
                 common.log_exception()
 
     cur.execute("SELECT artist, name, id FROM albums")
     while True:
         try:
             row = cur.fetchone()
-            if not row: break
+            if not row:
+                break
             ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
         except:
             common.log_exception()

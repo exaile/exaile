@@ -1,6 +1,7 @@
 import unittest
 import doctest
 
+
 def additional_tests():
     import simplejson
     import simplejson.encoder
@@ -11,6 +12,7 @@ def additional_tests():
     suite.addTest(doctest.DocFileSuite('../../index.rst'))
     return suite
 
+
 def main():
     suite = additional_tests()
     runner = unittest.TextTestRunner()
@@ -19,5 +21,6 @@ def main():
 if __name__ == '__main__':
     import os
     import sys
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    sys.path.insert(0, os.path.dirname(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__)))))
     main()

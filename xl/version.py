@@ -31,6 +31,7 @@ major = "4.0"
 minor = "0"
 extra = "dev"
 
+
 def get_current_revision(directory):
     """
         Get the latest revision identifier for the branch contained in

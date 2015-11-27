@@ -34,12 +34,15 @@ import sys
 
 __all__ = ['start_logging', 'stop_logging']
 
- 
+
 MAX_VARS_LINES = 30
 MAX_LINE_LENGTH = 100
 
+
 class FilterLogger(logging.Logger):
+
     class Filter(logging.Filter):
+
         def filter(self, record):
             pass_record = True
 
@@ -64,7 +67,7 @@ class FilterLogger(logging.Logger):
 
 
 class SafePrettyPrinter(PrettyPrinter):
-    
+
     def _repr(self, *args, **kwargs):
         try:
             return PrettyPrinter._repr(self, *args, **kwargs)
@@ -76,15 +79,16 @@ class VerboseExceptionFormatter(logging.Formatter):
     '''
         Taken from http://word.bitly.com/post/69080588278/logging-locals
     '''
- 
+
     def __init__(self, log_locals_on_exception=True, *args, **kwargs):
         self._log_locals = log_locals_on_exception
         self._printer = SafePrettyPrinter(indent=2)
         super(VerboseExceptionFormatter, self).__init__(*args, **kwargs)
- 
+
     def formatException(self, exc_info):
         # First get the original formatted exception.
-        exc_text = super(VerboseExceptionFormatter, self).formatException(exc_info)
+        exc_text = super(VerboseExceptionFormatter,
+                         self).formatException(exc_info)
         if not self._log_locals or exc_info[2] is None:
             return exc_text
         # Now we're going to format and add the locals information.
@@ -94,13 +98,14 @@ class VerboseExceptionFormatter(logging.Formatter):
             tb = tb.tb_next  # Zoom to the innermost frame.
         output_lines.append('Locals at innermost frame:\n')
         locals_text = self._printer.pformat(tb.tb_frame.f_locals)
-            
+
         locals_lines = locals_text.split('\n')
         if len(locals_lines) > MAX_VARS_LINES:
             locals_lines = locals_lines[:MAX_VARS_LINES]
             locals_lines[-1] = '...'
         output_lines.extend(
-            line[:MAX_LINE_LENGTH - 3] + '...' if len(line) > MAX_LINE_LENGTH else line
+            line[:MAX_LINE_LENGTH - 3] +
+            '...' if len(line) > MAX_LINE_LENGTH else line
             for line in locals_lines)
         output_lines.append('\n')
         return '\n'.join(output_lines)
@@ -111,15 +116,15 @@ def start_logging(debug, quiet, debugthreads,
     '''
         Starts logging, only should be called from xl.main
     '''
-    
+
     console_format = "%(levelname)-8s: %(message)s"
     console_loglevel = logging.INFO
-    
+
     file_format = '%(asctime)s %(levelname)-8s: %(message)s (%(name)s)'
     file_loglevel = logging.INFO
-    
+
     datefmt = "%H:%M:%S"
-    
+
     if debugthreads:
         console_format = "%(threadName)s:" + console_format
     else:
@@ -132,22 +137,22 @@ def start_logging(debug, quiet, debugthreads,
         file_loglevel = logging.DEBUG
         console_loglevel = logging.DEBUG
         console_format = "%(asctime)s,%(msecs)3d:" + console_format
-        console_format += " (%(name)s)" # add module name
+        console_format += " (%(name)s)"  # add module name
     elif quiet:
         console_loglevel = logging.WARNING
-    
+
     if debug:
         fmt_class = VerboseExceptionFormatter
     else:
         fmt_class = logging.Formatter
-    
+
     # Logging to terminal
     handler = logging.StreamHandler()
     handler.setFormatter(fmt_class(fmt=console_format,
                                    datefmt=datefmt))
     logging.root.addHandler(handler)
     logging.root.setLevel(console_loglevel)
-    
+
     if module_filter or level_filter:
         FilterLogger.module = module_filter
         if level_filter is not None:
@@ -156,28 +161,28 @@ def start_logging(debug, quiet, debugthreads,
 
     # Create log directory
     from . import xdg
-    
+
     logdir = xdg.get_logs_dir()
-    
+
     # Logging to file; this also automatically rotates the logs
     logfile = logging.handlers.RotatingFileHandler(
-            os.path.join(logdir, 'exaile.log'),
-            mode='a', backupCount=5)
-    logfile.doRollover() # each session gets its own file
+        os.path.join(logdir, 'exaile.log'),
+        mode='a', backupCount=5)
+    logfile.doRollover()  # each session gets its own file
     logfile.setLevel(file_loglevel)
     logfile.setFormatter(fmt_class(fmt=file_format,
                                    datefmt=datefmt))
     logging.root.addHandler(logfile)
-    
+
     # GTK3 supports sys.excepthook
     if debug:
         logger = logging.getLogger('gtk')
+
         def log_unhandled_exception(*args):
             logger.error("Unhandled exception", exc_info=args)
-            
+
         sys.excepthook = log_unhandled_exception
+
 
 def stop_logging():
     logging.shutdown()
-
-

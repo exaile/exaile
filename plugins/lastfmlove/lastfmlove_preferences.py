@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -34,14 +35,17 @@ name = _('Last.fm Loved Tracks')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "lastfmlove_preferences.ui")
 icons.MANAGER.add_icon_name_from_directory('lastfm',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icon = 'lastfm'
+
 
 class APIKeyPreference(widgets.Preference):
     name = 'plugin/lastfmlove/api_key'
 
+
 class APISecretPrefence(widgets.Preference):
     name = 'plugin/lastfmlove/api_secret'
+
 
 class RequestAccessPermissionButton(widgets.Button):
     name = 'plugin/lastfmlove/request_access_permission'
@@ -53,7 +57,7 @@ class RequestAccessPermissionButton(widgets.Button):
         widgets.Button.__init__(self, preferences, widget)
 
         self.message = dialogs.MessageBar(
-            parent = preferences.builder.get_object('preferences_box'),
+            parent=preferences.builder.get_object('preferences_box'),
             buttons=Gtk.ButtonsType.CLOSE
         )
         self.errors = {
@@ -71,13 +75,15 @@ class RequestAccessPermissionButton(widgets.Button):
         try:
             network = pylast.LastFMNetwork(
                 api_key=api_key,
-                api_secret=settings.get_option('plugin/lastfmlove/api_secret', 'S'),
+                api_secret=settings.get_option(
+                    'plugin/lastfmlove/api_secret', 'S'),
                 username=settings.get_option('plugin/ascrobbler/user', ''),
-                password_hash=settings.get_option('plugin/ascrobbler/password', '')
+                password_hash=settings.get_option(
+                    'plugin/ascrobbler/password', '')
             )
         except pylast.WSError as e:
             GLib.idle_add(
-                self.message.show_error, 
+                self.message.show_error,
                 self.errors[int(e.get_id())],
                 _('Please make sure the entered data is correct.')
             )
@@ -103,4 +109,3 @@ class RequestAccessPermissionButton(widgets.Button):
             Initiates the check for validity
         """
         self.check_connection()
-

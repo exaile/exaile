@@ -48,11 +48,13 @@ from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
+
 def check_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
     dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus')
     avail = dbus_iface.ListNames()
     return interface in avail
+
 
 def check_exit(options, args):
     """
@@ -66,7 +68,7 @@ def check_exit(options, args):
         bus = dbus.SessionBus()
         if check_dbus(bus, 'org.exaile.Exaile'):
             remote_object = bus.get_object('org.exaile.Exaile',
-                '/org/exaile/Exaile')
+                                           '/org/exaile/Exaile')
             iface = dbus.Interface(remote_object, 'org.exaile.Exaile')
             iface.TestService('testing dbus service')
             exaile = remote_object.exaile
@@ -79,21 +81,23 @@ def check_exit(options, args):
                 # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
-                args = [ Gio.File.new_for_commandline_arg(arg).get_uri() for arg in args ]
+                args = [Gio.File.new_for_commandline_arg(
+                    arg).get_uri() for arg in args]
                 iface.Enqueue(args)
 
     if not iface:
         for command in ['GetArtist', 'GetTitle', 'GetAlbum', 'GetLength',
-                'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
-                'Play', 'Pause', 'Stop', 'Next', 'Prev', 'PlayPause',
-                'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
-                'CurrentProgress', 'GetVolume', 'Query', 'FormatQuery']:
+                        'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
+                        'Play', 'Pause', 'Stop', 'Next', 'Prev', 'PlayPause',
+                        'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
+                        'CurrentProgress', 'GetVolume', 'Query', 'FormatQuery']:
             if getattr(options, command):
                 return "command"
         return "continue"
 
     run_commands(options, iface)
     return "exit"
+
 
 def run_commands(options, iface):
     """
@@ -128,7 +132,8 @@ def run_commands(options, iface):
         argument = getattr(options, command)
         if argument is not None:
             if command in ('IncreaseVolume', 'DecreaseVolume'):
-                iface.ChangeVolume(argument if command == 'IncreaseVolume' else -argument)
+                iface.ChangeVolume(argument if command ==
+                                   'IncreaseVolume' else -argument)
             else:
                 print getattr(iface, command)(argument)
 
@@ -171,8 +176,8 @@ def run_commands(options, iface):
             comm = True
 
     to_implement = (
-            'GuiQuery',
-            )
+        'GuiQuery',
+    )
     for command in to_implement:
         if getattr(options, command):
             logger.warning("FIXME: command not implemented")
@@ -186,10 +191,12 @@ PlaybackStatus = namedtuple(
     'state progress position current'
 )
 
+
 class DbusManager(dbus.service.Object):
     """
         The dbus interface object for Exaile
     """
+
     def __init__(self, exaile):
         """
             Initilializes the interface
@@ -197,7 +204,7 @@ class DbusManager(dbus.service.Object):
         self.exaile = exaile
         self.bus = dbus.SessionBus()
         self.bus_name = dbus.service.BusName('org.exaile.Exaile',
-            bus=self.bus)
+                                             bus=self.bus)
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
         self.cached_track = ""
         self.cached_state = ""
@@ -207,18 +214,17 @@ class DbusManager(dbus.service.Object):
         # connect events
         from xl import player
         event.add_callback(self.emit_state_changed,
-            'playback_player_end', player.PLAYER)
+                           'playback_player_end', player.PLAYER)
         event.add_callback(self.emit_state_changed,
-            'playback_track_start', player.PLAYER)
+                           'playback_track_start', player.PLAYER)
         event.add_callback(self.emit_state_changed,
-            'playback_toggle_pause', player.PLAYER)
+                           'playback_toggle_pause', player.PLAYER)
         event.add_callback(self.emit_track_changed,
-            'tags_parsed', player.PLAYER)
+                           'tags_parsed', player.PLAYER)
         event.add_callback(self.emit_state_changed,
-            'playback_buffering', player.PLAYER)
+                           'playback_buffering', player.PLAYER)
         event.add_callback(self.emit_state_changed,
-            'playback_error', player.PLAYER)
-
+                           'playback_error', player.PLAYER)
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -467,8 +473,9 @@ class DbusManager(dbus.service.Object):
             # Special handling for internal tags
             if "__length" in tags:
                 from xl.formatter import LengthTagFormatter
-                current["__length"] = LengthTagFormatter.format_value(self.GetTrackAttr('__length'))
-            
+                current["__length"] = LengthTagFormatter.format_value(
+                    self.GetTrackAttr('__length'))
+
             status = PlaybackStatus(
                 state=player.PLAYER.get_state(),
                 progress=self.CurrentProgress(),
@@ -477,7 +484,6 @@ class DbusManager(dbus.service.Object):
             )
 
         return status
-
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def Query(self):
@@ -495,14 +501,14 @@ class DbusManager(dbus.service.Object):
         result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'
                    ' album: %(album)s, length: %(length)s,'
                    ' position: %(progress)s%% [%(position)s]') % {
-                         'status': status.state,
-                         'title': status.current["title"],
-                         'artist': status.current["artist"],
-                         'album': status.current["album"],
-                         'length': status.current["__length"],
-                         'progress': status.progress,
-                         'position': status.position,
-                     }
+            'status': status.state,
+            'title': status.current["title"],
+            'artist': status.current["artist"],
+            'album': status.current["album"],
+            'length': status.current["__length"],
+            'progress': status.progress,
+            'position': status.position,
+        }
 
         return result
 

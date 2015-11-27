@@ -12,7 +12,9 @@ JSON = r'''
 }
 '''
 
+
 class TestPass3(TestCase):
+
     def test_parse(self):
         # test in/out equivalence and parsing
         res = json.loads(JSON)

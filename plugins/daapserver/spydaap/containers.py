@@ -1,22 +1,27 @@
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import os, struct, md5, spydaap.cache
+import os
+import struct
+import md5
+import spydaap.cache
 from spydaap.daap import do
 
+
 class ContainerCache(spydaap.cache.OrderedCache):
+
     def __init__(self, cache_dir, container_list):
         self.container_list = container_list
         super(ContainerCache, self).__init__(cache_dir)
@@ -27,29 +32,31 @@ class ContainerCache(spydaap.cache.OrderedCache):
     def build(self, md_cache):
         def build_do(md, id):
             d = do('dmap.listingitem',
-                   [ do('dmap.itemkind', 2),
-                     do('dmap.itemid', md.id),
-                     do('dmap.itemname', md.get_name()),
-                     do('dmap.containeritemid', id)
-                     ] )
+                   [do('dmap.itemkind', 2),
+                    do('dmap.itemid', md.id),
+                    do('dmap.itemname', md.get_name()),
+                    do('dmap.containeritemid', id)
+                    ])
             return d
         pid_list = []
         for pl in self.container_list:
             entries = [n for n in md_cache if pl.contains(n)]
             pl.sort(entries)
             d = do('daap.playlistsongs',
-                   [ do('dmap.status', 200),
-                     do('dmap.updatetype', 0),
-                     do('dmap.specifiedtotalcount', len(entries)),
-                     do('dmap.returnedcount', len(entries)),
-                     do('dmap.listing',
-                        [ build_do (md,id) for (id, md) in enumerate(entries) ])
-                     ])
+                   [do('dmap.status', 200),
+                    do('dmap.updatetype', 0),
+                    do('dmap.specifiedtotalcount', len(entries)),
+                    do('dmap.returnedcount', len(entries)),
+                    do('dmap.listing',
+                        [build_do(md, id) for (id, md) in enumerate(entries)])
+                    ])
             ContainerCacheItem.write_entry(self.dir, pl.name, d, len(entries))
             pid_list.append(md5.md5(pl.name).hexdigest())
         self.build_index(pid_list)
-        
+
+
 class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
+
     @classmethod
     def write_entry(self, dir, name, d, length):
         data = struct.pack('!i', length)
@@ -83,9 +90,8 @@ class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
         if self.name == None:
             self.read()
         return self.name
-    
+
     def __len__(self):
         if self._len == None:
             self.read()
         return self._len
-

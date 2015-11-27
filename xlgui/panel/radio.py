@@ -31,7 +31,8 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
 
-import xl.radio, xl.playlist
+import xl.radio
+import xl.playlist
 from xl import (
     event,
     common,
@@ -49,10 +50,13 @@ from xlgui import (
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 
-class RadioException(Exception): pass
-class ConnectionException(RadioException): pass
+
+class RadioException(Exception):
+    pass
 
 
+class ConnectionException(RadioException):
+    pass
 
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
@@ -66,12 +70,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
     __gsignals__.update(playlistpanel.BasePlaylistPanelMixin._gsignals_)
-    
+
     ui_info = ('radio.ui', 'RadioPanelWindow')
     _radiopanel = None
 
     def __init__(self, parent, collection,
-        radio_manager, station_manager, name):
+                 radio_manager, station_manager, name):
         """
             Initializes the radio panel
         """
@@ -107,8 +111,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             pl = self.playlist_manager.get_playlist(name)
             if pl is not None:
                 self.playlist_nodes[pl] = self.model.append(self.custom,
-                    [self.playlist_image,
-                    pl.name, pl])
+                                                            [self.playlist_image,
+                                                             pl.name, pl])
                 self._load_playlist_nodes(pl)
         self.tree.expand_row(self.model.get_path(self.custom), False)
 
@@ -122,14 +126,15 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Adds a driver to the radio panel
         """
-        node = self.model.append(self.radio_root, [self.folder, str(driver), driver])
+        node = self.model.append(
+            self.radio_root, [self.folder, str(driver), driver])
         self.nodes[driver] = node
         self.load_nodes[driver] = self.model.append(node, [self.refresh_image,
-            _('Loading streams...'), None])
+                                                           _('Loading streams...'), None])
         self.tree.expand_row(self.model.get_path(self.radio_root), False)
 
         if settings.get_option('gui/radio/%s_station_expanded' %
-                driver.name, False):
+                               driver.name, False):
             self.tree.expand_row(self.model.get_path(node), False)
 
     def _remove_driver_cb(self, type, object, driver):
@@ -160,7 +165,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Connects events used in this panel
         """
-        
+
         self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
         })
@@ -170,13 +175,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.tree.connect('key-release-event', self.on_key_released)
 
         event.add_ui_callback(self._add_driver_cb, 'station_added',
-                self.manager)
+                              self.manager)
         event.add_ui_callback(self._remove_driver_cb, 'station_removed',
-                self.manager)
+                              self.manager)
 
     def _on_add_button_clicked(self, *e):
         dialog = dialogs.MultiTextEntryDialog(self.parent,
-            _("Add Radio Station"))
+                                              _("Add Radio Station"))
 
         dialog.add_field(_("Name:"))
         url_field = dialog.add_field(_("URL:"))
@@ -214,7 +219,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     @guiutil.idle_add()
     def _add_to_tree(self, pl):
         self.playlist_nodes[pl] = self.model.append(self.custom,
-            [self.playlist_image, pl.name, pl])
+                                                    [self.playlist_image, pl.name, pl])
         self._load_playlist_nodes(pl)
 
     def _setup_tree(self):
@@ -231,8 +236,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         text = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             from gi.repository import Pango
-            text.set_property( 'ellipsize-set', True)
-            text.set_property( 'ellipsize', Pango.EllipsizeMode.END)
+            text.set_property('ellipsize-set', True)
+            text.set_property('ellipsize', Pango.EllipsizeMode.END)
         icon = Gtk.CellRendererPixbuf()
         col = Gtk.TreeViewColumn('radio')
         col.pack_start(icon, False)
@@ -251,9 +256,10 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.refresh_image = icons.MANAGER.pixbuf_from_icon_name(
             'view-refresh')
 
-        self.custom = self.model.append(None, [self.folder, _("Saved Stations"), None])
+        self.custom = self.model.append(
+            None, [self.folder, _("Saved Stations"), None])
         self.radio_root = self.model.append(None, [self.folder, _("Radio "
-            "Streams"), None])
+                                                                  "Streams"), None])
 
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -290,12 +296,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 item = self.model.get_value(iter, 2)
                 if isinstance(item, (xl.radio.RadioStation, xl.radio.RadioList,
-                    xl.radio.RadioItem)):
+                                     xl.radio.RadioItem)):
                     if isinstance(item, xl.radio.RadioStation):
                         station = item
                     else:
@@ -303,21 +309,24 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        Gtk.Menu.popup(menu, None, None, None, None, 0, event.time)
+                        Gtk.Menu.popup(menu, None, None, None,
+                                       None, 0, event.time)
                 elif isinstance(item, xl.playlist.Playlist):
-                    Gtk.Menu.popup(self.playlist_menu, None, None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.playlist_menu, None,
+                                   None, None, None, 0, event.time)
                 elif isinstance(item, playlistpanel.TrackWrapper):
-                    Gtk.Menu.popup(self.track_menu, None, None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.track_menu, None, None,
+                                   None, None, 0, event.time)
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
             return True
@@ -336,7 +345,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 item = self.model.get_value(iter, 2)
 
                 if isinstance(item, (xl.radio.RadioStation, xl.radio.RadioList,
-                    xl.radio.RadioItem)):
+                                     xl.radio.RadioItem)):
                     if isinstance(item, xl.radio.RadioStation):
                         station = item
                     else:
@@ -344,7 +353,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        menu.popup(None, None, None, None, event.button, event.time)
+                        menu.popup(None, None, None, None,
+                                   event.button, event.time)
                 elif isinstance(item, xl.playlist.Playlist):
                     self.playlist_menu.popup(event)
                 elif isinstance(item, playlistpanel.TrackWrapper):
@@ -361,8 +371,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when someone drags some thing onto the playlist panel
         """
-        #if the drag originated from radio view deny it
-        #TODO this might change if we are allowed to change the order of radio
+        # if the drag originated from radio view deny it
+        # TODO this might change if we are allowed to change the order of radio
         if Gtk.drag_get_source_widget(context) == tv:
             context.drop_finish(False, etime)
             return
@@ -385,8 +395,10 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             (tracks, playlists) = self.tree.get_drag_data(locs)
             current_playlist.extend(tracks)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
-            # note that the playlist does not have to be open for this to happen
-            self.playlist_manager.save_playlist(current_playlist, overwrite=True)
+            # note that the playlist does not have to be open for this to
+            # happen
+            self.playlist_manager.save_playlist(
+                current_playlist, overwrite=True)
             self._load_playlist_nodes(current_playlist)
         else:
             self._add_new_station(locs)
@@ -398,34 +410,36 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         # If the user dragged files prompt for a new playlist name
         # else if they dragged a playlist add the playlist
 
-        #We don't want the tracks in the playlists to be added to the
+        # We don't want the tracks in the playlists to be added to the
         # master tracks list so we pass in False
         (tracks, playlists) = self.tree.get_drag_data(locs, False)
-        #First see if they dragged any playlist files
+        # First see if they dragged any playlist files
         for new_playlist in playlists:
             self.model.append(self.custom, [self.playlist_image,
-                new_playlist.name, new_playlist])
+                                            new_playlist.name, new_playlist])
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist, overwrite=True)
 
-        #After processing playlist proceed to ask the user for the
-        #name of the new playlist to add and add the tracks to it
+        # After processing playlist proceed to ask the user for the
+        # name of the new playlist to add and add the tracks to it
         if len(tracks) > 0:
             dialog = dialogs.TextEntryDialog(
-            _("Enter the name you want for your new playlist"),
-            _("New Playlist"))
+                _("Enter the name you want for your new playlist"),
+                _("New Playlist"))
             result = dialog.run()
             if result == Gtk.ResponseType.OK:
                 name = dialog.get_value()
                 if not name == "":
-                    #Create the playlist from all of the tracks
+                    # Create the playlist from all of the tracks
                     new_playlist = xl.playlist.Playlist(name)
                     new_playlist.extend(tracks)
                     self.playlist_nodes[new_playlist] = self.model.append(self.custom,
-                        [self.playlist_image,
-                        new_playlist.name, new_playlist])
-                    self.tree.expand_row(self.model.get_path(self.custom), False)
-                    # We are adding a completely new playlist with tracks so we save it
+                                                                          [self.playlist_image,
+                                                                           new_playlist.name, new_playlist])
+                    self.tree.expand_row(
+                        self.model.get_path(self.custom), False)
+                    # We are adding a completely new playlist with tracks so we
+                    # save it
                     self.playlist_manager.save_playlist(new_playlist)
                     self._load_playlist_nodes(new_playlist)
 
@@ -456,19 +470,21 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         selection = self.tree.get_selection()
         info = selection.get_selected_rows()
-        if not info: return
+        if not info:
+            return
         (model, paths) = info
         iter = self.model.get_iter(paths[0])
         object = self.model.get_value(iter, 2)
 
         try:
             self.loaded_nodes.remove(self.nodes[object])
-        except ValueError: pass
+        except ValueError:
+            pass
 
         if isinstance(object, (xl.radio.RadioList, xl.radio.RadioStation)):
             self._clear_node(iter)
             self.load_nodes[object] = self.model.append(iter,
-                [self.refresh_image, _("Loading streams..."), None])
+                                                        [self.refresh_image, _("Loading streams..."), None])
 
             self.complete_reload[object] = True
             self.tree.expand_row(self.model.get_path(iter), False)
@@ -476,9 +492,9 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     @staticmethod
     def set_station_expanded_value(station, value):
         settings.set_option(
-                'gui/radio/%s_station_expanded' % station,
-                True,
-                )
+            'gui/radio/%s_station_expanded' % station,
+            True,
+        )
 
     def on_row_expand(self, tree, iter, path):
         """
@@ -490,7 +506,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.model.set_value(iter, 0, self.folder)
 
         if isinstance(driver, xl.radio.RadioStation) or \
-            isinstance(driver, xl.radio.RadioList):
+                isinstance(driver, xl.radio.RadioList):
             if not self.nodes[driver] in self.loaded_nodes:
                 self._load_station(iter, driver)
 
@@ -531,7 +547,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             except RadioException as e:
                 self._set_status(str(e), 2)
 
-        if not lists: return
+        if not lists:
+            return
         GLib.idle_add(self._done_loading, iter, driver, lists)
 
     def _done_loading(self, iter, object, items):
@@ -541,18 +558,20 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.loaded_nodes.append(self.nodes[object])
         for item in items:
             if isinstance(item, xl.radio.RadioList):
-                node = self.model.append(self.nodes[object], [self.folder, item.name, item])
+                node = self.model.append(self.nodes[object], [
+                                         self.folder, item.name, item])
                 self.nodes[item] = node
                 self.load_nodes[item] = self.model.append(node, [self.refresh_image,
-                    _("Loading streams..."), None])
+                                                                 _("Loading streams..."), None])
             else:
                 self.model.append(self.nodes[object], [self.track, item.name,
-                    item])
+                                                       item])
 
         try:
             self.model.remove(self.load_nodes[object])
             del self.load_nodes[object]
-        except KeyError: pass
+        except KeyError:
+            pass
 
     def _clear_node(self, node):
         """
@@ -565,6 +584,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             iter = self.model.iter_next(iter)
         for row in remove:
             self.model.remove(row)
+
 
 def set_status(message, timeout=0):
     RadioPanel._radiopanel._set_status(message, timeout)

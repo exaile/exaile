@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+
 class TreeItem(object):
 
     def __init__(self, id, name, has_been_expanded=False):
@@ -35,7 +36,7 @@ class TreeItem(object):
     def __repr__(self):
         return self._name
 
-    #Getter and Setter crap
+    # Getter and Setter crap
     def get_id(self):
         return self._id
 
@@ -44,12 +45,15 @@ class TreeItem(object):
 
     def get_has_been_expanded(self):
         return self._has_been_expanded
+
     def set_has_been_expanded(self, value):
         self._has_been_expanded = value
 
-    #this is the location in the TreeStore so that child objects can be added to this object (row_pointer should be a TreeIter object)
+    # this is the location in the TreeStore so that child objects can be added
+    # to this object (row_pointer should be a TreeIter object)
     def get_row_pointer(self):
         return self._row_pointer
+
     def set_row_pointer(self, value):
         self._row_pointer = value
 
@@ -58,13 +62,14 @@ class TreeItem(object):
     expanded = property(get_has_been_expanded, set_has_been_expanded)
     row_pointer = property(get_row_pointer, set_row_pointer)
 
+
 class Artist(TreeItem):
 
     def __init__(self, id, name, has_been_expanded=False):
         TreeItem.__init__(self, id, name, has_been_expanded)
         self._albums = []
 
-    #add an album to this artist
+    # add an album to this artist
     def add_album(self, album):
         if isinstance(album, Album):
             album.artist_name = self.name
@@ -74,6 +79,7 @@ class Artist(TreeItem):
         return self._albums
 
     albums = property(get_albums)
+
 
 class Album(TreeItem):
 
@@ -100,6 +106,7 @@ class Album(TreeItem):
     tracks = property(get_tracks)
     artist_name = property(get_artist_name, set_artist_name)
 
+
 class Track(TreeItem):
 
     def __init__(self, id, name, url):
@@ -124,8 +131,6 @@ class Track(TreeItem):
         self._artist_name = value
 
     url = property(get_url)
-    #used for adding the track to the playlist initially
+    # used for adding the track to the playlist initially
     artist_name = property(get_artist_name, set_artist_name)
     album_name = property(get_album_name, set_album_name)
-
-

@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 import logging
 import time
@@ -34,11 +35,13 @@ logger = logging.getLogger(__name__)
 AMAZON = None
 USER_AGENT = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
     else:
         _enable(None, exaile, None)
+
 
 def _enable(eventname, exaile, nothing):
     global AMAZON, USER_AGENT
@@ -46,11 +49,14 @@ def _enable(eventname, exaile, nothing):
     AMAZON = AmazonCoverSearch()
     providers.register('covers', AMAZON)
 
+
 def disable(exaile):
     providers.unregister('covers', AMAZON)
 
+
 def get_preferences_pane():
     return amazonprefs
+
 
 class AmazonCoverSearch(covers.CoverSearchMethod):
     """
@@ -58,6 +64,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
     """
     name = 'amazon'
     title = 'Amazon'
+
     def __init__(self):
         self.starttime = 0
 
@@ -78,12 +85,13 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
             'plugin/amazoncovers/secret_key', '')
         if not api_key or not secret_key:
             logger.warning('Please enter your Amazon API and secret '
-                'keys in the Amazon Covers preferences')
+                           'keys in the Amazon Covers preferences')
             return []
 
         # wait at least 1 second until the next attempt
         waittime = 1 - (time.time() - self.starttime)
-        if waittime > 0: time.sleep(waittime)
+        if waittime > 0:
+            time.sleep(waittime)
         self.starttime = time.time()
 
         search = "%s - %s" % (artist, album)

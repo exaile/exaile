@@ -58,6 +58,7 @@ TYPE_MAPPING = {
 
 MANAGER = None
 
+
 class SettingsManager(RawConfigParser):
     """
         Manages Exaile's settings
@@ -154,7 +155,7 @@ class SettingsManager(RawConfigParser):
             self.set(section, key, value)
 
         self._dirty = True
-        
+
         if save:
             self.delayed_save()
 
@@ -250,7 +251,7 @@ class SettingsManager(RawConfigParser):
                     return k + ": " + str(value)
 
         raise ValueError(_("We don't know how to store that "
-            "kind of setting: "), type(value))
+                           "kind of setting: "), type(value))
 
     def _str_to_val(self, value):
         """
@@ -290,7 +291,7 @@ class SettingsManager(RawConfigParser):
         """
         if self.location is None:
             logger.debug("Save requested but not saving settings, "
-                "location is None")
+                         "location is None")
             return
 
         if self._saving or not self._dirty:
@@ -304,17 +305,18 @@ class SettingsManager(RawConfigParser):
             self.write(f)
 
             try:
-                # make it readable by current user only, to protect private data
+                # make it readable by current user only, to protect private
+                # data
                 os.fchmod(f.fileno(), 384)
             except:
-                pass # fail gracefully, eg if on windows
+                pass  # fail gracefully, eg if on windows
 
             f.flush()
 
         try:
             os.rename(self.location, self.location + ".old")
         except:
-            pass # if it doesn'texist we don't care
+            pass  # if it doesn'texist we don't care
 
         os.rename(self.location + ".new", self.location)
 
@@ -325,7 +327,7 @@ class SettingsManager(RawConfigParser):
 
         self._saving = False
         self._dirty = False
-        
+
 location = xdg.get_config_dir()
 
 
@@ -333,7 +335,7 @@ location = xdg.get_config_dir()
 if sys.platform == 'win32':
     __settings_file = 'settings-win32.ini'
 elif sys.platform == 'darwin':
-    __settings_file = 'settings-osx.ini'    
+    __settings_file = 'settings-osx.ini'
 else:
     __settings_file = 'settings.ini'
 

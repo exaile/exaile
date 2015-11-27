@@ -2,7 +2,9 @@ from unittest import TestCase
 
 import simplejson as json
 
+
 class TestUnicode(TestCase):
+
     def test_encoding1(self):
         encoder = json.JSONEncoder(encoding='utf-8')
         u = u'\N{GREEK SMALL LETTER ALPHA}\N{GREEK CAPITAL LETTER OMEGA}'
@@ -56,7 +58,7 @@ class TestUnicode(TestCase):
 
     def test_default_encoding(self):
         self.assertEquals(json.loads(u'{"a": "\xe9"}'.encode('utf-8')),
-            {'a': u'\xe9'})
+                          {'a': u'\xe9'})
 
     def test_unicode_preservation(self):
         self.assertEquals(type(json.loads(u'""')), unicode)

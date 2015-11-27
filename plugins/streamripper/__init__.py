@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 import subprocess
 import logging
@@ -34,10 +35,13 @@ logger = logging.getLogger(__name__)
 
 STREAMRIPPER = None
 
+
 def get_preferences_pane():
     return srprefs
 
+
 class Streamripper(object):
+
     def __init__(self):
         self.savedir = None
 
@@ -50,7 +54,7 @@ class Streamripper(object):
             return True
 
         self.savedir = settings.get_option('plugin/streamripper/save_location',
-                            os.getenv('HOME'))
+                                           os.getenv('HOME'))
         options = []
         options.append('streamripper')
         options.append(player.PLAYER._pipe.get_property('uri'))
@@ -60,23 +64,26 @@ class Streamripper(object):
             options.append("-a")
             options.append("-A")
         options.append("-r")
-        options.append(settings.get_option('plugin/streamripper/relay_port', '8888'))
+        options.append(settings.get_option(
+            'plugin/streamripper/relay_port', '8888'))
         options.append("-d")
         options.append(self.savedir)
 
         try:
             self.process = subprocess.Popen(options, 0, None, subprocess.PIPE,
-                        subprocess.PIPE, subprocess.PIPE)
+                                            subprocess.PIPE, subprocess.PIPE)
         except OSError:
             logger.error('There was an error executing streamripper')
             dialogs.error(self.exaile.gui.main.window, _('Error '
-                    'executing streamripper'))
+                                                         'executing streamripper'))
             return True
 
         if add_call:
             event.add_callback(self.quit_application, 'quit_application')
-            event.add_ui_callback(self.start_track, 'playback_track_start', player.PLAYER)
-            event.add_ui_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
+            event.add_ui_callback(
+                self.start_track, 'playback_track_start', player.PLAYER)
+            event.add_ui_callback(self.stop_playback,
+                                  'playback_player_end', player.PLAYER)
         return False
 
     def stop_ripping(self):
@@ -106,11 +113,14 @@ class Streamripper(object):
 
     def remove_callbacks(self):
         event.remove_callback(self.quit_application, 'quit_application')
-        event.remove_callback(self.start_track, 'playback_track_start', player.PLAYER)
-        event.remove_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
+        event.remove_callback(
+            self.start_track, 'playback_track_start', player.PLAYER)
+        event.remove_callback(self.stop_playback,
+                              'playback_player_end', player.PLAYER)
 
 
 class Button(Streamripper):
+
     def __init__(self, exaile):
         self.exaile = exaile
         self.button = Gtk.ToggleButton()
@@ -125,14 +135,15 @@ class Button(Streamripper):
 
         self.button.show()
 
-        self.button.connect('button-release-event', self.toggle_button_callback)
+        self.button.connect('button-release-event',
+                            self.toggle_button_callback)
 
     def toggle_button_callback(self, widget, data):
         if widget.get_active():
             self.stop_ripping()
             self.remove_callbacks()
         else:
-            if self.toggle_record(True): #couldn't record stream
+            if self.toggle_record(True):  # couldn't record stream
                 self.button.set_active(True)
                 self.remove_callbacks()
 
@@ -144,7 +155,7 @@ class Button(Streamripper):
 
 
 def enable(exaile):
-    try: #just test if streamripper is installed
+    try:  # just test if streamripper is installed
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:
         raise NotImplementedError('Streamripper is not available.')

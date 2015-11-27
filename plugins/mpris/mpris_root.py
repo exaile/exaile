@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 """/ Object for MPRIS specification interface to Exaile
 
 http://wiki.xmms2.xmms.se/wiki/MPRIS#.2F_.28Root.29_object_methods
@@ -23,6 +24,7 @@ import dbus.service
 from xl.nls import gettext as _
 
 INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
+
 
 class ExaileMprisRoot(dbus.service.Object):
 
@@ -54,4 +56,3 @@ class ExaileMprisRoot(dbus.service.Object):
             Makes the "Media Player" exit.
         """
         return (1, 0)
-

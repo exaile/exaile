@@ -13,7 +13,7 @@ import py2app
 
 os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-packages=['xl', 'xlgui']
+packages = ['xl', 'xlgui']
 
 APP = ['exaile.py']
 DATA_FILES = ['data', 'plugins']
@@ -30,7 +30,7 @@ sys.argv.append('--startgui')
 
 # sum up all the packages
 #packages = ['plugins']
-#for root, dirs, files in os.walk("../../plugins"):
+# for root, dirs, files in os.walk("../../plugins"):
 #    for fname in files:
 ##        pkg = '.'.join(root.split('/')[2:])
 #        if fname == '__init__.py' and pkg != 'plugins':

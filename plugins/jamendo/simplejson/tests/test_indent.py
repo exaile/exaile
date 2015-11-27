@@ -3,10 +3,12 @@ from unittest import TestCase
 import simplejson as json
 import textwrap
 
+
 class TestIndent(TestCase):
+
     def test_indent(self):
         h = [['blorpie'], ['whoops'], [], 'd-shtaeou', 'd-nthiouh', 'i-vhbjkhnth',
-             {'nifty': 87}, {'field': 'yes', 'morefield': False} ]
+             {'nifty': 87}, {'field': 'yes', 'morefield': False}]
 
         expect = textwrap.dedent("""\
         [
@@ -28,7 +30,6 @@ class TestIndent(TestCase):
             "morefield": false
           }
         ]""")
-
 
         d1 = json.dumps(h)
         d2 = json.dumps(h, indent=2, sort_keys=True, separators=(',', ': '))

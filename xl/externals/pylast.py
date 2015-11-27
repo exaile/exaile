@@ -121,10 +121,10 @@ RE_XML_ILLEGAL = (u'([\u0000-\u0008\u000b-\u000c\u000e-\u001f\ufffe-\uffff])' +
                   u'|' +
                   u'([%s-%s][^%s-%s])|([^%s-%s][%s-%s])|([%s-%s]$)|(^[%s-%s])'
                   %
-                 (unichr(0xd800), unichr(0xdbff), unichr(0xdc00),
-                  unichr(0xdfff), unichr(0xd800), unichr(0xdbff),
-                  unichr(0xdc00), unichr(0xdfff), unichr(0xd800),
-                  unichr(0xdbff), unichr(0xdc00), unichr(0xdfff)))
+                  (unichr(0xd800), unichr(0xdbff), unichr(0xdc00),
+                   unichr(0xdfff), unichr(0xd800), unichr(0xdbff),
+                   unichr(0xdc00), unichr(0xdfff), unichr(0xd800),
+                   unichr(0xdbff), unichr(0xdc00), unichr(0xdfff)))
 
 XML_ILLEGAL = re.compile(RE_XML_ILLEGAL)
 
@@ -185,7 +185,7 @@ class _Network(object):
 
         # Generate a session_key if necessary
         if ((self.api_key and self.api_secret) and not self.session_key and
-           (self.username and self.password_hash)):
+                (self.username and self.password_hash)):
             sk_gen = SessionKeyGenerator(self)
             self.session_key = sk_gen.get_session_key(
                 self.username, self.password_hash)
@@ -425,12 +425,18 @@ class _Network(object):
 
         params = {}
 
-        if long: params["long"] = long
-        if lat: params["lat"] = lat
-        if location: params["location"] = location
-        if limit: params["limit"] = limit
-        if distance: params["distance"] = distance
-        if tag: params["tag"] = tag
+        if long:
+            params["long"] = long
+        if lat:
+            params["lat"] = lat
+        if location:
+            params["location"] = location
+        if limit:
+            params["limit"] = limit
+        if distance:
+            params["distance"] = distance
+        if tag:
+            params["tag"] = tag
         if festivalsonly:
             params["festivalsonly"] = 1
         elif not festivalsonly:
@@ -671,12 +677,18 @@ class _Network(object):
 
         params = {"track": title, "artist": artist}
 
-        if album: params["album"] = album
-        if album_artist: params["albumArtist"] = album_artist
-        if context: params["context"] = context
-        if track_number: params["trackNumber"] = track_number
-        if mbid: params["mbid"] = mbid
-        if duration: params["duration"] = duration
+        if album:
+            params["album"] = album
+        if album_artist:
+            params["albumArtist"] = album_artist
+        if context:
+            params["context"] = context
+        if track_number:
+            params["trackNumber"] = track_number
+        if mbid:
+            params["mbid"] = mbid
+        if duration:
+            params["duration"] = duration
 
         _Request(self, "track.updateNowPlaying", params).execute()
 
@@ -684,7 +696,6 @@ class _Network(object):
             self, artist, title, timestamp, album=None, album_artist=None,
             track_number=None, duration=None, stream_id=None, context=None,
             mbid=None):
-
         """Used to add a track-play to a user's profile.
 
         Parameters:
@@ -983,6 +994,7 @@ def get_librefm_network(
 
 class _ShelfCacheBackend(object):
     """Used as a backend for caching cacheable requests."""
+
     def __init__(self, file_path=None):
         self.shelf = shelve.open(file_path)
 
@@ -3638,6 +3650,7 @@ class User(_BaseObject, _Chartable):
 
 
 class AuthenticatedUser(User):
+
     def __init__(self, network):
         User.__init__(self, "", network)
 
@@ -4134,6 +4147,7 @@ def extract_items(topitems_or_libraryitems):
 
 
 class ScrobblingError(Exception):
+
     def __init__(self, message):
         Exception.__init__(self)
         self.message = message
@@ -4144,23 +4158,27 @@ class ScrobblingError(Exception):
 
 
 class BannedClientError(ScrobblingError):
+
     def __init__(self):
         ScrobblingError.__init__(
             self, "This version of the client has been banned")
 
 
 class BadAuthenticationError(ScrobblingError):
+
     def __init__(self):
         ScrobblingError.__init__(self, "Bad authentication token")
 
 
 class BadTimeError(ScrobblingError):
+
     def __init__(self):
         ScrobblingError.__init__(
             self, "Time provided is not close enough to current time")
 
 
 class BadSessionError(ScrobblingError):
+
     def __init__(self):
         ScrobblingError.__init__(
             self, "Bad session id, consider re-handshaking")
@@ -4171,7 +4189,7 @@ class _ScrobblerRequest(object):
     def __init__(self, url, params, network, type="POST"):
 
         for key in params:
-                params[key] = str(params[key])
+            params[key] = str(params[key])
 
         self.params = params
         self.type = type

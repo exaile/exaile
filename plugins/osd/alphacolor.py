@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gdk
+
 
 class AlphaColor(Gdk.Color):
     """
@@ -52,7 +54,8 @@ class AlphaColor(Gdk.Color):
             args = (color.red, color.green, color.blue, color.alpha)
 
         # Create mapping of available parameters and arguments
-        parameters = dict(zip(('red', 'green', 'blue', 'alpha', 'pixel'), args))
+        parameters = dict(
+            zip(('red', 'green', 'blue', 'alpha', 'pixel'), args))
 
         for parameter in parameters.iterkeys():
             if parameter in kwargs:
@@ -113,6 +116,7 @@ class AlphaColor(Gdk.Color):
     def __str__(self):
         return self.to_string()
 
+
 def alphacolor_parse(spec):
     """
         Parses the given color specification and
@@ -136,7 +140,7 @@ def alphacolor_parse(spec):
             spec = spec[:-digits]
             # Example 'f':              15 / float(16**1 - 1) = 1.0
             # Example 'cc':            204 / float(16**2 - 1) = 0.8
-            fraction = int(alpha_spec, 16) / float(16**digits - 1)
+            fraction = int(alpha_spec, 16) / float(16 ** digits - 1)
             alpha = int(fraction * 65535)
 
     color = Gdk.color_parse(spec)

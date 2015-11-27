@@ -7,6 +7,7 @@
 
 import sys
 
+
 class Mock(object):
 
     __all__ = []
@@ -27,15 +28,15 @@ class Mock(object):
             return mockType
         else:
             return Mock()
-    
+
     # glib mocks
-    
+
     def get_user_data_dir(self):
         return '/tmp'
-    
+
     def get_user_config_dir(self):
         return '/tmp'
-    
+
     def get_user_cache_dir(self):
         return '/tmp'
 
@@ -50,7 +51,7 @@ MOCK_MODULES = [
     'gobject',
     'pygst',
     'pygtk',
-    
+
     'mutagen',
     'mutagen.apev2',
     'mutagen.ogg',
@@ -59,17 +60,18 @@ MOCK_MODULES = [
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
-    
-    
+
+
 # player hack
 import xl.settings
 
 orig_get_option = xl.settings.get_option
+
 
 def option_hack(name, default):
     if name == 'player/engine':
         return 'rtfd_hack'
     else:
         return orig_get_option(name, default)
-    
+
 xl.settings.get_option = option_hack

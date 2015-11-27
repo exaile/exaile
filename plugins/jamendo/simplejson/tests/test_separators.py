@@ -5,9 +5,10 @@ import simplejson as json
 
 
 class TestSeparators(TestCase):
+
     def test_separators(self):
         h = [['blorpie'], ['whoops'], [], 'd-shtaeou', 'd-nthiouh', 'i-vhbjkhnth',
-             {'nifty': 87}, {'field': 'yes', 'morefield': False} ]
+             {'nifty': 87}, {'field': 'yes', 'morefield': False}]
 
         expect = textwrap.dedent("""\
         [
@@ -29,7 +30,6 @@ class TestSeparators(TestCase):
             "morefield" : false
           }
         ]""")
-
 
         d1 = json.dumps(h)
         d2 = json.dumps(h, indent=2, sort_keys=True, separators=(' ,', ' : '))

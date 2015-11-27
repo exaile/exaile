@@ -50,78 +50,79 @@ class PlaylistAnalyzerPlugin(object):
         self.menu_items = []
         self.dialog = None
         self._get_track_groups = None
-        
+
         self.d3_loc = join(dirname(__file__), 'ext', 'd3.min.js')
-    
+
     def enable(self, exaile):
         self.exaile = exaile
-    
+
     def on_gui_loaded(self):
-        
+
         # register menu items
         item = menu.simple_menu_item('pz-run', [], _('Analyze playlists'),
                                      callback=self.on_analyze_playlists)
         item.register('menubar-tools-menu')
         self.menu_items.append(item)
-        
+
         item = menu.simple_menu_item('pz-run', ['export-files'], _('Analyze playlist'),
                                      callback=self.on_analyze_playlist)
         item.register('playlist-panel-context-menu')
         self.menu_items.append(item)
-        
+
         # -> this could have a submenu that gets filled in with all
         #    of the presets
-        
-        
+
     def on_exaile_loaded(self):
         pass
-    
+
     def disable(self, exaile):
-        
+
         if self.dialog is not None:
             self.dialog.destroy()
             self.dialog = None
-        
+
         for menu_item in self.menu_items:
-            menu_item.unregister() 
-    
+            menu_item.unregister()
+
     #
     # Misc
     #
-    
+
     def get_track_groups(self, track):
-        
+
         if self._get_track_groups is None:
-        
+
             if 'grouptagger' not in self.exaile.plugins.enabled_plugins:
-                raise ValueError("GroupTagger plugin must be loaded to use the GroupTagger tag")
-        
-            self._get_track_groups = self.exaile.plugins.enabled_plugins['grouptagger'].get_track_groups
-            
+                raise ValueError(
+                    "GroupTagger plugin must be loaded to use the GroupTagger tag")
+
+            self._get_track_groups = self.exaile.plugins.enabled_plugins[
+                'grouptagger'].get_track_groups
+
         return self._get_track_groups(track)
-        
+
     #
     # Menu functions
     #
-        
+
     def on_analyze_playlist(self, widget, name, parent, context):
-        
+
         if self.dialog is None:
             self.dialog = AnalyzerDialog(self, context['selected-playlist'])
-        
+
     def on_analyze_playlists(self, widget, name, parent, context):
-        
+
         if self.dialog is None:
             self.dialog = AnalyzerDialog(self)
-    
+
     #
-    # Functions to generate the analysis 
+    # Functions to generate the analysis
     #
-    
+
     def get_tag(self, track, tagname, extra):
-        
+
         data = tag_data.get(tagname)
-        
+
         if data is not None:
             if data.type == 'int':
                 ret = track.get_tag_raw(tagname, join=True)
@@ -131,56 +132,56 @@ class PlaylistAnalyzerPlugin(object):
                     else:
                         return int(ret) - (int(ret) % extra)
                 return
-            
+
             if data.use_disk:
                 return track.get_tag_disk(tagname)
-        
+
         if tagname == '__grouptagger':
             return list(self.get_track_groups(track))
-        
+
         return track.get_tag_raw(tagname, join=True)
-        
-        
-    
+
     def generate_data(self, tracks, tagdata):
-        
+
         data = []
-        
+
         for track in tracks:
             if track is None:
                 data.append(None)
             else:
-                data.append([self.get_tag(track, tag, extra) for tag, extra in tagdata])
-        
+                data.append([self.get_tag(track, tag, extra)
+                             for tag, extra in tagdata])
+
         return data
-    
+
     def write_to_file(self, tmpl, uri, **kwargs):
         '''
             Opens a template file, performs substitution, writes it to the
             output URI, and also writes d3.min.js to the output directory.
-        
+
             :param tmpl: Local pathname to template file
             :param uri: URI of output file suitable for passing to Gio.File
             :param kwargs: Named parameters to substitute in template
         '''
-        
+
         # read the template file
         with open(tmpl, 'rb') as fp:
             contents = fp.read()
-        
+
         try:
             contents = contents % kwargs
         except:
-            raise RuntimeError("Format string error in template (probably has unescaped % in it)")
-        
+            raise RuntimeError(
+                "Format string error in template (probably has unescaped % in it)")
+
         outfile = Gio.File.new_for_uri(uri)
         parent_dir = outfile.get_parent()
         if parent_dir:
             parent_dir = parent_dir.get_child("d3.min.js")
-        
+
         with closing(outfile.replace('', False)) as fp:
             fp.write(contents)
-            
+
         # copy d3 to the destination
         # -> TODO: add checkbox to indicate whether it should write d3 there or not
         if parent_dir:
@@ -190,4 +191,4 @@ class PlaylistAnalyzerPlugin(object):
 
 
 # New plugin API; requires exaile 3.4.0 or later
-plugin_class = PlaylistAnalyzerPlugin    
+plugin_class = PlaylistAnalyzerPlugin

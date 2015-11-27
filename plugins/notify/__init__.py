@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 import cgi
 import inspect
@@ -45,6 +46,7 @@ class ExaileNotification(object):
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
+
         def getter(self):
             return settings.get_option(klass.name, klass.default or None)
 
@@ -55,7 +57,7 @@ class ExaileNotification(object):
 
     resize = __inner_preference(notifyprefs.ResizeCovers)
     body_artistalbum = __inner_preference(notifyprefs.BodyArtistAlbum)
-    body_artist= __inner_preference(notifyprefs.BodyArtist)
+    body_artist = __inner_preference(notifyprefs.BodyArtist)
     body_album = __inner_preference(notifyprefs.BodyAlbum)
     summary = __inner_preference(notifyprefs.Summary)
     attach_tray = __inner_preference(notifyprefs.AttachToTray)
@@ -93,7 +95,7 @@ class ExaileNotification(object):
 
         notif = Notify.Notification.new(summary, body)
         cover_data = covers.MANAGER.get_cover(track,
-            set_only=True, use_default=True)
+                                              set_only=True, use_default=True)
         size = (48, 48) if self.resize else None
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, size)
         notif.set_icon_from_pixbuf(pixbuf)
@@ -119,12 +121,17 @@ class ExaileNotification(object):
 
 EXAILE_NOTIFICATION = ExaileNotification()
 
+
 def enable(exaile):
     EXAILE_NOTIFICATION.exaile = exaile
-    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
+    event.add_callback(EXAILE_NOTIFICATION.on_play,
+                       'playback_track_start', player.PLAYER)
+
 
 def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
+    event.remove_callback(EXAILE_NOTIFICATION.on_play,
+                          'playback_track_start', player.PLAYER)
+
 
 def get_preferences_pane():
     return notifyprefs

@@ -48,14 +48,16 @@ from xlgui import (
 from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
+
 class TrackInfoPane(Gtk.Alignment):
     """
         Displays cover art and track data
     """
+
     def __init__(self, player):
         Gtk.Alignment.__init__(self, xscale=1, yscale=1)
         self.__player = player
-        
+
         builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
             'ui', 'widgets', 'track_info.ui'))
@@ -72,7 +74,7 @@ class TrackInfoPane(Gtk.Alignment):
         )
         self.__formatter.connect('notify::format', self.on_notify_format)
         self.__default_text = ('<span size="x-large" '
-            'weight="bold">%s</span>\n\n' % _('Not Playing'))
+                               'weight="bold">%s</span>\n\n' % _('Not Playing'))
         self.__cover_size = None
         self.__timer = None
         self.__track = None
@@ -83,8 +85,8 @@ class TrackInfoPane(Gtk.Alignment):
         self.playback_image = builder.get_object('playback_image')
         self.progressbar = PlaybackProgressBar(player)
         guiutil.gtk_widget_replace(builder.get_object('progressbar'),
-            self.progressbar)
-        
+                                   self.progressbar)
+
         self.cover = cover.CoverWidget(builder.get_object('cover_image'))
         self.cover.hide()
         self.cover.set_no_show_all(True)
@@ -127,21 +129,23 @@ class TrackInfoPane(Gtk.Alignment):
 
             if auto_update:
                 for e in p_evts:
-                    event.add_ui_callback(getattr(self, 'on_%s' % e), e, self.__player)
+                    event.add_ui_callback(
+                        getattr(self, 'on_%s' % e), e, self.__player)
                 for e in events:
                     event.add_ui_callback(getattr(self, 'on_%s' % e), e)
 
                 self.set_track(self.__player.current)
             else:
                 for e in p_evts:
-                    event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
+                    event.remove_callback(
+                        getattr(self, 'on_%s' % e), e, self.__player)
                 for e in events:
                     event.remove_callback(getattr(self, 'on_%s' % e), e)
 
     def get_cover_size(self):
         """
             Gets the preferred cover size
-            
+
             :rtype: int
         """
         return self.__cover_size or \
@@ -245,7 +249,7 @@ class TrackInfoPane(Gtk.Alignment):
                     icon_name = 'media-playback-pause'
 
                 self.playback_image.set_from_icon_name(icon_name,
-                    Gtk.IconSize.SMALL_TOOLBAR)
+                                                       Gtk.IconSize.SMALL_TOOLBAR)
 
                 self.__show_progress()
             else:
@@ -255,7 +259,7 @@ class TrackInfoPane(Gtk.Alignment):
         """
             Resets the info pane
         """
-        
+
         self.cover.set_track(None)
         self.info_label.set_markup(self.__default_text)
 
@@ -342,13 +346,14 @@ class TrackInfoPane(Gtk.Alignment):
         """
         if track is self.__track:
             self.set_track(track)
-    
+
 
 # TODO: Use single info label and formatter
 class TrackListInfoPane(Gtk.Alignment):
     """
         Displays cover art and data about a list of tracks
     """
+
     def __init__(self, display_tracklist=False):
         """
             :param display_tracklist: Whether to display
@@ -397,7 +402,7 @@ class TrackListInfoPane(Gtk.Alignment):
         tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
 
         self.cover.set_track(tracks[0])
-        
+
         albums = []
         artists = []
         total_length = 0
@@ -444,7 +449,7 @@ class TrackListInfoPane(Gtk.Alignment):
         """
             Resets the info pane
         """
-        
+
         self.cover.set_track(None)
         self.album_label.set_text('')
         self.artist_label.set_text('')
@@ -469,7 +474,7 @@ class TrackListInfoPane(Gtk.Alignment):
             ellipse_label = Gtk.Label(label='⋮')
             ellipse_label.set_attributes(self.ellipse_pango_attributes)
             self.tracklist_table.attach(ellipse_label,
-                1, 2, self.rownumber - 1, self.rownumber)
+                                        1, 2, self.rownumber - 1, self.rownumber)
         else:
             tracknumber = track.get_tag_display('tracknumber')
             tracknumber = formatter.TrackNumberTagFormatter.format_value(
@@ -478,12 +483,12 @@ class TrackListInfoPane(Gtk.Alignment):
             tracknumber_label.set_attributes(self.pango_attributes)
             tracknumber_label.props.xalign = 0
             self.tracklist_table.attach(tracknumber_label,
-                0, 1, self.rownumber - 1, self.rownumber)
+                                        0, 1, self.rownumber - 1, self.rownumber)
 
             title_label = Gtk.Label(label=track.get_tag_display('title'))
             title_label.set_attributes(self.pango_attributes)
             self.tracklist_table.attach(title_label,
-                1, 2, self.rownumber - 1, self.rownumber)
+                                        1, 2, self.rownumber - 1, self.rownumber)
 
             length = float(track.get_tag_display('__length'))
             length = formatter.LengthTagFormatter.format_value(length, 'short')
@@ -491,15 +496,17 @@ class TrackListInfoPane(Gtk.Alignment):
             length_label.set_attributes(self.pango_attributes)
             length_label.props.xalign = 0.9
             self.tracklist_table.attach(length_label,
-                2, 3, self.rownumber - 1, self.rownumber)
+                                        2, 3, self.rownumber - 1, self.rownumber)
 
         self.rownumber += 1
+
 
 class ToolTip(object):
     """
         Custom tooltip class to allow for
         extended tooltip functionality
     """
+
     def __init__(self, parent, widget):
         """
             :param parent: the parent widget the tooltip
@@ -512,7 +519,7 @@ class ToolTip(object):
                             "(non-instantiable) type `ToolTip'")
 
         self.__widget = widget
-        self.__widget.unparent() # Just to be sure
+        self.__widget.unparent()  # Just to be sure
 
         parent.set_has_tooltip(True)
         parent.connect('query-tooltip', self.on_query_tooltip)
@@ -525,11 +532,13 @@ class ToolTip(object):
 
         return True
 
+
 class TrackToolTip(TrackInfoPane, ToolTip):
     """
         Track specific tooltip class, displays
         track data and progress indicators
     """
+
     def __init__(self, parent, player):
         """
             :param parent: the parent widget the tooltip
@@ -548,6 +557,7 @@ class TrackToolTip(TrackInfoPane, ToolTip):
             Cleanups
         """
         TrackInfoPane.destroy(self)
+
 
 class TrackListToolTip(ToolTip):
 
@@ -569,10 +579,12 @@ class TrackListToolTip(ToolTip):
     def clear(self):
         self.info_pane.clear()
 
+
 class StatusbarTextFormatter(formatter.Formatter):
     """
         A text formatter for status indicators
     """
+
     def __init__(self, format):
         """
             :param format: The initial format, see the documentation
@@ -607,7 +619,7 @@ class StatusbarTextFormatter(formatter.Formatter):
 
         if not isinstance(page, playlist.PlaylistPage):
             return ''
-        
+
         playlist_count = len(page.playlist)
         selection_count = len(page.view.get_selected_tracks())
 
@@ -629,8 +641,8 @@ class StatusbarTextFormatter(formatter.Formatter):
                 count = 0
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
-                '"selection" for "playlist_count", possible arguments are '
-                '"none", "override" and "only"' % selection)
+                             '"selection" for "playlist_count", possible arguments are '
+                             '"none", "override" and "only"' % selection)
 
         if count == 0:
             return ''
@@ -657,14 +669,14 @@ class StatusbarTextFormatter(formatter.Formatter):
         if not isinstance(page, playlist.PlaylistPage):
             return ''
 
-        playlist_duration = sum([t.get_tag_raw('__length') \
-            for t in page.playlist \
-            if t.get_tag_raw('__length')])
+        playlist_duration = sum([t.get_tag_raw('__length')
+                                 for t in page.playlist
+                                 if t.get_tag_raw('__length')])
         selection_tracks = page.view.get_selected_tracks()
         selection_count = len(selection_tracks)
-        selection_duration = sum([t.get_tag_raw('__length') \
-            for t in selection_tracks \
-            if t.get_tag_raw('__length')])
+        selection_duration = sum([t.get_tag_raw('__length')
+                                  for t in selection_tracks
+                                  if t.get_tag_raw('__length')])
 
         if selection == 'none':
             duration = playlist_duration
@@ -680,18 +692,20 @@ class StatusbarTextFormatter(formatter.Formatter):
                 duration = 0
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
-                '"selection" for "playlist_duration", possible arguments are '
-                '"none", "override" and "only"' % selection)
+                             '"selection" for "playlist_duration", possible arguments are '
+                             '"none", "override" and "only"' % selection)
 
         if duration == 0:
             return ''
 
         return formatter.LengthTagFormatter.format_value(duration, format)
 
+
 class Statusbar(object):
     """
         Convenient access to multiple status labels
     """
+
     def __init__(self, status_bar):
         """
             Initialises the status bar
@@ -702,9 +716,9 @@ class Statusbar(object):
         self.status_bar = status_bar
         self.formatter = StatusbarTextFormatter(
             settings.get_option('gui/statusbar_info_format',
-                '${playlist_count:selection=override, suffix= }'
-                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
-                '$collection_count'))
+                                '${playlist_count:selection=override, suffix= }'
+                                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
+                                '$collection_count'))
 
         self.info_label = Gtk.Label()
 
@@ -716,7 +730,7 @@ class Statusbar(object):
         self.message_ids = []
 
         # TODO: GI
-        #self.status_bar.set_app_paintable(True)
+        # self.status_bar.set_app_paintable(True)
         #self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):
@@ -755,6 +769,7 @@ class Splash(object):
         A splash screen suitable for indicating startup;
         will automatically be destroyed after GUI startup
     """
+
     def __init__(self):
         builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))

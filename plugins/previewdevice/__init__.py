@@ -48,7 +48,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-
 class SecondaryOutputPlugin(object):
     '''Implements logic for plugin'''
 
@@ -87,7 +86,6 @@ class SecondaryOutputPlugin(object):
         if settings.get_option('plugin/previewdevice/shown', True):
             self._init_gui_hooks()
 
-
     def disable(self, exaile):
         logger.debug('Disabling Preview Device')
         event.log_event('preview_device_disabling', self, None)
@@ -121,7 +119,8 @@ class SecondaryOutputPlugin(object):
             self._on_playpause_button_clicked
         )
 
-        self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
+        self.progress_bar = playback.SeekProgressBar(
+            self.player, use_markers=False)
 
         play_toolbar = Gtk.HBox()
         play_toolbar.pack_start(self.playpause_button, False, False, 0)
@@ -151,8 +150,8 @@ class SecondaryOutputPlugin(object):
         providers.register('menubar-view-menu', self.menu)
 
         self.preview_menuitem = menu.simple_menu_item('_preview', ['enqueue'],
-                _('Preview'), callback=self._on_preview,
-                condition_fn=lambda n, p, c: not c['selection-empty'])
+                                                      _('Preview'), callback=self._on_preview,
+                                                      condition_fn=lambda n, p, c: not c['selection-empty'])
 
         # TODO: Setup on other context menus
         self.preview_provides = [
@@ -164,7 +163,8 @@ class SecondaryOutputPlugin(object):
             providers.register(provide, self.preview_menuitem)
 
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
-        self._on_option_set('gui_option_set', settings, 'gui/show_info_area_covers')
+        self._on_option_set('gui_option_set', settings,
+                            'gui/show_info_area_covers')
         event.add_ui_callback(self._on_option_set, 'option_set')
 
     def _destroy_gui(self):
@@ -323,7 +323,7 @@ class SecondaryOutputPlugin(object):
 
     def _on_playback_resume(self, type, player, data):
         self.resuming = True
-    
+
     def _on_playback_start(self, type, player, object):
         """
             Called when playback starts
@@ -339,7 +339,7 @@ class SecondaryOutputPlugin(object):
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text(
             _('Pause Playback (double click to stop)'))
-    
+
     def _on_playback_end(self, type, player, object):
         """
             Called when playback ends
@@ -349,14 +349,14 @@ class SecondaryOutputPlugin(object):
                                          Gtk.IconSize.BUTTON)
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text(_('Start Playback'))
-    
+
     def _on_playback_error(self, type, player, message):
         """
             Called when there has been a playback error
         """
         main.mainwindow().message.show_error(
             _('Playback error encountered!'), message)
-    
+
     def _on_toggle_pause(self, type, player, object):
         """
             Called when the user clicks the play button after playback has

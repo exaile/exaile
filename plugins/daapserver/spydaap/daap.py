@@ -9,7 +9,9 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
-import struct, sys, httplib
+import struct
+import sys
+import httplib
 import logging
 from daap_data import *
 from cStringIO import StringIO
@@ -18,11 +20,13 @@ __all__ = ['DAAPError', 'DAAPObject', 'do']
 
 log = logging.getLogger('daap')
 
+
 def DAAPParseCodeTypes(treeroot):
     # the treeroot we are given should be a
     # dmap.contentcodesresponse
     if treeroot.codeName() != 'dmap.contentcodesresponse':
-        raise DAAPError("DAAPParseCodeTypes: We cannot generate a dictionary from this tree.")
+        raise DAAPError(
+            "DAAPParseCodeTypes: We cannot generate a dictionary from this tree.")
         return
     for object in treeroot.contains:
         # each item should be one of two things
@@ -30,40 +34,49 @@ def DAAPParseCodeTypes(treeroot):
         if object.codeName() == 'dmap.status':
             pass
         elif object.codeName() == 'dmap.dictionary':
-            code    = None
-            name    = None
-            dtype   = None
+            code = None
+            name = None
+            dtype = None
             # a dictionary object should contain three items:
             # a 'dmap.contentcodesnumber' the 4 letter content code
             # a 'dmap.contentcodesname' the name of the code
             # a 'dmap.contentcodestype' the type of the code
             for info in object.contains:
                 if info.codeName() == 'dmap.contentcodesnumber':
-                    code    = info.value
+                    code = info.value
                 elif info.codeName() == 'dmap.contentcodesname':
-                    name    = info.value
+                    name = info.value
                 elif info.codeName() == 'dmap.contentcodestype':
                     try:
-                        dtype   = dmapDataTypes[info.value]
+                        dtype = dmapDataTypes[info.value]
                     except:
-                        log.debug('DAAPParseCodeTypes: unknown data type %s for code %s, defaulting to s', info.value, name)
-                        dtype   = 's'
+                        log.debug(
+                            'DAAPParseCodeTypes: unknown data type %s for code %s, defaulting to s', info.value, name)
+                        dtype = 's'
                 else:
-                    raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
+                    raise DAAPError(
+                        'DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
             if code == None or name == None or dtype == None:
-                log.debug('DAAPParseCodeTypes: missing information, not adding entry')
+                log.debug(
+                    'DAAPParseCodeTypes: missing information, not adding entry')
             else:
                 try:
                     dtype = dmapFudgeDataTypes[name]
-                except: pass
+                except:
+                    pass
                 #print("** %s %s %s", code, name, dtype)
                 dmapCodeTypes[code] = (name, dtype)
         else:
-            raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
+            raise DAAPError(
+                'DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
 
-class DAAPError(Exception): pass
+
+class DAAPError(Exception):
+    pass
+
 
 class DAAPObject(object):
+
     def __init__(self, code=None, value=None, **kwargs):
         if (code != None):
             if (len(code) == 4):
@@ -91,7 +104,8 @@ class DAAPObject(object):
         if hasattr(self, 'contains'):
             for object in self.contains:
                 value = object.getAtom(code)
-                if value: return value
+                if value:
+                    return value
         return None
 
     def codeName(self):
@@ -106,11 +120,13 @@ class DAAPObject(object):
         else:
             return dmapCodeTypes[self.code][1]
 
-    def printTree(self, level = 0, out = sys.stdout):
+    def printTree(self, level=0, out=sys.stdout):
         if hasattr(self, 'value'):
-            out.write('\t' * level + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, self.value))
+            out.write('\t' * level + '%s (%s)\t%s\t%s\n' %
+                      (self.codeName(), self.code, self.type, self.value))
         else:
-            out.write('\t' * level + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, None))
+            out.write('\t' * level + '%s (%s)\t%s\t%s\n' %
+                      (self.codeName(), self.code, self.type, None))
         if hasattr(self, 'contains'):
             for object in self.contains:
                 object.printTree(level + 1)
@@ -126,12 +142,12 @@ class DAAPObject(object):
             for item in self.contains:
                 # get the data stream from each of the sub elements
                 if type(item) == str:
-                    #preencoded
+                    # preencoded
                     value += item
                 else:
                     value += item.encode()
             # get the length of the data
-            length  = len(value)
+            length = len(value)
             # pack: 4 byte code, 4 byte length, length bytes of value
             data = struct.pack('!4sI%ss' % length, self.code, length, value)
             return data
@@ -173,19 +189,23 @@ class DAAPObject(object):
                     value = value.encode('utf-8')
                 packing = '%ss' % len(value)
             else:
-                raise DAAPError('DAAPObject: encode: unknown code %s' % self.code)
+                raise DAAPError(
+                    'DAAPObject: encode: unknown code %s' % self.code)
                 return
             # calculate the length of what we're packing
-            length  = struct.calcsize('!%s' % packing)
-            # pack: 4 characters for the code, 4 bytes for the length, and 'length' bytes for the value
+            length = struct.calcsize('!%s' % packing)
+            # pack: 4 characters for the code, 4 bytes for the length, and
+            # 'length' bytes for the value
             data = struct.pack('!4sI%s' % (packing), self.code, length, value)
             return data
 
     def processData(self, str):
-        # read 4 bytes for the code and 4 bytes for the length of the objects data
+        # read 4 bytes for the code and 4 bytes for the length of the objects
+        # data
         data = str.read(8)
 
-        if not data: return
+        if not data:
+            return
         self.code, self.length = struct.unpack('!4sI', data)
 
         # now we need to find out what type of object it is
@@ -201,7 +221,7 @@ class DAAPObject(object):
             # it's length amount of data for processessing
             eof = 0
             while str.tell() < start_pos + self.length:
-                object  = DAAPObject()
+                object = DAAPObject()
                 self.contains.append(object)
                 object.processData(str)
             return
@@ -211,39 +231,39 @@ class DAAPObject(object):
 
         if self.type == 'l':
             # the object is a long long number,
-            self.value  = struct.unpack('!q', code)[0]
+            self.value = struct.unpack('!q', code)[0]
         elif self.type == 'ul':
             # the object is an unsigned long long
-            self.value  = struct.unpack('!Q', code)[0]
+            self.value = struct.unpack('!Q', code)[0]
         elif self.type == 'i':
             # the object is a number,
-            self.value  = struct.unpack('!i', code)[0]
+            self.value = struct.unpack('!i', code)[0]
         elif self.type == 'ui':
             # unsigned integer
-            self.value  = struct.unpack('!I', code)[0]
+            self.value = struct.unpack('!I', code)[0]
         elif self.type == 'h':
             # this is a short number,
-            self.value  = struct.unpack('!h', code)[0]
+            self.value = struct.unpack('!h', code)[0]
         elif self.type == 'uh':
             # unsigned short
-            self.value  = struct.unpack('!H', code)[0]
+            self.value = struct.unpack('!H', code)[0]
         elif self.type == 'b':
             # this is a byte long number
-            self.value  = struct.unpack('!b', code)[0]
+            self.value = struct.unpack('!b', code)[0]
         elif self.type == 'ub':
             # unsigned byte
-            self.value  = struct.unpack('!B', code)[0]
+            self.value = struct.unpack('!B', code)[0]
         elif self.type == 'v':
             # this is a version tag
-            self.value  = float("%s.%s" % struct.unpack('!HH', code))
+            self.value = float("%s.%s" % struct.unpack('!HH', code))
         elif self.type == 't':
             # this is a time string
-            self.value  = struct.unpack('!I', code)[0]
+            self.value = struct.unpack('!I', code)[0]
         elif self.type == 's':
             # the object is a string
             # we need to read length characters from the string
             try:
-                self.value  = unicode(
+                self.value = unicode(
                     struct.unpack('!%ss' % self.length, code)[0], 'utf-8')
             except UnicodeDecodeError:
                 # oh, urgh
@@ -252,29 +272,31 @@ class DAAPObject(object):
         else:
             # we don't know what to do with this object
             # put it's raw data into value
-            log.debug('DAAPObject: Unknown code %s for type %s, writing raw data', code, self.code)
-            self.value  = code
+            log.debug(
+                'DAAPObject: Unknown code %s for type %s, writing raw data', code, self.code)
+            self.value = code
 
 do = DAAPObject
 
 
 class DAAPClient(object):
+
     def __init__(self):
         self.socket = None
         self.request_id = 0
 #        self._old_itunes = 0
 
-    def connect(self, hostname, port = 3689, password = None):
+    def connect(self, hostname, port=3689, password=None):
         if self.socket != None:
             raise DAAPError("DAAPClient: already connected.")
         self.hostname = hostname
-        self.port     = port
+        self.port = port
         self.password = password
         self.socket = httplib.HTTPConnection(hostname, port)
-        self.getContentCodes() # practically required
-        self.getInfo() # to determine the remote server version
+        self.getContentCodes()  # practically required
+        self.getInfo()  # to determine the remote server version
 
-    def _get_response(self, r, params = {}, gzip = 1):
+    def _get_response(self, r, params={}, gzip=1):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
@@ -288,18 +310,19 @@ class DAAPClient(object):
             'Client-DAAP-Access-Index': '2',
         }
 
-        if gzip: headers['Accept-encoding'] = 'gzip'
-        
+        if gzip:
+            headers['Accept-encoding'] = 'gzip'
+
         if self.password:
             import base64
-            b64 = base64.encodestring( '%s:%s'%('user', self.password) )[:-1]
-            headers['Authorization'] = 'Basic %s' % b64             
+            b64 = base64.encodestring('%s:%s' % ('user', self.password))[:-1]
+            headers['Authorization'] = 'Basic %s' % b64
 
         # TODO - we should allow for different versions of itunes - there
         # are a few different hashing algos we could be using. I need some
         # older versions of iTunes to test against.
         if self.request_id > 0:
-            headers[ 'Client-DAAP-Request-ID' ] = self.request_id
+            headers['Client-DAAP-Request-ID'] = self.request_id
 
 #        if (self._old_itunes):
 #            headers[ 'Client-DAAP-Validation' ] = hash_v2(r, 2)
@@ -314,46 +337,49 @@ class DAAPClient(object):
 
         self.socket.request('GET', r, None, headers)
 
-        response    = self.socket.getresponse()
-        return response;
+        response = self.socket.getresponse()
+        return response
 
-    def request(self, r, params = {}, answers = 1):
+    def request(self, r, params={}, answers=1):
         """Make a request to the DAAP server, with the passed params. This
         deals with all the cikiness like validation hashes, etc, etc"""
 
         # this returns an HTTP response object
-        response    = self._get_response(r, params)
+        response = self._get_response(r, params)
         status = response.status
         content = response.read()
         # if we got gzipped data base, gunzip it.
         if response.getheader("Content-Encoding") == "gzip":
             log.debug("gunzipping data")
             old_len = len(content)
-            compressedstream = StringIO( content )
+            compressedstream = StringIO(content)
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
             content = gunzipper.read()
-            log.debug("expanded from %s bytes to %s bytes", old_len, len(content))
+            log.debug("expanded from %s bytes to %s bytes",
+                      old_len, len(content))
         # close this, we're done with it
         response.close()
 
         if status == 401:
-            raise DAAPError('DAAPClient: %s: auth required'%r)
+            raise DAAPError('DAAPClient: %s: auth required' % r)
         elif status == 403:
-            raise DAAPError('DAAPClient: %s: Authentication failure'%r)
+            raise DAAPError('DAAPClient: %s: Authentication failure' % r)
         elif status == 503:
-            raise DAAPError('DAAPClient: %s: 503 - probably max connections to server'%r)
+            raise DAAPError(
+                'DAAPClient: %s: 503 - probably max connections to server' % r)
         elif status == 204:
             # no content, ie logout messages
             return None
         elif status != 200:
-            raise DAAPError('DAAPClient: %s: Error %s making request'%(r, response.status))
+            raise DAAPError(
+                'DAAPClient: %s: Error %s making request' % (r, response.status))
 
-        return self.readResponse( content )
+        return self.readResponse(content)
 
     def readResponse(self, data):
         """Convert binary response from a request to a DAAPObject"""
         str = StringIO(data)
-        object  = DAAPObject()
+        object = DAAPObject()
         object.processData(str)
         return object
 
@@ -376,7 +402,7 @@ class DAAPClient(object):
 
     def login(self):
         response = self.request("/login")
-        sessionid   = response.getAtom("mlid")
+        sessionid = response.getAtom("mlid")
         if sessionid == None:
             log.debug('DAAPClient: login unable to determine session ID')
             return
@@ -388,10 +414,10 @@ class DAAPSession(object):
 
     def __init__(self, connection, sessionid):
         self.connection = connection
-        self.sessionid  = sessionid
-        self.revision   = 1
+        self.sessionid = sessionid
+        self.revision = 1
 
-    def request(self, r, params = {}, answers = 1):
+    def request(self, r, params={}, answers=1):
         """Pass the request through to the connection, adding the session-id
         parameter."""
         params['session-id'] = self.sessionid
@@ -399,7 +425,7 @@ class DAAPSession(object):
 
     def update(self):
         response = self.request("/update")
-        #response.printTree()
+        # response.printTree()
 
     def databases(self):
         response = self.request("/databases")
@@ -420,6 +446,7 @@ class DAAPSession(object):
 # available to the client.
 daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber"
 
+
 class DAAPDatabase(object):
 
     def __init__(self, session, atom):
@@ -429,15 +456,15 @@ class DAAPDatabase(object):
 
     def tracks(self):
         """returns all the tracks in this database, as DAAPTrack objects"""
-        response = self.session.request("/databases/%s/items"%self.id, {
-            'meta':daap_atoms
+        response = self.session.request("/databases/%s/items" % self.id, {
+            'meta': daap_atoms
         })
-        #response.printTree()
+        # response.printTree()
         track_list = response.getAtom("mlcl").contains
         return [DAAPTrack(self, t) for t in track_list]
 
     def playlists(self):
-        response = self.session.request("/databases/%s/containers"%self.id)
+        response = self.session.request("/databases/%s/containers" % self.id)
         db_list = response.getAtom("mlcl").contains
         return [DAAPPlaylist(self, d) for d in db_list]
 
@@ -452,8 +479,8 @@ class DAAPPlaylist(object):
 
     def tracks(self):
         """returns all the tracks in this playlist, as DAAPTrack objects"""
-        response = self.database.session.request("/databases/%s/containers/%s/items"%(self.database.id,self.id), {
-            'meta':daap_atoms
+        response = self.database.session.request("/databases/%s/containers/%s/items" % (self.database.id, self.id), {
+            'meta': daap_atoms
         })
         track_list = response.getAtom("mlcl").contains
         return [DAAPTrack(self.database, t) for t in track_list]
@@ -461,13 +488,13 @@ class DAAPPlaylist(object):
 
 class DAAPTrack(object):
 
-    attrmap = {'name':'minm',
-        'artist':'asar',
-        'album':'asal',
-        'id':'miid',
-        'type':'asfm',
-        'time':'astm',
-        'size':'assz'}
+    attrmap = {'name': 'minm',
+               'artist': 'asar',
+               'album': 'asal',
+               'id': 'miid',
+               'type': 'asfm',
+               'time': 'astm',
+               'size': 'assz'}
 
     def __init__(self, database, atom):
         self.database = database
@@ -489,9 +516,10 @@ class DAAPTrack(object):
 
         # get the raw response object directly, not the parsed version
         return self.database.session.connection._get_response(
-            "/databases/%s/items/%s.%s"%(self.database.id, self.id, self.type),
-            { 'session-id':self.database.session.sessionid },
-            gzip = 0,
+            "/databases/%s/items/%s.%s" % (self.database.id,
+                                           self.id, self.type),
+            {'session-id': self.database.session.sessionid},
+            gzip=0,
         )
 
     def save(self, filename):
@@ -503,8 +531,8 @@ class DAAPTrack(object):
         # is a good block size here?
         data = r.read(32 * 1024)
         while (data):
-          mp3.write(data)
-          data = r.read(32 * 1024)
+            mp3.write(data)
+            data = r.read(32 * 1024)
         mp3.close()
         r.close()
         log.debug("Done")
@@ -512,25 +540,29 @@ class DAAPTrack(object):
 
 if __name__ == '__main__':
     def main():
-        connection  = DAAPClient()
+        connection = DAAPClient()
 
         # I'm new to this python thing. There's got to be a better idiom
         # for this.
-        try: host = sys.argv[1]
-        except IndexError: host = "localhost"
-        try: port = sys.argv[2]
-        except IndexError: port = 3689
+        try:
+            host = sys.argv[1]
+        except IndexError:
+            host = "localhost"
+        try:
+            port = sys.argv[2]
+        except IndexError:
+            port = 3689
 
         logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(levelname)s %(message)s')
+                            format='%(asctime)s %(levelname)s %(message)s')
 
         try:
             # do everything in a big try, so we can disconnect at the end
 
-            connection.connect( host, port )
+            connection.connect(host, port)
 
             # auth isn't supported yet. Just log in
-            session     = connection.login()
+            session = connection.login()
 
             library = session.library()
             log.debug("Library name is '%s'", repr(library.name))
@@ -539,7 +571,7 @@ if __name__ == '__main__':
 
             # demo - save the first track to disk
             #print("Saving %s by %s to disk as 'track.mp3'"%(tracks[0].name, tracks[0].artist))
-            #tracks[0].save("track.mp3")
+            # tracks[0].save("track.mp3")
 
             tracks[0].atom.printTree()
 
@@ -549,7 +581,7 @@ if __name__ == '__main__':
             print "--------------"
             try:
                 session.logout()
-            except Exception: pass
+            except Exception:
+                pass
 
     main()
-

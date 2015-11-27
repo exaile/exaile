@@ -3,7 +3,9 @@ from unittest import TestCase
 
 import simplejson as json
 
+
 class TestDecode(TestCase):
+
     def test_decimal(self):
         rval = json.loads('1.1', parse_float=decimal.Decimal)
         self.assert_(isinstance(rval, decimal.Decimal))
@@ -19,4 +21,4 @@ class TestDecode(TestCase):
         # the whitespace regex, so this test is designed to try and
         # exercise the uncommon cases. The array cases are already covered.
         rval = json.loads('{   "key"    :    "value"    ,  "k":"v"    }')
-        self.assertEquals(rval, {"key":"value", "k":"v"})
+        self.assertEquals(rval, {"key": "value", "k": "v"})

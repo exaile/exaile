@@ -43,72 +43,72 @@ from xl.nls import gettext as _
 """
 
 FORMATS = {
-        "Ogg Vorbis" : {
-            "default"   : 0.5,
-            "raw_steps" : [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-            "kbs_steps" : [64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
-            "command"   : "vorbisenc quality=%1.1f ! oggmux",
-            "extension" : "ogg",
-            "plugins"   : ["vorbisenc", "oggmux"],
-            "desc"      : _("Vorbis is an open source, lossy audio codec with "
-                    "high quality output at a lower file size than MP3.")
-            },
-        "FLAC" : {
-            "default"   : 5,
-            "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            "command"   : "flacenc quality=%i",
-            "extension" : "flac",
-            "plugins"   : ["flacenc"],
-            "desc"      : _("Free Lossless Audio Codec (FLAC) is an open "
-                    "source codec that compresses but does not degrade audio "
-                    "quality.")
-            },
-        "AAC"       : {
-            "default"   : 160000,
-            "raw_steps" : [32000, 48000, 64000, 96000, 128000, 160000,
-                    192000, 224000, 256000, 320000],
-            "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "faac bitrate=%i ! ffmux_mp4",
-            "extension" : "m4a",
-            "plugins"   : ["faac", "ffmux_mp4"],
-            "desc"      : _("Apple's proprietary lossy audio format that "
-                    "achieves better sound quality than MP3 at "
-                    "lower bitrates.")
-            },
-        "MP3 (VBR)" : {
-            "default"   : 160,
-            "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "lame vbr=4 vbr-mean-bitrate=%i",
-            "extension" : "mp3",
-            "plugins"   : ["lame"],
-            "desc"      : _("A proprietary and older, but also popular, lossy "
-                    "audio format. VBR gives higher quality than CBR, but may "
-                    "be incompatible with some players.")
-            },
-        "MP3 (CBR)" : {
-            "default"   : 160,
-            "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "lame bitrate=%i",
-            "extension" : "mp3",
-            "plugins"   : ["lame"],
-            "desc"      : _("A proprietary and older, but also popular, "
-                    "lossy audio format. CBR gives less quality than VBR, "
-                    "but is compatible with any player.")
-            },
-        "WavPack" : {
-            "default"   : 2,
-            "raw_steps" : [1,2,3,4],
-            "kbs_steps" : [1,2,3,4],
-            "command"   : "wavpackenc mode=%i",
-            "extension" : "wv",
-            "plugins"   : ["wavpackenc"],
-            "desc"      : _("A very fast Free lossless audio format with "
-                    "good compression."),
-            },
-        }
+    "Ogg Vorbis": {
+        "default": 0.5,
+        "raw_steps": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+        "kbs_steps": [64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
+        "command": "vorbisenc quality=%1.1f ! oggmux",
+        "extension": "ogg",
+        "plugins": ["vorbisenc", "oggmux"],
+        "desc": _("Vorbis is an open source, lossy audio codec with "
+                  "high quality output at a lower file size than MP3.")
+    },
+    "FLAC": {
+        "default": 5,
+        "raw_steps": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "kbs_steps": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "command": "flacenc quality=%i",
+        "extension": "flac",
+        "plugins": ["flacenc"],
+        "desc": _("Free Lossless Audio Codec (FLAC) is an open "
+                  "source codec that compresses but does not degrade audio "
+                  "quality.")
+    },
+    "AAC": {
+        "default": 160000,
+        "raw_steps": [32000, 48000, 64000, 96000, 128000, 160000,
+                      192000, 224000, 256000, 320000],
+        "kbs_steps": [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "command": "faac bitrate=%i ! ffmux_mp4",
+        "extension": "m4a",
+        "plugins": ["faac", "ffmux_mp4"],
+        "desc": _("Apple's proprietary lossy audio format that "
+                  "achieves better sound quality than MP3 at "
+                  "lower bitrates.")
+    },
+    "MP3 (VBR)": {
+        "default": 160,
+        "raw_steps": [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "kbs_steps": [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "command": "lame vbr=4 vbr-mean-bitrate=%i",
+        "extension": "mp3",
+        "plugins": ["lame"],
+        "desc": _("A proprietary and older, but also popular, lossy "
+                  "audio format. VBR gives higher quality than CBR, but may "
+                  "be incompatible with some players.")
+    },
+    "MP3 (CBR)": {
+        "default": 160,
+        "raw_steps": [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "kbs_steps": [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
+        "command": "lame bitrate=%i",
+        "extension": "mp3",
+        "plugins": ["lame"],
+        "desc": _("A proprietary and older, but also popular, "
+                  "lossy audio format. CBR gives less quality than VBR, "
+                  "but is compatible with any player.")
+    },
+    "WavPack": {
+        "default": 2,
+        "raw_steps": [1, 2, 3, 4],
+        "kbs_steps": [1, 2, 3, 4],
+        "command": "wavpackenc mode=%i",
+        "extension": "wv",
+        "plugins": ["wavpackenc"],
+        "desc": _("A very fast Free lossless audio format with "
+                  "good compression."),
+    },
+}
 
 # NOTE: the transcoder is NOT designed to transfer tags. You will need to
 # manually write the tags after transcoding has completed.
@@ -127,14 +127,18 @@ def get_formats():
             pass
     return ret
 
+
 def add_format(name, fmt):
     global FORMATS
     FORMATS[name] = fmt
 
+
 class TranscodeError(Exception):
     pass
 
+
 class Transcoder(object):
+
     def __init__(self):
         self.src = None
         self.sink = None
@@ -162,25 +166,25 @@ class Transcoder(object):
     def _construct_encoder(self):
         fmt = FORMATS[self.dest_format]
         quality = self.quality
-        self.encoder = fmt["command"]%quality
+        self.encoder = fmt["command"] % quality
 
     def set_input(self, uri):
-        self.input = """filesrc location="%s" """%uri
+        self.input = """filesrc location="%s" """ % uri
 
     def set_raw_input(self, raw):
         self.input = raw
 
     def set_output(self, uri):
-        self.output = """filesink location="%s" """%uri
+        self.output = """filesink location="%s" """ % uri
 
     def set_output_raw(self, raw):
         self.output = raw
 
     def start_transcode(self):
         self._construct_encoder()
-        elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
-                self.encoder, self.output ]
-        pipestr = " ! ".join( elements )
+        elements = [self.input, "decodebin name=\"decoder\"", "audioconvert",
+                    self.encoder, self.output]
+        pipestr = " ! ".join(elements)
         pipe = Gst.parse_launch(pipestr)
         self.pipe = pipe
         self.bus = pipe.get_bus()
@@ -199,7 +203,7 @@ class Transcoder(object):
         try:
             self.end_cb()
         except:
-            pass #FIXME
+            pass  # FIXME
 
     def on_error(self, *args):
         self.pipe.set_state(Gst.State.NULL)
@@ -217,7 +221,7 @@ class Transcoder(object):
             return 0.0
         try:
             tim = self.pipe.query_position(Gst.Format.TIME)[0]
-            tim = tim/Gst.SECOND
+            tim = tim / Gst.SECOND
             self.__last_time = tim
             return tim
         except:

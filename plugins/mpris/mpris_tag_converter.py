@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 """
 A converter utility to convert from exaile tags to mpris Metadata
 """
@@ -31,60 +32,62 @@ _LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
 #                  the value for the key. If it returns None, the tag is not
 #                  set
 MPRIS_TAG_INFORMATION = {
-        'location'   : {'out_type'  : unicode,
-                        'exaile_tag': '__loc',
-                        'desc'      : 'Name',
-                        },
-        'artist'      : {'out_type'  : unicode,
-                        'desc'      : 'Name of artist or band',
-                        },
-        'title'      : {'out_type'  : unicode,
-                        'desc'      : 'Name of artist or band',
-                        },
-        'album'      : {'out_type'  : unicode,
-                        'desc'      : 'Name of compilation',
-                        },
-        'tracknumber': {'out_type'  : unicode,
-                        'desc'      : 'The position in album',
-                        },
-        'time'       : {'out_type'  : int,
-                        'exaile_tag': '__length',
-                        'desc'      : 'The duration in seconds',
-                        },
-        'mtime'      : {'out_type'  : int,
-                        'desc'      : 'The duration in milliseconds',
-                        },
-        'genre'      : {'out_type'  : unicode,
-                        'desc'      : 'The genre',
-                        },
-        'comment'    : {'out_type'  : unicode,
-                        'desc'      : 'A comment about the work',
-                        },
-        'rating'     : {'out_type'  : int,
-                        'desc'      : 'A "taste" rate value, out of 5',
-                        },
-        'year'       : {'out_type'  : int,
-                        'exaile_tag': 'date',
-                        'conv'      : lambda x: x.split('-')[0],
-                        'desc'      : 'The year of performing',
-                        },
-        'date'       : {'out_type'  : int,
-                        'exaile_tag': None,
-                        'desc'      : 'When the performing was realized, '
-                                      'since epoch',
-                        },
-        'arturl'     : {'out_type'  : unicode,
-                        'desc'      : 'an URI to an image',
-                        },
-        'audio-bitrate': {'out_type': int,
-                        'exaile_tag': '__bitrate',
-                        'desc'      : 'The number of bits per second',
-                        },
-        'audio-samplerate': {'out_type': int,
-                        'desc'      : 'The number of samples per second',
-                        },
-        }
+    'location': {'out_type': unicode,
+                 'exaile_tag': '__loc',
+                 'desc': 'Name',
+                 },
+    'artist': {'out_type': unicode,
+               'desc': 'Name of artist or band',
+               },
+    'title': {'out_type': unicode,
+              'desc': 'Name of artist or band',
+              },
+    'album': {'out_type': unicode,
+              'desc': 'Name of compilation',
+              },
+    'tracknumber': {'out_type': unicode,
+                    'desc': 'The position in album',
+                    },
+    'time': {'out_type': int,
+             'exaile_tag': '__length',
+             'desc': 'The duration in seconds',
+             },
+    'mtime': {'out_type': int,
+              'desc': 'The duration in milliseconds',
+              },
+    'genre': {'out_type': unicode,
+              'desc': 'The genre',
+              },
+    'comment': {'out_type': unicode,
+                'desc': 'A comment about the work',
+                },
+    'rating': {'out_type': int,
+               'desc': 'A "taste" rate value, out of 5',
+               },
+    'year': {'out_type': int,
+             'exaile_tag': 'date',
+             'conv': lambda x: x.split('-')[0],
+             'desc': 'The year of performing',
+             },
+    'date': {'out_type': int,
+             'exaile_tag': None,
+             'desc': 'When the performing was realized, '
+             'since epoch',
+             },
+    'arturl': {'out_type': unicode,
+               'desc': 'an URI to an image',
+               },
+    'audio-bitrate': {'out_type': int,
+                      'exaile_tag': '__bitrate',
+                      'desc': 'The number of bits per second',
+                      },
+    'audio-samplerate': {'out_type': int,
+                         'desc': 'The number of samples per second',
+                         },
+}
 EXAILE_TAG_INFORMATION = {}
+
+
 def __fill_exaile_tag_information():
     """
         Fille EXAILE_TAG_INFORMATION with the exaile_tag: mpris_tag, the
@@ -100,6 +103,7 @@ def __fill_exaile_tag_information():
         EXAILE_TAG_INFORMATION[exaile_tag] = mpris_tag
 __fill_exaile_tag_information()
 
+
 class OutputTypeMismatchException(Exception):
 
     """
@@ -109,10 +113,11 @@ class OutputTypeMismatchException(Exception):
 
     def __init__(self, exaile_tag, mpris_tag, val):
         Exception.__init__(self,
-                "Could not convert tag exaile:'%s' to mpris:'%s':"
-                "Error converting '%s' to type '%s"
-                % (exaile_tag, mpris_tag, val,
-                    MPRIS_TAG_INFORMATION[mpris_tag]['out_type']))
+                           "Could not convert tag exaile:'%s' to mpris:'%s':"
+                           "Error converting '%s' to type '%s"
+                           % (exaile_tag, mpris_tag, val,
+                              MPRIS_TAG_INFORMATION[mpris_tag]['out_type']))
+
 
 class ExaileTagConverter(object):
 
@@ -131,10 +136,11 @@ class ExaileTagConverter(object):
         for exaile_tag in track.list_tags():
             if exaile_tag not in EXAILE_TAG_INFORMATION:
                 continue
-            val = ExaileTagConverter.__get_first_item(track.get_tag_raw(exaile_tag))
+            val = ExaileTagConverter.__get_first_item(
+                track.get_tag_raw(exaile_tag))
             try:
                 mpris_tag, mpris_val = ExaileTagConverter.convert_tag(
-                        exaile_tag, val)
+                    exaile_tag, val)
             except OutputTypeMismatchException as e:
                 _LOG.exception(e)
                 continue
@@ -145,20 +151,19 @@ class ExaileTagConverter(object):
         for mpris_tag in MPRIS_TAG_INFORMATION:
             if 'constructor' in MPRIS_TAG_INFORMATION[mpris_tag]:
                 val = MPRIS_TAG_INFORMATION[mpris_tag]['constructor'](
-                            self.exaile,
-                            track
-                        )
+                    self.exaile,
+                    track
+                )
                 if val is not None:
                     try:
                         metadata[mpris_tag] = \
                             MPRIS_TAG_INFORMATION[mpris_tag]['out_type'](val)
                     except ValueError:
                         raise OutputTypeMismatchException(
-                                MPRIS_TAG_INFORMATION[mpris_tag]['exaile_tag'],
-                                mpris_tag,
-                                val,
-                              )
-
+                            MPRIS_TAG_INFORMATION[mpris_tag]['exaile_tag'],
+                            mpris_tag,
+                            val,
+                        )
 
         return metadata
 
@@ -197,4 +202,3 @@ class ExaileTagConverter(object):
                                               exaile_value,
                                               )
         return (mpris_tag, mpris_value)
-

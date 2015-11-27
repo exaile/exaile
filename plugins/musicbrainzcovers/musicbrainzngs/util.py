@@ -9,6 +9,7 @@ import xml.etree.ElementTree as ET
 
 from . import compat
 
+
 def _unicode(string, encoding=None):
     """Try to decode byte strings to unicode.
     This can only be a guess, but this might be better than failing.
@@ -26,6 +27,7 @@ def _unicode(string, encoding=None):
     else:
         unicode_string = compat.unicode(string)
     return unicode_string.replace('\x00', '').strip()
+
 
 def bytes_to_elementtree(_bytes):
     if compat.is_py3:

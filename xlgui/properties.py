@@ -70,7 +70,8 @@ class TrackPropertiesDialog(GObject.GObject):
         GObject.GObject.__init__(self)
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog.ui'))
+        self.builder.add_from_file(xdg.get_data_path(
+            'ui', 'trackproperties_dialog.ui'))
         self.builder.connect_signals(self)
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)
@@ -117,7 +118,7 @@ class TrackPropertiesDialog(GObject.GObject):
             '__startoffset',
             '__stopoffset'
         ]
-        
+
         self.def_tags = OrderedDict([(tag, tag_data[tag]) for tag in def_tags])
 
         # Store the tracks and a working copy
@@ -135,7 +136,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
     def _get_field_widget(self, tag_info, ab):
         tag_type = tag_info.type
-                
+
         if tag_type == 'int':
             field = TagNumField(
                 tag_info.min,
@@ -160,7 +161,7 @@ class TrackPropertiesDialog(GObject.GObject):
             field = TagTextField(all_button=ab)
         else:
             field = TagField(all_button=ab)
-            
+
         return field
 
     def _tags_copy(self, tracks):
@@ -172,12 +173,12 @@ class TrackPropertiesDialog(GObject.GObject):
                     tagval = track.get_tag_disk(tag)
                 else:
                     tagval = track.get_tag_raw(tag)
-                
+
                 if tagval:
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
                     else:
-                        t[tag] = [ tagval ]
+                        t[tag] = [tagval]
                 else:
                     t[tag] = ['']
 
@@ -192,7 +193,7 @@ class TrackPropertiesDialog(GObject.GObject):
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
                     else:
-                        t[tag] = [ tagval ]
+                        t[tag] = [tagval]
 
             l.append(t)
 
@@ -238,12 +239,12 @@ class TrackPropertiesDialog(GObject.GObject):
                 track.set_tag_raw(tag, None)
 
             if not track.write_tags():
-                errors.append(track.get_loc_for_io());
-                
+                errors.append(track.get_loc_for_io())
+
             trax.track._CACHER.remove(track)
             dialog.step()
         dialog.destroy()
-        
+
         if len(errors) > 0:
             self.message.clear_buttons()
             self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
@@ -259,7 +260,7 @@ class TrackPropertiesDialog(GObject.GObject):
             for child in table.get_children():
                 table.remove(child)
 
-            table.resize(1,4)
+            table.resize(1, 4)
 
         self.rows = []
 
@@ -288,11 +289,11 @@ class TrackPropertiesDialog(GObject.GObject):
             ab = True
 
         for tag, tag_info in self.def_tags.iteritems():
-            
+
             for i, entry in enumerate(trackdata.get(tag, [''])):
-                
+
                 field = self._get_field_widget(tag_info, ab)
-                
+
                 row = TagRow(self, self.tags_table, field, tag, entry, i)
                 self.rows.append(row)
 
@@ -306,23 +307,25 @@ class TrackPropertiesDialog(GObject.GObject):
         for tag in trackdata:
             if tag in self.def_tags:
                 continue
-            
+
             try:
                 tag_info = tag_data[tag]
             except KeyError:
                 tag_info = get_default_tagdata(tag)
-            
+
             if tag_info is None:
                 continue
-            
+
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
-                    self.rows.append(TagRow(self, self.tags_table, field, tag, entry, i))
+                    self.rows.append(
+                        TagRow(self, self.tags_table, field, tag, entry, i))
                 else:
                     field = PropertyField(tag_info.type)
-                    self.rows.append(TagRow(self, self.properties_table, field, tag, entry, i))
-        
+                    self.rows.append(
+                        TagRow(self, self.properties_table, field, tag, entry, i))
+
         self._check_for_changes()
         self._build_tables_from_rows()
 
@@ -330,28 +333,29 @@ class TrackPropertiesDialog(GObject.GObject):
 
         tables = [self.tags_table, self.properties_table]
 
-        #clear the tables to start with
+        # clear the tables to start with
         for table in tables:
             for child in table.get_children():
                 table.remove(child)
 
-            table.resize(1,4)
+            table.resize(1, 4)
 
-        cur_row = {tables[0]:0, tables[1]:0}
+        cur_row = {tables[0]: 0, tables[1]: 0}
 
-        paddings = [0, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL|Gtk.AttachOptions.EXPAND, 0]
+        paddings = [0, Gtk.AttachOptions.FILL,
+                    Gtk.AttachOptions.FILL | Gtk.AttachOptions.EXPAND, 0]
 
         for row in self.rows:
             columns = [
-                    Gtk.Label(),
-                    row.label,
-                    row.field,
-                    Gtk.Label()]
+                Gtk.Label(),
+                row.label,
+                row.field,
+                Gtk.Label()]
 
             for col, content in enumerate(columns):
                 row.table.attach(content, col, col + 1, cur_row[row.table],
-                        cur_row[row.table] + 1,
-                        xoptions=paddings[col], yoptions=0)
+                                 cur_row[row.table] + 1,
+                                 xoptions=paddings[col], yoptions=0)
 
             cur_row[row.table] += 1
             row.table.resize(cur_row[row.table] + 1, 4)
@@ -370,16 +374,16 @@ class TrackPropertiesDialog(GObject.GObject):
         if modified:
             if len(modified) != 1:
                 dialog = Gtk.MessageDialog(None,
-                    Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                    Gtk.ButtonsType.YES_NO,
-                    _('Are you sure you want to apply the changes to all tracks?'),
-                )
+                                           Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
+                                           Gtk.ButtonsType.YES_NO,
+                                           _('Are you sure you want to apply the changes to all tracks?'),
+                                           )
                 response = dialog.run()
                 dialog.destroy()
-                
+
                 if response != Gtk.ResponseType.YES:
                     return
-                    
+
             self._tags_write(modified)
 
             del self.trackdata
@@ -557,7 +561,9 @@ class TrackPropertiesDialog(GObject.GObject):
     def hide(self):
         self.dialog.hide()
 
+
 class TagRow(object):
+
     def __init__(self, parent, parent_table, field, tag_name, value, multi_id):
         self.parent = parent
         self.table = parent_table
@@ -606,7 +612,8 @@ class TagRow(object):
         self.remove_button = Gtk.Button()
         self.remove_button.set_image(Gtk.Image.new_from_icon_name(
             'list-remove', Gtk.IconSize.BUTTON))
-        self.remove_button.connect("clicked", parent.remove_row, self.tag, self.multi_id)
+        self.remove_button.connect(
+            "clicked", parent.remove_row, self.tag, self.multi_id)
 
         self.field.register_update_func(parent.update_tag)
         self.field.register_all_func(parent.apply_all)
@@ -628,7 +635,9 @@ class TagRow(object):
     def clear(self, w):
         self.field.set_value('')
 
+
 class TagField(Gtk.HBox):
+
     def __init__(self, all_button=True):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
@@ -672,6 +681,7 @@ class TagField(Gtk.HBox):
     def register_all_func(self, f):
         self.all_func = f
 
+
 def dummy_scroll_handler(widget, _):
     """scroll-event handler that just disables the default handler.
 
@@ -681,13 +691,15 @@ def dummy_scroll_handler(widget, _):
     GObject.signal_stop_emission_by_name(widget, 'scroll-event')
     return False
 
+
 class TagTextField(Gtk.HBox):
+
     def __init__(self, all_button=True):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
         self.buffer = Gtk.TextBuffer()
         self.field = Gtk.TextView.new_with_buffer(self.buffer)
-        self.field.set_size_request(200, 150) # XXX
+        self.field.set_size_request(200, 150)  # XXX
         scrollwindow = Gtk.ScrolledWindow()
         scrollwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scrollwindow.set_shadow_type(Gtk.ShadowType.IN)
@@ -736,7 +748,9 @@ class TagTextField(Gtk.HBox):
     def register_all_func(self, f):
         self.all_func = f
 
+
 class TagNumField(Gtk.HBox):
+
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
@@ -787,6 +801,7 @@ class TagNumField(Gtk.HBox):
 
     def register_all_func(self, f):
         self.all_func = f
+
 
 class TagDblNumField(Gtk.HBox):
 
@@ -873,18 +888,22 @@ class TagDblNumField(Gtk.HBox):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
         val = unicode(self.field[0].get_value()) + '/' \
-                + unicode(self.field[1].get_value())
-        self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
-        self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
+            + unicode(self.field[1].get_value())
+        self.field[0].connect("value-changed", f, tag,
+                              multi_id, self.get_value)
+        self.field[1].connect("value-changed", f, tag,
+                              multi_id, self.get_value)
+
 
 class TagImageField(Gtk.HBox):
+
     def __init__(self, all_button=True):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
         self.parent_row = None
         self.all_func = None
         self.update_func = None
-        # Prevents the update function from being called, make 
+        # Prevents the update function from being called, make
         # sure you do that manually after the batch update
         self.batch_update = False
 
@@ -917,7 +936,8 @@ class TagImageField(Gtk.HBox):
         }
 
         builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog_cover_row.ui'))
+        builder.add_from_file(xdg.get_data_path(
+            'ui', 'trackproperties_dialog_cover_row.ui'))
         builder.connect_signals(self)
         cover_row = builder.get_object('cover_row')
         cover_row.reparent(self)
@@ -968,7 +988,7 @@ class TagImageField(Gtk.HBox):
                 else:
                     self.batch_update = True
                     self.set_pixbuf(loader.get_pixbuf(), val.mime)
-                    
+
                     # some file types do not support multiple cover types
                     if val.type is not None:
                         self.type_selection.set_active(val.type)
@@ -976,14 +996,14 @@ class TagImageField(Gtk.HBox):
                     else:
                         self.type_selection.set_active(-1)
                         self.type_selection.set_sensitive(False)
-                        
+
                     if val.desc is not None:
                         self.description_entry.set_text(val.desc)
                         self.description_entry.set_sensitive(True)
                     else:
                         self.description_entry.set_text('')
                         self.description_entry.set_sensitive(False)
-                    
+
                     self.batch_update = False
             else:
                 self.batch_update = True
@@ -1005,7 +1025,8 @@ class TagImageField(Gtk.HBox):
         mime = self.mime_info[self.info.mime]
         # Retrieve proper image data
         writer = io.BytesIO()
-        self.pixbuf.save_to_callback(writer.write, mime['type'], mime['options'])
+        self.pixbuf.save_to_callback(
+            writer.write, mime['type'], mime['options'])
         # Move to the beginning of the buffer to allow read operations
         writer.seek(0)
 
@@ -1018,7 +1039,8 @@ class TagImageField(Gtk.HBox):
         if not self.update_func or self.batch_update:
             return
 
-        self.update_func(self, self.parent_row.tag, self.parent_row.multi_id, self.get_value)
+        self.update_func(self, self.parent_row.tag,
+                         self.parent_row.multi_id, self.get_value)
 
     def set_pixbuf(self, pixbuf, mime=None):
         """
@@ -1036,11 +1058,13 @@ class TagImageField(Gtk.HBox):
             width, height = pixbuf.get_width(), pixbuf.get_height()
             if mime is None:
                 # TRANSLATORS: do not translate 'width' and 'height'
-                markup = _('{width}x{height} pixels').format(width=width, height=height)
+                markup = _('{width}x{height} pixels').format(
+                    width=width, height=height)
             else:
                 # TRANSLATORS: do not translate 'format', 'width', and 'height'
                 markup = _('{format} ({width}x{height} pixels)').format(
-                    format=self.mime_info.get(mime, self.mime_info['image/'])['title'],
+                    format=self.mime_info.get(
+                        mime, self.mime_info['image/'])['title'],
                     width=width, height=height
                 )
             self.info_label.set_markup(markup)
@@ -1080,7 +1104,8 @@ class TagImageField(Gtk.HBox):
                 self.set_pixbuf(pixbuf, info['mime_types'][0])
                 self.type_selection.set_active(self.default_type)
                 self.type_selection.set_sensitive(True)
-                self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.description_entry.set_text(
+                    os.path.basename(filename).rsplit('.', 1)[0])
                 self.description_entry.set_sensitive(True)
                 self.batch_update = False
                 self.call_update_func()
@@ -1104,7 +1129,8 @@ class TagImageField(Gtk.HBox):
                 self.set_pixbuf(pixbuf, info['mime_types'][0])
                 self.type_selection.set_active(self.default_type)
                 self.description_entry.set_sensitive(True)
-                self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.description_entry.set_text(
+                    os.path.basename(filename).rsplit('.', 1)[0])
                 self.description_entry.set_sensitive(True)
                 self.batch_update = False
                 self.call_update_func()
@@ -1113,7 +1139,8 @@ class TagImageField(Gtk.HBox):
         """
             Notifies about changes in the cover type
         """
-        self.info = self.info._replace(type=self.type_model[combobox.get_active()][0])
+        self.info = self.info._replace(
+            type=self.type_model[combobox.get_active()][0])
         self.call_update_func()
 
     def on_description_entry_changed(self, entry):
@@ -1123,7 +1150,9 @@ class TagImageField(Gtk.HBox):
         self.info = self.info._replace(desc=entry.get_text())
         self.call_update_func()
 
+
 class PropertyField(Gtk.HBox):
+
     def __init__(self, property_type='text'):
         Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
@@ -1181,7 +1210,9 @@ class PropertyField(Gtk.HBox):
     def register_all_func(self, f):
         pass
 
+
 class AllButton(Gtk.ToggleButton):
+
     def __init__(self, parent_field, id_num=0):
         Gtk.ToggleButton.__init__(self)
         self.set_tooltip_text(_("Apply current value to all tracks"))
@@ -1200,10 +1231,12 @@ class AllButton(Gtk.ToggleButton):
             tag = self.field.parent_row.tag
             multi_id = self.field.parent_row.multi_id
             if self.field.all_func != None:
-                self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
+                self.field.all_func(
+                    tag, multi_id, self.field.get_value, self.id_num)
 
 
 class SavingProgressWindow(Gtk.Window):
+
     def __init__(self, parent, total, text=_("Saved %(count)s of %(total)s.")):
         Gtk.Window.__init__(self)
         self.count = 0
@@ -1238,7 +1271,7 @@ class SavingProgressWindow(Gtk.Window):
     def step(self):
         self.count += 1
         self._progress.set_fraction(
-                common.clamp(self.count / float(self.total), 0, 1))
+            common.clamp(self.count / float(self.total), 0, 1))
         self._label.set_markup(self.text % {
             'count': self.count,
             'total': self.total

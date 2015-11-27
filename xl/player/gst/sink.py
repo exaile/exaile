@@ -42,27 +42,27 @@ __all__ = ['SINK_PRESETS', 'create_device', 'get_devices']
 
 
 SINK_PRESETS = {
-    "auto"  : {
-        "name"      : _("Automatic")
+    "auto": {
+        "name": _("Automatic")
     },
-    "alsa"  : {
-        "name"      : "ALSA",
-        "pipe"      : "alsasink"
+    "alsa": {
+        "name": "ALSA",
+        "pipe": "alsasink"
     },
-    "oss"   : {
-        "name"      : "OSS",
-        "pipe"      : "osssink"
+    "oss": {
+        "name": "OSS",
+        "pipe": "osssink"
     },
-    "pulse" : {
-        "name"      : "PulseAudio",
-        "pipe"      : "pulsesink"
+    "pulse": {
+        "name": "PulseAudio",
+        "pipe": "pulsesink"
     },
-    "jack" : {
-        "name"      : "JACK",
-        "pipe"      : "jackaudiosink"
+    "jack": {
+        "name": "JACK",
+        "pipe": "jackaudiosink"
     },
-    "custom" : {
-        "name"      : _("Custom")
+    "custom": {
+        "name": _("Custom")
     }
 }
 
@@ -71,7 +71,7 @@ def _gst_device_autodetect():
     dm = Gst.DeviceMonitor.new()
     dm.add_filter('Audio/Sink', Gst.Caps.new_empty_simple('audio/x-raw'))
     dm.start()
-    
+
     try:
         for device in dm.get_devices():
             yield (device.get_display_name(),
@@ -90,20 +90,20 @@ def get_devices():
         Generator that yields (display_name, internal_name, fn(name)) where
         fn is a function that will create the audiosink when called
     '''
-    
+
     yield (_('Automatic'), 'auto', lambda name: Gst.ElementFactory.make('autoaudiosink', name))
-    
+
     for fn in _autodetect_devices:
         for info in fn():
             yield info
-    
+
 
 def create_device(player_name, return_errorsink=True):
     '''
         Creates an audiosink based on the current settings. This will always
         return an audiosink, but sometimes it will return an audiosink that
         only sends error messages to the bus.
-        
+
         ..note:: Only attempts to autoselect if the user has never specified a 
                  setting manually. Otherwise, they may be confused when it
                  switches to a new output. For example, if they specified a USB
@@ -111,27 +111,28 @@ def create_device(player_name, return_errorsink=True):
                  would not expect to automatically start playing on the builtin
                  sound.
     '''
-    
+
     sink_type = settings.get_option('%s/audiosink' % player_name, 'auto')
     name = '%s-audiosink' % player_name
     sink = None
     errmsg = None
-    
+
     if sink_type == 'auto':
-        
-        specified_device = settings.get_option('%s/audiosink_device' % player_name, 'auto')
-        
+
+        specified_device = settings.get_option(
+            '%s/audiosink_device' % player_name, 'auto')
+
         for _unused, device_id, create in get_devices():
             if specified_device == device_id:
                 sink = create(name)
                 break
-        
+
         if sink is None:
             errmsg = _("Could not create audiosink (device: %s, type: %s)")
             errmsg = errmsg % (specified_device, sink_type)
-    
+
     elif sink_type == 'custom':
-        
+
         pipeline = settings.get_option("%s/custom_sink_pipe" % player_name, "")
         if not pipeline:
             errmsg = _("No custom pipeline specified!")
@@ -141,7 +142,7 @@ def create_device(player_name, return_errorsink=True):
             except:
                 errmsg = _("Error creating custom audiosink '%s'") % pipeline
                 logger.exception(errmsg)
-    
+
     else:
         preset = SINK_PRESETS.get(sink_type, None)
         if preset is None:
@@ -150,46 +151,48 @@ def create_device(player_name, return_errorsink=True):
             sink = Gst.ElementFactory.make(preset['pipe'], name)
             if sink is None:
                 errmsg = _("Could not create sink type '%s'") % preset['pipe']
-    
+
     if errmsg is not None:
         logger.error(errmsg)
         if return_errorsink:
             sink = _get_error_audiosink(errmsg)
-           
+
     return sink
 
 
 def _get_error_audiosink(msg):
-        
+
     sink = Gst.ElementFactory.make('fakesink', None)
-    
+
     def handoff(s, b, p):
         s.message_full(Gst.MessageType.ERROR,
                        Gst.stream_error_quark(), Gst.StreamError.FAILED,
                        msg, msg,
                        "", "", 0)
-    
+
     sink.props.signal_handoffs = True
     sink.props.sync = True
     sink.connect('handoff', handoff)
     return sink
+
 
 class CustomAudioSink(Gst.Bin):
     """
         A bin that holds the audio output sink element(s) for a custom
         defined sink
     """
-    
+
     def __init__(self, pipeline, name):
         Gst.Bin.__init__(self, name='%s-audiosink' % name)
-        
-        elems = [Gst.parse_launch(elem.strip()) for elem in pipeline.split('!')]
-        
+
+        elems = [Gst.parse_launch(elem.strip())
+                 for elem in pipeline.split('!')]
+
         for e in elems:
             self.add(e)
-            
+
         gst_utils.element_link_many(*elems)
-        
+
         # GhostPad allows the bin to pretend to be an audio sink
         ghost = Gst.GhostPad.new("sink",
                                  elems[0].get_static_pad("sink"))
@@ -204,9 +207,8 @@ if sys.platform == 'darwin':
     import sink_osx
     dev_fn = sink_osx.load_osxaudiosink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
-    
+
 elif sys.platform == 'win32':
     import sink_windows
     dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
-

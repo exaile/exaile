@@ -38,6 +38,7 @@ import urllib
 
 from xl.nls import gettext as _
 
+
 class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
 
@@ -102,7 +103,7 @@ class FilterDialog(Gtk.Dialog):
         self.lim_spin.set_sensitive(False)
 
         self.lim_check.connect('toggled', lambda b:
-            self.lim_spin.set_sensitive(self.lim_check.get_active()))
+                               self.lim_spin.set_sensitive(self.lim_check.get_active()))
 
         limit_area.pack_start(self.lim_spin, False, True, 0)
         limit_area.pack_start(Gtk.Label(_(" tracks")), False, True, 0)
@@ -190,6 +191,7 @@ class FilterDialog(Gtk.Dialog):
         """
         self.filter.set_state(state)
 
+
 class FilterWidget(Gtk.Table):
     """Widget to filter a list of items.
 
@@ -249,7 +251,7 @@ class FilterWidget(Gtk.Table):
 
         criterion = Criterion(self.criteria)
         criterion.show()
-        
+
         if len(self.rows) != 0:
             criterion.set_state(self.rows[-1][0].get_state())
 
@@ -262,9 +264,9 @@ class FilterWidget(Gtk.Table):
         remove_btn.show_all()
 
         self.attach(criterion, 0, 1, self.n, self.n + 1,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
+                    Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
         self.attach(remove_btn, 1, 2, self.n, self.n + 1,
-            Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
+                    Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
         self.n += 1
@@ -279,9 +281,9 @@ class FilterWidget(Gtk.Table):
             btn.disconnect(handler)
             if iRow != row:  # shift up
                 self.attach(crit, 0, 1, iRow - 1, iRow,
-                    Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
+                            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
                 self.attach(btn, 1, 2, iRow - 1, iRow,
-                    Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
+                            Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
                 handler = btn.connect(
                     'clicked', self.__remove_clicked, iRow - 1)
                 rows[iRow - 1] = crit, btn, handler
@@ -301,7 +303,7 @@ class FilterWidget(Gtk.Table):
         state = []
         for row in self.rows:
             state.append(row[0].get_state())
-            state[-1][0].reverse() # reverse so it reads more nicely
+            state[-1][0].reverse()  # reverse so it reads more nicely
         return state
 
     def set_state(self, state):
@@ -320,10 +322,11 @@ class FilterWidget(Gtk.Table):
         for i in xrange(n_present, n_required):
             self.add_row()
         for i in xrange(n_present, n_required, -1):
-            self.remove_row(i - 1) # i is one less than n
+            self.remove_row(i - 1)  # i is one less than n
         for i, cstate in enumerate(state):
-            cstate[0].reverse() # reverse so it becomes a stack
+            cstate[0].reverse()  # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)
+
 
 class Criterion(Gtk.HBox):
     """Widget representing one filter criterion.
@@ -364,7 +367,8 @@ class Criterion(Gtk.HBox):
         state = self.child.get_state()
         self.remove(self.child)
         self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
-        if state: self.child.set_state(state)
+        if state:
+            self.child.set_state(state)
         self.pack_start(self.child, True, True, 0)
         self.child.show()
 
@@ -403,38 +407,41 @@ class Criterion(Gtk.HBox):
 
 # Sample fields
 
+
 class ComboEntryField(Gtk.HBox):
     '''Select from multiple fixed values, but allow the user to enter text'''
-    
+
     def __init__(self, values):
         Gtk.HBox.__init__(self)
-        
+
         self.combo = Gtk.ComboBoxText.new_with_entry()
         for value in values:
             self.combo.append_text(value)
-        
+
         self.pack_start(self.combo, True, True, 0)
         self.combo.show()
-    
+
     def get_state(self):
         return self.combo.get_active_text()
-    
+
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
 
+
 class NullField(Gtk.HBox):
     '''Used as a placeholder for __null__ values'''
-    
+
     def get_state(self):
         return ['__null__']
-        
+
     def set_state(self, state):
         pass
-    
+
 
 class MultiEntryField(Gtk.HBox):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""
+
     def __init__(self, labels):
         """Create a field with the specified labels and widths.
 
@@ -458,38 +465,52 @@ class MultiEntryField(Gtk.HBox):
                 widget = Gtk.Label(label=unicode(label))
             self.pack_start(widget, False, True, 0)
             widget.show()
+
     def get_state(self):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
+
     def set_state(self, state):
         entries = self.entries
         for i in xrange(min(len(entries), len(state))):
             entries[i].set_text(unicode(state[i]))
 
+
 class EntryField(Gtk.Entry):
+
     def __init__(self):
         Gtk.Entry.__init__(self)
+
     def get_state(self):
         return unicode(self.get_text(), 'utf-8')
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
         self.set_text(unicode(state))
-        
+
+
 class QuotedEntryField(Gtk.Entry):
+
     def __init__(self):
         Gtk.Entry.__init__(self)
+
     def get_state(self):
         return unicode(urllib.quote(self.get_text()), 'utf-8')
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
         self.set_text(unicode(urllib.unquote(str(state))))
 
+
 class EntryLabelEntryField(MultiEntryField):
+
     def __init__(self, label):
         MultiEntryField.__init__(self, (50, label, 50))
 
+
 class SpinLabelField(Gtk.HBox):
+
     def __init__(self, label='', top=99999, lower=-99999):
         Gtk.HBox.__init__(self, spacing=5)
         self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
@@ -497,8 +518,10 @@ class SpinLabelField(Gtk.HBox):
         self.pack_start(self.spin, False, True, 0)
         self.pack_start(Gtk.Label.new(label), False, True, 0)
         self.show_all()
+
     def get_state(self):
         return self.spin.get_value()
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
@@ -507,7 +530,9 @@ class SpinLabelField(Gtk.HBox):
         except ValueError:
             pass
 
+
 class SpinButtonAndComboField(Gtk.HBox):
+
     def __init__(self, items=()):
         Gtk.HBox.__init__(self, spacing=5)
         self.items = items

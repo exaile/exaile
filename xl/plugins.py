@@ -176,7 +176,8 @@ class PluginsManager(object):
             if os.path.exists(dir):
                 for file in os.listdir(dir):
                     if file not in pluginlist and \
-                            os.path.isdir(os.path.join(dir, file)):
+                            os.path.isdir(os.path.join(dir, file)) and \
+                            file != '__pycache__':
                         pluginlist.append(file)
         return pluginlist
 

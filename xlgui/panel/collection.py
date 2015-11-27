@@ -455,6 +455,7 @@ class CollectionPanel(panel.Panel):
                 return True
             else:
                 return False
+        return True
 
     def on_expanded(self, tree, iter, path):
         """

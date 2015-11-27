@@ -22,6 +22,8 @@ from threading import (
     Timer
 )
 
+import pylast
+
 from xl import (
     common,
     event,
@@ -29,7 +31,6 @@ from xl import (
     providers,
     settings
 )
-from xl.externals import pylast
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets.menu import MenuItem

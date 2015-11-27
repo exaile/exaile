@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+
 from gi.repository import Gdk
 from gi.repository import Gtk
 
@@ -36,6 +38,25 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui.widgets.info import TrackToolTip
 from xlgui.widgets import rating, menu, menuitems, playlist, playback
+
+logger = logging.getLogger(__name__)
+
+
+def is_supported():
+    """
+    On some platforms (e.g. Linux+Wayland) tray icons are not supported.
+    """
+    supported = not __platform_is_wayland()
+    
+    if not supported:
+        logger.debug("No tray icon support on this platform")
+    
+    return supported
+
+
+def __platform_is_wayland():
+    display_name = Gdk.Display.get_default().get_name()
+    return display_name == 'Wayland'
 
 
 def __create_tray_context_menu():

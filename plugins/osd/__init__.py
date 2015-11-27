@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from __future__ import division
 
@@ -41,6 +42,7 @@ import osd_preferences
 
 OSDWINDOW = None
 
+
 def enable(exaile):
     """
         Enables the on screen display plugin
@@ -50,6 +52,7 @@ def enable(exaile):
     global OSDWINDOW
     OSDWINDOW = OSDWindow()
 
+
 def disable(exaile):
     """
         Disables the on screen display plugin
@@ -58,10 +61,12 @@ def disable(exaile):
     OSDWINDOW.destroy()
     OSDWINDOW = None
 
+
 def get_preferences_pane():
     return osd_preferences
 
 Point = namedtuple('Point', 'x y')
+
 
 class OSDWindow(Gtk.Window, PlaybackAdapter):
     """
@@ -83,7 +88,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
         Gtk.Window.__init__(self, Gtk.WindowType.TOPLEVEL)
 
-        # for whatever reason, calling set_opacity seems 
+        # for whatever reason, calling set_opacity seems
         # to crash on Windows when using PyGTK that comes with
         # the GStreamer SDK. Since this plugin is enabled by
         # default, just don't fade in/out on windows
@@ -92,11 +97,11 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         self.use_fade = True
         if sys.platform == 'win32':
             self.use_fade = False
-            
+
         self.fadeout_id = None
         self.drag_origin = None
         self.hide_id = None
-        
+
         self.set_type_hint(Gdk.WindowTypeHint.NOTIFICATION)
         self.set_title('Exaile OSD')
         self.set_decorated(False)
@@ -106,7 +111,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         self.set_resizable(True)
         self.set_app_paintable(True)
         self.stick()
-        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
+        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
+                        Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.POINTER_MOTION_MASK)
 
         # Cached option values
         self.__options = {
@@ -119,7 +125,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         self.info_area.set_default_text('')
         self.info_area.set_auto_update(True)
         self.add(self.info_area)
-        
+
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
         event.add_callback(self.on_option_set, 'plugin_osd_option_set')
 
@@ -128,7 +134,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
                        'show_progress', 'position', 'width', 'height',
                        'border_radius'):
             self.on_option_set('plugin_osd_option_set', settings,
-            'plugin/osd/{option}'.format(option=option))
+                               'plugin/osd/{option}'.format(option=option))
 
         # Trigger color map update
         self.emit('screen-changed', self.get_screen())
@@ -151,7 +157,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         if not self.use_fade:
             Gtk.Window.hide(self)
             return
-        
+
         if self.fadeout_id is None:
             self.fadeout_id = GLib.timeout_add(50, self.__fade_out)
 
@@ -166,9 +172,9 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
                 pass
             finally:
                 self.fadeout_id = None
-            
+
             self.set_opacity(1)
-        
+
         Gtk.Window.show_all(self)
 
     def __fade_out(self):
@@ -203,7 +209,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
         context = self.props.window.cairo_create()
         context.rectangle(event.area.x, event.area.y,
-            event.area.width, event.area.height)
+                          event.area.width, event.area.height)
         context.clip()
 
         context.set_source_rgba(
@@ -282,7 +288,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
 
             return True
         elif e.button == 3 and e.state & Gdk.ModifierType.MOD1_MASK:
-            self.begin_resize_drag(Gdk.WindowEdge.SOUTH_EAST, 3, int(e.x_root), int(e.y_root), e.time)
+            self.begin_resize_drag(Gdk.WindowEdge.SOUTH_EAST, 3, int(
+                e.x_root), int(e.y_root), e.time)
 
     def do_button_release_event(self, e):
         """
@@ -290,7 +297,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             saves the window position
         """
         if e.button == 1:
-            settings.set_option('plugin/osd/position', list(self.get_position()))
+            settings.set_option('plugin/osd/position',
+                                list(self.get_position()))
 
             self.drag_origin = None
             self.window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.ARROW))
@@ -312,14 +320,13 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
                 int(position.y - drag_origin.y)
             )
 
-
         try:
             GLib.source_remove(self.hide_id)
         except:
             pass
         finally:
             self.hide_id = None
-        
+
         self.show()
 
     def do_leave_notify_event(self, e):
@@ -342,7 +349,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
     def on_track_tags_changed(self, e, track, tag):
         if not tag.startswith('__') and track == player.PLAYER.current:
             self.on_playback_track_start(e, player.PLAYER, track)
-        
+
     def on_playback_track_start(self, e, player, track):
         """
             Shows the OSD upon track change
@@ -364,7 +371,8 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
             Shows the OSD after resuming playback
         """
-        if not player.is_playing(): return
+        if not player.is_playing():
+            return
 
         GLib.idle_add(self.show)
 
@@ -393,17 +401,20 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
         if option == 'plugin/osd/format':
             self.info_area.set_info_format(settings.get_option(option,
-                _('<span font_desc="Sans 11" foreground="#fff"><b>$title</b></span>\n'
-                'by $artist\n'
-                'from $album')
-            ))
+                                                               _('<span font_desc="Sans 11" foreground="#fff"><b>$title</b></span>\n'
+                                                                 'by $artist\n'
+                                                                 'from $album')
+                                                               ))
         if option == 'plugin/osd/background':
-            self.__options['background'] = alphacolor_parse(settings.get_option(option, '#333333cc'))
+            self.__options['background'] = alphacolor_parse(
+                settings.get_option(option, '#333333cc'))
             GLib.idle_add(self.queue_draw)
         elif option == 'plugin/osd/display_duration':
-            self.__options['display_duration'] = int(settings.get_option(option, 4))
+            self.__options['display_duration'] = int(
+                settings.get_option(option, 4))
         elif option == 'plugin/osd/show_progress':
-            self.info_area.set_display_progress(settings.get_option(option, True))
+            self.info_area.set_display_progress(
+                settings.get_option(option, True))
         elif option == 'plugin/osd/position':
             position = Point._make(settings.get_option(option, [20, 20]))
             GLib.idle_add(self.move, position.x, position.y)
@@ -412,4 +423,3 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             self.set_border_width(max(6, int(value / 2)))
             self.__options['border_radius'] = value
             self.emit('size-allocate', self.get_allocation())
-

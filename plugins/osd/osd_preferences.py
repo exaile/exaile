@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gdk
 import os
@@ -31,6 +32,7 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")
 icon = 'gtk-info'
 
+
 def page_enter(preferences_dialog):
     """
         Shows a preview of the OSD
@@ -41,6 +43,7 @@ def page_enter(preferences_dialog):
     OSDWINDOW.props.autohide = False
     OSDWINDOW.show()
 
+
 def page_leave(preferences_dialog):
     """
         Hides the OSD preview
@@ -49,13 +52,16 @@ def page_leave(preferences_dialog):
     OSDWINDOW.props.autohide = True
     OSDWINDOW.hide()
 
+
 class ShowProgressPreference(widgets.CheckPreference):
     name = 'plugin/osd/show_progress'
     default = True
 
+
 class DisplayDurationPreference(widgets.SpinPreference):
     name = 'plugin/osd/display_duration'
     default = 4
+
 
 class BackgroundPreference(widgets.ColorButtonPreference):
     name = 'plugin/osd/background'
@@ -83,11 +89,13 @@ class BackgroundPreference(widgets.ColorButtonPreference):
 
         return str(color)
 
+
 class FormatPreference(widgets.TextViewPreference):
     name = 'plugin/osd/format'
     default = _('<span font_desc="Sans 11" foreground="#fff">$title</span>\n'
                 'by $artist\n'
                 'from $album')
+
 
 class BorderRadiusPreference(widgets.SpinPreference):
     name = 'plugin/osd/border_radius'
@@ -95,4 +103,3 @@ class BorderRadiusPreference(widgets.SpinPreference):
 
     def _get_value(self):
         return self.widget.get_value_as_int()
-

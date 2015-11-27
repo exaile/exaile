@@ -53,41 +53,44 @@ class GtkTemplate(_GtkTemplate):
         Use this class decorator in conjunction with :class:`.GtkCallback`
         and :class:`GtkChild` to construct widgets from a GtkBuilder UI
         file.
-    
+
         This is an exaile-specific wrapper around the :class:`.GtkTemplate`
         object to allow loading the UI template file in an Exaile-specific
         way.
-        
+
         :param *path: Path components to specify UI file
         :param relto: If keyword arg 'relto' is specified, path will be
                       relative to this. Otherwise, it will be relative to
                       the Exaile data directory
-                      
+
         .. versionadded:: 3.5.0
     '''
+
     def __init__(self, *path, **kwargs):
         super(GtkTemplate, self).__init__(ui=ui_path(*path, **kwargs))
+
 
 def ui_path(*path, **kwargs):
     '''
         Returns absolute path to a UI file. Each arg will be concatenated
         to construct the final path.
-        
+
         :param relto: If keyword arg 'relto' is specified, path will be
                       relative to this. Otherwise, it will be relative to
                       the Exaile data directory
-                      
+
         .. versionadded:: 3.5.0
     '''
-    
+
     relto = kwargs.pop('relto', None)
     if len(kwargs):
         raise ValueError("Only 'relto' is allowed as a keyword argument")
-    
+
     if relto is None:
         return xdg.get_data_path(*path)
     else:
         return os.path.abspath(os.path.join(os.path.dirname(relto), *path))
+
 
 def get_workarea_size():
     """
@@ -95,6 +98,7 @@ def get_workarea_size():
     """
     d = get_workarea_dimensions()
     return (d.width, d.height)
+
 
 def get_workarea_dimensions():
     """
@@ -104,10 +108,11 @@ def get_workarea_dimensions():
 
         :returns: :class:`CairoRectangleInt`
     """
-    
+
     screen = Gdk.Screen.get_default()
     default_monitor = screen.get_primary_monitor()
     return screen.get_monitor_workarea(default_monitor)
+
 
 def gtk_widget_replace(widget, replacement):
     """
@@ -136,10 +141,12 @@ def gtk_widget_replace(widget, replacement):
         parent.child_set_property(replacement, name, value)
     return
 
+
 class ScalableImageWidget(Gtk.Image):
     """
         Custom resizeable image widget
     """
+
     def __init__(self):
         """
             Initializes the image
@@ -162,7 +169,8 @@ class ScalableImageWidget(Gtk.Image):
             :param fill: True to expand the image, False to keep its ratio
             :type fill: boolean
         """
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file(Gio.File.new_for_uri(location).get_path())
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(
+            Gio.File.new_for_uri(location).get_path())
         self.set_image_pixbuf(pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
@@ -197,16 +205,19 @@ class ScalableImageWidget(Gtk.Image):
             height = int(origh * scale)
         self.width = width
         self.height = height
-        scaled = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+        scaled = pixbuf.scale_simple(
+            width, height, GdkPixbuf.InterpType.BILINEAR)
         self.set_from_pixbuf(scaled)
 
         scaled = pixbuf = None
+
 
 class SearchEntry(object):
     """
         A Gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
+
     def __init__(self, entry=None, timeout=500):
         """
             Initializes the entry
@@ -217,7 +228,7 @@ class SearchEntry(object):
 
         if entry is None:
             self.entry = entry = Gtk.Entry()
-            
+
         self._last_text = entry.get_text()
 
         entry.connect('changed', self.on_entry_changed)
@@ -234,7 +245,7 @@ class SearchEntry(object):
         if self.change_id:
             GLib.source_remove(self.change_id)
         self.change_id = GLib.timeout_add(self.timeout,
-            self.entry_activate)
+                                          self.entry_activate)
 
     def on_entry_icon_press(self, entry, icon_pos, event):
         """
@@ -261,10 +272,12 @@ class SearchEntry(object):
         """
         return getattr(self.entry, attr)
 
+
 class Menu(Gtk.Menu):
     """
         A proxy for making it easier to add icons to menu items
     """
+
     def __init__(self):
         """
             Initializes the menu
@@ -272,8 +285,8 @@ class Menu(Gtk.Menu):
         Gtk.Menu.__init__(self)
         self._dynamic_builders = []    # list of (callback, args, kwargs)
         self._destroy_dynamic = []     # list of children added by dynamic
-                                       # builders. Will be destroyed and
-                                       # recreated at each map()
+        # builders. Will be destroyed and
+        # recreated at each map()
         self.connect('map', self._check_dynamic)
 
         self.show()
@@ -287,7 +300,8 @@ class Menu(Gtk.Menu):
         image.set_from_pixbuf(pixbuf)
         item.add(image)
 
-        if callback: item.connect('activate', callback, data)
+        if callback:
+            item.connect('activate', callback, data)
         Gtk.Menu.append(self, item)
         item.show_all()
         return item
@@ -300,14 +314,15 @@ class Menu(Gtk.Menu):
             if label:
                 item = Gtk.ImageMenuItem.new_with_mnemonic(label)
                 image = Gtk.Image.new_from_stock(stock_id,
-                    Gtk.IconSize.MENU)
+                                                 Gtk.IconSize.MENU)
                 item.set_image(image)
             else:
                 item = Gtk.ImageMenuItem.new_from_stock(stock_id)
         else:
             item = Gtk.MenuItem.new_with_mnemonic(label)
 
-        if callback: item.connect('activate', callback, data)
+        if callback:
+            item.connect('activate', callback, data)
 
         if prepend:
             Gtk.Menu.prepend(self, item)
@@ -384,8 +399,8 @@ class Menu(Gtk.Menu):
         """
             Removes the given dynamic builder callback.
         """
-        self._dynamic_builders = [ tuple for tuple in self._dynamic_builders
-                                   if tuple[0] != callback ]
+        self._dynamic_builders = [tuple for tuple in self._dynamic_builders
+                                  if tuple[0] != callback]
 
     def _check_dynamic(self, *args):
         """
@@ -401,8 +416,8 @@ class Menu(Gtk.Menu):
             children_before = set(self.get_children())
             for callback, args, kwargs in self._dynamic_builders:
                 callback(*args, **kwargs)
-            self._destroy_dynamic = [ child for child in self.get_children()
-                                      if child not in children_before ]
+            self._destroy_dynamic = [child for child in self.get_children()
+                                     if child not in children_before]
 
     def popup(self, *e):
         """
@@ -410,17 +425,18 @@ class Menu(Gtk.Menu):
         """
         if len(e) == 1:
             event = e[0]
-            Gtk.Menu.popup(self, None, None, None, None, event.button, event.time)
+            Gtk.Menu.popup(self, None, None, None, None,
+                           event.button, event.time)
         else:
             Gtk.Menu.popup(self, *e)
 
-            
+
 def position_menu(menu, *args):
     '''
         A function that will position a menu near a particular widget. This
         should be specified as the third argument to menu.popup(), with the
         user data being the widget.
-        
+
             menu.popup_menu(None, None, guiutil.position_menu, widget,
                             0, 0)
     '''
@@ -439,7 +455,6 @@ def position_menu(menu, *args):
 
     return (position[0], position[1], True)
 
-            
 
 def finish(repeat=True):
     """
@@ -447,83 +462,87 @@ def finish(repeat=True):
     """
     while Gtk.events_pending():
         Gtk.main_iteration()
-        if not repeat: break
-        
-        
+        if not repeat:
+            break
+
 
 def initialize_from_xml(this, other=None):
     '''
         DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
-    
+
         Initializes the widgets and signals from a GtkBuilder XML file. Looks 
         for the following attributes in the instance you pass:
-        
+
         ui_filename = builder filename -- either an absolute path, or a tuple
                       with the path relative to the xdg data directory.
         ui_widgets = [list of widget names]
         ui_signals = [list of function names to connect to a signal]
-        
+
         For each widget in ui_widgets, it will be retrieved from the builder
         object and set as an attribute on the object you pass in.
-        
+
         other is a list of widgets to also initialize with the same file
-        
+
         Returns the builder object when done
     '''
     builder = Gtk.Builder()
-    
+
     if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
         builder.add_from_file(this.ui_filename)
     else:
         builder.add_from_file(xdg.get_data_path(*this.ui_filename))
-    
+
     objects = [this]
     if other is not None:
         objects.extend(other)
-    
+
     for obj in objects:
         if hasattr(obj, 'ui_widgets') and obj.ui_widgets is not None:
             for widget_name in obj.ui_widgets:
                 widget = builder.get_object(widget_name)
                 if widget is None:
-                    raise RuntimeError("Widget '%s' is not present in '%s'" % (widget_name, this.ui_filename))
+                    raise RuntimeError("Widget '%s' is not present in '%s'" % (
+                        widget_name, this.ui_filename))
                 setattr(obj, widget_name, widget)
-    
+
     signals = None
-    
+
     for obj in objects:
         if hasattr(obj, 'ui_signals') and obj.ui_signals is not None:
             if signals is None:
                 signals = {}
             for signal_name in obj.ui_signals:
                 if not hasattr(obj, signal_name):
-                    raise RuntimeError("Function '%s' is not present in '%s'" % (signal_name, obj))
+                    raise RuntimeError(
+                        "Function '%s' is not present in '%s'" % (signal_name, obj))
                 signals[signal_name] = getattr(obj, signal_name)
-            
+
     if signals is not None:
         missing = builder.connect_signals(signals)
         if missing is not None:
-            err = 'The following signals were found in %s but have no assigned handler: %s' % (this.ui_filename, str(missing))
+            err = 'The following signals were found in %s but have no assigned handler: %s' % (
+                this.ui_filename, str(missing))
             raise RuntimeError(err)
-    
+
     return builder
+
 
 def persist_selection(widget, key_col, setting_name):
     '''
         Given a widget that is using a Gtk.ListStore, it will restore the
         selected index given the contents of a setting. When the widget
         changes, it will save the choice. 
-        
+
         Call this on the widget after you have loaded data
         into the widget. 
-    
+
         :param widget:         Gtk.ComboBox or Gtk.TreeView
         :param col:            Integer column with unique key
         :param setting_name:   Setting to save key to/from
     '''
-    
+
     model = widget.get_model()
-    
+
     key = settings.get_option(setting_name)
     if key is not None:
         for i in xrange(0, len(model)):
@@ -533,22 +552,22 @@ def persist_selection(widget, key_col, setting_name):
                 else:
                     widget.set_cursor((i,))
                 break
-    
+
     if hasattr(widget, 'set_active'):
-    
+
         def _on_changed(widget):
             active = widget.get_model()[widget.get_active()][key_col]
             settings.set_option(setting_name, active)
-            
+
         widget.connect('changed', _on_changed)
-        
+
     else:
-        
+
         def _on_changed(widget):
             model, i = widget.get_selected()
             active = model[i][key_col]
             settings.set_option(setting_name, active)
-        
+
         widget.get_selection().connect('changed', _on_changed)
-    
+
 # vim: et sts=4 sw=4

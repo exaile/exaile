@@ -278,7 +278,7 @@ class TestTracksMatcher(unittest.TestCase):
 
     def test_paren_matcher(self):
         matcher = search.TracksMatcher("( foo | bar )",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         match = matcher
         # MultiMetaMatcher
         self.assertEqual(len(match.matchers), 1)
@@ -321,7 +321,7 @@ class TestTracksMatcher(unittest.TestCase):
 
     def test_match_true(self):
         matcher = search.TracksMatcher("foo",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'foo')
         self.assertTrue(matcher.match(self.str))
         self.assertEqual(self.str.on_tags, ['artist'])
@@ -346,9 +346,10 @@ class TestTracksMatcher(unittest.TestCase):
 
     def test_match_false(self):
         matcher = search.TracksMatcher("foo",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'bar')
         self.assertFalse(matcher.match(self.str))
+
 
 class TestSearchTracks(unittest.TestCase):
 
@@ -379,7 +380,7 @@ class TestSearchTracks(unittest.TestCase):
         tracks[0].set_tag_raw('artist', 'foooo')
         tracks[2].set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks_from_string(tracks, 'foo',
-                keyword_tags=['artist'])
+                                               keyword_tags=['artist'])
         self.assertEqual(gen.next().track, tracks[0])
         self.assertEqual(gen.next().track, tracks[2])
         self.assertRaises(StopIteration, gen.next)

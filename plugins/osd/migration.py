@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gdk
 
@@ -21,7 +22,7 @@ from xl import settings
 from alphacolor import alphacolor_parse
 
 # Mapping from old to new setting names
-# Note that bg_color and opacity are not 
+# Note that bg_color and opacity are not
 # migrated to allow for a new look and feel
 __settings_map = {
     'h': ('height', lambda value: max(value, 110)),
@@ -41,6 +42,7 @@ __tags_list = [
     'year',
     '__rating'
 ]
+
 
 def migrate_settings():
     """
@@ -92,4 +94,3 @@ def migrate_settings():
             format = '<span %s>%s</span>' % (' '.join(attributes), format)
 
         settings.set_option('plugin/osd/format', format)
-

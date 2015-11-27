@@ -27,7 +27,8 @@ from gi.repository import (
 )
 
 
-Extents = collections.namedtuple('Extents', 'x_bearing y_bearing width height x_advance y_advance')
+Extents = collections.namedtuple(
+    'Extents', 'x_bearing y_bearing width height x_advance y_advance')
 
 
 class Moodbar(Gtk.DrawingArea):
@@ -38,7 +39,8 @@ class Moodbar(Gtk.DrawingArea):
         super(Moodbar, self).__init__()
         self.loader = loader
         # TODO: Handle screen-changed.
-        # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
+        # See
+        # https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
         self.surf = self.text = self.text_extents = self.tint = None
         self._seek_position = None

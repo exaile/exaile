@@ -31,6 +31,7 @@ from xl.metadata._base import (
 )
 from mutagen import flac
 
+
 class FlacFormat(BaseFormat):
     MutagenType = flac.FLAC
     writable = True
@@ -41,17 +42,17 @@ class FlacFormat(BaseFormat):
 
     def get_bitrate(self):
         return -1
-        
+
     def _set_tag(self, raw, tag, value):
         # flac has text based attributes, so convert everything to unicode
-        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
+        BaseFormat._set_tag(
+            self, raw, tag, [common.to_unicode(v) for v in value])
 
     def read_tags(self, tags):
         td = super(FlacFormat, self).read_tags(tags)
         if 'cover' in tags:
-            td['cover'] = [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data) \
-                for p in self.mutagen.pictures]
+            td['cover'] = [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data)
+                           for p in self.mutagen.pictures]
         return td
 
 # vim: et sts=4 sw=4
-

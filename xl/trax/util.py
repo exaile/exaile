@@ -43,6 +43,7 @@ def is_valid_track(location):
     extension = Gio.File.new_for_uri(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
+
 def get_uris_from_tracks(tracks):
     """
         Returns all URIs for tracks
@@ -54,10 +55,11 @@ def get_uris_from_tracks(tracks):
     """
     return [track.get_loc_for_io() for track in tracks]
 
+
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
-        
+
         :param uri: the uri to retrieve the tracks from
         :type uri: string
         :returns: the retrieved tracks
@@ -74,8 +76,9 @@ def get_tracks_from_uri(uri):
         return [Track(uri)]
 
     try:
-        file_type = gloc.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
-    except GLib.Error: # E.g. cdda
+        file_type = gloc.query_info(
+            "standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+    except GLib.Error:  # E.g. cdda
         file_type = None
     if file_type == Gio.FileType.DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
@@ -88,6 +91,7 @@ def get_tracks_from_uri(uri):
     else:
         tracks = [Track(uri)]
     return tracks
+
 
 def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations=False):
     """
@@ -104,13 +108,14 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
         :param reverse: whether to sort in reversed order
         :type reverse: boolean
     """
-    fields = list(fields) # we need the index method
+    fields = list(fields)  # we need the index method
     if trackfunc is None:
         trackfunc = lambda tr: tr
     keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,
-        artist_compilations=artist_compilations) for field in fields]
-    
+                                                     artist_compilations=artist_compilations) for field in fields]
+
     return sorted(iter, key=keyfunc, reverse=reverse)
+
 
 def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=False):
     """
@@ -119,6 +124,7 @@ def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=Fal
         Same params as sort_tracks.
     """
     return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse, artist_compilations)
+
 
 def get_rating_from_tracks(tracks):
     """
@@ -146,7 +152,6 @@ def get_rating_from_tracks(tracks):
     return rating
 
 
-
 def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
         Get any tracks from the given iterable that appear to be part of
@@ -157,5 +162,6 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
     if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
         return []
-    matchers = map(lambda t: TracksMatcher(track.get_tag_search(t, artist_compilations=artist_compilations)), ['artist', 'album'])
+    matchers = map(lambda t: TracksMatcher(track.get_tag_search(
+        t, artist_compilations=artist_compilations)), ['artist', 'album'])
     return (r.track for r in search_tracks(tracksiter, matchers))

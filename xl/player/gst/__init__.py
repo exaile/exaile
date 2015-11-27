@@ -30,4 +30,3 @@ logger.info("Using GStreamer %s", __gst_version__)
 
 del logger
 del logging
-

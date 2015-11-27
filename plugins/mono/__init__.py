@@ -34,6 +34,7 @@ from xl.player.gst.gst_utils import ElementBin
 class Mono(ElementBin):
     index = 90
     name = 'mono'
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         #self.elements[50] = Gst.ElementFactory.make('audioconvert', None)
@@ -44,6 +45,7 @@ class Mono(ElementBin):
 
 def enable(exaile):
     xl.providers.register('gst_audio_filter', Mono)
+
 
 def disable(exaile):
     xl.providers.unregister('gst_audio_filter', Mono)

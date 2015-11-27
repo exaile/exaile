@@ -42,24 +42,32 @@ def __create_tray_context_menu():
     sep = menu.simple_separator
     items = []
     # Play/Pause
-    items.append(playback.PlayPauseMenuItem('playback-playpause', player.PLAYER, after=[]))
+    items.append(playback.PlayPauseMenuItem(
+        'playback-playpause', player.PLAYER, after=[]))
     # Next
-    items.append(playback.NextMenuItem('playback-next', player.PLAYER, after=[items[-1].name]))
+    items.append(playback.NextMenuItem('playback-next',
+                                       player.PLAYER, after=[items[-1].name]))
     # Prev
-    items.append(playback.PrevMenuItem('playback-prev', player.PLAYER, after=[items[-1].name]))
+    items.append(playback.PrevMenuItem('playback-prev',
+                                       player.PLAYER, after=[items[-1].name]))
     # Stop
-    items.append(playback.StopMenuItem('playback-stop', player.PLAYER, after=[items[-1].name]))
+    items.append(playback.StopMenuItem('playback-stop',
+                                       player.PLAYER, after=[items[-1].name]))
     # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle
-    items.append(playlist.ShuffleModesMenuItem('playlist-mode-shuffle', after=[items[-1].name]))
+    items.append(playlist.ShuffleModesMenuItem(
+        'playlist-mode-shuffle', after=[items[-1].name]))
     # Repeat
-    items.append(playlist.RepeatModesMenuItem('playlist-mode-repeat', after=[items[-1].name]))
+    items.append(playlist.RepeatModesMenuItem(
+        'playlist-mode-repeat', after=[items[-1].name]))
     # Dynamic
-    items.append(playlist.DynamicModesMenuItem('playlist-mode-dynamic', after=[items[-1].name]))
+    items.append(playlist.DynamicModesMenuItem(
+        'playlist-mode-dynamic', after=[items[-1].name]))
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
+
     def rating_get_tracks_func(parent, context):
         current = player.PLAYER.current
         if current:
@@ -67,17 +75,18 @@ def __create_tray_context_menu():
         else:
             return []
     items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
-        rating_get_tracks_func))
+                                          rating_get_tracks_func))
     # Remove
     items.append(playlist.RemoveCurrentMenuItem([items[-1].name]))
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
+
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        _("_Quit Exaile"), 'application-exit', callback=quit_cb))
+                                       _("_Quit Exaile"), 'application-exit', callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
@@ -87,6 +96,7 @@ class BaseTrayIcon(object):
     """
         Trayicon base, needs to be derived from
     """
+
     def __init__(self, main):
         self.main = main
         self.VOLUME_STEP = 0.05
@@ -121,19 +131,27 @@ class BaseTrayIcon(object):
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
 
-        event.add_ui_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
-        event.add_ui_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
-        event.add_ui_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
-        event.add_ui_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state,
+                              'playback_player_end', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state,
+                              'playback_track_start', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state,
+                              'playback_toggle_pause', player.PLAYER)
+        event.add_ui_callback(self.on_playback_change_state,
+                              'playback_error', player.PLAYER)
 
     def disconnect_events(self):
         """
             Disconnects various callbacks from events
         """
-        event.remove_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
-        event.remove_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
-        event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
-        event.remove_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state,
+                              'playback_player_end', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state,
+                              'playback_track_start', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state,
+                              'playback_toggle_pause', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state,
+                              'playback_error', player.PLAYER)
 
     def update_icon(self):
         """
@@ -181,10 +199,10 @@ class BaseTrayIcon(object):
         if event.button == 1:
             self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
-            playback.playpause( player.PLAYER )
+            playback.playpause(player.PLAYER)
         if event.button == 3:
             self.menu.popup(None, None, self.get_menu_position, self,
-                event.button, event.time)
+                            event.button, event.time)
 
     def on_scroll_event(self, widget, event):
         """
@@ -198,11 +216,13 @@ class BaseTrayIcon(object):
         else:
             if event.direction == Gdk.ScrollDirection.UP:
                 volume = settings.get_option('player/volume', 1)
-                settings.set_option('player/volume', min(volume + self.VOLUME_STEP, 1))
+                settings.set_option(
+                    'player/volume', min(volume + self.VOLUME_STEP, 1))
                 return True
             elif event.direction == Gdk.ScrollDirection.DOWN:
                 volume = settings.get_option('player/volume', 1)
-                settings.set_option('player/volume', max(0, volume - self.VOLUME_STEP))
+                settings.set_option(
+                    'player/volume', max(0, volume - self.VOLUME_STEP))
                 return True
             elif event.direction == Gdk.ScrollDirection.LEFT:
                 player.QUEUE.prev()
@@ -216,10 +236,12 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
+
 class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """
         Wrapper around GtkStatusIcon
     """
+
     def __init__(self, main):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
@@ -230,4 +252,3 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
             the best menu position
         """
         return Gtk.StatusIcon.position_menu(*args)
-

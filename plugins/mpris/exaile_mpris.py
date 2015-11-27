@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 """
 An implementation of the MPRIS D-Bus protocol for use with Exaile
 """
@@ -28,6 +29,7 @@ import mpris_player
 LOG = logging.getLogger("exaile.plugins.mpris.exaile_mpris")
 
 OBJECT_NAME = 'org.mpris.exaile'
+
 
 class ExaileMpris(object):
 
@@ -80,8 +82,8 @@ class ExaileMpris(object):
         """
         self.mpris_root = mpris_root.ExaileMprisRoot(self.exaile, self.bus)
         self.mpris_tracklist = mpris_tracklist.ExaileMprisTrackList(
-                                                        self.exaile,
-                                                        self.bus)
+            self.exaile,
+            self.bus)
         self.mpris_player = mpris_player.ExaileMprisPlayer(
-                                                        self.exaile,
-                                                        self.bus)
+            self.exaile,
+            self.bus)

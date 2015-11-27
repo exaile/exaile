@@ -25,12 +25,11 @@
 # from your version.
 
 
-
 from xl.metadata._id3 import ID3Format
 from mutagen import mp3
+
 
 class MP3Format(ID3Format):
     MutagenType = mp3.MP3
 
 # vim: et sts=4 sw=4
-

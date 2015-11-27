@@ -28,12 +28,14 @@ KEYS = [
 
 initialized = False
 
+
 def enable(exaile):
     if exaile.loading:
         import xl.event
         xl.event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(eventname, exaile, eventdata):
     global initialized
@@ -43,9 +45,11 @@ def _enable(eventname, exaile, eventdata):
     for k in KEYS:
         Keybinder.bind(k, on_media_key, exaile)
 
+
 def disable(exaile):
     for k in KEYS:
         Keybinder.unbind(k)
+
 
 def on_media_key(key, exaile):
     from xl.player import PLAYER, QUEUE

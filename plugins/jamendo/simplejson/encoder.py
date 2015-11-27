@@ -31,6 +31,7 @@ for i in range(0x20):
 INFINITY = float('1e66666')
 FLOAT_REPR = repr
 
+
 def encode_basestring(s):
     """Return a JSON representation of a Python string
 
@@ -46,6 +47,7 @@ def py_encode_basestring_ascii(s):
     """
     if isinstance(s, str) and HAS_UTF8.search(s) is not None:
         s = s.decode('utf-8')
+
     def replace(match):
         s = match.group(0)
         try:
@@ -53,19 +55,20 @@ def py_encode_basestring_ascii(s):
         except KeyError:
             n = ord(s)
             if n < 0x10000:
-                #return '\\u{0:04x}'.format(n)
+                # return '\\u{0:04x}'.format(n)
                 return '\\u%04x' % (n,)
             else:
                 # surrogate pair
                 n -= 0x10000
                 s1 = 0xd800 | ((n >> 10) & 0x3ff)
                 s2 = 0xdc00 | (n & 0x3ff)
-                #return '\\u{0:04x}\\u{1:04x}'.format(s1, s2)
+                # return '\\u{0:04x}\\u{1:04x}'.format(s1, s2)
                 return '\\u%04x\\u%04x' % (s1, s2)
     return '"' + str(ESCAPE_ASCII.sub(replace, s)) + '"'
 
 
 encode_basestring_ascii = c_encode_basestring_ascii or py_encode_basestring_ascii
+
 
 class JSONEncoder(object):
     """Extensible JSON <http://json.org> encoder for Python data structures.
@@ -98,9 +101,10 @@ class JSONEncoder(object):
     """
     item_separator = ', '
     key_separator = ': '
+
     def __init__(self, skipkeys=False, ensure_ascii=True,
-            check_circular=True, allow_nan=True, sort_keys=False,
-            indent=None, separators=None, encoding='utf-8', default=None):
+                 check_circular=True, allow_nan=True, sort_keys=False,
+                 indent=None, separators=None, encoding='utf-8', default=None):
         """Constructor for JSONEncoder, with sensible defaults.
 
         If skipkeys is false, then it is a TypeError to attempt
@@ -228,7 +232,8 @@ class JSONEncoder(object):
 
         def floatstr(o, allow_nan=self.allow_nan, _repr=FLOAT_REPR, _inf=INFINITY, _neginf=-INFINITY):
             # Check for specials.  Note that this type of test is processor- and/or
-            # platform-specific, so do tests which don't depend on the internals.
+            # platform-specific, so do tests which don't depend on the
+            # internals.
 
             if o != o:
                 text = 'NaN'
@@ -246,7 +251,6 @@ class JSONEncoder(object):
 
             return text
 
-
         if _one_shot and c_make_encoder is not None and not self.indent and not self.sort_keys:
             _iterencode = c_make_encoder(
                 markers, self.default, _encoder, self.indent,
@@ -259,22 +263,23 @@ class JSONEncoder(object):
                 self.skipkeys, _one_shot)
         return _iterencode(o, 0)
 
+
 def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _key_separator, _item_separator, _sort_keys, _skipkeys, _one_shot,
-        ## HACK: hand-optimized bytecode; turn globals into locals
-        False=False,
-        True=True,
-        ValueError=ValueError,
-        basestring=basestring,
-        dict=dict,
-        float=float,
-        id=id,
-        int=int,
-        isinstance=isinstance,
-        list=list,
-        long=long,
-        str=str,
-        tuple=tuple,
-    ):
+                     # HACK: hand-optimized bytecode; turn globals into locals
+                     False=False,
+                     True=True,
+                     ValueError=ValueError,
+                     basestring=basestring,
+                     dict=dict,
+                     float=float,
+                     id=id,
+                     int=int,
+                     isinstance=isinstance,
+                     list=list,
+                     long=long,
+                     str=str,
+                     tuple=tuple,
+                     ):
 
     def _iterencode_list(lst, _current_indent_level):
         if not lst:

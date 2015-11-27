@@ -24,10 +24,12 @@ import sys
 if sys.platform == 'win32':
     import string
     invalid_chars = b'*/:<>?\\'
-    SANITIZE_TRANS_TABLE = string.maketrans(invalid_chars, b'-' * len(invalid_chars))
+    SANITIZE_TRANS_TABLE = string.maketrans(
+        invalid_chars, b'-' * len(invalid_chars))
 
 
 class MoodbarCache:
+
     def get(self, uri):
         """
         :type uri: bytes
@@ -44,6 +46,7 @@ class MoodbarCache:
 
 
 class ExaileMoodbarCache(MoodbarCache):
+
     def __init__(self, location):
         try:
             os.mkdir(location)

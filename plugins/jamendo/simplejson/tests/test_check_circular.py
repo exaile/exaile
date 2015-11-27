@@ -1,10 +1,13 @@
 from unittest import TestCase
 import simplejson as json
 
+
 def default_iterable(obj):
     return list(obj)
 
+
 class TestCheckCircular(TestCase):
+
     def test_circular_dict(self):
         dct = {}
         dct['a'] = dct

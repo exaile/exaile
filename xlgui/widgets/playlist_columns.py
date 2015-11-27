@@ -50,14 +50,15 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
 
+
 class Column(Gtk.TreeViewColumn):
     name = ''
     display = ''
     menu_title = classproperty(lambda c: c.display)
     renderer = Gtk.CellRendererText
     formatter = classproperty(lambda c: TrackFormatter('$%s' % c.name))
-    size = 10 # default size
-    autoexpand = False # whether to expand to fit space in Autosize mode
+    size = 10  # default size
+    autoexpand = False  # whether to expand to fit space in Autosize mode
     datatype = str
     dataproperty = 'text'
     cellproperties = {}
@@ -65,14 +66,14 @@ class Column(Gtk.TreeViewColumn):
     def __init__(self, container, index, player, font):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
-                "abstract class %s" % repr(self.__class__))
+                                      "abstract class %s" % repr(self.__class__))
 
         self.container = container
         self.player = player
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.extrasize = 0
-        
+
         self._setup_font(font)
 
         if index == 2:
@@ -85,23 +86,26 @@ class Column(Gtk.TreeViewColumn):
             self.pack_start(self.icon_cellr, False)
             self.pack_start(self.cellrenderer, True)
             self.set_attributes(self.icon_cellr, pixbuf=1)
-            self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
+            self.set_attributes(self.cellrenderer, **
+                                {self.dataproperty: index})
         else:
             super(Column, self).__init__(self.display, self.cellrenderer,
-                **{self.dataproperty: index})
+                                         **{self.dataproperty: index})
         self.set_cell_data_func(self.cellrenderer, self.data_func)
 
         try:
-            self.cellrenderer.set_property('ellipsize', Pango.EllipsizeMode.END)
-        except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
+            self.cellrenderer.set_property(
+                'ellipsize', Pango.EllipsizeMode.END)
+        except TypeError:  # cellrenderer doesn't do ellipsize - eg. rating
             pass
-            
+
         for name, val in self.cellproperties.iteritems():
             self.cellrenderer.set_property(name, val)
 
         self.set_reorderable(True)
         self.set_clickable(True)
-        self.set_sizing(Gtk.TreeViewColumnSizing.FIXED) # needed for fixed-height mode
+        # needed for fixed-height mode
+        self.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         self.set_sort_order(Gtk.SortType.DESCENDING)
 
         # hack to allow button press events on the header to be detected
@@ -111,7 +115,6 @@ class Column(Gtk.TreeViewColumn):
         self._setup_sizing()
 
         event.add_ui_callback(self.on_option_set, "gui_option_set")
-
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
@@ -127,44 +130,44 @@ class Column(Gtk.TreeViewColumn):
     def _setup_font(self, font):
         '''
             This should be set even for non-text columns.
-            
+
             ::param font:: is None or a Pango.FontDescription
         '''
         default_font = Gtk.Widget.get_default_style().font_desc
         if font is None:
             font = default_font
-            
+
         def_font_sz = float(default_font.get_size())
-            
+
         try:
             self.cellrenderer.set_property('font-desc', font)
         except TypeError:
             pass
-                
+
         # how much has the font deviated from normal?
-        self._font_ratio = font.get_size()/def_font_sz
-        
+        self._font_ratio = font.get_size() / def_font_sz
+
         try:
             # adjust the display size of the column
             ratio = self._font_ratio
-            
-            # small fonts can be problematic.. 
+
+            # small fonts can be problematic..
             # -> TODO: perhaps default widths could be specified
             #          in character widths instead? then we could
             #          calculate it instead of using arbitrary widths
             if ratio < 1:
                 ratio = ratio * 1.25
-            
-            self.size = max(int(self.size*ratio),1)
+
+            self.size = max(int(self.size * ratio), 1)
         except AttributeError:
-            pass            
-           
+            pass
+
     def _setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
             self.set_expand(False)
             width = settings.get_option(self.settings_width_name,
-                    self.size+self.extrasize)
+                                        self.size + self.extrasize)
             self.set_fixed_width(width)
         else:
             self.set_resizable(False)
@@ -173,22 +176,21 @@ class Column(Gtk.TreeViewColumn):
                 self.set_fixed_width(1)
             else:
                 self.set_expand(False)
-                self.set_fixed_width(self.size+self.extrasize)
-             
+                self.set_fixed_width(self.size + self.extrasize)
+
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''
         sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
-        return max(int(sz*self._font_ratio), 1)
-        
+        return max(int(sz * self._font_ratio), 1)
+
     def get_icon_size_ratio(self):
         '''Returns how much bigger or smaller an icon should be'''
         return self._font_ratio
-                
+
     def data_func(self, col, cell, model, iter, user_data):
         if type(cell) == Gtk.CellRendererText:
             playlist = self.container.playlist
 
-            
             if playlist is not self.player.queue.current_playlist:
                 return
 
@@ -204,23 +206,25 @@ class Column(Gtk.TreeViewColumn):
             cell.props.weight = weight
 
             if -1 < playlist.spat_position < path[0] and \
-                playlist.shuffle_mode == 'disabled':
+                    playlist.shuffle_mode == 'disabled':
                 cell.props.sensitive = False
             else:
                 cell.props.sensitive = True
 
     def __repr__(self):
         return '%s(%r, %r, %r)' % (self.__class__.__name__,
-            self.name, self.display, self.size)
+                                   self.name, self.display, self.size)
+
 
 class TrackNumberColumn(Column):
     name = 'tracknumber'
-    #TRANSLATORS: Title of the track number column
+    # TRANSLATORS: Title of the track number column
     display = _('#')
     menu_title = _('Track Number')
     size = 30
     cellproperties = {'xalign': 1.0, 'width-chars': 4}
 providers.register('playlist-columns', TrackNumberColumn)
+
 
 class TitleColumn(Column):
     name = 'title'
@@ -229,12 +233,14 @@ class TitleColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', TitleColumn)
 
+
 class ArtistColumn(Column):
     name = 'artist'
     display = _('Artist')
     size = 150
     autoexpand = True
 providers.register('playlist-columns', ArtistColumn)
+
 
 class ComposerColumn(Column):
     name = 'composer'
@@ -243,12 +249,14 @@ class ComposerColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', ComposerColumn)
 
+
 class AlbumColumn(Column):
     name = 'album'
     display = _('Album')
     size = 150
     autoexpand = True
 providers.register('playlist-columns', AlbumColumn)
+
 
 class LengthColumn(Column):
     name = '__length'
@@ -257,6 +265,7 @@ class LengthColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', LengthColumn)
 
+
 class DiscNumberColumn(Column):
     name = 'discnumber'
     display = _('Disc')
@@ -264,6 +273,7 @@ class DiscNumberColumn(Column):
     size = 40
     cellproperties = {'xalign': 1.0, 'width-chars': 2}
 providers.register('playlist-columns', DiscNumberColumn)
+
 
 class RatingColumn(Column):
     name = '__rating'
@@ -287,8 +297,9 @@ class RatingColumn(Column):
         """
             Retrieves the optimal size
         """
-        size = icons.MANAGER.pixbuf_from_rating(0, self.get_icon_size_ratio()).get_width()
-        size += 2 # FIXME: Find the source of this
+        size = icons.MANAGER.pixbuf_from_rating(
+            0, self.get_icon_size_ratio()).get_width()
+        size += 2  # FIXME: Find the source of this
 
         return size
 
@@ -309,17 +320,20 @@ class RatingColumn(Column):
         event.log_event('rating_changed', self, rating)
 providers.register('playlist-columns', RatingColumn)
 
+
 class DateColumn(Column):
     name = 'date'
     display = _('Date')
     size = 50
 providers.register('playlist-columns', DateColumn)
 
+
 class YearColumn(Column):
     name = 'year'
     display = _('Year')
     size = 45
 providers.register('playlist-columns', YearColumn)
+
 
 class GenreColumn(Column):
     name = 'genre'
@@ -328,12 +342,14 @@ class GenreColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', GenreColumn)
 
+
 class BitrateColumn(Column):
     name = '__bitrate'
     display = _('Bitrate')
     size = 45
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', BitrateColumn)
+
 
 class IoLocColumn(Column):
     name = '__loc'
@@ -342,12 +358,14 @@ class IoLocColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', IoLocColumn)
 
+
 class FilenameColumn(Column):
     name = '__basename'
     display = _('Filename')
     size = 200
     autoexpand = True
 providers.register('playlist-columns', FilenameColumn)
+
 
 class PlayCountColumn(Column):
     name = '__playcount'
@@ -356,6 +374,7 @@ class PlayCountColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', PlayCountColumn)
 
+
 class BPMColumn(Column):
     name = 'bpm'
     display = _('BPM')
@@ -363,17 +382,20 @@ class BPMColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', BPMColumn)
 
+
 class LastPlayedColumn(Column):
     name = '__last_played'
     display = _('Last played')
     size = 80
 providers.register('playlist-columns', LastPlayedColumn)
 
+
 class DateAddedColumn(Column):
     name = '__date_added'
     display = _('Date added')
     size = 80
 providers.register('playlist-columns', DateAddedColumn)
+
 
 class ScheduleTimeColumn(Column):
     name = 'schedule_time'
@@ -385,11 +407,11 @@ class ScheduleTimeColumn(Column):
         self.timeout_id = None
 
         event.add_ui_callback(self.on_queue_current_playlist_changed,
-            'queue_current_playlist_changed', player.QUEUE)
+                              'queue_current_playlist_changed', player.QUEUE)
         event.add_ui_callback(self.on_playback_player_start,
-            'playback_player_start', player.PLAYER)
+                              'playback_player_start', player.PLAYER)
         event.add_ui_callback(self.on_playback_player_end,
-            'playback_player_end', player.PLAYER)
+                              'playback_player_end', player.PLAYER)
 
     def data_func(self, col, cell, model, iter, user_data):
         """
@@ -416,8 +438,8 @@ class ScheduleTimeColumn(Column):
                 # The delay is the accumulated length of all tracks
                 # between the currently playing and this one
                 try:
-                    delay = sum([t.get_tag_raw('__length') \
-                        for t in playlist[current_position:position]])
+                    delay = sum([t.get_tag_raw('__length')
+                                 for t in playlist[current_position:position]])
                 except TypeError:
                     # on tracks with length == None, we cannot determine
                     # when later tracks will play
@@ -494,6 +516,7 @@ class ScheduleTimeColumn(Column):
         self.stop_timer()
 providers.register('playlist-columns', ScheduleTimeColumn)
 
+
 class CommentColumn(Column):
     name = 'comment'
     display = _('Comment')
@@ -503,12 +526,14 @@ class CommentColumn(Column):
     formatter = TrackFormatter('${comment:newlines=strip}')
 providers.register('playlist-columns', CommentColumn)
 
+
 class GroupingColumn(Column):
     name = 'grouping'
     display = _('Grouping')
     size = 200
     autoexpand = True
 providers.register('playlist-columns', GroupingColumn)
+
 
 class StartOffsetColumn(Column):
     name = '__startoffset'
@@ -517,6 +542,7 @@ class StartOffsetColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', StartOffsetColumn)
 
+
 class StopOffsetColumn(Column):
     name = '__stopoffset'
     display = _('Stop Offset')
@@ -524,11 +550,13 @@ class StopOffsetColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', StopOffsetColumn)
 
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the
         status of a column and change it
     """
+
     def __init__(self, column, after=None):
         """
             Sets up the menu item from a column description
@@ -550,7 +578,7 @@ class ColumnMenuItem(menu.MenuItem):
         active = self.is_selected(self.name, parent, context)
         item.set_active(active)
         item.connect('activate', self.on_item_activate,
-            self.name, parent, context)
+                     self.name, parent, context)
 
         return item
 
@@ -574,6 +602,7 @@ class ColumnMenuItem(menu.MenuItem):
             columns.append(name)
 
         settings.set_option('gui/columns', columns)
+
 
 def __register_playlist_columns_menuitems():
     """
@@ -639,15 +668,14 @@ def __register_playlist_columns_menuitems():
     after = [separator_item.name]
 
     sizing_item = menu.radio_menu_item('resizable', after, _('_Resizable'),
-        'column-sizing', is_resizable, on_sizing_item_activate)
+                                       'column-sizing', is_resizable, on_sizing_item_activate)
     menu_items += [sizing_item]
     after = [sizing_item.name]
 
     sizing_item = menu.radio_menu_item('autosize', after, _('_Autosize'),
-        'column-sizing', is_resizable, on_sizing_item_activate)
+                                       'column-sizing', is_resizable, on_sizing_item_activate)
     menu_items += [sizing_item]
 
     for menu_item in menu_items:
         providers.register('playlist-columns-menu', menu_item)
 __register_playlist_columns_menuitems()
-

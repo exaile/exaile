@@ -15,5 +15,6 @@ DEFAULT_PRESETS = [
     ('BPM bar chart', 'bar_chart.tmpl.html', ['bpm']),
     ('GroupTagger bar chart', 'bar_chart.tmpl.html', ['__grouptagger']),
     ('Concept map Title/Genre', 'concept_map.tmpl.html', ['title', 'genre']),
-    ('Concept map BPM/GroupTagger', 'concept_map.tmpl.html', ['bpm', '__grouptagger']),
+    ('Concept map BPM/GroupTagger',
+     'concept_map.tmpl.html', ['bpm', '__grouptagger']),
 ]

@@ -26,6 +26,7 @@ from gi.repository import Gio
 
 
 class MoodbarGenerator:
+
     def generate(self, uri, callback=None):
         """
         :type uri: bytes
@@ -40,12 +41,13 @@ class MoodbarGenerator:
         :type callback: Callable[[bytes, bytes], None]
         """
         t = threading.Thread(name=self.__class__.__name__,
-            target=self.generate, args=(uri, callback))
+                             target=self.generate, args=(uri, callback))
         t.daemon = True
         t.start()
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
+
     def generate(self, uri, callback=None):
         path = Gio.File.new_for_uri(uri).get_path()
         data = None

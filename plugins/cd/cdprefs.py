@@ -28,7 +28,7 @@ from __future__ import with_statement
 from gi.repository import GObject
 from gi.repository import Gtk
 import os
-import warnings 
+import warnings
 
 from xl import event, settings, transcoder
 from xl.nls import gettext as _
@@ -42,8 +42,10 @@ FORMAT_WIDGET = None
 
 # TODO: allow setting cddb server?
 
+
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
+
 
 class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
     name = 'cd_import/quality'
@@ -70,7 +72,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             default = formatinfo['default']
 
             if self.default != default:
-                self.default = default # raw value
+                self.default = default  # raw value
 
         default_title = formatinfo['kbs_steps'][
             formatinfo['raw_steps'].index(self.default)]
@@ -98,6 +100,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_active(index)
 
         return True
+
 
 class OutputPathPreference(widgets.ComboEntryPreference):
     name = 'cd_import/outpath'

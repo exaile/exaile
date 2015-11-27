@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 import cairo
 from gi.repository import Gtk
@@ -26,6 +27,7 @@ import controls
 import minimode_preferences
 
 MINIMODE = None
+
 
 def __migrate_fixed_controls():
     """
@@ -41,6 +43,7 @@ def __migrate_fixed_controls():
             selected_controls += ['restore']
             settings.set_option(option_name, selected_controls)
 
+
 def enable(exaile):
     """
         Enables the mini mode plugin
@@ -52,12 +55,14 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call
     """
     global MINIMODE
     MINIMODE = MiniMode(exaile)
+
 
 def disable(exaile):
     """
@@ -67,8 +72,10 @@ def disable(exaile):
     MINIMODE.destroy()
     MINIMODE = None
 
+
 def get_preferences_pane():
     return minimode_preferences
+
 
 class MiniMode(Gtk.Window):
     """
@@ -103,7 +110,7 @@ class MiniMode(Gtk.Window):
             _('Mini Mode'), 'exaile-minimode',
             self.on_menuitem_activate, accelerator='<Control><Alt>M')
         self.accelerator = Accelerator('<Control><Alt>M',
-            self.on_menuitem_activate)
+                                       self.on_menuitem_activate)
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 
@@ -116,7 +123,7 @@ class MiniMode(Gtk.Window):
         action_area = exaile.gui.main.info_area.get_action_area()
         action_area.pack_start(self.mainbutton_alignment, True, True, 0)
         action_area.reorder_child(self.mainbutton_alignment, 0)
-        
+
         self.__active = False
         self.__dirty = True
         # XXX: Until defaults are implemented in xl.settings
@@ -133,10 +140,10 @@ class MiniMode(Gtk.Window):
         }
 
         exaile.gui.main.connect('main-visible-toggle',
-            self.on_main_visible_toggle)
+                                self.on_main_visible_toggle)
         event.add_ui_callback(self.on_option_set, 'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
-            'plugin/minimode/button_in_mainwindow')
+                           'plugin/minimode/button_in_mainwindow')
 
     def destroy(self):
         """
@@ -176,7 +183,7 @@ class MiniMode(Gtk.Window):
         """
         h = None
         v = None
-        
+
         if self.__dirty:
             for option, default in self.__defaults.iteritems():
                 value = settings.get_option(option, default)
@@ -186,20 +193,24 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/show_in_panel':
                     self.props.skip_taskbar_hint = not value
                 elif option == 'plugin/minimode/on_all_desktops':
-                    if value: self.stick()
-                    else: self.unstick()
+                    if value:
+                        self.stick()
+                    else:
+                        self.unstick()
                 elif option == 'plugin/minimode/display_window_decorations':
                     if value:
                         option = 'plugin/minimode/window_decoration_type'
-                        value  = settings.get_option(option,
-                            self.__defaults[option])
+                        value = settings.get_option(option,
+                                                    self.__defaults[option])
 
                         if value == 'full':
                             self.set_decorated(True)
-                            self.border_frame.set_shadow_type(Gtk.ShadowType.NONE)
+                            self.border_frame.set_shadow_type(
+                                Gtk.ShadowType.NONE)
                         elif value == 'simple':
                             self.set_decorated(False)
-                            self.border_frame.set_shadow_type(Gtk.ShadowType.OUT)
+                            self.border_frame.set_shadow_type(
+                                Gtk.ShadowType.OUT)
                     else:
                         self.set_decorated(False)
                         self.border_frame.set_shadow_type(Gtk.ShadowType.NONE)
@@ -212,7 +223,6 @@ class MiniMode(Gtk.Window):
                     h = value
                 elif option == 'plugin/minimode/vertical_position':
                     v = value
-                    
 
             self.__dirty = False
 
@@ -221,16 +231,16 @@ class MiniMode(Gtk.Window):
         self.resize(natural_width, natural_height)
         self.queue_draw()
         Gtk.Window.do_show(self)
-        
-        # GTK (or perhaps the theme?) likes to move the window to some 
-        # random default position while showing it... so do these at the 
+
+        # GTK (or perhaps the theme?) likes to move the window to some
+        # random default position while showing it... so do these at the
         # same time after show, otherwise it'll move on us
         x, y = self.get_position()
         if h is not None:
             x = h
         if v is not None:
             y = v
-        
+
         self.move(x, y)
 
     def do_draw(self, context):
@@ -243,13 +253,13 @@ class MiniMode(Gtk.Window):
         background = self.style.bg[Gtk.StateType.NORMAL]
         opacity = 1 - settings.get_option('plugin/minimode/transparency', 0.3)
         context.set_source_rgba(
-            float(background.red) / 256**2,
-            float(background.green) / 256**2,
-            float(background.blue) / 256**2,
+            float(background.red) / 256 ** 2,
+            float(background.green) / 256 ** 2,
+            float(background.blue) / 256 ** 2,
             opacity
         )
         context.set_operator(cairo.OPERATOR_SOURCE)
-        context.paint() # TODO: GI: Needed?
+        context.paint()  # TODO: GI: Needed?
 
         Gtk.Window.do_draw(self, context)
 

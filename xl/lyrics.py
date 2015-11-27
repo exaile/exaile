@@ -42,26 +42,30 @@ from xl import (
     xdg
 )
 
+
 class LyricsNotFoundException(Exception):
     pass
+
 
 class LyricsCache:
     '''
         Basically just a thread-safe shelf for convinience.  
         Supports container syntax.
     '''
+
     def __init__(self, location, default=None):
         '''
             @param location: specify the shelve file location
-            
+
             @param default: can specify a default to return from getter when
                 there is nothing in the shelve
         '''
         self.location = location
         try:
-            self.db = shelve.open(location, flag='c', protocol=common.PICKLE_PROTOCOL, writeback=False)
+            self.db = shelve.open(
+                location, flag='c', protocol=common.PICKLE_PROTOCOL, writeback=False)
         except ImportError:
-            import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
+            import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
             _db = bsddb3.hashopen(location, 'c')
             self.db = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
         self.lock = threading.Lock()
@@ -72,26 +76,26 @@ class LyricsCache:
             Return the shelve keys
         '''
         return self.db.keys()
-        
+
     def _get(self, key, default=None):
         with self.lock:
             try:
                 return self.db[key]
             except:
                 return default if default is not None else self.default
-                
+
     def _set(self, key, value):
         with self.lock:
             self.db[key] = value
             # force save, wasn't auto-saving...
             self.db.sync()
-                
+
     def __getitem__(self, key):
         return self._get(key)
-        
+
     def __setitem__(self, key, value):
         self._set(key, value)
-        
+
     def __contains__(self, key):
         return key in self.db
 
@@ -101,9 +105,10 @@ class LyricsCache:
 
     def __iter__(self):
         return self.db.__iter__()
-        
+
     def __len__(self):
         return len(self.db)
+
 
 class LyricsManager(providers.ProviderHandler):
     """
@@ -115,8 +120,9 @@ class LyricsManager(providers.ProviderHandler):
     def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
         self.preferred_order = settings.get_option(
-                'lyrics/preferred_order', [])
-        self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(), 'lyrics.cache'))
+            'lyrics/preferred_order', [])
+        self.cache = LyricsCache(os.path.join(
+            xdg.get_cache_dir(), 'lyrics.cache'))
 
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
 
@@ -155,7 +161,7 @@ class LyricsManager(providers.ProviderHandler):
 
             :param track: the track we want lyrics for, it
                 must have artist/title tags
-                
+
             :param refresh: if True, try to refresh cached data even if
                 not expired
 
@@ -174,12 +180,14 @@ class LyricsManager(providers.ProviderHandler):
 
         for method in self.get_providers():
             try:
-                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
+                (lyrics, source, url) = self._find_cached_lyrics(
+                    method, track, refresh)
             except LyricsNotFoundException:
                 continue
             break
         else:
-            # This only happens if all providers raised LyricsNotFoundException.
+            # This only happens if all providers raised
+            # LyricsNotFoundException.
             raise LyricsNotFoundException()
 
         lyrics = lyrics.strip()
@@ -203,14 +211,15 @@ class LyricsManager(providers.ProviderHandler):
             :raise LyricsNotFoundException: when lyrics are not
                 found from all sources.
         """
-        lyrics_found=[]
+        lyrics_found = []
 
         for method in self.get_providers():
             lyrics = None
             source = None
             url = None
             try:
-                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
+                (lyrics, source, url) = self._find_cached_lyrics(
+                    method, track, refresh)
             except LyricsNotFoundException:
                 continue
             lyrics = lyrics.strip()
@@ -221,30 +230,30 @@ class LyricsManager(providers.ProviderHandler):
             raise LyricsNotFoundException()
 
         return lyrics_found
-        
+
     def _find_cached_lyrics(self, method, track, refresh=False):
         """
             Checks the cache for lyrics.  If found and not expired, returns
             cached results, otherwise tries to fetch from method.
-            
+
             :param method: the LyricSearchMethod to fetch lyrics from.
-            
+
             :param track: the track we want lyrics for, it 
                 must have artist/title tags
-                
+
             :param refresh: if True, try to refresh cached data even if
                 not expired
-                
+
             :return: list of tuples in the same format as 
                 find_lyric's return value
-                
+
             :raise LyricsNotFoundException: when lyrics are not found 
                 in cache or fetched from method
         """
         lyrics = None
         source = None
         url = None
-        cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
+        cache_time = settings.get_option('lyrics/cache_time', 720)  # in hours
         key = self.__get_cache_key(track, method)
 
         # check cache for lyrics
@@ -252,7 +261,7 @@ class LyricsManager(providers.ProviderHandler):
             (lyrics, source, url, time) = self.cache[key]
             # return if they are not expired
             now = datetime.now()
-            if (now-time < timedelta(hours=cache_time) and not refresh):
+            if (now - time < timedelta(hours=cache_time) and not refresh):
                 try:
                     lyrics = zlib.decompress(lyrics)
                 except zlib.error as e:
@@ -264,7 +273,8 @@ class LyricsManager(providers.ProviderHandler):
 
         # update cache
         time = datetime.now()
-        self.cache[key] = (zlib.compress(lyrics.encode('utf-8')), source, url, time)
+        self.cache[key] = (zlib.compress(
+            lyrics.encode('utf-8')), source, url, time)
 
         return (lyrics, source, url)
 
@@ -301,6 +311,7 @@ class LyricsManager(providers.ProviderHandler):
 
 MANAGER = LyricsManager()
 
+
 class LyricSearchMethod(object):
     """
         Lyrics plugins will subclass this
@@ -327,10 +338,11 @@ class LyricSearchMethod(object):
         """
         self.manager = manager
 
+
 class LocalLyricSearch(LyricSearchMethod):
 
-    name="__local"
-    display_name=_("Local")
+    name = "__local"
+    display_name = _("Local")
 
     def find_lyrics(self, track):
         lyrics = track.get_tag_disk('lyrics')
@@ -338,4 +350,3 @@ class LocalLyricSearch(LyricSearchMethod):
             raise LyricsNotFoundException()
         return (lyrics[0], self.name, "")
 providers.register('lyrics', LocalLyricSearch())
-

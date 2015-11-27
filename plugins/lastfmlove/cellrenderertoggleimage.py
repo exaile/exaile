@@ -5,6 +5,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gtk
 
+
 class CellRendererToggleImage(Gtk.CellRendererToggle):
     """
         Renders a toggleable state as an image
@@ -197,4 +198,3 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             context = window.cairo_create()
             context.set_source_pixbuf(pixbuf, x, y)
             context.paint()
-

@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 """/TrackList object for MPRIS specification interface to Exaile
 
 http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FTrackList_object_methods
@@ -27,6 +28,7 @@ from xl import player
 import mpris_tag_converter
 
 INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
+
 
 class ExaileMprisTrackList(dbus.service.Object):
 
@@ -48,7 +50,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         return player.QUEUE.current_playlist.get_ordered_tracks()
 
     @dbus.service.method(INTERFACE_NAME,
-            in_signature="i", out_signature="a{sv}")
+                         in_signature="i", out_signature="a{sv}")
     def GetMetadata(self, pos):
         """
             Gives all meta data available for element at given position in the
@@ -71,7 +73,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
         try:
             return player.QUEUE.current_playlist.index(
-                    player.PLAYER.current)
+                player.PLAYER.current)
         except ValueError:
             return -1
 
@@ -83,7 +85,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         return len(player.QUEUE.current_playlist)
 
     @dbus.service.method(INTERFACE_NAME,
-            in_signature="sb", out_signature="i")
+                         in_signature="sb", out_signature="i")
     def AddTrack(self, uri, play_immediately):
         """
             Appends an URI in the TrackList.
@@ -137,4 +139,3 @@ class ExaileMprisTrackList(dbus.service.Object):
             change happened.
         """
         pass
-

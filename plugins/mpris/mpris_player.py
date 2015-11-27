@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 """/Player object for MPRIS specification interface to Exaile
 
 http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FPlayer_object_methods
@@ -32,26 +33,28 @@ import mpris_tag_converter
 
 INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
 
+
 class MprisCaps(object):
     """
         Specification for the capabilities field in MPRIS
     """
-    NONE                  = 0
-    CAN_GO_NEXT           = 1 << 0
-    CAN_GO_PREV           = 1 << 1
-    CAN_PAUSE             = 1 << 2
-    CAN_PLAY              = 1 << 3
-    CAN_SEEK              = 1 << 4
-    CAN_PROVIDE_METADATA  = 1 << 5
-    CAN_HAS_TRACKLIST     = 1 << 6
+    NONE = 0
+    CAN_GO_NEXT = 1 << 0
+    CAN_GO_PREV = 1 << 1
+    CAN_PAUSE = 1 << 2
+    CAN_PLAY = 1 << 3
+    CAN_SEEK = 1 << 4
+    CAN_PROVIDE_METADATA = 1 << 5
+    CAN_HAS_TRACKLIST = 1 << 6
 
 EXAILE_CAPS = (MprisCaps.CAN_GO_NEXT
-                | MprisCaps.CAN_GO_PREV
-                | MprisCaps.CAN_PAUSE
-                | MprisCaps.CAN_PLAY
-                | MprisCaps.CAN_SEEK
-                | MprisCaps.CAN_PROVIDE_METADATA
-                | MprisCaps.CAN_HAS_TRACKLIST)
+               | MprisCaps.CAN_GO_PREV
+               | MprisCaps.CAN_PAUSE
+               | MprisCaps.CAN_PLAY
+               | MprisCaps.CAN_SEEK
+               | MprisCaps.CAN_PROVIDE_METADATA
+               | MprisCaps.CAN_HAS_TRACKLIST)
+
 
 class ExaileMprisPlayer(dbus.service.Object):
 
@@ -63,14 +66,14 @@ class ExaileMprisPlayer(dbus.service.Object):
         dbus.service.Object.__init__(self, bus, '/Player')
         self.exaile = exaile
         self._tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
-        xl.event.add_callback(self.track_change_cb, 'playback_track_start', player.PLAYER)
+        xl.event.add_callback(self.track_change_cb,
+                              'playback_track_start', player.PLAYER)
         # FIXME: Does not watch for shuffle, repeat
         # TODO: playback_start does not distinguish if play button was pressed
         #       or we simply moved to a new track
         for event in ('playback_player_end', 'playback_player_start',
-                'playback_toggle_pause'):
+                      'playback_toggle_pause'):
             xl.event.add_callback(self.status_change_cb, event, player.PLAYER)
-
 
     @dbus.service.method(INTERFACE_NAME)
     def Next(self):
@@ -251,4 +254,3 @@ class ExaileMprisPlayer(dbus.service.Object):
             GetCaps method.
         """
         pass
-

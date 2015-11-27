@@ -39,12 +39,20 @@ from gi.repository import GLib
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
-class EbmlException(Exception): pass
-class EbmlWarning(Warning): pass
+
+class EbmlException(Exception):
+    pass
+
+
+class EbmlWarning(Warning):
+    pass
+
 
 class BinaryData(str):
+
     def __repr__(self):
         return "<BinaryData>"
+
 
 class Ebml:
     """EBML parser.
@@ -62,8 +70,8 @@ class Ebml:
     def __del__(self):
         self.close()
 
-    ## File access.
-    ## These can be overridden to provide network support.
+    # File access.
+    # These can be overridden to provide network support.
 
     def open(self, location):
         """Open a location and set self.size."""
@@ -85,7 +93,7 @@ class Ebml:
     def close(self):
         self.file.close()
 
-    ## Element reading
+    # Element reading
 
     def readID(self):
         b = self.read(1)
@@ -99,7 +107,8 @@ class Ebml:
         elif b1 & 0b00010000:  # 4 bytes
             return unpack(">L", b + self.read(3))[0]
         else:
-            raise EbmlException("invalid element ID (leading byte 0x%02X)" % b1)
+            raise EbmlException(
+                "invalid element ID (leading byte 0x%02X)" % b1)
 
     def readSize(self):
         b1 = ord(self.read(1))
@@ -141,7 +150,8 @@ class Ebml:
         elif length == 8:
             return unpack(">Q", self.read(8))[0]
         else:
-            raise EbmlException("don't know how to read %r-byte integer" % length)
+            raise EbmlException(
+                "don't know how to read %r-byte integer" % length)
         if signed:
             nbits = (8 - length) + 8 * (length - 1)
             if value >= (1 << (nbits - 1)):
@@ -154,9 +164,10 @@ class Ebml:
         elif length == 8:
             return unpack('>d', self.read(8))[0]
         else:
-            raise EbmlException("don't know how to read %r-byte float" % length)
+            raise EbmlException(
+                "don't know how to read %r-byte float" % length)
 
-    ## Parsing
+    # Parsing
 
     def parse(self, from_=0, to=None):
         """Parses EBML from `from_` (inclusive) to `to` (exclusive).
@@ -219,9 +230,10 @@ class Ebml:
         return node
 
 
-## GIO-specific code
+# GIO-specific code
 
 from gi.repository import Gio
+
 
 class GioEbml(Ebml):
     # NOTE: All seeks are faked using InputStream.skip because we need to use
@@ -232,7 +244,8 @@ class GioEbml(Ebml):
         self.buffer = Gio.BufferedInputStream.new(f.read())
         self._tell = 0
 
-        self.size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size()
+        self.size = f.query_info(
+            'standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size()
 
     def seek(self, offset, mode):
         if mode == 0:
@@ -260,7 +273,7 @@ class GioEbml(Ebml):
         self.buffer.close()
 
 
-## Matroska-specific code
+# Matroska-specific code
 
 # Interesting Matroska tags.
 # Tags not defined here are skipped while parsing.
@@ -338,12 +351,15 @@ MatroskaTags = {
     0x4485: ('TagBinary', BINARY),
 }
 
+
 def parse(location):
     return GioEbml(location, MatroskaTags).parse()
+
 
 def dump(location):
     from pprint import pprint
     pprint(parse(location))
+
 
 def dump_tags(location):
     from pprint import pprint

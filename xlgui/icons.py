@@ -48,6 +48,7 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
+
 class ExtendedPixbuf:
     """
         A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
@@ -63,6 +64,7 @@ class ExtendedPixbuf:
 
         Even more is possible with the provided verbose methods
     """
+
     def __init__(self, pixbuf):
         self.pixbuf = GdkPixbuf.Pixbuf.new(
             pixbuf.get_colorspace(),
@@ -80,13 +82,14 @@ class ExtendedPixbuf:
 
     def get_width(self):
         return self.pixbuf.get_width()
+
     def get_height(self):
         return self.pixbuf.get_height()
 
     def __add__(self, other):
         """
             Horizontally appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -110,7 +113,7 @@ class ExtendedPixbuf:
         """
             Composites a pixbuf on the current
             pixbuf at the location (0, 0)
-            
+
             :param other: the pixbuf to composite
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -187,7 +190,7 @@ class ExtendedPixbuf:
     def add_horizontal(self, other, spacing=0):
         """
             Horizontally appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
@@ -228,7 +231,7 @@ class ExtendedPixbuf:
     def add_vertical(self, other, spacing=0):
         """
             Vertically appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
@@ -334,7 +337,7 @@ class ExtendedPixbuf:
         """
             Composites a pixbuf on the current
             pixbuf at the location (0, 0)
-            
+
             :param other: the pixbuf to composite
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -461,6 +464,7 @@ class ExtendedPixbuf:
         """
         return ExtendedPixbuf(GdkPixbuf.Pixbuf.flip(self.pixbuf, horizontal))
 
+
 def extended_pixbuf_new_from_file(filename):
     """
         Returns a new :class:`ExtendedPixbuf` containing
@@ -474,11 +478,13 @@ def extended_pixbuf_new_from_file(filename):
     """
     return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_from_file(filename))
 
+
 class IconManager(object):
     """
         Provides convenience functions for
         managing icons and images in general
     """
+
     def __init__(self):
         self.icon_theme = Gtk.IconTheme.get_default()
         self.icon_factory = Gtk.IconFactory()
@@ -501,14 +507,14 @@ class IconManager(object):
     def add_icon_name_from_directory(self, icon_name, directory):
         """
             Registers an icon name from files found in a directory
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param directory: the location to search for icons
             :type directory: string
         """
         for size in self._sizes:
-            try: # WxH/icon_name.png and scalable/icon_name.svg
+            try:  # WxH/icon_name.png and scalable/icon_name.svg
                 sizedir = '%dx%d' % (size, size)
             except TypeError:
                 sizedir = size
@@ -517,7 +523,7 @@ class IconManager(object):
             try:
                 icon_size = size if size != 'scalable' else -1
                 self.add_icon_name_from_file(icon_name, files[0], icon_size)
-            except IndexError: # icon_nameW.png and icon_name.svg
+            except IndexError:  # icon_nameW.png and icon_name.svg
                 try:
                     filename = '%s%d' % (icon_name, size)
                 except TypeError:
@@ -526,14 +532,15 @@ class IconManager(object):
                 files = glob.glob('%s.*' % filepath)
                 try:
                     icon_size = size if size != 'scalable' else -1
-                    self.add_icon_name_from_file(icon_name, files[0], icon_size)
-                except IndexError: # Give up
+                    self.add_icon_name_from_file(
+                        icon_name, files[0], icon_size)
+                except IndexError:  # Give up
                     pass
 
     def add_icon_name_from_file(self, icon_name, filename, size=None):
         """
             Registers an icon name from a filename
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param filename: the filename of an image
@@ -548,16 +555,16 @@ class IconManager(object):
             # Happens if, e.g., librsvg is not installed.
             logger.warning('Failed to add icon name "{icon_name}" '
                            'from file "{filename}": {error}'.format(
-                icon_name=icon_name,
-                filename=filename,
-                error=e.message
-            ))
+                               icon_name=icon_name,
+                               filename=filename,
+                               error=e.message
+                           ))
             pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
         """
             Registers an icon name from a pixbuf
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param pixbuf: the pixbuf of an image
@@ -580,17 +587,17 @@ class IconManager(object):
             :type directory: string
         """
         files = []
-        self._sizes.reverse() # Prefer small over downscaled icons
+        self._sizes.reverse()  # Prefer small over downscaled icons
 
         for size in self._sizes:
-            try: # WxH/stock_id.png and scalable/stock_id.svg
+            try:  # WxH/stock_id.png and scalable/stock_id.svg
                 sizedir = '%dx%d' % (size, size)
             except TypeError:
                 sizedir = size
             filepath = os.path.join(directory, sizedir, stock_id)
             try:
                 files += [glob.glob('%s.*' % filepath)[0]]
-            except IndexError: # stock_idW.png and stock_id.svg
+            except IndexError:  # stock_idW.png and stock_id.svg
                 try:
                     filename = '%s%d' % (stock_id, size)
                 except TypeError:
@@ -598,7 +605,7 @@ class IconManager(object):
                 filepath = os.path.join(directory, filename)
                 try:
                     files += [glob.glob('%s.*' % filepath)[0]]
-                except IndexError: # Give up
+                except IndexError:  # Give up
                     pass
 
         self.add_stock_from_files(stock_id, files)
@@ -623,7 +630,8 @@ class IconManager(object):
             :param filenames: the filenames of images
             :type filenames: list of string
         """
-        pixbufs = [GdkPixbuf.Pixbuf.new_from_file(filename) for filename in filenames]
+        pixbufs = [GdkPixbuf.Pixbuf.new_from_file(
+            filename) for filename in filenames]
         self.add_stock_from_pixbufs(stock_id, pixbufs)
 
     def add_stock_from_pixbuf(self, stock_id, pixbuf):
@@ -699,7 +707,7 @@ class IconManager(object):
 
         # TODO: Check if fallbacks are necessary
         return pixbuf
-    
+
     def pixbuf_from_data(self, data, size=None, keep_ratio=True, upscale=False):
         """
             Generates a pixbuf from arbitrary image data
@@ -731,7 +739,8 @@ class IconManager(object):
                     Keeps the ratio if requested
                 """
                 if keep_ratio:
-                    scale = min(size[0] / float(width), size[1] / float(height))
+                    scale = min(size[0] / float(width),
+                                size[1] / float(height))
 
                     if scale > 1.0 and upscale:
                         width = int(width * scale)
@@ -761,7 +770,7 @@ class IconManager(object):
         return pixbuf
 
     def pixbuf_from_text(self, text, size, background_color='#456eac',
-            border_color='#000', text_color='#fff'):
+                         border_color='#000', text_color='#fff'):
         """
             Generates a pixbuf based on a text, width and height
 
@@ -779,8 +788,8 @@ class IconManager(object):
         """
         pixmap_width, pixmap_height = size
         key = '%s - %sx%s - %s' % (text, pixmap_width, pixmap_height,
-            background_color)
-        
+                                   background_color)
+
         if key in self._cache:
             return self._cache[key]
 
@@ -808,16 +817,16 @@ class IconManager(object):
         context.stroke()'''
 
         pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, False, 8,
-            pixmap_width, pixmap_height)
+                                      pixmap_width, pixmap_height)
         # TODO: GI: No pixmap
-        #pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
+        # pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
         #    0, 0, 0, 0, pixmap_width, pixmap_height)
 
         self._cache[key] = pixbuf
 
         return pixbuf
 
-    @common.cached(limit=settings.get_option('rating/maximum', 5)*3)
+    @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """
             Returns a pixbuf representing a rating
@@ -831,21 +840,23 @@ class IconManager(object):
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
-        
-        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width*size_ratio),
-                                                               int(height*size_ratio),
+
+        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width * size_ratio),
+                                                               int(height *
+                                                                   size_ratio),
                                                                GdkPixbuf.InterpType.BILINEAR)
-        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width*size_ratio),
-                                                                   int(height*size_ratio),
+        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width * size_ratio),
+                                                                   int(height *
+                                                                       size_ratio),
                                                                    GdkPixbuf.InterpType.BILINEAR)
         rating = max(0, rating)
         rating = min(rating, maximum)
-        
+
         if rating == 0:
-            return inactive_pixbuf*maximum
+            return inactive_pixbuf * maximum
         elif rating == maximum:
-            return active_pixbuf*maximum
-        
+            return active_pixbuf * maximum
+
         active_pixbufs = active_pixbuf * rating
         inactive_pixbufs = inactive_pixbuf * (maximum - rating)
         return active_pixbufs + inactive_pixbufs

@@ -39,6 +39,7 @@ from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
+
 @GtkTemplate('ui', 'collection_manager.ui')
 class CollectionManagerDialog(Gtk.Dialog):
     """
@@ -66,7 +67,8 @@ class CollectionManagerDialog(Gtk.Dialog):
         )
 
         for location, library in collection.libraries.iteritems():
-            self.model.append([location, library.monitored, library.startup_scan])
+            self.model.append(
+                [location, library.monitored, library.startup_scan])
 
     def get_items(self):
         """
@@ -87,13 +89,13 @@ class CollectionManagerDialog(Gtk.Dialog):
         monitored = not cell.get_active()
         cell.set_active(monitored)
         self.model[path][1] = monitored
-        
+
     @GtkTemplate.Callback
     def on_startup_cellrenderer_toggled(self, cell, path):
         """
             Enables or disables scanning on startup
         """
-        if self.model[path][1]:        
+        if self.model[path][1]:
             scan_on_startup = not cell.get_active()
             cell.set_active(scan_on_startup)
             self.model[path][2] = scan_on_startup
@@ -104,17 +106,17 @@ class CollectionManagerDialog(Gtk.Dialog):
             Adds a path to the list
         """
         dialog = Gtk.FileChooserDialog(_("Add a Directory"),
-            self.parent, Gtk.FileChooserAction.SELECT_FOLDER,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_ADD, Gtk.ResponseType.OK))
+                                       self.parent, Gtk.FileChooserAction.SELECT_FOLDER,
+                                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                        Gtk.STOCK_ADD, Gtk.ResponseType.OK))
         dialog.set_current_folder(xdg.get_last_dir())
-        dialog.set_local_only(False) # enable gio
+        dialog.set_local_only(False)  # enable gio
         response = dialog.run()
-        
+
         # XXX: For some reason, on Ubuntu 12.10 (GTK 2.24.13), hiding the
-        # dialog before retrieving the results causes an incorrect URI 
+        # dialog before retrieving the results causes an incorrect URI
         # to be retrieved.
-        
+
         uri = dialog.get_uri()
         dialog.hide()
 
@@ -153,25 +155,25 @@ class CollectionManagerDialog(Gtk.Dialog):
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
         model.remove(iter)
-        
+
     @GtkTemplate.Callback
     def on_rescan_button_clicked(self, widget):
         """
             Triggers rescanning the collection
         """
-        
+
         from xlgui import main
         main.mainwindow().controller.on_rescan_collection()
-        
+
     @GtkTemplate.Callback
     def on_force_rescan_button_clicked(self, widget):
         """
             Triggers a slow rescan of the collection
         """
-        
+
         from xlgui import main
         main.mainwindow().controller.on_rescan_collection_forced()
-    
+
     @GtkTemplate.Callback
     def on_selection_changed(self, selection):
         """

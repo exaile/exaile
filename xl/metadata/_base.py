@@ -31,17 +31,20 @@ from gi.repository import Gio
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images
-# - type is a number corresponding to the cover type of ID3 APIC tags, 
-#   desc is a string describing the image, mime is a type, 
+# - type is a number corresponding to the cover type of ID3 APIC tags,
+#   desc is a string describing the image, mime is a type,
 #   data is the img data
 # -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
+
 class NotWritable(Exception):
     pass
 
+
 class NotReadable(Exception):
     pass
+
 
 class BaseFormat(object):
     """
@@ -60,7 +63,8 @@ class BaseFormat(object):
     # to get every single cover tag name and would probably suit our needs
     # better. perhaps any field with \n (lyrics) or >4KB (covers) would
     # work for a condition.
-    ignore_tags = ['metadata_block_picture', 'coverart', 'cover', 'lyrics', 'Cover Art (front)']
+    ignore_tags = ['metadata_block_picture', 'coverart',
+                   'cover', 'lyrics', 'Cover Art (front)']
 
     def __init__(self, loc):
         """
@@ -74,7 +78,7 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         self._reverse_mapping = dict((
-            (v,k) for k,v in self.tag_mapping.iteritems() ))
+            (v, k) for k, v in self.tag_mapping.iteritems()))
         self.load()
 
     def load(self):
@@ -236,7 +240,7 @@ class BaseFormat(object):
             for tag in raw:
                 tagname = self._reverse_mapping.get(tag)
                 if tagname is None:
-                    tag = tag.split(':',1)[0]   # handles multi-part tags
+                    tag = tag.split(':', 1)[0]   # handles multi-part tags
                     tagname = self._reverse_mapping.get(tag)
                 if tagname and tagname not in tagdict:
                     self._del_tag(raw, tag)
@@ -270,4 +274,3 @@ class BaseFormat(object):
                 return None
 
 # vim: et sts=4 sw=4
-

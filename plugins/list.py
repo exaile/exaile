@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 # - good = works
 #   - main = useful
@@ -7,6 +8,7 @@ import os, sys
 
 EXTRA = ['console', 'helloworld']
 BAD = ['shoutcast']
+
 
 def scan():
     all = set(f for f in os.listdir('.') if os.path.isdir(f))
@@ -17,6 +19,7 @@ def scan():
     return locals()
 
 plugins = scan()
+
 
 def parse(argv):
     if len(argv) == 1:

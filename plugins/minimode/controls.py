@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -50,6 +51,7 @@ from xlgui.widgets.rating import RatingWidget
 
 logger = logging.getLogger(__name__)
 
+
 def suppress(signal):
     """
         Decorator which prevents the emission of a GObject signal
@@ -66,6 +68,7 @@ def suppress(signal):
         return wrapped_function
     return wrapper
 
+
 class ControlBox(Gtk.HBox, providers.ProviderHandler):
     """
         A box for minimode controls which
@@ -81,7 +84,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
         self.__controls = {}
 
         event.add_ui_callback(self.on_option_set,
-            'plugin_minimode_option_set')
+                              'plugin_minimode_option_set')
 
     def destroy(self):
         """
@@ -96,7 +99,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
         """
         if item in self.__controls:
             return True
-        
+
         return False
 
     def __getitem__(self, name):
@@ -133,20 +136,20 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
             ['previous', 'play_pause', 'next', 'playlist_button',
              'progress_bar', 'restore'])
 
-        added_controls = [c for c in selected_controls \
-            if c not in self]
+        added_controls = [c for c in selected_controls
+                          if c not in self]
 
         for name in added_controls:
             try:
                 provider = self.get_provider(name)()
-            except Exception: # Not found, initialization error, ...)
+            except Exception:  # Not found, initialization error, ...)
                 logger.exception('Failed to add control provider "%s"', name)
                 selected_controls.remove(name)
             else:
                 self[name] = provider
 
-        removed_controls = [c.name for c in self \
-            if c.name not in selected_controls]
+        removed_controls = [c.name for c in self
+                            if c.name not in selected_controls]
 
         for name in removed_controls:
             del self[name]
@@ -183,6 +186,8 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
                 self.__dirty = True
 
 # Control definitions
+
+
 class BaseControl(object):
     """
         Base control provider
@@ -191,6 +196,7 @@ class BaseControl(object):
     title = None
     description = None
     fixed = False
+
 
 class ButtonControl(Gtk.Button, BaseControl):
     """
@@ -214,6 +220,7 @@ class ButtonControl(Gtk.Button, BaseControl):
         """
         self.props.image.set_from_stock(stock_id, Gtk.IconSize.BUTTON)
 
+
 class PreviousButtonControl(ButtonControl):
     """
         Button which allows for going to the previous track
@@ -234,6 +241,7 @@ class PreviousButtonControl(ButtonControl):
         """
         player.QUEUE.prev()
 
+
 class NextButtonControl(ButtonControl):
     """
         Button which allows for going to the next track
@@ -253,6 +261,7 @@ class NextButtonControl(ButtonControl):
             Goes to the next track
         """
         player.QUEUE.next()
+
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
     """
@@ -319,6 +328,7 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
             Updates state
         """
         self.update_state()
+
 
 class StopButtonControl(ButtonControl):
     """
@@ -425,6 +435,7 @@ class StopButtonControl(ButtonControl):
             self._queue_spat = False
             self.update_state()
 
+
 class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     """
         Button which allows for changing the volume
@@ -437,7 +448,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     def __init__(self):
         Gtk.VolumeButton.__init__(self)
         BaseControl.__init__(self)
-        
+
         self.updating = False
 
         adjustment = Gtk.Adjustment(upper=1, step_incr=0.1, page_incr=0.2)
@@ -488,6 +499,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
         if option == 'player/volume':
             self.set_value(float(settings.get_option(option)))
 
+
 class RestoreButtonControl(ButtonControl):
     """
         Button which allows for restoring the main window
@@ -523,7 +535,8 @@ class RestoreButtonControl(ButtonControl):
         else:
             key, modifier = Gtk.accelerator_parse('<Control><Alt>M')
             self.add_accelerator('clicked', accel_group, key, modifier,
-                Gtk.AccelFlags.VISIBLE)
+                                 Gtk.AccelFlags.VISIBLE)
+
 
 class RatingControl(RatingWidget, BaseControl):
     """
@@ -547,12 +560,13 @@ class RatingControl(RatingWidget, BaseControl):
             maximum = settings.get_option('rating/maximum', 5)
             event.log_event('rating_changed', self, rating / maximum * 100)
 
+
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
     name = 'track_selector'
     title = _('Track selector')
     description = _('Simple track list selector')
     __gsignals__ = {'changed': 'override'}
-    
+
     def __init__(self):
         Gtk.ComboBox.__init__(self)
         BaseControl.__init__(self)
@@ -570,9 +584,9 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
         self.set_size_request(200, 0)
 
         event.add_ui_callback(self.on_option_set,
-            'plugin_minimode_option_set')
+                              'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
-            'plugin/minimode/track_title_format')
+                           'plugin/minimode/track_title_format')
 
     def destroy(self):
         """
@@ -656,7 +670,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
         self.set_model(None)
         tracks.reverse()
-        
+
         for position, track in tracks:
             del self.model[position]
 
@@ -700,12 +714,13 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
                 settings.get_option(option, _('$tracknumber - $title'))
             )
 
+
 class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
     name = 'playlist_button'
     title = _('Playlist button')
     description = _('Access the current playlist')
     __gsignals__ = {'scroll-event': 'override'}
-    
+
     def __init__(self):
         Gtk.ToggleButton.__init__(self)
         BaseControl.__init__(self)
@@ -729,12 +744,13 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self.popup = AttachedWindow(self)
         self.popup.set_default_size(
             settings.get_option('plugin/minimode/'
-                'playlist_button_popup_width', 350),
+                                'playlist_button_popup_width', 350),
             settings.get_option('plugin/minimode/'
-                'playlist_button_popup_height', 400)
+                                'playlist_button_popup_height', 400)
         )
         scrollwindow = Gtk.ScrolledWindow()
-        scrollwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scrollwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                Gtk.PolicyType.AUTOMATIC)
         scrollwindow.set_shadow_type(Gtk.ShadowType.IN)
         scrollwindow.add(self.view)
         self.popup.add(scrollwindow)
@@ -743,7 +759,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         accel_group = Gtk.AccelGroup()
         key, modifier = Gtk.accelerator_parse('<Control>J')
         accel_group.connect_group(key, modifier, Gtk.AccelFlags.VISIBLE,
-            self.on_accelerator_activate)
+                                  self.on_accelerator_activate)
         self.popup.add_accel_group(accel_group)
 
         self.tooltip = TrackToolTip(self, player.PLAYER)
@@ -758,8 +774,8 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self._toplevel_window_state_event_id = None
 
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.view.targets,
-            Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
-            Gdk.DragAction.MOVE)
+                           Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
+                           Gdk.DragAction.MOVE)
 
         self.connect('drag-motion', self.on_drag_motion)
         self.connect('drag-leave', self.on_drag_leave)
@@ -767,11 +783,11 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self.view.connect('drag-motion', self.on_drag_motion)
         self.view.connect('drag-leave', self.on_drag_leave)
         event.add_ui_callback(self.on_track_tags_changed,
-            'track_tags_changed')
+                              'track_tags_changed')
         event.add_ui_callback(self.on_option_set,
-            'plugin_minimode_option_set')
+                              'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
-            'plugin/minimode/track_title_format')
+                           'plugin/minimode/track_title_format')
 
     def destroy(self):
         """
@@ -893,7 +909,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
             self._drag_leave_timeout_id = None
 
         self.view.emit('drag-data-received', context, x, y,
-            selection, info, time)
+                       selection, info, time)
 
     def on_toplevel_hide(self, widget):
         """
@@ -912,17 +928,17 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
             Saves the window size after resizing
         """
         width = settings.get_option('plugin/minimode/'
-            'playlist_button_popup_width', 350)
+                                    'playlist_button_popup_width', 350)
         height = settings.get_option('plugin/minimode/'
-            'playlist_button_popup_height', 400)
+                                     'playlist_button_popup_height', 400)
 
         if event.width != width:
             settings.set_option('plugin/minimode/'
-                'playlist_button_popup_width', event.width)
+                                'playlist_button_popup_width', event.width)
 
         if event.height != height:
             settings.set_option('plugin/minimode/'
-                'playlist_button_popup_height', event.height)
+                                'playlist_button_popup_height', event.height)
 
     def on_queue_current_playlist_changed(self, event, queue, playlist):
         """
@@ -963,11 +979,13 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
                 settings.get_option(option, _('$tracknumber - $title'))
             )
 
+
 class ProgressButtonFormatter(Formatter):
     """
         Formatter which allows both for display of
         tag data as well as progress information
     """
+
     def __init__(self):
         Formatter.__init__(self, self.get_option_value())
 
@@ -976,7 +994,7 @@ class ProgressButtonFormatter(Formatter):
             self.props.format, player.PLAYER)
 
         event.add_ui_callback(self.on_option_set,
-            'plugin_minimode_option_set')
+                              'plugin_minimode_option_set')
 
     def format(self, current_time=None, total_time=None):
         """
@@ -1000,7 +1018,7 @@ class ProgressButtonFormatter(Formatter):
             Retrieves the current user format
         """
         return settings.get_option('plugin/minimode/progress_button_title_format',
-            _('$title ($current_time / $total_time)'))
+                                   _('$title ($current_time / $total_time)'))
 
     def on_option_set(self, event, settings, option):
         """
@@ -1008,9 +1026,9 @@ class ProgressButtonFormatter(Formatter):
         """
         if option == 'gui/progress_bar_text_format':
             GLib.idle_add(self.set_property,
-                'format',
-                self.get_option_value()
-            )
+                          'format',
+                          self.get_option_value()
+                          )
 
 Gtk.rc_parse_string('''
     style "progress-button" {
@@ -1020,6 +1038,8 @@ Gtk.rc_parse_string('''
     }
     widget "*.progressbutton" style "progress-button"
 ''')
+
+
 class ProgressButtonControl(PlaylistButtonControl):
     name = 'progress_button'
     title = _('Progress button')
@@ -1027,10 +1047,10 @@ class ProgressButtonControl(PlaylistButtonControl):
                     'to the current playlist')
     # Required to make overrides work
     __gsignals__ = {}
-    
+
     def __init__(self):
         PlaylistButtonControl.__init__(self)
-        
+
         self.set_name('progressbutton')
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
 
@@ -1066,7 +1086,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         elif event.button == 2:
             event.button = 1
             x, y = self.translate_coordinates(self.progressbar,
-                int(event.x), int(event.y))
+                                              int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.progressbar.emit('button-press-event', event)
 
@@ -1076,21 +1096,22 @@ class ProgressButtonControl(PlaylistButtonControl):
         elif event.button == 2:
             event.button = 1
             x, y = self.translate_coordinates(self.progressbar,
-                int(event.x), int(event.y))
+                                              int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.progressbar.emit('button-release-event', event)
 
     def do_motion_notify_event(self, event):
         x, y = self.translate_coordinates(self.progressbar,
-            int(event.x), int(event.y))
+                                          int(event.x), int(event.y))
         event.x, event.y = float(x), float(y)
         self.progressbar.emit('motion-notify-event', event)
 
     def do_leave_notify_event(self, event):
         x, y = self.translate_coordinates(self.progressbar,
-            int(event.x), int(event.y))
+                                          int(event.x), int(event.y))
         event.x, event.y = float(x), float(y)
         self.progressbar.emit('leave-notify-event', event)
+
 
 class ProgressBarControl(Gtk.Alignment, BaseControl):
     name = 'progress_bar'
@@ -1112,7 +1133,7 @@ class ProgressBarControl(Gtk.Alignment, BaseControl):
                 player.PLAYER,
                 player.PLAYER.current
             )
-            
+
             if player.PLAYER.is_paused():
                 self.progressbar.on_playback_toggle_pause(
                     'playback_toggle_pause',
@@ -1141,6 +1162,7 @@ control_types = [
     ProgressBarControl,
 ]
 
+
 def register():
     """
         Registers all control providers
@@ -1148,10 +1170,10 @@ def register():
     for control_type in control_types:
         providers.register('minimode-controls', control_type)
 
+
 def unregister():
     """
         Unregisters all control providers
     """
     for control_type in control_types:
         providers.unregister('minimode-controls', control_type)
-

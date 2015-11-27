@@ -25,41 +25,41 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 from mutagen import asf
+
 
 class AsfFormat(BaseFormat):
     MutagenType = asf.ASF
     # TODO: figure out the the WM/ prefix is universal
     tag_mapping = {
-            "artist"        : "Author",
-            "album"         : "WM/AlbumTitle",
-            "title"         : "Title",
-            "genre"         : "WM/Genre",
-            "tracknumber"   : "WM/TrackNumber",
-            "date"          : "WM/Year",
-            "albumartist"   : "WM/AlbumArtist",
-            "grouping"      : "WM/ContentGroupDescription"
-        }
+        "artist": "Author",
+        "album": "WM/AlbumTitle",
+        "title": "Title",
+        "genre": "WM/Genre",
+        "tracknumber": "WM/TrackNumber",
+        "date": "WM/Year",
+        "albumartist": "WM/AlbumArtist",
+        "grouping": "WM/ContentGroupDescription"
+    }
     others = False
     writable = True
-    
+
     def _get_tag(self, raw, t):
         # the mutagen container for ASF returns the WM/ fields in its own
-        # wrappers which are *almost* like a string.. convert them to 
+        # wrappers which are *almost* like a string.. convert them to
         # unicode so things don't break
         tag = super(AsfFormat, self)._get_tag(raw, t)
         if isinstance(tag, list):
             attrs = [asf.ASFUnicodeAttribute, asf.ASFDWordAttribute,
-                         asf.ASFQWordAttribute, asf.ASFWordAttribute]
-            
+                     asf.ASFQWordAttribute, asf.ASFWordAttribute]
+
             def __process_tag(t):
                 for attrtype in attrs:
-                    if isinstance(t,attrtype):
+                    if isinstance(t, attrtype):
                         return unicode(t)
                 return t
-            
+
             return [__process_tag(t) for t in tag]
 
 # vim: et sts=4 sw=4

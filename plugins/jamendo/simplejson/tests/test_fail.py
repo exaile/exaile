@@ -61,7 +61,9 @@ SKIPS = {
     18: "spec doesn't specify any nesting limitations",
 }
 
+
 class TestFail(TestCase):
+
     def test_failures(self):
         for idx, doc in enumerate(JSONDOCS):
             idx = idx + 1

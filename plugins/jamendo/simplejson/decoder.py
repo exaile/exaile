@@ -14,6 +14,7 @@ __all__ = ['JSONDecoder']
 
 FLAGS = re.VERBOSE | re.MULTILINE | re.DOTALL
 
+
 def _floatconstants():
     _BYTES = '7FF80000000000007FF0000000000000'.decode('hex')
     if sys.byteorder != 'big':
@@ -38,12 +39,12 @@ def errmsg(msg, doc, pos, end=None):
     lineno, colno = linecol(doc, pos)
     if end is None:
         #fmt = '{0}: line {1} column {2} (char {3})'
-        #return fmt.format(msg, lineno, colno, pos)
+        # return fmt.format(msg, lineno, colno, pos)
         fmt = '%s: line %d column %d (char %d)'
         return fmt % (msg, lineno, colno, pos)
     endlineno, endcolno = linecol(doc, end)
     #fmt = '{0}: line {1} column {2} - line {3} column {4} (char {5} - {6})'
-    #return fmt.format(msg, lineno, colno, endlineno, endcolno, pos, end)
+    # return fmt.format(msg, lineno, colno, endlineno, endcolno, pos, end)
     fmt = '%s: line %d column %d - line %d column %d (char %d - %d)'
     return fmt % (msg, lineno, colno, endlineno, endcolno, pos, end)
 
@@ -61,6 +62,7 @@ BACKSLASH = {
 }
 
 DEFAULT_ENCODING = "utf-8"
+
 
 def py_scanstring(s, end, encoding=None, strict=True, _b=BACKSLASH, _m=STRINGCHUNK.match):
     """Scan the string s for a JSON string. End is the index of the
@@ -145,6 +147,7 @@ scanstring = c_scanstring or py_scanstring
 WHITESPACE = re.compile(r'[ \t\n\r]*', FLAGS)
 WHITESPACE_STR = ' \t\n\r'
 
+
 def JSONObject((s, end), encoding, strict, scan_once, object_hook, _w=WHITESPACE.match, _ws=WHITESPACE_STR):
     pairs = {}
     # Use a slice to prevent IndexError from being raised, the following
@@ -220,6 +223,7 @@ def JSONObject((s, end), encoding, strict, scan_once, object_hook, _w=WHITESPACE
         pairs = object_hook(pairs)
     return pairs, end
 
+
 def JSONArray((s, end), scan_once, _w=WHITESPACE.match, _ws=WHITESPACE_STR):
     values = []
     nextchar = s[end:end + 1]
@@ -256,6 +260,7 @@ def JSONArray((s, end), scan_once, _w=WHITESPACE.match, _ws=WHITESPACE_STR):
 
     return values, end
 
+
 class JSONDecoder(object):
     """Simple JSON <http://json.org> decoder
 
@@ -287,7 +292,7 @@ class JSONDecoder(object):
     """
 
     def __init__(self, encoding=None, object_hook=None, parse_float=None,
-            parse_int=None, parse_constant=None, strict=True):
+                 parse_int=None, parse_constant=None, strict=True):
         """``encoding`` determines the encoding used to interpret any ``str``
         objects decoded by this instance (utf-8 by default).  It has no
         effect when decoding ``unicode`` objects.

@@ -17,6 +17,7 @@
 key_map = None
 hook_manager = None
 
+
 def on_key_down(event):
     # NOTE: Because we capture every single key in the system, the following
     # test will fail almost 100% of the time. That's why we use a very simple
@@ -27,12 +28,14 @@ def on_key_down(event):
     else:
         return True
 
+
 def enable(exaile):
     if exaile.loading:
         import xl.event
         xl.event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(eventname, exaile, eventdata):
     global key_map, hook_manager
@@ -50,6 +53,7 @@ def _enable(eventname, exaile, eventdata):
     hook_manager = pyHook.HookManager()
     hook_manager.KeyDown = on_key_down
     hook_manager.HookKeyboard()
+
 
 def disable(exaile):
     global key_map, hook_manager

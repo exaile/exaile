@@ -12,6 +12,7 @@ from xl.lyrics import (
 )
 from xl import common, providers
 
+
 def enable(exaile):
     """
         Enables the lyric wiki plugin that fetches track lyrics
@@ -23,14 +24,17 @@ def enable(exaile):
         raise NotImplementedError('BeautifulSoup is not available.')
         return False
 
+
 def disable(exaile):
-    providers.unregister('lyrics', providers.get_provider('lyrics', 'lyricwiki'))
+    providers.unregister(
+        'lyrics', providers.get_provider('lyrics', 'lyricwiki'))
+
 
 class LyricWiki(LyricSearchMethod):
 
-    name= "lyricwiki"
+    name = "lyricwiki"
     display_name = "Lyric Wiki"
-    
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lyricwiki')
 
@@ -44,8 +48,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ','_'))
-        title = urllib.quote(title.replace(' ','_'))
+        artist = urllib.quote(artist.replace(' ', '_'))
+        title = urllib.quote(title.replace(' ', '_'))
 
         url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 
@@ -58,27 +62,29 @@ class LyricWiki(LyricSearchMethod):
             soup = BeautifulSoup.BeautifulSoup(html)
         except HTMLParser.HTMLParseError:
             raise LyricsNotFoundException
-        lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
+        lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
-            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')[0:-7]))
+            lyrics = re.sub(r' Send.*?Ringtone to your Cell ', '', '\n'.join(self.remove_div(lyrics[
+                            0].renderContents().replace('<br />', '\n')).replace('\n\n\n', '').split('\n')[0:-7]))
         else:
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(
+            lyrics, convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 
     def remove_script(self, data):
         p = re.compile(r'<script.*/script>')
-        return p.sub('',data)
+        return p.sub('', data)
 
-    def remove_div(self,data):
+    def remove_div(self, data):
         p = re.compile(r'<div.*/div>')
-        return p.sub('',data)
-            
+        return p.sub('', data)
+
     def remove_html_tags(self, data):
         p = re.compile(r'<[^<]*?/?>')
         data = p.sub('', data)
         p = re.compile(r'/<!--.*?-->/')
-        return p.sub('',data)
+        return p.sub('', data)

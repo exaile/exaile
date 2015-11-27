@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 from mutagen import apev2
 
@@ -51,7 +50,7 @@ class ApeFormat(BaseFormat):
         "artistsort": "ARTISTSORT",
         "titlesort": "TITLESORT",
         "grouping": "Grouping"
-        }
+    }
     others = True
     writable = True
 

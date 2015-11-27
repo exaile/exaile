@@ -21,26 +21,32 @@ def test_is_valid_track_valid():
             continue
         assert xl.trax.util.is_valid_track(track), track
 
+
 def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('/')
     assert not xl.trax.util.is_valid_track('/tmp')
     assert not xl.trax.util.is_valid_track(__file__)
     assert not xl.trax.util.is_valid_track('http:///tmp')
 
+
 class TestGetTracksFromUri(unittest.TestCase):
+
     class DummyClass:
+
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval
+
         def query_info(self, value):
             self.parent.assertEqual(value, 'standard::type')
             return self
+
         def get_file_type(self):
             return self.retval
 
     def setUp(self):
         self.mox = mox.Mox()
-    
+
     def tearDown(self):
         self.mox.UnsetStubs()
 
@@ -52,8 +58,8 @@ class TestGetTracksFromUri(unittest.TestCase):
         elif file_type == 'd':
             file_type = Gio.FileType.DIRECTORY
         elif file_type == 'n':
-#            anything.query_exists(None).AndReturn(False)
-#            return anything
+            #            anything.query_exists(None).AndReturn(False)
+            #            return anything
             pass
         else:
             raise NotImplementedError
@@ -83,7 +89,7 @@ class TestGetTracksFromUri(unittest.TestCase):
         f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
         self.mox.ReplayAll()
         self.assertEqual(xl.trax.util.get_tracks_from_uri(loc),
-                [xl.trax.track.Track(loc)])
+                         [xl.trax.track.Track(loc)])
         self.mox.VerifyAll()
 
     def test_directory(self):
@@ -106,11 +112,12 @@ class TestGetTracksFromUri(unittest.TestCase):
         xl.trax.util.get_tracks_from_uri(loc)
         self.mox.VerifyAll()
 
+
 class TestSortTracks(unittest.TestCase):
 
     def setUp(self):
         self.tracks = [xl.trax.track.Track(url) for url in
-                    ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
+                       ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(self.tracks, 'aab'):
             track.set_tag_raw('artist', val)
         for track, val in zip(self.tracks, '212'):
@@ -120,31 +127,31 @@ class TestSortTracks(unittest.TestCase):
 
     def test_sorted(self):
         self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks), self.result)
+                                                  self.tracks), self.result)
 
     def test_reversed(self):
         self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks, reverse=True), list(reversed(self.result)))
+                                                  self.tracks, reverse=True), list(reversed(self.result)))
+
 
 class TestSortResultTracks(unittest.TestCase):
 
     def setUp(self):
         tracks = [xl.trax.track.Track(url) for url in
-                    ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
+                  ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(tracks, 'aab'):
             track.set_tag_raw('artist', val)
         for track, val in zip(tracks, '212'):
             track.set_tag_raw('discnumber', val)
         self.tracks = [xl.trax.search.SearchResultTrack(track)
-                for track in tracks]
+                       for track in tracks]
         self.fields = ('artist', 'discnumber')
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
         self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks), self.result)
+                                                         self.tracks), self.result)
 
     def test_reversed(self):
         self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks, True), list(reversed(self.result)))
-
+                                                         self.tracks, True), list(reversed(self.result)))

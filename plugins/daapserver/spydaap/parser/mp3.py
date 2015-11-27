@@ -1,21 +1,28 @@
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen.id3, mutagen.mp3, spydaap, re, os, struct, sys
+import mutagen.id3
+import mutagen.mp3
+import spydaap
+import re
+import os
+import struct
+import sys
 from spydaap.daap import do
 mutagen.id3.ID3.PEDANTIC = False
+
 
 class Mp3Parser(spydaap.parser.Parser):
     mp3_string_map = {
@@ -26,20 +33,20 @@ class Mp3Parser(spydaap.parser.Parser):
         'TCOM': 'daap.songcomposer',
         'TCON': 'daap.songgenre',
         'TALB': 'daap.songalbum',
-        }
+    }
 
     mp3_int_map = {
         'TBPM': 'daap.songbeatsperminute',
         'TDRC': 'daap.songyear',
         'TCMP': 'daap.songcompilation',
         #'TLEN': 'daap.songtime',
-        }
+    }
 #do('daap.songdiscnumber', 1),
 #        do('daap.songgenre', 'Test'),
 #        do('daap.songdisccount', 1),
 #        do('daap.songcompilation', False),
 #        do('daap.songuserrating', 1),
-                
+
     def handle_rating(self, mp3, d):
         popm = mp3.tags.getall('POPM')
         if popm != None and len(popm) > 0:
@@ -54,8 +61,10 @@ class Mp3Parser(spydaap.parser.Parser):
             tracknumber = self.my_int(t[0])
             if (len(t) == 2):
                 trackcount = self.my_int(t[1])
-        if tracknumber: d.append(do('daap.songtracknumber', tracknumber))
-        if trackcount: d.append(do('daap.songtrackcount', trackcount))
+        if tracknumber:
+            d.append(do('daap.songtracknumber', tracknumber))
+        if trackcount:
+            d.append(do('daap.songtrackcount', trackcount))
 
     def handle_disc(self, mp3, d):
         discnumber = None
@@ -65,10 +74,13 @@ class Mp3Parser(spydaap.parser.Parser):
             discnumber = self.my_int(t[0])
             if (len(t) == 2):
                 disccount = self.my_int(t[1])
-        if discnumber: d.append(do('daap.songdiscnumber', discnumber))
-        if disccount: d.append(do('daap.songdisccount', disccount))
+        if discnumber:
+            d.append(do('daap.songdiscnumber', discnumber))
+        if disccount:
+            d.append(do('daap.songdisccount', disccount))
 
     file_re = re.compile(".*\\.[mM][pP]3$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
 

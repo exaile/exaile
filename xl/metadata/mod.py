@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 from mutagen import FileType
 
@@ -43,6 +42,7 @@ try:
 except (ImportError, OSError):
     modplug = None
 
+
 class ModFormat(BaseFormat):
     ignore_tags = ["__length"]
     writable = False
@@ -52,9 +52,10 @@ class ModFormat(BaseFormat):
             data = open(self.loc, "rb").read()
             f = modplug.ModPlug_Load(data, len(data))
             if f:
-                name = modplug.ModPlug_GetName(f) or os.path.split(self.loc)[-1]
+                name = modplug.ModPlug_GetName(
+                    f) or os.path.split(self.loc)[-1]
                 length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
-                self.mutagen = {'title': name, '__length':length}
+                self.mutagen = {'title': name, '__length': length}
         else:
             self.mutagen = {}
 
@@ -68,4 +69,3 @@ class ModFormat(BaseFormat):
         return -1
 
 # vim: et sts=4 sw=4
-

@@ -2,12 +2,14 @@ from unittest import TestCase
 
 import simplejson as json
 
+
 class JSONTestObject:
     pass
 
 
 class RecursiveJSONEncoder(json.JSONEncoder):
     recurse = False
+
     def default(self, o):
         if o is JSONTestObject:
             if self.recurse:
@@ -18,6 +20,7 @@ class RecursiveJSONEncoder(json.JSONEncoder):
 
 
 class TestRecursion(TestCase):
+
     def test_listrecursion(self):
         x = []
         x.append(x)

@@ -53,13 +53,15 @@ EVENT_MANAGER = None
 
 logger = logging.getLogger(__name__)
 
+
 class Nothing(object):
     pass
 
-_NONE = Nothing() # used by event for a safe None replacement
+_NONE = Nothing()  # used by event for a safe None replacement
 
-# Assumes that this module was imported on main thread 
+# Assumes that this module was imported on main thread
 _UiThread = threading.current_thread()
+
 
 def log_event(type, obj, data):
     """
@@ -75,6 +77,7 @@ def log_event(type, obj, data):
     global EVENT_MANAGER
     e = Event(type, obj, data, time.time())
     EVENT_MANAGER.emit(e)
+
 
 def add_callback(function, type=None, obj=None, *args, **kwargs):
     """
@@ -97,11 +100,12 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
         :type obj: object
 
         Any additional parameters will be passed to the callback.
-        
+
         :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
+
 
 def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
     """
@@ -125,11 +129,12 @@ def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
         :type obj: object
 
         Any additional parameters will be passed to the callback.
-        
+
         :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs, ui=True)
+
 
 def remove_callback(function, type=None, obj=None):
     """
@@ -147,7 +152,7 @@ class Event(object):
         Represents an Event
     """
     __slots__ = ['type', 'object', 'data', 'time']
-    
+
     def __init__(self, type, obj, data, time):
         """
             type: the 'type' or 'name' for this Event [string]
@@ -159,13 +164,14 @@ class Event(object):
         self.data = data
         self.time = time
 
+
 class Callback(object):
     """
         Represents a callback
     """
-    
+
     __slots__ = ['wfunction', 'time', 'args', 'kwargs']
-    
+
     def __init__(self, function, time, args, kwargs):
         """
             @param function: the function to call
@@ -175,9 +181,10 @@ class Callback(object):
         self.time = time
         self.args = args
         self.kwargs = kwargs
-        
+
     def __repr__(self):
         return '<Callback %s>' % self.wfunction()
+
 
 class _WeakMethod:
     """Represent a weak bound method, i.e. a method doesn't keep alive the
@@ -186,7 +193,7 @@ class _WeakMethod:
     Typically, you will use the getRef() function instead of using
     this class directly. """
 
-    def __init__(self, method, notifyDead = None):
+    def __init__(self, method, notifyDead=None):
         """
             The method must be bound. notifyDead will be called when
             object that method is bound to dies.
@@ -210,8 +217,8 @@ class _WeakMethod:
         if not isinstance(method2, _WeakMethod):
             return False
         return      self.fun      is method2.fun \
-                and self.objRef() is method2.objRef() \
-                and self.objRef() is not None
+            and self.objRef() is method2.objRef() \
+            and self.objRef() is not None
 
     def __hash__(self):
         return hash(self.fun)
@@ -226,6 +233,7 @@ class _WeakMethod:
     def refs(self, weakRef):
         """Return true if we are storing same object referred to by weakRef."""
         return self.objRef == weakRef
+
 
 def _getWeakRef(obj, notifyDead=None):
     """
@@ -245,11 +253,11 @@ def _getWeakRef(obj, notifyDead=None):
         return createRef(obj, notifyDead)
 
 
-
 class EventManager(object):
     """
         Manages all Events
     """
+
     def __init__(self, use_logger=False, logger_filter=None, verbose=False):
         # sacrifice space for speed in emit
         self.all_callbacks = {}
@@ -269,30 +277,30 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        
-        emit_logmsg = self.use_logger and (not self.logger_filter or \
-                   re.search(self.logger_filter, event.type))
+
+        emit_logmsg = self.use_logger and (not self.logger_filter or
+                                           re.search(self.logger_filter, event.type))
         emit_verbose = emit_logmsg and self.use_verbose_logger
-        
+
         global _UiThread
         is_ui_thread = (threading.current_thread() == _UiThread)
-        
+
         # note: a majority of the calls to emit are made on the
         #       UI thread
-        
+
         if is_ui_thread:
             self._emit(event, self.all_callbacks, emit_logmsg, emit_verbose)
         else:
             # Don't issue the log message twice
-            GLib.idle_add(self._emit, event, self.ui_callbacks, emit_logmsg, emit_verbose)
+            GLib.idle_add(self._emit, event, self.ui_callbacks,
+                          emit_logmsg, emit_verbose)
             self._emit(event, self.callbacks, False, emit_verbose)
-    
-    
+
     def _emit(self, event, exc_callbacks, emit_logmsg, emit_verbose):
-        
+
         # Accumulate in this set to ensure callbacks only get called once
         callbacks = set()
-        
+
         with self.lock:
             for tcall in [_NONE, event.type]:
                 tcb = exc_callbacks.get(tcall)
@@ -301,7 +309,7 @@ class EventManager(object):
                         ocb = tcb.get(ocall)
                         if ocb is not None:
                             callbacks.update(ocb)
-        
+
         # However, do not actually call the callbacks from within the lock
         # -> Otherwise non-ui threads could accidentally block the UI if
         #    they decide to run for too long
@@ -312,7 +320,7 @@ class EventManager(object):
                 if fn is None:
                     # Remove callbacks that have been garbage collected.. but
                     # really, should be using remove_callback to clean up after
-                    # your event handler 
+                    # your event handler
                     with self.lock:
                         try:
                             exc_callbacks[event.type][event.object].remove(cb)
@@ -321,22 +329,22 @@ class EventManager(object):
                 elif event.time >= cb.time:
                     if emit_verbose:
                         logger.debug("Attempting to call "
-                                "%(function)s in response "
-                                "to %(event)s." % {
-                                    'function': fn,
-                                    'event': event.type})
+                                     "%(function)s in response "
+                                     "to %(event)s." % {
+                                         'function': fn,
+                                         'event': event.type})
                     fn.__call__(event.type, event.object,
                                 event.data, *cb.args, **cb.kwargs)
                 fn = None
             except Exception:
                 # something went wrong inside the function we're calling
                 logger.exception("Event callback exception caught!")
-        
+
         if emit_logmsg:
             logger.debug("Sent '%(type)s' event from "
-                    "'%(object)s' with data '%(data)s'." %
-                        {'type' : event.type, 'object' : repr(event.object),
-                        'data' : repr(event.data)})
+                         "'%(object)s' with data '%(data)s'." %
+                         {'type': event.type, 'object': repr(event.object),
+                          'data': repr(event.data)})
 
     def emit_async(self, event):
         """
@@ -354,19 +362,19 @@ class EventManager(object):
                 to any. [string]
             @param obj: The object to listen to events from. Defaults
                 to any. [string]
-                
+
             Returns a convenience function that you can call to 
             remove the callback.
         """
-        
+
         if ui:
             all_cbs = [self.ui_callbacks, self.all_callbacks]
         else:
-            all_cbs = [self.callbacks, self.all_callbacks] 
-        
+            all_cbs = [self.callbacks, self.all_callbacks]
+
         with self.lock:
             cb = Callback(function, time.time(), args, kwargs)
-            
+
             # add the specified categories if needed.
             for cbs in all_cbs:
                 if type not in cbs:
@@ -377,15 +385,15 @@ class EventManager(object):
                     callbacks = cbs[type][obj]
                 except KeyError:
                     callbacks = cbs[type][obj] = []
-    
+
                 # add the actual callback
                 callbacks.append(cb)
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
                 logger.debug("Added callback %s for [%s, %s]" %
-                        (function, type, obj))
-                
+                             (function, type, obj))
+
         return lambda: self.remove_callback(function, type, obj)
 
     def remove_callback(self, function, type=None, obj=None):
@@ -397,7 +405,7 @@ class EventManager(object):
         """
         if obj is None:
             obj = _NONE
-        
+
         with self.lock:
             for cbs in [self.callbacks, self.all_callbacks, self.ui_callbacks]:
                 remove = []
@@ -410,10 +418,10 @@ class EventManager(object):
                     continue
                 except TypeError:
                     continue
-    
+
                 for cb in remove:
                     callbacks.remove(cb)
-                
+
                 if len(callbacks) == 0:
                     del cbs[type][obj]
                     if len(cbs[type]) == 0:
@@ -422,11 +430,9 @@ class EventManager(object):
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
                 logger.debug("Removed callback %s for [%s, %s]" %
-                        (function, type, obj))
-
+                             (function, type, obj))
 
 
 EVENT_MANAGER = EventManager()
 
 # vim: et sts=4 sw=4
-

@@ -25,13 +25,12 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 from mutagen import oggspeex
+
 
 class SpeexFormat(BaseFormat):
     MutagenType = oggspeex.OggSpeex
     writable = True
 
 # vim: et sts=4 sw=4
-

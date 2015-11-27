@@ -32,17 +32,18 @@ from xl.nls import gettext as _
 
 from xlgui.guiutil import GtkTemplate
 
+
 @GtkTemplate('ui', 'widgets', 'progress.ui')
 class ProgressMonitor(Gtk.Box):
     """
         A graphical progress monitor
     """
-    
+
     __gtype_name__ = 'ProgressMonitor'
-    
+
     label,          \
-    progressbar     = GtkTemplate.Child.widgets(2)
-    
+        progressbar = GtkTemplate.Child.widgets(2)
+
     def __init__(self, manager, thread, description, image=None):
         """
             Initializes the monitor
@@ -63,14 +64,14 @@ class ProgressMonitor(Gtk.Box):
 
         if image is not None:
             self.pack_start(image, False, True, 0)
-            
+
         self.label.set_text(description)
-        
+
         self.show_all()
         GLib.timeout_add(100, self.pulsate_progress)
 
         self.progress_update_id = self.thread.connect('progress-update',
-            self.on_progress_update)
+                                                      self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
         self.thread.start()
 
@@ -122,6 +123,7 @@ class ProgressMonitor(Gtk.Box):
         self.thread.stop()
         self.destroy()
 
+
 class ProgressManager(object):
     """
         Manages the [possibly multiple] progress bars that will allow the user
@@ -131,6 +133,7 @@ class ProgressManager(object):
         The user should be able to see what task is running, the description,
         the current progress, and also be able to stop the task if they wish.
     """
+
     def __init__(self, container):
         """
             Initializes the manager
@@ -161,4 +164,3 @@ class ProgressManager(object):
         """
         monitor.hide()
         monitor.destroy()
-

@@ -125,21 +125,21 @@ class Ebml:
 
     def readInteger(self, length, signed):
         if length == 1:
-            return ord(self.read(1))
+            value = ord(self.read(1))
         elif length == 2:
-            return unpack(">H", self.read(2))[0]
+            value = unpack(">H", self.read(2))[0]
         elif length == 3:
-            return unpack(">L", "\0" + self.read(3))[0]
+            value = unpack(">L", "\0" + self.read(3))[0]
         elif length == 4:
-            return unpack(">L", self.read(4))[0]
+            value = unpack(">L", self.read(4))[0]
         elif length == 5:
-            return unpack(">Q", "\0\0\0" + self.read(5))[0]
+            value = unpack(">Q", "\0\0\0" + self.read(5))[0]
         elif length == 6:
-            return unpack(">Q", "\0\0" + self.read(6))[0]
+            value = unpack(">Q", "\0\0" + self.read(6))[0]
         elif length == 7:
-            return unpack(">Q", "\0" + (self.read(7)))[0]
+            value = unpack(">Q", "\0" + (self.read(7)))[0]
         elif length == 8:
-            return unpack(">Q", self.read(8))[0]
+            value = unpack(">Q", self.read(8))[0]
         else:
             raise EbmlException("don't know how to read %r-byte integer" % length)
         if signed:

@@ -25,12 +25,16 @@ import tempfile
 from gi.repository import Gio
 
 
+class MoodbarGeneratorError(Exception): pass
+
+
 class MoodbarGenerator:
     def generate(self, uri, callback=None):
         """
         :type uri: bytes
         :type callback: Callable[[bytes, bytes], None]
         :rtype: Optional[bytes]
+        :raise MoodbarGeneratorError: on any error while generating moodbar
         """
         raise NotImplementedError
 
@@ -55,12 +59,12 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
             os.close(fd)
             f = None
             try:
-                cmd = [b'moodbar', path, b'-o', tmppath]
+                cmd = [b'moodbar', b'-o', tmppath, path]
                 subprocess.check_call(cmd)
                 f = open(tmppath, 'rb')
                 data = f.read()
-            except (subprocess.CalledProcessError, IOError):
-                pass
+            except (subprocess.CalledProcessError, IOError) as e:
+                raise MoodbarGeneratorError(e)
             finally:
                 if f:
                     f.close()

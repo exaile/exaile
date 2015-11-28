@@ -51,7 +51,7 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
         data = None
         if path:
             # Reserve a temporary file.
-            fd, tmppath = tempfile.mkstemp(b'moodbar.')
+            fd, tmppath = tempfile.mkstemp(prefix=b'moodbar.')
             os.close(fd)
             f = None
             try:

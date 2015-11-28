@@ -46,9 +46,11 @@ class MoodbarPlugin:
         self.main_controller = self.preview_controller = None
 
     def enable(self, exaile):
+        self.generator = SpectrumMoodbarGenerator()
+        self.generator.check()
+
         self.exaile = exaile
         self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
-        self.generator = SpectrumMoodbarGenerator()
         self.painter = MoodbarPainter()
 
         xl.event.add_ui_callback(self.on_preview_device_enabled, 'preview_device_enabled')

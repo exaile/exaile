@@ -29,6 +29,18 @@ class MoodbarGeneratorError(Exception): pass
 
 
 class MoodbarGenerator:
+    def check(self):
+        """Check whether the generator works.
+
+        For example, this can check for the presence of a `moodbar` executable.
+        However, it does not guarantee that the moodbar generator will run
+        without any errors during the generation process.
+
+        :rtype: None
+        :raise MoodbarGeneratorError: if the check fails
+        """
+        raise NotImplementedError
+
     def generate(self, uri, callback=None):
         """
         :type uri: bytes
@@ -50,25 +62,34 @@ class MoodbarGenerator:
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
+    def check(self):
+        try:
+            with open(os.devnull, 'wb') as devnull:
+                subprocess.check_call(('moodbar', '--help'), stdout=devnull)
+        except Exception:
+            raise MoodbarGeneratorError("Failed to run moodbar; make sure it is installed")
+
     def generate(self, uri, callback=None):
         path = Gio.File.new_for_uri(uri).get_path()
         data = None
         if path:
-            # Reserve a temporary file.
-            fd, tmppath = tempfile.mkstemp(prefix=b'moodbar.')
-            os.close(fd)
-            f = None
+            tmppath = f = None
             try:
-                cmd = [b'moodbar', b'-o', tmppath, path]
+                # Reserve a temporary file.
+                fd, tmppath = tempfile.mkstemp(prefix=b'moodbar.')
+                os.close(fd)
+
+                cmd = (b'moodbar', b'-o', tmppath, path)
                 subprocess.check_call(cmd)
                 f = open(tmppath, 'rb')
                 data = f.read()
-            except (subprocess.CalledProcessError, IOError) as e:
+            except Exception as e:
                 raise MoodbarGeneratorError(e)
             finally:
                 if f:
                     f.close()
-                os.remove(tmppath)
+                if tmppath:
+                    os.remove(tmppath)
         if callback:
             callback(uri, data)
         return data

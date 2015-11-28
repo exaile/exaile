@@ -32,8 +32,10 @@ def enable(exaile):
             SUSPEND_PLUGIN = SuspendInhibit()  
         except EnvironmentError:
             logger.error('Failed to Acquire Suspend Bus')
+            raise
         except NotImplementedError:
             logger.error('Desktop Session not implemented')
+            raise
 
         # allow plugin to finished enabling so that if user returns
         # to gnome plugin will not have to be re-enabled

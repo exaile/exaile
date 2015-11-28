@@ -272,4 +272,4 @@ class XfceAdapter(PowerManagerAdapter):
             PowerManagerAdapter.__init__(self)
         except EnvironmentError:
             # Fall back to other bus name
-            PowerManager.__init(self, bus_name='org.xfce.PowerManager')
+            PowerManagerAdapter.__init(self, bus_name='org.xfce.PowerManager')

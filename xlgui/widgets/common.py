@@ -419,7 +419,6 @@ class DragTreeView(AutoScrollTreeView):
             return self.container.button_press(button, event)
         except AttributeError:
             pass
-        return True
 
     def on_button_release(self, button, event):
         """

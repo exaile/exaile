@@ -58,23 +58,6 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
 sys.path.insert(0, basedir)
 os.environ['EXAILE_DIR'] = basedir
 
-# On OSX, GStreamer SDK isn't installed to somewhere that we can easily access
-if sys.platform == 'darwin':
-
-    gst_path = '/Library/Frameworks/GStreamer.framework/Versions/0.10/Libraries/python2.7/site-packages'
-    if not os.path.exists(gst_path):
-        import tkMessageBox
-        tkMessageBox.showwarning("GStreamer SDK was not detected!",
-            "Exaile requires the GStreamer SDK to function. Please read " +
-            "the README file distributed with Exaile for instructions " +
-            "to install it")
-        exit(1)
-
-    sys.path.append(gst_path)
-    sys.argv.append('--no-dbus')
-    sys.argv.append('--no-hal')
-
-
 
 def main():
     from xl import main

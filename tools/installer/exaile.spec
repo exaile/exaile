@@ -1,6 +1,14 @@
 # -*- mode: python -*-
 
+import sys
 from PyInstaller.utils.hooks import collect_submodules
+
+if sys.platform == 'win32':
+	afile = '_inst/usr/lib/exaile/exaile_win.py'
+elif sys.platform == 'darwin':
+	afile = '_inst/usr/lib/exaile/exaile_osx.py'
+else:
+	afile = '_inst/usr/lib/exaile/exaile.py'
 
 block_cipher = None
 
@@ -10,10 +18,11 @@ hiddenimports = collect_submodules('xl') + \
 
 datas =[
   ('_inst/usr/share/exaile/data', ''),
-  ('_inst/usr/share/exaile/plugins', '')
+  ('_inst/usr/share/exaile/plugins', ''),
+  ('_inst/usr/share/locale', 'share/locale')
 ]
 
-a = Analysis(['_inst/usr/lib/exaile/exaile_win.py'],
+a = Analysis([afile],
              pathex=['_inst/usr/lib/exaile'],
              binaries=None,
              datas=datas,
@@ -41,3 +50,9 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                name='exaile')
+
+if sys.platform == 'darwin':
+  app = BUNDLE(coll,
+               name='Exaile.app',
+               icon="../../data/images/exaile.icns",
+               bundle_identifier=None)

@@ -19,23 +19,35 @@ random
 exaile-dist.tar.bz2
 exaile-po.tar.bz2
 exaile-LATEST.exe
+Exaile.dmg
 build
 dist
 
 doc/_build
 
-tools/win-installer/_bin
-tools/win-installer/_build
-tools/win-installer/_build_env
-tools/win-installer/_build_env_installer
-tools/win-installer/_copy
-tools/win-installer/_dist
-tools/win-installer/_inst
-tools/win-installer/_sdk
-tools/win-installer/*sdk.tar.gz
-tools/win-installer/build_installer.sh
-tools/win-installer/build_sdk.sh
-tools/win-installer/clean.sh
+tools/installer/_bin
+tools/installer/_build
+tools/installer/_build_osx
+tools/installer/_build_env
+tools/installer/_build_env_installer
+tools/installer/_copy
+tools/installer/_dist
+tools/installer/_dist_osx
+tools/installer/_home
+tools/installer/_jhbuild
+tools/installer/_inst
+tools/installer/_sdk
+tools/installer/modulesets
+tools/installer/misc
+tools/installer/*sdk.tar.gz
+tools/installer/bootstrap_osx.sh
+tools/installer/build_osx_installer.sh
+tools/installer/build_osx_sdk.sh
+tools/installer/build_win32_installer.sh
+tools/installer/build_win32_sdk.sh
+tools/installer/env.sh
+tools/installer/clean_osx.sh
+tools/installer/clean_win32.sh
 
 .DS_Store
 

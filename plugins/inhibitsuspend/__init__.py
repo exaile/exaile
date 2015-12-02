@@ -3,6 +3,8 @@
     during music playback
 
     It uses the gnome SessionManager interface via dbus
+    
+    TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
 from __future__ import print_function, with_statement
 
@@ -32,8 +34,10 @@ def enable(exaile):
             SUSPEND_PLUGIN = SuspendInhibit()  
         except EnvironmentError:
             logger.error('Failed to Acquire Suspend Bus')
+            raise
         except NotImplementedError:
             logger.error('Desktop Session not implemented')
+            raise
 
         # allow plugin to finished enabling so that if user returns
         # to gnome plugin will not have to be re-enabled
@@ -54,26 +58,28 @@ def disable(exaile):
 
 class SuspendInhibit(object):
     """
-        Attempt to detect desktop session ands initialize appropriate adapter
+        Attempt to detect desktop session and initialize appropriate adapter
     """
 
     def __init__(self):
         # Attempt to detect Desktop Session Type
-        session = os.getenv('DESKTOP_SESSION')
+        session = os.getenv('DESKTOP_SESSION', '').lower()
+        # see https://askubuntu.com/questions/72549/how-to-determine-which-window-manager-is-running
+        xdg_session = os.getenv('XDG_CURRENT_DESKTOP', '').lower()
 
         # Attempt to find an adaptor that works
-        if session == 'gnome':
+        if 'gnome' in session or 'gnome' in xdg_session:
             self.adapter = GnomeAdapter()
-        elif session == 'kde':
+        elif 'kde' in session or 'kde' in xdg_session:
             try:
                 self.adapter = PowerManagerAdapter()
             except EnvironmentError:
                 # Fall back to powerdevil
                 self.adapter = KdeAdapter()
-        elif session == 'xfce':
+        elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
-
-        elif session is None:
+        # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
+        elif session is '' and xdg_session is '':
             logger.warning('Could not detect Desktop Session, will try default \
                     Power Manager then Gnome')
             try:
@@ -82,7 +88,7 @@ class SuspendInhibit(object):
                 # Fall back to Gnome power manager
                 self.adapter = GnomeAdapter()
         else:
-            raise NotImplementedError(session)
+            raise NotImplementedError(xdg_session)
 
     def destroy(self):
         self.adapter.destroy()
@@ -266,4 +272,4 @@ class XfceAdapter(PowerManagerAdapter):
             PowerManagerAdapter.__init__(self)
         except EnvironmentError:
             # Fall back to other bus name
-            PowerManager.__init(self, bus_name='org.xfce.PowerManager')
+            PowerManagerAdapter.__init(self, bus_name='org.xfce.PowerManager')

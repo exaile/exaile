@@ -2117,7 +2117,7 @@ class PlaylistManager(object):
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            playlists.append(line.strip().decode('utf-8'))
+            playlists.append(line[:-1].decode('utf-8'))
         f.close()
         return playlists
 

@@ -825,11 +825,15 @@ class GioFileInputStream(_GioFileStream):
     def __init__(self, gfile):
         self.gfile = gfile
         self.stream = Gio.DataInputStream.new(gfile.read())
+        
+    def __iter__(self):
+        return self
     
     def next(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
+        return r
     
     def read(self, size=None):
         if size:

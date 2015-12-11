@@ -41,7 +41,7 @@ from xl import (
     providers
 )
 from xl.common import classproperty
-from xl.formatter import TrackFormatter, YearTagFormatter
+from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets import rating, menu

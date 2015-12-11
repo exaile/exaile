@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-04-27 11:40+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-11-21 14:22+0000\n"
+"Last-Translator: Olexandr Nesterenko <olexn@ukr.net>\n"
 "Language-Team: Ukrainian "
 "<https://hosted.weblate.org/projects/exaile/master/uk/>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/formatter.py:576
@@ -348,7 +348,7 @@ msgstr "Увімкнути налагодження xl.event. Генерує В�
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr "Додавати назву потоку до повідомлень журналу"
+msgstr "Додавати назву потоку до повідомлень журналу."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -390,7 +390,7 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 "Завантаження Exaile ще не завершилося. Можливо, варто дочекатись сигналу "
-"exaile_loaded."
+"exaile_loaded?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
@@ -402,7 +402,7 @@ msgstr "Локальний файл"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr "Архів модуля має не коректний формат"
+msgstr "Архів модуля має не коректний формат."
 
 #: ../xl/plugins.py:104
 #, python-format
@@ -680,23 +680,20 @@ msgid "Modified"
 msgstr "Змінено"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Кількість відтворень"
+msgstr "Час відтворення"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
 msgstr "Кількість відтворень"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "Зміщення по осі X:"
+msgstr "Початок зсуву"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
-msgstr "Зміщення по осі X:"
+msgstr "Кінець зсуву"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -1263,9 +1260,8 @@ msgid "Re_scan Collection"
 msgstr "Пе_ресканувати збірку"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Пересканувати збірку"
+msgstr "Пересканувати збірку (повільно)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1804,12 +1800,10 @@ msgid "About Exaile"
 msgstr "Про Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
-#, fuzzy
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2010"
+msgstr "&#xA9; 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
-#, fuzzy
 msgid ""
 "Copyright (C) 2008-2014 Various Contributors\n"
 "\n"
@@ -1827,7 +1821,7 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2014 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "Ця програма є вільним ПЗ; ви можете розповсюджувати і/або\n"
 "змінювати її за умовами ліцензії GNU General Public License, як\n"
@@ -2295,9 +2289,8 @@ msgid "Status"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:5
-#, fuzzy
 msgid "Show incompatible plugins"
-msgstr "Не вдалось вимкнути модуль!"
+msgstr "Показувати несумісні модулі"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
@@ -2509,7 +2502,7 @@ msgstr "Невірний ключ API."
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr "Будь-ласка, переконайтеся, що введені дані є вірними"
+msgstr "Будь-ласка, переконайтеся, що введені дані є вірними."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
@@ -2555,48 +2548,41 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
-#, fuzzy
 msgid "Contacting Icecast server..."
-msgstr "Під’єднання до сервера Shoutcast"
+msgstr "Під’єднання до сервера Icecast…"
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
-#, fuzzy
 msgid "Error connecting to Icecast server."
-msgstr "Помилка під’єднання до сервера Shoutcast."
+msgstr "Помилка під’єднання до сервера Icecast."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
 msgstr "Введіть ключове слово для пошуку"
 
 #: ../plugins/icecast/__init__.py:318
-#, fuzzy
 msgid "Icecast Search"
-msgstr "Пошук радіостанцій Shoutcast"
+msgstr "Пошук радіостанцій Icecast"
 
 #: ../plugins/icecast/__init__.py:342
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Нова станція"
+msgstr "Станцій не знайдено"
 
 #: ../plugins/icecast/__init__.py:345
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Результати пошуку"
+msgstr "Результати пошуку Icecast"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
 msgstr "Пошук"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Назва:"
+msgstr "Назва"
 
 #: ../plugins/icecast/__init__.py:396
-#, fuzzy
 msgid "Format"
-msgstr "Normal"
+msgstr "Формат"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
@@ -2613,7 +2599,7 @@ msgstr "Будь-який"
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr "Lyrics Viewer"
+msgstr "Оглядач текстів пісень"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -3075,7 +3061,7 @@ msgstr ""
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "ReplayGain"
+msgstr "Нормалізація гучності"
 
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
@@ -3126,9 +3112,8 @@ msgid "Retrieving song data..."
 msgstr "Отримання даних пісні..."
 
 #: ../plugins/console/__init__.py:109
-#, fuzzy
 msgid "Console"
-msgstr "Консоль IPython"
+msgstr "Консоль"
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -4160,7 +4145,7 @@ msgstr "Кінцева гічність затухання:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr "Коефіцієнт затухання"
+msgstr "Коефіцієнт затухання:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
@@ -4456,7 +4441,7 @@ msgstr "Дає змогу вимкнути комп’ютер після зав
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr "USB Mass Storage Media Player Support"
+msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
@@ -4570,7 +4555,7 @@ msgstr "Вмикає підтримку ReplayGain"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr "Drop Trayicon"
+msgstr ""
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4692,7 +4677,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr "Contextual Info"
+msgstr "Контекстна інформація"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""

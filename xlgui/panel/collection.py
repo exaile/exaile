@@ -688,7 +688,7 @@ class CollectionPanel(panel.Panel):
                         if depth > 0:
                             # for some reason, nested iters are always
                             # off by one in the terminal entry.
-                            newpath = newpath[:-1] + (newpath[-1]-1,)
+                            newpath = Gtk.TreePath.new_from_indices(newpath[:-1] + [newpath[-1]-1])
                         to_expand.append(newpath)
                         expanded = True
 

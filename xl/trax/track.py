@@ -596,17 +596,17 @@ class Track(object):
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__startoffset', '__stopoffset'):
-            value = self.__tags.get(tag, 0)
+            value = unicode(self.__tags.get(tag, 0))
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
-                    value = " "
+                    value = u" "
                 else:
                     #TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
-                value = " "
+                value = u" "
         elif tag == '__basename':
             value = GLib.filename_display_basename(self.get_loc_for_io()).decode('utf-8')
         elif tag == '__rating':
@@ -618,7 +618,7 @@ class Track(object):
             if tag in ['tracknumber', 'discnumber']:
                 return u""
             elif tag in ('__rating', '__playcount'):
-                value = "0"
+                value = u"0"
             else:
                 value = _UNKNOWNSTR
                 if tag == 'title':
@@ -626,10 +626,17 @@ class Track(object):
                     basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
                     value = u"%s (%s)" % (value, basename)
 
+        # Force value to unicode or List[unicode].
+        # This shouldn't be needed, but let's keep it until we are confident
+        # that we never get anything else.
         if isinstance(value, list):
-            value = [unicode(x) for x in value]
+            if not all(isinstance(v, unicode) for v in value):
+                logger.warning("Expected unicode list for %s: %r", (tag, value))
+                value = [common.to_unicode(x, errors='replace') for x in value]
         else:
-            value = unicode(value)
+            if not isinstance(value, unicode):
+                logger.warning("Expected unicode for %s: %r", (tag, value))
+                value = common.to_unicode(value, errors='replace')
 
         if join:
             value = self.join_values(value, _JOINSTR)

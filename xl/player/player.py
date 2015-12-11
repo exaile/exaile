@@ -86,14 +86,18 @@ class ExailePlayer(object):
         if self._engine is not None:
             self._engine.destroy()
         
-        # TODO: support other engines
+        # allows building docs
+        engine_name = settings.get_option("player/engine", "normal")
         
+        if engine_name == 'rtfd_hack': 
+            return None
+        
+        # TODO: support other engines
         from .gst.engine import ExaileGstEngine
         self._engine = ExaileGstEngine(self._name, self)
         self._engine.initialize()
         
-        #elif pname == 'rtfd_hack': # allows building docs
-        #    return None
+        
     
     @property
     def _volume(self):

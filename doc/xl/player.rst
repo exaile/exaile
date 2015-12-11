@@ -7,37 +7,39 @@ Player
 
 The player singleton of :class:`ExailePlayer` for playback control
 
-    .. automethod:: xl.player._base.ExailePlayer.play
+    .. automethod:: xl.player.player.ExailePlayer.play
 
-    .. automethod:: xl.player._base.ExailePlayer.stop
+    .. automethod:: xl.player.player.ExailePlayer.stop
 
-    .. automethod:: xl.player._base.ExailePlayer.pause
+    .. automethod:: xl.player.player.ExailePlayer.pause
 
-    .. automethod:: xl.player._base.ExailePlayer.unpause
+    .. automethod:: xl.player.player.ExailePlayer.unpause
 
-    .. automethod:: xl.player._base.ExailePlayer.toggle_pause
+    .. automethod:: xl.player.player.ExailePlayer.toggle_pause
 
-    .. automethod:: xl.player._base.ExailePlayer.seek
+    .. automethod:: xl.player.player.ExailePlayer.seek
 
-    .. automethod:: xl.player._base.ExailePlayer.get_position
+    .. automethod:: xl.player.player.ExailePlayer.get_position
 
-    .. automethod:: xl.player._base.ExailePlayer.get_time
+    .. automethod:: xl.player.player.ExailePlayer.get_time
 
-    .. automethod:: xl.player._base.ExailePlayer.get_progress
+    .. automethod:: xl.player.player.ExailePlayer.get_progress
 
-    .. automethod:: xl.player._base.ExailePlayer.set_progress
+    .. automethod:: xl.player.player.ExailePlayer.set_progress
 
-    .. automethod:: xl.player._base.ExailePlayer.get_volume
+    .. automethod:: xl.player.player.ExailePlayer.get_volume
 
-    .. automethod:: xl.player._base.ExailePlayer.set_volume
+    .. automethod:: xl.player.player.ExailePlayer.set_volume
+    
+    .. automethod:: xl.player.player.ExailePlayer.modify_volume
 
-    .. automethod:: xl.player._base.ExailePlayer.get_state
+    .. automethod:: xl.player.player.ExailePlayer.get_state
 
-    .. automethod:: xl.player._base.ExailePlayer.is_playing
+    .. automethod:: xl.player.player.ExailePlayer.is_playing
 
-    .. automethod:: xl.player._base.ExailePlayer.is_paused
+    .. automethod:: xl.player.player.ExailePlayer.is_paused
 
-    .. automethod:: xl.player._base.ExailePlayer.is_stopped
+    .. automethod:: xl.player.player.ExailePlayer.is_stopped
 
 .. autodata:: QUEUE
 

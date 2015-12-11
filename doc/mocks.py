@@ -16,40 +16,41 @@ class Mock(object):
 
     def __call__(self, *args, **kwargs):
         return Mock()
-
+    
     @classmethod
     def __getattr__(cls, name):
         if name in ('__file__', '__path__'):
             return '/dev/null'
-        elif name[0] == name[0].upper():
-            mockType = type(name, (), {})
-            mockType.__module__ = __name__
-            return mockType
         else:
             return Mock()
     
     # glib mocks
     
-    def get_user_data_dir(self):
+    @classmethod
+    def get_user_data_dir(cls):
         return '/tmp'
     
-    def get_user_config_dir(self):
+    @classmethod
+    def get_user_config_dir(cls):
         return '/tmp'
     
-    def get_user_cache_dir(self):
+    @classmethod
+    def get_user_cache_dir(cls):
         return '/tmp'
 
 MOCK_MODULES = [
     'cairo',
+    
     'dbus',
     'dbus.service',
-    'gio',
-    'glib',
-    'gst',
-    'gtk',
-    'gobject',
-    'pygst',
-    'pygtk',
+    
+    'gi',
+    'gi.repository',
+    'gi.repository.Gio',
+    'gi.repository.GLib',
+    'gi.repository.GObject',
+    'gi.repository.Gst',
+    'gi.repository.Gtk',
     
     'mutagen',
     'mutagen.apev2',

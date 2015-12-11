@@ -4,7 +4,7 @@ Frequently Asked Questions
 Error "no suitable plugin found" when playing a (.mp3, .m4a, etc)
 -----------------------------------------------------------------
 
-Exaile currently uses GStreamer 1.x to decode/play audio files, and does not
+Exaile 4.x currently uses GStreamer 1.x to decode/play audio files, and does not
 directly decode audio itself. For playback to work, you need to have the
 correct GStreamer plugins installed. 
 

@@ -29,6 +29,7 @@ from gi.repository import Gtk
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
+from xlgui import tray
 
 name = _('Appearance')
 icon = 'preferences-desktop-theme'
@@ -89,9 +90,19 @@ class TrackCountsPreference(widgets.CheckPreference):
         return return_value
         
 
-class UseTrayPreference(widgets.CheckPreference):
+class UseTrayPreference(widgets.CheckPreference, widgets.Conditional):
     default = False
     name = 'gui/use_tray'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.Conditional.__init__(self)
+        if not tray.is_supported():
+            self.widget.set_tooltip_text(_("Tray icons are not supported on your platform"))
+    
+    def on_check_condition(self):
+        return tray.is_supported()
+
 
 class MinimizeToTrayPreference(widgets.CheckPreference, widgets.CheckConditional):
     default = False

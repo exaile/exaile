@@ -147,7 +147,11 @@ class Main(object):
             .child_set_property(self.panel_notebook, 'shrink', False)
 
         if settings.get_option('gui/use_tray', False):
-            self.tray_icon = tray.TrayIcon(self.main)
+            if tray.is_supported():
+                self.tray_icon = tray.TrayIcon(self.main)
+            else:
+                settings.set_option('gui/use_tray', False)
+                logger.warn("Tray icons are not supported on your platform. Disabling tray icon.")
             
         from xl import event
         event.add_ui_callback(self.add_device_panel, 'device_connected')

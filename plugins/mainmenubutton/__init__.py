@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from gi import require_version
+
+require_version('Atk', '1.0')
+
 from gi.repository import Atk
 from gi.repository import Gtk
 
@@ -35,7 +39,7 @@ def disable(exaile):
     """
         Disables the plugin
     """
-    
+
     providers.unregister('main-panel-actions', MainMenuButton)
 
 def on_gui_loaded(*args):
@@ -43,20 +47,20 @@ def on_gui_loaded(*args):
         Creates the main menu button
         which takes care of the rest
     """
-    
+
     providers.register('main-panel-actions', MainMenuButton)
 
 class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     """
     """
     __gsignals__ = {}
-    
+
     name = 'main-menu'
     position = Gtk.PackType.START
 
     def __init__(self, panel_notebook):
         """
-            Adds the button to the main window 
+            Adds the button to the main window
             and moves the main menu items
         """
         Gtk.ToggleButton.__init__(self)
@@ -72,7 +76,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         accessible.set_name(_('Main Menu'))
 
         builder = main.mainwindow().builder
-        
+
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = Gtk.Menu()
@@ -104,7 +108,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         """
         # Origin includes window position and decorations
         _, x, y = self.props.window.get_origin()
-        
+
         allocation = self.get_allocation()
 
         return (
@@ -124,11 +128,11 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
 
     def do_popup_menu(self):
         """
-            Pops out the menu upon pressing 
+            Pops out the menu upon pressing
             the Menu or Shift+F10 keys
         """
         self.set_active(True)
-        
+
         return True
 
     def on_toggled(self, button):

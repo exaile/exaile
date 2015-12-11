@@ -608,7 +608,7 @@ class Track(object):
             except (KeyError, ValueError):
                 value = " "
         elif tag == '__basename':
-            value = self.get_basename()
+            value = GLib.filename_display_basename(self.get_loc_for_io()).decode('utf-8')
         elif tag == '__rating':
             value = unicode(self.get_rating())
         else:

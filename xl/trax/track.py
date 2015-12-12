@@ -308,6 +308,21 @@ class Track(object):
 
         return gfile.get_basename()
 
+    def get_basename_display(self):
+        """
+            Return the track basename for display purposes (invalid characters
+            are replaced).
+
+            :rtype: unicode
+        """
+        gfile = Gio.File.new_for_uri(self.get_loc_for_io())
+        path = gfile.get_path()
+        if path:  # Local
+            path = GLib.filename_display_basename(path)
+        else:  # Non-local
+            path = GLib.filename_display_name(gfile.get_basename())
+        return path.decode('utf-8')
+
     def get_type(self):
         """
             Get the URI schema the file uses, e.g. file, http, smb.
@@ -552,8 +567,7 @@ class Track(object):
         if not value:
             value = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
-                gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
+                basename = self.get_basename_display()
                 value = u"%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
@@ -608,34 +622,33 @@ class Track(object):
             except (KeyError, ValueError):
                 value = u" "
         elif tag == '__basename':
-            value = GLib.filename_display_basename(self.get_loc_for_io()).decode('utf-8')
+            value = self.get_basename_display()
         elif tag == '__rating':
             value = unicode(self.get_rating())
         else:
             value = self.__tags.get(tag)
+            if tag == '__playcount':
+                # Playcount is either int or None
+                value = unicode(value or 0)
 
         if not value:
             if tag in ['tracknumber', 'discnumber']:
                 return u""
-            elif tag in ('__rating', '__playcount'):
-                value = u"0"
-            else:
-                value = _UNKNOWNSTR
-                if tag == 'title':
-                    gloc = Gio.File.new_for_uri(self.__tags['__loc'])
-                    basename = GLib.filename_display_name(gloc.get_basename()).decode('utf-8')
-                    value = u"%s (%s)" % (value, basename)
+            value = _UNKNOWNSTR
+            if tag == 'title':
+                basename = self.get_basename_display()
+                value = u"%s (%s)" % (value, basename)
 
         # Force value to unicode or List[unicode].
         # This shouldn't be needed, but let's keep it until we are confident
         # that we never get anything else.
         if isinstance(value, list):
             if not all(isinstance(v, unicode) for v in value):
-                logger.warning("Expected unicode list for %s: %r", (tag, value))
+                logger.warning("Expected unicode list for %s: %r", tag, value)
                 value = [common.to_unicode(x, errors='replace') for x in value]
         else:
             if not isinstance(value, unicode):
-                logger.warning("Expected unicode for %s: %r", (tag, value))
+                logger.warning("Expected unicode for %s: %r", tag, value)
                 value = common.to_unicode(value, errors='replace')
 
         if join:
@@ -752,6 +765,8 @@ class Track(object):
         """
             Returns the current track rating as an integer, as
             determined by the ``rating/maximum`` setting.
+
+            :rtype: int
         """
         try:
             rating = float(self.get_tag_raw('__rating'))

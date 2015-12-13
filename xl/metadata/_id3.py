@@ -65,6 +65,19 @@ class ID3Format(BaseFormat):
     writable = True
     others = False # make this true once custom tag support actually works
 
+    def _get_keys(self):
+        keys = []
+        for v in self._get_raw().values():
+            # Have to use this because some ID3 tags have a colon
+            # in them, and so self._get_raw().keys() doesn't return
+            # the expected value
+            k = v.FrameID
+            if k in self._reverse_mapping:
+                keys.append(self._reverse_mapping[k])
+            else:
+                keys.append(k)
+        return keys
+
     def _get_tag(self, raw, t):
         if not raw.tags: return []
         if t not in self.tag_mapping.itervalues():
@@ -81,8 +94,7 @@ class ID3Format(BaseFormat):
                 ret.append(unicode(value.text))
         elif t == 'WOAR': # URLS are stored in url not text
             for value in field:
-                ret.extend([unicode(x.replace('\n','').replace('\r','')) \
-                        for x in value.url])
+                ret.extend([unicode(value.url.replace('\n','').replace('\r',''))])
         elif t == 'APIC':
             ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
         elif t == 'COMM': # Newlines within comments are allowed, keep them
@@ -113,6 +125,8 @@ class ID3Format(BaseFormat):
                 for info in data]
         elif tag == 'COMM':
             frames = [id3.COMM(encoding=3, text=d, desc='', lang='\x00\x00\x00') for d in data]
+        elif tag == 'WOAR':
+            frames = [id3.WOAR(encoding=3, url=d) for d in data]
         else:
             frames = [id3.Frames[tag](encoding=3, text=data)]
 

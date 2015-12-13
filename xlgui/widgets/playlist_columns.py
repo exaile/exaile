@@ -524,6 +524,13 @@ class StopOffsetColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', StopOffsetColumn)
 
+class WebsiteColumn(Column):
+    name = 'website'
+    display = _('Website')
+    size = 200
+    autoexpand = True
+providers.register('playlist-columns', WebsiteColumn)
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the

@@ -473,12 +473,12 @@ class TestTrack(unittest.TestCase):
 
     def test_get_display_tag_bitrate_bitrateless_formate(self):
         tr = track.Track(test_data.get_file_with_ext('.flac'))
-        self.assertEqual(tr.get_tag_display('__bitrate'), u' ')
+        self.assertEqual(tr.get_tag_display('__bitrate'), u'')
 
     def test_get_display_tag_bitrate_bad(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__bitrate', u'lol')
-        self.assertEqual(tr.get_tag_display('__bitrate'), u' ')
+        self.assertEqual(tr.get_tag_display('__bitrate'), u'')
 
     def test_get_display_tag_numeric_zero(self):
         tr = track.Track('/foo')

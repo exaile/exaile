@@ -608,48 +608,37 @@ class Track(object):
             else:
                 value = self.__tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            value = unicode(self.split_numerical(self.__tags.get(tag))[0])
+            value = self.split_numerical(self.__tags.get(tag))[0] or u""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
-            value = unicode(self.__tags.get(tag, 0))
+            value = self.__tags.get(tag, u"")
+        elif tag in ('__rating', '__playcount'):
+            value = self.__tags.get(tag, u"0")
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
-                    value = u" "
+                    value = u""
                 else:
                     #TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
-                value = u" "
+                value = u""
         elif tag == '__basename':
             value = self.get_basename_display()
-        elif tag == '__rating':
-            value = unicode(self.get_rating())
         else:
             value = self.__tags.get(tag)
-            if tag == '__playcount':
-                # Playcount is either int or None
-                value = unicode(value or 0)
 
-        if not value:
-            if tag in ['tracknumber', 'discnumber']:
-                return u""
+        if value is None:
             value = _UNKNOWNSTR
             if tag == 'title':
                 basename = self.get_basename_display()
                 value = u"%s (%s)" % (value, basename)
 
-        # Force value to unicode or List[unicode].
-        # This shouldn't be needed, but let's keep it until we are confident
-        # that we never get anything else.
+        # Convert value to unicode or List[unicode]
         if isinstance(value, list):
-            if not all(isinstance(v, unicode) for v in value):
-                logger.warning("Expected unicode list for %s: %r", tag, value)
-                value = [common.to_unicode(x, errors='replace') for x in value]
+            value = [common.to_unicode(x, errors='replace') for x in value]
         else:
-            if not isinstance(value, unicode):
-                logger.warning("Expected unicode for %s: %r", tag, value)
-                value = common.to_unicode(value, errors='replace')
+            value = common.to_unicode(value, errors='replace')
 
         if join:
             value = self.join_values(value, _JOINSTR)

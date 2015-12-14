@@ -23,9 +23,17 @@ echo "Generating Windows installer via python-gtk3-gst-sdk"
 
 pushd tools/installer
 ./build_win32_installer.sh
+
+if [ "$?" != "0" ]; then
+    echo "Warning: the win32 installer build seems to have failed..."
+fi
+
 popd 
 
-mv tools/win-installer/exaile-LATEST.exe dist/exaile-${DIST_VERSION}.exe
+mv tools/installer/exaile-LATEST.exe dist/exaile-${DIST_VERSION}.exe
+
+echo "Successfully built exaile installer! Going to sign the resulting packages"
+echo "with gpg (feel free to CTRL-C at this point if you don't care about that)"
 
 gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz
 gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.exe

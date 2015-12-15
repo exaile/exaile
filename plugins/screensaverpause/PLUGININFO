@@ -1,4 +1,4 @@
-Version='0.1.0'
+Version='4.0.0'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Pause on Screensaver')
 Description=_('Pauses (and optionally resumes) playback based on screensaver status.\n\nRequires: GNOME Screensaver or KDE Screensaver (does not support XScreenSaver nor XLockMore)')

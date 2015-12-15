@@ -1,4 +1,4 @@
-Version='0.0.1'
+Version='4.0.0'
 Authors=['Mathias Brodala <info@noctus.net>']
 Name=_('A-B Repeat')
 Description=_('Continuously repeats a segment of a track.')

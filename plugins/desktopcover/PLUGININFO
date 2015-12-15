@@ -1,4 +1,4 @@
-Version='1.2.2'
+Version='4.0.0'
 Authors=['Johannes Sasongko <sasongko@gmail.com>', 'Mathias Brodala <info@noctus.net>']
 Name=_('Desktop Cover')
 Description=_('Displays the current album cover on the desktop')

@@ -1,4 +1,4 @@
-Version='0.3.0'
+Version='4.0.0'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('Lyrics Viewer')
 Description=_('Adds a side tab displaying lyrics for the currently playing track.')

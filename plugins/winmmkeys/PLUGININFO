@@ -1,5 +1,5 @@
+Version='4.0.0'
 Name=_('Multimedia keys for Windows')
-Version='1.2.0'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Description=_('Adds support for multimedia keys (present on most new keyboards) when running Exaile in Microsoft Windows.\n\nRequires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> for more versions)')
 Category=_('Hotkeys')

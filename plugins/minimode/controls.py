@@ -96,7 +96,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
         """
         if item in self.__controls:
             return True
-        
+
         return False
 
     def __getitem__(self, name):
@@ -210,7 +210,7 @@ class ButtonControl(Gtk.Button, BaseControl):
         """
             Sets the image to the specified stock id
 
-            :param stock_id: 
+            :param stock_id:
         """
         self.props.image.set_from_stock(stock_id, Gtk.IconSize.BUTTON)
 
@@ -437,7 +437,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     def __init__(self):
         Gtk.VolumeButton.__init__(self)
         BaseControl.__init__(self)
-        
+
         self.updating = False
 
         adjustment = Gtk.Adjustment(upper=1, step_incr=0.1, page_incr=0.2)
@@ -552,7 +552,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
     title = _('Track selector')
     description = _('Simple track list selector')
     __gsignals__ = {'changed': 'override'}
-    
+
     def __init__(self):
         Gtk.ComboBox.__init__(self)
         BaseControl.__init__(self)
@@ -656,7 +656,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
         self.set_model(None)
         tracks.reverse()
-        
+
         for position, track in tracks:
             del self.model[position]
 
@@ -705,7 +705,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
     title = _('Playlist button')
     description = _('Access the current playlist')
     __gsignals__ = {'scroll-event': 'override'}
-    
+
     def __init__(self):
         Gtk.ToggleButton.__init__(self)
         BaseControl.__init__(self)
@@ -742,7 +742,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
         accel_group = Gtk.AccelGroup()
         key, modifier = Gtk.accelerator_parse('<Control>J')
-        accel_group.connect_group(key, modifier, Gtk.AccelFlags.VISIBLE,
+        accel_group.connect(key, modifier, Gtk.AccelFlags.VISIBLE,
             self.on_accelerator_activate)
         self.popup.add_accel_group(accel_group)
 
@@ -1027,10 +1027,10 @@ class ProgressButtonControl(PlaylistButtonControl):
                     'to the current playlist')
     # Required to make overrides work
     __gsignals__ = {}
-    
+
     def __init__(self):
         PlaylistButtonControl.__init__(self)
-        
+
         self.set_name('progressbutton')
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
 
@@ -1112,7 +1112,7 @@ class ProgressBarControl(Gtk.Alignment, BaseControl):
                 player.PLAYER,
                 player.PLAYER.current
             )
-            
+
             if player.PLAYER.is_paused():
                 self.progressbar.on_playback_toggle_pause(
                     'playback_toggle_pause',

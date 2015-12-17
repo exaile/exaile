@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-12-16 22:01+0000\n"
+"PO-Revision-Date: 2015-12-17 12:50+0000\n"
 "Last-Translator: Alexandre Raymond <alekcxjo@gmail.com>\n"
 "Language-Team: Franco-Provençal "
 "<https://hosted.weblate.org/projects/exaile/master/frp/>\n"
@@ -56,25 +56,25 @@ msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
-#, fuzzy, python-format
+#, python-format
 msgid "%dh, "
 msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
-#, fuzzy, python-format
+#, python-format
 msgid "%dm, "
 msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
-#, fuzzy, python-format
+#, python-format
 msgid "%ds"
 msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
-#, fuzzy, python-format
+#, python-format
 msgid "%dd "
 msgstr "%dd "
 
@@ -113,11 +113,11 @@ msgstr ""
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Opcions"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Opcion de lèctura"
 
 #: ../xl/main.py:499
 msgid "Play the next track"

@@ -14,11 +14,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+import gi
 import cgi
 import inspect
 import logging
 
 from gi.repository import Gtk
+
+gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 
 from xl import covers, event, common, player, settings

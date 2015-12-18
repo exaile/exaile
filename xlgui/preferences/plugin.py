@@ -61,7 +61,7 @@ class PluginManager(object):
 
         if main.exaile().options.Debug:
             reload_cellrenderer = common.ClickableCellRendererPixbuf()
-            reload_cellrenderer.props.stock_id = Gtk.STOCK_REFRESH
+            reload_cellrenderer.props.icon_name = 'view-refresh'
             reload_cellrenderer.props.xalign = 1
             reload_cellrenderer.connect('clicked',
                 self.on_reload_cellrenderer_clicked)

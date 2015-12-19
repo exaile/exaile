@@ -29,7 +29,7 @@ from alphacolor import (
 name = _('On Screen Display')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")
-icon = 'gtk-info'
+icon = 'dialog-information'
 
 def page_enter(preferences_dialog):
     """

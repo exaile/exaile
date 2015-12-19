@@ -44,6 +44,10 @@ Last.FM integration:
 
 * pylast
 
+Musicbrainz covers:
+
+* musicbrainzngs
+
 Scalable icons:
 
 * librsvg2

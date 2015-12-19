@@ -40,6 +40,10 @@ CD info:
 
 * python-cddb
 
+Last.FM integration:
+
+* pylast
+
 Scalable icons:
 
 * librsvg2

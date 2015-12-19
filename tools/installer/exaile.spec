@@ -4,17 +4,18 @@ import sys
 from PyInstaller.utils.hooks import collect_submodules
 
 if sys.platform == 'win32':
-	afile = '_inst/usr/lib/exaile/exaile_win.py'
+    afile = '_inst/usr/lib/exaile/exaile_win.py'
 elif sys.platform == 'darwin':
-	afile = '_inst/usr/lib/exaile/exaile_osx.py'
+    afile = '_inst/usr/lib/exaile/exaile_osx.py'
 else:
-	afile = '_inst/usr/lib/exaile/exaile.py'
+    afile = '_inst/usr/lib/exaile/exaile.py'
 
 block_cipher = None
 
 hiddenimports = collect_submodules('xl') + \
                 collect_submodules('xlgui') + \
-                collect_submodules('mutagen')
+                collect_submodules('mutagen') + \
+                collect_submodules('pylast')
 
 datas =[
   ('_inst/usr/share/exaile/data', ''),

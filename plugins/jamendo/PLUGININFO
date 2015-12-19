@@ -3,3 +3,4 @@ Authors=['Erin Drummond <erin.dru@gmail.com>']
 Name=_('Jamendo')
 Description=_('Enables access to the Jamendo music catalogue.')
 Category=_('Media Sources')
+RequiredModules=['json']

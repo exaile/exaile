@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import simplejson as json
+import json
 import jamtree
 import threading
 

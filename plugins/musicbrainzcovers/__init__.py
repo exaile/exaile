@@ -27,7 +27,7 @@ import musicbrainzngs
 logger = logging.getLogger(__name__)
 
 musicbrainzngs.set_useragent(
-    'Exaile MusicBrainz Covers',
+    'Exaile_MusicBrainz_Covers',
     '1.0.0',
     'http://exaile.org/'
 )

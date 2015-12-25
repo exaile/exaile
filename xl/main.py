@@ -26,7 +26,7 @@
 
 # Here's where it all begins.....
 #
-# Holds the main Exaile class, whose instantiation starts up the entiriety
+# Holds the main Exaile class, whose instantiation starts up the entirety
 # of Exaile and which also handles Exaile shutdown.
 #
 # Also takes care of parsing commandline options.

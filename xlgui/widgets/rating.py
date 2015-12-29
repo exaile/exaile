@@ -400,9 +400,11 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             maximum = settings.get_option('rating/maximum', 5)
             rating = fraction * maximum + 1
             self.emit('rating-changed', (int(path),), rating)
+'''
+    No longer needed in GTK3?
 
-    def do_render(self, window, widget, background_area,
-                  cell_area, expose_area, flags):
+    def do_render(self, context, widget, background_area,
+                  cell_area, flags):
         """
             Renders the rating images
             (Overriden since Gtk.CellRendererPixbuf
@@ -416,8 +418,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
 
         x = cell_area.x + cell_area.width - pixbuf_width
         y = cell_area.y + cell_area.height - pixbuf_height
-
-        context = window.cairo_create()
+        
         context.set_source_pixbuf(self.props.pixbuf, x, y)
         context.paint()
-
+'''

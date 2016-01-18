@@ -19,7 +19,8 @@ If you want to build your own installer, see :ref:`osx_installer`.
 Linux/*nix
 ----------
 
-On *nix-based systems (but not OSX), run the following to install::
+On *nix-based systems (but not OSX), run the following command from the
+source code directory to install::
 
     $ make
     # make install
@@ -28,6 +29,12 @@ The "make" step is optional and only compiles the modules and translations.
 
 There is also an install_no_locale target if you wish to install without 
 translations.
+
+To uninstall exaile please run
+
+    # make uninstall
+
+from the same directory.
 
 Environment Variables
 ^^^^^^^^^^^^^^^^^^^^^

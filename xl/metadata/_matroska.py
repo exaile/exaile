@@ -31,20 +31,25 @@
 # revision 858 (2004-10-03), under "/trunk/Perl.Parser/MatroskaParser.pm".
 
 
-import sys
-from struct import unpack
-from warnings import warn
+from __future__ import print_function
 
-from gi.repository import GLib
+
+import sys
+from struct import pack, unpack
+from warnings import warn
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
 class EbmlException(Exception): pass
 class EbmlWarning(Warning): pass
 
-class BinaryData(str):
+class BinaryData(bytes):
     def __repr__(self):
         return "<BinaryData>"
+
+def bchr(n):
+    """chr() that always returns bytes in Python 2 and 3"""
+    return pack('B', n)
 
 class Ebml:
     """EBML parser.
@@ -95,7 +100,7 @@ class Ebml:
         elif b1 & 0b01000000:  # 2 bytes
             return unpack(">H", b + self.read(1))[0]
         elif b1 & 0b00100000:  # 3 bytes
-            return unpack(">L", "\0" + b + self.read(2))[0]
+            return unpack(">L", b"\0" + b + self.read(2))[0]
         elif b1 & 0b00010000:  # 4 bytes
             return unpack(">L", b + self.read(3))[0]
         else:
@@ -106,19 +111,19 @@ class Ebml:
         if b1 & 0b10000000:  # 1 byte
             return b1 & 0b01111111
         elif b1 & 0b01000000:  # 2 bytes
-            return unpack(">H", chr(b1 & 0b00111111) + self.read(1))[0]
+            return unpack(">H", bchr(b1 & 0b00111111) + self.read(1))[0]
         elif b1 & 0b00100000:  # 3 bytes
-            return unpack(">L", "\0" + chr(b1 & 0b00011111) + self.read(2))[0]
+            return unpack(">L", b"\0" + bchr(b1 & 0b00011111) + self.read(2))[0]
         elif b1 & 0b00010000:  # 4 bytes
-            return unpack(">L", chr(b1 & 0b00001111) + self.read(3))[0]
+            return unpack(">L", bchr(b1 & 0b00001111) + self.read(3))[0]
         elif b1 & 0x00001000:  # 5 bytes
-            return unpack(">Q", "\0\0\0" + chr(b1 & 0b00000111) + self.read(4))[0]
+            return unpack(">Q", b"\0\0\0" + bchr(b1 & 0b00000111) + self.read(4))[0]
         elif b1 & 0b00000100:  # 6 bytes
-            return unpack(">Q", "\0\0" + chr(b1 & 0b0000011) + self.read(5))[0]
+            return unpack(">Q", b"\0\0" + bchr(b1 & 0b0000011) + self.read(5))[0]
         elif b1 & 0b00000010:  # 7 bytes
-            return unpack(">Q", "\0" + chr(b1 & 0b00000001) + self.read(6))[0]
+            return unpack(">Q", b"\0" + bchr(b1 & 0b00000001) + self.read(6))[0]
         elif b1 & 0b00000001:  # 8 bytes
-            return unpack(">Q", "\0" + self.read(7))[0]
+            return unpack(">Q", b"\0" + self.read(7))[0]
         else:
             assert b1 == 0
             raise EbmlException("undefined element size")
@@ -129,15 +134,15 @@ class Ebml:
         elif length == 2:
             value = unpack(">H", self.read(2))[0]
         elif length == 3:
-            value = unpack(">L", "\0" + self.read(3))[0]
+            value = unpack(">L", b"\0" + self.read(3))[0]
         elif length == 4:
             value = unpack(">L", self.read(4))[0]
         elif length == 5:
-            value = unpack(">Q", "\0\0\0" + self.read(5))[0]
+            value = unpack(">Q", b"\0\0\0" + self.read(5))[0]
         elif length == 6:
-            value = unpack(">Q", "\0\0" + self.read(6))[0]
+            value = unpack(">Q", b"\0\0" + self.read(6))[0]
         elif length == 7:
-            value = unpack(">Q", "\0" + (self.read(7)))[0]
+            value = unpack(">Q", b"\0" + (self.read(7)))[0]
         elif length == 8:
             value = unpack(">Q", self.read(8))[0]
         else:
@@ -194,13 +199,13 @@ class Ebml:
                 elif type_ is FLOAT:
                     value = self.readFloat(size)
                 elif type_ is STRING:
-                    value = unicode(self.read(size), 'ascii')
+                    value = self.read(size).decode('ascii')
                 elif type_ is UTF8:
-                    value = unicode(self.read(size), 'utf-8')
+                    value = self.read(size).decode('utf-8')
                 elif type_ is DATE:
                     us = self.readInteger(size, True) / 1000.0  # ns to us
                     from datetime import datetime, timedelta
-                    value = datetime(2001, 01, 01) + timedelta(microseconds=us)
+                    value = datetime(2001, 1, 1) + timedelta(microseconds=us)
                 elif type_ is MASTER:
                     tell = self.tell()
                     value = self.parse(tell, tell + size)
@@ -208,7 +213,7 @@ class Ebml:
                     value = BinaryData(self.read(size))
                 else:
                     assert False, type_
-            except (EbmlException, UnicodeDecodeError), e:
+            except (EbmlException, UnicodeDecodeError) as e:
                 warn(EbmlWarning(e))
             else:
                 try:
@@ -228,7 +233,7 @@ class GioEbml(Ebml):
     # BufferedInputStream but it does not implement Seekable.
 
     def open(self, location):
-        f = Gio.File.new_for_uri(location)
+        f = Gio.File.new_for_commandline_arg(location)
         self.buffer = Gio.BufferedInputStream.new(f.read())
         self._tell = 0
 
@@ -242,9 +247,9 @@ class GioEbml(Ebml):
         elif mode == 2:
             skip = self.size - self._tell + offset
         else:
-            raise ValueError("invalid seek mode: %r" % offset)
+            raise ValueError("invalid seek mode: %r" % mode)
         if skip < 0:
-            raise GLib.Error("cannot seek backwards from %d" % self._tell)
+            raise NotImplementedError("seeking backwards not supported")
         self._tell += skip
         self.buffer.skip(skip)
 
@@ -355,19 +360,30 @@ def dump_tags(location):
     except KeyError:
         timecodescale = 1000000
     length = info['Duration'][0] * timecodescale / 1e9
-    print "Length = %s seconds" % length
+    print("Length = %s seconds" % length)
     pprint(segment['Tags'][0]['Tag'])
+
+def gio_location(location):
+    """Convert location to GIO-compatible location.
+
+    This works around broken behaviour in the Win32 GIO port (it converts paths
+    into UTF-8 and requires them to be specified in UTF-8 as well).
+
+    :type location: str
+    :rtype: bytes
+    """
+    if sys.platform == 'win32' and '://' not in location:
+        if isinstance(location, bytes):
+            # Decode the path according to the FS encoding to get the Unicode
+            # representation first. If the path is in a different encoding,
+            # this step will fail.
+            location = location.decode(sys.getfilesystemencoding())
+        location = location.encode('utf-8')
+    return location
 
 if __name__ == '__main__':
     import sys
-    location = sys.argv[1]
-    if sys.platform == 'win32' and '://' not in location:
-        # XXX: This is most likely a bug in the Win32 GIO port; it converts
-        # paths into UTF-8 and requires them to be specified in UTF-8 as well.
-        # Here we decode the path according to the FS encoding to get the
-        # Unicode representation first. If the path is in a different encoding,
-        # this step will fail.
-        location = location.decode(sys.getfilesystemencoding()).encode('utf-8')
+    location = gio_location(sys.argv[1])
     dump_tags(location)
 
 

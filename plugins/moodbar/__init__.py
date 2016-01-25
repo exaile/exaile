@@ -53,8 +53,8 @@ class MoodbarPlugin:
         self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
         self.painter = MoodbarPainter()
 
-        xl.event.add_ui_callback(self.on_preview_device_enabled, 'preview_device_enabled')
-        xl.event.add_ui_callback(self.on_preview_device_disabling, 'preview_device_disabling')
+        xl.event.add_ui_callback(self._on_preview_device_enabled, 'preview_device_enabled')
+        xl.event.add_ui_callback(self._on_preview_device_disabling, 'preview_device_disabling')
         previewdevice = exaile.plugins.enabled_plugins.get('previewdevice', None)
         if previewdevice:
             self.on_preview_device_enabled('', previewdevice)
@@ -65,8 +65,8 @@ class MoodbarPlugin:
     def disable(self, exaile):
         if not self.main_controller:  # Disabled more than once or before gui_loaded
             return
-        xl.event.remove_callback(self.on_preview_device_enabled, 'preview_device_enabled')
-        xl.event.remove_callback(self.on_preview_device_disabling, 'preview_device_disabling')
+        xl.event.remove_callback(self._on_preview_device_enabled, 'preview_device_enabled')
+        xl.event.remove_callback(self._on_preview_device_disabling, 'preview_device_disabling')
         self.main_controller.destroy()
         if self.preview_controller:
             self.preview_controller.destroy()
@@ -75,10 +75,10 @@ class MoodbarPlugin:
 
     # Preview Device events
 
-    def on_preview_device_enabled(self, event, plugin, _=None):
+    def _on_preview_device_enabled(self, event, plugin, _=None):
         self.preview_controller = MoodbarController(self, plugin.player, plugin.progress_bar)
 
-    def on_preview_device_disabling(self, event, plugin, _=None):
+    def _on_preview_device_disabling(self, event, plugin, _=None):
         self.preview_controller.destroy()
         self.preview_controller = None
 

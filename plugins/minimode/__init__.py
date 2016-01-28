@@ -204,10 +204,9 @@ class MiniMode(Gtk.Window):
                         self.set_decorated(False)
                         self.border_frame.set_shadow_type(Gtk.ShadowType.NONE)
                 elif option == 'plugin/minimode/use_alpha':
-                    self.unrealize()
-                    self.set_app_paintable(value)
-                    self.emit('screen-changed', self.get_screen())
-                    self.realize()
+                    if value:
+                        opacity = 1 - settings.get_option('plugin/minimode/transparency', 0.3)
+                        self.set_opacity(opacity)
                 elif option == 'plugin/minimode/horizontal_position':
                     h = value
                 elif option == 'plugin/minimode/vertical_position':
@@ -232,37 +231,6 @@ class MiniMode(Gtk.Window):
             y = v
         
         self.move(x, y)
-
-    def do_draw(self, context):
-        """
-            Paints the window alpha transparency
-        """
-        context.rectangle(*event.area)
-        context.clip()
-
-        background = self.style.bg[Gtk.StateType.NORMAL]
-        opacity = 1 - settings.get_option('plugin/minimode/transparency', 0.3)
-        context.set_source_rgba(
-            float(background.red) / 256**2,
-            float(background.green) / 256**2,
-            float(background.blue) / 256**2,
-            opacity
-        )
-        context.set_operator(cairo.OPERATOR_SOURCE)
-        context.paint() # TODO: GI: Needed?
-
-        Gtk.Window.do_draw(self, context)
-
-    def do_screen_changed(self, screen):
-        """
-            Updates the colormap on screen change
-        """
-        visual = screen.get_rgba_visual()
-        if visual is None:
-            visual = screen.get_system_visual()
-        self.set_visual(visual)
-
-        self.chain(screen)
 
     def do_configure_event(self, event):
         """

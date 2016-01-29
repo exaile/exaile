@@ -1064,6 +1064,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         if event.button == 1:
             PlaylistButtonControl.do_button_press_event(self, event)
         elif event.button == 2:
+            event = event.copy()
             event.button = 1
             x, y = self.translate_coordinates(self.progressbar,
                 int(event.x), int(event.y))
@@ -1074,6 +1075,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         if event.button == 1:
             PlaylistButtonControl.do_button_release_event(self, event)
         elif event.button == 2:
+            event = event.copy()
             event.button = 1
             x, y = self.translate_coordinates(self.progressbar,
                 int(event.x), int(event.y))
@@ -1081,12 +1083,14 @@ class ProgressButtonControl(PlaylistButtonControl):
             self.progressbar.emit('button-release-event', event)
 
     def do_motion_notify_event(self, event):
+        event = event.copy()
         x, y = self.translate_coordinates(self.progressbar,
             int(event.x), int(event.y))
         event.x, event.y = float(x), float(y)
         self.progressbar.emit('motion-notify-event', event)
 
     def do_leave_notify_event(self, event):
+        event = event.copy()
         x, y = self.translate_coordinates(self.progressbar,
             int(event.x), int(event.y))
         event.x, event.y = float(x), float(y)

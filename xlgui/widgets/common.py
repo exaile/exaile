@@ -66,13 +66,8 @@ class AttachedWindow(Gtk.Window):
         self.get_window().set_functions(Gdk.WMFunction.RESIZE)
 
         self.parent_widget = parent
-        realize_id = self.parent_widget.connect('realize',
-            self.on_parent_realize)
-        try:
-            realize_ids = self.parent_widget.realize_ids
-        except AttributeError:
-            realize_ids = self.parent_widget.realize_ids = {}
-        realize_ids[self] = realize_id
+        self.parent_window_connections = []
+        parent.connect('hierarchy-changed', self._on_parent_hierarchy_changed)
 
     def update_location(self):
         """
@@ -112,35 +107,32 @@ class AttachedWindow(Gtk.Window):
         Gtk.Window.do_show(self)
         self.update_location()
 
-    def on_parent_realize(self, parent):
-        """
-            Prepares the window to
-            follow its parent window
-        """
-        realize_id = parent.realize_ids[self]
-        
-        if realize_id is not None:
-            parent.disconnect(realize_id)
+    def _on_parent_hierarchy_changed(self, parent_widget, previous_toplevel):
+        """(Dis)connect from/to the parent's toplevel window signals"""
+        conns = self.parent_window_connections
+        for conn in conns:
+            previous_toplevel.disconnect(conn)
+        conns[:] = ()
+        toplevel = parent_widget.get_toplevel()
+        if not isinstance(toplevel, Gtk.Window):  # Not anchored
+            return
+        self.set_transient_for(toplevel)
+        conns.append(toplevel.connect('configure-event', self._on_parent_window_configure_event))
+        conns.append(toplevel.connect('hide', self._on_parent_window_hide))
 
-        parent_window = parent.get_toplevel()
-        parent_window.connect('configure-event',
-            self.on_parent_window_configure_event)
-        parent_window.connect('window-state-event',
-            self.on_parent_window_state_event)
-
-    def on_parent_window_configure_event(self, *e):
-        """
-            Handles movement of the topmost window
-        """
+    def _on_parent_window_configure_event(self, _widget, _event):
+        """Update location when parent window is moved"""
         if self.props.visible:
             self.update_location()
 
-    def on_parent_window_state_event(self, window, e):
+    def _on_parent_window_hide(self, _window):
+        """Emit the "hide" signal on self when the parent window is hidden.
+
+        If there is a "transient for" relationship between two windows, when
+        the parent is hidden, the child is hidden without emitting "hide".
+        Here we manually emit it to simplify usage.
         """
-            Handles state changes of the topmost window
-        """
-        if e.changed_mask & Gdk.WindowState.ICONIFIED:
-            self.hide()
+        self.emit('hide')
 
 class AutoScrollTreeView(Gtk.TreeView):
     """

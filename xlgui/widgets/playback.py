@@ -977,6 +977,22 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         del self._points[marker]
         self.__progressbar.queue_draw()
 
+    # HACK: These methods implement the PlaybackAdapter interface (passing the
+    # calls to the internal progress bar, which is an actual PlaybackAdapter).
+    # This class only pretends to be a PlaybackAdapter because we don't want
+    # the mixin behavior here.
+
+    def on_playback_track_start(self, event, player, track):
+        self.__progressbar.on_playback_track_start(event, player, track)
+    def on_playback_track_end(self, event, player, track):
+        self.__progressbar.on_playback_track_end(event, player, track)
+    def on_playback_player_end(self, event, player, track):
+        self.__progressbar.on_playback_player_end(event, player, track)
+    def on_playback_toggle_pause(self, event, player, track):
+        self.__progressbar.on_playback_toggle_pause(event, player, track)
+    def on_playback_error(self, event, player, message):
+        self.__progressbar.on_playback_error(event, player, message)
+
 class ProgressBarContextMenu(menu.ProviderMenu):
     """
         Progress bar specific context menu

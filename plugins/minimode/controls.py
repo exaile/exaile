@@ -1037,6 +1037,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         self.progressbar = SeekProgressBar(player.PLAYER)
         self.progressbar.set_size_request(-1, 1)
         self.progressbar.formatter = ProgressButtonFormatter()
+        self.progressbar.set_text = lambda *a: None  # Needed by PlaylistButtonControl
         gtk_widget_replace(self.label, self.progressbar)
         self.label = self.progressbar
 

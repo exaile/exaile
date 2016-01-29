@@ -205,7 +205,8 @@ class MiniMode(Gtk.Window):
                         self.border_frame.set_shadow_type(Gtk.ShadowType.NONE)
                 elif option == 'plugin/minimode/use_alpha':
                     if value:
-                        opacity = 1 - settings.get_option('plugin/minimode/transparency', 0.3)
+                        option = 'plugin/minimode/transparency'
+                        opacity = 1 - settings.get_option(option, self.__defaults[option])
                         self.set_opacity(opacity)
                 elif option == 'plugin/minimode/horizontal_position':
                     h = value

@@ -738,6 +738,8 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         scrollwindow.set_shadow_type(Gtk.ShadowType.IN)
         scrollwindow.add(self.view)
         self.popup.add(scrollwindow)
+        self.popup.connect('show', self.on_popup_show)
+        self.popup.connect('hide', self.on_popup_hide)
         self.popup.connect('configure-event', self.on_popup_configure_event)
 
         accel_group = Gtk.AccelGroup()
@@ -754,8 +756,6 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
         self._drag_motion_timeout_id = None
         self._drag_leave_timeout_id = None
-        self._toplevel_hide_id = None
-        self._toplevel_window_state_event_id = None
 
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.view.targets,
             Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
@@ -788,25 +788,6 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         columns = self.view.get_model().columns
         model = PlaylistModel(playlist, columns, player.PLAYER)
         self.view.set_model(model)
-
-    def do_hierarchy_changed(self, previous_toplevel):
-        """
-            Sets up automatic hiding on parent hide
-        """
-        if self._toplevel_hide_id is not None:
-            previous_toplevel.disconnect(
-                self._toplevel_hide_id)
-            previous_toplevel.disconnect(
-                self._toplevel_window_state_event_id)
-
-        toplevel = self.get_toplevel()
-
-        if isinstance(toplevel, Gtk.Window):
-            self._toplevel_hide_id = toplevel.connect(
-                'hide', self.on_toplevel_hide)
-            self._toplevel_window_state_event_id = toplevel.connect(
-                'window-state-event', self.on_toplevel_window_state_event)
-            self.popup.set_transient_for(toplevel)
 
     def do_scroll_event(self, event):
         """
@@ -895,17 +876,13 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self.view.emit('drag-data-received', context, x, y,
             selection, info, time)
 
-    def on_toplevel_hide(self, widget):
-        """
-            Hides the playlist
-        """
-        self.set_active(False)
+    def on_popup_show(self, widget):
+        if not self.get_active():
+            self.set_active(True)
 
-    def on_toplevel_window_state_event(self, widget, event):
-        """
-            Hides the playlist
-        """
-        self.set_active(False)
+    def on_popup_hide(self, widget):
+        if self.get_active():
+            self.set_active(False)
 
     def on_popup_configure_event(self, widget, event):
         """

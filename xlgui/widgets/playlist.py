@@ -872,6 +872,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 
     def _refresh_columns(self):
         selection = self.get_selection()
+        if not selection:  # The widget has been destroyed
+            return
+
         info = selection.get_selected_rows()
         # grab the first visible raw of the treeview
         firstpath = self.get_path_at_pos(4,4)

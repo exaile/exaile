@@ -79,14 +79,16 @@ class AttachedWindow(Gtk.Window):
             Makes sure the window is
             always fully visible
         """
-        workarea = Gdk.Rectangle(0, 0, *get_workarea_size())
+        workarea = Gdk.Rectangle()
+        workarea.x = workarea.y = 0
+        workarea.width, workarea.height = get_workarea_size()
         parent_alloc = self.parent_widget.get_allocation()
         toplevel_position = self.parent_widget.get_toplevel().get_position()
         # Use absolute screen position
         parent_alloc.x += toplevel_position[0]
         parent_alloc.y += toplevel_position[1]
 
-        alloc = self.allocation()
+        alloc = self.get_allocation()
         if workarea.width - parent_alloc.x < alloc.width:
             # Parent rightmost
             x = parent_alloc.x + parent_alloc.width - alloc.width

@@ -78,7 +78,7 @@ class AttachedWindow(Gtk.Window):
         workarea.x = workarea.y = 0
         workarea.width, workarea.height = get_workarea_size()
         parent_alloc = self.parent_widget.get_allocation()
-        toplevel_position = self.parent_widget.get_toplevel().get_position()
+        toplevel_position = self.parent_widget.get_toplevel().get_window().get_position()
         # Use absolute screen position
         parent_alloc.x += toplevel_position[0]
         parent_alloc.y += toplevel_position[1]

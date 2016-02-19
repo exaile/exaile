@@ -9,22 +9,22 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">grouping</col>
+        <col id="0">grouping</col>
       </row>
       <row>
-        <col id="0" translatable="yes">comment</col>
+        <col id="0">comment</col>
       </row>
       <row>
-        <col id="0" translatable="yes">encodedby</col>
+        <col id="0">encodedby</col>
       </row>
       <row>
-        <col id="0" translatable="yes">composer</col>
+        <col id="0">composer</col>
       </row>
       <row>
-        <col id="0" translatable="yes">conductor</col>
+        <col id="0">conductor</col>
       </row>
       <row>
-        <col id="0" translatable="yes">lyrics</col>
+        <col id="0">lyrics</col>
       </row>
     </data>
   </object>

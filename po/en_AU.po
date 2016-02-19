@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-07-21 07:12+0200\n"
+"PO-Revision-Date: 2016-02-19 07:50+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
 "Language-Team: English (Australia) "
 "<https://hosted.weblate.org/projects/exaile/master/en_AU/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
 
 #: ../xl/formatter.py:576
@@ -479,7 +479,7 @@ msgstr "A very fast Free lossless audio format with good compression."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -674,7 +674,6 @@ msgid "Modified"
 msgstr "Modified"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
 msgstr "Play time"
 
@@ -687,7 +686,6 @@ msgid "Start offset"
 msgstr "Start offset"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
 msgstr "Stop offset"
 
@@ -839,11 +837,11 @@ msgstr "Edit"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Export Playlist"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Export Files"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -979,7 +977,7 @@ msgstr "Schedule"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Start Offset"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 msgid "Stop Offset"
@@ -1159,7 +1157,7 @@ msgstr "The playlist name you entered is already in use."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Save As"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1290,11 +1288,11 @@ msgstr "Are you sure you want to apply the changes to all tracks?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Apply changes before closing?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Your changes will be lost if you do not apply them now."
 
 #: ../xlgui/properties.py:589
 #, python-format
@@ -1309,37 +1307,37 @@ msgstr "of:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG image"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "PNG image"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Linked image"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} pixels"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} pixels)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Select image to set as cover"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Supported image formats"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
@@ -3768,14 +3766,12 @@ msgid "Simple"
 msgstr "Simple"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
-#, fuzzy
 msgid "grouping"
-msgstr "Grouping"
+msgstr "grouping"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
-#, fuzzy
 msgid "comment"
-msgstr "Comment"
+msgstr "comment"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
 #, fuzzy

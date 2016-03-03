@@ -355,7 +355,7 @@ class M3UConverter(FormatConverter):
 
                 stream.write('#EXTINF:{length},{title}\n{path}\n'.format(
                     length=length,
-                    title=' - '.join(title),
+                    title=' - '.join(title).encode('utf-8'),
                     path=track_path
                 ))
 

@@ -570,9 +570,11 @@ class DaapLibrary(collection.Library):
         self.daap_share = daap_share
         #self.collection = col
 
-    def rescan(self, notify_interval=None):
+    def rescan(self, notify_interval=None, force_update=False):
         '''
-            Called when a library needs to refresh it's track list.
+            Called when a library needs to refresh its track list.
+
+            The force_update parameter is not applicable and is ignored.
         '''
         if self.collection is None:
             return True

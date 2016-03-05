@@ -169,13 +169,14 @@ def _on_trash_tracks(widget, name, parent, context,
     try:
         trash_tracks_func(parent, context, tracks)
     except GLib.GError:
-        dialog = Gtk.MessageDialog(type=Gtk.MessageType.WARNING,
-            message_format=_('The files cannot be moved to the Trash. '
-                             'Delete them permanently from the disk?'))
+        dialog = Gtk.MessageDialog(parent=parent.parent,
+            message_type=Gtk.MessageType.WARNING,
+            text=_('The files cannot be moved to the Trash. '
+                'Delete them permanently from the disk?'))
         dialog.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_DELETE, Gtk.ResponseType.OK)
-        dialog.set_alternative_button_order((Gtk.ResponseType.OK, Gtk.ResponseType.CANCEL))
+        dialog.set_alternative_button_order_from_array((Gtk.ResponseType.OK, Gtk.ResponseType.CANCEL))
 
         if dialog.run() == Gtk.ResponseType.OK:
             delete_tracks_func(parent, context, tracks)

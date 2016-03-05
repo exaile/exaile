@@ -45,7 +45,8 @@ class Panel(GObject.GObject):
         """
             Intializes the panel
 
-            @param controller: the main gui controller
+            @param parent: the main window
+            @type parent: Gtk.Window
             @param name: the name of the panel. should be unique.
             @param label: text of the label displayed to the user 
         """

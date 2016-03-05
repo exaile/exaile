@@ -92,26 +92,27 @@ class BPMCounterPlugin(object):
     def on_auto_menuitem(self, menu, display_name, playlist_view, context):
         tracks = context['selected-tracks']
         if len(tracks) > 0:
-            self.autodetect_bpm(tracks[0])
+            self.autodetect_bpm(tracks[0], playlist_view.get_toplevel())
             
-    def autodetect_bpm(self, track):
+    def autodetect_bpm(self, track, parent_window=None):
         
         def _on_complete(bpm, err):
             if err is not None:
                 dialogs.error(None, err)
             else:
-                self.set_bpm(track, bpm)
+                self.set_bpm(track, bpm, parent_window=parent_window)
         
         bpmdetect.detect_bpm(track.get_loc_for_io(), _on_complete)
     
-    def set_bpm(self, track, bpm):
+    def set_bpm(self, track, bpm, parent_window=None):
         '''Make sure we don't accidentally set BPM on things'''
         
         if track and bpm:
             
             bpm = int(bpm)
-            
-            msg = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
+
+            msg = Gtk.MessageDialog(parent_window, Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
                 _('Set BPM of %d on %s?') % (bpm, track.get_tag_display('title')))
             msg.set_default_response(Gtk.ResponseType.NO)
             result = msg.run()
@@ -267,7 +268,7 @@ class BPMWidget(Gtk.Frame):
         
     def set_bpm(self):
         '''Make sure we don't accidentally set BPM on things'''
-        self.plugin.set_bpm(self.track, self.bpm)
+        self.plugin.set_bpm(self.track, self.bpm, parent_window=self.get_toplevel())
         self.update_ui()
     
     

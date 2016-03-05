@@ -369,7 +369,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         if modified:
             if len(modified) != 1:
-                dialog = Gtk.MessageDialog(None,
+                dialog = Gtk.MessageDialog(self.dialog,
                     Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
                     Gtk.ButtonsType.YES_NO,
                     _('Are you sure you want to apply the changes to all tracks?'),

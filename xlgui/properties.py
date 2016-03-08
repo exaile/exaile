@@ -30,6 +30,7 @@ import datetime
 import io
 import os
 import string
+import re
 
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -760,10 +761,15 @@ class TagNumField(Gtk.HBox):
 
     def set_value(self, val, all_vals=None, doupdate=True):
         if doupdate:
+            field_val = 0
             if val != '':
-                self.field.set_value(float(val))
-            else:
-                self.field.set_value(0)
+                try:
+                    field_val = float(val)
+                except ValueError:
+                    digits = re.search(r'\d+\.?\d*', val)
+                    if digits:
+                        field_val = float(digits.group())
+            self.field.set_value(field_val)
 
         if all_vals != None and self.all_button != None:
             # Set the value of the all button
@@ -836,10 +842,15 @@ class TagDblNumField(Gtk.HBox):
 
         if doupdate:
             for x in range(2):
+                field_val = 0
                 if vals[x] != '':
-                    self.field[x].set_value(float(vals[x]))
-                else:
-                    self.field[x].set_value(0)
+                    try:
+                        field_val = float(vals[x])
+                    except ValueError:
+                        digits = re.search(r'\d+\.?\d*', val)
+                        if digits:
+                            field_val = float(digits.group())
+                self.field[x].set_value(field_val)
 
         if all_val != None:
             all_vals = []

@@ -490,6 +490,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         'notify': 'override',
         'key-press-event': 'override',
         'key-release-event': 'override',
+        'scroll-event': 'override',
         'marker-reached': (
             GObject.SignalFlags.RUN_LAST,
             GObject.TYPE_BOOLEAN,
@@ -528,12 +529,14 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
                         Gdk.EventMask.BUTTON_RELEASE_MASK |
                         Gdk.EventMask.POINTER_MOTION_MASK |
-                        Gdk.EventMask.LEAVE_NOTIFY_MASK)
+                        Gdk.EventMask.LEAVE_NOTIFY_MASK |
+                        Gdk.EventMask.SCROLL_MASK)
         
         self.set_can_focus(True)
 
         self.connect('hierarchy-changed',
             self.on_hierarchy_changed)
+        self.connect('scroll-event', self.on_scroll_event)
         
         self.add(self.__progressbar)
         self.show_all()
@@ -915,6 +918,47 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         release_event.y = float(alloc.y)
 
         self.emit('button-release-event', release_event)
+
+    def on_scroll_event(self, widget, event):
+        """
+            Seek on scroll as VLC does
+        """
+        if not self.__player.current:
+            return True
+        if self.__player.current.get_tag_raw('__length') is None:
+            return True
+
+        progress = self.__player.get_progress()
+        progress_delta = 0.05  # 5% of track length
+        progress_delta_small = 0.005  # 0.5% of track length
+
+        if event.direction == Gdk.ScrollDirection.DOWN or \
+                event.direction == Gdk.ScrollDirection.LEFT:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+                new_progress = progress - progress_delta_small
+            else:
+                new_progress = progress - progress_delta
+        elif event.direction == Gdk.ScrollDirection.UP or \
+                event.direction == Gdk.ScrollDirection.RIGHT:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+                new_progress = progress + progress_delta_small
+            else:
+                new_progress = progress + progress_delta
+        elif event.direction == Gdk.ScrollDirection.SMOOTH:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+                new_progress = progress \
+                    + progress_delta_small * (event.deltax + event.deltay)
+            else:
+                new_progress = progress \
+                    + progress_delta * (event.deltax + event.deltay)
+
+        if new_progress > 1:
+            new_progress = 1
+        elif new_progress < 0:
+            new_progress = 0
+        self.__player.set_progress(new_progress)
+        self.update_progress()
+        return True
 
     def on_hierarchy_changed(self, widget, old_toplevel):
         """

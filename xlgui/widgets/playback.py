@@ -50,7 +50,7 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
     def __init__(self, player):
         formatter.ProgressTextFormatter.__init__(self, '', player)
-        
+
         self.on_option_set('gui_option_set', settings,
             'gui/progress_bar_text_format')
         event.add_ui_callback(self.on_option_set, 'gui_option_set')
@@ -170,7 +170,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
 class Anchor(int):
     __gtype__ = GObject.TYPE_INT
-    
+
 for i, a in enumerate('CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()):
     setattr(Anchor, a, Anchor(i))
 
@@ -281,7 +281,7 @@ class MarkerManager(providers.ProviderHandler):
         Enables management of playback markers; namely simple
         adding, removing and finding. It also takes care of
         emitting signals when a marker is reached during playback.
-        
+
         TODO: This presumes there is only one player object present
         in exaile, and that markers can only be associated with
         the single player object. This class should probably be
@@ -332,12 +332,12 @@ class MarkerManager(providers.ProviderHandler):
     def get_markers_at(self, position):
         """
             Gets all markers located at a position
- 
+
             :param position: the mark position
             :type position: float
             :returns: (m1, m2, ...)
             :rtype: (:class:`Marker`, ...)
- 
+
             * *m1*: the first marker
             * *m2*: the second marker
             * ...
@@ -373,11 +373,11 @@ class MarkerManager(providers.ProviderHandler):
         """
             Triggers "reached" signal of markers
         """
-        
+
         if player.current is None:
             self.__timeout_id = None
             return
-        
+
         track_length = player.current.get_tag_raw('__length')
 
         if track_length is None:
@@ -399,17 +399,17 @@ get_markers_at = __MARKERMANAGER.get_markers_at
 
 
 class _SeekInternalProgressBar(PlaybackProgressBar):
-    
+
     __gsignals__ = {
         'draw': 'override',
     }
-    
+
     def __init__(self, player, points, marker_scale):
         PlaybackProgressBar.__init__(self, player)
         self._points = points
         self._seeking = False
         self._marker_scale = marker_scale
-    
+
     def do_draw(self, context):
         """
             Draws markers on top of the progress bar
@@ -459,7 +459,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
                     0.7
                 )
             context.stroke()
-    
+
     def on_timer(self):
         """
             Prevents update while seeking
@@ -501,25 +501,25 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def __init__(self, player, use_markers=True):
         '''
-            TODO: markers aren't designed for more than one player, once 
+            TODO: markers aren't designed for more than one player, once
             they are we can get rid of the use_markers option
         '''
-        
+
         Gtk.EventBox.__init__(self)
-        
+
         points = {}
-        
+
         self.__player = player
         self.__values = {'marker-scale': 0.7}
         self._points = points
-        
+
         self.__progressbar = _SeekInternalProgressBar(player, points,
                                                       self.__values['marker-scale'])
         self._progressbar_menu = None
-        
+
         if use_markers:
             self._progressbar_menu = ProgressBarContextMenu(self)
-        
+
             self._marker_menu = MarkerContextMenu(self)
             self._marker_menu.connect('deactivate',
                 self.on_marker_menu_deactivate)
@@ -531,13 +531,13 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                         Gdk.EventMask.POINTER_MOTION_MASK |
                         Gdk.EventMask.LEAVE_NOTIFY_MASK |
                         Gdk.EventMask.SCROLL_MASK)
-        
+
         self.set_can_focus(True)
 
         self.connect('hierarchy-changed',
             self.on_hierarchy_changed)
         self.connect('scroll-event', self.on_scroll_event)
-        
+
         self.add(self.__progressbar)
         self.show_all()
 
@@ -577,7 +577,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def _is_marker_hit(self, marker, check_x, check_y):
         """
-            Checks whether a marker is hit by a point 
+            Checks whether a marker is hit by a point
 
             :param marker: the marker
             :type marker: :class:`Marker`
@@ -708,15 +708,15 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         if self.__player.current:
             self.__player.set_progress(position)
             self.update_progress()
-            
+
     def update_progress(self):
         '''
             Updates the progress bar and the time with data from the player
         '''
-        
+
         if self.__player.current:
             length = self.__player.current.get_tag_raw('__length')
-            
+
             if length is not None:
                 position = float(self.__player.get_time())/length
                 self.__progressbar.set_fraction(position)
@@ -763,7 +763,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             for marker in self._points.iterkeys():
                 self._points[marker] = self._get_points(marker)
 
-    
+
 
     def do_button_press_event(self, event):
         """
@@ -780,11 +780,11 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                     hit_markers += [marker]
 
         hit_markers.sort()
-        
+
         if event.button == 1:
             if self.__player.current is None:
                 return True
-            
+
             length = self.__player.current.get_tag_raw('__length')
 
             if length is None:
@@ -796,7 +796,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 fraction = event.x / self.get_allocation().width
                 fraction = max(0, fraction)
                 fraction = min(fraction, 1)
-                
+
                 self.__progressbar.set_fraction(fraction)
                 self.__progressbar.set_text(
                     _('Seeking: %s') % self.__progressbar.formatter.format(
@@ -813,7 +813,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             Completes seeking
         """
         event = event.button
-        
+
         for marker in self._points.iterkeys():
             if marker.props.state == Gtk.StateType.ACTIVE:
                 marker.props.state = Gtk.StateType.PRELIGHT
@@ -885,7 +885,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             direction = -1
         else:
             return
-        
+
         press_event = Gdk.Event.new(Gdk.EventType.BUTTON_PRESS)
         press_event.button = 1
         new_fraction = self.__progressbar.get_fraction() + 0.01 * direction
@@ -952,12 +952,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 new_progress = progress \
                     + progress_delta * (event.deltax + event.deltay)
 
-        if new_progress > 1:
-            new_progress = 1
-        elif new_progress < 0:
-            new_progress = 0
-        self.__player.set_progress(new_progress)
+        self.__player.set_progress(clamp(new_progress, 0, 1))
         self.update_progress()
+
         return True
 
     def on_hierarchy_changed(self, widget, old_toplevel):
@@ -994,7 +991,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         if gproperty.name in ('anchor', 'position'):
             self._points[marker] = self._get_points(marker)
         self.__progressbar.queue_draw()
-    
+
     def on_provider_added(self, marker):
         """
             Calculates points after marker addition
@@ -1207,7 +1204,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
             self._parent.set_tooltip_markup(label)
 
             return True
-        
+
         return False
 
     def move_finish(self):
@@ -1353,20 +1350,20 @@ class VolumeControl(Gtk.Box):
         control the volume indicating the current
         status via icon and tooltip
     """
-    
+
     __gtype_name__ = 'VolumeControl'
-    
+
     button,             \
     slider,             \
     button_image,       \
     slider_adjustment   = GtkTemplate.Child.widgets(4)
-    
+
     def __init__(self, player):
         Gtk.Box.__init__(self)
         self.init_template()
-        
+
         self.button.add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.SCROLL_MASK)
-        
+
         self.__volume_setting = '%s/volume' % player._name
         self.restore_volume = settings.get_option(self.__volume_setting, 1)
         self.icon_names = ['low', 'medium', 'high']

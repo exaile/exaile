@@ -45,6 +45,7 @@ from xl.metadata._base import CoverImage
 from xl import (
     common,
     metadata,
+    settings,
     trax,
     xdg
 )
@@ -129,7 +130,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         self._build_from_track(self.current_position)
 
-        self.dialog.resize(600, 350)
+        self._setup_position()
         self.dialog.show()
 
         self.rows[0].field.grab_focus()
@@ -362,6 +363,27 @@ class TrackPropertiesDialog(GObject.GObject):
 
         self.remove_tag_button.toggled()
 
+    def _save_position(self):
+        (width, height) = self.dialog.get_size()
+        if [width, height] != [settings.get_option('gui/trackprop_' + key, -1)
+                               for key in ['width', 'height']]:
+            settings.set_option('gui/trackprop_height', height, save=False)
+            settings.set_option('gui/trackprop_width', width, save=False)
+        (x, y) = self.dialog.get_position()
+        if [x, y] != [settings.get_option('gui/trackprop_' + key, -1)
+                      for key in ['x', 'y']]:
+            settings.set_option('gui/trackprop_x', x, save=False)
+            settings.set_option('gui/trackprop_y', y, save=False)
+
+    def _setup_position(self):
+        width = settings.get_option('gui/trackprop_width', 600)
+        height = settings.get_option('gui/trackprop_height', 350)
+        x = settings.get_option('gui/trackprop_x', 100)
+        y = settings.get_option('gui/trackprop_y', 100)
+
+        self.dialog.move(x, y)
+        self.dialog.resize(width, height)
+
     def on_apply_button_clicked(self, w):
         modified = []
         for n, trackdata in enumerate(self.trackdata):
@@ -397,7 +419,7 @@ class TrackPropertiesDialog(GObject.GObject):
         if self.message.get_message_type() == Gtk.MessageType.QUESTION:
             self.message.hide()
 
-    def on_close_button_clicked(self, w):
+    def _check_for_save(self):
         if self.trackdata != self.trackdata_original:
             def on_response(message, response):
                 """
@@ -406,6 +428,7 @@ class TrackPropertiesDialog(GObject.GObject):
                 if response == Gtk.ResponseType.APPLY:
                     self.apply_button.clicked()
 
+                self._save_position()
                 self.dialog.destroy()
 
             self.message.connect('response', on_response)
@@ -417,7 +440,15 @@ class TrackPropertiesDialog(GObject.GObject):
                 _('Your changes will be lost if you do not apply them now.')
             )
         else:
+            self._save_position()
             self.dialog.destroy()
+
+    def on_close_button_clicked(self, w):
+        self._check_for_save()
+
+    def on_delete_event(self, widget, data=None):
+        self._check_for_save()
+        return True
 
     def on_prev_track_button_clicked(self, widget):
         self.current_position -= 1

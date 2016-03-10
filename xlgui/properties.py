@@ -1047,7 +1047,22 @@ class TagImageField(Gtk.HBox):
         mime = self.mime_info[self.info.mime]
         # Retrieve proper image data
         writer = io.BytesIO()
-        self.pixbuf.save_to_callback(writer.write, mime['type'], mime['options'])
+
+        def gdk_pixbuf_save_func(buf, count, user_data):
+            if writer.write(buf) == count:
+                return True
+            return False
+
+        # workaround for some undocumented changes in GdkPixbuf API
+        # see https://bugzilla.gnome.org/show_bug.cgi?id=670372
+        # see https://github.com/mypaint/mypaint/issues/236
+        try:
+            save_to_callback_function = self.pixbuf.save_to_callbackv
+        except AttributeError:
+            save_to_callback_function = self.pixbuf.save_to_callback
+        save_to_callback_function(gdk_pixbuf_save_func, None, mime['type'], \
+                mime['options'].keys(), mime['options'].values())
+
         # Move to the beginning of the buffer to allow read operations
         writer.seek(0)
 
@@ -1119,7 +1134,7 @@ class TagImageField(Gtk.HBox):
                 pass
             else:
                 self.batch_update = True
-                self.set_pixbuf(pixbuf, info['mime_types'][0])
+                self.set_pixbuf(pixbuf, info.get_mime_types()[0])
                 self.type_selection.set_active(self.default_type)
                 self.type_selection.set_sensitive(True)
                 self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])

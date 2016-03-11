@@ -135,8 +135,8 @@ class ProgressManager(object):
         """
             Initializes the manager
 
-            :param container: the Gtk.VBox that will be holding the different
-            progress indicators
+            :param container: the vertical Gtk.Box that will be holding the
+            different progress indicators
         """
         self.box = container
 

@@ -121,14 +121,14 @@ class LVPanel():
         self.getting_info=False
 
     def gui_init(self, exaile):
-        self.vbox=Gtk.VBox()
+        self.vbox=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.vbox.set_border_width(3)
         self.search_label=Gtk.Label(label="LibriVox.org")
         self.vbox.pack_start(self.search_label, False, True, 4)
         self.entry=guiutil.SearchEntry()
         self.entry.connect("activate", self.run_search)
 
-        self.hbox=Gtk.HBox()
+        self.hbox=Gtk.Box()
         self.vbox.pack_start(self.hbox, False, True, 0)
         self.hbox.pack_start(self.entry.entry, True, True, 0)
         self.searchbutton=Gtk.Button()

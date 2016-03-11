@@ -269,7 +269,7 @@ class TrackInfoPane(Gtk.Alignment):
             Retrieves the action area
             at the end of the pane
 
-            :rtype: :class:`Gtk.VBox`
+            :rtype: :class:`Gtk.Box`
         """
         return self.action_area
 

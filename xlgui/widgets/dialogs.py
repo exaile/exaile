@@ -137,12 +137,12 @@ class MultiTextEntryDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, title, parent)
 
 
-        self.hbox = Gtk.HBox()
+        self.hbox = Gtk.Box()
         self.vbox.pack_start(self.hbox, True, True, 0)
         self.vbox.set_border_width(5)
         self.hbox.set_border_width(5)
-        self.left = Gtk.VBox()
-        self.right = Gtk.VBox()
+        self.left = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.right = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         self.hbox.pack_start(self.left, True, True, 0)
         self.hbox.pack_start(self.right, True, True, 0)
@@ -239,7 +239,7 @@ class TextEntryDialog(Gtk.Dialog):
         label.set_alignment(0.0, 0.0)
         self.vbox.set_border_width(5)
 
-        main = Gtk.VBox()
+        main = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         main.set_spacing(3)
         main.set_border_width(5)
         self.vbox.pack_start(main, True, True, 0)
@@ -535,7 +535,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
         self.set_do_overwrite_confirmation(True)
 
         # Container for additional option widgets
-        self.extras_box = Gtk.VBox(spacing=3)
+        self.extras_box = Gtk.Box(spacing=3, orientation=Gtk.Orientation.VERTICAL)
         self.set_extra_widget(self.extras_box)
         self.extras_box.show()
 
@@ -1034,11 +1034,11 @@ class MessageBar(Gtk.InfoBar):
         self.secondary_text.set_no_show_all(True)
         self.secondary_text.set_selectable(True)
 
-        self.message_area = Gtk.VBox(spacing=12)
+        self.message_area = Gtk.Box(spacing=12, orientation=Gtk.Orientation.VERTICAL)
         self.message_area.pack_start(self.primary_text, False, False, 0)
         self.message_area.pack_start(self.secondary_text, False, False, 0)
 
-        box = Gtk.HBox(spacing=6)
+        box = Gtk.Box(spacing=6)
         box.pack_start(self.image, False, True, 0)
         box.pack_start(self.message_area, True, True, 0)
 

@@ -258,7 +258,7 @@ class RatingMenuItem(Gtk.MenuItem):
         """
         Gtk.MenuItem.__init__(self)
 
-        box = Gtk.HBox(spacing=6)
+        box = Gtk.Box(spacing=6)
         box.pack_start(Gtk.Label(_('Rating:')), False, False, 0)
         self.rating_widget = RatingWidget(rating, player)
         box.pack_start(self.rating_widget, False, False, 0)

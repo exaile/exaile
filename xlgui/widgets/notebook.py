@@ -158,9 +158,9 @@ class NotebookTab(Gtk.EventBox):
         self.connect('button-press-event', self.on_button_press)
 
         if display_left:
-            box = Gtk.VBox(False, 2)
+            box = Gtk.Box(False, 2, orientation=Gtk.Orientation.VERTICAL)
         else:
-            box = Gtk.HBox(False, 2)
+            box = Gtk.Box(False, 2)
         self.add(box)
 
         self.icon = Gtk.Image()
@@ -319,7 +319,7 @@ class NotebookTab(Gtk.EventBox):
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
 
-class NotebookPage(Gtk.VBox):
+class NotebookPage(Gtk.Box):
     """
         Base class representing a page. Should never be used directly.
     """
@@ -338,7 +338,7 @@ class NotebookPage(Gtk.VBox):
         )
     }
     def __init__(self, child=None, page_name=None):
-        Gtk.VBox.__init__(self)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
         
@@ -416,8 +416,8 @@ class NotebookActionService(providers.ProviderHandler):
         self.notebook = notebook
 
         # Try to set up action widgets
-        notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.START)
-        notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.END)
+        notebook.set_action_widget(Gtk.Box(spacing=3), Gtk.PackType.START)
+        notebook.set_action_widget(Gtk.Box(spacing=3), Gtk.PackType.END)
     
         self.__actions = {}
         for provider in self.get_providers():

@@ -58,7 +58,7 @@ class FilterDialog(Gtk.Dialog):
 
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        top = Gtk.HBox()
+        top = Gtk.Box()
         top.set_border_width(5)
         top.set_spacing(5)
 
@@ -74,7 +74,7 @@ class FilterDialog(Gtk.Dialog):
         self.vbox.pack_start(f, True, True, 0)
         f.show_all()
 
-        bottom = Gtk.HBox()
+        bottom = Gtk.Box()
         bottom.set_border_width(5)
         self.match_any = Gtk.CheckButton(_('Match any of the criteria'))
         bottom.pack_start(self.match_any, True, True, 0)
@@ -92,7 +92,7 @@ class FilterDialog(Gtk.Dialog):
         self.vbox.pack_start(bottom, False, True, 0)
 
         # add the limit checkbox, spinner
-        limit_area = Gtk.HBox()
+        limit_area = Gtk.Box()
         limit_area.set_border_width(5)
         self.lim_check = Gtk.CheckButton(_("Limit to: "))
         limit_area.pack_start(self.lim_check, False, True, 0)
@@ -325,7 +325,7 @@ class FilterWidget(Gtk.Table):
             cstate[0].reverse() # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)
 
-class Criterion(Gtk.HBox):
+class Criterion(Gtk.Box):
     """Widget representing one filter criterion.
 
     It contains either:
@@ -403,11 +403,11 @@ class Criterion(Gtk.HBox):
 
 # Sample fields
 
-class ComboEntryField(Gtk.HBox):
+class ComboEntryField(Gtk.Box):
     '''Select from multiple fixed values, but allow the user to enter text'''
     
     def __init__(self, values):
-        Gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
         
         self.combo = Gtk.ComboBoxText.new_with_entry()
         for value in values:
@@ -422,7 +422,7 @@ class ComboEntryField(Gtk.HBox):
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
 
-class NullField(Gtk.HBox):
+class NullField(Gtk.Box):
     '''Used as a placeholder for __null__ values'''
     
     def get_state(self):
@@ -432,7 +432,7 @@ class NullField(Gtk.HBox):
         pass
     
 
-class MultiEntryField(Gtk.HBox):
+class MultiEntryField(Gtk.Box):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""
     def __init__(self, labels):
@@ -444,7 +444,7 @@ class MultiEntryField(Gtk.HBox):
           integer represents Entry widget with a specific width,
           None represents Entry widget with default width
         """
-        Gtk.HBox.__init__(self, spacing=5)
+        Gtk.Box.__init__(self, spacing=5)
         self.entries = []
         for label in labels:
             if label is None:
@@ -489,9 +489,9 @@ class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
         MultiEntryField.__init__(self, (50, label, 50))
 
-class SpinLabelField(Gtk.HBox):
+class SpinLabelField(Gtk.Box):
     def __init__(self, label='', top=99999, lower=-99999):
-        Gtk.HBox.__init__(self, spacing=5)
+        Gtk.Box.__init__(self, spacing=5)
         self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
         self.spin.set_value(0)
         self.pack_start(self.spin, False, True, 0)
@@ -507,9 +507,9 @@ class SpinLabelField(Gtk.HBox):
         except ValueError:
             pass
 
-class SpinButtonAndComboField(Gtk.HBox):
+class SpinButtonAndComboField(Gtk.Box):
     def __init__(self, items=()):
-        Gtk.HBox.__init__(self, spacing=5)
+        Gtk.Box.__init__(self, spacing=5)
         self.items = items
 
         self.entry = Gtk.SpinButton.new_with_range(0, 99999, 1)

@@ -101,7 +101,7 @@ class SecondaryOutputPlugin(object):
         logger.debug('Preview Device Disabled')
 
     def _init_gui(self):
-        self.pane = Gtk.HPaned()
+        self.pane = Gtk.Paned()
 
         # stolen from main
         self.info_area = main.MainWindowTrackInfoPane(self.player)
@@ -123,14 +123,14 @@ class SecondaryOutputPlugin(object):
 
         self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
 
-        play_toolbar = Gtk.HBox()
+        play_toolbar = Gtk.Box()
         play_toolbar.pack_start(self.playpause_button, False, False, 0)
         play_toolbar.pack_start(self.progress_bar, True, True, 0)
 
         # stick our player controls into this box
-        self.pane1_box = Gtk.VBox()
+        self.pane1_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
-        self.pane2_box = Gtk.VBox()
+        self.pane2_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.pane2_box.pack_start(self.info_area, False, False, 0)
         self.pane2_box.pack_start(play_toolbar, False, False, 0)
 

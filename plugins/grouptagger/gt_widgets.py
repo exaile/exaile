@@ -491,11 +491,11 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         return len(dest_path) == 2 and src_path[0] != dest_path[0]
 
 
-class GroupTaggerWidget(Gtk.VBox):
+class GroupTaggerWidget(Gtk.Box):
     '''Melds the tag view with an 'add' button'''
 
     def __init__(self, exaile):
-        Gtk.VBox.__init__(self)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         
         self.title = Gtk.Label()
         self.artist = Gtk.Label()
@@ -691,7 +691,7 @@ class AllTagsDialog(Gtk.Window):
         
         self.add(Gtk.Frame())
         
-        vbox = Gtk.VBox()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         
         self._callback = callback
         

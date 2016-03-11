@@ -660,9 +660,9 @@ class TagRow(object):
     def clear(self, w):
         self.field.set_value('')
 
-class TagField(Gtk.HBox):
+class TagField(Gtk.Box):
     def __init__(self, all_button=True):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         # Create the widgets
         self.field = Gtk.Entry()
@@ -713,9 +713,9 @@ def dummy_scroll_handler(widget, _):
     GObject.signal_stop_emission_by_name(widget, 'scroll-event')
     return False
 
-class TagTextField(Gtk.HBox):
+class TagTextField(Gtk.Box):
     def __init__(self, all_button=True):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         self.buffer = Gtk.TextBuffer()
         self.field = Gtk.TextView.new_with_buffer(self.buffer)
@@ -768,9 +768,9 @@ class TagTextField(Gtk.HBox):
     def register_all_func(self, f):
         self.all_func = f
 
-class TagNumField(Gtk.HBox):
+class TagNumField(Gtk.Box):
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         # Create the widgets
         self.field = Gtk.SpinButton()
@@ -825,10 +825,10 @@ class TagNumField(Gtk.HBox):
     def register_all_func(self, f):
         self.all_func = f
 
-class TagDblNumField(Gtk.HBox):
+class TagDblNumField(Gtk.Box):
 
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         self.field = [Gtk.SpinButton(), Gtk.SpinButton()]
         self.all_func = None
@@ -919,9 +919,9 @@ class TagDblNumField(Gtk.HBox):
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
-class TagImageField(Gtk.HBox):
+class TagImageField(Gtk.Box):
     def __init__(self, all_button=True):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         self.parent_row = None
         self.all_func = None
@@ -1165,9 +1165,9 @@ class TagImageField(Gtk.HBox):
         self.info = self.info._replace(desc=entry.get_text())
         self.call_update_func()
 
-class PropertyField(Gtk.HBox):
+class PropertyField(Gtk.Box):
     def __init__(self, property_type='text'):
-        Gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
         # Informs of special formatting required
         self.property_type = property_type
@@ -1260,7 +1260,7 @@ class SavingProgressWindow(Gtk.Window):
         self.set_focus_on_map(False)
         self.add(Gtk.Frame())
         self.get_child().set_shadow_type(Gtk.ShadowType.OUT)
-        vbox = Gtk.VBox(spacing=12)
+        vbox = Gtk.Box(spacing=12, orientation=Gtk.Orientation.VERTICAL)
         vbox.set_border_width(12)
         self._label = Gtk.Label()
         self._label.set_use_markup(True)

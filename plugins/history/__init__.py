@@ -158,7 +158,7 @@ class HistoryPlaylistPage(PlaylistPageBase):
         self.view = PlaylistView(self.playlist, player)
         self.swindow.add(self.view)
         
-        hbox = Gtk.HButtonBox()
+        hbox = Gtk.ButtonBox()
         
         button = Gtk.Button(stock=Gtk.STOCK_CLEAR)
         button.connect( 'clicked', self.on_clear_history )

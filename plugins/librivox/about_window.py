@@ -27,7 +27,7 @@ class AboutWindow():
         self.win.set_title("About")
         self.win.set_default_size(300, 200)
         self.win.set_geometry_hints(self.win, min_width=100, min_height=100)
-        self.vbox=Gtk.VBox()
+        self.vbox=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.win.add(self.vbox)
 
         self.scrollwin=Gtk.ScrolledWindow()
@@ -48,7 +48,7 @@ class AboutWindow():
         self.textbuffer.create_tag('bold', weight=Pango.Weight.BOLD)
         self.textview.set_buffer(self.textbuffer)
 
-        self.hbox=Gtk.HBox()
+        self.hbox=Gtk.Box()
         self.vbox.pack_start(self.hbox, False, False, 2)
 
         self.closebutton=Gtk.Button("Close")

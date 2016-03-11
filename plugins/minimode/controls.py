@@ -66,7 +66,7 @@ def suppress(signal):
         return wrapped_function
     return wrapper
 
-class ControlBox(Gtk.HBox, providers.ProviderHandler):
+class ControlBox(Gtk.Box, providers.ProviderHandler):
     """
         A box for minimode controls which
         updates itself based on settings
@@ -74,7 +74,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
     __gsignals__ = {'show': 'override'}
 
     def __init__(self):
-        Gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
         providers.ProviderHandler.__init__(self, 'minimode-controls')
 
         self.__dirty = True
@@ -163,7 +163,7 @@ class ControlBox(Gtk.HBox, providers.ProviderHandler):
             self.update()
             self.__dirty = False
 
-        Gtk.HBox.do_show(self)
+        Gtk.Box.do_show(self)
 
     def on_provider_removed(self, provider):
         """
@@ -713,7 +713,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
         self.set_focus_on_click(False)
         self.set_size_request(200, -1)
-        box = Gtk.HBox()
+        box = Gtk.Box()
         self.arrow = Gtk.Arrow(Gtk.ArrowType.RIGHT, Gtk.ShadowType.OUT)
         box.pack_start(self.arrow, False, True, 0)
         self.label = Gtk.Label(label='')

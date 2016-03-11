@@ -482,7 +482,7 @@ class PlaylistNotebook(SmartNotebook):
             self.set_tab_pos(self.tab_placement_map[tab_placement])
 
             
-class PlaylistContainer(Gtk.HBox):
+class PlaylistContainer(Gtk.Box):
     '''
         Contains two playlist notebooks that can contain playlists. 
         Playlists can be moved between the two notebooks.
@@ -493,7 +493,7 @@ class PlaylistContainer(Gtk.HBox):
         of UI elements if that was the case. 
     '''
     def __init__(self, manager_name, player):
-        Gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
     
         self.notebooks = []
         self.notebooks.append(PlaylistNotebook(manager_name, player, '<Control><Shift>t'))
@@ -505,7 +505,7 @@ class PlaylistContainer(Gtk.HBox):
         self.pack_start(self.notebooks[0], True, True, 0)
         
         # setup the paned window for separate views
-        self.paned = Gtk.VPaned()
+        self.paned = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
         self.paned.pack2(self.notebooks[1], True, True)
         
         # setup queue page

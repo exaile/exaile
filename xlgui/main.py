@@ -1107,7 +1107,7 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         info.TrackInfoPane.__init__(self, player)
 
         self.__player = player
-        self.widget_area = Gtk.HBox()
+        self.widget_area = Gtk.Box()
 
         self.get_child().pack_start(self.widget_area, False, False, 0)
 

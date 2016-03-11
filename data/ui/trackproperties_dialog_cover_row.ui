@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="image">
@@ -101,114 +101,113 @@
       </row>
     </data>
   </object>
-  <object class="GtkWindow" id="window1">
+  <template class="TagImageField" parent="GtkBox">
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="border_width">6</property>
+    <property name="spacing">5</property>
     <child>
-      <object class="GtkBox" id="cover_row">
+      <object class="GtkButton" id="button">
+        <property name="label">_Add Cover</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Click or drag files here to change the cover image</property>
+        <property name="image">image</property>
+        <property name="use_underline">True</property>
+        <property name="always_show_image">True</property>
+        <signal name="clicked" handler="_on_button_clicked" swapped="no"/>
+        <signal name="drag-data-received" handler="_on_button_drag_data_received" swapped="no"/>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="spacing">6</property>
+        <property name="row_spacing">6</property>
+        <property name="column_spacing">6</property>
         <child>
-          <object class="GtkButton" id="button">
-            <property name="label">_Add Cover</property>
-            <property name="use_action_appearance">False</property>
+          <object class="GtkLabel" id="label5">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Click or drag files here to change the cover image</property>
-            <property name="image">image</property>
-            <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_button_clicked" swapped="no"/>
-            <signal name="drag-data-received" handler="on_button_drag_data_received" swapped="no"/>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Description:</property>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="grid1">
+          <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="row_spacing">6</property>
-            <property name="column_spacing">6</property>
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Type:</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="description_entry">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="invisible_char">●</property>
+            <signal name="changed" handler="_on_description_entry_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="type_selection">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="model">type_model</property>
+            <signal name="changed" handler="_on_type_selection_changed" swapped="no"/>
             <child>
-              <object class="GtkLabel" id="label5">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Description:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Type:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="description_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <signal name="changed" handler="on_description_entry_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="type_selection">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="model">type_model</property>
-                <signal name="changed" handler="on_type_selection_changed" swapped="no"/>
-                <child>
-                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="info_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">2</property>
-              </packing>
+              <object class="GtkCellRendererText" id="cellrenderertext1"/>
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="info_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="hexpand">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
           </packing>
         </child>
       </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
     </child>
-  </object>
+  </template>
 </interface>

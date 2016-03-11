@@ -51,6 +51,7 @@ from xl import (
 )
 
 from xlgui.widgets import dialogs
+from xlgui.guiutil import GtkTemplate
 from xl.metadata.tags import tag_data, get_default_tagdata
 
 
@@ -91,8 +92,8 @@ class TrackPropertiesDialog(GObject.GObject):
         self.prev_button = self.builder.get_object('prev_track_button')
         self.next_button = self.builder.get_object('next_track_button')
 
-        self.tags_table = self.builder.get_object('tags_table')
-        self.properties_table = self.builder.get_object('properties_table')
+        self.tags_grid = self.builder.get_object('tags_grid')
+        self.properties_grid = self.builder.get_object('properties_grid')
         self.rows = []
 
         self.new_tag_combo = self.builder.get_object('new_tag_combo')
@@ -256,12 +257,7 @@ class TrackPropertiesDialog(GObject.GObject):
             )
 
     def _build_from_track(self, position):
-
-        for table in [self.tags_table, self.properties_table]:
-            for child in table.get_children():
-                table.remove(child)
-
-            table.resize(1,4)
+        self._clear_grids()
 
         self.rows = []
 
@@ -295,7 +291,7 @@ class TrackPropertiesDialog(GObject.GObject):
                 
                 field = self._get_field_widget(tag_info, ab)
                 
-                row = TagRow(self, self.tags_table, field, tag, entry, i)
+                row = TagRow(self, self.tags_grid, field, tag, entry, i)
                 self.rows.append(row)
 
                 try:
@@ -320,48 +316,47 @@ class TrackPropertiesDialog(GObject.GObject):
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
-                    self.rows.append(TagRow(self, self.tags_table, field, tag, entry, i))
+                    self.rows.append(TagRow(self, self.tags_grid, field, tag, entry, i))
                 else:
                     field = PropertyField(tag_info.type)
-                    self.rows.append(TagRow(self, self.properties_table, field, tag, entry, i))
+                    self.rows.append(TagRow(self, self.properties_grid, field, tag, entry, i))
         
         self._check_for_changes()
-        self._build_tables_from_rows()
+        self._build_grids_from_rows()
 
-    def _build_tables_from_rows(self):
-
-        tables = [self.tags_table, self.properties_table]
-
-        #clear the tables to start with
-        for table in tables:
-            for child in table.get_children():
-                table.remove(child)
-
-            table.resize(1,4)
-
-        cur_row = {tables[0]:0, tables[1]:0}
-
-        paddings = [0, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL|Gtk.AttachOptions.EXPAND, 0]
+    def _build_grids_from_rows(self):
+        self._clear_grids()
+        grids = [self.tags_grid, self.properties_grid]
+        cur_row = {grids[0]:0, grids[1]:0}
 
         for row in self.rows:
-            columns = [
-                    Gtk.Label(),
-                    row.label,
-                    row.field,
-                    Gtk.Label()]
+            columns = [row.label, row.field]
 
-            for col, content in enumerate(columns):
-                row.table.attach(content, col, col + 1, cur_row[row.table],
-                        cur_row[row.table] + 1,
-                        xoptions=paddings[col], yoptions=0)
+            row.grid.insert_row(cur_row[row.grid] + 1)
+            row.grid.attach(Gtk.Separator(), 0, cur_row[row.grid], 2, 1)
+            cur_row[row.grid] += 1
 
-            cur_row[row.table] += 1
-            row.table.resize(cur_row[row.table] + 1, 4)
+            row.grid.insert_row(cur_row[row.grid] + 1)
+            row.grid.attach(row.label, 0, cur_row[row.grid], 1, 1)
+            row.grid.attach(row.field, 1, cur_row[row.grid], 1, 1)
+            cur_row[row.grid] += 1
 
-        for table in tables:
-            table.show_all()
+        for grid in grids:
+            grid.show_all()
 
         self.remove_tag_button.toggled()
+
+    def _clear_grids(self):
+        """Careful, we need to delete exactly as many rows as we inserted"""
+        grids = [self.tags_grid, self.properties_grid]
+
+        for grid in grids:
+            row_count = len(grid.get_children())
+            for child in grid.get_children():
+                grid.remove(child)
+
+            for i in range(row_count/3*2, 0, -1):
+                grid.remove_row(i)
 
     def _save_position(self):
         (width, height) = self.dialog.get_size()
@@ -590,9 +585,9 @@ class TrackPropertiesDialog(GObject.GObject):
         self.dialog.hide()
 
 class TagRow(object):
-    def __init__(self, parent, parent_table, field, tag_name, value, multi_id):
+    def __init__(self, parent, parent_grid, field, tag_name, value, multi_id):
         self.parent = parent
-        self.table = parent_table
+        self.grid = parent_grid
         self.tag = tag_name
         self.field = field
         self.field.register_parent_row(self)
@@ -615,12 +610,11 @@ class TagRow(object):
                 name = self.tag
 
         self.name = name
-        self.label = Gtk.Label()
+        self.label = Gtk.Label(halign=Gtk.Align.START, margin_top=5)
 
         if multi_id == 0:
             self.label.set_text(_('%s:') % name.capitalize())
             self.label.create_pango_context()
-            self.label.set_alignment(0.0, .50)
 
         self.clear_button = Gtk.Button()
         self.clear_button.set_image(Gtk.Image.new_from_icon_name(
@@ -919,9 +913,18 @@ class TagDblNumField(Gtk.Box):
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
+
+@GtkTemplate('ui', 'trackproperties_dialog_cover_row.ui')
 class TagImageField(Gtk.Box):
+
+    __gtype_name__ = 'TagImageField'
+
+    button, image, type_model, description_entry, type_selection, \
+        info_label = GtkTemplate.Child.widgets(6)
+
     def __init__(self, all_button=True):
-        Gtk.Box.__init__(self, homogeneous=False, spacing=5)
+        Gtk.Box.__init__(self)
+        self.init_template()
 
         self.parent_row = None
         self.all_func = None
@@ -958,24 +961,10 @@ class TagImageField(Gtk.Box):
             }
         }
 
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog_cover_row.ui'))
-        builder.connect_signals(self)
-        cover_row = builder.get_object('cover_row')
-        cover_row.reparent(self)
+        self.button.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
+        self.button.drag_dest_add_uri_targets()
 
-        button = builder.get_object('button')
-        button.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
-        button.drag_dest_add_uri_targets()
-
-        self.image = builder.get_object('image')
-        self.info_label = builder.get_object('info_label')
-        self.type_model = builder.get_object('type_model')
-        self.type_selection = builder.get_object('type_selection')
-        self.type_selection.set_sensitive(False)
         self.type_selection.connect('scroll-event', dummy_scroll_handler)
-        self.description_entry = builder.get_object('description_entry')
-        self.description_entry.set_sensitive(False)
 
         self.all_button = None
         if all_button:
@@ -1089,7 +1078,7 @@ class TagImageField(Gtk.Box):
 
             self.info = self.info._replace(mime=mime)
 
-    def on_button_clicked(self, button):
+    def _on_button_clicked(self, button):
         """
             Allows setting the cover image using a file selection dialog
         """
@@ -1129,7 +1118,7 @@ class TagImageField(Gtk.Box):
 
         dialog.destroy()
 
-    def on_button_drag_data_received(self, widget, context, x, y, selection, info, time):
+    def _on_button_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
             Allows setting the cover image via drag and drop
         """
@@ -1151,14 +1140,14 @@ class TagImageField(Gtk.Box):
                 self.batch_update = False
                 self.call_update_func()
 
-    def on_type_selection_changed(self, combobox):
+    def _on_type_selection_changed(self, combobox):
         """
             Notifies about changes in the cover type
         """
         self.info = self.info._replace(type=self.type_model[combobox.get_active()][0])
         self.call_update_func()
 
-    def on_description_entry_changed(self, entry):
+    def _on_description_entry_changed(self, entry):
         """
             Notifies about changes in the cover description
         """
@@ -1174,6 +1163,7 @@ class PropertyField(Gtk.Box):
         self.field = Gtk.Entry()
         self.field.set_editable(False)
         self.pack_start(self.field, True, True, 0)
+        self.set_hexpand(True)
         self.parent_row = None
 
         if self.property_type == 'location':

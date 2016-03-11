@@ -3,3 +3,4 @@ Authors=['Adam Olsen <arolsen@gmail.com>']
 Name=_('Podcasts')
 Description=_('Adds Simple Podcast Support')
 Category=_('Media Sources')
+RequiredModules['feedparser']

@@ -10,7 +10,7 @@ from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xl import xdg
 import xlgui, os, os.path
-import _feedparser as fp
+import feedparser
 
 # set up logger
 import logging
@@ -28,7 +28,7 @@ except ImportError:
     md5 = md5.new
 
 def enable(exaile):
-    fp.USER_AGENT = exaile.get_user_agent_string('podcasts')
+    feedparser.USER_AGENT = exaile.get_user_agent_string('podcasts')
     if exaile.loading:
         event.add_callback(exaile_ready, 'gui_loaded')
     else:
@@ -152,7 +152,7 @@ class PodcastPanel(panel.Panel):
             url = url.replace('itpc://', 'http://')
 
             self._set_status(_('Loading %s...') % url)
-            d = fp.parse(url)
+            d = feedparser.parse(url)
             entries = d['entries']
 
             title = d['feed']['title']

@@ -48,6 +48,10 @@ Musicbrainz covers:
 
 * musicbrainzngs
 
+Podcast plugin:
+
+* feedparser
+
 Scalable icons:
 
 * librsvg2

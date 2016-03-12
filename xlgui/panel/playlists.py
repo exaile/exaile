@@ -40,7 +40,7 @@ from xl import (
     settings,
     trax
 )
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 from xl.nls import gettext as _
 from xlgui import (
     icons,
@@ -272,6 +272,9 @@ class TrackWrapper(object):
                 text += u' - ' + u' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
+
+    def __str__(self):
+        return str_from_utf8(self.__unicode__())
 
 
 class BasePlaylistPanelMixin(GObject.GObject):

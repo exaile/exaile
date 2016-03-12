@@ -1089,7 +1089,7 @@ class Playlist(object):
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
         else:
-            hist = set([ i for i, tr in self.get_shuffle_history() ])
+            hist = { i for i, tr in self.get_shuffle_history() }
             try:
                 return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
                         if i not in hist])

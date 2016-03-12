@@ -478,7 +478,7 @@ class TracksInList(object):
         if isinstance(tracks, dict):
             self._tracks = set(tracks.keys())
         else:
-            self._tracks = set([t for t in tracks])
+            self._tracks = {t for t in tracks}
         
     def match(self, track):
         return track.track in self._tracks

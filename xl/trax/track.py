@@ -25,7 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from six import iteritems, text_type
+from six import iteritems, text_type, iterkeys
 from copy import deepcopy
 from gi.repository import Gio
 from gi.repository import GLib
@@ -450,7 +450,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return self.__tags.keys() + ['__basename']
+        return list(iterkeys(self.__tags)) + ['__basename']
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """

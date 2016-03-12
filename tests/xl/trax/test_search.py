@@ -1,5 +1,5 @@
 
-from six import string_types
+from six import string_types, iterkeys
 from mox3 import mox
 import unittest
 
@@ -19,7 +19,7 @@ def get_search_result_track():
 
 
 def clear_all_tracks():
-    for key in track.Track._Track__tracksdict.keys():
+    for key in list(iterkeys(track.Track._Track__tracksdict)):
         del track.Track._Track__tracksdict[key]
 
 

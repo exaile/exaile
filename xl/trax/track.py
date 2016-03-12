@@ -25,7 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from six import text_type
+from six import iteritems, text_type
 from copy import deepcopy
 from gi.repository import Gio
 from gi.repository import GLib
@@ -186,13 +186,13 @@ class Track(object):
                         unpickles = args[2]
                     else:
                         unpickles = kwargs.get("_unpickles")
-                
+
                 if unpickles is not None:
-                    for tag, values in unpickles.iteritems():
+                    for tag, values in iteritems(unpickles):
                         tags = tr.list_tags()
                         if tag.startswith('__') and tag not in tags:
                             tr.set_tag_raw(tag, values)
-                
+
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr
@@ -365,7 +365,7 @@ class Track(object):
                 self._scan_valid = False
                 return False # not a supported type
             ntags = f.read_all()
-            for k, v in ntags.iteritems():
+            for k, v in iteritems(ntags):
                 self.set_tag_raw(k, v)
 
             # remove tags that have been deleted in the file, while
@@ -884,7 +884,7 @@ class Track(object):
 
             value must be in lower-case
         """
-        for k, v in _sortcharmap.iteritems():
+        for k, v in iteritems(_sortcharmap):
             value = value.replace(k, v)
         return value
 # This is slower, don't use it!

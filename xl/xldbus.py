@@ -32,6 +32,7 @@
 """
 
 from collections import namedtuple
+from six import iteritems
 import logging
 import sys
 
@@ -107,7 +108,7 @@ def run_commands(options, iface):
         'GetLength': '__length',
     }
 
-    for command, attr in info_commands.iteritems():
+    for command, attr in iteritems(info_commands):
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:

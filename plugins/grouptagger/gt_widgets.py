@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six import iteritems
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
@@ -293,7 +294,7 @@ class GroupTaggerView(Gtk.TreeView):
         model, paths = context['selected-rows']
         categories = model.delete_selected_categories( paths )
         
-        for category, groups in categories.iteritems():
+        for category, groups in iteritems(categories):
             self.emit( 'category-changed', category_change.deleted, category )
             for group in groups:
                 self.emit( 'group-changed', group_change.deleted, group )
@@ -471,7 +472,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
             
             { category: [expanded, [(active, group), ... ]], ... }
         '''
-        for category, (expanded, groups) in group_categories.iteritems():
+        for category, (expanded, groups) in iteritems(group_categories):
             cat = self.append( None, [expanded, category, False, Pango.Weight.BOLD] )
             for active, group in groups:
                 self.append( cat, [active, group, True, Pango.Weight.NORMAL] )
@@ -582,7 +583,7 @@ class GroupTaggerWidget(Gtk.Box):
         set_groups = set() # this holds all groups that were found
         
         # validate it
-        for category, (visible, cgroups) in group_categories.iteritems():
+        for category, (visible, cgroups) in iteritems(group_categories):
             dcgroups = []
             for group in cgroups:
                 if group not in set_groups:

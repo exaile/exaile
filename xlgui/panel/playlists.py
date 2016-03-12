@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six import iteritems
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
@@ -237,7 +238,7 @@ def __update_maps():
     
     from xl.metadata.tags import tag_data
     
-    for tag, data in tag_data.iteritems():
+    for tag, data in iteritems(tag_data):
         
         if data is None:
             continue
@@ -803,11 +804,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if not isinstance(pl, playlist.SmartPlaylist): return
 
         _REV = {}
-        for k, v in _TRANS.iteritems():
+        for k, v in iteritems(_TRANS):
             _REV[v] = k
 
         _REV_NMAP = {}
-        for k, v in _NMAP.iteritems():
+        for k, v in iteritems(_NMAP):
             _REV_NMAP[v] = k
 
         params = pl.search_params

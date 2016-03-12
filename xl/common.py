@@ -29,7 +29,7 @@
 """
 
 from __future__ import with_statement
-from six import PY3, text_type
+from six import PY3, text_type, iteritems
 
 import inspect
 from gi.repository import Gio
@@ -416,6 +416,7 @@ class LimitedCache(DictMixin):
     def keys(self):
         return self.cache.keys()
 
+
 class cached(object):
     """
         Decorator to make a function's results cached
@@ -428,7 +429,7 @@ class cached(object):
 
     @staticmethod
     def _freeze(d):
-        return frozenset(d.iteritems())
+        return frozenset(iteritems(d))
 
     def __call__(self, f):
         try:
@@ -738,7 +739,7 @@ def order_poset(items):
         :type items: list of :class:`PosetItem`
     """
     items = dict([(i.name, i) for i in items])
-    for name, item in items.iteritems():
+    for name, item in iteritems(items):
         for after in item.after:
             i = items.get(after)
             if i:
@@ -755,7 +756,7 @@ def order_poset(items):
             for c in i[2].children:
                 nextset[c.name] = c
         removals = []
-        for name, item in nextset.iteritems():
+        for name, item in iteritems(nextset):
             for after in item.after:
                 if after in nextset:
                     removals.append(name)

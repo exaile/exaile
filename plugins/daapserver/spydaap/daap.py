@@ -9,7 +9,7 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
-from six import text_type
+from six import iteritems, text_type
 from six.moves import http_client
 from six.moves import cStringIO as StringIO
 import logging
@@ -281,7 +281,7 @@ class DAAPClient(object):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
+            l = ['%s=%s' % (k, v) for k, v in iteritems(params)]
             r = '%s?%s' % (r, '&'.join(l))
 
         log.debug('getting %s', r)

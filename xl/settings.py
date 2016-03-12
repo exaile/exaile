@@ -29,7 +29,7 @@
 """
 
 from __future__ import with_statement
-from six import text_type
+from six import iteritems, text_type
 from six.moves.configparser import (
     RawConfigParser,
     NoSectionError,
@@ -248,7 +248,7 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
-        for k, v in TYPE_MAPPING.iteritems():
+        for k, v in iteritems(TYPE_MAPPING):
             if isinstance(value, v):
                 if v == list:
                     return k + ": " + repr(value)

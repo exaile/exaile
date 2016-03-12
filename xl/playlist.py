@@ -30,7 +30,7 @@ in playlists as well as methods to import and export from various file formats.
 """
 
 from __future__ import with_statement
-from six import text_type
+from six import iteritems, text_type
 import cgi
 from collections import namedtuple
 from datetime import datetime, timedelta
@@ -413,7 +413,7 @@ class M3UConverter(FormatConverter):
                     track = trax.Track(self.get_track_import_path(path, line))
 
                     if extinf:
-                        for tag, value in extinf.iteritems():
+                        for tag, value in iteritems(extinf):
                             if track.get_tag_raw(tag) is None:
                                 try:
                                     track.set_tag_raw(tag, value)
@@ -427,6 +427,7 @@ class M3UConverter(FormatConverter):
 
         return playlist
 providers.register('playlist-format-converter', M3UConverter())
+
 
 class PLSConverter(FormatConverter):
     """
@@ -666,7 +667,7 @@ class ASXConverter(FormatConverter):
                 for trackdata in playlistdata['tracks']:
                     track = trax.Track(self.get_track_import_path(path, trackdata['uri']))
 
-                    for tag, value in trackdata['tags'].iteritems():
+                    for tag, value in iteritems(trackdata['tags']):
                         if not track.get_tag_raw(tag) and value:
                             track.set_tag_raw(tag, value)
 
@@ -699,7 +700,7 @@ class ASXConverter(FormatConverter):
             depth = len(self._stack)
             # Convert both tag and attributes to lowercase
             tag = tag.lower()
-            attributes = dict((k.lower(), v) for k, v in attributes.iteritems())
+            attributes = dict((k.lower(), v) for k, v in iteritems(attributes))
 
             if depth > 0:
                 if depth == 2 and self._stack[-1] == 'entry' and tag == 'ref':
@@ -800,7 +801,7 @@ class XSPFConverter(FormatConverter):
 
             for track in playlist:
                 stream.write('    <track>\n')
-                for element, tag in self.tags.iteritems():
+                for element, tag in iteritems(self.tags):
                     if not track.get_tag_raw(tag):
                         continue
                     stream.write('      <%s>%s</%s>\n' % (
@@ -847,7 +848,7 @@ class XSPFConverter(FormatConverter):
             for n in nodes:
                 location = n.find("%slocation" % ns).text.strip()
                 track = trax.Track(self.get_track_import_path(path, location))
-                for element, tag in self.tags.iteritems():
+                for element, tag in iteritems(self.tags):
                     try:
                         track.set_tag_raw(tag,
                             n.find("%s%s" % (ns, element)).text.strip())
@@ -1474,7 +1475,7 @@ class Playlist(object):
             if not track: continue
             if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
-                for k, v in meta.iteritems():
+                for k, v in iteritems(meta):
                     track.set_tag_raw(k, v[0].decode('utf-8'), notify_changed=False)
 
             trs.append(track)
@@ -1482,7 +1483,7 @@ class Playlist(object):
         self.__tracks[:] = trs
 
 
-        for item, val in items.iteritems():
+        for item, val in iteritems(items):
             if item in self.save_attrs:
                 try:
                     setattr(self, item, val)

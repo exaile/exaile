@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import copy
+from six import iteritems
 from collections import OrderedDict
 import datetime
 import io
@@ -44,7 +44,6 @@ from xl.nls import gettext as _
 from xl.metadata._base import CoverImage
 from xl import (
     common,
-    metadata,
     settings,
     trax,
     xdg
@@ -98,7 +97,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         self.new_tag_combo = self.builder.get_object('new_tag_combo')
         self.new_tag_combo_list = Gtk.ListStore(str, str)
-        for tag, tag_info in tag_data.iteritems():
+        for tag, tag_info in iteritems(tag_data):
             if tag_info is not None and tag_info.editable:
                 self.new_tag_combo_list.append((tag, tag_info.translated_name))
         self.new_tag_combo_list.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -170,7 +169,7 @@ class TrackPropertiesDialog(GObject.GObject):
         l = []
         for track in tracks:
             t = {}
-            for tag, tag_info in self.def_tags.iteritems():
+            for tag, tag_info in iteritems(self.def_tags):
                 if tag_info.use_disk:
                     tagval = track.get_tag_disk(tag)
                 else:
@@ -285,7 +284,7 @@ class TrackPropertiesDialog(GObject.GObject):
         else:
             ab = True
 
-        for tag, tag_info in self.def_tags.iteritems():
+        for tag, tag_info in iteritems(self.def_tags):
             
             for i, entry in enumerate(trackdata.get(tag, [''])):
                 

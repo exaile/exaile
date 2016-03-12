@@ -14,9 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from six import itervalues
 from gi.repository import Gdk
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -49,6 +49,7 @@ from xlgui.widgets.playlist import (
 from xlgui.widgets.rating import RatingWidget
 
 logger = logging.getLogger(__name__)
+
 
 def suppress(signal):
     """
@@ -87,7 +88,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
         """
             Cleanups
         """
-        for control in self.__controls.itervalues():
+        for control in itervalues(self.__controls):
             control.destroy()
 
     def __contains__(self, item):

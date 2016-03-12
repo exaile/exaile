@@ -24,26 +24,27 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.common import to_unicode
-from six import text_type, string_types
+from six import iteritems, text_type, string_types
 from collections import namedtuple
 import copy
-from gi.repository import Gio
 
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images
-# - type is a number corresponding to the cover type of ID3 APIC tags, 
-#   desc is a string describing the image, mime is a type, 
+# - type is a number corresponding to the cover type of ID3 APIC tags,
+#   desc is a string describing the image, mime is a type,
 #   data is the img data
 # -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
+
 class NotWritable(Exception):
     pass
 
+
 class NotReadable(Exception):
     pass
+
 
 class BaseFormat(object):
     """
@@ -76,7 +77,7 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         self._reverse_mapping = dict((
-            (v,k) for k,v in self.tag_mapping.iteritems() ))
+            (v, k) for k, v in iteritems(self.tag_mapping)))
         self.load()
 
     def load(self):

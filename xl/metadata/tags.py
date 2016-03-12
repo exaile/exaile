@@ -1,4 +1,5 @@
 
+from six import iteritems
 from xl.nls import gettext
 def N_(x): return x
 
@@ -24,7 +25,7 @@ class _TD(object):
         self.editable = True
         self.use_disk = False 
         
-        for k,v in kwargs.iteritems():
+        for k, v in iteritems(kwargs):
             setattr(self, k, v)    
 
 #: List of metadata tags currently supported by exaile, which are
@@ -83,7 +84,7 @@ tag_data = {
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
 }
 
-for k, v in tag_data.iteritems():
+for k, v in iteritems(tag_data):
     if v:
         v.tag_name = k
 

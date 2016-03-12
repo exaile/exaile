@@ -284,7 +284,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track(loc)
         tags = {'artist': 'foo', 'album': 'bar', '__loc': loc}
         self.empty_track_of_tags(tr, tags)
-        for tag, val in tags.iteritems():
+        for tag, val in tags.items():
             tr.set_tag_raw(tag, val)
         self.assertEqual(set(tr.list_tags()), {'album', '__loc', 'artist', '__basename'})
 

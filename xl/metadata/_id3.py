@@ -24,11 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import itervalues
 from xl.metadata._base import (
     BaseFormat,
     CoverImage
 )
 from mutagen import id3
+
 
 class ID3Format(BaseFormat):
     MutagenType = id3.ID3
@@ -81,7 +83,7 @@ class ID3Format(BaseFormat):
 
     def _get_tag(self, raw, t):
         if not raw.tags: return []
-        if t not in self.tag_mapping.itervalues():
+        if t not in itervalues(self.tag_mapping):
             t = "TXXX:" + t
         field = raw.tags.getall(t)
         if len(field) <= 0:
@@ -111,7 +113,7 @@ class ID3Format(BaseFormat):
         return ret
 
     def _set_tag(self, raw, tag, data):
-        if tag not in self.tag_mapping.itervalues():
+        if tag not in itervalues(self.tag_mapping):
             tag = "TXXX:" + tag
 
         if raw.tags is not None:
@@ -136,7 +138,7 @@ class ID3Format(BaseFormat):
                 raw.tags.add(frame)
 
     def _del_tag(self, raw, tag):
-        if tag not in self.tag_mapping.itervalues():
+        if tag not in itervalues(self.tag_mapping):
             tag = "TXXX:" + tag
         if raw.tags is not None:
             raw.tags.delall(tag)

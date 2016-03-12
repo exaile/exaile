@@ -632,7 +632,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
         all_filter.set_name(_('All Files'))
         all_filter.add_pattern('*')
 
-        for extension in metadata.formats.iterkeys():
+        for extension in metadata.formats:
             pattern = '*.%s' % extension
             supported_filter.add_pattern(pattern)
             audio_filter.add_pattern(pattern)

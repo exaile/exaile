@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six import iteritems
 from six.moves import range
 from gi.repository import Gst
 
@@ -165,7 +166,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                 logger.exception("Could not create %s element for %s.",
                                  provider, self.get_name())
         
-        for k, v in dups.iteritems():
+        for k, v in iteritems(dups):
             logger.warning("Audio plugins %s are sharing index %s (may have unpredictable output!)",
                             v, k)
         

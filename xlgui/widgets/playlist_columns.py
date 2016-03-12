@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six import iteritems
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -96,7 +97,7 @@ class Column(Gtk.TreeViewColumn):
         except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
             
-        for name, val in self.cellproperties.iteritems():
+        for name, val in iteritems(self.cellproperties):
             self.cellrenderer.set_property(name, val)
 
         self.set_reorderable(True)

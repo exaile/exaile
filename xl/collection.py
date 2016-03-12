@@ -35,7 +35,7 @@ collection.
 """
 
 from __future__ import with_statement
-from six import string_types
+from six import iteritems, itervalues, string_types
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -51,7 +51,6 @@ from xl.nls import gettext as _
 from xl import (
     common,
     event,
-    metadata,
     settings,
     trax
 )
@@ -203,7 +202,7 @@ class Collection(trax.TrackDB):
             :param library: the library to remove
             :type library: :class:`Library`
         """
-        for k, v in self.libraries.iteritems():
+        for k, v in iteritems(self.libraries):
             if v == library:
                 del self.libraries[k]
                 break
@@ -260,7 +259,7 @@ class Collection(trax.TrackDB):
 
         scan_interval = 20
 
-        for library in self.libraries.itervalues():
+        for library in itervalues(self.libraries):
             
             if not force_update and startup_only and not (library.monitored and library.startup_scan):
                 continue
@@ -323,7 +322,7 @@ class Collection(trax.TrackDB):
             Called whenever the library's settings are changed
         """
         _serial_libraries = []
-        for k, v in self.libraries.iteritems():
+        for k, v in iteritems(self.libraries):
             l = {}
             l['location'] = v.location
             l['monitored'] = v.monitored
@@ -356,7 +355,7 @@ class Collection(trax.TrackDB):
 
     def delete_tracks(self, tracks):
         for tr in tracks:
-            for prefix, lib in self.libraries.iteritems():
+            for prefix, lib in iteritems(self.libraries):
                 lib.delete(tr.get_loc_for_io())
 
 class LibraryMonitor(GObject.GObject):
@@ -438,7 +437,7 @@ class LibraryMonitor(GObject.GObject):
             else:
                 logger.debug('Removing library monitors')
 
-                for directory, monitor in self.__monitors.iteritems():
+                for directory, monitor in iteritems(self.__monitors):
                     monitor.cancel()
 
                     self.emit('location-removed', directory)
@@ -811,7 +810,7 @@ class Library(object):
 
 
         removals = deque()
-        for tr in self.collection.tracks.itervalues():
+        for tr in itervalues(self.collection.tracks):
             tr = tr._track
             loc = tr.get_loc_for_io()
             if not loc:

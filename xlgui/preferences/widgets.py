@@ -766,7 +766,7 @@ class ShortcutListPreference(Preference):
             Updates the displayed items
         """
         self.list.clear()
-        for action in self.available_items.iterkeys():
+        for action in self.available_items:
             try:
                 accel = items[action]
             except KeyError:

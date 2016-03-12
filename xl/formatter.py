@@ -30,7 +30,7 @@ Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
 
-from six import with_metaclass
+from six import iteritems, with_metaclass
 from datetime import date
 from gi.repository import GLib
 from gi.repository import GObject
@@ -280,7 +280,7 @@ class Formatter(GObject.GObject):
         extractions = self.extract()
         substitutions = {}
 
-        for needle, (identifier, parameters) in extractions.iteritems():
+        for needle, (identifier, parameters) in iteritems(extractions):
             substitute = None
 
             if needle in self._substitutions:
@@ -393,7 +393,7 @@ class TrackFormatter(Formatter):
         extractions = self.extract()
         self._substitutions = {}
 
-        for identifier, (tag, parameters) in extractions.iteritems():
+        for identifier, (tag, parameters) in iteritems(extractions):
             provider = providers.get_provider('tag-formatting', tag)
 
             if provider is None:

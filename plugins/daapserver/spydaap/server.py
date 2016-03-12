@@ -13,6 +13,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
+from six import iteritems
 from six.moves import BaseHTTPServer, urllib
 import errno
 import logging
@@ -40,7 +41,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.send_header('Accept-Ranges', 'bytes')
             self.send_header('Content-Language', 'en_us')
             if 'extra_headers' in kwargs:
-                for k, v in kwargs['extra_headers'].iteritems():
+                for k, v in iteritems(kwargs['extra_headers']):
                     self.send_header(k, v)
             try:
                 if isinstance(data, file):

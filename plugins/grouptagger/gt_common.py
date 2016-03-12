@@ -29,6 +29,7 @@
 #
 
 
+from six import iteritems
 from gi.repository import Gtk
 from gi.repository import GObject
  
@@ -117,7 +118,7 @@ def get_groups_from_categories():
     
     groups = set()
     categories = get_group_categories()
-    for category, (expanded, cgroups) in categories.iteritems():
+    for category, (expanded, cgroups) in iteritems(categories):
         for group in cgroups:
             groups.add( group )
     return groups

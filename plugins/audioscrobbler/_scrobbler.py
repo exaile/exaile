@@ -2,7 +2,8 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-import urllib, urllib2, logging
+from six.moves import urllib
+import logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
@@ -93,9 +94,9 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
          't': tstamp,
          'a': token
          }
-   data = urllib.urlencode(values)
-   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
-   response = urllib2.urlopen(req)
+   data = urllib.parse.urlencode(values)
+   req = urllib.request.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
+   response = urllib.request.urlopen(req)
    result = response.read()
    lines = result.split('\n')
 
@@ -185,10 +186,10 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
               'n': trackno,
               'm': mbid }
 
-    data = urllib.urlencode(values)
+    data = urllib.parse.urlencode(values)
 
-    req = urllib2.Request(NOW_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(NOW_URL, data, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
     result = response.read()
 
     if result.strip() == "OK":
@@ -319,9 +320,9 @@ you login?''')
 
    values['s'] = SESSION_ID
 
-   data = urllib.urlencode(values)
-   req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
-   response = urllib2.urlopen(req)
+   data = urllib.parse.urlencode(values)
+   req = urllib.request.Request(POST_URL, data, USER_AGENT_HEADERS)
+   response = urllib.request.urlopen(req)
    result = response.read()
    lines = result.split('\n')
 

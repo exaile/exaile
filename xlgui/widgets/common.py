@@ -34,7 +34,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from urllib2 import urlparse
+from six.moves import urllib
 
 from xl import (
     common,
@@ -492,7 +492,7 @@ class DragTreeView(AutoScrollTreeView):
                 and the second is a list of playlist
         """
         filetype = None
-        info = urlparse.urlparse(loc)
+        info = urllib.parse.urlparse(loc)
 
         # don't use gio to test the filetype if it's a non-local file
         # (otherwise gio will try to connect to every remote url passed in and

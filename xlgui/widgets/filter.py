@@ -34,8 +34,8 @@ and Rhythmbox's automatic playlists.
 
 from gi.types import GObjectMeta
 from gi.repository import Gtk
-import urllib
 from six import integer_types
+from six.moves import urllib
 
 from xl.nls import gettext as _
 
@@ -480,11 +480,11 @@ class QuotedEntryField(Gtk.Entry):
     def __init__(self):
         Gtk.Entry.__init__(self)
     def get_state(self):
-        return unicode(urllib.quote(self.get_text()), 'utf-8')
+        return unicode(urllib.parse.quote(self.get_text()), 'utf-8')
     def set_state(self, state):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
-        self.set_text(unicode(urllib.unquote(str(state))))
+        self.set_text(unicode(urllib.parse.unquote(str(state))))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):

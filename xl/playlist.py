@@ -38,8 +38,7 @@ import logging
 import os
 import random
 import time
-import urlparse
-import urllib
+from six.moves import urllib
 
 try:
     import cPickle as pickle
@@ -137,7 +136,7 @@ def import_playlist(path):
                 return provider.import_from_file(path)
 
     # Next try to extract the file extension via URL parsing
-    file_extension = urlparse.urlparse(path).path.split('.')[-1]
+    file_extension = urllib.parse.urlparse(path).path.split('.')[-1]
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:
@@ -240,7 +239,7 @@ class FormatConverter(object):
         """
         playlist_uri = Gio.File.new_for_uri(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
-        track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\','/'))
+        track_uri = urllib.parse.urljoin(playlist_uri, track_path.replace('\\','/'))
         
         logging.debug('Importing track: %s' % track_uri)
         
@@ -302,8 +301,8 @@ class FormatConverter(object):
             export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
 
             try:
-                export_path_components = urlparse.urlparse(export_path)
-                track_path_components = urlparse.urlparse(track_path)
+                export_path_components = urllib.parse.urlparse(export_path)
+                track_path_components = urllib.parse.urlparse(track_path)
             except (AttributeError, ValueError): # None, empty path
                 pass
             else:
@@ -322,7 +321,7 @@ class FormatConverter(object):
         # if the file is local, other players like VLC will not
         # accept the playlist if they have %20 in them, so we must convert
         # it to something else
-        return urllib.url2pathname(track_path)
+        return urllib.request.url2pathname(track_path)
 
 class M3UConverter(FormatConverter):
     """
@@ -1388,7 +1387,7 @@ class Playlist(object):
                     if isinstance(v, unicode):
                         v = v.encode('utf-8')
                     meta[item] = v
-            buffer += '\t%s\n' % urllib.urlencode(meta)
+            buffer += '\t%s\n' % urllib.parse.urlencode(meta)
             try:
                 f.write(buffer.encode('utf-8'))
             except UnicodeDecodeError:

@@ -30,7 +30,7 @@ from gi.repository import Gst
 
 import logging
 import os
-import urlparse
+from six.moves import urllib
 
 from xl import common
 from xl import event
@@ -41,7 +41,6 @@ from .sink import create_device
 
 from xl.player.engine import ExaileEngine
 from xl.player.track_fader import TrackFader
-
 
 
 class ExaileGstEngine(ExaileEngine):
@@ -432,7 +431,7 @@ class AudioStream(object):
         # This is only set for gapless playback
         if not already_queued:
             self.playbin.set_property("uri", uri)
-            if urlparse.urlsplit(uri)[0] == "cdda":
+            if urllib.parse.urlsplit(uri)[0] == "cdda":
                 self.notify_id = self.playbin.connect('source-setup',
                         self.on_source_setup, track)
             

@@ -4,7 +4,7 @@ except ImportError:
     BeautifulSoup = None
 import HTMLParser
 import re
-import urllib
+from six.moves import urllib
 
 from xl.lyrics import (
     LyricSearchMethod,
@@ -44,8 +44,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ','_'))
-        title = urllib.quote(title.replace(' ','_'))
+        artist = urllib.parse.quote(artist.replace(' ','_'))
+        title = urllib.parse.quote(title.replace(' ','_'))
 
         url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 

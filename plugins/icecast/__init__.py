@@ -9,8 +9,7 @@ logger = logging.getLogger(__name__)
 import os
 import re
 import socket
-import urllib
-from urllib2 import urlparse
+from six.moves import urllib
 from xml.dom import minidom
 
 from xl import common, event, main, playlist, xdg
@@ -107,7 +106,7 @@ class IcecastRadioStation(RadioStation):
         from xlgui.panel import radio
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            hostinfo = urlparse.urlparse(self.genre_url)
+            hostinfo = urllib.parse.urlparse(self.genre_url)
             try:
                 c = httplib.HTTPConnection(hostinfo.netloc,
                         timeout=20)
@@ -195,13 +194,13 @@ class IcecastRadioStation(RadioStation):
 
             @param keyword: the keyword to search
         """
-        url = self.search_url_prefix + urllib.quote_plus(keyword)
+        url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
         return self._get_stations(url)
 
     def _get_stations(self, url):
         from xlgui.panel import radio
 
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
         query = hostinfo.query
         items = []
         thisPage = -1

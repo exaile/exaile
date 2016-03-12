@@ -40,8 +40,7 @@ import os
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
+from six.moves import urllib
 from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
@@ -136,7 +135,7 @@ def sanitize_url(url):
         :returns: the sanitized url
     """
     try:
-        components = list(urlparse.urlparse(url))
+        components = list(urllib.parse.urlparse(url))
         auth, host = components[1].split('@')
         username, password = auth.split(':')
     except (AttributeError, ValueError):
@@ -145,9 +144,10 @@ def sanitize_url(url):
         # Replace password with fixed amount of "*"
         auth = ':'.join((username, 5 * '*'))
         components[1] = '@'.join((auth, host))
-        url = urlparse.urlunparse(components)
+        url = urllib.parse.urlunparse(components)
 
     return url
+
 
 def get_url_contents(url, user_agent):
     '''
@@ -157,16 +157,17 @@ def get_url_contents(url, user_agent):
         Added in Exaile 3.4
         
         :returns: Contents of page located at URL
-        :raises: urllib2.URLError
+        :raises: urllib.error.URLError
     '''
-    
+
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(url, None, headers)
-    fp = urllib2.urlopen(req)
+    req = urllib.request.Request(url, None, headers)
+    fp = urllib.request.urlopen(req)
     data = fp.read()
     fp.close()
-    
+
     return data
+
 
 def threaded(func):
     """

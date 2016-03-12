@@ -13,7 +13,8 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys
+from six.moves import urllib, BaseHTTPServer
+import errno, logging, os, re, socket, spydaap
 from spydaap.daap import do
 
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
@@ -65,7 +66,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         drop_q = '(?:\\?.*)?$'
 
         def do_GET(self):
-            parsed_path = urlparse.urlparse(self.path).path
+            parsed_path = urllib.parse.urlparse(self.path).path
             if re.match(self.itunes_re + "/$", parsed_path):
                 self.do_GET_login()
             elif re.match(self.itunes_re + '/server-info$', parsed_path):

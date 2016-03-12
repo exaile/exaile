@@ -16,8 +16,7 @@
 #
 
 from contextlib import closing
-
-from urllib import quote_plus
+from six.moves.urllib.parse import quote_plus
 try:
     import xml.etree.cElementTree as ETree
 except:

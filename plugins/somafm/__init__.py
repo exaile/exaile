@@ -16,7 +16,7 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-from urllib2 import urlparse
+from six.moves import urllib
 import httplib
 import socket
 try:
@@ -80,7 +80,7 @@ class SomaFMRadioStation(RadioStation):
             Connects to the server and retrieves the document
         """
         set_status(_('Contacting SomaFM server...'))
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
 
         try:
             c = httplib.HTTPConnection(hostinfo.netloc, timeout = 20)

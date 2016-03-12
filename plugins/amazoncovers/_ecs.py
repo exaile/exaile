@@ -14,8 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import urllib2
-import sys
+from six import iteritems
+from six.moves import urllib
 import hmac
 import hashlib
 import base64
@@ -27,6 +27,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class AmazonSearchError(Exception): pass
 
 def generate_timestamp():
@@ -37,22 +38,22 @@ def generate_timestamp():
 # http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.html?RequestAuthenticationArticle.html
 # code by Robert Wallis: SmilingRob@gmail.com, your hourly software contractor
 def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
-	query_dictionary["AWSAccessKeyId"] = aws_access_key_id
-	query_dictionary["Timestamp"] = generate_timestamp()
-	query_pairs = sorted(map(
-		lambda (k,v):(k+"="+urllib2.quote(v)),
-		query_dictionary.items()
-	))
-	 # The Amazon specs require a sorted list of arguments
-	query_string = "&".join(query_pairs)
-	hm = hmac.new(
-		secret,
-		"GET\nwebservices.amazon.com\n/onca/xml\n"+query_string,
-		hashlib.sha256
-	)
-	signature = urllib2.quote(base64.b64encode(hm.digest()))
-	query_string = "https://webservices.amazon.com/onca/xml?%s&Signature=%s" % (query_string, signature)
-	return query_string
+    query_dictionary["AWSAccessKeyId"] = aws_access_key_id
+    query_dictionary["Timestamp"] = generate_timestamp()
+    query_pairs = sorted(map(
+        lambda kv: kv[0] + "=" + urllib.parse.quote(kv[1]),
+        query_dictionary.items()
+    ))
+    # The Amazon specs require a sorted list of arguments
+    query_string = "&".join(query_pairs)
+    hm = hmac.new(
+        secret,
+        "GET\nwebservices.amazon.com\n/onca/xml\n"+query_string,
+        hashlib.sha256
+    )
+    signature = urllib.parse.quote(base64.b64encode(hm.digest()))
+    query_string = "https://webservices.amazon.com/onca/xml?%s&Signature=%s" % (query_string, signature)
+    return query_string
 
 def search_covers(search, api_key, secret_key, user_agent):
     params = {
@@ -69,8 +70,8 @@ def search_covers(search, api_key, secret_key, user_agent):
         str(secret_key).strip(), params)
 
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(query_string, None, headers)
-    data = urllib2.urlopen(req).read()
+    req = urllib.request.Request(query_string, None, headers)
+    data = urllib.request.urlopen(req).read()
     
     data = common.get_url_contents(query_string, user_agent)
 

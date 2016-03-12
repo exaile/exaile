@@ -50,6 +50,7 @@ from . import (
 
 logger = logging.getLogger(__name__)
 
+
 class PreferencesDialog(object):
     """
         Preferences Dialog

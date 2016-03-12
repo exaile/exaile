@@ -16,8 +16,7 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-from six.moves import urllib
-import httplib
+from six.moves import urllib, http_client
 import socket
 try:
     import xml.etree.cElementTree as ETree
@@ -83,9 +82,9 @@ class SomaFMRadioStation(RadioStation):
         hostinfo = urllib.parse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout = 20)
+            c = http_client.HTTPConnection(hostinfo.netloc, timeout = 20)
         except TypeError:
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http_client.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent':

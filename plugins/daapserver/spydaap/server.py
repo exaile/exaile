@@ -13,9 +13,15 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-from six.moves import urllib, BaseHTTPServer
-import errno, logging, os, re, socket, spydaap
+from six.moves import BaseHTTPServer, urllib
+import errno
+import logging
+import os
+import re
+import socket
+import spydaap
 from spydaap.daap import do
+
 
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1

@@ -3,13 +3,11 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import httplib
 import logging
-logger = logging.getLogger(__name__)
 import os
 import re
 import socket
-from six.moves import urllib
+from six.moves import http_client, urllib
 from xml.dom import minidom
 
 from xl import common, event, main, playlist, xdg
@@ -19,6 +17,7 @@ from xlgui import guiutil
 from xlgui.widgets import dialogs
 
 STATION = None
+logger = logging.getLogger(__name__)
 
 def enable(exaile):
     if exaile.loading:
@@ -108,10 +107,10 @@ class IcecastRadioStation(RadioStation):
             set_status(_('Contacting Icecast server...'))
             hostinfo = urllib.parse.urlparse(self.genre_url)
             try:
-                c = httplib.HTTPConnection(hostinfo.netloc,
+                c = http_client.HTTPConnection(hostinfo.netloc,
                         timeout=20)
             except TypeError: # python 2.5 doesnt have timeout=
-                c = httplib.HTTPConnection(hostinfo.netloc)
+                c = http_client.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
                     self.user_agent})
@@ -207,9 +206,9 @@ class IcecastRadioStation(RadioStation):
         nextPage = 0
         set_status(_('Contacting Icecast server...'))
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http_client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError: # python 2.5 doesnt have timeout=
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http_client.HTTPConnection(hostinfo.netloc)
         while thisPage < nextPage:
             thisPage += 1
             try:

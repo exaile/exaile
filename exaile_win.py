@@ -7,7 +7,7 @@ from six.moves import input
 
 # Make file handles not inheritable, that way we can restart on the fly
 # -> From http://www.virtualroadside.com/blog/index.php/2013/02/06/problems-with-file-descriptors-being-inherited-by-default-in-python/
-import __builtin__
+from six.moves import builtins
 import msvcrt, sys
 from ctypes import windll
 
@@ -20,7 +20,7 @@ def __open_inheritance_hack(*args, **kwargs):
     windll.kernel32.SetHandleInformation(handle, 1, 0)
     return result
     
-__builtin__.open = __open_inheritance_hack
+builtins.open = __open_inheritance_hack
 
 
 

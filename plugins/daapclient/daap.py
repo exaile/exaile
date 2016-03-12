@@ -10,8 +10,10 @@
 # Stripped clean + a few bug fixes, Erik Hetzner
 
 from six import text_type
-import struct, sys, httplib
+from six.moves import http_client
 import logging
+import struct
+import sys
 from daap_data import *
 from cStringIO import StringIO
 
@@ -277,7 +279,7 @@ class DAAPClient(object):
         self.port     = port
         self.password = password
 #        self.socket = httplib.HTTPConnection(hostname, port)
-        self.socket = httplib.HTTPConnection(hostname+':'+str(port))
+        self.socket = http_client.HTTPConnection(hostname+':'+str(port))
         self.getContentCodes() # practically required
         self.getInfo() # to determine the remote server version
 

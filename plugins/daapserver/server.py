@@ -15,8 +15,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer
-import SocketServer
+from six.moves import BaseHTTPServer, socketserver
 import logging
 import select
 import socket
@@ -28,14 +27,14 @@ logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
 
     def __init__(self, *args):
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6   
-        BaseHTTPServer.HTTPServer.__init__(self,*args)
+        BaseHTTPServer.HTTPServer.__init__(self, *args)
         self.keep_running = True
 
     def serve_forever(self):

@@ -2,7 +2,7 @@ try:
     import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
-import HTMLParser
+from six.moves import html_parser
 import re
 from six.moves import urllib
 
@@ -56,7 +56,7 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(html)
-        except HTMLParser.HTMLParseError:
+        except html_parser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:

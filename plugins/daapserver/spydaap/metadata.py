@@ -20,7 +20,8 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     import md5
 
-import os, struct, spydaap.cache, StringIO
+import os, struct, spydaap.cache
+from six.moves import StringIO
 from spydaap.daap import do
 
 class MetadataCache(spydaap.cache.OrderedCache):

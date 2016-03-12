@@ -193,11 +193,11 @@ class PluginsManager(object):
         infodict = {}
         for line in f:
             try:
-                key, val = line.split("=",1)
+                key, val = line.split("=", 1)
                 # restricted eval - no bult-in funcs. marginally more secure.
-                infodict[key] = eval(val, {'__builtins__': None, '_': _}, {})
+                infodict[key] = eval(val, {'__builtins__': None, 'builtins': None, '_': _}, {})
             except ValueError:
-                pass # this happens on blank lines
+                pass  # this happens on blank lines
         return infodict
     
     def is_compatible(self, info):

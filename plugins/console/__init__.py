@@ -26,7 +26,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 
 import os, sys, traceback
-from cStringIO import StringIO
+from six.moves import cStringIO as StringIO
 from xl.nls import gettext as _
 
 class PyConsole():

@@ -14,8 +14,7 @@
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import print_function
-import BaseHTTPServer
-import SocketServer
+from six.moves import BaseHTTPServer, socketserver
 import getopt
 import grp
 import logging
@@ -44,7 +43,7 @@ class Log:
         self.f.write(s)
         self.f.flush()
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
 

@@ -186,7 +186,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 tr = track.Track(temp_copy.name)
                 del tr
                 os.chmod(temp_copy.name, 0o000)
@@ -214,7 +214,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 os.chmod(temp_copy.name, 0o444)
                 tr = track.Track(temp_copy.name)
                 tr.set_tag_raw('artist', 'Delerium')
@@ -237,7 +237,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 tr = track.Track(temp_copy.name)
                 tr.set_tag_raw('artist', 'Delerium')
                 tr.write_tags()

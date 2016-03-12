@@ -187,8 +187,7 @@ class TrackDB(object):
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if "_dbversion" in pdata:
                 if int(pdata['_dbversion']) > int(self._dbversion):
-                    raise common.VersionError, \
-                            "DB was created on a newer Exaile version."
+                    raise common.VersionError("DB was created on a newer Exaile version.")
                 elif pdata['_dbversion'] < self._dbversion:
                     logger.info("Upgrading DB format....")
                     import shutil
@@ -271,8 +270,7 @@ class TrackDB(object):
                 _db = bsddb3.hashopen(location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.get('_dbversion', self._dbversion) > self._dbversion:
-                raise common.VersionError, \
-                    "DB was created on a newer Exaile."
+                raise common.VersionError("DB was created on a newer Exaile.")
         except Exception:
             logger.exception("Failed to open music DB for writing.")
             return

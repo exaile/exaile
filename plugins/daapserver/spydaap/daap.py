@@ -478,7 +478,7 @@ class DAAPTrack(object):
             return self.__dict__[name]
         elif DAAPTrack.attrmap.has_key(name):
             return self.atom.getAtom(DAAPTrack.attrmap[name])
-        raise AttributeError, name
+        raise AttributeError(name)
 
     def request(self):
         """returns a 'response' object for the track's mp3 data.

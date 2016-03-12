@@ -1,4 +1,4 @@
-import mox
+from mox3 import mox
 import unittest
 
 from xl.trax import search

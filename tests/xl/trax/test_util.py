@@ -1,6 +1,6 @@
 import unittest
 
-import mox
+from mox3 import mox
 from gi.repository import Gio
 try:
     from nose.plugins.skip import SkipTest

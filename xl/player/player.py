@@ -542,8 +542,8 @@ class ExailePlayer(object):
             start_at = None
         
         if start_at is None:
-            start_offset = track.get_tag_raw('__startoffset')
-            if start_offset and start_offset > 0:
+            start_offset = track.get_tag_raw('__startoffset') or 0
+            if start_offset > 0:
                 start_at = start_offset
                 
         # Once playback has started, if there's a delay, pause the stream

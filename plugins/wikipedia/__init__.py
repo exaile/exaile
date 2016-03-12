@@ -33,6 +33,7 @@ from xl import (
     providers,
     settings
 )
+from xl.common import str_from_utf8
 from xl.nls import gettext as _
 from xlgui import panel
 
@@ -107,7 +108,7 @@ class BrowserPage(WebKit2.WebView):
             log.error('Provided language "%s" not found.' % language)
             language = 'en'
 
-        artist = urllib.parse.quote(artist.encode('utf-8'), '')
+        artist = urllib.parse.quote(str_from_utf8(artist), '')
         url = "https://%s.m.wikipedia.org/wiki/Special:Search/%s" % (language, artist)
 
         try:

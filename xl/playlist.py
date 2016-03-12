@@ -58,7 +58,7 @@ from xl import (
     xdg,
 )
 from xl.common import GioFileInputStream, GioFileOutputStream, MetadataList
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 from xl.nls import gettext as _
 from xl.metadata.tags import tag_data
 
@@ -361,7 +361,7 @@ class M3UConverter(FormatConverter):
 
                 stream.write('#EXTINF:{length},{title}\n{path}\n'.format(
                     length=length,
-                    title=' - '.join(title).encode('utf-8'),
+                    title=str_from_utf8(' - '.join(title)),
                     path=track_path
                 ))
 
@@ -1388,11 +1388,11 @@ class Playlist(object):
                     # FIXME: This should join multiple values.
                     v = value[0]
                     if isinstance(v, text_type):
-                        v = v.encode('utf-8')
+                        v = str_from_utf8(v)
                     meta[item] = v
             buffer += '\t%s\n' % urllib.parse.urlencode(meta)
             try:
-                f.write(buffer.encode('utf-8'))
+                f.write(str_from_utf8(buffer))
             except UnicodeDecodeError:
                 continue
 
@@ -2096,7 +2096,7 @@ class PlaylistManager(object):
         else:
             f = open(location, "w")
         for playlist in self.playlists:
-            f.write(playlist.encode('utf-8'))
+            f.write(str_from_utf8(playlist))
             f.write('\n')
 
         f.write("EOF\n")

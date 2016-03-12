@@ -102,6 +102,12 @@ def to_unicode(x, encoding=None, errors='strict'):
         return text_type(x)
 
 
+def str_from_utf8(s):
+    if not PY3 and isinstance(s, text_type):
+        return s.encode('utf8')
+    return s
+
+
 def strxfrm(x):
     """Like locale.strxfrm but also supports Unicode.
 

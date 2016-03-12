@@ -7,7 +7,7 @@ import logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -180,9 +180,9 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     album = album or ''
 
     values = {'s': SESSION_ID,
-              'a': to_unicode(artist).encode('utf-8'),
-              't': to_unicode(track).encode('utf-8'),
-              'b': to_unicode(album).encode('utf-8'),
+              'a': str_from_utf8(to_unicode(artist)),
+              't': str_from_utf8(to_unicode(track)),
+              'b': str_from_utf8(to_unicode(album)),
               'l': length,
               'n': trackno,
               'm': mbid }
@@ -286,13 +286,13 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
     album = album or ''
 
     SUBMIT_CACHE.append(
-         { 'a': to_unicode(artist).encode('utf-8'),
-           't': to_unicode(track).encode('utf-8'),
+         { 'a': str_from_utf8(to_unicode(artist)),
+           't': str_from_utf8(to_unicode(track)),
            'i': time,
            'o': source,
            'r': rating,
            'l': length,
-           'b': to_unicode(album).encode('utf-8'),
+           'b': str_from_utf8(to_unicode(album)),
            'n': trackno,
            'm': mbid
             }

@@ -36,7 +36,7 @@ from __future__ import print_function
 import sys
 from struct import pack, unpack
 from warnings import warn
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
@@ -378,7 +378,7 @@ def gio_location(location):
             # representation first. If the path is in a different encoding,
             # this step will fail.
             location = location.decode(sys.getfilesystemencoding())
-        location = location.encode('utf-8')
+        location = str_from_utf8(location)
     return location
 
 if __name__ == '__main__':

@@ -25,6 +25,7 @@ from xl.lyrics import (
     LyricsNotFoundException
 )
 from xl import common, providers
+from xl.common import str_from_utf8
 
 
 def enable(exaile):
@@ -52,8 +53,8 @@ class LyricsMania(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            (artist, title) = str_from_utf8(track.get_tag_raw('artist')[0]), \
+                str_from_utf8(track.get_tag_raw('title')[0])
         except TypeError:
             raise LyricsNotFoundException
 

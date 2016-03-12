@@ -16,7 +16,7 @@ import logging
 import struct
 import sys
 from daap_data import *
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 
 __all__ = ['DAAPError', 'DAAPObject', 'do']
 
@@ -174,14 +174,13 @@ class DAAPObject(object):
             elif self.type == 't':
                 packing = 'I'
             elif self.type == 's':
-                if isinstance(value, text_type):
-                    value = value.encode('utf-8')
+                value = str_from_utf8(value)
                 packing = '%ss' % len(value)
             else:
                 raise DAAPError('DAAPObject: encode: unknown code %s' % self.code)
                 return
             # calculate the length of what we're packing
-            length  = struct.calcsize('!%s' % packing)
+            length = struct.calcsize('!%s' % packing)
             # pack: 4 characters for the code, 4 bytes for the length, and 'length' bytes for the value
             data = struct.pack('!4sI%s' % (packing), self.code, length, value)
             return data

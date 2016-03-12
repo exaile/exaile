@@ -30,7 +30,8 @@ except:
     import xml.etree.ElementTree as ETree
 from six.moves import urllib
 from xl.dynamic import DynamicSource
-from xl import providers, common
+from xl import providers
+from xl.common import str_from_utf8
 
 import logging
 logger = logging.getLogger(__name__)

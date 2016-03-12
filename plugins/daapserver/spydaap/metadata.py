@@ -23,6 +23,7 @@ with warnings.catch_warnings():
 import os, struct, spydaap.cache
 from six.moves import StringIO
 from spydaap.daap import do
+from xl.common import str_from_utf8
 
 class MetadataCache(spydaap.cache.OrderedCache):
     def __init__(self, cache_dir, parsers):
@@ -60,7 +61,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     @classmethod
     def write_entry(self, dir, name, fn, daap):
         if isinstance(name, text_type):
-            name = name.encode('utf-8')
+            name = str_from_utf8(name)
         data = "".join([ d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
         data = struct.pack('!i%ss' % len(fn), len(fn), fn) + data

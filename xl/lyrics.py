@@ -42,7 +42,7 @@ from xl import (
     settings,
     xdg
 )
-from xl.common import to_unicode
+from xl.common import to_unicode, str_from_utf8
 
 
 class LyricsNotFoundException(Exception):

@@ -28,6 +28,7 @@ from xl import (
     event,
     providers
 )
+from xl.common import str_from_utf8
 
 # Last.fm API Key for Exaile
 # if you reuse this code in a different application, please
@@ -82,7 +83,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
         for type, value in (('album', album), ('track', title)):
             url = self.url.format(
                 type=type,
-                value=quote_plus(value.encode("utf-8")),
+                value=quote_plus(str_from_utf8(value)),
                 api_key=API_KEY
             )
             try:
@@ -96,7 +97,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
                 continue
 
             for element in xml.getiterator(type):
-                if (element.find('artist').text == artist.encode("utf-8")):
+                if (element.find('artist').text == str_from_utf8(artist)):
                     for sub_element in element.findall('image'):
                         if (sub_element.attrib['size'] == 'extralarge'):
                             url = sub_element.text

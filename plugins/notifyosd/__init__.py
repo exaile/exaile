@@ -131,7 +131,7 @@ class ExaileNotifyOsd(object):
                 True) or not self.exaile.gui.main.window.is_active():
             try:
                 self.notify.show()
-            except GLib.GError, e:
+            except GLib.GError as e:
                 logger.warning("error showing OSD notification: %s" % e )
                 logger.warning("Perhaps notify-osd is not installed?")
 

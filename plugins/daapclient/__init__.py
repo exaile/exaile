@@ -147,7 +147,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         
         # check if the menu exist and check if it's ipv4 or we are allowing
         # ipv6
-        print 'adding menu',name,key
+        print('adding menu',name,key)
         if self.menu:
                 menu_item = _smi(name, ['sep'], name,
                                 callback=lambda *x: self.clicked(key))
@@ -724,7 +724,7 @@ def _enable(exaile):
         except RuntimeError: # no dbus?
             avahi_interface = None
             logger.warning('avahi interface could not be initialized (no dbus?)')
-        except dbus.exceptions.DBusException, s:
+        except dbus.exceptions.DBusException as s:
             avahi_interface = None
             logger.error('Got DBUS error: %s' % s)
             logger.error('is avahi-daemon running?')

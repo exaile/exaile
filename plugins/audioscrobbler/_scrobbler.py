@@ -367,5 +367,5 @@ if __name__ == "__main__":
          source='P',
          length=3*60+3
          )
-   print flush()
+   print(flush())
 

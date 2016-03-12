@@ -31,6 +31,7 @@
 #
 # Also takes care of parsing commandline options.
 
+from __future__ import print_function
 import os
 import platform
 import sys
@@ -268,7 +269,7 @@ class Exaile(object):
         try:
             xdg._make_missing_dirs()
         except OSError as e:
-            print >> sys.stderr, 'ERROR: Could not create configuration directories: %s' % e
+            print('ERROR: Could not create configuration directories: %s' % e, file=sys.stderr)
             return
             
 
@@ -286,7 +287,7 @@ class Exaile(object):
                                        self.options.ModuleFilter,
                                        self.options.LevelFilter)
         except OSError as e:
-            print >> sys.stderr, 'ERROR: could not setup logging: %s' % e
+            print('ERROR: could not setup logging: %s' % e, file=sys.stderr)
             return
         
         global logger
@@ -554,7 +555,7 @@ class Exaile(object):
 
     def version(self):
         from xl.version import __version__
-        print "Exaile", __version__
+        print("Exaile", __version__)
         sys.exit(0)
 
     def _add_default_playlists(self):

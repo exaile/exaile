@@ -295,9 +295,9 @@ def profileit(func):
         stats = pstats.Stats(prof)
         stats.strip_dirs()
         stats.sort_stats('time', 'calls')
-        print ">>>---- Begin profiling print"
+        print(">>>---- Begin profiling print")
         stats.print_stats()
-        print ">>>---- End profiling print"
+        print(">>>---- End profiling print")
         prof = stats = None
         return res
     return wrapper

@@ -158,7 +158,7 @@ class DBManager(object):
         try:
             db = sqlite.connect(self.db_loc, check_same_thread=False)
             db.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
-        except sqlite.OperationalError, e:
+        except sqlite.OperationalError as e:
             raise DBOperationalError(str(e))
 
         return db

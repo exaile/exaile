@@ -486,7 +486,7 @@ class DAAPTrack(object):
             return self.__dict__[name]
         elif DAAPTrack.attrmap.has_key(name):
             return self.atom.getAtom(DAAPTrack.attrmap[name])
-        raise AttributeError, name
+        raise AttributeError(name)
 
     def request(self):
         """returns a 'response' object for the track's mp3 data.
@@ -551,14 +551,14 @@ if __name__ == '__main__':
             if len(tracks) > 0 :
                 tracks[0].atom.printTree()
             else:
-                print 'No Tracks'
+                print('No Tracks')
             session.update()
-            print session.revision
+            print(session.revision)
 
         finally:
             # this here, so we logout even if there's an error somewhere,
             # or itunes will eventually refuse more connections.
-            print "--------------"
+            print("--------------")
             try:
                 session.logout()
             except Exception: pass

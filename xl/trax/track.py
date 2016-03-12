@@ -25,6 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import text_type
 from copy import deepcopy
 from gi.repository import Gio
 from gi.repository import GLib
@@ -804,7 +805,7 @@ class Track(object):
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, unicode):
+        if type(values) in (str, text_type):
             return values
         return glue.join(map(common.to_unicode, values))
 

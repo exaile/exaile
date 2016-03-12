@@ -14,6 +14,7 @@
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import with_statement
+from six import text_type
 import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
@@ -57,7 +58,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
 class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if isinstance(name, unicode):
+        if isinstance(name, text_type):
             name = name.encode('utf-8')
         data = "".join([ d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data

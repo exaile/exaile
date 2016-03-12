@@ -34,7 +34,7 @@ and Rhythmbox's automatic playlists.
 
 from gi.types import GObjectMeta
 from gi.repository import Gtk
-from six import integer_types
+from six import integer_types, text_type
 from six.moves import urllib
 
 from xl.nls import gettext as _
@@ -544,7 +544,7 @@ class SpinButtonAndComboField(Gtk.Box):
     def get_state(self):
         active_item = self.items[self.combo.get_active()]
 
-        if not isinstance(active_item, unicode):
+        if not isinstance(active_item, text_type):
             active_item = unicode(active_item, 'utf-8')
 
         return [self.entry.get_value(), active_item]

@@ -9,6 +9,7 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
+from six import text_type
 import struct, sys, httplib
 import logging
 from daap_data import *
@@ -169,7 +170,7 @@ class DAAPObject(object):
             elif self.type == 't':
                 packing = 'I'
             elif self.type == 's':
-                if isinstance(value, unicode):
+                if isinstance(value, text_type):
                     value = value.encode('utf-8')
                 packing = '%ss' % len(value)
             else:

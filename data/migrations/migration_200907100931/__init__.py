@@ -2,7 +2,7 @@ import os
 from xl import xdg, trax, collection
 from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
-from ConfigParser import SafeConfigParser
+from six.moves.configparser import SafeConfigParser
 import oldexailelib, olddb
 import logging
 import time

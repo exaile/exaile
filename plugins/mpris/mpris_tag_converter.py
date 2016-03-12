@@ -17,6 +17,7 @@
 A converter utility to convert from exaile tags to mpris Metadata
 """
 
+from six import text_type, string_types
 import logging
 _LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
 
@@ -31,20 +32,20 @@ _LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
 #                  the value for the key. If it returns None, the tag is not
 #                  set
 MPRIS_TAG_INFORMATION = {
-        'location'   : {'out_type'  : unicode,
+        'location'   : {'out_type'  : text_type,
                         'exaile_tag': '__loc',
                         'desc'      : 'Name',
                         },
-        'artist'      : {'out_type'  : unicode,
+        'artist'      : {'out_type'  : text_type,
                         'desc'      : 'Name of artist or band',
                         },
-        'title'      : {'out_type'  : unicode,
+        'title'      : {'out_type'  : text_type,
                         'desc'      : 'Name of artist or band',
                         },
-        'album'      : {'out_type'  : unicode,
+        'album'      : {'out_type'  : text_type,
                         'desc'      : 'Name of compilation',
                         },
-        'tracknumber': {'out_type'  : unicode,
+        'tracknumber': {'out_type'  : text_type,
                         'desc'      : 'The position in album',
                         },
         'time'       : {'out_type'  : int,
@@ -54,10 +55,10 @@ MPRIS_TAG_INFORMATION = {
         'mtime'      : {'out_type'  : int,
                         'desc'      : 'The duration in milliseconds',
                         },
-        'genre'      : {'out_type'  : unicode,
+        'genre'      : {'out_type'  : text_type,
                         'desc'      : 'The genre',
                         },
-        'comment'    : {'out_type'  : unicode,
+        'comment'    : {'out_type'  : text_type,
                         'desc'      : 'A comment about the work',
                         },
         'rating'     : {'out_type'  : int,
@@ -73,7 +74,7 @@ MPRIS_TAG_INFORMATION = {
                         'desc'      : 'When the performing was realized, '
                                       'since epoch',
                         },
-        'arturl'     : {'out_type'  : unicode,
+        'arturl'     : {'out_type'  : text_type,
                         'desc'      : 'an URI to an image',
                         },
         'audio-bitrate': {'out_type': int,
@@ -168,7 +169,7 @@ class ExaileTagConverter(object):
             Unlists lists and returns the first value, if not a lists,
             returns value
         """
-        if not isinstance(value, basestring) and hasattr(value, "__getitem__"):
+        if not isinstance(value, string_types) and hasattr(value, "__getitem__"):
             if len(value):
                 return value[0]
             return None

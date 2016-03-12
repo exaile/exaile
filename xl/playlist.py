@@ -30,6 +30,7 @@ in playlists as well as methods to import and export from various file formats.
 """
 
 from __future__ import with_statement
+from six import text_type
 import cgi
 from collections import namedtuple
 from datetime import datetime, timedelta
@@ -448,7 +449,7 @@ class PLSConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        from ConfigParser import RawConfigParser
+        from six.moves.configparser import RawConfigParser
 
         pls_playlist = RawConfigParser()
         pls_playlist.optionxform = str # Make case sensitive
@@ -481,7 +482,7 @@ class PLSConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        from ConfigParser import (
+        from six.moves.configparser import (
             RawConfigParser,
             MissingSectionHeaderError,
             NoOptionError
@@ -1384,7 +1385,7 @@ class Playlist(object):
                 if value is not None:
                     # FIXME: This should join multiple values.
                     v = value[0]
-                    if isinstance(v, unicode):
+                    if isinstance(v, text_type):
                         v = v.encode('utf-8')
                     meta[item] = v
             buffer += '\t%s\n' % urllib.parse.urlencode(meta)

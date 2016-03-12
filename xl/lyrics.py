@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import text_type
 from datetime import (
     datetime,
     timedelta
@@ -260,7 +261,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode), (method, track)
+        assert isinstance(lyrics, text_type), (method, track)
 
         # update cache
         time = datetime.now()
@@ -312,7 +313,7 @@ class LyricSearchMethod(object):
 
             :param track: the track that we want lyrics for
             :return: tuple of lyrics text, provider name, URL
-            :rtype: Tuple[unicode, basestring, basestring]
+            :rtype: Tuple[text_type, basestring, basestring]
             :raise: LyricsNotFoundException if not found
         """
         raise NotImplementedError

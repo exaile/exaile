@@ -29,6 +29,7 @@
 """
 
 from __future__ import with_statement
+from six import PY3, text_type
 
 import inspect
 from gi.repository import Gio
@@ -43,7 +44,10 @@ import threading
 from six.moves import urllib
 from functools import wraps, partial
 from collections import deque
-from UserDict import DictMixin
+try:
+    from UserDict import DictMixin
+except ImportError:
+    from collections import MutableMapping as DictMixin
 
 logger = logging.getLogger(__name__)
 
@@ -104,9 +108,10 @@ def strxfrm(x):
     cases): https://bugs.python.org/issue2481
     """
     import locale
-    if isinstance(x, unicode):
+    if isinstance(x, text_type):
         return locale.strxfrm(x.encode('utf-8', 'replace'))
     return locale.strxfrm(x)
+
 
 def clamp(value, minimum, maximum):
     """

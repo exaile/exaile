@@ -1,3 +1,5 @@
+
+from six import string_types
 from mox3 import mox
 import unittest
 
@@ -34,7 +36,7 @@ class TestMatcher(unittest.TestCase):
 
     def test_match_list_true(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertTrue(matcher.match(self.str))
@@ -42,8 +44,8 @@ class TestMatcher(unittest.TestCase):
 
     def test_match_list_false(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(False)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertFalse(matcher.match(self.str))

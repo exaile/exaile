@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from xl.common import to_unicode
+from six import text_type, string_types
 from collections import namedtuple
 import copy
 from gi.repository import Gio
@@ -129,7 +131,7 @@ class BaseFormat(object):
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if isinstance(t, basestring) and t.startswith("__"):
+            if isinstance(t, string_types) and t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -158,7 +160,7 @@ class BaseFormat(object):
             if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, text_type]:
                         t = [t]
                     elif isinstance(t, list):
                         pass
@@ -172,7 +174,7 @@ class BaseFormat(object):
             if t is None and self.others:
                 try:
                     t = self._get_tag(raw, tag)
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, text_type]:
                         t = [t]
                     else:
                         t = [unicode(u) for u in list(t)]

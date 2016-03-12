@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import string_types
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -91,8 +92,8 @@ class Order(object):
 
     @staticmethod
     def __parse_level(val):
-        if type(val) in (str, unicode):
-            val = ((val,), "$%s"%val, (val,))
+        if isinstance(val, string_types):
+            val = ((val,), "$%s" % val, (val,))
         return tuple(val)
 
     @property

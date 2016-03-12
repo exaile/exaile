@@ -29,7 +29,8 @@
 """
 
 from __future__ import with_statement
-from ConfigParser import (
+from six import text_type
+from six.moves.configparser import (
     RawConfigParser,
     NoSectionError,
     NoOptionError
@@ -53,7 +54,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
+    'U': text_type
 }
 
 MANAGER = None

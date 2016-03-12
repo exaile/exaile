@@ -35,6 +35,7 @@ collection.
 """
 
 from __future__ import with_statement
+from six import string_types
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -52,8 +53,7 @@ from xl import (
     event,
     metadata,
     settings,
-    trax,
-    xdg
+    trax
 )
 
 logger = logging.getLogger(__name__)
@@ -662,7 +662,7 @@ class Library(object):
             return
 
         def joiner(value):
-            if not value or isinstance(value, basestring):
+            if not value or isinstance(value, string_types):
                 return value
             else:
                 try:

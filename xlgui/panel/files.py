@@ -376,10 +376,9 @@ class FilesPanel(panel.Panel):
             if keyword and keyword.lower() not in low_name:
                 continue
             f = directory.get_child(info.get_name())
+
             def sortkey():
-                # HACK: Python 2 bug: strxfrm doesn't support unicode.
-                # https://bugs.python.org/issue2481
-                sortname = locale.strxfrm(name.encode('utf-8'))
+                sortname = common.strxfrm(name)
                 return sortname, name, f
             ftype = info.get_file_type()
             if ftype == Gio.FileType.DIRECTORY:

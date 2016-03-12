@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six.moves import zip
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -31,7 +32,6 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from itertools import izip
 import logging
 import sys
 
@@ -1503,7 +1503,7 @@ class PlaylistModel(Gtk.ListStore):
     
         for position, track in tracks:
             track_data = [track, self.icon_for_row(position).pixbuf] + [formatter(track) for formatter in formatters]
-            render_data.append((position, [Value(typ, val) for typ, val in izip(coltypes, track_data)]))
+            render_data.append((position, [Value(typ, val) for typ, val in zip(coltypes, track_data)]))
         
         return render_data
         

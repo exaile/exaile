@@ -9,7 +9,7 @@ import logging
 import weakref
 import types
 
-import mox
+from mox3 import mox
 from gi.repository import Gio
 from gi.repository import GLib
 try:

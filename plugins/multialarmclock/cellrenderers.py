@@ -124,7 +124,7 @@ class CellRendererDays(Gtk.CellRendererText):
 
     def _key_pressed(self, view, event):
         '''Key pressed event handler, finish editing on Return'''
-        # event == None for day selected via doubleclick
+        # event is None for day selected via doubleclick
         if not event or event.type == Gdk.EventType.KEY_PRESS and Gdk.keyval_name(event.keyval) == 'Return':
             self._done()
             return True

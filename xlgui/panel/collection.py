@@ -587,12 +587,12 @@ class CollectionPanel(panel.Panel):
         """
         previously_loaded = False # was the subtree already loaded
         iter_sep = None
-        if parent == None:
+        if parent is None:
             depth = 0
         else:
             if self.model.iter_n_children(parent) != 1 or \
                 self.model.get_value(
-                    self.model.iter_children(parent), 1) != None:
+                    self.model.iter_children(parent), 1) is not None:
                 previously_loaded = True
             iter_sep = self.model.iter_children(parent)
             depth = self.model.iter_depth(parent) + 1

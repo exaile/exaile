@@ -37,7 +37,7 @@ class ContentRangeFile(object):
 
     def next(self):
         to_read = self.chunk
-        if (self.end != None):
+        if (self.end is not None):
             if (self.read >= self.end):
                 self.parent.close()
                 raise StopIteration

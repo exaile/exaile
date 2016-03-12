@@ -1508,7 +1508,7 @@ class Playlist(object):
             Get (start, end, step) tuple from slice object.
         """
         (start, end, step) = i.indices(len(self))
-        if i.step == None:
+        if i.step is None:
             step = 1
         return (start, end, step)
 

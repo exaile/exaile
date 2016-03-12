@@ -165,13 +165,13 @@ class EqualizerPlugin:
     def check_default_settings(self):
 
         for band in range(10):
-            if settings.get_option("plugin/equalizer/band%s"%band) == None:
+            if settings.get_option("plugin/equalizer/band%s"%band) is None:
                 settings.set_option("plugin/equalizer/band%s"%band, 0.0)
 
-        if settings.get_option("plugin/equalizer/pre") == None:
+        if settings.get_option("plugin/equalizer/pre") is None:
             settings.set_option("plugin/equalizer/pre", 0.0)
 
-        if settings.get_option("plugin/equalizer/enabled") == None:
+        if settings.get_option("plugin/equalizer/enabled") is None:
             settings.set_option("plugin/equalizer/enabled", True)
 
 

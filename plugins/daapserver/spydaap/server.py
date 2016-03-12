@@ -207,7 +207,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 rs = self.headers['Range']
                 m = re.compile('bytes=([0-9]+)-([0-9]+)?').match(rs)
                 (start, end) = m.groups()
-                if end != None: end = int(end)
+                if end is not None: end = int(end)
                 else: end = os.stat(fn).st_size
                 start = int(start)
                 f = spydaap.ContentRangeFile(fn, open(fn), start, end)

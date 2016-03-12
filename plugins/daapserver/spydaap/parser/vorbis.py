@@ -85,7 +85,7 @@ class VorbisParser(spydaap.parser.Parser):
     def parse(self, filename):
         md = mutagen.File(filename)
         d = []
-        if md.tags != None:
+        if md.tags is not None:
             self.handle_string_tags(self.vorbis_string_map, md, d)
             self.handle_int_tags(self.vorbis_int_map, md, d)
             self.handle_track(md, d)

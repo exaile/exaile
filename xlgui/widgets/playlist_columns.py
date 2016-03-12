@@ -426,7 +426,7 @@ class ScheduleTimeColumn(Column):
                     delay = sum([t.get_tag_raw('__length') \
                         for t in playlist[current_position:position]])
                 except TypeError:
-                    # on tracks with length == None, we cannot determine
+                    # on tracks with length is None, we cannot determine
                     # when later tracks will play
                     pass
                 else:

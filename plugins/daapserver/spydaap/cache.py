@@ -73,7 +73,7 @@ class OrderedCache(object):
         index_fn = os.path.join(self.dir, 'index')
         if os.path.exists(index_fn):
             os.remove(index_fn)
-        if pid_list == None:
+        if pid_list is None:
             pid_list = [ f for f in os.listdir(self.dir) if f != "index"]
             pid_list.sort()
         fi = open(index_fn, 'w')

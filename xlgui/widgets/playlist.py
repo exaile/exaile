@@ -90,7 +90,7 @@ class ModesMenuItem(menu.MenuItem):
         submenu = self.create_mode_submenu(item)
         item.set_submenu(submenu)
         pl = self.get_playlist_func(parent, context)
-        item.set_sensitive(pl != None)
+        item.set_sensitive(pl is not None)
         return item
 
     def create_mode_submenu(self, parent_item):

@@ -683,7 +683,7 @@ class TagField(Gtk.Box):
         if doupdate:
             self.field.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             self.all_button.set_active(all(val == v for v in all_vals))
 
@@ -735,7 +735,7 @@ class TagTextField(Gtk.Box):
         if doupdate:
             self.buffer.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -796,7 +796,7 @@ class TagNumField(Gtk.Box):
                         field_val = float(digits.group())
             self.field.set_value(field_val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -840,7 +840,7 @@ class TagDblNumField(Gtk.Box):
             self.all_button = [AllButton(self), AllButton(self, 1)]
 
         self.pack_start(self.field[0], True, True, 0)
-        if all_button and self.all_button[0] != None:
+        if all_button and self.all_button[0] is not None:
             self.pack_start(self.all_button[0], False, False, 0)
         self.pack_start(lbl, True, True, 0)
         self.pack_start(self.field[1], True, True, 0)
@@ -877,7 +877,7 @@ class TagDblNumField(Gtk.Box):
                             field_val = float(digits.group())
                 self.field[x].set_value(field_val)
 
-        if all_val != None:
+        if all_val is not None:
             all_vals = []
             for v in all_val:
                 if v is not None:
@@ -894,7 +894,7 @@ class TagDblNumField(Gtk.Box):
                     if v is None or vals[i] != v[i]:
                         flags[i] = False
 
-                if self.all_button[i] != None:
+                if self.all_button[i] is not None:
                     if flags[i]:
                         self.all_button[i].set_active(True)
                     else:

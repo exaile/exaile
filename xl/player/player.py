@@ -368,7 +368,7 @@ class ExailePlayer(object):
         except (TypeError, AttributeError):
             return
         
-        if length == None: return
+        if length is None: return
         
         pos = self.get_time()
         seek_pos = pos + diff

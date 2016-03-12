@@ -50,7 +50,7 @@ def DAAPParseCodeTypes(treeroot):
                         dtype   = 's'
                 else:
                     raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
-            if code == None or name == None or dtype == None:
+            if code is None or name is None or dtype is None:
                 log.debug('DAAPParseCodeTypes: missing information, not adding entry')
             else:
                 try:
@@ -65,7 +65,7 @@ class DAAPError(Exception): pass
 
 class DAAPObject(object):
     def __init__(self, code=None, value=None, **kwargs):
-        if (code != None):
+        if (code is not None):
             if (len(code) == 4):
                 self.code = code
             else:
@@ -265,7 +265,7 @@ class DAAPClient(object):
 #        self._old_itunes = 0
 
     def connect(self, hostname, port = 3689, password = None):
-        if self.socket != None:
+        if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
 #        if ':' in hostname:
 #            raise DAAPError('cannot connect to ipv6 addresses')
@@ -384,7 +384,7 @@ class DAAPClient(object):
     def login(self):
         response = self.request("/login")
         sessionid   = response.getAtom("mlid")
-        if sessionid == None:
+        if sessionid is None:
             log.debug('DAAPClient: login unable to determine session ID')
             return
         log.debug("Logged in as session %s", sessionid)

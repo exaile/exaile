@@ -66,7 +66,7 @@ class Genre(Playlist):
 class YearRange(Playlist):
     def __init__(self, name, first,last=None):
         self.name = name
-        if last == None:
+        if last is None:
             last = first
         self.last = last
         self.first = first

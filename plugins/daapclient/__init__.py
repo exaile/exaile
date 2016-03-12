@@ -494,7 +494,7 @@ class DaapConnection(object):
         """
             Get the track list from a DAAP database
         """
-        if reset or self.tracks == None:
+        if reset or self.tracks is None:
             if self.database is None:
                 self.database = self.session.library()
             self.tracks = self.database.tracks()

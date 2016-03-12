@@ -31,7 +31,7 @@ try:    # xl doesn't exist outside of exaile
     from xl import event
 except:
     from gettext import gettext as _
-    print 'Running outside of Exaile...'
+    print('Running outside of Exaile...')
 
 
 import ipython_view as ip

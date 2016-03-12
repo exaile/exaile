@@ -132,7 +132,7 @@ class TestTrack(unittest.TestCase):
     def test_takes_nonurl(self):
         for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
-            print tr.get_loc_for_io()
+            print(tr.get_loc_for_io())
             self.assertTrue(tr.get_local_path())
             self.assertTrue(tr.exists())
     

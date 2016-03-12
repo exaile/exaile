@@ -2628,18 +2628,18 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
 
 if __name__ == '__main__':
     if not sys.argv[1:]:
-        print __doc__
+        print(__doc__)
         sys.exit(0)
     else:
         urls = sys.argv[1:]
     zopeCompatibilityHack()
     from pprint import pprint
     for url in urls:
-        print url
-        print
+        print(url)
+        print()
         result = parse(url)
         pprint(result)
-        print
+        print()
 
 #REVISION HISTORY
 #1.0 - 9/27/2002 - MAP - fixed namespace processing on prefixed RSS 2.0 elements,

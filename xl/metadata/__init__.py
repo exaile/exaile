@@ -26,11 +26,10 @@
 
 
 import os
-import sys
 from gi.repository import Gio
 
-from xl.metadata._base import BaseFormat, NotWritable, NotReadable
-import urlparse
+from xl.common import to_unicode
+from xl.metadata._base import BaseFormat, NotReadable
 
 from xl.metadata import (ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
         tta, wav, wv)
@@ -102,7 +101,7 @@ def get_format(loc):
     # converting it (but in a form that os.path will handle). Go figure.
     
     try:
-        loc = loc.decode('utf-8')
+        loc = to_unicode(loc, 'utf8')
     except UnicodeDecodeError:
         pass
             

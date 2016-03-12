@@ -28,6 +28,7 @@ from xl import providers, collection, common
 from xl.nls import gettext as _
 from xl.hal import Handler
 from xl.devices import Device
+from xl.common import to_unicode
 import dbus
 import logging, os
 logger = logging.getLogger(__name__)
@@ -57,7 +58,7 @@ class MassStorageDevice(Device):
 
     def connect(self):
         self.mountpoints = [ str(x) for x in self._mountpoints if
-                str(x) is not "" and os.path.exists(unicode(x)) ]
+                str(x) is not "" and os.path.exists(to_unicode(x)) ]
         if self.mountpoints == []:
             raise IOError("Device is not mounted.")
         for mountpoint in self.mountpoints:

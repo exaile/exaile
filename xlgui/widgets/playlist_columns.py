@@ -27,7 +27,6 @@
 
 from six import iteritems
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -35,7 +34,6 @@ import logging
 import time
 
 from xl import (
-    common,
     event,
     player,
     settings,
@@ -50,6 +48,7 @@ from xlgui.widgets import rating, menu
 logger = logging.getLogger(__name__)
 
 DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
+
 
 class Column(Gtk.TreeViewColumn):
     name = ''

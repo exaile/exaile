@@ -16,6 +16,7 @@
 import os
 import re
 from spydaap.daap import do
+from xl.common import to_unicode
 
 
 class Parser:
@@ -23,7 +24,7 @@ class Parser:
         h = {}
         for k in md.tags.keys():
             if k in map:
-                tag = [ unicode(t) for t in md.tags[k] ]
+                tag = [to_unicode(t) for t in md.tags[k]]
                 tag = [ t for t in tag if t != "" ]
                 if not(map[k] in h): h[map[k]] = []
                 h[map[k]] = h[map[k]] + tag
@@ -37,7 +38,7 @@ class Parser:
                 val = md.tags[k]
                 if isinstance(val, list):
                     val = val[0]
-                intval = self.my_int(unicode(val))
+                intval = self.my_int(to_unicode(val))
                 if intval: daap.append(do(map[k], intval))
 
     def add_file_info(self, filename, daap):
@@ -53,7 +54,7 @@ class Parser:
         return name
 
     def clean_int_string(self, s):
-        return re.sub(u'[^0-9]', '', unicode(s))
+        return re.sub(u'[^0-9]', '', to_unicode(s))
     
     def my_int(self, s):
         try:

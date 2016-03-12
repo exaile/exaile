@@ -42,9 +42,12 @@ from xl import (
     settings,
     xdg
 )
+from xl.common import to_unicode
+
 
 class LyricsNotFoundException(Exception):
     pass
+
 
 class LyricsCache:
     '''
@@ -258,7 +261,7 @@ class LyricsManager(providers.ProviderHandler):
                     lyrics = zlib.decompress(lyrics)
                 except zlib.error as e:
                     raise LyricsNotFoundException(e)
-                return (lyrics.decode('utf-8', errors='replace'), source, url)
+                return (to_unicode(lyrics, 'utf8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
         assert isinstance(lyrics, text_type), (method, track)

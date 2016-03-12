@@ -29,6 +29,7 @@ from xl.metadata._base import (
     BaseFormat,
     CoverImage
 )
+from xl.common import to_unicode
 from mutagen import id3
 
 
@@ -91,13 +92,13 @@ class ID3Format(BaseFormat):
         ret = []
         if t in ('TDRC', 'TDOR'): # values are ID3TimeStamps
             for value in field:
-                ret.extend([unicode(x) for x in value.text])
+                ret.extend([to_unicode(x) for x in value.text])
         elif t == 'USLT': # Lyrics are stored in plain old strings
             for value in field:
-                ret.append(unicode(value.text))
+                ret.append(to_unicode(value.text))
         elif t == 'WOAR': # URLS are stored in url not text
             for value in field:
-                ret.extend([unicode(value.url.replace('\n','').replace('\r',''))])
+                ret.extend([to_unicode(value.url.replace('\n','').replace('\r',''))])
         elif t == 'APIC':
             ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
         elif t == 'COMM': # Newlines within comments are allowed, keep them
@@ -106,7 +107,7 @@ class ID3Format(BaseFormat):
         else:
             for value in field:
                 try:
-                    ret.extend([unicode(x.replace('\n','').replace('\r','')) \
+                    ret.extend([to_unicode(x.replace('\n','').replace('\r','')) \
                         for x in value.text])
                 except:
                     pass

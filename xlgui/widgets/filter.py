@@ -37,7 +37,9 @@ from gi.repository import Gtk
 from six import integer_types, text_type
 from six.moves import range, urllib
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
+
 
 class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
@@ -161,7 +163,7 @@ class FilterDialog(Gtk.Dialog):
         """
             Returns the text in the name_entry
         """
-        return unicode(self.name_entry.get_text(), 'utf-8')
+        return to_unicode(self.name_entry.get_text(), 'utf-8')
 
     def set_name(self, name):
         """
@@ -456,35 +458,35 @@ class MultiEntryField(Gtk.Box):
                 widget.set_size_request(label, -1)
                 self.entries.append(widget)
             else:
-                widget = Gtk.Label(label=unicode(label))
+                widget = Gtk.Label(label=to_unicode(label))
             self.pack_start(widget, False, True, 0)
             widget.show()
     def get_state(self):
-        return [unicode(e.get_text(), 'utf-8') for e in self.entries]
+        return [to_unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         entries = self.entries
         for i in range(min(len(entries), len(state))):
-            entries[i].set_text(unicode(state[i]))
+            entries[i].set_text(to_unicode(state[i]))
 
 class EntryField(Gtk.Entry):
     def __init__(self):
         Gtk.Entry.__init__(self)
     def get_state(self):
-        return unicode(self.get_text(), 'utf-8')
+        return to_unicode(self.get_text(), 'utf-8')
     def set_state(self, state):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
-        self.set_text(unicode(state))
+        self.set_text(to_unicode(state))
         
 class QuotedEntryField(Gtk.Entry):
     def __init__(self):
         Gtk.Entry.__init__(self)
     def get_state(self):
-        return unicode(urllib.parse.quote(self.get_text()), 'utf-8')
+        return to_unicode(urllib.parse.quote(self.get_text()), 'utf-8')
     def set_state(self, state):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
-        self.set_text(unicode(urllib.parse.unquote(str(state))))
+        self.set_text(to_unicode(urllib.parse.unquote(str(state))))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
@@ -545,6 +547,6 @@ class SpinButtonAndComboField(Gtk.Box):
         active_item = self.items[self.combo.get_active()]
 
         if not isinstance(active_item, text_type):
-            active_item = unicode(active_item, 'utf-8')
+            active_item = to_unicode(active_item, 'utf-8')
 
         return [self.entry.get_value(), active_item]

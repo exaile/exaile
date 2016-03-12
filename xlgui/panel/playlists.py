@@ -40,9 +40,9 @@ from xl import (
     settings,
     trax
 )
+from xl.common import to_unicode
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons,
     panel
 )
@@ -537,7 +537,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         for track in playlist:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, to_unicode(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:

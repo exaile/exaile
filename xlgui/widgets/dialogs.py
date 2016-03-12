@@ -41,6 +41,7 @@ from xl import (
     xdg
 )
 from xl.common import clamp
+from xl.common import to_unicode
 from xl.playlist import (
     is_valid_playlist,
     import_playlist,
@@ -54,6 +55,7 @@ from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
+
 def force_unicode(obj):
     if obj is None:
         return None
@@ -61,9 +63,9 @@ def force_unicode(obj):
     try:
         # Try this first because errors='replace' fails if the object is unicode
         # or some other non-str object.
-        return unicode(obj)
+        return to_unicode(obj)
     except UnicodeDecodeError:
-        return unicode(obj, errors='replace')
+        return to_unicode(obj, errors='replace')
 
 def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     """
@@ -181,7 +183,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [unicode(a.get_text(), 'utf-8') for a in self.fields]
+        return [to_unicode(a.get_text(), 'utf-8') for a in self.fields]
 
     def run(self):
         """
@@ -259,7 +261,7 @@ class TextEntryDialog(Gtk.Dialog):
         """
             Returns the text value
         """
-        return unicode(self.entry.get_text(), 'utf-8')
+        return to_unicode(self.entry.get_text(), 'utf-8')
 
     def set_value(self, value):
         """
@@ -926,7 +928,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = unicode(self.get_uri(), 'utf-8')
+            path = to_unicode(self.get_uri(), 'utf-8')
             
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path

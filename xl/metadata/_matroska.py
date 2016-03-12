@@ -33,10 +33,10 @@
 
 from __future__ import print_function
 
-
 import sys
 from struct import pack, unpack
 from warnings import warn
+from xl.common import to_unicode
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
@@ -201,7 +201,7 @@ class Ebml:
                 elif type_ is STRING:
                     value = self.read(size).decode('ascii')
                 elif type_ is UTF8:
-                    value = self.read(size).decode('utf-8')
+                    value = to_unicode(self.read(size, 'utf8'))
                 elif type_ is DATE:
                     us = self.readInteger(size, True) / 1000.0  # ns to us
                     from datetime import datetime, timedelta

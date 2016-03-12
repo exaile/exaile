@@ -25,6 +25,7 @@
 # from your version.
 
 from six import iteritems, text_type, string_types
+from xl.common import to_unicode
 from collections import namedtuple
 import copy
 
@@ -167,7 +168,7 @@ class BaseFormat(object):
                         pass
                     else:
                         try:
-                            t = [unicode(u) for u in list(t)]
+                            t = [to_unicode(u) for u in list(t)]
                         except UnicodeDecodeError:
                             t = t
                 except (KeyError, TypeError):
@@ -178,7 +179,7 @@ class BaseFormat(object):
                     if type(t) in [str, text_type]:
                         t = [t]
                     else:
-                        t = [unicode(u) for u in list(t)]
+                        t = [to_unicode(u) for u in list(t)]
                 except (KeyError, TypeError):
                     pass
 

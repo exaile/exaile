@@ -11,6 +11,8 @@ from xl.lyrics import (
     LyricsNotFoundException
 )
 from xl import common, providers
+from xl.common import to_unicode
+
 
 def enable(exaile):
     """
@@ -65,7 +67,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(to_unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 

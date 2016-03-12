@@ -41,12 +41,10 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 import logging
-import os
-import os.path
-import shutil
 import threading
 import time
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
 from xl import (
     common,
@@ -58,6 +56,7 @@ from xl import (
 logger = logging.getLogger(__name__)
 
 COLLECTIONS = set()
+
 
 def get_collection_by_loc(loc):
     """
@@ -827,7 +826,7 @@ class Library(object):
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s"%unicode(tr))
+            logger.debug(u"Removing %s"%to_unicode(tr))
             self.collection.remove(tr)
             
         logger.info("Scan completed: %s", self.location)

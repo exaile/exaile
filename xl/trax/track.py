@@ -322,7 +322,7 @@ class Track(object):
             path = GLib.filename_display_basename(path)
         else:  # Non-local
             path = GLib.filename_display_name(gfile.get_basename())
-        return path.decode('utf-8')
+        return common.to_unicode(path, 'utf8')
 
     def get_type(self):
         """
@@ -481,7 +481,6 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                    if isinstance(v, basestring) else v
                 for v in values
                     if v not in (None, '')
             ]
@@ -600,7 +599,7 @@ class Track(object):
         """
         if tag == '__loc':
             uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
-            return uri.decode('utf-8')
+            return common.to_unicode(uri, 'utf8')
 
         value = None
         if tag == "albumartist":
@@ -706,7 +705,7 @@ class Track(object):
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution
         if not isinstance(value, list) and not tag.startswith("__"):
-            value = unicode(value)
+            value = common.to_unicode(value)
 
         return value
 

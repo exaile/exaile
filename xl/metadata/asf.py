@@ -26,6 +26,7 @@
 
 
 
+from xl.common import to_unicode
 from xl.metadata._base import BaseFormat
 from mutagen import asf
 
@@ -57,7 +58,7 @@ class AsfFormat(BaseFormat):
             def __process_tag(t):
                 for attrtype in attrs:
                     if isinstance(t,attrtype):
-                        return unicode(t)
+                        return to_unicode(t)
                 return t
             
             return [__process_tag(t) for t in tag]

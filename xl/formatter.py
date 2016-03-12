@@ -44,8 +44,10 @@ from xl import (
     trax
 )
 from xl.common import TimeSpan
+from xl.common import to_unicode
 from xl.nls import gettext as _, ngettext
 import collections
+
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
@@ -402,7 +404,7 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
+                substitute = to_unicode(GLib.markup_escape_text(substitute), 'utf8')
 
             self._substitutions[identifier] = substitute
 
@@ -658,8 +660,9 @@ class RatingTagFormatter(TagFormatter):
         filled = '★' * int(rating)
         empty = '☆' * int(maximum - rating)
 
-        return ('%s%s' % (filled, empty)).decode('utf-8')
+        return to_unicode('%s%s' % (filled, empty), 'utf8')
 providers.register('tag-formatting', RatingTagFormatter())
+
 
 class YearTagFormatter(TagFormatter):
     """

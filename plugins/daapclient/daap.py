@@ -16,6 +16,8 @@ import struct
 import sys
 from daap_data import *
 from cStringIO import StringIO
+from xl.common import to_unicode
+
 
 __all__ = ['DAAPError', 'DAAPObject', 'do']
 
@@ -246,11 +248,11 @@ class DAAPObject(object):
             # the object is a string
             # we need to read length characters from the string
             try:
-                self.value  = unicode(
+                self.value  = to_unicode(
                     struct.unpack('!%ss' % self.length, code)[0], 'utf-8')
             except UnicodeDecodeError:
                 # oh, urgh
-                self.value = unicode(
+                self.value = to_unicode(
                     struct.unpack('!%ss' % self.length, code)[0], 'latin-1')
         else:
             # we don't know what to do with this object

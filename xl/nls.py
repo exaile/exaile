@@ -32,6 +32,7 @@
 import sys
 import locale
 import os.path
+from xl.common import to_unicode
 
 try:
     # Set to user default, gracefully fallback on C otherwise
@@ -84,12 +85,12 @@ try:
     gettextfunc = gettextmod.gettext
 
     def gettext(text):
-        return gettextfunc(text).decode("utf-8")
+        return to_unicode(gettextfunc(text), 'utf8')
 
     ngettextfunc = gettextmod.ngettext
 
     def ngettext(singular, plural, n):
-        return ngettextfunc(singular, plural, n).decode('utf-8')
+        return to_unicode(ngettextfunc(singular, plural, n), 'utf8')
 
 except ImportError:
     # gettext is not available.  Provide a dummy function instead

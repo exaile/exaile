@@ -87,18 +87,20 @@ def log_exception(log=logger, message="Exception caught!"):
     """
     log.exception(message)
 
+
 def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
     # unicode() only accepts "string or buffer", so check the type of x first.
-    if isinstance(x, unicode):
+    if isinstance(x, text_type):
         return x
-    elif isinstance(x, str):
+    elif isinstance(x, bytes):
         if encoding:
-            return unicode(x, encoding, errors)
+            return x.decode(encoding, errors)
         else:
-            return unicode(x, errors=errors)
+            return x.decode(errors=errors)
     else:
-        return unicode(x)
+        return text_type(x)
+
 
 def strxfrm(x):
     """Like locale.strxfrm but also supports Unicode.
@@ -108,7 +110,7 @@ def strxfrm(x):
     cases): https://bugs.python.org/issue2481
     """
     import locale
-    if isinstance(x, text_type):
+    if not PY3 and isinstance(x, text_type):
         return locale.strxfrm(x.encode('utf-8', 'replace'))
     return locale.strxfrm(x)
 
@@ -354,12 +356,12 @@ def open_file_directory(path_or_uri):
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2
-        # always calls CreateProcessA, which doesn't support Unicode. We could 
+        # always calls CreateProcessA, which doesn't support Unicode. We could
         # call CreateProcessW with ctypes, but the following is more robust.
         import ctypes
         ctypes.windll.ole32.CoInitialize(None)
         # Not sure why this is always UTF-8.
-        upath = f.get_path().decode('utf-8')
+        upath = to_unicode(f.get_path(), 'utf8')
         pidl = ctypes.windll.shell32.ILCreateFromPathW(upath)
         ctypes.windll.shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
         ctypes.windll.shell32.ILFree(pidl)
@@ -368,6 +370,7 @@ def open_file_directory(path_or_uri):
         subprocess.Popen(["open", f.get_parent().get_parse_name()])
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+
 
 class LimitedCache(DictMixin):
     """

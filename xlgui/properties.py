@@ -40,6 +40,7 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
 from xl.metadata._base import CoverImage
 from xl import (
@@ -687,7 +688,7 @@ class TagField(Gtk.Box):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
-        return unicode(self.field.get_text(), 'utf-8')
+        return to_unicode(self.field.get_text(), 'utf-8')
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -747,7 +748,7 @@ class TagTextField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(self.buffer.get_text(
+        return to_unicode(self.buffer.get_text(
             self.buffer.get_start_iter(),
             self.buffer.get_end_iter(),
             True
@@ -808,7 +809,7 @@ class TagNumField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(int(self.field.get_value()))
+        return to_unicode(int(self.field.get_value()))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -900,15 +901,15 @@ class TagDblNumField(Gtk.Box):
                         self.all_button[i].set_active(False)
 
     def get_value(self):
-        f0 = unicode(int(self.field[0].get_value()))
-        f1 = unicode(int(self.field[1].get_value()))
+        f0 = to_unicode(int(self.field[0].get_value()))
+        f1 = to_unicode(int(self.field[1].get_value()))
         return f0 + '/' + f1
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
-        val = unicode(self.field[0].get_value()) + '/' \
-                + unicode(self.field[1].get_value())
+        val = to_unicode(self.field[0].get_value()) + '/' \
+                + to_unicode(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
@@ -1219,13 +1220,14 @@ class PropertyField(Gtk.Box):
             self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
-        common.open_file_directory(self.field.get_text().decode('utf-8'))
+        common.open_file_directory(to_unicode(self.field.get_text(), 'utf8'))
 
     def register_update_func(self, f):
         pass
 
     def register_all_func(self, f):
         pass
+
 
 class AllButton(Gtk.ToggleButton):
     def __init__(self, parent_field, id_num=0):
@@ -1245,7 +1247,7 @@ class AllButton(Gtk.ToggleButton):
         if self.get_active and do_apply and self.field.parent_row:
             tag = self.field.parent_row.tag
             multi_id = self.field.parent_row.multi_id
-            if self.field.all_func != None:
+            if self.field.all_func is not None:
                 self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
 
 

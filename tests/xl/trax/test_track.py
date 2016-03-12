@@ -56,7 +56,7 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                mox.IsA(types.IntType),
+                mox.IsA(int),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()

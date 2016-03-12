@@ -35,6 +35,7 @@ and Rhythmbox's automatic playlists.
 from gi.types import GObjectMeta
 from gi.repository import Gtk
 import urllib
+from six import integer_types
 
 from xl.nls import gettext as _
 
@@ -450,7 +451,7 @@ class MultiEntryField(Gtk.Box):
             if label is None:
                 widget = Gtk.Entry()
                 self.entries.append(widget)
-            elif isinstance(label, (int, long, float)):
+            elif isinstance(label, integer_types) or isinstance(label, float):
                 widget = Gtk.Entry()
                 widget.set_size_request(label, -1)
                 self.entries.append(widget)

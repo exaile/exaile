@@ -112,7 +112,7 @@ class BrowserPage(WebKit2.WebView):
 
         try:
             html = common.get_url_contents(url, config.USER_AGENT)
-        except urllib2.URLError, e:
+        except urllib2.URLError as e:
             log.error(e)
             log.error(
                 "Error occurred when trying to retrieve Wikipedia page "

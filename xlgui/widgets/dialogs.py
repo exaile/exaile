@@ -1468,7 +1468,7 @@ class FileCopyDialog(Gtk.Dialog):
             if source.copy_finish(async_result):
                 self._step()
                 self._start_next_copy()
-        except GLib.Error,e:
+        except GLib.Error as e:
             self._on_error( _("Error occurred while copying %s: %s") % (
                 GLib.markup_escape_text( self.source.get_uri() ),
                 GLib.markup_escape_text( str(e) ) ) )

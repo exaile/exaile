@@ -120,7 +120,7 @@ def main():
                 uid = pwd.getpwnam(a)[2]
             else:
                 assert False, "unhandled option"
-    except getopt.GetoptError, err:
+    except getopt.GetoptError as err:
         # print help information and exit:
         sys.stderr.write(str(err))
         usage()

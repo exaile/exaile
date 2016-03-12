@@ -724,7 +724,7 @@ def _enable(exaile):
         except RuntimeError: # no dbus?
             avahi_interface = None
             logger.warning('avahi interface could not be initialized (no dbus?)')
-        except dbus.exceptions.DBusException, s:
+        except dbus.exceptions.DBusException as s:
             avahi_interface = None
             logger.error('Got DBUS error: %s' % s)
             logger.error('is avahi-daemon running?')

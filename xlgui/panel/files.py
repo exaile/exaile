@@ -282,7 +282,7 @@ class FilesPanel(panel.Panel):
         f = Gio.file_parse_name(path)
         try:
             ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
-        except GLib.GError, e:
+        except GLib.GError as e:
             logger.exception(e)
             self.entry.set_text(self.current.get_parse_name())
             return
@@ -354,7 +354,7 @@ class FilesPanel(panel.Panel):
             infos = directory.enumerate_children('standard::is-hidden,'
                 'standard::name,standard::display-name,standard::type',
                 Gio.FileQueryInfoFlags.NONE, None)
-        except GLib.Error, e:
+        except GLib.Error as e:
             logger.exception(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 return self.load_directory(

@@ -456,7 +456,7 @@ class HAL(providers.ProviderHandler):
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         try:
             capabilities = device.GetProperty("info.capabilities")
-        except dbus.exceptions.DBusException,e:
+        except dbus.exceptions.DBusException as e:
             if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
                 logger.exception("info.capabilities property not set for %s", udi)
             return None

@@ -25,4 +25,4 @@
 # from your version.
 
 def sucess():
-    print "w00t!"
+    print("w00t!")

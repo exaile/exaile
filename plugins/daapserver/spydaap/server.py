@@ -52,7 +52,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                             self.wfile.write(d)
                     else:
                         self.wfile.write(data)
-                except socket.error, ex:
+                except socket.error as ex:
                     if ex.errno in [errno.ECONNRESET]: pass
                     else: raise
             if (hasattr(data, 'close')):

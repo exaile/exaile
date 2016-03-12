@@ -36,7 +36,7 @@ import os.path
 try:
     # Set to user default, gracefully fallback on C otherwise
     locale.setlocale(locale.LC_ALL, '')
-except locale.Error, e:
+except locale.Error as e:
     # Error message copied from bzr
     sys.stderr.write('exaile: Warning: %s\n'
                      '  Exaile could not set the application locale, this\n'

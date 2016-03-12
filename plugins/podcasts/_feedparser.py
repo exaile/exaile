@@ -232,7 +232,7 @@ class FeedParserDict(UserDict):
             assert not key.startswith('_')
             return self.__getitem__(key)
         except:
-            raise AttributeError, "object has no attribute '%s'" % key
+            raise AttributeError("object has no attribute '%s'" % key)
 
     def __setattr__(self, key, value):
         if key.startswith('_') or key == 'data':
@@ -1361,7 +1361,7 @@ if _XML_AVAILABLE:
                 givenprefix = None
             prefix = self._matchnamespaces.get(lowernamespace, givenprefix)
             if givenprefix and (prefix == None or (prefix == '' and lowernamespace == '')) and not self.namespacesInUse.has_key(givenprefix):
-                    raise UndeclaredNamespace, "'%s' is not associated with a namespace" % givenprefix
+                    raise UndeclaredNamespace("'%s' is not associated with a namespace" % givenprefix)
             if prefix:
                 localname = prefix + ':' + localname
             localname = str(localname).lower()
@@ -2233,7 +2233,7 @@ def _parse_date(dateString):
                 raise ValueError
             map(int, date9tuple)
             return date9tuple
-        except Exception, e:
+        except Exception as e:
             if _debug: sys.stderr.write('%s raised %s\n' % (handler.__name__, repr(e)))
             pass
     return None
@@ -2457,7 +2457,7 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
     try:
         f = _open_resource(url_file_stream_or_string, etag, modified, agent, referrer, handlers)
         data = f.read()
-    except Exception, e:
+    except Exception as e:
         result['bozo'] = 1
         result['bozo_exception'] = e
         data = ''
@@ -2468,7 +2468,7 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
         if gzip and f.headers.get('content-encoding', '') == 'gzip':
             try:
                 data = gzip.GzipFile(fileobj=_StringIO(data)).read()
-            except Exception, e:
+            except Exception as e:
                 # Some feeds claim to be gzipped but they're not, so
                 # we get garbage.  Ideally, we should re-request the
                 # feed without the 'Accept-encoding: gzip' header,
@@ -2479,7 +2479,7 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
         elif zlib and f.headers.get('content-encoding', '') == 'deflate':
             try:
                 data = zlib.decompress(data, -zlib.MAX_WBITS)
-            except Exception, e:
+            except Exception as e:
                 result['bozo'] = 1
                 result['bozo_exception'] = e
                 data = ''
@@ -2608,7 +2608,7 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
             saxparser._ns_stack.append({'http://www.w3.org/XML/1998/namespace':'xml'})
         try:
             saxparser.parse(source)
-        except Exception, e:
+        except Exception as e:
             if _debug:
                 import traceback
                 traceback.print_stack()
@@ -2628,18 +2628,18 @@ def parse(url_file_stream_or_string, etag=None, modified=None, agent=None, refer
 
 if __name__ == '__main__':
     if not sys.argv[1:]:
-        print __doc__
+        print(__doc__)
         sys.exit(0)
     else:
         urls = sys.argv[1:]
     zopeCompatibilityHack()
     from pprint import pprint
     for url in urls:
-        print url
-        print
+        print(url)
+        print()
         result = parse(url)
         pprint(result)
-        print
+        print()
 
 #REVISION HISTORY
 #1.0 - 9/27/2002 - MAP - fixed namespace processing on prefixed RSS 2.0 elements,

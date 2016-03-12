@@ -101,7 +101,7 @@ class MassStorageHandler(Handler):
                 if "storage" in device.GetProperty(
                         "portable_audio_player.access_method.protocols"):
                     return 10
-            except dbus.exceptions.DBusException,e:
+            except dbus.exceptions.DBusException as e:
                 if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
                     logger.exception("Portable audio player without storage property")
         return 0

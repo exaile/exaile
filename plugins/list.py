@@ -26,4 +26,4 @@ def parse(argv):
 if __name__ == '__main__':
     names = list(parse(sys.argv))
     names.sort()
-    print(' '.join(names))
+    print((' '.join(names)))

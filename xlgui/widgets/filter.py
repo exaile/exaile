@@ -35,7 +35,7 @@ and Rhythmbox's automatic playlists.
 from gi.types import GObjectMeta
 from gi.repository import Gtk
 from six import integer_types, text_type
-from six.moves import urllib
+from six.moves import range, urllib
 
 from xl.nls import gettext as _
 
@@ -273,7 +273,7 @@ class FilterWidget(Gtk.Table):
     def remove_row(self, row):
         """Remove a criteria row."""
         rows = self.rows
-        for iRow in xrange(row, len(rows)):
+        for iRow in range(row, len(rows)):
             crit, btn, handler = rows[iRow]
             self.remove(crit)
             self.remove(btn)
@@ -318,9 +318,9 @@ class FilterWidget(Gtk.Table):
         """
         n_present = len(self.rows)
         n_required = len(state)
-        for i in xrange(n_present, n_required):
+        for i in range(n_present, n_required):
             self.add_row()
-        for i in xrange(n_present, n_required, -1):
+        for i in range(n_present, n_required, -1):
             self.remove_row(i - 1) # i is one less than n
         for i, cstate in enumerate(state):
             cstate[0].reverse() # reverse so it becomes a stack
@@ -463,7 +463,7 @@ class MultiEntryField(Gtk.Box):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         entries = self.entries
-        for i in xrange(min(len(entries), len(state))):
+        for i in range(min(len(entries), len(state))):
             entries[i].set_text(unicode(state[i]))
 
 class EntryField(Gtk.Entry):

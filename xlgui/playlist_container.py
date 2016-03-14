@@ -24,9 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six.moves import range
 from gi.repository import Gdk
-from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 
 import re
@@ -42,10 +41,9 @@ from xl import (
 from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
-from xlgui.widgets.common import AttachedWindow
 from xlgui.widgets.notebook import (
-    SmartNotebook, 
-    NotebookTab, 
+    SmartNotebook,
+    NotebookTab,
     NotebookAction,
     NotebookActionService
 )
@@ -54,7 +52,6 @@ from xlgui.widgets.queue import QueuePage
 
 import logging
 logger = logging.getLogger(__name__)
-
 
 
 class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
@@ -432,7 +429,7 @@ class PlaylistNotebook(SmartNotebook):
         return ret
 
     def clear_closed_tabs(self, widget, name, parent, context):
-        for i in xrange(len(self.tab_history)):
+        for i in range(len(self.tab_history)):
             self.remove_closed_tab(0)
     
     def focus_tab(self, tab_nr):

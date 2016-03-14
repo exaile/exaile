@@ -17,6 +17,7 @@
 
 from __future__ import division, print_function, unicode_literals
 
+from six.moves import range
 import cairo
 
 
@@ -33,7 +34,7 @@ class MoodbarPainter:
         """
         surf = cairo.ImageSurface(cairo.FORMAT_RGB24, 1000, 1)
         arr = surf.get_data()
-        for p in xrange(0, 1000):
+        for p in range(0, 1000):
             p4 = p * 4
             p3 = p * 3
             # Cairo RGB24 is BGRX

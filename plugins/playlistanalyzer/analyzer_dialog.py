@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six.moves import range
 from gi.repository import GObject
 from gi.repository import Gtk
 
@@ -39,11 +40,12 @@ from xlgui.widgets import dialogs
 
 import json
 import re
-
 import logging
-logger = logging.getLogger(__name__)
 
 from presets import DEFAULT_PRESETS
+
+logger = logging.getLogger(__name__)
+
 
 class AnalyzerDialog(object):
     '''
@@ -211,7 +213,7 @@ class AnalyzerDialog(object):
         
         self.tags_table.resize(tmpl['maxtags'], 3)
         
-        for i in xrange(0, tmpl['maxtags']):
+        for i in range(0, tmpl['maxtags']):
             
             label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
@@ -231,7 +233,7 @@ class AnalyzerDialog(object):
     
     def __set_tag_combo_active(self, cb, tag_name):
         model = cb.get_model()
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][1].tag_name == tag_name:
                 cb.set_active(i)
                 return
@@ -296,7 +298,7 @@ class AnalyzerDialog(object):
             settings.set_option('plugin/playlistanalyzer/tag%s' % i, td)
         
         # switch the template
-        for i in xrange(0, len(self.template_store)):
+        for i in range(0, len(self.template_store)):
             if tmpl == basename(self.template_store[i][1]['fname']):
                 self.template_list.set_cursor((i,))
                 break

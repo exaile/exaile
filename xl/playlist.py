@@ -39,7 +39,7 @@ import logging
 import os
 import random
 import time
-from six.moves import urllib
+from six.moves import urllib, range
 
 try:
     import cPickle as pickle
@@ -543,7 +543,7 @@ class PLSConverter(FormatConverter):
         numberofentries = pls_playlist.getint('playlist',
             'numberofentries')
 
-        for position in xrange(1, numberofentries + 1):
+        for position in range(1, numberofentries + 1):
             try:
                 uri = pls_playlist.get('playlist',
                     'file%d' % position)
@@ -1040,7 +1040,7 @@ class Playlist(object):
             Clear the history of played
             tracks from a shuffle run
         """
-        for i in xrange(len(self)):
+        for i in range(len(self)):
             try:
                 self.__tracks.del_meta_key(i, "playlist_shuffle_history")
             except:
@@ -1579,7 +1579,7 @@ class Playlist(object):
         removed = MetadataList()
 
         if isinstance(i, slice):
-            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
+            removed = MetadataList(zip(range(start, end, step), oldtracks),
                     oldtracks.metadata)
         else:
             removed = [(i, oldtracks)]
@@ -1646,19 +1646,18 @@ class Playlist(object):
                 self.__fetch_dynamic_tracks()
 
     def on_tracks_changed(self, *args):
-        for idx in xrange(len(self.__tracks)):
+        for idx in range(len(self.__tracks)):
             if self.__tracks.get_meta_key(idx, "playlist_current_position"):
                 self.__current_position = idx
                 break
         else:
             self.__current_position = -1
-        for idx in xrange(len(self.__tracks)):
+        for idx in range(len(self.__tracks)):
             if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
                 self.__spat_position = idx
                 break
         else:
             self.__spat_position = -1
-
 
 
 class SmartPlaylist(object):

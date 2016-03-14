@@ -28,7 +28,7 @@
     Provides methods for convenient icons and image handling
 """
 
-import cairo
+from six.moves import range
 import glob
 from gi.repository import (
     Gdk,
@@ -47,6 +47,7 @@ from xl import (
 )
 
 logger = logging.getLogger(__name__)
+
 
 class ExtendedPixbuf:
     """
@@ -288,7 +289,7 @@ class ExtendedPixbuf:
         )
         new_pixbuf.fill(0xffffff00)
 
-        for n in xrange(0, multiplier):
+        for n in range(0, multiplier):
             self.pixbuf.copy_area(
                 src_x=0, src_y=0,
                 width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
@@ -320,7 +321,7 @@ class ExtendedPixbuf:
         )
         new_pixbuf.fill(0xffffff00)
 
-        for n in xrange(0, multiplier):
+        for n in range(0, multiplier):
             self.pixbuf.copy_area(
                 src_x=0, src_y=0,
                 width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),

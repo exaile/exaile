@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six.moves import range
 from xl.nls import gettext as _
 from xl import providers, event
 from xl.hal import Handler, UDisksProvider

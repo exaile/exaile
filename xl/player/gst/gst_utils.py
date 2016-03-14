@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six.moves import range
 from gi.repository import Gst
 
 from xl.providers import ProviderHandler
@@ -198,12 +199,12 @@ def parse_stream_tags(track, tag_list):
     
     # Build a dictionary first
     tags = {}
-    for i in xrange(tag_list.n_tags()):
+    for i in range(tag_list.n_tags()):
         k = tag_list.nth_tag_name(i)
         if k not in keep:
             continue
         
-        values = [tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))]
+        values = [tag_list.get_value_index(k, vi) for vi in range(tag_list.get_tag_size(k))]
         if isinstance(values[0], str):
             try:
                 values = [unicode(v, 'utf-8') for v in values]

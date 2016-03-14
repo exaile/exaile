@@ -25,6 +25,7 @@
 # from your version.
 
 from six import string_types
+from six.moves import range
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -524,7 +525,7 @@ def persist_selection(widget, key_col, setting_name):
     
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)

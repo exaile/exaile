@@ -43,11 +43,11 @@ class MkaFormat(_base.BaseFormat):
         'comment': ('COMMENT', 30),
         'composer': ('COMPOSER', 30),
         'date': ('DATE_RECORDED', 50),
-        'disc': ('PART_NUMBER', 50),
+        'discnumber': ('PART_NUMBER', 50),
         'genre': ('GENRE', 30),
         'performer': ('PERFORMER', 30),
         'title': ('TITLE', 30),
-        'track': ('PART_NUMBER', 30),
+        'tracknumber': ('PART_NUMBER', 30),
     }
 
     def _get_raw(self):

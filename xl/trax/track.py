@@ -633,6 +633,8 @@ class Track(object):
             if tag == 'title':
                 basename = self.get_basename_display()
                 value = u"%s (%s)" % (value, basename)
+            elif tag == 'grouping':
+                value = ''
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):

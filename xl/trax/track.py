@@ -629,10 +629,10 @@ class Track(object):
             value = self.__tags.get(tag)
 
         if value is None:
-            value = _UNKNOWNSTR
+            value = ''
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (value, basename)
+                value = u"%s (%s)" % (_UNKNOWNSTR, basename)
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):

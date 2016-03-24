@@ -131,6 +131,9 @@ DEFAULT_ORDERS = [
     (_("Artist"), 
         ("artist", "album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Album Artist"), 
+        ("albumartistsort", "album", 
+            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     (_("Album"), 
         ("album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
@@ -633,12 +636,12 @@ class CollectionPanel(panel.Panel):
         to_expand = []
 
         for srtr in srtrs:
-            stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
+            stagvals = [unicode(srtr.track.get_tag_sort(x, artist_compilations=True)) for x in tags]
             stagval = " ".join(stagvals)
             if (last_val != stagval or bottom):
                 tagval = self.order.format_track(depth, srtr.track)
                 match_query = " ".join([
-                    srtr.track.get_tag_search(t, format=True) for t in tags])
+                    srtr.track.get_tag_search(t, format=True, artist_compilations=True) for t in tags])
                 if bottom:
                     match_query += " " + \
                             srtr.track.get_tag_search("__loc", format=True)

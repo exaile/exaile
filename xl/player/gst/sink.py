@@ -201,12 +201,12 @@ class CustomAudioSink(Gst.Bin):
 #
 
 if sys.platform == 'darwin':
-    import sink_osx
+    from . import sink_osx
     dev_fn = sink_osx.load_osxaudiosink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
     
 elif sys.platform == 'win32':
-    import sink_windows
+    from . import sink_windows
     dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
 

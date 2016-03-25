@@ -28,7 +28,7 @@
     General functions and classes shared in the codebase
 """
 
-from __future__ import with_statement
+
 
 import inspect
 from gi.repository import Gio
@@ -41,11 +41,12 @@ import string
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
+import collections
 
 logger = logging.getLogger(__name__)
 
@@ -88,15 +89,15 @@ def log_exception(log=logger, message="Exception caught!"):
 def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
     # unicode() only accepts "string or buffer", so check the type of x first.
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return x
     elif isinstance(x, str):
         if encoding:
-            return unicode(x, encoding, errors)
+            return str(x, encoding, errors)
         else:
-            return unicode(x, errors=errors)
+            return str(x, errors=errors)
     else:
-        return unicode(x)
+        return str(x)
 
 def strxfrm(x):
     """Like locale.strxfrm but also supports Unicode.
@@ -106,7 +107,7 @@ def strxfrm(x):
     cases): https://bugs.python.org/issue2481
     """
     import locale
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return locale.strxfrm(x.encode('utf-8', 'replace'))
     return locale.strxfrm(x)
 
@@ -137,7 +138,7 @@ def sanitize_url(url):
         :returns: the sanitized url
     """
     try:
-        components = list(urlparse.urlparse(url))
+        components = list(urllib.parse.urlparse(url))
         auth, host = components[1].split('@')
         username, password = auth.split(':')
     except (AttributeError, ValueError):
@@ -146,7 +147,7 @@ def sanitize_url(url):
         # Replace password with fixed amount of "*"
         auth = ':'.join((username, 5 * '*'))
         components[1] = '@'.join((auth, host))
-        url = urlparse.urlunparse(components)
+        url = urllib.parse.urlunparse(components)
 
     return url
 
@@ -162,8 +163,8 @@ def get_url_contents(url, user_agent):
     '''
     
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(url, None, headers)
-    fp = urllib2.urlopen(req)
+    req = urllib.request.Request(url, None, headers)
+    fp = urllib.request.urlopen(req)
     data = fp.read()
     fp.close()
     
@@ -211,7 +212,7 @@ def synchronized(func):
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
-    if callback and callable(callback):
+    if callback and isinstance(callback, collections.Callable):
         callback(value)
 
 def idle_add(callback=None):
@@ -406,7 +407,7 @@ class LimitedCache(DictMixin):
         return str(self.cache)
 
     def keys(self):
-        return self.cache.keys()
+        return list(self.cache.keys())
 
 class cached(object):
     """
@@ -420,7 +421,7 @@ class cached(object):
 
     @staticmethod
     def _freeze(d):
-        return frozenset(d.iteritems())
+        return frozenset(iter(d.items()))
 
     def __call__(self, f):
         try:
@@ -730,7 +731,7 @@ def order_poset(items):
         :type items: list of :class:`PosetItem`
     """
     items = dict([(i.name, i) for i in items])
-    for name, item in items.iteritems():
+    for name, item in items.items():
         for after in item.after:
             i = items.get(after)
             if i:
@@ -738,7 +739,7 @@ def order_poset(items):
             else:
                 item.after.remove(after)
     result = []
-    next = [i[1] for i in items.items() if not i[1].after]
+    next = [i[1] for i in list(items.items()) if not i[1].after]
     while next:
         current = [(i.priority, i.name, i) for i in next]
         current.sort()
@@ -748,14 +749,14 @@ def order_poset(items):
             for c in i[2].children:
                 nextset[c.name] = c
         removals = []
-        for name, item in nextset.iteritems():
+        for name, item in nextset.items():
             for after in item.after:
                 if after in nextset:
                     removals.append(name)
                     break
         for r in removals:
             del nextset[r]
-        next = nextset.values()
+        next = list(nextset.values())
     return result
 
 class LazyDict(object):
@@ -829,7 +830,7 @@ class GioFileInputStream(_GioFileStream):
     def __iter__(self):
         return self
     
-    def next(self):
+    def __next__(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
@@ -892,7 +893,7 @@ def subscribe_for_settings(section, options, self):
             setattr(self, attrname,
                     settings.get_option(data, getattr(self, attrname)))
     
-    for k in options.iterkeys():
+    for k in options.keys():
         if not k.startswith('%s/' % section):
             raise ValueError("Option is not part of section %s" % section)
         _on_option_set(None, None, k)

@@ -112,7 +112,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self._load_playlist_nodes(pl)
         self.tree.expand_row(self.model.get_path(self.custom), False)
 
-        for name, value in self.manager.stations.iteritems():
+        for name, value in self.manager.stations.items():
             self.add_driver(value)
 
     def _add_driver_cb(self, type, object, driver):
@@ -329,7 +329,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Called when someone clicks on the tree
         """
         if event.button == 3:
-            (x, y) = map(int, event.get_coords())
+            (x, y) = list(map(int, event.get_coords()))
             path = self.tree.get_path_at_pos(x, y)
             if path:
                 iter = self.model.get_iter(path[0])

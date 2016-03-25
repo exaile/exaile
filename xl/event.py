@@ -37,7 +37,7 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
-from __future__ import with_statement
+
 
 from inspect import ismethod
 import logging
@@ -192,14 +192,14 @@ class _WeakMethod:
             object that method is bound to dies.
         """
         assert ismethod(method)
-        if method.im_self is None:
+        if method.__self__ is None:
             raise ValueError("We need a bound method!")
         if notifyDead is None:
-            self.objRef = weakref.ref(method.im_self)
+            self.objRef = weakref.ref(method.__self__)
         else:
-            self.objRef = weakref.ref(method.im_self, notifyDead)
-        self.fun = method.im_func
-        self.cls = method.im_class
+            self.objRef = weakref.ref(method.__self__, notifyDead)
+        self.fun = method.__func__
+        self.cls = method.__self__.__class__
 
     def __call__(self):
         objref = self.objRef()

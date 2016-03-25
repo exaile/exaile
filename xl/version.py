@@ -25,7 +25,7 @@
 # from your version.
 
 import os
-import xdg
+from . import xdg
 
 major = "4.0"
 minor = "0"

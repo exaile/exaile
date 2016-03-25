@@ -35,7 +35,7 @@ import logging
 import os
 from gi.repository import Pango
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from xl import (
     common,
@@ -178,7 +178,7 @@ class FilesPanel(panel.Panel):
         self.filter = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
         self.filter.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
-                keyword=unicode(self.filter.get_text(), 'utf-8')))
+                keyword=str(self.filter.get_text(), 'utf-8')))
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
@@ -234,7 +234,7 @@ class FilesPanel(panel.Panel):
         """
         if event.button == 3:
             selection = self.tree.get_selection()
-            (x, y) = map(int, event.get_coords())
+            (x, y) = list(map(int, event.get_coords()))
             path = self.tree.get_path_at_pos(x, y)
             self.menu.popup(event)
 
@@ -371,7 +371,7 @@ class FilesPanel(panel.Panel):
                 # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
-            name = unicode(info.get_display_name(), 'utf-8')
+            name = str(info.get_display_name(), 'utf-8')
             low_name = name.lower()
             if keyword and keyword.lower() not in low_name:
                 continue
@@ -408,7 +408,7 @@ class FilesPanel(panel.Panel):
                 # correctly, so we call it with an str and convert the 
                 # locale-dependent output to unicode.
                 size = locale.format_string('%d', size, True)
-                size = _('%s kB') % unicode(size, locale.getpreferredencoding())
+                size = _('%s kB') % str(size, locale.getpreferredencoding())
                 
                 model.append((f, self.track, name, size))
 

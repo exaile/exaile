@@ -2,11 +2,12 @@ import os
 from xl import xdg, trax, collection
 from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
-from ConfigParser import SafeConfigParser
-import urlparse
-import oldexailelib, olddb
+from configparser import SafeConfigParser
+import urllib.parse
+from . import oldexailelib, olddb
 import logging
 import time
+import collections
 
 logger = logging.getLogger(__name__)
 
@@ -115,7 +116,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
              except ValueError:
                      pass
 
-        for item in db_map.keys():
+        for item in list(db_map.keys()):
             newtrack.set_tag_raw(db_map[item], getattr(oldtrack, item))
 
         newtrack._dirty = True
@@ -180,7 +181,7 @@ def _migrate_old_settings(oldsettings):
         try:
             if func in globals():
                 func = globals()[func]
-                if callable(func):
+                if isinstance(func, collections.Callable):
                     value = func(section, oldsetting, oldsettings)
 
             if not value: value = oldsettings.get(section, oldsetting)

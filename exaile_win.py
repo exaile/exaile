@@ -2,11 +2,11 @@
 
 """Launcher for Exaile on Windows"""
 
-from __future__ import division, print_function, unicode_literals
+
 
 # Make file handles not inheritable, that way we can restart on the fly
 # -> From http://www.virtualroadside.com/blog/index.php/2013/02/06/problems-with-file-descriptors-being-inherited-by-default-in-python/
-import __builtin__
+import builtins
 import msvcrt, sys
 from ctypes import windll
 
@@ -19,7 +19,7 @@ def __open_inheritance_hack(*args, **kwargs):
     windll.kernel32.SetHandleInformation(handle, 1, 0)
     return result
     
-__builtin__.open = __open_inheritance_hack
+builtins.open = __open_inheritance_hack
 
 
 
@@ -36,7 +36,7 @@ def error(message1, message2=None, die=True):
     if sys.stdout.isatty():
         if die:
             print("\r\n[Press Enter to exit.]", file=sys.stderr)
-            raw_input()
+            input()
     else:
         import ctypes
         if not message2:
@@ -105,7 +105,7 @@ def main():
     except Exception:
         import traceback
         traceback.print_exc()
-        raw_input()
+        input()
 
 if __name__ == '__main__':
     main()

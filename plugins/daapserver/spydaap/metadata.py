@@ -13,13 +13,13 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import with_statement
+
 import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     import md5
 
-import os, struct, spydaap.cache, StringIO
+import os, struct, spydaap.cache, io
 from spydaap.daap import do
 
 class MetadataCache(spydaap.cache.OrderedCache):
@@ -50,14 +50,14 @@ class MetadataCache(spydaap.cache.OrderedCache):
                                                               name, ffn, m)
         if not(link):
             for item in os.listdir(self.dir):
-                if (len(item) == 32) and not(marked.has_key(item)):
+                if (len(item) == 32) and not(item in marked):
                     os.remove(os.path.join (self.dir, item))
             self.build_index()
 
 class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if type(name) == unicode:
+        if type(name) == str:
             name = name.encode('utf-8')
         data = "".join([ d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
@@ -80,7 +80,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         return self.md[k]
 
     def has_key(self, k):
-        return self.get_md().has_key(k)
+        return k in self.get_md()
 
     def read(self):
         f = open(self.path)
@@ -109,7 +109,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     def get_md(self):
         if self.md == None:
             self.md = {}
-            s = StringIO.StringIO(self.get_dmap_raw())
+            s = io.StringIO(self.get_dmap_raw())
             l = len(self.get_dmap_raw())
             data = []
             while s.tell() != l:

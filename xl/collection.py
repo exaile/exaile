@@ -34,7 +34,7 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
-from __future__ import with_statement
+
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -203,14 +203,14 @@ class Collection(trax.TrackDB):
             :param library: the library to remove
             :type library: :class:`Library`
         """
-        for k, v in self.libraries.iteritems():
+        for k, v in self.libraries.items():
             if v == library:
                 del self.libraries[k]
                 break
 
         to_rem = []
         if not "://" in library.location:
-            location = u"file://" + library.location
+            location = "file://" + library.location
         else:
             location = library.location
         for tr in self.tracks:
@@ -239,7 +239,7 @@ class Collection(trax.TrackDB):
 
             :rtype: list of :class:`Library`
         """
-        return self.libraries.values()
+        return list(self.libraries.values())
 
     def rescan_libraries(self, startup_only=False, force_update=False):
         """
@@ -260,7 +260,7 @@ class Collection(trax.TrackDB):
 
         scan_interval = 20
 
-        for library in self.libraries.itervalues():
+        for library in self.libraries.values():
             
             if not force_update and startup_only and not (library.monitored and library.startup_scan):
                 continue
@@ -290,7 +290,7 @@ class Collection(trax.TrackDB):
     @common.threaded
     def __count_files(self):
         file_count = 0
-        for library in self.libraries.values():
+        for library in list(self.libraries.values()):
             if self._scan_stopped:
                 self._scanning = False
                 return
@@ -323,7 +323,7 @@ class Collection(trax.TrackDB):
             Called whenever the library's settings are changed
         """
         _serial_libraries = []
-        for k, v in self.libraries.iteritems():
+        for k, v in self.libraries.items():
             l = {}
             l['location'] = v.location
             l['monitored'] = v.monitored
@@ -356,7 +356,7 @@ class Collection(trax.TrackDB):
 
     def delete_tracks(self, tracks):
         for tr in tracks:
-            for prefix, lib in self.libraries.iteritems():
+            for prefix, lib in self.libraries.items():
                 lib.delete(tr.get_loc_for_io())
 
 class LibraryMonitor(GObject.GObject):
@@ -438,7 +438,7 @@ class LibraryMonitor(GObject.GObject):
             else:
                 logger.debug('Removing library monitors')
 
-                for directory, monitor in self.__monitors.iteritems():
+                for directory, monitor in self.__monitors.items():
                     monitor.cancel()
 
                     self.emit('location-removed', directory)
@@ -662,11 +662,11 @@ class Library(object):
             return
 
         def joiner(value):
-            if not value or isinstance(value, basestring):
+            if not value or isinstance(value, str):
                 return value
             else:
                 try:
-                    return u"\u0000".join(value)
+                    return "\u0000".join(value)
                 except UnicodeDecodeError:
                     return "\0".join(value)
 
@@ -811,7 +811,7 @@ class Library(object):
 
 
         removals = deque()
-        for tr in self.collection.tracks.itervalues():
+        for tr in self.collection.tracks.values():
             tr = tr._track
             loc = tr.get_loc_for_io()
             if not loc:
@@ -828,7 +828,7 @@ class Library(object):
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s"%unicode(tr))
+            logger.debug("Removing %s"%str(tr))
             self.collection.remove(tr)
             
         logger.info("Scan completed: %s", self.location)

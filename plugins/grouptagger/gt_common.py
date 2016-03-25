@@ -48,7 +48,7 @@ from xl.trax import search
 from xlgui import guiutil, main
 from xlgui.widgets import menu, dialogs
 
-import gt_widgets 
+from . import gt_widgets 
  
 
 group_categories_option = 'plugin/grouptagger/group_categories'
@@ -119,7 +119,7 @@ def get_groups_from_categories():
     
     groups = set()
     categories = get_group_categories()
-    for category, (expanded, cgroups) in categories.iteritems():
+    for category, (expanded, cgroups) in categories.items():
         for group in cgroups:
             groups.add( group )
     return groups

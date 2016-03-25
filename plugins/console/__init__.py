@@ -26,7 +26,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 
 import os, sys, traceback
-from cStringIO import StringIO
+from io import StringIO
 from xl.nls import gettext as _
 
 class PyConsole():
@@ -65,7 +65,7 @@ class PyConsole():
         try:
             pycode = compile(code, '<console>', 'single')
             sys.stdout = self.buffer
-            exec pycode in self.dict
+            exec(pycode, self.dict)
         except:
             sys.stdout = stdout
             exc = traceback.format_exception(*sys.exc_info())

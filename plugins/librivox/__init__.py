@@ -26,8 +26,8 @@ from gi.repository import Gtk
 
 import os
 
-import librivoxsearch as LS
-import about_window as AW
+from . import librivoxsearch as LS
+from . import about_window as AW
 from xl import (
     common,
     event,
@@ -73,7 +73,7 @@ class LVPanel():
     @common.threaded
     def run_search(self, widget):
         (c_id, msg_id)=self.statusbar.set_status('Searching...')
-        self.keyword=unicode(self.entry.get_text(), 'utf-8')
+        self.keyword=str(self.entry.get_text(), 'utf-8')
         self.books=LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)

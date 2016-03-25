@@ -35,7 +35,7 @@ class ContentRangeFile(object):
     def __len__(self):
         return self.length
 
-    def next(self):
+    def __next__(self):
         to_read = self.chunk
         if (self.end != None):
             if (self.read >= self.end):

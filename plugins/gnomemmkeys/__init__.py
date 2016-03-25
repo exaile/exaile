@@ -43,7 +43,7 @@ def callback(key):
     elif key == 'Previous':
         player.QUEUE.prev()
     elif key == 'Next':
-        player.QUEUE.next()
+        next(player.QUEUE)
 
 def enable(exaile):
     if exaile.loading:

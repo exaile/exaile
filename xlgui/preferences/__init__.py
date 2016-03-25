@@ -34,8 +34,8 @@ import logging
 import os
 import shlex
 import string
-import thread
-import urllib2
+import _thread
+import urllib.request, urllib.error, urllib.parse
 
 from xl import (
     common,

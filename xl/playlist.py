@@ -29,7 +29,7 @@ Provides the fundamental objects for handling a list of tracks contained
 in playlists as well as methods to import and export from various file formats.
 """
 
-from __future__ import with_statement
+
 import cgi
 from collections import namedtuple
 from datetime import datetime, timedelta
@@ -38,11 +38,11 @@ import logging
 import os
 import random
 import time
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
@@ -137,7 +137,7 @@ def import_playlist(path):
                 return provider.import_from_file(path)
 
     # Next try to extract the file extension via URL parsing
-    file_extension = urlparse.urlparse(path).path.split('.')[-1]
+    file_extension = urllib.parse.urlparse(path).path.split('.')[-1]
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:
@@ -235,7 +235,7 @@ class FormatConverter(object):
         """
         playlist_uri = Gio.File.new_for_uri(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
-        track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\','/'))
+        track_uri = urllib.parse.urljoin(playlist_uri, track_path.replace('\\','/'))
         
         logging.debug('Importing track: %s' % track_uri)
         
@@ -297,8 +297,8 @@ class FormatConverter(object):
             export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
 
             try:
-                export_path_components = urlparse.urlparse(export_path)
-                track_path_components = urlparse.urlparse(track_path)
+                export_path_components = urllib.parse.urlparse(export_path)
+                track_path_components = urllib.parse.urlparse(track_path)
             except (AttributeError, ValueError): # None, empty path
                 pass
             else:
@@ -317,7 +317,7 @@ class FormatConverter(object):
         # if the file is local, other players like VLC will not
         # accept the playlist if they have %20 in them, so we must convert
         # it to something else
-        return urllib.url2pathname(track_path)
+        return urllib.request.url2pathname(track_path)
 
 class M3UConverter(FormatConverter):
     """
@@ -408,7 +408,7 @@ class M3UConverter(FormatConverter):
                     track = trax.Track(self.get_track_import_path(path, line))
 
                     if extinf:
-                        for tag, value in extinf.iteritems():
+                        for tag, value in extinf.items():
                             if track.get_tag_raw(tag) is None:
                                 try:
                                     track.set_tag_raw(tag, value)
@@ -444,7 +444,7 @@ class PLSConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        from ConfigParser import RawConfigParser
+        from configparser import RawConfigParser
 
         pls_playlist = RawConfigParser()
         pls_playlist.optionxform = str # Make case sensitive
@@ -477,7 +477,7 @@ class PLSConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        from ConfigParser import (
+        from configparser import (
             RawConfigParser,
             MissingSectionHeaderError,
             NoOptionError
@@ -538,7 +538,7 @@ class PLSConverter(FormatConverter):
         numberofentries = pls_playlist.getint('playlist',
             'numberofentries')
 
-        for position in xrange(1, numberofentries + 1):
+        for position in range(1, numberofentries + 1):
             try:
                 uri = pls_playlist.get('playlist',
                     'file%d' % position)
@@ -661,7 +661,7 @@ class ASXConverter(FormatConverter):
                 for trackdata in playlistdata['tracks']:
                     track = trax.Track(self.get_track_import_path(path, trackdata['uri']))
 
-                    for tag, value in trackdata['tags'].iteritems():
+                    for tag, value in trackdata['tags'].items():
                         if not track.get_tag_raw(tag) and value:
                             track.set_tag_raw(tag, value)
 
@@ -694,7 +694,7 @@ class ASXConverter(FormatConverter):
             depth = len(self._stack)
             # Convert both tag and attributes to lowercase
             tag = tag.lower()
-            attributes = dict((k.lower(), v) for k, v in attributes.iteritems())
+            attributes = dict((k.lower(), v) for k, v in attributes.items())
 
             if depth > 0:
                 if depth == 2 and self._stack[-1] == 'entry' and tag == 'ref':
@@ -795,7 +795,7 @@ class XSPFConverter(FormatConverter):
 
             for track in playlist:
                 stream.write('    <track>\n')
-                for element, tag in self.tags.iteritems():
+                for element, tag in self.tags.items():
                     if not track.get_tag_raw(tag):
                         continue
                     stream.write('      <%s>%s</%s>\n' % (
@@ -842,7 +842,7 @@ class XSPFConverter(FormatConverter):
             for n in nodes:
                 location = n.find("%slocation" % ns).text.strip()
                 track = trax.Track(self.get_track_import_path(path, location))
-                for element, tag in self.tags.iteritems():
+                for element, tag in self.tags.items():
                     try:
                         track.set_tag_raw(tag,
                             n.find("%s%s" % (ns, element)).text.strip())
@@ -1035,7 +1035,7 @@ class Playlist(object):
             Clear the history of played
             tracks from a shuffle run
         """
-        for i in xrange(len(self)):
+        for i in range(len(self)):
             try:
                 self.__tracks.del_meta_key(i, "playlist_shuffle_history")
             except:
@@ -1152,7 +1152,7 @@ class Playlist(object):
         '''
         return self.__get_next(self.current_position)
             
-    def next(self):
+    def __next__(self):
         """
             Progresses to the next track within the playlist
             and takes shuffle and repeat modes into account
@@ -1314,7 +1314,7 @@ class Playlist(object):
             :type positions: iterable
         """
         # Turn 2 lists into a list of tuples
-        tracks = zip(self.__tracks, self.__tracks.metadata)
+        tracks = list(zip(self.__tracks, self.__tracks.metadata))
         
         if positions:
             # For 2 items, simple swapping is most reasonable
@@ -1333,7 +1333,7 @@ class Playlist(object):
             random.shuffle(tracks)
 
         # Turn list of tuples into 2 tuples
-        self[:] = MetadataList(*zip(*tracks))
+        self[:] = MetadataList(*list(zip(*tracks)))
 
     def sort(self, tags, reverse=False):
         """
@@ -1344,7 +1344,7 @@ class Playlist(object):
             :param reverse: whether the sorting shall be reversed
             :type reverse: boolean
         """
-        data = zip(self.__tracks, self.__tracks.metadata)
+        data = list(zip(self.__tracks, self.__tracks.metadata))
         data = trax.sort_tracks(tags, data,
                 trackfunc=lambda tr: tr[0], reverse=reverse)
         l = MetadataList()
@@ -1380,10 +1380,10 @@ class Playlist(object):
                 if value is not None:
                     # FIXME: This should join multiple values.
                     v = value[0]
-                    if isinstance(v, unicode):
+                    if isinstance(v, str):
                         v = v.encode('utf-8')
                     meta[item] = v
-            buffer += '\t%s\n' % urllib.urlencode(meta)
+            buffer += '\t%s\n' % urllib.parse.urlencode(meta)
             try:
                 f.write(buffer.encode('utf-8'))
             except UnicodeDecodeError:
@@ -1469,7 +1469,7 @@ class Playlist(object):
             if not track: continue
             if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
-                for k, v in meta.iteritems():
+                for k, v in meta.items():
                     track.set_tag_raw(k, v[0].decode('utf-8'), notify_changed=False)
 
             trs.append(track)
@@ -1477,7 +1477,7 @@ class Playlist(object):
         self.__tracks[:] = trs
 
 
-        for item, val in items.iteritems():
+        for item, val in items.items():
             if item in self.save_attrs:
                 try:
                     setattr(self, item, val)
@@ -1542,12 +1542,12 @@ class Playlist(object):
                 if len(value) != len(oldtracks):
                     raise ValueError("Extended slice assignment must match sizes.")
             self.__tracks.__setitem__(i, value)
-            removed = MetadataList(zip(range(start, end, step), oldtracks),
+            removed = MetadataList(list(zip(list(range(start, end, step)), oldtracks)),
                     oldtracks.metadata)
             if step == 1:
                 end = start + len(value)
 
-            added = MetadataList(zip(range(start, end, step), value), metadata)
+            added = MetadataList(list(zip(list(range(start, end, step)), value)), metadata)
         else:
             if not isinstance(value, trax.Track):
                 raise ValueError("Need trax.Track object, got %r" % type(value))
@@ -1574,7 +1574,7 @@ class Playlist(object):
         removed = MetadataList()
 
         if isinstance(i, slice):
-            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
+            removed = MetadataList(list(zip(list(range(start, end, step)), oldtracks)),
                     oldtracks.metadata)
         else:
             removed = [(i, oldtracks)]
@@ -1641,13 +1641,13 @@ class Playlist(object):
                 self.__fetch_dynamic_tracks()
 
     def on_tracks_changed(self, *args):
-        for idx in xrange(len(self.__tracks)):
+        for idx in range(len(self.__tracks)):
             if self.__tracks.get_meta_key(idx, "playlist_current_position"):
                 self.__current_position = idx
                 break
         else:
             self.__current_position = -1
-        for idx in xrange(len(self.__tracks)):
+        for idx in range(len(self.__tracks)):
             if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
                 self.__spat_position = idx
                 break

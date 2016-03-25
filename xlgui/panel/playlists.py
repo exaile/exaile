@@ -239,7 +239,7 @@ def __update_maps():
     
     from xl.metadata.tags import tag_data
     
-    for tag, data in tag_data.iteritems():
+    for tag, data in tag_data.items():
         
         if data is None:
             continue
@@ -265,12 +265,12 @@ class TrackWrapper(object):
     def __unicode__(self):
         text = self.track.get_tag_raw('title')
         if text is not None:
-            text = u' / '.join(text)
+            text = ' / '.join(text)
             
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:
-                text += u' - ' + u' / '.join(artists)
+                text += ' - ' + ' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
 
@@ -538,7 +538,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         for track in playlist:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, str(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:
@@ -714,7 +714,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             @param pl: the playlist to be updated
         """
-        playlists = self.playlist_nodes.keys()
+        playlists = list(self.playlist_nodes.keys())
         for playlist in playlists:
             if playlist.name == pl.name:
                 node = self.playlist_nodes[playlist]
@@ -806,11 +806,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if not isinstance(pl, playlist.SmartPlaylist): return
 
         _REV = {}
-        for k, v in _TRANS.iteritems():
+        for k, v in _TRANS.items():
             _REV[v] = k
 
         _REV_NMAP = {}
-        for k, v in _NMAP.iteritems():
+        for k, v in _NMAP.items():
             _REV_NMAP[v] = k
 
         params = pl.search_params

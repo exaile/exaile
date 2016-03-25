@@ -29,9 +29,9 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gtk
 
-import jamtree
-import jamapi
-import menu
+from . import jamtree
+from . import jamapi
+from . import menu
 import os
 import hashlib
 from xl import (

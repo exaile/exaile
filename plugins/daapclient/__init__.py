@@ -29,7 +29,7 @@ from gettext import gettext as _
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil
 from xlgui.widgets import dialogs, menu, menuitems
-from daap import DAAPClient, DAAPError
+from .daap import DAAPClient, DAAPError
 from xl import (
     collection, 
     event, 
@@ -147,7 +147,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         
         # check if the menu exist and check if it's ipv4 or we are allowing
         # ipv6
-        print('adding menu',name,key)
+        print(('adding menu',name,key))
         if self.menu:
                 menu_item = _smi(name, ['sep'], name,
                                 callback=lambda *x: self.clicked(key))
@@ -183,7 +183,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
         items = {}
         
-        for key,x in self.services.items():
+        for key,x in list(self.services.items()):
             name = '{0} ({1})'.format(x.name,x.host)
             if x.protocol == avahi.PROTO_INET6:
                 if not show_ipv6:
@@ -307,12 +307,13 @@ class DaapManager:
             
         self.history = DaapHistory(5, menu=hmenu, callback=self.connect_share)
 
-    def connect_share(self, obj, (name, address, port, svc)):
+    def connect_share(self, obj, xxx_todo_changeme):
         '''
             This function is called when a user wants to connec to
         a DAAP share.  It creates a new panel for the share, and
         requests a track list.
         '''
+        (name, address, port, svc) = xxx_todo_changeme
         conn = DaapConnection(name, address, port)
         
         conn.connect()
@@ -404,7 +405,7 @@ class DaapManager:
         removes the panels from the UI.
         '''
         # disconnect active shares
-        for panel in self.panels.values():
+        for panel in list(self.panels.values()):
             panel.daap_share.disconnect()
 
             # there's no point in doing this if we're just shutting down, only on
@@ -520,9 +521,9 @@ class DaapConnection(object):
                 # Don't scan tracks because gio is slow!
                 temp = trax.Track(uri, scan=False)
 
-                for field in eqiv.keys():
+                for field in list(eqiv.keys()):
                     try:
-                        tag = u'%s'%tr.atom.getAtom(eqiv[field])
+                        tag = '%s'%tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
@@ -763,7 +764,7 @@ def disable(exaile):
 
 
 # settings stuff
-import daapclientprefs
+from . import daapclientprefs
 
 def get_preferences_pane():
     return daapclientprefs

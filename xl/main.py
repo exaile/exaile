@@ -31,7 +31,7 @@
 #
 # Also takes care of parsing commandline options.
 
-from __future__ import print_function
+
 import os
 import platform
 import sys
@@ -678,7 +678,7 @@ class Exaile(object):
         logger.info("Exaile is shutting down...")
 
         logger.info("Disabling plugins...")
-        for k, plugin in self.plugins.enabled_plugins.iteritems():
+        for k, plugin in self.plugins.enabled_plugins.items():
             if hasattr(plugin, 'teardown'):
                 try:
                     plugin.teardown(self)

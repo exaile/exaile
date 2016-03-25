@@ -87,7 +87,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
         """
             Cleanups
         """
-        for control in self.__controls.itervalues():
+        for control in self.__controls.values():
             control.destroy()
 
     def __contains__(self, item):
@@ -252,7 +252,7 @@ class NextButtonControl(ButtonControl):
         """
             Goes to the next track
         """
-        player.QUEUE.next()
+        next(player.QUEUE)
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
     """
@@ -796,7 +796,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         if event.direction == Gdk.ScrollDirection.UP:
             self.view.playlist.prev()
         elif event.direction == Gdk.ScrollDirection.DOWN:
-            self.view.playlist.next()
+            next(self.view.playlist)
         else:
             return
 

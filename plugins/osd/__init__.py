@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from __future__ import division
+
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -35,9 +35,9 @@ from xl.nls import gettext as _
 from xl.player.adapters import PlaybackAdapter
 from xlgui.widgets import info
 
-import migration
-from alphacolor import alphacolor_parse
-import osd_preferences
+from . import migration
+from .alphacolor import alphacolor_parse
+from . import osd_preferences
 
 OSDWINDOW = None
 

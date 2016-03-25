@@ -43,7 +43,7 @@ def _enable(eventname, exaile, eventdata):
         'Media_Prev_Track': QUEUE.prev,
         'Media_Play_Pause': PLAYER.toggle_pause,
         'Media_Stop': PLAYER.stop,
-        'Media_Next_Track': QUEUE.next,
+        'Media_Next_Track': QUEUE.__next__,
     }
 
     import pyHook

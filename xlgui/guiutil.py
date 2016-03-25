@@ -132,7 +132,7 @@ def gtk_widget_replace(widget, replacement):
     parent.remove(widget)
     parent.add(replacement)
 
-    for name, value in props.items():
+    for name, value in list(props.items()):
         parent.child_set_property(replacement, name, value)
     return
 
@@ -472,7 +472,7 @@ def initialize_from_xml(this, other=None):
     '''
     builder = Gtk.Builder()
     
-    if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
+    if isinstance(this.ui_filename, str) and os.path.exists(this.ui_filename):
         builder.add_from_file(this.ui_filename)
     else:
         builder.add_from_file(xdg.get_data_path(*this.ui_filename))
@@ -526,7 +526,7 @@ def persist_selection(widget, key_col, setting_name):
     
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)

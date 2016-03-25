@@ -3,7 +3,7 @@ from xl.nls import gettext as _
 PLUGIN_NAME = _("Wikipedia")
 PLUGIN_AUTHORS = ['JC Brand <jc@opkode.com>']
 PLUGIN_VERSION = '0.5'
-PLUGIN_DESCRIPTION = _(u"Displays Wikipedia page about the current performer.")
+PLUGIN_DESCRIPTION = _("Displays Wikipedia page about the current performer.")
 PLUGIN_ENABLED = False
 USER_AGENT = None
 LANGUAGES = [ "ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",

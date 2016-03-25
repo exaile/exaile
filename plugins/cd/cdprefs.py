@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import with_statement
+
 from gi.repository import GObject
 from gi.repository import Gtk
 import os
@@ -84,7 +84,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_model(None)
         model.clear()
 
-        steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
+        steps = list(zip(formatinfo['raw_steps'], formatinfo['kbs_steps']))
 
         for item, title in steps:
             iter = model.append([item, title])

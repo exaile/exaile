@@ -16,7 +16,7 @@
 
 import logging
 import os
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 import gi
 gi.require_version('WebKit2', '4.0')
@@ -36,8 +36,8 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import panel
 
-import config
-import preferences
+from . import config
+from . import preferences
 
 log = logging.getLogger('exaile-wikipedia/__init__.py')
 
@@ -107,12 +107,12 @@ class BrowserPage(WebKit2.WebView):
             log.error('Provided language "%s" not found.' % language)
             language = 'en'
 
-        artist = urllib2.quote(artist.encode('utf-8'), '')
+        artist = urllib.parse.quote(artist.encode('utf-8'), '')
         url = "https://%s.m.wikipedia.org/wiki/Special:Search/%s" % (language, artist)
 
         try:
             html = common.get_url_contents(url, config.USER_AGENT)
-        except urllib2.URLError as e:
+        except urllib.error.URLError as e:
             log.error(e)
             log.error(
                 "Error occurred when trying to retrieve Wikipedia page "

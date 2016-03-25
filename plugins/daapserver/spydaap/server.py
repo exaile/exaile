@@ -13,14 +13,14 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys
+import http.server, errno, logging, os, re, urllib.parse, socket, spydaap, sys
 from spydaap.daap import do
 
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1
     log = logging.getLogger('spydaap.server')
 
-    class DAAPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    class DAAPHandler(http.server.BaseHTTPRequestHandler):
         daap_server_revision = 1
         protocol_version = "HTTP/1.1"
 
@@ -32,8 +32,8 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.send_header('Cache-Control', 'no-cache')
             self.send_header('Accept-Ranges', 'bytes')
             self.send_header('Content-Language', 'en_us')
-            if kwargs.has_key('extra_headers'):
-                for k, v in kwargs['extra_headers'].iteritems():
+            if 'extra_headers' in kwargs:
+                for k, v in kwargs['extra_headers'].items():
                     self.send_header(k, v)
             try:
                 if type(data) == file:
@@ -65,7 +65,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         drop_q = '(?:\\?.*)?$'
 
         def do_GET(self):
-            parsed_path = urlparse.urlparse(self.path).path
+            parsed_path = urllib.parse.urlparse(self.path).path
             if re.match(self.itunes_re + "/$", parsed_path):
                 self.do_GET_login()
             elif re.match(self.itunes_re + '/server-info$', parsed_path):
@@ -133,7 +133,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_content_codes(self):
             children = [ do('dmap.status', 200) ]
-            for code in spydaap.daap.dmapCodeTypes.keys():
+            for code in list(spydaap.daap.dmapCodeTypes.keys()):
                 (name, dtype) = spydaap.daap.dmapCodeTypes[code]
                 d = do('dmap.dictionary',
                        [ do('dmap.contentcodesnumber', code),
@@ -203,7 +203,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 self.send_error(404)    # this can be caused by left overs from previous sessions
                 return
 
-            if (self.headers.has_key('Range')):
+            if ('Range' in self.headers):
                 rs = self.headers['Range']
                 m = re.compile('bytes=([0-9]+)-([0-9]+)?').match(rs)
                 (start, end) = m.groups()

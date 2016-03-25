@@ -34,7 +34,7 @@ and Rhythmbox's automatic playlists.
 
 from gi.types import GObjectMeta
 from gi.repository import Gtk
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from xl.nls import gettext as _
 
@@ -160,7 +160,7 @@ class FilterDialog(Gtk.Dialog):
         """
             Returns the text in the name_entry
         """
-        return unicode(self.name_entry.get_text(), 'utf-8')
+        return str(self.name_entry.get_text(), 'utf-8')
 
     def set_name(self, name):
         """
@@ -272,7 +272,7 @@ class FilterWidget(Gtk.Table):
     def remove_row(self, row):
         """Remove a criteria row."""
         rows = self.rows
-        for iRow in xrange(row, len(rows)):
+        for iRow in range(row, len(rows)):
             crit, btn, handler = rows[iRow]
             self.remove(crit)
             self.remove(btn)
@@ -317,9 +317,9 @@ class FilterWidget(Gtk.Table):
         """
         n_present = len(self.rows)
         n_required = len(state)
-        for i in xrange(n_present, n_required):
+        for i in range(n_present, n_required):
             self.add_row()
-        for i in xrange(n_present, n_required, -1):
+        for i in range(n_present, n_required, -1):
             self.remove_row(i - 1) # i is one less than n
         for i, cstate in enumerate(state):
             cstate[0].reverse() # reverse so it becomes a stack
@@ -450,40 +450,40 @@ class MultiEntryField(Gtk.Box):
             if label is None:
                 widget = Gtk.Entry()
                 self.entries.append(widget)
-            elif isinstance(label, (int, long, float)):
+            elif isinstance(label, (int, float)):
                 widget = Gtk.Entry()
                 widget.set_size_request(label, -1)
                 self.entries.append(widget)
             else:
-                widget = Gtk.Label(label=unicode(label))
+                widget = Gtk.Label(label=str(label))
             self.pack_start(widget, False, True, 0)
             widget.show()
     def get_state(self):
-        return [unicode(e.get_text(), 'utf-8') for e in self.entries]
+        return [str(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         entries = self.entries
-        for i in xrange(min(len(entries), len(state))):
-            entries[i].set_text(unicode(state[i]))
+        for i in range(min(len(entries), len(state))):
+            entries[i].set_text(str(state[i]))
 
 class EntryField(Gtk.Entry):
     def __init__(self):
         Gtk.Entry.__init__(self)
     def get_state(self):
-        return unicode(self.get_text(), 'utf-8')
+        return str(self.get_text(), 'utf-8')
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
-        self.set_text(unicode(state))
+        self.set_text(str(state))
         
 class QuotedEntryField(Gtk.Entry):
     def __init__(self):
         Gtk.Entry.__init__(self)
     def get_state(self):
-        return unicode(urllib.quote(self.get_text()), 'utf-8')
+        return str(urllib.parse.quote(self.get_text()), 'utf-8')
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
-        self.set_text(unicode(urllib.unquote(str(state))))
+        self.set_text(str(urllib.parse.unquote(str(state))))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
@@ -543,7 +543,7 @@ class SpinButtonAndComboField(Gtk.Box):
     def get_state(self):
         active_item = self.items[self.combo.get_active()]
 
-        if not isinstance(active_item, unicode):
-            active_item = unicode(active_item, 'utf-8')
+        if not isinstance(active_item, str):
+            active_item = str(active_item, 'utf-8')
 
         return [self.entry.get_value(), active_item]

@@ -30,7 +30,7 @@ from xl.player.gst.gst_utils import ElementBin
 from gi.repository import Gst
 
 try:
-    import replaygainprefs
+    from . import replaygainprefs
     def get_preferences_pane():
         return replaygainprefs
 except: # fail gracefully if we cant set up the UI

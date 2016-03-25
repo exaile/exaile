@@ -29,9 +29,9 @@ import sys
 import os
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 from functools import reduce
 
 try:

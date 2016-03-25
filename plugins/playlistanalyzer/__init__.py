@@ -41,7 +41,7 @@ from xl import (
 from xl.metadata.tags import tag_data
 
 from xlgui.widgets import menu
-from analyzer_dialog import AnalyzerDialog
+from .analyzer_dialog import AnalyzerDialog
 
 
 class PlaylistAnalyzerPlugin(object):

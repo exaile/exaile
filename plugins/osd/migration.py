@@ -18,7 +18,7 @@ from gi.repository import Gdk
 
 from xl import settings
 
-from alphacolor import alphacolor_parse
+from .alphacolor import alphacolor_parse
 
 # Mapping from old to new setting names
 # Note that bg_color and opacity are not 
@@ -50,7 +50,7 @@ def migrate_settings():
        settings.MANAGER.has_section('plugin/osd'):
         return
 
-    for oldname, newname in __settings_map.iteritems():
+    for oldname, newname in __settings_map.items():
         value = settings.get_option('osd/%s' % oldname)
 
         if value is not None:

@@ -41,11 +41,11 @@ from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.widgets import menu, dialogs
 
-import gt_prefs
-import gt_widgets
-from gt_common import *
-import gt_import
-import gt_mass
+from . import gt_prefs
+from . import gt_widgets
+from .gt_common import *
+from . import gt_import
+from . import gt_mass
 
 
 

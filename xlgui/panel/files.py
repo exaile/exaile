@@ -178,7 +178,7 @@ class FilesPanel(panel.Panel):
         self.filter = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
         self.filter.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
-                keyword=str(self.filter.get_text(), 'utf-8')))
+                keyword=str(self.filter.get_text())))
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
@@ -371,7 +371,7 @@ class FilesPanel(panel.Panel):
                 # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
-            name = str(info.get_display_name(), 'utf-8')
+            name = str(info.get_display_name())
             low_name = name.lower()
             if keyword and keyword.lower() not in low_name:
                 continue
@@ -379,7 +379,7 @@ class FilesPanel(panel.Panel):
             def sortkey():
                 # HACK: Python 2 bug: strxfrm doesn't support unicode.
                 # https://bugs.python.org/issue2481
-                sortname = locale.strxfrm(name.encode('utf-8'))
+                sortname = locale.strxfrm(str(name))
                 return sortname, name, f
             ftype = info.get_file_type()
             if ftype == Gio.FileType.DIRECTORY:

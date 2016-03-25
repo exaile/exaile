@@ -324,7 +324,7 @@ class CollectionPanel(panel.Panel):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = str(entry.get_text(), 'utf-8')
+        self.keyword = str(entry.get_text())
         self.start_count += 1
         self.load_tree()
 
@@ -569,7 +569,7 @@ class CollectionPanel(panel.Panel):
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
-            if value: value = str(value, 'utf-8')
+            if value: value = str(value)
 
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)

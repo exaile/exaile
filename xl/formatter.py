@@ -404,7 +404,7 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
+                substitute = GLib.markup_escape_text(substitute)
 
             self._substitutions[identifier] = substitute
 
@@ -660,7 +660,7 @@ class RatingTagFormatter(TagFormatter):
         filled = '★' * int(rating)
         empty = '☆' * int(maximum - rating)
 
-        return ('%s%s' % (filled, empty)).decode('utf-8')
+        return ('%s%s' % (filled, empty))
 providers.register('tag-formatting', RatingTagFormatter())
 
 class YearTagFormatter(TagFormatter):

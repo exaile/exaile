@@ -102,7 +102,7 @@ def get_format(loc):
     # converting it (but in a form that os.path will handle). Go figure.
     
     try:
-        loc = loc.decode('utf-8')
+        loc = loc
     except UnicodeDecodeError:
         pass
             

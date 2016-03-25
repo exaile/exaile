@@ -533,22 +533,28 @@ class Track(object):
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
-        # The two magic values here are to ensure that compilations
+        # The two "magic values" here are to ensure that compilations
         # and unknown values are always sorted below all normal
-        # values.
+        # values. Use u"\uffff\uffff\uffff\uffff" for the last spot
+        # and u"\uffff\uffff\uffff\uffff" for the second-to-last spot
         value = None
         sorttag = self.__tags.get(tag + "sort")
         if sorttag and tag != 'albumartist':
             value = sorttag
+        # Take albums that are listed as Various Artists, Compilatons,
+        #or Unknown and place them at the bottom of the sorted list
         elif tag == "albumartist":
             if sorttag and sorttag[0] == _VARIOUSARTISTSSTR:
                 value = u"\uffff\uffff\uffff\ufffe"
-            elif self.__tags.get('albumartist') and self.__tags.get('albumartist')[0] == _VARIOUSARTISTSSTR:
+            elif self.__tags.get('albumartist')and self.__tags.get(
+                    'albumartist')[0] == _VARIOUSARTISTSSTR:
                 value = u"\uffff\uffff\uffff\ufffe"
             elif artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\ufffe") #Various Artists sort near end
+                value = self.__tags.get('albumartist',
+                                        u"\uffff\uffff\uffff\ufffe")
             else:
-                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\uffff")
+                value = self.__tags.get('albumartist',
+                                        u"\uffff\uffff\uffff\uffff")
             if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
                                          u"\uffff\uffff\uffff\uffff"):
                 value = sorttag

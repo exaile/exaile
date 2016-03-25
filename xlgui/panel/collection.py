@@ -644,7 +644,7 @@ class CollectionPanel(panel.Panel):
                     srtr.track.get_tag_search(t, format=True, artist_compilations=True) for t in tags])
                 if bottom:
                     match_query += " " + \
-                            srtr.track.get_tag_search("__loc", format=True)
+                            srtr.track.get_tag_search("__loc", format=True, artist_compilations=True)
 
                 # Different *sort tags can cause stagval to not match
                 # but the below code will produce identical entries in
@@ -662,7 +662,7 @@ class CollectionPanel(panel.Panel):
                     last_val = stagval
                     last_dval = tagval
                     if depth == 0 and draw_seps:
-                        val = srtr.track.get_tag_sort(tags[0])
+                        val = srtr.track.get_tag_sort(tags[0], artist_compilations=True)
                         char = first_meaningful_char(val)
                         if first:
                             last_char = char

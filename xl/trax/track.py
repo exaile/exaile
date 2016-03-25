@@ -538,11 +538,21 @@ class Track(object):
         # values.
         value = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag:
+        if sorttag and tag != 'albumartist':
             value = sorttag
-        else:
-            sorttag = None
-        if tag in ('tracknumber', 'discnumber'):
+        elif tag == "albumartist":
+            if sorttag and sorttag[0] == _VARIOUSARTISTSSTR:
+                value = u"\uffff\uffff\uffff\ufffe"
+            elif self.__tags.get('albumartist') and self.__tags.get('albumartist')[0] == _VARIOUSARTISTSSTR:
+                value = u"\uffff\uffff\uffff\ufffe"
+            elif artist_compilations and self.__tags.get('__compilation'):
+                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\ufffe") #Various Artists sort near end
+            else:
+                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\uffff")
+            if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
+                                         u"\uffff\uffff\uffff\uffff"):
+                value = sorttag
+        elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
             value = self.__tags.get(tag, 0)
@@ -593,10 +603,12 @@ class Track(object):
 
         value = None
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('albumartist', _UNKNOWNSTR)
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)           
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0] or u""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
@@ -650,7 +662,9 @@ class Track(object):
         """
         extraformat = ""
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
                 value = self.__tags.get('albumartist', _UNKNOWNSTR)

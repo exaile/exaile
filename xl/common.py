@@ -406,6 +406,9 @@ class LimitedCache(MutableMapping):
         '''prevent str(self) from changing cache order'''
         return str(self.cache)
 
+    def __len__(self):
+        return NotImplemented
+    
     def keys(self):
         return list(self.cache.keys())
 

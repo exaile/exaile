@@ -181,7 +181,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [str(a.get_text(), 'utf-8') for a in self.fields]
+        return [str(a.get_text()) for a in self.fields]
 
     def run(self):
         """
@@ -259,7 +259,7 @@ class TextEntryDialog(Gtk.Dialog):
         """
             Returns the text value
         """
-        return str(self.entry.get_text(), 'utf-8')
+        return str(self.entry.get_text())
 
     def set_value(self, value):
         """
@@ -926,7 +926,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = str(self.get_uri(), 'utf-8')
+            path = str(self.get_uri())
             
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path

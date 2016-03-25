@@ -408,7 +408,7 @@ class FilesPanel(panel.Panel):
                 # correctly, so we call it with an str and convert the 
                 # locale-dependent output to unicode.
                 size = locale.format_string('%d', size, True)
-                size = _('%s kB') % str(size, locale.getpreferredencoding())
+                size = _('%s kB') % str(size)
                 
                 model.append((f, self.track, name, size))
 

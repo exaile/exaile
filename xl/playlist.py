@@ -1385,7 +1385,7 @@ class Playlist(object):
                     meta[item] = v
             buffer += '\t%s\n' % urllib.parse.urlencode(meta)
             try:
-                f.write(buffer.encode('utf-8'))
+                f.write(str(buffer))
             except UnicodeDecodeError:
                 continue
 
@@ -2087,7 +2087,7 @@ class PlaylistManager(object):
         else:
             f = open(location, "w")
         for playlist in self.playlists:
-            f.write(playlist.encode('utf-8'))
+            f.write(str(playlist.encode))
             f.write('\n')
 
         f.write("EOF\n")

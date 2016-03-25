@@ -132,7 +132,7 @@ DEFAULT_ORDERS = [
         ("artist", "album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     (_("Album Artist"), 
-        ("albumartistsort", "album", 
+        ("albumartist", "album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     (_("Album"), 
         ("album", 

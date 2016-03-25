@@ -204,7 +204,7 @@ class _WeakMethod:
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            return self.fun__get__(objref, self.cls)
+            return self.fun.__get__(objref, self.cls)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):

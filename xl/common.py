@@ -45,7 +45,7 @@ import urllib.request, urllib.error, urllib.parse
 import urllib.parse
 from functools import wraps, partial
 from collections import deque
-from UserDict import DictMixin
+from collections import MutableMapping
 import collections
 
 logger = logging.getLogger(__name__)
@@ -365,7 +365,7 @@ def open_file_directory(path_or_uri):
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
 
-class LimitedCache(DictMixin):
+class LimitedCache(MutableMapping):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """

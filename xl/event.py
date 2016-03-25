@@ -41,7 +41,7 @@ most appropriate spot is immediately before a return statement.
 
 from inspect import ismethod
 import logging
-from new import instancemethod
+#from new import instancemethod
 import re
 import threading
 import time
@@ -204,7 +204,7 @@ class _WeakMethod:
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            return instancemethod(self.fun, objref, self.cls)
+            return self.fun__get__(objref, self.cls)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):

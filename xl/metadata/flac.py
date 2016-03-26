@@ -37,6 +37,7 @@ class FlacFormat(BaseFormat):
     tag_mapping = {
         'bpm': 'tempo',
         'comment': 'description',
+        'language': "Language",
     }
 
     def get_bitrate(self):

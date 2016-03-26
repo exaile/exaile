@@ -1,0 +1,6 @@
+Version='0.1.0'
+Authors=['Johannes Sasongko <sasongko@gmail.com>']
+Name=_('MPRIS 2')
+Description=_('Partial support for MPRIS (Media Player Remote Interfacing Specification) 2.2')
+Category=_('Utility')
+Platforms=['linux']

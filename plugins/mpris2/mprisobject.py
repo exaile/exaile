@@ -46,9 +46,7 @@ class MprisObject:
     def __init__(self, exaile, connection):
         self.exaile = exaile
         self.connection = connection
-        self.cover_file = f = tempfile.NamedTemporaryFile(
-            prefix='exaile.mpris2.cover.', suffix='.tmp')
-        self.cover_uri = Gio.File.new_for_path(f.name).get_uri()
+        self.cover_file = None
         self.event_callbacks = callbacks = [
             (self._on_playback_track_start, 'playback_track_start', xl.player.PLAYER),
             (self._on_playback_track_end, 'playback_track_end', xl.player.PLAYER),
@@ -68,7 +66,18 @@ class MprisObject:
 
     def teardown(self):
         """Quick destroy; just clean up our mess"""
-        self.cover_file.close()
+        f = self.cover_file
+        if f:
+            f.close()
+
+    def _new_cover_file(self):
+        f = self.cover_file
+        if f:
+            f.close()
+        self.cover_file = f = tempfile.NamedTemporaryFile(
+            prefix='exaile.mpris2.cover.', suffix='.tmp')
+        uri = Gio.File.new_for_path(f.name).get_uri()
+        return f, uri
 
     def _emit(self, interface, signame, *args):
         self.connection.emit_signal(None, '/org/mpris/MediaPlayer2', interface,
@@ -97,12 +106,10 @@ class MprisObject:
             meta['mpris:length'] = Variant('x', v * 1e6)
         v = xl.covers.MANAGER.get_cover(track, set_only=True, use_default=False)
         if v:
-            f = self.cover_file
-            f.seek(0)
-            f.truncate(len(v))
+            f, uri = self._new_cover_file()
             f.write(v)
             f.flush()
-            meta['mpris:artUrl'] = Variant('s', self.cover_uri)
+            meta['mpris:artUrl'] = Variant('s', uri)
 
         # xesam
 

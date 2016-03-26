@@ -165,10 +165,9 @@ class MprisHandler:
             connection.close_sync()
 
     def teardown(self):
-        try:
-            self.object.teardown()
-        except AttributeError:
-            pass
+        obj = self.object
+        if obj:
+            obj.teardown()
 
     def __del__(self):
         self.disconnect()

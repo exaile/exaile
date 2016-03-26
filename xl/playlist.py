@@ -161,6 +161,11 @@ def export_playlist(playlist, path, options=None):
         it exports
     """
     file_extension = path.split('.')[-1]
+    
+    if hasattr(playlist, 'get_playlist'):
+        playlist = playlist.get_playlist()
+        if playlist is None:
+            raise InvalidPlaylistTypeError("SmartPlaylist not associated with a collection")
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:

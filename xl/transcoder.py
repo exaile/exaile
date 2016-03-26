@@ -82,7 +82,7 @@ FORMATS = {
             "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
             "command"   : "lame vbr=4 vbr-mean-bitrate=%i",
             "extension" : "mp3",
-            "plugins"   : ["lame"],
+            "plugins"   : ["lamemp3enc"],
             "desc"      : _("A proprietary and older, but also popular, lossy "
                     "audio format. VBR gives higher quality than CBR, but may "
                     "be incompatible with some players.")
@@ -93,7 +93,7 @@ FORMATS = {
             "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
             "command"   : "lame bitrate=%i",
             "extension" : "mp3",
-            "plugins"   : ["lame"],
+            "plugins"   : ["lamemp3enc"],
             "desc"      : _("A proprietary and older, but also popular, "
                     "lossy audio format. CBR gives less quality than VBR, "
                     "but is compatible with any player.")

@@ -33,6 +33,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="use_markup">True</property>
+                <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
               </object>
               <packing>

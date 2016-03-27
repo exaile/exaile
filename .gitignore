@@ -58,3 +58,6 @@ tools/installer/clean_win32.sh
 # Vim Pymode settings
 .ropeproject
 *.swp
+
+# Pycharm settings
+.idea

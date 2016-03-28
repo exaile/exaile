@@ -50,7 +50,8 @@ class ApeFormat(BaseFormat):
         "albumartistsort": "ALBUMARTISTSORT",
         "artistsort": "ARTISTSORT",
         "titlesort": "TITLESORT",
-        "grouping": "Grouping"
+        "grouping": "Grouping",
+        "language": "Language",
         }
     others = True
     writable = True

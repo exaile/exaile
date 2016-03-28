@@ -49,6 +49,7 @@ class MP4Format(BaseFormat):
             'comment':     '\xa9cmt',
             'originaldate':'----:com.apple.iTunes:ORIGYEAR',
             'cover':       'covr',
+            'language': '----:com.apple.iTunes:LANGUAGE',
         }
     others = False
     writable = True

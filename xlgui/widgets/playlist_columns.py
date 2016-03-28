@@ -363,6 +363,13 @@ class BPMColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', BPMColumn)
 
+class LanguageColumn(Column):
+    name = 'language'
+    display = _('Language')
+    size = 100
+    autoexpand = True
+providers.register('playlist-columns', LanguageColumn)
+
 class LastPlayedColumn(Column):
     name = '__last_played'
     display = _('Last played')

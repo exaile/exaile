@@ -39,6 +39,7 @@ class OggFormat(BaseFormat):
     tag_mapping = {
         'bpm': 'tempo',
         'comment': 'description',
+        'language': 'LANGUAGE',
     }
     writable = True
     

@@ -99,7 +99,7 @@ class Preference(object):
         """
             Value to be stored into the settings file
         """
-        return str(self.widget.get_text(), 'utf-8')
+        return str(self.widget.get_text())
 
     def _set_value(self):
         """
@@ -793,7 +793,7 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return str(buf.get_text(start, end), 'utf-8')
+        return str(buf.get_text(start, end))
 
     def _set_value(self):
         """
@@ -830,7 +830,7 @@ class ListPreference(Preference):
         # afterwards.
         import shlex
         values = shlex.split(self.widget.get_text())
-        values = [str(value, 'utf-8') for value in values]
+        values = [str(value) for value in values]
         return values
 
 class SpinPreference(Preference):

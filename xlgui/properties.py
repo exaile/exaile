@@ -355,7 +355,7 @@ class TrackPropertiesDialog(GObject.GObject):
             for child in grid.get_children():
                 grid.remove(child)
 
-            for i in range(row_count/3*2, 0, -1):
+            for i in range(int(row_count/3*2), 0, -1):
                 grid.remove_row(i)
 
     def _save_position(self):
@@ -688,7 +688,7 @@ class TagField(Gtk.Box):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
-        return str(self.field.get_text(), 'utf-8')
+        return str(self.field.get_text())
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -752,7 +752,7 @@ class TagTextField(Gtk.Box):
             self.buffer.get_start_iter(),
             self.buffer.get_end_iter(),
             True
-        ), 'utf-8')
+        ))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -1220,7 +1220,7 @@ class PropertyField(Gtk.Box):
             self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
-        common.open_file_directory(self.field.get_text().decode('utf-8'))
+        common.open_file_directory(self.field.get_text())
 
     def register_update_func(self, f):
         pass

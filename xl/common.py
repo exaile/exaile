@@ -108,7 +108,7 @@ def strxfrm(x):
     """
     import locale
     if isinstance(x, str):
-        return locale.strxfrm(x.encode('utf-8', 'replace'))
+        return locale.strxfrm(str(x))
     return locale.strxfrm(x)
 
 def clamp(value, minimum, maximum):

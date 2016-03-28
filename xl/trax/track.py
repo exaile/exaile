@@ -321,7 +321,7 @@ class Track(object):
             path = GLib.filename_display_basename(path)
         else:  # Non-local
             path = GLib.filename_display_name(gfile.get_basename())
-        return path.decode('utf-8')
+        return path
 
     def get_type(self):
         """
@@ -605,7 +605,7 @@ class Track(object):
         """
         if tag == '__loc':
             uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
-            return uri.decode('utf-8')
+            return uri
 
         value = None
         if tag == "albumartist":

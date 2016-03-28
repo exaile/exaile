@@ -258,7 +258,7 @@ class Main(object):
             collection.freeze_libraries()
 
             collection_libraries = [(l.location, l.monitored, l.startup_scan) \
-                for l in collection.libraries.itervalues()]
+                for l in collection.libraries.values()]
             collection_libraries.sort()
             new_libraries = dialog.get_items()
             new_libraries.sort()
@@ -276,11 +276,11 @@ class Main(object):
 
                     removals = []
 
-                    for location, library in collection.libraries.iteritems():
+                    for location, library in collection.libraries.items():
                         if location not in new_locations:
                             removals += [library]
 
-                    map(collection.remove_library, removals)
+                    list(map(collection.remove_library, removals))
 
                     self.on_rescan_collection()
 

@@ -45,18 +45,18 @@ logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
-        u'ß': u'ss', # U+00DF
-        u'æ': u'ae', # U+00E6
-        u'ĳ': u'ij', # U+0133
-        u'ŋ': u'ng', # U+014B
-        u'œ': u'oe', # U+0153
-        u'ƕ': u'hv', # U+0195
-        u'ǆ': u'dz', # U+01C6
-        u'ǉ': u'lj', # U+01C9
-        u'ǌ': u'nj', # U+01CC
-        u'ǳ': u'dz', # U+01F3
-        u'ҥ': u'ng', # U+04A5
-        u'ҵ': u'ts', # U+04B5
+        'ß': 'ss', # U+00DF
+        'æ': 'ae', # U+00E6
+        'ĳ': 'ij', # U+0133
+        'ŋ': 'ng', # U+014B
+        'œ': 'oe', # U+0153
+        'ƕ': 'hv', # U+0195
+        'ǆ': 'dz', # U+01C6
+        'ǉ': 'lj', # U+01C9
+        'ǌ': 'nj', # U+01CC
+        'ǳ': 'dz', # U+01F3
+        'ҥ': 'ng', # U+04A5
+        'ҵ': 'ts', # U+04B5
         }
 
 # Cache these here because calling gettext inside get_tag_display
@@ -64,7 +64,7 @@ _sortcharmap = {
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
-_JOINSTR = _(u' / ')
+_JOINSTR = _(' / ')
 
 
 class _MetadataCacher(object):
@@ -187,7 +187,7 @@ class Track(object):
                         unpickles = kwargs.get("_unpickles")
                 
                 if unpickles is not None:
-                    for tag, values in unpickles.iteritems():
+                    for tag, values in unpickles.items():
                         tags = tr.list_tags()
                         if tag.startswith('__') and tag not in tags:
                             tr.set_tag_raw(tag, values)
@@ -321,7 +321,7 @@ class Track(object):
             path = GLib.filename_display_basename(path)
         else:  # Non-local
             path = GLib.filename_display_name(gfile.get_basename())
-        return path.decode('utf-8')
+        return path
 
     def get_type(self):
         """
@@ -364,7 +364,7 @@ class Track(object):
                 self._scan_valid = False
                 return False # not a supported type
             ntags = f.read_all()
-            for k, v in ntags.iteritems():
+            for k, v in ntags.items():
                 self.set_tag_raw(k, v)
 
             # remove tags that have been deleted in the file, while
@@ -374,9 +374,9 @@ class Track(object):
                 supported_tags = [ t for t in self.list_tags() \
                         if not t.startswith("__") ]
             else:
-                supported_tags = f.tag_mapping.keys()
+                supported_tags = list(f.tag_mapping.keys())
             for tag in supported_tags:
-                if tag not in ntags.keys():
+                if tag not in list(ntags.keys()):
                     self.set_tag_raw(tag, None)
 
             # fill out file specific items
@@ -419,7 +419,7 @@ class Track(object):
         """
             returns a string representing the track
         """
-        vals = map(self.get_tag_display, ('title', 'album', 'artist'))
+        vals = list(map(self.get_tag_display, ('title', 'album', 'artist')))
         rets = []
         for v in vals:
             if not v:
@@ -449,7 +449,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return self.__tags.keys() + ['__basename']
+        return list(self.__tags.keys()) + ['__basename']
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
@@ -480,7 +480,7 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                    if isinstance(v, basestring) else v
+                    if isinstance(v, str) else v
                 for v in values
                     if v not in (None, '')
             ]
@@ -533,25 +533,31 @@ class Track(object):
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
-        # The two magic values here are to ensure that compilations
+        # The two "magic values" here are to ensure that compilations
         # and unknown values are always sorted below all normal
-        # values.
+        # values. Use u"\uffff\uffff\uffff\uffff" for the last spot
+        # and u"\uffff\uffff\uffff\uffff" for the second-to-last spot
         value = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag and tag != "albumartist":
+        if sorttag and tag != 'albumartist':
             value = sorttag
+        # Take albums that are listed as Various Artists, Compilatons,
+        #or Unknown and place them at the bottom of the sorted list
         elif tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if sorttag and sorttag[0] == _VARIOUSARTISTSSTR:
+                value = "\uffff\uffff\uffff\ufffe"
+            elif self.__tags.get('albumartist')and self.__tags.get(
+                    'albumartist')[0] == _VARIOUSARTISTSSTR:
+                value = "\uffff\uffff\uffff\ufffe"
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist',
-                        u"\uffff\uffff\uffff\ufffe")
+                                        "\uffff\uffff\uffff\ufffe")
             else:
-                value = self.__tags.get('artist',
-                        u"\uffff\uffff\uffff\uffff")
-            if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
-                    u"\uffff\uffff\uffff\uffff"):
+                value = self.__tags.get('albumartist',
+                                        "\uffff\uffff\uffff\uffff")
+            if sorttag and value not in ("\uffff\uffff\uffff\ufffe",
+                                         "\uffff\uffff\uffff\uffff"):
                 value = sorttag
-            else:
-                sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
@@ -565,19 +571,19 @@ class Track(object):
             value = self.__tags.get(tag)
 
         if not value:
-            value = u"\uffff\uffff\uffff\uffff" # unknown
+            value = "\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (value, basename)
+                value = "%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
             if not sorttag:
                 value = self.format_sort(value)
             else:
                 if isinstance(value, list):
-                    value = [self.lower(v + u" " + v) for v in value]
+                    value = [self.lower(v + " " + v) for v in value]
                 else:
-                    value = self.lower(value + u" " + value)
+                    value = self.lower(value + " " + value)
             if join:
                 value = self.join_values(value)
 
@@ -599,30 +605,32 @@ class Track(object):
         """
         if tag == '__loc':
             uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
-            return uri.decode('utf-8')
+            return uri
 
         value = None
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('artist', _UNKNOWNSTR)
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            value = self.split_numerical(self.__tags.get(tag))[0] or u""
+            value = self.split_numerical(self.__tags.get(tag))[0] or ""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
-            value = self.__tags.get(tag, u"")
+            value = self.__tags.get(tag, "")
         elif tag in ('__rating', '__playcount'):
-            value = self.__tags.get(tag, u"0")
+            value = self.__tags.get(tag, "0")
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
-                    value = u""
+                    value = ""
                 else:
                     #TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
-                value = u""
+                value = ""
         elif tag == '__basename':
             value = self.get_basename_display()
         else:
@@ -632,7 +640,7 @@ class Track(object):
             value = ''
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (_UNKNOWNSTR, basename)
+                value = "%s (%s)" % (_UNKNOWNSTR, basename)
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):
@@ -660,12 +668,12 @@ class Track(object):
         """
         extraformat = ""
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist', None)
-                tag = 'albumartist'
-                extraformat += " ! __compilation==__null__"
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
+                value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('artist')
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount', '__rating', '__startoffset', '__stopoffset'):
@@ -705,7 +713,7 @@ class Track(object):
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution
         if not isinstance(value, list) and not tag.startswith("__"):
-            value = unicode(value)
+            value = str(value)
 
         return value
 
@@ -744,7 +752,7 @@ class Track(object):
             if not f:
                 return None
         _CACHER.add(self, f)
-        return f._get_raw().keys()
+        return list(f._get_raw().keys())
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,
@@ -800,11 +808,11 @@ class Track(object):
         return values
 
     @staticmethod
-    def join_values(values, glue=u" / "):
+    def join_values(values, glue=" / "):
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, unicode):
+        if type(values) in (str, str):
             return values
         return glue.join(map(common.to_unicode, values))
 
@@ -870,8 +878,8 @@ class Track(object):
         """
         # value is appended afterwards so that like-accented values
         # will sort together.
-        return u''.join([c for c in unicodedata.normalize('NFD', value)
-            if unicodedata.category(c) != 'Mn']) + u" " + value
+        return ''.join([c for c in unicodedata.normalize('NFD', value)
+            if unicodedata.category(c) != 'Mn']) + " " + value
 
     @staticmethod
     def expand_doubles(value):
@@ -883,7 +891,7 @@ class Track(object):
 
             value must be in lower-case
         """
-        for k, v in _sortcharmap.iteritems():
+        for k, v in _sortcharmap.items():
             value = value.replace(k, v)
         return value
 # This is slower, don't use it!

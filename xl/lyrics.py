@@ -71,7 +71,7 @@ class LyricsCache:
         '''
             Return the shelve keys
         '''
-        return self.db.keys()
+        return list(self.db.keys())
         
     def _get(self, key, default=None):
         with self.lock:
@@ -260,7 +260,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode), (method, track)
+        assert isinstance(lyrics, str), (method, track)
 
         # update cache
         time = datetime.now()

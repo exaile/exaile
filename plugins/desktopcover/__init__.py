@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division
+
 import cairo
 
 from gi.repository import Gdk
@@ -34,7 +34,7 @@ from xlgui import (
 )
 from xlgui.guiutil import get_workarea_dimensions
 
-import desktopcover_preferences
+from . import desktopcover_preferences
 
 DESKTOPCOVER = None
 
@@ -47,7 +47,7 @@ def __migrate_anchor_setting():
     gravity_map = DesktopCover.gravity_map
 
     if gravity not in gravity_map:
-        gravities = gravity_map.keys()
+        gravities = list(gravity_map.keys())
         
         try:
             gravity = gravities[gravity]

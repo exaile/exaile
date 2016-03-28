@@ -123,7 +123,7 @@ class FlatPlaylistPanel(panel.Panel):
         """
         if event.button == 3:
             selection = self.tree.get_selection()
-            (x, y) = map(int, event.get_coords())
+            (x, y) = list(map(int, event.get_coords()))
             path = self.tree.get_path_at_pos(x, y)
             self.menu.popup(event)
 

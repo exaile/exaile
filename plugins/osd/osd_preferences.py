@@ -21,7 +21,7 @@ from xl.main import exaile
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
-from alphacolor import (
+from .alphacolor import (
     AlphaColor,
     alphacolor_parse
 )

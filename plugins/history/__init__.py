@@ -48,7 +48,7 @@ from xlgui.widgets import menu, dialogs
 from xlgui.widgets.notebook import NotebookTab
 from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
-import history_preferences
+from . import history_preferences
         
 
 class HistoryPlugin(object):

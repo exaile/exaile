@@ -25,7 +25,7 @@
 # from your version.
 
 # support python 2.5
-from __future__ import with_statement
+
 
 from gi.repository import GLib
 from gi.repository import Gst
@@ -106,7 +106,7 @@ class GSTEqualizer(ElementBin):
         event.add_ui_callback(self._on_option_set,
                 "plugin_equalizer_option_set")
 
-        setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]
+        setts = ["band%s" for n in range(10)] + ["pre", "enabled"]
         for setting in setts:
             self._on_option_set("plugin_equalizer_option_set", None,
                 "plugin/equalizer/%s"%setting)

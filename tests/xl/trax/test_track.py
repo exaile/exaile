@@ -1,5 +1,5 @@
 # -*- coding: utf-8  -*-
-from __future__ import with_statement
+
 
 import os
 import shutil
@@ -56,7 +56,7 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                mox.IsA(types.IntType),
+                mox.IsA(int),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
@@ -87,7 +87,7 @@ class TestTrack(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()
         track.Track._Track__the_cuts = ['the', 'a']
-        for key in track.Track._Track__tracksdict.keys():
+        for key in list(track.Track._Track__tracksdict.keys()):
             del track.Track._Track__tracksdict[key]
 
     def tearDown(self):
@@ -113,26 +113,26 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', 'bar')
         self.assertEqual(tr._pickles(), {
-            '__loc': u'file:///foo',
-            'artist': [u'bar']
+            '__loc': 'file:///foo',
+            'artist': ['bar']
             })
 
     def test_unpickles(self):
-        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
-        self.assertEqual(tr1.get_loc_for_io(), u'uri')
+        tr1 = track.Track(_unpickles={'artist': ['my_artist'],
+            '__loc': 'uri'})
+        self.assertEqual(tr1.get_loc_for_io(), 'uri')
 
     def test_unpickles_flyweight(self):
-        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
-        tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+        tr1 = track.Track(_unpickles={'artist': ['my_artist'],
+            '__loc': 'uri'})
+        tr2 = track.Track(_unpickles={'artist': ['my_artist'],
+            '__loc': 'uri'})
         self.assertTrue(tr1 is tr2)
 
     def test_takes_nonurl(self):
         for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
-            print(tr.get_loc_for_io())
+            print((tr.get_loc_for_io()))
             self.assertTrue(tr.get_local_path())
             self.assertTrue(tr.exists())
     
@@ -247,7 +247,7 @@ class TestTrack(unittest.TestCase):
                 # because of the whole flyweight thing
                 tr.set_tag_raw('artist', '')
                 tr.read_tags()
-                self.assertEqual(tr.get_tag_raw('artist'), [u'Delerium'])
+                self.assertEqual(tr.get_tag_raw('artist'), ['Delerium'])
         if SkipTest is not None:
             raise SkipTest("Skipped known failure: .wma")
 
@@ -264,13 +264,13 @@ class TestTrack(unittest.TestCase):
         """Tests get_tag_raw with join=True and one element in tag"""
         tr = track.Track('foo')
         tr.set_tag_raw('artist', 'foo')
-        self.assertEqual(tr.get_tag_raw('artist', join=True), u'foo')
+        self.assertEqual(tr.get_tag_raw('artist', join=True), 'foo')
 
     def test_join_tag_two(self):
         """Tests get_tag_raw with join=True and one element in tag"""
         tr = track.Track('foo')
-        tr.set_tag_raw('artist', [u'foo', u'bar'])
-        self.assertEqual(tr.get_tag_raw('artist', join=True), u'foo / bar')
+        tr.set_tag_raw('artist', ['foo', 'bar'])
+        self.assertEqual(tr.get_tag_raw('artist', join=True), 'foo / bar')
 
     def empty_track_of_tags(self, track, exclude=None):
         """Removes all the tags from a track"""
@@ -284,7 +284,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track(loc)
         tags = {'artist': 'foo', 'album': 'bar', '__loc': loc}
         self.empty_track_of_tags(tr, tags)
-        for tag, val in tags.iteritems():
+        for tag, val in tags.items():
             tr.set_tag_raw(tag, val)
         self.assertEqual(set(tr.list_tags()), set(['album', '__loc', 'artist', '__basename']))
 
@@ -332,12 +332,12 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(track.Track.the_cutter(value), 'a foo')
 
     def test_expand_doubles(self):
-        value = u'ßæĳŋœƕǆǉǌǳҥҵ'
+        value = 'ßæĳŋœƕǆǉǌǳҥҵ'
         self.assertEqual(track.Track.expand_doubles(value),
-                u'ssaeijngoehvdzljnjdzngts')
+                'ssaeijngoehvdzljnjdzngts')
 
     def test_lower(self):
-        value = u'FooBar'
+        value = 'FooBar'
         self.assertEqual(track.Track.lower(value), 'foobar FooBar')
 
     def test_cuts_cb(self):
@@ -352,15 +352,15 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(track.Track._Track__the_cuts, value)
     
     def test_strip_marks(self):
-        value = u'The Hëllò Wóþλdâ'
-        retval = u'The Hello Woþλda The Hëllò Wóþλdâ'
+        value = 'The Hëllò Wóþλdâ'
+        retval = 'The Hello Woþλda The Hëllò Wóþλdâ'
         self.assertEqual(track.Track.strip_marks(value), retval)
 
     ## Sort tags
     def test_get_sort_tag_no_join(self):
         tr = track.Track('/foo')
-        value = u'hello'
-        retval = [u'hello hello hello hello']
+        value = 'hello'
+        retval = ['hello hello hello hello']
         tr.set_tag_raw('artist', value)
         self.assertEqual(tr.get_tag_sort('artist', join=False), retval)
 
@@ -381,17 +381,17 @@ class TestTrack(unittest.TestCase):
 
     def test_get_sort_tag_artist(self):
         tr = track.Track('/foo')
-        value = u'The Hëllò Wóþλdâ'
-        retval = u'hello woþλda the hëllò wóþλdâ ' \
-                 u'The Hello Woþλda The Hëllò Wóþλdâ'
+        value = 'The Hëllò Wóþλdâ'
+        retval = 'hello woþλda the hëllò wóþλdâ ' \
+                 'The Hello Woþλda The Hëllò Wóþλdâ'
         tr.set_tag_raw('artist', value)
         self.assertEqual(tr.get_tag_sort('artist'), retval)
 
     def test_get_sort_tag_albumsort(self):
         tr = track.Track('/foo')
-        value = u'the hello world'
-        val_as = u'Foo Bar'
-        retval = u'foo bar foo bar Foo Bar Foo Bar'
+        value = 'the hello world'
+        val_as = 'Foo Bar'
+        retval = 'foo bar foo bar Foo Bar Foo Bar'
         tr.set_tag_raw('album', value)
         tr.set_tag_raw('albumsort', val_as)
         self.assertEqual(tr.get_tag_sort('album'), retval)
@@ -401,18 +401,18 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
         # Does not actually modify anything
-        value = u'hello world'
-        retval = u' '.join([u'\uffff\uffff\uffff\ufffe'] * 4)
+        value = 'hello world'
+        retval = ' '.join(['\uffff\uffff\uffff\ufffe'] * 4)
         tr.set_tag_raw('artist', value)
         self.assertEqual(tr.get_tag_sort('artist'), retval)
 
     def test_get_sort_tag_compilation_known(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
-        value = u'foo bar'
-        retval = u'foo bar foo bar foo bar foo bar'
-        tr.set_tag_raw('artist', u'hello world')
-        tr.set_tag_raw('albumartist', u'albumartist')
+        value = 'foo bar'
+        retval = 'foo bar foo bar foo bar foo bar'
+        tr.set_tag_raw('artist', 'hello world')
+        tr.set_tag_raw('albumartist', 'albumartist')
         tr.set_tag_raw('artistsort', value)
         self.assertEqual(tr.get_tag_sort('artist'), retval)
 
@@ -428,9 +428,9 @@ class TestTrack(unittest.TestCase):
 
     def test_get_sort_tag_other(self):
         tr = track.Track('/foo')
-        val = u'foobar'
-        ret = u'foobar foobar foobar foobar'
-        tr.set_tag_raw('coverart', u'foobar')
+        val = 'foobar'
+        ret = 'foobar foobar foobar foobar'
+        tr.set_tag_raw('coverart', 'foobar')
         self.assertEqual(tr.get_tag_sort('coverart'), ret)
 
     ## Display Tags
@@ -443,7 +443,7 @@ class TestTrack(unittest.TestCase):
     def test_get_display_tag_compilation(self):
         raise SkipTest("TODO")
         tr = track.Track('/foo')
-        tr.set_tag_raw('__compilation', u'foo')
+        tr.set_tag_raw('__compilation', 'foo')
         self.assertEqual(tr.get_tag_display('artist'),
                 track._VARIOUSARTISTSSTR)
 
@@ -464,39 +464,39 @@ class TestTrack(unittest.TestCase):
     def test_get_display_tag_length(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__length', 360)
-        self.assertEqual(tr.get_tag_display('__length'), u'360')
+        self.assertEqual(tr.get_tag_display('__length'), '360')
 
     def test_get_display_tag_bitrate(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__bitrate', 48000)
-        self.assertEqual(tr.get_tag_display('__bitrate'), u'48k')
+        self.assertEqual(tr.get_tag_display('__bitrate'), '48k')
 
     def test_get_display_tag_bitrate_bitrateless_formate(self):
         tr = track.Track(test_data.get_file_with_ext('.flac'))
-        self.assertEqual(tr.get_tag_display('__bitrate'), u'')
+        self.assertEqual(tr.get_tag_display('__bitrate'), '')
 
     def test_get_display_tag_bitrate_bad(self):
         tr = track.Track('/foo')
-        tr.set_tag_raw('__bitrate', u'lol')
-        self.assertEqual(tr.get_tag_display('__bitrate'), u'')
+        tr.set_tag_raw('__bitrate', 'lol')
+        self.assertEqual(tr.get_tag_display('__bitrate'), '')
 
     def test_get_display_tag_numeric_zero(self):
         tr = track.Track('/foo')
-        self.assertEqual(tr.get_tag_display('tracknumber'), u'')
-        self.assertEqual(tr.get_tag_display('discnumber'), u'')
-        self.assertEqual(tr.get_tag_display('__rating'), u'0')
-        self.assertEqual(tr.get_tag_display('__playcount'), u'0')
+        self.assertEqual(tr.get_tag_display('tracknumber'), '')
+        self.assertEqual(tr.get_tag_display('discnumber'), '')
+        self.assertEqual(tr.get_tag_display('__rating'), '0')
+        self.assertEqual(tr.get_tag_display('__playcount'), '0')
 
     def test_get_display_tag_join_true(self):
         tr = track.Track('/foo')
-        tr.set_tag_raw('artist', [u'foo', u'bar'])
+        tr.set_tag_raw('artist', ['foo', 'bar'])
         self.assertEqual(tr.get_tag_display('artist'), 'foo / bar')
 
     def test_get_display_tag_join_false(self):
         tr = track.Track('/foo')
-        tr.set_tag_raw('artist', [u'foo', u'bar'])
+        tr.set_tag_raw('artist', ['foo', 'bar'])
         self.assertEqual(tr.get_tag_display('artist', join=False),
-                [u'foo', u'bar'])
+                ['foo', 'bar'])
 
     ## Sort tags
     def test_get_search_tag_loc(self):
@@ -507,21 +507,21 @@ class TestTrack(unittest.TestCase):
         raise SkipTest("TODO")
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
-        retval = u'albumartist=="albumartist" ! __compilation==__null__'
-        tr.set_tag_raw('artist', u'hello world')
-        tr.set_tag_raw('albumartist', u'albumartist')
-        tr.set_tag_raw('artistsort', u'foo bar')
+        retval = 'albumartist=="albumartist" ! __compilation==__null__'
+        tr.set_tag_raw('artist', 'hello world')
+        tr.set_tag_raw('albumartist', 'albumartist')
+        tr.set_tag_raw('artistsort', 'foo bar')
         self.assertEqual(tr.get_tag_search('artist'), retval)
 
     def test_get_search_tag_artist(self):
         tr = track.Track('/foo')
-        retval = u'artist=="hello world"'
-        tr.set_tag_raw('artist', u'hello world')
+        retval = 'artist=="hello world"'
+        tr.set_tag_raw('artist', 'hello world')
         self.assertEqual(tr.get_tag_search('artist'), retval)
 
     def test_get_search_tag_artist_none(self):
         tr = track.Track('/foo')
-        retval = u'artist==__null__'
+        retval = 'artist==__null__'
         self.assertEqual(tr.get_tag_search('artist'), retval)
 
     def test_get_search_tag_discnumber(self):
@@ -560,7 +560,7 @@ class TestTrack(unittest.TestCase):
     def test_get_disk_tag(self):
         tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
-        self.assertEqual(tr.get_tag_disk('artist'), [u'Delerium'])
+        self.assertEqual(tr.get_tag_disk('artist'), ['Delerium'])
 
     def test_get_disk_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.bah')

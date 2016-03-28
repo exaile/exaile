@@ -25,7 +25,7 @@
 # from your version.
 
 import os
-import xdg
+from . import xdg
 
 major = "4.0"
 minor = "0"
@@ -50,6 +50,6 @@ def get_current_revision(directory):
 if xdg.local_hack:
     revision = get_current_revision(xdg.exaile_dir)
     if revision is not None:
-        extra += "+" + revision
+        extra += "+" + str(revision)
 
 __version__ = major + "." + minor + extra

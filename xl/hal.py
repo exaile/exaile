@@ -315,7 +315,7 @@ class UDisksBase(providers.ProviderHandler):
         if self._addremove():
             try:
                 to_remove = []
-                for path, provider_ in self.providers.iteritems():
+                for path, provider_ in self.providers.items():
                     if provider_ is provider:
                         to_remove.append(path)
                         
@@ -535,7 +535,7 @@ class UDisksProvider:
         This API is subject to change.
     '''
     
-    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
+    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = list(range(0, 101, 25))
     
     def get_priority(self, obj, udisks):
         '''

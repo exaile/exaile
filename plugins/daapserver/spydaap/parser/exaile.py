@@ -46,7 +46,7 @@ class ExaileParser(spydaap.parser.Parser):
     # returns a list in exaile
     def handle_int_tags(self, map, md, daap):
         for k in md.list_tags():
-            if map.has_key(k):
+            if k in map:
                 try:
                     tn = str(md.get_tag_raw(k)[0])
                     if '/' in tn: #
@@ -65,7 +65,7 @@ class ExaileParser(spydaap.parser.Parser):
     # give us access to .tags
     def handle_string_tags(self, map, md, daap):
         for k in md.list_tags():
-            if map.has_key(k):
+            if k in map:
                 try:
                     tag = [ str(t) for t in md.get_tag_raw(k)]
                     tag = [ t for t in tag if t != ""]

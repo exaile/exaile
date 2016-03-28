@@ -165,7 +165,7 @@ def get_devices():
         
         # if zero, we don't care
         channels = 0
-        for i in xrange(buffer_list.mNumberBuffers):
+        for i in range(buffer_list.mNumberBuffers):
             channels += buffer_list.mBuffers[i].mNumberChannels 
             
         if channels == 0:

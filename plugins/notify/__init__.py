@@ -29,7 +29,7 @@ from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.preferences import widgets
 
-import notifyprefs
+from . import notifyprefs
 
 logger = logging.getLogger(__name__)
 

@@ -2,7 +2,7 @@
 import logging
 from gi.repository import GObject
 from xl import collection, event, settings
-import spydaap.parser.exaile
+from . import spydaap.parser.exaile
 
 log = logging.getLogger(__file__)
 
@@ -51,7 +51,7 @@ class CollectionWrapper:
     def __len__(self):
         return len(self.collection)
 
-from server import DaapServer
+from .server import DaapServer
 
 ds = None
 
@@ -90,7 +90,7 @@ def disable(exaile):
     
 
 # settings stuff
-import daapserverprefs
+from . import daapserverprefs
 
 def get_preferences_pane():
     return daapserverprefs

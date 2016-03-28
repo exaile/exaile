@@ -14,8 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import logging
 
 import dbus
@@ -30,7 +30,7 @@ import xl.settings
 
 from xlgui import icons
 
-import awn_prefs
+from . import awn_prefs
 
 log = logging.getLogger(__name__)
 

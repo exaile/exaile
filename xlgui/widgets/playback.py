@@ -422,7 +422,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        for marker, points in self._points.iteritems():
+        for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):
                 if i == 0:
                     context.move_to(x, y)
@@ -698,7 +698,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             * *width*: the width of the box
             * *height*: the height of the box
         """
-        xs, ys = zip(*points)
+        xs, ys = list(zip(*points))
         return min(xs), min(ys), max(xs), max(ys)
 
     def seek(self, position):
@@ -746,7 +746,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             Reacts to GObject property changes
         """
         if gproperty.name == 'marker-scale':
-            for marker in self._points.iterkeys():
+            for marker in self._points.keys():
                 self._points[marker] = self._get_points(marker)
             self.__progressbar._marker_scale = self.__values['marker-scale']
             self.__progressbar.queue_draw()
@@ -760,7 +760,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         Gtk.EventBox.do_size_allocate(self, allocation)
 
         if allocation != oldallocation:
-            for marker in self._points.iterkeys():
+            for marker in self._points.keys():
                 self._points[marker] = self._get_points(marker)
 
 
@@ -772,7 +772,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         event = event.button
         hit_markers = []
 
-        for marker in self._points.iterkeys():
+        for marker in self._points.keys():
             if self._is_marker_hit(marker, event.x, event.y):
                 if marker.props.state in (Gtk.StateType.NORMAL,
                                           Gtk.StateType.PRELIGHT):
@@ -814,7 +814,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         """
         event = event.button
 
-        for marker in self._points.iterkeys():
+        for marker in self._points.keys():
             if marker.props.state == Gtk.StateType.ACTIVE:
                 marker.props.state = Gtk.StateType.PRELIGHT
 
@@ -843,7 +843,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         else:
             hit_markers = []
 
-            for marker in self._points.iterkeys():
+            for marker in self._points.keys():
                 if self._is_marker_hit(marker, event.x, event.y):
                     if marker.props.state == Gtk.StateType.NORMAL:
                         marker.props.state = Gtk.StateType.PRELIGHT
@@ -862,7 +862,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         """
             Resets marker states
         """
-        for marker in self._points.iterkeys():
+        for marker in self._points.keys():
             # Leave other states intact
             if marker.props.state == Gtk.StateType.PRELIGHT:
                 marker.props.state = Gtk.StateType.NORMAL
@@ -1515,7 +1515,7 @@ def PlayPauseMenuItem(name, player, after):
 
 def NextMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Next Track"), 'media-skip-forward',
-        callback=lambda *args: player.queue.next() )
+        callback=lambda *args: next(player.queue) )
 
 def PrevMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Previous Track"), 'media-skip-backward',

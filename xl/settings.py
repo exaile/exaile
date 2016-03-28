@@ -28,8 +28,8 @@
     Central storage of application and user settings
 """
 
-from __future__ import with_statement
-from ConfigParser import (
+
+from configparser import (
     RawConfigParser,
     NoSectionError,
     NoOptionError
@@ -53,7 +53,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
+    'U': str
 }
 
 MANAGER = None
@@ -107,6 +107,10 @@ class SettingsManager(RawConfigParser):
         if location is not None:
             self._timeout_save()
 
+    #TODO: Find another way to hash this class
+    def __hash__(self):
+        return hash("foobar"*len(self))
+            
     @glib_wait_seconds(30)
     def _timeout_save(self):
         """Save every 30 seconds"""
@@ -242,7 +246,7 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
-        for k, v in TYPE_MAPPING.iteritems():
+        for k, v in TYPE_MAPPING.items():
             if v == type(value):
                 if v == list:
                     return k + ": " + repr(value)
@@ -265,7 +269,7 @@ class SettingsManager(RawConfigParser):
         if kind in ('L', 'D'):
             return eval(value)
 
-        if kind in TYPE_MAPPING.keys():
+        if kind in list(TYPE_MAPPING.keys()):
             if kind == 'B':
                 if value != 'True':
                     return False

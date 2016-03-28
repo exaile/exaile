@@ -22,7 +22,7 @@ import sys
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
-import ipconsoleprefs
+from . import ipconsoleprefs
 from xl import settings, providers
 from xlgui.widgets import menu
 
@@ -34,9 +34,9 @@ except:
     print('Running outside of Exaile...')
 
 
-import ipython_view as ip
+from . import ipython_view as ip
 from gi.repository import Pango
-import __builtin__, site
+import builtins, site
 
 FONT = "Luxi Mono 10"
 
@@ -131,8 +131,8 @@ class IPyConsole(Gtk.Window):
         # This is so when exaile calls exit(), IP doesn't prompt and prevent
         # it from closing
         try:
-            __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
-            __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
+            builtins.exit = Quitter(ipv.IP.magic_Exit, 'exit')
+            builtins.quit = Quitter(ipv.IP.magic_Exit, 'quit')
         except AttributeError: # newer versions of IP don't need this
             pass
 

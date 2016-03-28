@@ -98,7 +98,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         self.new_tag_combo = self.builder.get_object('new_tag_combo')
         self.new_tag_combo_list = Gtk.ListStore(str, str)
-        for tag, tag_info in tag_data.iteritems():
+        for tag, tag_info in tag_data.items():
             if tag_info is not None and tag_info.editable:
                 self.new_tag_combo_list.append((tag, tag_info.translated_name))
         self.new_tag_combo_list.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -170,7 +170,7 @@ class TrackPropertiesDialog(GObject.GObject):
         l = []
         for track in tracks:
             t = {}
-            for tag, tag_info in self.def_tags.iteritems():
+            for tag, tag_info in self.def_tags.items():
                 if tag_info.use_disk:
                     tagval = track.get_tag_disk(tag)
                 else:
@@ -285,7 +285,7 @@ class TrackPropertiesDialog(GObject.GObject):
         else:
             ab = True
 
-        for tag, tag_info in self.def_tags.iteritems():
+        for tag, tag_info in self.def_tags.items():
             
             for i, entry in enumerate(trackdata.get(tag, [''])):
                 
@@ -355,7 +355,7 @@ class TrackPropertiesDialog(GObject.GObject):
             for child in grid.get_children():
                 grid.remove(child)
 
-            for i in range(row_count/3*2, 0, -1):
+            for i in range(int(row_count/3*2), 0, -1):
                 grid.remove_row(i)
 
     def _save_position(self):
@@ -688,7 +688,7 @@ class TagField(Gtk.Box):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
-        return unicode(self.field.get_text(), 'utf-8')
+        return str(self.field.get_text())
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -748,11 +748,11 @@ class TagTextField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(self.buffer.get_text(
+        return str(self.buffer.get_text(
             self.buffer.get_start_iter(),
             self.buffer.get_end_iter(),
             True
-        ), 'utf-8')
+        ))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -809,7 +809,7 @@ class TagNumField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(int(self.field.get_value()))
+        return str(int(self.field.get_value()))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -901,15 +901,15 @@ class TagDblNumField(Gtk.Box):
                         self.all_button[i].set_active(False)
 
     def get_value(self):
-        f0 = unicode(int(self.field[0].get_value()))
-        f1 = unicode(int(self.field[1].get_value()))
+        f0 = str(int(self.field[0].get_value()))
+        f1 = str(int(self.field[1].get_value()))
         return f0 + '/' + f1
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
-        val = unicode(self.field[0].get_value()) + '/' \
-                + unicode(self.field[1].get_value())
+        val = str(self.field[0].get_value()) + '/' \
+                + str(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
@@ -1050,7 +1050,7 @@ class TagImageField(Gtk.Box):
         except AttributeError:
             save_to_callback_function = self.pixbuf.save_to_callback
         save_to_callback_function(gdk_pixbuf_save_func, None, mime['type'], \
-                mime['options'].keys(), mime['options'].values())
+                list(mime['options'].keys()), list(mime['options'].values()))
 
         # Move to the beginning of the buffer to allow read operations
         writer.seek(0)
@@ -1220,7 +1220,7 @@ class PropertyField(Gtk.Box):
             self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
-        common.open_file_directory(self.field.get_text().decode('utf-8'))
+        common.open_file_directory(self.field.get_text())
 
     def register_update_func(self, f):
         pass

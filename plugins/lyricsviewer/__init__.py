@@ -46,7 +46,7 @@ from xl import (
 from xlgui import guiutil
 from xlgui.widgets.notebook import NotebookPage
 
-import lyricsviewerprefs
+from . import lyricsviewerprefs
 
 LYRICSVIEWER = None
 CURPATH = os.path.realpath(__file__)

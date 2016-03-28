@@ -45,7 +45,7 @@ class OrderedCache(object):
         def __iter__(self):
             return self
 
-        def next(self):
+        def __next__(self):
             if self.n >= len(self.cache):
                 raise StopIteration
             self.n = self.n + 1 

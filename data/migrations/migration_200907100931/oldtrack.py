@@ -1,5 +1,5 @@
 import os.path, gobject, re
-import xlmisc
+from . import xlmisc
 from xl import common
 import logging
 logger = logging.getLogger(__name__)
@@ -15,17 +15,17 @@ class timetype(long):
         """
             Initializes the class
         """
-        long.__init__(self)
+        int.__init__(self)
         self.stream = False
 
 def to_unicode(x, default_encoding=None):
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return x
     elif default_encoding and isinstance(x, str):
         # This unicode constructor only accepts "string or buffer".
-        return unicode(x, default_encoding)
+        return str(x, default_encoding)
     else:
-        return unicode(x)
+        return str(x)
 
 def get_default_encoding():
     """
@@ -97,11 +97,11 @@ class Track(object):
         """
         # Doesn't matter what charset we use here, as long as we use
         # the same one when we decode (or encode as it were)
-        if type(loc) is unicode:
+        if type(loc) is str:
             self._loc = loc
         else:        
             try:
-                self._loc = unicode(loc, xlmisc.get_default_encoding())
+                self._loc = str(loc, xlmisc.get_default_encoding())
             except (UnicodeDecodeError, TypeError):
                 self._loc = loc
 
@@ -123,7 +123,7 @@ class Track(object):
     
         for tag, val in {'title': title, 'artist': artist, 'album':album,\
                         'genre': genre, 'discnumber':disc_id,\
-                        'tracknumber':track}.iteritems():
+                        'tracknumber':track}.items():
             self.set_tag(tag, val)
 
    # ========== Getters and setters ============
@@ -262,7 +262,7 @@ class Track(object):
         """
         for tag in xlmisc.VALID_TAGS:
             try:
-                self.tags[tag] = unicode(self.tags[tag].encode(self.encoding), value)
+                self.tags[tag] = str(self.tags[tag].encode(self.encoding), value)
             except AttributeError:
                 pass
 
@@ -316,8 +316,8 @@ class Track(object):
         if values:
             values = (to_unicode(x, self.encoding) for x in values
                 if x not in (None, ''))
-            return u" / ".join(values)
-        return u""
+            return " / ".join(values)
+        return ""
 
     def set_loc(self, value):
         """

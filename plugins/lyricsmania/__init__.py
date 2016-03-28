@@ -19,7 +19,7 @@ except ImportError:
     lxml = None
 
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 from xl.lyrics import (
     LyricSearchMethod,

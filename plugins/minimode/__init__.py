@@ -22,8 +22,8 @@ from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu
 
-import controls
-import minimode_preferences
+from . import controls
+from . import minimode_preferences
 
 MINIMODE = None
 
@@ -178,7 +178,7 @@ class MiniMode(Gtk.Window):
         v = None
         
         if self.__dirty:
-            for option, default in self.__defaults.iteritems():
+            for option, default in self.__defaults.items():
                 value = settings.get_option(option, default)
 
                 if option == 'plugin/minimode/always_on_top':

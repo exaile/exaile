@@ -17,7 +17,7 @@ def get_search_result_track():
 
 
 def clear_all_tracks():
-    for key in track.Track._Track__tracksdict.keys():
+    for key in list(track.Track._Track__tracksdict.keys()):
         del track.Track._Track__tracksdict[key]
 
 
@@ -26,7 +26,7 @@ class TestMatcher(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()
         self.str = get_search_result_track()
-        self.str.track.set_tag_raw('artist', [u'foo', u'bar'])
+        self.str.track.set_tag_raw('artist', ['foo', 'bar'])
 
     def tearDown(self):
         clear_all_tracks()
@@ -34,18 +34,18 @@ class TestMatcher(unittest.TestCase):
 
     def test_match_list_true(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(True)
         self.mox.ReplayAll()
-        matcher = search._Matcher('artist', u'bar', lambda x: x)
+        matcher = search._Matcher('artist', 'bar', lambda x: x)
         self.assertTrue(matcher.match(self.str))
         self.mox.VerifyAll()
 
     def test_match_list_false(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
         self.mox.ReplayAll()
-        matcher = search._Matcher('artist', u'bar', lambda x: x)
+        matcher = search._Matcher('artist', 'bar', lambda x: x)
         self.assertFalse(matcher.match(self.str))
         self.mox.VerifyAll()
 
@@ -359,9 +359,9 @@ class TestSearchTracks(unittest.TestCase):
         tracks[0].track.set_tag_raw('artist', 'foooo')
         tracks[2].track.set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks(tracks, [matcher])
-        self.assertEqual(gen.next(), tracks[0])
-        self.assertEqual(gen.next(), tracks[2])
-        self.assertRaises(StopIteration, gen.next)
+        self.assertEqual(next(gen), tracks[0])
+        self.assertEqual(next(gen), tracks[2])
+        self.assertRaises(StopIteration, gen.__next__)
 
     def test_take_not_srt(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
@@ -371,7 +371,7 @@ class TestSearchTracks(unittest.TestCase):
         gen = search.search_tracks(tracks, [matcher])
         self.assertEqual(gen.next().track, tracks[0])
         self.assertEqual(gen.next().track, tracks[2])
-        self.assertRaises(StopIteration, gen.next)
+        self.assertRaises(StopIteration, gen.__next__)
 
     def test_search_tracks_from_string(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
@@ -382,4 +382,4 @@ class TestSearchTracks(unittest.TestCase):
                 keyword_tags=['artist'])
         self.assertEqual(gen.next().track, tracks[0])
         self.assertEqual(gen.next().track, tracks[2])
-        self.assertRaises(StopIteration, gen.next)
+        self.assertRaises(StopIteration, gen.__next__)

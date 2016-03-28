@@ -52,9 +52,9 @@ class AlphaColor(Gdk.Color):
             args = (color.red, color.green, color.blue, color.alpha)
 
         # Create mapping of available parameters and arguments
-        parameters = dict(zip(('red', 'green', 'blue', 'alpha', 'pixel'), args))
+        parameters = dict(list(zip(('red', 'green', 'blue', 'alpha', 'pixel'), args)))
 
-        for parameter in parameters.iterkeys():
+        for parameter in parameters.keys():
             if parameter in kwargs:
                 raise TypeError('Usage:\n'
                                 '  Color(red, green, blue, alpha, pixel)  '

@@ -19,7 +19,7 @@ http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FPlayer_object_methods
 """
 
 
-from __future__ import division
+
 
 from xl import player, settings
 
@@ -28,7 +28,7 @@ import dbus.service
 
 import xl.event
 
-import mpris_tag_converter
+from . import mpris_tag_converter
 
 INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
 
@@ -77,7 +77,7 @@ class ExaileMprisPlayer(dbus.service.Object):
         """
             Goes to the next element
         """
-        player.QUEUE.next()
+        next(player.QUEUE)
 
     @dbus.service.method(INTERFACE_NAME)
     def Prev(self):

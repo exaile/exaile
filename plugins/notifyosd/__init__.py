@@ -35,7 +35,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import icons
 
-import notifyosdprefs
+from . import notifyosdprefs
 
 logger = logging.getLogger(__name__)
 Notify.init('Exaile')

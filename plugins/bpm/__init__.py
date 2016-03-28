@@ -43,7 +43,7 @@ from xlgui.guiutil import idle_add, GtkTemplate
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
 
-import bpmdetect
+from . import bpmdetect
 autodetect_enabled = bpmdetect.autodetect_supported()
 
 menu_providers = [

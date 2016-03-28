@@ -1,11 +1,11 @@
 
 from gi.repository import GLib
 
-import time, thread
+import time, _thread
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
-import acprefs
+from . import acprefs
 from xl import settings
 
 
@@ -14,10 +14,10 @@ class VolumeControl:
         self.thread = thread
 
     def print_debug( self ):
-        print(self.min_volume)
-        print(self.max_volume)
-        print(self.increment)
-        print(self.time_per_inc)
+        print((self.min_volume))
+        print((self.max_volume))
+        print((self.increment))
+        print((self.time_per_inc))
 
     def fade_in( self ):
         temp_volume = self.min_volume

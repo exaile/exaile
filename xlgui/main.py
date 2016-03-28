@@ -309,7 +309,7 @@ class MainWindow(GObject.GObject):
             'on_delete_event':      self.on_delete_event,
             'on_playpause_button_clicked': self._on_playpause_button,
             'on_next_button_clicked':
-                lambda *e: player.QUEUE.next(),
+                lambda *e: next(player.QUEUE),
             'on_prev_button_clicked':
                 lambda *e: player.QUEUE.prev(),
             'on_about_item_activate': self.on_about_item_activate,

@@ -21,9 +21,9 @@ import dbus
 import dbus.service
 import logging
 
-import mpris_root
-import mpris_tracklist
-import mpris_player
+from . import mpris_root
+from . import mpris_tracklist
+from . import mpris_player
 
 LOG = logging.getLogger("exaile.plugins.mpris.exaile_mpris")
 

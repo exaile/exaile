@@ -268,7 +268,7 @@ class PluginsManager(object):
 
     def save_enabled(self):
         if self.load:
-            settings.set_option("plugins/enabled", self.enabled_plugins.keys())
+            settings.set_option("plugins/enabled", list(self.enabled_plugins.keys()))
 
     def load_enabled(self):
         to_enable = settings.get_option("plugins/enabled", [])

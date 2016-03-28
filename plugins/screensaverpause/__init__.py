@@ -42,7 +42,7 @@ SERVICES = [
     ),
 ]
 
-import prefs
+from . import prefs
 def get_preferences_pane():
     return prefs
 

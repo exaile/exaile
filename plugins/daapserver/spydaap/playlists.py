@@ -23,11 +23,11 @@ class Playlist(object):
         pass
 
     def safe_cmp(self, a, b, key):
-        if a.has_key(key) and b.has_key(key):
+        if key in a and key in b:
             return cmp(a[key], b[key])
-        elif a.has_key(key):
+        elif key in a:
             return 1
-        elif b.has_key(key):
+        elif key in b:
             return -1
         else: return 0
 
@@ -55,7 +55,7 @@ class Genre(Playlist):
         self.genre = genre
     
     def contains(self, md):
-        if not(md.has_key('daap.songgenre')): return False
+        if not('daap.songgenre' in md): return False
         else:
             songgenre = md['daap.songgenre'].lower()
             if type(self.genre) == str:
@@ -72,7 +72,7 @@ class YearRange(Playlist):
         self.first = first
 
     def contains(self, md):
-        if not(md.has_key('daap.songyear')): return False
+        if not('daap.songyear' in md): return False
         else:
             year = md['daap.songyear']
             return year >= self.first and year <= self.last
@@ -100,6 +100,6 @@ class Rating(Playlist):
         self.rating = rating
 
     def contains(self, md):
-        if md.has_key('daap.songuserrating'):
+        if 'daap.songuserrating' in md:
             return md['daap.songuserrating'] >= self.rating
         else: return False

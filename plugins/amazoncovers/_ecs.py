@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import sys
 import hmac
 import hashlib
@@ -39,10 +39,7 @@ def generate_timestamp():
 def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
 	query_dictionary["AWSAccessKeyId"] = aws_access_key_id
 	query_dictionary["Timestamp"] = generate_timestamp()
-	query_pairs = map(
-		lambda (k,v):(k+"="+urllib2.quote(v)),
-		query_dictionary.items()
-	)
+	query_pairs = [(k_v[0]+"="+urllib.parse.quote(k_v[1])) for k_v in list(query_dictionary.items())]
 	 # The Amazon specs require a sorted list of arguments
 	query_pairs.sort()
 	query_string = "&".join(query_pairs)
@@ -51,7 +48,7 @@ def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
 		"GET\nwebservices.amazon.com\n/onca/xml\n"+query_string,
 		hashlib.sha256
 	)
-	signature = urllib2.quote(base64.b64encode(hm.digest()))
+	signature = urllib.parse.quote(base64.b64encode(hm.digest()))
 	query_string = "https://webservices.amazon.com/onca/xml?%s&Signature=%s" % (query_string, signature)
 	return query_string
 
@@ -70,8 +67,8 @@ def search_covers(search, api_key, secret_key, user_agent):
         str(secret_key).strip(), params)
 
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(query_string, None, headers)
-    data = urllib2.urlopen(req).read()
+    req = urllib.request.Request(query_string, None, headers)
+    data = urllib.request.urlopen(req).read()
     
     data = common.get_url_contents(query_string, user_agent)
 

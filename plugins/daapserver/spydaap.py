@@ -13,11 +13,11 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, select, signal, spydaap, sys
-import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
-from spydaap.daap import do
-import config
+
+import http.server, socketserver, getopt, grp, http.client, logging, os, pwd, select, signal, spydaap, sys
+from . import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
+from .spydaap.daap import do
+from . import config
 
 logging.basicConfig()
 log = logging.getLogger('spydaap')
@@ -37,12 +37,12 @@ class Log:
         self.f.write(s)
         self.f.flush()
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
 
     def __init__(self, *args):
-        BaseHTTPServer.HTTPServer.__init__(self,*args)
+        http.server.HTTPServer.__init__(self,*args)
         self.keep_running = True
 
     def serve_forever(self):

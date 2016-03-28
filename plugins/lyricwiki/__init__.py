@@ -2,9 +2,9 @@ try:
     import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
-import HTMLParser
+import html.parser
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from xl.lyrics import (
     LyricSearchMethod,
@@ -44,8 +44,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ','_'))
-        title = urllib.quote(title.replace(' ','_'))
+        artist = urllib.parse.quote(artist.replace(' ','_'))
+        title = urllib.parse.quote(title.replace(' ','_'))
 
         url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 
@@ -56,7 +56,7 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(html)
-        except HTMLParser.HTMLParseError:
+        except html.parser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:
@@ -65,7 +65,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 

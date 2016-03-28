@@ -21,7 +21,7 @@ try:
     import IPython
     version = IPython.__version__
     
-    from ipython_view import IPythonView
+    from .ipython_view import IPythonView
 
 except (ImportError, AttributeError):
     logger.error('could not find a compatible version of IPython', exc_info=True)

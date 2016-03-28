@@ -21,7 +21,7 @@ __all__ = ["exaile_mpris",
         "mpris_tracklist",
         "mpris_tag_converter"]
 
-import exaile_mpris
+from . import exaile_mpris
 import logging
 
 LOG = logging.getLogger("exaile.plugins.mpris")

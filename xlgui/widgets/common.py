@@ -34,7 +34,8 @@ from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from urllib2 import urlparse
+import urllib.parse
+
 
 from xl import (
     common,

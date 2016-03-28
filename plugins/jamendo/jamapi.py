@@ -25,7 +25,7 @@
 # from your version.
 
 import json
-import jamtree
+from . import jamtree
 import threading
 
 from xl import common

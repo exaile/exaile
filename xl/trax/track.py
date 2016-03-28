@@ -614,7 +614,7 @@ class Track(object):
             elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('albumartist', _UNKNOWNSTR)           
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0] or u""
         elif tag in ('__length', '__startoffset', '__stopoffset'):

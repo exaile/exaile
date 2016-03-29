@@ -87,9 +87,8 @@ class ElementBin(Gst.Bin):
                 elem.set_state(Gst.State.NULL)
                 self.remove(elem)
         
-        all_elems = list(self.elements.iteritems())
-        all_elems.sort()
-        
+        all_elems = sorted(self.elements.items())
+
         elems = []
         for _unused, e in all_elems:
             

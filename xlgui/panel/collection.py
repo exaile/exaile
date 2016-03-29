@@ -78,7 +78,7 @@ class Order(object):
         format string for xl.formatter, and the third a tuple of tags to use
         for searching.
 
-        When passed in the paramters, a level can also be a single string
+        When passed in the parameters, a level can also be a single string
         instead of a tuple, and it will be treated equivalently to (("foo",),
         "$foo", ("foo",)) for some string "foo".
     """
@@ -128,29 +128,29 @@ class Order(object):
         return self.__formatters[level].format(track)
 
 DEFAULT_ORDERS = [
-    (_("Artist"), 
+    Order(_("Artist"),
         ("artist", "album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Album"), 
+    Order(_("Album"),
         ("album", 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Genre - Artist"), 
+    Order(_("Genre - Artist"),
         ('genre', 'artist', 'album', 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Genre - Album"), 
+    Order(_("Genre - Album"),
         ('genre', 'album', 'artist', 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Date - Artist"), 
+    Order(_("Date - Artist"),
         ('date', 'artist', 'album', 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Date - Album"), 
+    Order(_("Date - Album"),
         ('date', 'album', 'artist', 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    (_("Artist - (Date - Album)"), 
+    Order(_("Artist - (Date - Album)"),
         ('artist', 
             (('date', 'album'), "$date - $album", ('date', 'album')), 
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-        ]
+]
 
 class CollectionPanel(panel.Panel):
     """
@@ -186,7 +186,7 @@ class CollectionPanel(panel.Panel):
         self._refresh_id = 0
         self.start_count = 0
         self.keyword = ''
-        self.orders = map(lambda x: Order(x[0], x[1]), DEFAULT_ORDERS)
+        self.orders = DEFAULT_ORDERS[:]
         self._setup_tree()
         self._setup_widgets()
         self._check_collection_empty()

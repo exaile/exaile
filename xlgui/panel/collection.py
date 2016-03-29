@@ -110,7 +110,7 @@ class Order(object):
         return len(self.__levels)
 
     def __eq__(self, other):
-        self.__levels == other.get_levels()
+        return self.__levels == other.get_levels()
 
     def all_sort_tags(self):
         return list(itertools.chain(*[l[0] for l in self.__levels]))

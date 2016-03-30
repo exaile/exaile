@@ -84,6 +84,7 @@ class DBusHelper:
     def set_property(self, connection, sender, path, interface, prop, value):
         self._check_property(prop)
         setattr(self.object, prop, value)
+        return True
 
     def _check_method(self, meth):
         """Check that `meth` is a valid property of `self.object`"""

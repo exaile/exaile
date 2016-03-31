@@ -452,8 +452,8 @@ class Exaile(object):
         # Initalize playlist manager
         from xl import playlist
         self.playlists = playlist.PlaylistManager()
-        self.smart_playlists = playlist.PlaylistManager('smart_playlists',
-            playlist.SmartPlaylist)
+        self.smart_playlists = playlist.SmartPlaylistManager('smart_playlists',
+            collection=self.collection)
         if firstrun:
             self._add_default_playlists()
         event.log_event("playlists_loaded", self, None)

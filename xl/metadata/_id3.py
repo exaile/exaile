@@ -61,6 +61,7 @@ class ID3Format(BaseFormat):
         "bpm": "TBPM",
         "grouping": "TIT1",
         "comment": "COMM",
+        'language': "TLAN",
     }
     writable = True
     others = False # make this true once custom tag support actually works

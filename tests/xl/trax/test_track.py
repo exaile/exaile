@@ -186,7 +186,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 tr = track.Track(temp_copy.name)
                 del tr
                 os.chmod(temp_copy.name, 0o000)
@@ -214,7 +214,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 os.chmod(temp_copy.name, 0o444)
                 tr = track.Track(temp_copy.name)
                 tr.set_tag_raw('artist', 'Delerium')
@@ -237,7 +237,7 @@ class TestTrack(unittest.TestCase):
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
                 # Copy and write new file
-                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 tr = track.Track(temp_copy.name)
                 tr.set_tag_raw('artist', 'Delerium')
                 tr.write_tags()
@@ -286,7 +286,7 @@ class TestTrack(unittest.TestCase):
         self.empty_track_of_tags(tr, tags)
         for tag, val in tags.iteritems():
             tr.set_tag_raw(tag, val)
-        self.assertEqual(set(tr.list_tags()), set(['album', '__loc', 'artist', '__basename']))
+        self.assertEqual(set(tr.list_tags()), {'album', '__loc', 'artist', '__basename'})
 
     def test_rating_empty(self):
         """Test get_rating when no rating has been set"""
@@ -570,7 +570,7 @@ class TestTrack(unittest.TestCase):
         tr_name = test_data.get_file_with_ext('.ogg')
         tr = track.Track(tr_name)
         self.assertEqual(set(tr.list_tags_disk()),
-                        set(('album', 'tracknumber', 'artist', 'title')))
+                        {'album', 'tracknumber', 'artist', 'title'})
 
     def test_list_disk_tag_invalid_format(self):
         tr_name = '/tmp/foo.foo'

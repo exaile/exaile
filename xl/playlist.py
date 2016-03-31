@@ -161,6 +161,11 @@ def export_playlist(playlist, path, options=None):
         it exports
     """
     file_extension = path.split('.')[-1]
+    
+    if hasattr(playlist, 'get_playlist'):
+        playlist = playlist.get_playlist()
+        if playlist is None:
+            raise InvalidPlaylistTypeError("SmartPlaylist not associated with a collection")
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:
@@ -1084,7 +1089,7 @@ class Playlist(object):
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
         else:
-            hist = set([ i for i, tr in self.get_shuffle_history() ])
+            hist = { i for i, tr in self.get_shuffle_history() }
             try:
                 return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
                         if i not in hist])
@@ -1961,6 +1966,9 @@ class PlaylistManager(object):
         self.order_file = os.path.join(self.playlist_dir, 'order_file')
         self.playlists = []
         self.load_names()
+        
+    def _create_playlist(self, name):
+        return self.playlist_class(name=name)
 
     def has_playlist_name(self, playlist_name):
         """
@@ -2027,7 +2035,7 @@ class PlaylistManager(object):
             # check against hidden files since some editors put
             # temporary stuff in the same dir.
             if f != os.path.basename(self.order_file) and not f.startswith("."):
-                pl = self.playlist_class(f)
+                pl = self._create_playlist(f)
                 pl.load_from_location(os.path.join(self.playlist_dir, f))
                 existing.append(pl.name)
 
@@ -2045,7 +2053,7 @@ class PlaylistManager(object):
             @param name: the name of the playlist you wish to retrieve
         """
         if name in self.playlists:
-            pl = self.playlist_class(name=name)
+            pl = self._create_playlist(name)
             pl.load_from_location(os.path.join(self.playlist_dir,
                 encode_filename(name)))
             return pl
@@ -2120,6 +2128,26 @@ class PlaylistManager(object):
             playlists.append(line[:-1].decode('utf-8'))
         f.close()
         return playlists
+
+class SmartPlaylistManager(PlaylistManager):
+    """
+        Manages saving and loading of smart playlists
+    """
+    def __init__(self, playlist_dir, playlist_class=SmartPlaylist, collection=None):
+        """
+            Initializes a smart playlist manager
+
+            @param playlist_dir: the data dir to save playlists to
+            @param playlist_class: the playlist class to use
+            @param collection: the default collection to use for searching
+        """
+        self.collection = collection
+        PlaylistManager.__init__(self, playlist_dir=playlist_dir,
+                                       playlist_class=playlist_class)
+        
+    def _create_playlist(self, name):
+        # set a default collection so that get_playlist() always works
+        return self.playlist_class(name=name, collection=self.collection)
 
 # vim: et sts=4 sw=4
 

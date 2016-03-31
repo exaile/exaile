@@ -487,7 +487,7 @@ class IconManager(object):
         self.render_widget = Gtk.Button()
         self.system_visual = Gdk.Visual.get_system()
         # TODO: Make svg actually recognized
-        self._sizes = [16, 22, 24, 32, 48, 'scalable']
+        self._sizes = [16, 22, 24, 32, 48, 128, 'scalable']
         self._cache = {}
 
         self.rating_active_pixbuf = extended_pixbuf_new_from_file(

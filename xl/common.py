@@ -36,8 +36,6 @@ from gi.repository import GLib
 from gi.repository import GObject
 import logging
 import os
-import random
-import string
 import subprocess
 import sys
 import threading
@@ -892,7 +890,7 @@ def subscribe_for_settings(section, options, self):
             setattr(self, attrname,
                     settings.get_option(data, getattr(self, attrname)))
     
-    for k in options.iterkeys():
+    for k in options:
         if not k.startswith('%s/' % section):
             raise ValueError("Option is not part of section %s" % section)
         _on_option_set(None, None, k)

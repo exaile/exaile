@@ -406,7 +406,7 @@ class DAAPSession(object):
 
     def update(self):
         response = self.request("/update")
-	self.revision = response.getAtom('musr')
+        self.revision = response.getAtom('musr')
 #        return response
 
     def databases(self):

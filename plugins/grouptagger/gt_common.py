@@ -83,7 +83,7 @@ def _get_track_groups(track, tagname):
     grouping = track.get_tag_raw(tagname, True)
     
     if grouping is not None:
-        return set([ group.replace('_', ' ') for group in grouping.split()])
+        return { group.replace('_', ' ') for group in grouping.split()}
         
     return set()
 

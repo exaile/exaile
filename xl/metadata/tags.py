@@ -53,6 +53,7 @@ tag_data = {
     'genre':            _TD(N_('Genre'),        'text'),
     'grouping':         _TD(N_('Grouping'),     'text'),
     'isrc':             _TD(N_('ISRC'),         'text'),
+    'language':         _TD(N_('Language'),     'text'),
     'lyrics':           _TD(N_('Lyrics'),       'multiline', use_disk=True),
     'lyricist':         _TD(N_('Lyricist'),     'text'),
     'organization':     _TD(N_('Organization'), 'text'),

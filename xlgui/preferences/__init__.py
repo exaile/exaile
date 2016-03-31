@@ -24,18 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
 
 import inspect
 import logging
-import os
-import shlex
-import string
-import thread
-import urllib2
 
 from xl import (
     common,

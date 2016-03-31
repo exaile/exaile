@@ -118,6 +118,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
 	install -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
 	install -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
+	install -m 644 data/images/128x128/*.png $(EXAILESHAREDIR)/data/images/128x128
 	install -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/images/128x128/exaile.png \

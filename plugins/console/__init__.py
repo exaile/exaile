@@ -65,7 +65,7 @@ class PyConsole():
         try:
             pycode = compile(code, '<console>', 'single')
             sys.stdout = self.buffer
-            exec pycode in self.dict
+            exec(pycode, self.dict)
         except:
             sys.stdout = stdout
             exc = traceback.format_exception(*sys.exc_info())

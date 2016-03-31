@@ -30,7 +30,7 @@ Devices
 contains the DeviceManager and some generic Device classes
 """
 
-from xl import common, event, collection
+from xl import event, collection
 
 
 class DeviceManager(object):

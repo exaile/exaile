@@ -746,7 +746,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             Reacts to GObject property changes
         """
         if gproperty.name == 'marker-scale':
-            for marker in self._points.iterkeys():
+            for marker in self._points:
                 self._points[marker] = self._get_points(marker)
             self.__progressbar._marker_scale = self.__values['marker-scale']
             self.__progressbar.queue_draw()
@@ -760,7 +760,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         Gtk.EventBox.do_size_allocate(self, allocation)
 
         if allocation != oldallocation:
-            for marker in self._points.iterkeys():
+            for marker in self._points:
                 self._points[marker] = self._get_points(marker)
 
 
@@ -772,7 +772,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         event = event.button
         hit_markers = []
 
-        for marker in self._points.iterkeys():
+        for marker in self._points:
             if self._is_marker_hit(marker, event.x, event.y):
                 if marker.props.state in (Gtk.StateType.NORMAL,
                                           Gtk.StateType.PRELIGHT):
@@ -814,7 +814,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         """
         event = event.button
 
-        for marker in self._points.iterkeys():
+        for marker in self._points:
             if marker.props.state == Gtk.StateType.ACTIVE:
                 marker.props.state = Gtk.StateType.PRELIGHT
 
@@ -843,7 +843,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         else:
             hit_markers = []
 
-            for marker in self._points.iterkeys():
+            for marker in self._points:
                 if self._is_marker_hit(marker, event.x, event.y):
                     if marker.props.state == Gtk.StateType.NORMAL:
                         marker.props.state = Gtk.StateType.PRELIGHT
@@ -862,7 +862,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         """
             Resets marker states
         """
-        for marker in self._points.iterkeys():
+        for marker in self._points:
             # Leave other states intact
             if marker.props.state == Gtk.StateType.PRELIGHT:
                 marker.props.state = Gtk.StateType.NORMAL

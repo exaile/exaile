@@ -45,11 +45,13 @@ class OrderedCache(object):
         def __iter__(self):
             return self
 
-        def next(self):
+        def __next__(self):
             if self.n >= len(self.cache):
                 raise StopIteration
-            self.n = self.n + 1 
+            self.n = self.n + 1
             return self.cache.get_item_by_id(self.n)
+
+        next = __next__
 
     def __init__(self, dir):
         self.dir = os.path.abspath(dir)

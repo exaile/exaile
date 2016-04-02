@@ -59,8 +59,11 @@ class TrackDBIterator(object):
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.iter.next()[1]._track
+    def __next__(self):
+        return next(self.iter)[1]._track
+
+    next = __next__
+
 
 class TrackDB(object):
     """

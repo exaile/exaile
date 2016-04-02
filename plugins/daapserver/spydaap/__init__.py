@@ -35,7 +35,7 @@ class ContentRangeFile(object):
     def __len__(self):
         return self.length
 
-    def next(self):
+    def __next__(self):
         to_read = self.chunk
         if (self.end is not None):
             if (self.read >= self.end):
@@ -50,6 +50,8 @@ class ContentRangeFile(object):
             self.parent.close()
             raise StopIteration
         else: return retval
+
+    next = __next__
 
     def __iter__(self):
         return self

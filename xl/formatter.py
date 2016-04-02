@@ -30,6 +30,7 @@ Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
 
+from six import with_metaclass
 from datetime import date
 from gi.repository import GLib
 from gi.repository import GObject
@@ -79,7 +80,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
             }
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
-class ParameterTemplate(Template):
+class ParameterTemplate(with_metaclass(_ParameterTemplateMetaclass, Template)):
     """
         An extended template class which additionally
         accepts parameters assigned to identifiers.
@@ -94,7 +95,6 @@ class ParameterTemplate(Template):
         * ``${bar:parameter1, parameter2}``
         * ``${qux:parameter1=argument1, parameter2}``
     """
-    __metaclass__ = _ParameterTemplateMetaclass
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):

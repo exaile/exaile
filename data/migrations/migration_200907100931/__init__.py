@@ -7,6 +7,7 @@ import urlparse
 import oldexailelib, olddb
 import logging
 import time
+import collections
 
 logger = logging.getLogger(__name__)
 
@@ -180,7 +181,7 @@ def _migrate_old_settings(oldsettings):
         try:
             if func in globals():
                 func = globals()[func]
-                if callable(func):
+                if isinstance(func, collections.Callable):
                     value = func(section, oldsetting, oldsettings)
 
             if not value: value = oldsettings.get(section, oldsetting)

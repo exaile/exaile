@@ -47,6 +47,7 @@ from xl import (
 )
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
+import collections
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
@@ -296,7 +297,7 @@ class Formatter(GObject.GObject):
                 pad = int(parameters.pop('pad', 0))
                 padstring = parameters.pop('padstring', '')
 
-                if callable(substitute):
+                if isinstance(substitute, collections.Callable):
                     substitute = substitute(*args, **parameters)
 
                 if pad > 0 and padstring:

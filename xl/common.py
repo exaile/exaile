@@ -34,6 +34,7 @@ import inspect
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
+import collections
 import logging
 import os
 import subprocess
@@ -209,7 +210,7 @@ def synchronized(func):
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
-    if callback and callable(callback):
+    if callback and isinstance(callback, collections.Callable):
         callback(value)
 
 def idle_add(callback=None):

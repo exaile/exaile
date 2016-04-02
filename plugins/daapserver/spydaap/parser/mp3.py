@@ -49,7 +49,7 @@ class Mp3Parser(spydaap.parser.Parser):
     def handle_track(self, mp3, d):
         tracknumber = None
         trackcount = None
-        if mp3.tags.has_key('TRCK'):
+        if 'TRCK' in mp3.tags:
             t = str(mp3.tags['TRCK']).split('/')
             tracknumber = self.my_int(t[0])
             if (len(t) == 2):
@@ -60,7 +60,7 @@ class Mp3Parser(spydaap.parser.Parser):
     def handle_disc(self, mp3, d):
         discnumber = None
         disccount = None
-        if mp3.tags.has_key('TPOS'):
+        if 'TPOS' in mp3.tags:
             t = str(mp3.tags['TPOS']).split('/')
             discnumber = self.my_int(t[0])
             if (len(t) == 2):

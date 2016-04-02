@@ -50,7 +50,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
                                                               name, ffn, m)
         if not(link):
             for item in os.listdir(self.dir):
-                if (len(item) == 32) and not(marked.has_key(item)):
+                if (len(item) == 32) and not(item in marked):
                     os.remove(os.path.join (self.dir, item))
             self.build_index()
 
@@ -80,7 +80,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         return self.md[k]
 
     def has_key(self, k):
-        return self.get_md().has_key(k)
+        return k in self.get_md()
 
     def read(self):
         f = open(self.path)

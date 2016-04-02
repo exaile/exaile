@@ -57,7 +57,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
 class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if type(name) == unicode:
+        if isinstance(name, unicode):
             name = name.encode('utf-8')
         data = "".join([ d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data

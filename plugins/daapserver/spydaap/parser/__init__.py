@@ -33,7 +33,7 @@ class Parser:
         for k in md.tags.keys():
             if map.has_key(k):
                 val = md.tags[k]
-                if type(val) == list:
+                if isinstance(val, list):
                     val = val[0]
                 intval = self.my_int(unicode(val))
                 if intval: daap.append(do(map[k], intval))

@@ -36,7 +36,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 for k, v in kwargs['extra_headers'].iteritems():
                     self.send_header(k, v)
             try:
-                if type(data) == file:
+                if isinstance(data, file):
                     self.send_header("Content-Length", str(os.stat(data.name).st_size))
                 else:
                     self.send_header("Content-Length", len(data))                   

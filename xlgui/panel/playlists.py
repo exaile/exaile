@@ -687,8 +687,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.custom = self.model.append(None, [self.folder,
             _("Custom Playlists"), None])
 
-        names = self.smart_manager.playlists[:]
-        names.sort()
+        names = sorted(self.smart_manager.playlists[:])
         for name in names:
             self.model.append(self.smart, [self.playlist_image, name,
                 self.smart_manager.get_playlist(name)])

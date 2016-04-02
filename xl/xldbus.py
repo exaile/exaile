@@ -256,7 +256,7 @@ class DbusManager(dbus.service.Object):
         except (ValueError, TypeError, AttributeError):
             value = ''
 
-        if type(value) == list:
+        if isinstance(value, list):
             return u"\n".join(value)
         return unicode(value)
 

@@ -185,7 +185,7 @@ class Column(Gtk.TreeViewColumn):
         return self._font_ratio
                 
     def data_func(self, col, cell, model, iter, user_data):
-        if type(cell) == Gtk.CellRendererText:
+        if isinstance(cell, Gtk.CellRendererText):
             playlist = self.container.playlist
 
             

@@ -154,8 +154,7 @@ class IcecastRadioStation(RadioStation):
                 self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
         return rlists
@@ -171,8 +170,7 @@ class IcecastRadioStation(RadioStation):
 
         rlists = self._get_stations(url)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
 
         self.subs[name] = rlists

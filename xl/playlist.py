@@ -1851,7 +1851,7 @@ class SmartPlaylist(object):
         }
 
         for param in self.search_params:
-            if type(param) == str:
+            if isinstance(param, str):
                 params += [param]
                 continue
             (field, op, value) = param

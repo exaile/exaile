@@ -471,7 +471,7 @@ class EntryField(Gtk.Entry):
     def get_state(self):
         return unicode(self.get_text(), 'utf-8')
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         self.set_text(unicode(state))
         
@@ -481,7 +481,7 @@ class QuotedEntryField(Gtk.Entry):
     def get_state(self):
         return unicode(urllib.quote(self.get_text()), 'utf-8')
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         self.set_text(unicode(urllib.unquote(str(state))))
 
@@ -500,7 +500,7 @@ class SpinLabelField(Gtk.Box):
     def get_state(self):
         return self.spin.get_value()
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         try:
             self.spin.set_value(int(state))

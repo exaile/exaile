@@ -257,7 +257,7 @@ class Formatter(GObject.GObject):
                 for p in parameters:
                     argument = parameters[p]
 
-                    if type(argument) is not bool:
+                    if not isinstance(argument, bool):
                         argument = argument.replace(r'\,', ',')
                         argument = argument.replace(r'\}', '}')
                         argument = argument.replace(r'\=', '=')

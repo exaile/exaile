@@ -43,7 +43,7 @@ class ldict(dict):
         dict.__init__(self)
 
     def __setitem__(self, item, value):
-        if type(value) is not list: value = [value]
+        if not isinstance(value, list): value = [value]
         dict.__setitem__(self, item , value)
 
     def __getitem__(self, item):
@@ -97,7 +97,7 @@ class Track(object):
         """
         # Doesn't matter what charset we use here, as long as we use
         # the same one when we decode (or encode as it were)
-        if type(loc) is unicode:
+        if isinstance(loc, unicode):
             self._loc = loc
         else:        
             try:
@@ -164,7 +164,7 @@ class Track(object):
             return -1
 
         t = self.get_tag('tracknumber')
-        if type(t) is int: return t
+        if isinstance(t, int): return t
 
         b = t.find('/')
 

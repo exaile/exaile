@@ -74,8 +74,7 @@ class OrderedCache(object):
         if os.path.exists(index_fn):
             os.remove(index_fn)
         if pid_list is None:
-            pid_list = [ f for f in os.listdir(self.dir) if f != "index"]
-            pid_list.sort()
+            pid_list = sorted([ f for f in os.listdir(self.dir) if f != "index"])
         fi = open(index_fn, 'w')
         for pid in pid_list:
             fi.write(pid)

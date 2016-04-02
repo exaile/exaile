@@ -75,7 +75,7 @@ class DAAPObject(object):
             else:
                 self.type = dmapCodeTypes[self.code][1]
             self.value = value
-            if self.type == 'c' and type(self.value) == list:
+            if self.type == 'c' and isinstance(self.value, list):
                 self.contains = value
         if kwargs.has_key('parent'):
             kwargs['parent'].contains.append(self)
@@ -125,7 +125,7 @@ class DAAPObject(object):
             value = ''
             for item in self.contains:
                 # get the data stream from each of the sub elements
-                if type(item) == str:
+                if isinstance(item, str):
                     #preencoded
                     value += item
                 else:
@@ -141,7 +141,7 @@ class DAAPObject(object):
             # we want to encode the contents of
             # value for our value
             value = self.value
-            if type(value) == float:
+            if isinstance(value, float):
                 value = int(value)
             if self.type == 'v':
                 value = value.split('.')
@@ -152,7 +152,7 @@ class DAAPObject(object):
             elif self.type == 'ul':
                 packing = 'Q'
             elif self.type == 'i':
-                if (type(value) == str and len(value) <= 4):
+                if (isinstance(value, str) and len(value) <= 4):
                     packing = '4s'
                 else:
                     packing = 'i'
@@ -169,7 +169,7 @@ class DAAPObject(object):
             elif self.type == 't':
                 packing = 'I'
             elif self.type == 's':
-                if type(value) == unicode:
+                if isinstance(value, unicode):
                     value = value.encode('utf-8')
                 packing = '%ss' % len(value)
             else:

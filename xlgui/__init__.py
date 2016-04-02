@@ -257,9 +257,8 @@ class Main(object):
             collection = self.exaile.collection
             collection.freeze_libraries()
 
-            collection_libraries = [(l.location, l.monitored, l.startup_scan) \
-                for l in collection.libraries.itervalues()]
-            collection_libraries.sort()
+            collection_libraries = sorted([(l.location, l.monitored, l.startup_scan) \
+                for l in collection.libraries.itervalues()])
             new_libraries = dialog.get_items()
             new_libraries.sort()
 

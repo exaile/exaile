@@ -570,12 +570,12 @@ class ExailePlayer(object):
         """
         if track and self._playtime_stamp:
             last = track.get_tag_raw('__playtime')
-            if type(last) == str:
+            if isinstance(last, str):
                 try:
                     last = int(last)
                 except:
                     last = 0
-            elif type(last) != int:
+            elif not isinstance(last, int):
                 last = 0
             track.set_tag_raw('__playtime', last + int(time.time() - \
                     self._playtime_stamp))

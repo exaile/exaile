@@ -61,7 +61,7 @@ class _Matcher(object):
                 return True
             return False
         else:
-            if type(vals) != list:
+            if not isinstance(vals, list):
                 vals = [vals]
             for item in vals:
                 try:
@@ -283,7 +283,7 @@ class TracksMatcher(object):
             return matchers
 
         # is it a special operator?
-        if type(token) == list:
+        if isinstance(token, list):
             if len(token) == 1:
                 token = token[0]
             subtoken = token[0]

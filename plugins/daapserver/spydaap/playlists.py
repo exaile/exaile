@@ -58,9 +58,9 @@ class Genre(Playlist):
         if not(md.has_key('daap.songgenre')): return False
         else:
             songgenre = md['daap.songgenre'].lower()
-            if type(self.genre) == str:
+            if isinstance(self.genre, str):
                 return songgenre == self.genre
-            elif type(self.genre) == list:
+            elif isinstance(self.genre, list):
                 return songgenre in self.genre
 
 class YearRange(Playlist):

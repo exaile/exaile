@@ -37,7 +37,7 @@ from xl import (
 )
 from xl.nls import gettext as _
 from xlgui.widgets.info import TrackToolTip
-from xlgui.widgets import rating, menu, menuitems, playlist, playback
+from xlgui.widgets import menu, menuitems, playlist, playback
 
 logger = logging.getLogger(__name__)
 

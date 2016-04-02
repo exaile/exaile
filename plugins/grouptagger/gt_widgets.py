@@ -36,7 +36,6 @@ import re
 from xl import common, settings
 from xl.nls import gettext as _
 
-from xlgui import main
 from xlgui.widgets import dialogs, menu, notebook
 
 import gt_common

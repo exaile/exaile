@@ -1,10 +1,14 @@
 
 import logging
 from gi.repository import GObject
-from xl import collection, event, settings
+from xl import event, settings
 import spydaap.parser.exaile
+from server import DaapServer
+# settings stuff
+import daapserverprefs
 
-log = logging.getLogger(__file__)
+
+logger = logging.getLogger(__file__)
 
 
 # todo support multiple connections?
@@ -51,8 +55,6 @@ class CollectionWrapper:
     def __len__(self):
         return len(self.collection)
 
-from server import DaapServer
-
 ds = None
 
 def _enable(exaile):
@@ -87,10 +89,6 @@ def teardown(exaile):
 def disable(exaile):
     ds.stop_server()
     
-    
-
-# settings stuff
-import daapserverprefs
 
 def get_preferences_pane():
     return daapserverprefs

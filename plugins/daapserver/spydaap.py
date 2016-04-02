@@ -14,10 +14,17 @@
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import print_function
-import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, select, signal, spydaap, sys
+import BaseHTTPServer
+import SocketServer
+import getopt
+import grp
+import logging
+import os
+import pwd
+import select
+import signal
+import sys
 import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
-from spydaap.daap import do
-import config
 
 logging.basicConfig()
 log = logging.getLogger('spydaap')

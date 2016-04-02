@@ -30,21 +30,25 @@ from xl import providers, event
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
 import logging
-logger = logging.getLogger(__name__)
 
-import dbus, threading, os, struct
+import dbus
+import os
+import struct
 from fcntl import ioctl
 from xl import playlist, trax, common
-from xl import settings
 import os.path
 
 try:
-    import DiscID, CDDB
-    CDDB_AVAIL=True
+    import DiscID
+    import CDDB
+    CDDB_AVAIL = True
 except:
-    CDDB_AVAIL=False
+    CDDB_AVAIL = False
 
 import cdprefs
+
+logger = logging.getLogger(__name__)
+
 
 def get_preferences_pane():
     return cdprefs
@@ -57,6 +61,7 @@ CDROMREADTOCENTRY = 0x5306
 CDROM_LEADOUT = 0xAA
 CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
+
 
 class CdPlugin(object):
     

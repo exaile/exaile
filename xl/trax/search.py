@@ -61,7 +61,7 @@ class _Matcher(object):
                 return True
             return False
         else:
-            if type(vals) != list:
+            if not isinstance(vals, list):
                 vals = [vals]
             for item in vals:
                 try:
@@ -283,7 +283,7 @@ class TracksMatcher(object):
             return matchers
 
         # is it a special operator?
-        if type(token) == list:
+        if isinstance(token, list):
             if len(token) == 1:
                 token = token[0]
             subtoken = token[0]
@@ -472,7 +472,7 @@ class TracksInList(object):
         Matches tracks contained in a list/dict/set. Copies the list.
     '''
     
-    __slots__ = ['_tracks', 'tag']
+    __slots__ = ['_tracks']
     tag = None
     def __init__(self, tracks):
         if isinstance(tracks, dict):

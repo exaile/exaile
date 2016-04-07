@@ -25,8 +25,8 @@
 # from your version.
 
 
+from six import iteritems
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -34,7 +34,6 @@ import logging
 import time
 
 from xl import (
-    common,
     event,
     player,
     settings,
@@ -49,6 +48,7 @@ from xlgui.widgets import rating, menu
 logger = logging.getLogger(__name__)
 
 DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
+
 
 class Column(Gtk.TreeViewColumn):
     name = ''
@@ -96,7 +96,7 @@ class Column(Gtk.TreeViewColumn):
         except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
             
-        for name, val in self.cellproperties.iteritems():
+        for name, val in iteritems(self.cellproperties):
             self.cellrenderer.set_property(name, val)
 
         self.set_reorderable(True)
@@ -185,7 +185,7 @@ class Column(Gtk.TreeViewColumn):
         return self._font_ratio
                 
     def data_func(self, col, cell, model, iter, user_data):
-        if type(cell) == Gtk.CellRendererText:
+        if isinstance(cell, Gtk.CellRendererText):
             playlist = self.container.playlist
 
             
@@ -426,7 +426,7 @@ class ScheduleTimeColumn(Column):
                     delay = sum([t.get_tag_raw('__length') \
                         for t in playlist[current_position:position]])
                 except TypeError:
-                    # on tracks with length == None, we cannot determine
+                    # on tracks with length is None, we cannot determine
                     # when later tracks will play
                     pass
                 else:

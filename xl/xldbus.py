@@ -32,6 +32,7 @@
 """
 
 from collections import namedtuple
+from six import iteritems
 import logging
 import sys
 
@@ -44,6 +45,7 @@ from gi.repository import GObject
 # we are just issuing a dbus command to a running instance, so we need
 # to keep imports as light as possible.
 from xl import event
+from xl.common import to_unicode
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -107,7 +109,7 @@ def run_commands(options, iface):
         'GetLength': '__length',
     }
 
-    for command, attr in info_commands.iteritems():
+    for command, attr in iteritems(info_commands):
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:
@@ -256,9 +258,9 @@ class DbusManager(dbus.service.Object):
         except (ValueError, TypeError, AttributeError):
             value = ''
 
-        if type(value) == list:
+        if isinstance(value, list):
             return u"\n".join(value)
-        return unicode(value)
+        return to_unicode(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):

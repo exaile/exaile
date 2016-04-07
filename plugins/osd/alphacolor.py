@@ -16,6 +16,7 @@
 
 from gi.repository import Gdk
 
+
 class AlphaColor(Gdk.Color):
     """
         Wrapper around :class:`Gdk.Color`
@@ -54,7 +55,7 @@ class AlphaColor(Gdk.Color):
         # Create mapping of available parameters and arguments
         parameters = dict(zip(('red', 'green', 'blue', 'alpha', 'pixel'), args))
 
-        for parameter in parameters.iterkeys():
+        for parameter in parameters:
             if parameter in kwargs:
                 raise TypeError('Usage:\n'
                                 '  Color(red, green, blue, alpha, pixel)  '

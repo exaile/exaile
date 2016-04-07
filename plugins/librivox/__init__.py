@@ -44,6 +44,7 @@ from xlgui import (
 )
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.notebook import NotebookPage
+from xl.common import to_unicode
 
 def enable(exaile):
     if exaile.loading:
@@ -73,7 +74,7 @@ class LVPanel():
     @common.threaded
     def run_search(self, widget):
         (c_id, msg_id)=self.statusbar.set_status('Searching...')
-        self.keyword=unicode(self.entry.get_text(), 'utf-8')
+        self.keyword=to_unicode(self.entry.get_text(), 'utf-8')
         self.books=LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)

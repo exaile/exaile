@@ -192,19 +192,19 @@ class _WeakMethod:
             object that method is bound to dies.
         """
         assert ismethod(method)
-        if method.im_self is None:
+        if method.__self__ is None:
             raise ValueError("We need a bound method!")
         if notifyDead is None:
-            self.objRef = weakref.ref(method.im_self)
+            self.objRef = weakref.ref(method.__self__)
         else:
-            self.objRef = weakref.ref(method.im_self, notifyDead)
-        self.fun = method.im_func
-        self.cls = method.im_class
+            self.objRef = weakref.ref(method.__self__, notifyDead)
+        self.fun = method.__func__
+        self.cls = method.__class__
 
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            return types.MethodType(self.fun, objref, self.cls)
+            return types.MethodType(self.fun, objref)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):

@@ -2,15 +2,17 @@ try:
     import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
-import HTMLParser
+from six.moves import html_parser
 import re
-import urllib
+from six.moves import urllib
 
 from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
 from xl import common, providers
+from xl.common import to_unicode, str_from_utf8
+
 
 def enable(exaile):
     """
@@ -36,16 +38,16 @@ class LyricWiki(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            (artist, title) = str_from_utf8(track.get_tag_raw('artist')[0]), \
+                str_from_utf8(track.get_tag_raw('title')[0])
         except TypeError:
             raise LyricsNotFoundException
 
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ','_'))
-        title = urllib.quote(title.replace(' ','_'))
+        artist = urllib.parse.quote(artist.replace(' ','_'))
+        title = urllib.parse.quote(title.replace(' ','_'))
 
         url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 
@@ -56,7 +58,7 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(html)
-        except HTMLParser.HTMLParseError:
+        except html_parser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:
@@ -65,7 +67,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(to_unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 

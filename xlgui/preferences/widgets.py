@@ -33,13 +33,15 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Pango
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
-from xl import event, main, settings, xdg
+from xl import event, main, settings
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
+
 
 class Preference(object):
     """
@@ -99,7 +101,7 @@ class Preference(object):
         """
             Value to be stored into the settings file
         """
-        return unicode(self.widget.get_text(), 'utf-8')
+        return to_unicode(self.widget.get_text(), 'utf-8')
 
     def _set_value(self):
         """
@@ -766,7 +768,7 @@ class ShortcutListPreference(Preference):
             Updates the displayed items
         """
         self.list.clear()
-        for action in self.available_items.iterkeys():
+        for action in self.available_items:
             try:
                 accel = items[action]
             except KeyError:
@@ -793,7 +795,7 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return unicode(buf.get_text(start, end), 'utf-8')
+        return to_unicode(buf.get_text(start, end), 'utf-8')
 
     def _set_value(self):
         """
@@ -830,7 +832,7 @@ class ListPreference(Preference):
         # afterwards.
         import shlex
         values = shlex.split(self.widget.get_text())
-        values = [unicode(value, 'utf-8') for value in values]
+        values = [to_unicode(value, 'utf-8') for value in values]
         return values
 
 class SpinPreference(Preference):

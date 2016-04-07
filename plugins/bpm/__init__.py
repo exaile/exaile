@@ -25,22 +25,20 @@
 # from your version.
 
 
-import os
 import time
 
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GObject
- 
+
 from xl import (
-    event, 
+    event,
     providers,
     settings
 )
 
 from xl.nls import gettext as _
-from xlgui.guiutil import idle_add, GtkTemplate
-from xlgui.accelerators import Accelerator
+from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu, dialogs
 
 import bpmdetect
@@ -50,7 +48,8 @@ menu_providers = [
     'track-panel-menu',
     'playlist-context-menu',
 ]
-    
+
+
 class BPMCounterPlugin(object):
     """
         Implements logic for plugin
@@ -58,13 +57,13 @@ class BPMCounterPlugin(object):
     # Provider API requirement
     name = 'BPM'
     menuitem = None
-    
+
     def enable(self, exaile):
         pass
-    
+
     def on_gui_loaded(self):
         providers.register('mainwindow-info-area-widget', self)
-        
+
         if autodetect_enabled:
             self.menuitem = menu.simple_menu_item('_bpm', ['enqueue'],
                 _('Autodetect BPM'), callback=self.on_auto_menuitem,

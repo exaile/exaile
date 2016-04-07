@@ -29,9 +29,9 @@ import sys
 import os
 
 try:
-    from cStringIO import StringIO
+    from six.moves import cStringIO as StringIO
 except ImportError:
-    from StringIO import StringIO
+    from six.moves import StringIO
 from functools import reduce
 
 try:

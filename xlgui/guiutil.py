@@ -24,19 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from collections import namedtuple
+from six import string_types
+from six.moves import range
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gtk
 import logging
 import os
 import os.path
-import threading
 
-from xl import event, settings, xdg
+from xl import settings, xdg
 from xlgui import icons
 
 # moved idle_add to common, useful for more than just GUI stuff :)
@@ -472,7 +471,7 @@ def initialize_from_xml(this, other=None):
     '''
     builder = Gtk.Builder()
     
-    if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
+    if isinstance(this.ui_filename, string_types) and os.path.exists(this.ui_filename):
         builder.add_from_file(this.ui_filename)
     else:
         builder.add_from_file(xdg.get_data_path(*this.ui_filename))
@@ -526,7 +525,7 @@ def persist_selection(widget, key_col, setting_name):
     
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)

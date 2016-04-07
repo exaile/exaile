@@ -25,26 +25,31 @@
 # from your version.
 
 
+from six.moves import range
 from xl.nls import gettext as _
 from xl import providers, event
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
 import logging
-logger = logging.getLogger(__name__)
 
-import dbus, threading, os, struct
+import dbus
+import os
+import struct
 from fcntl import ioctl
 from xl import playlist, trax, common
-from xl import settings
 import os.path
 
 try:
-    import DiscID, CDDB
-    CDDB_AVAIL=True
+    import DiscID
+    import CDDB
+    CDDB_AVAIL = True
 except:
-    CDDB_AVAIL=False
+    CDDB_AVAIL = False
 
 import cdprefs
+
+logger = logging.getLogger(__name__)
+
 
 def get_preferences_pane():
     return cdprefs
@@ -57,6 +62,7 @@ CDROMREADTOCENTRY = 0x5306
 CDROM_LEADOUT = 0xAA
 CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
+
 
 class CdPlugin(object):
     
@@ -171,9 +177,8 @@ class CDPlaylist(playlist.Playlist):
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
-        sort_tups = [ (int(s.get_tag_raw('tracknumber')[0]),s) \
-                for s in songs.values() ]
-        sort_tups.sort()
+        sort_tups = sorted([ (int(s.get_tag_raw('tracknumber')[0]),s) \
+                for s in songs.values() ])
         sorted = [ s[1] for s in sort_tups ]
 
         self.extend(sorted)

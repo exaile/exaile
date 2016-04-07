@@ -26,6 +26,7 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
+from six import iteritems, itervalues
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -257,9 +258,8 @@ class Main(object):
             collection = self.exaile.collection
             collection.freeze_libraries()
 
-            collection_libraries = [(l.location, l.monitored, l.startup_scan) \
-                for l in collection.libraries.itervalues()]
-            collection_libraries.sort()
+            collection_libraries = sorted([(l.location, l.monitored, l.startup_scan) \
+                for l in itervalues(collection.libraries)])
             new_libraries = dialog.get_items()
             new_libraries.sort()
 
@@ -276,7 +276,7 @@ class Main(object):
 
                     removals = []
 
-                    for location, library in collection.libraries.iteritems():
+                    for location, library in iteritems(collection.libraries):
                         if location not in new_locations:
                             removals += [library]
 

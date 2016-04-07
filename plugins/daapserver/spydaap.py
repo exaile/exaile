@@ -14,10 +14,16 @@
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import print_function
-import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, select, signal, spydaap, sys
+from six.moves import BaseHTTPServer, socketserver
+import getopt
+import grp
+import logging
+import os
+import pwd
+import select
+import signal
+import sys
 import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
-from spydaap.daap import do
-import config
 
 logging.basicConfig()
 log = logging.getLogger('spydaap')
@@ -37,7 +43,7 @@ class Log:
         self.f.write(s)
         self.f.flush()
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
 

@@ -30,8 +30,8 @@ Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
 
+from six import iteritems, with_metaclass
 from datetime import date
-from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
 import re
@@ -39,14 +39,15 @@ from string import Template, _TemplateMetaclass
 
 from xl import (
     common,
-    event,
-    main,
     providers,
     settings,
     trax
 )
 from xl.common import TimeSpan
+from xl.common import to_unicode
 from xl.nls import gettext as _, ngettext
+import collections
+
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
@@ -81,7 +82,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
             }
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
-class ParameterTemplate(Template):
+class ParameterTemplate(with_metaclass(_ParameterTemplateMetaclass, Template)):
     """
         An extended template class which additionally
         accepts parameters assigned to identifiers.
@@ -96,7 +97,6 @@ class ParameterTemplate(Template):
         * ``${bar:parameter1, parameter2}``
         * ``${qux:parameter1=argument1, parameter2}``
     """
-    __metaclass__ = _ParameterTemplateMetaclass
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):
@@ -257,7 +257,7 @@ class Formatter(GObject.GObject):
                 for p in parameters:
                     argument = parameters[p]
 
-                    if type(argument) is not bool:
+                    if not isinstance(argument, bool):
                         argument = argument.replace(r'\,', ',')
                         argument = argument.replace(r'\}', '}')
                         argument = argument.replace(r'\=', '=')
@@ -282,7 +282,7 @@ class Formatter(GObject.GObject):
         extractions = self.extract()
         substitutions = {}
 
-        for needle, (identifier, parameters) in extractions.iteritems():
+        for needle, (identifier, parameters) in iteritems(extractions):
             substitute = None
 
             if needle in self._substitutions:
@@ -296,7 +296,7 @@ class Formatter(GObject.GObject):
                 pad = int(parameters.pop('pad', 0))
                 padstring = parameters.pop('padstring', '')
 
-                if callable(substitute):
+                if isinstance(substitute, collections.Callable):
                     substitute = substitute(*args, **parameters)
 
                 if pad > 0 and padstring:
@@ -395,7 +395,7 @@ class TrackFormatter(Formatter):
         extractions = self.extract()
         self._substitutions = {}
 
-        for identifier, (tag, parameters) in extractions.iteritems():
+        for identifier, (tag, parameters) in iteritems(extractions):
             provider = providers.get_provider('tag-formatting', tag)
 
             if provider is None:
@@ -404,7 +404,7 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
+                substitute = to_unicode(GLib.markup_escape_text(substitute), 'utf8')
 
             self._substitutions[identifier] = substitute
 
@@ -660,8 +660,9 @@ class RatingTagFormatter(TagFormatter):
         filled = '★' * int(rating)
         empty = '☆' * int(maximum - rating)
 
-        return ('%s%s' % (filled, empty)).decode('utf-8')
+        return to_unicode('%s%s' % (filled, empty), 'utf8')
 providers.register('tag-formatting', RatingTagFormatter())
+
 
 class YearTagFormatter(TagFormatter):
     """

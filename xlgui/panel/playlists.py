@@ -25,6 +25,7 @@
 # from your version.
 
 
+from six import iteritems
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
@@ -39,9 +40,9 @@ from xl import (
     settings,
     trax
 )
+from xl.common import to_unicode, str_from_utf8
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons,
     panel
 )
@@ -237,7 +238,7 @@ def __update_maps():
     
     from xl.metadata.tags import tag_data
     
-    for tag, data in tag_data.iteritems():
+    for tag, data in iteritems(tag_data):
         
         if data is None:
             continue
@@ -271,6 +272,9 @@ class TrackWrapper(object):
                 text += u' - ' + u' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
+
+    def __str__(self):
+        return str_from_utf8(self.__unicode__())
 
 
 class BasePlaylistPanelMixin(GObject.GObject):
@@ -536,7 +540,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         for track in playlist:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, to_unicode(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:
@@ -687,8 +691,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.custom = self.model.append(None, [self.folder,
             _("Custom Playlists"), None])
 
-        names = self.smart_manager.playlists[:]
-        names.sort()
+        names = sorted(self.smart_manager.playlists[:])
         for name in names:
             self.model.append(self.smart, [self.playlist_image, name,
                 self.smart_manager.get_playlist(name)])
@@ -804,11 +807,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if not isinstance(pl, playlist.SmartPlaylist): return
 
         _REV = {}
-        for k, v in _TRANS.iteritems():
+        for k, v in iteritems(_TRANS):
             _REV[v] = k
 
         _REV_NMAP = {}
-        for k, v in _NMAP.iteritems():
+        for k, v in iteritems(_NMAP):
             _REV_NMAP[v] = k
 
         params = pl.search_params

@@ -368,7 +368,7 @@ class ExailePlayer(object):
         except (TypeError, AttributeError):
             return
         
-        if length == None: return
+        if length is None: return
         
         pos = self.get_time()
         seek_pos = pos + diff
@@ -538,11 +538,11 @@ class ExailePlayer(object):
     #
     
     def _get_play_params(self, track, start_at, paused, autoadvance):
-        if start_at <= 0:
+        if not start_at or start_at <= 0:
             start_at = None
         
         if start_at is None:
-            start_offset = track.get_tag_raw('__startoffset')
+            start_offset = track.get_tag_raw('__startoffset') or 0
             if start_offset > 0:
                 start_at = start_offset
                 
@@ -570,12 +570,12 @@ class ExailePlayer(object):
         """
         if track and self._playtime_stamp:
             last = track.get_tag_raw('__playtime')
-            if type(last) == str:
+            if isinstance(last, str):
                 try:
                     last = int(last)
                 except:
                     last = 0
-            elif type(last) != int:
+            elif not isinstance(last, int):
                 last = 0
             track.set_tag_raw('__playtime', last + int(time.time() - \
                     self._playtime_stamp))

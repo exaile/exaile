@@ -24,10 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 from gi.repository import Gio
 from gi.repository import Gtk
 import logging
-import os
 
 from xl.nls import gettext as _
 from xl import (
@@ -65,7 +65,7 @@ class CollectionManagerDialog(Gtk.Dialog):
             buttons=Gtk.ButtonsType.CLOSE
         )
 
-        for location, library in collection.libraries.iteritems():
+        for location, library in iteritems(collection.libraries):
             self.model.append([location, library.monitored, library.startup_scan])
 
     def get_items(self):

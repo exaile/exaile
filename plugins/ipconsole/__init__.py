@@ -18,7 +18,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import sys
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -36,7 +35,8 @@ except:
 
 import ipython_view as ip
 from gi.repository import Pango
-import __builtin__, site
+from six.moves import builtins
+import site
 
 FONT = "Luxi Mono 10"
 
@@ -57,7 +57,8 @@ class Quitter(object):
 
     def __repr__(self):
         return 'Type %s() to exit.' % self.name
-        __str__ = __repr__
+
+    __str__ = __repr__
 
     def __call__(self):
         self.exit()         # Passed in exit function
@@ -131,8 +132,8 @@ class IPyConsole(Gtk.Window):
         # This is so when exaile calls exit(), IP doesn't prompt and prevent
         # it from closing
         try:
-            __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
-            __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
+            builtins.exit = Quitter(ipv.IP.magic_Exit, 'exit')
+            builtins.quit = Quitter(ipv.IP.magic_Exit, 'quit')
         except AttributeError: # newer versions of IP don't need this
             pass
 

@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -139,7 +140,7 @@ class PluginManager(object):
             if item[0] == uncategorized:
                 return '\xff' * 10
             return xl.common.strxfrm(item[0])
-        plugins_dict = sorted(plugins_dict.iteritems(), key=categorykey)
+        plugins_dict = sorted(iteritems(plugins_dict), key=categorykey)
 
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: xl.common.strxfrm(x[1]))

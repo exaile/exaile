@@ -25,6 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems, text_type, iterkeys
 from copy import deepcopy
 from gi.repository import Gio
 from gi.repository import GLib
@@ -185,13 +186,13 @@ class Track(object):
                         unpickles = args[2]
                     else:
                         unpickles = kwargs.get("_unpickles")
-                
+
                 if unpickles is not None:
-                    for tag, values in unpickles.iteritems():
+                    for tag, values in iteritems(unpickles):
                         tags = tr.list_tags()
                         if tag.startswith('__') and tag not in tags:
                             tr.set_tag_raw(tag, values)
-                
+
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr
@@ -321,7 +322,7 @@ class Track(object):
             path = GLib.filename_display_basename(path)
         else:  # Non-local
             path = GLib.filename_display_name(gfile.get_basename())
-        return path.decode('utf-8')
+        return common.to_unicode(path, 'utf8')
 
     def get_type(self):
         """
@@ -364,7 +365,7 @@ class Track(object):
                 self._scan_valid = False
                 return False # not a supported type
             ntags = f.read_all()
-            for k, v in ntags.iteritems():
+            for k, v in iteritems(ntags):
                 self.set_tag_raw(k, v)
 
             # remove tags that have been deleted in the file, while
@@ -449,7 +450,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return self.__tags.keys() + ['__basename']
+        return list(iterkeys(self.__tags)) + ['__basename']
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
@@ -480,7 +481,6 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                    if isinstance(v, basestring) else v
                 for v in values
                     if v not in (None, '')
             ]
@@ -599,7 +599,7 @@ class Track(object):
         """
         if tag == '__loc':
             uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
-            return uri.decode('utf-8')
+            return common.to_unicode(uri, 'utf8')
 
         value = None
         if tag == "albumartist":
@@ -705,7 +705,7 @@ class Track(object):
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution
         if not isinstance(value, list) and not tag.startswith("__"):
-            value = unicode(value)
+            value = common.to_unicode(value)
 
         return value
 
@@ -804,7 +804,7 @@ class Track(object):
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, unicode):
+        if type(values) in (str, text_type):
             return values
         return glue.join(map(common.to_unicode, values))
 
@@ -883,7 +883,7 @@ class Track(object):
 
             value must be in lower-case
         """
-        for k, v in _sortcharmap.iteritems():
+        for k, v in iteritems(_sortcharmap):
             value = value.replace(k, v)
         return value
 # This is slower, don't use it!

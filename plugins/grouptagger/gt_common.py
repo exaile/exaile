@@ -29,32 +29,31 @@
 #
 
 
+from six import iteritems
 from gi.repository import Gtk
 from gi.repository import GObject
  
 import re
- 
+
 from xl import (
-    event, 
     playlist,
-    providers,
-    player,
     settings
 )
 
 from xl.nls import gettext as _
 from xl.trax import search
 
-from xlgui import guiutil, main
-from xlgui.widgets import menu, dialogs
+from xlgui import main
+from xlgui.widgets import dialogs
 
-import gt_widgets 
- 
+import gt_widgets
+
 
 group_categories_option = 'plugin/grouptagger/group_categories'
 migrated_option = 'plugin/grouptagger/0.2_migration'
 tagname_option = 'plugin/grouptagger/tagname'
-  
+
+
 def migrate_settings():
     '''Automatically migrate group tagger 0.1 settings to 0.2'''
     
@@ -119,7 +118,7 @@ def get_groups_from_categories():
     
     groups = set()
     categories = get_group_categories()
-    for category, (expanded, cgroups) in categories.iteritems():
+    for category, (expanded, cgroups) in iteritems(categories):
         for group in cgroups:
             groups.add( group )
     return groups

@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 import logging, threading, time
 import dbus
 
@@ -315,7 +316,7 @@ class UDisksBase(providers.ProviderHandler):
         if self._addremove():
             try:
                 to_remove = []
-                for path, provider_ in self.providers.iteritems():
+                for path, provider_ in iteritems(self.providers):
                     if provider_ is provider:
                         to_remove.append(path)
                         

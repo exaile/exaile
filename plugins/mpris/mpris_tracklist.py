@@ -23,6 +23,7 @@ import dbus.service
 import xl.trax
 import xl.event
 from xl import player
+from xl.common import to_unicode
 
 import mpris_tag_converter
 
@@ -89,7 +90,7 @@ class ExaileMprisTrackList(dbus.service.Object):
             Appends an URI in the TrackList.
         """
         uri = uri[7:]
-        track = self.exaile.collection.get_track_by_loc(unicode(uri))
+        track = self.exaile.collection.get_track_by_loc(to_unicode(uri))
         if track is None:
             track = xl.trax.Track(uri)
         player.QUEUE.current_playlist.add(track)

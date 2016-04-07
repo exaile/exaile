@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
@@ -422,7 +423,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        for marker, points in self._points.iteritems():
+        for marker, points in iteritems(self._points):
             for i, (x, y) in enumerate(points):
                 if i == 0:
                     context.move_to(x, y)

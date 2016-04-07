@@ -36,16 +36,16 @@ from xlgui.widgets import menu
 
 # Custom tab style; fixes some Adwaita ugliness
 TAB_CSS = Gtk.CssProvider()
-TAB_CSS.load_from_data(
-    '.notebook { '
-        # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; '
-        # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; '
-    '} '
-    # Make tabs smaller (or bigger on some other themes, unfortunately)
-    '.notebook tab { padding: 6px } '
-)
+TAB_CSS.load_from_data(b'''
+    .notebook {
+        /* Remove gap before first tab */
+        -GtkNotebook-initial-gap: 0;
+        /* Remove gap between tabs */
+        -GtkNotebook-tab-overlap: 1;
+    }
+    /* Make tabs smaller (or bigger on some other themes, unfortunately) */
+    .notebook tab { padding: 6px }
+''')
 
 class SmartNotebook(Gtk.Notebook):
     def __init__(self):

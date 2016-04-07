@@ -25,8 +25,11 @@
 # from your version.
 
 
+from six import iteritems
+from six.moves import range
 from gi.repository import Gst
 
+from xl.common import to_unicode
 from xl.providers import ProviderHandler
 
 import logging
@@ -164,7 +167,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                 logger.exception("Could not create %s element for %s.",
                                  provider, self.get_name())
         
-        for k, v in dups.iteritems():
+        for k, v in iteritems(dups):
             logger.warning("Audio plugins %s are sharing index %s (may have unpredictable output!)",
                             v, k)
         
@@ -198,15 +201,15 @@ def parse_stream_tags(track, tag_list):
     
     # Build a dictionary first
     tags = {}
-    for i in xrange(tag_list.n_tags()):
+    for i in range(tag_list.n_tags()):
         k = tag_list.nth_tag_name(i)
         if k not in keep:
             continue
         
-        values = [tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))]
+        values = [tag_list.get_value_index(k, vi) for vi in range(tag_list.get_tag_size(k))]
         if isinstance(values[0], str):
             try:
-                values = [unicode(v, 'utf-8') for v in values]
+                values = [to_unicode(v, 'utf-8') for v in values]
             except UnicodeDecodeError:
                 logger.debug("Can't decode: " + repr(values))
                 continue

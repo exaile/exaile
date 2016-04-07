@@ -19,13 +19,14 @@ except ImportError:
     lxml = None
 
 import re
-import urllib2
 
 from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
 from xl import common, providers
+from xl.common import str_from_utf8
+
 
 def enable(exaile):
     """
@@ -52,8 +53,8 @@ class LyricsMania(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            (artist, title) = str_from_utf8(track.get_tag_raw('artist')[0]), \
+                str_from_utf8(track.get_tag_raw('title')[0])
         except TypeError:
             raise LyricsNotFoundException
 
@@ -79,11 +80,11 @@ class LyricsMania(LyricSearchMethod):
             lyrics_body = lyrics_html.find_class('lyrics-body')[0]
             lyrics_body.remove(lyrics_body.get_element_by_id('video-musictory'))
             lyrics = re.sub('^\s+Lyrics to .+', '', lyrics_body.text_content())
-        except :
+        except:
             raise LyricsNotFoundException
 
         # We end up with unicode in some systems, str (bytes) in others;
         # no idea why and which one is correct.
         if isinstance(lyrics, bytes):
-            lyrics = lyrics.decode('utf-8', errors='replace')
+            lyrics = common.to_unicode(lyrics, 'utf8', errors='replace')
         return (lyrics, self.name, url)

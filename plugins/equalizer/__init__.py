@@ -26,8 +26,8 @@
 
 # support python 2.5
 from __future__ import with_statement
+from six.moves import range
 
-from gi.repository import GLib
 from gi.repository import Gst
 from gi.repository import Gtk
 
@@ -37,7 +37,8 @@ from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
-import os, string
+import os
+import string
 
 # Values from <http://www.xmms.org/faq.php#General3>, adjusted to be less loud
 # in general ((mean + max) / 2 = 0).
@@ -62,6 +63,7 @@ DEFAULT_PRESETS = [
     ('Soft Rock', 0, -0.8, -0.8, -2.4, -4.8, -8.8, -10.4, -8.0, -4.8, -2.4, 4.0),
     ('Techno', 0, 1.2, -1.2, -6.8, -12.4, -11.6, -6.8, 1.2, 2.8, 2.8, 2.0),
 ]
+
 
 def enable(exaile):
     providers.register("gst_audio_filter", GSTEqualizer)
@@ -106,7 +108,7 @@ class GSTEqualizer(ElementBin):
         event.add_ui_callback(self._on_option_set,
                 "plugin_equalizer_option_set")
 
-        setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]
+        setts = ["band%s" for n in range(10)] + ["pre", "enabled"]
         for setting in setts:
             self._on_option_set("plugin_equalizer_option_set", None,
                 "plugin/equalizer/%s"%setting)
@@ -165,13 +167,13 @@ class EqualizerPlugin:
     def check_default_settings(self):
 
         for band in range(10):
-            if settings.get_option("plugin/equalizer/band%s"%band) == None:
+            if settings.get_option("plugin/equalizer/band%s"%band) is None:
                 settings.set_option("plugin/equalizer/band%s"%band, 0.0)
 
-        if settings.get_option("plugin/equalizer/pre") == None:
+        if settings.get_option("plugin/equalizer/pre") is None:
             settings.set_option("plugin/equalizer/pre", 0.0)
 
-        if settings.get_option("plugin/equalizer/enabled") == None:
+        if settings.get_option("plugin/equalizer/enabled") is None:
             settings.set_option("plugin/equalizer/enabled", True)
 
 
@@ -184,11 +186,6 @@ class EqualizerPlugin:
         if self.window:
             self.window.hide()
             self.window.destroy()
-
-    def load_presets(self):
-        """
-        Populate the GTK ListStore with presets
-        """
 
     def show_gui(self, exaile):
         """
@@ -281,7 +278,6 @@ class EqualizerPlugin:
             self.ui.get_object("combo-presets").set_active(0)
 
     def add_preset(self, widget):
-
         new_preset = []
         new_preset.append(self.ui.get_object("combo-presets"
                 ).get_child().get_text())
@@ -303,7 +299,6 @@ class EqualizerPlugin:
             self.save_presets()
 
     def preset_changed(self, widget):
-
         d = widget.get_model()
         i = widget.get_active()
 
@@ -319,8 +314,6 @@ class EqualizerPlugin:
                         d.get_value( d.get_iter(i), band+2))
                 self.ui.get_object("band%s"%band).set_value(
                         d.get_value( d.get_iter(i), band+2))
-
-
 
     def toggle_enabled(self, widget):
         settings.set_option("plugin/equalizer/enabled", widget.get_active())
@@ -340,6 +333,10 @@ class EqualizerPlugin:
                 f.write(s)
 
     def load_presets(self):
+        """
+        Populate the GTK ListStore with presets
+        """
+
         if os.path.exists(self.presets_path):
             with open(self.presets_path, 'r') as f:
                 line = f.readline()

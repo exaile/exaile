@@ -24,24 +24,28 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems, text_type, string_types
+from xl.common import to_unicode
 from collections import namedtuple
 import copy
-from gi.repository import Gio
 
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images
-# - type is a number corresponding to the cover type of ID3 APIC tags, 
-#   desc is a string describing the image, mime is a type, 
+# - type is a number corresponding to the cover type of ID3 APIC tags,
+#   desc is a string describing the image, mime is a type,
 #   data is the img data
 # -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
+
 class NotWritable(Exception):
     pass
 
+
 class NotReadable(Exception):
     pass
+
 
 class BaseFormat(object):
     """
@@ -74,7 +78,7 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         self._reverse_mapping = dict((
-            (v,k) for k,v in self.tag_mapping.iteritems() ))
+            (v, k) for k, v in iteritems(self.tag_mapping)))
         self.load()
 
     def load(self):
@@ -129,7 +133,7 @@ class BaseFormat(object):
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if isinstance(t, basestring) and t.startswith("__"):
+            if isinstance(t, string_types) and t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -155,27 +159,27 @@ class BaseFormat(object):
                     t = self.get_info(tag)
                 except KeyError:
                     pass
-            if t == None and tag in self.tag_mapping:
+            if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, text_type]:
                         t = [t]
                     elif isinstance(t, list):
                         pass
                     else:
                         try:
-                            t = [unicode(u) for u in list(t)]
+                            t = [to_unicode(u) for u in list(t)]
                         except UnicodeDecodeError:
                             t = t
                 except (KeyError, TypeError):
                     pass
-            if t == None and self.others:
+            if t is None and self.others:
                 try:
                     t = self._get_tag(raw, tag)
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, text_type]:
                         t = [t]
                     else:
-                        t = [unicode(u) for u in list(t)]
+                        t = [to_unicode(u) for u in list(t)]
                 except (KeyError, TypeError):
                     pass
 

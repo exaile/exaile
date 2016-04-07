@@ -148,7 +148,7 @@ def load_tracks(db, current=None):
         """):
 
         t = oldtrack.Track(*row)
-        path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
+        path, ext = str_from_utf8(os.path.splitext(row[0].lower()))
         t.type = "file" 
 
         if already_added(t, added): continue

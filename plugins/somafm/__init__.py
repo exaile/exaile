@@ -16,8 +16,7 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-from urllib2 import urlparse
-import httplib
+from six.moves import urllib, http_client
 import socket
 try:
     import xml.etree.cElementTree as ETree
@@ -80,12 +79,12 @@ class SomaFMRadioStation(RadioStation):
             Connects to the server and retrieves the document
         """
         set_status(_('Contacting SomaFM server...'))
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout = 20)
+            c = http_client.HTTPConnection(hostinfo.netloc, timeout = 20)
         except TypeError:
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http_client.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent':
@@ -152,8 +151,7 @@ class SomaFMRadioStation(RadioStation):
                 self._get_subrlists(id = id, no_cache = no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
 
@@ -167,8 +165,7 @@ class SomaFMRadioStation(RadioStation):
 
             rlists = self._get_stations(id)
 
-            sort_list = [(item.name, item) for item in rlists]
-            sort_list.sort()
+            sort_list = sorted([(item.name, item) for item in rlists])
             rlists = [item[1] for item in sort_list]
 
             self.subs[id] = rlists

@@ -3,14 +3,11 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import httplib
 import logging
-logger = logging.getLogger(__name__)
 import os
 import re
 import socket
-import urllib
-from urllib2 import urlparse
+from six.moves import http_client, urllib
 from xml.dom import minidom
 
 from xl import common, event, main, playlist, xdg
@@ -20,6 +17,7 @@ from xlgui import guiutil
 from xlgui.widgets import dialogs
 
 STATION = None
+logger = logging.getLogger(__name__)
 
 def enable(exaile):
     if exaile.loading:
@@ -107,12 +105,12 @@ class IcecastRadioStation(RadioStation):
         from xlgui.panel import radio
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            hostinfo = urlparse.urlparse(self.genre_url)
+            hostinfo = urllib.parse.urlparse(self.genre_url)
             try:
-                c = httplib.HTTPConnection(hostinfo.netloc,
+                c = http_client.HTTPConnection(hostinfo.netloc,
                         timeout=20)
             except TypeError: # python 2.5 doesnt have timeout=
-                c = httplib.HTTPConnection(hostinfo.netloc)
+                c = http_client.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
                     self.user_agent})
@@ -154,8 +152,7 @@ class IcecastRadioStation(RadioStation):
                 self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
         return rlists
@@ -171,8 +168,7 @@ class IcecastRadioStation(RadioStation):
 
         rlists = self._get_stations(url)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
 
         self.subs[name] = rlists
@@ -197,22 +193,22 @@ class IcecastRadioStation(RadioStation):
 
             @param keyword: the keyword to search
         """
-        url = self.search_url_prefix + urllib.quote_plus(keyword)
+        url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
         return self._get_stations(url)
 
     def _get_stations(self, url):
         from xlgui.panel import radio
 
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
         query = hostinfo.query
         items = []
         thisPage = -1
         nextPage = 0
         set_status(_('Contacting Icecast server...'))
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http_client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError: # python 2.5 doesnt have timeout=
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http_client.HTTPConnection(hostinfo.netloc)
         while thisPage < nextPage:
             thisPage += 1
             try:

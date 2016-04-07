@@ -25,6 +25,7 @@
 # from your version.
 
 from __future__ import absolute_import
+from six import iteritems, itervalues
 
 import logging
 import shelve
@@ -59,8 +60,11 @@ class TrackDBIterator(object):
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.iter.next()[1]._track
+    def __next__(self):
+        return next(self.iter)[1]._track
+
+    next = __next__
+
 
 class TrackDB(object):
     """
@@ -114,7 +118,7 @@ class TrackDB(object):
             or removed during iteration, iteration will halt
             wuth a RuntimeError.
         """
-        track_iterator = self.tracks.iteritems()
+        track_iterator = iteritems(self.tracks)
         iterator = TrackDBIterator(track_iterator)
         return iterator
 
@@ -241,7 +245,7 @@ class TrackDB(object):
             :type location: string
         """
         if not self._dirty:
-            for track in self.tracks.itervalues():
+            for track in itervalues(self.tracks):
                 if track._track._dirty:
                     self._dirty = True
                     break
@@ -278,7 +282,7 @@ class TrackDB(object):
         for attr in self.pickle_attrs:
             # bad hack to allow saving of lists/dicts of Tracks
             if 'tracks' == attr:
-                for k, track in self.tracks.iteritems():
+                for k, track in iteritems(self.tracks):
                     key = "tracks-%s" % track._key
                     if track._track._dirty or key not in pdata:
                         pdata[key] = (
@@ -299,7 +303,7 @@ class TrackDB(object):
         pdata.sync()
         pdata.close()
 
-        for track in self.tracks.itervalues():
+        for track in itervalues(self.tracks):
             track._track._dirty = False
 
         self._dirty = False

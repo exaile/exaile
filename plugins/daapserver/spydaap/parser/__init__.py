@@ -13,17 +13,20 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import os, re
+import os
+import re
 from spydaap.daap import do
+from xl.common import to_unicode
+
 
 class Parser:
     def handle_string_tags(self, map, md, daap):
         h = {}
         for k in md.tags.keys():
-            if map.has_key(k):
-                tag = [ unicode(t) for t in md.tags[k] ]
+            if k in map:
+                tag = [to_unicode(t) for t in md.tags[k]]
                 tag = [ t for t in tag if t != "" ]
-                if not(h.has_key(map[k])): h[map[k]] = []
+                if not(map[k] in h): h[map[k]] = []
                 h[map[k]] = h[map[k]] + tag
         for k in h.keys():
             h[k].sort()
@@ -31,11 +34,11 @@ class Parser:
 
     def handle_int_tags(self, map, md, daap):
         for k in md.tags.keys():
-            if map.has_key(k):
+            if k in map:
                 val = md.tags[k]
-                if type(val) == list:
+                if isinstance(val, list):
                     val = val[0]
-                intval = self.my_int(unicode(val))
+                intval = self.my_int(to_unicode(val))
                 if intval: daap.append(do(map[k], intval))
 
     def add_file_info(self, filename, daap):
@@ -51,7 +54,7 @@ class Parser:
         return name
 
     def clean_int_string(self, s):
-        return re.sub(u'[^0-9]', '', unicode(s))
+        return re.sub(u'[^0-9]', '', to_unicode(s))
     
     def my_int(self, s):
         try:

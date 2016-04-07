@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 from gi.repository import GObject
 from gi.repository import Gtk
 
@@ -63,7 +64,7 @@ class AudioSinkPreference(widgets.ComboPreference):
                 return -1
             return 1
                 
-        for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
+        for name, preset in sorted(iteritems(SINK_PRESETS), _sink_cmp):
             model.append((name, preset['name']))
         self._set_value()
 

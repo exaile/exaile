@@ -45,11 +45,13 @@ class OrderedCache(object):
         def __iter__(self):
             return self
 
-        def next(self):
+        def __next__(self):
             if self.n >= len(self.cache):
                 raise StopIteration
-            self.n = self.n + 1 
+            self.n = self.n + 1
             return self.cache.get_item_by_id(self.n)
+
+        next = __next__
 
     def __init__(self, dir):
         self.dir = os.path.abspath(dir)
@@ -73,9 +75,8 @@ class OrderedCache(object):
         index_fn = os.path.join(self.dir, 'index')
         if os.path.exists(index_fn):
             os.remove(index_fn)
-        if pid_list == None:
-            pid_list = [ f for f in os.listdir(self.dir) if f != "index"]
-            pid_list.sort()
+        if pid_list is None:
+            pid_list = sorted([ f for f in os.listdir(self.dir) if f != "index"])
         fi = open(index_fn, 'w')
         for pid in pid_list:
             fi.write(pid)

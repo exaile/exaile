@@ -9,10 +9,15 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
-import struct, sys, httplib
+from six import iteritems, text_type
+from six.moves import http_client
 import logging
+import struct
+import sys
 from daap_data import *
 from cStringIO import StringIO
+from xl.common import to_unicode, str_from_utf8
+
 
 __all__ = ['DAAPError', 'DAAPObject', 'do']
 
@@ -50,7 +55,7 @@ def DAAPParseCodeTypes(treeroot):
                         dtype   = 's'
                 else:
                     raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
-            if code == None or name == None or dtype == None:
+            if code is None or name is None or dtype is None:
                 log.debug('DAAPParseCodeTypes: missing information, not adding entry')
             else:
                 try:
@@ -65,19 +70,19 @@ class DAAPError(Exception): pass
 
 class DAAPObject(object):
     def __init__(self, code=None, value=None, **kwargs):
-        if (code != None):
+        if (code is not None):
             if (len(code) == 4):
                 self.code = code
             else:
                 self.code = dmapNames[code]
-            if self.code == None or not dmapCodeTypes.has_key(self.code):
+            if self.code == None or self.code not in dmapCodeTypes:
                 self.type = None
             else:
                 self.type = dmapCodeTypes[self.code][1]
             self.value = value
-            if self.type == 'c' and type(self.value) == list:
+            if self.type == 'c' and isinstance(self.value, list):
                 self.contains = value
-        if kwargs.has_key('parent'):
+        if 'parent' in kwargs:
             kwargs['parent'].contains.append(self)
 
     def getAtom(self, code):
@@ -95,13 +100,13 @@ class DAAPObject(object):
         return None
 
     def codeName(self):
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code == None or self.code not in dmapCodeTypes:
             return None
         else:
             return dmapCodeTypes[self.code][0]
 
     def objectType(self):
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code == None or self.code not in dmapCodeTypes:
             return None
         else:
             return dmapCodeTypes[self.code][1]
@@ -125,7 +130,7 @@ class DAAPObject(object):
             value = ''
             for item in self.contains:
                 # get the data stream from each of the sub elements
-                if type(item) == str:
+                if isinstance(item, str):
                     #preencoded
                     value += item
                 else:
@@ -141,7 +146,7 @@ class DAAPObject(object):
             # we want to encode the contents of
             # value for our value
             value = self.value
-            if type(value) == float:
+            if isinstance(value, float):
                 value = int(value)
             if self.type == 'v':
                 value = value.split('.')
@@ -152,7 +157,7 @@ class DAAPObject(object):
             elif self.type == 'ul':
                 packing = 'Q'
             elif self.type == 'i':
-                if (type(value) == str and len(value) <= 4):
+                if (isinstance(value, str) and len(value) <= 4):
                     packing = '4s'
                 else:
                     packing = 'i'
@@ -169,14 +174,14 @@ class DAAPObject(object):
             elif self.type == 't':
                 packing = 'I'
             elif self.type == 's':
-                if type(value) == unicode:
-                    value = value.encode('utf-8')
+                if isinstance(value, text_type):
+                    value = str_from_utf8(value)
                 packing = '%ss' % len(value)
             else:
                 raise DAAPError('DAAPObject: encode: unknown code %s' % self.code)
                 return
             # calculate the length of what we're packing
-            length  = struct.calcsize('!%s' % packing)
+            length = struct.calcsize('!%s' % packing)
             # pack: 4 characters for the code, 4 bytes for the length, and 'length' bytes for the value
             data = struct.pack('!4sI%s' % (packing), self.code, length, value)
             return data
@@ -189,7 +194,7 @@ class DAAPObject(object):
         self.code, self.length = struct.unpack('!4sI', data)
 
         # now we need to find out what type of object it is
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code == None or self.code not in dmapCodeTypes:
             self.type = None
         else:
             self.type = dmapCodeTypes[self.code][1]
@@ -243,11 +248,11 @@ class DAAPObject(object):
             # the object is a string
             # we need to read length characters from the string
             try:
-                self.value  = unicode(
+                self.value  = to_unicode(
                     struct.unpack('!%ss' % self.length, code)[0], 'utf-8')
             except UnicodeDecodeError:
                 # oh, urgh
-                self.value = unicode(
+                self.value = to_unicode(
                     struct.unpack('!%ss' % self.length, code)[0], 'latin-1')
         else:
             # we don't know what to do with this object
@@ -265,7 +270,7 @@ class DAAPClient(object):
 #        self._old_itunes = 0
 
     def connect(self, hostname, port = 3689, password = None):
-        if self.socket != None:
+        if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
 #        if ':' in hostname:
 #            raise DAAPError('cannot connect to ipv6 addresses')
@@ -276,7 +281,7 @@ class DAAPClient(object):
         self.port     = port
         self.password = password
 #        self.socket = httplib.HTTPConnection(hostname, port)
-        self.socket = httplib.HTTPConnection(hostname+':'+str(port))
+        self.socket = http_client.HTTPConnection(hostname+':'+str(port))
         self.getContentCodes() # practically required
         self.getInfo() # to determine the remote server version
 
@@ -284,7 +289,7 @@ class DAAPClient(object):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
+            l = ['%s=%s' % (k, v) for k, v in iteritems(params)]
             r = '%s?%s' % (r, '&'.join(l))
 
         log.debug('getting %s', r)
@@ -384,7 +389,7 @@ class DAAPClient(object):
     def login(self):
         response = self.request("/login")
         sessionid   = response.getAtom("mlid")
-        if sessionid == None:
+        if sessionid is None:
             log.debug('DAAPClient: login unable to determine session ID')
             return
         log.debug("Logged in as session %s", sessionid)
@@ -482,9 +487,9 @@ class DAAPTrack(object):
         self.atom = atom
 
     def __getattr__(self, name):
-        if self.__dict__.has_key(name):
+        if name in self.__dict__:
             return self.__dict__[name]
-        elif DAAPTrack.attrmap.has_key(name):
+        elif name in DAAPTrack.attrmap:
             return self.atom.getAtom(DAAPTrack.attrmap[name])
         raise AttributeError(name)
 

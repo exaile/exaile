@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import copy
+from six import iteritems
 from collections import OrderedDict
 import datetime
 import io
@@ -40,11 +40,11 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
 from xl.metadata._base import CoverImage
 from xl import (
     common,
-    metadata,
     settings,
     trax,
     xdg
@@ -98,7 +98,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         self.new_tag_combo = self.builder.get_object('new_tag_combo')
         self.new_tag_combo_list = Gtk.ListStore(str, str)
-        for tag, tag_info in tag_data.iteritems():
+        for tag, tag_info in iteritems(tag_data):
             if tag_info is not None and tag_info.editable:
                 self.new_tag_combo_list.append((tag, tag_info.translated_name))
         self.new_tag_combo_list.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -170,7 +170,7 @@ class TrackPropertiesDialog(GObject.GObject):
         l = []
         for track in tracks:
             t = {}
-            for tag, tag_info in self.def_tags.iteritems():
+            for tag, tag_info in iteritems(self.def_tags):
                 if tag_info.use_disk:
                     tagval = track.get_tag_disk(tag)
                 else:
@@ -285,7 +285,7 @@ class TrackPropertiesDialog(GObject.GObject):
         else:
             ab = True
 
-        for tag, tag_info in self.def_tags.iteritems():
+        for tag, tag_info in iteritems(self.def_tags):
             
             for i, entry in enumerate(trackdata.get(tag, [''])):
                 
@@ -683,12 +683,12 @@ class TagField(Gtk.Box):
         if doupdate:
             self.field.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
-        return unicode(self.field.get_text(), 'utf-8')
+        return to_unicode(self.field.get_text(), 'utf-8')
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -735,7 +735,7 @@ class TagTextField(Gtk.Box):
         if doupdate:
             self.buffer.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -748,7 +748,7 @@ class TagTextField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(self.buffer.get_text(
+        return to_unicode(self.buffer.get_text(
             self.buffer.get_start_iter(),
             self.buffer.get_end_iter(),
             True
@@ -796,7 +796,7 @@ class TagNumField(Gtk.Box):
                         field_val = float(digits.group())
             self.field.set_value(field_val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -809,7 +809,7 @@ class TagNumField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return unicode(int(self.field.get_value()))
+        return to_unicode(int(self.field.get_value()))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -840,7 +840,7 @@ class TagDblNumField(Gtk.Box):
             self.all_button = [AllButton(self), AllButton(self, 1)]
 
         self.pack_start(self.field[0], True, True, 0)
-        if all_button and self.all_button[0] != None:
+        if all_button and self.all_button[0] is not None:
             self.pack_start(self.all_button[0], False, False, 0)
         self.pack_start(lbl, True, True, 0)
         self.pack_start(self.field[1], True, True, 0)
@@ -877,7 +877,7 @@ class TagDblNumField(Gtk.Box):
                             field_val = float(digits.group())
                 self.field[x].set_value(field_val)
 
-        if all_val != None:
+        if all_val is not None:
             all_vals = []
             for v in all_val:
                 if v is not None:
@@ -894,22 +894,22 @@ class TagDblNumField(Gtk.Box):
                     if v is None or vals[i] != v[i]:
                         flags[i] = False
 
-                if self.all_button[i] != None:
+                if self.all_button[i] is not None:
                     if flags[i]:
                         self.all_button[i].set_active(True)
                     else:
                         self.all_button[i].set_active(False)
 
     def get_value(self):
-        f0 = unicode(int(self.field[0].get_value()))
-        f1 = unicode(int(self.field[1].get_value()))
+        f0 = to_unicode(int(self.field[0].get_value()))
+        f1 = to_unicode(int(self.field[1].get_value()))
         return f0 + '/' + f1
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
-        val = unicode(self.field[0].get_value()) + '/' \
-                + unicode(self.field[1].get_value())
+        val = to_unicode(self.field[0].get_value()) + '/' \
+                + to_unicode(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
@@ -1220,13 +1220,14 @@ class PropertyField(Gtk.Box):
             self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
-        common.open_file_directory(self.field.get_text().decode('utf-8'))
+        common.open_file_directory(to_unicode(self.field.get_text(), 'utf8'))
 
     def register_update_func(self, f):
         pass
 
     def register_all_func(self, f):
         pass
+
 
 class AllButton(Gtk.ToggleButton):
     def __init__(self, parent_field, id_num=0):
@@ -1246,7 +1247,7 @@ class AllButton(Gtk.ToggleButton):
         if self.get_active and do_apply and self.field.parent_row:
             tag = self.field.parent_row.tag
             multi_id = self.field.parent_row.multi_id
-            if self.field.all_func != None:
+            if self.field.all_func is not None:
                 self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
 
 

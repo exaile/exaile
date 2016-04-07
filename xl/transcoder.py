@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six import iteritems
 from gi.repository import Gst
 
 from xl.nls import gettext as _
@@ -116,7 +117,7 @@ FORMATS = {
 
 def get_formats():
     ret = {}
-    for name, val in FORMATS.iteritems():
+    for name, val in iteritems(FORMATS):
         try:
             for plug in val['plugins']:
                 x = Gst.ElementFactory.find(plug)

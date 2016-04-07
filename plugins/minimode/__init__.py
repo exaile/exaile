@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import cairo
+from six import iteritems
 from gi.repository import Gtk
 
 from xl import event, providers, settings
@@ -178,7 +178,7 @@ class MiniMode(Gtk.Window):
         v = None
         
         if self.__dirty:
-            for option, default in self.__defaults.iteritems():
+            for option, default in iteritems(self.__defaults):
                 value = settings.get_option(option, default)
 
                 if option == 'plugin/minimode/always_on_top':

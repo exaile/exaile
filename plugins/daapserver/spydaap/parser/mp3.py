@@ -42,14 +42,14 @@ class Mp3Parser(spydaap.parser.Parser):
                 
     def handle_rating(self, mp3, d):
         popm = mp3.tags.getall('POPM')
-        if popm != None and len(popm) > 0:
+        if popm is not None and len(popm) > 0:
             rating = int(popm[0].rating * (0.39215686274509803))
             d.append(do('daap.songuserrating', rating))
 
     def handle_track(self, mp3, d):
         tracknumber = None
         trackcount = None
-        if mp3.tags.has_key('TRCK'):
+        if 'TRCK' in mp3.tags:
             t = str(mp3.tags['TRCK']).split('/')
             tracknumber = self.my_int(t[0])
             if (len(t) == 2):
@@ -60,7 +60,7 @@ class Mp3Parser(spydaap.parser.Parser):
     def handle_disc(self, mp3, d):
         discnumber = None
         disccount = None
-        if mp3.tags.has_key('TPOS'):
+        if 'TPOS' in mp3.tags:
             t = str(mp3.tags['TPOS']).split('/')
             discnumber = self.my_int(t[0])
             if (len(t) == 2):
@@ -81,8 +81,8 @@ class Mp3Parser(spydaap.parser.Parser):
             pass
         except struct.error:
             pass
-        if mp3 != None:
-            if mp3.tags != None:
+        if mp3 is not None:
+            if mp3.tags is not None:
                 self.handle_string_tags(self.mp3_string_map, mp3, d)
                 self.handle_int_tags(self.mp3_int_map, mp3, d)
                 self.handle_rating(mp3, d)

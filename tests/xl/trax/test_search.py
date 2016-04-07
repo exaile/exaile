@@ -1,3 +1,5 @@
+
+from six import string_types, iterkeys
 from mox3 import mox
 import unittest
 
@@ -17,7 +19,7 @@ def get_search_result_track():
 
 
 def clear_all_tracks():
-    for key in track.Track._Track__tracksdict.keys():
+    for key in list(iterkeys(track.Track._Track__tracksdict)):
         del track.Track._Track__tracksdict[key]
 
 
@@ -34,7 +36,7 @@ class TestMatcher(unittest.TestCase):
 
     def test_match_list_true(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertTrue(matcher.match(self.str))
@@ -42,8 +44,8 @@ class TestMatcher(unittest.TestCase):
 
     def test_match_list_false(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(string_types)).AndReturn(False)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertFalse(matcher.match(self.str))

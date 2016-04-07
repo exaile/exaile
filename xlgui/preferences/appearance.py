@@ -28,7 +28,7 @@ from gi.repository import Gtk
 
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui.preferences import widgets
+from . import widgets
 from xlgui import tray
 
 name = _('Appearance')

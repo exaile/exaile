@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from six.moves import range, zip
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -31,13 +32,12 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from itertools import izip
 import logging
 import sys
 
 from xl.nls import gettext as _
 from xl.playlist import (
-    Playlist,    
+    Playlist,
     is_valid_playlist,
     import_playlist,
 )
@@ -90,7 +90,7 @@ class ModesMenuItem(menu.MenuItem):
         submenu = self.create_mode_submenu(item)
         item.set_submenu(submenu)
         pl = self.get_playlist_func(parent, context)
-        item.set_sensitive(pl != None)
+        item.set_sensitive(pl is not None)
         return item
 
     def create_mode_submenu(self, parent_item):
@@ -313,7 +313,7 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0]+len(positions)):
+        if positions == list(range(positions[0], positions[0]+len(positions))):
             del playlist[positions[0]:positions[0]+len(positions)]
         else:
             for position, track in tracks[::-1]:
@@ -1063,7 +1063,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
-            if indexes and indexes == range(indexes[0], indexes[0]+len(indexes)):
+            if indexes and indexes == list(range(indexes[0], indexes[0]+len(indexes))):
                 del self.playlist[indexes[0]:indexes[0]+len(indexes)]
             else:
                 for i in indexes[::-1]:
@@ -1421,7 +1421,7 @@ class PlaylistModel(Gtk.ListStore):
 
     def on_spat_position_changed(self, event_type, playlist, positions):
         spat_position = min(positions)
-        for position in xrange(spat_position, len(self)):
+        for position in range(spat_position, len(self)):
             GLib.idle_add(self.update_icon, position)
 
     def on_playback_state_change(self, event_type, player_obj, track):
@@ -1479,7 +1479,7 @@ class PlaylistModel(Gtk.ListStore):
             return
         
         # get column types
-        coltypes = [self.get_column_type(i) for i in xrange(self.get_n_columns())]
+        coltypes = [self.get_column_type(i) for i in range(self.get_n_columns())]
         formatters = [providers.get_provider('playlist-columns', name).formatter.format for name in self.columns]
         self.data_loading = True
         self.emit('data-loading', True)
@@ -1503,7 +1503,7 @@ class PlaylistModel(Gtk.ListStore):
     
         for position, track in tracks:
             track_data = [track, self.icon_for_row(position).pixbuf] + [formatter(track) for formatter in formatters]
-            render_data.append((position, [Value(typ, val) for typ, val in izip(coltypes, track_data)]))
+            render_data.append((position, [Value(typ, val) for typ, val in zip(coltypes, track_data)]))
         
         return render_data
         

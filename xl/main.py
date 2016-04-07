@@ -32,6 +32,7 @@
 # Also takes care of parsing commandline options.
 
 from __future__ import print_function
+from six import iteritems
 import os
 import platform
 import sys
@@ -610,7 +611,7 @@ class Exaile(object):
             t.start()
 
     def __mainloop(self, context):
-        while 1:
+        while True:
             try:
                 context.iteration(True)
             except:
@@ -678,7 +679,7 @@ class Exaile(object):
         logger.info("Exaile is shutting down...")
 
         logger.info("Disabling plugins...")
-        for k, plugin in self.plugins.enabled_plugins.iteritems():
+        for k, plugin in iteritems(self.plugins.enabled_plugins):
             if hasattr(plugin, 'teardown'):
                 try:
                     plugin.teardown(self)

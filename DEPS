@@ -20,6 +20,7 @@ Essential:
 * pygobject (>= 3.13.2)
 * python-cairo
 * GIR libraries for GTK+/GStreamer
+* six
 
 Translation:
 

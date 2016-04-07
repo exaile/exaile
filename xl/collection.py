@@ -35,30 +35,28 @@ collection.
 """
 
 from __future__ import with_statement
+from six import iteritems, itervalues, string_types
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 import logging
-import os
-import os.path
-import shutil
 import threading
 import time
 
+from xl.common import to_unicode
 from xl.nls import gettext as _
 from xl import (
     common,
     event,
-    metadata,
     settings,
-    trax,
-    xdg
+    trax
 )
 
 logger = logging.getLogger(__name__)
 
 COLLECTIONS = set()
+
 
 def get_collection_by_loc(loc):
     """
@@ -203,7 +201,7 @@ class Collection(trax.TrackDB):
             :param library: the library to remove
             :type library: :class:`Library`
         """
-        for k, v in self.libraries.iteritems():
+        for k, v in iteritems(self.libraries):
             if v == library:
                 del self.libraries[k]
                 break
@@ -260,7 +258,7 @@ class Collection(trax.TrackDB):
 
         scan_interval = 20
 
-        for library in self.libraries.itervalues():
+        for library in itervalues(self.libraries):
             
             if not force_update and startup_only and not (library.monitored and library.startup_scan):
                 continue
@@ -323,7 +321,7 @@ class Collection(trax.TrackDB):
             Called whenever the library's settings are changed
         """
         _serial_libraries = []
-        for k, v in self.libraries.iteritems():
+        for k, v in iteritems(self.libraries):
             l = {}
             l['location'] = v.location
             l['monitored'] = v.monitored
@@ -356,7 +354,7 @@ class Collection(trax.TrackDB):
 
     def delete_tracks(self, tracks):
         for tr in tracks:
-            for prefix, lib in self.libraries.iteritems():
+            for prefix, lib in iteritems(self.libraries):
                 lib.delete(tr.get_loc_for_io())
 
 class LibraryMonitor(GObject.GObject):
@@ -438,7 +436,7 @@ class LibraryMonitor(GObject.GObject):
             else:
                 logger.debug('Removing library monitors')
 
-                for directory, monitor in self.__monitors.iteritems():
+                for directory, monitor in iteritems(self.__monitors):
                     monitor.cancel()
 
                     self.emit('location-removed', directory)
@@ -662,7 +660,7 @@ class Library(object):
             return
 
         def joiner(value):
-            if not value or isinstance(value, basestring):
+            if not value or isinstance(value, string_types):
                 return value
             else:
                 try:
@@ -811,7 +809,7 @@ class Library(object):
 
 
         removals = deque()
-        for tr in self.collection.tracks.itervalues():
+        for tr in itervalues(self.collection.tracks):
             tr = tr._track
             loc = tr.get_loc_for_io()
             if not loc:
@@ -828,7 +826,7 @@ class Library(object):
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s"%unicode(tr))
+            logger.debug(u"Removing %s"%to_unicode(tr))
             self.collection.remove(tr)
             
         logger.info("Scan completed: %s", self.location)

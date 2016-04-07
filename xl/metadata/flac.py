@@ -31,6 +31,7 @@ from xl.metadata._base import (
 )
 from mutagen import flac
 
+
 class FlacFormat(BaseFormat):
     MutagenType = flac.FLAC
     writable = True

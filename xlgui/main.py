@@ -24,31 +24,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import datetime
 import logging
-import os
-import re
-import threading
 
-import cairo
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import (
-    common,
-    covers,
     event,
     formatter,
     player,
-    playlist,
     providers,
     settings,
     trax,
-    xdg
 )
 from xlgui.accelerators import AcceleratorManager
 from xlgui.playlist_container import PlaylistContainer

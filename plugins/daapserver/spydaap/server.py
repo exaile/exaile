@@ -13,8 +13,16 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys
+from six import iteritems
+from six.moves import BaseHTTPServer, urllib
+import errno
+import logging
+import os
+import re
+import socket
+import spydaap
 from spydaap.daap import do
+
 
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1
@@ -32,11 +40,11 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.send_header('Cache-Control', 'no-cache')
             self.send_header('Accept-Ranges', 'bytes')
             self.send_header('Content-Language', 'en_us')
-            if kwargs.has_key('extra_headers'):
-                for k, v in kwargs['extra_headers'].iteritems():
+            if 'extra_headers' in kwargs:
+                for k, v in iteritems(kwargs['extra_headers']):
                     self.send_header(k, v)
             try:
-                if type(data) == file:
+                if isinstance(data, file):
                     self.send_header("Content-Length", str(os.stat(data.name).st_size))
                 else:
                     self.send_header("Content-Length", len(data))                   
@@ -65,7 +73,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         drop_q = '(?:\\?.*)?$'
 
         def do_GET(self):
-            parsed_path = urlparse.urlparse(self.path).path
+            parsed_path = urllib.parse.urlparse(self.path).path
             if re.match(self.itunes_re + "/$", parsed_path):
                 self.do_GET_login()
             elif re.match(self.itunes_re + '/server-info$', parsed_path):
@@ -203,11 +211,11 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 self.send_error(404)    # this can be caused by left overs from previous sessions
                 return
 
-            if (self.headers.has_key('Range')):
+            if ('Range' in self.headers):
                 rs = self.headers['Range']
                 m = re.compile('bytes=([0-9]+)-([0-9]+)?').match(rs)
                 (start, end) = m.groups()
-                if end != None: end = int(end)
+                if end is not None: end = int(end)
                 else: end = os.stat(fn).st_size
                 start = int(start)
                 f = spydaap.ContentRangeFile(fn, open(fn), start, end)

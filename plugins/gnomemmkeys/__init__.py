@@ -24,11 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-GNOME_MMKEYS = None
+from xl import event, player
+import dbus
+import logging
 
-from xl import common, event, player
-import dbus, logging
+GNOME_MMKEYS = None
 logger = logging.getLogger(__name__)
+
 
 def callback(key):
     if key in ('Play', 'PlayPause', 'Pause'):

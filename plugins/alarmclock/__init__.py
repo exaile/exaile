@@ -1,7 +1,7 @@
 
 from gi.repository import GLib
-
-import time, thread
+from six.moves import _thread
+import time
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
@@ -11,7 +11,7 @@ from xl import settings
 
 class VolumeControl:
     def __init__(self):
-        self.thread = thread
+        self.thread = _thread
 
     def print_debug( self ):
         print(self.min_volume)

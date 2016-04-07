@@ -29,7 +29,8 @@
 """
 
 from __future__ import with_statement
-from ConfigParser import (
+from six import iteritems, text_type
+from six.moves.configparser import (
     RawConfigParser,
     NoSectionError,
     NoOptionError
@@ -53,7 +54,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
+    'U': text_type
 }
 
 MANAGER = None
@@ -106,6 +107,11 @@ class SettingsManager(RawConfigParser):
         # save settings every 30 seconds
         if location is not None:
             self._timeout_save()
+
+    def __hash__(self):
+        # RawConfgParser doesn't have __hash__, preventing this from being used
+        # as dictionary key. Here we just reimplement object's __hash__.
+        return hash(id(self))
 
     @glib_wait_seconds(30)
     def _timeout_save(self):
@@ -242,8 +248,8 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
-        for k, v in TYPE_MAPPING.iteritems():
-            if v == type(value):
+        for k, v in iteritems(TYPE_MAPPING):
+            if isinstance(value, v):
                 if v == list:
                     return k + ": " + repr(value)
                 else:

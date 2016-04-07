@@ -1,12 +1,12 @@
 # -*- coding: utf-8  -*-
 from __future__ import with_statement
+from six import iteritems, iterkeys
 
 import os
 import shutil
 import tempfile
 import unittest
 import logging
-import weakref
 import types
 
 from mox3 import mox
@@ -56,7 +56,7 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                mox.IsA(types.IntType),
+                mox.IsA(int),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
@@ -87,7 +87,7 @@ class TestTrack(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()
         track.Track._Track__the_cuts = ['the', 'a']
-        for key in track.Track._Track__tracksdict.keys():
+        for key in list(iterkeys(track.Track._Track__tracksdict)):
             del track.Track._Track__tracksdict[key]
 
     def tearDown(self):
@@ -284,7 +284,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track(loc)
         tags = {'artist': 'foo', 'album': 'bar', '__loc': loc}
         self.empty_track_of_tags(tr, tags)
-        for tag, val in tags.iteritems():
+        for tag, val in list(iteritems(tags)):
             tr.set_tag_raw(tag, val)
         self.assertEqual(set(tr.list_tags()), {'album', '__loc', 'artist', '__basename'})
 

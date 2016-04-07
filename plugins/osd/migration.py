@@ -14,6 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from six import iteritems
 from gi.repository import Gdk
 
 from xl import settings
@@ -50,7 +51,7 @@ def migrate_settings():
        settings.MANAGER.has_section('plugin/osd'):
         return
 
-    for oldname, newname in __settings_map.iteritems():
+    for oldname, newname in iteritems(__settings_map):
         value = settings.get_option('osd/%s' % oldname)
 
         if value is not None:

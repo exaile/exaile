@@ -29,6 +29,7 @@ Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
+from six import iteritems
 from gi.repository import GLib
 from gi.repository import Gio
 import logging
@@ -160,7 +161,6 @@ class CoverManager(providers.ProviderHandler):
             else:
                 providers.unregister('covers', self.localfile_fetcher)
 
-
     def _get_methods(self, fixed=False):
         """
             Returns a list of Methods, sorted by preference
@@ -172,7 +172,7 @@ class CoverManager(providers.ProviderHandler):
         for name in self.order:
             if name in self.methods:
                 methods.append(self.methods[name])
-        for k, method in self.methods.iteritems():
+        for k, method in iteritems(self.methods):
             if method not in methods:
                 methods.append(method)
         nonfixed = [m for m in methods if not m.fixed]
@@ -334,7 +334,7 @@ class CoverManager(providers.ProviderHandler):
             method = self.methods.get(source)
             if method:
                 ret = method.get_cover_data(data)
-        if ret == None and use_default == True:
+        if ret is None and use_default == True:
             ret = self.get_default_cover()
         return ret
 

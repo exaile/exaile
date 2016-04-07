@@ -2,10 +2,12 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-import urllib, urllib2, logging
+from six.moves import urllib
+import logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
+from xl.common import to_unicode, str_from_utf8
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -93,9 +95,9 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
          't': tstamp,
          'a': token
          }
-   data = urllib.urlencode(values)
-   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
-   response = urllib2.urlopen(req)
+   data = urllib.parse.urlencode(values)
+   req = urllib.request.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
+   response = urllib.request.urlopen(req)
    result = response.read()
    lines = result.split('\n')
 
@@ -164,10 +166,10 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     if POST_URL is None:
         raise PostError("Unable to post data. Post URL was empty!")
 
-    if length != "" and type(length) != type(1):
+    if length != "" and not isinstance(length, type(1)):
         raise TypeError("length should be of type int")
 
-    if trackno != "" and type(trackno) != type(1):
+    if trackno != "" and not isinstance(trackno, type(1)):
         raise TypeError("trackno should be of type int")
 
     # Quote from AS Protocol 1.1, Submitting Songs:
@@ -178,17 +180,17 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     album = album or ''
 
     values = {'s': SESSION_ID,
-              'a': unicode(artist).encode('utf-8'),
-              't': unicode(track).encode('utf-8'),
-              'b': unicode(album).encode('utf-8'),
+              'a': str_from_utf8(to_unicode(artist)),
+              't': str_from_utf8(to_unicode(track)),
+              'b': str_from_utf8(to_unicode(album)),
               'l': length,
               'n': trackno,
               'm': mbid }
 
-    data = urllib.urlencode(values)
+    data = urllib.parse.urlencode(values)
 
-    req = urllib2.Request(NOW_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(NOW_URL, data, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
     result = response.read()
 
     if result.strip() == "OK":
@@ -277,20 +279,20 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
         raise ProtocolError("""Song length must be specified when using 'P' as
     source!""")
 
-    if type(time) != type(1):
+    if not isinstance(time, type(1)):
         raise ValueError("""The time parameter must be of type int (unix
     timestamp). Instead it was %s""" % time)
 
     album = album or ''
 
     SUBMIT_CACHE.append(
-         { 'a': unicode(artist).encode('utf-8'),
-           't': unicode(track).encode('utf-8'),
+         { 'a': str_from_utf8(to_unicode(artist)),
+           't': str_from_utf8(to_unicode(track)),
            'i': time,
            'o': source,
            'r': rating,
            'l': length,
-           'b': unicode(album).encode('utf-8'),
+           'b': str_from_utf8(to_unicode(album)),
            'n': trackno,
            'm': mbid
             }
@@ -319,9 +321,9 @@ you login?''')
 
    values['s'] = SESSION_ID
 
-   data = urllib.urlencode(values)
-   req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
-   response = urllib2.urlopen(req)
+   data = urllib.parse.urlencode(values)
+   req = urllib.request.Request(POST_URL, data, USER_AGENT_HEADERS)
+   response = urllib.request.urlopen(req)
    result = response.read()
    lines = result.split('\n')
 

@@ -81,8 +81,17 @@ class MainWindow(GObject.GObject):
     """
         Main Exaile Window
     """
+    __gproperties__ = {
+        'is-fullscreen': (bool, 'Fullscreen',
+            'Whether the window is fullscreen.',
+            False,  # Default
+            GObject.PARAM_READWRITE),
+    }
+
     __gsignals__ = {'main-visible-toggle': (GObject.SignalFlags.RUN_LAST, bool, ())}
+
     _mainwindow = None
+
     def __init__(self, controller, builder, collection):
         """
             Initializes the main window
@@ -401,6 +410,21 @@ class MainWindow(GObject.GObject):
                 ('background-color: alpha(@theme_bg_color, %s);' % opac) + 
             '}'
         )
+
+    def do_get_property(self, prop):
+        if prop.name == 'is-fullscreen':
+            return self._fullscreen
+        else:
+            return GObject.GObject.do_get_property(self, prop)
+
+    def do_set_property(self, prop, value):
+        if prop.name == 'is-fullscreen':
+            if value:
+                self.window.fullscreen()
+            else:
+                self.window.unfullscreen()
+        else:
+            GObject.GObject.do_set_property(self, prop, value)
 
     def on_screen_changed(self, widget, event):
         """
@@ -1029,6 +1053,7 @@ class MainWindow(GObject.GObject):
                 bool(event.new_window_state & Gdk.WindowState.MAXIMIZED))
         if event.changed_mask & Gdk.WindowState.FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & Gdk.WindowState.FULLSCREEN)
+            self.notify('is-fullscreen')
 
         # detect minimization state changes
         prev_minimized = self.minimized

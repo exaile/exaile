@@ -42,11 +42,12 @@ import xl.settings
 Variant = GLib.Variant
 
 
-class MprisObject:
+class MprisObject(object):
     def __init__(self, exaile, connection):
         self.exaile = exaile
         self.connection = connection
         self.cover_file = None
+        self.signal_connections = []
         self.event_callbacks = callbacks = [
             (self._on_playback_track_start, 'playback_track_start', xl.player.PLAYER),
             (self._on_playback_track_end, 'playback_track_end', xl.player.PLAYER),
@@ -55,14 +56,28 @@ class MprisObject:
         ]
         for cb in callbacks:
             xl.event.add_ui_callback(*cb)
+        if exaile.loading:
+            xl.event.add_ui_callback(self._init_gui, 'exaile_loaded')
+        else:
+            self._init_gui()
 
     def __del__(self):
         self.destroy()
 
     def destroy(self):
+        for obj, conn in self.signal_connections:
+            obj.disconnect(conn)
         for cb in self.event_callbacks:
             xl.event.remove_callback(*cb)
         self.teardown()
+
+    def _init_gui(self):
+        conns = [
+            (self.exaile.gui.main, 'notify::is-fullscreen', self._on_notify_fullscreen),
+        ]
+        self.signal_connections.extend(
+            (obj, obj.connect(sig, handler))
+            for obj, sig, handler in conns)
 
     def teardown(self):
         """Quick destroy; just clean up our mess"""
@@ -142,6 +157,11 @@ class MprisObject:
 
         return meta
 
+    def _on_notify_fullscreen(self, obj, param):
+        self._emit_propchange('org.mpris.MediaPlayer2', {
+            'FullScreen': self.FullScreen,
+        })
+
     def _on_playback_track_start(self, event, player, track):
         self._emit_propchange('org.mpris.MediaPlayer2.Player', {
             'Metadata': self.Metadata,
@@ -177,15 +197,10 @@ class MprisObject:
         return Variant('s', 'exaile')
     @property
     def FullScreen(self):
-        return Variant('b', False)  # TODO
+        return Variant('b', self.exaile.gui.main.props.is_fullscreen)
     @FullScreen.setter
     def FullScreen(self, value):
-        window = self.exaile.gui.main.window
-        if value:
-            window.fullscreen()
-        else:
-            window.unfullscreen()
-        # TODO: Signal
+        self.exaile.gui.main.props.is_fullscreen = value
     @property
     def HasTrackList(self):
         return Variant('b', False)
@@ -194,10 +209,13 @@ class MprisObject:
         return Variant('s', 'Exaile')
     @property
     def SupportedMimeTypes(self):
-        return Variant('as', ['application/ogg'])  # TODO
+        # Taken from exaile.desktop
+        return Variant('as', 'audio/musepack;application/musepack;application/x-ape;audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;audio/x-mpc;audio/mp;audio/x-mp;application/ogg;application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'.split(';'))
     @property
     def SupportedUriSchemes(self):
-        return Variant('as', ['file'])  # TODO
+        # TODO: Call GstUriHandler.get_protocols on all GStreamer sources
+        # and check if there are other useful protocols.
+        return Variant('as', ['file', 'http', 'https', 'nfs', 'smb', 'sftp'])
 
     # Root methods
 
@@ -271,7 +289,9 @@ class MprisObject:
     def SetPosition(self, track_id, position):
         if track_id != '/org/exaile/track/%d' % id(xl.player.PLAYER.current):
             return
-        xl.player.PLAYER.seek(position.get_int64() / 1e6)
-        self._emit('org.mpris.MediaPlayer2.Player', 'Seeked', position)
+        xl.player.PLAYER.seek(position / 1e6)
+        # TODO: Can we get this event from Exaile?
+        self._emit('org.mpris.MediaPlayer2.Player', 'Seeked',
+            GLib.Variant('x', position))
     def Stop(self):
         xl.player.PLAYER.stop()

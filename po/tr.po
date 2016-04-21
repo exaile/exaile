@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Volkan Gezer <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2016-04-21 21:47+0000\n"
+"Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
+"Language-Team: Turkish "
+"<https://hosted.weblate.org/projects/exaile/master/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.6-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -314,7 +315,7 @@ msgstr "Veri dizinini ayarla"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Veri ayar ve yapılandırma kılavuzu"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -975,7 +976,7 @@ msgstr "Çalma Sayısı"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Planlama"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
@@ -1159,9 +1160,8 @@ msgid "The playlist name you entered is already in use."
 msgstr "Girilen çalma listesi ismi şuan kullanımda."
 
 #: ../xlgui/widgets/dialogs.py:1549
-#, fuzzy
 msgid "Save As"
-msgstr "Geçmişi Kaydet"
+msgstr "Farklı Kaydet"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1259,9 +1259,8 @@ msgid "Re_scan Collection"
 msgstr "Ko_leksiyonu tekrar tara."
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Koleksiyonu Yeniden Tara"
+msgstr "Koleksiyonu Yeniden Tara (yavaş)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1288,10 +1287,9 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "%(total)d parça içinden %(current)d parçası düzenleniyor"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
-"Seçilen çalma listesini kalıcı olarak silmek istediğinize emin misiniz?"
+"Seçilen çalma listesini kalıcı olarak değiştirmek istediğinize emin misiniz?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1299,7 +1297,7 @@ msgstr "Kapanırken değişiklikler uygulansın mı?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Eğer değişiklikleri şimdi onaylamazsanız onları kaybedeceksiniz."
 
 #: ../xlgui/properties.py:589
 #, python-format
@@ -1326,7 +1324,7 @@ msgstr "Görüntü"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Bağlı görüntü"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
@@ -1382,7 +1380,7 @@ msgstr "%s için albüm kapağı"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Dosyayı Kaydet"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1802,9 +1800,8 @@ msgid "About Exaile"
 msgstr "Exaile Hakkında"
 
 #: ../data/ui/about_dialog.ui.h:2
-#, fuzzy
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2010"
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 #, fuzzy
@@ -1844,7 +1841,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Bilinmeyen çevirmen"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
@@ -1974,7 +1971,7 @@ msgstr "Kapak Resmi (arka)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Kitapçık sayfası"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"

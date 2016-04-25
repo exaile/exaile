@@ -37,25 +37,51 @@ from xlgui.widgets import menu
 # Custom tab style; fixes some Adwaita ugliness
 TAB_CSS = Gtk.CssProvider()
 TAB_CSS.load_from_data(
-    '.notebook { '
+    # For GTK+ <3.20 (TODO: remove eventually)
+
+    '.notebook { ' +
         # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; '
+        '-GtkNotebook-initial-gap: 0; ' +
         # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; '
-    '} '
-    # Make tabs smaller (or bigger on some other themes, unfortunately)
-    '.notebook tab { padding: 6px } '
-)
+        '-GtkNotebook-tab-overlap: 1; ' +
+    '} ' +
+    '.notebook tab { ' +
+        # Make tabs smaller (or bigger on some other themes, unfortunately)
+        'padding: 6px; ' +
+    '} ' +
+
+    # For GTK+ >=3.20
+
+    # Work around weird Close button position on panel.
+    # Need to find out why the button is not centered.
+    'notebook.vertical tab { ' +
+        'padding-left: 6px; ' +
+        'padding-right: 3px; ' +
+    '} ' +
+
+    # Remove gap between tabs
+    'header.top tab, header.bottom tab { ' +
+        'margin-left: -1px; ' +
+        'margin-right: -1px; ' +
+    '} ' +
+    'header.left tab, header.right tab { ' +
+        'margin-top: -1px; ' +
+        'margin-bottom: -1px; ' +
+    '}')
 
 class SmartNotebook(Gtk.Notebook):
-    def __init__(self):
+    def __init__(self, vertical=False):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
         self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
-        self.get_style_context().add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        sc = self.get_style_context()
+        sc.add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        if vertical:
+            sc.add_class('vertical')
+            self.set_tab_pos(Gtk.PositionType.LEFT)
 
     def get_current_tab(self):
         current_page = self.get_current_page()
@@ -138,12 +164,14 @@ class NotebookTab(Gtk.EventBox):
     """
     menu_provider_name = 'notebooktab' # Change this in subclasses!
     reorderable = True
-    def __init__(self, notebook, page, display_left=False):
+    def __init__(self, notebook, page, vertical=False):
         """
             :param notebook: The notebook this tab will belong to
             :type notebook: SmartNotebook
             :param page: The page this tab will be associated with
             :type page: NotebookPage
+            :param vertical: Whether the tab contents are to be laid out vertically
+            :type vertical: bool
         """
         Gtk.EventBox.__init__(self)
         self.set_visible_window(False)
@@ -157,7 +185,7 @@ class NotebookTab(Gtk.EventBox):
 
         self.connect('button-press-event', self.on_button_press)
 
-        if display_left:
+        if vertical:
             box = Gtk.Box(False, 2, orientation=Gtk.Orientation.VERTICAL)
         else:
             box = Gtk.Box(False, 2)
@@ -168,7 +196,7 @@ class NotebookTab(Gtk.EventBox):
 
         self.label = Gtk.Label(label=self.page.get_page_name())
 
-        if display_left:
+        if vertical:
             self.label.set_angle(90)
             self.label.props.valign = Gtk.Align.CENTER
             # Don't ellipsize but give a sane maximum length.
@@ -205,7 +233,7 @@ class NotebookTab(Gtk.EventBox):
         button.connect('button-press-event', self.on_button_press)
         
         # pack the widgets in
-        if display_left:
+        if vertical:
             box.pack_start(button, False, False, 0)
             box.pack_end(self.icon, False, False, 0)
             box.pack_end(self.label, True, True, 0)

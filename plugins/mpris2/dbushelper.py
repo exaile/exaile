@@ -50,8 +50,11 @@ class DBusHelper:
     methods as the callbacks for the D-Bus object (i.e. the last three
     arguments in `DBusConnection.register_object`).
 
-    The methods and property setters receive their arguments as `GLib.Variant`s
-    and must still create a `GLib.Variant` for each return value.
+    Methods receive their arguments as plain Python objects, whereas property
+    setters receive theirs as `GLib.Variant`s.
+    Both methods and property setters must return their values as
+    `GLib.Variant`s (technically, the return type is `Union[None, GLib.Variant,
+    Tuple[GLib.Variant]]`).
 
     A Python method or property is exported if the name starts with an
     uppercase character and does not end with `_`.

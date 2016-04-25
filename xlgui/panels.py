@@ -80,12 +80,11 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
     '''
     
     def __init__(self, exaile, gui):
-        notebook.SmartNotebook.__init__(self)
+        notebook.SmartNotebook.__init__(self, vertical=True)
         
         self.exaile = exaile
         self.panels = {}    # key: name, value: PanelData object
-        
-        self.set_tab_pos(Gtk.PositionType.LEFT)
+
         self.set_add_tab_on_empty(False)
         
         self.loading_panels = True
@@ -145,7 +144,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         panel = provider.get_panel()
         panel.show()
         
-        tab = notebook.NotebookTab(self, panel, display_left=True)
+        tab = notebook.NotebookTab(self, panel, vertical=True)
         panel.tab_menu = self.view_menu
         tab.provider = provider
         

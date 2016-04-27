@@ -365,8 +365,9 @@ class FilesPanel(panel.Panel):
         except GLib.Error as e:
             logger.exception(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
-                return self.load_directory(
+                self.load_directory(
                     Gio.File.new_for_commandline_arg(xdg.homedir), history, keyword, cursor)
+            return
         if self.current != directory: # Modified from another thread.
             return
 

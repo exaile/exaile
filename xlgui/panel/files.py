@@ -30,6 +30,7 @@ from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
+import collections
 import locale
 import logging
 import os
@@ -58,6 +59,11 @@ from xlgui.widgets.common import DragTreeView
 
 
 logger = logging.getLogger(__name__)
+
+
+# TODO: Cursor is wrong if the directory content is modified.
+# Maybe use the selected gfiles instead.
+HistoryEntry = collections.namedtuple('HistoryEntry', 'gfile cursor')
 
 
 class FilesPanel(panel.Panel):
@@ -92,7 +98,7 @@ class FilesPanel(panel.Panel):
 
         first_dir = Gio.File.new_for_commandline_arg(settings.get_option('gui/files_panel_dir',
             xdg.homedir))
-        self.history = [first_dir]
+        self.history = [HistoryEntry(first_dir, None)]
         self.load_directory(first_dir, False)
 
     def _setup_tree(self):
@@ -299,7 +305,8 @@ class FilesPanel(panel.Panel):
         """
         if self.i < len(self.history) - 1:
             self.i += 1
-            self.load_directory(self.history[self.i], False)
+            hentry = self.history[self.i]
+            self.load_directory(hentry.gfile, False, cursor=hentry.cursor)
             if self.i >= len(self.history) - 1:
                 self.forward.set_sensitive(False)
             if len(self.history):
@@ -311,7 +318,8 @@ class FilesPanel(panel.Panel):
         """
         if self.i > 0:
             self.i -= 1
-            self.load_directory(self.history[self.i], False)
+            hentry = self.history[self.i]
+            self.load_directory(hentry.gfile, False, cursor=hentry.cursor)
             if self.i == 0:
                 self.back.set_sensitive(False)
             if len(self.history):
@@ -398,6 +406,8 @@ class FilesPanel(panel.Panel):
             model = self.model
             view = self.tree
 
+            old_cursor = view.get_cursor()
+
             model.clear()
             for sortname, name, f in subdirs:
                 model.append((f, self.directory, name, ''))
@@ -422,9 +432,11 @@ class FilesPanel(panel.Panel):
             self.entry.set_text(directory.get_parse_name())
             if history:
                 self.back.set_sensitive(True)
-                self.history = self.history[:self.i + 1]
-                self.history.append(self.current)
-                self.i = len(self.history) - 1
+                hist = self.history
+                del hist[self.i+1:]
+                hist[-1] = HistoryEntry(hist[-1].gfile, old_cursor)
+                hist.append(HistoryEntry(self.current, None))
+                self.i = len(hist) - 1
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))
 

@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import collections
 import locale
 import logging
 import os
@@ -61,11 +60,6 @@ from xlgui.widgets.common import DragTreeView
 logger = logging.getLogger(__name__)
 
 
-# TODO: Cursor is wrong if the directory content is modified.
-# Maybe use the selected gfiles instead.
-HistoryEntry = collections.namedtuple('HistoryEntry', 'gfile cursor')
-
-
 class FilesPanel(panel.Panel):
     """
         The Files panel
@@ -98,7 +92,7 @@ class FilesPanel(panel.Panel):
 
         first_dir = Gio.File.new_for_commandline_arg(settings.get_option('gui/files_panel_dir',
             xdg.homedir))
-        self.history = [HistoryEntry(first_dir, None)]
+        self.history = [first_dir]
         self.load_directory(first_dir, False)
 
     def _setup_tree(self):
@@ -275,8 +269,9 @@ class FilesPanel(panel.Panel):
         """
             Refreshes the current view
         """
-        cursor = self.tree.get_cursor()
-        self.load_directory(self.current, False, cursor=cursor)
+        cursorf = self.model[self.tree.get_cursor()[0]][0]
+        print cursorf.get_uri()
+        self.load_directory(self.current, False, cursor_file=cursorf)
 
     def entry_activate(self, widget, event=None):
         """
@@ -305,8 +300,8 @@ class FilesPanel(panel.Panel):
         """
         if self.i < len(self.history) - 1:
             self.i += 1
-            hentry = self.history[self.i]
-            self.load_directory(hentry.gfile, False, cursor=hentry.cursor)
+            cursorf = self.model[self.tree.get_cursor()[0]][0]
+            self.load_directory(self.history[self.i], False, cursor_file=cursorf)
             if self.i >= len(self.history) - 1:
                 self.forward.set_sensitive(False)
             if len(self.history):
@@ -318,8 +313,8 @@ class FilesPanel(panel.Panel):
         """
         if self.i > 0:
             self.i -= 1
-            hentry = self.history[self.i]
-            self.load_directory(hentry.gfile, False, cursor=hentry.cursor)
+            cursorf = self.model[self.tree.get_cursor()[0]][0]
+            self.load_directory(self.history[self.i], False, cursor_file=cursorf)
             if self.i == 0:
                 self.back.set_sensitive(False)
             if len(self.history):
@@ -331,13 +326,16 @@ class FilesPanel(panel.Panel):
         """
         parent = self.current.get_parent()
         if parent:
-            self.load_directory(parent)
+            cursorf = self.model[self.tree.get_cursor()[0]][0]
+            self.load_directory(parent, cursor_file=cursorf)
 
     def go_home(self, widget):
         """
             Goes to the user's home directory
         """
-        self.load_directory(Gio.File.new_for_commandline_arg(xdg.homedir))
+        cursorf = self.model[self.tree.get_cursor()[0]][0]
+        self.load_directory(Gio.File.new_for_commandline_arg(xdg.homedir),
+            cursor_file=cursorf)
 
     def set_column_width(self, col, stuff=None):
         """
@@ -348,14 +346,14 @@ class FilesPanel(panel.Panel):
         settings.set_option(name, col.get_width(), save=False)
 
     @common.threaded
-    def load_directory(self, directory, history=True, keyword=None, cursor=None):
+    def load_directory(self, directory, history=True, keyword=None, cursor_file=None):
         """
             Load a directory into the files view.
 
             :param history: whether to record in history
             :param keyword: filter string
-            :param cursor: path or (path, column) to select after loading.
-                    Useful while refreshing a directory.
+            :param cursor_file: file to (attempt to) put the cursor on.
+                Will put the cursor on a subdirectory if the file is under it.
         """
         self.current = directory
         try:
@@ -366,7 +364,8 @@ class FilesPanel(panel.Panel):
             logger.exception(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 self.load_directory(
-                    Gio.File.new_for_commandline_arg(xdg.homedir), history, keyword, cursor)
+                    Gio.File.new_for_commandline_arg(xdg.homedir),
+                    history, keyword, cursor_file)
             return
         if self.current != directory: # Modified from another thread.
             return
@@ -407,11 +406,19 @@ class FilesPanel(panel.Panel):
             model = self.model
             view = self.tree
 
-            old_cursor = view.get_cursor()
+            if cursor_file:
+                cursor_uri = cursor_file.get_uri()
+            cursor_row = -1
 
             model.clear()
+            row = 0
             for sortname, name, f in subdirs:
                 model.append((f, self.directory, name, ''))
+                uri = f.get_uri()
+                if cursor_file and cursor_row == -1 and \
+                        (cursor_uri == uri or cursor_uri.startswith(uri + '/')):
+                    cursor_row = row
+                row += 1
             for sortname, name, f in subfiles:
                 size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size() // 1000
                 
@@ -422,9 +429,12 @@ class FilesPanel(panel.Panel):
                 size = _('%s kB') % unicode(size, locale.getpreferredencoding())
                 
                 model.append((f, self.track, name, size))
+                if cursor_file and cursor_row == -1 and cursor_uri == f.get_uri():
+                    cursor_row = row
+                row += 1
 
-            if cursor:
-                view.set_cursor(*cursor)
+            if cursor_file and cursor_row != -1:
+                view.set_cursor((cursor_row,))
             else:
                 view.set_cursor((0,))
                 if view.get_realized():
@@ -433,11 +443,8 @@ class FilesPanel(panel.Panel):
             self.entry.set_text(directory.get_parse_name())
             if history:
                 self.back.set_sensitive(True)
-                hist = self.history
-                del hist[self.i+1:]
-                hist[-1] = HistoryEntry(hist[-1].gfile, old_cursor)
-                hist.append(HistoryEntry(self.current, None))
-                self.i = len(hist) - 1
+                self.history[self.i+1:] = [self.current]
+                self.i = len(self.history) - 1
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))
 

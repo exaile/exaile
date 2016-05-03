@@ -26,6 +26,16 @@
 
 import time
 import re
+import logging
+try:
+    from unidecode import unidecode
+except:
+    error('Could not import unidecode module, searches will not ignore diacritics')
+    UNIDECODE_IMPORTED = False
+else:
+    logging.info("Unidecode imported")
+    UNIDECODE_IMPORTED = True
+
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -64,14 +74,22 @@ class _Matcher(object):
             if type(vals) != list:
                 vals = [vals]
             for item in vals:
-                try:
+                if item != None:
                     item = self.lower(item)
-                except:
-                    pass
-                if self._matches(item):
-                    return True
-            else:
-                return False
+                    try:
+                        # If unidecode is imported convert all unicode strings
+                        # to ascii so that diacritics are ignored. If not, just
+                        # convert all values to lowercase to ignore uppercase.
+                        if UNIDECODE_IMPORTED:
+                            item = unidecode(self.lower(item))
+                        else:
+                            item = self.lower(item)
+                    except:
+                        pass
+                    if self._matches(item):
+                        return True
+                    else:
+                        return False
 
     def _matches(self, value):
         raise NotImplementedError
@@ -231,7 +249,13 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        tokens = self.__tokenize_query(search_string)
+
+        # If unidecode is present, convert unicode search_string to ascii for
+        # matching that ignores diacritics.
+        if isinstance(search_string, unicode) and UNIDECODE_IMPORTED:
+            tokens = self.__tokenize_query(unidecode(search_string))
+        else:
+            tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)

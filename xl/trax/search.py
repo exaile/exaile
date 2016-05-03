@@ -26,15 +26,7 @@
 
 import time
 import re
-import logging
-try:
-    from unidecode import unidecode
-except:
-    error('Could not import unidecode module, searches will not ignore diacritics')
-    UNIDECODE_IMPORTED = False
-else:
-    logging.info("Unidecode imported")
-    UNIDECODE_IMPORTED = True
+import unicodedata
 
 
 __all__ = ['TracksMatcher', 'search_tracks']
@@ -77,13 +69,8 @@ class _Matcher(object):
                 if item != None:
                     item = self.lower(item)
                     try:
-                        # If unidecode is imported convert all unicode strings
-                        # to ascii so that diacritics are ignored. If not, just
-                        # convert all values to lowercase to ignore uppercase.
-                        if UNIDECODE_IMPORTED:
-                            item = unidecode(self.lower(item))
-                        else:
-                            item = self.lower(item)
+                        item = self.lower(unicodedata.normalize(
+                            'NFKD', item).encode('ASCII', 'ignore'))
                     except:
                         pass
                     if self._matches(item):
@@ -249,11 +236,10 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-
-        # If unidecode is present, convert unicode search_string to ascii for
-        # matching that ignores diacritics.
-        if isinstance(search_string, unicode) and UNIDECODE_IMPORTED:
-            tokens = self.__tokenize_query(unidecode(search_string))
+        if isinstance(search_string, unicode):
+            tokens = self.__tokenize_query(
+                unicodedata.normalize(
+                    'NFKD', search_string).encode('ASCII','ignore'))
         else:
             tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)

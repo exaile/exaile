@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-05 15:30+0200\n"
+"PO-Revision-Date: 2016-05-05 21:20+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
@@ -290,8 +290,8 @@ msgstr "Inicia en mode segur: de vegades és útil si us trobeu amb problemes"
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
-"Forçar l'importació de dades antigues des de la versió 0.2.x (sobreescriu "
-"les dades actuals)"
+"Força la importació de dades antigues de la versió 0.2.x (sobreescriu les "
+"dades actuals)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
@@ -359,11 +359,11 @@ msgstr "Redueix el nivell de sortida"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr "Desactiva la compatibilitat amb D-Bus"
+msgstr "Inhabilita la compatibilitat amb D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Desactiva la compatibilitat amb HAL."
+msgstr "Inhabilita la compatibilitat amb HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -447,8 +447,8 @@ msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
-"Free Lossless Audio Codec (FLAC) és un còdec d'àudio de codi obert que "
-"comprimeix sense pèrdua de qualitat en el so."
+"FLAC (Free Lossless Audio Codec) és un còdec d'àudio de codi obert que "
+"comprimeix però no degrada la qualitat de l'àudio."
 
 #: ../xl/transcoder.py:78
 msgid ""
@@ -558,7 +558,7 @@ msgstr "Compositor"
 #: ../xl/metadata/tags.py:48
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
 msgid "Conductor"
-msgstr "Conductor"
+msgstr "Director"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
@@ -609,7 +609,7 @@ msgstr "Organització"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr "Album original"
+msgstr "Àlbum original"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
@@ -651,7 +651,7 @@ msgstr "Taxa de bits"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr "Data d'adició"
+msgstr "Data d'afegiment"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
@@ -680,7 +680,7 @@ msgstr "Temps de reproducció"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr "Vegades reproduida"
+msgstr "Vegades reproduïda"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -836,15 +836,15 @@ msgstr "Edita"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Exporta la llista de reproducció"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Exporta els fitxers"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
-msgstr "Suprimeix la llista de reproducció"
+msgstr "Elimina la llista de reproducció"
 
 #: ../xlgui/widgets/filter.py:65 ../xlgui/panel/radio.py:179
 msgid "Name:"
@@ -1081,16 +1081,16 @@ msgstr "Importa una llista de reproducció"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Exporta la llista de reproducció actual"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Utilitza els camins relatius a les pistes"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "S'ha desat la llista de reproducció com a <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1104,7 +1104,7 @@ msgstr "<b>Voleu desar els canvis a %s abans de tancar?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr "Els canvis es perdràn si no els deseu"
+msgstr "Els vostres canvis es perdran si no els deseu"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
@@ -1121,12 +1121,12 @@ msgstr "No a tot"
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr "Enmagatzemades %(count)s of %(total)s"
+msgstr "S'han emmagatzemat %(count)s de %(total)s"
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "S'ha produït un error mentre es copiava %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
@@ -1139,7 +1139,7 @@ msgstr "Nom de la llista:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Afegeix una nova llista de reproducció..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1149,7 +1149,7 @@ msgstr "No heu introduït el nom per a la vostra la llista de reproducció"
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "El nom de la llista de reproducció que heu introduït ja està en ús."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
@@ -1187,7 +1187,7 @@ msgstr "Fes una pausa a la reproducció"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "No s'ha pogut exportar la llista de reproducció!"
 
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362
@@ -1208,7 +1208,7 @@ msgstr "Obre l'_URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr ""
+msgstr "Obre els directoris"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
@@ -1276,7 +1276,7 @@ msgstr ""
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "Editant pista %(current)d de %(total)d"
+msgstr "S'està editant la pista %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
@@ -1342,7 +1342,7 @@ msgstr "Aplicar el valor actual a totes les pistes"
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "Queden {outstanding} cobertes a capturar"
+msgstr "Queden {outstanding} cobertes per capturar"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
@@ -1406,7 +1406,7 @@ msgstr "Controlador"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
-msgstr "S'està escanejant la coŀlecció..."
+msgstr "S'està escanejant la col·lecció..."
 
 #: ../xlgui/__init__.py:386
 #, python-format
@@ -1466,7 +1466,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
 msgid "Loading streams..."
-msgstr "S'estan carregant els fluxes..."
+msgstr "S'estan carregant els fluxos..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
@@ -1589,7 +1589,7 @@ msgstr "com a mínim"
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:203
 msgid "at most"
-msgstr "com a molt"
+msgstr "com a màxim"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:205
@@ -1916,11 +1916,11 @@ msgstr "Propietats"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Anterior"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "_Següent"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
@@ -1932,7 +1932,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Un altre fitxer d'icona"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
@@ -1960,7 +1960,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda/orquestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
@@ -1988,7 +1988,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr "Ilustració"
+msgstr "Il·lustració"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
@@ -2065,7 +2065,7 @@ msgstr "Carpeta d'inici"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
-msgstr ""
+msgstr "Neteja el camp de cerca"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"
@@ -2113,7 +2113,7 @@ msgstr "Ordre per cercar la coberta:"
 
 #: ../data/ui/preferences/cover.ui.h:9
 msgid "(drag to reorder)"
-msgstr "(arrastreu per a reordenar)"
+msgstr "(arrossegueu per a reordenar)"
 
 #: ../data/ui/preferences/playlists.ui.h:1
 #: ../data/ui/preferences/general.ui.h:1
@@ -2269,7 +2269,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
-msgstr "Connectors instaŀlats"
+msgstr "Connectors instal·lats"
 
 #: ../data/ui/preferences/plugin.ui.h:9
 msgid "Authors:"
@@ -2354,15 +2354,15 @@ msgstr "Mostra la icona de la safata"
 
 #: ../data/ui/preferences/appearance.ui.h:13
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Minimitza a la safata"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Pròxim a la safata"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
-msgstr "Salta a la cançó actual quan amb el canvi de pista"
+msgstr "Salta a la cançó actual amb el canvi de pista"
 
 #: ../data/ui/preferences/appearance.ui.h:17
 msgid "Show splash screen on startup"
@@ -2370,19 +2370,19 @@ msgstr "Mostra la pantalla de càrrega amb la inicialització"
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "Esquerra"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "Dreta"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "Superior"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "Inferior"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -2424,7 +2424,7 @@ msgstr "Personalitzat: "
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
-msgstr ""
+msgstr "Gestor de cues"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
@@ -2544,7 +2544,7 @@ msgstr "Nom"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
@@ -2552,7 +2552,7 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Vés a: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
@@ -2583,7 +2583,7 @@ msgstr ""
 #: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Equalitzador"
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -2625,11 +2625,11 @@ msgstr ""
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Vista prèvia"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr "Fes una pausa a la reproducció (coble clic per aturar)"
+msgstr "Fes una pausa a la reproducció (doble clic per aturar)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2857,7 +2857,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
-msgstr ""
+msgstr "Barra de progrés"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
@@ -2953,7 +2953,7 @@ msgstr "Afegeix un nou grup"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr "Suprimeix el grup"
+msgstr "Elimina el grup"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
@@ -3131,7 +3131,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Delete"
-msgstr "Esborra"
+msgstr "Elimina"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
@@ -3178,7 +3178,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "Elimina el marcador"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
@@ -3305,7 +3305,7 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
-msgstr ""
+msgstr "Elimina els fitxers incomplets"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
@@ -3315,7 +3315,7 @@ msgstr ""
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
-msgstr ""
+msgstr "Secret:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
@@ -3525,7 +3525,7 @@ msgstr "Utilitza les cobertes de l'àlbum com a icones"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "Use media icons for pause, stop and resume"
-msgstr "Utilitza les icones del mitja per fer pausa, per aturar i per reprendre"
+msgstr "Utilitza les icones del mitjà per fer pausa, per aturar i per reprendre"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "<b>Icons</b>"
@@ -3709,7 +3709,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
-msgstr "Comlet"
+msgstr "Complet"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:15
 msgid "Simple"
@@ -3733,7 +3733,7 @@ msgstr "compositor"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
 msgid "conductor"
-msgstr ""
+msgstr "director"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
 msgid "lyrics"
@@ -3796,7 +3796,7 @@ msgstr "Cerca: "
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Utilitza cadenes buides per a l'eliminació de les etiquetes"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
@@ -4249,7 +4249,7 @@ msgstr ""
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr "Editor de etiquetes ExFalso"
+msgstr "Editor d'etiquetes ExFalso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
@@ -4316,7 +4316,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "Permèt apagar l'ordinador al finalitzar la llista de reproducció"
+msgstr "Permet apagar l'ordinador en finalitzar la llista de reproducció"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4364,7 +4364,8 @@ msgstr ""
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
-"Proveeix una consola IPython que pot ser utilitzada per manipular Exaile."
+"Proporciona una consola IPython que es pot utilitzar per a la manipulació "
+"d'Exaile."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
@@ -4571,9 +4572,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "LastFM Radio"
+msgstr "Ràdio LastFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""

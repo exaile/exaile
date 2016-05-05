@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-05 21:20+0200\n"
+"PO-Revision-Date: 2016-05-06 00:28+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -372,7 +372,7 @@ msgstr "Tota la biblioteca"
 #: ../xl/main.py:662
 #, python-format
 msgid "Random %d"
-msgstr "Aleatori %d"
+msgstr "%d aleatoris"
 
 #: ../xl/main.py:670
 #, python-format
@@ -455,15 +455,15 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Format d'àudio propietari de Apple que aconsegueix millor qualitat de so que "
-"un MP3, però amb menys taxes de bits."
+"Format d'àudio amb pèrdua propietari d'Apple que aconsegueix millor qualitat "
+"de so que un MP3, però amb taxes de bits inferiors."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Format d'àudio propietari amb pèrdua i antic, però que també és força "
+"Format d'àudio amb pèrdua propietari i antic, però que també és força "
 "popular. El format VBR proporciona una qualitat d'àudio superior respecte al "
 "format CBR, encara que pot ser incompatible amb alguns reproductors."
 
@@ -472,7 +472,7 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Format d'àudio propietari amb pèrdua i antic, però que també és força "
+"Format d'àudio amb pèrdua propietari i antic, però que també és força "
 "popular. El format CBR proporciona una qualitat d'àudio inferior respecte al "
 "format VBR, però és compatible amb qualsevol reproductor."
 
@@ -482,7 +482,7 @@ msgstr "Format d'àudio sense pèrdua, molt ràpid i amb bon nivell de compressi
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -751,23 +751,23 @@ msgstr ""
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "R_epetició apagada"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "Re_peteix-ho tot"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Repeteix u_na"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Dinàmic apa_gat"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dinàmic per _artistes similars"
 
 #: ../xl/playlist.py:1843 ../xlgui/panel/playlists.py:58
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
@@ -817,6 +817,8 @@ msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
+"Els fitxers no es poden moure a la paperera. Voleu eliminar-los "
+"permanentment del disc?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
@@ -824,7 +826,7 @@ msgstr "Mou a la paperera"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "Mo_stra la pista en reproducció"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
@@ -840,7 +842,7 @@ msgstr "Exporta la llista de reproducció"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr "Exporta els fitxers"
+msgstr "Exporta fitxers"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -852,7 +854,7 @@ msgstr "Nom:"
 
 #: ../xlgui/widgets/filter.py:79
 msgid "Match any of the criteria"
-msgstr ""
+msgstr "Coincidència amb qualsevol criteri"
 
 #: ../xlgui/widgets/filter.py:81
 msgid "Randomize results"
@@ -873,7 +875,7 @@ msgstr "No s'està reproduint res"
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Desplaçament: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
@@ -903,6 +905,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"per $artist\n"
+"des de $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
@@ -911,7 +916,7 @@ msgstr "Diversos"
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d en total (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
@@ -969,23 +974,23 @@ msgstr "Recompte de reproduccions"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Planificació"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Començament del desplaçament"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 msgid "Stop Offset"
-msgstr ""
+msgstr "Acabament del desplaçament"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Redimensionament"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
-msgstr ""
+msgstr "_Auto-redimensiona"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
@@ -1005,15 +1010,15 @@ msgstr "Dinàmic"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Suprimeix la pista actual de la llista de reproducció"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr ""
+msgstr "Aleatòriament per a la llista de reproducció"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Aleatòriament per a la selecció"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1032,6 +1037,8 @@ msgstr "Continua la reproducció després d'aquesta pista"
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
+"Requereix els connectors que proporcionen les llistes de reproducció "
+"dinàmiques"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
@@ -1043,15 +1050,15 @@ msgstr "Introduïu l'URL a obrir"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
-msgstr "Obre URL"
+msgstr "Obre l'URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Selecciona el tipus de fitxer (per extensió)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Trieu el mitjà audiovisual a obrir"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
@@ -1072,7 +1079,7 @@ msgstr "Tots els fitxers"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Trieu el directori a obrir"
 
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
@@ -1121,7 +1128,7 @@ msgstr "No a tot"
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr "S'han emmagatzemat %(count)s de %(total)s"
+msgstr "S'han emmagatzemat %(count)s de %(total)s."
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
@@ -1208,7 +1215,7 @@ msgstr "Obre l'_URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr "Obre els directoris"
+msgstr "Obre directoris"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
@@ -1232,7 +1239,7 @@ msgstr "C_obertes"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "Barra d'utilitats de la llista de re_producció"
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
@@ -1248,11 +1255,11 @@ msgstr "Gestor de _dispositius"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Torna a e_xplorar la col·lecció"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
 msgid "Rescan Collection (slow)"
-msgstr ""
+msgstr "Torna a explorar la col·lecció (lent)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1264,7 +1271,7 @@ msgstr "Cancel·la"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Ha fallat l'escriptura de les etiquetes"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1284,7 +1291,7 @@ msgstr "Esteu segur que voleu aplicar els canvis a totes les pistes?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Voleu aplicar els canvis abans de tancat?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
@@ -1411,11 +1418,11 @@ msgstr "S'està escanejant la col·lecció..."
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "S'està explorant %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Plafons"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1430,14 +1437,16 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"El directori ja està en la vostra col·lecció o bé és un subdirectori d'un "
+"altre directori de la vostra col·lecció."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Deixeu-ho caure aquí per crear una nova llista de reproducció."
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Pertanyes tancades recentment"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
@@ -1461,7 +1470,7 @@ msgstr "Mou a una altra vista"
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "S'està transferint a %s..."
 
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
@@ -1510,11 +1519,11 @@ msgstr "Data - àlbum"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Artista - (data - àlbum)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Torna a explorar la col·lecció"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:140
@@ -1528,7 +1537,7 @@ msgstr "%s kB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Nova llista de reproducció intel·ligent"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
@@ -1617,12 +1626,12 @@ msgstr "més petit que"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "en els últims"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "no en els últims"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
@@ -1651,7 +1660,7 @@ msgstr "Reanomena la llista de reproducció"
 #: ../xlgui/panel/playlists.py:394
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr ""
+msgstr "Error en la càrrega de la llista de reproducció intel·ligent: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1659,14 +1668,14 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s i altres"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s i %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
@@ -1691,7 +1700,7 @@ msgstr "Exportació %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Trieu el directori per exportar fitxers a"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1704,38 +1713,38 @@ msgstr "Connectors"
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sense categoritzar"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "No s'ha pogut carregar la informació del connector!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ha fallat el connector: %s"
+msgstr[1] "Han fallat els connectors: %s"
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "No s'ha pogut inhabilitar el connector!"
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "No s'ha pogut habilitar el connector!"
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Trieu un connector"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Arxius dels connectors"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Ha fallat la instal·lació del fitxer del connector!"
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
@@ -1762,15 +1771,15 @@ msgstr "el la els les l'"
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Restableix al valors predeterminats"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Voleu reiniciar Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Es requereix que es reiniciï un cop perquè els canvis prenguin efecte."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
@@ -1778,7 +1787,7 @@ msgstr "Acció"
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Drecera"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
@@ -1822,7 +1831,7 @@ msgstr "Gestor de cobertes"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "Captura les co_bertes"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
@@ -1834,7 +1843,7 @@ msgstr "Repeteix la reproducció"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Cerca:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
@@ -1842,11 +1851,11 @@ msgstr "Cercador de Cobertes"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "L'origen d'aquesta coberta"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "E_stableix com a coberta"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
@@ -1880,7 +1889,7 @@ msgid ""
 msgstr ""
 "Atura la reproducció\n"
 "\n"
-"Feu clic amb el botó dret per aturar la funcionalitat  després de la pista"
+"Feu clic amb el botó dret per aturar després de la funció de la pista"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
@@ -1892,19 +1901,19 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
-msgstr ""
+msgstr "Propietats de la pista"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Afegeix una etiqueta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "Sup_rimeix l'etiqueta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1948,7 +1957,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Mitjà (p. ex. l'etiqueta dins del CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
@@ -1968,11 +1977,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Ubicació del registrament"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Captura de pantalla del vídeo/pel·lícula"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
@@ -1980,7 +1989,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Captura de pantalla del vídeo o de la pel·lícula"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
@@ -1992,7 +2001,7 @@ msgstr "Il·lustració"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logotipus de la banda/artista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
@@ -2001,6 +2010,7 @@ msgstr ""
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
 msgstr ""
+"Feu clic o arrossegueu els fitxers aquí per canviar la imatge de la coberta"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
@@ -2017,11 +2027,11 @@ msgstr "Gestor de col·leccions"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Monitorat"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Explora a la inicialització"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
@@ -2029,11 +2039,11 @@ msgstr "Ràdio"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Annexa totes les pistes a la llista de reproducció"
 
 #: ../data/ui/panel/flatplaylist.ui.h:3
 msgid "Import CD"
-msgstr ""
+msgstr "Importa el CD"
 
 #: ../data/ui/panel/radio.ui.h:2
 msgid "Add Station"
@@ -2057,7 +2067,7 @@ msgstr "Puja un directori"
 
 #: ../data/ui/panel/files.ui.h:5
 msgid "Refresh directory listing"
-msgstr "Refresca la llista de directoris"
+msgstr "Refresca el llistat dels directoris"
 
 #: ../data/ui/panel/files.ui.h:6
 msgid "Home directory"
@@ -2083,11 +2093,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Utilitza les cobertes incrustades a les etiquetes"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Utilitza les cobertes dels fitxers locals"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
@@ -2097,7 +2107,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Noms preferits dels fitxers:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
@@ -2168,7 +2178,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Durada de la fosa (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
@@ -2183,7 +2193,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Conducte d'àudio:"
 
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
@@ -2193,7 +2203,7 @@ msgstr "Dispositiu: "
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Canonada del conducte personalitzat:"
 
 #: ../data/ui/preferences/playback.ui.h:9
 msgid "Resume playback on start"
@@ -2227,7 +2237,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Retards entre les pistes (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
@@ -2241,7 +2251,7 @@ msgstr "Normal"
 #: ../data/ui/preferences/playback.ui.h:19
 #: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Unificat (inestable)"
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
@@ -2265,7 +2275,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "No hi ha cap connector seleccionat"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
@@ -2301,11 +2311,11 @@ msgstr "Actualitzacions"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Instal·la el fitxer del connector"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr "Mostra l’àrea d’informació"
+msgstr "Mostra l'àrea d'informació"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
@@ -2317,21 +2327,21 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Mostra sempre la barra de pestanyes"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr ""
+msgstr "Emplaçament de la pestanya:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Tipus de lletra de la llista de reproducció:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Restableix al tipus de lletra del sistema"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
@@ -2340,7 +2350,7 @@ msgstr ""
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Utilitza la transparència alfa:"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
@@ -2452,7 +2462,7 @@ msgstr ""
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Streamripper"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
@@ -2461,7 +2471,7 @@ msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "La clau de l'API no és vàlida."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
@@ -2506,17 +2516,17 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Menú principal"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
 msgid "Contacting Icecast server..."
-msgstr ""
+msgstr "S'està contactant amb el servidor Icecast..."
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
 msgid "Error connecting to Icecast server."
-msgstr ""
+msgstr "Error en contactar amb el servidor Icecast."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
@@ -2548,7 +2558,7 @@ msgstr "Format"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "No s'ha trobat la lletra de la cançó."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
@@ -2556,7 +2566,7 @@ msgstr "Vés a: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "Qualsevol"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
@@ -2566,19 +2576,19 @@ msgstr "Visualitzador de lletres"
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Verificació reeixida"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Ha fallat la verificació"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Habilita audioscrobbling"
 
 #: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
@@ -2591,37 +2601,37 @@ msgstr "Apaga després de la reproducció"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Programació de l'apagament"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr "S'apagarà l'ordinador amb l'acabament de la reproducció"
+msgstr "S'apagarà l'ordinador amb l'acabament de la reproducció."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Apagada imminent"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "L'ordinador s'apagarà en %d segons."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Ha fallat l'apagada"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "L'ordinador no es pot apagar mitjançant D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Vista prèvia del dispositiu"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Vista prèvia del reproductor"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
@@ -2633,7 +2643,7 @@ msgstr "Fes una pausa a la reproducció (doble clic per aturar)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Notificacions de Notify-osd"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:53
@@ -2655,11 +2665,11 @@ msgstr "de %(album)s"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Consola IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Mostra la consola IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -2675,10 +2685,12 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"per %(artist)s\n"
+"de <i>%(album)s</i>"
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
-msgstr ""
+msgstr "S'està important el CD..."
 
 #: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
@@ -2710,7 +2722,7 @@ msgstr "Wikipedia"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Mostra la pàgina de Wikipedia sobre l'artista actual."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
@@ -2728,7 +2740,7 @@ msgstr "Acabament de la repetició"
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Mode reduït"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
@@ -2757,7 +2769,7 @@ msgstr "Vés a la pista anterior"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr "Pista anterir"
+msgstr "Pista anterior"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
@@ -2813,47 +2825,47 @@ msgstr "Canvia el volum"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
-msgstr ""
+msgstr "Restaura"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Restaura la finestra principal"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Restaura la finestra principal"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Selecciona la puntuació de la pista actual"
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
-msgstr ""
+msgstr "Selector de la pista"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Selector senzill de la llista de les pistes"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
-msgstr ""
+msgstr "Botó de la llista de reproducció"
 
 #: ../plugins/minimode/controls.py:699
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Accés a la llista de reproducció actual"
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_temps)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Botó del progrés"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Progrés de la reproducció i accés a la llista de reproducció actual"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
@@ -2861,7 +2873,7 @@ msgstr "Barra de progrés"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Progrés de la reproducció i desplaçament"
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
@@ -2969,19 +2981,19 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "El valor de la nova etiqueta?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Introduïu el nom de la nova etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "Nova categoria?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Introduïu el nou nom de la categoria d'agrupament"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
@@ -2989,27 +3001,27 @@ msgstr "Afegeix un grup"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Afegeix els seleccionats a les tries"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Mostra les pistes amb grups"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Han de tenir aquesta etiqueta [AND]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Poden tenir aquesta etiqueta [OR]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "No poden tenir aquesta etiqueta [NOT]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorat"
 
 #: ../plugins/grouptagger/gt_widgets.py:759
 msgid "Selected Tracks"
@@ -3023,15 +3035,15 @@ msgstr ""
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Deixa caure per triar"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
-msgstr ""
+msgstr "Annexa i reprodueix"
 
 #: ../plugins/droptrayicon/__init__.py:286
 msgid "Append"
-msgstr ""
+msgstr "Annexa"
 
 #: ../plugins/history/history_preferences.py:35
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
@@ -3045,7 +3057,7 @@ msgstr "Historial de reproducció"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Voleu esborrar l'historial emmagatzemat?"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
@@ -3058,15 +3070,15 @@ msgstr "Neteja l'historial"
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Ready"
-msgstr ""
+msgstr "A punt"
 
 #: ../plugins/jamendo/__init__.py:92
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "S'està cercant al catàleg de Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:93
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "S'estan recuperant les dades de la cançó..."
 
 #: ../plugins/console/__init__.py:109
 msgid "Console"
@@ -3119,15 +3131,15 @@ msgstr "Analitza la llista de reproducció"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcasts"
 
 #: ../plugins/podcasts/__init__.py:70
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:79
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Refresca el podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Delete"
@@ -3139,7 +3151,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
-msgstr ""
+msgstr "Obre el podcast"
 
 #: ../plugins/podcasts/__init__.py:152
 #, python-format
@@ -3148,15 +3160,15 @@ msgstr "S'està carregant %s..."
 
 #: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Error en la càrrega del podcast."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "S'estan carregant els podcasts..."
 
 #: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "No s'ha pogut desar el fitxer del podcast"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
@@ -3174,7 +3186,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:104
 msgid "Bookmark This Track"
-msgstr ""
+msgstr "Crea un marcador per a aquesta pista"
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
@@ -3182,7 +3194,7 @@ msgstr "Elimina el marcador"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
-msgstr ""
+msgstr "Neteja els marcadors"
 
 #: ../plugins/bookmarks/__init__.py:305
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -3192,7 +3204,7 @@ msgstr "Marcadors"
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Fes una pausa amb l'estalvi de pantalla"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
@@ -3201,15 +3213,15 @@ msgstr "Servidor DAAP"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
-msgstr ""
+msgstr "S'està contactant amb el servidor SomaFM..."
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
 msgid "Error connecting to SomaFM server."
-msgstr ""
+msgstr "Error en connectar al servidor SomaFM."
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Comptador de PPM"
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
 msgid "Update"
@@ -3217,29 +3229,29 @@ msgstr "Actualitza"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
-msgstr ""
+msgstr "Aplica les PPM"
 
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Voleu establir les PPM de %d a %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Client DAAP"
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."
-msgstr ""
+msgstr "Manualment..."
 
 #: ../plugins/daapclient/__init__.py:350
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Introduïu l'adreça IP i el port per a la compartició"
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Introduïu l'adreça IP i el port."
 
 #: ../plugins/daapclient/__init__.py:556
 msgid ""
@@ -3249,19 +3261,19 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Refresca la llista dels servidors"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "Desconnecta't del servidor"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Selecciona una ubicació per al desament"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Connecta't al DAAP..."
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
@@ -3285,19 +3297,19 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Base color:"
-msgstr ""
+msgstr "Color base:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Base color"
-msgstr ""
+msgstr "Color base"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Save location:"
-msgstr ""
+msgstr "Ubicació de desament:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Relay port:"
-msgstr ""
+msgstr "Port de retransmissió:"
 
 #: ../plugins/streamripper/streamripper.ui.h:3
 msgid "Rip to single file"
@@ -3310,7 +3322,7 @@ msgstr "Elimina els fitxers incomplets"
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API key:"
-msgstr ""
+msgstr "Clau de l'API:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
@@ -3319,7 +3331,7 @@ msgstr "Secret:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
-msgstr ""
+msgstr "Sol·licita els permisos d'accés"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:5
 msgid ""
@@ -3371,15 +3383,15 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Volum mínim:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Volum màxim:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Increment:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
@@ -3391,7 +3403,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
-msgstr ""
+msgstr "Mostra les cobertes"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
@@ -3403,19 +3415,19 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Tipus de lletra de la lletra de la cançó:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Refresca les lletres de les cançons"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Envia les pistes mitjançant Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
@@ -3441,7 +3453,7 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "pre"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
@@ -3737,7 +3749,7 @@ msgstr "director"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
 msgid "lyrics"
-msgstr ""
+msgstr "Lletres de les cançons"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
@@ -3804,7 +3816,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
 msgid "0 tracks found"
-msgstr ""
+msgstr "0 pistes trobades"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
@@ -3962,11 +3974,11 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
-msgstr ""
+msgstr "Genera!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:7
 msgid "Output Title"
-msgstr ""
+msgstr "Títol de la sortida"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
 msgid "Defaults to the playlist name"
@@ -3978,7 +3990,7 @@ msgstr "Genera"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Afegeix el podcast"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
@@ -3986,7 +3998,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
-msgstr ""
+msgstr "Desplaçament X:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "pixels"
@@ -3994,7 +4006,7 @@ msgstr "píxels"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
 msgid "Y offset:"
-msgstr ""
+msgstr "Desplaçament Y:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
@@ -4050,27 +4062,27 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:5
 msgid "Fade start volume:"
-msgstr ""
+msgstr "Volum del començament de la fosa:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:6
 msgid "Fade stop volume:"
-msgstr ""
+msgstr "Volum de l'acabament de la fosa:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr ""
+msgstr "Increment de la fosa:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
-msgstr ""
+msgstr "Temps de fosa (s):"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:9
 msgid "Restart playlist"
-msgstr ""
+msgstr "Reinicia la llista de reproducció"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Reproducció</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
@@ -4125,6 +4137,8 @@ msgid ""
 "Plugin to fetch lyrics from www.lyricsmania.com\n"
 "Depends: lxml"
 msgstr ""
+"Connector per capturar les lletres de les cançons de www.lyricsmania.com\n"
+"Depèn: lxml"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -4220,20 +4234,22 @@ msgstr "Utilitat"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Botó del menú principal"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
 "Moves the main menu into a button on top of the panels.\n"
 "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgstr ""
+"Mou la finestra principal a un botó en la part superior dels plafons.\n"
+"Depèn: PyGTK >= 2.22, GTK >= 2.20"
 
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
 #: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
 #: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Orígens dels mitjans audiovisuals"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4255,7 +4271,9 @@ msgstr "Editor d'etiquetes ExFalso"
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
-msgstr "Integra l'editor d'etiquetes ExFalso amb Exaile"
+msgstr ""
+"Integra l'editor d'etiquetes ExFalso amb Exaile.\n"
+"Depèn: ExFalso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4269,7 +4287,7 @@ msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
@@ -4277,7 +4295,7 @@ msgstr ""
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
-msgstr ""
+msgstr "Tecles multimèdia per a Windows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
 msgid ""
@@ -4290,7 +4308,7 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "Un equalitzador de 10 bandes"
 
 #: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
@@ -4300,7 +4318,7 @@ msgstr ""
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Inhibeix la suspensió"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
@@ -4316,7 +4334,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "Permet apagar l'ordinador en finalitzar la llista de reproducció"
+msgstr "Permet apagar l'ordinador en finalitzar la llista de reproducció."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4341,7 +4359,7 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Llistes de reproducció dinàmiques de Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -4349,7 +4367,7 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Llistes de reproducció dinàmiques"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4453,7 +4471,7 @@ msgstr ""
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
-msgstr ""
+msgstr "Consola senzilla"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
@@ -4465,7 +4483,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "Compatibilitat amb l'iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4483,11 +4501,11 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "Karaoke"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "Suprimeix la veu de l'àudio"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"

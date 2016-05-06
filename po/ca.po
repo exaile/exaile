@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-06 10:18+0200\n"
+"PO-Revision-Date: 2016-05-06 11:50+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -281,7 +281,7 @@ msgstr "Iniciar minimitzat (a la safata, si és possible)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Alterna la visibilitat de la IGU (si es pot)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -315,7 +315,7 @@ msgstr "Estableix el directori de dades"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Estableix el directori de les dades i de la configuració"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -323,7 +323,7 @@ msgstr "MÒDUL"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Limita la sortida del registre al MÒDUL"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
@@ -331,7 +331,7 @@ msgstr "NIVELL"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Limita la sortida del registre al NIVELL"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
@@ -343,7 +343,7 @@ msgstr "Habilita la depuració de xl.event. Això generarà MOLTES sortides"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Afegeix el nom del fil d'execució per enregistrar els missatge."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -351,7 +351,7 @@ msgstr "TIPUS"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Limita la depuració de xl.event a la sortida del TIPUS"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
@@ -384,6 +384,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile encara no ha acabat la càrrega. Potser heu escoltat el senyal "
+"exaile_loaded signal?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
@@ -499,7 +501,7 @@ msgstr "Automàtic"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possible error del dispositiu d'àudio, està endollat?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -512,6 +514,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"estat: %(status)s, títol: %(title)s, artista: %(artist)s, àlbum: %(album)s, "
+"llargada: %(length)s, posició: %(progress)s%% [%(position)s]"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/widgets/playlist_columns.py:246
 #: ../xlgui/panel/collection.py:132 ../data/ui/widgets/tracklist_info.ui.h:1
@@ -692,7 +696,7 @@ msgstr "Acabament de la compensació"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "La versió dels ajusts és més recent que l'actual."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
@@ -727,7 +731,7 @@ msgstr "El format no és vàlid per a %s."
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Versió no admesa de %(version)s per %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
@@ -798,7 +802,7 @@ msgstr "Local"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr "Fica a la cua"
+msgstr "Posa a la cua"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
@@ -926,7 +930,7 @@ msgstr "%d a la col·lecció"
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "Es mostren %d"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
@@ -1291,7 +1295,7 @@ msgstr "Esteu segur que voleu aplicar els canvis a totes les pistes?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr "Voleu aplicar els canvis abans de tancat?"
+msgstr "Voleu aplicar els canvis abans de tancar?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
@@ -1344,7 +1348,7 @@ msgstr "Formats admesos de les imatges"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
-msgstr "Aplicar el valor actual a totes les pistes"
+msgstr "Aplica el valor actual a totes les pistes"
 
 #: ../xlgui/cover.py:109
 #, python-brace-format
@@ -1917,7 +1921,7 @@ msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Primera lletra en majúscula per a totes les etiquetes"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
@@ -1953,7 +1957,7 @@ msgstr "Coberta (posterior)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Pàgina del prospecte"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
@@ -1973,7 +1977,7 @@ msgstr "Banda/orquestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Lletrista o escriptor del text"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
@@ -1985,7 +1989,7 @@ msgstr "Captura de pantalla del vídeo/pel·lícula"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "En el transcurs de la interpretació"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
@@ -2164,6 +2168,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Quan feu doble clic o premeu la tecla de retorn, reprodueix una pista d'una "
+"llista de reproducció, posa la pista a la cua en lloc de reproduir-la"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
@@ -2173,7 +2179,7 @@ msgstr "Motor de reproducció: "
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Utilitza les transicions de fosa amb les accions de l'usuari"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
@@ -2183,12 +2189,12 @@ msgstr "Durada de la fosa (ms):"
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Utilitza la fosa creuada (EXPERIMENTAL)"
 
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Durada de la fosa creuada (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
@@ -2324,10 +2330,12 @@ msgstr "Mostra l'àrea d'informació"
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
 msgstr ""
+"L'àrea d'informació que conté el treball artístic de la coberta i la "
+"informació de la pista"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Mostra el treball artístic de la coberta a l'àrea d'informació"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
@@ -2349,7 +2357,7 @@ msgstr "Restableix al tipus de lletra del sistema"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Mostra els comptadors de pistes a la col·lecció"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
@@ -3297,11 +3305,11 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Darkness level:"
-msgstr ""
+msgstr "Nivell de foscor:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Use waveform style"
-msgstr ""
+msgstr "Utilitza l'estil de forma d'ona"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Show only waveform, not mood"
@@ -3309,7 +3317,7 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Use color theme "
-msgstr ""
+msgstr "Utilitza el tema de color"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Base color:"
@@ -3359,7 +3367,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Hora de l'alarma</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
@@ -3391,11 +3399,11 @@ msgstr "Diumenge"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Dies de l'alarma</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
-msgstr ""
+msgstr "Utilitza la fosa"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
@@ -3411,11 +3419,11 @@ msgstr "Increment:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Temps per a l'increment:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
-msgstr ""
+msgstr "Superposició de la pantalla:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
@@ -3427,7 +3435,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Percentatge del text"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
@@ -3452,6 +3460,7 @@ msgstr ""
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
 msgstr ""
+"Envia les pistes dels fluxos de dades (p. ex. DAAP, ràdio Shoutcast, etc.)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:2
@@ -3570,6 +3579,9 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
+"<i>Les etiquetes \"%(title)s\", \"%(artist)s\" i \"%(album)s\" es mostraran "
+"amb els seus valors respectius. El títol es substiturà amb \"Desconegut\" si "
+"està buit.</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
@@ -4004,7 +4016,7 @@ msgstr "Selecciona l'anàlisi"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
 msgid "Playlist(s) to analyze"
-msgstr ""
+msgstr "Llistes de reproducció a analitzar"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
@@ -4016,7 +4028,7 @@ msgstr "Títol de la sortida"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Valors per defecte al nom de la llista de reproducció"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
@@ -4024,11 +4036,11 @@ msgstr "Genera"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr "Afegeix el podcast"
+msgstr "Afegeix un podcast"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Àncora:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
@@ -4052,11 +4064,11 @@ msgstr "Mida:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"
-msgstr ""
+msgstr "Utilitza la fosa"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
-msgstr ""
+msgstr "Durada de la fosa:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"
@@ -4092,7 +4104,7 @@ msgstr "<b>Alarmes</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
-msgstr ""
+msgstr "Habilita la fosa del volum"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:5
 msgid "Fade start volume:"
@@ -4120,7 +4132,7 @@ msgstr "<b>Reproducció</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
-msgstr ""
+msgstr "Introduïu la vostra autenticació a Last.fm:"
 
 #: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Sign up for Last.fm"
@@ -4405,6 +4417,8 @@ msgstr "Llistes de reproducció dinàmiques de Last.fm"
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
 msgstr ""
+"El programari especialitzar de Last.fm per a les llistes de reproducció "
+"dinàmiques"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
@@ -4419,6 +4433,12 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Aquest connector mostra globus de notificació quan una cançó es reprodueix, "
+"es reprèn o s'atura, amb la coberta de la cançó o amb la icona del mitja que "
+"indica l'última acció.\n"
+"\n"
+"Depèn: python-notify\n"
+"Recomana: notify-osd"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."

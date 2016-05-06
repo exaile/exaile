@@ -1,14 +1,14 @@
 # Catalan translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-06 00:28+0200\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"PO-Revision-Date: 2016-05-06 10:18+0200\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
 "Language: ca\n"
@@ -1283,7 +1283,7 @@ msgstr ""
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "S'està editant la pista %(current)d de %(total)d"
+msgstr "Edició de la pista %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
@@ -1327,7 +1327,7 @@ msgstr "Imatge enllaçada"
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} píxels"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
@@ -1475,7 +1475,7 @@ msgstr "S'està transferint a %s..."
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
 msgid "Loading streams..."
-msgstr "S'estan carregant els fluxos..."
+msgstr "S'estan carregant els fluxos de dades..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
@@ -1491,7 +1491,7 @@ msgstr "Emissores desades"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
-msgstr "Fluxos de ràdio"
+msgstr "Fluxos de dades de ràdio"
 
 #: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
@@ -1965,7 +1965,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista/intèrpret"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
@@ -2224,16 +2224,20 @@ msgstr "Suprimeix la pista del capdamunt de la cua de reproducció"
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
+"No permetis la reproducció de pistes noves quan s'estigui reproduint una "
+"altra pista"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Si s'està reproduint actualment una pista, no permetis que s'iniciïn les "
+"altres pistes, amb l'excepció que es faci clic als controls de reproducció"
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Avança automàticament a la següent pista"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
@@ -2267,11 +2271,11 @@ msgstr "Estat"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Show incompatible plugins"
-msgstr ""
+msgstr "Mostra els connectors incompatibles"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Mostra els connectors potencialment trencats"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
@@ -2458,7 +2462,7 @@ msgstr ""
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Error en executar streamripper"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2476,11 +2480,11 @@ msgstr "La clau de l'API no és vàlida."
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Assegureu-vos que les dades introduïdes siguin correctes."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "No s'ha pogut iniciar al navegador web"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2488,6 +2492,8 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Copieu la següent URL i obriu-la al vostre navegador web:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
@@ -2511,7 +2517,7 @@ msgstr ""
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Aquest connector com a mínim requereix PyGTK 2.22 i GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
@@ -2722,7 +2728,7 @@ msgstr "Wikipedia"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr "Mostra la pàgina de Wikipedia sobre l'artista actual."
+msgstr "Mostra la pàgina de Wikipedia quant a l'intèrpret actual."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
@@ -2877,31 +2883,31 @@ msgstr "Progrés de la reproducció i desplaçament"
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "Importació de pistes"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"
-msgstr ""
+msgstr "Importació de grups"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Actualització de grups"
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Seleccioneu el directori des d'on importar les etiquetes d'agrupament"
 
 #: ../plugins/grouptagger/gt_prefs.py:21
 #: ../plugins/grouptagger/__init__.py:125
 #: ../plugins/grouptagger/gt_widgets.py:635
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:104
 msgid "GroupTagger"
-msgstr ""
+msgstr "GroupTagger"
 
 #: ../plugins/grouptagger/__init__.py:109
 #: ../plugins/grouptagger/gt_widgets.py:693
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Obté totes les etiquetes de les col·leccions"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "Import tags from directory"
@@ -2913,16 +2919,17 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Mostra les pistes amb totes les etiquetes"
 
 #: ../plugins/grouptagger/__init__.py:134
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Mostra les pistes amb totes les etiquetes (personalitzat)"
 
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
 msgid "No categorization tags found in selected tracks"
 msgstr ""
+"No s'ha trobat cap etiqueta de categorització en les pistes seleccionades"
 
 #: ../plugins/grouptagger/gt_mass.py:121
 #, python-format
@@ -2932,26 +2939,29 @@ msgstr "%s pistes trobades"
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "Voleu substituir '%s' amb '%s' en %s pistes?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Heu de tornar a explorar la vostra col·lecció abans d'utilitzar el "
+"reanomenament massiu d'etiquetes per assegurar-vos que totes les etiquetes "
+"estiguin al dia. Voleu tornar a explorar ara?"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Mostra les pistes amb la selecció"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Mostra les pistes etiquetades amb \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Mostra les pistes amb tot seleccionat"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
@@ -2977,7 +2987,7 @@ msgstr "Suprimeix la categoria"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Mostra les pistes amb la selecció (personalitzat)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
@@ -3030,7 +3040,7 @@ msgstr "Pistes seleccionades"
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
@@ -3094,6 +3104,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"per $artist\n"
+"de $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3101,11 +3114,14 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
+"per $artist\n"
+"de $album"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Cobertes d'Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
@@ -3118,7 +3134,7 @@ msgstr "Etiqueta %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr ""
+msgstr "Desa l'anàlisi"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 msgid "Analyze playlists"
@@ -3147,7 +3163,7 @@ msgstr "Elimina"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Introduïu l'URL del podcast a afegir"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
@@ -3173,12 +3189,12 @@ msgstr "No s'ha pogut desar el fitxer del podcast"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Coberta de l'escriptori"
 
 #: ../plugins/multialarmclock/macprefs.py:23
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Rellotge d'alarmes múltiples"
 
 #: ../plugins/contextinfo/contextprefs.py:22
 msgid "Contextinfo"
@@ -3449,7 +3465,7 @@ msgstr "Nom d'usuari:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Verifica les dades d'inici de sessió"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
@@ -3521,7 +3537,7 @@ msgstr "Amb el canvi d'etiqueta"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "En passar el ratolí per sobre de la icona de la safata"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
@@ -3545,7 +3561,7 @@ msgstr "<b>Icones</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr ""
+msgstr "Línia de l'artista:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -3562,7 +3578,7 @@ msgstr "Resum:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr ""
+msgstr "Línia de l'àlbum:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
@@ -3570,7 +3586,7 @@ msgstr "<b>Contingut</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Opacitat del terminal:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
@@ -3586,23 +3602,23 @@ msgstr "Color de fons:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "Tema de color d'IPython:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
-msgstr ""
+msgstr "Llança la consola d'IPython quan s'iniciï Exaile"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Redimensiona les cobertes mostrades"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
-msgstr ""
+msgstr "Només l'artista:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr ""
+msgstr "Només l'àlbum:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -3612,14 +3628,18 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place.</i>"
 msgstr ""
+"<i>El missatge que s'ha de mostrar en el cos de la notificació. En cada cas, "
+"\"%(title)s\", \"%(artist)s\", i \"%(album)s\" es substituiran amb els seus "
+"valors respectius. Si no es coneix l'etiqueta, s'omplirà en lloc seu amb \""
+"Desconegut\".</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr ""
+msgstr "Tan l'artista com l'àlbum:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Cos del missatge</b>"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
@@ -3647,15 +3667,15 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "Import format: "
-msgstr ""
+msgstr "Format de la importació: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Import quality: "
-msgstr ""
+msgstr "Qualitat de la importació: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "Import path: "
-msgstr ""
+msgstr "Camí de la importació: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:3
@@ -3664,10 +3684,13 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
+"Totes les etiquetes es poden utilitzar amb <b>$tag</b> o bé amb <b>${tag}</b>"
+". Les etiquetes internes com ara <b>$__length</b> cal que s'especifiquin amb "
+"dues línies de subratllat."
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "El codi breu de la versió de l'idioma de la Wikipedia (ca, en, fr, ...)"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
@@ -3690,6 +3713,8 @@ msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
+"L'ordre dels controls es pot canviar simplement en deixar-los caure per "
+"sobre o a sobre. (o en prémer Alt+Avall/Amunt)"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
@@ -3717,7 +3742,7 @@ msgstr "Mostra-ho en tots els escriptoris"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr ""
+msgstr "Mostra el botó a la finestra principal"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
@@ -3737,7 +3762,7 @@ msgstr "comentari"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
 msgid "encodedby"
-msgstr ""
+msgstr "codificat per"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
 msgid "composer"
@@ -3753,11 +3778,11 @@ msgstr "Lletres de les cançons"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Tipus de lletra per a Grup/categories:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Nom de l'etiqueta de categorització"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:10
 msgid ""
@@ -3767,7 +3792,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
-msgstr ""
+msgstr "Importa etiquetes"
 
 #: ../plugins/grouptagger/gt_import.ui.h:2
 msgid "Import"
@@ -3775,15 +3800,15 @@ msgstr "Importa"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
 msgid "Current Groups"
-msgstr ""
+msgstr "Grups actuals"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
 msgid "New Groups"
-msgstr ""
+msgstr "Grups nous"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
 msgid "Import Type:"
-msgstr ""
+msgstr "Tipus d'importació:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
@@ -3795,11 +3820,11 @@ msgstr "Substitueix"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
-msgstr ""
+msgstr "Reanomena/suprimeix etiquetes de forma massiva"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Si està buit, coincideix amb totes les pistes"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 #, fuzzy
@@ -3812,7 +3837,7 @@ msgstr "Utilitza cadenes buides per a l'eliminació de les etiquetes"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
-msgstr ""
+msgstr "Substitueix l'etiqueta"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
 msgid "0 tracks found"
@@ -3820,43 +3845,46 @@ msgstr "0 pistes trobades"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Prefereix la correcció per àlbum"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
+"Prefereix la correcció per àlbum de ReplayGain sobre la correcció per pista."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Utilitza la protecció de les retallades"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Protegeix contra el soroll a causa de l'excés d'amplificació"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Amplificació addicional a aplicar a tots els fitxers"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Amplificació addicional (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Pla alternatiu de correcció per als fitxers que els hi falta la informació "
+"ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Nivell per al pla alternatiu de correcció (dB):"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Persistència de l'historial després de la sortida del reproductor"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "Llargada de l'historial:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
@@ -3864,7 +3892,7 @@ msgstr "Ordenat per:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Direcció d'ordenació:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
@@ -3896,7 +3924,7 @@ msgstr "Puntuació d'aquest mes"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Nombre d'afegiments de la llista reproducció"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
@@ -3904,19 +3932,19 @@ msgstr "Nombre de baixades"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Nombre d'escoltaments"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Amb estrella"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Data de l'afegiment de l'estrella"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Gènere/etiquetes"
 
 #: ../plugins/osd/osd_preferences.ui.h:1
 #, python-brace-format
@@ -3926,14 +3954,20 @@ msgid ""
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
+"Cadascuna de les etiquetes es pot utilitzar amb<b>$tag</b> o bé amb "
+"<b>${tag}</b>. Les etiquetes internes com ara <b>$__length</b> cal que "
+"s'especifiquin amb dos subratllats inicials.\n"
+"S'admet el <a href=\""
+"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">llenguatge "
+"de marques dels atributs de text de Pango</a>."
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Format de pantalla"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Pantalla de la durada:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
@@ -3966,7 +4000,7 @@ msgstr "<no se n'ha seleccionat cap>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
-msgstr ""
+msgstr "Selecciona l'anàlisi"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
 msgid "Playlist(s) to analyze"
@@ -4010,7 +4044,7 @@ msgstr "Desplaçament Y:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Sobreescriu la mida de la coberta"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
@@ -4170,7 +4204,7 @@ msgstr "IGU"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "Tecles multimèdia de GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
@@ -4188,6 +4222,8 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Us permet registrar fluxos de dades amb streamripper.\n"
+"Depèn: streamripper"
 
 #: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
@@ -4195,11 +4231,11 @@ msgstr "Sortida"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "Cobertes de MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr ""
+msgstr "Integra la cerca de cobertes amb MusicBrainz"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4257,7 +4293,7 @@ msgstr "Cobertes de Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Cerca cobertes a Last.fm"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -4305,6 +4341,11 @@ msgid ""
 "Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
 "pythonlibs/#pyhook> for more versions)"
 msgstr ""
+"Afegeix compatibilitat per a les tecles multimèdia (presents en la majoria "
+"dels teclats nous) quan s'executa Exaile en Microsoft Windows.\n"
+"\n"
+"Requereix: pyHook <http://pyhook.sf.net/> (o bé "
+"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> per a més versions)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4314,7 +4355,7 @@ msgstr "Un equalitzador de 10 bandes"
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
 #: ../plugins/mono/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Efecte"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
@@ -4394,6 +4435,8 @@ msgstr "Desenvolupament"
 msgid ""
 "Pops up a notification when playback of a track starts. Requires pynotify"
 msgstr ""
+"Fa aparèixer una notificació emergent amb la reproducció de l'inici de la "
+"pista. Requereix pynotify"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4406,12 +4449,18 @@ msgid ""
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
 "Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
 msgstr ""
+"Afegeix compatibilitat per a la reproducció dels CD d'àudio.\n"
+"\n"
+"Requereix HAL/UDisks/UDisks2 per detectar automàticament els CD\n"
+"Requereix cddb-py (http://cddb-py.sourceforge.net/) per cercar etiquetes."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Proporciona informació de la Wikipedia quant a l'artista actual.\n"
+"Depèn: python-webkit"
 
 #: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
@@ -4420,33 +4469,35 @@ msgstr "Informació"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "Repetició A-B"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Repeteix contínuament un segment de la pista."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Mode compacte per a Exaile amb una interfície que es pot configurar"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
-msgstr ""
+msgstr "Etiquetadora en grup"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Facilita la categorització de la vostra música amb l'etiqueta d'agrupament/"
+"categoria als fitxers d'àudio"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Habilita la compatibilitat amb ReplayGain"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Deixa caure a la icona de la safata"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4454,12 +4505,18 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Proporciona una icona de safata alternativa que accepta que es deixin caure "
+"fitxers.\n"
+"\n"
+"Deoèn: python-eggtrayicon"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
+"Implementa la interfície DBus MPRIS (org.freedesktop.MediaPlayer) per al "
+"control d'Exaile."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -4467,7 +4524,7 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Habilita l'accés al catàleg de música de Jamendo."
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
@@ -4475,11 +4532,13 @@ msgstr "Consola senzilla"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr ""
+msgstr "Consola senzilla per interactuar amb l'API d'Exaile"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
 msgstr ""
+"Una finestra emergent que mostra la informació de la pista actualment en "
+"reproducció."
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
@@ -4491,6 +4550,10 @@ msgid ""
 "\n"
 "Depends on python-gpod."
 msgstr ""
+"Un connector per a compatibilitat amb iPod. De moment només lectura, sense "
+"transferència.\n"
+"\n"
+"Depèn de python-gpod."
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4498,6 +4561,10 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"Cerca cobertes a Amazon\n"
+"\n"
+"Per a utilitzar aquest connector, es requereix un clau de l'API i una clau "
+"secreta d'AWS."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -4516,14 +4583,16 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Ajuda per a la generació de les visualitzacions HTML5 de les vostres llistes "
+"de reproducció utilitzant d3.js. Amb optimització per a Chrome."
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Afegeix compatibilitat senzilla per als podcasts"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Mostra la coberta de l'àlbum actual a l'escriptori"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -4531,7 +4600,7 @@ msgstr "Hola Món"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Un connector senzill per a provar el sistema bàsic dels connectors."
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
@@ -4539,7 +4608,7 @@ msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Redueix el nombre de canals d'àudio a un únic canal."
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4549,6 +4618,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Reprodueix música en moments específics i dies epecífics.\n"
+"\n"
+"Tingueu en compte que quan s'assoleix el moment especificat Exaile tan sols "
+"actuarà com si preméssiu el botó de reproducció, per tant assegureu-vos que "
+"tingueu la música que vulgueu escoltar en la vostra llista de reproducció"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -4560,10 +4634,14 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Mostra informació diversa quant a la pista actualment en reproducció.\n"
+"Depèn: libwebkit >= 1.0.1, python-webkit >= 1.1.2 i python-imaging (també "
+"conegut com a PIL)"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
+"Permet desar/reprendre les posicions dels marcadors als fitxers d'àudio."
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""
@@ -4572,6 +4650,11 @@ msgid ""
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Fa una pausa (i de manera opcional reprèn) en la reproducció basat-se amb "
+"l'estat de l'estalvi de pantalla.\n"
+"\n"
+"Requereix: L'estalvi de pantalla de GNOME o de KDE (no és compatible amb "
+"XScreenSaver ni tampoc amb XLockMore)"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
@@ -4582,12 +4665,16 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Connector per capturar les lletres de les cançons de lyrics.wikia.com\n"
+"Depèn: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
 "This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Aquest connector integra spydaap (http://launchpad.net/spydaap) a Exaile per "
+"tant una col·lecció es pot compartir a través de DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
@@ -4599,14 +4686,17 @@ msgid ""
 "\n"
 "http://somafm.com"
 msgstr ""
+"Llista de les ràdios de SomaFM\n"
+"\n"
+"http://somafm.com"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
-msgstr ""
+msgstr "Comptador PPM manual"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Permet la reproducció de comparticions de música DAAP."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Activa/Desactiva la cua"

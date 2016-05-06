@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-06 11:50+0200\n"
+"PO-Revision-Date: 2016-05-06 12:53+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -343,7 +343,7 @@ msgstr "Habilita la depuració de xl.event. Això generarà MOLTES sortides"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr "Afegeix el nom del fil d'execució per enregistrar els missatge."
+msgstr "Afegeix el nom del fil d'execució per enregistrar els missatges."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -684,7 +684,7 @@ msgstr "Temps de reproducció"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr "Vegades reproduïda"
+msgstr "Nombre de reproduccions"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -743,15 +743,15 @@ msgstr "Llista de reproducció XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Mescla apa_gada"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Mescla les pis_tes"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Mescl_a els àlbums"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
@@ -1176,7 +1176,7 @@ msgstr "$title (per $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Alternació: Atura després de la pista seleccionada"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
@@ -1185,7 +1185,7 @@ msgstr "S'ha trobat un error en la reproducció!"
 #: ../xlgui/main.py:589
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Àrea de memòria temporal: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
@@ -1283,6 +1283,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"No es poden escriure les etiquetes als següents fitxers:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
@@ -1299,7 +1301,7 @@ msgstr "Voleu aplicar els canvis abans de tancar?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Els vostres canvis es perdran si no els apliqueu ara."
 
 #: ../xlgui/properties.py:589
 #, python-format
@@ -1361,7 +1363,7 @@ msgstr "S'han capturat totes les cobertes"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "S'estan recollint els àlbums i les cobertes..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1387,7 +1389,7 @@ msgstr "Desa el fitxer"
 #: ../xlgui/cover.py:998
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "Opcions de la coberta per %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
@@ -1402,6 +1404,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Caps dels orígens habilitats té una coberta per a aquesta pista, proveu amb "
+"l'habilitació de més orígens."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
@@ -1775,7 +1779,7 @@ msgstr "el la els les l'"
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr "Restableix al valors predeterminats"
+msgstr "Restableix als valors predeterminats"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
@@ -1839,7 +1843,7 @@ msgstr "Captura les co_bertes"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Mescla l'ordre de la reproducció"
 
 #: ../data/ui/playlist.ui.h:2
 msgid "Repeat playback"
@@ -1997,7 +2001,7 @@ msgstr "Captura de pantalla del vídeo o de la pel·lícula"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Un peix de colors brillants"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
@@ -2009,7 +2013,7 @@ msgstr "Logotipus de la banda/artista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logotipus de l'editor/estudi"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
@@ -2094,6 +2098,9 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Refresca la vista de la col·lecció\n"
+"(Mantingueu premuda la tecla de majúscules per tornar a explorar la "
+"col·lecció)"
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
@@ -2108,6 +2115,8 @@ msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Aquesta opció cercarà els fitxers de les cobertes\n"
+"al mateix directori del fitxer de la música."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
@@ -2115,7 +2124,7 @@ msgstr "Noms preferits dels fitxers:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Una llista separa amb comes dels noms dels fitxers sense les extensions"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
@@ -2137,20 +2146,25 @@ msgstr "Obre les últimes llistes de reproducció amb la inicialització"
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
 msgstr ""
+"Pregunta pel desament de less llistes de reproducció personalitzades amb el "
+"tancament"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Substitueix el contingut en fer doble cloc al panell lateral"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"En lloc d'annexar, les pistes afegides a través del doble clic als panells, "
+"substituiran el contingut de la llista de reproducció actual."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
 msgstr ""
+"L'annexió/substitució a través de l'element del menú dispara la reproducció"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2158,10 +2172,14 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Quan s'utilitzi l'element del menú per afegir/substituir les pistes a la "
+"llista de reproducció, inicia la reproducció si hi ha actualment una pista n "
+"reproducció. Aquesta opció era el comportament predeterminat abans d'Exaile "
+"0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Per defecte posa les pistes a la cua en lloc de reproduir-les"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
@@ -2343,7 +2361,7 @@ msgstr "Mostra sempre la barra de pestanyes"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr "Emplaçament de la pestanya:"
+msgstr "Posició de la pestanya:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
@@ -2369,6 +2387,8 @@ msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Advertència: aquesta opció pot causar errors de visualització si s'utilitza "
+"en un gestor de finestres sense compatibilitat per a la composició. "
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
@@ -2415,14 +2435,16 @@ msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Les paraules a escurçar del començament de les etiquetes de l'artista quan "
+"s'ordeni (separades per espais):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(feu clic amb el botó dret per restablir els valors predeterminats)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Utilitza la detecció de la compilació basada en fitxers"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
@@ -2521,7 +2543,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Rellotge d'alarma"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
@@ -2923,7 +2945,7 @@ msgstr "Importa les etiquetes del directori"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
-msgstr ""
+msgstr "Reanomenament/eliminació d'etiquetes massiu"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
@@ -3104,7 +3126,7 @@ msgstr "Consola"
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
-msgstr ""
+msgstr "Visualització en pantalla"
 
 #: ../plugins/osd/osd_preferences.py:88
 msgid ""
@@ -3282,6 +3304,8 @@ msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Aquest servidor no admet múltiples connexions.\n"
+"Heu d'aturar la reproducció abans de baixar les cançons."
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
@@ -3301,7 +3325,7 @@ msgstr "Connecta't al DAAP..."
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Enfosqueix la secció reproduïda en lloc d'utilitzar el cursor"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Darkness level:"
@@ -4145,10 +4169,12 @@ msgstr "Context"
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Utilitza les cobertes al menú dels marcadors (pren efecte amb el següent "
+"inici)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
-msgstr ""
+msgstr "Treu la pausa quan s'acabi l'estalvi de pantalla"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
@@ -4195,6 +4221,8 @@ msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
+"Estableix l'estat de la reproducció acutal a Pidgin. Comproveu les PMF de "
+"Pidgin per trobar els serveis admesos."
 
 #: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
 #: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
@@ -4223,11 +4251,13 @@ msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Afegeix compatibilitat per controlar Exaile a través del sistema de tecles "
+"multimèdia de GNOME. Compatible amb GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Tecles de dreceres"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -4271,6 +4301,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Reprodueix música en un instant determinat.\n"
+"\n"
+"Tingueu en compte que quan arriba el temps especificat, Exaile actuarà tan "
+"sols com si es premés la tecla de reproducció, per tant, assegureu-vos que "
+"tingueu la música que vulgueu escoltar a la vostra llista de reproducció"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4310,6 +4345,7 @@ msgstr "Cerca cobertes a Last.fm"
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
 msgstr ""
+"Estableix la coberta i afegeix alguns elements al menú a AWN per a Exaile"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
@@ -4326,12 +4362,16 @@ msgstr ""
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
 msgstr ""
+"Afegeix la pestanya lateral que mostra la lletra de la cançó per a la pista "
+"actualment en reproducció."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Envia la informació de reproduccions a Last.fm i als serveis similars que "
+"admetin AudioScrobbler"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -4339,7 +4379,7 @@ msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Tecles de dreceres mitjançant xlib (mmkeys.so)"
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
@@ -4376,6 +4416,7 @@ msgstr "Inhibeix la suspensió"
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
+"Impedeix que la sessió d'usuari es suspengui mentre es reprodueixi música."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4383,7 +4424,7 @@ msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Navega i escola els llibres d'àudio de Librivox.org."
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4392,12 +4433,16 @@ msgstr "Permet apagar l'ordinador en finalitzar la llista de reproducció."
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
 msgstr ""
+"Compatibilitat per al reproductor de mitjans audiovisuals d'emmagatzematge "
+"massiu USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Compatibilitat per a l'accés als reproductors de mitjans audiovisuals "
+"portables mitjançant el protocol d'emmagatzematge massiu USB"
 
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
@@ -4409,6 +4454,9 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Permet la reproducció d'àudio sobre un dispositiu secundari (feu doble clic "
+"en la llista de reproducció i seleccioneu 'Vista preliminar'). Útil per als "
+"Dj."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4434,8 +4482,8 @@ msgid ""
 "Recommends: notify-osd"
 msgstr ""
 "Aquest connector mostra globus de notificació quan una cançó es reprodueix, "
-"es reprèn o s'atura, amb la coberta de la cançó o amb la icona del mitja que "
-"indica l'última acció.\n"
+"es reprèn o s'atura, amb la coberta de la cançó o amb la icona del mitjà "
+"audiovisual que indica l'última acció.\n"
 "\n"
 "Depèn: python-notify\n"
 "Recomana: notify-osd"

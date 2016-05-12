@@ -920,6 +920,13 @@ class CoverWindow(object):
                              self.available_image_height()
         self.image_ratio = 1 / max(1, width_ratio, height_ratio)
 
+    def on_key_press(self, widget, event, data=None):
+        """
+            Closes the cover window when the escape key is pressed
+        """
+        if event.keyval == Gdk.KEY_Escape:
+            widget.hide()
+
     def on_save_as_button_clicked(self, widget):
         """
             Saves image to user-specified location

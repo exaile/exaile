@@ -294,7 +294,8 @@ class FormatConverter(object):
         if options is not None and options.relative:
             playlist_file = Gio.File.new_for_uri(playlist_path)
             # Strip playlist filename from export path
-            export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
+            basename = playlist_file.get_basename().replace(' ', '%20')
+            export_path = playlist_file.get_uri()[:-len(basename)]
 
             try:
                 export_path_components = urlparse.urlparse(export_path)
@@ -2122,4 +2123,3 @@ class PlaylistManager(object):
         return playlists
 
 # vim: et sts=4 sw=4
-

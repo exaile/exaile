@@ -179,7 +179,7 @@ class PlaylistAnalyzerPlugin(object):
             parent_dir = parent_dir.get_child("d3.min.js")
         
         with closing(outfile.replace(None, False, Gio.FileCreateFlags.NONE, None)) as fp:
-            fp.write(bytes(contents))
+            fp.write(str(contents))
             
         # copy d3 to the destination
         # -> TODO: add checkbox to indicate whether it should write d3 there or not

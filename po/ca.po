@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-06 13:16+0000\n"
+"PO-Revision-Date: 2016-05-27 14:21+0200\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.7-dev\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
@@ -434,14 +434,14 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr "%dk"
+msgstr "%d k"
 
 #: ../xl/transcoder.py:56
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis es un còdec de compressió d'àudio amb pèrdua i de codi obert que "
+"Vorbis és un còdec de compressió d'àudio amb pèrdua i de codi obert que "
 "proporciona un so de gran qualitat amb una mida d'arxiu inferior al d'un MP3."
 
 #: ../xl/transcoder.py:66
@@ -870,7 +870,7 @@ msgstr "Limita a: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr " peces"
+msgstr " pistes"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
@@ -1046,7 +1046,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Afegeix dinàmicament peces similars a la llista"
+msgstr "Afegeix dinàmicament pistes similars a la llista"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
@@ -1155,7 +1155,7 @@ msgstr "Afegeix una nova llista de reproducció..."
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
 msgid "You did not enter a name for your playlist"
-msgstr "No heu introduït el nom per a la vostra la llista de reproducció"
+msgstr "No heu introduït el nom per a la vostra llista de reproducció"
 
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
@@ -2151,7 +2151,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr "Substitueix el contingut en fer doble cloc al panell lateral"
+msgstr "Substitueix el contingut en fer doble clic al panell lateral"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
@@ -3604,8 +3604,8 @@ msgid ""
 "\" if it is empty.</i>"
 msgstr ""
 "<i>Les etiquetes \"%(title)s\", \"%(artist)s\" i \"%(album)s\" es mostraran "
-"amb els seus valors respectius. El títol es substiturà amb \"Desconegut\" si "
-"està buit.</i>"
+"amb els seus valors respectius. El títol es substituirà amb \"Desconegut\" "
+"si està buit.</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
@@ -3665,13 +3665,13 @@ msgid ""
 "in its place.</i>"
 msgstr ""
 "<i>El missatge que s'ha de mostrar en el cos de la notificació. En cada cas, "
-"\"%(title)s\", \"%(artist)s\", i \"%(album)s\" es substituiran amb els seus "
+"\"%(title)s\", \"%(artist)s\", i \"%(album)s\" se substituiran amb els seus "
 "valors respectius. Si no es coneix l'etiqueta, s'omplirà en lloc seu amb \""
 "Desconegut\".</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr "Tan l'artista com l'àlbum:"
+msgstr "Tant l'artista com l'àlbum:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
@@ -4415,7 +4415,7 @@ msgstr "Inhibeix la suspensió"
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
-"Impedeix que la sessió d'usuari es suspengui mentre es reprodueixi música"
+"Impedeix que la sessió d'usuari se suspengui mentre es reprodueixi música"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4717,7 +4717,7 @@ msgid ""
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
-"Fa una pausa (i de manera opcional reprèn) en la reproducció basat-se amb "
+"Fa una pausa (i de manera opcional reprèn) en la reproducció basant-se amb "
 "l'estat de l'estalvi de pantalla.\n"
 "\n"
 "Requereix: L'estalvi de pantalla de GNOME o de KDE (no és compatible amb "

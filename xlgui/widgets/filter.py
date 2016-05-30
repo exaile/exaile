@@ -69,7 +69,7 @@ class FilterDialog(Gtk.Dialog):
         top.show_all()
 
         self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
-        f.add_row()
+        f.add_criteria_row()
         f.set_border_width(5)
         self.vbox.pack_start(f, True, True, 0)
         f.show_all()
@@ -82,7 +82,7 @@ class FilterDialog(Gtk.Dialog):
         bottom.pack_start(self.random, True, True, 0)
 
         btn = Gtk.Button()
-        btn.connect('clicked', lambda *x: self.filter.add_row())
+        btn.connect('clicked', lambda *x: self.filter.add_criteria_row())
         image = Gtk.Image()
         image.set_from_icon_name('list-add', Gtk.IconSize.BUTTON)
         btn.add(image)
@@ -190,7 +190,7 @@ class FilterDialog(Gtk.Dialog):
         """
         self.filter.set_state(state)
 
-class FilterWidget(Gtk.Table):
+class FilterWidget(Gtk.Grid):
     """Widget to filter a list of items.
 
     This widget only includes the criteria selector (Criterion widgets)
@@ -238,18 +238,17 @@ class FilterWidget(Gtk.Table):
         """
 
         super(FilterWidget, self).__init__()
-        self.set_col_spacings(10)
-        self.set_row_spacings(2)
+        self.set_column_spacing(10)
+        self.set_row_spacing(2)
         self.criteria = criteria
         self.rows = []
         self.n = 0
 
-    def add_row(self):
+    def add_criteria_row(self):
         """Add a new criteria row."""
-
         criterion = Criterion(self.criteria)
         criterion.show()
-        
+
         if len(self.rows) != 0:
             criterion.set_state(self.rows[-1][0].get_state())
 
@@ -260,38 +259,21 @@ class FilterWidget(Gtk.Table):
         remove_btn_handler_id = remove_btn.connect(
             'clicked', self.__remove_clicked, self.n)
         remove_btn.show_all()
-
-        self.attach(criterion, 0, 1, self.n, self.n + 1,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
-        self.attach(remove_btn, 1, 2, self.n, self.n + 1,
-            Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
+        
+        self.attach(criterion, 0, self.n, 1, 1)
+        self.attach(remove_btn, 1, self.n, 1, 1)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
         self.n += 1
 
-    def remove_row(self, row):
+    def remove_criteria_row(self, row):
         """Remove a criteria row."""
-        rows = self.rows
-        for iRow in xrange(row, len(rows)):
-            crit, btn, handler = rows[iRow]
-            self.remove(crit)
-            self.remove(btn)
-            btn.disconnect(handler)
-            if iRow != row:  # shift up
-                self.attach(crit, 0, 1, iRow - 1, iRow,
-                    Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
-                self.attach(btn, 1, 2, iRow - 1, iRow,
-                    Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
-                handler = btn.connect(
-                    'clicked', self.__remove_clicked, iRow - 1)
-                rows[iRow - 1] = crit, btn, handler
+        self.remove_row(row)
+        del self.rows[self.n]
         self.n -= 1
-        del rows[self.n]
-        if self.n:
-            self.resize(self.n, 2)
 
     def __remove_clicked(self, widget, data):
-        self.remove_row(data)
+        self.remove_criteria_row(data)
 
     def get_state(self):
         """Return the filter state.
@@ -318,9 +300,9 @@ class FilterWidget(Gtk.Table):
         n_present = len(self.rows)
         n_required = len(state)
         for i in xrange(n_present, n_required):
-            self.add_row()
+            self.add_criteria_row()
         for i in xrange(n_present, n_required, -1):
-            self.remove_row(i - 1) # i is one less than n
+            self.remove_criteria_row(i - 1) # i is one less than n
         for i, cstate in enumerate(state):
             cstate[0].reverse() # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)

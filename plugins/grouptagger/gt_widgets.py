@@ -748,10 +748,10 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             self.combo_model.append( [choice] )
         
         # setup table
-        self.table = Gtk.Table(rows=len(groups)+1, columns=2)
+        self.table = Gtk.Grid()
         
-        self.table.attach(Gtk.Label(label=_('Group')), 0, 1, 0, 1, ypadding=5)
-        self.table.attach(Gtk.Label(label=_('Selected Tracks')), 1, 2, 0, 1, ypadding=5)
+        self.table.attach(Gtk.Label(label=_('Group')), 0, 0, 1, 1)
+        self.table.attach(Gtk.Label(label=_('Selected Tracks')), 1, 0, 1, 1)
         
         # TODO: Scrolled window
         self.combos = []
@@ -763,12 +763,12 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             # label
             gcombo = self._init_combo(self.group_model)
             gcombo.set_active(self._get_group_index(group))
-            self.table.attach(gcombo, 0, 1, i+1, i+2, xpadding=3)
+            self.table.attach(gcombo, 0, i+1, 1, 1)
             
             # combo
             combo = self._init_combo(self.combo_model)
             combo.set_active(0)
-            self.table.attach(combo, 1, 2, i+1, i+2)
+            self.table.attach(combo, 1, i+1, 1,1)
             
             self.combos.append( (gcombo, combo) )
             

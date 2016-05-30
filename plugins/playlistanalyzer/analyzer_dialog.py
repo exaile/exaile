@@ -209,17 +209,15 @@ class AnalyzerDialog(object):
         if tmpl is None:
             return
         
-        self.tags_table.resize(tmpl['maxtags'], 3)
-        
         for i in xrange(0, tmpl['maxtags']):
             
             label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
             spin = self.__build_spin(i)
             
-            self.tags_table.attach(label, 0, 1, i, i+1, xoptions=0, yoptions=0)
-            self.tags_table.attach(combo, 1, 2, i, i+1, xoptions=0, yoptions=0)
-            self.tags_table.attach(spin, 2, 3, i, i+1, xoptions=0, yoptions=0)
+            self.tags_table.attach(label, 0, i, 1, 1)
+            self.tags_table.attach(combo, 1, i, 1, 1)
+            self.tags_table.attach(spin, 2, i, 1, 1)
             
             self.__tag_widgets.append((combo, spin))
             

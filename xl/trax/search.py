@@ -26,6 +26,8 @@
 
 import time
 import re
+import unicodedata
+
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -64,14 +66,17 @@ class _Matcher(object):
             if type(vals) != list:
                 vals = [vals]
             for item in vals:
-                try:
+                if item != None:
                     item = self.lower(item)
-                except:
-                    pass
-                if self._matches(item):
-                    return True
-            else:
-                return False
+                    try:
+                        item = self.lower(unicodedata.normalize(
+                            'NFKD', item).encode('ASCII', 'ignore'))
+                    except:
+                        pass
+                    if self._matches(item):
+                        return True
+                    else:
+                        return False
 
     def _matches(self, value):
         raise NotImplementedError
@@ -231,7 +236,12 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        tokens = self.__tokenize_query(search_string)
+        if isinstance(search_string, unicode):
+            tokens = self.__tokenize_query(
+                unicodedata.normalize(
+                    'NFKD', search_string).encode('ASCII','ignore'))
+        else:
+            tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)

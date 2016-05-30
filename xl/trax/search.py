@@ -67,7 +67,6 @@ class _Matcher(object):
                 vals = [vals]
             for item in vals:
                 if item != None:
-                    item = self.lower(item)
                     try:
                         item = self.lower(unicodedata.normalize(
                             'NFKD', item).encode('ASCII', 'ignore'))

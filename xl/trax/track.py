@@ -32,6 +32,7 @@ import logging
 import time
 import unicodedata
 import weakref
+import re
 
 from xl import (
     common,
@@ -557,7 +558,12 @@ class Track(object):
         elif tag in ('__length', '__playcount'):
             value = self.__tags.get(tag, 0)
         elif tag == 'bpm':
-            value = int(self.__tags.get(tag, [0])[0])
+            try:
+                value = int(self.__tags.get(tag, [0])[0])
+            except ValueError:
+                digits = re.search(r'\d+\.?\d*', self.__tags.get(tag, [0])[0])
+                if digits:
+                    value = float(digits.group())
         elif tag == '__basename':
             # TODO: Check if unicode() is required
             value = self.get_basename()

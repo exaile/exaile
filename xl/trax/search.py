@@ -27,7 +27,7 @@
 import time
 import re
 import unicodedata
-
+import string
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -68,9 +68,10 @@ class _Matcher(object):
             for item in vals:
                 if item != None:
                     try:
-                        item = self.lower(normalize_string(item))
+                        item = item.decode('ascii')
                     except:
-                        pass
+                        item = shave_marks(item)
+                    item = self.lower(item)
                     if self._matches(item):
                         return True
                     else:
@@ -234,10 +235,11 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        if isinstance(search_string, unicode):
-            tokens = self.__tokenize_query(normalize_string(search_string))
-        else:
-            tokens = self.__tokenize_query(search_string)
+        try:
+            search_string = search_string.decode('ascii')
+        except:
+            search_string = shave_marks(search_string)
+        tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)
@@ -485,7 +487,7 @@ class TracksInList(object):
             self._tracks = set(tracks.keys())
         else:
             self._tracks = {t for t in tracks}
-        
+
     def match(self, track):
         return track.track in self._tracks
 
@@ -522,6 +524,7 @@ def search_tracks(trackiter, trackmatchers):
         # noticable effect on search speed.
         time.sleep(0)
 
+
 def search_tracks_from_string(trackiter, search_string,
         case_sensitive=True, keyword_tags=None):
     """
@@ -542,24 +545,20 @@ def match_track_from_string(track, search_string,
         keyword_tags=keyword_tags)
     return matcher.match(SearchResultTrack(track))
 
-def normalize_string(string):
+
+def shave_marks(text):
     '''
-    Converts diacritics from unicode strings to ascii characters to improve
-    search matching.
+    Removes diacritics from Latin characters and replaces them with their base
+    characters
     '''
-    # Check to see if the string is encoded as unicode
-    if isinstance(string, unicode):
-        # Loop through each character in the string and normalize it if
-        # possible, otherwise, keep the character unchanged
-        normalized_string = ''
-        for item in string:
-            character = unicodedata.normalize('NFKD', item).encode(
-                'ASCII','ignore')
-            if character:
-                normalized_string += character
-            else:
-                normalized_string += item
-        return normalized_string
-    # If the string is not encoded as unicode, simply return it
-    else:
-        return string
+    decomposed_text = unicodedata.normalize('NFD', text)
+    latin_base = False
+    keepers = []
+    for character in decomposed_text:
+        if unicodedata.combining(character) and latin_base:
+            continue # Ignore diacritic on any Latin base character
+        keepers.append(character)
+        if not unicodedata.combining(character):
+            latin_base = character in string.ascii_letters
+    shaved = ''.join(keepers)
+    return unicodedata.normalize('NFC', shaved)

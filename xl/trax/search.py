@@ -27,7 +27,7 @@
 import time
 import re
 import unicodedata
-
+import string
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -68,10 +68,10 @@ class _Matcher(object):
             for item in vals:
                 if item != None:
                     try:
-                        item = self.lower(unicodedata.normalize(
-                            'NFKD', item).encode('ASCII', 'ignore'))
+                        item = item.decode('ascii')
                     except:
-                        pass
+                        item = shave_marks(item)
+                    item = self.lower(item)
                     if self._matches(item):
                         return True
                     else:
@@ -109,7 +109,7 @@ class _InMatcher(_Matcher):
             return self.content in value
         except TypeError:
             return False
-            
+
 class _RegexMatcher(_Matcher):
     """
         Condition for regular expression matches
@@ -117,7 +117,7 @@ class _RegexMatcher(_Matcher):
     def __init__(self, tag, content, lower):
         _Matcher.__init__(self, tag, content, lower)
         self._re = re.compile(content)
-    
+
     def _matches(self, value):
         if not value:
             return False
@@ -235,30 +235,29 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        if isinstance(search_string, unicode):
-            tokens = self.__tokenize_query(
-                unicodedata.normalize(
-                    'NFKD', search_string).encode('ASCII','ignore'))
-        else:
-            tokens = self.__tokenize_query(search_string)
+        try:
+            search_string = search_string.decode('ascii')
+        except:
+            search_string = shave_marks(search_string)
+        tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)
-        
+
     def append_matcher(self, matcher, or_match=False):
         '''Here so you can use playlist matchers. Probably needs better impl'''
         if not or_match or len(self.matchers) == 0:
             self.matchers.append(matcher)
         else:
             self.matchers[-1] = _OrMetaMatcher(self.matchers[-1], matcher)
-        
+
     def prepend_matcher(self, matcher, or_match=False):
         '''Here so you can use playlist matchers. Probably needs better impl'''
         if not or_match or len(self.matchers) == 0:
             self.matchers.insert(0, matcher)
         else:
             self.matchers[0] = _OrMetaMatcher(matcher, self.matchers[0])
-    
+
     def match(self, srtrack):
         """
             Determine whether a given SearchResultTrack's internal
@@ -352,7 +351,7 @@ class TracksMatcher(object):
                 content = content.strip().strip('"')
                 matcher = _LtMatcher(tag, content, lower)
                 matchers.append(matcher)
-                
+
             elif "~" in token:
                 tag, content = token.split("~", 1)
                 content = content.strip().strip('"')
@@ -480,7 +479,7 @@ class TracksInList(object):
     '''
         Matches tracks contained in a list/dict/set. Copies the list.
     '''
-    
+
     __slots__ = ['_tracks', 'tag']
     tag = None
     def __init__(self, tracks):
@@ -488,11 +487,11 @@ class TracksInList(object):
             self._tracks = set(tracks.keys())
         else:
             self._tracks = {t for t in tracks}
-        
+
     def match(self, track):
         return track.track in self._tracks
 
-    
+
 class TracksNotInList(TracksInList):
     '''
         Matches tracks not in a list/dict/set
@@ -525,6 +524,7 @@ def search_tracks(trackiter, trackmatchers):
         # noticable effect on search speed.
         time.sleep(0)
 
+
 def search_tracks_from_string(trackiter, search_string,
         case_sensitive=True, keyword_tags=None):
     """
@@ -544,3 +544,21 @@ def match_track_from_string(track, search_string,
     matcher = TracksMatcher(search_string, case_sensitive=case_sensitive,
         keyword_tags=keyword_tags)
     return matcher.match(SearchResultTrack(track))
+
+
+def shave_marks(text):
+    '''
+    Removes diacritics from Latin characters and replaces them with their base
+    characters
+    '''
+    decomposed_text = unicodedata.normalize('NFD', text)
+    latin_base = False
+    keepers = []
+    for character in decomposed_text:
+        if unicodedata.combining(character) and latin_base:
+            continue # Ignore diacritic on any Latin base character
+        keepers.append(character)
+        if not unicodedata.combining(character):
+            latin_base = character in string.ascii_letters
+    shaved = ''.join(keepers)
+    return unicodedata.normalize('NFC', shaved)

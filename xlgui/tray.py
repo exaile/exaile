@@ -251,4 +251,9 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
             the best menu position
         """
         return Gtk.StatusIcon.position_menu(*args)
-
+    
+    def set_tooltip(self, tooltip_text):
+        """
+            Updates the tray icon tooltip
+        """
+        self.set_tooltip_text(tooltip_text)

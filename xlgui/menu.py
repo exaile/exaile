@@ -244,7 +244,7 @@ def __create_help_menu():
     
     items.append(_smi('guide', [], _("User's Guide (website)"), 'help',
         show_user_guide))
-    items.append(_smi('report', [items[-1].name], _("Report an Issue (github)"), None,
+    items.append(_smi('report', [items[-1].name], _("Report an issue (GitHub)"), None,
         show_report_issue))
     items.append(_sep('about-sep', [items[-1].name]))
     items.append(_smi('about', [items[-1].name], _("_About"), 'help-about',

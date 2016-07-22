@@ -134,7 +134,7 @@ class MprisObject(object):
         v = track.get_tag_display('artist', join=False)
         if v:
             meta['xesam:artist'] = Variant('as', v)
-        v = track.get_tag_raw('album')
+        v = track.get_tag_raw('genre')
         if v:
             # TODO: I've seen a client expect 'radio' on streams;
             # is that common usage?

@@ -229,7 +229,24 @@ class MprisObject(object):
     CanControl = CanGoNext = CanGoPrevious = CanPause = CanPlay = CanSeek = property(_return_true)
     @property
     def LoopStatus(self):
-        return Variant('s', 'None')  # TODO
+        playlist = xl.player.QUEUE.current_playlist
+        state = playlist.get_repeat_mode()
+        state_map = {'disabled': 'None', 'all': 'Playlist', 'track': 'Track'}
+        assert state in state_map
+        return Variant('s', state_map[state])
+    @LoopStatus.setter
+    def LoopStatus(self, value):
+        value_s = value.get_string()
+        state_map = {'None': 'disabled', 'Playlist': 'all', 'Track': 'track'}
+        state = state_map.get(value_s)
+        if not state:
+            raise ValueError("invalid LoopStatus: %r" % value_s)
+        playlist = xl.player.QUEUE.current_playlist
+        playlist.set_repeat_mode(state)
+        # TODO: Connect to actual event in playlist
+        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
+            'LoopStatus': value,
+        })
     @property
     def MaximumRate(self):
         return Variant('d', 1)
@@ -255,10 +272,17 @@ class MprisObject(object):
         pass
     @property
     def Shuffle(self):
-        return self._return_true()  # TODO
+        playlist = xl.player.QUEUE.current_playlist
+        return Variant('b', playlist.get_shuffle_mode() != 'disabled')
     @Shuffle.setter
     def Shuffle(self, value):
-        pass  # TODO
+        value_b = value.get_boolean()
+        playlist = xl.player.QUEUE.current_playlist
+        playlist.set_shuffle_mode('track' if value_b else 'disabled')
+        # TODO: Connect to actual event in playlist
+        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
+            'Shuffle': Variant('b', value_b),
+        })
     @property
     def Volume(self):
         return Variant('d', xl.settings.get_option('player/volume', 1))

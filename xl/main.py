@@ -382,8 +382,6 @@ class Exaile(object):
         splash = None
 
         if self.options.StartGui:
-            from xl import settings
-
             if settings.get_option('gui/use_splash', True):
                 from xlgui.widgets.info import Splash
 

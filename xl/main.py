@@ -539,20 +539,6 @@ class Exaile(object):
         event.log_event("exaile_loaded", self, None)
         # pylint: enable-msg=W0201
 
-    def __show_splash(self):
-        """
-            Displays the splash screen
-        """
-        from xl import settings
-
-        if not settings.get_option('gui/use_splash', True):
-            return
-
-        from xlgui.widgets.info import Splash
-
-        splash = Splash()
-        splash.show()
-
     def version(self):
         from xl.version import __version__
         print("Exaile", __version__)

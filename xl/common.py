@@ -28,8 +28,6 @@
     General functions and classes shared in the codebase
 """
 
-from __future__ import with_statement
-
 import inspect
 from gi.repository import Gio
 from gi.repository import GLib

@@ -59,22 +59,22 @@ _NONE = Nothing() # used by event for a safe None replacement
 # Assumes that this module was imported on main thread 
 _UiThread = threading.current_thread()
 
-def log_event(type, obj, data):
+def log_event(evty, obj, data):
     """
         Sends an event.
 
-        :param type: the *type* or *name* of the event.
-        :type type: string
+        :param evty: the *type* or *name* of the event.
+        :type evty: string
         :param obj: the object sending the event.
         :type obj: object
         :param data: some data about the event, None if not required
         :type data: object
     """
     global EVENT_MANAGER
-    e = Event(type, obj, data, time.time())
+    e = Event(evty, obj, data, time.time())
     EVENT_MANAGER.emit(e)
 
-def add_callback(function, type=None, obj=None, *args, **kwargs):
+def add_callback(function, evty=None, obj=None, *args, **kwargs):
     """
         Adds a callback to an event
 
@@ -85,10 +85,10 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
 
         :param function: the function to call when the event happens
         :type function: callable
-        :param type: the *type* or *name* of the event to listen for, eg
+        :param evty: the *type* or *name* of the event to listen for, eg
                 `tracks_added`, `cover_changed`. Defaults to any event if
                 not specified.
-        :type type: string
+        :type evty: string
         :param obj: the object to listen to events from, e.g. `exaile.collection`
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
@@ -99,9 +99,9 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
         :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
-    return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
+    return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs)
 
-def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
+def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
     """
         Adds a callback to an event. The callback is guaranteed to
         always be called on the UI thread.
@@ -113,10 +113,10 @@ def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
 
         :param function: the function to call when the event happens
         :type function: callable
-        :param type: the *type* or *name* of the event to listen for, eg
+        :param evty: the *type* or *name* of the event to listen for, eg
                 `tracks_added`, `cover_changed`. Defaults to any event if
                 not specified.
-        :type type: string
+        :type evty: string
         :param obj: the object to listen to events from, e.g. `exaile.collection`
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
@@ -127,9 +127,9 @@ def add_ui_callback(function, type=None, obj=None, *args, **kwargs):
         :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
-    return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs, ui=True)
+    return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs, ui=True)
 
-def remove_callback(function, type=None, obj=None):
+def remove_callback(function, evty=None, obj=None):
     """
         Removes a callback. Can remove both ui and non-ui callbacks.
 
@@ -137,7 +137,7 @@ def remove_callback(function, type=None, obj=None):
         the callback
     """
     global EVENT_MANAGER
-    EVENT_MANAGER.remove_callback(function, type, obj)
+    EVENT_MANAGER.remove_callback(function, evty, obj)
 
 
 class Event(object):
@@ -146,13 +146,13 @@ class Event(object):
     """
     __slots__ = ['type', 'object', 'data', 'time']
     
-    def __init__(self, type, obj, data, time):
+    def __init__(self, evty, obj, data, time):
         """
-            type: the 'type' or 'name' for this Event [string]
+            evty: the 'type' or 'name' for this Event [string]
             obj: the object emitting the Event [object]
             data: some piece of data relevant to the Event [object]
         """
-        self.type = type
+        self.type = evty
         self.object = obj
         self.data = data
         self.time = time
@@ -358,13 +358,13 @@ class EventManager(object):
         """
         GLib.idle_add(self.emit, event)
 
-    def add_callback(self, function, type, obj, args, kwargs, ui=False):
+    def add_callback(self, function, evty, obj, args, kwargs, ui=False):
         """
             Registers a callback.
-            You should always specify at least one of type or object.
+            You should always specify at least one of event type or object.
 
             @param function: The function to call [function]
-            @param type: The 'type' or 'name' of event to listen for. Defaults
+            @param evty: The 'type' or 'name' of event to listen for. Defaults
                 to any. [string]
             @param obj: The object to listen to events from. Defaults
                 to any. [string]
@@ -383,26 +383,26 @@ class EventManager(object):
             
             # add the specified categories if needed.
             for cbs in all_cbs:
-                if type not in cbs:
-                    cbs[type] = weakref.WeakKeyDictionary()
+                if evty not in cbs:
+                    cbs[evty] = weakref.WeakKeyDictionary()
                 if obj is None:
                     obj = _NONE
                 try:
-                    callbacks = cbs[type][obj]
+                    callbacks = cbs[evty][obj]
                 except KeyError:
-                    callbacks = cbs[type][obj] = []
+                    callbacks = cbs[evty][obj] = []
     
                 # add the actual callback
                 callbacks.append(cb)
 
         if self.use_logger:
-            if not self.logger_filter or re.search(self.logger_filter, type):
+            if not self.logger_filter or re.search(self.logger_filter, evty):
                 logger.debug("Added callback %s for [%s, %s]" %
-                        (function, type, obj))
+                        (function, evty, obj))
                 
-        return lambda: self.remove_callback(function, type, obj)
+        return lambda: self.remove_callback(function, evty, obj)
 
-    def remove_callback(self, function, type=None, obj=None):
+    def remove_callback(self, function, evty=None, obj=None):
         """
             Unsets a callback
 
@@ -416,7 +416,7 @@ class EventManager(object):
             for cbs in [self.callbacks, self.all_callbacks, self.ui_callbacks]:
                 remove = []
                 try:
-                    callbacks = cbs[type][obj]
+                    callbacks = cbs[evty][obj]
                     for cb in callbacks:
                         if cb.wfunction() == function:
                             remove.append(cb)
@@ -429,14 +429,14 @@ class EventManager(object):
                     callbacks.remove(cb)
                 
                 if len(callbacks) == 0:
-                    del cbs[type][obj]
-                    if len(cbs[type]) == 0:
-                        del cbs[type]
+                    del cbs[evty][obj]
+                    if len(cbs[evty]) == 0:
+                        del cbs[evty]
 
         if self.use_logger:
-            if not self.logger_filter or re.search(self.logger_filter, type):
+            if not self.logger_filter or re.search(self.logger_filter, evty):
                 logger.debug("Removed callback %s for [%s, %s]" %
-                        (function, type, obj))
+                        (function, evty, obj))
 
 
 

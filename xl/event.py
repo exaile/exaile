@@ -37,8 +37,6 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
-from __future__ import with_statement
-
 from inspect import ismethod
 import logging
 import re

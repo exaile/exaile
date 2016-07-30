@@ -410,7 +410,7 @@ class TrackFormatter(Formatter):
 
         return Formatter.format(self)
 
-class TagFormatter():
+class TagFormatter(object):
     """
         A formatter provider for a tag of a track
     """

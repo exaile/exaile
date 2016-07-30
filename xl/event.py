@@ -177,7 +177,7 @@ class Callback(object):
     def __repr__(self):
         return '<Callback %s>' % self.wfunction()
 
-class _WeakMethod:
+class _WeakMethod(object):
     """Represent a weak bound method, i.e. a method doesn't keep alive the
     object that it is bound to. It uses WeakRef which, used on its own,
     produces weak methods that are dead on creation, not very useful.

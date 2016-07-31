@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-02-06 23:36+0000\n"
+"PO-Revision-Date: 2016-07-31 14:34+0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/exaile/master/pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.8-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -893,7 +893,7 @@ msgstr "Sem som"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1275
-#, fuzzy, python-format
+#, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
@@ -1054,11 +1054,11 @@ msgstr "Abrir URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Selecionar tipo de ficheiro (por extensão)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Escolha o ficheiro a abrir"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
@@ -1138,7 +1138,7 @@ msgstr "Ocorreu um erro ao copiar %s: %s"
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Ficheiro existente, substituir %s?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
@@ -1279,11 +1279,13 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Não foi possível gravar as etiquetas nos seguintes ficheiros:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "A editar faixa %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
@@ -1357,7 +1359,7 @@ msgstr "Todas as capas foram obtidas"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "A obter álbuns e imagens..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1391,7 +1393,7 @@ msgstr "A carregar..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
-msgstr ""
+msgstr "Não foram encontradas imagens."
 
 #: ../xlgui/cover.py:1104
 msgid ""
@@ -1456,7 +1458,7 @@ msgstr "Lista de reprodução %d"
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} faixas, terminado há {minutes} minutos)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
@@ -1465,7 +1467,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
-msgstr ""
+msgstr "Mover para outra vista"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
@@ -1583,12 +1585,12 @@ msgstr "não contém"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "regex"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "não regex"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
@@ -1636,7 +1638,7 @@ msgstr ""
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
 msgid "Track is in"
-msgstr ""
+msgstr "Faixa está em"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
@@ -1668,14 +1670,14 @@ msgstr "Erro ao carregar lista de reprodução: %s"
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s e outros"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s e %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
@@ -1696,11 +1698,11 @@ msgstr "Editar lista de reprodução inteligente"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "A exportar %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Escolha o diretório para guardar os ficheiros"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1713,7 +1715,7 @@ msgstr "Plugins"
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sem categoria"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
@@ -1771,15 +1773,15 @@ msgstr ""
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Repor predefinições"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Reiniciar o Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Tem que reiniciar a aplicação para aplicar as alterações."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
@@ -1928,7 +1930,7 @@ msgstr "_Remover etiqueta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1940,11 +1942,11 @@ msgstr "Propriedades"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Anterior"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "Segui_nte"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
@@ -1960,15 +1962,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Imagem (frente)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Imagem (verso)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Folheto"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
@@ -1980,19 +1982,19 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista/intérprete"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda/Orquestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Liricista/escritor"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Local da gravação"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
@@ -2012,15 +2014,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Ilustração"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logótipo do artista/banda"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logótipo da editora/estúdio"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
@@ -2028,7 +2030,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Tipo:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
@@ -2045,7 +2047,7 @@ msgstr ""
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Analisar ao iniciar"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
@@ -2089,7 +2091,7 @@ msgstr "Pasta pessoal"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
-msgstr ""
+msgstr "Limpar campo de pesquisa"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"

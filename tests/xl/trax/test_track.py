@@ -12,10 +12,6 @@ import types
 from mox3 import mox
 from gi.repository import Gio
 from gi.repository import GLib
-try:
-    from nose.plugins.skip import SkipTest
-except ImportError:
-    SkipTest = None
 
 import xl.trax.track as track
 import xl.settings as settings
@@ -232,7 +228,7 @@ class TestTrack(unittest.TestCase):
                 continue
             # This fails. i don't feel like reading about it's failing for now
             if suffix in ('.wma',):
-                LOG.critical("Skipping known failure :" + suffix)
+                LOG.warn("Skipping known failure :" + suffix)
                 continue
             LOG.info("Testing writes for filetype: " + suffix)
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
@@ -248,8 +244,6 @@ class TestTrack(unittest.TestCase):
                 tr.set_tag_raw('artist', '')
                 tr.read_tags()
                 self.assertEqual(tr.get_tag_raw('artist'), [u'Delerium'])
-        if SkipTest is not None:
-            raise SkipTest("Skipped known failure: .wma")
 
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
@@ -396,8 +390,9 @@ class TestTrack(unittest.TestCase):
         tr.set_tag_raw('albumsort', val_as)
         self.assertEqual(tr.get_tag_sort('album'), retval)
 
+    @unittest.skip("TODO")
     def test_get_sort_tag_compilation_unknown(self):
-        raise SkipTest("TODO")
+
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
         # Does not actually modify anything
@@ -440,8 +435,8 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('http://foo')
         self.assertEqual(tr.get_tag_display('__loc'), 'http://foo')
 
+    @unittest.skip("TODO")
     def test_get_display_tag_compilation(self):
-        raise SkipTest("TODO")
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', u'foo')
         self.assertEqual(tr.get_tag_display('artist'),
@@ -503,8 +498,8 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         self.assertEqual(tr.get_tag_search('__loc'), '__loc=="file:///foo"')
 
+    @unittest.skip("TODO")
     def test_get_search_tag_artist_compilation(self):
-        raise SkipTest("TODO")
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
         retval = u'albumartist=="albumartist" ! __compilation==__null__'
@@ -549,9 +544,8 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr.get_tag_search('__bitrate'), '__bitrate=="48k"')
 
     ## Disk tags
+    @unittest.skip("Metadata's do not return length. Might never.")
     def test_get_disk_tag_length(self):
-        if SkipTest is not None:
-            raise SkipTest("Metadata's do not return length. Might never.")
         tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
         self.assertEqual(tr.get_tag_disk('__length'),

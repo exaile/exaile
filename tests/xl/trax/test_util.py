@@ -1,11 +1,9 @@
+
 import unittest
 
 from mox3 import mox
+
 from gi.repository import Gio
-try:
-    from nose.plugins.skip import SkipTest
-except ImportError:
-    SkipTest = None
 
 import xl.collection
 import xl.trax.search
@@ -62,22 +60,20 @@ class TestGetTracksFromUri(unittest.TestCase):
         anything.get_file_type().AndReturn(file_type)
         return anything
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_invalid(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
-        self.mox.StubOutWithMock(gio, 'File')
+        self.mox.StubOutWithMock(Gio, 'File')
         f_anything = self.get_anything('n')
         Gio.File(loc).AndReturn(f_anything)
         self.mox.ReplayAll()
         self.assertEqual(xl.trax.util.get_tracks_from_uri(loc), [])
         self.mox.VerifyAll()
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_single(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
-        self.mox.StubOutWithMock(gio, 'FileInfo')
+        self.mox.StubOutWithMock(Gio, 'FileInfo')
         f_anything = self.mox.CreateMockAnything()
         Gio.FileInfo().AndReturn(f_anything)
         f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
@@ -86,13 +82,12 @@ class TestGetTracksFromUri(unittest.TestCase):
                 [xl.trax.track.Track(loc)])
         self.mox.VerifyAll()
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_directory(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
         retval = ['foo', 'bar', 'baz']
         # Gio call to find type
-        self.mox.StubOutWithMock(gio, 'File')
+        self.mox.StubOutWithMock(Gio, 'File')
         d_anything = self.get_anything('d')
         Gio.File(loc).AndReturn(d_anything)
 

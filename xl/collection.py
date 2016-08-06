@@ -34,7 +34,6 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
-from __future__ import with_statement
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject

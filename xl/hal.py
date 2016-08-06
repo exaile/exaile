@@ -526,7 +526,7 @@ class Handler(object):
     def device_from_udi(self, hal, udi):
         pass
 
-class UDisksProvider:
+class UDisksProvider(object):
     '''
         The UDisksProvider interface. Works for UDisks 1 and 2, but you should
         implement separate providers for each, as the object types and 

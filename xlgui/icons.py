@@ -48,7 +48,7 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
-class ExtendedPixbuf:
+class ExtendedPixbuf(object):
     """
         A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
         interaction using standard operators

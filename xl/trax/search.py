@@ -61,21 +61,19 @@ class _Matcher(object):
         if self.tag.startswith("__"):
             if self._matches(vals):
                 return True
-            return False
         else:
             if type(vals) != list:
                 vals = [vals]
             for item in vals:
-                if item != None:
+                if item is not None:
                     try:
                         item = item.decode('ascii')
                     except:
                         item = shave_marks(item)
                     item = self.lower(item)
-                    if self._matches(item):
-                        return True
-                    else:
-                        return False
+                if self._matches(item):
+                    return True
+        return False
 
     def _matches(self, value):
         raise NotImplementedError

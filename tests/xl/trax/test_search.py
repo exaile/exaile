@@ -25,8 +25,8 @@ class TestMatcher(unittest.TestCase):
 
     def setUp(self):
         self.mox = mox.Mox()
-        self.str = get_search_result_track()
-        self.str.track.set_tag_raw('artist', [u'foo', u'bar'])
+        self.strack = get_search_result_track()
+        self.strack.track.set_tag_raw('artist', [u'foo', u'bar'])
 
     def tearDown(self):
         clear_all_tracks()
@@ -37,16 +37,17 @@ class TestMatcher(unittest.TestCase):
         search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
-        self.assertTrue(matcher.match(self.str))
+        self.assertTrue(matcher.match(self.strack))
         self.mox.VerifyAll()
 
     def test_match_list_false(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
+        # ensure that both tags are checked
         search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
         search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
-        self.assertFalse(matcher.match(self.str))
+        self.assertFalse(matcher.match(self.strack))
         self.mox.VerifyAll()
 
     def test_match_list_none(self):
@@ -54,7 +55,7 @@ class TestMatcher(unittest.TestCase):
         search._Matcher._matches(None).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('album', None, lambda x: x)
-        self.assertTrue(matcher.match(self.str))
+        self.assertTrue(matcher.match(self.strack))
         self.mox.VerifyAll()
 
     def test_matches(self):

@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
 
@@ -207,8 +206,7 @@ class Menu(Gtk.Menu):
         self._items = []
         self.context_func = context_func
         self.connect('show', lambda *e: self.regenerate_menu())
-        # GTK gets unhappy if we remove the menu items before it's done with them.
-        self.connect('hide', lambda *e: GLib.idle_add(self.clear_menu))
+        self.connect('hide', lambda *e: self.clear_menu())
         # Placeholder exists to make sure unity doesn't get confused (legacy?)
         self.placeholder = Gtk.MenuItem.new_with_mnemonic('')
         self._inherit_context = inherit_context

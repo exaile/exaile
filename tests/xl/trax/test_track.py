@@ -6,6 +6,8 @@ import shutil
 import tempfile
 import unittest
 import logging
+import random
+import string
 import weakref
 import types
 
@@ -78,16 +80,22 @@ class Test_MetadataCacher(unittest.TestCase):
     def test_remove_not_exist(self):
         self.assertEqual(self.mc.remove('foo'), None)
 
+def random_str(l=8):
+    return ''.join(random.choice(string.ascii_letters) for _ in range(l))
+
 class TestTrack(unittest.TestCase):
 
     def setUp(self):
         self.mox = mox.Mox()
         track.Track._Track__the_cuts = ['the', 'a']
-        for key in track.Track._Track__tracksdict.keys():
-            del track.Track._Track__tracksdict[key]
+        self.clear_track_cache()
 
     def tearDown(self):
         self.mox.UnsetStubs()
+
+    def clear_track_cache(self):
+        for key in track.Track._Track__tracksdict.keys():
+            del track.Track._Track__tracksdict[key]
 
     ## Creation
     def test_flyweight(self):
@@ -186,11 +194,12 @@ class TestTrack(unittest.TestCase):
                 tr = track.Track(temp_copy.name)
                 del tr
                 os.chmod(temp_copy.name, 0o000)
+                
                 tr = track.Track(temp_copy.name)
                 # Remove the artist tag and reread from file. This is done
                 # because of the whole flyweight thing
                 tr.set_tag_raw('artist', '')
-                tr.read_tags()
+                self.assertEqual(tr.read_tags(), False)
                 self.assertEqual(tr.get_tag_raw('artist'), None)
 
     def test_write_tags_no_perms(self):
@@ -213,7 +222,7 @@ class TestTrack(unittest.TestCase):
                 shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 os.chmod(temp_copy.name, 0o444)
                 tr = track.Track(temp_copy.name)
-                tr.set_tag_raw('artist', 'Delerium')
+                tr.set_tag_raw('artist', random_str())
                 self.assertFalse(tr.write_tags())
 
     def test_write_tags(self):
@@ -235,7 +244,8 @@ class TestTrack(unittest.TestCase):
                 # Copy and write new file
                 shutil.copyfileobj(open(tr_url, 'rb'), temp_copy)
                 tr = track.Track(temp_copy.name)
-                tr.set_tag_raw('artist', 'Delerium')
+                artist = random_str()
+                tr.set_tag_raw('artist', artist)
                 tr.write_tags()
                 del tr
                 tr = track.Track(temp_copy.name)
@@ -243,7 +253,7 @@ class TestTrack(unittest.TestCase):
                 # because of the whole flyweight thing
                 tr.set_tag_raw('artist', '')
                 tr.read_tags()
-                self.assertEqual(tr.get_tag_raw('artist'), [u'Delerium'])
+                self.assertEqual(tr.get_tag_raw('artist'), [artist])
 
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')

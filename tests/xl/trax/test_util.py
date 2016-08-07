@@ -25,21 +25,21 @@ def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track(__file__)
     assert not xl.trax.util.is_valid_track('http:///tmp')
 
-class TestGetTracksFromUri(unittest.TestCase):
+class TestGetTracksFromUri(object):
     class DummyClass:
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval
         def query_info(self, value):
-            self.parent.assertEqual(value, 'standard::type')
+            assert value == 'standard::type'
             return self
         def get_file_type(self):
             return self.retval
 
-    def setUp(self):
+    def setup(self):
         self.mox = mox.Mox()
     
-    def tearDown(self):
+    def teardown(self):
         self.mox.UnsetStubs()
 
     def get_anything(self, file_type):
@@ -67,7 +67,7 @@ class TestGetTracksFromUri(unittest.TestCase):
         f_anything = self.get_anything('n')
         Gio.File(loc).AndReturn(f_anything)
         self.mox.ReplayAll()
-        self.assertEqual(xl.trax.util.get_tracks_from_uri(loc), [])
+        assert xl.trax.util.get_tracks_from_uri(loc) == []
         self.mox.VerifyAll()
 
     @unittest.skip("Test is borken because of moxing out error")
@@ -78,8 +78,8 @@ class TestGetTracksFromUri(unittest.TestCase):
         Gio.FileInfo().AndReturn(f_anything)
         f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
         self.mox.ReplayAll()
-        self.assertEqual(xl.trax.util.get_tracks_from_uri(loc),
-                [xl.trax.track.Track(loc)])
+        assert xl.trax.util.get_tracks_from_uri(loc) == \
+                [xl.trax.track.Track(loc)]
         self.mox.VerifyAll()
 
     @unittest.skip("Test is borken because of moxing out error")
@@ -101,9 +101,9 @@ class TestGetTracksFromUri(unittest.TestCase):
         xl.trax.util.get_tracks_from_uri(loc)
         self.mox.VerifyAll()
 
-class TestSortTracks(unittest.TestCase):
+class TestSortTracks(object):
 
-    def setUp(self):
+    def setup(self):
         self.tracks = [xl.trax.track.Track(url) for url in
                     ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(self.tracks, 'aab'):
@@ -114,16 +114,16 @@ class TestSortTracks(unittest.TestCase):
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
-        self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks), self.result)
+        assert xl.trax.util.sort_tracks(self.fields,
+            self.tracks) == self.result
 
     def test_reversed(self):
-        self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks, reverse=True), list(reversed(self.result)))
+        assert xl.trax.util.sort_tracks(self.fields,
+            self.tracks, reverse=True) == list(reversed(self.result))
 
-class TestSortResultTracks(unittest.TestCase):
+class TestSortResultTracks(object):
 
-    def setUp(self):
+    def setup(self):
         tracks = [xl.trax.track.Track(url) for url in
                     ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(tracks, 'aab'):
@@ -136,10 +136,10 @@ class TestSortResultTracks(unittest.TestCase):
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
-        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks), self.result)
+        assert xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks) == self.result
 
     def test_reversed(self):
-        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks, True), list(reversed(self.result)))
+        assert xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks, True) == list(reversed(self.result))
 

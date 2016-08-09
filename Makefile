@@ -197,7 +197,7 @@ dist:
 	rm -rf dist/copy
 
 test:
-	EXAILE_DIR=$(shell pwd) py.test tests
+	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) py.test tests
 
 test_coverage:
 	rm -rf coverage/

@@ -10,14 +10,10 @@ import xl.trax.search
 import xl.trax.track
 import xl.trax.util
 
-from tests.xl.trax import test_data
 
-
-def test_is_valid_track_valid():
-    for track in test_data.TEST_TRACKS:
-        if track.endswith('.aac'):
-            continue
-        assert xl.trax.util.is_valid_track(track), track
+def test_is_valid_track_valid(test_track):
+    fname = test_track.filename
+    assert xl.trax.util.is_valid_track(fname), fname
 
 def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('/')

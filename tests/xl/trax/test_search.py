@@ -1,5 +1,5 @@
+
 from mox3 import mox
-import unittest
 
 from xl.trax import search
 from xl.trax import track
@@ -17,11 +17,6 @@ def get_search_result_track():
     return search.SearchResultTrack(tr)
 
 
-def clear_all_tracks():
-    for key in track.Track._Track__tracksdict.keys():
-        del track.Track._Track__tracksdict[key]
-
-
 class TestMatcher(object):
 
     def setup(self):
@@ -30,7 +25,6 @@ class TestMatcher(object):
         self.strack.track.set_tag_raw('artist', [u'foo', u'bar'])
 
     def teardown(self):
-        clear_all_tracks()
         self.mox.UnsetStubs()
 
     def test_match_list_true(self):
@@ -70,9 +64,6 @@ class TestExactMatcher(object):
     def setup(self):
         self.str = get_search_result_track()
 
-    def teardown(self):
-        clear_all_tracks()
-
     def test_exact_matcher_true(self):
         matcher = search._ExactMatcher('album', 'Foo', lambda x: x)
         self.str.track.set_tag_raw('album', 'Foo')
@@ -88,9 +79,6 @@ class TestInMatcher(object):
 
     def setup(self):
         self.str = get_search_result_track()
-
-    def teardown(self):
-        clear_all_tracks()
 
     def test_in_matcher_none(self):
         matcher = search._InMatcher('album', 'Foo', lambda x: x)

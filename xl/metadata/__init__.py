@@ -38,6 +38,7 @@ from xl.metadata import (ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, spee
 #: dictionary mapping extensions to Format classes.
 formats = {
         '669'   : mod.ModFormat,
+        'aac'   : mp4.MP4Format,
         'ac3'   : None,
         'aif'   : wav.WavFormat,
         'aiff'  : wav.WavFormat,

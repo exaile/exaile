@@ -48,6 +48,7 @@ _all_tracks = [
     TrackData(*_fname('au'),   size=16425, writeable=False),
     TrackData(*_fname('flac'), size=17453, writeable=True),
     TrackData(*_fname('mp3'),  size=4692,  writeable=True),
+    TrackData(*_fname('mp4'),  size=2968,  writeable=True),
     TrackData(*_fname('mpc'),  size=6650,  writeable=True),
     TrackData(*_fname('ogg'),  size=13002, writeable=True),
     TrackData(*_fname('spx'),  size=1000,  writeable=True),

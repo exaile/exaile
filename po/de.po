@@ -3652,7 +3652,7 @@ msgstr "IPython-Farbschema:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
-msgstr "IPython-Konsole beim Start von Exail öffnen"
+msgstr "IPython-Konsole beim Start von Exaile öffnen"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"

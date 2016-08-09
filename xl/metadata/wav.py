@@ -31,9 +31,7 @@ import sunau
 import aifc
 import os
 
-from gi.repository import Gio
-
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import BaseFormat, NotReadable
 
 type_map = {
         "aifc": aifc,
@@ -44,12 +42,20 @@ type_map = {
 
 class WavFormat(BaseFormat):
     writable = False
+    
     def load(self):
+        ext = os.path.splitext(self.loc)[1][1:].lower()
+        opener = type_map[ext]
+        
         try:
-            ext = os.path.splitext(self.loc)[1][1:].lower()
-            opener = type_map[ext]
-            f = opener.open(self.loc, "rb")
-            length = f.getnframes() / f.getframerate()
+            fp = open(self.loc, 'rb')
+        except IOError:
+            raise NotReadable
+        
+        try:
+            with fp:
+                f = opener.open(fp)
+                length = f.getnframes() / f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
             self.mutagen = {'__bitrate': -1, '__length': -1}

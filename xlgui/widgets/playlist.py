@@ -504,11 +504,8 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
     def on_search_entry_activate(self, entry):
-        filter_string = entry.get_text()
-        if filter_string == "":
-            self.view.filter_tracks(None)
-        else:
-            self.view.filter_tracks(filter_string)
+        filter_string = entry.get_text().decode('utf-8')
+        self.view.filter_tracks(filter_string or None)
 
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
@@ -738,9 +735,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._filter_matcher = trax.TracksMatcher(filter_string,
                     case_sensitive=False,
                     keyword_tags=keyword_tags)
-            logger.debug("Filtering playlist '%s' by '%s'." % (self.playlist.name, filter_string))
+            logger.debug("Filtering playlist %r by %r.", self.playlist.name, filter_string)
             self.modelfilter.refilter()
-            logger.debug("Filtering playlist '%s' by '%s' completed." % (self.playlist.name, filter_string))
+            logger.debug("Filtering playlist %r by %r completed.", self.playlist.name, filter_string)
         
     def get_selection_count(self):
         '''
@@ -1337,7 +1334,7 @@ class PlaylistModel(Gtk.ListStore):
         self.pause_pixbuf = icons.ExtendedPixbuf(
                 icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_MEDIA_PAUSE))
         self.stop_pixbuf = icons.ExtendedPixbuf(
-                icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_STOP))
+                icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_MEDIA_STOP))
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
                 dest_width=self.stop_pixbuf.pixbuf.get_width() / 2,
                 dest_height=self.stop_pixbuf.pixbuf.get_height() / 2,

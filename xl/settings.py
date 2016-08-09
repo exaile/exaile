@@ -28,7 +28,6 @@
     Central storage of application and user settings
 """
 
-from __future__ import with_statement
 from ConfigParser import (
     RawConfigParser,
     NoSectionError,

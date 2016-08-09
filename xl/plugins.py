@@ -172,13 +172,14 @@ class PluginsManager(object):
 
     def list_installed_plugins(self):
         pluginlist = []
-        for dir in self.plugindirs:
-            if os.path.exists(dir):
-                for file in os.listdir(dir):
-                    if file not in pluginlist and \
-                            os.path.isdir(os.path.join(dir, file)) and \
-                            file != '__pycache__':
-                        pluginlist.append(file)
+        for directory in self.plugindirs:
+            if not os.path.exists(directory):
+                continue
+            for name in os.listdir(directory):
+                if name == '__pycache__' or name in pluginlist or \
+                        not os.path.exists(os.path.join(directory, name, 'PLUGININFO')):
+                    continue
+                pluginlist.append(name)
         return pluginlist
 
     def list_available_plugins(self):

@@ -206,10 +206,9 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkTable" id="tags_table">
+                      <object class="GtkGrid" id="tags_table">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="n_columns">3</property>
                         <property name="column_spacing">4</property>
                         <property name="row_spacing">2</property>
                         <child>

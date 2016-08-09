@@ -28,8 +28,6 @@
     General functions and classes shared in the codebase
 """
 
-from __future__ import with_statement
-
 import inspect
 from gi.repository import Gio
 from gi.repository import GLib
@@ -513,7 +511,7 @@ def walk_directories(root):
         logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
                          root, directory, subdirectory)
 
-class TimeSpan:
+class TimeSpan(object):
     """
         Calculates the number of days, hours, minutes,
         and seconds in a time span

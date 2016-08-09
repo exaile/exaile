@@ -1,4 +1,4 @@
-PYTHON2_CMD   != command -v python2
+PYTHON2_CMD   := $(shell command -v python2)
 
 PREFIX        ?= /usr/local
 EPREFIX        = $(PREFIX)
@@ -7,7 +7,7 @@ LIBINSTALLDIR  = $(EPREFIX)/lib
 DATADIR        = $(PREFIX)/share
 MANPREFIX      = $(PREFIX)/share
 # /etc if PREFIX is /usr, $PREFIX/etc otherwise.
-ETCDIR        != [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc"
+ETCDIR        := $(shell [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc")
 XDGCONFDIR     = $(ETCDIR)/xdg
 
 EXAILEBINDIR   = $(DESTDIR)$(EPREFIX)/bin
@@ -197,7 +197,7 @@ dist:
 	rm -rf dist/copy
 
 test:
-	EXAILE_DIR=$(shell pwd) nosetests -w tests
+	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) py.test tests
 
 test_coverage:
 	rm -rf coverage/

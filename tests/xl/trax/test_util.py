@@ -1,25 +1,19 @@
+
 import unittest
 
 from mox3 import mox
+
 from gi.repository import Gio
-try:
-    from nose.plugins.skip import SkipTest
-except ImportError:
-    SkipTest = None
 
 import xl.collection
 import xl.trax.search
 import xl.trax.track
 import xl.trax.util
 
-from tests.xl.trax import test_data
 
-
-def test_is_valid_track_valid():
-    for track in test_data.TEST_TRACKS:
-        if track.endswith('.aac'):
-            continue
-        assert xl.trax.util.is_valid_track(track), track
+def test_is_valid_track_valid(test_track):
+    fname = test_track.filename
+    assert xl.trax.util.is_valid_track(fname), fname
 
 def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('/')
@@ -27,21 +21,21 @@ def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track(__file__)
     assert not xl.trax.util.is_valid_track('http:///tmp')
 
-class TestGetTracksFromUri(unittest.TestCase):
+class TestGetTracksFromUri(object):
     class DummyClass:
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval
         def query_info(self, value):
-            self.parent.assertEqual(value, 'standard::type')
+            assert value == 'standard::type'
             return self
         def get_file_type(self):
             return self.retval
 
-    def setUp(self):
+    def setup(self):
         self.mox = mox.Mox()
     
-    def tearDown(self):
+    def teardown(self):
         self.mox.UnsetStubs()
 
     def get_anything(self, file_type):
@@ -62,37 +56,34 @@ class TestGetTracksFromUri(unittest.TestCase):
         anything.get_file_type().AndReturn(file_type)
         return anything
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_invalid(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
-        self.mox.StubOutWithMock(gio, 'File')
+        self.mox.StubOutWithMock(Gio, 'File')
         f_anything = self.get_anything('n')
         Gio.File(loc).AndReturn(f_anything)
         self.mox.ReplayAll()
-        self.assertEqual(xl.trax.util.get_tracks_from_uri(loc), [])
+        assert xl.trax.util.get_tracks_from_uri(loc) == []
         self.mox.VerifyAll()
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_single(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
-        self.mox.StubOutWithMock(gio, 'FileInfo')
+        self.mox.StubOutWithMock(Gio, 'FileInfo')
         f_anything = self.mox.CreateMockAnything()
         Gio.FileInfo().AndReturn(f_anything)
         f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
         self.mox.ReplayAll()
-        self.assertEqual(xl.trax.util.get_tracks_from_uri(loc),
-                [xl.trax.track.Track(loc)])
+        assert xl.trax.util.get_tracks_from_uri(loc) == \
+                [xl.trax.track.Track(loc)]
         self.mox.VerifyAll()
 
+    @unittest.skip("Test is borken because of moxing out error")
     def test_directory(self):
-        if SkipTest is not None:
-            raise SkipTest("Test is borken because of moxing out error")
         loc = '/tmp/foo'
         retval = ['foo', 'bar', 'baz']
         # Gio call to find type
-        self.mox.StubOutWithMock(gio, 'File')
+        self.mox.StubOutWithMock(Gio, 'File')
         d_anything = self.get_anything('d')
         Gio.File(loc).AndReturn(d_anything)
 
@@ -106,9 +97,9 @@ class TestGetTracksFromUri(unittest.TestCase):
         xl.trax.util.get_tracks_from_uri(loc)
         self.mox.VerifyAll()
 
-class TestSortTracks(unittest.TestCase):
+class TestSortTracks(object):
 
-    def setUp(self):
+    def setup(self):
         self.tracks = [xl.trax.track.Track(url) for url in
                     ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(self.tracks, 'aab'):
@@ -119,16 +110,16 @@ class TestSortTracks(unittest.TestCase):
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
-        self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks), self.result)
+        assert xl.trax.util.sort_tracks(self.fields,
+            self.tracks) == self.result
 
     def test_reversed(self):
-        self.assertEqual(xl.trax.util.sort_tracks(self.fields,
-            self.tracks, reverse=True), list(reversed(self.result)))
+        assert xl.trax.util.sort_tracks(self.fields,
+            self.tracks, reverse=True) == list(reversed(self.result))
 
-class TestSortResultTracks(unittest.TestCase):
+class TestSortResultTracks(object):
 
-    def setUp(self):
+    def setup(self):
         tracks = [xl.trax.track.Track(url) for url in
                     ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(tracks, 'aab'):
@@ -141,10 +132,10 @@ class TestSortResultTracks(unittest.TestCase):
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
-        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks), self.result)
+        assert xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks) == self.result
 
     def test_reversed(self):
-        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks, True), list(reversed(self.result)))
+        assert xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks, True) == list(reversed(self.result))
 

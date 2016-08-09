@@ -56,3 +56,8 @@ Scalable icons:
 
 * librsvg2
 
+Test dependencies:
+
+* mox3
+* pytest
+

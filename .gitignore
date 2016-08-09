@@ -3,6 +3,8 @@
 *~
 *.ui#
 
+tests/.cache
+
 doc
 doc/api-objects.txt
 doc/crarr.png

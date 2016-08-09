@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 
 from mox3 import mox
 
@@ -367,13 +368,25 @@ class TestSearchTracks(object):
             gen.next()
 
     def test_search_tracks_from_string(self):
-        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'foooo')
         tracks[2].set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks_from_string(tracks, 'foo',
                 keyword_tags=['artist'])
         assert gen.next().track == tracks[0]
+        assert gen.next().track == tracks[2]
+        with pytest.raises(StopIteration):
+            gen.next()
+    
+    def test_search_tracks_with_unicodemark_from_string(self):
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks[0].set_tag_raw('artist', 'foooo')
+        tracks[2].set_tag_raw('artist', u'中')
+        
+        # the weird character is normalized, so you can't search based on that
+        gen = search.search_tracks_from_string(tracks, u'中',
+                keyword_tags=['artist'])
+        
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()

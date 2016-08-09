@@ -117,7 +117,7 @@ class Shuffle(xl.player.adapters.PlaybackAdapter):
             return False
         for artist in self.last_artists:
             if artist == random_track.get_tag_display("artist"):
-                logger.debug("Banning %s for Redundancy" % random_track.get_tag_display("artist"))
+                logger.debug("Banning %s for Redundancy", random_track.get_tag_display("artist"))
                 return True
         return False
 

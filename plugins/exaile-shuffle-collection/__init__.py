@@ -16,23 +16,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import glib
-import gtk
 import logging
-import os
-import random
-import time
-import thread
 import xl
 import xlgui
 import xl.player.adapters
 
+from xlgui import main
+
+logger = logging.getLogger(__name__)
 SHUFFLE = None
-LOGGER  = logging.getLogger(__name__)
 
 def enable(exaile):
+    """Enables the Shuffle Collection plugin
+    """
+    global SHUFFLE
+    SHUFFLE = Shuffle(exaile)
     if exaile.loading:
-        xl.event.add_callback(_enable, 'exaile_loaded')
+        xl.event.add_callback(_enable, 'gui_loaded')
     else:
         _enable(None, exaile, None)
 
@@ -40,8 +40,7 @@ def _enable(eventname, exaile, nothing):
     '''
         Called when plugin is loaded.
     '''
-    global SHUFFLE
-    SHUFFLE = Shuffle(exaile)
+    pass
 
 def disable(exaile):
     '''
@@ -49,25 +48,22 @@ def disable(exaile):
     '''
     global SHUFFLE
     if SHUFFLE:
+        SHUFFLE.stop()
         SHUFFLE = None
 
 class Shuffle(xl.player.adapters.PlaybackAdapter):
     def __init__(self, exaile):
-        LOGGER.debug('__init__() called')
         self.exaile = exaile
         self.do_shuffle = False
-        self.playlist_handle = xlgui.main.get_selected_playlist().playlist
         self.last_artists = []
-        self.myTrack = None
         self.tracks = list()
-        self.refresh_track_list()
         self.ban_repeat = 100 # ban an artist for x tracks
-        random.seed()
+        self.build_menu()
 
-        # Menu
-        self.menu = xlgui.widgets.menu.check_menu_item('shuffle', ['plugin-sep'], 'Shuffle',
+    def build_menu(self):        
+        menu = xlgui.widgets.menu.check_menu_item('shuffle', ['plugin-sep'], 'Shuffle',
             lambda *x: self.do_shuffle, lambda w, n, p, c: self.on_toggled(w))
-        xl.providers.register('menubar-tools-menu', self.menu)
+        xl.providers.register('menubar-tools-menu', menu)
         xl.event.add_callback(self.on_playback_track_start, "playback_track_start", xl.player.PLAYER)
 
     def on_toggled(self, menuitem):
@@ -75,12 +71,11 @@ class Shuffle(xl.player.adapters.PlaybackAdapter):
             Enables or disables the shuffle plugin.
         '''
         if menuitem.get_active():
-            LOGGER.debug('Shuffle activated.')
-            self.refresh_track_list()
+            logger.debug('Shuffle activated.')
             self.do_shuffle = True
             self.play()
         else:
-            LOGGER.debug('Shuffle deactivated.')
+            logger.debug('Shuffle deactivated.')
             self.do_shuffle = False
 
     def remove_menu_item(self):
@@ -101,42 +96,30 @@ class Shuffle(xl.player.adapters.PlaybackAdapter):
         '''
         if not self.do_shuffle:
             return
-
+        fallback = 0
         while True:
-            if (self.is_redundant(self.find_track()) == False):
+            random_track = self.exaile.collection.get_random_track()
+            if not self.is_redundant(random_track) or fallback == 50:
                 break
-
-        self.playlist_handle.append(self.myTrack)
-
+            fallback += 1
+        main.get_selected_playlist().playlist.append(random_track)
         if ( len(self.last_artists) >= self.ban_repeat ):
             self.last_artists.pop(0)
+        self.last_artists.append(random_track.get_tag_display("artist"))
 
-        self.last_artists.append(self.myTrack.get_tag_display("artist"))
-        self.myTrack = None
-
-    def is_redundant(self, myTrack):
+    def is_redundant(self, random_track):
         '''
             Return True if its redundant
             Checks if the Artist was already a shuffle-result
             the last x times. x can be set via self.ban_repeat (default: 20).
         '''
-        for i in self.last_artists:
-            if i == myTrack.get_tag_display("artist"):
-                LOGGER.debug("Banning "+myTrack.get_tag_display("artist")+" for Redundancy!")
+        if random_track == None:
+            return False
+        for artist in self.last_artists:
+            if artist == random_track.get_tag_display("artist"):
+                logger.debug("Banning %s for Redundancy" % random_track.get_tag_display("artist"))
                 return True
-
-        self.myTrack = myTrack
         return False
-
-    def find_track(self):
-        '''
-            Returns a random track from the collection.
-        '''
-        random_track_id = random.randint(1, len(self.tracks))
-        random_track_uri = self.tracks[random_track_id]
-
-        myTrack = xl.trax.Track(random_track_uri)
-        return myTrack
 
     def on_playback_track_start(self, event, player, track):
         '''
@@ -147,7 +130,6 @@ class Shuffle(xl.player.adapters.PlaybackAdapter):
             return
         self.play()
 
-    def refresh_track_list(self):
-        self.tracks = list()
-        for track in self.exaile.collection.get_tracks():
-             self.tracks.append(track.get_loc_for_io() or [])
+    def stop(self):
+        self.remove_menu_item()
+

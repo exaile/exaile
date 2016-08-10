@@ -227,10 +227,7 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        try:
-            search_string = search_string.decode('ascii')
-        except:
-            search_string = shave_marks(search_string)
+        search_string = shave_marks(search_string)
         tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)

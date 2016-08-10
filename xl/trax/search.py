@@ -26,8 +26,8 @@
 
 import time
 import re
-import unicodedata
-import string
+
+from xl.unicode import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -544,19 +544,4 @@ def match_track_from_string(track, search_string,
     return matcher.match(SearchResultTrack(track))
 
 
-def shave_marks(text):
-    '''
-    Removes diacritics from Latin characters and replaces them with their base
-    characters
-    '''
-    decomposed_text = unicodedata.normalize('NFD', text)
-    latin_base = False
-    keepers = []
-    for character in decomposed_text:
-        if unicodedata.combining(character) and latin_base:
-            continue # Ignore diacritic on any Latin base character
-        keepers.append(character)
-        if not unicodedata.combining(character):
-            latin_base = character in string.ascii_letters
-    shaved = ''.join(keepers)
-    return unicodedata.normalize('NFC', shaved)
+

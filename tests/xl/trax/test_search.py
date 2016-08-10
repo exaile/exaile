@@ -377,6 +377,27 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
+            
+    @pytest.mark.parametrize("sstr", [
+        "motley crue",
+        u"mötley crüe",
+        u"motley crüe",
+    ])
+    def test_search_tracks_ignore_diacritic_from_string(self, sstr):
+        '''Ensure that searching for tracks with diacritics return
+           appropriately normalized results'''
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks[0].set_tag_raw('artist', 'motley crue')
+        tracks[1].set_tag_raw('artist', 'rubbish')
+        tracks[2].set_tag_raw('artist', u'motley crüe')
+        
+        gen = search.search_tracks_from_string(tracks, sstr,
+                keyword_tags=['artist'])
+        
+        assert gen.next().track == tracks[0]
+        assert gen.next().track == tracks[2]
+        with pytest.raises(StopIteration):
+            gen.next()
     
     def test_search_tracks_with_unicodemark_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]

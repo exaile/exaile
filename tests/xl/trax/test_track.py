@@ -188,10 +188,10 @@ class TestTrack(object):
         tr.set_tag_raw('artist', random_str())
         assert not tr.write_tags()
         
-    def test_write_tags(self, writeable_track_fp):
+    def test_write_tag(self, writeable_track_name):
         
         artist = random_str()
-        tr = track.Track(writeable_track_fp.name)
+        tr = track.Track(writeable_track_name)
         tr.set_tag_raw('artist', artist)
         tr.write_tags()
         

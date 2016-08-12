@@ -41,6 +41,7 @@ from xl import (
     settings
 )
 from xl.nls import gettext as _
+from xl.unicode import shave_marks
 
 logger = logging.getLogger(__name__)
 
@@ -663,6 +664,8 @@ class Track(object):
                 tag=="albumartist".
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
+                
+            :returns: unicode string that is used for searching
         """
         extraformat = ""
         if tag == "albumartist":
@@ -694,10 +697,11 @@ class Track(object):
             value = '__null__'
             if tag == 'title':
                 extraformat += ' __loc==\"%s\"' % self.__tags['__loc']
-        elif isinstance(value, list) and format:
-            value = ['"%s"' % self.quoter(val) for val in value]
         elif format:
-            value = '"%s"' % self.quoter(value)
+            if isinstance(value, list):
+                value = ['"%s"' % self.quoter(val) for val in value]
+            else:
+                value = '"%s"' % self.quoter(value)
 
         # Join lists
         if format:
@@ -708,13 +712,14 @@ class Track(object):
             if extraformat:
                 value += extraformat
 
-        # hack to make things work - discnumber breaks without it.
-        # TODO: figure out why this happens, cleaner solution
-        if not isinstance(value, list) and not tag.startswith("__"):
-            value = unicode(value)
-
+        # Convert all return values to unicode
+        if isinstance(value, list):
+            value = map(shave_marks, value)
+        else:
+            value = shave_marks(value)
+            
         return value
-
+    
     def get_tag_disk(self, tag):
         """
             Read a tag directly from disk. Can be slow, use with caution.

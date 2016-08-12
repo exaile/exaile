@@ -411,3 +411,14 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
+            
+    def test_search_tracks_with_int_from_string(self):
+        # unlike mp3, mp4 will return integers for BPM.. make sure that works
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks[1].set_tag_raw('bpm', '2')
+        tracks[2].set_tag_raw('bpm', 2)
+        gen = search.search_tracks_from_string(tracks, '2', keyword_tags=['bpm'])
+        assert gen.next().track == tracks[1]
+        assert gen.next().track == tracks[2]
+        with pytest.raises(StopIteration):
+            gen.next()

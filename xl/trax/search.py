@@ -26,8 +26,8 @@
 
 import time
 import re
-import unicodedata
-import string
+
+from xl.unicode import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -58,21 +58,15 @@ class _Matcher(object):
         vals = srtrack.track.get_tag_search(self.tag, format=False)
         if vals == '__null__':
             vals = None
-        if self.tag.startswith("__"):
-            if self._matches(vals):
+        if not isinstance(vals, list):
+            vals = [vals]
+            
+        for item in vals:
+            if item is not None:
+                item = self.lower(item)
+            
+            if self._matches(item):
                 return True
-        else:
-            if type(vals) != list:
-                vals = [vals]
-            for item in vals:
-                if item is not None:
-                    try:
-                        item = item.decode('ascii')
-                    except:
-                        item = shave_marks(item)
-                    item = self.lower(item)
-                if self._matches(item):
-                    return True
         return False
 
     def _matches(self, value):
@@ -233,10 +227,7 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
-        try:
-            search_string = search_string.decode('ascii')
-        except:
-            search_string = shave_marks(search_string)
+        search_string = shave_marks(search_string)
         tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
@@ -544,19 +535,4 @@ def match_track_from_string(track, search_string,
     return matcher.match(SearchResultTrack(track))
 
 
-def shave_marks(text):
-    '''
-    Removes diacritics from Latin characters and replaces them with their base
-    characters
-    '''
-    decomposed_text = unicodedata.normalize('NFD', text)
-    latin_base = False
-    keepers = []
-    for character in decomposed_text:
-        if unicodedata.combining(character) and latin_base:
-            continue # Ignore diacritic on any Latin base character
-        keepers.append(character)
-        if not unicodedata.combining(character):
-            latin_base = character in string.ascii_letters
-    shaved = ''.join(keepers)
-    return unicodedata.normalize('NFC', shaved)
+

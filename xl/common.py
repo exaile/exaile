@@ -45,6 +45,8 @@ from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
 
+from .unicode import to_unicode, strxfrm
+
 #TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
     # Ogg Vorbis spec tags
@@ -80,31 +82,6 @@ def log_exception(log=logger, message="Exception caught!"):
                 logger.exception("Some message: %s", param)
     """
     log.exception(message)
-
-def to_unicode(x, encoding=None, errors='strict'):
-    """Force getting a unicode string from any object."""
-    # unicode() only accepts "string or buffer", so check the type of x first.
-    if isinstance(x, unicode):
-        return x
-    elif isinstance(x, str):
-        if encoding:
-            return unicode(x, encoding, errors)
-        else:
-            return unicode(x, errors=errors)
-    else:
-        return unicode(x)
-
-def strxfrm(x):
-    """Like locale.strxfrm but also supports Unicode.
-
-    This works around a bug in Python 2 causing strxfrm to fail on unicode
-    objects that cannot be encoded with sys.getdefaultencoding (ASCII in most
-    cases): https://bugs.python.org/issue2481
-    """
-    import locale
-    if isinstance(x, unicode):
-        return locale.strxfrm(x.encode('utf-8', 'replace'))
-    return locale.strxfrm(x)
 
 def clamp(value, minimum, maximum):
     """

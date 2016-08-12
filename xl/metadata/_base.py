@@ -233,11 +233,17 @@ class BaseFormat(object):
                     self._set_tag(raw, self.tag_mapping[tag], tagdict[tag])
                 elif self.others:
                     self._set_tag(raw, tag, tagdict[tag])
+
+            defname = None
             for tag in raw:
-                tagname = self._reverse_mapping.get(tag)
+                if self.others:
+                    # this is here so that the delete will succeed later
+                    defname = tag
+                tagname = self._reverse_mapping.get(tag, defname)
                 if tagname is None:
                     tag = tag.split(':',1)[0]   # handles multi-part tags
                     tagname = self._reverse_mapping.get(tag)
+                # delete tags not present in the tagdict
                 if tagname and tagname not in tagdict:
                     self._del_tag(raw, tag)
             self.save()

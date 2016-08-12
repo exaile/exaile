@@ -195,11 +195,26 @@ class TestTrack(object):
         tr.set_tag_raw('artist', artist)
         tr.write_tags()
         
-        tr.set_tag_raw('artist', '')
+        tr.set_tag_raw('artist', None)
+        assert tr.get_tag_raw('artist') == None
+        
         tr.read_tags()
         
         assert tr.get_tag_raw('artist') == [artist]
-
+        
+    def test_delete_tag(self, writeable_track_name):
+        
+        artist = random_str()
+        tr = track.Track(writeable_track_name)
+        assert tr.get_tag_raw('artist') is not None
+        
+        tr.set_tag_raw('artist', None)
+        tr.write_tags()
+        
+        tr.set_tag_raw('artist', artist)
+        tr.read_tags()
+        assert tr.get_tag_raw('artist') == None
+    
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
         assert tr.write_tags() == False

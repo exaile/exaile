@@ -99,7 +99,7 @@ class SpinNothing(SpinLabelField):
 # NOTE: The following strings are already marked for translation in _TRANS and
 # _NMAP, and will be really translated by filtergui; no need to clutter the
 # code here.
-__criteria_types = {
+_criteria_types = {
     
     # TODO              
     'bitrate': None,
@@ -151,9 +151,9 @@ __criteria_types = {
 }
 
 # aliases
-__criteria_types['datetime'] = __criteria_types['text'] # TODO: fix 
-__criteria_types['multiline'] = __criteria_types['text']
-__criteria_types['dblnum'] = __criteria_types['int']
+_criteria_types['datetime'] = _criteria_types['text'] # TODO: fix
+_criteria_types['multiline'] = _criteria_types['text']
+_criteria_types['dblnum'] = _criteria_types['int']
 
 
 # This gets populated below. Only add special tags/searches here.
@@ -226,6 +226,9 @@ _NMAP = {
     N_('Playlist'): '__playlist', # not a real tag
 }
 
+_REV_NMAP = {}
+
+
 # update the tables based on the globally stored tag list
 def __update_maps():
     
@@ -237,7 +240,7 @@ def __update_maps():
             continue
         
         # don't catch this KeyError -- if it fails, fix it!
-        criteria = __criteria_types[data.type]
+        criteria = _criteria_types[data.type]
         
         if criteria is None:
             continue
@@ -245,6 +248,11 @@ def __update_maps():
         CRITERIA.append((data.name, criteria))
         
         _NMAP[data.name] = tag
+    
+    for k, v in _NMAP.iteritems():
+        if v in _REV_NMAP:
+            raise ValueError("_REV_NMAP Internal error: '%s', '%s'" % (k, v))
+        _REV_NMAP[v] = k
 
 __update_maps()
 
@@ -281,23 +289,29 @@ class SmartPlaylistEditor(object):
         """
         if not isinstance(pl, playlist.SmartPlaylist):
             return
-
-        _REV = {}
-        for k, v in _TRANS.iteritems():
-            _REV[v] = k
-
-        _REV_NMAP = {}
-        for k, v in _NMAP.iteritems():
-            _REV_NMAP[v] = k
+        
+        from xl.metadata.tags import tag_data
 
         params = pl.search_params
         state = []
 
         for param in params:
             (field, op, value) = param
-            field = _REV_NMAP[field]
+            rev_field = _REV_NMAP[field]
+            
+            # because there are duplicates in _TRANS, cannot create a reverse
+            # mapping. Instead, search in set of criteria defined for the type
+            data = tag_data[field]
+            
+            for ct in _criteria_types[data.type]:
+                rev_op = ct[0]
+                if _TRANS[rev_op] == op:
+                    break
+            else:
+                dialogs.error(parent, "Invalid operand for %s, omitting" % rev_field)
+                continue
 
-            state.append(([field, _REV[op]], value))
+            state.append(([rev_field, rev_op], value))
 
         state.reverse()
 

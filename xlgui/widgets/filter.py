@@ -36,13 +36,23 @@ from gi.types import GObjectMeta
 from gi.repository import Gtk
 import urllib
 
+from xlgui.guiutil import GtkTemplate
+from xlgui.guiutil import gtk_widget_replace
+
 from xl.nls import gettext as _
 
+@GtkTemplate('ui', 'widgets', 'filter_dialog.ui')
 class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
 
     Consists of a FilterWidget and an Add button.
     """
+    
+    __gtype_name__ = 'FilterDialog'
+    
+    name_entry, filter, \
+    match_any, random, lim_check, lim_spin \
+     = GtkTemplate.Child.widgets(6)
 
     def __init__(self, title, parent, criteria):
         """Create a filter dialog.
@@ -55,63 +65,22 @@ class FilterDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, title, parent, buttons=(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
             Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
+        self.init_template()
 
-        self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
-
-        top = Gtk.Box()
-        top.set_border_width(5)
-        top.set_spacing(5)
-
-        top.pack_start(Gtk.Label(_("Name:")), False, True, 0)
-        self.name_entry = Gtk.Entry()
-        top.pack_start(self.name_entry, True, True, 0)
-        self.vbox.pack_start(top, False, True, 0)
-        top.show_all()
-
-        self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
+        f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_criteria_row()
         f.set_border_width(5)
-        self.vbox.pack_start(f, True, True, 0)
         f.show_all()
-
-        bottom = Gtk.Box()
-        bottom.set_border_width(5)
-        self.match_any = Gtk.CheckButton(_('Match any of the criteria'))
-        bottom.pack_start(self.match_any, True, True, 0)
-        self.random = Gtk.CheckButton(_('Randomize results'))
-        bottom.pack_start(self.random, True, True, 0)
-
-        btn = Gtk.Button()
-        btn.connect('clicked', lambda *x: self.filter.add_criteria_row())
-        image = Gtk.Image()
-        image.set_from_icon_name('list-add', Gtk.IconSize.BUTTON)
-        btn.add(image)
-        align = Gtk.Alignment.new(1, 0, 0, 0)
-        align.add(btn)
-        bottom.pack_end(align, True, True, 0)
-        self.vbox.pack_start(bottom, False, True, 0)
-
-        # add the limit checkbox, spinner
-        limit_area = Gtk.Box()
-        limit_area.set_border_width(5)
-        self.lim_check = Gtk.CheckButton(_("Limit to: "))
-        limit_area.pack_start(self.lim_check, False, True, 0)
-
-        self.lim_spin = Gtk.SpinButton.new_with_range(0, 1000000000, 1)
-        self.lim_spin.set_value(1.0)
-        self.lim_spin.set_sensitive(False)
-
-        self.lim_check.connect('toggled', lambda b:
-            self.lim_spin.set_sensitive(self.lim_check.get_active()))
-
-        limit_area.pack_start(self.lim_spin, False, True, 0)
-        limit_area.pack_start(Gtk.Label(_(" tracks")), False, True, 0)
-        self.vbox.pack_start(limit_area, False, True, 0)
-        limit_area.show_all()
-
-        bottom.show_all()
-        align.show_all()
-        self.show_all()
+        
+        self.filter = gtk_widget_replace(self.filter, f)
+        
+    @GtkTemplate.Callback
+    def on_add_button_clicked(self, *args):
+        self.filter.add_criteria_row()
+    
+    @GtkTemplate.Callback
+    def on_lim_check_toggled(self, *args):
+        self.lim_spin.set_sensitive(self.lim_check.get_active())
 
     def set_limit(self, limit):
         """

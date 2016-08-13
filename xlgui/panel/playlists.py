@@ -25,6 +25,7 @@
 # from your version.
 
 
+from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
@@ -33,7 +34,6 @@ from gi.repository import GObject
 from xl import (
     common,
     event,
-    main,
     playlist,
     radio,
     settings,
@@ -41,7 +41,6 @@ from xl import (
 )
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons,
     panel
 )
@@ -51,208 +50,11 @@ from xlgui.widgets import (
 )
 
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets.filter import *
+from xlgui.widgets.smart_playlist_editor import SmartPlaylistEditor
 
 import logging
 logger = logging.getLogger(__name__)
 
-def N_(x): return x
-
-class EntrySecondsField(MultiEntryField):
-    def __init__(self):
-        MultiEntryField.__init__(self, (50, _('seconds')))
-
-class EntryAndEntryField(MultiEntryField):
-    def __init__(self):
-        # TRANSLATORS: Logical AND used for smart playlists
-        MultiEntryField.__init__(self, (50, _('and'), 50))
-
-class EntryDaysField(MultiEntryField):
-    def __init__(self):
-        MultiEntryField.__init__(self, (50, _('days')))
-        
-class PlaylistField(ComboEntryField):
-    def __init__(self):
-        playlists = []
-        playlists.extend(main.exaile().smart_playlists.list_playlists())
-        playlists.extend(main.exaile().playlists.list_playlists())
-        playlists.sort()
-        ComboEntryField.__init__(self, playlists)
-
-DATE_FIELDS = [
-    N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
-class SpinDateField(SpinButtonAndComboField):
-    def __init__(self):
-        SpinButtonAndComboField.__init__(self, DATE_FIELDS)
-
-class SpinSecondsField(SpinLabelField):
-    def __init__(self):
-        SpinLabelField.__init__(self, _('seconds'))
-
-class SpinRating(SpinLabelField):
-    def __init__(self):
-        SpinLabelField.__init__(self, '', 
-                settings.get_option("rating/maximum", 5), 0)
-
-class SpinNothing(SpinLabelField):
-    def __init__(self):
-        SpinLabelField.__init__(self, '')
-
-# This sets up the CRITERIA for all the available types of tags
-# that exaile supports. The actual CRITERIA dict is populated 
-# using xl.metadata.tags.tag_data.
-#
-# NOTE: The following strings are already marked for translation in _TRANS and
-# _NMAP, and will be really translated by filtergui; no need to clutter the
-# code here.
-__criteria_types = {
-    
-    # TODO              
-    'bitrate': None,
-                    
-    'image': None,
-          
-    'int': [
-        ('is', SpinNothing),
-        ('less than', SpinNothing),
-        ('greater than', SpinNothing),
-        ('between', EntryAndEntryField),
-        ('at least', SpinNothing),
-        ('at most', SpinNothing),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ],
-          
-    'location': [
-        ('is', QuotedEntryField),
-        ('is not', QuotedEntryField),
-        ('contains', QuotedEntryField),
-        ('does not contain', QuotedEntryField),
-        ('regex', QuotedEntryField),
-        ('not regex', QuotedEntryField),
-    ],
-    
-    'text': [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ],
-    
-    'time': [
-        ('at least', SpinSecondsField),
-        ('at most', SpinSecondsField),
-        ('is', SpinSecondsField),
-        ('is not', SpinSecondsField),
-    ],
-                    
-    'timestamp': [
-        ('in the last', SpinDateField),
-        ('not in the last', SpinDateField),
-    ],  
-}
-
-# aliases
-__criteria_types['datetime'] = __criteria_types['text'] # TODO: fix 
-__criteria_types['multiline'] = __criteria_types['text']
-__criteria_types['dblnum'] = __criteria_types['int']
-
-
-# This gets populated below. Only add special tags/searches here.
-CRITERIA = [
-    ('Rating', [
-        ('greater than', SpinRating),
-        ('less than', SpinRating),
-        ('at least', SpinRating),
-        ('at most', SpinRating),
-    ]),
-   
-    ('Playlist', [
-        ('Track is in', PlaylistField),
-        ('Track not in', PlaylistField),
-    ])
-]
-
-# NOTE: We use N_ (fake gettext) because these strings are translated later by
-# the filter GUI. If we use _ (real gettext) here, filtergui will try to
-# translate already-translated strings, which makes no sense. This is partly due
-# to the old design of storing untranslated strings (instead of operators) in
-# the dynamic playlist database.
-
-_TRANS = {
-    # TRANSLATORS: True if haystack is equal to needle
-    N_('is'): '==',
-    # TRANSLATORS: True if haystack is not equal to needle
-    N_('is not'): '!==',
-    # TRANSLATORS: True if the specified tag is present (uses the NullField 
-    # to compare to __null__)
-    N_('is set'): '<!==>',
-    # TRANSLATORS: True if the specified tag is not present (uses the NullField
-    # to compare to __null__)
-    N_('is not set'): '<==>',
-    # TRANSLATORS: True if haystack contains needle
-    N_('contains'): '=',
-    # TRANSLATORS: True if haystack does not contain needle
-    N_('does not contain'): '!=',
-    # TRANSLATORS: True if haystack matches regular expression
-    N_('regex'): '~',
-    # TRANSLATORS: True if haystack does not match regular expression
-    N_('not regex'): '!~',
-    # TRANSLATORS: Example: rating >= 5
-    N_('at least'): '>=',
-    # TRANSLATORS: Example: rating <= 3
-    N_('at most'): '<=',
-    # TRANSLATORS: Example: year < 1999
-    N_('before'): '<',
-    # TRANSLATORS: Example: year > 2002
-    N_('after'): '>',
-    # TRANSLATORS: Example: 1980 <= year <= 1987
-    N_('between'): '><',
-    N_('greater than'): '>',
-    N_('less than'): '<',
-    # TRANSLATORS: Example: track has been added in the last 2 days
-    N_('in the last'): '>=',
-    # TRANSLATORS: Example: track has not been added in the last 5 hours
-    N_('not in the last'): '<',
-    # TRANSLATORS: True if a track is contained in the specified playlist
-    N_('Track is in'): 'pin',
-    # TRANSLATORS: True if a track is not contained in the specified playlist
-    N_('Track not in'): '!pin',
-}
-
-# This table is a reverse lookup for the actual tag name from a display
-# name.
-# This gets populated below. Only add special tags/searches here.
-_NMAP = {
-    N_('Rating'): '__rating', # special
-    N_('Playlist'): '__playlist', # not a real tag
-}
-
-# update the tables based on the globally stored tag list
-def __update_maps():
-    
-    from xl.metadata.tags import tag_data
-    
-    for tag, data in tag_data.iteritems():
-        
-        if data is None:
-            continue
-        
-        # don't catch this KeyError -- if it fails, fix it!
-        criteria = __criteria_types[data.type]
-        
-        if criteria is None:
-            continue
-            
-        CRITERIA.append((data.name, criteria))
-        
-        _NMAP[data.name] = tag
-
-__update_maps()
 
 
 class TrackWrapper(object):
@@ -739,57 +541,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 
     def add_smart_playlist(self):
         """
-            Adds a new smart playlist
+            Shows a dialog for adding a new smart playlist
         """
-        dialog = FilterDialog(_('Add Smart Playlist'), self.parent,
-            CRITERIA)
-
-        dialog.set_transient_for(self.parent)
-        
-        # run the dialog until there is no error
-        while self._run_add_smart_playlist(dialog) == False:
-            pass
-        
-    def _run_add_smart_playlist(self, dialog):
-        '''internal helper function'''
-        
-        result = dialog.run()
-        dialog.hide()
-        if result == Gtk.ResponseType.ACCEPT:
-            name = dialog.get_name()
-            matchany = dialog.get_match_any()
-            limit = dialog.get_limit()
-            state = dialog.get_state()
-            random = dialog.get_random()
-
-            if not name:
-                dialogs.error(self.parent, _("You did "
-                    "not enter a name for your playlist"))
-                return False
-
-            try:
-                pl = self.smart_manager.get_playlist(name)
-                dialogs.error(self.parent, _("The "
-                    "playlist name you entered is already in use."))
-                return False
-            except ValueError:
-                pass # playlist didn't exist
-
-            pl = playlist.SmartPlaylist(name, self.collection)
-            pl.set_or_match(matchany)
-            pl.set_return_limit(limit)
-            pl.set_random_sort(random)
-
-            for item in state:
-                (field, op) = item[0]
-                value = item[1]
-                pl.add_param(_NMAP[field], _TRANS[op], value)
-
-            self.smart_manager.save_playlist(pl)
-            self.model.append(self.smart, [self.playlist_image, name, pl])
-            
-        return True
-
+        pl = SmartPlaylistEditor.create(self.collection, self.smart_manager,
+                                        self.parent)
+        if pl:
+            self.model.append(self.smart, [self.playlist_image, pl.name, pl])
+    
     def edit_selected_smart_playlist(self):
         """
             Shows a dialog for editing the currently selected smart playlist
@@ -801,89 +559,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Shows a dialog for editing a smart playlist
         """
-        if not isinstance(pl, playlist.SmartPlaylist): return
-
-        _REV = {}
-        for k, v in _TRANS.iteritems():
-            _REV[v] = k
-
-        _REV_NMAP = {}
-        for k, v in _NMAP.iteritems():
-            _REV_NMAP[v] = k
-
-        params = pl.search_params
-        state = []
-
-        for param in params:
-            (field, op, value) = param
-            field = _REV_NMAP[field]
-
-            state.append(([field, _REV[op]], value))
-
-        state.reverse()
-
-        dialog = FilterDialog(_('Edit Smart Playlist'), self.parent,
-            CRITERIA)
-
-        dialog.set_transient_for(self.parent)
-        dialog.set_name(pl.name)
-        dialog.set_match_any(pl.get_or_match())
-        dialog.set_limit(pl.get_return_limit())
-        dialog.set_random(pl.get_random_sort())
-
-        dialog.set_state(state)
-        
-        # run the dialog until there is no error
-        while self._run_edit_selected_smart_playlist(dialog) == False:
-            pass
-
-    def _run_edit_selected_smart_playlist(self, dialog):
-        '''internal helper function'''
-    
-        result = dialog.run()
-        dialog.hide()
-        pl = self.tree.get_selected_page(raw=True)
-
-        if result == Gtk.ResponseType.ACCEPT:
-            name = dialog.get_name()
-            matchany = dialog.get_match_any()
-            limit = dialog.get_limit()
-            state = dialog.get_state()
-            random = dialog.get_random()
-
-            if not name:
-                dialogs.error(self.parent, _("You did "
-                    "not enter a name for your playlist"))
-                return False
-
-            if not name == pl.name:
-                try:
-                    pl = self.smart_manager.get_playlist(name)
-                    dialogs.error(self.parent, _("The "
-                        "playlist name you entered is already in use."))
-                    return False
-                except ValueError:
-                    pass # playlist didn't exist
-            
-            pl = playlist.SmartPlaylist(name, self.collection)
-            pl.set_or_match(matchany)
-            pl.set_return_limit(limit)
-            pl.set_random_sort(random)
-
-            for item in state:
-                (field, op) = item[0]
-                value = item[1]
-                pl.add_param(_NMAP[field], _TRANS[op], value)
-
-            self.smart_manager.remove_playlist(pl.name)
-            self.smart_manager.save_playlist(pl)
-
+        pl = SmartPlaylistEditor.edit(pl, self.collection, self.smart_manager,
+                                      self.parent)
+        if pl:
             selection = self.tree.get_selection()
-            (model, iter) = selection.get_selected()
-            model.set_value(iter, 1, name)
-            model.set_value(iter, 2, pl)
-            
-        return True
+            model, it = selection.get_selected()
+            model.set_value(it, 1, pl.name)
+            model.set_value(it, 2, pl)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """

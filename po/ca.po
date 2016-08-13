@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-05-27 14:21+0200\n"
+"PO-Revision-Date: 2016-08-13 06:07+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Weblate 2.8-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
@@ -220,7 +220,7 @@ msgstr "Mostra la durada de la pista actual"
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
@@ -300,6 +300,7 @@ msgstr "No importis les dades antigues de la versió 0.2.x"
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Fa opcions de control com ara --play, inicia Exaile si no s'està executant"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
@@ -1803,7 +1804,7 @@ msgstr "Llistes de reproducció"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "About Exaile"
-msgstr "Quant a"
+msgstr "Quant a Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
@@ -1827,6 +1828,22 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Copyright (C) 2008-2014 Diversos col·laboradors\n"
+"\n"
+"Aquest programa és programari lliure; podeu redistribuir-lo i / o modificar-"
+"lo\n"
+"sota els termes de la Llicència pública general de GNU com es publica per\n"
+"la Free Software Foundation; Ja sigui la versió 2 de la Llicència, o\n"
+"(A la vostra elecció) qualsevol versió posterior.\n"
+"\n"
+"Aquest programa es distribueix amb l'esperança que sigui útil, però\n"
+"SENSE CAP GARANTIA; sense fins i tot la garantia implícita de\n"
+"COMERCIALITZACIÓ o ADEQUACIÓ PER A PROPÒSITS DETERMINATS.\n"
+"Vegeu la Llicència pública general de GNU per a més detalls.\n"
+"\n"
+"Hauríeu d'haver rebut una còpia de la Llicència pública general GNU amb\n"
+"aquest programa; si no fos així, escriviu a Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
@@ -1945,7 +1962,7 @@ msgstr "Altres"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 píxels «fitxer d'icona» (únicament PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
@@ -1969,7 +1986,7 @@ msgstr "Mitjà (p. ex. l'etiqueta dins del CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Artista / interprèt / solista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
@@ -2222,7 +2239,7 @@ msgstr "Conducte d'àudio:  "
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr "Dispositiu: "
+msgstr "Dispositiu:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
@@ -2472,23 +2489,23 @@ msgstr "Gestor de cues"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "S'estan cercant els mood..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Mood trobat."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "No s'ha pogut llegir la barra dels mood."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "L'executable de la barra dels mood no està disponible."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Barra dels mood"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
@@ -3455,7 +3472,7 @@ msgstr "Mostra les cobertes"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Pantalla cíclica"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
@@ -3479,7 +3496,7 @@ msgstr "Envia les pistes mitjançant Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
-msgstr ""
+msgstr "Mostra l'element de menú per alternar la presentació"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"

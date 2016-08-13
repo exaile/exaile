@@ -211,38 +211,38 @@ class FilterWidget(Gtk.Grid):
         self.set_row_spacing(2)
         self.criteria = criteria
         self.rows = []
-        self.n = 0
 
     def add_criteria_row(self):
         """Add a new criteria row."""
         criterion = Criterion(self.criteria)
         criterion.show()
 
-        if len(self.rows) != 0:
-            criterion.set_state(self.rows[-1][0].get_state())
+        n = len(self.rows)
 
+        if n != 0:
+            criterion.set_state(self.rows[-1][0].get_state())
+        
         remove_btn = Gtk.Button()
         image = Gtk.Image()
         image.set_from_icon_name('list-remove', Gtk.IconSize.BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
-            'clicked', self.__remove_clicked, self.n)
+            'clicked', self.__remove_clicked)
         remove_btn.show_all()
         
-        self.attach(criterion, 0, self.n, 1, 1)
-        self.attach(remove_btn, 1, self.n, 1, 1)
+        self.attach(criterion, 0, n, 1, 1)
+        self.attach(remove_btn, 1, n, 1, 1)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
-        self.n += 1
-
+    
     def remove_criteria_row(self, row):
         """Remove a criteria row."""
         self.remove_row(row)
-        del self.rows[self.n]
-        self.n -= 1
+        del self.rows[row]
 
-    def __remove_clicked(self, widget, data):
-        self.remove_criteria_row(data)
+    def __remove_clicked(self, widget):
+        n = self.child_get_property(widget, 'top-attach')
+        self.remove_criteria_row(n)
 
     def get_state(self):
         """Return the filter state.

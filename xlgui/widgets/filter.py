@@ -413,8 +413,11 @@ class MultiEntryField(Gtk.Box):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         entries = self.entries
-        for i in xrange(min(len(entries), len(state))):
-            entries[i].set_text(unicode(state[i]))
+        if isinstance(state, (list, tuple)):
+            for i in xrange(min(len(entries), len(state))):
+                entries[i].set_text(unicode(state[i]))
+        else:
+            entries[0].set_text(unicode(state))
 
 class EntryField(Gtk.Entry):
     def __init__(self):

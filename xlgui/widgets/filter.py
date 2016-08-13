@@ -36,13 +36,23 @@ from gi.types import GObjectMeta
 from gi.repository import Gtk
 import urllib
 
+from xlgui.guiutil import GtkTemplate
+from xlgui.guiutil import gtk_widget_replace
+
 from xl.nls import gettext as _
 
+@GtkTemplate('ui', 'widgets', 'filter_dialog.ui')
 class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
 
     Consists of a FilterWidget and an Add button.
     """
+    
+    __gtype_name__ = 'FilterDialog'
+    
+    name_entry, filter, \
+    match_any, random, lim_check, lim_spin \
+     = GtkTemplate.Child.widgets(6)
 
     def __init__(self, title, parent, criteria):
         """Create a filter dialog.
@@ -55,63 +65,22 @@ class FilterDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, title, parent, buttons=(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
             Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
+        self.init_template()
 
-        self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
-
-        top = Gtk.Box()
-        top.set_border_width(5)
-        top.set_spacing(5)
-
-        top.pack_start(Gtk.Label(_("Name:")), False, True, 0)
-        self.name_entry = Gtk.Entry()
-        top.pack_start(self.name_entry, True, True, 0)
-        self.vbox.pack_start(top, False, True, 0)
-        top.show_all()
-
-        self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
+        f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_criteria_row()
         f.set_border_width(5)
-        self.vbox.pack_start(f, True, True, 0)
         f.show_all()
-
-        bottom = Gtk.Box()
-        bottom.set_border_width(5)
-        self.match_any = Gtk.CheckButton(_('Match any of the criteria'))
-        bottom.pack_start(self.match_any, True, True, 0)
-        self.random = Gtk.CheckButton(_('Randomize results'))
-        bottom.pack_start(self.random, True, True, 0)
-
-        btn = Gtk.Button()
-        btn.connect('clicked', lambda *x: self.filter.add_criteria_row())
-        image = Gtk.Image()
-        image.set_from_icon_name('list-add', Gtk.IconSize.BUTTON)
-        btn.add(image)
-        align = Gtk.Alignment.new(1, 0, 0, 0)
-        align.add(btn)
-        bottom.pack_end(align, True, True, 0)
-        self.vbox.pack_start(bottom, False, True, 0)
-
-        # add the limit checkbox, spinner
-        limit_area = Gtk.Box()
-        limit_area.set_border_width(5)
-        self.lim_check = Gtk.CheckButton(_("Limit to: "))
-        limit_area.pack_start(self.lim_check, False, True, 0)
-
-        self.lim_spin = Gtk.SpinButton.new_with_range(0, 1000000000, 1)
-        self.lim_spin.set_value(1.0)
-        self.lim_spin.set_sensitive(False)
-
-        self.lim_check.connect('toggled', lambda b:
-            self.lim_spin.set_sensitive(self.lim_check.get_active()))
-
-        limit_area.pack_start(self.lim_spin, False, True, 0)
-        limit_area.pack_start(Gtk.Label(_(" tracks")), False, True, 0)
-        self.vbox.pack_start(limit_area, False, True, 0)
-        limit_area.show_all()
-
-        bottom.show_all()
-        align.show_all()
-        self.show_all()
+        
+        self.filter = gtk_widget_replace(self.filter, f)
+        
+    @GtkTemplate.Callback
+    def on_add_button_clicked(self, *args):
+        self.filter.add_criteria_row()
+    
+    @GtkTemplate.Callback
+    def on_lim_check_toggled(self, *args):
+        self.lim_spin.set_sensitive(self.lim_check.get_active())
 
     def set_limit(self, limit):
         """
@@ -242,38 +211,38 @@ class FilterWidget(Gtk.Grid):
         self.set_row_spacing(2)
         self.criteria = criteria
         self.rows = []
-        self.n = 0
 
     def add_criteria_row(self):
         """Add a new criteria row."""
         criterion = Criterion(self.criteria)
         criterion.show()
 
-        if len(self.rows) != 0:
-            criterion.set_state(self.rows[-1][0].get_state())
+        n = len(self.rows)
 
+        if n != 0:
+            criterion.set_state(self.rows[-1][0].get_state())
+        
         remove_btn = Gtk.Button()
         image = Gtk.Image()
         image.set_from_icon_name('list-remove', Gtk.IconSize.BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
-            'clicked', self.__remove_clicked, self.n)
+            'clicked', self.__remove_clicked)
         remove_btn.show_all()
         
-        self.attach(criterion, 0, self.n, 1, 1)
-        self.attach(remove_btn, 1, self.n, 1, 1)
+        self.attach(criterion, 0, n, 1, 1)
+        self.attach(remove_btn, 1, n, 1, 1)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
-        self.n += 1
-
+    
     def remove_criteria_row(self, row):
         """Remove a criteria row."""
         self.remove_row(row)
-        del self.rows[self.n]
-        self.n -= 1
+        del self.rows[row]
 
-    def __remove_clicked(self, widget, data):
-        self.remove_criteria_row(data)
+    def __remove_clicked(self, widget):
+        n = self.child_get_property(widget, 'top-attach')
+        self.remove_criteria_row(n)
 
     def get_state(self):
         """Return the filter state.
@@ -444,8 +413,11 @@ class MultiEntryField(Gtk.Box):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         entries = self.entries
-        for i in xrange(min(len(entries), len(state))):
-            entries[i].set_text(unicode(state[i]))
+        if isinstance(state, (list, tuple)):
+            for i in xrange(min(len(entries), len(state))):
+                entries[i].set_text(unicode(state[i]))
+        else:
+            entries[0].set_text(unicode(state))
 
 class EntryField(Gtk.Entry):
     def __init__(self):

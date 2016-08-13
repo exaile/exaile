@@ -118,6 +118,8 @@ def gtk_widget_replace(widget, replacement):
         :type widget: :class:`Gtk.Widget`
         :param replacement: The new widget
         :type widget: :class:`Gtk.Widget`
+        
+        :returns: replacement widget if successful
     """
     parent = widget.get_parent()
 
@@ -134,7 +136,7 @@ def gtk_widget_replace(widget, replacement):
 
     for name, value in props.items():
         parent.child_set_property(replacement, name, value)
-    return
+    return replacement
 
 class ScalableImageWidget(Gtk.Image):
     """

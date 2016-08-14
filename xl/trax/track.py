@@ -684,7 +684,8 @@ class Track(object):
                 value = int(self.__tags['__bitrate']) // 1000
                 if value != -1:
                     #TRANSLATORS: Bitrate (k here is short for kbps).
-                    value = _("%dk") % value
+                    value = [_("%dk") % value,
+                             self.__tags['__bitrate']]
             except (KeyError, ValueError):
                 value = -1
         elif tag == '__basename':

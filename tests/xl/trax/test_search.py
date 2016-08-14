@@ -102,6 +102,32 @@ class TestInMatcher(object):
         assert not matcher.match(self.str)
 
 
+class TestGtLtMatchers(object):
+
+    def setup(self):
+        self.str = get_search_result_track()
+
+    def test_gt_bitrate_matcher_true(self):
+        matcher = search._GtMatcher('__bitrate', 100000, lambda x: x)
+        self.str.track.set_tag_raw('__bitrate', 128000)
+        assert matcher.match(self.str)
+
+    def test_gt_bitrate_matcher_false(self):
+        matcher = search._GtMatcher('__bitrate', 100000, lambda x: x)
+        self.str.track.set_tag_raw('__bitrate', 28000)
+        assert not matcher.match(self.str)
+
+    def test_lt_bitrate_matcher_true(self):
+        matcher = search._LtMatcher('__bitrate', 100000, lambda x: x)
+        self.str.track.set_tag_raw('__bitrate', 28000)
+        assert matcher.match(self.str)
+
+    def test_lt_bitrate_matcher_false(self):
+        matcher = search._LtMatcher('__bitrate', 100000, lambda x: x)
+        self.str.track.set_tag_raw('__bitrate', 128000)
+        assert not matcher.match(self.str)
+
+
 class TestMetaMatcherClasses(object):
 
     class _Matcher(object):

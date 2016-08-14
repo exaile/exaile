@@ -512,7 +512,7 @@ class TestTrack(object):
     def test_get_search_tag_bitrate(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__bitrate', 48000)
-        assert tr.get_tag_search('__bitrate') == '__bitrate=="48k"'
+        assert tr.get_tag_search('__bitrate') == '__bitrate=="48k" __bitrate=="48000"'
     
     def test_get_disk_tag(self, test_tracks):
         td = test_tracks.get('.mp3')

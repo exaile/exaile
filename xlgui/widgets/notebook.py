@@ -444,8 +444,13 @@ class NotebookActionService(providers.ProviderHandler):
         self.notebook = notebook
 
         # Try to set up action widgets
-        notebook.set_action_widget(Gtk.Box(spacing=3), Gtk.PackType.START)
-        notebook.set_action_widget(Gtk.Box(spacing=3), Gtk.PackType.END)
+        lw = Gtk.Box(spacing=3)
+        lw.pack_end(Gtk.Separator.new(Gtk.Orientation.HORIZONTAL), False, False, 0)
+        rw = Gtk.Box(spacing=3)
+        lw.pack_start(Gtk.Separator.new(Gtk.Orientation.HORIZONTAL), False, False, 0)
+        
+        notebook.set_action_widget(lw, Gtk.PackType.START)
+        notebook.set_action_widget(rw, Gtk.PackType.END)
     
         self.__actions = {}
         for provider in self.get_providers():

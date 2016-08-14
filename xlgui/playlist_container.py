@@ -64,6 +64,7 @@ class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
     """
     __gsignals__ = {'clicked': 'override'}
     name = 'new-playlist'
+    position = Gtk.PackType.START
 
     def __init__(self, notebook):
         NotebookAction.__init__(self, notebook)

@@ -444,7 +444,7 @@ class EntryLabelEntryField(MultiEntryField):
         MultiEntryField.__init__(self, (50, label, 50))
 
 class SpinLabelField(Gtk.Box):
-    def __init__(self, label='', top=99999, lower=-99999):
+    def __init__(self, label='', top=999999, lower=-999999):
         Gtk.Box.__init__(self, spacing=5)
         self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
         self.spin.set_value(0)
@@ -466,7 +466,7 @@ class SpinButtonAndComboField(Gtk.Box):
         Gtk.Box.__init__(self, spacing=5)
         self.items = items
 
-        self.entry = Gtk.SpinButton.new_with_range(0, 99999, 1)
+        self.entry = Gtk.SpinButton.new_with_range(0, 999999, 1)
         self.entry.set_value(0)
         self.pack_start(self.entry, True, True, 0)
 

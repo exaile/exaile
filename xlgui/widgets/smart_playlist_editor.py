@@ -102,7 +102,16 @@ class SpinNothing(SpinLabelField):
 _criteria_types = {
     
     # TODO              
-    'bitrate': None,
+    'bitrate': [
+        ('is', SpinNothing),
+        ('less than', SpinNothing),
+        ('greater than', SpinNothing),
+        ('between', EntryAndEntryField),
+        ('at least', SpinNothing),
+        ('at most', SpinNothing),
+        ('is set', NullField),
+        ('is not set', NullField),
+    ],
                     
     'image': None,
           

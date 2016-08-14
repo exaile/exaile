@@ -530,7 +530,7 @@ class PlaylistContainer(Gtk.Box):
         for notebook in self.notebooks:
             notebook.connect('page-reordered', self.on_page_reordered)
             notebook.connect_after('page-removed',
-                lambda *a: self._update_notebook_display)
+                lambda *a: self._update_notebook_display())
         
         self._update_notebook_display()
     

@@ -87,8 +87,8 @@ class YearRange(Playlist):
     
 class Recent(Playlist):
      def __init__(self, name, seconds=604800):
-     	 self.name = name
-	 self.seconds = seconds
+         self.name = name
+         self.seconds = seconds
 
      def contains(self, md):
          f_mtime = os.stat(md.get_original_filename()).st_mtime

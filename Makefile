@@ -1,14 +1,14 @@
-PYTHON2_CMD   := $(shell command -v python2)
+PYTHON2_CMD   ?= $(shell command -v python2)
 
 PREFIX        ?= /usr/local
 EPREFIX        = $(PREFIX)
 
 LIBINSTALLDIR  = $(EPREFIX)/lib
 DATADIR        = $(PREFIX)/share
-MANPREFIX      = $(PREFIX)/share
+MANPREFIX     ?= $(PREFIX)/share
 # /etc if PREFIX is /usr, $PREFIX/etc otherwise.
 ETCDIR        := $(shell [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc")
-XDGCONFDIR     = $(ETCDIR)/xdg
+XDGCONFDIR    ?= $(ETCDIR)/xdg
 
 EXAILEBINDIR   = $(DESTDIR)$(EPREFIX)/bin
 EXAILELIBDIR   = $(DESTDIR)$(LIBINSTALLDIR)/exaile

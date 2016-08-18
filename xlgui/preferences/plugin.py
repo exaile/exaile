@@ -27,7 +27,12 @@
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import main, plugins, xdg
+from xl import (
+    event,
+    main,
+    plugins,
+    xdg
+)
 import xl.common
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
@@ -89,6 +94,11 @@ class PluginManager(object):
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
+        
+        self._evt_rm1 = event.add_ui_callback(self.on_plugin_event, 'plugin_enabled', None, True)
+        self._evt_rm2 = event.add_ui_callback(self.on_plugin_event, 'plugin_disabled', None, False)
+        self.list.connect('destroy', self.on_destroy)
+        
         GLib.idle_add(selection.select_path, (0,))
         GLib.idle_add(self.list.grab_focus)
 
@@ -100,16 +110,18 @@ class PluginManager(object):
         uncategorized = _('Uncategorized')
         plugins_dict = { uncategorized: [] }
         failed_list = []
+        
+        self.plugin_to_path = {}
 
-        for plugin in plugins:
+        for plugin_name in plugins:
             try:
-                info = self.plugins.get_plugin_info(plugin)
+                info = self.plugins.get_plugin_info(plugin_name)
                 
                 compatible = self.plugins.is_compatible(info)    
                 broken = self.plugins.is_potentially_broken(info)
                 
             except Exception:
-                failed_list += [plugin]
+                failed_list += [plugin_name]
                 continue
             
             # determine icon to show
@@ -118,15 +130,13 @@ class PluginManager(object):
             else:
                 icon = Gtk.STOCK_APPLY
 
-            enabled = plugin in self.plugins.enabled_plugins
-            plugin_data = (plugin, info['Name'], str(info['Version']),
+            enabled = plugin_name in self.plugins.enabled_plugins
+            plugin_data = (plugin_name, info['Name'], str(info['Version']),
                            enabled, icon, broken, compatible, True)
             
             if 'Category' in info:
-                if info['Category'] in plugins_dict:
-                    plugins_dict[info['Category']].append(plugin_data)
-                else:
-                    plugins_dict[info['Category']] = [plugin_data]
+                cat = plugins_dict.setdefault(info['Category'], [])
+                cat.append(plugin_data)
             else:
                 plugins_dict[uncategorized].append(plugin_data)
 
@@ -146,8 +156,10 @@ class PluginManager(object):
         
             it = self.model.append(None, (None, category, '', False, '', False, True, False))
         
-            for plugin in plugins_list:
-                self.model.append(it, plugin)
+            for plugin_data in plugins_list:
+                pit = self.model.append(it, plugin_data)
+                path = self.model.get_string_from_iter(pit)
+                self.plugin_to_path[plugin_data[0]] = path
 
         self.list.set_model(self.filter_model)
         
@@ -162,6 +174,10 @@ class PluginManager(object):
                     len(failed_list)
                 ) % ', '.join(failed_list)
             )
+
+    def on_destroy(self, widget):
+        self._evt_rm1()
+        self._evt_rm2()
 
     def on_messagebar_response(self, widget, response):
         """
@@ -180,22 +196,22 @@ class PluginManager(object):
         """
             Reloads a plugin from scratch
         """
-        plugin = self.filter_model[path][0]
+        plugin_name = self.filter_model[path][0]
         enabled = self.filter_model[path][3]
 
         if enabled:
             try:
-                self.plugins.disable_plugin(plugin)
+                self.plugins.disable_plugin(plugin_name)
             except Exception as e:
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
 
-        logger.info('Reloading plugin %s...' % plugin)
-        self.plugins.load_plugin(plugin, reload=True)
+        logger.info('Reloading plugin %s...' % plugin_name)
+        self.plugins.load_plugin(plugin_name, reload=True)
 
         if enabled:
             try:
-                self.plugins.enable_plugin(plugin)
+                self.plugins.enable_plugin(plugin_name)
             except Exception as e:
                 self.message.show_error(_('Could not enable plugin!'), str(e))
                 return
@@ -269,31 +285,36 @@ class PluginManager(object):
             Called when the checkbox is toggled
         """
         path = Gtk.TreePath.new_from_string(path)
-        plugin = self.filter_model[path][0]
-        if plugin is None:
+        plugin_name = self.filter_model[path][0]
+        if plugin_name is None:
             return
         
         enable = not self.filter_model[path][3]
 
         if enable:
             try:
-                self.plugins.enable_plugin(plugin)
+                self.plugins.enable_plugin(plugin_name)
             except Exception as e:
                 self.message.show_error(_('Could not enable plugin!'), str(e))
                 return
         else:
             try:
-                self.plugins.disable_plugin(plugin)
+                self.plugins.disable_plugin(plugin_name)
             except Exception as e:
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
+            
+        self.on_selection_changed(self.list.get_selection())
 
-        if hasattr(self.plugins.loaded_plugins[plugin],
+    def on_plugin_event(self, evtname, obj, plugin_name, enabled):
+
+        if hasattr(self.plugins.loaded_plugins[plugin_name],
             'get_preferences_pane'):
             self.preferences._load_plugin_pages()
         
-        self.model[self.filter_model.convert_path_to_child_path(path)][3] = enable
-        self.on_selection_changed(self.list.get_selection())
+        path = self.plugin_to_path[plugin_name]
+        self.model[path][3] = enabled
+        
         
     def on_show_broken_cb_toggled(self, widget):
         self._set_status_visible()

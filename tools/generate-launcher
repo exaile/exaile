@@ -20,7 +20,7 @@ PYTHON2_CMD=${5:-python2}
 #  exit 1
 #fi
 
-EPREFIX=`$PYTHON2_CMD -c 'import os,sys;print os.path.realpath(sys.argv[1])' $EPREFIX`
+EPREFIX=`$PYTHON2_CMD -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' $EPREFIX`
 
 cd ${DESTDIR}${EPREFIX}/bin && \
 cat <<EOF > exaile

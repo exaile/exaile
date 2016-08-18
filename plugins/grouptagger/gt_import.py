@@ -5,7 +5,7 @@ from gi.repository import (
     Gtk
 )
 
-from xl.common import ProgressThread
+from xl.common import idle_add, SimpleProgressThread
 from xl.collection import Collection, Library, CollectionScanThread
 from xl.nls import gettext as _
 from xl.trax import search_tracks, TracksMatcher
@@ -19,6 +19,8 @@ from gt_common import get_track_groups, set_track_groups
 
 import logging
 logger = logging.getLogger(__name__)
+
+
 
 
 @GtkTemplate('gt_import.ui', relto=__file__)
@@ -52,9 +54,8 @@ class GtImporter(Gtk.Window):
         self.manager = ProgressManager(self.content_area)
         
         self.rescan_thread = CollectionScanThread(self.collection)
-        self.rescan_thread.connect('done', lambda t: GLib.idle_add(self._on_rescan_done))
+        self.rescan_thread.connect('done', self._on_rescan_done)
         
-        self.update_thread = None
         self.import_thread = None
         
         self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), Gtk.STOCK_REFRESH)
@@ -63,7 +64,8 @@ class GtImporter(Gtk.Window):
     # Status routines
     #
     
-    def _on_rescan_done(self):
+    @idle_add()
+    def _on_rescan_done(self, thread):
         '''Called when the collection is finished loading'''
         
         if self.rescan_thread is None:
@@ -74,18 +76,23 @@ class GtImporter(Gtk.Window):
         logger.info('Import directory scan completed, importing groups')
         
         # now that the collection has loaded, import the groups from them
-        self.import_thread = TrackImportThread(self.collection, self.exaile.collection)
+        self.import_track_data = []
+        self.import_thread = SimpleProgressThread(track_import_thread,
+                                                  self.collection, self.exaile.collection,
+                                                  self.import_track_data)
         self.import_thread.connect('done', self._on_import_done)
         self.manager.add_monitor(self.import_thread, _("Importing groups"), Gtk.STOCK_JUMP_TO)
         
+    @idle_add()
     def _on_import_done(self, thread):
         '''Called when the grouping data is retrieved'''
         
         if self.import_thread is None:
             return
         
-        track_data = self.import_thread.track_data
+        track_data = self.import_track_data
         self.import_thread = None
+        self.import_track_data = None
         
         logger.info('Group import finished, %s new tracks found' % len(track_data))
         
@@ -110,6 +117,7 @@ class GtImporter(Gtk.Window):
         self.ok_button.set_sensitive(True)
         self.tags_vbox.set_visible(True)
     
+    @idle_add()
     def _on_update_done(self, thread):
         
         if self.update_thread is None:
@@ -149,7 +157,8 @@ class GtImporter(Gtk.Window):
         data = [(row[4], row[5]) for row in self.tags_model if row[0] == True]
         logger.info('Updating %s tracks' % len(data))
     
-        self.update_thread = TrackUpdateThread(data, self.radio_replace.get_active())
+        self.update_thread = SimpleProgressThread(track_update_thread,
+                                                  data, self.radio_replace.get_active())
         self.update_thread.connect('done', self._on_update_done)
         
         self.manager.add_monitor(self.update_thread, _("Updating groups"), Gtk.STOCK_CONVERT)
@@ -159,102 +168,71 @@ class GtImporter(Gtk.Window):
         self.collection.close()
 
 
-class TrackImportThread(ProgressThread):
+def track_import_thread(import_collection, user_collection, track_data):
     '''
         Reads grouping information from tracks in a collection, and matches
         them with tracks contained in a separate collection. 
     '''
     
-    def __init__(self, import_collection, user_collection):
-        ProgressThread.__init__(self)
-        self.import_collection = import_collection
-        self.user_collection = user_collection
-        self.do_stop = False
-        self.track_data = []
+    total = float(len(import_collection))
+    
+    # to import, all essential fields should be identical!
+    fields =  ['__length', 'artist', 'album', 'title', 'genre', 'tracknumber']
+    
+    logger.info("Finding matches for %s imported tracks" % len(import_collection))
+    
+    exact_dups = 0
+    no_change = 0
+    
+    # determine which tracks in this collection match existing
+    # tracks in the exaile collection. grab the groups from them
+    for i, track in enumerate(import_collection):
         
-    def stop(self):
-        self.do_stop = True
-        ProgressThread.stop(self)
+        # search for a matching track 
+        # -> currently exaile doesn't index tracks, and linear searches
+        #    for the track instead. Oh well.
         
-    def run(self):
-        total = float(len(self.import_collection))
+        matchers = map(lambda t: TracksMatcher(track.get_tag_search(t)), fields)
+        matched_tracks = [r.track for r in search_tracks(user_collection, matchers)]
         
-        # to import, all essential fields should be identical!
-        fields =  ['__length', 'artist', 'album', 'title', 'genre', 'tracknumber']
+        # if there are matches, add the data to the track data
+        for matched_track in matched_tracks:
         
-        logger.info("Finding matches for %s imported tracks" % len(self.import_collection))
+            # ignore exact duplicates
+            if track is matched_track:
+                exact_dups += 1
+                continue
         
-        exact_dups = 0
-        no_change = 0
+            old_group_str = ' '.join(get_track_groups(matched_track))
+            newgroups = get_track_groups(track)
+            new_group_str = ' '.join(newgroups)
+            
+            if old_group_str == new_group_str:
+                no_change += 1
+                continue
         
-        # determine which tracks in this collection match existing
-        # tracks in the exaile collection. grab the groups from them
-        for i, track in enumerate(self.import_collection):
-            
-            # search for a matching track 
-            # -> currently exaile doesn't index tracks, and linear searches
-            #    for the track instead. Oh well.
-            
-            matchers = map(lambda t: TracksMatcher(track.get_tag_search(t)), fields)
-            matched_tracks = [r.track for r in search_tracks(self.user_collection, matchers)]
-            
-            # if there are matches, add the data to the track data
-            for matched_track in matched_tracks:
-            
-                # ignore exact duplicates
-                if track is matched_track:
-                    exact_dups += 1
-                    continue
-            
-                old_group_str = ' '.join(get_track_groups(matched_track))
-                newgroups = get_track_groups(track)
-                new_group_str = ' '.join(newgroups)
-                
-                if old_group_str == new_group_str:
-                    no_change += 1
-                    continue
-            
-                self.track_data.append((old_group_str, new_group_str, matched_track, newgroups))
+            track_data.append((old_group_str, new_group_str, matched_track, newgroups))
+    
+        yield (i, total)
         
-            GLib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
-            
-            if self.do_stop:
-                return
-            
-        logger.info("Match information: %s exact dups, %s no change, %s differing tracks" % (exact_dups, no_change, len(self.track_data)))
-        
-        GLib.idle_add(self.emit, 'done')    
+    logger.info("Match information: %s exact dups, %s no change, %s differing tracks" % (exact_dups, no_change, len(track_data)))
 
-class TrackUpdateThread(ProgressThread):
+
+def track_update_thread(trackdata, replace):
     '''
         Sets new groups on a set of tracks
     '''
-    
-    def __init__(self, data, replace):
-        ProgressThread.__init__(self)
-        self.data = data
-        self.replace = replace
-        self.do_stop = False
+    total = len(trackdata)
         
-    def stop(self):
-        self.do_stop = True
-        ProgressThread.stop(self)
+    for i, (curtrack, newgroups) in enumerate(trackdata):
         
-    def run(self):
-        total = float(len(self.data))
-        for i, (curtrack, newgroups) in enumerate(self.data):
-            
-            if self.replace:
-                set_track_groups(curtrack, newgroups)
-            else:
-                curgroups = get_track_groups(curtrack) | newgroups
-                set_track_groups(curtrack, curgroups)
-            
-            GLib.idle_add(self.emit, 'progress-update', int(((i+1)/total)*100))
-            if self.do_stop:
-                return
-            
-        GLib.idle_add(self.emit, 'done')
+        if replace:
+            set_track_groups(curtrack, newgroups)
+        else:
+            curgroups = get_track_groups(curtrack) | newgroups
+            set_track_groups(curtrack, curgroups)
+        
+        yield (i, total)
 
 def import_tags(exaile):
     '''

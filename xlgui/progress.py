@@ -27,15 +27,15 @@
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl.common import clamp
-from xl.nls import gettext as _
+from xl.common import clamp, idle_add
 
 from xlgui.guiutil import GtkTemplate
 
 @GtkTemplate('ui', 'widgets', 'progress.ui')
 class ProgressMonitor(Gtk.Box):
     """
-        A graphical progress monitor
+        A graphical progress monitor designed to work with
+        :class:`xl.common.ProgressThread`
     """
     
     __gtype_name__ = 'ProgressMonitor'
@@ -50,7 +50,7 @@ class ProgressMonitor(Gtk.Box):
             :param manager: the parent manager
             :type manager: :class:`ProgressManager`
             :param thread: the thread to run
-            :type thread: :class:`threading.Thread`
+            :type thread: :class:`xl.common.ProgressThread`
             :param description: the description for this process
             :type description: string
         """
@@ -68,20 +68,25 @@ class ProgressMonitor(Gtk.Box):
         
         self.show_all()
         GLib.timeout_add(100, self.pulsate_progress)
-
+        
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
         self.thread.start()
-
+        
     def destroy(self):
         """
             Cleans up
         """
+        
         self._progress_updated = True
 
-        self.thread.disconnect(self.progress_update_id)
-        self.thread.disconnect(self.done_id)
+        if self.progress_update_id is not None:
+            self.thread.disconnect(self.progress_update_id)
+            self.thread.disconnect(self.done_id)
+            
+            self.progress_update_id = None
+            self.done_id = None
 
     def pulsate_progress(self):
         """
@@ -94,19 +99,32 @@ class ProgressMonitor(Gtk.Box):
         self.progressbar.pulse()
 
         return True
-
-    def on_progress_update(self, thread, percent):
+    
+    @idle_add()
+    def on_progress_update(self, thread, progress):
         """
             Called when the progress has been updated
         """
+        
+        if progress is None:
+            return
+        
+        # Accept a tuple or number between 0 and 100
+        if hasattr(progress, '__len__'):
+            step, total = progress
+            percent = int(((step+1)/total)*100)
+        else:
+            percent = int(progress)
+        
         if percent > 0:
             self._progress_updated = True
 
-        fraction = clamp(float(percent) / 100, 0, 1)
+        fraction = clamp(percent / 100.0, 0, 1)
 
         self.progressbar.set_fraction(fraction)
         self.progressbar.set_text('%d%%' % percent)
-
+    
+    @idle_add()
     def on_done(self, thread):
         """
             Called when the thread is finished

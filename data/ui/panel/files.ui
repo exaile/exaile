@@ -154,12 +154,7 @@
                 <property name="can_focus">True</property>
                 <property name="model">liststore_libraries_location</property>
                 <property name="has_entry">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                  <attributes>
-                    <attribute name="text">0</attribute>
-                  </attributes>
-                </child>
+                <property name="entry_text_column">0</property>
                 <child internal-child="entry">
                   <object class="GtkEntry" id="combobox-entry1">
                     <property name="can_focus">True</property>

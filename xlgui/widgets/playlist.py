@@ -1259,7 +1259,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             current_position = 0
             with_extras = False
         
-        properties.TrackPropertiesDialog(None, tracks,
+        properties.TrackPropertiesDialog(self.get_toplevel(), tracks,
                                          current_position, with_extras)
 
     def on_provider_removed(self, provider):

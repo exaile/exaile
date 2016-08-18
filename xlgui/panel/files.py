@@ -270,7 +270,6 @@ class FilesPanel(panel.Panel):
             Refreshes the current view
         """
         cursorf = self.model[self.tree.get_cursor()[0]][0]
-        print cursorf.get_uri()
         self.load_directory(self.current, False, cursor_file=cursorf)
 
     def entry_activate(self, widget, event=None):

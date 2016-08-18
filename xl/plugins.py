@@ -143,13 +143,15 @@ class PluginsManager(object):
     def enable_plugin(self, pluginname):
         try:
             plugin = self.load_plugin(pluginname)
-            if not plugin: raise Exception("Error loading plugin")
+            if not plugin:
+                raise Exception("Error loading plugin")
             plugin.enable(self.exaile)
             if not inspect.ismodule(plugin):
                 self.__enable_new_plugin(plugin)
             self.enabled_plugins[pluginname] = plugin
             logger.debug("Loaded plugin %s" % pluginname)
             self.save_enabled()
+            event.log_event('plugin_enabled', self, pluginname)
         except Exception as e:
             logger.exception("Unable to enable plugin %s", pluginname)
             raise e
@@ -168,6 +170,8 @@ class PluginsManager(object):
         except Exception as e:
             logger.exception("Unable to fully disable plugin %s", pluginname)
             raise e
+        finally:
+            event.log_event('plugin_disabled', self, pluginname)
         return True
 
     def list_installed_plugins(self):

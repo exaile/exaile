@@ -48,13 +48,13 @@ class Book():
 
         try:
             self.xmldata=common.get_url_contents(self.rssurl, self.user_agent)
-        except:
+        except Exception:
             logger.error("LIBRIVOX: Connection error")
             return
         
         try:
             self.xmltree=ElementTree.XML(self.xmldata)
-        except:
+        except Exception:
             logger.error("LIBRIVOX: XML error")
             return
         
@@ -89,13 +89,13 @@ def find_books(keyword, user_agent):
     
     try:
         data=common.get_url_contents(url, user_agent)
-    except:
+    except Exception:
         logger.error("LIBRIVOX: connection error")
         return []
     
     try:
         tree=ElementTree.XML(data)
-    except:
+    except Exception:
         logger.error("LIBRIVOX: XML error")
         return []
     

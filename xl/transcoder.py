@@ -123,7 +123,7 @@ def get_formats():
                 if not x:
                     raise
             ret[name] = val
-        except:
+        except Exception:
             pass
     return ret
 
@@ -198,7 +198,7 @@ class Transcoder(object):
         self.__last_time = 0.0
         try:
             self.end_cb()
-        except:
+        except Exception:
             pass #FIXME
 
     def on_error(self, *args):
@@ -206,7 +206,7 @@ class Transcoder(object):
         self.running = False
         try:
             self.error_cb()
-        except:
+        except Exception:
             raise TranscodeError(args)
 
     def on_eof(self, *args):
@@ -220,7 +220,7 @@ class Transcoder(object):
             tim = tim/Gst.SECOND
             self.__last_time = tim
             return tim
-        except:
+        except Exception:
             return self.__last_time
 
     def is_running(self):

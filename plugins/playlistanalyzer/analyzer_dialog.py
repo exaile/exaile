@@ -145,7 +145,7 @@ class AnalyzerDialog(object):
                 data['maxtags'] = int(data['maxtags'])
                 
                 self.template_store.append((data['name'], data))
-            except:
+            except Exception:
                 logger.error("Invalid meta parameter in %s", fname)
             
     def __build_playlist_list(self, selected_playlist):

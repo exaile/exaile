@@ -141,7 +141,7 @@ class UDisksBase(providers.ProviderHandler):
             self.obj = self._connect()
             logger.info("Connected to %s", self.name)
             event.log_event("hal_connected", self, None)
-        except:
+        except Exception:
             logger.exception("Failed to connect to %s, " \
                     "autodetection of devices will be disabled.", self.name)
             return False
@@ -224,7 +224,7 @@ class UDisksBase(providers.ProviderHandler):
             return
         try:
             device.autoconnect()
-        except:
+        except Exception:
             logger.exception("%s: Failed autoconnecting device %s", self.name, str(device))
         else:
             self.devicemanager.add_device(device)
@@ -435,12 +435,12 @@ class HAL(providers.ProviderHandler):
             for p in self.get_providers():
                 try:
                     self.on_provider_added(p)
-                except:
+                except Exception:
                     logger.exception("Failed to load HAL devices for %s", p.name)
             self.setup_device_events()
             logger.debug("Connected to HAL")
             event.log_event("hal_connected", self, None)
-        except:
+        except Exception:
             logger.warning("Failed to connect to HAL, " \
                     "autodetection of devices will be disabled.")
 

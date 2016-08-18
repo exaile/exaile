@@ -84,7 +84,7 @@ class BaseFormat(object):
         if self.MutagenType:
             try:
                 self.mutagen = self.MutagenType(self.loc)
-            except:
+            except Exception:
                 raise NotReadable
 
     def save(self):

@@ -181,7 +181,7 @@ class Bookmarks:
                         # no cover
                 else:
                     pix = None
-        except:
+        except Exception:
             logger.exception("Cannot open %s", key)
             # delete offending key?
             return

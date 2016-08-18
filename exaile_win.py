@@ -61,7 +61,7 @@ def main():
     
     try:
         import gi
-    except:
+    except Exception:
         error("PyGObject not found",
                 "PyGObject could not be imported. " + aio_message)
     else:
@@ -70,7 +70,7 @@ def main():
     
     try:
         from gi.repository import Gtk
-    except:
+    except Exception:
         error("GTK not found",
               "GTK could not be imported. " + aio_message)
     else:
@@ -78,7 +78,7 @@ def main():
     
     try:
         from gi.repository import Gst
-    except:
+    except Exception:
         error("GStreamer not found",
               "GStreamer could not be imported. " + aio_message)
     else:

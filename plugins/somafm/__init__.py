@@ -21,7 +21,7 @@ import httplib
 import socket
 try:
     import xml.etree.cElementTree as ETree
-except:
+except ImportError:
     import xml.etree.ElementTree as ETree
 from xl import (
     event,
@@ -183,7 +183,7 @@ class SomaFMRadioStation(RadioStation):
             set_status(_('Contacting SomaFM server...'))
             try:
                 self.playlists[playlist_id] = playlist.import_playlist(url)
-            except:
+            except Exception:
                 set_status(_("Error importing playlist"))
                 logger.exception("Error importing playlist")
             set_status('')

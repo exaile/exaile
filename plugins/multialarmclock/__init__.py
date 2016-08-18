@@ -288,7 +288,7 @@ class AlarmClock:
                     alist = _read(raw)
                     assert isinstance(alist, list) # should be list of dicts (new format)
                     
-                except:
+                except Exception:
                     try:
                         # try to import old format
                         for line in raw.strip().split('\n'):

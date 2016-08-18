@@ -20,7 +20,7 @@ from contextlib import closing
 from urllib import quote_plus
 try:
     import xml.etree.cElementTree as ETree
-except:
+except ImportError:
     import xml.etree.ElementTree as ETree
 
 from xl import (

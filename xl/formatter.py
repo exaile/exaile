@@ -675,7 +675,7 @@ class YearTagFormatter(TagFormatter):
         if value is not None:
             try:
                 return value[0].split('-')[0]
-            except:
+            except Exception:
                 pass
             return value[0]
             

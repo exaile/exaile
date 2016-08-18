@@ -362,7 +362,7 @@ class CoverManager(providers.ProviderHandler):
             except EOFError:
                 try:
                     os.remove(loc)
-                except:
+                except Exception:
                     pass
             if data:
                 break

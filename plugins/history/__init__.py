@@ -114,7 +114,7 @@ class HistoryPlugin(object):
             if dialog.run() == Gtk.ResponseType.YES:
                 try:
                     os.unlink( self.history_loc )
-                except:
+                except Exception:
                     pass
                     
             dialog.destroy()

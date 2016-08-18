@@ -67,7 +67,7 @@ class LyricsMania(LyricSearchMethod):
 
         try:
             html = common.get_url_contents(url, self.user_agent)
-        except:
+        except Exception:
             raise LyricsNotFoundException
 
         try:
@@ -79,7 +79,7 @@ class LyricsMania(LyricSearchMethod):
             lyrics_body = lyrics_html.find_class('lyrics-body')[0]
             lyrics_body.remove(lyrics_body.get_element_by_id('video-musictory'))
             lyrics = re.sub('^\s+Lyrics to .+', '', lyrics_body.text_content())
-        except :
+        except Exception:
             raise LyricsNotFoundException
 
         # We end up with unicode in some systems, str (bytes) in others;

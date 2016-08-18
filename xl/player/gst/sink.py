@@ -138,7 +138,7 @@ def create_device(player_name, return_errorsink=True):
         else:
             try:
                 sink = CustomAudioSink(pipeline, name)
-            except:
+            except Exception:
                 errmsg = _("Error creating custom audiosink '%s'") % pipeline
                 logger.exception(errmsg)
     

@@ -85,7 +85,7 @@ class SettingsManager(RawConfigParser):
         if default_location is not None:
             try:
                 self.read(default_location)
-            except:
+            except Exception:
                 pass
 
         if location is not None:
@@ -93,7 +93,7 @@ class SettingsManager(RawConfigParser):
                 self.read(self.location) or \
                     self.read(self.location + ".new") or \
                     self.read(self.location + ".old")
-            except:
+            except Exception:
                 pass
 
         if self.get_option('settings/version', 0) is None:
@@ -271,7 +271,7 @@ class SettingsManager(RawConfigParser):
 
             try:
                 value = TYPE_MAPPING[kind](value)
-            except:
+            except Exception:
                 pass
 
             return value
@@ -305,21 +305,21 @@ class SettingsManager(RawConfigParser):
             try:
                 # make it readable by current user only, to protect private data
                 os.fchmod(f.fileno(), 384)
-            except:
+            except Exception:
                 pass # fail gracefully, eg if on windows
 
             f.flush()
 
         try:
             os.rename(self.location, self.location + ".old")
-        except:
+        except Exception:
             pass # if it doesn'texist we don't care
 
         os.rename(self.location + ".new", self.location)
 
         try:
             os.remove(self.location + ".old")
-        except:
+        except Exception:
             pass
 
         self._saving = False

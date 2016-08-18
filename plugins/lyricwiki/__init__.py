@@ -51,7 +51,7 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             html = common.get_url_contents(url, self.user_agent)
-        except:
+        except Exception:
             raise LyricsNotFoundException
 
         try:

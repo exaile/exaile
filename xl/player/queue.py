@@ -317,7 +317,7 @@ class PlayQueue(playlist.Playlist):
         try:
             with open(location, 'rb') as f:
                 state = pickle.load(f)
-        except:
+        except Exception:
             return
 
         for req in ['state', 'position']:

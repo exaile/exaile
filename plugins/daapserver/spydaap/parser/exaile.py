@@ -57,7 +57,7 @@ class ExaileParser(spydaap.parser.Parser):
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
-                except:
+                except Exception:
                     logger.exception('exception caught parsing tag: %s=%s from %s',
                         k, tn, md)
 
@@ -105,7 +105,7 @@ class ExaileParser(spydaap.parser.Parser):
                       ])
             return (d, name)
             
-        except:
+        except Exception:
             logger.exception('caught exception while processing %s', trk)
             return (None, None)    
 

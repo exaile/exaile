@@ -89,7 +89,7 @@ class DynamicAudioSink(Gst.Bin):
                 if state != Gst.State.NULL:
                     try:
                         buffer_position = old_audio_sink.query_position(Gst.Format.TIME)
-                    except:
+                    except Exception:
                         pass
                 
                 self.remove(old_audio_sink)

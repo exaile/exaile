@@ -114,7 +114,7 @@ class ExailePlayer(object):
             return
         try:
             i = int(track.get_tag_raw('__playcount'))
-        except:
+        except Exception:
             i = 0
         track.set_tag_raw('__playcount', i + 1)
         track.set_tag_raw('__last_played', time.time())
@@ -573,7 +573,7 @@ class ExailePlayer(object):
             if type(last) == str:
                 try:
                     last = int(last)
-                except:
+                except Exception:
                     last = 0
             elif type(last) != int:
                 last = 0

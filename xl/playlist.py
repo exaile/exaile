@@ -656,7 +656,7 @@ class ASXConverter(FormatConverter):
 
             try:
                 playlistdata = parser.close()
-            except:
+            except Exception:
                 pass
             else:
                 if playlistdata['name']:
@@ -850,7 +850,7 @@ class XSPFConverter(FormatConverter):
                     try:
                         track.set_tag_raw(tag,
                             n.find("%s%s" % (ns, element)).text.strip())
-                    except:
+                    except Exception:
                         pass
                 playlist.append(track)
 
@@ -1042,7 +1042,7 @@ class Playlist(object):
         for i in xrange(len(self)):
             try:
                 self.__tracks.del_meta_key(i, "playlist_shuffle_history")
-            except:
+            except Exception:
                 pass
 
     @common.threaded
@@ -1423,7 +1423,7 @@ class Playlist(object):
             try:
                 f = open(loc, 'r')
                 break
-            except:
+            except Exception:
                 pass
         if not f:
             return
@@ -1862,7 +1862,7 @@ class SmartPlaylist(object):
             elif field == '__playlist':
                 try:
                     pl = main.exaile().playlists.get_playlist(value)
-                except:
+                except Exception:
                     try:
                         pl = main.exaile().smart_playlists.get_playlist(value).get_playlist(collection) 
                     except Exception as e:
@@ -1941,7 +1941,7 @@ class SmartPlaylist(object):
             f = open(location, 'rb')
             pdata = pickle.load(f)
             f.close()
-        except:
+        except Exception:
             return
         for item in pdata:
             if hasattr(self, item):
@@ -2115,7 +2115,7 @@ class PlaylistManager(object):
             try:
                 f = open(loc, 'r')
                 break
-            except:
+            except Exception:
                 pass
         if f is None:
             return []

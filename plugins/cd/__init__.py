@@ -41,7 +41,7 @@ import os.path
 try:
     import DiscID, CDDB
     CDDB_AVAIL=True
-except:
+except Exception:
     CDDB_AVAIL=False
 
 import cdprefs
@@ -232,7 +232,7 @@ class CDDevice(KeyedDevice):
             _cdguipanel = imp.load_source("_cdguipanel",
                     os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
             return _cdguipanel.CDPanel
-        except:
+        except Exception:
             logger.exception("Could not import cd gui panel")
             return 'flatplaylist'
 

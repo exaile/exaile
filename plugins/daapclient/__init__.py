@@ -65,7 +65,7 @@ try:
     del tmp
 except TypeError:
     AUTH = False
-except:
+except Exception:
     AUTH = True
 
 # Globals Warming
@@ -445,7 +445,7 @@ class DaapConnection(object):
             self.session = client.login()
             self.connected = True
 #        except DAAPError:
-        except:
+        except Exception:
             logger.exception('failed to connect to ({0},{1})'.format(
                 self.server, self.port))
             
@@ -459,7 +459,7 @@ class DaapConnection(object):
         """
         try:
             self.session.logout()
-        except:
+        except Exception:
             pass
         self.session = None
         self.tracks = None
@@ -526,7 +526,7 @@ class DaapConnection(object):
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
-                    except:
+                    except Exception:
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 
@@ -535,7 +535,7 @@ class DaapConnection(object):
                 try:
                     temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000,
                                                          notify_changed=False)
-                except:
+                except Exception:
                     temp.set_tag_raw("__length", 0, notify_changed=False)
 
                 self.all.append(temp)

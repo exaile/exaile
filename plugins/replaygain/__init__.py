@@ -33,7 +33,7 @@ try:
     import replaygainprefs
     def get_preferences_pane():
         return replaygainprefs
-except: # fail gracefully if we cant set up the UI
+except Exception: # fail gracefully if we cant set up the UI
     pass
 
 NEEDED_ELEMS = ["rgvolume", "rglimiter"]

@@ -46,7 +46,7 @@ def detect_bpm(uri, on_complete):
             v = tags.get_value_index('beats-per-minute', 0)
             try:
                 v = float(v)
-            except:
+            except Exception:
                 return
             
             if v > 0:

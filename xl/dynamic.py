@@ -123,7 +123,7 @@ class DynamicManager(providers.ProviderHandler):
             try:
                 rel, artist = line.strip().split(" ",1)
                 info.append((rel, artist))
-            except:
+            except Exception:
                 pass
         f.close()
         return info

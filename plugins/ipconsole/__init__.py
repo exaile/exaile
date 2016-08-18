@@ -29,7 +29,7 @@ from xlgui.widgets import menu
 try:    # xl doesn't exist outside of exaile
     from xl.nls import gettext as _
     from xl import event
-except:
+except ImportError:
     from gettext import gettext as _
     print('Running outside of Exaile...')
 

@@ -106,7 +106,7 @@ class ID3Format(BaseFormat):
                 try:
                     ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                         for x in value.text])
-                except:
+                except Exception:
                     pass
         return ret
 

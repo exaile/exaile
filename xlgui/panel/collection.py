@@ -613,7 +613,7 @@ class CollectionPanel(panel.Panel):
             return # at the bottom of the tree
         try:
             image = getattr(self, "%s_image"%tags[-1])
-        except:
+        except Exception:
             image = None
         bottom = False
         if depth == len(self.order)-1:

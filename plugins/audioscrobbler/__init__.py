@@ -164,11 +164,11 @@ class ExaileScrobbler(object):
         try:
             logger.info("Attempting to connect to AudioScrobbler (%s)" % server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
-        except:
+        except Exception:
 
             try:
                 scrobbler.login(username, password, hashpw=True, post_url=server)
-            except:
+            except Exception:
                 self.connecting = False
                 logger.exception("Error logging in")
                 return
@@ -244,7 +244,7 @@ class ExaileScrobbler(object):
             cache = pickle.load(f)
             f.close()
             scrobbler.SUBMIT_CACHE = cache
-        except:
+        except Exception:
             pass
 
     @common.threaded
@@ -260,6 +260,6 @@ class ExaileScrobbler(object):
                     track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0,
                     autoflush=True,
                     )
-            except:
+            except Exception:
                 logger.exception("AS: Failed to submit track")
 

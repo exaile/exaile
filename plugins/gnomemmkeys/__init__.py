@@ -96,7 +96,7 @@ def disable(exaile):
     if GNOME_MMKEYS:
         try:
             GNOME_MMKEYS.ReleaseMediaPlayerKeys("Exaile")
-        except:
+        except Exception:
             logger.exception("Error releasing player keys")
             GNOME_MMKEYS = None
             return False

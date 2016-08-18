@@ -178,7 +178,7 @@ class PodcastPanel(panel.Panel):
 
             self._open_podcast(pl, title)
             self.podcast_playlists.save_playlist(pl, overwrite=True)
-        except:
+        except Exception:
             logger.exception("Error loading podcast")
             self._set_status(_('Error loading podcast.'), 2)
 

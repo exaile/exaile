@@ -160,7 +160,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                     idx += 1
             try:
                 self.elements[idx] = provider()
-            except:
+            except Exception:
                 logger.exception("Could not create %s element for %s.",
                                  provider, self.get_name())
         

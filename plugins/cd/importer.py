@@ -89,7 +89,7 @@ class CDImporter(object):
             try:
                 incr = tr.get_tag_raw('__length') / self.duration
                 self.progress += incr
-            except:
+            except Exception:
                 raise
         self.progress = 100.0
 

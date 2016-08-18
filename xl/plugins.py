@@ -55,7 +55,7 @@ class PluginsManager(object):
 
         try:
             os.makedirs(self.plugindirs[0])
-        except:
+        except Exception:
             pass
 
         self.plugindirs = [ x for x in self.plugindirs if os.path.exists(x) ]
@@ -136,7 +136,7 @@ class PluginsManager(object):
             try:
                 shutil.rmtree(self.__findplugin(pluginname))
                 return True
-            except:
+            except Exception:
                 pass
         return False
 
@@ -276,7 +276,7 @@ class PluginsManager(object):
         for plugin in to_enable:
             try:
                 self.enable_plugin(plugin)
-            except:
+            except Exception:
                 pass
 
 # vim: et sts=4 sw=4

@@ -77,7 +77,7 @@ class LyricsCache:
         with self.lock:
             try:
                 return self.db[key]
-            except:
+            except Exception:
                 return default if default is not None else self.default
                 
     def _set(self, key, value):

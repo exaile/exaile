@@ -376,7 +376,7 @@ class Exaile(object):
                 logger.info("Using %s %s locale" % (lc, enc))
             else:
                 logger.info("Using unknown locale")
-        except:
+        except Exception:
             pass
 
         splash = None
@@ -398,7 +398,7 @@ class Exaile(object):
                 del sys.path[0]
                 migrator.migrate(force=self.options.ForceImport)
                 del migrator
-            except:
+            except Exception:
                 logger.exception("Failed to migrate from 0.2.14")
 
         # Migrate old rating options
@@ -597,7 +597,7 @@ class Exaile(object):
         while 1:
             try:
                 context.iteration(True)
-            except:
+            except Exception:
                 pass
 
     def get_version(self):
@@ -666,7 +666,7 @@ class Exaile(object):
             if hasattr(plugin, 'teardown'):
                 try:
                     plugin.teardown(self)
-                except:
+                except Exception:
                     pass
 
         from xl import event

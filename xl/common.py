@@ -78,7 +78,7 @@ def log_exception(log=logger, message="Exception caught!"):
             
             try:
                 ..
-            except:
+            except Exception:
                 logger.exception("Some message: %s", param)
     """
     log.exception(message)

@@ -162,7 +162,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         if self.use_fade:
             try:
                 GLib.source_remove(self.fadeout_id)
-            except:
+            except Exception:
                 pass
             finally:
                 self.fadeout_id = None
@@ -315,7 +315,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
 
         try:
             GLib.source_remove(self.hide_id)
-        except:
+        except Exception:
             pass
         finally:
             self.hide_id = None
@@ -328,7 +328,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
         try:
             GLib.source_remove(self.hide_id)
-        except:
+        except Exception:
             pass
         finally:
             self.hide_id = None
@@ -351,7 +351,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
 
         try:
             GLib.source_remove(self.hide_id)
-        except:
+        except Exception:
             pass
         finally:
             self.hide_id = None
@@ -370,7 +370,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
 
         try:
             GLib.source_remove(self.hide_id)
-        except:
+        except Exception:
             pass
         finally:
             self.hide_id = None

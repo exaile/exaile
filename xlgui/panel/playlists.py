@@ -965,7 +965,7 @@ class PlaylistDragTreeView(DragTreeView):
             if raw: return item
             try:
                 return item.get_playlist(self.container.collection)
-            except:
+            except Exception:
                 return None
         if isinstance(item, radio.RadioItem):
             if raw: return item

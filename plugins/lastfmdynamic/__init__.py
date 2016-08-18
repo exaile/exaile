@@ -26,8 +26,9 @@
 
 try:
     import xml.etree.cElementTree as ETree
-except:
+except ImportError:
     import xml.etree.ElementTree as ETree
+
 import urllib
 from xl.dynamic import DynamicSource
 from xl import providers, common

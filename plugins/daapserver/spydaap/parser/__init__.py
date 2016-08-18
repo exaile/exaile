@@ -56,4 +56,5 @@ class Parser:
     def my_int(self, s):
         try:
             return int(self.clean_int_string(s))
-        except: return None
+        except Exception:
+            return None

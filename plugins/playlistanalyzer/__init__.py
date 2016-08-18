@@ -170,7 +170,7 @@ class PlaylistAnalyzerPlugin(object):
         
         try:
             contents = contents % kwargs
-        except:
+        except Exception:
             raise RuntimeError("Format string error in template (probably has unescaped % in it)")
         
         outfile = Gio.File.new_for_uri(uri)

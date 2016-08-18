@@ -40,7 +40,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                     self.send_header("Content-Length", str(os.stat(data.name).st_size))
                 else:
                     self.send_header("Content-Length", len(data))                   
-            except:
+            except Exception:
                 pass
             self.end_headers()
             if hasattr(self, 'isHEAD') and self.isHEAD:

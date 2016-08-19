@@ -269,8 +269,9 @@ class FilesPanel(panel.Panel):
         """
             Refreshes the current view
         """
-        cursorf = self.model[self.tree.get_cursor()[0]][0]
-        self.load_directory(self.current, False, cursor_file=cursorf)
+        treepath = self.tree.get_cursor()[0]
+        cursorf = self.model[treepath][0] if treepath else None
+        self.load_directory(self.current, history=False, cursor_file=cursorf)
 
     def entry_activate(self, widget, event=None):
         """
@@ -297,27 +298,29 @@ class FilesPanel(panel.Panel):
         """
             Goes to the next entry in history
         """
-        if self.i < len(self.history) - 1:
-            self.i += 1
-            cursorf = self.model[self.tree.get_cursor()[0]][0]
-            self.load_directory(self.history[self.i], False, cursor_file=cursorf)
-            if self.i >= len(self.history) - 1:
-                self.forward.set_sensitive(False)
-            if len(self.history):
-                self.back.set_sensitive(True)
+        assert 0 <= self.i < len(self.history)
+        if self.i == len(self.history) - 1:
+            return
+        self.i += 1
+        self.load_directory(self.history[self.i], history=False, cursor_file=self.current)
+        if self.i >= len(self.history) - 1:
+            self.forward.set_sensitive(False)
+        if self.history:
+            self.back.set_sensitive(True)
 
     def go_back(self, widget):
         """
             Goes to the previous entry in history
         """
-        if self.i > 0:
-            self.i -= 1
-            cursorf = self.model[self.tree.get_cursor()[0]][0]
-            self.load_directory(self.history[self.i], False, cursor_file=cursorf)
-            if self.i == 0:
-                self.back.set_sensitive(False)
-            if len(self.history):
-                self.forward.set_sensitive(True)
+        assert 0 <= self.i < len(self.history)
+        if self.i == 0:
+            return
+        self.i -= 1
+        self.load_directory(self.history[self.i], history=False, cursor_file=self.current)
+        if self.i == 0:
+            self.back.set_sensitive(False)
+        if self.history:
+            self.forward.set_sensitive(True)
 
     def go_up(self, widget):
         """
@@ -325,16 +328,17 @@ class FilesPanel(panel.Panel):
         """
         parent = self.current.get_parent()
         if parent:
-            cursorf = self.model[self.tree.get_cursor()[0]][0]
-            self.load_directory(parent, cursor_file=cursorf)
+            self.load_directory(parent, cursor_file=self.current)
 
     def go_home(self, widget):
         """
             Goes to the user's home directory
         """
-        cursorf = self.model[self.tree.get_cursor()[0]][0]
-        self.load_directory(Gio.File.new_for_commandline_arg(xdg.homedir),
-            cursor_file=cursorf)
+        home = Gio.File.new_for_commandline_arg(xdg.homedir)
+        if home.get_uri() == self.current.get_uri():
+            self.refresh(widget)
+        else:
+            self.load_directory(home, cursor_file=self.current)
 
     def set_column_width(self, col, stuff=None):
         """

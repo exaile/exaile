@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-02-21 20:19+0200\n"
-"Last-Translator: Andrei Stepanov <adem@warsow.net>\n"
+"PO-Revision-Date: 2016-08-20 17:19+0000\n"
+"Last-Translator: Nataliia <sunfly22@bigmir.net>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/exaile/master/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2\n"
+"X-Generator: Weblate 2.8-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -436,9 +436,9 @@ msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "%dk"
-msgstr "%dс"
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -489,7 +489,6 @@ msgstr ""
 "хорошей компрессией."
 
 #: ../xl/player/sink_osx.py:165
-#, fuzzy
 msgid "OSX CoreAudio"
 msgstr "OSX CoreAudio"
 
@@ -694,14 +693,12 @@ msgid "Times played"
 msgstr "Проигран раз"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "Сдвиг начала"
+msgstr "Начало сдвига"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
-msgstr "Сдвиг конца"
+msgstr "Конец сдвига"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -989,14 +986,12 @@ msgid "Schedule"
 msgstr "Расписание"
 
 #: ../xlgui/widgets/playlist_columns.py:507
-#, fuzzy
 msgid "Start Offset"
-msgstr "Начальный сдвиг"
+msgstr "Начать сдвиг"
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "Конечный сдвиг"
+msgstr "Остановить сдвиг"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -3836,7 +3831,6 @@ msgid "Group/categories font:"
 msgstr "Шрифт групп и категорий:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
-#, fuzzy
 msgid "Categorization tag name"
 msgstr "Имя тега для группировки"
 

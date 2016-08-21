@@ -710,24 +710,19 @@ class MainWindow(GObject.GObject):
     def on_save_playlist(self, *e):
         """
             Called when the user presses Ctrl+S
-            Spawns the save dialog of the currently selected playlist tab if
-            not custom, saves changes directly if custom
         """
-        tab = self.get_selected_tab()
-        if not tab: return
-        if tab.page.playlist.get_is_custom():
-            tab.do_save_changes_to_custom()
-        else:
-            tab.do_save_custom()
+        page = self.get_selected_playlist()
+        if page:
+            page.on_save()
 
     def on_save_playlist_as(self, *e):
         """
             Called when the user presses Ctrl+S
             Spawns the save as dialog of the current playlist tab
         """
-        tab = self.get_selected_tab()
-        if not tab: return
-        tab.do_save_custom()
+        page = self.get_selected_playlist()
+        if page:
+            page.on_saveas()
 
     def on_clear_playlist(self, *e):
         """

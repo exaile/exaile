@@ -416,6 +416,27 @@ class Menu(Gtk.Menu):
         else:
             Gtk.Menu.popup(self, *e)
 
+class ModifierType:
+    '''
+        Common Gdk.ModifierType combinations that work in a cross platform way
+    '''
+    
+    #
+    # Missing from Gdk.ModifierType
+    #
+    
+    #: Apple/cmd on OSX, CTRL elsewhere (taken from QuodLibet)
+    PRIMARY_MASK = Gtk.accelerator_parse("<Primary>")[1]
+    
+    #: primary + shift
+    PRIMARY_SHIFT_MASK = PRIMARY_MASK | Gdk.ModifierType.SHIFT_MASK
+    
+    #
+    # The rest are for completeness..
+    #
+    
+    #: shift
+    SHIFT_MASK = Gdk.ModifierType.SHIFT_MASK
             
 def position_menu(menu, *args):
     '''

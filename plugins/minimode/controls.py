@@ -521,7 +521,7 @@ class RestoreButtonControl(ButtonControl):
         except AttributeError:
             pass
         else:
-            key, modifier = Gtk.accelerator_parse('<Control><Alt>M')
+            key, modifier = Gtk.accelerator_parse('<Primary><Alt>M')
             self.add_accelerator('clicked', accel_group, key, modifier,
                 Gtk.AccelFlags.VISIBLE)
 
@@ -743,7 +743,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         self.popup.connect('configure-event', self.on_popup_configure_event)
 
         accel_group = Gtk.AccelGroup()
-        key, modifier = Gtk.accelerator_parse('<Control>J')
+        key, modifier = Gtk.accelerator_parse('<Primary>J')
         accel_group.connect(key, modifier, Gtk.AccelFlags.VISIBLE,
             self.on_accelerator_activate)
         self.popup.add_accel_group(accel_group)

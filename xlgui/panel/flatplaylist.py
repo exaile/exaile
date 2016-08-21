@@ -33,6 +33,7 @@ from xl.nls import gettext as _
 from xlgui import (
     panel
 )
+from xlgui.guiutil import ModifierType
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
@@ -133,7 +134,7 @@ class FlatPlaylistPanel(panel.Panel):
             if len(self.tree.get_selected_tracks()) >= 2:
                 (mods,paths) = selection.get_selected_rows()
                 if (path[0] in paths):
-                    if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
+                    if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
                         return False
                     return True
                 else:

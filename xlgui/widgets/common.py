@@ -44,7 +44,7 @@ from xl import (
     trax
 )
 
-from xlgui.guiutil import get_workarea_size
+from xlgui.guiutil import get_workarea_size, ModifierType
 from xlgui import icons
 
 class AttachedWindow(Gtk.Window):
@@ -400,10 +400,10 @@ class DragTreeView(AutoScrollTreeView):
                     return False
                 else:
                     if selection.path_is_selected(path[0]):
-                        if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
+                        if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
                             selection.unselect_path(path[0])
                         return True
-                    elif not event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
+                    elif not event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
                         return True
                     return False
 
@@ -420,7 +420,7 @@ class DragTreeView(AutoScrollTreeView):
         """
         if event.button != 1 or \
            self.dragging or \
-           event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
+           event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
             self.dragging = False
 
             try:

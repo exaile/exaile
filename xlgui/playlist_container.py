@@ -497,8 +497,8 @@ class PlaylistContainer(Gtk.Box):
         Gtk.Box.__init__(self)
     
         self.notebooks = []
-        self.notebooks.append(PlaylistNotebook(manager_name, player, '<Control><Shift>t'))
-        self.notebooks.append(PlaylistNotebook(manager_name + '2', player, '<Control><Alt>t'))
+        self.notebooks.append(PlaylistNotebook(manager_name, player, '<Primary><Shift>t'))
+        self.notebooks.append(PlaylistNotebook(manager_name + '2', player, '<Primary><Alt>t'))
         
         self.notebooks[1].set_add_tab_on_empty(False)
         

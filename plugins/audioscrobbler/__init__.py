@@ -85,7 +85,7 @@ class ExaileScrobbler(object):
             logger.debug('Toggling AudioScrobbler submissions.')
             settings.set_option('plugin/ascrobbler/submit', not self.submit)
             
-        self.accelerator = Accelerator('<Control>b', toggle_submit)
+        self.accelerator = Accelerator('<Primary>b', toggle_submit)
         providers.register('mainwindow-accelerators',self.accelerator)
         
 
@@ -125,7 +125,7 @@ class ExaileScrobbler(object):
         def factory(menu_, parent, context):
             item = Gtk.CheckMenuItem.new_with_label(_('Enable audioscrobbling'))
             item.set_active(self.submit)
-            key, mods = Gtk.accelerator_parse('<Control>B')
+            key, mods = Gtk.accelerator_parse('<Primary>B')
             item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
                     Gtk.AccelFlags.VISIBLE)
             item.connect('toggled', self._menu_entry_toggled)

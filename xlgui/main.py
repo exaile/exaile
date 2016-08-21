@@ -157,21 +157,21 @@ class MainWindow(GObject.GObject):
             Sets up accelerators that haven't been set up in UI designer
         """
         hotkeys = (
-            ('<Control>S', lambda *e: self.on_save_playlist()),
-            ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
-            ('<Control>F', lambda *e: self.on_panel_filter_focus()),
-            ('<Control>G', lambda *e: self.on_search_playlist_focus()), # FIXME
-            ('<Control><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
+            ('<Primary>S', lambda *e: self.on_save_playlist()),
+            ('<Shift><Primary>S', lambda *e: self.on_save_playlist_as()),
+            ('<Primary>F', lambda *e: self.on_panel_filter_focus()),
+            ('<Primary>G', lambda *e: self.on_search_playlist_focus()), # FIXME
+            ('<Primary><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
                 
-            ('<Control>P', self._on_playpause_button),
-            ('<Control>Right', lambda *e: self._on_seek_key(True)),
-            ('<Control>Left', lambda *e: self._on_seek_key(False)),
+            ('<Primary>P', self._on_playpause_button),
+            ('<Primary>Right', lambda *e: self._on_seek_key(True)),
+            ('<Primary>Left', lambda *e: self._on_seek_key(False)),
             
-            ('<Control>plus', lambda *e: self._on_volume_key(True)),
-            ('<Control>minus', lambda *e: self._on_volume_key(False)),
+            ('<Primary>plus', lambda *e: self._on_volume_key(True)),
+            ('<Primary>minus', lambda *e: self._on_volume_key(False)),
             
-            ('<Control>Page_Up', self._on_prev_tab_key),
-            ('<Control>Page_Down', self._on_next_tab_key),
+            ('<Primary>Page_Up', self._on_prev_tab_key),
+            ('<Primary>Page_Down', self._on_next_tab_key),
             
             ('<Alt>N', self._on_focus_playlist_container),
 

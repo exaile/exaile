@@ -450,7 +450,7 @@ class CollectionPanel(panel.Panel):
                 return False
             (mods,paths) = selection.get_selected_rows()
             if (path[0] in paths):
-                if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
+                if event.get_state() & guiutil.ModifierType.PRIMARY_SHIFT_MASK:
                     return False
                 return True
             else:

@@ -180,21 +180,20 @@ msgstr "Query spelare"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
-"Hämtar den nuvarande uppspelningsstatusen och låtinformationen som FORMAT"
+msgstr "Hämtar den nuvarande uppspelningsstatusen och låtinformationen som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "TAGGAR"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "TAGGAR att ta emot från det nuvarande spåret, använd med --format-"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -202,11 +201,11 @@ msgstr "Visa en popup-ruta med information för det aktuella spåret"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr "Visa titlen på nuvarande låt"
+msgstr "Visa titlen för det nuvarande spåret"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
-msgstr "Visa album för nuvarande låt"
+msgstr "Visa albumet för det nuvarande spåret"
 
 #: ../xl/main.py:549
 msgid "Print the artist of current track"
@@ -288,8 +287,7 @@ msgstr "Starta i säkert läge - ibland nyttigt om du stöter på problem"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
-msgstr ""
-"Tvinga importering av gammal information från version 0.2.x (skriver över "
+msgstr "Tvinga importering av gammal information från version 0.2.x (skriver över "
 "nuvarande information)"
 
 #: ../xl/main.py:603
@@ -298,8 +296,7 @@ msgstr "Importera inte gammal information från version 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
-msgstr ""
-"Gör så att styralternativ som --play startar Exaile om det inte är igång"
+msgstr "Gör så att styralternativ som --play startar Exaile om det inte är igång"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
@@ -383,8 +380,7 @@ msgstr "Betyg större än %d"
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr ""
-"Exaile är inte klar med inläsningen än. Du kanske borde lyssna efter "
+msgstr "Exaile är inte klar med inläsningen än. Du kanske borde lyssna efter "
 "exile_loaded-signalen?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
@@ -393,7 +389,7 @@ msgstr "Taggar"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Lokal fil"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -478,12 +474,11 @@ msgstr ""
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
-msgstr ""
-"Ett mycket snabbt fritt och förlustfritt ljudformat med bra komprimering."
+msgstr "Ett mycket snabbt fritt och förlustfritt ljudformat med bra komprimering."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "CoreAudio för OSX"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -496,7 +491,7 @@ msgstr "Anpassad"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"

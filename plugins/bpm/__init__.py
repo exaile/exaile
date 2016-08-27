@@ -235,7 +235,7 @@ class BPMWidget(Gtk.Frame):
     
     def on_auto_menuitem(self, *args):
         if self.track is not None:
-            self.plugin.autodetect_bpm(self.track)
+            self.plugin.autodetect_bpm(self.track, self.get_toplevel())
             
     #
     # BPM Logic

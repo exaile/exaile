@@ -54,7 +54,7 @@ def main():
     aio_message = "\r\n\r\nPlease run the 'All-In-One PyGI/PyGObject for Windows Installer' and ensure that the following are selected:" + \
                   "\r\n\r\n" + \
                   "* GTK+ 3.x\r\n" + \
-                  "* GStreamer 1.4.5 and the gst-plugins package(s)\r\n" + \
+                  "* GStreamer 1.x and the gst-plugins package(s)\r\n" + \
                   "\r\n" + \
                   "The 'All-In-One PyGI/PyGObject for Windows Installer' can be downloaded at\r\nhttp://sourceforge.net/projects/pygobjectwin32/\r\n\r\n" + \
                   "See README.Windows for more information."
@@ -69,14 +69,16 @@ def main():
     
     
     try:
+        gi.require_version('Gtk', '3.0')
         from gi.repository import Gtk
     except Exception:
-        error("GTK not found",
-              "GTK could not be imported. " + aio_message)
+        error("GTK+ not found",
+              "GTK+ could not be imported. " + aio_message)
     else:
-        logging.info("GTK works")
+        logging.info("GTK+ works")
     
     try:
+        gi.require_version('Gst', '1.0')
         from gi.repository import Gst
     except Exception:
         error("GStreamer not found",

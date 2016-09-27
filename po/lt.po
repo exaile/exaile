@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-01 11:25+0200\n"
-"Last-Translator: Jurijus <atvejis@gmail.com>\n"
-"Language-Team: Lithuanian <https://hosted.weblate.org/projects/exaile/master/"
-"lt/>\n"
+"PO-Revision-Date: 2016-09-27 11:08+0000\n"
+"Last-Translator: Moo <hazap@hotmail.com>\n"
+"Language-Team: Lithuanian "
+"<https://hosted.weblate.org/projects/exaile/master/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/formatter.py:576
@@ -399,7 +399,7 @@ msgstr "Gairės"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Vietinis failas"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -558,7 +558,7 @@ msgstr "Autorinės teisės"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Komentaras"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -1095,7 +1095,7 @@ msgstr "Pasirinkite aplanką"
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Importuoti grojaraštį"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
@@ -1144,20 +1144,20 @@ msgstr "Išsaugota %(count)s iš %(total)s."
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Kopijuojant %s: %s, įvyko klaida"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Failas yra, perrašyti %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Grojaraščio pavadinimas:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Pridėti naują grojaraštį..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1313,7 +1313,7 @@ msgstr ""
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1400,7 +1400,7 @@ msgstr "%(artist)s - %(album)s viršelio parinktys"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Įkeliama..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
@@ -1524,15 +1524,15 @@ msgstr "Žanras - Albumas"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Data - Atlikėjas"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Data - Albumas"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Atlikėjas - (Data - Albumas)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
@@ -1546,7 +1546,7 @@ msgstr "Dydis"
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
@@ -1709,7 +1709,7 @@ msgstr "Redaguoti gudrųjį grojaraštį"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Eksportuojama %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
@@ -1812,9 +1812,8 @@ msgid "About Exaile"
 msgstr "Apie Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
-#, fuzzy
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2010"
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 #, fuzzy
@@ -1855,7 +1854,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Nežinomas vertėjas"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
@@ -2046,7 +2045,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Tipas:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
@@ -2236,7 +2235,7 @@ msgstr "Audio Sink:  "
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Įrenginys:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
@@ -2301,7 +2300,7 @@ msgstr "Įjungtas"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Būsena"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 #, fuzzy
@@ -2374,13 +2373,13 @@ msgstr "Kortelių išsidėstymas:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Grojaraščio šriftas:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Atstatyti į sistemos šriftą"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
@@ -2560,7 +2559,7 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Pagrindinis meniu"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
@@ -2584,23 +2583,20 @@ msgid "Icecast Search"
 msgstr "Shoutcast paieška"
 
 #: ../plugins/icecast/__init__.py:342
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Nauja stotis"
+msgstr "Nerasta jokių stočių"
 
 #: ../plugins/icecast/__init__.py:345
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Paieškos rezultatai"
+msgstr "Icecast paieškos rezultatai"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
 msgstr "Ieškoti"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Pavadinimas:"
+msgstr "Pavadinimas"
 
 #: ../plugins/icecast/__init__.py:396
 #, fuzzy
@@ -2769,7 +2765,7 @@ msgstr "Grojimų skaičius"
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Vikipedija"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
@@ -2927,18 +2923,16 @@ msgid "Playback progress and seeking"
 msgstr "Grojimo pozicija ir sekimas"
 
 #: ../plugins/grouptagger/gt_import.py:45
-#, fuzzy
 msgid "Importing tracks"
-msgstr "Importuojamas CD..."
+msgstr "Importuojami takeliai"
 
 #: ../plugins/grouptagger/gt_import.py:91
-#, fuzzy
 msgid "Importing groups"
-msgstr "Importuojamas CD..."
+msgstr "Importuojamos grupės"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Atnaujinamos grupės"
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"

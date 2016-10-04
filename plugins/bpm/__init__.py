@@ -109,7 +109,7 @@ class BPMCounterPlugin(object):
         
         if track and bpm:
             
-            bpm = int(bpm)
+            bpm = int(round(bpm))
 
             msg = Gtk.MessageDialog(parent_window, Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,

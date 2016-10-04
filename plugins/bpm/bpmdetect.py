@@ -93,6 +93,7 @@ def detect_bpm(uri, on_complete):
     
     playbin = Gst.ElementFactory.make('playbin', None)
     playbin.props.audio_sink = audio_sink
+    playbin.props.flags &= ~1  # Unset GST_PLAY_FLAG_VIDEO
     
     bus = playbin.get_bus()
     bus.add_signal_watch()

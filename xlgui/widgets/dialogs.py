@@ -1602,8 +1602,10 @@ def export_playlist_files(playlist, parent=None):
     
     def _on_uri(uri):
         if hasattr(playlist, 'get_playlist'):
-            playlist = playlist.get_playlist()
-        pl_files = [track.get_loc_for_io() for track in playlist]
+            pl = playlist.get_playlist()
+        else:
+            pl = playlist
+        pl_files = [track.get_loc_for_io() for track in pl]
         dialog = FileCopyDialog( pl_files, uri, 
             _('Exporting %s') % playlist.name, parent=parent)
         dialog.do_copy()

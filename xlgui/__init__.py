@@ -170,12 +170,6 @@ class Main(object):
 
     def open_uri(self, uri, play=True):
         """
-            Proxy for _open_uri
-        """
-        self._open_uri(uri, play)
-
-    def _open_uri(self, uri, play=True):
-        """
             Determines the type of a uri, imports it into a playlist, and
             starts playing it
         """

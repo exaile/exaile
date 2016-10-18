@@ -507,6 +507,13 @@ class Exaile(object):
             if splash is not None:
                 splash.destroy()
 
+        if firstrun:
+            settings.set_option("general/first_run", False)
+
+        self.loading = False
+        Exaile._exaile = self
+        event.log_event("exaile_loaded", self, None)
+
         restore = True
 
         if self.gui:
@@ -529,12 +536,6 @@ class Exaile(object):
             player.QUEUE._restore_player_state(
                     os.path.join(xdg.get_data_dir(), 'player.state'))
 
-        if firstrun:
-            settings.set_option("general/first_run", False)
-
-        self.loading = False
-        Exaile._exaile = self
-        event.log_event("exaile_loaded", self, None)
         # pylint: enable-msg=W0201
 
     def version(self):

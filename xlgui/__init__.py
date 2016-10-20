@@ -165,16 +165,10 @@ class Main(object):
         if len(uris) > 0:
             self.open_uri(uris[0], play=play)
 
-        for uri in uris[1:]:
-            self.open_uri(uri, play=False)
+            for uri in uris[1:]:
+                self.open_uri(uri, play=False)
 
     def open_uri(self, uri, play=True):
-        """
-            Proxy for _open_uri
-        """
-        self._open_uri(uri, play)
-
-    def _open_uri(self, uri, play=True):
         """
             Determines the type of a uri, imports it into a playlist, and
             starts playing it

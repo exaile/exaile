@@ -519,14 +519,13 @@ class Exaile(object):
         if self.gui:
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
-            # using arg[2:] because arg[1:] will include --startgui
             
-            args = [ Gio.File.new_for_path(arg).get_uri() for arg in self.options.locs ]
-            if len(args) > 0:
+            songs = [ Gio.File.new_for_path(arg).get_uri() for arg in self.options.locs ]
+            if len(songs) > 0:
                 restore = False
-                self.gui.open_uri(args[0], play=True)
-            for arg in args[1:]:
-                self.gui.open_uri(arg)
+                self.gui.open_uri(songs[0], play=True)
+                for arg in songs[1:]:
+                    self.gui.open_uri(arg)
             
             # kick off autoscan of libraries
             # -> don't do it in command line mode, since that isn't expected

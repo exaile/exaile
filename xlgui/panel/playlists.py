@@ -799,23 +799,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.tree.enable_model_drag_dest([self.playlist_target],
                                                      Gdk.DragAction.DEFAULT)
 
-    # 
-    #  TODO: remove these two functions, only kept for possible backwards
-    #        compatibility
-    # 
-
-    def export_playlist(self, playlist):
-        """
-            Exports the selected playlist to path
-        """
-        dialogs.export_playlist_dialog(playlist)
-            
-    def export_playlist_files(self, playlist):
-        '''
-            Exports the playlist files to a URI
-        '''
-        dialogs.export_playlist_files(playlist)
-
     def on_key_released(self, widget, event):
         """
             Called when a key is released in the tree

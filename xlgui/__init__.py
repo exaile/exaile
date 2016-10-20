@@ -165,8 +165,8 @@ class Main(object):
         if len(uris) > 0:
             self.open_uri(uris[0], play=play)
 
-        for uri in uris[1:]:
-            self.open_uri(uri, play=False)
+            for uri in uris[1:]:
+                self.open_uri(uri, play=False)
 
     def open_uri(self, uri, play=True):
         """

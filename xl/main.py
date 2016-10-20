@@ -524,8 +524,8 @@ class Exaile(object):
             if len(songs) > 0:
                 restore = False
                 self.gui.open_uri(songs[0], play=True)
-            for arg in songs[1:]:
-                self.gui.open_uri(arg)
+                for arg in songs[1:]:
+                    self.gui.open_uri(arg)
             
             # kick off autoscan of libraries
             # -> don't do it in command line mode, since that isn't expected

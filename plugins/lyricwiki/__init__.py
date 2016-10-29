@@ -60,7 +60,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:
-            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')[0:-7]))
+            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')))
         else:
             raise LyricsNotFoundException
 

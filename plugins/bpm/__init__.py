@@ -108,8 +108,9 @@ class BPMCounterPlugin(object):
         '''Make sure we don't accidentally set BPM on things'''
         
         if track and bpm:
-            
-            bpm = int(round(bpm))
+            # bpm at this point can be a string or a number.
+            # Turn it into a rounded int.
+            bpm = int(round(float(bpm)))
 
             msg = Gtk.MessageDialog(parent_window, Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,

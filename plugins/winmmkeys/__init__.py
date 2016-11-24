@@ -14,47 +14,82 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-key_map = None
-hook_manager = None
 
-def on_key_down(event):
-    # NOTE: Because we capture every single key in the system, the following
-    # test will fail almost 100% of the time. That's why we use a very simple
-    # test that fails fast rather than a try-except block.
-    if event.Key in key_map:
-        key_map[event.Key]()
-        return False  # Swallow key.
-    else:
-        return True
+class WinmmkeysPlugin:
+    def enable(self, exaile):
+        self.exaile = exaile
 
-def enable(exaile):
-    if exaile.loading:
-        import xl.event
-        xl.event.add_callback(_enable, 'exaile_loaded')
-    else:
-        _enable(None, exaile, None)
+    def on_gui_loaded(self):
+        try:
+            self.handler = HotkeyHandler_PyHook(self.exaile)
+        except ImportError:
+            self.handler = HotkeyHandler_Keyboard(self.exaile)
 
-def _enable(eventname, exaile, eventdata):
-    global key_map, hook_manager
-    from xl.player import PLAYER, QUEUE
+    def disable(exaile):
+        if hasattr(self, 'handler'):
+            self.handler.disable()
+            del self.handler
+        del self.exaile
 
-    key_map = {
-        'Launch_Media_Select': exaile.gui.main.window.present,
-        'Media_Prev_Track': QUEUE.prev,
-        'Media_Play_Pause': PLAYER.toggle_pause,
-        'Media_Stop': PLAYER.stop,
-        'Media_Next_Track': QUEUE.next,
-    }
+plugin_class = WinmmkeysPlugin
 
-    import pyHook
-    hook_manager = pyHook.HookManager()
-    hook_manager.KeyDown = on_key_down
-    hook_manager.HookKeyboard()
 
-def disable(exaile):
-    global key_map, hook_manager
-    if hook_manager:
-        hook_manager.UnhookKeyboard()
-    key_map = hook_manager = None
+class HotkeyHandler_PyHook:
+    def __init__(self, exaile):
+        import pyHook
+        from xl.player import PLAYER, QUEUE
+
+        key_map = {
+            'Launch_Media_Select': exaile.gui.main.window.present,
+            'Media_Stop': PLAYER.stop,
+            'Media_Play_Pause': PLAYER.toggle_pause,
+            'Media_Next_Track': QUEUE.next,
+            'Media_Prev_Track': QUEUE.prev,
+        }
+        def on_key_down(event):
+            # NOTE: Because we capture every single key in the system, the
+            # following test will fail almost 100% of the time. That's why we
+            # use a very simple test that fails fast rather than a try-except
+            # block.
+            if event.Key in key_map:
+                key_map[event.Key]()
+                return False  # Indicate that we've handled the key.
+            return True
+
+        self.hook_manager = man = pyHook.HookManager()
+        man.KeyDown = on_key_down
+        man.HookKeyboard()
+
+    def __del__(self):
+        self.disable()
+
+    def disable(self):
+        if hasattr(self, 'hook_manager'):
+            self.hook_manager.UnhookKeyboard()
+            del self.hook_manager
+
+
+class HotkeyHandler_Keyboard:
+    def __init__(self, exaile):
+        import keyboard
+        from xl.player import PLAYER, QUEUE
+        self.handlers = [
+            keyboard.add_hotkey('select media', exaile.gui.main.window.present),
+            keyboard.add_hotkey('stop media', PLAYER.stop),
+            keyboard.add_hotkey('play/pause media', PLAYER.toggle_pause),
+            keyboard.add_hotkey('next track', QUEUE.next),
+            keyboard.add_hotkey('previous track', QUEUE.prev),
+        ]
+
+    def __del__(self):
+        self.disable()
+
+    def disable(self):
+        if hasattr(self, 'handlers'):
+            import keyboard
+            for handler in self.handlers:
+                keyboard.remove_hotkey(handler)
+            del self.handlers
+
 
 # vi: et sts=4 sw=4 tw=80

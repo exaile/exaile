@@ -97,7 +97,6 @@
                 <property name="use_underline">True</property>
                 <property name="icon_name">window-close</property>
                 <signal name="clicked" handler="on_close_button_clicked" swapped="no"/>
-                <accelerator key="Escape" signal="clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -138,8 +138,8 @@ class Transcoder(object):
     def __init__(self):
         self.src = None
         self.sink = None
-        self.dest_format = "Ogg Vorbis"
-        self.quality = 5
+        self.set_format("Ogg Vorbis")
+        self.set_quality(0.5)
         self.input = None
         self.output = None
         self.encoder = None

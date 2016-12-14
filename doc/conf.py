@@ -11,7 +11,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 
 from os.path import abspath, join, dirname
 
@@ -34,11 +35,12 @@ import mocks
 sys.path.pop()
 
 
-# -- General configuration -----------------------------------------------------
+# -- General configuration ----------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autosummary', 'sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage']
+extensions = ['sphinx.ext.autosummary', 'sphinx.ext.autodoc',
+              'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -105,7 +107,8 @@ pygments_style = 'sphinx'
 
 # -- Options for HTML output ---------------------------------------------------
 
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
+# on_rtd is whether we are on readthedocs.org, this line of code grabbed from
+# docs.readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:  # only import and set the theme if we're building docs locally

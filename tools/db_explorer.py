@@ -32,13 +32,16 @@ import shelve
 import click
 
 
-exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile', 'music.db')
+exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
+                         'music.db')
+
 
 def tracks(data):
     for k, v in data.iteritems():
         if not k.startswith('tracks-'):
             continue
         yield k, v
+
 
 @click.group()
 @click.option('--db', default=exaile_db)
@@ -48,6 +51,7 @@ def cli(ctx, db):
         Tool that allows low-level exploration of an Exaile music database
     '''
     ctx.obj = shelve.open(db, flag='r', protocol=2)
+
 
 @cli.command()
 @click.pass_obj
@@ -62,6 +66,7 @@ def info(data):
     print()
     print('Location(s):')
     pprint.pprint(data.get('_serial_libraries'))
+
 
 @cli.command()
 @click.argument('search')
@@ -81,6 +86,7 @@ def search(data, tag, search):
             if search in val:
                 print('%10s: %s' % (k, val))
 
+
 def _date_fix(tags):
     tags = copy.deepcopy(tags)
     for t in ['__date_added', '__last_played', '__modified']:
@@ -90,8 +96,9 @@ def _date_fix(tags):
                 tags[t] = dt.strftime("%Y-%m-%d %H:%M:%S")
             except:
                 pass
-            
+
     return tags
+
 
 def _print_tr(tr):
     if tr is not None:
@@ -113,8 +120,7 @@ def track_by_idx(data, idx):
     key = str('tracks-%s' % idx)
     tr = data.get(key)
     _print_tr(tr)
-    
-    
+
 
 @cli.command()
 @click.pass_obj
@@ -122,17 +128,16 @@ def tags(data):
     '''
         Display summary information about tags present
     '''
-    
+
     tags = set()
-    
+
     for k, v in tracks(data):
-        
-        #print(v[0].keys())
+        # print(v[0].keys())
         tags.update(set(v[0].keys()))
-        
+
     print("All tags:")
     pprint.pprint(tags)
-    
+
 
 if __name__ == '__main__':
     cli()

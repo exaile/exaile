@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import os
 import os.path
 import sys
 
@@ -38,7 +37,7 @@ if sys.platform == 'linux2':
     try:
         import ctypes
         libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'exaile', 0, 0, 0) # 15 = PR_SET_NAME
+        libc.prctl(15, 'exaile', 0, 0, 0)  # 15 = PR_SET_NAME
     except Exception:
         pass
 
@@ -49,7 +48,7 @@ try:
 except ImportError:
     pass
 
-# Find out the location of exaile's working directory, and insert it to sys.path
+# Find the location of exaile's working directory and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
     cwd = os.getcwd()

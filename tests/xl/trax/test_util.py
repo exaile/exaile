@@ -34,7 +34,7 @@ class TestGetTracksFromUri(object):
 
     def setup(self):
         self.mox = mox.Mox()
-    
+
     def teardown(self):
         self.mox.UnsetStubs()
 

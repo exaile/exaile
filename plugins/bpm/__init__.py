@@ -92,7 +92,15 @@ class BPMCounterPlugin(object):
     def on_auto_menuitem(self, menu, display_name, playlist_view, context):
         tracks = context['selected-tracks']
         if len(tracks) > 0:
-            self.autodetect_bpm(tracks[0], playlist_view.get_toplevel())
+            if isinstance(playlist_view, Gtk.Widget):
+                window = playlist_view.get_toplevel()
+            else:
+                from xlgui import panel
+                if isinstance(playlist_view, panel.Panel):
+                    window = playlist_view.parent
+                else:
+                    window = None
+            self.autodetect_bpm(tracks[0], window)
             
     def autodetect_bpm(self, track, parent_window=None):
         

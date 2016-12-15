@@ -83,7 +83,7 @@ class TestTrack(object):
 
     def teardown(self):
         self.mox.UnsetStubs()
-        
+
     ## Creation
     def test_flyweight(self, test_track):
         """There can only be one object based on a url in args"""
@@ -123,16 +123,16 @@ class TestTrack(object):
 
     def test_takes_nonurl(self, test_track):
         tr = track.Track(test_track.filename)
-        
+
         assert tr.get_local_path()
         assert tr.exists()
-    
+
     def test_takes_url(self, test_track):
         tr = track.Track(test_track.uri)
-        
+
         assert tr.get_local_path()
         assert tr.exists()
-    
+
     ## Information
     def test_local_type(self, test_track):
         tr = track.Track(test_track.filename)
@@ -165,56 +165,56 @@ class TestTrack(object):
         assert str(tr) == "'title' from 'alb' by 'art'"
 
     def test_read_tags_no_perms(self, test_track_fp):
-        
+
         tr = track.Track(test_track_fp.name)
         # first, ensure that we can actually read the tags to begin with
         assert tr.read_tags()
-        
+
         os.chmod(test_track_fp.name, 0o000)
-        
+
         # opening the file should fail...
         with pytest.raises(IOError):
             with open(test_track_fp.name, 'rb'):
                 pass
-        
+
         # second, ensure that we can no longer read them
         assert not tr.read_tags()
-        
+
     def test_write_tags_no_perms(self, test_track_fp):
-        
+
         os.chmod(test_track_fp.name, 0o444)
-        
+
         tr = track.Track(test_track_fp.name)
         tr.set_tag_raw('artist', random_str())
         assert not tr.write_tags()
-        
+
     def test_write_tag(self, writeable_track_name):
-        
+
         artist = random_str()
         tr = track.Track(writeable_track_name)
         tr.set_tag_raw('artist', artist)
         tr.write_tags()
-        
+
         tr.set_tag_raw('artist', None)
         assert tr.get_tag_raw('artist') == None
-        
+
         tr.read_tags()
-        
+
         assert tr.get_tag_raw('artist') == [artist]
-        
+
     def test_delete_tag(self, writeable_track_name):
-        
+
         artist = random_str()
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('artist') is not None
-        
+
         tr.set_tag_raw('artist', None)
         tr.write_tags()
-        
+
         tr.set_tag_raw('artist', artist)
         tr.read_tags()
         assert tr.get_tag_raw('artist') == None
-    
+
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
         assert tr.write_tags() == False
@@ -314,7 +314,7 @@ class TestTrack(object):
         settings.set_option('collection/strip_list', value)
         track.Track._the_cuts_cb(None, None, 'collection/strip_list')
         assert track.Track._Track__the_cuts == value
-    
+
     def test_strip_marks(self):
         value = u'The Hëllò Wóþλdâ'
         retval = u'The Hello Woþλda The Hëllò Wóþλdâ'
@@ -513,7 +513,7 @@ class TestTrack(object):
         tr = track.Track('/foo')
         tr.set_tag_raw('__bitrate', 48000)
         assert tr.get_tag_search('__bitrate') == '__bitrate=="48k" __bitrate=="48000"'
-    
+
     def test_get_disk_tag(self, test_tracks):
         td = test_tracks.get('.mp3')
         tr = track.Track(td.filename)

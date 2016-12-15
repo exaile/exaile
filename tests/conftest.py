@@ -19,27 +19,28 @@ def exaile_test_cleanup():
     '''
         Teardown/setup of various Exaile globals
     '''
-    
+
     yield
-    
+
     Track._Track__the_cuts = ['the', 'a']
-    
+
     for key in Track._Track__tracksdict.keys():
         del Track._Track__tracksdict[key]
 
 #
 # Fixtures for test track data
 #
-    
 
-TrackData = collections.namedtuple('TrackData',
-                                   ['ext', 'filename', 'uri', 'size', 'writeable'])
+
+TrackData = collections.namedtuple(
+                'TrackData', ['ext', 'filename', 'uri', 'size', 'writeable'])
+
 
 def _fname(ext):
     local_path = os.path.abspath(
-        os.path.join(os.path.dirname(__file__),
-        'data', 'music', 'delerium', 'chimera', '05 - Truly') + os.extsep + ext)
-    
+        os.path.join(os.path.dirname(__file__), 'data', 'music', 'delerium',
+                     'chimera', '05 - Truly') + os.extsep + ext)
+
     return ext, local_path, Gio.File.new_for_path(local_path).get_uri()
 
 _all_tracks = [
@@ -60,10 +61,12 @@ _all_tracks = [
 
 _writeable_tracks = [t for t in _all_tracks if t.writeable]
 
+
 @pytest.fixture(params=_all_tracks)
 def test_track(request):
     '''Provides TrackData objects for each test track'''
     return request.param
+
 
 @pytest.fixture(params=_writeable_tracks)
 def writeable_track(request):
@@ -77,10 +80,11 @@ def test_track_fp(request):
     with tempfile.NamedTemporaryFile(suffix='.' + t.ext) as tfp:
         with open(t.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
-            
+
         tfp.flush()
-        
+
         yield tfp
+
 
 @pytest.yield_fixture(params=_writeable_tracks)
 def writeable_track_name(request):
@@ -89,9 +93,9 @@ def writeable_track_name(request):
     with tempfile.NamedTemporaryFile(suffix='.' + t.ext) as tfp:
         with open(t.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
-        
+
         tfp.flush()
-        
+
         yield tfp.name
 
 
@@ -103,6 +107,5 @@ def test_tracks():
     class _TestTracks:
         def get(self, ext):
             return [x for x in _all_tracks if x.filename.endswith(ext)][0]
-        
-    return _TestTracks()
 
+    return _TestTracks()

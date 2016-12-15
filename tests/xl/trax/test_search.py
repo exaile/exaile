@@ -403,7 +403,7 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
-            
+
     @pytest.mark.parametrize("sstr", [
         "motley crue",
         u"mötley crüe",
@@ -416,28 +416,28 @@ class TestSearchTracks(object):
         tracks[0].set_tag_raw('artist', 'motley crue')
         tracks[1].set_tag_raw('artist', 'rubbish')
         tracks[2].set_tag_raw('artist', u'motley crüe')
-        
+
         gen = search.search_tracks_from_string(tracks, sstr,
                 keyword_tags=['artist'])
-        
+
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
-    
+
     def test_search_tracks_with_unicodemark_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'foooo')
         tracks[2].set_tag_raw('artist', u'中')
-        
+
         # the weird character is normalized, so you can't search based on that
         gen = search.search_tracks_from_string(tracks, u'中',
                 keyword_tags=['artist'])
-        
+
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
-            
+
     def test_search_tracks_with_int_from_string(self):
         # unlike mp3, mp4 will return integers for BPM.. make sure that works
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]

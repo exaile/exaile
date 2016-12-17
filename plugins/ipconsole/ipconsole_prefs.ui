@@ -168,7 +168,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>

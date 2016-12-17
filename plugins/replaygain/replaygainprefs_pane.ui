@@ -26,7 +26,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="tooltip_text" translatable="yes">Prefer ReplayGain's per-album correction over per-track correction.</property>
-        <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -42,7 +41,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="tooltip_text" translatable="yes">Protect against noise caused by over-amplification</property>
-        <property name="xalign">0.5</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>

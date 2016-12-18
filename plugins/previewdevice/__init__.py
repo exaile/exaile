@@ -106,7 +106,7 @@ class SecondaryOutputPlugin(object):
         # stolen from main
         self.info_area = main.MainWindowTrackInfoPane(self.player)
         self.info_area.set_auto_update(True)
-        self.info_area.set_padding(3, 3, 3, 3)
+        self.info_area.set_border_width(3)
         self.info_area.hide()
         self.info_area.set_no_show_all(True)
 

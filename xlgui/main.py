@@ -214,7 +214,7 @@ class MainWindow(GObject.GObject):
 
         self.info_area = MainWindowTrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
-        self.info_area.set_padding(3, 3, 3, 3)
+        self.info_area.set_border_width(3)
         self.info_area.hide()
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)

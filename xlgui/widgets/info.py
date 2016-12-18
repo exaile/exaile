@@ -48,12 +48,12 @@ from xlgui import (
 from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
-class TrackInfoPane(Gtk.Alignment):
+class TrackInfoPane(Gtk.Bin):
     """
         Displays cover art and track data
     """
     def __init__(self, player):
-        Gtk.Alignment.__init__(self, xscale=1, yscale=1)
+        Gtk.Bin.__init__(self)
         self.__player = player
         
         builder = Gtk.Builder()
@@ -98,7 +98,7 @@ class TrackInfoPane(Gtk.Alignment):
         # Make sure to disconnect callbacks
         self.set_auto_update(False)
 
-        Gtk.Alignment.destroy(self)
+        Gtk.Bin.destroy(self)
 
     def get_auto_update(self):
         """
@@ -387,7 +387,7 @@ class TrackToolTip(TrackInfoPane, ToolTip):
         TrackInfoPane.__init__(self, player)
         ToolTip.__init__(self, parent, self)
 
-        self.set_padding(6, 6, 6, 6)
+        self.set_border_width(6)
         self.info_label.set_ellipsize(Pango.EllipsizeMode.NONE)
         self.cover.set_no_show_all(False)
         self.cover.show_all()

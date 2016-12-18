@@ -1074,40 +1074,32 @@ class ProgressButtonControl(PlaylistButtonControl):
         event.x, event.y = float(x), float(y)
         self.progressbar.emit('leave-notify-event', event)
 
-class ProgressBarControl(Gtk.Alignment, BaseControl):
+class ProgressBarControl(SeekProgressBar, BaseControl):
     name = 'progress_bar'
     title = _('Progress bar')
     description = _('Playback progress and seeking')
 
     def __init__(self):
-        Gtk.Alignment.__init__(self)
+        SeekProgressBar.__init__(self, player.PLAYER)
         BaseControl.__init__(self)
 
-        self.set_padding(3, 3, 0, 0)
-        self.progressbar = SeekProgressBar(player.PLAYER)
-        self.progressbar.set_size_request(200, -1)
-        self.add(self.progressbar)
+        self.set_size_request(200, -1)
+        self.set_margin_top(3)
+        self.set_margin_bottom(3)
 
         if player.PLAYER.current is not None:
-            self.progressbar.on_playback_track_start(
+            self.on_playback_track_start(
                 'playback_track_start',
                 player.PLAYER,
                 player.PLAYER.current
             )
 
             if player.PLAYER.is_paused():
-                self.progressbar.on_playback_toggle_pause(
+                self.on_playback_toggle_pause(
                     'playback_toggle_pause',
                     player.PLAYER,
                     player.PLAYER.current
                 )
-
-    def destroy(self):
-        """
-            Cleanups
-        """
-        self.progressbar.destroy()
-        Gtk.Alignment.destroy(self)
 
 control_types = [
     PreviousButtonControl,

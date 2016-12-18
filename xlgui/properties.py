@@ -714,6 +714,7 @@ class TagTextField(Gtk.Box):
         self.buffer = Gtk.TextBuffer()
         self.field = Gtk.TextView.new_with_buffer(self.buffer)
         self.field.set_size_request(200, 150) # XXX
+        self.field.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
         scrollwindow = Gtk.ScrolledWindow()
         scrollwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scrollwindow.set_shadow_type(Gtk.ShadowType.IN)

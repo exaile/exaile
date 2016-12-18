@@ -148,7 +148,7 @@ class RatingWidget(Gtk.EventBox):
         """
             Temporarily updates the displayed rating
         """
-        if self.get_state() & Gtk.StateType.INSENSITIVE:
+        if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
 
         allocation = self.get_allocation()
@@ -166,7 +166,7 @@ class RatingWidget(Gtk.EventBox):
         """
             Restores the original rating
         """
-        if self.get_state() & Gtk.StateType.INSENSITIVE:
+        if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
 
         self._image.set_from_pixbuf(
@@ -176,7 +176,7 @@ class RatingWidget(Gtk.EventBox):
         """
             Applies the selected rating
         """
-        if self.get_state() & Gtk.StateType.INSENSITIVE:
+        if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
 
         allocation = self.get_allocation()
@@ -193,7 +193,7 @@ class RatingWidget(Gtk.EventBox):
             * Alt+Up/Right: increases the rating
             * Alt+Down/Left: decreases the rating
         """
-        if self.get_state() & Gtk.StateType.INSENSITIVE:
+        if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
 
         if not event.get_state() & Gdk.ModifierType.MOD1_MASK:

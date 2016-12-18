@@ -91,11 +91,8 @@ class MiniMode(Gtk.Window):
 
         self.box = controls.ControlBox()
         self.box.set_spacing(3)
-        alignment = Gtk.Alignment.new(1, 1, 0, 0)
-        alignment.set_padding(0, 0, 3, 3)
-        alignment.add(self.box)
         self.border_frame = Gtk.Frame()
-        self.border_frame.add(alignment)
+        self.border_frame.add(self.box)
         self.add(self.border_frame)
 
         self.menuitem = menu.simple_menu_item(
@@ -107,15 +104,13 @@ class MiniMode(Gtk.Window):
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 
-        mainbutton = Gtk.Button(_('Mini Mode'))
-        mainbutton.set_image(Gtk.Image.new_from_icon_name(
+        self.mainbutton = Gtk.Button(_('Mini Mode'))
+        self.mainbutton.set_image(Gtk.Image.new_from_icon_name(
             'exaile-minimode', Gtk.IconSize.BUTTON))
-        mainbutton.connect('clicked', self.on_mainbutton_clicked)
-        self.mainbutton_alignment = Gtk.Alignment.new(1, 0, 0, 0)
-        self.mainbutton_alignment.add(mainbutton)
+        self.mainbutton.connect('clicked', self.on_mainbutton_clicked)
         action_area = exaile.gui.main.info_area.get_action_area()
-        action_area.pack_start(self.mainbutton_alignment, True, True, 0)
-        action_area.reorder_child(self.mainbutton_alignment, 0)
+        action_area.pack_start(self.mainbutton, True, True, 0)
+        action_area.set_halign(Gtk.Align.END)
         
         self.__active = False
         self.__dirty = True
@@ -146,8 +141,8 @@ class MiniMode(Gtk.Window):
         providers.unregister('menubar-view-menu', self.menuitem)
         controls.unregister()
 
-        self.mainbutton_alignment.get_parent().remove(
-            self.mainbutton_alignment)
+        self.mainbutton.get_parent().remove(
+            self.mainbutton)
 
         self.set_active(False)
         self.box.destroy()
@@ -285,10 +280,10 @@ class MiniMode(Gtk.Window):
             button_in_mainwindow = settings.get_option(option, False)
 
             if button_in_mainwindow:
-                self.mainbutton_alignment.set_no_show_all(False)
-                self.mainbutton_alignment.show_all()
+                self.mainbutton.set_no_show_all(False)
+                self.mainbutton.show_all()
             else:
-                self.mainbutton_alignment.hide()
-                self.mainbutton_alignment.set_no_show_all(True)
+                self.mainbutton.hide()
+                self.mainbutton.set_no_show_all(True)
 
 # vim: et sts=4 sw=4

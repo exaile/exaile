@@ -725,8 +725,6 @@ class CollectionDragTreeView(DragTreeView):
 
         self.set_has_tooltip(True)
         self.connect('query-tooltip', self.on_query_tooltip)
-        # TODO: Make faster
-        #self.tooltip = CollectionToolTip(self)
 
     def get_selection_empty(self):
         '''Returns True if there are no selected items'''
@@ -768,41 +766,6 @@ class CollectionDragTreeView(DragTreeView):
         model = widget.get_model()
         tooltip.set_text(model[path][1]) # 1: title
         widget.set_tooltip_row(tooltip, path)
-
-        return True
-
-class CollectionToolTip(info.TrackListToolTip):
-    """
-        Custom collection specific tooltip
-    """
-    def __init__(self, parent):
-        """
-            :param parent: the parent widget the tooltip
-                should be attached to
-        """
-        info.TrackListToolTip.__init__(self, parent, display_tracklist=True)
-
-    def on_query_tooltip(self, tree, x, y, keyboard_mode, tooltip):
-        """
-            Determines if the tooltip should be shown
-            and feeds the required data to it
-        """
-        path = tree.get_path_at_pos(x, y)
-
-        if path is None:
-            return False
-
-        path = path[0]
-        model = tree.get_model()
-        iter = model.get_iter(path)
-        tracks = tree.container._find_tracks(iter)
-
-        self.clear()
-        self.set_tracklist(tracks)
-
-        info.TrackListToolTip.on_query_tooltip(
-            self, tree, x, y, keyboard_mode, tooltip)
-        #tree.set_tooltip_row(tooltip, path)
 
         return True
 

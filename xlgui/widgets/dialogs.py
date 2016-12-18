@@ -134,7 +134,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         will not close.
     """
     def __init__(self, parent, title):
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
         self.__entry_area = Gtk.Grid()
         self.__entry_area.set_row_spacing(3)
@@ -227,9 +227,10 @@ class TextEntryDialog(Gtk.Dialog):
             cancelbutton = Gtk.STOCK_CANCEL
         if not okbutton:
             okbutton = Gtk.STOCK_OK
-        Gtk.Dialog.__init__(self, title, parent, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            (cancelbutton, Gtk.ResponseType.CANCEL,
-            okbutton, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent,
+                            destroy_with_parent=True,
+                            add_buttons=(cancelbutton, Gtk.ResponseType.CANCEL,
+                                         okbutton, Gtk.ResponseType.OK))
 
         label = Gtk.Label(label=message)
         label.set_xalign(0)
@@ -371,13 +372,13 @@ class ListDialog(Gtk.Dialog):
         """
             Initializes the dialog
         """
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
         self.vbox.set_border_width(5)
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.model = Gtk.ListStore(object)
-        self.list = Gtk.TreeView(self.model)
+        self.list = Gtk.TreeView(model=self.model)
         self.list.set_headers_visible(False)
         self.list.connect('row-activated',
             lambda *e: self.response(Gtk.ResponseType.OK))
@@ -1301,7 +1302,7 @@ class XMessageDialog(Gtk.Dialog):
                        show_cancel=True,
                        ):
         
-        Gtk.Dialog.__init__(self, None, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         
         #
         # TODO: Make these buttons a bit prettier
@@ -1352,7 +1353,7 @@ class FileCopyDialog(Gtk.Dialog):
         self.cancel = Gio.Cancellable()
         self.is_copying = False
         
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         
         self.count = 0
         self.total = len(file_uris)

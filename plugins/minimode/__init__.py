@@ -109,8 +109,7 @@ class MiniMode(Gtk.Window):
             'exaile-minimode', Gtk.IconSize.BUTTON))
         self.mainbutton.connect('clicked', self.on_mainbutton_clicked)
         action_area = exaile.gui.main.info_area.get_action_area()
-        action_area.pack_start(self.mainbutton, True, True, 0)
-        action_area.set_halign(Gtk.Align.END)
+        action_area.pack_end(self.mainbutton, False, False, 6)
         
         self.__active = False
         self.__dirty = True

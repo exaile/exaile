@@ -159,6 +159,7 @@ class HistoryPlaylistPage(PlaylistPageBase):
         self.swindow.add(self.view)
         
         hbox = Gtk.ButtonBox()
+        hbox.set_halign(Gtk.Align.END)
         
         button = Gtk.Button(stock=Gtk.STOCK_CLEAR)
         button.connect( 'clicked', self.on_clear_history )
@@ -168,10 +169,7 @@ class HistoryPlaylistPage(PlaylistPageBase):
         button.connect( 'clicked', self.on_save_history )
         hbox.pack_start( button , True, True, 0)
         
-        align = Gtk.Alignment.new(1, 0, 0, 0)
-        align.add( hbox )
-        
-        self.pack_start( align, False, False, 0 )
+        self.pack_start( hbox, False, False, 0 )
         
         self.show_all()
     

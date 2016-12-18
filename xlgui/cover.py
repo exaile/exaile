@@ -1046,19 +1046,8 @@ class CoverChooser(GObject.GObject):
 
         self.cover_image_box = self.builder.get_object('cover_image_box')
 
-        self.loading_indicator = Gtk.Alignment()
-        self.loading_indicator.props.xalign = 0.5
-        self.loading_indicator.props.yalign = 0.5
-        self.loading_indicator.set_size_request(350, 350)
-        self.cover_image_box.pack_start(self.loading_indicator, True, True, 0)
-
-        try:
-            spinner = Gtk.Spinner()
-            spinner.set_size_request(100, 100)
-            spinner.start()
-            self.loading_indicator.add(spinner)
-        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
-            self.loading_indicator.add(Gtk.Label(label=_('Loading...')))
+        self.stack = self.builder.get_object('stack')
+        self.stack_ready = self.builder.get_object('stack_ready')
 
         self.size_label = self.builder.get_object('size_label')
         self.source_label = self.builder.get_object('source_label')
@@ -1109,7 +1098,7 @@ class CoverChooser(GObject.GObject):
         if self.stopper.is_set():
             return
 
-        self.cover_image_box.remove(self.loading_indicator)
+        self.stack.set_visible_child(self.stack_ready)
         self.previews_box.set_model(self.covers_model)
 
         if db_strings:

@@ -51,6 +51,7 @@ from xl.playlist import (
 from xl.nls import gettext as _
 
 from xlgui.guiutil import GtkTemplate
+from threading import Thread
 
 logger = logging.getLogger(__name__)
 
@@ -1345,16 +1346,38 @@ class FileCopyDialog(Gtk.Dialog):
             
         Do not use run() on this dialog!
     '''
+    class CopyThread(Thread):
+        
+        def __init__(self, source, dest, callback_finish_single_copy, copy_flags):
+            Thread.__init__(self, name='CopyThread')
+            self.__source = source
+            self.__dest = dest
+            self.__cb_single_copy = callback_finish_single_copy
+            self.__copy_flags = copy_flags
+            self.__cancel = Gio.Cancellable()
+            self.start()
+        
+        def run(self):
+            try:
+                result = self.__source.copy(self.__dest, 
+                                            flags=self.__copy_flags,
+                                            cancellable=self.__cancel)
+                GLib.idle_add(self.__cb_single_copy, self.__source, result, None)
+            except GLib.Error as err:
+                GLib.idle_add(self.__cb_single_copy, self.__source, False, err)
+        
+        def cancel_copy(self):
+            self.__cancel.cancel()
 
     def __init__(self, file_uris, destination_uri, title, text=_("Saved %(count)s of %(total)s."), parent=None):
         
         self.file_uris = file_uris
         self.destination_uri = destination_uri
-        self.cancel = Gio.Cancellable()
         self.is_copying = False
         
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         
+        self.parent = parent
         self.count = 0
         self.total = len(file_uris)
         self.text = text
@@ -1456,10 +1479,23 @@ class FileCopyDialog(Gtk.Dialog):
         logging.info( "CopySource : %s" % self.source.get_uri() )
         logging.info( "CopyDest   : %s" % self.destination.get_uri() )
         
-        self.source.copy_async( self.destination, self._finish_single_copy, flags=flags, cancellable=self.cancel ) 
+        # TODO g_file_copy_async() isn't introspectable
+        # see https://github.com/exaile/exaile/issues/198 for details
+        #self.source.copy_async( self.destination, self._finish_single_copy_async, flags=flags, cancellable=self.cancel )
+        
+        self.cpthr = self.CopyThread(self.source, self.destination, self._finish_single_copy, flags)
+        
     
+    def _finish_single_copy(self, source, success, error):
+        if error:
+            self._on_error( _("Error occurred while copying %s: %s") % (
+                GLib.markup_escape_text( self.source.get_uri() ),
+                GLib.markup_escape_text( str(error) ) ) )
+        if success:
+            self._step()
+            self._start_next_copy()
     
-    def _finish_single_copy(self, source, async_result):
+    def _finish_single_copy_async(self, source, async_result):
         
         try:
             if source.copy_finish(async_result):

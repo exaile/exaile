@@ -3,6 +3,10 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkTextBuffer" id="LyricsTextBuffer"/>
+  <object class="GtkSpinner" id="RefreshSpinner">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+  </object>
   <object class="GtkTextBuffer" id="TrackTextBuffer"/>
   <object class="GtkWindow" id="LyricsViewerWindow">
     <property name="can_focus">False</property>
@@ -31,7 +35,7 @@
                 <property name="tooltip_text" translatable="yes">Refresh Lyrics</property>
                 <signal name="clicked" handler="on_RefreshButton_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkImage" id="RefreshLyrics">
+                  <object class="GtkImage" id="RefreshIcon">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="icon_name">view-refresh</property>

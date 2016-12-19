@@ -75,7 +75,6 @@ def get_preferences_pane():
 
 class LyricsViewer(object):
 
-    loading_image = 'loading.gif'
     ui = 'lyricsviewer.ui'
 
     def __init__(self, exaile):
@@ -115,9 +114,8 @@ class LyricsViewer(object):
         self.lyrics_methods_combo.show()
 
         self.refresh_button = builder.get_object('RefreshButton')
-        self.refresh_button_image = builder.get_object('RefreshLyrics')
-        self.loading_animation = GdkPixbuf.PixbufAnimation.new_from_file(
-                os.path.join(IMAGEDIR, self.loading_image))
+        self.refresh_button_icon = builder.get_object('RefreshIcon')
+        self.refresh_button_spinner = builder.get_object('RefreshSpinner')
 
         #track name title text
         self.track_text = builder.get_object('TrackText')
@@ -260,11 +258,13 @@ class LyricsViewer(object):
     
     def set_top_box_widgets(self, state, init = False):
         if state or init:
-            self.refresh_button_image.set_from_icon_name(
-                    'view-refresh', Gtk.IconSize.BUTTON)
+            self.refresh_button_spinner.stop()
+            self.refresh_button.remove(self.refresh_button.get_child())
+            self.refresh_button.add(self.refresh_button_icon)
         else:
-            self.refresh_button_image.set_from_animation(
-                    self.loading_animation)
+            self.refresh_button.remove(self.refresh_button.get_child())
+            self.refresh_button.add(self.refresh_button_spinner)
+            self.refresh_button_spinner.start()
 
         self.refresh_button.set_sensitive(state)
         self.lyrics_methods_combo.set_sensitive(state)

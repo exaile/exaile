@@ -82,7 +82,6 @@ class LyricsViewer(object):
         self.name = 'lyricsviewer'
         self.exaile = exaile
         self.notebook = exaile.gui.panel_notebook
-        self.source_url = ""
         self.lyrics_found = []
 
         self._initialize_widgets()
@@ -102,10 +101,7 @@ class LyricsViewer(object):
         builder = Gtk.Builder()
         builder.add_from_file(os.path.join(BASEDIR, self.ui))
         builder.connect_signals({
-            'on_RefreshButton_clicked' : self.on_refresh_button_clicked,
-            'on_LyricsSourceText_motion_notify_event' :
-                self.on_lst_motion_event,
-            'on_UrlTag_event' : self.on_url_tag_event
+            'on_RefreshButton_clicked' : self.on_refresh_button_clicked
         })
 
         self.lyrics_panel = builder.get_object('LyricsPanel')
@@ -137,17 +133,9 @@ class LyricsViewer(object):
         #end lyrictextview
 
         #text url and source
-        self.lyrics_source_text = builder.get_object('LyricsSourceText')
-        self.lyrics_source_text.modify_font(
+        self.lyrics_source_label = builder.get_object('LyricsSource')
+        self.lyrics_source_label.modify_font(
                 Pango.FontDescription("Bold Italic"))
-        self.lyrics_source_text_buffer = builder.get_object(
-                'LyricsSourceTextBuffer')
-
-        #the tag to create a hyperlink in a textbuffer
-        lyrics_source_tag_table = builder.get_object('LyricsSourceTagTable')
-        self.url_tag = builder.get_object('UrlTag')
-        lyrics_source_tag_table.add(self.url_tag)
-        #end text url and source
 
         # TODO: GI: Style must be set via a different mechanism 
         #self.set_style(self.notebook)
@@ -180,43 +168,6 @@ class LyricsViewer(object):
 
     def end_cb(self, eventtype, player, data):
         self.update_lyrics()
-    
-    def on_lst_motion_event(self, textview, event):
-        """
-            Catches when the mouse moves on the TextView lyrics_source_text
-            If the source url exists changes tooltip and the mouse cursor
-            depending on its position.
-        """
-        tag = None
-        window = textview.get_window(Gtk.TextWindowType.TEXT)
-        cursor_type = window.get_cursor().get_cursor_type().value_name
-
-        if self.source_url != "":
-            x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.TEXT,
-                                                    event.x, event.y)
-            tag = textview.get_iter_at_location(x, y).get_tags()
-            tooltip_text = textview.get_tooltip_text()
-
-            if (cursor_type == "GDK_XTERM" or self.source_url != tooltip_text) \
-                    and tag:
-                #url_tag affected by the motion event
-                window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.HAND2))
-                textview.set_tooltip_text(self.source_url)
-                return
-
-        if cursor_type == "GDK_HAND2"  and not tag:
-            #url_tag not affected by the motion event
-            #restore default state
-            window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.XTERM))
-            self.lyrics_source_text.set_tooltip_text(None)
-
-    def on_url_tag_event(self, tag, widget, event, iter):
-        """
-            Catches when the user clicks the url_tag .
-            Opens a new page (or tab) in the preferred browser.
-        """
-        if event.type == Gdk.EventType.BUTTON_RELEASE:
-            self.open_url(self.source_url)
 
     @common.threaded
     def open_url(self, url):
@@ -236,7 +187,7 @@ class LyricsViewer(object):
     def update_lyrics(self, refresh = False):
         self.track_text_buffer.set_text("")
         self.lyrics_text_buffer.set_text("")
-        self.lyrics_source_text_buffer.set_text("")
+        self.lyrics_source_label.set_text("")
         self.lyrics_found = []
         if player.PLAYER.current:
             self.set_top_box_widgets(False)
@@ -295,21 +246,17 @@ class LyricsViewer(object):
     
     def update_source_text(self, source, url):
         """
-            Sets the url tag in the source text buffer
-            to the value of the source
+            Sets source name and source URL in panel footer
 
-            :param source: the name to display as url tag
-            :param url: the url string of the source
+            :param source: the name to display as source URL
+            :param url: the URL string of the source
         """
-        self.source_url = ""
         if url != "":
-            self.lyrics_source_text_buffer.set_text(_("Go to: "))
-            iter = self.lyrics_source_text_buffer.get_end_iter()
-            self.lyrics_source_text_buffer.insert_with_tags(
-                    iter, source, self.url_tag)
-            self.source_url = url
+            url_text = '<a href="' + url + '">' + source + '</a>'
+            self.lyrics_source_label.set_text(_("Source: ") + url_text)
+            self.lyrics_source_label.set_use_markup(True)
         else:
-            self.lyrics_source_text_buffer.set_text("")
+            self.lyrics_source_label.set_text("")
     
     def set_top_box_widgets(self, state, init = False):
         if state or init:
@@ -334,9 +281,8 @@ class LyricsViewer(object):
         for state, rstate  in zip(states[::-1], states):
             self.modify_textview_look(self.lyrics_text, state,
                     bg[state].to_string(), fg[state].to_string())
-            for textview in (self.lyrics_source_text, self.track_text):
-                self.modify_textview_look(textview, state,
-                        bg[rstate].to_string(), fg[rstate].to_string())
+            self.modify_textview_look(self.track_text, state,
+                    bg[rstate].to_string(), fg[rstate].to_string())
     
     def modify_textview_look(self, textview, state, base_color, text_color):
         textview.modify_base(state, Gdk.color_parse(base_color))

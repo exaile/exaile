@@ -68,17 +68,3 @@ class LyricWiki(LyricSearchMethod):
         lyrics = self.remove_html_tags(unicode(BeautifulSoup(lyrics, "lxml")))
 
         return (lyrics, self.name, url)
-
-    def remove_script(self, data):
-        p = re.compile(r'<script.*/script>')
-        return p.sub('',data)
-
-    def remove_div(self,data):
-        p = re.compile(r'<div.*/div>')
-        return p.sub('',data)
-            
-    def remove_html_tags(self, data):
-        p = re.compile(r'<[^<]*?/?>')
-        data = p.sub('', data)
-        p = re.compile(r'/<!--.*?-->/')
-        return p.sub('',data)

@@ -29,6 +29,7 @@ from datetime import (
     timedelta
 )
 import os
+import re
 import shelve
 import zlib
 import threading
@@ -326,6 +327,21 @@ class LyricSearchMethod(object):
             :param manager: the lyrics manager
         """
         self.manager = manager
+
+    def remove_script(self, data):
+        p = re.compile(r'<script.*/script>')
+        return p.sub('',data)
+
+    def remove_div(self,data):
+        p = re.compile(r'<div.*/div>')
+        return p.sub('',data)
+            
+    def remove_html_tags(self, data):
+        data = data.replace('<br/>', '\n')
+        p = re.compile(r'<[^<]*?/?>')
+        data = p.sub('', data)
+        p = re.compile(r'/<!--.*?-->/')
+        return p.sub('',data)
 
 class LocalLyricSearch(LyricSearchMethod):
 

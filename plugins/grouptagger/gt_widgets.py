@@ -99,7 +99,7 @@ class GroupTaggerView(Gtk.TreeView):
     
     def __init__(self, exaile, model=None, editable=False):
     
-        super(GroupTaggerView, self).__init__(None)
+        super(GroupTaggerView, self).__init__()
         
         self.exaile = exaile
         
@@ -502,14 +502,16 @@ class GroupTaggerWidget(Gtk.Box):
         self.view = GroupTaggerView( exaile, GroupTaggerTreeStore(), editable=True )
         self.store = self.view.get_model()
         
-        self.tag_button = Gtk.Button( _('Add Tag') )
+        self.tag_button = Gtk.Button(label=_('Add Tag') )
         self.tag_button.connect( 'clicked', self.on_add_tag_click )
         
-        self.title.set_alignment(0,0.5)
+        self.title.set_xalign(0)
+        self.title.set_yalign(0.5)
         self.title.set_line_wrap(True)
         self.title.hide()
         
-        self.artist.set_alignment(0,0.5)
+        self.artist.set_xalign(0)
+        self.artist.set_yalign(0.5)
         self.artist.set_line_wrap(True)
         self.artist.hide()
         
@@ -732,7 +734,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
     
     def __init__(self, groups):
         
-        Gtk.Dialog.__init__(self, _('Show tracks with groups') )
+        Gtk.Dialog.__init__(self, title=_('Show tracks with groups'))
         
         # setup combo box selections
         self.group_model = Gtk.ListStore(GObject.TYPE_STRING)
@@ -856,9 +858,9 @@ class GroupTaggerAddRemoveDialog(Gtk.Dialog):
         self.tracks = tracks
 
         if self.add:
-            Gtk.Dialog.__init__(self, _("Add tags to all"))
+            Gtk.Dialog.__init__(self, title=_("Add tags to all"))
         else:
-            Gtk.Dialog.__init__(self, _("Remove tags from all"))
+            Gtk.Dialog.__init__(self, title=_("Remove tags from all"))
 
         self.add_buttons(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
         

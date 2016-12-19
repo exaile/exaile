@@ -62,7 +62,7 @@ class FilterDialog(Gtk.Dialog):
         - criteria: possible criteria; see FilterWindow
         """
 
-        Gtk.Dialog.__init__(self, title, parent, buttons=(
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent, add_buttons=(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
             Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
         self.init_template()

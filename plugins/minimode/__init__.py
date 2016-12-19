@@ -104,7 +104,7 @@ class MiniMode(Gtk.Window):
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 
-        self.mainbutton = Gtk.Button(_('Mini Mode'))
+        self.mainbutton = Gtk.Button(label=_('Mini Mode'))
         self.mainbutton.set_image(Gtk.Image.new_from_icon_name(
             'exaile-minimode', Gtk.IconSize.BUTTON))
         self.mainbutton.connect('clicked', self.on_mainbutton_clicked)

@@ -134,18 +134,13 @@ class MultiTextEntryDialog(Gtk.Dialog):
         will not close.
     """
     def __init__(self, parent, title):
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
-
-        self.hbox = Gtk.Box()
-        self.vbox.pack_start(self.hbox, True, True, 0)
-        self.vbox.set_border_width(5)
-        self.hbox.set_border_width(5)
-        self.left = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.right = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-
-        self.hbox.pack_start(self.left, True, True, 0)
-        self.hbox.pack_start(self.right, True, True, 0)
+        self.__entry_area = Gtk.Grid()
+        self.__entry_area.set_row_spacing(3)
+        self.__entry_area.set_column_spacing(3)
+        self.__entry_area.set_border_width(3)
+        self.vbox.pack_start(self.__entry_area, True, True, 0)
 
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_OK, Gtk.ResponseType.OK)
@@ -160,16 +155,17 @@ class MultiTextEntryDialog(Gtk.Dialog):
             :returns: the newly created entry
             :rtype: :class:`Gtk.Entry`
         """
+        line_number = len(self.fields)
+        
         label = Gtk.Label(label=label)
-        label.set_alignment(0, 0)
-        label.set_padding(0, 5)
-        self.left.pack_start(label, False, False, 0)
+        label.set_xalign(0)
+        self.__entry_area.attach(label, 0, line_number, 1, 1)
 
         entry = Gtk.Entry()
         entry.set_width_chars(30)
         entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, False)
         entry.connect('activate', lambda *e: self.response(Gtk.ResponseType.OK))
-        self.right.pack_start(entry, True, True, 0)
+        self.__entry_area.attach(entry, 1, line_number, 1, 1)
         label.show()
         entry.show()
 
@@ -231,12 +227,13 @@ class TextEntryDialog(Gtk.Dialog):
             cancelbutton = Gtk.STOCK_CANCEL
         if not okbutton:
             okbutton = Gtk.STOCK_OK
-        Gtk.Dialog.__init__(self, title, parent, Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            (cancelbutton, Gtk.ResponseType.CANCEL,
-            okbutton, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent,
+                            destroy_with_parent=True,
+                            add_buttons=(cancelbutton, Gtk.ResponseType.CANCEL,
+                                         okbutton, Gtk.ResponseType.OK))
 
         label = Gtk.Label(label=message)
-        label.set_alignment(0.0, 0.0)
+        label.set_xalign(0)
         self.vbox.set_border_width(5)
 
         main = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -375,13 +372,13 @@ class ListDialog(Gtk.Dialog):
         """
             Initializes the dialog
         """
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
         self.vbox.set_border_width(5)
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.model = Gtk.ListStore(object)
-        self.list = Gtk.TreeView(self.model)
+        self.list = Gtk.TreeView(model=self.model)
         self.list.set_headers_visible(False)
         self.list.connect('row-activated',
             lambda *e: self.response(Gtk.ResponseType.OK))
@@ -1305,7 +1302,7 @@ class XMessageDialog(Gtk.Dialog):
                        show_cancel=True,
                        ):
         
-        Gtk.Dialog.__init__(self, None, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         
         #
         # TODO: Make these buttons a bit prettier
@@ -1356,7 +1353,7 @@ class FileCopyDialog(Gtk.Dialog):
         self.cancel = Gio.Cancellable()
         self.is_copying = False
         
-        Gtk.Dialog.__init__(self, title, parent)
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         
         self.count = 0
         self.total = len(file_uris)

@@ -61,7 +61,6 @@
         </child>
         <child>
           <object class="GtkTextView" id="TrackText">
-            <property name="width_request">1</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="editable">False</property>

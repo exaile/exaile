@@ -80,7 +80,6 @@ class LyricsViewer(object):
     def __init__(self, exaile):
         self.name = 'lyricsviewer'
         self.exaile = exaile
-        self.notebook = exaile.gui.panel_notebook
         self.lyrics_found = []
 
         self._initialize_widgets()
@@ -92,7 +91,6 @@ class LyricsViewer(object):
         event.add_ui_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
         event.add_ui_callback(self.on_option_set, 'plugin_lyricsviewer_option_set')
-        #self.style_handler = self.notebook.connect('style-set', self.set_style)
 
         self.update_lyrics()
 
@@ -106,7 +104,7 @@ class LyricsViewer(object):
         self.lyrics_panel = builder.get_object('LyricsPanel')
 
         self.lyrics_top_box = builder.get_object('LyricsTopBox')
-        self.lyrics_methods_combo = LyricsMethodsComboBox(self.exaile)
+        self.lyrics_methods_combo = LyricsMethodsComboBox()
         self.lyrics_top_box.pack_start(
                 self.lyrics_methods_combo, True, True, 0)
         self.lyrics_methods_combo.connect('changed',
@@ -134,9 +132,6 @@ class LyricsViewer(object):
         self.lyrics_source_label = builder.get_object('LyricsSource')
         self.lyrics_source_label.modify_font(
                 Pango.FontDescription("Bold Italic"))
-
-        # TODO: GI: Style must be set via a different mechanism 
-        #self.set_style(self.notebook)
         
     #end initialize_widgets
     def on_option_set(self, event, settings, option):
@@ -152,7 +147,6 @@ class LyricsViewer(object):
                 'lyrics_search_method_added')
         event.remove_callback(self.on_option_set,
                 'plugin_lyricsviewer_option_set')
-        #self.notebook.disconnect(self.style_handler)
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics()
@@ -268,21 +262,6 @@ class LyricsViewer(object):
 
         self.refresh_button.set_sensitive(state)
         self.lyrics_methods_combo.set_sensitive(state)
-
-    def set_style(self, widget, oldstyle = None):
-        """
-            Sets lyricsviewer style according to the widget param passed
-        """
-        states = [Gtk.StateType.NORMAL, Gtk.StateType.ACTIVE, Gtk.StateType.SELECTED]
-        widget_style = widget.get_style()
-        bg = widget_style.bg
-        fg = widget_style.fg
-
-        for state, rstate  in zip(states[::-1], states):
-            self.modify_textview_look(self.lyrics_text, state,
-                    bg[state].to_string(), fg[state].to_string())
-            self.modify_textview_look(self.track_text, state,
-                    bg[rstate].to_string(), fg[rstate].to_string())
     
     def modify_textview_look(self, textview, state, base_color, text_color):
         textview.modify_base(state, Gdk.color_parse(base_color))
@@ -300,7 +279,7 @@ class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
         An extended Gtk.ComboBox class.
         Shows lyrics methods search registered
     """
-    def __init__(self, exaile):
+    def __init__(self):
         Gtk.ComboBoxText.__init__(self)
         providers.ProviderHandler.__init__(self, 'lyrics')
         

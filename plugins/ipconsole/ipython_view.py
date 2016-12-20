@@ -49,8 +49,6 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Pango
 
-from pkg_resources import parse_version
-
 import re
 import sys
 import os
@@ -105,10 +103,7 @@ class IterableIPShell(object):
         '''
         io = IPython.utils.io
         if input_func:
-            if parse_version(IPython.release.version) >= parse_version("1.2.1"):
-                IPython.terminal.interactiveshell.raw_input_original = input_func
-            else:
-                IPython.frontend.terminal.interactiveshell.raw_input_original = input_func
+            IPython.terminal.interactiveshell.raw_input_original = input_func
         if cin:
             io.stdin = io.IOStream(cin)
         if cout:
@@ -136,12 +131,8 @@ class IterableIPShell(object):
 
         # InteractiveShell inherits from SingletonConfigurable, so use instance()
         #
-        if parse_version(IPython.release.version) >= parse_version("1.2.1"):
-            self.IP = IPython.terminal.embed.InteractiveShellEmbed.instance(\
-                config=cfg, user_ns=user_ns)
-        else:
-            self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed.instance(\
-                config=cfg, user_ns=user_ns)
+        self.IP = IPython.terminal.embed.InteractiveShellEmbed.instance(\
+            config=cfg, user_ns=user_ns)
 
         sys.stdout, sys.stderr = old_stdout, old_stderr
 
@@ -158,8 +149,7 @@ class IterableIPShell(object):
         self.complete_sep = re.compile('[\s\{\}\[\]\(\)]')
         self.updateNamespace({'exit':lambda:None})
         self.updateNamespace({'quit':lambda:None})
-        if not IPython.__version__.startswith('5.'):    # HACK
-            self.IP.readline_startup_hook(self.IP.pre_readline)
+        self.IP.readline_startup_hook(self.IP.pre_readline)
         # Workaround for updating namespace with sys.modules
         #
         self.__update_namespace()
@@ -216,10 +206,7 @@ class IterableIPShell(object):
                     self.IP.autoedit_syntax):
                 self.IP.edit_syntax_error()
             if not self.iter_more:
-                if parse_version(IPython.release.version) >= parse_version("2.0.0-dev"):
-                    source_raw = self.IP.input_splitter.raw_reset()
-                else:
-                    source_raw = self.IP.input_splitter.source_raw_reset()[1]
+                source_raw = self.IP.input_splitter.raw_reset()
                 self.IP.run_cell(source_raw, store_history=True)
                 self.IP.rl_do_indent = False
             else:
@@ -242,19 +229,10 @@ class IterableIPShell(object):
         @rtype: string
 
         '''
-
-        # Backwards compatibility with ipyton-0.11
-        #
-        ver = IPython.__version__
-        if ver.startswith('5.'):    # HACK
-            prompt = '... ' if is_continuation else '>>> '
-        elif '0.11' in ver:
-            prompt = self.IP.hooks.generate_prompt(is_continuation)
+        if is_continuation:
+            prompt = self.IP.prompt_manager.render('in2')
         else:
-            if is_continuation:
-                prompt = self.IP.prompt_manager.render('in2')
-            else:
-                prompt = self.IP.prompt_manager.render('in')
+            prompt = self.IP.prompt_manager.render('in')
 
         return prompt
 

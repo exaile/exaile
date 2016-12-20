@@ -36,7 +36,7 @@ except ImportError:
 
 import ipython_view as ip
 from gi.repository import Pango
-import __builtin__, site
+import site
 
 FONT = "Luxi Mono 10"
 
@@ -127,14 +127,6 @@ class IPyConsole(Gtk.Window):
         # prevent exit and quit - freezes window? does bad things
         ipv.updateNamespace({'exit':None,
                              'quit':None})
-
-        # This is so when exaile calls exit(), IP doesn't prompt and prevent
-        # it from closing
-        try:
-            __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
-            __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
-        except AttributeError: # newer versions of IP don't need this
-            pass
 
         ipv.show()
 

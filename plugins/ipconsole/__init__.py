@@ -232,14 +232,3 @@ def console_destroyed(*args):
     """
     global PLUGIN
     PLUGIN = None
-
-
-if __name__ == '__main__':
-    """
-        If run outside of exaile.
-    """
-    con = IPyConsole({})
-    con.connect('destroy', Gtk.main_quit)
-    con.show()
-    Gtk.main()
-

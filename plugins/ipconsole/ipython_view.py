@@ -44,8 +44,6 @@ is available at U{http://www.opensource.org/licenses/bsd-license.php}
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import gi
-
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GLib

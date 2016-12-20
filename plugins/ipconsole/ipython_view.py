@@ -46,8 +46,8 @@ is available at U{http://www.opensource.org/licenses/bsd-license.php}
 
 import gi
 
-from gi.repository import Gtk as gtk
-from gi.repository import Gdk as gdk
+from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Pango
 
@@ -372,7 +372,7 @@ class IterableIPShell:
       output.close()
       input.close()
 
-class ConsoleView(gtk.TextView):
+class ConsoleView(Gtk.TextView):
   '''
   Specialized text view for console-like workflow.
 
@@ -401,7 +401,7 @@ class ConsoleView(gtk.TextView):
     '''
     Initialize console view.
     '''
-    gtk.TextView.__init__(self)
+    Gtk.TextView.__init__(self)
     self.modify_font(Pango.FontDescription('Mono'))
     self.set_cursor_visible(True)
     self.text_buffer = self.get_buffer()
@@ -542,17 +542,17 @@ class ConsoleView(gtk.TextView):
     selection_mark = self.text_buffer.get_selection_bound()
     selection_iter = self.text_buffer.get_iter_at_mark(selection_mark)
     start_iter = self.text_buffer.get_iter_at_mark(self.line_start)
-    if event.keyval == gdk.KEY_Home:
-      if event.state & gdk.ModifierType.CONTROL_MASK or \
-              event.state & gdk.ModifierType.MOD1_MASK:
+    if event.keyval == Gdk.KEY_Home:
+      if event.state & Gdk.ModifierType.CONTROL_MASK or \
+              event.state & Gdk.ModifierType.MOD1_MASK:
         pass
-      elif event.state & gdk.ModifierType.SHIFT_MASK:
+      elif event.state & Gdk.ModifierType.SHIFT_MASK:
         self.text_buffer.move_mark(insert_mark, start_iter)
         return True
       else:
         self.text_buffer.place_cursor(start_iter)
         return True
-    elif event.keyval == gdk.KEY_Left:
+    elif event.keyval == Gdk.KEY_Left:
       insert_iter.backward_cursor_position()
       if not insert_iter.editable(True):
         return True
@@ -625,20 +625,20 @@ class IPythonView(ConsoleView, IterableIPShell):
     @return: True if event should not trickle.
     @rtype: boolean
     '''
-    if event.state & gdk.ModifierType.CONTROL_MASK and event.keyval == 99:
+    if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == 99:
       self.interrupt = True
       self._processLine()
       return True
-    elif event.keyval == gdk.KEY_Return:
+    elif event.keyval == Gdk.KEY_Return:
       self._processLine()
       return True
-    elif event.keyval == gdk.KEY_Up:
+    elif event.keyval == Gdk.KEY_Up:
       self.changeLine(self.historyBack())
       return True
-    elif event.keyval == gdk.KEY_Down:
+    elif event.keyval == Gdk.KEY_Down:
       self.changeLine(self.historyForward())
       return True
-    elif event.keyval == gdk.KEY_Tab:
+    elif event.keyval == Gdk.KEY_Tab:
       if not self.getCurrentLine().strip():
         return False
       completed, possibilities = self.complete(self.getCurrentLine())
@@ -664,10 +664,10 @@ class IPythonView(ConsoleView, IterableIPShell):
     self.cout.seek(0)
  
 if __name__ == "__main__":
-  window = gtk.Window()
+  window = Gtk.Window()
   window.set_default_size(640, 320)
-  window.connect('delete-event', lambda x, y: gtk.main_quit())
+  window.connect('delete-event', lambda x, y: Gtk.main_quit())
   window.add(IPythonView())
   window.show_all()
-  gtk.main()
+  Gtk.main()
  

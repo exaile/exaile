@@ -80,7 +80,7 @@ class IterableIPShell(object):
     @ivar history_level: The place in history where we currently are 
     when pressing up/down.
     @type history_level: integer
-    @ivar complete_sep: Seperation delimeters for completion function.
+    @ivar complete_sep: Separation delimiters for completion function.
     @type complete_sep: _sre.SRE_Pattern
     '''
     def __init__(self, argv=[], user_ns=None, user_global_ns=None,
@@ -116,7 +116,7 @@ class IterableIPShell(object):
         if cerr:
             io.stderr = io.IOStream(cerr)
 
-        # This is to get rid of the blockage that accurs during 
+        # This is to get rid of the blockage that occurs during 
         # IPython.Shell.InteractiveShell.user_setup()
 
         io.raw_input = lambda x: None
@@ -306,7 +306,7 @@ class IterableIPShell(object):
 
     def complete(self, line):
         '''
-        Returns an auto completed line and/or posibilities for completion.
+        Returns an auto completed line and/or possibilities for completion.
         
         @param line: Given line so far.
         @type line: string
@@ -520,10 +520,10 @@ class ConsoleView(Gtk.TextView):
     def onKeyPress(self, widget, event):
         '''
         Key press callback used for correcting behavior for console-like 
-        interfaces. For example 'home' should go to prompt, not to begining of
+        interfaces. For example 'home' should go to prompt, not to beginning of
         line.
         
-        @param widget: Widget that key press accored in.
+        @param widget: Widget that key press occurred in.
         @type widget: gtk.Widget
         @param event: Event object
         @type event: gtk.gdk.Event
@@ -595,7 +595,7 @@ class IPythonView(ConsoleView, IterableIPShell):
         '''
         Custom raw_input() replacement. Get's current line from console buffer.
         
-        @param prompt: Prompt to print. Here for compatability as replacement.
+        @param prompt: Prompt to print. Here for compatibility as replacement.
         @type prompt: string
         
         @return: The current command line text.
@@ -611,7 +611,7 @@ class IPythonView(ConsoleView, IterableIPShell):
         Key press callback with plenty of shell goodness, like history, 
         autocompletions, etc.
         
-        @param widget: Widget that key press occured in.
+        @param widget: Widget that key press occurred in.
         @type widget: gtk.Widget
         @param event: Event object.
         @type event: gtk.gdk.Event

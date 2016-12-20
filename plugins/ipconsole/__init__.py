@@ -57,7 +57,6 @@ class Quitter(object):
 
     def __repr__(self):
         return 'Type %s() to exit.' % self.name
-        __str__ = __repr__
 
     def __call__(self):
         self.exit()         # Passed in exit function
@@ -70,7 +69,6 @@ class IPView(ip.IPythonView):
     def onKeyPressExtend(self, event):
         if ip.IPythonView.onKeyPressExtend(self, event):
             return True
-            
         
         if event.string == '\x04':
             # ctrl+d
@@ -102,11 +100,9 @@ class IPyConsole(Gtk.Window):
         console_font = settings.get_option('plugin/ipconsole/font', FONT)
         
         text_color = settings.get_option('plugin/ipconsole/text_color', 
-                                            'lavender')
-                                            
+                                         'lavender')
         bg_color = settings.get_option('plugin/ipconsole/background_color', 
-                                        'black')
-                                
+                                       'black')
         iptheme = settings.get_option('plugin/ipconsole/iptheme', 'Linux')
 
         ipv.modify_font(Pango.FontDescription(console_font))
@@ -120,7 +116,8 @@ class IPyConsole(Gtk.Window):
         opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
 
         # add a little transparency :)
-        if opacity < 100: self.set_opacity(float(opacity) / 100.0)   
+        if opacity < 100:
+            self.set_opacity(float(opacity) / 100.0)   
         ipv.updateNamespace(namespace)      # expose exaile (passed in)
         ipv.updateNamespace({'self':self})  # Expose self to IPython
 

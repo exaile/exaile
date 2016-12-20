@@ -81,8 +81,7 @@ class IterableIPShell(object):
     @ivar complete_sep: Separation delimiters for completion function.
     @type complete_sep: _sre.SRE_Pattern
     '''
-    def __init__(self, argv=[], user_ns=None, user_global_ns=None,
-                 cin=None, cout=None, cerr=None, input_func=None):
+    def __init__(self, user_ns=None, cin=None, cout=None, cerr=None, input_func=None):
         '''
         
         
@@ -146,7 +145,7 @@ class IterableIPShell(object):
         sys.excepthook = excepthook
         self.iter_more = 0
         self.history_level = 0
-        self.complete_sep = re.compile('[\s\{\}\[\]\(\)]')
+        self.complete_sep = re.compile(r'[\s\{\}\[\]\(\)]')
         self.updateNamespace({'exit':lambda:None})
         self.updateNamespace({'quit':lambda:None})
         self.IP.readline_startup_hook(self.IP.pre_readline)
@@ -179,7 +178,7 @@ class IterableIPShell(object):
         sys.stdout = IPython.utils.io.stdout
 
         orig_stdin = sys.stdin
-        sys.stdin = IPython.utils.io.stdin;
+        sys.stdin = IPython.utils.io.stdin
         self.prompt = self.generatePrompt(self.iter_more)
 
         self.IP.hooks.pre_prompt_hook()
@@ -339,8 +338,8 @@ class IterableIPShell(object):
         @param header: Header to be printed before output
         @type header: string
         '''
-        stat = 0
-        if verbose or debug: print((header + cmd))
+        if verbose or debug:
+            print((header + cmd))
         # flush stdout so we don't mangle python's buffering
         if not debug:
             input, output = os.popen4(cmd)
@@ -630,7 +629,8 @@ class IPythonView(ConsoleView, IterableIPShell):
         self.history_pos = 0
         self.execute()
         rv = self.cout.getvalue()
-        if rv: rv = rv.strip('\n')
+        if rv:
+            rv = rv.strip('\n')
         self.showReturned(rv)
         self.cout.truncate(0)
         self.cout.seek(0)

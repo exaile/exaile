@@ -68,7 +68,7 @@ try:
 except ImportError:
   IPython = None
 
-class IterableIPShell:
+class IterableIPShell(object):
   '''
   Create an IPython instance. Does not start a blocking event loop,
   instead allow single iterations. This allows embedding in GTK+ 

@@ -55,8 +55,8 @@ FORMATS = {
             },
         "FLAC" : {
             "default"   : 5,
-            "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
             "command"   : "flacenc quality=%i",
             "extension" : "flac",
             "plugins"   : ["flacenc"],

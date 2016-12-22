@@ -46,8 +46,6 @@ except Exception:
 
 import cdprefs
 
-def get_preferences_pane():
-    return cdprefs
 
 TOC_HEADER_FMT = 'BB'
 TOC_ENTRY_FMT = 'BBBix'
@@ -90,6 +88,9 @@ class CdPlugin(object):
             providers.unregister('udisks', self.udisks)
         if self.udisks2 is not None:
             providers.unregister('udisks2', self.udisks2)
+
+    def get_preferences_pane(self):
+        return cdprefs
 
 plugin_class = CdPlugin
 

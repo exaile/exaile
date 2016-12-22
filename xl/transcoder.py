@@ -41,6 +41,7 @@ logger = logging.getLogger(__name__)
     command:    the gstreamer pipeline to execute. should contain exactly one
                 python string format operator, like %s or %f, which will be 
                 replaced with the value from raw_steps.
+    extension:  the default filename extension for this format
     plugins:    the gstreamer plugins needed for this transcode pipeline
     desc:       a description of the encoder to display to the user
 """

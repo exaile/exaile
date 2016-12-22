@@ -35,6 +35,8 @@ from xl import (
     transcoder,
     trax
 )
+from xl.nls import gettext as _
+import xlgui
 
 
 class CDImporter(object):
@@ -42,20 +44,26 @@ class CDImporter(object):
         self.tracks = [ t for t in tracks if
                 t.get_loc_for_io().startswith("cdda") ]
         self.duration = float(sum( [ t.get_tag_raw('__length') for t in self.tracks ] ))
-        self.transcoder = transcoder.Transcoder()
-        self.formatter = formatter.TrackFormatter(settings.get_option("cd_import/outpath",
-	     "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
+        self.formatter = formatter.TrackFormatter(settings.get_option(
+            "cd_import/outpath",
+            "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
         self.current = None
         self.current_len = None
         self.progress = 0.0
 
         self.running = False
 
-        self.format = settings.get_option("cd_import/format",
-                                "Ogg Vorbis")
-        self.quality = settings.get_option("cd_import/quality", -1)
-
         self.cont = None
+        self.__prepare_transcoder()
+    
+    def __prepare_transcoder(self):
+        formats = transcoder.get_formats()
+        default_format = formats.iterkeys().next()
+        self.format = settings.get_option("cd_import/format", default_format)
+        default_quality = formats[default_format]['default']
+        self.quality = settings.get_option("cd_import/quality", default_quality)
+        self.transcoder = transcoder.Transcoder(
+            self.format, self.quality, self._error_cb, self._end_cb)
 
     def do_import(self):
         self.running = True
@@ -65,7 +73,6 @@ class CDImporter(object):
         self.transcoder.set_format(self.format)
         if self.quality != -1:
             self.transcoder.set_quality(self.quality)
-        self.transcoder.end_cb = self._end_cb
 
         for tr in self.tracks:
             self.cont.clear()
@@ -95,6 +102,14 @@ class CDImporter(object):
 
     def _end_cb(self):
         self.cont.set()
+        xlgui.main.mainwindow().message.show_info(
+            "Finished transcoding files")
+
+    def _error_cb(self, gerror, message_string):
+        self.running = False
+        xlgui.main.mainwindow().message.show_error(
+            _("Error transcoding files from CD."),
+            "%s" % gerror.message.encode())
 
     def get_output_location(self, track):
         path = self.formatter.format(track)

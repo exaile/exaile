@@ -139,11 +139,11 @@ class TranscodeError(Exception):
     pass
 
 class Transcoder(object):
-    def __init__(self):
+    def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None
-        self.set_format("Ogg Vorbis")
-        self.set_quality(0.5)
+        self.set_format(destformat)
+        self.set_quality(quality)
         self.input = None
         self.output = None
         self.encoder = None
@@ -151,9 +151,8 @@ class Transcoder(object):
         self.bus = None
         self.running = False
         self.__last_time = 0.0
-
-        self.error_cb = None
-        self.end_cb = None
+        self.error_cb = error_callback
+        self.end_cb = end_callback
 
     def set_format(self, name):
         if name in FORMATS:
@@ -201,22 +200,17 @@ class Transcoder(object):
         self.pipe.set_state(Gst.State.NULL)
         self.running = False
         self.__last_time = 0.0
-        try:
-            self.end_cb()
-        except Exception:
-            pass #FIXME
+        self.end_cb()
 
     def on_error(self, bus, message):
         self.pipe.set_state(Gst.State.NULL)
         self.running = False
-        try:
-            self.error_cb()
-        except Exception:
-            gerror, message_string = message.parse_error()
-            logger.error(message_string)
-            raise gerror
+        gerror, message_string = message.parse_error()
+        self.error_cb(gerror, message_string)
+        logger.error(message_string)
+        raise gerror
 
-    def on_eof(self, *args):
+    def on_eof(self, bus, message):
         self.stop()
 
     def get_time(self):

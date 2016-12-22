@@ -25,12 +25,9 @@
 # from your version.
 
 from __future__ import with_statement
-from gi.repository import GObject
-from gi.repository import Gtk
 import os
-import warnings 
 
-from xl import event, settings, transcoder
+from xl import settings, transcoder
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 

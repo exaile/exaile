@@ -27,6 +27,9 @@
 from gi.repository import Gst
 
 from xl.nls import gettext as _
+import logging
+
+logger = logging.getLogger(__name__)
 
 """
     explanation of format dicts:
@@ -181,6 +184,7 @@ class Transcoder(object):
         elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
                 self.encoder, self.output ]
         pipestr = " ! ".join( elements )
+        logger.info("Starting GStreamer decoder with pipestring: %s" % pipestr)
         pipe = Gst.parse_launch(pipestr)
         self.pipe = pipe
         self.bus = pipe.get_bus()
@@ -201,13 +205,15 @@ class Transcoder(object):
         except Exception:
             pass #FIXME
 
-    def on_error(self, *args):
+    def on_error(self, bus, message):
         self.pipe.set_state(Gst.State.NULL)
         self.running = False
         try:
             self.error_cb()
         except Exception:
-            raise TranscodeError(args)
+            gerror, message_string = message.parse_error()
+            logger.error(message_string)
+            raise gerror
 
     def on_eof(self, *args):
         self.stop()

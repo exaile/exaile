@@ -24,12 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import copy
 import os
 import threading
 
 from xl import (
-    common,
     formatter,
     settings,
     transcoder,

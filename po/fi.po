@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-04-27 11:40+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2016-12-26 11:50+0000\n"
+"Last-Translator: Lari Oesch <lari@oesch.me>\n"
 "Language-Team: Finnish "
 "<https://hosted.weblate.org/projects/exaile/master/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/formatter.py:576
@@ -684,14 +684,12 @@ msgid "Times played"
 msgstr "Toistomäärä"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "X-siirtymä:"
+msgstr "Aloitussiirtymä"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
-msgstr "X-siirtymä:"
+msgstr "Lopetussiirtymä"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -703,7 +701,7 @@ msgstr "Emme tiedä kuinka säilöä tämänkaltaista asetusta: "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr "Tuntemattoman tyyppinen asetus löytyi."
+msgstr "Tuntemattoman tyyppinen asetus löytyi!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
@@ -1157,7 +1155,7 @@ msgstr "Et antanut soittolistallesi nimeä"
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
 msgid "The playlist name you entered is already in use."
-msgstr "Antamasi soittolistan nimi on jo käytössä"
+msgstr "Antamasi soittolistan nimi on jo käytössä."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
@@ -2124,8 +2122,8 @@ msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
-"Tämä asetus hakee albumikuvitus tiedostoja\n"
-"samasta musiikki kansiosta"
+"Tämä asetus hakee albumikuvitustiedostoja\n"
+"musiikkikansiosta."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
@@ -2354,7 +2352,7 @@ msgstr "Näytä aina välilehtipalkki"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr "Välilehtien sijoitus"
+msgstr "Välilehtien sijoitus:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
@@ -2469,11 +2467,11 @@ msgstr "Tunnelma löytyi."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr "\"Moodbar\"ia ei voitu lukea"
+msgstr "Moodbaria ei voitu lukea."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr "Moodbarin suoritettavaa tiedostoa ei ole saatavilla"
+msgstr "Moodbarin suoritettavaa tiedostoa ei ole saatavilla."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
@@ -3641,11 +3639,11 @@ msgstr "Muuta näytettävän kansitaiteen kokoa"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
-msgstr "Ainoastaan esittäjä"
+msgstr "Ainoastaan esittäjä:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr "Ainoastaan albumi"
+msgstr "Ainoastaan albumi:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -3658,7 +3656,7 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr "Kummatkin esittäjä ja albumi"
+msgstr "Kummatkin esittäjä ja albumi:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
@@ -3894,7 +3892,7 @@ msgstr "Kaikissa tiedostoissa käytettävä lisävahvistus"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr "Lisävahvistus (dB)"
+msgstr "Lisävahvistus (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
@@ -3918,7 +3916,7 @@ msgstr "Järjestäjä:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr "Järjestys"
+msgstr "Järjestämissuunta:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
@@ -4499,7 +4497,7 @@ msgstr ""
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr "Tiivis tila Exailelle sisältäen konfiguroitavan käyttöliittymän."
+msgstr "Tiivis tila Exailelle sisältäen konfiguroitavan käyttöliittymän"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"

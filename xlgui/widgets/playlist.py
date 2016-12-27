@@ -1087,12 +1087,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
             Stores indices and URIs of the selected items in the drag selection
         """
-        target = selection.get_target()
+        target_atom = selection.get_target()
+        target = target_atom.name()
         if target == "exaile-index-list":
             positions = self.get_selected_paths()
             if positions:
                 s = ",".join(str(i[0]) for i in positions)
-                selection.set(target, 8, s)
+                selection.set(target_atom, 8, s)
         elif target == "text/uri-list":
             tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)
@@ -1144,7 +1145,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
-            positions = [int(x) for x in selection.data.split(",")]
+            positions = [int(x) for x in selection.get_data().split(",")]
             tracks = common.MetadataList()
             source_playlist_view = Gtk.drag_get_source_widget(context)
             playlist = self.playlist
@@ -1172,7 +1173,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.playlist.extend(tracks)
 
             # Remove tracks from the source playlist if moved
-            if context.action == Gdk.DragAction.MOVE:
+            if context.get_selected_action() == Gdk.DragAction.MOVE:
                 for i in positions[::-1]:
                     del playlist[i]
         elif target == "text/uri-list":

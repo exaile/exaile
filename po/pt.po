@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-07-31 14:34+0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2017-01-03 18:52+0000\n"
+"Last-Translator: Manuela Silva <manuela.silva@sky.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/exaile/master/pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -1595,7 +1595,7 @@ msgstr "não regex"
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
 msgid "at least"
-msgstr "no mínimo"
+msgstr "pelo menos"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:203
@@ -2645,7 +2645,7 @@ msgstr ""
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Pré-visualizar Dispositivo"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
@@ -2960,7 +2960,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Mostrar faixas com seleção"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
@@ -2995,7 +2995,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Mostrar faixas com seleção (personalizado)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"

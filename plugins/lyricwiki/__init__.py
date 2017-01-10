@@ -1,5 +1,5 @@
 try:
-    import BeautifulSoup
+    from bs4 import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
 import HTMLParser
@@ -55,7 +55,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         try:
-            soup = BeautifulSoup.BeautifulSoup(html)
+            soup = BeautifulSoup(html, "lxml")
         except HTMLParser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
@@ -65,20 +65,6 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
+        lyrics = self.remove_html_tags(unicode(BeautifulSoup(lyrics, "lxml")))
 
         return (lyrics, self.name, url)
-
-    def remove_script(self, data):
-        p = re.compile(r'<script.*/script>')
-        return p.sub('',data)
-
-    def remove_div(self,data):
-        p = re.compile(r'<div.*/div>')
-        return p.sub('',data)
-            
-    def remove_html_tags(self, data):
-        p = re.compile(r'<[^<]*?/?>')
-        data = p.sub('', data)
-        p = re.compile(r'/<!--.*?-->/')
-        return p.sub('',data)

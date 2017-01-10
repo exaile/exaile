@@ -44,6 +44,10 @@ Last.FM integration:
 
 * pylast
 
+Lyrics from lyrics.wikia.com (lyricwiki):
+
+* Beautifulsoup4
+
 Musicbrainz covers:
 
 * musicbrainzngs

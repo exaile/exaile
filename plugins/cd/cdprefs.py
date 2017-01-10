@@ -25,12 +25,9 @@
 # from your version.
 
 from __future__ import with_statement
-from gi.repository import GObject
-from gi.repository import Gtk
 import os
-import warnings 
 
-from xl import event, settings, transcoder
+from xl import settings, transcoder
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
@@ -63,7 +60,11 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             :rtype: bool
         """
         model = self.widget.get_model()
-        format = self.condition_widget.get_active_text()
+        if not model:  # happens if preferences window is shut down on close
+            return False
+        
+        curiter = self.condition_widget.get_active_iter()
+        format = self.condition_widget.get_model().get_value(curiter, 0)
         formatinfo = transcoder.FORMATS[format]
         if self.format != format:
             self.format = format
@@ -87,7 +88,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
 
         for item, title in steps:
-            iter = model.append([item, title])
+            iter = model.append([item, str(title)])
 
         self.widget.set_model(model)
 

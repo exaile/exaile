@@ -27,6 +27,9 @@
 from gi.repository import Gst
 
 from xl.nls import gettext as _
+import logging
+
+logger = logging.getLogger(__name__)
 
 """
     explanation of format dicts:
@@ -38,6 +41,7 @@ from xl.nls import gettext as _
     command:    the gstreamer pipeline to execute. should contain exactly one
                 python string format operator, like %s or %f, which will be 
                 replaced with the value from raw_steps.
+    extension:  the default filename extension for this format
     plugins:    the gstreamer plugins needed for this transcode pipeline
     desc:       a description of the encoder to display to the user
 """
@@ -55,8 +59,8 @@ FORMATS = {
             },
         "FLAC" : {
             "default"   : 5,
-            "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
             "command"   : "flacenc quality=%i",
             "extension" : "flac",
             "plugins"   : ["flacenc"],
@@ -135,11 +139,11 @@ class TranscodeError(Exception):
     pass
 
 class Transcoder(object):
-    def __init__(self):
+    def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None
-        self.set_format("Ogg Vorbis")
-        self.set_quality(0.5)
+        self.set_format(destformat)
+        self.set_quality(quality)
         self.input = None
         self.output = None
         self.encoder = None
@@ -147,9 +151,8 @@ class Transcoder(object):
         self.bus = None
         self.running = False
         self.__last_time = 0.0
-
-        self.error_cb = None
-        self.end_cb = None
+        self.error_cb = error_callback
+        self.end_cb = end_callback
 
     def set_format(self, name):
         if name in FORMATS:
@@ -181,6 +184,7 @@ class Transcoder(object):
         elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
                 self.encoder, self.output ]
         pipestr = " ! ".join( elements )
+        logger.info("Starting GStreamer decoder with pipestring: %s" % pipestr)
         pipe = Gst.parse_launch(pipestr)
         self.pipe = pipe
         self.bus = pipe.get_bus()
@@ -196,20 +200,17 @@ class Transcoder(object):
         self.pipe.set_state(Gst.State.NULL)
         self.running = False
         self.__last_time = 0.0
-        try:
-            self.end_cb()
-        except Exception:
-            pass #FIXME
+        self.end_cb()
 
-    def on_error(self, *args):
+    def on_error(self, bus, message):
         self.pipe.set_state(Gst.State.NULL)
         self.running = False
-        try:
-            self.error_cb()
-        except Exception:
-            raise TranscodeError(args)
+        gerror, message_string = message.parse_error()
+        self.error_cb(gerror, message_string)
+        logger.error(message_string)
+        raise gerror
 
-    def on_eof(self, *args):
+    def on_eof(self, bus, message):
         self.stop()
 
     def get_time(self):

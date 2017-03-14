@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-11-21 14:22+0000\n"
-"Last-Translator: Olexandr Nesterenko <olexn@ukr.net>\n"
+"PO-Revision-Date: 2017-03-14 14:02+0000\n"
+"Last-Translator: Володимир <bardvv@gmail.com>\n"
 "Language-Team: Ukrainian "
 "<https://hosted.weblate.org/projects/exaile/master/uk/>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.12\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/formatter.py:576
@@ -190,8 +190,9 @@ msgid "FORMAT"
 msgstr "ФОРМАТ"
 
 #: ../xl/main.py:536
+#, fuzzy
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Отримує поточний стан відтворення та інформацію треку в ФОРМАТ"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
@@ -199,8 +200,9 @@ msgid "TAGS"
 msgstr "Тєги"
 
 #: ../xl/main.py:540
+#, fuzzy
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "Щоб витягти з поточної доріжки ТЕГИ, використовуйте --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -485,7 +487,7 @@ msgstr "Вільний формат стиснення звуку без втр�
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -502,7 +504,7 @@ msgstr "Авто"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Можлива помилка аудіопристрою, він підключений?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -845,7 +847,7 @@ msgstr "Експорт списку відтворення"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Експорт файлів"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -981,12 +983,11 @@ msgstr "Планувати"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Почати зсув"
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "Зміщення по осі X:"
+msgstr "Зупинити зсув"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1022,7 +1023,7 @@ msgstr "Перемішати список відтворення"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Випадковий вибір"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1086,7 +1087,7 @@ msgstr "Вибрати каталог для відкривання"
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Імпорт списку вітворення"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
@@ -1094,7 +1095,7 @@ msgstr "Експорт чинного списку відтворення"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Використовувати відносні шляхи до треків"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1121,11 +1122,11 @@ msgstr "Закрити без збереження"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Так для всіх"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Ні для всіх"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1135,20 +1136,20 @@ msgstr "Збережено %(count)s з %(total)s."
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Сталася помилка під час копіювання %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Файл існує, перезаписати %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Ім'я списку відтворення:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Додати новий список відтворення..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1162,7 +1163,7 @@ msgstr "Назва списку, яку ви ввели, вже використ
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Зберегти як"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1273,7 +1274,7 @@ msgstr "Скасувати"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Помилка при написанні тегів"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1281,6 +1282,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Теги не можуть бути записані в наступні файли:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
@@ -1288,22 +1291,21 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Редагування доріжки %(current)d з %(total)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Вилучити назавжди вибрані списки відтворення?"
+msgstr "Ви впевнені що хочете внести зміни для усіх треків?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Застосувати зміни перед закриттям?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Ваші зміни будуть втрачені, якщо ви не застосуєте їх зараз."
 
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1313,54 +1315,56 @@ msgstr "з:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG зображення"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "PNG зображення"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Зображення"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Зв'язане зображення"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}х{height} пікселів"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}х{height} пікселів)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Виберіть зображення, щоб встановити в якості обкладинки"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Підтримувані формати зображень"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
 msgstr "Застосувати чинне значення до всіх доріжок"
 
 #: ../xlgui/cover.py:109
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} обкладинки зліва до вибраного"
 
 #: ../xlgui/cover.py:110
+#, fuzzy
 msgid "All covers fetched"
-msgstr ""
+msgstr "Всі обкладинки вибрані"
 
 #: ../xlgui/cover.py:135
+#, fuzzy
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Збір альбомів і обкладинок..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1381,7 +1385,7 @@ msgstr "Обкладинка для %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Зберегти файл"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1390,17 +1394,20 @@ msgstr "Варіанти обкладинок для %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Завантаження..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
 msgstr "Обкладинки не знайдені."
 
 #: ../xlgui/cover.py:1104
+#, fuzzy
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Жоден з включених джерел не має обкладинки для цього треку, спробуйте "
+"включити більше джерел."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
@@ -1425,7 +1432,7 @@ msgstr "Сканування %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Панель"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1443,11 +1450,11 @@ msgstr "Ця тека вже є у фонотеці або це під-тека 
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Перемістіть сюда, щоб створити новий список відтворення"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Недавно закриті вкладки"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
@@ -1457,16 +1464,17 @@ msgstr "Список відтворення %d"
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} треків, закрито {minutes} хв тому)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} треків, закрито {seconds} сек тому)"
 
 #: ../xlgui/playlist_container.py:518
+#, fuzzy
 msgid "Move to other View"
-msgstr ""
+msgstr "Перейти до іншого подання"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
@@ -1511,16 +1519,19 @@ msgid "Genre - Album"
 msgstr "Жанр - Альбом"
 
 #: ../xlgui/panel/collection.py:141
+#, fuzzy
 msgid "Date - Artist"
-msgstr ""
+msgstr "Дата - Артист"
 
 #: ../xlgui/panel/collection.py:144
+#, fuzzy
 msgid "Date - Album"
-msgstr ""
+msgstr "Дата - Альбом"
 
 #: ../xlgui/panel/collection.py:147
+#, fuzzy
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Артист - (Дата - Альбом)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
@@ -1534,7 +1545,7 @@ msgstr "Розмір"
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s КБ"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
@@ -1563,13 +1574,13 @@ msgstr "не збігається з"
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "встановлений"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "не встановлено"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
@@ -1584,12 +1595,12 @@ msgstr "не містить"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "регулярний вираз"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "не регулярний вираз"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
@@ -1636,15 +1647,13 @@ msgstr "не за останні"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Параметри доріжки"
+msgstr "Трек в"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
-#, fuzzy
 msgid "Track not in"
-msgstr "Параметри доріжки"
+msgstr "Трек не в"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -1659,9 +1668,9 @@ msgid "Rename Playlist"
 msgstr "Перейменувати список відтворення"
 
 #: ../xlgui/panel/playlists.py:394
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Помилка завантаження подкаста."
+msgstr "Помилка під час завантаження смарт-списка відтворення: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1697,11 +1706,11 @@ msgstr "Редагувати «розумний» список відтворе�
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Експорт %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Оберіть каталог для експорту файлів до"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1769,7 +1778,7 @@ msgstr "Фонотека"
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr "the"
+msgstr ""
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
@@ -1841,7 +1850,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Невідомий перекладач"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
@@ -1849,7 +1858,7 @@ msgstr "Менеджер обкладинок"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Вибрати обкладинку"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
@@ -1861,7 +1870,7 @@ msgstr "Повторити відтворення"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Пошук:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
@@ -1869,7 +1878,7 @@ msgstr "Пошук обкладинок"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Походження обкладинки"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
@@ -1951,87 +1960,91 @@ msgstr "_Вперед"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
-msgstr ""
+msgstr "Інші"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 пікселів 'файл піктограми' (тільки для PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Інші піктограми файлів"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Обкладинка (спереду)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Обкладинка (ззаду)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
 msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
+#, fuzzy
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Медіа (наприклад етикетка компакт-дисків)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
+#, fuzzy
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Ведучий артист / ведучий виконавець / соліст"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Артист/виконавець"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Група/Оркестр"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Текст/автор тексту"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Місце запису"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Під час запису"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Під час виступу"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
+#, fuzzy
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Фільм/відео скріншот"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
+#, fuzzy
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Яскрава кольорова накладка"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Ілюстрація"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Група/артист логотип"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Видавець/студія логотип"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Написніть або перетягніть файли сюди, щоб змінити зображення обкладинки"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Тип:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
@@ -2048,7 +2061,7 @@ msgstr "Перевірено"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Сканувати при запуску"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
@@ -2127,12 +2140,13 @@ msgstr ""
 "вестиметься в теці з музичними файлами."
 
 #: ../data/ui/preferences/cover.ui.h:5
+#, fuzzy
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Бажані імена файлів:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Розділений комами список імен файлів без розширень"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
@@ -2169,7 +2183,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Додавання/Заміна за допомогою пункту меню запуск відтворення"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2221,7 +2235,7 @@ msgstr "Аудіопристрій:  "
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Пристрій:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
@@ -2242,25 +2256,27 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Видалити трек з черги при відтворенні"
 
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Заборонити відтворення нових треків, коли інший трек відтворюється"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Якщо в даний час відтворюється трек, не починати відтворення нових треків, "
+"за винятком при натисканні кнопок керування"
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Автоматично перейти до наступного треку"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Затримка між треками (мс)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
@@ -2286,7 +2302,7 @@ msgstr "Активний"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Show incompatible plugins"
@@ -2294,7 +2310,7 @@ msgstr "Показувати несумісні модулі"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Показати потенційно неробочі плагіни"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
@@ -2346,7 +2362,7 @@ msgstr "Інформаційна область містить інформац�
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Показати обкладинки в області інформації"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
@@ -2358,13 +2374,13 @@ msgstr "Розташування вкладки:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Шрифт списку відтворення:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Скидання на системний шрифт"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
@@ -2544,7 +2560,7 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Головне меню"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
@@ -2608,11 +2624,11 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Перевірка успішно завершена"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Не вдалося здійснити перевірку"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
@@ -2655,19 +2671,19 @@ msgstr "Комп'ютер не може бути вимкнений через D
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Перегляд пристроїв"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Перегляд програвача"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Попередній перегляд"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Призупинити відтворення (подвійне натискання, щоб зупинити)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2746,11 +2762,11 @@ msgstr "Кількість відтворень"
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Вікіпедія"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Відображає сторінку Вікіпедії про поточного виконавця."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
@@ -2904,22 +2920,21 @@ msgid "Playback progress and seeking"
 msgstr "Поступ відтворення та пошук"
 
 #: ../plugins/grouptagger/gt_import.py:45
-#, fuzzy
 msgid "Importing tracks"
-msgstr "Імпортування CD..."
+msgstr "Імпорт треків"
 
 #: ../plugins/grouptagger/gt_import.py:91
-#, fuzzy
 msgid "Importing groups"
-msgstr "Імпортування CD..."
+msgstr "Імпорт груп"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Оновлення груп"
 
 #: ../plugins/grouptagger/gt_import.py:284
+#, fuzzy
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Виберіть каталог для імпорту групових тег з"
 
 #: ../plugins/grouptagger/gt_prefs.py:21
 #: ../plugins/grouptagger/__init__.py:125
@@ -2931,39 +2946,39 @@ msgstr ""
 #: ../plugins/grouptagger/__init__.py:109
 #: ../plugins/grouptagger/gt_widgets.py:693
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Отримати всі теги з колекції"
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
 msgid "Import tags from directory"
-msgstr "Встановити каталог з даними"
+msgstr "Імпорт тег з каталога"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
-msgstr ""
+msgstr "Масове перейменування/видалення тег"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Показати треки з усіма тегами"
 
 #: ../plugins/grouptagger/__init__.py:134
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Показати треки з тегами (користувача)"
 
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
+#, fuzzy
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "Немає класифікованих тег в вибраних треках"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "%s tracks found"
-msgstr "Текст пісні не знайдений."
+msgstr "%s треків знайдено"
 
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "Змінити '%s' з '%s' на %s треки?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
@@ -2973,16 +2988,16 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Показати треки з вибраними"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Показати треки з тегом \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Показати треки з всіх обраних"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
@@ -2992,71 +3007,71 @@ msgstr "Група"
 
 #: ../plugins/grouptagger/gt_widgets.py:147
 msgid "Add new group"
-msgstr ""
+msgstr "Додати нову групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr ""
+msgstr "Видалити групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "Додати нову категорію"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "Видалити категорію"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Показати треки з обраних (користувацькі)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "Нове значення тега?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Введіть нове значення тега"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "Нова категорія?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Введіть нову назву групи категорій"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
-msgstr ""
+msgstr "Додати групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Додати вибрані в вибране"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Показати треки з групами"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Повинен мати цей тег [І]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Може мати цей тег [ЧИ]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Не повинні мати цей тег [НІ]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Ignored"
-msgstr ""
+msgstr "Ігнорувати"
 
 #: ../plugins/grouptagger/gt_widgets.py:759
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Вибрані треки"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3080,23 +3095,23 @@ msgstr "Додати"
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "Історія"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
-msgstr ""
+msgstr "Історія відтворення"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Видалити збережену історію?"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr ""
+msgstr "Зберегти історію"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
-msgstr ""
+msgstr "Очистити історію"
 
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
@@ -3125,6 +3140,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"$artist\n"
+"з $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3132,6 +3150,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
+"$artist\n"
+"з $album"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -3146,22 +3167,20 @@ msgstr "Номер диска"
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Тег %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr ""
+msgstr "Зберегти аналіз"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "О_чистити список відтворення"
+msgstr "Впорядкувати список відтворення"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "О_чистити список відтворення"
+msgstr "Впорядкувати список відтворення"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3246,32 +3265,29 @@ msgid "DAAP Server"
 msgstr "Сервер DAAP"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
-#, fuzzy
 msgid "Contacting SomaFM server..."
-msgstr "Під’єднання до сервера Shoutcast"
+msgstr "Підключення до сервера SomaFM..."
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
-#, fuzzy
 msgid "Error connecting to SomaFM server."
-msgstr "Помилка під’єднання до сервера Shoutcast."
+msgstr "Помилка підключення до сервера SomaFM."
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "BPM лічильник"
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
-#, fuzzy
 msgid "Update"
 msgstr "Оновлення"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
-msgstr ""
+msgstr "Застосувати BPM"
 
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Встановити BPM з %d на %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3635,9 +3651,8 @@ msgid "IPython Color Theme:"
 msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
-#, fuzzy
 msgid "Launch IPython console when Exaile starts"
-msgstr "Консоль IPython - Exaile"
+msgstr "Запуск консолі IPython під час запуску Exaile"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
@@ -3784,33 +3799,28 @@ msgid "Simple"
 msgstr "Спрощено"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
-#, fuzzy
 msgid "grouping"
-msgstr "Група"
+msgstr "групування"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
 msgid "comment"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
-#, fuzzy
 msgid "encodedby"
-msgstr "Кодований"
+msgstr "закодовано"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
-#, fuzzy
 msgid "composer"
-msgstr "Композитор"
+msgstr "компоновщик"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
-#, fuzzy
 msgid "conductor"
-msgstr "Диригент"
+msgstr "контролер"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
-#, fuzzy
 msgid "lyrics"
-msgstr "Тексти пісень"
+msgstr "тексти"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
@@ -3827,38 +3837,32 @@ msgid ""
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
-#, fuzzy
 msgid "Import Tags"
-msgstr "Імпорт CD"
+msgstr "Імпорт тег"
 
 #: ../plugins/grouptagger/gt_import.ui.h:2
-#, fuzzy
 msgid "Import"
-msgstr "Імпорт CD"
+msgstr "Імпорт"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
-#, fuzzy
 msgid "Current Groups"
-msgstr "Поточна пісня"
+msgstr "Поточні групи"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
-#, fuzzy
 msgid "New Groups"
-msgstr "Група"
+msgstr "Нові групи"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
-#, fuzzy
 msgid "Import Type:"
-msgstr "Шлях для імпортованого: "
+msgstr "Тип імпорта:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
-#, fuzzy
 msgid "Replace"
-msgstr "Замінити поточний"
+msgstr "Замінити"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
@@ -3869,23 +3873,20 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
-#, fuzzy
 msgid "Search Tag"
-msgstr "Пошук: "
+msgstr "Пошук тега"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
-#, fuzzy
 msgid "Replace Tag"
-msgstr "Замінити поточний"
+msgstr "Замінити тег"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
-#, fuzzy
 msgid "0 tracks found"
-msgstr " композицій"
+msgstr "треків не знайдено"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
@@ -4025,27 +4026,27 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Щоб отримати інформацію про реєстрацію облікового\n"
-"запису Amazon AWS, відвідайте <a href=\"http://aws.amazon.com/\">http://aws."
-"amazon.com/</a></i>"
+"<i>Щоб зареєструвати обліковий запис на Amazon AWS завітайте на <a href=\""
+"http://aws.amazon.com/\">http://aws.amazon.com/</a>\n"
+"Вам може також знадобитися <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\"> активувати "
+"Product Advertising API</a></i>."
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
-#, fuzzy
 msgid "<none selected>"
-msgstr "вибрано %d"
+msgstr "<нічого не вибрано>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Кнопка списку відтворення"
+msgstr "Список(и) відтворення для впорядкування"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
@@ -4206,16 +4207,16 @@ msgid "Remember recent DAAP servers"
 msgstr ""
 
 #: ../plugins/lyricsmania/PLUGININFO:3
-#, fuzzy
 msgid "LyricsMania"
-msgstr "Тексти пісень"
+msgstr "LyricsMania"
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from www.lyricsmania.com\n"
 "Depends: lxml"
-msgstr "Модуль для пошуку текстів пісень на lyricsfly.com"
+msgstr ""
+"Плагін для відбору текстів з www.lyricsmania.com \n"
+"Залежить: LXML"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -4396,7 +4397,6 @@ msgid "Multimedia keys for Windows"
 msgstr "Клавіші мультимедіа для Windows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
@@ -4404,10 +4404,11 @@ msgid ""
 "Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
 "pythonlibs/#pyhook> for more versions)"
 msgstr ""
-"Додає підтримку для клавіш мультимедіа (присутні на більшості мультимедійних "
-"клавіатур) під час використання Exaile в Microsoft Windows.\n"
+"Додана підтримка мультимедійних клавіш (присутніх на більшості нових "
+"клавіатур) при запуску Exaile в Microsoft Windows.\n"
 "\n"
-"Вимагає: pyHook <http://pyhook.sf.net/>"
+"Потребує: pyHook <http://pyhook.sf.net/> (або gohlke/pythonlibs/pyhook> для "
+"більшості версій)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4499,10 +4500,10 @@ msgid "Development"
 msgstr ""
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Pops up a notification when playback of a track starts. Requires pynotify"
-msgstr "Показує повідомлення про початок відтворення доріжки"
+msgstr ""
+"Спливає повідомлення, коли починається відтворення треку. Потребує pynotify"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4582,9 +4583,8 @@ msgid "Enables access to the Jamendo music catalogue."
 msgstr "Надає доступ до музичного каталогу Jamendo."
 
 #: ../plugins/console/PLUGININFO:3
-#, fuzzy
 msgid "Simple console"
-msgstr "Спрощено"
+msgstr "Проста консоль"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
@@ -4627,9 +4627,8 @@ msgid "Removes voice from audio"
 msgstr "Вилучає голос з аудіо запису"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Файли списків відтворення"
+msgstr "Впорядкувальник списка відтворення"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4722,9 +4721,8 @@ msgstr ""
 "для спільного використання фонотеки через DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "Радіо LastFM"
+msgstr "Радіо SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""

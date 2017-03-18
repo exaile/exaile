@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-02-14 20:12+0000\n"
+"PO-Revision-Date: 2017-03-18 11:21+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12-dev\n"
+"X-Generator: Weblate 2.12\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
@@ -2382,13 +2382,13 @@ msgstr "Posició de la pestanya:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr "Tipus de lletra de la llista de reproducció:"
+msgstr "Lletra de la llista de reproducció:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr "Restableix al tipus de lletra del sistema"
+msgstr "Restableix a la lletra del sistema"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
@@ -3484,7 +3484,7 @@ msgstr "Cap"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr "Tipus de lletra de la lletra de la cançó:"
+msgstr "Lletra de la lletra de la cançó:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
@@ -3643,7 +3643,7 @@ msgstr "Opacitat del terminal:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
-msgstr "Tipus de lletra:"
+msgstr "Lletra:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "Text Color:"
@@ -3831,7 +3831,7 @@ msgstr "Lletres de les cançons"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr "Tipus de lletra per a Grup/categories:"
+msgstr "Lletra del grup/categories:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
@@ -4031,7 +4031,7 @@ msgstr "Mostra la barra de progrés"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Radi del contorn:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""

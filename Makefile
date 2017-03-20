@@ -172,17 +172,19 @@ clean:
 	rm -f exaile.1.gz
 	$(MAKE) -C plugins clean
 
-# The "[type: gettext/glade]" helps intltool recognize .ui files as glade format
+# The "LC_ALL=C" disables any locale-dependent sort behavior.
+# The "[type: gettext/glade]" helps intltool recognize .ui files as glade format.
 pot:
-	echo "[encoding: UTF-8]" > po/POTFILES.in && \
-	  find xl -name "*.py" >> po/POTFILES.in && \
-	  find xlgui -name "*.py" >> po/POTFILES.in && \
-	  find data/ui/ -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name "*.py" | grep -v treeviewtest >> po/POTFILES.in && \
-	  find plugins -name "*.ui" | grep -v treeviewtest | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name PLUGININFO | grep -v treeviewtest >> po/POTFILES.in && \
-	  (cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
-	    intltool-update --pot --gettext-package=messages --verbose)
+	(export LC_ALL=C && \
+	  echo "[encoding: UTF-8]" > po/POTFILES.in && \
+	  find xl -name "*.py" | sort >> po/POTFILES.in && \
+	  find xlgui -name "*.py" | sort >> po/POTFILES.in && \
+	  find data/ui/ -name "*.ui" | sort | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
+	  find plugins -name "*.py" | sort | grep -v treeviewtest >> po/POTFILES.in && \
+	  find plugins -name "*.ui" | grep -v treeviewtest | sort | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
+	  find plugins -name PLUGININFO | grep -v treeviewtest | sort >> po/POTFILES.in)
+	(cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
+	  intltool-update --pot --gettext-package=messages --verbose)
 
 potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

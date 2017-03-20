@@ -347,9 +347,7 @@ class Exaile(object):
             if self.options.StartGui:
                 import xlgui
                 xlgui.mainloop()
-        except KeyboardInterrupt:
-            logger.exception("User exited program")
-        except:
+        except Exception:
             logger.exception("Unhandled exception")
 
     def __init(self):

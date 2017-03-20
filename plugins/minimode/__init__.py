@@ -140,8 +140,7 @@ class MiniMode(Gtk.Window):
         providers.unregister('menubar-view-menu', self.menuitem)
         controls.unregister()
 
-        self.mainbutton.get_parent().remove(
-            self.mainbutton)
+        self.mainbutton.destroy()
 
         self.set_active(False)
         self.box.destroy()

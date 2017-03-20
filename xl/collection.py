@@ -790,8 +790,9 @@ class Library(object):
                     # 110 was chosen to accomodate "top 100"-style
                     # compilations.
                     if len(dirtracks) > 110:
-                        logger.info("Too many files, skipping "
-                                "compilation detection heuristic.")
+                        logger.debug("Too many files, skipping "
+                                "compilation detection heuristic for "
+                                + fil.get_uri())
                         dirtracks = None
 
             if self.collection and self.collection._scan_stopped:

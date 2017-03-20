@@ -35,20 +35,15 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import (
-    common,
-    covers,
     event,
     formatter,
     player,
-    playlist,
     providers,
     settings,
     trax,
-    xdg
 )
 from xlgui.accelerators import AcceleratorManager
 from xlgui.playlist_container import PlaylistContainer
@@ -101,12 +96,12 @@ class MainWindow(GObject.GObject):
         GObject.GObject.__init__(self)
 
         self.controller = controller
-        self.collection =  collection
+        self.collection = collection
         self.playlist_manager = controller.exaile.playlists
         self.current_page = -1
         self._fullscreen = False
         self.resuming = False
-        
+
         self.window_state = 0
         self.minimized = False
 
@@ -115,8 +110,8 @@ class MainWindow(GObject.GObject):
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
-            'gui/main_window_title_format', _('$title (by $artist)') +
-		' - Exaile'))
+            'gui/main_window_title_format',
+            _('$title (by $artist)') + ' - Exaile'))
 
         self.accelgroup = Gtk.AccelGroup()
         self.window.add_accel_group(self.accelgroup)
@@ -1056,16 +1051,14 @@ class MainWindow(GObject.GObject):
         if not self.minimized:
             
             if event.changed_mask & Gdk.WindowState.ICONIFIED and \
-               not event.changed_mask & Gdk.WindowState.WITHDRAWN and \
-               event.new_window_state & Gdk.WindowState.ICONIFIED and \
-               not event.new_window_state & Gdk.WindowState.WITHDRAWN and \
-               not self.window_state & Gdk.WindowState.ICONIFIED:
-                
+                    not event.changed_mask & Gdk.WindowState.WITHDRAWN and \
+                    event.new_window_state & Gdk.WindowState.ICONIFIED and \
+                    not event.new_window_state & Gdk.WindowState.WITHDRAWN and \
+                    not self.window_state & Gdk.WindowState.ICONIFIED:
                 self.minimized = True
         else:
             if event.changed_mask & Gdk.WindowState.WITHDRAWN and \
-               not event.new_window_state & (Gdk.WindowState.WITHDRAWN): #and \
-                
+                    not event.new_window_state & (Gdk.WindowState.WITHDRAWN): #and \
                 self.minimized = False
 
         # track this
@@ -1086,12 +1079,12 @@ class MainWindow(GObject.GObject):
             
             if self.minimized != prev_minimized and self.minimized == True:
                 if not settings.get_option('gui/use_tray', False) and \
-                    self.controller.tray_icon is None:
+                        self.controller.tray_icon is None:
                     self.controller.tray_icon = tray.TrayIcon(self)
                 
                 window.hide()
             elif not settings.get_option('gui/use_tray', False) and \
-                self.controller.tray_icon is not None:
+                    self.controller.tray_icon is not None:
                 self.controller.tray_icon.destroy()
                 self.controller.tray_icon = None
 
@@ -1099,7 +1092,7 @@ class MainWindow(GObject.GObject):
 
     def get_selected_page(self):
         """
-            Returns the currentry displayed playlist notebook page
+            Returns the currently displayed playlist notebook page
         """
         return self.playlist_container.get_current_tab()
     

@@ -134,9 +134,8 @@ class CoverManager(providers.ProviderHandler):
         for method in self.get_providers():
             self.on_provider_added(method)
 
-        default_cover_file = open(xdg.get_data_path('images', 'nocover.png'), 'rb')
-        self.default_cover_data = default_cover_file.read()
-        default_cover_file.close()
+        with open(xdg.get_data_path('images', 'nocover.png'), 'rb') as f:
+            self.default_cover_data = f.read()
 
         self.tag_fetcher = TagCoverFetcher()
         self.localfile_fetcher = LocalFileCoverFetcher()

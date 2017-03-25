@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-03-18 11:21+0000\n"
+"PO-Revision-Date: 2017-03-25 08:41+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan "
 "<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
@@ -2248,7 +2248,7 @@ msgstr "Canonada del conducte personalitzat:"
 
 #: ../data/ui/preferences/playback.ui.h:9
 msgid "Resume playback on start"
-msgstr "Reprèn la reproducció en iniciar"
+msgstr "Reprèn la reproducció amb l'inici"
 
 #: ../data/ui/preferences/playback.ui.h:10
 msgid "Resume playback in paused state"

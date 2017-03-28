@@ -922,9 +922,10 @@ class CoverWindow(object):
 
     def on_key_press(self, widget, event, data=None):
         """
-            Closes the cover window when the escape key is pressed
+            Closes the cover window when Escape or Ctrl+W is pressed
         """
-        if event.keyval == Gdk.KEY_Escape:
+        if event.keyval == Gdk.KEY_Escape or \
+                (event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_w):
             widget.hide()
 
     def on_save_as_button_clicked(self, widget):

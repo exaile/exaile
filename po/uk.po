@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-03-19 12:44+0000\n"
+"PO-Revision-Date: 2017-03-28 12:39+0000\n"
 "Last-Translator: Володимир <bardvv@gmail.com>\n"
 "Language-Team: Ukrainian "
 "<https://hosted.weblate.org/projects/exaile/master/uk/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.13-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/formatter.py:576
@@ -3865,15 +3865,16 @@ msgstr "Групове Перейменувати/Видалити теги"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Якщо порожньо, відповідає всім трекам"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 msgid "Search Tag"
 msgstr "Пошук тега"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
+#, fuzzy
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Використовуйте вільну позицію, щоб видалити тег"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
@@ -4014,8 +4015,9 @@ msgid "Show progress bar"
 msgstr "Показати індикатор прогресу"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
+#, fuzzy
 msgid "Border radius:"
-msgstr ""
+msgstr "Межа кордону:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 #, fuzzy
@@ -4582,10 +4584,13 @@ msgstr ""
 "Залежить від: python-eggtrayicon"
 
 #: ../plugins/mpris/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
+"Знаряддя MPRIS (org.freedesktop.MediaPlayer) інтерфейс DBus для "
+"контролювання Exaile."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -4650,6 +4655,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Інструмент, який допоможе генерувати HTML5 візуалізації списків відтворення "
+"за допомогою d3.js. Оптимізовано для Chrome."
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -4672,8 +4679,9 @@ msgid "Mono"
 msgstr "Моно"
 
 #: ../plugins/mono/PLUGININFO:4
+#, fuzzy
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Мікшування аудіо на один канал."
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4726,6 +4734,8 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Плагін для вибірки текстів з lyrics.wikia.com\n"
+"Залежить: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
@@ -4745,10 +4755,13 @@ msgid ""
 "\n"
 "http://somafm.com"
 msgstr ""
+"Список SomaFM Радіо\n"
+"\n"
+"http://somafm.com"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
-msgstr ""
+msgstr "Ручний лічильник BPM"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."

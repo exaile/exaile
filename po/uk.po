@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-03-28 12:39+0000\n"
-"Last-Translator: Володимир <bardvv@gmail.com>\n"
+"PO-Revision-Date: 2017-04-09 12:00+0000\n"
+"Last-Translator: Володимир Бриняк <bardvv@gmail.com>\n"
 "Language-Team: Ukrainian "
 "<https://hosted.weblate.org/projects/exaile/master/uk/>\n"
 "Language: uk\n"
@@ -1350,9 +1350,9 @@ msgid "Apply current value to all tracks"
 msgstr "Застосувати чинне значення до всіх доріжок"
 
 #: ../xlgui/cover.py:109
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "{outstanding} обкладинки зліва до вибраного"
+msgstr "залишилося отримати {outstanding} обкладинок"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
@@ -1769,7 +1769,7 @@ msgstr "Фонотека"
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
@@ -1970,7 +1970,6 @@ msgid "Cover (back)"
 msgstr "Обкладинка (ззаду)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
-#, fuzzy
 msgid "Leaflet page"
 msgstr "Буклет сторінки"
 
@@ -2011,7 +2010,6 @@ msgid "Movie/video screen capture"
 msgstr "Фільм/відео скріншот"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
-#, fuzzy
 msgid "A bright coloured fish"
 msgstr "Яскрава кольорова накладка"
 
@@ -3153,9 +3151,8 @@ msgid "Amazon Covers"
 msgstr "Обкладинки з Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
-#, fuzzy
 msgid "Modulus this number"
-msgstr "Номер диска"
+msgstr "Модулювати цей номер"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
@@ -3447,7 +3444,7 @@ msgstr "Збільшення:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Пройшло:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
@@ -3830,6 +3827,8 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'угруповання' і 'коментар', ймовірно, найкраще підтримувані варіанти. Інші "
+"варіанти можуть працювати тільки з певними форматами файлів. "
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
@@ -3872,9 +3871,8 @@ msgid "Search Tag"
 msgstr "Пошук тега"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
-#, fuzzy
 msgid "Use the empty string to delete the tag"
-msgstr "Використовуйте вільну позицію, щоб видалити тег"
+msgstr "Використовуйте порожній рядок, щоб видалити тег"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
@@ -4015,12 +4013,10 @@ msgid "Show progress bar"
 msgstr "Показати індикатор прогресу"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
-#, fuzzy
 msgid "Border radius:"
 msgstr "Межа кордону:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
-#, fuzzy
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
@@ -4584,13 +4580,12 @@ msgstr ""
 "Залежить від: python-eggtrayicon"
 
 #: ../plugins/mpris/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
-"Знаряддя MPRIS (org.freedesktop.MediaPlayer) інтерфейс DBus для "
-"контролювання Exaile."
+"Реалізує інтерфейс MPRIS (org.freedesktop.MediaPlayer) DBus для управління "
+"Exaile."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -4679,7 +4674,6 @@ msgid "Mono"
 msgstr "Моно"
 
 #: ../plugins/mono/PLUGININFO:4
-#, fuzzy
 msgid "Downmixes audio to one channel."
 msgstr "Мікшування аудіо на один канал."
 
@@ -4724,6 +4718,10 @@ msgid ""
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Призупиняє (і необов'язково продовжує) відтворення на основі статусу "
+"заставки.\n"
+"↵ \n"
+"Потрібно: Заставка GNOME або KDE (не підтримує XScreenSaver ні XLockMore)"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"

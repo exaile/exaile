@@ -37,6 +37,7 @@ logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
                                    Gtk.MINOR_VERSION,
                                    Gtk.MICRO_VERSION)
 
+import os
 import sys
     
 if sys.platform == 'darwin':
@@ -96,7 +97,11 @@ class Main(object):
         """
         from xlgui import icons, main, panels, tray, progress
 
-        Gdk.set_program_class("Exaile")
+        Gdk.set_program_class("Exaile")  # For GNOME Shell
+
+        # https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/Developer/Clients/ApplicationProperties/
+        GLib.set_application_name("Exaile")
+        os.environ['PULSE_PROP_media.role'] = 'music'
 
         self.exaile = exaile
         self.first_removed = False
@@ -107,18 +112,26 @@ class Main(object):
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
-        for name in ('exaile', 'exaile-pause', 'exaile-play',
+        add_icon = icons.MANAGER.add_icon_name_from_directory
+        images_dir = xdg.get_data_path('images')
+
+        exaile_icon_path = add_icon('exaile', images_dir)
+        Gtk.Window.set_default_icon_name('exaile')
+        if xdg.local_hack:
+            # PulseAudio also attaches the above name to streams. However, if
+            # Exaile is not installed, any app trying to display the icon won't
+            # be able to find it just by name. The following is a hack to tell
+            # PA the icon file path instead of the name; this only works on
+            # some clients, e.g. pavucontrol.
+            os.environ['PULSE_PROP_application.icon_name'] = exaile_icon_path
+
+        for name in ('exaile-pause', 'exaile-play',
                      'folder-music', 'audio-x-generic',
                      'office-calendar', 'extension',
                      'music-library', 'artist', 'genre'):
-            icons.MANAGER.add_icon_name_from_directory(name,
-                xdg.get_data_path('images'))
-        Gtk.Window.set_default_icon_name('exaile')
-
+            add_icon(name, images_dir)
         for name in ('dynamic', 'repeat', 'shuffle'):
-            icon_name = 'media-playlist-%s' % name
-            icons.MANAGER.add_icon_name_from_directory(icon_name,
-                xdg.get_data_path('images'))
+            add_icon('media-playlist-' + name, images_dir)
         
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder, exaile.collection)

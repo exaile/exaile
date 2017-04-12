@@ -506,29 +506,36 @@ class IconManager(object):
             :type icon_name: string
             :param directory: the location to search for icons
             :type directory: string
+            :return: filesystem location of the highest-quality icon of this
+                name, or None if not found
+            :rtype: Optional[str]
         """
+        path = None
         for size in self._sizes:
-            try: # WxH/icon_name.png and scalable/icon_name.svg
+            if isinstance(size, int): # WxH/icon_name.png and scalable/icon_name.svg
                 sizedir = '%dx%d' % (size, size)
-            except TypeError:
+            else:
                 sizedir = size
             filepath = os.path.join(directory, sizedir, icon_name)
             files = glob.glob('%s.*' % filepath)
-            try:
+            if files:
+                path = files[0]
                 icon_size = size if size != 'scalable' else -1
-                self.add_icon_name_from_file(icon_name, files[0], icon_size)
-            except IndexError: # icon_nameW.png and icon_name.svg
-                try:
+                self.add_icon_name_from_file(icon_name, path, icon_size)
+            else: # icon_nameW.png and icon_name.svg
+                if isinstance(size, int):
                     filename = '%s%d' % (icon_name, size)
-                except TypeError:
+                else:
                     filename = icon_name
                 filepath = os.path.join(directory, filename)
                 files = glob.glob('%s.*' % filepath)
-                try:
+                if files:
+                    path = files[0]
                     icon_size = size if size != 'scalable' else -1
-                    self.add_icon_name_from_file(icon_name, files[0], icon_size)
-                except IndexError: # Give up
+                    self.add_icon_name_from_file(icon_name, path, icon_size)
+                else: # Give up
                     pass
+        return path
 
     def add_icon_name_from_file(self, icon_name, filename, size=None):
         """

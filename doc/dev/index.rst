@@ -1,5 +1,5 @@
-Exaile Developer Documentation
-==============================
+Developer's guide
+=================
 
 .. toctree::
 
@@ -7,7 +7,7 @@ Exaile Developer Documentation
     plugin_guide
     code_guidelines
     release
-    debugging_gst
+    debugging
 
 
 .. _api_docs:

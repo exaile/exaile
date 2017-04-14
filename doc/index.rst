@@ -18,6 +18,7 @@ much more.
     
     user/index
     dev/index
+    support
 
 * :doc:`user/index`
 * :doc:`dev/index`

@@ -38,6 +38,15 @@ class Mock(object):
     @classmethod
     def get_user_cache_dir(cls):
         return '/tmp'
+    
+    # gtk/gdk mocks
+    
+    class ModifierType:
+        SHIFT_MASK = 0
+    
+    @classmethod
+    def accelerator_parse(cls, *args):
+        return [0, 0]
 
 MOCK_MODULES = [
     'cairo',

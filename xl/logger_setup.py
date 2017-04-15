@@ -176,6 +176,20 @@ def start_logging(debug, quiet, debugthreads,
             logger.error("Unhandled exception", exc_info=args)
             
         sys.excepthook = log_unhandled_exception
+        
+    # Strictly speaking, this isn't logging, but it's useful for debugging
+    # when Exaile hangs. Requires the 'faulthandler' module to be installed
+    # from pip on python2, comes with python 3.3+
+    try:
+        import faulthandler
+    except ImportError:
+        pass
+    else:
+        # Windows doesn't allow custom fault handler registration
+        if hasattr(faulthandler, 'register'):
+            import signal
+            faulthandler.register(signal.SIGUSR2)
+        faulthandler.enable()
 
 def stop_logging():
     logging.shutdown()

@@ -236,7 +236,7 @@ def __create_help_menu():
         
     def show_user_guide(*args):
         # TODO: Other languages
-        webbrowser.open('http://exaile.readthedocs.org/en/latest/user/index.html')
+        webbrowser.open('http://exaile.readthedocs.io/en/latest/user/index.html')
     
     def show_about_dialog(widget, name, parent, context):
         dialog = dialogs.AboutDialog(parent.window)

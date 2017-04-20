@@ -12,4 +12,4 @@ tagging, last.fm scrobbling, support for portable media players, podcasts,
 internet radio such as icecast and Soma.FM, ReplayGain, output via a secondary
 output device (great for DJs!), and much more.
 
-For more information see http://exaile.readthedocs.org/
+For more information see http://exaile.readthedocs.io/

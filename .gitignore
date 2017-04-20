@@ -5,12 +5,6 @@
 
 tests/.cache
 
-doc
-doc/api-objects.txt
-doc/crarr.png
-doc/epydoc.css
-doc/epydoc.js
-doc/*.html
 data/plugins
 
 po/*/
@@ -26,6 +20,7 @@ build
 dist
 
 doc/_build
+doc/_static
 
 tools/installer/_bin
 tools/installer/_build

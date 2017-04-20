@@ -23,12 +23,12 @@ Basic Style
 -  Keep imports on one line each to make sure imports cannot be missed::
 
     # Not recommended
-    import gobject, gtk, threading
+    from gi.repository import Gtk, GLib, GObject
     
     # Preferred
-    import gobject
-    import gtk
-    import threading
+    from gi.repository import Gtk
+    from gi.repository import GLib
+    from gi.repository import GObject
 
 -  The same goes for module imports, here parentheses can be used::
 
@@ -86,7 +86,7 @@ Documentation
 -------------
 
 -  Always add docstrings to your public classes, methods and functions.
--  Follow the `Sphinx <http://sphinx.pocoo.org/>`__ format for
+-  Follow the `Sphinx <http://www.sphinx-doc.org>`__ format for
    documentation within docstrings.
 
 Events and Signals
@@ -105,7 +105,7 @@ Events and Signals
          GTK main thread. Otherwise unpredictable issues can occur
          including crashes due to cross-thread access.\*\* This can be
          accomplished by running the specific code through the
-         `glib.idle\_add <http://library.gnome.org/devel/pygobject/stable/glib-functions.html#function-glib--idle-add>`__
+         `GLib.idle\_add <https://lazka.github.io/pgi-docs/#GLib-2.0/functions.html#GLib.idle_add>`__
          function. A typical mistake::
          
             def __init__(self):
@@ -113,7 +113,7 @@ Events and Signals
                     Set up a label in the GTK main thead and
                     connect to the playback_track_start event
                 """
-                self.label = gtk.Label()
+                self.label = Gtk.Label()
                 event.add_callback(self.on_playback_track_start, 'playback_track_start')
             
             def on_playback_track_start(event, player, track):
@@ -148,9 +148,9 @@ Events and Signals
    Thus "`on_play_button_press_event`" should be preferred over
    "`on_play_button_button_press_event`" for the "`button-press-event`"
    signal of the button.
--  If you use [[http://www.pygtk.org/docs/pygtk/class-gtkbuilder.html|gtk.Builder]]
+-  If you use [[https://lazka.github.io/pgi-docs/#Gtk-3.0/classes/Builder.html#Gtk.Builder|gtk.Builder]]
    for UI descriptions, apply the rules above, make the callbacks methods
-   of your class and simply call `gtk.Builder.connect_signals(self)`
+   of your class and simply call `Gtk.Builder.connect_signals(self)`
 
 Managed object access
 ---------------------
@@ -173,7 +173,7 @@ GUI
    objects where cell renderers and models are involved.
 -  Try to avoid dialogs, as they are intrusive and users generally don't
    read them anyway. Inline alternatives like
-   `gtk.InfoBar <http://developer.gnome.org/pygtk/stable/class-gtkinfobar.html>`__
+   `gtk.InfoBar <https://lazka.github.io/pgi-docs/#Gtk-3.0/classes/InfoBar.html#Gtk.InfoBar>`__
    and its convenience wrapper `xlgui.widgets.dialogs.MessageBar` are much more effective.
 
 Logging

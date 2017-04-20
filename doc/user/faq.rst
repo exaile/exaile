@@ -9,7 +9,7 @@ directly decode audio itself. For playback to work, you need to have the
 correct GStreamer plugins installed. 
 
 .. note:: For Linux users, you may find that other GStreamer programs can
-          play specific file type, but Exaile cannot. Check to make sure that
+          play a specific file type, but Exaile cannot. Check to make sure that
           the correct plugins are installed for GStreamer 1.x, as other 
           players may be using GStreamer 0.10 instead. 
 

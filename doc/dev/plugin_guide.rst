@@ -1,5 +1,5 @@
-Exaile plugin development guide
-===============================
+Plugin Development Guide
+========================
 
 .. note:: these instructions always track current Exaile trunk, and may not
           be fully compatible with stable releases.  It is recommended that
@@ -17,14 +17,14 @@ Basic plugin structure
 ----------------------
 
 Plugins in Exaile 3.x+ are handled slightly differently than in the past.
-Each plugin has its own directory in ~/.local/share/exaile/plugins/. In order
+Each plugin has its own directory in ``~/.local/share/exaile/plugins/``. In order
 for your plugin to be recognized as valid by Exaile, it needs to have at least
-two files in the plugin directory (~/.local/share/exaile/plugins/myplugin/):
+two files in the plugin directory (``~/.local/share/exaile/plugins/myplugin/``):
 
-* __init__.py
-* PLUGININFO
+* ``__init__.py``
+* ``PLUGININFO``
 
-The format of the PLUGININFO is as follows::
+The format of the ``PLUGININFO`` is as follows::
 
     Version='0.0.1'
     Authors=['Your Name <your@email.com>']
@@ -49,8 +49,8 @@ The following two attributes are optional:
           Platforms and RequiredModules are used to filter out the plugin
           on inappropriate platforms.
 
-Before Exaile 3.4, __init__.py was required to define at least two methods,
-enable() and disable(). However, Exaile 3.4 introduced a new way to write
+Before Exaile 3.4, ``__init__.py`` was required to define at least two methods,
+``enable()`` and ``disable()``. However, Exaile 3.4 introduced a new way to write
 plugins which will eliminate a lot of unnecessary boilerplate for plugin
 authors. We will use this model below::
 
@@ -68,21 +68,21 @@ authors. We will use this model below::
 For many types of plugins, this might be enough. However, there are other
 optional methods you can define in your plugin object.
 
-* `on_gui_loaded` - This will be called when the GUI is ready, or immediately
+* ``on_gui_loaded`` - This will be called when the GUI is ready, or immediately
   if already done
-* `on_exaile_loaded` - This will be called when exaile has finished loading,
+* ``on_exaile_loaded`` - This will be called when exaile has finished loading,
   or immediately if already done
-* `teardown` - This will be called when exaile is unloading
+* ``teardown`` - This will be called when exaile is unloading
 
 These methods may be necessary for your plugin because plugins can only
 access Exaile’s infrastructure when Exaile itself finishes loading.
-The first enable() method is called when Exaile is partway through
+The first ``enable()`` method is called when Exaile is partway through
 loading. But since we can't do anything until Exaile finishes loading, we
-can add `on_exaile_loaded` to our object that is called when Exaile finishes
+can add ``on_exaile_loaded`` to our object that is called when Exaile finishes
 loading. Some plugins need to modify state earlier in the startup process,
 hence the need for this separation.
 
-The `exaile` object in the above example is an instance of a class called
+The ``exaile`` object in the above example is an instance of a class called
 Exaile, which is defined in xl/main.py. This class is a base for everything
 in the program.
 
@@ -93,10 +93,10 @@ Something (slightly) more useful
 --------------------------------
 
 Here is an example of a plugin that will, when a track is played, show the
-track information in a MessageDialog. It demonstrates a callback on an event,
-and getting the gtk.Window object of Exaile to use as a parent for a MessageBox.
+track information in a ``MessageDialog``. It demonstrates a callback on an event,
+and getting the Gtk.Window object of Exaile to use as a parent for a MessageBox.
 
-The PLUGININFO is as follows::
+The ``PLUGININFO`` is as follows::
 
     Version='0.0.1'
     Authors=['Me <me@internets.com>']
@@ -108,13 +108,13 @@ and the __init__.py is as follows
 .. code-block:: python
 
     '''
-        This plugin will show an obnoxious gtk.MessageDialog that
-        wont disappear, when a track is played. The MessageDialog
+        This plugin will show an obnoxious Gtk.MessageDialog that
+        won't disappear, when a track is played. The MessageDialog
         will contain the information of the currently playing track.
     '''
     
     from xl import event
-    import gtk 
+    from gi.repository import Gtk
     
     # The main functionality of each plugin is generally defined in a class
     # This is by convention, and also makes programming easier
@@ -157,7 +157,8 @@ and the __init__.py is as follows
         def show_messagebox(self, message):
             # This is the obnoxious MessageDialog. Due to (something to do with threading?)
             # it will steal, and never relinquish, focus when it is displayed.
-            dialog = gtk.MessageDialog(self.exaile.gui.main.window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
+            dialog = Gtk.MessageDialog(self.exaile.gui.main.window, 0,
+                                       Gtk.MessageType.INFO, Gtk.ButtonsType.OK, message)
             dialog.run()
             dialog.destroy()
           
@@ -517,8 +518,15 @@ the classes and their use by going through the :ref:`api_docs`.
 Building your own version of this documentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In Ubuntu you have to install the package `python-sphinx`. Then you
-can run the following command in a terminal::
+You can use the Python package manager (`pip <https://pip.pypa.io/en/stable/>`_)
+to install sphinx::
+  
+    $ pip install sphinx
+    
+    # or on windows  
+    $ py -m pip install sphinx
+
+Then you can run the following command in a terminal::
 
     $ cd doc && make html
 

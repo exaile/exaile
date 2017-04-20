@@ -6,35 +6,6 @@ Debugging Exaile
 
 .. contents::
 
-
-Development Environment Setup
------------------------------
-
-Linux:
-
-OSX:
-
-Windows:
-
-TODO
-
-
-Editor: Atom
-~~~~~~~~~~~~
-
-I've found recent versions of Github's Atom editor to be very useful for Python
-development, I recommend installing the ``autocomplete-python`` and
-``linter-pyflakes`` packages.
-
-Editor: Eclipse + pydev
-~~~~~~~~~~~~~~~~~~~~~~~
-
-Pydev can be a bit tricky to set up correctly.
-
-* Ensure you add the correct python interpreter in the project settings
-* Add the root of the repository as a source directory
-
-
 What's an easy way to test stuff without wrecking my actual collection?
 -----------------------------------------------------------------------
 
@@ -155,3 +126,12 @@ way to workaround this is to run exaile on a nested X server inside weston:
 To make Gtk+ 3.x applications not run inside weston but use your current X11
 desktop session, run them with ``GDK_BACKEND=x11`` environment variable set.
 
+Other thoughts
+--------------
+
+Exaile is written using Gtk+, GStreamer, and Python. Any generally useful
+debugging tips that apply to those environments will often apply to Exaile also.
+Quod Libet is another audio player uses Gtk/GStreamer and Python, their
+development documentation also has useful debugging information:
+
+* `Quod Libet Useful Development Tools <https://quodlibet.readthedocs.io/en/latest/development/tools.html>`_

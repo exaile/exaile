@@ -3,13 +3,13 @@ Developer's guide
 
 .. toctree::
 
+    getting_started
     contributing
-    plugin_guide
-    code_guidelines
-    release
     debugging
-
-
+    code_guidelines
+    plugin_guide
+    release
+    
 .. _api_docs:
 
 Exaile API Docs
@@ -28,9 +28,3 @@ GUI:
     :glob:
 
     ../xlgui/*
-
-Index + search
---------------
-
-* :ref:`modindex`
-* :ref:`search`

@@ -13,7 +13,7 @@ Merge the translations from https://hosted.weblate.org/projects/exaile/master/
 If you are a member of https://github.com/exaile you should be able to
 import all translations from some github web UI into the git repository.
 
-If you are no member clone git://git.weblate.org/exaile.git and add the
+If you are not member clone git://git.weblate.org/exaile.git and add the
 translations into your git repository.
 
 Step two: Version bumping

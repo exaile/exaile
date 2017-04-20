@@ -47,14 +47,31 @@ dependencies::
 Windows
 ~~~~~~~
 
-See the `PyGObject Getting Started <https://pygobject.readthedocs.io/en/latest/getting_started.html>`_
-documentation for getting the core PyGObject stuff installed via ``msys2``. Once
-you get that working, then you just need to use the appropriate package manager
-to install GStreamer and things should be good to go.
+First, install `msys2 <http://www.msys2.org/>`_. Then, open the MinGW32
+shell window (look in the Start Menu for it), and run this monster (it may take
+awhile)::
 
-Once you get pygobject working, you will also want to install mutagen via pip::
+  pacman -S \
+    mingw-w64-i686-python2-gobject \
+    mingw-w64-i686-python2-cairo \
+    mingw-w64-i686-python2-pip \
+    mingw-w64-i686-gtk3 \
+    mingw-w64-i686-gdk-pixbuf2 \
+    mingw-w64-i686-gstreamer \
+    mingw-w64-i686-gst-plugins-base \
+    mingw-w64-i686-gst-plugins-good \
+    mingw-w64-i686-gst-plugins-bad \
+    mingw-w64-i686-gst-libav \
+    mingw-w64-i686-gst-plugins-ugly
+
+Once that is complete, you'll want to install mutagen::
   
-    py -m pip install mutagen
+    python -m pip install mutagen
+  
+And then you should be able to launch Exaile from the msys2 console::
+  
+    cd exaile
+    python exaile_win.py 
 
 OSX
 ~~~
@@ -63,6 +80,18 @@ The Python GTK3 GStreamer SDK repo can be used to install an appropriate
 environment for OSX, and has instructions for setting it up:
 
 * https://github.com/exaile/python-gtk3-gst-sdk/tree/master/osx_bundle
+
+Other instructions
+~~~~~~~~~~~~~~~~~~
+
+See the `PyGObject Getting Started <https://pygobject.readthedocs.io/en/latest/getting_started.html>`_
+documentation for getting the core PyGObject stuff installed. Once you get that
+working, then you just need to use the appropriate package manager to install
+GStreamer and things should be good to go.
+
+Once you get pygobject working, you will also want to install mutagen via pip::
+  
+    py -m pip install mutagen
 
 Useful documentation
 --------------------

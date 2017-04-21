@@ -318,18 +318,12 @@ class GroupTaggerView(Gtk.TreeView):
         
     def sync_expanded(self):
         '''Syncs the expansion state stored in the model to the tree'''
-        
-        self.handler_block( self._row_expanded_id )
-        self.handler_block( self._row_collapsed_id )
-        
-        for row in self.get_model():
-            if row[0]:
-                self.expand_row(row.path, True)
-                
-        self.handler_unblock( self._row_expanded_id )
-        self.handler_unblock( self._row_collapsed_id )
-        
-        
+        with self.handler_block(self._row_expanded_id):
+            with self.handler_block(self._row_collapsed_id):
+                for row in self.get_model():
+                    if row[0]:
+                        self.expand_row(row.path, True)
+
 class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
         The tree model for grouptagger

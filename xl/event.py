@@ -347,10 +347,8 @@ class EventManager(object):
                 logger.exception("Event callback exception caught!")
         
         if emit_logmsg:
-            logger.debug("Sent '%(type)s' event from "
-                    "'%(object)s' with data '%(data)s'." %
-                        {'type' : event.type, 'object' : repr(event.object),
-                        'data' : repr(event.data)})
+            logger.debug("Sent '%s' event from '%r' with data '%r'",
+                         event.type, event.object, event.data)
 
     def emit_async(self, event):
         """

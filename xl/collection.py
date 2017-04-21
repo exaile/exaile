@@ -674,7 +674,7 @@ class Library(object):
             album = joiner(tr.get_tag_raw('album'))
             artist = joiner(tr.get_tag_raw('artist'))
         except Exception:
-            logger.warning("Error while checking for compilation: " + repr(tr))
+            logger.warning("Error while checking for compilation: %s", tr)
             return
         if not basedir or not album or not artist: return
         album = album.lower()

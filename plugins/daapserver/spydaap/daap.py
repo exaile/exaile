@@ -534,7 +534,7 @@ if __name__ == '__main__':
             session     = connection.login()
 
             library = session.library()
-            log.debug("Library name is '%s'", repr(library.name))
+            log.debug("Library name is '%r'", library.name)
 
             tracks = library.tracks()
 

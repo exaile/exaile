@@ -253,8 +253,7 @@ class PlaylistNotebook(SmartNotebook):
         for i, name in enumerate(names):
             match = name_re.match(name)
             if not match or not match.group('tab') or not match.group('name'):
-                logger.error("%s did not match valid playlist file"
-                        % repr(name))
+                logger.error("`%r` did not match valid playlist file", name)
                 continue
 
             logger.debug("Adding playlist %d: %s" % (i, name))

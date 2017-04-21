@@ -717,6 +717,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
 
+    def _refilter(self):
+        # don't emit spurious view events during refilter operations (issue #199)
+        # -> cursor-changed
+        # -> selection-changed
+        self.set_model(None)
+        self.modelfilter.refilter()
+        self.set_model(self.modelfilter)
+
     def filter_tracks(self, filter_string):
         '''
             Only show tracks that match the filter. If filter is None, then
@@ -728,7 +736,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     
         if filter_string is None:
             self._filter_matcher = None
-            self.modelfilter.refilter()
+            self._refilter()
         else:
             # Merge default columns and currently enabled columns
             keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()])
@@ -736,7 +744,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                     case_sensitive=False,
                     keyword_tags=keyword_tags)
             logger.debug("Filtering playlist %r by %r.", self.playlist.name, filter_string)
-            self.modelfilter.refilter()
+            self._refilter()
             logger.debug("Filtering playlist %r by %r completed.", self.playlist.name, filter_string)
         
     def get_selection_count(self):
@@ -865,7 +873,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.set_model(self.modelfilter)
         
         if self._filter_matcher is not None:
-            self.modelfilter.refilter()
+            self._refilter()
                 
     def _refresh_columns(self):
         selection = self.get_selection()

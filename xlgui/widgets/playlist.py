@@ -957,6 +957,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         context['selection-empty'] = lambda name, parent: parent.get_selection_count() == 0
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
+        context['selection-count'] = lambda name, parent: parent.get_selection_count()
         event.log_event( 'playlist_cursor_changed', self, context)
         
 

@@ -38,7 +38,6 @@ the same folder as the music file.</property>
       <object class="GtkEntry" id="covers/localfile/preferred_names">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="invisible_char">●</property>
         <property name="secondary_icon_name">dialog-information</property>
         <property name="secondary_icon_activatable">False</property>
         <property name="secondary_icon_tooltip_text" translatable="yes">A comma-separated list of file names without file extensions</property>

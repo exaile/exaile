@@ -49,7 +49,7 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="playlist/append_menu_starts_playback">
-        <property name="label" translatable="yes">Appending/Replacing via menu item triggers playback</property>
+        <property name="label" translatable="yes">Appending/replacing via menu item triggers playback</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

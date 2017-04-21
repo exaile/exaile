@@ -120,7 +120,6 @@
                   <object class="GtkEntry" id="search_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
                     <property name="primary_icon_name">edit-find</property>
                     <property name="secondary_icon_name">edit-clear</property>
                     <property name="primary_icon_activatable">False</property>

@@ -161,7 +161,6 @@
             <property name="sensitive">False</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
-            <property name="invisible_char">●</property>
             <signal name="changed" handler="_on_description_entry_changed" swapped="no"/>
           </object>
           <packing>

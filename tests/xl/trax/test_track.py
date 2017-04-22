@@ -527,7 +527,7 @@ class TestTrack(object):
         td = test_tracks.get('.ogg')
         tr = track.Track(td.filename)
         assert set(tr.list_tags_disk()) == \
-                        {'album', 'tracknumber', 'artist', 'title'}
+                        {'album', 'cover', 'tracknumber', 'artist', 'title'}
 
     def test_list_disk_tag_invalid_format(self):
         tr_name = '/tmp/foo.foo'

@@ -32,8 +32,10 @@ def exaile_test_cleanup():
 #
 
 
-TrackData = collections.namedtuple(
-                'TrackData', ['ext', 'filename', 'uri', 'size', 'writeable'])
+TrackData = collections.namedtuple( 'TrackData',[
+    'ext', 'filename', 'uri', 'size', 'writeable',
+    'has_cover', 'has_tags'
+])
 
 
 def _fname(ext):
@@ -44,18 +46,18 @@ def _fname(ext):
     return ext, local_path, Gio.File.new_for_path(local_path).get_uri()
 
 _all_tracks = [
-    TrackData(*_fname('aac'),  size=3639,  writeable=True),
-    TrackData(*_fname('aiff'), size=16472, writeable=False),
-    TrackData(*_fname('au'),   size=16425, writeable=False),
-    TrackData(*_fname('flac'), size=17453, writeable=True),
-    TrackData(*_fname('mp3'),  size=4692,  writeable=True),
-    TrackData(*_fname('mp4'),  size=2968,  writeable=True),
-    TrackData(*_fname('mpc'),  size=6650,  writeable=True),
-    TrackData(*_fname('ogg'),  size=13002, writeable=True),
-    TrackData(*_fname('spx'),  size=1000,  writeable=True),
-    TrackData(*_fname('wav'),  size=46124, writeable=False),
-    TrackData(*_fname('wma'),  size=3864,  writeable=True),
-    TrackData(*_fname('wv'),   size=32293, writeable=True),
+    TrackData(*_fname('aac'),  size=9404,  writeable=True, has_cover=True, has_tags=True),
+    TrackData(*_fname('aiff'), size=16472, writeable=False, has_cover=False, has_tags=False),
+    TrackData(*_fname('au'),   size=16425, writeable=False, has_cover=False, has_tags=False),
+    TrackData(*_fname('flac'), size=20668, writeable=True, has_cover=True, has_tags=True),
+    TrackData(*_fname('mp3'),  size=7495,  writeable=True, has_cover=True, has_tags=True),
+    TrackData(*_fname('mp4'),  size=7763,  writeable=True, has_cover=True, has_tags=True),
+    TrackData(*_fname('mpc'),  size=6650,  writeable=True, has_cover=False, has_tags=True),
+    TrackData(*_fname('ogg'),  size=17303, writeable=True, has_cover=True, has_tags=True),
+    TrackData(*_fname('spx'),  size=1000,  writeable=True, has_cover=False, has_tags=True),
+    TrackData(*_fname('wav'),  size=46124, writeable=False, has_cover=False, has_tags=False),
+    TrackData(*_fname('wma'),  size=4929,  writeable=True, has_cover=False, has_tags=True),
+    TrackData(*_fname('wv'),   size=32293, writeable=True, has_cover=False, has_tags=True),
 ]
 
 

@@ -74,8 +74,13 @@ def _gst_device_autodetect():
     
     try:
         for device in dm.get_devices():
+            if hasattr(device.props, 'internal_name'):
+                device_id = device.props.internal_name
+            elif hasattr(device.props, 'device_id'): # OSX
+                device_id = str(device.props.device_id)
+            
             yield (device.get_display_name(),
-                   device.props.internal_name,
+                   device_id,
                    device.create_element)
     finally:
         dm.stop()
@@ -200,13 +205,10 @@ class CustomAudioSink(Gst.Bin):
 # autodetection of output devices
 #
 
-if sys.platform == 'darwin':
-    import sink_osx
-    dev_fn = sink_osx.load_osxaudiosink(SINK_PRESETS)
-    _autodetect_devices.append(dev_fn)
-    
-elif sys.platform == 'win32':
+# OSX: support was added in gstreamer 1.10
+
+
+if sys.platform == 'win32':
     import sink_windows
     dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
-

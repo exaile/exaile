@@ -35,6 +35,8 @@ import urlparse
 from xl import common
 from xl import event
 
+from xl.nls import gettext as _
+
 from . import gst_utils
 from .dynamic_sink import DynamicAudioSink
 from .sink import create_device

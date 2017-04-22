@@ -1406,23 +1406,24 @@ class VolumeControl(Gtk.Box):
         step_increment = self.slider_adjustment.props.step_increment
         value = self.slider.get_value()
 
-        if event.direction == Gdk.ScrollDirection.DOWN:
+        if event.direction in (Gdk.ScrollDirection.DOWN, Gdk.ScrollDirection.LEFT):
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.slider.set_value(value - page_increment)
             else:
                 self.slider.set_value(value - step_increment)
             return True
-        elif event.direction == Gdk.ScrollDirection.UP:
+        elif event.direction in (Gdk.ScrollDirection.UP, Gdk.ScrollDirection.RIGHT):
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.slider.set_value(value + page_increment)
             else:
                 self.slider.set_value(value + step_increment)
             return True
         elif event.direction == Gdk.ScrollDirection.SMOOTH:
+            delta = event.delta_x - event.delta_y
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
-                self.slider.set_value(value - event.delta_y * page_increment)
+                self.slider.set_value(value + delta * page_increment)
             else:
-                self.slider.set_value(value - event.delta_y * step_increment)
+                self.slider.set_value(value + delta * step_increment)
             return True
 
         return False

@@ -39,29 +39,6 @@ logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
 
 import os
 import sys
-    
-if sys.platform == 'darwin':
-
-    # When trying to load a font that doesn't exist, pango falls back to
-    # 'Sans'. If that doesn't exist, it kills the program. Apparently, 
-    # 'Sans' no longer exists as of osx 10.9, so we need to set the default
-    # font to something more sensible else we crash.
-
-    __settings = Gtk.Settings.get_default()
-    __font_name = __settings.get_property('gtk-font-name')
-    
-    # font names that start with '.' aren't usable
-    if __font_name.startswith('.'):
-        __font_name = __font_name[1:]
-    if ' DeskInterface ' in __font_name:
-        __font_name = __font_name.replace(' DeskInterface ', ' ')
-    if ' UI ' in __font_name:
-        __font_name = __font_name.replace(' UI ', ' ')
-
-    __settings.set_property('gtk-font-name', __font_name)
-
-    __icon_theme = Gtk.IconTheme.get_default()
-    __icon_theme.append_search_path('/Library/Frameworks/GStreamer.framework/Versions/0.10/share/icons')
 
 from xl import (
     common,
@@ -173,7 +150,10 @@ class Main(object):
         
         logger.info("Done loading main window...")
         Main._main = self
-
+        
+        if sys.platform == 'darwin':
+            self._setup_osx()
+    
     def open_uris(self, uris, play=True):
         if len(uris) > 0:
             self.open_uri(uris[0], play=play)
@@ -406,3 +386,60 @@ class Main(object):
             logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]
 
+    def _setup_osx(self):
+        '''
+            Copied from Quod Libet, GPL v2 or later
+        '''
+        
+        from AppKit import NSObject, NSApplication
+        import objc
+
+        try:
+            import gi
+            gi.require_version('GtkosxApplication', '1.0')
+            from gi.repository import GtkosxApplication
+        except (ValueError, ImportError):
+            logger.warn("importing GtkosxApplication failed, no native menus")
+        else:
+            osx_app = GtkosxApplication.Application()
+            #self.main.setup_osx(osx_app)
+            osx_app.ready()
+
+        shared_app = NSApplication.sharedApplication()
+        gtk_delegate = shared_app.delegate()
+
+        other_self = self
+
+        # TODO
+        # Instead of quitting when the main window gets closed just hide it.
+        # If the dock icon gets clicked we get
+        # applicationShouldHandleReopen_hasVisibleWindows_ and show everything.
+        class Delegate(NSObject):
+
+            @objc.signature('B@:#B')
+            def applicationShouldHandleReopen_hasVisibleWindows_(
+                    self, ns_app, flag):
+                logger.debug("osx: handle reopen")
+                # TODO
+                #app.present()
+                return True
+
+            def applicationShouldTerminate_(self, sender):
+                logger.debug("osx: block termination")
+                other_self.main.quit()
+                return False
+
+            def applicationDockMenu_(self, sender):
+                return gtk_delegate.applicationDockMenu_(sender)
+
+            #def application_openFile_(self, sender, filename):
+            #    return app.window.open_file(filename.encode("utf-8"))
+
+        delegate = Delegate.alloc().init()
+        delegate.retain()
+        shared_app.setDelegate_(delegate)
+
+        # QL shouldn't exit on window close, EF should
+        #if window.get_is_persistent():
+        #    window.connect(
+        #        "delete-event", lambda window, event: window.hide() or True)

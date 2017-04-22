@@ -346,7 +346,12 @@ class FilesPanel(panel.Panel):
         """
         name = {self.colname: 'filename', self.colsize: 'size'}[col]
         name = "gui/files_%s_col_width" % name
-        settings.set_option(name, col.get_width(), save=False)
+        
+        # this option gets triggered all the time, which is annoying when debugging,
+        # so only set it when it actually changes
+        w = col.get_width()
+        if settings.get_option(name, w) != w:
+            settings.set_option(name, w, save=False)
 
     @common.threaded
     def load_directory(self, directory, history=True, keyword=None, cursor_file=None):

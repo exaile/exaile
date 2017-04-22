@@ -500,16 +500,9 @@ class FilesDragTreeView(DragTreeView):
 
         for path in paths:
             f = model[path][0]
-            
-            dtracks = []
-            self.append_recursive(dtracks, f)
-            
-            # don't sort all the tracks; this only is needed if the selected
-            # items is a directory
-            dtracks.sort(key=lambda t: t.get_tag_sort('title'))
-            tracks.extend(dtracks)
+            self.append_recursive(tracks, f)
 
-        return tracks
+        return trax.sort_tracks(common.BASE_SORT_TAGS, tracks, artist_compilations=True)
 
     def append_recursive(self, songs, f):
         """

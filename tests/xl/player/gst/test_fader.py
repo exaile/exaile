@@ -1,5 +1,6 @@
 
 from gi.repository import GLib
+import pytest
 
 from xl.player.track_fader import TrackFader, FadeState
 
@@ -64,39 +65,34 @@ TmSt = 1
 TmEx = 2
 
 
-def test_fader():
 
-    #
-    # TODO: These tests don't cover setup_track, et al
-    #
+# Test data:
+#   Position, Volume, State, TmSt/TmEx/None, [call, [arg1...]]
 
-    # Test data:
-    #   Position, Volume, State, TmSt/TmEx/None, [call, [arg1...]]
-
-    tests = []
+@pytest.mark.parametrize('test', [
 
     # Test don't manage the volume
-    tests.append([
+    [
         (0, 100, NoFade, None, 'play', None, None, None, None),
         (1, 100, NoFade, None, 'pause'),
         (2, 100, NoFade, None, 'unpause'),
         (3, 100, NoFade, None, 'seek', 4),
         (4, 100, NoFade, None, 'stop'),
         (5, 100, NoFade, None),
-    ])
+    ],
 
     # Test fading in
-    tests.append([
+    [
         (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
         (1, 50, FadingIn, TmEx, 'execute'),
         (3, 100, NoFade,  None, 'execute'),
         (4, 100, NoFade,  None),
         (5, 100, NoFade,  None, 'stop'),
         (6, 100, NoFade,  None),
-    ])
+    ],
 
     # Test fading in: pause in middle
-    tests.append([
+    [
         (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
         (1, 50, FadingIn, TmEx, 'execute'),
         (1, 50, FadingIn, None, 'pause'),
@@ -106,28 +102,28 @@ def test_fader():
         (4, 100, NoFade,  None),
         (5, 100, NoFade,  None, 'stop'),
         (6, 100, NoFade,  None),
-    ])
+    ],
 
     # Test fading in past the fade point
-    tests.append([
+    [
         (3, 100, NoFade, None, 'play', 0, 2, None, None),
         (4, 100, NoFade, None),
         (5, 100, NoFade, None, 'stop'),
         (6, 100, NoFade, None),
-    ])
+    ],
 
     # Test fading out
-    tests.append([
+    [
         (3, 100, Normal,    TmSt, 'play', None, None, 4, 6),
         (4, 100, FadingOut, TmEx, 'start'),
         (5, 50,  FadingOut, TmEx, 'execute'),
         (6, 0,   FadingOut, TmEx, 'execute'),
         (6.1, 0, NoFade,    None, 'execute'),
         (7,   0, NoFade,    None),
-    ])
+    ],
 
     # Test all of them
-    tests.append([
+    [
         (0, 0,  FadingIn,   TmEx, 'play', 0, 2, 4, 6),
         (1, 50, FadingIn,   TmEx, 'execute'),
         (3, 100, Normal,    TmSt, 'execute'),
@@ -136,14 +132,16 @@ def test_fader():
         (6, 0,   FadingOut, TmEx, 'execute'),
         (6.1, 0, NoFade,    None, 'execute'),
         (7,   0, NoFade,    None),
-    ])
+    ],
 
     # Test fading in with startoffset
-    # tests.append([
+    # [
     #     (0, 0,  FadingIn,  TmEx, 'play', 60, 62, 64, 66),
     #     (0, 0,  FadingIn,  TmEx, 'seek', 60),
     #     (61, 50,  FadingIn,  TmEx, 'execute'),
-    # ])
+    # ],
+])
+def test_fader(test):
 
     # Test fade_out_on_play
 
@@ -152,13 +150,10 @@ def test_fader():
     # Test setup_track is_update=True
 
     # Test unexpected fading out
-
-    for test in tests:
-        yield check_fader, test
-
+    
+    check_fader(test)
 
 def check_fader(test):
-
     stream = FakeStream()
     fader = TrackFader(stream, stream.on_fade_out, 'test')
 

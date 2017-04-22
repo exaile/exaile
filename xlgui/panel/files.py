@@ -500,7 +500,14 @@ class FilesDragTreeView(DragTreeView):
 
         for path in paths:
             f = model[path][0]
-            self.append_recursive(tracks, f)
+            
+            dtracks = []
+            self.append_recursive(dtracks, f)
+            
+            # don't sort all the tracks; this only is needed if the selected
+            # items is a directory
+            dtracks.sort(key=lambda t: t.get_tag_sort('title'))
+            tracks.extend(dtracks)
 
         return tracks
 

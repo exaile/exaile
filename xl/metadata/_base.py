@@ -111,6 +111,13 @@ class BaseFormat(object):
         """
         if self.writable and self.mutagen:
             self.mutagen.save()
+    
+    def _del_tag(self, raw, tag):
+        '''
+            :param tag: The native tag name
+        '''
+        if tag in raw:
+            del raw[tag]
 
     def _get_raw(self):
         if self.MutagenType:
@@ -119,11 +126,21 @@ class BaseFormat(object):
             return {}
 
     def _get_tag(self, raw, tag):
+        '''
+            :param tag: The native tag name
+        '''
         try:
             return raw[tag]
         except KeyError:
             return None
 
+    def _set_tag(self, raw, tag, value):
+        '''
+            :param tag: The native tag name
+            :param value: If None, delete the tag
+        '''
+        raw[tag] = value
+    
     def get_keys_disk(self):
         """
             Returns keys of all tags that can be read from disk
@@ -157,7 +174,7 @@ class BaseFormat(object):
             returns a dict of the found values. if no value was found for a
             requested tag it will not exist in the returned dict.
 
-            :param tags: a list of tag names to read
+            :param tags: a list of exaile tag names to read
             :returns: a dictionary of tag/value pairs.
         """
         raw = self._get_raw()
@@ -183,7 +200,7 @@ class BaseFormat(object):
                             t = t
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
-            if t == None and self.others:
+            if t == None and self.others and tag not in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, tag)
                     if type(t) in [str, unicode]:
@@ -193,20 +210,25 @@ class BaseFormat(object):
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
 
-            if t not in [None, []]:
+            if t:
                 td[tag] = t
         return td
 
-    def _set_tag(self, raw, tag, value):
-        raw[tag] = value
-
-    def _del_tag(self, raw, tag):
-        del raw[tag]
+    
 
     def write_tags(self, tagdict):
         """
             Write a set of tags to the file. Raises a NotWritable exception
             if the format does not support writing tags.
+            
+            When calling this function, we assume the following:
+            
+            * tagdict has all keys that you wish to write, keys are exaile tag
+              names or custom tag names and values are the tags to write (lists
+              of unicode strings)
+            * if a value is None, then that tag will be deleted from the file
+            * Will not modify/delete tags that are NOT in tagdict
+            * Will not write tags that start with '__'
 
             :param tagdict: A dictionary of tag/value pairs to write.
         """
@@ -227,39 +249,30 @@ class BaseFormat(object):
                     # existence of tags.
                     pass
 
-            # info tags are not actually writable
-            for tag in INFO_TAGS:
-                try:
-                    del tagdict[tag]
-                except KeyError:
-                    pass
-
             # tags starting with __ are internal and should not be written
+            # -> this covers INFO_TAGS, which also shouldn't be written
             for tag in tagdict.keys():
                 if tag.startswith("__"):
                     try:
                         del tagdict[tag]
                     except KeyError:
                         pass
-
-            for tag in tagdict:
-                if tag in self.tag_mapping:
-                    self._set_tag(raw, self.tag_mapping[tag], tagdict[tag])
+            
+            # Only modify the tags we were told to modify
+            # -> if the value is None, delete the tag
+            for tag, value in tagdict.iteritems():
+                rtag = self.tag_mapping.get(tag)
+                if rtag:
+                    if value is not None:
+                        self._set_tag(raw, rtag, value)
+                    else:
+                        self._del_tag(raw, rtag)
                 elif self.others:
-                    self._set_tag(raw, tag, tagdict[tag])
-
-            defname = None
-            for tag in raw:
-                if self.others:
-                    # this is here so that the delete will succeed later
-                    defname = tag
-                tagname = self._reverse_mapping.get(tag, defname)
-                if tagname is None:
-                    tag = tag.split(':',1)[0]   # handles multi-part tags
-                    tagname = self._reverse_mapping.get(tag)
-                # delete tags not present in the tagdict
-                if tagname and tagname not in tagdict:
-                    self._del_tag(raw, tag)
+                    if value is not None:
+                        self._set_tag(raw, tag, value)
+                    else:
+                        self._del_tag(raw, tag)
+            
             self.save()
 
     def get_info(self, info):

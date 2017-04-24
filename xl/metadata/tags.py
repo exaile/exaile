@@ -12,7 +12,8 @@ class _TD(object):
         'editable',
         'min',
         'max',
-        'use_disk', # set true if should retrieve tag from disk
+        'use_disk', # set true if should retrieve tag from disk -- which means
+                    # the tag cannot be stored in the database
     ]
     
     def __init__(self, name, type, **kwargs):
@@ -43,7 +44,7 @@ tag_data = {
     'author':           _TD(N_('Author'),       'text'),
     'bpm':              _TD(N_('BPM'),          'int', min=0, max=500),
     'copyright':        _TD(N_('Copyright'),    'text'),
-    'comment':          _TD(N_('Comment'),      'multiline', use_disk=True),
+    'comment':          _TD(N_('Comment'),      'multiline'),
     'composer':         _TD(N_('Composer'),     'text'),
     'conductor':        _TD(N_('Conductor'),    'text'),
     'cover':            _TD(N_('Cover'),        'image', use_disk=True),

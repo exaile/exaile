@@ -40,6 +40,7 @@ from xl import (
     metadata,
     settings
 )
+from xl.metadata.tags import disk_tags
 from xl.nls import gettext as _
 from xl.unicode import shave_marks
 
@@ -68,6 +69,7 @@ _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR = _(u' / ')
 
+_no_set_raw = {'__basename'} | disk_tags
 
 class _MetadataCacher(object):
     """
@@ -343,13 +345,20 @@ class Track(object):
             if f is None:
                 return False # not a supported type
             f.write_tags(self.__tags)
+            
+            # now that we've written the tags to disk, remove any tags that the
+            # user asked to be deleted
+            to_remove = [k for k,v in self.__tags.iteritems() if v is None]
+            for rm in to_remove:
+                self.__tags.pop(rm)
+            
             return f
-        except IOError as e:
+        except IOError:
             # error writing to the file, probably
-            logger.warning( "Could not write tags to file: %s" % e )
+            logger.warning("Could not write tags to file", exc_info=True)
             return False
-        except Exception as e:
-            logger.exception( "Unknown exception: Could not write tags to file: %s" % e )
+        except Exception:
+            logger.exception("Unknown exception: Could not write tags to file")
             return False
 
     def read_tags(self):
@@ -368,19 +377,24 @@ class Track(object):
             ntags = f.read_all()
             for k, v in ntags.iteritems():
                 self.set_tag_raw(k, v)
-
-            # remove tags that have been deleted in the file, while
-            # taking into account that the db may have tags not
-            # supported by the file's tag format.
-            if f.others:
-                supported_tags = [ t for t in self.list_tags() \
-                        if not t.startswith("__") ]
-            else:
-                supported_tags = f.tag_mapping.keys()
-            for tag in supported_tags:
-                if tag not in ntags.keys():
-                    self.set_tag_raw(tag, None)
-
+                
+            # remove tags that could be in the file, but are in fact not
+            # in the file. Retain tags in the DB that aren't supported by
+            # the file format.
+            
+            nkeys = set(ntags.keys())
+            ekeys = {k for k in self.__tags.keys() if not k.startswith('__')}
+            
+            # delete anything that wasn't in the new tags
+            to_del = ekeys - nkeys
+            
+            # but if not others set, only delete supported tags
+            if not f.others:
+                to_del &= set(f.tag_mapping.keys())
+                
+            for tag in to_del:
+                self.set_tag_raw(tag, None)
+            
             # fill out file specific items
             gloc = Gio.File.new_for_uri(loc)
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
@@ -451,28 +465,9 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return self.__tags.keys() + ['__basename']
+        return [k for k,v in self.__tags.iteritems() if v is not None] + ['__basename']
 
-    def set_tag_raw(self, tag, values, notify_changed=True):
-        """
-            Set the raw value of a tag.
-
-            :param tag: The name of the tag to set.
-            :param values: The value or values to set the tag to.
-            :param notify_changed: whether to send a signal to let other
-                parts of Exaile know there has been an update. Only set
-                this to False if you know that no other parts of Exaile
-                need to be updated.
-        """
-        if tag == '__loc':
-            logger.warning('Setting "__loc" directly is forbidden, '
-                           'use set_loc() instead.')
-            return
-
-        if tag in ('__basename',):
-            logger.warning('Setting "%s" directly is forbidden.' % tag)
-            return
-
+    def _xform_set_values(self, tag, values):
         # Handle values that aren't lists
         if not isinstance(values, list):
             if not tag.startswith("__"): # internal tags dont have to be lists
@@ -486,15 +481,41 @@ class Track(object):
                 for v in values
                     if v not in (None, '')
             ]
+            
+        if values:
+            return values
+        
+        return None
 
-        # Save some memory by not storing null values.
-        if not values:
-            try:
-                del self.__tags[tag]
-            except KeyError:
-                pass
-        else:
-            self.__tags[tag] = values
+    def set_tag_raw(self, tag, values, notify_changed=True):
+        """
+            Set the raw value of a tag. 
+
+            :param tag: The name of the tag to set.
+            :param values: The value or values to set the tag to.
+            :param notify_changed: whether to send a signal to let other
+                parts of Exaile know there has been an update. Only set
+                this to False if you know that no other parts of Exaile
+                need to be updated.
+                
+            .. warning:: Covers and lyrics tags must be set via set_tag_disk
+        """
+        if tag == '__loc':
+            logger.warning('Setting "__loc" directly is forbidden, '
+                           'use set_loc() instead.')
+            return
+
+        if tag in _no_set_raw:
+            if tag == '__basename':
+                logger.warning('Setting "%s" directly is forbidden.', tag)
+            else:
+                logger.warning('Cannot set "%s" via set_tag_raw, use set_tag_disk instead', tag)
+            return
+
+        # Transform and set the value. We do NOT delete the value from the tag
+        # dict (which was done prior to Exaile 4), otherwise we don't know that
+        # the user wanted the tag to be deleted
+        self.__tags[tag] = self._xform_set_values(tag, values)
 
         self._dirty = True
         if notify_changed:
@@ -508,6 +529,8 @@ class Track(object):
             :param tag: The name of the tag to get
             :param join: If True, joins lists of values into a
                 single value.
+                
+            :returns: None if the tag is not present
         """
         if tag == '__basename':
             value = self.get_basename()
@@ -721,42 +744,60 @@ class Track(object):
             
         return value
     
+    def _get_format_obj(self):
+        f = _CACHER.get(self)
+        if not f:
+            try:
+                f = metadata.get_format(self.get_loc_for_io())
+            except Exception: # TODO: What exception?
+                return None
+            if not f:
+                return None
+        _CACHER.add(self, f)
+        return f
+    
     def get_tag_disk(self, tag):
         """
             Read a tag directly from disk. Can be slow, use with caution.
 
             Intended for use with large fields like covers and
             lyrics that shouldn't be loaded to the in-mem db.
+            
+            .. warning:: The track instance will not be updated with the new tag
+            
+            :returns: None if the tag does not exist
         """
-        f = _CACHER.get(self)
-        if not f:
+        f = self._get_format_obj()
+        if f:
             try:
-                f = metadata.get_format(self.get_loc_for_io())
-            except Exception: # TODO: What exception?
+                return f.read_tags([tag])[tag]
+            except KeyError:
                 return None
-            if not f:
-                return None
-        _CACHER.add(self, f)
-        try:
-            return f.read_tags([tag])[tag]
-        except KeyError:
-            return None
+            
+    def set_tag_disk(self, tag, values):
+        """
+            Set a tag directly to disk. Can be slow, use with caution.
 
+            Intended for use with large fields like covers and
+            lyrics that shouldn't be loaded to the in-mem db.
+            
+            .. warning:: The track instance will not be updated with the new tag
+            
+            :returns: None if the tag does not exist
+        """
+        f = self._get_format_obj()
+        if f:
+            values = self._xform_set_values(tag, values)
+            f.write_tags({tag: values})
+            
     def list_tags_disk(self):
         """
             List all the tags directly from file metadata. Can be slow,
             use with caution.
         """
-        f = _CACHER.get(self)
-        if not f:
-            try:
-                f = metadata.get_format(self.get_loc_for_io())
-            except Exception: # TODO: What exception?
-                return None
-            if not f:
-                return None
-        _CACHER.add(self, f)
-        return f._get_raw().keys()
+        f = self._get_format_obj()
+        if f:
+            return f.get_keys_disk()
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,

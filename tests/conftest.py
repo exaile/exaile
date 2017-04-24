@@ -76,11 +76,10 @@ def writeable_track(request):
     return request.param
 
 
-@pytest.yield_fixture(params=_all_tracks)
-def test_track_fp(request):
-    t = request.param
-    with tempfile.NamedTemporaryFile(suffix='.' + t.ext) as tfp:
-        with open(t.filename, 'rb') as fp:
+@pytest.yield_fixture()
+def test_track_fp(test_track):
+    with tempfile.NamedTemporaryFile(suffix='.' + test_track.ext) as tfp:
+        with open(test_track.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
 
         tfp.flush()
@@ -88,12 +87,11 @@ def test_track_fp(request):
         yield tfp
 
 
-@pytest.yield_fixture(params=_writeable_tracks)
-def writeable_track_name(request):
+@pytest.yield_fixture()
+def writeable_track_name(writeable_track):
     '''Fixture that returns names of temporary copies of writeable tracks'''
-    t = request.param
-    with tempfile.NamedTemporaryFile(suffix='.' + t.ext) as tfp:
-        with open(t.filename, 'rb') as fp:
+    with tempfile.NamedTemporaryFile(suffix='.' + writeable_track.ext) as tfp:
+        with open(writeable_track.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
 
         tfp.flush()

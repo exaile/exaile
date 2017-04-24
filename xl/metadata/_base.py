@@ -26,7 +26,9 @@
 
 from collections import namedtuple
 import copy
-from gi.repository import Gio
+
+import logging
+logger = logging.getLogger('xl.metadata')
 
 INFO_TAGS = ['__bitrate', '__length']
 
@@ -161,22 +163,22 @@ class BaseFormat(object):
                         t = [t]
                     elif isinstance(t, list):
                         pass
-                    else:
+                    elif t is not None:
                         try:
                             t = [unicode(u) for u in list(t)]
                         except UnicodeDecodeError:
                             t = t
                 except (KeyError, TypeError):
-                    pass
+                    logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
             if t == None and self.others:
                 try:
                     t = self._get_tag(raw, tag)
                     if type(t) in [str, unicode]:
                         t = [t]
-                    else:
+                    elif t is not None:
                         t = [unicode(u) for u in list(t)]
                 except (KeyError, TypeError):
-                    pass
+                    logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
 
             if t not in [None, []]:
                 td[tag] = t

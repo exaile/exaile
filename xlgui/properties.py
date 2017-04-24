@@ -41,10 +41,9 @@ from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl.nls import gettext as _
-from xl.metadata._base import CoverImage
+from xl.metadata import CoverImage
 from xl import (
     common,
-    metadata,
     settings,
     trax,
     xdg

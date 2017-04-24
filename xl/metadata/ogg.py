@@ -26,7 +26,7 @@
 
 from xl import common
 from xl.metadata._base import (
-    BaseFormat,
+    CaseInsensitveBaseFormat,
     CoverImage
 )
 from mutagen import oggvorbis, oggopus
@@ -34,7 +34,7 @@ import mutagen.flac
 import base64
 
 
-class OggFormat(BaseFormat):
+class OggFormat(CaseInsensitveBaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
         'bpm': 'tempo',

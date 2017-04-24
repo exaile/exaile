@@ -44,7 +44,6 @@ except (ImportError, OSError):
     modplug = None
 
 class ModFormat(BaseFormat):
-    ignore_tags = ["__length"]
     writable = False
 
     def load(self):

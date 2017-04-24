@@ -26,11 +26,11 @@
 
 
 
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import CaseInsensitveBaseFormat
 from mutagen import apev2
 
 
-class ApeFormat(BaseFormat):
+class ApeFormat(CaseInsensitveBaseFormat):
     MutagenType = apev2.APEv2
     # TODO: this mapping is incomplete
     tag_mapping = {

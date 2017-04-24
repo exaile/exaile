@@ -31,10 +31,9 @@ from __future__ import division
 from xl.metadata import _base, _matroska
 
 class MkaFormat(_base.BaseFormat):
-    ignore_tags = []
+
     others = False # For now, stick with defined tags only.
     writable = False
-    ignore_tags = [] # TODO: add covers etc
 
     tag_mapping = {
         'album': ('TITLE', 50),

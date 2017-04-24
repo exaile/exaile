@@ -26,10 +26,10 @@
 
 
 
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import CaseInsensitveBaseFormat
 from mutagen import oggspeex
 
-class SpeexFormat(BaseFormat):
+class SpeexFormat(CaseInsensitveBaseFormat):
     MutagenType = oggspeex.OggSpeex
     writable = True
 

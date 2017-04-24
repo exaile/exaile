@@ -83,9 +83,13 @@ tag_data = {
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
 }
 
+disk_tags = set()
+
 for k, v in tag_data.iteritems():
     if v:
         v.tag_name = k
+        if v.use_disk:
+            disk_tags.add(k)
 
 def get_default_tagdata(tag):
     '''If the tagname is not in tag_data, you can use this function

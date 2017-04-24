@@ -26,26 +26,28 @@
 
 from xl import common
 from xl.metadata._base import (
-    BaseFormat,
+    CaseInsensitveBaseFormat,
     CoverImage
 )
 from mutagen import flac
 
-class FlacFormat(BaseFormat):
+class FlacFormat(CaseInsensitveBaseFormat):
     MutagenType = flac.FLAC
-    writable = True
     tag_mapping = {
         'bpm': 'tempo',
         'comment': 'description',
         'language': "Language",
     }
-
+    writable = True
+    case_sensitive = False
+    
     def get_bitrate(self):
         return -1
         
     def _set_tag(self, raw, tag, value):
         # flac has text based attributes, so convert everything to unicode
-        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
+        value = [common.to_unicode(v) for v in value]
+        CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
 
     def read_tags(self, tags):
         td = super(FlacFormat, self).read_tags(tags)

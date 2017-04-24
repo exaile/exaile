@@ -55,15 +55,28 @@ class BaseFormat(object):
         subclasses not using mutagen should leave MutagenType as None
     """
     MutagenType = None
+    
+    # This should contain ALL keys supported by this filetype, unless 'others'
+    # is set to True. If others is True, then anything not in tag_mapping will
+    # be written using the Exaile tag name
+    # -> dict k: exaile tag name, v: native tag name
     tag_mapping = {}
     others = True
     writable = False
-    # TODO: can we change this to be any excessively large field? its hard
-    # to get every single cover tag name and would probably suit our needs
-    # better. perhaps any field with \n (lyrics) or >4KB (covers) would
-    # work for a condition.
-    ignore_tags = ['metadata_block_picture', 'coverart', 'cover', 'lyrics', 'Cover Art (front)']
-
+    case_sensitive = True
+    
+    @classmethod
+    def _compute_mappings(cls):
+        # this only needs to be run once per class
+        
+        if cls.case_sensitive:
+            cls._reverse_mapping = {v: k for k,v in cls.tag_mapping.iteritems()}
+        else:
+            cls._reverse_mapping = {v.lower(): k for k,v in cls.tag_mapping.iteritems()}
+        
+        from .tags import disk_tags
+        cls.ignore_tags = set(disk_tags)
+        
     def __init__(self, loc):
         """
             Raises :class:`NotReadable` if the file cannot be
@@ -75,8 +88,11 @@ class BaseFormat(object):
         self.loc = loc
         self.open = False
         self.mutagen = None
-        self._reverse_mapping = dict((
-            (v,k) for k,v in self.tag_mapping.iteritems() ))
+        try:
+            self._reverse_mapping
+        except AttributeError:
+            self.__class__._compute_mappings()
+        
         self.load()
 
     def load(self):
@@ -275,6 +291,15 @@ class BaseFormat(object):
                 return self._get_raw()['__bitrate']
             except (KeyError, TypeError):
                 return None
+
+class CaseInsensitveBaseFormat(BaseFormat):
+    case_sensitive = False
+    
+    def get_keys_disk(self):
+        """
+            Returns keys of all tags that can be read from disk
+        """
+        return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
 
 # vim: et sts=4 sw=4
 

@@ -71,7 +71,7 @@ tag_data = {
     
     '__bitrate':        _TD(N_('Bitrate'),      'bitrate', editable=False),
     '__basedir':        None,
-    '__date_added':     _TD(N_('Date added'),   'timestamp', editable=False),
+    '__date_added':     _TD(N_('Added to library'),   'timestamp', editable=False),
     '__last_played':    _TD(N_('Last played'),  'timestamp', editable=False),
     '__length':         _TD(N_('Length'),       'time', editable=False),
     '__loc':            _TD(N_('Location'),     'location', editable=False),

@@ -122,8 +122,8 @@ class BaseFormat(object):
             Blacklisted tags include lyrics, covers, and any field starting
             with __. If you need to read these, call read_tags directly.
         """
-        tags = []
-        for t in self._get_keys():
+        tags = INFO_TAGS[:]
+        for t in self.get_keys_disk():
             if t in self.ignore_tags:
                 continue
             # __ is used to denote exaile's internal tags, so we skip
@@ -133,7 +133,6 @@ class BaseFormat(object):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
-        alltags.update(self.read_tags(INFO_TAGS))
         return alltags
 
     def read_tags(self, tags):

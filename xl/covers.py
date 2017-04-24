@@ -353,9 +353,8 @@ class CoverManager(providers.ProviderHandler):
         data = None
         for loc in [path, path+".old", path+".new"]:
             try:
-                f = open(loc, 'rb')
-                data = pickle.load(f)
-                f.close()
+                with open(loc, 'rb') as f:
+                    data = pickle.load(f)
             except IOError:
                 pass
             except EOFError:
@@ -378,9 +377,8 @@ class CoverManager(providers.ProviderHandler):
         """
         path = os.path.join(self.location, 'covers.db')
         try:
-            f = open(path + ".new", 'wb')
-            pickle.dump(self.db, f, common.PICKLE_PROTOCOL)
-            f.close()
+            with open(path + ".new", 'wb') as f:
+                pickle.dump(self.db, f, common.PICKLE_PROTOCOL)
         except IOError:
             return
         try:

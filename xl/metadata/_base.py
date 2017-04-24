@@ -124,15 +124,12 @@ class BaseFormat(object):
         except KeyError:
             return None
 
-    def _get_keys(self):
-        keys = []
-        for k in self._get_raw().keys():
-            if k in self._reverse_mapping:
-                keys.append(self._reverse_mapping[k])
-            else:
-                keys.append(k)
-        return keys
-
+    def get_keys_disk(self):
+        """
+            Returns keys of all tags that can be read from disk
+        """
+        return [self._reverse_mapping.get(k, k) for k in self._get_raw().keys()]
+        
     def read_all(self):
         """
             Reads all non-blacklisted tags from the file.

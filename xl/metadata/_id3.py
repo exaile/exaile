@@ -66,7 +66,7 @@ class ID3Format(BaseFormat):
     writable = True
     others = False # make this true once custom tag support actually works
 
-    def _get_keys(self):
+    def get_keys_disk(self):
         keys = []
         for v in self._get_raw().values():
             # Have to use this because some ID3 tags have a colon

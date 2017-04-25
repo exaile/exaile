@@ -26,38 +26,48 @@
 
 from xl import common
 from xl.metadata._base import (
-    BaseFormat,
+    CaseInsensitveBaseFormat,
     CoverImage
 )
 from mutagen import oggvorbis, oggopus
-import mutagen.flac
+from mutagen.flac import Picture
 import base64
 
 
-class OggFormat(BaseFormat):
+class OggFormat(CaseInsensitveBaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
         'bpm': 'tempo',
         'comment': 'description',
-        'language': 'LANGUAGE',
+        'cover': 'metadata_block_picture',
     }
     writable = True
     
+    def _get_tag(self, raw, tag):
+        value = CaseInsensitveBaseFormat._get_tag(self, raw, tag)
+        if value and tag == 'metadata_block_picture':
+            new_value = []
+            for v in value:
+                picture = Picture(base64.b64decode(v))
+                new_value.append(CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data))
+            value = new_value
+        return value
+        
     def _set_tag(self, raw, tag, value):
-        # vorbis has text based attributes, so convert everything to unicode
-        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
-
-    def read_tags(self, tags):        
-        if "cover" in tags:
-            tags[tags.index("cover")]= "metadata_block_picture" 
-        td = super(OggFormat, self).read_tags(tags)        
-        if 'metadata_block_picture' in td:
-            td['cover'] = []
-            for d in td["metadata_block_picture"]:
-                picture = mutagen.flac.Picture(base64.standard_b64decode(d))
-                td['cover'] += [CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data)]
-        return td
-
+        if tag == 'metadata_block_picture':
+            new_value = []
+            for v in value:
+                picture = Picture()
+                picture.type = v.type
+                picture.desc = v.desc
+                picture.mime = v.mime
+                picture.data = v.data
+                new_value.append(base64.b64encode(picture.write()))
+            value = new_value
+        else:
+            # vorbis has text based attributes, so convert everything to unicode
+            value = [common.to_unicode(v) for v in value]
+        CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
 
 class OggOpusFormat(OggFormat):
     MutagenType = oggopus.OggOpus

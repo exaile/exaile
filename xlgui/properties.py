@@ -41,10 +41,9 @@ from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl.nls import gettext as _
-from xl.metadata._base import CoverImage
+from xl.metadata import CoverImage
 from xl import (
     common,
-    metadata,
     settings,
     trax,
     xdg
@@ -118,7 +117,8 @@ class TrackPropertiesDialog(GObject.GObject):
             'cover',
             'comment',
             '__startoffset',
-            '__stopoffset'
+            '__stopoffset',
+            'lyrics'
         ]
         
         self.def_tags = OrderedDict([(tag, tag_data[tag]) for tag in def_tags])
@@ -191,7 +191,11 @@ class TrackPropertiesDialog(GObject.GObject):
 
             for tag in track.list_tags():
                 if tag not in self.def_tags:
-                    tagval = track.get_tag_raw(tag)
+                    tag_info = tag_data.get(tag)
+                    if not tag_info or not tag_info.use_disk:
+                        tagval = track.get_tag_raw(tag)
+                    else:
+                        tagval = track.get_tag_disk(tag)
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
                     else:
@@ -200,6 +204,13 @@ class TrackPropertiesDialog(GObject.GObject):
             l.append(t)
 
         return l
+        
+    def _write_tag(self, track, tag, value):
+        tag_info = tag_data.get(tag)
+        if not tag_info or not tag_info.use_disk:
+            track.set_tag_raw(tag, value)
+        else:
+            track.set_tag_disk(tag, value)
 
     def _tags_write(self, data):
         errors = []
@@ -214,7 +225,7 @@ class TrackPropertiesDialog(GObject.GObject):
                        and trackdata[tag] == ["0/0"]:
                         poplist.append(tag)
                         continue
-                    track.set_tag_raw(tag, trackdata[tag])
+                    self._write_tag(track, tag, trackdata[tag])
                 elif tag in ('__startoffset', '__stopoffset'):
                     try:
                         offset = int(trackdata[tag][0])
@@ -238,7 +249,7 @@ class TrackPropertiesDialog(GObject.GObject):
                         poplist.append(tag)
 
             for tag in poplist:
-                track.set_tag_raw(tag, None)
+                self._write_tag(track, tag, None)
 
             if not track.write_tags():
                 errors.append(track.get_loc_for_io());

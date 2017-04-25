@@ -11,6 +11,7 @@ from gi.repository import GLib
 from mox3 import mox
 import pytest
 
+from xl.metadata import CoverImage
 import xl.trax.track as track
 import xl.settings as settings
 
@@ -83,6 +84,27 @@ class TestTrack(object):
 
     def teardown(self):
         self.mox.UnsetStubs()
+
+    def verify_tags_exist(self, tr, test_track, deleted=None):
+        internal_tags = {'__length', '__modified', '__basedir', '__basename', '__loc'}
+        if test_track.ext not in ['aac', 'spx']:
+            internal_tags.add('__bitrate')
+        
+        disk_tags = {'album', 'tracknumber', 'artist', 'title'}
+        normal_tags = internal_tags | disk_tags
+        
+        if test_track.has_cover:
+            disk_tags.add('cover')
+            
+        if deleted:
+            normal_tags.discard(deleted)
+            disk_tags.remove(deleted)
+        
+        # check non-disk tag list
+        assert set(tr.list_tags()) == normal_tags
+        
+        # check disk tag list
+        assert set(tr.list_tags_disk()) == disk_tags
 
     ## Creation
     def test_flyweight(self, test_track):
@@ -188,33 +210,91 @@ class TestTrack(object):
         tr.set_tag_raw('artist', random_str())
         assert not tr.write_tags()
 
-    def test_write_tag(self, writeable_track_name):
+    def test_write_tag(self, writeable_track, writeable_track_name):
 
         artist = random_str()
         tr = track.Track(writeable_track_name)
         tr.set_tag_raw('artist', artist)
-        tr.write_tags()
+        assert tr.write_tags() is not False
+        assert tr.get_tag_raw('artist') == [artist]
 
+        # if tag was changed, ensure it gets overridden by reading tags from file
         tr.set_tag_raw('artist', None)
         assert tr.get_tag_raw('artist') == None
 
-        tr.read_tags()
-
+        assert tr.read_tags() is not False
         assert tr.get_tag_raw('artist') == [artist]
+        
+        self.verify_tags_exist(tr, writeable_track)
 
-    def test_delete_tag(self, writeable_track_name):
+    def test_delete_tag(self, writeable_track, writeable_track_name):
 
         artist = random_str()
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('artist') is not None
 
         tr.set_tag_raw('artist', None)
-        tr.write_tags()
-
-        tr.set_tag_raw('artist', artist)
-        tr.read_tags()
+        assert tr.write_tags() is not False
         assert tr.get_tag_raw('artist') == None
 
+        # if tag was deleted, ensure it gets overridden by reading tags from file
+        tr.set_tag_raw('artist', artist)
+        assert tr.get_tag_raw('artist') == [artist]
+        
+        assert tr.read_tags() is not False
+        assert tr.get_tag_raw('artist') == None
+        
+        self.verify_tags_exist(tr, writeable_track, deleted='artist')
+    
+    def test_delete_missing_tag(self, writeable_track, writeable_track_name):
+        tr = track.Track(writeable_track_name)
+        assert tr.get_tag_raw('genre') is None
+        tr.set_tag_raw('genre', None)
+        assert tr.get_tag_raw('genre') is None
+        
+        self.verify_tags_exist(tr, writeable_track)
+        
+        # this actually writes it to disk
+        assert tr.write_tags() is not False
+        
+        # make sure another read works
+        assert tr.read_tags() is not False
+        
+        self.verify_tags_exist(tr, writeable_track)
+    
+        
+    def test_write_delete_cover(self, writeable_track, writeable_track_name):
+        if not writeable_track.has_cover:
+            return
+        
+        if writeable_track.ext in ['aac', 'mp4']:
+            from mutagen.mp4 import MP4Cover
+            newcover = CoverImage(None, None, 'image/jpeg', MP4Cover(random_str()))
+        else:
+            newcover = CoverImage(3, 'cover', 'image/jpeg', bytes(random_str()))
+            
+        tr = track.Track(writeable_track_name)
+        assert tr.get_tag_raw('cover') is None
+        assert tr.get_tag_disk('cover') is not None
+
+        # Can we delete a cover?
+        tr.set_tag_disk('cover', None)
+        assert tr.write_tags() is not False
+        
+        self.verify_tags_exist(tr, writeable_track, deleted='cover')
+        
+        # Can we write a new cover?
+        tr.set_tag_disk('cover', newcover)
+        assert tr.get_tag_raw('cover') is None
+        assert tr.get_tag_disk('cover') == [newcover]
+        
+        # reading the tags shouldn't change anything, since we're reading from disk
+        assert tr.read_tags() is not False
+        assert tr.get_tag_raw('cover') is None
+        assert tr.get_tag_disk('cover') == [newcover]
+        
+        self.verify_tags_exist(tr, writeable_track)
+        
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
         assert tr.write_tags() == False
@@ -514,23 +594,31 @@ class TestTrack(object):
         tr.set_tag_raw('__bitrate', 48000)
         assert tr.get_tag_search('__bitrate') == '__bitrate=="48k" __bitrate=="48000"'
 
-    def test_get_disk_tag(self, test_tracks):
-        td = test_tracks.get('.mp3')
-        tr = track.Track(td.filename)
-        assert tr.get_tag_disk('artist') == [u'Delerium']
-
     def test_get_disk_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.bah')
         assert tr.get_tag_disk('artist') == None
-
-    def test_list_disk_tag(self, test_tracks):
-        td = test_tracks.get('.ogg')
-        tr = track.Track(td.filename)
-        assert set(tr.list_tags_disk()) == \
-                        {'album', 'tracknumber', 'artist', 'title'}
 
     def test_list_disk_tag_invalid_format(self):
         tr_name = '/tmp/foo.foo'
         tr = track.Track(tr_name)
         assert tr.list_tags_disk() == None
 
+    def test_read_real_tracks(self, test_track):
+        if not test_track.has_tags:
+            return
+            
+        tr = track.Track(test_track.filename)
+        
+        # raw tags
+        assert tr.get_tag_raw('album') == [u'Chimera']
+        assert tr.get_tag_raw('artist') == [u'Delerium']
+        assert tr.get_tag_raw('title') == [u'Truly']
+        assert tr.get_tag_raw('tracknumber') in [[u'5'], [u'5/0']]
+        
+        # disk tags should be the same
+        assert tr.get_tag_disk('album') == [u'Chimera']
+        assert tr.get_tag_disk('artist') == [u'Delerium']
+        assert tr.get_tag_disk('title') == [u'Truly']
+        assert tr.get_tag_disk('tracknumber') in [[u'5'], [u'5/0']]
+        
+        self.verify_tags_exist(tr, test_track)

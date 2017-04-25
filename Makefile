@@ -1,4 +1,5 @@
 PYTHON2_CMD   ?= $(shell command -v python2)
+PYTEST         = py.test
 
 PREFIX        ?= /usr/local
 EPREFIX        = $(PREFIX)
@@ -199,7 +200,7 @@ dist:
 	rm -rf dist/copy
 
 test:
-	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) py.test tests
+	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests
 
 test_coverage:
 	rm -rf coverage/

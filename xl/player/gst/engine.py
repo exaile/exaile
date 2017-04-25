@@ -43,7 +43,10 @@ from .sink import create_device
 
 from xl.player.engine import ExaileEngine
 from xl.player.track_fader import TrackFader
+from xl.player.gst import missing_plugin
 
+
+logger = logging.getLogger(__name__)
 
 
 class ExaileGstEngine(ExaileEngine):
@@ -594,40 +597,54 @@ class AudioStream(object):
                 self.playbin.notify("volume")
         
         elif message.type == Gst.MessageType.ERROR:
-            
-            # Error handling code is from quodlibet
-            gerror, debug_info = message.parse_error()
-            message_text = ""
-            if gerror:
-                message_text = gerror.message.rstrip(".")
-                 
-            if message_text == "":
-                # The most readable part is always the last..
-                message_text = debug_info[debug_info.rfind(':') + 1:]
-                
-                # .. unless there's nothing in it.
-                if ' ' not in message_text:
-                    if debug_info.startswith('playsink'):
-                        message_text += _(': Possible audio device error, is it plugged in?')
-            
-            self.logger.error("Playback error: %s", message_text)
-            self.logger.debug("- Extra error info: %s", debug_info)
-            
-            envname = 'GST_DEBUG_DUMP_DOT_DIR'
-            if envname not in os.environ:
-                import xl.xdg
-                os.environ[envname] = xl.xdg.get_logs_dir()
+            self.__handle_error_message(message)
+        
+        elif message.type == Gst.MessageType.ELEMENT:
+            if not missing_plugin.handle_message(message, self.engine):
+                logger.debug(
+                    "Unexpected element-specific GstMessage received from %s: %s"
+                    % (message.src, message))
+        
+        elif message.type == Gst.MessageType.WARNING:
+            # TODO there might be some useful warnings we ignore for now.
+            gerror, debug_text = Gst.Message.parse_warning(message)
+            logger.warn("Unhandled GStreamer warning received:\n\tGError: %s\n\tDebug text: %s",
+                        gerror, debug_text)
+        
+        else:
+            # TODO there might be some useful messages we ignore for now.
+            logger.debug("Unhandled GstMessage of type %s received: %s",
+                         message.type, message)
+    
+    def __handle_error_message(self, message):
+        # Error handling code is from quodlibet
+        gerror, debug_info = message.parse_error()
+        message_text = ""
+        if gerror:
+            message_text = gerror.message.rstrip(".")
              
-            Gst.debug_bin_to_dot_file(self.playbin, Gst.DebugGraphDetails.ALL, self.name)
-            self.logger.debug("- Pipeline debug info written to file '%s/%s.dot'",
-                              os.environ[envname], self.name)
+        if message_text == "":
+            # The most readable part is always the last..
+            message_text = debug_info[debug_info.rfind(':') + 1:]
             
-            self.engine._error_func(self, message_text)
+            # .. unless there's nothing in it.
+            if ' ' not in message_text:
+                if debug_info.startswith('playsink'):
+                    message_text += _(': Possible audio device error, is it plugged in?')
         
-        # TODO: Missing plugin error handling from quod libet
-        # -- http://cgit.freedesktop.org/gstreamer/gstreamer/tree/docs/design/part-missing-plugins.txt
+        self.logger.error("Playback error: %s", message_text)
+        self.logger.debug("- Extra error info: %s", debug_info)
         
-        return True
+        envname = 'GST_DEBUG_DUMP_DOT_DIR'
+        if envname not in os.environ:
+            import xl.xdg
+            os.environ[envname] = xl.xdg.get_logs_dir()
+         
+        Gst.debug_bin_to_dot_file(self.playbin, Gst.DebugGraphDetails.ALL, self.name)
+        self.logger.debug("- Pipeline debug info written to file '%s/%s.dot'",
+                          os.environ[envname], self.name)
+        
+        self.engine._error_func(self, message_text)
         
     def on_source_setup(self, playbin, source, track):
         # this is for handling multiple CD devices properly

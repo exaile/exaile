@@ -105,17 +105,15 @@ class ParameterTemplate(Template):
         """
         Template.__init__(self, template)
 
-    def safe_substitute(self, *args, **kwargs):
+    def safe_substitute(self, *args):
         """
             Overridden to allow for parametrized identifiers
         """
         if len(args) > 1:
             raise TypeError('Too many positional arguments')
-
+        
         if not args:
-            mapping = kwargs
-        elif kwargs:
-            mapping = _multimap(kwargs, args[0])
+            mapping = {}
         else:
             mapping = args[0]
 

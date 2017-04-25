@@ -24,19 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from collections import namedtuple
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gtk
+
 import logging
 import os
 import os.path
-import threading
 
-from xl import event, settings, xdg
+from xl import settings, xdg
 from xlgui import icons
 
 # moved idle_add to common, useful for more than just GUI stuff :)

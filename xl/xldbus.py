@@ -38,7 +38,6 @@ import sys
 import dbus
 import dbus.service
 from gi.repository import Gio
-from gi.repository import GObject
 
 # Be VERY careful what you import here! This module gets loaded even if
 # we are just issuing a dbus command to a running instance, so we need

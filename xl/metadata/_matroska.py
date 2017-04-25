@@ -382,7 +382,6 @@ def gio_location(location):
     return location
 
 if __name__ == '__main__':
-    import sys
     location = gio_location(sys.argv[1])
     dump_tags(location)
 

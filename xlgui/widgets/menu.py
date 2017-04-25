@@ -24,12 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import GObject
 from gi.repository import Gtk
 
 from xl import common, providers
-from xl.nls import gettext as _
-from xlgui import icons
 
 # Fake accel group so that menuitems can trick GTK into
 # showing accelerators in the menus.

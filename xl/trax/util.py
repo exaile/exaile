@@ -26,7 +26,8 @@
 
 from gi.repository import Gio
 from gi.repository import GLib
-from xl import metadata, settings
+
+from xl import metadata
 from xl.trax.track import Track
 from xl.trax.search import search_tracks, TracksMatcher
 

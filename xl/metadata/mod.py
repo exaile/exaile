@@ -27,7 +27,6 @@
 
 
 from xl.metadata._base import BaseFormat
-from mutagen import FileType
 
 import os
 

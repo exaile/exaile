@@ -29,10 +29,11 @@ Provides the fundamental objects for handling a list of tracks contained
 in playlists as well as methods to import and export from various file formats.
 """
 
-import cgi
-from collections import namedtuple
-from datetime import datetime, timedelta
 from gi.repository import Gio
+
+import cgi
+from collections import deque, namedtuple
+from datetime import datetime, timedelta
 import logging
 import os
 import random
@@ -46,7 +47,6 @@ except ImportError:
     import pickle
 
 from xl import (
-    collection,
     common,
     dynamic,
     event,
@@ -680,7 +680,6 @@ class ASXConverter(FormatConverter):
             for parsing ASX playlists case-insensitive
         """
         def __init__(self):
-            from collections import deque
             self._stack = deque()
 
             self._playlistdata = {

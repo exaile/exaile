@@ -33,8 +33,7 @@ import sys
 import tarfile
 
 from xl.nls import gettext as _
-from xl import ( 
-    common, 
+from xl import (
     event,
     settings,
     xdg

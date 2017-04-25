@@ -39,20 +39,14 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 import logging
-import os
-import os.path
-import shutil
 import threading
 import time
 
-from xl.nls import gettext as _
 from xl import (
     common,
     event,
-    metadata,
     settings,
-    trax,
-    xdg
+    trax
 )
 
 logger = logging.getLogger(__name__)

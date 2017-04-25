@@ -31,7 +31,6 @@ preparation of data for display in various contexts.
 """
 
 from datetime import date
-from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
 import re
@@ -39,8 +38,6 @@ from string import Template, _TemplateMetaclass
 
 from xl import (
     common,
-    event,
-    main,
     providers,
     settings,
     trax

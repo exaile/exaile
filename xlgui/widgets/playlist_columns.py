@@ -26,7 +26,6 @@
 
 
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -34,7 +33,6 @@ import logging
 import time
 
 from xl import (
-    common,
     event,
     player,
     settings,

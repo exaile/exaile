@@ -28,7 +28,6 @@
     Provides methods for convenient icons and image handling
 """
 
-import cairo
 import glob
 from gi.repository import (
     Gdk,
@@ -41,7 +40,6 @@ import os
 
 from xl import (
     common,
-    event,
     settings,
     xdg
 )

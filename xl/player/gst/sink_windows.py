@@ -30,13 +30,7 @@
     For plugins like the Preview Device, this is critical.
 '''
 
-
-import os.path
-import platform
-from gi.repository import GLib
 from gi.repository import Gst
-
-from xl.nls import gettext as _
 
 import logging
 logger = logging.getLogger(__name__)

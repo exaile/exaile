@@ -36,7 +36,6 @@ from xl import (
     player,
     providers,
     settings,
-    xdg
 )
 from xl.common import clamp
 from xl.nls import gettext as _

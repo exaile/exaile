@@ -29,8 +29,7 @@ import os
 import random
 import time
 
-from xl.nls import gettext as _
-from xl import xdg, common, event, providers, settings, metadata
+from xl import xdg, providers, settings
 from xl.trax import search
 
 logger = logging.getLogger(__name__)

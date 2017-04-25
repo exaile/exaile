@@ -25,24 +25,19 @@
 # from your version.
 
 from gi.repository import Gdk
-from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 
 import re
 from datetime import datetime
 from xl.nls import gettext as _
 from xl import (
-    common,
     event,
     providers,
     settings,
-    xdg
 )
 from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
-from xlgui.widgets.common import AttachedWindow
 from xlgui.widgets.notebook import (
     SmartNotebook, 
     NotebookTab, 

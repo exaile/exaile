@@ -723,7 +723,7 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
         if DirectoryOpenDialog._last_location is not None:
             self.set_current_folder_uri(DirectoryOpenDialog._last_location)
 
-        response = Gtk.FileChooserDialog.run(self)
+        Gtk.FileChooserDialog.run(self)
 
     def show(self):
         """

@@ -24,11 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import GObject
-from gi.repository import Gtk
-
 from xlgui.preferences import widgets
-from xl import main, xdg
+from xl import xdg
 from xl.nls import gettext as _
 
 # TODO: If we ever add another engine, need to make sure that

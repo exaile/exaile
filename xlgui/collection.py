@@ -27,13 +27,9 @@
 from gi.repository import Gio
 from gi.repository import Gtk
 import logging
-import os
 
 from xl.nls import gettext as _
-from xl import (
-    collection,
-    xdg
-)
+from xl import xdg
 from xlgui.widgets import dialogs
 from xlgui.guiutil import GtkTemplate
 
@@ -124,8 +120,8 @@ class CollectionManagerDialog(Gtk.Dialog):
 
             for row in self.model:
                 library_location = Gio.File.new_for_uri(row[0])
-                monitored = row[1]
-                scan_on_startup = row[2]
+                #monitored = row[1]
+                #scan_on_startup = row[2]
 
                 if location.has_prefix(library_location):
                     self.message.show_warning(

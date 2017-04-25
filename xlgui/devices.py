@@ -25,14 +25,10 @@
 # from your version.
 
 import logging
-import threading
 
-from gi.repository import GdkPixbuf
 from gi.repository import Gtk
 
-from xl.nls import gettext as _
-from xl import xdg, settings, event, devices
-from xlgui import collection
+from xl import event
 from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)

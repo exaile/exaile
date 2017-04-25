@@ -34,7 +34,7 @@ from gi.repository import Gtk
 from gi.repository import Pango
 
 from xl.nls import gettext as _
-from xl import event, main, settings, xdg
+from xl import event, main, settings
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xlgui.guiutil import GtkTemplate

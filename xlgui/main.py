@@ -24,13 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import datetime
 import logging
-import os
-import re
-import threading
 
-import cairo
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject

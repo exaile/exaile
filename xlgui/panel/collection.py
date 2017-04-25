@@ -48,9 +48,6 @@ from xlgui import (
 )
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets import (
-    info
-)
 
 logger = logging.getLogger(__name__)
 
@@ -426,9 +423,9 @@ class CollectionPanel(panel.Panel):
         """
             Called when the user clicks on the tree
         """
-        selection = self.tree.get_selection()
+        #selection = self.tree.get_selection()
         (x, y) = map(int, event.get_coords())
-        path = self.tree.get_path_at_pos(x, y)
+        #path = self.tree.get_path_at_pos(x, y)
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)
             self.append_to_playlist(replace=replace)

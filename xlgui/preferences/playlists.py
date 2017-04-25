@@ -24,11 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gtk
-
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import icons
 from xlgui.preferences import widgets
 
 name = _('Playlists')

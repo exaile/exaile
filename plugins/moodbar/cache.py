@@ -17,17 +17,12 @@
 
 from __future__ import division, print_function, unicode_literals
 
+import hashlib
 import os
-import sys
 
 
-if sys.platform == 'win32':
-    import string
-    invalid_chars = b'*/:<>?\\'
-    SANITIZE_TRANS_TABLE = string.maketrans(invalid_chars, b'-' * len(invalid_chars))
-
-
-class MoodbarCache:
+class MoodbarCache(object):
+    """ Abstract class for a cache for moodbar metadata files """
     def get(self, uri):
         """
         :type uri: bytes
@@ -44,40 +39,33 @@ class MoodbarCache:
 
 
 class ExaileMoodbarCache(MoodbarCache):
+    """ Exaile's implementation of a cache for moodbar files """
+
+    __loc = None
+
     def __init__(self, location):
         try:
             os.mkdir(location)
         except OSError:
             pass
-        self.loc = location
+        self.__loc = location
 
     def get(self, uri):
         try:
-            with open(self._get_cache_path(uri), 'rb') as f:
-                return f.read()
+            with open(self._get_cache_path(uri), 'rb') as cachefile:
+                return cachefile.read()
         except IOError:
             return None
 
     def put(self, uri, data):
         if data is None:
             return
-        with open(self._get_cache_path(uri), 'wb') as f:
-            f.write(data)
+        with open(self._get_cache_path(uri), 'wb') as cachefile:
+            cachefile.write(data)
 
     def _get_cache_path(self, uri):
-        """
-        :type uri: bytes
-        :rtype: bytes
-        """
-        assert isinstance(uri, bytes)
-        if uri.startswith(b'file://'):
-            uri = uri[7:]
-        uri = uri.replace(b"'", b"")
-        if sys.platform == 'win32':
-            uri = uri.translate(SANITIZE_TRANS_TABLE, b'"')
-        else:
-            uri = uri.replace(b'/', b'-')
-        return os.path.join(self.loc, uri + b'.mood')
+        hex_str = hashlib.sha256(uri).hexdigest()
+        return os.path.join(self.__loc, hex_str + b'.mood')
 
 
 # vi: et sts=4 sw=4 tw=99

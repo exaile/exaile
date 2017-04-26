@@ -25,10 +25,11 @@ import tempfile
 from gi.repository import Gio
 
 
-class MoodbarGeneratorError(Exception): pass
+class MoodbarGeneratorError(Exception):
+    pass
 
 
-class MoodbarGenerator:
+class MoodbarGenerator(object):
     def check(self):
         """Check whether the generator works.
 
@@ -55,10 +56,10 @@ class MoodbarGenerator:
         :type uri: bytes
         :type callback: Callable[[bytes, bytes], None]
         """
-        t = threading.Thread(name=self.__class__.__name__,
-            target=self.generate, args=(uri, callback))
-        t.daemon = True
-        t.start()
+        thread = threading.Thread(name=self.__class__.__name__,
+                                  target=self.generate, args=(uri, callback))
+        thread.daemon = True
+        thread.start()
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
@@ -84,11 +85,12 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
                 f = open(tmppath, 'rb')
                 data = f.read()
             except Exception as e:
+                # TODO propagate this error to UI, make sure to install required GStreamer plugins
                 raise MoodbarGeneratorError(e)
             finally:
                 if f:
                     f.close()
-                if tmppath:
+                if tmppath and os.path.exists(tmppath):
                     os.remove(tmppath)
         if callback:
             callback(uri, data)

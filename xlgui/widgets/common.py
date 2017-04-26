@@ -389,7 +389,7 @@ class DragTreeView(AutoScrollTreeView):
         path = self.get_path_at_pos(x, y)
 
         if path:
-            if event.button != 3:
+            if event.button != Gdk.BUTTON_SECONDARY:
                 if event.type == Gdk.EventType._2BUTTON_PRESS:
                     try:
                         return self.container.button_press(button, event)
@@ -418,7 +418,7 @@ class DragTreeView(AutoScrollTreeView):
         """
             Called when a button is released
         """
-        if event.button != 1 or \
+        if event.button != Gdk.BUTTON_PRIMARY or \
            self.dragging or \
            event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
             self.dragging = False

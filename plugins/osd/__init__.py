@@ -276,12 +276,12 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
         """
             Starts the dragging process
         """
-        if e.button == 1:
+        if e.button == Gdk.BUTTON_PRIMARY:
             self.drag_origin = Point(e.x, e.y)
             self.window.set_cursor(Gdk.Cursor.new(Gdk.CursorType.FLEUR))
 
             return True
-        elif e.button == 3 and e.state & Gdk.ModifierType.MOD1_MASK:
+        elif e.button == Gdk.BUTTON_SECONDARY and e.state & Gdk.ModifierType.MOD1_MASK:
             self.begin_resize_drag(Gdk.WindowEdge.SOUTH_EAST, 3, int(e.x_root), int(e.y_root), e.time)
 
     def do_button_release_event(self, e):
@@ -289,7 +289,7 @@ class OSDWindow(Gtk.Window, PlaybackAdapter):
             Finishes the dragging process and
             saves the window position
         """
-        if e.button == 1:
+        if e.button == Gdk.BUTTON_PRIMARY:
             settings.set_option('plugin/osd/position', list(self.get_position()))
 
             self.drag_origin = None

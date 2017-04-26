@@ -293,7 +293,7 @@ class SecondaryOutputPlugin(object):
             Called when the play button is clicked
         """
 
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             if event.type == Gdk.EventType.BUTTON_PRESS and \
                     (self.player.is_paused() or self.player.is_playing()):
                 self.player.toggle_pause()

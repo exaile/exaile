@@ -145,7 +145,7 @@ class SmartNotebook(Gtk.Notebook):
         self._add_tab_on_empty = add_tab_on_empty
 
     def on_button_press(self, widget, event):
-        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 2:
+        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == Gdk.BUTTON_MIDDLE:
             self.add_default_tab()
             
     def on_popup_menu(self, widget):
@@ -272,11 +272,11 @@ class NotebookTab(Gtk.EventBox):
 
             Typically triggers renaming, closing and menu.
         """
-        if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
+        if event.button == Gdk.BUTTON_PRIMARY and event.type == Gdk.EventType._2BUTTON_PRESS:
             self.start_rename()
-        elif event.button == 2:
+        elif event.button == Gdk.BUTTON_MIDDLE:
             self.close()
-        elif event.button == 3:
+        elif event.button == Gdk.BUTTON_SECONDARY:
             self.page.tab_menu.popup( None, None, None, None,
                     event.button, event.time)
             return True

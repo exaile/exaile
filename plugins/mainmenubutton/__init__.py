@@ -19,6 +19,7 @@ require_version('Atk', '1.0')
 
 from gi.repository import Atk
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 from xl.nls import gettext as _
 from xl import event, providers
@@ -121,7 +122,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         """
             Pops out the menu upon click
         """
-        if e.button == 1:
+        if e.button == Gdk.BUTTON_PRIMARY:
             self.set_active(not self.get_active())
 
         return True

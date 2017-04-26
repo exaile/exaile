@@ -170,7 +170,7 @@ class MoodbarController:
         :type moodbar: Moodbar
         :type event: Gdk.Event
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             self.seeking = True
             self._on_moodbar_motion(moodbar, event)
 
@@ -190,7 +190,7 @@ class MoodbarController:
         :type moodbar: Moodbar
         :type event: Gdk.Event
         """
-        if event.button == 1 and self.seeking:
+        if event.button == Gdk.BUTTON_PRIMARY and self.seeking:
             self.player.set_progress(moodbar.seek_position)
             self.seeking = False
 

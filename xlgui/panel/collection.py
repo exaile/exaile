@@ -264,7 +264,7 @@ class CollectionPanel(panel.Panel):
         """
             Called on mouse activation of the refresh button
         """
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
                 xlgui.get_controller().on_rescan_collection,
@@ -430,7 +430,7 @@ class CollectionPanel(panel.Panel):
             replace = settings.get_option('playlist/replace_content', False)
             self.append_to_playlist(replace=replace)
             return False
-        elif event.button == 2:
+        elif event.button == Gdk.BUTTON_MIDDLE:
             self.append_to_playlist(replace=True)
             return False
 
@@ -441,7 +441,7 @@ class CollectionPanel(panel.Panel):
         selection = self.tree.get_selection()
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(event)
             if not path:
                 return False

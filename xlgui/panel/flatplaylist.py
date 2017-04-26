@@ -26,6 +26,7 @@
 
 from gi.repository import GObject
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 from xl import trax
 from xl.nls import gettext as _
@@ -121,7 +122,7 @@ class FlatPlaylistPanel(panel.Panel):
         """
             Called when the user clicks on the playlist
         """
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             selection = self.tree.get_selection()
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)

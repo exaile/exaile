@@ -1,6 +1,7 @@
 
 from gi.repository import GLib
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 from xl import event, common, playlist, providers
 from xl import trax
@@ -97,7 +98,7 @@ class PodcastPanel(panel.Panel):
         self.tree.connect('button-press-event', self._on_button_press)
 
     def _on_button_press(self, button, event):
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(event)
 
     def _on_refresh(self, *e):

@@ -232,7 +232,7 @@ class FilesPanel(panel.Panel):
         """
             Called when the user clicks on the playlist
         """
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             selection = self.tree.get_selection()
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)

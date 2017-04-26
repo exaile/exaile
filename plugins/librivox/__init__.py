@@ -225,7 +225,7 @@ class LVPanel():
 
 
     def menu_popup(self, treeview, event):
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             x = int(event.x)
             y = int(event.y)
             time = event.time

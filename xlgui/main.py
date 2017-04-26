@@ -500,10 +500,10 @@ class MainWindow(GObject.GObject):
         """
             Called when the user clicks on the stop button
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.on_spat_clicked()
-        elif event.button == 3:
+        elif event.button == Gdk.BUTTON_SECONDARY:
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
                 self.on_spat_clicked,

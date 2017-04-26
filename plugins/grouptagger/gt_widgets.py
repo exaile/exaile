@@ -309,7 +309,7 @@ class GroupTaggerView(Gtk.TreeView):
         return model.get_selected_categories( rows )
 
     def on_mouse_release(self, widget, event):    
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(None, None, None, None, event.button, event.time)
      
     def on_popup_menu(self, widget):

@@ -1039,22 +1039,22 @@ class ProgressButtonControl(PlaylistButtonControl):
         """
             Trigger normal toggle action or seek
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             PlaylistButtonControl.do_button_press_event(self, event)
-        elif event.button == 2:
+        elif event.button == Gdk.BUTTON_MIDDLE:
             event = event.copy()
-            event.button = 1
+            event.button = Gdk.BUTTON_PRIMARY
             x, y = self.translate_coordinates(self.progressbar,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.progressbar.emit('button-press-event', event)
 
     def do_button_release_event(self, event):
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             PlaylistButtonControl.do_button_release_event(self, event)
-        elif event.button == 2:
+        elif event.button == Gdk.BUTTON_MIDDLE:
             event = event.copy()
-            event.button = 1
+            event.button = Gdk.BUTTON_PRIMARY
             x, y = self.translate_coordinates(self.progressbar,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)

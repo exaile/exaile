@@ -227,7 +227,7 @@ class BPMWidget(Gtk.Frame):
     @GtkTemplate.Callback
     def on_eventbox_button_press_event(self, widget, event):
         
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             if self.menu is not None and self.track is not None:
                 self.menu.popup(event)
             return

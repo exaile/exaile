@@ -780,7 +780,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
         hit_markers.sort()
 
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             if self.__player.current is None:
                 return True
 
@@ -801,7 +801,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                     _('Seeking: %s') % self.__progressbar.formatter.format(
                     current_time=length * fraction))
                 self.__progressbar._seeking = True
-        elif event.button == 3:
+        elif event.button == Gdk.BUTTON_SECONDARY:
             if len(hit_markers) > 0:
                 self._marker_menu.popup(event, tuple(hit_markers))
             elif self._progressbar_menu is not None:
@@ -817,7 +817,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             if marker.props.state == Gtk.StateType.ACTIVE:
                 marker.props.state = Gtk.StateType.PRELIGHT
 
-        if event.button == 1 and self.__progressbar._seeking:
+        if event.button == Gdk.BUTTON_PRIMARY and self.__progressbar._seeking:
             fraction = event.x / self.get_allocation().width
             fraction = max(0, fraction)
             fraction = min(fraction, 1)
@@ -834,7 +834,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
         if self.__progressbar._seeking:
             press_event = Gdk.EventButton.new(Gdk.EventType.BUTTON_PRESS)
-            press_event.button = 1
+            press_event.button = Gdk.BUTTON_PRIMARY
             press_event.x = event.x
             press_event.y = event.y
 
@@ -886,7 +886,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             return
 
         press_event = Gdk.Event.new(Gdk.EventType.BUTTON_PRESS)
-        press_event.button = 1
+        press_event.button = Gdk.BUTTON_PRIMARY
         new_fraction = self.__progressbar.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
         press_event.x = alloc.width * new_fraction
@@ -910,7 +910,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             return
 
         release_event = Gdk.Event.new(Gdk.EventType.BUTTON_RELEASE)
-        release_event.button = 1
+        release_event.button = Gdk.BUTTON_PRIMARY
         new_fraction = self.__progressbar.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
         release_event.x = alloc.width * new_fraction
@@ -1251,9 +1251,9 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
             Finishes or cancels movement of markers
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             return self.move_finish()
-        elif event.button == 3:
+        elif event.button == Gdk.BUTTON_SECONDARY:
             return self.move_cancel()
 
         return False

@@ -15,6 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 from xl import event, player, providers
 from xl.nls import gettext as _
@@ -113,7 +114,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         """
             Finishes or cancels insertion of markers
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             if self.move_finish():
                 if providers.get_provider('playback-markers',
                                           'repeat-end') is None:
@@ -123,7 +124,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
                     self.move_begin(self.end_marker)
 
                 return True
-        elif event.button == 3:
+        elif event.button == Gdk.BUTTON_SECONDARY:
             if self.move_cancel():
                 self.clear_markers()
 

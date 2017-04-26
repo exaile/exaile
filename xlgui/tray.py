@@ -199,11 +199,11 @@ class BaseTrayIcon(object):
             Toggles main window visibility and
             pause as well as opens the context menu
         """
-        if event.button == 1:
+        if event.button == Gdk.BUTTON_PRIMARY:
             self.main.toggle_visible(bringtofront=True)
-        if event.button == 2:
+        if event.button == Gdk.BUTTON_MIDDLE:
             playback.playpause( player.PLAYER )
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(None, None, self.get_menu_position, self,
                 event.button, event.time)
 

@@ -656,7 +656,7 @@ class PlaylistPage(PlaylistPageBase):
         # We only need the tree path if present
         path = path[0] if path else None
 
-        if not path and e.type == Gdk.EventType.BUTTON_PRESS and e.button == 3:
+        if not path and e.type == Gdk.EventType.BUTTON_PRESS and e.button == Gdk.BUTTON_SECONDARY:
             self.tab_menu.popup(None, None, None, None, e.button, e.time)
 
 class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
@@ -904,7 +904,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 selection.select_path(path)
 
     def on_header_button_press(self, widget, event):
-        if event.button == 3:
+        if event.button == Gdk.BUTTON_SECONDARY:
             m = menu.ProviderMenu('playlist-columns-menu', self)
             m.popup(None, None, None, None, event.button, event.time)
             return True
@@ -1023,13 +1023,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if path and e.type == Gdk.EventType.BUTTON_PRESS:
             # Prevent unselection of all except the clicked item on left
             # clicks, required to preserve the selection for DnD
-            if e.button == 1 and not e.state & Gtk.accelerator_get_default_mod_mask() and \
-               selection.path_is_selected(path):
+            if e.button == Gdk.BUTTON_PRIMARY \
+                    and not e.state & Gtk.accelerator_get_default_mod_mask() \
+                    and selection.path_is_selected(path):
                 selection.set_select_function(lambda *args: False, None)
                 self.pending_event = (path, col)
 
             # Open the context menu on right clicks
-            if e.button == 3:
+            if e.button == Gdk.BUTTON_SECONDARY:
                 # Select the path on which the user clicked if not selected yet
                 if not selection.path_is_selected(path):
                     # We don't unselect all other items if Control is active

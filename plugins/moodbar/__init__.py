@@ -37,11 +37,15 @@ import xlgui.guiutil
 
 from cache import ExaileMoodbarCache
 from generator import SpectrumMoodbarGenerator
-from painter import MoodbarPainter
 from widget import Moodbar
 
 
 class MoodbarPlugin:
+
+    exaile = None
+    generator = None
+    cache = None
+
     def __init__(self):
         self.main_controller = self.preview_controller = None
 
@@ -51,7 +55,6 @@ class MoodbarPlugin:
 
         self.exaile = exaile
         self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
-        self.painter = MoodbarPainter()
 
         xl.event.add_ui_callback(self._on_preview_device_enabled, 'preview_device_enabled')
         xl.event.add_ui_callback(self._on_preview_device_disabling, 'preview_device_disabling')
@@ -71,7 +74,7 @@ class MoodbarPlugin:
         if self.preview_controller:
             self.preview_controller.destroy()
         self.main_controller = self.preview_controller = None
-        del self.exaile, self.cache, self.generator, self.painter
+        del self.exaile, self.cache, self.generator
 
     # Preview Device events
 
@@ -86,10 +89,10 @@ plugin_class = MoodbarPlugin
 
 
 # TRANSLATORS: Time format for playback progress
-def format_time(seconds, format=_("{minutes}:{seconds:02}")):
+def format_time(seconds, time_format=_("{minutes}:{seconds:02}")):
     seconds = int(round(seconds))
     minutes, seconds = divmod(seconds, 60)
-    return format.format(minutes=int(minutes), seconds=seconds)
+    return time_format.format(minutes=int(minutes), seconds=seconds)
 
 
 class MoodbarController:
@@ -99,7 +102,7 @@ class MoodbarController:
         self.orig_seekbar = orig_seekbar
         self.timer = self.seeking = False
 
-        self.moodbar = moodbar = Moodbar(plugin.painter)
+        self.moodbar = moodbar = Moodbar()
         moodbar.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK)
         xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, moodbar)
         moodbar.show()
@@ -144,12 +147,12 @@ class MoodbarController:
             return False
         current_time = self.player.get_time()
         if total_time:
-            format = dict(
+            time_format = dict(
                 current=format_time(current_time),
                 remaining=format_time(total_time - current_time),
             )
             # TRANSLATORS: Format for playback progress text
-            self.moodbar.set_text(_("{current} / {remaining}").format(**format))
+            self.moodbar.set_text(_("{current} / {remaining}").format(**time_format))
             if not self.seeking:
                 self.moodbar.seek_position = current_time / total_time
         else:

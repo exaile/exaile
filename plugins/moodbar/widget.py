@@ -29,6 +29,8 @@ from gi.repository import (
     PangoCairo,
 )
 
+from plugins.moodbar import painter
+
 
 Extents = collections.namedtuple('Extents', 'x_bearing y_bearing width height x_advance y_advance')
 
@@ -37,9 +39,8 @@ class Moodbar(Gtk.DrawingArea):
     pos_size = 0.4  # Size of seek notch, in fraction of bar height
     pos_linesize = 2
 
-    def __init__(self, loader):
+    def __init__(self):
         super(Moodbar, self).__init__()
-        self.loader = loader
         # TODO: Handle screen-changed.
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
@@ -54,7 +55,7 @@ class Moodbar(Gtk.DrawingArea):
         :rtype: bool
         """
         if data:
-            self.surf = self.loader.paint(data)
+            self.surf = painter.paint(data)
             self._invalidate()
             return bool(self.surf)
         else:
@@ -117,7 +118,7 @@ class Moodbar(Gtk.DrawingArea):
         if self.surf:
             # Mood
             cr.save()
-            cr.scale(width / 1000, height)
+            cr.scale(width / self.surf.get_width(), height)
             cr.set_source_surface(self.surf, 0, 0)
             cr.paint()
             cr.restore()

@@ -17,30 +17,29 @@
 
 from __future__ import division, print_function, unicode_literals
 
+# It seems like cairo does not support GObject Introspection.
 import cairo
 
 
-class MoodbarPainter:
-    """Turn moodbar data into Cairo surface, ready to be drawn"""
+def paint(data):
+    """Paint moodbar to a surface.
 
-    def paint(self, data):
-        """Paint moodbar to a surface.
-
-        :param data: Moodbar data
-        :type data: bytes
-        :return: Cairo surface containing the image to be drawn
-        :rtype: cairo.ImageSurface
-        """
-        surf = cairo.ImageSurface(cairo.FORMAT_RGB24, 1000, 1)
-        arr = surf.get_data()
-        for p in xrange(0, 1000):
-            p4 = p * 4
-            p3 = p * 3
-            # Cairo RGB24 is BGRX
-            arr[p4 + 0] = data[p3 + 2]
-            arr[p4 + 1] = data[p3 + 1]
-            arr[p4 + 2] = data[p3 + 0]
-        return surf
+    :param data: Moodbar data
+    :type data: bytes
+    :return: Cairo surface containing the image to be drawn
+    :rtype: cairo.ImageSurface
+    """
+    width = len(data) // 3
+    surf = cairo.ImageSurface(cairo.FORMAT_RGB24, width, 1)
+    arr = surf.get_data()
+    for index in xrange(0, width):
+        index4 = index * 4
+        index3 = index * 3
+        # Cairo RGB24 is BGRX
+        arr[index4 + 0] = data[index3 + 2]
+        arr[index4 + 1] = data[index3 + 1]
+        arr[index4 + 2] = data[index3 + 0]
+    return surf
 
 
 # vi: et sts=4 sw=4 tw=99

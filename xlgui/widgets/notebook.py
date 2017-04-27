@@ -160,7 +160,6 @@ class NotebookTab(Gtk.EventBox):
     """
         Class to represent a generic tab in a Gtk.Notebook.
     """
-    menu_provider_name = 'notebooktab' # Change this in subclasses!
     reorderable = True
     def __init__(self, notebook, page, vertical=False):
         """
@@ -363,8 +362,13 @@ class NotebookPage(Gtk.Box):
             ()
         )
     }
-    def __init__(self, child=None, page_name=None):
+    def __init__(self, child=None, page_name=None, menu_provider_name=None):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        
+        # sometimes you just want to create a page
+        if menu_provider_name is not None:
+            self.menu_provider_name = menu_provider_name
+            
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
         

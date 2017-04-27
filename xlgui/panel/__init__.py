@@ -87,6 +87,6 @@ class Panel(GObject.GObject):
                 self.label = window.get_title()
             window.destroy()
             
-            self._child = NotebookPage(child, self.label)
+            self._child = NotebookPage(child, self.label, 'panel-tab-context')
 
         return self._child

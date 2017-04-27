@@ -609,6 +609,8 @@ class GroupTaggerWidget(Gtk.Box):
         
 class GroupTaggerPanel(notebook.NotebookPage):
     '''A panel that has all of the functionality in it'''
+    
+    menu_provider_name = 'panel-tab-context'
 
     def __init__(self, exaile):
     

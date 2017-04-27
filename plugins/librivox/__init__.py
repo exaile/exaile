@@ -365,7 +365,7 @@ class LVPanel():
 
     def get_panel(self):
         if self._panel is None:
-            self._panel = NotebookPage(self.vbox, self.title)
+            self._panel = NotebookPage(self.vbox, self.title, 'panel-tab-context')
         return self._panel
 
 

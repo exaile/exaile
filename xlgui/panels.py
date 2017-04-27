@@ -93,7 +93,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         
         _register_builtin_panels(exaile, gui.main.window)
         
-        self.view_menu = menu.Menu(None)
+        self.view_menu = menu.ProviderMenu('panel-tab-context', None)
         
         # setup/register the view menu
         menu.simple_menu_item('panel-menu', ['show-playing-track'], _('P_anels'),
@@ -143,7 +143,6 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         panel.show()
         
         tab = notebook.NotebookTab(self, panel, vertical=True)
-        panel.tab_menu = self.view_menu
         tab.provider = provider
         
         item = menu.check_menu_item(provider.name, [], 
@@ -151,7 +150,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
                                     lambda *a: self.panels[provider.name].shown,
                                     lambda *a: self.toggle_panel(provider.name))
         
-        self.view_menu.add_item(item)
+        providers.register('panel-tab-context', item)
         
         self.add_tab(tab, panel)
         self.panels[provider.name] = PanelData(tab, provider, self.get_n_pages()-1, item)
@@ -167,7 +166,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
                 self.remove_page(n)
                 break
         
-        self.view_menu.remove_item(data.menuitem)
+        providers.unregister('panel-tab-context', data.menuitem)
         del self.panels[provider.name]        
 
     def on_panel_removed(self, notebook, page, pagenum):

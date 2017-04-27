@@ -271,7 +271,7 @@ class LyricsViewer(object):
         '''Returns panel for panel interface'''
         if self._panel is None:    
             self.lyrics_panel.unparent()
-            self._panel = NotebookPage(self.lyrics_panel, _('Lyrics'))
+            self._panel = NotebookPage(self.lyrics_panel, _('Lyrics'), 'panel-tab-context')
         return self._panel
 
 class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):

@@ -10,18 +10,6 @@ EPREFIX=${3:-${PREFIX}}
 LIBDIR=${4:-${EPREFIX}/lib}
 PYTHON2_CMD=${5:-python2}
 
-# realpath/readlink misbehave on OSX
-#if (command -v realpath > /dev/null); then
-#  PREFIX=`realpath $PREFIX`
-#elif (command -v readlink > /dev/null); then
-#  PREFIX=`readlink -f $PREFIX`
-#elif test "${PREFIX:0:1}" != "/"; then
-#  echo "Please use an absolute path for PREFIX, or install either realpath or readlink"
-#  exit 1
-#fi
-
-EPREFIX=`$PYTHON2_CMD -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' $EPREFIX`
-
 cd ${DESTDIR}${EPREFIX}/bin && \
 cat <<EOF > exaile
 #!/bin/sh

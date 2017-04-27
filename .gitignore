@@ -24,11 +24,12 @@ dist
 doc/_build
 doc/_static
 
+tools/installer/src
 tools/installer/_bin
 tools/installer/_build
 tools/installer/_build_osx
 tools/installer/_build_env
-tools/installer/_build_env_installer
+tools/installer/_build_root
 tools/installer/_copy
 tools/installer/_dist
 tools/installer/_dist_osx

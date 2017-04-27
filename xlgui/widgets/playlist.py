@@ -239,6 +239,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
                 associated with.
         """
         menu.ProviderMenu.__init__(self, 'playlist-context-menu', page)
+        self.attach_to_widget(page, None)
 
     def get_context(self):
         context = common.LazyDict(self._parent)
@@ -668,8 +669,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.playlist = playlist
         self.player = player
+        
         self.menu = PlaylistContextMenu(self)
-        self.tabmenu = menu.ProviderMenu('playlist-tab-context-menu', self)
+        self.header_menu = menu.ProviderMenu('playlist-columns-menu', self)
+        self.header_menu.attach_to_widget(self)
+        
         self.dragging = False
         self.pending_event = None
         self.button_pressed = False # used by columns to determine whether
@@ -905,8 +909,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_header_button_press(self, widget, event):
         if event.button == Gdk.BUTTON_SECONDARY:
-            m = menu.ProviderMenu('playlist-columns-menu', self)
-            m.popup(None, None, None, None, event.button, event.time)
+            self.header_menu.popup(None, None, None, None, event.button, event.time)
             return True
 
     def on_columns_changed(self, widget):

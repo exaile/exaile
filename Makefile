@@ -11,15 +11,22 @@ MANPREFIX     ?= $(PREFIX)/share
 ETCDIR        := $(shell [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc")
 XDGCONFDIR    ?= $(ETCDIR)/xdg
 
+# Find bash-completion's completions directory, first by checking pkg-config,
+# then using a hard-coded path. Override BASHCOMPDIR if it's still wrong for
+# your OS.
+BASHCOMPDIR   := $(shell pkg-config --define-variable=prefix="$(PREFIX)" \
+  --variable=completionsdir bash-completion 2> /dev/null \
+  || echo "$(PREFIX)/share/bash-completion/completions")
+
 EXAILEBINDIR   = $(DESTDIR)$(EPREFIX)/bin
 EXAILELIBDIR   = $(DESTDIR)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
 EXAILECONFDIR  = $(DESTDIR)$(XDGCONFDIR)/exaile
 EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
-.PHONY: dist test coverage clean sanitycheck
+.PHONY: dist test completion coverage clean sanitycheck
 
-all: compile locale manpage
+all: compile completion locale manpage
 	@echo "Ready to install..."
 
 # The no_locale stuff is by request of BSD people, please ensure
@@ -68,6 +75,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(DATADIR)/applications
 	mkdir -p $(DESTDIR)$(DATADIR)/dbus-1/services
 	mkdir -p $(EXAILEMANDIR)/man1
+	mkdir -p $(DESTDIR)$(BASHCOMPDIR)
 	mkdir -p $(EXAILECONFDIR)
 
 uninstall:
@@ -79,6 +87,7 @@ uninstall:
 	rm -f $(DESTDIR)$(DATADIR)/pixmaps/exaile.png
 	rm -f $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	rm -f $(EXAILEMANDIR)/man1/exaile.1.gz
+	rm -f $(DESTDIR)$(BASHCOMPDIR)/exaile
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
@@ -137,6 +146,7 @@ install-target: make-install-dirs
 	install -m 644 data/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/appdata/
 	install -m 644 exaile.1.gz $(EXAILEMANDIR)/man1/
+	-install -m 644 exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
 		"$(PYTHON2_CMD)" && \
@@ -166,11 +176,15 @@ manpage:
 	  ./exaile \
 	  | gzip -9 > exaile.1.gz
 
+completion:
+	$(PYTHON_CMD) tools/generate-completion.py > exaile.bash-completion
+
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
 	rm -f exaile.1.gz
+	rm -f exaile.bash-completion
 	$(MAKE) -C plugins clean
 
 # The "LC_ALL=C" disables any locale-dependent sort behavior.

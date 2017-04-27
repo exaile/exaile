@@ -10,6 +10,8 @@ data/plugins
 po/*/
 po/POTFILES.in
 
+/exaile.bash-completion
+
 backup.bzr
 random
 exaile-dist.tar.bz2

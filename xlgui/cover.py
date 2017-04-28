@@ -1117,7 +1117,7 @@ class CoverChooser(GObject.GObject):
             position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
             self.previews_box.select_path(Gtk.TreePath(position))
         else:
-            self.builder.get_object('info_box').hide()
+            self.builder.get_object('stack').hide()
             self.builder.get_object('actions_box').hide()
             self.message.show_warning(
                 _('No covers found.'),

@@ -52,6 +52,8 @@ from xlgui.widgets import dialogs
 from xlgui.guiutil import GtkTemplate
 from xl.metadata.tags import tag_data, get_default_tagdata
 
+import logging
+logger = logging.getLogger(__name__)
 
 class TrackPropertiesDialog(GObject.GObject):
 
@@ -217,41 +219,45 @@ class TrackPropertiesDialog(GObject.GObject):
         for n, trackdata in data:
             track = self.tracks[n]
             poplist = []
+            
+            try:
+                for tag in trackdata:
+                    if not tag.startswith("__"):
+                        if tag in ("tracknumber", "discnumber") \
+                           and trackdata[tag] == ["0/0"]:
+                            poplist.append(tag)
+                            continue
+                        self._write_tag(track, tag, trackdata[tag])
+                    elif tag in ('__startoffset', '__stopoffset'):
+                        try:
+                            offset = int(trackdata[tag][0])
+                        except ValueError:
+                            poplist.append(tag)
+                        else:
+                            track.set_tag_raw(tag, offset)
 
-            for tag in trackdata:
-                if not tag.startswith("__"):
-                    if tag in ("tracknumber", "discnumber") \
-                       and trackdata[tag] == ["0/0"]:
-                        poplist.append(tag)
-                        continue
-                    self._write_tag(track, tag, trackdata[tag])
-                elif tag in ('__startoffset', '__stopoffset'):
-                    try:
-                        offset = int(trackdata[tag][0])
-                    except ValueError:
-                        poplist.append(tag)
+                # In case a tag has been removed..
+                for tag in track.list_tags():
+                    if tag in tag_data:
+                        if tag_data[tag] is not None:
+                            try:
+                                trackdata[tag]
+                            except KeyError:
+                                poplist.append(tag)
                     else:
-                        track.set_tag_raw(tag, offset)
-
-            # In case a tag has been removed..
-            for tag in track.list_tags():
-                if tag in tag_data:
-                    if tag_data[tag] is not None:
                         try:
                             trackdata[tag]
                         except KeyError:
                             poplist.append(tag)
-                else:
-                    try:
-                        trackdata[tag]
-                    except KeyError:
-                        poplist.append(tag)
 
-            for tag in poplist:
-                self._write_tag(track, tag, None)
-
-            if not track.write_tags():
-                errors.append(track.get_loc_for_io());
+                for tag in poplist:
+                    self._write_tag(track, tag, None)
+                
+                if not track.write_tags():
+                    errors.append(track.get_loc_for_io())
+            except Exception:
+                logger.warning("Error saving track", exc_info=True)
+                errors.append(track.get_loc_for_io())
                 
             trax.track._CACHER.remove(track)
             dialog.step()

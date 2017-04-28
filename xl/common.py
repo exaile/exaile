@@ -215,7 +215,11 @@ def _glib_wait_inner(timeout, glib_timeout_func):
     def waiter(function):
         def thunk(*args, **kwargs):
             id[0] = None
-            return function(*args, **kwargs)
+            # if a function returns True, it wants to be called again; in that
+            # case, treat it as an additional call, otherwise you can potentially
+            # get lots of callbacks piling up
+            if function(*args, **kwargs):
+                delayer(*args, **kwargs)
         def delayer(*args, **kwargs):
             if id[0]: GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)

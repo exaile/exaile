@@ -178,13 +178,13 @@ class TestTrack(object):
         loc = test_track.filename
         tr = track.Track(loc)
         self.empty_track_of_tags(tr, ('__loc',))
-        trstr = "'Unknown (%s)' from 'Unknown' by 'Unknown'" \
+        trstr = "<Track u'Unknown (%s)' by u'' from u''>" \
                 % os.path.basename(loc)
         assert str(tr) == trstr
         tr.set_tag_raw('artist', 'art')
         tr.set_tag_raw('album', 'alb')
         tr.set_tag_raw('title', 'title')
-        assert str(tr) == "'title' from 'alb' by 'art'"
+        assert str(tr) == "<Track u'title' by u'art' from u'alb'>"
 
     def test_read_tags_no_perms(self, test_track_fp):
 

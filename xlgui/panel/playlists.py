@@ -154,7 +154,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         # Ask for new name
         dialog = dialogs.TextEntryDialog(
             _("Enter the new name you want for your playlist"),
-            _("Rename Playlist"), playlist.name)
+            _("Rename Playlist"), playlist.name, parent=self.parent)
         
         result = dialog.run()
         name = dialog.get_value()

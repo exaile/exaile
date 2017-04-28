@@ -410,6 +410,9 @@ class PlaylistPage(PlaylistPageBase):
             'playlist_utilities_bar')
 
         self.view = PlaylistView(playlist, player)
+        self.view.set_search_entry(self.search_entry.entry)
+        self.view.connect('start-interactive-search', lambda *a: self.search_entry.entry.grab_focus())
+        
         self.playlist_window.add(self.view)
 
         event.add_ui_callback(self.on_mode_changed,

@@ -107,8 +107,13 @@ class BPMCounterPlugin(object):
         def _on_complete(bpm, err):
             if err is not None:
                 dialogs.error(None, err)
-            else:
-                self.set_bpm(track, bpm, parent_window=parent_window)
+            elif track and bpm:
+                bpm = int(round(float(bpm)))
+                msg = BPMAutodetectResponse(parent_window, bpm, track)
+                result = msg.run()
+                bpm = msg.get_bpm()
+                msg.destroy()
+                self._set_bpm(result, bpm, track)
         
         bpmdetect.detect_bpm(track.get_loc_for_io(), _on_complete)
     
@@ -126,13 +131,39 @@ class BPMCounterPlugin(object):
             msg.set_default_response(Gtk.ResponseType.NO)
             result = msg.run()
             msg.destroy()
-        
-            if result == Gtk.ResponseType.YES:
-                track.set_tag_raw('bpm', bpm)
-                if not track.write_tags():
-                    dialogs.error(None, "Error writing BPM to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
+            self._set_bpm(result, bpm, track)
+    
+    def _set_bpm(self, result, bpm, track):
+        if result == Gtk.ResponseType.YES:
+            track.set_tag_raw('bpm', bpm)
+            if not track.write_tags():
+                dialogs.error(None, "Error writing BPM to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
 
 plugin_class = BPMCounterPlugin
+
+
+@GtkTemplate('msg.ui', relto=__file__)
+class BPMAutodetectResponse(Gtk.Dialog):
+    
+    __gtype_name__ = 'BPMAutodetectResponse'
+    
+    q_label,       \
+    r1, r2, r3     = GtkTemplate.Child.widgets(4)
+    
+    def __init__(self, parent_window, bpm, track):
+        Gtk.Dialog.__init__(self, parent=parent_window)
+        self.init_template()
+        
+        self.q_label.set_text(self.q_label.get_text() % track.get_tag_display('title'))
+        self.r1.set_label(str(int(round(bpm/2.0))))
+        self.r2.set_label(str(bpm))
+        self.r3.set_label(str(int(round(bpm*2.0))))
+        self.r2.set_active(True)
+        
+    def get_bpm(self):
+        for r in [self.r1, self.r2, self.r3]:
+            if r.get_active():
+                return int(r.get_label())
 
 
 @GtkTemplate('bpm.ui', relto=__file__)

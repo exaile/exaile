@@ -96,9 +96,8 @@ class IcecastRadioStation(RadioStation):
             genre.setAttribute('name', k)
             genre.setAttribute('location', v)
             genrelist.appendChild(genre)
-        h = open(self.cache_file, 'w')
-        document.writexml(h, indent='\n', encoding='utf-8')
-        h.close()
+        with open(self.cache_file, 'w') as h:
+            document.writexml(h, indent='\n', encoding='utf-8')
 
     def get_lists(self, no_cache=False):
         """

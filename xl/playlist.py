@@ -1931,15 +1931,13 @@ class SmartPlaylist(object):
         for item in ['search_params', 'custom_params', 'or_match',
                 'track_count', 'random_sort', 'name']:
             pdata[item] = getattr(self, item)
-        f = open(location, 'wb')
-        pickle.dump(pdata, f)
-        f.close()
+        with open(location, 'wb') as fp:
+            pickle.dump(pdata, fp)
 
     def load_from_location(self, location):
         try:
-            f = open(location, 'rb')
-            pdata = pickle.load(f)
-            f.close()
+            with open(location, 'rb') as fp:
+                pdata = pickle.load(fp)
         except Exception:
             return
         for item in pdata:

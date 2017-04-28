@@ -199,10 +199,9 @@ class PodcastPanel(panel.Panel):
     def _load_podcasts(self):
         self._set_status(_("Loading Podcasts..."))
         try:
-            h = open(self.podcast_file)
-
-            lines = (line.strip() for line in h.readlines())
-            h.close()
+            with open(self.podcast_file) as fp:
+                lines = (line.strip() for line in fp.readlines())
+            
             self.podcasts = []
 
             for line in lines:
@@ -226,13 +225,10 @@ class PodcastPanel(panel.Panel):
 
     def _save_podcasts(self):
         try:
-            h = open(self.podcast_file, 'w')
+            with open(self.podcast_file, 'w') as fp:
+                for (title, url) in self.podcasts:
+                    fp.write('%s\t%s\n' % (url, title))
         except (OSError, IOError):
             dialogs.error(self.parent, _('Could not save podcast file'))
             return
-
-        for (title, url) in self.podcasts:
-            h.write('%s\t%s\n' % (url, title))
-
-        h.close()
 

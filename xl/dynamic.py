@@ -107,24 +107,23 @@ class DynamicManager(providers.ProviderHandler):
         filename = os.path.join(self.cachedir, ','.join(artist))
         if not os.path.exists(filename):
             return []
-        f = open(filename)
-        line = f.readline()
-        if line == '':
-            return []
-        last_update = float(line)
-        if 604800 < time.time() - last_update: # one week
-            info = self._query_sources(track)
-            if info != []:
-                self._save_info(track, info)
-                return info
-        info = []
-        for line in f:
-            try:
-                rel, artist = line.strip().split(" ",1)
-                info.append((rel, artist))
-            except Exception:
-                pass
-        f.close()
+        with open(filename) as f:
+            line = f.readline()
+            if line == '':
+                return []
+            last_update = float(line)
+            if 604800 < time.time() - last_update: # one week
+                info = self._query_sources(track)
+                if info != []:
+                    self._save_info(track, info)
+                    return info
+            info = []
+            for line in f:
+                try:
+                    rel, artist = line.strip().split(" ",1)
+                    info.append((rel, artist))
+                except Exception:
+                    pass
         return info
 
     def _save_info(self, track, info):
@@ -132,11 +131,10 @@ class DynamicManager(providers.ProviderHandler):
             return
         filename = os.path.join(self.cachedir,
                 track.get_tag_raw('artist', join=True))
-        f = open(filename, 'w')
-        f.write("%s\n"%time.time())
-        for item in info:
-            f.write("%.2f %s\n"%item)
-        f.close()
+        with open(filename, 'w') as f:
+            f.write("%s\n"%time.time())
+            for item in info:
+                f.write("%.2f %s\n"%item)
 
     def populate_playlist(self, playlist):
         """

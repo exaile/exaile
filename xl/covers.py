@@ -87,7 +87,8 @@ class Cacher(object):
         h.update(data)
         key = h.hexdigest()
         path = os.path.join(self.cache_dir, key)
-        open(path, "wb").write(data)
+        with open(path, "wb") as fp:
+            fp.write(data)
         return key
 
     def remove(self, key):
@@ -111,7 +112,8 @@ class Cacher(object):
         """
         path = os.path.join(self.cache_dir, key)
         if os.path.exists(path):
-            return open(path, "rb").read()
+            with open(path, "rb") as fp:
+                return fp.read()
         return None
 
 

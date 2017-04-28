@@ -435,15 +435,8 @@ class Track(object):
         """
             returns a string representing the track
         """
-        vals = map(self.get_tag_display, ('title', 'album', 'artist'))
-        rets = []
-        for v in vals:
-            if not v:
-                v = "Unknown"
-            v = "'" + v + "'"
-            rets.append(v)
-        ret = "%s from %s by %s" % tuple(rets)
-        return ret
+        vals = map(self.get_tag_display, ('title', 'artist', 'album'))
+        return "<Track %r by %r from %r>" % tuple(vals)
 
     def _pickles(self):
         """

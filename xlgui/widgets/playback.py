@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from gi.repository import Atk
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
@@ -42,6 +43,10 @@ from xl.nls import gettext as _
 from xlgui.widgets import menu
 
 from xlgui.guiutil import GtkTemplate
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
@@ -70,6 +75,12 @@ class PlaybackProgressBar(Gtk.ProgressBar):
     def __init__(self, player):
         Gtk.ProgressBar.__init__(self)
         self.__player = player
+        
+        try:
+            awidget = self.get_accessible()
+            awidget.set_role(Atk.Role.AUDIO)
+        except Exception:
+            logger.debug("Exception setting ATK role", exc_info=True)
 
         self.set_show_text(True)
 

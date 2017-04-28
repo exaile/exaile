@@ -80,7 +80,7 @@ class TrackPropertiesDialog(GObject.GObject):
         self.__changed_attributes = Pango.AttrList()
 
         self.message = dialogs.MessageBar(
-            parent=self.builder.get_object('main_container'),
+            parent=self.builder.get_object('main_content'),
             buttons=Gtk.ButtonsType.CLOSE
         )
 

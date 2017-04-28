@@ -157,9 +157,10 @@ class FilesContextMenu(menu.MultiProviderMenu):
         menu.MultiProviderMenu.__init__(self, 
             ['track-panel-menu', 'files-panel-context-menu']
             , panel)
-
+            
     def get_context(self):
         context = common.LazyDict(self._parent)
+        context['needs-computing'] = lambda name, parent: parent.tree.get_selection_is_computed()
         context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
         context['selection-empty'] = lambda name, parent: parent.tree.get_selection_empty()
         
@@ -237,6 +238,7 @@ class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
     
     def get_context(self):
         context = common.LazyDict(self._parent)
+        context['needs-computing'] = lambda name, parent: parent.tree.get_selection_is_computed()
         context['selected-playlist'] = lambda name, parent: parent.tree.get_selected_page(raw=True)
         context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
         context['selection-empty'] = lambda name, parent: parent.tree.get_selection_empty()

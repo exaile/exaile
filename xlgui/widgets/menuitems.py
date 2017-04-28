@@ -65,6 +65,9 @@ class RatingMenuItem(menu.MenuItem):
         # TODO: For accessibility it would be nice to add mnemonics or some
         # other key shortcut thing to the RatingMenu, e.g. "+" and "-"
     def factory(self, menu, parent, context):
+        # don't show rating widget for computed track selections (see #340)
+        if context.get('needs-computing'):
+            return
         item = rating.RatingMenuItem()
         item.connect('show', self.on_show, menu, parent, context)
         self._rating_changed_id = item.connect('rating-changed',

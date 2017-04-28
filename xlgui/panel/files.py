@@ -99,7 +99,7 @@ class FilesPanel(panel.Panel):
         """
             Sets up tree widget for the files panel
         """
-        self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str)
+        self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str, bool)
         self.tree = tree = FilesDragTreeView(self, True, True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
@@ -258,10 +258,8 @@ class FilesPanel(panel.Panel):
         model, paths = selection.get_selected_rows()
 
         for path in paths:
-            f = model[path][0]
-            ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
-            if ftype == Gio.FileType.DIRECTORY:
-                self.load_directory(f)
+            if model[path][4]:
+                self.load_directory(model[path][0])
             else:
                 self.emit('append-items', self.tree.get_selected_tracks(), True)
 
@@ -421,7 +419,7 @@ class FilesPanel(panel.Panel):
             model.clear()
             row = 0
             for sortname, name, f in subdirs:
-                model.append((f, self.directory, name, ''))
+                model.append((f, self.directory, name, '', True))
                 uri = f.get_uri()
                 if cursor_file and cursor_row == -1 and \
                         (cursor_uri == uri or cursor_uri.startswith(uri + '/')):
@@ -436,7 +434,7 @@ class FilesPanel(panel.Panel):
                 size = locale.format_string('%d', size, True)
                 size = _('%s kB') % unicode(size, locale.getpreferredencoding())
                 
-                model.append((f, self.track, name, size))
+                model.append((f, self.track, name, size, False))
                 if cursor_file and cursor_row == -1 and cursor_uri == f.get_uri():
                     cursor_row = row
                 row += 1
@@ -489,6 +487,20 @@ class FilesDragTreeView(DragTreeView):
     def get_selection_empty(self):
         '''Returns True if there are no selected items'''
         return self.get_selection().count_selected_rows() == 0
+    
+    def get_selection_is_computed(self):
+        """
+            Returns True if anything in the selection is a directory
+        """
+        selection = self.get_selection()
+        model, paths = selection.get_selected_rows()
+
+        for path in paths:
+            if model[path][4]:
+                return True
+        
+        return False
+        
     
     def get_selected_tracks(self):
         """

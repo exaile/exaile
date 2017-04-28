@@ -896,6 +896,13 @@ class PlaylistDragTreeView(DragTreeView):
         '''Returns True if there are no selected items'''
         return self.get_selection().count_selected_rows() == 0
 
+    def get_selection_is_computed(self):
+        """
+            Returns True if selection is a Smart Playlist
+        """
+        item = self.get_selected_item(raw=True)
+        return isinstance(item, playlist.SmartPlaylist)
+
     def get_selected_tracks(self):
         """
             Used by the menu, just basically gets the selected

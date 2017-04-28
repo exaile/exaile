@@ -62,10 +62,11 @@ class FilterDialog(Gtk.Dialog):
         - criteria: possible criteria; see FilterWindow
         """
 
-        Gtk.Dialog.__init__(self, title=title, transient_for=parent, add_buttons=(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
-            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
+        Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         self.init_template()
+        
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+                         Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT)
 
         f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_criteria_row()

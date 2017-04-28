@@ -72,7 +72,9 @@ class RatingMenuItem(menu.MenuItem):
 
         return item
 
-    @common.threaded
+    #@common.threaded
+    # TODO: ASYNC
+    # most of this function isn't safe to use from a (interacts with UI elements)
     def on_show(self, widget, menu, parent, context):
         """
             Updates the menu item on show

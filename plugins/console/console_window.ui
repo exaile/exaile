@@ -8,7 +8,7 @@
     <property name="title" translatable="yes" comments="Window title">Simple Console</property>
     <property name="default_width">450</property>
     <property name="default_height">250</property>
-    <property name="type_hint">utility</property>
+    <property name="destroy_with_parent">True</property>
     <child>
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>

@@ -376,6 +376,11 @@ class EventManager(object):
         else:
             all_cbs = [self.callbacks, self.all_callbacks] 
         
+        if evty is None:
+            evty = _NONE
+        if obj is None:
+            obj = _NONE
+        
         with self.lock:
             cb = Callback(function, time.time(), args, kwargs)
             
@@ -383,8 +388,6 @@ class EventManager(object):
             for cbs in all_cbs:
                 if evty not in cbs:
                     cbs[evty] = weakref.WeakKeyDictionary()
-                if obj is None:
-                    obj = _NONE
                 try:
                     callbacks = cbs[evty][obj]
                 except KeyError:
@@ -407,6 +410,8 @@ class EventManager(object):
             The parameters must match those given when the callback was
             registered. (minus any additional args)
         """
+        if evty is None:
+            evty = _NONE
         if obj is None:
             obj = _NONE
         

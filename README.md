@@ -1,6 +1,9 @@
 Exaile
 ======
 
+[![Build Status](https://travis-ci.org/exaile/exaile.svg?branch=master)](https://travis-ci.org/exaile/exaile)
+[![Translate with Weblate](https://hosted.weblate.org/widgets/exaile/-/svg-badge.svg)](https://hosted.weblate.org/engage/exaile/)
+
 Exaile is a music player with a simple interface and powerful
 music management capabilities. Features include automatic fetching of album art,
 lyrics fetching, streaming internet radio, tabbed playlists, smart playlists

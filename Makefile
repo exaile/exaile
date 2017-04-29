@@ -1,4 +1,4 @@
-PYTHON2        = python2
+PYTHON2_CMD   ?= python2
 PYTEST         = py.test
 
 PREFIX         = /usr/local
@@ -35,8 +35,8 @@ all_no_locale: compile manpage
 	@echo "Ready to install..."
 
 compile:
-	$(PYTHON2) -m compileall -q xl xlgui
-	-$(PYTHON2) -O -m compileall -q xl xlgui
+	$(PYTHON2_CMD) -m compileall -q xl xlgui
+	-$(PYTHON2_CMD) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:
@@ -149,7 +149,7 @@ install-target: make-install-dirs
 	-install -m 644 exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
-		"$(PYTHON2)" && \
+		"$(PYTHON2_CMD)" && \
 	  chmod 755 $(EXAILEBINDIR)/exaile
 	sed "s|\@bindir\@|$(EPREFIX)/bin|" data/org.exaile.Exaile.service.in > \
 		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
@@ -177,7 +177,7 @@ manpage:
 	  | gzip -9 > exaile.1.gz
 
 completion:
-	$(PYTHON2) tools/generate-completion.py > exaile.bash-completion
+	$(PYTHON2_CMD) tools/generate-completion.py > exaile.bash-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;

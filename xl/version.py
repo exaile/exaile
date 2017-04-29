@@ -25,7 +25,10 @@
 # from your version.
 
 import os
-import xdg
+from . import xdg
+
+import logging
+logger = logging.getLogger(__name__)
 
 major = "4.0"
 minor = "0"
@@ -53,3 +56,11 @@ if xdg.local_hack:
         extra += "+" + revision
 
 __version__ = major + "." + minor + extra
+
+__external_versions__ = {}
+
+def register(name, version):
+    '''Registers versions of external components for diagnostic purposes'''
+    if name not in __external_versions__:
+        __external_versions__[name] = version
+        logger.info("Using %s %s", name, version)

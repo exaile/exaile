@@ -33,10 +33,6 @@ from gi.repository import Gtk
 import logging
 logger = logging.getLogger(__name__)
 
-logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
-                                   Gtk.MINOR_VERSION,
-                                   Gtk.MICRO_VERSION)
-
 import os
 import sys
 
@@ -45,12 +41,15 @@ from xl import (
     player,
     providers,
     settings,
+    version,
     xdg
 )
 from xl.nls import gettext as _
 from xlgui import guiutil
 
-
+version.register("GTK+", "%s.%s.%s" % (Gtk.MAJOR_VERSION,
+                                       Gtk.MINOR_VERSION,
+                                       Gtk.MICRO_VERSION))
 
 def mainloop():
     from xl.externals.sigint import InterruptibleLoopContext

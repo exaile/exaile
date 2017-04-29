@@ -119,9 +119,17 @@ class AboutDialog(Gtk.AboutDialog):
         logo = GdkPixbuf.Pixbuf.new_from_file(
             xdg.get_data_path('images', 'exailelogo.png'))
         self.set_logo(logo)
-        from xl.main import __version__
-        self.set_version(__version__)
-
+        
+        import xl.version
+        
+        self.set_version(xl.version.__version__)
+        
+        comments = []
+        for name, version in sorted(xl.version.__external_versions__.iteritems()):
+            comments.append('%s: %s' % (name, version))
+            
+        self.set_comments('\n'.join(comments))
+        
     def on_response(self, *_):
         self.destroy()
 

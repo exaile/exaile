@@ -354,9 +354,15 @@ class Exaile(object):
         """
             Initializes Exaile
         """
-        # pylint: disable-msg=W0201
-        logger.info("Loading Exaile %s on Python %s..." % (__version__, platform.python_version()))
-
+        
+        logger.info("Loading Exaile %s..." % __version__)
+        
+        from gi.repository import GObject
+        from .version import register
+        
+        register('Python', platform.python_version())
+        register('PyGObject', '%d.%d.%d' % GObject.pygobject_version)
+        
         logger.info("Loading settings...")
         try:
             from xl import settings
@@ -371,9 +377,11 @@ class Exaile(object):
             import locale
             lc, enc = locale.getlocale()
             if enc is not None:
-                logger.info("Using %s %s locale" % (lc, enc))
+                locale_str = '%s %s' % (lc, enc)
             else:
-                logger.info("Using unknown locale")
+                locale_str = _('Unknown')
+            
+            register('Locale', locale_str)
         except Exception:
             pass
 
@@ -569,13 +577,13 @@ class Exaile(object):
         from gi.repository import GObject
         
         major, minor, patch = GObject.pygobject_version
-        logger.info("Using PyGObject %d.%d.%d", major, minor, patch)
         
         if major < 3 or \
             (major == 3 and minor < 10) or \
             (major == 3 and minor == 10 and patch < 2):
             # Probably should exit?
-            logger.warning("Exaile requires PyGObject 3.10.2 or greater!")
+            logger.warning("Exaile requires PyGObject 3.10.2 or greater! (got %d.%d.%d)",
+                            major, minor, patch)
         
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib

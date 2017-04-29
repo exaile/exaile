@@ -30,6 +30,11 @@ import copy
 import logging
 logger = logging.getLogger('xl.metadata')
 
+from xl import version
+import mutagen
+version.register('Mutagen', mutagen.version_string)
+
+
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images

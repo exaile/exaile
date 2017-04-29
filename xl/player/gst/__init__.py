@@ -13,9 +13,6 @@
 from gi.repository import Gst
 Gst.init(None)
 
-import logging
-logger = logging.getLogger(__name__)
-
 try:
     __gst_version__ = '%s.%s.%s' % (Gst.VERSION_MAJOR,
                                     Gst.VERSION_MINOR,
@@ -26,8 +23,7 @@ except AttributeError:
     __gst_version__ = '**unknown version < 1.3.3**'
 
 
-logger.info("Using GStreamer %s", __gst_version__)
+from xl.version import register
+register('GStreamer', __gst_version__)
 
-del logger
-del logging
-
+del register

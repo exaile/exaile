@@ -7,3 +7,11 @@ before_install:
 
 script:
 - docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:latest make test
+
+notifications:
+  irc:
+    channels:
+    - "chat.freenode.net#exaile"
+    use_notice: true
+    skip_join: true
+    on_success: change

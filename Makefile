@@ -177,7 +177,7 @@ manpage:
 	  | gzip -9 > exaile.1.gz
 
 completion:
-	$(PYTHON_CMD) tools/generate-completion.py > exaile.bash-completion
+	$(PYTHON2_CMD) tools/generate-completion.py > exaile.bash-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;

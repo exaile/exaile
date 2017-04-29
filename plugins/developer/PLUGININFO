@@ -1,0 +1,5 @@
+Version='4.0.0'
+Authors=["Dustin Spicuzza <dustin@virtualroadside.com>"]
+Name=_("Developer")
+Description=_("Provides diagnostic information for Exaile developers")
+Category=_('Development')

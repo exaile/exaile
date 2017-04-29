@@ -1,4 +1,4 @@
-PYTHON2_CMD   ?= $(shell command -v python2)
+PYTHON2_CMD   ?= $(if $(shell command -v python2), $(shell command -v python2), $(error "python2 not found in PATH (is it installed?)"))
 PYTEST         = py.test
 
 PREFIX        ?= /usr/local

@@ -93,12 +93,13 @@ Refer to the `Gtk+ <https://developer.gnome.org/gtk3/stable/gtk-running.html>`_
 and `GLib <https://developer.gnome.org/glib/stable/glib-running.html>`_
 debugging documentation.
 
-Enable diagnostic warnings on Fedora
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enable diagnostic warnings
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On Fedora stable you might want to set the ``G_ENABLE_DIAGNOSTIC`` environment
-variable to test this since Glib warnings are disabled by default on Fedora. See
-`this commit <http://pkgs.fedoraproject.org/cgit/glib2.git/commit/?h=f22&id=bdab866334343601ca6b92e23029b4bd78ca6de6>`_.
+On GLib >= 2.46 you might want to set the ``G_ENABLE_DIAGNOSTIC`` environment
+variable to show deprecation warnings. They are disabled by default since 2.46
+and sometimes on older versions. See
+`this commit <https://git.gnome.org/browse/glib/commit/gobject/gobject.c?id=3bd1618ea955f950f87bc4e452029c5f0cea35aa>`_.
 
 Eliminating Gtk-WARNING
 ~~~~~~~~~~~~~~~~~~~~~~~

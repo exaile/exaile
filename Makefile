@@ -1,15 +1,15 @@
-PYTHON2_CMD   ?= $(if $(shell command -v python2), $(shell command -v python2), $(error "python2 not found in PATH (is it installed?)"))
+PYTHON2        = python2
 PYTEST         = py.test
 
-PREFIX        ?= /usr/local
+PREFIX         = /usr/local
 EPREFIX        = $(PREFIX)
 
 LIBINSTALLDIR  = $(EPREFIX)/lib
 DATADIR        = $(PREFIX)/share
-MANPREFIX     ?= $(PREFIX)/share
+MANPREFIX      = $(PREFIX)/share
 # /etc if PREFIX is /usr, $PREFIX/etc otherwise.
 ETCDIR        := $(shell [ "$(PREFIX)" = "/usr" ] && echo /etc || echo "$(PREFIX)/etc")
-XDGCONFDIR    ?= $(ETCDIR)/xdg
+XDGCONFDIR     = $(ETCDIR)/xdg
 
 # Find bash-completion's completions directory, first by checking pkg-config,
 # then using a hard-coded path. Override BASHCOMPDIR if it's still wrong for
@@ -35,8 +35,8 @@ all_no_locale: compile manpage
 	@echo "Ready to install..."
 
 compile:
-	$(PYTHON2_CMD) -m compileall -q xl xlgui
-	-$(PYTHON2_CMD) -O -m compileall -q xl xlgui
+	$(PYTHON2) -m compileall -q xl xlgui
+	-$(PYTHON2) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:
@@ -149,7 +149,7 @@ install-target: make-install-dirs
 	-install -m 644 exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
-		"$(PYTHON2_CMD)" && \
+		"$(PYTHON2)" && \
 	  chmod 755 $(EXAILEBINDIR)/exaile
 	sed "s|\@bindir\@|$(EPREFIX)/bin|" data/org.exaile.Exaile.service.in > \
 		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
@@ -177,7 +177,7 @@ manpage:
 	  | gzip -9 > exaile.1.gz
 
 completion:
-	$(PYTHON2_CMD) tools/generate-completion.py > exaile.bash-completion
+	$(PYTHON2) tools/generate-completion.py > exaile.bash-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;

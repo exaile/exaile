@@ -22,7 +22,6 @@ Icon management
               pixbuf_from_stock,
               pixbuf_from_icon_name,
               pixbuf_from_data,
-              pixbuf_from_text,
               pixbuf_from_rating
 
 Utilities

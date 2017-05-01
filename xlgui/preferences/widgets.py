@@ -793,15 +793,15 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return unicode(buf.get_text(start, end), 'utf-8')
+        return unicode(buf.get_text(start, end, True), 'utf-8')
 
     def _set_value(self):
         """
             Sets the value of this widget
         """
         self.widget.get_buffer().set_text(str(
-            self.preferences.settings.get_option(self.name,
-            default=self.default)))
+            self.preferences.settings.get_option(
+                self.name, default=self.default)))
 
     def _get_value(self):
         """

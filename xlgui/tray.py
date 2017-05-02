@@ -38,6 +38,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui.widgets.info import TrackToolTip
 from xlgui.widgets import menu, menuitems, playlist, playback
+from xlgui import guiutil
 
 logger = logging.getLogger(__name__)
 
@@ -46,17 +47,12 @@ def is_supported():
     """
     On some platforms (e.g. Linux+Wayland) tray icons are not supported.
     """
-    supported = not __platform_is_wayland()
+    supported = not guiutil.platform_is_wayland()
     
     if not supported:
         logger.debug("No tray icon support on this platform")
     
     return supported
-
-
-def __platform_is_wayland():
-    display_name = Gdk.Display.get_default().get_name()
-    return display_name == 'Wayland'
 
 
 def __create_tray_context_menu():

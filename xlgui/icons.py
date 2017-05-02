@@ -765,63 +765,6 @@ class IconManager(object):
 
         return pixbuf
 
-    def pixbuf_from_text(self, text, size, background_color='#456eac',
-            border_color='#000', text_color='#fff'):
-        """
-            Generates a pixbuf based on a text, width and height
-
-            :param size: A tuple describing width and height
-            :type size: tuple of int
-            :param background_color: The color of the background as
-                hexadecimal value
-            :type background_color: string
-            :param border_color: The color of the border as
-                hexadecimal value
-            :type border_color: string
-            :param text_color: The color of the text as
-                hexadecimal value
-            :type text_color: string
-        """
-        pixmap_width, pixmap_height = size
-        key = '%s - %sx%s - %s' % (text, pixmap_width, pixmap_height,
-            background_color)
-        
-        if key in self._cache:
-            return self._cache[key]
-
-        # TODO: GI: No pixmap
-        '''pixmap = Gdk.Pixmap(None, pixmap_width, pixmap_height,
-            self.system_visual.depth)
-        context = pixmap.cairo_create()
-
-        context.set_source_color(Gdk.Color(background_color))
-        context.set_line_width(1)
-        context.rectangle(1, 1, pixmap_width - 2, pixmap_height - 2)
-        context.fill()
-
-        context.set_source_color(Gdk.Color(text_color))
-        context.select_font_face('sans-serif 10')
-        x_bearing, y_bearing, width, height = context.text_extents(text)[:4]
-        x = pixmap_width / 2 - width / 2 - x_bearing
-        y = pixmap_height / 2 - height / 2 - y_bearing
-        context.move_to(x, y)
-        context.show_text(text)
-
-        context.set_source_color(Gdk.Color(border_color))
-        context.set_antialias(cairo.ANTIALIAS_NONE)
-        context.rectangle(0, 0, pixmap_width - 1, pixmap_height - 1)
-        context.stroke()'''
-
-        pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, False, 8,
-            pixmap_width, pixmap_height)
-        # TODO: GI: No pixmap
-        #pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
-        #    0, 0, 0, 0, pixmap_width, pixmap_height)
-
-        self._cache[key] = pixbuf
-
-        return pixbuf
-
     @common.cached(limit=settings.get_option('rating/maximum', 5)*3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """

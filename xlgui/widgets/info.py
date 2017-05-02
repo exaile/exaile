@@ -87,6 +87,7 @@ class TrackInfoPane(Gtk.Bin):
         self.cover.set_no_show_all(True)
 
         self.clear()
+        self.__update_widget_state()
 
     def destroy(self):
         """
@@ -193,6 +194,7 @@ class TrackInfoPane(Gtk.Bin):
             :type display_progress: bool
         """
         self.__display_progress = display_progress
+        self.__update_widget_state()
 
     def get_info_format(self):
         """
@@ -231,22 +233,27 @@ class TrackInfoPane(Gtk.Bin):
 
         self.info_label.set_markup(self.__formatter.format(
             track, markup_escape=True))
+        self.__update_widget_state()
 
+    def __update_widget_state(self):
         if self.__display_progress:
-            if track == self.__player.current and \
+            if self.__track == self.__player.current and \
                not self.__player.is_stopped():
-
-                icon_name = 'media-playback-start'
 
                 if self.__player.is_paused():
                     icon_name = 'media-playback-pause'
+                else:
+                    icon_name = 'media-playback-start'
+                self.playback_image.set_from_icon_name(
+                    icon_name, Gtk.IconSize.SMALL_TOOLBAR)
 
-                self.playback_image.set_from_icon_name(icon_name,
-                    Gtk.IconSize.SMALL_TOOLBAR)
-
-                self.__show_progress()
-            else:
-                self.__hide_progress()
+            self.progress_box.set_no_show_all(False)
+            self.progress_box.set_visible(True)
+            self.progressbar.set_visible(True)
+        else:
+            self.progress_box.set_visible(False)
+            self.progress_box.set_no_show_all(True)
+            self.progressbar.set_visible(True)
 
     def clear(self):
         """
@@ -256,10 +263,9 @@ class TrackInfoPane(Gtk.Bin):
         self.cover.set_track(None)
         self.info_label.set_markup(self.__default_text)
 
-        if self.__display_progress:
-            self.__hide_progress()
-
         self.__track = None
+        self.__update_widget_state()
+
 
     def get_action_area(self):
         """
@@ -269,22 +275,6 @@ class TrackInfoPane(Gtk.Bin):
             :rtype: :class:`Gtk.Box`
         """
         return self.action_area
-
-    def __show_progress(self):
-        """
-            Shows the progress area and enables
-            updates of the progress bar
-        """
-        self.progress_box.set_no_show_all(False)
-        self.progress_box.set_property('visible', True)
-
-    def __hide_progress(self):
-        """
-            Hides the progress area and disables
-            updates of the progress bar
-        """
-        self.progress_box.set_property('visible', False)
-        self.progress_box.set_no_show_all(True)
 
     def on_notify_format(self, formatter, format):
         """

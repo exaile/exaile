@@ -1,6 +1,0 @@
-Version='4.0.0'
-Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
-Name='MPRIS'
-Description=_('Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for controlling Exaile.')
-Category=_('Utility')
-RequiredModules=['dbus']

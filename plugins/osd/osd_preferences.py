@@ -14,74 +14,57 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from gi.repository import Gdk
 import os
+import sys
 
-from xl.main import exaile
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
-from alphacolor import (
-    AlphaColor,
-    alphacolor_parse
-)
 
 name = _('On Screen Display')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")
 icon = 'dialog-information'
 
-def page_enter(preferences_dialog):
+
+OSDPLUGIN = None
+
+
+def page_enter(_preferencesdialog):
     """
         Shows a preview of the OSD
     """
-    # XXX: Ugly but the only way to get the proper
-    # instance, just plugins.osd.OSDWINDOW is always None
-    OSDWINDOW = exaile().plugins.enabled_plugins['osd'].OSDWINDOW
-    OSDWINDOW.props.autohide = False
-    OSDWINDOW.show()
+    OSDPLUGIN.make_osd_editable(True)
 
-def page_leave(preferences_dialog):
+
+def page_leave(_preferencesdialog):
     """
         Hides the OSD preview
     """
-    OSDWINDOW = exaile().plugins.enabled_plugins['osd'].OSDWINDOW
-    OSDWINDOW.props.autohide = True
-    OSDWINDOW.hide()
+    OSDPLUGIN.make_osd_editable(False)
+
 
 class ShowProgressPreference(widgets.CheckPreference):
     name = 'plugin/osd/show_progress'
     default = True
 
+
 class DisplayDurationPreference(widgets.SpinPreference):
     name = 'plugin/osd/display_duration'
     default = 4
 
-class BackgroundPreference(widgets.ColorButtonPreference):
+
+class BackgroundPreference(widgets.RGBAButtonPreference):
     name = 'plugin/osd/background'
-    default = '#333333cc'
+    default = 'rgba(18, 18, 18, 0.8)'
 
     def __init__(self, preferences, widget):
-        widgets.ColorButtonPreference.__init__(self, preferences, widget)
-        self.widget.set_use_alpha(True)
+        widgets.RGBAButtonPreference.__init__(self, preferences, widget)
+        if sys.platform.startswith("win32"):
+            # Setting opacity on Windows crashes with segfault,
+            # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
+            widget.set_use_alpha(False)
 
-    def _set_value(self):
-        color = alphacolor_parse(
-            self.preferences.settings.get_option(self.name, self.default))
-
-        self.widget.set_color(Gdk.Color(color.red, color.green, color.blue))
-        self.widget.set_alpha(color.alpha)
-
-    def _get_value(self):
-        color = self.widget.get_color()
-        color = AlphaColor(
-            color.red,
-            color.green,
-            color.blue,
-            self.widget.get_alpha()
-        )
-
-        return str(color)
 
 class FormatPreference(widgets.TextViewPreference):
     name = 'plugin/osd/format'
@@ -89,10 +72,10 @@ class FormatPreference(widgets.TextViewPreference):
                 'by $artist\n'
                 'from $album')
 
+
 class BorderRadiusPreference(widgets.SpinPreference):
     name = 'plugin/osd/border_radius'
     default = 10
 
     def _get_value(self):
         return self.widget.get_value_as_int()
-

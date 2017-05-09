@@ -94,18 +94,30 @@ def get_workarea_size():
     d = get_workarea_dimensions()
     return (d.width, d.height)
 
-def get_workarea_dimensions():
+def get_workarea_dimensions(window=None):
     """
-        Returns the x-offset, y-offset, width and height
-        of the work area, falls back to the screen
-        dimensions if not available
+        Returns the x-offset, y-offset, width and height of the work area
+        for a given window or for the default screen if no window is given.
+        Falls back to the screen dimensions if not available.
+
+        :param window: class: `Gtk.Window`, optional
 
         :returns: :class:`CairoRectangleInt`
     """
-    
-    screen = Gdk.Screen.get_default()
-    default_monitor = screen.get_primary_monitor()
-    return screen.get_monitor_workarea(default_monitor)
+    if window is None:
+        screen = Gdk.Screen.get_default()
+        default_monitor = screen.get_primary_monitor()
+        return screen.get_monitor_workarea(default_monitor)
+    elif Gtk.get_major_version() > 3 or \
+            Gtk.get_major_version() == 3 and Gtk.get_minor_version() >= 22:
+        # Gdk.Monitor was introduced in Gtk+ 3.22
+        display = window.get_window().get_display()
+        work_area = display.get_monitor_at_window(window.get_window()).get_workarea()
+    else:
+        screen = window.get_screen()
+        monitor_nr = screen.get_monitor_at_window(window.get_window())
+        work_area = screen.get_monitor_workarea(monitor_nr)
+    return work_area
 
 def gtk_widget_replace(widget, replacement):
     """
@@ -571,5 +583,44 @@ def persist_selection(widget, key_col, setting_name):
             settings.set_option(setting_name, active)
         
         widget.get_selection().connect('changed', _on_changed)
-    
+
+
+def platform_is_wayland():
+    """
+        This function checks whether Exaile has been started on a Wayland display.
+
+        This function has been tested on both GNOME and Weston Wayland compositors
+
+        :returns: `True` if the display used by Exaile is using a Wayland compositor,
+                    ` False` otherwise.
+    """
+    display_name = Gdk.Display.get_default().get_name().lower()
+    return 'wayland' in display_name
+
+
+def css_from_rgba(rgba):
+    """
+        Convert a Gdk.RGBA to a CSS color string
+    """
+    color_css_str = "rgba(%s, %s, %s, %s)" % (
+        str(int(rgba.red * 255)),
+        str(int(rgba.green * 255)),
+        str(int(rgba.blue * 255)),
+        str(rgba.alpha),
+    )
+    return color_css_str
+
+
+def css_from_rgba_without_alpha(rgba):
+    """
+        Convert a Gdk.RGBA to a CSS color string removing the alpha channel
+    """
+    color_css_str = "rgb(%s, %s, %s)" % (
+        str(int(rgba.red * 255)),
+        str(int(rgba.green * 255)),
+        str(int(rgba.blue * 255)),
+    )
+    return color_css_str
+
+
 # vim: et sts=4 sw=4

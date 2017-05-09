@@ -212,3 +212,12 @@ if sys.platform == 'win32':
     import sink_windows
     dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
     _autodetect_devices.append(dev_fn)
+    
+    priority_boost = sink_windows.get_priority_booster()
+    
+else:
+    
+    def priority_boost(player):
+        # only needed on windows
+        pass
+    

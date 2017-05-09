@@ -96,6 +96,7 @@ else:
     def get_devices():
         return []
 
+
 def load_directsoundsink(presets):
     
     preset = {
@@ -106,4 +107,54 @@ def load_directsoundsink(presets):
     presets['directsoundsink'] = preset
         
     return get_devices
+
+
+def get_priority_booster():
+    '''
+        This hack allows us to boost the priority of GStreamer task threads on
+        Windows. See https://github.com/exaile/exaile/issues/76 and 
+        https://bugzilla.gnome.org/show_bug.cgi?id=781998
+    '''
+    from ctypes.wintypes import BOOL, DWORD, HANDLE, LPCWSTR
+    import ctypes as C
+
+    avrt_dll = C.windll.LoadLibrary("avrt.dll")
+    AvSetMmThreadCharacteristics = avrt_dll.AvSetMmThreadCharacteristicsW
+    AvSetMmThreadCharacteristics.argtypes = [LPCWSTR, C.POINTER(DWORD)]
+    AvSetMmThreadCharacteristics.restype = HANDLE
+
+    AvRevertMmThreadCharacteristics = avrt_dll.AvRevertMmThreadCharacteristics
+    AvRevertMmThreadCharacteristics.argtypes = [HANDLE]
+    AvRevertMmThreadCharacteristics.restype = BOOL
+    
+    def on_stream_status(bus, message):
+        '''
+            Called synchronously from GStreamer processing threads -- do what
+            we need to do and then get out ASAP
+        '''
+        status = message.parse_stream_status()
+        
+        # A gstreamer thread starts
+        if status.type == Gst.StreamStatusType.ENTER:
+            obj = message.get_stream_status_object()
+            
+            # note that we use "Pro Audio" because it gives a higher priority, and
+            # that's what Chrome does anyways...
+            unused = DWORD()
+            obj.task_handle = AvSetMmThreadCharacteristics("Pro Audio", C.byref(unused))
+        
+        # A gstreamer thread ends
+        elif status.type == Gst.StreamStatusType.LEAVE:
+            obj = message.get_stream_status_object()
+            task_handle = getattr(obj, 'task_handle', None)
+            if task_handle:
+                AvRevertMmThreadCharacteristics(task_handle)
+    
+    def attach_priority_hook(player):
+        bus = player.get_bus()
+        bus.connect('sync-message::stream-status', on_stream_status)
+        bus.enable_sync_message_emission()
+        
+    return attach_priority_hook
+
         

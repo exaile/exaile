@@ -39,7 +39,7 @@ from xl.nls import gettext as _
 
 from . import gst_utils
 from .dynamic_sink import DynamicAudioSink
-from .sink import create_device
+from .sink import create_device, priority_boost
 
 from xl.player.engine import ExaileEngine
 from xl.player.track_fader import TrackFader
@@ -357,6 +357,9 @@ class AudioStream(object):
         bus = self.playbin.get_bus()
         bus.add_signal_watch()
         bus.connect('message', self.on_message)
+        
+        # priority boost hack if needed
+        priority_boost(self.playbin)
         
         # Pulsesink changes volume behind our back, track it
         self.playbin.connect('notify::volume', self.on_volume_change)

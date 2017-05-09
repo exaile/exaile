@@ -271,7 +271,7 @@ class SPATMenuItem(menu.MenuItem):
 
             if selection_position == parent.playlist.spat_position:
                 display_name = _('_Continue Playback After This Track')
-                icon_name = 'media-playback-play'
+                icon_name = 'media-playback-start'
 
         menuitem = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
         menuitem.set_image(Gtk.Image.new_from_icon_name(icon_name,

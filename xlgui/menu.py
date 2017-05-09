@@ -242,7 +242,7 @@ def __create_help_menu():
         dialog = dialogs.AboutDialog(parent.window)
         dialog.show()
     
-    items.append(_smi('guide', [], _("User's Guide (website)"), 'help',
+    items.append(_smi('guide', [], _("User's Guide (website)"), 'help-contents',
         show_user_guide))
     items.append(_smi('report', [items[-1].name], _("Report an issue (GitHub)"), None,
         show_report_issue))

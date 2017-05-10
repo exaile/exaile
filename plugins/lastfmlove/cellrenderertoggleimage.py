@@ -5,6 +5,9 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gtk
 
+from xlgui import icons
+
+
 class CellRendererToggleImage(Gtk.CellRendererToggle):
     """
         Renders a toggleable state as an image
@@ -105,35 +108,15 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
         self.__render_pixbufs()
 
-    def __pixbuf_from_icon_name(self):
-        """
-            Loads a pixbuf from an icon name
-        """
-        try:
-            return self.__icon_theme.load_icon(
-                icon_name=self.__icon_name,
-                size=self.__stock_size,
-                flags=0
-            )
-        except GObject.GError:
-            return None
-
-    def __pixbuf_from_stock(self):
-        """
-            Loads a pixbuf from a stock id
-        """
-        return self.__render_widget.render_icon(
-            self.__stock_id, self.__stock_size)
-
     def __render_pixbufs(self):
         """
             Pre-renders all required pixbufs and caches them
         """
         # Get pixbuf from raw, stock or name in that order
         if self.__pixbuf is None:
-            pixbuf = self.__pixbuf_from_stock()
+            pixbuf = icons.MANAGER.pixbuf_from_stock(self.__stock_id, self.__stock_size)
             if pixbuf is None:
-                pixbuf = self.__pixbuf_from_icon_name()
+                pixbuf = icons.MANAGER.pixbuf_from_icon_name(self.__icon_name, self.__stock_size)
                 if pixbuf is None:
                     return
             self.__pixbuf = pixbuf

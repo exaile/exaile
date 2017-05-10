@@ -206,13 +206,13 @@ class ButtonControl(Gtk.Button, BaseControl):
         self.set_relief(Gtk.ReliefStyle.NONE)
         self.set_focus_on_click(False)
 
-    def set_image_from_stock(self, stock_id):
+    def set_image_from_icon_name(self, icon_name):
         """
-            Sets the image to the specified stock id
+            Sets the image to the specified icon
 
-            :param stock_id:
+            :param icon_name:
         """
-        self.props.image.set_from_stock(stock_id, Gtk.IconSize.BUTTON)
+        self.props.image.set_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
 
 class PreviousButtonControl(ButtonControl):
     """
@@ -225,7 +225,7 @@ class PreviousButtonControl(ButtonControl):
     def __init__(self):
         ButtonControl.__init__(self)
 
-        self.set_image_from_stock(Gtk.STOCK_MEDIA_PREVIOUS)
+        self.set_image_from_icon_name('media-skip-backward')
         self.set_tooltip_text(_('Previous track'))
 
     def do_clicked(self):
@@ -245,7 +245,7 @@ class NextButtonControl(ButtonControl):
     def __init__(self):
         ButtonControl.__init__(self)
 
-        self.set_image_from_stock(Gtk.STOCK_MEDIA_NEXT)
+        self.set_image_from_icon_name('media-skip-forward')
         self.set_tooltip_text(_('Next track'))
 
     def do_clicked(self):
@@ -280,17 +280,17 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
         """
             Updates the appearance of this button
         """
-        stock_id = Gtk.STOCK_MEDIA_PLAY
+        icon_name = 'media-playback-start'
         tooltip_text = _('Start playback')
 
         if not player.PLAYER.is_stopped():
             if player.PLAYER.is_paused():
                 tooltip_text = _('Continue playback')
             elif player.PLAYER.is_playing():
-                stock_id = Gtk.STOCK_MEDIA_PAUSE
+                icon_name = 'media-playback-pause'
                 tooltip_text = _('Pause playback')
 
-        GLib.idle_add(self.set_image_from_stock, stock_id)
+        GLib.idle_add(self.set_image_from_icon_name, icon_name)
         GLib.idle_add(self.set_tooltip_text, tooltip_text)
 
     def do_clicked(self):
@@ -339,7 +339,7 @@ class StopButtonControl(ButtonControl):
     def __init__(self):
         ButtonControl.__init__(self)
 
-        self.set_image_from_stock(Gtk.STOCK_MEDIA_STOP)
+        self.set_image_from_icon_name('media-playback-stop')
         self.set_tooltip_text(_('Stop playback'))
 
         self.add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK |
@@ -354,18 +354,18 @@ class StopButtonControl(ButtonControl):
         """
             Updates the appearance of this button
         """
-        stock_id = Gtk.STOCK_MEDIA_STOP
+        icon_name = 'media-playback-stop'
         tooltip_text = _('Stop playback')
 
         if self._queue_spat:
-            stock_id = Gtk.STOCK_STOP
+            icon_name = 'process-stop'
 
             if player.QUEUE.current_playlist.spat_position > 0:
                 tooltip_text = _('Continue playback after current track')
             else:
                 tooltip_text = _('Stop playback after current track')
 
-        self.set_image_from_stock(stock_id)
+        self.set_image_from_icon_name(icon_name)
         self.set_tooltip_text(tooltip_text)
 
     def do_clicked(self):
@@ -445,12 +445,12 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
 
         # Slightly beautify the control buttons
         plus_button = self.get_plus_button()
-        plus_button.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_ADD, Gtk.IconSize.BUTTON))
+        plus_button.set_image(Gtk.Image.new_from_icon_name(
+            'list-add', Gtk.IconSize.BUTTON))
         plus_button.set_label('')
         minus_button = self.get_minus_button()
-        minus_button.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_REMOVE, Gtk.IconSize.BUTTON))
+        minus_button.set_image(Gtk.Image.new_from_icon_name(
+            'list-remove', Gtk.IconSize.BUTTON))
         minus_button.set_label('')
 
         event.add_ui_callback(self.on_option_set, 'player_option_set')
@@ -501,7 +501,7 @@ class RestoreButtonControl(ButtonControl):
     def __init__(self):
         ButtonControl.__init__(self)
 
-        self.set_image_from_stock(Gtk.STOCK_LEAVE_FULLSCREEN)
+        self.set_image_from_icon_name('window-new')
         self.set_tooltip_text(_('Restore main window'))
 
     def do_clicked(self):

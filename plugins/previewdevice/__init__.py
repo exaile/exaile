@@ -52,6 +52,11 @@ logger = logging.getLogger(__name__)
 class SecondaryOutputPlugin(object):
     '''Implements logic for plugin'''
 
+    __play_image = Gtk.Image.new_from_icon_name(
+        'media-playback-start', Gtk.IconSize.BUTTON)
+    __pause_image = Gtk.Image.new_from_icon_name(
+        'media-playback-pause', Gtk.IconSize.BUTTON)
+
     def get_preferences_pane(self):
         return previewprefs
 
@@ -334,9 +339,7 @@ class SecondaryOutputPlugin(object):
             self.resuming = False
             return
 
-        image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
-                                         Gtk.IconSize.BUTTON)
-        self.playpause_button.set_image(image)
+        self.playpause_button.set_image(self.__pause_image)
         self.playpause_button.set_tooltip_text(
             _('Pause Playback (double click to stop)'))
     
@@ -344,10 +347,7 @@ class SecondaryOutputPlugin(object):
         """
             Called when playback ends
         """
-
-        image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
-                                         Gtk.IconSize.BUTTON)
-        self.playpause_button.set_image(image)
+        self.playpause_button.set_image(self.__play_image)
         self.playpause_button.set_tooltip_text(_('Start Playback'))
     
     def _on_playback_error(self, type, player, message):
@@ -363,12 +363,10 @@ class SecondaryOutputPlugin(object):
             already begun
         """
         if player.is_paused():
-            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
-                                             Gtk.IconSize.BUTTON)
+            image = self.__play_image
             tooltip = _('Continue Playback')
         else:
-            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
-                                             Gtk.IconSize.BUTTON)
+            image = self.__pause_image
             tooltip = _('Pause Playback')
 
         self.playpause_button.set_image(image)

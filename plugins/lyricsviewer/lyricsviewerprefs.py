@@ -12,23 +12,33 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+import os
+
 from xlgui.preferences import widgets
 from xl.nls import gettext as _
-import os
-from gi.repository import Gtk
 
 name = _('Lyrics Viewer')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'lyricsviewer_prefs.ui')
 
-def _get_system_default_font():
-    return Gtk.Widget.get_default_style().font_desc.to_string()
+
+DEFAULT_FONT = None
+
 
 class LyricsFontPreference(widgets.FontButtonPreference):
-    default = _get_system_default_font()
+    default = None
     name = 'plugin/lyricsviewer/lyrics_font'
 
+    def __init__(self, preferences, widget):
+        self.default = DEFAULT_FONT
+        widgets.FontButtonPreference.__init__(self, preferences, widget)
+
+
 class LyricsFontResetButtonPreference(widgets.FontResetButtonPreference):
-    default = _get_system_default_font()
+    default = None
     name = 'plugin/lyricsviewer/reset_button'
     condition_preference_name = 'plugin/lyricsviewer/lyrics_font'
+
+    def __init__(self, preferences, widget):
+        self.default = DEFAULT_FONT
+        widgets.FontResetButtonPreference.__init__(self, preferences, widget)

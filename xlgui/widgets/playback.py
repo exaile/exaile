@@ -197,7 +197,7 @@ class Marker(GObject.GObject):
             GObject.PARAM_READWRITE
         ),
         'color': (
-            Gdk.Color,
+            Gdk.RGBA,
             'marker color',
             'Override color of the marker',
             GObject.PARAM_READWRITE

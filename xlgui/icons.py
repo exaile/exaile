@@ -479,11 +479,6 @@ class IconManager(object):
     """
     def __init__(self):
         self.icon_theme = Gtk.IconTheme.get_default()
-        self.icon_factory = Gtk.IconFactory()
-        self.icon_factory.add_default()
-        # Any arbitrary widget is fine
-        self.render_widget = Gtk.Button()
-        self.system_visual = Gdk.Visual.get_system()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 128, 'scalable']
         self._cache = {}
@@ -574,21 +569,6 @@ class IconManager(object):
             size = pixbuf.get_width()
 
         Gtk.IconTheme.add_builtin_icon(icon_name, size, pixbuf)
-
-    def pixbuf_from_stock(self, stock_id, size=Gtk.IconSize.BUTTON):
-        """
-            Generates a pixbuf from a stock id
-
-            :param stock_id: a stock id
-            :type stock_id: string
-            :param size: the size of the icon
-            :type size: GtkIconSize
-
-            :returns: the generated pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf` or None
-        """
-        # TODO: Check if fallbacks are necessary
-        return self.render_widget.render_icon(stock_id, size)
 
     def pixbuf_from_icon_name(self, icon_name, size=Gtk.IconSize.BUTTON):
         """

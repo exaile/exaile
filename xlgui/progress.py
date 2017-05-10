@@ -158,16 +158,16 @@ class ProgressManager(object):
         """
         self.box = container
 
-    def add_monitor(self, thread, description, stock_id):
+    def add_monitor(self, thread, description, icon_name):
         """
             Adds a progress box
 
             :param thread: the ProgressThread that should be run once the
                 monitor is started
             :param description: a description of the event
-            :param stock_id: the stock id of an icon to display
+            :param icon_name: the name of an icon to display
         """
-        image = Gtk.Image.new_from_stock(stock_id, Gtk.IconSize.BUTTON)
+        image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
         monitor = ProgressMonitor(self, thread, description, image)
         self.box.pack_start(monitor, False, True, 0)
 

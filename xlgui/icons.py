@@ -479,11 +479,6 @@ class IconManager(object):
     """
     def __init__(self):
         self.icon_theme = Gtk.IconTheme.get_default()
-        self.icon_factory = Gtk.IconFactory()
-        self.icon_factory.add_default()
-        # Any arbitrary widget is fine
-        self.render_widget = Gtk.Button()
-        self.system_visual = Gdk.Visual.get_system()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 128, 'scalable']
         self._cache = {}
@@ -575,112 +570,12 @@ class IconManager(object):
 
         Gtk.IconTheme.add_builtin_icon(icon_name, size, pixbuf)
 
-    def add_stock_from_directory(self, stock_id, directory):
-        """
-            Registers a stock icon from files found in a directory
-
-            :param stock_id: the stock id for the icon
-            :type stock_id: string
-            :param directory: the location to search for icons
-            :type directory: string
-        """
-        files = []
-        self._sizes.reverse() # Prefer small over downscaled icons
-
-        for size in self._sizes:
-            try: # WxH/stock_id.png and scalable/stock_id.svg
-                sizedir = '%dx%d' % (size, size)
-            except TypeError:
-                sizedir = size
-            filepath = os.path.join(directory, sizedir, stock_id)
-            try:
-                files += [glob.glob('%s.*' % filepath)[0]]
-            except IndexError: # stock_idW.png and stock_id.svg
-                try:
-                    filename = '%s%d' % (stock_id, size)
-                except TypeError:
-                    filename = stock_id
-                filepath = os.path.join(directory, filename)
-                try:
-                    files += [glob.glob('%s.*' % filepath)[0]]
-                except IndexError: # Give up
-                    pass
-
-        self.add_stock_from_files(stock_id, files)
-
-    def add_stock_from_file(self, stock_id, filename):
-        """
-            Registers a stock icon from a filename
-
-            :param stock_id: the stock id for the icon
-            :type stock_id: string
-            :param filename: the filename of an image
-            :type filename: string
-        """
-        self.add_stock_from_files([filename])
-
-    def add_stock_from_files(self, stock_id, filenames):
-        """
-            Registers a stock icon from filenames
-
-            :param stock_id: the stock id for the icon
-            :type stock_id: string
-            :param filenames: the filenames of images
-            :type filenames: list of string
-        """
-        pixbufs = [GdkPixbuf.Pixbuf.new_from_file(filename) for filename in filenames]
-        self.add_stock_from_pixbufs(stock_id, pixbufs)
-
-    def add_stock_from_pixbuf(self, stock_id, pixbuf):
-        """
-            Registers a stock icon from a pixbuf
-
-            :param stock_id: the stock id for the icon
-            :type stock_id: string
-            :param pixbuf: the pixbuf of an image
-            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
-        """
-        self.add_stock_from_pixbufs(stock_id, [pixbuf])
-
-    def add_stock_from_pixbufs(self, stock_id, pixbufs):
-        """
-            Registers a stock icon from pixbufs
-
-            :param stock_id: the stock id for the icon
-            :type stock_id: string
-            :param pixbuf: the pixbufs of images
-            :type pixbuf: list of :class:`GdkPixbuf.Pixbuf`
-        """
-        icon_set = Gtk.IconSet()
-
-        for pixbuf in pixbufs:
-            icon_source = Gtk.IconSource()
-            icon_source.set_pixbuf(pixbuf)
-            icon_set.add_source(icon_source)
-
-        self.icon_factory.add(stock_id, icon_set)
-
-    def pixbuf_from_stock(self, stock_id, size=Gtk.IconSize.BUTTON):
-        """
-            Generates a pixbuf from a stock id
-
-            :param stock_id: a stock id
-            :type stock_id: string
-            :param size: the size of the icon
-            :type size: GtkIconSize
-
-            :returns: the generated pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf` or None
-        """
-        # TODO: Check if fallbacks are necessary
-        return self.render_widget.render_icon(stock_id, size)
-
     def pixbuf_from_icon_name(self, icon_name, size=Gtk.IconSize.BUTTON):
         """
             Generates a pixbuf from an icon name
 
-            :param stock_id: an icon name
-            :type stock_id: string
+            :param icon_name: an icon name
+            :type icon_name: string
             :param size: the size of the icon, will be
                 tried to converted to a GTK icon size
             :type size: int or GtkIconSize

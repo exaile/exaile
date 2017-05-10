@@ -125,10 +125,12 @@ class PluginManager(object):
                 continue
             
             # determine icon to show
-            if broken or not compatible:
-                icon = Gtk.STOCK_DIALOG_WARNING
+            if broken:
+                icon = 'dialog-error'
+            elif not compatible:
+                icon = 'dialog-warning'
             else:
-                icon = Gtk.STOCK_APPLY
+                icon = None
 
             enabled = plugin_name in self.plugins.enabled_plugins
             plugin_data = (plugin_name, info['Name'], str(info['Version']),

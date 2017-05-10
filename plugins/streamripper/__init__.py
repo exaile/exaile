@@ -115,8 +115,7 @@ class Button(Streamripper):
         self.exaile = exaile
         self.button = Gtk.ToggleButton()
         self.button.set_relief(Gtk.ReliefStyle.NONE)
-        image = Gtk.Image()
-        image.set_from_stock(Gtk.STOCK_MEDIA_RECORD, Gtk.IconSize.MENU)
+        image = Gtk.Image.new_from_icon_name('media-record', Gtk.IconSize.MENU)
         self.button.set_image(image)
 
         toolbar = self.exaile.gui.play_toolbar

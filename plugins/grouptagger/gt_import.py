@@ -58,7 +58,7 @@ class GtImporter(Gtk.Window):
         
         self.import_thread = None
         
-        self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), Gtk.STOCK_REFRESH)
+        self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), 'document-open')
     
     #
     # Status routines
@@ -81,7 +81,7 @@ class GtImporter(Gtk.Window):
                                                   self.collection, self.exaile.collection,
                                                   self.import_track_data)
         self.import_thread.connect('done', self._on_import_done)
-        self.manager.add_monitor(self.import_thread, _("Importing groups"), Gtk.STOCK_JUMP_TO)
+        self.manager.add_monitor(self.import_thread, _("Importing groups"), 'document-open')
         
     @idle_add()
     def _on_import_done(self, thread):
@@ -161,7 +161,7 @@ class GtImporter(Gtk.Window):
                                                   data, self.radio_replace.get_active())
         self.update_thread.connect('done', self._on_update_done)
         
-        self.manager.add_monitor(self.update_thread, _("Updating groups"), Gtk.STOCK_CONVERT)
+        self.manager.add_monitor(self.update_thread, _("Updating groups"), 'system-run')
     
     @GtkTemplate.Callback
     def on_window_destroy(self, widget):

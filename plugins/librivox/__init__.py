@@ -133,8 +133,7 @@ class LVPanel():
         self.hbox.pack_start(self.entry.entry, True, True, 0)
         self.searchbutton=Gtk.Button()
 
-        self.searchimage=Gtk.Image()
-        self.searchimage.set_from_stock(Gtk.STOCK_FIND, Gtk.IconSize.MENU)
+        self.searchimage=Gtk.Image.new_from_icon_name('edit-find', Gtk.IconSize.MENU)
         self.searchbutton.set_image(self.searchimage)
         self.searchbutton.connect("pressed", self.run_search)
         self.hbox.pack_start(self.searchbutton, False, True, 0)
@@ -173,9 +172,9 @@ class LVPanel():
 
         self.popup_menu=Gtk.Menu()
         self.add_to_pl=Gtk.ImageMenuItem.new_with_label("Append to Current")
-        self.add_to_pl.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.MENU))
+        self.add_to_pl.set_image(Gtk.Image.new_from_icon_name('list-add', Gtk.IconSize.MENU))
         self.about_book=Gtk.ImageMenuItem.new_with_label("About the Book")
-        self.about_book.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_ABOUT, Gtk.IconSize.MENU))
+        self.about_book.set_image(Gtk.Image.new_from_icon_name('help-about', Gtk.IconSize.MENU))
         self.popup_menu.add(self.add_to_pl)
         self.popup_menu.add(self.about_book)
         self.popup_menu.show_all()

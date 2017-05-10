@@ -1347,11 +1347,11 @@ class PlaylistModel(Gtk.ListStore):
 
     def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(
-                icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_MEDIA_PLAY))
+            icons.MANAGER.pixbuf_from_icon_name('media-playback-start'))
         self.pause_pixbuf = icons.ExtendedPixbuf(
-                icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_MEDIA_PAUSE))
+            icons.MANAGER.pixbuf_from_icon_name('media-playback-pause'))
         self.stop_pixbuf = icons.ExtendedPixbuf(
-                icons.MANAGER.pixbuf_from_stock(Gtk.STOCK_MEDIA_STOP))
+            icons.MANAGER.pixbuf_from_icon_name('media-playback-stop'))
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
                 dest_width=self.stop_pixbuf.pixbuf.get_width() / 2,
                 dest_height=self.stop_pixbuf.pixbuf.get_height() / 2,

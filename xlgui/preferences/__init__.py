@@ -92,8 +92,8 @@ class PreferencesDialog(object):
         title_cellrenderer = self.builder.get_object('title_cellrenderer')
         title_cellrenderer.props.ypad = 3
 
-        self.default_icon = icons.MANAGER.pixbuf_from_stock(
-            Gtk.STOCK_PROPERTIES, Gtk.IconSize.MENU)
+        self.default_icon = icons.MANAGER.pixbuf_from_icon_name(
+            'document-properties', Gtk.IconSize.MENU)
 
         # sets up the default panes
         for page in self.PAGES:
@@ -103,14 +103,8 @@ class PreferencesDialog(object):
                 if isinstance(page.icon, GdkPixbuf.Pixbuf):
                     icon = page.icon
                 else:
-                    stock = Gtk.stock_lookup(page.icon)
-
-                    if stock is not None:
-                        icon = icons.MANAGER.pixbuf_from_stock(
-                            stock.stock_id , Gtk.IconSize.MENU)
-                    else:
-                        icon = icons.MANAGER.pixbuf_from_icon_name(
-                            page.icon, Gtk.IconSize.MENU)
+                    icon = icons.MANAGER.pixbuf_from_icon_name(
+                        page.icon, Gtk.IconSize.MENU)
 
             self.model.append(None, [page, page.name, icon])
 

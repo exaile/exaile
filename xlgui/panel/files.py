@@ -150,8 +150,8 @@ class FilesPanel(panel.Panel):
         """
             Sets up the widgets for the files panel
         """
-        self.directory = self.tree.render_icon(
-            Gtk.STOCK_DIRECTORY, Gtk.IconSize.SMALL_TOOLBAR)
+        self.directory = icons.MANAGER.pixbuf_from_icon_name(
+            'folder', Gtk.IconSize.SMALL_TOOLBAR)
         self.track = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.back = self.builder.get_object('files_back_button')

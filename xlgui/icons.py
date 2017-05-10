@@ -574,8 +574,8 @@ class IconManager(object):
         """
             Generates a pixbuf from an icon name
 
-            :param stock_id: an icon name
-            :type stock_id: string
+            :param icon_name: an icon name
+            :type icon_name: string
             :param size: the size of the icon, will be
                 tried to converted to a GTK icon size
             :type size: int or GtkIconSize

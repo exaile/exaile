@@ -246,8 +246,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         self.track = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
-        self.folder = self.tree.render_icon(
-            Gtk.STOCK_DIRECTORY, Gtk.IconSize.SMALL_TOOLBAR)
+        self.folder = icons.MANAGER.pixbuf_from_icon_name(
+            'folder', Gtk.IconSize.SMALL_TOOLBAR)
         self.refresh_image = icons.MANAGER.pixbuf_from_icon_name(
             'view-refresh')
 

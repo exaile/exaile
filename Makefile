@@ -145,7 +145,7 @@ install-target: make-install-dirs
 		$(DESTDIR)$(DATADIR)/applications/
 	install -m 644 data/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/appdata/
-	install -m 644 exaile.1.gz $(EXAILEMANDIR)/man1/
+	-install -m 644 exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -m 644 exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \

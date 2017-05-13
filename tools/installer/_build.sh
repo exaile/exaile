@@ -46,9 +46,7 @@ popd
 pushd "$COPYDIR"
 # Our Makefile relies on $PYTHON2_CMD to run Python commands
 export PYTHON2_CMD="${BUILD_ROOT}"/"${MINGW}"/bin/"${PYTHON_ID}".exe
-# help2man relies on perl-Locale-gettext, which lives in this directory
-export PERL5LIB="${BUILD_ROOT}"/usr/lib/perl5/vendor_perl
-build_make
+build_make compile locale
 PREFIX=/usr DESTDIR="$DESTDIR" build_make install
 
 # Copy things that the unix install doesn't require..

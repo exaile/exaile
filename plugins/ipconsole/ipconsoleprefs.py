@@ -14,34 +14,45 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+import os
+import sys
+
 from xlgui.preferences import widgets
 from xl.nls import gettext as _
-import os
 
 name = _('IPython Console')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'ipconsole_prefs.ui')
 icon = 'utilities-terminal'
 
+
 class OpacityPreference(widgets.ScalePreference):
     default = 80.0
     name = 'plugin/ipconsole/opacity'
 
+    def __init__(self, preferences, widget):
+        widgets.ScalePreference.__init__(self, preferences, widget)
+        if sys.platform.startswith("win32"):
+            self.set_widget_sensitive(False)
+            # Setting opacity on Windows crashes with segfault,
+            # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
+            self.widget.set_tooltip(_("Opacity cannot be set on Windows due to a bug in Gtk+"))
+
+
 class FontPreference(widgets.FontButtonPreference):
     default = 'Monospace 10'
     name = 'plugin/ipconsole/font'
-    
-class TextColor(widgets.ColorButtonPreference):
+
+
+class TextColor(widgets.RGBAButtonPreference):
     default = 'lavender'
     name = 'plugin/ipconsole/text_color'
-    
-class BgColor(widgets.ColorButtonPreference):
+
+
+class BgColor(widgets.RGBAButtonPreference):
     default = 'black'
     name = 'plugin/ipconsole/background_color'
-    
-class Theme(widgets.ComboPreference):
-    default = 'Linux'
-    name = 'plugin/ipconsole/iptheme'
+
 
 class AutoStart(widgets.CheckPreference):
     default = False

@@ -18,32 +18,31 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+from __future__ import division
+
+import logging
 import sys
+import site
+
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
-import ipconsoleprefs
-from xl import settings, providers
-from xlgui.widgets import menu
-
-try:    # xl doesn't exist outside of exaile
-    from xl.nls import gettext as _
-    from xl import event
-except ImportError:
-    from gettext import gettext as _
-    print('Running outside of Exaile...')
-
-
-import ipython_view as ip
 from gi.repository import Pango
-import site
+
+from xl.nls import gettext as _
+from xl import event
+from xl import settings as xl_settings
+from xl import providers
+from xlgui.widgets import menu
+from xlgui import guiutil
+
+import ipconsoleprefs
+import ipython_view as ip
 
 FONT = "Luxi Mono 10"
+SETTINGS_STRING = 'plugin_ipconsole_option_set'
+LOGGER = logging.getLogger(__name__)
 
-PLUGIN                  = None
-
-def get_preferences_pane():
-    return ipconsoleprefs
 
 class Quitter(object):
     """Simple class to handle exit, similar to Python 2.5's.
@@ -51,173 +50,205 @@ class Quitter(object):
        This Quitter is used to circumvent IPython's circumvention
        of the builtin Quitter, since it prevents exaile form closing."""
 
-    def __init__(self,exit,name):
-        self.exit = exit
+    def __init__(self, exit_function, name):
+        self.exit_function = exit_function
         self.name = name
 
     def __repr__(self):
         return 'Type %s() to exit.' % self.name
 
     def __call__(self):
-        self.exit()         # Passed in exit function
-        site.setquit()      # Restore default builtins
-        exit()              # Call builtin
+        self.exit_function()     # Passed in exit function
+        site.setquit()           # Restore default builtins
+        exit()                   # Call builtin
 
 
 class IPView(ip.IPythonView):
     '''Extend IPythonView to support closing with Ctrl+D'''
-    def onKeyPressExtend(self, event):
-        if ip.IPythonView.onKeyPressExtend(self, event):
+
+    __text_color = None
+    __background_color = None
+    __font = None
+
+    __css_provider = None
+
+    __text_color_str = None
+    __background_color_str = None
+    __font_str = None
+
+    __iptheme = None
+
+    def __init__(self, namespace):
+        ip.IPythonView.__init__(self)
+        event.add_ui_callback(self.__on_option_set, SETTINGS_STRING)
+        self.set_wrap_mode(Gtk.WrapMode.CHAR)
+
+        self.updateNamespace(namespace)  # expose exaile (passed in)
+
+        # prevent exit and quit - freezes window? does bad things
+        self.updateNamespace({'exit': None,
+                              'quit': None})
+
+        style_context = self.get_style_context()
+        self.__css_provider = Gtk.CssProvider()
+        style_context.add_provider(self.__css_provider,
+                                   Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        # Trigger setup through options
+        for option in ('text_color', 'background_color', 'font'):
+            self.__on_option_set(None, xl_settings,
+                                 'plugin/ipconsole/{option}'.format(option=option))
+
+    def __on_option_set(self, _event, settings, option):
+        if option == 'plugin/ipconsole/font':
+            pango_font_str = settings.get_option(option, FONT)
+            self.__font_str = guiutil.css_from_pango_font_description(pango_font_str)
+            GLib.idle_add(self.__update_css)
+        if option == 'plugin/ipconsole/text_color':
+            rgba_str = settings.get_option(option, 'lavender')
+            rgba = Gdk.RGBA()
+            rgba.parse(rgba_str)
+            self.__text_color_str = "color: " \
+                + guiutil.css_from_rgba_without_alpha(rgba)
+            GLib.idle_add(self.__update_css)
+        if option == 'plugin/ipconsole/background_color':
+            rgba_str = settings.get_option(option, 'black')
+            rgba = Gdk.RGBA()
+            rgba.parse(rgba_str)
+            self.__background_color_str = "background-color: " \
+                + guiutil.css_from_rgba_without_alpha(rgba)
+            GLib.idle_add(self.__update_css)
+
+    def __update_css(self):
+        if self.__text_color_str is None \
+                or self.__background_color_str is None \
+                or self.__font_str is None:
+            # early initialization state: not all properties have been initialized yet
+            return False
+
+        data_str = "text {%s; %s;} textview {%s;}" % (
+            self.__background_color_str, self.__text_color_str, self.__font_str
+        )
+        self.__css_provider.load_from_data(data_str)
+        return False
+
+    def onKeyPressExtend(self, key_event):
+        if ip.IPythonView.onKeyPressExtend(self, key_event):
             return True
-        
-        if event.string == '\x04':
-            # ctrl+d
+        if key_event.string == '\x04':  # ctrl+d
             self.destroy()
 
 
-class IPyConsole(Gtk.Window):
+class IPythonConsoleWindow(Gtk.Window):
     """
-        A gtk Window with an embedded IPython Console.
+        A Gtk Window with an embedded IPython Console.
     """
+
+    __ipv = None
+
     def __init__(self, namespace):
         Gtk.Window.__init__(self)
-
         self.set_title(_("IPython Console - Exaile"))
-        self.set_size_request(750,550)
+        self.set_size_request(750, 550)
         self.set_resizable(True)
 
-        sw = Gtk.ScrolledWindow()
-        sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
-        ipv = IPView()
-
-        ipv.connect('destroy', lambda *x: self.destroy())
-
-        # so it's exposed in the shell
-        self.ipv = ipv
-
-        # change display to emulate dark gnome-terminal
-        console_font = settings.get_option('plugin/ipconsole/font', FONT)
-        
-        text_color = settings.get_option('plugin/ipconsole/text_color', 
-                                         'lavender')
-        bg_color = settings.get_option('plugin/ipconsole/background_color', 
-                                       'black')
-        iptheme = settings.get_option('plugin/ipconsole/iptheme', 'Linux')
-
-        ipv.modify_font(Pango.FontDescription(console_font))
-        ipv.set_wrap_mode(Gtk.WrapMode.CHAR)
-        ipv.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
-        ipv.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(text_color))
-        
-        if hasattr(ipv.IP, 'magic_colors'):
-            ipv.IP.magic_colors(iptheme) # IPython color scheme
-
-        opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
-
-        # add a little transparency :)
-        if opacity < 100:
-            self.set_opacity(float(opacity) / 100.0)   
-        ipv.updateNamespace(namespace)      # expose exaile (passed in)
-        ipv.updateNamespace({'self':self})  # Expose self to IPython
-
-        # prevent exit and quit - freezes window? does bad things
-        ipv.updateNamespace({'exit':None,
-                             'quit':None})
-
-        ipv.show()
+        self.__ipv = IPView(namespace)
+        self.__ipv.connect('destroy', lambda *_widget: self.destroy())
+        self.__ipv.updateNamespace({'self': self})  # Expose self to IPython
 
         # make it scrollable
-        sw.add(ipv)
-        sw.show()
+        scrolled_window = Gtk.ScrolledWindow()
+        scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scrolled_window.add(self.__ipv)
+        scrolled_window.show_all()
+        self.add(scrolled_window)
 
-        self.add(sw)
-        self.show()
+        event.add_ui_callback(self.on_option_set, SETTINGS_STRING)
 
-        # don't destroy the window on delete, hide it
-        self.connect('delete_event',lambda x,y:False)
+    def on_option_set(self, _event, settings, option):
+        if option == 'plugin/ipconsole/opacity':
+            if sys.platform.startswith("win32"):
+                # Setting opacity on Windows crashes with segfault,
+                # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
+                # Ignore this option.
+                return
+            value = settings.get_option(option, 80.0)
+            value = value / 100
+            if value > 1:
+                value = 1
+            self.set_opacity(value)
 
-def _enable(exaile):
+
+class IPConsolePlugin(object):
     """
-        Enable plugin.
-            Create menu item.
+        This class holds the IPConsole plugin itself
     """
-    # add menuitem to tools menu
-    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show _IPython Console'),
-        callback=lambda *x: show_console(exaile)) 
-    providers.register('menubar-tools-menu', item)
-    
-    if settings.get_option('plugin/ipconsole/autostart', False):
-        show_console(exaile)
+
+    __console_window = None
+    __exaile = None
+
+    def enable(self, exaile):
+        """
+            Called when plugin is enabled, or when exaile is loaded with the plugin
+            on by default.
+        """
+        self.__exaile = exaile
+
+    def on_gui_loaded(self):
+        """
+            Called when Exaile finished loading its GUI
+        """
+        # Trigger initial setup through options:
+        if xl_settings.get_option('plugin/ipconsole/autostart', False):
+            self.__show_console()
+
+        # add menuitem to tools menu
+        item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show _IPython Console'),
+                                     callback=lambda *_args: self.__show_console())
+        providers.register('menubar-tools-menu', item)
+
+    def teardown(self, _exaile):
+        """
+            Called when Exaile is shutting down
+        """
+        # if window is open, kill it
+        if self.__console_window is not None:
+            self.__console_window.destroy()
+
+    def disable(self, exaile):
+        """
+            Called when the plugin is disabled
+        """
+        for item in providers.get('menubar-tools-menu'):
+            if item.name == 'ipconsole':
+                providers.unregister('menubar-tools-menu', item)
+                break
+        self.teardown(exaile)
+
+    def __show_console(self):
+        """
+            Display window when the menu item is clicked.
+        """
+        if self.__console_window is None:
+            import xl
+            import xlgui
+            self.__console_window = IPythonConsoleWindow(
+                {'exaile': self.__exaile, 'xl': xl, 'xlgui': xlgui})
+            self.__console_window.connect('destroy', self.__console_destroyed)
+
+        self.__console_window.present()
+        self.__console_window.on_option_set(None, xl_settings, 'plugin/ipconsole/opacity')
+
+    def __console_destroyed(self, *_args):
+        """
+            Called when the window is closed.
+        """
+        self.__console_window = None
+
+    def get_preferences_pane(self):
+        """
+            Called by Exaile when ipconsole preferences pane should be shown
+        """
+        return ipconsoleprefs
 
 
-def on_option_set(event, settings, option):
-    if option == 'plugin/ipconsole/opacity' and PLUGIN:
-        value = settings.get_option(option, 80.0)
-        value = float(value) / 100.0
-        PLUGIN.set_opacity(value)
-
-    if option == 'plugin/ipconsole/font' and PLUGIN:
-        value = settings.get_option(option, FONT)
-        PLUGIN.ipv.modify_font(Pango.FontDescription(value))
-
-    if option == 'plugin/ipconsole/text_color' and PLUGIN:
-        value = settings.get_option(option, 'lavender')
-        PLUGIN.ipv.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(value))
-        
-    if option == 'plugin/ipconsole/background_color' and PLUGIN:
-        value = settings.get_option(option, 'black')
-        PLUGIN.ipv.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(value))
-
-    if option == 'plugin/ipconsole/iptheme' and PLUGIN:
-        value = settings.get_option(option, 'Linux')
-        PLUGIN.ipv.IP.magic_colors(value)
-
-
-def __enb(evt, exaile, nothing):
-    GLib.idle_add(_enable, exaile)
-    event.add_ui_callback(on_option_set, 'plugin_ipconsole_option_set')
-
-def enable(exaile):
-    """
-        Called when plugin is enabled, or when exaile is loaded with the plugin
-        on by default.
-            Wait for exaile to fully load, then call _enable with idle priority.
-    """
-    if exaile.loading:
-        event.add_callback(__enb, "gui_loaded")
-    else:
-        __enb(None, exaile, None)
-
-def disable(exaile):
-    """
-        Called when the plugin is disabled
-    """
-    for item in providers.get('menubar-tools-menu'):
-        if item.name == 'ipconsole':
-            providers.unregister('menubar-tools-menu', item)
-            break
-            
-    # if window is open, kill it
-    if PLUGIN is not None:
-        PLUGIN.destroy()        
-
-def show_console(exaile):
-    """
-        Display window when the menu item is clicked.
-    """
-    global PLUGIN
-    if PLUGIN is None:
-        import xl, xlgui
-        PLUGIN = IPyConsole({'exaile': exaile,
-                             'xl': xl,
-                             'xlgui': xlgui})
-        PLUGIN.connect('destroy', console_destroyed)
-    PLUGIN.present()
-
-def console_destroyed(*args):
-    """
-        Called when the window is closed.
-    """
-    global PLUGIN
-    PLUGIN = None
+plugin_class = IPConsolePlugin

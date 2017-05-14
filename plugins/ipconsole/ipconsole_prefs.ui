@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">30</property>
     <property name="upper">110</property>
     <property name="value">80</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
     <property name="page_size">10</property>
-  </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name Theme -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">Linux</col>
-      </row>
-      <row>
-        <col id="0">LightBG</col>
-      </row>
-      <row>
-        <col id="0">NoColor</col>
-      </row>
-    </data>
   </object>
   <object class="GtkGrid" id="preferences_pane">
     <property name="visible">True</property>
@@ -74,7 +58,8 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="font">Sans 12</property>
+        <property name="use_font">True</property>
+        <property name="use_size">True</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -132,36 +117,6 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label6">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">IPython Color Theme:</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="plugin/ipconsole/iptheme">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="model">liststore1</property>
-        <property name="active">0</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext1"/>
-          <attributes>
-            <attribute name="text">0</attribute>
-          </attributes>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkCheckButton" id="plugin/ipconsole/autostart">
         <property name="label" translatable="yes">Launch IPython console when Exaile starts</property>
         <property name="visible">True</property>
@@ -172,7 +127,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">4</property>
         <property name="width">2</property>
       </packing>
     </child>

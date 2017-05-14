@@ -878,48 +878,6 @@ class IntPreference(FloatPreference):
     def _get_value(self):
         return int(self.widget.get_text())
 
-class ColorButtonPreference(Preference):
-    """
-        A class to represent the color button
-        
-        Gdk.Color is deprecated, please use RGBAButtonPreference instead.
-    """
-    def __init__(self, preferences, widget):
-        Preference.__init__(self, preferences, widget)
-
-    def _setup_change(self):
-        self.widget.connect('color-set', self.change)
-
-    def _set_value(self):
-        value = self.preferences.settings.get_option(
-            self.name, self.default)
-
-        # Extract alpha value in any case
-        if len(value) == 9 and value[0] == '#':
-            alpha = int(value[-2:], 16) * 255
-            value = value[:-2]
-        else:
-            alpha = 1
-
-        if self.widget.get_use_alpha():
-            self.widget.set_alpha(alpha)
-
-        self.widget.set_color(Gdk.color_parse(value))
-
-    def _get_value(self):
-        color = self.widget.get_color()
-        value = '#%.2x%.2x%.2x' % (
-            color.red / 256,
-            color.green / 256,
-            color.blue / 256
-        )
-
-        if self.widget.get_use_alpha():
-            alpha = self.widget.get_alpha()
-            value += '%.2x' % (alpha / 256)
-
-        return value
-
 class RGBAButtonPreference(Preference):
     """
         A class to represent the color button
@@ -943,12 +901,12 @@ class RGBAButtonPreference(Preference):
     def _get_value(self):
         return self.widget.get_rgba().to_string()
 
-class FontButtonPreference(ColorButtonPreference):
+class FontButtonPreference(Preference):
     """
         Font button
     """
     def __init__(self, preferences, widget):
-        ColorButtonPreference.__init__(self, preferences, widget)
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('font-set', self.change)

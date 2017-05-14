@@ -24,15 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+import os.path
+
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
-
-import logging
-import os
-import os.path
+from gi.repository import Pango
 
 from xl import settings, xdg
 from xlgui import icons
@@ -622,5 +622,51 @@ def css_from_rgba_without_alpha(rgba):
     )
     return color_css_str
 
+
+def css_from_pango_font_description(pango_font_str):
+    """
+        Convert a Pango.FontDescription string to a CSS font string
+    """
+    new_font = Pango.FontDescription.from_string(pango_font_str)
+
+    # Gtk+ CSS and Pango are compatible except for the prefix and case
+    style_name = new_font.get_style().value_name
+    style = style_name.split('_', 2)[2].lower()
+
+    # Gtk+ CSS only allows 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+    # Pango allows everything from 100 through 1000, with several named values
+    # at least the numbers mean the same
+    # Bug in PyGObject: This does not work
+    weight_int = int(new_font.get_weight())
+    css_weight_int = ((weight_int + 50) // 100) * 100
+    if css_weight_int > 900:
+        css_weight_int = 900
+    weight = str(css_weight_int)
+
+    # Gtk+ CSS and Pango are compatible except for
+    # * the prefix
+    # * letter case
+    # * the fact that Pango uses an underscore whereas Gtk+ CSS uses a dash
+    stretch_name = new_font.get_stretch().value_name
+    stretch = stretch_name.split('_', 2)[2].lower().replace('_', '-')
+
+    # Gtk+ CSS and Pango are compatible except for
+    # * the prefix
+    # * letter case
+    # * the fact that Pango uses an underscore whereas Gtk+ CSS uses a dash
+    variant_name = new_font.get_variant().value_name
+    variant = variant_name.split('_', 2)[2].lower().replace('_', '-')
+
+    # Pango multiplies its font by Pango.SCALE
+    size = str(new_font.get_size() / Pango.SCALE) + "pt"
+
+    # See "GTK+ CSS" documentation page for the syntax
+
+    # According to https://www.w3schools.com/cssref/pr_font_font-family.asp
+    # "If a font name contains white-space, it must be quoted"
+    font_css_str = 'font: %s %s %s %s %s "%s"' % (
+        style, variant, weight, stretch, size, new_font.get_family(),
+    )
+    return font_css_str
 
 # vim: et sts=4 sw=4

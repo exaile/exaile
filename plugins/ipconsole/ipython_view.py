@@ -44,14 +44,12 @@ is available at U{http://www.opensource.org/licenses/bsd-license.php}
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from gi.repository import Gtk
-from gi.repository import Gdk
-from gi.repository import GLib
-from gi.repository import Pango
+from __future__ import print_function
 
 import re
 import sys
 import os
+import subprocess
 
 try:
     from cStringIO import StringIO
@@ -59,15 +57,21 @@ except ImportError:
     from StringIO import StringIO
 from functools import reduce
 
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Pango
+
 try:
     import IPython
 except ImportError:
     IPython = None
 
+
 class IterableIPShell(object):
     '''
     Create an IPython instance. Does not start a blocking event loop,
-    instead allow single iterations. This allows embedding in GTK+ 
+    instead allow single iterations. This allows embedding in GTK+
     without blockage.
 
     @ivar IP: IPython instance.
@@ -75,7 +79,7 @@ class IterableIPShell(object):
     @ivar iter_more: Indicates if the line executed was a complete command,
     or we should wait for more.
     @type iter_more: integer
-    @ivar history_level: The place in history where we currently are 
+    @ivar history_level: The place in history where we currently are
     when pressing up/down.
     @type history_level: integer
     @ivar complete_sep: Separation delimiters for completion function.
@@ -83,8 +87,7 @@ class IterableIPShell(object):
     '''
     def __init__(self, user_ns=None, cin=None, cout=None, cerr=None, input_func=None):
         '''
-        
-        
+
         @param argv: Command line options for IPython
         @type argv: list
         @param user_ns: User namespace.
@@ -94,43 +97,46 @@ class IterableIPShell(object):
         @param cin: Console standard input.
         @type cin: IO stream
         @param cout: Console standard output.
-        @type cout: IO stream 
+        @type cout: IO stream
         @param cerr: Console standard error.
         @type cerr: IO stream
         @param input_func: Replacement for builtin raw_input()
         @type input_func: function
         '''
-        io = IPython.utils.io
+
+        self.prompt = None
+
+        ip_io = IPython.utils.io
         if input_func:
             IPython.terminal.interactiveshell.raw_input_original = input_func
         if cin:
-            io.stdin = io.IOStream(cin)
+            ip_io.stdin = ip_io.IOStream(cin)
         if cout:
-            io.stdout = io.IOStream(cout)
+            ip_io.stdout = ip_io.IOStream(cout)
         if cerr:
-            io.stderr = io.IOStream(cerr)
+            ip_io.stderr = ip_io.IOStream(cerr)
 
-        # This is to get rid of the blockage that occurs during 
+        # This is to get rid of the blockage that occurs during
         # IPython.Shell.InteractiveShell.user_setup()
 
-        io.raw_input = lambda x: None
+        ip_io.raw_input = lambda x: None
 
         os.environ['TERM'] = 'dumb'
-        excepthook = sys.excepthook 
+        excepthook = sys.excepthook
 
         from IPython.config.loader import Config
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"
 
-        # InteractiveShell's __init__ overwrites io.stdout,io.stderr with
+        # InteractiveShell's __init__ overwrites ip_io.stdout,ip_io.stderr with
         # sys.stdout, sys.stderr, this makes sure they are right
         #
         old_stdout, old_stderr = sys.stdout, sys.stderr
-        sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
+        sys.stdout, sys.stderr = ip_io.stdout.stream, ip_io.stderr.stream
 
         # InteractiveShell inherits from SingletonConfigurable, so use instance()
         #
-        self.IP = IPython.terminal.embed.InteractiveShellEmbed.instance(\
+        self.IP = IPython.terminal.embed.InteractiveShellEmbed.instance(
             config=cfg, user_ns=user_ns)
 
         sys.stdout, sys.stderr = old_stdout, old_stderr
@@ -146,8 +152,8 @@ class IterableIPShell(object):
         self.iter_more = 0
         self.history_level = 0
         self.complete_sep = re.compile(r'[\s\{\}\[\]\(\)]')
-        self.updateNamespace({'exit':lambda:None})
-        self.updateNamespace({'quit':lambda:None})
+        self.updateNamespace({'exit': lambda: None})
+        self.updateNamespace({'quit': lambda: None})
         self.IP.readline_startup_hook(self.IP.pre_readline)
         # Workaround for updating namespace with sys.modules
         #
@@ -161,9 +167,9 @@ class IterableIPShell(object):
         '''
         Update self.IP namespace for autocompletion with sys.modules
         '''
-        for k, v in list(sys.modules.items()):
-            if not '.' in k:
-                self.IP.user_ns.update({k:v})
+        for key, value in list(sys.modules.items()):
+            if '.' not in key:
+                self.IP.user_ns.update({key: value})
 
     def execute(self):
         '''
@@ -212,7 +218,6 @@ class IterableIPShell(object):
                 # TODO: Auto-indent
                 #
                 self.IP.rl_do_indent = True
-                pass
 
         sys.stdout = orig_stdout
         sys.stdin = orig_stdin
@@ -222,7 +227,7 @@ class IterableIPShell(object):
         Generate prompt depending on is_continuation value
 
         @param is_continuation
-        @type is_continuation: boolean 
+        @type is_continuation: boolean
 
         @return: The prompt string representation
         @rtype: string
@@ -235,11 +240,10 @@ class IterableIPShell(object):
 
         return prompt
 
-
     def historyBack(self):
         '''
         Provides one history command back.
-        
+
         @return: The command string.
         @rtype: string
         '''
@@ -247,22 +251,22 @@ class IterableIPShell(object):
         if not self._getHistory():
             self.history_level += 1
         return self._getHistory()
-    
+
     def historyForward(self):
         '''
         Provides one history command forward.
-        
+
         @return: The command string.
         @rtype: string
         '''
         if self.history_level < 0:
             self.history_level += 1
         return self._getHistory()
-    
+
     def _getHistory(self):
         '''
         Get's the command string of the current history level.
-        
+
         @return: Historic command string.
         @rtype: string
         '''
@@ -275,7 +279,7 @@ class IterableIPShell(object):
     def updateNamespace(self, ns_dict):
         '''
         Add the current dictionary to the shell namespace.
-        
+
         @param ns_dict: A dictionary of symbol-values.
         @type ns_dict: dictionary
         '''
@@ -284,11 +288,11 @@ class IterableIPShell(object):
     def complete(self, line):
         '''
         Returns an auto completed line and/or possibilities for completion.
-        
+
         @param line: Given line so far.
         @type line: string
-        
-        @return: Line completed as for as possible, 
+
+        @return: Line completed as for as possible,
         and possible further completions.
         @rtype: tuple
         '''
@@ -302,12 +306,12 @@ class IterableIPShell(object):
             def _commonPrefix(str1, str2):
                 '''
                 Reduction function. returns common prefix of two given strings.
-                
+
                 @param str1: First string.
                 @type str1: string
                 @param str2: Second string
                 @type str2: string
-                
+
                 @return: Common prefix to both strings.
                 @rtype: string
                 '''
@@ -323,12 +327,11 @@ class IterableIPShell(object):
         else:
             completed = line
         return completed, possibilities[1]
-    
 
     def shell(self, cmd, verbose=0, debug=0, header=''):
         '''
         Replacement method to allow shell commands without them blocking.
-        
+
         @param cmd: Shell command to execute.
         @type cmd: string
         @param verbose: Verbosity
@@ -342,10 +345,11 @@ class IterableIPShell(object):
             print((header + cmd))
         # flush stdout so we don't mangle python's buffering
         if not debug:
-            input, output = os.popen4(cmd)
-            print((output.read()))
-            output.close()
-            input.close()
+            popen = subprocess.Popen(
+                cmd, bufsize=0, stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
+            print((popen.stdout.read()))
+
 
 class ConsoleView(Gtk.TextView):
     '''
@@ -387,18 +391,18 @@ class ConsoleView(Gtk.TextView):
                 code, foreground=self.ANSI_COLORS[code], weight=700)
         self.text_buffer.create_tag('0')
         self.text_buffer.create_tag('notouch', editable=False)
-        self.color_pat = re.compile('\x01?\x1b\[(.*?)m\x02?')
+        self.color_pat = re.compile(r'\x01?\x1b\[(.*?)m\x02?')
         self.line_start = self.text_buffer.create_mark(
             'line_start', self.text_buffer.get_end_iter(), True)
         self.connect('key-press-event', self.onKeyPress)
-        
+
     def write(self, text, editable=False):
         GLib.idle_add(self._write, text, editable)
 
     def _write(self, text, editable=False):
         '''
         Write given text to buffer.
-        
+
         @param text: Text to append.
         @type text: string
         @param editable: If true, added text is editable.
@@ -424,14 +428,13 @@ class ConsoleView(Gtk.TextView):
         self.text_buffer.delete_mark(start_mark)
         self.scroll_mark_onscreen(self.mark)
 
-
     def showPrompt(self, prompt):
         GLib.idle_add(self._showPrompt, prompt)
 
     def _showPrompt(self, prompt):
         '''
         Prints prompt at start of line.
-        
+
         @param prompt: Prompt to print.
         @type prompt: string
         '''
@@ -445,19 +448,19 @@ class ConsoleView(Gtk.TextView):
     def _changeLine(self, text):
         '''
         Replace currently entered command line with given text.
-        
+
         @param text: Text to use as replacement.
         @type text: string
         '''
-        iter = self.text_buffer.get_iter_at_mark(self.line_start)
-        iter.forward_to_line_end()
-        self.text_buffer.delete(self.text_buffer.get_iter_at_mark(self.line_start), iter)
+        text_iter = self.text_buffer.get_iter_at_mark(self.line_start)
+        text_iter.forward_to_line_end()
+        self.text_buffer.delete(self.text_buffer.get_iter_at_mark(self.line_start), text_iter)
         self._write(text, True)
 
     def getCurrentLine(self):
         '''
         Get text in current command line.
-        
+
         @return: Text of current command line.
         @rtype: string
         '''
@@ -472,16 +475,16 @@ class ConsoleView(Gtk.TextView):
     def _showReturned(self, text):
         '''
         Show returned text from last command and print new prompt.
-        
+
         @param text: Text to show.
         @type text: string
         '''
-        iter = self.text_buffer.get_iter_at_mark(self.line_start)
-        iter.forward_to_line_end()
+        text_iter = self.text_buffer.get_iter_at_mark(self.line_start)
+        text_iter.forward_to_line_end()
         self.text_buffer.apply_tag_by_name(
             'notouch',
             self.text_buffer.get_iter_at_mark(self.line_start),
-            iter)
+            text_iter)
         self._write('\n' + text)
         if text:
             self._write('\n')
@@ -494,17 +497,17 @@ class ConsoleView(Gtk.TextView):
             indentation = self.IP.input_splitter.indent_spaces * ' '
             self.text_buffer.insert_at_cursor(indentation)
 
-    def onKeyPress(self, widget, event):
+    def onKeyPress(self, _widget, event):
         '''
-        Key press callback used for correcting behavior for console-like 
+        Key press callback used for correcting behavior for console-like
         interfaces. For example 'home' should go to prompt, not to beginning of
         line.
-        
+
         @param widget: Widget that key press occurred in.
         @type widget: gtk.Widget
         @param event: Event object
         @type event: gtk.gdk.Event
-        
+
         @return: Return True if event should not trickle.
         @rtype: boolean
         '''
@@ -548,6 +551,7 @@ class ConsoleView(Gtk.TextView):
         '''
         pass
 
+
 class IPythonView(ConsoleView, IterableIPShell):
     '''
     Sub-class of both modified IPython shell and L{ConsoleView} this makes
@@ -571,10 +575,10 @@ class IPythonView(ConsoleView, IterableIPShell):
     def raw_input(self, prompt=''):
         '''
         Custom raw_input() replacement. Get's current line from console buffer.
-        
+
         @param prompt: Prompt to print. Here for compatibility as replacement.
         @type prompt: string
-        
+
         @return: The current command line text.
         @rtype: string
         '''
@@ -585,14 +589,14 @@ class IPythonView(ConsoleView, IterableIPShell):
 
     def onKeyPressExtend(self, event):
         '''
-        Key press callback with plenty of shell goodness, like history, 
+        Key press callback with plenty of shell goodness, like history,
         autocompletions, etc.
-        
+
         @param widget: Widget that key press occurred in.
         @type widget: gtk.Widget
         @param event: Event object.
         @type event: gtk.gdk.Event
-        
+
         @return: True if event should not trickle.
         @rtype: boolean
         '''
@@ -614,12 +618,12 @@ class IPythonView(ConsoleView, IterableIPShell):
                 return False
             completed, possibilities = self.complete(self.getCurrentLine())
             if len(possibilities) > 1:
-                slice = self.getCurrentLine()
+                line_slice = self.getCurrentLine()
                 self.write('\n')
                 for symbol in possibilities:
                     self.write(symbol + '\n')
                 self.showPrompt(self.prompt)
-            self.changeLine(completed or slice)
+            self.changeLine(completed or line_slice)
             return True
 
     def _processLine(self):
@@ -628,13 +632,14 @@ class IPythonView(ConsoleView, IterableIPShell):
         '''
         self.history_pos = 0
         self.execute()
-        rv = self.cout.getvalue()
-        if rv:
-            rv = rv.strip('\n')
-        self.showReturned(rv)
+        returnvalue = self.cout.getvalue()
+        if returnvalue:
+            returnvalue = returnvalue.strip('\n')
+        self.showReturned(returnvalue)
         self.cout.truncate(0)
         self.cout.seek(0)
- 
+
+
 if __name__ == "__main__":
     window = Gtk.Window()
     window.set_default_size(640, 320)

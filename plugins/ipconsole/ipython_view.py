@@ -154,7 +154,8 @@ class IterableIPShell(object):
         self.complete_sep = re.compile(r'[\s\{\}\[\]\(\)]')
         self.updateNamespace({'exit': lambda: None})
         self.updateNamespace({'quit': lambda: None})
-        self.IP.readline_startup_hook(self.IP.pre_readline)
+        if not IPython.__version__.startswith('5.'):  # HACK
+            self.IP.readline_startup_hook(self.IP.pre_readline)
         # Workaround for updating namespace with sys.modules
         #
         self.__update_namespace()
@@ -233,6 +234,8 @@ class IterableIPShell(object):
         @rtype: string
 
         '''
+        if IPython.__version__.startswith('5.'):  # HACK
+            return '... ' if is_continuation else '>>> '
         if is_continuation:
             prompt = self.IP.prompt_manager.render('in2')
         else:

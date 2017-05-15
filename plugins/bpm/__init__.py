@@ -266,7 +266,8 @@ class BPMWidget(Gtk.Frame):
         self.eventbox.set_state(Gtk.StateType.SELECTED)
         self.eventbox.grab_focus()
         
-        self.add_bpm_tap()
+        if event.type is Gdk.EventType.BUTTON_PRESS:  # Ignore double- and triple-click events
+            self.add_bpm_tap()
         return True
     
     @GtkTemplate.Callback

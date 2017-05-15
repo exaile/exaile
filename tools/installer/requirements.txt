@@ -1,3 +1,5 @@
-musicbrainzngs
-mutagen==1.31
-pylast
+git+git://github.com/exaile/pywin32-ctypes.git@pyinstaller#egg=pywin32-ctypes
+git+git://github.com/pyinstaller/pyinstaller.git@5b6288#egg=PyInstaller
+musicbrainzngs==0.6
+mutagen==1.37
+pylast==1.8.0

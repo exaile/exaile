@@ -47,7 +47,7 @@ pushd "$COPYDIR"
 # Our Makefile relies on $PYTHON2_CMD to run Python commands
 export PYTHON2_CMD="${BUILD_ROOT}"/"${MINGW}"/bin/"${PYTHON_ID}".exe
 build_make compile locale
-PREFIX=/usr DESTDIR="$DESTDIR" build_make install
+build_make install PREFIX=/usr DESTDIR="$DESTDIR"
 
 # Copy things that the unix install doesn't require..
 if [ "$SDK_PLATFORM" == "darwin" ]; then

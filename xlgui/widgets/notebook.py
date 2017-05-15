@@ -31,7 +31,6 @@ from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import providers
-from xlgui import guiutil
 from xlgui.widgets import menu
 
 # Custom tab style; fixes some Adwaita ugliness
@@ -72,7 +71,6 @@ class SmartNotebook(Gtk.Notebook):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
-        self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
         sc = self.get_style_context()
@@ -147,14 +145,9 @@ class SmartNotebook(Gtk.Notebook):
     def on_button_press(self, widget, event):
         if event.type == Gdk.EventType.BUTTON_PRESS and event.button == Gdk.BUTTON_MIDDLE:
             self.add_default_tab()
-            
-    def on_popup_menu(self, widget):
-        page = self.get_current_tab()
-        tab_label = self.get_tab_label(self.get_current_tab())
-        page.tab_menu.popup(None, None, guiutil.position_menu, tab_label,
-                            0, 0)
-        return True        
-        
+            return True
+        return False
+
 
 class NotebookTab(Gtk.EventBox):
     """

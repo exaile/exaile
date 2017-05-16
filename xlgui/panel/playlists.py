@@ -782,7 +782,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # tracks within our widget
                 # We do a copy if we are draggin from another playlist
                 if Gtk.drag_get_source_widget(context) == tv and \
-                    dragging_playlist == False:
+                    dragging_playlist is False:
                     Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 else:
                     Gdk.drag_status(context, Gdk.DragAction.COPY, time)

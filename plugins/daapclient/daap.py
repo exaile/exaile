@@ -76,14 +76,14 @@ class DAAPObject(object):
                 self.code = code
             else:
                 self.code = dmapNames[code]
-            if self.code is None or not dmapCodeTypes.has_key(self.code):
+            if self.code is None or self.code not in dmapCodeTypes:
                 self.type = None
             else:
                 self.type = dmapCodeTypes[self.code][1]
             self.value = value
             if self.type == 'c' and isinstance(self.value, list):
                 self.contains = value
-        if kwargs.has_key('parent'):
+        if 'parent' in kwargs:
             kwargs['parent'].contains.append(self)
 
     def getAtom(self, code):
@@ -102,13 +102,13 @@ class DAAPObject(object):
         return None
 
     def codeName(self):
-        if self.code is None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or self.code not in dmapCodeTypes:
             return None
         else:
             return dmapCodeTypes[self.code][0]
 
     def objectType(self):
-        if self.code is None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or self.code not in dmapCodeTypes:
             return None
         else:
             return dmapCodeTypes[self.code][1]
@@ -197,7 +197,7 @@ class DAAPObject(object):
         self.code, self.length = struct.unpack('!4sI', data)
 
         # now we need to find out what type of object it is
-        if self.code is None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or self.code not in dmapCodeTypes:
             self.type = None
         else:
             self.type = dmapCodeTypes[self.code][1]
@@ -493,9 +493,9 @@ class DAAPTrack(object):
         self.atom = atom
 
     def __getattr__(self, name):
-        if self.__dict__.has_key(name):
+        if name in self.__dict__:
             return self.__dict__[name]
-        elif DAAPTrack.attrmap.has_key(name):
+        elif name in DAAPTrack.attrmap:
             return self.atom.getAtom(DAAPTrack.attrmap[name])
         raise AttributeError(name)
 

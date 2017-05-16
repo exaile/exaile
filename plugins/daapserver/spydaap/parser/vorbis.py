@@ -56,12 +56,12 @@ class VorbisParser(spydaap.parser.Parser):
     def handle_track(self, flac, d):
         tracknumber = None
         trackcount = None
-        if flac.tags.has_key('tracknumber'):
+        if 'tracknumber' in flac.tags:
             t = str(flac.tags['tracknumber']).split('/')
             tracknumber = self.my_int(t[0])
             if (len(t) == 2):
                 trackcount = self.my_int(t[1])
-        if flac.tags.has_key('tracktotal'):
+        if 'tracktotal' in flac.tags:
             trackcount = self.my_int(flac.tags['tracktotal'])
         if tracknumber:
             d.append(do('daap.songtracknumber', tracknumber))
@@ -71,12 +71,12 @@ class VorbisParser(spydaap.parser.Parser):
     def handle_disc(self, flac, d):
         discnumber = None
         disccount = None
-        if flac.tags.has_key('discnumber'):
+        if 'discnumber' in flac.tags:
             t = unicode(flac.tags['discnumber'][0]).split('/')
             discnumber = self.my_int(t[0])
             if (len(t) == 2):
                 disccount = self.my_int(t[1])
-        if flac.tags.has_key('disctotal'):
+        if 'disctotal' in flac.tags:
             disccount = self.my_int(flac.tags['disctotal'])
         if discnumber:
             d.append(do('daap.songdiscnumber', discnumber))

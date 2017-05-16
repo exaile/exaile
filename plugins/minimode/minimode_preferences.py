@@ -92,7 +92,7 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
                'progress_bar', 'restore']
 
     def __init__(self, preferences, widget):
-        self.items = [self.Item(p.name, p.title, p.description, p.fixed) \
+        self.items = [self.Item(p.name, p.title, p.description, p.fixed)
             for p in providers.get('minimode-controls')]
         widgets.SelectionListPreference.__init__(self, preferences, widget)
 

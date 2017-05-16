@@ -483,7 +483,7 @@ class TagCoverFetcher(CoverSearchMethod):
             except (TypeError, KeyError):
                 pass
 
-        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri) \
+        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri)
             for index in range(0, len(covers))]
 
     def get_cover_data(self, db_string):

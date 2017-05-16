@@ -129,7 +129,7 @@ class ExaileNotifyOsd(object):
 
         self.update_notify()
         
-        if settings.get_option("plugin/notifyosd/show_when_focused", \
+        if settings.get_option("plugin/notifyosd/show_when_focused",
                 True) or not self.exaile.gui.main.window.is_active():
             try:
                 self.notify.show()

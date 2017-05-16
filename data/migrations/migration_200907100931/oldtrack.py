@@ -129,8 +129,8 @@ class Track(object):
         self.time_added = time_added
         self.playcount = playcount
     
-        for tag, val in {'title': title, 'artist': artist, 'album':album,\
-                        'genre': genre, 'discnumber':disc_id,\
+        for tag, val in {'title': title, 'artist': artist, 'album':album,
+                        'genre': genre, 'discnumber':disc_id,
                         'tracknumber':track}.iteritems():
             self.set_tag(tag, val)
 

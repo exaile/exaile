@@ -553,13 +553,13 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         pixbuf_height = self.props.pixbuf.get_height()
 
         click_area = Gdk.Rectangle(
-            x=int(cell_area.x \
-              + self.props.xpad \
-              + self.props.xalign * cell_area.width \
+            x=int(cell_area.x
+              + self.props.xpad
+              + self.props.xalign * cell_area.width
               - pixbuf_width),
-            y=int(cell_area.y \
-              + self.props.ypad \
-              + self.props.yalign * cell_area.height \
+            y=int(cell_area.y
+              + self.props.ypad
+              + self.props.yalign * cell_area.height
               - self.props.yalign * pixbuf_height),
             width=pixbuf_width,
             height=pixbuf_height

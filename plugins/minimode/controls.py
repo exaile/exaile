@@ -135,7 +135,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
             ['previous', 'play_pause', 'next', 'playlist_button',
              'progress_bar', 'restore'])
 
-        added_controls = [c for c in selected_controls \
+        added_controls = [c for c in selected_controls
             if c not in self]
 
         for name in added_controls:
@@ -147,7 +147,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
             else:
                 self[name] = provider
 
-        removed_controls = [c.name for c in self \
+        removed_controls = [c.name for c in self
             if c.name not in selected_controls]
 
         for name in removed_controls:

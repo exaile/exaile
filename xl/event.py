@@ -279,7 +279,7 @@ class EventManager(object):
             event: the Event to emit [Event]
         """
         
-        emit_logmsg = self.use_logger and (not self.logger_filter or \
+        emit_logmsg = self.use_logger and (not self.logger_filter or
                    re.search(self.logger_filter, event.type))
         emit_verbose = emit_logmsg and self.use_verbose_logger
         

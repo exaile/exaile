@@ -245,10 +245,10 @@ class Formatter(GObject.GObject):
 
             if groups['parameters'] is not None:
                 # Split parameters on unescaped comma
-                parameters = [p.lstrip() \
+                parameters = [p.lstrip()
                     for p in re.split(r'(?<!\\),', groups['parameters'])]
                 # Split arguments on unescaped equals sign
-                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2] \
+                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2]
                     for p in parameters]
                 # Turn list of lists into a proper dictionary
                 parameters = dict(parameters)
@@ -358,7 +358,7 @@ class ProgressTextFormatter(Formatter):
 
         if playlist and playlist.current_position >= 0:        
             tracks = playlist[playlist.current_position:]
-            total_remaining_time = sum([t.get_tag_raw('__length') \
+            total_remaining_time = sum([t.get_tag_raw('__length')
                 for t in tracks if t.get_tag_raw('__length')])
             total_remaining_time -= current_time
 

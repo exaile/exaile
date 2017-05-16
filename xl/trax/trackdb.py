@@ -210,7 +210,7 @@ class TrackDB(object):
             try:
                 if 'tracks' == attr:
                     data = {}
-                    for k in (x for x in pdata.keys() \
+                    for k in (x for x in pdata.keys()
                             if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])

@@ -841,7 +841,7 @@ class CoverWindow(object):
         tb_min_height, tb_natural_height = self.toolbar.get_preferred_height()
         sb_min_height, sb_natural_height = self.statusbar.get_preferred_height()
         self.cover_window_height = 500 + tb_natural_height + sb_natural_height
-        self.cover_window.set_default_size(self.cover_window_width, \
+        self.cover_window.set_default_size(self.cover_window_width,
                                            self.cover_window_height)
 
         self.image_original_pixbuf = pixbuf
@@ -871,9 +871,9 @@ class CoverWindow(object):
 
     def center_image(self):
         """Centers the image in the layout"""
-        new_x = max(0, int((self.available_image_width() - \
+        new_x = max(0, int((self.available_image_width() -
                             self.image_pixbuf.get_width()) / 2))
-        new_y = max(0, int((self.available_image_height() - \
+        new_y = max(0, int((self.available_image_height() -
                             self.image_pixbuf.get_height()) / 2))
         self.layout.move(self.image, new_x, new_y)
 
@@ -883,10 +883,10 @@ class CoverWindow(object):
         if window:
             window.freeze_updates()
         self.apply_zoom()
-        self.layout.set_size(self.image_pixbuf.get_width(), \
+        self.layout.set_size(self.image_pixbuf.get_width(),
                              self.image_pixbuf.get_height())
         if self.image_fitted or \
-           (self.image_pixbuf.get_width() == self.available_image_width() and \
+           (self.image_pixbuf.get_width() == self.available_image_width() and
            self.image_pixbuf.get_height() == self.available_image_height()):
             self.scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
         else:
@@ -907,13 +907,13 @@ class CoverWindow(object):
 
     def apply_zoom(self):
         """Scales the image if needed"""
-        new_width = int(self.image_original_pixbuf.get_width() * \
+        new_width = int(self.image_original_pixbuf.get_width() *
                         self.image_ratio)
-        new_height = int(self.image_original_pixbuf.get_height() * \
+        new_height = int(self.image_original_pixbuf.get_height() *
                          self.image_ratio)
         if new_width != self.image_pixbuf.get_width() or \
            new_height != self.image_pixbuf.get_height():
-            self.image_pixbuf = self.image_original_pixbuf.scale_simple(new_width, \
+            self.image_pixbuf = self.image_original_pixbuf.scale_simple(new_width,
                                   new_height, self.image_interp)
 
     def set_ratio_to_fit(self):

@@ -397,12 +397,12 @@ class ResultsDialog(dialogs.ListDialog):
         text = Gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         col = Gtk.TreeViewColumn(_('Bitrate'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter: \
+        col.set_cell_data_func(text, lambda column, cell, model, iter:
             cell.set_property('text', model.get_value(iter, 0).bitrate))
         self.list.append_column(col)
         text = Gtk.CellRendererText()
         text.set_property('xalign', 0.5)
         col = Gtk.TreeViewColumn(_('Format'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter: \
+        col.set_cell_data_func(text, lambda column, cell, model, iter:
             cell.set_property('text', model.get_value(iter, 0).format))
         self.list.append_column(col)

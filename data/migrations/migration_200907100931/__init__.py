@@ -54,7 +54,7 @@ def migration_needed():
         return False
 
     if os.path.exists(os.path.join(xdg.get_config_dir(), 'settings.ini')):
-        logger.debug("Found a newer version of the settings " \
+        logger.debug("Found a newer version of the settings "
             "file, no migration needed")
         return False
 

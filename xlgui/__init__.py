@@ -247,14 +247,14 @@ class Main(object):
             collection = self.exaile.collection
             collection.freeze_libraries()
 
-            collection_libraries = sorted([(l.location, l.monitored, l.startup_scan) \
+            collection_libraries = sorted([(l.location, l.monitored, l.startup_scan)
                 for l in collection.libraries.itervalues()])
             new_libraries = sorted(dialog.get_items())
 
             if collection_libraries != new_libraries:
-                collection_locations = [location \
+                collection_locations = [location
                     for location, monitored, startup_scan in collection_libraries]
-                new_locations = [location \
+                new_locations = [location
                     for location, monitored, startup_scan in new_libraries]
 
                 if collection_locations != new_locations:

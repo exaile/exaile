@@ -571,7 +571,7 @@ class ExailePlayer(object):
                     last = 0
             elif not isinstance(last, int):
                 last = 0
-            track.set_tag_raw('__playtime', last + int(time.time() - \
+            track.set_tag_raw('__playtime', last + int(time.time() -
                     self._playtime_stamp))
             self._playtime_stamp = None
 

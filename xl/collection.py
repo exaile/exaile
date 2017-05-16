@@ -503,7 +503,7 @@ class LibraryMonitor(GObject.GObject):
             self.__library.collection.remove_tracks(removed_tracks)
 
             # Remove obsolete monitors
-            removed_directories = [d for d in self.__monitors \
+            removed_directories = [d for d in self.__monitors
                 if d == gfile or d.has_prefix(gfile)]
 
             for directory in removed_directories:
@@ -767,7 +767,7 @@ class Library(object):
                     for (basedir, album) in compilations:
                         base = basedir.replace('"', '\\"')
                         alb = album.replace('"', '\\"')
-                        items = [ tr for tr in dirtracks if \
+                        items = [ tr for tr in dirtracks if
                                 tr.get_tag_raw('__basedir') == base and \
                                 # FIXME: this is ugly
                                 alb in "".join(

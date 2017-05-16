@@ -1077,7 +1077,7 @@ class TagImageField(Gtk.Box):
             save_to_callback_function = self.pixbuf.save_to_callbackv
         except AttributeError:
             save_to_callback_function = self.pixbuf.save_to_callback
-        save_to_callback_function(gdk_pixbuf_save_func, None, mime['type'], \
+        save_to_callback_function(gdk_pixbuf_save_func, None, mime['type'],
                 mime['options'].keys(), mime['options'].values())
 
         # Move to the beginning of the buffer to allow read operations

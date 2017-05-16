@@ -268,7 +268,7 @@ class Menu(Gtk.Menu):
         """
         pmap = {'first': 0, 'normal': 1, 'last': 2}
         items = [common.PosetItem(i.name, i.after,
-                                  pmap[i._pos], value=i) \
+                                  pmap[i._pos], value=i)
                     for i in self._items]
         items = common.order_poset(items)
         self._items = [i.value for i in items]

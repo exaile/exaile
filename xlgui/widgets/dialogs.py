@@ -665,7 +665,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
             supported_filter.add_pattern(pattern)
             audio_filter.add_pattern(pattern)
 
-        playlist_file_extensions = sum([p.file_extensions \
+        playlist_file_extensions = sum([p.file_extensions
             for p in providers.get('playlist-format-converter')], [])
 
         for extension in playlist_file_extensions:
@@ -820,7 +820,7 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
         all_filter.set_name(_('All Files'))
         all_filter.add_pattern('*')
 
-        playlist_file_extensions = sum([p.file_extensions \
+        playlist_file_extensions = sum([p.file_extensions
             for p in providers.get('playlist-format-converter')], [])
 
         for extension in playlist_file_extensions:

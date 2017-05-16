@@ -55,7 +55,7 @@ class FlacFormat(CaseInsensitveBaseFormat):
     
     def _get_tag(self, raw, tag):
         if tag == '__cover':
-            return [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data) \
+            return [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data)
                 for p in raw.pictures]
             
         return CaseInsensitveBaseFormat._get_tag(self, raw, tag)

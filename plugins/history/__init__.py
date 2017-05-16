@@ -76,7 +76,7 @@ class HistoryPlugin(object):
         self.history_tab = NotebookTab(main.get_playlist_notebook(), self.history_page )
         
         # add menu item to 'view' to display our playlist 
-        self.menu = menu.check_menu_item( 'history', '', _('Playback history'), \
+        self.menu = menu.check_menu_item( 'history', '', _('Playback history'),
             lambda *e: self.is_shown(), self.on_playback_history )
             
         providers.register( 'menubar-view-menu', self.menu )

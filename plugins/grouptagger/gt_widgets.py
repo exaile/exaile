@@ -148,22 +148,22 @@ class GroupTaggerView(Gtk.TreeView):
             
         if editable:
             
-            item = smi( 'addgrp', [], _('Add new tag'), \
+            item = smi( 'addgrp', [], _('Add new tag'),
                         callback=self.on_menu_add_group )
             self.menu.add_item( item )
             
-            item = smi( 'delgrp', ['addgrp'], _('Delete tag'), \
-                        callback=self.on_menu_delete_group, \
+            item = smi( 'delgrp', ['addgrp'], _('Delete tag'),
+                        callback=self.on_menu_delete_group,
                         condition_fn=lambda n,p,c: False if len(c['groups']) == 0 else True)
             self.menu.add_item( item )
             
             self.menu.add_item( sep( 'sep1', ['delgrp'] ) )
            
-            item = smi( 'addcat', ['sep1'], _('Add new category'), \
+            item = smi( 'addcat', ['sep1'], _('Add new category'),
                         callback=self.on_menu_add_category )
             self.menu.add_item( item )
             
-            item = smi( 'remcat', ['addcat'], _('Remove category'), \
+            item = smi( 'remcat', ['addcat'], _('Remove category'),
                         callback=self.on_menu_del_category,
                         condition_fn=lambda n,p,c: False if len(c['categories']) == 0 else True)
             self.menu.add_item( item )
@@ -172,7 +172,7 @@ class GroupTaggerView(Gtk.TreeView):
             
         self.menu.add_item( GTShowTracksMenuItem( 'sel', ['sep2'] ) )
             
-        item = smi( 'selcust', ['sel'], _('Show tracks with selected (custom)'), \
+        item = smi( 'selcust', ['sel'], _('Show tracks with selected (custom)'),
                     callback=lambda w,n,p,c: gt_common.create_custom_search_playlist( c['groups'], exaile ),
                     condition_fn=lambda n,p,c: True if len(c['groups']) > 1 else False)
         self.menu.add_item( item )
@@ -333,9 +333,9 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
     
     def __init__(self):
-        super(GroupTaggerTreeStore,self).__init__(GObject.TYPE_BOOLEAN, \
-                                GObject.TYPE_STRING, \
-                                GObject.TYPE_BOOLEAN, \
+        super(GroupTaggerTreeStore,self).__init__(GObject.TYPE_BOOLEAN,
+                                GObject.TYPE_STRING,
+                                GObject.TYPE_BOOLEAN,
                                 GObject.TYPE_INT)
         self.set_sort_column_id( 1, Gtk.SortType.ASCENDING )
         

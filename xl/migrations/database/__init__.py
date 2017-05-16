@@ -35,5 +35,5 @@ def handle_migration(db, pdata, oldversion, newversion):
                 os.path.join(os.path.dirname(__file__), "from1to2.py"))
         migrator.migrate(db, pdata, oldversion, newversion)
     else:
-        raise common.VersionError("Don't know how to handle upgrade from " \
+        raise common.VersionError("Don't know how to handle upgrade from "
                 "music database version %s to %s."%(oldversion, newversion))

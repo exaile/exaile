@@ -42,7 +42,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
                 digest = md5.md5(ffn).hexdigest()
                 marked[digest] = True
                 md = self.get_item_by_pid(digest)
-                if (not(md.get_exists()) or \
+                if (not(md.get_exists()) or
                         (md.get_mtime() < os.stat(ffn).st_mtime)):
                     for p in self.parsers:
                         if p.understands(ffn):                  

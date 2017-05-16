@@ -1042,7 +1042,7 @@ class Playlist(object):
             :returns: the tracks
             :rtype: list
         """
-        return  [ (i, self.__tracks[i]) for i in range(len(self)) if \
+        return  [ (i, self.__tracks[i]) for i in range(len(self)) if
                 self.__tracks.get_meta_key(i, 'playlist_shuffle_history') ]
 
     def clear_shuffle_history(self):
@@ -1077,8 +1077,8 @@ class Playlist(object):
                 if current_position == -1:
                     raise IndexError
                 curr = self[current_position]
-                t = [ x for i, x in enumerate(self) \
-                    if x.get_tag_raw('album') == curr.get_tag_raw('album') \
+                t = [ x for i, x in enumerate(self)
+                    if x.get_tag_raw('album') == curr.get_tag_raw('album')
                     and i > current_position ]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]

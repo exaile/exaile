@@ -681,10 +681,10 @@ class SelectionListPreference(Preference):
             return
 
         # Filter out invalid items
-        selected_items = [item for item in selected_items \
+        selected_items = [item for item in selected_items
             if item in available_items]
         # Cut out unselected items
-        unselected_items = [item for item in available_items \
+        unselected_items = [item for item in available_items
             if item not in selected_items]
         # Move unselected items to the end
         items = selected_items + unselected_items

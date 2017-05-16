@@ -175,7 +175,7 @@ class CDPlaylist(playlist.Playlist):
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
-        sort_tups = sorted([ (int(s.get_tag_raw('tracknumber')[0]),s) \
+        sort_tups = sorted([ (int(s.get_tag_raw('tracknumber')[0]),s)
                 for s in songs.values() ])
         sorted = [ s[1] for s in sort_tups ]
 

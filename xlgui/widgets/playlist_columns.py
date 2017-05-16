@@ -440,7 +440,7 @@ class ScheduleTimeColumn(Column):
                 # The delay is the accumulated length of all tracks
                 # between the currently playing and this one
                 try:
-                    delay = sum([t.get_tag_raw('__length') \
+                    delay = sum([t.get_tag_raw('__length')
                         for t in playlist[current_position:position]])
                 except TypeError:
                     # on tracks with length == None, we cannot determine

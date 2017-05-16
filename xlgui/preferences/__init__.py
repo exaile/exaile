@@ -215,7 +215,7 @@ class PreferencesDialog(object):
             self.panes[page] = child
             self.builders[page] = builder
 
-        if not page in self.fields:
+        if page not in self.fields:
             self._populate_fields(page, self.builders[page])
 
         if hasattr(page, 'page_enter'):

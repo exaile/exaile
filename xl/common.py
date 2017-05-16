@@ -451,7 +451,7 @@ def walk(root):
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
                     target = fileinfo.get_symlink_target()
-                    if not "://" in target and not os.path.isabs(target):
+                    if "://" not in target and not os.path.isabs(target):
                         fil2 = dir.get_child(target)
                     else:
                         fil2 = Gio.File.new_for_uri(target)

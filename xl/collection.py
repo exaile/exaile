@@ -202,7 +202,7 @@ class Collection(trax.TrackDB):
                 break
 
         to_rem = []
-        if not "://" in library.location:
+        if "://" not in library.location:
             location = u"file://" + library.location
         else:
             location = library.location
@@ -674,10 +674,10 @@ class Library(object):
         album = album.lower()
         artist = artist.lower()
         try:
-            if not basedir in ccheck:
+            if basedir not in ccheck:
                 ccheck[basedir] = {}
 
-            if not album in ccheck[basedir]:
+            if album not in ccheck[basedir]:
                 ccheck[basedir][album] = deque()
         except TypeError:
             logger.exception("Error adding to compilation")

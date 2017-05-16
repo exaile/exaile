@@ -1985,7 +1985,7 @@ class PlaylistManager(object):
             pl.save_to_location(os.path.join(self.playlist_dir,
                 encode_filename(name)))
 
-            if not name in self.playlists:
+            if name not in self.playlists:
                 self.playlists.append(name)
             #self.playlists.sort()
             self.save_order()

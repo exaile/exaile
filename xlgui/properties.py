@@ -1043,7 +1043,7 @@ class TagImageField(Gtk.Box):
                 self.batch_update = False
                 self.call_update_func()
 
-        if not None in (all_vals, self.all_button):
+        if None not in (all_vals, self.all_button):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):

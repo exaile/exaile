@@ -16,6 +16,7 @@
 
 
 class WinmmkeysPlugin:
+
     def enable(self, exaile):
         self.exaile = exaile
 
@@ -35,6 +36,7 @@ plugin_class = WinmmkeysPlugin
 
 
 class HotkeyHandler_PyHook:
+
     def __init__(self, exaile):
         import pyHook
         from xl.player import PLAYER, QUEUE
@@ -46,6 +48,7 @@ class HotkeyHandler_PyHook:
             'Media_Next_Track': QUEUE.next,
             'Media_Prev_Track': QUEUE.prev,
         }
+
         def on_key_down(event):
             # NOTE: Because we capture every single key in the system, the
             # following test will fail almost 100% of the time. That's why we
@@ -70,6 +73,7 @@ class HotkeyHandler_PyHook:
 
 
 class HotkeyHandler_Keyboard:
+
     def __init__(self, exaile):
         import keyboard
         from xl.player import PLAYER, QUEUE

@@ -97,7 +97,6 @@ class HistoryPlugin(object):
         self.show_history(False)
     
     def disable(self, exaile):
-    
         '''Called when the plugin is disabled'''
         if self.menu:
             providers.unregister( 'menubar-view-menu', self.menu )
@@ -138,6 +137,7 @@ class HistoryPlugin(object):
 
 plugin_class = HistoryPlugin
         
+
 class HistoryPlaylistPage(PlaylistPageBase):
 
     # add two buttons on the bottom: 'save to playlist', and
@@ -270,4 +270,3 @@ class HistoryPlaylist( Playlist ):
         
     def pop(self, i=-1):
         pass
-        

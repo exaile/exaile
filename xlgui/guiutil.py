@@ -63,8 +63,10 @@ class GtkTemplate(_GtkTemplate):
                       
         .. versionadded:: 3.5.0
     '''
+
     def __init__(self, *path, **kwargs):
         super(GtkTemplate, self).__init__(ui=ui_path(*path, **kwargs))
+
 
 def ui_path(*path, **kwargs):
     '''
@@ -87,12 +89,14 @@ def ui_path(*path, **kwargs):
     else:
         return os.path.abspath(os.path.join(os.path.dirname(relto), *path))
 
+
 def get_workarea_size():
     """
         Returns the width and height of the work area
     """
     d = get_workarea_dimensions()
     return (d.width, d.height)
+
 
 def get_workarea_dimensions(window=None):
     """
@@ -118,6 +122,7 @@ def get_workarea_dimensions(window=None):
         monitor_nr = screen.get_monitor_at_window(window.get_window())
         work_area = screen.get_monitor_workarea(monitor_nr)
     return work_area
+
 
 def gtk_widget_replace(widget, replacement):
     """
@@ -148,10 +153,12 @@ def gtk_widget_replace(widget, replacement):
         parent.child_set_property(replacement, name, value)
     return replacement
 
+
 class ScalableImageWidget(Gtk.Image):
     """
         Custom resizeable image widget
     """
+
     def __init__(self):
         """
             Initializes the image
@@ -214,11 +221,13 @@ class ScalableImageWidget(Gtk.Image):
 
         scaled = pixbuf = None
 
+
 class SearchEntry(object):
     """
         A Gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
+
     def __init__(self, entry=None, timeout=500):
         """
             Initializes the entry
@@ -273,10 +282,12 @@ class SearchEntry(object):
         """
         return getattr(self.entry, attr)
 
+
 class Menu(Gtk.Menu):
     """
         A proxy for making it easier to add icons to menu items
     """
+
     def __init__(self):
         """
             Initializes the menu
@@ -426,6 +437,7 @@ class Menu(Gtk.Menu):
         else:
             Gtk.Menu.popup(self, *e)
 
+
 class ModifierType:
     '''
         Common Gdk.ModifierType combinations that work in a cross platform way
@@ -448,6 +460,7 @@ class ModifierType:
     #: shift
     SHIFT_MASK = Gdk.ModifierType.SHIFT_MASK
             
+
 def position_menu(menu, *args):
     '''
         A function that will position a menu near a particular widget. This
@@ -473,7 +486,6 @@ def position_menu(menu, *args):
     return (position[0], position[1], True)
 
             
-
 def finish(repeat=True):
     """
         Waits for current pending gtk events to finish
@@ -483,7 +495,6 @@ def finish(repeat=True):
         if not repeat: break
         
         
-
 def initialize_from_xml(this, other=None):
     '''
         DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
@@ -540,6 +551,7 @@ def initialize_from_xml(this, other=None):
             raise RuntimeError(err)
     
     return builder
+
 
 def persist_selection(widget, key_col, setting_name):
     '''

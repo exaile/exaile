@@ -18,6 +18,7 @@ __all__ = ['DAAPError', 'DAAPObject', 'do']
 
 log = logging.getLogger('daap')
 
+
 def DAAPParseCodeTypes(treeroot):
     # the treeroot we are given should be a
     # dmap.contentcodesresponse
@@ -62,9 +63,12 @@ def DAAPParseCodeTypes(treeroot):
         else:
             raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
 
+
 class DAAPError(Exception): pass
 
+
 class DAAPObject(object):
+
     def __init__(self, code=None, value=None, **kwargs):
         if (code != None):
             if (len(code) == 4):
@@ -260,6 +264,7 @@ do = DAAPObject
 
 
 class DAAPClient(object):
+
     def __init__(self):
         self.socket = None
         self.request_id = 0
@@ -421,6 +426,7 @@ class DAAPSession(object):
 # available to the client.
 daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber"
 
+
 class DAAPDatabase(object):
 
     def __init__(self, session, atom):
@@ -553,4 +559,3 @@ if __name__ == '__main__':
             except Exception: pass
 
     main()
-

@@ -923,7 +923,6 @@ class MainWindow(GObject.GObject):
 
         self.window.set_title(self.title_formatter.format(track))
 
- 
     def playpause(self):
         """
             Pauses the playlist if it is playing, starts playing if it is
@@ -1100,6 +1099,7 @@ class MainWindow(GObject.GObject):
             return None
         return page
 
+
 class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
     """
         Extends the regular track info pane by an area for custom widgets
@@ -1111,6 +1111,7 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         inserted into the widget_area of the info area, and an attribute
         'name' that will be used when removing the provider.
     """
+
     def __init__(self, player):
         info.TrackInfoPane.__init__(self, player)
 
@@ -1151,18 +1152,23 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
             self.widget_area.remove(widget)
             widget.destroy()
 
+
 def get_playlist_container():
     return MainWindow._mainwindow.playlist_container
         
+
 def get_playlist_notebook():
     '''Retrieves the primary playlist notebook'''
     return MainWindow._mainwindow.playlist_container.notebooks[0]
 
+
 def get_selected_page():
     return MainWindow._mainwindow.get_selected_page()
 
+
 def get_selected_playlist():
     return MainWindow._mainwindow.get_selected_playlist()
+
 
 def mainwindow():
     return MainWindow._mainwindow

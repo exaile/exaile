@@ -37,7 +37,9 @@ from xl import common, event
 from xl.nls import gettext as _
 from xlgui.panel import device
 
+
 class CDImportThread(common.ProgressThread):
+
     def __init__(self, cd_importer):
         common.ProgressThread.__init__(self)
 
@@ -70,7 +72,9 @@ class CDImportThread(common.ProgressThread):
         GLib.source_remove(progress_id)
         self.emit('done')
 
+
 class CDPanel(device.FlatPlaylistDevicePanel):
+
     def __init__(self, *args):
         device.FlatPlaylistDevicePanel.__init__(self, *args)
         self.__importing = False
@@ -95,7 +99,5 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         self.main.controller.progress_manager.add_monitor(thread,
                 _("Importing CD..."), 'drive-optical')
 
-
     def _import_finish(self):
         self.__importing = False
-

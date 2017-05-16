@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 
 import os
@@ -41,6 +40,7 @@ try:
     modplug.ModPlug_GetLength.argtypes = (ctypes.c_void_p, )
 except (ImportError, OSError):
     modplug = None
+
 
 class ModFormat(BaseFormat):
     writable = False
@@ -66,4 +66,3 @@ class ModFormat(BaseFormat):
         return -1
 
 # vim: et sts=4 sw=4
-

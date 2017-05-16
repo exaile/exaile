@@ -53,6 +53,7 @@ logger = logging.getLogger(__name__)
 
 COLLECTIONS = set()
 
+
 def get_collection_by_loc(loc):
     """
         gets the collection by a location.
@@ -66,10 +67,12 @@ def get_collection_by_loc(loc):
             return c
     return None
 
+
 class CollectionScanThread(common.ProgressThread):
     """
         Scans the collection
     """
+
     def __init__(self, collection, startup_scan=False, force_update=False):
         """
             Initializes the thread
@@ -113,6 +116,7 @@ class CollectionScanThread(common.ProgressThread):
         else:
             self.emit('done')
 
+
 class Collection(trax.TrackDB):
     """
         Manages a persistent track database.
@@ -132,6 +136,7 @@ class Collection(trax.TrackDB):
         5
         >>>
     """
+
     def __init__(self, name, location=None, pickle_attrs=[]):
         global COLLECTIONS
         self.libraries = {}
@@ -352,6 +357,7 @@ class Collection(trax.TrackDB):
             for prefix, lib in self.libraries.iteritems():
                 lib.delete(tr.get_loc_for_io())
 
+
 class LibraryMonitor(GObject.GObject):
     """
         Monitors library locations for changes
@@ -506,6 +512,7 @@ class LibraryMonitor(GObject.GObject):
                 
                 self.emit('location-removed', directory)
 
+
 class Library(object):
     """
         Scans and watches a folder for tracks, and adds them to
@@ -525,6 +532,7 @@ class Library(object):
         5
         >>>
     """
+
     def __init__(self, location, monitored=False, scan_interval=0, startup_scan=False):
         """
             Sets up the Library
@@ -802,8 +810,6 @@ class Library(object):
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
-
-
         removals = deque()
         for tr in self.collection.tracks.itervalues():
             tr = tr._track
@@ -945,4 +951,3 @@ class TransferQueue(object):
 
 
 # vim: et sts=4 sw=4
-

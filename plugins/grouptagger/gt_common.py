@@ -55,6 +55,7 @@ group_categories_option = 'plugin/grouptagger/group_categories'
 migrated_option = 'plugin/grouptagger/0.2_migration'
 tagname_option = 'plugin/grouptagger/tagname'
   
+
 def migrate_settings():
     '''Automatically migrate group tagger 0.1 settings to 0.2'''
     
@@ -68,6 +69,7 @@ def migrate_settings():
             
         settings.set_option( migrated_option, True )
   
+
 def get_tagname():
     return settings.get_option(tagname_option, 'grouping') 
   
@@ -115,6 +117,7 @@ def get_group_categories():
 
     return settings.get_option( group_categories_option, dict() )
     
+
 def get_groups_from_categories():
     
     groups = set()
@@ -124,6 +127,7 @@ def get_groups_from_categories():
             groups.add( group )
     return groups
     
+
 def set_group_categories(group_categories):
     '''
         Set the mapping of default groups to categories

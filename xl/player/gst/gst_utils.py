@@ -39,6 +39,7 @@ def element_link_many(*elems):
         n = elems[i + 1]
         e.link(n)
 
+
 def disable_video_text(bin):
     # From quod libet: disable all video/text decoding in playbin
     GST_PLAY_FLAG_VIDEO = 1 << 0
@@ -60,6 +61,7 @@ class ElementBin(Gst.Bin):
         changes made to elements do not apply until setup_elements()
         is called
     """
+
     def __init__(self, name=None):
         if name:
             Gst.Bin.__init__(self, name=name)
@@ -127,6 +129,7 @@ class ElementBin(Gst.Bin):
             
         return True
 
+
 class ProviderBin(ElementBin, ProviderHandler):
     """
         A ProviderBin is a Gst.Bin that adds and removes elements from itself
@@ -137,6 +140,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                     lower numbers are higher priority. elements must
                     choose a unique number.
     """
+
     def __init__(self, servicename, name=None):
         """
             :param servicename: the Provider name to listen for
@@ -264,7 +268,6 @@ def parse_stream_tags(track, tag_list):
             track.set_tag_raw('title', v)
     
     return newsong
-
 
 
 # vim: et sts=4 sw=4

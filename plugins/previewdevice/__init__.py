@@ -48,7 +48,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-
 class SecondaryOutputPlugin(object):
     '''Implements logic for plugin'''
 
@@ -91,7 +90,6 @@ class SecondaryOutputPlugin(object):
         # preserve state
         if settings.get_option('plugin/previewdevice/shown', True):
             self._init_gui_hooks()
-
 
     def disable(self, exaile):
         logger.debug('Disabling Preview Device')

@@ -67,8 +67,10 @@ from xlgui import (
 
 logger = logging.getLogger(__name__)
 
+
 def default_get_playlist_func(parent, context):
     return player.QUEUE.current_playlist
+
 
 class ModesMenuItem(menu.MenuItem):
     """
@@ -78,6 +80,7 @@ class ModesMenuItem(menu.MenuItem):
     """
     modetype = ''
     display_name = ""
+
     def __init__(self, name, after, get_playlist_func=default_get_playlist_func):
         menu.MenuItem.__init__(self, name, None, after)
         self.get_playlist_func = get_playlist_func
@@ -124,23 +127,28 @@ class ModesMenuItem(menu.MenuItem):
             return False
         setattr(pl, "%s_mode"%self.modetype, name)
 
+
 class ShuffleModesMenuItem(ModesMenuItem):
     modetype = 'shuffle'
     display_name = _("S_huffle")
+
 
 class RepeatModesMenuItem(ModesMenuItem):
     modetype = 'repeat'
     display_name = _("R_epeat")
 
+
 class DynamicModesMenuItem(ModesMenuItem):
     modetype = 'dynamic'
     display_name = _("_Dynamic")
+
 
 class RemoveCurrentMenuItem(menu.MenuItem):
     """
         Allows for removing the currently playing
         track from the current playlist
     """
+
     def __init__(self, after, get_playlist_func=default_get_playlist_func):
         menu.MenuItem.__init__(self, 'remove-current', None, after)
         self.get_playlist_func = get_playlist_func
@@ -167,11 +175,13 @@ class RemoveCurrentMenuItem(menu.MenuItem):
         if playlist and playlist.current == player.PLAYER.current:
             del playlist[playlist.current_position]
 
+
 class RandomizeMenuItem(menu.MenuItem):
     """
         A menu item which randomizes the full 
         playlist or the current selection
     """
+
     def __init__(self, after):
         menu.MenuItem.__init__(self, 'randomize', None, after)
 
@@ -199,6 +209,8 @@ class RandomizeMenuItem(menu.MenuItem):
         context['playlist'].randomize(positions)
 
 # do this in a function to avoid polluting the global namespace
+
+
 def __create_playlist_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
@@ -232,7 +244,9 @@ def __create_playlist_tab_context_menu():
         providers.register('playlist-tab-context-menu', item)
 __create_playlist_tab_context_menu()
 
+
 class PlaylistContextMenu(menu.ProviderMenu):
+
     def __init__(self, page):
         """
             :param page: The :class:`PlaylistPage` this menu is
@@ -251,11 +265,13 @@ class PlaylistContextMenu(menu.ProviderMenu):
         context['selection-count'] = lambda name, parent: parent.get_selection_count()
         return context
 
+
 class SPATMenuItem(menu.MenuItem):
     """
         Menu item allowing for toggling playback
         stop after the selected track (SPAT)
     """
+
     def __init__(self, name, after):
         menu.MenuItem.__init__(self, name, None, after)
 
@@ -291,6 +307,7 @@ class SPATMenuItem(menu.MenuItem):
             parent.playlist.spat_position = -1
         else:
             parent.playlist.spat_position = selection_position
+
 
 def __create_playlist_context_menu():
     smi = menu.simple_menu_item
@@ -365,6 +382,7 @@ class PlaylistPageBase(NotebookPage):
     
     def can_saveas(self):
         return hasattr(self, 'on_saveas')
+
 
 class PlaylistPage(PlaylistPageBase):
     """
@@ -510,7 +528,6 @@ class PlaylistPage(PlaylistPageBase):
     def on_search_entry_activate(self, entry):
         filter_string = entry.get_text().decode('utf-8')
         self.view.filter_tracks(filter_string or None)
-
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
             widget, event):
@@ -662,6 +679,7 @@ class PlaylistPage(PlaylistPageBase):
 
         if not path and e.type == Gdk.EventType.BUTTON_PRESS and e.button == Gdk.BUTTON_SECONDARY:
             self.tab_menu.popup(None, None, None, None, e.button, e.time)
+
 
 class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     __gsignals__ = {}
@@ -966,7 +984,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         context['selection-count'] = lambda name, parent: parent.get_selection_count()
         event.log_event( 'playlist_cursor_changed', self, context)
         
-
     def on_row_activated(self, *args):
         try:
             position, track = self.get_selected_items()[0]
@@ -985,6 +1002,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             # HACK: GI: We get a segfault if we don't do this, because the
             # GtkTreePath gets deleted before the idle function is run.
             path = path.copy()
+
             def _set_cursor():
                 self.set_cursor(path)
                 self._insert_focusing = False
@@ -1294,6 +1312,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             track = model.get_value(iter, 0)
             return self._filter_matcher.match(trax.SearchResultTrack(track))
         return True
+
 
 class PlaylistModel(Gtk.ListStore):
 

@@ -49,6 +49,7 @@ MENU_ITEM                   = None
 ALARM_CLOCK_MAIN            = None
 MY_BUILDER                  = None
 
+
 def _init(prefsdialog, builder):
     '''Since I don't know if init() or enable() will be called first, save builder and setup UI if enabled() was already called.'''
     logger.debug('_init() called')
@@ -59,11 +60,13 @@ def _init(prefsdialog, builder):
     if ALARM_CLOCK_MAIN is not None:
         ALARM_CLOCK_MAIN.init_ui(builder)
 
+
 def get_preferences_pane():
     '''Return prefs pane for preferences dialog'''
     logger.debug('get_preferences_pane() called')
     macprefs.init = _init
     return macprefs
+
 
 def idle_add(f):
     '''Decorator that runs a function through GLib.idle_add'''
@@ -75,10 +78,12 @@ def idle_add(f):
     
 ###><><><### Alarm Clock Stuph ###><><><###
 
+
 class Alarm:
     '''
         Class for individual alarms.
     '''
+
     def __init__(self, time="09:00", days=None, name="New Alarm", active=True, dict={}):
         self.active = active
         self.time = time
@@ -91,7 +96,6 @@ class Alarm:
         # For setting attributes by dictionary
         self.__dict__.update(dict)
         
-
     def on(self):
         self.active = True
 
@@ -109,6 +113,7 @@ class AlarmClock:
     '''
         Class that handles the TreeView interaction and keeps track of alarms.
     '''
+
     def __init__(self, exaile):
         self.RANG = {}                  # Keep track of alarms that have gone off
         self.exaile = exaile
@@ -164,7 +169,6 @@ class AlarmClock:
         # save change
         self.save_list()
         
-
     def init_ui(self, builder):
         '''Called by exaile to initialize prefs pane.  Set up pefs UI'''        
         logger.debug('init_ui() called.')
@@ -198,7 +202,6 @@ class AlarmClock:
         # update model
         self.model[path][3] = days
         
-       
         # update display
         days_str = ['Su','M','Tu','W','Th','F','Sa']
         self.model[path][4] = ','.join( [ days_str[i] for i in range(0,7) if days[i] ] )
@@ -206,7 +209,6 @@ class AlarmClock:
         # save changes
         self.save_list()
         
-    
     def text_edited(self, cr, path, new_text, idx):
         '''Callback for edit of text columns (name and time)'''
         old_text = self.model[path][idx]
@@ -234,7 +236,6 @@ class AlarmClock:
             # save change
             self.save_list()
         
-
     def add_alarm(self, alarm):
         '''Add an alarm to the model'''
         # update display
@@ -274,7 +275,6 @@ class AlarmClock:
             self.save_list()
         else:
             logger.info('No alarm selected for removal.')
-
 
     def load_list(self):
         '''Load alarms from file'''    
@@ -333,7 +333,6 @@ class AlarmClock:
                 logger.debug('saving {0} alarms.'.format(len(alist)))
 
 
-
 ###><><><### Globals ###><><><###
 
 # This is here because sometimes get_prefs_pane gets called before _enabled
@@ -360,6 +359,7 @@ def fade_in(main, exaile):
             return
 
     settings.set_option('player/volume', fade_max_volume)
+
 
 def check_alarms(main, exaile):
     """
@@ -449,8 +449,6 @@ def _enable(stuff, exaile, junk):
     TIMER_ID = GLib.timeout_add_seconds(5, check_alarms, main, exaile)
 
 
-
-
 def disable(exaile):
     '''
         Called when plugin is unloaded.  Stop timer.
@@ -470,5 +468,3 @@ def disable(exaile):
 #   NOTE: reloading the plugin from prefs page (DEBUG MODE) breaks this anyway
 #    if MY_BUILDER is not None:
 #        MY_BUILDER = None
-
-

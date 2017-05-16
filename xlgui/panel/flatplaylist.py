@@ -37,6 +37,7 @@ from xlgui.guiutil import ModifierType
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
+
 class FlatPlaylistPanel(panel.Panel):
     """
         Flat playlist panel; represents a single playlist
@@ -164,10 +165,12 @@ class FlatPlaylistPanel(panel.Panel):
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
+
 class FlatPlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """
+
     def get_selected_tracks_count(self):
         '''
             Returns the count of selected tracks
@@ -187,4 +190,3 @@ class FlatPlaylistDragTreeView(DragTreeView):
             tracks.append(track)
 
         return tracks
-

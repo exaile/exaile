@@ -368,6 +368,7 @@ class TestTracksMatcher(object):
         self.str.track.set_tag_raw('artist', 'bar')
         assert not matcher.match(self.str)
 
+
 class TestSearchTracks(object):
 
     def test_search_tracks(self):

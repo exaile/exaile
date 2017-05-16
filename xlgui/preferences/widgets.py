@@ -41,6 +41,7 @@ from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
+
 class Preference(object):
     """
         Representing a Gtk.Entry preferences item
@@ -158,6 +159,7 @@ class Preference(object):
         if hasattr(self, 'label_widget'):
             self.label_widget.set_sensitive(value)
 
+
 class Conditional(object):
     """
         Allows for reactions on changes
@@ -178,7 +180,6 @@ class Conditional(object):
         '''
         i = self.condition_widget.get_active_iter()
         return self.condition_widget.get_model().get_value(i, 0)
-
 
     def on_check_condition(self):
         """
@@ -213,10 +214,12 @@ class Conditional(object):
             else:
                 self.on_condition_failed()
 
+
 class CheckConditional(Conditional):
     """
         True if the conditional widget is active
     """
+
     def get_condition_value(self):
         return self.condition_widget.get_active()
     
@@ -228,6 +231,7 @@ class CheckConditional(Conditional):
             :rtype: bool
         """
         return self.get_condition_value()
+
 
 class MultiConditional(object):
     """
@@ -287,6 +291,7 @@ class Button(Preference):
     """
         Represents a button for custom usage
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -307,6 +312,7 @@ class Button(Preference):
     def on_clicked(self, button):
         """ Override """
         pass
+
 
 class HashedPreference(Preference):
     """
@@ -397,10 +403,12 @@ class HashedPreference(Preference):
         GLib.idle_add(self.widget.set_text, text)
         GLib.idle_add(self.widget.set_position, length)
 
+
 class CheckPreference(Preference):
     """
         A class to represent check boxes in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -416,10 +424,12 @@ class CheckPreference(Preference):
     def _get_value(self):
         return self.widget.get_active()
 
+
 class DirPreference(Preference):
     """
         Directory chooser button
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -439,10 +449,12 @@ class DirPreference(Preference):
     def _get_value(self):
         return self.widget.get_filename()
 
+
 class OrderListPreference(Preference):
     """
         A list box with reorderable items
     """
+
     def __init__(self, preferences, widget):
         self.model = Gtk.ListStore(str)
         Preference.__init__(self, preferences, widget)
@@ -479,6 +491,7 @@ class OrderListPreference(Preference):
 
         return items
 
+
 class SelectionListPreference(Preference):
     """
         A list allowing for enabling/disabling
@@ -492,6 +505,7 @@ class SelectionListPreference(Preference):
         """
             Convenience class for preference item description
         """
+
         def __init__(self, id, title, description=None, fixed=False):
             """
                 :param id: the unique identifier
@@ -690,6 +704,7 @@ class ShortcutListPreference(Preference):
         A list showing available items and allowing
         to assign/edit/remove key accelerators
     """
+
     def __init__(self, preferences, widget):
         self.list = Gtk.ListStore(str, str)
 
@@ -773,10 +788,12 @@ class ShortcutListPreference(Preference):
                 accel = ''
             self.list.append([action, accel])
 
+
 class TextViewPreference(Preference):
     """
         Represents a Gtk.TextView
     """
+
     def __init__(self, preferences, widget):
         """
             Initializes the object
@@ -809,10 +826,12 @@ class TextViewPreference(Preference):
         """
         return self.get_all_text()
 
+
 class ListPreference(Preference):
     """
         A class to represent a space separated list in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -833,10 +852,12 @@ class ListPreference(Preference):
         values = [unicode(value, 'utf-8') for value in values]
         return values
 
+
 class SpinPreference(Preference):
     """
         A class to represent a numeric entry box with stepping buttons
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -851,17 +872,21 @@ class SpinPreference(Preference):
     def _get_value(self):
         return self.widget.get_value()
 
+
 class ScalePreference(SpinPreference):
     """
         Representation of Gtk.Scale widgets
     """
+
     def __init__(self, preferences, widget):
         SpinPreference.__init__(self, preferences, widget)
+
 
 class FloatPreference(Preference):
     """
         A class to represent a floating point number in the preferences window
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -873,10 +898,12 @@ class FloatPreference(Preference):
     def _get_value(self):
         return float(self.widget.get_text())
 
+
 class IntPreference(FloatPreference):
 
     def _get_value(self):
         return int(self.widget.get_text())
+
 
 class RGBAButtonPreference(Preference):
     """
@@ -901,10 +928,12 @@ class RGBAButtonPreference(Preference):
     def _get_value(self):
         return self.widget.get_rgba().to_string()
 
+
 class FontButtonPreference(Preference):
     """
         Font button
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -920,10 +949,12 @@ class FontButtonPreference(Preference):
         font = self.widget.get_font_name()
         return font
         
+
 class FontResetButtonPreference(Button, Conditional):
     '''
         A button to reset a font button to a default font
     '''
+
     def __init__(self, preferences, widget):
         Button.__init__(self, preferences, widget)
         Conditional.__init__(self)
@@ -937,11 +968,13 @@ class FontResetButtonPreference(Button, Conditional):
         self.condition_widget.set_font_name(self.default)
         self.condition_widget.emit('font-set')
 
+
 class ComboPreference(Preference):
     """
         A combo box. The value stored in the settings must be the
         first column of the combo box model.
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -970,6 +1003,7 @@ class ComboPreference(Preference):
 
         return model.get_value(iter, 0)
 
+
 class ComboEntryPreference(Preference):
     """
         A combo box allowing for user defined
@@ -981,6 +1015,7 @@ class ComboEntryPreference(Preference):
         * preset_items (List of preset items or
           dictionary of items and their titles)
     """
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 

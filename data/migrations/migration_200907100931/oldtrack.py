@@ -4,6 +4,7 @@ from xl import common
 import logging
 logger = logging.getLogger(__name__)
 
+
 class timetype(long):
     """
         I am just extending long so that we know when to convert a long to a
@@ -11,12 +12,14 @@ class timetype(long):
         the time in the 00:00 format because it won't sort correctly (I want
         it to sort numerically instead of alphabetically.
     """
+
     def __init__(self, num=None):
         """
             Initializes the class
         """
         long.__init__(self)
         self.stream = False
+
 
 def to_unicode(x, default_encoding=None):
     if isinstance(x, unicode):
@@ -27,6 +30,7 @@ def to_unicode(x, default_encoding=None):
     else:
         return unicode(x)
 
+
 def get_default_encoding():
     """
         Returns the encoding to be used when dealing with file paths.  Do not
@@ -35,10 +39,12 @@ def get_default_encoding():
     #return 'utf-8'
     return sys.getfilesystemencoding() or sys.getdefaultencoding()
 
+
 class ldict(dict):
     """
         A dict that only handles lists
     """
+
     def __init__(self):
         dict.__init__(self)
 
@@ -52,11 +58,13 @@ class ldict(dict):
         except KeyError:
             return []
 
+
 class Track(object): 
     """
         Represents a generic single track.
     """
     type = 'track'
+
     def __init__(self, *args, **kwargs):
         """
             Loads and initializes the tag information
@@ -91,7 +99,6 @@ class Track(object):
         track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, rating=0, blacklisted=0, time_added='', 
         encoding=xlmisc.get_default_encoding(), playcount=0):
-    
         """
             Sets track information
         """
@@ -141,7 +148,6 @@ class Track(object):
             self.tags[tag].extend(values)
         else:
             self.tags[tag] = list(values)
-
 
     def get_filename(self):
         """
@@ -335,7 +341,6 @@ class Track(object):
         """
         return self.get_tag('discnumber')
 
-
     def set_disc(self, value):
         """
             Sets the disc number
@@ -481,4 +486,3 @@ def read_from_path(uri, track_type=Track):
         return None
 
     return tr
-

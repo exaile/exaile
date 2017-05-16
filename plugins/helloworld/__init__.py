@@ -94,4 +94,3 @@ class HelloWorld(object):
 
 
 plugin_class = HelloWorld
-

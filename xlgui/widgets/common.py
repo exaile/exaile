@@ -47,6 +47,7 @@ from xl import (
 from xlgui.guiutil import get_workarea_size, ModifierType
 from xlgui import icons
 
+
 class AttachedWindow(Gtk.Window):
     """
         A window attachable to arbitrary widgets,
@@ -134,10 +135,12 @@ class AttachedWindow(Gtk.Window):
         """
         self.emit('hide')
 
+
 class AutoScrollTreeView(Gtk.TreeView):
     """
         A TreeView which handles autoscrolling upon DnD operations
     """
+
     def __init__(self):
         Gtk.TreeView.__init__(self)
 
@@ -195,6 +198,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         self.set_vadjustment(vadjustment)
 
         return True
+
 
 class DragTreeView(AutoScrollTreeView):
     """
@@ -518,6 +522,7 @@ class DragTreeView(AutoScrollTreeView):
         else: #We don't know what they dropped
             return ([], [])
 
+
 class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
     """
         Custom :class:`Gtk.CellRendererPixbuf` emitting
@@ -563,4 +568,3 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         if click_area.x <= event.x <= click_area.x + click_area.width and \
            click_area.y <= event.y <= click_area.y + click_area.height:
             self.emit('clicked', path)
-

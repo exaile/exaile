@@ -22,7 +22,9 @@ with warnings.catch_warnings():
 import os, struct, spydaap.cache, StringIO
 from spydaap.daap import do
 
+
 class MetadataCache(spydaap.cache.OrderedCache):
+
     def __init__(self, cache_dir, parsers):
         self.parsers = parsers
         super(MetadataCache, self).__init__(cache_dir)
@@ -54,7 +56,9 @@ class MetadataCache(spydaap.cache.OrderedCache):
                     os.remove(os.path.join (self.dir, item))
             self.build_index()
 
+
 class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
+
     @classmethod
     def write_entry(self, dir, name, fn, daap):
         if type(name) == unicode:

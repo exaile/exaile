@@ -32,6 +32,7 @@ from xl.metadata._base import (
 from mutagen import flac
 from mutagen.flac import Picture
 
+
 class FlacFormat(CaseInsensitveBaseFormat):
     MutagenType = flac.FLAC
     tag_mapping = {
@@ -82,4 +83,3 @@ class FlacFormat(CaseInsensitveBaseFormat):
             del raw[tag]
 
 # vim: et sts=4 sw=4
-

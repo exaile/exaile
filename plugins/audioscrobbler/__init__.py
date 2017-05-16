@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 SCROBBLER = None
 
+
 def enable(exaile):
     """
         Enables the AudioScrobbler plugin
@@ -42,12 +43,15 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
+
 def __enb(eventname, exaile, nothing):
     GLib.idle_add(_enable, exaile)
+
 
 def _enable(exaile):
 #    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
     SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
+
 
 def disable(exaile):
     """
@@ -59,10 +63,13 @@ def disable(exaile):
         SCROBBLER.stop()
         SCROBBLER = None
 
+
 def get_preferences_pane():
     return asprefs
 
+
 class ExaileScrobbler(object):
+
     def __init__(self, exaile):
         """
             Connects events to the player object, loads settings and cache
@@ -88,7 +95,6 @@ class ExaileScrobbler(object):
         self.accelerator = Accelerator('<Primary>b', toggle_submit)
         providers.register('mainwindow-accelerators',self.accelerator)
         
-
     def get_options(self, type, sm, option):
         if option == 'plugin/ascrobbler/cache_size':
             self.set_cache_size(
@@ -262,4 +268,3 @@ class ExaileScrobbler(object):
                     )
             except Exception:
                 logger.exception("AS: Failed to submit track")
-

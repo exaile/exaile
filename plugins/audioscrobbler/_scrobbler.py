@@ -25,25 +25,36 @@ __LOGIN      = {}     # data required to login
 
 USER_AGENT_HEADERS = None
 
+
 class BackendError(Exception):
    "Raised if the AS backend does something funny"
    pass
+
+
 class AuthError(Exception):
    "Raised on authencitation errors"
    pass
+
+
 class PostError(Exception):
    "Raised if something goes wrong when posting data to AS"
    pass
+
+
 class SessionError(Exception):
    "Raised when problems with the session exist"
    pass
+
+
 class ProtocolError(Exception):
    "Raised on general Protocol errors"
    pass
 
+
 def set_user_agent(s):
     global USER_AGENT_HEADERS
     USER_AGENT_HEADERS = {'User-Agent': s}
+
 
 def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    post_url=None):
@@ -127,6 +138,7 @@ Consider using an NTP-client to keep you system time in sync.''')
       # some hard error
       handle_hard_error()
 
+
 def handle_hard_error():
    "Handles hard errors."
    global SESSION_ID, HARD_FAILS, HS_DELAY
@@ -141,6 +153,7 @@ def handle_hard_error():
    HARD_FAILS += 1
    if HARD_FAILS == 3:
       SESSION_ID = None
+
 
 def now_playing( artist, track, album="", length="", trackno="", mbid="",
     inner_call=False ):
@@ -204,6 +217,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
         logger.warning("Error submitting \"Now Playing\"")
 
     return False
+
 
 def submit(artist, track, time=0, source='P', rating="", length="", album="",
       trackno="", mbid="", autoflush=False):
@@ -301,6 +315,7 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
     else:
         return True
 
+
 def flush(inner_call=False):
    """Sends the cached songs to AS.
 
@@ -368,4 +383,3 @@ if __name__ == "__main__":
          length=3*60+3
          )
    print(flush())
-

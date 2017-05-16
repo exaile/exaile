@@ -1,6 +1,9 @@
 
 from xl.nls import gettext
+
+
 def N_(x): return x
+
 
 class _TD(object):
     
@@ -91,6 +94,7 @@ for k, v in tag_data.iteritems():
         v.tag_name = k
         if v.use_disk:
             disk_tags.add(k)
+
 
 def get_default_tagdata(tag):
     '''If the tagname is not in tag_data, you can use this function

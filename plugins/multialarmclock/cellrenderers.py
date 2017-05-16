@@ -20,6 +20,7 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GObject
 
+
 class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
     
@@ -39,7 +40,6 @@ class CellRendererDays(Gtk.CellRendererText):
             self.model.append([True, day])
             
         self.set_property('text','Edit me')
-
 
     def _create_view(self, treeview):
         '''Create the Window and View to display when editing'''
@@ -98,7 +98,6 @@ class CellRendererDays(Gtk.CellRendererText):
         for i,row in enumerate(self.model):
             row[0] = self.days[i]
 
-
         # position the popup below the edited cell (and try hard to keep the popup within the toplevel window)
         (tree_x, tree_y) = treeview.get_bin_window().get_origin()[1:]
         (tree_w, tree_h) = treeview.get_window().get_geometry()[2:4]
@@ -121,7 +120,6 @@ class CellRendererDays(Gtk.CellRendererText):
             
         self.view_window.hide()
     
-
     def _key_pressed(self, view, event):
         '''Key pressed event handler, finish editing on Return'''
         # event == None for day selected via doubleclick
@@ -139,4 +137,3 @@ class CellRendererDays(Gtk.CellRendererText):
         '''Focus-out-event handler'''
         self._done()
         return True
-

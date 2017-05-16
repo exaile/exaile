@@ -21,11 +21,13 @@ from xlgui.widgets import dialogs
 
 STATION = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
     else:
         _enable(None, exaile, None)
+
 
 def _enable(devicename, exaile, nothing):
     global STATION
@@ -33,14 +35,17 @@ def _enable(devicename, exaile, nothing):
     STATION = IcecastRadioStation(exaile)
     exaile.radio.add_station(STATION)
 
+
 def disable(exaile):
     global STATION
     exaile.radio.remove_station(STATION)
     STATION = None
 
+
 def set_status(message, timeout=0):
     from xlgui.panel import radio
     radio.set_status(message, timeout)
+
 
 class IcecastRadioStation(RadioStation):
     """
@@ -57,6 +62,7 @@ class IcecastRadioStation(RadioStation):
         >>>
     """
     name = 'icecast'
+
     def __init__(self, exaile):
         """
             Initializes the icecast radio station
@@ -378,7 +384,9 @@ class IcecastRadioStation(RadioStation):
         menu.append(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
         return menu
 
+
 class ResultsDialog(dialogs.ListDialog):
+
     def __init__(self, title):
         dialogs.ListDialog.__init__(self, title)
         col = self.list.get_column(0)

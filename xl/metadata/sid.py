@@ -25,8 +25,8 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
+
 
 class SidFormat(BaseFormat):
     writable = False

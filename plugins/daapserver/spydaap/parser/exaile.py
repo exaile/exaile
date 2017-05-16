@@ -20,6 +20,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class ExaileParser(spydaap.parser.Parser):
     _string_map = {
         'title': 'dmap.itemname',
@@ -108,5 +109,3 @@ class ExaileParser(spydaap.parser.Parser):
         except Exception:
             logger.exception('caught exception while processing %s', trk)
             return (None, None)    
-
-

@@ -32,17 +32,20 @@ musicbrainzngs.set_useragent(
     'http://exaile.org/'
 )
 
+
 def enable(exaile):
     """
         Enables the plugin
     """
     providers.register('covers', MusicBrainzCoverSearch(exaile))
 
+
 def disable(exaile):
     """
         Disables the plugin
     """
     providers.unregister('covers', providers.get_provider('covers', 'musicbrainz'))
+
 
 class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """

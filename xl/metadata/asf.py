@@ -25,9 +25,9 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat
 from mutagen import asf
+
 
 class AsfFormat(BaseFormat):
     MutagenType = asf.ASF

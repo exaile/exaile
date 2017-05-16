@@ -51,6 +51,7 @@ EVENT_MANAGER = None
 
 logger = logging.getLogger(__name__)
 
+
 class Nothing(object):
     pass
 
@@ -58,6 +59,7 @@ _NONE = Nothing() # used by event for a safe None replacement
 
 # Assumes that this module was imported on main thread 
 _UiThread = threading.current_thread()
+
 
 def log_event(evty, obj, data):
     """
@@ -73,6 +75,7 @@ def log_event(evty, obj, data):
     global EVENT_MANAGER
     e = Event(evty, obj, data, time.time())
     EVENT_MANAGER.emit(e)
+
 
 def add_callback(function, evty=None, obj=None, *args, **kwargs):
     """
@@ -100,6 +103,7 @@ def add_callback(function, evty=None, obj=None, *args, **kwargs):
     """
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs)
+
 
 def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
     """
@@ -129,6 +133,7 @@ def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs, ui=True)
 
+
 def remove_callback(function, evty=None, obj=None):
     """
         Removes a callback. Can remove both ui and non-ui callbacks.
@@ -157,6 +162,7 @@ class Event(object):
         self.data = data
         self.time = time
 
+
 class Callback(object):
     """
         Represents a callback
@@ -176,6 +182,7 @@ class Callback(object):
         
     def __repr__(self):
         return '<Callback %s>' % self.wfunction()
+
 
 class _WeakMethod(object):
     """Represent a weak bound method, i.e. a method doesn't keep alive the
@@ -225,6 +232,7 @@ class _WeakMethod(object):
         """Return true if we are storing same object referred to by weakRef."""
         return self.objRef == weakRef
 
+
 def _getWeakRef(obj, notifyDead=None):
     """
         Get a weak reference to obj. If obj is a bound method, a _WeakMethod
@@ -243,11 +251,11 @@ def _getWeakRef(obj, notifyDead=None):
         return createRef(obj, notifyDead)
 
 
-
 class EventManager(object):
     """
         Manages all Events
     """
+
     def __init__(self, use_logger=False, logger_filter=None, verbose=False):
         # sacrifice space for speed in emit
         self.all_callbacks = {}
@@ -442,8 +450,6 @@ class EventManager(object):
                         (function, evty, obj))
 
 
-
 EVENT_MANAGER = EventManager()
 
 # vim: et sts=4 sw=4
-

@@ -7,12 +7,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class Zeroconf(object):
     """A simple class to publish a network service with zeroconf using
     avahi or pybonjour, preferring pybonjour.
     """
 
     class Helper(object):
+
         def __init__(self, name, port, **kwargs):
             self.name = name
             self.port = port
@@ -22,6 +24,7 @@ class Zeroconf(object):
             self.text = kwargs.get('text', '')
 
     class Pybonjour(Helper):
+
         def publish(self):
             import pybonjour
             #records as in mt-daapd
@@ -58,6 +61,7 @@ class Zeroconf(object):
             self.sdRef.close()
 
     class Avahi(Helper):
+
         def publish(self, ipv4=True, ipv6=True):
             import dbus, avahi
             bus = dbus.SystemBus()
@@ -107,4 +111,3 @@ class Zeroconf(object):
     def unpublish(self):
         if self.helper != None:
             self.helper.unpublish()
-

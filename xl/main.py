@@ -43,6 +43,7 @@ from xl.nls import gettext as _
 # Imported later to avoid PyGObject imports just for --help.
 Gio = common = xdg = None
 
+
 def _do_heavy_imports():
     global Gio, common, xdg
 
@@ -62,13 +63,16 @@ __version__ = None
 
 logger = None
 
+
 def create_argument_parser():
     """Create command-line argument parser for Exaile"""
 
     import argparse
     # argparse hard-codes "usage:" uncapitalized. We replace this with an
     # empty string and put "Usage:" in the actual usage string instead.
+
     class Formatter(argparse.HelpFormatter):
+
         def _format_usage(self, usage, actions, groups, prefix):
             return super(self.__class__, self)._format_usage(usage, actions, groups, "")
 
@@ -220,6 +224,7 @@ def create_argument_parser():
 
     return p
 
+
 class Exaile(object):
     _exaile = None
 
@@ -273,7 +278,6 @@ class Exaile(object):
             print('ERROR: Could not create configuration directories: %s' % e, file=sys.stderr)
             return
             
-
         # Make event debug imply debug
         if self.options.DebugEventFull:
             self.options.DebugEvent = True
@@ -728,6 +732,7 @@ class Exaile(object):
         logger.info("Bye!")
         logger_setup.stop_logging()
         sys.exit(0)
+
 
 def exaile():
     if not Exaile._exaile:

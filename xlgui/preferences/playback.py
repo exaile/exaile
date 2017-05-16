@@ -36,10 +36,12 @@ name = _('Playback')
 icon = 'media-playback-start'
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
+
 class EnginePreference(widgets.ComboPreference):
     default = "gstreamer"
     name = 'player/engine'
     restart_required = True
+
 
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
@@ -64,6 +66,7 @@ class AudioSinkPreference(widgets.ComboPreference):
             model.append((name, preset['name']))
         self._set_value()
 
+
 class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     default = ""
     name = "player/custom_sink_pipe"
@@ -81,6 +84,7 @@ class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     
     def on_condition_failed(self):
         self.hide_widget()
+
 
 class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional):
     default = 'auto'
@@ -132,29 +136,36 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
             return widgets.ComboPreference._get_value(self)
         return ''
 
+
 class ResumePreference(widgets.CheckPreference):
     default = True
     name = 'player/resume_playback'
+
 
 class PausedPreference(widgets.CheckPreference):
     default = False
     name = 'player/resume_paused'
     
+
 class EnqueueBeginsPlayback(widgets.CheckPreference):
     default = True
     name = 'queue/enqueue_begins_playback'
     
+
 class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
     default = True
     name = 'queue/remove_item_when_played'
     
+
 class DisableNewTrackWhenPlaying(widgets.CheckPreference):
     default = False
     name = 'queue/disable_new_track_when_playing'
     
+
 class GaplessPlayback(widgets.CheckPreference):
     default = True
     name = 'player/gapless_playback'
+
 
 class EngineConditional(widgets.Conditional):
     """
@@ -169,6 +180,7 @@ class EngineConditional(widgets.Conditional):
 
         return False
     
+
 class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
     default = True
     name = 'player/auto_advance'
@@ -178,6 +190,7 @@ class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
     
+
 class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
     default = 0
     name = "player/auto_advance_delay"
@@ -196,6 +209,7 @@ class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
 
         return False
 
+
 class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/user_fade_enabled'
@@ -204,6 +218,7 @@ class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
+
 
 class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
@@ -214,6 +229,7 @@ class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
         widgets.SpinPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
 
+
 class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/crossfading'
@@ -222,6 +238,7 @@ class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
+
 
 class CrossfadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000

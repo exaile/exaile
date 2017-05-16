@@ -62,16 +62,20 @@ from xl.metadata.tags import tag_data
 
 logger = logging.getLogger(__name__)
 
+
 class InvalidPlaylistTypeError(Exception):
     pass
 
+
 class PlaylistExists(Exception):
     pass
+
 
 class UnknownPlaylistTrackError(Exception):
     pass
 
 PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
+
 
 def encode_filename(filename):
     """
@@ -92,6 +96,7 @@ def encode_filename(filename):
     filename = ''.join([encode_char(c) for c in filename]) + '.playlist'
 
     return filename
+
 
 def is_valid_playlist(path):
     """
@@ -116,6 +121,7 @@ def is_valid_playlist(path):
             return True
 
     return False
+
 
 def import_playlist(path):
     """
@@ -154,6 +160,7 @@ def import_playlist(path):
 
     raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 
+
 def export_playlist(playlist, path, options=None):
     """
         Exact same as @see import_playlist except
@@ -172,6 +179,7 @@ def export_playlist(playlist, path, options=None):
             break
     else:
         raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
+
 
 class FormatConverter(object):
     """
@@ -323,6 +331,7 @@ class FormatConverter(object):
         # it to something else
         return urllib.url2pathname(track_path)
 
+
 class M3UConverter(FormatConverter):
     """
         Import from and export to M3U format
@@ -426,6 +435,7 @@ class M3UConverter(FormatConverter):
 
         return playlist
 providers.register('playlist-format-converter', M3UConverter())
+
 
 class PLSConverter(FormatConverter):
     """
@@ -586,6 +596,7 @@ class PLSConverter(FormatConverter):
         return playlist
 providers.register('playlist-format-converter', PLSConverter())
 
+
 class ASXConverter(FormatConverter):
     """
         Import from and export to ASX format
@@ -673,12 +684,12 @@ class ASXConverter(FormatConverter):
 
         return playlist
 
-
     class ASXPlaylistParser(object):
         """
             Target for xml.etree.ElementTree.XMLParser, allows
             for parsing ASX playlists case-insensitive
         """
+
         def __init__(self):
             self._stack = deque()
 
@@ -756,6 +767,7 @@ class ASXConverter(FormatConverter):
             return self._playlistdata
 providers.register('playlist-format-converter', ASXConverter())
 
+
 class XSPFConverter(FormatConverter):
     """
         Import from and export to XSPF format
@@ -830,7 +842,6 @@ class XSPFConverter(FormatConverter):
 
         playlist = Playlist(name=self.name_from_path(path))
 
-        
         logger.debug('Importing XSPF playlist: %s' % path)
 
         with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
@@ -855,6 +866,7 @@ class XSPFConverter(FormatConverter):
 
         return playlist
 providers.register('playlist-format-converter', XSPFConverter())
+
 
 class Playlist(object):
     # TODO: how do we document events in sphinx?
@@ -1094,7 +1106,6 @@ class Playlist(object):
             except IndexError: # no more tracks
                 return -1, None
                 
-    
     def __get_next(self, current_position):
         
         # don't recalculate
@@ -1479,7 +1490,6 @@ class Playlist(object):
 
         self.__tracks[:] = trs
 
-
         for item, val in items.iteritems():
             if item in self.save_attrs:
                 try:
@@ -1658,7 +1668,6 @@ class Playlist(object):
             self.__spat_position = -1
 
 
-
 class SmartPlaylist(object):
     """
         Represents a Smart Playlist.
@@ -1677,6 +1686,7 @@ class SmartPlaylist(object):
         u'Chimera'
         >>>
     """
+
     def __init__(self, name="", collection=None):
         """
             Sets up a smart playlist
@@ -1826,7 +1836,6 @@ class SmartPlaylist(object):
         if self.track_count > 0 and len(trs) > self.track_count:
             trs=trs[:self.track_count]
 
-
         pl = Playlist(name=self.name)
         pl.extend(trs)
 
@@ -1944,10 +1953,12 @@ class SmartPlaylist(object):
             if hasattr(self, item):
                 setattr(self, item, pdata[item])
 
+
 class PlaylistManager(object):
     """
         Manages saving and loading of playlists
     """
+
     def __init__(self, playlist_dir='playlists', playlist_class=Playlist):
         """
             Initializes the playlist manager
@@ -2125,10 +2136,12 @@ class PlaylistManager(object):
         f.close()
         return playlists
 
+
 class SmartPlaylistManager(PlaylistManager):
     """
         Manages saving and loading of smart playlists
     """
+
     def __init__(self, playlist_dir, playlist_class=SmartPlaylist, collection=None):
         """
             Initializes a smart playlist manager

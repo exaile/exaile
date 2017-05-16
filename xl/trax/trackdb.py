@@ -42,6 +42,7 @@ logger = logging.getLogger(__name__)
 
 
 class TrackHolder(object):
+
     def __init__(self, track, key, **kwargs):
         self._track = track
         self._key = key
@@ -50,7 +51,9 @@ class TrackHolder(object):
     def __getattr__(self, attr):
         return getattr(self._track, attr)
 
+
 class TrackDBIterator(object):
+
     def __init__(self, track_iterator):
         self.iter = track_iterator
 
@@ -59,6 +62,7 @@ class TrackDBIterator(object):
 
     def next(self):
         return self.iter.next()[1]._track
+
 
 class TrackDB(object):
     """
@@ -79,6 +83,7 @@ class TrackDB(object):
         :param load_first: Set to True if this collection should be
                 loaded before any tracks are created. 
     """
+
     def __init__(self, name="", location="", pickle_attrs=[], loadfirst=False):
         """
             Sets up the trackDB.
@@ -391,7 +396,6 @@ class TrackDB(object):
     def get_tracks(self):
         return list(self)
 
-
     def search(self, query, sort_fields=[], return_lim=-1,
             tracks=None, reverse=False):
         """
@@ -411,7 +415,4 @@ class TrackDB(object):
         return tracks
 
 
-
-
 # vim: et sts=4 sw=4
-

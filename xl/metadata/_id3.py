@@ -30,6 +30,7 @@ from xl.metadata._base import (
 )
 from mutagen import id3
 
+
 class ID3Format(BaseFormat):
     MutagenType = id3.ID3
     tag_mapping = {

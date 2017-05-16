@@ -38,11 +38,14 @@ icons.MANAGER.add_icon_name_from_directory('lastfm',
     os.path.join(basedir, 'icons'))
 icon = 'lastfm'
 
+
 class APIKeyPreference(widgets.Preference):
     name = 'plugin/lastfmlove/api_key'
 
+
 class APISecretPrefence(widgets.Preference):
     name = 'plugin/lastfmlove/api_secret'
+
 
 class RequestAccessPermissionButton(widgets.Button):
     name = 'plugin/lastfmlove/request_access_permission'
@@ -104,4 +107,3 @@ class RequestAccessPermissionButton(widgets.Button):
             Initiates the check for validity
         """
         self.check_connection()
-

@@ -2,6 +2,7 @@ import traceback, os
 import oldtrack
 from xl import common
 
+
 def already_added(t, added):
     """
         Checks to see if the title, artist, album and genre 
@@ -19,10 +20,12 @@ def already_added(t, added):
     added[h] = 1
     return False
 
+
 class TrackData(object):
     """
         Represents a list of tracks
     """
+
     def __init__(self, tracks=None):
         """
             Initializes the list
@@ -98,6 +101,7 @@ class TrackData(object):
         text = ", ".join(text)
 
         return text
+
 
 def load_tracks(db, current=None):
     """

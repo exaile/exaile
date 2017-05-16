@@ -65,7 +65,6 @@ TmSt = 1
 TmEx = 2
 
 
-
 # Test data:
 #   Position, Volume, State, TmSt/TmEx/None, [call, [arg1...]]
 
@@ -152,6 +151,7 @@ def test_fader(test):
     # Test unexpected fading out
     
     check_fader(test)
+
 
 def check_fader(test):
     stream = FakeStream()

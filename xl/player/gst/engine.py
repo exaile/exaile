@@ -436,7 +436,6 @@ class AudioStream(object):
         uri = track.get_loc_for_io()
         self.logger.info("Playing %s", common.sanitize_url(uri))
         
-        
         # This is only set for gapless playback
         if not already_queued:
             self.playbin.set_property("uri", uri)
@@ -546,7 +545,6 @@ class AudioStream(object):
         if self.engine.crossfade_enabled:
             self.engine._autoadvance_track(still_fading=True)
     
-
     def on_message(self, bus, message):
         '''
             This is called on the main thread
@@ -660,4 +658,3 @@ class AudioStream(object):
         vol, is_same = self.fader.calculate_user_volume(real)
         if not is_same:
             GLib.idle_add(self.engine.player.engine_notify_user_volume_change, vol)
-        

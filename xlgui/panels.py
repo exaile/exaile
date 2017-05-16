@@ -108,7 +108,6 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         if not self.exaile.loading:
             self.on_gui_loaded()
         
-    
     def focus_panel(self, tab_name):
         
         data = self.panels[tab_name]
@@ -283,4 +282,3 @@ def _register_builtin_panels(exaile, window):
     providers.register('main-panel',
         files.FilesPanel(window, exaile.collection, 'files')
     )
-

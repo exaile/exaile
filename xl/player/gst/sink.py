@@ -179,6 +179,7 @@ def _get_error_audiosink(msg):
     sink.connect('handoff', handoff)
     return sink
 
+
 class CustomAudioSink(Gst.Bin):
     """
         A bin that holds the audio output sink element(s) for a custom
@@ -220,4 +221,3 @@ else:
     def priority_boost(player):
         # only needed on windows
         pass
-    

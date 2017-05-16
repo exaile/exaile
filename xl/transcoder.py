@@ -131,14 +131,18 @@ def get_formats():
             pass
     return ret
 
+
 def add_format(name, fmt):
     global FORMATS
     FORMATS[name] = fmt
 
+
 class TranscodeError(Exception):
     pass
 
+
 class Transcoder(object):
+
     def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None

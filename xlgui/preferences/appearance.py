@@ -35,38 +35,47 @@ name = _('Appearance')
 icon = 'preferences-desktop-theme'
 ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 
+
 class ShowInfoAreaPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_info_area'
     
+
 class ShowInfoAreaCoversPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_info_area_covers'
+
 
 class SplashPreference(widgets.CheckPreference):
     default = True
     name = 'gui/use_splash'
 
+
 class ShowTabBarPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_tabbar'
     
+
 def _get_system_default_font():
     return Gtk.Widget.get_default_style().font_desc.to_string()
+
 
 class PlaylistFontPreference(widgets.FontButtonPreference):
     default = _get_system_default_font()
     name = 'gui/playlist_font'
+
 
 class PlaylistFontResetButtonPreference(widgets.FontResetButtonPreference):
     default = _get_system_default_font()
     name = 'gui/playlist_font_reset_button'
     condition_preference_name = 'gui/playlist_font'
 
+
 class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_alpha'
     restart_required = True
+
 
 class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional):
     default = 0.3
@@ -76,6 +85,7 @@ class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional)
     def __init__(self, preferences, widget):
         widgets.ScalePreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
+
 
 class TrackCountsPreference(widgets.CheckPreference):
     default = True
@@ -113,6 +123,7 @@ class MinimizeToTrayPreference(widgets.CheckPreference, widgets.CheckConditional
         widgets.CheckPreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
 
+
 class CloseToTrayPreference(widgets.CheckPreference, widgets.CheckConditional):
     default = False
     name = 'gui/close_to_tray'
@@ -122,9 +133,11 @@ class CloseToTrayPreference(widgets.CheckPreference, widgets.CheckConditional):
         widgets.CheckPreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
 
+
 class EnsureVisiblePreference(widgets.CheckPreference):
     default = True
     name = 'gui/ensure_visible'
+
 
 class TabPlacementPreference(widgets.ComboPreference):
     default = 'top'

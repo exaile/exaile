@@ -17,7 +17,9 @@
 from gi.repository import Gtk
 from gi.repository import Pango 
 
+
 class AboutWindow():
+
     def __init__(self):
 
         self.book=None
@@ -61,7 +63,6 @@ class AboutWindow():
 
         self.win.connect("delete-event", self.on_delete)
 
-
     def set_text(self, book):
         self.book=book
         titlelength=len(book.title)
@@ -80,4 +81,3 @@ class AboutWindow():
     def closebutton_pressed(self, widget):
         self.win.hide()
         self.showing=False
-

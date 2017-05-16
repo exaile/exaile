@@ -55,6 +55,7 @@ from xl.metadata.tags import tag_data, get_default_tagdata
 import logging
 logger = logging.getLogger(__name__)
 
+
 class TrackPropertiesDialog(GObject.GObject):
 
     def __init__(self, parent, tracks, current_position=0, with_extras=False):
@@ -600,7 +601,9 @@ class TrackPropertiesDialog(GObject.GObject):
     def hide(self):
         self.dialog.hide()
 
+
 class TagRow(object):
+
     def __init__(self, parent, parent_grid, field, tag_name, value, multi_id):
         self.parent = parent
         self.grid = parent_grid
@@ -670,7 +673,9 @@ class TagRow(object):
     def clear(self, w):
         self.field.set_value('')
 
+
 class TagField(Gtk.Box):
+
     def __init__(self, all_button=True):
         Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
@@ -714,6 +719,7 @@ class TagField(Gtk.Box):
     def register_all_func(self, f):
         self.all_func = f
 
+
 def dummy_scroll_handler(widget, _):
     """scroll-event handler that just disables the default handler.
 
@@ -723,7 +729,9 @@ def dummy_scroll_handler(widget, _):
     GObject.signal_stop_emission_by_name(widget, 'scroll-event')
     return False
 
+
 class TagTextField(Gtk.Box):
+
     def __init__(self, all_button=True):
         Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
@@ -779,7 +787,9 @@ class TagTextField(Gtk.Box):
     def register_all_func(self, f):
         self.all_func = f
 
+
 class TagNumField(Gtk.Box):
+
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
         Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
@@ -835,6 +845,7 @@ class TagNumField(Gtk.Box):
 
     def register_all_func(self, f):
         self.all_func = f
+
 
 class TagDblNumField(Gtk.Box):
 
@@ -1186,7 +1197,9 @@ class TagImageField(Gtk.Box):
         self.info = self.info._replace(desc=entry.get_text())
         self.call_update_func()
 
+
 class PropertyField(Gtk.Box):
+
     def __init__(self, property_type='text'):
         Gtk.Box.__init__(self, homogeneous=False, spacing=5)
 
@@ -1245,7 +1258,9 @@ class PropertyField(Gtk.Box):
     def register_all_func(self, f):
         pass
 
+
 class AllButton(Gtk.ToggleButton):
+
     def __init__(self, parent_field, id_num=0):
         Gtk.ToggleButton.__init__(self)
         self.set_tooltip_text(_("Apply current value to all tracks"))
@@ -1268,6 +1283,7 @@ class AllButton(Gtk.ToggleButton):
 
 
 class SavingProgressWindow(Gtk.Window):
+
     def __init__(self, parent, total, text=_("Saved %(count)s of %(total)s.")):
         Gtk.Window.__init__(self)
         self.count = 0

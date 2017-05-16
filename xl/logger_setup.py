@@ -38,8 +38,11 @@ __all__ = ['start_logging', 'stop_logging']
 MAX_VARS_LINES = 30
 MAX_LINE_LENGTH = 100
 
+
 class FilterLogger(logging.Logger):
+
     class Filter(logging.Filter):
+
         def filter(self, record):
             pass_record = True
 
@@ -172,6 +175,7 @@ def start_logging(debug, quiet, debugthreads,
     # GTK3 supports sys.excepthook
     if debug:
         logger = logging.getLogger('gtk')
+
         def log_unhandled_exception(*args):
             logger.error("Unhandled exception", exc_info=args)
             
@@ -191,7 +195,6 @@ def start_logging(debug, quiet, debugthreads,
             faulthandler.register(signal.SIGUSR2)
         faulthandler.enable()
 
+
 def stop_logging():
     logging.shutdown()
-
-

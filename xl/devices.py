@@ -37,6 +37,7 @@ class DeviceManager(object):
     """
         manages devices
     """
+
     def __init__(self):
         self.devices = {}
 
@@ -64,8 +65,10 @@ class DeviceManager(object):
     def list_devices(self):
         return self.devices.values()
 
+
 class TransferNotSupportedError(Exception):
     pass
+
 
 class Device(object):
     """
@@ -193,4 +196,3 @@ class KeyedDevice(Device):
 
 
 # vim: et sts=4 sw=4
-

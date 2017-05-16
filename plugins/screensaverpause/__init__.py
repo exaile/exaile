@@ -43,12 +43,15 @@ SERVICES = [
 ]
 
 import prefs
+
+
 def get_preferences_pane():
     return prefs
 
 matches = set()
 bus = None
 was_playing = None
+
 
 def screensaver_active_changed(is_active):
     global was_playing
@@ -58,11 +61,13 @@ def screensaver_active_changed(is_active):
     elif was_playing and settings.get_option("screensaverpause/unpause", 0):
         player.PLAYER.unpause()
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable()
+
 
 def _enable(*a):
     global bus
@@ -70,6 +75,7 @@ def _enable(*a):
     for service in SERVICES:
         matches.add(bus.add_signal_receiver(screensaver_active_changed,
             signal_name='ActiveChanged', **service))
+
 
 def disable(exaile):
     if bus is None: return

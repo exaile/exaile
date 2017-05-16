@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+
 class TreeItem(object):
 
     def __init__(self, id, name, has_been_expanded=False):
@@ -44,12 +45,14 @@ class TreeItem(object):
 
     def get_has_been_expanded(self):
         return self._has_been_expanded
+
     def set_has_been_expanded(self, value):
         self._has_been_expanded = value
 
     #this is the location in the TreeStore so that child objects can be added to this object (row_pointer should be a TreeIter object)
     def get_row_pointer(self):
         return self._row_pointer
+
     def set_row_pointer(self, value):
         self._row_pointer = value
 
@@ -57,6 +60,7 @@ class TreeItem(object):
     name = property(get_name)
     expanded = property(get_has_been_expanded, set_has_been_expanded)
     row_pointer = property(get_row_pointer, set_row_pointer)
+
 
 class Artist(TreeItem):
 
@@ -74,6 +78,7 @@ class Artist(TreeItem):
         return self._albums
 
     albums = property(get_albums)
+
 
 class Album(TreeItem):
 
@@ -99,6 +104,7 @@ class Album(TreeItem):
 
     tracks = property(get_tracks)
     artist_name = property(get_artist_name, set_artist_name)
+
 
 class Track(TreeItem):
 
@@ -127,5 +133,3 @@ class Track(TreeItem):
     #used for adding the track to the playlist initially
     artist_name = property(get_artist_name, set_artist_name)
     album_name = property(get_album_name, set_album_name)
-
-

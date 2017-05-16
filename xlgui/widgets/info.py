@@ -45,10 +45,12 @@ from xlgui import (
 from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
+
 class TrackInfoPane(Gtk.Bin):
     """
         Displays cover art and track data
     """
+
     def __init__(self, player):
         Gtk.Bin.__init__(self)
         self.__player = player
@@ -266,7 +268,6 @@ class TrackInfoPane(Gtk.Bin):
         self.__track = None
         self.__update_widget_state()
 
-
     def get_action_area(self):
         """
             Retrieves the action area
@@ -336,6 +337,7 @@ class ToolTip(object):
         Custom tooltip class to allow for
         extended tooltip functionality
     """
+
     def __init__(self, parent, widget):
         """
             :param parent: the parent widget the tooltip
@@ -361,11 +363,13 @@ class ToolTip(object):
 
         return True
 
+
 class TrackToolTip(TrackInfoPane, ToolTip):
     """
         Track specific tooltip class, displays
         track data and progress indicators
     """
+
     def __init__(self, parent, player):
         """
             :param parent: the parent widget the tooltip
@@ -385,10 +389,12 @@ class TrackToolTip(TrackInfoPane, ToolTip):
         """
         TrackInfoPane.destroy(self)
 
+
 class StatusbarTextFormatter(formatter.Formatter):
     """
         A text formatter for status indicators
     """
+
     def __init__(self, format):
         """
             :param format: The initial format, see the documentation
@@ -504,10 +510,12 @@ class StatusbarTextFormatter(formatter.Formatter):
 
         return formatter.LengthTagFormatter.format_value(duration, format)
 
+
 class Statusbar(object):
     """
         Convenient access to multiple status labels
     """
+
     def __init__(self, status_bar):
         """
             Initialises the status bar
@@ -571,6 +579,7 @@ class Splash(object):
         A splash screen suitable for indicating startup;
         will automatically be destroyed after GUI startup
     """
+
     def __init__(self):
         builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))

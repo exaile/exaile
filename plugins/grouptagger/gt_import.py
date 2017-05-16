@@ -21,8 +21,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-
-
 @GtkTemplate('gt_import.ui', relto=__file__)
 class GtImporter(Gtk.Window):
     '''
@@ -234,6 +232,7 @@ def track_update_thread(trackdata, replace):
         
         yield (i, total)
 
+
 def import_tags(exaile):
     '''
         Function to show a dialog that allows the user to import grouping
@@ -249,5 +248,3 @@ def import_tags(exaile):
     file_dialog.connect('uris-selected', _on_uris_selected)
     file_dialog.run()
     file_dialog.destroy()
-    
-    

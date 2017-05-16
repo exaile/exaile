@@ -55,6 +55,7 @@ TYPE_MAPPING = {
 
 MANAGER = None
 
+
 class SettingsManager(RawConfigParser):
     """
         Manages Exaile's settings

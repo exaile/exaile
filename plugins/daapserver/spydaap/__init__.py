@@ -21,7 +21,9 @@ media_path = os.path.abspath("media")
 cache_dir = os.path.abspath("cache")
 container_list = [playlists.Library()]
 
+
 class ContentRangeFile(object):
+
     def __init__(self, name, parent, start, end=None, chunk=1024):
         self.name = name
         self.parent = parent

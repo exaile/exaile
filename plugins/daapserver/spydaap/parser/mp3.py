@@ -17,6 +17,7 @@ import mutagen.id3, mutagen.mp3, spydaap, re, os, struct, sys
 from spydaap.daap import do
 mutagen.id3.ID3.PEDANTIC = False
 
+
 class Mp3Parser(spydaap.parser.Parser):
     mp3_string_map = {
         'TIT1': 'daap.songgrouping',
@@ -69,6 +70,7 @@ class Mp3Parser(spydaap.parser.Parser):
         if disccount: d.append(do('daap.songdisccount', disccount))
 
     file_re = re.compile(".*\\.[mM][pP]3$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
 

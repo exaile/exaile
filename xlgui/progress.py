@@ -31,6 +31,7 @@ from xl.common import clamp, idle_add
 
 from xlgui.guiutil import GtkTemplate
 
+
 @GtkTemplate('ui', 'widgets', 'progress.ui')
 class ProgressMonitor(Gtk.Box):
     """
@@ -140,6 +141,7 @@ class ProgressMonitor(Gtk.Box):
         self.thread.stop()
         self.destroy()
 
+
 class ProgressManager(object):
     """
         Manages the [possibly multiple] progress bars that will allow the user
@@ -149,6 +151,7 @@ class ProgressManager(object):
         The user should be able to see what task is running, the description,
         the current progress, and also be able to stop the task if they wish.
     """
+
     def __init__(self, container):
         """
             Initializes the manager
@@ -179,4 +182,3 @@ class ProgressManager(object):
         """
         monitor.hide()
         monitor.destroy()
-

@@ -25,7 +25,9 @@ from xlgui.widgets import dialogs, menu
 
 SHUTDOWN = None
 
+
 class Shutdown():
+
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
@@ -34,7 +36,6 @@ class Shutdown():
         providers.register('menubar-tools-menu', 
             menu.simple_separator('plugin-sep', ['track-properties']))
 
-             
         item = menu.check_menu_item('shutdown', ['plugin-sep'], _('Shutdown after Playback'),
         #   checked func                # callback func
             lambda *x: self.do_shutdown, lambda w, n, p, c: self.on_toggled(w))
@@ -149,17 +150,19 @@ class Shutdown():
                 providers.unregister('menubar-tools-menu', item)
                 break
 
+
 def enable(exaile):
     if (exaile.loading):
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
 
+
 def _enable(eventname, exaile, nothing):
     global SHUTDOWN
     SHUTDOWN = Shutdown(exaile)
 
+
 def disable(exaile):
     global SHUTDOWN
     SHUTDOWN.destroy()
-

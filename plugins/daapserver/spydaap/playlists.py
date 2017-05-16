@@ -15,6 +15,7 @@
 
 import os, time
 
+
 class Playlist(object):
     name = None
     smart_playlist = True
@@ -41,7 +42,9 @@ class Playlist(object):
         else:
             return self.safe_cmp_series(a, b, key_list[1:])
         
+
 class Library(Playlist):
+
     def __init__(self):
         self.name = "Library"
         self.smart_playlist = False
@@ -49,7 +52,9 @@ class Library(Playlist):
     def contains(self, md):
         return True
 
+
 class Genre(Playlist):
+
     def __init__(self, name, genre):
         self.name = name
         self.genre = genre
@@ -63,7 +68,9 @@ class Genre(Playlist):
             elif type(self.genre) == list:
                 return songgenre in self.genre
 
+
 class YearRange(Playlist):
+
     def __init__(self, name, first,last=None):
         self.name = name
         if last == None:
@@ -85,7 +92,9 @@ class YearRange(Playlist):
                                                'daap.songtracknumber'])
         entries.sort(cmp=s)
     
+
 class Recent(Playlist):
+
      def __init__(self, name, seconds=604800):
          self.name = name
          self.seconds = seconds
@@ -94,7 +103,9 @@ class Recent(Playlist):
          f_mtime = os.stat(md.get_original_filename()).st_mtime
          return ((f_mtime + self.seconds) > time.time())
 
+
 class Rating(Playlist):
+
     def __init__(self, name, rating):
         self.name = name
         self.rating = rating

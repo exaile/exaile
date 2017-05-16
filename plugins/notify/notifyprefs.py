@@ -52,4 +52,3 @@ class BodyAlbum(widgets.TextViewPreference):
 class Summary(widgets.TextViewPreference):
     default = _("%(title)s")
     name = 'plugin/notify/summary'
-

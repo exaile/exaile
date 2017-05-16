@@ -44,11 +44,14 @@ INFO_TAGS = ['__bitrate', '__length']
 # -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
+
 class NotWritable(Exception):
     pass
 
+
 class NotReadable(Exception):
     pass
+
 
 class BaseFormat(object):
     """
@@ -219,8 +222,6 @@ class BaseFormat(object):
                 td[tag] = t
         return td
 
-    
-
     def write_tags(self, tagdict):
         """
             Write a set of tags to the file. Raises a NotWritable exception
@@ -307,6 +308,7 @@ class BaseFormat(object):
             except (KeyError, TypeError):
                 return None
 
+
 class CaseInsensitveBaseFormat(BaseFormat):
     case_sensitive = False
     
@@ -317,4 +319,3 @@ class CaseInsensitveBaseFormat(BaseFormat):
         return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
 
 # vim: et sts=4 sw=4
-

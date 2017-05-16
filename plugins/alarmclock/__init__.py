@@ -10,6 +10,7 @@ from xl import settings
 
 
 class VolumeControl:
+
     def __init__(self):
         self.thread = thread
 
@@ -28,7 +29,6 @@ class VolumeControl:
             time.sleep( self.time_per_inc )
             if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
-
 
     def fade_out( self):
         temp_volume = self.max_volume

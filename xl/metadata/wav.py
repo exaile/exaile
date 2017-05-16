@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 import wave
 import sunau
 import aifc
@@ -39,6 +38,7 @@ type_map = {
         "au"  : sunau,
         "wav" : wave,
         }
+
 
 class WavFormat(BaseFormat):
     writable = False
@@ -59,7 +59,3 @@ class WavFormat(BaseFormat):
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
             self.mutagen = {'__bitrate': -1, '__length': -1}
-
-
-
-

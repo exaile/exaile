@@ -16,8 +16,10 @@
 import re, spydaap, os, sys
 from spydaap.daap import do
 
+
 class AviParser(spydaap.parser.Parser):
     file_re = re.compile(".*\\.[aA][vV][iI]$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
     

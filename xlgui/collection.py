@@ -35,6 +35,7 @@ from xlgui.guiutil import GtkTemplate
 
 logger = logging.getLogger(__name__)
 
+
 @GtkTemplate('ui', 'collection_manager.ui')
 class CollectionManagerDialog(Gtk.Dialog):
     """

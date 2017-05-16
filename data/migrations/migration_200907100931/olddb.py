@@ -36,8 +36,8 @@ except ImportError:
 
 from gi.repository import GLib
 
+
 class DBOperationalError(Exception):
-    
     
     def __init__(self, message):
         """ Create a new DBOperationalError
@@ -54,6 +54,7 @@ class DBOperationalError(Exception):
     def __str__(self):
         return self.__repr__()
 
+
 def the_cutter(field):
     """
         Cuts "THE " off of the beginning of any field for better sorting
@@ -63,6 +64,7 @@ def the_cutter(field):
         return field.replace("the ", "", 1)
     else:
         return field
+
 
 def lstrip_special(field):
     """
@@ -76,10 +78,12 @@ def lstrip_special(field):
         return stripped
     return lowered.lstrip()
 
+
 class DBManager(object):
     """
         Manages the database connection
     """
+
     def __init__(self, db_loc, start_timer=True):
         """
             Initializes and connects to the database
@@ -243,6 +247,7 @@ class DBManager(object):
 
         cur.close()
         return row
+
 
 def insert_id(cur):
     cur.execute('SELECT LAST_INSERT_ROWID()')

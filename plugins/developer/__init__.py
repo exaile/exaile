@@ -30,6 +30,7 @@ from xlgui.widgets import menu
 
 import threading
 
+
 class DeveloperPlugin(object):
     '''
         Shows useful information for Exaile developers
@@ -183,4 +184,3 @@ class DeveloperWindow(Gtk.Window):
                     self.event_model_idx[name] = titer
         
         return True
-            

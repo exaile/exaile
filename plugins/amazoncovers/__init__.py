@@ -34,11 +34,13 @@ logger = logging.getLogger(__name__)
 AMAZON = None
 USER_AGENT = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
     else:
         _enable(None, exaile, None)
+
 
 def _enable(eventname, exaile, nothing):
     global AMAZON, USER_AGENT
@@ -46,11 +48,14 @@ def _enable(eventname, exaile, nothing):
     AMAZON = AmazonCoverSearch()
     providers.register('covers', AMAZON)
 
+
 def disable(exaile):
     providers.unregister('covers', AMAZON)
 
+
 def get_preferences_pane():
     return amazonprefs
+
 
 class AmazonCoverSearch(covers.CoverSearchMethod):
     """
@@ -58,6 +63,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
     """
     name = 'amazon'
     title = 'Amazon'
+
     def __init__(self):
         self.starttime = 0
 

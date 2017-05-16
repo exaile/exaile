@@ -50,6 +50,7 @@ from . import (
 
 logger = logging.getLogger(__name__)
 
+
 class PreferencesDialog(object):
     """
         Preferences Dialog
@@ -246,8 +247,6 @@ class PreferencesDialog(object):
                         logger.warning('Invalid preferences widget: %s', klass.name)
                         continue
                     
-                    
-
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
                             klass.condition_preference_name)

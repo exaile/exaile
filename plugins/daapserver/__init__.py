@@ -12,6 +12,7 @@ class CollectionWrapper:
     '''Class to wrap Exaile's collection to make it spydaap compatible'''
     class TrackWrapper:
         '''Wrap a single track for spydaap'''
+
         def __init__(self, id, track):
             self.track = track
             self.id = id
@@ -55,6 +56,7 @@ from server import DaapServer
 
 ds = None
 
+
 def _enable(exaile):
     # real enable
     global ds
@@ -71,6 +73,7 @@ def _enable(exaile):
     if( settings.get_option('plugin/daapserver/enabled', True) ):
         ds.start()
 
+
 def __enb(evname, exaile, wat):
     GObject.idle_add(_enable, exaile)
 
@@ -81,20 +84,23 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
+
 def teardown(exaile):
     ds.stop_server()
+
 
 def disable(exaile):
     ds.stop_server()
     
     
-
 # settings stuff
 import daapserverprefs
+
 
 def get_preferences_pane():
     return daapserverprefs
     
+
 def on_settings_change(event, setting, option):
     if option == 'plugin/daapserver/name' and ds is not None:
         ds.set(name=settings.get_option(option,'Exaile Share'))

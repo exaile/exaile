@@ -40,10 +40,12 @@ import notifyosdprefs
 logger = logging.getLogger(__name__)
 Notify.init('Exaile')
 
+
 class ExaileNotifyOsd(object):
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
+
         def getter(self):
             return settings.get_option(klass.name, klass.default or None)
 
@@ -186,6 +188,7 @@ class ExaileNotifyOsd(object):
 
 EXAILE_NOTIFYOSD = ExaileNotifyOsd()
 
+
 def enable(exaile):
     EXAILE_NOTIFYOSD.exaile = exaile
     event.add_ui_callback(EXAILE_NOTIFYOSD.on_play, 'playback_track_start', player.PLAYER)
@@ -200,6 +203,7 @@ def enable(exaile):
         event.add_ui_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
         EXAILE_NOTIFYOSD.gui_callback = True
 
+
 def disable(exaile):
     event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_track_start', player.PLAYER)
     event.remove_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause', player.PLAYER)
@@ -211,6 +215,7 @@ def disable(exaile):
         EXAILE_NOTIFYOSD.exaile.gui.tray_icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
     if EXAILE_NOTIFYOSD.gui_callback:
         event.remove_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
+
 
 def get_preferences_pane():
     return notifyosdprefs

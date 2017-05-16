@@ -19,8 +19,10 @@ import inspect
 import sys
 from gi.repository import Gst, GObject, Gio
 
+
 def autodetect_supported():
     return Gst.ElementFactory.make('bpmdetect', None) != None
+
 
 def detect_bpm(uri, on_complete):
     '''
@@ -103,7 +105,6 @@ def detect_bpm(uri, on_complete):
     playbin.set_state(Gst.State.PLAYING)
 
 
-
 if __name__ == '__main__':
 
     Gst.init(None)
@@ -128,4 +129,3 @@ if __name__ == '__main__':
 
     ml = GObject.MainLoop()
     ml.run()
-

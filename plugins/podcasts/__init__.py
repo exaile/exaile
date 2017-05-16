@@ -28,12 +28,14 @@ except ImportError:
     import md5
     md5 = md5.new
 
+
 def enable(exaile):
     feedparser.USER_AGENT = exaile.get_user_agent_string('podcasts')
     if exaile.loading:
         event.add_callback(exaile_ready, 'gui_loaded')
     else:
         exaile_ready(None, exaile, None)
+
 
 def exaile_ready(event, exaile, nothing):
     global PODCASTS
@@ -42,12 +44,14 @@ def exaile_ready(event, exaile, nothing):
         PODCASTS = PodcastPanel(main.mainwindow().window)
         providers.register('main-panel', PODCASTS)
 
+
 def disable(exaile):
     global PODCASTS
 
     if PODCASTS:
         providers.unregister('main-panel', PODCASTS)
         PODCASTS = None
+
 
 class PodcastPanel(panel.Panel):
     ui_info = (os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanelWindow')
@@ -231,4 +235,3 @@ class PodcastPanel(panel.Panel):
         except (OSError, IOError):
             dialogs.error(self.parent, _('Could not save podcast file'))
             return
-

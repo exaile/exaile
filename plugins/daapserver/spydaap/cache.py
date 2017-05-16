@@ -15,7 +15,9 @@
 
 import md5, os, sys
 
+
 class Cache(object):
+
     def __init__(self, dir):
         self.dir = os.path.abspath(dir)
         if (not(os.path.exists(self.dir))):
@@ -36,8 +38,11 @@ class Cache(object):
             if os.path.isfile(p):
                 os.remove(p)
 
+
 class OrderedCache(object):
+
     class Iter:
+
         def __init__(self, cache):
             self.cache = cache
             self.n = 0
@@ -87,7 +92,9 @@ class OrderedCache(object):
             if os.path.isfile(p):
                 os.remove(p)
         
+
 class OrderedCacheItem(object):
+
     def __init__(self, cache, pid, id):
         self.cache = cache
         self.pid = pid

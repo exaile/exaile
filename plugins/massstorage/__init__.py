@@ -40,12 +40,15 @@ def enable(exaile):
     PROVIDER = MassStorageHandler()
     providers.register("hal", PROVIDER)
 
+
 def disable(exaile):
     global PROVIDER
     providers.unregister("hal", PROVIDER)
     PROVIDER = None
 
+
 class MassStorageDevice(Device):
+
     def __init__(self, mountpoints, name=""):
         if len(mountpoints) == 0:
             raise ValueError("Must specify at least one mount point")
@@ -79,6 +82,7 @@ class HalMountpoint(object):
         Class to represent a mountpoint so we can delay HAL
         mountpoint resolution.
     """
+
     def __init__(self, hal, udi):
         self.hal = hal
         self.udi = udi
@@ -95,6 +99,7 @@ class HalMountpoint(object):
 
 class MassStorageHandler(Handler):
     name = "massstorage"
+
     def is_type(self, device, capabilities):
         if "portable_audio_player" in capabilities:
             try:
@@ -126,7 +131,6 @@ class MassStorageHandler(Handler):
                 "portable_audio_player.access_method.protocols"):
             return
 
-
         u = mass.GetProperty("portable_audio_player.storage_device")
         mountpoints = [HalMountpoint(hal, u)]
 
@@ -135,5 +139,3 @@ class MassStorageHandler(Handler):
         massdev = MassStorageDevice(mountpoints, name)
 
         return massdev
-
-

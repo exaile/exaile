@@ -31,6 +31,7 @@ from xl.unicode import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
+
 class SearchResultTrack(object):
     """
         Holds a track with search result metadata included.
@@ -38,15 +39,18 @@ class SearchResultTrack(object):
         :param track: The Track object
     """
     __slots__ = ['track', 'on_tags']
+
     def __init__(self, track):
         self.track = track
         self.on_tags = []
+
 
 class _Matcher(object):
     """
         Base class for match conditions
     """
     __slots__ = ['tag', 'content', 'lower']
+
     def __init__(self, tag, content, lower):
         self.tag = tag
         if content and not self.tag.startswith("__"):
@@ -72,10 +76,12 @@ class _Matcher(object):
     def _matches(self, value):
         raise NotImplementedError
 
+
 class _ExactMatcher(_Matcher):
     """
         Condition for exact matches
     """
+
     def _matches(self, value):
         if self.tag.startswith("__"):
             try:
@@ -90,10 +96,12 @@ class _ExactMatcher(_Matcher):
             newcontent = self.content
         return newvalue == newcontent
 
+
 class _InMatcher(_Matcher):
     """
         Condition for inexact (ie. containing) matches
     """
+
     def _matches(self, value):
         if not value:
             return False
@@ -102,10 +110,12 @@ class _InMatcher(_Matcher):
         except TypeError:
             return False
 
+
 class _RegexMatcher(_Matcher):
     """
         Condition for regular expression matches
     """
+
     def __init__(self, tag, content, lower):
         _Matcher.__init__(self, tag, content, lower)
         self._re = re.compile(content)
@@ -118,10 +128,12 @@ class _RegexMatcher(_Matcher):
         except TypeError:
             return False
 
+
 class _GtMatcher(_Matcher):
     """
         Condition for greater than matches.
     """
+
     def _matches(self, value):
         try:
             value = float(value)
@@ -130,10 +142,12 @@ class _GtMatcher(_Matcher):
             return False
         return value > content
 
+
 class _LtMatcher(_Matcher):
     """
         Condition for less than matches.
     """
+
     def _matches(self, value):
         try:
             if value is None:
@@ -145,17 +159,20 @@ class _LtMatcher(_Matcher):
             return False
         return value < content
 
+
 class _NotMetaMatcher(object):
     """
         Condition for boolean NOT
     """
     __slots__ = ['matcher']
     tag = None
+
     def __init__(self, matcher):
         self.matcher = matcher
 
     def match(self, srtrack):
         return not self.matcher.match(srtrack)
+
 
 class _OrMetaMatcher(object):
     """
@@ -163,11 +180,13 @@ class _OrMetaMatcher(object):
     """
     __slots__ = ['left', 'right']
     tag = None
+
     def __init__(self, left, right):
         self.left, self.right = left, right
 
     def match(self, srtrack):
         return self.left.match(srtrack) or self.right.match(srtrack)
+
 
 class _MultiMetaMatcher(object):
     """
@@ -175,6 +194,7 @@ class _MultiMetaMatcher(object):
     """
     __slots__ = ['matchers']
     tag = None
+
     def __init__(self, matchers):
         self.matchers = matchers
 
@@ -183,6 +203,7 @@ class _MultiMetaMatcher(object):
             if not ma.match(srtrack):
                 return False
         return True
+
 
 class _ManyMultiMetaMatcher(object):
     """
@@ -194,6 +215,7 @@ class _ManyMultiMetaMatcher(object):
     """
     __slots__ = ['matchers', 'tags']
     tag = None
+
     def __init__(self, matchers):
         self.matchers = matchers
         self.tags = set()
@@ -211,12 +233,14 @@ class _ManyMultiMetaMatcher(object):
                     self.tags.update(ma.tags)
         return matched
 
+
 class TracksMatcher(object):
     """
         Holds criteria and determines whether
         a given track matches those criteria.
     """
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
+
     def __init__(self, search_string, case_sensitive=True, keyword_tags=None):
         """
             :param search_string: a string describing the match conditions
@@ -471,6 +495,7 @@ class TracksInList(object):
 
     __slots__ = ['_tracks', 'tag']
     tag = None
+
     def __init__(self, tracks):
         if isinstance(tracks, dict):
             self._tracks = set(tracks.keys())
@@ -485,6 +510,7 @@ class TracksNotInList(TracksInList):
     '''
         Matches tracks not in a list/dict/set
     '''
+
     def match(self, track):
         return track.track not in self._tracks
 
@@ -533,6 +559,3 @@ def match_track_from_string(track, search_string,
     matcher = TracksMatcher(search_string, case_sensitive=case_sensitive,
         keyword_tags=keyword_tags)
     return matcher.match(SearchResultTrack(track))
-
-
-

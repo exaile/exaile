@@ -86,7 +86,6 @@ for dir in args:
         print("ERROR: couldn't get version for %s, skipping..." % dir)
         continue
 
-
     tfile = tarfile.open(
             options.output + dir + "-%s.exz"%info["Version"],
             "w:%s"%COMPRESSION)

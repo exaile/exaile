@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 from xl.metadata._base import CaseInsensitveBaseFormat
 from mutagen import apev2
 

@@ -71,10 +71,12 @@ _JOINSTR = _(u' / ')
 
 _no_set_raw = {'__basename'} | disk_tags
 
+
 class _MetadataCacher(object):
     """
         Cache metadata Format objects to speed up get_tag_disk
     """
+
     def __init__(self, timeout=10, maxentries=20):
         """
             :param timeout: time (in s) until the cached obj gets removed.
@@ -127,6 +129,7 @@ class _MetadataCacher(object):
 
 
 _CACHER = _MetadataCacher()
+
 
 class Track(object):
     """
@@ -935,7 +938,6 @@ class Track(object):
 # This is slower, don't use it!
 #        return u''.join((_sortcharmap.get(c, c) for c in value))
 
-
     @staticmethod
     def lower(value):
         """
@@ -959,7 +961,6 @@ class Track(object):
         except AttributeError:
             return value
 
-
     @classmethod
     def _the_cuts_cb(cls, name, obj, data):
         """
@@ -978,4 +979,3 @@ class Track(object):
         return len(cls._Track__tracksdict)
 
 event.add_callback(Track._the_cuts_cb, 'collection_option_set')
-

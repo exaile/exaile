@@ -77,6 +77,7 @@ class ExaileAwn(object):
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
+
         def getter(self):
             return xl.settings.get_option(klass.name, klass.default or None)
 
@@ -166,7 +167,6 @@ class ExaileAwn(object):
             self.update_timer()
 
 
-
 EXAILE_AWN = None
 
 TRACK_CHANGE_CALLBACKS = (
@@ -193,6 +193,7 @@ def enable(exaile):
     xl.event.add_callback(EXAILE_AWN.on_option_set, 'plugin_awn_option_set')
     EXAILE_AWN.set_cover()
 
+
 def disable(exaile):
     global EXAILE_AWN
     for signal in TRACK_CHANGE_CALLBACKS:
@@ -206,6 +207,7 @@ def disable(exaile):
     EXAILE_AWN.unset_cover()
     EXAILE_AWN.unset_timer()
     EXAILE_AWN.exaile = None
+
 
 def get_preferences_pane():
     return awn_prefs

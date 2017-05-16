@@ -25,9 +25,9 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import mp4
+
 
 class MP4Format(BaseFormat):
     MutagenType = mp4.MP4

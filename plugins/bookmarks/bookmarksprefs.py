@@ -27,4 +27,3 @@ ui = os.path.join(basedir, "bookmarks_pane.ui")
 class UseCovers(widgets.CheckPreference):
     default = False
     name = 'plugin/bookmarks/use_covers'
-

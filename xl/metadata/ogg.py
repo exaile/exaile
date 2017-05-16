@@ -69,5 +69,6 @@ class OggFormat(CaseInsensitveBaseFormat):
             value = [common.to_unicode(v) for v in value]
         CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
 
+
 class OggOpusFormat(OggFormat):
     MutagenType = oggopus.OggOpus

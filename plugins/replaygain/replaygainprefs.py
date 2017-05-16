@@ -33,20 +33,22 @@ name = _('ReplayGain')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "replaygainprefs_pane.ui")
 
+
 class AlbumModePreference(widgets.CheckPreference):
     default = True
     name = 'replaygain/album-mode'
+
 
 class ClippingProtectionPreference(widgets.CheckPreference):
     default = True
     name = 'replaygain/clipping-protection'
 
+
 class PreAmpPreference(widgets.SpinPreference):
     default = 0
     name = 'replaygain/pre-amp'
 
+
 class FallbackGainPreference(widgets.SpinPreference):
     default = 0
     name = 'replaygain/fallback-gain'
-
-

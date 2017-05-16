@@ -44,6 +44,7 @@ def is_valid_track(location):
     extension = Gio.File.new_for_uri(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
+
 def get_uris_from_tracks(tracks):
     """
         Returns all URIs for tracks
@@ -54,6 +55,7 @@ def get_uris_from_tracks(tracks):
         :rtype: list of string
     """
     return [track.get_loc_for_io() for track in tracks]
+
 
 def get_tracks_from_uri(uri):
     """
@@ -90,6 +92,7 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
+
 def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations=False):
     """
         Sorts tracks.
@@ -113,6 +116,7 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
     
     return sorted(iter, key=keyfunc, reverse=reverse)
 
+
 def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=False):
     """
         Sorts SearchResultTracks, ie. the output from a search.
@@ -120,6 +124,7 @@ def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=Fal
         Same params as sort_tracks.
     """
     return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse, artist_compilations)
+
 
 def get_rating_from_tracks(tracks):
     """
@@ -145,7 +150,6 @@ def get_rating_from_tracks(tracks):
             return 0
 
     return rating
-
 
 
 def get_album_tracks(tracksiter, track, artist_compilations=False):

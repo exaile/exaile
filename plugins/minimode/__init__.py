@@ -27,6 +27,7 @@ import minimode_preferences
 
 MINIMODE = None
 
+
 def __migrate_fixed_controls():
     """
         Makes sure fixed controls are selected,
@@ -41,6 +42,7 @@ def __migrate_fixed_controls():
             selected_controls += ['restore']
             settings.set_option(option_name, selected_controls)
 
+
 def enable(exaile):
     """
         Enables the mini mode plugin
@@ -52,12 +54,14 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call
     """
     global MINIMODE
     MINIMODE = MiniMode(exaile)
+
 
 def disable(exaile):
     """
@@ -67,8 +71,10 @@ def disable(exaile):
     MINIMODE.destroy()
     MINIMODE = None
 
+
 def get_preferences_pane():
     return minimode_preferences
+
 
 class MiniMode(Gtk.Window):
     """
@@ -206,7 +212,6 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/vertical_position':
                     v = value
                     
-
             self.__dirty = False
 
         min_width, natural_width = self.get_preferred_width()

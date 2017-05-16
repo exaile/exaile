@@ -45,6 +45,7 @@ logger = logging.getLogger(__name__)
 
 from presets import DEFAULT_PRESETS
 
+
 class AnalyzerDialog(object):
     '''
         Provide super flexible interface to stuff. Hm. 
@@ -110,7 +111,6 @@ class AnalyzerDialog(object):
         # setup the selected template
         guiutil.persist_selection(self.template_list, 0, 'plugin/playlistanalyzer/last_tmpl')
         
-    
     def __initialize_presets(self):
         
         presets = settings.get_option('plugin/playlistanalyzer/presets', DEFAULT_PRESETS)
@@ -118,7 +118,6 @@ class AnalyzerDialog(object):
         for preset in presets:
             self.preset_model.append(preset)
         
-    
     def __build_template_list(self):
         
         for fname in glob(join(dirname(__file__), 'templates', '*.html')):
@@ -199,7 +198,6 @@ class AnalyzerDialog(object):
         
         return spin
         
-    
     def __build_tag_table(self):
         
         self.__tag_widgets = []
@@ -367,4 +365,3 @@ class AnalyzerDialog(object):
         else:
             # and that's all folks
             self.destroy()
-    

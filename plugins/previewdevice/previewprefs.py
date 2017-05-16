@@ -84,32 +84,38 @@ __autoconfig()
 class PreviewDeviceEnginePreference(playback.EnginePreference):
     name = 'preview_device/engine'
     
+
 class PreviewDeviceAudioSinkPreference(playback.AudioSinkPreference):
     name = 'preview_device/audiosink'
     
+
 class PreviewDeviceCustomAudioSinkPreference(playback.CustomAudioSinkPreference):
     name = 'preview_device/custom_sink_pipe'
     condition_preference_name = 'preview_device/audiosink'
+
 
 class PreviewDeviceSelectDeviceForSinkPreference(playback.SelectDeviceForSinkPreference):
     name = 'preview_device/audiosink_device'
     condition_preference_name = 'preview_device/audiosink'
 
+
 class PreviewDeviceUserFadeTogglePreference(playback.UserFadeTogglePreference):
     name = 'preview_device/user_fade_enabled'
     condition_preference_name = 'preview_device/engine'
 
+
 class PreviewDeviceUserFadeDurationPreference(playback.UserFadeDurationPreference):
     name = 'preview_device/user_fade'
     condition_preference_name = 'preview_device/engine'
+
 
 class PreviewDeviceCrossFadingPreference(playback.CrossfadingPreference):
     default = False
     name = 'preview_device/crossfading'
     condition_preference_name = 'preview_device/engine'
 
+
 class PreviewDeviceCrossfadeDurationPreference(playback.CrossfadeDurationPreference):
     default = 1000
     name = 'preview_device/crossfade_duration'
     condition_preference_name = 'preview_device/engine'
-    

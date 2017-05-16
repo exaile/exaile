@@ -32,6 +32,7 @@ from xl import common, providers
 # showing accelerators in the menus.
 FAKEACCELGROUP = Gtk.AccelGroup()
 
+
 def simple_separator(name, after):
     def factory(menu, parent, context):
         item = Gtk.SeparatorMenuItem()
@@ -39,6 +40,7 @@ def simple_separator(name, after):
     item = MenuItem(name, factory, after=after)
     item._pos = 'last'
     return item
+
 
 def simple_menu_item(name, after, display_name=None, icon_name=None,
                      callback=None, callback_args=[], submenu=None,
@@ -93,6 +95,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         return item
     return MenuItem(name, factory, after=after)
 
+
 def check_menu_item(name, after, display_name, checked_func, callback,
         accelerator=None):
     def factory(menu, parent, context):
@@ -106,6 +109,7 @@ def check_menu_item(name, after, display_name, checked_func, callback,
         item.connect('activate', callback, name, parent, context)
         return item
     return MenuItem(name, factory, after=after)
+
 
 def radio_menu_item(name, after, display_name, groupname, selected_func,
         callback):
@@ -139,9 +143,9 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
 
-
 class MenuItem(object):
     __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
+
     def __init__(self, name, factory, after):
         self.name = name
         self.after = after
@@ -181,15 +185,18 @@ class MenuItem(object):
 
 class RadioMenuItem(MenuItem):
     __slots__ = ['groupname']
+
     def __init__(self, name, factory, after, groupname):
         MenuItem.__init__(self, name, factory, after)
         self.groupname = groupname
+
 
 class Menu(Gtk.Menu):
     """
         Generic flexible menu with reliable
         menu item order and context handling
     """
+
     def __init__(self, parent, context_func=None, inherit_context=False):
         """
             :param parent: the parent for this menu
@@ -299,6 +306,7 @@ class ProviderMenu(providers.ProviderHandler, Menu):
         the providers system. If desired, a menu item can be targeted
         towards a specific parent widget. 
     '''
+
     def __init__(self, name, parent):
         providers.ProviderHandler.__init__(self, name, parent)
         Menu.__init__(self, parent)
@@ -311,6 +319,7 @@ class ProviderMenu(providers.ProviderHandler, Menu):
     def on_provider_removed(self, provider):
         self.remove_item(provider)
 
+
 class MultiProviderMenu(providers.MultiProviderHandler, Menu):
     '''
         A menu that can be added to by registering a menu item with
@@ -319,6 +328,7 @@ class MultiProviderMenu(providers.MultiProviderHandler, Menu):
         
         Supports retrieving menu items from multiple providers
     '''
+
     def __init__(self, names, parent):
         providers.MultiProviderHandler.__init__(self, names, parent)
         Menu.__init__(self, parent)
@@ -330,5 +340,3 @@ class MultiProviderMenu(providers.MultiProviderHandler, Menu):
 
     def on_provider_removed(self, provider):
         self.remove_item(provider)
-        
-

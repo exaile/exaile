@@ -67,7 +67,9 @@ else:
             'padding: 6px; ' +
         '}')
 
+
 class SmartNotebook(Gtk.Notebook):
+
     def __init__(self, vertical=False):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
@@ -161,6 +163,7 @@ class NotebookTab(Gtk.EventBox):
         Class to represent a generic tab in a Gtk.Notebook.
     """
     reorderable = True
+
     def __init__(self, notebook, page, vertical=False):
         """
             :param notebook: The notebook this tab will belong to
@@ -217,7 +220,6 @@ class NotebookTab(Gtk.EventBox):
             self.entry.connect('key-press-event', self.on_entry_key_press_event)
             self.entry.set_no_show_all(True)
         
-
         self.button = button = Gtk.Button()
         button.set_relief(Gtk.ReliefStyle.NONE)
         button.set_halign(Gtk.Align.CENTER)
@@ -361,6 +363,7 @@ class NotebookPage(Gtk.Box):
             ()
         )
     }
+
     def __init__(self, child=None, page_name=None, menu_provider_name=None):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         
@@ -377,7 +380,6 @@ class NotebookPage(Gtk.Box):
         if page_name is not None:
             self.page_name = page_name
         
-
     def focus(self):
         '''
             Grabs focus for this page. Should be overriden in subclasses.
@@ -433,7 +435,6 @@ class NotebookActionService(providers.ProviderHandler):
         Actions are widgets placed to the left or right of tabs on a notebook. 
     '''
     
-    
     def __init__(self, notebook, servicename):
         '''
             :param notebook:     Notebook to attach to
@@ -484,4 +485,3 @@ class NotebookActionService(providers.ProviderHandler):
             action.destroy()
             
             del self.__actions[provider.name]
-

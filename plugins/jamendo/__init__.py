@@ -54,11 +54,13 @@ from xlgui.widgets.common import DragTreeView
 JAMENDO_NOTEBOOK_PAGE = None
 COVERS_METHOD = None
 
+
 def enable(exaile):
     if (exaile.loading):
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(eventname, exaile, nothing):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
@@ -71,10 +73,12 @@ def _enable(eventname, exaile, nothing):
     providers.register('main-panel', JAMENDO_NOTEBOOK_PAGE)
     providers.register('covers', COVERS_METHOD)
 
+
 def disable(exaile):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
     providers.unregister('main-panel', JAMENDO_NOTEBOOK_PAGE)
     providers.unregister('covers', COVERS_METHOD)
+
 
 class JamendoPanel(panel.Panel):
 
@@ -219,7 +223,6 @@ class JamendoPanel(panel.Panel):
 
     def on_results_combobox_changed(self, box, params=None):
         settings.set_option('plugin/jamendo/numresults', box.get_active())
-
 
     #is called whenever the user expands a row in the TreeView
     def row_expanded(self, tree, iter, path):
@@ -412,6 +415,8 @@ class JamendoPanel(panel.Panel):
 
 #The following is a custom CoverSearchMethod to retrieve covers from Jamendo
 #It is designed to only to get covers for streaming tracks from jamendo
+
+
 class JamendoCoverSearch(CoverSearchMethod):
     name = 'jamendo'
     use_cache = False   # do this since the tracks dont stay on local.
@@ -436,7 +441,5 @@ class JamendoCoverSearch(CoverSearchMethod):
                 return [image_url]
         return []
 
-
     def get_cover_data(self, url):
         return common.get_url_contents(url, self.user_agent)
-

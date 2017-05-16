@@ -16,7 +16,9 @@
 import os, re
 from spydaap.daap import do
 
+
 class Parser:
+
     def handle_string_tags(self, map, md, daap):
         h = {}
         for k in md.tags.keys():

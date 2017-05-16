@@ -34,10 +34,13 @@ logger = logging.getLogger(__name__)
 
 STREAMRIPPER = None
 
+
 def get_preferences_pane():
     return srprefs
 
+
 class Streamripper(object):
+
     def __init__(self):
         self.savedir = None
 
@@ -111,6 +114,7 @@ class Streamripper(object):
 
 
 class Button(Streamripper):
+
     def __init__(self, exaile):
         self.exaile = exaile
         self.button = Gtk.ToggleButton()

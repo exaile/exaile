@@ -71,7 +71,9 @@ except Exception:
 # Globals Warming
 MANAGER = None
 
+
 class AttrDict(dict):
+
     def __getattr__(self, name):
         return self[name]
 
@@ -89,6 +91,7 @@ parse = functools.partial(zip,
         'port',
         'txt',
         'flags'])
+
 
 class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
     """
@@ -123,7 +126,6 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         if nstr in self.services:   
             return
             
-
         self.services[nstr] = x
         self.rebuild_share_menu_items()
 #        self.new_share_menu_item(x)
@@ -235,7 +237,9 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         self.browser.connect_to_signal('ItemNew', self.new_service)
         self.browser.connect_to_signal('ItemRemove', self.remove_service)
 
+
 class DaapHistory(common.LimitedCache):
+
     def __init__(self, limit=5, location=None, menu=None, callback=None):
         common.LimitedCache.__init__(self, limit)
         
@@ -274,12 +278,12 @@ class DaapHistory(common.LimitedCache):
             pickle.dump(self.cache, f, common.PICKLE_PROTOCOL)
 
     
-
 class DaapManager:
     '''
         DaapManager is a class that manages DaapConnections, both manual
     and avahi-generated.
     '''
+
     def __init__(self, exaile, _menu, avahi):
         '''
             Init!  Create manual menu item, and connect to avahi signal.
@@ -417,6 +421,7 @@ class DaapConnection(object):
     """
         A connection to a DAAP share.
     """
+
     def __init__(self, name, server, port):
         # if it's an ipv6 address
         if ':' in server and server[0] != '[':
@@ -481,7 +486,6 @@ class DaapConnection(object):
         logger.debug('{0} tracks loaded in {1}s'.format(len(self.all),
                                                         time.time()-t))
 
-
     def get_database(self):
         """
             Get a DAAP database and its track list.
@@ -530,7 +534,6 @@ class DaapConnection(object):
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 
-
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000,
@@ -539,7 +542,6 @@ class DaapConnection(object):
                     temp.set_tag_raw("__length", 0, notify_changed=False)
 
                 self.all.append(temp)
-
 
     @common.threaded
     def get_track(self, track_id, filename):
@@ -562,6 +564,7 @@ class DaapLibrary(collection.Library):
         Library subclass for better management of collection??
     Or something to do with devices or somesuch.  Ask Aren.
     '''
+
     def __init__(self, daap_share, col=None):
 #        location = "http://%s:%s/databasese/%s/items/" % (daap_share.server, daap_share.port, daap_share.database.id)
         # Libraries need locations...
@@ -598,7 +601,6 @@ class DaapLibrary(collection.Library):
                                     self.daap_share.name, time.time()-t))
             self.collection.add_tracks(self.daap_share.all)
 
-
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
@@ -619,6 +621,7 @@ class NetworkPanel(CollectionPanel):
     """
         A panel that displays a collection of tracks from the DAAP share.
     """
+
     def __init__(self, parent, library, mgr):
         """
             Expects a parent Gtk.Window, and a daap connection.
@@ -637,6 +640,7 @@ class NetworkPanel(CollectionPanel):
         self.connect_id = None
 
         self.menu = menu.Menu(self)
+
         def get_tracks_func(*args):
             return self.tree.get_selected_tracks()
         self.menu.add_item(menuitems.AppendMenuItem('append', [], 
@@ -661,7 +665,6 @@ class NetworkPanel(CollectionPanel):
         #  a ScanThread
         self.net_collection.rescan_libraries()
         GObject.idle_add(self._refresh_tags_in_tree)
-
 
     def save_selected(self, widget=None, event=None):
         """
@@ -702,8 +705,10 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
+
 def __enb(eventname, exaile, wat):
     GObject.idle_add(_enable, exaile)
+
 
 def _enable(exaile):
     global MANAGER
@@ -735,7 +740,6 @@ def _enable(exaile):
     MANAGER = DaapManager(exaile, menu_, avahi_interface)
 
 
-
 def teardown(exaile):
     '''
         Exaile Shutdown.
@@ -761,16 +765,16 @@ def disable(exaile):
     event.remove_callback(__enb, 'gui_loaded')
 
 
-
 # settings stuff
 import daapclientprefs
+
 
 def get_preferences_pane():
     return daapclientprefs
     
+
 def on_settings_change(event, setting, option):
     if option == 'plugin/daapclient/ipv6' and MANAGER is not None:
         MANAGER.avahi.rebuild_share_menu_items()
 
 # vi: et ts=4 sts=4 sw=4
-

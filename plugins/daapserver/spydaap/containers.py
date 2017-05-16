@@ -16,7 +16,9 @@
 import os, struct, md5, spydaap.cache
 from spydaap.daap import do
 
+
 class ContainerCache(spydaap.cache.OrderedCache):
+
     def __init__(self, cache_dir, container_list):
         self.container_list = container_list
         super(ContainerCache, self).__init__(cache_dir)
@@ -49,7 +51,9 @@ class ContainerCache(spydaap.cache.OrderedCache):
             pid_list.append(md5.md5(pl.name).hexdigest())
         self.build_index(pid_list)
         
+
 class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
+
     @classmethod
     def write_entry(self, dir, name, d, length):
         data = struct.pack('!i', length)
@@ -88,4 +92,3 @@ class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
         if self._len == None:
             self.read()
         return self._len
-

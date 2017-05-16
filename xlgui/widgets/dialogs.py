@@ -55,6 +55,7 @@ from threading import Thread
 
 logger = logging.getLogger(__name__)
 
+
 def force_unicode(obj):
     if obj is None:
         return None
@@ -65,6 +66,7 @@ def force_unicode(obj):
         return unicode(obj)
     except UnicodeDecodeError:
         return unicode(obj, errors='replace')
+
 
 def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     """
@@ -81,6 +83,7 @@ def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     dialog.run()
     dialog.destroy()
 
+
 def info(parent, message=None, markup=None):
     """
         Shows an info dialog
@@ -96,12 +99,14 @@ def info(parent, message=None, markup=None):
     dialog.run()
     dialog.destroy()
     
+
 def yesno(parent, message):
     '''Gets a Yes/No response from a user'''
     dlg = Gtk.MessageDialog(parent=parent, type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO, message_format=message)
     response = dlg.run() 
     dlg.destroy()
     return response
+
 
 @GtkTemplate('ui', 'about_dialog.ui')
 class AboutDialog(Gtk.AboutDialog):
@@ -133,6 +138,7 @@ class AboutDialog(Gtk.AboutDialog):
     def on_response(self, *_):
         self.destroy()
 
+
 class MultiTextEntryDialog(Gtk.Dialog):
     """
         Exactly like a TextEntryDialog, except it can contain multiple
@@ -142,6 +148,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         the contents of the fields. Each field must be filled out or the dialog
         will not close.
     """
+
     def __init__(self, parent, title):
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
 
@@ -223,10 +230,12 @@ class MultiTextEntryDialog(Gtk.Dialog):
 
         return response
 
+
 class TextEntryDialog(Gtk.Dialog):
     """
         Shows a dialog with a single line of text
     """
+
     def __init__(self, message, title, default_text=None, parent=None,
         cancelbutton=None, okbutton=None):
         """
@@ -279,6 +288,7 @@ class TextEntryDialog(Gtk.Dialog):
         self.hide()
         return response
 
+
 class URIOpenDialog(TextEntryDialog):
     """
         A dialog specialized for opening an URI
@@ -291,6 +301,7 @@ class URIOpenDialog(TextEntryDialog):
             GObject.signal_accumulator_true_handled
         )
     }
+
     def __init__(self, parent=None):
         """
             :param parent: a parent window for modal operation or None
@@ -371,12 +382,14 @@ class URIOpenDialog(TextEntryDialog):
             self.open_uri(url, play=False)
     '''
 
+
 class ListDialog(Gtk.Dialog):
     """
         Shows a dialog with a list of specified items
 
         Items must define a __str__ method, or be a string
     """
+
     def __init__(self, title, parent=None, multiple=False, write_only=False):
         """
             Initializes the dialog
@@ -454,10 +467,13 @@ class ListDialog(Gtk.Dialog):
         cell.set_property('text', str(object))
 
 # TODO: combine this and list dialog
+
+
 class ListBox(object):
     """
         Represents a list box
     """
+
     def __init__(self, widget, rows=None):
         """
             Initializes the widget
@@ -523,6 +539,7 @@ class ListBox(object):
         if not iter: return None
         return model.get_value(iter, 0)
 
+
 class FileOperationDialog(Gtk.FileChooserDialog):
     """
         An extension of the Gtk.FileChooserDialog that
@@ -530,6 +547,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
         valid file extensions that the file can be
         saved in. (similar to the one in GIMP)
     """
+
     def __init__(self, title=None, parent=None, action=Gtk.FileChooserAction.OPEN,
                  buttons=None, backend=None):
         """
@@ -597,6 +615,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
         keys = extensions.keys()
         for key in keys:
             self.liststore.append([extensions[key], key])
+
 
 class MediaOpenDialog(Gtk.FileChooserDialog):
     """
@@ -695,6 +714,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
 
         #self.destroy()
 
+
 class DirectoryOpenDialog(Gtk.FileChooserDialog):
     """
         A dialog specialized for opening directories
@@ -760,6 +780,7 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
 
         #self.destroy()
         
+
 class PlaylistImportDialog(Gtk.FileChooserDialog):
     """
         A dialog for importing a playlist
@@ -857,8 +878,8 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
             
             self.emit('playlists-selected', playlists)
                     
-
         #self.destroy()
+
 
 class PlaylistExportDialog(FileOperationDialog):
     """
@@ -951,10 +972,12 @@ class PlaylistExportDialog(FileOperationDialog):
 
         #self.destroy()
 
+
 class ConfirmCloseDialog(Gtk.MessageDialog):
     """
         Shows the dialog to confirm closing of the playlist
     """
+
     def __init__(self, document_name):
         """
             Initializes the dialog
@@ -973,6 +996,7 @@ class ConfirmCloseDialog(Gtk.MessageDialog):
         response = Gtk.Dialog.run(self)
         self.hide()
         return response
+
 
 class MessageBar(Gtk.InfoBar):
     type_map = {
@@ -1000,6 +1024,7 @@ class MessageBar(Gtk.InfoBar):
             (Gtk.STOCK_OK, Gtk.ResponseType.OK)
         ]
     }
+
     def __init__(self, parent=None, type=Gtk.MessageType.INFO,
                  buttons=Gtk.ButtonsType.NONE, text=None):
         """
@@ -1302,6 +1327,7 @@ XRESPONSE_NO = Gtk.ResponseType.NO
 XRESPONSE_NO_ALL = 8001   
 XRESPONSE_CANCEL = Gtk.ResponseType.CANCEL
             
+
 class XMessageDialog(Gtk.Dialog):
     '''Used to show a custom message dialog with custom buttons'''
 
@@ -1430,7 +1456,6 @@ class FileCopyDialog(Gtk.Dialog):
         logger.info( "Copy complete." )
         self.destroy()
 
-    
     def _step(self):
         '''Steps the progress bar'''
         self.count += 1
@@ -1454,7 +1479,6 @@ class FileCopyDialog(Gtk.Dialog):
         
         self.source = Gio.File.new_for_uri(src_uri)
         self.destination = Gio.File.new_for_uri(dst_uri)
-        
         
         if not overwrite:
             if self.destination.query_exists(None):
@@ -1493,7 +1517,6 @@ class FileCopyDialog(Gtk.Dialog):
         
         self.cpthr = self.CopyThread(self.source, self.destination, self._finish_single_copy, flags)
         
-    
     def _finish_single_copy(self, source, success, error):
         if error:
             self._on_error( _("Error occurred while copying %s: %s") % (
@@ -1514,7 +1537,6 @@ class FileCopyDialog(Gtk.Dialog):
                 GLib.markup_escape_text( self.source.get_uri() ),
                 GLib.markup_escape_text( str(e) ) ) )
             
-        
     def _query_overwrite(self):
     
         self.hide()
@@ -1541,7 +1563,6 @@ class FileCopyDialog(Gtk.Dialog):
             self.show_all()
             self._start_next_copy( overwrite )
         
-            
     def _on_error(self, message):
         
         self.hide()
@@ -1589,6 +1610,7 @@ def ask_for_playlist_name(parent, playlist_manager, name=None):
         else:
             return name
 
+
 def save(parent, output_fname, output_setting=None, extensions=None, title=_("Save As")):
     """
         A 'save' dialog utility function, which can be used to easily
@@ -1629,11 +1651,13 @@ def save(parent, output_fname, output_setting=None, extensions=None, title=_("Sa
         
     return uri
 
+
 def export_playlist_dialog(playlist, parent=None):
     '''Exports the playlist to a user-specified path'''
     if playlist is not None:
         dialog = PlaylistExportDialog(playlist, parent)
         dialog.show()
+
 
 def export_playlist_files(playlist, parent=None):
     '''Exports the playlist files to a user-specified URI'''
@@ -1657,4 +1681,3 @@ def export_playlist_files(playlist, parent=None):
     dialog.connect( 'uris-selected', lambda widget, uris: _on_uri(uris[0]))
     dialog.run()
     dialog.destroy()
-    

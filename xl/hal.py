@@ -38,6 +38,7 @@ class UDisksPropertyWrapper(object):
         
         You shouldn't need to create this, use UDisksDBusWrapper.props
     '''
+
     def __init__(self, obj, iface_type):
         self.obj = obj  # properties object
         self.iface_type = iface_type
@@ -51,6 +52,7 @@ class UDisksPropertyWrapper(object):
 
     def __repr__(self):
         return '<UDisksPropertyWrapper: %s>' % self.iface_type
+
 
 class UDisksDBusWrapper(object):
     '''
@@ -104,7 +106,6 @@ class UDisksDBusWrapper(object):
     
     def __repr__(self):
         return '<UDisksDBusWrapper: %s (%s)>' % (self.iface_type, self.path)
-
 
 
 class UDisksBase(providers.ProviderHandler):
@@ -415,6 +416,7 @@ class HAL(providers.ProviderHandler):
     """
         HAL interface
     """
+
     def __init__(self, devicemanager):
         providers.ProviderHandler.__init__(self, "hal")
         self.devicemanager = devicemanager
@@ -507,6 +509,7 @@ class HAL(providers.ProviderHandler):
         self.bus.add_signal_receiver(self.remove_device,
                 "DeviceRemoved")
 
+
 class Handler(object):
     '''
         The HAL provider interface
@@ -525,6 +528,7 @@ class Handler(object):
 
     def device_from_udi(self, hal, udi):
         pass
+
 
 class UDisksProvider(object):
     '''

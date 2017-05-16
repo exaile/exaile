@@ -64,6 +64,7 @@ def first_meaningful_char(s):
     else:
         return '_'
 
+
 class Order(object):
     """
         An Order represents a structure for arranging Tracks into the
@@ -79,6 +80,7 @@ class Order(object):
         instead of a tuple, and it will be treated equivalently to (("foo",),
         "$foo", ("foo",)) for some string "foo".
     """
+
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
         self.__levels = map(self.__parse_level, levels)
@@ -149,6 +151,7 @@ DEFAULT_ORDERS = [
             (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
 ]
 
+
 class CollectionPanel(panel.Panel):
     """
         The collection panel
@@ -161,6 +164,7 @@ class CollectionPanel(panel.Panel):
     }
 
     ui_info = ('collection.ui', 'CollectionPanelWindow')
+
     def __init__(self, parent, collection, name=None,
         _show_collection_empty_message=False, label=None):
         """
@@ -616,7 +620,6 @@ class CollectionPanel(panel.Panel):
         if depth == len(self.order)-1:
             bottom = True
 
-
         display_counts = settings.get_option('gui/display_track_counts', True)
         draw_seps = settings.get_option('gui/draw_separators', True)
         last_char = ''
@@ -707,11 +710,13 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
+
 class CollectionDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data
         from collection tracks
     """
+
     def __init__(self, container, receive=False, source=True):
         """
             :param container: The container to place the TreeView into

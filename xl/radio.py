@@ -26,6 +26,7 @@
 
 from xl import playlist, event, providers, trax
 
+
 class RadioManager(providers.ProviderHandler):
     """
         Radio Station Manager
@@ -40,6 +41,7 @@ class RadioManager(providers.ProviderHandler):
         Test Track
         >>>
     """
+
     def __init__(self):
         """
             Initializes the radio manager
@@ -103,6 +105,7 @@ class RadioManager(providers.ProviderHandler):
 
 
 class RadioList(object):
+
     def __init__(self, name, station=None):
         """
             Initializes the rlist
@@ -128,10 +131,12 @@ class RadioList(object):
         """
         return self.name
 
+
 class RadioItem(object):
     """
         Radio Items
     """
+
     def __init__(self, name, station=None):
         """
             Initializes the radio item
@@ -152,8 +157,10 @@ class RadioItem(object):
         """
         return self.name
 
+
 class RadioStation(object):
     name = 'test_station'
+
     def __init__(self):
         """
             Initialize the radio station
@@ -176,4 +183,3 @@ class RadioStation(object):
         name = self.__class__.__name__
         name = name.replace('RadioStation', ' Radio')
         return name
-

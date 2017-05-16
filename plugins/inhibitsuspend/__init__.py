@@ -23,6 +23,7 @@ from xl import event
 SUSPEND_PLUGIN = None
 logger = logging.getLogger(__name__)
 
+
 def enable(exaile):
     """
         Called when the plugin is enabled
@@ -44,6 +45,7 @@ def enable(exaile):
  
     logger.info('Suspend Inhibitor Enabled')
 
+
 def disable(exaile):
     """
         Called when the plugin is disabled
@@ -55,6 +57,7 @@ def disable(exaile):
         SUSPEND_PLUGIN = None
  
     logger.info('Suspend Inhibitor Disabled')
+
 
 class SuspendInhibit(object):
     """
@@ -92,6 +95,7 @@ class SuspendInhibit(object):
 
     def destroy(self):
         self.adapter.destroy()
+
 
 class SuspendAdapter(adapters.PlaybackAdapter):
     """
@@ -163,7 +167,6 @@ class SuspendAdapter(adapters.PlaybackAdapter):
                 else:
                     logger.error('Cannot Unihibit Suspend without cookie')
 
-
     def is_inhibited(self):
         """ Inhibit Status """
         return self.inhibited
@@ -207,6 +210,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         """
         raise NotImplementedError('Method not Overridden')
 
+
 class PowerManagerAdapter(SuspendAdapter):
     """
         Default Adapter, implemented by most desktop sessions
@@ -214,6 +218,7 @@ class PowerManagerAdapter(SuspendAdapter):
         Some desktop sesssions use different bus names for this interface
         and have other small variances
     """
+
     def __init__(self, bus_name='org.freedesktop.PowerManagement',
             object_name='/org/freedesktop/PowerManagement/Inhibit',
             interface_name='org.freedesktop.PowerManagement.Inhibit'):
@@ -224,6 +229,7 @@ class PowerManagerAdapter(SuspendAdapter):
 
     def _dbus_uninhibit_call(self):
        self.iface.UnInhibit(self.cookie) 
+
 
 class GnomeAdapter(SuspendAdapter):
     """
@@ -250,11 +256,13 @@ class GnomeAdapter(SuspendAdapter):
         """
         self.iface.Uninhibit(self.cookie) 
 
+
 class KdeAdapter(PowerManagerAdapter):
     """
         Adapter for when org.freedesktop.PowerManager interface
         located at bus org.kde.powerdevil
     """
+
     def __init__(self):
         try:
             PowerManagerAdapter.__init__(self)
@@ -262,11 +270,13 @@ class KdeAdapter(PowerManagerAdapter):
             # Fall back to other bus name
             PowerManagerAdapter.__init__(self, bus_name='org.kde.powerdevil')
 
+
 class XfceAdapter(PowerManagerAdapter):
     """
         Adapter for org.freedesktop.PowerManagement interface at bus name
         org.xfce.PowerManager
     """
+
     def __init__(self):
         try:
             PowerManagerAdapter.__init__(self)

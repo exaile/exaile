@@ -56,6 +56,7 @@ CDROM_LEADOUT = 0xAA
 CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
+
 class CdPlugin(object):
     
     def enable(self, exaile):
@@ -80,7 +81,6 @@ class CdPlugin(object):
             self.udisks = HALCdProvider()
             providers.register('hal', self.udisks)
         
-    
     def disable(self, exaile):
         if self.hal is not None:
             providers.unregister('hal', self.hal)
@@ -97,6 +97,7 @@ plugin_class = CdPlugin
 
 class CDTocParser(object):
     #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
+
     def __init__(self, device):
         self.device = device
 
@@ -145,7 +146,9 @@ class CDTocParser(object):
             offset = track[4]
         return lengths
 
+
 class CDPlaylist(playlist.Playlist):
+
     def __init__(self, name=_("Audio Disc"), device=None):
         playlist.Playlist.__init__(self, name=name)
 
@@ -216,6 +219,7 @@ class CDPlaylist(playlist.Playlist):
         self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
 
+
 class CDDevice(KeyedDevice):
     """
         represents a CD
@@ -249,8 +253,10 @@ class CDDevice(KeyedDevice):
         self.connected = False
         CDDevice.destroy(self)
 
+
 class HALCdProvider(Handler):
     name = "cd"
+
     def is_type(self, device, capabilities):
         if "volume.disc" in capabilities:
             return True
@@ -271,6 +277,7 @@ class HALCdProvider(Handler):
         cddev = CDDevice(dev=device)
 
         return cddev
+
 
 class UDisksCdProvider(UDisksProvider):
     name = 'cd'

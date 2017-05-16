@@ -31,6 +31,7 @@ from gi.repository import Gst
 
 try:
     import replaygainprefs
+
     def get_preferences_pane():
         return replaygainprefs
 except Exception: # fail gracefully if we cant set up the UI
@@ -38,12 +39,14 @@ except Exception: # fail gracefully if we cant set up the UI
 
 NEEDED_ELEMS = ["rgvolume", "rglimiter"]
 
+
 def enable(exaile):
     for elem in NEEDED_ELEMS:
         if not Gst.ElementFactory.find(elem):
             raise ImportError("Needed gstreamer element %s missing." % elem)
     providers.register("gst_audio_filter", ReplaygainVolume)
     providers.register("gst_audio_filter", ReplaygainLimiter)
+
 
 def disable(exaile):
     providers.unregister("gst_audio_filter", ReplaygainVolume)
@@ -59,6 +62,7 @@ class ReplaygainVolume(ElementBin):
     """
     index = 20
     name = "rgvolume"
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         self.audioconvert = Gst.ElementFactory.make("audioconvert", None)
@@ -95,6 +99,7 @@ class ReplaygainLimiter(ElementBin):
     """
     index = 80
     name = "rglimiter"
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         self.rglimit = Gst.ElementFactory.make("rglimiter", None)
@@ -112,4 +117,3 @@ class ReplaygainLimiter(ElementBin):
             self.rglimit.set_property("enabled",
                     settings.get_option("replaygain/clipping-protection",
                         True))
-

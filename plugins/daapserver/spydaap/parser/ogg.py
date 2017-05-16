@@ -16,8 +16,10 @@
 import spydaap.parser.vorbis, re
 from spydaap.daap import do
 
+
 class OggParser(spydaap.parser.vorbis.VorbisParser):
     file_re = re.compile(".*\\.[oO][gG][gG]$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
 

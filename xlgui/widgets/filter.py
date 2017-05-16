@@ -41,6 +41,7 @@ from xlgui.guiutil import gtk_widget_replace
 
 from xl.nls import gettext as _
 
+
 @GtkTemplate('ui', 'widgets', 'filter_dialog.ui')
 class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
@@ -160,6 +161,7 @@ class FilterDialog(Gtk.Dialog):
         """
         self.filter.set_state(state)
 
+
 class FilterWidget(Gtk.Grid):
     """Widget to filter a list of items.
 
@@ -277,6 +279,7 @@ class FilterWidget(Gtk.Grid):
             cstate[0].reverse() # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)
 
+
 class Criterion(Gtk.Box):
     """Widget representing one filter criterion.
 
@@ -355,6 +358,7 @@ class Criterion(Gtk.Box):
 
 # Sample fields
 
+
 class ComboEntryField(Gtk.Box):
     '''Select from multiple fixed values, but allow the user to enter text'''
     
@@ -374,6 +378,7 @@ class ComboEntryField(Gtk.Box):
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
 
+
 class NullField(Gtk.Box):
     '''Used as a placeholder for __null__ values'''
     
@@ -387,6 +392,7 @@ class NullField(Gtk.Box):
 class MultiEntryField(Gtk.Box):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""
+
     def __init__(self, labels):
         """Create a field with the specified labels and widths.
 
@@ -410,8 +416,10 @@ class MultiEntryField(Gtk.Box):
                 widget = Gtk.Label(label=unicode(label))
             self.pack_start(widget, False, True, 0)
             widget.show()
+
     def get_state(self):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
+
     def set_state(self, state):
         entries = self.entries
         if isinstance(state, (list, tuple)):
@@ -420,31 +428,43 @@ class MultiEntryField(Gtk.Box):
         else:
             entries[0].set_text(unicode(state))
 
+
 class EntryField(Gtk.Entry):
+
     def __init__(self):
         Gtk.Entry.__init__(self)
+
     def get_state(self):
         return unicode(self.get_text(), 'utf-8')
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
         self.set_text(unicode(state))
         
+
 class QuotedEntryField(Gtk.Entry):
+
     def __init__(self):
         Gtk.Entry.__init__(self)
+
     def get_state(self):
         return unicode(urllib.quote(self.get_text()), 'utf-8')
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
         self.set_text(unicode(urllib.unquote(str(state))))
 
+
 class EntryLabelEntryField(MultiEntryField):
+
     def __init__(self, label):
         MultiEntryField.__init__(self, (50, label, 50))
 
+
 class SpinLabelField(Gtk.Box):
+
     def __init__(self, label='', top=999999, lower=-999999):
         Gtk.Box.__init__(self, spacing=5)
         self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
@@ -452,8 +472,10 @@ class SpinLabelField(Gtk.Box):
         self.pack_start(self.spin, False, True, 0)
         self.pack_start(Gtk.Label.new(label), False, True, 0)
         self.show_all()
+
     def get_state(self):
         return self.spin.get_value()
+
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
@@ -462,7 +484,9 @@ class SpinLabelField(Gtk.Box):
         except ValueError:
             pass
 
+
 class SpinButtonAndComboField(Gtk.Box):
+
     def __init__(self, items=()):
         Gtk.Box.__init__(self, spacing=5)
         self.items = items

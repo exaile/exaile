@@ -26,10 +26,12 @@
 
 from xl import event
 
+
 class PlaybackAdapter(object):
     """
         Basic class which listens for playback changes
     """
+
     def __init__(self, player):
     
         self.__player = player
@@ -75,10 +77,12 @@ class PlaybackAdapter(object):
         """ Override """
         pass
 
+
 class QueueAdapter(object):
     """
         Basic class which listens for queue changes
     """
+
     def __init__(self, queue):
         self.__queue = queue
     
@@ -140,4 +144,3 @@ class QueueAdapter(object):
     def on_queue_tracks_removed(self, event, queue, tracks):
         """ Override """
         pass
-

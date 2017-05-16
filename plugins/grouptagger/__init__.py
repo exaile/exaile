@@ -48,7 +48,6 @@ import gt_import
 import gt_mass
 
 
-
 class GroupTaggerPlugin(object):
     '''Implements logic for plugin'''
 
@@ -137,7 +136,6 @@ class GroupTaggerPlugin(object):
             providers.register('playlist-context-menu', item)
             # Hm, doesn't work.. 
             #providers.register('track-panel-menu', item)
-        
         
         # trigger start event if exaile is currently playing something
         if player.PLAYER.is_playing():
@@ -348,4 +346,3 @@ class GroupTaggerPlugin(object):
                 self.set_display_track(self.track, True)
 
 plugin_class = GroupTaggerPlugin
-

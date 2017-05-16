@@ -12,6 +12,7 @@ from xl.lyrics import (
 )
 from xl import common, providers
 
+
 def enable(exaile):
     """
         Enables the lyric wiki plugin that fetches track lyrics
@@ -23,8 +24,10 @@ def enable(exaile):
         raise NotImplementedError('BeautifulSoup is not available.')
         return False
 
+
 def disable(exaile):
     providers.unregister('lyrics', providers.get_provider('lyrics', 'lyricwiki'))
+
 
 class LyricWiki(LyricSearchMethod):
 

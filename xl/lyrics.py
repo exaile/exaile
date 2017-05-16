@@ -43,14 +43,17 @@ from xl import (
     xdg
 )
 
+
 class LyricsNotFoundException(Exception):
     pass
+
 
 class LyricsCache:
     '''
         Basically just a thread-safe shelf for convinience.  
         Supports container syntax.
     '''
+
     def __init__(self, location, default=None):
         '''
             @param location: specify the shelve file location
@@ -105,6 +108,7 @@ class LyricsCache:
         
     def __len__(self):
         return len(self.db)
+
 
 class LyricsManager(providers.ProviderHandler):
     """
@@ -302,6 +306,7 @@ class LyricsManager(providers.ProviderHandler):
 
 MANAGER = LyricsManager()
 
+
 class LyricSearchMethod(object):
     """
         Lyrics plugins will subclass this
@@ -343,6 +348,7 @@ class LyricSearchMethod(object):
         p = re.compile(r'/<!--.*?-->/')
         return p.sub('',data)
 
+
 class LocalLyricSearch(LyricSearchMethod):
 
     name="__local"
@@ -354,4 +360,3 @@ class LocalLyricSearch(LyricSearchMethod):
             raise LyricsNotFoundException()
         return (lyrics[0], self.name, "")
 providers.register('lyrics', LocalLyricSearch())
-

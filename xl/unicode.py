@@ -32,6 +32,7 @@ def shave_marks(text):
     shaved = ''.join(keepers)
     return unicodedata.normalize('NFC', shaved)
 
+
 def strxfrm(x):
     """Like locale.strxfrm but also supports Unicode.
 
@@ -43,6 +44,7 @@ def strxfrm(x):
     if isinstance(x, unicode):
         return locale.strxfrm(x.encode('utf-8', 'replace'))
     return locale.strxfrm(x)
+
 
 def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
@@ -56,4 +58,3 @@ def to_unicode(x, encoding=None, errors='strict'):
             return unicode(x, errors=errors)
     else:
         return unicode(x)
-

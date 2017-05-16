@@ -51,6 +51,7 @@ menu_providers = [
     'playlist-context-menu',
 ]
     
+
 class BPMCounterPlugin(object):
     """
         Implements logic for plugin
@@ -312,7 +313,6 @@ class BPMWidget(Gtk.Frame):
         self.plugin.set_bpm(self.track, self.bpm, parent_window=self.get_toplevel())
         self.update_ui()
     
-    
     def update_ui(self, apply_enabled=True):
         '''Updates the current UI display'''
         
@@ -326,5 +326,3 @@ class BPMWidget(Gtk.Frame):
                 self.apply_button.set_sensitive(apply_enabled)
             else:
                 self.apply_button.set_sensitive(False)
-    
- 

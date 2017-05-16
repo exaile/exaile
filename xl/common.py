@@ -66,6 +66,8 @@ PICKLE_PROTOCOL=2
 BASE_SORT_TAGS=('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
 # use this for general logging of exceptions
+
+
 def log_exception(log=logger, message="Exception caught!"):
     """
         Deprecated! Don't use this in newer code, use this instead::
@@ -82,6 +84,7 @@ def log_exception(log=logger, message="Exception caught!"):
     """
     log.exception(message)
 
+
 def clamp(value, minimum, maximum):
     """
         Clamps a value to the given boundaries
@@ -92,6 +95,7 @@ def clamp(value, minimum, maximum):
     """
     return max(minimum, min(value, maximum))
 
+
 def enum(**enums):
     """
         Creates an enum type
@@ -99,6 +103,7 @@ def enum(**enums):
         :see: http://stackoverflow.com/a/1695250
     """
     return type('Enum', (), enums)
+
 
 def sanitize_url(url):
     """
@@ -122,6 +127,7 @@ def sanitize_url(url):
 
     return url
 
+
 def get_url_contents(url, user_agent):
     '''
         Retrieves data from a URL and sticks a user-agent on it. You can use
@@ -141,6 +147,7 @@ def get_url_contents(url, user_agent):
     
     return data
 
+
 def threaded(func):
     """
         A decorator that will make any function run in a new thread
@@ -154,6 +161,7 @@ def threaded(func):
         t.start()
 
     return wrapper
+
 
 def synchronized(func):
     """
@@ -186,6 +194,7 @@ def _idle_callback(func, callback, *args, **kwargs):
     if callback and callable(callback):
         callback(value)
 
+
 def idle_add(callback=None):
     """
         A decorator that will wrap the function in a GLib.idle_add call
@@ -208,10 +217,12 @@ def idle_add(callback=None):
         return wrapped
     return wrap
 
+
 def _glib_wait_inner(timeout, glib_timeout_func):
     id = [None] # Have to hold the value in a mutable structure because
                 # python's scoping rules prevent us assigning to an
                 # outer scope directly.
+
     def waiter(function):
         def thunk(*args, **kwargs):
             id[0] = None
@@ -220,11 +231,13 @@ def _glib_wait_inner(timeout, glib_timeout_func):
             # get lots of callbacks piling up
             if function(*args, **kwargs):
                 delayer(*args, **kwargs)
+
         def delayer(*args, **kwargs):
             if id[0]: GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
+
 
 def glib_wait(timeout):
     """
@@ -250,6 +263,7 @@ def glib_wait(timeout):
     # with this decorator.
     return _glib_wait_inner(timeout, GLib.timeout_add)
 
+
 def glib_wait_seconds(timeout):
     """
         Same as glib_wait, but uses GLib.timeout_add_seconds instead
@@ -259,11 +273,13 @@ def glib_wait_seconds(timeout):
     """
     return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
 
+
 def profileit(func):
     """
         Decorator to profile a function
     """
     import cProfile, pstats
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         prof = cProfile.Profile()
@@ -278,15 +294,18 @@ def profileit(func):
         return res
     return wrapper
 
+
 class classproperty(object):
     """
         Decorator allowing for class property access
     """
+
     def __init__(self, function):
         self.function = function
 
     def __get__(self, obj, type):
         return self.function(type)
+
 
 class VersionError(Exception):
     """
@@ -302,6 +321,7 @@ class VersionError(Exception):
     def __str__(self):
         return repr(self.message)
 
+
 def open_file(path):
     """
         Opens a file or folder using the system configured program
@@ -316,6 +336,7 @@ def open_file(path):
         subprocess.Popen(["open", path])
     else:
         subprocess.Popen(["xdg-open", path])
+
 
 def open_file_directory(path_or_uri):
     """
@@ -340,10 +361,12 @@ def open_file_directory(path_or_uri):
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
 
+
 class LimitedCache(DictMixin):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """
+
     def __init__(self, limit):
         self.limit = limit
         self.order = deque()
@@ -384,6 +407,7 @@ class LimitedCache(DictMixin):
     def keys(self):
         return self.cache.keys()
 
+
 class cached(object):
     """
         Decorator to make a function's results cached
@@ -391,6 +415,7 @@ class cached(object):
 
         .. note:: This probably breaks on functions that modify their arguments
     """
+
     def __init__(self, limit):
         self.limit = limit
 
@@ -403,6 +428,7 @@ class cached(object):
             f._cache
         except AttributeError:
             f._cache = LimitedCache(self.limit)
+
         @wraps(f)
         def wrapper(*args, **kwargs):
             try:
@@ -420,6 +446,7 @@ class cached(object):
     def __get__(self, obj, objtype):
         """Support instance methods."""
         return partial(self.__call__, obj)
+
 
 def walk(root):
     """
@@ -466,6 +493,7 @@ def walk(root):
         except GLib.Error: # why doesnt gio offer more-specific errors?
             logger.exception("Unhandled exception while walking on %s.", dir)
 
+
 def walk_directories(root):
     """
         Walk through a Gio directory, yielding each subdirectory
@@ -490,6 +518,7 @@ def walk_directories(root):
     except GLib.Error:
         logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
                          root, directory, subdirectory)
+
 
 class TimeSpan(object):
     """
@@ -525,6 +554,7 @@ class TimeSpan(object):
     def __str__(self):
         return '%dd, %dh, %dm, %ds' % (
             self.days, self.hours, self.minutes, self.seconds)
+
 
 class MetadataList(object):
     """
@@ -646,6 +676,7 @@ class MetadataList(object):
         if not self.metadata[index]:
             self.metadata[index] = None
 
+
 class ProgressThread(GObject.GObject, threading.Thread):
     """
         A basic thread with progress updates. The thread should emit
@@ -685,6 +716,7 @@ class ProgressThread(GObject.GObject, threading.Thread):
         """
         pass
     
+
 class SimpleProgressThread(ProgressThread):
     '''
         Simpler version of ProgressThread that uses a generator to
@@ -739,6 +771,7 @@ class SimpleProgressThread(ProgressThread):
 
 
 class PosetItem(object):
+
     def __init__(self, name, after, priority, value=None):
         """
             :param name: unique identifier for this item
@@ -754,6 +787,7 @@ class PosetItem(object):
         self.priority = priority
         self.children = []
         self.value = value
+
 
 def order_poset(items):
     """
@@ -789,8 +823,10 @@ def order_poset(items):
         next = nextset.values()
     return result
 
+
 class LazyDict(object):
     __slots__ = ['_dict', '_funcs', 'args', '_locks']
+
     def __init__(self, *args):
         self.args = args
         self._dict = {}

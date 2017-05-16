@@ -72,7 +72,6 @@ class PlaylistAnalyzerPlugin(object):
         # -> this could have a submenu that gets filled in with all
         #    of the presets
         
-        
     def on_exaile_loaded(self):
         pass
     
@@ -140,8 +139,6 @@ class PlaylistAnalyzerPlugin(object):
         
         return track.get_tag_raw(tagname, join=True)
         
-        
-    
     def generate_data(self, tracks, tagdata):
         
         data = []

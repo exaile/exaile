@@ -97,8 +97,6 @@ class ExailePlayer(object):
         self._engine = ExaileGstEngine(self._name, self)
         self._engine.initialize()
         
-        
-    
     @property
     def _volume(self):
         return self.__volume
@@ -159,7 +157,6 @@ class ExailePlayer(object):
         volume = max(0, volume)
         settings.set_option("%s/volume" % self._name, volume / 100.0)
 
-    
     def modify_volume(self, diff):
         """
             Changes the current user volume
@@ -380,7 +377,6 @@ class ExailePlayer(object):
         
         self.seek(seek_pos)
 
-
     def get_state(self):
         """
             Gets the player state
@@ -451,8 +447,6 @@ class ExailePlayer(object):
         self._reset_playtime_stamp()
         event.log_event('playback_track_start', self, track)
         
-        
-    
     def engine_notify_track_end(self, track, done):
         '''
             Called when a track has been stopped. Either:
@@ -532,7 +526,6 @@ class ExailePlayer(object):
         
         return self._get_play_params(track, None, False, True)
         
-    
     #        
     # Playtime related stuffs
     #

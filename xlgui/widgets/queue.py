@@ -63,7 +63,6 @@ class QueuePage(PlaylistPageBase):
             self.plcontainer.show_queue(switch=False)
             self.tab.set_closable(False)
 
-
     ## NotebookPage API ##
 
     def focus(self):

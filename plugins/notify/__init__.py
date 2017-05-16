@@ -48,6 +48,7 @@ class ExaileNotification(object):
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
+
         def getter(self):
             return settings.get_option(klass.name, klass.default or None)
 
@@ -122,12 +123,15 @@ class ExaileNotification(object):
 
 EXAILE_NOTIFICATION = ExaileNotification()
 
+
 def enable(exaile):
     EXAILE_NOTIFICATION.exaile = exaile
     event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
 
+
 def disable(exaile):
     event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
+
 
 def get_preferences_pane():
     return notifyprefs

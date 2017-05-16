@@ -33,6 +33,7 @@ from xlgui.widgets import dialogs
 
 import gt_common
 
+
 @GtkTemplate('gt_mass.ui', relto=__file__)
 class GtMassRename(Gtk.Window):
     
@@ -138,6 +139,7 @@ class GtMassRename(Gtk.Window):
         
         dialogs.info(self, "Tags successfully renamed!")
         self.reset()
+
 
 def mass_rename(exaile):
     

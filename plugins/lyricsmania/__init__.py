@@ -27,6 +27,7 @@ from xl.lyrics import (
 )
 from xl import common, providers
 
+
 def enable(exaile):
     """
         Enables the lyrics mania plugin that fetches track lyrics
@@ -38,9 +39,11 @@ def enable(exaile):
         raise NotImplementedError('LXML is not available.')
         return False
 
+
 def disable(exaile):
     providers.unregister('lyrics', providers.get_provider('lyrics',
         'lyricsmania'))
+
 
 class LyricsMania(LyricSearchMethod):
 

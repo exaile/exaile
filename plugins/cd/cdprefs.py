@@ -39,8 +39,10 @@ FORMAT_WIDGET = None
 
 # TODO: allow setting cddb server?
 
+
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
+
 
 class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
     name = 'cd_import/quality'
@@ -99,6 +101,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_active(index)
 
         return True
+
 
 class OutputPathPreference(widgets.ComboEntryPreference):
     name = 'cd_import/outpath'

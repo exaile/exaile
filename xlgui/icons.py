@@ -46,6 +46,7 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
+
 class ExtendedPixbuf(object):
     """
         A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
@@ -61,6 +62,7 @@ class ExtendedPixbuf(object):
 
         Even more is possible with the provided verbose methods
     """
+
     def __init__(self, pixbuf):
         self.pixbuf = GdkPixbuf.Pixbuf.new(
             pixbuf.get_colorspace(),
@@ -78,6 +80,7 @@ class ExtendedPixbuf(object):
 
     def get_width(self):
         return self.pixbuf.get_width()
+
     def get_height(self):
         return self.pixbuf.get_height()
 
@@ -459,6 +462,7 @@ class ExtendedPixbuf(object):
         """
         return ExtendedPixbuf(GdkPixbuf.Pixbuf.flip(self.pixbuf, horizontal))
 
+
 def extended_pixbuf_new_from_file(filename):
     """
         Returns a new :class:`ExtendedPixbuf` containing
@@ -472,11 +476,13 @@ def extended_pixbuf_new_from_file(filename):
     """
     return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_from_file(filename))
 
+
 class IconManager(object):
     """
         Provides convenience functions for
         managing icons and images in general
     """
+
     def __init__(self):
         self.icon_theme = Gtk.IconTheme.get_default()
         # TODO: Make svg actually recognized

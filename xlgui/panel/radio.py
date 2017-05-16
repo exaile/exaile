@@ -49,10 +49,11 @@ from xlgui import (
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 
+
 class RadioException(Exception): pass
+
+
 class ConnectionException(RadioException): pass
-
-
 
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
@@ -565,6 +566,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             iter = self.model.iter_next(iter)
         for row in remove:
             self.model.remove(row)
+
 
 def set_status(message, timeout=0):
     RadioPanel._radiopanel._set_status(message, timeout)

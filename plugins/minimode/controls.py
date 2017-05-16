@@ -50,6 +50,7 @@ from xlgui.widgets.rating import RatingWidget
 
 logger = logging.getLogger(__name__)
 
+
 def suppress(signal):
     """
         Decorator which prevents the emission of a GObject signal
@@ -65,6 +66,7 @@ def suppress(signal):
             self.disconnect(handler_id)
         return wrapped_function
     return wrapper
+
 
 class ControlBox(Gtk.Box, providers.ProviderHandler):
     """
@@ -183,6 +185,8 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
                 self.__dirty = True
 
 # Control definitions
+
+
 class BaseControl(object):
     """
         Base control provider
@@ -191,6 +195,7 @@ class BaseControl(object):
     title = None
     description = None
     fixed = False
+
 
 class ButtonControl(Gtk.Button, BaseControl):
     """
@@ -214,6 +219,7 @@ class ButtonControl(Gtk.Button, BaseControl):
         """
         self.props.image.set_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
 
+
 class PreviousButtonControl(ButtonControl):
     """
         Button which allows for going to the previous track
@@ -234,6 +240,7 @@ class PreviousButtonControl(ButtonControl):
         """
         player.QUEUE.prev()
 
+
 class NextButtonControl(ButtonControl):
     """
         Button which allows for going to the next track
@@ -253,6 +260,7 @@ class NextButtonControl(ButtonControl):
             Goes to the next track
         """
         player.QUEUE.next()
+
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
     """
@@ -319,6 +327,7 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
             Updates state
         """
         self.update_state()
+
 
 class StopButtonControl(ButtonControl):
     """
@@ -425,6 +434,7 @@ class StopButtonControl(ButtonControl):
             self._queue_spat = False
             self.update_state()
 
+
 class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     """
         Button which allows for changing the volume
@@ -488,6 +498,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
         if option == 'player/volume':
             self.set_value(float(settings.get_option(option)))
 
+
 class RestoreButtonControl(ButtonControl):
     """
         Button which allows for restoring the main window
@@ -525,6 +536,7 @@ class RestoreButtonControl(ButtonControl):
             self.add_accelerator('clicked', accel_group, key, modifier,
                 Gtk.AccelFlags.VISIBLE)
 
+
 class RatingControl(RatingWidget, BaseControl):
     """
         Control which allows for viewing and
@@ -546,6 +558,7 @@ class RatingControl(RatingWidget, BaseControl):
             player.PLAYER.current.set_rating(rating)
             maximum = settings.get_option('rating/maximum', 5)
             event.log_event('rating_changed', self, rating / maximum * 100)
+
 
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
     name = 'track_selector'
@@ -699,6 +712,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
                 'format',
                 settings.get_option(option, _('$tracknumber - $title'))
             )
+
 
 class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
     name = 'playlist_button'
@@ -940,11 +954,13 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
                 settings.get_option(option, _('$tracknumber - $title'))
             )
 
+
 class ProgressButtonFormatter(Formatter):
     """
         Formatter which allows both for display of
         tag data as well as progress information
     """
+
     def __init__(self):
         Formatter.__init__(self, self.get_option_value())
 
@@ -997,6 +1013,8 @@ Gtk.rc_parse_string('''
     }
     widget "*.progressbutton" style "progress-button"
 ''')
+
+
 class ProgressButtonControl(PlaylistButtonControl):
     name = 'progress_button'
     title = _('Progress button')
@@ -1074,6 +1092,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         event.x, event.y = float(x), float(y)
         self.progressbar.emit('leave-notify-event', event)
 
+
 class ProgressBarControl(SeekProgressBar, BaseControl):
     name = 'progress_bar'
     title = _('Progress bar')
@@ -1115,6 +1134,7 @@ control_types = [
     ProgressBarControl,
 ]
 
+
 def register():
     """
         Registers all control providers
@@ -1122,10 +1142,10 @@ def register():
     for control_type in control_types:
         providers.register('minimode-controls', control_type)
 
+
 def unregister():
     """
         Unregisters all control providers
     """
     for control_type in control_types:
         providers.unregister('minimode-controls', control_type)
-

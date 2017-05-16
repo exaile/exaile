@@ -36,12 +36,14 @@ def enable(exaile):
     else:
         on_gui_loaded()
 
+
 def disable(exaile):
     """
         Disables the plugin
     """
 
     providers.unregister('main-panel-actions', MainMenuButton)
+
 
 def on_gui_loaded(*args):
     """
@@ -50,6 +52,7 @@ def on_gui_loaded(*args):
     """
 
     providers.register('main-panel-actions', MainMenuButton)
+
 
 class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     """
@@ -148,4 +151,3 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
             Removes button activation upon menu popdown
         """
         self.set_active(False)
-

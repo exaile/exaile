@@ -62,6 +62,7 @@ class Cacher(object):
         individual files, the data being stored should be of significant
         size (several KB) or a lot of disk space will likely be wasted.
     """
+
     def __init__(self, cache_dir):
         """
             :param cache_dir: directory to use for the cache. will be
@@ -121,6 +122,7 @@ class CoverManager(providers.ProviderHandler):
     """
         Handles finding covers from various sources.
     """
+
     def __init__(self, location):
         """
             :param location: The directory to load and store data in.
@@ -160,7 +162,6 @@ class CoverManager(providers.ProviderHandler):
                 providers.register('covers', self.localfile_fetcher)
             else:
                 providers.unregister('covers', self.localfile_fetcher)
-
 
     def _get_methods(self, fixed=False):
         """
@@ -436,6 +437,7 @@ class CoverSearchMethod(object):
     #: Priority for fixed-position backends. Lower is earlier, non-fixed
     #  backends will always be 50.
     fixed_priority = 50
+
     def find_covers(self, track, limit=-1):
         """
             Find the covers for a given track.
@@ -493,6 +495,7 @@ class TagCoverFetcher(CoverSearchMethod):
             return None
 
         return covers[int(index)].data
+
 
 class LocalFileCoverFetcher(CoverSearchMethod):
     """
@@ -561,9 +564,6 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             self.preferred_names = settings.get_option(option, ['album', 'cover'])
 
 
-
 #: The singleton :class:`CoverManager` instance
 MANAGER = CoverManager(location=xdg.get_data_home_path("covers",
         check_exists=False))
-
-

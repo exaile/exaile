@@ -16,6 +16,7 @@
 import BaseHTTPServer, errno, logging, os, re, urlparse, socket, spydaap, sys
 from spydaap.daap import do
 
+
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1
     log = logging.getLogger('spydaap.server')

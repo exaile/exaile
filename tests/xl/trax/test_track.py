@@ -74,8 +74,10 @@ class Test_MetadataCacher(object):
     def test_remove_not_exist(self):
         assert self.mc.remove('foo') == None
 
+
 def random_str(l=8):
     return ''.join(random.choice(string.ascii_letters) for _ in range(l))
+
 
 class TestTrack(object):
 
@@ -262,7 +264,6 @@ class TestTrack(object):
         
         self.verify_tags_exist(tr, writeable_track)
     
-        
     def test_write_delete_cover(self, writeable_track, writeable_track_name):
         if not writeable_track.has_cover:
             return

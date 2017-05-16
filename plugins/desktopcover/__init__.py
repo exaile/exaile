@@ -38,6 +38,7 @@ import desktopcover_preferences
 
 DESKTOPCOVER = None
 
+
 def __migrate_anchor_setting():
     """
         Migrates gravity setting from the old
@@ -56,6 +57,7 @@ def __migrate_anchor_setting():
 
         settings.set_option('plugin/desktopcover/anchor', gravity)
 
+
 def enable(exaile):
     """
         Enables the desktop cover plugin
@@ -65,6 +67,7 @@ def enable(exaile):
     global DESKTOPCOVER
     DESKTOPCOVER = DesktopCover()
 
+
 def disable(exaile):
     """
         Disables the desktop cover plugin
@@ -72,8 +75,10 @@ def disable(exaile):
     global DESKTOPCOVER
     DESKTOPCOVER.destroy()
 
+
 def get_preferences_pane():
     return desktopcover_preferences
+
 
 class DesktopCover(Gtk.Window):
     gravity_map = {

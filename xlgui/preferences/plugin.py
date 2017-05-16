@@ -43,10 +43,12 @@ logger = logging.getLogger(__name__)
 name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
+
 class PluginManager(object):
     """
         Gui to manage plugins
     """
+
     def __init__(self, preferences, builder):
         """
             Initializes the manager
@@ -141,8 +143,6 @@ class PluginManager(object):
                 cat.append(plugin_data)
             else:
                 plugins_dict[uncategorized].append(plugin_data)
-
-        
 
         self.list.set_model(None)
         self.model.clear()
@@ -316,7 +316,6 @@ class PluginManager(object):
         
         path = self.plugin_to_path[plugin_name]
         self.model[path][3] = enabled
-        
         
     def on_show_broken_cb_toggled(self, widget):
         self._set_status_visible()

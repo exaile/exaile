@@ -35,11 +35,13 @@ from xlgui.panel import radio
 
 STATION = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(o1, exaile, o2):
     global STATION
@@ -47,13 +49,16 @@ def _enable(o1, exaile, o2):
     STATION = SomaFMRadioStation()
     exaile.radio.add_station(STATION)
 
+
 def disable(exaile):
     global STATION
     exaile.radio.remove_station(STATION)
     STATION = None
 
+
 def set_status(message, timeout = 0):
     radio.set_status(message, timeout)
+
 
 class SomaFMRadioStation(RadioStation):
 

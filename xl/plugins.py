@@ -41,11 +41,15 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
+
 class InvalidPluginError(Exception):
+
     def __str__(self):
         return str(self.args[0])
 
+
 class PluginsManager(object):
+
     def __init__(self, exaile, load=True):
         self.plugindirs = [ os.path.join(p, 'plugins') \
                 for p in xdg.get_data_dirs() ]
@@ -283,4 +287,3 @@ class PluginsManager(object):
                 pass
 
 # vim: et sts=4 sw=4
-

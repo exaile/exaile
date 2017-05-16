@@ -43,6 +43,7 @@ import bookmarksprefs
 # if we're on python 2.5 it's not available...
 try:
     import json
+
     def _try_read(data):
         # try reading using json, if it fails, try the old format
         try:
@@ -64,11 +65,14 @@ _sep = menu.simple_separator
 #TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 # does order matter?
 
+
 def error(text):
     logger.error("%s: %s" % ('Bookmarks', text))
     dialogs.error(None, exaile.gui.main, text)
 
+
 class Bookmarks:
+
     def __init__(self, exaile):
         self.bookmarks = []
 #        self.auto_db = {}
@@ -100,7 +104,6 @@ class Bookmarks:
                 
             return factory
 
-
         items = []
         items.append(_smi('bookmark', [], _('_Bookmark This Track'),
             'bookmark-new', self.add_bookmark))
@@ -109,7 +112,6 @@ class Bookmarks:
         items.append(menu.MenuItem('clear', factory_factory(_('_Clear Bookmarks'),
             'gtk-clear', callback=self.clear), ['delete']))
         items.append(_sep('sep', ['clear']))
-
 
         for item in items:
             self.menu.add_item(item)
@@ -120,7 +122,6 @@ class Bookmarks:
         #event.add_callback(self.on_start_track, 'playback_start')
         #event.add_callback(self.on_stop_track, 'playback_end')
         #playback_end, playback_pause, playback_resume, stop_track
-
 
     def do_bookmark(self, widget, data):
         """
@@ -144,7 +145,6 @@ class Bookmarks:
             if track:   # make sure we got one
                 player.QUEUE.play(track)
                 player.PLAYER.seek(pos)
-
 
     def add_bookmark(self, *args):
         """
@@ -190,6 +190,7 @@ class Bookmarks:
 
         counter = self.counter # closure magic (workaround for factories not having access to item)
         # factory for new bookmarks
+
         def factory(menu_, parent, context):
             menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
             if pix:
@@ -264,7 +265,6 @@ class Bookmarks:
         except IOError as e:  # File might not exist
             logger.error('BM: could not open file: %s' % e.strerror)
 
-
     def save_db(self):
         """
             Save list of bookmarks to a file.
@@ -276,9 +276,9 @@ class Bookmarks:
             logger.debug('saving {0} bookmarks'.format(len(self.bookmarks)))
 
 
-
 def __enb(eventname, exaile, nothing):
     GLib.idle_add(_enable, exaile)
+
 
 def enable(exaile):
     """
@@ -289,6 +289,7 @@ def enable(exaile):
         event.add_callback(__enb, 'gui_loaded')
     else:
         __enb(None, exaile, None)
+
 
 def _enable(exaile):
     """
@@ -306,7 +307,6 @@ def _enable(exaile):
     providers.register('menubar-tools-menu', item)
 
     bm.load_db()
-
 
 
 def disable(exaile):

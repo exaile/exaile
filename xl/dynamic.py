@@ -34,10 +34,12 @@ from xl.trax import search
 
 logger = logging.getLogger(__name__)
 
+
 class DynamicManager(providers.ProviderHandler):
     """
         handles matching of songs for dynamic playlists
     """
+
     def __init__(self, collection=[]):
         providers.ProviderHandler.__init__(self, "dynamic_playlists")
         self.buffersize = settings.get_option("playback/dynamic_buffer", 5)
@@ -171,6 +173,7 @@ MANAGER = DynamicManager()
 
 
 class DynamicSource(object):
+
     def __init__(self):
         pass
 
@@ -181,4 +184,3 @@ class DynamicSource(object):
         self.manager = manager
 
 # vim: et sts=4 sw=4
-

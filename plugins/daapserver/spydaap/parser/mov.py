@@ -16,8 +16,10 @@
 import re, spydaap, os, sys
 from spydaap.daap import do
 
+
 class MovParser(spydaap.parser.Parser):
     file_re = re.compile(".*\\.[mV][oO][vV]$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
     
@@ -38,4 +40,3 @@ class MovParser(spydaap.parser.Parser):
               do ('com.apple.itunes.has-video', True)
               ]
         return (d, name)
-    

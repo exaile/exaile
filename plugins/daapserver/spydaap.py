@@ -27,15 +27,19 @@ md_cache = spydaap.metadata.MetadataCache(os.path.join(spydaap.cache_dir, "media
 container_cache = spydaap.containers.ContainerCache(os.path.join(spydaap.cache_dir, "containers"), spydaap.container_list)
 keep_running = True
 
+
 class Log:
     """file like for writes with auto flush after each write
     to ensure that everything is logged, even during an
     unexpected exit."""
+
     def __init__(self, f):
         self.f = f
+
     def write(self, s):
         self.f.write(s)
         self.f.flush()
+
 
 class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
@@ -53,11 +57,13 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
         self.keep_running = False
         self.server_close()
 
+
 def rebuild_cache(signum=None, frame=None):
     md_cache.build(os.path.abspath(spydaap.media_path))
     container_cache.clean()
     container_cache.build(md_cache)
     cache.clean()
+
 
 def usage():
     sys.stderr.write("Usage: %s [OPTION]\n"%(sys.argv[0]))
@@ -68,10 +74,12 @@ def usage():
     sys.stderr.write("  -p, --pidfile=file      use .pid file (default is ./spydaap.pid\n")
     sys.stderr.write("  -u, --user=username     specify username to run as\n")
 
+
 def make_shutdown(httpd):
     def _shutdown(signum, frame): 
         httpd.force_stop() 
     return _shutdown
+
 
 def really_main():
     rebuild_cache()
@@ -95,6 +103,7 @@ def really_main():
             httpd.force_stop()
     log.warn("Shutting down.")
     zeroconf.unpublish()
+
 
 def main():
     daemonize = True

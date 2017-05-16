@@ -35,6 +35,7 @@ from gi.repository import Gst
 import logging
 logger = logging.getLogger(__name__)
 
+
 class _SinkSettings:
     sink = 'directsoundsink'
     can_set_device = False
@@ -53,8 +54,6 @@ if _sink_settings.can_set_device:
     
     _dsound_dll = C.windll.LoadLibrary("dsound.dll")
     _DirectSoundEnumerateW = _dsound_dll.DirectSoundEnumerateW
-    
-    
     
     _LPDSENUMCALLBACK = C.WINFUNCTYPE(C.wintypes.BOOL,
                                       C.wintypes.LPVOID,
@@ -156,5 +155,3 @@ def get_priority_booster():
         bus.enable_sync_message_emission()
         
     return attach_priority_hook
-
-        

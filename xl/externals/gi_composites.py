@@ -28,8 +28,10 @@ from gi.repository import Gtk
 
 __all__ = ['GtkTemplate']
 
+
 class GtkTemplateWarning(UserWarning):
     pass
+
 
 def _connect_func(builder, obj, signal_name, handler_name,
                   connect_object, flags, cls):
@@ -213,7 +215,6 @@ class _GtkTemplate(object):
         f._gtk_callback = True
         return f
 
-    
     Child = _Child
     
     @staticmethod
@@ -230,7 +231,6 @@ class _GtkTemplate(object):
                   before registering templates? Would need a metaclass...
         '''
         _GtkTemplate.__ui_path__ = abspath(join(*path))
-    
     
     def __init__(self, ui):
         self.ui = ui
@@ -264,10 +264,8 @@ class _GtkTemplate(object):
         return cls
 
 
-   
 # Future shim support if this makes it into PyGI?
 #if hasattr(Gtk, 'GtkTemplate'):
 #    GtkTemplate = lambda c: c
 #else:
 GtkTemplate = _GtkTemplate
-    

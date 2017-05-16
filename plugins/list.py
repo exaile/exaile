@@ -8,6 +8,7 @@ import os, sys
 EXTRA = ['console', 'helloworld']
 BAD = ['shoutcast']
 
+
 def scan():
     all = set(f for f in os.listdir('.') if os.path.isdir(f))
     bad = set(BAD)
@@ -17,6 +18,7 @@ def scan():
     return locals()
 
 plugins = scan()
+
 
 def parse(argv):
     if len(argv) == 1:

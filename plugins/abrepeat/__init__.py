@@ -23,6 +23,7 @@ from xlgui.widgets import playback
 
 MENU_ITEM = None
 
+
 def enable(exaile):
     """
         Enables the plugin
@@ -30,6 +31,7 @@ def enable(exaile):
     global MENU_ITEM
     MENU_ITEM = RepeatSegmentMenuItem()
     providers.register('progressbar-context-menu', MENU_ITEM)
+
 
 def disable(exaile):
     """
@@ -39,12 +41,14 @@ def disable(exaile):
     MENU_ITEM.destroy()
     providers.unregister('progressbar-context-menu', MENU_ITEM)
 
+
 class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
                             providers.ProviderHandler):
     """
         Menu item allowing for insertion of two markers
         to signify beginning and end of the segment to repeat
     """
+
     def __init__(self):
         playback.MoveMarkerMenuItem.__init__(self,
             'repeat-segment', [], _('Repeat Segment'),
@@ -153,4 +157,3 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
             Removes both markers
         """
         self.clear_markers()
-

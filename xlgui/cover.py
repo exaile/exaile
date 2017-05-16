@@ -507,10 +507,12 @@ class CoverManager(GObject.GObject):
 
         return True
 
+
 class CoverMenu(guiutil.Menu):
     """
         Cover menu
     """
+
     def __init__(self, widget):
         """
             Initializes the menu
@@ -534,6 +536,7 @@ class CoverMenu(guiutil.Menu):
     def on_remove_clicked(self, *e):
         self.w.remove_cover()
 
+
 class CoverWidget(Gtk.EventBox):
     """
         Represents the cover widget displayed by the track information
@@ -541,6 +544,7 @@ class CoverWidget(Gtk.EventBox):
     __gsignals__ = {
         'cover-found': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
+
     def __init__(self, image):
         """
             Initializes the widget
@@ -791,6 +795,7 @@ class CoverWidget(Gtk.EventBox):
             os.remove(self.filename)
             self.filename = None
 
+
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""
 
@@ -998,6 +1003,7 @@ class CoverWindow(object):
             self.cover_window_width = allocation.width
             self.cover_window_height = allocation.height
 
+
 class CoverChooser(GObject.GObject):
     """
         Fetches all album covers for a string, and allows the user to choose
@@ -1015,6 +1021,7 @@ class CoverChooser(GObject.GObject):
             (object, object)
         )
     }
+
     def __init__(self, parent, track, search=None):
         """
             Expects the parent control, a track, an an optional search string
@@ -1183,4 +1190,3 @@ class CoverChooser(GObject.GObject):
         """
         if response == Gtk.ResponseType.CLOSE:
             self.window.destroy()
-

@@ -15,20 +15,26 @@ def test_is_valid_track_valid(test_track):
     fname = test_track.filename
     assert xl.trax.util.is_valid_track(fname), fname
 
+
 def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('/')
     assert not xl.trax.util.is_valid_track('/tmp')
     assert not xl.trax.util.is_valid_track(__file__)
     assert not xl.trax.util.is_valid_track('http:///tmp')
 
+
 class TestGetTracksFromUri(object):
+
     class DummyClass:
+
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval
+
         def query_info(self, value):
             assert value == 'standard::type'
             return self
+
         def get_file_type(self):
             return self.retval
 
@@ -97,6 +103,7 @@ class TestGetTracksFromUri(object):
         xl.trax.util.get_tracks_from_uri(loc)
         self.mox.VerifyAll()
 
+
 class TestSortTracks(object):
 
     def setup(self):
@@ -116,6 +123,7 @@ class TestSortTracks(object):
     def test_reversed(self):
         assert xl.trax.util.sort_tracks(self.fields,
             self.tracks, reverse=True) == list(reversed(self.result))
+
 
 class TestSortResultTracks(object):
 
@@ -138,4 +146,3 @@ class TestSortResultTracks(object):
     def test_reversed(self):
         assert xl.trax.util.sort_result_tracks(self.fields,
             self.tracks, True) == list(reversed(self.result))
-

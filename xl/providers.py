@@ -34,10 +34,12 @@ from xl import event
 import logging
 logger = logging.getLogger(__name__)
 
+
 class ProviderManager(object):
     """
         The overall manager for services and providers for them
     """
+
     def __init__(self):
         self.services = {}
 
@@ -171,12 +173,14 @@ unregister = MANAGER.unregister_provider
 get = MANAGER.get_providers
 get_provider = MANAGER.get_provider
 
+
 class ProviderHandler(object):
     """
         Base class to handle providers
         for one specific service including
         notification about (un)registration
     """
+
     def __init__(self, servicename, target=None, simple_init=False):
         """
             Target is the object that the service is being performed for.
@@ -258,6 +262,7 @@ class ProviderHandler(object):
         """
         return MANAGER.get_provider(self.servicename, providername, self.target)
 
+
 class MultiProviderHandler(object):
     '''
         This is useful for listening to multiple provider types
@@ -266,6 +271,7 @@ class MultiProviderHandler(object):
     '''
     
     class _ProxyProvider(ProviderHandler):
+
         def __init__(self, servicename, target, simple_init, parent):
             self.parent = parent
             ProviderHandler.__init__(self, servicename, target, simple_init)
@@ -311,4 +317,3 @@ class MultiProviderHandler(object):
         return providers
 
 # vim: et sts=4 sw=4
-

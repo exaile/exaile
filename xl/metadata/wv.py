@@ -25,9 +25,9 @@
 # from your version.
 
 
-
 from xl.metadata._apev2 import ApeFormat
 from mutagen import wavpack
+
 
 class WavpackFormat(ApeFormat):
     MutagenType = wavpack.WavPack
@@ -36,4 +36,3 @@ class WavpackFormat(ApeFormat):
         return -1
 
 # vim: et sts=4 sw=4
-

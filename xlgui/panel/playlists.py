@@ -56,8 +56,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-
 class TrackWrapper(object):
+
     def __init__(self, track, playlist):
         self.track = track
         self.playlist = playlist
@@ -93,6 +93,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
+
     def __init__(self):
         """
             Initializes the mixin
@@ -360,6 +361,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             #TODO do we save the playlist after this??
             self.playlist_manager.save_playlist(track.playlist, overwrite=True)
 
+
 class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
@@ -616,7 +618,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             path, position = drop_info
             iter = self.model.get_iter(path)
             drop_target = self.model.get_value(iter, 2)
-
 
             # if the current item is a track, use the parent playlist
             insert_index = None
@@ -884,10 +885,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             self.model.remove(iter)
             iter = self.model.iter_children(node)
 
+
 class PlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """
+
     def __init__(self, container, receive=True, source=True):
         DragTreeView.__init__(self, container, receive, source)
         self.show_cover_drag_icon = False
@@ -966,4 +969,3 @@ class PlaylistDragTreeView(DragTreeView):
             return item
         else:
             return None
-

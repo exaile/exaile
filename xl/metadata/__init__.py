@@ -84,6 +84,8 @@ formats = {
         }
 
 # pass get_loc_for_io() to this.
+
+
 def get_format(loc):
     """
         get a Format object appropriate for the file at loc.
@@ -126,4 +128,3 @@ def get_format(loc):
 
 
 # vim: et sts=4 sw=4
-

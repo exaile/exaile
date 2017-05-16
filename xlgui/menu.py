@@ -34,9 +34,11 @@ from xl import settings, providers
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, menuitems, dialogs
 
+
 def get_main():
     from xlgui import main
     return main.mainwindow()
+
 
 def get_selected_playlist():
     from xlgui import main
@@ -44,6 +46,7 @@ def get_selected_playlist():
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
+
 
 def __create_file_menu():
     items = []
@@ -95,6 +98,7 @@ def __create_file_menu():
         page = get_selected_playlist()
         if not page:
             return
+
         def on_message(dialog, message_type, message):
             """
                 Show messages in the main window message area
@@ -118,7 +122,6 @@ def __create_file_menu():
         accelerator='<Primary>w'))
     accelerators.append(Accelerator('<Primary>w', close_tab_cb))
 
-
     if get_main().controller.exaile.options.Debug:
         def restart_cb(*args):
             from xl import main
@@ -138,6 +141,7 @@ def __create_file_menu():
         providers.register('menubar-file-menu', item)
     for accelerator in accelerators:
         providers.register('mainwindow-accelerators', accelerator)
+
 
 def __create_edit_menu():
     items = []
@@ -172,6 +176,7 @@ def __create_edit_menu():
     for accelerator in accelerators:
         providers.register('mainwindow-accelerators', accelerator)
 
+
 def __create_view_menu():
     items = []
     accelerators = []
@@ -187,6 +192,7 @@ def __create_view_menu():
     def playlist_utilities_cb(widget, name, parent, context):
         settings.set_option('gui/playlist_utilities_bar_visible',
             widget.get_active())
+
     def playlist_utilities_is_checked(name, parent, context):
         return settings.get_option('gui/playlist_utilities_bar_visible', True)
     items.append(menu.check_menu_item('playlist-utilities', [items[-1].name],
@@ -208,10 +214,12 @@ def __create_view_menu():
     for accelerator in accelerators:
         providers.register('mainwindow-accelerators', accelerator)
 
+
 def __create_playlist_menu():
     items = []
     for item in items:
         providers.register('menubar-playlist-menu', item)
+
 
 def __create_tools_menu():
     items = []
@@ -226,6 +234,7 @@ def __create_tools_menu():
 
     for item in items:
         providers.register('menubar-tools-menu', item)
+
 
 def __create_help_menu():
     items = []

@@ -51,7 +51,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-
 class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
     """
         Playlist notebook action which allows for creating new playlists
@@ -108,7 +107,9 @@ class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
 
 providers.register('playlist-notebook-actions', NewPlaylistNotebookAction)
 
+
 class PlaylistNotebook(SmartNotebook):
+
     def __init__(self, manager_name, player, hotkey):
         SmartNotebook.__init__(self)
         
@@ -132,6 +133,7 @@ class PlaylistNotebook(SmartNotebook):
             
         # Simple factory for 'Recently Closed Tabs' MenuItem
         submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
+
         def factory(menu_, parent, context):
             if self.page_num(parent) == -1:
                 return None
@@ -363,6 +365,7 @@ class PlaylistNotebook(SmartNotebook):
         item_name = 'playlist%05d'%self.history_counter 
         close_time = datetime.now()
         # define a MenuItem factory that supports dynamic labels
+
         def factory(menu_, parent, context):
             item = None
             
@@ -387,7 +390,6 @@ class PlaylistNotebook(SmartNotebook):
                 key, mods = Gtk.accelerator_parse(self.accelerator.keys)
                 item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
                         Gtk.AccelFlags.VISIBLE)
-
 
             item.connect('activate', lambda w: self.restore_closed_tab(item_name=item_name))
 
@@ -459,7 +461,6 @@ class PlaylistNotebook(SmartNotebook):
         tab_nr %= self.get_n_pages()
         self.set_current_page(tab_nr)
 
-
     def on_option_set(self, event, settings, option):
         """
             Updates appearance on setting change
@@ -487,6 +488,7 @@ class PlaylistContainer(Gtk.Box):
         move to a different UI design that allowed arbitrary placement
         of UI elements if that was the case. 
     '''
+
     def __init__(self, manager_name, player):
         Gtk.Box.__init__(self)
     
@@ -527,7 +529,6 @@ class PlaylistContainer(Gtk.Box):
                 lambda *a: self._update_notebook_display())
         
         self._update_notebook_display()
-    
     
     def _move_tab(self, tab):
         if tab.notebook is self.notebooks[0]:
@@ -646,4 +647,3 @@ class PlaylistContainer(Gtk.Box):
         for notebook in self.notebooks:
             if notebook.show_current_track():
                 break
-

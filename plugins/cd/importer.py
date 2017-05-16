@@ -38,6 +38,7 @@ import xlgui
 
 
 class CDImporter(object):
+
     def __init__(self, tracks):
         self.tracks = [ t for t in tracks if
                 t.get_loc_for_io().startswith("cdda") ]

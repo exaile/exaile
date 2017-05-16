@@ -390,6 +390,7 @@ class FilesPanel(panel.Panel):
             if keyword and keyword.lower() not in low_name:
                 continue
             f = directory.get_child(info.get_name())
+
             def sortkey():
                 # HACK: Python 2 bug: strxfrm doesn't support unicode.
                 # https://bugs.python.org/issue2481
@@ -479,6 +480,7 @@ class FilesPanel(panel.Panel):
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
+
 class FilesDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from files
@@ -501,7 +503,6 @@ class FilesDragTreeView(DragTreeView):
         
         return False
         
-    
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks

@@ -63,12 +63,14 @@ DEFAULT_PRESETS = [
     ('Techno', 0, 1.2, -1.2, -6.8, -12.4, -11.6, -6.8, 1.2, 2.8, 2.8, 2.0),
 ]
 
+
 def enable(exaile):
     providers.register("gst_audio_filter", GSTEqualizer)
     if exaile.loading:
         event.add_ui_callback(_enable, 'gui_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(event_type, exaile, nothing):
     """
@@ -77,11 +79,13 @@ def _enable(event_type, exaile, nothing):
     global EQ_MAIN
     EQ_MAIN = EqualizerPlugin(exaile)
 
+
 def disable(exaile):
     providers.unregister("gst_audio_filter", GSTEqualizer)
     global EQ_MAIN
     EQ_MAIN.disable()
     EQ_MAIN = None
+
 
 class GSTEqualizer(ElementBin):
     """
@@ -89,6 +93,7 @@ class GSTEqualizer(ElementBin):
     """
     index = 99
     name = "equalizer-10bands"
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
 
@@ -142,6 +147,7 @@ class GSTEqualizer(ElementBin):
     def dB_to_percent(self, dB):
         return 10**(dB / 10)
 
+
 class EqualizerPlugin:
     """
     Equalizer plugin class
@@ -173,7 +179,6 @@ class EqualizerPlugin:
 
         if settings.get_option("plugin/equalizer/enabled") == None:
             settings.set_option("plugin/equalizer/enabled", True)
-
 
     def disable(self):
 
@@ -319,8 +324,6 @@ class EqualizerPlugin:
                         d.get_value( d.get_iter(i), band+2))
                 self.ui.get_object("band%s"%band).set_value(
                         d.get_value( d.get_iter(i), band+2))
-
-
 
     def toggle_enabled(self, widget):
         settings.set_option("plugin/equalizer/enabled", widget.get_active())

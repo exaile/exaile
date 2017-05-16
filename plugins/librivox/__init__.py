@@ -45,11 +45,13 @@ from xlgui import (
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.notebook import NotebookPage
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(o1, exaile, o2):
     global LVPANEL
@@ -64,6 +66,7 @@ def disable(exaile):
         LVPANEL.aboutwindow.win.destroy()
 
     providers.unregister('main-panel', LVPANEL)
+
 
 class LVPanel():
 
@@ -222,7 +225,6 @@ class LVPanel():
         tracks = self.generate_tracks(chapters)
         current_playlist.playlist.extend(tracks)
 
-
     def menu_popup(self, treeview, event):
         if event.button == Gdk.BUTTON_SECONDARY:
             x = int(event.x)
@@ -303,7 +305,6 @@ class LVPanel():
         self.get_all(row)
         self.drop_after_getting(book, current_playlist, PLpath, after)
 
-
     @guiutil.idle_add()
     def drop_after_getting(self, book, current_playlist, PLpath, after):
         # simulates drag_data_received() function of xlgui/playlist.py
@@ -353,7 +354,6 @@ class LVPanel():
         elif self.aboutwindow.showing:
             self.aboutwindow.win.present()
 
-
     def get_all(self, row):
         (c_id, msg_id)=self.statusbar.set_status('Loading...')
         self.books[row].is_loading=True
@@ -368,17 +368,17 @@ class LVPanel():
         return self._panel
 
 
-
 class Status():
     '''Status bar'''
+
     def __init__(self):
         self.bar=Gtk.Statusbar()
         self.bar.show_all()
+
     def set_status(self, status):
         context_id=1
         msg_id=self.bar.push(context_id, status)
         return (context_id, msg_id)
+
     def unset_status(self, context_id, msg_id):
         self.bar.remove(context_id, msg_id)
-
-

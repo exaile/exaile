@@ -39,6 +39,7 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
+
 class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
@@ -59,6 +60,7 @@ class PlayQueue(playlist.Playlist):
         
         TODO: Queue needs to be threadsafe!
     """
+
     def __init__(self, player, name, location=None):
         playlist.Playlist.__init__(self, name=name)
     
@@ -138,7 +140,6 @@ class PlayQueue(playlist.Playlist):
         else:
             return None
     
-
     def next(self, autoplay=True, track=None):
         """
             Goes to the next track, either in the queue, or in the current

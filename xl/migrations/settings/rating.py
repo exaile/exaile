@@ -26,6 +26,7 @@
 
 from xl import settings
 
+
 def migrate():
     """
         Migrates the old 'miscellaneous/rating_*'
@@ -38,4 +39,3 @@ def migrate():
     if settings.MANAGER.has_option('miscellaneous/rating_widget_tracks_limit'):
         value = settings.get_option('miscellaneous/rating_widget_tracks_limit', 100)
         settings.set_option('rating/tracks_limit', value)
-

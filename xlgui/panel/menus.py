@@ -83,6 +83,7 @@ class TrackPanelMenu(menu.ProviderMenu):
         
         Provider key: track-panel-menu
     '''
+
     def __init__(self, parent):
         menu.ProviderMenu.__init__(self, 'track-panel-menu', parent)
     
@@ -111,12 +112,14 @@ def __create_collection_panel_context_menu():
         
 __create_collection_panel_context_menu()
 
+
 class CollectionContextMenu(menu.MultiProviderMenu):
     '''
         Context menu when a collection track is clicked
         
         Provider keys: track-panel-menu, collection-panel-context-menu
     '''
+
     def __init__(self, panel):
         menu.MultiProviderMenu.__init__(self, 
             ['track-panel-menu', 'collection-panel-context-menu']
@@ -129,6 +132,7 @@ class CollectionContextMenu(menu.MultiProviderMenu):
         return context
 
 ### Files panel menu
+
 
 def __create_files_panel_context_menu():
     
@@ -145,6 +149,7 @@ def __create_files_panel_context_menu():
         item.register('files-panel-context-menu')
     
 __create_files_panel_context_menu()
+
 
 class FilesContextMenu(menu.MultiProviderMenu):
     '''
@@ -167,6 +172,7 @@ class FilesContextMenu(menu.MultiProviderMenu):
         return context
 
 ### Playlist panel menus
+
 
 def __create_playlist_panel_menus():
     
@@ -231,6 +237,7 @@ class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
         
         Provider keys: playlist-panel-menu, track-panel-menu, playlist-panel-context-menu
     '''
+
     def __init__(self, parent):
         menu.MultiProviderMenu.__init__(self, 
             ['playlist-panel-menu', 'track-panel-menu', 'playlist-panel-context-menu'], 
@@ -246,6 +253,7 @@ class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
 
 ### Radio panel menu
     
+
 def __create_radio_panel_menus():
     
     # w, n, o, c: window, name, parent, context
@@ -256,10 +264,12 @@ def __create_radio_panel_menus():
 
 __create_radio_panel_menus()
         
+
 class RadioPanelPlaylistMenu(menu.MultiProviderMenu):
     '''
         Context menu when a playlist is clicked
     '''
+
     def __init__(self, parent):
         menu.MultiProviderMenu.__init__(self, 
             ['radio-panel-menu', 'track-panel-menu', 'playlist-panel-context-menu'], 
@@ -271,4 +281,3 @@ class RadioPanelPlaylistMenu(menu.MultiProviderMenu):
         context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
         context['selection-empty'] = lambda name, parent: parent.tree.get_selection_empty()
         return context
-

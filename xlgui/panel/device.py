@@ -33,10 +33,12 @@ from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 from xlgui.panel.flatplaylist import FlatPlaylistPanel
 
+
 class DeviceTransferThread(common.ProgressThread):
     """
         Transfers tracks from devices
     """
+
     def __init__(self, device):
         common.ProgressThread.__init__(self)
 
@@ -70,7 +72,9 @@ class DeviceTransferThread(common.ProgressThread):
             event.remove_callback(self.on_track_transfer_progress,
                 'track_transfer_progress', self.device.transfer)
 
+
 class ReceptiveCollectionPanel(CollectionPanel):
+
     def drag_data_received(self, widget, context, x, y, data, info, stamp):
         uris = data.get_uris()
         tracks, playlists = self.tree.get_drag_data(uris)
@@ -90,6 +94,7 @@ class ReceptiveCollectionPanel(CollectionPanel):
         # this _needs_ to be asynchronous
         for l in locs:
             lib.add(l)
+
 
 class DevicePanel(panel.Panel):
     """
@@ -142,6 +147,7 @@ class DevicePanel(panel.Panel):
 
     def load_tree(self, *args):
         self.collectionpanel.load_tree(*args)
+
 
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {

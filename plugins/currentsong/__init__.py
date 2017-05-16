@@ -23,6 +23,7 @@ import sys
 
 ##############################################################################
 
+
 class Pidgin :
 
     def __init__(self, dbusInterface) :
@@ -78,6 +79,7 @@ class Pidgin :
 
 ##############################################################################
 
+
 def on_begin_action(type, player, track):
     client.setTune(
             track.get_tag_display('artist'),
@@ -85,14 +87,17 @@ def on_begin_action(type, player, track):
             track.get_tag_display('album')
             )
 
+
 def on_stop_action(type, player, track):
     client.setTune("", "", "")
+
 
 def on_pause_action(type, player, track):
     if player.is_playing():
         on_begin_action(type, player, track)
     else:
         on_stop_action(type, player, track)
+
 
 def enable(exaile):
     global client
@@ -104,6 +109,7 @@ def enable(exaile):
     event.add_callback(on_stop_action, 'playback_player_end', player.PLAYER)
     event.add_callback(on_begin_action, 'playback_track_start', player.PLAYER)
     event.add_callback(on_pause_action, 'playback_toggle_pause', player.PLAYER)
+
 
 def disable(exaile):
     event.remove_callback(on_stop_action, 'quit_application')

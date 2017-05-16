@@ -38,23 +38,29 @@ icons.MANAGER.add_icon_name_from_directory('audioscrobbler',
     os.path.join(basedir, 'icons'))
 icon = 'audioscrobbler'
 
+
 class SubmitPreference(widgets.CheckPreference):
     default = True
     name = 'plugin/ascrobbler/submit'
+
 
 class MenuCheck(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/menu_check'
 
+
 class ScrobbleRemote(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/scrobble_remote'
 
+
 class UserPreference(widgets.Preference):
     name = 'plugin/ascrobbler/user'
 
+
 class PassPreference(widgets.HashedPreference):
     name = 'plugin/ascrobbler/password'
+
 
 class UrlPreference(widgets.ComboEntryPreference):
     name = 'plugin/ascrobbler/url'
@@ -63,6 +69,7 @@ class UrlPreference(widgets.ComboEntryPreference):
         'http://post.audioscrobbler.com/': 'Last.fm',
         'http://turtle.libre.fm/': 'Libre.fm'
     }
+
 
 class VerifyLoginButton(widgets.Button):
     name = 'plugin/ascrobbler/verify_login'
@@ -123,4 +130,3 @@ class VerifyLoginButton(widgets.Button):
         """
         self.widget.set_sensitive(False)
         self.check_login()
-

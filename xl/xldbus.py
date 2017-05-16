@@ -47,11 +47,13 @@ from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
+
 def check_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
     dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus')
     avail = dbus_iface.ListNames()
     return interface in avail
+
 
 def check_exit(options, args):
     """
@@ -93,6 +95,7 @@ def check_exit(options, args):
 
     run_commands(options, iface)
     return "exit"
+
 
 def run_commands(options, iface):
     """
@@ -185,10 +188,12 @@ PlaybackStatus = namedtuple(
     'state progress position current'
 )
 
+
 class DbusManager(dbus.service.Object):
     """
         The dbus interface object for Exaile
     """
+
     def __init__(self, exaile):
         """
             Initilializes the interface
@@ -217,7 +222,6 @@ class DbusManager(dbus.service.Object):
             'playback_buffering', player.PLAYER)
         event.add_callback(self.emit_state_changed,
             'playback_error', player.PLAYER)
-
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -476,7 +480,6 @@ class DbusManager(dbus.service.Object):
             )
 
         return status
-
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def Query(self):

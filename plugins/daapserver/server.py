@@ -27,6 +27,7 @@ logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']
 
+
 class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
@@ -45,7 +46,9 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
         self.keep_running = False
         self.server_close()
         
+
 class DaapServer():
+
     def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
 #        Thread.__init__(self)
         self.host = host

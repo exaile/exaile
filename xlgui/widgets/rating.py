@@ -34,6 +34,7 @@ from xl.nls import gettext as _
 
 from xlgui import icons
 
+
 class RatingWidget(Gtk.EventBox):
     """
         A rating widget which displays a row of
@@ -225,6 +226,7 @@ class RatingWidget(Gtk.EventBox):
         else:
             self.set_sensitive(False)
 
+
 class RatingMenuItem(Gtk.MenuItem):
     """
         A menuitem containing a rating widget
@@ -247,6 +249,7 @@ class RatingMenuItem(Gtk.MenuItem):
             (GObject.TYPE_INT,)
         )
     }
+
     def __init__(self, rating=0, player=None):
         """
             :param rating: the optional initial rating
@@ -320,6 +323,7 @@ class RatingMenuItem(Gtk.MenuItem):
             Forwards the event
         """
         self.emit('rating-changed', rating)
+
 
 class RatingCellRenderer(Gtk.CellRendererPixbuf):
     """

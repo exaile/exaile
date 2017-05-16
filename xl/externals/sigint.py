@@ -12,6 +12,7 @@ import signal
 
 from gi.repository import GLib
 
+
 class InterruptibleLoopContext(object):
     """
     Context Manager for GLib/Gtk based loops.
@@ -67,4 +68,3 @@ class InterruptibleLoopContext(object):
         if self._quit_by_sigint:
             # caught by _glib_sigint_handler()
             raise KeyboardInterrupt
-

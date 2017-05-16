@@ -34,6 +34,7 @@ from spydaap.daap import do
 #daap.songdatakind,
 #daap.songdataurl
 
+
 class VorbisParser(spydaap.parser.Parser):
     vorbis_string_map = {
         'grouping' : 'daap.songgrouping',
@@ -79,6 +80,7 @@ class VorbisParser(spydaap.parser.Parser):
         if disccount: d.append(do('daap.songdisccount', disccount))
         
     file_re = re.compile(".*\\.([fF][lL][aA][cC]|[oO][gG]{2})$")
+
     def understands(self, filename):
         return self.file_re.match(filename)
 

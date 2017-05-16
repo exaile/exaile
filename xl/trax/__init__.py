@@ -49,4 +49,3 @@ from xl.trax.util import (
         sort_tracks,
         sort_result_tracks,
         get_rating_from_tracks)
-

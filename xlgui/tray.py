@@ -77,6 +77,7 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
+
     def rating_get_tracks_func(parent, context):
         current = player.PLAYER.current
         if current:
@@ -90,6 +91,7 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
+
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
@@ -104,6 +106,7 @@ class BaseTrayIcon(object):
     """
         Trayicon base, needs to be derived from
     """
+
     def __init__(self, main):
         self.main = main
         self.VOLUME_STEP = 0.05
@@ -233,10 +236,12 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
+
 class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """
         Wrapper around GtkStatusIcon
     """
+
     def __init__(self, main):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)

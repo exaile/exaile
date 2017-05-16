@@ -51,12 +51,14 @@ icons.MANAGER.add_icon_name_from_directory('love',
 icons.MANAGER.add_icon_name_from_directory('send-receive',
     os.path.join(basedir, 'icons'))
 
+
 def enable(exaile):
     """
         Handles the deferred enable call
     """
     global LASTFMLOVER
     LASTFMLOVER = LastFMLover()
+
 
 def disable(exaile):
     """
@@ -65,8 +67,10 @@ def disable(exaile):
     global LASTFMLOVER
     LASTFMLOVER.destroy()
 
+
 def get_preferences_pane():
     return lastfmlove_preferences
+
 
 class LoveColumn(Column):
     name = 'loved'
@@ -119,11 +123,13 @@ class LoveColumn(Column):
             track = self.model.get_value(self.model.get_iter(path), 0)
             LASTFMLOVER.toggle_loved(track)
 
+
 class LoveMenuItem(MenuItem):
     """
         A menu item representing the loved state of a
         track and allowing for loving and unloving it
     """
+
     def __init__(self, after, get_tracks_function=None):
         MenuItem.__init__(self, 'loved', None, after)
         self.get_tracks_function = get_tracks_function
@@ -172,11 +178,13 @@ class LoveMenuItem(MenuItem):
 
         LASTFMLOVER.toggle_loved(track)
 
+
 class LastFMLover(object):
     """
         Allows for retrieval and setting
         of loved tracks via Last.fm
     """
+
     def __init__(self):
         """
             Sets up the connection to Last.fm
@@ -344,4 +352,3 @@ class LastFMLover(object):
             self.setup_network()
         elif option == 'plugin/lastfmlove/refresh_interval':
             self.restart_timer()
-

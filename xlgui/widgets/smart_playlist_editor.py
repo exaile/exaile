@@ -52,20 +52,28 @@ logger = logging.getLogger(__name__)
 
 def N_(x): return x
 
+
 class EntrySecondsField(MultiEntryField):
+
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('seconds')))
 
+
 class EntryAndEntryField(MultiEntryField):
+
     def __init__(self):
         # TRANSLATORS: Logical AND used for smart playlists
         MultiEntryField.__init__(self, (50, _('and'), 50))
 
+
 class EntryDaysField(MultiEntryField):
+
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('days')))
         
+
 class PlaylistField(ComboEntryField):
+
     def __init__(self):
         playlists = []
         playlists.extend(main.exaile().smart_playlists.list_playlists())
@@ -75,20 +83,29 @@ class PlaylistField(ComboEntryField):
 
 DATE_FIELDS = [
     N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
+
+
 class SpinDateField(SpinButtonAndComboField):
+
     def __init__(self):
         SpinButtonAndComboField.__init__(self, DATE_FIELDS)
 
+
 class SpinSecondsField(SpinLabelField):
+
     def __init__(self):
         SpinLabelField.__init__(self, _('seconds'))
 
+
 class SpinRating(SpinLabelField):
+
     def __init__(self):
         SpinLabelField.__init__(self, '', 
                 settings.get_option("rating/maximum", 5), 0)
 
+
 class SpinNothing(SpinLabelField):
+
     def __init__(self):
         SpinLabelField.__init__(self, '')
 
@@ -264,7 +281,6 @@ def __update_maps():
         _REV_NMAP[v] = k
 
 __update_maps()
-
 
 
 class SmartPlaylistEditor(object):

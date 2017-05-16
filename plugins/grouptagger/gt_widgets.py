@@ -60,6 +60,7 @@ uncategorized = _('Uncategorized')
 
 
 class GTShowTracksMenuItem(menu.MenuItem):
+
     def __init__(self, name, after):
         menu.MenuItem.__init__(self, name, None, after)
         
@@ -78,7 +79,9 @@ class GTShowTracksMenuItem(menu.MenuItem):
         menuitem.connect('activate', lambda *e: gt_common.create_all_search_playlist( context['groups'], parent.exaile ))
         return menuitem
 
+
 class GroupTaggerContextMenu(menu.Menu):
+
     def __init__(self, tagger):
         menu.Menu.__init__(self, tagger)
         
@@ -167,7 +170,6 @@ class GroupTaggerView(Gtk.TreeView):
             
             self.menu.add_item( sep( 'sep2', ['remcat'] ) )
             
-        
         self.menu.add_item( GTShowTracksMenuItem( 'sel', ['sep2'] ) )
             
         item = smi( 'selcust', ['sel'], _('Show tracks with selected (custom)'), \
@@ -194,7 +196,6 @@ class GroupTaggerView(Gtk.TreeView):
         context['categories'] = lambda name, parent: parent.get_selected_categories( context['selected-rows'] )
         return context
             
-        
     def show_click_column(self):
         if len(self.get_columns()) == 1:
             self.insert_column( self.click_column, 0)
@@ -202,7 +203,6 @@ class GroupTaggerView(Gtk.TreeView):
     def hide_click_column(self):
         if len(self.get_columns()) == 2:
             self.remove_column( self.click_column )
-    
     
     def on_notify_model(self, object, property_spec):
         model = self.get_model()
@@ -222,7 +222,6 @@ class GroupTaggerView(Gtk.TreeView):
             else:
                 self.emit( 'group-changed', group_change.edited, old )
                 
-        
     def on_row_changed(self, model, path, iter):
         if self.get_model() and not model.is_category(path):
             category = model.get_category(path)
@@ -241,7 +240,6 @@ class GroupTaggerView(Gtk.TreeView):
     
     def on_row_expanded( self, widget, iter, path ):
         self.emit( 'category-changed', category_change.expanded, self.get_model().get_category(path) )
-            
             
     def on_toggle( self, cell, path ):
         self.get_model()[path][0] = not cell.get_active()
@@ -299,7 +297,6 @@ class GroupTaggerView(Gtk.TreeView):
             for group in groups:
                 self.emit( 'group-changed', group_change.deleted, group )
         
-        
     def get_selected_groups(self, selected_rows):
         model, rows = selected_rows
         return model.get_selected_groups( rows )
@@ -323,6 +320,7 @@ class GroupTaggerView(Gtk.TreeView):
                 for row in self.get_model():
                     if row[0]:
                         self.expand_row(row.path, True)
+
 
 class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
@@ -390,7 +388,6 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         
         return categories
     
-        
     def delete_selected_groups(self, paths):
         '''Deletes selected groups, returns a list of the removed groups'''
         groups = []
@@ -411,7 +408,6 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         else:
             return self[(path[0],)][1]
         
-            
     def get_category_groups(self, category):
         return [row[1] for row in self.iter_category(category)]
         
@@ -451,8 +447,6 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         for row in self.iter_group_rows():
             yield row[1]
                 
-    
-        
     #def has_group(self, group):
     #    for row in self:
     #        for chrow in row:
@@ -521,7 +515,6 @@ class GroupTaggerWidget(Gtk.Box):
         
     def on_add_tag_click(self, widget):
         self.view.on_menu_add_group( self.view, None, None, self.view.get_context() )
-            
             
     def set_font(self, font):
         self.view.set_font(font)
@@ -631,8 +624,8 @@ class GroupTaggerPanel(notebook.NotebookPage):
         return self
 
         
-
 class AllTagsListView(Gtk.TreeView):
+
     def __init__(self, model=None):
         Gtk.TreeView.__init__(self, model)
         
@@ -667,6 +660,7 @@ class AllTagsListView(Gtk.TreeView):
     
     
 class AllTagsListStore(Gtk.ListStore):
+
     def __init__(self):
         Gtk.ListStore.__init__(self, GObject.TYPE_BOOLEAN, GObject.TYPE_STRING)
         self.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -770,7 +764,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             
             self.combos.append( (gcombo, combo) )
             
-            
         self.vbox.pack_start(self.table, True, True, 0)
         
         self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
@@ -789,7 +782,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
                 return i
         return -1
             
-        
     def get_search_params(self):
         '''Returns (name, search_string) from user selections'''
         
@@ -846,6 +838,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
         return (name, regex)
 
+
 class GroupTaggerAddRemoveDialog(Gtk.Dialog):
     
     def __init__(self, add, tracks, exaile):
@@ -876,4 +869,3 @@ class GroupTaggerAddRemoveDialog(Gtk.Dialog):
 
     def get_active(self):
         return list(self.tagger.view.get_model().iter_active())
-    

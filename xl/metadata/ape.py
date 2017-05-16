@@ -25,12 +25,11 @@
 # from your version.
 
 
-
 from xl.metadata._apev2 import ApeFormat
 from mutagen import monkeysaudio
+
 
 class MonkeysFormat(ApeFormat):
     MutagenType = monkeysaudio.MonkeysAudio
 
 # vim: et sts=4 sw=4
-

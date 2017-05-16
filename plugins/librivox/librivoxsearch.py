@@ -25,7 +25,9 @@ logger = logging.getLogger(__name__)
 # matching.. if they fix it, we'll fix it. >_>
 search_url = 'http://librivox.org/api/feed/audiobooks/?title='
 
+
 class Book():
+
     def __init__(self, title, rssurl, user_agent):
         self.title=title
         self.rssurl=rssurl
@@ -36,7 +38,6 @@ class Book():
         self.xmltree=None
         self.loaded=False
         self.user_agent = user_agent
-
 
     def get_all(self):
         '''
@@ -75,10 +76,6 @@ class Book():
         return
 
 
-
-
-
-
 def find_books(keyword, user_agent):
     '''
         Returns a list of Book instances, with unknown chapters...
@@ -113,4 +110,3 @@ def find_books(keyword, user_agent):
                 books.append(book)
     
     return books
-

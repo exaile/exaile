@@ -48,6 +48,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
 
+
 class Column(Gtk.TreeViewColumn):
     name = ''
     display = ''
@@ -109,7 +110,6 @@ class Column(Gtk.TreeViewColumn):
         self._setup_sizing()
 
         event.add_ui_callback(self.on_option_set, "gui_option_set")
-
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
@@ -186,7 +186,6 @@ class Column(Gtk.TreeViewColumn):
         if type(cell) == Gtk.CellRendererText:
             playlist = self.container.playlist
 
-            
             if playlist is not self.player.queue.current_playlist:
                 return
 
@@ -211,6 +210,7 @@ class Column(Gtk.TreeViewColumn):
         return '%s(%r, %r, %r)' % (self.__class__.__name__,
             self.name, self.display, self.size)
 
+
 class TrackNumberColumn(Column):
     name = 'tracknumber'
     #TRANSLATORS: Title of the track number column
@@ -220,12 +220,14 @@ class TrackNumberColumn(Column):
     cellproperties = {'xalign': 1.0, 'width-chars': 4}
 providers.register('playlist-columns', TrackNumberColumn)
 
+
 class TitleColumn(Column):
     name = 'title'
     display = _('Title')
     size = 200
     autoexpand = True
 providers.register('playlist-columns', TitleColumn)
+
 
 class ArtistColumn(Column):
     name = 'artist'
@@ -234,12 +236,14 @@ class ArtistColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', ArtistColumn)
 
+
 class ComposerColumn(Column):
     name = 'composer'
     display = _('Composer')
     size = 150
     autoexpand = True
 providers.register('playlist-columns', ComposerColumn)
+
 
 class AlbumColumn(Column):
     name = 'album'
@@ -248,12 +252,14 @@ class AlbumColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', AlbumColumn)
 
+
 class LengthColumn(Column):
     name = '__length'
     display = _('Length')
     size = 50
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', LengthColumn)
+
 
 class DiscNumberColumn(Column):
     name = 'discnumber'
@@ -262,6 +268,7 @@ class DiscNumberColumn(Column):
     size = 40
     cellproperties = {'xalign': 1.0, 'width-chars': 2}
 providers.register('playlist-columns', DiscNumberColumn)
+
 
 class RatingColumn(Column):
     name = '__rating'
@@ -307,17 +314,20 @@ class RatingColumn(Column):
         event.log_event('rating_changed', self, rating)
 providers.register('playlist-columns', RatingColumn)
 
+
 class DateColumn(Column):
     name = 'date'
     display = _('Date')
     size = 50
 providers.register('playlist-columns', DateColumn)
 
+
 class YearColumn(Column):
     name = 'year'
     display = _('Year')
     size = 45
 providers.register('playlist-columns', YearColumn)
+
 
 class GenreColumn(Column):
     name = 'genre'
@@ -326,12 +336,14 @@ class GenreColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', GenreColumn)
 
+
 class BitrateColumn(Column):
     name = '__bitrate'
     display = _('Bitrate')
     size = 45
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', BitrateColumn)
+
 
 class IoLocColumn(Column):
     name = '__loc'
@@ -340,12 +352,14 @@ class IoLocColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', IoLocColumn)
 
+
 class FilenameColumn(Column):
     name = '__basename'
     display = _('Filename')
     size = 200
     autoexpand = True
 providers.register('playlist-columns', FilenameColumn)
+
 
 class PlayCountColumn(Column):
     name = '__playcount'
@@ -354,12 +368,14 @@ class PlayCountColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', PlayCountColumn)
 
+
 class BPMColumn(Column):
     name = 'bpm'
     display = _('BPM')
     size = 50
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', BPMColumn)
+
 
 class LanguageColumn(Column):
     name = 'language'
@@ -368,17 +384,20 @@ class LanguageColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', LanguageColumn)
 
+
 class LastPlayedColumn(Column):
     name = '__last_played'
     display = _('Last played')
     size = 80
 providers.register('playlist-columns', LastPlayedColumn)
 
+
 class DateAddedColumn(Column):
     name = '__date_added'
     display = _('Date added')
     size = 80
 providers.register('playlist-columns', DateAddedColumn)
+
 
 class ScheduleTimeColumn(Column):
     name = 'schedule_time'
@@ -499,6 +518,7 @@ class ScheduleTimeColumn(Column):
         self.stop_timer()
 providers.register('playlist-columns', ScheduleTimeColumn)
 
+
 class CommentColumn(Column):
     name = 'comment'
     display = _('Comment')
@@ -508,12 +528,14 @@ class CommentColumn(Column):
     formatter = TrackFormatter('${comment:newlines=strip}')
 providers.register('playlist-columns', CommentColumn)
 
+
 class GroupingColumn(Column):
     name = 'grouping'
     display = _('Grouping')
     size = 200
     autoexpand = True
 providers.register('playlist-columns', GroupingColumn)
+
 
 class StartOffsetColumn(Column):
     name = '__startoffset'
@@ -522,12 +544,14 @@ class StartOffsetColumn(Column):
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', StartOffsetColumn)
 
+
 class StopOffsetColumn(Column):
     name = '__stopoffset'
     display = _('Stop Offset')
     size = 50
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', StopOffsetColumn)
+
 
 class WebsiteColumn(Column):
     name = 'website'
@@ -536,11 +560,13 @@ class WebsiteColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', WebsiteColumn)
 
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the
         status of a column and change it
     """
+
     def __init__(self, column, after=None):
         """
             Sets up the menu item from a column description
@@ -586,6 +612,7 @@ class ColumnMenuItem(menu.MenuItem):
             columns.append(name)
 
         settings.set_option('gui/columns', columns)
+
 
 def __register_playlist_columns_menuitems():
     """
@@ -662,4 +689,3 @@ def __register_playlist_columns_menuitems():
     for menu_item in menu_items:
         providers.register('playlist-columns-menu', menu_item)
 __register_playlist_columns_menuitems()
-

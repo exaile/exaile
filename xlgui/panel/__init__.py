@@ -32,6 +32,7 @@ from gi.repository import GObject
 from xl import xdg
 from xlgui.widgets.notebook import NotebookPage
 
+
 class Panel(GObject.GObject):
     """
         The base panel class.

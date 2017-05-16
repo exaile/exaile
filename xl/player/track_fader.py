@@ -166,6 +166,7 @@ class TrackFader(object):
             self.timer_id = GLib.timeout_add(10, self._execute_fade,
                                                  start,
                                                  fade_len)
+
     def get_user_volume(self):
         return self.user_volume
     
@@ -365,4 +366,3 @@ class TrackFader(object):
             return False
             
         return True
-

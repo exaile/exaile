@@ -36,7 +36,9 @@ _SETTINGS_MAP = (
     (str,   'ui',       'tab_placement',    'gui/tab_placement', '_set_tab_placement'),
 )
 
+
 class MigrationException(Exception): pass
+
 
 def migration_needed():
     # check for the presence of old exaile settings
@@ -74,6 +76,7 @@ def migration_needed():
         return False
 
     return True
+
 
 def _migrate_old_tracks(oldsettings, db, ntdb):
     libraries = eval(oldsettings.get('DEFAULT', 'search_paths'))
@@ -124,6 +127,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
     ntdb.add_tracks(newtracks)
     ntdb.save_to_location()
 
+
 def _set_tab_placement(section, oldsetting, oldsettings):
     val = int(oldsettings.get(section, oldsetting))
     
@@ -131,6 +135,7 @@ def _set_tab_placement(section, oldsetting, oldsettings):
     elif val == 1: return 'left'
     elif val == 2: return 'right'
     elif val == 3: return 'bottom'
+
 
 def _set_track_columns(section, oldsetting, oldsettings):
     items = eval(oldsettings.get(section, oldsetting)) 
@@ -143,6 +148,7 @@ def _set_track_columns(section, oldsetting, oldsettings):
             newitems.append(item)
 
     return newitems
+
 
 def _crypt(string, key):
     """
@@ -161,6 +167,8 @@ def _crypt(string, key):
     return cryptstr
 
 XOR_KEY = "You're not drunk if you can lie on the floor without hanging on"
+
+
 def _set_lastfm_password(section, oldsetting, oldsettings):
     string = oldsettings.get(section, oldsetting)
 
@@ -173,6 +181,7 @@ def _set_lastfm_password(section, oldsetting, oldsettings):
             continue
 
     return _crypt(new, XOR_KEY)
+
 
 def _migrate_old_settings(oldsettings):
     for (t, section, oldsetting, newspot, func) in _SETTINGS_MAP:
@@ -188,6 +197,7 @@ def _migrate_old_settings(oldsettings):
             settings.set_option(newspot, value)
         except:
             common.log_exception(log=logger)
+
 
 def _migrate_playlists(db, newdb, playlists):
     p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name') 
@@ -208,6 +218,7 @@ def _migrate_playlists(db, newdb, playlists):
             playlists.save_playlist(pl)
 
     playlists.save_order()
+
 
 def migrate(force=False):
     if not force and not migration_needed():

@@ -29,7 +29,9 @@ import os, sys, traceback
 from cStringIO import StringIO
 from xl.nls import gettext as _
 
+
 class PyConsole():
+
     def __init__(self, dict, exaile):
         self.dict = dict
         self.buffer = StringIO()
@@ -85,6 +87,7 @@ class PyConsole():
 
 PLUGIN = None
 
+
 def enable(exaile):
     if exaile.loading:
         from xl import event
@@ -92,17 +95,20 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def _enable(eventname, exaile, eventdata):
     global PLUGIN
     PLUGIN = PyConsole({'exaile': exaile}, exaile)
     PLUGIN.window.set_transient_for(exaile.gui.main.window)
     PLUGIN.window.present()
 
+
 def console_destroyed(window, event, exaile):
     """Disable plugin on window destroy"""
     global PLUGIN
     if PLUGIN:
         exaile.plugins.disable_plugin(__name__)
+
 
 def disable(exaile):
     global PLUGIN

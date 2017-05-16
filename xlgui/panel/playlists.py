@@ -633,7 +633,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     # If we want to go after we have to append 1
                     insert_index = drop_target_index + 1
             else:
-                current_playlist = drop_target;
+                current_playlist = drop_target
 
             # Since the playlist do not have very good support for
             # duplicate tracks we have to perform some trickery

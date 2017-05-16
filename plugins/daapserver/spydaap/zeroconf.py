@@ -30,7 +30,7 @@ class Zeroconf(object):
         def publish(self):
             import pybonjour
             #records as in mt-daapd
-            txtRecord=pybonjour.TXTRecord()
+            txtRecord = pybonjour.TXTRecord()
             txtRecord['txtvers']            = '1'
             txtRecord['iTSh Version']       = '131073' #'196609'
             txtRecord['Machine Name']       = self.name
@@ -47,10 +47,10 @@ class Zeroconf(object):
             def register_callback(sdRef, flags, errorCode, name, regtype, domain):
                 pass
 
-            self.sdRef = pybonjour.DNSServiceRegister(name = self.name,
-                                                      regtype = "_daap._tcp",
-                                                      port = self.port,
-                                                      callBack = register_callback,
+            self.sdRef = pybonjour.DNSServiceRegister(name=self.name,
+                                                      regtype="_daap._tcp",
+                                                      port=self.port,
+                                                      callBack=register_callback,
                                                       txtRecord=txtRecord)
             
             while True:

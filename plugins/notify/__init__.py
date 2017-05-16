@@ -59,7 +59,7 @@ class ExaileNotification(object):
 
     resize = __inner_preference(notifyprefs.ResizeCovers)
     body_artistalbum = __inner_preference(notifyprefs.BodyArtistAlbum)
-    body_artist= __inner_preference(notifyprefs.BodyArtist)
+    body_artist = __inner_preference(notifyprefs.BodyArtist)
     body_album = __inner_preference(notifyprefs.BodyAlbum)
     summary = __inner_preference(notifyprefs.Summary)
     attach_tray = __inner_preference(notifyprefs.AttachToTray)

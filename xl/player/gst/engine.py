@@ -160,7 +160,7 @@ class ExaileGstEngine(ExaileEngine):
         
         cf_duration = None
         if self.crossfade_enabled:
-            cf_duration = self.crossfade_duration/1000.0
+            cf_duration = self.crossfade_duration / 1000.0
             
             if self.other_stream is None:
                 self.other_stream = AudioStream(self)
@@ -297,12 +297,12 @@ class ExaileGstEngine(ExaileEngine):
         if self.crossfade_enabled:
             self.main_stream, self.other_stream = self.other_stream, self.main_stream
             self.main_stream.play(track, start_at, paused, already_queued,
-                                  self.crossfade_duration/1000.0,
-                                  self.crossfade_duration/1000.0)
+                                  self.crossfade_duration / 1000.0,
+                                  self.crossfade_duration / 1000.0)
             self.other_stream.fader.fade_out_on_play()
         elif self.user_fade_enabled and not autoadvance:
             self.main_stream.play(track, start_at, paused, already_queued,
-                                  self.user_fade_duration/1000.0)
+                                  self.user_fade_duration / 1000.0)
         else:
             self.main_stream.play(track, start_at, paused, already_queued)
         
@@ -365,7 +365,7 @@ class AudioStream(object):
         self.playbin.connect('notify::volume', self.on_volume_change)
         
         self.fader = TrackFader(self, self.on_fade_out_begin,
-                                '%s-fade-%s' %(engine.name, self.idx))
+                                '%s-fade-%s' % (engine.name, self.idx))
     
     def destroy(self):
         
@@ -385,7 +385,7 @@ class AudioStream(object):
                                    is_update=True)
     
     def get_gst_state(self):
-        return self.playbin.get_state(timeout=50*Gst.MSECOND)[1]
+        return self.playbin.get_state(timeout=50 * Gst.MSECOND)[1]
     
     def get_position(self):
         # TODO: This only works when pipeline is prerolled/ready?
@@ -465,7 +465,7 @@ class AudioStream(object):
         # TODO: Make sure that we're in a valid seekable state before seeking?
         
         # wait up to 1s for the state to switch, else this fails
-        if self.playbin.get_state(timeout=1000*Gst.MSECOND)[0] != Gst.StateChangeReturn.SUCCESS:
+        if self.playbin.get_state(timeout=1000 * Gst.MSECOND)[0] != Gst.StateChangeReturn.SUCCESS:
             # TODO: This error message is misleading, when does this ever happen?
             # TODO: if the sink is incorrectly specified, this error happens first.
             #self.engine._error_func(self, "Could not start at specified offset")
@@ -571,7 +571,7 @@ class AudioStream(object):
                 if not res:
                     self.logger.error("Couldn't query duration")
                     raw_duration = 0
-                duration = float(raw_duration)/Gst.SECOND
+                duration = float(raw_duration) / Gst.SECOND
                 if duration > 0:
                     current.set_tag_raw('__length', duration)
         

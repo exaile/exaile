@@ -736,7 +736,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             length = self.__player.current.get_tag_raw('__length')
 
             if length is not None:
-                position = float(self.__player.get_time())/length
+                position = float(self.__player.get_time()) / length
                 self.__progressbar.set_fraction(position)
                 self.__progressbar.set_text(self.__progressbar.formatter.format(
                     current_time=length * position))
@@ -1542,20 +1542,20 @@ def PlayPauseMenuItem(name, player, after):
             icon_name = 'media-playback-start'
             label = _("P_lay")
         return menu.simple_menu_item(name, after, label, icon_name,
-            callback=lambda *args: playpause(player) )
+            callback=lambda *args: playpause(player))
     return factory(name, after, player)
 
 
 def NextMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Next Track"), 'media-skip-forward',
-        callback=lambda *args: player.queue.next() )
+        callback=lambda *args: player.queue.next())
 
 
 def PrevMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Previous Track"), 'media-skip-backward',
-        callback=lambda *args: player.queue.prev() )
+        callback=lambda *args: player.queue.prev())
 
 
 def StopMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Stop"), 'media-playback-stop',
-        callback=lambda *args: player.stop() )
+        callback=lambda *args: player.stop())

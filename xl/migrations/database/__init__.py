@@ -36,4 +36,4 @@ def handle_migration(db, pdata, oldversion, newversion):
         migrator.migrate(db, pdata, oldversion, newversion)
     else:
         raise common.VersionError("Don't know how to handle upgrade from "
-                "music database version %s to %s."%(oldversion, newversion))
+                "music database version %s to %s." % (oldversion, newversion))

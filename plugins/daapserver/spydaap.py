@@ -82,7 +82,7 @@ def rebuild_cache(signum=None, frame=None):
 
 
 def usage():
-    sys.stderr.write("Usage: %s [OPTION]\n"%(sys.argv[0]))
+    sys.stderr.write("Usage: %s [OPTION]\n" % (sys.argv[0]))
     sys.stderr.write("  -f, --foreground        run in foreground, rather than daemonizing\n")
     sys.stderr.write("  -g, --group=groupname   specify group to run as\n")
     sys.stderr.write("  -h, --help              print this help\n")
@@ -183,7 +183,7 @@ def main():
             if pid > 0:
                 # exit from second parent, print eventual PID before
                 #print "Daemon PID %d" % pid
-                open(pidfile,'w').write("%d"%pid)
+                open(pidfile,'w').write("%d" % pid)
                 sys.exit(0)
         except OSError as e:
             print("fork #2 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)

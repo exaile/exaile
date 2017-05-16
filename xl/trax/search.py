@@ -124,7 +124,7 @@ class _RegexMatcher(_Matcher):
         if not value:
             return False
         try:
-            return self._re.search( value ) is not None
+            return self._re.search(value) is not None
         except TypeError:
             return False
 
@@ -451,25 +451,25 @@ class TracksMatcher(object):
                     break
                 count += 1
             before = tokens[:start]
-            inside = self.__red(tokens[start+1:end])
-            after = tokens[end+1:]
+            inside = self.__red(tokens[start + 1:end])
+            after = tokens[end + 1:]
             tokens = before + [["(", inside]] + after
 
         # handle NOT
         elif "!" in tokens:
             start = tokens.index("!")
-            end = start+2
+            end = start + 2
             before = tokens[:start]
-            inside = tokens[start+1:end]
+            inside = tokens[start + 1:end]
             after = tokens[end:]
             tokens = before + [["!", inside]] + after
 
         # handle OR
         elif "|" in tokens:
             start = tokens.index("|")
-            inside = [tokens[start-1], tokens[start+1]]
-            before = tokens[:start-1]
-            after = tokens[start+2:]
+            inside = [tokens[start - 1], tokens[start + 1]]
+            before = tokens[:start - 1]
+            after = tokens[start + 2:]
             tokens = before + [["|", inside]] + after
 
         # nothing special, so just return it

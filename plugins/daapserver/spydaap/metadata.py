@@ -56,7 +56,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
         if not(link):
             for item in os.listdir(self.dir):
                 if (len(item) == 32) and not(item in marked):
-                    os.remove(os.path.join (self.dir, item))
+                    os.remove(os.path.join(self.dir, item))
             self.build_index()
 
 
@@ -66,7 +66,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     def write_entry(self, dir, name, fn, daap):
         if isinstance(name, unicode):
             name = name.encode('utf-8')
-        data = "".join([ d.encode() for d in daap])
+        data = "".join([d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
         data = struct.pack('!i%ss' % len(fn), len(fn), fn) + data
         cachefn = os.path.join(dir, md5.md5(fn).hexdigest())

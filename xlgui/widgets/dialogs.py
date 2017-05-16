@@ -985,7 +985,7 @@ class ConfirmCloseDialog(Gtk.MessageDialog):
         """
             Initializes the dialog
         """
-        Gtk.MessageDialog.__init__(self, type = Gtk.MessageType.WARNING)
+        Gtk.MessageDialog.__init__(self, type=Gtk.MessageType.WARNING)
 
         self.set_title(_('Close %s' % document_name))
         self.set_markup(_('<b>Save changes to %s before closing?</b>') % document_name)
@@ -1347,24 +1347,24 @@ class XMessageDialog(Gtk.Dialog):
         #
         
         if show_yes:
-            self.add_button( Gtk.STOCK_YES, XRESPONSE_YES )
-            self.set_default_response( XRESPONSE_YES )
+            self.add_button(Gtk.STOCK_YES, XRESPONSE_YES)
+            self.set_default_response(XRESPONSE_YES)
             
         if show_yes_all:
-            self.add_button( _('Yes to all'), XRESPONSE_YES_ALL )
-            self.set_default_response( XRESPONSE_YES_ALL )
+            self.add_button(_('Yes to all'), XRESPONSE_YES_ALL)
+            self.set_default_response(XRESPONSE_YES_ALL)
             
         if show_no:
-            self.add_button( Gtk.STOCK_NO, XRESPONSE_NO )
-            self.set_default_response( XRESPONSE_NO )
+            self.add_button(Gtk.STOCK_NO, XRESPONSE_NO)
+            self.set_default_response(XRESPONSE_NO)
             
         if show_no_all:
-            self.add_button( _('No to all'), XRESPONSE_NO_ALL )
-            self.set_default_response( XRESPONSE_NO_ALL )
+            self.add_button(_('No to all'), XRESPONSE_NO_ALL)
+            self.set_default_response(XRESPONSE_NO_ALL)
             
         if show_cancel:
-            self.add_button( Gtk.STOCK_CANCEL, XRESPONSE_CANCEL )
-            self.set_default_response( XRESPONSE_CANCEL )
+            self.add_button(Gtk.STOCK_CANCEL, XRESPONSE_CANCEL)
+            self.set_default_response(XRESPONSE_CANCEL)
             
         vbox = self.get_content_area()
         self._label = Gtk.Label()
@@ -1447,16 +1447,16 @@ class FileCopyDialog(Gtk.Dialog):
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
             
     def do_copy(self):
-        logger.info( "Copy started." )
+        logger.info("Copy started.")
         self._start_next_copy()
         self.show_all()
         self.connect('response',self._on_response)
         
     def run(self):
-        raise NotImplementedError( "Don't use this" )
+        raise NotImplementedError("Don't use this")
         
     def _on_response(self, widget, response):
-        logger.info( "Copy complete." )
+        logger.info("Copy complete.")
         self.destroy()
 
     def _step(self):
@@ -1472,7 +1472,7 @@ class FileCopyDialog(Gtk.Dialog):
     def _start_next_copy(self, overwrite=False):
         
         if self.count == len(self.file_uris):
-            self.response( Gtk.ResponseType.OK )
+            self.response(Gtk.ResponseType.OK)
             return
         
         flags = Gio.FileCopyFlags.NONE
@@ -1494,9 +1494,9 @@ class FileCopyDialog(Gtk.Dialog):
                     if self.overwrite_response == XRESPONSE_NO:
                         self.overwrite_response = None
                         
-                    logging.info( "NoOverwrite: %s" % self.destination.get_uri() )
+                    logging.info("NoOverwrite: %s" % self.destination.get_uri())
                     self._step()
-                    GLib.idle_add( self._start_next_copy ) # don't recurse
+                    GLib.idle_add(self._start_next_copy) # don't recurse
                     return
                 else:
                     self._query_overwrite()
@@ -1506,13 +1506,13 @@ class FileCopyDialog(Gtk.Dialog):
             flags = Gio.FileCopyFlags.OVERWRITE
             try:
                 # Gio.FileCopyFlags.OVERWRITE doesn't actually work
-                logging.info( "DeleteDest : %s" % self.destination.get_uri() )
+                logging.info("DeleteDest : %s" % self.destination.get_uri())
                 self.destination.delete()
             except GLib.Error:
                 pass
         
-        logging.info( "CopySource : %s" % self.source.get_uri() )
-        logging.info( "CopyDest   : %s" % self.destination.get_uri() )
+        logging.info("CopySource : %s" % self.source.get_uri())
+        logging.info("CopyDest   : %s" % self.destination.get_uri())
         
         # TODO g_file_copy_async() isn't introspectable
         # see https://github.com/exaile/exaile/issues/198 for details
@@ -1522,9 +1522,9 @@ class FileCopyDialog(Gtk.Dialog):
         
     def _finish_single_copy(self, source, success, error):
         if error:
-            self._on_error( _("Error occurred while copying %s: %s") % (
-                GLib.markup_escape_text( self.source.get_uri() ),
-                GLib.markup_escape_text( str(error) ) ) )
+            self._on_error(_("Error occurred while copying %s: %s") % (
+                GLib.markup_escape_text(self.source.get_uri()),
+                GLib.markup_escape_text(str(error))))
         if success:
             self._step()
             self._start_next_copy()
@@ -1536,17 +1536,17 @@ class FileCopyDialog(Gtk.Dialog):
                 self._step()
                 self._start_next_copy()
         except GLib.Error as e:
-            self._on_error( _("Error occurred while copying %s: %s") % (
-                GLib.markup_escape_text( self.source.get_uri() ),
-                GLib.markup_escape_text( str(e) ) ) )
+            self._on_error(_("Error occurred while copying %s: %s") % (
+                GLib.markup_escape_text(self.source.get_uri()),
+                GLib.markup_escape_text(str(e))))
             
     def _query_overwrite(self):
     
         self.hide()
     
         text = _('File exists, overwrite %s ?') % GLib.markup_escape_text(self.destination.get_uri())
-        dialog=XMessageDialog(self.parent, text )
-        dialog.connect( 'response', self._on_query_overwrite_response, dialog )
+        dialog = XMessageDialog(self.parent, text)
+        dialog.connect('response', self._on_query_overwrite_response, dialog)
         dialog.show_all()
         dialog.grab_focus()
         self.query_dialog = dialog
@@ -1556,7 +1556,7 @@ class FileCopyDialog(Gtk.Dialog):
         self.overwrite_response = response
         
         if response == Gtk.ResponseType.CANCEL:
-            self.response( response )
+            self.response(response)
         else:
             if response == XRESPONSE_NO or response == XRESPONSE_NO_ALL:
                 overwrite = False
@@ -1564,21 +1564,21 @@ class FileCopyDialog(Gtk.Dialog):
                 overwrite = True
         
             self.show_all()
-            self._start_next_copy( overwrite )
+            self._start_next_copy(overwrite)
         
     def _on_error(self, message):
         
         self.hide()
     
         dialog = Gtk.MessageDialog(self.parent, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE)
-        dialog.set_markup( message )
-        dialog.connect( 'response', self._on_error_response, dialog )
+        dialog.set_markup(message)
+        dialog.connect('response', self._on_error_response, dialog)
         dialog.show()
         dialog.grab_focus()
         self.error_dialog = dialog
     
     def _on_error_response(self, widget, response, dialog):
-        self.response( Gtk.ResponseType.CANCEL )
+        self.response(Gtk.ResponseType.CANCEL)
         dialog.destroy()
 
         
@@ -1674,13 +1674,13 @@ def export_playlist_files(playlist, parent=None):
         else:
             pl = playlist
         pl_files = [track.get_loc_for_io() for track in pl]
-        dialog = FileCopyDialog( pl_files, uri, 
+        dialog = FileCopyDialog(pl_files, uri, 
             _('Exporting %s') % playlist.name, parent=parent)
         dialog.do_copy()
         
     dialog = DirectoryOpenDialog(title=_('Choose directory to export files to'),
                                  parent=parent)
     dialog.set_select_multiple(False)
-    dialog.connect( 'uris-selected', lambda widget, uris: _on_uri(uris[0]))
+    dialog.connect('uris-selected', lambda widget, uris: _on_uri(uris[0]))
     dialog.run()
     dialog.destroy()

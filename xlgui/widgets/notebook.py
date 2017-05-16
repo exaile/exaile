@@ -122,7 +122,7 @@ class SmartNotebook(Gtk.Notebook):
             Overrides Gtk.Notebook.remove_page
         '''
         if page_num == -1:
-            page_num = self.get_n_pages()-1
+            page_num = self.get_n_pages() - 1
         tab = self.get_tab_label(self.get_nth_page(page_num))
         
         Gtk.Notebook.remove_page(self, page_num)
@@ -277,7 +277,7 @@ class NotebookTab(Gtk.EventBox):
         elif event.button == Gdk.BUTTON_MIDDLE:
             self.close()
         elif event.button == Gdk.BUTTON_SECONDARY:
-            self.page.tab_menu.popup( None, None, None, None,
+            self.page.tab_menu.popup(None, None, None, None,
                     event.button, event.time)
             return True
 

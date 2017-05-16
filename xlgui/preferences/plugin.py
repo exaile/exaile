@@ -110,7 +110,7 @@ class PluginManager(object):
         """
         plugins = self.plugins.list_installed_plugins()
         uncategorized = _('Uncategorized')
-        plugins_dict = { uncategorized: [] }
+        plugins_dict = {uncategorized: []}
         failed_list = []
         
         self.plugin_to_path = {}

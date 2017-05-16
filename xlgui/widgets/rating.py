@@ -83,9 +83,9 @@ class RatingWidget(Gtk.EventBox):
 
         if self._player is not None:
         
-            event.add_ui_callback( self.on_rating_update, 'playback_track_start', self._player )
-            event.add_ui_callback( self.on_rating_update, 'playback_track_end', self._player )
-            event.add_ui_callback( self.on_rating_update, 'rating_changed')
+            event.add_ui_callback(self.on_rating_update, 'playback_track_start', self._player)
+            event.add_ui_callback(self.on_rating_update, 'playback_track_end', self._player)
+            event.add_ui_callback(self.on_rating_update, 'rating_changed')
 
             self.on_rating_update('rating_changed', None, None)
 
@@ -94,9 +94,9 @@ class RatingWidget(Gtk.EventBox):
             Cleanups
         """
         if self._player is not None:
-            event.remove_callback( self.on_rating_update, 'playback_track_start', self._player )
-            event.remove_callback( self.on_rating_update, 'playback_track_end', self._player )
-            event.remove_callback( self.on_rating_update, 'rating_changed')
+            event.remove_callback(self.on_rating_update, 'playback_track_start', self._player)
+            event.remove_callback(self.on_rating_update, 'playback_track_end', self._player)
+            event.remove_callback(self.on_rating_update, 'rating_changed')
 
     def do_get_property(self, property):
         """

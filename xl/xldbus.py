@@ -80,7 +80,7 @@ def check_exit(options, args):
                 # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
-                args = [ Gio.File.new_for_commandline_arg(arg).get_uri() for arg in args ]
+                args = [Gio.File.new_for_commandline_arg(arg).get_uri() for arg in args]
                 iface.Enqueue(args)
 
     if not iface:

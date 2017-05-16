@@ -96,7 +96,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    else:
       __LOGIN['p'] = password
 
-   token  = md5( "%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
+   token  = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
    values = {
          'hs': 'true',
          'p' : PROTOCOL_VERSION,
@@ -107,7 +107,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
          'a': token
          }
    data = urllib.urlencode(values)
-   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
+   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
    response = urllib2.urlopen(req)
    result = response.read()
    lines = result.split('\n')
@@ -147,18 +147,18 @@ def handle_hard_error():
 
    if HS_DELAY == 0:
       HS_DELAY = 60
-   elif HS_DELAY < 120*60:
+   elif HS_DELAY < 120 * 60:
       HS_DELAY *= 2
-   if HS_DELAY > 120*60:
-      HS_DELAY = 120*60
+   if HS_DELAY > 120 * 60:
+      HS_DELAY = 120 * 60
 
    HARD_FAILS += 1
    if HARD_FAILS == 3:
       SESSION_ID = None
 
 
-def now_playing( artist, track, album="", length="", trackno="", mbid="",
-    inner_call=False ):
+def now_playing(artist, track, album="", length="", trackno="", mbid="",
+    inner_call=False):
     """Tells audioscrobbler what is currently running in your player. This won't
     affect the user-profile on last.fm. To do submissions, use the "submit"
     method
@@ -198,7 +198,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
               'b': unicode(album).encode('utf-8'),
               'l': length,
               'n': trackno,
-              'm': mbid }
+              'm': mbid}
 
     data = urllib.urlencode(values)
 
@@ -300,7 +300,7 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
     album = album or ''
 
     SUBMIT_CACHE.append(
-         { 'a': unicode(artist).encode('utf-8'),
+         {'a': unicode(artist).encode('utf-8'),
            't': unicode(track).encode('utf-8'),
            'i': time,
            'o': source,
@@ -362,26 +362,26 @@ you login?''')
       return False
 
 if __name__ == "__main__":
-   login( 'user', 'password' )
+   login('user', 'password')
    submit(
          'De/Vision',
          'Scars',
          1192374052,
          source='P',
-         length=3*60+44
+         length=3 * 60 + 44
          )
    submit(
          'Spineshank',
          'Beginning of the End',
-         1192374052+(5*60),
+         1192374052 + (5 * 60),
          source='P',
-         length=3*60+32
+         length=3 * 60 + 32
          )
    submit(
          'Dry Cell',
          'Body Crumbles',
-         1192374052+(10*60),
+         1192374052 + (10 * 60),
          source='P',
-         length=3*60+3
+         length=3 * 60 + 3
          )
    print(flush())

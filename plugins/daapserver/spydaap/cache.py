@@ -30,7 +30,7 @@ class Cache(object):
         fn = os.path.join(self.dir, id)
         if (not(os.path.exists(fn))):
             f = open(fn, 'w')
-            func (f)
+            func(f)
             f.close()
         return open(fn)
 
@@ -81,7 +81,7 @@ class OrderedCache(object):
         if os.path.exists(index_fn):
             os.remove(index_fn)
         if pid_list is None:
-            pid_list = sorted([ f for f in os.listdir(self.dir) if f != "index"])
+            pid_list = sorted([f for f in os.listdir(self.dir) if f != "index"])
         fi = open(index_fn, 'w')
         for pid in pid_list:
             fi.write(pid)

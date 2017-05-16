@@ -311,7 +311,7 @@ class ExailePlayer(object):
             :returns: the playback time in seconds
             :rtype: float
         """
-        return self.get_position()/1000000000.0
+        return self.get_position() / 1000000000.0
 
     def get_progress(self):
         """
@@ -321,7 +321,7 @@ class ExailePlayer(object):
             :rtype: float
         """
         try:
-            progress = self.get_time()/self.current.get_tag_raw("__length")
+            progress = self.get_time() / self.current.get_tag_raw("__length")
         except TypeError: # track doesn't have duration info
             progress = 0
         except AttributeError: # no current track

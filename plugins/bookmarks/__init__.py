@@ -185,8 +185,8 @@ class Bookmarks:
             logger.exception("Cannot open %s", key)
             # delete offending key?
             return
-        time = '%d:%02d' % (pos/60, pos%60)
-        label = '%s @ %s' % ( title , time )
+        time = '%d:%02d' % (pos / 60, pos % 60)
+        label = '%s @ %s' % (title , time)
 
         counter = self.counter # closure magic (workaround for factories not having access to item)
         # factory for new bookmarks
@@ -259,7 +259,7 @@ class Bookmarks:
                         self.display_bookmark(key, pos)
                     logger.debug('loaded {0} bookmarks'.format(len(db)))
                 except Exception as s:
-                    logger.error('BM: bad bookmark file: %s'%s)
+                    logger.error('BM: bad bookmark file: %s' % s)
                     return None
 
         except IOError as e:  # File might not exist

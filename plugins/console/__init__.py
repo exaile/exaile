@@ -39,7 +39,7 @@ class PyConsole():
         self.buffer = StringIO()
 
         ui = Gtk.Builder()
-        ui.add_from_file( os.path.join( os.path.dirname(
+        ui.add_from_file(os.path.join(os.path.dirname(
                 os.path.realpath(__file__)), 'console_window.ui'))
 
         self.window = ui.get_object('simple_console_window')

@@ -113,8 +113,8 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_login(self):
             mlog = do('dmap.loginresponse',
-                      [ do('dmap.status', 200),
-                        do('dmap.sessionid', session_id) ])
+                      [do('dmap.status', 200),
+                        do('dmap.sessionid', session_id)])
             self.h(mlog.encode())
 
         def do_GET_logout(self):
@@ -123,7 +123,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_server_info(self):
             msrv = do('dmap.serverinforesponse',
-                      [ do('dmap.status', 200),
+                      [do('dmap.status', 200),
                         do('dmap.protocolversion', '2.0'),
                         do('daap.protocolversion', '3.0'),
                         do('dmap.timeoutinterval', 1800),
@@ -143,11 +143,11 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.h(msrv.encode())
 
         def do_GET_content_codes(self):
-            children = [ do('dmap.status', 200) ]
+            children = [do('dmap.status', 200)]
             for code in spydaap.daap.dmapCodeTypes.keys():
                 (name, dtype) = spydaap.daap.dmapCodeTypes[code]
                 d = do('dmap.dictionary',
-                       [ do('dmap.contentcodesnumber', code),
+                       [do('dmap.contentcodesnumber', code),
                          do('dmap.contentcodesname', name),
                          do('dmap.contentcodestype',
                             spydaap.daap.dmapReverseDataTypes[dtype])
@@ -159,13 +159,13 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_database_list(self):
             d = do('daap.serverdatabases',
-                   [ do('dmap.status', 200),
+                   [do('dmap.status', 200),
                      do('dmap.updatetype', 0),
                      do('dmap.specifiedtotalcount', 1),
                      do('dmap.returnedcount', 1),
                      do('dmap.listing',
-                        [ do('dmap.listingitem',
-                             [ do('dmap.itemid', 1),
+                        [do('dmap.listingitem',
+                             [do('dmap.itemid', 1),
                                do('dmap.persistentid', 1),
                                do('dmap.itemname', server_name),
                                do('dmap.itemcount', 
@@ -178,22 +178,22 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_item_list(self, database_id):
             def build_item(md):
                 return do('dmap.listingitem', 
-                          [ do('dmap.itemkind', 2),
+                          [do('dmap.itemkind', 2),
                             do('dmap.containeritemid', md.id),
                             do('dmap.itemid', md.id),
                             md.get_dmap_raw()
                             ])
 
             def build():
-                children = [ build_item (md) for md in md_cache ]
+                children = [build_item(md) for md in md_cache]
                 file_count = len(children)
                 d = do('daap.databasesongs',
-                       [ do('dmap.status', 200),
+                       [do('dmap.status', 200),
                          do('dmap.updatetype', 0),
                          do('dmap.specifiedtotalcount', file_count),
                          do('dmap.returnedcount', file_count),
                          do('dmap.listing',
-                            children) ])
+                            children)])
                 return d.encode()
 
             data = build()
@@ -202,7 +202,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_update(self):
             mupd = do('dmap.updateresponse',
-                      [ do('dmap.status', 200),
+                      [do('dmap.status', 200),
                         do('dmap.serverrevision', self.daap_server_revision),
                         ])
             self.h(mupd.encode())
@@ -224,30 +224,30 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                     end = os.stat(fn).st_size
                 start = int(start)
                 f = spydaap.ContentRangeFile(fn, open(fn), start, end)
-                extra_headers={"Content-Range": "bytes %s-%s/%s"%(str(start), str(end), str(os.stat(fn).st_size))}
-                status=206
+                extra_headers = {"Content-Range": "bytes %s-%s/%s" % (str(start), str(end), str(os.stat(fn).st_size))}
+                status = 206
             else: 
                 f = open(fn)
-                extra_headers={}
-                status=200
+                extra_headers = {}
+                status = 200
             # this is ugly, very wrong.
-            type = "audio/%s"%(os.path.splitext(fn)[1])
+            type = "audio/%s" % (os.path.splitext(fn)[1])
             self.h(f, type=type, status=status, extra_headers=extra_headers)
 
         def do_GET_container_list(self, database):
             container_do = []
             for i, c in enumerate(container_cache):
-                d = [ do('dmap.itemid', i + 1 ),
+                d = [do('dmap.itemid', i + 1),
                       do('dmap.itemcount', len(c)),
                       do('dmap.containeritemid', i + 1),
-                      do('dmap.itemname', c.get_name()) ]
+                      do('dmap.itemname', c.get_name())]
                 if c.get_name() == 'Library': # this should be better
                     d.append(do('daap.baseplaylist', 1))
                 else:
                     d.append(do('com.apple.itunes.smart-playlist', 1))
                 container_do.append(do('dmap.listingitem', d))
             d = do('daap.databaseplaylists',
-                   [ do('dmap.status', 200),
+                   [do('dmap.status', 200),
                      do('dmap.updatetype', 0),
                      do('dmap.specifiedtotalcount', len(container_do)),
                      do('dmap.returnedcount', len(container_do)),

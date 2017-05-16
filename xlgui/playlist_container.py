@@ -362,7 +362,7 @@ class PlaylistNotebook(SmartNotebook):
         if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
             self.remove_closed_tab(-1) # remove last item
         
-        item_name = 'playlist%05d'%self.history_counter 
+        item_name = 'playlist%05d' % self.history_counter 
         close_time = datetime.now()
         # define a MenuItem factory that supports dynamic labels
 
@@ -518,7 +518,7 @@ class PlaylistContainer(Gtk.Box):
         # menu item
         item = menu.simple_menu_item('move-tab', [], _('_Move to Other View'), None,
             lambda w, n, p, c: self._move_tab(p.tab),
-            condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False )
+            condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False)
         providers.register('playlist-tab-context-menu', item)
         providers.register('queue-tab-context', item)
         

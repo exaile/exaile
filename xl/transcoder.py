@@ -169,25 +169,25 @@ class Transcoder(object):
     def _construct_encoder(self):
         fmt = FORMATS[self.dest_format]
         quality = self.quality
-        self.encoder = fmt["command"]%quality
+        self.encoder = fmt["command"] % quality
 
     def set_input(self, uri):
-        self.input = """filesrc location="%s" """%uri
+        self.input = """filesrc location="%s" """ % uri
 
     def set_raw_input(self, raw):
         self.input = raw
 
     def set_output(self, uri):
-        self.output = """filesink location="%s" """%uri
+        self.output = """filesink location="%s" """ % uri
 
     def set_output_raw(self, raw):
         self.output = raw
 
     def start_transcode(self):
         self._construct_encoder()
-        elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
-                self.encoder, self.output ]
-        pipestr = " ! ".join( elements )
+        elements = [self.input, "decodebin name=\"decoder\"", "audioconvert",
+                self.encoder, self.output]
+        pipestr = " ! ".join(elements)
         logger.info("Starting GStreamer decoder with pipestring: %s" % pipestr)
         pipe = Gst.parse_launch(pipestr)
         self.pipe = pipe
@@ -222,7 +222,7 @@ class Transcoder(object):
             return 0.0
         try:
             tim = self.pipe.query_position(Gst.Format.TIME)[0]
-            tim = tim/Gst.SECOND
+            tim = tim / Gst.SECOND
             self.__last_time = tim
             return tim
         except Exception:

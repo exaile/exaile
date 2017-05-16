@@ -140,7 +140,7 @@ class Column(Gtk.TreeViewColumn):
             pass
                 
         # how much has the font deviated from normal?
-        self._font_ratio = font.get_size()/def_font_sz
+        self._font_ratio = font.get_size() / def_font_sz
         
         try:
             # adjust the display size of the column
@@ -153,7 +153,7 @@ class Column(Gtk.TreeViewColumn):
             if ratio < 1:
                 ratio = ratio * 1.25
             
-            self.size = max(int(self.size*ratio),1)
+            self.size = max(int(self.size * ratio),1)
         except AttributeError:
             pass            
            
@@ -162,7 +162,7 @@ class Column(Gtk.TreeViewColumn):
             self.set_resizable(True)
             self.set_expand(False)
             width = settings.get_option(self.settings_width_name,
-                    self.size+self.extrasize)
+                    self.size + self.extrasize)
             self.set_fixed_width(width)
         else:
             self.set_resizable(False)
@@ -171,12 +171,12 @@ class Column(Gtk.TreeViewColumn):
                 self.set_fixed_width(1)
             else:
                 self.set_expand(False)
-                self.set_fixed_width(self.size+self.extrasize)
+                self.set_fixed_width(self.size + self.extrasize)
              
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''
         sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
-        return max(int(sz*self._font_ratio), 1)
+        return max(int(sz * self._font_ratio), 1)
         
     def get_icon_size_ratio(self):
         '''Returns how much bigger or smaller an icon should be'''

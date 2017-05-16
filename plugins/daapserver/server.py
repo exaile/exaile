@@ -76,7 +76,7 @@ class DaapServer():
         self.handler = None
         
         # Set a callback that will let us propagate library changes to clients
-        event.add_callback( self.update_rev, 'libraries_modified',
+        event.add_callback(self.update_rev, 'libraries_modified',
                                                      library.collection) 
         
     def update_rev(self, *args):
@@ -85,7 +85,7 @@ class DaapServer():
             # it can see the library has changed
             self.handler.daap_server_revision += 1
             logger.info('Libraries Changed, incrementing revision to %d.' 
-                                    % self.handler.daap_server_revision )
+                                    % self.handler.daap_server_revision)
         
     def set(self, **kwargs):
         for key in kwargs:

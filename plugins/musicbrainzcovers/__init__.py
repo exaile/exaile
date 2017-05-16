@@ -53,7 +53,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
     name = 'musicbrainz'
     title = 'MusicBrainz'
-    __caa_url ='http://coverartarchive.org/release/{mbid}/front-{size}'
+    __caa_url = 'http://coverartarchive.org/release/{mbid}/front-{size}'
     
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('musicbrainzcovers')

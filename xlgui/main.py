@@ -1018,13 +1018,13 @@ class MainWindow(GObject.GObject):
             return False
 
         (width, height) = self.window.get_size()
-        if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for
-                key in ["width", "height"] ]:
+        if [width, height] != [settings.get_option("gui/mainw_" + key, -1) for
+                key in ["width", "height"]]:
             settings.set_option('gui/mainw_height', height, save=False)
             settings.set_option('gui/mainw_width', width, save=False)
         (x, y) = self.window.get_position()
-        if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for
-                key in ["x", "y"] ]:
+        if [x, y] != [settings.get_option("gui/mainw_" + key, -1) for
+                key in ["x", "y"]]:
             settings.set_option('gui/mainw_x', x, save=False)
             settings.set_option('gui/mainw_y', y, save=False)
 

@@ -57,7 +57,7 @@ class RequestAccessPermissionButton(widgets.Button):
         widgets.Button.__init__(self, preferences, widget)
 
         self.message = dialogs.MessageBar(
-            parent = preferences.builder.get_object('preferences_box'),
+            parent=preferences.builder.get_object('preferences_box'),
             buttons=Gtk.ButtonsType.CLOSE
         )
         self.errors = {

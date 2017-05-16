@@ -242,7 +242,7 @@ class JamendoPanel(panel.Panel):
     #Expand an artist node (fetch albums for that artist)
     #artist: The jamtree.Artist object you want to expand the node for
     #add_to_playlist: Whether or not add_to_playlist() should be called when done
-    def expand_artist(self, artist, add_to_playlist = False):
+    def expand_artist(self, artist, add_to_playlist=False):
         self.set_status(self.STATUS_RETRIEVING_DATA)
         artist.expanded = True
         jamapi_thread = jamapi.get_albums(artist, self.expand_artist_callback, add_to_playlist)
@@ -250,7 +250,7 @@ class JamendoPanel(panel.Panel):
 
     #Callback function for when the jamapi thread started in expand_artist() completes
     #artist: The jamtree.Artist object that should have had its albums populated by the jamapi thread
-    def expand_artist_callback(self, artist, add_to_playlist = False):
+    def expand_artist_callback(self, artist, add_to_playlist=False):
         self.remove_dummy(artist)
         for album in artist.albums:
             parent = self.model.append(artist.row_pointer, (self.album_image, album.name, album))
@@ -264,7 +264,7 @@ class JamendoPanel(panel.Panel):
     #Expand an Album node (fetch tracks for album)
     #album: the Album object to get tracks for
     #add_to_playlist: Whether or not add_to_playlist() should be called when done
-    def expand_album(self, album, add_to_playlist = False):
+    def expand_album(self, album, add_to_playlist=False):
         self.set_status(self.STATUS_RETRIEVING_DATA)
         album.expanded = True
         jamapi_thread = jamapi.get_tracks(album, self.expand_album_callback, add_to_playlist)
@@ -272,7 +272,7 @@ class JamendoPanel(panel.Panel):
 
     #Callback function for when the jamapi thread started in expand_album() completes
     #album: The jamtree.Album object that should have had its tracks populated by the jamapi thread
-    def expand_album_callback(self, album, add_to_playlist = False):
+    def expand_album_callback(self, album, add_to_playlist=False):
         self.remove_dummy(album)
         for track in album.tracks:
             parent = self.model.append(album.row_pointer, (self.title_image, track.name, track))

@@ -43,7 +43,7 @@ log = logging.getLogger('exaile-wikipedia/__init__.py')
 
 WIKIPANEL = None
 CURPATH = os.path.realpath(__file__)
-BASEDIR = os.path.dirname(CURPATH)+os.path.sep
+BASEDIR = os.path.dirname(CURPATH) + os.path.sep
 
 
 def enable(exaile):

@@ -152,7 +152,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         providers.register('panel-tab-context', item)
         
         self.add_tab(tab, panel)
-        self.panels[provider.name] = PanelData(tab, provider, self.get_n_pages()-1, item)
+        self.panels[provider.name] = PanelData(tab, provider, self.get_n_pages() - 1, item)
         
         self.save_panel_settings()
         

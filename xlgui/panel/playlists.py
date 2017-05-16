@@ -225,7 +225,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             else:
                 self.emit('append-items', [item.track], True)
 
-    def add_new_playlist(self, tracks=[], name = None):
+    def add_new_playlist(self, tracks=[], name=None):
         """
             Adds a new playlist to the list of playlists. If name is 
             None or the name conflicts with an existing playlist, the
@@ -398,7 +398,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.tree.connect('drag-motion', self.drag_motion)
         self.tree.drag_source_set(
                 Gdk.ModifierType.BUTTON1_MASK, [self.track_target, self.playlist_target],
-                Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
         self.scroll = Gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -411,8 +411,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         cell = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             from gi.repository import Pango
-            cell.set_property( 'ellipsize-set', True)
-            cell.set_property( 'ellipsize', Pango.EllipsizeMode.END)
+            cell.set_property('ellipsize-set', True)
+            cell.set_property('ellipsize', Pango.EllipsizeMode.END)
         col = Gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)
@@ -535,7 +535,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         
         def _on_playlists_selected(dialog, playlists):
             for playlist in playlists:
-                self.add_new_playlist( playlist, playlist.name )
+                self.add_new_playlist(playlist, playlist.name)
         
         dialog = dialogs.PlaylistImportDialog()
         dialog.connect('playlists-selected', _on_playlists_selected)
@@ -592,13 +592,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                             self.model.move_before(drag_source_iter, 
                                 drop_target_iter)
                             self.playlist_manager.move(playlist_name, 
-                                drop_target.name, after = False)
+                                drop_target.name, after=False)
                         else:
                             # put the playlist after drop_target
                             self.model.move_after(drag_source_iter,
                                 drop_target_iter)
                             self.playlist_manager.move(playlist_name,
-                                drop_target.name, after = True)
+                                drop_target.name, after=True)
             # Even though we are doing a move we still don't
             # call the delete method because we take care
             # of it above by moving instead of inserting/deleting
@@ -629,7 +629,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE):
                     # By default adding tracks inserts it before so we do not
                     # have to modify the insert index
-                    insert_index =drop_target_index
+                    insert_index = drop_target_index
                 else:
                     # If we want to go after we have to append 1
                     insert_index = drop_target_index + 1
@@ -669,7 +669,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if insert_index is not None:
                 current_playlist[insert_index:insert_index] = tracks
             else:
-                current_playlist.extend( tracks )
+                current_playlist.extend(tracks)
 
             self._load_playlist_nodes(current_playlist)
 

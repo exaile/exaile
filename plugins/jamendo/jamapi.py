@@ -144,7 +144,7 @@ class get_track_list(threading.Thread):
 #Gets a list of jamtree.Album objects for the specified jamtree.Artist
 class get_albums(threading.Thread):
 
-    def __init__(self, artist, callback, add_to_playlist = False):
+    def __init__(self, artist, callback, add_to_playlist=False):
         threading.Thread.__init__(self)
         self._artist = artist
         self._callback = callback

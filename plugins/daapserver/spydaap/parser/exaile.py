@@ -72,8 +72,8 @@ class ExaileParser(spydaap.parser.Parser):
         for k in md.list_tags():
             if k in map:
                 try:
-                    tag = [ str(t) for t in md.get_tag_raw(k)]
-                    tag = [ t for t in tag if t != ""]
+                    tag = [str(t) for t in md.get_tag_raw(k)]
+                    tag = [t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
                 except Exception:
                     logger.exception("error decoding tags") 

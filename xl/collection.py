@@ -294,7 +294,7 @@ class Collection(trax.TrackDB):
                 return
             file_count += library._count_files()
         self.file_count = file_count
-        logger.debug("File count: %s"%self.file_count)
+        logger.debug("File count: %s" % self.file_count)
 
     def _progress_update(self, type, library, count):
         """
@@ -338,9 +338,9 @@ class Collection(trax.TrackDB):
             Should only be called once, from the constructor.
         """
         for l in _serial_libraries:
-            self.add_library( Library( l['location'],
+            self.add_library(Library(l['location'],
                     l.get('monitored', l.get('realtime')),
-                    l['scan_interval'], l.get('startup_scan', True) ))
+                    l['scan_interval'], l.get('startup_scan', True)))
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
@@ -716,7 +716,7 @@ class Library(object):
         if not uri: # we get segfaults if this check is removed
             return None
         mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
-        mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
+        mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
         tr = self.collection.get_track_by_loc(uri)
         if tr:
             if force_update or tr.get_tag_raw('__modified') < mtime:
@@ -767,7 +767,7 @@ class Library(object):
                     for (basedir, album) in compilations:
                         base = basedir.replace('"', '\\"')
                         alb = album.replace('"', '\\"')
-                        items = [ tr for tr in dirtracks if
+                        items = [tr for tr in dirtracks if
                                 tr.get_tag_raw('__basedir') == base and \
                                 # FIXME: this is ugly
                                 alb in "".join(
@@ -829,7 +829,7 @@ class Library(object):
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s"%unicode(tr))
+            logger.debug(u"Removing %s" % unicode(tr))
             self.collection.remove(tr)
             
         logger.info("Scan completed: %s", self.location)

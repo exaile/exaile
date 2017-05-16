@@ -71,7 +71,7 @@ class DynamicManager(providers.ProviderHandler):
             artist = artists[i][1].replace('"', '\\\"')
             i += 1
             searchres = search.search_tracks_from_string(
-                self.collection, 'artist=="%s"'%artist, case_sensitive=False)
+                self.collection, 'artist=="%s"' % artist, case_sensitive=False)
             choices = [x.track for x in searchres]
             if choices == []:
                 continue
@@ -136,9 +136,9 @@ class DynamicManager(providers.ProviderHandler):
         filename = os.path.join(self.cachedir,
                 track.get_tag_raw('artist', join=True))
         with open(filename, 'w') as f:
-            f.write("%s\n"%time.time())
+            f.write("%s\n" % time.time())
             for item in info:
-                f.write("%.2f %s\n"%item)
+                f.write("%.2f %s\n" % item)
 
     def populate_playlist(self, playlist):
         """
@@ -160,7 +160,7 @@ class DynamicManager(providers.ProviderHandler):
         tracks = self.find_similar_tracks(curr, needed,
                 playlist)
 
-        remainingtime = 5 - (time.time()-starttime)
+        remainingtime = 5 - (time.time() - starttime)
 
         if remainingtime > 0:
             time.sleep(remainingtime)

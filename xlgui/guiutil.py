@@ -409,8 +409,8 @@ class Menu(Gtk.Menu):
         """
             Removes the given dynamic builder callback.
         """
-        self._dynamic_builders = [ tuple for tuple in self._dynamic_builders
-                                   if tuple[0] != callback ]
+        self._dynamic_builders = [tuple for tuple in self._dynamic_builders
+                                   if tuple[0] != callback]
 
     def _check_dynamic(self, *args):
         """
@@ -426,8 +426,8 @@ class Menu(Gtk.Menu):
             children_before = set(self.get_children())
             for callback, args, kwargs in self._dynamic_builders:
                 callback(*args, **kwargs)
-            self._destroy_dynamic = [ child for child in self.get_children()
-                                      if child not in children_before ]
+            self._destroy_dynamic = [child for child in self.get_children()
+                                      if child not in children_before]
 
     def popup(self, *e):
         """

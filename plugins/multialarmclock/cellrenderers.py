@@ -25,8 +25,8 @@ class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
     
     __gtype_name__ = 'CellRendererDays'
-    __gproperties__ = { 'days':(object, 'days', 'List of enabled days', GObject.PARAM_READWRITE) }
-    __gsignals__ = { 'days-changed':(GObject.SignalFlags.RUN_FIRST, None,
+    __gproperties__ = {'days':(object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)}
+    __gsignals__ = {'days-changed':(GObject.SignalFlags.RUN_FIRST, None,
                                     (str, object))}
     property_names = __gproperties__.keys()
 
@@ -113,7 +113,7 @@ class CellRendererDays(Gtk.CellRendererText):
 
     def _done(self):
         '''Called when we are done editing'''
-        days = [ row[0] for row in self.model ]
+        days = [row[0] for row in self.model]
         
         if days != self.days:
             self.emit('days-changed', self._path, days)

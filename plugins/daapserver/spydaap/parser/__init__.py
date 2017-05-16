@@ -24,8 +24,8 @@ class Parser:
         h = {}
         for k in md.tags.keys():
             if k in map:
-                tag = [ unicode(t) for t in md.tags[k] ]
-                tag = [ t for t in tag if t != "" ]
+                tag = [unicode(t) for t in md.tags[k]]
+                tag = [t for t in tag if t != ""]
                 if not(map[k] in h):
                     h[map[k]] = []
                 h[map[k]] = h[map[k]] + tag

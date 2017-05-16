@@ -666,7 +666,7 @@ class IconManager(object):
 
         return pixbuf
 
-    @common.cached(limit=settings.get_option('rating/maximum', 5)*3)
+    @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """
             Returns a pixbuf representing a rating
@@ -681,19 +681,19 @@ class IconManager(object):
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
         
-        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width*size_ratio),
-                                                               int(height*size_ratio),
+        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width * size_ratio),
+                                                               int(height * size_ratio),
                                                                GdkPixbuf.InterpType.BILINEAR)
-        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width*size_ratio),
-                                                                   int(height*size_ratio),
+        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width * size_ratio),
+                                                                   int(height * size_ratio),
                                                                    GdkPixbuf.InterpType.BILINEAR)
         rating = max(0, rating)
         rating = min(rating, maximum)
         
         if rating == 0:
-            return inactive_pixbuf*maximum
+            return inactive_pixbuf * maximum
         elif rating == maximum:
-            return active_pixbuf*maximum
+            return active_pixbuf * maximum
         
         active_pixbufs = active_pixbuf * rating
         inactive_pixbufs = inactive_pixbuf * (maximum - rating)

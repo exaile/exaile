@@ -131,7 +131,7 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
     #tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse,
     #    artist_compilations=True)
     pl.extend(tracks)
-    if settings.get_option( 'playlist/append_menu_starts_playback', False ):
+    if settings.get_option('playlist/append_menu_starts_playback', False):
         if not player.PLAYER.current:
             page.view.play_track_at(offset, tracks[0])
 
@@ -237,7 +237,7 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
                 item.connect('activate', callback, name, parent, context, *callback_args)
 
             from xl import player
-            item.set_sensitive(player.PLAYER.get_state()!='stopped')
+            item.set_sensitive(player.PLAYER.get_state() != 'stopped')
 
             return item
         menu.MenuItem.__init__(self, name, factory, after)

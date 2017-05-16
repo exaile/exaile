@@ -115,7 +115,7 @@ class DAAPObject(object):
         else:
             return dmapCodeTypes[self.code][1]
 
-    def printTree(self, level = 0, out = sys.stdout):
+    def printTree(self, level=0, out=sys.stdout):
         if hasattr(self, 'value'):
             out.write('\t' * level + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, self.value))
         else:
@@ -275,7 +275,7 @@ class DAAPClient(object):
         self.request_id = 0
 #        self._old_itunes = 0
 
-    def connect(self, hostname, port = 3689, password = None):
+    def connect(self, hostname, port=3689, password=None):
         if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
         self.hostname = hostname
@@ -285,7 +285,7 @@ class DAAPClient(object):
         self.getContentCodes() # practically required
         self.getInfo() # to determine the remote server version
 
-    def _get_response(self, r, params = {}, gzip = 1):
+    def _get_response(self, r, params={}, gzip=1):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
@@ -304,14 +304,14 @@ class DAAPClient(object):
         
         if self.password:
             import base64
-            b64 = base64.encodestring( '%s:%s'%('user', self.password) )[:-1]
+            b64 = base64.encodestring('%s:%s' % ('user', self.password))[:-1]
             headers['Authorization'] = 'Basic %s' % b64             
 
         # TODO - we should allow for different versions of itunes - there
         # are a few different hashing algos we could be using. I need some
         # older versions of iTunes to test against.
         if self.request_id > 0:
-            headers[ 'Client-DAAP-Request-ID' ] = self.request_id
+            headers['Client-DAAP-Request-ID'] = self.request_id
 
 #        if (self._old_itunes):
 #            headers[ 'Client-DAAP-Validation' ] = hash_v2(r, 2)
@@ -329,7 +329,7 @@ class DAAPClient(object):
         response    = self.socket.getresponse()
         return response
 
-    def request(self, r, params = {}, answers = 1):
+    def request(self, r, params={}, answers=1):
         """Make a request to the DAAP server, with the passed params. This
         deals with all the cikiness like validation hashes, etc, etc"""
 
@@ -341,7 +341,7 @@ class DAAPClient(object):
         if response.getheader("Content-Encoding") == "gzip":
             log.debug("gunzipping data")
             old_len = len(content)
-            compressedstream = StringIO( content )
+            compressedstream = StringIO(content)
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
             content = gunzipper.read()
             log.debug("expanded from %s bytes to %s bytes", old_len, len(content))
@@ -349,18 +349,18 @@ class DAAPClient(object):
         response.close()
 
         if status == 401:
-            raise DAAPError('DAAPClient: %s: auth required'%r)
+            raise DAAPError('DAAPClient: %s: auth required' % r)
         elif status == 403:
-            raise DAAPError('DAAPClient: %s: Authentication failure'%r)
+            raise DAAPError('DAAPClient: %s: Authentication failure' % r)
         elif status == 503:
-            raise DAAPError('DAAPClient: %s: 503 - probably max connections to server'%r)
+            raise DAAPError('DAAPClient: %s: 503 - probably max connections to server' % r)
         elif status == 204:
             # no content, ie logout messages
             return None
         elif status != 200:
-            raise DAAPError('DAAPClient: %s: Error %s making request'%(r, response.status))
+            raise DAAPError('DAAPClient: %s: Error %s making request' % (r, response.status))
 
-        return self.readResponse( content )
+        return self.readResponse(content)
 
     def readResponse(self, data):
         """Convert binary response from a request to a DAAPObject"""
@@ -403,7 +403,7 @@ class DAAPSession(object):
         self.sessionid  = sessionid
         self.revision   = 1
 
-    def request(self, r, params = {}, answers = 1):
+    def request(self, r, params={}, answers=1):
         """Pass the request through to the connection, adding the session-id
         parameter."""
         params['session-id'] = self.sessionid
@@ -442,7 +442,7 @@ class DAAPDatabase(object):
 
     def tracks(self):
         """returns all the tracks in this database, as DAAPTrack objects"""
-        response = self.session.request("/databases/%s/items"%self.id, {
+        response = self.session.request("/databases/%s/items" % self.id, {
             'meta':daap_atoms
         })
         #response.printTree()
@@ -450,7 +450,7 @@ class DAAPDatabase(object):
         return [DAAPTrack(self, t) for t in track_list]
 
     def playlists(self):
-        response = self.session.request("/databases/%s/containers"%self.id)
+        response = self.session.request("/databases/%s/containers" % self.id)
         db_list = response.getAtom("mlcl").contains
         return [DAAPPlaylist(self, d) for d in db_list]
 
@@ -465,7 +465,7 @@ class DAAPPlaylist(object):
 
     def tracks(self):
         """returns all the tracks in this playlist, as DAAPTrack objects"""
-        response = self.database.session.request("/databases/%s/containers/%s/items"%(self.database.id,self.id), {
+        response = self.database.session.request("/databases/%s/containers/%s/items" % (self.database.id,self.id), {
             'meta':daap_atoms
         })
         track_list = response.getAtom("mlcl").contains
@@ -502,9 +502,9 @@ class DAAPTrack(object):
 
         # get the raw response object directly, not the parsed version
         return self.database.session.connection._get_response(
-            "/databases/%s/items/%s.%s"%(self.database.id, self.id, self.type),
-            { 'session-id':self.database.session.sessionid },
-            gzip = 0,
+            "/databases/%s/items/%s.%s" % (self.database.id, self.id, self.type),
+            {'session-id':self.database.session.sessionid},
+            gzip=0,
         )
 
     def save(self, filename):
@@ -544,7 +544,7 @@ if __name__ == '__main__':
         try:
             # do everything in a big try, so we can disconnect at the end
 
-            connection.connect( host, port )
+            connection.connect(host, port)
 
             # auth isn't supported yet. Just log in
             session     = connection.login()

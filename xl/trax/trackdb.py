@@ -195,7 +195,7 @@ class TrackDB(object):
                     logger.info("Upgrading DB format....")
                     import shutil
                     shutil.copyfile(location,
-                            location + "-%s.bak"%pdata['_dbversion'])
+                            location + "-%s.bak" % pdata['_dbversion'])
                     import xl.migrations.database as dbmig
                     dbmig.handle_migration(self, pdata, pdata['_dbversion'],
                             self._dbversion)
@@ -218,7 +218,7 @@ class TrackDB(object):
                         if loc not in data:
                             data[loc] = TrackHolder(tr, p[1], **p[2])
                         else:
-                            logger.warning("Duplicate track found: %s" % loc )
+                            logger.warning("Duplicate track found: %s" % loc)
                             # presumably the second track was written because of an error, 
                             # so use the first track found. 
                             del pdata[k]
@@ -403,9 +403,9 @@ class TrackDB(object):
         """
         import warnings
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
-        tracks = [ x.track for x in search_tracks_from_string(self, query,
+        tracks = [x.track for x in search_tracks_from_string(self, query,
                 case_sensitive=False, keyword_tags=['artist', 'albumartist',
-                'album', 'title']) ]
+                'album', 'title'])]
 
         if sort_fields:
             tracks = sort_tracks(sort_fields, tracks, reverse)

@@ -59,15 +59,15 @@ tagname_option = 'plugin/grouptagger/tagname'
 def migrate_settings():
     '''Automatically migrate group tagger 0.1 settings to 0.2'''
     
-    if settings.get_option( migrated_option, False ):
+    if settings.get_option(migrated_option, False):
     
-        default_groups = settings.get_option( 'plugin/grouptagger/default_groups', None )
+        default_groups = settings.get_option('plugin/grouptagger/default_groups', None)
         if default_groups is not None:
-            group_categories = { _('Uncategorized'): [True, default_groups] }
-            set_group_categories( group_categories ) 
+            group_categories = {_('Uncategorized'): [True, default_groups]}
+            set_group_categories(group_categories) 
             #settings.remove_option( 'plugin/grouptagger/default_groups' )
             
-        settings.set_option( migrated_option, True )
+        settings.set_option(migrated_option, True)
   
 
 def get_tagname():
@@ -85,7 +85,7 @@ def _get_track_groups(track, tagname):
     grouping = track.get_tag_raw(tagname, True)
     
     if grouping is not None:
-        return { group.replace('_', ' ') for group in grouping.split()}
+        return {group.replace('_', ' ') for group in grouping.split()}
         
     return set()
 
@@ -97,11 +97,11 @@ def set_track_groups(track, groups):
         Returns true if successful, false if there was an error
     '''
     
-    grouping = ' '.join( sorted( [ '_'.join( group.split() ) for group in groups ] ) )
-    track.set_tag_raw(get_tagname(), grouping )
+    grouping = ' '.join(sorted(['_'.join(group.split()) for group in groups]))
+    track.set_tag_raw(get_tagname(), grouping)
     
     if not track.write_tags():
-        dialogs.error( None, "Error writing tags to %s" % GObject.markup_escape_text(track.get_loc_for_io()) )
+        dialogs.error(None, "Error writing tags to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
         return False
         
     return True
@@ -115,7 +115,7 @@ def get_group_categories():
         Structure: { category: [expanded, [group, ... ]], ... }
     '''
 
-    return settings.get_option( group_categories_option, dict() )
+    return settings.get_option(group_categories_option, dict())
     
 
 def get_groups_from_categories():
@@ -124,7 +124,7 @@ def get_groups_from_categories():
     categories = get_group_categories()
     for category, (expanded, cgroups) in categories.iteritems():
         for group in cgroups:
-            groups.add( group )
+            groups.add(group)
     return groups
     
 
@@ -132,10 +132,10 @@ def set_group_categories(group_categories):
     '''
         Set the mapping of default groups to categories
     '''
-    settings.set_option( group_categories_option, group_categories )
+    settings.set_option(group_categories_option, group_categories)
     
     
-def get_all_collection_groups( collection ):
+def get_all_collection_groups(collection):
     '''
         For a given collection of tracks, return all groups
         used within that collection
@@ -147,32 +147,32 @@ def get_all_collection_groups( collection ):
     return groups
     
     
-def _create_search_playlist( name, search_string, exaile ):
+def _create_search_playlist(name, search_string, exaile):
     '''Create a playlist based on a search string'''
-    tracks = [ x.track for x in search.search_tracks_from_string( exaile.collection, search_string ) ]
+    tracks = [x.track for x in search.search_tracks_from_string(exaile.collection, search_string)]
         
     # create the playlist
-    pl = playlist.Playlist( name, tracks )
-    main.get_playlist_notebook().create_tab_from_playlist( pl )
+    pl = playlist.Playlist(name, tracks)
+    main.get_playlist_notebook().create_tab_from_playlist(pl)
     
     
-def create_all_search_playlist( groups, exaile ):
+def create_all_search_playlist(groups, exaile):
     '''Create a playlist of tracks that have all groups selected'''
     
     tagname = get_tagname()
     
     name = '%s: %s' % (tagname.title(), ' and '.join(groups))
-    search_string = ' '.join( [ '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ','_'))) for group in groups ] )
+    search_string = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ','_'))) for group in groups])
     
-    _create_search_playlist( name, search_string, exaile )
+    _create_search_playlist(name, search_string, exaile)
 
     
-def create_custom_search_playlist( groups, exaile ):
+def create_custom_search_playlist(groups, exaile):
     '''Create a playlist based on groups, and user input in a shiny dialog'''
 
-    dialog = gt_widgets.GroupTaggerQueryDialog( groups )
+    dialog = gt_widgets.GroupTaggerQueryDialog(groups)
     if dialog.run() == Gtk.ResponseType.OK:
         name, search_string = dialog.get_search_params()
-        _create_search_playlist( name, search_string, exaile )
+        _create_search_playlist(name, search_string, exaile)
 
     dialog.destroy()

@@ -51,8 +51,8 @@ class InvalidPluginError(Exception):
 class PluginsManager(object):
 
     def __init__(self, exaile, load=True):
-        self.plugindirs = [ os.path.join(p, 'plugins')
-                for p in xdg.get_data_dirs() ]
+        self.plugindirs = [os.path.join(p, 'plugins')
+                for p in xdg.get_data_dirs()]
         if xdg.local_hack:
             self.plugindirs.insert(1, os.path.join(xdg.exaile_dir, 'plugins'))
 
@@ -61,7 +61,7 @@ class PluginsManager(object):
         except Exception:
             pass
 
-        self.plugindirs = [ x for x in self.plugindirs if os.path.exists(x) ]
+        self.plugindirs = [x for x in self.plugindirs if os.path.exists(x)]
         self.loaded_plugins = {}
 
         self.exaile = exaile

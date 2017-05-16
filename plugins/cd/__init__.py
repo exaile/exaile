@@ -44,9 +44,9 @@ import os.path
 try:
     import DiscID
     import CDDB
-    CDDB_AVAIL=True
+    CDDB_AVAIL = True
 except Exception:
-    CDDB_AVAIL=False
+    CDDB_AVAIL = False
 
 import cdprefs
 
@@ -135,7 +135,7 @@ class CDTocParser(object):
                 if ctrl & CDROM_DATA_TRACK:
                     data = 1
     
-                self.raw_tracks.append( (track, m, s, f, (m*60+s) * 75 + f, data) )
+                self.raw_tracks.append((track, m, s, f, (m * 60 + s) * 75 + f, data))
         finally:
             os.close(fd)
 
@@ -146,7 +146,7 @@ class CDTocParser(object):
         offset = self.raw_tracks[0][4]
         lengths = []
         for track in self.raw_tracks[1:]:
-            lengths.append((track[4]-offset)/75)
+            lengths.append((track[4] - offset) / 75)
             offset = track[4]
         return lengths
 
@@ -179,9 +179,9 @@ class CDPlaylist(playlist.Playlist):
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
-        sort_tups = sorted([ (int(s.get_tag_raw('tracknumber')[0]),s)
-                for s in songs.values() ])
-        sorted = [ s[1] for s in sort_tups ]
+        sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]),s)
+                for s in songs.values()])
+        sorted = [s[1] for s in sort_tups]
 
         self.extend(sorted)
 

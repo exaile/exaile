@@ -91,7 +91,7 @@ class Alarm:
         self.time = time
         self.name = name
         if days is None:
-            self.days = [True]*7
+            self.days = [True] * 7
         else:
             self.days = days
 
@@ -206,7 +206,7 @@ class AlarmClock:
         
         # update display
         days_str = ['Su','M','Tu','W','Th','F','Sa']
-        self.model[path][4] = ','.join( [ days_str[i] for i in range(0,7) if days[i] ] )
+        self.model[path][4] = ','.join([days_str[i] for i in range(0,7) if days[i]])
         
         # save changes
         self.save_list()
@@ -242,7 +242,7 @@ class AlarmClock:
         '''Add an alarm to the model'''
         # update display
         days_str = ['Su','M','Tu','W','Th','F','Sa']
-        day_disp = ','.join( [ days_str[i] for i in range(0,7) if alarm.days[i] ] )
+        day_disp = ','.join([days_str[i] for i in range(0,7) if alarm.days[i]])
         self.model.append([alarm.active, alarm.name, alarm.time, alarm.days, day_disp])
         
         # save list changes - NO, called by loader
@@ -251,12 +251,12 @@ class AlarmClock:
     def add_button(self, widget):
         '''Callback for clicking add button'''
         # generate unique name
-        names = [ row[1] for row in self.model ]
+        names = [row[1] for row in self.model]
         base = 'Alarm'
         name = base
         i = 0
         while name in names:
-            i = i+1
+            i = i + 1
             name = base + ' {0}'.format(i)
             
         # add the new alarm
@@ -323,12 +323,12 @@ class AlarmClock:
         path = os.path.join(xdg.get_data_dirs()[0],'alarmlist.dat')
         
         if len(self.model) > 0:
-            alist = [ {
+            alist = [{
                         'active':row[0],
                         'name':row[1],
                         'time':row[2],
                         'days':row[3]
-                        } for row in self.model ]
+                        } for row in self.model]
                         
             with open(path,'wb') as f:
                 f.write(_write(alist))
@@ -346,17 +346,17 @@ def fade_in(main, exaile):
     logger.debug('fade_in() called.')
 
     # pull settings
-    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume')/100.
-    fade_max_volume = settings.get_option('plugin/multialarmclock/fade_max_volume')/100.
-    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment')/100.
-    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / ((fade_max_volume-temp_volume)/fade_inc)
+    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume') / 100.
+    fade_max_volume = settings.get_option('plugin/multialarmclock/fade_max_volume') / 100.
+    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment') / 100.
+    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / ((fade_max_volume - temp_volume) / fade_inc)
     
     while temp_volume < fade_max_volume:
         logger.debug('set volume to {0}'.format(temp_volume))
 
         settings.set_option('player/volume', temp_volume)
         temp_volume += fade_inc
-        time.sleep( time_per_inc )
+        time.sleep(time_per_inc)
         if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
             return
 
@@ -376,7 +376,7 @@ def check_alarms(main, exaile):
     currentDay = int(time.strftime("%w", time.localtime()))
     
     # generate list of alarms from model
-    alist = [ Alarm(active=row[0], name=row[1], time=row[2], days=row[3]) for row in main.model ]
+    alist = [Alarm(active=row[0], name=row[1], time=row[2], days=row[3]) for row in main.model]
 #    print current , [ a.time for a in alist if a.active ]
     for al in alist:
         if al.active and al.time == current and al.days[currentDay] == True:

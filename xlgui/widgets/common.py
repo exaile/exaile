@@ -222,12 +222,12 @@ class DragTreeView(AutoScrollTreeView):
         if source:
             self.drag_source_set(
                 Gdk.ModifierType.BUTTON1_MASK, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
         if receive:
             self.drop_pos = drop_pos
             self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.DEFAULT|
+                Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
                 Gdk.DragAction.MOVE)
             self.connect('drag_data_received',
                 self.container.drag_data_received)
@@ -259,7 +259,7 @@ class DragTreeView(AutoScrollTreeView):
         self.dragging = False
         self.unset_rows_drag_dest()
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-            Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+            Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
     def on_drag_begin(self, widget, context):
         """
@@ -448,7 +448,7 @@ class DragTreeView(AutoScrollTreeView):
             pass
 
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
-    def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):
+    def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):
         """
             Handles the locations from drag data
 

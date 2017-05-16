@@ -82,7 +82,7 @@ class DynamicAudioSink(Gst.Bin):
             # if we don't use the timeout, when we set it to READY, it may be performing
             # an async wait for PAUSE, so we use the timeout here.
             
-            state = old_audio_sink.get_state(timeout=50*Gst.MSECOND)[1]
+            state = old_audio_sink.get_state(timeout=50 * Gst.MSECOND)[1]
             
             if state != Gst.State.PLAYING:
                 buffer_position = None

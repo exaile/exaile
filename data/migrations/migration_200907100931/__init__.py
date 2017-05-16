@@ -97,7 +97,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         if oldtrack._rating: # filter '' and 0
             oldtrack._rating = max(0, oldtrack._rating)
             oldtrack._rating = min(oldtrack._rating, rating_steps)
-            newtrack.set_tag_raw('__rating', float((100.0*oldtrack._rating)/rating_steps))
+            newtrack.set_tag_raw('__rating', float((100.0 * oldtrack._rating) / rating_steps))
 
         db_map = {'artist': 'artist',
                 'album': 'album',
@@ -113,10 +113,10 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         temp_time = oldtrack.time_added
 
         try:
-            newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M')))
+            newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 5],'%Y-%m-%d %H:%M')))
         except ValueError:
              try:
-                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-3],'%Y-%m-%d %H:%M')))
+                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 3],'%Y-%m-%d %H:%M')))
              except ValueError:
                      pass
 

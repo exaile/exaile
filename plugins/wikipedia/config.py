@@ -6,7 +6,7 @@ PLUGIN_VERSION = '0.5'
 PLUGIN_DESCRIPTION = _(u"Displays Wikipedia page about the current performer.")
 PLUGIN_ENABLED = False
 USER_AGENT = None
-LANGUAGES = [ "ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
+LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
 "ae", "ay", "az", "bm", "ba", "eu", "be", "bn", "bh", "bi", "bs", "br", "bg",
 "my", "ca", "ch", "ce", "ny", "cv", "kw", "co", "cr", "hr", "cs", "da", "dv",
 "nl", "dz", "en", "eo", "et", "ee", "fo", "fj", "fi", "fr", "ff", "gl", "ka",

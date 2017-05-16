@@ -156,9 +156,9 @@ class BPMAutodetectResponse(Gtk.Dialog):
         self.init_template()
         
         self.q_label.set_text(self.q_label.get_text() % track.get_tag_display('title'))
-        self.r1.set_label(str(int(round(bpm/2.0))))
+        self.r1.set_label(str(int(round(bpm / 2.0))))
         self.r2.set_label(str(bpm))
-        self.r3.set_label(str(int(round(bpm*2.0))))
+        self.r3.set_label(str(int(round(bpm * 2.0))))
         self.r2.set_active(True)
         
     def get_bpm(self):
@@ -297,7 +297,7 @@ class BPMWidget(Gtk.Frame):
         self.trim_taps()
         
         if len(self.taps) > 1:
-            self.bpm = str(int(round(((len(self.taps)-1) * 60.0) / ( self.taps[-1] - self.taps[0] ))))
+            self.bpm = str(int(round(((len(self.taps) - 1) * 60.0) / (self.taps[-1] - self.taps[0]))))
         else:
             self.bpm = None
         

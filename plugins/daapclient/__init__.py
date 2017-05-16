@@ -101,8 +101,8 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         Fires a "connect" signal when a menu item is clicked.
     """
     __gsignals__ = {
-                    'connect' : ( GObject.SignalFlags.RUN_LAST, None,
-                                    ( GObject.TYPE_PYOBJECT, ) ) }
+                    'connect' : (GObject.SignalFlags.RUN_LAST, None,
+                                    (GObject.TYPE_PYOBJECT, ))}
 
     def new_service(self, interface, protocol, name, type, domain, flags):
         """
@@ -256,8 +256,8 @@ class DaapHistory(common.LimitedCache):
         
         # add new menu item
         if self.menu is not None and self.callback is not None:
-            menu_item = _smi('hist'+item, ['sep'], item,
-                        callback=lambda *x: self.callback(None, value+(None,)))
+            menu_item = _smi('hist' + item, ['sep'], item,
+                        callback=lambda *x: self.callback(None, value + (None,)))
             self.menu.add_item(menu_item)
         
     def load(self):
@@ -369,7 +369,7 @@ class DaapManager:
             
             if p > b:
                 try:
-                    port = int(host[p+1:])
+                    port = int(host[p + 1:])
                     host = host[:p]
                 except ValueError:
                     logger.error('non-numeric port specified')
@@ -393,7 +393,7 @@ class DaapManager:
         # check for changes
         panel.daap_share.session.update()
         logger.debug('DAAP Server %s returned revision %d ( old: %d ) after'
-                    +' update request'
+                    + ' update request'
                 % (name, panel.daap_share.session.revision, rev))
         
         # if changes, refresh
@@ -425,7 +425,7 @@ class DaapConnection(object):
     def __init__(self, name, server, port):
         # if it's an ipv6 address
         if ':' in server and server[0] != '[':
-            server = '['+server+']'
+            server = '[' + server + ']'
     
         self.all = []
         self.session = None
@@ -437,7 +437,7 @@ class DaapConnection(object):
         self.auth = False
         self.password = None
 
-    def connect(self, password = None):
+    def connect(self, password=None):
         """
             Connect, login, and retrieve the track list.
         """
@@ -484,7 +484,7 @@ class DaapConnection(object):
         t = time.time()
         self.convert_list()
         logger.debug('{0} tracks loaded in {1}s'.format(len(self.all),
-                                                        time.time()-t))
+                                                        time.time() - t))
 
     def get_database(self):
         """
@@ -494,7 +494,7 @@ class DaapConnection(object):
             self.database = self.session.library()
             self.get_tracks(1)
 
-    def get_tracks(self, reset = False):
+    def get_tracks(self, reset=False):
         """
             Get the track list from a DAAP database
         """
@@ -526,7 +526,7 @@ class DaapConnection(object):
 
                 for field in eqiv.keys():
                     try:
-                        tag = u'%s'%tr.atom.getAtom(eqiv[field])
+                        tag = u'%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
@@ -598,7 +598,7 @@ class DaapLibrary(collection.Library):
 
         if count > 0:
             logger.info('Adding %d tracks from %s. (%f s)' % (count, 
-                                    self.daap_share.name, time.time()-t))
+                                    self.daap_share.name, time.time() - t))
             self.collection.add_tracks(self.daap_share.all)
 
         if notify_interval is not None:
@@ -651,10 +651,10 @@ class NetworkPanel(CollectionPanel):
                                                             get_tracks_func))
         self.menu.add_item(_sep('sep',['props']))
         self.menu.add_item(_smi('refresh', ['sep'], _('Refresh Server List'),
-            callback = lambda *x: mgr.refresh_share(self.name)))
+            callback=lambda *x: mgr.refresh_share(self.name)))
         self.menu.add_item(_smi('disconnect', ['refresh'], 
                     _('Disconnect from Server'),
-                    callback = lambda *x: mgr.disconnect_share(self.name)))
+                    callback=lambda *x: mgr.disconnect_share(self.name)))
 
     @common.threaded
     def refresh(self):
@@ -689,10 +689,10 @@ class NetworkPanel(CollectionPanel):
         for i in items:
             tnum = i.get_track()
             if tnum < 10:
-                tnum = "0%s"%tnum
+                tnum = "0%s" % tnum
             else:
                 tnum = str(tnum)
-            filename = "%s%s%s - %s.%s"%(folder, os.sep, tnum,
+            filename = "%s%s%s - %s.%s" % (folder, os.sep, tnum,
                 i.get_title(), i.type)
             i.connection.get_track(i.daapid, filename)
 #                print "DAAP: saving track %s to %s."%(i.daapid, filename)

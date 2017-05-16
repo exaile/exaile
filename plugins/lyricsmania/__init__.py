@@ -47,7 +47,7 @@ def disable(exaile):
 
 class LyricsMania(LyricSearchMethod):
 
-    name= "lyricsmania"
+    name = "lyricsmania"
     display_name = "Lyrics Mania"
     
     def __init__(self, exaile):

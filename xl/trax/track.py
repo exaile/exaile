@@ -401,7 +401,7 @@ class Track(object):
             # fill out file specific items
             gloc = Gio.File.new_for_uri(loc)
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
-            mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
+            mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
             self.set_tag_raw('__modified', mtime)
             # TODO: this probably breaks on non-local files
             path = gloc.get_parent().get_path()
@@ -812,7 +812,7 @@ class Track(object):
             return 0
 
         maximum = settings.get_option("rating/maximum", 5)
-        rating = int(round(rating*float(maximum)/100.0))
+        rating = int(round(rating * float(maximum) / 100.0))
 
         if rating > maximum:
             return int(maximum)

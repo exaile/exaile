@@ -70,7 +70,7 @@ def _enable(exaile):
     ds = DaapServer(CollectionWrapper(exaile.collection), 
                                         port=port, name=name, host=host)
                                         
-    if( settings.get_option('plugin/daapserver/enabled', True) ):
+    if(settings.get_option('plugin/daapserver/enabled', True)):
         ds.start()
 
 

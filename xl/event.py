@@ -191,7 +191,7 @@ class _WeakMethod(object):
     Typically, you will use the getRef() function instead of using
     this class directly. """
 
-    def __init__(self, method, notifyDead = None):
+    def __init__(self, method, notifyDead=None):
         """
             The method must be bound. notifyDead will be called when
             object that method is bound to dies.

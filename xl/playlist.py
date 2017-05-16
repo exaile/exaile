@@ -233,7 +233,7 @@ class FormatConverter(object):
         for extension in self.file_extensions:
             if name.endswith(extension):
                 # Remove known extension
-                return name[:-len(extension)-1]
+                return name[:-len(extension) - 1]
         return name
 
     def get_track_import_path(self, playlist_path, track_path):
@@ -275,11 +275,11 @@ class FormatConverter(object):
                         tps = tps[1:]
                     
                     # iterate the playlist path a/b/c/d, a/b/c, a/b, ... 
-                    for p in range(len(pps)-1,0,-1):
+                    for p in range(len(pps) - 1,0,-1):
                         ppp = 'file:///%s' % '/'.join(pps[0:p])
                     
                         # iterate the file path d, c/d, b/c/d, ... 
-                        for t in range(len(tps)-1,-1,-1):
+                        for t in range(len(tps) - 1,-1,-1):
                             yield '%s/%s' % (ppp, '/'.join(tps[t:len(tps)]))
 
                 for uri in _iter_uris(playlist_uri, track_path):
@@ -1042,8 +1042,8 @@ class Playlist(object):
             :returns: the tracks
             :rtype: list
         """
-        return  [ (i, self.__tracks[i]) for i in range(len(self)) if
-                self.__tracks.get_meta_key(i, 'playlist_shuffle_history') ]
+        return [(i, self.__tracks[i]) for i in range(len(self)) if
+                self.__tracks.get_meta_key(i, 'playlist_shuffle_history')]
 
     def clear_shuffle_history(self):
         """
@@ -1077,9 +1077,9 @@ class Playlist(object):
                 if current_position == -1:
                     raise IndexError
                 curr = self[current_position]
-                t = [ x for i, x in enumerate(self)
+                t = [x for i, x in enumerate(self)
                     if x.get_tag_raw('album') == curr.get_tag_raw('album')
-                    and i > current_position ]
+                    and i > current_position]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
 
@@ -1095,13 +1095,13 @@ class Playlist(object):
                 if not albums:
                     return -1, None
                 album = list(random.choice(list(albums)))
-                t = [ x for x in self if x.get_tag_raw('album') == album ]
+                t = [x for x in self if x.get_tag_raw('album') == album]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
         else:
-            hist = { i for i, tr in self.get_shuffle_history() }
+            hist = {i for i, tr in self.get_shuffle_history()}
             try:
-                return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
+                return random.choice([(i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
                         if i not in hist])
             except IndexError: # no more tracks
                 return -1, None
@@ -1136,7 +1136,7 @@ class Playlist(object):
                 self.clear_shuffle_history()
         else:
             try:
-                next = self[current_position+1]
+                next = self[current_position + 1]
                 next_index = current_position + 1
             except IndexError:
                 next = None
@@ -1233,21 +1233,21 @@ class Playlist(object):
     # always be supported in the running version.
 
     def __get_mode(self, modename):
-        mode = getattr(self, "_Playlist__%s_mode"%modename)
-        modes = getattr(self, "%s_modes"%modename)
+        mode = getattr(self, "_Playlist__%s_mode" % modename)
+        modes = getattr(self, "%s_modes" % modename)
         if mode in modes:
             return mode
         else:
             return modes[0]
 
     def __set_mode(self, modename, mode):
-        modes = getattr(self, "%s_modes"%modename)
+        modes = getattr(self, "%s_modes" % modename)
         if mode not in modes:
             raise TypeError("Mode %s is invalid" % mode)
         else:
             self.__dirty = True
-            setattr(self, "_Playlist__%s_mode"%modename, mode)
-            event.log_event("playlist_%s_mode_changed"%modename, self, mode)
+            setattr(self, "_Playlist__%s_mode" % modename, mode)
+            event.log_event("playlist_%s_mode_changed" % modename, self, mode)
 
     def get_shuffle_mode(self):
         """
@@ -1411,7 +1411,7 @@ class Playlist(object):
             except ValueError:
                 strn = ""
 
-            f.write("%s=%s\n"%(item,strn))
+            f.write("%s=%s\n" % (item,strn))
         f.close()
         if os.path.exists(location + ".new"):
             os.remove(location)
@@ -1429,7 +1429,7 @@ class Playlist(object):
         # attributes. It is intended ONLY for initial setup, not for
         # reloading a playlist inline.
         f = None
-        for loc in [location, location+".new"]:
+        for loc in [location, location + ".new"]:
             try:
                 f = open(loc, 'r')
                 break
@@ -1827,7 +1827,7 @@ class SmartPlaylist(object):
         for m in matchers:
             matcher.prepend_matcher(m, self.or_match)
         
-        trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
+        trs = [t.track for t in trax.search_tracks(collection, [matcher])]
         if self.random_sort:
             random.shuffle(trs)
         else:
@@ -1835,7 +1835,7 @@ class SmartPlaylist(object):
                     'tracknumber', 'title')
             trs = trax.sort_tracks(sort_field, trs)
         if self.track_count > 0 and len(trs) > self.track_count:
-            trs=trs[:self.track_count]
+            trs = trs[:self.track_count]
 
         pl = Playlist(name=self.name)
         pl.extend(trs)
@@ -1867,7 +1867,7 @@ class SmartPlaylist(object):
             s = ""
 
             if field == '__rating':
-                value = float((100.0*value)/maximum)
+                value = float((100.0 * value) / maximum)
             elif field == '__playlist':
                 try:
                     pl = main.exaile().playlists.get_playlist(value)
@@ -1904,7 +1904,7 @@ class SmartPlaylist(object):
                         'op':    op[1:]
                     }
             elif op == "><":
-                s+= '( %(field)s>%(value1)s ' \
+                s += '( %(field)s>%(value1)s ' \
                     '%(field)s<%(value2)s )' % \
                     {
                         'field':  field,
@@ -2074,7 +2074,7 @@ class PlaylistManager(object):
         """
         return self.playlists[:]
 
-    def move(self, playlist, position, after = True):
+    def move(self, playlist, position, after=True):
         """
             Moves the playlist to where position is
         """
@@ -2120,7 +2120,7 @@ class PlaylistManager(object):
             @return: a list of the playlist names
         """
         f = None
-        for loc in [location, location+".new"]:
+        for loc in [location, location + ".new"]:
             try:
                 f = open(loc, 'r')
                 break

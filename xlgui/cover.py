@@ -588,7 +588,7 @@ class CoverWidget(Gtk.EventBox):
         self.__track = track
         
         self.set_blank()
-        self.drag_dest_set( Gtk.DestDefaults.ALL,
+        self.drag_dest_set(Gtk.DestDefaults.ALL,
                             [Gtk.TargetEntry.new('text/uri-list', 0, 0)],
                             Gdk.DragAction.COPY |
                             Gdk.DragAction.DEFAULT |

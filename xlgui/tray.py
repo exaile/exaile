@@ -201,7 +201,7 @@ class BaseTrayIcon(object):
         if event.button == Gdk.BUTTON_PRIMARY:
             self.main.toggle_visible(bringtofront=True)
         if event.button == Gdk.BUTTON_MIDDLE:
-            playback.playpause( player.PLAYER )
+            playback.playpause(player.PLAYER)
         if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(None, None, self.get_menu_position, self,
                 event.button, event.time)

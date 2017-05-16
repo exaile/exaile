@@ -58,12 +58,12 @@ VALID_TAGS = (
     "originalartist recordingdate"
     ).split()
 
-PICKLE_PROTOCOL=2
+PICKLE_PROTOCOL = 2
 
 # Default tags for track sorting. Unless you have good reason to do
 # otherwise, use this.
 # TODO: make this a setting?
-BASE_SORT_TAGS=('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
+BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
 # use this for general logging of exceptions
 
@@ -584,7 +584,7 @@ class MetadataList(object):
         self.metadata = meta
 
     def __repr__(self):
-        return "MetadataList(%s)"%self.__list
+        return "MetadataList(%s)" % self.__list
 
     def __len__(self):
         return len(self.__list)
@@ -618,7 +618,7 @@ class MetadataList(object):
         if isinstance(value, MetadataList):
             metadata = list(value.metadata)
         else:
-            metadata = [None]*len(value)
+            metadata = [None] * len(value)
         self.metadata.__setitem__(i, metadata)
 
     def __delitem__(self, i):
@@ -634,7 +634,7 @@ class MetadataList(object):
     def insert(self, i, item, metadata=None):
         if i >= len(self):
             i = len(self)
-            e = len(self)+1
+            e = len(self) + 1
         else:
             e = i
         self[i:e] = [item]

@@ -29,14 +29,14 @@ search_url = 'http://librivox.org/api/feed/audiobooks/?title='
 class Book():
 
     def __init__(self, title, rssurl, user_agent):
-        self.title=title
-        self.rssurl=rssurl
-        self.chapters=[]
-        self.info=None
-        self.is_loading=False
-        self.xmldata=None
-        self.xmltree=None
-        self.loaded=False
+        self.title = title
+        self.rssurl = rssurl
+        self.chapters = []
+        self.info = None
+        self.is_loading = False
+        self.xmldata = None
+        self.xmltree = None
+        self.loaded = False
         self.user_agent = user_agent
 
     def get_all(self):
@@ -48,31 +48,31 @@ class Book():
             return
 
         try:
-            self.xmldata=common.get_url_contents(self.rssurl, self.user_agent)
+            self.xmldata = common.get_url_contents(self.rssurl, self.user_agent)
         except Exception:
             logger.error("LIBRIVOX: Connection error")
             return
         
         try:
-            self.xmltree=ElementTree.XML(self.xmldata)
+            self.xmltree = ElementTree.XML(self.xmldata)
         except Exception:
             logger.error("LIBRIVOX: XML error")
             return
         
-        self.chapters=[]
-        items=self.xmltree.findall("channel/item")
+        self.chapters = []
+        items = self.xmltree.findall("channel/item")
         for item in items:
-            title=item.find("title").text
-            link=item.find("link").text
-            duration=item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
+            title = item.find("title").text
+            link = item.find("link").text
+            duration = item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
             if duration is None:
                 duration = 'Unknown length'
-            link=link.replace("_64kb.mp3", ".ogg")
-            self.chapters.append([title+" "+"("+duration+")", link])
+            link = link.replace("_64kb.mp3", ".ogg")
+            self.chapters.append([title + " " + "(" + duration + ")", link])
 
-        self.info=self.xmltree.find("channel/description")
-        self.info=self.info.text
-        self.loaded=True
+        self.info = self.xmltree.find("channel/description")
+        self.info = self.info.text
+        self.loaded = True
         return
 
 
@@ -82,16 +82,16 @@ def find_books(keyword, user_agent):
     '''
     
     # urlencode the search string
-    url=search_url+urllib.quote_plus(keyword)
+    url = search_url + urllib.quote_plus(keyword)
     
     try:
-        data=common.get_url_contents(url, user_agent)
+        data = common.get_url_contents(url, user_agent)
     except Exception:
         logger.error("LIBRIVOX: connection error")
         return []
     
     try:
-        tree=ElementTree.XML(data)
+        tree = ElementTree.XML(data)
     except Exception:
         logger.error("LIBRIVOX: XML error")
         return []
@@ -104,9 +104,9 @@ def find_books(keyword, user_agent):
         
         elif elem.tag == 'books':
             for bk in elem.findall('book'):
-                title=bk.find("title").text
-                rssurl=bk.find("url_rss").text
-                book=Book(title, rssurl)
+                title = bk.find("title").text
+                rssurl = bk.find("url_rss").text
+                book = Book(title, rssurl)
                 books.append(book)
     
     return books

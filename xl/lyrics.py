@@ -208,7 +208,7 @@ class LyricsManager(providers.ProviderHandler):
             :raise LyricsNotFoundException: when lyrics are not
                 found from all sources.
         """
-        lyrics_found=[]
+        lyrics_found = []
 
         for method in self.get_providers():
             lyrics = None
@@ -257,7 +257,7 @@ class LyricsManager(providers.ProviderHandler):
             (lyrics, source, url, time) = self.cache[key]
             # return if they are not expired
             now = datetime.now()
-            if (now-time < timedelta(hours=cache_time) and not refresh):
+            if (now - time < timedelta(hours=cache_time) and not refresh):
                 try:
                     lyrics = zlib.decompress(lyrics)
                 except zlib.error as e:
@@ -351,8 +351,8 @@ class LyricSearchMethod(object):
 
 class LocalLyricSearch(LyricSearchMethod):
 
-    name="__local"
-    display_name=_("Local")
+    name = "__local"
+    display_name = _("Local")
 
     def find_lyrics(self, track):
         lyrics = track.get_tag_disk('lyrics')

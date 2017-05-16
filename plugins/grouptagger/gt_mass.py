@@ -102,7 +102,7 @@ class GtMassRename(Gtk.Window):
                 if self.search_str != '' and self.search_str not in groups:
                     continue
                 
-                name = ' - '.join([ track.get_tag_display('artist'),
+                name = ' - '.join([track.get_tag_display('artist'),
                                     track.get_tag_display('album'),
                                     track.get_tag_display('title')])
                 model.append((True, name, track))

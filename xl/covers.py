@@ -244,7 +244,7 @@ class CoverManager(providers.ProviderHandler):
             if local_only and method.use_cache:
                 continue
             new = method.find_covers(track, limit=limit)
-            new = ["%s:%s"%(method.name, x) for x in new]
+            new = ["%s:%s" % (method.name, x) for x in new]
             covers.extend(new)
             if limit != -1 and len(covers) >= limit:
                 break
@@ -264,7 +264,7 @@ class CoverManager(providers.ProviderHandler):
         name = db_string.split(":", 1)[0]
         method = self.methods.get(name)
         if method and method.use_cache and data:
-            db_string = "cache:%s"%self.__cache.add(data)
+            db_string = "cache:%s" % self.__cache.add(data)
         key = self._get_track_key(track)
         if key:
             self.db[key] = db_string
@@ -354,7 +354,7 @@ class CoverManager(providers.ProviderHandler):
         """
         path = os.path.join(self.location, 'covers.db')
         data = None
-        for loc in [path, path+".old", path+".new"]:
+        for loc in [path, path + ".old", path + ".new"]:
             try:
                 with open(loc, 'rb') as f:
                     data = pickle.load(f)

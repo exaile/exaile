@@ -223,7 +223,7 @@ def parse_stream_tags(track, tag_list):
         
     v = tags.get('duration')
     if v:
-        track.set_tag_raw('__length', float(v[0])/Gst.SECOND)
+        track.set_tag_raw('__length', float(v[0]) / Gst.SECOND)
     
     v = tags.get('track-number')
     if v:

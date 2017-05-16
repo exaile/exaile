@@ -87,7 +87,7 @@ class ModesMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         item = Gtk.ImageMenuItem.new_with_mnemonic(self.display_name)
-        image = Gtk.Image.new_from_icon_name('media-playlist-'+self.modetype,
+        image = Gtk.Image.new_from_icon_name('media-playlist-' + self.modetype,
                 size=Gtk.IconSize.MENU)
         item.set_image(image)
         submenu = self.create_mode_submenu(item)
@@ -97,14 +97,14 @@ class ModesMenuItem(menu.MenuItem):
         return item
 
     def create_mode_submenu(self, parent_item):
-        names = getattr(Playlist, "%s_modes"%self.modetype)
-        displays = getattr(Playlist, "%s_mode_names"%self.modetype)
+        names = getattr(Playlist, "%s_modes" % self.modetype)
+        displays = getattr(Playlist, "%s_mode_names" % self.modetype)
         items = []
         previous = None
         for name, display in zip(names, displays):
             after = [previous] if previous else []
             item = menu.radio_menu_item(name, after, display,
-                    '%s_modes'%self.modetype, self.mode_is_selected,
+                    '%s_modes' % self.modetype, self.mode_is_selected,
                     self.on_mode_activated)
             items.append(item)
             if previous is None:
@@ -119,13 +119,13 @@ class ModesMenuItem(menu.MenuItem):
         pl = self.get_playlist_func(parent, context)
         if pl is None:
             return False
-        return getattr(pl, "%s_mode"%self.modetype) == name
+        return getattr(pl, "%s_mode" % self.modetype) == name
 
     def on_mode_activated(self, widget, name, parent, context):
         pl = self.get_playlist_func(parent, context)
         if pl is None:
             return False
-        setattr(pl, "%s_mode"%self.modetype, name)
+        setattr(pl, "%s_mode" % self.modetype, name)
 
 
 class ShuffleModesMenuItem(ModesMenuItem):
@@ -331,8 +331,8 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0]+len(positions)):
-            del playlist[positions[0]:positions[0]+len(positions)]
+        if positions == range(positions[0], positions[0] + len(positions)):
+            del playlist[positions[0]:positions[0] + len(positions)]
         else:
             for position, track in tracks[::-1]:
                 del playlist[position]
@@ -723,14 +723,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.targets = [Gtk.TargetEntry.new("exaile-index-list", Gtk.TargetFlags.SAME_APP, 0),
                 Gtk.TargetEntry.new("text/uri-list", 0, 0)]
         self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.DEFAULT|
+                Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
                 Gdk.DragAction.MOVE)
 
         event.add_ui_callback(self.on_option_set, "gui_option_set")
         event.add_ui_callback(self.on_playback_start, "playback_track_start", self.player)
-        self.connect("cursor-changed", self.on_cursor_changed )
+        self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
 
@@ -982,7 +982,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
         context['selection-count'] = lambda name, parent: parent.get_selection_count()
-        event.log_event( 'playlist_cursor_changed', self, context)
+        event.log_event('playlist_cursor_changed', self, context)
         
     def on_row_activated(self, *args):
         try:
@@ -1094,8 +1094,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
-            if indexes and indexes == range(indexes[0], indexes[0]+len(indexes)):
-                del self.playlist[indexes[0]:indexes[0]+len(indexes)]
+            if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
+                del self.playlist[indexes[0]:indexes[0] + len(indexes)]
             else:
                 for i in indexes[::-1]:
                     del self.playlist[i]
@@ -1190,7 +1190,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             # TODO: this can probably be made more-efficient
             for i in positions:
-                tracks.extend(playlist[i:i+1])
+                tracks.extend(playlist[i:i + 1])
 
             # Insert at specific position if possible
             if insert_position >= 0:
@@ -1392,7 +1392,7 @@ class PlaylistModel(Gtk.ListStore):
             
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(self.play_pixbuf.get_width() * (new_font/default)),1)
+            s = max(int(self.play_pixbuf.get_width() * (new_font / default)),1)
                 
             self.play_pixbuf = self.play_pixbuf.scale_simple(s,s,t)
             self.pause_pixbuf = self.pause_pixbuf.scale_simple(s,s,t)
@@ -1472,7 +1472,7 @@ class PlaylistModel(Gtk.ListStore):
             
         if self._redraw_timer:
             GLib.source_remove(self._redraw_timer)
-        self._redraw_queue.append( track )
+        self._redraw_queue.append(track)
         self._redraw_timer = GLib.timeout_add(100, self._on_track_tags_changed)
             
     def _on_track_tags_changed(self):
@@ -1484,11 +1484,11 @@ class PlaylistModel(Gtk.ListStore):
             tracks[track.get_loc_for_io()] = track
            
         for row in self:
-            track = tracks.get( row[0].get_loc_for_io() )
+            track = tracks.get(row[0].get_loc_for_io())
             if track is not None:
                 track_data = [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
                 for i in range(len(track_data)):
-                    row[2+i] = track_data[i]
+                    row[2 + i] = track_data[i]
 
     #
     # Loading data into the playlist:

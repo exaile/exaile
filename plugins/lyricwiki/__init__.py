@@ -31,7 +31,7 @@ def disable(exaile):
 
 class LyricWiki(LyricSearchMethod):
 
-    name= "lyricwiki"
+    name = "lyricwiki"
     display_name = "Lyric Wiki"
     
     def __init__(self, exaile):
@@ -61,7 +61,7 @@ class LyricWiki(LyricSearchMethod):
             soup = BeautifulSoup(html, "lxml")
         except HTMLParser.HTMLParseError:
             raise LyricsNotFoundException
-        lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
+        lyrics = soup.findAll(attrs={"class" : "lyricbox"})
         if lyrics:
             lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')))
         else:

@@ -76,7 +76,7 @@ class ExaileNotifyOsd(object):
         self.summary        = None
         self.body           = None
         self.gui_callback   = False
-        self.tray_connection= -1
+        self.tray_connection = -1
         event.add_ui_callback(self.on_tray_toggled, 'tray_icon_toggled')
         
     def update_notify(self):
@@ -90,7 +90,7 @@ class ExaileNotifyOsd(object):
                 self.notify.set_icon_from_pixbuf(self.icon)
 
     @common.threaded
-    def update_track_notify(self, type, player, track, media_icon = None):       
+    def update_track_notify(self, type, player, track, media_icon=None):       
         if not track:
             return
         title = track.get_tag_display('title')
@@ -134,7 +134,7 @@ class ExaileNotifyOsd(object):
             try:
                 self.notify.show()
             except GLib.GError as e:
-                logger.warning("error showing OSD notification: %s" % e )
+                logger.warning("error showing OSD notification: %s" % e)
                 logger.warning("Perhaps notify-osd is not installed?")
 
     def on_pause(self, type, player, track):
@@ -176,7 +176,7 @@ class ExaileNotifyOsd(object):
                 self.update_notify()
                 self.notify.show()
 
-    def exaile_ready(self, type = None, data1 = None, data2 = None):
+    def exaile_ready(self, type=None, data1=None, data2=None):
         if self.exaile.gui.tray_icon:
             self.tray_connection = self.exaile.gui.tray_icon.connect('query-tooltip', self.on_tooltip)
 

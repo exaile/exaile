@@ -91,7 +91,7 @@ class Order(object):
     @staticmethod
     def __parse_level(val):
         if type(val) in (str, unicode):
-            val = ((val,), "$%s"%val, (val,))
+            val = ((val,), "$%s" % val, (val,))
         return tuple(val)
 
     @property
@@ -413,7 +413,7 @@ class CollectionPanel(panel.Panel):
         search = self.get_node_search_terms(iter)
         matcher = trax.TracksMatcher(search)
         srtrs = trax.search_tracks(self.tracks, [matcher])
-        return [ x.track for x in srtrs ]
+        return [x.track for x in srtrs]
 
     def append_to_playlist(self, item=None, event=None, replace=False):
         """
@@ -542,7 +542,7 @@ class CollectionPanel(panel.Panel):
 
         self.tracks = list(
                 trax.search_tracks_from_string(self.sorted_tracks,
-                    keyword, case_sensitive=False, keyword_tags=tags) )
+                    keyword, case_sensitive=False, keyword_tags=tags))
 
         self.load_subtree(None)
 
@@ -616,11 +616,11 @@ class CollectionPanel(panel.Panel):
         except IndexError:
             return # at the bottom of the tree
         try:
-            image = getattr(self, "%s_image"%tags[-1])
+            image = getattr(self, "%s_image" % tags[-1])
         except Exception:
             image = None
         bottom = False
-        if depth == len(self.order)-1:
+        if depth == len(self.order) - 1:
             bottom = True
 
         display_counts = settings.get_option('gui/display_track_counts', True)
@@ -655,7 +655,7 @@ class CollectionPanel(panel.Panel):
                     if display_counts and path and not bottom:
                         iter = self.model.get_iter(path)
                         val = self.model.get_value(iter, 1)
-                        val = "%s (%s)"%(val, count)
+                        val = "%s (%s)" % (val, count)
                         self.model.set_value(iter, 1, val)
                         count = 0
 
@@ -682,7 +682,7 @@ class CollectionPanel(panel.Panel):
             count += 1
             if not expanded:
                 alltags = []
-                for i in range(depth+1, len(self.order)):
+                for i in range(depth + 1, len(self.order)):
                     alltags.extend(self.order.get_sort_tags(i))
                 for t in alltags:
                     if t in srtr.on_tags:
@@ -691,14 +691,14 @@ class CollectionPanel(panel.Panel):
                         if depth > 0:
                             # for some reason, nested iters are always
                             # off by one in the terminal entry.
-                            newpath = Gtk.TreePath.new_from_indices(newpath[:-1] + [newpath[-1]-1])
+                            newpath = Gtk.TreePath.new_from_indices(newpath[:-1] + [newpath[-1] - 1])
                         to_expand.append(newpath)
                         expanded = True
 
         if display_counts and path and not bottom:
             iter = self.model.get_iter(path)
             val = self.model.get_value(iter, 1)
-            val = "%s (%s)"%(val, count)
+            val = "%s (%s)" % (val, count)
             self.model.set_value(iter, 1, val)
             count = 0
 

@@ -182,7 +182,7 @@ class TrackPropertiesDialog(GObject.GObject):
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
                     else:
-                        t[tag] = [ tagval ]
+                        t[tag] = [tagval]
                 else:
                     t[tag] = ['']
 
@@ -201,7 +201,7 @@ class TrackPropertiesDialog(GObject.GObject):
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
                     else:
-                        t[tag] = [ tagval ]
+                        t[tag] = [tagval]
 
             l.append(t)
 
@@ -372,7 +372,7 @@ class TrackPropertiesDialog(GObject.GObject):
             for child in grid.get_children():
                 grid.remove(child)
 
-            for i in range(row_count/3*2, 0, -1):
+            for i in range(row_count / 3 * 2, 0, -1):
                 grid.remove_row(i)
 
     def _save_position(self):

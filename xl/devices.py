@@ -47,7 +47,7 @@ class DeviceManager(object):
         if device.get_name() in self.devices:
             device.name += " (2)"
         while device.get_name() in self.devices:
-            device.name = device.name[:-4] + " (%s)"%count
+            device.name = device.name[:-4] + " (%s)" % count
             count += 1
 
         self.devices[device.get_name()] = device

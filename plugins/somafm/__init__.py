@@ -56,7 +56,7 @@ def disable(exaile):
     STATION = None
 
 
-def set_status(message, timeout = 0):
+def set_status(message, timeout=0):
     radio.set_status(message, timeout)
 
 
@@ -88,7 +88,7 @@ class SomaFMRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout = 20)
+            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:
             c = httplib.HTTPConnection(hostinfo.netloc)
 
@@ -130,7 +130,7 @@ class SomaFMRadioStation(RadioStation):
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
             h.write(ETree.tostring(channellist, 'utf-8'))
 
-    def get_lists(self, no_cache = False):
+    def get_lists(self, no_cache=False):
         """
             Returns the rlists for somafm
         """
@@ -152,9 +152,9 @@ class SomaFMRadioStation(RadioStation):
         rlists = []
 
         for id, name in data.items():
-            rlist = RadioList(name, station = self)
+            rlist = RadioList(name, station=self)
             rlist.get_items = lambda no_cache, id = id: \
-                self._get_subrlists(id = id, no_cache = no_cache)
+                self._get_subrlists(id=id, no_cache=no_cache)
             rlists.append(rlist)
 
         sort_list = sorted([(item.name, item) for item in rlists])
@@ -163,7 +163,7 @@ class SomaFMRadioStation(RadioStation):
 
         return rlists
 
-    def _get_subrlists(self, id, no_cache = False):
+    def _get_subrlists(self, id, no_cache=False):
         """
             Gets the subrlists for a rlist
         """
@@ -209,7 +209,7 @@ class SomaFMRadioStation(RadioStation):
             url = pls.text
             display_name = format + " - " + type
             
-            rlist = RadioItem(display_name, station = self)
+            rlist = RadioItem(display_name, station=self)
             rlist.format = format
             rlist.get_playlist = lambda url = url,\
                     playlist_id = self.playlist_id :\

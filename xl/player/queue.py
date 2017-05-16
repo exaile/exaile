@@ -266,7 +266,7 @@ class PlayQueue(playlist.Playlist):
             if not self.__queue_has_tracks:
                 return -1
             else:
-                return len(self) - (self.current_position+1)
+                return len(self) - (self.current_position + 1)
     
     def __set_queue_has_tracks(self, value):
         if value != self.__queue_has_tracks_val:
@@ -292,9 +292,9 @@ class PlayQueue(playlist.Playlist):
         #if nothing is queued, queue this track up
         if self.current_position == -1:
             if isinstance(i, slice):
-                self.current_position = i.indices(len(self))[0]-1
+                self.current_position = i.indices(len(self))[0] - 1
             else:
-                self.current_position = i-1
+                self.current_position = i - 1
 
         self.__queue_has_tracks = True
         
@@ -308,7 +308,7 @@ class PlayQueue(playlist.Playlist):
         state['position'] = self.player.get_time()
         
         with open(location, 'wb') as f:
-            pickle.dump(state, f, protocol = 2)
+            pickle.dump(state, f, protocol=2)
     
     @common.threaded
     def _restore_player_state(self, location):

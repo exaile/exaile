@@ -15,40 +15,40 @@ class VolumeControl:
     def __init__(self):
         self.thread = thread
 
-    def print_debug( self ):
+    def print_debug(self):
         print(self.min_volume)
         print(self.max_volume)
         print(self.increment)
         print(self.time_per_inc)
 
-    def fade_in( self ):
+    def fade_in(self):
         temp_volume = self.min_volume
         while temp_volume <= self.max_volume:
             #print "set volume to %s" % str(temp_volume / 100.0)
-            player.PLAYER.set_volume( ( temp_volume / 100.0 ) )
+            player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume += self.increment
-            time.sleep( self.time_per_inc )
+            time.sleep(self.time_per_inc)
             if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
-    def fade_out( self):
+    def fade_out(self):
         temp_volume = self.max_volume
         while temp_volume >= self.min_volume:
             #print "set volume to %d" % (temp_volume / 100.0)
-            player.PLAYER.set_volume( ( temp_volume / 100.0) )
+            player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume -= self.increment
-            time.sleep( self.time_per_inc )
+            time.sleep(self.time_per_inc)
             if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
-    def fade_in_thread( self ):
+    def fade_in_thread(self):
         if self.use_fading == "True":
-            self.thread.start_new( self.fade_in, ())
+            self.thread.start_new(self.fade_in, ())
 
-    def stop_fading( self ):
+    def stop_fading(self):
         self.thread.exit()
 
-    def load_settings( self ):
+    def load_settings(self):
         prefix = "plugin/alarmclock/"
         # Setting name, property to save to, default value
         setting_values = (
@@ -66,9 +66,9 @@ class VolumeControl:
 class Alarmclock(object):
 
     def __init__(self):
-        self.last_activate=None
-        self.timer_id=None
-        self.volume_control=VolumeControl()
+        self.last_activate = None
+        self.timer_id = None
+        self.volume_control = VolumeControl()
 
     def timout_alarm(self):
         """
@@ -77,8 +77,8 @@ class Alarmclock(object):
         playing
         """
         
-        self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
-        self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
+        self.hour = int(settings.get_option('plugin/alarmclock/hour', 15))
+        self.minuts = int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
         active_days = [
             settings.get_option('plugin/alarmclock/sunday', False),
@@ -98,8 +98,8 @@ class Alarmclock(object):
         curminuts = int(current.split(":")[1])
         currentDay = int(time.strftime("%w", time.localtime()))
         
-        if curhour==self.hour and curminuts==self.minuts and \
-            active_days[currentDay]==True:
+        if curhour == self.hour and curminuts == self.minuts and \
+            active_days[currentDay] == True:
             
             if current != self.last_activate:
             

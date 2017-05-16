@@ -531,7 +531,7 @@ class Exaile(object):
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
             
-            songs = [ Gio.File.new_for_path(arg).get_uri() for arg in self.options.locs ]
+            songs = [Gio.File.new_for_path(arg).get_uri() for arg in self.options.locs]
             if len(songs) > 0:
                 restore = False
                 self.gui.open_uri(songs[0], play=True)
@@ -706,9 +706,9 @@ class Exaile(object):
         # save player, queue
         from xl import player
         player.QUEUE._save_player_state(
-                os.path.join(xdg.get_data_dir(), 'player.state') )
+                os.path.join(xdg.get_data_dir(), 'player.state'))
         player.QUEUE.save_to_location(
-                os.path.join(xdg.get_data_dir(), 'queue.state') )
+                os.path.join(xdg.get_data_dir(), 'queue.state'))
         player.PLAYER.stop()
 
         from xl import settings

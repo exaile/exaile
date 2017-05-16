@@ -235,8 +235,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         text = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             from gi.repository import Pango
-            text.set_property( 'ellipsize-set', True)
-            text.set_property( 'ellipsize', Pango.EllipsizeMode.END)
+            text.set_property('ellipsize-set', True)
+            text.set_property('ellipsize', Pango.EllipsizeMode.END)
         icon = Gtk.CellRendererPixbuf()
         col = Gtk.TreeViewColumn('radio')
         col.pack_start(icon, False)

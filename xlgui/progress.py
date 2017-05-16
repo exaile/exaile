@@ -113,7 +113,7 @@ class ProgressMonitor(Gtk.Box):
         # Accept a tuple or number between 0 and 100
         if hasattr(progress, '__len__'):
             step, total = progress
-            percent = int(((step+1)/total)*100)
+            percent = int(((step + 1) / total) * 100)
         else:
             percent = int(progress)
         

@@ -451,7 +451,7 @@ class FilesPanel(panel.Panel):
             self.entry.set_text(directory.get_parse_name())
             if history:
                 self.back.set_sensitive(True)
-                self.history[self.i+1:] = [self.current]
+                self.history[self.i + 1:] = [self.current]
                 self.i = len(self.history) - 1
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))

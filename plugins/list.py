@@ -26,6 +26,5 @@ def parse(argv):
     return plugins[argv[1]]
 
 if __name__ == '__main__':
-    names = list(parse(sys.argv))
-    names.sort()
+    names = sorted(parse(sys.argv))
     print((' '.join(names)))

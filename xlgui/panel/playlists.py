@@ -329,7 +329,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
             Loads the playlist tracks into the node for the specified playlist
         """
-        if not playlist in self.playlist_nodes: return
+        if playlist not in self.playlist_nodes:
+            return
 
         expanded = self.tree.row_expanded(
             self.model.get_path(self.playlist_nodes[playlist]))
@@ -337,7 +338,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
         self._clear_node(self.playlist_nodes[playlist])
         parent = self.playlist_nodes[playlist]
         for track in playlist:
-            if not track: continue
+            if not track:
+                continue
             wrapper = TrackWrapper(track, playlist)
             row = (self.track_image, unicode(wrapper), wrapper)
             self.model.append(parent, row)
@@ -491,14 +493,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.custom = self.model.append(None, [self.folder,
             _("Custom Playlists"), None])
 
-        names = self.smart_manager.playlists[:]
-        names.sort()
+        names = sorted(self.smart_manager.playlists[:])
         for name in names:
             self.model.append(self.smart, [self.playlist_image, name,
                 self.smart_manager.get_playlist(name)])
 
-        names = self.playlist_manager.playlists[:]
-        names.sort()
+        names = sorted(self.playlist_manager.playlists[:])
         for name in names:
             playlist = self.playlist_manager.get_playlist(name)
             self.playlist_nodes[playlist] = self.model.append(
@@ -634,7 +634,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     # If we want to go after we have to append 1
                     insert_index = drop_target_index + 1
             else:
-                current_playlist = drop_target;
+                current_playlist = drop_target
 
             # Since the playlist do not have very good support for
             # duplicate tracks we have to perform some trickery
@@ -726,7 +726,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             else:
                 tracks = self.tree.get_selected_tracks()
 
-            if not tracks: return
+            if not tracks:
+                return
 
             for track in tracks:
                 DragTreeView.dragged_data[track.get_loc_for_io()] = \
@@ -881,7 +882,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         iter = self.model.iter_children(node)
         while True:
-            if not iter: break
+            if not iter:
+                break
             self.model.remove(iter)
             iter = self.model.iter_children(node)
 
@@ -939,7 +941,8 @@ class PlaylistDragTreeView(DragTreeView):
     def get_selected_track(self):
         item = self.get_selected_item()
 
-        if not item: return None
+        if not item:
+            return None
 
         if isinstance(item, TrackWrapper):
             return item.track
@@ -949,19 +952,22 @@ class PlaylistDragTreeView(DragTreeView):
     def get_selected_item(self, raw=False):
         (model, iter) = self.get_selection().get_selected()
 
-        if not iter: return None
+        if not iter:
+            return None
 
         item = model.get_value(iter, 2)
 
         # for smart playlists
         if isinstance(item, playlist.SmartPlaylist):
-            if raw: return item
+            if raw:
+                return item
             try:
                 return item.get_playlist(self.container.collection)
             except Exception:
                 return None
         if isinstance(item, radio.RadioItem):
-            if raw: return item
+            if raw:
+                return item
             return item.get_playlist()
         elif isinstance(item, playlist.Playlist):
             return item

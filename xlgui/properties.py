@@ -704,7 +704,7 @@ class TagField(Gtk.Box):
         if doupdate:
             self.field.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             self.all_button.set_active(all(val == v for v in all_vals))
 
@@ -760,7 +760,7 @@ class TagTextField(Gtk.Box):
         if doupdate:
             self.buffer.set_text(val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -823,7 +823,7 @@ class TagNumField(Gtk.Box):
                         field_val = float(digits.group())
             self.field.set_value(field_val)
 
-        if all_vals != None and self.all_button != None:
+        if all_vals is not None and self.all_button is not None:
             # Set the value of the all button
             flag = True
             for v in all_vals:
@@ -905,7 +905,7 @@ class TagDblNumField(Gtk.Box):
                             field_val = float(digits.group())
                 self.field[x].set_value(field_val)
 
-        if all_val != None:
+        if all_val is not None:
             all_vals = []
             for v in all_val:
                 if v is not None:
@@ -1278,7 +1278,7 @@ class AllButton(Gtk.ToggleButton):
         if self.get_active and do_apply and self.field.parent_row:
             tag = self.field.parent_row.tag
             multi_id = self.field.parent_row.multi_id
-            if self.field.all_func != None:
+            if self.field.all_func is not None:
                 self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
 
 

@@ -188,9 +188,11 @@ class PreferencesDialog(object):
             Switches a pane
         """
         (model, iter) = selection.get_selected()
-        if not iter: return
+        if not iter:
+            return
         page = self.model.get_value(iter, 0)
-        if not page: return
+        if not page:
+            return
 
         if self.last_child:
             self.box.remove(self.last_child)
@@ -212,11 +214,12 @@ class PreferencesDialog(object):
             
             child = builder.get_object('preferences_pane')
             init = getattr(page, 'init', None)
-            if init: init(self, builder)
+            if init:
+                init(self, builder)
             self.panes[page] = child
             self.builders[page] = builder
 
-        if not page in self.fields:
+        if page not in self.fields:
             self._populate_fields(page, self.builders[page])
 
         if hasattr(page, 'page_enter'):

@@ -157,8 +157,7 @@ class SomaFMRadioStation(RadioStation):
                 self._get_subrlists(id = id, no_cache = no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
 
@@ -172,8 +171,7 @@ class SomaFMRadioStation(RadioStation):
 
             rlists = self._get_stations(id)
 
-            sort_list = [(item.name, item) for item in rlists]
-            sort_list.sort()
+            sort_list = sorted([(item.name, item) for item in rlists])
             rlists = [item[1] for item in sort_list]
 
             self.subs[id] = rlists

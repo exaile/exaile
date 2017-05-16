@@ -104,7 +104,8 @@ class Alarmclock(object):
             
                 self.last_activate = current
                 track = player.PLAYER.current
-                if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()): return True
+                if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()):
+                    return True
                 player.QUEUE.play()
                 self.volume_control.fade_in_thread()
         else:

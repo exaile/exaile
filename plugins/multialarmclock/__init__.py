@@ -367,7 +367,8 @@ def check_alarms(main, exaile):
         nothing.  If the current time matches the time specified and the
         current day is selected, it starts playing
     """
-    if not main: return True  # TODO: new way?
+    if not main:
+        return True  # TODO: new way?
 
     current = time.strftime("%H:%M", time.localtime())
     currentDay = int(time.strftime("%w", time.localtime()))

@@ -233,7 +233,8 @@ def _glib_wait_inner(timeout, glib_timeout_func):
                 delayer(*args, **kwargs)
 
         def delayer(*args, **kwargs):
-            if id[0]: GLib.source_remove(id[0])
+            if id[0]:
+                GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
@@ -805,8 +806,7 @@ def order_poset(items):
     result = []
     next = [i[1] for i in items.items() if not i[1].after]
     while next:
-        current = [(i.priority, i.name, i) for i in next]
-        current.sort()
+        current = sorted([(i.priority, i.name, i) for i in next])
         result.extend([i[2] for i in current])
         nextset = dict()
         for i in current:

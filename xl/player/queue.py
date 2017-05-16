@@ -214,7 +214,7 @@ class PlayQueue(playlist.Playlist):
             current = self.player.current
         else:
             current = playlist.Playlist.get_current(self)
-            if current == None and self.current_playlist is not self:
+            if current is None and self.current_playlist is not self:
                 current = self.current_playlist.get_current()
         return current
 

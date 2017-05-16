@@ -68,9 +68,9 @@ class Pidgin :
                         self.purple.PurpleStatusSetActive(status, False)
                 else:
                     self.purple.PurpleStatusSetActive(status, True)
-                    updated |= self.setStatus(status, "tune_title", title);
-                    updated |= self.setStatus(status, "tune_artist", artist);
-                    updated |= self.setStatus(status, "tune_album", album);
+                    updated |= self.setStatus(status, "tune_title", title)
+                    updated |= self.setStatus(status, "tune_artist", artist)
+                    updated |= self.setStatus(status, "tune_album", album)
                 if updated:
                     active = self.purple.PurplePresenceGetActiveStatus(p)
                     self.purple.PurplePrplChangeAccountStatus(account, active, status)

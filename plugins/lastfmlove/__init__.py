@@ -216,7 +216,7 @@ class LastFMLover(object):
 
         self.setup_network()
 
-        providers.register('playlist-columns', LoveColumn);
+        providers.register('playlist-columns', LoveColumn)
         providers.register('playlist-columns-menu', self.column_menu_item)
         providers.register('playlist-context-menu', self.menu_item)
         providers.register('tray-icon-context', self.tray_menu_item)

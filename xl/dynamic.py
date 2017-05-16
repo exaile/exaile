@@ -96,7 +96,8 @@ class DynamicManager(providers.ProviderHandler):
     def _query_sources(self, track):
         info = []
         artist = track.get_tag_raw('artist')
-        if not artist: return info
+        if not artist:
+            return info
         for source in self.get_providers():
             sinfo = source.get_results(','.join(artist))
             info += sinfo
@@ -105,7 +106,8 @@ class DynamicManager(providers.ProviderHandler):
 
     def _load_saved_info(self, track):
         artist = track.get_tag_raw('artist')
-        if not artist: return []
+        if not artist:
+            return []
         filename = os.path.join(self.cachedir, ','.join(artist))
         if not os.path.exists(filename):
             return []

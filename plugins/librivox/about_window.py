@@ -66,7 +66,7 @@ class AboutWindow():
     def set_text(self, book):
         self.book=book
         titlelength=len(book.title)
-        if book.info==None:
+        if book.info is None:
             book.info="No information."
         self.textbuffer.set_text(book.title+'\n\n'+book.info+'\n')
         start=self.textbuffer.get_iter_at_offset(0)

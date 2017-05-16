@@ -310,7 +310,8 @@ class Menu(Gtk.Menu):
         image.set_from_pixbuf(pixbuf)
         item.add(image)
 
-        if callback: item.connect('activate', callback, data)
+        if callback:
+            item.connect('activate', callback, data)
         Gtk.Menu.append(self, item)
         item.show_all()
         return item
@@ -330,7 +331,8 @@ class Menu(Gtk.Menu):
         else:
             item = Gtk.MenuItem.new_with_mnemonic(label)
 
-        if callback: item.connect('activate', callback, data)
+        if callback:
+            item.connect('activate', callback, data)
 
         if prepend:
             Gtk.Menu.prepend(self, item)
@@ -492,7 +494,8 @@ def finish(repeat=True):
     """
     while Gtk.events_pending():
         Gtk.main_iteration()
-        if not repeat: break
+        if not repeat:
+            break
         
         
 def initialize_from_xml(this, other=None):

@@ -319,7 +319,8 @@ class Criterion(Gtk.Box):
         state = self.child.get_state()
         self.remove(self.child)
         self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
-        if state: self.child.set_state(state)
+        if state:
+            self.child.set_state(state)
         self.pack_start(self.child, True, True, 0)
         self.child.show()
 
@@ -438,7 +439,7 @@ class EntryField(Gtk.Entry):
         return unicode(self.get_text(), 'utf-8')
 
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         self.set_text(unicode(state))
         
@@ -452,7 +453,7 @@ class QuotedEntryField(Gtk.Entry):
         return unicode(urllib.quote(self.get_text()), 'utf-8')
 
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         self.set_text(unicode(urllib.unquote(str(state))))
 
@@ -477,7 +478,7 @@ class SpinLabelField(Gtk.Box):
         return self.spin.get_value()
 
     def set_state(self, state):
-        if type(state) == list or type(state) == tuple:
+        if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         try:
             self.spin.set_value(int(state))

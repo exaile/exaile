@@ -111,7 +111,7 @@ class Shutdown():
                 _('The computer will be shut down in %d seconds.') % self.counter)
             self.message.show()
 
-            self.counter -= 1;
+            self.counter -= 1
 
             return True
 

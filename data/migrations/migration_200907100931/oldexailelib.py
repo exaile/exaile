@@ -9,14 +9,19 @@ def already_added(t, added):
         has already been added to the list of tracks
     """
 
-    if not t.title: t.title = ""
-    if not t.album: t.album = ""
-    if not t.artist: t.artist = ""
-    if not t.genre: t.genre = ""
+    if not t.title:
+        t.title = ""
+    if not t.album:
+        t.album = ""
+    if not t.artist:
+        t.artist = ""
+    if not t.genre:
+        t.genre = ""
 
     h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.genre)
 
-    if h in added: return True
+    if h in added:
+        return True
     added[h] = 1
     return False
 
@@ -59,7 +64,8 @@ class TrackData(object):
         """
             Adds a track to the list
         """
-        if not track: return
+        if not track:
+            return
         self.paths[track.loc] = track
         self._inner.append(track)
         self.update_total_length(track.get_duration(), appending=True)
@@ -68,7 +74,8 @@ class TrackData(object):
         """
             Removes a track from the list
         """
-        if not track: return
+        if not track:
+            return
         try:
             del self.paths[track.loc]
         except KeyError:
@@ -93,10 +100,14 @@ class TrackData(object):
         d, h = divmod(h, 24)
 
         text = []
-        if d: text.append(ngettext("%d day", "%d days", d) % d)
-        if h: text.append(ngettext("%d hour", "%d hours", h) % h)
-        if m: text.append(ngettext("%d minute", "%d minutes", m) % m)
-        if s: text.append(ngettext("%d second", "%d seconds", s) % s)
+        if d:
+            text.append(ngettext("%d day", "%d days", d) % d)
+        if h:
+            text.append(ngettext("%d hour", "%d hours", h) % h)
+        if m:
+            text.append(ngettext("%d minute", "%d minutes", m) % m)
+        if s:
+            text.append(ngettext("%d second", "%d seconds", s) % s)
 
         text = ", ".join(text)
 
@@ -155,7 +166,8 @@ def load_tracks(db, current=None):
         path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
         t.type = "file" 
 
-        if already_added(t, added): continue
+        if already_added(t, added):
+            continue
 
         tracks.append(t)
     cur = db.cursor(new=True)
@@ -165,7 +177,8 @@ def load_tracks(db, current=None):
         while True:
             try:
                 row = cur.fetchone()
-                if not row: break
+                if not row:
+                    break
                 globals()[item][row[1]] = row[0]
             except: 
                 common.log_exception()
@@ -174,7 +187,8 @@ def load_tracks(db, current=None):
     while True:
         try:
             row = cur.fetchone()
-            if not row: break
+            if not row:
+                break
             ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
         except:
             common.log_exception()

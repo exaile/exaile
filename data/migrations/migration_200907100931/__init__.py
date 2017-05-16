@@ -37,7 +37,8 @@ _SETTINGS_MAP = (
 )
 
 
-class MigrationException(Exception): pass
+class MigrationException(Exception):
+    pass
 
 
 def migration_needed():
@@ -108,7 +109,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         newtrack.set_tag_raw('__length', int(getattr(oldtrack, 'duration')))
 
         # Apparently, there is a bug in exaile 0.2.xx that dumps the time as hh:mm:YYYY, rather than hh:mm:ss. This is a workaround, that takes the seconds == 0, since this information is lost b/c of the bug
-        temp_time = oldtrack.time_added;
+        temp_time = oldtrack.time_added
 
         try:
             newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M')))
@@ -131,10 +132,14 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
 def _set_tab_placement(section, oldsetting, oldsettings):
     val = int(oldsettings.get(section, oldsetting))
     
-    if val == 0: return 'top'
-    elif val == 1: return 'left'
-    elif val == 2: return 'right'
-    elif val == 3: return 'bottom'
+    if val == 0:
+        return 'top'
+    elif val == 1:
+        return 'left'
+    elif val == 2:
+        return 'right'
+    elif val == 3:
+        return 'bottom'
 
 
 def _set_track_columns(section, oldsetting, oldsettings):
@@ -192,7 +197,8 @@ def _migrate_old_settings(oldsettings):
                 if callable(func):
                     value = func(section, oldsetting, oldsettings)
 
-            if not value: value = oldsettings.get(section, oldsetting)
+            if not value:
+                value = oldsettings.get(section, oldsetting)
             value = t(value)
             settings.set_option(newspot, value)
         except:
@@ -203,7 +209,8 @@ def _migrate_playlists(db, newdb, playlists):
     p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name') 
 
     for p_row in p_rows:
-        if p_row[2]: continue
+        if p_row[2]:
+            continue
 
         pl = Playlist(p_row[0])
    

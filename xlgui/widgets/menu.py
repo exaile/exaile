@@ -257,7 +257,8 @@ class Menu(Gtk.Menu):
         self.append(self.placeholder)
         children = self.get_children()
         for c in children:
-            if c == self.placeholder: continue
+            if c == self.placeholder:
+                continue
             c.set_submenu(None)
             self.remove(c)
 

@@ -1480,7 +1480,8 @@ class Playlist(object):
             track = trax.Track(uri=loc)
 
             # readd meta
-            if not track: continue
+            if not track:
+                continue
             if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
@@ -1516,7 +1517,7 @@ class Playlist(object):
             Get (start, end, step) tuple from slice object.
         """
         (start, end, step) = i.indices(len(self))
-        if i.step == None:
+        if i.step is None:
             step = 1
         return (start, end, step)
 
@@ -1858,7 +1859,7 @@ class SmartPlaylist(object):
         }
 
         for param in self.search_params:
-            if type(param) == str:
+            if isinstance(param, str):
                 params += [param]
                 continue
             (field, op, value) = param
@@ -1996,7 +1997,7 @@ class PlaylistManager(object):
             pl.save_to_location(os.path.join(self.playlist_dir,
                 encode_filename(name)))
 
-            if not name in self.playlists:
+            if name not in self.playlists:
                 self.playlists.append(name)
             #self.playlists.sort()
             self.save_order()

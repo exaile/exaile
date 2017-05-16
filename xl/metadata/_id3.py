@@ -81,7 +81,8 @@ class ID3Format(BaseFormat):
         return keys
 
     def _get_tag(self, raw, t):
-        if not raw.tags: return []
+        if not raw.tags:
+            return []
         if t not in self.tag_mapping.itervalues():
             t = "TXXX:" + t
         field = raw.tags.getall(t)

@@ -159,8 +159,7 @@ class IcecastRadioStation(RadioStation):
                 self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
         return rlists
@@ -176,8 +175,7 @@ class IcecastRadioStation(RadioStation):
 
         rlists = self._get_stations(url)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
 
         self.subs[name] = rlists
@@ -360,14 +358,16 @@ class IcecastRadioStation(RadioStation):
         dialog.hide()
         if result == Gtk.ResponseType.OK:
             items = dialog.get_items()
-            if not items: return
+            if not items:
+                return
 
             self.do_get_playlist(self._keyword, items[0])
 
     @common.threaded
     def do_get_playlist(self, keyword, item):
         pl = item.get_playlist()
-        if not pl: return
+        if not pl:
+            return
 
         GLib.idle_add(self.done_getting_playlist, pl)
 

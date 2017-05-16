@@ -498,7 +498,7 @@ class DaapConnection(object):
         """
             Get the track list from a DAAP database
         """
-        if reset or self.tracks == None:
+        if reset or self.tracks is None:
             if self.database is None:
                 self.database = self.session.library()
             self.tracks = self.database.tracks()
@@ -688,8 +688,10 @@ class NetworkPanel(CollectionPanel):
     def save_items(self, items, folder):
         for i in items:
             tnum = i.get_track()
-            if tnum < 10: tnum = "0%s"%tnum
-            else: tnum = str(tnum)
+            if tnum < 10:
+                tnum = "0%s"%tnum
+            else:
+                tnum = str(tnum)
             filename = "%s%s%s - %s.%s"%(folder, os.sep, tnum,
                 i.get_title(), i.type)
             i.connection.get_track(i.daapid, filename)

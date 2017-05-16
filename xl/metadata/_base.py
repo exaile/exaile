@@ -194,7 +194,7 @@ class BaseFormat(object):
                     t = self.get_info(tag)
                 except KeyError:
                     pass
-            if t == None and tag in self.tag_mapping:
+            if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
                     if type(t) in [str, unicode]:
@@ -208,7 +208,7 @@ class BaseFormat(object):
                             t = t
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
-            if t == None and self.others and tag not in self.tag_mapping:
+            if t is None and self.others and tag not in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, tag)
                     if type(t) in [str, unicode]:

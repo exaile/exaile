@@ -39,7 +39,7 @@ class ContentRangeFile(object):
 
     def next(self):
         to_read = self.chunk
-        if (self.end != None):
+        if (self.end is not None):
             if (self.read >= self.end):
                 self.parent.close()
                 raise StopIteration
@@ -47,11 +47,13 @@ class ContentRangeFile(object):
                 to_read = self.end - self.read
             retval = self.parent.read(to_read)
             self.read = self.read + len(retval)
-        else: retval = self.parent.read(to_read)
+        else:
+            retval = self.parent.read(to_read)
         if retval == '':
             self.parent.close()
             raise StopIteration
-        else: return retval
+        else:
+            return retval
 
     def __iter__(self):
         return self

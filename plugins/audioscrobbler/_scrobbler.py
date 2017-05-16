@@ -177,10 +177,10 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     if POST_URL is None:
         raise PostError("Unable to post data. Post URL was empty!")
 
-    if length != "" and type(length) != type(1):
+    if length != "" and not isinstance(length, type(1)):
         raise TypeError("length should be of type int")
 
-    if trackno != "" and type(trackno) != type(1):
+    if trackno != "" and not isinstance(trackno, type(1)):
         raise TypeError("trackno should be of type int")
 
     # Quote from AS Protocol 1.1, Submitting Songs:
@@ -291,7 +291,7 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
         raise ProtocolError("""Song length must be specified when using 'P' as
     source!""")
 
-    if type(time) != type(1):
+    if not isinstance(time, type(1)):
         raise ValueError("""The time parameter must be of type int (unix
     timestamp). Instead it was %s""" % time)
 

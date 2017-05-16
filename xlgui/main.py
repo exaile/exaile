@@ -555,7 +555,8 @@ class MainWindow(GObject.GObject):
             Called when the user clicks on the SPAT item
         """
         trs = self.get_selected_page().view.get_selected_items()
-        if not trs: return
+        if not trs:
+            return
         
         # TODO: this works, but implement this some other way in the future
         if player.QUEUE.current_playlist.spat_position == -1:
@@ -877,14 +878,16 @@ class MainWindow(GObject.GObject):
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))
-        if not is_up: diff = -diff
+        if not is_up:
+            diff = -diff
 
         player.PLAYER.modify_volume(diff)
         return True
 
     def _on_seek_key(self, is_forward):
         diff = settings.get_option('gui/seek_key_step_size', SEEK_STEP_DEFAULT)
-        if not is_forward: diff = -diff
+        if not is_forward:
+            diff = -diff
 
         if player.PLAYER.current:
             player.PLAYER.modify_time(diff)

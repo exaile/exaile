@@ -678,11 +678,12 @@ class Library(object):
         except Exception:
             logger.warning("Error while checking for compilation: %s", tr)
             return
-        if not basedir or not album or not artist: return
+        if not basedir or not album or not artist:
+            return
         album = album.lower()
         artist = artist.lower()
         try:
-            if not basedir in ccheck:
+            if basedir not in ccheck:
                 ccheck[basedir] = {}
 
             if not album in ccheck[basedir]:

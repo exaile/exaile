@@ -51,7 +51,7 @@ def DAAPParseCodeTypes(treeroot):
                         dtype   = 's'
                 else:
                     raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
-            if code == None or name == None or dtype == None:
+            if code is None or name is None or dtype is None:
                 log.debug('DAAPParseCodeTypes: missing information, not adding entry')
             else:
                 try:
@@ -64,23 +64,24 @@ def DAAPParseCodeTypes(treeroot):
             raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
 
 
-class DAAPError(Exception): pass
+class DAAPError(Exception):
+    pass
 
 
 class DAAPObject(object):
 
     def __init__(self, code=None, value=None, **kwargs):
-        if (code != None):
+        if (code is not None):
             if (len(code) == 4):
                 self.code = code
             else:
                 self.code = dmapNames[code]
-            if self.code == None or not dmapCodeTypes.has_key(self.code):
+            if self.code is None or not dmapCodeTypes.has_key(self.code):
                 self.type = None
             else:
                 self.type = dmapCodeTypes[self.code][1]
             self.value = value
-            if self.type == 'c' and type(self.value) == list:
+            if self.type == 'c' and isinstance(self.value, list):
                 self.contains = value
         if kwargs.has_key('parent'):
             kwargs['parent'].contains.append(self)
@@ -96,17 +97,18 @@ class DAAPObject(object):
         if hasattr(self, 'contains'):
             for object in self.contains:
                 value = object.getAtom(code)
-                if value: return value
+                if value:
+                    return value
         return None
 
     def codeName(self):
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or not dmapCodeTypes.has_key(self.code):
             return None
         else:
             return dmapCodeTypes[self.code][0]
 
     def objectType(self):
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or not dmapCodeTypes.has_key(self.code):
             return None
         else:
             return dmapCodeTypes[self.code][1]
@@ -130,7 +132,7 @@ class DAAPObject(object):
             value = ''
             for item in self.contains:
                 # get the data stream from each of the sub elements
-                if type(item) == str:
+                if isinstance(item, str):
                     #preencoded
                     value += item
                 else:
@@ -146,7 +148,7 @@ class DAAPObject(object):
             # we want to encode the contents of
             # value for our value
             value = self.value
-            if type(value) == float:
+            if isinstance(value, float):
                 value = int(value)
             if self.type == 'v':
                 value = value.split('.')
@@ -157,7 +159,7 @@ class DAAPObject(object):
             elif self.type == 'ul':
                 packing = 'Q'
             elif self.type == 'i':
-                if (type(value) == str and len(value) <= 4):
+                if (isinstance(value, str) and len(value) <= 4):
                     packing = '4s'
                 else:
                     packing = 'i'
@@ -174,7 +176,7 @@ class DAAPObject(object):
             elif self.type == 't':
                 packing = 'I'
             elif self.type == 's':
-                if type(value) == unicode:
+                if isinstance(value, unicode):
                     value = value.encode('utf-8')
                 packing = '%ss' % len(value)
             else:
@@ -190,11 +192,12 @@ class DAAPObject(object):
         # read 4 bytes for the code and 4 bytes for the length of the objects data
         data = str.read(8)
 
-        if not data: return
+        if not data:
+            return
         self.code, self.length = struct.unpack('!4sI', data)
 
         # now we need to find out what type of object it is
-        if self.code == None or not dmapCodeTypes.has_key(self.code):
+        if self.code is None or not dmapCodeTypes.has_key(self.code):
             self.type = None
         else:
             self.type = dmapCodeTypes[self.code][1]
@@ -271,7 +274,7 @@ class DAAPClient(object):
 #        self._old_itunes = 0
 
     def connect(self, hostname, port = 3689, password = None):
-        if self.socket != None:
+        if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
 #        if ':' in hostname:
 #            raise DAAPError('cannot connect to ipv6 addresses')
@@ -300,7 +303,8 @@ class DAAPClient(object):
             'Client-DAAP-Access-Index': '2',
         }
 
-        if gzip: headers['Accept-encoding'] = 'gzip'
+        if gzip:
+            headers['Accept-encoding'] = 'gzip'
         
         if self.password:
             import base64
@@ -327,7 +331,7 @@ class DAAPClient(object):
         self.socket.request('GET', r, None, headers)
 
         response    = self.socket.getresponse()
-        return response;
+        return response
 
     def request(self, r, params = {}, answers = 1):
         """Make a request to the DAAP server, with the passed params. This
@@ -390,7 +394,7 @@ class DAAPClient(object):
     def login(self):
         response = self.request("/login")
         sessionid   = response.getAtom("mlid")
-        if sessionid == None:
+        if sessionid is None:
             log.debug('DAAPClient: login unable to determine session ID')
             return
         log.debug("Logged in as session %s", sessionid)
@@ -531,10 +535,14 @@ if __name__ == '__main__':
 
         # I'm new to this python thing. There's got to be a better idiom
         # for this.
-        try: host = sys.argv[1]
-        except IndexError: host = "localhost"
-        try: port = sys.argv[2]
-        except IndexError: port = 3689
+        try:
+            host = sys.argv[1]
+        except IndexError:
+            host = "localhost"
+        try:
+            port = sys.argv[2]
+        except IndexError:
+            port = 3689
 
         logging.basicConfig(level=logging.DEBUG,
                 format='%(asctime)s %(levelname)s %(message)s')
@@ -568,6 +576,7 @@ if __name__ == '__main__':
             print("--------------")
             try:
                 session.logout()
-            except Exception: pass
+            except Exception:
+                pass
 
     main()

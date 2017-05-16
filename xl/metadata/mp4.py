@@ -71,10 +71,12 @@ class MP4Format(BaseFormat):
             for value in f[name]:
                 ret.append("%d/%d" % (value[0], value[1]))
             return ret
-        else: return [t for t in f[name]]
+        else:
+            return [t for t in f[name]]
 
     def _set_tag(self, f, name, value):
-        if type(value) is not list: value = [value]
+        if not isinstance(value, list):
+            value = [value]
         if name in ['trkn', 'disk']:
             try:
                 f[name] = []

@@ -58,7 +58,7 @@ class RadioManager(providers.ProviderHandler):
         providers.register(self.servicename, station)
 
     def on_provider_added(self, station):
-        if not station.name in self.stations:
+        if station.name not in self.stations:
             self.stations[station.name] = station
             event.log_event('station_added', self, station)
 

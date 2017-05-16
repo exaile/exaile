@@ -25,7 +25,8 @@ class Parser:
             if map.has_key(k):
                 tag = [ unicode(t) for t in md.tags[k] ]
                 tag = [ t for t in tag if t != "" ]
-                if not(h.has_key(map[k])): h[map[k]] = []
+                if not(h.has_key(map[k])):
+                    h[map[k]] = []
                 h[map[k]] = h[map[k]] + tag
         for k in h.keys():
             h[k].sort()
@@ -35,10 +36,11 @@ class Parser:
         for k in md.tags.keys():
             if map.has_key(k):
                 val = md.tags[k]
-                if type(val) == list:
+                if isinstance(val, list):
                     val = val[0]
                 intval = self.my_int(unicode(val))
-                if intval: daap.append(do(map[k], intval))
+                if intval:
+                    daap.append(do(map[k], intval))
 
     def add_file_info(self, filename, daap):
         statinfo = os.stat(filename)
@@ -48,7 +50,8 @@ class Parser:
     
     def set_itemname_if_unset(self, name, daap):
         for d in daap:
-            if d.code == 'minm': return d.value
+            if d.code == 'minm':
+                return d.value
         daap.extend([do('minm', name)])
         return name
 

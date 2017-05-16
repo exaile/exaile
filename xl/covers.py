@@ -336,7 +336,7 @@ class CoverManager(providers.ProviderHandler):
             method = self.methods.get(source)
             if method:
                 ret = method.get_cover_data(data)
-        if ret == None and use_default == True:
+        if ret is None and use_default == True:
             ret = self.get_default_cover()
         return ret
 

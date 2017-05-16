@@ -193,7 +193,8 @@ class FilesPanel(panel.Panel):
     def on_location_bar_changed(self, widget, *args):
         # Find out which one is selected, if any.
         iter = self.location_bar.get_active_iter()
-        if not iter: return
+        if not iter:
+            return
         model = self.location_bar.get_model()
         location = model.get_value(iter, 0)
         if location != '':
@@ -474,7 +475,8 @@ class FilesPanel(panel.Panel):
             Called when a drag source wants data for this drag operation
         """
         tracks = self.tree.get_selected_tracks()
-        if not tracks: return
+        if not tracks:
+            return
         for track in tracks:
             DragTreeView.dragged_data[track.get_loc_for_io()] = track
         uris = trax.util.get_uris_from_tracks(tracks)

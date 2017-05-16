@@ -79,16 +79,16 @@ class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
         f.close()
 
     def get_daap_raw(self):
-        if self.daap_raw == None:
+        if self.daap_raw is None:
             self.read()
         return self.daap_raw
 
     def get_name(self):
-        if self.name == None:
+        if self.name is None:
             self.read()
         return self.name
     
     def __len__(self):
-        if self._len == None:
+        if self._len is None:
             self.read()
         return self._len

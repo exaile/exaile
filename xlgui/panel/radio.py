@@ -50,10 +50,12 @@ from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 
 
-class RadioException(Exception): pass
+class RadioException(Exception):
+    pass
 
 
-class ConnectionException(RadioException): pass
+class ConnectionException(RadioException):
+    pass
 
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
@@ -457,14 +459,16 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         selection = self.tree.get_selection()
         info = selection.get_selected_rows()
-        if not info: return
+        if not info:
+            return
         (model, paths) = info
         iter = self.model.get_iter(paths[0])
         object = self.model.get_value(iter, 2)
 
         try:
             self.loaded_nodes.remove(self.nodes[object])
-        except ValueError: pass
+        except ValueError:
+            pass
 
         if isinstance(object, (xl.radio.RadioList, xl.radio.RadioStation)):
             self._clear_node(iter)
@@ -532,7 +536,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             except RadioException as e:
                 self._set_status(str(e), 2)
 
-        if not lists: return
+        if not lists:
+            return
         GLib.idle_add(self._done_loading, iter, driver, lists)
 
     def _done_loading(self, iter, object, items):
@@ -553,7 +558,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         try:
             self.model.remove(self.load_nodes[object])
             del self.load_nodes[object]
-        except KeyError: pass
+        except KeyError:
+            pass
 
     def _clear_node(self, node):
         """

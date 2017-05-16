@@ -285,7 +285,8 @@ class CollectionPanel(panel.Panel):
         """
             Called on key presses on the refresh button
         """
-        if event.keyval != Gdk.KEY_Return: return False
+        if event.keyval != Gdk.KEY_Return:
+            return False
 
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
             xlgui.get_controller().on_rescan_collection(None)
@@ -562,11 +563,13 @@ class CollectionPanel(panel.Panel):
         iter = self.model.iter_children(parent)
 
         while iter:
-            if search_num != self._search_num: return
+            if search_num != self._search_num:
+                return
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
-            if value: value = unicode(value, 'utf-8')
+            if value:
+                value = unicode(value, 'utf-8')
 
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
@@ -588,7 +591,7 @@ class CollectionPanel(panel.Panel):
         """
         previously_loaded = False # was the subtree already loaded
         iter_sep = None
-        if parent == None:
+        if parent is None:
             depth = 0
         else:
             if self.model.iter_n_children(parent) != 1 or \

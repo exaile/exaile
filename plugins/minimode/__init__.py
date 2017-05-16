@@ -185,8 +185,10 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/show_in_panel':
                     self.props.skip_taskbar_hint = not value
                 elif option == 'plugin/minimode/on_all_desktops':
-                    if value: self.stick()
-                    else: self.unstick()
+                    if value:
+                        self.stick()
+                    else:
+                        self.unstick()
                 elif option == 'plugin/minimode/display_window_decorations':
                     if value:
                         option = 'plugin/minimode/window_decoration_type'

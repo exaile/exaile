@@ -37,7 +37,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 for k, v in kwargs['extra_headers'].iteritems():
                     self.send_header(k, v)
             try:
-                if type(data) == file:
+                if isinstance(data, file):
                     self.send_header("Content-Length", str(os.stat(data.name).st_size))
                 else:
                     self.send_header("Content-Length", len(data))                   
@@ -54,8 +54,10 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                     else:
                         self.wfile.write(data)
                 except socket.error as ex:
-                    if ex.errno in [errno.ECONNRESET]: pass
-                    else: raise
+                    if ex.errno in [errno.ECONNRESET]:
+                        pass
+                    else:
+                        raise
             if (hasattr(data, 'close')):
                 data.close()
 
@@ -208,8 +210,10 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 rs = self.headers['Range']
                 m = re.compile('bytes=([0-9]+)-([0-9]+)?').match(rs)
                 (start, end) = m.groups()
-                if end != None: end = int(end)
-                else: end = os.stat(fn).st_size
+                if end is not None:
+                    end = int(end)
+                else:
+                    end = os.stat(fn).st_size
                 start = int(start)
                 f = spydaap.ContentRangeFile(fn, open(fn), start, end)
                 extra_headers={"Content-Range": "bytes %s-%s/%s"%(str(start), str(end), str(os.stat(fn).st_size))}

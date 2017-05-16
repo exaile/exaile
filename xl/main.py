@@ -605,7 +605,7 @@ class Exaile(object):
             t.start()
 
     def __mainloop(self, context):
-        while 1:
+        while True:
             try:
                 context.iteration(True)
             except Exception:

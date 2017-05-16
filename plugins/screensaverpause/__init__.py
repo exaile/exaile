@@ -78,7 +78,8 @@ def _enable(*a):
 
 
 def disable(exaile):
-    if bus is None: return
+    if bus is None:
+        return
     for match in frozenset(matches):
         match.remove()
         matches.remove(match)

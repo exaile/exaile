@@ -47,7 +47,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
                     for p in self.parsers:
                         if p.understands(ffn):                  
                             (m, name) = p.parse(ffn)
-                            if m != None:
+                            if m is not None:
                                 MetadataCacheItem.write_entry(self.dir,
                                                               name, ffn, m)
         if not(link):
@@ -61,7 +61,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
 
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if type(name) == unicode:
+        if isinstance(name, unicode):
             name = name.encode('utf-8')
         data = "".join([ d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
@@ -96,22 +96,22 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         f.close()
 
     def get_original_filename(self):
-        if self.original_filename == None:
+        if self.original_filename is None:
             self.read()
         return self.original_filename 
     
     def get_name(self):
-        if self.name == None:
+        if self.name is None:
             self.read()
         return self.name
 
     def get_dmap_raw(self):
-        if self.daap_raw == None:
+        if self.daap_raw is None:
             self.read()
         return self.daap_raw
 
     def get_md(self):
-        if self.md == None:
+        if self.md is None:
             self.md = {}
             s = StringIO.StringIO(self.get_dmap_raw())
             l = len(self.get_dmap_raw())

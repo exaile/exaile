@@ -257,7 +257,7 @@ class JamendoPanel(panel.Panel):
             album.row_pointer = parent
             self.model.append(parent, (self.title_image, "", ""))
         if add_to_playlist:
-            self.add_to_playlist();
+            self.add_to_playlist()
         self.expand_node(artist)
         self.set_status(self.STATUS_READY)
 
@@ -352,7 +352,7 @@ class JamendoPanel(panel.Panel):
         results = None
         if search_type == 'artist':
             resultthread = jamapi.get_artist_list(search_term, orderby, numresults, self.response_callback)
-            resultthread.start();
+            resultthread.start()
 
         if search_type == 'album':
             resultthread = jamapi.get_album_list(search_term, orderby, numresults, self.response_callback)

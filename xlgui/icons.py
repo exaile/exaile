@@ -589,7 +589,7 @@ class IconManager(object):
             :returns: the generated pixbuf
             :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
-        if type(size) != int:
+        if not isinstance(size, int):
             icon_size = Gtk.icon_size_lookup(size)
             size = icon_size[1]
 

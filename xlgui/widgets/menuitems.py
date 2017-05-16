@@ -236,7 +236,7 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
             if callback is not None:
                 item.connect('activate', callback, name, parent, context, *callback_args)
 
-            from xl import player;
+            from xl import player
             item.set_sensitive(player.PLAYER.get_state()!='stopped')
 
             return item

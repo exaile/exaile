@@ -257,7 +257,8 @@ class UDisksBase(providers.ProviderHandler):
         old = self.providers.get(obj.object_path)
         for provider in self.get_providers():
             priority = provider.get_priority(obj, self)
-            if priority is None: continue
+            if priority is None:
+                continue
             # Find highest priority, preferring old provider.
             if priority > highest_prio or \
                     (priority == highest_prio and provider is old):

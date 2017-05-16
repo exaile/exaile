@@ -89,7 +89,8 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
 
         # wait at least 1 second until the next attempt
         waittime = 1 - (time.time() - self.starttime)
-        if waittime > 0: time.sleep(waittime)
+        if waittime > 0:
+            time.sleep(waittime)
         self.starttime = time.time()
 
         search = "%s - %s" % (artist, album)

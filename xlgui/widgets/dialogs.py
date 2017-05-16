@@ -436,7 +436,8 @@ class ListDialog(Gtk.Dialog):
         """
         items = []
         check = self.selection.get_selected_rows()
-        if not check: return None
+        if not check:
+            return None
         (model, paths) = check
 
         for path in paths:
@@ -485,7 +486,8 @@ class ListBox(object):
         col = Gtk.TreeViewColumn('', cell, text=0)
         self.list.append_column(col)
         self.rows = rows
-        if not rows: self.rows = []
+        if not rows:
+            self.rows = []
 
         if rows:
             for row in rows:
@@ -536,7 +538,8 @@ class ListBox(object):
         """
         selection = self.list.get_selection()
         (model, iter) = selection.get_selected()
-        if not iter: return None
+        if not iter:
+            return None
         return model.get_value(iter, 0)
 
 

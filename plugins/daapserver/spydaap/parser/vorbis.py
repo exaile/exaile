@@ -63,8 +63,10 @@ class VorbisParser(spydaap.parser.Parser):
                 trackcount = self.my_int(t[1])
         if flac.tags.has_key('tracktotal'):
             trackcount = self.my_int(flac.tags['tracktotal'])
-        if tracknumber: d.append(do('daap.songtracknumber', tracknumber))
-        if trackcount: d.append(do('daap.songtrackcount', trackcount))
+        if tracknumber:
+            d.append(do('daap.songtracknumber', tracknumber))
+        if trackcount:
+            d.append(do('daap.songtrackcount', trackcount))
 
     def handle_disc(self, flac, d):
         discnumber = None
@@ -76,8 +78,10 @@ class VorbisParser(spydaap.parser.Parser):
                 disccount = self.my_int(t[1])
         if flac.tags.has_key('disctotal'):
             disccount = self.my_int(flac.tags['disctotal'])
-        if discnumber: d.append(do('daap.songdiscnumber', discnumber))
-        if disccount: d.append(do('daap.songdisccount', disccount))
+        if discnumber:
+            d.append(do('daap.songdiscnumber', discnumber))
+        if disccount:
+            d.append(do('daap.songdisccount', disccount))
         
     file_re = re.compile(".*\\.([fF][lL][aA][cC]|[oO][gG]{2})$")
 
@@ -87,7 +91,7 @@ class VorbisParser(spydaap.parser.Parser):
     def parse(self, filename):
         md = mutagen.File(filename)
         d = []
-        if md.tags != None:
+        if md.tags is not None:
             self.handle_string_tags(self.vorbis_string_map, md, d)
             self.handle_int_tags(self.vorbis_int_map, md, d)
             self.handle_track(md, d)

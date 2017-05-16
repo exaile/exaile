@@ -222,7 +222,7 @@ class PowerManagerAdapter(SuspendAdapter):
     def __init__(self, bus_name='org.freedesktop.PowerManagement',
             object_name='/org/freedesktop/PowerManagement/Inhibit',
             interface_name='org.freedesktop.PowerManagement.Inhibit'):
-        SuspendAdapter.__init__(self, bus_name, object_name, interface_name);
+        SuspendAdapter.__init__(self, bus_name, object_name, interface_name)
 
     def _dbus_inhibit_call(self):
        self.cookie = self.iface.Inhibit(self.PROGRAM, self.ACTIVITY)

@@ -62,7 +62,7 @@ def _enable(o1, exaile, o2):
 
 def disable(exaile):
     global LVPANEL
-    if LVPANEL.aboutwindow!=None:
+    if LVPANEL.aboutwindow is not None:
         LVPANEL.aboutwindow.win.destroy()
 
     providers.unregister('main-panel', LVPANEL)
@@ -345,7 +345,7 @@ class LVPanel():
 
     @guiutil.idle_add()
     def done_getting_info(self, row):
-        if self.aboutwindow==None:
+        if self.aboutwindow is None:
             self.aboutwindow=AW.AboutWindow()
         self.aboutwindow.set_text(self.books[row])
         if not self.aboutwindow.showing:

@@ -49,7 +49,8 @@ class ldict(dict):
         dict.__init__(self)
 
     def __setitem__(self, item, value):
-        if type(value) is not list: value = [value]
+        if not isinstance(value, list):
+            value = [value]
         dict.__setitem__(self, item , value)
 
     def __getitem__(self, item):
@@ -104,7 +105,7 @@ class Track(object):
         """
         # Doesn't matter what charset we use here, as long as we use
         # the same one when we decode (or encode as it were)
-        if type(loc) is unicode:
+        if isinstance(loc, unicode):
             self._loc = loc
         else:        
             try:
@@ -140,7 +141,8 @@ class Track(object):
             Common function for setting a tag.
             Expects a list (even for a single value)
         """
-        if not isinstance(values, list): values = [values]
+        if not isinstance(values, list):
+            values = [values]
         # filter out empty values and convert to unicode
         values = (to_unicode(x, self.encoding) for x in values
             if x not in (None, ''))
@@ -170,11 +172,13 @@ class Track(object):
             return -1
 
         t = self.get_tag('tracknumber')
-        if type(t) is int: return t
+        if isinstance(t, int):
+            return t
 
         b = t.find('/')
 
-        if b > -1: t = t[0:b]
+        if b > -1:
+            t = t[0:b]
 
         try:
             return int(t)
@@ -195,8 +199,10 @@ class Track(object):
                 return ''
         try:
             rate = int(self._bitrate) / 1000
-            if rate: return "%dk" % rate
-            else: return ""
+            if rate:
+                return "%dk" % rate
+            else:
+                return ""
         except:
             return self._bitrate
     
@@ -285,14 +291,16 @@ class Track(object):
         """
             Sets the length
         """
-        if value == "": value = 0
+        if value == "":
+            value = 0
         self._len = value
 
     def get_duration(self): 
         """
             Gets the duration as an integer
         """
-        if self._len == '': self._len = 0
+        if self._len == '':
+            self._len = 0
         return timetype(self._len)
     
     def set_bitrate(self, rate):
@@ -474,7 +482,8 @@ def read_from_path(uri, track_type=Track):
         tr.type = 'file' 
 
     format = formats.get(ext)
-    if not format: return tr
+    if not format:
+        return tr
 
     try:
         format.fill_tag_from_path(tr)

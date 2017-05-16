@@ -241,7 +241,7 @@ class SettingsManager(RawConfigParser):
             can be a configuration value.
         """
         for k, v in TYPE_MAPPING.iteritems():
-            if v == type(value):
+            if isinstance(value, v):
                 if v == list:
                     return k + ": " + repr(value)
                 else:

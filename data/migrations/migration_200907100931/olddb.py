@@ -116,7 +116,8 @@ class DBManager(object):
             Closes the db in the pool for the current thread
         """
         name = threading.currentThread().getName()
-        if name == "MainThread": return
+        if name == "MainThread":
+            return
         if name in self.pool:
             self.pool[name].close()
             del self.pool[name]
@@ -127,7 +128,8 @@ class DBManager(object):
             Returns a database connection specific to the current thread
         """
         name = threading.currentThread().getName()
-        if name == "MainThread" or self.db_loc == ":memory:": return self.db
+        if name == "MainThread" or self.db_loc == ":memory:":
+            return self.db
         if name not in self.pool:
             db = self.__get_db()
             for tup in self.functions:
@@ -179,7 +181,8 @@ class DBManager(object):
             Executes a query
         """
         cur = self._cursor
-        if not args: args = []
+        if not args:
+            args = []
         try:
             cur.execute(query, args)
         except:
@@ -199,7 +202,8 @@ class DBManager(object):
         while True:
             try:
                 row = cur.fetchone()
-                if not row: break
+                if not row:
+                    break
                 rows.append(row)
             except:
                 common.log_exception(log=logger)

@@ -41,10 +41,12 @@ from warnings import warn
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
 
-class EbmlException(Exception): pass
+class EbmlException(Exception):
+    pass
 
 
-class EbmlWarning(Warning): pass
+class EbmlWarning(Warning):
+    pass
 
 
 class BinaryData(bytes):

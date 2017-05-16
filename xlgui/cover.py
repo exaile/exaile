@@ -194,8 +194,7 @@ class CoverManager(GObject.GObject):
 
             albums.add(album)
 
-        albums = list(albums)
-        albums.sort()
+        albums = sorted(albums)
 
         outstanding = []
         # Speed up the following loop

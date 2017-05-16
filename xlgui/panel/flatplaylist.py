@@ -108,7 +108,8 @@ class FlatPlaylistPanel(panel.Panel):
         self.box.show_all()
 
     def _title_data_func(self, col, cell, model, iter, _unused):
-        if not model.iter_is_valid(iter): return
+        if not model.iter_is_valid(iter):
+            return
         item = model.get_value(iter, 2)
         cell.set_property('text', item.get_tag_display("title"))
 
@@ -159,7 +160,8 @@ class FlatPlaylistPanel(panel.Panel):
             Called when a drag source wants data for this drag operation
         """
         tracks = self.tree.get_selected_tracks()
-        if not tracks: return
+        if not tracks:
+            return
         for track in tracks:
             DragTreeView.dragged_data[track.get_loc_for_io()] = track
         uris = trax.util.get_uris_from_tracks(tracks)

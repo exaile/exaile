@@ -814,8 +814,10 @@ class Track(object):
         maximum = settings.get_option("rating/maximum", 5)
         rating = int(round(rating*float(maximum)/100.0))
 
-        if rating > maximum: return int(maximum)
-        elif rating < 0: return 0
+        if rating > maximum:
+            return int(maximum)
+        elif rating < 0:
+            return 0
 
         return rating
 

@@ -106,7 +106,7 @@ class MiniMode(Gtk.Window):
             _('Mini Mode'), 'exaile-minimode',
             self.on_menuitem_activate, accelerator='<Primary><Alt>M')
         self.accelerator = Accelerator('<Primary><Alt>M',
-            self.on_menuitem_activate)
+                                       self.on_menuitem_activate)
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 
@@ -116,7 +116,7 @@ class MiniMode(Gtk.Window):
         self.mainbutton.connect('clicked', self.on_mainbutton_clicked)
         action_area = exaile.gui.main.info_area.get_action_area()
         action_area.pack_end(self.mainbutton, False, False, 6)
-        
+
         self.__active = False
         self.__dirty = True
         # XXX: Until defaults are implemented in xl.settings
@@ -133,10 +133,10 @@ class MiniMode(Gtk.Window):
         }
 
         exaile.gui.main.connect('main-visible-toggle',
-            self.on_main_visible_toggle)
+                                self.on_main_visible_toggle)
         event.add_ui_callback(self.on_option_set, 'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
-            'plugin/minimode/button_in_mainwindow')
+                           'plugin/minimode/button_in_mainwindow')
 
     def destroy(self):
         """
@@ -175,7 +175,7 @@ class MiniMode(Gtk.Window):
         """
         h = None
         v = None
-        
+
         if self.__dirty:
             for option, default in self.__defaults.iteritems():
                 value = settings.get_option(option, default)
@@ -193,7 +193,7 @@ class MiniMode(Gtk.Window):
                     if value:
                         option = 'plugin/minimode/window_decoration_type'
                         value = settings.get_option(option,
-                            self.__defaults[option])
+                                                    self.__defaults[option])
 
                         if value == 'full':
                             self.set_decorated(True)
@@ -213,7 +213,7 @@ class MiniMode(Gtk.Window):
                     h = value
                 elif option == 'plugin/minimode/vertical_position':
                     v = value
-                    
+
             self.__dirty = False
 
         min_width, natural_width = self.get_preferred_width()
@@ -221,16 +221,16 @@ class MiniMode(Gtk.Window):
         self.resize(natural_width, natural_height)
         self.queue_draw()
         Gtk.Window.do_show(self)
-        
-        # GTK (or perhaps the theme?) likes to move the window to some 
-        # random default position while showing it... so do these at the 
+
+        # GTK (or perhaps the theme?) likes to move the window to some
+        # random default position while showing it... so do these at the
         # same time after show, otherwise it'll move on us
         x, y = self.get_position()
         if h is not None:
             x = h
         if v is not None:
             y = v
-        
+
         self.move(x, y)
 
     def do_configure_event(self, event):

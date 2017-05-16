@@ -25,7 +25,7 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "malrmclk.ui")
 
 icons.MANAGER.add_icon_name_from_directory('clock',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icon = 'clock'
 
 
@@ -35,13 +35,13 @@ class FadingEnabledPreference(widgets.CheckPreference):
 
 
 class FadingConditional(widgets.CheckConditional):
-    condition_preference_name = 'plugin/multialarmclock/fading_on'    
+    condition_preference_name = 'plugin/multialarmclock/fading_on'
 
 
 class RestartPlaylistPreference(widgets.CheckPreference):
     name = 'plugin/multialarmclock/restart_playlist_on'
     default = False
-    
+
 
 class FadeMinVolumePreference(widgets.SpinPreference, FadingConditional):
     name = 'plugin/multialarmclock/fade_min_volume'
@@ -50,25 +50,25 @@ class FadeMinVolumePreference(widgets.SpinPreference, FadingConditional):
     def __init__(self, prefs, widget):
         widgets.SpinPreference.__init__(self, prefs, widget)
         FadingConditional.__init__(self)
-    
+
 
 class FadeMaxVolumePreference(widgets.SpinPreference, FadingConditional):
     name = 'plugin/multialarmclock/fade_max_volume'
     default = 100
-    
+
     def __init__(self, prefs, widget):
         widgets.SpinPreference.__init__(self, prefs, widget)
         FadingConditional.__init__(self)
-    
+
 
 class FadeIncrementPreference(widgets.SpinPreference, FadingConditional):
     name = 'plugin/multialarmclock/fade_increment'
     default = 1
-    
+
     def __init__(self, prefs, widget):
         widgets.SpinPreference.__init__(self, prefs, widget)
         FadingConditional.__init__(self)
-    
+
 
 class FadeTimePreference(widgets.SpinPreference, FadingConditional):
     name = 'plugin/multialarmclock/fade_time'

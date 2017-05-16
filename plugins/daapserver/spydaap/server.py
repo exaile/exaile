@@ -48,7 +48,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 if isinstance(data, file):
                     self.send_header("Content-Length", str(os.stat(data.name).st_size))
                 else:
-                    self.send_header("Content-Length", len(data))                   
+                    self.send_header("Content-Length", len(data))
             except Exception:
                 pass
             self.end_headers()
@@ -114,7 +114,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_login(self):
             mlog = do('dmap.loginresponse',
                       [do('dmap.status', 200),
-                        do('dmap.sessionid', session_id)])
+                       do('dmap.sessionid', session_id)])
             self.h(mlog.encode())
 
         def do_GET_logout(self):
@@ -124,21 +124,21 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_server_info(self):
             msrv = do('dmap.serverinforesponse',
                       [do('dmap.status', 200),
-                        do('dmap.protocolversion', '2.0'),
-                        do('daap.protocolversion', '3.0'),
-                        do('dmap.timeoutinterval', 1800),
-                        do('dmap.itemname', server_name),
-                        do('dmap.loginrequired', 0),
-                        do('dmap.authenticationmethod', 0),
-                        do('dmap.supportsextensions', 0),
-                        do('dmap.supportsindex', 0),
-                        do('dmap.supportsbrowse', 0),
-                        do('dmap.supportsquery', 0),
-                        do('dmap.supportspersistentids', 0),
-                        do('dmap.databasescount', 1),                
-                        #do('dmap.supportsautologout', 0),
-                        #do('dmap.supportsupdate', 0),
-                        #do('dmap.supportsresolve', 0),
+                       do('dmap.protocolversion', '2.0'),
+                       do('daap.protocolversion', '3.0'),
+                       do('dmap.timeoutinterval', 1800),
+                       do('dmap.itemname', server_name),
+                       do('dmap.loginrequired', 0),
+                       do('dmap.authenticationmethod', 0),
+                       do('dmap.supportsextensions', 0),
+                       do('dmap.supportsindex', 0),
+                       do('dmap.supportsbrowse', 0),
+                       do('dmap.supportsquery', 0),
+                       do('dmap.supportspersistentids', 0),
+                       do('dmap.databasescount', 1),
+                       #do('dmap.supportsautologout', 0),
+                       #do('dmap.supportsupdate', 0),
+                       #do('dmap.supportsresolve', 0),
                        ])
             self.h(msrv.encode())
 
@@ -148,10 +148,10 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 (name, dtype) = spydaap.daap.dmapCodeTypes[code]
                 d = do('dmap.dictionary',
                        [do('dmap.contentcodesnumber', code),
-                         do('dmap.contentcodesname', name),
-                         do('dmap.contentcodestype',
+                        do('dmap.contentcodesname', name),
+                        do('dmap.contentcodestype',
                             spydaap.daap.dmapReverseDataTypes[dtype])
-                         ])
+                        ])
                 children.append(d)
             mccr = do('dmap.contentcodesresponse',
                       children)
@@ -160,39 +160,39 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_database_list(self):
             d = do('daap.serverdatabases',
                    [do('dmap.status', 200),
-                     do('dmap.updatetype', 0),
-                     do('dmap.specifiedtotalcount', 1),
-                     do('dmap.returnedcount', 1),
-                     do('dmap.listing',
+                    do('dmap.updatetype', 0),
+                    do('dmap.specifiedtotalcount', 1),
+                    do('dmap.returnedcount', 1),
+                    do('dmap.listing',
                         [do('dmap.listingitem',
-                             [do('dmap.itemid', 1),
-                               do('dmap.persistentid', 1),
-                               do('dmap.itemname', server_name),
-                               do('dmap.itemcount', 
-                                  len(md_cache)),
-                               do('dmap.containercount', len(container_cache))])
-                          ])
-                     ])
+                            [do('dmap.itemid', 1),
+                             do('dmap.persistentid', 1),
+                             do('dmap.itemname', server_name),
+                             do('dmap.itemcount',
+                                len(md_cache)),
+                             do('dmap.containercount', len(container_cache))])
+                         ])
+                    ])
             self.h(d.encode())
 
         def do_GET_item_list(self, database_id):
             def build_item(md):
-                return do('dmap.listingitem', 
+                return do('dmap.listingitem',
                           [do('dmap.itemkind', 2),
-                            do('dmap.containeritemid', md.id),
-                            do('dmap.itemid', md.id),
-                            md.get_dmap_raw()
-                            ])
+                           do('dmap.containeritemid', md.id),
+                           do('dmap.itemid', md.id),
+                           md.get_dmap_raw()
+                           ])
 
             def build():
                 children = [build_item(md) for md in md_cache]
                 file_count = len(children)
                 d = do('daap.databasesongs',
                        [do('dmap.status', 200),
-                         do('dmap.updatetype', 0),
-                         do('dmap.specifiedtotalcount', file_count),
-                         do('dmap.returnedcount', file_count),
-                         do('dmap.listing',
+                        do('dmap.updatetype', 0),
+                        do('dmap.specifiedtotalcount', file_count),
+                        do('dmap.returnedcount', file_count),
+                        do('dmap.listing',
                             children)])
                 return d.encode()
 
@@ -203,8 +203,8 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_update(self):
             mupd = do('dmap.updateresponse',
                       [do('dmap.status', 200),
-                        do('dmap.serverrevision', self.daap_server_revision),
-                        ])
+                       do('dmap.serverrevision', self.daap_server_revision),
+                       ])
             self.h(mupd.encode())
 
         def do_GET_item(self, database, item, format):
@@ -226,7 +226,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 f = spydaap.ContentRangeFile(fn, open(fn), start, end)
                 extra_headers = {"Content-Range": "bytes %s-%s/%s" % (str(start), str(end), str(os.stat(fn).st_size))}
                 status = 206
-            else: 
+            else:
                 f = open(fn)
                 extra_headers = {}
                 status = 200
@@ -238,9 +238,9 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             container_do = []
             for i, c in enumerate(container_cache):
                 d = [do('dmap.itemid', i + 1),
-                      do('dmap.itemcount', len(c)),
-                      do('dmap.containeritemid', i + 1),
-                      do('dmap.itemname', c.get_name())]
+                     do('dmap.itemcount', len(c)),
+                     do('dmap.containeritemid', i + 1),
+                     do('dmap.itemname', c.get_name())]
                 if c.get_name() == 'Library':  # this should be better
                     d.append(do('daap.baseplaylist', 1))
                 else:
@@ -248,12 +248,12 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                 container_do.append(do('dmap.listingitem', d))
             d = do('daap.databaseplaylists',
                    [do('dmap.status', 200),
-                     do('dmap.updatetype', 0),
-                     do('dmap.specifiedtotalcount', len(container_do)),
-                     do('dmap.returnedcount', len(container_do)),
-                     do('dmap.listing',
+                    do('dmap.updatetype', 0),
+                    do('dmap.specifiedtotalcount', len(container_do)),
+                    do('dmap.returnedcount', len(container_do)),
+                    do('dmap.listing',
                         container_do)
-                     ])
+                    ])
             self.h(d.encode())
 
         def do_GET_container_item_list(self, database_id, container_id):

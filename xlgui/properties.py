@@ -122,7 +122,7 @@ class TrackPropertiesDialog(GObject.GObject):
             '__stopoffset',
             'lyrics'
         ]
-        
+
         self.def_tags = OrderedDict([(tag, tag_data[tag]) for tag in def_tags])
 
         # Store the tracks and a working copy
@@ -140,7 +140,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
     def _get_field_widget(self, tag_info, ab):
         tag_type = tag_info.type
-                
+
         if tag_type == 'int':
             field = TagNumField(
                 tag_info.min,
@@ -165,7 +165,7 @@ class TrackPropertiesDialog(GObject.GObject):
             field = TagTextField(all_button=ab)
         else:
             field = TagField(all_button=ab)
-            
+
         return field
 
     def _tags_copy(self, tracks):
@@ -177,7 +177,7 @@ class TrackPropertiesDialog(GObject.GObject):
                     tagval = track.get_tag_disk(tag)
                 else:
                     tagval = track.get_tag_raw(tag)
-                
+
                 if tagval:
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
@@ -206,7 +206,7 @@ class TrackPropertiesDialog(GObject.GObject):
             l.append(t)
 
         return l
-        
+
     def _write_tag(self, track, tag, value):
         tag_info = tag_data.get(tag)
         if not tag_info or not tag_info.use_disk:
@@ -220,7 +220,7 @@ class TrackPropertiesDialog(GObject.GObject):
         for n, trackdata in data:
             track = self.tracks[n]
             poplist = []
-            
+
             try:
                 for tag in trackdata:
                     if not tag.startswith("__"):
@@ -253,17 +253,17 @@ class TrackPropertiesDialog(GObject.GObject):
 
                 for tag in poplist:
                     self._write_tag(track, tag, None)
-                
+
                 if not track.write_tags():
                     errors.append(track.get_loc_for_io())
             except Exception:
                 logger.warning("Error saving track", exc_info=True)
                 errors.append(track.get_loc_for_io())
-                
+
             trax.track._CACHER.remove(track)
             dialog.step()
         dialog.destroy()
-        
+
         if len(errors) > 0:
             self.message.clear_buttons()
             self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
@@ -303,11 +303,11 @@ class TrackPropertiesDialog(GObject.GObject):
             ab = True
 
         for tag, tag_info in self.def_tags.iteritems():
-            
+
             for i, entry in enumerate(trackdata.get(tag, [''])):
-                
+
                 field = self._get_field_widget(tag_info, ab)
-                
+
                 row = TagRow(self, self.tags_grid, field, tag, entry, i)
                 self.rows.append(row)
 
@@ -321,15 +321,15 @@ class TrackPropertiesDialog(GObject.GObject):
         for tag in trackdata:
             if tag in self.def_tags:
                 continue
-            
+
             try:
                 tag_info = tag_data[tag]
             except KeyError:
                 tag_info = get_default_tagdata(tag)
-            
+
             if tag_info is None:
                 continue
-            
+
             for i, entry in enumerate(trackdata[tag]):
                 if tag_info.editable:
                     field = self._get_field_widget(tag_info, ab)
@@ -337,7 +337,7 @@ class TrackPropertiesDialog(GObject.GObject):
                 else:
                     field = PropertyField(tag_info.type)
                     self.rows.append(TagRow(self, self.properties_grid, field, tag, entry, i))
-        
+
         self._check_for_changes()
         self._build_grids_from_rows()
 
@@ -405,16 +405,16 @@ class TrackPropertiesDialog(GObject.GObject):
         if modified:
             if len(modified) != 1:
                 dialog = Gtk.MessageDialog(self.dialog,
-                    Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                    Gtk.ButtonsType.YES_NO,
-                    _('Are you sure you want to apply the changes to all tracks?'),
-                )
+                                           Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
+                                           Gtk.ButtonsType.YES_NO,
+                                           _('Are you sure you want to apply the changes to all tracks?'),
+                                           )
                 response = dialog.run()
                 dialog.destroy()
-                
+
                 if response != Gtk.ResponseType.YES:
                     return
-                    
+
             self._tags_write(modified)
 
             del self.trackdata
@@ -937,7 +937,7 @@ class TagDblNumField(Gtk.Box):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
         val = unicode(self.field[0].get_value()) + '/' \
-                + unicode(self.field[1].get_value())
+            + unicode(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
@@ -957,7 +957,7 @@ class TagImageField(Gtk.Box):
         self.parent_row = None
         self.all_func = None
         self.update_func = None
-        # Prevents the update function from being called, make 
+        # Prevents the update function from being called, make
         # sure you do that manually after the batch update
         self.batch_update = False
 
@@ -1027,7 +1027,7 @@ class TagImageField(Gtk.Box):
                 else:
                     self.batch_update = True
                     self.set_pixbuf(loader.get_pixbuf(), val.mime)
-                    
+
                     # some file types do not support multiple cover types
                     if val.type is not None:
                         self.type_selection.set_active(val.type)
@@ -1035,14 +1035,14 @@ class TagImageField(Gtk.Box):
                     else:
                         self.type_selection.set_active(-1)
                         self.type_selection.set_sensitive(False)
-                        
+
                     if val.desc is not None:
                         self.description_entry.set_text(val.desc)
                         self.description_entry.set_sensitive(True)
                     else:
                         self.description_entry.set_text('')
                         self.description_entry.set_sensitive(False)
-                    
+
                     self.batch_update = False
             else:
                 self.batch_update = True
@@ -1078,7 +1078,7 @@ class TagImageField(Gtk.Box):
         except AttributeError:
             save_to_callback_function = self.pixbuf.save_to_callback
         save_to_callback_function(gdk_pixbuf_save_func, None, mime['type'],
-                mime['options'].keys(), mime['options'].values())
+                                  mime['options'].keys(), mime['options'].values())
 
         # Move to the beginning of the buffer to allow read operations
         writer.seek(0)
@@ -1318,7 +1318,7 @@ class SavingProgressWindow(Gtk.Window):
     def step(self):
         self.count += 1
         self._progress.set_fraction(
-                common.clamp(self.count / float(self.total), 0, 1))
+            common.clamp(self.count / float(self.total), 0, 1))
         self._label.set_markup(self.text % {
             'count': self.count,
             'total': self.total

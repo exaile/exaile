@@ -6,7 +6,7 @@ def N_(x): return x
 
 
 class _TD(object):
-    
+
     __slots__ = [
         'name',                 # descriptive name
         'translated_name',      # translated name
@@ -16,23 +16,23 @@ class _TD(object):
         'min',
         'max',
         'use_disk',  # set true if should retrieve tag from disk -- which means
-                    # the tag cannot be stored in the database
+        # the tag cannot be stored in the database
     ]
-    
+
     def __init__(self, name, type, **kwargs):
         self.name = name
         self.translated_name = gettext(name)
         self.type = type
-        
+
         # these are overridable by keyword arg
         self.editable = True
-        self.use_disk = False 
-        
+        self.use_disk = False
+
         for k, v in kwargs.iteritems():
-            setattr(self, k, v)    
+            setattr(self, k, v)
 
 #: List of metadata tags currently supported by exaile, which are
-#: translated into the corresponding tag for each audio format if 
+#: translated into the corresponding tag for each audio format if
 #: it supports it. Prefer to extend this list's features instead
 #: of creating your own list of tag metadata
 #:
@@ -70,9 +70,9 @@ tag_data = {
     'tracknumber':      _TD(N_('Track'),        'dblnum', min=0, max=500),
     'version':          _TD(N_('Version'),      'text'),
     'website':          _TD(N_('Website'),      'text'),
-     
+
     # various internal tags
-    
+
     '__bitrate':        _TD(N_('Bitrate'),      'bitrate', editable=False),
     '__basedir':        None,
     '__date_added':     _TD(N_('Date added'),   'timestamp', editable=False),
@@ -82,7 +82,7 @@ tag_data = {
     '__modified':       _TD(N_('Modified'),     'timestamp', editable=False),
     '__playtime':       _TD(N_('Play time'),    'time', editable=False),
     '__playcount':      _TD(N_('Times played'), 'int', editable=False),
-    '__rating':         None, # currently special. 
+    '__rating':         None, # currently special.
     '__startoffset':    _TD(N_('Start offset'), 'time', min=0, max=3600), # TODO: calculate these parameters
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
 }
@@ -99,5 +99,5 @@ for k, v in tag_data.iteritems():
 def get_default_tagdata(tag):
     '''If the tagname is not in tag_data, you can use this function
        to get a _TD object for it'''
-    
+
     return _TD(tag, 'text', editable=(not tag.startswith('__')), tag_name=tag)

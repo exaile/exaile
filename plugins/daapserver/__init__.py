@@ -42,10 +42,10 @@ class CollectionWrapper:
             self.map.append(self.TrackWrapper(i, t))
             yield self.map[i]
             i += 1
-    
+
     def get_item_by_id(self, id):
         return self.map[int(id)]
-    
+
     def __getitem__(self, idx):
         return self.map[idx]
 
@@ -60,16 +60,16 @@ ds = None
 def _enable(exaile):
     # real enable
     global ds
-    
+
     event.add_callback(on_settings_change, 'plugin_daapserver_option_set')
-    
+
     port = int(settings.get_option('plugin/daapserver/port', 3689))
     name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
     host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
-    
-    ds = DaapServer(CollectionWrapper(exaile.collection), 
-                                        port=port, name=name, host=host)
-                                        
+
+    ds = DaapServer(CollectionWrapper(exaile.collection),
+                    port=port, name=name, host=host)
+
     if(settings.get_option('plugin/daapserver/enabled', True)):
         ds.start()
 
@@ -91,15 +91,15 @@ def teardown(exaile):
 
 def disable(exaile):
     ds.stop_server()
-    
-    
+
+
 # settings stuff
 import daapserverprefs
 
 
 def get_preferences_pane():
     return daapserverprefs
-    
+
 
 def on_settings_change(event, setting, option):
     if option == 'plugin/daapserver/name' and ds is not None:

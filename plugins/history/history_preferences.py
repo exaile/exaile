@@ -46,7 +46,7 @@ history_length_default = 1000
 class SaveOnExitPreference(widgets.CheckPreference):
     default = save_on_exit_default
     name = 'plugin/history/save_on_exit'
-    
+
 
 class HistoryLengthPreference(widgets.SpinPreference):
     default = history_length_default

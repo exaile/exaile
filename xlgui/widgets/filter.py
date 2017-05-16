@@ -48,12 +48,12 @@ class FilterDialog(Gtk.Dialog):
 
     Consists of a FilterWidget and an Add button.
     """
-    
+
     __gtype_name__ = 'FilterDialog'
-    
+
     name_entry, filter, \
-    match_any, random, lim_check, lim_spin \
-     = GtkTemplate.Child.widgets(6)
+        match_any, random, lim_check, lim_spin \
+        = GtkTemplate.Child.widgets(6)
 
     def __init__(self, title, parent, criteria):
         """Create a filter dialog.
@@ -65,7 +65,7 @@ class FilterDialog(Gtk.Dialog):
 
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         self.init_template()
-        
+
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
                          Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT)
 
@@ -73,13 +73,13 @@ class FilterDialog(Gtk.Dialog):
         f.add_criteria_row()
         f.set_border_width(5)
         f.show_all()
-        
+
         self.filter = gtk_widget_replace(self.filter, f)
-        
+
     @GtkTemplate.Callback
     def on_add_button_clicked(self, *args):
         self.filter.add_criteria_row()
-    
+
     @GtkTemplate.Callback
     def on_lim_check_toggled(self, *args):
         self.lim_spin.set_sensitive(self.lim_check.get_active())
@@ -224,7 +224,7 @@ class FilterWidget(Gtk.Grid):
 
         if n != 0:
             criterion.set_state(self.rows[-1][0].get_state())
-        
+
         remove_btn = Gtk.Button()
         image = Gtk.Image()
         image.set_from_icon_name('list-remove', Gtk.IconSize.BUTTON)
@@ -232,12 +232,12 @@ class FilterWidget(Gtk.Grid):
         remove_btn_handler_id = remove_btn.connect(
             'clicked', self.__remove_clicked)
         remove_btn.show_all()
-        
+
         self.attach(criterion, 0, n, 1, 1)
         self.attach(remove_btn, 1, n, 1, 1)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
-    
+
     def remove_criteria_row(self, row):
         """Remove a criteria row."""
         self.remove_row(row)
@@ -362,33 +362,33 @@ class Criterion(Gtk.Box):
 
 class ComboEntryField(Gtk.Box):
     '''Select from multiple fixed values, but allow the user to enter text'''
-    
+
     def __init__(self, values):
         Gtk.Box.__init__(self)
-        
+
         self.combo = Gtk.ComboBoxText.new_with_entry()
         for value in values:
             self.combo.append_text(value)
-        
+
         self.pack_start(self.combo, True, True, 0)
         self.combo.show()
-    
+
     def get_state(self):
         return self.combo.get_active_text()
-    
+
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
 
 
 class NullField(Gtk.Box):
     '''Used as a placeholder for __null__ values'''
-    
+
     def get_state(self):
         return ['__null__']
-        
+
     def set_state(self, state):
         pass
-    
+
 
 class MultiEntryField(Gtk.Box):
     """Helper field that can be subclassed to get fields with multiple
@@ -442,7 +442,7 @@ class EntryField(Gtk.Entry):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
         self.set_text(unicode(state))
-        
+
 
 class QuotedEntryField(Gtk.Entry):
 

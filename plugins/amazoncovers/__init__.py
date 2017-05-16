@@ -84,7 +84,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
             'plugin/amazoncovers/secret_key', '')
         if not api_key or not secret_key:
             logger.warning('Please enter your Amazon API and secret '
-                'keys in the Amazon Covers preferences')
+                           'keys in the Amazon Covers preferences')
             return []
 
         # wait at least 1 second until the next attempt

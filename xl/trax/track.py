@@ -48,19 +48,19 @@ logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
-        u'ß': u'ss',  # U+00DF
-        u'æ': u'ae',  # U+00E6
-        u'ĳ': u'ij',  # U+0133
-        u'ŋ': u'ng',  # U+014B
-        u'œ': u'oe',  # U+0153
-        u'ƕ': u'hv',  # U+0195
-        u'ǆ': u'dz',  # U+01C6
-        u'ǉ': u'lj',  # U+01C9
-        u'ǌ': u'nj',  # U+01CC
-        u'ǳ': u'dz',  # U+01F3
-        u'ҥ': u'ng',  # U+04A5
-        u'ҵ': u'ts',  # U+04B5
-        }
+    u'ß': u'ss',  # U+00DF
+    u'æ': u'ae',  # U+00E6
+    u'ĳ': u'ij',  # U+0133
+    u'ŋ': u'ng',  # U+014B
+    u'œ': u'oe',  # U+0153
+    u'ƕ': u'hv',  # U+0195
+    u'ǆ': u'dz',  # U+01C6
+    u'ǉ': u'lj',  # U+01C9
+    u'ǌ': u'nj',  # U+01CC
+    u'ǳ': u'dz',  # U+01F3
+    u'ҥ': u'ng',  # U+04A5
+    u'ҵ': u'ts',  # U+04B5
+}
 
 # Cache these here because calling gettext inside get_tag_display
 # is two orders of magnitude slower.
@@ -100,7 +100,7 @@ class _MetadataCacher(object):
             next_expiry = min([i[2] for i in self._cache])
             timeout = int((next_expiry + self.timeout) - current)
             self._cleanup_id = GLib.timeout_add_seconds(timeout,
-                    self.__cleanup)
+                                                        self.__cleanup)
 
     def add(self, trackobj, formatobj):
         for item in self._cache:
@@ -113,7 +113,7 @@ class _MetadataCacher(object):
             self._cache.remove(least)
         if not self._cleanup_id:
             self._cleanup_id = GLib.timeout_add_seconds(self.timeout,
-                    self.__cleanup)
+                                                        self.__cleanup)
 
     def remove(self, trackobj):
         for item in self._cache:
@@ -137,7 +137,7 @@ class Track(object):
     """
     # save a little memory this way
     __slots__ = ["__tags", "_scan_valid",
-            "_dirty", "__weakref__", "_init"]
+                 "_dirty", "__weakref__", "_init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
@@ -181,10 +181,10 @@ class Track(object):
             try:
                 tr = cls.__tracksdict[uri]
                 tr._init = False
-                
+
                 # if the track *does* happen to be pickled in more than one
                 # place, then we need to preserve any internal tags that aren't
-                # persisted to disk. 
+                # persisted to disk.
                 #
                 # See https://bugs.launchpad.net/exaile/+bug/1054637
                 if unpickles is None:
@@ -192,13 +192,13 @@ class Track(object):
                         unpickles = args[2]
                     else:
                         unpickles = kwargs.get("_unpickles")
-                
+
                 if unpickles is not None:
                     for tag, values in unpickles.iteritems():
                         tags = tr.list_tags()
                         if tag.startswith('__') and tag not in tags:
                             tr.set_tag_raw(tag, values)
-                
+
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr
@@ -294,7 +294,7 @@ class Track(object):
             Existence of a path does *not* guarantee file existence.
         """
         raise DeprecationWarning('get_local_path() is '
-            'preferred over local_file_name()')
+                                 'preferred over local_file_name()')
         return self.get_local_path()
 
     def get_local_path(self):
@@ -348,13 +348,13 @@ class Track(object):
             if f is None:
                 return False  # not a supported type
             f.write_tags(self.__tags)
-            
+
             # now that we've written the tags to disk, remove any tags that the
             # user asked to be deleted
             to_remove = [k for k, v in self.__tags.iteritems() if v is None]
             for rm in to_remove:
                 self.__tags.pop(rm)
-            
+
             return f
         except IOError:
             # error writing to the file, probably
@@ -380,24 +380,24 @@ class Track(object):
             ntags = f.read_all()
             for k, v in ntags.iteritems():
                 self.set_tag_raw(k, v)
-                
+
             # remove tags that could be in the file, but are in fact not
             # in the file. Retain tags in the DB that aren't supported by
             # the file format.
-            
+
             nkeys = set(ntags.keys())
             ekeys = {k for k in self.__tags.keys() if not k.startswith('__')}
-            
+
             # delete anything that wasn't in the new tags
             to_del = ekeys - nkeys
-            
+
             # but if not others set, only delete supported tags
             if not f.others:
                 to_del &= set(f.tag_mapping.keys())
-                
+
             for tag in to_del:
                 self.set_tag_raw(tag, None)
-            
+
             # fill out file specific items
             gloc = Gio.File.new_for_uri(loc)
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
@@ -473,14 +473,14 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                    if isinstance(v, basestring) else v
+                if isinstance(v, basestring) else v
                 for v in values
-                    if v not in (None, '')
+                if v not in (None, '')
             ]
-            
+
         if values:
             return values
-        
+
         return None
 
     def set_tag_raw(self, tag, values, notify_changed=True):
@@ -493,7 +493,7 @@ class Track(object):
                 parts of Exaile know there has been an update. Only set
                 this to False if you know that no other parts of Exaile
                 need to be updated.
-                
+
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
         """
         if tag == '__loc':
@@ -525,7 +525,7 @@ class Track(object):
             :param tag: The name of the tag to get
             :param join: If True, joins lists of values into a
                 single value.
-                
+
             :returns: None if the tag is not present
         """
         if tag == '__basename':
@@ -541,7 +541,7 @@ class Track(object):
         return value
 
     def get_tag_sort(self, tag, join=True, artist_compilations=False,
-            extend_title=True):
+                     extend_title=True):
         """
             Get a tag value in a form suitable for sorting.
 
@@ -564,12 +564,12 @@ class Track(object):
         elif tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist',
-                        u"\uffff\uffff\uffff\ufffe")
+                                        u"\uffff\uffff\uffff\ufffe")
             else:
                 value = self.__tags.get('artist',
-                        u"\uffff\uffff\uffff\uffff")
+                                        u"\uffff\uffff\uffff\uffff")
             if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
-                    u"\uffff\uffff\uffff\uffff"):
+                                         u"\uffff\uffff\uffff\uffff"):
                 value = sorttag
             else:
                 sorttag = None
@@ -610,7 +610,7 @@ class Track(object):
         return value
 
     def get_tag_display(self, tag, join=True, artist_compilations=False,
-            extend_title=True):
+                        extend_title=True):
         """
             Get a tag value in a form suitable for display.
 
@@ -672,7 +672,7 @@ class Track(object):
         return value
 
     def get_tag_search(self, tag, format=True, artist_compilations=False,
-            extend_title=True):
+                       extend_title=True):
         """
             Get a tag value suitable for passing to the search system.
             This includes quoting and list joining.
@@ -683,7 +683,7 @@ class Track(object):
                 tag=="albumartist".
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
-                
+
             :returns: unicode string that is used for searching
         """
         extraformat = ""
@@ -737,9 +737,9 @@ class Track(object):
             value = map(shave_marks, value)
         else:
             value = shave_marks(value)
-            
+
         return value
-    
+
     def _get_format_obj(self):
         f = _CACHER.get(self)
         if not f:
@@ -751,16 +751,16 @@ class Track(object):
                 return None
         _CACHER.add(self, f)
         return f
-    
+
     def get_tag_disk(self, tag):
         """
             Read a tag directly from disk. Can be slow, use with caution.
 
             Intended for use with large fields like covers and
             lyrics that shouldn't be loaded to the in-mem db.
-            
+
             .. warning:: The track instance will not be updated with the new tag
-            
+
             :returns: None if the tag does not exist
         """
         f = self._get_format_obj()
@@ -769,23 +769,23 @@ class Track(object):
                 return f.read_tags([tag])[tag]
             except KeyError:
                 return None
-            
+
     def set_tag_disk(self, tag, values):
         """
             Set a tag directly to disk. Can be slow, use with caution.
 
             Intended for use with large fields like covers and
             lyrics that shouldn't be loaded to the in-mem db.
-            
+
             .. warning:: The track instance will not be updated with the new tag
-            
+
             :returns: None if the tag does not exist
         """
         f = self._get_format_obj()
         if f:
             values = self._xform_set_values(tag, values)
             f.write_tags({tag: values})
-            
+
     def list_tags_disk(self):
         """
             List all the tags directly from file metadata. Can be slow,
@@ -825,7 +825,7 @@ class Track(object):
         """
             Sets the current track rating from an integer, on the
             scale determined by the ``rating/maximum`` setting.
-            
+
             Returns the scaled rating
         """
         rating = float(rating)
@@ -922,7 +922,7 @@ class Track(object):
         # value is appended afterwards so that like-accented values
         # will sort together.
         return u''.join([c for c in unicodedata.normalize('NFD', value)
-            if unicodedata.category(c) != 'Mn']) + u" " + value
+                         if unicodedata.category(c) != 'Mn']) + u" " + value
 
     @staticmethod
     def expand_doubles(value):
@@ -974,7 +974,7 @@ class Track(object):
             cls._Track__the_cuts = settings.get_option('collection/strip_list', [])
 
     ### Utility method intended for TrackDB ###
-    
+
     @classmethod
     def _get_track_count(cls):
         '''Internal API, returns number of track objects we have'''

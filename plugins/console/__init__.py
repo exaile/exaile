@@ -40,7 +40,7 @@ class PyConsole():
 
         ui = Gtk.Builder()
         ui.add_from_file(os.path.join(os.path.dirname(
-                os.path.realpath(__file__)), 'console_window.ui'))
+            os.path.realpath(__file__)), 'console_window.ui'))
 
         self.window = ui.get_object('simple_console_window')
         self.close_handler = self.window.connect('delete-event', console_destroyed, exaile)

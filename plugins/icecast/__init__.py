@@ -115,12 +115,12 @@ class IcecastRadioStation(RadioStation):
             hostinfo = urlparse.urlparse(self.genre_url)
             try:
                 c = httplib.HTTPConnection(hostinfo.netloc,
-                        timeout=20)
+                                           timeout=20)
             except TypeError:  # python 2.5 doesnt have timeout=
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
-                    self.user_agent})
+                                                         self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -220,7 +220,7 @@ class IcecastRadioStation(RadioStation):
             thisPage += 1
             try:
                 c.request('GET', "%s?%s" % (hostinfo.path, query),
-                    headers={'User-Agent': self.user_agent})
+                          headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -231,10 +231,10 @@ class IcecastRadioStation(RadioStation):
                     _('Error connecting to Icecast server.'))
 
             body = response.read()
-            
+
             # XML parser can't handle the audio tag
             body = re.sub('<audio.*?>.*?</audio>', '', body, flags=(re.M | re.DOTALL))
-            
+
             dom = minidom.parseString(body)
             divs = dom.getElementsByTagName('div')
             for div in divs:
@@ -321,7 +321,7 @@ class IcecastRadioStation(RadioStation):
             Called when the user wants to search for a specific stream
         """
         dialog = dialogs.TextEntryDialog(_("Enter the search keywords"),
-            _("Icecast Search"))
+                                         _("Icecast Search"))
 
         result = dialog.run()
         if result == Gtk.ResponseType.OK:
@@ -346,7 +346,7 @@ class IcecastRadioStation(RadioStation):
         if not lists:
             dialogs.info(self.exaile.gui.main.window, _('No Stations Found'))
             return
-        
+
         dialog = ResultsDialog(_("Icecast Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)
@@ -398,11 +398,11 @@ class ResultsDialog(dialogs.ListDialog):
         text.set_property('xalign', 1.0)
         col = Gtk.TreeViewColumn(_('Bitrate'), text)
         col.set_cell_data_func(text, lambda column, cell, model, iter:
-            cell.set_property('text', model.get_value(iter, 0).bitrate))
+                               cell.set_property('text', model.get_value(iter, 0).bitrate))
         self.list.append_column(col)
         text = Gtk.CellRendererText()
         text.set_property('xalign', 0.5)
         col = Gtk.TreeViewColumn(_('Format'), text)
         col.set_cell_data_func(text, lambda column, cell, model, iter:
-            cell.set_property('text', model.get_value(iter, 0).format))
+                               cell.set_property('text', model.get_value(iter, 0).format))
         self.list.append_column(col)

@@ -24,7 +24,7 @@ class Cache(object):
         self.dir = os.path.abspath(dir)
         if (not(os.path.exists(self.dir))):
             os.mkdir(self.dir)
-    
+
     def get(self, id, func):
         id = md5.md5(id).hexdigest()
         fn = os.path.join(self.dir, id)
@@ -55,14 +55,14 @@ class OrderedCache(object):
         def next(self):
             if self.n >= len(self.cache):
                 raise StopIteration
-            self.n = self.n + 1 
+            self.n = self.n + 1
             return self.cache.get_item_by_id(self.n)
 
     def __init__(self, dir):
         self.dir = os.path.abspath(dir)
         if (not(os.path.exists(self.dir))):
             os.mkdir(self.dir)
-        
+
     def __iter__(self):
         return OrderedCache.Iter(self)
 
@@ -92,7 +92,7 @@ class OrderedCache(object):
             p = os.path.join(self.dir, f)
             if os.path.isfile(p):
                 os.remove(p)
-        
+
 
 class OrderedCacheItem(object):
 
@@ -107,9 +107,9 @@ class OrderedCacheItem(object):
 
     def get_exists(self):
         return os.path.exists(self.path)
- 
+
     def get_id(self):
         return self.id
-    
+
     def get_pid(self):
-        return self.pid    
+        return self.pid

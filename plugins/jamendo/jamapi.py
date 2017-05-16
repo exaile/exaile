@@ -36,7 +36,7 @@ USER_AGENT = None
 def set_user_agent(s):
     global USER_AGENT
     USER_AGENT = s
-    
+
 
 def get_json(url):
     return json.loads(common.get_url_contents(url, USER_AGENT))

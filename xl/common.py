@@ -56,7 +56,7 @@ VALID_TAGS = (
     "arranger author composer conductor lyricist discnumber labelid part "
     "website language encodedby bpm albumartist originaldate originalalbum "
     "originalartist recordingdate"
-    ).split()
+).split()
 
 PICKLE_PROTOCOL = 2
 
@@ -71,12 +71,12 @@ BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', '
 def log_exception(log=logger, message="Exception caught!"):
     """
         Deprecated! Don't use this in newer code, use this instead::
-        
+
             import logging
             logger = logging.getLogger(__name__)
-            
+
             .. 
-            
+
             try:
                 ..
             except Exception:
@@ -132,19 +132,19 @@ def get_url_contents(url, user_agent):
     '''
         Retrieves data from a URL and sticks a user-agent on it. You can use
         exaile.get_user_agent_string(pluginname) to get this.
-        
+
         Added in Exaile 3.4
-        
+
         :returns: Contents of page located at URL
         :raises: urllib2.URLError
     '''
-    
+
     headers = {'User-Agent': user_agent}
     req = urllib2.Request(url, None, headers)
     fp = urllib2.urlopen(req)
     data = fp.read()
     fp.close()
-    
+
     return data
 
 
@@ -167,10 +167,10 @@ def synchronized(func):
     """
         A decorator to make a function synchronized - which means only one
         thread is allowed to access it at a time.
-        
+
         This only works on class functions, and creates a variable in 
         the instance called _sync_lock. 
-        
+
         If this function is used on multiple functions in an object, they
         will be locked with respect to each other. The lock is re-entrant.
     """
@@ -187,7 +187,7 @@ def synchronized(func):
         finally:
             rlock.release()
     return wrapper
-    
+
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -212,7 +212,7 @@ def idle_add(callback=None):
         @wraps(f)
         def wrapped(*args, **kwargs):
             GLib.idle_add(_idle_callback, f, callback,
-                *args, **kwargs)
+                          *args, **kwargs)
 
         return wrapped
     return wrap
@@ -220,8 +220,8 @@ def idle_add(callback=None):
 
 def _glib_wait_inner(timeout, glib_timeout_func):
     id = [None]  # Have to hold the value in a mutable structure because
-                # python's scoping rules prevent us assigning to an
-                # outer scope directly.
+    # python's scoping rules prevent us assigning to an
+    # outer scope directly.
 
     def waiter(function):
         def thunk(*args, **kwargs):
@@ -348,7 +348,7 @@ def open_file_directory(path_or_uri):
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2
-        # always calls CreateProcessA, which doesn't support Unicode. We could 
+        # always calls CreateProcessA, which doesn't support Unicode. We could
         # call CreateProcessW with ctypes, but the following is more robust.
         import ctypes
         ctypes.windll.ole32.CoInitialize(None)
@@ -401,7 +401,7 @@ class LimitedCache(DictMixin):
     def __repr__(self):
         '''prevent repr(self) from changing cache order'''
         return repr(self.cache)
-        
+
     def __str__(self):
         '''prevent str(self) from changing cache order'''
         return str(self.cache)
@@ -444,7 +444,7 @@ class cached(object):
                 pass
             return ret
         return wrapper
-        
+
     def __get__(self, obj, objtype):
         """Support instance methods."""
         return partial(self.__call__, obj)
@@ -473,9 +473,9 @@ def walk(root):
         yield dir
         try:
             for fileinfo in dir.enumerate_children("standard::type,"
-                    "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified",
-                    Gio.FileQueryInfoFlags.NONE, None):
+                                                   "standard::is-symlink,standard::name,"
+                                                   "standard::symlink-target,time::modified",
+                                                   Gio.FileQueryInfoFlags.NONE, None):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
@@ -717,7 +717,7 @@ class ProgressThread(GObject.GObject, threading.Thread):
             signal is emitted regularly with the progress
         """
         pass
-    
+
 
 class SimpleProgressThread(ProgressThread):
     '''
@@ -725,12 +725,12 @@ class SimpleProgressThread(ProgressThread):
         manage the thread and its progress. Instead of overriding
         run, just pass a callable that returns a generator to
         the constructor.
-        
+
         The callable must either yield a number between 0 and 100,
         or yield a tuple of (n, total) where n is the current step.
-        
+
         ::
-        
+
             def long_running_thing():
                 l = len(stuff)
                 try:
@@ -741,24 +741,24 @@ class SimpleProgressThread(ProgressThread):
                     # be raised the next time yield is called
                     pass
     '''
-    
+
     def __init__(self, target, *args, **kwargs):
         ProgressThread.__init__(self)
         self.__target = (target, args, kwargs)
         self.__stop = False
-    
+
     def stop(self):
         '''
             Causes the thread to stop at the next yield point
         '''
         self.__stop = True
-        
+
     def run(self):
         '''
             Runs a generator
         '''
         target, args, kwargs = self.__target
-        
+
         try:
             for progress in target(*args, **kwargs):
                 self.emit('progress-update', progress)
@@ -859,15 +859,15 @@ class LazyDict(object):
 
 
 class _GioFileStream(object):
-    
+
     __slots__ = ['stream']
-    
+
     def __enter__(self):
         return self
-    
+
     def __exit__(self, *exc_info):
         self.stream.close()
-    
+
     def seek(self, offset, whence=os.SEEK_CUR):
         if whence == os.SEEK_CUR:
             self.stream.seek(offset, GLib.SeekType.CUR)
@@ -877,38 +877,38 @@ class _GioFileStream(object):
             self.stream.seek(offset, GLib.SeekType.END)
         else:
             raise IOError("Invalid whence")
-    
+
     def tell(self):
         return self.stream.tell()
-    
+
 
 class GioFileInputStream(_GioFileStream):
     '''
         Wrap a Gio.File so it looks like a python file object for reading.
-        
+
         TODO: More complete wrapper
     '''
     __slots__ = ['stream', 'gfile']
-    
+
     def __init__(self, gfile):
         self.gfile = gfile
         self.stream = Gio.DataInputStream.new(gfile.read())
-        
+
     def __iter__(self):
         return self
-    
+
     def next(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
         return r
-    
+
     def read(self, size=None):
         if size:
             return self.stream.read_bytes(size).get_data()
         else:
             return self.gfile.load_contents()[1]
-    
+
     def readline(self):
         return self.stream.read_line()[0]
 
@@ -918,16 +918,16 @@ class GioFileOutputStream(_GioFileStream):
         Wrapper around Gio.File for writing like a python file object
     '''
     __slots__ = ['stream']
-    
+
     def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
-        
+
         self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
-    
+
     def flush(self):
         self.stream.flush()
-    
+
     def write(self, s):
         return self.stream.write(s)
 
@@ -937,34 +937,34 @@ def subscribe_for_settings(section, options, self):
         Allows you designate attributes on an object to be dynamically
         updated when a particular setting changes. If you want to be
         notified of a setting update, use a @property for the attribute.
-        
+
         Only works for a options in a single section
-        
+
         :param section: Settings section
         :param options: Dictionary of key: option name, value: attribute on
                         'self' to set when the setting has been updated. The
                         attribute must already have a default value in it
         :param self:    Object to set attribute values on
-        
+
         :returns: A function that can be called to unsubscribe
-        
+
         .. versionadded:: 3.5.0
     '''
-    
+
     from xl import event
     from xl import settings
-    
+
     def _on_option_set(unused_name, unused_object, data):
         attrname = options.get(data)
         if attrname is not None:
             setattr(self, attrname,
                     settings.get_option(data, getattr(self, attrname)))
-    
+
     for k in options:
         if not k.startswith('%s/' % section):
             raise ValueError("Option is not part of section %s" % section)
         _on_option_set(None, None, k)
-    
+
     return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
 
 

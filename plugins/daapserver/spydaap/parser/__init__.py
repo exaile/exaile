@@ -48,7 +48,7 @@ class Parser:
         daap.extend([do('daap.songsize', os.path.getsize(filename)),
                      do('daap.songdateadded', statinfo.st_ctime),
                      do('daap.songdatemodified', statinfo.st_ctime)])
-    
+
     def set_itemname_if_unset(self, name, daap):
         for d in daap:
             if d.code == 'minm':
@@ -58,7 +58,7 @@ class Parser:
 
     def clean_int_string(self, s):
         return re.sub(u'[^0-9]', '', unicode(s))
-    
+
     def my_int(self, s):
         try:
             return int(self.clean_int_string(s))

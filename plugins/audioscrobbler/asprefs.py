@@ -35,7 +35,7 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
 
 icons.MANAGER.add_icon_name_from_directory('audioscrobbler',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icon = 'audioscrobbler'
 
 
@@ -94,7 +94,7 @@ class VerifyLoginButton(widgets.Button):
         username = settings.get_option('plugin/ascrobbler/user', '')
         password = settings.get_option('plugin/ascrobbler/password', '')
         url = settings.get_option('plugin/ascrobbler/url',
-            'http://post.audioscrobbler.com/')
+                                  'http://post.audioscrobbler.com/')
         login_verified = False
 
         try:

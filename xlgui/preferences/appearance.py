@@ -39,7 +39,7 @@ ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 class ShowInfoAreaPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_info_area'
-    
+
 
 class ShowInfoAreaCoversPreference(widgets.CheckPreference):
     default = True
@@ -54,7 +54,7 @@ class SplashPreference(widgets.CheckPreference):
 class ShowTabBarPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_tabbar'
-    
+
 
 def _get_system_default_font():
     return Gtk.Widget.get_default_style().font_desc.to_string()
@@ -93,12 +93,12 @@ class TrackCountsPreference(widgets.CheckPreference):
 
     def apply(self, value=None):
         return_value = widgets.CheckPreference.apply(self, value)
-        
+
         import xlgui
         xlgui.get_controller().get_panel('collection').load_tree()
 
         return return_value
-        
+
 
 class UseTrayPreference(widgets.CheckPreference, widgets.Conditional):
     default = False
@@ -109,7 +109,7 @@ class UseTrayPreference(widgets.CheckPreference, widgets.Conditional):
         widgets.Conditional.__init__(self)
         if not tray.is_supported():
             self.widget.set_tooltip_text(_("Tray icons are not supported on your platform"))
-    
+
     def on_check_condition(self):
         return tray.is_supported()
 

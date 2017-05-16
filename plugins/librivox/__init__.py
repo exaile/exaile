@@ -56,9 +56,9 @@ def enable(exaile):
 def _enable(o1, exaile, o2):
     global LVPANEL
     LVPANEL = LVPanel(exaile)
-    
+
     providers.register('main-panel', LVPANEL)
-    
+
 
 def disable(exaile):
     global LVPANEL
@@ -111,9 +111,9 @@ class LVPanel():
 
         self.name = 'librivox'   # needed for panel provider
         self._panel = None
-        
+
         self._user_agent = exaile.get_user_agent_string('librivox')
-        
+
         self.librivoxdir = os.path.dirname(__file__)
         self.abicon = GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir + '/ebook.png')
         self.clock_icon = GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir + '/clock.png')
@@ -192,14 +192,14 @@ class LVPanel():
         self.treeview.connect("drag_begin", self.on_drag_begin)
 
     def generate_tracks(self, chapters):
-            tracks = []
-            for chapter in chapters:
-                chapter_track = trax.Track(chapter[1])
-                chapter_track.set_tag_raw('artist', 'Librivox.org')
-                chapter_track.set_tag_raw('title', chapter[0])
-                chapter_track.set_tag_raw('album', 'Audiobook')
-                tracks.append(chapter_track)
-            return tracks
+        tracks = []
+        for chapter in chapters:
+            chapter_track = trax.Track(chapter[1])
+            chapter_track.set_tag_raw('artist', 'Librivox.org')
+            chapter_track.set_tag_raw('title', chapter[0])
+            chapter_track.set_tag_raw('album', 'Audiobook')
+            tracks.append(chapter_track)
+        return tracks
 
     def on_append_to_playlist(self, widget, path=None, column=None):
         if not path:
@@ -221,7 +221,7 @@ class LVPanel():
         current_playlist = main.get_selected_playlist()
         if not current_playlist:
             return
-        
+
         tracks = self.generate_tracks(chapters)
         current_playlist.playlist.extend(tracks)
 
@@ -263,11 +263,11 @@ class LVPanel():
             else:
                 if book.is_loading:
                     return
-                    
+
                 current_playlist = main.get_selected_playlist()
                 if not current_playlist:
                     return
-                
+
                 current_playlist_tv = current_playlist.list
 
                 (x, y) = current_playlist_tv.get_pointer()

@@ -82,7 +82,7 @@ class CollectionScanThread(common.ProgressThread):
             :param force_update: Update files regardless whether they've changed
         """
         common.ProgressThread.__init__(self)
-        
+
         self.startup_scan = startup_scan
         self.force_update = force_update
         self.collection = collection
@@ -99,13 +99,13 @@ class CollectionScanThread(common.ProgressThread):
             Runs the thread
         """
         event.add_callback(self.on_scan_progress_update,
-            'scan_progress_update')
+                           'scan_progress_update')
 
         self.collection.rescan_libraries(startup_only=self.startup_scan,
                                          force_update=self.force_update)
 
         event.remove_callback(self.on_scan_progress_update,
-            'scan_progress_update')
+                              'scan_progress_update')
 
     def on_scan_progress_update(self, type, collection, progress):
         """
@@ -148,7 +148,7 @@ class Collection(trax.TrackDB):
         self._libraries_dirty = False
         pickle_attrs += ['_serial_libraries']
         trax.TrackDB.__init__(self, name, location=location,
-                pickle_attrs=pickle_attrs)
+                              pickle_attrs=pickle_attrs)
         COLLECTIONS.add(self)
 
     def freeze_libraries(self):
@@ -259,15 +259,15 @@ class Collection(trax.TrackDB):
         scan_interval = 20
 
         for library in self.libraries.itervalues():
-            
+
             if not force_update and startup_only and not (library.monitored and library.startup_scan):
                 continue
-            
+
             event.add_callback(self._progress_update, 'tracks_scanned',
-                library)
+                               library)
             library.rescan(notify_interval=scan_interval, force_update=force_update)
             event.remove_callback(self._progress_update, 'tracks_scanned',
-                library)
+                                  library)
             self._running_total_count += self._running_count
             if self._scan_stopped:
                 break
@@ -310,7 +310,7 @@ class Collection(trax.TrackDB):
 
         try:
             event.log_event('scan_progress_update', self,
-                int((float(count) / float(self.file_count)) * 100))
+                            int((float(count) / float(self.file_count)) * 100))
         except ZeroDivisionError:
             pass
 
@@ -339,8 +339,8 @@ class Collection(trax.TrackDB):
         """
         for l in _serial_libraries:
             self.add_library(Library(l['location'],
-                    l.get('monitored', l.get('realtime')),
-                    l['scan_interval'], l.get('startup_scan', True)))
+                                     l.get('monitored', l.get('realtime')),
+                                     l['scan_interval'], l.get('startup_scan', True)))
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
@@ -383,7 +383,7 @@ class LibraryMonitor(GObject.GObject):
             [Gio.File]
         )
     }
-    
+
     def __init__(self, library):
         """
             :param library: the library to monitor
@@ -443,7 +443,7 @@ class LibraryMonitor(GObject.GObject):
                     self.emit('location-removed', directory)
 
                 self.__monitors = {}
-                
+
     def __process_change_queue(self, gfile):
         if gfile in self.__queue:
             added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
@@ -456,27 +456,27 @@ class LibraryMonitor(GObject.GObject):
         """
             Updates the library on changes of the location
         """
-        
+
         if event == Gio.FileMonitorEvent.CHANGES_DONE_HINT:
             self.__process_change_queue(gfile)
         elif event == Gio.FileMonitorEvent.CREATED or \
-             event == Gio.FileMonitorEvent.CHANGED:
-            
+                event == Gio.FileMonitorEvent.CHANGED:
+
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
                 self.__queue[gfile] = True
-            
+
                 # File monitor only emits the DONE_HINT when using inotify,
-                # and only on single files. Give it some time, but don't 
+                # and only on single files. Give it some time, but don't
                 # lose the change notification
                 GLib.timeout_add(500, self.__process_change_queue, gfile)
-            
+
             # Set up new monitor if directory
             fileinfo = gfile.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None)
 
             if fileinfo.get_file_type() == Gio.FileType.DIRECTORY and \
                gfile not in self.__monitors:
-                
+
                 for directory in common.walk_directories(gfile):
                     monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
                     monitor.connect('changed', self.on_location_changed)
@@ -504,12 +504,12 @@ class LibraryMonitor(GObject.GObject):
 
             # Remove obsolete monitors
             removed_directories = [d for d in self.__monitors
-                if d == gfile or d.has_prefix(gfile)]
+                                   if d == gfile or d.has_prefix(gfile)]
 
             for directory in removed_directories:
                 self.__monitors[directory].cancel()
                 del self.__monitors[directory]
-                
+
                 self.emit('location-removed', directory)
 
 
@@ -587,7 +587,7 @@ class Library(object):
     def set_monitored(self, monitored):
         """
             Enables or disables monitoring of the library
-            
+
             :param monitored: Whether to monitor the library
             :type monitored: bool
         """
@@ -611,24 +611,24 @@ class Library(object):
             :param interval: scan interval in seconds
             :type interval: int
         """
-        
+
         if self.scan_id:
             GLib.source_remove(self.scan_id)
             self.scan_id = None
-        
+
         if interval:
             self.scan_id = GLib.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
-        
+
     def get_startup_scan(self):
         return self._startup_scan
-    
+
     def set_startup_scan(self, value):
         self._startup_scan = value
         self.collection.serialize_libraries()
         self.collection._dirty = True
-    
+
     startup_scan = property(get_startup_scan, set_startup_scan)
 
     def _count_files(self):
@@ -697,7 +697,7 @@ class Library(object):
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
                 logger.debug("Compilation %(album)r detected in %(dir)r" %
-                        {'album': album, 'dir': basedir})
+                             {'album': album, 'dir': basedir})
 
         ccheck[basedir][album].append(artist)
 
@@ -741,7 +741,7 @@ class Library(object):
             to the Collection
         """
         # TODO: use gio's cancellable support
-        
+
         if self.collection is None:
             return True
 
@@ -768,11 +768,11 @@ class Library(object):
                         base = basedir.replace('"', '\\"')
                         alb = album.replace('"', '\\"')
                         items = [tr for tr in dirtracks if
-                                tr.get_tag_raw('__basedir') == base and \
-                                # FIXME: this is ugly
-                                alb in "".join(
-                                    tr.get_tag_raw('album') or []).lower()
-                                ]
+                                 tr.get_tag_raw('__basedir') == base and \
+                                 # FIXME: this is ugly
+                                 alb in "".join(
+                                     tr.get_tag_raw('album') or []).lower()
+                                 ]
                         for item in items:
                             item.set_tag_raw('__compilation', (basedir, album))
                 dirtracks = deque()
@@ -794,8 +794,8 @@ class Library(object):
                     # compilations.
                     if len(dirtracks) > 110:
                         logger.debug("Too many files, skipping "
-                                "compilation detection heuristic for "
-                                + fil.get_uri())
+                                     "compilation detection heuristic for "
+                                     + fil.get_uri())
                         dirtracks = None
 
             if self.collection and self.collection._scan_stopped:
@@ -831,7 +831,7 @@ class Library(object):
         for tr in removals:
             logger.debug(u"Removing %s" % unicode(tr))
             self.collection.remove(tr)
-            
+
         logger.info("Scan completed: %s", self.location)
         self.scanning = False
 
@@ -843,7 +843,7 @@ class Library(object):
         oldgloc = Gio.File.new_for_uri(loc)
 
         newgloc = Gio.File.new_for_uri(self.location).resolve_relative_path(
-                oldgloc.get_basename())
+            oldgloc.get_basename())
 
         if move:
             oldgloc.move(newgloc)

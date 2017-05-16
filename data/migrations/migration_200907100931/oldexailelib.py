@@ -54,13 +54,13 @@ class TrackData(object):
             pass
         self.paths[value.loc] = value
         self._inner[index] = value
- 
+
     def __len__(self):
         return len(self._inner)
 
     def index(self, item):
         return self._inner.index(item)
- 
+
     def append(self, track):
         """
             Adds a track to the list
@@ -84,13 +84,13 @@ class TrackData(object):
         else:
             self._inner.remove(track)
         self.update_total_length(track.get_duration(), appending=False)
-    
+
     def update_total_length(self, track_duration, appending):
         if appending:
             self.total_length += track_duration
         else:
             self.total_length -= track_duration
-            
+
     def get_total_length(self):
         """ 
             Returns length of all tracks in the table as preformatted string
@@ -165,7 +165,7 @@ def load_tracks(db, current=None):
 
         t = oldtrack.Track(*row)
         path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
-        t.type = "file" 
+        t.type = "file"
 
         if already_added(t, added):
             continue
@@ -181,7 +181,7 @@ def load_tracks(db, current=None):
                 if not row:
                     break
                 globals()[item][row[1]] = row[0]
-            except: 
+            except:
                 common.log_exception()
 
     cur.execute("SELECT artist, name, id FROM albums")

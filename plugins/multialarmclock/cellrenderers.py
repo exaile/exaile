@@ -23,11 +23,11 @@ from gi.repository import GObject
 
 class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
-    
+
     __gtype_name__ = 'CellRendererDays'
     __gproperties__ = {'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)}
     __gsignals__ = {'days-changed': (GObject.SignalFlags.RUN_FIRST, None,
-                                    (str, object))}
+                                     (str, object))}
     property_names = __gproperties__.keys()
 
     def __init__(self):
@@ -35,10 +35,10 @@ class CellRendererDays(Gtk.CellRendererText):
         self.model = Gtk.ListStore(bool, str)
         self.view = None
         self.view_window = None
-        
+
         for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']:
             self.model.append([True, day])
-            
+
         self.set_property('text', 'Edit me')
 
     def _create_view(self, treeview):
@@ -48,15 +48,15 @@ class CellRendererDays(Gtk.CellRendererText):
         self.view_window.set_property('skip-taskbar-hint', True)
 
         self.view = Gtk.TreeView()
-        
+
         self.view.set_model(self.model)
         self.view.set_headers_visible(False)
-        
+
         cr = Gtk.CellRendererToggle()
         cr.connect('toggled', self._toggle)
         col = Gtk.TreeViewColumn('Enabled', cr, active=0)
         self.view.append_column(col)
-        
+
         cr = Gtk.CellRendererText()
         col = Gtk.TreeViewColumn('Day', cr, text=1)
         self.view.append_column(col)
@@ -64,7 +64,7 @@ class CellRendererDays(Gtk.CellRendererText):
         # events
         self.view.connect('focus-out-event', self._close)
         self.view.connect('key-press-event', self._key_pressed)
-        
+
         # should be automatic
         self.view_window.set_modal(False)
         self.view_window.set_transient_for(None)  # cancel the modality of dialog
@@ -77,14 +77,14 @@ class CellRendererDays(Gtk.CellRendererText):
     def do_set_property(self, pspec, value):
         '''Set property overload'''
         setattr(self, pspec.name, value)
-        
+
     def do_get_property(self, pspec):
         '''Get property overload'''
         return getattr(self, pspec.name)
 
     def do_start_editing(self, event, treeview, path, background_area, cell_area, flags):
         '''Called when user starts editing the cell'''
-        
+
         if not self.get_property('editable'):
             return
 
@@ -107,19 +107,19 @@ class CellRendererDays(Gtk.CellRendererText):
         self.view_window.move(x, y)
 
         # save the path so we can return it in _done, and we aren't using dialog so we can't block....
-        self._path = path        
-            
+        self._path = path
+
         return None  # don't return any editable, our Gtk.Dialog did the work already
 
     def _done(self):
         '''Called when we are done editing'''
         days = [row[0] for row in self.model]
-        
+
         if days != self.days:
             self.emit('days-changed', self._path, days)
-            
+
         self.view_window.hide()
-    
+
     def _key_pressed(self, view, event):
         '''Key pressed event handler, finish editing on Return'''
         # event == None for day selected via doubleclick

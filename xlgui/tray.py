@@ -48,10 +48,10 @@ def is_supported():
     On some platforms (e.g. Linux+Wayland) tray icons are not supported.
     """
     supported = not guiutil.platform_is_wayland()
-    
+
     if not supported:
         logger.debug("No tray icon support on this platform")
-    
+
     return supported
 
 
@@ -85,7 +85,7 @@ def __create_tray_context_menu():
         else:
             return []
     items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
-        rating_get_tracks_func))
+                                          rating_get_tracks_func))
     # Remove
     items.append(playlist.RemoveCurrentMenuItem([items[-1].name]))
     # ----
@@ -96,7 +96,7 @@ def __create_tray_context_menu():
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        _("_Quit Exaile"), 'application-exit', callback=quit_cb))
+                                       _("_Quit Exaile"), 'application-exit', callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
@@ -204,7 +204,7 @@ class BaseTrayIcon(object):
             playback.playpause(player.PLAYER)
         if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(None, None, self.get_menu_position, self,
-                event.button, event.time)
+                            event.button, event.time)
 
     def on_scroll_event(self, widget, event):
         """
@@ -252,7 +252,7 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
             the best menu position
         """
         return Gtk.StatusIcon.position_menu(*args)
-    
+
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip

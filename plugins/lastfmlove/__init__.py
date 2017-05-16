@@ -47,9 +47,9 @@ logger = logging.getLogger(__name__)
 
 basedir = os.path.dirname(os.path.realpath(__file__))
 icons.MANAGER.add_icon_name_from_directory('love',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icons.MANAGER.add_icon_name_from_directory('send-receive',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 
 
 def enable(exaile):
@@ -103,7 +103,7 @@ class LoveColumn(Column):
             LASTFMLOVER.network
         )
         cellrenderer.props.active = lastfm_track in LASTFMLOVER.loved_tracks
-        
+
         if LASTFMLOVER.network is None:
             cellrenderer.props.sensitive = False
             cellrenderer.props.render_prelit = False
@@ -148,7 +148,7 @@ class LoveMenuItem(MenuItem):
             tracks = self.get_tracks_function()
             empty = len(tracks) == 0
         else:
-            empty = context.get('selection-empty', True) 
+            empty = context.get('selection-empty', True)
             if not empty:
                 tracks = context.get('selected-tracks', [])
 
@@ -306,7 +306,7 @@ class LastFMLover(object):
             track.get_tag_display('title'),
             LASTFMLOVER.network
         )
-            
+
         if lastfm_track in self.loved_tracks:
             self.unlove_track(lastfm_track)
         else:

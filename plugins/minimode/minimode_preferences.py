@@ -31,7 +31,7 @@ name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "minimode_preferences.ui")
 icons.MANAGER.add_icon_name_from_directory('exaile-minimode',
-    os.path.join(basedir, 'icons'))
+                                           os.path.join(basedir, 'icons'))
 icon = 'exaile-minimode'
 
 
@@ -61,7 +61,7 @@ class DisplayWindowDecorationsPreference(widgets.CheckPreference):
 
 
 class WindowDecorationTypePreference(widgets.ComboPreference,
-        widgets.CheckConditional):
+                                     widgets.CheckConditional):
     name = 'plugin/minimode/window_decoration_type'
     default = 'full'
     condition_preference_name = 'plugin/minimode/display_window_decorations'
@@ -93,7 +93,7 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
 
     def __init__(self, preferences, widget):
         self.items = [self.Item(p.name, p.title, p.description, p.fixed)
-            for p in providers.get('minimode-controls')]
+                      for p in providers.get('minimode-controls')]
         widgets.SelectionListPreference.__init__(self, preferences, widget)
 
 

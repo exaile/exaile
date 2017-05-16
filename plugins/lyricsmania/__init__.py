@@ -42,14 +42,14 @@ def enable(exaile):
 
 def disable(exaile):
     providers.unregister('lyrics', providers.get_provider('lyrics',
-        'lyricsmania'))
+                                                          'lyricsmania'))
 
 
 class LyricsMania(LyricSearchMethod):
 
     name = "lyricsmania"
     display_name = "Lyrics Mania"
-    
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lyricsmania')
 

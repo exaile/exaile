@@ -69,7 +69,7 @@ class RatingWidget(Gtk.EventBox):
         """
         Gtk.EventBox.__init__(self)
         self._player = player
-        
+
         self.set_visible_window(False)
         self.set_above_child(True)
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
@@ -82,7 +82,7 @@ class RatingWidget(Gtk.EventBox):
         self.props.rating = rating
 
         if self._player is not None:
-        
+
             event.add_ui_callback(self.on_rating_update, 'playback_track_start', self._player)
             event.add_ui_callback(self.on_rating_update, 'playback_track_end', self._player)
             event.add_ui_callback(self.on_rating_update, 'rating_changed')
@@ -268,7 +268,7 @@ class RatingMenuItem(Gtk.MenuItem):
         self.add(box)
 
         self.rating_widget.connect('rating-changed',
-            self.on_rating_changed)
+                                   self.on_rating_changed)
 
     def do_get_property(self, property):
         """
@@ -296,7 +296,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
         if allocation.x < event.x < allocation.x + allocation.width:
             x, y = self.translate_coordinates(self.rating_widget,
-                int(event.x), int(event.y))
+                                              int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('motion-notify-event', event.copy())
 
@@ -314,7 +314,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
         if allocation.x < event.x < allocation.x + allocation.width:
             x, y = self.translate_coordinates(self.rating_widget,
-                int(event.x), int(event.y))
+                                              int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('button-release-event', event.copy())
 
@@ -353,7 +353,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         Gtk.CellRendererPixbuf.__init__(self)
         self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
         self.props.xalign = 0
-        
+
         self.rating = 0
         self.size_ratio = 1
 

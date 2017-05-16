@@ -92,21 +92,21 @@ def usage():
 
 
 def make_shutdown(httpd):
-    def _shutdown(signum, frame): 
-        httpd.force_stop() 
+    def _shutdown(signum, frame):
+        httpd.force_stop()
     return _shutdown
 
 
 def really_main():
     rebuild_cache()
     zeroconf = spydaap.zeroconf.Zeroconf(spydaap.server_name,
-                                         spydaap.port,  
+                                         spydaap.port,
                                          stype="_daap._tcp")
     zeroconf.publish()
     log.warn("Listening.")
-    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port), 
+    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port),
                                  spydaap.server.makeDAAPHandlerClass(spydaap.server_name, cache, md_cache, container_cache))
-    
+
     signal.signal(signal.SIGTERM, make_shutdown(httpd))
     signal.signal(signal.SIGHUP, rebuild_cache)
 

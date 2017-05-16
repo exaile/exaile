@@ -41,7 +41,7 @@ class CDImporter(object):
 
     def __init__(self, tracks):
         self.tracks = [t for t in tracks if
-                t.get_loc_for_io().startswith("cdda")]
+                       t.get_loc_for_io().startswith("cdda")]
         self.duration = float(sum([t.get_tag_raw('__length') for t in self.tracks]))
         self.formatter = formatter.TrackFormatter(settings.get_option(
             "cd_import/outpath",
@@ -54,7 +54,7 @@ class CDImporter(object):
 
         self.cont = None
         self.__prepare_transcoder()
-    
+
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
         default_format = formats.iterkeys().next()

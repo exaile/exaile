@@ -61,14 +61,14 @@ class MassStorageDevice(Device):
 
     def connect(self):
         self.mountpoints = [str(x) for x in self._mountpoints if
-                str(x) is not "" and os.path.exists(unicode(x))]
+                            str(x) is not "" and os.path.exists(unicode(x))]
         if self.mountpoints == []:
             raise IOError("Device is not mounted.")
         for mountpoint in self.mountpoints:
             library = self.library_class(mountpoint)
             self.collection.add_library(library)
         self.transfer = collection.TransferQueue(
-                self.collection.get_libraries()[0])
+            self.collection.get_libraries()[0])
         self.connected = True  # set this here so the UI can react
 
     def disconnect(self):
@@ -136,7 +136,7 @@ class MassStorageHandler(Handler):
         mountpoints = [HalMountpoint(hal, u)]
 
         name = mass.GetProperty("info.vendor") + " " + \
-                mass.GetProperty("info.product")
+            mass.GetProperty("info.product")
         massdev = MassStorageDevice(mountpoints, name)
 
         return massdev

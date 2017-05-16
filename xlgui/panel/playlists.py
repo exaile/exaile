@@ -66,7 +66,7 @@ class TrackWrapper(object):
         text = self.track.get_tag_raw('title')
         if text is not None:
             text = u' / '.join(text)
-            
+
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:
@@ -137,9 +137,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
             dialog.destroy()
 
         dialog = Gtk.MessageDialog(self.parent,
-            Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-            _('Delete the playlist "%s"?') % selected_playlist.name)
+                                   Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
+                                   _('Delete the playlist "%s"?') % selected_playlist.name)
         dialog.connect('response', on_response)
         self.deletion_dialogs[selected_playlist] = dialog
         dialog.present()
@@ -148,33 +148,33 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
             Renames the playlist
         """
-        
+
         if playlist is None:
             return
-        
+
         # Ask for new name
         dialog = dialogs.TextEntryDialog(
             _("Enter the new name you want for your playlist"),
             _("Rename Playlist"), playlist.name, parent=self.parent)
-        
+
         result = dialog.run()
         name = dialog.get_value()
-        
+
         dialog.destroy()
-        
+
         if result != Gtk.ResponseType.OK or name == '':
             return
-                
+
         if name in self.playlist_manager.playlists:
             # name is already in use
             dialogs.error(self.parent, _("The "
-                "playlist name you entered is already in use."))
+                                         "playlist name you entered is already in use."))
             return
 
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         model.set_value(iter, 1, name)
-        
+
         # Update the manager aswell
         self.playlist_manager.rename_playlist(playlist, name)
 
@@ -206,7 +206,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         item = self.model.get_value(iter, 2)
         if item is not None:
             if isinstance(item, (playlist.Playlist,
-                playlist.SmartPlaylist)):
+                                 playlist.SmartPlaylist)):
                 # for smart playlists
                 if hasattr(item, 'get_playlist'):
                     try:
@@ -230,7 +230,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             Adds a new playlist to the list of playlists. If name is 
             None or the name conflicts with an existing playlist, the
             user will be queried for a new name.
-            
+
             Returns the name of the new playlist, or None if it was
             not added.
         """
@@ -248,13 +248,13 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
                 for track in tracks:
                     artist = track.get_tag_display('artist',
-                        artist_compilations=False)
+                                                   artist_compilations=False)
 
                     if artist is not None:
                         artists += [artist]
 
                     composer = track.get_tag_display('composer',
-                        artist_compilations=False)
+                                                     artist_compilations=False)
 
                     if composer is not None:
                         composers += composer
@@ -272,7 +272,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
                     name = artists[0]
 
                     if len(artists) > 2:
-                        # TRANSLATORS: Playlist title suggestion with more 
+                        # TRANSLATORS: Playlist title suggestion with more
                         # than two values
                         name = _('%(first)s, %(second)s and others') % {
                             'first': artists[0], 'second': artists[1]
@@ -286,7 +286,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
                     name = composers[0]
 
                     if len(composers) > 2:
-                        # TRANSLATORS: Playlist title suggestion with more 
+                        # TRANSLATORS: Playlist title suggestion with more
                         # than two values
                         name = _('%(first)s, %(second)s and others') % {
                             'first': composers[0], 'second': composers[1]
@@ -300,7 +300,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
                     name = albums[0]
 
                     if len(albums) > 2:
-                        # TRANSLATORS: Playlist title suggestion with more 
+                        # TRANSLATORS: Playlist title suggestion with more
                         # than two values
                         name = _('%(first)s, %(second)s and others') % {
                             'first': albums[0], 'second': albums[1]
@@ -315,14 +315,14 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
             name = dialogs.ask_for_playlist_name(
                 self.get_panel().get_toplevel(), self.playlist_manager, name)
-        
+
         if name is not None:
             # Create the playlist from all of the tracks
             new_playlist = playlist.Playlist(name)
             new_playlist.extend(tracks)
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist)
-            
+
         return name
 
     def _load_playlist_nodes(self, playlist):
@@ -373,7 +373,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     ui_info = ('playlists.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,
-        smart_manager, collection, name):
+                 smart_manager, collection, name):
         """
             Intializes the playlists panel
 
@@ -385,11 +385,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.builder.get_object('playlists_box')
-        
+
         self.playlist_name_info = 500
         self.track_target = Gtk.TargetEntry.new("text/uri-list", 0, 0)
-        self.playlist_target = Gtk.TargetEntry.new("playlist_name", Gtk.TargetFlags.SAME_WIDGET, 
-            self.playlist_name_info)
+        self.playlist_target = Gtk.TargetEntry.new("playlist_name", Gtk.TargetFlags.SAME_WIDGET,
+                                                   self.playlist_name_info)
         self.deny_targets = [Gtk.TargetEntry.new('', 0, 0)]
 
         self.tree = PlaylistDragTreeView(self)
@@ -397,8 +397,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.tree.set_headers_visible(False)
         self.tree.connect('drag-motion', self.drag_motion)
         self.tree.drag_source_set(
-                Gdk.ModifierType.BUTTON1_MASK, [self.track_target, self.playlist_target],
-                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
+            Gdk.ModifierType.BUTTON1_MASK, [self.track_target, self.playlist_target],
+            Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
         self.scroll = Gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -432,9 +432,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_menu = menus.PlaylistsPanelPlaylistMenu(self)
         self.smart_menu = menus.PlaylistsPanelPlaylistMenu(self)
         self.default_menu = menus.PlaylistPanelMenu(self)
-        
+
         self.track_menu = menus.TrackPanelMenu(self)
-        
+
         self._connect_events()
         self._load_playlists()
 
@@ -448,14 +448,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         pl = self.tree.get_selected_page(raw=True)
         if isinstance(pl, playlist.SmartPlaylist):
             self.edit_selected_smart_playlist()
-    
+
     def refresh_playlists(self, type, track, tag):
         """
             wrapper so that multiple events dont cause multiple
             reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in ['title', 'artist']:
+                tag in ['title', 'artist']:
             self._refresh_playlists()
 
     @common.glib_wait(500)
@@ -467,19 +467,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if settings.get_option('gui/sync_on_tag_change', True):
             for playlist in self.playlist_nodes:
                 self.update_playlist_node(playlist)
-                
+
     def _on_playlist_added(self, type, object, playlist_name):
-    
+
         new_playlist = self.playlist_manager.get_playlist(playlist_name)
-    
+
         for plx in self.playlist_nodes:
             if plx.name == playlist_name:
                 self.update_playlist_node(new_playlist)
                 return
-                
+
         self.playlist_nodes[new_playlist] = \
             self.model.append(self.custom, [self.playlist_image, playlist_name,
-            new_playlist])
+                                            new_playlist])
         self.tree.expand_row(self.model.get_path(self.custom), False)
         self._load_playlist_nodes(new_playlist)
 
@@ -488,15 +488,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             Loads the currently saved playlists
         """
         self.smart = self.model.append(None, [self.folder,
-            _("Smart Playlists"), None])
+                                              _("Smart Playlists"), None])
 
         self.custom = self.model.append(None, [self.folder,
-            _("Custom Playlists"), None])
+                                               _("Custom Playlists"), None])
 
         names = sorted(self.smart_manager.playlists[:])
         for name in names:
             self.model.append(self.smart, [self.playlist_image, name,
-                self.smart_manager.get_playlist(name)])
+                                           self.smart_manager.get_playlist(name)])
 
         names = sorted(self.playlist_manager.playlists[:])
         for name in names:
@@ -532,15 +532,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Shows a dialog to ask the user to import a new playlist
         """
-        
+
         def _on_playlists_selected(dialog, playlists):
             for playlist in playlists:
                 self.add_new_playlist(playlist, playlist.name)
-        
+
         dialog = dialogs.PlaylistImportDialog()
         dialog.connect('playlists-selected', _on_playlists_selected)
         dialog.show()
-                
+
     def add_smart_playlist(self):
         """
             Shows a dialog for adding a new smart playlist
@@ -549,14 +549,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                                         self.parent)
         if pl:
             self.model.append(self.smart, [self.playlist_image, pl.name, pl])
-    
+
     def edit_selected_smart_playlist(self):
         """
             Shows a dialog for editing the currently selected smart playlist
         """
         pl = self.tree.get_selected_page(raw=True)
         self.edit_smart_playlist(pl)
-        
+
     def edit_smart_playlist(self, pl):
         """
             Shows a dialog for editing a smart playlist
@@ -589,26 +589,26 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                         drop_target = self.model.get_value(drop_target_iter, 2)
                         if position == Gtk.TreeViewDropPosition.BEFORE:
                             # Put the playlist before drop_target
-                            self.model.move_before(drag_source_iter, 
-                                drop_target_iter)
-                            self.playlist_manager.move(playlist_name, 
-                                drop_target.name, after=False)
+                            self.model.move_before(drag_source_iter,
+                                                   drop_target_iter)
+                            self.playlist_manager.move(playlist_name,
+                                                       drop_target.name, after=False)
                         else:
                             # put the playlist after drop_target
                             self.model.move_after(drag_source_iter,
-                                drop_target_iter)
+                                                  drop_target_iter)
                             self.playlist_manager.move(playlist_name,
-                                drop_target.name, after=True)
+                                                       drop_target.name, after=True)
             # Even though we are doing a move we still don't
             # call the delete method because we take care
             # of it above by moving instead of inserting/deleting
             context.finish(True, False, etime)
         else:
-            self._drag_data_received_uris(tv, context, x, y, selection, 
-                info, etime)
+            self._drag_data_received_uris(tv, context, x, y, selection,
+                                          info, etime)
 
-    def _drag_data_received_uris(self, tv, context, x, y, selection, 
-        info, etime):
+    def _drag_data_received_uris(self, tv, context, x, y, selection,
+                                 info, etime):
         """
             Called by drag_data_received when the user drags URIs onto us
         """
@@ -626,7 +626,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 drop_target_index = current_playlist.index(drop_target.track)
                 # Adjust insert position based on drop position
                 if (position == Gtk.TreeViewDropPosition.BEFORE or
-                    position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE):
+                        position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE):
                     # By default adding tracks inserts it before so we do not
                     # have to modify the insert index
                     insert_index = drop_target_index
@@ -648,8 +648,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # Since remove_track_index will be removed before
                 # the new track is inserted we have to offset the
                 # insert index
-                 if insert_index > remove_track_index:
-                     insert_index = insert_index - 1
+                if insert_index > remove_track_index:
+                    insert_index = insert_index - 1
 
             # Delete the track before adding the other one
             # so we do not get duplicates
@@ -665,7 +665,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # Add the tracks we found to the internal playlist
             # TODO: have it pass in existing tracks?
             (tracks, playlists) = self.tree.get_drag_data(locs)
-            
+
             if insert_index is not None:
                 current_playlist[insert_index:insert_index] = tracks
             else:
@@ -673,11 +673,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             self._load_playlist_nodes(current_playlist)
 
-            # Do we save in the case when a user drags a file onto a playlist 
-            # in the playlist panel? note that the playlist does not have to 
+            # Do we save in the case when a user drags a file onto a playlist
+            # in the playlist panel? note that the playlist does not have to
             # be open for this to happen
-            self.playlist_manager.save_playlist(current_playlist, 
-                overwrite=True)
+            self.playlist_manager.save_playlist(current_playlist,
+                                                overwrite=True)
         else:
             # If the user dragged files prompt for a new playlist name
             # else if they dragged a playlist add the playlist
@@ -689,13 +689,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for new_playlist in playlists:
                 self.playlist_nodes[new_playlist] = self.model.append(
                     self.custom, [self.playlist_image, new_playlist.name,
-                    new_playlist])
+                                  new_playlist])
                 self._load_playlist_nodes(new_playlist)
 
-                # We are adding a completely new playlist with tracks so 
+                # We are adding a completely new playlist with tracks so
                 # we save it
-                self.playlist_manager.save_playlist(new_playlist, 
-                    overwrite=True)
+                self.playlist_manager.save_playlist(new_playlist,
+                                                    overwrite=True)
 
             # After processing playlist proceed to ask the user for the
             # name of the new playlist to add and add the tracks to it
@@ -750,7 +750,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         # Reset any target to be default to moving tracks
         self.tree.enable_model_drag_dest([self.track_target],
-            Gdk.DragAction.DEFAULT)
+                                         Gdk.DragAction.DEFAULT)
         # Determine where the drag is coming from
         dragging_playlist = False
         if tv == self.tree:
@@ -769,7 +769,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 if dragging_playlist:
                     # If we drag onto  we copy, if we drag between we move
                     if position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE or \
-                        position == Gtk.TreeViewDropPosition.INTO_OR_AFTER:
+                            position == Gtk.TreeViewDropPosition.INTO_OR_AFTER:
                         Gdk.drag_status(context, Gdk.DragAction.COPY, time)
                     else:
                         Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
@@ -784,7 +784,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # tracks within our widget
                 # We do a copy if we are draggin from another playlist
                 if Gtk.drag_get_source_widget(context) == tv and \
-                    dragging_playlist == False:
+                        dragging_playlist == False:
                     Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 else:
                     Gdk.drag_status(context, Gdk.DragAction.COPY, time)
@@ -799,7 +799,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 context.drag_status(Gdk.DragAction.MOVE, time)
                 # Change target as well
                 self.tree.enable_model_drag_dest([self.playlist_target],
-                                                     Gdk.DragAction.DEFAULT)
+                                                 Gdk.DragAction.DEFAULT)
 
     def on_key_released(self, widget, event):
         """
@@ -813,17 +813,17 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # Based on what is selected determines what
                 # menu we will show
                 if isinstance(pl, playlist.Playlist):
-                    Gtk.Menu.popup(self.playlist_menu, None, 
-                        None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.playlist_menu, None,
+                                   None, None, None, 0, event.time)
                 elif isinstance(pl, playlist.SmartPlaylist):
-                    Gtk.Menu.popup(self.smart_menu, None, 
-                        None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.smart_menu, None,
+                                   None, None, None, 0, event.time)
                 elif isinstance(pl, TrackWrapper):
-                    Gtk.Menu.popup(self.track_menu, None, 
-                        None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.track_menu, None,
+                                   None, None, None, 0, event.time)
                 else:
-                    Gtk.Menu.popup(self.default_menu, None, 
-                        None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.default_menu, None,
+                                   None, None, None, 0, event.time)
             return True
 
         if event.keyval == Gdk.KEY_Left:
@@ -846,7 +846,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # Based on what is selected determines what
                 # menu we will show
                 if isinstance(pl, playlist.Playlist) or \
-                    isinstance(pl, playlist.SmartPlaylist):
+                        isinstance(pl, playlist.SmartPlaylist):
                     self.remove_playlist(pl)
                 elif isinstance(pl, TrackWrapper):
                     self.remove_selected_track()
@@ -933,7 +933,7 @@ class PlaylistDragTreeView(DragTreeView):
         item = self.get_selected_item(raw=raw)
 
         if isinstance(item, (playlist.Playlist,
-            playlist.SmartPlaylist)):
+                             playlist.SmartPlaylist)):
             return item
         else:
             return None

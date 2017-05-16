@@ -62,29 +62,29 @@ CDROM_DATA_TRACK = 0x04
 
 
 class CdPlugin(object):
-    
+
     def enable(self, exaile):
         self.exaile = exaile
         self.hal = None
         self.udisks = None
         self.udisks2 = None
-    
+
     def on_exaile_loaded(self):
-        
+
         # verify that hal/whatever is loaded, load correct provider
-        
+
         if self.exaile.udisks2 is not None:
             self.udisks2 = UDisks2CdProvider()
             providers.register('udisks2', self.udisks2)
-            
+
         elif self.exaile.udisks is not None:
             self.udisks = UDisksCdProvider()
             providers.register('udisks', self.udisks)
-            
+
         elif self.exaile.hal is not None:
             self.udisks = HALCdProvider()
             providers.register('hal', self.udisks)
-        
+
     def disable(self, exaile):
         if self.hal is not None:
             providers.unregister('hal', self.hal)
@@ -119,22 +119,22 @@ class CDTocParser(object):
             toc_header = struct.pack(TOC_HEADER_FMT, 0, 0)
             toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
             start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
-    
+
             self.raw_tracks = []
-    
+
             for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
                 track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
                 m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
-    
+
                 adr = adrctrl & 0xf
                 ctrl = (adrctrl & 0xf0) >> 4
-    
+
                 data = 0
                 if ctrl & CDROM_DATA_TRACK:
                     data = 1
-    
+
                 self.raw_tracks.append((track, m, s, f, (m * 60 + s) * 75 + f, data))
         finally:
             os.close(fd)
@@ -180,7 +180,7 @@ class CDPlaylist(playlist.Playlist):
 
         # FIXME: this can probably be cleaner
         sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]), s)
-                for s in songs.values()])
+                            for s in songs.values()])
         sorted = [s[1] for s in sort_tups]
 
         self.extend(sorted)
@@ -209,15 +209,15 @@ class CDPlaylist(playlist.Playlist):
         for i in range(self.info[1]):
             tr = self[i]
             tr.set_tag_raw('title',
-                    info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'))
+                           info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('album',
-                    title[1].decode('iso-8859-15', 'replace'))
+                           title[1].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('artist',
-                    title[0].decode('iso-8859-15', 'replace'))
+                           title[0].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('year',
-                    info['EXTD'].replace("YEAR: ", ""))
+                           info['EXTD'].replace("YEAR: ", ""))
             tr.set_tag_raw('genre',
-                    info['DGENRE'])
+                           info['DGENRE'])
 
         self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
@@ -238,7 +238,7 @@ class CDDevice(KeyedDevice):
         import imp
         try:
             _cdguipanel = imp.load_source("_cdguipanel",
-                    os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
+                                          os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
             return _cdguipanel.CDPanel
         except Exception:
             logger.exception("Could not import cd gui panel")
@@ -296,7 +296,7 @@ class UDisksCdProvider(UDisksProvider):
 
     def get_device(self, obj, udisks):
         return CDDevice(str(obj.props.Get('DeviceFile')))
-    
+
     def on_device_changed(self, obj, udisks, device):
         if obj.props.Get('OpticalDiscNumAudioTracks') <= 0:
             return 'remove'
@@ -305,21 +305,21 @@ class UDisksCdProvider(UDisksProvider):
 class UDisks2CdProvider(UDisksProvider):
     name = 'cd'
     PRIORITY = UDisksProvider.NORMAL
-    
+
     def _get_num_tracks(self, obj, udisks):
         if obj.iface_type != 'org.freedesktop.UDisks2.Block':
             return
-        
+
         try:
             drive = udisks.get_object_by_path(obj.props.Get('Drive'))
         except KeyError:
             return
-        
+
         # Use number of audio tracks to identify supported media
         ntracks = drive.props.Get('OpticalNumAudioTracks')
         if ntracks > 0:
             return ntracks
-    
+
     def get_priority(self, obj, udisks):
         ntracks = self._get_num_tracks(obj, udisks)
         if ntracks is not None:
@@ -328,7 +328,7 @@ class UDisks2CdProvider(UDisksProvider):
     def get_device(self, obj, udisks):
         device = obj.props.Get('Device', byte_arrays=True).strip('\0')
         return CDDevice(str(device))
-    
+
     def on_device_changed(self, obj, udisks, device):
         if self._get_num_tracks(obj, udisks) is None:
             return 'remove'

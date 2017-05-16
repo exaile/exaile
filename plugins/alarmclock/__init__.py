@@ -76,7 +76,7 @@ class Alarmclock(object):
         nothing.  If the current time matches the time specified, it starts
         playing
         """
-        
+
         self.hour = int(settings.get_option('plugin/alarmclock/hour', 15))
         self.minuts = int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
@@ -89,20 +89,20 @@ class Alarmclock(object):
             settings.get_option('plugin/alarmclock/friday', False),
             settings.get_option('plugin/alarmclock/saturday', False)
         ]
-        
+
         if True not in active_days:
             return True
-        
+
         current = time.strftime("%H:%M", time.localtime())
         curhour = int(current.split(":")[0])
         curminuts = int(current.split(":")[1])
         currentDay = int(time.strftime("%w", time.localtime()))
-        
+
         if curhour == self.hour and curminuts == self.minuts and \
-            active_days[currentDay] == True:
-            
+                active_days[currentDay] == True:
+
             if current != self.last_activate:
-            
+
                 self.last_activate = current
                 track = player.PLAYER.current
                 if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()):
@@ -123,7 +123,7 @@ class Alarmclock(object):
         if self.timer_id is not None:
             GLib.source_remove(self.timer_id)
         self.timer_id = None
-        
+
     def get_preferences_pane(self):
         return acprefs
 

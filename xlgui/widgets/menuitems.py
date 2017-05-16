@@ -75,7 +75,7 @@ class RatingMenuItem(menu.MenuItem):
         item = rating.RatingMenuItem()
         item.connect('show', self.on_show, menu, parent, context)
         self._rating_changed_id = item.connect('rating-changed',
-            self.on_rating_changed, menu, parent, context)
+                                               self.on_rating_changed, menu, parent, context)
 
         return item
 
@@ -91,7 +91,7 @@ class RatingMenuItem(menu.MenuItem):
         widget.disconnect(self._rating_changed_id)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
-            self.on_rating_changed, menu, parent, context)
+                                                 self.on_rating_changed, menu, parent, context)
 
     def on_rating_changed(self, widget, rating, menu, parent, context):
         """
@@ -110,7 +110,7 @@ def _enqueue_cb(widget, name, parent, context, get_tracks_func):
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("En_queue"), 'list-add',
-            _enqueue_cb, callback_args=[get_tracks_func])
+                                 _enqueue_cb, callback_args=[get_tracks_func])
 
 # TODO: move logic into (GUI?) playlist
 
@@ -138,12 +138,12 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
 
 def ReplaceCurrentMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("_Replace Current"), None,
-            _append_cb, callback_args=[get_tracks_func, True])
+                                 _append_cb, callback_args=[get_tracks_func, True])
 
 
 def AppendMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("_Append to Current"),
-            'list-add', _append_cb, callback_args=[get_tracks_func])
+                                 'list-add', _append_cb, callback_args=[get_tracks_func])
 
 
 def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent):
@@ -153,10 +153,10 @@ def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent
 
 
 def PropertiesMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
-        dialog_parent=None):
+                       dialog_parent=None):
     return menu.simple_menu_item(name, after, _("_Track Properties"),
-            'document-properties', _properties_cb,
-            callback_args=[get_tracks_func, dialog_parent])
+                                 'document-properties', _properties_cb,
+                                 callback_args=[get_tracks_func, dialog_parent])
 
 
 def _open_directory_cb(widget, name, parent, context, get_tracks_func):
@@ -169,7 +169,7 @@ def _open_directory_cb(widget, name, parent, context, get_tracks_func):
 
 def OpenDirectoryMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("_Open Directory"),
-            'folder-open', _open_directory_cb, callback_args=[get_tracks_func])
+                                 'folder-open', _open_directory_cb, callback_args=[get_tracks_func])
 
 
 def generic_trash_tracks_func(parent, context, tracks):
@@ -193,9 +193,9 @@ def _on_trash_tracks(widget, name, parent, context,
         trash_tracks_func(parent, context, tracks)
     except GLib.GError:
         dialog = Gtk.MessageDialog(parent=parent.parent,
-            message_type=Gtk.MessageType.WARNING,
-            text=_('The files cannot be moved to the Trash. '
-                'Delete them permanently from the disk?'))
+                                   message_type=Gtk.MessageType.WARNING,
+                                   text=_('The files cannot be moved to the Trash. '
+                                          'Delete them permanently from the disk?'))
         dialog.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_DELETE, Gtk.ResponseType.OK)
@@ -211,8 +211,8 @@ def TrashMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
                   trash_tracks_func=generic_trash_tracks_func,
                   delete_tracks_func=generic_delete_tracks_func):
     return menu.simple_menu_item(name, after, _('_Move to Trash'), 'user-trash',
-        _on_trash_tracks, callback_args=[get_tracks_func,
-            trash_tracks_func, delete_tracks_func])
+                                 _on_trash_tracks, callback_args=[get_tracks_func,
+                                                                  trash_tracks_func, delete_tracks_func])
 
 
 class ShowCurrentTrackMenuItem(menu.MenuItem):
@@ -225,13 +225,13 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
         def factory(container, parent, context):
             item = Gtk.ImageMenuItem.new_with_mnemonic(_("_Show Playing Track"))
             image = Gtk.Image.new_from_icon_name('go-jump',
-                    size=Gtk.IconSize.MENU)
+                                                 size=Gtk.IconSize.MENU)
             item.set_image(image)
 
             if accelerator is not None:
                 key, mods = Gtk.accelerator_parse(accelerator)
                 item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                        Gtk.AccelFlags.VISIBLE)
+                                     Gtk.AccelFlags.VISIBLE)
 
             if callback is not None:
                 item.connect('activate', callback, name, parent, context, *callback_args)
@@ -252,29 +252,29 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
 
 def RenamePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('_Rename'), 'accessories-text-editor',
-                          lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
-                          condition_fn=lambda n, p, c: not isinstance(c['selected-playlist'], playlist.SmartPlaylist))
-    
+                                 lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
+                                 condition_fn=lambda n, p, c: not isinstance(c['selected-playlist'], playlist.SmartPlaylist))
+
 
 def EditPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('_Edit'), 'accessories-text-editor',
-                          lambda w, n, o, c: o.edit_smart_playlist(get_pl_func(o, c)),
-                          condition_fn=lambda n, p, c: isinstance(c['selected-playlist'], playlist.SmartPlaylist))
+                                 lambda w, n, o, c: o.edit_smart_playlist(get_pl_func(o, c)),
+                                 condition_fn=lambda n, p, c: isinstance(c['selected-playlist'], playlist.SmartPlaylist))
 
 
 def ExportPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('E_xport Playlist'), 'document-save-as',
-                          lambda w, n, o, c: dialogs.export_playlist_dialog(get_pl_func(o, c)))
+                                 lambda w, n, o, c: dialogs.export_playlist_dialog(get_pl_func(o, c)))
 
 
 def ExportPlaylistFilesMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('Export _Files'), 'document-save-as',
-                          lambda w, n, o, c: dialogs.export_playlist_files(get_pl_func(o, c)))
+                                 lambda w, n, o, c: dialogs.export_playlist_files(get_pl_func(o, c)))
 
 
 def DeletePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('_Delete Playlist'), 'edit-delete',
-                          lambda w, n, o, c: o.remove_playlist(get_pl_func(o, c)))
-    
+                                 lambda w, n, o, c: o.remove_playlist(get_pl_func(o, c)))
+
 
 ### END PLAYLIST ITEMS ###

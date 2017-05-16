@@ -8,5 +8,5 @@ ui = os.path.join(basedir, 'prefs.ui')
 
 
 class Unpause(widgets.CheckPreference):
-	default = False
-	name = 'screensaverpause/unpause'
+    default = False
+    name = 'screensaverpause/unpause'

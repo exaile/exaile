@@ -33,25 +33,25 @@ import os
 from xl.metadata._base import BaseFormat, NotReadable
 
 type_map = {
-        "aifc": aifc,
-        "aiff": aifc,
-        "au": sunau,
-        "wav": wave,
-        }
+    "aifc": aifc,
+    "aiff": aifc,
+    "au": sunau,
+    "wav": wave,
+}
 
 
 class WavFormat(BaseFormat):
     writable = False
-    
+
     def load(self):
         ext = os.path.splitext(self.loc)[1][1:].lower()
         opener = type_map[ext]
-        
+
         try:
             fp = open(self.loc, 'rb')
         except IOError:
             raise NotReadable
-        
+
         try:
             with fp:
                 f = opener.open(fp)

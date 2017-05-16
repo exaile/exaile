@@ -48,14 +48,14 @@ class VorbisParser(spydaap.parser.Parser):
         'genre'    : 'daap.songgenre',
         'album'    : 'daap.songalbum',
         'albumartist': 'daap.songalbumartist',
-        }
+    }
 
     vorbis_int_map = {
         'bpm'         : 'daap.songbeatsperminute',
         'date'        : 'daap.songyear',
         'year'        : 'daap.songyear',
         'compilation' : 'daap.songcompilation',
-        }
+    }
 
     def handle_track(self, flac, d):
         tracknumber = None
@@ -86,7 +86,7 @@ class VorbisParser(spydaap.parser.Parser):
             d.append(do('daap.songdiscnumber', discnumber))
         if disccount:
             d.append(do('daap.songdisccount', disccount))
-        
+
     file_re = re.compile(".*\\.([fF][lL][aA][cC]|[oO][gG]{2})$")
 
     def understands(self, filename):

@@ -33,55 +33,55 @@ from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
 import urlparse
 
 from xl.metadata import (ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
-        tta, wav, wv)
+                         tta, wav, wv)
 
 #: dictionary mapping extensions to Format classes.
 formats = {
-        '669'   : mod.ModFormat,
-        'aac'   : mp4.MP4Format,
-        'ac3'   : None,
-        'aif'   : wav.WavFormat,
-        'aiff'  : wav.WavFormat,
-        'ape'   : ape.MonkeysFormat,
-        'amf'   : mod.ModFormat,
-        'asf'   : asf.AsfFormat,
-        'au'    : wav.WavFormat,
-        'dsm'   : mod.ModFormat,
-        'far'   : mod.ModFormat,
-        'flac'  : flac.FlacFormat,
-        'it'    : mod.ModFormat,
-        'm4a'   : mp4.MP4Format,
-        'med'   : mod.ModFormat,
-        'mka'   : mka.MkaFormat,
-        'mp2'   : mp3.MP3Format,
-        'mp3'   : mp3.MP3Format,
-        'mp4'   : mp4.MP4Format,
-        'mpc'   : mpc.MpcFormat,
-        'mid'   : None,
-        'midi'  : None,
-        'mod'   : mod.ModFormat,
-        'mtm'   : mod.ModFormat,
-        'oga'   : ogg.OggFormat,
-        'ogg'   : ogg.OggFormat,
-        'ogx'   : ogg.OggFormat,
-        'okt'   : mod.ModFormat,
-        'opus'  : ogg.OggOpusFormat,
-        'ra'    : None,
-        'ram'   : None,
-        's3m'   : mod.ModFormat,
-        'sid'   : sid.SidFormat,
-        'shn'   : None,
-        'snd'   : wav.WavFormat,
-        'spc'   : None,
-        'spx'   : speex.SpeexFormat,
-        'stm'   : mod.ModFormat,
-        'tta'   : tta.TTAFormat,
-        'ult'   : mod.ModFormat,
-        'wav'   : wav.WavFormat,
-        'wma'   : asf.AsfFormat,
-        'wv'    : wv.WavpackFormat,
-        'xm'    : mod.ModFormat,
-        }
+    '669'   : mod.ModFormat,
+    'aac'   : mp4.MP4Format,
+    'ac3'   : None,
+    'aif'   : wav.WavFormat,
+    'aiff'  : wav.WavFormat,
+    'ape'   : ape.MonkeysFormat,
+    'amf'   : mod.ModFormat,
+    'asf'   : asf.AsfFormat,
+    'au'    : wav.WavFormat,
+    'dsm'   : mod.ModFormat,
+    'far'   : mod.ModFormat,
+    'flac'  : flac.FlacFormat,
+    'it'    : mod.ModFormat,
+    'm4a'   : mp4.MP4Format,
+    'med'   : mod.ModFormat,
+    'mka'   : mka.MkaFormat,
+    'mp2'   : mp3.MP3Format,
+    'mp3'   : mp3.MP3Format,
+    'mp4'   : mp4.MP4Format,
+    'mpc'   : mpc.MpcFormat,
+    'mid'   : None,
+    'midi'  : None,
+    'mod'   : mod.ModFormat,
+    'mtm'   : mod.ModFormat,
+    'oga'   : ogg.OggFormat,
+    'ogg'   : ogg.OggFormat,
+    'ogx'   : ogg.OggFormat,
+    'okt'   : mod.ModFormat,
+    'opus'  : ogg.OggOpusFormat,
+    'ra'    : None,
+    'ram'   : None,
+    's3m'   : mod.ModFormat,
+    'sid'   : sid.SidFormat,
+    'shn'   : None,
+    'snd'   : wav.WavFormat,
+    'spc'   : None,
+    'spx'   : speex.SpeexFormat,
+    'stm'   : mod.ModFormat,
+    'tta'   : tta.TTAFormat,
+    'ult'   : mod.ModFormat,
+    'wav'   : wav.WavFormat,
+    'wma'   : asf.AsfFormat,
+    'wv'    : wv.WavpackFormat,
+    'xm'    : mod.ModFormat,
+}
 
 # pass get_loc_for_io() to this.
 
@@ -96,19 +96,19 @@ def get_format(loc):
     loc = Gio.File.new_for_uri(loc).get_path()
     if not loc:
         return None
-        
+
     # XXX: The path that we get from GIO is, for some reason, in UTF-8.
     # Bug? Intended? No idea.
-    
+
     # Oddly enough, if you have a non-utf8 compatible filename (such as
-    # a file from windows), then it will just return that string without 
+    # a file from windows), then it will just return that string without
     # converting it (but in a form that os.path will handle). Go figure.
-    
+
     try:
         loc = loc.decode('utf-8')
     except UnicodeDecodeError:
         pass
-            
+
     ext = os.path.splitext(loc)[1]
     ext = ext[1:]  # remove the pesky .
     ext = ext.lower()

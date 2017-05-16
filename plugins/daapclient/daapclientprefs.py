@@ -10,7 +10,7 @@ ui = os.path.join(basedir, 'daapclient_prefs.ui')
 class Ipv6Preference(widgets.CheckPreference):
     default = False
     name = 'plugin/daapclient/ipv6'
-    
+
 
 class HistoryPreference(widgets.CheckPreference):
     default = True

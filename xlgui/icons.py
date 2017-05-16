@@ -87,7 +87,7 @@ class ExtendedPixbuf(object):
     def __add__(self, other):
         """
             Horizontally appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -111,7 +111,7 @@ class ExtendedPixbuf(object):
         """
             Composites a pixbuf on the current
             pixbuf at the location (0, 0)
-            
+
             :param other: the pixbuf to composite
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -188,7 +188,7 @@ class ExtendedPixbuf(object):
     def add_horizontal(self, other, spacing=0):
         """
             Horizontally appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
@@ -229,7 +229,7 @@ class ExtendedPixbuf(object):
     def add_vertical(self, other, spacing=0):
         """
             Vertically appends a pixbuf to the current
-            
+
             :param other: the pixbuf to append
             :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
@@ -335,7 +335,7 @@ class ExtendedPixbuf(object):
         """
             Composites a pixbuf on the current
             pixbuf at the location (0, 0)
-            
+
             :param other: the pixbuf to composite
             :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
@@ -500,7 +500,7 @@ class IconManager(object):
     def add_icon_name_from_directory(self, icon_name, directory):
         """
             Registers an icon name from files found in a directory
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param directory: the location to search for icons
@@ -539,7 +539,7 @@ class IconManager(object):
     def add_icon_name_from_file(self, icon_name, filename, size=None):
         """
             Registers an icon name from a filename
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param filename: the filename of an image
@@ -554,16 +554,16 @@ class IconManager(object):
             # Happens if, e.g., librsvg is not installed.
             logger.warning('Failed to add icon name "{icon_name}" '
                            'from file "{filename}": {error}'.format(
-                icon_name=icon_name,
-                filename=filename,
-                error=e.message
-            ))
+                               icon_name=icon_name,
+                               filename=filename,
+                               error=e.message
+                           ))
             pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
         """
             Registers an icon name from a pixbuf
-            
+
             :param icon_name: the name for the icon
             :type icon_name: string
             :param pixbuf: the pixbuf of an image
@@ -605,7 +605,7 @@ class IconManager(object):
 
         # TODO: Check if fallbacks are necessary
         return pixbuf
-    
+
     def pixbuf_from_data(self, data, size=None, keep_ratio=True, upscale=False):
         """
             Generates a pixbuf from arbitrary image data
@@ -680,7 +680,7 @@ class IconManager(object):
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
-        
+
         active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width * size_ratio),
                                                                int(height * size_ratio),
                                                                GdkPixbuf.InterpType.BILINEAR)
@@ -689,12 +689,12 @@ class IconManager(object):
                                                                    GdkPixbuf.InterpType.BILINEAR)
         rating = max(0, rating)
         rating = min(rating, maximum)
-        
+
         if rating == 0:
             return inactive_pixbuf * maximum
         elif rating == maximum:
             return active_pixbuf * maximum
-        
+
         active_pixbufs = active_pixbuf * rating
         inactive_pixbufs = inactive_pixbuf * (maximum - rating)
         return active_pixbufs + inactive_pixbufs

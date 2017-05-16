@@ -1,4 +1,4 @@
-# Copyright (C) 2006 Adam Olsen 
+# Copyright (C) 2006 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ from gi.repository import GLib
 
 
 class DBOperationalError(Exception):
-    
+
     def __init__(self, message):
         """ Create a new DBOperationalError
 
@@ -49,11 +49,11 @@ class DBOperationalError(Exception):
                 - `message`: The message that will be displayed to the user
         """
         self.message = message
-    
+
     def __repr__(self):
         msg = "%s: %s"
         return msg % (self.__class__.__name__, self.message,)
-    
+
     def __str__(self):
         return self.__repr__()
 
@@ -91,7 +91,7 @@ class DBManager(object):
         """
             Initializes and connects to the database
         """
-        
+
         self.db_loc = db_loc
         self.db = self.__get_db()
 
@@ -151,7 +151,7 @@ class DBManager(object):
         self.db.create_function(tup[0], tup[1], tup[2])
         self.functions.append(tup)
 
-    def cursor(self, new=False):   
+    def cursor(self, new=False):
         """
             Returns the write cursor
         """
@@ -159,7 +159,7 @@ class DBManager(object):
             return self._get_from_pool().cursor()
         else:
             return self._cursor
-        
+
     def __get_db(self):
         """
             Returns a connection
@@ -221,7 +221,7 @@ class DBManager(object):
         """
         return self.db.cursor()
 
-    def record_count(self, table, where, args): 
+    def record_count(self, table, where, args):
         """
             Returns the number of rows matched for the query in the database
         """
@@ -247,9 +247,9 @@ class DBManager(object):
         """
         cur = self.db.cursor()
         query = "SELECT %s FROM %s WHERE %s LIMIT 1" % \
-           (items, table, where)
+            (items, table, where)
 
-        cur.execute(query, args)   
+        cur.execute(query, args)
         row = cur.fetchone()
 
         cur.close()

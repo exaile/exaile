@@ -51,7 +51,7 @@ class ApeFormat(CaseInsensitveBaseFormat):
         "titlesort": "TITLESORT",
         "grouping": "Grouping",
         "language": "Language",
-        }
+    }
     others = True
     writable = True
 

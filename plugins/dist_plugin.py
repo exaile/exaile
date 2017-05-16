@@ -35,13 +35,13 @@
 from optparse import OptionParser
 p = OptionParser()
 p.add_option("-c", "--compression", dest="compression",
-        action="store", choices=("", "gz", "bz2"), default="bz2")
+             action="store", choices=("", "gz", "bz2"), default="bz2")
 p.add_option("-e", "--ignore-extension", dest="extensions",
-        action="append", default=(".pyc", ".pyo"))
+             action="append", default=(".pyc", ".pyo"))
 p.add_option("-f", "--ignore-file", dest="files",
-        action="append", default=("test.py"))
+             action="append", default=("test.py"))
 p.add_option("-O", "--output", dest="output",
-        action="store", default="")
+             action="store", default="")
 options, args = p.parse_args()
 
 # allowed values: "", "gz", "bz2"
@@ -89,8 +89,8 @@ for dir in args:
         continue
 
     tfile = tarfile.open(
-            options.output + dir + "-%s.exz" % info["Version"],
-            "w:%s" % COMPRESSION)
+        options.output + dir + "-%s.exz" % info["Version"],
+        "w:%s" % COMPRESSION)
     tfile.posix = True  # we like being standards-compilant
 
     for fold, subdirs, files in os.walk(dir):

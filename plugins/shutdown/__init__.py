@@ -31,16 +31,16 @@ class Shutdown():
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
-        
+
         # add menuitem to tools menu
-        providers.register('menubar-tools-menu', 
-            menu.simple_separator('plugin-sep', ['track-properties']))
+        providers.register('menubar-tools-menu',
+                           menu.simple_separator('plugin-sep', ['track-properties']))
 
         item = menu.check_menu_item('shutdown', ['plugin-sep'], _('Shutdown after Playback'),
-        #   checked func                # callback func
-            lambda *x: self.do_shutdown, lambda w, n, p, c: self.on_toggled(w))
+                                    #   checked func                # callback func
+                                    lambda *x: self.do_shutdown, lambda w, n, p, c: self.on_toggled(w))
         providers.register('menubar-tools-menu', item)
-        
+
         self.countdown = None
         self.counter = 10
 
@@ -58,10 +58,10 @@ class Shutdown():
             event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
             self.message.show_info(_('Shutdown scheduled'),
-                _('Computer will be shutdown at the end of playback.'))
+                                   _('Computer will be shutdown at the end of playback.'))
         else:
             self.disable_shutdown()
-            
+
     def disable_shutdown(self):
         self.do_shutdown = False
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
@@ -121,21 +121,21 @@ class Shutdown():
 
         try:
             proxy = bus.get_object('org.freedesktop.login1',
-                '/org/freedesktop/login1')
+                                   '/org/freedesktop/login1')
             proxy.PowerOff(False, dbus_interface='org.freedesktop.login1.Manager')
         except dbus.exceptions.DBusException:
             try:
                 proxy = bus.get_object('org.freedesktop.ConsoleKit',
-                    '/org/freedesktop/ConsoleKit/Manager')
+                                       '/org/freedesktop/ConsoleKit/Manager')
                 proxy.Stop(dbus_interface='org.freedesktop.ConsoleKit.Manager')
             except dbus.exceptions.DBusException:
                 try:
                     proxy = bus.get_object('org.freedesktop.Hal',
-                        '/org/freedesktop/Hal/devices/computer')
+                                           '/org/freedesktop/Hal/devices/computer')
                     proxy.Shutdown(dbus_interface='org.freedesktop.Hal.Device.SystemPowerManagement')
                 except dbus.exceptions.DBusException:
                     self.message.show_warning(_('Shutdown failed'),
-                        _('Computer could not be shutdown using D-Bus.'))
+                                              _('Computer could not be shutdown using D-Bus.'))
 
     def destroy(self):
         """

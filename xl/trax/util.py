@@ -60,7 +60,7 @@ def get_uris_from_tracks(tracks):
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
-        
+
         :param uri: the uri to retrieve the tracks from
         :type uri: string
         :returns: the retrieved tracks
@@ -112,8 +112,8 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
     if trackfunc is None:
         trackfunc = lambda tr: tr
     keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,
-        artist_compilations=artist_compilations) for field in fields]
-    
+                                                     artist_compilations=artist_compilations) for field in fields]
+
     return sorted(iter, key=keyfunc, reverse=reverse)
 
 

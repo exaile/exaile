@@ -11,17 +11,17 @@ ui = os.path.join(basedir, 'daapserver_prefs.ui')
 class PortPreference(widgets.SpinPreference):
     default = 3689
     name = 'plugin/daapserver/port'
-    
+
 
 class NamePreference(widgets.Preference):
     default = 'Exaile Share'
     name = 'plugin/daapserver/name'
-    
+
 
 class EnabledPreference(widgets.CheckPreference):
     default = True
     name = 'plugin/daapserver/enabled'
-    
+
 
 class HostPreference(widgets.Preference):
     default = '0.0.0.0'

@@ -98,7 +98,7 @@ class AttachedWindow(Gtk.Window):
         else:
             # Parent at top
             y = parent_alloc.y + parent_alloc.height
-        
+
         self.move(x, y)
 
     def do_show(self):
@@ -163,7 +163,7 @@ class AutoScrollTreeView(Gtk.TreeView):
             Stops automatic scrolling
         """
         autoscroll_timeout_id = self.__autoscroll_timeout_id
-        
+
         if autoscroll_timeout_id:
             GLib.source_remove(autoscroll_timeout_id)
             self.__autoscroll_timeout_id = None
@@ -227,12 +227,12 @@ class DragTreeView(AutoScrollTreeView):
         if receive:
             self.drop_pos = drop_pos
             self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
-                Gdk.DragAction.MOVE)
+                               Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
+                               Gdk.DragAction.MOVE)
             self.connect('drag_data_received',
-                self.container.drag_data_received)
+                         self.container.drag_data_received)
             self.connect('drag_data_delete',
-                self.container.drag_data_delete)
+                         self.container.drag_data_delete)
         self.receive = receive
         self.dragging = False
         self.show_cover_drag_icon = True
@@ -259,7 +259,7 @@ class DragTreeView(AutoScrollTreeView):
         self.dragging = False
         self.unset_rows_drag_dest()
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-            Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
+                           Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
     def on_drag_begin(self, widget, context):
         """
@@ -295,7 +295,7 @@ class DragTreeView(AutoScrollTreeView):
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
                     image_data = cover_manager.get_cover(track,
-                        set_only=True, use_default=True)
+                                                         set_only=True, use_default=True)
                     pixbuf = icons.MANAGER.pixbuf_from_data(
                         image_data, (width, height))
 
@@ -358,7 +358,7 @@ class DragTreeView(AutoScrollTreeView):
         if not self.receive:
             return False
         self.enable_model_drag_dest(self.targets,
-            Gdk.DragAction.DEFAULT)
+                                    Gdk.DragAction.DEFAULT)
         if self.drop_pos is None:
             return False
         info = treeview.get_dest_row_at_pos(x, y)
@@ -431,7 +431,7 @@ class DragTreeView(AutoScrollTreeView):
                 return self.container.button_release(button, event)
             except AttributeError:
                 pass
-        
+
         selection = self.get_selection()
         selection.unselect_all()
 
@@ -542,7 +542,7 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
 
     def do_activate(self, event, widget, path,
-            background_area, cell_area, flags):
+                    background_area, cell_area, flags):
         """
             Emits the *clicked* signal
         """
@@ -554,13 +554,13 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
 
         click_area = Gdk.Rectangle(
             x=int(cell_area.x
-              + self.props.xpad
-              + self.props.xalign * cell_area.width
-              - pixbuf_width),
+                  + self.props.xpad
+                  + self.props.xalign * cell_area.width
+                  - pixbuf_width),
             y=int(cell_area.y
-              + self.props.ypad
-              + self.props.yalign * cell_area.height
-              - self.props.yalign * pixbuf_height),
+                  + self.props.ypad
+                  + self.props.yalign * cell_area.height
+                  - self.props.yalign * pixbuf_height),
             width=pixbuf_width,
             height=pixbuf_height
         )

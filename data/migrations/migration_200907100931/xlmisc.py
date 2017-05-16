@@ -1,4 +1,4 @@
-import sys 
+import sys
 
 
 def get_default_encoding():

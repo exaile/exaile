@@ -33,7 +33,7 @@ class LyricWiki(LyricSearchMethod):
 
     name = "lyricwiki"
     display_name = "Lyric Wiki"
-    
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lyricwiki')
 

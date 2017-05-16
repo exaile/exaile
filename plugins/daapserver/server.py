@@ -51,7 +51,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
 
     def __init__(self, *args):
         if ':' in args[0][0]:
-            self.address_family = socket.AF_INET6   
+            self.address_family = socket.AF_INET6
         BaseHTTPServer.HTTPServer.__init__(self, *args)
         self.keep_running = True
 
@@ -62,31 +62,31 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     def force_stop(self):
         self.keep_running = False
         self.server_close()
-        
+
 
 class DaapServer():
 
     def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
-#        Thread.__init__(self)
+        #        Thread.__init__(self)
         self.host = host
         self.port = port
         self.library = library
         self.name = name
         self.httpd = None
         self.handler = None
-        
+
         # Set a callback that will let us propagate library changes to clients
         event.add_callback(self.update_rev, 'libraries_modified',
-                                                     library.collection) 
-        
+                           library.collection)
+
     def update_rev(self, *args):
         if self.handler is not None:
-            # Updating the server revision, so if a client checks 
+            # Updating the server revision, so if a client checks
             # it can see the library has changed
             self.handler.daap_server_revision += 1
-            logger.info('Libraries Changed, incrementing revision to %d.' 
-                                    % self.handler.daap_server_revision)
-        
+            logger.info('Libraries Changed, incrementing revision to %d.'
+                        % self.handler.daap_server_revision)
+
     def set(self, **kwargs):
         for key in kwargs:
             setattr(self, key, kwargs[key])
@@ -94,29 +94,29 @@ class DaapServer():
     @common.threaded
     def run(self):
         self.zeroconf = spydaap.zeroconf.Zeroconf(self.name,
-                                                self.port,  
-                                                stype="_daap._tcp")
+                                                  self.port,
+                                                  stype="_daap._tcp")
         self.handler = spydaap.server.makeDAAPHandlerClass(
-                                        str(self.name), [], self.library, [])
-        self.httpd = MyThreadedHTTPServer((self.host, self.port), 
-                                     self.handler)
-        
+            str(self.name), [], self.library, [])
+        self.httpd = MyThreadedHTTPServer((self.host, self.port),
+                                          self.handler)
+
         #signal.signal(signal.SIGTERM, make_shutdown(httpd))
         #signal.signal(signal.SIGHUP, rebuild_cache)
         if self.httpd.address_family == socket.AF_INET:
             self.zeroconf.publish(ipv4=True, ipv6=False)
         else:
             self.zeroconf.publish(ipv4=False, ipv6=True)
-            
+
         try:
             try:
                 logger.warning("Listening.")
-                self.httpd.serve_forever()           
+                self.httpd.serve_forever()
             except select.error:
                 pass
         except KeyboardInterrupt:
             self.httpd.force_stop()
-            
+
         logger.warning("Shutting down.")
         self.zeroconf.unpublish()
         self.httpd = None
@@ -145,19 +145,19 @@ class DaapServer():
 # def really_main():
 #    rebuild_cache()
 #    zeroconf = spydaap.zeroconf.Zeroconf(spydaap.server_name,
-#                                         spydaap.port,  
+#                                         spydaap.port,
 #                                         stype="_daap._tcp")
 #    zeroconf.publish()
 #    logger.warn("Listening.")
-#    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port), 
+#    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port),
 #                                 spydaap.server.makeDAAPHandlerClass(spydaap.server_name, cache, md_cache, container_cache))
-#    
+#
 ##    signal.signal(signal.SIGTERM, make_shutdown(httpd))
 ##    signal.signal(signal.SIGHUP, rebuild_cache)
-#        
+#
 #    try:
 #        try:
-#            httpd.serve_forever()           
+#            httpd.serve_forever()
 #        except select.error:
 #            pass
 #    except KeyboardInterrupt:

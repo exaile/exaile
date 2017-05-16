@@ -60,7 +60,7 @@ class FadingPreference(widgets.CheckPreference):
 
 
 class FadingDurationPreference(widgets.SpinPreference,
-        widgets.CheckConditional):
+                               widgets.CheckConditional):
     default = 50
     name = 'plugin/desktopcover/fading_duration'
     condition_preference_name = 'plugin/desktopcover/fading'

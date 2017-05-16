@@ -57,7 +57,7 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
         formatter.ProgressTextFormatter.__init__(self, '', player)
 
         self.on_option_set('gui_option_set', settings,
-            'gui/progress_bar_text_format')
+                           'gui/progress_bar_text_format')
         event.add_ui_callback(self.on_option_set, 'gui_option_set')
 
     def on_option_set(self, event, settings, option):
@@ -78,7 +78,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
     def __init__(self, player):
         Gtk.ProgressBar.__init__(self)
         self.__player = player
-        
+
         try:
             awidget = self.get_accessible()
             awidget.set_role(Atk.Role.AUDIO)
@@ -402,7 +402,7 @@ class MarkerManager(providers.ProviderHandler):
 
         playback_time = player.get_time()
         reached_markers = (m for m in providers.get('playback-markers')
-            if int(m.props.position * track_length) == playback_time)
+                           if int(m.props.position * track_length) == playback_time)
 
         for marker in reached_markers:
             marker.emit('reached')
@@ -540,7 +540,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
             self._marker_menu = MarkerContextMenu(self)
             self._marker_menu.connect('deactivate',
-                self.on_marker_menu_deactivate)
+                                      self.on_marker_menu_deactivate)
 
             providers.ProviderHandler.__init__(self, 'playback-markers')
 
@@ -553,7 +553,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         self.set_can_focus(True)
 
         self.connect('hierarchy-changed',
-            self.on_hierarchy_changed)
+                     self.on_hierarchy_changed)
         self.connect('scroll-event', self.on_scroll_event)
 
         self.add(self.__progressbar)
@@ -816,7 +816,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 self.__progressbar.set_fraction(fraction)
                 self.__progressbar.set_text(
                     _('Seeking: %s') % self.__progressbar.formatter.format(
-                    current_time=length * fraction))
+                        current_time=length * fraction))
                 self.__progressbar._seeking = True
         elif event.button == Gdk.BUTTON_SECONDARY:
             if len(hit_markers) > 0:
@@ -988,7 +988,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         toplevel = self.get_toplevel()
         if toplevel.is_toplevel():
             conn = toplevel.connect('focus-out-event',
-            lambda w, e: self.emit('focus-out-event', e.copy()))
+                                    lambda w, e: self.emit('focus-out-event', e.copy()))
             self.__prev_focus_out_conn = (toplevel, conn)
 
     def on_marker_menu_deactivate(self, menu):
@@ -1066,7 +1066,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
             :type progressbar: :class:`PlaybackProgressBar`
         """
         menu.ProviderMenu.__init__(self,
-            'progressbar-context-menu', progressbar)
+                                   'progressbar-context-menu', progressbar)
 
         self._position = -1
 
@@ -1101,7 +1101,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             :type markerbar: :class:`SeekProgressBar`
         """
         menu.ProviderMenu.__init__(self,
-            'playback-marker-context-menu', markerbar)
+                                   'playback-marker-context-menu', markerbar)
 
         self._markers = ()
         self._position = -1
@@ -1185,11 +1185,11 @@ class MoveMarkerMenuItem(menu.MenuItem):
         item.connect('activate', self.on_activate, parent, context)
 
         parent.connect('button-press-event',
-            self.on_parent_button_press_event)
+                       self.on_parent_button_press_event)
         parent.connect('motion-notify-event',
-            self.on_parent_motion_notify_event)
+                       self.on_parent_motion_notify_event)
         parent.connect('focus-out-event',
-            self.on_parent_focus_out_event)
+                       self.on_parent_focus_out_event)
 
         return item
 
@@ -1308,7 +1308,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
 
     def __init__(self, name, after):
         MoveMarkerMenuItem.__init__(self, name, after,
-            _('New Marker'), 'list-add')
+                                    _('New Marker'), 'list-add')
 
     def move_cancel(self):
         """
@@ -1363,12 +1363,12 @@ def __create_marker_context_menu():
         providers.unregister('playback-markers', context['current-marker'])
 
     items.append(menu.simple_menu_item('jumpto-marker',
-        [], _("_Jump to"), 'go-jump', on_jumpto_item_activate))
+                                       [], _("_Jump to"), 'go-jump', on_jumpto_item_activate))
     items.append(MoveMarkerMenuItem('move-marker',
-        [items[-1].name]))
+                                    [items[-1].name]))
     items.append(menu.simple_menu_item('remove-marker',
-        [items[-1].name], _("_Remove Marker"), 'list-remove',
-        on_remove_item_activate))
+                                       [items[-1].name], _("_Remove Marker"), 'list-remove',
+                                       on_remove_item_activate))
 
     for item in items:
         providers.register('playback-marker-context-menu', item)
@@ -1386,9 +1386,9 @@ class VolumeControl(Gtk.Box):
     __gtype_name__ = 'VolumeControl'
 
     button,             \
-    slider,             \
-    button_image,       \
-    slider_adjustment = GtkTemplate.Child.widgets(4)
+        slider,             \
+        button_image,       \
+        slider_adjustment = GtkTemplate.Child.widgets(4)
 
     def __init__(self, player):
         Gtk.Box.__init__(self)
@@ -1542,20 +1542,20 @@ def PlayPauseMenuItem(name, player, after):
             icon_name = 'media-playback-start'
             label = _("P_lay")
         return menu.simple_menu_item(name, after, label, icon_name,
-            callback=lambda *args: playpause(player))
+                                     callback=lambda *args: playpause(player))
     return factory(name, after, player)
 
 
 def NextMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Next Track"), 'media-skip-forward',
-        callback=lambda *args: player.queue.next())
+                                 callback=lambda *args: player.queue.next())
 
 
 def PrevMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Previous Track"), 'media-skip-backward',
-        callback=lambda *args: player.queue.prev())
+                                 callback=lambda *args: player.queue.prev())
 
 
 def StopMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Stop"), 'media-playback-stop',
-        callback=lambda *args: player.stop())
+                                 callback=lambda *args: player.stop())

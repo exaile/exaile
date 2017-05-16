@@ -74,7 +74,7 @@ def _enable(*a):
     bus = dbus.SessionBus()
     for service in SERVICES:
         matches.add(bus.add_signal_receiver(screensaver_active_changed,
-            signal_name='ActiveChanged', **service))
+                                            signal_name='ActiveChanged', **service))
 
 
 def disable(exaile):
@@ -95,7 +95,7 @@ def test():
     for service in SERVICES:
         try:
             proxy = bus.get_object(service['bus_name'], service['path'],
-                follow_name_owner_changes=True)
+                                   follow_name_owner_changes=True)
         except dbus.DBusException:
             continue
         break

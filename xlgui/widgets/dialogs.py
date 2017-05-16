@@ -35,7 +35,7 @@ from gi.repository import Pango
 import os.path
 
 from xl import (
-    metadata, 
+    metadata,
     providers,
     settings,
     xdg
@@ -75,7 +75,7 @@ def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     if message is markup is None:
         raise ValueError("message or markup must be specified")
     dialog = Gtk.MessageDialog(parent, _flags, Gtk.MessageType.ERROR,
-        Gtk.ButtonsType.CLOSE)
+                               Gtk.ButtonsType.CLOSE)
     if markup is None:
         dialog.props.text = message
     else:
@@ -91,19 +91,19 @@ def info(parent, message=None, markup=None):
     if message is markup is None:
         raise ValueError("message or markup must be specified")
     dialog = Gtk.MessageDialog(parent, Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO,
-        Gtk.ButtonsType.OK)
+                               Gtk.ButtonsType.OK)
     if markup is None:
         dialog.props.text = message
     else:
         dialog.set_markup(markup)
     dialog.run()
     dialog.destroy()
-    
+
 
 def yesno(parent, message):
     '''Gets a Yes/No response from a user'''
     dlg = Gtk.MessageDialog(parent=parent, type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO, message_format=message)
-    response = dlg.run() 
+    response = dlg.run()
     dlg.destroy()
     return response
 
@@ -113,28 +113,28 @@ class AboutDialog(Gtk.AboutDialog):
     """
         A dialog showing program info and more
     """
-    
+
     __gtype_name__ = 'AboutDialog'
-    
+
     def __init__(self, parent=None):
         Gtk.AboutDialog.__init__(self)
         self.init_template()
-    
+
         self.set_transient_for(parent)
         logo = GdkPixbuf.Pixbuf.new_from_file(
             xdg.get_data_path('images', 'exailelogo.png'))
         self.set_logo(logo)
-        
+
         import xl.version
-        
+
         self.set_version(xl.version.__version__)
-        
+
         comments = []
         for name, version in sorted(xl.version.__external_versions__.iteritems()):
             comments.append('%s: %s' % (name, version))
-            
+
         self.set_comments('\n'.join(comments))
-        
+
     def on_response(self, *_):
         self.destroy()
 
@@ -159,7 +159,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         self.vbox.pack_start(self.__entry_area, True, True, 0)
 
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK)
+                         Gtk.STOCK_OK, Gtk.ResponseType.OK)
 
         self.fields = []
 
@@ -172,7 +172,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
             :rtype: :class:`Gtk.Entry`
         """
         line_number = len(self.fields)
-        
+
         label = Gtk.Label(label=label)
         label.set_xalign(0)
         self.__entry_area.attach(label, 0, line_number, 1, 1)
@@ -237,7 +237,7 @@ class TextEntryDialog(Gtk.Dialog):
     """
 
     def __init__(self, message, title, default_text=None, parent=None,
-        cancelbutton=None, okbutton=None):
+                 cancelbutton=None, okbutton=None):
         """
             Initializes the dialog
         """
@@ -268,7 +268,7 @@ class TextEntryDialog(Gtk.Dialog):
         main.pack_start(self.entry, False, False, 0)
 
         self.entry.connect('activate',
-            lambda e: self.response(Gtk.ResponseType.OK))
+                           lambda e: self.response(Gtk.ResponseType.OK))
 
     def get_value(self):
         """
@@ -308,9 +308,9 @@ class URIOpenDialog(TextEntryDialog):
             :type parent: :class:`Gtk.Window`
         """
         TextEntryDialog.__init__(self,
-            message=_('Enter the URL to open'),
-            title=_('Open URL'),
-            parent=parent)
+                                 message=_('Enter the URL to open'),
+                                 title=_('Open URL'),
+                                 parent=parent)
 
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
@@ -403,7 +403,7 @@ class ListDialog(Gtk.Dialog):
         self.list = Gtk.TreeView(model=self.model)
         self.list.set_headers_visible(False)
         self.list.connect('row-activated',
-            lambda *e: self.response(Gtk.ResponseType.OK))
+                          lambda *e: self.response(Gtk.ResponseType.OK))
         scroll.add(self.list)
         scroll.set_shadow_type(Gtk.ShadowType.IN)
         self.vbox.pack_start(scroll, True, True, 0)
@@ -412,7 +412,7 @@ class ListDialog(Gtk.Dialog):
             self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK)
         else:
             self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OK, Gtk.ResponseType.OK)
+                             Gtk.STOCK_OK, Gtk.ResponseType.OK)
 
         self.selection = self.list.get_selection()
 
@@ -640,11 +640,11 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
             :type parent: :class:`Gtk.Window`
         """
         Gtk.FileChooserDialog.__init__(self,
-            title=_('Choose Media to Open'),
-            parent=parent,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+                                       title=_('Choose Media to Open'),
+                                       parent=parent,
+                                       buttons=(
+                                           Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                           Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
 
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_local_only(False)
@@ -666,7 +666,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
             audio_filter.add_pattern(pattern)
 
         playlist_file_extensions = sum([p.file_extensions
-            for p in providers.get('playlist-format-converter')], [])
+                                        for p in providers.get('playlist-format-converter')], [])
 
         for extension in playlist_file_extensions:
             pattern = '*.%s' % extension
@@ -734,11 +734,11 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
 
     def __init__(self, parent=None, title=_('Choose Directory to Open'), select_multiple=True):
         Gtk.FileChooserDialog.__init__(self,
-            title,
-            parent=parent,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+                                       title,
+                                       parent=parent,
+                                       buttons=(
+                                           Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                           Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
 
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_action(Gtk.FileChooserAction.SELECT_FOLDER)
@@ -782,7 +782,7 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
             self.emit('uris-selected', self.get_uris())
 
         # self.destroy()
-        
+
 
 class PlaylistImportDialog(Gtk.FileChooserDialog):
     """
@@ -804,11 +804,11 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
             :type parent: :class:`Gtk.Window`
         """
         Gtk.FileChooserDialog.__init__(self,
-            title=_('Import Playlist'),
-            parent=parent,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+                                       title=_('Import Playlist'),
+                                       parent=parent,
+                                       buttons=(
+                                           Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                           Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
 
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_local_only(False)
@@ -821,7 +821,7 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
         all_filter.add_pattern('*')
 
         playlist_file_extensions = sum([p.file_extensions
-            for p in providers.get('playlist-format-converter')], [])
+                                        for p in providers.get('playlist-format-converter')], [])
 
         for extension in playlist_file_extensions:
             pattern = '*.%s' % extension
@@ -865,9 +865,9 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
 
         if response == Gtk.ResponseType.OK:
             PlaylistImportDialog._last_location = self.get_current_folder_uri()
-            
+
             playlists = []
-            for uri in self.get_uris():            
+            for uri in self.get_uris():
                 try:
                     playlists.append(import_playlist(uri))
                 except InvalidPlaylistTypeError as e:
@@ -878,9 +878,9 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
                     error(None, 'Invalid playlist "%s": (internal error): %s' % (uri, e))
                     self.destroy()
                     return
-            
+
             self.emit('playlists-selected', playlists)
-                    
+
         # self.destroy()
 
 
@@ -896,7 +896,7 @@ class PlaylistExportDialog(FileOperationDialog):
             GObject.signal_accumulator_true_handled
         )
     }
-    
+
     def __init__(self, playlist, parent=None):
         """
             :param playlist: the playlist to export
@@ -905,14 +905,14 @@ class PlaylistExportDialog(FileOperationDialog):
             :type parent: :class:`Gtk.Window`
         """
         FileOperationDialog.__init__(self,
-            title=_('Export Current Playlist'),
-            parent=parent,
-            action=Gtk.FileChooserAction.SAVE,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_SAVE, Gtk.ResponseType.OK
-            )
-        )
+                                     title=_('Export Current Playlist'),
+                                     parent=parent,
+                                     action=Gtk.FileChooserAction.SAVE,
+                                     buttons=(
+                                         Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                         Gtk.STOCK_SAVE, Gtk.ResponseType.OK
+                                     )
+                                     )
 
         self.set_local_only(False)
 
@@ -957,21 +957,21 @@ class PlaylistExportDialog(FileOperationDialog):
 
         if response == Gtk.ResponseType.OK:
             path = unicode(self.get_uri(), 'utf-8')
-            
+
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path
 
             options = PlaylistExportOptions(
                 relative=self.relative_checkbox.get_active()
             )
-            
+
             try:
                 export_playlist(self.playlist, path, options)
             except InvalidPlaylistTypeError as e:
                 self.emit('message', Gtk.MessageType.ERROR, str(e))
             else:
                 self.emit('message', Gtk.MessageType.INFO,
-                    _('Playlist saved as <b>%s</b>.') % path)
+                          _('Playlist saved as <b>%s</b>.') % path)
 
         # self.destroy()
 
@@ -992,7 +992,7 @@ class ConfirmCloseDialog(Gtk.MessageDialog):
         self.format_secondary_text(_('Your changes will be lost if you don\'t save them'))
 
         self.add_buttons(_('Close Without Saving'), 100, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                        Gtk.STOCK_SAVE, 110)
+                         Gtk.STOCK_SAVE, 110)
 
     def run(self):
         self.show_all()
@@ -1082,7 +1082,7 @@ class MessageBar(Gtk.InfoBar):
 
         self.action_area = self.get_action_area()
         self.action_area.set_property('layout-style',
-            Gtk.ButtonBoxStyle.START)
+                                      Gtk.ButtonBoxStyle.START)
 
         if buttons != Gtk.ButtonsType.NONE:
             for text, response in self.buttons_map[buttons]:
@@ -1193,7 +1193,7 @@ class MessageBar(Gtk.InfoBar):
         """
         button = Gtk.InfoBar.add_button(self, button_text, response_id)
         self.action_area.reorder_child(button, 0)
-        
+
         return button
 
     def clear_buttons(self):
@@ -1214,7 +1214,7 @@ class MessageBar(Gtk.InfoBar):
         """
         if type != Gtk.MessageType.OTHER:
             self.image.set_from_stock(self.type_map[type],
-                Gtk.IconSize.DIALOG)
+                                      Gtk.IconSize.DIALOG)
 
         Gtk.InfoBar.set_message_type(self, type)
 
@@ -1225,7 +1225,7 @@ class MessageBar(Gtk.InfoBar):
         return self.message_area
 
     def _show_message(self, message_type, text, secondary_text,
-            markup, secondary_markup, timeout):
+                      markup, secondary_markup, timeout):
         """
             Helper for the various `show_*` methods. See `show_info` for
             documentation on the parameters.
@@ -1248,11 +1248,11 @@ class MessageBar(Gtk.InfoBar):
             GLib.timeout_add_seconds(timeout, self.hide)
 
     def show_info(self, text=None, secondary_text=None,
-            markup=None, secondary_markup=None, timeout=5):
+                  markup=None, secondary_markup=None, timeout=5):
         """
             Convenience method which sets all
             required flags for an info message
-            
+
             :param text: the message to display
             :type text: string
             :param secondary_text: additional information
@@ -1269,49 +1269,49 @@ class MessageBar(Gtk.InfoBar):
             :type timeout: int
         """
         self._show_message(Gtk.MessageType.INFO, text, secondary_text,
-            markup, secondary_markup, timeout)
+                           markup, secondary_markup, timeout)
 
     def show_question(self, text=None, secondary_text=None,
-            markup=None, secondary_markup=None):
+                      markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a question message
-            
+
             :param text: the message to display
             :param secondary_text: additional information
             :param markup: the message to display, in Pango markup format
             :param secondary_markup: additional information, in Pango markup format
         """
         self._show_message(Gtk.MessageType.QUESTION, text, secondary_text,
-            markup, secondary_markup, 0)
+                           markup, secondary_markup, 0)
 
     def show_warning(self, text=None, secondary_text=None,
-            markup=None, secondary_markup=None):
+                     markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a warning message
-            
+
             :param text: the message to display
             :param secondary_text: additional information
             :param markup: the message to display, in Pango markup format
             :param secondary_markup: additional information, in Pango markup format
         """
         self._show_message(Gtk.MessageType.WARNING, text, secondary_text,
-            markup, secondary_markup, 0)
+                           markup, secondary_markup, 0)
 
     def show_error(self, text=None, secondary_text=None,
-            markup=None, secondary_markup=None):
+                   markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a warning message
-            
+
             :param text: the message to display
             :param secondary_text: additional information
             :param markup: the message to display, in Pango markup format
             :param secondary_markup: additional information, in Pango markup format
         """
         self._show_message(Gtk.MessageType.ERROR, text, secondary_text,
-            markup, secondary_markup, 0)
+                           markup, secondary_markup, 0)
 
     def on_response(self, widget, response):
         """
@@ -1324,48 +1324,48 @@ class MessageBar(Gtk.InfoBar):
 # Message ID's used by the XMessageDialog
 #
 
-XRESPONSE_YES = Gtk.ResponseType.YES    
-XRESPONSE_YES_ALL = 8000    
+XRESPONSE_YES = Gtk.ResponseType.YES
+XRESPONSE_YES_ALL = 8000
 XRESPONSE_NO = Gtk.ResponseType.NO
-XRESPONSE_NO_ALL = 8001   
+XRESPONSE_NO_ALL = 8001
 XRESPONSE_CANCEL = Gtk.ResponseType.CANCEL
-            
+
 
 class XMessageDialog(Gtk.Dialog):
     '''Used to show a custom message dialog with custom buttons'''
 
     def __init__(self, title, text, parent=None,
-                       show_yes=True, show_yes_all=True, 
-                       show_no=True, show_no_all=True,
-                       show_cancel=True,
-                       ):
-        
+                 show_yes=True, show_yes_all=True,
+                 show_no=True, show_no_all=True,
+                 show_cancel=True,
+                 ):
+
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
-        
+
         #
         # TODO: Make these buttons a bit prettier
         #
-        
+
         if show_yes:
             self.add_button(Gtk.STOCK_YES, XRESPONSE_YES)
             self.set_default_response(XRESPONSE_YES)
-            
+
         if show_yes_all:
             self.add_button(_('Yes to all'), XRESPONSE_YES_ALL)
             self.set_default_response(XRESPONSE_YES_ALL)
-            
+
         if show_no:
             self.add_button(Gtk.STOCK_NO, XRESPONSE_NO)
             self.set_default_response(XRESPONSE_NO)
-            
+
         if show_no_all:
             self.add_button(_('No to all'), XRESPONSE_NO_ALL)
             self.set_default_response(XRESPONSE_NO_ALL)
-            
+
         if show_cancel:
             self.add_button(Gtk.STOCK_CANCEL, XRESPONSE_CANCEL)
             self.set_default_response(XRESPONSE_CANCEL)
-            
+
         vbox = self.get_content_area()
         self._label = Gtk.Label()
         self._label.set_use_markup(True)
@@ -1376,15 +1376,15 @@ class XMessageDialog(Gtk.Dialog):
 class FileCopyDialog(Gtk.Dialog):
     '''
         Used to copy a list of files to a single destination directory
-        
+
         Usage:
             dialog = FileCopyDialog( [file_uri,..], destination_uri, text, parent)
             dialog.do_copy()
-            
+
         Do not use run() on this dialog!
     '''
     class CopyThread(Thread):
-        
+
         def __init__(self, source, dest, callback_finish_single_copy, copy_flags):
             Thread.__init__(self, name='CopyThread')
             self.__source = source
@@ -1393,27 +1393,27 @@ class FileCopyDialog(Gtk.Dialog):
             self.__copy_flags = copy_flags
             self.__cancel = Gio.Cancellable()
             self.start()
-        
+
         def run(self):
             try:
-                result = self.__source.copy(self.__dest, 
+                result = self.__source.copy(self.__dest,
                                             flags=self.__copy_flags,
                                             cancellable=self.__cancel)
                 GLib.idle_add(self.__cb_single_copy, self.__source, result, None)
             except GLib.Error as err:
                 GLib.idle_add(self.__cb_single_copy, self.__source, False, err)
-        
+
         def cancel_copy(self):
             self.__cancel.cancel()
 
     def __init__(self, file_uris, destination_uri, title, text=_("Saved %(count)s of %(total)s."), parent=None):
-        
+
         self.file_uris = file_uris
         self.destination_uri = destination_uri
         self.is_copying = False
-        
+
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
-        
+
         self.parent = parent
         self.count = 0
         self.total = len(file_uris)
@@ -1424,37 +1424,37 @@ class FileCopyDialog(Gtk.Dialog):
         # self.set_decorated(False)
         self.set_resizable(False)
         # self.set_focus_on_map(False)
-        
+
         vbox = self.get_content_area()
-        
+
         vbox.set_spacing(12)
         vbox.set_border_width(12)
-        
+
         self._label = Gtk.Label()
         self._label.set_use_markup(True)
         self._label.set_markup(self.text % {'count': 0, 'total': self.total})
         vbox.pack_start(self._label, True, True, 0)
-        
+
         self._progress = Gtk.ProgressBar()
         self._progress.set_size_request(300, -1)
         vbox.pack_start(self._progress, True, True, 0)
-        
+
         self.show_all()
 
         # TODO: Make dialog cancelable
         #self.cancel_button.connect('activate', lambda *e: self.cancel.cancel() )
-        
+
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
-            
+
     def do_copy(self):
         logger.info("Copy started.")
         self._start_next_copy()
         self.show_all()
         self.connect('response', self._on_response)
-        
+
     def run(self):
         raise NotImplementedError("Don't use this")
-        
+
     def _on_response(self, widget, response):
         logger.info("Copy complete.")
         self.destroy()
@@ -1463,37 +1463,37 @@ class FileCopyDialog(Gtk.Dialog):
         '''Steps the progress bar'''
         self.count += 1
         self._progress.set_fraction(
-                clamp(self.count / float(self.total), 0, 1))
+            clamp(self.count / float(self.total), 0, 1))
         self._label.set_markup(self.text % {
             'count': self.count,
             'total': self.total
         })
-        
+
     def _start_next_copy(self, overwrite=False):
-        
+
         if self.count == len(self.file_uris):
             self.response(Gtk.ResponseType.OK)
             return
-        
+
         flags = Gio.FileCopyFlags.NONE
-        
-        src_uri = self.file_uris[self.count] 
+
+        src_uri = self.file_uris[self.count]
         dst_uri = self.destination_uri + '/' + src_uri.split('/')[-1]
-        
+
         self.source = Gio.File.new_for_uri(src_uri)
         self.destination = Gio.File.new_for_uri(dst_uri)
-        
+
         if not overwrite:
             if self.destination.query_exists(None):
                 if self.overwrite_response == XRESPONSE_YES_ALL:
                     overwrite = True
-                    
+
                 elif self.overwrite_response == XRESPONSE_NO_ALL or self.overwrite_response == XRESPONSE_NO:
-                
-                    # only deny the overwrite once.. 
+
+                    # only deny the overwrite once..
                     if self.overwrite_response == XRESPONSE_NO:
                         self.overwrite_response = None
-                        
+
                     logging.info("NoOverwrite: %s" % self.destination.get_uri())
                     self._step()
                     GLib.idle_add(self._start_next_copy)  # don't recurse
@@ -1501,7 +1501,7 @@ class FileCopyDialog(Gtk.Dialog):
                 else:
                     self._query_overwrite()
                     return
-                
+
         if overwrite:
             flags = Gio.FileCopyFlags.OVERWRITE
             try:
@@ -1510,16 +1510,16 @@ class FileCopyDialog(Gtk.Dialog):
                 self.destination.delete()
             except GLib.Error:
                 pass
-        
+
         logging.info("CopySource : %s" % self.source.get_uri())
         logging.info("CopyDest   : %s" % self.destination.get_uri())
-        
+
         # TODO g_file_copy_async() isn't introspectable
         # see https://github.com/exaile/exaile/issues/198 for details
         #self.source.copy_async( self.destination, self._finish_single_copy_async, flags=flags, cancellable=self.cancel )
-        
+
         self.cpthr = self.CopyThread(self.source, self.destination, self._finish_single_copy, flags)
-        
+
     def _finish_single_copy(self, source, success, error):
         if error:
             self._on_error(_("Error occurred while copying %s: %s") % (
@@ -1528,9 +1528,9 @@ class FileCopyDialog(Gtk.Dialog):
         if success:
             self._step()
             self._start_next_copy()
-    
+
     def _finish_single_copy_async(self, source, async_result):
-        
+
         try:
             if source.copy_finish(async_result):
                 self._step()
@@ -1539,22 +1539,22 @@ class FileCopyDialog(Gtk.Dialog):
             self._on_error(_("Error occurred while copying %s: %s") % (
                 GLib.markup_escape_text(self.source.get_uri()),
                 GLib.markup_escape_text(str(e))))
-            
+
     def _query_overwrite(self):
-    
+
         self.hide()
-    
+
         text = _('File exists, overwrite %s ?') % GLib.markup_escape_text(self.destination.get_uri())
         dialog = XMessageDialog(self.parent, text)
         dialog.connect('response', self._on_query_overwrite_response, dialog)
         dialog.show_all()
         dialog.grab_focus()
         self.query_dialog = dialog
-        
+
     def _on_query_overwrite_response(self, widget, response, dialog):
         dialog.destroy()
         self.overwrite_response = response
-        
+
         if response == Gtk.ResponseType.CANCEL:
             self.response(response)
         else:
@@ -1562,49 +1562,49 @@ class FileCopyDialog(Gtk.Dialog):
                 overwrite = False
             else:
                 overwrite = True
-        
+
             self.show_all()
             self._start_next_copy(overwrite)
-        
+
     def _on_error(self, message):
-        
+
         self.hide()
-    
+
         dialog = Gtk.MessageDialog(self.parent, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE)
         dialog.set_markup(message)
         dialog.connect('response', self._on_error_response, dialog)
         dialog.show()
         dialog.grab_focus()
         self.error_dialog = dialog
-    
+
     def _on_error_response(self, widget, response, dialog):
         self.response(Gtk.ResponseType.CANCEL)
         dialog.destroy()
 
-        
+
 def ask_for_playlist_name(parent, playlist_manager, name=None):
     """
         Returns a user-selected name that is not already used
             in the specified playlist manager
-            
+
         :param name: A default name to show to the user
         Returns None if the user hits cancel
     """
-    
+
     while True:
-            
+
         dialog = TextEntryDialog(
             _('Playlist name:'),
             _('Add new playlist...'),
             name,
             parent=parent, okbutton=Gtk.STOCK_ADD)
-            
+
         result = dialog.run()
         if result != Gtk.ResponseType.OK:
             return None
-            
+
         name = dialog.get_value()
-        
+
         if name == '':
             error(None, _("You did not enter a name for your playlist"))
         elif playlist_manager.has_playlist_name(name):
@@ -1618,40 +1618,40 @@ def save(parent, output_fname, output_setting=None, extensions=None, title=_("Sa
     """
         A 'save' dialog utility function, which can be used to easily
         remember the last location the user saved something.
-        
+
         :param parent:          Parent window
         :param output_fname:    Output filename
         :param output_setting:  Setting to store the last 'output directory' saved at
         :param extensions:      Valid output extensions. Dict { '.m3u': 'Description', .. }
         :param title:           Title of dialog
-        
+
         :returns: None if user cancels, chosen URI otherwise
     """
-    
+
     uri = None
-    
+
     dialog = FileOperationDialog(title, parent,
-            Gtk.FileChooserAction.SAVE,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT))
-    
+                                 Gtk.FileChooserAction.SAVE,
+                                 (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                  Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT))
+
     if extensions is not None:
         dialog.add_extensions(extensions)
-    
+
     dialog.set_current_name(output_fname)
-    
+
     if output_setting:
         output_dir = settings.get_option(output_setting)
         if output_dir:
             dialog.set_current_folder_uri(output_dir)
-        
+
     if dialog.run() == Gtk.ResponseType.ACCEPT:
         uri = dialog.get_uri()
-        
+
         settings.set_option(output_setting, dialog.get_current_folder_uri())
-        
+
     dialog.destroy()
-        
+
     return uri
 
 
@@ -1664,20 +1664,20 @@ def export_playlist_dialog(playlist, parent=None):
 
 def export_playlist_files(playlist, parent=None):
     '''Exports the playlist files to a user-specified URI'''
-        
+
     if playlist is None:
-        return 
-    
+        return
+
     def _on_uri(uri):
         if hasattr(playlist, 'get_playlist'):
             pl = playlist.get_playlist()
         else:
             pl = playlist
         pl_files = [track.get_loc_for_io() for track in pl]
-        dialog = FileCopyDialog(pl_files, uri, 
-            _('Exporting %s') % playlist.name, parent=parent)
+        dialog = FileCopyDialog(pl_files, uri,
+                                _('Exporting %s') % playlist.name, parent=parent)
         dialog.do_copy()
-        
+
     dialog = DirectoryOpenDialog(title=_('Choose directory to export files to'),
                                  parent=parent)
     dialog.set_select_multiple(False)

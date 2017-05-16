@@ -178,7 +178,7 @@ class FlatPlaylistDragTreeView(DragTreeView):
             Returns the count of selected tracks
         '''
         return self.get_selection().count_selected_rows()
-    
+
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks

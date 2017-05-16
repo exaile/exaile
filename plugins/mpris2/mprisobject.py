@@ -97,13 +97,13 @@ class MprisObject(object):
 
     def _emit(self, interface, signame, *args):
         self.connection.emit_signal(None, '/org/mpris/MediaPlayer2', interface,
-            signame, Variant.new_tuple(*args))
+                                    signame, Variant.new_tuple(*args))
 
     def _emit_propchange(self, interface, changed_props={}, invalidated_props=[]):
         self._emit('org.freedesktop.DBus.Properties', 'PropertiesChanged',
-            Variant('s', interface),
-            Variant('a{sv}', changed_props),
-            Variant('as', invalidated_props))
+                   Variant('s', interface),
+                   Variant('a{sv}', changed_props),
+                   Variant('as', invalidated_props))
 
     def _get_metadata(self):
         track = xl.player.PLAYER.current
@@ -178,7 +178,7 @@ class MprisObject(object):
     def _on_playback_toggle_pause(self, event, player, track):
         self._emit_propchange('org.mpris.MediaPlayer2.Player', {
             'PlaybackStatus': Variant('s',
-                'Paused' if xl.player.PLAYER.is_paused() else 'Playing'),
+                                      'Paused' if xl.player.PLAYER.is_paused() else 'Playing'),
         })
 
     def _on_player_option_set(self, event, settings, option):
@@ -345,7 +345,7 @@ class MprisObject(object):
         xl.player.PLAYER.seek(position / 1e6)
         # TODO: Can we get this event from Exaile?
         self._emit('org.mpris.MediaPlayer2.Player', 'Seeked',
-            GLib.Variant('x', position))
+                   GLib.Variant('x', position))
 
     def Stop(self):
         xl.player.PLAYER.stop()

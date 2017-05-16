@@ -15,7 +15,7 @@
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
 from gi.repository import Gtk
-from gi.repository import Pango 
+from gi.repository import Pango
 
 
 class AboutWindow():

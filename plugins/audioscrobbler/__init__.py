@@ -52,7 +52,7 @@ def __enb(eventname, exaile, nothing):
 
 
 def _enable(exaile):
-#    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
+    #    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
     SCROBBLER.get_options('', '', 'plugin/ascrobbler/menu_check')
 
 
@@ -83,33 +83,33 @@ class ExaileScrobbler(object):
         self.use_menu = False
         self.exaile = exaile
         self.cachefile = os.path.join(xdg.get_data_dirs()[0],
-                "audioscrobbler.cache")
+                                      "audioscrobbler.cache")
         self.get_options('', '', 'plugin/ascrobbler/cache_size')
         self.get_options('', '', 'plugin/ascrobbler/user')
         self.load_cache()
         event.add_ui_callback(self.get_options, 'plugin_ascrobbler_option_set')
         event.add_callback(self._save_cache_cb, 'quit_application')
-        
+
         # enable accelerator
         def toggle_submit(*x):
             logger.debug('Toggling AudioScrobbler submissions.')
             settings.set_option('plugin/ascrobbler/submit', not self.submit)
-            
+
         self.accelerator = Accelerator('<Primary>b', toggle_submit)
         providers.register('mainwindow-accelerators', self.accelerator)
-        
+
     def get_options(self, type, sm, option):
         if option == 'plugin/ascrobbler/cache_size':
             self.set_cache_size(
-                    settings.get_option('plugin/ascrobbler/cache_size', 100), False)
+                settings.get_option('plugin/ascrobbler/cache_size', 100), False)
             return
 
         if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
-                'plugin/ascrobbler/submit', 'plugin/ascrobbler/scrobble_remote']:
+                      'plugin/ascrobbler/submit', 'plugin/ascrobbler/scrobble_remote']:
             username = settings.get_option('plugin/ascrobbler/user', '')
             password = settings.get_option('plugin/ascrobbler/password', '')
             server = settings.get_option('plugin/ascrobbler/url',
-                'http://post.audioscrobbler.com/')
+                                         'http://post.audioscrobbler.com/')
             self.scrobble_remote = settings.get_option('plugin/ascrobbler/scrobble_remote', False)
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
@@ -128,23 +128,23 @@ class ExaileScrobbler(object):
     def setup_menu(self):
         self.menu_agr = self.exaile.gui.main.accel_group
 
-        providers.register('menubar-tools-menu', 
-            menu.simple_separator('plugin-sep', ['track-properties']))
+        providers.register('menubar-tools-menu',
+                           menu.simple_separator('plugin-sep', ['track-properties']))
 
         def factory(menu_, parent, context):
             item = Gtk.CheckMenuItem.new_with_label(_('Enable audioscrobbling'))
             item.set_active(self.submit)
             key, mods = Gtk.accelerator_parse('<Primary>B')
             item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                    Gtk.AccelFlags.VISIBLE)
+                                 Gtk.AccelFlags.VISIBLE)
             item.connect('toggled', self._menu_entry_toggled)
             return item
 
         item = menu.MenuItem('scrobbler', factory, ['plugin-sep'])
         providers.register('menubar-tools-menu', item)
-            
+
     def remove_menu(self):
-#        self.menu_entry.disconnect(self.menu_conn)
+        #        self.menu_entry.disconnect(self.menu_conn)
 
         for item in providers.get('menubar-tools-menu'):
             if item.name == 'scrobbler':
@@ -211,7 +211,7 @@ class ExaileScrobbler(object):
     def on_play(self, type, player, track):
         if self.submit:
             track.set_tag_raw('__audioscrobbler_playtime',
-                    track.get_tag_raw('__playtime'))
+                              track.get_tag_raw('__playtime'))
             track.set_tag_raw('__audioscrobbler_starttime', time.time())
 
             if track.is_local() or self.scrobble_remote:
@@ -222,13 +222,13 @@ class ExaileScrobbler(object):
            or track.get_tag_raw('__playtime') is None:
             return
         playtime = (track.get_tag_raw('__playtime') or 0) - \
-                (track.get_tag_raw('__audioscrobbler_playtime') or 0)
+            (track.get_tag_raw('__audioscrobbler_playtime') or 0)
         if playtime > 240 or \
                 playtime > float(track.get_tag_raw('__length')) / 2.0:
             if self.submit and track.get_tag_raw('__length') > 30:
                 self.submit_to_scrobbler(track,
-                    track.get_tag_raw('__audioscrobbler_starttime'),
-                    playtime)
+                                         track.get_tag_raw('__audioscrobbler_starttime'),
+                                         playtime)
 
         track.set_tag_raw('__audioscrobbler_starttime', None)
         track.set_tag_raw('__audioscrobbler_playtime', None)
@@ -268,6 +268,6 @@ class ExaileScrobbler(object):
                     track.get_tag_raw('album', join=True),
                     track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0,
                     autoflush=True,
-                    )
+                )
             except Exception:
                 logger.exception("AS: Failed to submit track")

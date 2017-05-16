@@ -52,8 +52,8 @@ class TestGetTracksFromUri(object):
         elif file_type == 'd':
             file_type = Gio.FileType.DIRECTORY
         elif file_type == 'n':
-#            anything.query_exists(None).AndReturn(False)
-#            return anything
+            #            anything.query_exists(None).AndReturn(False)
+            #            return anything
             pass
         else:
             raise NotImplementedError
@@ -81,7 +81,7 @@ class TestGetTracksFromUri(object):
         f_anything.get_file_type().AndReturn(Gio.FileType.REGULAR)
         self.mox.ReplayAll()
         assert xl.trax.util.get_tracks_from_uri(loc) == \
-                [xl.trax.track.Track(loc)]
+            [xl.trax.track.Track(loc)]
         self.mox.VerifyAll()
 
     @unittest.skip("Test is borken because of moxing out error")
@@ -108,7 +108,7 @@ class TestSortTracks(object):
 
     def setup(self):
         self.tracks = [xl.trax.track.Track(url) for url in
-                    ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
+                       ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(self.tracks, 'aab'):
             track.set_tag_raw('artist', val)
         for track, val in zip(self.tracks, '212'):
@@ -118,31 +118,31 @@ class TestSortTracks(object):
 
     def test_sorted(self):
         assert xl.trax.util.sort_tracks(self.fields,
-            self.tracks) == self.result
+                                        self.tracks) == self.result
 
     def test_reversed(self):
         assert xl.trax.util.sort_tracks(self.fields,
-            self.tracks, reverse=True) == list(reversed(self.result))
+                                        self.tracks, reverse=True) == list(reversed(self.result))
 
 
 class TestSortResultTracks(object):
 
     def setup(self):
         tracks = [xl.trax.track.Track(url) for url in
-                    ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
+                  ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
         for track, val in zip(tracks, 'aab'):
             track.set_tag_raw('artist', val)
         for track, val in zip(tracks, '212'):
             track.set_tag_raw('discnumber', val)
         self.tracks = [xl.trax.search.SearchResultTrack(track)
-                for track in tracks]
+                       for track in tracks]
         self.fields = ('artist', 'discnumber')
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
     def test_sorted(self):
         assert xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks) == self.result
+                                               self.tracks) == self.result
 
     def test_reversed(self):
         assert xl.trax.util.sort_result_tracks(self.fields,
-            self.tracks, True) == list(reversed(self.result))
+                                               self.tracks, True) == list(reversed(self.result))

@@ -29,7 +29,7 @@ from gi.repository import GLib
 import os
 import imp
 importer = imp.load_source("importer",
-        os.path.join(os.path.dirname(__file__), "importer.py"))
+                           os.path.join(os.path.dirname(__file__), "importer.py"))
 import logging
 logger = logging.getLogger(__name__)
 
@@ -97,7 +97,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         thread = CDImportThread(cd_importer)
         thread.connect('done', lambda *e: self._import_finish())
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Importing CD..."), 'drive-optical')
+                                                          _("Importing CD..."), 'drive-optical')
 
     def _import_finish(self):
         self.__importing = False

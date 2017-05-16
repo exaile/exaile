@@ -32,12 +32,12 @@ class SavePreference(widgets.DirPreference):
 class PortPreference(widgets.Preference):
     default = '8888'
     name = 'plugin/streamripper/relay_port'
-    
+
 
 class FilePreference(widgets.CheckPreference):
     default = False
     name = 'plugin/streamripper/single_file'
-    
+
 
 class DeletePreference(widgets.CheckPreference):
     default = True

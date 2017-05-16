@@ -149,7 +149,7 @@ def test_fader(test):
     # Test setup_track is_update=True
 
     # Test unexpected fading out
-    
+
     check_fader(test)
 
 

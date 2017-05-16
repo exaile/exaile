@@ -52,7 +52,7 @@ class PluginsManager(object):
 
     def __init__(self, exaile, load=True):
         self.plugindirs = [os.path.join(p, 'plugins')
-                for p in xdg.get_data_dirs()]
+                           for p in xdg.get_data_dirs()]
         if xdg.local_hack:
             self.plugindirs.insert(1, os.path.join(xdg.exaile_dir, 'plugins'))
 
@@ -75,7 +75,7 @@ class PluginsManager(object):
             if os.path.exists(path):
                 return path
         return None
-    
+
     def load_plugin(self, pluginname, reload=False):
         if not reload and pluginname in self.loaded_plugins:
             return self.loaded_plugins[pluginname]
@@ -118,18 +118,18 @@ class PluginsManager(object):
 
     def __enable_new_plugin(self, plugin):
         '''Sets up a new-style plugin. See helloworld plugin for details'''
-        
+
         if hasattr(plugin, 'on_gui_loaded'):
             if self.exaile.loading:
                 event.add_ui_callback(self.__on_new_plugin_loaded, 'gui_loaded',
-                                   None, plugin.on_gui_loaded)
+                                      None, plugin.on_gui_loaded)
             else:
                 plugin.on_gui_loaded()
-            
+
         if hasattr(plugin, 'on_exaile_loaded'):
             if self.exaile.loading:
                 event.add_ui_callback(self.__on_new_plugin_loaded, 'exaile_loaded',
-                                   None, plugin.on_exaile_loaded)
+                                      None, plugin.on_exaile_loaded)
             else:
                 plugin.on_exaile_loaded()
 
@@ -207,36 +207,36 @@ class PluginsManager(object):
             except ValueError:
                 pass  # this happens on blank lines
         return infodict
-    
+
     def is_compatible(self, info):
         '''
             Returns True if the plugin claims to be compatible with the
             current platform.
-            
+
             :param info: The data returned from get_plugin_info()
         '''
         platforms = info.get('Platforms', [])
         if len(platforms) == 0:
             platforms = [sys.platform]
-        
+
         for platform in platforms:
             if sys.platform.startswith(platform):
                 return True
-            
+
         return False
-    
+
     def is_potentially_broken(self, info):
         '''
             Returns True if one of the modules that the plugin requires is
             not detected as available.
-        
+
             :param info: The data returned from get_plugin_info()
         '''
         from gi.repository import GIRepository
         gir = GIRepository.Repository.get_default()
 
         modules = info.get('RequiredModules', [])
-        
+
         for module in modules:
             pair = module.split(':', 1)
             if len(pair) > 1:
@@ -251,7 +251,7 @@ class PluginsManager(object):
                         mdata[0].close()
                 except Exception:
                     return True
-            
+
         return False
 
     def get_plugin_default_preferences(self, pluginname):

@@ -33,20 +33,20 @@ class Mp3Parser(spydaap.parser.Parser):
         'TCOM': 'daap.songcomposer',
         'TCON': 'daap.songgenre',
         'TALB': 'daap.songalbum',
-        }
+    }
 
     mp3_int_map = {
         'TBPM': 'daap.songbeatsperminute',
         'TDRC': 'daap.songyear',
         'TCMP': 'daap.songcompilation',
         #'TLEN': 'daap.songtime',
-        }
+    }
 #do('daap.songdiscnumber', 1),
 #        do('daap.songgenre', 'Test'),
 #        do('daap.songdisccount', 1),
 #        do('daap.songcompilation', False),
 #        do('daap.songuserrating', 1),
-                
+
     def handle_rating(self, mp3, d):
         popm = mp3.tags.getall('POPM')
         if popm is not None and len(popm) > 0:

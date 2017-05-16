@@ -51,10 +51,10 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
 
     def __init__(self):
         playback.MoveMarkerMenuItem.__init__(self,
-            'repeat-segment', [], _('Repeat Segment'),
-            'media-playlist-repeat')
+                                             'repeat-segment', [], _('Repeat Segment'),
+                                             'media-playlist-repeat')
         providers.ProviderHandler.__init__(self,
-            'playback-markers')
+                                           'playback-markers')
 
         self.beginning_marker = playback.Marker()
         self.beginning_marker.name = 'repeat-beginning'
@@ -80,10 +80,10 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
             Generates the menu item
         """
         item = playback.MoveMarkerMenuItem.factory(self, menu,
-            parent, context)
+                                                   parent, context)
 
         markers = (providers.get_provider('playback-markers', n)
-            for n in ('repeat-beginning', 'repeat-end'))
+                   for n in ('repeat-beginning', 'repeat-end'))
 
         if player.PLAYER.current is None:
             item.set_sensitive(False)
@@ -112,7 +112,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         context['current-marker'] = self.beginning_marker
 
         playback.MoveMarkerMenuItem.on_activate(self, widget,
-            parent, context)
+                                                parent, context)
 
     def on_parent_button_press_event(self, widget, event):
         """
@@ -133,7 +133,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
                 self.clear_markers()
 
                 return True
-        
+
         return False
 
     def on_end_marker_reached(self, marker):

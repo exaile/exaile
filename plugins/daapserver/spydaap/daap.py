@@ -301,11 +301,11 @@ class DAAPClient(object):
 
         if gzip:
             headers['Accept-encoding'] = 'gzip'
-        
+
         if self.password:
             import base64
             b64 = base64.encodestring('%s:%s' % ('user', self.password))[:-1]
-            headers['Authorization'] = 'Basic %s' % b64             
+            headers['Authorization'] = 'Basic %s' % b64
 
         # TODO - we should allow for different versions of itunes - there
         # are a few different hashing algos we could be using. I need some
@@ -475,12 +475,12 @@ class DAAPPlaylist(object):
 class DAAPTrack(object):
 
     attrmap = {'name': 'minm',
-        'artist': 'asar',
-        'album': 'asal',
-        'id': 'miid',
-        'type': 'asfm',
-        'time': 'astm',
-        'size': 'assz'}
+               'artist': 'asar',
+               'album': 'asal',
+               'id': 'miid',
+               'type': 'asfm',
+               'time': 'astm',
+               'size': 'assz'}
 
     def __init__(self, database, atom):
         self.database = database
@@ -516,8 +516,8 @@ class DAAPTrack(object):
         # is a good block size here?
         data = r.read(32 * 1024)
         while (data):
-          mp3.write(data)
-          data = r.read(32 * 1024)
+            mp3.write(data)
+            data = r.read(32 * 1024)
         mp3.close()
         r.close()
         log.debug("Done")
@@ -539,7 +539,7 @@ if __name__ == '__main__':
             port = 3689
 
         logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(levelname)s %(message)s')
+                            format='%(asctime)s %(levelname)s %(message)s')
 
         try:
             # do everything in a big try, so we can disconnect at the end

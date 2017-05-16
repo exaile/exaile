@@ -64,7 +64,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         model = self.widget.get_model()
         if not model:  # happens if preferences window is shut down on close
             return False
-        
+
         curiter = self.condition_widget.get_active_iter()
         format = self.condition_widget.get_model().get_value(curiter, 0)
         formatinfo = transcoder.FORMATS[format]

@@ -45,7 +45,7 @@ class MigrationException(Exception):
 def migration_needed():
     # check for the presence of old exaile settings
     for file in ('~/.exaile/music.db', '~/.exaile/settings.ini'):
-        if not os.path.exists(os.path.expanduser(file)): 
+        if not os.path.exists(os.path.expanduser(file)):
             logger.debug("%s did not exist, old exaile version not detected" % file)
             return False
 
@@ -56,19 +56,19 @@ def migration_needed():
 
     if os.path.exists(os.path.join(xdg.get_config_dir(), 'settings.ini')):
         logger.debug("Found a newer version of the settings "
-            "file, no migration needed")
+                     "file, no migration needed")
         return False
 
     if not olddb.SQLITE_AVAIL:
         raise MigrationException("Sqlite not available.  "
-            "Cannot migrate 0.2.14 settings")
+                                 "Cannot migrate 0.2.14 settings")
 
     # if we've gotten this far, check for sqlite, but if it's not available,
     # throw a migration exception
 
     # open up the old database, and make sure it's at least the version used
     # in 0.2.14
-    db = olddb.DBManager(os.path.expanduser('~/.exaile/music.db'), False) 
+    db = olddb.DBManager(os.path.expanduser('~/.exaile/music.db'), False)
     cur = db.cursor()
     row = db.read_one('db_version', 'version', '1=1', tuple())
     db.close()
@@ -100,12 +100,12 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
             newtrack.set_tag_raw('__rating', float((100.0 * oldtrack._rating) / rating_steps))
 
         db_map = {'artist': 'artist',
-                'album': 'album',
-                'track': 'tracknumber',
-                'genre': 'genre',
-                'date': 'date',
-                'title': 'title',
-                'playcount': '__playcount'}
+                  'album': 'album',
+                  'track': 'tracknumber',
+                  'genre': 'genre',
+                  'date': 'date',
+                  'title': 'title',
+                  'playcount': '__playcount'}
 
         newtrack.set_tag_raw('__length', int(getattr(oldtrack, 'duration')))
 
@@ -115,10 +115,10 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         try:
             newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 5], '%Y-%m-%d %H:%M')))
         except ValueError:
-             try:
-                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 3], '%Y-%m-%d %H:%M')))
-             except ValueError:
-                     pass
+            try:
+                newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 3], '%Y-%m-%d %H:%M')))
+            except ValueError:
+                pass
 
         for item in db_map.keys():
             newtrack.set_tag_raw(db_map[item], getattr(oldtrack, item))
@@ -132,7 +132,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
 
 def _set_tab_placement(section, oldsetting, oldsettings):
     val = int(oldsettings.get(section, oldsetting))
-    
+
     if val == 0:
         return 'top'
     elif val == 1:
@@ -144,8 +144,8 @@ def _set_tab_placement(section, oldsetting, oldsettings):
 
 
 def _set_track_columns(section, oldsetting, oldsettings):
-    items = eval(oldsettings.get(section, oldsetting)) 
-    
+    items = eval(oldsettings.get(section, oldsetting))
+
     newitems = []
     for item in items:
         if item == 'track':
@@ -207,16 +207,16 @@ def _migrate_old_settings(oldsettings):
 
 
 def _migrate_playlists(db, newdb, playlists):
-    p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name') 
+    p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name')
 
     for p_row in p_rows:
         if p_row[2]:
             continue
 
         pl = Playlist(p_row[0])
-   
+
         rows = db.select('SELECT paths.name FROM playlist_items,paths WHERE '
-            'playlist_items.path=paths.id AND playlist=?', (p_row[1],))
+                         'playlist_items.path=paths.id AND playlist=?', (p_row[1],))
 
         locs = ['file://' + row[0] for row in rows]
         tracks = newdb.get_tracks_by_locs(locs)
@@ -244,14 +244,14 @@ def migrate(force=False):
 
     if not olddb.SQLITE_AVAIL:
         raise MigrationException("Sqlite is not available. "
-            "Unable to migrate 0.2.14 settings")
+                                 "Unable to migrate 0.2.14 settings")
 
     # old database
-    db = olddb.DBManager(os.path.expanduser('~/.exaile/music.db'), False) 
+    db = olddb.DBManager(os.path.expanduser('~/.exaile/music.db'), False)
 
     # new database
     newdb = collection.Collection('tdb', os.path.join(xdg.get_data_dirs()[0],
-        'music.db'))
+                                                      'music.db'))
 
     _migrate_old_tracks(oldsettings, db, newdb)
     _migrate_old_settings(oldsettings)

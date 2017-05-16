@@ -54,7 +54,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     name = 'musicbrainz'
     title = 'MusicBrainz'
     __caa_url = 'http://coverartarchive.org/release/{mbid}/front-{size}'
-    
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('musicbrainzcovers')
 
@@ -77,12 +77,12 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
 
         if result['release-list']:
             mbids = [a['id'] for a in result['release-list']]
-            
+
             # Check the actual availability of the covers
             for mbid in mbids[:]:
                 try:
                     url = self.__caa_url.format(mbid=mbid, size=250)
-                    
+
                     headers = {'User-Agent': self.user_agent}
                     req = urllib2.Request(url, None, headers)
                     response = urllib2.urlopen(req)

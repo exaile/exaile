@@ -110,36 +110,36 @@ class GSTEqualizer(ElementBin):
         self.setup_elements()
 
         event.add_ui_callback(self._on_option_set,
-                "plugin_equalizer_option_set")
+                              "plugin_equalizer_option_set")
 
         setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]
         for setting in setts:
             self._on_option_set("plugin_equalizer_option_set", None,
-                "plugin/equalizer/%s" % setting)
+                                "plugin/equalizer/%s" % setting)
 
     def _on_option_set(self, name, object, data):
         for band in range(10):
             if data == "plugin/equalizer/band%s" % band:
                 if settings.get_option("plugin/equalizer/enabled") == True:
                     self.eq10band.set_property("band%s" % band,
-                            settings.get_option("plugin/equalizer/band%s" % band))
+                                               settings.get_option("plugin/equalizer/band%s" % band))
                 else:
                     self.eq10band.set_property("band%s" % band, 0.0)
 
         if data == "plugin/equalizer/pre":
             if settings.get_option("plugin/equalizer/enabled") == True:
                 self.preamp.set_property("volume", self.dB_to_percent(
-                        settings.get_option("plugin/equalizer/pre")))
+                    settings.get_option("plugin/equalizer/pre")))
             else:
                 self.preamp.set_property("volume", 1.0)
 
         if data == "plugin/equalizer/enabled":
             if settings.get_option("plugin/equalizer/enabled") == True:
                 self.preamp.set_property("volume", self.dB_to_percent(
-                        settings.get_option("plugin/equalizer/pre")))
+                    settings.get_option("plugin/equalizer/pre")))
                 for band in range(10):
                     self.eq10band.set_property("band%s" % band,
-                            settings.get_option("plugin/equalizer/band%s" % band))
+                                               settings.get_option("plugin/equalizer/band%s" % band))
             else:
                 self.preamp.set_property("volume", 1.0)
                 for band in range(10):
@@ -159,12 +159,12 @@ class EqualizerPlugin:
 
         # add menu item to tools menu
         self.MENU_ITEM = menu.simple_menu_item('equalizer', ['plugin-sep'], _('_Equalizer'),
-            callback=lambda *x: self.show_gui(exaile))
+                                               callback=lambda *x: self.show_gui(exaile))
         providers.register('menubar-tools-menu', self.MENU_ITEM)
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
         self.presets = Gtk.ListStore(str, float, float, float, float,
-                float, float, float, float, float, float, float)
+                                     float, float, float, float, float, float, float)
         self.load_presets()
 
         self.check_default_settings()
@@ -205,27 +205,27 @@ class EqualizerPlugin:
             return
 
         signals = {
-                'on_main-window_destroy': self.destroy_gui,
-                'on_chk-enabled_toggled': self.toggle_enabled,
-                'on_combo-presets_changed': self.preset_changed,
-                'on_add-preset_clicked': self.add_preset,
-                'on_remove-preset_clicked': self.remove_preset,
-                'on_pre_format_value': self.adjust_preamp,
-                'on_band0_format_value': self.adjust_band,
-                'on_band1_format_value': self.adjust_band,
-                'on_band2_format_value': self.adjust_band,
-                'on_band3_format_value': self.adjust_band,
-                'on_band4_format_value': self.adjust_band,
-                'on_band5_format_value': self.adjust_band,
-                'on_band6_format_value': self.adjust_band,
-                'on_band7_format_value': self.adjust_band,
-                'on_band8_format_value': self.adjust_band,
-                'on_band9_format_value': self.adjust_band
-                }
+            'on_main-window_destroy': self.destroy_gui,
+            'on_chk-enabled_toggled': self.toggle_enabled,
+            'on_combo-presets_changed': self.preset_changed,
+            'on_add-preset_clicked': self.add_preset,
+            'on_remove-preset_clicked': self.remove_preset,
+            'on_pre_format_value': self.adjust_preamp,
+            'on_band0_format_value': self.adjust_band,
+            'on_band1_format_value': self.adjust_band,
+            'on_band2_format_value': self.adjust_band,
+            'on_band3_format_value': self.adjust_band,
+            'on_band4_format_value': self.adjust_band,
+            'on_band5_format_value': self.adjust_band,
+            'on_band6_format_value': self.adjust_band,
+            'on_band7_format_value': self.adjust_band,
+            'on_band8_format_value': self.adjust_band,
+            'on_band9_format_value': self.adjust_band
+        }
 
         self.ui = Gtk.Builder()
         self.ui.add_from_file(os.path.join(os.path.dirname(
-                os.path.realpath(__file__)), 'equalizer.ui'))
+            os.path.realpath(__file__)), 'equalizer.ui'))
         self.ui.connect_signals(signals)
 
         self.window = self.ui.get_object('main-window')
@@ -243,7 +243,7 @@ class EqualizerPlugin:
         combobox.set_active(0)
 
         self.ui.get_object('chk-enabled').set_active(
-                settings.get_option("plugin/equalizer/enabled"))
+            settings.get_option("plugin/equalizer/enabled"))
 
         self.window.show_all()
 
@@ -275,7 +275,7 @@ class EqualizerPlugin:
         if widget.get_value() != settings.get_option(
                 "plugin/equalizer/band" + band):
             settings.set_option("plugin/equalizer/band" + band,
-                    widget.get_value())
+                                widget.get_value())
             self.ui.get_object("combo-presets").set_active(0)
 
     def adjust_preamp(self, widget, data):
@@ -290,12 +290,12 @@ class EqualizerPlugin:
 
         new_preset = []
         new_preset.append(self.ui.get_object("combo-presets"
-                ).get_child().get_text())
+                                             ).get_child().get_text())
         new_preset.append(settings.get_option("plugin/equalizer/pre"))
 
         for band in range(10):
             new_preset.append(settings.get_option(
-                    "plugin/equalizer/band%s" % band))
+                "plugin/equalizer/band%s" % band))
 
 #        print "EQPLUGIN: debug: ", new_preset
         self.presets.append(new_preset)
@@ -316,15 +316,15 @@ class EqualizerPlugin:
         # If an option other than "Custom" is chosen:
         if i > 0:
             settings.set_option("plugin/equalizer/pre",
-                    d.get_value(d.get_iter(i), 1))
+                                d.get_value(d.get_iter(i), 1))
             self.ui.get_object("pre").set_value(
-                    d.get_value(d.get_iter(i), 1))
+                d.get_value(d.get_iter(i), 1))
 
             for band in range(10):
                 settings.set_option("plugin/equalizer/band%s" % band,
-                        d.get_value(d.get_iter(i), band + 2))
+                                    d.get_value(d.get_iter(i), band + 2))
                 self.ui.get_object("band%s" % band).set_value(
-                        d.get_value(d.get_iter(i), band + 2))
+                    d.get_value(d.get_iter(i), band + 2))
 
     def toggle_enabled(self, widget):
         settings.set_option("plugin/equalizer/enabled", widget.get_active())

@@ -64,11 +64,11 @@ class _Matcher(object):
             vals = None
         if not isinstance(vals, list):
             vals = [vals]
-            
+
         for item in vals:
             if item is not None:
                 item = self.lower(item)
-            
+
             if self._matches(item):
                 return True
         return False
@@ -541,7 +541,7 @@ def search_tracks(trackiter, trackmatchers):
 
 
 def search_tracks_from_string(trackiter, search_string,
-        case_sensitive=True, keyword_tags=None):
+                              case_sensitive=True, keyword_tags=None):
     """
         Convenience wrapper around search_tracks that builds matchers
         automatically from the search string.
@@ -550,12 +550,12 @@ def search_tracks_from_string(trackiter, search_string,
         on :class:`search_tracks` and :class:`TracksMatcher`.
     """
     matchers = [TracksMatcher(search_string, case_sensitive=case_sensitive,
-        keyword_tags=keyword_tags)]
+                              keyword_tags=keyword_tags)]
     return search_tracks(trackiter, matchers)
 
 
 def match_track_from_string(track, search_string,
-        case_sensitive=True, keyword_tags=None):
+                            case_sensitive=True, keyword_tags=None):
     matcher = TracksMatcher(search_string, case_sensitive=case_sensitive,
-        keyword_tags=keyword_tags)
+                            keyword_tags=keyword_tags)
     return matcher.match(SearchResultTrack(track))

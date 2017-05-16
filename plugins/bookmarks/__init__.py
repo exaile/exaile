@@ -50,7 +50,7 @@ try:
             return json.loads(data)
         except ValueError:
             return eval(data, {'__builtin__': None})
-            
+
     _write = lambda x: json.dumps(x, indent=2)
     _read = _try_read
 
@@ -89,9 +89,9 @@ class Bookmarks:
             def factory(menu_, parent, context):
                 item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
                 image = Gtk.Image.new_from_icon_name(icon_name,
-                        size=Gtk.IconSize.MENU)
+                                                     size=Gtk.IconSize.MENU)
                 item.set_image(image)
-                
+
                 # insensitive if no bookmarks present
                 if len(self.bookmarks) == 0:
                     item.set_sensitive(False)
@@ -101,16 +101,16 @@ class Bookmarks:
                     if submenu is not None:
                         item.set_submenu(submenu)
                 return item
-                
+
             return factory
 
         items = []
         items.append(_smi('bookmark', [], _('_Bookmark This Track'),
-            'bookmark-new', self.add_bookmark))
+                          'bookmark-new', self.add_bookmark))
         items.append(menu.MenuItem('delete', factory_factory(_('_Delete Bookmark'),
-            'gtk-close', submenu=self.delete_menu), ['bookmark']))
+                                                             'gtk-close', submenu=self.delete_menu), ['bookmark']))
         items.append(menu.MenuItem('clear', factory_factory(_('_Clear Bookmarks'),
-            'gtk-clear', callback=self.clear), ['delete']))
+                                                            'gtk-clear', callback=self.clear), ['delete']))
         items.append(_sep('sep', ['clear']))
 
         for item in items:
@@ -195,18 +195,18 @@ class Bookmarks:
             menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
             if pix:
                 menu_item.set_image(Gtk.image_new_from_pixbuf(pix))
-            
+
             if menu_ is self.menu:
                 menu_item.connect('activate', self.do_bookmark, (key, pos))
             else:
                 menu_item.connect('activate', self.delete_bookmark, (counter, key, pos))
-                
+
             return menu_item
 
         item = menu.MenuItem('bookmark{0}'.format(self.counter), factory, ['sep'])
         self.menu.add_item(item)
         self.delete_menu.add_item(item)
-        
+
         self.counter += 1
 
         # save addition
@@ -220,7 +220,7 @@ class Bookmarks:
         for item in self.delete_menu._items:
             self.menu.remove_item(item)
             self.delete_menu.remove_item(item)
-    
+
         self.bookmarks = []
         self.save_db()
 
@@ -240,9 +240,9 @@ class Bookmarks:
                 self.delete_menu.remove_item(item)
                 self.menu.remove_item(item)
                 break
-        
+
         self.save_db()
-        
+
     def load_db(self):
         """
             Load previously saved bookmarks from a file.
@@ -301,9 +301,9 @@ def _enable(exaile):
 
     # add tools menu items
     providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
-    
-    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'), 
-        'user-bookmarks', submenu=bm.menu)
+
+    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'),
+                'user-bookmarks', submenu=bm.menu)
     providers.register('menubar-tools-menu', item)
 
     bm.load_db()

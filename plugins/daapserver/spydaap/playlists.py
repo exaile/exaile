@@ -43,7 +43,7 @@ class Playlist(object):
             return r
         else:
             return self.safe_cmp_series(a, b, key_list[1:])
-        
+
 
 class Library(Playlist):
 
@@ -60,7 +60,7 @@ class Genre(Playlist):
     def __init__(self, name, genre):
         self.name = name
         self.genre = genre
-    
+
     def contains(self, md):
         if not('daap.songgenre' in md):
             return False
@@ -87,25 +87,25 @@ class YearRange(Playlist):
         else:
             year = md['daap.songyear']
             return year >= self.first and year <= self.last
-    
+
     def sort(self, entries):
         def s(a, b):
-            return self.safe_cmp_series(a, b, ['daap.songyear', 
-                                               'daap.songartist', 
+            return self.safe_cmp_series(a, b, ['daap.songyear',
+                                               'daap.songartist',
                                                'daap.songalbum',
                                                'daap.songtracknumber'])
         entries.sort(cmp=s)
-    
+
 
 class Recent(Playlist):
 
-     def __init__(self, name, seconds=604800):
-         self.name = name
-         self.seconds = seconds
+    def __init__(self, name, seconds=604800):
+        self.name = name
+        self.seconds = seconds
 
-     def contains(self, md):
-         f_mtime = os.stat(md.get_original_filename()).st_mtime
-         return ((f_mtime + self.seconds) > time.time())
+    def contains(self, md):
+        f_mtime = os.stat(md.get_original_filename()).st_mtime
+        return ((f_mtime + self.seconds) > time.time())
 
 
 class Rating(Playlist):

@@ -42,9 +42,9 @@ class InvalidOverlayOption(Exception):
 
     def __str__(self):
         return 'Got %s, must be one of %s' % (
-                repr(self.option),
-                str(awn_prefs.OverlayDisplay.map)
-                )
+            repr(self.option),
+            str(awn_prefs.OverlayDisplay.map)
+        )
 
 
 class ExaileAwn(object):
@@ -119,7 +119,7 @@ class ExaileAwn(object):
             self.unset_cover()
         else:
             image_data = covers.MANAGER.get_cover(player.PLAYER.current,
-                set_only=True, use_default=True)
+                                                  set_only=True, use_default=True)
             pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
             descriptor, self.temp_icon_path = tempfile.mkstemp()
             pixbuf.save(self.temp_icon_path, 'png')
@@ -170,11 +170,11 @@ class ExaileAwn(object):
 EXAILE_AWN = None
 
 TRACK_CHANGE_CALLBACKS = (
-        'playback_current_changed',
-        'playback_player_start',
-        'playback_track_end',
-        'player_loaded',
-        )
+    'playback_current_changed',
+    'playback_player_start',
+    'playback_track_end',
+    'player_loaded',
+)
 
 
 def enable(exaile):
@@ -185,11 +185,11 @@ def enable(exaile):
     for signal in TRACK_CHANGE_CALLBACKS:
         xl.event.add_callback(EXAILE_AWN.set_cover, signal, player.PLAYER)
     xl.event.add_callback(EXAILE_AWN.enable_progress,
-            'playback_player_start', player.PLAYER)
+                          'playback_player_start', player.PLAYER)
     xl.event.add_callback(EXAILE_AWN.disable_progress,
-            'playback_player_end', player.PLAYER)
+                          'playback_player_end', player.PLAYER)
     xl.event.add_callback(EXAILE_AWN.toggle_pause_progress,
-            'playback_toggle_pause', player.PLAYER)
+                          'playback_toggle_pause', player.PLAYER)
     xl.event.add_callback(EXAILE_AWN.on_option_set, 'plugin_awn_option_set')
     EXAILE_AWN.set_cover()
 
@@ -199,11 +199,11 @@ def disable(exaile):
     for signal in TRACK_CHANGE_CALLBACKS:
         xl.event.remove_callback(EXAILE_AWN.set_cover, signal)
     xl.event.remove_callback(EXAILE_AWN.enable_progress,
-            'playback_player_start', player.PLAYER)
+                             'playback_player_start', player.PLAYER)
     xl.event.remove_callback(EXAILE_AWN.disable_progress,
-            'playback_player_end', player.PLAYER)
+                             'playback_player_end', player.PLAYER)
     xl.event.remove_callback(EXAILE_AWN.toggle_pause_progress,
-            'playback_toggle_pause', player.PLAYER)
+                             'playback_toggle_pause', player.PLAYER)
     EXAILE_AWN.unset_cover()
     EXAILE_AWN.unset_timer()
     EXAILE_AWN.exaile = None

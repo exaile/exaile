@@ -88,13 +88,13 @@ class TrackDB(object):
         """
             Sets up the trackDB.
         """
-        
-        # ensure that the DB is always loaded before any tracks are, 
+
+        # ensure that the DB is always loaded before any tracks are,
         # otherwise internal values are not loaded and may be lost/corrupted
         if loadfirst and Track._get_track_count() != 0:
             raise RuntimeError(("Internal error! %d tracks already loaded, " +
-                "TrackDB must be loaded first!") % Track._get_track_count())
-        
+                                "TrackDB must be loaded first!") % Track._get_track_count())
+
         self.name = name
         self.location = location
         self._dirty = False
@@ -176,14 +176,14 @@ class TrackDB(object):
             location = self.location
         if not location:
             raise AttributeError(
-                    _("You did not specify a location to load the db from"))
+                _("You did not specify a location to load the db from"))
 
         logger.debug("Loading %s DB from %s." % (self.name, location))
-                    
+
         try:
             try:
                 pdata = shelve.open(location, flag='c',
-                        protocol=common.PICKLE_PROTOCOL)
+                                    protocol=common.PICKLE_PROTOCOL)
             except ImportError:
                 import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
                 _db = bsddb3.hashopen(location, 'c')
@@ -195,10 +195,10 @@ class TrackDB(object):
                     logger.info("Upgrading DB format....")
                     import shutil
                     shutil.copyfile(location,
-                            location + "-%s.bak" % pdata['_dbversion'])
+                                    location + "-%s.bak" % pdata['_dbversion'])
                     import xl.migrations.database as dbmig
                     dbmig.handle_migration(self, pdata, pdata['_dbversion'],
-                            self._dbversion)
+                                           self._dbversion)
 
         except common.VersionError:
             raise
@@ -211,7 +211,7 @@ class TrackDB(object):
                 if 'tracks' == attr:
                     data = {}
                     for k in (x for x in pdata.keys()
-                            if x.startswith("tracks-")):
+                              if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
                         loc = tr.get_loc_for_io()
@@ -219,10 +219,10 @@ class TrackDB(object):
                             data[loc] = TrackHolder(tr, p[1], **p[2])
                         else:
                             logger.warning("Duplicate track found: %s" % loc)
-                            # presumably the second track was written because of an error, 
-                            # so use the first track found. 
+                            # presumably the second track was written because of an error,
+                            # so use the first track found.
                             del pdata[k]
-                            
+
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata.get(attr, getattr(self, attr)))
@@ -256,7 +256,7 @@ class TrackDB(object):
             location = self.location
         if not location:
             raise AttributeError(
-                    _("You did not specify a location to save the db"))
+                _("You did not specify a location to save the db"))
 
         if self._saving:
             return
@@ -267,7 +267,7 @@ class TrackDB(object):
         try:
             try:
                 pdata = shelve.open(location, flag='c',
-                        protocol=common.PICKLE_PROTOCOL)
+                                    protocol=common.PICKLE_PROTOCOL)
             except ImportError:
                 import bsddb3
                 _db = bsddb3.hashopen(location, 'c')
@@ -397,15 +397,15 @@ class TrackDB(object):
         return list(self)
 
     def search(self, query, sort_fields=[], return_lim=-1,
-            tracks=None, reverse=False):
+               tracks=None, reverse=False):
         """
             DEPRECATED, DO NOT USE IN NEW CODE
         """
         import warnings
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
         tracks = [x.track for x in search_tracks_from_string(self, query,
-                case_sensitive=False, keyword_tags=['artist', 'albumartist',
-                'album', 'title'])]
+                                                             case_sensitive=False, keyword_tags=['artist', 'albumartist',
+                                                                                                 'album', 'title'])]
 
         if sort_fields:
             tracks = sort_tracks(sort_fields, tracks, reverse)

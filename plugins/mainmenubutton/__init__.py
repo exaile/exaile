@@ -144,7 +144,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
             Pops out the menu upon button toggle
         """
         self.menu.popup(None, None, self.get_menu_position, None, 0,
-            Gtk.get_current_event_time())
+                        Gtk.get_current_event_time())
 
     def on_menu_deactivate(self, menu):
         """

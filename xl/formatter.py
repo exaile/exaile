@@ -111,7 +111,7 @@ class ParameterTemplate(Template):
         """
         if len(args) > 1:
             raise TypeError('Too many positional arguments')
-        
+
         if not args:
             mapping = {}
         else:
@@ -246,10 +246,10 @@ class Formatter(GObject.GObject):
             if groups['parameters'] is not None:
                 # Split parameters on unescaped comma
                 parameters = [p.lstrip()
-                    for p in re.split(r'(?<!\\),', groups['parameters'])]
+                              for p in re.split(r'(?<!\\),', groups['parameters'])]
                 # Split arguments on unescaped equals sign
                 parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2]
-                    for p in parameters]
+                              for p in parameters]
                 # Turn list of lists into a proper dictionary
                 parameters = dict(parameters)
 
@@ -339,7 +339,7 @@ class ProgressTextFormatter(Formatter):
             :rtype: string
         """
         total_remaining_time = 0
-        
+
         if current_time is None:
             current_time = self._player.get_time()
 
@@ -356,10 +356,10 @@ class ProgressTextFormatter(Formatter):
 
         playlist = self._player.queue.current_playlist
 
-        if playlist and playlist.current_position >= 0:        
+        if playlist and playlist.current_position >= 0:
             tracks = playlist[playlist.current_position:]
             total_remaining_time = sum([t.get_tag_raw('__length')
-                for t in tracks if t.get_tag_raw('__length')])
+                                        for t in tracks if t.get_tag_raw('__length')])
             total_remaining_time -= current_time
 
         self._substitutions['current_time'] = \
@@ -446,7 +446,7 @@ class TagFormatter(object):
 class NumberTagFormatter(TagFormatter):
     """
         A generic formatter for numeric formatting
-        
+
         Removes count values, e.g. "b" in "a/b"
     """
 
@@ -535,7 +535,7 @@ class ArtistTagFormatter(TagFormatter):
         """
         compilate = parameters.get('compilate', False)
         value = track.get_tag_display(self.name,
-            artist_compilations=compilate)
+                                      artist_compilations=compilate)
 
         return value
 providers.register('tag-formatting', ArtistTagFormatter())
@@ -614,18 +614,18 @@ class TimeTagFormatter(TagFormatter):
             if span.hours > 0 or text:  # always show hours when > 1 day
                 # TRANSLATORS: Time duration (hours:minutes:seconds)
                 text += _('%d:%02d:%02d') % (
-                        span.hours, span.minutes, span.seconds)
+                    span.hours, span.minutes, span.seconds)
             else:
                 # TRANSLATORS: Time duration (minutes:seconds)
                 text += _('%d:%02d') % (span.minutes, span.seconds)
 
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
-                '"format" for tag "__length", possible arguments are '
-                '"short", "long" and "verbose"' % format)
+                             '"format" for tag "__length", possible arguments are '
+                             '"short", "long" and "verbose"' % format)
 
         return text
-    
+
 
 class LengthTagFormatter(TimeTagFormatter):
     """
@@ -660,7 +660,7 @@ providers.register('tag-formatting', StopOffsetTagFormatter())
 class RatingTagFormatter(TagFormatter):
     """
         A formatter for the rating of a track
-        
+
         Will return glyphs representing the rating like ★★★☆☆
     """
 
@@ -695,7 +695,7 @@ class YearTagFormatter(TagFormatter):
 
     def __init__(self):
         TagFormatter.__init__(self, 'year')
-        
+
     def format(self, track, parameters):
         value = track.get_tag_raw('date')
         if value is not None:
@@ -704,7 +704,7 @@ class YearTagFormatter(TagFormatter):
             except Exception:
                 pass
             return value[0]
-            
+
         return _("Unknown")
 providers.register('tag-formatting', YearTagFormatter())
 

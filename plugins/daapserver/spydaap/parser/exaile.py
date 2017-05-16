@@ -32,17 +32,17 @@ class ExaileParser(spydaap.parser.Parser):
         'composer': 'daap.songcomposer',
         'genre': 'daap.songgenre',
         'album': 'daap.songalbum'
-        }
-    
+    }
+
     _int_map = {
         'bpm': 'daap.songbeatsperminute',
         # not used by exaile client, and not parsed right anyway (ie: '2010-01-01')
-#        'date': 'daap.songyear', #TODO
+        #        'date': 'daap.songyear', #TODO
         'year': 'daap.songyear',
         'tracknumber': 'daap.songtracknumber',
         'tracktotal': 'daap.songtrackcount',
         'discnumber': 'daap.songdiscnumber'
-        }
+    }
 
     def understands(self, filename):
         return True
@@ -64,7 +64,7 @@ class ExaileParser(spydaap.parser.Parser):
                         daap.append(do(map[k], int(tn)))
                 except Exception:
                     logger.exception('exception caught parsing tag: %s=%s from %s',
-                        k, tn, md)
+                                     k, tn, md)
 
     # We can't use functions in __init__ because exaile tracks no longer
     # give us access to .tags
@@ -76,7 +76,7 @@ class ExaileParser(spydaap.parser.Parser):
                     tag = [t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
                 except Exception:
-                    logger.exception("error decoding tags") 
+                    logger.exception("error decoding tags")
 
     def parse(self, trk):
         try:
@@ -85,13 +85,13 @@ class ExaileParser(spydaap.parser.Parser):
             if len(trk.list_tags()) > 0:
                 if 'title' in trk.list_tags():
                     name = str(trk.get_tag_raw('title')[0])
-                else: 
+                else:
                     name = str(trk)
-                
+
                 self.handle_string_tags(self._string_map, trk, d)
                 self.handle_int_tags(self._int_map, trk, d)
 #                self.handle_rating(trk, d)
-            else: 
+            else:
                 name = str(trk)
             #statinfo = os.stat(filename)
 
@@ -100,16 +100,16 @@ class ExaileParser(spydaap.parser.Parser):
                 return (None, None)
 
             d.extend([  # do('daap.songsize', trk.get_size()),
-                      #do('daap.songdateadded', statinfo.st_ctime),
-                      #do('daap.songdatemodified', statinfo.st_ctime),
-                      do('daap.songtime', _len * 1000),
-#                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
-#                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
-                      do('daap.songformat', trk.get_local_path().split('.')[-1]),  # todo ??
-                      do('daap.songdescription', 'Exaile Streaming Audio'),
-                      ])
+                #do('daap.songdateadded', statinfo.st_ctime),
+                #do('daap.songdatemodified', statinfo.st_ctime),
+                do('daap.songtime', _len * 1000),
+                #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
+                #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
+                do('daap.songformat', trk.get_local_path().split('.')[-1]),  # todo ??
+                do('daap.songdescription', 'Exaile Streaming Audio'),
+            ])
             return (d, name)
-            
+
         except Exception:
             logger.exception('caught exception while processing %s', trk)
-            return (None, None)    
+            return (None, None)

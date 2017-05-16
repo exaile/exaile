@@ -132,7 +132,7 @@ class CoverManager(providers.ProviderHandler):
         self.location = location
         self.methods = {}
         self.order = settings.get_option(
-                'covers/preferred_order', [])
+            'covers/preferred_order', [])
         self.db = {}
         self.load()
         for method in self.get_providers():
@@ -286,7 +286,7 @@ class CoverManager(providers.ProviderHandler):
             event.log_event('cover_removed', self, track)
 
     def get_cover(self, track, save_cover=True, set_only=False,
-            use_default=False):
+                  use_default=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
@@ -470,7 +470,7 @@ class TagCoverFetcher(CoverSearchMethod):
     fixed_priority = 30
 
     def find_covers(self, track, limit=-1):
-        covers = [] 
+        covers = []
         tagname = None
         uri = track.get_loc_for_io()
 
@@ -484,7 +484,7 @@ class TagCoverFetcher(CoverSearchMethod):
                 pass
 
         return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri)
-            for index in range(0, len(covers))]
+                for index in range(0, len(covers))]
 
     def get_cover_data(self, db_string):
         tag, index, uri = db_string.split(':', 2)
@@ -532,7 +532,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             return []
         covers = []
         for fileinfo in basedir.enumerate_children("standard::type"
-                ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
+                                                   ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
             gloc = basedir.get_child(fileinfo.get_name())
             if not fileinfo.get_file_type() == Gio.FileType.REGULAR:
                 continue
@@ -566,4 +566,4 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
 #: The singleton :class:`CoverManager` instance
 MANAGER = CoverManager(location=xdg.get_data_home_path("covers",
-        check_exists=False))
+                                                       check_exists=False))

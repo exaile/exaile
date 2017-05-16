@@ -34,7 +34,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
 
     def get_item_by_pid(self, pid, n=None):
         return MetadataCacheItem(self, pid, n)
-    
+
     def build(self, dir, marked={}, link=False):
         for path, dirs, files in os.walk(dir):
             for d in dirs:
@@ -48,7 +48,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
                 if (not(md.get_exists()) or
                         (md.get_mtime() < os.stat(ffn).st_mtime)):
                     for p in self.parsers:
-                        if p.understands(ffn):                  
+                        if p.understands(ffn):
                             (m, name) = p.parse(ffn)
                             if m is not None:
                                 MetadataCacheItem.write_entry(self.dir,
@@ -101,8 +101,8 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     def get_original_filename(self):
         if self.original_filename is None:
             self.read()
-        return self.original_filename 
-    
+        return self.original_filename
+
     def get_name(self):
         if self.name is None:
             self.read()

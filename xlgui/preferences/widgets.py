@@ -87,12 +87,12 @@ class Preference(object):
             Sets up the function to be called when this preference is changed
         """
         self.widget.connect('focus-out-event',
-            self.change, self.name, self._get_value())
+                            self.change, self.name, self._get_value())
 
         try:
             self.widget.connect('activate',
-                lambda *e: self.change(self.widget, None, self.name,
-                    self._get_value()))
+                                lambda *e: self.change(self.widget, None, self.name,
+                                                       self._get_value()))
         except TypeError:
             pass
 
@@ -140,19 +140,19 @@ class Preference(object):
 
         if response == Gtk.ResponseType.ACCEPT:
             GLib.idle_add(main.exaile().quit, True)
-            
+
     def hide_widget(self):
         '''Hides the widget and optionally its associated label'''
         self.widget.hide()
         if hasattr(self, 'label_widget'):
             self.label_widget.hide()
-            
+
     def show_widget(self):
         '''Shows the widget and optionally its associated label'''
         self.widget.show_all()
         if hasattr(self, 'label_widget'):
             self.label_widget.show_all()
-            
+
     def set_widget_sensitive(self, value):
         '''Sets sensitivity of widget and optionally its associated label'''
         self.widget.set_sensitive(value)
@@ -171,7 +171,7 @@ class Conditional(object):
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
-            'option_set', settings, self.condition_preference_name)
+                      'option_set', settings, self.condition_preference_name)
 
     def get_condition_value(self):
         '''
@@ -222,7 +222,7 @@ class CheckConditional(Conditional):
 
     def get_condition_value(self):
         return self.condition_widget.get_active()
-    
+
     def on_check_condition(self):
         """
             Specifies the condition to meet
@@ -243,7 +243,7 @@ class MultiConditional(object):
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
         GLib.idle_add(self.on_option_set,
-            'option_set', settings, self.condition_preference_names[0])
+                      'option_set', settings, self.condition_preference_names[0])
 
     def get_condition_value(self, name):
         '''
@@ -328,9 +328,9 @@ class HashedPreference(Preference):
 
         self.widget.set_visibility(True)
         self._delete_text_id = self.widget.connect('delete-text',
-            self.on_delete_text)
+                                                   self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
-            self.on_insert_text)
+                                                   self.on_insert_text)
 
     def _setup_change(self):
         """
@@ -373,9 +373,9 @@ class HashedPreference(Preference):
         self.widget.set_text(value)
         self.widget.set_visibility(True)
         self._delete_text_id = self.widget.connect('delete-text',
-            self.on_delete_text)
+                                                   self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
-            self.on_insert_text)
+                                                   self.on_insert_text)
 
         return True
 
@@ -414,12 +414,12 @@ class CheckPreference(Preference):
 
     def _setup_change(self):
         self.widget.connect('toggled',
-            self.change)
+                            self.change)
 
     def _set_value(self):
         self.widget.set_active(
             self.preferences.settings.get_option(self.name,
-            self.default))
+                                                 self.default))
 
     def _get_value(self):
         return self.widget.get_active()
@@ -474,7 +474,7 @@ class OrderListPreference(Preference):
             Sets the preferences for this widget
         """
         items = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                     self.default)
 
         self.model.clear()
         for item in items:
@@ -572,7 +572,7 @@ class SelectionListPreference(Preference):
 
             enabled = not self.model[path][3]
             self.model[path][3] = enabled
-        
+
         def enabled_data_function(self, column, cell, model, iter, user_data):
             """
                 Prepares sensitivity
@@ -589,12 +589,12 @@ class SelectionListPreference(Preference):
             """
             path = model.get_path(iter)
             title, description = model[path][1], model[path][2]
-    
+
             markup = '<b>%s</b>' % title
-    
+
             if description is not None:
                 markup += '\n<span size="small">%s</span>' % description
-    
+
             cell.props.markup = markup
 
         def iter_prev(self, iter, model):
@@ -604,14 +604,14 @@ class SelectionListPreference(Preference):
             """
             path = model.get_path(iter)
             position = path[-1]
-    
+
             if position == 0:
                 return None
-    
+
             prev_path = list(path)[:-1]
             prev_path.append(position - 1)
             prev = model.get_iter(tuple(prev_path))
-    
+
             return prev
 
         @GtkTemplate.Callback
@@ -621,23 +621,23 @@ class SelectionListPreference(Preference):
             """
             if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
                 return
-    
+
             if event.keyval not in (Gdk.KEY_Up, Gdk.KEY_Down):
                 return
-    
+
             model, selected_iter = tree.get_selection().get_selected()
-    
+
             if event.keyval == Gdk.KEY_Up:
                 previous_iter = self.iter_prev(selected_iter, model)
                 model.move_before(selected_iter, previous_iter)
             elif event.keyval == Gdk.KEY_Down:
                 next_iter = model.iter_next(selected_iter)
                 model.move_after(selected_iter, next_iter)
-    
+
             tree.scroll_to_cell(model.get_path(selected_iter))
-    
+
             self.selectionlp.apply()
-    
+
         @GtkTemplate.Callback
         def on_toggled(self, cell, path):
             """
@@ -645,11 +645,11 @@ class SelectionListPreference(Preference):
             """
             if self.model[path][4]:
                 return
-    
+
             active = not cell.get_active()
             cell.set_active(active)
             self.model[path][3] = active
-    
+
             self.selectionlp.apply()
 
     def __init__(self, preferences, widget):
@@ -682,10 +682,10 @@ class SelectionListPreference(Preference):
 
         # Filter out invalid items
         selected_items = [item for item in selected_items
-            if item in available_items]
+                          if item in available_items]
         # Cut out unselected items
         unselected_items = [item for item in available_items
-            if item not in selected_items]
+                            if item not in selected_items]
         # Move unselected items to the end
         items = selected_items + unselected_items
         new_order = [available_items.index(item) for item in items]
@@ -837,7 +837,7 @@ class ListPreference(Preference):
 
     def _set_value(self):
         items = self.preferences.settings.get_option(self.name,
-            default=self.default)
+                                                     default=self.default)
         try:
             items = u" ".join(items)
         except TypeError:
@@ -863,7 +863,7 @@ class SpinPreference(Preference):
 
     def _set_value(self):
         value = self.preferences.settings.get_option(self.name,
-            default=self.default)
+                                                     default=self.default)
         self.widget.set_value(value)
 
     def _setup_change(self):
@@ -893,7 +893,7 @@ class FloatPreference(Preference):
     def _set_value(self):
         self.widget.set_text(str(
             self.preferences.settings.get_option(self.name,
-            default=self.default)))
+                                                 default=self.default)))
 
     def _get_value(self):
         return float(self.widget.get_text())
@@ -942,13 +942,13 @@ class FontButtonPreference(Preference):
 
     def _set_value(self):
         font = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                    self.default)
         self.widget.set_font_name(font)
 
     def _get_value(self):
         font = self.widget.get_font_name()
         return font
-        
+
 
 class FontResetButtonPreference(Button, Conditional):
     '''
@@ -986,7 +986,7 @@ class ComboPreference(Preference):
             Sets the preferences for this widget
         """
         item = self.preferences.settings.get_option(self.name,
-            self.default)
+                                                    self.default)
 
         model = self.widget.get_model()
 
@@ -1078,7 +1078,7 @@ class ComboEntryPreference(Preference):
             when this preference is changed
         """
         self.widget.connect('changed', self.change, self.name,
-            self._get_value())
+                            self._get_value())
 
     def _set_value(self):
         """

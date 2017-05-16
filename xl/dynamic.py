@@ -60,7 +60,7 @@ class DynamicManager(providers.ProviderHandler):
                 returned.
         """
         logger.debug(u"Searching for %(limit)s tracks related to %(track)s" %
-                {'limit': limit, 'track': track})
+                     {'limit': limit, 'track': track})
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -134,7 +134,7 @@ class DynamicManager(providers.ProviderHandler):
         if info == []:
             return
         filename = os.path.join(self.cachedir,
-                track.get_tag_raw('artist', join=True))
+                                track.get_tag_raw('artist', join=True))
         with open(filename, 'w') as f:
             f.write("%s\n" % time.time())
             for item in info:
@@ -158,7 +158,7 @@ class DynamicManager(providers.ProviderHandler):
 
         starttime = time.time()
         tracks = self.find_similar_tracks(curr, needed,
-                playlist)
+                                          playlist)
 
         remainingtime = 5 - (time.time() - starttime)
 

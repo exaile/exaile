@@ -64,10 +64,10 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
-    
+
     user_agent = exaile.get_user_agent_string('jamendo')
     jamapi.set_user_agent(user_agent)
-    
+
     JAMENDO_NOTEBOOK_PAGE = JamendoPanel(exaile.gui.main.window, exaile)
     COVERS_METHOD = JamendoCoverSearch(user_agent)
     providers.register('main-panel', JAMENDO_NOTEBOOK_PAGE)
@@ -422,8 +422,8 @@ class JamendoCoverSearch(CoverSearchMethod):
     use_cache = False   # do this since the tracks dont stay on local.
     fixed = True
     fixed_priority = 5  # take precendence, since we know we are 'right'
-                        # for matching tracks.
-                        
+    # for matching tracks.
+
     def __init__(self, user_agent):
         self.user_agent = user_agent
 

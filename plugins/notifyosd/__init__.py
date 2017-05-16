@@ -78,11 +78,11 @@ class ExaileNotifyOsd(object):
         self.gui_callback   = False
         self.tray_connection = -1
         event.add_ui_callback(self.on_tray_toggled, 'tray_icon_toggled')
-        
+
     def update_notify(self):
         if isinstance(self.icon, str):
-            self.notify.clear_hints()   # workaround a bug in libnotify, 
-                                        # pixbuf hint is not cleared 
+            self.notify.clear_hints()   # workaround a bug in libnotify,
+            # pixbuf hint is not cleared
             self.notify.update(self.summary, self.body, self.icon)
         else:
             self.notify.update(self.summary, self.body)
@@ -90,7 +90,7 @@ class ExaileNotifyOsd(object):
                 self.notify.set_icon_from_pixbuf(self.icon)
 
     @common.threaded
-    def update_track_notify(self, type, player, track, media_icon=None):       
+    def update_track_notify(self, type, player, track, media_icon=None):
         if not track:
             return
         title = track.get_tag_display('title')
@@ -98,10 +98,10 @@ class ExaileNotifyOsd(object):
             track.get_tag_display('artist', artist_compilations=False)
         )
         album = cgi.escape(track.get_tag_display('album'))
-        
+
         # Determine the icon we will use
         self.icon = None
-        
+
         if media_icon and self.use_media_icons:
             self.icon = media_icon
         else:
@@ -111,7 +111,7 @@ class ExaileNotifyOsd(object):
                 self.icon = self.resumeicon
             elif self.show_covers:
                 cover_data = covers.MANAGER.get_cover(track,
-                    set_only=True, use_default=True)
+                                                      set_only=True, use_default=True)
                 self.icon = icons.MANAGER.pixbuf_from_data(cover_data)
 
         # Setup the summary and body for the notification
@@ -119,7 +119,7 @@ class ExaileNotifyOsd(object):
 
         if artist and album:
             self.body = self.format_artist % {'artist' : artist} + '\n' + \
-                    self.format_album % {'album': album}
+                self.format_album % {'album': album}
         elif artist:
             self.body = self.format_artist % {'artist': artist}
         elif album:
@@ -128,9 +128,9 @@ class ExaileNotifyOsd(object):
             self.body = ""
 
         self.update_notify()
-        
+
         if settings.get_option("plugin/notifyosd/show_when_focused",
-                True) or not self.exaile.gui.main.window.is_active():
+                               True) or not self.exaile.gui.main.window.is_active():
             try:
                 self.notify.show()
             except GLib.GError as e:

@@ -21,7 +21,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# TODO: The 'new' API doesn't allow general queries, only allows exact 
+# TODO: The 'new' API doesn't allow general queries, only allows exact
 # matching.. if they fix it, we'll fix it. >_>
 search_url = 'http://librivox.org/api/feed/audiobooks/?title='
 
@@ -52,13 +52,13 @@ class Book():
         except Exception:
             logger.error("LIBRIVOX: Connection error")
             return
-        
+
         try:
             self.xmltree = ElementTree.XML(self.xmldata)
         except Exception:
             logger.error("LIBRIVOX: XML error")
             return
-        
+
         self.chapters = []
         items = self.xmltree.findall("channel/item")
         for item in items:
@@ -80,33 +80,33 @@ def find_books(keyword, user_agent):
     '''
         Returns a list of Book instances, with unknown chapters...
     '''
-    
+
     # urlencode the search string
     url = search_url + urllib.quote_plus(keyword)
-    
+
     try:
         data = common.get_url_contents(url, user_agent)
     except Exception:
         logger.error("LIBRIVOX: connection error")
         return []
-    
+
     try:
         tree = ElementTree.XML(data)
     except Exception:
         logger.error("LIBRIVOX: XML error")
         return []
-    
+
     books = []
-    
+
     for elem in tree:
         if elem.tag == 'error':
             logger.error('LIBRIVOX: query error: %s' % elem.text)
-        
+
         elif elem.tag == 'books':
             for bk in elem.findall('book'):
                 title = bk.find("title").text
                 rssurl = bk.find("url_rss").text
                 book = Book(title, rssurl)
                 books.append(book)
-    
+
     return books

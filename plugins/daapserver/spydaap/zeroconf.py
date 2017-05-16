@@ -52,7 +52,7 @@ class Zeroconf(object):
                                                       port=self.port,
                                                       callBack=register_callback,
                                                       txtRecord=txtRecord)
-            
+
             while True:
                 ready = select.select([self.sdRef], [], [])
                 if self.sdRef in ready[0]:
@@ -78,17 +78,17 @@ class Zeroconf(object):
                 bus.get_object(avahi.DBUS_NAME,
                                server.EntryGroupNew()),
                 avahi.DBUS_INTERFACE_ENTRY_GROUP)
-            
+
             if ipv4 and ipv6:
                 prot = avahi.PROTO_UNSPEC
             elif ipv6:
                 proto = avahi.PROTO_INET6
             else:  # we don't let them both be false
                 proto = avahi.PROTO_INET
-            
+
             self.group.AddService(avahi.IF_UNSPEC, proto,
-                         dbus.UInt32(0), self.name, self.stype, self.domain, 
-                         self.host, dbus.UInt16(self.port), self.text)
+                                  dbus.UInt32(0), self.name, self.stype, self.domain,
+                                  self.host, dbus.UInt16(self.port), self.text)
             self.group.Commit()
 
         def unpublish(self):
@@ -107,7 +107,7 @@ class Zeroconf(object):
             except ImportError:
                 logger.warning('pybonjour nor avahi found, cannot announce presence')
                 self.helper = None
-                
+
     def publish(self, *args, **kwargs):
         if self.helper is not None:
             self.helper.publish(*args, **kwargs)

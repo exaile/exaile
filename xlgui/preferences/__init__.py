@@ -57,7 +57,7 @@ class PreferencesDialog(object):
     """
 
     PAGES = (playlists, appearance, playback,
-        collection, cover)
+             collection, cover)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):
@@ -113,7 +113,7 @@ class PreferencesDialog(object):
         plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
             'extension', Gtk.IconSize.MENU)
         self.plug_root = self.model.append(None,
-            [plugin, _('Plugins'), plugin_icon])
+                                           [plugin, _('Plugins'), plugin_icon])
 
         self._load_plugin_pages()
 
@@ -154,7 +154,7 @@ class PreferencesDialog(object):
             self.model.append(self.plug_root, [page, page.name, icon])
 
         GLib.idle_add(self.tree.expand_row,
-            self.model.get_path(self.plug_root), False)
+                      self.model.get_path(self.plug_root), False)
 
     def _clear_children(self, node):
         remove = []
@@ -211,7 +211,7 @@ class PreferencesDialog(object):
             else:
                 logger.error("No preference pane found")
                 return
-            
+
             child = builder.get_object('preferences_pane')
             init = getattr(page, 'init', None)
             if init:
@@ -243,13 +243,13 @@ class PreferencesDialog(object):
                 klass = getattr(page, attr)
 
                 if inspect.isclass(klass) and \
-                    issubclass(klass, widgets.Preference):
+                        issubclass(klass, widgets.Preference):
                     widget = builder.get_object(klass.name)
 
                     if not widget:
                         logger.warning('Invalid preferences widget: %s', klass.name)
                         continue
-                    
+
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
                             klass.condition_preference_name)
@@ -258,11 +258,11 @@ class PreferencesDialog(object):
                             klass.condition_widgets[name] = builder.get_object(name)
 
                     field = klass(self, widget)
-                    
+
                     label_widget = builder.get_object('label:%s' % klass.name)
                     if label_widget:
-                        field.label_widget = label_widget    
-                    
+                        field.label_widget = label_widget
+
                     self.fields[page].append(field)
             except Exception:
                 logger.exception('Broken preferences class: %s', attr)

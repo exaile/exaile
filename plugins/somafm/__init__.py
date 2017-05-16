@@ -94,7 +94,7 @@ class SomaFMRadioStation(RadioStation):
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent':
-                    self.user_agent})
+                                                     self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(_('Error connecting to SomaFM server.'))
@@ -208,15 +208,15 @@ class SomaFMRadioStation(RadioStation):
             format = pls.attrib['format'].upper()
             url = pls.text
             display_name = format + " - " + type
-            
+
             rlist = RadioItem(display_name, station=self)
             rlist.format = format
             rlist.get_playlist = lambda url = url,\
-                    playlist_id = self.playlist_id :\
-                        self._get_playlist(url, playlist_id)
+                playlist_id = self.playlist_id :\
+                self._get_playlist(url, playlist_id)
 
             self.playlist_id += 1
-            rlists.append(rlist)    
+            rlists.append(rlist)
         return rlists
 
     def get_menu(self, parent):

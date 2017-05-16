@@ -53,7 +53,7 @@ class Streamripper(object):
             return True
 
         self.savedir = settings.get_option('plugin/streamripper/save_location',
-                            os.getenv('HOME'))
+                                           os.getenv('HOME'))
         options = []
         options.append('streamripper')
         options.append(player.PLAYER._pipe.get_property('uri'))
@@ -69,11 +69,11 @@ class Streamripper(object):
 
         try:
             self.process = subprocess.Popen(options, 0, None, subprocess.PIPE,
-                        subprocess.PIPE, subprocess.PIPE)
+                                            subprocess.PIPE, subprocess.PIPE)
         except OSError:
             logger.error('There was an error executing streamripper')
             dialogs.error(self.exaile.gui.main.window, _('Error '
-                    'executing streamripper'))
+                                                         'executing streamripper'))
             return True
 
         if add_call:

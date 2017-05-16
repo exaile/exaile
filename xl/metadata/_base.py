@@ -38,8 +38,8 @@ version.register('Mutagen', mutagen.version_string)
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images
-# - type is a number corresponding to the cover type of ID3 APIC tags, 
-#   desc is a string describing the image, mime is a type, 
+# - type is a number corresponding to the cover type of ID3 APIC tags,
+#   desc is a string describing the image, mime is a type,
 #   data is the img data
 # -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
@@ -63,7 +63,7 @@ class BaseFormat(object):
         subclasses not using mutagen should leave MutagenType as None
     """
     MutagenType = None
-    
+
     # This should contain ALL keys supported by this filetype, unless 'others'
     # is set to True. If others is True, then anything not in tag_mapping will
     # be written using the Exaile tag name
@@ -72,19 +72,19 @@ class BaseFormat(object):
     others = True
     writable = False
     case_sensitive = True
-    
+
     @classmethod
     def _compute_mappings(cls):
         # this only needs to be run once per class
-        
+
         if cls.case_sensitive:
             cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
         else:
             cls._reverse_mapping = {v.lower(): k for k, v in cls.tag_mapping.iteritems()}
-        
+
         from .tags import disk_tags
         cls.ignore_tags = set(disk_tags)
-        
+
     def __init__(self, loc):
         """
             Raises :class:`NotReadable` if the file cannot be
@@ -100,7 +100,7 @@ class BaseFormat(object):
             self._reverse_mapping
         except AttributeError:
             self.__class__._compute_mappings()
-        
+
         self.load()
 
     def load(self):
@@ -119,7 +119,7 @@ class BaseFormat(object):
         """
         if self.writable and self.mutagen:
             self.mutagen.save()
-    
+
     def _del_tag(self, raw, tag):
         '''
             :param tag: The native tag name
@@ -148,13 +148,13 @@ class BaseFormat(object):
             :param value: If None, delete the tag
         '''
         raw[tag] = value
-    
+
     def get_keys_disk(self):
         """
             Returns keys of all tags that can be read from disk
         """
         return [self._reverse_mapping.get(k, k) for k in self._get_raw().keys()]
-        
+
     def read_all(self):
         """
             Reads all non-blacklisted tags from the file.
@@ -226,9 +226,9 @@ class BaseFormat(object):
         """
             Write a set of tags to the file. Raises a NotWritable exception
             if the format does not support writing tags.
-            
+
             When calling this function, we assume the following:
-            
+
             * tagdict has all keys that you wish to write, keys are exaile tag
               names or custom tag names and values are the tags to write (lists
               of unicode strings)
@@ -263,7 +263,7 @@ class BaseFormat(object):
                         del tagdict[tag]
                     except KeyError:
                         pass
-            
+
             # Only modify the tags we were told to modify
             # -> if the value is None, delete the tag
             for tag, value in tagdict.iteritems():
@@ -278,7 +278,7 @@ class BaseFormat(object):
                         self._set_tag(raw, tag, value)
                     else:
                         self._del_tag(raw, tag)
-            
+
             self.save()
 
     def get_info(self, info):
@@ -311,7 +311,7 @@ class BaseFormat(object):
 
 class CaseInsensitveBaseFormat(BaseFormat):
     case_sensitive = False
-    
+
     def get_keys_disk(self):
         """
             Returns keys of all tags that can be read from disk

@@ -84,8 +84,8 @@ class Order(object):
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
         self.__levels = map(self.__parse_level, levels)
-        self.__formatters = [formatter.TrackFormatter(l[1]) for l 
-            in self.__levels]
+        self.__formatters = [formatter.TrackFormatter(l[1]) for l
+                             in self.__levels]
         self.__use_compilations = use_compilations
 
     @staticmethod
@@ -128,27 +128,27 @@ class Order(object):
 
 DEFAULT_ORDERS = [
     Order(_("Artist"),
-        ("artist", "album", 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ("artist", "album",
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Album"),
-        ("album", 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ("album",
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Genre - Artist"),
-        ('genre', 'artist', 'album', 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ('genre', 'artist', 'album',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Genre - Album"),
-        ('genre', 'album', 'artist', 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ('genre', 'album', 'artist',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Date - Artist"),
-        ('date', 'artist', 'album', 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ('date', 'artist', 'album',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Date - Album"),
-        ('date', 'album', 'artist', 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ('date', 'album', 'artist',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Artist - (Date - Album)"),
-        ('artist', 
-            (('date', 'album'), "$date - $album", ('date', 'album')), 
-            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+          ('artist',
+           (('date', 'album'), "$date - $album", ('date', 'album')),
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
 ]
 
 
@@ -166,7 +166,7 @@ class CollectionPanel(panel.Panel):
     ui_info = ('collection.ui', 'CollectionPanelWindow')
 
     def __init__(self, parent, collection, name=None,
-        _show_collection_empty_message=False, label=None):
+                 _show_collection_empty_message=False, label=None):
         """
             Initializes the collection panel
 
@@ -198,7 +198,7 @@ class CollectionPanel(panel.Panel):
         self.sorted_tracks = []
 
         event.add_ui_callback(self._check_collection_empty, 'libraries_modified',
-            collection)
+                              collection)
 
         self.menu = menus.CollectionContextMenu(self)
 
@@ -228,7 +228,7 @@ class CollectionPanel(panel.Panel):
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
-            (self.collection.libraries and self.collection_empty_message):
+                (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
             self.vbox.set_child_visible(True)
             self.message.set_child_visible(False)
@@ -236,7 +236,7 @@ class CollectionPanel(panel.Panel):
             self.message.hide()
 
         elif not self.collection.libraries and not \
-            self.collection_empty_message:
+                self.collection_empty_message:
             self.collection_empty_message = True
             self.vbox.set_child_visible(False)
             self.message.set_no_show_all(False)
@@ -251,18 +251,18 @@ class CollectionPanel(panel.Panel):
         self.builder.connect_signals({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
             'on_refresh_button_press_event': self.on_refresh_button_press_event,
-            'on_refresh_button_key_press_event': 
+            'on_refresh_button_key_press_event':
                 self.on_refresh_button_key_press_event,
-            'on_collection_search_entry_activate': 
+            'on_collection_search_entry_activate':
                 self.on_collection_search_entry_activate,
             'on_add_music_button_clicked': self.on_add_music_button_clicked
         })
         self.tree.connect('key-release-event', self.on_key_released)
         event.add_ui_callback(self.refresh_tags_in_tree, 'track_tags_changed')
-        event.add_ui_callback(self.refresh_tracks_in_tree, 
-            'tracks_added', self.collection)
-        event.add_ui_callback(self.refresh_tracks_in_tree, 
-            'tracks_removed', self.collection)
+        event.add_ui_callback(self.refresh_tracks_in_tree,
+                              'tracks_added', self.collection)
+        event.add_ui_callback(self.refresh_tracks_in_tree,
+                              'tracks_removed', self.collection)
 
     def on_refresh_button_press_event(self, button, event):
         """
@@ -271,8 +271,8 @@ class CollectionPanel(panel.Panel):
         if event.button == Gdk.BUTTON_SECONDARY:
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
-                xlgui.get_controller().on_rescan_collection,
-                Gtk.STOCK_REFRESH)
+                        xlgui.get_controller().on_rescan_collection,
+                        Gtk.STOCK_REFRESH)
             menu.popup(None, None, None, None, event.button, event.time)
             return
 
@@ -483,8 +483,8 @@ class CollectionPanel(panel.Panel):
 
     def refresh_tags_in_tree(self, type, track, tag):
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in self.order.all_sort_tags() and \
-            self.collection.loc_is_member(track.get_loc_for_io()):
+                tag in self.order.all_sort_tags() and \
+                self.collection.loc_is_member(track.get_loc_for_io()):
             self._refresh_tags_in_tree()
 
     def refresh_tracks_in_tree(self, type, obj, loc):
@@ -505,10 +505,10 @@ class CollectionPanel(panel.Panel):
         return False
 
     def resort_tracks(self):
-#        import time
-#        print "sorting...", time.clock()
+        #        import time
+        #        print "sorting...", time.clock()
         self.sorted_tracks = trax.sort_tracks(self.order.get_sort_tags(0),
-            self.collection.get_tracks())
+                                              self.collection.get_tracks())
 #        print "sorted.", time.clock()
 
     def load_tree(self):
@@ -532,8 +532,8 @@ class CollectionPanel(panel.Panel):
 
         # save the active view setting
         settings.set_option(
-                'gui/collection_active_view',
-                self.choice.get_active())
+            'gui/collection_active_view',
+            self.choice.get_active())
 
         keyword = self.keyword.strip()
         tags = list(SEARCH_TAGS)
@@ -541,8 +541,8 @@ class CollectionPanel(panel.Panel):
         tags = list(set(tags))  # uniquify list to speed up search
 
         self.tracks = list(
-                trax.search_tracks_from_string(self.sorted_tracks,
-                    keyword, case_sensitive=False, keyword_tags=tags))
+            trax.search_tracks_from_string(self.sorted_tracks,
+                                           keyword, case_sensitive=False, keyword_tags=tags))
 
         self.load_subtree(None)
 
@@ -581,7 +581,7 @@ class CollectionPanel(panel.Panel):
         if rest:
             item = rest.pop(0)
             GLib.idle_add(self._expand_node_by_name, search_num,
-                parent, item, rest)
+                          parent, item, rest)
 
     def load_subtree(self, parent):
         """
@@ -609,7 +609,7 @@ class CollectionPanel(panel.Panel):
             tags = self.order.get_sort_tags(depth)
             matchers = [trax.TracksMatcher(search)]
             srtrs = trax.search_tracks(self.tracks, matchers)
-            # sort only if we are not on top level, because tracks are 
+            # sort only if we are not on top level, because tracks are
             # already sorted by fist order
             if depth > 0:
                 srtrs = trax.sort_result_tracks(tags, srtrs)
@@ -644,7 +644,7 @@ class CollectionPanel(panel.Panel):
                     srtr.track.get_tag_search(t, format=True) for t in tags])
                 if bottom:
                     match_query += " " + \
-                            srtr.track.get_tag_search("__loc", format=True)
+                        srtr.track.get_tag_search("__loc", format=True)
 
                 # Different *sort tags can cause stagval to not match
                 # but the below code will produce identical entries in
@@ -673,8 +673,8 @@ class CollectionPanel(panel.Panel):
                     first = False
 
                     last_matchq = match_query
-                    iter = self.model.append(parent, 
-                        [image, tagval, match_query])
+                    iter = self.model.append(parent,
+                                             [image, tagval, match_query])
                     path = self.model.get_path(iter)
                     expanded = False
                     if not bottom:
@@ -703,10 +703,10 @@ class CollectionPanel(panel.Panel):
             count = 0
 
         if settings.get_option("gui/expand_enabled", True) and \
-            len(to_expand) < \
-                    settings.get_option("gui/expand_maximum_results", 100) and \
-            len(self.keyword.strip()) >= \
-                    settings.get_option("gui/expand_minimum_term_length", 2):
+                len(to_expand) < \
+                settings.get_option("gui/expand_maximum_results", 100) and \
+                len(self.keyword.strip()) >= \
+                settings.get_option("gui/expand_minimum_term_length", 2):
             for row in to_expand:
                 GLib.idle_add(self.tree.expand_row, row, False)
 
@@ -734,14 +734,14 @@ class CollectionDragTreeView(DragTreeView):
     def get_selection_empty(self):
         '''Returns True if there are no selected items'''
         return self.get_selection().count_selected_rows() == 0
-        
+
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks
         """
         model, paths = self.get_selection().get_selected_rows()
         tracks = []
-        
+
         if len(paths) == 0:
             return tracks
 
@@ -749,7 +749,7 @@ class CollectionDragTreeView(DragTreeView):
             iter = model.get_iter(path)
             newset = self.container._find_tracks(iter)
             tracks.append(newset)
-        
+
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
@@ -765,7 +765,7 @@ class CollectionDragTreeView(DragTreeView):
         result = widget.get_path_at_pos(x, y)
         if not result:
             return False
-        
+
         path = result[0]
 
         model = widget.get_model()

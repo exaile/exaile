@@ -551,25 +551,31 @@ class Track(object):
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
-        # The two magic values here are to ensure that compilations
+        # The two "magic values" here are to ensure that compilations
         # and unknown values are always sorted below all normal
-        # values.
+        # values. Use u"\uffff\uffff\uffff\uffff" for the last spot
+        # and u"\uffff\uffff\uffff\uffff" for the second-to-last spot
         value = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag and tag != "albumartist":
+        if sorttag and tag != 'albumartist':
             value = sorttag
+        # Take albums that are listed as Various Artists, Compilatons,
+        #or Unknown and place them at the bottom of the sorted list
         elif tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if sorttag and sorttag[0] == _VARIOUSARTISTSSTR:
+                value = u"\uffff\uffff\uffff\ufffe"
+            elif self.__tags.get('albumartist')and self.__tags.get(
+                    'albumartist')[0] == _VARIOUSARTISTSSTR:
+                value = u"\uffff\uffff\uffff\ufffe"
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist',
-                        u"\uffff\uffff\uffff\ufffe")
+                                        u"\uffff\uffff\uffff\ufffe")
             else:
-                value = self.__tags.get('artist',
-                        u"\uffff\uffff\uffff\uffff")
+                value = self.__tags.get('albumartist',
+                                        u"\uffff\uffff\uffff\uffff")
             if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
-                    u"\uffff\uffff\uffff\uffff"):
+                                         u"\uffff\uffff\uffff\uffff"):
                 value = sorttag
-            else:
-                sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
@@ -626,10 +632,12 @@ class Track(object):
 
         value = None
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('artist', _UNKNOWNSTR)
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)           
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0] or u""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
@@ -685,12 +693,12 @@ class Track(object):
         """
         extraformat = ""
         if tag == "albumartist":
-            if artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist', None)
-                tag = 'albumartist'
-                extraformat += " ! __compilation==__null__"
+            if self.__tags.get('albumartistsort'):
+                value = self.__tags.get('albumartistsort')
+            elif artist_compilations and self.__tags.get('__compilation'):
+                value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                value = self.__tags.get('artist')
+                value = self.__tags.get('albumartist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount', '__rating', '__startoffset', '__stopoffset'):

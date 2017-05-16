@@ -328,7 +328,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
             Loads the playlist tracks into the node for the specified playlist
         """
-        if not playlist in self.playlist_nodes: return
+        if playlist not in self.playlist_nodes: return
 
         expanded = self.tree.row_expanded(
             self.model.get_path(self.playlist_nodes[playlist]))
@@ -633,7 +633,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     # If we want to go after we have to append 1
                     insert_index = drop_target_index + 1
             else:
-                current_playlist = drop_target;
+                current_playlist = drop_target
 
             # Since the playlist do not have very good support for
             # duplicate tracks we have to perform some trickery
@@ -782,7 +782,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # tracks within our widget
                 # We do a copy if we are draggin from another playlist
                 if Gtk.drag_get_source_widget(context) == tv and \
-                    dragging_playlist == False:
+                    dragging_playlist is False:
                     Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 else:
                     Gdk.drag_status(context, Gdk.DragAction.COPY, time)

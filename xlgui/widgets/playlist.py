@@ -1447,8 +1447,8 @@ class PlaylistModel(Gtk.ListStore):
     @guiutil.idle_add()   # sync this call to prevent race conditions
     def on_track_tags_changed(self, type, track, tag):
         if not track or not \
-            settings.get_option('gui/sync_on_tag_change', True) or not\
-            tag in self.columns:
+            settings.get_option('gui/sync_on_tag_change', True) or\
+            tag not in self.columns:
             return
             
         if self._redraw_timer:

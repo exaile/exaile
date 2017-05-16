@@ -29,7 +29,8 @@ from xl.nls import gettext as _
 from xl.hal import Handler
 from xl.devices import Device
 import dbus
-import logging, os
+import logging
+import os
 logger = logging.getLogger(__name__)
 
 PROVIDER = None

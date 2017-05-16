@@ -2,7 +2,9 @@
 
 __all__ = ["Zeroconf"]
 
-import select, sys, traceback
+import select
+import sys
+import traceback
 import logging
 
 logger = logging.getLogger(__name__)
@@ -63,7 +65,8 @@ class Zeroconf(object):
     class Avahi(Helper):
 
         def publish(self, ipv4=True, ipv6=True):
-            import dbus, avahi
+            import dbus
+            import avahi
             bus = dbus.SystemBus()
             server = dbus.Interface(
                 bus.get_object(
@@ -98,7 +101,8 @@ class Zeroconf(object):
         except ImportError:
             logger.info('pybonjour not found, using avahi')
             try:
-                import avahi, dbus
+                import avahi
+                import dbus
                 self.helper = Zeroconf.Avahi(*args, **kwargs)
             except ImportError:
                 logger.warning('pybonjour nor avahi found, cannot announce presence')

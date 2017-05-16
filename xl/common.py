@@ -279,7 +279,8 @@ def profileit(func):
     """
         Decorator to profile a function
     """
-    import cProfile, pstats
+    import cProfile
+    import pstats
 
     @wraps(func)
     def wrapper(*args, **kwargs):

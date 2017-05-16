@@ -1,7 +1,8 @@
 
 from gi.repository import GLib
 
-import time, thread
+import time
+import thread
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager

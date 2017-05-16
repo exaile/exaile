@@ -56,7 +56,9 @@ IGNORED_FILES = options.files
 _ = lambda x: x
 
 
-import sys, os, tarfile
+import sys
+import os
+import tarfile
 
 for dir in args:
 

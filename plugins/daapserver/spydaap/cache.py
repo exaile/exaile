@@ -13,7 +13,9 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import md5, os, sys
+import md5
+import os
+import sys
 
 
 class Cache(object):

@@ -1,4 +1,7 @@
-import spydaap, spydaap.parser.mp3, spydaap.parser.ogg, spydaap.parser.flac
+import spydaap
+import spydaap.parser.mp3
+import spydaap.parser.ogg
+import spydaap.parser.flac
 
 spydaap.parsers = [spydaap.parser.mp3.Mp3Parser(), 
                    spydaap.parser.flac.FlacParser(), 

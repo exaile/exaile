@@ -9,7 +9,9 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
-import struct, sys, httplib
+import struct
+import sys
+import httplib
 import logging
 from daap_data import *
 from cStringIO import StringIO

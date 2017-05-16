@@ -22,7 +22,9 @@ from __future__ import with_statement
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import time, thread, os
+import time
+import thread
+import os
 from xl.nls import gettext as _
 from xlgui import guiutil
 from xl import event, player, settings, xdg, common

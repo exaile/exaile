@@ -591,7 +591,8 @@ class Exaile(object):
                             major, minor, patch)
         
         if self.options.Dbus:
-            import dbus, dbus.mainloop.glib
+            import dbus
+            import dbus.mainloop.glib
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
             dbus.mainloop.glib.threads_init()
             dbus.mainloop.glib.gthreads_init()

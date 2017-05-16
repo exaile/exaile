@@ -4,7 +4,8 @@ from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
 import urlparse
-import oldexailelib, olddb
+import oldexailelib
+import olddb
 import logging
 import time
 

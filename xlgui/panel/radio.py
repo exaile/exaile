@@ -31,7 +31,8 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
 
-import xl.radio, xl.playlist
+import xl.radio
+import xl.playlist
 from xl import (
     event,
     common,

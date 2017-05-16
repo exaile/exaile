@@ -32,14 +32,18 @@ from xl.devices import Device, KeyedDevice
 import logging
 logger = logging.getLogger(__name__)
 
-import dbus, threading, os, struct
+import dbus
+import threading
+import os
+import struct
 from fcntl import ioctl
 from xl import playlist, trax, common
 from xl import settings
 import os.path
 
 try:
-    import DiscID, CDDB
+    import DiscID
+    import CDDB
     CDDB_AVAIL=True
 except Exception:
     CDDB_AVAIL=False

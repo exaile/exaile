@@ -1,4 +1,6 @@
-import os.path, gobject, re
+import os.path
+import gobject
+import re
 import xlmisc
 from xl import common
 import logging

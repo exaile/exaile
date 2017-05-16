@@ -13,7 +13,11 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen, spydaap, re, os, sys
+import mutagen
+import spydaap
+import re
+import os
+import sys
 from spydaap.daap import do
 
 # * TODO Implement song.songtrackcount, song.disccount

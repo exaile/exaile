@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, threading, time
+import logging
+import threading
+import time
 import dbus
 
 from xl import common, providers, event

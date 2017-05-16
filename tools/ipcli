@@ -36,7 +36,8 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import sys, os
+import sys
+import os
 
 sys.path.append(os.getcwd())
 

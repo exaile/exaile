@@ -23,7 +23,10 @@ from xl import common, event, xdg, metadata, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu
-import logging, time, pickle, os
+import logging
+import time
+import pickle
+import os
 
 logger = logging.getLogger(__name__)
 

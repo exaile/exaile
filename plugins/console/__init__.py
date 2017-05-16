@@ -25,7 +25,9 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-import os, sys, traceback
+import os
+import sys
+import traceback
 from cStringIO import StringIO
 from xl.nls import gettext as _
 

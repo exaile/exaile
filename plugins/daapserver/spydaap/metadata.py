@@ -19,7 +19,10 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     import md5
 
-import os, struct, spydaap.cache, StringIO
+import os
+import struct
+import spydaap.cache
+import StringIO
 from spydaap.daap import do
 
 

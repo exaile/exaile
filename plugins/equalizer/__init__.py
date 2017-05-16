@@ -37,7 +37,8 @@ from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
-import os, string
+import os
+import string
 
 # Values from <http://www.xmms.org/faq.php#General3>, adjusted to be less loud
 # in general ((mean + max) / 2 = 0).

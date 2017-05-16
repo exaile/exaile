@@ -19,7 +19,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-import threading, re, os, traceback
+import threading
+import re
+import os
+import traceback
 import tempfile
 import shutil
 try:

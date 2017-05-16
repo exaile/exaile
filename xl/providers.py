@@ -73,8 +73,8 @@ class ProviderManager(object):
             logger.debug(
                 "Provider %(provider)s registered for service %(service)s "
                 "with target %(target)s" % {
-                    'provider' : provider.name,
-                    'service' : servicename,
+                    'provider': provider.name,
+                    'service': servicename,
                     'target': target
                 }
             )
@@ -100,13 +100,13 @@ class ProviderManager(object):
                 logger.debug(
                     "Provider %(provider)s unregistered from "
                     "service %(service)s with target %(target)s" % {
-                        'provider' : provider.name,
-                        'service' : servicename,
-                        'target' : target
+                        'provider': provider.name,
+                        'service': servicename,
+                        'target': target
                     }
                 )
                 event.log_event("%s_provider_removed" % servicename, self, (provider, target))
-                if not service[target]: #no values for target key then del it
+                if not service[target]:  # no values for target key then del it
                     del service[target]
         except KeyError:
             return
@@ -221,7 +221,7 @@ class ProviderHandler(object):
             :param provider: the new provider
             :type provider: object
         """
-        pass # for overriding
+        pass  # for overriding
 
     def _remove_callback(self, name, obj, ptuple):
         """
@@ -239,7 +239,7 @@ class ProviderHandler(object):
             :param provider: the removed provider
             :type provider: object
         """
-        pass # for overriding
+        pass  # for overriding
 
     def get_providers(self):
         """

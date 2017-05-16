@@ -51,7 +51,7 @@ try:
         # Required for Gtk.Builder messages
         try:
             locale.textdomain('exaile')
-        except AttributeError: # E.g. Windows
+        except AttributeError:  # E.g. Windows
             pass
         
         # Required for dynamically added messages
@@ -75,7 +75,7 @@ try:
         if locale_path is not None:
             try:
                 locale.bindtextdomain('exaile', locale_path)
-            except AttributeError: # E.g. Windows
+            except AttributeError:  # E.g. Windows
                 pass
             gettextmod.bindtextdomain('exaile', locale_path)
 

@@ -42,27 +42,27 @@ __all__ = ['SINK_PRESETS', 'create_device', 'get_devices']
 
 
 SINK_PRESETS = {
-    "auto"  : {
-        "name"      : _("Automatic")
+    "auto": {
+        "name": _("Automatic")
     },
-    "alsa"  : {
-        "name"      : "ALSA",
-        "pipe"      : "alsasink"
+    "alsa": {
+        "name": "ALSA",
+        "pipe": "alsasink"
     },
-    "oss"   : {
-        "name"      : "OSS",
-        "pipe"      : "osssink"
+    "oss": {
+        "name": "OSS",
+        "pipe": "osssink"
     },
-    "pulse" : {
-        "name"      : "PulseAudio",
-        "pipe"      : "pulsesink"
+    "pulse": {
+        "name": "PulseAudio",
+        "pipe": "pulsesink"
     },
-    "jack" : {
-        "name"      : "JACK",
-        "pipe"      : "jackaudiosink"
+    "jack": {
+        "name": "JACK",
+        "pipe": "jackaudiosink"
     },
-    "custom" : {
-        "name"      : _("Custom")
+    "custom": {
+        "name": _("Custom")
     }
 }
 
@@ -76,7 +76,7 @@ def _gst_device_autodetect():
         for device in dm.get_devices():
             if hasattr(device.props, 'internal_name'):
                 device_id = device.props.internal_name
-            elif hasattr(device.props, 'device_id'): # OSX
+            elif hasattr(device.props, 'device_id'):  # OSX
                 device_id = str(device.props.device_id)
             
             yield (device.get_display_name(),

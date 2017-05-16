@@ -45,9 +45,9 @@ class RatingWidget(Gtk.EventBox):
             GObject.TYPE_INT,
             'rating',
             'The selected rating',
-            0, # Minimum
-            65535, # Maximum
-            0, # Default
+            0,  # Minimum
+            65535,  # Maximum
+            0,  # Default
             GObject.PARAM_READWRITE
         )
     }
@@ -135,7 +135,7 @@ class RatingWidget(Gtk.EventBox):
                 state_type=self.get_state(),
                 area=event.area,
                 widget=self,
-                detail='button', # Borrow style from GtkButton
+                detail='button',  # Borrow style from GtkButton
                 x=event.area.x,
                 y=event.area.y,
                 width=event.area.width,
@@ -236,9 +236,9 @@ class RatingMenuItem(Gtk.MenuItem):
             GObject.TYPE_INT,
             'rating',
             'The selected rating',
-            0, # Minimum
-            65535, # Maximum
-            0, # Default
+            0,  # Minimum
+            65535,  # Maximum
+            0,  # Default
             GObject.PARAM_READWRITE
         )
     }
@@ -335,9 +335,9 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             GObject.TYPE_INT,
             'Rating',
             'The selected rating',
-            0, # Minimum
-            65535, # Maximum
-            0, # Default
+            0,  # Minimum
+            65535,  # Maximum
+            0,  # Default
             GObject.PARAM_READWRITE
         )
     }
@@ -382,7 +382,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             Checks if a button press event did occur
             within the clickable rating image area
         """
-        if event is None: # Keyboard activation
+        if event is None:  # Keyboard activation
             return
 
         # Locate click area at zero

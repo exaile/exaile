@@ -1355,7 +1355,7 @@ def __create_marker_context_menu():
     items = []
 
     def on_jumpto_item_activate(widget, name, parent, context):
-        #parent.seek(context['current-marker'].props.position)
+        # parent.seek(context['current-marker'].props.position)
         position = context['current-marker'].props.position
         player.PLAYER.set_progress(position)
 
@@ -1388,7 +1388,7 @@ class VolumeControl(Gtk.Box):
     button,             \
     slider,             \
     button_image,       \
-    slider_adjustment   = GtkTemplate.Child.widgets(4)
+    slider_adjustment = GtkTemplate.Child.widgets(4)
 
     def __init__(self, player):
         Gtk.Box.__init__(self)
@@ -1413,7 +1413,7 @@ class VolumeControl(Gtk.Box):
         if volume > 0:
             i = clamp(int(round(volume * 2)), 0, len(self.icon_names) - 1)
             icon_name = 'audio-volume-%s' % self.icon_names[i]
-            #TRANSLATORS: Volume percentage
+            # TRANSLATORS: Volume percentage
             tooltip = _('%d%%') % (volume * 100)
         else:
             volume = 0

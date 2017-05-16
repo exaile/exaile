@@ -185,7 +185,7 @@ class TrackDB(object):
                 pdata = shelve.open(location, flag='c',
                         protocol=common.PICKLE_PROTOCOL)
             except ImportError:
-                import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
+                import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
                 _db = bsddb3.hashopen(location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if "_dbversion" in pdata:

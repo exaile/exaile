@@ -25,8 +25,8 @@ class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
     
     __gtype_name__ = 'CellRendererDays'
-    __gproperties__ = {'days':(object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)}
-    __gsignals__ = {'days-changed':(GObject.SignalFlags.RUN_FIRST, None,
+    __gproperties__ = {'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)}
+    __gsignals__ = {'days-changed': (GObject.SignalFlags.RUN_FIRST, None,
                                     (str, object))}
     property_names = __gproperties__.keys()
 
@@ -36,10 +36,10 @@ class CellRendererDays(Gtk.CellRendererText):
         self.view = None
         self.view_window = None
         
-        for day in ['Sunday','Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday']:
+        for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']:
             self.model.append([True, day])
             
-        self.set_property('text','Edit me')
+        self.set_property('text', 'Edit me')
 
     def _create_view(self, treeview):
         '''Create the Window and View to display when editing'''
@@ -67,7 +67,7 @@ class CellRendererDays(Gtk.CellRendererText):
         
         # should be automatic
         self.view_window.set_modal(False)
-        self.view_window.set_transient_for(None) # cancel the modality of dialog
+        self.view_window.set_transient_for(None)  # cancel the modality of dialog
         self.view_window.add(self.view)
 
         # necessary for getting the (width, height) of calendar_window
@@ -95,7 +95,7 @@ class CellRendererDays(Gtk.CellRendererText):
             self.view_window.show()
 
         # set display to reflect 'days' property
-        for i,row in enumerate(self.model):
+        for i, row in enumerate(self.model):
             row[0] = self.days[i]
 
         # position the popup below the edited cell (and try hard to keep the popup within the toplevel window)
@@ -109,7 +109,7 @@ class CellRendererDays(Gtk.CellRendererText):
         # save the path so we can return it in _done, and we aren't using dialog so we can't block....
         self._path = path        
             
-        return None # don't return any editable, our Gtk.Dialog did the work already
+        return None  # don't return any editable, our Gtk.Dialog did the work already
 
     def _done(self):
         '''Called when we are done editing'''

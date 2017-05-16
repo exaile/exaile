@@ -162,7 +162,7 @@ def create_all_search_playlist(groups, exaile):
     tagname = get_tagname()
     
     name = '%s: %s' % (tagname.title(), ' and '.join(groups))
-    search_string = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ','_'))) for group in groups])
+    search_string = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_'))) for group in groups])
     
     _create_search_playlist(name, search_string, exaile)
 

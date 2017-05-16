@@ -24,7 +24,7 @@ class VolumeControl:
     def fade_in(self):
         temp_volume = self.min_volume
         while temp_volume <= self.max_volume:
-            #print "set volume to %s" % str(temp_volume / 100.0)
+            # print "set volume to %s" % str(temp_volume / 100.0)
             player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume += self.increment
             time.sleep(self.time_per_inc)
@@ -34,7 +34,7 @@ class VolumeControl:
     def fade_out(self):
         temp_volume = self.max_volume
         while temp_volume >= self.min_volume:
-            #print "set volume to %d" % (temp_volume / 100.0)
+            # print "set volume to %d" % (temp_volume / 100.0)
             player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume -= self.increment
             time.sleep(self.time_per_inc)

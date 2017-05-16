@@ -274,7 +274,7 @@ class GroupTaggerPlugin(object):
     def on_playlist_cursor_changed(self, type, playlist_view, context):
         '''Called when an item in a playlist is selected'''
         
-        #TODO: Allow multiple tracks
+        # TODO: Allow multiple tracks
         tracks = context['selected-tracks']
         if len(tracks) == 1:
             self.set_display_track(tracks[0])

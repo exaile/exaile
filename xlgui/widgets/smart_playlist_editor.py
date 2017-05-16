@@ -177,7 +177,7 @@ _criteria_types = {
 }
 
 # aliases
-_criteria_types['datetime'] = _criteria_types['text'] # TODO: fix
+_criteria_types['datetime'] = _criteria_types['text']  # TODO: fix
 _criteria_types['multiline'] = _criteria_types['text']
 _criteria_types['dblnum'] = _criteria_types['int']
 
@@ -248,8 +248,8 @@ _TRANS = {
 # name.
 # This gets populated below. Only add special tags/searches here.
 _NMAP = {
-    N_('Rating'): '__rating', # special
-    N_('Playlist'): '__playlist', # not a real tag
+    N_('Rating'): '__rating',  # special
+    N_('Playlist'): '__playlist',  # not a real tag
 }
 
 _REV_NMAP = {}
@@ -386,7 +386,7 @@ class SmartPlaylistEditor(object):
                         "playlist name you entered is already in use."))
                     continue
                 except ValueError:
-                    pass # playlist didn't exist
+                    pass  # playlist didn't exist
             
             pl = playlist.SmartPlaylist(name, collection)
             pl.set_or_match(matchany)

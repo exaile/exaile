@@ -26,7 +26,7 @@ def shave_marks(text):
     last = ' '
     for character in decomposed_text:
         if unicodedata.combining(character) and last in string.ascii_letters:
-            continue # Ignore diacritic on any Latin base character
+            continue  # Ignore diacritic on any Latin base character
         keepers.append(character)
         last = character
     shaved = ''.join(keepers)

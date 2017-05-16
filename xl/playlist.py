@@ -247,7 +247,7 @@ class FormatConverter(object):
         """
         playlist_uri = Gio.File.new_for_uri(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
-        track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\','/'))
+        track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\', '/'))
         
         logging.debug('Importing track: %s' % track_uri)
         
@@ -268,18 +268,18 @@ class FormatConverter(object):
             
                 def _iter_uris(pp, tp):
                     pps = pp[len('file:///'):].split('/')
-                    tps = tp.strip().replace('\\','/').split('/')
+                    tps = tp.strip().replace('\\', '/').split('/')
                     
                     # handle absolute paths correctly
                     if tps[0] == '':
                         tps = tps[1:]
                     
                     # iterate the playlist path a/b/c/d, a/b/c, a/b, ... 
-                    for p in range(len(pps) - 1,0,-1):
+                    for p in range(len(pps) - 1, 0, -1):
                         ppp = 'file:///%s' % '/'.join(pps[0:p])
                     
                         # iterate the file path d, c/d, b/c/d, ... 
-                        for t in range(len(tps) - 1,-1,-1):
+                        for t in range(len(tps) - 1, -1, -1):
                             yield '%s/%s' % (ppp, '/'.join(tps[t:len(tps)]))
 
                 for uri in _iter_uris(playlist_uri, track_path):
@@ -311,7 +311,7 @@ class FormatConverter(object):
             try:
                 export_path_components = urlparse.urlparse(export_path)
                 track_path_components = urlparse.urlparse(track_path)
-            except (AttributeError, ValueError): # None, empty path
+            except (AttributeError, ValueError):  # None, empty path
                 pass
             else:
                 # Only try to retrieve relative paths for tracks with
@@ -461,7 +461,7 @@ class PLSConverter(FormatConverter):
         from ConfigParser import RawConfigParser
 
         pls_playlist = RawConfigParser()
-        pls_playlist.optionxform = str # Make case sensitive
+        pls_playlist.optionxform = str  # Make case sensitive
         pls_playlist.add_section('playlist')
         pls_playlist.set('playlist', 'NumberOfEntries', len(playlist))
 
@@ -571,7 +571,7 @@ class PLSConverter(FormatConverter):
             else:
                 title = title.split(' - ', 1)
 
-                if len(title) > 1: # "Artist - Title"
+                if len(title) > 1:  # "Artist - Title"
                     artist, title = title
                 else:
                     title = title[0]
@@ -743,7 +743,7 @@ class ASXConverter(FormatConverter):
             """
             try:
                 self._stack.pop()
-            except IndexError: # Invalid playlist
+            except IndexError:  # Invalid playlist
                 pass
             else:
                 if tag.lower() == 'entry':
@@ -837,7 +837,7 @@ class XSPFConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        #TODO: support content resolution
+        # TODO: support content resolution
         import xml.etree.cElementTree as ETree
 
         playlist = Playlist(name=self.name_from_path(path))
@@ -929,7 +929,7 @@ class Playlist(object):
         self.__next_data = None
         self.__current_position = -1
         self.__spat_position = -1
-        self.__shuffle_history_counter = 1 # start positive so we can
+        self.__shuffle_history_counter = 1  # start positive so we can
                                 # just do an if directly on the value
         event.add_callback(self.on_playback_track_start,
                 "playback_track_start")
@@ -1083,7 +1083,7 @@ class Playlist(object):
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
 
-            except IndexError: #Pick a new album
+            except IndexError:  # Pick a new album
                 hist = set(self.get_shuffle_history())
                 albums = set()
                 for i, x in enumerate(self):
@@ -1103,7 +1103,7 @@ class Playlist(object):
             try:
                 return random.choice([(i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
                         if i not in hist])
-            except IndexError: # no more tracks
+            except IndexError:  # no more tracks
                 return -1, None
                 
     def __get_next(self, current_position):
@@ -1411,7 +1411,7 @@ class Playlist(object):
             except ValueError:
                 strn = ""
 
-            f.write("%s=%s\n" % (item,strn))
+            f.write("%s=%s\n" % (item, strn))
         f.close()
         if os.path.exists(location + ".new"):
             os.remove(location)
@@ -1450,9 +1450,9 @@ class Playlist(object):
                 break
 
             try:
-                item, strn = line[:-1].split("=",1)
+                item, strn = line[:-1].split("=", 1)
             except ValueError:
-                continue # Skip erroneous lines
+                continue  # Skip erroneous lines
 
             val = settings.MANAGER._str_to_val(strn)
             items[item] = val
@@ -1495,7 +1495,7 @@ class Playlist(object):
             if item in self.save_attrs:
                 try:
                     setattr(self, item, val)
-                except TypeError: # don't bail if we try to set an invalid mode
+                except TypeError:  # don't bail if we try to set an invalid mode
                     logger.debug("Got a TypeError when trying to set attribute %s to %s during playlist restore." % (item, val))
 
     def reverse(self):
@@ -1815,7 +1815,7 @@ class SmartPlaylist(object):
         """
         if not collection:
             collection = self.collection
-        if not collection: #if there wasnt one set we might not have one
+        if not collection:  # if there wasnt one set we might not have one
             return
 
         search_string, matchers = self._create_search_data(collection)
@@ -1847,8 +1847,8 @@ class SmartPlaylist(object):
             Creates a search string + matchers based on the internal params
         """
 
-        params = [] # parameter list
-        matchers = [] # matchers list
+        params = []  # parameter list
+        matchers = []  # matchers list
         maximum = settings.get_option('rating/maximum', 5)
         durations = {
             'seconds': lambda value: timedelta(seconds=value),
@@ -1894,20 +1894,20 @@ class SmartPlaylist(object):
                     {
                         'field': field,
                         'value': value,
-                        'op':    op[0]
+                        'op': op[0]
                     }
             elif op == "!=" or op == "!==" or op == "!~":
                 s += '! %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
                         'value': value,
-                        'op':    op[1:]
+                        'op': op[1:]
                     }
             elif op == "><":
                 s += '( %(field)s>%(value1)s ' \
                     '%(field)s<%(value2)s )' % \
                     {
-                        'field':  field,
+                        'field': field,
                         'value1': value[0],
                         'value2': value[1]
                     }
@@ -1926,7 +1926,7 @@ class SmartPlaylist(object):
                     {
                         'field': field,
                         'value': value,
-                        'op':    op
+                        'op': op
                     }
 
             params.append(s)
@@ -1968,7 +1968,7 @@ class PlaylistManager(object):
             @param playlist_class: the playlist class to use
         """
         self.playlist_class = playlist_class
-        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],playlist_dir)
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], playlist_dir)
         if not os.path.exists(self.playlist_dir):
             os.makedirs(self.playlist_dir)
         self.order_file = os.path.join(self.playlist_dir, 'order_file')
@@ -1999,7 +1999,7 @@ class PlaylistManager(object):
 
             if name not in self.playlists:
                 self.playlists.append(name)
-            #self.playlists.sort()
+            # self.playlists.sort()
             self.save_order()
         else:
             raise PlaylistExists
@@ -2078,10 +2078,10 @@ class PlaylistManager(object):
         """
             Moves the playlist to where position is
         """
-        #Remove the playlist first
+        # Remove the playlist first
         playlist_index = self.playlists.index(playlist)
         self.playlists.pop(playlist_index)
-        #insert it now after position
+        # insert it now after position
         position_index = self.playlists.index(position)
         if after:
             position_index = position_index + 1

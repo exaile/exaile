@@ -42,7 +42,7 @@ class ProgressMonitor(Gtk.Box):
     __gtype_name__ = 'ProgressMonitor'
     
     label,          \
-    progressbar     = GtkTemplate.Child.widgets(2)
+    progressbar = GtkTemplate.Child.widgets(2)
     
     def __init__(self, manager, thread, description, image=None):
         """

@@ -41,15 +41,15 @@ try:
     _read = json.loads
 except ImportError:
     _write = str
-    _read = lambda x: eval(x, {'__builtin__':None})
+    _read = lambda x: eval(x, {'__builtin__': None})
 
 logger = logging.getLogger("multi-alarmclock")
 
-PLUGIN_ENABLED              = False
-TIMER_ID                    = None
-MENU_ITEM                   = None
-ALARM_CLOCK_MAIN            = None
-MY_BUILDER                  = None
+PLUGIN_ENABLED = False
+TIMER_ID = None
+MENU_ITEM = None
+ALARM_CLOCK_MAIN = None
+MY_BUILDER = None
 
 
 def _init(prefsdialog, builder):
@@ -205,8 +205,8 @@ class AlarmClock:
         self.model[path][3] = days
         
         # update display
-        days_str = ['Su','M','Tu','W','Th','F','Sa']
-        self.model[path][4] = ','.join([days_str[i] for i in range(0,7) if days[i]])
+        days_str = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa']
+        self.model[path][4] = ','.join([days_str[i] for i in range(0, 7) if days[i]])
         
         # save changes
         self.save_list()
@@ -217,17 +217,17 @@ class AlarmClock:
         if old_text == new_text:
             return      # No change
             
-        if idx == 1: # Name edit
+        if idx == 1:  # Name edit
             self.model[path][1] = new_text
 
             # save change
             self.save_list()
             
-        elif idx == 2: # Time edit
+        elif idx == 2:  # Time edit
             # validate
             try:
                 t = time.strptime(new_text, '%H:%M')
-                new_text = time.strftime('%H:%M', t) # ensure consistent 0-padding
+                new_text = time.strftime('%H:%M', t)  # ensure consistent 0-padding
             except ValueError:
                 logger.warning('Invalid time format, use: HH:MM (24-hour)')
                 return
@@ -241,8 +241,8 @@ class AlarmClock:
     def add_alarm(self, alarm):
         '''Add an alarm to the model'''
         # update display
-        days_str = ['Su','M','Tu','W','Th','F','Sa']
-        day_disp = ','.join([days_str[i] for i in range(0,7) if alarm.days[i]])
+        days_str = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa']
+        day_disp = ','.join([days_str[i] for i in range(0, 7) if alarm.days[i]])
         self.model.append([alarm.active, alarm.name, alarm.time, alarm.days, day_disp])
         
         # save list changes - NO, called by loader
@@ -281,20 +281,20 @@ class AlarmClock:
     def load_list(self):
         '''Load alarms from file'''    
         logger.debug('load_list() called.')
-        path = os.path.join(xdg.get_data_dirs()[0],'alarmlist.dat')
+        path = os.path.join(xdg.get_data_dirs()[0], 'alarmlist.dat')
         try:
             # Load Alarm List from file.
-            with open(path,'rb') as f:
+            with open(path, 'rb') as f:
                 raw = f.read()
                 try:
                     alist = _read(raw)
-                    assert isinstance(alist, list) # should be list of dicts (new format)
+                    assert isinstance(alist, list)  # should be list of dicts (new format)
                     
                 except Exception:
                     try:
                         # try to import old format
                         for line in raw.strip().split('\n'):
-                            a = Alarm(dict=eval(line, {'__builtin__':None}))
+                            a = Alarm(dict=eval(line, {'__builtin__': None}))
                             logger.debug('loaded alarm {0} ({1}) from file.'.format(a.name, a.time))
                             self.add_alarm(a)
                             
@@ -320,17 +320,17 @@ class AlarmClock:
         logger.debug('save_list() called.')
         
         # Save List
-        path = os.path.join(xdg.get_data_dirs()[0],'alarmlist.dat')
+        path = os.path.join(xdg.get_data_dirs()[0], 'alarmlist.dat')
         
         if len(self.model) > 0:
             alist = [{
-                        'active':row[0],
+                        'active': row[0],
                         'name':row[1],
                         'time':row[2],
                         'days':row[3]
                         } for row in self.model]
                         
-            with open(path,'wb') as f:
+            with open(path, 'wb') as f:
                 f.write(_write(alist))
                 logger.debug('saving {0} alarms.'.format(len(alist)))
 
@@ -380,7 +380,7 @@ def check_alarms(main, exaile):
 #    print current , [ a.time for a in alist if a.active ]
     for al in alist:
         if al.active and al.time == current and al.days[currentDay] == True:
-            check = time.strftime("%m %d %Y %H:%M") # clever...
+            check = time.strftime("%m %d %Y %H:%M")  # clever...
             
             if check in main.RANG:
                 logger.debug('Alarm {0} in RANG'.format(al.name))
@@ -399,7 +399,7 @@ def check_alarms(main, exaile):
                 logger.warning('No tracks queued for alarm to play.')
                 return True
                 
-            if player.PLAYER.is_playing(): # Check if there are songs in playlist and if it is already playing
+            if player.PLAYER.is_playing():  # Check if there are songs in playlist and if it is already playing
                 logger.info('Alarm hit, but already playing')
                 return True    
 
@@ -427,7 +427,7 @@ def enable(exaile):
     '''Called by exaile to enable plugin'''
     if exaile.loading:
         logger.debug('waitin for loaded event')
-        event.add_callback(_enable,'exaile_loaded')
+        event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
 

@@ -78,7 +78,7 @@ def get_tracks_from_uri(uri):
 
     try:
         file_type = gloc.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
-    except GLib.Error: # E.g. cdda
+    except GLib.Error:  # E.g. cdda
         file_type = None
     if file_type == Gio.FileType.DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
@@ -108,7 +108,7 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
         :param reverse: whether to sort in reversed order
         :type reverse: boolean
     """
-    fields = list(fields) # we need the index method
+    fields = list(fields)  # we need the index method
     if trackfunc is None:
         trackfunc = lambda tr: tr
     keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,

@@ -1,19 +1,19 @@
 # Modified to work with Exaile - Brian Parma
 #
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 import BaseHTTPServer
 import SocketServer
@@ -39,7 +39,7 @@ from threading import Thread
 from xl import common, event
 import config
 
-#logging.basicConfig()
+# logging.basicConfig()
 logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']
@@ -52,7 +52,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     def __init__(self, *args):
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6   
-        BaseHTTPServer.HTTPServer.__init__(self,*args)
+        BaseHTTPServer.HTTPServer.__init__(self, *args)
         self.keep_running = True
 
     def serve_forever(self):
@@ -104,9 +104,9 @@ class DaapServer():
         #signal.signal(signal.SIGTERM, make_shutdown(httpd))
         #signal.signal(signal.SIGHUP, rebuild_cache)
         if self.httpd.address_family == socket.AF_INET:
-            self.zeroconf.publish(ipv4=True,ipv6=False)
+            self.zeroconf.publish(ipv4=True, ipv6=False)
         else:
-            self.zeroconf.publish(ipv4=False,ipv6=True)
+            self.zeroconf.publish(ipv4=False, ipv6=True)
             
         try:
             try:
@@ -136,13 +136,13 @@ class DaapServer():
     def stop_server(self):
         self.stop()
 
-#def rebuild_cache(signum=None, frame=None):
+# def rebuild_cache(signum=None, frame=None):
 #    md_cache.build(os.path.abspath(spydaap.media_path))
 #    container_cache.clean()
 #    container_cache.build(md_cache)
 #    cache.clean()
 
-#def really_main():
+# def really_main():
 #    rebuild_cache()
 #    zeroconf = spydaap.zeroconf.Zeroconf(spydaap.server_name,
 #                                         spydaap.port,  
@@ -165,8 +165,8 @@ class DaapServer():
 #    logger.warn("Shutting down.")
 #    zeroconf.unpublish()
 
-#def main():
+# def main():
 #    really_main()
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()

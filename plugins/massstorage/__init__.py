@@ -69,7 +69,7 @@ class MassStorageDevice(Device):
             self.collection.add_library(library)
         self.transfer = collection.TransferQueue(
                 self.collection.get_libraries()[0])
-        self.connected = True # set this here so the UI can react
+        self.connected = True  # set this here so the UI can react
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)

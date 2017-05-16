@@ -63,8 +63,8 @@ class LyricsMania(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = artist.replace(' ','_').replace('\'','').lower()
-        title = title.replace(' ','_').replace('\'','').lower()
+        artist = artist.replace(' ', '_').replace('\'', '').lower()
+        title = title.replace(' ', '_').replace('\'', '').lower()
 
         url = 'http://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
 

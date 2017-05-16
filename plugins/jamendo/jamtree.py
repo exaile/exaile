@@ -36,7 +36,7 @@ class TreeItem(object):
     def __repr__(self):
         return self._name
 
-    #Getter and Setter crap
+    # Getter and Setter crap
     def get_id(self):
         return self._id
 
@@ -49,7 +49,7 @@ class TreeItem(object):
     def set_has_been_expanded(self, value):
         self._has_been_expanded = value
 
-    #this is the location in the TreeStore so that child objects can be added to this object (row_pointer should be a TreeIter object)
+    # this is the location in the TreeStore so that child objects can be added to this object (row_pointer should be a TreeIter object)
     def get_row_pointer(self):
         return self._row_pointer
 
@@ -68,7 +68,7 @@ class Artist(TreeItem):
         TreeItem.__init__(self, id, name, has_been_expanded)
         self._albums = []
 
-    #add an album to this artist
+    # add an album to this artist
     def add_album(self, album):
         if isinstance(album, Album):
             album.artist_name = self.name
@@ -130,6 +130,6 @@ class Track(TreeItem):
         self._artist_name = value
 
     url = property(get_url)
-    #used for adding the track to the playlist initially
+    # used for adding the track to the playlist initially
     artist_name = property(get_artist_name, set_artist_name)
     album_name = property(get_album_name, set_album_name)

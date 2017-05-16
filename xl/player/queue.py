@@ -289,7 +289,7 @@ class PlayQueue(playlist.Playlist):
         old_len = playlist.Playlist.__len__(self)
         playlist.Playlist.__setitem__(self, i, value)
         
-        #if nothing is queued, queue this track up
+        # if nothing is queued, queue this track up
         if self.current_position == -1:
             if isinstance(i, slice):
                 self.current_position = i.indices(len(self))[0] - 1

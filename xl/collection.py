@@ -247,12 +247,12 @@ class Collection(trax.TrackDB):
             raise Exception("Collection is already being scanned")
         if len(self.libraries) == 0:
             event.log_event('scan_progress_update', self, 100)
-            return # no libraries, no need to scan :)
+            return  # no libraries, no need to scan :)
 
         self._scanning = True
         self._scan_stopped = False
 
-        self.file_count = -1 # negative means we dont know it yet
+        self.file_count = -1  # negative means we dont know it yet
 
         self.__count_files()
 
@@ -271,7 +271,7 @@ class Collection(trax.TrackDB):
             self._running_total_count += self._running_count
             if self._scan_stopped:
                 break
-        else: # didnt break
+        else:  # didnt break
             try:
                 if self.location is not None:
                     self.save_to_location()
@@ -349,7 +349,7 @@ class Collection(trax.TrackDB):
             close the collection. does any work like saving to disk,
             closing network connections, etc.
         """
-        #TODO: make close() part of trackdb
+        # TODO: make close() part of trackdb
         COLLECTIONS.remove(self)
 
     def delete_tracks(self, tracks):
@@ -713,7 +713,7 @@ class Library(object):
             returns: the Track object, None if it could not be updated
         """
         uri = gloc.get_uri()
-        if not uri: # we get segfaults if this check is removed
+        if not uri:  # we get segfaults if this check is removed
             return None
         mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
         mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
@@ -926,7 +926,7 @@ class TransferQueue(object):
         self.transferring = True
         self.current_pos += 1
         try:
-            while self.current_pos  < len(self.queue) and not self._stop:
+            while self.current_pos < len(self.queue) and not self._stop:
                 track = self.queue[self.current_pos]
                 loc = track.get_loc_for_io()
                 self.library.add(loc)

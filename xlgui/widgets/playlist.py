@@ -697,7 +697,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         
         self.dragging = False
         self.pending_event = None
-        self.button_pressed = False # used by columns to determine whether
+        self.button_pressed = False  # used by columns to determine whether
                                     # a notify::width event was initiated
                                     # by the user.
         self._insert_focusing = False
@@ -708,7 +708,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # Set to true if you only want things to be copied here, not moved
         self.dragdrop_copyonly = False
 
-        self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
+        self.set_fixed_height_mode(True)  # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
         self.set_enable_search(True)
         self.selection = self.get_selection()
@@ -819,7 +819,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 tracks = [(model.convert_path_to_child_path(path)[0], model.get_value(model.get_iter(path), 0)) for path in paths]
             else:
                 tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
-        except TypeError: #one of the paths was invalid
+        except TypeError:  # one of the paths was invalid
             return []
         return tracks
 
@@ -878,7 +878,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             font = Pango.FontDescription(font)
         
         for position, column in enumerate(columns):
-            position += 2 # offset for pixbuf column
+            position += 2  # offset for pixbuf column
             playlist_column = providers.get_provider(
                 'playlist-columns', column)(self, position, self.player, font)
             playlist_column.connect('clicked', self.on_column_clicked)
@@ -907,7 +907,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         info = selection.get_selected_rows()
         # grab the first visible raw of the treeview
-        firstpath = self.get_path_at_pos(4,4)
+        firstpath = self.get_path_at_pos(4, 4)
         topindex = None
         if firstpath:
             topindex = firstpath[0][0]
@@ -1108,7 +1108,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             return True
 
     ### DND handlers ###
-    ## Source
+    # Source
     def on_drag_begin(self, widget, context):
         """
             Activates the dragging state
@@ -1146,7 +1146,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         self.dragging = False
 
-    ## Dest
+    # Dest
     def on_drag_drop(self, widget, context, x, y, etime):
         """
             Always allows processing of drop operations
@@ -1326,7 +1326,7 @@ class PlaylistModel(Gtk.ListStore):
     }
     
     def __init__(self, playlist, columns, player):
-        Gtk.ListStore.__init__(self, int) # real types are set later
+        Gtk.ListStore.__init__(self, int)  # real types are set later
         self.playlist = playlist
         self.columns = columns
         self.player = player
@@ -1362,7 +1362,7 @@ class PlaylistModel(Gtk.ListStore):
         event.add_ui_callback(self.on_option_set, "gui_option_set")
                 
         self._setup_icons()
-        self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist))) # populate the list
+        self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist)))  # populate the list
 
     def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(
@@ -1392,18 +1392,18 @@ class PlaylistModel(Gtk.ListStore):
             
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(self.play_pixbuf.get_width() * (new_font / default)),1)
+            s = max(int(self.play_pixbuf.get_width() * (new_font / default)), 1)
                 
-            self.play_pixbuf = self.play_pixbuf.scale_simple(s,s,t)
-            self.pause_pixbuf = self.pause_pixbuf.scale_simple(s,s,t)
-            self.stop_pixbuf = self.stop_pixbuf.scale_simple(s,s,t)
-            self.play_stop_pixbuf = self.play_stop_pixbuf.scale_simple(s,s,t)
-            self.pause_stop_pixbuf = self.pause_stop_pixbuf.scale_simple(s,s,t)
-            self.clear_pixbuf = self.clear_pixbuf.scale_simple(s,s,t)
+            self.play_pixbuf = self.play_pixbuf.scale_simple(s, s, t)
+            self.pause_pixbuf = self.pause_pixbuf.scale_simple(s, s, t)
+            self.stop_pixbuf = self.stop_pixbuf.scale_simple(s, s, t)
+            self.play_stop_pixbuf = self.play_stop_pixbuf.scale_simple(s, s, t)
+            self.pause_stop_pixbuf = self.pause_stop_pixbuf.scale_simple(s, s, t)
+            self.clear_pixbuf = self.clear_pixbuf.scale_simple(s, s, t)
         
     def _refresh_icons(self):
         self._setup_icons()
-        for i,row in enumerate(self):
+        for i, row in enumerate(self):
             row[1] = self.icon_for_row(i).pixbuf
         
     def on_option_set(self, typ, obj, data):

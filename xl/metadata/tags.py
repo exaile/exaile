@@ -15,7 +15,7 @@ class _TD(object):
         'editable',
         'min',
         'max',
-        'use_disk', # set true if should retrieve tag from disk -- which means
+        'use_disk',  # set true if should retrieve tag from disk -- which means
                     # the tag cannot be stored in the database
     ]
     
@@ -28,7 +28,7 @@ class _TD(object):
         self.editable = True
         self.use_disk = False 
         
-        for k,v in kwargs.iteritems():
+        for k, v in kwargs.iteritems():
             setattr(self, k, v)    
 
 #: List of metadata tags currently supported by exaile, which are

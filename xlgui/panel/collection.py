@@ -302,13 +302,13 @@ class CollectionPanel(panel.Panel):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
@@ -450,7 +450,7 @@ class CollectionPanel(panel.Panel):
             self.menu.popup(event)
             if not path:
                 return False
-            (mods,paths) = selection.get_selected_rows()
+            (mods, paths) = selection.get_selected_rows()
             if (path[0] in paths):
                 if event.get_state() & guiutil.ModifierType.PRIMARY_SHIFT_MASK:
                     return False
@@ -538,7 +538,7 @@ class CollectionPanel(panel.Panel):
         keyword = self.keyword.strip()
         tags = list(SEARCH_TAGS)
         tags += self.order.all_search_tags()
-        tags = list(set(tags)) # uniquify list to speed up search
+        tags = list(set(tags))  # uniquify list to speed up search
 
         self.tracks = list(
                 trax.search_tracks_from_string(self.sorted_tracks,
@@ -589,7 +589,7 @@ class CollectionPanel(panel.Panel):
 
             @param node: the node
         """
-        previously_loaded = False # was the subtree already loaded
+        previously_loaded = False  # was the subtree already loaded
         iter_sep = None
         if parent is None:
             depth = 0
@@ -614,7 +614,7 @@ class CollectionPanel(panel.Panel):
             if depth > 0:
                 srtrs = trax.sort_result_tracks(tags, srtrs)
         except IndexError:
-            return # at the bottom of the tree
+            return  # at the bottom of the tree
         try:
             image = getattr(self, "%s_image" % tags[-1])
         except Exception:
@@ -769,7 +769,7 @@ class CollectionDragTreeView(DragTreeView):
         path = result[0]
 
         model = widget.get_model()
-        tooltip.set_text(model[path][1]) # 1: title
+        tooltip.set_text(model[path][1])  # 1: title
         widget.set_tooltip_row(tooltip, path)
 
         return True

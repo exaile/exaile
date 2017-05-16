@@ -149,7 +149,7 @@ class BPMAutodetectResponse(Gtk.Dialog):
     __gtype_name__ = 'BPMAutodetectResponse'
     
     q_label,       \
-    r1, r2, r3     = GtkTemplate.Child.widgets(4)
+    r1, r2, r3 = GtkTemplate.Child.widgets(4)
     
     def __init__(self, parent_window, bpm, track):
         Gtk.Dialog.__init__(self, parent=parent_window)
@@ -174,7 +174,7 @@ class BPMWidget(Gtk.Frame):
     
     eventbox,       \
     bpm_label,      \
-    apply_button    = GtkTemplate.Child.widgets(3)
+    apply_button = GtkTemplate.Child.widgets(3)
 
     def __init__(self, player, plugin):
         Gtk.Frame.__init__(self, label=_('BPM Counter'))

@@ -65,7 +65,7 @@ class ID3Format(BaseFormat):
         'language': "TLAN",
     }
     writable = True
-    others = False # make this true once custom tag support actually works
+    others = False  # make this true once custom tag support actually works
 
     def get_keys_disk(self):
         keys = []
@@ -89,24 +89,24 @@ class ID3Format(BaseFormat):
         if len(field) <= 0:
             return []
         ret = []
-        if t in ('TDRC', 'TDOR'): # values are ID3TimeStamps
+        if t in ('TDRC', 'TDOR'):  # values are ID3TimeStamps
             for value in field:
                 ret.extend([unicode(x) for x in value.text])
-        elif t == 'USLT': # Lyrics are stored in plain old strings
+        elif t == 'USLT':  # Lyrics are stored in plain old strings
             for value in field:
                 ret.append(unicode(value.text))
-        elif t == 'WOAR': # URLS are stored in url not text
+        elif t == 'WOAR':  # URLS are stored in url not text
             for value in field:
-                ret.extend([unicode(value.url.replace('\n','').replace('\r',''))])
+                ret.extend([unicode(value.url.replace('\n', '').replace('\r', ''))])
         elif t == 'APIC':
             ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
-        elif t == 'COMM': # Newlines within comments are allowed, keep them
+        elif t == 'COMM':  # Newlines within comments are allowed, keep them
             for item in field:
                 ret.extend([value for value in item.text])
         else:
             for value in field:
                 try:
-                    ret.extend([unicode(x.replace('\n','').replace('\r',''))
+                    ret.extend([unicode(x.replace('\n', '').replace('\r', ''))
                         for x in value.text])
                 except Exception:
                     pass

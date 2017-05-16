@@ -163,11 +163,11 @@ class HistoryPlaylistPage(PlaylistPageBase):
         
         button = Gtk.Button(stock=Gtk.STOCK_CLEAR)
         button.connect('clicked', self.on_clear_history)
-        hbox.pack_start(button , True, True, 0)
+        hbox.pack_start(button, True, True, 0)
         
         button = Gtk.Button(stock=Gtk.STOCK_SAVE)
         button.connect('clicked', self.on_save_history)
-        hbox.pack_start(button , True, True, 0)
+        hbox.pack_start(button, True, True, 0)
         
         self.pack_start(hbox, False, False, 0)
         
@@ -232,7 +232,7 @@ class HistoryPlaylist(Playlist):
         if len(self) >= maxlen - 1:
             Playlist.__delitem__(self, slice(0, max(0, len(self) - (maxlen - 1)), None))
 
-        Playlist.__setitem__(self, slice(len(self),len(self),None), [track])
+        Playlist.__setitem__(self, slice(len(self), len(self), None), [track])
     
     def clear(self):
         Playlist.__delitem__(self, slice(None, None, None))

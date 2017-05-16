@@ -344,7 +344,7 @@ class TrackPropertiesDialog(GObject.GObject):
     def _build_grids_from_rows(self):
         self._clear_grids()
         grids = [self.tags_grid, self.properties_grid]
-        cur_row = {grids[0]:0, grids[1]:0}
+        cur_row = {grids[0]: 0, grids[1]: 0}
 
         for row in self.rows:
             columns = [row.label, row.field]
@@ -737,7 +737,7 @@ class TagTextField(Gtk.Box):
 
         self.buffer = Gtk.TextBuffer()
         self.field = Gtk.TextView.new_with_buffer(self.buffer)
-        self.field.set_size_request(200, 150) # XXX
+        self.field.set_size_request(200, 150)  # XXX
         self.field.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
         scrollwindow = Gtk.ScrolledWindow()
         scrollwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)

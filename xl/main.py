@@ -90,7 +90,7 @@ def create_argument_parser():
     group.add_argument("-n", "--next", dest="Next", action="store_true",
         default=False, help=_("Play the next track"))
     group.add_argument("-p", "--prev", dest="Prev", action="store_true",
-        default=False,   help=_("Play the previous track"))
+        default=False, help=_("Play the previous track"))
     group.add_argument("-s", "--stop", dest="Stop", action="store_true",
         default=False, help=_("Stop playback"))
     group.add_argument("-a", "--play", dest="Play", action="store_true",
@@ -317,7 +317,7 @@ class Exaile(object):
             # if necessary
             self.mainloop_init()
     
-            #initialize DbusManager
+            # initialize DbusManager
             if self.options.StartGui and self.options.Dbus:
                 from xl import xldbus
                 exit = xldbus.check_exit(self.options, self.options.locs)
@@ -332,15 +332,15 @@ class Exaile(object):
             global __version__
             from xl.version import __version__
     
-            #load the rest.
+            # load the rest.
             self.__init()
     
-            #handle delayed commands
+            # handle delayed commands
             if self.options.StartGui and self.options.Dbus and \
                     self.options.StartAnyway and exit == "command":
                 xldbus.run_commands(self.options, self.dbus)
     
-            #connect dbus signals
+            # connect dbus signals
             if self.options.StartGui and self.options.Dbus:
                 self.dbus._connect_signals()
     

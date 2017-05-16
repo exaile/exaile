@@ -103,11 +103,11 @@ def get_preferences_pane():
 
 def on_settings_change(event, setting, option):
     if option == 'plugin/daapserver/name' and ds is not None:
-        ds.set(name=settings.get_option(option,'Exaile Share'))
+        ds.set(name=settings.get_option(option, 'Exaile Share'))
     if option == 'plugin/daapserver/port' and ds is not None:
-        ds.set(port=settings.get_option(option,3689))
+        ds.set(port=settings.get_option(option, 3689))
     if option == 'plugin/daapserver/host' and ds is not None:
-        ds.set(host=settings.get_option(option,'0.0.0.0'))
+        ds.set(host=settings.get_option(option, '0.0.0.0'))
     if option == 'plugin/daapserver/enabled' and ds is not None:
         enabled = setting.get_option(option, True)
         if enabled:

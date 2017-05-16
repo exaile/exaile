@@ -99,7 +99,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             Initializes the mixin
         """
         GObject.GObject.__init__(self)
-        self.playlist_nodes = {} # {playlist: iter} cache for custom playlists
+        self.playlist_nodes = {}  # {playlist: iter} cache for custom playlists
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         # {Playlist: Gtk.Dialog} mapping to keep track of open "are you sure
@@ -216,9 +216,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
                         dialogs.error(self.parent, _("Error loading smart playlist: %s") % str(e))
                         return
                 else:
-                    #Get an up to date copy
+                    # Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.name)
-                    #item.set_is_custom(True)
+                    # item.set_is_custom(True)
 
 #                self.controller.main.add_playlist(item)
                 self.emit('playlist-selected', item)
@@ -317,7 +317,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
                 self.get_panel().get_toplevel(), self.playlist_manager, name)
         
         if name is not None:
-            #Create the playlist from all of the tracks
+            # Create the playlist from all of the tracks
             new_playlist = playlist.Playlist(name)
             new_playlist.extend(tracks)
             # We are adding a completely new playlist with tracks so we save it
@@ -358,9 +358,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
         track = model.get_value(iter, 2)
         if isinstance(track, TrackWrapper):
             del track.playlist[track.playlist.index(track.track)]
-            #Update the list
+            # Update the list
             self.model.remove(iter)
-            #TODO do we save the playlist after this??
+            # TODO do we save the playlist after this??
             self.playlist_manager.save_playlist(track.playlist, overwrite=True)
 
 
@@ -390,7 +390,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.track_target = Gtk.TargetEntry.new("text/uri-list", 0, 0)
         self.playlist_target = Gtk.TargetEntry.new("playlist_name", Gtk.TargetFlags.SAME_WIDGET, 
             self.playlist_name_info)
-        self.deny_targets = [Gtk.TargetEntry.new('',0,0)]
+        self.deny_targets = [Gtk.TargetEntry.new('', 0, 0)]
 
         self.tree = PlaylistDragTreeView(self)
         self.tree.connect('row-activated', self.open_item)
@@ -656,7 +656,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # right now the playlist does not support
             # duplicate tracks very well
             if context.action == Gdk.DragAction.MOVE:
-                #On a move action the second True makes the
+                # On a move action the second True makes the
                 # drag_data_delete function called
                 context.finish(True, True, etime)
             else:
@@ -702,7 +702,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if len(tracks) > 0:
                 self.add_new_playlist(tracks)
 
-    def drag_data_delete(self,  tv, context):
+    def drag_data_delete(self, tv, context):
         """
             Called after a drag data operation is complete
             and we want to delete the source data
@@ -714,7 +714,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Called when someone drags something from the playlist
         """
-        #TODO based on info determine what we set in selection_data
+        # TODO based on info determine what we set in selection_data
         if info == self.playlist_name_info:
             pl = self.tree.get_selected_page()
             if pl is not None:
@@ -794,7 +794,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                                                  Gdk.DragAction.DEFAULT)
                 return False
             return True
-        else: # No drop info
+        else:  # No drop info
             if dragging_playlist:
                 context.drag_status(Gdk.DragAction.MOVE, time)
                 # Change target as well
@@ -806,12 +806,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 pl = self.model.get_value(iter, 2)
-                #Based on what is selected determines what
-                #menu we will show
+                # Based on what is selected determines what
+                # menu we will show
                 if isinstance(pl, playlist.Playlist):
                     Gtk.Menu.popup(self.playlist_menu, None, 
                         None, None, None, 0, event.time)
@@ -827,24 +827,24 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
             return True
 
         if event.keyval == Gdk.KEY_Delete:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 pl = self.model.get_value(iter, 2)
-                #Based on what is selected determines what
-                #menu we will show
+                # Based on what is selected determines what
+                # menu we will show
                 if isinstance(pl, playlist.Playlist) or \
                     isinstance(pl, playlist.SmartPlaylist):
                     self.remove_playlist(pl)
@@ -865,8 +865,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 return
             iter = self.model.get_iter(button_info[0])
             pl = self.model.get_value(iter, 2)
-            #Based on what is selected determines what
-            #menu we will show
+            # Based on what is selected determines what
+            # menu we will show
             if isinstance(pl, playlist.Playlist):
                 self.playlist_menu.popup(event)
             elif isinstance(pl, playlist.SmartPlaylist):

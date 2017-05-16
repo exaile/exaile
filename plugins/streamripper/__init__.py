@@ -135,7 +135,7 @@ class Button(Streamripper):
             self.stop_ripping()
             self.remove_callbacks()
         else:
-            if self.toggle_record(True): #couldn't record stream
+            if self.toggle_record(True):  # couldn't record stream
                 self.button.set_active(True)
                 self.remove_callbacks()
 
@@ -147,7 +147,7 @@ class Button(Streamripper):
 
 
 def enable(exaile):
-    try: #just test if streamripper is installed
+    try:  # just test if streamripper is installed
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:
         raise NotImplementedError('Streamripper is not available.')

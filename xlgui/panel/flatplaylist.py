@@ -73,7 +73,7 @@ class FlatPlaylistPanel(panel.Panel):
 
     def _on_import_button_clicked(self, *e):
         tracks = self.tree.get_selected_tracks()
-        if len(tracks) == 0: # nothing selected, do everything
+        if len(tracks) == 0:  # nothing selected, do everything
             tracks = self.tracks
         self.parent.do_import(tracks)
 
@@ -134,7 +134,7 @@ class FlatPlaylistPanel(panel.Panel):
                 return False
 
             if len(self.tree.get_selected_tracks()) >= 2:
-                (mods,paths) = selection.get_selected_rows()
+                (mods, paths) = selection.get_selected_rows()
                 if (path[0] in paths):
                     if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
                         return False

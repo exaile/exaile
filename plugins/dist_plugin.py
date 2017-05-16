@@ -76,7 +76,7 @@ for dir in args:
     info = {}
     for line in f:
         try:
-            key, val = line.split("=",1)
+            key, val = line.split("=", 1)
         except ValueError:
             continue
         key = key.strip()
@@ -91,7 +91,7 @@ for dir in args:
     tfile = tarfile.open(
             options.output + dir + "-%s.exz" % info["Version"],
             "w:%s" % COMPRESSION)
-    tfile.posix = True # we like being standards-compilant
+    tfile.posix = True  # we like being standards-compilant
 
     for fold, subdirs, files in os.walk(dir):
         for file in files:

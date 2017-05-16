@@ -61,7 +61,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     """
     name = 'lastfm'
     title = 'Last.fm'
-    type = 'remote' # fetches remotely as opposed to locally
+    type = 'remote'  # fetches remotely as opposed to locally
 
     url = 'https://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
 

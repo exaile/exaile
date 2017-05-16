@@ -55,8 +55,8 @@ class Column(Gtk.TreeViewColumn):
     menu_title = classproperty(lambda c: c.display)
     renderer = Gtk.CellRendererText
     formatter = classproperty(lambda c: TrackFormatter('$%s' % c.name))
-    size = 10 # default size
-    autoexpand = False # whether to expand to fit space in Autosize mode
+    size = 10  # default size
+    autoexpand = False  # whether to expand to fit space in Autosize mode
     datatype = str
     dataproperty = 'text'
     cellproperties = {}
@@ -92,7 +92,7 @@ class Column(Gtk.TreeViewColumn):
 
         try:
             self.cellrenderer.set_property('ellipsize', Pango.EllipsizeMode.END)
-        except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
+        except TypeError:  # cellrenderer doesn't do ellipsize - eg. rating
             pass
             
         for name, val in self.cellproperties.iteritems():
@@ -100,7 +100,7 @@ class Column(Gtk.TreeViewColumn):
 
         self.set_reorderable(True)
         self.set_clickable(True)
-        self.set_sizing(Gtk.TreeViewColumnSizing.FIXED) # needed for fixed-height mode
+        self.set_sizing(Gtk.TreeViewColumnSizing.FIXED)  # needed for fixed-height mode
         self.set_sort_order(Gtk.SortType.DESCENDING)
 
         # hack to allow button press events on the header to be detected
@@ -153,7 +153,7 @@ class Column(Gtk.TreeViewColumn):
             if ratio < 1:
                 ratio = ratio * 1.25
             
-            self.size = max(int(self.size * ratio),1)
+            self.size = max(int(self.size * ratio), 1)
         except AttributeError:
             pass            
            
@@ -213,7 +213,7 @@ class Column(Gtk.TreeViewColumn):
 
 class TrackNumberColumn(Column):
     name = 'tracknumber'
-    #TRANSLATORS: Title of the track number column
+    # TRANSLATORS: Title of the track number column
     display = _('#')
     menu_title = _('Track Number')
     size = 30
@@ -293,7 +293,7 @@ class RatingColumn(Column):
             Retrieves the optimal size
         """
         size = icons.MANAGER.pixbuf_from_rating(0, self.get_icon_size_ratio()).get_width()
-        size += 2 # FIXME: Find the source of this
+        size += 2  # FIXME: Find the source of this
 
         return size
 

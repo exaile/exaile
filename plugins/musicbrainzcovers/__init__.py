@@ -72,7 +72,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
             release=album,
             artistname=artist,
             format='CD',
-            limit=3 # Unlimited search is slow
+            limit=3  # Unlimited search is slow
         )
 
         if result['release-list']:

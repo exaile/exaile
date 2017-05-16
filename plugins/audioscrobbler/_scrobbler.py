@@ -14,16 +14,17 @@ logger = logging.getLogger(__name__)
 
 SESSION_ID = None
 INITIAL_URL = None
-POST_URL   = None
-NOW_URL    = None
+POST_URL = None
+POST_URL = None
+NOW_URL = None
 HARD_FAILS = 0
-LAST_HS    = None   # Last handshake time
-HS_DELAY   = 0      # wait this many seconds until next handshake
+LAST_HS = None   # Last handshake time
+HS_DELAY = 0      # wait this many seconds until next handshake
 SUBMIT_CACHE = []
-MAX_CACHE  = 5      # keep only this many songs in the cache
+MAX_CACHE = 5      # keep only this many songs in the cache
 MAX_SUBMIT = 10     # submit at most this many tracks at one time
 PROTOCOL_VERSION = '1.2'
-__LOGIN      = {}     # data required to login
+__LOGIN = {}     # data required to login
 
 USER_AGENT_HEADERS = None
 
@@ -96,10 +97,10 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    else:
       __LOGIN['p'] = password
 
-   token  = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
+   token = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
    values = {
          'hs': 'true',
-         'p' : PROTOCOL_VERSION,
+         'p': PROTOCOL_VERSION,
          'c': client[0],
          'v': client[1],
          'u': user,
@@ -131,8 +132,8 @@ Consider using an NTP-client to keep you system time in sync.''')
    elif lines[0] == 'OK':
       # wooooooohooooooo. We made it!
       SESSION_ID = lines[1]
-      NOW_URL    = lines[2]
-      POST_URL   = lines[3]
+      NOW_URL = lines[2]
+      POST_URL = lines[3]
       HARD_FAILS = 0
       logger.info("Logged in successfully to AudioScrobbler (%s)" % url)
 
@@ -209,7 +210,7 @@ def now_playing(artist, track, album="", length="", trackno="", mbid="",
     if result.strip() == "OK":
         logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
         return True
-    elif result.strip() == "BADSESSION" :
+    elif result.strip() == "BADSESSION":
         if inner_call is False:
             login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
             now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
@@ -346,7 +347,7 @@ you login?''')
       SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
       logger.info("AudioScrobbler OK: %s" % data)
       return True
-   elif lines[0] == "BADSESSION" :
+   elif lines[0] == "BADSESSION":
       if inner_call is False:
          login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
          flush(inner_call=True)

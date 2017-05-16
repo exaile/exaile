@@ -61,7 +61,7 @@ except ImportError:
 # detect authoriztion support in python-daap
 try:
     tmp = DAAPClient()
-    tmp.connect("spam","eggs","sausage") #dummy login
+    tmp.connect("spam", "eggs", "sausage")  # dummy login
     del tmp
 except TypeError:
     AUTH = False
@@ -93,7 +93,7 @@ parse = functools.partial(zip,
         'flags'])
 
 
-class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
+class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
     """
         Handles detection of DAAP shares via Avahi and manages the menu 
         showing the shares.
@@ -101,7 +101,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         Fires a "connect" signal when a menu item is clicked.
     """
     __gsignals__ = {
-                    'connect' : (GObject.SignalFlags.RUN_LAST, None,
+                    'connect': (GObject.SignalFlags.RUN_LAST, None,
                                     (GObject.TYPE_PYOBJECT, ))}
 
     def new_service(self, interface, protocol, name, type, domain, flags):
@@ -120,7 +120,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         if 'fe80' in x.address:
             return
 
-        #Use all available info in key to avoid name conflicts.
+        # Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
         if nstr in self.services:   
@@ -149,7 +149,7 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         
         # check if the menu exist and check if it's ipv4 or we are allowing
         # ipv6
-        print('adding menu',name,key)
+        print('adding menu', name, key)
         if self.menu:
                 menu_item = _smi(name, ['sep'], name,
                                 callback=lambda *x: self.clicked(key))
@@ -185,15 +185,15 @@ class DaapAvahiInterface(GObject.GObject): #derived from python-daap/examples
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
         items = {}
         
-        for key,x in self.services.items():
-            name = '{0} ({1})'.format(x.name,x.host)
+        for key, x in self.services.items():
+            name = '{0} ({1})'.format(x.name, x.host)
             if x.protocol == avahi.PROTO_INET6:
                 if not show_ipv6:
                     continue
                 name += ' - ipv6'
 
             if name not in items:
-                items[name] = (key,x)
+                items[name] = (key, x)
         
 # this dedups based on name-host, replacing ipv4 with ipv6
 #        for key,x in self.services.items():
@@ -510,12 +510,12 @@ class DaapConnection(object):
             Converts the DAAP track database into Exaile Tracks.
         """
         # Convert DAAPTrack's attributes to Tracks.
-        eqiv = {'title':'minm','artist':'asar','album':'asal','tracknumber':'astn',}
+        eqiv = {'title': 'minm', 'artist': 'asar', 'album': 'asal', 'tracknumber': 'astn', }
 #            'genre':'asgn','enc':'asfm','bitrate':'asbr'}
 
         for tr in self.tracks:
             if tr is not None:
-                #http://<server>:<port>/databases/<dbid>/items/<id>.<type>?session-id=<sessionid>
+                # http://<server>:<port>/databases/<dbid>/items/<id>.<type>?session-id=<sessionid>
 
                 uri = "http://%s:%s/databases/%s/items/%s.%s?session-id=%s" % \
                     (self.server, self.port, self.database.id, tr.id,
@@ -534,7 +534,7 @@ class DaapConnection(object):
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 
-                #TODO: convert year (asyr) here as well, what's the formula?
+                # TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000,
                                                          notify_changed=False)
@@ -606,7 +606,7 @@ class DaapLibrary(collection.Library):
 
         # track removal?
         self.scanning = False
-        #return True
+        # return True
 
     # Needed to be overriden for who knows why (exceptions)
     def _count_files(self):
@@ -649,7 +649,7 @@ class NetworkPanel(CollectionPanel):
                                                             get_tracks_func))
         self.menu.add_item(menuitems.PropertiesMenuItem('props', ['enqueue'], 
                                                             get_tracks_func))
-        self.menu.add_item(_sep('sep',['props']))
+        self.menu.add_item(_sep('sep', ['props']))
         self.menu.add_item(_smi('refresh', ['sep'], _('Refresh Server List'),
             callback=lambda *x: mgr.refresh_share(self.name)))
         self.menu.add_item(_smi('disconnect', ['refresh'], 
@@ -728,7 +728,7 @@ def _enable(exaile):
     if AVAHI:
         try:
             avahi_interface = DaapAvahiInterface(exaile, menu_)
-        except RuntimeError: # no dbus?
+        except RuntimeError:  # no dbus?
             avahi_interface = None
             logger.warning('avahi interface could not be initialized (no dbus?)')
         except dbus.exceptions.DBusException as s:

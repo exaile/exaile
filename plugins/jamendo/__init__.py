@@ -101,7 +101,7 @@ class JamendoPanel(panel.Panel):
 
         self.setup_widgets()
 
-    #find out whats selected and add the tracks under it to the playlist
+    # find out whats selected and add the tracks under it to the playlist
     def add_to_playlist(self):
         sel = self.get_selected_item()
         if isinstance(sel, jamtree.Artist):
@@ -132,27 +132,27 @@ class JamendoPanel(panel.Panel):
         if isinstance(sel, jamtree.Track):
             self.add_track_to_playlist(sel)
 
-    #is called when the user wants to download something
+    # is called when the user wants to download something
     def download_selected(self):
         print('It would be really cool if this worked, unfortunately I still need to implement it.')
 
-    #initialise the widgets
+    # initialise the widgets
     def setup_widgets(self):
-        #connect to the signals we listen for
+        # connect to the signals we listen for
         self.builder.connect_signals({
-            'search_entry_activated' : self.on_search_entry_activated,
-            'search_entry_icon_release' : self.clear_search_terms,
-            'refresh_button_clicked' : self.on_search_entry_activated,
-            'search_combobox_changed' : self.on_search_combobox_changed,
-            'ordertype_combobox_changed' : self.on_ordertype_combobox_changed,
-            'orderdirection_combobox_changed' : self.on_orderdirection_combobox_changed,
-            'results_combobox_changed' : self.on_results_combobox_changed
+            'search_entry_activated': self.on_search_entry_activated,
+            'search_entry_icon_release': self.clear_search_terms,
+            'refresh_button_clicked': self.on_search_entry_activated,
+            'search_combobox_changed': self.on_search_combobox_changed,
+            'ordertype_combobox_changed': self.on_ordertype_combobox_changed,
+            'orderdirection_combobox_changed': self.on_orderdirection_combobox_changed,
+            'results_combobox_changed': self.on_results_combobox_changed
         })
 
-        #set up the rightclick menu
+        # set up the rightclick menu
         self.menu = menu.JamendoMenu(self)
 
-        #setup images
+        # setup images
         window = Gtk.Window()
         self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
             'artist', Gtk.IconSize.SMALL_TOOLBAR)
@@ -161,29 +161,29 @@ class JamendoPanel(panel.Panel):
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
 
-        #setup search combobox
+        # setup search combobox
         self.search_combobox = self.builder.get_object('searchComboBox')
         self.search_combobox.set_active(settings.get_option('plugin/jamendo/searchtype', 0))
 
-        #get handle on search entrybox
+        # get handle on search entrybox
         self.search_textentry = self.builder.get_object('searchEntry')
         self.search_textentry.set_text(settings.get_option('plugin/jamendo/searchterms', ""))
 
-        #setup order_by comboboxes
+        # setup order_by comboboxes
         self.orderby_type_combobox = self.builder.get_object('orderTypeComboBox')
         self.orderby_type_combobox.set_active(settings.get_option('plugin/jamendo/ordertype', 0))
         self.orderby_direction_combobox = self.builder.get_object('orderDirectionComboBox')
         self.orderby_direction_combobox.set_active(settings.get_option('plugin/jamendo/orderdirection', 0))
 
-        #setup num_results combobox
+        # setup num_results combobox
         self.numresults_spinbutton = self.builder.get_object('numResultsSpinButton')
         self.numresults_spinbutton.set_value(settings.get_option('plugin/jamendo/numresults', 10))
 
-        #setup status label
+        # setup status label
         self.status_label = self.builder.get_object('statusLabel')
         self.set_status(self.STATUS_READY)
 
-        #setup results treeview
+        # setup results treeview
         self.treeview = DragTreeView(self)
         self.treeview.connect("row-expanded", self.row_expanded)
         self.treeview.set_headers_visible(False)
@@ -224,11 +224,11 @@ class JamendoPanel(panel.Panel):
     def on_results_combobox_changed(self, box, params=None):
         settings.set_option('plugin/jamendo/numresults', box.get_active())
 
-    #is called whenever the user expands a row in the TreeView
+    # is called whenever the user expands a row in the TreeView
     def row_expanded(self, tree, iter, path):
         sel = self.get_selected_item()
         if not sel.expanded:
-            #unexpand node, will get expanded once contents are loaded
+            # unexpand node, will get expanded once contents are loaded
             self.expand_node(sel, False)
             if isinstance(sel, jamtree.Artist):
                 self.expand_artist(sel, False)
@@ -239,17 +239,17 @@ class JamendoPanel(panel.Panel):
             if isinstance(sel, jamtree.Track):
                 self.add_track_to_playlist(sel)
 
-    #Expand an artist node (fetch albums for that artist)
-    #artist: The jamtree.Artist object you want to expand the node for
-    #add_to_playlist: Whether or not add_to_playlist() should be called when done
+    # Expand an artist node (fetch albums for that artist)
+    # artist: The jamtree.Artist object you want to expand the node for
+    # add_to_playlist: Whether or not add_to_playlist() should be called when done
     def expand_artist(self, artist, add_to_playlist=False):
         self.set_status(self.STATUS_RETRIEVING_DATA)
         artist.expanded = True
         jamapi_thread = jamapi.get_albums(artist, self.expand_artist_callback, add_to_playlist)
         jamapi_thread.start()
 
-    #Callback function for when the jamapi thread started in expand_artist() completes
-    #artist: The jamtree.Artist object that should have had its albums populated by the jamapi thread
+    # Callback function for when the jamapi thread started in expand_artist() completes
+    # artist: The jamtree.Artist object that should have had its albums populated by the jamapi thread
     def expand_artist_callback(self, artist, add_to_playlist=False):
         self.remove_dummy(artist)
         for album in artist.albums:
@@ -261,17 +261,17 @@ class JamendoPanel(panel.Panel):
         self.expand_node(artist)
         self.set_status(self.STATUS_READY)
 
-    #Expand an Album node (fetch tracks for album)
-    #album: the Album object to get tracks for
-    #add_to_playlist: Whether or not add_to_playlist() should be called when done
+    # Expand an Album node (fetch tracks for album)
+    # album: the Album object to get tracks for
+    # add_to_playlist: Whether or not add_to_playlist() should be called when done
     def expand_album(self, album, add_to_playlist=False):
         self.set_status(self.STATUS_RETRIEVING_DATA)
         album.expanded = True
         jamapi_thread = jamapi.get_tracks(album, self.expand_album_callback, add_to_playlist)
         jamapi_thread.start()
 
-    #Callback function for when the jamapi thread started in expand_album() completes
-    #album: The jamtree.Album object that should have had its tracks populated by the jamapi thread
+    # Callback function for when the jamapi thread started in expand_album() completes
+    # album: The jamtree.Album object that should have had its tracks populated by the jamapi thread
     def expand_album_callback(self, album, add_to_playlist=False):
         self.remove_dummy(album)
         for track in album.tracks:
@@ -282,13 +282,13 @@ class JamendoPanel(panel.Panel):
         self.expand_node(album)
         self.set_status(self.STATUS_READY)
 
-    #removes the first child node of a node
+    # removes the first child node of a node
     def remove_dummy(self, node):
         iter = node.row_pointer
         dummy = self.model.iter_children(iter)
         self.model.remove(dummy)
 
-    #expands a TreeView node
+    # expands a TreeView node
     def expand_node(self, node, expand=True):
         iter = node.row_pointer
         path = self.model.get_path(iter)
@@ -306,7 +306,7 @@ class JamendoPanel(panel.Panel):
         elif event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(event)
 
-    #is called by the search thread when it completed
+    # is called by the search thread when it completed
     def response_callback(self, collection):
         self.set_status(self.STATUS_READY)
 
@@ -314,7 +314,7 @@ class JamendoPanel(panel.Panel):
             return
 
         for item in collection:
-            #add item to treeview
+            # add item to treeview
             image = self.artist_image
 
             if isinstance(item, jamtree.Album):
@@ -328,14 +328,14 @@ class JamendoPanel(panel.Panel):
             if not isinstance(item, jamtree.Track):
                 self.model.append(parent, (self.artist_image, "", ""))
 
-    #retrieve and display search results
+    # retrieve and display search results
     def on_search_entry_activated(self, widget):
         self.set_status(self.STATUS_SEARCHING)
 
-        #clear existing search
+        # clear existing search
         self.model.clear()
 
-        #get type of search
+        # get type of search
         iter = self.search_combobox.get_active_iter()
         search_type = self.search_combobox.get_model().get_value(iter, 0)
         iter = self.orderby_type_combobox.get_active_iter()
@@ -346,7 +346,7 @@ class JamendoPanel(panel.Panel):
         numresults = self.numresults_spinbutton.get_value_as_int()
         search_term = self.search_textentry.get_text()
 
-        #save search term
+        # save search term
         settings.set_option('plugin/jamendo/searchterms', search_term)
 
         results = None
@@ -381,19 +381,19 @@ class JamendoPanel(panel.Panel):
         iter = self.treeview.get_selection().get_selected()[1]
         return self.model.get_path(iter)
 
-    #get the type of an object
+    # get the type of an object
     def typeof(self, something):
         return something.__class__
 
-    #add a track to the playlist based on its url.
-    #track: a jamtree.Track object
+    # add a track to the playlist based on its url.
+    # track: a jamtree.Track object
     def add_track_to_playlist(self, track):
         self.add_tracks_to_playlist([track])
 
-    #add a bunch of tracks to the playlist at once
-    #track_list: a python list of jamtree.Track objects
+    # add a bunch of tracks to the playlist at once
+    # track_list: a python list of jamtree.Track objects
     def add_tracks_to_playlist(self, track_list):
-        #convert list to list of xl.Track objects as opposed to jamtree.Track objects
+        # convert list to list of xl.Track objects as opposed to jamtree.Track objects
         xltrack_list = []
         for track in track_list:
             tr = xltrack.Track(track.url, scan=False)
@@ -403,7 +403,7 @@ class JamendoPanel(panel.Panel):
             xltrack_list.append(tr)
         self.exaile.gui.main.get_selected_page().playlist.extend(xltrack_list)
 
-    #dragdrop stuff
+    # dragdrop stuff
     def drag_data_received(self, *e):
         pass
 
@@ -413,8 +413,8 @@ class JamendoPanel(panel.Panel):
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         self.add_to_playlist()
 
-#The following is a custom CoverSearchMethod to retrieve covers from Jamendo
-#It is designed to only to get covers for streaming tracks from jamendo
+# The following is a custom CoverSearchMethod to retrieve covers from Jamendo
+# It is designed to only to get covers for streaming tracks from jamendo
 
 
 class JamendoCoverSearch(CoverSearchMethod):
@@ -429,7 +429,7 @@ class JamendoCoverSearch(CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         jamendo_url = track.get_loc_for_io()
-        #http://stream10.jamendo.com/stream/61541/ogg2/02%20-%20PieRreF%20-%20Hologram.ogg?u=0&h=f2b227d38d
+        # http://stream10.jamendo.com/stream/61541/ogg2/02%20-%20PieRreF%20-%20Hologram.ogg?u=0&h=f2b227d38d
         split = jamendo_url.split('/')
         if len(split) > 5 and split[0] == 'http:' and \
                 split[2].endswith('.jamendo.com'):

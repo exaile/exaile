@@ -151,7 +151,7 @@ class DevicePanel(panel.Panel):
 
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {
-        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,bool)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
         'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }

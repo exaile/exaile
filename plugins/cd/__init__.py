@@ -100,7 +100,7 @@ plugin_class = CdPlugin
 
 
 class CDTocParser(object):
-    #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
+    # based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
 
     def __init__(self, device):
         self.device = device
@@ -179,7 +179,7 @@ class CDPlaylist(playlist.Playlist):
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
-        sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]),s)
+        sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]), s)
                 for s in songs.values()])
         sorted = [s[1] for s in sort_tups]
 

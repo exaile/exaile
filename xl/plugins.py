@@ -84,7 +84,7 @@ class PluginsManager(object):
         if path is None:
             return False
         sys.path.insert(0, path)
-        plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
         if hasattr(plugin, 'plugin_class'):
             plugin = plugin.plugin_class()
         sys.path = sys.path[1:]
@@ -93,12 +93,12 @@ class PluginsManager(object):
 
     def install_plugin(self, path):
         try:
-            tar = tarfile.open(path, "r:*") #transparently supports gz, bz2
+            tar = tarfile.open(path, "r:*")  # transparently supports gz, bz2
         except (tarfile.ReadError, OSError):
             raise InvalidPluginError(
                 _('Plugin archive is not in the correct format.'))
 
-        #ensure the paths in the archive are sane
+        # ensure the paths in the archive are sane
         mems = tar.getmembers()
         base = os.path.basename(path).split('.')[0]
         if os.path.isdir(os.path.join(self.plugindirs[0], base)):
@@ -201,11 +201,11 @@ class PluginsManager(object):
         infodict = {}
         for line in f:
             try:
-                key, val = line.split("=",1)
+                key, val = line.split("=", 1)
                 # restricted eval - no bult-in funcs. marginally more secure.
                 infodict[key] = eval(val, {'__builtins__': None, '_': _}, {})
             except ValueError:
-                pass # this happens on blank lines
+                pass  # this happens on blank lines
         return infodict
     
     def is_compatible(self, info):
@@ -260,7 +260,7 @@ class PluginsManager(object):
         """
         preflist = {}
         path = self.__findplugin(pluginname)
-        plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
         try:
             preferences_pane = plugin.get_preferences_pane()
             for c in dir(preferences_pane):

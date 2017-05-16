@@ -1,17 +1,17 @@
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import print_function
 import BaseHTTPServer
@@ -62,7 +62,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     timeout = 1
 
     def __init__(self, *args):
-        BaseHTTPServer.HTTPServer.__init__(self,*args)
+        BaseHTTPServer.HTTPServer.__init__(self, *args)
         self.keep_running = True
 
     def serve_forever(self):
@@ -154,14 +154,14 @@ def main():
     if uid == 0 or gid == 0:
         sys.stderr.write("spydaap must not run as root\n")
         sys.exit(2)
-    #ensure the that the daemon runs a normal user
+    # ensure the that the daemon runs a normal user
     os.setegid(gid)
     os.seteuid(uid)
 
     if not(daemonize):
         really_main()
     else:
-        #redirect outputs to a logfile
+        # redirect outputs to a logfile
         sys.stdout = sys.stderr = Log(open(logfile, 'a+'))
         try:
             pid = os.fork()
@@ -173,7 +173,7 @@ def main():
             sys.exit(1)
 
         # decouple from parent environment
-        os.chdir("/")   #don't prevent unmounting....
+        os.chdir("/")  # don't prevent unmounting....
         os.setsid()
         os.umask(0)
 
@@ -182,8 +182,8 @@ def main():
             pid = os.fork()
             if pid > 0:
                 # exit from second parent, print eventual PID before
-                #print "Daemon PID %d" % pid
-                open(pidfile,'w').write("%d" % pid)
+                # print "Daemon PID %d" % pid
+                open(pidfile, 'w').write("%d" % pid)
                 sys.exit(0)
         except OSError as e:
             print("fork #2 failed: %d (%s)" % (e.errno, e.strerror), file=sys.stderr)

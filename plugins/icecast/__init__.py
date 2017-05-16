@@ -116,7 +116,7 @@ class IcecastRadioStation(RadioStation):
             try:
                 c = httplib.HTTPConnection(hostinfo.netloc,
                         timeout=20)
-            except TypeError: # python 2.5 doesnt have timeout=
+            except TypeError:  # python 2.5 doesnt have timeout=
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
@@ -214,7 +214,7 @@ class IcecastRadioStation(RadioStation):
         set_status(_('Contacting Icecast server...'))
         try:
             c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
-        except TypeError: # python 2.5 doesnt have timeout=
+        except TypeError:  # python 2.5 doesnt have timeout=
             c = httplib.HTTPConnection(hostinfo.netloc)
         while thisPage < nextPage:
             thisPage += 1

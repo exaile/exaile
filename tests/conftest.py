@@ -32,7 +32,7 @@ def exaile_test_cleanup():
 #
 
 
-TrackData = collections.namedtuple('TrackData',[
+TrackData = collections.namedtuple('TrackData', [
     'ext', 'filename', 'uri', 'size', 'writeable',
     'has_cover', 'has_tags'
 ])

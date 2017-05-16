@@ -150,8 +150,8 @@ class MainWindow(GObject.GObject):
             ('<Primary>S', lambda *e: self.on_save_playlist()),
             ('<Shift><Primary>S', lambda *e: self.on_save_playlist_as()),
             ('<Primary>F', lambda *e: self.on_panel_filter_focus()),
-            ('<Primary>G', lambda *e: self.on_search_playlist_focus()), # FIXME
-            ('<Primary><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
+            ('<Primary>G', lambda *e: self.on_search_playlist_focus()),  # FIXME
+            ('<Primary><Alt>l', lambda *e: player.QUEUE.clear()),  # FIXME
                 
             ('<Primary>P', self._on_playpause_button),
             ('<Primary>Right', lambda *e: self._on_seek_key(True)),
@@ -303,9 +303,9 @@ class MainWindow(GObject.GObject):
             Connects the various events to their handlers
         """
         self.builder.connect_signals({
-            'on_configure_event':   self.configure_event,
+            'on_configure_event': self.configure_event,
             'on_window_state_event': self.window_state_change_event,
-            'on_delete_event':      self.on_delete_event,
+            'on_delete_event': self.on_delete_event,
             'on_playpause_button_clicked': self._on_playpause_button,
             'on_next_button_clicked':
                 lambda *e: player.QUEUE.next(),
@@ -1055,7 +1055,7 @@ class MainWindow(GObject.GObject):
                 self.minimized = True
         else:
             if event.changed_mask & Gdk.WindowState.WITHDRAWN and \
-                    not event.new_window_state & (Gdk.WindowState.WITHDRAWN): #and \
+                    not event.new_window_state & (Gdk.WindowState.WITHDRAWN):  # and \
                 self.minimized = False
 
         # track this
@@ -1067,11 +1067,11 @@ class MainWindow(GObject.GObject):
             # -> it must have worked at some point, perhaps this is a GTK version
             # specific set of behaviors? Current code works now on 2.24.17
              
-            #if wm_state is not None:
+            # if wm_state is not None:
             #    if '_NET_WM_STATE_HIDDEN' in wm_state[2]:
             #        show tray
             #        window.hide
-            #else
+            # else
             #    destroy tray
             
             if self.minimized != prev_minimized and self.minimized == True:

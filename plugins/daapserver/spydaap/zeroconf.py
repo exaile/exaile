@@ -29,7 +29,7 @@ class Zeroconf(object):
 
         def publish(self):
             import pybonjour
-            #records as in mt-daapd
+            # records as in mt-daapd
             txtRecord = pybonjour.TXTRecord()
             txtRecord['txtvers']            = '1'
             txtRecord['iTSh Version']       = '131073' #'196609'
@@ -83,7 +83,7 @@ class Zeroconf(object):
                 prot = avahi.PROTO_UNSPEC
             elif ipv6:
                 proto = avahi.PROTO_INET6
-            else: # we don't let them both be false
+            else:  # we don't let them both be false
                 proto = avahi.PROTO_INET
             
             self.group.AddService(avahi.IF_UNSPEC, proto,

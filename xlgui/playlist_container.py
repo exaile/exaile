@@ -120,10 +120,10 @@ class PlaylistNotebook(SmartNotebook):
         # For saving closed tab history
         self._moving_tab = False
         self.tab_history = []
-        self.history_counter = 90000 # to get unique (reverse-ordered) item names
+        self.history_counter = 90000  # to get unique (reverse-ordered) item names
 
         # Build static menu entries        
-        item = menu.simple_separator('clear-sep',[])
+        item = menu.simple_separator('clear-sep', [])
         item.register('playlist-closed-tab-menu', self)
         
         item = menu.simple_menu_item('clear-history', ['clear-sep'], 
@@ -132,7 +132,7 @@ class PlaylistNotebook(SmartNotebook):
         item.register('playlist-closed-tab-menu', self)     
             
         # Simple factory for 'Recently Closed Tabs' MenuItem
-        submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
+        submenu = menu.ProviderMenu('playlist-closed-tab-menu', self)
 
         def factory(menu_, parent, context):
             if self.page_num(parent) == -1:
@@ -157,7 +157,7 @@ class PlaylistNotebook(SmartNotebook):
 
         # Add hotkey
         self.accelerator = Accelerator(hotkey, lambda *x: self.restore_closed_tab(0))
-        providers.register('mainwindow-accelerators',self.accelerator)
+        providers.register('mainwindow-accelerators', self.accelerator)
 
         # Load saved tabs
         self.load_saved_tabs()
@@ -360,7 +360,7 @@ class PlaylistNotebook(SmartNotebook):
         # don't let the list grow indefinitely
         items = providers.get('playlist-closed-tab-menu', self)
         if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
-            self.remove_closed_tab(-1) # remove last item
+            self.remove_closed_tab(-1)  # remove last item
         
         item_name = 'playlist%05d' % self.history_counter 
         close_time = datetime.now()
@@ -401,7 +401,7 @@ class PlaylistNotebook(SmartNotebook):
         self.history_counter -= 1
         
         # add
-        self.tab_history.insert(0, (playlist,item))
+        self.tab_history.insert(0, (playlist, item))
         
     def get_closed_tab(self, pos=None, playlist=None, item_name=None):
         if pos is not None:

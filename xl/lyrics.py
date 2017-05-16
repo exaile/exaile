@@ -65,7 +65,7 @@ class LyricsCache:
         try:
             self.db = shelve.open(location, flag='c', protocol=common.PICKLE_PROTOCOL, writeback=False)
         except ImportError:
-            import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
+            import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
             _db = bsddb3.hashopen(location, 'c')
             self.db = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
         self.lock = threading.Lock()
@@ -249,7 +249,7 @@ class LyricsManager(providers.ProviderHandler):
         lyrics = None
         source = None
         url = None
-        cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
+        cache_time = settings.get_option('lyrics/cache_time', 720)  # in hours
         key = self.__get_cache_key(track, method)
 
         # check cache for lyrics
@@ -335,18 +335,18 @@ class LyricSearchMethod(object):
 
     def remove_script(self, data):
         p = re.compile(r'<script.*/script>')
-        return p.sub('',data)
+        return p.sub('', data)
 
-    def remove_div(self,data):
+    def remove_div(self, data):
         p = re.compile(r'<div.*/div>')
-        return p.sub('',data)
+        return p.sub('', data)
             
     def remove_html_tags(self, data):
         data = data.replace('<br/>', '\n')
         p = re.compile(r'<[^<]*?/?>')
         data = p.sub('', data)
         p = re.compile(r'/<!--.*?-->/')
-        return p.sub('',data)
+        return p.sub('', data)
 
 
 class LocalLyricSearch(LyricSearchMethod):

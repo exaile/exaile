@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 from .unicode import to_unicode, strxfrm
 
-#TODO: get rid of this. only plugins/cd/ uses it.
+# TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
     # Ogg Vorbis spec tags
     "title version album tracknumber artist genre performer copyright "
@@ -219,7 +219,7 @@ def idle_add(callback=None):
 
 
 def _glib_wait_inner(timeout, glib_timeout_func):
-    id = [None] # Have to hold the value in a mutable structure because
+    id = [None]  # Have to hold the value in a mutable structure because
                 # python's scoping rules prevent us assigning to an
                 # outer scope directly.
 
@@ -440,7 +440,7 @@ class cached(object):
             ret = f(*args, **kwargs)
             try:
                 f._cache[(args, self._freeze(kwargs))] = ret
-            except TypeError: # args can't be hashed
+            except TypeError:  # args can't be hashed
                 pass
             return ret
         return wrapper
@@ -492,7 +492,7 @@ def walk(root):
                     queue.append(fil)
                 elif type == Gio.FileType.REGULAR:
                     yield fil
-        except GLib.Error: # why doesnt gio offer more-specific errors?
+        except GLib.Error:  # why doesnt gio offer more-specific errors?
             logger.exception("Unhandled exception while walking on %s.", dir)
 
 

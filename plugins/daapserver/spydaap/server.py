@@ -1,17 +1,17 @@
-#Copyright (C) 2009 Erik Hetzner
+# Copyright (C) 2009 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 import BaseHTTPServer
 import errno
@@ -69,9 +69,9 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             if (hasattr(data, 'close')):
                 data.close()
 
-        #itunes sends request for:
-        #GET daap://192.168.1.4:3689/databases/1/items/626.mp3?seesion-id=1
-        #so we must hack the urls; annoying.
+        # itunes sends request for:
+        # GET daap://192.168.1.4:3689/databases/1/items/626.mp3?seesion-id=1
+        # so we must hack the urls; annoying.
         itunes_re = '^(?://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]+)?'
         drop_q = '(?:\\?.*)?$'
 
@@ -241,7 +241,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                       do('dmap.itemcount', len(c)),
                       do('dmap.containeritemid', i + 1),
                       do('dmap.itemname', c.get_name())]
-                if c.get_name() == 'Library': # this should be better
+                if c.get_name() == 'Library':  # this should be better
                     d.append(do('daap.baseplaylist', 1))
                 else:
                     d.append(do('com.apple.itunes.smart-playlist', 1))

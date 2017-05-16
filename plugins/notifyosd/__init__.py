@@ -119,11 +119,11 @@ class ExaileNotifyOsd(object):
 
         if artist and album:
             self.body = self.format_artist % {'artist' : artist} + '\n' + \
-                    self.format_album % {'album' : album}
+                    self.format_album % {'album': album}
         elif artist:
-            self.body = self.format_artist % {'artist' : artist}
+            self.body = self.format_artist % {'artist': artist}
         elif album:
-            self.body = self.format_album % {'album' : album}
+            self.body = self.format_album % {'album': album}
         else:
             self.body = ""
 
@@ -172,7 +172,7 @@ class ExaileNotifyOsd(object):
                         self.update_track_notify(type, player.PLAYER, track, self.icon)
                         return
                 self.update_track_notify(type, player.PLAYER, track)
-            elif self.notify_pause and self.icon == self.stopicon: # if there is no track, then status is stopped
+            elif self.notify_pause and self.icon == self.stopicon:  # if there is no track, then status is stopped
                 self.update_notify()
                 self.notify.show()
 

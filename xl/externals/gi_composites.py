@@ -46,7 +46,7 @@ def _connect_func(builder, obj, signal_name, handler_name,
     # so ask GtkBuilder for the template instance
     template_inst = builder.get_object(cls.__gtype_name__)
     
-    if template_inst is None: # This should never happen
+    if template_inst is None:  # This should never happen
         errmsg = "Internal error: cannot find template instance! obj: %s; " \
                  "signal: %s; handler: %s; connect_obj: %s; class: %s" % \
                  (obj, signal_name, handler_name, connect_object, cls)
@@ -265,7 +265,7 @@ class _GtkTemplate(object):
 
 
 # Future shim support if this makes it into PyGI?
-#if hasattr(Gtk, 'GtkTemplate'):
+# if hasattr(Gtk, 'GtkTemplate'):
 #    GtkTemplate = lambda c: c
-#else:
+# else:
 GtkTemplate = _GtkTemplate

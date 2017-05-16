@@ -48,7 +48,7 @@ class UDisksPropertyWrapper(object):
     def __getattr__(self, name):
         return lambda *a, **k: self.obj.__getattr__(name)(*((self.iface_type,) + a), **k)
 
-    #def connect_on_changed(self, fn):
+    # def connect_on_changed(self, fn):
     #    '''Connect to the PropertiesChanged signal'''
     #    return self.obj.connect_to_signal('PropertiesChanged', fn, self.iface_type)
 
@@ -218,7 +218,7 @@ class UDisksBase(providers.ProviderHandler):
         
         device = new.get_device(obj, self)
         if new is old and device is self.devices[path]:
-            return # Exactly the same device
+            return  # Exactly the same device
         
         if old is not None:
             self._remove_device(path)
@@ -301,7 +301,7 @@ class UDisksBase(providers.ProviderHandler):
             try:
                 self._remove_device(path)
                 logger.debug("%s: Device removed: " + str(path), self.name)
-            except KeyError: # Not ours
+            except KeyError:  # Not ours
                 pass
             finally:
                 self._state = 'listening'
@@ -454,7 +454,7 @@ class HAL(providers.ProviderHandler):
             self.add_device(udi)
 
     def on_provider_removed(self, provider):
-        pass #TODO: disconnect and remove all devices of this type
+        pass  # TODO: disconnect and remove all devices of this type
 
     def get_handler(self, udi):
         dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
@@ -492,7 +492,7 @@ class HAL(providers.ProviderHandler):
             return
 
         logger.debug("Found new %(handler)s device at %(device_udi)s" %
-                {'handler' : handler.name, 'device_udi' : device_udi})
+                {'handler': handler.name, 'device_udi': device_udi})
         dev.autoconnect()
 
         self.devicemanager.add_device(dev)

@@ -294,7 +294,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
                 item = self.model.get_value(iter, 2)
@@ -315,13 +315,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             return True
 
         if event.keyval == Gdk.KEY_Left:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
         if event.keyval == Gdk.KEY_Right:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            (mods, paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
             return True
@@ -365,8 +365,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when someone drags some thing onto the playlist panel
         """
-        #if the drag originated from radio view deny it
-        #TODO this might change if we are allowed to change the order of radio
+        # if the drag originated from radio view deny it
+        # TODO this might change if we are allowed to change the order of radio
         if Gtk.drag_get_source_widget(context) == tv:
             context.drop_finish(False, etime)
             return
@@ -402,18 +402,18 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         # If the user dragged files prompt for a new playlist name
         # else if they dragged a playlist add the playlist
 
-        #We don't want the tracks in the playlists to be added to the
+        # We don't want the tracks in the playlists to be added to the
         # master tracks list so we pass in False
         (tracks, playlists) = self.tree.get_drag_data(locs, False)
-        #First see if they dragged any playlist files
+        # First see if they dragged any playlist files
         for new_playlist in playlists:
             self.model.append(self.custom, [self.playlist_image,
                 new_playlist.name, new_playlist])
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist, overwrite=True)
 
-        #After processing playlist proceed to ask the user for the
-        #name of the new playlist to add and add the tracks to it
+        # After processing playlist proceed to ask the user for the
+        # name of the new playlist to add and add the tracks to it
         if len(tracks) > 0:
             dialog = dialogs.TextEntryDialog(
             _("Enter the name you want for your new playlist"),
@@ -422,7 +422,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             if result == Gtk.ResponseType.OK:
                 name = dialog.get_value()
                 if not name == "":
-                    #Create the playlist from all of the tracks
+                    # Create the playlist from all of the tracks
                     new_playlist = xl.playlist.Playlist(name)
                     new_playlist.extend(tracks)
                     self.playlist_nodes[new_playlist] = self.model.append(self.custom,

@@ -111,7 +111,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
     def __init__(self, bus_name, object_path, interface):
         try:
             bus = dbus.SessionBus()
-            obj =  bus.get_object(bus_name, object_path)
+            obj = bus.get_object(bus_name, object_path)
             self.iface = dbus.Interface(obj, interface)
             logger.info('Suspend Bus Acquired')
         except dbus.DBusException:

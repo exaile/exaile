@@ -305,14 +305,14 @@ class SettingsManager(RawConfigParser):
                 # make it readable by current user only, to protect private data
                 os.fchmod(f.fileno(), 384)
             except Exception:
-                pass # fail gracefully, eg if on windows
+                pass  # fail gracefully, eg if on windows
 
             f.flush()
 
         try:
             os.rename(self.location, self.location + ".old")
         except Exception:
-            pass # if it doesn'texist we don't care
+            pass  # if it doesn'texist we don't care
 
         os.rename(self.location + ".new", self.location)
 

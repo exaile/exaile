@@ -71,7 +71,7 @@ class AboutWindow():
         self.textbuffer.set_text(book.title + '\n\n' + book.info + '\n')
         start = self.textbuffer.get_iter_at_offset(0)
         end = self.textbuffer.get_iter_at_offset(titlelength)
-        self.textbuffer.apply_tag_by_name('bold',start, end)
+        self.textbuffer.apply_tag_by_name('bold', start, end)
 
     def on_delete(self, window, event):
         self.win.hide()

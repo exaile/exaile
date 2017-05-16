@@ -73,7 +73,7 @@ class GTShowTracksMenuItem(menu.MenuItem):
         elif len(groups) == 1:
             display_name = _('Show tracks tagged with "%s"') % groups[0]
         else:
-            display_name =  _('Show tracks with all selected')
+            display_name = _('Show tracks with all selected')
         
         menuitem = Gtk.MenuItem.new_with_mnemonic(display_name)
         menuitem.connect('activate', lambda *e: gt_common.create_all_search_playlist(context['groups'], parent.exaile))
@@ -154,7 +154,7 @@ class GroupTaggerView(Gtk.TreeView):
             
             item = smi('delgrp', ['addgrp'], _('Delete tag'),
                         callback=self.on_menu_delete_group,
-                        condition_fn=lambda n,p,c: False if len(c['groups']) == 0 else True)
+                        condition_fn=lambda n, p, c: False if len(c['groups']) == 0 else True)
             self.menu.add_item(item)
             
             self.menu.add_item(sep('sep1', ['delgrp']))
@@ -165,7 +165,7 @@ class GroupTaggerView(Gtk.TreeView):
             
             item = smi('remcat', ['addcat'], _('Remove category'),
                         callback=self.on_menu_del_category,
-                        condition_fn=lambda n,p,c: False if len(c['categories']) == 0 else True)
+                        condition_fn=lambda n, p, c: False if len(c['categories']) == 0 else True)
             self.menu.add_item(item)
             
             self.menu.add_item(sep('sep2', ['remcat']))
@@ -173,8 +173,8 @@ class GroupTaggerView(Gtk.TreeView):
         self.menu.add_item(GTShowTracksMenuItem('sel', ['sep2']))
             
         item = smi('selcust', ['sel'], _('Show tracks with selected (custom)'),
-                    callback=lambda w,n,p,c: gt_common.create_custom_search_playlist(c['groups'], exaile),
-                    condition_fn=lambda n,p,c: True if len(c['groups']) > 1 else False)
+                    callback=lambda w, n, p, c: gt_common.create_custom_search_playlist(c['groups'], exaile),
+                    condition_fn=lambda n, p, c: True if len(c['groups']) > 1 else False)
         self.menu.add_item(item)
                     
         # TODO:
@@ -333,7 +333,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
     
     def __init__(self):
-        super(GroupTaggerTreeStore,self).__init__(GObject.TYPE_BOOLEAN,
+        super(GroupTaggerTreeStore, self).__init__(GObject.TYPE_BOOLEAN,
                                 GObject.TYPE_STRING,
                                 GObject.TYPE_BOOLEAN,
                                 GObject.TYPE_INT)
@@ -447,7 +447,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
         for row in self.iter_group_rows():
             yield row[1]
                 
-    #def has_group(self, group):
+    # def has_group(self, group):
     #    for row in self:
     #        for chrow in row:
     #            if row[1] == group:
@@ -508,10 +508,10 @@ class GroupTaggerWidget(Gtk.Box):
         scroll.set_shadow_type(Gtk.ShadowType.IN)
         scroll.add(self.view)
         
-        self.pack_start(self.title, False , True, 0)
-        self.pack_start(self.artist, False , True, 0)
+        self.pack_start(self.title, False, True, 0)
+        self.pack_start(self.artist, False, True, 0)
         self.pack_start(scroll, True, True, 0)
-        self.pack_start(self.tag_button, False , True, 0)
+        self.pack_start(self.tag_button, False, True, 0)
         
     def on_add_tag_click(self, widget):
         self.view.on_menu_add_group(self.view, None, None, self.view.get_context())
@@ -569,7 +569,7 @@ class GroupTaggerWidget(Gtk.Box):
         '''
         
         defaults = {}
-        set_groups = set() # this holds all groups that were found
+        set_groups = set()  # this holds all groups that were found
         
         # validate it
         for category, (visible, cgroups) in group_categories.iteritems():
@@ -613,7 +613,7 @@ class GroupTaggerPanel(notebook.NotebookPage):
         self.tagger = GroupTaggerWidget(exaile)
         
         # add the widgets to this page
-        self.pack_start(self.tagger, True , True, 0) 
+        self.pack_start(self.tagger, True, True, 0) 
         
         self.name = 'grouptagger'
         
@@ -750,7 +750,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
         
         # TODO: Add/remove groups to/from table
         
-        for i,group in enumerate(sorted(groups)):
+        for i, group in enumerate(sorted(groups)):
             
             # label
             gcombo = self._init_combo(self.group_model)
@@ -760,7 +760,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             # combo
             combo = self._init_combo(self.combo_model)
             combo.set_active(0)
-            self.table.attach(combo, 1, i + 1, 1,1)
+            self.table.attach(combo, 1, i + 1, 1, 1)
             
             self.combos.append((gcombo, combo))
             
@@ -811,7 +811,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             name += ' and '.join(and_p[0])
             first = False
             
-            and_p[1] = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ','_'))) for group in and_p[0]]) 
+            and_p[1] = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_'))) for group in and_p[0]]) 
             
         # create the NOT conditions
         if len(not_p[0]):
@@ -821,7 +821,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
                 name += ' and ' + ' and '.join(['not ' + p for p in not_p[0]])
             first = False
             
-            not_p[1] = ' ! %s~"%s"' % (tagname, '|'.join(['\\b' + re.escape(group.replace(' ','_')) + '\\b' for group in not_p[0]]))
+            not_p[1] = ' ! %s~"%s"' % (tagname, '|'.join(['\\b' + re.escape(group.replace(' ', '_')) + '\\b' for group in not_p[0]]))
             
         # create the OR conditions
         if len(or_p[0]):
@@ -832,7 +832,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             else:
                 name += ' and ' + ' or '.join(or_p[0])
         
-            or_p[1] = ' %s~"%s"' %  (tagname, '|'.join(['\\b' + re.escape(group.replace(' ','_')) + '\\b' for group in or_p[0]]))
+            or_p[1] = ' %s~"%s"' % (tagname, '|'.join(['\\b' + re.escape(group.replace(' ', '_')) + '\\b' for group in or_p[0]]))
         
         regex = (and_p[1] + or_p[1] + not_p[1]).strip() 
 
@@ -860,7 +860,7 @@ class GroupTaggerAddRemoveDialog(Gtk.Dialog):
         
         # add the widgets to this page
         box = self.get_content_area()
-        box.pack_start(self.tagger, True , True, 0)
+        box.pack_start(self.tagger, True, True, 0)
         
         self.tagger.view.show_click_column()
         self.show_all()

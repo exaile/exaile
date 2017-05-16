@@ -35,7 +35,7 @@ except ImportError:
     except ImportError:
         SQLITE_AVAIL = False
 
-#sqlite.enable_shared_cache(True)
+# sqlite.enable_shared_cache(True)
 
 from gi.repository import GLib
 

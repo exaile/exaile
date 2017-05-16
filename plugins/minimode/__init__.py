@@ -192,7 +192,7 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/display_window_decorations':
                     if value:
                         option = 'plugin/minimode/window_decoration_type'
-                        value  = settings.get_option(option,
+                        value = settings.get_option(option,
                             self.__defaults[option])
 
                         if value == 'full':

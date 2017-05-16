@@ -44,7 +44,7 @@ class GtMassRename(Gtk.Window):
     replace,        \
     replace_entry,  \
     search_entry,   \
-    tracks_list     = GtkTemplate.Child.widgets(6)
+    tracks_list = GtkTemplate.Child.widgets(6)
     
     def __init__(self, exaile):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)

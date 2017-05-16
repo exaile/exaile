@@ -349,7 +349,7 @@ class NotebookPage(Gtk.Box):
     """
         Base class representing a page. Should never be used directly.
     """
-    menu_provider_name = 'tab-context' #override this in subclasses
+    menu_provider_name = 'tab-context'  # override this in subclasses
     reorderable = True
     __gsignals__ = {
         'name-changed': (

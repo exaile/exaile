@@ -32,7 +32,7 @@ class Accelerator(object):
     __slots__ = ['name', 'keys', 'callback']
 
     def __init__(self, keys, callback):
-        self.name = keys # only here because providers needs it
+        self.name = keys  # only here because providers needs it
         self.keys = keys
         self.callback = callback
 

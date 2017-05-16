@@ -369,12 +369,12 @@ class FilesPanel(panel.Panel):
                 Gio.FileQueryInfoFlags.NONE, None)
         except GLib.Error as e:
             logger.exception(e)
-            if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
+            if directory.get_path() != xdg.homedir:  # Avoid infinite recursion.
                 self.load_directory(
                     Gio.File.new_for_commandline_arg(xdg.homedir),
                     history, keyword, cursor_file)
             return
-        if self.current != directory: # Modified from another thread.
+        if self.current != directory:  # Modified from another thread.
             return
 
         settings.set_option('gui/files_panel_dir', directory.get_uri())
@@ -408,7 +408,7 @@ class FilesPanel(panel.Panel):
         subfiles.sort()
 
         def idle():
-            if self.current != directory: # Modified from another thread.
+            if self.current != directory:  # Modified from another thread.
                 return
 
             model = self.model

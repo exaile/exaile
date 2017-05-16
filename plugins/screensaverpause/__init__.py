@@ -30,12 +30,12 @@ import dbus
 from xl import event, player, settings
 
 SERVICES = [
-    dict( # GNOME
+    dict(  # GNOME
         bus_name='org.gnome.ScreenSaver',
         path='/org/gnome/ScreenSaver',
         dbus_interface='org.gnome.ScreenSaver',
     ),
-    dict( # KDE
+    dict(  # KDE
         bus_name='org.freedesktop.ScreenSaver',
         path='/',
         dbus_interface='org.freedesktop.ScreenSaver',

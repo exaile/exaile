@@ -359,7 +359,7 @@ class URIOpenDialog(TextEntryDialog):
         if response == Gtk.ResponseType.OK:
             self.emit('uri-selected', self.get_value())
 
-        #self.destroy()
+        # self.destroy()
     '''
         dialog = dialogs.TextEntryDialog(_('Enter the URL to open'),
         _('Open URL'))
@@ -715,7 +715,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
             MediaOpenDialog._last_location = self.get_current_folder_uri()
             self.emit('uris-selected', self.get_uris())
 
-        #self.destroy()
+        # self.destroy()
 
 
 class DirectoryOpenDialog(Gtk.FileChooserDialog):
@@ -781,7 +781,7 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
             DirectoryOpenDialog._last_location = self.get_current_folder_uri()
             self.emit('uris-selected', self.get_uris())
 
-        #self.destroy()
+        # self.destroy()
         
 
 class PlaylistImportDialog(Gtk.FileChooserDialog):
@@ -881,7 +881,7 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
             
             self.emit('playlists-selected', playlists)
                     
-        #self.destroy()
+        # self.destroy()
 
 
 class PlaylistExportDialog(FileOperationDialog):
@@ -973,7 +973,7 @@ class PlaylistExportDialog(FileOperationDialog):
                 self.emit('message', Gtk.MessageType.INFO,
                     _('Playlist saved as <b>%s</b>.') % path)
 
-        #self.destroy()
+        # self.destroy()
 
 
 class ConfirmCloseDialog(Gtk.MessageDialog):
@@ -1090,16 +1090,16 @@ class MessageBar(Gtk.InfoBar):
 
         self.primary_text_attributes = Pango.AttrList()
         # TODO: GI: Pango attr
-        #self.primary_text_attributes.insert(
+        # self.primary_text_attributes.insert(
         #    Pango.AttrWeight(Pango.Weight.NORMAL, 0, -1))
-        #self.primary_text_attributes.insert(
+        # self.primary_text_attributes.insert(
         #    Pango.AttrScale(Pango.SCALE_MEDIUM, 0, -1))'''
 
         self.primary_text_emphasized_attributes = Pango.AttrList()
         # TODO: GI: Pango attr
-        #self.primary_text_emphasized_attributes.insert(
+        # self.primary_text_emphasized_attributes.insert(
         #    Pango.AttrWeight(Pango.Weight.BOLD, 0, -1))
-        #self.primary_text_emphasized_attributes.insert(
+        # self.primary_text_emphasized_attributes.insert(
         #    Pango.AttrScale(Pango.SCALE_LARGE, 0, -1))'''
 
         self.connect('response', self.on_response)
@@ -1420,10 +1420,10 @@ class FileCopyDialog(Gtk.Dialog):
         self.text = text
         self.overwrite_response = None
 
-        #self.set_modal(True)
-        #self.set_decorated(False)
+        # self.set_modal(True)
+        # self.set_decorated(False)
         self.set_resizable(False)
-        #self.set_focus_on_map(False)
+        # self.set_focus_on_map(False)
         
         vbox = self.get_content_area()
         
@@ -1450,7 +1450,7 @@ class FileCopyDialog(Gtk.Dialog):
         logger.info("Copy started.")
         self._start_next_copy()
         self.show_all()
-        self.connect('response',self._on_response)
+        self.connect('response', self._on_response)
         
     def run(self):
         raise NotImplementedError("Don't use this")
@@ -1496,7 +1496,7 @@ class FileCopyDialog(Gtk.Dialog):
                         
                     logging.info("NoOverwrite: %s" % self.destination.get_uri())
                     self._step()
-                    GLib.idle_add(self._start_next_copy) # don't recurse
+                    GLib.idle_add(self._start_next_copy)  # don't recurse
                     return
                 else:
                     self._query_overwrite()

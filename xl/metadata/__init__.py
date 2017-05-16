@@ -110,13 +110,13 @@ def get_format(loc):
         pass
             
     ext = os.path.splitext(loc)[1]
-    ext = ext[1:] # remove the pesky .
+    ext = ext[1:]  # remove the pesky .
     ext = ext.lower()
 
     try:
         formatclass = formats[ext]
     except KeyError:
-        return None # not supported
+        return None  # not supported
 
     if formatclass is None:
         formatclass = BaseFormat

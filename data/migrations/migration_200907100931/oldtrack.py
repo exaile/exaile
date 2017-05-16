@@ -38,7 +38,7 @@ def get_default_encoding():
         Returns the encoding to be used when dealing with file paths.  Do not
         use for other purposes.
     """
-    #return 'utf-8'
+    # return 'utf-8'
     return sys.getfilesystemencoding() or sys.getdefaultencoding()
 
 
@@ -53,7 +53,7 @@ class ldict(dict):
     def __setitem__(self, item, value):
         if not isinstance(value, list):
             value = [value]
-        dict.__setitem__(self, item , value)
+        dict.__setitem__(self, item, value)
 
     def __getitem__(self, item):
         try:
@@ -97,7 +97,7 @@ class Track(object):
         """
         return formats[self.ext].is_multi()
 
-    def set_info(self,loc="", title="", artist="",  
+    def set_info(self, loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, rating=0, blacklisted=0, time_added='', 
@@ -131,9 +131,9 @@ class Track(object):
         self.time_added = time_added
         self.playcount = playcount
     
-        for tag, val in {'title': title, 'artist': artist, 'album':album,
-                        'genre': genre, 'discnumber':disc_id,
-                        'tracknumber':track}.iteritems():
+        for tag, val in {'title': title, 'artist': artist, 'album': album,
+                        'genre': genre, 'discnumber': disc_id,
+                        'tracknumber': track}.iteritems():
             self.set_tag(tag, val)
 
    # ========== Getters and setters ============
@@ -464,7 +464,7 @@ class Track(object):
     title = property(get_title, set_title)
     track = property(get_track, set_track)
     version = property(get_version, set_version)
-    year = property(get_date, set_date) # backwards compatibility
+    year = property(get_date, set_date)  # backwards compatibility
 
 
 def read_from_path(uri, track_type=Track):
@@ -474,7 +474,7 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext[1:]
 
-    #if ext not in formats:
+    # if ext not in formats:
     #    xlmisc.log('%s format is not understood' % ext)
     #    return None
 

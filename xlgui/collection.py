@@ -105,7 +105,7 @@ class CollectionManagerDialog(Gtk.Dialog):
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_ADD, Gtk.ResponseType.OK))
         dialog.set_current_folder(xdg.get_last_dir())
-        dialog.set_local_only(False) # enable gio
+        dialog.set_local_only(False)  # enable gio
         response = dialog.run()
         
         # XXX: For some reason, on Ubuntu 12.10 (GTK 2.24.13), hiding the

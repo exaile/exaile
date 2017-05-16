@@ -141,7 +141,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
         for name in added_controls:
             try:
                 provider = self.get_provider(name)()
-            except Exception: # Not found, initialization error, ...)
+            except Exception:  # Not found, initialization error, ...)
                 logger.exception('Failed to add control provider "%s"', name)
                 selected_controls.remove(name)
             else:

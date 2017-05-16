@@ -99,8 +99,8 @@ else:
 def load_directsoundsink(presets):
     
     preset = {
-        "name"      : "DirectSound",
-        "pipe"      : "directsoundsink"
+        "name": "DirectSound",
+        "pipe": "directsoundsink"
     }
     
     presets['directsoundsink'] = preset

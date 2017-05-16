@@ -350,7 +350,7 @@ class ToolTip(object):
                             "(non-instantiable) type `ToolTip'")
 
         self.__widget = widget
-        self.__widget.unparent() # Just to be sure
+        self.__widget.unparent()  # Just to be sure
 
         parent.set_has_tooltip(True)
         parent.connect('query-tooltip', self.on_query_tooltip)
@@ -540,7 +540,7 @@ class Statusbar(object):
         self.message_ids = []
 
         # TODO: GI
-        #self.status_bar.set_app_paintable(True)
+        # self.status_bar.set_app_paintable(True)
         #self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):

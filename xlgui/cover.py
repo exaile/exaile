@@ -215,7 +215,7 @@ class CoverManager(GObject.GObject):
             try:
                 thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
                     interp_type=GdkPixbuf.InterpType.BILINEAR)
-            except AttributeError: # cover_pixbuf is None
+            except AttributeError:  # cover_pixbuf is None
                 thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
 

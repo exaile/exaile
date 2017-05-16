@@ -35,8 +35,8 @@ from xl.metadata._base import BaseFormat, NotReadable
 type_map = {
         "aifc": aifc,
         "aiff": aifc,
-        "au"  : sunau,
-        "wav" : wave,
+        "au": sunau,
+        "wav": wave,
         }
 
 

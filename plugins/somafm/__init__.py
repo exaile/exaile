@@ -71,7 +71,7 @@ class SomaFMRadioStation(RadioStation):
         self.user_agent = main.exaile().get_user_agent_string('somafm')
         self.somafm_url = 'http://somafm.com/'
         self.channels_xml_url = self.somafm_url + 'channels.xml'
-        self.cache_file = os.path.join(xdg.get_cache_dir(),'somafm.cache')
+        self.cache_file = os.path.join(xdg.get_cache_dir(), 'somafm.cache')
         self.channelist = ''
         self.data = {}
         self._load_cache()
@@ -204,7 +204,7 @@ class SomaFMRadioStation(RadioStation):
         rlists = []
         i = 1
         for pls in plss:
-            type = pls.tag.replace('pls','')
+            type = pls.tag.replace('pls', '')
             format = pls.attrib['format'].upper()
             url = pls.text
             display_name = format + " - " + type

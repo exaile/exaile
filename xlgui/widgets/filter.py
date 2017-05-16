@@ -255,7 +255,7 @@ class FilterWidget(Gtk.Grid):
         state = []
         for row in self.rows:
             state.append(row[0].get_state())
-            state[-1][0].reverse() # reverse so it reads more nicely
+            state[-1][0].reverse()  # reverse so it reads more nicely
         return state
 
     def set_state(self, state):
@@ -274,9 +274,9 @@ class FilterWidget(Gtk.Grid):
         for i in xrange(n_present, n_required):
             self.add_criteria_row()
         for i in xrange(n_present, n_required, -1):
-            self.remove_criteria_row(i - 1) # i is one less than n
+            self.remove_criteria_row(i - 1)  # i is one less than n
         for i, cstate in enumerate(state):
-            cstate[0].reverse() # reverse so it becomes a stack
+            cstate[0].reverse()  # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)
 
 

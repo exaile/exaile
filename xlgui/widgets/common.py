@@ -144,7 +144,7 @@ class AutoScrollTreeView(Gtk.TreeView):
     def __init__(self):
         Gtk.TreeView.__init__(self)
 
-        self._SCROLL_EDGE_SIZE = 15 # As in gtktreeview.c
+        self._SCROLL_EDGE_SIZE = 15  # As in gtktreeview.c
         self.__autoscroll_timeout_id = None
 
         self.connect("drag-motion", self._on_drag_motion)
@@ -178,7 +178,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         x, y = self.convert_widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge
-        offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE) # 3: Scroll faster upwards
+        offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE)  # 3: Scroll faster upwards
 
         # Check if we are near the bottom edge instead
         if offset > 0:
@@ -320,7 +320,7 @@ class DragTreeView(AutoScrollTreeView):
 
                     fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width + 10, height + 10)
-                    fill_pixbuf.fill(0x00000000) # Fill with transparent background
+                    fill_pixbuf.fill(0x00000000)  # Fill with transparent background
 
                     fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width, height)
@@ -447,7 +447,7 @@ class DragTreeView(AutoScrollTreeView):
         except AttributeError:
             pass
 
-    #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
+    # TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):
         """
             Handles the locations from drag data
@@ -465,7 +465,7 @@ class DragTreeView(AutoScrollTreeView):
                 in a playlist are not added to the list of tracks, but a track could
                 be both in as a found track and part of a playlist)
         """
-        #TODO handle if they pass in existing tracks
+        # TODO handle if they pass in existing tracks
         trs = []
         playlists = []
         for loc in locs:
@@ -474,7 +474,7 @@ class DragTreeView(AutoScrollTreeView):
             playlists.extend(found_playlist)
 
         if compile_tracks:
-            #Add any tracks in the playlist to the master list of tracks
+            # Add any tracks in the playlist to the master list of tracks
             for playlist in playlists:
                 for track in playlist.get_tracks():
                     if track not in trs:
@@ -510,16 +510,16 @@ class DragTreeView(AutoScrollTreeView):
 
         if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
             new_track = trax.Track(loc)
-            return ([new_track],[])
+            return ([new_track], [])
         elif playlist.is_valid_playlist(loc):
-            #User is dragging a playlist into the playlist list
+            # User is dragging a playlist into the playlist list
             # so we add all of the songs in the playlist
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
         elif filetype == Gio.FileType.DIRECTORY:
             return (trax.get_tracks_from_uri(loc), [])
-        else: #We don't know what they dropped
+        else:  # We don't know what they dropped
             return ([], [])
 
 
@@ -546,7 +546,7 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         """
             Emits the *clicked* signal
         """
-        if event is None: # Keyboard activation
+        if event is None:  # Keyboard activation
             return
 
         pixbuf_width = self.props.pixbuf.get_width()

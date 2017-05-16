@@ -100,14 +100,14 @@ class LVPanel():
     @guiutil.idle_add()
     def done_getting_chapters(self, row):
         # adds chapters to treeview and removes "Loading..." message
-        l_iter = self.treestore.get_iter((row,0))
+        l_iter = self.treestore.get_iter((row, 0))
         iter = self.treestore.get_iter((row,))
         for chapter in self.books[row].chapters:
             self.rowlvl2 = self.treestore.append(iter, [chapter[0], self.chapter_icon])
         if len(self.books[row].chapters) > 0:
             self.treestore.remove(l_iter)
 
-    def __init__(self,exaile):
+    def __init__(self, exaile):
 
         self.name = 'librivox'   # needed for panel provider
         self._panel = None
@@ -207,13 +207,13 @@ class LVPanel():
         row = path[0]
         if self.books[row].is_loading:
             return
-        if len(path) == 1: # selected item is book
-            if self.books[row].loaded: # book info already loaded
+        if len(path) == 1:  # selected item is book
+            if self.books[row].loaded:  # book info already loaded
                 self.add_to_playlist(self.books[row].chapters)
             else:
                 self.get_chapters_and_add(row)
 
-        if len(path) > 1: # selected item is chapter
+        if len(path) > 1:  # selected item is chapter
             chapter = self.books[path[0]].chapters[path[1]]
             self.add_to_playlist([chapter])
 
@@ -249,10 +249,10 @@ class LVPanel():
         path = self.treeview.get_cursor()[0]
         if not path:
             return
-        if len(path) == 1: # book selected
+        if len(path) == 1:  # book selected
             book = self.books[path[0]]
             uris = []
-            if book.loaded: #chapters loaded
+            if book.loaded:  # chapters loaded
                 for chapter in book.chapters:
                     chapter_track = self.generate_tracks([chapter])
                     DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
@@ -270,7 +270,7 @@ class LVPanel():
                 
                 current_playlist_tv = current_playlist.list
 
-                (x,y) = current_playlist_tv.get_pointer()
+                (x, y) = current_playlist_tv.get_pointer()
                 rect = current_playlist_tv.get_allocation()
                 if x < 0 or x > rect.width or y < 0 or y > rect.height:
                     # dropping not in main playlist
@@ -321,7 +321,7 @@ class LVPanel():
                 iter = current_playlist.model.insert_before(iter, ar)
             else:
                 iter = current_playlist.model.insert_after(iter, ar)
-        #re add to ordered playlist
+        # re add to ordered playlist
         current_playlist.playlist.ordered_tracks = []
         for row in current_playlist.model:
             current_playlist.playlist.ordered_tracks.append(row[0])

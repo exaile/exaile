@@ -135,7 +135,7 @@ def start_logging(debug, quiet, debugthreads,
         file_loglevel = logging.DEBUG
         console_loglevel = logging.DEBUG
         console_format = "%(asctime)s,%(msecs)3d:" + console_format
-        console_format += " (%(name)s)" # add module name
+        console_format += " (%(name)s)"  # add module name
     elif quiet:
         console_loglevel = logging.WARNING
     
@@ -166,7 +166,7 @@ def start_logging(debug, quiet, debugthreads,
     logfile = logging.handlers.RotatingFileHandler(
             os.path.join(logdir, 'exaile.log'),
             mode='a', backupCount=5)
-    logfile.doRollover() # each session gets its own file
+    logfile.doRollover()  # each session gets its own file
     logfile.setLevel(file_loglevel)
     logfile.setFormatter(fmt_class(fmt=file_format,
                                    datefmt=datefmt))

@@ -24,21 +24,21 @@ import sys
 ##############################################################################
 
 
-class Pidgin :
+class Pidgin:
 
-    def __init__(self, dbusInterface) :
+    def __init__(self, dbusInterface):
         """
             Constructor
         """
         self.purple = dbusInterface
 
-    def listAccounts(self) :
+    def listAccounts(self):
         """
             Purple merges all accounts, so we return a default one
             Each account is associated with:
                 * A boolean -> True if the status of this account was changed on the previous track change
         """
-        return {'GenericAccount' : False}
+        return {'GenericAccount': False}
 
     def setStatus(self, status, attr, value):
         # this doesn't actually work, for some reason the getter always return ""
@@ -47,7 +47,7 @@ class Pidgin :
             return True
         return False
 
-    def setTune(self, artist, title, album) :
+    def setTune(self, artist, title, album):
         """
             Change the tune status
             Return True if the message is successfully updated

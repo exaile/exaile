@@ -387,7 +387,7 @@ class CoverManager(providers.ProviderHandler):
         try:
             os.rename(path, path + ".old")
         except OSError:
-            pass # if it doesn'texist we don't care
+            pass  # if it doesn'texist we don't care
         os.rename(path + ".new", path)
         try:
             os.remove(path + ".old")

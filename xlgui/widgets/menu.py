@@ -150,7 +150,7 @@ class MenuItem(object):
         self.name = name
         self.after = after
         self._factory = factory
-        self._pos = 'normal' # Don't change this unless you have a REALLY good
+        self._pos = 'normal'  # Don't change this unless you have a REALLY good
                              # reason to. after= is the 'supported'
                              # method of ordering, this property is not
                              # considered public api and may change

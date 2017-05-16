@@ -78,9 +78,9 @@ class BaseFormat(object):
         # this only needs to be run once per class
         
         if cls.case_sensitive:
-            cls._reverse_mapping = {v: k for k,v in cls.tag_mapping.iteritems()}
+            cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
         else:
-            cls._reverse_mapping = {v.lower(): k for k,v in cls.tag_mapping.iteritems()}
+            cls._reverse_mapping = {v.lower(): k for k, v in cls.tag_mapping.iteritems()}
         
         from .tags import disk_tags
         cls.ignore_tags = set(disk_tags)

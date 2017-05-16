@@ -47,8 +47,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ','_'))
-        title = urllib.quote(title.replace(' ','_'))
+        artist = urllib.quote(artist.replace(' ', '_'))
+        title = urllib.quote(title.replace(' ', '_'))
 
         url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
 
@@ -61,9 +61,9 @@ class LyricWiki(LyricSearchMethod):
             soup = BeautifulSoup(html, "lxml")
         except HTMLParser.HTMLParseError:
             raise LyricsNotFoundException
-        lyrics = soup.findAll(attrs={"class" : "lyricbox"})
+        lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
-            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')))
+            lyrics = re.sub(r' Send.*?Ringtone to your Cell ', '', '\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />', '\n')).replace('\n\n\n', '').split('\n')))
         else:
             raise LyricsNotFoundException
 

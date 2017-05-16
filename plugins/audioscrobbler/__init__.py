@@ -53,7 +53,7 @@ def __enb(eventname, exaile, nothing):
 
 def _enable(exaile):
 #    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
-    SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
+    SCROBBLER.get_options('', '', 'plugin/ascrobbler/menu_check')
 
 
 def disable(exaile):
@@ -84,8 +84,8 @@ class ExaileScrobbler(object):
         self.exaile = exaile
         self.cachefile = os.path.join(xdg.get_data_dirs()[0],
                 "audioscrobbler.cache")
-        self.get_options('','','plugin/ascrobbler/cache_size')
-        self.get_options('','','plugin/ascrobbler/user')
+        self.get_options('', '', 'plugin/ascrobbler/cache_size')
+        self.get_options('', '', 'plugin/ascrobbler/user')
         self.load_cache()
         event.add_ui_callback(self.get_options, 'plugin_ascrobbler_option_set')
         event.add_callback(self._save_cache_cb, 'quit_application')
@@ -96,7 +96,7 @@ class ExaileScrobbler(object):
             settings.set_option('plugin/ascrobbler/submit', not self.submit)
             
         self.accelerator = Accelerator('<Primary>b', toggle_submit)
-        providers.register('mainwindow-accelerators',self.accelerator)
+        providers.register('mainwindow-accelerators', self.accelerator)
         
     def get_options(self, type, sm, option):
         if option == 'plugin/ascrobbler/cache_size':
@@ -105,7 +105,7 @@ class ExaileScrobbler(object):
             return
 
         if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
-                'plugin/ascrobbler/submit','plugin/ascrobbler/scrobble_remote']:
+                'plugin/ascrobbler/submit', 'plugin/ascrobbler/scrobble_remote']:
             username = settings.get_option('plugin/ascrobbler/user', '')
             password = settings.get_option('plugin/ascrobbler/password', '')
             server = settings.get_option('plugin/ascrobbler/url',
@@ -166,7 +166,7 @@ class ExaileScrobbler(object):
             event.remove_callback(self.on_stop, 'playback_track_end', player.PLAYER)
             self.connected = False
             self.save_cache()
-        providers.unregister('mainwindow-accelerators',self.accelerator)
+        providers.unregister('mainwindow-accelerators', self.accelerator)
 
     @common.threaded
     def initialize(self, username, password, server):
@@ -243,13 +243,13 @@ class ExaileScrobbler(object):
 
     def save_cache(self):
         cache = scrobbler.SUBMIT_CACHE
-        f = open(self.cachefile,'w')
+        f = open(self.cachefile, 'w')
         pickle.dump(cache, f)
         f.close()
 
     def load_cache(self):
         try:
-            f = open(self.cachefile,'r')
+            f = open(self.cachefile, 'r')
             cache = pickle.load(f)
             f.close()
             scrobbler.SUBMIT_CACHE = cache

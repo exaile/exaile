@@ -48,25 +48,25 @@ logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
-        u'ß': u'ss', # U+00DF
-        u'æ': u'ae', # U+00E6
-        u'ĳ': u'ij', # U+0133
-        u'ŋ': u'ng', # U+014B
-        u'œ': u'oe', # U+0153
-        u'ƕ': u'hv', # U+0195
-        u'ǆ': u'dz', # U+01C6
-        u'ǉ': u'lj', # U+01C9
-        u'ǌ': u'nj', # U+01CC
-        u'ǳ': u'dz', # U+01F3
-        u'ҥ': u'ng', # U+04A5
-        u'ҵ': u'ts', # U+04B5
+        u'ß': u'ss',  # U+00DF
+        u'æ': u'ae',  # U+00E6
+        u'ĳ': u'ij',  # U+0133
+        u'ŋ': u'ng',  # U+014B
+        u'œ': u'oe',  # U+0153
+        u'ƕ': u'hv',  # U+0195
+        u'ǆ': u'dz',  # U+01C6
+        u'ǉ': u'lj',  # U+01C9
+        u'ǌ': u'nj',  # U+01CC
+        u'ǳ': u'dz',  # U+01F3
+        u'ҥ': u'ng',  # U+04A5
+        u'ҵ': u'ts',  # U+04B5
         }
 
 # Cache these here because calling gettext inside get_tag_display
 # is two orders of magnitude slower.
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
-#TRANSLATORS: String multiple tag values will be joined by
+# TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR = _(u' / ')
 
 _no_set_raw = {'__basename'} | disk_tags
@@ -226,7 +226,7 @@ class Track(object):
             return
 
         self.__tags = {}
-        self._scan_valid = None # whether our last tag read attempt worked
+        self._scan_valid = None  # whether our last tag read attempt worked
         self._dirty = False
 
         if _unpickles:
@@ -346,12 +346,12 @@ class Track(object):
         try:
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
-                return False # not a supported type
+                return False  # not a supported type
             f.write_tags(self.__tags)
             
             # now that we've written the tags to disk, remove any tags that the
             # user asked to be deleted
-            to_remove = [k for k,v in self.__tags.iteritems() if v is None]
+            to_remove = [k for k, v in self.__tags.iteritems() if v is None]
             for rm in to_remove:
                 self.__tags.pop(rm)
             
@@ -376,7 +376,7 @@ class Track(object):
             f = metadata.get_format(loc)
             if f is None:
                 self._scan_valid = False
-                return False # not a supported type
+                return False  # not a supported type
             ntags = f.read_all()
             for k, v in ntags.iteritems():
                 self.set_tag_raw(k, v)
@@ -461,12 +461,12 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return [k for k,v in self.__tags.iteritems() if v is not None] + ['__basename']
+        return [k for k, v in self.__tags.iteritems() if v is not None] + ['__basename']
 
     def _xform_set_values(self, tag, values):
         # Handle values that aren't lists
         if not isinstance(values, list):
-            if not tag.startswith("__"): # internal tags dont have to be lists
+            if not tag.startswith("__"):  # internal tags dont have to be lists
                 values = [values]
 
         # For lists, filter out empty values and convert string values to Unicode
@@ -530,7 +530,7 @@ class Track(object):
         """
         if tag == '__basename':
             value = self.get_basename()
-        elif tag == '__startoffset': # necessary?
+        elif tag == '__startoffset':  # necessary?
             value = self.__tags.get(tag, 0)
         else:
             value = self.__tags.get(tag)
@@ -591,7 +591,7 @@ class Track(object):
             value = self.__tags.get(tag)
 
         if not value:
-            value = u"\uffff\uffff\uffff\uffff" # unknown
+            value = u"\uffff\uffff\uffff\uffff"  # unknown
             if tag == 'title':
                 basename = self.get_basename_display()
                 value = u"%s (%s)" % (value, basename)
@@ -645,7 +645,7 @@ class Track(object):
                 if value == -1:
                     value = u""
                 else:
-                    #TRANSLATORS: Bitrate (k here is short for kbps).
+                    # TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
                 value = u""
@@ -702,7 +702,7 @@ class Track(object):
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value != -1:
-                    #TRANSLATORS: Bitrate (k here is short for kbps).
+                    # TRANSLATORS: Bitrate (k here is short for kbps).
                     value = [_("%dk") % value,
                              self.__tags['__bitrate']]
             except (KeyError, ValueError):
@@ -745,7 +745,7 @@ class Track(object):
         if not f:
             try:
                 f = metadata.get_format(self.get_loc_for_io())
-            except Exception: # TODO: What exception?
+            except Exception:  # TODO: What exception?
                 return None
             if not f:
                 return None

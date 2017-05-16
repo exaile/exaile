@@ -1,18 +1,18 @@
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 #              2010 Brian Parma
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 import mutagen
 import re
@@ -54,7 +54,7 @@ class ExaileParser(spydaap.parser.Parser):
             if k in map:
                 try:
                     tn = str(md.get_tag_raw(k)[0])
-                    if '/' in tn: #
+                    if '/' in tn:
                         num, tot = tn.split('/')
                         if num == '':           # empty tags
                             num = 0
@@ -99,13 +99,13 @@ class ExaileParser(spydaap.parser.Parser):
             if _len is None:    # don't parse songs that don't have length
                 return (None, None)
 
-            d.extend([#do('daap.songsize', trk.get_size()),
+            d.extend([  # do('daap.songsize', trk.get_size()),
                       #do('daap.songdateadded', statinfo.st_ctime),
                       #do('daap.songdatemodified', statinfo.st_ctime),
                       do('daap.songtime', _len * 1000),
 #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
 #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
-                      do('daap.songformat', trk.get_local_path().split('.')[-1]), # todo ??
+                      do('daap.songformat', trk.get_local_path().split('.')[-1]),  # todo ??
                       do('daap.songdescription', 'Exaile Streaming Audio'),
                       ])
             return (d, name)

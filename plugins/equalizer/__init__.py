@@ -205,22 +205,22 @@ class EqualizerPlugin:
             return
 
         signals = {
-                'on_main-window_destroy':self.destroy_gui,
-                'on_chk-enabled_toggled':self.toggle_enabled,
-                'on_combo-presets_changed':self.preset_changed,
-                'on_add-preset_clicked':self.add_preset,
-                'on_remove-preset_clicked':self.remove_preset,
-                'on_pre_format_value':self.adjust_preamp,
-                'on_band0_format_value':self.adjust_band,
-                'on_band1_format_value':self.adjust_band,
-                'on_band2_format_value':self.adjust_band,
-                'on_band3_format_value':self.adjust_band,
-                'on_band4_format_value':self.adjust_band,
-                'on_band5_format_value':self.adjust_band,
-                'on_band6_format_value':self.adjust_band,
-                'on_band7_format_value':self.adjust_band,
-                'on_band8_format_value':self.adjust_band,
-                'on_band9_format_value':self.adjust_band
+                'on_main-window_destroy': self.destroy_gui,
+                'on_chk-enabled_toggled': self.toggle_enabled,
+                'on_combo-presets_changed': self.preset_changed,
+                'on_add-preset_clicked': self.add_preset,
+                'on_remove-preset_clicked': self.remove_preset,
+                'on_pre_format_value': self.adjust_preamp,
+                'on_band0_format_value': self.adjust_band,
+                'on_band1_format_value': self.adjust_band,
+                'on_band2_format_value': self.adjust_band,
+                'on_band3_format_value': self.adjust_band,
+                'on_band4_format_value': self.adjust_band,
+                'on_band5_format_value': self.adjust_band,
+                'on_band6_format_value': self.adjust_band,
+                'on_band7_format_value': self.adjust_band,
+                'on_band8_format_value': self.adjust_band,
+                'on_band9_format_value': self.adjust_band
                 }
 
         self.ui = Gtk.Builder()
@@ -230,13 +230,13 @@ class EqualizerPlugin:
 
         self.window = self.ui.get_object('main-window')
 
-        #Setup bands/preamp from current equalizer settings
-        for x in (0,1,2,3,4,5,6,7,8,9):
+        # Setup bands/preamp from current equalizer settings
+        for x in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9):
             self.ui.get_object('band%s' % x).set_value(self.get_band(x))
 
         self.ui.get_object("pre").set_value(self.get_pre())
 
-        #Put the presets into the presets combobox
+        # Put the presets into the presets combobox
         combobox = self.ui.get_object("combo-presets")
         combobox.set_model(self.presets)
         combobox.set_entry_text_column(0)
@@ -262,7 +262,7 @@ class EqualizerPlugin:
         """
         return settings.get_option("plugin/equalizer/pre")
 
-    #Widget callbacks
+    # Widget callbacks
 
     def adjust_band(self, widget, data):
         """
@@ -313,7 +313,7 @@ class EqualizerPlugin:
         d = widget.get_model()
         i = widget.get_active()
 
-        #If an option other than "Custom" is chosen:
+        # If an option other than "Custom" is chosen:
         if i > 0:
             settings.set_option("plugin/equalizer/pre",
                     d.get_value(d.get_iter(i), 1))

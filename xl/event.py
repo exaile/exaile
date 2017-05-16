@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 class Nothing(object):
     pass
 
-_NONE = Nothing() # used by event for a safe None replacement
+_NONE = Nothing()  # used by event for a safe None replacement
 
 # Assumes that this module was imported on main thread 
 _UiThread = threading.current_thread()

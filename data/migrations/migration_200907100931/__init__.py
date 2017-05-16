@@ -84,7 +84,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
     libraries = eval(oldsettings.get('DEFAULT', 'search_paths'))
 
     oldtracks = oldexailelib.load_tracks(db)
-    rating_steps = 5 # old dbs are hardcoded to 5 steps
+    rating_steps = 5  # old dbs are hardcoded to 5 steps
 
     for library in libraries:
         ntdb.add_library(collection.Library(library))
@@ -94,7 +94,7 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         # we shouldn't be checking os.path.isfile() here, since if it is a radio link, it will not be migrated
         newtrack = trax.Track(uri=oldtrack.loc, scan=False)
 
-        if oldtrack._rating: # filter '' and 0
+        if oldtrack._rating:  # filter '' and 0
             oldtrack._rating = max(0, oldtrack._rating)
             oldtrack._rating = min(oldtrack._rating, rating_steps)
             newtrack.set_tag_raw('__rating', float((100.0 * oldtrack._rating) / rating_steps))
@@ -113,10 +113,10 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         temp_time = oldtrack.time_added
 
         try:
-            newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 5],'%Y-%m-%d %H:%M')))
+            newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 5], '%Y-%m-%d %H:%M')))
         except ValueError:
              try:
-                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 3],'%Y-%m-%d %H:%M')))
+                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time) - 3], '%Y-%m-%d %H:%M')))
              except ValueError:
                      pass
 

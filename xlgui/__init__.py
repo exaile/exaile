@@ -403,7 +403,7 @@ class Main(object):
             logger.warn("importing GtkosxApplication failed, no native menus")
         else:
             osx_app = GtkosxApplication.Application()
-            #self.main.setup_osx(osx_app)
+            # self.main.setup_osx(osx_app)
             osx_app.ready()
 
         shared_app = NSApplication.sharedApplication()
@@ -422,7 +422,7 @@ class Main(object):
                     self, ns_app, flag):
                 logger.debug("osx: handle reopen")
                 # TODO
-                #app.present()
+                # app.present()
                 return True
 
             def applicationShouldTerminate_(self, sender):
@@ -433,7 +433,7 @@ class Main(object):
             def applicationDockMenu_(self, sender):
                 return gtk_delegate.applicationDockMenu_(sender)
 
-            #def application_openFile_(self, sender, filename):
+            # def application_openFile_(self, sender, filename):
             #    return app.window.open_file(filename.encode("utf-8"))
 
         delegate = Delegate.alloc().init()
@@ -441,6 +441,6 @@ class Main(object):
         shared_app.setDelegate_(delegate)
 
         # QL shouldn't exit on window close, EF should
-        #if window.get_is_persistent():
+        # if window.get_is_persistent():
         #    window.connect(
         #        "delete-event", lambda window, event: window.hide() or True)

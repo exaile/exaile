@@ -73,7 +73,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             default = formatinfo['default']
 
             if self.default != default:
-                self.default = default # raw value
+                self.default = default  # raw value
 
         default_title = formatinfo['kbs_steps'][
             formatinfo['raw_steps'].index(self.default)]

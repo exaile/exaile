@@ -511,7 +511,7 @@ class IconManager(object):
         """
         path = None
         for size in self._sizes:
-            if isinstance(size, int): # WxH/icon_name.png and scalable/icon_name.svg
+            if isinstance(size, int):  # WxH/icon_name.png and scalable/icon_name.svg
                 sizedir = '%dx%d' % (size, size)
             else:
                 sizedir = size
@@ -521,7 +521,7 @@ class IconManager(object):
                 path = files[0]
                 icon_size = size if size != 'scalable' else -1
                 self.add_icon_name_from_file(icon_name, path, icon_size)
-            else: # icon_nameW.png and icon_name.svg
+            else:  # icon_nameW.png and icon_name.svg
                 if isinstance(size, int):
                     filename = '%s%d' % (icon_name, size)
                 else:
@@ -532,7 +532,7 @@ class IconManager(object):
                     path = files[0]
                     icon_size = size if size != 'scalable' else -1
                     self.add_icon_name_from_file(icon_name, path, icon_size)
-                else: # Give up
+                else:  # Give up
                     pass
         return path
 

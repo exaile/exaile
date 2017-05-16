@@ -60,7 +60,7 @@ class DynamicManager(providers.ProviderHandler):
                 returned.
         """
         logger.debug(u"Searching for %(limit)s tracks related to %(track)s" %
-                {'limit' : limit, 'track' : track})
+                {'limit': limit, 'track': track})
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -101,7 +101,7 @@ class DynamicManager(providers.ProviderHandler):
         for source in self.get_providers():
             sinfo = source.get_results(','.join(artist))
             info += sinfo
-        info.sort(reverse=True) #TODO: merge artists that are the same
+        info.sort(reverse=True)  # TODO: merge artists that are the same
         return info
 
     def _load_saved_info(self, track):
@@ -116,7 +116,7 @@ class DynamicManager(providers.ProviderHandler):
             if line == '':
                 return []
             last_update = float(line)
-            if 604800 < time.time() - last_update: # one week
+            if 604800 < time.time() - last_update:  # one week
                 info = self._query_sources(track)
                 if info != []:
                     self._save_info(track, info)
@@ -124,7 +124,7 @@ class DynamicManager(providers.ProviderHandler):
             info = []
             for line in f:
                 try:
-                    rel, artist = line.strip().split(" ",1)
+                    rel, artist = line.strip().split(" ", 1)
                     info.append((rel, artist))
                 except Exception:
                     pass
@@ -166,7 +166,7 @@ class DynamicManager(providers.ProviderHandler):
             time.sleep(remainingtime)
 
         if playlist.current_position != current_pos:
-            return # we skipped in that 5 seconds, so ignore it
+            return  # we skipped in that 5 seconds, so ignore it
         playlist.extend(tracks)
         logger.debug("Added %s tracks." % len(tracks))
 

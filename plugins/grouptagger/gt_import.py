@@ -36,7 +36,7 @@ class GtImporter(Gtk.Window):
     tags_view,          \
     tags_vbox,          \
     radio_merge,        \
-    radio_replace       = GtkTemplate.Child.widgets(7)
+    radio_replace = GtkTemplate.Child.widgets(7)
     
     def __init__(self, exaile, uris):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
@@ -175,7 +175,7 @@ def track_import_thread(import_collection, user_collection, track_data):
     total = float(len(import_collection))
     
     # to import, all essential fields should be identical!
-    fields =  ['__length', 'artist', 'album', 'title', 'genre', 'tracknumber']
+    fields = ['__length', 'artist', 'album', 'title', 'genre', 'tracknumber']
     
     logger.info("Finding matches for %s imported tracks" % len(import_collection))
     

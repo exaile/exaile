@@ -49,20 +49,20 @@ try:
         try:
             return json.loads(data)
         except ValueError:
-            return eval(data, {'__builtin__':None})
+            return eval(data, {'__builtin__': None})
             
     _write = lambda x: json.dumps(x, indent=2)
     _read = _try_read
 
 except ImportError:
     _write = str
-    _read = lambda x: eval(x, {'__builtin__':None})
+    _read = lambda x: eval(x, {'__builtin__': None})
 
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
-#TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
+# TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 # does order matter?
 
 
@@ -158,7 +158,7 @@ class Bookmarks:
 
         pos = player.PLAYER.get_time()
         key = track.get_loc_for_io()
-        self.bookmarks.append((key,pos))
+        self.bookmarks.append((key, pos))
         self.display_bookmark(key, pos)
 
     def display_bookmark(self, key, pos):
@@ -174,7 +174,7 @@ class Bookmarks:
                 image = covers.MANAGER.get_cover(item, set_only=True)
                 if image:
                     try:
-                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))
+                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16, 16))
                     except GLib.GError:
                         logger.warn('Could not load cover')
                         pix = None
@@ -186,9 +186,9 @@ class Bookmarks:
             # delete offending key?
             return
         time = '%d:%02d' % (pos / 60, pos % 60)
-        label = '%s @ %s' % (title , time)
+        label = '%s @ %s' % (title, time)
 
-        counter = self.counter # closure magic (workaround for factories not having access to item)
+        counter = self.counter  # closure magic (workaround for factories not having access to item)
         # factory for new bookmarks
 
         def factory(menu_, parent, context):
@@ -197,9 +197,9 @@ class Bookmarks:
                 menu_item.set_image(Gtk.image_new_from_pixbuf(pix))
             
             if menu_ is self.menu:
-                menu_item.connect('activate', self.do_bookmark, (key,pos))
+                menu_item.connect('activate', self.do_bookmark, (key, pos))
             else:
-                menu_item.connect('activate', self.delete_bookmark, (counter,key,pos))
+                menu_item.connect('activate', self.delete_bookmark, (counter, key, pos))
                 
             return menu_item
 
@@ -228,11 +228,11 @@ class Bookmarks:
         """
             Delete a bookmark.
         """
-        #print targets
+        # print targets
         counter, key, pos = targets
 
         if (key, pos) in self.bookmarks:
-            self.bookmarks.remove((key,pos))
+            self.bookmarks.remove((key, pos))
 
         name = 'bookmark{0}'.format(counter)
         for item in self.delete_menu._items:
@@ -247,15 +247,15 @@ class Bookmarks:
         """
             Load previously saved bookmarks from a file.
         """
-        path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
+        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
         try:
             # Load Bookmark List from file.
-            with open(path,'rb') as f:
+            with open(path, 'rb') as f:
                 data = f.read()
                 try:
                     db = _read(data)
-                    for (key,pos) in db:
-                        self.bookmarks.append((key,pos))
+                    for (key, pos) in db:
+                        self.bookmarks.append((key, pos))
                         self.display_bookmark(key, pos)
                     logger.debug('loaded {0} bookmarks'.format(len(db)))
                 except Exception as s:
@@ -270,8 +270,8 @@ class Bookmarks:
             Save list of bookmarks to a file.
         """
         # Save List
-        path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
-        with open(path,'wb') as f:
+        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
+        with open(path, 'wb') as f:
             f.write(_write(self.bookmarks))
             logger.debug('saving {0} bookmarks'.format(len(self.bookmarks)))
 

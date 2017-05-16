@@ -137,7 +137,7 @@ class _GtMatcher(_Matcher):
     def _matches(self, value):
         try:
             value = float(value)
-            content = float(self.content) # kinda inefficient
+            content = float(self.content)  # kinda inefficient
         except (TypeError, ValueError):
             return False
         return value > content
@@ -154,7 +154,7 @@ class _LtMatcher(_Matcher):
                 value = 0
             else:
                 value = float(value)
-            content = float(self.content) # kinda inefficient
+            content = float(self.content)  # kinda inefficient
         except (TypeError, ValueError):
             return False
         return value < content
@@ -408,7 +408,7 @@ class TracksMatcher(object):
                 in_regex = True
                 newsearch += c
             elif c == "\"":
-                in_quotes = not in_quotes # toggle
+                in_quotes = not in_quotes  # toggle
                 #newsearch += c
             elif c in ["|", "!", "(", ")"]:
                 newsearch += c

@@ -473,9 +473,9 @@ class NumberTagFormatter(TagFormatter):
         if not value:
             return ''
 
-        try: # n/n
+        try:  # n/n
             value, count = value.split('/')
-        except ValueError: # n
+        except ValueError:  # n
             pass
 
         if not value:
@@ -611,7 +611,7 @@ class TimeTagFormatter(TagFormatter):
             if span.days > 0:
                 # TRANSLATORS: Short form of an amount of days
                 text += _('%dd ') % span.days
-            if span.hours > 0 or text: # always show hours when > 1 day
+            if span.hours > 0 or text:  # always show hours when > 1 day
                 # TRANSLATORS: Time duration (hours:minutes:seconds)
                 text += _('%d:%02d:%02d') % (
                         span.hours, span.minutes, span.seconds)

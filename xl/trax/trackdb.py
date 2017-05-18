@@ -27,6 +27,7 @@
 from __future__ import absolute_import
 
 import logging
+import random
 import shelve
 
 from copy import deepcopy
@@ -324,6 +325,12 @@ class TrackDB(object):
             returns None
         """
         return [self.get_track_by_loc(loc) for loc in locs]
+
+    def get_random_track(self):
+        '''
+            Returns a random track from the collection.                                                                                                                                       
+        '''
+        return self.tracks[random.choice(list(self.tracks))]._track
 
     def loc_is_member(self, loc):
         """

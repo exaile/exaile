@@ -1,0 +1,5 @@
+Version='0.1'
+Authors=['Rainer Hihn <rainer@hihn.org>']
+Name=_('Shuffle Collection')
+Description=_('Shuffle through your collection')
+Category=_('Dynamic Playlists')

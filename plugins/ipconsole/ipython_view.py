@@ -85,6 +85,7 @@ class IterableIPShell(object):
     @ivar complete_sep: Separation delimiters for completion function.
     @type complete_sep: _sre.SRE_Pattern
     '''
+
     def __init__(self, user_ns=None, cin=None, cout=None, cerr=None, input_func=None):
         '''
 
@@ -560,6 +561,7 @@ class IPythonView(ConsoleView, IterableIPShell):
     Sub-class of both modified IPython shell and L{ConsoleView} this makes
     a GTK+ IPython console.
     '''
+
     def __init__(self):
         '''
         Initialize. Redirect I/O to console.

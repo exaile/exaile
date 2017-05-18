@@ -62,6 +62,7 @@ class Cacher(object):
         individual files, the data being stored should be of significant
         size (several KB) or a lot of disk space will likely be wasted.
     """
+
     def __init__(self, cache_dir):
         """
             :param cache_dir: directory to use for the cache. will be
@@ -121,6 +122,7 @@ class CoverManager(providers.ProviderHandler):
     """
         Handles finding covers from various sources.
     """
+
     def __init__(self, location):
         """
             :param location: The directory to load and store data in.
@@ -130,7 +132,7 @@ class CoverManager(providers.ProviderHandler):
         self.location = location
         self.methods = {}
         self.order = settings.get_option(
-                'covers/preferred_order', [])
+            'covers/preferred_order', [])
         self.db = {}
         self.load()
         for method in self.get_providers():
@@ -160,7 +162,6 @@ class CoverManager(providers.ProviderHandler):
                 providers.register('covers', self.localfile_fetcher)
             else:
                 providers.unregister('covers', self.localfile_fetcher)
-
 
     def _get_methods(self, fixed=False):
         """
@@ -243,7 +244,7 @@ class CoverManager(providers.ProviderHandler):
             if local_only and method.use_cache:
                 continue
             new = method.find_covers(track, limit=limit)
-            new = ["%s:%s"%(method.name, x) for x in new]
+            new = ["%s:%s" % (method.name, x) for x in new]
             covers.extend(new)
             if limit != -1 and len(covers) >= limit:
                 break
@@ -263,7 +264,7 @@ class CoverManager(providers.ProviderHandler):
         name = db_string.split(":", 1)[0]
         method = self.methods.get(name)
         if method and method.use_cache and data:
-            db_string = "cache:%s"%self.__cache.add(data)
+            db_string = "cache:%s" % self.__cache.add(data)
         key = self._get_track_key(track)
         if key:
             self.db[key] = db_string
@@ -285,7 +286,7 @@ class CoverManager(providers.ProviderHandler):
             event.log_event('cover_removed', self, track)
 
     def get_cover(self, track, save_cover=True, set_only=False,
-            use_default=False):
+                  use_default=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
@@ -335,7 +336,7 @@ class CoverManager(providers.ProviderHandler):
             method = self.methods.get(source)
             if method:
                 ret = method.get_cover_data(data)
-        if ret == None and use_default == True:
+        if ret is None and use_default == True:
             ret = self.get_default_cover()
         return ret
 
@@ -353,7 +354,7 @@ class CoverManager(providers.ProviderHandler):
         """
         path = os.path.join(self.location, 'covers.db')
         data = None
-        for loc in [path, path+".old", path+".new"]:
+        for loc in [path, path + ".old", path + ".new"]:
             try:
                 with open(loc, 'rb') as f:
                     data = pickle.load(f)
@@ -386,7 +387,7 @@ class CoverManager(providers.ProviderHandler):
         try:
             os.rename(path, path + ".old")
         except OSError:
-            pass # if it doesn'texist we don't care
+            pass  # if it doesn'texist we don't care
         os.rename(path + ".new", path)
         try:
             os.remove(path + ".old")
@@ -436,6 +437,7 @@ class CoverSearchMethod(object):
     #: Priority for fixed-position backends. Lower is earlier, non-fixed
     #  backends will always be 50.
     fixed_priority = 50
+
     def find_covers(self, track, limit=-1):
         """
             Find the covers for a given track.
@@ -468,7 +470,7 @@ class TagCoverFetcher(CoverSearchMethod):
     fixed_priority = 30
 
     def find_covers(self, track, limit=-1):
-        covers = [] 
+        covers = []
         tagname = None
         uri = track.get_loc_for_io()
 
@@ -481,8 +483,8 @@ class TagCoverFetcher(CoverSearchMethod):
             except (TypeError, KeyError):
                 pass
 
-        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri) \
-            for index in range(0, len(covers))]
+        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri)
+                for index in range(0, len(covers))]
 
     def get_cover_data(self, db_string):
         tag, index, uri = db_string.split(':', 2)
@@ -493,6 +495,7 @@ class TagCoverFetcher(CoverSearchMethod):
             return None
 
         return covers[int(index)].data
+
 
 class LocalFileCoverFetcher(CoverSearchMethod):
     """
@@ -529,7 +532,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             return []
         covers = []
         for fileinfo in basedir.enumerate_children("standard::type"
-                ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
+                                                   ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
             gloc = basedir.get_child(fileinfo.get_name())
             if not fileinfo.get_file_type() == Gio.FileType.REGULAR:
                 continue
@@ -561,9 +564,6 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             self.preferred_names = settings.get_option(option, ['album', 'cover'])
 
 
-
 #: The singleton :class:`CoverManager` instance
 MANAGER = CoverManager(location=xdg.get_data_home_path("covers",
-        check_exists=False))
-
-
+                                                       check_exists=False))

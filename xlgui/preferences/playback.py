@@ -36,33 +36,36 @@ name = _('Playback')
 icon = 'media-playback-start'
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
+
 class EnginePreference(widgets.ComboPreference):
     default = "gstreamer"
     name = 'player/engine'
     restart_required = True
 
+
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
-    
+
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
         model = self.widget.get_model()
-        
+
         # always list auto first, custom last
-        def _sink_cmp(x,y):
-            xy = (x[0],y[0])
+        def _sink_cmp(x, y):
+            xy = (x[0], y[0])
             if x[0] == y[0] or ('auto' not in xy and 'custom' not in xy):
-                return cmp(x[0],y[0])
+                return cmp(x[0], y[0])
             if x[0] == 'auto':
                 return -1
             if y[0] == 'custom':
                 return -1
             return 1
-                
+
         for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
             model.append((name, preset['name']))
         self._set_value()
+
 
 class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     default = ""
@@ -75,12 +78,13 @@ class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
 
     def on_check_condition(self):
         return self.get_condition_value() == 'custom'
-    
+
     def on_condition_met(self):
         self.show_widget()
-    
+
     def on_condition_failed(self):
         self.hide_widget()
+
 
 class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional):
     default = 'auto'
@@ -94,24 +98,24 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
 
     def on_check_condition(self):
         return self.get_condition_value() == 'auto'
-    
+
     def on_condition_met(self):
-        
+
         # disable because the clear() causes a settings write
         self.is_enabled = False
-        
+
         model = self.widget.get_model()
         if model is None:
             return
-        
+
         model.clear()
-        
-        for device_name, device_id, _ in get_devices():            
+
+        for device_name, device_id, _ in get_devices():
             model.append((device_id, device_name))
-        
-        self.is_enabled = True  
+
+        self.is_enabled = True
         self._set_value()
-        
+
         self.show_widget()
         self.set_widget_sensitive(True)
 
@@ -123,7 +127,7 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
             self.set_widget_sensitive(False)
         self.is_enabled = False
         self.widget.get_model().clear()
-        
+
     def done(self):
         return self.is_enabled
 
@@ -132,29 +136,36 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
             return widgets.ComboPreference._get_value(self)
         return ''
 
+
 class ResumePreference(widgets.CheckPreference):
     default = True
     name = 'player/resume_playback'
 
+
 class PausedPreference(widgets.CheckPreference):
     default = False
     name = 'player/resume_paused'
-    
+
+
 class EnqueueBeginsPlayback(widgets.CheckPreference):
     default = True
     name = 'queue/enqueue_begins_playback'
-    
+
+
 class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
     default = True
     name = 'queue/remove_item_when_played'
-    
+
+
 class DisableNewTrackWhenPlaying(widgets.CheckPreference):
     default = False
     name = 'queue/disable_new_track_when_playing'
-    
+
+
 class GaplessPlayback(widgets.CheckPreference):
     default = True
     name = 'player/gapless_playback'
+
 
 class EngineConditional(widgets.Conditional):
     """
@@ -168,7 +179,8 @@ class EngineConditional(widgets.Conditional):
             return True
 
         return False
-    
+
+
 class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
     default = True
     name = 'player/auto_advance'
@@ -177,24 +189,26 @@ class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
-    
+
+
 class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
     default = 0
     name = "player/auto_advance_delay"
     condition_preference_names = ['player/auto_advance', 'player/engine']
-    
+
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
         widgets.MultiConditional.__init__(self)
-        
+
     def on_check_condition(self):
         if not self.condition_widgets['player/auto_advance'].get_active():
             return False
-        
+
         if self.get_condition_value('player/engine') == 'gstreamer':
             return True
 
         return False
+
 
 class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
     default = False
@@ -205,6 +219,7 @@ class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
 
+
 class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
     name = 'player/user_fade'
@@ -214,6 +229,7 @@ class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
         widgets.SpinPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
 
+
 class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/crossfading'
@@ -222,6 +238,7 @@ class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
+
 
 class CrossfadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000

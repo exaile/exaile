@@ -80,10 +80,10 @@ class HelloWorld(object):
     def enable(self, exaile):
         print("Hello, world!")
         testlib.sucess()
-        
+
     def disable(self, exaile):
         print("Goodbye. :(")
-        
+
     def teardown(self, exaile):
         '''Optional function'''
         print("Unhello, World!")
@@ -94,4 +94,3 @@ class HelloWorld(object):
 
 
 plugin_class = HelloWorld
-

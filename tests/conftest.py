@@ -32,7 +32,7 @@ def exaile_test_cleanup():
 #
 
 
-TrackData = collections.namedtuple( 'TrackData',[
+TrackData = collections.namedtuple('TrackData', [
     'ext', 'filename', 'uri', 'size', 'writeable',
     'has_cover', 'has_tags'
 ])
@@ -105,6 +105,7 @@ def test_tracks():
         Returns an object that can be used to retrieve test track data
     '''
     class _TestTracks:
+
         def get(self, ext):
             return [x for x in _all_tracks if x.filename.endswith(ext)][0]
 

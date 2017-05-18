@@ -35,13 +35,13 @@
 from optparse import OptionParser
 p = OptionParser()
 p.add_option("-c", "--compression", dest="compression",
-        action="store", choices=("", "gz", "bz2"), default="bz2")
+             action="store", choices=("", "gz", "bz2"), default="bz2")
 p.add_option("-e", "--ignore-extension", dest="extensions",
-        action="append", default=(".pyc", ".pyo"))
+             action="append", default=(".pyc", ".pyo"))
 p.add_option("-f", "--ignore-file", dest="files",
-        action="append", default=("test.py"))
+             action="append", default=("test.py"))
 p.add_option("-O", "--output", dest="output",
-        action="store", default="")
+             action="store", default="")
 options, args = p.parse_args()
 
 # allowed values: "", "gz", "bz2"
@@ -56,7 +56,9 @@ IGNORED_FILES = options.files
 _ = lambda x: x
 
 
-import sys, os, tarfile
+import sys
+import os
+import tarfile
 
 for dir in args:
 
@@ -74,7 +76,7 @@ for dir in args:
     info = {}
     for line in f:
         try:
-            key, val = line.split("=",1)
+            key, val = line.split("=", 1)
         except ValueError:
             continue
         key = key.strip()
@@ -86,11 +88,10 @@ for dir in args:
         print("ERROR: couldn't get version for %s, skipping..." % dir)
         continue
 
-
     tfile = tarfile.open(
-            options.output + dir + "-%s.exz"%info["Version"],
-            "w:%s"%COMPRESSION)
-    tfile.posix = True # we like being standards-compilant
+        options.output + dir + "-%s.exz" % info["Version"],
+        "w:%s" % COMPRESSION)
+    tfile.posix = True  # we like being standards-compilant
 
     for fold, subdirs, files in os.walk(dir):
         for file in files:

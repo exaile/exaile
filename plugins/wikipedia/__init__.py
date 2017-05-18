@@ -1,4 +1,4 @@
-#encoding:utf-8
+# encoding:utf-8
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,7 +43,8 @@ log = logging.getLogger('exaile-wikipedia/__init__.py')
 
 WIKIPANEL = None
 CURPATH = os.path.realpath(__file__)
-BASEDIR = os.path.dirname(CURPATH)+os.path.sep
+BASEDIR = os.path.dirname(CURPATH) + os.path.sep
+
 
 def enable(exaile):
     config.USER_AGENT = exaile.get_user_agent_string('wikipedia')
@@ -53,17 +54,21 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def disable(exaile):
     global WIKIPANEL
     providers.unregister('main-panel', WIKIPANEL)
+
 
 def _enable(eventname, exaile, nothing):
     global WIKIPANEL
     WIKIPANEL = WikiPanel(exaile.gui.main.window)
     providers.register('main-panel', WIKIPANEL)
 
+
 def get_preferences_pane():
     return preferences
+
 
 class BrowserPage(WebKit2.WebView):
     history_length = 6

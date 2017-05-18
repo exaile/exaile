@@ -32,28 +32,33 @@ name = _('Playlists')
 icon = 'music-library'
 ui = xdg.get_data_path('ui', 'preferences', 'playlists.ui')
 
+
 class OpenLastPreference(widgets.CheckPreference):
     default = True
     name = 'playlist/open_last'
+
 
 class AskSaveCustomPlaylistPreference(widgets.CheckPreference):
     default = True
     name = 'playlist/ask_save'
 
+
 class ReplaceContentPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/replace_content'
-    
+
+
 class AppendStartsPlaybackPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/append_menu_starts_playback'
-    
+
+
 class EnqueueTrackByDefaultPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/enqueue_by_default'
 
 # FIXME: Is this still relevant?
-#class QueueSavePreferences(widgets.CheckPreference):
+# class QueueSavePreferences(widgets.CheckPreference):
 #    default = True
 #    name = 'playlist/save_queue'
 

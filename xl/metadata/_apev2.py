@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 from xl.metadata._base import CaseInsensitveBaseFormat
 from mutagen import apev2
 
@@ -52,7 +51,7 @@ class ApeFormat(CaseInsensitveBaseFormat):
         "titlesort": "TITLESORT",
         "grouping": "Grouping",
         "language": "Language",
-        }
+    }
     others = True
     writable = True
 

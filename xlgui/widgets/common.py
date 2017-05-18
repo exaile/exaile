@@ -47,6 +47,7 @@ from xl import (
 from xlgui.guiutil import get_workarea_size, ModifierType
 from xlgui import icons
 
+
 class AttachedWindow(Gtk.Window):
     """
         A window attachable to arbitrary widgets,
@@ -97,7 +98,7 @@ class AttachedWindow(Gtk.Window):
         else:
             # Parent at top
             y = parent_alloc.y + parent_alloc.height
-        
+
         self.move(x, y)
 
     def do_show(self):
@@ -134,14 +135,16 @@ class AttachedWindow(Gtk.Window):
         """
         self.emit('hide')
 
+
 class AutoScrollTreeView(Gtk.TreeView):
     """
         A TreeView which handles autoscrolling upon DnD operations
     """
+
     def __init__(self):
         Gtk.TreeView.__init__(self)
 
-        self._SCROLL_EDGE_SIZE = 15 # As in gtktreeview.c
+        self._SCROLL_EDGE_SIZE = 15  # As in gtktreeview.c
         self.__autoscroll_timeout_id = None
 
         self.connect("drag-motion", self._on_drag_motion)
@@ -160,7 +163,7 @@ class AutoScrollTreeView(Gtk.TreeView):
             Stops automatic scrolling
         """
         autoscroll_timeout_id = self.__autoscroll_timeout_id
-        
+
         if autoscroll_timeout_id:
             GLib.source_remove(autoscroll_timeout_id)
             self.__autoscroll_timeout_id = None
@@ -175,7 +178,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         x, y = self.convert_widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge
-        offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE) # 3: Scroll faster upwards
+        offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE)  # 3: Scroll faster upwards
 
         # Check if we are near the bottom edge instead
         if offset > 0:
@@ -195,6 +198,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         self.set_vadjustment(vadjustment)
 
         return True
+
 
 class DragTreeView(AutoScrollTreeView):
     """
@@ -218,17 +222,17 @@ class DragTreeView(AutoScrollTreeView):
         if source:
             self.drag_source_set(
                 Gdk.ModifierType.BUTTON1_MASK, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
         if receive:
             self.drop_pos = drop_pos
             self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                Gdk.DragAction.COPY|Gdk.DragAction.DEFAULT|
-                Gdk.DragAction.MOVE)
+                               Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
+                               Gdk.DragAction.MOVE)
             self.connect('drag_data_received',
-                self.container.drag_data_received)
+                         self.container.drag_data_received)
             self.connect('drag_data_delete',
-                self.container.drag_data_delete)
+                         self.container.drag_data_delete)
         self.receive = receive
         self.dragging = False
         self.show_cover_drag_icon = True
@@ -255,7 +259,7 @@ class DragTreeView(AutoScrollTreeView):
         self.dragging = False
         self.unset_rows_drag_dest()
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-            Gdk.DragAction.COPY|Gdk.DragAction.MOVE)
+                           Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
 
     def on_drag_begin(self, widget, context):
         """
@@ -291,7 +295,7 @@ class DragTreeView(AutoScrollTreeView):
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
                     image_data = cover_manager.get_cover(track,
-                        set_only=True, use_default=True)
+                                                         set_only=True, use_default=True)
                     pixbuf = icons.MANAGER.pixbuf_from_data(
                         image_data, (width, height))
 
@@ -316,7 +320,7 @@ class DragTreeView(AutoScrollTreeView):
 
                     fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width + 10, height + 10)
-                    fill_pixbuf.fill(0x00000000) # Fill with transparent background
+                    fill_pixbuf.fill(0x00000000)  # Fill with transparent background
 
                     fill_pixbuf = cover_pixbuf.new_subpixbuf(
                         0, 0, width, height)
@@ -354,7 +358,7 @@ class DragTreeView(AutoScrollTreeView):
         if not self.receive:
             return False
         self.enable_model_drag_dest(self.targets,
-            Gdk.DragAction.DEFAULT)
+                                    Gdk.DragAction.DEFAULT)
         if self.drop_pos is None:
             return False
         info = treeview.get_dest_row_at_pos(x, y)
@@ -427,7 +431,7 @@ class DragTreeView(AutoScrollTreeView):
                 return self.container.button_release(button, event)
             except AttributeError:
                 pass
-        
+
         selection = self.get_selection()
         selection.unselect_all()
 
@@ -443,8 +447,8 @@ class DragTreeView(AutoScrollTreeView):
         except AttributeError:
             pass
 
-    #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
-    def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):
+    # TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
+    def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):
         """
             Handles the locations from drag data
 
@@ -461,7 +465,7 @@ class DragTreeView(AutoScrollTreeView):
                 in a playlist are not added to the list of tracks, but a track could
                 be both in as a found track and part of a playlist)
         """
-        #TODO handle if they pass in existing tracks
+        # TODO handle if they pass in existing tracks
         trs = []
         playlists = []
         for loc in locs:
@@ -470,7 +474,7 @@ class DragTreeView(AutoScrollTreeView):
             playlists.extend(found_playlist)
 
         if compile_tracks:
-            #Add any tracks in the playlist to the master list of tracks
+            # Add any tracks in the playlist to the master list of tracks
             for playlist in playlists:
                 for track in playlist.get_tracks():
                     if track not in trs:
@@ -506,17 +510,18 @@ class DragTreeView(AutoScrollTreeView):
 
         if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
             new_track = trax.Track(loc)
-            return ([new_track],[])
+            return ([new_track], [])
         elif playlist.is_valid_playlist(loc):
-            #User is dragging a playlist into the playlist list
+            # User is dragging a playlist into the playlist list
             # so we add all of the songs in the playlist
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
         elif filetype == Gio.FileType.DIRECTORY:
             return (trax.get_tracks_from_uri(loc), [])
-        else: #We don't know what they dropped
+        else:  # We don't know what they dropped
             return ([], [])
+
 
 class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
     """
@@ -537,25 +542,25 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
 
     def do_activate(self, event, widget, path,
-            background_area, cell_area, flags):
+                    background_area, cell_area, flags):
         """
             Emits the *clicked* signal
         """
-        if event is None: # Keyboard activation
+        if event is None:  # Keyboard activation
             return
 
         pixbuf_width = self.props.pixbuf.get_width()
         pixbuf_height = self.props.pixbuf.get_height()
 
         click_area = Gdk.Rectangle(
-            x=int(cell_area.x \
-              + self.props.xpad \
-              + self.props.xalign * cell_area.width \
-              - pixbuf_width),
-            y=int(cell_area.y \
-              + self.props.ypad \
-              + self.props.yalign * cell_area.height \
-              - self.props.yalign * pixbuf_height),
+            x=int(cell_area.x
+                  + self.props.xpad
+                  + self.props.xalign * cell_area.width
+                  - pixbuf_width),
+            y=int(cell_area.y
+                  + self.props.ypad
+                  + self.props.yalign * cell_area.height
+                  - self.props.yalign * pixbuf_height),
             width=pixbuf_width,
             height=pixbuf_height
         )
@@ -563,4 +568,3 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         if click_area.x <= event.x <= click_area.x + click_area.width and \
            click_area.y <= event.y <= click_area.y + click_area.height:
             self.emit('clicked', path)
-

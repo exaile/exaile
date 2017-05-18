@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 from .unicode import to_unicode, strxfrm
 
-#TODO: get rid of this. only plugins/cd/ uses it.
+# TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
     # Ogg Vorbis spec tags
     "title version album tracknumber artist genre performer copyright "
@@ -56,31 +56,34 @@ VALID_TAGS = (
     "arranger author composer conductor lyricist discnumber labelid part "
     "website language encodedby bpm albumartist originaldate originalalbum "
     "originalartist recordingdate"
-    ).split()
+).split()
 
-PICKLE_PROTOCOL=2
+PICKLE_PROTOCOL = 2
 
 # Default tags for track sorting. Unless you have good reason to do
 # otherwise, use this.
 # TODO: make this a setting?
-BASE_SORT_TAGS=('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
+BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
 # use this for general logging of exceptions
+
+
 def log_exception(log=logger, message="Exception caught!"):
     """
         Deprecated! Don't use this in newer code, use this instead::
-        
+
             import logging
             logger = logging.getLogger(__name__)
-            
+
             .. 
-            
+
             try:
                 ..
             except Exception:
                 logger.exception("Some message: %s", param)
     """
     log.exception(message)
+
 
 def clamp(value, minimum, maximum):
     """
@@ -92,6 +95,7 @@ def clamp(value, minimum, maximum):
     """
     return max(minimum, min(value, maximum))
 
+
 def enum(**enums):
     """
         Creates an enum type
@@ -99,6 +103,7 @@ def enum(**enums):
         :see: http://stackoverflow.com/a/1695250
     """
     return type('Enum', (), enums)
+
 
 def sanitize_url(url):
     """
@@ -122,24 +127,26 @@ def sanitize_url(url):
 
     return url
 
+
 def get_url_contents(url, user_agent):
     '''
         Retrieves data from a URL and sticks a user-agent on it. You can use
         exaile.get_user_agent_string(pluginname) to get this.
-        
+
         Added in Exaile 3.4
-        
+
         :returns: Contents of page located at URL
         :raises: urllib2.URLError
     '''
-    
+
     headers = {'User-Agent': user_agent}
     req = urllib2.Request(url, None, headers)
     fp = urllib2.urlopen(req)
     data = fp.read()
     fp.close()
-    
+
     return data
+
 
 def threaded(func):
     """
@@ -155,14 +162,15 @@ def threaded(func):
 
     return wrapper
 
+
 def synchronized(func):
     """
         A decorator to make a function synchronized - which means only one
         thread is allowed to access it at a time.
-        
+
         This only works on class functions, and creates a variable in 
         the instance called _sync_lock. 
-        
+
         If this function is used on multiple functions in an object, they
         will be locked with respect to each other. The lock is re-entrant.
     """
@@ -179,12 +187,13 @@ def synchronized(func):
         finally:
             rlock.release()
     return wrapper
-    
+
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
     if callback and callable(callback):
         callback(value)
+
 
 def idle_add(callback=None):
     """
@@ -203,15 +212,17 @@ def idle_add(callback=None):
         @wraps(f)
         def wrapped(*args, **kwargs):
             GLib.idle_add(_idle_callback, f, callback,
-                *args, **kwargs)
+                          *args, **kwargs)
 
         return wrapped
     return wrap
 
+
 def _glib_wait_inner(timeout, glib_timeout_func):
-    id = [None] # Have to hold the value in a mutable structure because
-                # python's scoping rules prevent us assigning to an
-                # outer scope directly.
+    id = [None]  # Have to hold the value in a mutable structure because
+    # python's scoping rules prevent us assigning to an
+    # outer scope directly.
+
     def waiter(function):
         def thunk(*args, **kwargs):
             id[0] = None
@@ -220,11 +231,14 @@ def _glib_wait_inner(timeout, glib_timeout_func):
             # get lots of callbacks piling up
             if function(*args, **kwargs):
                 delayer(*args, **kwargs)
+
         def delayer(*args, **kwargs):
-            if id[0]: GLib.source_remove(id[0])
+            if id[0]:
+                GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
+
 
 def glib_wait(timeout):
     """
@@ -250,6 +264,7 @@ def glib_wait(timeout):
     # with this decorator.
     return _glib_wait_inner(timeout, GLib.timeout_add)
 
+
 def glib_wait_seconds(timeout):
     """
         Same as glib_wait, but uses GLib.timeout_add_seconds instead
@@ -259,11 +274,14 @@ def glib_wait_seconds(timeout):
     """
     return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
 
+
 def profileit(func):
     """
         Decorator to profile a function
     """
-    import cProfile, pstats
+    import cProfile
+    import pstats
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         prof = cProfile.Profile()
@@ -278,15 +296,18 @@ def profileit(func):
         return res
     return wrapper
 
+
 class classproperty(object):
     """
         Decorator allowing for class property access
     """
+
     def __init__(self, function):
         self.function = function
 
     def __get__(self, obj, type):
         return self.function(type)
+
 
 class VersionError(Exception):
     """
@@ -301,6 +322,7 @@ class VersionError(Exception):
 
     def __str__(self):
         return repr(self.message)
+
 
 def open_file(path):
     """
@@ -317,6 +339,7 @@ def open_file(path):
     else:
         subprocess.Popen(["xdg-open", path])
 
+
 def open_file_directory(path_or_uri):
     """
         Opens the parent directory of a file, selecting the file if possible.
@@ -325,7 +348,7 @@ def open_file_directory(path_or_uri):
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2
-        # always calls CreateProcessA, which doesn't support Unicode. We could 
+        # always calls CreateProcessA, which doesn't support Unicode. We could
         # call CreateProcessW with ctypes, but the following is more robust.
         import ctypes
         ctypes.windll.ole32.CoInitialize(None)
@@ -340,10 +363,12 @@ def open_file_directory(path_or_uri):
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
 
+
 class LimitedCache(DictMixin):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """
+
     def __init__(self, limit):
         self.limit = limit
         self.order = deque()
@@ -376,13 +401,14 @@ class LimitedCache(DictMixin):
     def __repr__(self):
         '''prevent repr(self) from changing cache order'''
         return repr(self.cache)
-        
+
     def __str__(self):
         '''prevent str(self) from changing cache order'''
         return str(self.cache)
 
     def keys(self):
         return self.cache.keys()
+
 
 class cached(object):
     """
@@ -391,6 +417,7 @@ class cached(object):
 
         .. note:: This probably breaks on functions that modify their arguments
     """
+
     def __init__(self, limit):
         self.limit = limit
 
@@ -403,6 +430,7 @@ class cached(object):
             f._cache
         except AttributeError:
             f._cache = LimitedCache(self.limit)
+
         @wraps(f)
         def wrapper(*args, **kwargs):
             try:
@@ -412,14 +440,15 @@ class cached(object):
             ret = f(*args, **kwargs)
             try:
                 f._cache[(args, self._freeze(kwargs))] = ret
-            except TypeError: # args can't be hashed
+            except TypeError:  # args can't be hashed
                 pass
             return ret
         return wrapper
-        
+
     def __get__(self, obj, objtype):
         """Support instance methods."""
         return partial(self.__call__, obj)
+
 
 def walk(root):
     """
@@ -444,9 +473,9 @@ def walk(root):
         yield dir
         try:
             for fileinfo in dir.enumerate_children("standard::type,"
-                    "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified",
-                    Gio.FileQueryInfoFlags.NONE, None):
+                                                   "standard::is-symlink,standard::name,"
+                                                   "standard::symlink-target,time::modified",
+                                                   Gio.FileQueryInfoFlags.NONE, None):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
@@ -463,8 +492,9 @@ def walk(root):
                     queue.append(fil)
                 elif type == Gio.FileType.REGULAR:
                     yield fil
-        except GLib.Error: # why doesnt gio offer more-specific errors?
+        except GLib.Error:  # why doesnt gio offer more-specific errors?
             logger.exception("Unhandled exception while walking on %s.", dir)
+
 
 def walk_directories(root):
     """
@@ -490,6 +520,7 @@ def walk_directories(root):
     except GLib.Error:
         logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
                          root, directory, subdirectory)
+
 
 class TimeSpan(object):
     """
@@ -526,6 +557,7 @@ class TimeSpan(object):
         return '%dd, %dh, %dm, %ds' % (
             self.days, self.hours, self.minutes, self.seconds)
 
+
 class MetadataList(object):
     """
         Like a list, but also associates an object of metadata
@@ -552,7 +584,7 @@ class MetadataList(object):
         self.metadata = meta
 
     def __repr__(self):
-        return "MetadataList(%s)"%self.__list
+        return "MetadataList(%s)" % self.__list
 
     def __len__(self):
         return len(self.__list)
@@ -586,7 +618,7 @@ class MetadataList(object):
         if isinstance(value, MetadataList):
             metadata = list(value.metadata)
         else:
-            metadata = [None]*len(value)
+            metadata = [None] * len(value)
         self.metadata.__setitem__(i, metadata)
 
     def __delitem__(self, i):
@@ -602,7 +634,7 @@ class MetadataList(object):
     def insert(self, i, item, metadata=None):
         if i >= len(self):
             i = len(self)
-            e = len(self)+1
+            e = len(self) + 1
         else:
             e = i
         self[i:e] = [item]
@@ -646,6 +678,7 @@ class MetadataList(object):
         if not self.metadata[index]:
             self.metadata[index] = None
 
+
 class ProgressThread(GObject.GObject, threading.Thread):
     """
         A basic thread with progress updates. The thread should emit
@@ -684,19 +717,20 @@ class ProgressThread(GObject.GObject, threading.Thread):
             signal is emitted regularly with the progress
         """
         pass
-    
+
+
 class SimpleProgressThread(ProgressThread):
     '''
         Simpler version of ProgressThread that uses a generator to
         manage the thread and its progress. Instead of overriding
         run, just pass a callable that returns a generator to
         the constructor.
-        
+
         The callable must either yield a number between 0 and 100,
         or yield a tuple of (n, total) where n is the current step.
-        
+
         ::
-        
+
             def long_running_thing():
                 l = len(stuff)
                 try:
@@ -707,24 +741,24 @@ class SimpleProgressThread(ProgressThread):
                     # be raised the next time yield is called
                     pass
     '''
-    
+
     def __init__(self, target, *args, **kwargs):
         ProgressThread.__init__(self)
         self.__target = (target, args, kwargs)
         self.__stop = False
-    
+
     def stop(self):
         '''
             Causes the thread to stop at the next yield point
         '''
         self.__stop = True
-        
+
     def run(self):
         '''
             Runs a generator
         '''
         target, args, kwargs = self.__target
-        
+
         try:
             for progress in target(*args, **kwargs):
                 self.emit('progress-update', progress)
@@ -739,6 +773,7 @@ class SimpleProgressThread(ProgressThread):
 
 
 class PosetItem(object):
+
     def __init__(self, name, after, priority, value=None):
         """
             :param name: unique identifier for this item
@@ -754,6 +789,7 @@ class PosetItem(object):
         self.priority = priority
         self.children = []
         self.value = value
+
 
 def order_poset(items):
     """
@@ -771,8 +807,7 @@ def order_poset(items):
     result = []
     next = [i[1] for i in items.items() if not i[1].after]
     while next:
-        current = [(i.priority, i.name, i) for i in next]
-        current.sort()
+        current = sorted([(i.priority, i.name, i) for i in next])
         result.extend([i[2] for i in current])
         nextset = dict()
         for i in current:
@@ -789,8 +824,10 @@ def order_poset(items):
         next = nextset.values()
     return result
 
+
 class LazyDict(object):
     __slots__ = ['_dict', '_funcs', 'args', '_locks']
+
     def __init__(self, *args):
         self.args = args
         self._dict = {}
@@ -822,15 +859,15 @@ class LazyDict(object):
 
 
 class _GioFileStream(object):
-    
+
     __slots__ = ['stream']
-    
+
     def __enter__(self):
         return self
-    
+
     def __exit__(self, *exc_info):
         self.stream.close()
-    
+
     def seek(self, offset, whence=os.SEEK_CUR):
         if whence == os.SEEK_CUR:
             self.stream.seek(offset, GLib.SeekType.CUR)
@@ -840,38 +877,38 @@ class _GioFileStream(object):
             self.stream.seek(offset, GLib.SeekType.END)
         else:
             raise IOError("Invalid whence")
-    
+
     def tell(self):
         return self.stream.tell()
-    
+
 
 class GioFileInputStream(_GioFileStream):
     '''
         Wrap a Gio.File so it looks like a python file object for reading.
-        
+
         TODO: More complete wrapper
     '''
     __slots__ = ['stream', 'gfile']
-    
+
     def __init__(self, gfile):
         self.gfile = gfile
         self.stream = Gio.DataInputStream.new(gfile.read())
-        
+
     def __iter__(self):
         return self
-    
+
     def next(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
         return r
-    
+
     def read(self, size=None):
         if size:
             return self.stream.read_bytes(size).get_data()
         else:
             return self.gfile.load_contents()[1]
-    
+
     def readline(self):
         return self.stream.read_line()[0]
 
@@ -881,16 +918,16 @@ class GioFileOutputStream(_GioFileStream):
         Wrapper around Gio.File for writing like a python file object
     '''
     __slots__ = ['stream']
-    
+
     def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
-        
+
         self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
-    
+
     def flush(self):
         self.stream.flush()
-    
+
     def write(self, s):
         return self.stream.write(s)
 
@@ -900,34 +937,34 @@ def subscribe_for_settings(section, options, self):
         Allows you designate attributes on an object to be dynamically
         updated when a particular setting changes. If you want to be
         notified of a setting update, use a @property for the attribute.
-        
+
         Only works for a options in a single section
-        
+
         :param section: Settings section
         :param options: Dictionary of key: option name, value: attribute on
                         'self' to set when the setting has been updated. The
                         attribute must already have a default value in it
         :param self:    Object to set attribute values on
-        
+
         :returns: A function that can be called to unsubscribe
-        
+
         .. versionadded:: 3.5.0
     '''
-    
+
     from xl import event
     from xl import settings
-    
+
     def _on_option_set(unused_name, unused_object, data):
         attrname = options.get(data)
         if attrname is not None:
             setattr(self, attrname,
                     settings.get_option(data, getattr(self, attrname)))
-    
+
     for k in options:
         if not k.startswith('%s/' % section):
             raise ValueError("Option is not part of section %s" % section)
         _on_option_set(None, None, k)
-    
+
     return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
 
 

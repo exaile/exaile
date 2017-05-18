@@ -48,10 +48,10 @@ def is_supported():
     On some platforms (e.g. Linux+Wayland) tray icons are not supported.
     """
     supported = not guiutil.platform_is_wayland()
-    
+
     if not supported:
         logger.debug("No tray icon support on this platform")
-    
+
     return supported
 
 
@@ -77,6 +77,7 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
+
     def rating_get_tracks_func(parent, context):
         current = player.PLAYER.current
         if current:
@@ -84,17 +85,18 @@ def __create_tray_context_menu():
         else:
             return []
     items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
-        rating_get_tracks_func))
+                                          rating_get_tracks_func))
     # Remove
     items.append(playlist.RemoveCurrentMenuItem([items[-1].name]))
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
+
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        _("_Quit Exaile"), 'application-exit', callback=quit_cb))
+                                       _("_Quit Exaile"), 'application-exit', callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
@@ -104,6 +106,7 @@ class BaseTrayIcon(object):
     """
         Trayicon base, needs to be derived from
     """
+
     def __init__(self, main):
         self.main = main
         self.VOLUME_STEP = 0.05
@@ -198,10 +201,10 @@ class BaseTrayIcon(object):
         if event.button == Gdk.BUTTON_PRIMARY:
             self.main.toggle_visible(bringtofront=True)
         if event.button == Gdk.BUTTON_MIDDLE:
-            playback.playpause( player.PLAYER )
+            playback.playpause(player.PLAYER)
         if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(None, None, self.get_menu_position, self,
-                event.button, event.time)
+                            event.button, event.time)
 
     def on_scroll_event(self, widget, event):
         """
@@ -233,10 +236,12 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
+
 class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """
         Wrapper around GtkStatusIcon
     """
+
     def __init__(self, main):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
@@ -247,7 +252,7 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
             the best menu position
         """
         return Gtk.StatusIcon.position_menu(*args)
-    
+
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip

@@ -95,7 +95,8 @@ def bash_completion(parser):
     }
 
 if __name__ == '__main__':
-    import os, sys
+    import os
+    import sys
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     os.environ['LC_ALL'] = 'C'  # Avoid getting translated metavars
     os.environ['EXAILE_DIR'] = root

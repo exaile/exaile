@@ -25,32 +25,32 @@
 # from your version.
 
 
-
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import mp4
+
 
 class MP4Format(BaseFormat):
     MutagenType = mp4.MP4
     tag_mapping = {
-            'title':       '\xa9nam',
-            'artist':      '\xa9ART',
-            'albumartist': '\x61ART',
-            'album':       '\xa9alb',
-            'composer':    '\xa9wrt',
-            'genre':       '\xa9gen',
-            'lyrics':      '\xa9lyr',
-            'encodedby':   '\xa9too',
-            'date':        '\xa9day',
-            'tracknumber': 'trkn',
-            'discnumber':  'disk',
-            'copyright':   'cprt',
-            'bpm':         'tmpo',
-            'grouping':    '\xa9grp',
-            'comment':     '\xa9cmt',
-            'originaldate':'----:com.apple.iTunes:ORIGYEAR',
-            'cover':       'covr',
-            'language': '----:com.apple.iTunes:LANGUAGE',
-        }
+        'title':       '\xa9nam',
+        'artist':      '\xa9ART',
+        'albumartist': '\x61ART',
+        'album':       '\xa9alb',
+        'composer':    '\xa9wrt',
+        'genre':       '\xa9gen',
+        'lyrics':      '\xa9lyr',
+        'encodedby':   '\xa9too',
+        'date':        '\xa9day',
+        'tracknumber': 'trkn',
+        'discnumber':  'disk',
+        'copyright':   'cprt',
+        'bpm':         'tmpo',
+        'grouping':    '\xa9grp',
+        'comment':     '\xa9cmt',
+        'originaldate':'----:com.apple.iTunes:ORIGYEAR',
+        'cover':       'covr',
+        'language': '----:com.apple.iTunes:LANGUAGE',
+    }
     others = False
     writable = True
 
@@ -71,10 +71,12 @@ class MP4Format(BaseFormat):
             for value in f[name]:
                 ret.append("%d/%d" % (value[0], value[1]))
             return ret
-        else: return [t for t in f[name]]
+        else:
+            return [t for t in f[name]]
 
     def _set_tag(self, f, name, value):
-        if type(value) is not list: value = [value]
+        if not isinstance(value, list):
+            value = [value]
         if name in ['trkn', 'disk']:
             try:
                 f[name] = []
@@ -85,7 +87,7 @@ class MP4Format(BaseFormat):
                 pass
         elif name == 'covr':
             f[name] = []
-            
+
             for val in value:
                 if val.mime == 'image/jpeg':
                     f[name].append(mp4.MP4Cover(val.data, mp4.MP4Cover.FORMAT_JPEG))

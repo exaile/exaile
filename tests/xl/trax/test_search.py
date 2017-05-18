@@ -296,7 +296,7 @@ class TestTracksMatcher(object):
 
     def test_paren_matcher(self):
         matcher = search.TracksMatcher("( foo | bar )",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         match = matcher
         # MultiMetaMatcher
         assert len(match.matchers) == 1
@@ -339,7 +339,7 @@ class TestTracksMatcher(object):
 
     def test_match_true(self):
         matcher = search.TracksMatcher("foo",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'foo')
         assert matcher.match(self.str)
         assert self.str.on_tags == ['artist']
@@ -364,9 +364,10 @@ class TestTracksMatcher(object):
 
     def test_match_false(self):
         matcher = search.TracksMatcher("foo",
-                keyword_tags=['artist'])
+                                       keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'bar')
         assert not matcher.match(self.str)
+
 
 class TestSearchTracks(object):
 
@@ -398,7 +399,7 @@ class TestSearchTracks(object):
         tracks[0].set_tag_raw('artist', 'foooo')
         tracks[2].set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks_from_string(tracks, 'foo',
-                keyword_tags=['artist'])
+                                               keyword_tags=['artist'])
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
@@ -418,7 +419,7 @@ class TestSearchTracks(object):
         tracks[2].set_tag_raw('artist', u'motley crüe')
 
         gen = search.search_tracks_from_string(tracks, sstr,
-                keyword_tags=['artist'])
+                                               keyword_tags=['artist'])
 
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
@@ -432,7 +433,7 @@ class TestSearchTracks(object):
 
         # the weird character is normalized, so you can't search based on that
         gen = search.search_tracks_from_string(tracks, u'中',
-                keyword_tags=['artist'])
+                                               keyword_tags=['artist'])
 
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):

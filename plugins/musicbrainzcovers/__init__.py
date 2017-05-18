@@ -32,11 +32,13 @@ musicbrainzngs.set_useragent(
     'http://exaile.org/'
 )
 
+
 def enable(exaile):
     """
         Enables the plugin
     """
     providers.register('covers', MusicBrainzCoverSearch(exaile))
+
 
 def disable(exaile):
     """
@@ -44,14 +46,15 @@ def disable(exaile):
     """
     providers.unregister('covers', providers.get_provider('covers', 'musicbrainz'))
 
+
 class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
         Searches MusicBrainz for an album cover
     """
     name = 'musicbrainz'
     title = 'MusicBrainz'
-    __caa_url ='http://coverartarchive.org/release/{mbid}/front-{size}'
-    
+    __caa_url = 'http://coverartarchive.org/release/{mbid}/front-{size}'
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('musicbrainzcovers')
 
@@ -69,17 +72,17 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
             release=album,
             artistname=artist,
             format='CD',
-            limit=3 # Unlimited search is slow
+            limit=3  # Unlimited search is slow
         )
 
         if result['release-list']:
             mbids = [a['id'] for a in result['release-list']]
-            
+
             # Check the actual availability of the covers
             for mbid in mbids[:]:
                 try:
                     url = self.__caa_url.format(mbid=mbid, size=250)
-                    
+
                     headers = {'User-Agent': self.user_agent}
                     req = urllib2.Request(url, None, headers)
                     response = urllib2.urlopen(req)

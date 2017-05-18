@@ -43,32 +43,36 @@ import bookmarksprefs
 # if we're on python 2.5 it's not available...
 try:
     import json
+
     def _try_read(data):
         # try reading using json, if it fails, try the old format
         try:
             return json.loads(data)
         except ValueError:
-            return eval(data, {'__builtin__':None})
-            
+            return eval(data, {'__builtin__': None})
+
     _write = lambda x: json.dumps(x, indent=2)
     _read = _try_read
 
 except ImportError:
     _write = str
-    _read = lambda x: eval(x, {'__builtin__':None})
+    _read = lambda x: eval(x, {'__builtin__': None})
 
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
-#TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
+# TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 # does order matter?
+
 
 def error(text):
     logger.error("%s: %s" % ('Bookmarks', text))
     dialogs.error(None, exaile.gui.main, text)
 
+
 class Bookmarks:
+
     def __init__(self, exaile):
         self.bookmarks = []
 #        self.auto_db = {}
@@ -85,9 +89,9 @@ class Bookmarks:
             def factory(menu_, parent, context):
                 item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
                 image = Gtk.Image.new_from_icon_name(icon_name,
-                        size=Gtk.IconSize.MENU)
+                                                     size=Gtk.IconSize.MENU)
                 item.set_image(image)
-                
+
                 # insensitive if no bookmarks present
                 if len(self.bookmarks) == 0:
                     item.set_sensitive(False)
@@ -97,19 +101,17 @@ class Bookmarks:
                     if submenu is not None:
                         item.set_submenu(submenu)
                 return item
-                
-            return factory
 
+            return factory
 
         items = []
         items.append(_smi('bookmark', [], _('_Bookmark This Track'),
-            'bookmark-new', self.add_bookmark))
+                          'bookmark-new', self.add_bookmark))
         items.append(menu.MenuItem('delete', factory_factory(_('_Delete Bookmark'),
-            'gtk-close', submenu=self.delete_menu), ['bookmark']))
+                                                             'gtk-close', submenu=self.delete_menu), ['bookmark']))
         items.append(menu.MenuItem('clear', factory_factory(_('_Clear Bookmarks'),
-            'gtk-clear', callback=self.clear), ['delete']))
+                                                            'gtk-clear', callback=self.clear), ['delete']))
         items.append(_sep('sep', ['clear']))
-
 
         for item in items:
             self.menu.add_item(item)
@@ -120,7 +122,6 @@ class Bookmarks:
         #event.add_callback(self.on_start_track, 'playback_start')
         #event.add_callback(self.on_stop_track, 'playback_end')
         #playback_end, playback_pause, playback_resume, stop_track
-
 
     def do_bookmark(self, widget, data):
         """
@@ -145,7 +146,6 @@ class Bookmarks:
                 player.QUEUE.play(track)
                 player.PLAYER.seek(pos)
 
-
     def add_bookmark(self, *args):
         """
             Create bookmark for current track/position.
@@ -158,7 +158,7 @@ class Bookmarks:
 
         pos = player.PLAYER.get_time()
         key = track.get_loc_for_io()
-        self.bookmarks.append((key,pos))
+        self.bookmarks.append((key, pos))
         self.display_bookmark(key, pos)
 
     def display_bookmark(self, key, pos):
@@ -174,7 +174,7 @@ class Bookmarks:
                 image = covers.MANAGER.get_cover(item, set_only=True)
                 if image:
                     try:
-                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))
+                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16, 16))
                     except GLib.GError:
                         logger.warn('Could not load cover')
                         pix = None
@@ -185,27 +185,28 @@ class Bookmarks:
             logger.exception("Cannot open %s", key)
             # delete offending key?
             return
-        time = '%d:%02d' % (pos/60, pos%60)
-        label = '%s @ %s' % ( title , time )
+        time = '%d:%02d' % (pos / 60, pos % 60)
+        label = '%s @ %s' % (title, time)
 
-        counter = self.counter # closure magic (workaround for factories not having access to item)
+        counter = self.counter  # closure magic (workaround for factories not having access to item)
         # factory for new bookmarks
+
         def factory(menu_, parent, context):
             menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
             if pix:
                 menu_item.set_image(Gtk.image_new_from_pixbuf(pix))
-            
+
             if menu_ is self.menu:
-                menu_item.connect('activate', self.do_bookmark, (key,pos))
+                menu_item.connect('activate', self.do_bookmark, (key, pos))
             else:
-                menu_item.connect('activate', self.delete_bookmark, (counter,key,pos))
-                
+                menu_item.connect('activate', self.delete_bookmark, (counter, key, pos))
+
             return menu_item
 
         item = menu.MenuItem('bookmark{0}'.format(self.counter), factory, ['sep'])
         self.menu.add_item(item)
         self.delete_menu.add_item(item)
-        
+
         self.counter += 1
 
         # save addition
@@ -219,7 +220,7 @@ class Bookmarks:
         for item in self.delete_menu._items:
             self.menu.remove_item(item)
             self.delete_menu.remove_item(item)
-    
+
         self.bookmarks = []
         self.save_db()
 
@@ -227,11 +228,11 @@ class Bookmarks:
         """
             Delete a bookmark.
         """
-        #print targets
+        # print targets
         counter, key, pos = targets
 
         if (key, pos) in self.bookmarks:
-            self.bookmarks.remove((key,pos))
+            self.bookmarks.remove((key, pos))
 
         name = 'bookmark{0}'.format(counter)
         for item in self.delete_menu._items:
@@ -239,46 +240,45 @@ class Bookmarks:
                 self.delete_menu.remove_item(item)
                 self.menu.remove_item(item)
                 break
-        
+
         self.save_db()
-        
+
     def load_db(self):
         """
             Load previously saved bookmarks from a file.
         """
-        path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
+        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
         try:
             # Load Bookmark List from file.
-            with open(path,'rb') as f:
+            with open(path, 'rb') as f:
                 data = f.read()
                 try:
                     db = _read(data)
-                    for (key,pos) in db:
-                        self.bookmarks.append((key,pos))
+                    for (key, pos) in db:
+                        self.bookmarks.append((key, pos))
                         self.display_bookmark(key, pos)
                     logger.debug('loaded {0} bookmarks'.format(len(db)))
                 except Exception as s:
-                    logger.error('BM: bad bookmark file: %s'%s)
+                    logger.error('BM: bad bookmark file: %s' % s)
                     return None
 
         except IOError as e:  # File might not exist
             logger.error('BM: could not open file: %s' % e.strerror)
-
 
     def save_db(self):
         """
             Save list of bookmarks to a file.
         """
         # Save List
-        path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
-        with open(path,'wb') as f:
+        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
+        with open(path, 'wb') as f:
             f.write(_write(self.bookmarks))
             logger.debug('saving {0} bookmarks'.format(len(self.bookmarks)))
 
 
-
 def __enb(eventname, exaile, nothing):
     GLib.idle_add(_enable, exaile)
+
 
 def enable(exaile):
     """
@@ -290,6 +290,7 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
+
 def _enable(exaile):
     """
         Called when plugin is enabled.  Set up the menus, create the bookmark class, and
@@ -300,13 +301,12 @@ def _enable(exaile):
 
     # add tools menu items
     providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
-    
-    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'), 
-        'user-bookmarks', submenu=bm.menu)
+
+    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'),
+                'user-bookmarks', submenu=bm.menu)
     providers.register('menubar-tools-menu', item)
 
     bm.load_db()
-
 
 
 def disable(exaile):

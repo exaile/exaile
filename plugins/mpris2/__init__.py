@@ -122,11 +122,14 @@ MPRIS_INTROSPECTION = '''\
 
 
 class MprisPlugin:
+
     def enable(self, exaile):
         self.handler = MprisHandler(exaile)
+
     def disable(self, exaile):
         self.handler.disconnect()
         del self.handler
+
     def teardown(self, exaile):
         self.handler.teardown()
 

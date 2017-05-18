@@ -23,7 +23,7 @@ def _find_bad_plugin_versions(plugins_dir):
                 if m:
                     vv = m.group(1)
                     if vv != v:
-                        yield pname, p, vv, s[:i] + s[i+1:]
+                        yield pname, p, vv, s[:i] + s[i + 1:]
 
                     break
             else:

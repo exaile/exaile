@@ -43,6 +43,7 @@ Variant = GLib.Variant
 
 
 class MprisObject(object):
+
     def __init__(self, exaile, connection):
         self.exaile = exaile
         self.connection = connection
@@ -96,13 +97,13 @@ class MprisObject(object):
 
     def _emit(self, interface, signame, *args):
         self.connection.emit_signal(None, '/org/mpris/MediaPlayer2', interface,
-            signame, Variant.new_tuple(*args))
+                                    signame, Variant.new_tuple(*args))
 
     def _emit_propchange(self, interface, changed_props={}, invalidated_props=[]):
         self._emit('org.freedesktop.DBus.Properties', 'PropertiesChanged',
-            Variant('s', interface),
-            Variant('a{sv}', changed_props),
-            Variant('as', invalidated_props))
+                   Variant('s', interface),
+                   Variant('a{sv}', changed_props),
+                   Variant('as', invalidated_props))
 
     def _get_metadata(self):
         track = xl.player.PLAYER.current
@@ -177,7 +178,7 @@ class MprisObject(object):
     def _on_playback_toggle_pause(self, event, player, track):
         self._emit_propchange('org.mpris.MediaPlayer2.Player', {
             'PlaybackStatus': Variant('s',
-                'Paused' if xl.player.PLAYER.is_paused() else 'Playing'),
+                                      'Paused' if xl.player.PLAYER.is_paused() else 'Playing'),
         })
 
     def _on_player_option_set(self, event, settings, option):
@@ -192,25 +193,32 @@ class MprisObject(object):
     # Root properties
 
     CanRaise = CanQuit = CanSetFullScreen = property(_return_true)
+
     @property
     def DesktopEntry(self):
         return Variant('s', 'exaile')
+
     @property
     def FullScreen(self):
         return Variant('b', self.exaile.gui.main.props.is_fullscreen)
+
     @FullScreen.setter
     def FullScreen(self, value):
         self.exaile.gui.main.props.is_fullscreen = value
+
     @property
     def HasTrackList(self):
         return Variant('b', False)
+
     @property
     def Identity(self):
         return Variant('s', 'Exaile')
+
     @property
     def SupportedMimeTypes(self):
         # Taken from exaile.desktop
         return Variant('as', 'audio/musepack;application/musepack;application/x-ape;audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;audio/x-mpc;audio/mp;audio/x-mp;application/ogg;application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'.split(';'))
+
     @property
     def SupportedUriSchemes(self):
         # TODO: Call GstUriHandler.get_protocols on all GStreamer sources
@@ -221,12 +229,14 @@ class MprisObject(object):
 
     def Raise(self):
         self.exaile.gui.main.window.present()
+
     def Quit(self):
         self.exaile.quit()
 
     # Player properties
 
     CanControl = CanGoNext = CanGoPrevious = CanPause = CanPlay = CanSeek = property(_return_true)
+
     @property
     def LoopStatus(self):
         playlist = xl.player.QUEUE.current_playlist
@@ -234,6 +244,7 @@ class MprisObject(object):
         state_map = {'disabled': 'None', 'all': 'Playlist', 'track': 'Track'}
         assert state in state_map
         return Variant('s', state_map[state])
+
     @LoopStatus.setter
     def LoopStatus(self, value):
         value_s = value.get_string()
@@ -247,33 +258,42 @@ class MprisObject(object):
         self._emit_propchange('org.mpris.MediaPlayer2.Player', {
             'LoopStatus': value,
         })
+
     @property
     def MaximumRate(self):
         return Variant('d', 1)
+
     @property
     def Metadata(self):
         return Variant('a{sv}', self._get_metadata())
+
     @property
     def MinimumRate(self):
         return Variant('d', 1)
+
     @property
     def PlaybackStatus(self):
         state = xl.player.PLAYER.get_state()
         assert state in ('playing', 'paused', 'stopped')
         return Variant('s', state.capitalize())
+
     @property
     def Position(self):
         return Variant('x', xl.player.PLAYER.get_time() * 1e6)
+
     @property
     def Rate(self):
         return Variant('d', 1)
+
     @Rate.setter
     def Rate(self, value):
         pass
+
     @property
     def Shuffle(self):
         playlist = xl.player.QUEUE.current_playlist
         return Variant('b', playlist.get_shuffle_mode() != 'disabled')
+
     @Shuffle.setter
     def Shuffle(self, value):
         value_b = value.get_boolean()
@@ -283,9 +303,11 @@ class MprisObject(object):
         self._emit_propchange('org.mpris.MediaPlayer2.Player', {
             'Shuffle': Variant('b', value_b),
         })
+
     @property
     def Volume(self):
         return Variant('d', xl.settings.get_option('player/volume', 1))
+
     @Volume.setter
     def Volume(self, value):
         xl.settings.set_option('player/volume', value.get_double())
@@ -295,27 +317,35 @@ class MprisObject(object):
     def Next(self):
         # TODO: Match behavior with spec
         xl.player.QUEUE.next()
+
     def OpenUri(self, uri):
         pass  # TODO
+
     def Pause(self):
         xl.player.PLAYER.pause()
+
     def Play(self):
         # TODO: Match behavior with spec
         xl.player.QUEUE.play()
+
     def PlayPause(self):
         # TODO: Match behavior with spec
         xl.player.PLAYER.toggle_pause()
+
     def Previous(self):
         # TODO: Match behavior with spec
         xl.player.QUEUE.prev()
+
     def Seek(self, offset):
         pass  # TODO
+
     def SetPosition(self, track_id, position):
         if track_id != '/org/exaile/track/%d' % id(xl.player.PLAYER.current):
             return
         xl.player.PLAYER.seek(position / 1e6)
         # TODO: Can we get this event from Exaile?
         self._emit('org.mpris.MediaPlayer2.Player', 'Seeked',
-            GLib.Variant('x', position))
+                   GLib.Variant('x', position))
+
     def Stop(self):
         xl.player.PLAYER.stop()

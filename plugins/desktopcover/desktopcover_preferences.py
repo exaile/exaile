@@ -23,21 +23,26 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "desktopcover_preferences.ui")
 icon = 'image-x-generic'
 
+
 class AnchorPreference(widgets.ComboPreference):
     default = 'topleft'
     name = 'plugin/desktopcover/anchor'
+
 
 class XPreference(widgets.SpinPreference):
     default = 0
     name = 'plugin/desktopcover/x'
 
+
 class YPreference(widgets.SpinPreference):
     default = 0
     name = 'plugin/desktopcover/y'
 
+
 class OverrideSizePreference(widgets.CheckPreference):
     default = False
     name = 'plugin/desktopcover/override_size'
+
 
 class SizePreference(widgets.SpinPreference, widgets.CheckConditional):
     default = 200
@@ -48,12 +53,14 @@ class SizePreference(widgets.SpinPreference, widgets.CheckConditional):
         widgets.SpinPreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
 
+
 class FadingPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/desktopcover/fading'
 
+
 class FadingDurationPreference(widgets.SpinPreference,
-        widgets.CheckConditional):
+                               widgets.CheckConditional):
     default = 50
     name = 'plugin/desktopcover/fading_duration'
     condition_preference_name = 'plugin/desktopcover/fading'

@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os, sys
+import os
+import sys
 from gi.repository import GLib
 
 # We need the local hack for OSX bundled apps, so we depend on the main script
@@ -82,20 +83,26 @@ if os.path.exists(os.path.join(exaile_dir, 'data')):
 
 data_dirs.insert(0, data_home)
 
+
 def get_config_dir():
     return config_home
+
 
 def get_config_dirs():
     return config_dirs[:]
 
+
 def get_data_dir():
     return data_home
+
 
 def get_data_dirs():
     return data_dirs[:]
 
+
 def get_cache_dir():
     return cache_home
+
 
 def get_logs_dir():
     return logs_home
@@ -110,17 +117,22 @@ def _get_path(basedirs, *subpath_elements, **kwargs):
             return path
     return None
 
+
 def get_data_path(*subpath_elements, **kwargs):
     return _get_path(data_dirs, *subpath_elements, **kwargs)
+
 
 def get_config_path(*subpath_elements, **kwargs):
     return _get_path(config_dirs, *subpath_elements, **kwargs)
 
+
 def get_data_home_path(*subpath_elements, **kwargs):
     return _get_path([data_home], *subpath_elements, **kwargs)
 
+
 def get_last_dir():
     return lastdir
+
 
 def get_plugin_data_dir():
     path = os.path.join(get_data_dirs()[0], 'plugin_data')

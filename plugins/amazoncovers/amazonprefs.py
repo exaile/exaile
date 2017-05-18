@@ -23,9 +23,11 @@ name = _('Amazon Covers')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'amazonprefs_pane.ui')
 
+
 class APIKeyPreference(widgets.Preference):
     default = ''
     name = 'plugin/amazoncovers/api_key'
+
 
 class SecretKeyPreference(widgets.Preference):
     default = ''

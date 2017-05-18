@@ -23,6 +23,7 @@ from xl import event
 SUSPEND_PLUGIN = None
 logger = logging.getLogger(__name__)
 
+
 def enable(exaile):
     """
         Called when the plugin is enabled
@@ -31,7 +32,7 @@ def enable(exaile):
 
     if SUSPEND_PLUGIN is None:
         try:
-            SUSPEND_PLUGIN = SuspendInhibit()  
+            SUSPEND_PLUGIN = SuspendInhibit()
         except EnvironmentError:
             logger.error('Failed to Acquire Suspend Bus')
             raise
@@ -41,8 +42,9 @@ def enable(exaile):
 
         # allow plugin to finished enabling so that if user returns
         # to gnome plugin will not have to be re-enabled
- 
+
     logger.info('Suspend Inhibitor Enabled')
+
 
 def disable(exaile):
     """
@@ -53,8 +55,9 @@ def disable(exaile):
     if SUSPEND_PLUGIN is not None:
         SUSPEND_PLUGIN.destroy()
         SUSPEND_PLUGIN = None
- 
+
     logger.info('Suspend Inhibitor Disabled')
+
 
 class SuspendInhibit(object):
     """
@@ -93,10 +96,11 @@ class SuspendInhibit(object):
     def destroy(self):
         self.adapter.destroy()
 
+
 class SuspendAdapter(adapters.PlaybackAdapter):
     """
         Base class for Desktop Session suspend inhibitors
-        
+
         Subclasses will have to override the DBus call methods
 
         Thread safe
@@ -107,7 +111,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
     def __init__(self, bus_name, object_path, interface):
         try:
             bus = dbus.SessionBus()
-            obj =  bus.get_object(bus_name, object_path)
+            obj = bus.get_object(bus_name, object_path)
             self.iface = dbus.Interface(obj, interface)
             logger.info('Suspend Bus Acquired')
         except dbus.DBusException:
@@ -163,11 +167,10 @@ class SuspendAdapter(adapters.PlaybackAdapter):
                 else:
                     logger.error('Cannot Unihibit Suspend without cookie')
 
-
     def is_inhibited(self):
         """ Inhibit Status """
         return self.inhibited
-        
+
     def destroy(self):
         """ Cleanup """
         # Make sure to uninhibit when exiting
@@ -181,7 +184,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def on_playback_track_start(self, event, player, track):
         self.inhibit()
-         
+
     def on_playback_player_end(self, event, player, track):
         self.uninhibit()
 
@@ -189,7 +192,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         if player.is_playing():
             self.inhibit()
         else:
-            self.uninhibit() 
+            self.uninhibit()
 
     def _dbus_inhibit_call(self):
         """
@@ -207,6 +210,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         """
         raise NotImplementedError('Method not Overridden')
 
+
 class PowerManagerAdapter(SuspendAdapter):
     """
         Default Adapter, implemented by most desktop sessions
@@ -214,16 +218,18 @@ class PowerManagerAdapter(SuspendAdapter):
         Some desktop sesssions use different bus names for this interface
         and have other small variances
     """
+
     def __init__(self, bus_name='org.freedesktop.PowerManagement',
-            object_name='/org/freedesktop/PowerManagement/Inhibit',
-            interface_name='org.freedesktop.PowerManagement.Inhibit'):
-        SuspendAdapter.__init__(self, bus_name, object_name, interface_name);
+                 object_name='/org/freedesktop/PowerManagement/Inhibit',
+                 interface_name='org.freedesktop.PowerManagement.Inhibit'):
+        SuspendAdapter.__init__(self, bus_name, object_name, interface_name)
 
     def _dbus_inhibit_call(self):
-       self.cookie = self.iface.Inhibit(self.PROGRAM, self.ACTIVITY)
+        self.cookie = self.iface.Inhibit(self.PROGRAM, self.ACTIVITY)
 
     def _dbus_uninhibit_call(self):
-       self.iface.UnInhibit(self.cookie) 
+        self.iface.UnInhibit(self.cookie)
+
 
 class GnomeAdapter(SuspendAdapter):
     """
@@ -234,9 +240,9 @@ class GnomeAdapter(SuspendAdapter):
     SUSPEND_FLAG = 8
 
     def __init__(self):
-        SuspendAdapter.__init__(self, 'org.gnome.SessionManager', 
-                '/org/gnome/SessionManager', 
-                'org.gnome.SessionManager')
+        SuspendAdapter.__init__(self, 'org.gnome.SessionManager',
+                                '/org/gnome/SessionManager',
+                                'org.gnome.SessionManager')
 
     def _dbus_inhibit_call(self):
         """
@@ -248,13 +254,15 @@ class GnomeAdapter(SuspendAdapter):
         """
             Gnome Interface has different case
         """
-        self.iface.Uninhibit(self.cookie) 
+        self.iface.Uninhibit(self.cookie)
+
 
 class KdeAdapter(PowerManagerAdapter):
     """
         Adapter for when org.freedesktop.PowerManager interface
         located at bus org.kde.powerdevil
     """
+
     def __init__(self):
         try:
             PowerManagerAdapter.__init__(self)
@@ -262,11 +270,13 @@ class KdeAdapter(PowerManagerAdapter):
             # Fall back to other bus name
             PowerManagerAdapter.__init__(self, bus_name='org.kde.powerdevil')
 
+
 class XfceAdapter(PowerManagerAdapter):
     """
         Adapter for org.freedesktop.PowerManagement interface at bus name
         org.xfce.PowerManager
     """
+
     def __init__(self):
         try:
             PowerManagerAdapter.__init__(self)

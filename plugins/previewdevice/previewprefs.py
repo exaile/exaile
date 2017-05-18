@@ -46,26 +46,26 @@ def __autoconfig():
         If the user hasn't used our plugin before, then try to
         autoconfig their audio settings to use a different audio
         device if possible.. 
-        
+
         TODO: It would be cool if we could notify the user that
         a new device was plugged in...
     '''
-    
+
     from xl import settings
 
     if settings.get_option('preview_device/audiosink', None) is not None:
         return
-        
-    sink = settings.get_option('player/audiosink', None)    
+
+    sink = settings.get_option('player/audiosink', None)
     if sink is None:
         return
-        
+
     settings.set_option('preview_device/audiosink', sink)
-    
+
     main_device = settings.get_option('player/audiosink_device', None)
     if main_device is None:
         return
-    
+
     # TODO: If we ever add another engine, need to make sure that
     #       gstreamer-specific stuff doesn't accidentally get loaded
     from xl.player.gst.sink import get_devices
@@ -77,39 +77,45 @@ def __autoconfig():
         if device_id != main_device and name != 'auto':
             settings.set_option('preview_device/audiosink_device', device_id)
             break
-        
+
 __autoconfig()
 
 
 class PreviewDeviceEnginePreference(playback.EnginePreference):
     name = 'preview_device/engine'
-    
+
+
 class PreviewDeviceAudioSinkPreference(playback.AudioSinkPreference):
     name = 'preview_device/audiosink'
-    
+
+
 class PreviewDeviceCustomAudioSinkPreference(playback.CustomAudioSinkPreference):
     name = 'preview_device/custom_sink_pipe'
     condition_preference_name = 'preview_device/audiosink'
+
 
 class PreviewDeviceSelectDeviceForSinkPreference(playback.SelectDeviceForSinkPreference):
     name = 'preview_device/audiosink_device'
     condition_preference_name = 'preview_device/audiosink'
 
+
 class PreviewDeviceUserFadeTogglePreference(playback.UserFadeTogglePreference):
     name = 'preview_device/user_fade_enabled'
     condition_preference_name = 'preview_device/engine'
 
+
 class PreviewDeviceUserFadeDurationPreference(playback.UserFadeDurationPreference):
     name = 'preview_device/user_fade'
     condition_preference_name = 'preview_device/engine'
+
 
 class PreviewDeviceCrossFadingPreference(playback.CrossfadingPreference):
     default = False
     name = 'preview_device/crossfading'
     condition_preference_name = 'preview_device/engine'
 
+
 class PreviewDeviceCrossfadeDurationPreference(playback.CrossfadeDurationPreference):
     default = 1000
     name = 'preview_device/crossfade_duration'
     condition_preference_name = 'preview_device/engine'
-    

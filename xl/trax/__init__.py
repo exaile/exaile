@@ -34,19 +34,18 @@ Provides the base for creating and managing Track objects.
 from xl.trax.track import Track
 from xl.trax.trackdb import TrackDB
 from xl.trax.search import (
-        SearchResultTrack,
-        search_tracks,
-        search_tracks_from_string,
-        TracksMatcher,
-        TracksInList,
-        TracksNotInList,
-        match_track_from_string)
+    SearchResultTrack,
+    search_tracks,
+    search_tracks_from_string,
+    TracksMatcher,
+    TracksInList,
+    TracksNotInList,
+    match_track_from_string)
 from xl.trax.util import (
-        is_valid_track,
-        get_album_tracks,
-        get_uris_from_tracks,
-        get_tracks_from_uri,
-        sort_tracks,
-        sort_result_tracks,
-        get_rating_from_tracks)
-
+    is_valid_track,
+    get_album_tracks,
+    get_uris_from_tracks,
+    get_tracks_from_uri,
+    sort_tracks,
+    sort_result_tracks,
+    get_rating_from_tracks)

@@ -30,6 +30,7 @@ class MoodbarGeneratorError(Exception):
 
 
 class MoodbarGenerator(object):
+
     def check(self):
         """Check whether the generator works.
 
@@ -63,6 +64,7 @@ class MoodbarGenerator(object):
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
+
     def check(self):
         try:
             with open(os.devnull, 'wb') as devnull:

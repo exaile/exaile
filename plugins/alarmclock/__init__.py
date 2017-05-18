@@ -1,7 +1,8 @@
 
 from gi.repository import GLib
 
-import time, thread
+import time
+import thread
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
@@ -10,44 +11,44 @@ from xl import settings
 
 
 class VolumeControl:
+
     def __init__(self):
         self.thread = thread
 
-    def print_debug( self ):
+    def print_debug(self):
         print(self.min_volume)
         print(self.max_volume)
         print(self.increment)
         print(self.time_per_inc)
 
-    def fade_in( self ):
+    def fade_in(self):
         temp_volume = self.min_volume
         while temp_volume <= self.max_volume:
-            #print "set volume to %s" % str(temp_volume / 100.0)
-            player.PLAYER.set_volume( ( temp_volume / 100.0 ) )
+            # print "set volume to %s" % str(temp_volume / 100.0)
+            player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume += self.increment
-            time.sleep( self.time_per_inc )
+            time.sleep(self.time_per_inc)
             if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
-
-    def fade_out( self):
+    def fade_out(self):
         temp_volume = self.max_volume
         while temp_volume >= self.min_volume:
-            #print "set volume to %d" % (temp_volume / 100.0)
-            player.PLAYER.set_volume( ( temp_volume / 100.0) )
+            # print "set volume to %d" % (temp_volume / 100.0)
+            player.PLAYER.set_volume((temp_volume / 100.0))
             temp_volume -= self.increment
-            time.sleep( self.time_per_inc )
+            time.sleep(self.time_per_inc)
             if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
-    def fade_in_thread( self ):
+    def fade_in_thread(self):
         if self.use_fading == "True":
-            self.thread.start_new( self.fade_in, ())
+            self.thread.start_new(self.fade_in, ())
 
-    def stop_fading( self ):
+    def stop_fading(self):
         self.thread.exit()
 
-    def load_settings( self ):
+    def load_settings(self):
         prefix = "plugin/alarmclock/"
         # Setting name, property to save to, default value
         setting_values = (
@@ -65,9 +66,9 @@ class VolumeControl:
 class Alarmclock(object):
 
     def __init__(self):
-        self.last_activate=None
-        self.timer_id=None
-        self.volume_control=VolumeControl()
+        self.last_activate = None
+        self.timer_id = None
+        self.volume_control = VolumeControl()
 
     def timout_alarm(self):
         """
@@ -75,9 +76,9 @@ class Alarmclock(object):
         nothing.  If the current time matches the time specified, it starts
         playing
         """
-        
-        self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
-        self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
+
+        self.hour = int(settings.get_option('plugin/alarmclock/hour', 15))
+        self.minuts = int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
         active_days = [
             settings.get_option('plugin/alarmclock/sunday', False),
@@ -88,23 +89,24 @@ class Alarmclock(object):
             settings.get_option('plugin/alarmclock/friday', False),
             settings.get_option('plugin/alarmclock/saturday', False)
         ]
-        
+
         if True not in active_days:
             return True
-        
+
         current = time.strftime("%H:%M", time.localtime())
         curhour = int(current.split(":")[0])
         curminuts = int(current.split(":")[1])
         currentDay = int(time.strftime("%w", time.localtime()))
-        
-        if curhour==self.hour and curminuts==self.minuts and \
-            active_days[currentDay]==True:
-            
+
+        if curhour == self.hour and curminuts == self.minuts and \
+                active_days[currentDay] == True:
+
             if current != self.last_activate:
-            
+
                 self.last_activate = current
                 track = player.PLAYER.current
-                if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()): return True
+                if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()):
+                    return True
                 player.QUEUE.play()
                 self.volume_control.fade_in_thread()
         else:
@@ -121,7 +123,7 @@ class Alarmclock(object):
         if self.timer_id is not None:
             GLib.source_remove(self.timer_id)
         self.timer_id = None
-        
+
     def get_preferences_pane(self):
         return acprefs
 

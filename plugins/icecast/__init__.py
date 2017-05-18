@@ -21,11 +21,13 @@ from xlgui.widgets import dialogs
 
 STATION = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
     else:
         _enable(None, exaile, None)
+
 
 def _enable(devicename, exaile, nothing):
     global STATION
@@ -33,14 +35,17 @@ def _enable(devicename, exaile, nothing):
     STATION = IcecastRadioStation(exaile)
     exaile.radio.add_station(STATION)
 
+
 def disable(exaile):
     global STATION
     exaile.radio.remove_station(STATION)
     STATION = None
 
+
 def set_status(message, timeout=0):
     from xlgui.panel import radio
     radio.set_status(message, timeout)
+
 
 class IcecastRadioStation(RadioStation):
     """
@@ -57,6 +62,7 @@ class IcecastRadioStation(RadioStation):
         >>>
     """
     name = 'icecast'
+
     def __init__(self, exaile):
         """
             Initializes the icecast radio station
@@ -109,12 +115,12 @@ class IcecastRadioStation(RadioStation):
             hostinfo = urlparse.urlparse(self.genre_url)
             try:
                 c = httplib.HTTPConnection(hostinfo.netloc,
-                        timeout=20)
-            except TypeError: # python 2.5 doesnt have timeout=
+                                           timeout=20)
+            except TypeError:  # python 2.5 doesnt have timeout=
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
-                    self.user_agent})
+                                                         self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -153,8 +159,7 @@ class IcecastRadioStation(RadioStation):
                 self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
         return rlists
@@ -170,8 +175,7 @@ class IcecastRadioStation(RadioStation):
 
         rlists = self._get_stations(url)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
 
         self.subs[name] = rlists
@@ -210,13 +214,13 @@ class IcecastRadioStation(RadioStation):
         set_status(_('Contacting Icecast server...'))
         try:
             c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
-        except TypeError: # python 2.5 doesnt have timeout=
+        except TypeError:  # python 2.5 doesnt have timeout=
             c = httplib.HTTPConnection(hostinfo.netloc)
         while thisPage < nextPage:
             thisPage += 1
             try:
                 c.request('GET', "%s?%s" % (hostinfo.path, query),
-                    headers={'User-Agent': self.user_agent})
+                          headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -227,10 +231,10 @@ class IcecastRadioStation(RadioStation):
                     _('Error connecting to Icecast server.'))
 
             body = response.read()
-            
+
             # XML parser can't handle the audio tag
             body = re.sub('<audio.*?>.*?</audio>', '', body, flags=(re.M | re.DOTALL))
-            
+
             dom = minidom.parseString(body)
             divs = dom.getElementsByTagName('div')
             for div in divs:
@@ -317,7 +321,7 @@ class IcecastRadioStation(RadioStation):
             Called when the user wants to search for a specific stream
         """
         dialog = dialogs.TextEntryDialog(_("Enter the search keywords"),
-            _("Icecast Search"))
+                                         _("Icecast Search"))
 
         result = dialog.run()
         if result == Gtk.ResponseType.OK:
@@ -342,7 +346,7 @@ class IcecastRadioStation(RadioStation):
         if not lists:
             dialogs.info(self.exaile.gui.main.window, _('No Stations Found'))
             return
-        
+
         dialog = ResultsDialog(_("Icecast Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)
@@ -354,14 +358,16 @@ class IcecastRadioStation(RadioStation):
         dialog.hide()
         if result == Gtk.ResponseType.OK:
             items = dialog.get_items()
-            if not items: return
+            if not items:
+                return
 
             self.do_get_playlist(self._keyword, items[0])
 
     @common.threaded
     def do_get_playlist(self, keyword, item):
         pl = item.get_playlist()
-        if not pl: return
+        if not pl:
+            return
 
         GLib.idle_add(self.done_getting_playlist, pl)
 
@@ -378,7 +384,9 @@ class IcecastRadioStation(RadioStation):
         menu.append(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
         return menu
 
+
 class ResultsDialog(dialogs.ListDialog):
+
     def __init__(self, title):
         dialogs.ListDialog.__init__(self, title)
         col = self.list.get_column(0)
@@ -389,12 +397,12 @@ class ResultsDialog(dialogs.ListDialog):
         text = Gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         col = Gtk.TreeViewColumn(_('Bitrate'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter: \
-            cell.set_property('text', model.get_value(iter, 0).bitrate))
+        col.set_cell_data_func(text, lambda column, cell, model, iter:
+                               cell.set_property('text', model.get_value(iter, 0).bitrate))
         self.list.append_column(col)
         text = Gtk.CellRendererText()
         text.set_property('xalign', 0.5)
         col = Gtk.TreeViewColumn(_('Format'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter: \
-            cell.set_property('text', model.get_value(iter, 0).format))
+        col.set_cell_data_func(text, lambda column, cell, model, iter:
+                               cell.set_property('text', model.get_value(iter, 0).format))
         self.list.append_column(col)

@@ -198,8 +198,8 @@ htmlhelp_basename = 'Exailedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Exaile.tex', u'Exaile Documentation',
-   u'Adam Olsen \\textless{}arolsen@gmail.com\\textgreater{}, Johannes Sasongko \\textless{}sasongko@gmail.com\\textgreater{}, Aren Olsen \\textless{}reacocard@gmail.com\\textgreater{}, Mathias Brodala \\textless{}info@noctus.net\\textgreater{}', 'manual'),
+    ('index', 'Exaile.tex', u'Exaile Documentation',
+     u'Adam Olsen \\textless{}arolsen@gmail.com\\textgreater{}, Johannes Sasongko \\textless{}sasongko@gmail.com\\textgreater{}, Aren Olsen \\textless{}reacocard@gmail.com\\textgreater{}, Mathias Brodala \\textless{}info@noctus.net\\textgreater{}', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

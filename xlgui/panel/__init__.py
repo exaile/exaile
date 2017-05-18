@@ -32,6 +32,7 @@ from gi.repository import GObject
 from xl import xdg
 from xlgui.widgets.notebook import NotebookPage
 
+
 class Panel(GObject.GObject):
     """
         The base panel class.
@@ -72,11 +73,11 @@ class Panel(GObject.GObject):
             or perform another action. 
         """
         self._child.grab_focus()
-        
+
     def get_panel(self):
         '''
             Returns a NotebookPage object that will be used as the panel
-            
+
             :returns: NotebookPage object
         '''
         if not self._child:
@@ -86,7 +87,7 @@ class Panel(GObject.GObject):
             if not self.label:
                 self.label = window.get_title()
             window.destroy()
-            
+
             self._child = NotebookPage(child, self.label, 'panel-tab-context')
 
         return self._child

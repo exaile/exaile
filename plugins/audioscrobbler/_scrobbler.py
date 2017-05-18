@@ -2,7 +2,9 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-import urllib, urllib2, logging
+import urllib
+import urllib2
+import logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
@@ -12,138 +14,152 @@ logger = logging.getLogger(__name__)
 
 SESSION_ID = None
 INITIAL_URL = None
-POST_URL   = None
-NOW_URL    = None
+POST_URL = None
+POST_URL = None
+NOW_URL = None
 HARD_FAILS = 0
-LAST_HS    = None   # Last handshake time
-HS_DELAY   = 0      # wait this many seconds until next handshake
+LAST_HS = None   # Last handshake time
+HS_DELAY = 0      # wait this many seconds until next handshake
 SUBMIT_CACHE = []
-MAX_CACHE  = 5      # keep only this many songs in the cache
+MAX_CACHE = 5      # keep only this many songs in the cache
 MAX_SUBMIT = 10     # submit at most this many tracks at one time
 PROTOCOL_VERSION = '1.2'
-__LOGIN      = {}     # data required to login
+__LOGIN = {}     # data required to login
 
 USER_AGENT_HEADERS = None
 
+
 class BackendError(Exception):
-   "Raised if the AS backend does something funny"
-   pass
+    "Raised if the AS backend does something funny"
+    pass
+
+
 class AuthError(Exception):
-   "Raised on authencitation errors"
-   pass
+    "Raised on authencitation errors"
+    pass
+
+
 class PostError(Exception):
-   "Raised if something goes wrong when posting data to AS"
-   pass
+    "Raised if something goes wrong when posting data to AS"
+    pass
+
+
 class SessionError(Exception):
-   "Raised when problems with the session exist"
-   pass
+    "Raised when problems with the session exist"
+    pass
+
+
 class ProtocolError(Exception):
-   "Raised on general Protocol errors"
-   pass
+    "Raised on general Protocol errors"
+    pass
+
 
 def set_user_agent(s):
     global USER_AGENT_HEADERS
     USER_AGENT_HEADERS = {'User-Agent': s}
 
+
 def login(user, password, hashpw=False, client=('exa', '0.3.0'),
-   post_url=None):
-   """Authencitate with AS (The Handshake)
+          post_url=None):
+    """Authencitate with AS (The Handshake)
 
-   @param user:     The username
-   @param password: md5-hash of the user-password
-   @param hashpw:   If True, then the md5-hash of the password is performed
-                    internally. If set to False (the default), then the module
-                    assumes the passed value is already a valid md5-hash of the
-                    password.
-   @param client:   Client information (see http://www.audioscrobbler.net/development/protocol/ for more info)
-   @type  client:   Tuple: (client-id, client-version)"""
-   global LAST_HS, SESSION_ID, POST_URL, NOW_URL, HARD_FAILS, HS_DELAY, \
-          PROTOCOL_VERSION, INITIAL_URL, __LOGIN
+    @param user:     The username
+    @param password: md5-hash of the user-password
+    @param hashpw:   If True, then the md5-hash of the password is performed
+                     internally. If set to False (the default), then the module
+                     assumes the passed value is already a valid md5-hash of the
+                     password.
+    @param client:   Client information (see http://www.audioscrobbler.net/development/protocol/ for more info)
+    @type  client:   Tuple: (client-id, client-version)"""
+    global LAST_HS, SESSION_ID, POST_URL, NOW_URL, HARD_FAILS, HS_DELAY, \
+        PROTOCOL_VERSION, INITIAL_URL, __LOGIN
 
-   __LOGIN['u'] = user
-   __LOGIN['c'] = client
+    __LOGIN['u'] = user
+    __LOGIN['c'] = client
 
-   if LAST_HS is not None:
-      next_allowed_hs = LAST_HS + timedelta(seconds=HS_DELAY)
-      if datetime.now() < next_allowed_hs:
-         delta = next_allowed_hs - datetime.now()
-         raise ProtocolError("""Please wait another %d seconds until next handshake
+    if LAST_HS is not None:
+        next_allowed_hs = LAST_HS + timedelta(seconds=HS_DELAY)
+        if datetime.now() < next_allowed_hs:
+            delta = next_allowed_hs - datetime.now()
+            raise ProtocolError("""Please wait another %d seconds until next handshake
 (login) attempt.""" % delta.seconds)
 
-   LAST_HS = datetime.now()
+    LAST_HS = datetime.now()
 
-   tstamp = int(mktime(datetime.now().timetuple()))
-   # Store and keep first passed URL for future login retries
-   INITIAL_URL = INITIAL_URL or post_url
-   # Use passed or previously stored URL
-   url = post_url or POST_URL
+    tstamp = int(mktime(datetime.now().timetuple()))
+    # Store and keep first passed URL for future login retries
+    INITIAL_URL = INITIAL_URL or post_url
+    # Use passed or previously stored URL
+    url = post_url or POST_URL
 
-   if hashpw is True:
-      __LOGIN['p'] = md5(password).hexdigest()
-   else:
-      __LOGIN['p'] = password
+    if hashpw is True:
+        __LOGIN['p'] = md5(password).hexdigest()
+    else:
+        __LOGIN['p'] = password
 
-   token  = md5( "%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
-   values = {
-         'hs': 'true',
-         'p' : PROTOCOL_VERSION,
-         'c': client[0],
-         'v': client[1],
-         'u': user,
-         't': tstamp,
-         'a': token
-         }
-   data = urllib.urlencode(values)
-   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
-   response = urllib2.urlopen(req)
-   result = response.read()
-   lines = result.split('\n')
+    token = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
+    values = {
+        'hs': 'true',
+        'p': PROTOCOL_VERSION,
+        'c': client[0],
+        'v': client[1],
+        'u': user,
+        't': tstamp,
+        'a': token
+    }
+    data = urllib.urlencode(values)
+    req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
+    response = urllib2.urlopen(req)
+    result = response.read()
+    lines = result.split('\n')
 
-   if lines[0] == 'BADAUTH':
-      raise AuthError('Bad username/password')
+    if lines[0] == 'BADAUTH':
+        raise AuthError('Bad username/password')
 
-   elif lines[0] == 'BANNED':
-      raise Exception('''This client-version was banned by Audioscrobbler. Please
+    elif lines[0] == 'BANNED':
+        raise Exception('''This client-version was banned by Audioscrobbler. Please
 contact the author of this module!''')
 
-   elif lines[0] == 'BADTIME':
-      raise ValueError('''Your system time is out of sync with Audioscrobbler.
+    elif lines[0] == 'BADTIME':
+        raise ValueError('''Your system time is out of sync with Audioscrobbler.
 Consider using an NTP-client to keep you system time in sync.''')
 
-   elif lines[0].startswith('FAILED'):
-      handle_hard_error()
-      raise BackendError("Authencitation with AS failed. Reason: %s" %
-            lines[0])
+    elif lines[0].startswith('FAILED'):
+        handle_hard_error()
+        raise BackendError("Authencitation with AS failed. Reason: %s" %
+                           lines[0])
 
-   elif lines[0] == 'OK':
-      # wooooooohooooooo. We made it!
-      SESSION_ID = lines[1]
-      NOW_URL    = lines[2]
-      POST_URL   = lines[3]
-      HARD_FAILS = 0
-      logger.info("Logged in successfully to AudioScrobbler (%s)" % url)
+    elif lines[0] == 'OK':
+        # wooooooohooooooo. We made it!
+        SESSION_ID = lines[1]
+        NOW_URL = lines[2]
+        POST_URL = lines[3]
+        HARD_FAILS = 0
+        logger.info("Logged in successfully to AudioScrobbler (%s)" % url)
 
-   else:
-      # some hard error
-      handle_hard_error()
+    else:
+        # some hard error
+        handle_hard_error()
+
 
 def handle_hard_error():
-   "Handles hard errors."
-   global SESSION_ID, HARD_FAILS, HS_DELAY
+    "Handles hard errors."
+    global SESSION_ID, HARD_FAILS, HS_DELAY
 
-   if HS_DELAY == 0:
-      HS_DELAY = 60
-   elif HS_DELAY < 120*60:
-      HS_DELAY *= 2
-   if HS_DELAY > 120*60:
-      HS_DELAY = 120*60
+    if HS_DELAY == 0:
+        HS_DELAY = 60
+    elif HS_DELAY < 120 * 60:
+        HS_DELAY *= 2
+    if HS_DELAY > 120 * 60:
+        HS_DELAY = 120 * 60
 
-   HARD_FAILS += 1
-   if HARD_FAILS == 3:
-      SESSION_ID = None
+    HARD_FAILS += 1
+    if HARD_FAILS == 3:
+        SESSION_ID = None
 
-def now_playing( artist, track, album="", length="", trackno="", mbid="",
-    inner_call=False ):
+
+def now_playing(artist, track, album="", length="", trackno="", mbid="",
+                inner_call=False):
     """Tells audioscrobbler what is currently running in your player. This won't
     affect the user-profile on last.fm. To do submissions, use the "submit"
     method
@@ -164,10 +180,10 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     if POST_URL is None:
         raise PostError("Unable to post data. Post URL was empty!")
 
-    if length != "" and type(length) != type(1):
+    if length != "" and not isinstance(length, type(1)):
         raise TypeError("length should be of type int")
 
-    if trackno != "" and type(trackno) != type(1):
+    if trackno != "" and not isinstance(trackno, type(1)):
         raise TypeError("trackno should be of type int")
 
     # Quote from AS Protocol 1.1, Submitting Songs:
@@ -183,7 +199,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
               'b': unicode(album).encode('utf-8'),
               'l': length,
               'n': trackno,
-              'm': mbid }
+              'm': mbid}
 
     data = urllib.urlencode(values)
 
@@ -194,19 +210,20 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     if result.strip() == "OK":
         logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
         return True
-    elif result.strip() == "BADSESSION" :
+    elif result.strip() == "BADSESSION":
         if inner_call is False:
             login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
             now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
         else:
-             raise SessionError('Invalid session')
+            raise SessionError('Invalid session')
     else:
         logger.warning("Error submitting \"Now Playing\"")
 
     return False
 
+
 def submit(artist, track, time=0, source='P', rating="", length="", album="",
-      trackno="", mbid="", autoflush=False):
+           trackno="", mbid="", autoflush=False):
     """Append a song to the submission cache. Use 'flush()' to send the cache to
     AS. You can also set "autoflush" to True.
 
@@ -277,95 +294,95 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
         raise ProtocolError("""Song length must be specified when using 'P' as
     source!""")
 
-    if type(time) != type(1):
+    if not isinstance(time, type(1)):
         raise ValueError("""The time parameter must be of type int (unix
     timestamp). Instead it was %s""" % time)
 
     album = album or ''
 
     SUBMIT_CACHE.append(
-         { 'a': unicode(artist).encode('utf-8'),
-           't': unicode(track).encode('utf-8'),
-           'i': time,
-           'o': source,
-           'r': rating,
-           'l': length,
-           'b': unicode(album).encode('utf-8'),
-           'n': trackno,
-           'm': mbid
-            }
-         )
+        {'a': unicode(artist).encode('utf-8'),
+         't': unicode(track).encode('utf-8'),
+         'i': time,
+         'o': source,
+         'r': rating,
+         'l': length,
+         'b': unicode(album).encode('utf-8'),
+         'n': trackno,
+         'm': mbid
+         }
+    )
 
     if autoflush or len(SUBMIT_CACHE) >= MAX_CACHE:
         return flush()
     else:
         return True
 
+
 def flush(inner_call=False):
-   """Sends the cached songs to AS.
+    """Sends the cached songs to AS.
 
-   @param inner_call: Internally used variable. Don't touch!"""
-   global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT, POST_URL, INITIAL_URL
+    @param inner_call: Internally used variable. Don't touch!"""
+    global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT, POST_URL, INITIAL_URL
 
-   if POST_URL is None:
-      raise ProtocolError('''Cannot submit without having a valid post-URL. Did
+    if POST_URL is None:
+        raise ProtocolError('''Cannot submit without having a valid post-URL. Did
 you login?''')
 
-   values = {}
+    values = {}
 
-   for i, item in enumerate(SUBMIT_CACHE[:MAX_SUBMIT]):
-      for key in item:
-         values[key + "[%d]" % i] = item[key]
+    for i, item in enumerate(SUBMIT_CACHE[:MAX_SUBMIT]):
+        for key in item:
+            values[key + "[%d]" % i] = item[key]
 
-   values['s'] = SESSION_ID
+    values['s'] = SESSION_ID
 
-   data = urllib.urlencode(values)
-   req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
-   response = urllib2.urlopen(req)
-   result = response.read()
-   lines = result.split('\n')
+    data = urllib.urlencode(values)
+    req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
+    response = urllib2.urlopen(req)
+    result = response.read()
+    lines = result.split('\n')
 
-   if lines[0] == "OK":
-      SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
-      logger.info("AudioScrobbler OK: %s" % data)
-      return True
-   elif lines[0] == "BADSESSION" :
-      if inner_call is False:
-         login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
-         flush(inner_call=True)
-      else:
-         raise Warning("Infinite loop prevented")
-   elif lines[0].startswith('FAILED'):
-      handle_hard_error()
-      raise BackendError("Submission to AS failed. Reason: %s" %
-            lines[0])
-   else:
-      # some hard error
-      handle_hard_error()
-      return False
+    if lines[0] == "OK":
+        SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
+        logger.info("AudioScrobbler OK: %s" % data)
+        return True
+    elif lines[0] == "BADSESSION":
+        if inner_call is False:
+            login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
+            flush(inner_call=True)
+        else:
+            raise Warning("Infinite loop prevented")
+    elif lines[0].startswith('FAILED'):
+        handle_hard_error()
+        raise BackendError("Submission to AS failed. Reason: %s" %
+                           lines[0])
+    else:
+        # some hard error
+        handle_hard_error()
+        return False
 
 if __name__ == "__main__":
-   login( 'user', 'password' )
-   submit(
-         'De/Vision',
-         'Scars',
-         1192374052,
-         source='P',
-         length=3*60+44
-         )
-   submit(
-         'Spineshank',
-         'Beginning of the End',
-         1192374052+(5*60),
-         source='P',
-         length=3*60+32
-         )
-   submit(
-         'Dry Cell',
-         'Body Crumbles',
-         1192374052+(10*60),
-         source='P',
-         length=3*60+3
-         )
-   print(flush())
-
+    login('user', 'password')
+    submit(
+        'De/Vision',
+        'Scars',
+        1192374052,
+        source='P',
+        length=3 * 60 + 44
+    )
+    submit(
+        'Spineshank',
+        'Beginning of the End',
+        1192374052 + (5 * 60),
+        source='P',
+        length=3 * 60 + 32
+    )
+    submit(
+        'Dry Cell',
+        'Body Crumbles',
+        1192374052 + (10 * 60),
+        source='P',
+        length=3 * 60 + 3
+    )
+    print(flush())

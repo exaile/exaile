@@ -10,7 +10,9 @@ from xlgui import panel, main
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xl import xdg
-import xlgui, os, os.path
+import xlgui
+import os
+import os.path
 import feedparser
 
 # set up logger
@@ -28,12 +30,14 @@ except ImportError:
     import md5
     md5 = md5.new
 
+
 def enable(exaile):
     feedparser.USER_AGENT = exaile.get_user_agent_string('podcasts')
     if exaile.loading:
         event.add_callback(exaile_ready, 'gui_loaded')
     else:
         exaile_ready(None, exaile, None)
+
 
 def exaile_ready(event, exaile, nothing):
     global PODCASTS
@@ -42,12 +46,14 @@ def exaile_ready(event, exaile, nothing):
         PODCASTS = PodcastPanel(main.mainwindow().window)
         providers.register('main-panel', PODCASTS)
 
+
 def disable(exaile):
     global PODCASTS
 
     if PODCASTS:
         providers.unregister('main-panel', PODCASTS)
         PODCASTS = None
+
 
 class PodcastPanel(panel.Panel):
     ui_info = (os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanelWindow')
@@ -61,7 +67,7 @@ class PodcastPanel(panel.Panel):
         self._setup_widgets()
         self._connect_events()
         self.podcast_file = os.path.join(xdg.get_plugin_data_dir(),
-            'podcasts_plugin.db')
+                                         'podcasts_plugin.db')
         self._load_podcasts()
 
     def _setup_widgets(self):
@@ -119,7 +125,7 @@ class PodcastPanel(panel.Panel):
 
     def on_add_podcast(self, *e):
         dialog = dialogs.TextEntryDialog(_('Enter the URL of the '
-            'podcast to add'), _('Open Podcast'))
+                                           'podcast to add'), _('Open Podcast'))
         dialog.set_transient_for(self.parent)
         dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
@@ -171,7 +177,7 @@ class PodcastPanel(panel.Panel):
                     tr.set_tag_raw('artist', title)
                     tr.set_tag_raw('title', '%s: %s' % (e['title'], link.href.split('/')[-1]))
                     tr.set_tag_raw('date', "%d-%02d-%02d" %
-                            (date.tm_year, date.tm_mon, date.tm_mday))
+                                   (date.tm_year, date.tm_mon, date.tm_mday))
                     tracks.append(tr)
 
             pl.extend(tracks)
@@ -201,7 +207,7 @@ class PodcastPanel(panel.Panel):
         try:
             with open(self.podcast_file) as fp:
                 lines = (line.strip() for line in fp.readlines())
-            
+
             self.podcasts = []
 
             for line in lines:
@@ -231,4 +237,3 @@ class PodcastPanel(panel.Panel):
         except (OSError, IOError):
             dialogs.error(self.parent, _('Could not save podcast file'))
             return
-

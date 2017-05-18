@@ -2,10 +2,13 @@
 
 __all__ = ["Zeroconf"]
 
-import select, sys, traceback
+import select
+import sys
+import traceback
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class Zeroconf(object):
     """A simple class to publish a network service with zeroconf using
@@ -13,6 +16,7 @@ class Zeroconf(object):
     """
 
     class Helper(object):
+
         def __init__(self, name, port, **kwargs):
             self.name = name
             self.port = port
@@ -22,10 +26,11 @@ class Zeroconf(object):
             self.text = kwargs.get('text', '')
 
     class Pybonjour(Helper):
+
         def publish(self):
             import pybonjour
-            #records as in mt-daapd
-            txtRecord=pybonjour.TXTRecord()
+            # records as in mt-daapd
+            txtRecord = pybonjour.TXTRecord()
             txtRecord['txtvers']            = '1'
             txtRecord['iTSh Version']       = '131073' #'196609'
             txtRecord['Machine Name']       = self.name
@@ -42,12 +47,12 @@ class Zeroconf(object):
             def register_callback(sdRef, flags, errorCode, name, regtype, domain):
                 pass
 
-            self.sdRef = pybonjour.DNSServiceRegister(name = self.name,
-                                                      regtype = "_daap._tcp",
-                                                      port = self.port,
-                                                      callBack = register_callback,
+            self.sdRef = pybonjour.DNSServiceRegister(name=self.name,
+                                                      regtype="_daap._tcp",
+                                                      port=self.port,
+                                                      callBack=register_callback,
                                                       txtRecord=txtRecord)
-            
+
             while True:
                 ready = select.select([self.sdRef], [], [])
                 if self.sdRef in ready[0]:
@@ -58,8 +63,10 @@ class Zeroconf(object):
             self.sdRef.close()
 
     class Avahi(Helper):
+
         def publish(self, ipv4=True, ipv6=True):
-            import dbus, avahi
+            import dbus
+            import avahi
             bus = dbus.SystemBus()
             server = dbus.Interface(
                 bus.get_object(
@@ -71,17 +78,17 @@ class Zeroconf(object):
                 bus.get_object(avahi.DBUS_NAME,
                                server.EntryGroupNew()),
                 avahi.DBUS_INTERFACE_ENTRY_GROUP)
-            
+
             if ipv4 and ipv6:
                 prot = avahi.PROTO_UNSPEC
             elif ipv6:
                 proto = avahi.PROTO_INET6
-            else: # we don't let them both be false
+            else:  # we don't let them both be false
                 proto = avahi.PROTO_INET
-            
+
             self.group.AddService(avahi.IF_UNSPEC, proto,
-                         dbus.UInt32(0), self.name, self.stype, self.domain, 
-                         self.host, dbus.UInt16(self.port), self.text)
+                                  dbus.UInt32(0), self.name, self.stype, self.domain,
+                                  self.host, dbus.UInt16(self.port), self.text)
             self.group.Commit()
 
         def unpublish(self):
@@ -94,17 +101,17 @@ class Zeroconf(object):
         except ImportError:
             logger.info('pybonjour not found, using avahi')
             try:
-                import avahi, dbus
+                import avahi
+                import dbus
                 self.helper = Zeroconf.Avahi(*args, **kwargs)
             except ImportError:
                 logger.warning('pybonjour nor avahi found, cannot announce presence')
                 self.helper = None
-                
+
     def publish(self, *args, **kwargs):
-        if self.helper != None:
+        if self.helper is not None:
             self.helper.publish(*args, **kwargs)
 
     def unpublish(self):
-        if self.helper != None:
+        if self.helper is not None:
             self.helper.unpublish()
-

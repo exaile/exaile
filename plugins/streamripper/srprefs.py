@@ -23,18 +23,22 @@ name = _('Streamripper')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'streamripper.ui')
 
+
 class SavePreference(widgets.DirPreference):
     default = os.getenv('HOME')
     name = 'plugin/streamripper/save_location'
 
+
 class PortPreference(widgets.Preference):
     default = '8888'
     name = 'plugin/streamripper/relay_port'
-    
+
+
 class FilePreference(widgets.CheckPreference):
     default = False
     name = 'plugin/streamripper/single_file'
-    
+
+
 class DeletePreference(widgets.CheckPreference):
     default = True
     name = 'plugin/streamripper/delete_incomplete'

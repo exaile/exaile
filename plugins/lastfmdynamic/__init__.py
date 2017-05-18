@@ -43,10 +43,12 @@ LFMS = None
 # register your own key with last.fm
 API_KEY = '3599c79a97fd61ce518b75922688bc38'
 
+
 def enable(exaile):
     global LFMS
     LFMS = LastfmSource()
     providers.register("dynamic_playlists", LFMS)
+
 
 def disable(exaile):
     global LFMS
@@ -55,15 +57,16 @@ def disable(exaile):
 
 
 class LastfmSource(DynamicSource):
-    name='lastfm'
+    name = 'lastfm'
+
     def __init__(self):
         DynamicSource.__init__(self)
 
     def get_results(self, artist):
         ar = urllib.quote_plus(artist.encode('utf-8'))
-        url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key='+API_KEY
+        url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key=' + API_KEY
         try:
-            f = urllib.urlopen(url%ar).read()
+            f = urllib.urlopen(url % ar).read()
         except IOError:
             logger.exception("Error retrieving results")
             return []

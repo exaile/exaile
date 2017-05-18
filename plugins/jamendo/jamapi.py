@@ -32,15 +32,17 @@ from xl import common
 
 USER_AGENT = None
 
+
 def set_user_agent(s):
     global USER_AGENT
     USER_AGENT = s
-    
+
+
 def get_json(url):
     return json.loads(common.get_url_contents(url, USER_AGENT))
 
 
-#Gets a list of jamtree.Artist objects matching the specified criteria
+# Gets a list of jamtree.Artist objects matching the specified criteria
 class get_artist_list(threading.Thread):
 
     def __init__(self, search_term, order_by, num_results, callback):
@@ -63,7 +65,9 @@ class get_artist_list(threading.Thread):
 
         self.callback(artists)
 
-#Gets a list of jamtree.Album objects matching the specified criteria
+# Gets a list of jamtree.Album objects matching the specified criteria
+
+
 class get_album_list(threading.Thread):
 
     def __init__(self, search_term, order_by, num_results, callback):
@@ -86,8 +90,11 @@ class get_album_list(threading.Thread):
 
         self.callback(albums)
 
-#Gets a list of jamtree.Artist objects matching the specified criteria
+# Gets a list of jamtree.Artist objects matching the specified criteria
+
+
 class get_artist_list_by_genre(threading.Thread):
+
     def __init__(self, search_term, order_by, num_results, callback):
         threading.Thread.__init__(self)
         self.search_term = search_term
@@ -107,7 +114,9 @@ class get_artist_list_by_genre(threading.Thread):
 
         self.callback(artists)
 
-#Gets a list of jamtree.Track objects matching the specified criteria
+# Gets a list of jamtree.Track objects matching the specified criteria
+
+
 class get_track_list(threading.Thread):
 
     def __init__(self, search_term, order_by, num_results, callback):
@@ -132,10 +141,10 @@ class get_track_list(threading.Thread):
         self.callback(track_list)
 
 
-#Gets a list of jamtree.Album objects for the specified jamtree.Artist
+# Gets a list of jamtree.Album objects for the specified jamtree.Artist
 class get_albums(threading.Thread):
 
-    def __init__(self, artist, callback, add_to_playlist = False):
+    def __init__(self, artist, callback, add_to_playlist=False):
         threading.Thread.__init__(self)
         self._artist = artist
         self._callback = callback
@@ -152,7 +161,7 @@ class get_albums(threading.Thread):
         self._callback(self._artist, self._add_to_playlist)
 
 
-#Gets a list of jamtree.Track objects for the specified jamtree.Album
+# Gets a list of jamtree.Track objects for the specified jamtree.Album
 class get_tracks(threading.Thread):
 
     def __init__(self, album, callback, add_to_playlist=False):
@@ -170,7 +179,9 @@ class get_tracks(threading.Thread):
             self._album.add_track(item)
         self._callback(self._album, self._add_to_playlist)
 
-#Gets the URL for an album image based on a track id
+# Gets the URL for an album image based on a track id
+
+
 def get_album_image_url_from_track(track_id):
     url = "http://api.jamendo.com/get2/album_image/track/json/?id=%s&album_imagesize=400" % track_id
     imageurl = get_json(url)

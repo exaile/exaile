@@ -38,10 +38,11 @@ import xlgui
 
 
 class CDImporter(object):
+
     def __init__(self, tracks):
-        self.tracks = [ t for t in tracks if
-                t.get_loc_for_io().startswith("cdda") ]
-        self.duration = float(sum( [ t.get_tag_raw('__length') for t in self.tracks ] ))
+        self.tracks = [t for t in tracks if
+                       t.get_loc_for_io().startswith("cdda")]
+        self.duration = float(sum([t.get_tag_raw('__length') for t in self.tracks]))
         self.formatter = formatter.TrackFormatter(settings.get_option(
             "cd_import/outpath",
             "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
@@ -53,7 +54,7 @@ class CDImporter(object):
 
         self.cont = None
         self.__prepare_transcoder()
-    
+
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
         default_format = formats.iterkeys().next()
@@ -78,7 +79,7 @@ class CDImporter(object):
             self.current_len = tr.get_tag_raw('__length')
             loc = tr.get_loc_for_io()
             trackno, device = loc[7:].split("/#")
-            src = "cdparanoiasrc track=%s device=\"%s\""%(trackno, device)
+            src = "cdparanoiasrc track=%s device=\"%s\"" % (trackno, device)
             self.transcoder.set_raw_input(src)
             outloc = self.get_output_location(tr)
             self.transcoder.set_output(outloc)
@@ -86,7 +87,7 @@ class CDImporter(object):
             self.cont.wait()
             if not self.running:
                 break
-            tr2 = trax.Track("file://"+outloc)
+            tr2 = trax.Track("file://" + outloc)
             for t in tr.list_tags():
                 if not t.startswith("__"):
                     tr2.set_tag_raw(t, tr.get_tag_raw(t))
@@ -128,5 +129,5 @@ class CDImporter(object):
         if not self.current or not self.current_len:
             return self.progress
         incr = self.current_len / self.duration
-        pos = self.transcoder.get_time()/float(self.current_len)
-        return self.progress + pos*incr
+        pos = self.transcoder.get_time() / float(self.current_len)
+        return self.progress + pos * incr

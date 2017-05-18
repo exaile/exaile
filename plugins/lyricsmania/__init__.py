@@ -27,6 +27,7 @@ from xl.lyrics import (
 )
 from xl import common, providers
 
+
 def enable(exaile):
     """
         Enables the lyrics mania plugin that fetches track lyrics
@@ -38,15 +39,17 @@ def enable(exaile):
         raise NotImplementedError('LXML is not available.')
         return False
 
+
 def disable(exaile):
     providers.unregister('lyrics', providers.get_provider('lyrics',
-        'lyricsmania'))
+                                                          'lyricsmania'))
+
 
 class LyricsMania(LyricSearchMethod):
 
-    name= "lyricsmania"
+    name = "lyricsmania"
     display_name = "Lyrics Mania"
-    
+
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lyricsmania')
 
@@ -60,8 +63,8 @@ class LyricsMania(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = artist.replace(' ','_').replace('\'','').lower()
-        title = title.replace(' ','_').replace('\'','').lower()
+        artist = artist.replace(' ', '_').replace('\'', '').lower()
+        title = title.replace(' ', '_').replace('\'', '').lower()
 
         url = 'http://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
 

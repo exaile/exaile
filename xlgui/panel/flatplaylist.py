@@ -37,6 +37,7 @@ from xlgui.guiutil import ModifierType
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
+
 class FlatPlaylistPanel(panel.Panel):
     """
         Flat playlist panel; represents a single playlist
@@ -72,7 +73,7 @@ class FlatPlaylistPanel(panel.Panel):
 
     def _on_import_button_clicked(self, *e):
         tracks = self.tree.get_selected_tracks()
-        if len(tracks) == 0: # nothing selected, do everything
+        if len(tracks) == 0:  # nothing selected, do everything
             tracks = self.tracks
         self.parent.do_import(tracks)
 
@@ -107,7 +108,8 @@ class FlatPlaylistPanel(panel.Panel):
         self.box.show_all()
 
     def _title_data_func(self, col, cell, model, iter, _unused):
-        if not model.iter_is_valid(iter): return
+        if not model.iter_is_valid(iter):
+            return
         item = model.get_value(iter, 2)
         cell.set_property('text', item.get_tag_display("title"))
 
@@ -132,7 +134,7 @@ class FlatPlaylistPanel(panel.Panel):
                 return False
 
             if len(self.tree.get_selected_tracks()) >= 2:
-                (mods,paths) = selection.get_selected_rows()
+                (mods, paths) = selection.get_selected_rows()
                 if (path[0] in paths):
                     if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
                         return False
@@ -158,22 +160,25 @@ class FlatPlaylistPanel(panel.Panel):
             Called when a drag source wants data for this drag operation
         """
         tracks = self.tree.get_selected_tracks()
-        if not tracks: return
+        if not tracks:
+            return
         for track in tracks:
             DragTreeView.dragged_data[track.get_loc_for_io()] = track
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
+
 class FlatPlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """
+
     def get_selected_tracks_count(self):
         '''
             Returns the count of selected tracks
         '''
         return self.get_selection().count_selected_rows()
-    
+
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks
@@ -187,4 +192,3 @@ class FlatPlaylistDragTreeView(DragTreeView):
             tracks.append(track)
 
         return tracks
-

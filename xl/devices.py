@@ -37,6 +37,7 @@ class DeviceManager(object):
     """
         manages devices
     """
+
     def __init__(self):
         self.devices = {}
 
@@ -46,7 +47,7 @@ class DeviceManager(object):
         if device.get_name() in self.devices:
             device.name += " (2)"
         while device.get_name() in self.devices:
-            device.name = device.name[:-4] + " (%s)"%count
+            device.name = device.name[:-4] + " (%s)" % count
             count += 1
 
         self.devices[device.get_name()] = device
@@ -64,8 +65,10 @@ class DeviceManager(object):
     def list_devices(self):
         return self.devices.values()
 
+
 class TransferNotSupportedError(Exception):
     pass
+
 
 class Device(object):
     """
@@ -82,7 +85,7 @@ class Device(object):
         self.playlists = []
         self._connected = False
         self.transfer = None    # subclasses need to override this
-                                # if they want transferring
+        # if they want transferring
 
     def __get_connected(self):
         return self._connected
@@ -139,13 +142,13 @@ class Device(object):
         """
         if not self.transfer:
             raise TransferNotSupportedError("Device class does not "
-                    "support transfer.")
+                                            "support transfer.")
         self.transfer.enqueue(tracks)
 
     def start_transfer(self):
         if not self.transfer:
             raise TransferNotSupportedError("Device class does not "
-                    "support transfer.")
+                                            "support transfer.")
         self.transfer.transfer()
 
 
@@ -153,37 +156,37 @@ class KeyedDevice(Device):
     '''
         A utility class to inherit from that will return cached instances
         of your device if the device object is created with the same key.
-        
+
         A device that inherits from this MUST have the key as the first
         argument to the __init__ function.
-        
+
         @warning The __init__ function will be called again for devices
         that are created multiple times. 
     '''
-    
+
     @staticmethod
     def __new__(cls, key, *args, **kwargs):
 
         devices = getattr(cls, '__devices', {})
-        
+
         device = devices.get(key, None)
         if device is None:
             device = Device.__new__(cls, key, *args, **kwargs)
             device.__initialized = False
             device.__key = key
             devices[key] = device
-        
+
         setattr(cls, '__devices', devices)
         return device
-    
+
     def __init__(self, name):
         if self.__initialized:
             return
-        
-        # don't call this twice.. 
+
+        # don't call this twice..
         Device.__init__(self, name)
         self.__initialized = True
-        
+
     @classmethod
     def destroy(cls, device):
         '''
@@ -193,4 +196,3 @@ class KeyedDevice(Device):
 
 
 # vim: et sts=4 sw=4
-

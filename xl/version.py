@@ -34,6 +34,7 @@ major = "4.0"
 minor = "0"
 extra = "dev"
 
+
 def get_current_revision(directory):
     """
         Get the latest revision identifier for the branch contained in
@@ -58,6 +59,7 @@ if xdg.local_hack:
 __version__ = major + "." + minor + extra
 
 __external_versions__ = {}
+
 
 def register(name, version):
     '''Registers versions of external components for diagnostic purposes'''

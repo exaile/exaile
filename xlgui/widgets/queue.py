@@ -34,13 +34,13 @@ from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
 
 class QueuePage(PlaylistPageBase):
-    
+
     def __init__(self, container, player):
         PlaylistPageBase.__init__(self)
         self.plcontainer = container
         self.player = player
-        self.playlist = player.queue # a queue is a playlist object... 
-        
+        self.playlist = player.queue  # a queue is a playlist object...
+
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.pack_start(self.swindow, True, True, 0)
@@ -63,12 +63,11 @@ class QueuePage(PlaylistPageBase):
             self.plcontainer.show_queue(switch=False)
             self.tab.set_closable(False)
 
-
     ## NotebookPage API ##
 
     def focus(self):
         self.view.grab_focus()
-    
+
     def get_page_name(self):
         qlen = self.player.queue.queue_length()
         if qlen == -1:

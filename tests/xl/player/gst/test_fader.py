@@ -25,7 +25,7 @@ class FakeStream(object):
         return self.position
 
     def set_volume(self, value):
-        self.volume = int(value*100)
+        self.volume = int(value * 100)
 
     def stop(self):
         self.stopped = True
@@ -63,7 +63,6 @@ GLib.source_remove = glib_source_remove
 
 TmSt = 1
 TmEx = 2
-
 
 
 # Test data:
@@ -150,8 +149,9 @@ def test_fader(test):
     # Test setup_track is_update=True
 
     # Test unexpected fading out
-    
+
     check_fader(test)
+
 
 def check_fader(test):
     stream = FakeStream()
@@ -160,7 +160,7 @@ def check_fader(test):
     for data in test:
         print(data)
         now = data[0]
-        stream.position = int(now*TrackFader.SECOND)
+        stream.position = int(now * TrackFader.SECOND)
         print(stream.position)
         volume = data[1]
         state = data[2]

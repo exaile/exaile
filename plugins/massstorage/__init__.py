@@ -29,7 +29,8 @@ from xl.nls import gettext as _
 from xl.hal import Handler
 from xl.devices import Device
 import dbus
-import logging, os
+import logging
+import os
 logger = logging.getLogger(__name__)
 
 PROVIDER = None
@@ -40,12 +41,15 @@ def enable(exaile):
     PROVIDER = MassStorageHandler()
     providers.register("hal", PROVIDER)
 
+
 def disable(exaile):
     global PROVIDER
     providers.unregister("hal", PROVIDER)
     PROVIDER = None
 
+
 class MassStorageDevice(Device):
+
     def __init__(self, mountpoints, name=""):
         if len(mountpoints) == 0:
             raise ValueError("Must specify at least one mount point")
@@ -56,16 +60,16 @@ class MassStorageDevice(Device):
         self.mountpoints = []
 
     def connect(self):
-        self.mountpoints = [ str(x) for x in self._mountpoints if
-                str(x) is not "" and os.path.exists(unicode(x)) ]
+        self.mountpoints = [str(x) for x in self._mountpoints if
+                            str(x) is not "" and os.path.exists(unicode(x))]
         if self.mountpoints == []:
             raise IOError("Device is not mounted.")
         for mountpoint in self.mountpoints:
             library = self.library_class(mountpoint)
             self.collection.add_library(library)
         self.transfer = collection.TransferQueue(
-                self.collection.get_libraries()[0] )
-        self.connected = True # set this here so the UI can react
+            self.collection.get_libraries()[0])
+        self.connected = True  # set this here so the UI can react
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)
@@ -79,6 +83,7 @@ class HalMountpoint(object):
         Class to represent a mountpoint so we can delay HAL
         mountpoint resolution.
     """
+
     def __init__(self, hal, udi):
         self.hal = hal
         self.udi = udi
@@ -95,6 +100,7 @@ class HalMountpoint(object):
 
 class MassStorageHandler(Handler):
     name = "massstorage"
+
     def is_type(self, device, capabilities):
         if "portable_audio_player" in capabilities:
             try:
@@ -126,14 +132,11 @@ class MassStorageHandler(Handler):
                 "portable_audio_player.access_method.protocols"):
             return
 
-
         u = mass.GetProperty("portable_audio_player.storage_device")
         mountpoints = [HalMountpoint(hal, u)]
 
         name = mass.GetProperty("info.vendor") + " " + \
-                mass.GetProperty("info.product")
+            mass.GetProperty("info.product")
         massdev = MassStorageDevice(mountpoints, name)
 
         return massdev
-
-

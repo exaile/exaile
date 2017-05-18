@@ -34,10 +34,12 @@ from xl import event
 import logging
 logger = logging.getLogger(__name__)
 
+
 class ProviderManager(object):
     """
         The overall manager for services and providers for them
     """
+
     def __init__(self):
         self.services = {}
 
@@ -50,13 +52,13 @@ class ProviderManager(object):
             have a widget that uses a service 'foo', if your object can perform
             a service only for a specific type of widget, then target would be 
             set to the widget type. 
-            
+
             If you had a service that could perform 'foo' for all widgets, then
             target would be set to None, and all widgets could use your service.
-            
+
             It is intended that most services should set target to None, with 
             some narrow exceptions. 
-            
+
             :param servicename: the name of the service [string]
             :type servicename: string
             :param provider: the object that is the provider [object]
@@ -71,8 +73,8 @@ class ProviderManager(object):
             logger.debug(
                 "Provider %(provider)s registered for service %(service)s "
                 "with target %(target)s" % {
-                    'provider' : provider.name,
-                    'service' : servicename,
+                    'provider': provider.name,
+                    'service': servicename,
                     'target': target
                 }
             )
@@ -98,13 +100,13 @@ class ProviderManager(object):
                 logger.debug(
                     "Provider %(provider)s unregistered from "
                     "service %(service)s with target %(target)s" % {
-                        'provider' : provider.name,
-                        'service' : servicename,
-                        'target' : target
+                        'provider': provider.name,
+                        'service': servicename,
+                        'target': target
                     }
                 )
                 event.log_event("%s_provider_removed" % servicename, self, (provider, target))
-                if not service[target]: #no values for target key then del it
+                if not service[target]:  # no values for target key then del it
                     del service[target]
         except KeyError:
             return
@@ -115,7 +117,7 @@ class ProviderManager(object):
 
             This will return providers targeted for a specific target AND
             providers not targeted towards any particular target.
-            
+
             :param servicename: the service name to get providers for
             :type servicename: string
             :param target: the target of the service
@@ -127,26 +129,26 @@ class ProviderManager(object):
             service = self.services[servicename]
         except KeyError:
             return []
-        
+
         try:
             any = service[None]
         except KeyError:
             any = []
-            
+
         if target is None:
             return any[:]
-        
+
         try:
             specific = service[target]
         except KeyError:
             specific = []
-        
+
         return specific + any
 
     def get_provider(self, servicename, providername, target=None):
         """
             Returns a single identified provider
-            
+
             This will return a provider either targeted for the specific 
             target or a provider not targeted towards any particular target.
 
@@ -171,18 +173,20 @@ unregister = MANAGER.unregister_provider
 get = MANAGER.get_providers
 get_provider = MANAGER.get_provider
 
+
 class ProviderHandler(object):
     """
         Base class to handle providers
         for one specific service including
         notification about (un)registration
     """
+
     def __init__(self, servicename, target=None, simple_init=False):
         """
             Target is the object that the service is being performed for.
             Often, if the service is truly global and it doesn't make sense
             to target a service at a particular consumer, it can be None. 
-        
+
             :param servicename: the name of the service to handle
             :type servicename: string
             :param target: the target for a provided service. Generally, 
@@ -197,9 +201,9 @@ class ProviderHandler(object):
             for provider in MANAGER.get_providers(servicename, target):
                 self.on_provider_added(provider)
         event.add_ui_callback(self._add_callback,
-            "%s_provider_added" % servicename)
+                              "%s_provider_added" % servicename)
         event.add_ui_callback(self._remove_callback,
-            "%s_provider_removed" % servicename)
+                              "%s_provider_removed" % servicename)
 
     def _add_callback(self, name, obj, ptuple):
         """
@@ -217,7 +221,7 @@ class ProviderHandler(object):
             :param provider: the new provider
             :type provider: object
         """
-        pass # for overriding
+        pass  # for overriding
 
     def _remove_callback(self, name, obj, ptuple):
         """
@@ -235,7 +239,7 @@ class ProviderHandler(object):
             :param provider: the removed provider
             :type provider: object
         """
-        pass # for overriding
+        pass  # for overriding
 
     def get_providers(self):
         """
@@ -258,29 +262,31 @@ class ProviderHandler(object):
         """
         return MANAGER.get_provider(self.servicename, providername, self.target)
 
+
 class MultiProviderHandler(object):
     '''
         This is useful for listening to multiple provider types
-        
+
         TODO: optimize implementation, could be better
     '''
-    
+
     class _ProxyProvider(ProviderHandler):
+
         def __init__(self, servicename, target, simple_init, parent):
             self.parent = parent
             ProviderHandler.__init__(self, servicename, target, simple_init)
-            
+
         def on_provider_added(self, provider):
             self.parent.on_provider_added(provider)
-            
+
         def on_provider_removed(self, provider):
             self.parent.on_provider_removed(provider)
-    
+
     def __init__(self, servicenames, target=None, simple_init=False):
         self.providers = []
         for servicename in servicenames:
             self.providers.append(MultiProviderHandler._ProxyProvider(servicename, target, simple_init, self))
-            
+
     def on_provider_added(self, provider):
         """
             Called when a new provider is added
@@ -288,7 +294,7 @@ class MultiProviderHandler(object):
             :param provider: the new provider
             :type provider: object
         """
-    
+
     def on_provider_removed(self, provider):
         """
             Called when a provider is removed
@@ -296,7 +302,7 @@ class MultiProviderHandler(object):
             :param provider: the removed provider
             :type provider: object
         """
-    
+
     def get_providers(self):
         """
             Returns a list of providers for this service
@@ -304,11 +310,10 @@ class MultiProviderHandler(object):
             :returns: list of providers
             :rtype: list of objects
         """
-        
+
         providers = []
         for provider in self.providers:
             providers.extend(provider.get_providers())
         return providers
 
 # vim: et sts=4 sw=4
-

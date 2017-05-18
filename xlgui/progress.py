@@ -31,18 +31,19 @@ from xl.common import clamp, idle_add
 
 from xlgui.guiutil import GtkTemplate
 
+
 @GtkTemplate('ui', 'widgets', 'progress.ui')
 class ProgressMonitor(Gtk.Box):
     """
         A graphical progress monitor designed to work with
         :class:`xl.common.ProgressThread`
     """
-    
+
     __gtype_name__ = 'ProgressMonitor'
-    
+
     label,          \
-    progressbar     = GtkTemplate.Child.widgets(2)
-    
+        progressbar = GtkTemplate.Child.widgets(2)
+
     def __init__(self, manager, thread, description, image=None):
         """
             Initializes the monitor
@@ -63,28 +64,28 @@ class ProgressMonitor(Gtk.Box):
 
         if image is not None:
             self.pack_start(image, False, True, 0)
-            
+
         self.label.set_text(description)
-        
+
         self.show_all()
         GLib.timeout_add(100, self.pulsate_progress)
-        
+
         self.progress_update_id = self.thread.connect('progress-update',
-            self.on_progress_update)
+                                                      self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
         self.thread.start()
-        
+
     def destroy(self):
         """
             Cleans up
         """
-        
+
         self._progress_updated = True
 
         if self.progress_update_id is not None:
             self.thread.disconnect(self.progress_update_id)
             self.thread.disconnect(self.done_id)
-            
+
             self.progress_update_id = None
             self.done_id = None
 
@@ -99,23 +100,23 @@ class ProgressMonitor(Gtk.Box):
         self.progressbar.pulse()
 
         return True
-    
+
     @idle_add()
     def on_progress_update(self, thread, progress):
         """
             Called when the progress has been updated
         """
-        
+
         if progress is None:
             return
-        
+
         # Accept a tuple or number between 0 and 100
         if hasattr(progress, '__len__'):
             step, total = progress
-            percent = int(((step+1)/total)*100)
+            percent = int(((step + 1) / total) * 100)
         else:
             percent = int(progress)
-        
+
         if percent > 0:
             self._progress_updated = True
 
@@ -123,7 +124,7 @@ class ProgressMonitor(Gtk.Box):
 
         self.progressbar.set_fraction(fraction)
         self.progressbar.set_text('%d%%' % percent)
-    
+
     @idle_add()
     def on_done(self, thread):
         """
@@ -140,6 +141,7 @@ class ProgressMonitor(Gtk.Box):
         self.thread.stop()
         self.destroy()
 
+
 class ProgressManager(object):
     """
         Manages the [possibly multiple] progress bars that will allow the user
@@ -149,6 +151,7 @@ class ProgressManager(object):
         The user should be able to see what task is running, the description,
         the current progress, and also be able to stop the task if they wish.
     """
+
     def __init__(self, container):
         """
             Initializes the manager
@@ -179,4 +182,3 @@ class ProgressManager(object):
         """
         monitor.hide()
         monitor.destroy()
-

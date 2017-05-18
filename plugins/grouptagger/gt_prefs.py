@@ -22,12 +22,15 @@ name = _('GroupTagger')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'gt_prefs.ui')
 
+
 def _get_system_default_font():
     return Gtk.Widget.get_default_style().font_desc.to_string()
+
 
 class GTPanelFontPreference(widgets.FontButtonPreference):
     default = _get_system_default_font()
     name = 'plugin/grouptagger/panel_font'
+
 
 class GTPanelFontResetButtonPreference(widgets.FontResetButtonPreference):
     default = _get_system_default_font()

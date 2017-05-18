@@ -55,6 +55,7 @@ TYPE_MAPPING = {
 
 MANAGER = None
 
+
 class SettingsManager(RawConfigParser):
     """
         Manages Exaile's settings
@@ -151,7 +152,7 @@ class SettingsManager(RawConfigParser):
             self.set(section, key, value)
 
         self._dirty = True
-        
+
         if save:
             self.delayed_save()
 
@@ -240,14 +241,14 @@ class SettingsManager(RawConfigParser):
             can be a configuration value.
         """
         for k, v in TYPE_MAPPING.iteritems():
-            if v == type(value):
+            if isinstance(value, v):
                 if v == list:
                     return k + ": " + repr(value)
                 else:
                     return k + ": " + str(value)
 
         raise ValueError(_("We don't know how to store that "
-            "kind of setting: "), type(value))
+                           "kind of setting: "), type(value))
 
     def _str_to_val(self, value):
         """
@@ -287,7 +288,7 @@ class SettingsManager(RawConfigParser):
         """
         if self.location is None:
             logger.debug("Save requested but not saving settings, "
-                "location is None")
+                         "location is None")
             return
 
         if self._saving or not self._dirty:
@@ -304,14 +305,14 @@ class SettingsManager(RawConfigParser):
                 # make it readable by current user only, to protect private data
                 os.fchmod(f.fileno(), 384)
             except Exception:
-                pass # fail gracefully, eg if on windows
+                pass  # fail gracefully, eg if on windows
 
             f.flush()
 
         try:
             os.rename(self.location, self.location + ".old")
         except Exception:
-            pass # if it doesn'texist we don't care
+            pass  # if it doesn'texist we don't care
 
         os.rename(self.location + ".new", self.location)
 
@@ -322,7 +323,7 @@ class SettingsManager(RawConfigParser):
 
         self._saving = False
         self._dirty = False
-        
+
 location = xdg.get_config_dir()
 
 
@@ -330,7 +331,7 @@ location = xdg.get_config_dir()
 if sys.platform == 'win32':
     __settings_file = 'settings-win32.ini'
 elif sys.platform == 'darwin':
-    __settings_file = 'settings-osx.ini'    
+    __settings_file = 'settings-osx.ini'
 else:
     __settings_file = 'settings.ini'
 

@@ -31,12 +31,14 @@ from gi.repository import Gst
 
 try:
     import replaygainprefs
+
     def get_preferences_pane():
         return replaygainprefs
-except Exception: # fail gracefully if we cant set up the UI
+except Exception:  # fail gracefully if we cant set up the UI
     pass
 
 NEEDED_ELEMS = ["rgvolume", "rglimiter"]
+
 
 def enable(exaile):
     for elem in NEEDED_ELEMS:
@@ -44,6 +46,7 @@ def enable(exaile):
             raise ImportError("Needed gstreamer element %s missing." % elem)
     providers.register("gst_audio_filter", ReplaygainVolume)
     providers.register("gst_audio_filter", ReplaygainLimiter)
+
 
 def disable(exaile):
     providers.unregister("gst_audio_filter", ReplaygainVolume)
@@ -59,6 +62,7 @@ class ReplaygainVolume(ElementBin):
     """
     index = 20
     name = "rgvolume"
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         self.audioconvert = Gst.ElementFactory.make("audioconvert", None)
@@ -72,18 +76,18 @@ class ReplaygainVolume(ElementBin):
         # load settings
         for x in ("album-mode", "pre-amp", "fallback-gain"):
             self._on_option_set("replaygain_option_set", None,
-                    "replaygain/%s"%x)
+                                "replaygain/%s" % x)
 
     def _on_option_set(self, name, object, data):
         if data == "replaygain/album-mode":
             self.rgvol.set_property("album-mode",
-                    settings.get_option("replaygain/album-mode", True))
+                                    settings.get_option("replaygain/album-mode", True))
         elif data == "replaygain/pre-amp":
             self.rgvol.set_property("pre-amp",
-                    settings.get_option("replaygain/pre-amp", 0))
+                                    settings.get_option("replaygain/pre-amp", 0))
         elif data == "replaygain/fallback-gain":
             self.rgvol.set_property("fallback-gain",
-                    settings.get_option("replaygain/fallback-gain", 0))
+                                    settings.get_option("replaygain/fallback-gain", 0))
 
 
 class ReplaygainLimiter(ElementBin):
@@ -95,6 +99,7 @@ class ReplaygainLimiter(ElementBin):
     """
     index = 80
     name = "rglimiter"
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         self.rglimit = Gst.ElementFactory.make("rglimiter", None)
@@ -105,11 +110,10 @@ class ReplaygainLimiter(ElementBin):
 
         event.add_ui_callback(self._on_option_set, "replaygain_option_set")
         self._on_option_set("replaygain_option_set", None,
-                "replaygain/clipping-protection")
+                            "replaygain/clipping-protection")
 
     def _on_option_set(self, name, object, data):
         if data == "replaygain/clipping-protection":
             self.rglimit.set_property("enabled",
-                    settings.get_option("replaygain/clipping-protection",
-                        True))
-
+                                      settings.get_option("replaygain/clipping-protection",
+                                                          True))

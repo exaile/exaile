@@ -33,10 +33,12 @@ from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 from xlgui.panel.flatplaylist import FlatPlaylistPanel
 
+
 class DeviceTransferThread(common.ProgressThread):
     """
         Transfers tracks from devices
     """
+
     def __init__(self, device):
         common.ProgressThread.__init__(self)
 
@@ -63,24 +65,26 @@ class DeviceTransferThread(common.ProgressThread):
             Runs the thread
         """
         event.add_ui_callback(self.on_track_transfer_progress,
-            'track_transfer_progress', self.device.transfer)
+                              'track_transfer_progress', self.device.transfer)
         try:
             self.device.start_transfer()
         finally:
             event.remove_callback(self.on_track_transfer_progress,
-                'track_transfer_progress', self.device.transfer)
+                                  'track_transfer_progress', self.device.transfer)
+
 
 class ReceptiveCollectionPanel(CollectionPanel):
+
     def drag_data_received(self, widget, context, x, y, data, info, stamp):
         uris = data.get_uris()
         tracks, playlists = self.tree.get_drag_data(uris)
-        tracks = [ t for t in tracks if not \
-                self.collection.loc_is_member(t.get_loc_for_io()) ]
+        tracks = [t for t in tracks if not
+                  self.collection.loc_is_member(t.get_loc_for_io())]
 
         self.add_tracks_func(tracks)
 
     def add_tracks_func(self, tracks):
-        locs = [ t['__loc'] for t in tracks ]
+        locs = [t['__loc'] for t in tracks]
         # FIXME:
         lib = self.collection.get_libraries()[0]
 
@@ -90,6 +94,7 @@ class ReceptiveCollectionPanel(CollectionPanel):
         # this _needs_ to be asynchronous
         for l in locs:
             lib.add(l)
+
 
 class DevicePanel(panel.Panel):
     """
@@ -114,24 +119,24 @@ class DevicePanel(panel.Panel):
         self.notebook = self.builder.get_object("device_notebook")
 
         self.collectionpanel = ReceptiveCollectionPanel(parent,
-            collection=device.collection, name=name, label=label)
+                                                        collection=device.collection, name=name, label=label)
         self.collectionpanel.add_tracks_func = self.add_tracks_func
 
         self.collectionpanel.connect('append-items',
-            lambda *e: self.emit('append-items', *e[1:]))
+                                     lambda *e: self.emit('append-items', *e[1:]))
         self.collectionpanel.connect('replace-items',
-            lambda *e: self.emit('replace-items', *e[1:]))
+                                     lambda *e: self.emit('replace-items', *e[1:]))
         self.collectionpanel.connect('queue-items',
-            lambda *e: self.emit('queue-items', *e[1:]))
+                                     lambda *e: self.emit('queue-items', *e[1:]))
         self.collectionpanel.connect('collection-tree-loaded',
-            lambda *e: self.emit('collection-tree-loaded'))
+                                     lambda *e: self.emit('collection-tree-loaded'))
 
     def add_tracks_func(self, tracks):
         self.device.add_tracks(tracks)
         thread = DeviceTransferThread(self.device)
         thread.connect('done', lambda *e: self.load_tree())
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Transferring to %s...") % self.name, 'drive-harddisk')
+                                                          _("Transferring to %s...") % self.name, 'drive-harddisk')
 
     def get_panel(self):
         return self.collectionpanel.get_panel()
@@ -143,9 +148,10 @@ class DevicePanel(panel.Panel):
     def load_tree(self, *args):
         self.collectionpanel.load_tree(*args)
 
+
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {
-        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,bool)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
         'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
@@ -164,11 +170,11 @@ class FlatPlaylistDevicePanel(panel.Panel):
         self.fppanel = FlatPlaylistPanel(self, name, label)
 
         self.fppanel.connect('append-items',
-            lambda *e: self.emit('append-items', *e[1:]))
+                             lambda *e: self.emit('append-items', *e[1:]))
         self.fppanel.connect('replace-items',
-            lambda *e: self.emit('replace-items', *e[1:]))
+                             lambda *e: self.emit('replace-items', *e[1:]))
         self.fppanel.connect('queue-items',
-            lambda *e: self.emit('queue-items', *e[1:]))
+                             lambda *e: self.emit('queue-items', *e[1:]))
 
     def get_panel(self):
         return self.fppanel.get_panel()

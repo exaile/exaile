@@ -23,21 +23,22 @@ import sys
 
 ##############################################################################
 
-class Pidgin :
 
-    def __init__(self, dbusInterface) :
+class Pidgin:
+
+    def __init__(self, dbusInterface):
         """
             Constructor
         """
         self.purple = dbusInterface
 
-    def listAccounts(self) :
+    def listAccounts(self):
         """
             Purple merges all accounts, so we return a default one
             Each account is associated with:
                 * A boolean -> True if the status of this account was changed on the previous track change
         """
-        return {'GenericAccount' : False}
+        return {'GenericAccount': False}
 
     def setStatus(self, status, attr, value):
         # this doesn't actually work, for some reason the getter always return ""
@@ -46,7 +47,7 @@ class Pidgin :
             return True
         return False
 
-    def setTune(self, artist, title, album) :
+    def setTune(self, artist, title, album):
         """
             Change the tune status
             Return True if the message is successfully updated
@@ -67,9 +68,9 @@ class Pidgin :
                         self.purple.PurpleStatusSetActive(status, False)
                 else:
                     self.purple.PurpleStatusSetActive(status, True)
-                    updated |= self.setStatus(status, "tune_title", title);
-                    updated |= self.setStatus(status, "tune_artist", artist);
-                    updated |= self.setStatus(status, "tune_album", album);
+                    updated |= self.setStatus(status, "tune_title", title)
+                    updated |= self.setStatus(status, "tune_artist", artist)
+                    updated |= self.setStatus(status, "tune_album", album)
                 if updated:
                     active = self.purple.PurplePresenceGetActiveStatus(p)
                     self.purple.PurplePrplChangeAccountStatus(account, active, status)
@@ -78,15 +79,18 @@ class Pidgin :
 
 ##############################################################################
 
+
 def on_begin_action(type, player, track):
     client.setTune(
-            track.get_tag_display('artist'),
-            track.get_tag_display('title'),
-            track.get_tag_display('album')
-            )
+        track.get_tag_display('artist'),
+        track.get_tag_display('title'),
+        track.get_tag_display('album')
+    )
+
 
 def on_stop_action(type, player, track):
     client.setTune("", "", "")
+
 
 def on_pause_action(type, player, track):
     if player.is_playing():
@@ -94,16 +98,18 @@ def on_pause_action(type, player, track):
     else:
         on_stop_action(type, player, track)
 
+
 def enable(exaile):
     global client
     obj = dbus.SessionBus().get_object('im.pidgin.purple.PurpleService',
-                                   '/im/pidgin/purple/PurpleObject')
+                                       '/im/pidgin/purple/PurpleObject')
     purple = dbus.Interface(obj, "im.pidgin.purple.PurpleInterface")
     client = Pidgin(purple)
     event.add_callback(on_stop_action, 'quit_application')
     event.add_callback(on_stop_action, 'playback_player_end', player.PLAYER)
     event.add_callback(on_begin_action, 'playback_track_start', player.PLAYER)
     event.add_callback(on_pause_action, 'playback_toggle_pause', player.PLAYER)
+
 
 def disable(exaile):
     event.remove_callback(on_stop_action, 'quit_application')

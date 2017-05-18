@@ -40,16 +40,25 @@ from warnings import warn
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
-class EbmlException(Exception): pass
-class EbmlWarning(Warning): pass
+
+class EbmlException(Exception):
+    pass
+
+
+class EbmlWarning(Warning):
+    pass
+
 
 class BinaryData(bytes):
+
     def __repr__(self):
         return "<BinaryData>"
+
 
 def bchr(n):
     """chr() that always returns bytes in Python 2 and 3"""
     return pack('B', n)
+
 
 class Ebml:
     """EBML parser.
@@ -228,6 +237,7 @@ class Ebml:
 
 from gi.repository import Gio
 
+
 class GioEbml(Ebml):
     # NOTE: All seeks are faked using InputStream.skip because we need to use
     # BufferedInputStream but it does not implement Seekable.
@@ -343,12 +353,15 @@ MatroskaTags = {
     0x4485: ('TagBinary', BINARY),
 }
 
+
 def parse(location):
     return GioEbml(location, MatroskaTags).parse()
+
 
 def dump(location):
     from pprint import pprint
     pprint(parse(location))
+
 
 def dump_tags(location):
     from pprint import pprint
@@ -362,6 +375,7 @@ def dump_tags(location):
     length = info['Duration'][0] * timecodescale / 1e9
     print("Length = %s seconds" % length)
     pprint(segment['Tags'][0]['Tag'])
+
 
 def gio_location(location):
     """Convert location to GIO-compatible location.

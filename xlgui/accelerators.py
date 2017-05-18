@@ -27,14 +27,18 @@
 from gi.repository import Gtk
 from xl import providers
 
+
 class Accelerator(object):
     __slots__ = ['name', 'keys', 'callback']
+
     def __init__(self, keys, callback):
-        self.name = keys # only here because providers needs it
+        self.name = keys  # only here because providers needs it
         self.keys = keys
         self.callback = callback
 
+
 class AcceleratorManager(providers.ProviderHandler):
+
     def __init__(self, providername, accelgroup):
         providers.ProviderHandler.__init__(self, providername)
         self.accelgroup = accelgroup
@@ -48,4 +52,3 @@ class AcceleratorManager(providers.ProviderHandler):
     def on_provider_removed(self, provider):
         key, mod = Gtk.accelerator_parse(provider.keys)
         self.accelgroup.disconnect_key(key, mod)
-

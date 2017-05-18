@@ -1,8 +1,11 @@
-import os.path, gobject, re
+import os.path
+import gobject
+import re
 import xlmisc
 from xl import common
 import logging
 logger = logging.getLogger(__name__)
+
 
 class timetype(long):
     """
@@ -11,12 +14,14 @@ class timetype(long):
         the time in the 00:00 format because it won't sort correctly (I want
         it to sort numerically instead of alphabetically.
     """
+
     def __init__(self, num=None):
         """
             Initializes the class
         """
         long.__init__(self)
         self.stream = False
+
 
 def to_unicode(x, default_encoding=None):
     if isinstance(x, unicode):
@@ -27,24 +32,28 @@ def to_unicode(x, default_encoding=None):
     else:
         return unicode(x)
 
+
 def get_default_encoding():
     """
         Returns the encoding to be used when dealing with file paths.  Do not
         use for other purposes.
     """
-    #return 'utf-8'
+    # return 'utf-8'
     return sys.getfilesystemencoding() or sys.getdefaultencoding()
+
 
 class ldict(dict):
     """
         A dict that only handles lists
     """
+
     def __init__(self):
         dict.__init__(self)
 
     def __setitem__(self, item, value):
-        if type(value) is not list: value = [value]
-        dict.__setitem__(self, item , value)
+        if not isinstance(value, list):
+            value = [value]
+        dict.__setitem__(self, item, value)
 
     def __getitem__(self, item):
         try:
@@ -52,11 +61,13 @@ class ldict(dict):
         except KeyError:
             return []
 
-class Track(object): 
+
+class Track(object):
     """
         Represents a generic single track.
     """
     type = 'track'
+
     def __init__(self, *args, **kwargs):
         """
             Loads and initializes the tag information
@@ -75,7 +86,7 @@ class Track(object):
             self.ext = os.path.splitext(self.loc.lower())[1]
             self.ext = self.ext.replace('.', '')
         except:
-            self.ext = None 
+            self.ext = None
 
     def is_file(self):
         return self.type == "file"
@@ -86,20 +97,19 @@ class Track(object):
         """
         return formats[self.ext].is_multi()
 
-    def set_info(self,loc="", title="", artist="",  
-        album="", disc_id=0, genre="",
-        track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, rating=0, blacklisted=0, time_added='', 
-        encoding=xlmisc.get_default_encoding(), playcount=0):
-    
+    def set_info(self, loc="", title="", artist="",
+                 album="", disc_id=0, genre="",
+                 track=0, length=0, bitrate=0, year="",
+                 modified=0, user_rating=0, rating=0, blacklisted=0, time_added='',
+                 encoding=xlmisc.get_default_encoding(), playcount=0):
         """
             Sets track information
         """
         # Doesn't matter what charset we use here, as long as we use
         # the same one when we decode (or encode as it were)
-        if type(loc) is unicode:
+        if isinstance(loc, unicode):
             self._loc = loc
-        else:        
+        else:
             try:
                 self._loc = unicode(loc, xlmisc.get_default_encoding())
             except (UnicodeDecodeError, TypeError):
@@ -120,10 +130,10 @@ class Track(object):
         self.system_rating = rating
         self.time_added = time_added
         self.playcount = playcount
-    
-        for tag, val in {'title': title, 'artist': artist, 'album':album,\
-                        'genre': genre, 'discnumber':disc_id,\
-                        'tracknumber':track}.iteritems():
+
+        for tag, val in {'title': title, 'artist': artist, 'album': album,
+                         'genre': genre, 'discnumber': disc_id,
+                         'tracknumber': track}.iteritems():
             self.set_tag(tag, val)
 
    # ========== Getters and setters ============
@@ -133,15 +143,15 @@ class Track(object):
             Common function for setting a tag.
             Expects a list (even for a single value)
         """
-        if not isinstance(values, list): values = [values]
+        if not isinstance(values, list):
+            values = [values]
         # filter out empty values and convert to unicode
         values = (to_unicode(x, self.encoding) for x in values
-            if x not in (None, ''))
+                  if x not in (None, ''))
         if append:
             self.tags[tag].extend(values)
         else:
             self.tags[tag] = list(values)
-
 
     def get_filename(self):
         """
@@ -149,33 +159,35 @@ class Track(object):
         """
         return os.path.basename(self.io_loc)
 
-    def set_track(self, t): 
+    def set_track(self, t):
         """
             Sets the track number
         """
         self.set_tag('tracknumber', t)
-    
-    def get_track(self): 
+
+    def get_track(self):
         """
             attempts to convert the track number to an int, otherwise it
             just returns -1
         """
-        if self.type == 'stream':   
+        if self.type == 'stream':
             return -1
 
         t = self.get_tag('tracknumber')
-        if type(t) is int: return t
+        if isinstance(t, int):
+            return t
 
         b = t.find('/')
 
-        if b > -1: t = t[0:b]
+        if b > -1:
+            t = t[0:b]
 
         try:
             return int(t)
         except:
             return -1
-    
-    def get_bitrate(self): 
+
+    def get_bitrate(self):
         """
             Returns the bitrate
         """
@@ -189,12 +201,14 @@ class Track(object):
                 return ''
         try:
             rate = int(self._bitrate) / 1000
-            if rate: return "%dk" % rate
-            else: return ""
+            if rate:
+                return "%dk" % rate
+            else:
+                return ""
         except:
             return self._bitrate
-    
-    def get_rating(self): 
+
+    def get_rating(self):
         """
             Gets the rating
         """
@@ -202,15 +216,15 @@ class Track(object):
             return "* " * self._rating
         except TypeError:
             return ""
-    
-    def set_rating(self, rating): 
+
+    def set_rating(self, rating):
         """
             Sets the rating
         """
         self._rating = rating
         self.user_rating = rating
 
-    def get_title(self): 
+    def get_title(self):
         """
             Returns the title of the track from the id3 tag
         """
@@ -219,8 +233,8 @@ class Track(object):
             return os.path.basename(self.loc)
         else:
             return ret
-    
-    def set_title(self, value): 
+
+    def set_title(self, value):
         """
             Sets the title
         """
@@ -268,27 +282,29 @@ class Track(object):
 
         self._encoding = value
 
-    def get_len(self): 
+    def get_len(self):
         """
             Returns the length of the track in the format minutes:seconds
         """
         sec = int(round(float(self._len)))
         return "%s:%02d" % divmod(sec, 60)
-    
-    def set_len(self, value): 
+
+    def set_len(self, value):
         """
             Sets the length
         """
-        if value == "": value = 0
+        if value == "":
+            value = 0
         self._len = value
 
-    def get_duration(self): 
+    def get_duration(self):
         """
             Gets the duration as an integer
         """
-        if self._len == '': self._len = 0
+        if self._len == '':
+            self._len = 0
         return timetype(self._len)
-    
+
     def set_bitrate(self, rate):
         """
             Gets the bitrate for this track
@@ -315,7 +331,7 @@ class Track(object):
         values = self.tags.get(tag)
         if values:
             values = (to_unicode(x, self.encoding) for x in values
-                if x not in (None, ''))
+                      if x not in (None, ''))
             return u" / ".join(values)
         return u""
 
@@ -334,7 +350,6 @@ class Track(object):
             Gets the disc number
         """
         return self.get_tag('discnumber')
-
 
     def set_disc(self, value):
         """
@@ -449,7 +464,7 @@ class Track(object):
     title = property(get_title, set_title)
     track = property(get_track, set_track)
     version = property(get_version, set_version)
-    year = property(get_date, set_date) # backwards compatibility
+    year = property(get_date, set_date)  # backwards compatibility
 
 
 def read_from_path(uri, track_type=Track):
@@ -459,17 +474,18 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext[1:]
 
-    #if ext not in formats:
+    # if ext not in formats:
     #    xlmisc.log('%s format is not understood' % ext)
     #    return None
 
     tr = track_type(uri)
 
     if tr.type != 'device':
-        tr.type = 'file' 
+        tr.type = 'file'
 
     format = formats.get(ext)
-    if not format: return tr
+    if not format:
+        return tr
 
     try:
         format.fill_tag_from_path(tr)
@@ -481,4 +497,3 @@ def read_from_path(uri, track_type=Track):
         return None
 
     return tr
-

@@ -30,12 +30,12 @@ import dbus
 from xl import event, player, settings
 
 SERVICES = [
-    dict( # GNOME
+    dict(  # GNOME
         bus_name='org.gnome.ScreenSaver',
         path='/org/gnome/ScreenSaver',
         dbus_interface='org.gnome.ScreenSaver',
     ),
-    dict( # KDE
+    dict(  # KDE
         bus_name='org.freedesktop.ScreenSaver',
         path='/',
         dbus_interface='org.freedesktop.ScreenSaver',
@@ -43,12 +43,15 @@ SERVICES = [
 ]
 
 import prefs
+
+
 def get_preferences_pane():
     return prefs
 
 matches = set()
 bus = None
 was_playing = None
+
 
 def screensaver_active_changed(is_active):
     global was_playing
@@ -58,21 +61,25 @@ def screensaver_active_changed(is_active):
     elif was_playing and settings.get_option("screensaverpause/unpause", 0):
         player.PLAYER.unpause()
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable()
 
+
 def _enable(*a):
     global bus
     bus = dbus.SessionBus()
     for service in SERVICES:
         matches.add(bus.add_signal_receiver(screensaver_active_changed,
-            signal_name='ActiveChanged', **service))
+                                            signal_name='ActiveChanged', **service))
+
 
 def disable(exaile):
-    if bus is None: return
+    if bus is None:
+        return
     for match in frozenset(matches):
         match.remove()
         matches.remove(match)
@@ -88,7 +95,7 @@ def test():
     for service in SERVICES:
         try:
             proxy = bus.get_object(service['bus_name'], service['path'],
-                follow_name_owner_changes=True)
+                                   follow_name_owner_changes=True)
         except dbus.DBusException:
             continue
         break

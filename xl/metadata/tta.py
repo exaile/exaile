@@ -25,12 +25,11 @@
 # from your version.
 
 
-
 from xl.metadata._id3 import ID3Format
 from mutagen import trueaudio
+
 
 class TTAFormat(ID3Format):
     MutagenType = trueaudio.TrueAudio
 
 # vim: et sts=4 sw=4
-

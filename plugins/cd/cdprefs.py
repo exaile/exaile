@@ -39,8 +39,10 @@ FORMAT_WIDGET = None
 
 # TODO: allow setting cddb server?
 
+
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
+
 
 class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
     name = 'cd_import/quality'
@@ -62,7 +64,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         model = self.widget.get_model()
         if not model:  # happens if preferences window is shut down on close
             return False
-        
+
         curiter = self.condition_widget.get_active_iter()
         format = self.condition_widget.get_model().get_value(curiter, 0)
         formatinfo = transcoder.FORMATS[format]
@@ -71,7 +73,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             default = formatinfo['default']
 
             if self.default != default:
-                self.default = default # raw value
+                self.default = default  # raw value
 
         default_title = formatinfo['kbs_steps'][
             formatinfo['raw_steps'].index(self.default)]
@@ -99,6 +101,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_active(index)
 
         return True
+
 
 class OutputPathPreference(widgets.ComboEntryPreference):
     name = 'cd_import/outpath'

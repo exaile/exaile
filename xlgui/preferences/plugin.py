@@ -43,10 +43,12 @@ logger = logging.getLogger(__name__)
 name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
+
 class PluginManager(object):
     """
         Gui to manage plugins
     """
+
     def __init__(self, preferences, builder):
         """
             Initializes the manager
@@ -69,7 +71,7 @@ class PluginManager(object):
             reload_cellrenderer.props.icon_name = 'view-refresh'
             reload_cellrenderer.props.xalign = 1
             reload_cellrenderer.connect('clicked',
-                self.on_reload_cellrenderer_clicked)
+                                        self.on_reload_cellrenderer_clicked)
 
             name_column = builder.get_object('name_column')
             name_column.pack_start(reload_cellrenderer, True)
@@ -79,26 +81,26 @@ class PluginManager(object):
         self.author_label = builder.get_object('author_label')
         self.name_label = builder.get_object('name_label')
         self.description = builder.get_object('description_view')
-        
+
         self.model = builder.get_object('model')
         self.filter_model = self.model.filter_new()
-        
+
         self.show_incompatible_cb = builder.get_object('show_incompatible_cb')
         self.show_broken_cb = builder.get_object('show_broken_cb')
-        
+
         self.filter_model.set_visible_func(self._model_visible_func)
-        
+
         self.status_column = builder.get_object('status_column')
         self._set_status_visible()
 
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
-        
+
         self._evt_rm1 = event.add_ui_callback(self.on_plugin_event, 'plugin_enabled', None, True)
         self._evt_rm2 = event.add_ui_callback(self.on_plugin_event, 'plugin_disabled', None, False)
         self.list.connect('destroy', self.on_destroy)
-        
+
         GLib.idle_add(selection.select_path, (0,))
         GLib.idle_add(self.list.grab_focus)
 
@@ -108,22 +110,22 @@ class PluginManager(object):
         """
         plugins = self.plugins.list_installed_plugins()
         uncategorized = _('Uncategorized')
-        plugins_dict = { uncategorized: [] }
+        plugins_dict = {uncategorized: []}
         failed_list = []
-        
+
         self.plugin_to_path = {}
 
         for plugin_name in plugins:
             try:
                 info = self.plugins.get_plugin_info(plugin_name)
-                
-                compatible = self.plugins.is_compatible(info)    
+
+                compatible = self.plugins.is_compatible(info)
                 broken = self.plugins.is_potentially_broken(info)
-                
+
             except Exception:
                 failed_list += [plugin_name]
                 continue
-            
+
             # determine icon to show
             if broken:
                 icon = 'dialog-error'
@@ -135,18 +137,16 @@ class PluginManager(object):
             enabled = plugin_name in self.plugins.enabled_plugins
             plugin_data = (plugin_name, info['Name'], str(info['Version']),
                            enabled, icon, broken, compatible, True)
-            
+
             if 'Category' in info:
                 cat = plugins_dict.setdefault(info['Category'], [])
                 cat.append(plugin_data)
             else:
                 plugins_dict[uncategorized].append(plugin_data)
 
-        
-
         self.list.set_model(None)
         self.model.clear()
-        
+
         def categorykey(item):
             if item[0] == uncategorized:
                 return '\xff' * 10
@@ -155,26 +155,26 @@ class PluginManager(object):
 
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: xl.common.strxfrm(x[1]))
-        
+
             it = self.model.append(None, (None, category, '', False, '', False, True, False))
-        
+
             for plugin_data in plugins_list:
                 pit = self.model.append(it, plugin_data)
                 path = self.model.get_string_from_iter(pit)
                 self.plugin_to_path[plugin_data[0]] = path
 
         self.list.set_model(self.filter_model)
-        
+
         # TODO: Keep track of which categories are already expanded, and only expand those
         self.list.expand_all()
-        
+
         if failed_list:
             self.message.show_error(_('Could not load plugin info!'),
-                ngettext(
-                    'Failed plugin: %s',
-                    'Failed plugins: %s',
-                    len(failed_list)
-                ) % ', '.join(failed_list)
+                                    ngettext(
+                'Failed plugin: %s',
+                'Failed plugins: %s',
+                len(failed_list)
+            ) % ', '.join(failed_list)
             )
 
     def on_destroy(self, widget):
@@ -224,11 +224,11 @@ class PluginManager(object):
             from the filesystem
         """
         dialog = Gtk.FileChooserDialog(_('Choose a Plugin'),
-            self.preferences.parent,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_ADD, Gtk.ResponseType.OK
-            )
+                                       self.preferences.parent,
+                                       buttons=(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_ADD, Gtk.ResponseType.OK
+        )
         )
 
         filter = Gtk.FileFilter()
@@ -272,7 +272,7 @@ class PluginManager(object):
             self.description.get_buffer().set_text('')
             self.name_label.set_label('')
             return
-        
+
         info = self.plugins.get_plugin_info(row[0])
 
         self.author_label.set_label(",\n".join(info['Authors']))
@@ -290,7 +290,7 @@ class PluginManager(object):
         plugin_name = self.filter_model[path][0]
         if plugin_name is None:
             return
-        
+
         enable = not self.filter_model[path][3]
 
         if enable:
@@ -305,45 +305,44 @@ class PluginManager(object):
             except Exception as e:
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
-            
+
         self.on_selection_changed(self.list.get_selection())
 
     def on_plugin_event(self, evtname, obj, plugin_name, enabled):
 
         if hasattr(self.plugins.loaded_plugins[plugin_name],
-            'get_preferences_pane'):
+                   'get_preferences_pane'):
             self.preferences._load_plugin_pages()
-        
+
         path = self.plugin_to_path[plugin_name]
         self.model[path][3] = enabled
-        
-        
+
     def on_show_broken_cb_toggled(self, widget):
         self._set_status_visible()
         self.filter_model.refilter()
-        
+
     def on_show_incompatible_cb_toggled(self, widget):
         self._set_status_visible()
         self.filter_model.refilter()
-        
+
     def _set_status_visible(self):
         show_col = self.show_broken_cb.get_active() or \
-                   self.show_incompatible_cb.get_active()
+            self.show_incompatible_cb.get_active()
         self.status_column.set_visible(show_col)
-        
+
     def _model_visible_func(self, model, iter, data):
-        
+
         row = model[iter]
         broken = row[5]
         compatible = row[6]
-        
+
         show = not broken or self.show_broken_cb.get_active()
         compatible = compatible or self.show_incompatible_cb.get_active()
-        
+
         result = compatible and show
-        
+
         return result
-            
+
 
 def init(preferences, xml):
     manager = PluginManager(preferences, xml)

@@ -23,6 +23,7 @@ from xl.player.gst.gst_utils import ElementBin
 class Karaoke(ElementBin):
     index = 50
     name = 'karaoke'
+
     def __init__(self):
         ElementBin.__init__(self, name=self.name)
         self.elements[50] = Gst.ElementFactory.make('audiokaraoke', None)
@@ -31,6 +32,7 @@ class Karaoke(ElementBin):
 
 def enable(exaile):
     xl.providers.register('gst_audio_filter', Karaoke)
+
 
 def disable(exaile):
     xl.providers.unregister('gst_audio_filter', Karaoke)

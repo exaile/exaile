@@ -39,6 +39,7 @@ def element_link_many(*elems):
         n = elems[i + 1]
         e.link(n)
 
+
 def disable_video_text(bin):
     # From quod libet: disable all video/text decoding in playbin
     GST_PLAY_FLAG_VIDEO = 1 << 0
@@ -60,72 +61,74 @@ class ElementBin(Gst.Bin):
         changes made to elements do not apply until setup_elements()
         is called
     """
+
     def __init__(self, name=None):
         if name:
             Gst.Bin.__init__(self, name=name)
         else:
             Gst.Bin.__init__(self)
-        
+
         self.elements = {}
         self.added_elems = []
         self.srcpad = None
         self.sinkpad = None
         self.src = None
         self.sink = None
-    
+
     def setup_elements(self):
         '''
             This function should only be called when state is NULL
-            
+
             :returns: True if there are elements, False otherwise
         '''
         name = self.get_name()
         logger.debug("%s: Removing all elements", name)
-        
+
         if len(self.added_elems) > 0:
             for elem in self.added_elems:
                 elem.set_state(Gst.State.NULL)
                 self.remove(elem)
-        
+
         all_elems = sorted(self.elements.items())
 
         elems = []
         for _unused, e in all_elems:
-            
+
             # Don't add empty elements!
             if hasattr(e, 'setup_elements'):
                 if not e.setup_elements():
                     continue
-                
+
             elems.append(e)
-        
+
         self.added_elems = elems
-        
+
         if len(elems) == 0:
             return False
-        
+
         for e in elems:
             self.add(e)
             e.sync_state_with_parent()
             logger.debug("%s: Adding %s", name, e.get_name())
-        
+
         element_link_many(*elems)
-        
+
         self.srcpad = elems[-1].get_static_pad("src")
         if self.src is not None:
             self.src.set_target(self.srcpad)
         else:
             self.src = Gst.GhostPad.new('src', self.srcpad)
             self.add_pad(self.src)
-            
+
         self.sinkpad = elems[0].get_static_pad("sink")
         if self.sink is not None:
             self.sink.set_target(self.sinkpad)
         else:
             self.sink = Gst.GhostPad.new('sink', self.sinkpad)
             self.add_pad(self.sink)
-            
+
         return True
+
 
 class ProviderBin(ElementBin, ProviderHandler):
     """
@@ -137,6 +140,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                     lower numbers are higher priority. elements must
                     choose a unique number.
     """
+
     def __init__(self, servicename, name=None):
         """
             :param servicename: the Provider name to listen for
@@ -147,7 +151,7 @@ class ProviderBin(ElementBin, ProviderHandler):
         ProviderHandler.__init__(self, servicename)
 
         self.reset_providers()
-    
+
     def reset_providers(self):
         self.elements = {}
         dups = {}
@@ -163,11 +167,11 @@ class ProviderBin(ElementBin, ProviderHandler):
             except Exception:
                 logger.exception("Could not create %s element for %s.",
                                  provider, self.get_name())
-        
+
         for k, v in dups.iteritems():
             logger.warning("Audio plugins %s are sharing index %s (may have unpredictable output!)",
-                            v, k)
-        
+                           v, k)
+
     def on_provider_added(self, provider):
         self.reset_providers()
 
@@ -178,15 +182,15 @@ class ProviderBin(ElementBin, ProviderHandler):
 def parse_stream_tags(track, tag_list):
     """
         Called when a tag is found in a stream.
-        
+
         :type track:    xl.trax.Track
         :type tag_list: Gst.TagList
-        
+
         Gst.TagList guarantees that all strings are either ASCII or UTF8
     """
-    
+
     newsong = False
-    
+
     keep = ['bitrate',
             'duration',
             'track-number',
@@ -195,14 +199,14 @@ def parse_stream_tags(track, tag_list):
             'genre',
             'comment',
             'title']
-    
+
     # Build a dictionary first
     tags = {}
     for i in xrange(tag_list.n_tags()):
         k = tag_list.nth_tag_name(i)
         if k not in keep:
             continue
-        
+
         values = [tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))]
         if isinstance(values[0], str):
             try:
@@ -210,40 +214,40 @@ def parse_stream_tags(track, tag_list):
             except UnicodeDecodeError:
                 logger.debug("Can't decode: `%r`", values)
                 continue
-        
+
         tags[k] = values
-    
+
     v = tags.get('bitrate')
     if v:
         track.set_tag_raw('__bitrate', int(v[0]))
-        
+
     v = tags.get('duration')
     if v:
-        track.set_tag_raw('__length', float(v[0])/Gst.SECOND)
-    
+        track.set_tag_raw('__length', float(v[0]) / Gst.SECOND)
+
     v = tags.get('track-number')
     if v:
         track.set_tag_raw('tracknumber', v)
-    
+
     v = tags.get('album')
     if v:
         track.set_tag_raw('album', v)
-    
+
     v = tags.get('artist')
     if v:
         track.set_tag_raw('artist', v)
-    
+
     v = tags.get('genre')
     if v:
-        track.set_tag_raw('genre', v)   
-    
+        track.set_tag_raw('genre', v)
+
     # if there's a comment, but no album, set album to the comment
     v = tags.get('comment')
     if v and not track.get_tag_raw('album'):
         track.set_tag_raw('album', v)
-        
-    v = tags.get('title')  
-    if v:   
+
+    v = tags.get('title')
+    if v:
         try:
             if track.get_tag_raw('__rawtitle') != v:
                 track.set_tag_raw('__rawtitle', v)
@@ -252,7 +256,7 @@ def parse_stream_tags(track, tag_list):
             track.set_tag_raw('__rawtitle', v)
             newsong = True
 
-        if not track.get_tag_raw('artist'):            
+        if not track.get_tag_raw('artist'):
             title_array = v[0].split(' - ', 1)
             if len(title_array) == 1 or \
                     track.get_loc_for_io().lower().endswith(".mp3"):
@@ -262,9 +266,8 @@ def parse_stream_tags(track, tag_list):
                 track.set_tag_raw('title', [title_array[1]])
         else:
             track.set_tag_raw('title', v)
-    
-    return newsong
 
+    return newsong
 
 
 # vim: et sts=4 sw=4

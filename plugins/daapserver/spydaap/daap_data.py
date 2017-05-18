@@ -139,7 +139,7 @@ dmapCodeTypes = {
     'muty': ('dmap.updatetype', 'b'),
     'ppro': ('dpap.protocolversion', 'i'),
     'pret': ('dpap.unknown', 'c'),
-    }
+}
 
 dmapDataTypes = {
     1:'b',  # byte

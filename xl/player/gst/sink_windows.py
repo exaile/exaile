@@ -35,60 +35,59 @@ from gi.repository import Gst
 import logging
 logger = logging.getLogger(__name__)
 
+
 class _SinkSettings:
     sink = 'directsoundsink'
     can_set_device = False
-    
+
     def __init__(self):
         sink = Gst.ElementFactory.make(self.sink)
         if hasattr(sink.props, 'device'):
             self.can_set_device = True
-    
+
 _sink_settings = _SinkSettings()
 
 if _sink_settings.can_set_device:
-    
+
     import ctypes.wintypes
     import ctypes as C
-    
+
     _dsound_dll = C.windll.LoadLibrary("dsound.dll")
     _DirectSoundEnumerateW = _dsound_dll.DirectSoundEnumerateW
-    
-    
-    
+
     _LPDSENUMCALLBACK = C.WINFUNCTYPE(C.wintypes.BOOL,
                                       C.wintypes.LPVOID,
                                       C.wintypes.LPCWSTR,
                                       C.wintypes.LPCWSTR,
                                       C.wintypes.LPCVOID)
-    
+
     _ole32_dll = C.oledll.ole32
-    _StringFromGUID2 = _ole32_dll.StringFromGUID2    
+    _StringFromGUID2 = _ole32_dll.StringFromGUID2
 
     def get_create_fn(device_id):
         def _create_fn(name):
             e = Gst.ElementFactory.make(_sink_settings.sink, name)
             e.props.device = device_id
             return e
-        
+
         return _create_fn
-    
+
     def get_devices():
-        
+
         devices = []
-        
+
         def cb_enum(lpGUID, lpszDesc, lpszDrvName, _unused):
             dev = ""
             if lpGUID is not None:
                 buf = C.create_unicode_buffer(200)
                 if _StringFromGUID2(lpGUID, C.byref(buf), 200):
                     dev = buf.value
-            
+
             devices.append((lpszDesc, dev))
             return True
-        
+
         _DirectSoundEnumerateW(_LPDSENUMCALLBACK(cb_enum), None)
-        
+
         for name, devid in devices:
             yield (name, devid, get_create_fn(devid))
 
@@ -98,14 +97,14 @@ else:
 
 
 def load_directsoundsink(presets):
-    
+
     preset = {
-        "name"      : "DirectSound",
-        "pipe"      : "directsoundsink"
+        "name": "DirectSound",
+        "pipe": "directsoundsink"
     }
-    
+
     presets['directsoundsink'] = preset
-        
+
     return get_devices
 
 
@@ -126,35 +125,33 @@ def get_priority_booster():
     AvRevertMmThreadCharacteristics = avrt_dll.AvRevertMmThreadCharacteristics
     AvRevertMmThreadCharacteristics.argtypes = [HANDLE]
     AvRevertMmThreadCharacteristics.restype = BOOL
-    
+
     def on_stream_status(bus, message):
         '''
             Called synchronously from GStreamer processing threads -- do what
             we need to do and then get out ASAP
         '''
         status = message.parse_stream_status()
-        
+
         # A gstreamer thread starts
         if status.type == Gst.StreamStatusType.ENTER:
             obj = message.get_stream_status_object()
-            
+
             # note that we use "Pro Audio" because it gives a higher priority, and
             # that's what Chrome does anyways...
             unused = DWORD()
             obj.task_handle = AvSetMmThreadCharacteristics("Pro Audio", C.byref(unused))
-        
+
         # A gstreamer thread ends
         elif status.type == Gst.StreamStatusType.LEAVE:
             obj = message.get_stream_status_object()
             task_handle = getattr(obj, 'task_handle', None)
             if task_handle:
                 AvRevertMmThreadCharacteristics(task_handle)
-    
+
     def attach_priority_hook(player):
         bus = player.get_bus()
         bus.connect('sync-message::stream-status', on_stream_status)
         bus.enable_sync_message_emission()
-        
-    return attach_priority_hook
 
-        
+    return attach_priority_hook

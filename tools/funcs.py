@@ -34,5 +34,5 @@ def timeit(n, func, *args):
         start = time.clock()
         func.__call__(*args)
         runs.append(time.clock() - start)
-    avg = sum(runs)/len(runs)
+    avg = sum(runs) / len(runs)
     print("%1.8f seconds" % avg)

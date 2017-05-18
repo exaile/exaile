@@ -35,11 +35,13 @@ from xlgui.panel import radio
 
 STATION = None
 
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
+
 
 def _enable(o1, exaile, o2):
     global STATION
@@ -47,13 +49,16 @@ def _enable(o1, exaile, o2):
     STATION = SomaFMRadioStation()
     exaile.radio.add_station(STATION)
 
+
 def disable(exaile):
     global STATION
     exaile.radio.remove_station(STATION)
     STATION = None
 
-def set_status(message, timeout = 0):
+
+def set_status(message, timeout=0):
     radio.set_status(message, timeout)
+
 
 class SomaFMRadioStation(RadioStation):
 
@@ -66,7 +71,7 @@ class SomaFMRadioStation(RadioStation):
         self.user_agent = main.exaile().get_user_agent_string('somafm')
         self.somafm_url = 'http://somafm.com/'
         self.channels_xml_url = self.somafm_url + 'channels.xml'
-        self.cache_file = os.path.join(xdg.get_cache_dir(),'somafm.cache')
+        self.cache_file = os.path.join(xdg.get_cache_dir(), 'somafm.cache')
         self.channelist = ''
         self.data = {}
         self._load_cache()
@@ -83,13 +88,13 @@ class SomaFMRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout = 20)
+            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:
             c = httplib.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent':
-                    self.user_agent})
+                                                     self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(_('Error connecting to SomaFM server.'))
@@ -125,7 +130,7 @@ class SomaFMRadioStation(RadioStation):
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
             h.write(ETree.tostring(channellist, 'utf-8'))
 
-    def get_lists(self, no_cache = False):
+    def get_lists(self, no_cache=False):
         """
             Returns the rlists for somafm
         """
@@ -147,19 +152,18 @@ class SomaFMRadioStation(RadioStation):
         rlists = []
 
         for id, name in data.items():
-            rlist = RadioList(name, station = self)
+            rlist = RadioList(name, station=self)
             rlist.get_items = lambda no_cache, id = id: \
-                self._get_subrlists(id = id, no_cache = no_cache)
+                self._get_subrlists(id=id, no_cache=no_cache)
             rlists.append(rlist)
 
-        sort_list = [(item.name, item) for item in rlists]
-        sort_list.sort()
+        sort_list = sorted([(item.name, item) for item in rlists])
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
 
         return rlists
 
-    def _get_subrlists(self, id, no_cache = False):
+    def _get_subrlists(self, id, no_cache=False):
         """
             Gets the subrlists for a rlist
         """
@@ -167,8 +171,7 @@ class SomaFMRadioStation(RadioStation):
 
             rlists = self._get_stations(id)
 
-            sort_list = [(item.name, item) for item in rlists]
-            sort_list.sort()
+            sort_list = sorted([(item.name, item) for item in rlists])
             rlists = [item[1] for item in sort_list]
 
             self.subs[id] = rlists
@@ -201,19 +204,19 @@ class SomaFMRadioStation(RadioStation):
         rlists = []
         i = 1
         for pls in plss:
-            type = pls.tag.replace('pls','')
+            type = pls.tag.replace('pls', '')
             format = pls.attrib['format'].upper()
             url = pls.text
             display_name = format + " - " + type
-            
-            rlist = RadioItem(display_name, station = self)
+
+            rlist = RadioItem(display_name, station=self)
             rlist.format = format
             rlist.get_playlist = lambda url = url,\
-                    playlist_id = self.playlist_id :\
-                        self._get_playlist(url, playlist_id)
+                playlist_id = self.playlist_id :\
+                self._get_playlist(url, playlist_id)
 
             self.playlist_id += 1
-            rlists.append(rlist)    
+            rlists.append(rlist)
         return rlists
 
     def get_menu(self, parent):

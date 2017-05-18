@@ -39,49 +39,51 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
+
 class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
 
         The content of the queue are processed before processing 
         the content of the assigned playlist.
-        
+
         When the remove_item_when_played option is enabled, the queue
         removes items from itself as they are played.
-        
+
         When not enabled, the queue acts like a regular playlist, and
         moves the position as tracks are played.
-        
+
         In this mode, when a new track is queued, the position is set 
         to play that track, and play will continue with that track 
         until the queue is exhausted, and then the assigned playlist 
         will be continued.
-        
+
         TODO: Queue needs to be threadsafe!
     """
+
     def __init__(self, player, name, location=None):
         playlist.Playlist.__init__(self, name=name)
-    
+
         self.__queue_has_tracks_val = False
         self.__current_playlist = self      # this should never be None
         self.player = player
-        
+
         # hack for making docs work
         if player is not None:
             player.queue = self
-        
+
         if location is not None:
             self.load_from_location(location)
-        
+
         event.add_callback(self._on_option_set, '%s_option_set' % name)
-            
+
         self.__opt_remove_item_when_played = '%s/remove_item_when_played' % name
         self.__opt_disable_new_track_when_playing = '%s/disable_new_track_when_playing' % name
         self.__opt_enqueue_begins_playback = '%s/enqueue_begins_playback' % name
-            
+
         self._on_option_set(None, settings, self.__opt_remove_item_when_played)
         self._on_option_set(None, settings, self.__opt_disable_new_track_when_playing)
-    
+
     def _on_option_set(self, evtype, settings, option):
         if option == self.__opt_remove_item_when_played:
             self.__remove_item_on_playback = settings.get_option(option, True)
@@ -89,7 +91,7 @@ class PlayQueue(playlist.Playlist):
                 self.__queue_has_tracks = True
         elif option == self.__opt_disable_new_track_when_playing:
             self.__disable_new_track_when_playing = settings.get_option(option, False)
-    
+
     def set_current_playlist(self, playlist):
         """
             Sets the playlist to be processed in the queue
@@ -105,7 +107,7 @@ class PlayQueue(playlist.Playlist):
             return
         elif playlist is None:
             playlist = self
-            
+
         if playlist is self:
             self.__queue_has_tracks = True
 
@@ -114,17 +116,17 @@ class PlayQueue(playlist.Playlist):
 
     #: The playlist currently processed in the queue
     current_playlist = property(lambda self: self.__current_playlist,
-        set_current_playlist)
-        
+                                set_current_playlist)
+
     def get_next(self):
         '''
             Retrieves the next track that will be played. Does not 
             actually set the position. When you call next(), it should
             return the same track.
-            
+
             This exists to support retrieving a track before it actually
             needs to be played, such as for pre-buffering.
-            
+
             :returns: the next track to be played
             :rtype: :class:`xl.trax.Track` or None
         '''
@@ -137,7 +139,6 @@ class PlayQueue(playlist.Playlist):
             return self.current_playlist.get_next()
         else:
             return None
-    
 
     def next(self, autoplay=True, track=None):
         """
@@ -162,20 +163,20 @@ class PlayQueue(playlist.Playlist):
                         track = self.pop(0)
                     except IndexError:
                         pass
-                        
+
                 # reached the end of the internal queue, don't repeat
                 if track is None:
                     self.__queue_has_tracks = False
-            
+
             if track is None and self.current_playlist is not self:
                 track = self.current_playlist.next()
-                
+
         if autoplay:
             self.player.play(track)
 
         if not track:
             event.log_event("playback_playlist_end", self,
-                        self.current_playlist)
+                            self.current_playlist)
         return track
 
     def prev(self):
@@ -193,7 +194,7 @@ class PlayQueue(playlist.Playlist):
                     track = self.current
                 elif self.current_playlist is not self:
                     track = self.current_playlist.prev()
-                
+
             if track is None:
                 track = self.player.current
         else:
@@ -213,7 +214,7 @@ class PlayQueue(playlist.Playlist):
             current = self.player.current
         else:
             current = playlist.Playlist.get_current(self)
-            if current == None and self.current_playlist is not self:
+            if current is None and self.current_playlist is not self:
                 current = self.current_playlist.get_current()
         return current
 
@@ -253,7 +254,7 @@ class PlayQueue(playlist.Playlist):
                     pass
         else:
             self.next()
-            
+
     def queue_length(self):
         '''
             Returns the number of tracks left to play in the queue's 
@@ -265,38 +266,38 @@ class PlayQueue(playlist.Playlist):
             if not self.__queue_has_tracks:
                 return -1
             else:
-                return len(self) - (self.current_position+1)
-    
+                return len(self) - (self.current_position + 1)
+
     def __set_queue_has_tracks(self, value):
         if value != self.__queue_has_tracks_val:
             oldpos = self.current_position
             self.__queue_has_tracks_val = value
-            event.log_event("playlist_current_position_changed", 
-                                self, (self.current_position, oldpos))
-        
+            event.log_event("playlist_current_position_changed",
+                            self, (self.current_position, oldpos))
+
     # Internal value indicating whether the internal queue has tracks left to play
-    __queue_has_tracks = property(lambda self: self.__queue_has_tracks_val, 
+    __queue_has_tracks = property(lambda self: self.__queue_has_tracks_val,
                                   __set_queue_has_tracks)
-    
+
     def __setitem__(self, i, value):
         '''
             Overrides the playlist.Playlist list API. 
-            
+
             Allows us to ensure that when a track is added to an empty queue, 
             we play it. Or not, depending on what the user wants.
         '''
         old_len = playlist.Playlist.__len__(self)
         playlist.Playlist.__setitem__(self, i, value)
-        
-        #if nothing is queued, queue this track up
+
+        # if nothing is queued, queue this track up
         if self.current_position == -1:
             if isinstance(i, slice):
-                self.current_position = i.indices(len(self))[0]-1
+                self.current_position = i.indices(len(self))[0] - 1
             else:
-                self.current_position = i-1
+                self.current_position = i - 1
 
         self.__queue_has_tracks = True
-        
+
         if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
            and old_len < playlist.Playlist.__len__(self):
             self.play()
@@ -305,10 +306,10 @@ class PlayQueue(playlist.Playlist):
         state = {}
         state['state'] = self.player.get_state()
         state['position'] = self.player.get_time()
-        
+
         with open(location, 'wb') as f:
-            pickle.dump(state, f, protocol = 2)
-    
+            pickle.dump(state, f, protocol=2)
+
     @common.threaded
     def _restore_player_state(self, location):
         if not settings.get_option("%s/resume_playback" % self.player._name, True):
@@ -323,19 +324,19 @@ class PlayQueue(playlist.Playlist):
         for req in ['state', 'position']:
             if req not in state:
                 return
-            
+
         self._do_restore_player_state(state)
 
     @common.idle_add()
     def _do_restore_player_state(self, state):
 
         if state['state'] in ['playing', 'paused']:
-            
+
             start_at = None
             if state['position'] is not None:
                 start_at = state['position']
-            
+
             paused = state['state'] == 'paused' or \
-                     settings.get_option("%s/resume_paused" % self.player._name, False)
-            
+                settings.get_option("%s/resume_paused" % self.player._name, False)
+
             self.player.play(self.get_current(), start_at=start_at, paused=paused)

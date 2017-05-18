@@ -52,20 +52,28 @@ logger = logging.getLogger(__name__)
 
 def N_(x): return x
 
+
 class EntrySecondsField(MultiEntryField):
+
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('seconds')))
 
+
 class EntryAndEntryField(MultiEntryField):
+
     def __init__(self):
         # TRANSLATORS: Logical AND used for smart playlists
         MultiEntryField.__init__(self, (50, _('and'), 50))
 
+
 class EntryDaysField(MultiEntryField):
+
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('days')))
-        
+
+
 class PlaylistField(ComboEntryField):
+
     def __init__(self):
         playlists = []
         playlists.extend(main.exaile().smart_playlists.list_playlists())
@@ -75,33 +83,42 @@ class PlaylistField(ComboEntryField):
 
 DATE_FIELDS = [
     N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
+
+
 class SpinDateField(SpinButtonAndComboField):
+
     def __init__(self):
         SpinButtonAndComboField.__init__(self, DATE_FIELDS)
 
+
 class SpinSecondsField(SpinLabelField):
+
     def __init__(self):
         SpinLabelField.__init__(self, _('seconds'))
 
+
 class SpinRating(SpinLabelField):
+
     def __init__(self):
-        SpinLabelField.__init__(self, '', 
-                settings.get_option("rating/maximum", 5), 0)
+        SpinLabelField.__init__(self, '',
+                                settings.get_option("rating/maximum", 5), 0)
+
 
 class SpinNothing(SpinLabelField):
+
     def __init__(self):
         SpinLabelField.__init__(self, '')
 
 # This sets up the CRITERIA for all the available types of tags
-# that exaile supports. The actual CRITERIA dict is populated 
+# that exaile supports. The actual CRITERIA dict is populated
 # using xl.metadata.tags.tag_data.
 #
 # NOTE: The following strings are already marked for translation in _TRANS and
 # _NMAP, and will be really translated by filtergui; no need to clutter the
 # code here.
 _criteria_types = {
-    
-    # TODO              
+
+    # TODO
     'bitrate': [
         ('is', SpinNothing),
         ('less than', SpinNothing),
@@ -112,9 +129,9 @@ _criteria_types = {
         ('is set', NullField),
         ('is not set', NullField),
     ],
-                    
+
     'image': None,
-          
+
     'int': [
         ('is', SpinNothing),
         ('less than', SpinNothing),
@@ -125,7 +142,7 @@ _criteria_types = {
         ('is set', NullField),
         ('is not set', NullField),
     ],
-          
+
     'location': [
         ('is', QuotedEntryField),
         ('is not', QuotedEntryField),
@@ -134,7 +151,7 @@ _criteria_types = {
         ('regex', QuotedEntryField),
         ('not regex', QuotedEntryField),
     ],
-    
+
     'text': [
         ('is', EntryField),
         ('is not', EntryField),
@@ -145,22 +162,22 @@ _criteria_types = {
         ('is set', NullField),
         ('is not set', NullField),
     ],
-    
+
     'time': [
         ('at least', SpinSecondsField),
         ('at most', SpinSecondsField),
         ('is', SpinSecondsField),
         ('is not', SpinSecondsField),
     ],
-                    
+
     'timestamp': [
         ('in the last', SpinDateField),
         ('not in the last', SpinDateField),
-    ],  
+    ],
 }
 
 # aliases
-_criteria_types['datetime'] = _criteria_types['text'] # TODO: fix
+_criteria_types['datetime'] = _criteria_types['text']  # TODO: fix
 _criteria_types['multiline'] = _criteria_types['text']
 _criteria_types['dblnum'] = _criteria_types['int']
 
@@ -173,7 +190,7 @@ CRITERIA = [
         ('at least', SpinRating),
         ('at most', SpinRating),
     ]),
-   
+
     ('Playlist', [
         ('Track is in', PlaylistField),
         ('Track not in', PlaylistField),
@@ -191,7 +208,7 @@ _TRANS = {
     N_('is'): '==',
     # TRANSLATORS: True if haystack is not equal to needle
     N_('is not'): '!==',
-    # TRANSLATORS: True if the specified tag is present (uses the NullField 
+    # TRANSLATORS: True if the specified tag is present (uses the NullField
     # to compare to __null__)
     N_('is set'): '<!==>',
     # TRANSLATORS: True if the specified tag is not present (uses the NullField
@@ -231,8 +248,8 @@ _TRANS = {
 # name.
 # This gets populated below. Only add special tags/searches here.
 _NMAP = {
-    N_('Rating'): '__rating', # special
-    N_('Playlist'): '__playlist', # not a real tag
+    N_('Rating'): '__rating',  # special
+    N_('Playlist'): '__playlist',  # not a real tag
 }
 
 _REV_NMAP = {}
@@ -240,24 +257,24 @@ _REV_NMAP = {}
 
 # update the tables based on the globally stored tag list
 def __update_maps():
-    
+
     from xl.metadata.tags import tag_data
-    
+
     for tag, data in tag_data.iteritems():
-        
+
         if data is None:
             continue
-        
+
         # don't catch this KeyError -- if it fails, fix it!
         criteria = _criteria_types[data.type]
-        
+
         if criteria is None:
             continue
-            
+
         CRITERIA.append((data.name, criteria))
-        
+
         _NMAP[data.name] = tag
-    
+
     for k, v in _NMAP.iteritems():
         if v in _REV_NMAP:
             raise ValueError("_REV_NMAP Internal error: '%s', '%s'" % (k, v))
@@ -266,39 +283,38 @@ def __update_maps():
 __update_maps()
 
 
-
 class SmartPlaylistEditor(object):
 
     @classmethod
     def create(cls, collection, smart_manager, parent=None):
         """
             Shows a dialog to create a new smart playlist
-            
+
             :param collection:    Collection object
             :param smart_manager: SmartPlaylistManager object
             :param parent:        Dialog parent
-            
+
             :returns: New smart playlist, or None
         """
         dialog = FilterDialog(_('Add Smart Playlist'), parent, CRITERIA)
         dialog.set_transient_for(parent)
-        
+
         return cls._run_edit_dialog(dialog, collection, smart_manager, parent)
-        
+
     @classmethod
     def edit(cls, pl, collection, smart_manager, parent=None):
         """
             Shows a dialog to edit a smart playlist
-            
+
             :param collection:    Collection object
             :param smart_manager: SmartPlaylistManager object
             :param parent:        Dialog parent
-            
+
             :returns: New smart playlist, or None
         """
         if not isinstance(pl, playlist.SmartPlaylist):
             return
-        
+
         from xl.metadata.tags import tag_data
 
         params = pl.search_params
@@ -307,11 +323,11 @@ class SmartPlaylistEditor(object):
         for param in params:
             (field, op, value) = param
             rev_field = _REV_NMAP[field]
-            
+
             # because there are duplicates in _TRANS, cannot create a reverse
             # mapping. Instead, search in set of criteria defined for the type
             data = tag_data[field]
-            
+
             for ct in _criteria_types[data.type]:
                 rev_op = ct[0]
                 if _TRANS[rev_op] == op:
@@ -333,25 +349,25 @@ class SmartPlaylistEditor(object):
         dialog.set_random(pl.get_random_sort())
 
         dialog.set_state(state)
-        
+
         return cls._run_edit_dialog(dialog, collection, smart_manager, parent,
                                     orig_pl=pl)
 
     @classmethod
     def _run_edit_dialog(cls, dialog,
-                              collection,
-                              smart_manager,
-                              parent,
-                              orig_pl=None):
+                         collection,
+                         smart_manager,
+                         parent,
+                         orig_pl=None):
         '''internal helper function'''
-    
+
         while True:
             result = dialog.run()
             dialog.hide()
-    
+
             if result != Gtk.ResponseType.ACCEPT:
                 return
-                
+
             name = dialog.get_name()
             matchany = dialog.get_match_any()
             limit = dialog.get_limit()
@@ -360,18 +376,18 @@ class SmartPlaylistEditor(object):
 
             if not name:
                 dialogs.error(parent, _("You did "
-                    "not enter a name for your playlist"))
+                                        "not enter a name for your playlist"))
                 continue
 
             if not orig_pl or name != orig_pl.name:
                 try:
                     pl = smart_manager.get_playlist(name)
                     dialogs.error(parent, _("The "
-                        "playlist name you entered is already in use."))
+                                            "playlist name you entered is already in use."))
                     continue
                 except ValueError:
-                    pass # playlist didn't exist
-            
+                    pass  # playlist didn't exist
+
             pl = playlist.SmartPlaylist(name, collection)
             pl.set_or_match(matchany)
             pl.set_return_limit(limit)
@@ -384,6 +400,6 @@ class SmartPlaylistEditor(object):
 
             if orig_pl:
                 smart_manager.remove_playlist(pl.name)
-            
+
             smart_manager.save_playlist(pl)
             return pl

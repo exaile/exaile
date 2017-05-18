@@ -39,8 +39,8 @@ from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
 from xlgui.widgets.notebook import (
-    SmartNotebook, 
-    NotebookTab, 
+    SmartNotebook,
+    NotebookTab,
     NotebookAction,
     NotebookActionService
 )
@@ -49,7 +49,6 @@ from xlgui.widgets.queue import QueuePage
 
 import logging
 logger = logging.getLogger(__name__)
-
 
 
 class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
@@ -66,7 +65,7 @@ class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
         Gtk.Button.__init__(self)
 
         self.set_image(Gtk.Image.new_from_icon_name('tab-new',
-            Gtk.IconSize.BUTTON))
+                                                    Gtk.IconSize.BUTTON))
         self.set_relief(Gtk.ReliefStyle.NONE)
 
         self.__default_tooltip_text = _('New Playlist')
@@ -108,30 +107,33 @@ class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
 
 providers.register('playlist-notebook-actions', NewPlaylistNotebookAction)
 
+
 class PlaylistNotebook(SmartNotebook):
+
     def __init__(self, manager_name, player, hotkey):
         SmartNotebook.__init__(self)
-        
+
         self.tab_manager = PlaylistManager(manager_name)
         self.manager_name = manager_name
         self.player = player
-        
+
         # For saving closed tab history
         self._moving_tab = False
         self.tab_history = []
-        self.history_counter = 90000 # to get unique (reverse-ordered) item names
+        self.history_counter = 90000  # to get unique (reverse-ordered) item names
 
-        # Build static menu entries        
-        item = menu.simple_separator('clear-sep',[])
+        # Build static menu entries
+        item = menu.simple_separator('clear-sep', [])
         item.register('playlist-closed-tab-menu', self)
-        
-        item = menu.simple_menu_item('clear-history', ['clear-sep'], 
-            _("_Clear Tab History"), 'edit-clear-all',
-            self.clear_closed_tabs)
-        item.register('playlist-closed-tab-menu', self)     
-            
+
+        item = menu.simple_menu_item('clear-history', ['clear-sep'],
+                                     _("_Clear Tab History"), 'edit-clear-all',
+                                     self.clear_closed_tabs)
+        item.register('playlist-closed-tab-menu', self)
+
         # Simple factory for 'Recently Closed Tabs' MenuItem
-        submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
+        submenu = menu.ProviderMenu('playlist-closed-tab-menu', self)
+
         def factory(menu_, parent, context):
             if self.page_num(parent) == -1:
                 return None
@@ -141,21 +143,21 @@ class PlaylistNotebook(SmartNotebook):
             else:
                 item.set_sensitive(False)
             return item
-                
+
         # Add menu to tab context menu
         item = menu.MenuItem('%s-tab-history' % manager_name, factory, ['tab-close'])
         item.register('playlist-tab-context-menu')
 
         # Add menu to View menu
         #item = menu.MenuItem('tab-history', factory, ['clear-playlist'])
-        #providers.register('menubar-view-menu', item) 
-        
+        #providers.register('menubar-view-menu', item)
+
         # setup notebook actions
         self.actions = NotebookActionService(self, 'playlist-notebook-actions')
 
         # Add hotkey
         self.accelerator = Accelerator(hotkey, lambda *x: self.restore_closed_tab(0))
-        providers.register('mainwindow-accelerators',self.accelerator)
+        providers.register('mainwindow-accelerators', self.accelerator)
 
         # Load saved tabs
         self.load_saved_tabs()
@@ -244,7 +246,7 @@ class PlaylistNotebook(SmartNotebook):
         # holds the order#'s of the already added tabs
         added_tabs = {}
         name_re = re.compile(
-                r'^order(?P<tab>\d+)\.(?P<tag>[^.]*)\.(?P<name>.*)$')
+            r'^order(?P<tab>\d+)\.(?P<tag>[^.]*)\.(?P<name>.*)$')
         for i, name in enumerate(names):
             match = name_re.match(name)
             if not match or not match.group('tab') or not match.group('name'):
@@ -253,9 +255,9 @@ class PlaylistNotebook(SmartNotebook):
 
             logger.debug("Adding playlist %d: %s" % (i, name))
             logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
-                                                     match.group('tag'),
-                                                     match.group('name'),
-                                                     ))
+                                                      match.group('tag'),
+                                                      match.group('name'),
+                                                      ))
             pl = self.tab_manager.get_playlist(name)
             pl.name = match.group('name')
 
@@ -342,11 +344,11 @@ class PlaylistNotebook(SmartNotebook):
         """
         if self.get_n_pages() == 1:
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
-            
+
         # closed tab history
         if not self._moving_tab and \
-            settings.get_option('gui/save_closed_tabs', True) and \
-            isinstance(child, PlaylistPage):
+                settings.get_option('gui/save_closed_tabs', True) and \
+                isinstance(child, PlaylistPage):
             self.save_closed_tab(child.playlist)
 
     def restore_closed_tab(self, pos=None, playlist=None, item_name=None):
@@ -358,14 +360,15 @@ class PlaylistNotebook(SmartNotebook):
         # don't let the list grow indefinitely
         items = providers.get('playlist-closed-tab-menu', self)
         if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
-            self.remove_closed_tab(-1) # remove last item
-        
-        item_name = 'playlist%05d'%self.history_counter 
+            self.remove_closed_tab(-1)  # remove last item
+
+        item_name = 'playlist%05d' % self.history_counter
         close_time = datetime.now()
         # define a MenuItem factory that supports dynamic labels
+
         def factory(menu_, parent, context):
             item = None
-            
+
             dt = (datetime.now() - close_time)
             if dt.seconds > 60:
                 display_name = _('{playlist_name} ({track_count} tracks, closed {minutes} min ago)').format(
@@ -386,8 +389,7 @@ class PlaylistNotebook(SmartNotebook):
             if self.tab_history[0][1].name == item_name:
                 key, mods = Gtk.accelerator_parse(self.accelerator.keys)
                 item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                        Gtk.AccelFlags.VISIBLE)
-
+                                     Gtk.AccelFlags.VISIBLE)
 
             item.connect('activate', lambda w: self.restore_closed_tab(item_name=item_name))
 
@@ -397,10 +399,10 @@ class PlaylistNotebook(SmartNotebook):
         item = menu.MenuItem(item_name, factory, [])
         providers.register('playlist-closed-tab-menu', item, self)
         self.history_counter -= 1
-        
+
         # add
-        self.tab_history.insert(0, (playlist,item))
-        
+        self.tab_history.insert(0, (playlist, item))
+
     def get_closed_tab(self, pos=None, playlist=None, item_name=None):
         if pos is not None:
             try:
@@ -416,9 +418,9 @@ class PlaylistNotebook(SmartNotebook):
                 if item.name == item_name:
                     return (pl, item)
 
-        return None                
+        return None
         # remove from menus
-        
+
     def remove_closed_tab(self, pos=None, playlist=None, item_name=None):
         ret = self.get_closed_tab(pos, playlist, item_name)
         if ret is not None:
@@ -429,7 +431,7 @@ class PlaylistNotebook(SmartNotebook):
     def clear_closed_tabs(self, widget, name, parent, context):
         for i in xrange(len(self.tab_history)):
             self.remove_closed_tab(0)
-    
+
     def focus_tab(self, tab_nr):
         """
             Selects the playlist notebook tab tab_nr, and gives it the keyboard
@@ -438,7 +440,7 @@ class PlaylistNotebook(SmartNotebook):
         if tab_nr < self.get_n_pages():
             self.set_current_page(tab_nr)
             self.get_current_tab().focus()
-    
+
     def select_next_tab(self):
         """
             Selects the previous playlist notebook tab, warping around if the
@@ -448,7 +450,7 @@ class PlaylistNotebook(SmartNotebook):
         tab_nr += 1
         tab_nr %= self.get_n_pages()
         self.set_current_page(tab_nr)
-        
+
     def select_prev_tab(self):
         """
             Selects the next playlist notebook tab, warping around if the last
@@ -458,7 +460,6 @@ class PlaylistNotebook(SmartNotebook):
         tab_nr -= 1
         tab_nr %= self.get_n_pages()
         self.set_current_page(tab_nr)
-
 
     def on_option_set(self, event, settings, option):
         """
@@ -476,105 +477,105 @@ class PlaylistNotebook(SmartNotebook):
             tab_placement = settings.get_option(option, 'top')
             self.set_tab_pos(self.tab_placement_map[tab_placement])
 
-            
+
 class PlaylistContainer(Gtk.Box):
     '''
         Contains two playlist notebooks that can contain playlists. 
         Playlists can be moved between the two notebooks.
-        
+
         TODO: Does it make sense to support more than two notebooks?
         I think with this implementation it does not -- we would need to
         move to a different UI design that allowed arbitrary placement
         of UI elements if that was the case. 
     '''
+
     def __init__(self, manager_name, player):
         Gtk.Box.__init__(self)
-    
+
         self.notebooks = []
         self.notebooks.append(PlaylistNotebook(manager_name, player, '<Primary><Shift>t'))
         self.notebooks.append(PlaylistNotebook(manager_name + '2', player, '<Primary><Alt>t'))
-        
+
         self.notebooks[1].set_add_tab_on_empty(False)
-        
+
         # add notebooks to self
         self.pack_start(self.notebooks[0], True, True, 0)
-        
+
         # setup the paned window for separate views
         self.paned = Gtk.Paned(orientation=Gtk.Orientation.VERTICAL)
         self.paned.pack2(self.notebooks[1], True, True)
-        
+
         # setup queue page
         self.queuepage = QueuePage(self, player)
         self.queuetab = NotebookTab(None, self.queuepage)
         if len(player.queue) > 0:
             self.show_queue()
-            
+
         # ensure default notebook always has a tab in it
         if self.notebooks[0].get_n_pages() == 0:
             self.notebooks[0].add_default_tab()
-            
+
         # menu item
         item = menu.simple_menu_item('move-tab', [], _('_Move to Other View'), None,
-            lambda w, n, p, c: self._move_tab(p.tab),
-            condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False )
+                                     lambda w, n, p, c: self._move_tab(p.tab),
+                                     condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False)
         providers.register('playlist-tab-context-menu', item)
         providers.register('queue-tab-context', item)
-        
+
         # connect events
         for notebook in self.notebooks:
             notebook.connect('page-reordered', self.on_page_reordered)
             notebook.connect_after('page-removed',
-                lambda *a: self._update_notebook_display())
-        
+                                   lambda *a: self._update_notebook_display())
+
         self._update_notebook_display()
-    
-    
+
     def _move_tab(self, tab):
         if tab.notebook is self.notebooks[0]:
             src, dst = (0, 1)
         else:
             src, dst = (1, 0)
-        
+
         # don't put this notebook in the 'recently closed tabs' list
         self.notebooks[src]._moving_tab = True
         self.notebooks[src].remove_tab(tab)
         self.notebooks[src]._moving_tab = False
-        
+
         self.notebooks[dst].add_tab(tab, tab.page)
-        
+
         # remember where the user moved the queue
         if tab.page is self.queuepage:
             settings.set_option('gui/queue_notebook_num', dst)
-    
+
         self._update_notebook_display()
-        
+
     def _update_notebook_display(self):
         pane_installed = self.paned.get_parent() is not None
-        
+
         if self.notebooks[1].get_n_pages() != 0:
             if not pane_installed:
                 parent = self.notebooks[0].get_parent()
                 parent.remove(self.notebooks[0])
-                
+
                 self.paned.pack1(self.notebooks[0], True, True)
                 self.pack_start(self.paned, True, True, 0)
         else:
             if pane_installed:
                 parent = self.notebooks[0].get_parent()
                 parent.remove(self.notebooks[0])
-                
+
                 self.remove(self.paned)
                 self.pack_start(self.notebooks[0], True, True, 0)
-                
+
         self.show_all()
-        
+
     def create_new_playlist(self):
         """
             Create a new tab in the primary notebook containing a blank 
             playlist. The tab will be automatically given a unique name.
         """
         return self.notebooks[0].create_new_playlist()
-        
+
     def create_tab_from_playlist(self, pl):
         """
             Create a tab that will contain the passed-in playlist
@@ -583,7 +584,7 @@ class PlaylistContainer(Gtk.Box):
             :type playlist: :class:`xl.playlist.Playlist`
         """
         return self.notebooks[0].create_tab_from_playlist(pl)
-        
+
     def get_current_notebook(self):
         '''
             Returns the last focused notebook, or the
@@ -594,37 +595,37 @@ class PlaylistContainer(Gtk.Box):
             if focus is not None:
                 return focus
         return self.notebooks[0]
-        
+
     def get_current_tab(self):
         '''
             Returns the currently showing tab on the current notebook
         '''
         notebook = self.get_current_notebook()
         return notebook.get_current_tab()
-        
+
     def focus(self):
         '''
             Gives keyboard focus to the currently selected tab
         '''
         self.get_current_tab().focus()
-        
+
     def on_page_reordered(self, notebook, child, page_number):
         if self.queuepage.tab.notebook is notebook and \
                 notebook.page_num(self.queuepage) != 0:
             notebook.reorder_child(self.queuepage, 0)
-    
+
     def save_current_tabs(self):
         """
             Saves the open tabs
         """
         for notebook in self.notebooks:
             notebook.save_current_tabs()
-    
+
     def show_queue(self, switch=True):
         """
             Shows the queue page in the last notebook that
             the queue was located. 
-            
+
             :param switch: If True, switch focus to the queue page
         """
         if self.queuepage.tab.notebook is None:
@@ -635,9 +636,9 @@ class PlaylistContainer(Gtk.Box):
             # should always be 0, but doesn't hurt to be safe...
             qnotebook = self.queuepage.tab.notebook
             qnotebook.set_current_page(qnotebook.page_num(self.queuepage))
-            
+
         self._update_notebook_display()
-    
+
     def show_current_track(self):
         """
             Tries to find the currently playing track
@@ -646,4 +647,3 @@ class PlaylistContainer(Gtk.Box):
         for notebook in self.notebooks:
             if notebook.show_current_track():
                 break
-

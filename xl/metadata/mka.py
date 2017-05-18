@@ -30,9 +30,10 @@ from __future__ import division
 
 from xl.metadata import _base, _matroska
 
+
 class MkaFormat(_base.BaseFormat):
 
-    others = False # For now, stick with defined tags only.
+    others = False  # For now, stick with defined tags only.
     writable = False
 
     tag_mapping = {

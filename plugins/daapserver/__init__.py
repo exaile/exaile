@@ -12,6 +12,7 @@ class CollectionWrapper:
     '''Class to wrap Exaile's collection to make it spydaap compatible'''
     class TrackWrapper:
         '''Wrap a single track for spydaap'''
+
         def __init__(self, id, track):
             self.track = track
             self.id = id
@@ -41,10 +42,10 @@ class CollectionWrapper:
             self.map.append(self.TrackWrapper(i, t))
             yield self.map[i]
             i += 1
-    
+
     def get_item_by_id(self, id):
         return self.map[int(id)]
-    
+
     def __getitem__(self, idx):
         return self.map[idx]
 
@@ -55,21 +56,23 @@ from server import DaapServer
 
 ds = None
 
+
 def _enable(exaile):
     # real enable
     global ds
-    
+
     event.add_callback(on_settings_change, 'plugin_daapserver_option_set')
-    
+
     port = int(settings.get_option('plugin/daapserver/port', 3689))
     name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
     host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
-    
-    ds = DaapServer(CollectionWrapper(exaile.collection), 
-                                        port=port, name=name, host=host)
-                                        
-    if( settings.get_option('plugin/daapserver/enabled', True) ):
+
+    ds = DaapServer(CollectionWrapper(exaile.collection),
+                    port=port, name=name, host=host)
+
+    if(settings.get_option('plugin/daapserver/enabled', True)):
         ds.start()
+
 
 def __enb(evname, exaile, wat):
     GObject.idle_add(_enable, exaile)
@@ -81,27 +84,30 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
+
 def teardown(exaile):
     ds.stop_server()
 
+
 def disable(exaile):
     ds.stop_server()
-    
-    
+
 
 # settings stuff
 import daapserverprefs
 
+
 def get_preferences_pane():
     return daapserverprefs
-    
+
+
 def on_settings_change(event, setting, option):
     if option == 'plugin/daapserver/name' and ds is not None:
-        ds.set(name=settings.get_option(option,'Exaile Share'))
+        ds.set(name=settings.get_option(option, 'Exaile Share'))
     if option == 'plugin/daapserver/port' and ds is not None:
-        ds.set(port=settings.get_option(option,3689))
+        ds.set(port=settings.get_option(option, 3689))
     if option == 'plugin/daapserver/host' and ds is not None:
-        ds.set(host=settings.get_option(option,'0.0.0.0'))
+        ds.set(host=settings.get_option(option, '0.0.0.0'))
     if option == 'plugin/daapserver/enabled' and ds is not None:
         enabled = setting.get_option(option, True)
         if enabled:

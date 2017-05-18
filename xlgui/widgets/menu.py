@@ -32,6 +32,7 @@ from xl import common, providers
 # showing accelerators in the menus.
 FAKEACCELGROUP = Gtk.AccelGroup()
 
+
 def simple_separator(name, after):
     def factory(menu, parent, context):
         item = Gtk.SeparatorMenuItem()
@@ -39,6 +40,7 @@ def simple_separator(name, after):
     item = MenuItem(name, factory, after=after)
     item._pos = 'last'
     return item
+
 
 def simple_menu_item(name, after, display_name=None, icon_name=None,
                      callback=None, callback_args=[], submenu=None,
@@ -66,12 +68,12 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
 
         if condition_fn is not None and not condition_fn(name, parent, context):
             return None
-        
+
         if display_name is not None:
             if icon_name is not None:
                 item = Gtk.ImageMenuItem.new_from_stock(display_name)
                 image = Gtk.Image.new_from_icon_name(icon_name,
-                        size=Gtk.IconSize.MENU)
+                                                     size=Gtk.IconSize.MENU)
                 item.set_image(image)
             else:
                 item = Gtk.MenuItem.new_with_mnemonic(display_name)
@@ -84,17 +86,18 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         if accelerator is not None:
             key, mods = Gtk.accelerator_parse(accelerator)
             item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
-                    Gtk.AccelFlags.VISIBLE)
+                                 Gtk.AccelFlags.VISIBLE)
 
         if callback is not None:
             item.connect('activate', callback, name,
-                parent, context, *callback_args)
+                         parent, context, *callback_args)
 
         return item
     return MenuItem(name, factory, after=after)
 
+
 def check_menu_item(name, after, display_name, checked_func, callback,
-        accelerator=None):
+                    accelerator=None):
     def factory(menu, parent, context):
         item = Gtk.CheckMenuItem.new_with_mnemonic(display_name)
         active = checked_func(name, parent, context)
@@ -102,13 +105,14 @@ def check_menu_item(name, after, display_name, checked_func, callback,
         if accelerator is not None:
             key, mods = Gtk.accelerator_parse(accelerator)
             item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
-                    Gtk.AccelFlags.VISIBLE)
+                                 Gtk.AccelFlags.VISIBLE)
         item.connect('activate', callback, name, parent, context)
         return item
     return MenuItem(name, factory, after=after)
 
+
 def radio_menu_item(name, after, display_name, groupname, selected_func,
-        callback):
+                    callback):
 
     def factory(menu, parent, context):
         for index, item in enumerate(menu._items):
@@ -116,7 +120,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
                 break
         else:
             index = None
-        
+
         if index is not None:
             try:
                 group_parent = menu.get_children()[index]
@@ -124,7 +128,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
                     group_parent = None
             except IndexError:
                 group_parent = None
-        
+
         if group_parent:
             group = group_parent.get_group()
         else:
@@ -133,24 +137,24 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
         item = Gtk.RadioMenuItem.new_with_mnemonic(group, display_name)
         active = selected_func(name, parent, context)
         item.set_active(active)
-        
+
         item.connect('activate', callback, name, parent, context)
         return item
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
 
-
 class MenuItem(object):
     __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
+
     def __init__(self, name, factory, after):
         self.name = name
         self.after = after
         self._factory = factory
-        self._pos = 'normal' # Don't change this unless you have a REALLY good
-                             # reason to. after= is the 'supported'
-                             # method of ordering, this property is not
-                             # considered public api and may change
-                             # without warning.
+        self._pos = 'normal'  # Don't change this unless you have a REALLY good
+        # reason to. after= is the 'supported'
+        # method of ordering, this property is not
+        # considered public api and may change
+        # without warning.
 
     def factory(self, menu, parent, context):
         """
@@ -159,7 +163,7 @@ class MenuItem(object):
             not shown.
         """
         return self._factory(menu, parent, context)
-    
+
     def register(self, servicename, target=None):
         '''
             Shortcut for providers.register(), allows registration
@@ -167,7 +171,7 @@ class MenuItem(object):
         '''
         self._provider_data = (servicename, target)
         return providers.register(servicename, self, target=target)
-    
+
     def unregister(self):
         '''
             Shortcut for providers.unregister()
@@ -181,15 +185,18 @@ class MenuItem(object):
 
 class RadioMenuItem(MenuItem):
     __slots__ = ['groupname']
+
     def __init__(self, name, factory, after, groupname):
         MenuItem.__init__(self, name, factory, after)
         self.groupname = groupname
+
 
 class Menu(Gtk.Menu):
     """
         Generic flexible menu with reliable
         menu item order and context handling
     """
+
     def __init__(self, parent, context_func=None, inherit_context=False):
         """
             :param parent: the parent for this menu
@@ -250,7 +257,8 @@ class Menu(Gtk.Menu):
         self.append(self.placeholder)
         children = self.get_children()
         for c in children:
-            if c == self.placeholder: continue
+            if c == self.placeholder:
+                continue
             c.set_submenu(None)
             self.remove(c)
 
@@ -260,8 +268,8 @@ class Menu(Gtk.Menu):
         """
         pmap = {'first': 0, 'normal': 1, 'last': 2}
         items = [common.PosetItem(i.name, i.after,
-                                  pmap[i._pos], value=i) \
-                    for i in self._items]
+                                  pmap[i._pos], value=i)
+                 for i in self._items]
         items = common.order_poset(items)
         self._items = [i.value for i in items]
 
@@ -299,6 +307,7 @@ class ProviderMenu(providers.ProviderHandler, Menu):
         the providers system. If desired, a menu item can be targeted
         towards a specific parent widget. 
     '''
+
     def __init__(self, name, parent):
         providers.ProviderHandler.__init__(self, name, parent)
         Menu.__init__(self, parent)
@@ -311,14 +320,16 @@ class ProviderMenu(providers.ProviderHandler, Menu):
     def on_provider_removed(self, provider):
         self.remove_item(provider)
 
+
 class MultiProviderMenu(providers.MultiProviderHandler, Menu):
     '''
         A menu that can be added to by registering a menu item with
         the providers system. If desired, a menu item can be targeted
         towards a specific parent widget.
-        
+
         Supports retrieving menu items from multiple providers
     '''
+
     def __init__(self, names, parent):
         providers.MultiProviderHandler.__init__(self, names, parent)
         Menu.__init__(self, parent)
@@ -330,5 +341,3 @@ class MultiProviderMenu(providers.MultiProviderHandler, Menu):
 
     def on_provider_removed(self, provider):
         self.remove_item(provider)
-        
-

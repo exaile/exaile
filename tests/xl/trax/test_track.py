@@ -35,8 +35,8 @@ class Test_MetadataCacher(object):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                self.TIMEOUT,
-                self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
+            self.TIMEOUT,
+            self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -48,8 +48,8 @@ class Test_MetadataCacher(object):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-                mox.IsA(types.IntType),
-                mox.IsA(types.MethodType)).AndReturn(timeout_id)
+            mox.IsA(types.IntType),
+            mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -62,8 +62,8 @@ class Test_MetadataCacher(object):
         timeout_id = 1
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         GLib.timeout_add_seconds(
-                self.TIMEOUT,
-                mox.IsA(types.MethodType)).AndReturn(timeout_id)
+            self.TIMEOUT,
+            mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -74,8 +74,10 @@ class Test_MetadataCacher(object):
     def test_remove_not_exist(self):
         assert self.mc.remove('foo') == None
 
+
 def random_str(l=8):
     return ''.join(random.choice(string.ascii_letters) for _ in range(l))
+
 
 class TestTrack(object):
 
@@ -89,20 +91,20 @@ class TestTrack(object):
         internal_tags = {'__length', '__modified', '__basedir', '__basename', '__loc'}
         if test_track.ext not in ['aac', 'spx']:
             internal_tags.add('__bitrate')
-        
+
         disk_tags = {'album', 'tracknumber', 'artist', 'title'}
         normal_tags = internal_tags | disk_tags
-        
+
         if test_track.has_cover:
             disk_tags.add('cover')
-            
+
         if deleted:
             normal_tags.discard(deleted)
             disk_tags.remove(deleted)
-        
+
         # check non-disk tag list
         assert set(tr.list_tags()) == normal_tags
-        
+
         # check disk tag list
         assert set(tr.list_tags_disk()) == disk_tags
 
@@ -117,7 +119,7 @@ class TestTrack(object):
         t1 = track.Track(test_tracks.get('.mp3').filename)
         t2 = track.Track(test_tracks.get('.ogg').filename)
         assert t1 is not t2, "%s should not be %s" % (repr(t1),
-            repr(t2))
+                                                      repr(t2))
 
     def test_none_url(self):
         with pytest.raises(ValueError):
@@ -129,18 +131,18 @@ class TestTrack(object):
         assert tr._pickles() == {
             '__loc': u'file:///foo',
             'artist': [u'bar']
-            }
+        }
 
     def test_unpickles(self):
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         assert tr1.get_loc_for_io() == u'uri'
 
     def test_unpickles_flyweight(self):
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
-            '__loc': u'uri'})
+                                      '__loc': u'uri'})
         assert tr1 is tr2
 
     def test_takes_nonurl(self, test_track):
@@ -224,7 +226,7 @@ class TestTrack(object):
 
         assert tr.read_tags() is not False
         assert tr.get_tag_raw('artist') == [artist]
-        
+
         self.verify_tags_exist(tr, writeable_track)
 
     def test_delete_tag(self, writeable_track, writeable_track_name):
@@ -240,39 +242,38 @@ class TestTrack(object):
         # if tag was deleted, ensure it gets overridden by reading tags from file
         tr.set_tag_raw('artist', artist)
         assert tr.get_tag_raw('artist') == [artist]
-        
+
         assert tr.read_tags() is not False
         assert tr.get_tag_raw('artist') == None
-        
+
         self.verify_tags_exist(tr, writeable_track, deleted='artist')
-    
+
     def test_delete_missing_tag(self, writeable_track, writeable_track_name):
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('genre') is None
         tr.set_tag_raw('genre', None)
         assert tr.get_tag_raw('genre') is None
-        
+
         self.verify_tags_exist(tr, writeable_track)
-        
+
         # this actually writes it to disk
         assert tr.write_tags() is not False
-        
+
         # make sure another read works
         assert tr.read_tags() is not False
-        
+
         self.verify_tags_exist(tr, writeable_track)
-    
-        
+
     def test_write_delete_cover(self, writeable_track, writeable_track_name):
         if not writeable_track.has_cover:
             return
-        
+
         if writeable_track.ext in ['aac', 'mp4']:
             from mutagen.mp4 import MP4Cover
             newcover = CoverImage(None, None, 'image/jpeg', MP4Cover(random_str()))
         else:
             newcover = CoverImage(3, 'cover', 'image/jpeg', bytes(random_str()))
-            
+
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('cover') is None
         assert tr.get_tag_disk('cover') is not None
@@ -280,21 +281,21 @@ class TestTrack(object):
         # Can we delete a cover?
         tr.set_tag_disk('cover', None)
         assert tr.write_tags() is not False
-        
+
         self.verify_tags_exist(tr, writeable_track, deleted='cover')
-        
+
         # Can we write a new cover?
         tr.set_tag_disk('cover', newcover)
         assert tr.get_tag_raw('cover') is None
         assert tr.get_tag_disk('cover') == [newcover]
-        
+
         # reading the tags shouldn't change anything, since we're reading from disk
         assert tr.read_tags() is not False
         assert tr.get_tag_raw('cover') is None
         assert tr.get_tag_disk('cover') == [newcover]
-        
+
         self.verify_tags_exist(tr, writeable_track)
-        
+
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
         assert tr.write_tags() == False
@@ -378,7 +379,7 @@ class TestTrack(object):
     def test_expand_doubles(self):
         value = u'ßæĳŋœƕǆǉǌǳҥҵ'
         assert track.Track.expand_doubles(value) == \
-                u'ssaeijngoehvdzljnjdzngts'
+            u'ssaeijngoehvdzljnjdzngts'
 
     def test_lower(self):
         value = u'FooBar'
@@ -490,7 +491,7 @@ class TestTrack(object):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', u'foo')
         assert tr.get_tag_display('artist') == \
-                track._VARIOUSARTISTSSTR
+            track._VARIOUSARTISTSSTR
 
     def test_get_display_tag_discnumber(self):
         tr = track.Track('/foo')
@@ -542,7 +543,7 @@ class TestTrack(object):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', [u'foo', u'bar'])
         assert tr.get_tag_display('artist', join=False) == \
-                [u'foo', u'bar']
+            [u'foo', u'bar']
 
     ## Sort tags
     def test_get_search_tag_loc(self):
@@ -606,19 +607,19 @@ class TestTrack(object):
     def test_read_real_tracks(self, test_track):
         if not test_track.has_tags:
             return
-            
+
         tr = track.Track(test_track.filename)
-        
+
         # raw tags
         assert tr.get_tag_raw('album') == [u'Chimera']
         assert tr.get_tag_raw('artist') == [u'Delerium']
         assert tr.get_tag_raw('title') == [u'Truly']
         assert tr.get_tag_raw('tracknumber') in [[u'5'], [u'5/0']]
-        
+
         # disk tags should be the same
         assert tr.get_tag_disk('album') == [u'Chimera']
         assert tr.get_tag_disk('artist') == [u'Delerium']
         assert tr.get_tag_disk('title') == [u'Truly']
         assert tr.get_tag_disk('tracknumber') in [[u'5'], [u'5/0']]
-        
+
         self.verify_tags_exist(tr, test_track)

@@ -16,6 +16,7 @@
 
 from xl import settings
 
+
 def migrate():
     """
         Enables the OSD plugin if the builtin OSD was originally enabled
@@ -26,4 +27,3 @@ def migrate():
         settings.set_option('plugins/enabled', plugins + ['osd'])
 
     settings.set_option('osd/enabled', False)
-

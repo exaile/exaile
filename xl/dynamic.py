@@ -34,10 +34,12 @@ from xl.trax import search
 
 logger = logging.getLogger(__name__)
 
+
 class DynamicManager(providers.ProviderHandler):
     """
         handles matching of songs for dynamic playlists
     """
+
     def __init__(self, collection=[]):
         providers.ProviderHandler.__init__(self, "dynamic_playlists")
         self.buffersize = settings.get_option("playback/dynamic_buffer", 5)
@@ -58,7 +60,7 @@ class DynamicManager(providers.ProviderHandler):
                 returned.
         """
         logger.debug(u"Searching for %(limit)s tracks related to %(track)s" %
-                {'limit' : limit, 'track' : track})
+                     {'limit': limit, 'track': track})
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -69,7 +71,7 @@ class DynamicManager(providers.ProviderHandler):
             artist = artists[i][1].replace('"', '\\\"')
             i += 1
             searchres = search.search_tracks_from_string(
-                self.collection, 'artist=="%s"'%artist, case_sensitive=False)
+                self.collection, 'artist=="%s"' % artist, case_sensitive=False)
             choices = [x.track for x in searchres]
             if choices == []:
                 continue
@@ -94,16 +96,18 @@ class DynamicManager(providers.ProviderHandler):
     def _query_sources(self, track):
         info = []
         artist = track.get_tag_raw('artist')
-        if not artist: return info
+        if not artist:
+            return info
         for source in self.get_providers():
             sinfo = source.get_results(','.join(artist))
             info += sinfo
-        info.sort(reverse=True) #TODO: merge artists that are the same
+        info.sort(reverse=True)  # TODO: merge artists that are the same
         return info
 
     def _load_saved_info(self, track):
         artist = track.get_tag_raw('artist')
-        if not artist: return []
+        if not artist:
+            return []
         filename = os.path.join(self.cachedir, ','.join(artist))
         if not os.path.exists(filename):
             return []
@@ -112,7 +116,7 @@ class DynamicManager(providers.ProviderHandler):
             if line == '':
                 return []
             last_update = float(line)
-            if 604800 < time.time() - last_update: # one week
+            if 604800 < time.time() - last_update:  # one week
                 info = self._query_sources(track)
                 if info != []:
                     self._save_info(track, info)
@@ -120,7 +124,7 @@ class DynamicManager(providers.ProviderHandler):
             info = []
             for line in f:
                 try:
-                    rel, artist = line.strip().split(" ",1)
+                    rel, artist = line.strip().split(" ", 1)
                     info.append((rel, artist))
                 except Exception:
                     pass
@@ -130,11 +134,11 @@ class DynamicManager(providers.ProviderHandler):
         if info == []:
             return
         filename = os.path.join(self.cachedir,
-                track.get_tag_raw('artist', join=True))
+                                track.get_tag_raw('artist', join=True))
         with open(filename, 'w') as f:
-            f.write("%s\n"%time.time())
+            f.write("%s\n" % time.time())
             for item in info:
-                f.write("%.2f %s\n"%item)
+                f.write("%.2f %s\n" % item)
 
     def populate_playlist(self, playlist):
         """
@@ -154,15 +158,15 @@ class DynamicManager(providers.ProviderHandler):
 
         starttime = time.time()
         tracks = self.find_similar_tracks(curr, needed,
-                playlist)
+                                          playlist)
 
-        remainingtime = 5 - (time.time()-starttime)
+        remainingtime = 5 - (time.time() - starttime)
 
         if remainingtime > 0:
             time.sleep(remainingtime)
 
         if playlist.current_position != current_pos:
-            return # we skipped in that 5 seconds, so ignore it
+            return  # we skipped in that 5 seconds, so ignore it
         playlist.extend(tracks)
         logger.debug("Added %s tracks." % len(tracks))
 
@@ -171,6 +175,7 @@ MANAGER = DynamicManager()
 
 
 class DynamicSource(object):
+
     def __init__(self):
         pass
 
@@ -181,4 +186,3 @@ class DynamicSource(object):
         self.manager = manager
 
 # vim: et sts=4 sw=4
-

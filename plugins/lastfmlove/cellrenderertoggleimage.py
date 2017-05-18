@@ -166,4 +166,3 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             context = window.cairo_create()
             context.set_source_pixbuf(pixbuf, x, y)
             context.paint()
-

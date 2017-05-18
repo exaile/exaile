@@ -96,6 +96,7 @@ def format_time(seconds, time_format=_("{minutes}:{seconds:02}")):
 
 
 class MoodbarController:
+
     def __init__(self, plugin, player, orig_seekbar):
         self.plugin = plugin
         self.player = player

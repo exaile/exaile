@@ -25,18 +25,22 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-import os, sys, traceback
+import os
+import sys
+import traceback
 from cStringIO import StringIO
 from xl.nls import gettext as _
 
+
 class PyConsole():
+
     def __init__(self, dict, exaile):
         self.dict = dict
         self.buffer = StringIO()
 
         ui = Gtk.Builder()
-        ui.add_from_file( os.path.join( os.path.dirname(
-                os.path.realpath(__file__)), 'console_window.ui'))
+        ui.add_from_file(os.path.join(os.path.dirname(
+            os.path.realpath(__file__)), 'console_window.ui'))
 
         self.window = ui.get_object('simple_console_window')
         self.close_handler = self.window.connect('delete-event', console_destroyed, exaile)
@@ -85,6 +89,7 @@ class PyConsole():
 
 PLUGIN = None
 
+
 def enable(exaile):
     if exaile.loading:
         from xl import event
@@ -92,17 +97,20 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def _enable(eventname, exaile, eventdata):
     global PLUGIN
     PLUGIN = PyConsole({'exaile': exaile}, exaile)
     PLUGIN.window.set_transient_for(exaile.gui.main.window)
     PLUGIN.window.present()
 
+
 def console_destroyed(window, event, exaile):
     """Disable plugin on window destroy"""
     global PLUGIN
     if PLUGIN:
         exaile.plugins.disable_plugin(__name__)
+
 
 def disable(exaile):
     global PLUGIN

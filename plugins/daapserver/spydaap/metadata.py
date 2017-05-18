@@ -1,17 +1,17 @@
-#Copyright (C) 2008 Erik Hetzner
+# Copyright (C) 2008 Erik Hetzner
 
-#This file is part of Spydaap. Spydaap is free software: you can
-#redistribute it and/or modify it under the terms of the GNU General
-#Public License as published by the Free Software Foundation, either
-#version 3 of the License, or (at your option) any later version.
+# This file is part of Spydaap. Spydaap is free software: you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
 
-#Spydaap is distributed in the hope that it will be useful, but
-#WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#General Public License for more details.
+# Spydaap is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import with_statement
 import warnings
@@ -19,47 +19,54 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     import md5
 
-import os, struct, spydaap.cache, StringIO
+import os
+import struct
+import spydaap.cache
+import StringIO
 from spydaap.daap import do
 
+
 class MetadataCache(spydaap.cache.OrderedCache):
+
     def __init__(self, cache_dir, parsers):
         self.parsers = parsers
         super(MetadataCache, self).__init__(cache_dir)
 
     def get_item_by_pid(self, pid, n=None):
         return MetadataCacheItem(self, pid, n)
-    
+
     def build(self, dir, marked={}, link=False):
         for path, dirs, files in os.walk(dir):
             for d in dirs:
                 if os.path.islink(os.path.join(path, d)):
-                    self.build(os.path.join(path,d), marked, True)
+                    self.build(os.path.join(path, d), marked, True)
             for fn in files:
                 ffn = os.path.join(path, fn)
                 digest = md5.md5(ffn).hexdigest()
                 marked[digest] = True
                 md = self.get_item_by_pid(digest)
-                if (not(md.get_exists()) or \
+                if (not(md.get_exists()) or
                         (md.get_mtime() < os.stat(ffn).st_mtime)):
                     for p in self.parsers:
-                        if p.understands(ffn):                  
+                        if p.understands(ffn):
                             (m, name) = p.parse(ffn)
-                            if m != None:
+                            if m is not None:
                                 MetadataCacheItem.write_entry(self.dir,
                                                               name, ffn, m)
         if not(link):
             for item in os.listdir(self.dir):
-                if (len(item) == 32) and not(marked.has_key(item)):
-                    os.remove(os.path.join (self.dir, item))
+                if (len(item) == 32) and not(item in marked):
+                    os.remove(os.path.join(self.dir, item))
             self.build_index()
 
+
 class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
+
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if type(name) == unicode:
+        if isinstance(name, unicode):
             name = name.encode('utf-8')
-        data = "".join([ d.encode() for d in daap])
+        data = "".join([d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
         data = struct.pack('!i%ss' % len(fn), len(fn), fn) + data
         cachefn = os.path.join(dir, md5.md5(fn).hexdigest())
@@ -80,7 +87,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         return self.md[k]
 
     def has_key(self, k):
-        return self.get_md().has_key(k)
+        return k in self.get_md()
 
     def read(self):
         f = open(self.path)
@@ -92,22 +99,22 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         f.close()
 
     def get_original_filename(self):
-        if self.original_filename == None:
+        if self.original_filename is None:
             self.read()
-        return self.original_filename 
-    
+        return self.original_filename
+
     def get_name(self):
-        if self.name == None:
+        if self.name is None:
             self.read()
         return self.name
 
     def get_dmap_raw(self):
-        if self.daap_raw == None:
+        if self.daap_raw is None:
             self.read()
         return self.daap_raw
 
     def get_md(self):
-        if self.md == None:
+        if self.md is None:
             self.md = {}
             s = StringIO.StringIO(self.get_dmap_raw())
             l = len(self.get_dmap_raw())

@@ -23,6 +23,7 @@ import os
 
 class MoodbarCache(object):
     """ Abstract class for a cache for moodbar metadata files """
+
     def get(self, uri):
         """
         :type uri: bytes

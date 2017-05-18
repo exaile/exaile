@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 # - good = works
 #   - main = useful
@@ -7,6 +8,7 @@ import os, sys
 
 EXTRA = ['console', 'helloworld']
 BAD = ['shoutcast']
+
 
 def scan():
     all = set(f for f in os.listdir('.') if os.path.isdir(f))
@@ -18,12 +20,12 @@ def scan():
 
 plugins = scan()
 
+
 def parse(argv):
     if len(argv) == 1:
         return plugins['all']
     return plugins[argv[1]]
 
 if __name__ == '__main__':
-    names = list(parse(sys.argv))
-    names.sort()
+    names = sorted(parse(sys.argv))
     print((' '.join(names)))

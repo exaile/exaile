@@ -38,6 +38,7 @@ import desktopcover_preferences
 
 DESKTOPCOVER = None
 
+
 def __migrate_anchor_setting():
     """
         Migrates gravity setting from the old
@@ -48,13 +49,14 @@ def __migrate_anchor_setting():
 
     if gravity not in gravity_map:
         gravities = gravity_map.keys()
-        
+
         try:
             gravity = gravities[gravity]
         except (IndexError, TypeError):
             gravity = 'topleft'
 
         settings.set_option('plugin/desktopcover/anchor', gravity)
+
 
 def enable(exaile):
     """
@@ -65,6 +67,7 @@ def enable(exaile):
     global DESKTOPCOVER
     DESKTOPCOVER = DesktopCover()
 
+
 def disable(exaile):
     """
         Disables the desktop cover plugin
@@ -72,8 +75,10 @@ def disable(exaile):
     global DESKTOPCOVER
     DESKTOPCOVER.destroy()
 
+
 def get_preferences_pane():
     return desktopcover_preferences
+
 
 class DesktopCover(Gtk.Window):
     gravity_map = {
@@ -125,7 +130,7 @@ class DesktopCover(Gtk.Window):
                 event.add_ui_callback(getattr(self, 'on_%s' % e), e, player.PLAYER)
             else:
                 event.add_ui_callback(getattr(self, 'on_%s' % e), e)
-            
+
         event.add_ui_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         self.connect('draw', self.on_draw)
@@ -140,7 +145,7 @@ class DesktopCover(Gtk.Window):
                 event.remove_callback(getattr(self, 'on_%s' % e), e, player.PLAYER)
             else:
                 event.remove_callback(getattr(self, 'on_%s' % e), e)
-        
+
         event.remove_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         Gtk.Window.destroy(self)
@@ -175,7 +180,7 @@ class DesktopCover(Gtk.Window):
                 'plugin/desktopcover/fading_duration', 50)
 
             self._cross_fade_id = GLib.timeout_add(int(duration),
-                self.cross_fade, pixbuf, next_pixbuf, duration)
+                                                   self.cross_fade, pixbuf, next_pixbuf, duration)
         else:
             self.image.set_from_pixbuf(next_pixbuf)
 
@@ -301,7 +306,7 @@ class DesktopCover(Gtk.Window):
 
         self._cross_fade_id = None
         self._cross_fade_step = 0
-        
+
         return False
 
     def on_draw(self, widget, context):
@@ -354,11 +359,11 @@ class DesktopCover(Gtk.Window):
             Updates the appearance
         """
         if option in ('plugin/desktopcover/anchor',
-                'plugin/desktopcover/x',
-                'plugin/desktopcover/y'):
+                      'plugin/desktopcover/x',
+                      'plugin/desktopcover/y'):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
-                'plugin/desktopcover/size'):
+                        'plugin/desktopcover/size'):
             self.set_cover_from_track(player.PLAYER.current)
 
 # vi: et sts=4 sw=4 tw=80

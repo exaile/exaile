@@ -485,7 +485,7 @@ class Track(object):
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
-            Set the raw value of a tag. 
+            Set the raw value of a tag.
 
             :param tag: The name of the tag to set.
             :param values: The value or values to set the tag to.

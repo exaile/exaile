@@ -444,7 +444,7 @@ class PlaylistNotebook(SmartNotebook):
     def select_next_tab(self):
         """
             Selects the previous playlist notebook tab, warping around if the
-            first page is currently displayed. 
+            first page is currently displayed.
         """
         tab_nr = self.get_current_page()
         tab_nr += 1
@@ -454,7 +454,7 @@ class PlaylistNotebook(SmartNotebook):
     def select_prev_tab(self):
         """
             Selects the next playlist notebook tab, warping around if the last
-            page is currently displayed. 
+            page is currently displayed.
         """
         tab_nr = self.get_current_page()
         tab_nr -= 1
@@ -480,13 +480,13 @@ class PlaylistNotebook(SmartNotebook):
 
 class PlaylistContainer(Gtk.Box):
     '''
-        Contains two playlist notebooks that can contain playlists. 
+        Contains two playlist notebooks that can contain playlists.
         Playlists can be moved between the two notebooks.
 
         TODO: Does it make sense to support more than two notebooks?
         I think with this implementation it does not -- we would need to
         move to a different UI design that allowed arbitrary placement
-        of UI elements if that was the case. 
+        of UI elements if that was the case.
     '''
 
     def __init__(self, manager_name, player):
@@ -571,7 +571,7 @@ class PlaylistContainer(Gtk.Box):
 
     def create_new_playlist(self):
         """
-            Create a new tab in the primary notebook containing a blank 
+            Create a new tab in the primary notebook containing a blank
             playlist. The tab will be automatically given a unique name.
         """
         return self.notebooks[0].create_new_playlist()
@@ -624,7 +624,7 @@ class PlaylistContainer(Gtk.Box):
     def show_queue(self, switch=True):
         """
             Shows the queue page in the last notebook that
-            the queue was located. 
+            the queue was located.
 
             :param switch: If True, switch focus to the queue page
         """

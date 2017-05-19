@@ -95,7 +95,7 @@ parse = functools.partial(zip,
 
 class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
     """
-        Handles detection of DAAP shares via Avahi and manages the menu 
+        Handles detection of DAAP shares via Avahi and manages the menu
         showing the shares.
 
         Fires a "connect" signal when a menu item is clicked.

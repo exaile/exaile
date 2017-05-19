@@ -6,7 +6,7 @@ from xl import common
 
 def already_added(t, added):
     """
-        Checks to see if the title, artist, album and genre 
+        Checks to see if the title, artist, album and genre
         has already been added to the list of tracks
     """
 
@@ -92,7 +92,7 @@ class TrackData(object):
             self.total_length -= track_duration
 
     def get_total_length(self):
-        """ 
+        """
             Returns length of all tracks in the table as preformatted string
         """
         s = self.total_length
@@ -129,37 +129,37 @@ def load_tracks(db, current=None):
 
     tracks = TrackData()
     for row in db.select("""
-        SELECT 
-            paths.name, 
-            title, 
-            artists.name, 
-            albums.name, 
+        SELECT
+            paths.name,
+            title,
+            artists.name,
+            albums.name,
             disc_id,
-            tracks.genre, 
-            track, 
-            length, 
-            bitrate, 
-            year, 
-            modified, 
-            user_rating, 
+            tracks.genre,
+            track,
+            length,
+            bitrate,
+            year,
+            modified,
+            user_rating,
             rating,
-            blacklisted, 
+            blacklisted,
             time_added,
             encoding,
             plays
-        FROM tracks, paths, artists, albums 
-        WHERE 
+        FROM tracks, paths, artists, albums
+        WHERE
             (
-                paths.id=tracks.path AND 
-                artists.id = tracks.artist AND 
+                paths.id=tracks.path AND
+                artists.id = tracks.artist AND
                 albums.id = tracks.album
-            ) AND 
-            blacklisted=0 
-        ORDER BY 
-            THE_CUTTER(artists.name), 
-            LOWER(albums.name), 
+            ) AND
+            blacklisted=0
+        ORDER BY
+            THE_CUTTER(artists.name),
+            LOWER(albums.name),
             disc_id,
-            track, 
+            track,
             title
         """):
 

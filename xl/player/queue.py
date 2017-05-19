@@ -44,7 +44,7 @@ class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
 
-        The content of the queue are processed before processing 
+        The content of the queue are processed before processing
         the content of the assigned playlist.
 
         When the remove_item_when_played option is enabled, the queue
@@ -53,9 +53,9 @@ class PlayQueue(playlist.Playlist):
         When not enabled, the queue acts like a regular playlist, and
         moves the position as tracks are played.
 
-        In this mode, when a new track is queued, the position is set 
-        to play that track, and play will continue with that track 
-        until the queue is exhausted, and then the assigned playlist 
+        In this mode, when a new track is queued, the position is set
+        to play that track, and play will continue with that track
+        until the queue is exhausted, and then the assigned playlist
         will be continued.
 
         TODO: Queue needs to be threadsafe!
@@ -120,7 +120,7 @@ class PlayQueue(playlist.Playlist):
 
     def get_next(self):
         '''
-            Retrieves the next track that will be played. Does not 
+            Retrieves the next track that will be played. Does not
             actually set the position. When you call next(), it should
             return the same track.
 
@@ -257,8 +257,8 @@ class PlayQueue(playlist.Playlist):
 
     def queue_length(self):
         '''
-            Returns the number of tracks left to play in the queue's 
-            internal playlist. 
+            Returns the number of tracks left to play in the queue's
+            internal playlist.
         '''
         if self.__remove_item_on_playback:
             return len(self)
@@ -281,9 +281,9 @@ class PlayQueue(playlist.Playlist):
 
     def __setitem__(self, i, value):
         '''
-            Overrides the playlist.Playlist list API. 
+            Overrides the playlist.Playlist list API.
 
-            Allows us to ensure that when a track is added to an empty queue, 
+            Allows us to ensure that when a track is added to an empty queue,
             we play it. Or not, depending on what the user wants.
         '''
         old_len = playlist.Playlist.__len__(self)

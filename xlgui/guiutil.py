@@ -502,7 +502,7 @@ def initialize_from_xml(this, other=None):
     '''
         DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
 
-        Initializes the widgets and signals from a GtkBuilder XML file. Looks 
+        Initializes the widgets and signals from a GtkBuilder XML file. Looks
         for the following attributes in the instance you pass:
 
         ui_filename = builder filename -- either an absolute path, or a tuple
@@ -560,10 +560,10 @@ def persist_selection(widget, key_col, setting_name):
     '''
         Given a widget that is using a Gtk.ListStore, it will restore the
         selected index given the contents of a setting. When the widget
-        changes, it will save the choice. 
+        changes, it will save the choice.
 
         Call this on the widget after you have loaded data
-        into the widget. 
+        into the widget.
 
         :param widget:         Gtk.ComboBox or Gtk.TreeView
         :param col:            Integer column with unique key

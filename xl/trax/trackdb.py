@@ -81,7 +81,7 @@ class TrackDB(object):
                 'tracks' in its name it may be a list or dict
                 of :class:`Track` objects.
         :param load_first: Set to True if this collection should be
-                loaded before any tracks are created. 
+                loaded before any tracks are created.
     """
 
     def __init__(self, name="", location="", pickle_attrs=[], loadfirst=False):

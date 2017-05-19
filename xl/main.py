@@ -620,7 +620,7 @@ class Exaile(object):
 
     def get_user_agent_string(self, plugin_name=None):
         '''
-            Returns an approrpiately formatted User-agent string for 
+            Returns an approrpiately formatted User-agent string for
             web requests. When possible, plugins should use this to
             format user agent strings.
 

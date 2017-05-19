@@ -109,7 +109,7 @@ def create_device(player_name, return_errorsink=True):
         return an audiosink, but sometimes it will return an audiosink that
         only sends error messages to the bus.
 
-        ..note:: Only attempts to autoselect if the user has never specified a 
+        ..note:: Only attempts to autoselect if the user has never specified a
                  setting manually. Otherwise, they may be confused when it
                  switches to a new output. For example, if they specified a USB
                  device, and it is removed -- when restarting the program, they

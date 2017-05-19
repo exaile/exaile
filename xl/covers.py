@@ -25,7 +25,7 @@
 # from your version.
 
 """
-Provides the base for obtaining and storing covers, also known 
+Provides the base for obtaining and storing covers, also known
 as album art.
 """
 

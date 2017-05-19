@@ -375,7 +375,7 @@ class EventManager(object):
             @param obj: The object to listen to events from. Defaults
                 to any. [string]
 
-            Returns a convenience function that you can call to 
+            Returns a convenience function that you can call to
             remove the callback.
         """
 

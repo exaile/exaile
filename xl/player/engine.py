@@ -73,7 +73,7 @@ class ExaileEngine(object):
             Initialize the engine.
 
             The engine should call `player.engine_load_volume` when
-            initialization has been completed. 
+            initialization has been completed.
         '''
         raise NotImplementedError
 
@@ -93,7 +93,7 @@ class ExaileEngine(object):
         """
             Gets the current playback position of the playing track
 
-            :returns: the playback position in nanoseconds 
+            :returns: the playback position in nanoseconds
             :rtype: int
         """
         raise NotImplementedError

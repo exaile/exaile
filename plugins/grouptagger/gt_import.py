@@ -169,7 +169,7 @@ class GtImporter(Gtk.Window):
 def track_import_thread(import_collection, user_collection, track_data):
     '''
         Reads grouping information from tracks in a collection, and matches
-        them with tracks contained in a separate collection. 
+        them with tracks contained in a separate collection.
     '''
 
     total = float(len(import_collection))

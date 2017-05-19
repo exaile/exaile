@@ -28,7 +28,7 @@ def detect_bpm(uri, on_complete):
     '''
         Detects the BPM of a song using GStreamer's bpmdetect plugin
 
-        .. note:: The plugin emits the BPM at various times during 
+        .. note:: The plugin emits the BPM at various times during
                   song processing, but the bpm detector accumulates
                   the results so this will only return the last
                   result.

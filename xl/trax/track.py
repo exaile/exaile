@@ -222,7 +222,7 @@ class Track(object):
                 state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
-        if self._init == False:
+        if self._init is False:
             return
 
         self.__tags = {}

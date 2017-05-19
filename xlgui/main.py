@@ -1074,7 +1074,7 @@ class MainWindow(GObject.GObject):
             # else
             #    destroy tray
 
-            if self.minimized != prev_minimized and self.minimized == True:
+            if self.minimized != prev_minimized and self.minimized is True:
                 if not settings.get_option('gui/use_tray', False) and \
                         self.controller.tray_icon is None:
                     self.controller.tray_icon = tray.TrayIcon(self)

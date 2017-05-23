@@ -642,6 +642,9 @@ def css_from_pango_font_description(pango_font_str):
     """
         Convert a Pango.FontDescription string to a CSS font string
     """
+    if pango_font_str is None:
+        return ""
+
     new_font = Pango.FontDescription.from_string(pango_font_str)
 
     # Gtk+ CSS and Pango are compatible except for the prefix and case

@@ -23,7 +23,7 @@ Next install the SDK links by running this from inside this directory:
 Building Windows installer
 --------------------------
 
-Just run `make dist` from the main exaile directory.
+Just run /path/to/python-gtk3-gst-sdk/win_installer/build_win32_installer.sh
 
 Building OSX DMG image
 ----------------------

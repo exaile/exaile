@@ -1,5 +1,5 @@
-git+git://github.com/exaile/pywin32-ctypes.git@sdk#egg=pywin32-ctypes; sys_platform == 'win32'
-git+git://github.com/exaile/pyinstaller.git@sdk#egg=PyInstaller
+git+git://github.com/exaile/pywin32-ctypes.git@sdk#egg=pywin32-ctypes
+https://github.com/exaile/pyinstaller/archive/sdk.zip#egg=PyInstaller
 musicbrainzngs==0.6
 mutagen==1.37
 pylast==1.8.0

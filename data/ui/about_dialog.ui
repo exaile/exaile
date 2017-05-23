@@ -20,7 +20,8 @@ Andrew Starr-Bochicchio
 Brian Parma
 Dustin Spicuzza
 Fabiano Fidêncio
-Joseph S. Atkinson</property>
+Joseph S. Atkinson
+Christian Stadelmann</property>
     <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here">Unknown translator</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg

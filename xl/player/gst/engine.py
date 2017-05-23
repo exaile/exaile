@@ -76,7 +76,7 @@ class ExaileGstEngine(ExaileEngine):
         * One is normal/gapless mode (no crossfade), and it uses a normal
           playbin element and controls that directly. The playbin is wrapped
           by the AudioStream object, and it's audio sink is a DynamicAudioSink
-          element with the 
+          element with the
 
         * The other is crossfading mode (which requires gst-plugins-bad to be
           installed). Create multiple AudioStream objects, and they have a
@@ -87,7 +87,7 @@ class ExaileGstEngine(ExaileEngine):
 
         * gst_audio_filter: Multiple instances of this can be created, as they
                             get applied to each stream. It is recommended that
-                            plugins inherit from :class:`.ElementBin` 
+                            plugins inherit from :class:`.ElementBin`
     '''
 
     def __init__(self, name, player):
@@ -523,7 +523,7 @@ class AudioStream(object):
         '''
             This function exists solely to allow gapless playback for audio
             formats that support it. Setting the URI property of the playbin
-            will queue the track for playback immediately after the previous 
+            will queue the track for playback immediately after the previous
             track.
 
             .. note:: This is called from the gstreamer thread

@@ -45,7 +45,7 @@ def __autoconfig():
     '''
         If the user hasn't used our plugin before, then try to
         autoconfig their audio settings to use a different audio
-        device if possible.. 
+        device if possible..
 
         TODO: It would be cool if we could notify the user that
         a new device was plugged in...

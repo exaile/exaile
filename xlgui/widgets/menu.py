@@ -305,7 +305,7 @@ class ProviderMenu(providers.ProviderHandler, Menu):
     '''
         A menu that can be added to by registering a menu item with
         the providers system. If desired, a menu item can be targeted
-        towards a specific parent widget. 
+        towards a specific parent widget.
     '''
 
     def __init__(self, name, parent):

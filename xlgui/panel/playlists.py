@@ -227,7 +227,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def add_new_playlist(self, tracks=[], name=None):
         """
-            Adds a new playlist to the list of playlists. If name is 
+            Adds a new playlist to the list of playlists. If name is
             None or the name conflicts with an existing playlist, the
             user will be queried for a new name.
 
@@ -743,7 +743,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             hovering over playlists causes the copy action to occur
             hovering over tracks within the same playlist causes the move
                 action to occur
-            hovering over tracks within different playlist causes the move 
+            hovering over tracks within different playlist causes the move
                 action to occur
 
             Called on the destination widget

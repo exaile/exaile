@@ -50,7 +50,7 @@ class LyricsNotFoundException(Exception):
 
 class LyricsCache:
     '''
-        Basically just a thread-safe shelf for convinience.  
+        Basically just a thread-safe shelf for convinience.
         Supports container syntax.
     '''
 
@@ -234,16 +234,16 @@ class LyricsManager(providers.ProviderHandler):
 
             :param method: the LyricSearchMethod to fetch lyrics from.
 
-            :param track: the track we want lyrics for, it 
+            :param track: the track we want lyrics for, it
                 must have artist/title tags
 
             :param refresh: if True, try to refresh cached data even if
                 not expired
 
-            :return: list of tuples in the same format as 
+            :return: list of tuples in the same format as
                 find_lyric's return value
 
-            :raise LyricsNotFoundException: when lyrics are not found 
+            :raise LyricsNotFoundException: when lyrics are not found
                 in cache or fetched from method
         """
         lyrics = None

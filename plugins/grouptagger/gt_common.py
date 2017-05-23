@@ -110,7 +110,7 @@ def set_track_groups(track, groups):
 def get_group_categories():
     '''
         Returns a dictionary that contains a mapping of default groups
-        to categories. 
+        to categories.
 
         Structure: { category: [expanded, [group, ... ]], ... }
     '''

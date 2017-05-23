@@ -432,7 +432,7 @@ class NotebookActionService(providers.ProviderHandler):
         Provides interface for action widgets to be dynamically attached
         detached from notebooks.
 
-        Actions are widgets placed to the left or right of tabs on a notebook. 
+        Actions are widgets placed to the left or right of tabs on a notebook.
     '''
 
     def __init__(self, notebook, servicename):

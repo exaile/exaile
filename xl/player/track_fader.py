@@ -56,7 +56,7 @@ class TrackFader(object):
 
         There is a user volume and a fade volume. The fade volume is used
         internally and the output volume is set by multiplying both of
-        them together. 
+        them together.
 
         .. note:: Only intended to be used by engine implementations
     '''

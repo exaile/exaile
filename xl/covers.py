@@ -25,7 +25,7 @@
 # from your version.
 
 """
-Provides the base for obtaining and storing covers, also known 
+Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
@@ -336,7 +336,7 @@ class CoverManager(providers.ProviderHandler):
             method = self.methods.get(source)
             if method:
                 ret = method.get_cover_data(data)
-        if ret is None and use_default == True:
+        if ret is None and use_default is True:
             ret = self.get_default_cover()
         return ret
 

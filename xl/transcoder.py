@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
     kbs_steps:  a value defining the quality of encoding that will be displayed
                 to the user. must be a one-to-one mapping with raw_steps.
     command:    the gstreamer pipeline to execute. should contain exactly one
-                python string format operator, like %s or %f, which will be 
+                python string format operator, like %s or %f, which will be
                 replaced with the value from raw_steps.
     extension:  the default filename extension for this format
     plugins:    the gstreamer plugins needed for this transcode pipeline

@@ -702,7 +702,7 @@ class ASXConverter(FormatConverter):
 
         def start(self, tag, attributes):
             """
-                Checks the ASX version and stores 
+                Checks the ASX version and stores
                 the URI of the current track
             """
             depth = len(self._stack)
@@ -1154,7 +1154,7 @@ class Playlist(object):
 
     def get_next(self):
         '''
-            Retrieves the next track that will be played. Does not 
+            Retrieves the next track that will be played. Does not
             actually set the position. When you call next(), it should
             return the same track, even in random shuffle modes.
 

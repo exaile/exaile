@@ -1,5 +1,5 @@
 """
-    This plugin will make a dbus call to prevent the computer from suspending 
+    This plugin will make a dbus call to prevent the computer from suspending
     during music playback
 
     It uses the gnome SessionManager interface via dbus
@@ -129,9 +129,9 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def inhibit(self):
         """
-            Inhibit user session suspension.  
+            Inhibit user session suspension.
 
-            Make DBus call to inhibit session suspension if 
+            Make DBus call to inhibit session suspension if
             session suspension not already inhibited.
 
             If suspending already inhibited call does nothing.
@@ -147,10 +147,10 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def uninhibit(self):
         """
-            Uninhibit user session suspension.  
+            Uninhibit user session suspension.
 
-            Make DBus call to uninhibit session suspension if 
-            session suspension not already uninhibited.  
+            Make DBus call to uninhibit session suspension if
+            session suspension not already uninhibited.
 
             If suspending already uninhibited call does nothing.
 

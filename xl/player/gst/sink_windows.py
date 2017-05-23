@@ -111,7 +111,7 @@ def load_directsoundsink(presets):
 def get_priority_booster():
     '''
         This hack allows us to boost the priority of GStreamer task threads on
-        Windows. See https://github.com/exaile/exaile/issues/76 and 
+        Windows. See https://github.com/exaile/exaile/issues/76 and
         https://bugzilla.gnome.org/show_bug.cgi?id=781998
     '''
     from ctypes.wintypes import BOOL, DWORD, HANDLE, LPCWSTR

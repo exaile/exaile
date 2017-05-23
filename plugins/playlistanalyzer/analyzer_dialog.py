@@ -48,7 +48,7 @@ from presets import DEFAULT_PRESETS
 
 class AnalyzerDialog(object):
     '''
-        Provide super flexible interface to stuff. Hm. 
+        Provide super flexible interface to stuff. Hm.
 
         Need to define stuff before interface makes sense.
     '''

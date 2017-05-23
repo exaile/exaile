@@ -75,7 +75,7 @@ def log_exception(log=logger, message="Exception caught!"):
             import logging
             logger = logging.getLogger(__name__)
 
-            .. 
+            ..
 
             try:
                 ..
@@ -168,8 +168,8 @@ def synchronized(func):
         A decorator to make a function synchronized - which means only one
         thread is allowed to access it at a time.
 
-        This only works on class functions, and creates a variable in 
-        the instance called _sync_lock. 
+        This only works on class functions, and creates a variable in
+        the instance called _sync_lock.
 
         If this function is used on multiple functions in an object, they
         will be locked with respect to each other. The lock is re-entrant.

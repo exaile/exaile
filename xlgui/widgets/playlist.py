@@ -178,7 +178,7 @@ class RemoveCurrentMenuItem(menu.MenuItem):
 
 class RandomizeMenuItem(menu.MenuItem):
     """
-        A menu item which randomizes the full 
+        A menu item which randomizes the full
         playlist or the current selection
     """
 
@@ -393,9 +393,9 @@ class PlaylistPage(PlaylistPageBase):
         """
             :param playlist: The :class:`xl.playlist.Playlist` to display
                 in this page.
-            :param player: The :class:`xl.player._base.ExailePlayer` that 
+            :param player: The :class:`xl.player._base.ExailePlayer` that
                 this page is associated with
-            :param queue: 
+            :param queue:
         """
         NotebookPage.__init__(self)
 
@@ -756,7 +756,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             clear any existing filters.
 
             The filter will search any currently enabled columns AND the
-            default columns. 
+            default columns.
         '''
 
         if filter_string is None:
@@ -994,8 +994,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_row_inserted(self, model, path, iter):
         '''
-            When something is inserted into the playlist, focus on it. If 
-            there are multiple things inserted, focus only on the first. 
+            When something is inserted into the playlist, focus on it. If
+            there are multiple things inserted, focus only on the first.
         '''
         if not self._insert_focusing:
             self._insert_focusing = True
@@ -1010,7 +1010,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def do_button_press_event(self, e):
         """
-            Adds some custom selection work to 
+            Adds some custom selection work to
             1) unselect all rows if clicking an empty area,
             2) updating the selection upon right click and
             3) popping up the context menu upon right click
@@ -1155,7 +1155,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, etime):
         """
-            Builds a list of tracks either from internal indices or 
+            Builds a list of tracks either from internal indices or
             external URIs and inserts or appends them to the playlist
         """
         # Stop default handler from running

@@ -45,19 +45,19 @@ class ProviderManager(object):
 
     def register_provider(self, servicename, provider, target=None):
         """
-            Registers a provider for a service. The provider object is used 
-            by consumers of the service. 
+            Registers a provider for a service. The provider object is used
+            by consumers of the service.
 
             Services can be targeted for a specific use. For example, if you
             have a widget that uses a service 'foo', if your object can perform
-            a service only for a specific type of widget, then target would be 
-            set to the widget type. 
+            a service only for a specific type of widget, then target would be
+            set to the widget type.
 
             If you had a service that could perform 'foo' for all widgets, then
             target would be set to None, and all widgets could use your service.
 
-            It is intended that most services should set target to None, with 
-            some narrow exceptions. 
+            It is intended that most services should set target to None, with
+            some narrow exceptions.
 
             :param servicename: the name of the service [string]
             :type servicename: string
@@ -149,7 +149,7 @@ class ProviderManager(object):
         """
             Returns a single identified provider
 
-            This will return a provider either targeted for the specific 
+            This will return a provider either targeted for the specific
             target or a provider not targeted towards any particular target.
 
             :param servicename: The service name to get the provider for
@@ -185,11 +185,11 @@ class ProviderHandler(object):
         """
             Target is the object that the service is being performed for.
             Often, if the service is truly global and it doesn't make sense
-            to target a service at a particular consumer, it can be None. 
+            to target a service at a particular consumer, it can be None.
 
             :param servicename: the name of the service to handle
             :type servicename: string
-            :param target: the target for a provided service. Generally, 
+            :param target: the target for a provided service. Generally,
                            this will be the object that uses the service
             :type target: string
             :param simple_init: call on_provider_added for every element

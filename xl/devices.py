@@ -161,7 +161,7 @@ class KeyedDevice(Device):
         argument to the __init__ function.
 
         @warning The __init__ function will be called again for devices
-        that are created multiple times. 
+        that are created multiple times.
     '''
 
     @staticmethod

@@ -222,7 +222,7 @@ class Track(object):
                 state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
-        if self._init == False:
+        if self._init is False:
             return
 
         self.__tags = {}
@@ -485,7 +485,7 @@ class Track(object):
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
-            Set the raw value of a tag. 
+            Set the raw value of a tag.
 
             :param tag: The name of the tag to set.
             :param values: The value or values to set the tag to.

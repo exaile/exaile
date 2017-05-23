@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 class ExailePlayer(object):
     """
         This is the player object that everything in Exaile interacts with
-        to control audio playback. The player object controls a playback 
+        to control audio playback. The player object controls a playback
         engine, which actually controls audio playback. Nothing in this
         object should be specific to a particular engine. Examples of engines
         could be GStreamer, Xine, etc. Currently only the GStreamer engine
@@ -299,7 +299,7 @@ class ExailePlayer(object):
         """
             Gets the current playback position of the playing track
 
-            :returns: the playback position in nanoseconds 
+            :returns: the playback position in nanoseconds
             :rtype: int
         """
         return self._engine.get_position()

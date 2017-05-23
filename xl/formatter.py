@@ -60,7 +60,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
             (!?=(!?%(arg)s)+?)?    # Optional argument indicated with '='
             (!?,\s*%(id)s          # Further optional parameters separated with ','
               (!?=(!?%(arg)s)+?)?  # Optional argument indicated with '='
-            )*      
+            )*
           )
         )?
       }                      |
@@ -690,7 +690,7 @@ providers.register('tag-formatting', RatingTagFormatter())
 
 class YearTagFormatter(TagFormatter):
     """
-        A pseudo-tag that computes the year from the date column 
+        A pseudo-tag that computes the year from the date column
     """
 
     def __init__(self):

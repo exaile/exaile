@@ -49,7 +49,7 @@ class Panel(GObject.GObject):
             @param parent: the main window
             @type parent: Gtk.Window
             @param name: the name of the panel. should be unique.
-            @param label: text of the label displayed to the user 
+            @param label: text of the label displayed to the user
         """
         GObject.GObject.__init__(self)
         self.name = name        # panel id
@@ -70,7 +70,7 @@ class Panel(GObject.GObject):
         """
             Makes this panel grab the keyboard focus
             Subclasses can override this to give focus to a particular widget
-            or perform another action. 
+            or perform another action.
         """
         self._child.grab_focus()
 

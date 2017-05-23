@@ -59,7 +59,7 @@ class UDisksPropertyWrapper(object):
 class UDisksDBusWrapper(object):
     '''
         Simple wrapper to make life easier. Assume that we only are
-        using this to get properties off the 'primary' interface. 
+        using this to get properties off the 'primary' interface.
 
         Assumes that you are only asking for properties on the interface
         associated with the object path.
@@ -120,7 +120,7 @@ class UDisksBase(providers.ProviderHandler):
         should override the UDisksProvider interface.
 
         Plugins should not try to connect to UDisks until exaile has finished
-        loading. 
+        loading.
     """
 
     # States: start -> init -> addremove <-> listening -> end.
@@ -536,7 +536,7 @@ class Handler(object):
 class UDisksProvider(object):
     '''
         The UDisksProvider interface. Works for UDisks 1 and 2, but you should
-        implement separate providers for each, as the object types and 
+        implement separate providers for each, as the object types and
         properties are different.
 
         This API is subject to change.
@@ -550,7 +550,7 @@ class UDisksProvider(object):
             return a priority value indicating its interest in handling
             the device.
 
-            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param obj: A UDisksPropertyWrapper object for the device path
             :param udisks: The UDisksBase object
 
             :returns: An integer [0..100] indicating priority, or None if it
@@ -562,7 +562,7 @@ class UDisksProvider(object):
             Called when the device is assigned to the provider (e.g., it
             indicated the highest priority).
 
-            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param obj: A UDisksPropertyWrapper object for the device path
             :param udisks: The UDisksBase object
 
             :returns: xl.devices.Device derived object for the device
@@ -574,7 +574,7 @@ class UDisksProvider(object):
             changed. If useful, the provider should forward relevant change
             actions to its device object.
 
-            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param obj: A UDisksPropertyWrapper object for the device path
             :param udisks: The UDisksBase object
             :param device: Object returned from get_device
 

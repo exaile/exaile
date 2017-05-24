@@ -38,7 +38,7 @@ def __migrate_fixed_controls():
     if settings.MANAGER.has_option(option_name):
         selected_controls = settings.get_option(option_name)
 
-        if not 'restore' in selected_controls:
+        if 'restore' not in selected_controls:
             selected_controls += ['restore']
             settings.set_option(option_name, selected_controls)
 

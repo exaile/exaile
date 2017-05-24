@@ -401,17 +401,6 @@ class Exaile(object):
 
         firstrun = settings.get_option("general/first_run", True)
 
-        if not self.options.NoImport and \
-                (firstrun or self.options.ForceImport):
-            try:
-                sys.path.insert(0, xdg.get_data_path("migrations"))
-                import migration_200907100931 as migrator
-                del sys.path[0]
-                migrator.migrate(force=self.options.ForceImport)
-                del migrator
-            except Exception:
-                logger.exception("Failed to migrate from 0.2.14")
-
         # Migrate old rating options
         from xl.migrations.settings import rating
         rating.migrate()

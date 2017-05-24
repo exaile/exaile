@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import md5
+from hashlib import md5
 import os
 import sys
 
@@ -26,7 +26,7 @@ class Cache(object):
             os.mkdir(self.dir)
 
     def get(self, id, func):
-        id = md5.md5(id).hexdigest()
+        id = md5(id).hexdigest()
         fn = os.path.join(self.dir, id)
         if (not(os.path.exists(fn))):
             f = open(fn, 'w')

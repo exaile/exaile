@@ -13,11 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import with_statement
 import warnings
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-    import md5
+from hashlib import md5
 
 import os
 import struct
@@ -42,7 +39,7 @@ class MetadataCache(spydaap.cache.OrderedCache):
                     self.build(os.path.join(path, d), marked, True)
             for fn in files:
                 ffn = os.path.join(path, fn)
-                digest = md5.md5(ffn).hexdigest()
+                digest = md5(ffn).hexdigest()
                 marked[digest] = True
                 md = self.get_item_by_pid(digest)
                 if (not(md.get_exists()) or
@@ -69,7 +66,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
         data = "".join([d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
         data = struct.pack('!i%ss' % len(fn), len(fn), fn) + data
-        cachefn = os.path.join(dir, md5.md5(fn).hexdigest())
+        cachefn = os.path.join(dir, md5(fn).hexdigest())
         f = open(cachefn, 'w')
         f.write(data)
         f.close()

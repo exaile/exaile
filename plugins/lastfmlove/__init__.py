@@ -52,24 +52,26 @@ icons.MANAGER.add_icon_name_from_directory('send-receive',
                                            os.path.join(basedir, 'icons'))
 
 
-def enable(exaile):
-    """
-        Handles the deferred enable call
-    """
-    global LASTFMLOVER
-    LASTFMLOVER = LastFMLover()
+class LastFMPlugin(object):
+
+    def enable(self, exaile):
+        """
+            Handles the deferred enable call
+        """
+        self.__lastfmlover = LastFMLover()
+
+    def disable(self, exaile):
+        """
+            Disables the desktop cover plugin
+        """
+        self.__lastfmlover.destroy()
+        self.__lastfmlover = None
+
+    def get_preferences_pane(self):
+        return lastfmlove_preferences
 
 
-def disable(exaile):
-    """
-        Disables the desktop cover plugin
-    """
-    global LASTFMLOVER
-    LASTFMLOVER.destroy()
-
-
-def get_preferences_pane():
-    return lastfmlove_preferences
+plugin_class = LastFMPlugin
 
 
 class LoveColumn(Column):
@@ -80,6 +82,7 @@ class LoveColumn(Column):
     renderer = CellRendererToggleImage
     datatype = bool
     dataproperty = 'active'
+    last_fm_lover = None
 
     def __init__(self, *args):
         Column.__init__(self, *args)
@@ -94,17 +97,15 @@ class LoveColumn(Column):
         """
             Displays the loved state
         """
-        global LASTFMLOVER
-
         track = model.get_value(iter, 0)
         lastfm_track = pylast.Track(
             track.get_tag_display('artist'),
             track.get_tag_display('title'),
-            LASTFMLOVER.network
+            self.last_fm_lover.network
         )
-        cellrenderer.props.active = lastfm_track in LASTFMLOVER.loved_tracks
+        cellrenderer.props.active = lastfm_track in self.last_fm_lover.loved_tracks
 
-        if LASTFMLOVER.network is None:
+        if self.last_fm_lover.network is None:
             cellrenderer.props.sensitive = False
             cellrenderer.props.render_prelit = False
         else:
@@ -117,11 +118,9 @@ class LoveColumn(Column):
         """
             Loves or unloves the selected track
         """
-        global LASTFMLOVER
-
-        if cellrenderer.props.sensitive and LASTFMLOVER.network is not None:
+        if cellrenderer.props.sensitive and self.last_fm_lover.network is not None:
             track = self.model.get_value(self.model.get_iter(path), 0)
-            LASTFMLOVER.toggle_loved(track)
+            self.last_fm_lover.toggle_loved(track)
 
 
 class LoveMenuItem(MenuItem):
@@ -130,16 +129,16 @@ class LoveMenuItem(MenuItem):
         track and allowing for loving and unloving it
     """
 
-    def __init__(self, after, get_tracks_function=None):
+    def __init__(self, last_fm_lover, after, get_tracks_function=None):
         MenuItem.__init__(self, 'loved', None, after)
+        LoveColumn.last_fm_lover = self
+        self.__lastfmlover = last_fm_lover
         self.get_tracks_function = get_tracks_function
 
     def factory(self, menu, parent, context):
         """
             Sets up the menu item
         """
-        global LASTFMLOVER
-
         item = Gtk.ImageMenuItem.new_with_mnemonic(_('_Love This Track'))
         item.set_image(Gtk.Image.new_from_icon_name(
             'love', Gtk.IconSize.MENU))
@@ -152,16 +151,16 @@ class LoveMenuItem(MenuItem):
             if not empty:
                 tracks = context.get('selected-tracks', [])
 
-        if not empty and LASTFMLOVER.network is not None:
+        if not empty and self.__lastfmlover.network is not None:
             # We only care about the first track
             track = tracks[0]
             lastfm_track = pylast.Track(
                 track.get_tag_display('artist'),
                 track.get_tag_display('title'),
-                LASTFMLOVER.network
+                self.__lastfmlover.network
             )
 
-            if lastfm_track in LASTFMLOVER.loved_tracks:
+            if lastfm_track in self.__lastfmlover.loved_tracks:
                 item.set_label(_('Unlove This Track'))
 
             item.connect('activate', self.on_activate, track)
@@ -174,9 +173,7 @@ class LoveMenuItem(MenuItem):
         """
             Loves or unloves the selected track
         """
-        global LASTFMLOVER
-
-        LASTFMLOVER.toggle_loved(track)
+        self.__lastfmlover.toggle_loved(track)
 
 
 class LastFMLover(object):
@@ -195,7 +192,7 @@ class LastFMLover(object):
         self.loved_tracks = []
         self.timer = None
         self.column_menu_item = ColumnMenuItem(column=LoveColumn, after=['__rating'])
-        self.menu_item = LoveMenuItem(after=['rating'])
+        self.menu_item = LoveMenuItem(self, after=['rating'])
 
         def get_tracks_function():
             """
@@ -210,6 +207,7 @@ class LastFMLover(object):
             return []
 
         self.tray_menu_item = LoveMenuItem(
+            self,
             after=['rating'],
             get_tracks_function=get_tracks_function
         )
@@ -304,7 +302,7 @@ class LastFMLover(object):
         lastfm_track = pylast.Track(
             track.get_tag_display('artist'),
             track.get_tag_display('title'),
-            LASTFMLOVER.network
+            self.network
         )
 
         if lastfm_track in self.loved_tracks:

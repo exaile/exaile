@@ -26,11 +26,12 @@ class WinmmkeysPlugin:
         except ImportError:
             self.handler = HotkeyHandler_Keyboard(self.exaile)
 
-    def disable(exaile):
+    def disable(self, exaile):
         if hasattr(self, 'handler'):
             self.handler.disable()
             del self.handler
         del self.exaile
+
 
 plugin_class = WinmmkeysPlugin
 

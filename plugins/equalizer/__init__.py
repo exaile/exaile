@@ -191,11 +191,6 @@ class EqualizerPlugin:
             self.window.hide()
             self.window.destroy()
 
-    def load_presets(self):
-        """
-        Populate the GTK ListStore with presets
-        """
-
     def show_gui(self, exaile):
         """
         Display main window.
@@ -344,6 +339,9 @@ class EqualizerPlugin:
                 f.write(s)
 
     def load_presets(self):
+        """
+        Populate the GTK ListStore with presets
+        """
         if os.path.exists(self.presets_path):
             with open(self.presets_path, 'r') as f:
                 line = f.readline()

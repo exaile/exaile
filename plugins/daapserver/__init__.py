@@ -4,7 +4,7 @@ from gi.repository import GObject
 from xl import collection, event, settings
 import spydaap.parser.exaile
 
-log = logging.getLogger(__file__)
+logger = logging.getLogger(__file__)
 
 
 # todo support multiple connections?

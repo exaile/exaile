@@ -9,12 +9,14 @@
 #
 # Stripped clean + a few bug fixes, Erik Hetzner
 
-import struct
-import sys
+from cStringIO import StringIO
+import gzip
 import httplib
 import logging
+import struct
+import sys
+
 from daap_data import *
-from cStringIO import StringIO
 
 __all__ = ['DAAPError', 'DAAPObject', 'do']
 

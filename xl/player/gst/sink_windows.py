@@ -30,9 +30,13 @@
     For plugins like the Preview Device, this is critical.
 '''
 
+import logging
+
+import ctypes.wintypes as cwin
+import ctypes
+
 from gi.repository import Gst
 
-import logging
 logger = logging.getLogger(__name__)
 
 
@@ -48,20 +52,16 @@ class _SinkSettings:
 _sink_settings = _SinkSettings()
 
 if _sink_settings.can_set_device:
-
-    import ctypes.wintypes
-    import ctypes as C
-
-    _dsound_dll = C.windll.LoadLibrary("dsound.dll")
+    _dsound_dll = ctypes.windll.LoadLibrary("dsound.dll")
     _DirectSoundEnumerateW = _dsound_dll.DirectSoundEnumerateW
 
-    _LPDSENUMCALLBACK = C.WINFUNCTYPE(C.wintypes.BOOL,
-                                      C.wintypes.LPVOID,
-                                      C.wintypes.LPCWSTR,
-                                      C.wintypes.LPCWSTR,
-                                      C.wintypes.LPCVOID)
+    _LPDSENUMCALLBACK = ctypes.WINFUNCTYPE(cwin.BOOL,
+                                           cwin.LPVOID,
+                                           cwin.LPCWSTR,
+                                           cwin.LPCWSTR,
+                                           cwin.LPCVOID)
 
-    _ole32_dll = C.oledll.ole32
+    _ole32_dll = ctypes.oledll.ole32
     _StringFromGUID2 = _ole32_dll.StringFromGUID2
 
     def get_create_fn(device_id):
@@ -79,8 +79,8 @@ if _sink_settings.can_set_device:
         def cb_enum(lpGUID, lpszDesc, lpszDrvName, _unused):
             dev = ""
             if lpGUID is not None:
-                buf = C.create_unicode_buffer(200)
-                if _StringFromGUID2(lpGUID, C.byref(buf), 200):
+                buf = ctypes.create_unicode_buffer(200)
+                if _StringFromGUID2(lpGUID, ctypes.byref(buf), 200):
                     dev = buf.value
 
             devices.append((lpszDesc, dev))
@@ -114,17 +114,14 @@ def get_priority_booster():
         Windows. See https://github.com/exaile/exaile/issues/76 and
         https://bugzilla.gnome.org/show_bug.cgi?id=781998
     '''
-    from ctypes.wintypes import BOOL, DWORD, HANDLE, LPCWSTR
-    import ctypes as C
-
-    avrt_dll = C.windll.LoadLibrary("avrt.dll")
+    avrt_dll = ctypes.windll.LoadLibrary("avrt.dll")
     AvSetMmThreadCharacteristics = avrt_dll.AvSetMmThreadCharacteristicsW
-    AvSetMmThreadCharacteristics.argtypes = [LPCWSTR, C.POINTER(DWORD)]
-    AvSetMmThreadCharacteristics.restype = HANDLE
+    AvSetMmThreadCharacteristics.argtypes = [cwin.LPCWSTR, ctypes.POINTER(cwin.DWORD)]
+    AvSetMmThreadCharacteristics.restype = cwin.HANDLE
 
     AvRevertMmThreadCharacteristics = avrt_dll.AvRevertMmThreadCharacteristics
-    AvRevertMmThreadCharacteristics.argtypes = [HANDLE]
-    AvRevertMmThreadCharacteristics.restype = BOOL
+    AvRevertMmThreadCharacteristics.argtypes = [cwin.HANDLE]
+    AvRevertMmThreadCharacteristics.restype = cwin.BOOL
 
     def on_stream_status(bus, message):
         '''
@@ -139,8 +136,8 @@ def get_priority_booster():
 
             # note that we use "Pro Audio" because it gives a higher priority, and
             # that's what Chrome does anyways...
-            unused = DWORD()
-            obj.task_handle = AvSetMmThreadCharacteristics("Pro Audio", C.byref(unused))
+            unused = cwin.DWORD()
+            obj.task_handle = AvSetMmThreadCharacteristics("Pro Audio", ctypes.byref(unused))
 
         # A gstreamer thread ends
         elif status.type == Gst.StreamStatusType.LEAVE:

@@ -38,6 +38,7 @@ from gi.repository import (
     Pango,
 )
 
+import xl.unicode
 from xl import (
     common,
     event,
@@ -392,17 +393,13 @@ class FilesPanel(panel.Panel):
                 continue
             f = directory.get_child(info.get_name())
 
-            def sortkey():
-                # HACK: Python 2 bug: strxfrm doesn't support unicode.
-                # https://bugs.python.org/issue2481
-                sortname = locale.strxfrm(name.encode('utf-8'))
-                return sortname, name, f
             ftype = info.get_file_type()
+            sortname = xl.unicode.strxfrm(name)
             if ftype == Gio.FileType.DIRECTORY:
-                subdirs.append(sortkey())
+                subdirs.append((sortname, name, f))
             elif any(low_name.endswith('.' + ext)
                      for ext in metadata.formats):
-                subfiles.append(sortkey())
+                subfiles.append((sortname, name, f))
 
         subdirs.sort()
         subfiles.sort()

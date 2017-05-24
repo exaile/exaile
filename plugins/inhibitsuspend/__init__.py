@@ -3,7 +3,7 @@
     during music playback
 
     It uses the gnome SessionManager interface via dbus
-    
+
     TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
 from __future__ import print_function, with_statement

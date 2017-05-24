@@ -68,11 +68,11 @@ class Test_MetadataCacher(object):
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
         self.mc.remove('foo')
-        assert self.mc.get('foo') == None
+        assert self.mc.get('foo') is None
         self.mox.VerifyAll()
 
     def test_remove_not_exist(self):
-        assert self.mc.remove('foo') == None
+        assert self.mc.remove('foo') is None
 
 
 def random_str(l=8):
@@ -165,12 +165,12 @@ class TestTrack(object):
     def test_is_local_local(self):
         """Tests a local filename -> True"""
         tr = track.Track('foo')
-        assert tr.is_local() == True
+        assert tr.is_local() is True
 
     def test_is_local_remote(self):
         """Tests a remote filename -> False"""
         tr = track.Track('http://foo')
-        assert tr.is_local() == False
+        assert tr.is_local() is False
 
     def test_local_filesize(self, test_track):
         tr = track.Track(test_track.filename)
@@ -222,7 +222,7 @@ class TestTrack(object):
 
         # if tag was changed, ensure it gets overridden by reading tags from file
         tr.set_tag_raw('artist', None)
-        assert tr.get_tag_raw('artist') == None
+        assert tr.get_tag_raw('artist') is None
 
         assert tr.read_tags() is not False
         assert tr.get_tag_raw('artist') == [artist]
@@ -237,14 +237,14 @@ class TestTrack(object):
 
         tr.set_tag_raw('artist', None)
         assert tr.write_tags() is not False
-        assert tr.get_tag_raw('artist') == None
+        assert tr.get_tag_raw('artist') is None
 
         # if tag was deleted, ensure it gets overridden by reading tags from file
         tr.set_tag_raw('artist', artist)
         assert tr.get_tag_raw('artist') == [artist]
 
         assert tr.read_tags() is not False
-        assert tr.get_tag_raw('artist') == None
+        assert tr.get_tag_raw('artist') is None
 
         self.verify_tags_exist(tr, writeable_track, deleted='artist')
 
@@ -298,12 +298,12 @@ class TestTrack(object):
 
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
-        assert tr.write_tags() == False
+        assert tr.write_tags() is False
 
     def test_join_tag_empty(self):
         """Tests get_tag_raw with join=True and an empty tag"""
         tr = track.Track('foo')
-        assert tr.get_tag_raw('artist', join=True) == None
+        assert tr.get_tag_raw('artist', join=True) is None
 
     def test_join_tag_one(self):
         """Tests get_tag_raw with join=True and one element in tag"""
@@ -597,12 +597,12 @@ class TestTrack(object):
 
     def test_get_disk_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.bah')
-        assert tr.get_tag_disk('artist') == None
+        assert tr.get_tag_disk('artist') is None
 
     def test_list_disk_tag_invalid_format(self):
         tr_name = '/tmp/foo.foo'
         tr = track.Track(tr_name)
-        assert tr.list_tags_disk() == None
+        assert tr.list_tags_disk() is None
 
     def test_read_real_tracks(self, test_track):
         if not test_track.has_tags:

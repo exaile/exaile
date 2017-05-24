@@ -31,42 +31,42 @@
         def enable(exaile):
             print "Hello, world!"
             testlib.sucess()
-        
+
         def disable(exaile):
             print "Goodbye. :("
-        
+
         def teardown(exaile):
             # optional function
             print "Unhello, World!"
-    
+
     Exaile 3.4 introduced a new way to write plugins which will eliminate
     a lot of unnecessary boilerplate for plugin authors.
-            
+
     New-style plugins must have a variable in the module that is
     called 'plugin_class', which is a Python object with the following
     interface:
-    
+
     class Foo(object):
-    
+
         def enable(self, exaile):
             pass
-            
+
         def disable(self, exaile):
             pass
-            
+
     The object can also have the following optional functions:
-    
+
         def on_gui_loaded(self):
             - This will be called when the GUI is ready, or
               immediately if already done
-            
+
         def on_exaile_loaded(self):
             - This will be called when exaile is done loading, or
               immediately if already done
-            
+
         def teardown(self, exaile):
             - This will be called when exaile is unloading
-    
+
     Note that the old style of writing plugins is not going away, so you
     can continue to write plugins that way if its simpler.
 '''

@@ -56,7 +56,7 @@ class Pidgin:
         accounts = self.purple.PurpleAccountsGetAll()
 
         for account in accounts:
-            if self.purple.PurpleAccountIsConnected(account) != True:
+            if not self.purple.PurpleAccountIsConnected(account):
                 continue
             p = self.purple.PurpleAccountGetPresence(account)
             status = self.purple.PurplePresenceGetStatus(p, "tune")

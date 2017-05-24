@@ -214,7 +214,7 @@ class _WeakMethod(object):
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):
             return False
-        return      self.fun      is method2.fun \
+        return self.fun is method2.fun \
             and self.objRef() is method2.objRef() \
             and self.objRef() is not None
 

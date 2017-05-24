@@ -104,8 +104,8 @@ FORMATS = {
     },
     "WavPack" : {
         "default"   : 2,
-        "raw_steps" : [1,2,3,4],
-        "kbs_steps" : [1,2,3,4],
+        "raw_steps" : [1, 2, 3, 4],
+        "kbs_steps" : [1, 2, 3, 4],
         "command"   : "wavpackenc mode=%i",
         "extension" : "wv",
         "plugins"   : ["wavpackenc"],

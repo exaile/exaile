@@ -212,7 +212,7 @@ class SomaFMRadioStation(RadioStation):
             rlist = RadioItem(display_name, station=self)
             rlist.format = format
             rlist.get_playlist = lambda url = url,\
-                playlist_id = self.playlist_id :\
+                playlist_id = self.playlist_id:\
                 self._get_playlist(url, playlist_id)
 
             self.playlist_id += 1

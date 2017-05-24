@@ -32,9 +32,9 @@ class Zeroconf(object):
             # records as in mt-daapd
             txtRecord = pybonjour.TXTRecord()
             txtRecord['txtvers']            = '1'
-            txtRecord['iTSh Version']       = '131073' #'196609'
+            txtRecord['iTSh Version']       = '131073'  #'196609'
             txtRecord['Machine Name']       = self.name
-            txtRecord['Password']           = '0' # 'False' ?
+            txtRecord['Password']           = '0'  # 'False' ?
             #txtRecord['Database ID']        = '' # 16 hex digits
             #txtRecord['Version']            = '196616'
             #txtRecord['iTSh Version']       =

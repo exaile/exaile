@@ -601,7 +601,7 @@ class MainWindow(GObject.GObject):
             if player.QUEUE is not page.playlist:
                 player.QUEUE.extend(tracks)
 
-        elif (force_play or settings.get_option( 'playlist/append_menu_starts_playback', False )) and \
+        elif (force_play or settings.get_option('playlist/append_menu_starts_playback', False)) and \
                 not player.PLAYER.current:
             page.view.play_track_at(offset, tracks[0])
 

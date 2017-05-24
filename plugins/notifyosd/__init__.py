@@ -118,7 +118,7 @@ class ExaileNotifyOsd(object):
         self.summary = self.format_summary % {'title': title or self.unknown}
 
         if artist and album:
-            self.body = self.format_artist % {'artist' : artist} + '\n' + \
+            self.body = self.format_artist % {'artist': artist} + '\n' + \
                 self.format_album % {'album': album}
         elif artist:
             self.body = self.format_artist % {'artist': artist}

@@ -425,7 +425,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     def iter_active(self):
         '''Iterate over all groups with the checkbox on'''
         for row in self.iter_group_rows():
-            if row[0] == True:
+            if row[0]:
                 yield row[1]
 
     def iter_category(self, category):
@@ -669,7 +669,7 @@ class AllTagsListStore(Gtk.ListStore):
         self.append((False, group))
 
     def get_active_groups(self):
-        return [row[1] for row in self if row[0] == True]
+        return [row[1] for row in self if row[0]]
 
 
 class AllTagsDialog(Gtk.Window):

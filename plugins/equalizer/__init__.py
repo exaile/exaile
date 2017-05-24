@@ -120,21 +120,21 @@ class GSTEqualizer(ElementBin):
     def _on_option_set(self, name, object, data):
         for band in range(10):
             if data == "plugin/equalizer/band%s" % band:
-                if settings.get_option("plugin/equalizer/enabled") == True:
+                if settings.get_option("plugin/equalizer/enabled") is True:
                     self.eq10band.set_property("band%s" % band,
                                                settings.get_option("plugin/equalizer/band%s" % band))
                 else:
                     self.eq10band.set_property("band%s" % band, 0.0)
 
         if data == "plugin/equalizer/pre":
-            if settings.get_option("plugin/equalizer/enabled") == True:
+            if settings.get_option("plugin/equalizer/enabled") is True:
                 self.preamp.set_property("volume", self.dB_to_percent(
                     settings.get_option("plugin/equalizer/pre")))
             else:
                 self.preamp.set_property("volume", 1.0)
 
         if data == "plugin/equalizer/enabled":
-            if settings.get_option("plugin/equalizer/enabled") == True:
+            if settings.get_option("plugin/equalizer/enabled") is True:
                 self.preamp.set_property("volume", self.dB_to_percent(
                     settings.get_option("plugin/equalizer/pre")))
                 for band in range(10):

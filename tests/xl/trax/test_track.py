@@ -165,12 +165,12 @@ class TestTrack(object):
     def test_is_local_local(self):
         """Tests a local filename -> True"""
         tr = track.Track('foo')
-        assert tr.is_local() == True
+        assert tr.is_local() is True
 
     def test_is_local_remote(self):
         """Tests a remote filename -> False"""
         tr = track.Track('http://foo')
-        assert tr.is_local() == False
+        assert tr.is_local() is False
 
     def test_local_filesize(self, test_track):
         tr = track.Track(test_track.filename)
@@ -298,7 +298,7 @@ class TestTrack(object):
 
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
-        assert tr.write_tags() == False
+        assert tr.write_tags() is False
 
     def test_join_tag_empty(self):
         """Tests get_tag_raw with join=True and an empty tag"""

@@ -150,7 +150,7 @@ class LVPanel():
         self.vbox.pack_start(self.scrlw, True, True, 0)
 
         self.treestore = Gtk.TreeStore(str, GdkPixbuf.Pixbuf)
-        self.treeview = Gtk.TreeView(self.treestore)
+        self.treeview = Gtk.TreeView.new_with_model(self.treestore)
         self.treeview.set_headers_visible(False)
         self.column = Gtk.TreeViewColumn(None)
         self.cell = Gtk.CellRendererText()

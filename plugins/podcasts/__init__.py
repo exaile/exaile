@@ -199,6 +199,9 @@ class PodcastPanel(panel.Panel):
     @common.threaded
     def _load_podcasts(self):
         self._set_status(_("Loading Podcasts..."))
+        if not os.path.exists(self.podcast_file):
+            self._set_status(_("No configuration present yet"))
+            return
         try:
             with open(self.podcast_file) as fp:
                 lines = (line.strip() for line in fp.readlines())

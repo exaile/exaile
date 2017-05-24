@@ -83,7 +83,7 @@ class PodcastPanel(panel.Panel):
         self.menu.append(_('Refresh Podcast'), self._on_refresh, Gtk.STOCK_REFRESH)
         self.menu.append(_('Delete'), self._on_delete, Gtk.STOCK_DELETE)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _set_status(self, message, timeout=0):
         self.status.set_text(message)
 
@@ -184,13 +184,13 @@ class PodcastPanel(panel.Panel):
             logger.exception("Error loading podcast")
             self._set_status(_('Error loading podcast.'), 2)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _add_to_db(self, url, title):
         self.podcasts.append((title, url))
         self._save_podcasts()
         self._load_podcasts()
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _open_podcast(self, pl, title):
         new_pl = playlist.Playlist(title)
         new_pl.extend(pl)
@@ -215,7 +215,7 @@ class PodcastPanel(panel.Panel):
 
         self._done_loading_podcasts()
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _done_loading_podcasts(self):
         self.model.clear()
         self.podcasts.sort()

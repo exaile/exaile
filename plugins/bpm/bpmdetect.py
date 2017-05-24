@@ -21,7 +21,7 @@ from gi.repository import Gst, GObject, Gio
 
 
 def autodetect_supported():
-    return Gst.ElementFactory.make('bpmdetect', None) != None
+    return Gst.ElementFactory.make('bpmdetect', None) is not None
 
 
 def detect_bpm(uri, on_complete):

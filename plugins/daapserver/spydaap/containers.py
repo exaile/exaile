@@ -15,7 +15,7 @@
 
 import os
 import struct
-import md5
+from hashlib import md5
 import spydaap.cache
 from spydaap.daap import do
 
@@ -51,7 +51,7 @@ class ContainerCache(spydaap.cache.OrderedCache):
                         [build_do(md, id) for (id, md) in enumerate(entries)])
                     ])
             ContainerCacheItem.write_entry(self.dir, pl.name, d, len(entries))
-            pid_list.append(md5.md5(pl.name).hexdigest())
+            pid_list.append(md5(pl.name).hexdigest())
         self.build_index(pid_list)
 
 
@@ -62,7 +62,7 @@ class ContainerCacheItem(spydaap.cache.OrderedCacheItem):
         data = struct.pack('!i', length)
         data = data + struct.pack('!i%ss' % len(name), len(name), name)
         data = data + d.encode()
-        cachefn = os.path.join(dir, md5.md5(name).hexdigest())
+        cachefn = os.path.join(dir, md5(name).hexdigest())
         f = open(cachefn, 'w')
         f.write(data)
         f.close()

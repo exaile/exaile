@@ -1,4 +1,6 @@
 
+from hashlib import md5
+
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -22,13 +24,6 @@ logger = logging.getLogger(__name__)
 PODCASTS = None
 CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)
-
-try:
-    import hashlib
-    md5 = hashlib.md5
-except ImportError:
-    import md5
-    md5 = md5.new
 
 
 def enable(exaile):

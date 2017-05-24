@@ -16,7 +16,6 @@
 
 import os
 from xlgui.preferences import widgets
-from xl import xdg
 from xl.nls import gettext as _
 
 name = _('Notify')

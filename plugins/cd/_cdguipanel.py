@@ -24,18 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gtk
-from gi.repository import GLib
-import os
-import imp
-importer = imp.load_source("importer",
-                           os.path.join(os.path.dirname(__file__), "importer.py"))
 import logging
-logger = logging.getLogger(__name__)
+
+from gi.repository import GLib
 
 from xl import common, event
 from xl.nls import gettext as _
 from xlgui.panel import device
+
+import importer
+
+logger = logging.getLogger(__name__)
 
 
 class CDImportThread(common.ProgressThread):

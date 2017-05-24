@@ -15,14 +15,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import urllib2
-import sys
 import hmac
 import hashlib
 import base64
 import datetime
 import re
 from xl import common
-from xl.nls import gettext as _
 import logging
 
 logger = logging.getLogger(__name__)

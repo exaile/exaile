@@ -3,8 +3,6 @@
 __all__ = ["Zeroconf"]
 
 import select
-import sys
-import traceback
 import logging
 
 logger = logging.getLogger(__name__)

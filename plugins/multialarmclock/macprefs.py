@@ -17,7 +17,6 @@
 import os
 from xlgui.preferences import widgets
 from xlgui import icons
-from xl import xdg
 from xl.nls import gettext as _
 
 name = _('Multi-Alarm Clock')

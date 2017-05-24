@@ -5,7 +5,6 @@ from gi.repository import Gtk
 
 import httplib
 import logging
-logger = logging.getLogger(__name__)
 import os
 import re
 import socket
@@ -19,6 +18,8 @@ from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 
+
+logger = logging.getLogger(__name__)
 STATION = None
 
 

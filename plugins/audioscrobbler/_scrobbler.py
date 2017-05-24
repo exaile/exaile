@@ -8,7 +8,6 @@ import logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
-from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 

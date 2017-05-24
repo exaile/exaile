@@ -30,7 +30,6 @@
 
 import glob
 from gi.repository import (
-    Gdk,
     GdkPixbuf,
     GLib,
     Gtk

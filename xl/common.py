@@ -44,7 +44,7 @@ from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
 
-from .unicode import to_unicode, strxfrm
+from .unicode import strxfrm
 
 # TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (

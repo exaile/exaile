@@ -47,7 +47,7 @@ class MP4Format(BaseFormat):
         'bpm':         'tmpo',
         'grouping':    '\xa9grp',
         'comment':     '\xa9cmt',
-        'originaldate':'----:com.apple.iTunes:ORIGYEAR',
+        'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
         'language': '----:com.apple.iTunes:LANGUAGE',
     }

@@ -120,21 +120,21 @@ class GSTEqualizer(ElementBin):
     def _on_option_set(self, name, object, data):
         for band in range(10):
             if data == "plugin/equalizer/band%s" % band:
-                if settings.get_option("plugin/equalizer/enabled") == True:
+                if settings.get_option("plugin/equalizer/enabled") is True:
                     self.eq10band.set_property("band%s" % band,
                                                settings.get_option("plugin/equalizer/band%s" % band))
                 else:
                     self.eq10band.set_property("band%s" % band, 0.0)
 
         if data == "plugin/equalizer/pre":
-            if settings.get_option("plugin/equalizer/enabled") == True:
+            if settings.get_option("plugin/equalizer/enabled") is True:
                 self.preamp.set_property("volume", self.dB_to_percent(
                     settings.get_option("plugin/equalizer/pre")))
             else:
                 self.preamp.set_property("volume", 1.0)
 
         if data == "plugin/equalizer/enabled":
-            if settings.get_option("plugin/equalizer/enabled") == True:
+            if settings.get_option("plugin/equalizer/enabled") is True:
                 self.preamp.set_property("volume", self.dB_to_percent(
                     settings.get_option("plugin/equalizer/pre")))
                 for band in range(10):
@@ -172,13 +172,13 @@ class EqualizerPlugin:
     def check_default_settings(self):
 
         for band in range(10):
-            if settings.get_option("plugin/equalizer/band%s" % band) == None:
+            if settings.get_option("plugin/equalizer/band%s" % band) is None:
                 settings.set_option("plugin/equalizer/band%s" % band, 0.0)
 
-        if settings.get_option("plugin/equalizer/pre") == None:
+        if settings.get_option("plugin/equalizer/pre") is None:
             settings.set_option("plugin/equalizer/pre", 0.0)
 
-        if settings.get_option("plugin/equalizer/enabled") == None:
+        if settings.get_option("plugin/equalizer/enabled") is None:
             settings.set_option("plugin/equalizer/enabled", True)
 
     def disable(self):

@@ -99,7 +99,7 @@ class Alarmclock(object):
         currentDay = int(time.strftime("%w", time.localtime()))
 
         if curhour == self.hour and curminuts == self.minuts and \
-                active_days[currentDay] == True:
+                active_days[currentDay]:
 
             if current != self.last_activate:
 

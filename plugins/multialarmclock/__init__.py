@@ -379,7 +379,7 @@ def check_alarms(main, exaile):
     alist = [Alarm(active=row[0], name=row[1], time=row[2], days=row[3]) for row in main.model]
 #    print current , [ a.time for a in alist if a.active ]
     for al in alist:
-        if al.active and al.time == current and al.days[currentDay] == True:
+        if al.active and al.time == current and al.days[currentDay] is True:
             check = time.strftime("%m %d %Y %H:%M")  # clever...
 
             if check in main.RANG:

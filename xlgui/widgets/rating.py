@@ -421,7 +421,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
 
         x = cell_area.x + cell_area.width - pixbuf_width
         y = cell_area.y + cell_area.height - pixbuf_height
-        
+
         context.set_source_pixbuf(self.props.pixbuf, x, y)
         context.paint()
 '''

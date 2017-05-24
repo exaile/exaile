@@ -93,7 +93,7 @@ class HalMountpoint(object):
         for u in udis:
             obj = self.hal.bus.get_object("org.freedesktop.Hal", u)
             dev = dbus.Interface(obj, "org.freedesktop.Hal.Device")
-            if dev.GetProperty("volume.is_mounted") == True:
+            if dev.GetProperty("volume.is_mounted") is True:
                 return str(dev.GetProperty("volume.mount_point"))
         return ""
 

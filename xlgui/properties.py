@@ -868,7 +868,7 @@ class TagDblNumField(Gtk.Box):
             self.all_button = [AllButton(self), AllButton(self, 1)]
 
         self.pack_start(self.field[0], True, True, 0)
-        if all_button and self.all_button[0] != None:
+        if all_button and self.all_button[0] is not None:
             self.pack_start(self.all_button[0], False, False, 0)
         self.pack_start(lbl, True, True, 0)
         self.pack_start(self.field[1], True, True, 0)
@@ -922,7 +922,7 @@ class TagDblNumField(Gtk.Box):
                     if v is None or vals[i] != v[i]:
                         flags[i] = False
 
-                if self.all_button[i] != None:
+                if self.all_button[i] is not None:
                     if flags[i]:
                         self.all_button[i].set_active(True)
                     else:
@@ -1054,7 +1054,7 @@ class TagImageField(Gtk.Box):
                 self.batch_update = False
                 self.call_update_func()
 
-        if not None in (all_vals, self.all_button):
+        if None not in (all_vals, self.all_button):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):

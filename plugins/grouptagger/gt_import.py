@@ -152,7 +152,7 @@ class GtImporter(Gtk.Window):
         self.ok_button.set_sensitive(False)
         self.tags_vbox.set_sensitive(False)
 
-        data = [(row[4], row[5]) for row in self.tags_model if row[0] == True]
+        data = [(row[4], row[5]) for row in self.tags_model if row[0]]
         logger.info('Updating %s tracks' % len(data))
 
         self.update_thread = SimpleProgressThread(track_update_thread,

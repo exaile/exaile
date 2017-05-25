@@ -546,25 +546,5 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         """
             Emits the *clicked* signal
         """
-        if event is None:  # Keyboard activation
-            return
-
-        pixbuf_width = self.props.pixbuf.get_width()
-        pixbuf_height = self.props.pixbuf.get_height()
-
-        click_area = Gdk.Rectangle(
-            x=int(cell_area.x
-                  + self.props.xpad
-                  + self.props.xalign * cell_area.width
-                  - pixbuf_width),
-            y=int(cell_area.y
-                  + self.props.ypad
-                  + self.props.yalign * cell_area.height
-                  - self.props.yalign * pixbuf_height),
-            width=pixbuf_width,
-            height=pixbuf_height
-        )
-
-        if click_area.x <= event.x <= click_area.x + click_area.width and \
-           click_area.y <= event.y <= click_area.y + click_area.height:
-            self.emit('clicked', path)
+        self.emit('clicked', path)
+        return

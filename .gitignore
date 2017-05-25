@@ -10,6 +10,7 @@ data/plugins
 po/*/
 po/POTFILES.in
 
+/exaile.1.gz
 /exaile.bash-completion
 
 backup.bzr

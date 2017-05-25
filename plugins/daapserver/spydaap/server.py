@@ -60,8 +60,9 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                             self.wfile.write(d)
                     else:
                         self.wfile.write(data)
-                except socket.error as ex:
-                    if ex.errno in [errno.ECONNRESET]:
+                except socket.error, (err_no, err_str):
+                    if err_no in [errno.ECONNRESET]:
+                        # XXX: why do we need to pass this?
                         pass
                     else:
                         raise

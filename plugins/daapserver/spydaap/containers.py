@@ -35,8 +35,8 @@ class ContainerCache(spydaap.cache.OrderedCache):
                    [do('dmap.itemkind', 2),
                     do('dmap.itemid', md.id),
                     do('dmap.itemname', md.get_name()),
-                    do('dmap.containeritemid', id)
-                    ])
+                    do('dmap.containeritemid', id),
+                    do('daap.songformat', md.get_md()['daap.songformat'])])
             return d
         pid_list = []
         for pl in self.container_list:

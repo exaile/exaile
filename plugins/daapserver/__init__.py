@@ -59,14 +59,14 @@ class DaapServerPlugin(object):
     __exaile = None
     __daapserver = None
 
-    def on_gui_loaded(self, exaile):
+    def on_gui_loaded(self):
         event.add_callback(self.__on_settings_changed, 'plugin_daapserver_option_set')
 
         port = int(settings.get_option('plugin/daapserver/port', 3689))
         name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
         host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
 
-        self.__daapserver = DaapServer(CollectionWrapper(exaile.collection),
+        self.__daapserver = DaapServer(CollectionWrapper(self.__exaile.collection),
                                        port=port, name=name, host=host)
         if(settings.get_option('plugin/daapserver/enabled', True)):
             self.__daapserver.start()

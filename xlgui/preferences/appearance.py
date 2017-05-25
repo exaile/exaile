@@ -77,7 +77,7 @@ class UseAlphaTransparencyPreference(widgets.CheckPreference):
     restart_required = True
 
 
-class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional):
+class TransparencyPreference(widgets.ScalePreference, widgets.CheckConditional):
     default = 0.3
     name = 'gui/transparency'
     condition_preference_name = 'gui/use_alpha'

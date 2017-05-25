@@ -212,18 +212,11 @@ class MainWindow(GObject.GObject):
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_end(self.volume_control, False, False, 0)
 
-        self.alpha_style = None
-
         if settings.get_option('gui/use_alpha', False):
-
             screen = self.window.get_screen()
             visual = screen.get_rgba_visual()
             self.window.set_visual(visual)
             self.window.connect('screen-changed', self.on_screen_changed)
-
-            self.alpha_style = Gtk.CssProvider.new()
-            self.window.get_style_context().add_provider(self.alpha_style,
-                                                         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
             self._update_alpha()
 
         playlist_area = self.builder.get_object('playlist_area')
@@ -390,16 +383,8 @@ class MainWindow(GObject.GObject):
         #panel = panels['files']
 
     def _update_alpha(self):
-        if self.alpha_style is None:
-            return
-
-        opac = 1.0 - float(settings.get_option('gui/transparency'))
-
-        self.alpha_style.load_from_data(
-            '.background { ' +
-            ('background-color: alpha(@theme_bg_color, %s);' % opac) +
-            '}'
-        )
+        opac = 1.0 - float(settings.get_option('gui/transparency', 0.3))
+        Gtk.Widget.set_opacity(self.window, opac)
 
     def do_get_property(self, prop):
         if prop.name == 'is-fullscreen':

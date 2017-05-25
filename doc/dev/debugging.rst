@@ -32,7 +32,8 @@ On Linux/OSX:
 * ```~/.cache/exaile/logs/``, old files have a .1, .2, … name suffix
 * ``~/.local/share/exaile/logs/`` for Exaile 3.x releases
 
-TODO: Windows
+On Windows:
+* ```%APPDATA%\..\Local\exaile``
 
 Viewing stack traces when Exaile hangs
 --------------------------------------

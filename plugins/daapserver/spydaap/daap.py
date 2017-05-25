@@ -50,7 +50,7 @@ def DAAPParseCodeTypes(treeroot):
                 elif info.codeName() == 'dmap.contentcodestype':
                     try:
                         dtype = dmapDataTypes[info.value]
-                    except Exception:
+                    except KeyError:
                         log.debug('DAAPParseCodeTypes: unknown data type %s for code %s, defaulting to s', info.value, name)
                         dtype = 's'
                 else:
@@ -60,7 +60,7 @@ def DAAPParseCodeTypes(treeroot):
             else:
                 try:
                     dtype = dmapFudgeDataTypes[name]
-                except Exception:
+                except KeyError:
                     pass
                 #print("** %s %s %s", code, name, dtype)
                 dmapCodeTypes[code] = (name, dtype)

@@ -26,8 +26,3 @@ ui = os.path.join(basedir, "data/preferences.ui")
 class LocalePreference(widgets.Preference):
     default = 'en'
     name = 'plugin/wikipedia/language'
-
-
-class MobilePreference(widgets.CheckPreference):
-    default = False
-    name = 'plugin/wikipedia/mobile'

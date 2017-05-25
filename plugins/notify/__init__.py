@@ -100,7 +100,7 @@ class ExaileNotification(object):
                                               set_only=True, use_default=True)
         size = (48, 48) if self.resize else None
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, size)
-        notif.set_icon_from_pixbuf(pixbuf)
+        notif.set_image_from_pixbuf(pixbuf)
         # Attach to tray, if that's how we roll
         if ATTACH_COVERS_OPTION_ALLOWED:
             logger.debug("Attaching to tray")

@@ -87,7 +87,7 @@ class ExaileNotifyOsd(object):
         else:
             self.notify.update(self.summary, self.body)
             if self.icon is not None:
-                self.notify.set_icon_from_pixbuf(self.icon)
+                self.notify.set_image_from_pixbuf(self.icon)
 
     @common.threaded
     def update_track_notify(self, type, player, track, media_icon=None):

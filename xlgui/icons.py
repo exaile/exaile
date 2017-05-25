@@ -588,13 +588,13 @@ class IconManager(object):
             :returns: the generated pixbuf
             :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
-        if not isinstance(size, int):
+        if isinstance(size, Gtk.IconSize):
             icon_size = Gtk.icon_size_lookup(size)
             size = icon_size[1]
 
         try:
             pixbuf = self.icon_theme.load_icon(
-                icon_name, size, Gtk.IconLookupFlags.NO_SVG)
+                icon_name, size, Gtk.IconLookupFlags.NO_SVG | Gtk.IconLookupFlags.FORCE_SIZE)
         except GLib.GError as e:
             logger.warning('Failed to get pixbuf from "{icon_name}": {error}'.format(
                 icon_name=icon_name,

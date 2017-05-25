@@ -874,6 +874,8 @@ class Track(object):
             val = values[0]
         else:
             val = values
+        if isinstance(val, int):
+            return val, 0
         split = val.split("/")[:2]
         try:
             one = int(split[0])

@@ -155,6 +155,7 @@ class OSDPlugin(object):
         do_assert(self.__window is None)
         event.add_callback(self.__on_option_set, 'plugin_osd_option_set')
         self.__prepare_osd(False)
+        # TODO: OSD looks ugly with CSS not applied on first show. Why is that?
 
         event.add_callback(self.__on_playback_track_start, 'playback_track_start')
         event.add_callback(self.__on_playback_toggle_pause, 'playback_toggle_pause')
@@ -306,7 +307,7 @@ class OSDWindow(Gtk.Window):
 
             Apply the options after this object was initialized.
         """
-        Gtk.Window.__init__(self, Gtk.WindowType.TOPLEVEL)
+        Gtk.Window.__init__(self, type=Gtk.WindowType.TOPLEVEL)
         self.__options = options
 
         self.set_title('Exaile OSD')
@@ -431,10 +432,15 @@ class OSDWindow(Gtk.Window):
         """
         self.__hide_id = None
 
-        # Keep showing the OSD in case the pointer is still over the OSD
         gdk_display = self.get_window().get_display()
-        gdk_device_manager = gdk_display.get_device_manager()
-        gdk_device = gdk_device_manager.get_client_pointer()
+        # Keep showing the OSD in case the pointer is still over the OSD
+        if Gtk.get_major_version() > 3 or \
+                Gtk.get_major_version() == 3 and Gtk.get_minor_version() >= 20:
+            gdk_seat = gdk_display.get_default_seat()
+            gdk_device = gdk_seat.get_pointer()
+        else:
+            gdk_device_manager = gdk_display.get_device_manager()
+            gdk_device = gdk_device_manager.get_client_pointer()
         window, _posx, _posy = gdk_device.get_window_at_position()
         if window and window is self.get_window():
             self.show_for_a_while()
@@ -458,8 +464,8 @@ class OSDWindow(Gtk.Window):
         if self.__fadeout_id:
             GLib.source_remove(self.__fadeout_id)
             self.__fadeout_id = None
-        if self.get_opacity() < 1:
-            self.set_opacity(1)
+        if Gtk.Widget.get_opacity(self) < 1:
+            Gtk.Widget.set_opacity(self, 1)
         # unset potential hide process
         if self.__hide_id:
             do_assert(self.__fadeout_id is None)
@@ -505,8 +511,8 @@ class OSDWindow(Gtk.Window):
             Constantly decreases the opacity to fade out the window
         """
         do_assert(self.__hide_id is None)
-        if self.get_opacity() > 0.001:
-            self.set_opacity(self.get_opacity() - 0.05)
+        if Gtk.Widget.get_opacity(self) > 0.001:
+            Gtk.Widget.set_opacity(self, Gtk.Widget.get_opacity(self) - 0.05)
             return True
         else:
             self.__fadeout_id = None

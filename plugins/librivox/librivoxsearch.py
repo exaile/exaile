@@ -21,9 +21,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# TODO: The 'new' API doesn't allow general queries, only allows exact
-# matching.. if they fix it, we'll fix it. >_>
-search_url = 'http://librivox.org/api/feed/audiobooks/?title='
+# TODO: The 'new' API allows many fields and generic search. Update UI!
+# TODO: New API docs: https://librivox.org/api/info
+search_url = 'https://librivox.org/api/feed/audiobooks/?title='
 
 
 class Book():
@@ -106,7 +106,7 @@ def find_books(keyword, user_agent):
             for bk in elem.findall('book'):
                 title = bk.find("title").text
                 rssurl = bk.find("url_rss").text
-                book = Book(title, rssurl)
+                book = Book(title, rssurl, user_agent)
                 books.append(book)
 
     return books

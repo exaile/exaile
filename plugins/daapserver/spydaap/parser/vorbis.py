@@ -17,7 +17,6 @@ import mutagen
 import spydaap
 import re
 import os
-import sys
 from spydaap.daap import do
 
 # * TODO Implement song.songtrackcount, song.disccount

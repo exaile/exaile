@@ -21,7 +21,6 @@ import re
 import urlparse
 import socket
 import spydaap
-import sys
 from spydaap.daap import do
 
 

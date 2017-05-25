@@ -212,7 +212,7 @@ class LyricsViewer(Gtk.Box):
         finally:
             self.__get_lyrics_finish(track, track_text, lyrics_found)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def __get_lyrics_finish(self, track, track_text, lyrics_found):
         '''Only called from __get_lyrics thread, thunk to ui thread'''
 

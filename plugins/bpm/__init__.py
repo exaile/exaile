@@ -39,7 +39,8 @@ from xl import (
 )
 
 from xl.nls import gettext as _
-from xlgui.guiutil import idle_add, GtkTemplate
+from xl.common import idle_add
+from xlgui.guiutil import GtkTemplate
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
 

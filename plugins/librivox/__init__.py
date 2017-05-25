@@ -97,7 +97,7 @@ class LVPanel():
         self.add_to_playlist(self.books[row].chapters)
         return
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def done_getting_chapters(self, row):
         # adds chapters to treeview and removes "Loading..." message
         l_iter = self.treestore.get_iter((row, 0))
@@ -238,7 +238,7 @@ class LVPanel():
                 self.popup_menu.popup(None, None, None, None, event.button, time)
             return 1
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def generate_treestore(self, books):
         self.treestore.clear()
         for book in books:
@@ -305,7 +305,7 @@ class LVPanel():
         self.get_all(row)
         self.drop_after_getting(book, current_playlist, PLpath, after)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def drop_after_getting(self, book, current_playlist, PLpath, after):
         # simulates drag_data_received() function of xlgui/playlist.py
         if current_playlist.playlist.ordered_tracks:
@@ -343,7 +343,7 @@ class LVPanel():
             self.get_all(row)
         self.done_getting_info(row)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def done_getting_info(self, row):
         if self.aboutwindow is None:
             self.aboutwindow = AW.AboutWindow()

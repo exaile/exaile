@@ -44,8 +44,6 @@ from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
 
-from .unicode import to_unicode, strxfrm
-
 # TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
     # Ogg Vorbis spec tags

@@ -35,18 +35,15 @@ from gi.repository import GObject
 import re
 
 from xl import (
-    event,
     playlist,
-    providers,
-    player,
     settings
 )
 
 from xl.nls import gettext as _
 from xl.trax import search
 
-from xlgui import guiutil, main
-from xlgui.widgets import menu, dialogs
+from xlgui import main
+from xlgui.widgets import dialogs
 
 import gt_widgets
 

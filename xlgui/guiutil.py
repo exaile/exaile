@@ -37,9 +37,6 @@ from gi.repository import Pango
 from xl import settings, xdg
 from xlgui import icons
 
-# moved idle_add to common, useful for more than just GUI stuff :)
-from xl.common import idle_add
-
 # Import from external namespace
 from xl.externals.gi_composites import GtkTemplate as _GtkTemplate
 

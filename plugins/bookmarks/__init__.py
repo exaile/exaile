@@ -22,6 +22,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 import os
 import logging
+import xlgui
 logger = logging.getLogger(__name__)
 
 from xl import (
@@ -68,7 +69,7 @@ _sep = menu.simple_separator
 
 def error(text):
     logger.error("%s: %s" % ('Bookmarks', text))
-    dialogs.error(None, exaile.gui.main, text)
+    dialogs.error(xlgui.main.mainwindow(), text)
 
 
 class Bookmarks:

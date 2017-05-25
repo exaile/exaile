@@ -32,7 +32,11 @@
 # outputs the built plugin to the current directory, overwriting any current
 # build of that plugin
 
+import os
+import tarfile
 from optparse import OptionParser
+
+
 p = OptionParser()
 p.add_option("-c", "--compression", dest="compression",
              action="store", choices=("", "gz", "bz2"), default="bz2")
@@ -56,9 +60,6 @@ IGNORED_FILES = options.files
 _ = lambda x: x
 
 
-import sys
-import os
-import tarfile
 
 for dir in args:
 

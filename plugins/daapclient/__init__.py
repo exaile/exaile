@@ -39,6 +39,7 @@ from xl import (
     settings,
     xdg
 )
+import httplib
 
 logger = logging.getLogger(__name__)
 
@@ -552,7 +553,7 @@ class DaapConnection(object):
             if t.id == track_id:
                 try:
                     t.save(filename)
-                except CannotSendRequest:
+                except httplib.CannotSendRequest:
                     dialog = Gtk.MessageDialog(APP.window,
                                                Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
                                                _("""This server does not support multiple connections.

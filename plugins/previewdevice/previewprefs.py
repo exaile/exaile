@@ -24,16 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gtk
-
-from xlgui.preferences import (
-    playback,
-    widgets
-)
-
+import os
 
 from xl.nls import gettext as _
-import os
+from xlgui.preferences import playback
 
 name = _('Preview Device')
 basedir = os.path.dirname(os.path.realpath(__file__))

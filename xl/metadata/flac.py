@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import common
+import xl.unicode
 from xl.metadata._base import (
     CaseInsensitveBaseFormat,
     CoverImage
@@ -73,7 +73,7 @@ class FlacFormat(CaseInsensitveBaseFormat):
             return
 
         # flac has text based attributes, so convert everything to unicode
-        value = [common.to_unicode(v) for v in value]
+        value = [xl.unicode.to_unicode(v) for v in value]
         CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
 
     def _del_tag(self, raw, tag):

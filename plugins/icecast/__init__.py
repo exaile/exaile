@@ -5,7 +5,6 @@ from gi.repository import Gtk
 
 import httplib
 import logging
-logger = logging.getLogger(__name__)
 import os
 import re
 import socket
@@ -16,9 +15,10 @@ from xml.dom import minidom
 from xl import common, event, main, playlist, xdg
 from xl.radio import *
 from xl.nls import gettext as _
-from xlgui import guiutil
 from xlgui.widgets import dialogs
 
+
+logger = logging.getLogger(__name__)
 STATION = None
 
 
@@ -338,7 +338,7 @@ class IcecastRadioStation(RadioStation):
 
         GLib.idle_add(self.search_done, keyword, lists)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def search_done(self, keyword, lists):
         """
             Called when the search is finished
@@ -371,7 +371,7 @@ class IcecastRadioStation(RadioStation):
 
         GLib.idle_add(self.done_getting_playlist, pl)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def done_getting_playlist(self, pl):
         self._parent.emit('playlist-selected', pl)
 

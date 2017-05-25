@@ -1,7 +1,5 @@
 
 from gi.repository import (
-    Gdk,
-    GLib,
     Gtk
 )
 

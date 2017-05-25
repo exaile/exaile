@@ -18,14 +18,8 @@ import logging
 import os
 import urllib2
 
-import gi
-gi.require_version('WebKit2', '4.0')
-
-from gi.repository import (
-    GLib,
-    Gtk,
-    WebKit2,
-)
+from gi.repository import Gtk
+from gi.repository import GLib
 
 from xl import (
     common,
@@ -36,47 +30,65 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import panel
 
-import config
 import preferences
+
+import gi
+gi.require_version('WebKit2', '4.0')
+from gi.repository import WebKit2
+
 
 log = logging.getLogger('exaile-wikipedia/__init__.py')
 
-WIKIPANEL = None
-CURPATH = os.path.realpath(__file__)
-BASEDIR = os.path.dirname(CURPATH) + os.path.sep
+
+LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
+             "ae", "ay", "az", "bm", "ba", "eu", "be", "bn", "bh", "bi", "bs", "br", "bg",
+             "my", "ca", "ch", "ce", "ny", "cv", "kw", "co", "cr", "hr", "cs", "da", "dv",
+             "nl", "dz", "en", "eo", "et", "ee", "fo", "fj", "fi", "fr", "ff", "gl", "ka",
+             "de", "el", "gn", "gu", "ht", "ha", "he", "hz", "hi", "ho", "hu", "ia", "id",
+             "ie", "ga", "ig", "ik", "io", "is", "it", "iu", "jv", "kl", "kn", "kr", "kk",
+             "km", "ki", "rw", "ky", "kv", "kg", "kj", "la", "lb", "lg", "li", "ln", "lo",
+             "lt", "lv", "gv", "mk", "mg", "ml", "mt", "mi", "mr", "mh", "mn", "na", "nv",
+             "nb", "nd", "ne", "ng", "nn", "no", "ii", "nr", "oc", "oj", "cu", "om", "or",
+             "os", "pi", "fa", "pl", "ps", "pt", "qu", "rm", "rn", "ro", "ru", "sa", "sc",
+             "se", "sm", "sg", "sr", "gd", "sn", "si", "sk", "sl", "so", "st", "es", "su",
+             "sw", "ss", "sv", "ta", "te", "th", "ti", "bo", "tk", "tl", "tn", "to", "tr",
+             "ts", "tw", "ty", "uk", "ur", "ve", "vi", "vk", "vo", "wa", "cy", "wo", "fy",
+             "xh", "yi", "yo", "za", "zu"]
 
 
-def enable(exaile):
-    config.USER_AGENT = exaile.get_user_agent_string('wikipedia')
+class WikipediaPlugin(object):
 
-    if exaile.loading:
-        event.add_callback(_enable, 'exaile_loaded')
-    else:
-        _enable(None, exaile, None)
+    __exaile = None
+    __wiki_panel = None
+
+    def enable(self, exaile):
+        self.__exaile = exaile
+
+    def disable(self, _exaile):
+        providers.unregister('main-panel', self.__wiki_panel)
+        self.__wiki_panel.destroy()
+        self.__exaile = None
+        self.__wiki_panel = None
+
+    def on_gui_loaded(self):
+        user_agent = self.__exaile.get_user_agent_string('wikipedia')
+        self.__wiki_panel = WikiPanel(self.__exaile.gui.main.window, user_agent)
+        providers.register('main-panel', self.__wiki_panel)
+
+    def get_preferences_pane(self):
+        return preferences
 
 
-def disable(exaile):
-    global WIKIPANEL
-    providers.unregister('main-panel', WIKIPANEL)
-
-
-def _enable(eventname, exaile, nothing):
-    global WIKIPANEL
-    WIKIPANEL = WikiPanel(exaile.gui.main.window)
-    providers.register('main-panel', WIKIPANEL)
-
-
-def get_preferences_pane():
-    return preferences
+plugin_class = WikipediaPlugin
 
 
 class BrowserPage(WebKit2.WebView):
-    history_length = 6
 
-    def __init__(self, builder):
+    def __init__(self, builder, user_agent):
         WebKit2.WebView.__init__(self)
 
         self.hometrack = None
+        self.__user_agent = user_agent
 
         builder.connect_signals(self)
         event.add_callback(self.on_playback_start, 'playback_track_start')
@@ -108,7 +120,7 @@ class BrowserPage(WebKit2.WebView):
 
         artist = track.get_tag_display('artist')
         language = settings.get_option('plugin/wikipedia/language', 'en')
-        if language not in config.LANGUAGES:
+        if language not in LANGUAGES:
             log.error('Provided language "%s" not found.' % language)
             language = 'en'
 
@@ -116,7 +128,7 @@ class BrowserPage(WebKit2.WebView):
         url = "https://%s.m.wikipedia.org/wiki/Special:Search/%s" % (language, artist)
 
         try:
-            html = common.get_url_contents(url, config.USER_AGENT)
+            html = common.get_url_contents(url, self.__user_agent)
         except urllib2.URLError as e:
             log.error(e)
             log.error(
@@ -133,10 +145,10 @@ class WikiPanel(panel.Panel):
     # Specifies the path to the UI file and the name of the root element
     ui_info = (os.path.dirname(__file__) + "/data/wikipanel.ui", 'wikipanel_window')
 
-    def __init__(self, parent):
+    def __init__(self, parent, user_agent):
         panel.Panel.__init__(self, parent, 'wikipedia', _('Wikipedia'))
         self.parent = parent
-        self._browser = BrowserPage(self.builder)
+        self._browser = BrowserPage(self.builder, user_agent)
         self.setup_widgets()
 
     def destroy(self):

@@ -1,8 +1,10 @@
 
 import logging
 from gi.repository import GObject
-from xl import collection, event, settings
+from xl import collection, common, event, settings
 import spydaap.parser.exaile
+from server import DaapServer
+import daapserverprefs
 
 logger = logging.getLogger(__file__)
 
@@ -52,66 +54,52 @@ class CollectionWrapper:
     def __len__(self):
         return len(self.collection)
 
-from server import DaapServer
 
-ds = None
+class DaapServerPlugin(object):
+    __exaile = None
+    __daapserver = None
+
+    def on_gui_loaded(self):
+        event.add_callback(self.__on_settings_changed, 'plugin_daapserver_option_set')
+
+        port = int(settings.get_option('plugin/daapserver/port', 3689))
+        name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
+        host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
+
+        self.__daapserver = DaapServer(CollectionWrapper(self.__exaile.collection),
+                                       port=port, name=name, host=host)
+        if(settings.get_option('plugin/daapserver/enabled', True)):
+            self.__daapserver.start()
+
+    def enable(self, exaile):
+        self.__exaile = exaile
+
+    def teardown(self, exaile):
+        self.__daapserver.stop_server()
+
+    def disable(self, exaile):
+        self.teardown(exaile)
+        self.__daapserver = None
+
+    def get_preferences_pane(self):
+        return daapserverprefs
+
+    def __on_settings_changed(self, event, setting, option):
+        if self.__daapserver is None:
+            logger.error('Option set on uninitialized plugin. This is wrong.')
+        if option == 'plugin/daapserver/name':
+            self.__daapserver.set(name=settings.get_option(option, 'Exaile Share'))
+        if option == 'plugin/daapserver/port':
+            self.__daapserver.set(port=settings.get_option(option, 3689))
+        if option == 'plugin/daapserver/host':
+            self.__daapserver.set(host=settings.get_option(option, '0.0.0.0'))
+        if option == 'plugin/daapserver/enabled':
+            enabled = setting.get_option(option, True)
+            if enabled:
+                if not self.__daapserver.start():
+                    logger.error('failed to start DAAP Server.')
+            else:
+                self.__daapserver.stop_server()
 
 
-def _enable(exaile):
-    # real enable
-    global ds
-
-    event.add_callback(on_settings_change, 'plugin_daapserver_option_set')
-
-    port = int(settings.get_option('plugin/daapserver/port', 3689))
-    name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
-    host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
-
-    ds = DaapServer(CollectionWrapper(exaile.collection),
-                    port=port, name=name, host=host)
-
-    if(settings.get_option('plugin/daapserver/enabled', True)):
-        ds.start()
-
-
-def __enb(evname, exaile, wat):
-    GObject.idle_add(_enable, exaile)
-
-
-def enable(exaile):
-    if exaile.loading:
-        event.add_callback(__enb, 'gui_loaded')
-    else:
-        __enb(None, exaile, None)
-
-
-def teardown(exaile):
-    ds.stop_server()
-
-
-def disable(exaile):
-    ds.stop_server()
-
-
-# settings stuff
-import daapserverprefs
-
-
-def get_preferences_pane():
-    return daapserverprefs
-
-
-def on_settings_change(event, setting, option):
-    if option == 'plugin/daapserver/name' and ds is not None:
-        ds.set(name=settings.get_option(option, 'Exaile Share'))
-    if option == 'plugin/daapserver/port' and ds is not None:
-        ds.set(port=settings.get_option(option, 3689))
-    if option == 'plugin/daapserver/host' and ds is not None:
-        ds.set(host=settings.get_option(option, '0.0.0.0'))
-    if option == 'plugin/daapserver/enabled' and ds is not None:
-        enabled = setting.get_option(option, True)
-        if enabled:
-            if not ds.start():
-                logger.error('failed to start DAAP Server.')
-        else:
-            ds.stop_server()
+plugin_class = DaapServerPlugin

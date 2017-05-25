@@ -41,6 +41,8 @@ from xl import (
 )
 import httplib
 
+import daapclientprefs
+
 logger = logging.getLogger(__name__)
 
 _smi = menu.simple_menu_item
@@ -68,9 +70,6 @@ except TypeError:
     AUTH = False
 except Exception:
     AUTH = True
-
-# Globals Warming
-MANAGER = None
 
 
 class AttrDict(dict):
@@ -699,85 +698,71 @@ class NetworkPanel(CollectionPanel):
 #                print "DAAP: saving track %s to %s."%(i.daapid, filename)
 
 
-def enable(exaile):
-    '''
-        Plugin Enabled.
-    '''
-    if exaile.loading:
-        event.add_callback(__enb, 'gui_loaded')
-    else:
-        __enb(None, exaile, None)
+class DaapClientPlugin(object):
 
+    __exaile = None
+    __manager = None
 
-def __enb(eventname, exaile, wat):
-    GObject.idle_add(_enable, exaile)
+    def enable(self, exaile):
+        '''
+            Plugin Enabled.
+        '''
+        self.__exaile = exaile
 
+    def on_gui_loaded(self):
+        event.add_callback(self.__on_settings_changed, 'plugin_daapclient_option_set')
 
-def _enable(exaile):
-    global MANAGER
+        menu_ = menu.Menu(None)
 
-    event.add_callback(on_settings_change, 'plugin_daapclient_option_set')
+        providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
 
-    menu_ = menu.Menu(None)
+        item = _smi('daap', ['plugin-sep'], _('Connect to DAAP...'),
+                    submenu=menu_)
+        providers.register('menubar-tools-menu', item)
 
-    providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
-
-    item = _smi('daap', ['plugin-sep'], _('Connect to DAAP...'),
-                submenu=menu_)
-    providers.register('menubar-tools-menu', item)
-
-    if AVAHI:
-        try:
-            avahi_interface = DaapAvahiInterface(exaile, menu_)
-        except RuntimeError:  # no dbus?
+        if AVAHI:
+            try:
+                avahi_interface = DaapAvahiInterface(self.__exaile, menu_)
+            except RuntimeError:  # no dbus?
+                avahi_interface = None
+                logger.warning('avahi interface could not be initialized (no dbus?)')
+            except dbus.exceptions.DBusException as s:
+                avahi_interface = None
+                logger.error('Got DBUS error: %s' % s)
+                logger.error('is avahi-daemon running?')
+        else:
             avahi_interface = None
-            logger.warning('avahi interface could not be initialized (no dbus?)')
-        except dbus.exceptions.DBusException as s:
-            avahi_interface = None
-            logger.error('Got DBUS error: %s' % s)
-            logger.error('is avahi-daemon running?')
-    else:
-        avahi_interface = None
-        logger.warn('AVAHI could not be imported, you will not see broadcast shares.')
+            logger.warn('AVAHI could not be imported, you will not see broadcast shares.')
 
-    MANAGER = DaapManager(exaile, menu_, avahi_interface)
+        self.__manager = DaapManager(self.__exaile, menu_, avahi_interface)
 
+    def teardown(self, exaile):
+        '''
+            Exaile Shutdown.
+        '''
+        # disconnect from active shares
+        if self.__manager is not None:
+            self.__manager.close()
+            self.__manager = None
 
-def teardown(exaile):
-    '''
-        Exaile Shutdown.
-    '''
-    if MANAGER is not None:
-        MANAGER.close()
+    def disable(self, exaile):
+        '''
+            Plugin Disabled.
+        '''
+        self.teardown(exaile)
 
+        for item in providers.get('menubar-tools-menu'):
+            if item.name == 'daap':
+                providers.unregister('menubar-tools-menu', item)
+                break
 
-def disable(exaile):
-    '''
-        Plugin Disabled.
-    '''
-    # disconnect from active shares
-    if MANAGER is not None:
-        #        MANAGER.clear()
-        MANAGER.close(True)
+    def get_preferences_pane(self):
+        return daapclientprefs
 
-    for item in providers.get('menubar-tools-menu'):
-        if item.name == 'daap':
-            providers.unregister('menubar-tools-menu', item)
-            break
+    def __on_settings_changed(self, event, setting, option):
+        if option == 'plugin/daapclient/ipv6' and self.__manager is not None:
+            self.__manager.avahi.rebuild_share_menu_items()
 
-    event.remove_callback(__enb, 'gui_loaded')
-
-
-# settings stuff
-import daapclientprefs
-
-
-def get_preferences_pane():
-    return daapclientprefs
-
-
-def on_settings_change(event, setting, option):
-    if option == 'plugin/daapclient/ipv6' and MANAGER is not None:
-        MANAGER.avahi.rebuild_share_menu_items()
+plugin_class = DaapClientPlugin
 
 # vi: et ts=4 sts=4 sw=4

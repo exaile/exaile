@@ -249,6 +249,9 @@ class Bookmarks:
             Load previously saved bookmarks from a file.
         """
         path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
+        if not os.path.exists(path):
+            logger.info('Bookmarks file does not exist yet.')
+            return None
         try:
             # Load Bookmark List from file.
             with open(path, 'rb') as f:
@@ -262,8 +265,7 @@ class Bookmarks:
                 except Exception as s:
                     logger.error('BM: bad bookmark file: %s' % s)
                     return None
-
-        except IOError as e:  # File might not exist
+        except IOError as e:
             logger.error('BM: could not open file: %s' % e.strerror)
 
     def save_db(self):

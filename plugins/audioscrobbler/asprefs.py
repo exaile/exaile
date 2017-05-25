@@ -23,7 +23,6 @@ import _scrobbler
 from xl import (
     common,
     settings,
-    xdg
 )
 from xl.nls import gettext as _
 from xlgui import icons

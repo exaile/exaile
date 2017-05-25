@@ -153,7 +153,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         self.status = self.builder.get_object('status_label')
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _set_status(self, message, timeout=0):
         self.status.set_text(message)
 
@@ -215,7 +215,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.playlist_manager.save_playlist(pl)
         self._add_to_tree(pl)
 
-    @guiutil.idle_add()
+    @common.idle_add()
     def _add_to_tree(self, pl):
         self.playlist_nodes[pl] = self.model.append(self.custom,
                                                     [self.playlist_image, pl.name, pl])

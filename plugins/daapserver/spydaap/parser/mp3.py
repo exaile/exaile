@@ -19,7 +19,6 @@ import spydaap
 import re
 import os
 import struct
-import sys
 from spydaap.daap import do
 mutagen.id3.ID3.PEDANTIC = False
 

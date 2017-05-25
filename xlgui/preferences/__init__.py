@@ -31,6 +31,7 @@ from gi.repository import Gtk
 import inspect
 import logging
 
+import xl.unicode
 from xl import (
     common,
     xdg,
@@ -139,7 +140,7 @@ class PreferencesDialog(object):
                 except Exception:
                     logger.exception('Error loading preferences pane')
 
-        plugin_pages.sort(key=lambda x: common.strxfrm(x.name))
+        plugin_pages.sort(key=lambda x: xl.unicode.strxfrm(x.name))
 
         for page in plugin_pages:
             icon = self.default_icon

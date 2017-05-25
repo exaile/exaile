@@ -24,22 +24,23 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import dbus
+from fcntl import ioctl
+import logging
+import threading
+import os
+import struct
 
 from xl.nls import gettext as _
 from xl import providers, event
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
-import logging
-logger = logging.getLogger(__name__)
 
-import dbus
-import threading
-import os
-import struct
-from fcntl import ioctl
 from xl import playlist, trax, common
 from xl import settings
 import os.path
+
+import cdprefs
 
 try:
     import DiscID
@@ -48,7 +49,7 @@ try:
 except Exception:
     CDDB_AVAIL = False
 
-import cdprefs
+logger = logging.getLogger(__name__)
 
 
 TOC_HEADER_FMT = 'BB'

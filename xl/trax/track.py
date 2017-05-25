@@ -34,11 +34,11 @@ import unicodedata
 import weakref
 import re
 
+import xl.unicode
 from xl import (
-    common,
     event,
     metadata,
-    settings
+    settings,
 )
 from xl.metadata.tags import disk_tags
 from xl.nls import gettext as _
@@ -472,7 +472,7 @@ class Track(object):
         # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
             values = [
-                common.to_unicode(v, self.__tags.get('__encoding'), 'replace')
+                xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
                 if isinstance(v, basestring) else v
                 for v in values
                 if v not in (None, '')
@@ -662,9 +662,9 @@ class Track(object):
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):
-            value = [common.to_unicode(x, errors='replace') for x in value]
+            value = [xl.unicode.to_unicode(x, errors='replace') for x in value]
         else:
-            value = common.to_unicode(value, errors='replace')
+            value = xl.unicode.to_unicode(value, errors='replace')
 
         if join:
             value = self.join_values(value, _JOINSTR)
@@ -857,7 +857,7 @@ class Track(object):
         """
         if type(values) in (str, unicode):
             return values
-        return glue.join(map(common.to_unicode, values))
+        return glue.join(map(xl.unicode.to_unicode, values))
 
     @staticmethod
     def split_numerical(values):
@@ -892,7 +892,7 @@ class Track(object):
             stripping the chars leaves nothing the original field is
             returned with only whitespace removed.
         """
-        stripped = common.to_unicode(value).lstrip(
+        stripped = xl.unicode.to_unicode(value).lstrip(
             " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:
             return stripped

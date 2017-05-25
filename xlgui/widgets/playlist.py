@@ -1463,7 +1463,7 @@ class PlaylistModel(Gtk.ListStore):
             return
         GLib.idle_add(self.update_icon, position)
 
-    @guiutil.idle_add()   # sync this call to prevent race conditions
+    @common.idle_add()   # sync this call to prevent race conditions
     def on_track_tags_changed(self, type, track, tag):
         if not track or not \
                 settings.get_option('gui/sync_on_tag_change', True) or\

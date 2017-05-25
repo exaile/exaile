@@ -185,9 +185,9 @@ class NotebookTab(Gtk.EventBox):
         self.connect('button-press-event', self.on_button_press)
 
         if vertical:
-            box = Gtk.Box(False, 2, orientation=Gtk.Orientation.VERTICAL)
+            box = Gtk.Box(spacing=2, orientation=Gtk.Orientation.VERTICAL)
         else:
-            box = Gtk.Box(False, 2)
+            box = Gtk.Box(spacing=2)
         self.add(box)
 
         self.icon = Gtk.Image()

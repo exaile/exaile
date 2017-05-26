@@ -383,6 +383,8 @@ class MainWindow(GObject.GObject):
         #panel = panels['files']
 
     def _update_alpha(self):
+        if not settings.get_option('gui/use_alpha', False):
+            return
         opac = 1.0 - float(settings.get_option('gui/transparency', 0.3))
         Gtk.Widget.set_opacity(self.window, opac)
 

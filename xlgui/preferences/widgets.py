@@ -109,7 +109,7 @@ class Preference(object):
         if not self.widget:
             logger.error("Widget not found: %s" % (self.name))
             return
-        self.widget.set_text(str(self.preferences.settings.get_option(
+        self.widget.set_text(str(settings.get_option(
             self.name, self.default)))
 
     def apply(self, value=None):
@@ -119,13 +119,13 @@ class Preference(object):
         if hasattr(self, 'done') and not self.done():
             return False
 
-        oldvalue = self.preferences.settings.get_option(self.name, self.default)
+        oldvalue = settings.get_option(self.name, self.default)
 
         if value is None:
             value = self._get_value()
 
         if value != oldvalue:
-            self.preferences.settings.set_option(self.name, value)
+            settings.set_option(self.name, value)
 
             if self.restart_required:
                 self.message.show()
@@ -365,10 +365,10 @@ class HashedPreference(Preference):
             hashfunc.update(value)
             value = hashfunc.hexdigest()
 
-        oldvalue = self.preferences.settings.get_option(self.name, self.default)
+        oldvalue = settings.get_option(self.name, self.default)
 
         if value != oldvalue:
-            self.preferences.settings.set_option(self.name, value)
+            settings.set_option(self.name, value)
 
         self.widget.set_text(value)
         self.widget.set_visibility(True)
@@ -417,9 +417,7 @@ class CheckPreference(Preference):
                             self.change)
 
     def _set_value(self):
-        self.widget.set_active(
-            self.preferences.settings.get_option(self.name,
-                                                 self.default))
+        self.widget.set_active(settings.get_option(self.name, self.default))
 
     def _get_value(self):
         return self.widget.get_active()
@@ -440,8 +438,7 @@ class DirPreference(Preference):
         """
             Sets the current directory
         """
-        directory = os.path.expanduser(
-            self.preferences.settings.get_option(self.name, self.default))
+        directory = os.path.expanduser(settings.get_option(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
         self.widget.set_current_folder(directory)
@@ -473,8 +470,7 @@ class OrderListPreference(Preference):
         """
             Sets the preferences for this widget
         """
-        items = self.preferences.settings.get_option(self.name,
-                                                     self.default)
+        items = settings.get_option(self.name, self.default)
 
         self.model.clear()
         for item in items:
@@ -757,7 +753,7 @@ class ShortcutListPreference(Preference):
         """
             Sets the preferences for this widget
         """
-        items = self.preferences.settings.get_option(self.name, self.default)
+        items = settings.get_option(self.name, self.default)
         self.update_list(items)
 
     def _get_value(self):
@@ -816,9 +812,9 @@ class TextViewPreference(Preference):
         """
             Sets the value of this widget
         """
-        self.widget.get_buffer().set_text(str(
-            self.preferences.settings.get_option(
-                self.name, default=self.default)))
+        self.widget.get_buffer().set_text(
+            str(settings.get_option(self.name, default=self.default))
+        )
 
     def _get_value(self):
         """
@@ -836,8 +832,7 @@ class ListPreference(Preference):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
-        items = self.preferences.settings.get_option(self.name,
-                                                     default=self.default)
+        items = settings.get_option(self.name, default=self.default)
         try:
             items = u" ".join(items)
         except TypeError:
@@ -862,8 +857,7 @@ class SpinPreference(Preference):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
-        value = self.preferences.settings.get_option(self.name,
-                                                     default=self.default)
+        value = settings.get_option(self.name, default=self.default)
         self.widget.set_value(value)
 
     def _setup_change(self):
@@ -891,9 +885,7 @@ class FloatPreference(Preference):
         Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
-        self.widget.set_text(str(
-            self.preferences.settings.get_option(self.name,
-                                                 default=self.default)))
+        self.widget.set_text(str(settings.get_option(self.name, default=self.default)))
 
     def _get_value(self):
         return float(self.widget.get_text())
@@ -919,8 +911,7 @@ class RGBAButtonPreference(Preference):
         self.widget.connect('color-set', self.change)
 
     def _set_value(self):
-        value = self.preferences.settings.get_option(
-            self.name, self.default)
+        value = settings.get_option(self.name, self.default)
         rgba = Gdk.RGBA()
         rgba.parse(value)
         self.widget.set_rgba(rgba)
@@ -941,8 +932,7 @@ class FontButtonPreference(Preference):
         self.widget.connect('font-set', self.change)
 
     def _set_value(self):
-        font = self.preferences.settings.get_option(self.name,
-                                                    self.default)
+        font = settings.get_option(self.name, self.default)
         self.widget.set_font_name(font)
 
     def _get_value(self):
@@ -985,8 +975,7 @@ class ComboPreference(Preference):
         """
             Sets the preferences for this widget
         """
-        item = self.preferences.settings.get_option(self.name,
-                                                    self.default)
+        item = settings.get_option(self.name, self.default)
 
         model = self.widget.get_model()
 
@@ -1084,7 +1073,7 @@ class ComboEntryPreference(Preference):
         """
             Sets the preferences for this widget
         """
-        value = self.preferences.settings.get_option(self.name, self.default)
+        value = settings.get_option(self.name, self.default)
         self.widget.get_child().set_text(str(value))
 
     def _get_value(self):

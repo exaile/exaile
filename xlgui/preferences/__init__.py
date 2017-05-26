@@ -37,7 +37,6 @@ from xl import (
     xdg,
 )
 from xl.nls import gettext as _
-from xl.settings import MANAGER
 from xlgui import icons
 from . import (
     appearance,
@@ -69,7 +68,6 @@ class PreferencesDialog(object):
         self.last_child = None
         self.last_page = None
         self.parent = parent
-        self.settings = MANAGER
         self.fields = {}
         self.panes = {}
         self.builders = {}
@@ -171,7 +169,6 @@ class PreferencesDialog(object):
         """
             Called when the user clicks 'ok'
         """
-        self.settings.copy_settings(MANAGER)
         self.close()
 
     def close(self):

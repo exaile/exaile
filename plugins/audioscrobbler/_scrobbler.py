@@ -134,7 +134,7 @@ Consider using an NTP-client to keep you system time in sync.''')
         NOW_URL = lines[2]
         POST_URL = lines[3]
         HARD_FAILS = 0
-        logger.info("Logged in successfully to AudioScrobbler (%s)" % url)
+        logger.info("Logged in successfully to AudioScrobbler (%s)", url)
 
     else:
         # some hard error
@@ -344,7 +344,7 @@ you login?''')
 
     if lines[0] == "OK":
         SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
-        logger.info("AudioScrobbler OK: %s" % data)
+        logger.info("AudioScrobbler OK: %s", data)
         return True
     elif lines[0] == "BADSESSION":
         if inner_call is False:

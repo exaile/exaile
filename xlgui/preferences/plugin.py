@@ -208,7 +208,7 @@ class PluginManager(object):
                 self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
 
-        logger.info('Reloading plugin %s...' % plugin_name)
+        logger.info('Reloading plugin %s...', plugin_name)
         self.plugins.load_plugin(plugin_name, reload=True)
 
         if enabled:

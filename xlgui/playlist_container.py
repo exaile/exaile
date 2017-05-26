@@ -253,11 +253,10 @@ class PlaylistNotebook(SmartNotebook):
                 logger.error("`%r` did not match valid playlist file", name)
                 continue
 
-            logger.debug("Adding playlist %d: %s" % (i, name))
-            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
-                                                      match.group('tag'),
-                                                      match.group('name'),
-                                                      ))
+            logger.debug("Adding playlist %d: %s", i, name)
+            logger.debug("Tab:%s; Tag:%s; Name:%s", match.group('tab'),
+                                                    match.group('tag'),
+                                                    match.group('name'))
             pl = self.tab_manager.get_playlist(name)
             pl.name = match.group('name')
 
@@ -288,7 +287,7 @@ class PlaylistNotebook(SmartNotebook):
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
         for name in names:
-            logger.debug("Removing tab %s" % name)
+            logger.debug("Removing tab %s", name)
             self.tab_manager.remove_playlist(name)
 
         # TODO: make this generic enough to save other kinds of tabs

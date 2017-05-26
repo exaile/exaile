@@ -134,7 +134,7 @@ class ExaileNotifyOsd(object):
             try:
                 self.notify.show()
             except GLib.GError as e:
-                logger.warning("error showing OSD notification: %s" % e)
+                logger.warning("error showing OSD notification: %s", e)
                 logger.warning("Perhaps notify-osd is not installed?")
 
     def on_pause(self, type, player, track):

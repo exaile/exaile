@@ -294,7 +294,7 @@ class Collection(trax.TrackDB):
                 return
             file_count += library._count_files()
         self.file_count = file_count
-        logger.debug("File count: %s" % self.file_count)
+        logger.debug("File count: %s", self.file_count)
 
     def _progress_update(self, type, library, count):
         """
@@ -696,8 +696,7 @@ class Library(object):
                 artist not in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-                logger.debug("Compilation %(album)r detected in %(dir)r" %
-                             {'album': album, 'dir': basedir})
+                logger.debug("Compilation %r detected in %r", album, basedir)
 
         ccheck[basedir][album].append(artist)
 
@@ -794,8 +793,8 @@ class Library(object):
                     # compilations.
                     if len(dirtracks) > 110:
                         logger.debug("Too many files, skipping "
-                                     "compilation detection heuristic for "
-                                     + fil.get_uri())
+                                     "compilation detection heuristic for %s",
+                                     fil.get_uri())
                         dirtracks = None
 
             if self.collection and self.collection._scan_stopped:
@@ -829,7 +828,7 @@ class Library(object):
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s" % unicode(tr))
+            logger.debug(u"Removing %s", unicode(tr))
             self.collection.remove(tr)
 
         logger.info("Scan completed: %s", self.location)
@@ -866,7 +865,7 @@ class Library(object):
             loc = tr.get_loc_for_io()
             file = Gio.File.new_for_uri(loc)
             if not file.delete():
-                logger.warning("Could not delete file %s." % loc)
+                logger.warning("Could not delete file %s.", loc)
 
     # the below are not essential for 0.3.0, should be implemented only
     # if time allows for it

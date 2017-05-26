@@ -85,7 +85,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
             return
 
         if cdplaylist in self.device.playlists:
-            logger.info("Calling queue_draw for %s" % str(cdplaylist))
+            logger.info("Calling queue_draw for %s", str(cdplaylist))
             self.fppanel.tree.queue_draw()
 
     def do_import(self, tracks):

@@ -171,7 +171,7 @@ class ExaileScrobbler(object):
     @common.threaded
     def initialize(self, username, password, server):
         try:
-            logger.info("Attempting to connect to AudioScrobbler (%s)" % server)
+            logger.info("Attempting to connect to AudioScrobbler (%s)", server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
         except Exception:
 
@@ -206,7 +206,7 @@ class ExaileScrobbler(object):
                 track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
             )
         except Exception as e:
-            logger.warning("Error submitting \"Now Playing\": %s" % e)
+            logger.warning("Error submitting \"Now Playing\": %s", e)
 
     def on_play(self, type, player, track):
         if self.submit:

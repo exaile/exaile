@@ -178,7 +178,7 @@ class TrackDB(object):
             raise AttributeError(
                 _("You did not specify a location to load the db from"))
 
-        logger.debug("Loading %s DB from %s." % (self.name, location))
+        logger.debug("Loading %s DB from %s.", self.name, location)
 
         try:
             try:
@@ -218,7 +218,7 @@ class TrackDB(object):
                         if loc not in data:
                             data[loc] = TrackHolder(tr, p[1], **p[2])
                         else:
-                            logger.warning("Duplicate track found: %s" % loc)
+                            logger.warning("Duplicate track found: %s", loc)
                             # presumably the second track was written because of an error,
                             # so use the first track found.
                             del pdata[k]
@@ -228,7 +228,7 @@ class TrackDB(object):
                     setattr(self, attr, pdata.get(attr, getattr(self, attr)))
             except Exception:
                 # FIXME: Do something about this
-                logger.exception("Exception occurred while loading %s" % location)
+                logger.exception("Exception occurred while loading %s", location)
 
         pdata.close()
 
@@ -262,7 +262,7 @@ class TrackDB(object):
             return
         self._saving = True
 
-        logger.debug("Saving %s DB to %s." % (self.name, location))
+        logger.debug("Saving %s DB to %s.", self.name, location)
 
         try:
             try:

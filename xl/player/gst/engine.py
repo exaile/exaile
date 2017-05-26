@@ -603,8 +603,8 @@ class AudioStream(object):
         elif message.type == Gst.MessageType.ELEMENT:
             if not missing_plugin.handle_message(message, self.engine):
                 logger.debug(
-                    "Unexpected element-specific GstMessage received from %s: %s"
-                    % (message.src, message))
+                    "Unexpected element-specific GstMessage received from %s: %s",
+                    message.src, message)
 
         elif message.type == Gst.MessageType.WARNING:
             # TODO there might be some useful warnings we ignore for now.

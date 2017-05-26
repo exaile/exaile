@@ -360,7 +360,7 @@ class Exaile(object):
             Initializes Exaile
         """
 
-        logger.info("Loading Exaile %s..." % __version__)
+        logger.info("Loading Exaile %s...", __version__)
 
         from gi.repository import GObject
         from .version import register
@@ -375,7 +375,7 @@ class Exaile(object):
             logger.exception("Error loading settings")
             sys.exit(1)
 
-        logger.debug("Settings loaded from %s" % settings.location)
+        logger.debug("Settings loaded from %s", settings.location)
 
         # display locale information if available
         try:

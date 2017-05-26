@@ -107,7 +107,7 @@ class Preference(object):
             Sets the GUI widget up for this preference
         """
         if not self.widget:
-            logger.error("Widget not found: %s" % (self.name))
+            logger.error("Widget not found: %s", self.name)
             return
         self.widget.set_text(str(settings.get_option(
             self.name, self.default)))

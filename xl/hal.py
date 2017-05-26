@@ -228,7 +228,7 @@ class UDisksBase(providers.ProviderHandler):
         try:
             device.autoconnect()
         except Exception:
-            logger.exception("%s: Failed autoconnecting device %s", self.name, str(device))
+            logger.exception("%s: Failed autoconnecting device %s", self.name, device)
         else:
             self.devicemanager.add_device(device)
             self.providers[path] = new
@@ -277,7 +277,7 @@ class UDisksBase(providers.ProviderHandler):
 
     def _udisks_device_added(self, *args):
         path = args[0]
-        logger.debug("%s: Device added: %s", self.name, str(path))
+        logger.debug("%s: Device added: %s", self.name, path)
         if self._addremove():
             try:
                 self._add_device(path)
@@ -287,7 +287,7 @@ class UDisksBase(providers.ProviderHandler):
 
     def _udisks_device_changed(self, *args):
         path = args[0]
-        logger.debug("%s: Device changed: %s", self.name, str(path))
+        logger.debug("%s: Device changed: %s", self.name, path)
         if self._addremove():
             try:
                 self._on_change(path)
@@ -300,7 +300,7 @@ class UDisksBase(providers.ProviderHandler):
         if self._addremove():
             try:
                 self._remove_device(path)
-                logger.debug("%s: Device removed: " + str(path), self.name)
+                logger.debug("%s: Device removed: %s", path, self.name)
             except KeyError:  # Not ours
                 pass
             finally:
@@ -478,28 +478,27 @@ class HAL(providers.ProviderHandler):
     def add_device(self, device_udi):
         if device_udi in self.hal_devices:
             logger.warning(
-                "Device %s already in hal list, skipping." % device_udi)
+                "Device %s already in hal list, skipping.", device_udi)
             return
 
         handler = self.get_handler(device_udi)
         if handler is None:
-            logger.debug("Found no HAL device handler for %s" % device_udi)
+            logger.debug("Found no HAL device handler for %s", device_udi)
             return
 
         dev = handler.device_from_udi(self, device_udi)
         if not dev:
-            logger.debug("Failed to create device for %s" % device_udi)
+            logger.debug("Failed to create device for %s", device_udi)
             return
 
-        logger.debug("Found new %(handler)s device at %(device_udi)s" %
-                     {'handler': handler.name, 'device_udi': device_udi})
+        logger.debug("Found new %s device at %s", handler.name, device_udi)
         dev.autoconnect()
 
         self.devicemanager.add_device(dev)
         self.hal_devices[device_udi] = dev
 
     def remove_device(self, device_udi):
-        logger.debug("Got request to remove %s" % device_udi)
+        logger.debug("Got request to remove %s", device_udi)
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])
             del self.hal_devices[device_udi]

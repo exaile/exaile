@@ -385,7 +385,7 @@ class M3UConverter(FormatConverter):
         extinf = {}
         lineno = 0
 
-        logger.debug('Importing M3U playlist: %s' % path)
+        logger.debug('Importing M3U playlist: %s', path)
 
         with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
             for line in stream:
@@ -500,7 +500,7 @@ class PLSConverter(FormatConverter):
         pls_playlist = RawConfigParser()
         gfile = Gio.File.new_for_uri(path)
 
-        logger.debug('Importing PLS playlist: %s' % path)
+        logger.debug('Importing PLS playlist: %s', path)
 
         try:
             with GioFileInputStream(gfile) as stream:
@@ -533,7 +533,7 @@ class PLSConverter(FormatConverter):
 
         if not pls_playlist.has_option('playlist', 'version'):
             logger.warning('No PLS version specified, '
-                           'assuming 2. [%s]' % path)
+                           'assuming 2. [%s]', path)
             pls_playlist.set('playlist', 'version', 2)
 
         version = pls_playlist.getint('playlist', 'version')
@@ -659,7 +659,7 @@ class ASXConverter(FormatConverter):
 
         playlist = Playlist(self.name_from_path(path))
 
-        logger.debug('Importing ASX playlist: %s' % path)
+        logger.debug('Importing ASX playlist: %s', path)
 
         with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
             parser = XMLParser(target=self.ASXPlaylistParser())
@@ -842,7 +842,7 @@ class XSPFConverter(FormatConverter):
 
         playlist = Playlist(name=self.name_from_path(path))
 
-        logger.debug('Importing XSPF playlist: %s' % path)
+        logger.debug('Importing XSPF playlist: %s', path)
 
         with GioFileInputStream(Gio.File.new_for_uri(path)) as stream:
             tree = ETree.ElementTree(file=stream)
@@ -1496,7 +1496,7 @@ class Playlist(object):
                 try:
                     setattr(self, item, val)
                 except TypeError:  # don't bail if we try to set an invalid mode
-                    logger.debug("Got a TypeError when trying to set attribute %s to %s during playlist restore." % (item, val))
+                    logger.debug("Got a TypeError when trying to set attribute %s to %s during playlist restore.", item, val)
 
     def reverse(self):
         # reverses current view

@@ -68,7 +68,7 @@ _sep = menu.simple_separator
 
 
 def error(text):
-    logger.error("%s: %s" % ('Bookmarks', text))
+    logger.error("%s: %s", 'Bookmarks', text)
     dialogs.error(xlgui.main.mainwindow(), text)
 
 
@@ -261,12 +261,12 @@ class Bookmarks:
                     for (key, pos) in db:
                         self.bookmarks.append((key, pos))
                         self.display_bookmark(key, pos)
-                    logger.debug('loaded {0} bookmarks'.format(len(db)))
+                    logger.debug('loaded %s bookmarks', len(db))
                 except Exception as s:
-                    logger.error('BM: bad bookmark file: %s' % s)
+                    logger.error('BM: bad bookmark file: %s', s)
                     return None
         except IOError as e:
-            logger.error('BM: could not open file: %s' % e.strerror)
+            logger.error('BM: could not open file: %s', e.strerror)
 
     def save_db(self):
         """
@@ -276,7 +276,7 @@ class Bookmarks:
         path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
         with open(path, 'wb') as f:
             f.write(_write(self.bookmarks))
-            logger.debug('saving {0} bookmarks'.format(len(self.bookmarks)))
+            logger.debug('saving %s bookmarks', len(self.bookmarks))
 
 
 def __enb(eventname, exaile, nothing):

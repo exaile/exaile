@@ -100,7 +100,7 @@ def find_books(keyword, user_agent):
 
     for elem in tree:
         if elem.tag == 'error':
-            logger.error('LIBRIVOX: query error: %s' % elem.text)
+            logger.error('LIBRIVOX: query error: %s', elem.text)
 
         elif elem.tag == 'books':
             for bk in elem.findall('book'):

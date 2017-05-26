@@ -90,7 +90,7 @@ class GtImporter(Gtk.Window):
         self.import_thread = None
         self.import_track_data = None
 
-        logger.info('Group import finished, %s new tracks found' % len(track_data))
+        logger.info('Group import finished, %s new tracks found', len(track_data))
 
         if len(track_data) == 0:
             self.destroy()
@@ -151,7 +151,7 @@ class GtImporter(Gtk.Window):
         self.tags_vbox.set_sensitive(False)
 
         data = [(row[4], row[5]) for row in self.tags_model if row[0]]
-        logger.info('Updating %s tracks' % len(data))
+        logger.info('Updating %s tracks', len(data))
 
         self.update_thread = SimpleProgressThread(track_update_thread,
                                                   data, self.radio_replace.get_active())
@@ -175,7 +175,7 @@ def track_import_thread(import_collection, user_collection, track_data):
     # to import, all essential fields should be identical!
     fields = ['__length', 'artist', 'album', 'title', 'genre', 'tracknumber']
 
-    logger.info("Finding matches for %s imported tracks" % len(import_collection))
+    logger.info("Finding matches for %s imported tracks", len(import_collection))
 
     exact_dups = 0
     no_change = 0
@@ -211,7 +211,7 @@ def track_import_thread(import_collection, user_collection, track_data):
 
         yield (i, total)
 
-    logger.info("Match information: %s exact dups, %s no change, %s differing tracks" % (exact_dups, no_change, len(track_data)))
+    logger.info("Match information: %s exact dups, %s no change, %s differing tracks", exact_dups, no_change, len(track_data))
 
 
 def track_update_thread(trackdata, replace):

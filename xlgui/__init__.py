@@ -384,7 +384,7 @@ class Main(object):
             providers.unregister('main-panel',
                                  self.device_panels[device.get_name()])
         except ValueError:
-            logger.debug("Couldn't remove panel for %s" % device.get_name())
+            logger.debug("Couldn't remove panel for %s", device.get_name())
         del self.device_panels[device.get_name()]
 
     def _setup_osx(self):

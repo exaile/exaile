@@ -59,8 +59,8 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
-        logger.debug(u"Searching for %(limit)s tracks related to %(track)s" %
-                     {'limit': limit, 'track': track})
+        logger.debug(u"Searching for %s tracks related to %s",
+                     limit, track)
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -168,7 +168,7 @@ class DynamicManager(providers.ProviderHandler):
         if playlist.current_position != current_pos:
             return  # we skipped in that 5 seconds, so ignore it
         playlist.extend(tracks)
-        logger.debug("Added %s tracks." % len(tracks))
+        logger.debug("Added %s tracks.", len(tracks))
 
 
 MANAGER = DynamicManager()

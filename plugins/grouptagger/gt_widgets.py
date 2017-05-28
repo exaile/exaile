@@ -264,6 +264,8 @@ class GroupTaggerView(Gtk.TreeView):
                     self.emit('group-changed', group_change.added, group)
                 else:
                     self.emit('group-changed', group_change.edited, None)
+                    
+                self.emit('category-changed', category_change.updated, category)
 
     def on_menu_delete_group(self, widget, name, parent, context):
         '''Menu says delete something'''

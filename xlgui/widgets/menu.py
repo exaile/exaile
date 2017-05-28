@@ -41,10 +41,20 @@ def simple_separator(name, after):
     item._pos = 'last'
     return item
 
+def _get_accel(callback, display_name):
+    # utility function to get menu information from an xlgui.Accelerator
+    accelerator = None
+    if hasattr(callback, 'key') and hasattr(callback, 'mods'):
+        accelerator = callback
+        if display_name is None:
+            display_name = accelerator.helptext
+        callback = accelerator.callback
+    return accelerator, callback, display_name
+
 
 def simple_menu_item(name, after, display_name=None, icon_name=None,
                      callback=None, callback_args=[], submenu=None,
-                     accelerator=None, condition_fn=None):
+                     condition_fn=None, sensitive_cb=None):
     """
         Factory function that should handle most cases for menus
 
@@ -53,16 +63,18 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
                 be placed after the lowest of these.
         :param display_name: Name as is to appear in the menu.
         :param icon_name: Name of the icon to display, or None for no icon.
-        :param callback: The function to call when the menu item is activated.
+        :param callback: The function to call when the menu item is activated OR
+                         an xlgui accelerator object.
                 signature: callback(widget, name, parent, context)
         :param submenu: The Gtk.Menu that is to be the submenu of this item
-        :param accelerator: The keyboard shortcut to display next to the item.
-                This does NOT bind the key, that mus tbe done separately by
-                registering an Accelerator with providers.
         :param condition_fn: A function to call when the menu is displayed. If
                 the function returns False, the menu item is not shown
                 signature: condition_fn(name, parent, context)
+        :param sensitive_cb: A function that if it returns False, the menu item
+                             will be disabled
     """
+    accelerator, callback, display_name = _get_accel(callback, display_name)
+    
     def factory(menu, parent, context):
         item = None
 
@@ -84,27 +96,30 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
             item.set_submenu(submenu)
 
         if accelerator is not None:
-            key, mods = Gtk.accelerator_parse(accelerator)
-            item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
+            item.add_accelerator('activate', FAKEACCELGROUP,
+                                 accelerator.key, accelerator.mods,
                                  Gtk.AccelFlags.VISIBLE)
 
         if callback is not None:
             item.connect('activate', callback, name,
                          parent, context, *callback_args)
-
+        
+        if sensitive_cb is not None and not sensitive_cb():
+            item.set_sensitive(False)
+        
         return item
     return MenuItem(name, factory, after=after)
 
 
-def check_menu_item(name, after, display_name, checked_func, callback,
-                    accelerator=None):
+def check_menu_item(name, after, display_name, checked_func, callback):
+    accelerator, callback, display_name = _get_accel(callback, display_name)
     def factory(menu, parent, context):
         item = Gtk.CheckMenuItem.new_with_mnemonic(display_name)
         active = checked_func(name, parent, context)
         item.set_active(active)
         if accelerator is not None:
-            key, mods = Gtk.accelerator_parse(accelerator)
-            item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
+            item.add_accelerator('activate', FAKEACCELGROUP,
+                                 accelerator.key, accelerator.mods,
                                  Gtk.AccelFlags.VISIBLE)
         item.connect('activate', callback, name, parent, context)
         return item

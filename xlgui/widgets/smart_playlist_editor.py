@@ -174,6 +174,18 @@ _criteria_types = {
         ('in the last', SpinDateField),
         ('not in the last', SpinDateField),
     ],
+
+    '__playlist': [
+        ('Track is in', PlaylistField),
+        ('Track not in', PlaylistField),
+    ],
+
+    '__rating': [
+        ('greater than', SpinRating),
+        ('less than', SpinRating),
+        ('at least', SpinRating),
+        ('at most', SpinRating),
+    ],
 }
 
 # aliases
@@ -182,19 +194,11 @@ _criteria_types['multiline'] = _criteria_types['text']
 _criteria_types['dblnum'] = _criteria_types['int']
 
 
-# This gets populated below. Only add special tags/searches here.
+# This gets populated below. Only add special tags/searches that don't have a
+# valid entry in tag_data
 CRITERIA = [
-    ('Rating', [
-        ('greater than', SpinRating),
-        ('less than', SpinRating),
-        ('at least', SpinRating),
-        ('at most', SpinRating),
-    ]),
-
-    ('Playlist', [
-        ('Track is in', PlaylistField),
-        ('Track not in', PlaylistField),
-    ])
+    ('Rating', _criteria_types['__rating']),
+    ('Playlist', _criteria_types['__playlist']),
 ]
 
 # NOTE: We use N_ (fake gettext) because these strings are translated later by
@@ -326,9 +330,12 @@ class SmartPlaylistEditor(object):
 
             # because there are duplicates in _TRANS, cannot create a reverse
             # mapping. Instead, search in set of criteria defined for the type
-            data = tag_data[field]
+            data_type = field
+            data  = tag_data.get(field)
+            if data is not None:
+                data_type = data.type
 
-            for ct in _criteria_types[data.type]:
+            for ct in _criteria_types[data_type]:
                 rev_op = ct[0]
                 if _TRANS[rev_op] == op:
                     break

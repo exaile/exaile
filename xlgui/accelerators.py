@@ -29,26 +29,24 @@ from xl import providers
 
 
 class Accelerator(object):
-    __slots__ = ['name', 'keys', 'callback']
+    __slots__ = ['name', 'keys', 'helptext', 'callback', 'key', 'mods']
 
-    def __init__(self, keys, callback):
+    def __init__(self, keys, helptext, callback):
         self.name = keys  # only here because providers needs it
         self.keys = keys
+        self.helptext = helptext
         self.callback = callback
+        self.key, self.mods = Gtk.accelerator_parse(keys)
 
 
 class AcceleratorManager(providers.ProviderHandler):
 
     def __init__(self, providername, accelgroup):
-        providers.ProviderHandler.__init__(self, providername)
         self.accelgroup = accelgroup
-        for provider in self.get_providers():
-            self.on_provider_added(provider)
-
+        providers.ProviderHandler.__init__(self, providername, simple_init=True)
+        
     def on_provider_added(self, provider):
-        key, mod = Gtk.accelerator_parse(provider.keys)
-        self.accelgroup.connect(key, mod, Gtk.AccelFlags.VISIBLE, provider.callback)
+        self.accelgroup.connect(provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback)
 
     def on_provider_removed(self, provider):
-        key, mod = Gtk.accelerator_parse(provider.keys)
-        self.accelgroup.disconnect_key(key, mod)
+        self.accelgroup.disconnect_key(provider.key, provider.mods)

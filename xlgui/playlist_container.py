@@ -156,7 +156,8 @@ class PlaylistNotebook(SmartNotebook):
         self.actions = NotebookActionService(self, 'playlist-notebook-actions')
 
         # Add hotkey
-        self.accelerator = Accelerator(hotkey, lambda *x: self.restore_closed_tab(0))
+        self.accelerator = Accelerator(hotkey, _('Restore closed tab'),
+                                       lambda *x: self.restore_closed_tab(0))
         providers.register('mainwindow-accelerators', self.accelerator)
 
         # Load saved tabs

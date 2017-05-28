@@ -139,6 +139,36 @@ class AboutDialog(Gtk.AboutDialog):
         self.destroy()
 
 
+@GtkTemplate('ui', 'shortcuts_dialog.ui')
+class ShortcutsDialog(Gtk.Dialog):
+    '''
+        Shows information about registered shortcuts
+        
+        TODO: someday upgrade to Gtk.ShortcutsWindow when we require 3.20 as
+              a minimum GTK version
+    '''
+    
+    # doesn't work if we don't set the treeview here too..
+    shortcuts_treeview, shortcuts_model = GtkTemplate.Child.widgets(2)
+    
+    __gtype_name__ = 'ShortcutsDialog'
+    
+    def __init__(self, parent=None):
+        Gtk.Dialog.__init__(self)
+        self.init_template()
+        
+        self.set_transient_for(parent)
+        
+        for a in sorted(providers.get('mainwindow-accelerators'),
+                        key=lambda a: ('%04d' % (a.key)) + a.name):
+            self.shortcuts_model.append((Gtk.accelerator_get_label(a.key, a.mods),
+                                         a.helptext.replace('_', '')))
+
+    @GtkTemplate.Callback
+    def on_close_clicked(self, widget):
+        self.destroy()
+
+
 class MultiTextEntryDialog(Gtk.Dialog):
     """
         Exactly like a TextEntryDialog, except it can contain multiple

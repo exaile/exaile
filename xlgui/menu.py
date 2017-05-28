@@ -256,6 +256,10 @@ def __create_help_menu():
     def show_report_issue(*args):
         webbrowser.open('https://github.com/exaile/exaile/issues')
 
+    def show_shortcuts(widget, name, parent, context):
+        dialog = dialogs.ShortcutsDialog(parent.window)
+        dialog.show()
+
     def show_user_guide(*args):
         # TODO: Other languages
         webbrowser.open('http://exaile.readthedocs.io/en/latest/user/index.html')
@@ -266,9 +270,12 @@ def __create_help_menu():
 
     items.append(_smi('guide', [], _("User's Guide (website)"), 'help-contents',
                       show_user_guide))
+    items.append(_smi('shortcuts', [items[-1].name], _("Shortcuts"), None,
+                      show_shortcuts))
+    items.append(_sep('about-sep1', [items[-1].name]))
     items.append(_smi('report', [items[-1].name], _("Report an issue (GitHub)"), None,
                       show_report_issue))
-    items.append(_sep('about-sep', [items[-1].name]))
+    items.append(_sep('about-sep2', [items[-1].name]))
     items.append(_smi('about', [items[-1].name], _("_About"), 'help-about',
                       show_about_dialog))
     for item in items:

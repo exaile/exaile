@@ -214,34 +214,6 @@ def TrashMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
                                  _on_trash_tracks, callback_args=[get_tracks_func,
                                                                   trash_tracks_func, delete_tracks_func])
 
-
-class ShowCurrentTrackMenuItem(menu.MenuItem):
-    """
-        A menu item for jumping to the currently
-        playing track (given a callback and accelerator)
-    """
-
-    def __init__(self, name, after, callback=None, callback_args=[], accelerator=None):
-        def factory(container, parent, context):
-            item = Gtk.ImageMenuItem.new_with_mnemonic(_("_Show Playing Track"))
-            image = Gtk.Image.new_from_icon_name('go-jump',
-                                                 size=Gtk.IconSize.MENU)
-            item.set_image(image)
-
-            if accelerator is not None:
-                key, mods = Gtk.accelerator_parse(accelerator)
-                item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                                     Gtk.AccelFlags.VISIBLE)
-
-            if callback is not None:
-                item.connect('activate', callback, name, parent, context, *callback_args)
-
-            from xl import player
-            item.set_sensitive(player.PLAYER.get_state() != 'stopped')
-
-            return item
-        menu.MenuItem.__init__(self, name, factory, after)
-
 ### END TRACKS ITEMS ###
 
 ### PLAYLIST ITEMS ###

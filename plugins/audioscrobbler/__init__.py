@@ -95,7 +95,8 @@ class ExaileScrobbler(object):
             logger.debug('Toggling AudioScrobbler submissions.')
             settings.set_option('plugin/ascrobbler/submit', not self.submit)
 
-        self.accelerator = Accelerator('<Primary>b', toggle_submit)
+        self.accelerator = Accelerator('<Primary>b', _('Toggle AudioScrobbler submit'),
+                                       toggle_submit)
         providers.register('mainwindow-accelerators', self.accelerator)
 
     def get_options(self, type, sm, option):

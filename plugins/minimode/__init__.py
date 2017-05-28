@@ -101,12 +101,13 @@ class MiniMode(Gtk.Window):
         self.border_frame.add(self.box)
         self.add(self.border_frame)
 
-        self.menuitem = menu.simple_menu_item(
-            'minimode', ['clear-playlist'],
-            _('Mini Mode'), 'exaile-minimode',
-            self.on_menuitem_activate, accelerator='<Primary><Alt>M')
-        self.accelerator = Accelerator('<Primary><Alt>M',
+        self.accelerator = Accelerator('<Primary><Alt>M', _('Mini Mode'),
                                        self.on_menuitem_activate)
+
+        self.menuitem = menu.simple_menu_item(
+            'minimode', ['clear-playlist'], icon_name='exaile-minimode',
+            callback=self.accelerator)
+        
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 

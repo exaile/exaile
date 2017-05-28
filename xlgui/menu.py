@@ -54,9 +54,10 @@ def __create_file_menu():
 
     def new_playlist_cb(*args):
         get_main().playlist_container.create_new_playlist()
-    items.append(_smi('new-playlist', [], _("_New Playlist"), 'tab-new',
-                      new_playlist_cb, accelerator='<Primary>t'))
-    accelerators.append(Accelerator('<Primary>t', new_playlist_cb))
+
+    accelerators.append(Accelerator('<Primary>t', _("_New Playlist"), new_playlist_cb))
+    items.append(_smi('new-playlist', [], icon_name='tab-new',
+                      callback=accelerators[-1]))
     items.append(_sep('new-sep', [items[-1].name]))
 
     def open_cb(*args):
@@ -64,18 +65,20 @@ def __create_file_menu():
         dialog.connect('uris-selected', lambda d, uris:
                        get_main().controller.open_uris(uris))
         dialog.show()
-    items.append(_smi('open', [items[-1].name], _("_Open"), 'document-open',
-                      open_cb, accelerator='<Primary>o'))
-    accelerators.append(Accelerator('<Primary>o', open_cb))
+        
+    accelerators.append(Accelerator('<Primary>o', _("_Open"), open_cb))    
+    items.append(_smi('open', [items[-1].name], icon_name='document-open',
+                      callback=accelerators[-1]))
 
     def open_uri_cb(*args):
         dialog = dialogs.URIOpenDialog(get_main().window)
         dialog.connect('uri-selected', lambda d, uri:
                        get_main().controller.open_uri(uri))
         dialog.show()
-    items.append(_smi('open-uri', [items[-1].name], _("Open _URL"),
-                      'emblem-web', open_uri_cb, accelerator='<Primary><Shift>o'))
-    accelerators.append(Accelerator('<Primary><Shift>o', open_uri_cb))
+
+    accelerators.append(Accelerator('<Primary><Shift>o', _("Open _URL"), open_uri_cb))
+    items.append(_smi('open-uri', [items[-1].name], icon_name='emblem-web',
+                      callback=accelerators[-1]))
 
     def open_dirs_cb(*args):
         dialog = dialogs.DirectoryOpenDialog(get_main().window)
@@ -117,25 +120,27 @@ def __create_file_menu():
 
     def close_tab_cb(*args):
         get_main().get_selected_page().tab.close()
-    items.append(_smi('close-tab', [items[-1].name],
-                      _("Close _Tab"), 'window-close', close_tab_cb,
-                      accelerator='<Primary>w'))
-    accelerators.append(Accelerator('<Primary>w', close_tab_cb))
+
+    accelerators.append(Accelerator('<Primary>w', _("Close _Tab"), close_tab_cb))
+    items.append(_smi('close-tab', [items[-1].name], icon_name='window-close',
+                      callback=accelerators[-1]))
 
     if get_main().controller.exaile.options.Debug:
         def restart_cb(*args):
             from xl import main
             main.exaile().quit(True)
-        items.append(_smi('restart-application', [items[-1].name], _("_Restart"),
-                          callback=restart_cb, accelerator='<Primary>r'))
-        accelerators.append(Accelerator('<Primary>r', restart_cb))
+        
+        accelerators.append(Accelerator('<Primary>r', _("_Restart"), restart_cb))
+        items.append(_smi('restart-application', [items[-1].name],
+                          callback=accelerators[-1]))
 
     def quit_cb(*args):
         from xl import main
         main.exaile().quit()
-    items.append(_smi('quit-application', [items[-1].name], _("_Quit Exaile"),
-                      'application-exit', quit_cb, accelerator='<Primary>q'))
-    accelerators.append(Accelerator('<Primary>q', quit_cb))
+    
+    accelerators.append(Accelerator('<Primary>q', _("_Quit Exaile"), quit_cb))
+    items.append(_smi('quit-application', [items[-1].name], icon_name='application-exit',
+                      callback=accelerators[-1]))
 
     for item in items:
         providers.register('menubar-file-menu', item)
@@ -154,9 +159,10 @@ def __create_edit_menu():
 
     def queue_cb(*args):
         get_main().playlist_container.show_queue()
-    items.append(_smi('queue', [items[-1].name], _("_Queue"),
-                      callback=queue_cb, accelerator='<Primary>m'))
-    accelerators.append(Accelerator('<Primary>m', queue_cb))
+
+    accelerators.append(Accelerator('<Primary>m', _("_Queue"), queue_cb))
+    items.append(_smi('queue', [items[-1].name],
+                      callback=accelerators[-1]))
 
     def cover_manager_cb(*args):
         from xlgui.cover import CoverManager
@@ -183,9 +189,15 @@ def __create_view_menu():
 
     def show_playing_track_cb(*args):
         get_main().playlist_container.show_current_track()
-    items.append(menuitems.ShowCurrentTrackMenuItem('show-playing-track', [],
-                                                    show_playing_track_cb, accelerator='<Primary>j'))
-    accelerators.append(Accelerator('<Primary>j', show_playing_track_cb))
+        
+    def show_playing_track_sensitive():
+        from xl import player
+        return player.PLAYER.get_state() != 'stopped'
+    
+    accelerators.append(Accelerator('<Primary>j', _("_Show Playing Track"), show_playing_track_cb))
+    items.append(_smi('show-playing-track', [], icon_name='go-jump',
+                      callback=accelerators[-1],
+                      sensitive_cb=show_playing_track_sensitive))
 
     items.append(_sep('show-playing-track-sep', [items[-1].name]))
 
@@ -205,9 +217,10 @@ def __create_view_menu():
         page = get_main().get_selected_page()
         if page:
             page.playlist.clear()
-    items.append(_smi('clear-playlist', [items[-1].name], _('_Clear playlist'),
-                      'edit-clear-all', clear_playlist_cb, accelerator='<Primary>l'))
-    accelerators.append(Accelerator('<Primary>l', clear_playlist_cb))
+
+    accelerators.append(Accelerator('<Primary>l', _('_Clear playlist'), clear_playlist_cb))
+    items.append(_smi('clear-playlist', [items[-1].name], icon_name='edit-clear-all',
+                      callback=accelerators[-1]))
 
     for item in items:
         providers.register('menubar-view-menu', item)

@@ -126,7 +126,9 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
             self.show_widget()
             self.set_widget_sensitive(False)
         self.is_enabled = False
-        self.widget.get_model().clear()
+        model = self.widget.get_model()
+        if model:
+            model.clear()
 
     def done(self):
         return self.is_enabled

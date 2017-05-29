@@ -38,6 +38,7 @@ import sys
 import threading
 import urllib2
 import urlparse
+import weakref
 from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
@@ -217,13 +218,22 @@ def idle_add(callback=None):
 
 
 def _glib_wait_inner(timeout, glib_timeout_func):
-    id = [None]  # Have to hold the value in a mutable structure because
-    # python's scoping rules prevent us assigning to an
-    # outer scope directly.
+    # Have to hold the value in a mutable structure because python's scoping
+    # rules prevent us assigning to an outer scope directly.
+    #
+    # Additionally, we hold source ids per-instance, otherwise this would
+    # restrict calls across all instances of an object with the glib_wait*
+    # decorators, which would have surprising results
+    id_by_obj = weakref.WeakKeyDictionary()
 
     def waiter(function):
+        # ensure this is only used on class methods
+        callargs = inspect.getargspec(function)
+        if len(callargs.args) == 0 or callargs.args[0] != 'self':
+            raise RuntimeError("Must only use glib_wait* on instance methods!")
+        
         def thunk(*args, **kwargs):
-            id[0] = None
+            id_by_obj[args[0]] = None
             # if a function returns True, it wants to be called again; in that
             # case, treat it as an additional call, otherwise you can potentially
             # get lots of callbacks piling up
@@ -231,9 +241,11 @@ def _glib_wait_inner(timeout, glib_timeout_func):
                 delayer(*args, **kwargs)
 
         def delayer(*args, **kwargs):
-            if id[0]:
-                GLib.source_remove(id[0])
-            id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
+            self = args[0]
+            srcid = id_by_obj.get(self)
+            if srcid:
+                GLib.source_remove(srcid)
+            id_by_obj[self] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
 
@@ -254,6 +266,8 @@ def glib_wait(timeout):
 
         If the function returns a value that evaluates to True, it
         will be called again under the same timeout rules.
+        
+        .. warning:: Can only be used with instance methods
     """
     # 'undefined' is a bit of a white lie - it's always the most
     # recent call's args. However, I'm reserving the right to change

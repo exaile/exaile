@@ -201,7 +201,7 @@ class PlaylistNotebook(SmartNotebook):
 
         for n in range(self.get_n_pages()):
             page = self.get_nth_page(n)
-            name = page.get_page_name()
+            name = page.get_page_name().decode('utf-8', errors='replace')
             name_parts = [
                 # 'Playlist 99' => 'Playlist '
                 name[0:len(default_name_parts[0])],

@@ -44,6 +44,7 @@ from xlgui.widgets import menu, dialogs
 import gt_prefs
 import gt_widgets
 from gt_common import *
+import gt_export
 import gt_import
 import gt_mass
 
@@ -96,6 +97,11 @@ class GroupTaggerPlugin(object):
         tools_submenu.add_item(
             menu.simple_menu_item('gt_rename', [], _('_Mass rename/delete tags'),
                                   callback=self.on_mass_rename)
+        )
+        
+        tools_submenu.add_item(
+            menu.simple_menu_item('gt_export', [], _('E_xport collecton tags to JSON'),
+                                  callback=self.on_export_tags)
         )
 
         # group them together to make it not too long
@@ -180,6 +186,9 @@ class GroupTaggerPlugin(object):
     #
     # Menu callbacks
     #
+    
+    def on_export_tags(self, widget, name, parent, exaile):
+        gt_export.export_tags(exaile)
 
     def on_get_tags_menu(self, widget, name, parent, exaile):
 

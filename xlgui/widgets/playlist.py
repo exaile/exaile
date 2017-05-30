@@ -697,9 +697,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.dragging = False
         self.pending_event = None
-        self.button_pressed = False  # used by columns to determine whether
-        # a notify::width event was initiated
-        # by the user.
         self._insert_focusing = False
 
         self._hack_is_osx = sys.platform == 'darwin'
@@ -1022,7 +1019,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             * thunar_details_view_button_press_event() of thunar-details-view.c
             * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
         """
-        self.button_pressed = True
         self.grab_focus()
 
         # need this to workaround bug in GTK+ on OSX when dragging/dropping
@@ -1073,7 +1069,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
             Unsets the internal state for button press
         """
-        self.button_pressed = False
         self._hack_osx_control_mask = False
 
         # Restore regular selection behavior in any case

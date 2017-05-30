@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-11-13 20:53+0000\n"
+"PO-Revision-Date: 2017-05-30 18:54+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian "
 "<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.14.1\n"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/panel/collection.py:132
 #: ../xlgui/widgets/playlist_columns.py:246
@@ -2180,7 +2180,7 @@ msgid ""
 "without compositing support."
 msgstr ""
 "Atentzione: custa optzione podet causare errores de visualizatzione si "
-"impreada cun unu gestore de sas ischermadas/bentanas sena suportu de "
+"impreada cun unu gestore de sas ischermadas/ventanas sena suportu de "
 "cumponidura."
 
 #: ../data/ui/preferences/appearance.ui.h:12
@@ -2743,11 +2743,11 @@ msgstr "Riprìstina"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr "Riprìstina sa bentana printzipale"
+msgstr "Riprìstina sa ventana printzipale"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr "Riprìstina bentana printzipale"
+msgstr "Riprìstina ventana printzipale"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
@@ -3464,7 +3464,7 @@ msgstr "Ammustra in s'elencu de sas operatziones"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Ammustra decoraduras bentana:"
+msgstr "Ammustra decoraduras ventana:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 #, fuzzy
@@ -3473,7 +3473,7 @@ msgstr "Ammustra in totu sos desktops"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr "Ammustra su butone in sa bentana printzipale"
+msgstr "Ammustra su butone in sa ventana printzipale"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
@@ -4202,7 +4202,7 @@ msgstr "A sa colada de su mouse in s'icona de s’àrea de notìfica"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
-msgstr "Cando sa bentana printzipale est ischertada"
+msgstr "Cando sa ventana printzipale est ischertada"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
@@ -4558,7 +4558,7 @@ msgstr ""
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
 msgstr ""
-"Una bentana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
+"Una ventana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
 "in riprodutzione."
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3

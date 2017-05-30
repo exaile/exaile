@@ -33,6 +33,7 @@ import logging
 import time
 
 from xl import (
+    common,
     event,
     player,
     settings,
@@ -106,7 +107,9 @@ class Column(Gtk.TreeViewColumn):
         # hack to allow button press events on the header to be detected
         self.set_widget(Gtk.Label(label=self.display))
 
-        self.connect('notify::width', self.on_width_changed)
+        # Save the width of the column when it changes; save the notify id so
+        # we don't emit an event when we're programmatically setting the width
+        self._width_notify = self.connect('notify::width', self.on_width_changed)
         self._setup_sizing()
 
         event.add_ui_callback(self.on_option_set, "gui_option_set")
@@ -115,9 +118,8 @@ class Column(Gtk.TreeViewColumn):
         if data in ("gui/resizable_cols", self.settings_width_name):
             self._setup_sizing()
 
+    @common.glib_wait(100)
     def on_width_changed(self, column, wid):
-        if not self.container.button_pressed:
-            return
         width = self.get_width()
         if width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
@@ -158,20 +160,21 @@ class Column(Gtk.TreeViewColumn):
             pass
 
     def _setup_sizing(self):
-        if settings.get_option('gui/resizable_cols', False):
-            self.set_resizable(True)
-            self.set_expand(False)
-            width = settings.get_option(self.settings_width_name,
-                                        self.size + self.extrasize)
-            self.set_fixed_width(width)
-        else:
-            self.set_resizable(False)
-            if self.autoexpand:
-                self.set_expand(True)
-                self.set_fixed_width(1)
-            else:
+        with self.handler_block(self._width_notify):
+            if settings.get_option('gui/resizable_cols', False):
+                self.set_resizable(True)
                 self.set_expand(False)
-                self.set_fixed_width(self.size + self.extrasize)
+                width = settings.get_option(self.settings_width_name,
+                                            self.size + self.extrasize)
+                self.set_fixed_width(width)
+            else:
+                self.set_resizable(False)
+                if self.autoexpand:
+                    self.set_expand(True)
+                    self.set_fixed_width(1)
+                else:
+                    self.set_expand(False)
+                    self.set_fixed_width(self.size + self.extrasize)
 
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''

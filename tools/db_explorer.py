@@ -28,13 +28,19 @@ import datetime
 import os.path
 import pprint
 import shelve
+from whichdb import whichdb
+
+try:
+    import bsddb3 as bsddb
+except ImportError:
+    import bsddb
 
 import click
 
 
 exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
                          'music.db')
-
+exaile_pickle_protocol = 2
 
 def tracks(data):
     for k, v in data.iteritems():
@@ -50,19 +56,69 @@ def cli(ctx, db):
     '''
         Tool that allows low-level exploration of an Exaile music database
     '''
-    ctx.obj = shelve.open(db, flag='r', protocol=2)
+    # simpler version of trackdb.py
+    try:
+        d = bsddb.hashopen(db, 'r')
+        contents = shelve.Shelf(d, protocol=exaile_pickle_protocol)
+    except Exception:
+        try:
+            contents = shelve.open(db, flag='r', protocol=exaile_pickle_protocol)
+        except Exception:
+            if os.path.exists(db):
+                raise
+            else:
+                raise click.ClickException("%s does not exist" % db)
+    
+    ctx.obj = contents
 
 
 @cli.command()
 @click.pass_obj
-def info(data):
+@click.pass_context
+@click.argument('dbtype')
+def cvtdb(ctx, data, dbtype):
+    '''
+        Only used for testing purposes
+    '''
+    
+    db = ctx.parent.params['db']
+    newdb = db + '.new'
+    
+    if dbtype == 'gdbm':
+        import gdbm
+        new_d = gdbm.open(newdb, 'n')
+    elif dbtype == 'dbm':
+        import dbm
+        new_d = dbm.open(newdb, 'n')
+    elif dbtype == 'dbhash':
+        import dbhash
+        new_d = dbhash.open(newdb, 'n')
+    elif dbtype == 'bsddb':
+        new_d = bsddb.hashopen(newdb, 'n')
+    else:
+        raise click.ClickException("Invalid type %s" % dbtype)
+    
+    new_data = shelve.Shelf(new_d, protocol=exaile_pickle_protocol)
+    
+    for k, v in data.iteritems():
+        new_data[k] = v
+    
+    new_data.sync()
+    new_data.close()
+    
+
+@cli.command()
+@click.pass_obj
+@click.pass_context
+def info(ctx, data):
     '''
         Display summary information about the DB
     '''
+    print('DB Type:', whichdb(ctx.parent.params['db']))
     print('Version:', data.get('_dbversion'))
-    print('Name  :', data.get('name'))
-    print('Key   :', data.get('_key'))
-    print("Count :", len(data))
+    print('Name   :', data.get('name'))
+    print('Key    :', data.get('_key'))
+    print("Count  :", len(data))
     print()
     print('Location(s):')
     pprint.pprint(data.get('_serial_libraries'))

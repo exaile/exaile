@@ -104,8 +104,10 @@ class SmartNotebook(Gtk.Notebook):
         self.insert_page(page, tab, position=position)
         tab.notebook = self
         self.set_tab_reorderable(page, page.reorderable)
-        if self.get_tab_pos() in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM):
+        tab_pos = self.get_tab_pos()
+        if tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM):
             self.child_set_property(page, 'tab-expand', True)
+        tab.adjust_label_width(tab_pos)
         if switch:
             self.set_current_page(self.page_num(page))
 

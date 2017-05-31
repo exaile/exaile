@@ -114,7 +114,7 @@ class SecondaryOutputPlugin(object):
         self.info_area.set_no_show_all(True)
 
         volume_control = playback.VolumeControl(self.player)
-        self.info_area.get_action_area().pack_start(volume_control, True, True, 0)
+        self.info_area.get_action_area().pack_end(volume_control, False, False, 0)
 
         self.playpause_button = Gtk.Button()
         self.playpause_button.set_relief(Gtk.ReliefStyle.NONE)
@@ -125,10 +125,13 @@ class SecondaryOutputPlugin(object):
         )
 
         self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
+        self.progress_bar.set_valign(Gtk.Align.CENTER)
 
         play_toolbar = Gtk.Box()
         play_toolbar.pack_start(self.playpause_button, False, False, 0)
         play_toolbar.pack_start(self.progress_bar, True, True, 0)
+        play_toolbar.child_set_property(self.progress_bar, 'padding', 3)
+        
 
         # stick our player controls into this box
         self.pane1_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)

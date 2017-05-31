@@ -75,6 +75,7 @@ class SmartNotebook(Gtk.Notebook):
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
         self.connect('popup-menu', self.on_popup_menu)
+        self.connect('notify::tab-pos', self.__on_notify_tab_pos)
         self._add_tab_on_empty = True
 
         sc = self.get_style_context()
@@ -103,7 +104,8 @@ class SmartNotebook(Gtk.Notebook):
         self.insert_page(page, tab, position=position)
         tab.notebook = self
         self.set_tab_reorderable(page, page.reorderable)
-        self.child_set_property(page, 'tab-expand', True)
+        if self.get_tab_pos() in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM):
+            self.child_set_property(page, 'tab-expand', True)
         if switch:
             self.set_current_page(self.page_num(page))
 
@@ -157,6 +159,15 @@ class SmartNotebook(Gtk.Notebook):
                             0, 0)
         return True
 
+    def __on_notify_tab_pos(self, _widget, _param):
+        tab_pos = self.get_tab_pos()
+        expand = tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM)
+        for i in xrange(self.get_n_pages()):
+            page = self.get_nth_page(i)
+            self.child_set_property(page, 'tab-expand', expand)
+            tab = self.get_tab_label(page)  # type: NotebookTab
+            tab.adjust_label_width(tab_pos)
+
 
 class NotebookTab(Gtk.EventBox):
     """
@@ -184,6 +195,7 @@ class NotebookTab(Gtk.EventBox):
 
         self.connect('button-press-event', self.on_button_press)
 
+        self.vertical = vertical
         if vertical:
             box = Gtk.Box(spacing=2, orientation=Gtk.Orientation.VERTICAL)
         else:
@@ -203,7 +215,7 @@ class NotebookTab(Gtk.EventBox):
         else:
             self.label.props.halign = Gtk.Align.CENTER
             self.label.set_ellipsize(Pango.EllipsizeMode.END)
-            self.label.set_width_chars(4)  # Minimum, including ellipsis
+            self.adjust_label_width(Gtk.PositionType.TOP)
 
         self.label.set_tooltip_text(self.page.get_page_name())
 
@@ -248,6 +260,18 @@ class NotebookTab(Gtk.EventBox):
         page.set_tab(self)
         page.connect('name-changed', self.on_name_changed)
         self.show_all()
+
+    def adjust_label_width(self, tab_pos):
+        """Change the label's minimum width according to tab position"""
+        if self.vertical:
+            # Vertical tabs don't care about tab position.
+            return
+        if tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM):
+            # The number of characters here seems to be approximate.
+            # 4 is enough for around 2 characters and an ellipsis.
+            self.label.set_width_chars(4)
+        else:
+            self.label.set_width_chars(20)
 
     def set_icon(self, pixbuf):
         """

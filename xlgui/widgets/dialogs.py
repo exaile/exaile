@@ -276,9 +276,10 @@ class TextEntryDialog(Gtk.Dialog):
         if not okbutton:
             okbutton = Gtk.STOCK_OK
         Gtk.Dialog.__init__(self, title=title, transient_for=parent,
-                            destroy_with_parent=True,
-                            add_buttons=(cancelbutton, Gtk.ResponseType.CANCEL,
-                                         okbutton, Gtk.ResponseType.OK))
+                            destroy_with_parent=True)
+
+        self.add_buttons(cancelbutton, Gtk.ResponseType.CANCEL,
+                         okbutton, Gtk.ResponseType.OK)
 
         label = Gtk.Label(label=message)
         label.set_xalign(0)

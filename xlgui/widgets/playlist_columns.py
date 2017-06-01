@@ -478,6 +478,7 @@ class ScheduleTimeColumn(Column):
 
         if timeout_id is not None:
             GLib.source_remove(timeout_id)
+            self.timeout_id = None
 
         # Update once more
         self.on_timeout()
@@ -492,6 +493,7 @@ class ScheduleTimeColumn(Column):
             view.queue_draw()
             return True
 
+        self.timeout_id = None
         return False
 
     def on_queue_current_playlist_changed(self, e, queue, current_playlist):

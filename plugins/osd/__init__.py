@@ -540,8 +540,10 @@ class OSDWindow(Gtk.Window):
             Applies the non-rectangular shape
         """
         # TODO: make this work again
-        # Bug in pycairo: cairo_region_* functions are not available
-        # see https://bugs.freedesktop.org/show_bug.cgi?id=44336
+        # Bug in pycairo: cairo_region_* functions are not available before
+        # version 1.11.0, see https://bugs.freedesktop.org/show_bug.cgi?id=44336
+        # we might want to enable this code below once pycairo is distributed on
+        # most Linux distros.
         # cairo_region = cairo.Region.create_rectangle(allocation)
         # as a result, calling
         # self.get_window().shape_combine_region(cairo_region, 0, 0)

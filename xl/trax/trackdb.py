@@ -181,13 +181,23 @@ class TrackDB(object):
         logger.debug("Loading %s DB from %s.", self.name, location)
 
         try:
+            # New DBs will only be created as Berkeley DB Hash databases using
+            # either bsddb3 (external) or bsddb (stdlib but sometimes removed).
+            # Existing DBs created with other backends will continue to work.
+            # We do this because BDB is generally considered more performant,
+            # and because gdbm currently doesn't work at all in MSYS2.
             try:
-                pdata = shelve.open(location, flag='c',
-                                    protocol=common.PICKLE_PROTOCOL)
-            except ImportError:
-                import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
-                _db = bsddb3.hashopen(location, 'c')
-                pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
+                try:
+                    import bsddb3 as bsddb
+                except ImportError:
+                    import bsddb
+                _db = bsddb.hashopen(location, 'c')
+                pdata = shelve.BsdDbShelf(_db, protocol=common.PICKLE_PROTOCOL)
+            except Exception:
+                logger.warning(
+                    "Failed to open DB with the bsddb3 module; make sure it is installed. "
+                    "Trying other backends.")
+                pdata = shelve.open(location, 'w')  # Don't create new db
             if "_dbversion" in pdata:
                 if int(pdata['_dbversion']) > int(self._dbversion):
                     raise common.VersionError("DB was created on a newer Exaile version.")

@@ -27,7 +27,6 @@
 from __future__ import absolute_import
 
 import logging
-import shelve
 
 from copy import deepcopy
 
@@ -180,31 +179,19 @@ class TrackDB(object):
 
         logger.debug("Loading %s DB from %s.", self.name, location)
 
-        try:
-            try:
-                pdata = shelve.open(location, flag='c',
-                                    protocol=common.PICKLE_PROTOCOL)
-            except ImportError:
-                import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
-                _db = bsddb3.hashopen(location, 'c')
-                pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
-            if "_dbversion" in pdata:
-                if int(pdata['_dbversion']) > int(self._dbversion):
-                    raise common.VersionError("DB was created on a newer Exaile version.")
-                elif pdata['_dbversion'] < self._dbversion:
-                    logger.info("Upgrading DB format....")
-                    import shutil
-                    shutil.copyfile(location,
-                                    location + "-%s.bak" % pdata['_dbversion'])
-                    import xl.migrations.database as dbmig
-                    dbmig.handle_migration(self, pdata, pdata['_dbversion'],
-                                           self._dbversion)
+        pdata = common.open_shelf(location)
 
-        except common.VersionError:
-            raise
-        except Exception:
-            logger.exception("Failed to open music DB.")
-            return
+        if "_dbversion" in pdata:
+            if int(pdata['_dbversion']) > int(self._dbversion):
+                raise common.VersionError("DB was created on a newer Exaile version.")
+            elif pdata['_dbversion'] < self._dbversion:
+                logger.info("Upgrading DB format....")
+                import shutil
+                shutil.copyfile(location,
+                                location + "-%s.bak" % pdata['_dbversion'])
+                import xl.migrations.database as dbmig
+                dbmig.handle_migration(self, pdata, pdata['_dbversion'],
+                                       self._dbversion)
 
         for attr in self.pickle_attrs:
             try:
@@ -265,13 +252,7 @@ class TrackDB(object):
         logger.debug("Saving %s DB to %s.", self.name, location)
 
         try:
-            try:
-                pdata = shelve.open(location, flag='c',
-                                    protocol=common.PICKLE_PROTOCOL)
-            except ImportError:
-                import bsddb3
-                _db = bsddb3.hashopen(location, 'c')
-                pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
+            pdata = common.open_shelf(location)
             if pdata.get('_dbversion', self._dbversion) > self._dbversion:
                 raise common.VersionError("DB was created on a newer Exaile.")
         except Exception:

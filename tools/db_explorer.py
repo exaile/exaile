@@ -95,6 +95,9 @@ def cvtdb(ctx, data, dbtype):
         new_d = dbhash.open(newdb, 'n')
     elif dbtype == 'bsddb':
         new_d = bsddb.hashopen(newdb, 'n')
+    elif dbtype == 'dumbdbm':
+        import dumbdbm
+        new_d = dumbdbm.open(newdb, 'n')
     else:
         raise click.ClickException("Invalid type %s" % dbtype)
     

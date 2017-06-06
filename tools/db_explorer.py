@@ -25,6 +25,7 @@ from __future__ import print_function
 
 import copy
 import datetime
+import json
 import os.path
 import pprint
 import shelve
@@ -108,7 +109,21 @@ def cvtdb(ctx, data, dbtype):
     
     new_data.sync()
     new_data.close()
+
+@cli.command()
+@click.pass_obj
+@click.argument('output')
+def tojson(data, output):
+    '''
+        Export Exaile's database to JSON
+    '''
     
+    # not really a db type, but useful?
+    d = {}
+    for k, v in data.iteritems():
+        d[k] = v
+    with open(output, 'w') as fp:
+        json.dump(d, fp, sort_keys=True, indent=4, separators=(',', ': '))
 
 @cli.command()
 @click.pass_obj

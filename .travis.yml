@@ -2,11 +2,18 @@ sudo: required
 services:
   - docker
 
+env:
+  - IMGTAG=debian8
+  - IMGTAG=debian9
+  - IMGTAG=fedora25
+  - IMGTAG=ubuntu16.04
+  - IMGTAG=ubuntu17.04
+
 before_install:
-- docker pull exaile/exaile-testimg:latest
+- docker pull exaile/exaile-testimg:${IMGTAG}
 
 script:
-- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:latest make test
+- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make test
 
 notifications:
   irc:

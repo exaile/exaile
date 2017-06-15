@@ -62,12 +62,7 @@ class LyricsCache:
                 there is nothing in the shelve
         '''
         self.location = location
-        try:
-            self.db = shelve.open(location, flag='c', protocol=common.PICKLE_PROTOCOL, writeback=False)
-        except ImportError:
-            import bsddb3  # ArchLinux disabled bsddb in python2, so we have to use the external module
-            _db = bsddb3.hashopen(location, 'c')
-            self.db = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
+        self.db = common.open_shelf(location)
         self.lock = threading.Lock()
         self.default = default
 

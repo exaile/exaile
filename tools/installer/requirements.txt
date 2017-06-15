@@ -3,3 +3,4 @@ https://github.com/exaile/pyinstaller/archive/sdk.zip#egg=PyInstaller
 musicbrainzngs==0.6
 mutagen==1.37
 pylast==1.8.0
+feedparser==5.2.1

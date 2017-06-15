@@ -12,6 +12,7 @@ Dependencies
 Essential:
 
 * python (== 2.7.x)
+* bsddb (distributed with stdlib) or bsddb3
 * gtk+ >= 3.10
 * gstreamer >= 1.4
 * gstreamer-plugins-base >= 1.6

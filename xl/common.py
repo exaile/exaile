@@ -33,6 +33,8 @@ from gi.repository import GLib
 from gi.repository import GObject
 import logging
 import os
+import os.path
+import shelve
 import subprocess
 import sys
 import threading
@@ -44,6 +46,18 @@ from collections import deque
 from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
+
+# ArchLinux disabled bsddb in python2, so we have to use the external module
+# -> msys2 did also, so now we force using bsddb to simplify things
+try:
+    import bsddb3 as bsddb
+except ImportError:
+    try:
+        import bsddb
+    except ImportError:
+        logger.error("Exaile requires bsddb to be installed")
+        raise
+
 
 # TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
@@ -374,6 +388,63 @@ def open_file_directory(path_or_uri):
         subprocess.Popen(["open", f.get_parent().get_parse_name()])
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+
+
+def open_shelf(path):
+    '''
+        Opens a python shelf file, used to store various types of metadata
+    '''
+    # As of Exaile 4, new DBs will only be created as Berkeley DB Hash databases
+    # using either bsddb3 (external) or bsddb (stdlib but sometimes removed).
+    # Existing DBs created with other backends will be migrated to Berkeley DB.
+    # We do this because BDB is generally considered more performant,
+    # and because gdbm currently doesn't work at all in MSYS2.
+    
+    # Some DBM modules don't use the path we give them, but rather they have
+    # multiple filenames. If the specified path doesn't exist, double check
+    # to see if whichdb returns a result before trying to open it with bsddb
+    force_migrate = False
+    if not os.path.exists(path):
+        from whichdb import whichdb
+        if whichdb(path) is not None:
+            force_migrate = True
+    
+    if not force_migrate:
+        try:
+            db = bsddb.hashopen(path, 'c')
+            return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
+        except bsddb.db.DBInvalidArgError:
+            logger.warning("%s was created with an old backend, migrating it", path)
+        except Exception:
+            raise
+    
+    # special case: zero-length file
+    if not force_migrate and os.path.getsize(path) == 0:
+        os.unlink(path)
+    else:
+        from xl.migrations.database.to_bsddb import migrate
+        migrate(path)
+    
+    db = bsddb.hashopen(path, 'c')
+    return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
+
+
+if hasattr(os, 'replace'):
+    # introduced in python 3.3
+    replace_file = os.replace
+elif sys.platform != 'win32':
+    replace_file = os.rename
+else:
+    # http://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
+    import ctypes
+    _kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+    _MoveFileEx = _kernel32.MoveFileExW
+    _MoveFileEx.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
+    _MoveFileEx.restype = ctypes.c_bool
+    
+    def replace_file(src, dst):
+        if not _MoveFileEx(src, dst, 1):
+            raise ctypes.WinError(ctypes.get_last_error())
 
 
 class LimitedCache(DictMixin):
@@ -934,7 +1005,7 @@ class GioFileOutputStream(_GioFileStream):
     def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
-
+        
         self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
 
     def flush(self):

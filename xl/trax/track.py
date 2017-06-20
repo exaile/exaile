@@ -708,7 +708,7 @@ class Track(object):
             except (KeyError, ValueError):
                 value = -1
         elif tag == '__basename':
-            value = self.get_basename()
+            value = self.get_basename_display()
         else:
             value = self.__tags.get(tag)
 

@@ -27,10 +27,15 @@ from xlgui import main
 from xlgui.widgets import notebook
 
 
+EXAILE = None
+
+
 def enable(exaile):
     """
         Enables the plugin
     """
+    global EXAILE
+    EXAILE = exaile
     if exaile.loading:
         event.add_callback(on_gui_loaded, 'gui_loaded')
     else:
@@ -41,7 +46,8 @@ def disable(exaile):
     """
         Disables the plugin
     """
-
+    global EXAILE
+    EXAILE = None
     providers.unregister('main-panel-actions', MainMenuButton)
 
 
@@ -50,6 +56,8 @@ def on_gui_loaded(*args):
         Creates the main menu button
         which takes care of the rest
     """
+    if EXAILE.gui.panel_notebook.get_n_pages() == 0:
+        raise Exception(_("This plugin needs at least one visible panel"))
 
     providers.register('main-panel-actions', MainMenuButton)
 
@@ -95,11 +103,15 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
 
         self.connect('toggled', self.on_toggled)
 
+        self.notebook_page_removed_connection = panel_notebook.connect('page-removed', self.on_notebook_page_removed)
+
     def destroy(self):
         """
             Moves the main menu items back and
             removes the button from the main window
         """
+        self.notebook.disconnect(self.notebook_page_removed_connection)
+
         for menuitem in self.menu:
             menuitem.reparent(self.mainmenu)
 
@@ -151,3 +163,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
             Removes button activation upon menu popdown
         """
         self.set_active(False)
+
+    def on_notebook_page_removed(self, notebook, *_):
+        if notebook.get_n_pages() == 0:
+            EXAILE.plugins.disable_plugin(__name__)

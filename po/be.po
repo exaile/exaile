@@ -4411,14 +4411,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Дадае падтрымку мультымедыйных клавіш (прысутных на большасці новых "
 "клавіятур) пры запуску Exaile ў Microsoft Windows.↵\n"
 "↵\n"
-"Патрабуецца: pyHook <http://pyhook.sf.net/> (ці "
-"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> для іншых версій)"
+"Патрабуецца: pyHook (%s) (ці "
+"%s для іншых версій)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4528,12 +4527,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Дадае падтрымку прайгравання аўдыё CD.↵\n"
 "↵\n"
 "Патрабуецца HAL/UDisks/UDisks2 для аўтавызначэння CD↵\n"
-"Патрабуецца cddb-py (http://cddb-py.sourceforge.net/) для пошуку тэгаў."
+"Патрабуецца cddb-py (%s) для пошуку тэгаў."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4744,10 +4743,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Дадзеная ўбудова інтэгруе spydaap (http://launchpad.net/spydaap) у Exaile, "
+"Дадзеная ўбудова інтэгруе spydaap (%s) у Exaile, "
 "такім чынам калекцыяй можна падзяліцца праз DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4756,13 +4755,9 @@ msgstr "Радыё SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Спіс радыё SomaFM↵↵\n"
-"↵↵\n"
-"http://somafm.com"
+"Спіс радыё SomaFM%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"

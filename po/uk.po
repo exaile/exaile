@@ -4401,13 +4401,12 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Додана підтримка мультимедійних клавіш (присутніх на більшості нових "
 "клавіатур) при запуску Exaile в Microsoft Windows.\n"
 "\n"
-"Потребує: pyHook <http://pyhook.sf.net/> (або gohlke/pythonlibs/pyhook> для "
+"Потребує: pyHook (%s) (або gohlke/pythonlibs/pyhook> для "
 "більшості версій)"
 
 #: ../plugins/equalizer/PLUGININFO:4
@@ -4517,12 +4516,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Додана підтримка для відтворення аудіо компакт-дисків.\n"
 "\n"
 "Вимагає HAL/UDisks/UDisks2 автовизначення компакт-дисків\n"
-"Вимагає  cddb-py (http://cddb-py.sourceforge.net/) для пошуку тегів."
+"Вимагає  cddb-py (%s) для пошуку тегів."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4737,10 +4736,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Цей модуль інтегрує функцію spydaap (http://launchpad.net/spydaap) в Exaile "
+"Цей модуль інтегрує функцію spydaap (%s) в Exaile "
 "для спільного використання фонотеки через DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4749,13 +4748,9 @@ msgstr "Радіо SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Список SomaFM Радіо\n"
-"\n"
-"http://somafm.com"
+"Список SomaFM Радіо%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"

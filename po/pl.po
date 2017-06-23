@@ -4414,14 +4414,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Dodaje obsługę klawiszy multimedialnych (dostępnych na większości nowych "
 "klawiatur), gdy Exaile jest uruchamiany w środowisku Microsoft Windows.\n"
 "\n"
-"Wymaga: pyHook <http://pyhook.sf.net/> (lub "
-"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> dla innych wersji)"
+"Wymaga: pyHook (%s) (lub "
+"%s dla innych wersji)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4532,12 +4531,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Dodaje obsługę odtwarzania płyt audio CD.\n"
 "\n"
 "Wymaga HAL/UDisks/UDisks2 do automatycznego wykrywania CD\n"
-"Wymaga cddb-py (http://cddb-py.sourceforge.net/) do sprawdzania znaczników."
+"Wymaga cddb-py (%s) do sprawdzania znaczników."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4753,10 +4752,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Ta wtyczka integruje spydaap (http://launchpad.net/spydaap) z Exalie "
+"Ta wtyczka integruje spydaap (%s) z Exalie "
 "umożliwiając udostępnienie kolekcji przez DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4765,13 +4764,9 @@ msgstr "Radio SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Lista stacji radiowych SomaFM\n"
-"\n"
-"http://somafm.com"
+"Lista stacji radiowych SomaFM%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"

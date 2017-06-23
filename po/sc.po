@@ -4370,10 +4370,10 @@ msgstr "Mitzas de sos media"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Custa estensione integrat spydaap (http://launchpad.net/spydaap) in intro de "
+"Custa estensione integrat spydaap (%s) in intro de "
 "Exaile pro permìtere chi una regorta diat pòdere èssere cumpartzida in DAAP."
 
 #: ../plugins/librivox/PLUGININFO:3
@@ -4460,14 +4460,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Annanghet su suportu pro teclas multimediales (chi bi sunt in sa majoria de "
 "sas tastieras noas) cando ses impreande Exaile in Microsoft Windows.\n"
 "\n"
-"Tenet bisòngiu de: pyHook <http://pyhook.sf.net/> (o "
-"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> pro àteras versiones)"
+"Tenet bisòngiu de: pyHook (%s) (o "
+"%s pro àteras versiones)"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
@@ -4547,13 +4546,9 @@ msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Lista Radio SomaFM\n"
-"\n"
-"http://somafm.com"
+"Lista Radio SomaFM%s%s"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
@@ -4658,12 +4653,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Annanghet su suportu pro riproduire CD musicales.\n"
 "\n"
 "Tenet bisòngiu de HAL/UDisks/UDisks2 pro agatare sos CDs\n"
-"Tenet bisòngiu de cddb-py (http://cddb-py.sourceforge.net/) pro abbaidare "
+"Tenet bisòngiu de cddb-py (%s) pro abbaidare "
 "sas etichetas."
 
 #: ../plugins/mainmenubutton/PLUGININFO:3

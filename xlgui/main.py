@@ -351,17 +351,17 @@ class MainWindow(GObject.GObject):
 
         for panel_name in ('playlists', 'radio', 'files', 'collection'):
             panel = panels[panel_name].panel
-            sort = False
+            do_sort = False
 
             if panel_name in ('files', 'collection'):
-                sort = True
+                do_sort = True
 
-            panel.connect('append-items', lambda panel, items, force_play, sort=sort:
-                          self.on_append_items(items, force_play, sort=sort))
-            panel.connect('queue-items', lambda panel, items, sort=sort:
-                          self.on_append_items(items, queue=True, sort=sort))
-            panel.connect('replace-items', lambda panel, items, sort=sort:
-                          self.on_append_items(items, replace=True, sort=sort))
+            panel.connect('append-items', lambda panel, items, force_play:
+                          self.on_append_items(items, force_play, sort=do_sort))
+            panel.connect('queue-items', lambda panel, items:
+                          self.on_append_items(items, queue=True, sort=do_sort))
+            panel.connect('replace-items', lambda panel, items:
+                          self.on_append_items(items, replace=True, sort=do_sort))
 
         ## Collection Panel
         panel = panels['collection'].panel

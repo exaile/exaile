@@ -364,13 +364,13 @@ class Main(object):
         panel = paneltype(self.main.window, self.main,
                           device, device.get_name())
 
-        sort = True
-        panel.connect('append-items', lambda panel, items, play, sort=sort:
-                      self.main.on_append_items(items, play, sort=sort))
-        panel.connect('queue-items', lambda panel, items, sort=sort:
-                      self.main.on_append_items(items, queue=True, sort=sort))
-        panel.connect('replace-items', lambda panel, items, sort=sort:
-                      self.main.on_append_items(items, replace=True, sort=sort))
+        do_sort = True
+        panel.connect('append-items', lambda _panel, items, play:
+                      self.main.on_append_items(items, play, sort=do_sort))
+        panel.connect('queue-items', lambda _panel, items:
+                      self.main.on_append_items(items, queue=True, sort=do_sort))
+        panel.connect('replace-items', lambda _panel, items:
+                      self.main.on_append_items(items, replace=True, sort=do_sort))
 
         self.device_panels[device.get_name()] = panel
         GLib.idle_add(providers.register, 'main-panel', panel)

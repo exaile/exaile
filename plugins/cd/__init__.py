@@ -182,9 +182,9 @@ class CDPlaylist(playlist.Playlist):
         # FIXME: this can probably be cleaner
         sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]), s)
                             for s in songs.values()])
-        sorted = [s[1] for s in sort_tups]
+        sorted_elements = [s[1] for s in sort_tups]
 
-        self.extend(sorted)
+        self.extend(sorted_elements)
 
         if CDDB_AVAIL:
             self.get_cddb_info()

@@ -153,7 +153,6 @@ class JamendoPanel(panel.Panel):
         self.menu = menu.JamendoMenu(self)
 
         # setup images
-        window = Gtk.Window()
         self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
             'artist', Gtk.IconSize.SMALL_TOOLBAR)
         self.album_image = icons.MANAGER.pixbuf_from_icon_name(

@@ -6,7 +6,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="row_spacing">4</property>
-    <property name="column_spacing">2</property>
+    <property name="column_spacing">10</property>
     <child>
       <object class="GtkCheckButton" id="plugin/notify/resize">
         <property name="label" translatable="yes">Resize displayed covers</property>
@@ -14,7 +14,26 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
+        <property name="margin_left">24</property>
+        <property name="margin_right">24</property>
         <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label7">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">start</property>
+        <property name="label" translatable="yes">Display</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+        </attributes>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -23,61 +42,9 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label6">
+      <object class="GtkSeparator">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="label" translatable="yes">Summary:</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow4">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow_type">etched-in</property>
-        <child>
-          <object class="GtkTextView" id="plugin/notify/summary">
-            <property name="height_request">60</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">&lt;b&gt;Body Message&lt;/b&gt;</property>
-        <property name="use_markup">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label5">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">&lt;i&gt;Message that should be displayed in the body of the notification. In each case, "%(title)s", "%(artist)s", and "%(album)s" will be replaced by their respective values. If the tag is not known, "Unknown" will be filled in its place.&lt;/i&gt;</property>
-        <property name="use_markup">True</property>
-        <property name="wrap">True</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -86,115 +53,94 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label2">
+      <object class="GtkLabel" id="label8">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">start</property>
-        <property name="label" translatable="yes">Both artist and album:</property>
-        <property name="justify">right</property>
+        <property name="label" translatable="yes">Icons</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+        </attributes>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">5</property>
+        <property name="width">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow1">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="shadow_type">etched-in</property>
-        <child>
-          <object class="GtkTextView" id="plugin/notify/body_artistalbum">
-            <property name="height_request">60</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="vexpand">True</property>
-            <property name="accepts_tab">False</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">5</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="label" translatable="yes">Only artist:</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow2">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="shadow_type">etched-in</property>
-        <child>
-          <object class="GtkTextView" id="plugin/notify/body_artist">
-            <property name="height_request">60</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="vexpand">True</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">6</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label4">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">start</property>
-        <property name="label" translatable="yes">Only album:</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow3">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="shadow_type">etched-in</property>
-        <child>
-          <object class="GtkTextView" id="plugin/notify/body_album">
-            <property name="height_request">60</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="vexpand">True</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="plugin/notify/attach_tray">
-        <property name="label" translatable="yes">Attach to tray</property>
+      <object class="GtkCheckButton" id="plugin/notify/show_covers">
+        <property name="label" translatable="yes">Use album covers as icons</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes" context="Tooltip on &quot;Attach to tray&quot; checkbox" comments="Please make sure to match the name under &quot;Appearance&quot; preferences.">Make sure to enable "Show tray icon" under "Appearance" to let this option have an effect</property>
+        <property name="halign">start</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/notify/use_media_icons">
+        <property name="label" translatable="yes">Use media icons for pause, stop and resume</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="halign">start</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">8</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/notify/notify_pause">
+        <property name="label" translatable="yes">On playback pause, resume and stop</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="halign">start</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">1</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/notify/tray_hover">
+        <property name="label" translatable="yes">On tray icon hover</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="halign">start</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="plugin/notify/show_when_focused">
+        <property name="label" translatable="yes">When main window is focused</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="halign">start</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
         <property name="width">2</property>
       </packing>
     </child>

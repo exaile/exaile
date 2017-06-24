@@ -1,4 +1,8 @@
-# Copyright (C) 2009-2010 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
+# Copyright (C) 2009-2010
+#     Adam Olsen <arolsen@gmail.com>
+#     Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
+#     Steve Dodier <sidnioulzg@gmail.com>
+# Copyright (C) 2017 Christian Stadelmann
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,124 +18,334 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import gi
 import cgi
-import inspect
+import threading
 import logging
 
-from gi.repository import Gtk
+import gi
+from gi.repository import Gtk, GLib
 
-gi.require_version('Notify', '0.7')
-from gi.repository import Notify
-
-from xl import covers, event, common, player, settings
+from xl.player.adapters import PlaybackAdapter
+from xl import covers, common, plugins
+from xl import event as xl_event
+from xl import player as xl_player
+from xl import settings as xl_settings
 from xl.nls import gettext as _
-from xlgui import icons
+from xlgui import icons, cover
 from xlgui.preferences import widgets
+from xlgui.widgets import dialogs
 
 import notifyprefs
 
-logger = logging.getLogger(__name__)
 
-# This breaks stuff. if you want to enable it, set this to True and uncomment
-# the commented section in the UI designer file
-ATTACH_COVERS_OPTION_ALLOWED = False
-
-Notify.init('exailenotify')
+# For documentation on libnotify see also the "Desktop Notifications Specification":
+# https://developer.gnome.org/notification-spec/
+gi.require_version('Notify', '0.7')
+from gi.repository import Notify
 
 
-class ExaileNotification(object):
+LOGGER = logging.getLogger(__name__)
+DEFAULT_ICON_SIZE = (48, 48)
 
-    def __init__(self):
-        self.notification_id = None
-        self.exaile = None
+BODY_ARTIST_ALBUM = _('from {album} by {artist}')
+BODY_ARTIST = _('by {artist}')
+BODY_ALBUM = _('by {album}')
+
+
+class NotifierSettings(object):
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
 
         def getter(self):
-            return settings.get_option(klass.name, klass.default or None)
+            return xl_settings.get_option(klass.name, klass.default or None)
 
         def setter(self, val):
-            settings.set_option(klass.name, val)
+            xl_settings.set_option(klass.name, val)
+
+        # Migration:
+        if hasattr(klass, 'pre_migration_name'):
+            if xl_settings.get_option(klass.name, None) is None:
+                old_value = xl_settings.get_option(
+                    klass.pre_migration_name, klass.default or None)
+                if old_value is not None:
+                    xl_settings.set_option(klass.name, old_value)
+                    xl_settings.MANAGER.remove_option(klass.name)
 
         return property(getter, setter)
 
-    resize = __inner_preference(notifyprefs.ResizeCovers)
-    body_artistalbum = __inner_preference(notifyprefs.BodyArtistAlbum)
-    body_artist = __inner_preference(notifyprefs.BodyArtist)
-    body_album = __inner_preference(notifyprefs.BodyAlbum)
-    summary = __inner_preference(notifyprefs.Summary)
-    attach_tray = __inner_preference(notifyprefs.AttachToTray)
+    notify_pause = __inner_preference(notifyprefs.NotifyPause)
+    resize_covers = __inner_preference(notifyprefs.ResizeCovers)
+    show_covers = __inner_preference(notifyprefs.ShowCovers)
+    show_when_focused = __inner_preference(notifyprefs.ShowWhenFocused)
+    tray_hover = __inner_preference(notifyprefs.TrayHover)
+    use_media_icons = __inner_preference(notifyprefs.UseMediaIcons)
 
-    @common.threaded
-    def on_play(self, type, player, track):
-        '''Callback when we want to display a notification
 
-        type and player arguments are ignored.
+class Notifier(PlaybackAdapter):
 
-        '''
-        title = track.get_tag_display('title')
-        artist = cgi.escape(
+    settings = NotifierSettings()
+
+    def __init__(self, exaile, caps):
+        self.__exaile = exaile
+        self.__old_icon = None
+        self.__tray_connection = None
+
+        notification = Notify.Notification.new("", None, None)
+
+        if 'sound' in caps:
+            notification.set_hint('suppress-sound',
+                                  GLib.Variant.new_boolean(True))
+        self.settings.can_show_markup = 'body-markup' in caps
+
+        notification.set_urgency(Notify.Urgency.LOW)
+        notification.set_timeout(Notify.EXPIRES_DEFAULT)
+
+        # default action is invoked on clicking the notification
+        notification.add_action(
+            "default", "this should never be displayed", self.__on_default_action)
+
+        self.notification = notification
+        PlaybackAdapter.__init__(self, xl_player.PLAYER)
+
+        xl_event.add_callback(self.on_option_set, 'plugin_notify_option_set')
+        xl_event.add_callback(self.on_option_set, 'gui_option_set')
+        # initial setup through options:
+        self.on_option_set(None, xl_settings, notifyprefs.TrayHover.name)
+        self.on_option_set(None, xl_settings, notifyprefs.ShowCovers.name)
+
+    def __on_default_action(self, _notification, _action):
+        self.__exaile.gui.main.window.present()
+
+    def on_playback_player_end(self, _event, player, track):
+        if self.settings.notify_pause:
+            self.update_track_notify(player, track, 'media-playback-stop')
+
+    def on_playback_track_start(self, _event, player, track):
+        self.update_track_notify(player, track)
+
+    def on_playback_toggle_pause(self, _event, player, track):
+        if self.settings.notify_pause:
+            if player.is_paused():
+                self.update_track_notify(player, track, 'media-playback-pause')
+            else:
+                self.update_track_notify(player, track, 'media-playback-start')
+
+    def on_playback_error(self, _event, _player, message):
+        self.__maybe_show_notification("Playback error", message, 'dialog-error')
+
+    def __on_query_tooltip(self, *_args):
+        if self.settings.tray_hover:
+            self.__maybe_show_notification(force_show=True)
+
+    @common.idle_add()
+    def __try_connect_tray(self):
+        tray_icon = self.__exaile.gui.tray_icon
+        if tray_icon:
+            self.__tray_connection = tray_icon.connect(
+                'query-tooltip', self.__on_query_tooltip)
+        else:
+            LOGGER.warning("Tried to connect to non-existing tray icon")
+
+    def __set_tray_hover_state(self, state):
+        # Interacting with the tray might break if our option handler is being
+        # invoked when exaile.gui.tray_icon == None. This might happen because
+        # it is not defined which 'option_set' handler is being invoked first.
+        tray_icon = self.__exaile.gui.tray_icon
+        if state and not self.__tray_connection:
+            if tray_icon:
+                self.__tray_connection = tray_icon.connect(
+                    'query-tooltip', self.__on_query_tooltip)
+            else:
+                self.__try_connect_tray()
+        elif not state and self.__tray_connection:
+            if tray_icon:  # xlgui.main might already have destroyed the tray icon
+                self.__exaile.gui.tray_icon.disconnect(self.__tray_connection)
+            self.__tray_connection = None
+
+    def on_option_set(self, _event, settings, option):
+        if option == notifyprefs.TrayHover.name or \
+                option == 'gui/use_tray':
+            has_tray = settings.get_option('gui/use_tray')
+            shall_show_tray_hover = self.settings.tray_hover and has_tray
+            self.__set_tray_hover_state(shall_show_tray_hover)
+        elif option == notifyprefs.ShowCovers.name:
+            # delete current cover if user doesn't want to see more covers
+            if not self.settings.show_covers:
+                if self.settings.resize_covers:
+                    size = DEFAULT_ICON_SIZE[1]
+                else:
+                    size = Gtk.IconSize.DIALOG
+                new_icon = icons.MANAGER.pixbuf_from_icon_name('exaile', size)
+                self.notification.set_image_from_pixbuf(new_icon)
+
+    def __maybe_show_notification(self, summary=None, body='', icon_name=None, force_show=False):
+        # If summary is none, don't update the Notification
+        if summary is not None:
+            try:
+                self.notification.update(summary, body, icon_name)
+            except GLib.Error:
+                LOGGER.exception("Could not set new notification status.")
+                return
+        # decide whether to show the notification or not
+        if self.settings.show_when_focused or \
+                not self.__exaile.gui.main.window.is_active() or \
+                force_show:
+            try:
+                self.notification.show()
+            except GLib.Error:
+                LOGGER.exception("Could not set new notification status.")
+                self.__exaile.plugins.disable_plugin(__name__)
+
+    def __get_body_str(self, track):
+        artist_str = cgi.escape(
             track.get_tag_display('artist', artist_compilations=False)
         )
-        album = cgi.escape(track.get_tag_display('album'))
+        album_str = cgi.escape(track.get_tag_display('album'))
 
-        if artist and album:
-            body_format = self.body_artistalbum
-        elif artist:
-            body_format = self.body_artist
-        elif album:
-            body_format = self.body_album
+        if self.settings.can_show_markup:
+            if artist_str:
+                artist_str = '<i>%s</i>' % artist_str
+            if album_str:
+                album_str = '<i>%s</i>' % album_str
+
+        if artist_str and album_str:
+            body = BODY_ARTIST_ALBUM.format(artist=artist_str, album=album_str)
+        elif artist_str:
+            body = BODY_ARTIST.format(artist=artist_str)
+        elif album_str:
+            body = BODY_ALBUM.format(album=album_str)
         else:
-            body_format = ""
+            body = ""
+        return body
 
-        summary = self.summary % {'title': title,
-                                  'artist': artist,
-                                  'album': album
-                                  }
-        body = body_format % {'title': title,
-                              'artist': artist,
-                              'album': album
-                              }
+    def __get_icon(self, track, media_icon):
+        # TODO: icons are too small, even with settings.resize_covers=False
+        icon_name = None
+        if media_icon and self.settings.use_media_icons:
+            icon_name = media_icon
+        elif self.settings.show_covers:
+            cover_data = covers.MANAGER.get_cover(
+                track, set_only=True, use_default=True)
+            size = DEFAULT_ICON_SIZE if self.settings.resize_covers else None
+            new_icon = icons.MANAGER.pixbuf_from_data(cover_data, size)
+            self.notification.set_image_from_pixbuf(new_icon)
+        return icon_name
 
-        notif = Notify.Notification.new(summary, body)
-        cover_data = covers.MANAGER.get_cover(track,
-                                              set_only=True, use_default=True)
-        size = (48, 48) if self.resize else None
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, size)
-        notif.set_image_from_pixbuf(pixbuf)
-        # Attach to tray, if that's how we roll
-        if ATTACH_COVERS_OPTION_ALLOWED:
-            logger.debug("Attaching to tray")
-            if self.attach_tray and hasattr(self.exaile, 'gui'):
-                gui = self.exaile.gui
-                if hasattr(gui, 'tray_icon') and gui.tray_icon:
-                    if isinstance(gui.tray_icon, type(Gtk.StatusIcon)):
-                        notif.attach_to_status_icon(gui.tray_icon)
-                    else:
-                        notif.attach_to_widget(gui.tray_icon)
-        # replace the last notification
-        logger.debug("Setting id")
-        if self.notification_id is not None:
-            notif.props.id = self.notification_id
-        logger.debug("Showing notification")
-        notif.show()
-        logger.debug("Storing id")
-        self.notification_id = notif.props.id
-        logger.debug("Notification done")
+    def update_track_notify(self, _player, track, media_icon=None):
+        # TODO: notification.add_action(): previous, play/pause, next ?
+        title = cgi.escape(track.get_tag_display('title'))
 
-EXAILE_NOTIFICATION = ExaileNotification()
+        summary = title
+        body = self.__get_body_str(track)
+        icon_name = self.__get_icon(track, media_icon)
 
+        # If icon_name is None, the previous icon will not be replaced
+        self.__maybe_show_notification(summary, body, icon_name)
 
-def enable(exaile):
-    EXAILE_NOTIFICATION.exaile = exaile
-    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
+    def destroy(self):
+        PlaybackAdapter.destroy(self)
+        self.__set_tray_hover_state(False)
+        notification = self.notification
+        # must be called on separate thread, since it is a synchronous call and might block
+        self.__close_notification(notification)
+        self.notification.clear_actions()
+        self.notification = None
+        self.__exaile = None
 
-
-def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
+    @staticmethod
+    @common.threaded
+    def __close_notification(notification):
+        try:
+            notification.close()
+        except GLib.Error:
+            LOGGER.exception("Failed to close notification")
 
 
-def get_preferences_pane():
-    return notifyprefs
+class NotifyPlugin(object):
+
+    def __init__(self):
+        self.__notifier = None
+        self.__exaile = None
+
+    def enable(self, exaile):
+        self.__exaile = exaile
+        self.__init_notify()
+
+    @common.threaded
+    def __init_notify(self):
+        can_continue = True
+        caps = None
+        if not Notify.is_initted():
+            can_continue = Notify.init('Exaile')
+        if not can_continue:
+            LOGGER.error("Notify.init() returned false.")
+
+        if can_continue:
+            # This is the first synchronous call to the Notify server.
+            # This call might fail if no server is present or it is broken.
+            # Test it on window manager sessions (e.g. Weston) without
+            # libnotify support, not on a Desktop Environment (such as
+            # GNOME, KDE) to reproduce.
+            available, name, vendor, version, spec_version = \
+                Notify.get_server_info()
+            if available:
+                LOGGER.info("Connected with notify server %s (version %s) by %s",
+                            name, version, vendor)
+                LOGGER.info("Supported spec version: %s", spec_version)
+                # This is another synchronous, blocking call:
+                caps = Notify.get_server_caps()
+                # Example from Fedora 26 Linux with GNOME on Wayland:
+                # ['actions', 'body', 'body-markup', 'icon-static', 'persistence', 'sound']
+                LOGGER.debug("Notify server caps: %s", caps)
+                if not caps or not isinstance(caps, list):
+                    can_continue = False
+            else:
+                LOGGER.error(
+                    "Failed to retrieve capabilities from notify server. "
+                    "This may happen if the desktop environment does not support "
+                    "the org.freedesktop.Notifications DBus interface.")
+                can_continue = False
+        self.__handle_init(can_continue, caps)
+
+    # Must be run on main thread because we need to make sure that the plugin
+    # is not being disabled while this function runs. Otherwise, race
+    # conditions might trigger obscure bugs.
+    @common.idle_add()
+    def __handle_init(self, can_continue, caps):
+        exaile = self.__exaile
+        if exaile is None:  # Plugin has been disabled in the mean time
+            return
+
+        if can_continue:  # check again, might have changed
+            if exaile.loading:
+                xl_event.add_ui_callback(
+                    self.__init_notifier, 'gui_loaded', None, caps)
+            else:
+                self.__init_notifier(caps)
+        else:
+            LOGGER.warning("Disabling NotifyPlugin.")
+            exaile.plugins.disable_plugin(__name__)
+            if exaile.loading is not True:
+                # TODO: send error to GUI
+                pass
+
+    def __init_notifier(self, caps):
+        self.__notifier = Notifier(self.__exaile, caps)
+        return GLib.SOURCE_REMOVE
+
+    def disable(self, _exaile):
+        if self.__notifier:
+            self.__notifier.destroy()
+            self.__notifier = None
+        self.__exaile = None
+
+    def teardown(self):
+        if self.__notifier:
+            self.__notifier.destroy()
+
+    def get_preferences_pane(self):
+        return notifyprefs
+
+
+plugin_class = NotifyPlugin

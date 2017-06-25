@@ -266,11 +266,21 @@ class Exaile(object):
         # this is useful on Win32, because you cannot set these directories
         # via environment variables
         if self.options.UseAllDataDir:
-            xdg.data_home = self.options.UseAllDataDir
+            if not os.path.supports_unicode_filenames:
+                alldatadir = self.options.UseAllDataDir
+                try:
+                    alldatadir.decode('ascii')
+                except UnicodeDecodeError:
+                    # if we don't do this here, os.path.join() will fail later.
+                    alldatadir = alldatadir.decode('utf-8').encode(
+                        'ascii', 'replace')
+                    print("WARNING : converted non-ASCII data dir %s to ascii: %s"
+                          % (self.options.UseAllDataDir, alldatadir))
+            xdg.data_home = alldatadir
             xdg.data_dirs.insert(0, xdg.data_home)
-            xdg.config_home = self.options.UseAllDataDir
+            xdg.config_home = alldatadir
             xdg.config_dirs.insert(0, xdg.config_home)
-            xdg.cache_home = self.options.UseAllDataDir
+            xdg.cache_home = alldatadir
 
         try:
             xdg._make_missing_dirs()

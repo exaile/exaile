@@ -58,6 +58,9 @@ try:
         gettextmod.textdomain('exaile')
 
         locale_path = None
+
+        # this is the same as xl.nls.exaile_path, but importing xl.nls would
+        # pull in GLib, which is a heavy import for xl.main.
         exaile_path = os.environ['EXAILE_DIR']
 
         # If running from source dir, we have to set the paths.

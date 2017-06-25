@@ -632,10 +632,10 @@ class NetworkPanel(CollectionPanel):
         self.net_collection = collection.Collection(self.name)
         self.net_collection.add_library(library)
         CollectionPanel.__init__(self, parent, self.net_collection,
-                                 self.name, _show_collection_empty_message=False)
+                                 self.name, _show_collection_empty_message=False,
+                                 label=self.name)
 
         self.all = []
-        self.label = self.name
 
         self.connect_id = None
 

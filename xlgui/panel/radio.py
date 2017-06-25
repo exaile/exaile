@@ -71,7 +71,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     }
     __gsignals__.update(playlistpanel.BasePlaylistPanelMixin._gsignals_)
 
-    ui_info = ('radio.ui', 'RadioPanelWindow')
+    ui_info = ('radio.ui', 'RadioPanel')
     _radiopanel = None
 
     def __init__(self, parent, collection,
@@ -79,7 +79,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Initializes the radio panel
         """
-        panel.Panel.__init__(self, parent, name)
+        panel.Panel.__init__(self, parent, name, _('Radio'))
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
 
         self.collection = collection

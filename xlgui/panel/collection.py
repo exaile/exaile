@@ -505,11 +505,11 @@ class CollectionPanel(panel.Panel):
         return False
 
     def resort_tracks(self):
-        #        import time
-        #        print "sorting...", time.clock()
+        # import time
+        # print("sorting...", time.clock())
         self.sorted_tracks = trax.sort_tracks(self.order.get_sort_tags(0),
                                               self.collection.get_tracks())
-#        print "sorted.", time.clock()
+        # print("sorted.", time.clock())
 
     def load_tree(self):
         """

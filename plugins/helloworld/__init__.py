@@ -29,15 +29,15 @@
     you can create a plugin by implementing the following functions:
 
         def enable(exaile):
-            print "Hello, world!"
+            print("Hello, world!")
             testlib.sucess()
 
         def disable(exaile):
-            print "Goodbye. :("
+            print("Goodbye. :(")
 
         def teardown(exaile):
             # optional function
-            print "Unhello, World!"
+            print("Unhello, World!")
 
     Exaile 3.4 introduced a new way to write plugins which will eliminate
     a lot of unnecessary boilerplate for plugin authors.

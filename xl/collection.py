@@ -132,7 +132,7 @@ class Collection(trax.TrackDB):
         >>> collection.rescan_libraries()
         >>> tracks = [i.track for i in search.search_tracks_from_string(
         ...     collection, ('artist==TestArtist'))]
-        >>> print len(tracks)
+        >>> print(len(tracks))
         5
         >>>
     """
@@ -526,9 +526,9 @@ class Library(object):
         >>> c.add_library(l)
         >>> l.rescan()
         True
-        >>> print c.get_libraries()[0].location
+        >>> print(c.get_libraries()[0].location)
         ./tests/data
-        >>> print len(list(c.search('artist="TestArtist"')))
+        >>> print(len(list(c.search('artist="TestArtist"'))))
         5
         >>>
     """

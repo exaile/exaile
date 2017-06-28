@@ -67,7 +67,7 @@ class UDisksDBusWrapper(object):
         Example usage:
 
             obj = get_object_by_path('/org/freedesktop/UDisks2/drives/foo')
-            print obj.props.Get('Device')
+            print(obj.props.Get('Device'))
 
         You shouldn't need to create this, use get_object_py_path.
     '''

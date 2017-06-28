@@ -37,7 +37,7 @@ class RadioManager(providers.ProviderHandler):
         >>> manager.add_station(RadioStation())
         >>> lists = manager.get_lists('test_station')
         >>> pl = lists[0].get_playlist()
-        >>> print pl.get_tracks()[0]['title'][0]
+        >>> print(pl.get_tracks()[0]['title'][0])
         Test Track
         >>>
     """

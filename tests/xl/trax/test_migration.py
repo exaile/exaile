@@ -49,7 +49,7 @@ def data(request, tmpdir):
 def test_migration(data):
     truth, loc, dbtype = data
     
-    print os.listdir(loc)
+    print(os.listdir(loc))
     
     try:
         db = open_shelf(join(loc, 'music.db'))

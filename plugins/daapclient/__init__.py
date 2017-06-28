@@ -149,7 +149,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
 
         # check if the menu exist and check if it's ipv4 or we are allowing
         # ipv6
-        print('adding menu', name, key)
+        logger.debug('adding menu %s: %s', name, key)
         if self.menu:
             menu_item = _smi(name, ['sep'], name,
                              callback=lambda *x: self.clicked(key))

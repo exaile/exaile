@@ -577,13 +577,15 @@ class PlaylistPage(PlaylistPageBase):
         """
             Callback for the Shuffle mode menu
         """
-        self.playlist.shuffle_mode = mode
+        if widget.get_active():
+            self.playlist.shuffle_mode = mode
 
     def on_repeat_mode_set(self, widget, mode):
         """
             Callback for the Repeat mode menu
         """
-        self.playlist.repeat_mode = mode
+        if widget.get_active():
+            self.playlist.repeat_mode = mode
 
     def on_mode_changed(self, evtype, playlist, mode, button):
         GLib.idle_add(button.set_active, mode != 'disabled')

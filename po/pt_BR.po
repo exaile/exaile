@@ -4442,8 +4442,7 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Adiciona suporte para teclas multimídia (presentes na maioria dos teclados "
 "novos) quando executando Exaile no Microsoft Windows\n"
@@ -4557,7 +4556,7 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 
 #: ../plugins/wikipedia/PLUGININFO:4
@@ -4762,10 +4761,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Este de plugin integra o spydaap (http://launchpad.net/spydaap)  no Exaile "
+"Este de plugin integra o spydaap (%s)  no Exaile "
 "assim que em uma coleção pode ser compartilhado sobre DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4775,9 +4774,7 @@ msgstr "Radio do Shoutcast"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
 
 #: ../plugins/bpm/PLUGININFO:4

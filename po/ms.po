@@ -4445,14 +4445,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Tambah sokongan untuk kekunci multimedia (ada dalam kebanyakan papan kekunci "
 "baru) bila jalankan Exaile\n"
 "didalam Microsoft Windows.\n"
 "\n"
-"Perlukan: pyHook <http://pyhook.sf.net/>"
+"Perlukan: pyHook (%s)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4563,12 +4562,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Tambah sokongan untuk memainkan CD audio.\n"
 "\n"
 "Perlukan HAL untuk kesan-sendiri CD\n"
-"Perlukan cddb-py (http://cddb-py.sourceforge.net/) untuk mencari tag."
+"Perlukan cddb-py (%s) untuk mencari tag."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4781,10 +4780,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Pemalam ini integrasikan spydaap (http://launchpad.net/spydaap) kedalam "
+"Pemalam ini integrasikan spydaap (%s) kedalam "
 "Exaile supaya koleksi boleh dikongsi melalui DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4794,9 +4793,7 @@ msgstr "Radio Shoutcast"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
 
 #: ../plugins/bpm/PLUGININFO:4

@@ -4407,14 +4407,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Podpora večpredstavnim tipkam (prisotne na novejših tipkovnicah) ko je "
 "Exaile zagnan v okolju Microsoft Windows.\n"
 "\n"
-"Zahteva: pyHook <http://pyhook.sf.net/> (ali "
-"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> za več različic)"
+"Zahteva: pyHook (%s) (ali "
+"%s za več različic)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4521,12 +4520,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Podpora za predvajanje avdio zgoščenk.\n"
 "\n"
 "Zahteva HAL/UDisks/UDisk2 za samodejno zaznavanje zgoščenk\n"
-"Zahteva cddb-py (http://cddb-py.sourceforge.net/) za iskanje značk."
+"Zahteva cddb-py (%s) za iskanje značk."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4737,10 +4736,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Vstavek vključi možnost spydaap (http://launchpad.net/spydaap) v program "
+"Vstavek vključi možnost spydaap (%s) v program "
 "Exaile in omogoča izmenjavo zbirke preko protokola DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4749,13 +4748,9 @@ msgstr "SomaFM radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Seznam SomaFM Radio\n"
-"\n"
-"http://somafm.com"
+"Seznam SomaFM Radio%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"

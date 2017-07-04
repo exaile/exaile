@@ -4406,14 +4406,13 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Afegeix compatibilitat per a les tecles multimèdia (presents en la majoria "
 "dels teclats nous) quan s'executa Exaile en Microsoft Windows.\n"
 "\n"
-"Requereix: pyHook <http://pyhook.sf.net/> (o bé "
-"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> per a més versions)"
+"Requereix: pyHook (%s) (o bé "
+"%s per a més versions)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4531,12 +4530,12 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Afegeix compatibilitat per a la reproducció dels CD d'àudio.\n"
 "\n"
 "Requereix HAL/UDisks/UDisks2 per detectar automàticament els CD\n"
-"Requereix cddb-py (http://cddb-py.sourceforge.net/) per cercar etiquetes."
+"Requereix cddb-py (%s) per cercar etiquetes."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4754,10 +4753,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Aquest connector integra spydaap (http://launchpad.net/spydaap) a Exaile per "
+"Aquest connector integra spydaap (%s) a Exaile per "
 "tant una col·lecció es pot compartir a través de DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4766,13 +4765,9 @@ msgstr "Ràdio LastFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
-"Llista de les ràdios de SomaFM\n"
-"\n"
-"http://somafm.com"
+"Llista de les ràdios de SomaFM%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"

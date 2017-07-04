@@ -4417,13 +4417,12 @@ msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
+"Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Vykdant Exaile Microsoft Windows sistemoje, prideda daugialypės terpės "
 "klavišų palaikymą (kurie yra daugumoje naujų klaviatūrų).\n"
 "\n"
-"Reikia: pyHook <http://pyhook.sf.net/>"
+"Reikia: pyHook (%s)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4529,7 +4528,7 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+"Requires cddb-py (%s) to look up tags."
 msgstr ""
 
 #: ../plugins/wikipedia/PLUGININFO:4
@@ -4730,10 +4729,10 @@ msgstr ""
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
-"Šis įskiepis į Exaile integruoja spydaap (http://launchpad.net/spydaap), tad "
+"Šis įskiepis į Exaile integruoja spydaap (%s), tad "
 "kolekciją galima viešinti per DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
@@ -4743,9 +4742,7 @@ msgstr "Shoutcast radijas"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
+"SomaFM Radio list%s%s"
 msgstr ""
 
 #: ../plugins/bpm/PLUGININFO:4

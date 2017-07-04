@@ -143,7 +143,7 @@ class BrowserPage(WebKit2.WebView):
 
 class WikiPanel(panel.Panel):
     # Specifies the path to the UI file and the name of the root element
-    ui_info = (os.path.dirname(__file__) + "/data/wikipanel.ui", 'wikipanel_window')
+    ui_info = (os.path.dirname(__file__) + "/data/wikipanel.ui", 'WikiPanel')
 
     def __init__(self, parent, user_agent):
         panel.Panel.__init__(self, parent, 'wikipedia', _('Wikipedia'))

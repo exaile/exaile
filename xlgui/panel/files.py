@@ -71,16 +71,16 @@ class FilesPanel(panel.Panel):
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('files.ui', 'FilesPanelWindow')
+    ui_info = ('files.ui', 'FilesPanel')
 
     def __init__(self, parent, collection, name):
         """
             Initializes the files panel
         """
-        panel.Panel.__init__(self, parent, name)
+        panel.Panel.__init__(self, parent, name, _('Files'))
         self.collection = collection
 
-        self.box = self.builder.get_object('files_box')
+        self.box = self.builder.get_object('FilesPanel')
 
         self.targets = [Gtk.TargetEntry.new('text/uri-list', 0, 0)]
 

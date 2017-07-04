@@ -48,6 +48,7 @@ from xlgui import (
 )
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
+from xlgui.widgets.notebook import NotebookPage
 
 logger = logging.getLogger(__name__)
 
@@ -163,10 +164,10 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (GObject.SignalFlags.RUN_LAST, None, ()),
     }
 
-    ui_info = ('collection.ui', 'CollectionPanelWindow')
+    ui_info = ('collection.ui', 'CollectionPanel')
 
     def __init__(self, parent, collection, name=None,
-                 _show_collection_empty_message=False, label=None):
+                 _show_collection_empty_message=False, label=_('Collection')):
         """
             Initializes the collection panel
 
@@ -179,10 +180,10 @@ class CollectionPanel(panel.Panel):
         self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
-        self.vbox = self.builder.get_object('CollectionPanel')
-        self.message = self.builder.get_object('EmptyCollectionPanel')
+        self.panel_stack = self.builder.get_object('CollectionPanel')
+        self.panel_content = self.builder.get_object('CollectionPanelContent')
+        self.panel_empty = self.builder.get_object('CollectionPanelEmpty')
         self.choice = self.builder.get_object('collection_combo_box')
-        self.collection_empty_message = False
         self._search_num = 0
         self._refresh_id = 0
         self.start_count = 0
@@ -227,22 +228,15 @@ class CollectionPanel(panel.Panel):
         self.choice.set_active(active)
 
     def _check_collection_empty(self, *e):
-        if not self._show_collection_empty_message or \
-                (self.collection.libraries and self.collection_empty_message):
-            self.collection_empty_message = False
-            self.vbox.set_child_visible(True)
-            self.message.set_child_visible(False)
-            self.vbox.show_all()
-            self.message.hide()
-
-        elif not self.collection.libraries and not \
-                self.collection_empty_message:
-            self.collection_empty_message = True
-            self.vbox.set_child_visible(False)
-            self.message.set_no_show_all(False)
-            self.message.set_child_visible(True)
-            self.vbox.hide()
-            self.message.show_all()
+        if self._show_collection_empty_message and \
+                not self.collection.libraries:
+            # should show empty panel
+            if self.panel_stack.get_visible_child() == self.panel_content:
+                self.panel_stack.set_visible_child(self.panel_empty)
+        else:
+            # should show content panel
+            if self.panel_stack.get_visible_child() == self.panel_empty:
+                self.panel_stack.set_visible_child(self.panel_content)
 
     def _connect_events(self):
         """
@@ -374,13 +368,12 @@ class CollectionPanel(panel.Panel):
         """
         self.tree = CollectionDragTreeView(self)
         self.tree.set_headers_visible(False)
-        container = self.builder.get_object('CollectionPanel')
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.tree)
         scroll.set_shadow_type(Gtk.ShadowType.IN)
-        container.pack_start(scroll, True, True, 0)
-        container.show_all()
+        self.panel_content.pack_start(scroll, True, True, 0)
+        self.panel_content.show_all()
 
         selection = self.tree.get_selection()
         selection.set_mode(Gtk.SelectionMode.MULTIPLE)

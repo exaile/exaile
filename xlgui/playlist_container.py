@@ -256,8 +256,7 @@ class PlaylistNotebook(SmartNotebook):
 
             logger.debug("Adding playlist %d: %s", i, name)
             logger.debug("Tab:%s; Tag:%s; Name:%s", match.group('tab'),
-                                                    match.group('tag'),
-                                                    match.group('name'))
+                         match.group('tag'), match.group('name'))
             pl = self.tab_manager.get_playlist(name)
             pl.name = match.group('name')
 

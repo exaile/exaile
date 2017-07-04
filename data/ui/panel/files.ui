@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="liststore_libraries_location">
@@ -8,192 +8,174 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkWindow" id="FilesPanelWindow">
+  <object class="GtkBox" id="FilesPanel">
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Files</property>
+    <property name="border_width">3</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">3</property>
     <child>
-      <object class="GtkBox" id="FilesPanel">
+      <object class="GtkBox" id="hbox20">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="files_box">
+          <object class="GtkButton" id="files_back_button">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="border_width">3</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">3</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Previous visited directory</property>
+            <property name="relief">none</property>
             <child>
-              <object class="GtkBox" id="hbox20">
+              <object class="GtkImage" id="image44">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkButton" id="files_back_button">
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Previous visited directory</property>
-                    <property name="relief">none</property>
-                    <child>
-                      <object class="GtkImage" id="image44">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">go-previous</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="files_forward_button">
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Next visited directory</property>
-                    <property name="relief">none</property>
-                    <child>
-                      <object class="GtkImage" id="image45">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">go-next</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="files_up_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Up one directory</property>
-                    <property name="relief">none</property>
-                    <child>
-                      <object class="GtkImage" id="image46">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">go-up</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="files_refresh_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Refresh directory listing</property>
-                    <property name="relief">none</property>
-                    <child>
-                      <object class="GtkImage" id="image43">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">view-refresh</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="files_home_button">
-                    <property name="width_request">36</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Home directory</property>
-                    <property name="relief">none</property>
-                    <child>
-                      <object class="GtkImage" id="image47">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">user-home</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
+                <property name="icon_name">go-previous</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="files_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="model">liststore_libraries_location</property>
-                <property name="has_entry">True</property>
-                <property name="entry_text_column">0</property>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="combobox-entry1">
-                    <property name="can_focus">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="files_search_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="primary_icon_name">edit-find</property>
-                <property name="secondary_icon_name">edit-clear</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_sensitive">False</property>
-                <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">0</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkButton" id="files_forward_button">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Next visited directory</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkImage" id="image45">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">go-next</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="files_up_button">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Up one directory</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkImage" id="image46">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">go-up</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="files_refresh_button">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Refresh directory listing</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkImage" id="image43">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">view-refresh</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="files_home_button">
+            <property name="width_request">36</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Home directory</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkImage" id="image47">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">user-home</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="files_entry">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="model">liststore_libraries_location</property>
+        <property name="has_entry">True</property>
+        <property name="entry_text_column">0</property>
+        <child internal-child="entry">
+          <object class="GtkEntry" id="combobox-entry1">
+            <property name="can_focus">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="files_search_entry">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="primary_icon_name">edit-find</property>
+        <property name="secondary_icon_name">edit-clear</property>
+        <property name="primary_icon_activatable">False</property>
+        <property name="secondary_icon_sensitive">False</property>
+        <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>

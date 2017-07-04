@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="collection_combo_model">
@@ -13,58 +13,101 @@
     <property name="can_focus">False</property>
     <property name="icon_name">list-add</property>
   </object>
-  <object class="GtkWindow" id="CollectionPanelWindow">
+  <object class="GtkStack" id="CollectionPanel">
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Collection</property>
     <child>
-      <object class="GtkBox" id="CollectionTopContainer">
+      <object class="GtkGrid" id="CollectionPanelEmpty">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="row_spacing">6</property>
         <child>
-          <object class="GtkBox" id="EmptyCollectionPanel">
+          <object class="GtkButton" id="add_music_button">
+            <property name="label" translatable="yes">_Add Music</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="image">image2</property>
+            <property name="use_underline">True</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="on_add_music_button_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="empty_collection_label">
+            <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="no_show_all">True</property>
-            <property name="valign">center</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">12</property>
+            <property name="label" translatable="yes">&lt;b&gt;Collection is empty.&lt;/b&gt;</property>
+            <property name="use_markup">True</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <property name="width_chars">20</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="name">page0</property>
+        <property name="title" translatable="yes">page0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="CollectionPanelContent">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkBox" id="collection_top_hbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
-              <object class="GtkLabel" id="empty_collection_label">
+              <object class="GtkComboBox" id="collection_combo_box">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;Collection is empty.&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
-                <property name="justify">center</property>
-                <property name="wrap">True</property>
-                <property name="width_chars">20</property>
+                <property name="can_focus">True</property>
+                <property name="model">collection_combo_model</property>
+                <signal name="changed" handler="on_collection_combo_box_changed" swapped="no"/>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButtonBox" id="hbuttonbox1">
+              <object class="GtkButton" id="refresh_button">
+                <property name="width_request">34</property>
+                <property name="height_request">34</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Refresh collection view
+(Hold Shift key to rescan the collection)</property>
+                <property name="relief">none</property>
+                <signal name="button-press-event" handler="on_refresh_button_press_event" swapped="no"/>
+                <signal name="key-press-event" handler="on_refresh_button_key_press_event" swapped="no"/>
                 <child>
-                  <object class="GtkButton" id="add_music_button">
-                    <property name="label" translatable="yes">_Add Music</property>
-                    <property name="use_action_appearance">False</property>
+                  <object class="GtkImage" id="image3">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="image">image2</property>
-                    <property name="use_underline">True</property>
-                    <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_add_music_button_clicked" swapped="no"/>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">view-refresh</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
               </object>
               <packing>
@@ -75,103 +118,37 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="CollectionPanel">
+          <object class="GtkEntry" id="collection_search_entry">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="border_width">3</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">3</property>
-            <child>
-              <object class="GtkBox" id="collection_top_hbox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkComboBox" id="collection_combo_box">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">collection_combo_model</property>
-                    <signal name="changed" handler="on_collection_combo_box_changed" swapped="no"/>
-                    <child>
-                      <object class="GtkCellRendererText" id="renderer1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="refresh_button">
-                    <property name="use_action_appearance">False</property>
-                    <property name="width_request">34</property>
-                    <property name="height_request">34</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Refresh collection view
-(Hold Shift key to rescan the collection)</property>
-                    <property name="relief">none</property>
-                    <signal name="button-press-event" handler="on_refresh_button_press_event" swapped="no"/>
-                    <signal name="key-press-event" handler="on_refresh_button_key_press_event" swapped="no"/>
-                    <child>
-                      <object class="GtkImage" id="image3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">view-refresh</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="collection_search_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="primary_icon_name">edit-find</property>
-                <property name="secondary_icon_name">edit-clear</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_sensitive">False</property>
-                <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
-                <signal name="activate" handler="on_collection_search_entry_activate" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="primary_icon_name">edit-find</property>
+            <property name="secondary_icon_name">edit-clear</property>
+            <property name="primary_icon_activatable">False</property>
+            <property name="secondary_icon_sensitive">False</property>
+            <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
+            <signal name="activate" handler="on_collection_search_entry_activate" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
+      <packing>
+        <property name="name">page1</property>
+        <property name="title" translatable="yes">page1</property>
+        <property name="position">1</property>
+      </packing>
     </child>
   </object>
 </interface>

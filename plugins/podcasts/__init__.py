@@ -51,7 +51,7 @@ def disable(exaile):
 
 
 class PodcastPanel(panel.Panel):
-    ui_info = (os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanelWindow')
+    ui_info = (os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanel')
 
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, 'podcasts', _('Podcasts'))

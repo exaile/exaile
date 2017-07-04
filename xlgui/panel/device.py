@@ -107,7 +107,7 @@ class DevicePanel(panel.Panel):
         'collection-tree-loaded': (GObject.SignalFlags.RUN_LAST, None, ()),
     }
 
-    ui_info = ('device.ui', 'DevicePanelWindow')
+    ui_info = ('device.ui', 'DevicePanel')
 
     def __init__(self, parent, main, device, name):
 
@@ -156,7 +156,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('device.ui', 'DevicePanelWindow')
+    ui_info = ('device.ui', 'DevicePanel')
 
     def __init__(self, parent, main, device, name):
 

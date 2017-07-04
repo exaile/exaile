@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="image2">
@@ -7,72 +7,62 @@
     <property name="can_focus">False</property>
     <property name="icon_name">list-add</property>
   </object>
-  <object class="GtkWindow" id="PodcastPanelWindow">
+  <object class="GtkGrid" id="PodcastPanel">
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="border_width">4</property>
+    <property name="row_spacing">4</property>
+    <property name="column_spacing">2</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="GtkButton" id="add_button">
+        <property name="label" translatable="yes">_Add Podcast</property>
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">4</property>
-        <property name="row_spacing">4</property>
-        <property name="column_spacing">2</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="halign">start</property>
+        <property name="image">image2</property>
+        <property name="use_underline">True</property>
+        <property name="always_show_image">True</property>
+        <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="scrolledwindow1">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="shadow_type">etched-in</property>
         <child>
-          <object class="GtkButton" id="add_button">
-            <property name="label" translatable="yes">_Add Podcast</property>
+          <object class="GtkTreeView" id="podcast_tree">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="halign">start</property>
-            <property name="image">image2</property>
-            <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow1">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="shadow_type">etched-in</property>
-            <child>
-              <object class="GtkTreeView" id="podcast_tree">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="headers_visible">False</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="treeview-selection1"/>
-                </child>
-              </object>
+            <property name="headers_visible">False</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection" id="treeview-selection1"/>
             </child>
           </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="podcast_statusbar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">2</property>
-            <property name="width">2</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="podcast_statusbar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
     </child>
   </object>
 </interface>

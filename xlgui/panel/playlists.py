@@ -370,7 +370,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
     __gsignals__ = BasePlaylistPanelMixin._gsignals_
 
-    ui_info = ('playlists.ui', 'PlaylistsPanelWindow')
+    ui_info = ('playlists.ui', 'PlaylistsPanel')
 
     def __init__(self, parent, playlist_manager,
                  smart_manager, collection, name):
@@ -379,12 +379,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             @param playlist_manager:  The playlist manager
         """
-        panel.Panel.__init__(self, parent, name)
+        panel.Panel.__init__(self, parent, name, _('Playlists'))
         BasePlaylistPanelMixin.__init__(self)
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
-        self.box = self.builder.get_object('playlists_box')
+        self.box = self.builder.get_object('PlaylistsPanel')
 
         self.playlist_name_info = 500
         self.track_target = Gtk.TargetEntry.new("text/uri-list", 0, 0)

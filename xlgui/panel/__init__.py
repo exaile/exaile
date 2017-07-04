@@ -31,6 +31,10 @@ from gi.repository import GObject
 
 from xl import xdg
 from xlgui.widgets.notebook import NotebookPage
+import logging
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 class Panel(GObject.GObject):
@@ -81,12 +85,19 @@ class Panel(GObject.GObject):
             :returns: NotebookPage object
         '''
         if not self._child:
-            window = self.builder.get_object(self.ui_info[1])
-            child = window.get_child()
-            window.remove(child)
-            if not self.label:
-                self.label = window.get_title()
-            window.destroy()
+            widget = self.builder.get_object(self.ui_info[1])
+            if isinstance(widget, Gtk.Window):
+                # the old way, for pre 4.0.0-compatibility
+                child = widget.get_child()
+                if not self.label:
+                    self.label = widget.get_title()
+                LOGGER.info(
+                    "Old style panel %s is creating unnecessary Gtk.Window.",
+                    self.label)
+                widget.remove(child)
+                widget.destroy()
+            else:
+                child = widget
 
             self._child = NotebookPage(child, self.label, 'panel-tab-context')
 

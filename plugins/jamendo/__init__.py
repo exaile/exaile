@@ -87,7 +87,7 @@ class JamendoPanel(panel.Panel):
         'download-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
-    ui_info = (os.path.dirname(__file__) + "/ui/jamendo_panel.ui", 'JamendoPanelWindow')
+    ui_info = (os.path.dirname(__file__) + "/ui/jamendo_panel.ui", 'JamendoPanel')
 
     def __init__(self, parent, exaile):
         panel.Panel.__init__(self, parent, 'jamendo', "Jamendo")

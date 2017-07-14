@@ -91,7 +91,7 @@ class VerboseExceptionFormatter(logging.Formatter):
         if not self._log_locals or exc_info[2] is None:
             return exc_text
         # Now we're going to format and add the locals information.
-        output_lines = [exc_text, '\n']
+        output_lines = [exc_text, '']
         tb = exc_info[2]  # This is the outermost frame of the traceback.
         while tb.tb_next:
             tb = tb.tb_next  # Zoom to the innermost frame.
@@ -105,7 +105,7 @@ class VerboseExceptionFormatter(logging.Formatter):
         output_lines.extend(
             line[:MAX_LINE_LENGTH - 3] + '...' if len(line) > MAX_LINE_LENGTH else line
             for line in locals_lines)
-        output_lines.append('\n')
+        output_lines.append('')
         return '\n'.join(output_lines)
 
 

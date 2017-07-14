@@ -1960,7 +1960,7 @@ class PlaylistManager(object):
         Manages saving and loading of playlists
     """
 
-    def __init__(self, playlist_dir='playlists', playlist_class=Playlist):
+    def __init__(self, playlist_dir=u'playlists', playlist_class=Playlist):
         """
             Initializes the playlist manager
 
@@ -1968,7 +1968,7 @@ class PlaylistManager(object):
             @param playlist_class: the playlist class to use
         """
         self.playlist_class = playlist_class
-        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], playlist_dir)
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], unicode(playlist_dir))
         if not os.path.exists(self.playlist_dir):
             os.makedirs(self.playlist_dir)
         self.order_file = os.path.join(self.playlist_dir, 'order_file')
@@ -2044,8 +2044,13 @@ class PlaylistManager(object):
             # temporary stuff in the same dir.
             if f != os.path.basename(self.order_file) and not f.startswith("."):
                 pl = self._create_playlist(f)
-                pl.load_from_location(os.path.join(self.playlist_dir, f))
-                existing.append(pl.name)
+                path = os.path.join(self.playlist_dir, f)
+                try:
+                    pl.load_from_location(path)
+                except Exception:
+                    logger.exception("Failed loading playlist: %r", path)
+                else:
+                    existing.append(pl.name)
 
         # if order_file exists then use it
         if os.path.isfile(self.order_file):

@@ -242,8 +242,10 @@ class SettingsManager(RawConfigParser):
         """
         for k, v in TYPE_MAPPING.iteritems():
             if isinstance(value, v):
-                if v == list:
+                if v is list:
                     return k + ": " + repr(value)
+                elif v is unicode:
+                    return k + ": " + value.encode('utf-8')
                 else:
                     return k + ": " + str(value)
 
@@ -269,9 +271,12 @@ class SettingsManager(RawConfigParser):
                     return False
 
             try:
-                value = TYPE_MAPPING[kind](value)
+                if kind == 'U':
+                    value = value.decode('utf-8')
+                else:
+                    value = TYPE_MAPPING[kind](value)
             except Exception:
-                pass
+                logger.exception("Failed decoding value %r of kind %r", value, kind)
 
             return value
         else:

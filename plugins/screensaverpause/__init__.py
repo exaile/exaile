@@ -35,6 +35,16 @@ SERVICES = [
         path='/org/gnome/ScreenSaver',
         dbus_interface='org.gnome.ScreenSaver',
     ),
+    dict(  # MATE
+        bus_name='org.mate.ScreenSaver',
+        path='/org/mate/ScreenSaver',
+        dbus_interface='org.mate.ScreenSaver',
+    ),
+    dict(  # CINNAMON
+        bus_name='org.cinnamon.ScreenSaver',
+        path='/org/cinnamon/ScreenSaver',
+        dbus_interface='org.cinnamon.ScreenSaver',
+    ),
     dict(  # KDE
         bus_name='org.freedesktop.ScreenSaver',
         path='/',

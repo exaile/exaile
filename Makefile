@@ -197,6 +197,7 @@ pot:
 	  intltool-update --pot --gettext-package=messages --verbose)
 
 potball:
+	mkdir -p build
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 

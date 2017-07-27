@@ -41,6 +41,7 @@ from xl import (
     trax,
 )
 from xlgui.accelerators import AcceleratorManager
+from xlgui.accelerators import Accelerator
 from xlgui.playlist_container import PlaylistContainer
 from xlgui.widgets import (
     dialogs,
@@ -108,9 +109,9 @@ class MainWindow(GObject.GObject):
             'gui/main_window_title_format',
             _('$title (by $artist)') + ' - Exaile'))
 
-        self.accelgroup = Gtk.AccelGroup()
-        self.window.add_accel_group(self.accelgroup)
-        self.accel_manager = AcceleratorManager('mainwindow-accelerators', self.accelgroup)
+        self.accel_group = Gtk.AccelGroup()
+        self.window.add_accel_group(self.accel_group)
+        self.accel_manager = AcceleratorManager('mainwindow-accelerators', self.accel_group)
         self.menubar = self.builder.get_object("mainmenu")
 
         fileitem = self.builder.get_object("file_menu_item")
@@ -146,50 +147,70 @@ class MainWindow(GObject.GObject):
         """
             Sets up accelerators that haven't been set up in UI designer
         """
+
+        def factory(integer, description):
+            """ Generate key bindings for Alt keys """
+            keybinding = '<Alt>%s' % str(integer)
+            callback = lambda *_e: self._on_focus_playlist_tab(integer-1)
+            return (keybinding, description, callback)
+
         hotkeys = (
-            ('<Primary>S', lambda *e: self.on_save_playlist()),
-            ('<Shift><Primary>S', lambda *e: self.on_save_playlist_as()),
-            ('<Primary>F', lambda *e: self.on_panel_filter_focus()),
-            ('<Primary>G', lambda *e: self.on_search_playlist_focus()),  # FIXME
-            ('<Primary><Alt>l', lambda *e: player.QUEUE.clear()),  # FIXME
+            ('<Primary>S', _('Save currently selected playlist'),
+             lambda *_e: self.on_save_playlist()),
+            ('<Shift><Primary>S', _('Save currently selected playlist under a custom name'),
+             lambda *_e: self.on_save_playlist_as()),
+            ('<Primary>F', _('Focus filter in currently focused panel'),
+             lambda *_e: self.on_panel_filter_focus()),
+            ('<Primary>G', _('Focus playlist search'),
+             lambda *_e: self.on_search_playlist_focus()),  # FIXME
+            ('<Primary><Alt>l', _('Clear queue'),
+             lambda *_e: player.QUEUE.clear()),  # FIXME
 
-            ('<Primary>P', self._on_playpause_button),
-            ('<Primary>Right', lambda *e: self._on_seek_key(True)),
-            ('<Primary>Left', lambda *e: self._on_seek_key(False)),
+            ('<Primary>P', _('Start, pause or resume the playback'),
+             self._on_playpause_button),
+            ('<Primary>Right', _('Seek to the right'),
+             lambda *_e: self._on_seek_key(True)),
+            ('<Primary>Left', _('Seek to the left'),
+             lambda *_e: self._on_seek_key(False)),
 
-            ('<Primary>plus', lambda *e: self._on_volume_key(True)),
-            ('<Primary>minus', lambda *e: self._on_volume_key(False)),
+            ('<Primary>plus', _('Increase the volume'),
+             lambda *_e: self._on_volume_key(True)),
+            ('<Primary>minus', _('Decrease the volume'),
+             lambda *_e: self._on_volume_key(False)),
 
-            ('<Primary>Page_Up', self._on_prev_tab_key),
-            ('<Primary>Page_Down', self._on_next_tab_key),
+            ('<Primary>Page_Up', _('Switch to previous tab'),
+             self._on_prev_tab_key),
+            ('<Primary>Page_Down', _('Switch to next tab'),
+             self._on_next_tab_key),
 
-            ('<Alt>N', self._on_focus_playlist_container),
+            ('<Alt>N', _('Focus the playlist container'),
+             self._on_focus_playlist_container),
 
             # These 4 are subject to change.. probably should do this
             # via a different mechanism too...
-            ('<Alt>I', lambda *e: self.controller.focus_panel('files')),
-            #('<Alt>C', lambda *e: self.controller.focus_panel('collection')),
-            ('<Alt>R', lambda *e: self.controller.focus_panel('radio')),
-            ('<Alt>L', lambda *e: self.controller.focus_panel('playlists')),
-
-            ('<Alt>1', lambda *e: self._on_focus_playlist_tab(0)),
-            ('<Alt>2', lambda *e: self._on_focus_playlist_tab(1)),
-            ('<Alt>3', lambda *e: self._on_focus_playlist_tab(2)),
-            ('<Alt>4', lambda *e: self._on_focus_playlist_tab(3)),
-            ('<Alt>5', lambda *e: self._on_focus_playlist_tab(4)),
-            ('<Alt>6', lambda *e: self._on_focus_playlist_tab(5)),
-            ('<Alt>7', lambda *e: self._on_focus_playlist_tab(6)),
-            ('<Alt>8', lambda *e: self._on_focus_playlist_tab(7)),
-            ('<Alt>9', lambda *e: self._on_focus_playlist_tab(8)),
-            ('<Alt>0', lambda *e: self._on_focus_playlist_tab(9)),
+            ('<Alt>I', _('Focus the files panel'),
+             lambda *_e: self.controller.focus_panel('files')),
+            #('<Alt>C', _('Focus the collection panel'),  # TODO: Does not work, why?
+            # lambda *_e: self.controller.focus_panel('collection')),
+            ('<Alt>R', _('Focus the radio panel'),
+             lambda *_e: self.controller.focus_panel('radio')),
+            ('<Alt>L', _('Focus the playlists panel'),
+             lambda *_e: self.controller.focus_panel('playlists')),
+            factory(1, _('Focus the first tab')),
+            factory(2, _('Focus the second tab')),
+            factory(3, _('Focus the third tab')),
+            factory(4, _('Focus the fourth tab')),
+            factory(5, _('Focus the fifth tab')),
+            factory(6, _('Focus the sixth tab')),
+            factory(7, _('Focus the seventh tab')),
+            factory(8, _('Focus the eight tab')),
+            factory(9, _('Focus the ninth tab')),
+            factory(0, _('Focus the tenth tab')),
         )
 
-        self.accel_group = Gtk.AccelGroup()
-        for key, function in hotkeys:
-            key, mod = Gtk.accelerator_parse(key)
-            self.accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE,
-                                     function)
-        self.window.add_accel_group(self.accel_group)
+        for keys, helptext, function in hotkeys:
+            accelerator = Accelerator(_(keys), helptext, function)
+            providers.register('mainwindow-accelerators', accelerator)
 
     def _setup_widgets(self):
         """

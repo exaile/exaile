@@ -145,7 +145,8 @@ class ShortcutsDialog(Gtk.Dialog):
         Shows information about registered shortcuts
         
         TODO: someday upgrade to Gtk.ShortcutsWindow when we require 3.20 as
-              a minimum GTK version
+              a minimum GTK version. This would also enable automatically
+              localized (translated) accelerator names.
     '''
     
     # doesn't work if we don't set the treeview here too..

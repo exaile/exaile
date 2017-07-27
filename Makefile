@@ -166,9 +166,7 @@ plugins_dist:
 	$(MAKE) -C plugins dist
 
 manpage:
-	help2man -n "music manager and player" -N \
-	  -h './exaile --help' \
-	  ./exaile \
+	LC_ALL=C help2man -n "music manager and player" -N ./exaile \
 	  | gzip -9 > exaile.1.gz
 
 completion:
@@ -197,9 +195,9 @@ pot:
 	  intltool-update --pot --gettext-package=messages --verbose)
 
 potball:
+	mkdir -p build
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
-
 
 dist:
 	mkdir -p dist

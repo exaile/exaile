@@ -18,16 +18,26 @@ compile:
 	-${PYTHON2_CMD} -O -m compileall -q .
 
 install:
-	mkdir -p ${DESTDIR}${PREFIX}${PLUGINSDIR} && \
+	install -d -m 755 ${DESTDIR}${PREFIX}${PLUGINSDIR}
 	for plugin in ${INSTALL_PLUGINS}; do \
-	    cp -r $${plugin} ${DESTDIR}${PREFIX}${PLUGINSDIR} ; \
-	    done ;
+		install -d -m 755 ${DESTDIR}${PREFIX}${PLUGINSDIR}$$plugin && \
+		for f in `find $$plugin -type f` ; do \
+			install -d -m 755 `echo ${DESTDIR}${PREFIX}${PLUGINSDIR}$$f | \
+				xargs dirname` && \
+			install -m 644 $$f ${DESTDIR}${PREFIX}${PLUGINSDIR}$$f ; \
+		done ; \
+    done
 
 extra_install:
-	mkdir -p ${DESTDIR}${PREFIX}${PLUGINSDIR} && \
+	install -d -m 755 ${DESTDIR}${PREFIX}${PLUGINSDIR}
 	for plugin in ${EXTRA_PLUGINS}; do \
-	    cp -r $${plugin} ${DESTDIR}${PREFIX}${PLUGINSDIR} ; \
-	    done ;
+		install -d -m 755 ${DESTDIR}${PREFIX}${PLUGINSDIR}$$plugin && \
+		for f in `find $$plugin -type f` ; do \
+			install -d -m 755 `echo ${DESTDIR}${PREFIX}${PLUGINSDIR}$$f | \
+				xargs dirname` && \
+			install -m 644 $$f ${DESTDIR}${PREFIX}${PLUGINSDIR}$$f ; \
+		done ; \
+    done
 
 uninstall:
 	rm -rf ${DESTDIR}${PREFIX}${PLUGINSDIR}*

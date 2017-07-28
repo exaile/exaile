@@ -83,6 +83,7 @@ uninstall:
 	rm -rf $(EXAILECONFDIR)
 	rm -f $(DESTDIR)$(DATADIR)/applications/exaile.desktop
 	rm -f $(DESTDIR)$(DATADIR)/pixmaps/exaile.png
+	rm -f $(DESTDIR)$(DATADIR)/appdata/exaile.appdata.xml
 	rm -f $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	rm -f $(EXAILEMANDIR)/man1/exaile.1.gz
 	rm -f $(DESTDIR)$(BASHCOMPDIR)/exaile

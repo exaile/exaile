@@ -40,41 +40,41 @@ compile:
 	$(MAKE) -C plugins compile
 
 make-install-dirs:
-	mkdir -p $(EXAILEBINDIR)
-	mkdir -p $(EXAILELIBDIR)
-	mkdir -p $(EXAILELIBDIR)/xl
-	mkdir -p $(EXAILELIBDIR)/xl/externals
-	mkdir -p $(EXAILELIBDIR)/xl/metadata
-	mkdir -p $(EXAILELIBDIR)/xl/player
-	mkdir -p $(EXAILELIBDIR)/xl/player/gst
-	mkdir -p $(EXAILELIBDIR)/xl/migrations
-	mkdir -p $(EXAILELIBDIR)/xl/migrations/database
-	mkdir -p $(EXAILELIBDIR)/xl/migrations/settings
-	mkdir -p $(EXAILELIBDIR)/xl/trax
-	mkdir -p $(EXAILELIBDIR)/xlgui
-	mkdir -p $(EXAILELIBDIR)/xlgui/panel
-	mkdir -p $(EXAILELIBDIR)/xlgui/preferences
-	mkdir -p $(EXAILELIBDIR)/xlgui/widgets
-	mkdir -p $(EXAILESHAREDIR)
-	mkdir -p $(EXAILESHAREDIR)/data
-	mkdir -p $(EXAILESHAREDIR)/data/images/16x16
-	mkdir -p $(EXAILESHAREDIR)/data/images/22x22
-	mkdir -p $(EXAILESHAREDIR)/data/images/24x24
-	mkdir -p $(EXAILESHAREDIR)/data/images/32x32
-	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
-	mkdir -p $(EXAILESHAREDIR)/data/images/scalable
-	mkdir -p $(EXAILESHAREDIR)/data/ui
-	mkdir -p $(EXAILESHAREDIR)/data/ui/panel
-	mkdir -p $(EXAILESHAREDIR)/data/ui/preferences
-	mkdir -p $(EXAILESHAREDIR)/data/ui/preferences/widgets
-	mkdir -p $(EXAILESHAREDIR)/data/ui/widgets
-	mkdir -p $(DESTDIR)$(DATADIR)/pixmaps
-	mkdir -p $(DESTDIR)$(DATADIR)/appdata
-	mkdir -p $(DESTDIR)$(DATADIR)/applications
-	mkdir -p $(DESTDIR)$(DATADIR)/dbus-1/services
-	mkdir -p $(EXAILEMANDIR)/man1
-	mkdir -p $(DESTDIR)$(BASHCOMPDIR)
-	mkdir -p $(EXAILECONFDIR)
+	install -d -m 755 $(EXAILEBINDIR)
+	install -d -m 755 $(EXAILELIBDIR)
+	install -d -m 755 $(EXAILELIBDIR)/xl
+	install -d -m 755 $(EXAILELIBDIR)/xl/externals
+	install -d -m 755 $(EXAILELIBDIR)/xl/metadata
+	install -d -m 755 $(EXAILELIBDIR)/xl/player
+	install -d -m 755 $(EXAILELIBDIR)/xl/player/gst
+	install -d -m 755 $(EXAILELIBDIR)/xl/migrations
+	install -d -m 755 $(EXAILELIBDIR)/xl/migrations/database
+	install -d -m 755 $(EXAILELIBDIR)/xl/migrations/settings
+	install -d -m 755 $(EXAILELIBDIR)/xl/trax
+	install -d -m 755 $(EXAILELIBDIR)/xlgui
+	install -d -m 755 $(EXAILELIBDIR)/xlgui/panel
+	install -d -m 755 $(EXAILELIBDIR)/xlgui/preferences
+	install -d -m 755 $(EXAILELIBDIR)/xlgui/widgets
+	install -d -m 755 $(EXAILESHAREDIR)
+	install -d -m 755 $(EXAILESHAREDIR)/data
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/16x16
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/22x22
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/24x24
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/32x32
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/48x48
+	install -d -m 755 $(EXAILESHAREDIR)/data/images/scalable
+	install -d -m 755 $(EXAILESHAREDIR)/data/ui
+	install -d -m 755 $(EXAILESHAREDIR)/data/ui/panel
+	install -d -m 755 $(EXAILESHAREDIR)/data/ui/preferences
+	install -d -m 755 $(EXAILESHAREDIR)/data/ui/preferences/widgets
+	install -d -m 755 $(EXAILESHAREDIR)/data/ui/widgets
+	install -d -m 755 $(DESTDIR)$(DATADIR)/pixmaps
+	install -d -m 755 $(DESTDIR)$(DATADIR)/appdata
+	install -d -m 755 $(DESTDIR)$(DATADIR)/applications
+	install -d -m 755 $(DESTDIR)$(DATADIR)/dbus-1/services
+	install -d -m 755 $(EXAILEMANDIR)/man1
+	install -d -m 755 $(DESTDIR)$(BASHCOMPDIR)
+	install -d -m 755 $(EXAILECONFDIR)
 
 uninstall:
 	rm -f  $(EXAILEBINDIR)/exaile
@@ -148,7 +148,8 @@ install-target: make-install-dirs
 		"$(PYTHON2_CMD)" && \
 	  chmod 755 $(EXAILEBINDIR)/exaile
 	sed "s|\@bindir\@|$(EPREFIX)/bin|" data/org.exaile.Exaile.service.in > \
-		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
+		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service && \
+		chmod 644 $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	$(MAKE) -C plugins install
 
 locale:

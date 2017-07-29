@@ -37,7 +37,7 @@ gi.require_version('WebKit2', '4.0')
 from gi.repository import WebKit2
 
 
-log = logging.getLogger('exaile-wikipedia/__init__.py')
+log = logging.getLogger(__name__)
 
 
 LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",

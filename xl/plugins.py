@@ -286,4 +286,15 @@ class PluginsManager(object):
             except Exception:
                 pass
 
+    def teardown(self, main):
+        """
+            Tears down all enabled plugins
+        """
+        for plugin_name, plugin in self.enabled_plugins.iteritems():
+            if hasattr(plugin, 'teardown'):
+                try:
+                    plugin.teardown(main)
+                except Exception:
+                    logger.exception("Unable to tear down plugin %s", plugin_name)
+
 # vim: et sts=4 sw=4

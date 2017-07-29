@@ -672,13 +672,8 @@ class Exaile(object):
         self.quitting = True
         logger.info("Exaile is shutting down...")
 
-        logger.info("Disabling plugins...")
-        for k, plugin in self.plugins.enabled_plugins.iteritems():
-            if hasattr(plugin, 'teardown'):
-                try:
-                    plugin.teardown(self)
-                except Exception:
-                    pass
+        logger.info("Tearing down plugins...")
+        self.plugins.teardown(self)
 
         from xl import event
         # this event should be used by modules that dont need

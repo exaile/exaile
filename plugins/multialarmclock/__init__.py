@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 
 # Copyright (C) 2010 by Brian Parma
 # Copyright (C) 2006 Adam Olsen
@@ -43,7 +43,7 @@ except ImportError:
     _write = str
     _read = lambda x: eval(x, {'__builtin__': None})
 
-logger = logging.getLogger("multi-alarmclock")
+logger = logging.getLogger(__name__)
 
 PLUGIN_ENABLED = False
 TIMER_ID = None

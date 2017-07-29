@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python2
 '''
 Provides IPython console widget.
 

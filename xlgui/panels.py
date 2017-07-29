@@ -36,6 +36,7 @@ from xlgui.widgets import (
     menu,
     notebook
 )
+from xlgui.panel import lyrics
 
 
 logger = logging.getLogger(__name__)
@@ -281,4 +282,8 @@ def _register_builtin_panels(exaile, window):
 
     providers.register('main-panel',
                        files.FilesPanel(window, exaile.collection, 'files')
+                       )
+
+    providers.register('main-panel',
+                       lyrics.LyricsPanel(window, 'lyrics')
                        )

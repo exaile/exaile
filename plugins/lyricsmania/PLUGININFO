@@ -1,6 +1,6 @@
 Version='4.0.0'
 Authors=['Rocco Aliberti <raliberti84@gmail.com>']
 Name='LyricsMania'
-Description=_('Plugin to fetch lyrics from lyricsmania.com\nRequires: Lyrics Viewer plugin, lxml')
+Description=_('Plugin to fetch lyrics from lyricsmania.com\nRequires: lxml')
 Category=_('Lyrics')
 RequiredModules=['lxml']

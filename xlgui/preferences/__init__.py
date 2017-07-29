@@ -42,6 +42,7 @@ from . import (
     appearance,
     collection,
     cover,
+    lyrics,
     playback,
     playlists,
     plugin,
@@ -57,7 +58,7 @@ class PreferencesDialog(object):
     """
 
     PAGES = (playlists, appearance, playback,
-             collection, cover)
+             collection, cover, lyrics)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):

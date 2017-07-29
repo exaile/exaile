@@ -28,7 +28,7 @@ from collections import namedtuple
 import copy
 
 import logging
-logger = logging.getLogger('xl.metadata')
+logger = logging.getLogger(__name__)
 
 from xl import version
 import mutagen

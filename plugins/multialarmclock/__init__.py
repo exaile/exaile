@@ -43,7 +43,7 @@ except ImportError:
     _write = str
     _read = lambda x: eval(x, {'__builtin__': None})
 
-logger = logging.getLogger("multi-alarmclock")
+logger = logging.getLogger(__name__)
 
 PLUGIN_ENABLED = False
 TIMER_ID = None

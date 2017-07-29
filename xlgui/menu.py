@@ -32,7 +32,7 @@ from xl.nls import gettext as _
 from xl import settings, providers
 
 from xlgui.accelerators import Accelerator
-from xlgui.widgets import menu, menuitems, dialogs
+from xlgui.widgets import menu, dialogs
 
 
 def get_main():

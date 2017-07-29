@@ -48,7 +48,6 @@ from xlgui import (
 )
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets.notebook import NotebookPage
 
 logger = logging.getLogger(__name__)
 

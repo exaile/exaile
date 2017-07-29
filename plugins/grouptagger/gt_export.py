@@ -28,7 +28,6 @@ import json
 import time
 
 from gi.repository import Gio
-from gi.repository import Gtk
 
 from xl.common import GioFileOutputStream
 from xl.nls import gettext as _

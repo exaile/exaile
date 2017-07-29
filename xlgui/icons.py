@@ -488,10 +488,10 @@ class IconManager(object):
         self._sizes = [16, 22, 24, 32, 48, 128, 'scalable']
         self._cache = {}
 
-        self.rating_active_pixbuf = extended_pixbuf_new_from_file(
-            xdg.get_data_path('images', 'star.png'))
-        self.rating_inactive_pixbuf = extended_pixbuf_new_from_file(
-            xdg.get_data_path('images', 'emptystar.png'))
+        self.rating_active_pixbuf = ExtendedPixbuf(
+            self.pixbuf_from_icon_name('starred', size=Gtk.IconSize.MENU))
+        self.rating_inactive_pixbuf = ExtendedPixbuf(
+            self.pixbuf_from_icon_name('non-starred', size=Gtk.IconSize.MENU))
 
         # nobody actually sets the rating option, so don't handle it for now
         #event.add_ui_callback(self.on_option_set, 'rating_option_set')

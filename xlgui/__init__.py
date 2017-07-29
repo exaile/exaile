@@ -106,7 +106,6 @@ class Main(object):
             os.environ['PULSE_PROP_application.icon_name'] = exaile_icon_path
 
         for name in ('exaile-pause', 'exaile-play',
-                     'folder-music', 'audio-x-generic',
                      'office-calendar', 'extension',
                      'music-library', 'artist', 'genre'):
             add_icon(name, images_dir)

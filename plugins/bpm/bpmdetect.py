@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 '''
     Simple program that uses the 'bpmdetect' GStreamer plugin to detect
     the BPM of a song, and outputs that to console.

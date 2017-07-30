@@ -345,4 +345,4 @@ class PluginManager(object):
 
 
 def init(preferences, xml):
-    manager = PluginManager(preferences, xml)
+    PluginManager(preferences, xml)

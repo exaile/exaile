@@ -15,8 +15,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-from contextlib import closing
-
 from urllib import quote_plus
 try:
     import xml.etree.cElementTree as ETree

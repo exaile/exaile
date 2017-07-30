@@ -347,8 +347,6 @@ class TrackPropertiesDialog(GObject.GObject):
         cur_row = {grids[0]: 0, grids[1]: 0}
 
         for row in self.rows:
-            columns = [row.label, row.field]
-
             row.grid.insert_row(cur_row[row.grid] + 1)
             row.grid.attach(Gtk.Separator(), 0, cur_row[row.grid], 2, 1)
             cur_row[row.grid] += 1
@@ -936,8 +934,6 @@ class TagDblNumField(Gtk.Box):
     def register_update_func(self, f):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
-        val = unicode(self.field[0].get_value()) + '/' \
-            + unicode(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 

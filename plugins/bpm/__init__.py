@@ -25,7 +25,6 @@
 # from your version.
 
 
-import os
 import time
 
 from gi.repository import Gdk
@@ -39,9 +38,7 @@ from xl import (
 )
 
 from xl.nls import gettext as _
-from xl.common import idle_add
 from xlgui.guiutil import GtkTemplate
-from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
 
 import bpmdetect

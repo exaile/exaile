@@ -27,7 +27,6 @@ import site
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
-from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import event

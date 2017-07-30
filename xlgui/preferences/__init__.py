@@ -32,10 +32,7 @@ import inspect
 import logging
 
 import xl.unicode
-from xl import (
-    common,
-    xdg,
-)
+from xl import xdg
 from xl.nls import gettext as _
 from xlgui import icons
 from . import (

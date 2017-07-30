@@ -19,7 +19,7 @@ from gi.repository import Gtk
 
 import _scrobbler as scrobbler
 import asprefs
-from xl import common, event, xdg, metadata, player, settings, providers
+from xl import common, event, xdg, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu

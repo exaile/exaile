@@ -34,7 +34,7 @@ from gi.repository import GObject
 from xl import (
     common,
     event,
-    playlist,
+    playlist as xl_playlist,
     radio,
     settings,
     trax
@@ -121,7 +121,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.YES:
-                if isinstance(selected_playlist, playlist.SmartPlaylist):
+                if isinstance(selected_playlist, xl_playlist.SmartPlaylist):
                     self.smart_manager.remove_playlist(
                         selected_playlist.name)
                 else:
@@ -205,8 +205,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
         if item is not None:
-            if isinstance(item, (playlist.Playlist,
-                                 playlist.SmartPlaylist)):
+            if isinstance(item, (xl_playlist.Playlist,
+                                 xl_playlist.SmartPlaylist)):
                 # for smart playlists
                 if hasattr(item, 'get_playlist'):
                     try:
@@ -234,8 +234,6 @@ class BasePlaylistPanelMixin(GObject.GObject):
             Returns the name of the new playlist, or None if it was
             not added.
         """
-
-        do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
                 name = dialogs.ask_for_playlist_name(
@@ -318,7 +316,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
         if name is not None:
             # Create the playlist from all of the tracks
-            new_playlist = playlist.Playlist(name)
+            new_playlist = xl_playlist.Playlist(name)
             new_playlist.extend(tracks)
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist)
@@ -446,7 +444,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _playlist_properties(self):
         pl = self.tree.get_selected_page(raw=True)
-        if isinstance(pl, playlist.SmartPlaylist):
+        if isinstance(pl, xl_playlist.SmartPlaylist):
             self.edit_selected_smart_playlist()
 
     def refresh_playlists(self, type, track, tag):
@@ -765,7 +763,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             iter = self.model.get_iter(path)
             drop_target = self.model.get_value(iter, 2)
 
-            if isinstance(drop_target, playlist.Playlist):
+            if isinstance(drop_target, xl_playlist.Playlist):
                 if dragging_playlist:
                     # If we drag onto  we copy, if we drag between we move
                     if position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE or \
@@ -812,10 +810,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 pl = self.model.get_value(iter, 2)
                 # Based on what is selected determines what
                 # menu we will show
-                if isinstance(pl, playlist.Playlist):
+                if isinstance(pl, xl_playlist.Playlist):
                     Gtk.Menu.popup(self.playlist_menu, None,
                                    None, None, None, 0, event.time)
-                elif isinstance(pl, playlist.SmartPlaylist):
+                elif isinstance(pl, xl_playlist.SmartPlaylist):
                     Gtk.Menu.popup(self.smart_menu, None,
                                    None, None, None, 0, event.time)
                 elif isinstance(pl, TrackWrapper):
@@ -845,8 +843,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 pl = self.model.get_value(iter, 2)
                 # Based on what is selected determines what
                 # menu we will show
-                if isinstance(pl, playlist.Playlist) or \
-                        isinstance(pl, playlist.SmartPlaylist):
+                if isinstance(pl, xl_playlist.Playlist) or \
+                        isinstance(pl, xl_playlist.SmartPlaylist):
                     self.remove_playlist(pl)
                 elif isinstance(pl, TrackWrapper):
                     self.remove_selected_track()
@@ -867,9 +865,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             pl = self.model.get_value(iter, 2)
             # Based on what is selected determines what
             # menu we will show
-            if isinstance(pl, playlist.Playlist):
+            if isinstance(pl, xl_playlist.Playlist):
                 self.playlist_menu.popup(event)
-            elif isinstance(pl, playlist.SmartPlaylist):
+            elif isinstance(pl, xl_playlist.SmartPlaylist):
                 self.smart_menu.popup(event)
             elif isinstance(pl, TrackWrapper):
                 self.track_menu.popup(event)
@@ -906,7 +904,7 @@ class PlaylistDragTreeView(DragTreeView):
             Returns True if selection is a Smart Playlist
         """
         item = self.get_selected_item(raw=True)
-        return isinstance(item, playlist.SmartPlaylist)
+        return isinstance(item, xl_playlist.SmartPlaylist)
 
     def get_selected_tracks(self):
         """
@@ -932,8 +930,8 @@ class PlaylistDragTreeView(DragTreeView):
         """
         item = self.get_selected_item(raw=raw)
 
-        if isinstance(item, (playlist.Playlist,
-                             playlist.SmartPlaylist)):
+        if isinstance(item, (xl_playlist.Playlist,
+                             xl_playlist.SmartPlaylist)):
             return item
         else:
             return None
@@ -958,7 +956,7 @@ class PlaylistDragTreeView(DragTreeView):
         item = model.get_value(iter, 2)
 
         # for smart playlists
-        if isinstance(item, playlist.SmartPlaylist):
+        if isinstance(item, xl_playlist.SmartPlaylist):
             if raw:
                 return item
             try:
@@ -969,7 +967,7 @@ class PlaylistDragTreeView(DragTreeView):
             if raw:
                 return item
             return item.get_playlist()
-        elif isinstance(item, playlist.Playlist):
+        elif isinstance(item, xl_playlist.Playlist):
             return item
         elif isinstance(item, TrackWrapper):
             return item

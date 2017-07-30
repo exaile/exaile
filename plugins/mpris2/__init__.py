@@ -25,10 +25,7 @@
 # from your version.
 
 
-from gi.repository import (
-    Gio,
-    GLib,
-)
+from gi.repository import Gio
 
 import dbushelper
 import mprisobject

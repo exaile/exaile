@@ -882,9 +882,9 @@ def order_poset(items):
     items = dict([(i.name, i) for i in items])
     for name, item in items.iteritems():
         for after in item.after:
-            i = items.get(after)
-            if i:
-                i.children.append(item)
+            k = items.get(after)
+            if k:
+                k.children.append(item)
             else:
                 item.after.remove(after)
     result = []

@@ -19,8 +19,6 @@ from __future__ import division, print_function, unicode_literals
 
 import collections
 
-import cairo
-
 import gi
 gi.require_version('PangoCairo', '1.0')
 

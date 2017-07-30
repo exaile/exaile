@@ -30,7 +30,6 @@ from xl import (
     settings as xl_settings
 )
 from xl.nls import gettext as _
-from xl.player.adapters import PlaybackAdapter
 from xlgui.widgets import info
 from xlgui import guiutil
 

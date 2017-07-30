@@ -40,7 +40,6 @@ import os
 from xl import (
     common,
     settings,
-    xdg
 )
 
 logger = logging.getLogger(__name__)

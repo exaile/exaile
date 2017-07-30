@@ -39,7 +39,7 @@ from xl import (
 
 from xl.nls import gettext as _
 
-from xlgui import guiutil, main
+from xlgui import main
 from xlgui.widgets import menu, playback
 
 import previewprefs

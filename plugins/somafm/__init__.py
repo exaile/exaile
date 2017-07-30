@@ -29,7 +29,11 @@ from xl import (
     playlist,
     xdg
 )
-from xl.radio import *
+from xl.radio import (
+    RadioStation,
+    RadioList,
+    RadioItem,
+)
 from xl.nls import gettext as _
 from xlgui.panel import radio
 
@@ -123,8 +127,9 @@ class SomaFMRadioStation(RadioStation):
             Saves cache data
         """
         channellist = ETree.Element('channellist')
-        for id, name in self.data.items():
-            channel = ETree.SubElement(channellist, 'channel', id=id, name=name)
+        for channel_id, channel_name in self.data.items():
+            ETree.SubElement(channellist, 'channel', id=channel_id,
+                             name=channel_name)
 
         with open(self.cache_file, 'w') as h:
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
@@ -202,7 +207,6 @@ class SomaFMRadioStation(RadioStation):
         plss = channel.findall('.//*[@format]')
 
         rlists = []
-        i = 1
         for pls in plss:
             type = pls.tag.replace('pls', '')
             format = pls.attrib['format'].upper()

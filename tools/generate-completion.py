@@ -18,8 +18,6 @@
 
 from __future__ import division, print_function, unicode_literals
 
-import argparse
-
 
 TEMPLATE = '''_%(prog)s() {
     local cur="${COMP_WORDS[COMP_CWORD]}"

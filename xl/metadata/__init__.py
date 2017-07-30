@@ -26,7 +26,6 @@
 
 
 import os
-import sys
 from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable

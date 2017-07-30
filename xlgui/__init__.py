@@ -211,7 +211,7 @@ class Main(object):
             Shows the cover manager
         """
         from xlgui.cover import CoverManager
-        window = CoverManager(self.main.window,
+        CoverManager(self.main.window,
                               self.exaile.collection)
 
     def show_preferences(self):

@@ -166,7 +166,7 @@ def __create_edit_menu():
 
     def cover_manager_cb(*args):
         from xlgui.cover import CoverManager
-        dialog = CoverManager(get_main().window, get_main().collection)
+        CoverManager(get_main().window, get_main().collection)
     items.append(_smi('cover-manager', [items[-1].name], _("C_overs"),
                       'image-x-generic', cover_manager_cb))
 

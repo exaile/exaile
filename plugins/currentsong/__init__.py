@@ -17,9 +17,7 @@
 # Code based on Ingelrest FranÃ§ois' "im status" plugin
 
 import dbus
-from gettext import gettext as _
 from xl import event, player
-import sys
 
 ##############################################################################
 
@@ -52,7 +50,6 @@ class Pidgin:
             Change the tune status
             Return True if the message is successfully updated
         """
-        current = self.purple.PurpleSavedstatusGetCurrent()
         accounts = self.purple.PurpleAccountsGetAll()
 
         for account in accounts:

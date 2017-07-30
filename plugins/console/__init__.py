@@ -21,15 +21,12 @@ For better development experience, please use the IPython console plugin. This
 plugin is meant as a basic alternative without the extra dependencies.
 """
 
-from gi.repository import GLib
 from gi.repository import Gtk
-from gi.repository import Gdk
 
 import os
 import sys
 import traceback
 from cStringIO import StringIO
-from xl.nls import gettext as _
 
 
 class PyConsole():

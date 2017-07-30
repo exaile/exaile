@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gdk
 from gi.repository import Gtk
 
 import os
@@ -44,7 +43,7 @@ from xl.nls import gettext as _
 
 import xlgui
 from xlgui import main
-from xlgui.widgets import menu, dialogs
+from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookTab
 from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
@@ -202,7 +201,6 @@ class HistoryPlaylistPage(PlaylistPageBase):
 
 def __create_history_tab_context_menu():
     smi = menu.simple_menu_item
-    sep = menu.simple_separator
     items = []
     items.append(smi('save', [], _("Save History"), 'gtk-save',
                      lambda w, n, o, c: o.save_history()))

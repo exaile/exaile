@@ -61,7 +61,6 @@ def check_exit(options, args):
         methods
     """
     iface = None
-    exaile = None
     if not options.NewInstance:
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
@@ -70,7 +69,6 @@ def check_exit(options, args):
                                            '/org/exaile/Exaile')
             iface = dbus.Interface(remote_object, 'org.exaile.Exaile')
             iface.TestService('testing dbus service')
-            exaile = remote_object.exaile
 
             # Assume that args are files to be added to the current playlist.
             # This enables:    exaile PATH/*.mp3
@@ -456,8 +454,6 @@ class DbusManager(dbus.service.Object):
         from xl import player
 
         current_track = player.QUEUE.get_current()
-        progress = player.PLAYER.get_progress()
-
         if current_track is not None and \
            not player.PLAYER.is_stopped():
             current = {}

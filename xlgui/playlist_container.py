@@ -357,7 +357,6 @@ class PlaylistNotebook(SmartNotebook):
 
     def save_closed_tab(self, playlist):
         # don't let the list grow indefinitely
-        items = providers.get('playlist-closed-tab-menu', self)
         if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
             self.remove_closed_tab(-1)  # remove last item
 

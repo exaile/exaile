@@ -31,7 +31,7 @@ except ImportError:
 
 import urllib
 from xl.dynamic import DynamicSource
-from xl import providers, common
+from xl import providers
 
 import logging
 logger = logging.getLogger(__name__)

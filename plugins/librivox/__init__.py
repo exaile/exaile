@@ -21,7 +21,6 @@
 
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import GLib
 from gi.repository import Gtk
 
 import os
@@ -35,7 +34,6 @@ from xl import (
     providers,
     settings,
     trax,
-    xdg
 )
 from xlgui import (
     guiutil,

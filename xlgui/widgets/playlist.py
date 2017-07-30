@@ -674,7 +674,6 @@ class PlaylistPage(PlaylistPageBase):
             Displays the tab context menu upon
             clicks in the contained view
         """
-        selection = view.get_selection()
         path = view.get_path_at_pos(int(e.x), int(e.y))
         # We only need the tree path if present
         path = path[0] if path else None
@@ -1176,7 +1175,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
-            positions = [int(x) for x in selection.get_data().split(",")]
+            positions = [int(pos) for pos in selection.get_data().split(",")]
             tracks = common.MetadataList()
             source_playlist_view = Gtk.drag_get_source_widget(context)
             playlist = self.playlist

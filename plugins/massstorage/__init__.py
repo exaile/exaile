@@ -24,8 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import providers, collection, common
-from xl.nls import gettext as _
+from xl import providers, collection
 from xl.hal import Handler
 from xl.devices import Device
 import dbus

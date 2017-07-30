@@ -26,18 +26,11 @@
 
 from gi.repository import Gio
 
-import cgi
-import json
 from os.path import dirname, join
 
 from contextlib import closing
 
 from xl.nls import gettext as _
-from xl import (
-    providers,
-    settings
-)
-
 from xl.metadata.tags import tag_data
 
 from xlgui.widgets import menu

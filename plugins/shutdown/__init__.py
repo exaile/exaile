@@ -20,7 +20,6 @@ from gi.repository import Gtk
 
 from xl import event, providers
 from xl.nls import gettext as _
-from xlgui import icons
 from xlgui.widgets import dialogs, menu
 
 SHUTDOWN = None

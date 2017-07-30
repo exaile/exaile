@@ -12,7 +12,6 @@ from xlgui import panel, main
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xl import xdg
-import xlgui
 import os
 import os.path
 import feedparser

@@ -18,7 +18,6 @@ import os
 import dbus
 
 from xl.player import adapters, PLAYER
-from xl import event
 
 SUSPEND_PLUGIN = None
 logger = logging.getLogger(__name__)

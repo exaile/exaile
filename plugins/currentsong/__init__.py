@@ -17,9 +17,7 @@
 # Code based on Ingelrest FranÃ§ois' "im status" plugin
 
 import dbus
-from gettext import gettext as _
 from xl import event, player
-import sys
 
 ##############################################################################
 

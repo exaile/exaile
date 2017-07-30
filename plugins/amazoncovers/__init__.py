@@ -21,7 +21,6 @@ from xl import (
     common,
     covers,
     event,
-    metadata,
     providers,
     settings
 )

@@ -23,9 +23,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 import time
-import thread
 import os
-from xl.nls import gettext as _
 from xlgui import guiutil
 from xl import event, player, settings, xdg, common
 from functools import wraps
@@ -405,7 +403,6 @@ def check_alarms(main, exaile):
 
             if settings.get_option('plugin/multialarmclock/fading_on'):
                 fade_in(main, exaile)
-#                thread.start_new(fade_in, (main, exaile))
 
             if settings.get_option('plugin/multialarmclock/restart_playlist_on'):
                 logger.debug('try to restart playlist')

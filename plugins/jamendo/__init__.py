@@ -33,14 +33,12 @@ import jamtree
 import jamapi
 import menu
 import os
-import hashlib
 from xl import (
     common,
     event,
     settings,
     providers,
     trax as xltrack,
-    xdg
 )
 from xl.covers import CoverSearchMethod
 from xl.nls import gettext as _
@@ -48,7 +46,6 @@ from xlgui import (
     icons,
     panel
 )
-from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
 JAMENDO_NOTEBOOK_PAGE = None

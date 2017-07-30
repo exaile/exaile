@@ -30,7 +30,6 @@ from datetime import (
 )
 import os
 import re
-import shelve
 import zlib
 import threading
 

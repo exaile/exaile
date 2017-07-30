@@ -29,7 +29,11 @@ from xl import (
     playlist,
     xdg
 )
-from xl.radio import *
+from xl.radio import (
+    RadioStation,
+    RadioList,
+    RadioItem,
+)
 from xl.nls import gettext as _
 from xlgui.panel import radio
 

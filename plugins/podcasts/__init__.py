@@ -1,5 +1,10 @@
 
 from hashlib import md5
+import logging
+import os
+import os.path
+
+import feedparser
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -12,12 +17,8 @@ from xlgui import panel, main
 from xlgui import guiutil
 from xlgui.widgets import dialogs
 from xl import xdg
-import os
-import os.path
-import feedparser
 
 # set up logger
-import logging
 logger = logging.getLogger(__name__)
 
 PODCASTS = None

@@ -39,7 +39,7 @@ from urllib2 import urlparse
 from xl import (
     common,
     covers,
-    playlist,
+    playlist as xl_playlist,
     settings,
     trax
 )
@@ -511,11 +511,11 @@ class DragTreeView(AutoScrollTreeView):
         if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
             new_track = trax.Track(loc)
             return ([new_track], [])
-        elif playlist.is_valid_playlist(loc):
+        elif xl_playlist.is_valid_playlist(loc):
             # User is dragging a playlist into the playlist list
             # so we add all of the songs in the playlist
             # to the list
-            new_playlist = playlist.import_playlist(loc)
+            new_playlist = xl_playlist.import_playlist(loc)
             return ([], [new_playlist])
         elif filetype == Gio.FileType.DIRECTORY:
             return (trax.get_tracks_from_uri(loc), [])

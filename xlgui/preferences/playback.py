@@ -110,7 +110,7 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
 
         model.clear()
 
-        for device_name, device_id, _ in get_devices():
+        for device_name, device_id, _create_audiosink_cb in get_devices():
             model.append((device_id, device_name))
 
         self.is_enabled = True

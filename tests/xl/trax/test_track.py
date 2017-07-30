@@ -476,7 +476,7 @@ class TestTrack(object):
         tr = track.Track('/foo')
         val = u'foobar'
         ret = u'foobar foobar foobar foobar'
-        tr.set_tag_raw('coverart', u'foobar')
+        tr.set_tag_raw('coverart', val)
         assert tr.get_tag_sort('coverart') == ret
 
     ## Display Tags

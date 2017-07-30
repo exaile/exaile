@@ -97,7 +97,6 @@ class RatingMenuItem(menu.MenuItem):
         """
             Passes the 'rating-changed' signal
         """
-        rating_set = True
         tracks = self.get_tracks_func(parent, context)
         for track in tracks:
             track.set_rating(rating)
@@ -149,7 +148,7 @@ def AppendMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
 def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent):
     tracks = get_tracks_func(parent, context)
     if tracks:
-        dialog = properties.TrackPropertiesDialog(dialog_parent, tracks)
+        properties.TrackPropertiesDialog(dialog_parent, tracks)
 
 
 def PropertiesMenuItem(name, after, get_tracks_func=generic_get_tracks_func,

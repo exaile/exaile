@@ -201,7 +201,6 @@ class HistoryPlaylistPage(PlaylistPageBase):
 
 def __create_history_tab_context_menu():
     smi = menu.simple_menu_item
-    sep = menu.simple_separator
     items = []
     items.append(smi('save', [], _("Save History"), 'gtk-save',
                      lambda w, n, o, c: o.save_history()))

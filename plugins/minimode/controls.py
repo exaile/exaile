@@ -626,7 +626,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
         self.model.clear()
 
         for i, track in enumerate(player.QUEUE.current_playlist):
-            iter = self.model.append([track])
+            self.model.append([track])
 
             if track is player.QUEUE.current_playlist.current:
                 # Not using iter since model is detached

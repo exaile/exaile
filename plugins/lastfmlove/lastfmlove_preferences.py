@@ -73,7 +73,7 @@ class RequestAccessPermissionButton(widgets.Button):
         api_key = settings.get_option('plugin/lastfmlove/api_key', 'K')
 
         try:
-            network = pylast.LastFMNetwork(
+            pylast.LastFMNetwork(
                 api_key=api_key,
                 api_secret=settings.get_option('plugin/lastfmlove/api_secret', 'S'),
                 username=settings.get_option('plugin/ascrobbler/user', ''),

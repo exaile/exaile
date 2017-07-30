@@ -345,7 +345,6 @@ class JamendoPanel(panel.Panel):
         # save search term
         settings.set_option('plugin/jamendo/searchterms', search_term)
 
-        results = None
         if search_type == 'artist':
             resultthread = jamapi.get_artist_list(search_term, orderby, numresults, self.response_callback)
             resultthread.start()

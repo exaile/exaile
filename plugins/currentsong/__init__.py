@@ -50,7 +50,6 @@ class Pidgin:
             Change the tune status
             Return True if the message is successfully updated
         """
-        current = self.purple.PurpleSavedstatusGetCurrent()
         accounts = self.purple.PurpleAccountsGetAll()
 
         for account in accounts:

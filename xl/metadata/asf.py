@@ -45,20 +45,20 @@ class AsfFormat(BaseFormat):
     others = False
     writable = True
 
-    def _get_tag(self, raw, t):
+    def _get_tag(self, raw, tag_name):
         # the mutagen container for ASF returns the WM/ fields in its own
         # wrappers which are *almost* like a string.. convert them to
         # unicode so things don't break
-        tag = super(AsfFormat, self)._get_tag(raw, t)
+        tag = super(AsfFormat, self)._get_tag(raw, tag_name)
         if isinstance(tag, list):
             attrs = [asf.ASFUnicodeAttribute, asf.ASFDWordAttribute,
                      asf.ASFQWordAttribute, asf.ASFWordAttribute]
 
-            def __process_tag(t):
+            def __process_tag(any_tag):
                 for attrtype in attrs:
-                    if isinstance(t, attrtype):
-                        return unicode(t)
-                return t
+                    if isinstance(any_tag, attrtype):
+                        return unicode(any_tag)
+                return any_tag
 
             return [__process_tag(t) for t in tag]
 

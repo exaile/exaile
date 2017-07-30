@@ -749,7 +749,6 @@ class Library(object):
 
         logger.info("Scanning library: %s", self.location)
         self.scanning = True
-        db = self.collection
         libloc = Gio.File.new_for_uri(self.location)
 
         count = 0

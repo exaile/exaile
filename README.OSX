@@ -16,9 +16,9 @@ Requirements
 On OS X, Exaile requires the GStreamer SDK Runtime to be installed, otherwise
 it will not function. 
 Download the SDK runtime for OSX `here
-<http://docs.gstreamer.com/display/GstSDK/Installing+on+Mac+OS+X>`_
-or use `this direct download link
-<http://cdn.gstreamer.com/osx/universal/gstreamer-sdk-2013.6-universal.pkg>`_
+<https://gstreamer.freedesktop.org/documentation/installing/on-mac-osx.html>`_
+or download from the latest version on `the file server
+<https://gstreamer.freedesktop.org/data/pkg/osx/>`_
 The default installation will allow the Exaile UI to work correctly, and 
 should support playing many types of audio formats.
 

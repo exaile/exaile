@@ -19,7 +19,7 @@ Basic Style
 -  Use 4 spaces for indents, no tabs.
 -  Avoid lines >80 characters. Try to insert sensible line breaks to
    accomplish this
--  In general, `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ applies
+-  In general, `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_ applies
 -  Keep imports on one line each to make sure imports cannot be missed:
 
 .. code-block:: python
@@ -111,7 +111,7 @@ Events and Signals
        GTK main thread. Otherwise unpredictable issues can occur
        including crashes due to cross-thread access. This can be
        accomplished by running the specific code through the
-       `GLib.idle\_add <https://lazka.github.io/pgi-docs/#GLib-2.0/functions.html#GLib.idle_add>`__
+       `GLib.idle\_add <https://lazka.github.io/pgi-docs/GLib-2.0/functions.html#GLib.idle_add>`__
        function. Please use the function decorator ``common.idle_add``.
        A typical mistake:
 
@@ -157,7 +157,7 @@ Events and Signals
    Thus "``on_play_button_press_event``" should be preferred over
    "``on_play_button_button_press_event``" for the "``button-press-event``"
    signal of the button.
--  If you use `Gtk.Builder <https://lazka.github.io/pgi-docs/#Gtk-3.0/classes/Builder.html#Gtk.Builder>`_
+-  If you use `Gtk.Builder <https://lazka.github.io/pgi-docs/Gtk-3.0/classes/Builder.html#Gtk.Builder>`_
    for UI descriptions, apply the rules above, make the callbacks methods
    of your class and simply call ``Gtk.Builder.connect_signals(self)``
 
@@ -178,11 +178,11 @@ GUI
 
 -  Use .ui files to define most widgets - reduces code clutter. A lot of
    basic structure can be easily prepared with the
-   `Glade <http://glade.gnome.org/>`__ interface designer, especially
+   `Glade <https://glade.gnome.org/>`__ interface designer, especially
    objects where cell renderers and models are involved.
 -  Try to avoid dialogs, as they are intrusive and users generally don't
    read them anyway. Inline alternatives like
-   `Gtk.InfoBar <https://lazka.github.io/pgi-docs/#Gtk-3.0/classes/InfoBar.html#Gtk.InfoBar>`__
+   `Gtk.InfoBar <https://lazka.github.io/pgi-docs/Gtk-3.0/classes/InfoBar.html#Gtk.InfoBar>`__
    and its convenience wrapper ``xlgui.widgets.dialogs.MessageBar`` are much more effective.
 
 Logging

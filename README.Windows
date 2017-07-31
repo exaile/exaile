@@ -18,7 +18,7 @@ Exaile (and its installer) has been tested on:
 
 Exaile now requires GStreamer 1.x and GTK3. The best way to install these
 requirements on Windows is using the `All-In-One PyGI/PyGObject for Windows
-Installer <http://sourceforge.net/projects/pygobjectwin32/>`_. When using this
+Installer <https://sourceforge.net/projects/pygobjectwin32/>`_. When using this
 installer, you must select the following options:
 
 * GTK 3.x

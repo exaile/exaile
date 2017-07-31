@@ -81,6 +81,6 @@ Environment variables that affect "make install":
     ``$PREFIX/bin/exaile``) will pass to exaile on startup
 
 Additional Resources:
-1. `XDG Base Directory Specification <http://standards.freedesktop.org/basedir-spec/basedir-spec-0.6.html>`_
+1. `XDG Base Directory Specification <https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html>`_
 
 

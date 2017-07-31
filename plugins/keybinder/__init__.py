@@ -14,11 +14,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
 
 import gi
+
+from xlgui import guiutil
+from xl import plugins
+from xl.nls import gettext as _
+
 gi.require_version('Keybinder', '3.0')
 
 from gi.repository import Keybinder
+
+
+LOGGER = logging.getLogger(__name__)
 
 KEYS = [
     'XF86AudioPlay',
@@ -30,29 +39,46 @@ KEYS = [
     'XF86AudioRewind',
 ]
 
-initialized = False
 
+class KeybinderPlugin(object):
 
-def enable(exaile):
-    if exaile.loading:
-        import xl.event
-        xl.event.add_callback(_enable, 'exaile_loaded')
-    else:
-        _enable(None, exaile, None)
+    def __init__(self):
+        self.__exaile = None
 
+    def enable(self, exaile):
+        broken = False
+        if hasattr(Keybinder, 'supported'):
+            # introduced in Keybinder-3.0 0.3.2, see
+            # https://github.com/kupferlauncher/keybinder/blob/master/NEWS
+            if not Keybinder.supported():
+                broken = True
+        elif not guiutil.platform_is_x11():
+            broken = True
+        if broken:
+            raise Exception(_('Keybinder is not supported on this platform! '
+                              'It is only supported on X servers.'))
+        self.__exaile = exaile
 
-def _enable(eventname, exaile, eventdata):
-    global initialized
-    if not initialized:
+    def on_exaile_loaded(self):
+        if not self.__exaile:
+            return  # Plugin has been disabled in the meantime
         Keybinder.init()
-        initialized = True
-    for k in KEYS:
-        Keybinder.bind(k, on_media_key, exaile)
+        for k in KEYS:
+            if not Keybinder.bind(k, on_media_key, self.__exaile):
+                LOGGER.warning("Failed to set key binding using Keybinder.")
+                self.__exaile.plugins.disable_plugin(__name__)
+                return
+
+    def teardown(self):
+        for k in KEYS:
+            Keybinder.unbind(k)
+
+    def disable(self, _exaile):
+        self.teardown()
+        self.__exaile = None
 
 
-def disable(exaile):
-    for k in KEYS:
-        Keybinder.unbind(k)
+plugin_class = KeybinderPlugin
 
 
 def on_media_key(key, exaile):

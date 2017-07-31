@@ -25,14 +25,16 @@
 # from your version.
 
 import logging
+import threading
+import os
 
 from gi.repository import GLib
 
-from xl import common, event
+from xl import common, event, formatter, settings, transcoder, trax
 from xl.nls import gettext as _
 from xlgui.panel import device
+import xlgui
 
-import importer
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +94,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         if self.__importing:
             return
         self.__importing = True
-        cd_importer = importer.CDImporter(tracks)
+        cd_importer = CDImporter(tracks)
         thread = CDImportThread(cd_importer)
         thread.connect('done', lambda *e: self._import_finish())
         self.main.controller.progress_manager.add_monitor(thread,
@@ -100,3 +102,99 @@ class CDPanel(device.FlatPlaylistDevicePanel):
 
     def _import_finish(self):
         self.__importing = False
+
+
+class CDImporter(object):
+
+    def __init__(self, tracks):
+        self.tracks = [t for t in tracks if
+                       t.get_loc_for_io().startswith("cdda")]
+        self.duration = float(sum([t.get_tag_raw('__length') for t in self.tracks]))
+        self.formatter = formatter.TrackFormatter(settings.get_option(
+            "cd_import/outpath",
+            "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
+        self.current = None
+        self.current_len = None
+        self.progress = 0.0
+
+        self.running = False
+
+        self.cont = None
+        self.__prepare_transcoder()
+
+    def __prepare_transcoder(self):
+        formats = transcoder.get_formats()
+        default_format = formats.iterkeys().next()
+        self.format = settings.get_option("cd_import/format", default_format)
+        default_quality = formats[default_format]['default']
+        self.quality = settings.get_option("cd_import/quality", default_quality)
+        self.transcoder = transcoder.Transcoder(
+            self.format, self.quality, self._error_cb, self._end_cb)
+
+    def do_import(self):
+        self.running = True
+
+        self.cont = threading.Event()
+
+        self.transcoder.set_format(self.format)
+        if self.quality != -1:
+            self.transcoder.set_quality(self.quality)
+
+        for tr in self.tracks:
+            self.cont.clear()
+            self.current = tr
+            self.current_len = tr.get_tag_raw('__length')
+            loc = tr.get_loc_for_io()
+            trackno, device = loc[7:].split("/#")
+            src = "cdparanoiasrc track=%s device=\"%s\"" % (trackno, device)
+            self.transcoder.set_raw_input(src)
+            outloc = self.get_output_location(tr)
+            self.transcoder.set_output(outloc)
+            self.transcoder.start_transcode()
+            self.cont.wait()
+            if not self.running:
+                break
+            tr2 = trax.Track("file://" + outloc)
+            for t in tr.list_tags():
+                if not t.startswith("__"):
+                    tr2.set_tag_raw(t, tr.get_tag_raw(t))
+            tr2.write_tags()
+            try:
+                incr = tr.get_tag_raw('__length') / self.duration
+                self.progress += incr
+            except Exception:
+                raise
+        self.progress = 100.0
+
+    def _end_cb(self):
+        self.cont.set()
+        xlgui.main.mainwindow().message.show_info(
+            "Finished transcoding files")
+
+    def _error_cb(self, gerror, message_string):
+        self.running = False
+        xlgui.main.mainwindow().message.show_error(
+            _("Error transcoding files from CD."),
+            "%s" % gerror.message.encode())
+
+    def get_output_location(self, track):
+        path = self.formatter.format(track)
+        directorypath = os.path.dirname(path)
+
+        if not os.path.exists(directorypath):
+            os.makedirs(directorypath)
+
+        extension = transcoder.FORMATS[self.transcoder.dest_format]['extension']
+
+        return path + '.' + extension
+
+    def stop(self):
+        self.running = False
+        self.transcoder.stop()
+
+    def get_progress(self):
+        if not self.current or not self.current_len:
+            return self.progress
+        incr = self.current_len / self.duration
+        pos = self.transcoder.get_time() / float(self.current_len)
+        return self.progress + pos * incr

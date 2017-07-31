@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkAdjustment" id="adjustment1">
+  <object class="GtkAdjustment" id="hours_adjustment">
     <property name="upper">23</property>
     <property name="value">12</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment2">
-    <property name="upper">59</property>
-    <property name="value">30</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment3">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment4">
+  <object class="GtkAdjustment" id="max_vol_adjustment">
     <property name="upper">100</property>
     <property name="value">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment5">
+  <object class="GtkAdjustment" id="min_vol_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="minutes_adjustment">
+    <property name="upper">59</property>
+    <property name="value">30</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="time_step_adjustment">
+    <property name="lower">0.10000000000000001</property>
     <property name="upper">100</property>
     <property name="value">1</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment6">
+  <object class="GtkAdjustment" id="vol_increment_adjustment">
+    <property name="lower">1</property>
     <property name="upper">100</property>
     <property name="value">1</property>
     <property name="step_increment">1</property>
@@ -41,7 +43,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="row_spacing">4</property>
-    <property name="column_spacing">2</property>
+    <property name="column_spacing">4</property>
     <child>
       <object class="GtkLabel" id="label1">
         <property name="visible">True</property>
@@ -53,7 +55,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">0</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -67,7 +69,9 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
-            <property name="adjustment">adjustment1</property>
+            <property name="width_chars">2</property>
+            <property name="input_purpose">digits</property>
+            <property name="adjustment">hours_adjustment</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -92,7 +96,9 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
-            <property name="adjustment">adjustment2</property>
+            <property name="width_chars">2</property>
+            <property name="input_purpose">digits</property>
+            <property name="adjustment">minutes_adjustment</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -104,7 +110,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">1</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -118,7 +124,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">2</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -133,7 +139,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">3</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -148,7 +154,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">4</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -163,7 +169,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">5</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -178,7 +184,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">6</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -193,7 +199,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">7</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -208,7 +214,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">8</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -223,7 +229,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">9</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -238,7 +244,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">11</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -252,7 +258,7 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">10</property>
-        <property name="width">2</property>
+        <property name="width">3</property>
       </packing>
     </child>
     <child>
@@ -272,7 +278,8 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="invisible_char">●</property>
-        <property name="adjustment">adjustment3</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">min_vol_adjustment</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -296,7 +303,8 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="invisible_char">●</property>
-        <property name="adjustment">adjustment4</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">max_vol_adjustment</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -320,7 +328,8 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="invisible_char">●</property>
-        <property name="adjustment">adjustment5</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">vol_increment_adjustment</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -332,7 +341,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Time per increment:</property>
+        <property name="label" translatable="yes">Time step:</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -344,10 +353,57 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="invisible_char">●</property>
-        <property name="adjustment">adjustment6</property>
+        <property name="width_chars">4</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">time_step_adjustment</property>
+        <property name="digits">2</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
+        <property name="top_attach">15</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label">%</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label">%</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label">%</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label">s</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
         <property name="top_attach">15</property>
       </packing>
     </child>

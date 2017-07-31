@@ -17,13 +17,15 @@
 
 from __future__ import with_statement
 
+import copy
+import json
+import logging
+import os
+import threading
+
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Gtk
-import os
-import logging
-import xlgui
-logger = logging.getLogger(__name__)
 
 from xl import (
     covers,
@@ -34,294 +36,309 @@ from xl import (
     xdg,
     providers
 )
+from xl import common
 from xl.nls import gettext as _
-from xlgui import guiutil, icons
+import xlgui
+from xlgui import guiutil, icons, cover
 from xlgui.widgets import dialogs, menu
 
-import bookmarksprefs
 
-# We want to use json to write bookmarks to files, cuz it's prettier (and safer)
-# if we're on python 2.5 it's not available...
-try:
-    import json
-
-    def _try_read(data):
-        # try reading using json, if it fails, try the old format
-        try:
-            return json.loads(data)
-        except ValueError:
-            return eval(data, {'__builtin__': None})
-
-    _write = lambda x: json.dumps(x, indent=2)
-    _read = _try_read
-
-except ImportError:
-    _write = str
-    _read = lambda x: eval(x, {'__builtin__': None})
+LOGGER = logging.getLogger(__name__)
 
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
-# TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
-# does order matter?
+
+class Bookmark:
+    """
+        Manages a bookmark and provides a method to create a menu item.
+    """
+
+    __counter = 0
+
+    def __init__(self, bookmarks_menu, delete_menu,
+                 delete_bookmark_callback, path, time):
+        """
+            Creates a bookmark for current track/position if path or time are
+            None. Creates a bookmark for the given track/positon otherwise.
+        """
+        if not path:
+            # get currently playing track
+            track = player.PLAYER.current
+            if track is None:
+                text = 'Need a playing track to Bookmark.'
+                LOGGER.error(text)
+                dialogs.error(xlgui.main.mainwindow(), text)
+                return
+            time = player.PLAYER.get_time()
+            path = track.get_loc_for_io()
+
+        self.__path = path
+        self.__time = time
+        self.__title = None
+        self.__cover_pixbuf = None
+        self.item = None
+
+        self.__fetch_metadata()
+        self.__create_menu_item(bookmarks_menu, delete_menu,
+                                delete_bookmark_callback)
+
+    def get_menu_item(self):
+        return self.item
+
+    def __fetch_metadata(self, *_args):
+        # "gtk-menu-images" is deprecated and is being ignored on most
+        # platforms. On GNOME/Wayland it can be enabled by editing
+        # ~/.config/gtk-3.0/settings.ini and adding `gtk-menu-images=1`.
+        use_covers = Gtk.Settings.get_default().props.gtk_menu_images
+
+        try:
+            item = trax.Track(self.__path)
+            if not self.__title:
+                self.__title = item.get_tag_display('title')
+            if use_covers:
+                image = covers.MANAGER.get_cover(item, set_only=True)
+                if image:
+                    try:
+                        self.__cover_pixbuf = icons.MANAGER.pixbuf_from_data(
+                            image, size=(16, 16))
+                    except GLib.GError:
+                        LOGGER.warning('Could not load cover')
+            else:
+                self.__cover_pixbuf = None
+        except Exception:
+            LOGGER.exception("Cannot open %s", self.__path)
+            return
+
+    def __create_menu_item(self, bookmarks_menu, delete_menu,
+                           delete_bookmark_callback):
+        """
+            Create menu entries for this bookmark.
+        """
+        time = '%d:%02d' % (self.__time / 60, self.__time % 60)
+        label = '%s @ %s' % (self.__title, time)
+
+        def factory(menu_, _parent, _context):
+            "menu factory for new bookmarks"
+            menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
+            if self.__cover_pixbuf:
+                menu_item.set_image(
+                    Gtk.Image.new_from_pixbuf(self.__cover_pixbuf))
+
+            if menu_ is bookmarks_menu:
+                menu_item.connect('activate', self.__on_bookmark_activated)
+            else:
+                menu_item.connect('activate', delete_bookmark_callback, self)
+
+            return menu_item
+
+        item = menu.MenuItem('bookmark{0}'.format(Bookmark.__counter), factory, ['sep'])
+        Bookmark.__counter += 1
+        bookmarks_menu.add_item(item)
+        delete_menu.add_item(item)
+        self.item = item
+
+    def __on_bookmark_activated(self, _widget):
+        """
+            This is called to resume a bookmark.
+        """
+        # check if it's already playing
+        track = player.PLAYER.current
+        if track and track.get_loc_for_io() == self.__path:
+            player.PLAYER.unpause()
+            player.PLAYER.seek(self.__time)
+        else:
+            # play it using the QUEUE
+            track = trax.Track(self.__path)
+            if track:  # make sure we got one
+                player.QUEUE.play(track)
+                player.PLAYER.seek(self.__time)
+
+    def serialize_bookmark(self):
+        """
+            Serializes a bookmark object for json.dump().
+            This function assumes that a bookmark argument can be used as if
+            it was given as self. This assumption might be wrong in the future.
+        """
+        if not isinstance(self, Bookmark):
+            raise ValueError()
+        return (self.__path, self.__time)
 
 
-def error(text):
-    logger.error("%s: %s", 'Bookmarks', text)
-    dialogs.error(xlgui.main.mainwindow(), text)
+class BookmarksManager:
+    """
+        Manages a list of bookmarks and the associated menu entries
+    """
 
+    __PATH = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
 
-class Bookmarks:
+    def __init__(self):
+        self.__db_file_lock = threading.RLock()
+        self.__bookmarks = []
+        # self.auto_db = {}
 
-    def __init__(self, exaile):
-        self.bookmarks = []
-#        self.auto_db = {}
-        self.exaile = exaile
-        self.use_covers = settings.get_option('plugin/bookmarks/use_covers', False)
-        self.counter = 0
+        self.menu = None
+        self.delete_menu = None
+        self.__setup_menu()
 
-        # setup menus
+        # TODO: automatic bookmarks, not yet possible
+        #  - needs a way to get the time a file is interrupted at
+        # set events - not functional yet
+        # event.add_callback(self.on_start_track, 'playback_start')
+        # event.add_callback(self.on_stop_track, 'playback_end')
+        # playback_end, playback_pause, playback_resume, stop_track
+
+        self.__load_db()
+
+    def __setup_menu(self):
         self.menu = menu.Menu(self)
         self.delete_menu = menu.Menu(self)
 
-        # define factory-factory for sensitive-aware menuitems
         def factory_factory(display_name, icon_name, callback=None, submenu=None):
-            def factory(menu_, parent, context):
+            "define factory-factory for sensitive-aware menuitems"
+
+            def factory(_menu, _parent, _context):
                 item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
                 image = Gtk.Image.new_from_icon_name(icon_name,
                                                      size=Gtk.IconSize.MENU)
                 item.set_image(image)
 
-                # insensitive if no bookmarks present
-                if len(self.bookmarks) == 0:
-                    item.set_sensitive(False)
-                else:
-                    if callback is not None:
-                        item.connect('activate', callback)
-                    if submenu is not None:
-                        item.set_submenu(submenu)
+                if callback is not None:
+                    item.connect('activate', callback)
+                if submenu is not None:
+                    item.set_submenu(submenu)
+                    # insensitive if no bookmarks present
+                    if len(self.__bookmarks) == 0:
+                        item.set_sensitive(False)
                 return item
 
             return factory
 
         items = []
         items.append(_smi('bookmark', [], _('_Bookmark This Track'),
-                          'bookmark-new', self.add_bookmark))
-        items.append(menu.MenuItem('delete', factory_factory(_('_Delete Bookmark'),
-                                                             'gtk-close', submenu=self.delete_menu), ['bookmark']))
-        items.append(menu.MenuItem('clear', factory_factory(_('_Clear Bookmarks'),
-                                                            'gtk-clear', callback=self.clear), ['delete']))
+                          'bookmark-new', self.__on_add_bookmark))
+        delete_cb = factory_factory(_('_Delete Bookmark'), 'gtk-close',
+                                    submenu=self.delete_menu)
+        items.append(menu.MenuItem('delete', delete_cb, ['bookmark']))
+        clear_cb = factory_factory(_('_Clear Bookmarks'), 'gtk-clear',
+                                   callback=self.__clear_bookmarks)
+        items.append(menu.MenuItem('clear', clear_cb, ['delete']))
         items.append(_sep('sep', ['clear']))
 
         for item in items:
             self.menu.add_item(item)
 
-        # TODO: automatic bookmarks, not yet possible
-        #  - needs a way to get the time a file is inturrupted at
-        # set events - not functional yet
-        #event.add_callback(self.on_start_track, 'playback_start')
-        #event.add_callback(self.on_stop_track, 'playback_end')
-        #playback_end, playback_pause, playback_resume, stop_track
+    def __on_add_bookmark(self, _widget, _name, _foo, _bookmarks_manager):
+        self.__add_bookmark()
 
-    def do_bookmark(self, widget, data):
-        """
-            This is called to resume a bookmark.
-        """
-        key, pos = data
-        exaile = self.exaile
+    def __add_bookmark(self, path=None, time=None, save_db=True):
+        if not self.menu:
+            return  # this plugin is shutting down
+        bookmark = Bookmark(self.menu, self.delete_menu,
+                            self.__delete_bookmark, path, time)
+        self.__bookmarks.append(bookmark)
+        if save_db:
+            self.__save_db()
 
-        if not (key and pos):
-            return
-
-        # check if it's already playing
-        track = player.PLAYER.current
-        if track and track.get_loc_for_io() == key:
-            player.PLAYER.unpause()
-            player.PLAYER.seek(pos)
-            return
-        else:
-            # play it using the QUEUE
-            track = trax.Track(key)
-            if track:   # make sure we got one
-                player.QUEUE.play(track)
-                player.PLAYER.seek(pos)
-
-    def add_bookmark(self, *args):
-        """
-            Create bookmark for current track/position.
-        """
-        # get currently playing track
-        track = player.PLAYER.current
-        if track is None:
-            error('Need a playing track to Bookmark.')
-            return
-
-        pos = player.PLAYER.get_time()
-        key = track.get_loc_for_io()
-        self.bookmarks.append((key, pos))
-        self.display_bookmark(key, pos)
-
-    def display_bookmark(self, key, pos):
-        """
-            Create menu entrees for this bookmark.
-        """
-        pix = None
-        # add menu item
-        try:
-            item = trax.Track(key)
-            title = item.get_tag_display('title')
-            if self.use_covers:
-                image = covers.MANAGER.get_cover(item, set_only=True)
-                if image:
-                    try:
-                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16, 16))
-                    except GLib.GError:
-                        logger.warn('Could not load cover')
-                        pix = None
-                        # no cover
-                else:
-                    pix = None
-        except Exception:
-            logger.exception("Cannot open %s", key)
-            # delete offending key?
-            return
-        time = '%d:%02d' % (pos / 60, pos % 60)
-        label = '%s @ %s' % (title, time)
-
-        counter = self.counter  # closure magic (workaround for factories not having access to item)
-        # factory for new bookmarks
-
-        def factory(menu_, parent, context):
-            menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
-            if pix:
-                menu_item.set_image(Gtk.image_new_from_pixbuf(pix))
-
-            if menu_ is self.menu:
-                menu_item.connect('activate', self.do_bookmark, (key, pos))
-            else:
-                menu_item.connect('activate', self.delete_bookmark, (counter, key, pos))
-
-            return menu_item
-
-        item = menu.MenuItem('bookmark{0}'.format(self.counter), factory, ['sep'])
-        self.menu.add_item(item)
-        self.delete_menu.add_item(item)
-
-        self.counter += 1
-
-        # save addition
-        self.save_db()
-
-    def clear(self, widget):
+    def __clear_bookmarks(self, _widget):
         """
             Delete all bookmarks.
         """
-        # remove from menus
-        for item in self.delete_menu._items:
-            self.menu.remove_item(item)
-            self.delete_menu.remove_item(item)
+        for bookmark in self.__bookmarks:
+            self.delete_menu.remove_item(bookmark.get_menu_item())
+            self.menu.remove_item(bookmark.get_menu_item())
+        self.__bookmarks = []
+        self.__save_db()
 
-        self.bookmarks = []
-        self.save_db()
-
-    def delete_bookmark(self, widget, targets):
+    def __delete_bookmark(self, _widget, bookmark):
         """
             Delete a bookmark.
         """
-        # print targets
-        counter, key, pos = targets
+        self.__bookmarks.remove(bookmark)
+        self.delete_menu.remove_item(bookmark.get_menu_item())
+        self.menu.remove_item(bookmark.get_menu_item())
+        self.__save_db()
 
-        if (key, pos) in self.bookmarks:
-            self.bookmarks.remove((key, pos))
-
-        name = 'bookmark{0}'.format(counter)
-        for item in self.delete_menu._items:
-            if item.name == name:
-                self.delete_menu.remove_item(item)
-                self.menu.remove_item(item)
-                break
-
-        self.save_db()
-
-    def load_db(self):
+    @common.threaded
+    def __load_db(self):
         """
             Load previously saved bookmarks from a file.
         """
-        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
-        if not os.path.exists(path):
-            logger.info('Bookmarks file does not exist yet.')
-            return None
-        try:
-            # Load Bookmark List from file.
-            with open(path, 'rb') as f:
-                data = f.read()
-                try:
-                    db = _read(data)
-                    for (key, pos) in db:
-                        self.bookmarks.append((key, pos))
-                        self.display_bookmark(key, pos)
-                    logger.debug('loaded %s bookmarks', len(db))
-                except Exception as s:
-                    logger.error('BM: bad bookmark file: %s', s)
-                    return None
-        except IOError as e:
-            logger.error('BM: could not open file: %s', e.strerror)
+        with self.__db_file_lock:
+            if not os.path.exists(self.__PATH):
+                LOGGER.info('Bookmarks file does not exist yet.')
+                return
+            try:
+                with open(self.__PATH, 'rb') as bm_file:
+                    bookmarks = json.load(bm_file)
+                    self.__load_db_callback(bookmarks)
+            except IOError as err:
+                LOGGER.error('BM: could not open file: %s', err.strerror)
 
-    def save_db(self):
+    @common.idle_add()
+    def __load_db_callback(self, loaded_bookmarks):
+        if not self.menu:
+            return  # this plugin is shutting down
+
+        for (key, pos) in loaded_bookmarks:
+            self.__add_bookmark(key, pos, save_db=False)
+
+    def __save_db(self):
         """
             Save list of bookmarks to a file.
         """
-        # Save List
-        path = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
-        with open(path, 'wb') as f:
-            f.write(_write(self.bookmarks))
-            logger.debug('saving %s bookmarks', len(self.bookmarks))
+        # lists are not thread-safe, so we need a copy.
+        # we don't need a deep copy because keys and values are not mutated.
+        bookmarks = copy.copy(self.__bookmarks)
+        # cannot use common.threaded here because it must not be daemonized,
+        # otherwise we might loose data on program shutdown.
+        thread = threading.Thread(target=self.__do_save_db, args=[bookmarks])
+        thread.daemon = False
+        thread.start()
+
+    def __do_save_db(self, bookmarks):
+        with self.__db_file_lock:
+            with open(self.__PATH, 'wb') as bm_file:
+                json.dump(bookmarks, bm_file, indent=2,
+                          default=Bookmark.serialize_bookmark)
+            LOGGER.debug('saved %d bookmarks', len(bookmarks))
 
 
-def __enb(eventname, exaile, nothing):
-    GLib.idle_add(_enable, exaile)
+class BookmarksPlugin(object):
+
+    def __init__(self):
+        self.__manager = None
+
+    def enable(self, exaile):
+        pass
+
+    def on_gui_loaded(self):
+        """
+            Called when plugin is enabled.  Set up the menus, create the bookmark class, and
+            load any saved bookmarks.
+        """
+
+        self.__manager = BookmarksManager()
+
+        # add tools menu items
+        providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
+        item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'),
+                    'user-bookmarks', submenu=self.__manager.menu)
+        providers.register('menubar-tools-menu', item)
+
+    def disable(self, _exaile):
+        """
+            Called when the plugin is disabled.  Destroy menu.
+        """
+        self.__manager.menu = None  # used to mark plugin shutdown to display_bookmark
+        for item in providers.get('menubar-tools-menu'):
+            if item.name == 'bookmarks':
+                providers.unregister('menubar-tools-menu', item)
+                break
+        self.__manager = None
 
 
-def enable(exaile):
-    """
-        Dummy initialization function, calls _enable when exaile is fully loaded.
-    """
-
-    if exaile.loading:
-        event.add_callback(__enb, 'gui_loaded')
-    else:
-        __enb(None, exaile, None)
-
-
-def _enable(exaile):
-    """
-        Called when plugin is enabled.  Set up the menus, create the bookmark class, and
-        load any saved bookmarks.
-    """
-
-    bm = Bookmarks(exaile)
-
-    # add tools menu items
-    providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
-
-    item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'),
-                'user-bookmarks', submenu=bm.menu)
-    providers.register('menubar-tools-menu', item)
-
-    bm.load_db()
-
-
-def disable(exaile):
-    """
-        Called when the plugin is disabled.  Destroy menu.
-    """
-    for item in providers.get('menubar-tools-menu'):
-        if item.name == 'bookmarks':
-            providers.unregister('menubar-tools-menu', item)
-            break
-
+plugin_class = BookmarksPlugin
 
 # vi: et ts=4 sts=4 sw=4
-def get_preferences_pane():
-    return bookmarksprefs

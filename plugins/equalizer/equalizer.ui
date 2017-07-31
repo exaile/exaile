@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adj-band0">
@@ -80,14 +80,41 @@
     <property name="can_focus">False</property>
     <property name="icon_name">list-remove</property>
   </object>
-  <object class="GtkWindow" id="main-window">
+  <object class="GtkListStore" id="presets">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name pre -->
+      <column type="gfloat"/>
+      <!-- column-name band0 -->
+      <column type="gfloat"/>
+      <!-- column-name band1 -->
+      <column type="gfloat"/>
+      <!-- column-name band2 -->
+      <column type="gfloat"/>
+      <!-- column-name band3 -->
+      <column type="gfloat"/>
+      <!-- column-name band4 -->
+      <column type="gfloat"/>
+      <!-- column-name band5 -->
+      <column type="gfloat"/>
+      <!-- column-name band6 -->
+      <column type="gfloat"/>
+      <!-- column-name band7 -->
+      <column type="gfloat"/>
+      <!-- column-name band8 -->
+      <column type="gfloat"/>
+      <!-- column-name band9 -->
+      <column type="gfloat"/>
+    </columns>
+  </object>
+  <template class="EqualizerWindow" parent="GtkWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Equalizer</property>
     <property name="window_position">center</property>
     <property name="default_width">480</property>
     <property name="default_height">260</property>
-    <property name="type_hint">utility</property>
-    <signal name="destroy" handler="on_main-window_destroy" swapped="no"/>
+    <property name="destroy_with_parent">True</property>
     <child>
       <object class="GtkGrid" id="grid3">
         <property name="visible">True</property>
@@ -96,7 +123,7 @@
         <property name="row_spacing">4</property>
         <property name="column_spacing">2</property>
         <child>
-          <object class="GtkButton" id="add-preset">
+          <object class="GtkButton" id="add_preset">
             <property name="label">_Add</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -104,7 +131,7 @@
             <property name="image">image1</property>
             <property name="use_underline">True</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_add-preset_clicked" swapped="no"/>
+            <signal name="clicked" handler="add_preset" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -112,7 +139,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="remove-preset">
+          <object class="GtkButton" id="remove_preset">
             <property name="label">_Remove</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -120,7 +147,7 @@
             <property name="image">image2</property>
             <property name="use_underline">True</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="on_remove-preset_clicked" swapped="no"/>
+            <signal name="clicked" handler="remove_preset" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">2</property>
@@ -139,14 +166,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="chk-enabled">
+          <object class="GtkCheckButton" id="chk_enabled">
             <property name="label" translatable="yes">Enabled</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="hexpand">True</property>
             <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="on_chk-enabled_toggled" swapped="no"/>
+            <signal name="toggled" handler="check_enabled" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -168,7 +195,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-pre</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_pre_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_preamp" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -300,7 +327,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band0</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band0_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -327,7 +354,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band1</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band1_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -354,7 +381,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band2</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band2_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -381,7 +408,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band3</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band3_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -408,7 +435,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band4</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band4_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -435,7 +462,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band5</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band5_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">7</property>
@@ -462,7 +489,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band6</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band6_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">8</property>
@@ -489,7 +516,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band7</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band7_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">9</property>
@@ -516,7 +543,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band8</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band8_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">10</property>
@@ -543,7 +570,7 @@
                 <property name="orientation">vertical</property>
                 <property name="adjustment">adj-band9</property>
                 <property name="inverted">True</property>
-                <signal name="format-value" handler="on_band9_format_value" swapped="no"/>
+                <signal name="value-changed" handler="adjust_band" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">11</property>
@@ -585,12 +612,15 @@
           </packing>
         </child>
         <child>
-          <object class="GtkComboBox" id="combo-presets">
+          <object class="GtkComboBox" id="combo_presets">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
+            <property name="model">presets</property>
+            <property name="active">0</property>
             <property name="has_entry">True</property>
-            <signal name="changed" handler="on_combo-presets_changed" swapped="no"/>
+            <property name="id_column">0</property>
+            <signal name="changed" handler="preset_changed" swapped="no"/>
             <child internal-child="entry">
               <object class="GtkEntry" id="combobox-entry">
                 <property name="can_focus">True</property>
@@ -604,5 +634,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

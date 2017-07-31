@@ -610,6 +610,17 @@ def platform_is_wayland():
     return 'wayland' in display_name
 
 
+def platform_is_x11():
+    """
+        This function checks whether Exaile has been started on a X11 Gdk backend.
+
+        :returns: `True` if the display used by Exaile is realized on a X11 server,
+                    ` False` otherwise.
+    """
+    display_name = Gdk.Display.get_default().get_name().lower()
+    return 'x11' in display_name
+
+
 def css_from_rgba(rgba):
     """
         Convert a Gdk.RGBA to a CSS color string

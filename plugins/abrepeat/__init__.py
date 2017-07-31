@@ -20,25 +20,31 @@ from xl import event, player, providers
 from xl.nls import gettext as _
 from xlgui.widgets import playback
 
-MENU_ITEM = None
+
+class ABRepeatPlugin(object):
+
+    def __init__(self):
+        self.__menu_item = None
+
+    def enable(self, _exaile):
+        """
+            Enables the plugin
+        """
+        pass  # needs to be implemented, otherwise xl.plugins will break
+
+    def on_gui_loaded(self):
+        self.__menu_item = RepeatSegmentMenuItem()
+        providers.register('progressbar-context-menu', self.__menu_item)
+
+    def disable(self, _exaile):
+        """
+            Disables the plugin
+        """
+        self.__menu_item.destroy()
+        providers.unregister('progressbar-context-menu', self.__menu_item)
 
 
-def enable(exaile):
-    """
-        Enables the plugin
-    """
-    global MENU_ITEM
-    MENU_ITEM = RepeatSegmentMenuItem()
-    providers.register('progressbar-context-menu', MENU_ITEM)
-
-
-def disable(exaile):
-    """
-        Disables the plugin
-    """
-    global MENU_ITEM
-    MENU_ITEM.destroy()
-    providers.unregister('progressbar-context-menu', MENU_ITEM)
+plugin_class = ABRepeatPlugin
 
 
 class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,

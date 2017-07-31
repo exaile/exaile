@@ -28,7 +28,7 @@ class HourPreference(widgets.SpinPreference):
     name = 'plugin/alarmclock/hour'
 
 
-class MinutsPreference(widgets.SpinPreference):
+class MinutesPreference(widgets.SpinPreference):
     default = 30
     name = 'plugin/alarmclock/minuts'
 
@@ -68,7 +68,7 @@ class SundayPreference(widgets.CheckPreference):
     name = 'plugin/alarmclock/sunday'
 
 
-class FadingPreferencew(widgets.CheckPreference):
+class FadingPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/alarm_use_fading'
 
@@ -88,6 +88,6 @@ class IncrementPreference(widgets.SpinPreference):
     name = 'plugin/alarmclock/alarm_increment'
 
 
-class TimerperIncPreference(widgets.SpinPreference):
+class TimerStepPreference(widgets.SpinPreference):
     default = 1
     name = 'plugin/alarmclock/alarm_timer_per_inc'

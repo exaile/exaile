@@ -58,26 +58,33 @@ def __migrate_anchor_setting():
         settings.set_option('plugin/desktopcover/anchor', gravity)
 
 
-def enable(exaile):
-    """
-        Enables the desktop cover plugin
-    """
-    __migrate_anchor_setting()
+class DesktopCoverPlugin(object):
 
-    global DESKTOPCOVER
-    DESKTOPCOVER = DesktopCover()
+    def __init__(self):
+        self.__desktop_cover = None
 
+    def enable(self, _exaile):
+        """
+            Enables the plugin
+        """
+        __migrate_anchor_setting()
 
-def disable(exaile):
-    """
-        Disables the desktop cover plugin
-    """
-    global DESKTOPCOVER
-    DESKTOPCOVER.destroy()
+    def on_gui_loaded(self):
+        self.__desktop_cover = DesktopCover()
+
+    def disable(self, _exaile):
+        """
+            Disables the desktop cover plugin
+        """
+        self.__desktop_cover.destroy()
+        self.__desktop_cover = None
 
 
 def get_preferences_pane():
     return desktopcover_preferences
+
+
+plugin_class = DesktopCoverPlugin
 
 
 class DesktopCover(Gtk.Window):

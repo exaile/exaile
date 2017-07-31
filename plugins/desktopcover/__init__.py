@@ -38,25 +38,6 @@ import desktopcover_preferences
 DESKTOPCOVER = None
 
 
-def __migrate_anchor_setting():
-    """
-        Migrates gravity setting from the old
-        integer values to the new string values
-    """
-    gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
-    gravity_map = DesktopCover.gravity_map
-
-    if gravity not in gravity_map:
-        gravities = gravity_map.keys()
-
-        try:
-            gravity = gravities[gravity]
-        except (IndexError, TypeError):
-            gravity = 'topleft'
-
-        settings.set_option('plugin/desktopcover/anchor', gravity)
-
-
 class DesktopCoverPlugin(object):
 
     def __init__(self):
@@ -66,7 +47,7 @@ class DesktopCoverPlugin(object):
         """
             Enables the plugin
         """
-        __migrate_anchor_setting()
+        self.__migrate_anchor_setting()
 
     def on_gui_loaded(self):
         self.__desktop_cover = DesktopCover()
@@ -77,6 +58,25 @@ class DesktopCoverPlugin(object):
         """
         self.__desktop_cover.destroy()
         self.__desktop_cover = None
+
+    @staticmethod
+    def __migrate_anchor_setting():
+        """
+            Migrates gravity setting from the old
+            integer values to the new string values
+        """
+        gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
+        gravity_map = DesktopCover.gravity_map
+
+        if gravity not in gravity_map:
+            gravities = gravity_map.keys()
+
+            try:
+                gravity = gravities[gravity]
+            except (IndexError, TypeError):
+                gravity = 'topleft'
+
+            settings.set_option('plugin/desktopcover/anchor', gravity)
 
 
 def get_preferences_pane():

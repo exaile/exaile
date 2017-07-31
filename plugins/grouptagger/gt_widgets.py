@@ -797,15 +797,15 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
         # gather the data
         for gcombo, combo in self.combos:
 
-            group = self.group_model[gcombo.get_active()][0]
+            active_group = self.group_model[gcombo.get_active()][0]
             wsel = self.combo_model[combo.get_active()][0]
 
             if wsel == self.choices[0]:
-                and_p[0].append(group)
+                and_p[0].append(active_group)
             elif wsel == self.choices[1]:
-                or_p[0].append(group)
+                or_p[0].append(active_group)
             elif wsel == self.choices[2]:
-                not_p[0].append(group)
+                not_p[0].append(active_group)
 
         # create the AND conditions
         if len(and_p[0]):

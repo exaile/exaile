@@ -27,7 +27,6 @@
 import dbus
 from fcntl import ioctl
 import logging
-import threading
 import os
 import struct
 
@@ -37,7 +36,6 @@ from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
 
 from xl import playlist, trax, common
-from xl import settings
 import os.path
 
 import cdprefs
@@ -129,7 +127,7 @@ class CDTocParser(object):
                 track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
                 m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
 
-                adr = adrctrl & 0xf
+                # adr = adrctrl & 0xf
                 ctrl = (adrctrl & 0xf0) >> 4
 
                 data = 0

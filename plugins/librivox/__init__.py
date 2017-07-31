@@ -30,7 +30,6 @@ import about_window as AW
 from xl import (
     common,
     event,
-    playlist,
     providers,
     settings,
     trax,

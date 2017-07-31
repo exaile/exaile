@@ -28,7 +28,6 @@ from xl import (
     player,
     settings
 )
-from xl.nls import gettext as _
 from xlgui import (
     icons
 )

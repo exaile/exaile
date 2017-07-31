@@ -11,7 +11,7 @@ import urllib
 from urllib2 import urlparse
 from xml.dom import minidom
 
-from xl import common, event, main, playlist, xdg
+from xl import common, event, playlist, xdg
 from xl.radio import (
     RadioStation,
     RadioList,

@@ -48,6 +48,7 @@ class Mock(object):
     def accelerator_parse(cls, *args):
         return [0, 0]
 
+
 MOCK_MODULES = [
     'cairo',
 
@@ -68,20 +69,23 @@ MOCK_MODULES = [
     'mutagen.flac',
 ]
 
-for mod_name in MOCK_MODULES:
-    sys.modules[mod_name] = Mock()
+
+def import_fake_modules():
+    for mod_name in MOCK_MODULES:
+        sys.modules[mod_name] = Mock()
 
 
-# player hack
-import xl.settings
+def fake_xl_settings():
+    # player hack
+    import xl.settings
 
-orig_get_option = xl.settings.get_option
+    def option_hack(name, default):
+        if name == 'player/engine':
+            return 'rtfd_hack'
+        else:
+            return orig_get_option(name, default)
+
+    orig_get_option = xl.settings.get_option
+    xl.settings.get_option = option_hack
 
 
-def option_hack(name, default):
-    if name == 'player/engine':
-        return 'rtfd_hack'
-    else:
-        return orig_get_option(name, default)
-
-xl.settings.get_option = option_hack

@@ -7,8 +7,6 @@ General functions
 *****************
 .. autofunction:: log_exception
 
-.. autofunction:: to_unicode
-
 .. autofunction:: order_poset
 
 Filesystem

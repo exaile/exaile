@@ -17,10 +17,9 @@ Exaile (and its installer) has been tested on:
 * GStreamer 1.4.5
 
 Exaile now requires GStreamer 1.x and GTK3. The best way to install these
-requirements on Windows is using the "All-In-One PyGI/PyGObject for Windows
-Installer", at http://sourceforge.net/projects/pygobjectwin32/
-
-When using the all-in-one installer, you must select the following options:
+requirements on Windows is using the `All-In-One PyGI/PyGObject for Windows
+Installer <http://sourceforge.net/projects/pygobjectwin32/>`_. When using this
+installer, you must select the following options:
 
 * GTK 3.x
 * GStreamer 1.4.5
@@ -34,33 +33,15 @@ launch Exaile in the Start Menu under "All Programs" -> "Exaile".
 
 Alternatively, you can directly launch "exaile_win.py".
 
-
-Exaile DirectSound plugin (libgstexailedirectsoundsink.dll)
------------------------------------------------------------
-
-Exaile currently includes a custom DirectSound GST plugin that is compiled
-against gst-plugins-good 1.4.5 using mingw32/64.
-
-The reason a custom plugin is included with Exaile is because GST mainline
-does not currently support selecting the audio output for the DirectSound
-plugin. Another project created a patch to add this functionality, and
-you can find the bug at https://bugzilla.gnome.org/show_bug.cgi?id=584980
-
-The plugin is LGPL, and our modifications to the GST source are in
-tools\win-installer\directsound.patch
-
-If you do not wish to use the Exaile directsound plugin, you can change
-the audiosink in Preferences->Playback
-
 Bug Reporting
 -------------
 
 If exaile crashes, you should be able to find a logfile from the last time
-exaile was launched in the following directories::
+exaile was launched in the following directories:
     
-    Windows XP: %USERPROFILE%\Local Settings\Application Data\exaile\logs
-    Windows 7+:  %USERPROFILE%\AppData\Local\exaile\logs
+* Windows XP: ``%USERPROFILE%\Local Settings\Application Data\exaile\logs``
+* Windows 7+: ``%USERPROFILE%\AppData\Local\exaile\logs``
 
 If you run into any bugs not mentioned in this document, please report them
-to us via github at https://github.com/exaile/exaile/issues . Please include any
+to us via `GitHub <https://github.com/exaile/exaile/issues>`_. Please include any
 relevant logfile snippets. 

@@ -20,7 +20,9 @@ Linux/\*nix
 -----------
 
 On \*nix-based systems (but not OSX), run the following command from the
-source code directory to install::
+source code directory to install:
+
+.. code-block:: sh
 
     $ make
     # make install
@@ -30,7 +32,9 @@ The "make" step is optional and only compiles the modules and translations.
 There is also an install_no_locale target if you wish to install without
 translations.
 
-To uninstall exaile please run::
+To uninstall exaile please run:
+
+.. code-block:: sh
 
     # make uninstall
 

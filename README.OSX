@@ -15,15 +15,10 @@ Requirements
 
 On OS X, Exaile requires the GStreamer SDK Runtime to be installed, otherwise
 it will not function. 
-
-Download the SDK runtime for OSX here:
-
-    http://docs.gstreamer.com/display/GstSDK/Installing+on+Mac+OS+X
-    
-Or use this direct download link:
-
-    http://cdn.gstreamer.com/osx/universal/gstreamer-sdk-2013.6-universal.pkg
-
+Download the SDK runtime for OSX `here
+<http://docs.gstreamer.com/display/GstSDK/Installing+on+Mac+OS+X>`_
+or use `this direct download link
+<http://cdn.gstreamer.com/osx/universal/gstreamer-sdk-2013.6-universal.pkg>`_
 The default installation will allow the Exaile UI to work correctly, and 
 should support playing many types of audio formats.
 
@@ -68,11 +63,6 @@ Transparency may not work.
 
 Keyboard shortcuts aren't mapped to the Option/Command keys, and are still
 mapped to CTRL.
-
-GTK+ 2 seems to have a lot of odd problems on OS X, such as combo boxes immediately
-switching when clicked. We anticipate that these will not be fixed until we
-migrate exaile to GTK+ 3.
-
 
 
 

@@ -24,7 +24,9 @@ you want to make a release for. We should *never* do releases with -dev in
 them.
 
 The file to adjust is xl/version.py. You should do a commit, and then tag
-the release.::
+the release.:
+
+.. code-block:: sh
 
     $ git tag RELEASE_VERSION
 
@@ -34,13 +36,17 @@ the release.::
 Step three: Installing the Python GTK3/GST SDK
 ----------------------------------------------
 
-You will need to have the SDK installed. Here's what you do::
+You will need to have the SDK installed. Here's what you do:
+
+.. code-block:: sh
 
     git clone https://github.com/exaile/python-gtk3-gst-sdk
 
 Next install the SDK links by running this from inside the tools/installer
 directory, with the second argument set to the platform that you're building
-for::
+for:
+
+.. code-block:: sh
 
     /path/to/python-gtk3-gst-sdk/create_links.sh windows
     /path/to/python-gtk3-gst-sdk/create_links.sh osx
@@ -50,7 +56,9 @@ Step four: Building the Windows installer and source distribution
 -----------------------------------------------------------------
 
 You can build the source distribution and the Windows installer by running
-the following::
+the following:
+
+.. code-block:: sh
 
     $ make dist
     
@@ -61,7 +69,9 @@ Step four: OSX
 --------------
 
 You can build the OSX DMG image by running the following from the
-tools/installer directory::
+tools/installer directory:
+
+.. code-block:: sh
 
     $ ./build_osx_installer.sh
 

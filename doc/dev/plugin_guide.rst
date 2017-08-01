@@ -41,8 +41,8 @@ The following two attributes are optional:
   present on all installations of exaile (eg, modules like Gtk are
   always going to be present, so don't need to specify those), then you
   should specify it here.
-  To specify GObject Introspection libraries, prefix it with `gi:`, e.g.
-  `gi:WebKit2`.
+  To specify GObject Introspection libraries, prefix it with ``gi:``, e.g.
+  ``gi:WebKit2``.
 
 .. note:: Name and Description are what show up in the plugin manager.
           Category is used to list your plugin alongside other plugins.
@@ -52,7 +52,9 @@ The following two attributes are optional:
 Before Exaile 3.4, ``__init__.py`` was required to define at least two methods,
 ``enable()`` and ``disable()``. However, Exaile 3.4 introduced a new way to write
 plugins which will eliminate a lot of unnecessary boilerplate for plugin
-authors. We will use this model below::
+authors. We will use this model below:
+
+.. code-block:: python
 
     class MyPlugin(object):
     
@@ -83,7 +85,7 @@ loading. Some plugins need to modify state earlier in the startup process,
 hence the need for this separation.
 
 The ``exaile`` object in the above example is an instance of a class called
-Exaile, which is defined in xl/main.py. This class is a base for everything
+Exaile, which is defined in ``xl/main.py``. This class is a base for everything
 in the program.
 
 You can get a handle on various objects in Exaile by looking at the members
@@ -103,7 +105,7 @@ The ``PLUGININFO`` is as follows::
     Name='Tutorial Plugin'
     Description='Plugin to demonstrate how to make a plugin.'
 
-and the __init__.py is as follows
+and the ``__init__.py`` is as follows
 
 .. code-block:: python
 
@@ -171,50 +173,64 @@ Adding a track to the Playlist
 ------------------------------
 
 This is relatively simple. A Playlist consists of the actual graphical
-representation of a playlist (see xlgui/playlist.py) and its underlying
-Playlist object (see xl/playlist.py). Any changes made to the underlying
+representation of a playlist (see ``xlgui/playlist.py``) and its underlying
+Playlist object (see ``xl/playlist.py``). Any changes made to the underlying
 playlist object are shown in the graphical representation. We will be
 appending Track objects to this underlying playlist.
 
-First you need to get a handle on the underlying Playlist::
+First you need to get a handle on the underlying Playlist:
+
+.. code-block:: python
 
     playlist_handle = exaile.gui.main.get_selected_playlist().playlist
 
-Then, you need to create a Track object (defined in xl/track.py). The
+Then, you need to create a Track object (defined in ``xl/track.py``). The
 method to do this from a local file versus a URL is slightly different.
 
-For a local source::
+For a local source:
+
+.. code-block:: python
 
     from xl import trax
     path = "/home/user/track.ogg" #basically, just specify an absolute path
     myTrack = trax.Track(path)
 
-For a url::
+For a url:
+
+.. code-block:: python
 
     from xl import trax
     url = "http://path/to/streaming/source" 
     myTrack = trax.get_tracks_from_uri(url)
 
-You can set the track information like so::
+You can set the track information like this:
+
+.. code-block:: python
 
     myTrack.set_tag_raw('title', "Cool Track")
     myTrack.set_tag_raw('artist', "Cool Artist")
     myTrack.set_tag_raw('album', "Cool Album")
 
 Once you have a Track object, and a handle on the Playlist you would like
-to add the track to, you can proceed to add the track::
+to add the track to, you can proceed to add the track:
+
+.. code-block:: python
 
     playlist_handle.add(myTrack)
 
-Note that get_tracks_from_uri() returns a list, so you will need to use the
+Note that ``get_tracks_from_uri()`` returns a list, so you will need to use the
 method for adding multiple tracks if your Track object was created this way.
 You can also create your own list of Track objects and add them all in one
-go like this too::
+go like this too:
+
+.. code-block:: python
 
     playlist_handle.add_tracks(myTrack)
 
 This is pretty much all you need to do to add a track to the playlist. An
-example in a plugin might be::
+example in a plugin might be:
+
+.. code-block:: python
 
     from xl import event, trax
     
@@ -250,22 +266,22 @@ example in a plugin might be::
     plugin_class = PlaylistExample
 
 You can do more things when adding a track than simply specifying a track
-object to add, see the methods in the class Playlist (xl/playlist.py) for more
+object to add, see the methods in the class Playlist (``xl/playlist.py``) for more
 details.
 
 Adding another page to the left-hand Notebook
 ---------------------------------------------
 
-This is done pretty easily. Basically, you need to subclass xlgui.panel.Panel
+This is done pretty easily. Basically, you need to subclass ``xlgui.panel.Panel``
 and register a provider advertising your panel.
 
-The subclass needs to have two things:
+The subclass needs to have two attributes:
 
-* `ui_info` - This defines the location of the .glade file that will be loaded
+* ``ui_info`` - This defines the location of the .glade file that will be loaded
   into the notebook page (This file must be in Gtk.Builder format, not glade format)
-* `name` - This is the name that will show on the notebook page, such as "MyPlugin"
+* ``name`` - This is the name that will show on the notebook page, such as "MyPlugin"
 
-::
+.. code-block:: python
 
     from xl import providers
     from xlgui import panel
@@ -292,28 +308,28 @@ The subclass needs to have two things:
             #typically here you'd set up your gui further, eg connect methods to signals etc
 
 That's pretty much all there is to it. To see an actual implementation,
-have a look at xlgui/panel/collection.py or take a look at the Jamendo plugin.
+have a look at ``xlgui/panel/collection.py`` or take a look at the Jamendo plugin.
 
 Setting the cover art for a track
 ---------------------------------
 
-This is done by subclassing CoverSearchMethod and adding and instance of
+This is done by subclassing ``CoverSearchMethod`` and adding and instance of
 the subclass the existing list. When Exaile plays a track with no cover,
-it uses all the methods in its CoverSearchMethod list to try and find a cover.
+it uses all the methods in its ``CoverSearchMethod`` list to try and find a cover.
 
-A CoverSearchMethod must define:
+A ``CoverSearchMethod`` must define:
 
-* `name` - The name of the CoverSearchMethod, used for removing it from the list once its been added
-* `type` - The type of the CoverSearchMethod (local, remote)
-* `find_covers(self, track, limit=-1)` - This is the method that is called
-  by Exaile when it utilises the CoverSearchMethod. This method must return
+* ``name`` - The name of the ``CoverSearchMethod``, used for removing it from the list once its been added
+* ``type`` - The type of the ``CoverSearchMethod`` (local, remote)
+* ``find_covers(self, track, limit=-1)`` - This is the method that is called
+  by Exaile when it utilises the ``CoverSearchMethod``. This method must return
   an absolute path to the cover file on the users harddrive.
 
 Here is an example CoverSearchMethod (taken from the Jamendo plugin). It
 searches Jamendo for covers, downloads the cover to a local temp directory
 and returns the path to the downloaded cover.
 
-::
+.. code-block:: python
 
     import urllib
     import hashlib
@@ -347,11 +363,15 @@ and returns the path to the downloaded cover.
     
             return [covername]
 
-You can then add it to the list of CoverSearchMethods for Exaile to try like so::
+You can then add it to the list of ``CoverSearchMethods`` for Exaile to try like this:
+
+.. code-block:: python
 
     exaile.covers.add_search_method(JamendoCoverSearch())
 
-And remove it like so::
+And remove it like this:
+
+.. code-block:: python
 
     exaile.covers.remove_search_method_by_name('jamendo')
 
@@ -360,7 +380,9 @@ Make strings translatable
 -------------------------
 
 Every message should be written in English and should be translatable. The
-following example shows how you can make a string translatable::
+following example shows how you can make a string translatable:
+
+.. code-block:: python
 
     from xl.nls import gettext as _
     print _('translatable string')
@@ -370,7 +392,9 @@ Saving/Loading arbitrary settings
 ---------------------------------
 
 This is quite easy. It's probably quicker to just show some code instead
-of trying to explain it::
+of trying to explain it:
+
+.. code-block:: python
 
     from xl import settings
     
@@ -383,22 +407,28 @@ of trying to explain it::
     retrieved_setting = settings.get_option('plugin/pluginname/settingname', default_value)
 
 That's all there is to it. There is a few restrictions as to the
-datatypes you can save as settings, see xl/settings.py for more details.
+datatypes you can save as settings, see ``xl/settings.py`` for more details.
 
 Searching the collection
 -------------------------
 
 The following method returns an list of similiar tracks to the current
-playing track::
+playing track:
+
+.. code-block:: python
 
     exaile.dynamic.find_similar_tracks(exaile.player.current, 5) #the second optional argument is the limit
 
-This method returns an list of tuples, which consist of the match rate and the artist's name::
+This method returns an list of tuples, which consist of the match rate and the artist's name:
+
+.. code-block:: python
 
     exaile.dynamic.find_similar_artists(exaile.player.current)
 
 If you would like to search the collection for a specific artist, album or
-genre, you can use the following code::
+genre, you can use the following code:
+
+.. code-block:: python
 
     from xl.trax import search
     
@@ -417,7 +447,9 @@ genre, you can use the following code::
 You can search the collection also for different assignments, like the last
 played tracks, the most recently added tracks or the tracks, which were
 played most often. Here you see an example to display the most recently
-added tracks::
+added tracks:
+
+.. code-block:: python
 
     from xl.trax import search
     from xl.trax.util import sort_tracks
@@ -425,14 +457,16 @@ added tracks::
     tracks = [x.track for x in search.search_tracks_from_string(exaile.collection, ('! %s==__null__' % '__last_played'))]
     tracks = sort_tracks(['__last_played'], tracks, True) #sort the tracks by the last playing
    
-The other keywords are `__date_added` and `__playcount`
+The other keywords are ``__date_added`` and ``__playcount``
 
 Exaile D-Bus
 ------------
 
-Here is a simple example how to use the D-Bus object::
+Here is a simple example how to use the D-Bus object:
 
-    #!/usr/bin/env python
+.. code-block:: python
+
+    #!/usr/bin/env python2
     
     import sys, dbus
     import Image
@@ -465,14 +499,16 @@ Here is a simple example how to use the D-Bus object::
     if __name__ == "__main__":
         test_dbus()
 
-Please check out xl/xldbus.py for further method signatures.
+Please check out ``xl/xldbus.py`` for further method signatures.
 
 Playback events
 ---------------
 
 Since playback events can occur far before the main GUI object or even the
-`exaile` object is loaded, connecting to them in advance is required. To 
-do this, in your __init__ method::
+``exaile`` object is loaded, connecting to them in advance is required. To 
+do this, in your ``__init__`` method:
+
+.. code-block:: python
 
     event.add_callback(self.on_playback_player_start, 'playback_player_start')
 
@@ -519,15 +555,19 @@ Building your own version of this documentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can use the Python package manager (`pip <https://pip.pypa.io/en/stable/>`_)
-to install sphinx::
+to install sphinx:
+
+.. code-block:: sh
   
     $ pip install sphinx
     
     # or on windows  
     $ py -m pip install sphinx
 
-Then you can run the following command in a terminal::
+Then you can run the following command in a terminal:
+
+.. code-block:: sh
 
     $ cd doc && make html
 
-You'll find the documentation in doc/_build/html.
+You'll find the documentation in ``doc/_build/html``.

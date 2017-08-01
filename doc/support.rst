@@ -22,11 +22,11 @@ Mailing lists
 
 We run mailing lists for various purposes.
 
-* `exaile-users <http://groups.google.com/group/exaile-users>`_ - A
+* `exaile-users <https://groups.google.com/forum/#!forum/exaile-users>`_ - A
   list for people who use Exaile. Open to discussion between users to
   communicate and help each other. If you're having trouble using Exaile,
   ask here.
-* `exaile-devel <http://groups.google.com/group/exaile-devel>`_ - Our
+* `exaile-devel <https://groups.google.com/forum/#!forum/exaile-devel>`_ - Our
   primary list for general development discussion. Questions about the code,
   plugin development, packaging, etc. should go here.
 
@@ -34,7 +34,7 @@ IRC
 ---
 
 Exaile developers can be reached on #exaile channel on 
-`Freenode <http://freenode.net/irc_servers.shtml>`_. The channel is not
+`Freenode <https://webchat.freenode.net/>`_. The channel is not
 very active, but if you stick around long enough someone will probably
 answer your question -- think in terms of email response time.
 

@@ -10,8 +10,10 @@ What's an easy way to test stuff without wrecking my actual collection?
 -----------------------------------------------------------------------
 
 If you use the ``--all-data-dir`` option to Exaile, it will store all data
-for that execution of Exaile in that directory (collections, playlists, logs)::
-    
+for that execution of Exaile in that directory (collections, playlists, logs):
+
+.. code-block:: sh
+
     ./exaile --all-data-dir=tmp
 
 Debugging options for Exaile
@@ -29,10 +31,10 @@ Where can I find log files?
 
 On Linux/OSX:
 
-* ```~/.cache/exaile/logs/``, old files have a .1, .2, … name suffix
 * ``~/.local/share/exaile/logs/`` for Exaile 3.x releases
 
 On Windows:
+
 * ```%APPDATA%\..\Local\exaile``
 
 Viewing stack traces when Exaile hangs
@@ -45,30 +47,39 @@ of all current Python threads to stderr.
 GStreamer Debugging Techniques
 ------------------------------
 
-When tracking down GST issues, a useful thing to do is the following::
+When tracking down GST issues, a useful thing to do is the following:
+
+.. code-block:: sh
 
     $ GST_DEBUG=3 ./exaile
     $ GST_DEBUG="cat:5;cat2:3" .. etc. 
 
     $ GST_DEBUG="GST_STATES:4" ./exaile
 
-`GST_DEBUG_NO_COLOR=1` is good if you're running exaile inside of pydev on eclipse.
+``GST_DEBUG_NO_COLOR=1`` is good if you're running exaile inside of pydev on eclipse.
 
-Additional help about GStreamer debugging variables can be found at 
-https://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-running.html
+Additional help about GStreamer debugging variables can be found in its
+`Documentation
+<https://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gst-running.html>`_
 
 GST Bin Visualization
 ~~~~~~~~~~~~~~~~~~~~~
 
-This is pretty cool, shows you the entire GST pipeline::
+This is pretty cool, shows you the entire GST pipeline:
 
-    gst.DEBUG_BIN_TO_DOT_FILE(some_gst_element, gst.DEBUG_GRAPH_SHOW_ALL, "filename")
-    
-Then if you run exaile like so::
+.. code-block:: sh
+
+    Gst.debug_bin_to_dot_file(some_gst_element, Gst.DebugGraphDetails.ALL, "filename")
+
+Then if you run exaile like so:
+
+.. code-block:: sh
 
     GST_DEBUG_DUMP_DOT_DIR=foo ./exaile 
-    
-It will dump a dot file that you can turn into an image::
+
+It will dump a dot file that you can turn into an image:
+
+.. code-block:: sh
 
     dot -Tpng -oimage.png graph_lowlevel.dot
 
@@ -77,7 +88,7 @@ Using GDB to diagnose issues
 
 GDB can be used to diagnose segfaults and other issues. To run GDB:
 
-.. code-block:: bash
+.. code-block:: sh
 
     gdb --args python2 exaile.py --startgui <other arguments here>
 
@@ -110,8 +121,9 @@ Eliminating Gtk-WARNING
 3. do whatever causes `Gtk-WARNING`. This will lead to a crash in exaile.
 4. debug this crash with gdb
 
-**WARNING**: On Linux, this will freeze your X server if the crash happens in a
-menu. This is due to `X grabbing all input on open menus <https://tronche.com/gui/x/xlib/input/pointer-grabbing.html>`_.
+**WARNING**: On Linux, this will freeze your X server if the crash
+happens in a menu. This is due to `X grabbing all input on open menus
+<https://tronche.com/gui/x/xlib/input/pointer-grabbing.html>`_.
 When gdb stops exaile inside a menu it can't leave the input grab.
 
 Prevent X server from freezing your Desktop when debugging exaile

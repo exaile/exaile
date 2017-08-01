@@ -12,10 +12,13 @@ Setting up a Development Environment
 Because Exaile is written in Python, if you can run Exaile on your machine,
 then you can easily modify the source code and run that too. The Exaile
 developers mostly run Exaile directly from the git checkout, without installing
-Exaile::
-  
+Exaile:
+
+.. code-block:: sh
+
     git clone https://github.com/exaile/exaile.git
     cd exaile
+    # On Linux, Mac OS X or *BSD:
     ./exaile
     
     # On Windows:
@@ -28,8 +31,10 @@ Linux
 ~~~~~
 
 On Ubuntu 16.04 following apt-get command should install most of the needed
-dependencies::
-  
+dependencies:
+
+.. code-block:: sh
+
     sudo apt-get install \
       python-mutagen \
       python-gi \
@@ -49,7 +54,9 @@ Windows
 
 First, install `msys2 <http://www.msys2.org/>`_. Then, open the MinGW32
 shell window (look in the Start Menu for it), and run this monster (it may take
-awhile)::
+awhile):
+
+.. code-block:: sh
 
   pacman -S \
     mingw-w64-i686-python2-gobject \
@@ -64,12 +71,16 @@ awhile)::
     mingw-w64-i686-gst-libav \
     mingw-w64-i686-gst-plugins-ugly
 
-Once that is complete, you'll want to install mutagen::
-  
+Once that is complete, you'll want to install mutagen:
+
+.. code-block:: sh
+
     python -m pip install mutagen
-  
-And then you should be able to launch Exaile from the msys2 console::
-  
+
+And then you should be able to launch Exaile from the msys2 console:
+
+.. code-block:: sh
+
     cd exaile
     python exaile_win.py 
 
@@ -89,9 +100,11 @@ documentation for getting the core PyGObject stuff installed. Once you get that
 working, then you just need to use the appropriate package manager to install
 GStreamer and things should be good to go.
 
-Once you get pygobject working, you will also want to install mutagen via pip::
-  
-    py -m pip install mutagen
+Once you get pygobject working, you will also want to install mutagen via pip:
+
+.. code-block:: sh
+
+    python -m pip install mutagen
 
 Useful documentation
 --------------------
@@ -99,6 +112,7 @@ Useful documentation
 Exaile is built upon Python, PyGObject, Gtk+, and GStreamer. Here is a bunch of
 documentation that you will find useful when working with these frameworks:
 
+* `Python 2 <https://docs.python.org/2.7/>`_
 * `PyGObject <https://pygobject.readthedocs.io>`_
 * `Python GI API Reference <https://lazka.github.io/pgi-docs>`_
 * `Python GTK+3 Tutorial <https://python-gtk-3-tutorial.readthedocs.io>`_
@@ -134,6 +148,8 @@ Running the tests
 -----------------
 
 If you have `pytest <https://docs.pytest.org>`_ installed, then you can just
-run::
-    
+run:
+
+.. code-block:: sh
+
     make test

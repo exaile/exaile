@@ -24,7 +24,7 @@ EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
 EXAILECONFDIR  = $(DESTDIR)$(XDGCONFDIR)/exaile
 EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
-.PHONY: dist test completion coverage clean sanitycheck
+.PHONY: dist test completion coverage clean sanitycheck builddir
 
 all: compile completion locale manpage
 	@echo "Ready to install..."
@@ -33,6 +33,9 @@ all: compile completion locale manpage
 # all methods that deal with locale stuff have a no_locale variant
 all_no_locale: compile manpage
 	@echo "Ready to install..."
+
+builddir:
+	mkdir -p build
 
 compile:
 	$(PYTHON2_CMD) -m compileall -q xl xlgui
@@ -141,8 +144,8 @@ install-target: make-install-dirs
 		$(DESTDIR)$(DATADIR)/applications/
 	install -m 644 data/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/appdata/
-	-install -m 644 exaile.1.gz $(EXAILEMANDIR)/man1/
-	-install -m 644 exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
+	-install -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
+	-install -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
 		"$(PYTHON2_CMD)" && \
@@ -152,35 +155,49 @@ install-target: make-install-dirs
 		chmod 644 $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	$(MAKE) -C plugins install
 
-locale:
-	$(MAKE) -C po locale
+
+# List a *.mo file for any *.po file
+LOCALE_SRCS=$(wildcard po/*.po)
+LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
+
+%.mo: %.po po/messages.pot
+	$(eval LOCALE_DIR := `echo $< | sed "s|^po/|build/locale/|" | sed "s|.po|/LC_MESSAGES|"`)
+	mkdir -p $(LOCALE_DIR)
+	-msgmerge -q -o - $< po/messages.pot | msgfmt -c -o $(LOCALE_DIR)/exaile.mo -
+
+locale: builddir $(LOCALE_OBJS)
 
 install-locale:
-	for f in `find po -name exaile.mo` ; do \
+	for f in `find build/locale -name exaile.mo` ; do \
 	  install -d -m 755 \
-	    `echo $$f | sed "s|^po|$(DESTDIR)$(DATADIR)/locale|" | \
+	    `echo $$f | sed "s|^build|$(DESTDIR)$(DATADIR)|" | \
 	      xargs dirname` && \
 	  install -m 644 $$f \
-	    `echo $$f | sed "s|^po|$(DESTDIR)$(DATADIR)/locale|"` ; \
+	    `echo $$f | sed "s|^build|$(DESTDIR)$(DATADIR)|"` ; \
 	  done
+
 
 plugins_dist:
 	$(MAKE) -C plugins dist
 
-manpage:
+manpage: builddir
 	LC_ALL=C help2man -n "music manager and player" -N ./exaile \
-	  | gzip -9 > exaile.1.gz
+	  | gzip -9 > build/exaile.1.gz
 
-completion:
-	$(PYTHON2_CMD) tools/generate-completion.py > exaile.bash-completion
+completion: builddir
+	$(PYTHON2_CMD) tools/generate-completion.py > build/exaile.bash-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
+	rm -rf build/
+	$(MAKE) -C plugins clean
+	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
 	rm -f exaile.1.gz
 	rm -f exaile.bash-completion
-	$(MAKE) -C plugins clean
+
+po/messages.pot: pot
 
 # The "LC_ALL=C" disables any locale-dependent sort behavior.
 # The "[type: gettext/glade]" helps intltool recognize .ui files as glade format.
@@ -196,8 +213,7 @@ pot:
 	(cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
 	  intltool-update --pot --gettext-package=messages --verbose)
 
-potball:
-	mkdir -p build
+potball: builddir
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 

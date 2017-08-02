@@ -23,15 +23,12 @@ import logging
 import os
 import threading
 
-from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Gtk
 
 from xl import (
     covers,
-    event,
     player,
-    settings,
     trax,
     xdg,
     providers
@@ -39,7 +36,7 @@ from xl import (
 from xl import common
 from xl.nls import gettext as _
 import xlgui
-from xlgui import guiutil, icons, cover
+from xlgui import icons
 from xlgui.widgets import dialogs, menu
 
 

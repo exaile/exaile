@@ -28,9 +28,7 @@
 from __future__ import with_statement
 
 import os
-import string
 
-from gi.repository import GLib
 from gi.repository import Gst
 from gi.repository import Gtk
 
@@ -39,7 +37,6 @@ from xl.player.gst.gst_utils import ElementBin
 from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu
-import xlgui
 
 
 def isclose(float_a, float_b, rel_tol=1e-09, abs_tol=0.0):

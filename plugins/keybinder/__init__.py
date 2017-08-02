@@ -19,7 +19,6 @@ import logging
 import gi
 
 from xlgui import guiutil
-from xl import plugins
 from xl.nls import gettext as _
 
 gi.require_version('Keybinder', '3.0')

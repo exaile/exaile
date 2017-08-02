@@ -3,80 +3,76 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adj-band0">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
-    <property name="value">0.001</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band1">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
-    <property name="value">0.001</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band2">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band3">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band4">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band5">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band6">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band7">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band8">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-band9">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkAdjustment" id="adj-pre">
-    <property name="lower">-24</property>
-    <property name="upper">12</property>
+    <property name="lower">-30</property>
+    <property name="upper">10</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">2</property>
   </object>
   <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">list-add</property>
   </object>
   <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">list-remove</property>
   </object>
@@ -225,7 +221,7 @@
                   <object class="GtkLabel" id="label14">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label">+12 dB</property>
+                    <property name="label">+10 dB</property>
                     <property name="angle">90</property>
                     <attributes>
                       <attribute name="size" value="8000"/>
@@ -255,7 +251,7 @@
                   <object class="GtkLabel" id="label16">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label">−12 dB</property>
+                    <property name="label">−10 dB</property>
                     <property name="angle">90</property>
                     <attributes>
                       <attribute name="size" value="8000"/>
@@ -270,7 +266,7 @@
                   <object class="GtkLabel" id="label13">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label">-24 dB</property>
+                    <property name="label">-20 dB</property>
                     <property name="angle">90</property>
                     <attributes>
                       <attribute name="size" value="8000"/>
@@ -290,7 +286,7 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="height">7</property>
+                    <property name="height">9</property>
                   </packing>
                 </child>
                 <child>
@@ -302,8 +298,26 @@
                   <packing>
                     <property name="left_attach">2</property>
                     <property name="top_attach">0</property>
-                    <property name="height">7</property>
+                    <property name="height">9</property>
                   </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label15">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label">-30 dB</property>
+                    <property name="angle">90</property>
+                    <attributes>
+                      <attribute name="size" value="8000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>

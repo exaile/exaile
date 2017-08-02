@@ -1,14 +1,11 @@
 
 from __future__ import division
 
-from gettext import gettext as _
 import logging
-import time
 
 from gi.repository import GLib
 
 from xl import player, event
-from xl.plugins import PluginsManager
 from xl import settings as xl_settings
 import acprefs
 

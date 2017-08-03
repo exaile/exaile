@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-08-03 20:50+0000\n"
+"PO-Revision-Date: 2017-10-26 23:36+0000\n"
 "Last-Translator: monolifed <monolifed@gmail.com>\n"
 "Language-Team: English (United Kingdom) "
 "<https://hosted.weblate.org/projects/exaile/master/en_GB/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16-dev\n"
+"X-Generator: Weblate 2.17\n"
 "X-Launchpad-Export-Date: 2014-10-13 06:10+0000\n"
 
 #: ../xl/formatter.py:576
@@ -3793,7 +3793,6 @@ msgid "comment"
 msgstr "comment"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
-#, fuzzy
 msgid "encodedby"
 msgstr "encodedby"
 

@@ -12,14 +12,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import os
 
 from xlgui.preferences import widgets
 from xl.nls import gettext as _
+from xl import xdg
 
 name = _('Lyrics Viewer')
-basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, 'lyricsviewer_prefs.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'lyrics.ui')
 
 
 DEFAULT_FONT = None

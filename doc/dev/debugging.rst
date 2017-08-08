@@ -86,6 +86,25 @@ It will dump a dot file that you can turn into an image:
 Using GDB to diagnose issues
 ----------------------------
 
+Preparing GDB
+~~~~~~~~~~~~~
+
+Please make sure that you have installed debug symbols for all essential
+non-python packages listed in :ref:`deps`. Python packages do not need debug
+symbols, because they ship both binary and source files already. Depending on
+the distribution you are using, you may obtain debug symbols in different ways.
+
+* Fedora: Run ``dnf debuginfo-install [packagename]`` as root or with sudo.
+  Fedora also ships a `C/C++ Debugger` with the Eclipse CDT (``eclipse-cdt``)
+  package, which provides a useful GUI.
+* Debian, Ubuntu, Linux Mint: Have a look at the wiki pages
+  `Backtrace <https://wiki.ubuntu.com/Backtrace>`_ and
+  `DebuggingProgramCrash <https://wiki.ubuntu.com/DebuggingProgramCrash#Installing_debug_symbols_manually>`_
+* `Arch Linux <https://wiki.archlinux.org/index.php/Debug_-_Getting_Traces>`_
+
+Basic Usage
+~~~~~~~~~~~
+
 GDB can be used to diagnose segfaults and other issues. To run GDB:
 
 .. code-block:: sh
@@ -139,6 +158,28 @@ way to workaround this is to run exaile on a nested X server inside weston:
 
 To make Gtk+ 3.x applications not run inside weston but use your current X11
 desktop session, run them with ``GDK_BACKEND=x11`` environment variable set.
+
+Debugging segfaults (segmentation violations)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Open a terminal.
+2. Use the ``cd`` command to change to the directory where you put Exaile source
+   code or to its installation directory.
+3. Run ``gdb /usr/bin/python2``
+4. In gdb, run ``set logging on exaile-segfault.txt`` to enable logging to that file.
+5. In gdb, run ``run ./exaile.py --startgui``. You might append other arguments if you need them.
+6. Use Exaile as you did before and try to reproduce the problem. At some point, exaile might freeze. This is when gdb catched the segmentation fault.
+7. In gdb, run ``t a a py-bt`` and ``t a a bt full``. The first one will get python backtraces from all threads, the second one will get native (C/C++) stacktraces. You might need to type the return key a few times after each of these two commands to make gdb print all lines of the stack traces. This might take a while.
+8. In gdb, type ``quit`` and press the enter key.
+9. Please attach the file ``exaile-segfault.txt`` to a bug report at `Github <https://github.com/exaile/exaile/issues/new>`_ after you checked that it does not contain any private data. If you prefer to send the data encrypted, please feel free to encrypt them to the PGP key ID 0x545B42FB8713DA3B and send it to one of its Email addresses.
+
+Debugging freezes
+~~~~~~~~~~~~~~~~~
+
+If Exaile freezes, follow the steps above for debugging segfaults but attach to the running instance instead.
+
+1. Get the PID of Exaile. You may want to use ``top``, ``htop``, `KSysGuard` or `GNOME System Monitor` or a similar tool.
+2. Follow the steps above, with one change: Instead of starting ``run ./exaile.py --startgui``, run the ``attach [pid]`` command inside gdb to attach to the exaile instance with the PID you retrieved in the previous step.
 
 Other thoughts
 --------------

@@ -116,6 +116,7 @@ documentation that you will find useful when working with these frameworks:
 * `PyGObject <https://pygobject.readthedocs.io>`_
 * `Python GI API Reference <https://lazka.github.io/pgi-docs>`_
 * `Python GTK+3 Tutorial <https://python-gtk-3-tutorial.readthedocs.io>`_
+* `ABI/API tracker <https://abi-laboratory.pro/tracker/>`_ for tracking incompatible changes in C/C++ ABI and API
 
 Useful tools
 ------------

@@ -4,7 +4,7 @@
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkTextBuffer" id="lyrics_text_buffer"/>
   <object class="GtkTextBuffer" id="track_text_buffer"/>
-  <template class="LyricsViewer" parent="GtkBox">
+  <object class="GtkBox" id="LyricsPanel">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="border_width">3</property>
@@ -128,5 +128,5 @@
         <property name="position">3</property>
       </packing>
     </child>
-  </template>
+  </object>
 </interface>

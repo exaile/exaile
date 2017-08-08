@@ -24,12 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os
-import webbrowser
-
 from gi.repository import Gtk
 from gi.repository import GLib
-from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import (
@@ -40,78 +36,28 @@ from xl import (
 )
 from xl import settings as xl_settings
 from xl import lyrics as xl_lyrics
-from xlgui import guiutil
-from xlgui.guiutil import GtkTemplate
-from xlgui.widgets.notebook import NotebookPage
-
-import lyricsviewerprefs
-
-CURPATH = os.path.realpath(__file__)
-BASEDIR = os.path.dirname(CURPATH) + os.path.sep
-IMAGEDIR = os.path.join(BASEDIR, "images")
+from xlgui import guiutil, panel
+from xlgui.preferences import lyrics as lyricsprefs
 
 
-class LyricsViewerPlugin(object):
-    """
-        The LyricsViewer Plugin
-        TODO: This should probably be merged into xlgui/panels
-    """
-    __exaile = None
-    __lyricsviewer = None
+class LyricsPanel(panel.Panel):
 
-    def enable(self, exaile):
-        """
-            Called on plugin activation
-        """
-        self.__exaile = exaile
+    # public variable for xlgui.panel.Panel
+    ui_info = ('lyrics.ui', 'LyricsPanel')
 
-    def on_gui_loaded(self):
-        """
-            Called when Exaile mostly finished loading its GUI
-        """
-        self.__lyricsviewer = LyricsViewer(self.__exaile)
-        providers.register('main-panel', self.__lyricsviewer)
+    def __init__(self, parent, name):
+        panel.Panel.__init__(self, parent, name, _('Lyrics'))
 
-    def disable(self, _exaile):
-        """
-            Called when this plugin is being disabled
-        """
-        self.__lyricsviewer.remove_callbacks()
-        providers.unregister('main-panel', self.__lyricsviewer)
-        self.__lyricsviewer = None
-
-    def get_preferences_pane(self):
-        """
-            Called when user opens the preferences page for LyricsViewer
-        """
-        return lyricsviewerprefs
-
-
-plugin_class = LyricsViewerPlugin
-
-
-@GtkTemplate('lyricsviewer.ui', relto=__file__)
-class LyricsViewer(Gtk.Box):
-    """
-        This class contains most widgets and logic for a LyricsViewer panel
-    """
-
-    __gtype_name__ = 'LyricsViewer'
-
-    lyrics_top_box, refresh_button, refresh_button_stack, refresh_icon, \
-        refresh_spinner, track_text, scrolled_window, lyrics_text, \
-        lyrics_source_label, track_text_buffer, lyrics_text_buffer \
-        = GtkTemplate.Child.widgets(11)
-
-    __panel = None
-    name = 'lyricsviewer'
-    __lyrics_found = []
-    __css_provider = Gtk.CssProvider()
-
-    def __init__(self, exaile):
-        Gtk.Box.__init__(self)
-        self.init_template()
-        self.exaile = exaile
+        self.__lyrics_found = []
+        self.__css_provider = Gtk.CssProvider()
+        
+        WIDGET_LIST = \
+                ['lyrics_top_box', 'refresh_button', 'refresh_button_stack',
+                 'refresh_icon', 'refresh_spinner', 'track_text',
+                 'scrolled_window', 'lyrics_text', 'lyrics_source_label',
+                 'track_text_buffer', 'lyrics_text_buffer']
+        for name in WIDGET_LIST:
+            setattr(self, '_' + LyricsPanel.__name__ + '__'+name, self.builder.get_object(name))
         self.__initialize_widgets()
 
         event.add_ui_callback(self.__on_playback_track_start, 'playback_track_start')
@@ -123,22 +69,26 @@ class LyricsViewer(Gtk.Box):
         self.__update_lyrics()
 
     def __initialize_widgets(self):
-        self.lyrics_methods_combo = LyricsMethodsComboBox()
-        self.lyrics_top_box.pack_start(self.lyrics_methods_combo, True, True, 0)
-        self.lyrics_methods_combo.connect('changed', self.__on_combo_active_changed)
-        self.lyrics_methods_combo.show()
+        lyrics_methods_combo = LyricsMethodsComboBox()
+        self.__lyrics_top_box.pack_start(lyrics_methods_combo, True, True, 0)
+        lyrics_methods_combo.connect('changed', self.__on_combo_active_changed)
+        lyrics_methods_combo.show()
+        self.__lyrics_methods_combo = lyrics_methods_combo
 
         track_text_style = Gtk.CssProvider()
-        style_context = self.track_text.get_style_context()
+        style_context = self.__track_text.get_style_context()
         style_context.add_provider(track_text_style, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         track_text_style.load_from_data("textview {font-weight: bold; }")
 
-        style_context = self.lyrics_text.get_style_context()
+        style_context = self.__lyrics_text.get_style_context()
         style_context.add_provider(self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-        lyricsviewerprefs.DEFAULT_FONT = self.lyrics_text.get_default_attributes().font.to_string()
 
+        lyricsprefs.DEFAULT_FONT = self.__lyrics_text.get_default_attributes().font.to_string()
         # trigger initial setup through options
         self.__on_option_set(None, xl_settings, 'plugin/lyricsviewer/lyrics_font')
+
+        self.__refresh_button.connect(
+            'clicked', self.__on_refresh_button_clicked)
 
     def __on_option_set(self, _event, settings, option):
         if option == 'plugin/lyricsviewer/lyrics_font':
@@ -146,16 +96,6 @@ class LyricsViewer(Gtk.Box):
             css_from_pango = guiutil.css_from_pango_font_description(pango_font_str)
             data_str = "textview { " + css_from_pango + "; }\n"
             self.__css_provider.load_from_data(data_str)
-
-    def remove_callbacks(self):
-        """
-            Called by LyricsViewerPlugin when this plugin is being disabled
-        """
-        event.remove_callback(self.__on_playback_track_start, 'playback_track_start')
-        event.remove_callback(self.__on_track_tags_changed, 'track_tags_changed')
-        event.remove_callback(self.__on_playback_player_end, 'playback_player_end')
-        event.remove_callback(self.__on_lyrics_search_method_added, 'lyrics_search_method_added')
-        event.remove_callback(self.__on_option_set, 'plugin_lyricsviewer_option_set')
 
     def __on_lyrics_search_method_added(self, _eventtype, _lyrics, _provider):
         self.__update_lyrics()
@@ -170,8 +110,7 @@ class LyricsViewer(Gtk.Box):
     def __on_playback_player_end(self, _eventtype, _player, _data):
         self.__update_lyrics()
 
-    @GtkTemplate.Callback
-    def on_refresh_button_clicked(self, _button):
+    def __on_refresh_button_clicked(self, _button):
         """
             Called when the refresh button is clicked
         """
@@ -185,15 +124,15 @@ class LyricsViewer(Gtk.Box):
             self.__update_lyrics_text()
 
     def __update_lyrics(self, refresh=False):
-        self.track_text_buffer.set_text("")
-        self.lyrics_text_buffer.set_text("")
-        self.lyrics_source_label.set_text("")
+        self.__track_text_buffer.set_text("")
+        self.__lyrics_text_buffer.set_text("")
+        self.__lyrics_source_label.set_text("")
         self.__lyrics_found = []
         if player.PLAYER.current:
             self.__set_top_box_widgets(False)
             self.__get_lyrics(player.PLAYER.current, refresh)
         else:
-            self.lyrics_text_buffer.set_text(_('Not playing.'))
+            self.__lyrics_text_buffer.set_text(_('Not playing.'))
             self.__set_top_box_widgets(False, True)
 
     @common.threaded
@@ -221,7 +160,7 @@ class LyricsViewer(Gtk.Box):
 
         self.__lyrics_found = lyrics_found
 
-        self.track_text_buffer.set_text(track_text)
+        self.__track_text_buffer.set_text(track_text)
         self.__update_lyrics_text()
         self.__set_top_box_widgets(True)
 
@@ -230,38 +169,31 @@ class LyricsViewer(Gtk.Box):
         source = ""
         url = ""
         if self.__lyrics_found:
-            (index, selected_method) = self.lyrics_methods_combo.get_active_item()
+            (index, selected_method) = self.__lyrics_methods_combo.get_active_item()
             for (name, i_lyrics, i_source, i_url) in self.__lyrics_found:
                 if name == selected_method or index == 0:
                     lyrics, source, url = i_lyrics, i_source, i_url
                     break
-        self.lyrics_text_buffer.set_text(lyrics)
+        self.__lyrics_text_buffer.set_text(lyrics)
 
         if url != "":
             url_text = '<a href="' + url + '">' + source + '</a>'
-            self.lyrics_source_label.set_markup(_("Source: ") + url_text)
+            self.__lyrics_source_label.set_markup(_("Source: ") + url_text)
         else:
-            self.lyrics_source_label.set_text("")
+            self.__lyrics_source_label.set_text("")
 
     def __set_top_box_widgets(self, state, init=False):
         if state or init:
-            self.refresh_spinner.stop()
-            self.refresh_button_stack.set_visible_child(self.refresh_icon)
+            self.__refresh_spinner.stop()
+            self.__refresh_button_stack.set_visible_child(
+                self.__refresh_icon)
         else:
-            self.refresh_button_stack.set_visible_child(self.refresh_spinner)
-            self.refresh_spinner.start()
+            self.__refresh_button_stack.set_visible_child(
+                self.__refresh_spinner)
+            self.__refresh_spinner.start()
 
-        self.refresh_button.set_sensitive(state)
-        self.lyrics_methods_combo.set_sensitive(state)
-
-    def get_panel(self):
-        """
-            Called when the panel is being added to Exaile GUI
-        """
-        if self.__panel is None:
-            self.__panel = NotebookPage(self, _('Lyrics'), 'panel-tab-context')
-            self.__panel.show_all()
-        return self.__panel
+        self.__refresh_button.set_sensitive(state)
+        self.__lyrics_methods_combo.set_sensitive(state)
 
 
 class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):

@@ -50,6 +50,7 @@ class Mock(object):
 
 
 MOCK_MODULES = [
+    'bsddb',
     'cairo',
 
     'dbus',

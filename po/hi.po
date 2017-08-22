@@ -8,86 +8,87 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Danish Faizan <Unknown>\n"
-"Language-Team: Hindi <hi@li.org>\n"
+"PO-Revision-Date: 2017-08-23 13:46+0000\n"
+"Last-Translator: Shameem Ahmed A Mulla <shameem.sam@gmail.com>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/exaile/master/hi/>"
+"\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d दिन "
+msgstr[1] "%d दिन "
 
 #: ../xl/formatter.py:578
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d घंटा, "
+msgstr[1] "%d घंटे, "
 
 #: ../xl/formatter.py:579
-#, python-format
+#, fuzzy, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d मिनट, "
+msgstr[1] "%d मिनट, "
 
 #: ../xl/formatter.py:580
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d सेकंड"
+msgstr[1] "%d सेकंड्‌स"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%d दि, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%d घं, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%d मि, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%dसे"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dदि "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:604
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
@@ -104,11 +105,11 @@ msgstr "बीता कल"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "से माइग्रेट करने में विफल 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "प्रयोग: exaile [विकल्प]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
@@ -116,7 +117,7 @@ msgstr "विकल्प"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "प्लेबैक विकल्प"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
@@ -137,66 +138,69 @@ msgstr "बजाओ"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "पॉज़"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "रोकें या प्लेबैक फिर से शुरू"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "वर्तमान ट्रैक के बाद प्लेबैक बंद करें"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "संग्रह विकल्प"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "स्थान"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "LOCATION से संग्रह तक ट्रैक जोड़ें"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "प्लेलिस्ट विकल्प"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "वर्तमान प्लेलिस्ट को LOCATION में निर्यात करता है"
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "ट्रैक विकल्प"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "क्वेरी प्लेयर"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "स्वरूप"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"वर्तमान प्लेबैक स्थिति और ट्रैक जानकारी को FORMAT के रूप में पुनर्प्राप्त "
+"करता है"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "टैग"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
+"वर्तमान ट्रैक से प्राप्त करने के लिए टैग, --प्रारूप-क्वेरी के साथ उपयोग करें"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "वर्तमान ट्रैक के डेटा के साथ पॉपअप दिखाएं"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
@@ -212,49 +216,49 @@ msgstr "इस गाने के गायक को दिखाओ"
 
 #: ../xl/main.py:551
 msgid "Print the length of current track"
-msgstr ""
+msgstr "वर्तमान ट्रैक की लंबाई प्रिंट करें"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "सं"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "वर्तमान ट्रैक को सं% पर रेटिंग दें"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "वर्तमान ट्रैक के लिए रेटिंग प्राप्त करें"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "समय के रूप में वर्तमान प्लेबैक स्थिति को प्रिंट करें"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "प्रतिशत के रूप में वर्तमान प्लेबैक प्रगति को प्रिंट करें"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "वॉल्यूम विकल्प"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "सं% की मात्रा बढ़ जाती है"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "सं% की मात्रा घट जाती है"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "वॉल्यूम म्यूट या अनम्यूट करें"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "वर्तमान मात्रा प्रतिशत प्रिंट करें"
 
 #: ../xl/main.py:583
 msgid "Other Options"
@@ -262,55 +266,60 @@ msgstr "अन्य विकल्प"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
-msgstr ""
+msgstr "नया उदाहरण प्रारंभ करें"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "यह सहायता संदेश दिखाएं और बाहर निकलें"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "प्रोग्राम का संस्करण संख्या दिखाएं और बाहर निकलें।"
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "प्रारंभ करके मिनिमाइज करे (तश्तरी में, यदि संभव हो तो)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "जीयूआई की दृश्यता टॉगल करें (यदि संभव हो तो)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
+"सुरक्षित मोड में शुरू करें - कभी-कभी उपयोगी होते हैं जब आप समस्याओं में चलते "
+"हैं"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"संस्करण 0.2.x से पुराने डेटा का आयात करने के लिए बाध्य करें (वर्तमान डेटा को "
+"ओवरराइट करता है)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "संस्करण 0.2.x से पुराने डेटा आयात न करें"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
 #: ../xl/main.py:610
+#, fuzzy
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "विकसन/ दोषमार्जन विकल्प"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "निर्देशिका"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "डेटा निर्देशिका सेट करें"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "डेटा और कॉन्फ़िगर निर्देशिका सेट करें"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -318,15 +327,16 @@ msgstr "मॉड्यूल"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "मॉड्यूल में लॉग आउटपुट को सीमित करें"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
 msgstr "स्तर"
 
 #: ../xl/main.py:620
+#, fuzzy
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "स्तर तक सीमित लॉग उत्पादन"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"

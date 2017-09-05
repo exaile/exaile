@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Dustin Spicuzza <dustin@virtualroadside.com>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"PO-Revision-Date: 2017-09-06 16:46+0000\n"
+"Last-Translator: Hori75 <Guardianangelhori75@gmail.com>\n"
+"Language-Team: Indonesian "
+"<https://hosted.weblate.org/projects/exaile/master/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -266,7 +267,7 @@ msgstr "Tampilkan pesan bantuan ini dan keluar"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr "Tampilkan nomor versi program dan keluar"
+msgstr "Tampilkan nomor versi program dan keluar."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -391,16 +392,16 @@ msgstr ""
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr "Arsip plugin tidak dalam format yang benar"
+msgstr "Arsip plugin tidak dalam format yang benar."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Plugin dengan nama \"%s\" telah diinstal"
+msgstr "Plugin dengan nama \"%s\" telah diinstal."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr "Arsip plugin mengandung path yang tidak aman"
+msgstr "Arsip plugin mengandung path yang tidak aman."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
@@ -473,7 +474,7 @@ msgstr ""
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
-msgstr "Format lossless yang gratis dengan kompresi baik"
+msgstr "Format lossless yang gratis dengan kompresi baik."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
@@ -702,7 +703,7 @@ msgstr "Ditemukan setingan yang tidak diketahui tipenya!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr "Tipe daftar main tidak benar"
+msgstr "Tipe daftar main tidak benar."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -720,7 +721,7 @@ msgstr "Daftar lagu PLS"
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr "Format tidak sah untuk %s"
+msgstr "Format tidak sah untuk %s."
 
 #: ../xl/playlist.py:540
 #, python-format
@@ -1093,7 +1094,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Daftar putar disimpan sebagai <b>%s</b>"
+msgstr "Daftar putar disimpan sebagai <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1429,7 +1430,7 @@ msgstr "Tambah Direktori"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr "Direktori tidak dapat ditambahkan"
+msgstr "Direktori tidak dapat ditambahkan."
 
 #: ../xlgui/collection.py:151
 msgid ""
@@ -2472,7 +2473,7 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr "Tidak bisa membaca moodbar"
+msgstr "Tidak bisa membaca moodbar."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
@@ -2497,7 +2498,7 @@ msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr "Kunci API tidak valid"
+msgstr "Kunci API tidak valid."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
@@ -3296,7 +3297,7 @@ msgstr "Masukkan alamat IP dan port untuk berbagi"
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
-msgstr "Masukkan alamat IP dan port"
+msgstr "Masukkan alamat IP dan port."
 
 #: ../plugins/daapclient/__init__.py:556
 msgid ""

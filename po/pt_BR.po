@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Evertton de Lima <e.everttonlima@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2017-09-12 19:47+0000\n"
+"Last-Translator: Fernando Sbrubes <sbrubes@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) "
+"<https://hosted.weblate.org/projects/exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -502,7 +503,7 @@ msgstr "Automático"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possível erro no dispositivo de som, este está conectado?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -680,23 +681,21 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Reproduções"
+msgstr "Tempo de reprodução"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
 msgstr "Vezes tocada"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "Deslocamento no eixo X:"
+msgstr "Deslocamento inicial"
 
 #: ../xl/metadata/tags.py:82
 #, fuzzy
 msgid "Stop offset"
-msgstr "Deslocamento no eixo X:"
+msgstr "Deslocamento final"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -986,12 +985,12 @@ msgstr "Programação"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Deslocamento inicial"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 #, fuzzy
 msgid "Stop Offset"
-msgstr "Deslocamento no eixo X:"
+msgstr "Deslocamento final"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1167,7 +1166,7 @@ msgstr "Já existe uma lista de reprodução com esse nome."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Salvar como"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1262,12 +1261,11 @@ msgstr "Gerenciador de _Dispositivos"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
-msgstr "Re_escanear Coleção"
+msgstr "Re-escanear coleção"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Reescanear Coleção"
+msgstr "Re-escanear coleção (lento)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"

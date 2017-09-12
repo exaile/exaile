@@ -1125,7 +1125,7 @@ class Playlist(object):
         next_index = -1
 
         if shuffle_mode != 'disabled':
-            if self.current is not None:
+            if current_position != -1:
                 self.__tracks.set_meta_key(current_position,
                                            "playlist_shuffle_history", self.__shuffle_history_counter)
                 self.__shuffle_history_counter += 1

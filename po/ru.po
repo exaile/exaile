@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2016-08-20 17:19+0000\n"
-"Last-Translator: Nataliia <sunfly22@bigmir.net>\n"
+"PO-Revision-Date: 2017-09-14 22:47+0000\n"
+"Last-Translator: pitchblack <pitchblack@mail.ru>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/exaile/master/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 2.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -1478,7 +1478,6 @@ msgstr ""
 "{playlist_name} ({track_count} дорожек, закрыто {seconds} секунд назад)"
 
 #: ../xlgui/playlist_container.py:518
-#, fuzzy
 msgid "Move to other View"
 msgstr "Переместить на другую панель"
 
@@ -1817,7 +1816,6 @@ msgid "© 2009-2014"
 msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
-#, fuzzy
 msgid ""
 "Copyright (C) 2008-2014 Various Contributors\n"
 "\n"
@@ -1835,20 +1833,21 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2014 Various Contributors\n"
+"Авторские права (C) 2008-2014 годы Различные участники\n"
 "\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
+"Эта программа является бесплатным программным обеспечением; вы можете "
+"перераспределить его и / или изменить\n"
+"это в соответствии с условиями общедоступной лицензии GNU, опубликованной\n"
+"Фонд свободного программного обеспечения; либо версии 2 Лицензии, либо\n"
+"(по вашему выбору) любой более поздней версии.\n"
 "\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
+"Эта программа распространяется в надежде, что она будет полезна,\n"
+"но БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ; без подразумеваемой гарантии\n"
+"КОММЕРЧЕСКАЯ ПРИГОДНОСТЬ ИЛИ ПРИГОДНОСТЬ ДЛЯ ОПРЕДЕЛЕННОЙ ЦЕЛИ. См.\n"
+"GNU General Public License для получения более подробной информации.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along\n"
-"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"Вы должны были получить копию общей публичной лицензии GNU\n"
+"с этой программой; если нет, напишите в Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:20
@@ -3839,6 +3838,8 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"«группировка» и «комментарий», вероятно, являются наилучшим выбором. Другие "
+"варианты могут работать только с определенными форматами файлов. "
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
@@ -3874,7 +3875,7 @@ msgstr "Групповое переименование/удаление тег�
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Если пусто, соответствует всем трекам"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 msgid "Search Tag"
@@ -3882,7 +3883,7 @@ msgstr "Поиск тега"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Используйте пустую строку для удаления тега"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
@@ -4048,7 +4049,6 @@ msgid "Select analysis"
 msgstr "Выбрать анализ"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
-#, fuzzy
 msgid "Playlist(s) to analyze"
 msgstr "Cписки воспроизведения для анализа"
 

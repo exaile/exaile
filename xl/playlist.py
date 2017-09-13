@@ -1207,12 +1207,13 @@ class Playlist(object):
             return self.current
 
         if shuffle_mode != 'disabled':
-            try:
-                prev_index, prev = max(self.get_shuffle_history())
-            except IndexError:
-                return self.get_current()
-            self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
-            self.current_position = prev_index
+            shuffle_hist, prev_index = max(
+                [(self.__tracks.get_meta_key(i, 'playlist_shuffle_history'), i) for i in range(len(self))]
+            )
+
+            if shuffle_hist:
+                self.current_position = prev_index
+                self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
         else:
             position = self.current_position - 1
             if position < 0:

@@ -223,7 +223,7 @@ class LVPanel():
         current_playlist.playlist.extend(tracks)
 
     def menu_popup(self, treeview, event):
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             x = int(event.x)
             y = int(event.y)
             time = event.time

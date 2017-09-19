@@ -393,7 +393,7 @@ class DragTreeView(AutoScrollTreeView):
         path = self.get_path_at_pos(x, y)
 
         if path:
-            if event.button != Gdk.BUTTON_SECONDARY:
+            if not event.triggers_context_menu():
                 if event.type == Gdk.EventType._2BUTTON_PRESS:
                     try:
                         return self.container.button_press(button, event)

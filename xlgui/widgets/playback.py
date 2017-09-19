@@ -818,7 +818,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                     _('Seeking: %s') % self.__progressbar.formatter.format(
                         current_time=length * fraction))
                 self.__progressbar._seeking = True
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             if len(hit_markers) > 0:
                 self._marker_menu.popup(event, tuple(hit_markers))
             elif self._progressbar_menu is not None:
@@ -1280,7 +1280,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             return self.move_finish()
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             return self.move_cancel()
 
         return False

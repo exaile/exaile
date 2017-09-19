@@ -261,7 +261,7 @@ class CollectionPanel(panel.Panel):
         """
             Called on mouse activation of the refresh button
         """
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
                         xlgui.get_controller().on_rescan_collection,
@@ -438,7 +438,7 @@ class CollectionPanel(panel.Panel):
         selection = self.tree.get_selection()
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             self.menu.popup(event)
             if not path:
                 return False

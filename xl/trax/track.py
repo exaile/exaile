@@ -590,7 +590,7 @@ class Track(object):
         else:
             value = self.__tags.get(tag)
 
-        if value is None:
+        if not value:
             value = u"\uffff\uffff\uffff\uffff"  # unknown
             if tag == 'title':
                 basename = self.get_basename_display()

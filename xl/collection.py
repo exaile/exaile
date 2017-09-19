@@ -40,7 +40,6 @@ from gi.repository import GObject
 from gi.repository import Gio
 import logging
 import threading
-import time
 
 from xl import (
     common,

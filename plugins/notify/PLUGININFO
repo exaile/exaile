@@ -1,6 +1,6 @@
 Version='4.0.0'
-Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
+Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>', 'Adam Olsen <arolsen@gmail.com>', 'Steve Dodier <sidnioulz@gmail.com>', 'Christian Stadelmann']
 Name=_('Notify')
-Description=_('Pops up a notification when playback of a track starts. Requires libnotify and its typelib file')
+Description=_('Pops up a notification when playback of a track starts or (optionally) if it is paused/resumed/stopped. Requires libnotify and its typelib file')
 Category=_('Notifications')
 RequiredModules=['gi:Notify']

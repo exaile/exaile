@@ -133,7 +133,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
                     self.move_begin(self.end_marker)
 
                 return True
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             if self.move_cancel():
                 self.clear_markers()
 

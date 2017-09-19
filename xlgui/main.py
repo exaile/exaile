@@ -511,7 +511,7 @@ class MainWindow(GObject.GObject):
         if event.button == Gdk.BUTTON_PRIMARY:
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.on_spat_clicked()
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
                         self.on_spat_clicked,

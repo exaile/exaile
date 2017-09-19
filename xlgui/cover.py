@@ -434,7 +434,7 @@ class CoverManager(GObject.GObject):
         if path:
             self.previews_box.select_path(path)
 
-            if e.button == Gdk.BUTTON_SECONDARY:
+            if e.triggers_context_menu():
                 self.menu.popup(None, None, None, None, 3, e.time)
 
     def on_previews_box_popup_menu(self, menu):
@@ -688,7 +688,7 @@ class CoverWidget(Gtk.EventBox):
 
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.show_cover()
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             self.menu.popup(event)
 
     def do_expose_event(self, event):

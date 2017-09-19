@@ -99,7 +99,7 @@ class PodcastPanel(panel.Panel):
         self.tree.connect('button-press-event', self._on_button_press)
 
     def _on_button_press(self, button, event):
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             self.menu.popup(event)
 
     def _on_refresh(self, *e):

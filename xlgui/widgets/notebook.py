@@ -302,7 +302,7 @@ class NotebookTab(Gtk.EventBox):
             self.start_rename()
         elif event.button == Gdk.BUTTON_MIDDLE:
             self.close()
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             self.page.tab_menu.popup(None, None, None, None,
                                      event.button, event.time)
             return True

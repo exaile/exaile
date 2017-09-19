@@ -8,7 +8,6 @@ import feedparser
 
 from gi.repository import GLib
 from gi.repository import Gtk
-from gi.repository import Gdk
 
 from xl import event, common, playlist, providers
 from xl import trax

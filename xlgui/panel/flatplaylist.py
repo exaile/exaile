@@ -26,7 +26,6 @@
 
 from gi.repository import GObject
 from gi.repository import Gtk
-from gi.repository import Gdk
 
 from xl import trax
 from xl.nls import gettext as _

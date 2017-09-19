@@ -19,21 +19,18 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import cgi
-import threading
 import logging
 
 import gi
 from gi.repository import Gtk, GLib
 
 from xl.player.adapters import PlaybackAdapter
-from xl import covers, common, plugins
+from xl import covers, common
 from xl import event as xl_event
 from xl import player as xl_player
 from xl import settings as xl_settings
 from xl.nls import gettext as _
-from xlgui import icons, cover
-from xlgui.preferences import widgets
-from xlgui.widgets import dialogs
+from xlgui import icons
 
 import notifyprefs
 

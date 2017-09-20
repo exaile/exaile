@@ -299,7 +299,7 @@ class JamendoPanel(panel.Panel):
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.add_to_playlist()
 
-        elif event.button == Gdk.BUTTON_SECONDARY:
+        elif event.triggers_context_menu():
             self.menu.popup(event)
 
     # is called by the search thread when it completed

@@ -37,6 +37,8 @@ from xl.trax.track import Track
 from xl.trax.util import sort_tracks
 from xl.trax.search import search_tracks_from_string
 
+from time import time
+
 logger = logging.getLogger(__name__)
 
 
@@ -338,8 +340,9 @@ class TrackDB(object):
             Like add(), but takes a list of :class:`xl.trax.Track`
         """
         locations = []
-
+        now = time()
         for tr in tracks:
+            tr.set_tag_raw('__date_added', now)
             location = tr.get_loc_for_io()
             locations += [location]
             self.tracks[location] = TrackHolder(tr, self._key)

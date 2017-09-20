@@ -40,7 +40,6 @@ from gi.repository import GObject
 from gi.repository import Gio
 import logging
 import threading
-import time
 
 from xl import (
     common,
@@ -724,7 +723,6 @@ class Library(object):
         else:
             tr = trax.Track(uri)
             if tr._scan_valid:
-                tr.set_tag_raw('__date_added', time.time())
                 self.collection.add(tr)
                 tr.set_tag_raw('__modified', mtime)
 

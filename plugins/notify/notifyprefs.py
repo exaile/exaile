@@ -1,4 +1,5 @@
 # Copyright (C) 2009-2010 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
+# Copyright (C) 2017 Christian Stadelmann
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,31 +24,38 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "notifyprefs_pane.ui")
 
 
-class ResizeCovers(widgets.CheckPreference):
-    default = True
+class ResizeCovers(widgets.CheckPreference, widgets.CheckConditional):
+    default = False
     name = 'plugin/notify/resize'
+    condition_preference_name = 'plugin/notify/show_covers'
 
 
-class AttachToTray(widgets.CheckPreference):
+class ShowCovers(widgets.CheckPreference):
     default = True
-    name = 'plugin/notify/attach_tray'
+    name = 'plugin/notify/show_covers'
+    pre_migration_name = 'plugin/notifyosd/covers'
 
 
-class BodyArtistAlbum(widgets.TextViewPreference):
-    default = _("by %(artist)s\nfrom <i>%(album)s</i>")
-    name = 'plugin/notify/body_artistalbum'
+class NotifyPause(widgets.CheckPreference):
+    default = True
+    name = 'plugin/notify/notify_pause'
+    pre_migration_name = 'plugin/notifyosd/notify_pause'
 
 
-class BodyArtist(widgets.TextViewPreference):
-    default = _("by %(artist)s")
-    name = 'plugin/notify/body_artist'
+class UseMediaIcons(widgets.CheckPreference):
+    default = True
+    name = 'plugin/notify/use_media_icons'
+    pre_migration_name = 'plugin/notifyosd/media_icons'
 
 
-class BodyAlbum(widgets.TextViewPreference):
-    default = _("from %(album)s")
-    name = 'plugin/notify/body_album'
+class TrayHover(widgets.CheckPreference, widgets.CheckConditional):
+    default = False
+    name = 'plugin/notify/tray_hover'
+    pre_migration_name = 'plugin/notifyosd/tray_hover'
+    condition_preference_name = 'gui/use_tray'
 
 
-class Summary(widgets.TextViewPreference):
-    default = _("%(title)s")
-    name = 'plugin/notify/summary'
+class ShowWhenFocused(widgets.CheckPreference):
+    default = False
+    name = 'plugin/notify/show_when_focused'
+    pre_migration_name = 'plugin/notifyosd/show_when_focused'

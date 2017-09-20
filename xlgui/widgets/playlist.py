@@ -678,7 +678,7 @@ class PlaylistPage(PlaylistPageBase):
         # We only need the tree path if present
         path = path[0] if path else None
 
-        if not path and e.type == Gdk.EventType.BUTTON_PRESS and e.button == Gdk.BUTTON_SECONDARY:
+        if not path and e.type == Gdk.EventType.BUTTON_PRESS and e.triggers_context_menu():
             self.tab_menu.popup(None, None, None, None, e.button, e.time)
 
 
@@ -927,7 +927,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 selection.select_path(path)
 
     def on_header_button_press(self, widget, event):
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             self.header_menu.popup(None, None, None, None, event.button, event.time)
             return True
 
@@ -1050,8 +1050,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 selection.set_select_function(lambda *args: False, None)
                 self.pending_event = (path, col)
 
-            # Open the context menu on right clicks
-            if e.button == Gdk.BUTTON_SECONDARY:
+            if e.triggers_context_menu():
                 # Select the path on which the user clicked if not selected yet
                 if not selection.path_is_selected(path):
                     # We don't unselect all other items if Control is active

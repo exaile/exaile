@@ -332,7 +332,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when someone clicks on the tree
         """
-        if event.button == Gdk.BUTTON_SECONDARY:
+        if event.triggers_context_menu():
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)
             if path:

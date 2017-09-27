@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-09-12 19:47+0000\n"
-"Last-Translator: Fernando Sbrubes <sbrubes@gmail.com>\n"
+"PO-Revision-Date: 2017-09-28 16:47+0000\n"
+"Last-Translator: Robson Cassiano <robson.cordeiro777@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) "
 "<https://hosted.weblate.org/projects/exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -485,8 +485,9 @@ msgid "A very fast Free lossless audio format with good compression."
 msgstr "Um formato de audio, sem perdas, muito rápido e com boa compressão."
 
 #: ../xl/player/sink_osx.py:165
+#, fuzzy
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -693,7 +694,6 @@ msgid "Start offset"
 msgstr "Deslocamento inicial"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
 msgstr "Deslocamento final"
 
@@ -988,7 +988,6 @@ msgid "Start Offset"
 msgstr "Deslocamento inicial"
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
 msgstr "Deslocamento final"
 
@@ -1294,11 +1293,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Editando faixa %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
-"Tem certeza que você quer apagar permanentemente a Lista de Reprodução "
-"selecionada?"
+msgstr "Tem certeza que você quer aplicar as mudanças em todas as faixas?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"

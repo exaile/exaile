@@ -305,7 +305,9 @@ class CoverManager(providers.ProviderHandler):
 
         db_string = self.get_db_string(track)
         if db_string:
-            return self.get_cover_data(db_string, use_default=use_default)
+            cover = self.get_cover_data(db_string, use_default=use_default)
+            if cover: 
+                return cover
 
         if set_only:
             return self.get_default_cover() if use_default else None

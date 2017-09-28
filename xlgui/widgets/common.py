@@ -234,7 +234,7 @@ class DragTreeView(AutoScrollTreeView):
             self.connect('drag_data_delete',
                          self.container.drag_data_delete)
         self.receive = receive
-        self.dragging = False
+        self.drag_context = None
         self.show_cover_drag_icon = True
         self.connect('drag-begin', self.on_drag_begin)
         self.connect('drag-end', self.on_drag_end)
@@ -256,7 +256,7 @@ class DragTreeView(AutoScrollTreeView):
         """
             Called when the dnd is ended
         """
-        self.dragging = False
+        self.drag_context = None
         self.unset_rows_drag_dest()
         self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
                            Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
@@ -265,7 +265,7 @@ class DragTreeView(AutoScrollTreeView):
         """
             Sets the cover of dragged tracks as drag icon
         """
-        self.dragging = True
+        self.drag_context = context
         Gdk.drag_abort(context, Gtk.get_current_event_time())
 
         if self.get_selection().count_selected_rows() > 1:
@@ -349,7 +349,8 @@ class DragTreeView(AutoScrollTreeView):
         """
             Completes drag icon setup
         """
-        Gtk.drag_set_icon_pixbuf(context, pixbuf, 0, 0)
+        if context is self.drag_context:  # if it changed, the drag ended already
+            Gtk.drag_set_icon_pixbuf(context, pixbuf, 0, 0)
 
     def on_drag_motion(self, treeview, context, x, y, timestamp):
         """
@@ -423,9 +424,9 @@ class DragTreeView(AutoScrollTreeView):
             Called when a button is released
         """
         if event.button != Gdk.BUTTON_PRIMARY or \
-           self.dragging or \
+           self.drag_context or \
            event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
-            self.dragging = False
+            self.drag_context = None
 
             try:
                 return self.container.button_release(button, event)

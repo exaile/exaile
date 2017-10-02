@@ -54,15 +54,6 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6
         BaseHTTPServer.HTTPServer.__init__(self, *args)
-        self.keep_running = True
-
-    def serve_forever(self):
-        while self.keep_running:
-            self.handle_request()
-
-    def force_stop(self):
-        self.keep_running = False
-        self.server_close()
 
 
 class DaapServer():
@@ -116,7 +107,7 @@ class DaapServer():
             except select.error:
                 pass
         except KeyboardInterrupt:
-            self.httpd.force_stop()
+            self.httpd.shutdown()
 
         logger.info("Shutting down.")
         self.zeroconf.unpublish()
@@ -130,7 +121,7 @@ class DaapServer():
 
     def stop(self):
         if self.httpd is not None:
-            self.httpd.force_stop()
+            self.httpd.shutdown()
             return True
         return False
 

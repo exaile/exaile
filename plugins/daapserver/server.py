@@ -48,6 +48,7 @@ __all__ = ['DaapServer']
 class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
+    daemon_threads = True
 
     def __init__(self, *args):
         if ':' in args[0][0]:

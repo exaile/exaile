@@ -122,6 +122,7 @@ class DaapServer():
     def stop(self):
         if self.httpd is not None:
             self.httpd.shutdown()
+            self.httpd.socket.close()
             return True
         return False
 

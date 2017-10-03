@@ -17,16 +17,9 @@
 
 import BaseHTTPServer
 import SocketServer
-import getopt
-import grp
-import httplib
 import logging
-import os
-import pwd
 import select
-import signal
 import spydaap
-import sys
 import socket
 import spydaap.daap
 import spydaap.metadata
@@ -34,10 +27,7 @@ import spydaap.containers
 import spydaap.cache
 import spydaap.server
 import spydaap.zeroconf
-from spydaap.daap import do
-from threading import Thread
 from xl import common, event
-import config
 
 
 # Notes for debugging:

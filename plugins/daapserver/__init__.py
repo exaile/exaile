@@ -1,7 +1,6 @@
 
 import logging
-from gi.repository import GObject
-from xl import collection, common, event, settings
+from xl import event, settings
 import exaile_parser
 from server import DaapServer
 import daapserverprefs

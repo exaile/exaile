@@ -39,7 +39,39 @@ from threading import Thread
 from xl import common, event
 import config
 
-# logging.basicConfig()
+
+# Notes for debugging:
+# You might want to run
+#    handle SIGPIPE nostop
+# when debugging this code in gdb.
+
+"""
+Notes for hunting down errors:
+If you run this plugin and a client stops playback on any file, expect this
+traceback:
+
+    Exception happened during processing of request from ('192.168.122.1', 34394)
+    Traceback (most recent call last):
+      File "/usr/lib64/python2.7/SocketServer.py", line 596, in process_request_thread
+        self.finish_request(request, client_address)
+      File "/usr/lib64/python2.7/SocketServer.py", line 331, in finish_request
+        self.RequestHandlerClass(request, client_address, self)
+      File "/usr/lib64/python2.7/SocketServer.py", line 654, in __init__
+        self.finish()
+      File "/usr/lib64/python2.7/SocketServer.py", line 713, in finish
+        self.wfile.close()
+      File "/usr/lib64/python2.7/socket.py", line 283, in close
+        self.flush()
+      File "/usr/lib64/python2.7/socket.py", line 307, in flush
+        self._sock.sendall(view[write_offset:write_offset+buffer_size])
+    error: [Errno 32] broken pipe
+
+This traceback is a result of getting a SIGPIPE, which is expected. The fact
+that it is not being handled in the python standard library looks like a bug
+to me.
+"""
+
+
 logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']

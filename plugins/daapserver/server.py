@@ -102,14 +102,14 @@ class DaapServer():
 
         try:
             try:
-                logger.info("Listening.")
+                logger.info("DAAP server: Listening.")
                 self.httpd.serve_forever()
             except select.error:
                 pass
         except KeyboardInterrupt:
             self.httpd.shutdown()
 
-        logger.info("Shutting down.")
+        logger.info("DAAP server: Shutting down.")
         self.zeroconf.unpublish()
         self.httpd = None
 

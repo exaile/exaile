@@ -68,7 +68,7 @@ class ExaileParser(spydaap.parser.Parser):
         for k in md.list_tags():
             if k in map:
                 try:
-                    tag = [str(t) for t in md.get_tag_raw(k)]
+                    tag = [t.encode("utf-8", "replace") for t in md.get_tag_raw(k)]
                     tag = [t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
                 except Exception:
@@ -80,7 +80,7 @@ class ExaileParser(spydaap.parser.Parser):
             d = []
             if len(trk.list_tags()) > 0:
                 if 'title' in trk.list_tags():
-                    name = str(trk.get_tag_raw('title')[0])
+                    name = trk.get_tag_raw('title')[0].encode("utf-8", "replace")
                 else:
                     name = str(trk)
 

@@ -11,15 +11,13 @@ log = logging.getLogger(__name__)
 def main():
     connection = DAAPClient()
 
-    # I'm new to this python thing. There's got to be a better idiom
-    # for this.
-    try:
+    if len(sys.argv) > 1:
         host = sys.argv[1]
-    except IndexError:
+    else:
         host = "localhost"
-    try:
+    if len(sys.argv) > 2:
         port = sys.argv[2]
-    except IndexError:
+    else:
         port = 3689
 
     logging.basicConfig(level=logging.DEBUG,
@@ -27,7 +25,6 @@ def main():
 
     try:
         # do everything in a big try, so we can disconnect at the end
-
         connection.connect(host, port)
 
         # auth isn't supported yet. Just log in

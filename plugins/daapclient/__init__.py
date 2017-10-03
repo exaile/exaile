@@ -15,21 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+import functools
+from gettext import gettext as _
+import httplib
+import logging
+import pickle
 import os
-from gi.repository import Gtk
+import time
+
 import dbus
 import dbus.exceptions
-import logging
-import time
-import threading
+
+from gi.repository import Gtk
 from gi.repository import GObject
-import xlgui
-import pickle
-from gettext import gettext as _
-from xlgui.panel.collection import CollectionPanel
-from xlgui import guiutil
-from xlgui.widgets import dialogs, menu, menuitems
-from daap import DAAPClient, DAAPError
+
 from xl import (
     collection,
     event,
@@ -39,9 +38,13 @@ from xl import (
     settings,
     xdg
 )
-import httplib
+from xlgui.panel.collection import CollectionPanel
+from xlgui.widgets import dialogs, menu, menuitems
+from xlgui import main
 
+from daap import DAAPClient
 import daapclientprefs
+
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +80,6 @@ class AttrDict(dict):
     def __getattr__(self, name):
         return self[name]
 
-import functools
 # helper function to parse avahi info into a list of tuples (for dict())
 parse = functools.partial(zip,
                           ['interface',
@@ -152,7 +154,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         logger.debug('adding menu %s: %s', name, key)
         if self.menu:
             menu_item = _smi(name, ['sep'], name,
-                             callback=lambda *x: self.clicked(key))
+                             callback=lambda *_x: self.clicked(key))
             self.menu.add_item(menu_item)
 
     def remove_share_menu_item(self, name):
@@ -218,7 +220,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         x = self.services[key]
         GObject.idle_add(self.emit, "connect", (x.name, x.address, x.port, x))
 
-    def __init__(self, exaile, _menu):
+    def __init__(self, _exaile, _menu):
         """
             Sets up the avahi listener.
         """
@@ -257,7 +259,7 @@ class DaapHistory(common.LimitedCache):
         # add new menu item
         if self.menu is not None and self.callback is not None:
             menu_item = _smi('hist' + item, ['sep'], item,
-                             callback=lambda *x: self.callback(None, value + (None,)))
+                             callback=lambda *_x: self.callback(None, value + (None,)))
             self.menu.add_item(menu_item)
 
     def load(self):
@@ -294,7 +296,7 @@ class DaapManager:
 
         hmenu = menu.Menu(None)
 
-        def hmfactory(menu, parent, context):
+        def hmfactory(_menu, _parent, _context):
             item = Gtk.MenuItem.new_with_mnemonic(_('History'))
             item.set_submenu(hmenu)
             sens = settings.get_option('plugin/daapclient/history', True)
@@ -318,7 +320,7 @@ class DaapManager:
         requests a track list.
             `args` is a tuple of (name, address, port, service)
         '''
-        name, address, port, svc = args  # unpack tuple
+        name, address, port, _svc = args  # unpack tuple
         conn = DaapConnection(name, address, port)
 
         conn.connect()
@@ -348,7 +350,7 @@ class DaapManager:
         providers.unregister('main-panel', panel)
         del self.panels[name]
 
-    def manual_connect(self, *args):
+    def manual_connect(self, *_args):
         '''
             This function is called when the user selects the manual
         connection option from the menu.  It requests a host/ip to connect
@@ -382,10 +384,6 @@ class DaapManager:
             # if it's an ipv6 host with brackets, strip them
             if host and host[0] == '[' and host[-1] == ']':
                 host = host[1:-1]
-
-            nstr = 'custom%s%s' % (host, port)
-
-            conn = DaapConnection(loc, host, port)
             self.connect_share(None, (loc, host, port, None))
 
     def refresh_share(self, name):
@@ -394,9 +392,9 @@ class DaapManager:
 
         # check for changes
         panel.daap_share.session.update()
-        logger.debug('DAAP Server %s returned revision %d ( old: %d ) after'
-                     + ' update request'
-                     % (name, panel.daap_share.session.revision, rev))
+        logger.debug(
+            'DAAP Server %s returned revision %d ( old: %d ) after update request'
+            % (name, panel.daap_share.session.revision, rev))
 
         # if changes, refresh
         if rev != panel.daap_share.session.revision:
@@ -555,10 +553,13 @@ class DaapConnection(object):
                 try:
                     t.save(filename)
                 except httplib.CannotSendRequest:
-                    dialog = Gtk.MessageDialog(APP.window,
-                                               Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
-                                               _("""This server does not support multiple connections.
+                    Gtk.MessageDialog(
+                        main.mainwindow().window,
+                        Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO,
+                        Gtk.ButtonsType.OK,
+                        _("""This server does not support multiple connections.
 You must stop playback before downloading songs."""))
+                    return
 
 
 class DaapLibrary(collection.Library):
@@ -589,7 +590,6 @@ class DaapLibrary(collection.Library):
         t = time.time()
         logger.info('Scanning library: %s' % self.daap_share.name)
         self.scanning = True
-        db = self.collection
 
         # DAAP gives us all the tracks in one dump
         self.daap_share.reload()
@@ -643,7 +643,7 @@ class NetworkPanel(CollectionPanel):
 
         self.menu = menu.Menu(self)
 
-        def get_tracks_func(*args):
+        def get_tracks_func(*_args):
             return self.tree.get_selected_tracks()
         self.menu.add_item(menuitems.AppendMenuItem('append', [],
                                                     get_tracks_func))
@@ -673,11 +673,11 @@ class NetworkPanel(CollectionPanel):
             Save the selected tracks to disk.
         """
         items = self.get_selected_items()
-        dialog = Gtk.FileChooserDialog(_("Select a Location for Saving"),
-                                       APP.window, Gtk.FileChooserAction.SELECT_FOLDER,
-                                       (Gtk.STOCK_OPEN, Gtk.ResponseType.OK,
-                                        Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
-        dialog.set_current_folder(APP.get_last_dir())
+        dialog = Gtk.FileChooserDialog(
+            _("Select a Location for Saving"),
+            main.mainwindow().window, Gtk.FileChooserAction.SELECT_FOLDER,
+            (Gtk.STOCK_OPEN, Gtk.ResponseType.OK, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
+        dialog.set_current_folder(xdg.get_last_dir())
         dialog.set_select_multiple(False)
         result = dialog.run()
         dialog.hide()
@@ -764,6 +764,7 @@ class DaapClientPlugin(object):
     def __on_settings_changed(self, event, setting, option):
         if option == 'plugin/daapclient/ipv6' and self.__manager is not None:
             self.__manager.avahi.rebuild_share_menu_items()
+
 
 plugin_class = DaapClientPlugin
 

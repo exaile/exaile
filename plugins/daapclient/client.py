@@ -3,7 +3,6 @@
 import httplib
 import logging
 from cStringIO import StringIO
-import sys
 
 from spydaap.daap import (
     DAAPError,
@@ -118,10 +117,10 @@ class DAAPClient(object):
 
     def readResponse(self, data):
         """Convert binary response from a request to a DAAPObject"""
-        str = StringIO(data)
-        object = DAAPObject()
-        object.processData(str)
-        return object
+        data_str = StringIO(data)
+        daapobj = DAAPObject()
+        daapobj.processData(data_str)
+        return daapobj
 
     def getContentCodes(self):
         # make the request for the content codes
@@ -276,56 +275,3 @@ class DAAPTrack(object):
         mp3.close()
         r.close()
         log.debug("Done")
-
-
-if __name__ == '__main__':
-    def main():
-        connection = DAAPClient()
-
-        # I'm new to this python thing. There's got to be a better idiom
-        # for this.
-        try:
-            host = sys.argv[1]
-        except IndexError:
-            host = "localhost"
-        try:
-            port = sys.argv[2]
-        except IndexError:
-            port = 3689
-
-        logging.basicConfig(level=logging.DEBUG,
-                            format='%(asctime)s %(levelname)s %(message)s')
-
-        try:
-            # do everything in a big try, so we can disconnect at the end
-
-            connection.connect(host, port)
-
-            # auth isn't supported yet. Just log in
-            session = connection.login()
-
-            library = session.library()
-            log.debug("Library name is `%r`", library.name)
-
-            tracks = library.tracks()
-
-            # demo - save the first track to disk
-            #print("Saving %s by %s to disk as 'track.mp3'"%(tracks[0].name, tracks[0].artist))
-            # tracks[0].save("track.mp3")
-            if len(tracks) > 0:
-                tracks[0].atom.printTree()
-            else:
-                print('No Tracks')
-            session.update()
-            print(session.revision)
-
-        finally:
-            # this here, so we logout even if there's an error somewhere,
-            # or itunes will eventually refuse more connections.
-            print("--------------")
-            try:
-                session.logout()
-            except Exception:
-                pass
-
-    main()

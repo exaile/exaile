@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
+from hashlib import md5
 import os
 import struct
-from hashlib import md5
 import spydaap.cache
 from spydaap.daap import do
 
@@ -35,8 +35,8 @@ class ContainerCache(spydaap.cache.OrderedCache):
                    [do('dmap.itemkind', 2),
                     do('dmap.itemid', md.id),
                     do('dmap.itemname', md.get_name()),
-                    do('dmap.containeritemid', id)
-                    ])
+                    do('dmap.containeritemid', id),
+                    do('daap.songformat', md.get_md()['daap.songformat'])])
             return d
         pid_list = []
         for pl in self.container_list:

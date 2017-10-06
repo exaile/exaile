@@ -3,6 +3,3 @@
 Should be based on link speed & client type; we should transcode to
 WAV to a local iTunes, mp3 to a remote iTunes; no transcoding to local
 Rhythmbox; flac->mp3 on remote Rhythmbox.
-
-* Command line daemonizing
-

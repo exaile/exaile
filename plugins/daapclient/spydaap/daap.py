@@ -13,7 +13,12 @@ import logging
 import struct
 import sys
 
-from spydaap.daap_data import *
+from spydaap.daap_data import (
+    dmapDataTypes,
+    dmapReverseDataTypes,
+    dmapCodeTypes,
+    dmapNames,
+)
 
 __all__ = ['DAAPError', 'DAAPObject', 'do']
 
@@ -56,10 +61,9 @@ def DAAPParseCodeTypes(treeroot):
                 log.debug('DAAPParseCodeTypes: missing information, not adding entry')
             else:
                 try:
-                    dtype = dmapFudgeDataTypes[name]
+                    dtype = dmapReverseDataTypes[name]
                 except KeyError:
                     pass
-                #print("** %s %s %s", code, name, dtype)
                 dmapCodeTypes[code] = (name, dtype)
         else:
             raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
@@ -212,7 +216,6 @@ class DAAPObject(object):
             self.contains = []
             # the object is a container, we need to pass it
             # it's length amount of data for processessing
-            eof = 0
             while str.tell() < start_pos + self.length:
                 object = DAAPObject()
                 self.contains.append(object)

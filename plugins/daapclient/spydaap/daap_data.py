@@ -1,4 +1,3 @@
-__all__ = ['dmapCodeTypes', 'dmapDataTypes', 'dmapNames', 'dmapReverseDataTypes']
 
 dmapCodeTypes = {
     #'f\x8dch': ('dmap.haschildcontainers', 'b'),
@@ -142,15 +141,15 @@ dmapCodeTypes = {
 }
 
 dmapDataTypes = {
-    1: 'b',   # byte
+    1: 'b',  # byte
     2: 'ub',  # unsigned byte
-    3: 'h',   # short
+    3: 'h',  # short
     4: 'uh',  # unsigned short
-    5: 'i',   # integer
+    5: 'i',  # integer
     6: 'ui',  # unsigned integer
-    7: 'l',   # long
+    7: 'l',  # long
     8: 'ul',  # unsigned long
-    9: 's',   # string
+    9: 's',  # string
     10: 't',  # timestamp
     11: 'v',  # version
     12: 'c',  # container

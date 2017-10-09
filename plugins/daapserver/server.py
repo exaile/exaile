@@ -17,16 +17,9 @@
 
 import BaseHTTPServer
 import SocketServer
-import getopt
-import grp
-import httplib
 import logging
-import os
-import pwd
 import select
-import signal
 import spydaap
-import sys
 import socket
 import spydaap.daap
 import spydaap.metadata
@@ -34,12 +27,41 @@ import spydaap.containers
 import spydaap.cache
 import spydaap.server
 import spydaap.zeroconf
-from spydaap.daap import do
-from threading import Thread
 from xl import common, event
-import config
 
-# logging.basicConfig()
+
+# Notes for debugging:
+# You might want to run
+#    handle SIGPIPE nostop
+# when debugging this code in gdb.
+
+"""
+Notes for hunting down errors:
+If you run this plugin and a client stops playback on any file, expect this
+traceback:
+
+    Exception happened during processing of request from ('192.168.122.1', 34394)
+    Traceback (most recent call last):
+      File "/usr/lib64/python2.7/SocketServer.py", line 596, in process_request_thread
+        self.finish_request(request, client_address)
+      File "/usr/lib64/python2.7/SocketServer.py", line 331, in finish_request
+        self.RequestHandlerClass(request, client_address, self)
+      File "/usr/lib64/python2.7/SocketServer.py", line 654, in __init__
+        self.finish()
+      File "/usr/lib64/python2.7/SocketServer.py", line 713, in finish
+        self.wfile.close()
+      File "/usr/lib64/python2.7/socket.py", line 283, in close
+        self.flush()
+      File "/usr/lib64/python2.7/socket.py", line 307, in flush
+        self._sock.sendall(view[write_offset:write_offset+buffer_size])
+    error: [Errno 32] broken pipe
+
+This traceback is a result of getting a SIGPIPE, which is expected. The fact
+that it is not being handled in the python standard library looks like a bug
+to me.
+"""
+
+
 logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']
@@ -48,20 +70,12 @@ __all__ = ['DaapServer']
 class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
     timeout = 1
+    daemon_threads = True
 
     def __init__(self, *args):
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6
         BaseHTTPServer.HTTPServer.__init__(self, *args)
-        self.keep_running = True
-
-    def serve_forever(self):
-        while self.keep_running:
-            self.handle_request()
-
-    def force_stop(self):
-        self.keep_running = False
-        self.server_close()
 
 
 class DaapServer():
@@ -110,14 +124,14 @@ class DaapServer():
 
         try:
             try:
-                logger.warning("Listening.")
+                logger.info("DAAP server: Listening.")
                 self.httpd.serve_forever()
             except select.error:
                 pass
         except KeyboardInterrupt:
-            self.httpd.force_stop()
+            self.httpd.shutdown()
 
-        logger.warning("Shutting down.")
+        logger.info("DAAP server: Shutting down.")
         self.zeroconf.unpublish()
         self.httpd = None
 
@@ -129,7 +143,8 @@ class DaapServer():
 
     def stop(self):
         if self.httpd is not None:
-            self.httpd.force_stop()
+            self.httpd.shutdown()
+            self.httpd.socket.close()
             return True
         return False
 

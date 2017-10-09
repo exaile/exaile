@@ -40,20 +40,20 @@ from spydaap.daap import do
 
 class VorbisParser(spydaap.parser.Parser):
     vorbis_string_map = {
-        'grouping' : 'daap.songgrouping',
-        'title'    : 'dmap.itemname',
-        'artist'   : 'daap.songartist',
-        'composer' : 'daap.songcomposer',
-        'genre'    : 'daap.songgenre',
-        'album'    : 'daap.songalbum',
+        'grouping': 'daap.songgrouping',
+        'title': 'dmap.itemname',
+        'artist': 'daap.songartist',
+        'composer': 'daap.songcomposer',
+        'genre': 'daap.songgenre',
+        'album': 'daap.songalbum',
         'albumartist': 'daap.songalbumartist',
     }
 
     vorbis_int_map = {
-        'bpm'         : 'daap.songbeatsperminute',
-        'date'        : 'daap.songyear',
-        'year'        : 'daap.songyear',
-        'compilation' : 'daap.songcompilation',
+        'bpm': 'daap.songbeatsperminute',
+        'date': 'daap.songyear',
+        'year': 'daap.songyear',
+        'compilation': 'daap.songcompilation',
     }
 
     def handle_track(self, flac, d):

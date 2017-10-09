@@ -119,3 +119,12 @@ class Rating(Playlist):
             return md['daap.songuserrating'] >= self.rating
         else:
             return False
+
+
+class FilenameContains(Playlist):
+
+    def __init__(self, name):
+        self.name = name
+
+    def contains(self, md):
+        return self.name in md.get_original_filename()

@@ -1,8 +1,7 @@
 
 import logging
-from gi.repository import GObject
-from xl import collection, common, event, settings
-import spydaap.parser.exaile
+from xl import event, settings
+import exaile_parser
 from server import DaapServer
 import daapserverprefs
 
@@ -18,7 +17,7 @@ class CollectionWrapper:
         def __init__(self, id, track):
             self.track = track
             self.id = id
-            self.parser = spydaap.parser.exaile.ExaileParser()
+            self.parser = exaile_parser.ExaileParser()
             self.daap = None
 
         def get_dmap_raw(self):

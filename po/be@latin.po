@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-08-19 13:44+0000\n"
+"PO-Revision-Date: 2017-10-17 22:44+0000\n"
 "Last-Translator: Viktar Vauchkevich <victorenator@gmail.com>\n"
 "Language-Team: Belarusian (latin) "
 "<https://hosted.weblate.org/projects/exaile/master/be_Latn/>\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 2.17\n"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d dzień, "
+msgstr[1] "%d dni, "
+msgstr[2] "%d dzion, "
 
 #: ../xl/formatter.py:578
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d hadzina, "
+msgstr[1] "%d hadziny, "
+msgstr[2] "%d hadzin, "
 
 #: ../xl/formatter.py:579
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d chvilina, "
+msgstr[1] "%d chviliny, "
+msgstr[2] "%d chvilin, "
 
 #: ../xl/formatter.py:580
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d siekunda,"
+msgstr[1] "%d siekundy,"
+msgstr[2] "%d siekund,"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:585
@@ -277,7 +277,7 @@ msgstr "Pakazać heta daviedkavaje paviedamliennie і vyjscі"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Pakazać numar viersii prahramy i vyjsci."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -289,7 +289,7 @@ msgstr "Pierakliučyć bačnasć hrafіčnaha іnterfiejsu (kalі mahčyma)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "Zapuskać u biaspiečnym režymie — karysna pry ŭzniknienni prabliem"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -440,7 +440,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -463,6 +463,8 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
+"Farmat scisku huku  prynaliežny Apple,  daje boĺš vysokuju jakasć na nizkich "
+"čaščyniach, čym MP3."
 
 #: ../xl/transcoder.py:89
 msgid ""
@@ -490,7 +492,7 @@ msgstr ""
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "Core Audio OS X"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -507,7 +509,7 @@ msgstr "Aŭta"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Mahčyma pamylka aŭdyjoprylady, ci padkliučana jana?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -686,7 +688,7 @@ msgstr "Zmienieny"
 
 #: ../xl/metadata/tags.py:78
 msgid "Play time"
-msgstr ""
+msgstr "Čas prajhravannia"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
@@ -694,11 +696,11 @@ msgstr "Prajhrany raz"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
-msgstr ""
+msgstr "Zruch pačatku"
 
 #: ../xl/metadata/tags.py:82
 msgid "Stop offset"
-msgstr ""
+msgstr "Zruch kanca"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -706,7 +708,7 @@ msgstr "Viersіja paramietraŭ naviej biahučaj."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Nam nieviadoma, jak zachavać hety typ paramietraŭ: "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
@@ -719,7 +721,7 @@ msgstr "Niekarektny typ spіsu prajhravannia."
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
 msgid "Playlist"
-msgstr ""
+msgstr "Spis prajhravannia"
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
@@ -783,11 +785,11 @@ msgstr "Dynamіčny plejlіst z padobnymі vykanaŭcamі"
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
-msgstr ""
+msgstr "siekund"
 
 #: ../xl/playlist.py:1844 ../xlgui/panel/playlists.py:78
 msgid "minutes"
-msgstr ""
+msgstr "chvilin"
 
 #: ../xl/playlist.py:1845 ../xlgui/panel/playlists.py:78
 msgid "hours"
@@ -812,7 +814,7 @@ msgstr "Pastavіć u čarhu"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Zamianić biahučy"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -901,11 +903,11 @@ msgstr "huk vykliučany"
 #: ../xlgui/widgets/playback.py:1275
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d %%"
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
-msgstr ""
+msgstr "Poŭnaja hučnasć"
 
 #: ../xlgui/widgets/info.py:69
 msgid ""
@@ -913,151 +915,156 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"u vykananni $artist\n"
+"z $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
-msgstr ""
+msgstr "Roznyja"
 
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d usiaho (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "%d u kaliekcyi"
 
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "%d pakazana"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
 msgid "%d selected"
-msgstr ""
+msgstr "abrana %d"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr ""
+msgstr "Čarha"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "Čarha (%d)"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
-msgstr ""
+msgstr "Numar darožki"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
-msgstr ""
+msgstr "Numar dyska"
 
 #: ../xlgui/widgets/playlist_columns.py:268 ../xlgui/panel/playlists.py:226
 #: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:99
 #: ../plugins/minimode/controls.py:527
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
-msgstr ""
+msgstr "Adznaka"
 
 #: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:116
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
-msgstr ""
+msgstr "Nazva fajla"
 
 #: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
-msgstr ""
+msgstr "Koĺkasć prajhravanniaŭ"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Rasklad"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Zruch pačatka"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 msgid "Stop Offset"
-msgstr ""
+msgstr "Zruch kanca"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Zmianiaĺny pamier"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
-msgstr ""
+msgstr "_Aŭtamatyčny pamier"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr ""
+msgstr "Rejtynh:"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
-msgstr ""
+msgstr "U vypadkovym paradku"
 
 #: ../xlgui/widgets/playlist.py:134
 msgid "Repeat"
-msgstr ""
+msgstr "Paŭtor"
 
 #: ../xlgui/widgets/playlist.py:138
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamičny"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Vydalić biahučuju kampazicyju z plejlista"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr ""
+msgstr "Pieramiašać Spis Prajhravannia"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Vypadkovy paradak abranaha"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr ""
+msgstr "Stvaryć spis prajhravannia"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Spynić prajhravannie paslia hetaj darožki"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Praciahnuć prajhravannie paslia hetaha treka"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
+"Patrabujecca moduĺ, jaki zabiaspiečvaje padtrymku dynamičnych spisaŭ "
+"prajhravannia"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Dadavać padobnyja darožki ŭ spis prajhravannia"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Uviadzicie URL dlia adkryccia"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
-msgstr ""
+msgstr "Adkryć URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Abiarycie typ fajla"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"

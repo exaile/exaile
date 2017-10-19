@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-08-23 13:46+0000\n"
+"PO-Revision-Date: 2017-10-20 09:47+0000\n"
 "Last-Translator: Shameem Ahmed A Mulla <shameem.sam@gmail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/exaile/master/hi/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 2.17\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/formatter.py:576
@@ -35,11 +35,11 @@ msgstr[0] "%d घंटा, "
 msgstr[1] "%d घंटे, "
 
 #: ../xl/formatter.py:579
-#, fuzzy, python-format
+#, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d मिनट, "
-msgstr[1] "%d मिनट, "
+msgstr[1] "%d कार्यवृत्त, "
 
 #: ../xl/formatter.py:580
 #, python-format

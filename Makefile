@@ -199,19 +199,18 @@ clean:
 
 po/messages.pot: pot
 
+# The "set -o pipefail" (only works on Bash) makes the whole thing die if any of the find fails.
 # The "LC_ALL=C" disables any locale-dependent sort behavior.
-# The "[type: gettext/glade]" helps intltool recognize .ui files as glade format.
 pot:
-	(export LC_ALL=C && \
-	  echo "[encoding: UTF-8]" > po/POTFILES.in && \
-	  find xl -name "*.py" | sort >> po/POTFILES.in && \
-	  find xlgui -name "*.py" | sort >> po/POTFILES.in && \
-	  find data/ui/ -name "*.ui" | sort | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name "*.py" | sort  >> po/POTFILES.in && \
-	  find plugins -name "*.ui" | sort | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name PLUGININFO | sort >> po/POTFILES.in)
-	(cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
-	  intltool-update --pot --gettext-package=messages --verbose)
+	( set -o pipefail || true && \
+	  export LC_ALL=C && cd po && \
+	  { find ../xl ../xlgui -name "*.py" | sort && \
+	    find ../data/ui -name "*.ui" | sort && \
+	    find ../plugins -name "*.py" | sort && \
+	    find ../plugins -name "*.ui" | sort ; } \
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
+	  find ../plugins -name PLUGININFO | sort \
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
 
 potball: builddir
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

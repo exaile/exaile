@@ -42,7 +42,7 @@ from xlgui.panel.collection import CollectionPanel
 from xlgui.widgets import dialogs, menu, menuitems
 from xlgui import main
 
-from daap import DAAPClient
+from client import DAAPClient
 import daapclientprefs
 
 

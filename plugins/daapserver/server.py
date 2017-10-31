@@ -59,8 +59,9 @@ traceback:
     error: [Errno 32] broken pipe
 
 This traceback is a result of getting a SIGPIPE, which is expected. The fact
-that it is not being handled in the python standard library looks like a bug
-to me.
+that it is not being handled in the python standard library is a bug which has
+been reported to https://bugs.python.org/issue14574
+See also: https://stackoverflow.com/questions/6063416/
 """
 
 

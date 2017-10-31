@@ -128,7 +128,7 @@ class BaseFormat(object):
             del raw[tag]
 
     def _get_raw(self):
-        if self.MutagenType:
+        if self.MutagenType or self.mutagen:
             return self.mutagen
         else:
             return {}

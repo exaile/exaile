@@ -19,16 +19,18 @@ import BaseHTTPServer
 import SocketServer
 import logging
 import select
-import spydaap
 import socket
+import os
+
+import spydaap
 import spydaap.daap
 import spydaap.metadata
 import spydaap.containers
 import spydaap.cache
 import spydaap.server
 import spydaap.zeroconf
-from xl import common, event
 
+from xl import common, event, xdg
 
 # Notes for debugging:
 # You might want to run
@@ -88,6 +90,8 @@ class DaapServer():
         self.name = name
         self.httpd = None
         self.handler = None
+        self.__cache = spydaap.cache.Cache(os.path.join(xdg.cache_home, 'daapserver'))
+        self.__cache.clean()
 
         # Set a callback that will let us propagate library changes to clients
         event.add_callback(self.update_rev, 'libraries_modified',
@@ -100,6 +104,7 @@ class DaapServer():
             self.handler.daap_server_revision += 1
             logger.info('Libraries Changed, incrementing revision to %d.'
                         % self.handler.daap_server_revision)
+        self.__cache.clean()
 
     def set(self, **kwargs):
         for key in kwargs:
@@ -111,7 +116,7 @@ class DaapServer():
                                                   self.port,
                                                   stype="_daap._tcp")
         self.handler = spydaap.server.makeDAAPHandlerClass(
-            str(self.name), [], self.library, [])
+            str(self.name), self.__cache, self.library, [])
         self.httpd = MyThreadedHTTPServer((self.host, self.port),
                                           self.handler)
 

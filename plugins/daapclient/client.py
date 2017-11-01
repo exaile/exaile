@@ -129,7 +129,7 @@ class DAAPClient(object):
         DAAPParseCodeTypes(response)
 
     def getInfo(self):
-        response = self.request('/server-info')
+        self.request('/server-info')
 
         # detect the 'old' iTunes 4.2 servers, and set a flag, so we use
         # the real MD5 hash algo to verify requests.
@@ -177,7 +177,7 @@ class DAAPSession(object):
         return self.databases()[0]
 
     def logout(self):
-        response = self.request("/logout")
+        self.request("/logout")
         log.debug('DAAPSession: expired session id %s', self.sessionid)
 
 

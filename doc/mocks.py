@@ -88,5 +88,3 @@ def fake_xl_settings():
 
     orig_get_option = xl.settings.get_option
     xl.settings.get_option = option_hack
-
-

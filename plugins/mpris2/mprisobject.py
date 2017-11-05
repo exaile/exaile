@@ -217,7 +217,14 @@ class MprisObject(object):
     @property
     def SupportedMimeTypes(self):
         # Taken from exaile.desktop
-        return Variant('as', 'audio/musepack;application/musepack;application/x-ape;audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;audio/x-mpc;audio/mp;audio/x-mp;application/ogg;application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'.split(';'))
+        mimetypes = 'audio/musepack;application/musepack;application/x-ape;' \
+            'audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;' \
+            'audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;' \
+            'audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;' \
+            'audio/x-mpc;audio/mp;audio/x-mp;application/ogg;' \
+            'application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;' \
+            'audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'
+        return Variant('as', mimetypes.split(';'))
 
     @property
     def SupportedUriSchemes(self):

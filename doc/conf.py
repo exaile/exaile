@@ -27,6 +27,15 @@ sys.path.insert(0, os.environ['EXAILE_DIR'])
 # indicate that we're building docs
 os.environ['EXAILE_BUILDING_DOCS'] = 'TRUE'
 
+EXAILE_AUTHORS = [
+    u'Adam Olsen <arolsen@gmail.com>',
+    u'Johannes Sasongko <sasongko@gmail.com>',
+    u'Aren Olsen <reacocard@gmail.com>',
+    u'Mathias Brodala <info@noctus.net>',
+    u'Dustin Spicuzza <dustin@virtualroadside.com>',
+    u'Christian Stadelmann',
+]
+
 #
 # Allow building on systems which don't have all dependencies installed
 #
@@ -48,11 +57,11 @@ sys.path.pop()
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.viewcode']
+              'sphinx.ext.doctest',
+              'sphinx.ext.intersphinx',
+              'sphinx.ext.todo',
+              'sphinx.ext.coverage',
+              'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -69,7 +78,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Exaile'
 copyright = u'2009-2017 Exaile Development Team'
-author = u'Adam Olsen <arolsen@gmail.com>, Johannes Sasongko <sasongko@gmail.com>, Aren Olsen <reacocard@gmail.com>, Mathias Brodala <info@noctus.net>, Dustin Spicuzza <dustin@virtualroadside.com>, Christian Stadelmann'
+author = u''.join(EXAILE_AUTHORS)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -170,7 +179,8 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Exaile.tex', u'Exaile Documentation',
-     u'Adam Olsen \\textless{}arolsen@gmail.com\\textgreater{}, Johannes Sasongko \\textless{}sasongko@gmail.com\\textgreater{}, Aren Olsen \\textless{}reacocard@gmail.com\\textgreater{}, Mathias Brodala \\textless{}info@noctus.net\\textgreater{}, Dustin Spicuzza \\textless{}dustin@virtualroadside.com\\textgreater{}, Christian Stadelmann', 'manual'),
+     author.replace('<', '\\textless{}').replace('>', '\\textgreater{}'),
+     'manual'),
 ]
 
 
@@ -194,8 +204,6 @@ texinfo_documents = [
      author, 'Exaile', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
 
 
 # Example configuration for intersphinx: refer to the Python standard library.

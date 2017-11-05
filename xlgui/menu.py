@@ -66,7 +66,7 @@ def __create_file_menu():
                        get_main().controller.open_uris(uris))
         dialog.show()
         
-    accelerators.append(Accelerator('<Primary>o', _("_Open"), open_cb))    
+    accelerators.append(Accelerator('<Primary>o', _("_Open"), open_cb))
     items.append(_smi('open', [items[-1].name], icon_name='document-open',
                       callback=accelerators[-1]))
 

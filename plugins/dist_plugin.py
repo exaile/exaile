@@ -60,7 +60,6 @@ IGNORED_FILES = options.files
 _ = lambda x: x
 
 
-
 for dir in args:
 
     if not os.path.exists(dir):

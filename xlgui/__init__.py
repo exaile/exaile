@@ -212,7 +212,7 @@ class Main(object):
         """
         from xlgui.cover import CoverManager
         CoverManager(self.main.window,
-                              self.exaile.collection)
+                     self.exaile.collection)
 
     def show_preferences(self):
         """

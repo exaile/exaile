@@ -5,7 +5,7 @@ services:
 env:
   - IMGTAG=debian8
   - IMGTAG=debian9
-  - IMGTAG=fedora25
+  - IMGTAG=fedora26
   - IMGTAG=ubuntu16.04
   - IMGTAG=ubuntu17.04
 

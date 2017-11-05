@@ -26,8 +26,8 @@ EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
 .PHONY: all all_no_locale builddir compile make-install-dirs uninstall \
 	install install_no_locale install-target locale install-locale \
-	plugins-dist manpage completion clean pot potball dist test test_coverage \
-	lint_errors sanitycheck
+	plugins-dist manpage completion clean pot potball dist check-doc test \
+	test_coverage lint_errors sanitycheck
 
 all: compile completion locale manpage
 	@echo "Ready to install..."
@@ -225,6 +225,10 @@ dist:
 	git archive HEAD --prefix=copy/ | tar -x -C dist
 	./tools/dist.sh
 	rm -rf dist/copy
+
+check-doc: clean
+	$(MAKE) -C doc html
+	$(MAKE) -C doc linkcheck
 
 test:
 	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests

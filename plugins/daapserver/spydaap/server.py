@@ -184,7 +184,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                            md.get_dmap_raw()
                            ])
 
-            def build():
+            def build(f):
                 children = [build_item(md) for md in md_cache]
                 file_count = len(children)
                 d = do('daap.databasesongs',
@@ -194,10 +194,9 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                         do('dmap.returnedcount', file_count),
                         do('dmap.listing',
                             children)])
-                return d.encode()
+                f.write(d.encode())
 
-            data = build()
-#            data = cache.get('item_list', build)
+            data = cache.get('item_list', build)
             self.h(data)
 
         def do_GET_update(self):

@@ -43,6 +43,7 @@ exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
                          'music.db')
 exaile_pickle_protocol = 2
 
+
 def tracks(data):
     for k, v in data.iteritems():
         if not k.startswith('tracks-'):
@@ -110,6 +111,7 @@ def cvtdb(ctx, data, dbtype):
     new_data.sync()
     new_data.close()
 
+
 @cli.command()
 @click.pass_obj
 @click.argument('output')
@@ -124,6 +126,7 @@ def tojson(data, output):
         d[k] = v
     with open(output, 'w') as fp:
         json.dump(d, fp, sort_keys=True, indent=4, separators=(',', ': '))
+
 
 @cli.command()
 @click.pass_obj

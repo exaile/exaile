@@ -33,6 +33,7 @@ from xl import common
 
 logger = logging.getLogger(__name__)
 
+
 def migrate(path):
     bak_path = path + os.extsep + 'tmp'
     

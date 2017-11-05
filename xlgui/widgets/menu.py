@@ -41,6 +41,7 @@ def simple_separator(name, after):
     item._pos = 'last'
     return item
 
+
 def _get_accel(callback, display_name):
     # utility function to get menu information from an xlgui.Accelerator
     accelerator = None
@@ -113,6 +114,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
 
 def check_menu_item(name, after, display_name, checked_func, callback):
     accelerator, callback, display_name = _get_accel(callback, display_name)
+
     def factory(menu, parent, context):
         item = Gtk.CheckMenuItem.new_with_mnemonic(display_name)
         active = checked_func(name, parent, context)

@@ -131,7 +131,6 @@ class SecondaryOutputPlugin(object):
         play_toolbar.pack_start(self.playpause_button, False, False, 0)
         play_toolbar.pack_start(self.progress_bar, True, True, 0)
         play_toolbar.child_set_property(self.progress_bar, 'padding', 3)
-        
 
         # stick our player controls into this box
         self.pane1_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)

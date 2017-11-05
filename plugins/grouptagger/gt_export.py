@@ -40,6 +40,7 @@ from gt_common import get_track_groups
 import logging
 logger = logging.getLogger(__name__)
 
+
 def export_tags(exaile):
     '''
         Exports all tags to a user specified JSON file

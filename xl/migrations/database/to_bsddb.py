@@ -71,4 +71,3 @@ def migrate(path):
             logger.warning("Could not delete %s: %s", extra, e)
     
     logger.info("Migration successfully completed!")
-    

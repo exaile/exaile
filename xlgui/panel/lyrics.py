@@ -57,7 +57,7 @@ class LyricsPanel(panel.Panel):
              'scrolled_window', 'lyrics_text', 'lyrics_source_label',
              'track_text_buffer', 'lyrics_text_buffer']
         for name in WIDGET_LIST:
-            setattr(self, '_' + LyricsPanel.__name__ + '__'+name, self.builder.get_object(name))
+            setattr(self, '_' + LyricsPanel.__name__ + '__' + name, self.builder.get_object(name))
         self.__initialize_widgets()
 
         event.add_ui_callback(self.__on_playback_track_start, 'playback_track_start')

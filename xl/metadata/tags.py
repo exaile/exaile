@@ -2,7 +2,8 @@
 from xl.nls import gettext
 
 
-def N_(x): return x
+def N_(x):
+    return x
 
 
 class _TD(object):

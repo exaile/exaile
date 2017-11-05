@@ -151,7 +151,7 @@ class MainWindow(GObject.GObject):
         def factory(integer, description):
             """ Generate key bindings for Alt keys """
             keybinding = '<Alt>%s' % str(integer)
-            callback = lambda *_e: self._on_focus_playlist_tab(integer-1)
+            callback = lambda *_e: self._on_focus_playlist_tab(integer - 1)
             return (keybinding, description, callback)
 
         hotkeys = (

@@ -52,10 +52,10 @@ class LyricsPanel(panel.Panel):
         self.__css_provider = Gtk.CssProvider()
         
         WIDGET_LIST = \
-                ['lyrics_top_box', 'refresh_button', 'refresh_button_stack',
-                 'refresh_icon', 'refresh_spinner', 'track_text',
-                 'scrolled_window', 'lyrics_text', 'lyrics_source_label',
-                 'track_text_buffer', 'lyrics_text_buffer']
+            ['lyrics_top_box', 'refresh_button', 'refresh_button_stack',
+             'refresh_icon', 'refresh_spinner', 'track_text',
+             'scrolled_window', 'lyrics_text', 'lyrics_source_label',
+             'track_text_buffer', 'lyrics_text_buffer']
         for name in WIDGET_LIST:
             setattr(self, '_' + LyricsPanel.__name__ + '__'+name, self.builder.get_object(name))
         self.__initialize_widgets()

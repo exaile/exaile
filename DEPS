@@ -43,6 +43,10 @@ CD info:
 
 * python-cddb
 
+DAAP plugins (daapserver and daapclient):
+
+* spydaap
+
 Last.FM integration:
 
 * pylast

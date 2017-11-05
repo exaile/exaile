@@ -226,9 +226,10 @@ dist:
 	./tools/dist.sh
 	rm -rf dist/copy
 
+# See .travis.yml for details on how tests are ran by Travis CI
 check-doc: clean
 	$(MAKE) -C doc html
-	$(MAKE) -C doc linkcheck
+
 
 test:
 	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests

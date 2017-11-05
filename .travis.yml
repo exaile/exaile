@@ -14,6 +14,7 @@ before_install:
 
 script:
 - docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make test
+- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make check-doc
 
 notifications:
   irc:

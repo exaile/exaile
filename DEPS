@@ -30,6 +30,7 @@ Translation:
 Documentation:
 
 * sphinx
+* sphinx_rtd_theme
 * help2man
 
 Device detection (one of the following):

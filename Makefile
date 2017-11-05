@@ -24,7 +24,10 @@ EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
 EXAILECONFDIR  = $(DESTDIR)$(XDGCONFDIR)/exaile
 EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
-.PHONY: dist test completion coverage clean sanitycheck builddir
+.PHONY: all all_no_locale builddir compile make-install-dirs uninstall \
+	install install_no_locale install-target locale install-locale \
+	plugins-dist manpage completion clean pot potball dist test test_coverage \
+	lint_errors sanitycheck
 
 all: compile completion locale manpage
 	@echo "Ready to install..."

@@ -13,8 +13,7 @@ before_install:
 - docker pull exaile/exaile-testimg:${IMGTAG}
 
 script:
-- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make test
-- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make check-doc
+- docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make BUILDDIR=/tmp test check-doc
 
 notifications:
   irc:

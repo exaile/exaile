@@ -6,7 +6,7 @@ SPHINXOPTS    ?=
 SPHINXBUILD   = python2 -msphinx
 SPHINXPROJ    = Exaile
 SOURCEDIR     = .
-BUILDDIR      = _build
+BUILDDIR      ?= _build
 
 # Put it first so that "make" without argument is like "make help".
 help:

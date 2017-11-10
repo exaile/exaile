@@ -202,10 +202,11 @@ clean:
 
 po/messages.pot: pot
 
-# The "set -o pipefail" (only works on Bash) makes the whole thing die if any of the find fails.
-# The "LC_ALL=C" disables any locale-dependent sort behavior.
+# The "set -o pipefail" makes the whole thing die if any of the find fails.
+#   dash (Debian's /bin/sh) doesn't support it and exits immediately, so we test it in a subshell.
+# The "export LC_ALL=C" disables any locale-dependent sort behavior.
 pot:
-	( set -o pipefail || true && \
+	( ( set -o pipefail 2> /dev/null ) && set -o pipefail ; \
 	  export LC_ALL=C && cd po && \
 	  { find ../xl ../xlgui -name "*.py" | sort && \
 	    find ../data/ui -name "*.ui" | sort && \

@@ -34,7 +34,7 @@ all: compile completion locale manpage
 
 # The no_locale stuff is by request of BSD people, please ensure
 # all methods that deal with locale stuff have a no_locale variant
-all_no_locale: compile manpage
+all_no_locale: compile completion manpage
 	@echo "Ready to install..."
 
 builddir:

@@ -230,6 +230,12 @@ dist:
 check-doc: clean
 	$(MAKE) -C doc html
 
+BUILD_DIR		= /tmp/exaile-test-build
+test_compile:
+	mkdir -p $(BUILD_DIR)
+	cp --recursive xl xlgui plugins $(BUILD_DIR)
+	$(PYTHON2_CMD) -m compileall -q $(BUILD_DIR)
+	$(PYTHON2_CMD) -O -m compileall -q $(BUILD_DIR)
 
 test:
 	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests

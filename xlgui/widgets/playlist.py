@@ -1324,6 +1324,7 @@ class PlaylistModel(Gtk.ListStore):
         Gtk.ListStore.__init__(self, int)  # real types are set later
         self.playlist = playlist
         self.columns = columns
+        self.column_names = set(columns)
         self.player = player
 
         self.data_loading = False
@@ -1458,10 +1459,10 @@ class PlaylistModel(Gtk.ListStore):
             return
         GLib.idle_add(self.update_icon, position)
 
-    def on_track_tags_changed(self, type, track, tag):
+    def on_track_tags_changed(self, type, track, tags):
         if not track or not \
                 settings.get_option('gui/sync_on_tag_change', True) or\
-                tag not in self.columns:
+                not (tags & self.column_names):
             return
 
         if self._redraw_timer:

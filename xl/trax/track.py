@@ -266,7 +266,7 @@ class Track(object):
         gloc = Gio.File.new_for_commandline_arg(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
-        event.log_event('track_tags_changed', self, '__loc')
+        event.log_event('track_tags_changed', self, {'__loc'})
 
     def exists(self):
         """
@@ -515,7 +515,7 @@ class Track(object):
 
         self._dirty = True
         if notify_changed:
-            event.log_event("track_tags_changed", self, tag)
+            event.log_event("track_tags_changed", self, {tag})
 
     def get_tag_raw(self, tag, join=False):
         """

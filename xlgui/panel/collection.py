@@ -112,7 +112,7 @@ class Order(object):
         return self.__levels == other.get_levels()
 
     def all_sort_tags(self):
-        return list(itertools.chain(*[l[0] for l in self.__levels]))
+        return set(itertools.chain(*[l[0] for l in self.__levels]))
 
     def get_sort_tags(self, level):
         return list(self.__levels[level][0])
@@ -473,9 +473,9 @@ class CollectionPanel(panel.Panel):
 
         return " ".join(queries)
 
-    def refresh_tags_in_tree(self, type, track, tag):
+    def refresh_tags_in_tree(self, type, track, tags):
         if settings.get_option('gui/sync_on_tag_change', True) and \
-                tag in self.order.all_sort_tags() and \
+                bool(tags & self.order.all_sort_tags()) and \
                 self.collection.loc_is_member(track.get_loc_for_io()):
             self._refresh_tags_in_tree()
 

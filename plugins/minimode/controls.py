@@ -933,7 +933,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
         GLib.idle_add(self.label.set_text, text)
 
-    def on_track_tags_changed(self, event, track, tag):
+    def on_track_tags_changed(self, event, track, tags):
         """
             Updates the button on tag changes
         """

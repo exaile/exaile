@@ -447,13 +447,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if isinstance(pl, xl_playlist.SmartPlaylist):
             self.edit_selected_smart_playlist()
 
-    def refresh_playlists(self, type, track, tag):
+    def refresh_playlists(self, type, track, tags):
         """
             wrapper so that multiple events dont cause multiple
             reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-                tag in ['title', 'artist']:
+                tags & {'title', 'artist'}:
             self._refresh_playlists()
 
     @common.glib_wait(500)

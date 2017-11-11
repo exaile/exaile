@@ -134,7 +134,7 @@ class BPMCounterPlugin(object):
 
     def _set_bpm(self, result, bpm, track):
         if result == Gtk.ResponseType.YES:
-            track.set_tag_raw('bpm', bpm)
+            track.set_tags(bpm=bpm)
             if not track.write_tags():
                 dialogs.error(None, "Error writing BPM to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
 

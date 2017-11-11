@@ -217,56 +217,59 @@ def parse_stream_tags(track, tag_list):
 
         tags[k] = values
 
+    etags = {}
+
     v = tags.get('bitrate')
     if v:
-        track.set_tag_raw('__bitrate', int(v[0]))
+        etags['__bitrate'] = int(v[0])
 
     v = tags.get('duration')
     if v:
-        track.set_tag_raw('__length', float(v[0]) / Gst.SECOND)
+        etags['__length'] = float(v[0]) / Gst.SECOND
 
     v = tags.get('track-number')
     if v:
-        track.set_tag_raw('tracknumber', v)
+        etags['tracknumber'] = v
 
     v = tags.get('album')
     if v:
-        track.set_tag_raw('album', v)
+        etags['album'] = v
 
     v = tags.get('artist')
     if v:
-        track.set_tag_raw('artist', v)
+        etags['artist'] = v
 
     v = tags.get('genre')
     if v:
-        track.set_tag_raw('genre', v)
+        etags['genre'] = v
 
     # if there's a comment, but no album, set album to the comment
     v = tags.get('comment')
     if v and not track.get_tag_raw('album'):
-        track.set_tag_raw('album', v)
+        etags['album'] = v
 
     v = tags.get('title')
     if v:
         try:
             if track.get_tag_raw('__rawtitle') != v:
-                track.set_tag_raw('__rawtitle', v)
+                etags['__rawtitle'] = v
                 newsong = True
         except AttributeError:
-            track.set_tag_raw('__rawtitle', v)
+            etags['__rawtitle'] = v
             newsong = True
 
         if not track.get_tag_raw('artist'):
             title_array = v[0].split(' - ', 1)
             if len(title_array) == 1 or \
                     track.get_loc_for_io().lower().endswith(".mp3"):
-                track.set_tag_raw('title', v)
+                etags['title'] = v
             else:
-                track.set_tag_raw('artist', [title_array[0]])
-                track.set_tag_raw('title', [title_array[1]])
+                etags['artist'] = [title_array[0]]
+                etags['title'] = [title_array[1]]
         else:
-            track.set_tag_raw('title', v)
-
+            etags['title'] = v
+    
+    track.set_tags(**etags)
     return newsong
 
 

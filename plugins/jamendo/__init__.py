@@ -392,9 +392,9 @@ class JamendoPanel(panel.Panel):
         xltrack_list = []
         for track in track_list:
             tr = xltrack.Track(track.url, scan=False)
-            tr.set_tag_raw('title', track.name)
-            tr.set_tag_raw('artist', track.artist_name)
-            tr.set_tag_raw('album', track.album_name)
+            tr.set_tags(title=track.name,
+                        artist=track.artist_name,
+                        album=track.album_name)
             xltrack_list.append(tr)
         self.exaile.gui.main.get_selected_page().playlist.extend(xltrack_list)
 

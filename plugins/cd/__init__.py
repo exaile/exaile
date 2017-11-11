@@ -172,9 +172,9 @@ class CDPlaylist(playlist.Playlist):
         for count, length in enumerate(lengths):
             count += 1
             song = trax.Track("cdda://%d/#%s" % (count, self.device))
-            song.set_tag_raw('title', "Track %d" % count)
-            song.set_tag_raw('tracknumber', str(count))
-            song.set_tag_raw('__length', length)
+            song.set_tags(title="Track %d" % count,
+                          tracknumber=str(count),
+                          __length, length)
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
@@ -207,16 +207,11 @@ class CDPlaylist(playlist.Playlist):
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
             tr = self[i]
-            tr.set_tag_raw('title',
-                           info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'))
-            tr.set_tag_raw('album',
-                           title[1].decode('iso-8859-15', 'replace'))
-            tr.set_tag_raw('artist',
-                           title[0].decode('iso-8859-15', 'replace'))
-            tr.set_tag_raw('year',
-                           info['EXTD'].replace("YEAR: ", ""))
-            tr.set_tag_raw('genre',
-                           info['DGENRE'])
+            tr.set_tags(title=info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'),
+                        album=title[1].decode('iso-8859-15', 'replace'),
+                        artist=title[0].decode('iso-8859-15', 'replace'),
+                        year=info['EXTD'].replace("YEAR: ", ""),
+                        genre=info['DGENRE'])
 
         self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)

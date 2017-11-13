@@ -33,6 +33,7 @@ from xl import common
 
 logger = logging.getLogger(__name__)
 
+
 def migrate(path):
     bak_path = path + os.extsep + 'tmp'
     
@@ -45,7 +46,7 @@ def migrate(path):
     db = common.bsddb.hashopen(bak_path, 'c')
     new_shelf = shelve.BsdDbShelf(db, protocol=common.PICKLE_PROTOCOL)
     
-    for k,v in old_shelf.iteritems():
+    for k, v in old_shelf.iteritems():
         new_shelf[k] = v
     
     new_shelf.close()
@@ -70,4 +71,3 @@ def migrate(path):
             logger.warning("Could not delete %s: %s", extra, e)
     
     logger.info("Migration successfully completed!")
-    

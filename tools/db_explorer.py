@@ -43,6 +43,7 @@ exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
                          'music.db')
 exaile_pickle_protocol = 2
 
+
 def tracks(data):
     for k, v in data.iteritems():
         if not k.startswith('tracks-'):
@@ -110,6 +111,7 @@ def cvtdb(ctx, data, dbtype):
     new_data.sync()
     new_data.close()
 
+
 @cli.command()
 @click.pass_obj
 @click.argument('output')
@@ -124,6 +126,7 @@ def tojson(data, output):
         d[k] = v
     with open(output, 'w') as fp:
         json.dump(d, fp, sort_keys=True, indent=4, separators=(',', ': '))
+
 
 @cli.command()
 @click.pass_obj
@@ -174,26 +177,29 @@ def _date_fix(tags):
     return tags
 
 
-def _print_tr(tr):
+def _print_tr(tr, raw):
     if tr is not None:
         tags, key, attrs = tr
         print("Track key", key)
         print("Tags:")
-        pprint.pprint(_date_fix(tags))
+        if not raw:
+            tags = _date_fix(tags)
+        pprint.pprint(tags)
         print("Attrs:")
         pprint.pprint(attrs)
 
 
 @cli.command('track-by-idx')
 @click.argument('idx')
+@click.option('--raw/--no-raw', default=False)
 @click.pass_obj
-def track_by_idx(data, idx):
+def track_by_idx(data, idx, raw):
     '''
         pprint a track by its index in the database
     '''
     key = str('tracks-%s' % idx)
     tr = data.get(key)
-    _print_tr(tr)
+    _print_tr(tr, raw)
 
 
 @cli.command()

@@ -586,7 +586,7 @@ class PLSConverter(FormatConverter):
                 track.set_tag_raw('title', title)
 
             if track.get_tag_raw('artist') is None and artist:
-                track.get_tag_raw('artist', artist)
+                track.set_tag_raw('artist', artist)
 
             if track.get_tag_raw('__length') is None:
                 track.set_tag_raw('__length', max(0, length))

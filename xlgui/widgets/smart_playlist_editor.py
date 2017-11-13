@@ -50,7 +50,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def N_(x): return x
+def N_(x):
+    return x
 
 
 class EntrySecondsField(MultiEntryField):
@@ -331,7 +332,7 @@ class SmartPlaylistEditor(object):
             # because there are duplicates in _TRANS, cannot create a reverse
             # mapping. Instead, search in set of criteria defined for the type
             data_type = field
-            data  = tag_data.get(field)
+            data = tag_data.get(field)
             if data is not None:
                 data_type = data.type
 

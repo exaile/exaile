@@ -46,6 +46,7 @@ def data(request, tmpdir):
         
         return truth, loc, dbtype
 
+
 def test_migration(data):
     truth, loc, dbtype = data
     

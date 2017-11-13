@@ -127,7 +127,9 @@ class get_track_list(threading.Thread):
         self.callback = callback
 
     def run(self):
-        url = "http://api.jamendo.com/get2/id+name+stream+album_id+album_name/track/json/?searchquery=%s&order=%s&n=%s&streamencoding=ogg2" % (self.search_term, self.order_by, self.num_results)
+        url = "http://api.jamendo.com/get2/id+name+stream+album_id+album_name/" \
+            "track/json/?searchquery=%s&order=%s&n=%s&streamencoding=ogg2" % (
+                self.search_term, self.order_by, self.num_results)
         #print('get_track_list: %s' % url)
         tracks = get_json(url)
         track_list = []

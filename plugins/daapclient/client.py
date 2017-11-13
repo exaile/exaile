@@ -129,7 +129,7 @@ class DAAPClient(object):
         DAAPParseCodeTypes(response)
 
     def getInfo(self):
-        response = self.request('/server-info')
+        self.request('/server-info')
 
         # detect the 'old' iTunes 4.2 servers, and set a flag, so we use
         # the real MD5 hash algo to verify requests.
@@ -177,14 +177,16 @@ class DAAPSession(object):
         return self.databases()[0]
 
     def logout(self):
-        response = self.request("/logout")
+        self.request("/logout")
         log.debug('DAAPSession: expired session id %s', self.sessionid)
 
 
 # the atoms we want. Making this list smaller reduces memory footprint,
 # and speeds up reading large libraries. It also reduces the metainformation
 # available to the client.
-daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber"
+daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist," \
+    "daap.songformat,daap.songtime,daap.songsize,daap.songgenre," \
+    "daap.songyear,daap.songtracknumber"
 
 
 class DAAPDatabase(object):

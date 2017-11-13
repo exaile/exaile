@@ -405,7 +405,7 @@ class EventManager(object):
                 callbacks.append(cb)
 
         if self.use_logger:
-            if not self.logger_filter or re.search(self.logger_filter, evty):
+            if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
                 logger.debug("Added callback %s for [%s, %s]" %
                              (function, evty, obj))
 
@@ -445,7 +445,7 @@ class EventManager(object):
                         del cbs[evty]
 
         if self.use_logger:
-            if not self.logger_filter or re.search(self.logger_filter, evty):
+            if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
                 logger.debug("Removed callback %s for [%s, %s]" %
                              (function, evty, obj))
 

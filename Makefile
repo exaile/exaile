@@ -24,14 +24,17 @@ EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
 EXAILECONFDIR  = $(DESTDIR)$(XDGCONFDIR)/exaile
 EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 
-.PHONY: dist test completion coverage clean sanitycheck builddir
+.PHONY: all all_no_locale builddir compile make-install-dirs uninstall \
+	install install_no_locale install-target locale install-locale \
+	plugins-dist manpage completion clean pot potball dist check-doc test \
+	test_coverage lint_errors sanitycheck
 
 all: compile completion locale manpage
 	@echo "Ready to install..."
 
 # The no_locale stuff is by request of BSD people, please ensure
 # all methods that deal with locale stuff have a no_locale variant
-all_no_locale: compile manpage
+all_no_locale: compile completion manpage
 	@echo "Ready to install..."
 
 builddir:
@@ -199,10 +202,11 @@ clean:
 
 po/messages.pot: pot
 
-# The "set -o pipefail" (only works on Bash) makes the whole thing die if any of the find fails.
-# The "LC_ALL=C" disables any locale-dependent sort behavior.
+# The "set -o pipefail" makes the whole thing die if any of the find fails.
+#   dash (Debian's /bin/sh) doesn't support it and exits immediately, so we test it in a subshell.
+# The "export LC_ALL=C" disables any locale-dependent sort behavior.
 pot:
-	( set -o pipefail || true && \
+	( ( set -o pipefail 2> /dev/null ) && set -o pipefail ; \
 	  export LC_ALL=C && cd po && \
 	  { find ../xl ../xlgui -name "*.py" | sort && \
 	    find ../data/ui -name "*.ui" | sort && \
@@ -222,6 +226,17 @@ dist:
 	git archive HEAD --prefix=copy/ | tar -x -C dist
 	./tools/dist.sh
 	rm -rf dist/copy
+
+# See .travis.yml for details on how tests are ran by Travis CI
+check-doc: clean
+	$(MAKE) -C doc html
+
+BUILD_DIR		= /tmp/exaile-test-build
+test_compile:
+	mkdir -p $(BUILD_DIR)
+	cp --recursive xl xlgui plugins $(BUILD_DIR)
+	$(PYTHON2_CMD) -m compileall -q $(BUILD_DIR)
+	$(PYTHON2_CMD) -O -m compileall -q $(BUILD_DIR)
 
 test:
 	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests

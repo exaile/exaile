@@ -174,7 +174,7 @@ class CDPlaylist(playlist.Playlist):
             song = trax.Track("cdda://%d/#%s" % (count, self.device))
             song.set_tags(title="Track %d" % count,
                           tracknumber=str(count),
-                          __length, length)
+                          __length=length)
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner

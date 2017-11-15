@@ -713,18 +713,14 @@ class Library(object):
         uri = gloc.get_uri()
         if not uri:  # we get segfaults if this check is removed
             return None
-        mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
-        mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
+        
         tr = self.collection.get_track_by_loc(uri)
         if tr:
-            if force_update or tr.get_tag_raw('__modified') < mtime:
-                tr.read_tags()
-                tr.set_tag_raw('__modified', mtime)
+            tr.read_tags(force=force_update)
         else:
             tr = trax.Track(uri)
             if tr._scan_valid:
                 self.collection.add(tr)
-                tr.set_tag_raw('__modified', mtime)
 
             # Track already existed. This fixes trax.get_tracks_from_uri
             # on windows, unknown why fix isnt needed on linux.

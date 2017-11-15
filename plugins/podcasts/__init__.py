@@ -168,10 +168,9 @@ class PodcastPanel(panel.Panel):
                 for link in e.get('enclosures', []):
                     tr = trax.Track(link.href)
                     date = e['updated_parsed']
-                    tr.set_tag_raw('artist', title)
-                    tr.set_tag_raw('title', '%s: %s' % (e['title'], link.href.split('/')[-1]))
-                    tr.set_tag_raw('date', "%d-%02d-%02d" %
-                                   (date.tm_year, date.tm_mon, date.tm_mday))
+                    tr.set_tags(artist=title,
+                                title='%s: %s' % (e['title'], link.href.split('/')[-1]),
+                                date="%d-%02d-%02d" % (date.tm_year, date.tm_mon, date.tm_mday))
                     tracks.append(tr)
 
             pl.extend(tracks)

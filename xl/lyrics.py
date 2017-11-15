@@ -279,11 +279,11 @@ class LyricsManager(providers.ProviderHandler):
         except (ValueError, AttributeError):
             pass
 
-    def on_track_tags_changed(self, e, track, tag):
+    def on_track_tags_changed(self, e, track, tags):
         """
             Updates the internal cache upon lyric tag changes
         """
-        if tag == 'lyrics':
+        if 'lyrics' in tags:
             local_provider = self.get_provider('__local')
 
             # If the local tag provider was removed, don't bother

@@ -211,9 +211,8 @@ class ExaileScrobbler(object):
 
     def on_play(self, type, player, track):
         if self.submit:
-            track.set_tag_raw('__audioscrobbler_playtime',
-                              track.get_tag_raw('__playtime'))
-            track.set_tag_raw('__audioscrobbler_starttime', time.time())
+            track.set_tags(__audioscrobbler_playtime=track.get_tag_raw('__playtime'),
+                           __audioscrobbler_starttime=time.time())
 
             if track.is_local() or self.scrobble_remote:
                 self.now_playing(player, track)
@@ -231,8 +230,8 @@ class ExaileScrobbler(object):
                                          track.get_tag_raw('__audioscrobbler_starttime'),
                                          playtime)
 
-        track.set_tag_raw('__audioscrobbler_starttime', None)
-        track.set_tag_raw('__audioscrobbler_playtime', None)
+        track.set_tag_raw(__audioscrobbler_starttime=None,
+                          __audioscrobbler_playtime=None)
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size

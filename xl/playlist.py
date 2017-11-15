@@ -676,9 +676,12 @@ class ASXConverter(FormatConverter):
                 for trackdata in playlistdata['tracks']:
                     track = trax.Track(self.get_track_import_path(path, trackdata['uri']))
 
+                    ntags = {}
                     for tag, value in trackdata['tags'].iteritems():
                         if not track.get_tag_raw(tag) and value:
-                            track.set_tag_raw(tag, value)
+                            ntags[tag] = value
+                    if ntags:
+                        track.set_tags(**ntags)
 
                     playlist.append(track)
 

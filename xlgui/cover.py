@@ -774,7 +774,7 @@ class CoverWidget(Gtk.EventBox):
 
         self.emit('cover-found', pixbuf)
 
-    def on_track_tags_changed(self, e, track, tag):
+    def on_track_tags_changed(self, e, track, tags):
         """
             Updates the displayed cover upon tag changes
         """

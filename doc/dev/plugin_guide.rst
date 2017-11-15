@@ -207,9 +207,9 @@ You can set the track information like this:
 
 .. code-block:: python
 
-    myTrack.set_tag_raw('title', "Cool Track")
-    myTrack.set_tag_raw('artist', "Cool Artist")
-    myTrack.set_tag_raw('album', "Cool Album")
+    myTrack.set_tags(title='Cool Track',
+                     artist='Cool Person',
+                     album='Cool Album')
 
 Once you have a Track object, and a handle on the Playlist you would like
 to add the track to, you can proceed to add the track:

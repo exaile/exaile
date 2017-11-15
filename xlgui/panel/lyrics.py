@@ -100,8 +100,8 @@ class LyricsPanel(panel.Panel):
     def __on_lyrics_search_method_added(self, _eventtype, _lyrics, _provider):
         self.__update_lyrics()
 
-    def __on_track_tags_changed(self, _eventtype, track, tag):
-        if player.PLAYER.current == track and tag in ["artist", "title"]:
+    def __on_track_tags_changed(self, _eventtype, track, tags):
+        if player.PLAYER.current == track and tags & {"artist", "title"}:
             self.__update_lyrics()
 
     def __on_playback_track_start(self, _eventtype, _player, _data):

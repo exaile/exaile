@@ -155,9 +155,8 @@ class CDImporter(object):
             if not self.running:
                 break
             tr2 = trax.Track("file://" + outloc)
-            for t in tr.list_tags():
-                if not t.startswith("__"):
-                    tr2.set_tag_raw(t, tr.get_tag_raw(t))
+            ntags = {t: tr.get_tag_raw(t) for t in tr.list_tags() if not t.startswith("__")}
+            tr2.set_tags(**ntags)
             tr2.write_tags()
             try:
                 incr = tr.get_tag_raw('__length') / self.duration

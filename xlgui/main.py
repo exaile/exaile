@@ -626,7 +626,7 @@ class MainWindow(GObject.GObject):
         percent = min(percent, 100)
         self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
 
-    def on_track_tags_changed(self, type, track, tag):
+    def on_track_tags_changed(self, type, track, tags):
         """
             Called when tags are changed
         """

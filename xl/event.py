@@ -73,7 +73,7 @@ def log_event(evty, obj, data):
         :type data: object
     """
     global EVENT_MANAGER
-    e = Event(evty, obj, data, time.time())
+    e = Event(evty, obj, data)
     EVENT_MANAGER.emit(e)
 
 
@@ -149,9 +149,9 @@ class Event(object):
     """
         Represents an Event
     """
-    __slots__ = ['type', 'object', 'data', 'time']
+    __slots__ = ['type', 'object', 'data']
 
-    def __init__(self, evty, obj, data, time):
+    def __init__(self, evty, obj, data):
         """
             evty: the 'type' or 'name' for this Event [string]
             obj: the object emitting the Event [object]
@@ -160,7 +160,6 @@ class Event(object):
         self.type = evty
         self.object = obj
         self.data = data
-        self.time = time
 
 
 class Callback(object):
@@ -340,7 +339,7 @@ class EventManager(object):
                             exc_callbacks[event.type][event.object].remove(cb)
                         except (KeyError, ValueError):
                             pass
-                elif event.time >= cb.time:
+                else:
                     if emit_verbose:
                         logger.debug("Attempting to call "
                                      "%(function)s in response "

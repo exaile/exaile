@@ -96,6 +96,8 @@ def add_callback(function, evty=None, obj=None, *args, **kwargs):
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
         :type obj: object
+        :param destroy_with: (keyword arg only) If specified, this event will be
+                             detached when the specified Gtk widget is destroyed
 
         Any additional parameters will be passed to the callback.
 
@@ -125,6 +127,8 @@ def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
         :type obj: object
+        :param destroy_with: (keyword arg only) If specified, this event will be
+                             detached when the specified Gtk widget is destroyed
 
         Any additional parameters will be passed to the callback.
 
@@ -383,6 +387,8 @@ class EventManager(object):
         else:
             all_cbs = [self.callbacks, self.all_callbacks]
 
+        destroy_with = kwargs.pop('destroy_with', None)
+
         if evty is None:
             evty = _NONE
         if obj is None:
@@ -407,6 +413,9 @@ class EventManager(object):
             if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
                 logger.debug("Added callback %s for [%s, %s]" %
                              (function, evty, obj))
+
+        if destroy_with is not None:
+            destroy_with.connect('destroy', lambda w: self.remove_callback(function, evty, obj))
 
         return lambda: self.remove_callback(function, evty, obj)
 

@@ -69,6 +69,9 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
         try:
             with open(os.devnull, 'wb') as devnull:
                 subprocess.check_call(('moodbar', '--help'), stdout=devnull)
+        except subprocess.CalledProcessError:
+            # executable exists but returned an error code
+            pass
         except Exception:
             raise MoodbarGeneratorError("Failed to run moodbar; make sure it is installed")
 

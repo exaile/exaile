@@ -435,19 +435,21 @@ class PlaylistPage(PlaylistPageBase):
 
         event.add_ui_callback(self.on_mode_changed,
                               'playlist_shuffle_mode_changed', self.playlist,
-                              self.shuffle_button)
+                              self.shuffle_button, destroy_with=self)
         event.add_ui_callback(self.on_mode_changed,
                               'playlist_repeat_mode_changed', self.playlist,
-                              self.repeat_button)
+                              self.repeat_button, destroy_with=self)
         event.add_ui_callback(self.on_mode_changed,
                               'playlist_dynamic_mode_changed', self.playlist,
-                              self.dynamic_button)
+                              self.dynamic_button, destroy_with=self)
         event.add_ui_callback(self.on_dynamic_playlists_provider_changed,
-                              'dynamic_playlists_provider_added')
+                              'dynamic_playlists_provider_added',
+                              destroy_with=self)
         event.add_ui_callback(self.on_dynamic_playlists_provider_changed,
-                              'dynamic_playlists_provider_removed')
+                              'dynamic_playlists_provider_removed',
+                              destroy_with=self)
         event.add_ui_callback(self.on_option_set,
-                              'gui_option_set')
+                              'gui_option_set', destroy_with=self)
 
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
         self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
@@ -726,8 +728,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                            Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
                            Gdk.DragAction.MOVE)
 
-        event.add_ui_callback(self.on_option_set, "gui_option_set")
-        event.add_ui_callback(self.on_playback_start, "playback_track_start", self.player)
+        event.add_ui_callback(self.on_option_set,
+                              "gui_option_set", destroy_with=self)
+        event.add_ui_callback(self.on_playback_start,
+                              "playback_track_start", self.player,
+                              destroy_with=self)
         self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
@@ -866,7 +871,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # FIXME: this is kinda ick because of supporting both models
         #self.model.columns = columns
         # TODO: What is the fixme talking about?
-        self.model = PlaylistModel(self.playlist, columns, self.player)
+        self.model = PlaylistModel(self.playlist, columns, self.player, self)
         self.model.connect('row-inserted', self.on_row_inserted)
         self.set_model(self.model)
         self._setup_filter()
@@ -1320,7 +1325,7 @@ class PlaylistModel(Gtk.ListStore):
         )
     }
 
-    def __init__(self, playlist, columns, player):
+    def __init__(self, playlist, columns, player, parent):
         Gtk.ListStore.__init__(self, int)  # real types are set later
         self.playlist = playlist
         self.columns = columns
@@ -1337,25 +1342,35 @@ class PlaylistModel(Gtk.ListStore):
         self._redraw_queue = []
 
         event.add_ui_callback(self.on_tracks_added,
-                              "playlist_tracks_added", playlist)
+                              "playlist_tracks_added", playlist,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_tracks_removed,
-                              "playlist_tracks_removed", playlist)
+                              "playlist_tracks_removed", playlist,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_current_position_changed,
-                              "playlist_current_position_changed", playlist)
+                              "playlist_current_position_changed", playlist,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_spat_position_changed,
-                              "playlist_spat_position_changed", playlist)
+                              "playlist_spat_position_changed", playlist,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_playback_state_change,
-                              "playback_track_start", self.player)
+                              "playback_track_start", self.player,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_playback_state_change,
-                              "playback_track_end", self.player)
+                              "playback_track_end", self.player,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_playback_state_change,
-                              "playback_player_pause", self.player)
+                              "playback_player_pause", self.player,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_playback_state_change,
-                              "playback_player_resume", self.player)
+                              "playback_player_resume", self.player,
+                              destroy_with=parent)
         event.add_ui_callback(self.on_track_tags_changed,
-                              "track_tags_changed")
+                              "track_tags_changed",
+                              destroy_with=parent)
 
-        event.add_ui_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_option_set, "gui_option_set",
+                              destroy_with=parent)
 
         self._setup_icons()
         self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist)))  # populate the list

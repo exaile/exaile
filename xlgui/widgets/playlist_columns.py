@@ -83,12 +83,13 @@ class Column(Gtk.TreeViewColumn):
             self.extrasize = pbufsize
             self.icon_cellr.set_property('xalign', 0.0)
             self.pack_start(self.icon_cellr, False)
-            self.pack_start(self.cellrenderer, True)
             self.set_attributes(self.icon_cellr, pixbuf=1)
-            self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
         else:
-            super(Column, self).__init__(self.display, self.cellrenderer,
-                                         **{self.dataproperty: index})
+            super(Column, self).__init__(self.display)
+        
+        self.props.min_width = 3
+        
+        self.pack_start(self.cellrenderer, True)
         self.set_cell_data_func(self.cellrenderer, self.data_func)
 
         try:
@@ -112,7 +113,8 @@ class Column(Gtk.TreeViewColumn):
         self._width_notify = self.connect('notify::width', self.on_width_changed)
         self._setup_sizing()
 
-        event.add_ui_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_option_set, "gui_option_set",
+                              destroy_with=container)
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
@@ -186,23 +188,26 @@ class Column(Gtk.TreeViewColumn):
         return self._font_ratio
 
     def data_func(self, col, cell, model, iter, user_data):
-        if isinstance(cell, Gtk.CellRendererText):
-            playlist = self.container.playlist
-
-            if playlist is not self.player.queue.current_playlist:
-                return
-
-            path = model.get_path(iter)
-            track = model.get_value(iter, 0)
-
+        # warning: this function gets called from the render function, so do as
+        #          little work as possible!
+        
+        path = model.get_path(iter)
+        track = model.get_value(iter, 0)
+        
+        cell.props.text = self.formatter.format(track)
+        
+        # TODO: cache these properties somewhere instead of computing them?s
+        playlist = self.container.playlist
+        if playlist is not self.player.queue.current_playlist:
+            cell.props.weight = Pango.Weight.NORMAL
+            cell.props.sensitive = True
+        else:
             if track == self.player.current and \
                path[0] == playlist.get_current_position():
-                weight = Pango.Weight.HEAVY
+                cell.props.weight = Pango.Weight.HEAVY
             else:
-                weight = Pango.Weight.NORMAL
-
-            cell.props.weight = weight
-
+                cell.props.weight = Pango.Weight.NORMAL
+            
             if -1 < playlist.spat_position < path[0] and \
                     playlist.shuffle_mode == 'disabled':
                 cell.props.sensitive = False

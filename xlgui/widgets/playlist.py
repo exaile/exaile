@@ -31,7 +31,6 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from itertools import izip
 import logging
 import sys
 
@@ -637,11 +636,14 @@ class PlaylistPage(PlaylistPageBase):
         '''Called when tracks are being loaded into the model'''
         if loading:
             if self.loading is None and self.loading_timer is None:
+                self.view.set_model(None)
                 self.loading_timer = GLib.timeout_add(500, self.on_data_loading_timer)
         else:
             if self.loading_timer is not None:
                 GLib.source_remove(self.loading_timer)
                 self.loading_timer = None
+            
+            self.view.set_model(self.view.modelfilter)
 
             if self.loading is not None:
                 guiutil.gtk_widget_replace(self.loading, self.playlist_window)
@@ -1332,7 +1334,8 @@ class PlaylistModel(Gtk.ListStore):
     }
 
     def __init__(self, playlist, columns, player, parent):
-        Gtk.ListStore.__init__(self, int)  # real types are set later
+        # columns: Track, Pixbuf
+        Gtk.ListStore.__init__(self, object, GdkPixbuf.Pixbuf)
         self.playlist = playlist
         self.columns = columns
         self.column_names = set(columns)
@@ -1340,9 +1343,6 @@ class PlaylistModel(Gtk.ListStore):
 
         self.data_loading = False
         self.data_load_queue = []
-
-        self.coltypes = [object, GdkPixbuf.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
-        self.set_column_types(self.coltypes)
 
         self._redraw_timer = None
         self._redraw_queue = []
@@ -1493,19 +1493,13 @@ class PlaylistModel(Gtk.ListStore):
 
     def _on_track_tags_changed(self):
         self._redraw_timer = None
-        tracks = {}
-        redraw_queue = self._redraw_queue
+        redraw_queue = set(self._redraw_queue)
         self._redraw_queue = []
-        for track in redraw_queue:
-            tracks[track.get_loc_for_io()] = track
 
         for row in self:
-            track = tracks.get(row[0].get_loc_for_io())
-            if track is not None:
-                track_data = [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
-                for i in range(len(track_data)):
-                    row[2 + i] = track_data[i]
-
+            if row[0] in redraw_queue:
+                self.row_changed(row.path, row.iter)
+            
     #
     # Loading data into the playlist:
     #
@@ -1526,39 +1520,30 @@ class PlaylistModel(Gtk.ListStore):
         if self.data_loading:
             self.data_load_queue.extend(tracks)
             return
-
-        # get column types
-        coltypes = [self.get_column_type(i) for i in xrange(self.get_n_columns())]
-        formatters = [providers.get_provider('playlist-columns', name).formatter.format for name in self.columns]
+        
         self.data_loading = True
         self.emit('data-loading', True)
 
-        if len(tracks) > 50:
-            self._load_data_thread(coltypes, formatters, tracks)
+        if len(tracks) > 500:
+            self._load_data_thread(tracks)
         else:
-            render_data = self._load_data_fn(coltypes, formatters, tracks)
+            render_data = self._load_data_fn(tracks)
             self._load_data_done(render_data)
 
     @common.threaded
-    def _load_data_thread(self, coltypes, formatters, tracks):
-        render_data = self._load_data_fn(coltypes, formatters, tracks)
+    def _load_data_thread(self, tracks):
+        render_data = self._load_data_fn(tracks)
         GLib.idle_add(self._load_data_done, render_data)
 
-    def _load_data_fn(self, coltypes, formatters, tracks):
-
-        Value = GObject.Value
-
-        render_data = []
-
-        for position, track in tracks:
-            track_data = [track, self.icon_for_row(position).pixbuf] + [formatter(track) for formatter in formatters]
-            render_data.append((position, [Value(typ, val) for typ, val in izip(coltypes, track_data)]))
-
-        return render_data
+    def _load_data_fn(self, tracks):
+        return [
+            (position, (0, 1), (track, self.icon_for_row(position).pixbuf)) \
+            for position, track in tracks
+        ]
 
     def _load_data_done(self, render_data):
         for args in render_data:
-            self.insert(*args)
+            self.insert_with_valuesv(*args)
 
         self.data_loading = False
         self.emit('data-loading', False)

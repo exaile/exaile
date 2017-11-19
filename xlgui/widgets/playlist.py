@@ -590,7 +590,7 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist.repeat_mode = mode
 
     def on_mode_changed(self, evtype, playlist, mode, button):
-        GLib.idle_add(button.set_active, mode != 'disabled')
+        button.set_active(mode != 'disabled')
 
     def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
         """
@@ -604,8 +604,8 @@ class PlaylistPage(PlaylistPageBase):
             sensitive = True
             tooltip_text = _('Dynamically add similar tracks to the playlist')
 
-        GLib.idle_add(self.dynamic_button.set_sensitive, sensitive)
-        GLib.idle_add(self.dynamic_button.set_tooltip_text, tooltip_text)
+        self.dynamic_button.set_sensitive(sensitive)
+        self.dynamic_button.set_tooltip_text(tooltip_text)
 
     def on_option_set(self, evtype, settings, option):
         """
@@ -613,9 +613,9 @@ class PlaylistPage(PlaylistPageBase):
         """
         if option == 'gui/playlist_utilities_bar_visible':
             visible = settings.get_option(option, True)
-            GLib.idle_add(self.playlist_utilities_bar.set_visible, visible)
-            GLib.idle_add(self.playlist_utilities_bar.set_sensitive, visible)
-            GLib.idle_add(self.playlist_utilities_bar.set_no_show_all, not visible)
+            self.playlist_utilities_bar.set_visible(visible)
+            self.playlist_utilities_bar.set_sensitive(visible)
+            self.playlist_utilities_bar.set_no_show_all(not visible)
 
     def on_row_changed(self, model, path, iter):
         """
@@ -966,13 +966,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns" or data == 'gui/playlist_font':
-            GLib.idle_add(self._refresh_columns, priority=GLib.PRIORITY_DEFAULT)
+            self._refresh_columns()
 
     def on_playback_start(self, type, player, track):
         if player.queue.current_playlist == self.playlist and \
                 player.current == self.playlist.current and \
                 settings.get_option('gui/ensure_visible', True):
-            GLib.idle_add(self.scroll_to_current)
+            self.scroll_to_current()
 
     def scroll_to_current(self):
         position = self.playlist.current_position
@@ -1425,7 +1425,7 @@ class PlaylistModel(Gtk.ListStore):
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/playlist_font":
-            GLib.idle_add(self._refresh_icons)
+            self._refresh_icons()
 
     def icon_for_row(self, row):
         # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
@@ -1467,18 +1467,18 @@ class PlaylistModel(Gtk.ListStore):
         for position in positions:
             if position < 0:
                 continue
-            GLib.idle_add(self.update_icon, position)
+            self.update_icon(position)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
         spat_position = min(positions)
         for position in xrange(spat_position, len(self)):
-            GLib.idle_add(self.update_icon, position)
+            self.update_icon(position)
 
     def on_playback_state_change(self, event_type, player_obj, track):
         position = self.playlist.current_position
         if position < 0 or position >= len(self):
             return
-        GLib.idle_add(self.update_icon, position)
+        self.update_icon(position)
 
     def on_track_tags_changed(self, type, track, tags):
         if not track or not \

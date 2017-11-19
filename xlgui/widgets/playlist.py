@@ -921,14 +921,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if firstpath:
             topindex = firstpath[0][0]
 
-        self.disconnect(self.columns_changed_id)
-        columns = self.get_columns()
-        for col in columns:
-            self.remove_column(col)
+        with self.handler_block(self.columns_changed_id):
+            columns = self.get_columns()
+            for col in columns:
+                self.remove_column(col)
 
-        self._setup_columns()
-        self.columns_changed_id = self.connect("columns-changed",
-                                               self.on_columns_changed)
+            self._setup_columns()
+        
         self.queue_draw()
 
         if firstpath:

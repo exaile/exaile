@@ -960,8 +960,10 @@ class Track(object):
         """
         # value is appended afterwards so that like-accented values
         # will sort together.
-        return u''.join([c for c in unicodedata.normalize('NFD', value)
-                         if unicodedata.category(c) != 'Mn']) + u" " + value
+        normalize = unicodedata.normalize
+        category = unicodedata.category
+        return u''.join([c for c in normalize('NFD', value)
+                         if category(c) != 'Mn']) + u" " + value
 
     @staticmethod
     def expand_doubles(value):

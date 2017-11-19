@@ -733,7 +733,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         event.add_ui_callback(self.on_playback_start,
                               "playback_track_start", self.player,
                               destroy_with=self)
-        self.connect("cursor-changed", self.on_cursor_changed)
+        self._cursor_changed = self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
 
@@ -962,7 +962,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 col.set_sort_indicator(False)
                 col.set_sort_order(Gtk.SortType.DESCENDING)
         reverse = order == Gtk.SortType.DESCENDING
-        self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
+        with self.handler_block(self._cursor_changed):
+            self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns" or data == 'gui/playlist_font':

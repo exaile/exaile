@@ -235,9 +235,10 @@ class Track(object):
             self._unpickles(_unpickles)
             self.__register()
         elif uri:
-            self.set_loc(uri)
+            # notify isn't needed here because this is a new track
+            self.set_loc(uri, notify_changed=False)
             if scan:
-                self.read_tags()
+                self.read_tags(notify_changed=False)
         else:
             raise ValueError("Cannot create a Track from nothing")
 
@@ -258,7 +259,7 @@ class Track(object):
         except KeyError:
             pass
 
-    def set_loc(self, loc):
+    def set_loc(self, loc, notify_changed=True):
         """
             Sets the location.
 
@@ -268,7 +269,8 @@ class Track(object):
         gloc = Gio.File.new_for_commandline_arg(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
-        event.log_event('track_tags_changed', self, {'__loc'})
+        if notify_changed:
+            event.log_event('track_tags_changed', self, {'__loc'})
 
     def exists(self):
         """
@@ -366,7 +368,7 @@ class Track(object):
             logger.exception("Unknown exception: Could not write tags to file")
             return False
 
-    def read_tags(self, force=True):
+    def read_tags(self, force=True, notify_changed=True):
         """
             Reads tags from the file for this Track.
             
@@ -415,7 +417,7 @@ class Track(object):
             for tag in to_del:
                 ntags[tag] = None
 
-            self.set_tags(**ntags)
+            self.set_tags(notify_changed=notify_changed, **ntags)
 
             self._scan_valid = True
             return f

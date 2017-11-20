@@ -36,6 +36,7 @@ import re
 from xl import common, settings
 from xl.nls import gettext as _
 
+from xlgui import guiutil
 from xlgui.widgets import dialogs, menu, notebook
 
 import gt_common
@@ -139,11 +140,10 @@ class GroupTaggerView(Gtk.TreeView):
         #
 
         self.menu = GroupTaggerContextMenu(self)
+        self.menu.connect_to_widget(self, guiutil.treeview_handle_popup)
+        
         smi = menu.simple_menu_item
         sep = menu.simple_separator
-
-        self.connect('popup-menu', self.on_popup_menu)
-        self.connect('button-release-event', self.on_mouse_release)
 
         if editable:
 
@@ -305,14 +305,6 @@ class GroupTaggerView(Gtk.TreeView):
     def get_selected_categories(self, selected_rows):
         model, rows = selected_rows
         return model.get_selected_categories(rows)
-
-    def on_mouse_release(self, widget, event):
-        if event.triggers_context_menu():
-            self.menu.popup(None, None, None, None, event.button, event.time)
-
-    def on_popup_menu(self, widget):
-        self.menu.popup(None, None, None, None, 0, 0)
-        return True
 
     def sync_expanded(self):
         '''Syncs the expansion state stored in the model to the tree'''

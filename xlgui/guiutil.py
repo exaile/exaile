@@ -538,4 +538,41 @@ def css_from_pango_font_description(pango_font_str):
     )
     return font_css_str
 
+
+def connect_popup_menu(widget, handler):
+    '''
+        Reliably configures a widget so that the handler will be called
+        when a right click or context menu action is triggered
+
+        :param widget: widget to connect events on
+        :param handler: function that will be called when a menu should be
+                        popped up
+        :type handler: fn(widget, event)
+
+        .. note:: Prefer to use ``menu.Menu.connect_to_widget`` instead
+    '''
+
+    def _button_press(w, event):
+        if event.triggers_context_menu():
+            handler(w, event)
+            return True
+
+    def _popup_menu(w):
+        handler(w, None)
+        return True
+
+    # enable BUTTON_PRESS_MASK
+    widget.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+    widget.connect('button-press-event', _button_press)
+    widget.connect('popup-menu', _popup_menu)
+
+def treeview_handle_popup(widget, evt):
+    '''
+        Use as a handler for Menu.connect_to_widget() when you desire normal
+        TreeView click behavior to work while using a menu
+    '''
+    if evt:
+        # Allow the normal treeview button press things to occur
+        widget.do_button_press_event(widget, evt)
+
 # vim: et sts=4 sw=4

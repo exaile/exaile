@@ -27,6 +27,7 @@
 from gi.repository import Gtk
 
 from xl import common, providers
+from xlgui import guiutil
 
 # Fake accel group so that menuitems can trick GTK into
 # showing accelerators in the menus.
@@ -320,11 +321,33 @@ class Menu(Gtk.Menu):
             if subitem is not None:
                 self.append(subitem)
         self.show_all()
-
+    
+    def connect_to_widget(self, widget, handler=None):
+        '''
+            Reliably configures a widget so that the menu will be triggered
+            when a right click or context menu action is triggered
+            
+            :param widget: Widget to attach the menu to
+            :param handler: If specified, the handler will be called right before
+                            the menu popup is triggered
+        '''
+        def _popup(widget, event):
+            if handler:
+                handler(widget, event)
+            if event:
+                Gtk.Menu.popup(self, None, None, None, None, event.button, event.time)
+            else:
+                Gtk.Menu.popup(self, None, None, None, None, 0, Gtk.get_current_event_time())
+        
+        guiutil.connect_popup_menu(widget, _popup)
+        self.attach_to_widget(widget)
+    
     def popup(self, *args):
         """
             Pops out the menu (Only if
             there are items to show)
+            
+            .. note:: Prefer using connect_to_widget instead
         """
         if len(self._items) > 0:
             if len(args) == 1:

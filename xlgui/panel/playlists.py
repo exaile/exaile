@@ -856,7 +856,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             Called when a button is pressed, is responsible
             for showing the context menu
         """
-        if event.triggers_context_menu():
+        #if event.triggers_context_menu():  # fixme: fired on button press only
+        if event.button == Gdk.BUTTON_SECONDARY:
             button_info = self.tree.get_dest_row_at_pos(
                 int(event.x), int(event.y))
             if not button_info:

@@ -143,7 +143,7 @@ class GroupTaggerView(Gtk.TreeView):
         sep = menu.simple_separator
 
         self.connect('popup-menu', self.on_popup_menu)
-        self.connect('button-release-event', self.on_mouse_release)
+        self.connect('button-press-event', self.on_button_press)
 
         if editable:
 
@@ -306,9 +306,11 @@ class GroupTaggerView(Gtk.TreeView):
         model, rows = selected_rows
         return model.get_selected_categories(rows)
 
-    def on_mouse_release(self, widget, event):
+    def on_button_press(self, widget, event):
+        widget.do_button_press_event(widget, event)
         if event.triggers_context_menu():
             self.menu.popup(None, None, None, None, event.button, event.time)
+        return True
 
     def on_popup_menu(self, widget):
         self.menu.popup(None, None, None, None, 0, 0)

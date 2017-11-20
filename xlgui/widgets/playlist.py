@@ -404,6 +404,11 @@ class PlaylistPage(PlaylistPageBase):
         self.loading = None
         self.loading_timer = None
 
+        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-start', size=Gtk.IconSize.MENU)
+        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-pause', size=Gtk.IconSize.MENU)
+
         uifile = xdg.get_data_path("ui", "playlist.ui")
         self.builder = Gtk.Builder()
         self.builder.add_from_file(uifile)
@@ -450,13 +455,25 @@ class PlaylistPage(PlaylistPageBase):
         event.add_ui_callback(self.on_option_set,
                               'gui_option_set', destroy_with=self)
 
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_track_start", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_track_end", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_player_pause", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_player_resume", player,
+                              destroy_with=self)
+
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
         self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
         self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
         self.on_dynamic_playlists_provider_changed(None, None, None)
         self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
         self.view.connect('button-press-event', self.on_view_button_press_event)
-        self.view.model.connect('row-changed', self.on_row_changed)
         self.view.model.connect('data-loading', self.on_data_loading)
 
         if self.view.model.data_loading:
@@ -616,21 +633,18 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist_utilities_bar.set_sensitive(visible)
             self.playlist_utilities_bar.set_no_show_all(not visible)
 
-    def on_row_changed(self, model, path, iter):
+    def on_playback_state_change(self, typ, player, track):
         """
             Sets the tab icon to reflect the playback status
         """
-        if path[0] == self.playlist.current_position:
-            pixbuf = model.get_value(iter, 1)
-            if pixbuf == model.clear_pixbuf:
-                pixbuf = None
-            self.tab.set_icon(pixbuf)
-
-        # there's a race condition on playback stop at the end of
-        # a playlist (current_position gets set before this is called),
-        # so this sets the icon correctly.
-        elif self.playlist.current_position == -1:
+        if player.queue.current_playlist != self.playlist:
             self.tab.set_icon(None)
+        elif typ in ('playback_player_end', 'playback_track_end'):
+            self.tab.set_icon(None)
+        elif typ in ('playback_track_start', 'playback_player_resume'):
+            self.tab.set_icon(self.play_pixbuf)
+        elif typ == 'playback_player_pause':
+            self.tab.set_icon(self.pause_pixbuf)
 
     def on_data_loading(self, model, loading):
         '''Called when tracks are being loaded into the model'''

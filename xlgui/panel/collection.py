@@ -47,6 +47,7 @@ from xlgui import (
     panel
 )
 from xlgui.panel import menus
+from xlgui.widgets import menu
 from xlgui.widgets.common import DragTreeView
 
 logger = logging.getLogger(__name__)
@@ -262,11 +263,12 @@ class CollectionPanel(panel.Panel):
             Called on mouse activation of the refresh button
         """
         if event.triggers_context_menu():
-            menu = guiutil.Menu()
-            menu.append(_('Rescan Collection'),
-                        xlgui.get_controller().on_rescan_collection,
-                        Gtk.STOCK_REFRESH)
-            menu.popup(None, None, None, None, event.button, event.time)
+            m = menu.Menu(None)
+            m.attach_to_widget(button)
+            m.add_simple(_('Rescan Collection'),
+                         xlgui.get_controller().on_rescan_collection,
+                         Gtk.STOCK_REFRESH)
+            m.popup(event)
             return
 
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:

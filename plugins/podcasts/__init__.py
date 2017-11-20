@@ -13,8 +13,7 @@ from xl import event, common, playlist, providers
 from xl import trax
 from xl.nls import gettext as _
 from xlgui import panel, main
-from xlgui import guiutil
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, menu
 from xl import xdg
 
 # set up logger
@@ -78,9 +77,10 @@ class PodcastPanel(panel.Panel):
 
         self.status = self.builder.get_object('podcast_statusbar')
 
-        self.menu = guiutil.Menu()
-        self.menu.append(_('Refresh Podcast'), self._on_refresh, Gtk.STOCK_REFRESH)
-        self.menu.append(_('Delete'), self._on_delete, Gtk.STOCK_DELETE)
+        self.menu = menu.Menu(self)
+        self.menu.add_simple(_('Refresh Podcast'), self._on_refresh, Gtk.STOCK_REFRESH)
+        self.menu.add_simple(_('Delete'), self._on_delete, Gtk.STOCK_DELETE)
+        self.menu.attach_to_widget(self.tree)
 
     @common.idle_add()
     def _set_status(self, message, timeout=0):

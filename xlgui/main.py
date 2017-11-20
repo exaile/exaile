@@ -512,11 +512,11 @@ class MainWindow(GObject.GObject):
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.on_spat_clicked()
         elif event.triggers_context_menu():
-            menu = guiutil.Menu()
-            menu.append(_("Toggle: Stop after Selected Track"),
-                        self.on_spat_clicked,
-                        'process-stop')
-            menu.popup(None, None, None, None, event.button, event.time)
+            m = menu.Menu(self)
+            m.attach_to_widget(widget)
+            m.add_simple(_("Toggle: Stop after Selected Track"),
+                         self.on_spat_clicked, 'process-stop')
+            m.popup(event)
 
     def on_stop_button_release_event(self, widget, event):
         """

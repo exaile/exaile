@@ -47,7 +47,7 @@ from xl import (
 )
 from xl.covers import MANAGER as COVER_MANAGER
 from xl.nls import gettext as _
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, menu
 from xlgui import (
     guiutil,
     icons
@@ -507,7 +507,7 @@ class CoverManager(GObject.GObject):
         return True
 
 
-class CoverMenu(guiutil.Menu):
+class CoverMenu(menu.Menu):
     """
         Cover menu
     """
@@ -516,12 +516,12 @@ class CoverMenu(guiutil.Menu):
         """
             Initializes the menu
         """
-        guiutil.Menu.__init__(self)
+        menu.Menu.__init__(self, widget)
         self.w = widget
-
-        self.append(_('Show Cover'), self.on_show_clicked)
-        self.append(_('Fetch Cover'), self.on_fetch_clicked)
-        self.append(_('Remove Cover'), self.on_remove_clicked)
+        
+        self.add_simple(_('Show Cover'), self.on_show_clicked)
+        self.add_simple(_('Fetch Cover'), self.on_fetch_clicked)
+        self.add_simple(_('Remove Cover'), self.on_remove_clicked)
 
     def on_show_clicked(self, *e):
         """
@@ -556,6 +556,8 @@ class CoverWidget(Gtk.EventBox):
         self.image = image
         self.cover_data = None
         self.menu = CoverMenu(self)
+        self.menu.attach_to_widget(self)
+        
         self.filename = None
 
         guiutil.gtk_widget_replace(image, self)

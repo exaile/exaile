@@ -731,7 +731,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
 
         self._filter_matcher = None
-
+        
+        self._setup_models()
         self._setup_columns()
         self.columns_changed_id = self.connect("columns-changed",
                                                self.on_columns_changed)
@@ -889,15 +890,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if not columns:
             columns = playlist_columns.DEFAULT_COLUMNS
-
-        # FIXME: this is kinda ick because of supporting both models
-        #self.model.columns = columns
-        # TODO: What is the fixme talking about?
-        self.model = PlaylistModel(self.playlist, columns, self.player, self)
-        self.model.connect('row-inserted', self.on_row_inserted)
-        self.set_model(self.model)
-        self._setup_filter()
-
+            
+        self.model._set_columns(columns)
+        
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
             font = Pango.FontDescription(font)
@@ -915,15 +910,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             header.get_ancestor(Gtk.Button).connect('key-press-event',
                                                     self.on_header_key_press_event)
-
-    def _setup_filter(self):
-        '''Call this anytime after you call set_model()'''
-        self.modelfilter = self.get_model().filter_new()
-        self.modelfilter.set_visible_func(self.modelfilter_visible_func)
-        self.set_model(self.modelfilter)
-
-        if self._filter_matcher is not None:
-            self._refilter()
 
     def _refresh_columns(self):
         selection = self.get_selection()
@@ -951,6 +937,20 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if info:
             for path in info[1]:
                 selection.select_path(path)
+
+    def _setup_models(self):
+        self.model = PlaylistModel(self.playlist, [], self.player, self)
+        self.model.connect('row-inserted', self.on_row_inserted)
+
+        self.modelfilter = self.model.filter_new()
+        self.modelfilter.set_visible_func(self._modelfilter_visible_func)
+        self.set_model(self.modelfilter)
+    
+    def _modelfilter_visible_func(self, model, iter, data):
+        if self._filter_matcher is not None:
+            track = model.get_value(iter, 0)
+            return self._filter_matcher.match(trax.SearchResultTrack(track))
+        return True
 
     def on_header_button_press(self, widget, event):
         if event.triggers_context_menu():
@@ -1329,12 +1329,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-    def modelfilter_visible_func(self, model, iter, data):
-        if self._filter_matcher is not None:
-            track = model.get_value(iter, 0)
-            return self._filter_matcher.match(trax.SearchResultTrack(track))
-        return True
-
 
 class PlaylistModel(Gtk.ListStore):
 
@@ -1347,13 +1341,13 @@ class PlaylistModel(Gtk.ListStore):
         )
     }
 
-    def __init__(self, playlist, columns, player, parent):
+    def __init__(self, playlist, column_names, player, parent):
         # columns: Track, Pixbuf
         Gtk.ListStore.__init__(self, object, GdkPixbuf.Pixbuf)
         self.playlist = playlist
-        self.columns = columns
-        self.column_names = set(columns)
         self.player = player
+        
+        self._set_columns(column_names)
 
         self.data_loading = False
         self.data_load_queue = []
@@ -1394,6 +1388,9 @@ class PlaylistModel(Gtk.ListStore):
 
         self._setup_icons()
         self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist)))  # populate the list
+
+    def _set_columns(self, column_names):
+        self.column_names = set(column_names)
 
     def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(

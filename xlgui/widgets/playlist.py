@@ -745,6 +745,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
 
+    def do_destroy(self):
+        # if this isn't disconnected, then the columns are emptied out and
+        # the user's settings are overwritten with an empty list
+        self.disconnect(self.columns_changed_id)
+        AutoScrollTreeView.do_destroy(self)
+
     def _refilter(self):
         # don't emit spurious view events during refilter operations (issue #199)
         # -> cursor-changed

@@ -927,6 +927,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns = self.get_columns()
             for col in columns:
                 self.remove_column(col)
+                col.destroyed = True
 
             self._setup_columns()
         

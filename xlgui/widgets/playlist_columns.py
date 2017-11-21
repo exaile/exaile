@@ -72,6 +72,7 @@ class Column(Gtk.TreeViewColumn):
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.extrasize = 0
+        self.destroyed = False
 
         self._setup_font(font)
 
@@ -123,7 +124,8 @@ class Column(Gtk.TreeViewColumn):
     @common.glib_wait(100)
     def on_width_changed(self, column, wid):
         width = self.get_width()
-        if width != settings.get_option(self.settings_width_name, -1):
+        if not self.destroyed and \
+           width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
 
     def _setup_font(self, font):

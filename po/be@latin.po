@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-10-17 22:44+0000\n"
+"PO-Revision-Date: 2017-11-22 05:49+0000\n"
 "Last-Translator: Viktar Vauchkevich <victorenator@gmail.com>\n"
 "Language-Team: Belarusian (latin) "
 "<https://hosted.weblate.org/projects/exaile/master/be_Latn/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 2.18-dev\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -1068,220 +1068,220 @@ msgstr "Abiarycie typ fajla"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Abiarycie miedyjafajl dlia adkryccia"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
-msgstr ""
+msgstr "Padtrymoŭvajemyja typy fajlaŭ"
 
 #: ../xlgui/widgets/dialogs.py:629
 msgid "Music Files"
-msgstr ""
+msgstr "Muzyčnyja fajly"
 
 #: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
 msgid "Playlist Files"
-msgstr ""
+msgstr "Fajly spisaŭ prajhravannia"
 
 #: ../xlgui/widgets/dialogs.py:633 ../xlgui/widgets/dialogs.py:791
 #: ../xlgui/preferences/plugin.py:222
 msgid "All Files"
-msgstr ""
+msgstr "Usie fajly"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Abiarycie tečku dlia adkryccia"
 
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Impartavać spis prajhravannia"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Ekspart dziejučaha spisu prajhravannia"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Vykarystoŭvać adnosnyja adrasy da fajlaŭ"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Plejlist zachavany jak <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Začynić %s"
 
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Zachavać zmieny ŭ %s pierad vyjsciem?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr ""
+msgstr "Vašy zmieny buduć stračany, kali vy ich nie zachavajecie"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
-msgstr ""
+msgstr "Začynić biez zachavannia"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Tak dlia ŭsich"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Nie dlia ŭsich"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr ""
+msgstr "Zachavana %(count)s z %(total)s."
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Adbylasia pamylka padčas kapijavannia %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Fajl isnuje, zamianić %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Imia spisu prajhravannia:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Dadać novy spis prajhravannia..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
 msgid "You did not enter a name for your playlist"
-msgstr ""
+msgstr "Vy nie pakazali imia dlia vašaha spisu prajhravannia"
 
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Uviedzienaje vami nazva spisu prajhravannia ŭžo vykarystoŭvajecca."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Zachavać jak"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
-msgstr ""
+msgstr "Začynić ukladku"
 
 #: ../xlgui/main.py:113
 msgid "$title (by $artist)"
-msgstr ""
+msgstr "$title (vykonvaje $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Pieramykač: spynić paslia abranaj darožki"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "Pry prajhravanni adbylasia pamylka!"
 
 #: ../xlgui/main.py:589
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Bufieryzacyja: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
-msgstr ""
+msgstr "Praciahnuć prajhravannie"
 
 #: ../xlgui/main.py:645 ../xlgui/main.py:825
 #: ../plugins/previewdevice/__init__.py:384
 msgid "Pause Playback"
-msgstr ""
+msgstr "Prypynić prajhravannie"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "Nie atrymalasia ekspartavać spis prajhravannia!"
 
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362
 msgid "Start Playback"
-msgstr ""
+msgstr "Pačać prajhravannie"
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr ""
+msgstr "Muzyčny prajhravaĺnik Exaile"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
-msgstr ""
+msgstr "_Novy spis prajhravannia"
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
-msgstr ""
+msgstr "Adkryć _URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr ""
+msgstr "Adkryć tečku"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
-msgstr ""
+msgstr "_Ekspart biahučaha spisu prajhravannia"
 
 #: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
 msgid "Restart"
-msgstr ""
+msgstr "Pierazapuscić"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
-msgstr ""
+msgstr "_Kaliekcyja"
 
 #: ../xlgui/menu.py:151
 msgid "_Queue"
-msgstr ""
+msgstr "_Čarha"
 
 #: ../xlgui/menu.py:158
 msgid "C_overs"
-msgstr ""
+msgstr "_Vokladki"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "_Paneĺ instrumientaŭ spisu prajhravannia"
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
-msgstr ""
+msgstr "_Slupki"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
-msgstr ""
+msgstr "Ačyscić plejlist"
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Menedžar prylad"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Nanova pra_skanavać fanateku"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
 msgid "Rescan Collection (slow)"
-msgstr ""
+msgstr "Pieraskanavać kaliekcyju (pavoĺna)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
-msgstr ""
+msgstr "_Ulascivasci darožki"
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
-msgstr ""
+msgstr "Admiena"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Pamylka zapisu paznak"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1289,221 +1289,229 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Paznaki nie mohuć być zapisany dlia nastupnych fajlaŭ:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Redahujecca darožka %(current)d z %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
+msgstr "Vy sapraŭdy chočacie ŭžyć zmieny dlia ŭsich darožak?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Užyć zmieny pierad začynienniem?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Zaniesienyja zmieny buduć stračany, kali vy nie ŭžyviacie ich ciapier."
 
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
 #: ../xlgui/properties.py:795
 msgid "of:"
-msgstr ""
+msgstr "z:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "Maliunak JPEG"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "Maliunak PNG"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Maliunak"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Adpaviedny maliunak"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} piksieliaŭ"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} piksieliaŭ)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Abiarycie maliunak dlia vykarystannia ŭ jakasci vokladki"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Padtrymoŭvanyja farmaty maliunkaŭ"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Užyć hetyja značenni da ŭsich darožak"
 
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "zastalosia atrymać {outstanding} vokladak"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Usie vokladki pryniaty"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Zbor aĺbomaŭ i vokladak..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
-msgstr ""
+msgstr "Pakazać vokladku"
 
 #: ../xlgui/cover.py:503
 msgid "Fetch Cover"
-msgstr ""
+msgstr "Zahruzić Vokladku"
 
 #: ../xlgui/cover.py:504
 msgid "Remove Cover"
-msgstr ""
+msgstr "Vydalić vokladku"
 
 #: ../xlgui/cover.py:810
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "Vokladka dlia %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Zachavać fajl"
 
 #: ../xlgui/cover.py:998
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "Opcyi vokladki aĺboma dlia %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Zahruzka…"
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
-msgstr ""
+msgstr "Vokladki nie znojdzieny."
 
 #: ../xlgui/cover.py:1104
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Ni ŭ adnoj z zadziejničanych krynic nie znojdziena vokladki dlia hetaj "
+"kampazicyi, pasprabujcie zadziejničać dadatkovyja krynicy."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
-msgstr ""
+msgstr "Značka"
 
 #: ../xlgui/devices.py:81
 msgid "Device"
-msgstr ""
+msgstr "Prylada"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr ""
+msgstr "Drajvier"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
-msgstr ""
+msgstr "Skanavannie fanateki..."
 
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Skanavannie %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Paneli"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
-msgstr ""
+msgstr "Dadać kataloh"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "Kataloh nie dadadzieny."
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Kataloh užo ŭkliučany ŭ vašu kaliekcyju ci znachodzicca ŭ adnym z katalohaŭ "
+"vašaj kaliekcyi."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Pieraciahnicie siudy, kab stvaryć novy spis prajhravannia"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Niadaŭna začynienyja ŭkladki"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "Spis prajhravannia %d"
 
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
+"{playlist_name} ({track_count} darožak, začyniena {minutes} minut nazad)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
+"{playlist_name} ({track_count} darožak, začyniena {seconds} siekund nazad)"
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
-msgstr ""
+msgstr "Pieraniesci ŭ inšy vidok"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Pieradača ŭ %s..."
 
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
 msgid "Loading streams..."
-msgstr ""
+msgstr "Zahruzka strumieniaŭ..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Dadać radyjostancyju"
 
 #: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
-msgstr ""
+msgstr "Zachavanyja stancyi"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
-msgstr ""
+msgstr "Strumienievaje radyjo"
 
 #: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
-msgstr ""
+msgstr "Abnavić"
 
 #: ../xlgui/panel/radio.py:413
 msgid "Enter the name you want for your new playlist"

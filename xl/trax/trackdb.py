@@ -342,7 +342,8 @@ class TrackDB(object):
         locations = []
         now = time()
         for tr in tracks:
-            tr.set_tag_raw('__date_added', now)
+            if not tr.get_tag_raw('__date_added'):
+                tr.set_tags(__date_added=now)
             location = tr.get_loc_for_io()
             locations += [location]
             self.tracks[location] = TrackHolder(tr, self._key)

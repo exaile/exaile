@@ -256,6 +256,22 @@ class Menu(Gtk.Menu):
         """
         self._items.append(item)
         self.reorder_items()
+    
+    def add_simple(self, label, callback, icon_name=None):
+        """
+            Provide a simple mechanism to add menu items without a lot of hassle
+            
+            :param label: Label to display
+            :param callback: Callback that will be called on click
+            :param icon_name: GTK mostly ignores this, and it will go away
+            
+            .. note:: If you use this API, you should generally only use this 
+                      API to add items to that menu
+        """
+        self.add_item(
+            simple_menu_item('_i%s' % len(self._items), [], label,
+            icon_name=icon_name, callback=callback)
+        )
 
     def remove_item(self, item):
         """

@@ -345,10 +345,14 @@ class PlaylistNotebook(SmartNotebook):
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
 
         # closed tab history
-        if not self._moving_tab and \
-                settings.get_option('gui/save_closed_tabs', True) and \
+        if not self._moving_tab:
+
+            if settings.get_option('gui/save_closed_tabs', True) and \
                 isinstance(child, PlaylistPage):
-            self.save_closed_tab(child.playlist)
+                self.save_closed_tab(child.playlist)
+
+            # Destroy it
+            child.destroy()
 
     def restore_closed_tab(self, pos=None, playlist=None, item_name=None):
         ret = self.remove_closed_tab(pos, playlist, item_name)

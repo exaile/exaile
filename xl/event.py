@@ -73,7 +73,7 @@ def log_event(evty, obj, data):
         :type data: object
     """
     global EVENT_MANAGER
-    e = Event(evty, obj, data, time.time())
+    e = Event(evty, obj, data)
     EVENT_MANAGER.emit(e)
 
 
@@ -96,6 +96,8 @@ def add_callback(function, evty=None, obj=None, *args, **kwargs):
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
         :type obj: object
+        :param destroy_with: (keyword arg only) If specified, this event will be
+                             detached when the specified Gtk widget is destroyed
 
         Any additional parameters will be passed to the callback.
 
@@ -125,6 +127,8 @@ def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
                 or `xl.covers.MANAGER`. Defaults to any object if not
                 specified.
         :type obj: object
+        :param destroy_with: (keyword arg only) If specified, this event will be
+                             detached when the specified Gtk widget is destroyed
 
         Any additional parameters will be passed to the callback.
 
@@ -149,9 +153,9 @@ class Event(object):
     """
         Represents an Event
     """
-    __slots__ = ['type', 'object', 'data', 'time']
+    __slots__ = ['type', 'object', 'data']
 
-    def __init__(self, evty, obj, data, time):
+    def __init__(self, evty, obj, data):
         """
             evty: the 'type' or 'name' for this Event [string]
             obj: the object emitting the Event [object]
@@ -160,7 +164,6 @@ class Event(object):
         self.type = evty
         self.object = obj
         self.data = data
-        self.time = time
 
 
 class Callback(object):
@@ -340,7 +343,7 @@ class EventManager(object):
                             exc_callbacks[event.type][event.object].remove(cb)
                         except (KeyError, ValueError):
                             pass
-                elif event.time >= cb.time:
+                else:
                     if emit_verbose:
                         logger.debug("Attempting to call "
                                      "%(function)s in response "
@@ -384,6 +387,8 @@ class EventManager(object):
         else:
             all_cbs = [self.callbacks, self.all_callbacks]
 
+        destroy_with = kwargs.pop('destroy_with', None)
+
         if evty is None:
             evty = _NONE
         if obj is None:
@@ -408,6 +413,9 @@ class EventManager(object):
             if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
                 logger.debug("Added callback %s for [%s, %s]" %
                              (function, evty, obj))
+
+        if destroy_with is not None:
+            destroy_with.connect('destroy', lambda w: self.remove_callback(function, evty, obj))
 
         return lambda: self.remove_callback(function, evty, obj)
 

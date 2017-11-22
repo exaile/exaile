@@ -69,8 +69,9 @@ _UNKNOWNSTR = _("Unknown")
 # TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR = _(u' / ')
 
-_no_set_raw = {'__basename'} | disk_tags
+_no_set_raw = {'__basename', '__loc'} | disk_tags
 
+_unset = object()
 
 class _MetadataCacher(object):
     """
@@ -194,10 +195,11 @@ class Track(object):
                         unpickles = kwargs.get("_unpickles")
 
                 if unpickles is not None:
-                    for tag, values in unpickles.iteritems():
-                        tags = tr.list_tags()
-                        if tag.startswith('__') and tag not in tags:
-                            tr.set_tag_raw(tag, values)
+                    tags = tr.list_tags()
+                    to_set = {tag: values for tag, values in unpickles.iteritems() \
+                              if tag.startswith('__') and tag not in tags}
+                    if to_set:
+                        tr.set_tags(**to_set)
 
             except KeyError:
                 tr = object.__new__(cls)
@@ -233,9 +235,10 @@ class Track(object):
             self._unpickles(_unpickles)
             self.__register()
         elif uri:
-            self.set_loc(uri)
+            # notify isn't needed here because this is a new track
+            self.set_loc(uri, notify_changed=False)
             if scan:
-                self.read_tags()
+                self.read_tags(notify_changed=False)
         else:
             raise ValueError("Cannot create a Track from nothing")
 
@@ -256,7 +259,7 @@ class Track(object):
         except KeyError:
             pass
 
-    def set_loc(self, loc):
+    def set_loc(self, loc, notify_changed=True):
         """
             Sets the location.
 
@@ -266,7 +269,8 @@ class Track(object):
         gloc = Gio.File.new_for_commandline_arg(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
-        event.log_event('track_tags_changed', self, '__loc')
+        if notify_changed:
+            event.log_event('track_tags_changed', self, {'__loc'})
 
     def exists(self):
         """
@@ -364,9 +368,12 @@ class Track(object):
             logger.exception("Unknown exception: Could not write tags to file")
             return False
 
-    def read_tags(self):
+    def read_tags(self, force=True, notify_changed=True):
         """
             Reads tags from the file for this Track.
+            
+            :param force: If not True, then only read the tags if the file has
+                          be modified.
 
             Returns False if unsuccessful, and a Format object from
             `xl.metadata` otherwise.
@@ -377,9 +384,21 @@ class Track(object):
             if f is None:
                 self._scan_valid = False
                 return False  # not a supported type
+            
+            # Retrieve file specific metadata
+            gloc = Gio.File.new_for_uri(loc)
+            mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+            mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
+            
+            if not force and self.__tags.get('__modified', 0) >= mtime:
+                return f
+            
+            # Read the tags
             ntags = f.read_all()
-            for k, v in ntags.iteritems():
-                self.set_tag_raw(k, v)
+            ntags['__modified'] = mtime
+            
+            # TODO: this probably breaks on non-local files
+            ntags['__basedir'] = gloc.get_parent().get_path()
 
             # remove tags that could be in the file, but are in fact not
             # in the file. Retain tags in the DB that aren't supported by
@@ -396,17 +415,10 @@ class Track(object):
                 to_del &= set(f.tag_mapping.keys())
 
             for tag in to_del:
-                self.set_tag_raw(tag, None)
+                ntags[tag] = None
 
-            # fill out file specific items
-            gloc = Gio.File.new_for_uri(loc)
-            mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
-            mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
-            self.set_tag_raw('__modified', mtime)
-            # TODO: this probably breaks on non-local files
-            path = gloc.get_parent().get_path()
-            self.set_tag_raw('__basedir', path)
-            self._dirty = True
+            self.set_tags(notify_changed=notify_changed, **ntags)
+
             self._scan_valid = True
             return f
         except Exception:
@@ -493,29 +505,54 @@ class Track(object):
                 parts of Exaile know there has been an update. Only set
                 this to False if you know that no other parts of Exaile
                 need to be updated.
+                
+            .. note:: When setting more than one tag, prefer set_tags instead
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
         """
-        if tag == '__loc':
-            logger.warning('Setting "__loc" directly is forbidden, '
-                           'use set_loc() instead.')
-            return
+        self.set_tags(notify_changed=notify_changed, **{tag: values})
 
-        if tag in _no_set_raw:
-            if tag == '__basename':
-                logger.warning('Setting "%s" directly is forbidden.', tag)
-            else:
-                logger.warning('Cannot set "%s" via set_tag_raw, use set_tag_disk instead', tag)
-            return
+    def set_tags(self, notify_changed=True, **kwargs):
+        """
+            Set multiple tags on a track.
 
-        # Transform and set the value. We do NOT delete the value from the tag
-        # dict (which was done prior to Exaile 4), otherwise we don't know that
-        # the user wanted the tag to be deleted
-        self.__tags[tag] = self._xform_set_values(tag, values)
+            :param notify_changed: whether to send a signal to let other
+                parts of Exaile know there has been an update. Only set
+                this to False if you know that no other parts of Exaile
+                need to be updated.
 
-        self._dirty = True
-        if notify_changed:
-            event.log_event("track_tags_changed", self, tag)
+            Prefer this method over calling set_tag_raw multiple times, as this
+            method will be more efficient.
+
+            .. warning:: Covers and lyrics tags must be set via set_tag_disk
+        """
+        
+        # tag changes can cause expensive UI updates, so don't emit the event
+        # if the track hasn't actually changed
+        changed = set()
+
+        for tag, values in kwargs.iteritems():
+            if tag in _no_set_raw:
+                if tag == '__loc':
+                    logger.warning('Setting "__loc" directly is forbidden, use set_loc() instead.')
+                elif tag == '__basename':
+                    logger.warning('Setting "__basename" directly is forbidden.')
+                else:
+                    logger.warning('Cannot set "%s" via set_tag_raw, use set_tag_disk instead', tag)
+                continue
+
+            # Transform and set the value. We do NOT delete the value from the tag
+            # dict (which was done prior to Exaile 4), otherwise we don't know that
+            # the user wanted the tag to be deleted
+            new_value = self._xform_set_values(tag, values)
+            if self.__tags.get(tag, _unset) != new_value:
+                changed.add(tag)
+                self.__tags[tag] = new_value
+
+        if changed:
+            self._dirty = True
+            if notify_changed:
+                event.log_event("track_tags_changed", self, changed)
 
     def get_tag_raw(self, tag, join=False):
         """
@@ -833,7 +870,7 @@ class Track(object):
         rating = min(rating, maximum)
         rating = max(0, rating)
         rating = float(rating * 100.0 / maximum)
-        self.set_tag_raw('__rating', rating)
+        self.set_tags(__rating=rating)
         return rating
 
     ### Special functions for wrangling tag values ###
@@ -923,8 +960,10 @@ class Track(object):
         """
         # value is appended afterwards so that like-accented values
         # will sort together.
-        return u''.join([c for c in unicodedata.normalize('NFD', value)
-                         if unicodedata.category(c) != 'Mn']) + u" " + value
+        normalize = unicodedata.normalize
+        category = unicodedata.category
+        return u''.join([c for c in normalize('NFD', value)
+                         if category(c) != 'Mn']) + u" " + value
 
     @staticmethod
     def expand_doubles(value):

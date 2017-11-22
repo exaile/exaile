@@ -308,7 +308,7 @@ class TrackInfoPane(Gtk.Bin):
         """
         self.clear()
 
-    def on_track_tags_changed(self, event, track, tag):
+    def on_track_tags_changed(self, event, track, tags):
         """
             Updates the info pane on tag changes
         """

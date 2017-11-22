@@ -799,7 +799,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
             Updates the internally stored playlist
         """
         columns = self.view.get_model().columns
-        model = PlaylistModel(playlist, columns, player.PLAYER)
+        model = PlaylistModel(playlist, columns, player.PLAYER, self.view)
         self.view.set_model(model)
 
     def do_scroll_event(self, event):
@@ -933,7 +933,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
         GLib.idle_add(self.label.set_text, text)
 
-    def on_track_tags_changed(self, event, track, tag):
+    def on_track_tags_changed(self, event, track, tags):
         """
             Updates the button on tag changes
         """

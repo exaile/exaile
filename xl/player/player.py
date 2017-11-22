@@ -114,15 +114,13 @@ class ExailePlayer(object):
             i = int(track.get_tag_raw('__playcount'))
         except Exception:
             i = 0
-        track.set_tag_raw('__playcount', i + 1)
-        track.set_tag_raw('__last_played', time.time())
+        track.set_tags(__playcount=i + 1,
+                       __last_played=time.time())
 
     @common.idle_add()
-    def _on_track_tags_changed(self, eventtype, track, tag):
-        if tag != '__stopoffset':
-            return
-
-        self._engine.on_track_stopoffset_changed(track)
+    def _on_track_tags_changed(self, eventtype, track, tags):
+        if '__stopoffset' in tags:
+            self._engine.on_track_stopoffset_changed(track)
 
     def destroy(self):
         """

@@ -48,7 +48,10 @@ from xlgui import (
     panel
 )
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets import dialogs
+from xlgui.widgets import (
+    dialogs,
+    menu
+)
 
 
 class RadioException(Exception):
@@ -285,8 +288,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Returns the menu that all radio stations use
         """
-        menu = guiutil.Menu()
-        menu.append(_("Refresh"), self.on_reload, Gtk.STOCK_REFRESH)
+        m = menu.Menu(None)
+        m.add_simple(_("Refresh"), self.on_reload, Gtk.STOCK_REFRESH)
         return menu
 
     def on_key_released(self, widget, event):
@@ -307,7 +310,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        Gtk.Menu.popup(menu, None, None, None, None, 0, event.time)
+                        menu.popup(event)
                 elif isinstance(item, xl.playlist.Playlist):
                     Gtk.Menu.popup(self.playlist_menu, None, None, None, None, 0, event.time)
                 elif isinstance(item, playlistpanel.TrackWrapper):
@@ -332,7 +335,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when someone clicks on the tree
         """
-        if event.triggers_context_menu():
+        #if event.triggers_context_menu():  # fixme: fired on button press only
+        if event.button == Gdk.BUTTON_SECONDARY:
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)
             if path:
@@ -348,7 +352,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        menu.popup(None, None, None, None, event.button, event.time)
+                        menu.popup(event)
                 elif isinstance(item, xl.playlist.Playlist):
                     self.playlist_menu.popup(event)
                 elif isinstance(item, playlistpanel.TrackWrapper):

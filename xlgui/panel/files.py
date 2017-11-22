@@ -234,7 +234,8 @@ class FilesPanel(panel.Panel):
         """
             Called when the user clicks on the playlist
         """
-        if event.triggers_context_menu():
+        #if event.triggers_context_menu():  # fixme: fired on button press only
+        if event.button == Gdk.BUTTON_SECONDARY:
             selection = self.tree.get_selection()
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)

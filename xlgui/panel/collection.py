@@ -47,6 +47,7 @@ from xlgui import (
     panel
 )
 from xlgui.panel import menus
+from xlgui.widgets import menu
 from xlgui.widgets.common import DragTreeView
 
 logger = logging.getLogger(__name__)
@@ -112,7 +113,7 @@ class Order(object):
         return self.__levels == other.get_levels()
 
     def all_sort_tags(self):
-        return list(itertools.chain(*[l[0] for l in self.__levels]))
+        return set(itertools.chain(*[l[0] for l in self.__levels]))
 
     def get_sort_tags(self, level):
         return list(self.__levels[level][0])
@@ -262,11 +263,12 @@ class CollectionPanel(panel.Panel):
             Called on mouse activation of the refresh button
         """
         if event.triggers_context_menu():
-            menu = guiutil.Menu()
-            menu.append(_('Rescan Collection'),
-                        xlgui.get_controller().on_rescan_collection,
-                        Gtk.STOCK_REFRESH)
-            menu.popup(None, None, None, None, event.button, event.time)
+            m = menu.Menu(None)
+            m.attach_to_widget(button)
+            m.add_simple(_('Rescan Collection'),
+                         xlgui.get_controller().on_rescan_collection,
+                         Gtk.STOCK_REFRESH)
+            m.popup(event)
             return
 
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
@@ -438,7 +440,8 @@ class CollectionPanel(panel.Panel):
         selection = self.tree.get_selection()
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
-        if event.triggers_context_menu():
+        #if event.triggers_context_menu():  # fixme: fired on button press only
+        if event.button == Gdk.BUTTON_SECONDARY:
             self.menu.popup(event)
             if not path:
                 return False
@@ -473,9 +476,9 @@ class CollectionPanel(panel.Panel):
 
         return " ".join(queries)
 
-    def refresh_tags_in_tree(self, type, track, tag):
+    def refresh_tags_in_tree(self, type, track, tags):
         if settings.get_option('gui/sync_on_tag_change', True) and \
-                tag in self.order.all_sort_tags() and \
+                bool(tags & self.order.all_sort_tags()) and \
                 self.collection.loc_is_member(track.get_loc_for_io()):
             self._refresh_tags_in_tree()
 

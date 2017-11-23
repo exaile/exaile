@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-11-22 05:49+0000\n"
+"PO-Revision-Date: 2017-11-24 17:45+0000\n"
 "Last-Translator: Viktar Vauchkevich <victorenator@gmail.com>\n"
 "Language-Team: Belarusian (latin) "
 "<https://hosted.weblate.org/projects/exaile/master/be_Latn/>\n"
@@ -1515,166 +1515,166 @@ msgstr "Abnavić"
 
 #: ../xlgui/panel/radio.py:413
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "Uviadzicie novaje imia dlia vašaha spisu prajhravannia"
 
 #: ../xlgui/panel/collection.py:135
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Žanr - Vykanaviec"
 
 #: ../xlgui/panel/collection.py:138
 msgid "Genre - Album"
-msgstr ""
+msgstr "Zanr - Aĺbom"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Data - Vykanaviec"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Data - Aĺbom"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Vykanaviec - (Data - Aĺbom)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Nanova praskanavać fanateku"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:140
 msgid "Size"
-msgstr ""
+msgstr "Pamier"
 
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Novy razumny spis prajhravannia"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
-msgstr ""
+msgstr "Novaja Stancyja"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
 msgid "and"
-msgstr ""
+msgstr "i"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:183
 msgid "is"
-msgstr ""
+msgstr "zjaŭliajecca"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:185
 msgid "is not"
-msgstr ""
+msgstr "nie zjaŭliajecca"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "ustaliavana"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "nie ŭstaliavana"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
 msgid "contains"
-msgstr ""
+msgstr "utrymoŭvaje"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:195
 msgid "does not contain"
-msgstr ""
+msgstr "nie ŭtrymoŭvaje"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "rehuliarny vyraz"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "nie rehuliarny vyraz"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
 msgid "at least"
-msgstr ""
+msgstr "nie mieniej"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:203
 msgid "at most"
-msgstr ""
+msgstr "nie boĺš"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:205
 msgid "before"
-msgstr ""
+msgstr "da"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:207
 msgid "after"
-msgstr ""
+msgstr "paslia"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:209
 msgid "between"
-msgstr ""
+msgstr "pamiž"
 
 #: ../xlgui/panel/playlists.py:210
 msgid "greater than"
-msgstr ""
+msgstr "boĺš čym"
 
 #: ../xlgui/panel/playlists.py:211
 msgid "less than"
-msgstr ""
+msgstr "mienš čym"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "za apošnija"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "nie za apošnija"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
 msgid "Track is in"
-msgstr ""
+msgstr "Darožka ŭ"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
 msgid "Track not in"
-msgstr ""
+msgstr "Darožki niama ŭ"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr ""
+msgstr "Vy ŭpeŭnieny, što žadajecie calkam vydalić abrany spis prajhravannia?"
 
 #: ../xlgui/panel/playlists.py:336
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Uviadzicie novaje imia dlia vašaha spisu prajhravannia"
 
 #: ../xlgui/panel/playlists.py:337
 msgid "Rename Playlist"
-msgstr ""
+msgstr "Pieranazvać spis prajhravannia"
 
 #: ../xlgui/panel/playlists.py:394
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr ""
+msgstr "Pamylka pry zahruzka razumnaha spisu prajhravannia: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1682,98 +1682,98 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s i inšyja"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s i %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
-msgstr ""
+msgstr "«Razumnyja» spisy prajhravannia"
 
 #: ../xlgui/panel/playlists.py:670
 msgid "Custom Playlists"
-msgstr ""
+msgstr "Biahučy spis prajhravannia"
 
 #: ../xlgui/panel/playlists.py:726
 msgid "Add Smart Playlist"
-msgstr ""
+msgstr "Dadać «razumny» spis prajhravannia"
 
 #: ../xlgui/panel/playlists.py:807
 msgid "Edit Smart Playlist"
-msgstr ""
+msgstr "Redahavać «razumny» spis prajhravannia"
 
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Ekspartavannie %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Abiarycie tečku, u jakuju buduć ekspartavany fajly"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "Prajhravannie"
 
 #: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "Moduli"
 
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nie klasifikavanyja"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Nie atrymalasia zahruzić infarmacyju pra moduĺ!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Pamylka ŭ moduli: %s"
+msgstr[1] "Pamylki ŭ moduli: %s"
+msgstr[2] "Pamylak ŭ moduli: %s"
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "Nie atrymalasia ŭkliučyć moduĺ!"
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "Niemahčyma aktyvavać dadatak!"
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Abrać ubudovu"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Archivy moduliaŭ"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Ustalioŭka modulia nie atrymalasia!"
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "Vokladki"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "Afarmliennie"
 
 #: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
 msgid "Collection"
-msgstr ""
+msgstr "Kaliekcyja"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1782,39 +1782,39 @@ msgstr ""
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Ustaliavać ahadanyja nalady"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Pierazapuscić Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Nieabchodzien pierazapusk dlia taho kab zmieny nabyli moc."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
-msgstr ""
+msgstr "Dziejannie"
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Kambinacyja klaviš"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
-msgstr ""
+msgstr "Spisy prajhravannia"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "About Exaile"
-msgstr ""
+msgstr "Pra Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
-msgstr ""
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
@@ -1834,67 +1834,84 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Copyright (C) 2008-2014 Roznyja prahramisty\n"
+"\n"
+"Hetaja prahrama zjaŭliajecca svabodnym prahramnym zabiespiačenniem;\n"
+"vy možacie raspaŭsiudžvać jaho i/abo madyfikavać jaje ŭ adpaviednasci\n"
+"z umovami GNU General Public License, apublikavanaj Fondam Svabodnaha\n"
+"Prahramnaha zabiespiačennia; aĺbo viersii 2,\n"
+"aĺbo (pa vašamu vybaru) liuboj boĺš pozniaj viersii.\n"
+"\n"
+"Hetaja prahrama raspaŭsiudžvajecca ŭ nadziei, što jana budzie karysnaj,\n"
+"alie biez jakich-niebudź HARANTYJ, navat biez peŭnych harantyj KAMIeRCYJNAJ\n"
+"kaštoŭnasci abo PRYDATNASCI dlia peŭnaj mety.\n"
+"Hliadzicie GNU General Public License dlia boĺš padrabiaznaj infarmacyi.\n"
+"\n"
+"Vy pavinny byli atrymać kopiju GNU General Public License razam\n"
+"z hetaj prahramaj, kali nie, to napišycie na Free Software Foundation, Inc.,"
+"\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Nieviadomy pierakladnik"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Menedžar Vokladak"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Atrymać vokladki"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Prajhravać darožki vypadkova"
 
 #: ../data/ui/playlist.ui.h:2
 msgid "Repeat playback"
-msgstr ""
+msgstr "Paŭtaryć prajhravannie"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Znajsci:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
-msgstr ""
+msgstr "Pašukavik vokladak"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Pachodžannie vokladki"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Vykarystoŭvać u jakasci vokladki aĺboma"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
-msgstr ""
+msgstr "_Fajl"
 
 #: ../data/ui/main.ui.h:2
 msgid "_Edit"
-msgstr ""
+msgstr "_Praŭka"
 
 #: ../data/ui/main.ui.h:3
 msgid "_View"
-msgstr ""
+msgstr "_Vyhliad"
 
 #: ../data/ui/main.ui.h:4
 msgid "_Tools"
-msgstr ""
+msgstr "_Prylady"
 
 #: ../data/ui/main.ui.h:5
 msgid "_Help"
-msgstr ""
+msgstr "_Dapamoha"
 
 #: ../data/ui/main.ui.h:6
 msgid "Previous Track"
-msgstr ""
+msgstr "Papiaredniaja darožka"
 
 #: ../data/ui/main.ui.h:8
 msgid ""
@@ -1902,262 +1919,271 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Spynić prajhravannie\n"
+"\n"
+"Pstryknicie pravaj knopkaj myšy dlia prypynku paslia vylučanaj darožki"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
-msgstr ""
+msgstr "Nastupnaja darožka"
 
 #: ../data/ui/main.ui.h:12
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
-msgstr ""
+msgstr "Ulascivasci darožki"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Dadać paznaku"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Vydalić paznaku"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Vialikija pieršyja litary va ŭsich paznakach"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
-msgstr ""
+msgstr "Ulascivasci"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Papiaredniaja"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "_Napierad"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
-msgstr ""
+msgstr "Inšyja"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "Značok fajla pamieru 32x32 piksielia (toĺki PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Inšy abrazok fajla"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Vokladka (spieradu)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Vokladka (zzadu)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Staronka ŭkladyša"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Miedyja (napryklad vokladka CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Viadučy artyst/viadučy vykanaviec/salist"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Vykanaviec"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Hrupa / Arkiestr"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Aŭtar tekstu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Miesca zapisu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Padčas zapisu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Padčas vystupu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Zapis padziej videaekrana"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Jarkaja roznakaliarovaja ryba"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Iliustracyja"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Lahatyp hrupy ci artysta"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Lahatyp studyi ci vydaŭca"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Pstryknicie ci pieraciahnicie fajly siudy, kab zmianić vokladku"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Typ:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
 msgid "Description:"
-msgstr ""
+msgstr "Apisannie:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Mieniedžer kaliekcyi"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Sačyć"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Skanavać pry zapusku"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
-msgstr ""
+msgstr "Radyjo"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Dadać usie darožki ŭ spis prajhravannia"
 
 #: ../data/ui/panel/flatplaylist.ui.h:3
 msgid "Import CD"
-msgstr ""
+msgstr "Impart CD"
 
 #: ../data/ui/panel/radio.ui.h:2
 msgid "Add Station"
-msgstr ""
+msgstr "Dadać stancyju"
 
 #: ../data/ui/panel/files.ui.h:1
 msgid "Files"
-msgstr ""
+msgstr "Fajly"
 
 #: ../data/ui/panel/files.ui.h:2
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Papiaredni naviedany kataloh"
 
 #: ../data/ui/panel/files.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Nastupny naviedany kataloh"
 
 #: ../data/ui/panel/files.ui.h:4
 msgid "Up one directory"
-msgstr ""
+msgstr "Uharu na adzin kataloh"
 
 #: ../data/ui/panel/files.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Abnavić zmiesciva kataloha"
 
 #: ../data/ui/panel/files.ui.h:6
 msgid "Home directory"
-msgstr ""
+msgstr "Chatni kataloh"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
-msgstr ""
+msgstr "Ačyscić polie pošuku"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Fanateka pustaja.</b>"
 
 #: ../data/ui/panel/collection.ui.h:3
 msgid "Add Music"
-msgstr ""
+msgstr "Dadać muzyku"
 
 #: ../data/ui/panel/collection.ui.h:4
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Abnavić paneĺ fanateki\n"
+"(Zacisnicie Shift dlia paŭtornaha skanavannia fanateki)"
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Vykarystoŭvać vokladki, pakazanyja ŭ tehu"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Vykarystoŭvać vokladki z lakaĺnych fajlaŭ"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Dadzienaja opcyja dazvaliaje šukać fajly vokladki aĺboma ŭ \n"
+"toj ža dyrektoryi, što i hukavy fajl."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Pieravažnyja imiony fajlaŭ:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Padzielieny koskami spis imionaŭ fajlaŭ biez pašyrenniaŭ"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
-msgstr ""
+msgstr "Atrymlivać vokladki aŭtamatyčna pry pačatku prajhravannia"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Paradak pošuku vokladak:"
 
 #: ../data/ui/preferences/cover.ui.h:9
 msgid "(drag to reorder)"
-msgstr ""
+msgstr "(pieramiascicie dlia zmieny paradku)"
 
 #: ../data/ui/preferences/playlists.ui.h:1
 #: ../data/ui/preferences/general.ui.h:1
 msgid "Open last playlists on startup"
-msgstr ""
+msgstr "Adkryvać apošni spis prajhravannia pry zapusku prahramy"
 
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Pytać pra zachavannie biahučaha spisu prajhravannia pierad začynienniem"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Zamianić utrymannie bakavoj paneli padvojnaj pstryčkaj"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"Zamiest dadannia, darožki, dadadzienyja padvojnaj pstryčkaj na paneliach, "
+"zamieniać utrymannie biahučaha spisu prajhravannia."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Dadannie/Zamiena praz punkt mieniu \"zapuskaje prajhravannie\""
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2165,287 +2191,298 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Pry vykarystanni mieniu dlia dadannia/zamieny darožki ŭ spisie "
+"prajhravannia, pačać prajhravannie, kali prajhravajecca trek. Heta byli "
+"standartnyja pavodziny ŭ viersii Exaile da 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Pastavić kampazicyi ŭ čarhu nie prajhravajučy ich"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Kali vy dvojčy pstrykajecie ci naciskajecie klavišu ŭvodu, kab prajhrać "
+"kampazicyju sa spisu prajhravannia, dadavać kampazicyi ŭ čarhu, a nie "
+"prajhravać ich"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
 msgid "Playback engine: "
-msgstr ""
+msgstr "Prylada prajhravannia: "
 
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Vykarystoŭvać plaŭnyja pierachody pry dziejanniach karystača"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Čas plaŭnaha zhasannia (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Vykarystoŭvać miksavannie (EKSPIeRYMIeNTALNA)"
 
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Čas plaŭnaha miksavannia (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Aŭdyjoprylada:  "
 
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Prylada:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Inšy kanviejer-prymač:"
 
 #: ../data/ui/preferences/playback.ui.h:9
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Adnaŭliać prajhravannie pry zapusku prahramy"
 
 #: ../data/ui/preferences/playback.ui.h:10
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Adnaŭliać prajhravannie ŭ prypynienym stanie"
 
 #: ../data/ui/preferences/playback.ui.h:11
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Dadannie fajla ŭ pustuju čarhu pačnie jaho prajhravannie"
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Vydalić trek z čarhi paslia prajhravannia"
 
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Nie prajhravać novyja darožki pry pačatym prajhravanni"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Kali darožka ŭžo prajhravajecca, nie pačynać prajhravannie novych, "
+"vykliučajučy vypadki nacisku knopak kiravannia"
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Aŭtamatyčna pierachodzić na nastupny trek"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Zatrymka pamiž darožkami (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
-msgstr ""
+msgstr "Pracuje toĺki sa standartnaj pryladaj prajhravannia"
 
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
-msgstr ""
+msgstr "Zvyčajny"
 
 #: ../data/ui/preferences/playback.ui.h:19
 #: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Abjadnany (niestabiĺna)"
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
-msgstr ""
+msgstr "Dadatak"
 
 #: ../data/ui/preferences/plugin.ui.h:3 ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
-msgstr ""
+msgstr "Ukliučany"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Stan"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Show incompatible plugins"
-msgstr ""
+msgstr "Pakazvać niesumiaščaĺnyja dapaŭnienni"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Pakazvać patencyjna niepracoŭnyja dapaŭnienni"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "Dadatak nie abrany"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Ustaliavanyja dadatki"
 
 #: ../data/ui/preferences/plugin.ui.h:9
 msgid "Authors:"
-msgstr ""
+msgstr "Aŭtary:"
 
 #: ../data/ui/preferences/plugin.ui.h:10
 msgid "Version:"
-msgstr ""
+msgstr "Viersija:"
 
 #: ../data/ui/preferences/plugin.ui.h:12
 msgid "Install"
-msgstr ""
+msgstr "Ustaliavać"
 
 #: ../data/ui/preferences/plugin.ui.h:13
 msgid "<b>No Plugin Selected</b>"
-msgstr ""
+msgstr "<b>Nivodny dadatak nie abrany</b>"
 
 #: ../data/ui/preferences/plugin.ui.h:14
 msgid "Available Plugins"
-msgstr ""
+msgstr "Dastupnyja dadatki"
 
 #: ../data/ui/preferences/plugin.ui.h:15
 msgid "Install Updates"
-msgstr ""
+msgstr "Ustaliavać abnaŭlienni"
 
 #: ../data/ui/preferences/plugin.ui.h:16
 msgid "Updates"
-msgstr ""
+msgstr "Abnaŭlienni"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Ustaliavać fajl dadatka"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Pakazać voblasć infarmacyi"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Paneĺ infarmacyi ŭtrymoŭvaje vokladku aĺboma i zviestki pra trek"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Pakazać iliustracyi ŭ voblasci zviestak"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Zaŭsiody pakazvać palasu ŭkladak"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr ""
+msgstr "Miescaznachodžannie ŭkladki:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Šryft spisu prajhravannia:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Vykarystoŭvać sistemny šryft"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Adliustroŭvać numary darožak u kaliekcyi"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Vykarystoŭvać prazrystasć:"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Uvaha: hety paramietr moža vyklikać pamylki adliustravannia pry vykarystanni "
+"z menedžaram voknaŭ, jaki nie padtrymlivaje sumiaščennie."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
-msgstr ""
+msgstr "Adliustroŭvać abrazok u sistemnym trei"
 
 #: ../data/ui/preferences/appearance.ui.h:13
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Zharnuć u trej"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Zharnuć u trej"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
-msgstr ""
+msgstr "Pierachodzić da biahučaj darožki ŭ spisie pry zmienie"
 
 #: ../data/ui/preferences/appearance.ui.h:17
 msgid "Show splash screen on startup"
-msgstr ""
+msgstr "Pakazvać zastaŭku pry zahruzcy"
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "Lieva"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "Prava"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "Vierch"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "Niz"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Nalady"
 
 #: ../data/ui/preferences/collection.ui.h:1
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Slovy, jakija treba prybrać z tehaŭ vykanaŭca pry sartavanni (praz prabiel):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Pstryknicie pravaj knopkaj myšy dlia skidu da nalad pa zmaŭčanni)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Vyznačać fajly pa zmiescivie"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
-msgstr ""
+msgstr "Menedžar prylad"
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add Device"
-msgstr ""
+msgstr "Dadać pryladu"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
-msgstr ""
+msgstr "Typ prylady:"
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
-msgstr ""
+msgstr "Vyjaŭlienyja prylady:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
-msgstr ""
+msgstr "Biahučy: "
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
-msgstr ""
+msgstr "Menedžar čarhi"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-11-24 17:45+0000\n"
+"PO-Revision-Date: 2017-11-25 20:44+0000\n"
 "Last-Translator: Viktar Vauchkevich <victorenator@gmail.com>\n"
 "Language-Team: Belarusian (latin) "
 "<https://hosted.weblate.org/projects/exaile/master/be_Latn/>\n"
@@ -2486,49 +2486,49 @@ msgstr "Menedžar čarhi"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Padbor tanaĺnasci..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Tanaĺnasć padabrana."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Niemahčyma pračytać rehuliatar tanaĺnasci."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Prykladannie rehuliatara tanaĺnasci niedastupna."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Radok nastroju"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Pamylka vykanannia zapisu strumieniaŭ"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Zapis aŭdyjostrumieniu"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Uliublionyja treki na Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "API kliuč nie karektny."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Kali laska praviercie praviĺnasć uviedzienych dadzienych."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Nie mahčyma zapuscić veb-braŭzar"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2536,196 +2536,199 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Kali laska, skapijujcie i adkryjcie nastupnuju spasylku ŭ vašym veb-braŭzary:"
+"\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
-msgstr ""
+msgstr "Abranaje"
 
 #: ../plugins/lastfmlove/__init__.py:72
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Last.fm Abranaje"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr ""
+msgstr "Mnie padabacca hety trek"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Mnie nie padabajecca hety trek"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Budziĺnik"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Nadbudovie nieabchodzien, minimum PyGTK 2.22 i GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Haloŭnaje mieniu"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
 msgid "Contacting Icecast server..."
-msgstr ""
+msgstr "Padkliučennie da sierviera Icecast..."
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
 msgid "Error connecting to Icecast server."
-msgstr ""
+msgstr "Pamylka padlučennia da sierviera Icecast."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Uviadzicie kliučavyja slovy dlia pošuku"
 
 #: ../plugins/icecast/__init__.py:318
 msgid "Icecast Search"
-msgstr ""
+msgstr "Pošuk Icecast"
 
 #: ../plugins/icecast/__init__.py:342
 msgid "No Stations Found"
-msgstr ""
+msgstr "Stancyi nie znojdzieny"
 
 #: ../plugins/icecast/__init__.py:345
 msgid "Icecast Search Results"
-msgstr ""
+msgstr "Vyniki pošuku Icecast"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
-msgstr ""
+msgstr "Pošuk"
 
 #: ../plugins/icecast/__init__.py:384
 msgid "Name"
-msgstr ""
+msgstr "Nazva"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
-msgstr ""
+msgstr "Farmat"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "Tekst piesni nie znojdzieny."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Pierajsci da: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "Liuby"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Ahliadaĺnik tekstaŭ piesień"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Pacvierdžannie paspiachovaje"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Pravierka nie atrymalasia"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Ukliučyć aŭdyjo-skroblinh"
 
 #: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Ekvalajzier"
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr ""
+msgstr "Vykliučyć paslia prajhravannia"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Vykliučennie pa raskladzie"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr ""
+msgstr "Kamputar vykliučycca pa zaviaršenni prajhravannia."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Chutkaje zaviaršennie pracy"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "Kamputar budzie vykliučany praz %d siekund."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Vykliučennie nie atrymalasia"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "Kamputar nie moža być vykliučany praz D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Papiaredni prahliad prylady"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Pradprahliad prajhravaĺnika"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Pradprahliad"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Prypynić prajhravannie (dvajny klik dlia prypynku)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Usplyvaĺnyja padkazki"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "vykonvaje %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:59
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "z %(album)s"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Kansoĺ IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Pakazać Kansoĺ IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Kansoĺ IPython"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Apaviaščennie"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2733,209 +2736,211 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"(%(artist)s)\n"
+"z aĺboma <i>%(album)s</i>"
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
-msgstr ""
+msgstr "Impartavannie CD..."
 
 #: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
-msgstr ""
+msgstr "Hukavy dysk"
 
 #: ../plugins/cd/cdprefs.py:37
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:92
 msgid "Track number"
-msgstr ""
+msgstr "Numar darožki"
 
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:98
 msgid "Disc number"
-msgstr ""
+msgstr "Numar dyska"
 
 #: ../plugins/cd/cdprefs.py:118
 #: ../plugins/minimode/minimode_preferences.py:105
 msgid "Play count"
-msgstr ""
+msgstr "Prasluchoŭvanniaŭ"
 
 #: ../plugins/wikipedia/__init__.py:136 ../plugins/wikipedia/config.py:3
 #: ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Vikipiedyja"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Pakazvaje artykul Vikipiedyi pra biahučaha vykanaŭca."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Paŭtaryć siehmient"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Paŭtaryć pačatak"
 
 #: ../plugins/abrepeat/__init__.py:61
 msgid "Repeat End"
-msgstr ""
+msgstr "Paŭtaryć kaniec"
 
 #: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Kampaktny režym"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:113
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title vykonvaje $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "$title ($__length)"
-msgstr ""
+msgstr "$title ($__length)"
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
-msgstr ""
+msgstr "Papiaredniaja"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Viarnucca da papiaredniaj darožki"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr ""
+msgstr "Papiaredniaja darožka"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
-msgstr ""
+msgstr "Nastupnaja"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
-msgstr ""
+msgstr "Pierajsci da nastupnaj darožki"
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
-msgstr ""
+msgstr "Nastupnaja darožka"
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
-msgstr ""
+msgstr "Prajhrać/Prypynić"
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Pačać, prypynić abo praciahnuć prajhravannie"
 
 #: ../plugins/minimode/controls.py:283
 msgid "Start playback"
-msgstr ""
+msgstr "Pačać prajhravannie"
 
 #: ../plugins/minimode/controls.py:287
 msgid "Continue playback"
-msgstr ""
+msgstr "Praciahnuć prajhravannie"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Pause playback"
-msgstr ""
+msgstr "Prypynić prajhravannie"
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
-msgstr ""
+msgstr "Spynić prajhravannie"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
-msgstr ""
+msgstr "Spynić prajhravannie"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Praciahnuć prajhravannie paslia biahučaj darožki"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
-msgstr ""
+msgstr "Hučnasć"
 
 #: ../plugins/minimode/controls.py:428
 msgid "Change the volume"
-msgstr ""
+msgstr "Kiravannie hučnasciu"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
-msgstr ""
+msgstr "Adnavić"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Adnavić haloŭnaje akno"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Adnavić haloŭnaje akno"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Paznačyć rejtynh biahučaj darožki"
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
-msgstr ""
+msgstr "Vybar darožak"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Prosty sieliektar spisu trekaŭ"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
-msgstr ""
+msgstr "Knopka spisu prajhravannia"
 
 #: ../plugins/minimode/controls.py:699
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Pierajsci da biahučaha spisu prajhravannia"
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Prahres-knopka"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Prahres prajhravannia i dostup da biahučaha plejlista"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
-msgstr ""
+msgstr "Indykatar prajhravannia"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Prahres prajhravannia i pieramotki"
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "Impart darožak"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"
-msgstr ""
+msgstr "Impart hrup"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Abnaŭliennie hrup"
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Vybierycie kataloh dlia impartu hrupavych tehaŭ"
 
 #: ../plugins/grouptagger/gt_prefs.py:21
 #: ../plugins/grouptagger/__init__.py:125

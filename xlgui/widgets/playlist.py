@@ -790,7 +790,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._refilter()
         else:
             # Merge default columns and currently enabled columns
-            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()])
+            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()[1:]])
             self._filter_matcher = trax.TracksMatcher(filter_string,
                                                       case_sensitive=False,
                                                       keyword_tags=keyword_tags)
@@ -893,15 +893,20 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             
         self.model._set_columns(columns)
         
-        font = settings.get_option('gui/playlist_font', None)
-        if font is not None:
-            font = Pango.FontDescription(font)
-
-        for position, column in enumerate(columns):
-            position += 2  # offset for pixbuf column
+        font, ratio = self._compute_font()
+            
+        # create a fixed column for the playlist icon
+        self._setup_fixed_column(ratio)
+        
+        for column in columns:
             playlist_column = providers.get_provider(
-                'playlist-columns', column)(self, position, self.player, font)
+                'playlist-columns', column)(self, self.player, font, ratio)
             playlist_column.connect('clicked', self.on_column_clicked)
+            
+            playlist_column.set_attributes(playlist_column.cellrenderer,
+                                sensitive=PlaylistModel.COL_SENSITIVE,
+                                weight=PlaylistModel.COL_WEIGHT)
+            
             self.append_column(playlist_column)
             header = playlist_column.get_widget()
             header.show()
@@ -910,6 +915,52 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             header.get_ancestor(Gtk.Button).connect('key-press-event',
                                                     self.on_header_key_press_event)
+    
+    def _compute_font(self):
+        
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            font = Pango.FontDescription(font)
+        
+        default_font = Gtk.Widget.get_default_style().font_desc
+        if font is None:
+            font = default_font
+
+        def_font_sz = float(default_font.get_size())
+
+        # how much has the font deviated from normal?
+        ratio = font.get_size() / def_font_sz
+        
+        # small fonts can be problematic..
+        # -> TODO: perhaps default widths could be specified
+        #          in character widths instead? then we could
+        #          calculate it instead of using arbitrary widths
+        if ratio < 1:
+            ratio = ratio * 1.25
+
+        return font, ratio
+    
+    def _setup_fixed_column(self, ratio):
+        sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
+        sz = max(int(sz * ratio), 1)
+        
+        cell = Gtk.CellRendererPixbuf()
+        cell.set_property('xalign', 0.0)
+        
+        col = Gtk.TreeViewColumn('')
+        col.pack_start(cell, False)
+        col.set_max_width(sz)
+        col.set_attributes(cell, pixbuf=PlaylistModel.COL_PIXBUF)
+        col.set_resizable(False)
+        col.set_reorderable(False)
+        col.set_clickable(False)
+        col.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
+        self.append_column(col)
+    
+    def _on_resize_columns(self):
+        for col in self.cols:
+            col._setup_sizing()
+        pass
 
     def _refresh_columns(self):
         selection = self.get_selection()
@@ -959,13 +1010,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             return True
 
     def on_columns_changed(self, widget):
-        columns = [c.name for c in self.get_columns()]
+        columns = [c.name for c in self.get_columns()[1:]]
         if columns != settings.get_option('gui/columns', []):
             settings.set_option('gui/columns', columns)
 
     def on_column_clicked(self, column):
         order = None
-        for col in self.get_columns():
+        for col in self.get_columns()[1:]:
             if col.name == column.name:
                 order = column.get_sort_order()
                 if order == Gtk.SortType.ASCENDING:
@@ -1332,6 +1383,24 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
 
 class PlaylistModel(Gtk.ListStore):
+    '''
+        This ListStore contains all the information needed to render a playlist
+        via a PlaylistView. There are five columns:
+        
+        * xl.trax.Track
+        * dictionary (tag cache)
+        * Gdk.Pixbuf (indicates whether track is playing or not)
+        * boolean (indicates whether row is sensitive)
+        * Pango.Weight (indicates if row is the playing track or not)
+        
+        The cache keys correspond to the tags rendered by each column. When a
+        track changes, the row's corresponding cache is cleared and the row
+        change event is fired.
+        
+        The cache keys are populated by the playlist columns. This arrangement
+        ensures that we don't have to recreate the playlist model each time the
+        columns are changed.
+    '''
 
     __gsignals__ = {
         # Called with true indicates starting operation, False ends op
@@ -1341,10 +1410,18 @@ class PlaylistModel(Gtk.ListStore):
             (GObject.TYPE_BOOLEAN,)
         )
     }
-
+    
+    COL_TRACK = 0
+    COL_CACHE = 1
+    COL_PIXBUF = 2
+    COL_SENSITIVE = 3
+    COL_WEIGHT = 4
+    
+    PARAM_COLS = (COL_PIXBUF, COL_SENSITIVE, COL_WEIGHT)
+    
     def __init__(self, playlist, column_names, player, parent):
-        # columns: Track, Pixbuf
-        Gtk.ListStore.__init__(self, object, GdkPixbuf.Pixbuf)
+        # columns: Track, Pixbuf, dict (cache)
+        Gtk.ListStore.__init__(self, object, object, GdkPixbuf.Pixbuf, bool, Pango.Weight)
         self.playlist = playlist
         self.player = player
         
@@ -1432,38 +1509,66 @@ class PlaylistModel(Gtk.ListStore):
 
     def _refresh_icons(self):
         self._setup_icons()
-        for i, row in enumerate(self):
-            row[1] = self.icon_for_row(i).pixbuf
-
+        itr = self.get_iter_first()
+        position = 0
+        while itr:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(position))
+            itr = self.iter_next(itr)
+            position += 1
+        
     def on_option_set(self, typ, obj, data):
         if data == "gui/playlist_font":
             self._refresh_icons()
 
-    def icon_for_row(self, row):
-        # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
-        if self.playlist.current_position == row and \
-                self.playlist[row] == self.player.current and \
-                self.playlist == self.player.queue.current_playlist:
-            state = self.player.get_state()
-            spat = self.playlist.spat_position == row
-            if state == 'playing':
-                if spat:
-                    return self.play_stop_pixbuf
-                else:
-                    return self.play_pixbuf
-            elif state == 'paused':
-                if spat:
-                    return self.pause_stop_pixbuf
-                else:
-                    return self.pause_pixbuf
-        if self.playlist.spat_position == row:
-            return self.stop_pixbuf
-        return self.clear_pixbuf
-
-    def update_icon(self, position):
-        iter = self.iter_nth_child(None, position)
-        if iter is not None:
-            self.set(iter, 1, self.icon_for_row(position).pixbuf)
+    def _compute_row_params(self, rowidx):
+        '''
+            :returns: pixbuf, sensitive, weight
+        '''
+        
+        pixbuf = self.clear_pixbuf.pixbuf
+        weight = Pango.Weight.NORMAL
+        sensitive = True
+        
+        playlist = self.playlist
+        
+        spatpos = playlist.spat_position 
+        spat = (spatpos == rowidx)
+        
+        if spat:
+            pixbuf = self.stop_pixbuf.pixbuf
+        
+        if playlist is self.player.queue.current_playlist:
+            
+            if playlist.current_position == rowidx and \
+               playlist[rowidx] == self.player.current:
+               
+               # this row is the current track, set a special icon
+               state = self.player.get_state()
+               
+               weight = Pango.Weight.HEAVY
+               
+               if state == 'playing':
+                   if spat:
+                       pixbuf = self.play_stop_pixbuf.pixbuf
+                   else:
+                       pixbuf = self.play_pixbuf.pixbuf
+               elif state == 'paused':
+                   if spat:
+                       pixbuf = self.pause_stop_pixbuf.pixbuf
+                   else:
+                       pixbuf = self.pause_pixbuf.pixbuf
+            
+            if spatpos == -1 or spatpos > rowidx:
+                sensitive = True
+            else:
+                sensitive = False
+        
+        return pixbuf, sensitive, weight
+        
+    def update_row_params(self, position):
+        itr = self.iter_nth_child(None, position)
+        if itr is not None:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(position))
 
     ### Event callbacks to keep the model in sync with the playlist ###
 
@@ -1479,18 +1584,27 @@ class PlaylistModel(Gtk.ListStore):
         for position in positions:
             if position < 0:
                 continue
-            self.update_icon(position)
+            self.update_row_params(position)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
-        spat_position = min(positions)
-        for position in xrange(spat_position, len(self)):
-            self.update_icon(position)
-
+        pos = min(positions)
+        
+        if pos < 0:
+            pos = 0
+            itr = self.get_iter_first()
+        else:
+            itr = self.iter_nth_child(None, pos)
+            
+        while itr:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(pos))
+            itr = self.iter_next(itr)
+            pos += 1
+    
     def on_playback_state_change(self, event_type, player_obj, track):
         position = self.playlist.current_position
         if position < 0 or position >= len(self):
             return
-        self.update_icon(position)
+        self.update_row_params(position)
 
     def on_track_tags_changed(self, type, track, tags):
         if not track or not \
@@ -1508,8 +1622,12 @@ class PlaylistModel(Gtk.ListStore):
         redraw_queue = set(self._redraw_queue)
         self._redraw_queue = []
 
+        COL_TRACK = self.COL_TRACK
+        COL_CACHE = self.COL_CACHE
+
         for row in self:
-            if row[0] in redraw_queue:
+            if row[COL_TRACK] in redraw_queue:
+                row[COL_CACHE].clear()
                 self.row_changed(row.path, row.iter)
             
     #
@@ -1548,8 +1666,9 @@ class PlaylistModel(Gtk.ListStore):
         GLib.idle_add(self._load_data_done, render_data)
 
     def _load_data_fn(self, tracks):
+        indices = (0, 1, 2, 3, 4)
         return [
-            (position, (0, 1), (track, self.icon_for_row(position).pixbuf)) \
+            (position, indices, (track, {}) + self._compute_row_params(position)) \
             for position, track in tracks
         ]
 

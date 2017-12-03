@@ -99,7 +99,7 @@ class TrackDB(object):
         self.name = name
         self.location = location
         self._dirty = False
-        self.tracks = {}
+        self.tracks = {} # key is always URI of the track
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
@@ -313,11 +313,7 @@ class TrackDB(object):
             Returns True if loc is a track in this collection, False
             if it is not
         """
-        # check for the actual track
-        if self.get_track_by_loc(loc):
-            return True
-        else:
-            return False
+        return loc in self.tracks
 
     def get_count(self):
         """

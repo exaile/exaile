@@ -345,13 +345,16 @@ class TrackDB(object):
             if not tr.get_tag_raw('__date_added'):
                 tr.set_tags(__date_added=now)
             location = tr.get_loc_for_io()
+            # Don't add duplicates -- track URLs are unique
+            if location in self.tracks:
+                continue
             locations += [location]
             self.tracks[location] = TrackHolder(tr, self._key)
             self._key += 1
 
-        event.log_event('tracks_added', self, locations)
-
-        self._dirty = True
+        if locations:
+            event.log_event('tracks_added', self, locations)
+            self._dirty = True
 
     def remove(self, track):
         """

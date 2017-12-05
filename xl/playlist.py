@@ -1705,6 +1705,8 @@ class SmartPlaylist(object):
         self.track_count = -1
         self.random_sort = False
         self.name = name
+        self.sort_tags = None
+        self.sort_order = None
 
     def set_location(self, location):
         pass
@@ -1753,6 +1755,22 @@ class SmartPlaylist(object):
             Returns the track count setting
         """
         return self.track_count
+
+    def set_sort_tags(self, tags, reverse):
+        """
+            Control playlist sorting
+
+            :param tags: List of tags to sort by
+            :param reverse: Reverse the tracks after sorting
+        """
+        self.sort_tags = tags
+        self.sort_order = reverse
+
+    def get_sort_tags(self):
+        """
+            :returns: (list of tags, reverse)
+        """
+        return self.sort_tags, self.sort_order
 
     def set_or_match(self, value):
         """
@@ -1835,9 +1853,13 @@ class SmartPlaylist(object):
         if self.random_sort:
             random.shuffle(trs)
         else:
-            sort_field = ('artist', 'date', 'album', 'discnumber',
-                          'tracknumber', 'title')
-            trs = trax.sort_tracks(sort_field, trs)
+            order = False
+            if self.sort_tags:
+                order = self.sort_order
+                sort_by = [self.sort_tags] + list(common.BASE_SORT_TAGS)
+            else:
+                sort_by = common.BASE_SORT_TAGS
+            trs = trax.sort_tracks(sort_by, trs, reverse=order)
         if self.track_count > 0 and len(trs) > self.track_count:
             trs = trs[:self.track_count]
 
@@ -1943,7 +1965,7 @@ class SmartPlaylist(object):
     def save_to_location(self, location):
         pdata = {}
         for item in ['search_params', 'custom_params', 'or_match',
-                     'track_count', 'random_sort', 'name']:
+                     'track_count', 'random_sort', 'name', 'sort_tags', 'sort_order']:
             pdata[item] = getattr(self, item)
         with open(location, 'wb') as fp:
             pickle.dump(pdata, fp)

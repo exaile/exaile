@@ -33,6 +33,7 @@ from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import (
+    common,
     event,
     formatter,
     player,
@@ -594,9 +595,7 @@ class MainWindow(GObject.GObject):
         page = self.get_selected_page()
 
         if sort:
-            tracks = trax.sort_tracks(
-                ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-                tracks)
+            tracks = trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
 
         if replace:
             page.playlist.clear()

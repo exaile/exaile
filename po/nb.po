@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2017-11-22 05:49+0000\n"
+"PO-Revision-Date: 2017-12-09 18:48+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://hosted.weblate.org/projects/exaile/master/nb/>\n"
@@ -978,7 +978,7 @@ msgstr "Planlagt"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Start forskyvning"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 #, fuzzy
@@ -987,7 +987,7 @@ msgstr "X-forskyvning:"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Skalerbar"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
@@ -1037,7 +1037,7 @@ msgstr "Fortsett Avspillingen Etter Dette Sporet"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Krever programtillegg som tilbyr dynamiske spillelister"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
@@ -2239,11 +2239,11 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Forsinkelse mellom spor (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
-msgstr ""
+msgstr "Fungerer bare med den normale avspillingsmotoren"
 
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
@@ -2469,7 +2469,7 @@ msgstr ""
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Last.fm elskede spor"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
@@ -2493,19 +2493,19 @@ msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
-msgstr ""
+msgstr "Elsked"
 
 #: ../plugins/lastfmlove/__init__.py:72
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Last.fm-elsket"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr ""
+msgstr "Elsk dette sporet"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Ikke elsk dette sporet"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -2513,7 +2513,7 @@ msgstr "Alarmklokke"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Dette programtillegget trenger minst PyGKT 2.22 og GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
@@ -3285,7 +3285,7 @@ msgstr "Koble fra tjener"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Velg lagringssted"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
@@ -3343,11 +3343,11 @@ msgstr "API-nøkkel:"
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
-msgstr ""
+msgstr "Hemmelighet:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
-msgstr ""
+msgstr "Forespør lesetilgang"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:5
 msgid ""
@@ -3359,7 +3359,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Alarmtid</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
@@ -3391,7 +3391,7 @@ msgstr "Søndag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Alarmdager</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
@@ -3399,19 +3399,19 @@ msgstr "Bruk overganger"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Minste lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Høyeste lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Økningsintervall:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Tid for hver økning:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
@@ -3423,11 +3423,11 @@ msgstr "Vis omslag"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Sirkelvisning"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Tekstprosent"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
@@ -3435,15 +3435,15 @@ msgstr "Ingen"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Sangtekstskrift:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Oppdater sangtekster"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Send inn spor ved bruk av Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
@@ -3465,7 +3465,7 @@ msgstr "Brukernavn:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Bekreft innloggingsdata"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
@@ -3586,7 +3586,7 @@ msgstr "<b>Innhold</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Terminaldekkevne:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
@@ -3594,7 +3594,7 @@ msgstr "Skrifttype:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "Text Color:"
-msgstr ""
+msgstr "Tekstfarge:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
 msgid "Background Color:"
@@ -3602,15 +3602,15 @@ msgstr "Bakgrunnsfarge:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "IPython-fargedrakt:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
-msgstr ""
+msgstr "Start IPython-konsoll når Exaile starter"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Skaler viste omslag"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
@@ -3655,7 +3655,7 @@ msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
@@ -3687,19 +3687,19 @@ msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "Språk:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
-msgstr ""
+msgstr "Hjem"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:3
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "Frem"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid ""
@@ -3709,11 +3709,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
-msgstr ""
+msgstr "Kontroller"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:4
 msgid "Track Title Format"
-msgstr ""
+msgstr "Sportittelformat"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Always on top"
@@ -3721,11 +3721,11 @@ msgstr "Alltid øverst"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Vis i oppgavelinje"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr ""
+msgstr "Vis vindusdekorasjoner"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -3733,7 +3733,7 @@ msgstr "Vis på alle skrivebord"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr ""
+msgstr "Vis knapp i hovedvinduet"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
@@ -3745,7 +3745,7 @@ msgstr "Enkelt"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "grouping"
-msgstr ""
+msgstr "gruppering"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
 #, fuzzy
@@ -3774,11 +3774,11 @@ msgstr "Sangtekst"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Grupper/kategori-skrift:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Navn på kategoriseringsetikett"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:10
 msgid ""
@@ -3798,11 +3798,11 @@ msgstr "Importer CD"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
 msgid "Current Groups"
-msgstr ""
+msgstr "Nåværende grupper"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
 msgid "New Groups"
-msgstr ""
+msgstr "Nye grupper"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
 #, fuzzy
@@ -3811,11 +3811,11 @@ msgstr "Importsti: "
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
-msgstr ""
+msgstr "Flett"
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
 msgid "Replace"
-msgstr ""
+msgstr "Erstatt"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
@@ -3836,7 +3836,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
-msgstr ""
+msgstr "Erstatt etikett"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
 #, fuzzy
@@ -3881,7 +3881,7 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "Historikklengde:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
@@ -3889,7 +3889,7 @@ msgstr "Sorter etter:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Sorteringsretning:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
@@ -3921,7 +3921,7 @@ msgstr "Rangering denne måneden"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Antall spillelistetillegg"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
@@ -3929,15 +3929,15 @@ msgstr "Antall nedlastinger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Antall avspillinger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Stjernemerket"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Dato for stjernemerkning"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
@@ -3954,23 +3954,23 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "VIsningsformat"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Visningsvarighet:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
-msgstr ""
+msgstr "Bakgrunn:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Vis framdriftsindikator"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Kantradius:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -3992,7 +3992,7 @@ msgstr "%d valgt"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
-msgstr ""
+msgstr "Velg analyse"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
 #, fuzzy
@@ -4001,19 +4001,20 @@ msgstr "Spillelisteknapp"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
-msgstr ""
+msgstr "Generer!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:7
 msgid "Output Title"
-msgstr ""
+msgstr "Utdatatittel"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
+#, fuzzy
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Forvalg for spillelistenavn"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
-msgstr ""
+msgstr "Generer"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -4037,7 +4038,7 @@ msgstr "Y-forskyvning:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Overstyr omslagsstørrelse"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
@@ -4081,7 +4082,7 @@ msgstr "Fjern"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Alarmer</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
@@ -4109,7 +4110,7 @@ msgstr "Restart spillelisten"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Avspilling</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
@@ -4137,7 +4138,7 @@ msgstr "Navn på tjener:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
 msgid "Server host:"
-msgstr ""
+msgstr "Tjenervert:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:3
 msgid "Port:"
@@ -4145,15 +4146,16 @@ msgstr "Port:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:4
 msgid "Server enabled"
-msgstr ""
+msgstr "Tjener påskrudd"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
+#, fuzzy
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Vis IPv6-tjenere (eksperimentelt)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Husk nylige DAAP-tjenere"
 
 #: ../plugins/lyricsmania/PLUGININFO:3
 #, fuzzy
@@ -4168,7 +4170,7 @@ msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Nåværende spor"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4180,7 +4182,7 @@ msgstr ""
 #: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Merknader"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -4192,22 +4194,24 @@ msgstr ""
 #: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "Grafisk brukergrensesnitt"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME-multimediataster"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Legger til støtte for kontroll av Exaile via GNOME sitt multimediatast-"
+"system. Kompatiblelt med GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Hurtigtaster"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -4221,11 +4225,11 @@ msgstr ""
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "MusicBrainz-omslag"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr ""
+msgstr "Integrerer MusicBrainz for omslagssøk"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4239,7 +4243,7 @@ msgstr ""
 #: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Merking"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4256,11 +4260,11 @@ msgstr ""
 #: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Verktøy"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Hovedmenyknapp"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
@@ -4273,15 +4277,15 @@ msgstr ""
 #: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Mediakilder"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm-omslag"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Søker på Last.fm etter omslag"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -4370,7 +4374,7 @@ msgstr ""
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "Enheter"
 
 #: ../plugins/previewdevice/PLUGININFO:4
 msgid ""
@@ -4380,15 +4384,15 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiske Last-fm-spillelister"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Last-fm -bakende for dynamiske spillelister"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiske spillelister"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4407,7 +4411,7 @@ msgstr ""
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Utvikling"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid ""
@@ -4435,11 +4439,11 @@ msgstr ""
 #: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "Informasjon"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "A-B-gjentagelse"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
@@ -4556,11 +4560,11 @@ msgstr ""
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Mikser ned lyd til én kanal"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4573,7 +4577,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Bindeleddsinformasjon"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4596,7 +4600,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Sangtekst-wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
@@ -4618,7 +4622,7 @@ msgstr "LastFM Radio"
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
 "SomaFM Radio list%s%s"
-msgstr ""
+msgstr "SomaFM-radioliste%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
@@ -4626,7 +4630,7 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Tillater avspilling av DAAP-musikklager."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Endre kø"

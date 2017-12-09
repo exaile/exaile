@@ -73,7 +73,6 @@ class GtMassRename(Gtk.Window):
     def on_find_clicked(self, widget):
 
         self.search_str = self.search_entry.get_text().strip()
-        self.replace_str = self.replace_entry.get_text().strip()
         self.tagname = gt_common.get_tagname()
 
         # freeze update
@@ -84,7 +83,7 @@ class GtMassRename(Gtk.Window):
         model.clear()
 
         idx = self.playlists.get_active()
-        if idx != -1 and (self.search_str != '' or self.replace_str != ''):
+        if idx != -1 and self.search_str != '':
 
             smart, name = self.playlists.get_model()[idx]
             if smart:
@@ -111,7 +110,7 @@ class GtMassRename(Gtk.Window):
         self.tracks_list.set_model(model)
         self.tracks_list.thaw_child_notify()
 
-        self.found_label = _('%s tracks found') % len(model)
+        self.found_label.set_text(_('%s tracks found') % len(model))
 
         self.replace.set_sensitive(len(model) != 0)
 
@@ -119,8 +118,13 @@ class GtMassRename(Gtk.Window):
     def on_replace_clicked(self, widget):
 
         tracks = [row[2] for row in self.tracks_list.get_model() if row[1]]
+        replace_str = self.replace_entry.get_text().strip()
 
-        query = _("Replace '%s' with '%s' on %s tracks?") % (self.search_str, self.replace_str, len(tracks))
+        if replace_str:
+            query = _("Replace '%s' with '%s' on %s tracks?") % (self.search_str, replace_str, len(tracks))
+        else:
+            query = _("Delete '%s' from %s tracks?") % (self.search_str, len(tracks))
+
         if dialogs.yesno(self, query) != Gtk.ResponseType.YES:
             return
 
@@ -131,8 +135,8 @@ class GtMassRename(Gtk.Window):
             if self.search_str != '':
                 groups.discard(self.search_str)
 
-            if self.replace_str != '':
-                groups.add(self.replace_str)
+            if replace_str != '':
+                groups.add(replace_str)
 
             if not gt_common.set_track_groups(track, groups):
                 return

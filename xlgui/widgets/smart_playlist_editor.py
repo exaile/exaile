@@ -304,6 +304,8 @@ class SmartPlaylistEditor(object):
         dialog = FilterDialog(_('Add Smart Playlist'), parent, CRITERIA)
         dialog.set_transient_for(parent)
 
+        cls._attach_sort_widgets(dialog, None, None)
+
         return cls._run_edit_dialog(dialog, collection, smart_manager, parent)
 
     @classmethod
@@ -355,8 +357,9 @@ class SmartPlaylistEditor(object):
         dialog.set_match_any(pl.get_or_match())
         dialog.set_limit(pl.get_return_limit())
         dialog.set_random(pl.get_random_sort())
-
         dialog.set_state(state)
+
+        cls._attach_sort_widgets(dialog, *pl.get_sort_tags())
 
         return cls._run_edit_dialog(dialog, collection, smart_manager, parent,
                                     orig_pl=pl)
@@ -381,6 +384,7 @@ class SmartPlaylistEditor(object):
             limit = dialog.get_limit()
             state = dialog.get_state()
             random = dialog.get_random()
+            sort_tags = cls._get_sort_tags(dialog)
 
             if not name:
                 dialogs.error(parent, _("You did "
@@ -400,6 +404,7 @@ class SmartPlaylistEditor(object):
             pl.set_or_match(matchany)
             pl.set_return_limit(limit)
             pl.set_random_sort(random)
+            pl.set_sort_tags(*sort_tags)
 
             for item in state:
                 (field, op) = item[0]
@@ -411,3 +416,52 @@ class SmartPlaylistEditor(object):
 
             smart_manager.save_playlist(pl)
             return pl
+
+    @classmethod
+    def _attach_sort_widgets(cls, dialog, tag, reverse):
+        # Add sort widgets
+        from xl.metadata.tags import tag_data
+
+        dialog.sort_enable = sort_enable = Gtk.CheckButton.new_with_label(_('Sort by:'))
+        def _on_sort_enable_changed(ck):
+            sort_tags.set_sensitive(ck.get_active())
+            sort_order.set_sensitive(ck.get_active())
+
+        sort_enable.connect('toggled', _on_sort_enable_changed)
+
+        dialog.sort_tags = sort_tags = Gtk.ComboBoxText.new()
+        sort_tags.set_wrap_width(5)
+        for k, v in sorted(tag_data.iteritems()):
+            if v:
+                sort_tags.append(k, v.translated_name)
+
+        dialog.sort_order = sort_order = Gtk.ComboBoxText.new()
+        sort_order.append("False", _("Ascending"))
+        sort_order.append("True", _("Descending"))
+
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 5)
+        box.pack_start(sort_enable, False, False, 0)
+        box.pack_start(sort_tags, False, False, 0)
+        box.pack_start(sort_order, False, False, 0)
+        box.show_all()
+
+        dialog.get_content_area().pack_start(box, False, False, 5)
+
+        # Set it up
+        if tag is None:
+            sort_enable.set_active(False)
+            sort_order.set_active_id("False")
+        else:
+            sort_enable.set_active(True)
+            sort_tags.set_active_id(tag)
+            sort_order.set_active_id(str(reverse))
+
+        _on_sort_enable_changed(sort_enable)
+
+    @classmethod
+    def _get_sort_tags(cls, dialog):
+        if not dialog.sort_enable.get_active():
+            return None, False
+        tag = dialog.sort_tags.get_active_id()
+        order = dialog.sort_order.get_active_id() == 'True'
+        return tag, order

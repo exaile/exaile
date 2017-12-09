@@ -62,34 +62,28 @@ class Column(Gtk.TreeViewColumn):
     dataproperty = 'text'
     cellproperties = {}
 
-    def __init__(self, container, index, player, font):
+    def __init__(self, container, player, font, size_ratio):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                                       "abstract class %s" % repr(self.__class__))
-
+        
+        self._size_ratio = size_ratio
         self.container = container
         self.player = player
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
-        self.extrasize = 0
-
-        self._setup_font(font)
-
-        if index == 2:
-            super(Column, self).__init__(self.display)
-            self.icon_cellr = Gtk.CellRendererPixbuf()
-            pbufsize = self.get_icon_height()
-            self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
-            self.extrasize = pbufsize
-            self.icon_cellr.set_property('xalign', 0.0)
-            self.pack_start(self.icon_cellr, False)
-            self.pack_start(self.cellrenderer, True)
-            self.set_attributes(self.icon_cellr, pixbuf=1)
-            self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
-        else:
-            super(Column, self).__init__(self.display, self.cellrenderer,
-                                         **{self.dataproperty: index})
+        self.destroyed = False
+        
+        super(Column, self).__init__(self.display)
+        self.props.min_width = 3
+        
+        self.pack_start(self.cellrenderer, True)
         self.set_cell_data_func(self.cellrenderer, self.data_func)
+        
+        try:
+            self.cellrenderer.set_property('font-desc', font)
+        except TypeError:
+            pass  # not all cells have a font
 
         try:
             self.cellrenderer.set_property('ellipsize', Pango.EllipsizeMode.END)
@@ -98,7 +92,7 @@ class Column(Gtk.TreeViewColumn):
 
         for name, val in self.cellproperties.iteritems():
             self.cellrenderer.set_property(name, val)
-
+        
         self.set_reorderable(True)
         self.set_clickable(True)
         self.set_sizing(Gtk.TreeViewColumnSizing.FIXED)  # needed for fixed-height mode
@@ -112,7 +106,8 @@ class Column(Gtk.TreeViewColumn):
         self._width_notify = self.connect('notify::width', self.on_width_changed)
         self._setup_sizing()
 
-        event.add_ui_callback(self.on_option_set, "gui_option_set")
+        event.add_ui_callback(self.on_option_set, "gui_option_set",
+                              destroy_with=container)
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
@@ -121,43 +116,9 @@ class Column(Gtk.TreeViewColumn):
     @common.glib_wait(100)
     def on_width_changed(self, column, wid):
         width = self.get_width()
-        if width != settings.get_option(self.settings_width_name, -1):
+        if not self.destroyed and \
+           width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
-
-    def _setup_font(self, font):
-        '''
-            This should be set even for non-text columns.
-
-            ::param font:: is None or a Pango.FontDescription
-        '''
-        default_font = Gtk.Widget.get_default_style().font_desc
-        if font is None:
-            font = default_font
-
-        def_font_sz = float(default_font.get_size())
-
-        try:
-            self.cellrenderer.set_property('font-desc', font)
-        except TypeError:
-            pass
-
-        # how much has the font deviated from normal?
-        self._font_ratio = font.get_size() / def_font_sz
-
-        try:
-            # adjust the display size of the column
-            ratio = self._font_ratio
-
-            # small fonts can be problematic..
-            # -> TODO: perhaps default widths could be specified
-            #          in character widths instead? then we could
-            #          calculate it instead of using arbitrary widths
-            if ratio < 1:
-                ratio = ratio * 1.25
-
-            self.size = max(int(self.size * ratio), 1)
-        except AttributeError:
-            pass
 
     def _setup_sizing(self):
         with self.handler_block(self._width_notify):
@@ -165,7 +126,7 @@ class Column(Gtk.TreeViewColumn):
                 self.set_resizable(True)
                 self.set_expand(False)
                 width = settings.get_option(self.settings_width_name,
-                                            self.size + self.extrasize)
+                                            self.size)
                 self.set_fixed_width(width)
             else:
                 self.set_resizable(False)
@@ -174,41 +135,29 @@ class Column(Gtk.TreeViewColumn):
                     self.set_fixed_width(1)
                 else:
                     self.set_expand(False)
-                    self.set_fixed_width(self.size + self.extrasize)
+                    self.set_fixed_width(self.size)
 
-    def get_icon_height(self):
-        '''Returns a default icon height based on the font size'''
-        sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
-        return max(int(sz * self._font_ratio), 1)
+    def set_size_ratio(self, ratio):
+        self._size_ratio = ratio
 
-    def get_icon_size_ratio(self):
+    def get_size_ratio(self):
         '''Returns how much bigger or smaller an icon should be'''
-        return self._font_ratio
+        return self._size_ratio
 
     def data_func(self, col, cell, model, iter, user_data):
-        if isinstance(cell, Gtk.CellRendererText):
-            playlist = self.container.playlist
-
-            if playlist is not self.player.queue.current_playlist:
-                return
-
-            path = model.get_path(iter)
+        # warning: this function gets called from the render function, so do as
+        #          little work as possible!
+        
+        cache = model.get_value(iter, 1)
+        
+        text = cache.get(self.name)
+        if text is None:
             track = model.get_value(iter, 0)
-
-            if track == self.player.current and \
-               path[0] == playlist.get_current_position():
-                weight = Pango.Weight.HEAVY
-            else:
-                weight = Pango.Weight.NORMAL
-
-            cell.props.weight = weight
-
-            if -1 < playlist.spat_position < path[0] and \
-                    playlist.shuffle_mode == 'disabled':
-                cell.props.sensitive = False
-            else:
-                cell.props.sensitive = True
-
+            text = self.formatter.format(track)
+            cache[self.name] = text
+        
+        cell.props.text = text
+        
     def __repr__(self):
         return '%s(%r, %r, %r)' % (self.__class__.__name__,
                                    self.name, self.display, self.size)
@@ -283,7 +232,7 @@ class RatingColumn(Column):
     def __init__(self, *args):
         Column.__init__(self, *args)
         self.cellrenderer.connect('rating-changed', self.on_rating_changed)
-        self.cellrenderer.size_ratio = self.get_icon_size_ratio()
+        self.cellrenderer.size_ratio = self.get_size_ratio()
         self.saved_model = None
 
     def data_func(self, col, cell, model, iter, user_data):
@@ -295,7 +244,7 @@ class RatingColumn(Column):
         """
             Retrieves the optimal size
         """
-        size = icons.MANAGER.pixbuf_from_rating(0, self.get_icon_size_ratio()).get_width()
+        size = icons.MANAGER.pixbuf_from_rating(0, self.get_size_ratio()).get_width()
         size += 2  # FIXME: Find the source of this
 
         return size

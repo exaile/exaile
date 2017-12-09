@@ -798,7 +798,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         """
             Updates the internally stored playlist
         """
-        columns = self.view.get_model().columns
+        columns = self.view.get_model().column_names
         model = PlaylistModel(playlist, columns, player.PLAYER, self.view)
         self.view.set_model(model)
 

@@ -31,7 +31,6 @@ from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from itertools import izip
 import logging
 import sys
 
@@ -405,6 +404,11 @@ class PlaylistPage(PlaylistPageBase):
         self.loading = None
         self.loading_timer = None
 
+        self.play_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-start', size=Gtk.IconSize.MENU)
+        self.pause_pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+            'media-playback-pause', size=Gtk.IconSize.MENU)
+
         uifile = xdg.get_data_path("ui", "playlist.ui")
         self.builder = Gtk.Builder()
         self.builder.add_from_file(uifile)
@@ -451,13 +455,25 @@ class PlaylistPage(PlaylistPageBase):
         event.add_ui_callback(self.on_option_set,
                               'gui_option_set', destroy_with=self)
 
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_track_start", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_track_end", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_player_pause", player,
+                              destroy_with=self)
+        event.add_ui_callback(self.on_playback_state_change,
+                              "playback_player_resume", player,
+                              destroy_with=self)
+
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
         self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
         self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
         self.on_dynamic_playlists_provider_changed(None, None, None)
         self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
         self.view.connect('button-press-event', self.on_view_button_press_event)
-        self.view.model.connect('row-changed', self.on_row_changed)
         self.view.model.connect('data-loading', self.on_data_loading)
 
         if self.view.model.data_loading:
@@ -590,7 +606,7 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist.repeat_mode = mode
 
     def on_mode_changed(self, evtype, playlist, mode, button):
-        GLib.idle_add(button.set_active, mode != 'disabled')
+        button.set_active(mode != 'disabled')
 
     def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
         """
@@ -604,8 +620,8 @@ class PlaylistPage(PlaylistPageBase):
             sensitive = True
             tooltip_text = _('Dynamically add similar tracks to the playlist')
 
-        GLib.idle_add(self.dynamic_button.set_sensitive, sensitive)
-        GLib.idle_add(self.dynamic_button.set_tooltip_text, tooltip_text)
+        self.dynamic_button.set_sensitive(sensitive)
+        self.dynamic_button.set_tooltip_text(tooltip_text)
 
     def on_option_set(self, evtype, settings, option):
         """
@@ -613,35 +629,35 @@ class PlaylistPage(PlaylistPageBase):
         """
         if option == 'gui/playlist_utilities_bar_visible':
             visible = settings.get_option(option, True)
-            GLib.idle_add(self.playlist_utilities_bar.set_visible, visible)
-            GLib.idle_add(self.playlist_utilities_bar.set_sensitive, visible)
-            GLib.idle_add(self.playlist_utilities_bar.set_no_show_all, not visible)
+            self.playlist_utilities_bar.set_visible(visible)
+            self.playlist_utilities_bar.set_sensitive(visible)
+            self.playlist_utilities_bar.set_no_show_all(not visible)
 
-    def on_row_changed(self, model, path, iter):
+    def on_playback_state_change(self, typ, player, track):
         """
             Sets the tab icon to reflect the playback status
         """
-        if path[0] == self.playlist.current_position:
-            pixbuf = model.get_value(iter, 1)
-            if pixbuf == model.clear_pixbuf:
-                pixbuf = None
-            self.tab.set_icon(pixbuf)
-
-        # there's a race condition on playback stop at the end of
-        # a playlist (current_position gets set before this is called),
-        # so this sets the icon correctly.
-        elif self.playlist.current_position == -1:
+        if player.queue.current_playlist != self.playlist:
             self.tab.set_icon(None)
+        elif typ in ('playback_player_end', 'playback_track_end'):
+            self.tab.set_icon(None)
+        elif typ in ('playback_track_start', 'playback_player_resume'):
+            self.tab.set_icon(self.play_pixbuf)
+        elif typ == 'playback_player_pause':
+            self.tab.set_icon(self.pause_pixbuf)
 
     def on_data_loading(self, model, loading):
         '''Called when tracks are being loaded into the model'''
         if loading:
             if self.loading is None and self.loading_timer is None:
+                self.view.set_model(None)
                 self.loading_timer = GLib.timeout_add(500, self.on_data_loading_timer)
         else:
             if self.loading_timer is not None:
                 GLib.source_remove(self.loading_timer)
                 self.loading_timer = None
+            
+            self.view.set_model(self.view.modelfilter)
 
             if self.loading is not None:
                 guiutil.gtk_widget_replace(self.loading, self.playlist_window)
@@ -715,7 +731,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
 
         self._filter_matcher = None
-
+        
+        self._setup_models()
         self._setup_columns()
         self.columns_changed_id = self.connect("columns-changed",
                                                self.on_columns_changed)
@@ -733,7 +750,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         event.add_ui_callback(self.on_playback_start,
                               "playback_track_start", self.player,
                               destroy_with=self)
-        self.connect("cursor-changed", self.on_cursor_changed)
+        self._cursor_changed = self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
 
@@ -773,7 +790,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._refilter()
         else:
             # Merge default columns and currently enabled columns
-            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()])
+            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()[1:]])
             self._filter_matcher = trax.TracksMatcher(filter_string,
                                                       case_sensitive=False,
                                                       keyword_tags=keyword_tags)
@@ -873,24 +890,23 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if not columns:
             columns = playlist_columns.DEFAULT_COLUMNS
-
-        # FIXME: this is kinda ick because of supporting both models
-        #self.model.columns = columns
-        # TODO: What is the fixme talking about?
-        self.model = PlaylistModel(self.playlist, columns, self.player, self)
-        self.model.connect('row-inserted', self.on_row_inserted)
-        self.set_model(self.model)
-        self._setup_filter()
-
-        font = settings.get_option('gui/playlist_font', None)
-        if font is not None:
-            font = Pango.FontDescription(font)
-
-        for position, column in enumerate(columns):
-            position += 2  # offset for pixbuf column
+            
+        self.model._set_columns(columns)
+        
+        font, ratio = self._compute_font()
+            
+        # create a fixed column for the playlist icon
+        self._setup_fixed_column(ratio)
+        
+        for column in columns:
             playlist_column = providers.get_provider(
-                'playlist-columns', column)(self, position, self.player, font)
+                'playlist-columns', column)(self, self.player, font, ratio)
             playlist_column.connect('clicked', self.on_column_clicked)
+            
+            playlist_column.set_attributes(playlist_column.cellrenderer,
+                                sensitive=PlaylistModel.COL_SENSITIVE,
+                                weight=PlaylistModel.COL_WEIGHT)
+            
             self.append_column(playlist_column)
             header = playlist_column.get_widget()
             header.show()
@@ -899,15 +915,52 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             header.get_ancestor(Gtk.Button).connect('key-press-event',
                                                     self.on_header_key_press_event)
+    
+    def _compute_font(self):
+        
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            font = Pango.FontDescription(font)
+        
+        default_font = Gtk.Widget.get_default_style().font_desc
+        if font is None:
+            font = default_font
 
-    def _setup_filter(self):
-        '''Call this anytime after you call set_model()'''
-        self.modelfilter = self.get_model().filter_new()
-        self.modelfilter.set_visible_func(self.modelfilter_visible_func)
-        self.set_model(self.modelfilter)
+        def_font_sz = float(default_font.get_size())
 
-        if self._filter_matcher is not None:
-            self._refilter()
+        # how much has the font deviated from normal?
+        ratio = font.get_size() / def_font_sz
+        
+        # small fonts can be problematic..
+        # -> TODO: perhaps default widths could be specified
+        #          in character widths instead? then we could
+        #          calculate it instead of using arbitrary widths
+        if ratio < 1:
+            ratio = ratio * 1.25
+
+        return font, ratio
+    
+    def _setup_fixed_column(self, ratio):
+        sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
+        sz = max(int(sz * ratio), 1)
+        
+        cell = Gtk.CellRendererPixbuf()
+        cell.set_property('xalign', 0.0)
+        
+        col = Gtk.TreeViewColumn('')
+        col.pack_start(cell, False)
+        col.set_max_width(sz)
+        col.set_attributes(cell, pixbuf=PlaylistModel.COL_PIXBUF)
+        col.set_resizable(False)
+        col.set_reorderable(False)
+        col.set_clickable(False)
+        col.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
+        self.append_column(col)
+    
+    def _on_resize_columns(self):
+        for col in self.cols:
+            col._setup_sizing()
+        pass
 
     def _refresh_columns(self):
         selection = self.get_selection()
@@ -921,14 +974,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if firstpath:
             topindex = firstpath[0][0]
 
-        self.disconnect(self.columns_changed_id)
-        columns = self.get_columns()
-        for col in columns:
-            self.remove_column(col)
+        with self.handler_block(self.columns_changed_id):
+            columns = self.get_columns()
+            for col in columns:
+                self.remove_column(col)
+                col.destroyed = True
 
-        self._setup_columns()
-        self.columns_changed_id = self.connect("columns-changed",
-                                               self.on_columns_changed)
+            self._setup_columns()
+        
         self.queue_draw()
 
         if firstpath:
@@ -937,19 +990,33 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             for path in info[1]:
                 selection.select_path(path)
 
+    def _setup_models(self):
+        self.model = PlaylistModel(self.playlist, [], self.player, self)
+        self.model.connect('row-inserted', self.on_row_inserted)
+
+        self.modelfilter = self.model.filter_new()
+        self.modelfilter.set_visible_func(self._modelfilter_visible_func)
+        self.set_model(self.modelfilter)
+    
+    def _modelfilter_visible_func(self, model, iter, data):
+        if self._filter_matcher is not None:
+            track = model.get_value(iter, 0)
+            return self._filter_matcher.match(trax.SearchResultTrack(track))
+        return True
+
     def on_header_button_press(self, widget, event):
         if event.triggers_context_menu():
             self.header_menu.popup(None, None, None, None, event.button, event.time)
             return True
 
     def on_columns_changed(self, widget):
-        columns = [c.name for c in self.get_columns()]
+        columns = [c.name for c in self.get_columns()[1:]]
         if columns != settings.get_option('gui/columns', []):
             settings.set_option('gui/columns', columns)
 
     def on_column_clicked(self, column):
         order = None
-        for col in self.get_columns():
+        for col in self.get_columns()[1:]:
             if col.name == column.name:
                 order = column.get_sort_order()
                 if order == Gtk.SortType.ASCENDING:
@@ -962,17 +1029,18 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 col.set_sort_indicator(False)
                 col.set_sort_order(Gtk.SortType.DESCENDING)
         reverse = order == Gtk.SortType.DESCENDING
-        self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
+        with self.handler_block(self._cursor_changed):
+            self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns" or data == 'gui/playlist_font':
-            GLib.idle_add(self._refresh_columns, priority=GLib.PRIORITY_DEFAULT)
+            self._refresh_columns()
 
     def on_playback_start(self, type, player, track):
         if player.queue.current_playlist == self.playlist and \
                 player.current == self.playlist.current and \
                 settings.get_option('gui/ensure_visible', True):
-            GLib.idle_add(self.scroll_to_current)
+            self.scroll_to_current()
 
     def scroll_to_current(self):
         position = self.playlist.current_position
@@ -1313,14 +1381,26 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-    def modelfilter_visible_func(self, model, iter, data):
-        if self._filter_matcher is not None:
-            track = model.get_value(iter, 0)
-            return self._filter_matcher.match(trax.SearchResultTrack(track))
-        return True
-
 
 class PlaylistModel(Gtk.ListStore):
+    '''
+        This ListStore contains all the information needed to render a playlist
+        via a PlaylistView. There are five columns:
+        
+        * xl.trax.Track
+        * dictionary (tag cache)
+        * Gdk.Pixbuf (indicates whether track is playing or not)
+        * boolean (indicates whether row is sensitive)
+        * Pango.Weight (indicates if row is the playing track or not)
+        
+        The cache keys correspond to the tags rendered by each column. When a
+        track changes, the row's corresponding cache is cleared and the row
+        change event is fired.
+        
+        The cache keys are populated by the playlist columns. This arrangement
+        ensures that we don't have to recreate the playlist model each time the
+        columns are changed.
+    '''
 
     __gsignals__ = {
         # Called with true indicates starting operation, False ends op
@@ -1330,19 +1410,25 @@ class PlaylistModel(Gtk.ListStore):
             (GObject.TYPE_BOOLEAN,)
         )
     }
-
-    def __init__(self, playlist, columns, player, parent):
-        Gtk.ListStore.__init__(self, int)  # real types are set later
+    
+    COL_TRACK = 0
+    COL_CACHE = 1
+    COL_PIXBUF = 2
+    COL_SENSITIVE = 3
+    COL_WEIGHT = 4
+    
+    PARAM_COLS = (COL_PIXBUF, COL_SENSITIVE, COL_WEIGHT)
+    
+    def __init__(self, playlist, column_names, player, parent):
+        # columns: Track, Pixbuf, dict (cache)
+        Gtk.ListStore.__init__(self, object, object, GdkPixbuf.Pixbuf, bool, Pango.Weight)
         self.playlist = playlist
-        self.columns = columns
-        self.column_names = set(columns)
         self.player = player
+        
+        self._set_columns(column_names)
 
         self.data_loading = False
         self.data_load_queue = []
-
-        self.coltypes = [object, GdkPixbuf.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
-        self.set_column_types(self.coltypes)
 
         self._redraw_timer = None
         self._redraw_queue = []
@@ -1380,6 +1466,9 @@ class PlaylistModel(Gtk.ListStore):
 
         self._setup_icons()
         self.on_tracks_added(None, self.playlist, list(enumerate(self.playlist)))  # populate the list
+
+    def _set_columns(self, column_names):
+        self.column_names = set(column_names)
 
     def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(
@@ -1420,38 +1509,66 @@ class PlaylistModel(Gtk.ListStore):
 
     def _refresh_icons(self):
         self._setup_icons()
-        for i, row in enumerate(self):
-            row[1] = self.icon_for_row(i).pixbuf
-
+        itr = self.get_iter_first()
+        position = 0
+        while itr:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(position))
+            itr = self.iter_next(itr)
+            position += 1
+        
     def on_option_set(self, typ, obj, data):
         if data == "gui/playlist_font":
-            GLib.idle_add(self._refresh_icons)
+            self._refresh_icons()
 
-    def icon_for_row(self, row):
-        # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
-        if self.playlist.current_position == row and \
-                self.playlist[row] == self.player.current and \
-                self.playlist == self.player.queue.current_playlist:
-            state = self.player.get_state()
-            spat = self.playlist.spat_position == row
-            if state == 'playing':
-                if spat:
-                    return self.play_stop_pixbuf
-                else:
-                    return self.play_pixbuf
-            elif state == 'paused':
-                if spat:
-                    return self.pause_stop_pixbuf
-                else:
-                    return self.pause_pixbuf
-        if self.playlist.spat_position == row:
-            return self.stop_pixbuf
-        return self.clear_pixbuf
-
-    def update_icon(self, position):
-        iter = self.iter_nth_child(None, position)
-        if iter is not None:
-            self.set(iter, 1, self.icon_for_row(position).pixbuf)
+    def _compute_row_params(self, rowidx):
+        '''
+            :returns: pixbuf, sensitive, weight
+        '''
+        
+        pixbuf = self.clear_pixbuf.pixbuf
+        weight = Pango.Weight.NORMAL
+        sensitive = True
+        
+        playlist = self.playlist
+        
+        spatpos = playlist.spat_position 
+        spat = (spatpos == rowidx)
+        
+        if spat:
+            pixbuf = self.stop_pixbuf.pixbuf
+        
+        if playlist is self.player.queue.current_playlist:
+            
+            if playlist.current_position == rowidx and \
+               playlist[rowidx] == self.player.current:
+               
+               # this row is the current track, set a special icon
+               state = self.player.get_state()
+               
+               weight = Pango.Weight.HEAVY
+               
+               if state == 'playing':
+                   if spat:
+                       pixbuf = self.play_stop_pixbuf.pixbuf
+                   else:
+                       pixbuf = self.play_pixbuf.pixbuf
+               elif state == 'paused':
+                   if spat:
+                       pixbuf = self.pause_stop_pixbuf.pixbuf
+                   else:
+                       pixbuf = self.pause_pixbuf.pixbuf
+            
+            if spatpos == -1 or spatpos > rowidx:
+                sensitive = True
+            else:
+                sensitive = False
+        
+        return pixbuf, sensitive, weight
+        
+    def update_row_params(self, position):
+        itr = self.iter_nth_child(None, position)
+        if itr is not None:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(position))
 
     ### Event callbacks to keep the model in sync with the playlist ###
 
@@ -1467,18 +1584,27 @@ class PlaylistModel(Gtk.ListStore):
         for position in positions:
             if position < 0:
                 continue
-            GLib.idle_add(self.update_icon, position)
+            self.update_row_params(position)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
-        spat_position = min(positions)
-        for position in xrange(spat_position, len(self)):
-            GLib.idle_add(self.update_icon, position)
-
+        pos = min(positions)
+        
+        if pos < 0:
+            pos = 0
+            itr = self.get_iter_first()
+        else:
+            itr = self.iter_nth_child(None, pos)
+            
+        while itr:
+            self.set(itr, self.PARAM_COLS, self._compute_row_params(pos))
+            itr = self.iter_next(itr)
+            pos += 1
+    
     def on_playback_state_change(self, event_type, player_obj, track):
         position = self.playlist.current_position
         if position < 0 or position >= len(self):
             return
-        GLib.idle_add(self.update_icon, position)
+        self.update_row_params(position)
 
     def on_track_tags_changed(self, type, track, tags):
         if not track or not \
@@ -1493,19 +1619,17 @@ class PlaylistModel(Gtk.ListStore):
 
     def _on_track_tags_changed(self):
         self._redraw_timer = None
-        tracks = {}
-        redraw_queue = self._redraw_queue
+        redraw_queue = set(self._redraw_queue)
         self._redraw_queue = []
-        for track in redraw_queue:
-            tracks[track.get_loc_for_io()] = track
+
+        COL_TRACK = self.COL_TRACK
+        COL_CACHE = self.COL_CACHE
 
         for row in self:
-            track = tracks.get(row[0].get_loc_for_io())
-            if track is not None:
-                track_data = [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
-                for i in range(len(track_data)):
-                    row[2 + i] = track_data[i]
-
+            if row[COL_TRACK] in redraw_queue:
+                row[COL_CACHE].clear()
+                self.row_changed(row.path, row.iter)
+            
     #
     # Loading data into the playlist:
     #
@@ -1526,39 +1650,31 @@ class PlaylistModel(Gtk.ListStore):
         if self.data_loading:
             self.data_load_queue.extend(tracks)
             return
-
-        # get column types
-        coltypes = [self.get_column_type(i) for i in xrange(self.get_n_columns())]
-        formatters = [providers.get_provider('playlist-columns', name).formatter.format for name in self.columns]
+        
         self.data_loading = True
         self.emit('data-loading', True)
 
-        if len(tracks) > 50:
-            self._load_data_thread(coltypes, formatters, tracks)
+        if len(tracks) > 500:
+            self._load_data_thread(tracks)
         else:
-            render_data = self._load_data_fn(coltypes, formatters, tracks)
+            render_data = self._load_data_fn(tracks)
             self._load_data_done(render_data)
 
     @common.threaded
-    def _load_data_thread(self, coltypes, formatters, tracks):
-        render_data = self._load_data_fn(coltypes, formatters, tracks)
+    def _load_data_thread(self, tracks):
+        render_data = self._load_data_fn(tracks)
         GLib.idle_add(self._load_data_done, render_data)
 
-    def _load_data_fn(self, coltypes, formatters, tracks):
-
-        Value = GObject.Value
-
-        render_data = []
-
-        for position, track in tracks:
-            track_data = [track, self.icon_for_row(position).pixbuf] + [formatter(track) for formatter in formatters]
-            render_data.append((position, [Value(typ, val) for typ, val in izip(coltypes, track_data)]))
-
-        return render_data
+    def _load_data_fn(self, tracks):
+        indices = (0, 1, 2, 3, 4)
+        return [
+            (position, indices, (track, {}) + self._compute_row_params(position)) \
+            for position, track in tracks
+        ]
 
     def _load_data_done(self, render_data):
         for args in render_data:
-            self.insert(*args)
+            self.insert_with_valuesv(*args)
 
         self.data_loading = False
         self.emit('data-loading', False)

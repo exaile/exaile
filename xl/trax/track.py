@@ -229,6 +229,9 @@ class Track(object):
 
         self.__tags = {}
         self._scan_valid = None  # whether our last tag read attempt worked
+
+        # This is not used by write_tags, this is used by the collection to
+        # indicate that the tags haven't been written to the collection
         self._dirty = False
 
         if _unpickles:

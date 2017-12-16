@@ -215,6 +215,8 @@ pot:
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
 	  find ../plugins -name PLUGININFO | sort \
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
+	find po -name '*.po' -exec \
+	  msgmerge --previous --update {} po/messages.pot \;
 
 potball: builddir
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

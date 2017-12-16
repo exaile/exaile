@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-11-13 20:53+0000\n"
+"PO-Revision-Date: 2017-08-07 15:57+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian "
 "<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/panel/collection.py:132
 #: ../xlgui/widgets/playlist_columns.py:246
@@ -213,7 +213,7 @@ msgstr "Sa versione de sas impostaduras est prus noa de s’atuale."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
-msgstr "Modalidade de sarbamentu disconnota pro custu tipu de impostadura "
+msgstr "Modalidade de sarvamentu disconnota pro custu tipu de impostadura "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
@@ -258,7 +258,7 @@ msgstr "No est istada dislindada una positzione dae sa cale carrigare su db"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr "No est istada dislindada una positzione pro sarbare su db"
+msgstr "No est istada dislindada una positzione pro sarvare su db"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
@@ -833,7 +833,7 @@ msgstr "Cobertedda pro %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr "Sarba documentu"
+msgstr "Sarva documentu"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1248,7 +1248,7 @@ msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
-msgstr "Istatziones sarbadas"
+msgstr "Istatziones sarvadas"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
@@ -1387,7 +1387,7 @@ msgstr "Àplica su valore atuale a totu sas rastas"
 #: ../xlgui/properties.py:1201 ../xlgui/widgets/dialogs.py:1352
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr "Sarbadas %(count)s de %(total)s."
+msgstr "Sarvadas %(count)s de %(total)s."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
@@ -1627,7 +1627,7 @@ msgstr "Imprea sas àndalas relativas pro sas rastas"
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Iscalita sarbada comente <b>%s</b>."
+msgstr "Iscalita sarvada comente <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1637,15 +1637,15 @@ msgstr "Serra %s"
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Sarbare sas modìficas a %s in antis de serrare?</b>"
+msgstr "<b>Sarvare sas modìficas a %s in antis de serrare?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr "Sas modìficas s’ant a pèrdere si no ant a èssere sarbadas"
+msgstr "Sas modìficas s’ant a pèrdere si no ant a èssere sarvadas"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
-msgstr "Serra sena sarbare"
+msgstr "Serra chene sarvare"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
@@ -1675,7 +1675,7 @@ msgstr "Annanghe un’iscalita noa..."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr "Sarba comente"
+msgstr "Sarva comente"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
@@ -2180,7 +2180,7 @@ msgid ""
 "without compositing support."
 msgstr ""
 "Atentzione: custa optzione podet causare errores de visualizatzione si "
-"impreada cun unu gestore de sas ischermadas/bentanas sena suportu de "
+"impreada cun unu gestore de sas ischermadas/ventanas sena suportu de "
 "cumponidura."
 
 #: ../data/ui/preferences/appearance.ui.h:12
@@ -2221,7 +2221,7 @@ msgstr "Bassu"
 
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr "Pedi si sarbare sas iscalitas pessonalizadas cando serras"
+msgstr "Pedi si sarvare sas iscalitas pessonalizadas cando serras"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
@@ -2282,7 +2282,7 @@ msgid ""
 "(Hold Shift key to rescan the collection)"
 msgstr ""
 "Agiorna sa visualizatzione de sa regorta\n"
-"(mantènne Maiusc carcadu pro torrare a iscansire sa regorta)"
+"(mantene Maiusc incarcadu pro torrare a iscansire sa regorta)"
 
 #: ../data/ui/panel/collection.ui.h:6 ../data/ui/panel/files.ui.h:7
 msgid "Clear search field"
@@ -2579,7 +2579,7 @@ msgstr "Eticheta %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr "Sarba anàlisi"
+msgstr "Sarva anàlisi"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 msgid "Analyze playlists"
@@ -2743,11 +2743,11 @@ msgstr "Riprìstina"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr "Riprìstina sa bentana printzipale"
+msgstr "Riprìstina sa ventana printzipale"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr "Riprìstina bentana printzipale"
+msgstr "Riprìstina ventana printzipale"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
@@ -2828,7 +2828,7 @@ msgstr "Carrigamentu de su podcast..."
 
 #: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr "Impossìbile sarbare su documentu de su podcast"
+msgstr "Impossìbile sarvare su documentu de su podcast"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
@@ -2910,7 +2910,7 @@ msgstr "Istòria riprodutzione"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr "Burrare s’istòria sarbada?"
+msgstr "Burrare s’istòria sarvada?"
 
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/history/history_preferences.py:35
@@ -2920,7 +2920,7 @@ msgstr "Istòria"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr "Sarba s’istòria"
+msgstr "Sarva s’istòria"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
@@ -2980,11 +2980,11 @@ msgstr "Istaca•di dae su server"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr "Ischerta una positzione pro sarbare sos datos"
+msgstr "Ischerta una positzione pro sarvare sos datos"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
-msgstr "Cunnete•ti a DAAP..."
+msgstr "Cunnete·ti a DAAP..."
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3020,8 +3020,9 @@ msgid "Select directory to import grouping tags from"
 msgstr "Ischerta sa cartella dae ue importare etichetas de ragrupamentu"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
+#, fuzzy
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Ammustra rastas cun sas tzellas ischertadas"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
@@ -3055,8 +3056,9 @@ msgid "Remove category"
 msgstr "Burra categoria"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
+#, fuzzy
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Ammustra rastas cun sas tzellas ischertadas (pessonalizadu)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
@@ -3204,9 +3206,8 @@ msgid "Set BPM of %d on %s?"
 msgstr "Impostare sos BPM de %d comente %s?"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
-#, fuzzy
 msgid "Streamripper"
-msgstr "Streamripper"
+msgstr "Registradore de flussu"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
@@ -3214,9 +3215,8 @@ msgstr "Errore in s’esecutzione de streamripper"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
-#, fuzzy
 msgid "Desktop Cover"
-msgstr "Cobertedda Desktop"
+msgstr "Cobertedda de iscrivania"
 
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
@@ -3234,7 +3234,7 @@ msgstr "Recuperande sos datos de sa cantzone..."
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Pausa cun sarba-ischermu"
+msgstr "Pàusa cun sarva-ischermu"
 
 #: ../plugins/cd/cdprefs.py:37
 msgid "CD"
@@ -3413,7 +3413,7 @@ msgstr "Tìtulu de essida"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Predefinidu, a su nùmene de s'iscalita"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
@@ -3464,7 +3464,7 @@ msgstr "Ammustra in s'elencu de sas operatziones"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Ammustra decoraduras bentana:"
+msgstr "Ammustra decoraduras ventana:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 #, fuzzy
@@ -3473,7 +3473,7 @@ msgstr "Ammustra in totu sos desktops"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr "Ammustra su butone in sa bentana printzipale"
+msgstr "Ammustra su butone in sa ventana printzipale"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
@@ -3662,7 +3662,7 @@ msgstr "Registra•ti a Last.fm"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
-msgstr "Mantènne s'istòria a pustis de s'istudadura de su riproduidore"
+msgstr "Mantene s'istòria a pustis de s'istudadura de su riproduidore"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
@@ -3743,7 +3743,7 @@ msgstr "Càmbia nùmene/burra etichetas totu paris"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Si bòidu, currispondet a totu sas rastas"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 msgid "Search Tag"
@@ -3840,12 +3840,13 @@ msgid "Show progress bar"
 msgstr "Ammustra sa barra de sobradura"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
+#, fuzzy
 msgid "Border radius:"
-msgstr ""
+msgstr "Raju de s'oru:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Save location:"
-msgstr "Positzione de sarbamentu:"
+msgstr "Positzione de sarvamentu:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Relay port:"
@@ -4202,7 +4203,7 @@ msgstr "A sa colada de su mouse in s'icona de s’àrea de notìfica"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
-msgstr "Cando sa bentana printzipale est ischertada"
+msgstr "Cando sa ventana printzipale est ischertada"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
@@ -4283,7 +4284,7 @@ msgstr "Efetu"
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
-"Cunsentit de sarbare e ripristinare sas positziones de sos sinnalibros in "
+"Cunsentit de sarvare e ripristinare sas positziones de sos sinnalibros in "
 "sos documentos àudio."
 
 #: ../plugins/bookmarks/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
@@ -4553,7 +4554,7 @@ msgstr ""
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
 msgstr ""
-"Una bentana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
+"Una ventana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
 "in riprodutzione."
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3

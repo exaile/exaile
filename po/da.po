@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: TLE <k.nielsen81@gmail.com>\n"
-"Language-Team: Danish <da@li.org>\n"
+"PO-Revision-Date: 2017-11-13 16:45+0000\n"
+"Last-Translator: jan madsen <jsm@janz.dk>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
+"\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.18-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -344,7 +345,7 @@ msgstr "Aktivér fejlsøgning af xl.event. Genererer MASSER af uddata"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr "Tilføj trådnavn til lognings beskeder"
+msgstr "Tilføj trådnavn til logningsbeskeder."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -394,7 +395,7 @@ msgstr "Mærker"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Lokal fil"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -433,9 +434,9 @@ msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
-#, python-format
+#, fuzzy, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -484,7 +485,7 @@ msgstr "Et meget hurtigt, frit og tabsfrit lydformat med god komprimering."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -497,7 +498,7 @@ msgstr "Brugertilpasset"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Automatisk"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -551,7 +552,7 @@ msgstr "Ophavsret"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -590,7 +591,7 @@ msgstr "Genre"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Gruppering"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
@@ -679,23 +680,20 @@ msgid "Modified"
 msgstr "Ændret"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Antal afspilninger"
+msgstr "Spilletid"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
 msgstr "Antal gange afspillet"
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "X-forskydning:"
+msgstr "Start offset"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
-msgstr "X-forskydning:"
+msgstr "Stop offset"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -848,7 +846,7 @@ msgstr "Eksporter spilleliste"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Eksporter filer"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -980,16 +978,15 @@ msgstr "Antal gange afspillet"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Tidsplan"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Start offset"
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X-forskydning:"
+msgstr "Stop Offset"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1025,7 +1022,7 @@ msgstr "Bland rækkefølge på spilleliste"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Tilfældig udvælgelse"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1035,11 +1032,11 @@ msgstr "Ny afspilningsliste"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Stopp afspilning efter dette spor"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Fortsæt afspilning efter dette spor"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
@@ -1089,7 +1086,7 @@ msgstr "Vælg katalog der skal åbnes"
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Importer afspilningsliste"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
@@ -1097,7 +1094,7 @@ msgstr "Eksportér den aktuelle afspilningsliste"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Brug relative stier til spor"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1116,7 +1113,7 @@ msgstr "<b>Gem ændringer til %s før lukning?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr "Du mister dine ændringer, hvis du ikke gemmer dem."
+msgstr "Dine ændringer vil gå tabt, hvis du ikke gemmer dem"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
@@ -1124,11 +1121,11 @@ msgstr "Luk uden at gemme"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Ja til alle"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Nej til alle"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1263,9 +1260,8 @@ msgid "Re_scan Collection"
 msgstr "Gen_skan samling"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Genskan samling"
+msgstr "Genskan samling (langsom)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1294,10 +1290,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Redigerer nummer %(current)d af %(total)d"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
-"Er du sikker på, at du permanent vil slette den valgte afspilningsliste?"
+msgstr "Er du sikker på du vil anvende ændringerne på alle spor?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1316,7 +1310,7 @@ msgstr ""
 #. tracknumber, discnumber, etc. in the tagger.
 #: ../xlgui/properties.py:795
 msgid "of:"
-msgstr "i"
+msgstr "af:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
@@ -1645,15 +1639,13 @@ msgstr "ikke i de sidste"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Nummertilvalg"
+msgstr "Spor er i"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
-#, fuzzy
 msgid "Track not in"
-msgstr "Nummertilvalg"
+msgstr "Spor ikke i"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -1669,9 +1661,9 @@ msgid "Rename Playlist"
 msgstr "Omdøb afspilningsliste"
 
 #: ../xlgui/panel/playlists.py:394
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Fejl ved indlæsning af Podcast."
+msgstr "Fejl ved indlæsning af smart-afspilningsliste: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1809,9 +1801,8 @@ msgid "About Exaile"
 msgstr "Om Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
-#, fuzzy
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2010"
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 #, fuzzy
@@ -2299,9 +2290,8 @@ msgid "Status"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:5
-#, fuzzy
 msgid "Show incompatible plugins"
-msgstr "Kunne ikke deaktivere plugin!"
+msgstr "Vis inkompatible plugins"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
@@ -2558,48 +2548,41 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
-#, fuzzy
 msgid "Contacting Icecast server..."
-msgstr "Kontakter Shoutcast-server..."
+msgstr "Kontakter Icecast-server..."
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
-#, fuzzy
 msgid "Error connecting to Icecast server."
-msgstr "Fejl ved oprettelse af forbindelse til Shoutcast-server."
+msgstr "Fejl ved oprettelse af forbindelse til Icecast-server."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
 msgstr "Indtast søgenøgleordene"
 
 #: ../plugins/icecast/__init__.py:318
-#, fuzzy
 msgid "Icecast Search"
-msgstr "Shoutcast-søgning"
+msgstr "Icecast-søgning"
 
 #: ../plugins/icecast/__init__.py:342
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Ny station"
+msgstr "Ingen stationer fundet"
 
 #: ../plugins/icecast/__init__.py:345
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Søgeresultater"
+msgstr "Icecast søgeresultater"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
 msgstr "Søgning"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Navn:"
+msgstr "Navn"
 
 #: ../plugins/icecast/__init__.py:396
-#, fuzzy
 msgid "Format"
-msgstr "Normal"
+msgstr "Format"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
@@ -2921,14 +2904,12 @@ msgid "Playback progress and seeking"
 msgstr "Afspilningsposition og søgning"
 
 #: ../plugins/grouptagger/gt_import.py:45
-#, fuzzy
 msgid "Importing tracks"
-msgstr "Importerer cd..."
+msgstr "Importerer numre"
 
 #: ../plugins/grouptagger/gt_import.py:91
-#, fuzzy
 msgid "Importing groups"
-msgstr "Importerer cd..."
+msgstr "Import af grupper"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
@@ -2951,9 +2932,8 @@ msgid "Get all tags from collection"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
 msgid "Import tags from directory"
-msgstr "Sæt datakatalog"
+msgstr "Import tags fra bibliotek"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
@@ -2975,7 +2955,7 @@ msgstr ""
 #: ../plugins/grouptagger/gt_mass.py:121
 #, fuzzy, python-format
 msgid "%s tracks found"
-msgstr "Ingen sangtekster fundet."
+msgstr "%s spor fundet"
 
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
@@ -3129,9 +3109,8 @@ msgid "Retrieving song data..."
 msgstr "Henter sangdata..."
 
 #: ../plugins/console/__init__.py:109
-#, fuzzy
 msgid "Console"
-msgstr "IPython-konsol"
+msgstr "Konsol"
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3157,9 +3136,8 @@ msgid "Amazon Covers"
 msgstr "Omslag fra Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
-#, fuzzy
 msgid "Modulus this number"
-msgstr "Disknummer"
+msgstr "Modulus dette nummer"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
@@ -3171,15 +3149,13 @@ msgid "Save analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:62
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "_Ryd afspilningsliste"
+msgstr "Analyser afspilningslister"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "_Ryd afspilningsliste"
+msgstr "Analyser afspilningsliste"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3264,23 +3240,20 @@ msgid "DAAP Server"
 msgstr "DAAP-server"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
-#, fuzzy
 msgid "Contacting SomaFM server..."
-msgstr "Kontakter Shoutcast-server..."
+msgstr "Kontakter SomaFM-server..."
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
-#, fuzzy
 msgid "Error connecting to SomaFM server."
-msgstr "Fejl ved oprettelse af forbindelse til Shoutcast-server."
+msgstr "Fejl ved oprettelse af forbindelse til SomaFM-server."
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
-#, fuzzy
 msgid "Update"
-msgstr "Opdateringer"
+msgstr "Opdatering"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
@@ -3649,9 +3622,8 @@ msgid "IPython Color Theme:"
 msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
-#, fuzzy
 msgid "Launch IPython console when Exaile starts"
-msgstr "IPython-konsol - Exaile"
+msgstr "Start IPython konsollen, når Exaile starter"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
@@ -3806,19 +3778,16 @@ msgid "encodedby"
 msgstr "Kodet af"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
-#, fuzzy
 msgid "composer"
-msgstr "Komponist"
+msgstr "komponist"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
-#, fuzzy
 msgid "conductor"
-msgstr "Dirigent"
+msgstr "dirigent"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
-#, fuzzy
 msgid "lyrics"
-msgstr "Sangtekster"
+msgstr "sangtekster"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
@@ -3835,36 +3804,32 @@ msgid ""
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
-#, fuzzy
 msgid "Import Tags"
-msgstr "Importér"
+msgstr "Importér tags"
 
 #: ../plugins/grouptagger/gt_import.ui.h:2
 msgid "Import"
 msgstr "Importér"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
-#, fuzzy
 msgid "Current Groups"
-msgstr "Nuværende sang"
+msgstr "Nuværende gruppe"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
 msgid "New Groups"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
-#, fuzzy
 msgid "Import Type:"
-msgstr "Importsti: "
+msgstr "Importype:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
-#, fuzzy
 msgid "Replace"
-msgstr "Erstat nuværende"
+msgstr "Erstat"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
@@ -3875,23 +3840,20 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
-#, fuzzy
 msgid "Search Tag"
-msgstr "Søg: "
+msgstr "Søg efter Tag"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
-#, fuzzy
 msgid "Replace Tag"
-msgstr "Erstat nuværende"
+msgstr "Erstat tag"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
-#, fuzzy
 msgid "0 tracks found"
-msgstr " numre"
+msgstr "0 spor fundet"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
@@ -4032,26 +3994,28 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Besøg <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a> \n"
-"for at oprette en Amazon AWS-konto og finde denne information</i>"
+"<i>Tilmeld en Amazon AWS-konto og få denne information \n"
+"besøg <a href=\"http://aws.amazon.com/\"> http://aws.amazon.com/</a>.\n"
+"\n"
+"Du skal muligvis også <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\"> aktivere produkt "
+"reklame API</a></i>."
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
-#, fuzzy
 msgid "<none selected>"
-msgstr "%d valgt"
+msgstr "<ingen valgt>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Knap til afspilningsliste"
+msgstr "Afspilningslister analyseres"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
@@ -4210,16 +4174,16 @@ msgid "Remember recent DAAP servers"
 msgstr ""
 
 #: ../plugins/lyricsmania/PLUGININFO:3
-#, fuzzy
 msgid "LyricsMania"
-msgstr "Sangtekster"
+msgstr "LyricsMania"
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from www.lyricsmania.com\n"
 "Depends: lxml"
-msgstr "Udvidelsesmodul til at hente sangtekster fra lyricsfly.com"
+msgstr ""
+"Udvidelsesmodul til at hente sangtekster fra lyricsfly.com\n"
+"Afhænger af: lxml"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -4315,8 +4279,8 @@ msgstr ""
 "Afspiller musik på et bestemt tidspunkt.\n"
 "\n"
 "Bemærk at når det angivne tidspunkt oprinder, vil Exaile blot opføre sig som "
-"havde du trykket på afspil-knappen. Sikr dig derfor, at den ønskede musik "
-"befinder sig i afspilningslisten."
+"havde du trykket på afspil-knappen, sørg derfor, at den ønskede musik "
+"befinder sig i afspilningslisten"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4492,10 +4456,10 @@ msgid "Development"
 msgstr ""
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Pops up a notification when playback of a track starts. Requires pynotify"
-msgstr "Viser en påmindelse, når afspilningen af et nummer starter"
+msgstr ""
+"Viser en påmindelse, når afspilningen af et nummer starter. Kræver pynotify"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4575,9 +4539,8 @@ msgid "Enables access to the Jamendo music catalogue."
 msgstr "Tillader adgang til Jamendos musikkatalog."
 
 #: ../plugins/console/PLUGININFO:3
-#, fuzzy
 msgid "Simple console"
-msgstr "Simpel"
+msgstr "Simpel konsol"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
@@ -4624,7 +4587,7 @@ msgstr "Fjerner stemmer fra musikken"
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 #, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Afspilningslistefiler"
+msgstr "Afspilningsliste analyser"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4667,8 +4630,8 @@ msgstr ""
 "Afspiller musik på bestemte tidspunkter og dage.\n"
 "\n"
 "Bemærk at når det angivne tidspunkt oprinder, vil Exaile blot opføre sig som "
-"havde du trykket på afspil-knappen. Sikr dig derfor, at den ønskede musik "
-"befinder sig i afspilningslisten."
+"havde du trykket på afspil-knappen, sørg derfor, at den ønskede musik "
+"befinder sig i afspilningslisten"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -4715,9 +4678,8 @@ msgstr ""
 "Exaile, så en samling kan deles over DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "Shoutcast-radio"
+msgstr "SomaFM radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""

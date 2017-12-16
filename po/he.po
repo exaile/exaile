@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-17 09:46+0200\n"
-"Last-Translator: Green Lunar <genghiskhan@gmx.ca>\n"
+"PO-Revision-Date: 2017-09-20 19:46+0000\n"
+"Last-Translator: Eilon <eilonyair4@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
 "\n"
 "Language: he\n"
@@ -18,36 +18,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.17-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d יום "
+msgstr[1] "%d ימין "
 
 #: ../xl/formatter.py:578
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d שעה "
+msgstr[1] "%d שעות "
 
 #: ../xl/formatter.py:579
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d דקה "
+msgstr[1] "%d דקות "
 
 #: ../xl/formatter.py:580
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d שניה"
+msgstr[1] "%d שניות"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:585

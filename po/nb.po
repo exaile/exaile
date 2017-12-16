@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-06-04 20:24+0200\n"
-"Last-Translator: Kurt Eilertsen <kurt@kheds.com>\n"
+"PO-Revision-Date: 2017-12-11 03:48+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://hosted.weblate.org/projects/exaile/master/nb/>\n"
 "Language: nb\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 2.18-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/formatter.py:576
@@ -109,7 +109,7 @@ msgstr "Mislyktes i å migrere fra 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Bruk: exaile [VALG]… [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
@@ -159,7 +159,7 @@ msgstr "PLASERING"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "Legg til spor fra PLASSERING til samlingen"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
@@ -184,16 +184,16 @@ msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Henter inn gjeldende avspillingsstatus og sporinformasjon som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "ETIKETTER"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "ETTIKETTER å hente inn fra gjeldende spor, bruk med --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -230,11 +230,11 @@ msgstr "Få rangering for gjeldende spor"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Vis aktuell avspillingsposisjon som tid"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Vis nåværende avspillingsframdrift som prosent"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
@@ -296,7 +296,7 @@ msgstr "Ikke importer gammel data fra version 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
-msgstr ""
+msgstr "Få styringsvalg som --play til å starte Exaile hvis det ikke kjører"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
@@ -320,7 +320,7 @@ msgstr "MODUL"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Begrens loggutdata til MODUL"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
@@ -328,7 +328,7 @@ msgstr "NIVÅ"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Begrens loggutdata til NIVÅ"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
@@ -340,7 +340,7 @@ msgstr "Aktiver avlusing av xl.event. Genererer MYE utdata"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Legg til trådnavn til loggføringsmeldinger."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -348,7 +348,7 @@ msgstr "TYPE"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Begrens feilsøkingsutdata av xl-event til TYPE"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
@@ -394,7 +394,7 @@ msgstr "Lokal fil"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Programtilleggsarkivet har ikke rett format."
 
 #: ../xl/plugins.py:104
 #, python-format
@@ -431,7 +431,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -479,7 +479,7 @@ msgstr "Et veldig raskt Fritt tapsfritt lydformat med god kompresjon."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -496,7 +496,7 @@ msgstr "Automatisk"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Mulig lydenhetsfeil, er den plugget inn?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -612,7 +612,7 @@ msgstr "Originalt album"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr "Original artist"
+msgstr "Opprinnelig artist"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
@@ -728,7 +728,7 @@ msgstr "Ugyldig format for %s."
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Ustøttet version %(version)s for %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
@@ -838,11 +838,11 @@ msgstr "Rediger"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Eksporter spillelisten"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Eksporter filer"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -921,12 +921,12 @@ msgstr "%(track_count)d i totalt (%(total_duration)s)"
 #: ../xlgui/widgets/info.py:594
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "%d i samlingen"
 
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "%d vises"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
@@ -978,7 +978,7 @@ msgstr "Planlagt"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Start forskyvning"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 #, fuzzy
@@ -987,7 +987,7 @@ msgstr "X-forskyvning:"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Skalerbar"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
@@ -1037,7 +1037,7 @@ msgstr "Fortsett Avspillingen Etter Dette Sporet"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Krever programtillegg som tilbyr dynamiske spillelister"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
@@ -1091,7 +1091,7 @@ msgstr "Eksporter Gjeldende Spilleliste"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Bruk relative søkestier til spor"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1159,7 +1159,7 @@ msgstr "Spillelistenavnet du oppgav er allerede i bruk."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Lagre som"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
@@ -1171,7 +1171,7 @@ msgstr "$title (av $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Veksle: Stopp etter valgt spor"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
@@ -1193,7 +1193,7 @@ msgstr "Pause Avspilling"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "Eksportering av spilleliste mislyktes."
 
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362
@@ -1218,7 +1218,7 @@ msgstr "Åpne kataloger"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
-msgstr ""
+msgstr "_Eksporter nåværende spilleliste"
 
 #: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
 msgid "Restart"
@@ -1238,7 +1238,7 @@ msgstr "_Omslag"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "Verktøyslinje for _spilleliste"
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
@@ -1246,7 +1246,7 @@ msgstr "_Kolonner"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
-msgstr ""
+msgstr "T_øm spilleliste"
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
@@ -1262,7 +1262,7 @@ msgstr "Søk igjennom samlingen (sakte)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
-msgstr ""
+msgstr "Spor_egenskaper"
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
@@ -1270,14 +1270,16 @@ msgstr "Avbryt"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Skriving av etiketter mislyktes"
 
 #: ../xlgui/properties.py:251
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Etiketter kunne ikke skrives til følgende filer:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
@@ -1290,16 +1292,16 @@ msgstr "Er du sikker på at du vil bruke endringene på alle spor?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Legg til endringer før lukking?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Endringene dine vil gå tapt hvis du ikke legger dem til nå."
 
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1309,37 +1311,37 @@ msgstr "av:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG-bilde"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "PNG-bilde"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Bilde"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Lenket bilde"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} piksler"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} piksler)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Velg bilde å bruke som omslag"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Støttede bildeformater"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
@@ -1348,15 +1350,15 @@ msgstr "Gi alle spor denne verdien"
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} omslag igjen å hente"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Alle omslag innhentet"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Henter album og omslag…"
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1377,7 +1379,7 @@ msgstr "Omslag for %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Lagre fil"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1386,7 +1388,7 @@ msgstr "Omslagsinnstillinger for %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Laster…"
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
@@ -1397,6 +1399,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Ingen av de påskrudde kildene har et omslag for dette sporet, prøv å skru på "
+"flere kilder."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
@@ -1421,7 +1425,7 @@ msgstr "Søker %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Panel"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1429,21 +1433,23 @@ msgstr "Legg til en katalog"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "Mappe ikke lagt til."
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Mappen er allerede i din samling, eller en undermappe av en annen mappe i "
+"din samling."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Slipp her for å opprette ny spilleliste."
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Nylig lukkede faner"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
@@ -1453,16 +1459,16 @@ msgstr "Spilleliste %d"
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} spor, lukket for {minutes} min siden)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} spor, lukket for {seconds} sek siden)"
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
-msgstr ""
+msgstr "Flytt til annen visning"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
@@ -1508,15 +1514,15 @@ msgstr "Sjanger - Album"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Dato - Artist"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Dato - Album"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Artist - (Dato - Album)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
@@ -1530,7 +1536,7 @@ msgstr "Størrelse"
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
@@ -1559,13 +1565,13 @@ msgstr "er ikke"
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "er satt"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "er ikke satt"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
@@ -1580,12 +1586,12 @@ msgstr "inneholder ikke"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "regulært uttrykk"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "ikke et regulært uttrykk"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
@@ -1623,12 +1629,12 @@ msgstr "mindre enn"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "de siste"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "ikke de siste"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
@@ -1663,14 +1669,14 @@ msgstr "Rediger smart spilleliste"
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s og øvrige"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s og %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
@@ -1691,11 +1697,11 @@ msgstr "Rediger smart spilleliste"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Eksporterer %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Velg mappe å eksportere filer til"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1708,30 +1714,30 @@ msgstr "Programtillegg"
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Ukategorisert"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Kunne ikke laste programtilleggsinfo."
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mislykket programtillegg: %s"
+msgstr[1] "Mislykkede programtillegg: %s"
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "Kunne ikke deaktivere programtillegg."
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "Kunne ikke aktivere programtillegg."
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Velg et programtillegg"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
@@ -1739,7 +1745,7 @@ msgstr "Programtilleggsarkiv"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Installasjon av programtillegsfil mislyktes."
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
@@ -1761,8 +1767,9 @@ msgstr "Samling"
 #. If this practice is not common in your locale, simply
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
+#, fuzzy
 msgid "the"
-msgstr ""
+msgstr "den det en et"
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
@@ -1770,11 +1777,11 @@ msgstr "Tilbakestill til standard"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr "Restart Exaile?"
+msgstr "Start Exaile på nytt?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "En omstart kreves for at endringene skal tre i effekt."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
@@ -1794,7 +1801,7 @@ msgstr "Om Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
-msgstr ""
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
@@ -1818,7 +1825,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Allan Nordhøy"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
@@ -1826,7 +1833,7 @@ msgstr "Omslagsbehandler"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Hent omslag"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
@@ -1838,7 +1845,7 @@ msgstr "Gjenta avspilling"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Søk:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
@@ -1846,11 +1853,11 @@ msgstr "Omslagsfinner"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Opphavet for dette omslaget"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Bruk som omslag"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
@@ -1877,11 +1884,15 @@ msgid "Previous Track"
 msgstr "Forrige spor"
 
 #: ../data/ui/main.ui.h:8
+#, fuzzy
 msgid ""
 "Stop Playback\n"
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Stopp avspilling\n"
+"\n"
+"Høyreklikk for å stoppe etter sporet"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
@@ -1905,7 +1916,7 @@ msgstr "_Fjern knagg"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1924,88 +1935,90 @@ msgid "_Next"
 msgstr "_Neste"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
+#, fuzzy
 msgid "Other"
-msgstr ""
+msgstr "Andre"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32-pikslers filikon (PNG only)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Annet filikon"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Omslag (front)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Omslag (bak)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Folder"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Media (f.eks. billedsiden på en CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Hovedartist/hovedutdøver/soloist"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artist/utdøver"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Band/orkester"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Lyriker/tekstforfatter"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Opptakssted"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Under opptaket"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Under utdøvelse"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Vide/videostrømsopptak"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "En fisk i lyse farger"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Illustrasjon"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
+#, fuzzy
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Band/artistlogo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Utgiver/studiologo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Klikk og dra filer hit for å endre omslagsbildet"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
@@ -2018,11 +2031,11 @@ msgstr "Samlingshåndterer"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Overvåket"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Skann ved oppstart"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
@@ -2086,7 +2099,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Bruk omslag som er å finne i etiketter"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
@@ -2097,18 +2110,20 @@ msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Dette valget søker etter omslagsfiler i\n"
+"samme mappe som musikkfila."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Foretrukkede filnavn:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Kommainndelt liste over filnavn uten filendelser"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
-msgstr ""
+msgstr "Hent omslag automatisk ved avspillingsstart"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
@@ -2129,17 +2144,19 @@ msgstr "Spør om endret spilleliste skal lagres ved lukking"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Erstatt innhold i sidepanelet med dobbeltklikk"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"Istedenfor å bli lagt til, vil spor lagt til med dobbeltklikk erstatte "
+"innholdet i den nåværende spillelisten."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Tillegg/erstatting via menyelement utløser avspilling"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2147,31 +2164,36 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Når et menyelement brukes til å legge til/erstatte spor på spillelisten, "
+"start avspilling hvis et annet spor spilles. Dette valget var forvalgt "
+"oppførsel før Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Legg spor i avspillingskø i steden for å spille dem som forvalg"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Sett spor i kø i steden for avspilling ved dobbelklikk eller trykking av "
+"Enter i avspillingsliste"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
 msgid "Playback engine: "
-msgstr ""
+msgstr "Avspillingsmotor: "
 
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Bruk gradvise overganger ved brukerhandlinger"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Overgangslengde (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
@@ -2191,7 +2213,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Enhet:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
@@ -2212,29 +2234,32 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Fjern spor fra kø ved avspilling"
 
 #: ../data/ui/preferences/playback.ui.h:13
+#, fuzzy
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Ikke tillat direkte avspilling av nye spor når noe annet spilles"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Hvis et spor spilles, ikke tillat nye spor å starte, bortsett fra med "
+"avspillingskontrollene"
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Gå til neste spor automatisk"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Forsinkelse mellom spor (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
-msgstr ""
+msgstr "Fungerer bare med den normale avspillingsmotoren"
 
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
@@ -2243,8 +2268,9 @@ msgstr "Normal"
 
 #: ../data/ui/preferences/playback.ui.h:19
 #: ../plugins/previewdevice/previewprefs.ui.h:10
+#, fuzzy
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Enhetlig (ustabil)"
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
@@ -2256,19 +2282,19 @@ msgstr "Aktivert"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Show incompatible plugins"
-msgstr ""
+msgstr "Vis ukompatible programtillegg"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Vis programtillegg som kanskje ikke virker"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "Ingen programtillegg valgt"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
@@ -2304,19 +2330,19 @@ msgstr "Oppdateringer"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Installer programtilleggsfil"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Vis infoområde"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Infoområdet inneholder omslagskunst og sporinformasjon"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Vis omslagskunst i infoområde"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
@@ -2328,28 +2354,31 @@ msgstr "Faneplassering:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Spillelisteskrift:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Tilbakestill til systemskrift"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Vis sporantall i samling"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Bruk alfagjennomsiktighet:"
 
 #: ../data/ui/preferences/appearance.ui.h:11
+#, fuzzy
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Advarsel: Dette valget kan forårsake feil hvis brukt med en vindusbehandler "
+"uten komposisjonsstøtte."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
@@ -2361,7 +2390,7 @@ msgstr "Minimer til systemkurv"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Lukk til systemkurv"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
@@ -2392,10 +2421,13 @@ msgid "Preferences"
 msgstr "Innstillinger"
 
 #: ../data/ui/preferences/collection.ui.h:1
+#, fuzzy
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Ord å fjerne fra begynnelsen av artistetiketter under sortering "
+"(mellomromsinndelt):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
@@ -2443,37 +2475,38 @@ msgstr "Kunne ikke lese stemningslinje."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Moodbar-programmet er ikke tilgjengelig."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Stemningslinje"
 
 #: ../plugins/streamripper/__init__.py:72
+#, fuzzy
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Feil ved kjøring av Steamripper"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Streamripper"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Last.fm elskede spor"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "API-nøkkelen er ugyldig."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Forsikre deg om at innskrevet data er riktig."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Kunne ikke starte nettleser"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2481,22 +2514,24 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Kopier følgende nettadresse og åpne den med din nettleser:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
-msgstr ""
+msgstr "Elsked"
 
 #: ../plugins/lastfmlove/__init__.py:72
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Last.fm-elsket"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr ""
+msgstr "Elsk dette sporet"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Ikke elsk dette sporet"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -2504,22 +2539,22 @@ msgstr "Alarmklokke"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Dette programtillegget trenger minst PyGKT 2.22 og GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Hovedmeny"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
 msgid "Contacting Icecast server..."
-msgstr ""
+msgstr "Kontakter Icecast-tjener…"
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
 msgid "Error connecting to Icecast server."
-msgstr ""
+msgstr "Feil ved tilkobling til Icecast-tjener."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
@@ -2556,7 +2591,7 @@ msgstr "Normal"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr "Ingen sangtekst funnet"
+msgstr "Ingen sangtekster funnet."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
@@ -2569,7 +2604,7 @@ msgstr "Hvilken som helst"
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Sangtekstviser"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -2578,11 +2613,11 @@ msgstr "Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Bekreftet"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Bekreftelse mislyktes"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
@@ -2599,45 +2634,45 @@ msgstr "Avslutt etter avspilling"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Avstengning planlagt"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr "Datamaskinen vil avsluttes etter avspillingen"
+msgstr "Datamaskinen vil slås av at avspillingen er ferdig."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Umiddelbar avstengning"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "Maskinen vil skru seg av om %d sekunder."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Avstengning mislyktes"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "Datamaskinen kunne ikke skrus av ved hjelp av D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Forhåndsvisningsenhet"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Forhåndsvis avspiller"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Forhåndsvis"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Sett avspilling på pause (dobbeltklikk for å stoppe)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2663,15 +2698,15 @@ msgstr "fra %(album)s"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPythin-konsoll - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Vis IPython-konsoll"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython-konsoll"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -2716,29 +2751,29 @@ msgstr "Avspillingsteller"
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Viser Wikipediaside om gjeldende artist."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Gjenta segment"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Gjenta begynnelsen"
 
 #: ../plugins/abrepeat/__init__.py:61
 msgid "Repeat End"
-msgstr ""
+msgstr "Gjenta slutten"
 
 #: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Minimodus"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
@@ -2755,7 +2790,7 @@ msgstr "$title etter $artist"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "$title ($__length)"
-msgstr ""
+msgstr "$title ($__length)"
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
@@ -2763,11 +2798,11 @@ msgstr "Forrige"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Gå til forrige spor"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr ""
+msgstr "Forrige spor"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
@@ -2775,11 +2810,11 @@ msgstr "Neste"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
-msgstr ""
+msgstr "Gå til neste spor"
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
-msgstr ""
+msgstr "Neste spor"
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
@@ -2787,19 +2822,19 @@ msgstr "Spill/Pause"
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Start, pause eller gjenoppta avspillingen"
 
 #: ../plugins/minimode/controls.py:283
 msgid "Start playback"
-msgstr ""
+msgstr "Start avspilling"
 
 #: ../plugins/minimode/controls.py:287
 msgid "Continue playback"
-msgstr ""
+msgstr "Fortsett avspilling"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Pause playback"
-msgstr ""
+msgstr "Sett avspilling på pause"
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
@@ -2807,11 +2842,11 @@ msgstr "Stopp"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
-msgstr ""
+msgstr "Stopp avspillingen"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Fortsett avspillingen etter gjeldende spor"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
@@ -2819,7 +2854,7 @@ msgstr "Volum"
 
 #: ../plugins/minimode/controls.py:428
 msgid "Change the volume"
-msgstr ""
+msgstr "Endre lydstyrken"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
@@ -2827,15 +2862,15 @@ msgstr "Gjenopprett"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Gjenopprett hovedvinduet"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Gjenopprett hovedvindu"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Angi vurdering av gjeldende spor"
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
@@ -2843,7 +2878,7 @@ msgstr "Sporvelger"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Enkel sporlistevelger"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
@@ -2851,19 +2886,19 @@ msgstr "Spillelisteknapp"
 
 #: ../plugins/minimode/controls.py:699
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Få tilgang til gjeldende spilleliste"
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Framdriftsknapp"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Spillelisteframdrift og tilgang til gjeldende spilleliste"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
@@ -2871,7 +2906,7 @@ msgstr "Fremgangslinje"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Avspillingsfremdrift og sanntidsspoling"
 
 #: ../plugins/grouptagger/gt_import.py:45
 #, fuzzy
@@ -2885,23 +2920,23 @@ msgstr "Importerer CD..."
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Oppdaterer grupper"
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Velg mappe å importere grupperingsetiketter fra"
 
 #: ../plugins/grouptagger/gt_prefs.py:21
 #: ../plugins/grouptagger/__init__.py:125
 #: ../plugins/grouptagger/gt_widgets.py:635
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:104
 msgid "GroupTagger"
-msgstr ""
+msgstr "Grupperingsetikettmaskin"
 
 #: ../plugins/grouptagger/__init__.py:109
 #: ../plugins/grouptagger/gt_widgets.py:693
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Vis alle etiketter fra samlingen"
 
 #: ../plugins/grouptagger/__init__.py:114
 #, fuzzy
@@ -2910,20 +2945,21 @@ msgstr "Sett datakatalog"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
-msgstr ""
+msgstr "Massenavneendring/sletting av etiketter"
 
 #: ../plugins/grouptagger/__init__.py:130
+#, fuzzy
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Vis spor med alle etiketter"
 
 #: ../plugins/grouptagger/__init__.py:134
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Vis spor med etiketter (egendefinert)"
 
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "Ingen kategoriseringsetiketter funnet i valgte spor"
 
 #: ../plugins/grouptagger/gt_mass.py:121
 #, fuzzy, python-format
@@ -2933,100 +2969,102 @@ msgstr "Ingen sangtekst funnet"
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "Erstatt \"%s\" med \"%s\" på %s-spor?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Du burde skanne samlingen din før du bruker massenavneendring for å forsikre "
+"deg om at alle etiketter er oppdaterte. Skann på nytt nå?"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Vis spor med valgte"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Vis spor merket med \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Vis spor med alle valgte"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
 #: ../plugins/grouptagger/gt_widgets.py:758
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: ../plugins/grouptagger/gt_widgets.py:147
 msgid "Add new group"
-msgstr ""
+msgstr "Legg til ny gruppe"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr ""
+msgstr "Slett gruppen"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "Legg til ny kategori"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "Fjern kategori"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Vis spor med valgt (egendefinert)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "Ny etikettverdi?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Skriv inn ny etikettverdi"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "Ny kategori?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Skriv inn nytt gruppekategorinavn"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
-msgstr ""
+msgstr "Legg til gruppe"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Legg til valgte til valg"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Vis spor med grupper"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Må ha denne etiketten og [OG]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Kan ha denne etiketten [ELLER]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Kan ikke ha denne etiketten [NOT]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorert"
 
 #: ../plugins/grouptagger/gt_widgets.py:759
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Valgte spor"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3036,7 +3074,7 @@ msgstr ""
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Slipp for å velge"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
@@ -3050,23 +3088,23 @@ msgstr "Føy til"
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "Historikk"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
-msgstr ""
+msgstr "Avspillingshistorikk"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Slett lagret historikk?"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr ""
+msgstr "Lagre historikk"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
-msgstr ""
+msgstr "Tøm historikk"
 
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
@@ -3079,11 +3117,11 @@ msgstr "Søker i Jamendo-katalogen..."
 
 #: ../plugins/jamendo/__init__.py:93
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Henter inn spordata…"
 
 #: ../plugins/console/__init__.py:109
 msgid "Console"
-msgstr ""
+msgstr "Konsoll"
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3095,6 +3133,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"av $artist\n"
+"fra $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3102,11 +3143,14 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
+"av $artist\n"
+"fra $album"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Omslag fra Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 #, fuzzy
@@ -3116,11 +3160,11 @@ msgstr "Plate nummer"
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Etikett %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr ""
+msgstr "Lagre analyse"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 #, fuzzy
@@ -3177,7 +3221,7 @@ msgstr "Kunne ikke lagre podkastfil"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Skrivebordsomslag"
 
 #: ../plugins/multialarmclock/macprefs.py:23
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3186,11 +3230,11 @@ msgstr "Multialarmklokke"
 
 #: ../plugins/contextinfo/contextprefs.py:22
 msgid "Contextinfo"
-msgstr ""
+msgstr "Bildeleddsinformasjon"
 
 #: ../plugins/bookmarks/__init__.py:104
 msgid "Bookmark This Track"
-msgstr ""
+msgstr "Bokmerk dette sporet"
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
@@ -3198,7 +3242,7 @@ msgstr "Slett Bokmerke"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
-msgstr ""
+msgstr "Tøm bokmerker"
 
 #: ../plugins/bookmarks/__init__.py:305
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -3208,24 +3252,24 @@ msgstr "Bokmerker"
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Pause ved skjermsparer"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr "DAAP Server"
+msgstr "DAAP-tjener"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
-msgstr ""
+msgstr "Kontakter SomaFM-tjener…"
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
 msgid "Error connecting to SomaFM server."
-msgstr ""
+msgstr "Feil ved tilkobling til SomaFM-tjener."
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Taktteller"
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
 #, fuzzy
@@ -3234,12 +3278,12 @@ msgstr "Oppdateringer"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
-msgstr ""
+msgstr "Legg til takt"
 
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Sett takten til %d på %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3252,7 +3296,7 @@ msgstr "Manuelt..."
 
 #: ../plugins/daapclient/__init__.py:350
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Skriv inn IP-adresse og port for deling"
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
@@ -3268,15 +3312,15 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Gjenoppfrisk tjenerliste"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "Koble fra tjener"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Velg lagringssted"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
@@ -3320,7 +3364,7 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:3
 msgid "Rip to single file"
-msgstr ""
+msgstr "Ripp til enkeltfil"
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
@@ -3334,11 +3378,11 @@ msgstr "API-nøkkel:"
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
-msgstr ""
+msgstr "Hemmelighet:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
-msgstr ""
+msgstr "Forespør lesetilgang"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:5
 msgid ""
@@ -3347,10 +3391,14 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Gå til <b><a href=\"http://www.last.fm/api/account\">Din API-konto</a></b>-"
+"siden for å få en <b>API-nøkkel</b> og <b>hemmelighet</b> og skriv dem inn "
+"her. Etter at du har skrevet inn disse, <b>forespør tilgang</b> og bekreft "
+"for å fullføre oppsettet."
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Alarmtid</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
@@ -3382,7 +3430,7 @@ msgstr "Søndag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Alarmdager</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
@@ -3390,23 +3438,23 @@ msgstr "Bruk overganger"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Minste lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Høyeste lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Økningsintervall:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Tid for hver økning:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
-msgstr ""
+msgstr "Visningsoverlegg:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
@@ -3414,11 +3462,11 @@ msgstr "Vis omslag"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Sirkelvisning"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Tekstprosent"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
@@ -3426,23 +3474,23 @@ msgstr "Ingen"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Sangtekstskrift:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Oppdater sangtekster"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Send inn spor ved bruk av Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
-msgstr ""
+msgstr "Vis menyelement for å veksle innsendelse"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
-msgstr ""
+msgstr "Send inn strømmede spor (f.eks. DAAP, Shoutcast radio osv.)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:2
@@ -3456,11 +3504,11 @@ msgstr "Brukernavn:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Bekreft innloggingsdata"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "før"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
@@ -3520,15 +3568,16 @@ msgstr "Ved sporskifte"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "On playback start, pause or stop"
-msgstr ""
+msgstr "Ved avspillings-start, pause, eller stopp"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
+#, fuzzy
 msgid "On tag change"
-msgstr ""
+msgstr "Ved etikettendring"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "Når pekeren svever over ikonet"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
@@ -3536,15 +3585,15 @@ msgstr "Når hovedvinduet er fokusert"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Visning</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "Use album covers as icons"
-msgstr ""
+msgstr "Bruk albumomslag som ikoner"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "Use media icons for pause, stop and resume"
-msgstr ""
+msgstr "Bruk mediaikoner for pause, stopp og gjenopptakelse"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "<b>Icons</b>"
@@ -3552,7 +3601,7 @@ msgstr "<b>Ikoner</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr ""
+msgstr "Artistlinje:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -3569,7 +3618,7 @@ msgstr "Sammendrag:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr ""
+msgstr "Albumlinje:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
@@ -3577,7 +3626,7 @@ msgstr "<b>Innhold</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Terminaldekkevne:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
@@ -3585,7 +3634,7 @@ msgstr "Skrifttype:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "Text Color:"
-msgstr ""
+msgstr "Tekstfarge:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
 msgid "Background Color:"
@@ -3593,15 +3642,15 @@ msgstr "Bakgrunnsfarge:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "IPython-fargedrakt:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
-msgstr ""
+msgstr "Start IPython-konsoll når Exaile starter"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Skaler viste omslag"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
@@ -3626,7 +3675,7 @@ msgstr "Både artist og album:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Brødtekst</b>"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
@@ -3646,7 +3695,7 @@ msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
@@ -3673,38 +3722,42 @@ msgid ""
 msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
+#, fuzzy
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "Kort landskode for Wikipedia-versjon (en, de, fr, …)"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "Språk:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
-msgstr ""
+msgstr "Hjem"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:3
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "Frem"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
+#, fuzzy
 msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
+"Kontrollers rekkefølge kan endres ved å dra dem opp eller ned. (Eller ved å "
+"trykke Alt+↑/↓.)"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
-msgstr ""
+msgstr "Kontroller"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:4
 msgid "Track Title Format"
-msgstr ""
+msgstr "Sportittelformat"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Always on top"
@@ -3712,11 +3765,11 @@ msgstr "Alltid øverst"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Vis i oppgavelinje"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr ""
+msgstr "Vis vindusdekorasjoner"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -3724,7 +3777,7 @@ msgstr "Vis på alle skrivebord"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr ""
+msgstr "Vis knapp i hovedvinduet"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
@@ -3736,7 +3789,7 @@ msgstr "Enkelt"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "grouping"
-msgstr ""
+msgstr "gruppering"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
 #, fuzzy
@@ -3765,11 +3818,11 @@ msgstr "Sangtekst"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Grupper/kategori-skrift:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Navn på kategoriseringsetikett"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:10
 msgid ""
@@ -3789,11 +3842,11 @@ msgstr "Importer CD"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
 msgid "Current Groups"
-msgstr ""
+msgstr "Nåværende grupper"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
 msgid "New Groups"
-msgstr ""
+msgstr "Nye grupper"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
 #, fuzzy
@@ -3802,19 +3855,19 @@ msgstr "Importsti: "
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
-msgstr ""
+msgstr "Flett"
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
 msgid "Replace"
-msgstr ""
+msgstr "Erstatt"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
-msgstr ""
+msgstr "Massenavneendring-/sletting -av etiketter"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Hvis tom, stemmer med alle spor"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 #, fuzzy
@@ -3823,11 +3876,11 @@ msgstr "Søk: "
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Bruk den tomme strengen til å slette etiketten"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
-msgstr ""
+msgstr "Erstatt etikett"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
 #, fuzzy
@@ -3836,43 +3889,44 @@ msgstr " spor"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Foretrekk korrigering på albumnivå"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Foretrekk ReplayGain-korrigering på albumnivå snarere enn per spor."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Bruk klippingsbeskyttelse"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Beskytt mot støy forårsaket av overforsterkning"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Ytterligere forsterkning å legge til alle filer"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Ytterligere forsterkning (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr ""
+msgstr "Tilbakefallskorrigering for filer som mangler ReplayGain-informasjon"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Korrigeringsnivå for tilbakefall (dB):"
 
 #: ../plugins/history/history_preferences.ui.h:1
+#, fuzzy
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Vedvarende historikk selv når spilleren avsluttes"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "Historikklengde:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
@@ -3880,7 +3934,7 @@ msgstr "Sorter etter:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Sorteringsretning:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
@@ -3912,7 +3966,7 @@ msgstr "Rangering denne måneden"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Antall spillelistetillegg"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
@@ -3920,15 +3974,15 @@ msgstr "Antall nedlastinger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Antall avspillinger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Stjernemerket"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Dato for stjernemerkning"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
@@ -3945,23 +3999,23 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "VIsningsformat"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Visningsvarighet:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
-msgstr ""
+msgstr "Bakgrunn:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Vis framdriftsindikator"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Kantradius:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -3974,7 +4028,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
-msgstr ""
+msgstr "Forhåndsinnstillinger"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
 #, fuzzy
@@ -3983,7 +4037,7 @@ msgstr "%d valgt"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
-msgstr ""
+msgstr "Velg analyse"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
 #, fuzzy
@@ -3992,19 +4046,20 @@ msgstr "Spillelisteknapp"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
-msgstr ""
+msgstr "Generer!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:7
 msgid "Output Title"
-msgstr ""
+msgstr "Utdatatittel"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
+#, fuzzy
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Forvalg for spillelistenavn"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
-msgstr ""
+msgstr "Generer"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -4028,7 +4083,7 @@ msgstr "Y-forskyvning:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Overstyr omslagsstørrelse"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
@@ -4040,7 +4095,7 @@ msgstr "Bruk overganger"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
-msgstr "Overgangsvarighet"
+msgstr "Overgangsvarighet:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"
@@ -4072,27 +4127,27 @@ msgstr "Fjern"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Alarmer</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
-msgstr ""
+msgstr "Skru på lydstyrkeinntoning"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:5
 msgid "Fade start volume:"
-msgstr ""
+msgstr "Startinntoningslydstyrke:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:6
 msgid "Fade stop volume:"
-msgstr ""
+msgstr "Stopputtoningslydstyrke:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr ""
+msgstr "Toningshelling:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
-msgstr ""
+msgstr "Toningstid (s):"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:9
 msgid "Restart playlist"
@@ -4100,11 +4155,11 @@ msgstr "Restart spillelisten"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Avspilling</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
-msgstr ""
+msgstr "Skriv inn dine Last-fm-identitetsdetaljer:"
 
 #: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Sign up for Last.fm"
@@ -4116,11 +4171,12 @@ msgstr "Kontekst"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr ""
+msgstr "Bruk omslag i bokmerkemeny (trer i effekt etter neste oppstart)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
+#, fuzzy
 msgid "Unpause when screensaver ends"
-msgstr ""
+msgstr "Gjenoppta når skjermspareren slutter"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
@@ -4128,7 +4184,7 @@ msgstr "Navn på tjener:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
 msgid "Server host:"
-msgstr ""
+msgstr "Tjenervert:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:3
 msgid "Port:"
@@ -4136,15 +4192,16 @@ msgstr "Port:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:4
 msgid "Server enabled"
-msgstr ""
+msgstr "Tjener påskrudd"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
+#, fuzzy
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Vis IPv6-tjenere (eksperimentelt)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Husk nylige DAAP-tjenere"
 
 #: ../plugins/lyricsmania/PLUGININFO:3
 #, fuzzy
@@ -4156,22 +4213,26 @@ msgid ""
 "Plugin to fetch lyrics from www.lyricsmania.com\n"
 "Depends: lxml"
 msgstr ""
+"Programtillegg for å hente sangtekster fra www.lyricsmania.com\n"
+"Avhenger av: lxml"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Nåværende spor"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
+"Setter nåværende avspilt sang som status i Pidgin. Sjekk Pidgin O-S-S for å "
+"finne ut mer om støttede tjenester."
 
 #: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
 #: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Merknader"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -4183,22 +4244,24 @@ msgstr ""
 #: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "Grafisk brukergrensesnitt"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME-multimediataster"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Legger til støtte for kontroll av Exaile via GNOME sitt multimediatast-"
+"system. Kompatiblelt med GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Hurtigtaster"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -4208,15 +4271,15 @@ msgstr ""
 
 #: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Utgang"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "MusicBrainz-omslag"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr ""
+msgstr "Integrerer MusicBrainz for omslagssøk"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4226,13 +4289,20 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
+"Viser hvilke spor som har blitt elsket og tillater elsking av spor.\n"
+"\n"
+"Skriv inn en gyldig API-nøkkel og hemmelighet i "
+"programtilleggsinnstillignene.\n"
+"\n"
+"Avhenger av programtillegget \"AudioScrobbler\" for brukernavn og passord."
 
 #: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Merking"
 
 #: ../plugins/alarmclock/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
@@ -4240,6 +4310,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Spiller musikk på et angitt tidspunkt.\n"
+"\n"
+"Merk at når angitt tidspunkt inntreffer, vil Exaile opptre som om du trykket "
+"på \"Spill\"-knappen, så husk på at du har musikken du ønsker å høre i "
+"spillelisten din."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4247,60 +4322,67 @@ msgstr ""
 #: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Verktøy"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Hovedmenyknapp"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
 "Moves the main menu into a button on top of the panels.\n"
 "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgstr ""
+"Flytter hovedmenyen inn i en knapp på toppen av panelene.\n"
+"Avhenger av: PyGTK>=2.22, GTK>= 2.20"
 
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
 #: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
 #: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Mediakilder"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm-omslag"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Søker på Last.fm etter omslag"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
 msgstr ""
+"Setter omslaget og legger til noen menyelementer AWN-menyelementer for Exaile"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Falso merkingsredigerer"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Integrerer Ex Falso merkingsredigerer i Exaile.\n"
+"Avhenger av: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
-msgstr ""
+msgstr "Legger til en sidefane som viser sangtekster for nåværende spor."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Sender inn lytteinformasjon til Last.fm og lignende tjenester som har støtte "
+"for AudioScrobbler"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
@@ -4308,33 +4390,38 @@ msgstr "Globale snarveier som bruker xlib (mmkeys.so)"
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
-msgstr ""
+msgstr "Multimediataster i WIndows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Adds support for multimedia keys (present on most new keyboards) when "
 "running Exaile in Microsoft Windows.\n"
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+"Legger til støtte for multimediataster (finnes på de fleste nye tastatur) "
+"når Exaile kjøres i Windows.\n"
+"\n"
+"Avhenger av: pyHook (%s) eller tastatur (%s)"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "10-bånds tonekontroll"
 
 #: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
 #: ../plugins/mono/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Effekt"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Forhindre hvilemodus"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
+msgstr "Forhindrer brukerøkta fra å gå i hvilemodus mens musikk spilles"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4342,44 +4429,49 @@ msgstr "LibriVox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Utforsk og lytt til lydbøker fra Librivox.org."
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr ""
+msgstr "Tillater avstengning av maskinen når avspillingen er ferdig."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Støtte for USB-masselagringsavspillere"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Støtte for tilgang til portable mediaavspillere som bruker USB-"
+"masselagringsprotokollen."
 
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "Enheter"
 
 #: ../plugins/previewdevice/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Tillater avspilling av lyd over en sekundær enhet (høyreklikk på "
+"spillelisten og velg \"forhåndsvis\"). Nyttig for DJ-er."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiske Last-fm-spillelister"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Last-fm -bakende for dynamiske spillelister"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiske spillelister"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4393,17 +4485,17 @@ msgstr ""
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Tilbyr en IPython-konsoll, som kan brukes for å manipulere Exaile."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Utvikling"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid ""
 "Pops up a notification when playback of a track starts. Requires pynotify"
-msgstr ""
+msgstr "Oppsprettsmerknad når avspilling av et spor starter. Krever pynotify"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4416,47 +4508,56 @@ msgid ""
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
 "Requires cddb-py (%s) to look up tags."
 msgstr ""
+"Legger til støtte for avspilling av lyd-CD-er.\n"
+"\n"
+"Krever HAL/UDisks/UDisks2 for automatisk oppdagelse av CD-er\n"
+"Krever cddb-py (%s) for oppslag av etiketter."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Tilbyr Wikipedia-informasjon om gjeldende artist.\n"
+"Avhenger av: python-webkit"
 
 #: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "Informasjon"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "A-B-gjentagelse"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Gjentar en bit av et spor kontinuerlig."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Kompakt modus for Exaile med et oppsettbart grensesnitt"
 
 #: ../plugins/grouptagger/PLUGININFO:3
+#, fuzzy
 msgid "Group Tagger"
-msgstr ""
+msgstr "Gruppemarkeringsmaskin"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Muliggjør kategorisering av din musikk ved å behandle gruppering-/kategori-"
+"etikett i lydfiler"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Skrur på ReplayGain-støtte"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Dropp systemkurvsikon"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4464,12 +4565,17 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Tilbyr et alternativt systemkurvsikon som lar deg slippe filer på ikonet.\n"
+"\n"
+"Avhenger av: python-eggtrayicon"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
+"Implementerer MPRIS (org.freedesktop.MediaPlayer)-DBus-grensesnitt for "
+"kontroll av Exaile."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -4486,22 +4592,27 @@ msgstr "Enkelt"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr ""
+msgstr "Enkel konsoll for interaksjon med Exaile-API-et"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
-msgstr ""
+msgstr "Ett oppsprettsvindu som viser informasjon om nåværende spor."
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr "iPod Support"
+msgstr "iPod-støtte"
 
 #: ../plugins/ipod/PLUGININFO:4
+#, fuzzy
 msgid ""
 "A plugin for iPod support. Read-only for the moment, no transfer.\n"
 "\n"
 "Depends on python-gpod."
 msgstr ""
+"Et programtillegg for IPod-støtte. Kun lesemulighet for øyeblikket, ingen "
+"overføring.\n"
+"\n"
+"Avhenger av: pythin-gpod."
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4509,6 +4620,10 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"Søker på Amazon etter omslag\n"
+"\n"
+"For å kunne bruke dette programtillegget, kreves AWS -API- og hemmelig "
+"-nøkkel."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -4516,7 +4631,7 @@ msgstr "Karaoke"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "Fjerner vokal fra lyd"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 #, fuzzy
@@ -4528,14 +4643,16 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Verktøy for generering av HTML5-visualiseringer for dine spillelister ved "
+"bruk av d3.js. Optimisert for Chrome."
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Legger til enkel nettradioopptaks-støtte"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Viser nåværende albumomslag på skrivebordet"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -4544,14 +4661,16 @@ msgstr "Hallo Verden"
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
 msgstr ""
+"Et enkelt programtillegg for testing av det grunnleggende "
+"programtilleggssystemet"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Mikser ned lyd til én kanal"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4564,7 +4683,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Bindeleddsinformasjon"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4572,34 +4691,47 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Viser forskjellig informasjon om avspilt spor.\n"
+"Avhenger av: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging ("
+"også kalt PIL)"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Tillater lagring/gjenopptakelse av bokmerkede posisjoner i lydfiler."
 
 #: ../plugins/screensaverpause/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Utsetter (og alternativt fortsetter) avspilling basert på skjermsparerstatus."
+"\n"
+"\n"
+"Krever: GNOME-skjermsparer eller KDE-skjermsparer (støtter ikke "
+"XScreenSaver, og heller ikke XLockMore)"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Sangtekst-wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Programtillegg for å hente sangtekster fra lyrics.wikia.com\n"
+"Avhenger av: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
 "This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Dette programtillegget integrerer Spydaap (%s) i Exaile, slik at samlingen "
+"kan deles over DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
 #, fuzzy
@@ -4609,15 +4741,15 @@ msgstr "LastFM Radio"
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
 "SomaFM Radio list%s%s"
-msgstr ""
+msgstr "SomaFM-radioliste%s%s"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
-msgstr ""
+msgstr "Manuell taktteller"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Tillater avspilling av DAAP-musikklager."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Endre kø"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-23 04:18+0200\n"
-"Last-Translator: krasimir <vip@krasio-valia.com>\n"
+"PO-Revision-Date: 2017-06-24 13:04+0000\n"
+"Last-Translator: Kalam Mekhar <kirilovkiril678@gmail.com>\n"
 "Language-Team: Bulgarian "
 "<https://hosted.weblate.org/projects/exaile/master/bg/>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.15-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
@@ -185,6 +185,8 @@ msgstr "ФОРМАТ"
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"Извлича състоянието на текущото изпълнение и информация за записа, като "
+"ФОРМАТ"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
@@ -193,7 +195,7 @@ msgstr "ЕТИКЕТИ"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "За да извлечете ЕТИКЕТИ от текущия запис, използвайте  --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -352,7 +354,7 @@ msgstr "Add thread name to logging messages."
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr "TYPE"
+msgstr "Тип"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
@@ -4652,23 +4654,28 @@ msgid ""
 "This plugin integrates spydaap (%s) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Тази добавка интегрира pydaap (http://launchpad.net/spydaap) в Exaile, като "
+"по този начин, колекцията може да бъде споделена през DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr ""
+msgstr "Радио SomaFM"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""
 "SomaFM Radio list%s%s"
 msgstr ""
+"Списък на радио SomaFM\n"
+"\n"
+"http://somafm.com"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
-msgstr ""
+msgstr "Ръчен BMP брояч"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Позволява възпроизвеждане на споделена музика чрез DAAP."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Показване на опашката"

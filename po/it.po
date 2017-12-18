@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Valter Mura <valtermura@gmail.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2017-12-18 14:56+0000\n"
+"Last-Translator: Claudio Maradonna <claudio@unitoo.pw>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
+">\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.18\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -301,7 +302,7 @@ msgstr "Mostra questo messaggio d'aiuto ed esce"
 
 #: ../xl/main.py:173
 msgid "Show program's version number and exit."
-msgstr "Mostra il numero di versione del programma ed esce"
+msgstr "Mostra il numero di versione del programma ed esci"
 
 #: ../xl/main.py:176
 msgid "Start minimized (to tray, if possible)"
@@ -385,7 +386,7 @@ msgstr "Abilita il debug di xl.event. Genera MOLTO output"
 
 #: ../xl/main.py:212
 msgid "Add thread name to logging messages."
-msgstr "Aggfiungi il nome del thread ai messaggi di log"
+msgstr "Aggiungi il nome del thread ai messaggi di log."
 
 #: ../xl/main.py:214
 msgid "TYPE"
@@ -405,7 +406,7 @@ msgstr "Disabilita il supporto D-Bus"
 
 #: ../xl/main.py:223
 msgid "Disable HAL support."
-msgstr "Disabilita il supporto HAL"
+msgstr "Disabilita il supporto HAL."
 
 #: ../xl/main.py:561
 msgid "Entire Library"
@@ -742,7 +743,7 @@ msgstr "Modalità di salvataggio sconosciuta per questo tipo di impostazione: "
 
 #: ../xl/settings.py:283
 msgid "An Unknown type of setting was found!"
-msgstr "È stato trovato un tipo di impostazione sconosciuto."
+msgstr "È stato trovato un tipo di impostazione sconosciuto!"
 
 #: ../xl/transcoder.py:57
 msgid ""
@@ -902,7 +903,7 @@ msgid ""
 "sources."
 msgstr ""
 "Nessuna copertina trovata nelle sorgenti abilitate, prova ad abilitare altre "
-"sorgenti"
+"sorgenti."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
@@ -1034,7 +1035,7 @@ msgstr "Commuta: interrompe dopo la traccia selezionata"
 
 #: ../xlgui/main.py:619 ../plugins/previewdevice/__init__.py:358
 msgid "Playback error encountered!"
-msgstr "È stato riscontrato un errore di riproduzione"
+msgstr "È stato riscontrato un errore di riproduzione!"
 
 #: ../xlgui/main.py:626
 #, python-format
@@ -1052,7 +1053,7 @@ msgstr "Sospendi riproduzione"
 
 #: ../xlgui/main.py:796 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
-msgstr "Esportazione della scaletta non riuscita."
+msgstr "Esportazione della scaletta non riuscita!"
 
 #: ../xlgui/main.py:848 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:351
@@ -1062,7 +1063,7 @@ msgstr "Avvia riproduzione"
 #: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
 #: ../xlgui/widgets/playlist.py:217
 msgid "_New Playlist"
-msgstr "_Nuova scaletta..."
+msgstr "_Nuova scaletta"
 
 #: ../xlgui/menu.py:69
 #, fuzzy
@@ -1585,7 +1586,7 @@ msgstr "Applica il valore corrente a tutte le tracce"
 #: ../xlgui/properties.py:1283 ../xlgui/widgets/dialogs.py:1441
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr "Salvate %(count)s di %(total)s"
+msgstr "Salvate %(count)s di %(total)s."
 
 #: ../xlgui/tray.py:165
 msgid "Exaile Music Player"
@@ -1682,7 +1683,7 @@ msgstr "Nome playlist:"
 
 #: ../xlgui/widgets/dialogs.py:1630
 msgid "Add new playlist..."
-msgstr "Aggiungi nuova playlist"
+msgstr "Aggiungi nuova playlist..."
 
 #: ../xlgui/widgets/dialogs.py:1641
 #: ../xlgui/widgets/smart_playlist_editor.py:390

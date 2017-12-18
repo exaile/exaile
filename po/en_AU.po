@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2016-02-19 08:09+0000\n"
+"PO-Revision-Date: 2017-12-18 15:46+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
-"Language-Team: English (Australia) <https://hosted.weblate.org/projects/"
-"exaile/master/en_AU/>\n"
+"Language-Team: English (Australia) "
+"<https://hosted.weblate.org/projects/exaile/master/en_AU/>\n"
 "Language: en_AU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.18\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
 
 #: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Local"
 
 #: ../xl/main.py:80
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Usage: exaile [OPTION]... [URI]"
+msgstr "Usage: exaile [OPTION...] [LOCATION...]"
 
 #: ../xl/main.py:81
 msgid ""
@@ -131,6 +129,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Launch Exaile, optionally adding tracks specified by LOCATION to the active "
+"playlist. If Exaile is already running, this attempts to use the existing "
+"instance instead of creating a new one."
 
 #: ../xl/main.py:89
 msgid "Playback Options"
@@ -183,10 +184,8 @@ msgid "Playlist Options"
 msgstr "Playlist Options"
 
 #: ../xl/main.py:116
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Exports the current playlist to LOCATION"
+msgstr "Export the current playlist to LOCATION"
 
 #: ../xl/main.py:118
 msgid "Track Options"
@@ -202,10 +201,8 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:124
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
-msgstr "Retrieves the current playback state and track information as FORMAT"
+msgstr "Retrieve the current playback state and track information as FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:127
@@ -213,10 +210,8 @@ msgid "TAGS"
 msgstr "TAGS"
 
 #: ../xl/main.py:128
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "TAGS to retrieve from the current track, use with --format-query"
+msgstr "Tags to retrieve from the current track; use with --format-query"
 
 #: ../xl/main.py:130
 msgid "Show a popup with data of the current track"
@@ -265,16 +260,12 @@ msgid "Volume Options"
 msgstr "Volume Options"
 
 #: ../xl/main.py:156
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Increases the volume by N%"
+msgstr "Increase the volume by N%"
 
 #: ../xl/main.py:160
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Decreases the volume by N%"
+msgstr "Decrease the volume by N%"
 
 #: ../xl/main.py:163
 #, fuzzy
@@ -501,7 +492,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -626,22 +617,22 @@ msgstr ""
 
 #: ../xl/player/gst/sink.py:142
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "No custom pipeline specified!"
 
 #: ../xl/player/gst/sink.py:147
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Error creating custom audiosink '%s'"
 
 #: ../xl/player/gst/sink.py:153
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Invalid sink type '%s' specified"
 
 #: ../xl/player/gst/sink.py:157
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Could not create sink type '%s'"
 
 #: ../xl/playlist.py:161 ../xl/playlist.py:181
 msgid "Invalid playlist type."
@@ -844,11 +835,11 @@ msgstr ""
 #: ../xlgui/cover.py:128
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} covers left to fetch"
 
 #: ../xlgui/cover.py:129
 msgid "All covers fetched"
-msgstr ""
+msgstr "All covers fetched"
 
 #: ../xlgui/cover.py:154
 msgid "Collecting albums and covers..."

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2017-08-07 15:57+0000\n"
+"PO-Revision-Date: 2017-12-26 01:00+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
-"Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
-"sc/>\n"
+"Language-Team: Sardinian "
+"<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
 "Language: sc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16-dev\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -119,10 +119,8 @@ msgid "Local"
 msgstr "Locale"
 
 #: ../xl/main.py:80
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Impreu: exaile [OPTZIONE]... [URI]"
+msgstr "Impreu: exaile [OPTZIONE...] [POSITZIONE...]"
 
 #: ../xl/main.py:81
 msgid ""

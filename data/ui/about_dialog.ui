@@ -22,7 +22,7 @@ Dustin Spicuzza
 Fabiano Fidêncio
 Joseph S. Atkinson
 Christian Stadelmann</property>
-    <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here">Unknown translator</property>
+    <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here. Separate translator names with newlines.">Unknown translator</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg
 Josip Lisec</property>

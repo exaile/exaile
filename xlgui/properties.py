@@ -630,6 +630,7 @@ class TagRow(object):
         self.label = Gtk.Label(halign=Gtk.Align.START, margin_top=5)
 
         if multi_id == 0:
+            # TRANSLATORS: Label for a tag on the Track Properties dialog
             self.label.set_text(_('%s:') % name.capitalize())
             self.label.create_pango_context()
 

@@ -204,7 +204,7 @@ class MainWindow(GObject.GObject):
             factory(5, _('Focus the fifth tab')),
             factory(6, _('Focus the sixth tab')),
             factory(7, _('Focus the seventh tab')),
-            factory(8, _('Focus the eight tab')),
+            factory(8, _('Focus the eighth tab')),
             factory(9, _('Focus the ninth tab')),
             factory(0, _('Focus the tenth tab')),
         )

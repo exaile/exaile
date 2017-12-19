@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2017-12-18 15:46+0000\n"
+"PO-Revision-Date: 2017-12-19 02:51+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
 "Language-Team: English (Australia) "
 "<https://hosted.weblate.org/projects/exaile/master/en_AU/>\n"
@@ -268,10 +268,8 @@ msgid "Decrease the volume by N%"
 msgstr "Decrease the volume by N%"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Mutes or unmutes the volume"
+msgstr "Mute or unmute the volume"
 
 #: ../xl/main.py:165
 msgid "Print the current volume percentage"
@@ -307,11 +305,8 @@ msgstr ""
 "Start in safe mode - sometimes useful when you're running into problems"
 
 #: ../xl/main.py:184
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
-msgstr "Force import of old data from version 0.2.x (Overwrites current data)"
+msgstr "Force import of old data from version 0.2.x (overwrites current data)"
 
 #: ../xl/main.py:187
 msgid "Do not import old data from version 0.2.x"
@@ -358,16 +353,12 @@ msgid "Show debugging output"
 msgstr "Show debugging output"
 
 #: ../xl/main.py:206
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "Enable debugging of xl.event. Generates lots of output"
 
 #: ../xl/main.py:209
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "Enable full debugging of xl.event. Generates LOTS of output"
 
 #: ../xl/main.py:212
 msgid "Add thread name to logging messages."
@@ -592,7 +583,7 @@ msgstr "Stop offset"
 
 #: ../xl/player/gst/engine.py:634
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possible audio device error, is it plugged in?"
 
 #: ../xl/player/gst/missing_plugin.py:86
 #, python-format
@@ -601,6 +592,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"A GStreamer 1.x plugin for %s is missing. Without this software installed, "
+"Exaile will not be able to play the current file. Please install the "
+"required software on your computer. See %s for details."
 
 #: ../xl/player/gst/sink.py:46 ../xl/player/gst/sink.py:99
 msgid "Automatic"
@@ -613,7 +607,7 @@ msgstr "Custom"
 #: ../xl/player/gst/sink.py:135
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Could not create audiosink (device: %s, type: %s)"
 
 #: ../xl/player/gst/sink.py:142
 msgid "No custom pipeline specified!"
@@ -843,7 +837,7 @@ msgstr "All covers fetched"
 
 #: ../xlgui/cover.py:154
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Collecting albums and covers..."
 
 #: ../xlgui/cover.py:522
 msgid "Show Cover"
@@ -864,7 +858,7 @@ msgstr "Cover for %s"
 
 #: ../xlgui/cover.py:941
 msgid "Save File"
-msgstr ""
+msgstr "Save File"
 
 #: ../xlgui/cover.py:1037
 #, python-format
@@ -880,6 +874,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"None of the enabled sources has a cover for this track, try enabling more "
+"sources."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
@@ -892,28 +888,24 @@ msgid "$title (by $artist)"
 msgstr "$title (by $artist)"
 
 #: ../xlgui/main.py:159
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Access the current playlist"
+msgstr "Save currently selected playlist"
 
 #: ../xlgui/main.py:161
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Save currently selected playlist under a custom name"
 
 #: ../xlgui/main.py:163
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Focus filter in currently focused panel"
 
 #: ../xlgui/main.py:165
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Focus playlist search"
 
 #: ../xlgui/main.py:167
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Toggle Queue"
+msgstr "Clear queue"
 
 #: ../xlgui/main.py:170 ../plugins/minimode/controls.py:271
 msgid "Start, pause or resume the playback"
@@ -921,89 +913,83 @@ msgstr "Start, pause or resume the playback"
 
 #: ../xlgui/main.py:172
 msgid "Seek to the right"
-msgstr ""
+msgstr "Seek to the right"
 
 #: ../xlgui/main.py:174
 msgid "Seek to the left"
-msgstr ""
+msgstr "Seek to the left"
 
 #: ../xlgui/main.py:177
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Increases the volume by N%"
+msgstr "Increase the volume"
 
 #: ../xlgui/main.py:179
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Decreases the volume by N%"
+msgstr "Decrease the volume"
 
 #: ../xlgui/main.py:182
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Go to the previous track"
+msgstr "Switch to previous tab"
 
 #: ../xlgui/main.py:184
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Switch to next tab"
 
 #: ../xlgui/main.py:187
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Focus the playlist container"
 
 #: ../xlgui/main.py:192
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Focus the files panel"
 
 #: ../xlgui/main.py:196
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Focus the radio panel"
 
 #: ../xlgui/main.py:198
 msgid "Focus the playlists panel"
-msgstr ""
+msgstr "Focus the playlists panel"
 
 #: ../xlgui/main.py:200
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Focus the first tab"
 
 #: ../xlgui/main.py:201
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Focus the second tab"
 
 #: ../xlgui/main.py:202
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Focus the third tab"
 
 #: ../xlgui/main.py:203
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Focus the fourth tab"
 
 #: ../xlgui/main.py:204
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Focus the fifth tab"
 
 #: ../xlgui/main.py:205
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Focus the sixth tab"
 
 #: ../xlgui/main.py:206
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Focus the seventh tab"
 
 #: ../xlgui/main.py:207
 msgid "Focus the eight tab"
-msgstr ""
+msgstr "Focus the eight tab"
 
 #: ../xlgui/main.py:208
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Focus the ninth tab"
 
 #: ../xlgui/main.py:209
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Focus the tenth tab"
 
 #: ../xlgui/main.py:518
 msgid "Toggle: Stop after Selected Track"
@@ -1042,50 +1028,36 @@ msgid "_New Playlist"
 msgstr "_New Playlist"
 
 #: ../xlgui/menu.py:69
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Open URL"
+msgstr "_Open"
 
 #: ../xlgui/menu.py:79
 msgid "Open _URL"
 msgstr "Open _URL"
 
 #: ../xlgui/menu.py:89
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Open Directories"
+msgstr "Open _Directories"
 
 #: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
-msgstr "Import Playlist"
+msgstr "_Import Playlist"
 
 #: ../xlgui/menu.py:118
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Export Current Playlist"
+msgstr "E_xport Current Playlist"
 
 #: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Close Tab"
+msgstr "Close _Tab"
 
 #: ../xlgui/menu.py:133
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Restart"
+msgstr "_Restart"
 
 #: ../xlgui/menu.py:141 ../xlgui/tray.py:99
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "About Exaile"
+msgstr "_Quit Exaile"
 
 #: ../xlgui/menu.py:158
 msgid "_Collection"
@@ -1100,10 +1072,8 @@ msgid "C_overs"
 msgstr "C_overs"
 
 #: ../xlgui/menu.py:177
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Preferences"
+msgstr "_Preferences"
 
 #: ../xlgui/menu.py:197
 msgid "_Show Playing Track"
@@ -1114,50 +1084,40 @@ msgid "_Playlist Utilities Bar"
 msgstr "_Playlist Utilities Bar"
 
 #: ../xlgui/menu.py:213
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "_Columns"
+msgstr "C_olumns"
 
 #: ../xlgui/menu.py:221
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
-msgstr "C_lear playlist"
+msgstr "_Clear playlist"
 
 #: ../xlgui/menu.py:239
 msgid "_Device Manager"
 msgstr "_Device Manager"
 
 #: ../xlgui/menu.py:242
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Re-scan Collection"
+msgstr "_Rescan Collection"
 
 #: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
-#, fuzzy
-#| msgid "Rescan Collection (slow)"
 msgid "Rescan Collection (_slow)"
-msgstr "Rescan Collection (slow)"
+msgstr "Rescan Collection (_slow)"
 
 #: ../xlgui/menu.py:271
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "User's Guide (website)"
 
 #: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Shortcut"
+msgstr "Shortcuts"
 
 #: ../xlgui/menu.py:276
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Report an issue (GitHub)"
 
 #: ../xlgui/menu.py:279
 msgid "_About"
-msgstr ""
+msgstr "_About"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Artist"
@@ -1169,15 +1129,15 @@ msgstr "Genre - Album"
 
 #: ../xlgui/panel/collection.py:143
 msgid "Date - Artist"
-msgstr ""
+msgstr "Date - Artist"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
-msgstr ""
+msgstr "Date - Album"
 
 #: ../xlgui/panel/collection.py:149
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Artist - (Date - Album)"
 
 #: ../xlgui/panel/collection.py:170 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1209,7 +1169,7 @@ msgstr "Size"
 #: ../xlgui/panel/files.py:435
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
@@ -1222,29 +1182,24 @@ msgstr "No lyrics found."
 
 #: ../xlgui/panel/lyrics.py:181
 msgid "Source: "
-msgstr ""
+msgstr "Source: "
 
 #: ../xlgui/panel/lyrics.py:211
 msgid "Any"
 msgstr "Any"
 
 #: ../xlgui/panel/menus.py:184
-#, fuzzy
-#| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
-msgstr "New Smart Playlist"
+msgstr "New _Smart Playlist"
 
 #: ../xlgui/panel/menus.py:259
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "New Station"
+msgstr "_New Station"
 
 #: ../xlgui/panel/playlists.py:142
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Delete Playlist"
+msgstr "Delete the playlist \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:157
 msgid "Enter the new name you want for your playlist"
@@ -1335,27 +1290,23 @@ msgstr "New Playlist"
 
 #: ../xlgui/panels.py:100
 msgid "P_anels"
-msgstr ""
+msgstr "P_anels"
 
 #: ../xlgui/playlist_container.py:72
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Drop here to create a new playlist"
 
 #: ../xlgui/playlist_container.py:130
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear Tab History"
-msgstr "C_lear playlist"
+msgstr "_Clear Tab History"
 
 #: ../xlgui/playlist_container.py:140
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Close Tab"
+msgstr "Recently Closed _Tabs"
 
 #: ../xlgui/playlist_container.py:159
 msgid "Restore closed tab"
-msgstr ""
+msgstr "Restore closed tab"
 
 #: ../xlgui/playlist_container.py:198
 #, python-format
@@ -1365,16 +1316,16 @@ msgstr "Playlist %d"
 #: ../xlgui/playlist_container.py:376
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 
 #: ../xlgui/playlist_container.py:382
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 
 #: ../xlgui/playlist_container.py:521
 msgid "_Move to Other View"
-msgstr ""
+msgstr "_Move to Other View"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:43
 msgid "Plugins"
@@ -1386,7 +1337,7 @@ msgstr "Appearance"
 
 #: ../xlgui/preferences/appearance.py:111
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Tray icons are not supported on your platform"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1398,10 +1349,8 @@ msgid "the"
 msgstr "the"
 
 #: ../xlgui/preferences/collection.py:56
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
-msgstr "Reset to Defaults"
+msgstr "Reset to _Defaults"
 
 #: ../xlgui/preferences/cover.py:35 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1480,7 +1429,7 @@ msgstr "Shortcut"
 
 #: ../xlgui/properties.py:271
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Writing of tags failed"
 
 #: ../xlgui/properties.py:272
 #, python-brace-format
@@ -1488,6 +1437,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Tags could not be written to the following files:\n"
+"{files}"
 
 #: ../xlgui/properties.py:292
 #, python-format
@@ -1509,7 +1460,7 @@ msgstr "Your changes will be lost if you do not apply them now."
 #: ../xlgui/properties.py:633
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1669,11 +1620,11 @@ msgstr "Save As"
 #: ../xlgui/widgets/dialogs.py:1710
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Exporting %s"
 
 #: ../xlgui/widgets/dialogs.py:1713
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Choose directory to export files to"
 
 #: ../xlgui/widgets/info.py:68
 msgid ""
@@ -1705,34 +1656,24 @@ msgid "%d selected"
 msgstr "%d selected"
 
 #: ../xlgui/widgets/menuitems.py:111
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
-msgstr "Enqueue"
+msgstr "En_queue"
 
 #: ../xlgui/widgets/menuitems.py:139
-#, fuzzy
-#| msgid "Replace Current"
 msgid "_Replace Current"
-msgstr "Replace Current"
+msgstr "_Replace Current"
 
 #: ../xlgui/widgets/menuitems.py:144
-#, fuzzy
-#| msgid "Append to Current"
 msgid "_Append to Current"
-msgstr "Append to Current"
+msgstr "_Append to Current"
 
 #: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
-#, fuzzy
-#| msgid "Track Properties"
 msgid "_Track Properties"
-msgstr "Track Properties"
+msgstr "_Track Properties"
 
 #: ../xlgui/widgets/menuitems.py:170
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Open Directory"
+msgstr "_Open Directory"
 
 #: ../xlgui/widgets/menuitems.py:196
 msgid ""
@@ -1749,32 +1690,24 @@ msgid "_Move to Trash"
 msgstr "Move to Rubbish Bin"
 
 #: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Rename"
+msgstr "_Rename"
 
 #: ../xlgui/widgets/menuitems.py:231 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Edit"
 
 #: ../xlgui/widgets/menuitems.py:237
-#, fuzzy
-#| msgid "Export Playlist"
 msgid "E_xport Playlist"
-msgstr "Export Playlist"
+msgstr "E_xport Playlist"
 
 #: ../xlgui/widgets/menuitems.py:242
-#, fuzzy
-#| msgid "Export Files"
 msgid "Export _Files"
-msgstr "Export Files"
+msgstr "Export _Files"
 
 #: ../xlgui/widgets/menuitems.py:247
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Delete Playlist"
+msgstr "_Delete Playlist"
 
 #: ../xlgui/widgets/notebook.py:242
 msgid "Close Tab"
@@ -1795,13 +1728,11 @@ msgstr "New Marker"
 
 #: ../xlgui/widgets/playback.py:1366
 msgid "_Jump to"
-msgstr ""
+msgstr "_Jump to"
 
 #: ../xlgui/widgets/playback.py:1370
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
-msgstr "_Remove tag"
+msgstr "_Remove Marker"
 
 #: ../xlgui/widgets/playback.py:1411
 msgid "Muted"
@@ -1818,102 +1749,72 @@ msgid "Full Volume"
 msgstr "Full Volume"
 
 #: ../xlgui/widgets/playback.py:1540
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Pause"
+msgstr "_Pause"
 
 #: ../xlgui/widgets/playback.py:1543
 msgid "P_lay"
-msgstr ""
+msgstr "P_lay"
 
 #: ../xlgui/widgets/playback.py:1550
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Next Track"
+msgstr "_Next Track"
 
 #: ../xlgui/widgets/playback.py:1555
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Previous Track"
+msgstr "_Previous Track"
 
 #: ../xlgui/widgets/playback.py:1560
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Stop"
+msgstr "_Stop"
 
 #: ../xlgui/widgets/playlist.py:132
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "Shuffle"
+msgstr "S_huffle"
 
 #: ../xlgui/widgets/playlist.py:137
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Repeat"
+msgstr "R_epeat"
 
 #: ../xlgui/widgets/playlist.py:142
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dynamic"
+msgstr "_Dynamic"
 
 #: ../xlgui/widgets/playlist.py:159
-#, fuzzy
-#| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
-msgstr "Remove Current Track From Playlist"
+msgstr "Remove _Current Track From Playlist"
 
 #: ../xlgui/widgets/playlist.py:191
-#, fuzzy
-#| msgid "Randomize Playlist"
 msgid "R_andomize Playlist"
-msgstr "Randomise Playlist"
+msgstr "R_andomise Playlist"
 
 #: ../xlgui/widgets/playlist.py:194
-#, fuzzy
-#| msgid "Randomize Selection"
 msgid "R_andomize Selection"
-msgstr "Randomise Selection"
+msgstr "R_andomise Selection"
 
 #: ../xlgui/widgets/playlist.py:221
-#, fuzzy
-#| msgid "Save As"
 msgid "_Save"
-msgstr "Save As"
+msgstr "_Save"
 
 #: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
-#, fuzzy
-#| msgid "Save As"
 msgid "Save _As"
-msgstr "Save As"
+msgstr "Save _As"
 
 #: ../xlgui/widgets/playlist.py:230
 msgid "_Clear"
-msgstr ""
+msgstr "_Clear"
 
 #: ../xlgui/widgets/playlist.py:281
-#, fuzzy
-#| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
-msgstr "Stop Playback After This Track"
+msgstr "_Stop Playback After This Track"
 
 #: ../xlgui/widgets/playlist.py:288
-#, fuzzy
-#| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
-msgstr "Continue Playback After This Track"
+msgstr "_Continue Playback After This Track"
 
 #: ../xlgui/widgets/playlist.py:338
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
-msgstr "Rename Playlist"
+msgstr "_Remove from Playlist"
 
 #: ../xlgui/widgets/playlist.py:617
 msgid "Requires plugins providing dynamic playlists"
@@ -1924,10 +1825,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamically add similar tracks to the playlist"
 
 #: ../xlgui/widgets/playlist.py:677
-#, fuzzy
-#| msgid "Loading %s..."
 msgid "Loading"
-msgstr "Loading %s..."
+msgstr "Loading"
 
 #: ../xlgui/widgets/playlist_columns.py:170
 msgid "Track Number"
@@ -2029,13 +1928,13 @@ msgstr "is not"
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:218
 msgid "is set"
-msgstr ""
+msgstr "is set"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:221
 msgid "is not set"
-msgstr ""
+msgstr "is not set"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:223
@@ -2050,12 +1949,12 @@ msgstr "does not contain"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:227
 msgid "regex"
-msgstr ""
+msgstr "regex"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:229
 msgid "not regex"
-msgstr ""
+msgstr "not regex"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:231
@@ -2119,9 +2018,8 @@ msgid "Edit Smart Playlist"
 msgstr "Edit Smart Playlist"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:425
-#, fuzzy
 msgid "Sort by:"
-msgstr "Import path: "
+msgstr "Sort by:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2139,13 +2037,15 @@ msgstr "About Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2017 Various Contributors"
-msgstr ""
+msgstr "© 2009-2017 Various Contributors"
 
 #. TRANSLATORS: Add your own name here
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
 msgstr ""
+"Jeff Bailes\n"
+"Johannes Sasongko"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2157,13 +2057,11 @@ msgstr "Monitored"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Scan At Startup"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "Rescan _Collection"
-msgstr "Re-scan Collection"
+msgstr "Rescan _Collection"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2176,7 +2074,7 @@ msgstr ""
 
 #: ../data/ui/coverchooser.ui:119
 msgid "The origin of this cover"
-msgstr ""
+msgstr "The origin of this cover"
 
 #: ../data/ui/coverchooser.ui:133 ../data/ui/panel/collection.ui:149
 #: ../data/ui/panel/lyrics.ui:49
@@ -2193,15 +2091,15 @@ msgstr "Cover Manager"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Fetch Covers"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "Zoom _In"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "Zoom _Out"
 
 #: ../data/ui/coverwindow.ui:68
 #, fuzzy

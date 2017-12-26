@@ -432,6 +432,7 @@ class FilesPanel(panel.Panel):
                 # correctly, so we call it with an str and convert the
                 # locale-dependent output to unicode.
                 size = locale.format_string('%d', size, True)
+                # TRANSLATORS: File size (1 kB = 1000 bytes)
                 size = _('%s kB') % unicode(size, locale.getpreferredencoding())
 
                 model.append((f, self.track, name, size, False))

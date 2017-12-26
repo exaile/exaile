@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.20.2 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="covers_model">
@@ -47,10 +47,6 @@
                 <property name="can_focus">False</property>
                 <property name="active">True</property>
               </object>
-              <packing>
-                <property name="name">spinner</property>
-                <property name="title" translatable="yes">page0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkGrid" id="stack_ready">
@@ -130,7 +126,6 @@
                 </child>
               </object>
               <packing>
-                <property name="title" translatable="yes">page1</property>
                 <property name="position">1</property>
               </packing>
             </child>

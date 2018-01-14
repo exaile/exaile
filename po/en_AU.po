@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2017-12-19 02:51+0000\n"
+"PO-Revision-Date: 2018-01-21 05:31+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
 "Language-Team: English (Australia) "
 "<https://hosted.weblate.org/projects/exaile/master/en_AU/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18\n"
+"X-Generator: Weblate 2.19-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
 
 #: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
@@ -2102,21 +2102,17 @@ msgid "Zoom _Out"
 msgstr "Zoom _Out"
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original date"
 msgid "_Original Size"
-msgstr "Original date"
+msgstr "_Original Size"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
+msgstr "_Best Fit"
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "_Close"
-msgstr "Close %s"
+msgstr "_Close"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
@@ -2189,10 +2185,8 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
-#, fuzzy
-#| msgid "Add Music"
 msgid "_Add Music"
-msgstr "Add Music"
+msgstr "_Add Music"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2243,10 +2237,8 @@ msgid "Refresh Lyrics"
 msgstr "Refresh Lyrics"
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Add Station"
+msgstr "_Add Station"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2286,7 +2278,7 @@ msgstr "The info area contains the cover art and track information"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Show cover art in info area"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
@@ -2303,7 +2295,7 @@ msgstr ""
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Reset to the system font"
 
 #: ../data/ui/preferences/appearance.ui:183
 msgid "Display track counts in collection"
@@ -2369,10 +2361,8 @@ msgid "(Right click to reset to defaults)"
 msgstr "(Right click to reset to defaults)"
 
 #: ../data/ui/preferences/collection.ui:44
-#, fuzzy
-#| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
-msgstr "Use file based compilation detection"
+msgstr "Use file-based compilation detection"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2388,11 +2378,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:30
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Preferred file names:"
 
 #: ../data/ui/preferences/cover.ui:43
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "A comma-separated list of file names without file extensions"
 
 #: ../data/ui/preferences/cover.ui:52
 msgid "Fetch covers automatically on playback start"
@@ -2412,14 +2402,12 @@ msgstr "Use covers embedded in tags"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Lyrics font:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
-#, fuzzy
-#| msgid "Streamripper"
 msgid "GStreamer"
-msgstr "Streamripper"
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2427,10 +2415,8 @@ msgid "Audio Sink:  "
 msgstr "Audio Sink:  "
 
 #: ../data/ui/preferences/playback.ui:92
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device: "
-msgstr "Add Device"
+msgstr "Audio Device: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2447,25 +2433,27 @@ msgstr "Resume playback in paused state"
 
 #: ../data/ui/preferences/playback.ui:173
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Adding an item to an empty queue begins playback"
 
 #: ../data/ui/preferences/playback.ui:188
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Remove track from queue upon playback"
 
 #: ../data/ui/preferences/playback.ui:203
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Disallow playing new tracks when another track is playing"
 
 #: ../data/ui/preferences/playback.ui:207
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"If a track is currently playing, do not allow new tracks to be started, "
+"except when clicking the playback controls"
 
 #: ../data/ui/preferences/playback.ui:219
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Automatically advance to the next track"
 
 #: ../data/ui/preferences/playback.ui:236
 msgid "Delay between tracks (ms):"
@@ -2486,7 +2474,7 @@ msgstr "Use crossfading (EXPERIMENTAL)"
 
 #: ../data/ui/preferences/playback.ui:286
 msgid "Forces automatically advancing to the next track"
-msgstr ""
+msgstr "Forces automatically advancing to the next track"
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
@@ -2503,15 +2491,14 @@ msgid "Playback engine: "
 msgstr "Playback engine: "
 
 #: ../data/ui/preferences/playback.ui:367
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Repeat playback"
+msgstr "Enable gapless playback"
 
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"Gapless playback means to play tracks without inserting silence between them."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2535,7 +2522,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
-msgstr ""
+msgstr "Appending/replacing via menu item triggers playback"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2546,7 +2533,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Queue tracks by default instead of playing them"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""
@@ -2566,7 +2553,7 @@ msgstr "Enabled"
 
 #: ../data/ui/preferences/plugin.ui:119
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../data/ui/preferences/plugin.ui:138
 msgid "Show incompatible plugins"
@@ -2574,7 +2561,7 @@ msgstr "Show incompatible plugins"
 
 #: ../data/ui/preferences/plugin.ui:153
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Show potentially broken plugins"
 
 #: ../data/ui/preferences/plugin.ui:171
 msgid "No Plugin Selected"
@@ -2632,16 +2619,12 @@ msgid "Preferences"
 msgstr "Preferences"
 
 #: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "Close"
-msgstr "Close %s"
+msgstr "Close"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Description:"
+msgstr "Description"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2664,10 +2647,8 @@ msgid "Uppercase first letter of all tags"
 msgstr "Capitalise first letter of all tags"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Properties"
+msgstr "File Properties"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2679,7 +2660,7 @@ msgstr "_Next"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
-msgstr ""
+msgstr "Other"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
@@ -2691,11 +2672,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
-msgstr ""
+msgstr "Cover (front)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:36
 msgid "Cover (back)"
-msgstr ""
+msgstr "Cover (back)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
@@ -2774,16 +2755,12 @@ msgid "Add"
 msgstr "Add"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Limit to: "
+msgstr "Limit to:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " tracks"
+msgstr "tracks"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2815,10 +2792,8 @@ msgid "Amazon Covers"
 msgstr "Amazon Covers"
 
 #: ../plugins/audioscrobbler/__init__.py:98
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
-msgstr "AudioScrobbler"
+msgstr "Toggle AudioScrobbler submit"
 
 #: ../plugins/audioscrobbler/__init__.py:136
 msgid "Enable audioscrobbling"
@@ -2843,28 +2818,20 @@ msgid "Please make sure the entered data is correct."
 msgstr "Please make sure the entered data is correct."
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
-msgstr "Bookmark This Track"
+msgstr "_Bookmark This Track"
 
 #: ../plugins/bookmarks/__init__.py:218
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Delete Bookmark"
+msgstr "_Delete Bookmark"
 
 #: ../plugins/bookmarks/__init__.py:221
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Clear Bookmarks"
+msgstr "_Clear Bookmarks"
 
 #: ../plugins/bookmarks/__init__.py:323
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Bookmarks"
+msgstr "_Bookmarks"
 
 #: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
 msgid "Autodetect BPM"

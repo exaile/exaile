@@ -101,7 +101,7 @@ class FilesPanel(panel.Panel):
             Sets up tree widget for the files panel
         """
         self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str, bool)
-        self.tree = tree = FilesDragTreeView(self, True, True)
+        self.tree = tree = FilesDragTreeView(self, receive=False, source=True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
         tree.connect('key-release-event', self.on_key_released)
@@ -456,18 +456,6 @@ class FilesPanel(panel.Panel):
             self.up.set_sensitive(bool(directory.get_parent()))
 
         GLib.idle_add(idle)
-
-    def drag_data_received(self, *e):
-        """
-            stub
-        """
-        pass
-
-    def drag_data_delete(self, *e):
-        """
-            stub
-        """
-        pass
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """

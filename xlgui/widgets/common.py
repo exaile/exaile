@@ -320,9 +320,9 @@ class DragTreeView(AutoScrollTreeView):
         self.reset_selection_status()
 
         if self.get_selection().count_selected_rows() > 1:
-            self.drag_source_set_icon_stock(Gtk.STOCK_DND_MULTIPLE)
+            Gtk.drag_set_icon_name(context, 'gtk-dnd-multiple', 0, 0)
         else:
-            self.drag_source_set_icon_stock(Gtk.STOCK_DND)
+            Gtk.drag_set_icon_name(context, 'gtk-dnd', 0, 0)
         if self.show_cover_drag_icon:
             tracks = self.get_selected_tracks()
             self._on_drag_begin(widget, context, tracks)

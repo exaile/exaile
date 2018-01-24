@@ -290,7 +290,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         m = menu.Menu(None)
         m.add_simple(_("Refresh"), self.on_reload, Gtk.STOCK_REFRESH)
-        return menu
+        return m
 
     def on_key_released(self, widget, event):
         """

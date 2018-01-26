@@ -384,7 +384,7 @@ class IcecastRadioStation(RadioStation):
         """
         self._parent = parent
         menu = parent.get_menu()
-        menu.append(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
+        menu.add_simple(_("Search"), lambda *e: self.on_search(), Gtk.STOCK_FIND)
         return menu
 
 

@@ -106,6 +106,27 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.load_streams()
         RadioPanel._radiopanel = self
 
+    @property
+    def menu(self):
+        """
+            Gets a menu for the selected item
+            :return: xlgui.widgets.menu.Menu or None if do not have it
+        """
+        model, it = self.tree.get_selection().get_selected()
+        item = model[it][2]
+        if isinstance(item, xl.playlist.Playlist):
+            return self.playlist_menu
+        elif isinstance(item, playlistpanel.TrackWrapper):
+            return self.track_menu
+        else:
+            station = (item if isinstance(item, xl.radio.RadioStation)
+                       else item.station if isinstance(item,
+                                                       (xl.radio.RadioList,
+                                                        xl.radio.RadioItem))
+                       else None)
+            if station and hasattr(station, 'get_menu'):
+                return station.get_menu(self)
+
     def load_streams(self):
         """
             Loads radio streams from plugins
@@ -330,33 +351,6 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             return True
 
         return False
-
-    def button_release(self, widget, event):
-        """
-            Called when someone clicks on the tree
-        """
-        #if event.triggers_context_menu():  # fixme: fired on button press only
-        if event.button == Gdk.BUTTON_SECONDARY:
-            (x, y) = map(int, event.get_coords())
-            path = self.tree.get_path_at_pos(x, y)
-            if path:
-                iter = self.model.get_iter(path[0])
-                item = self.model.get_value(iter, 2)
-
-                if isinstance(item, (xl.radio.RadioStation, xl.radio.RadioList,
-                                     xl.radio.RadioItem)):
-                    if isinstance(item, xl.radio.RadioStation):
-                        station = item
-                    else:
-                        station = item.station
-
-                    if station and hasattr(station, 'get_menu'):
-                        menu = station.get_menu(self)
-                        menu.popup(event)
-                elif isinstance(item, xl.playlist.Playlist):
-                    self.playlist_menu.popup(event)
-                elif isinstance(item, playlistpanel.TrackWrapper):
-                    self.track_menu.popup(event)
 
     def cell_data_func(self, column, cell, model, iter, user_data):
         """

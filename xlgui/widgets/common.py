@@ -498,11 +498,8 @@ class DragTreeView(AutoScrollTreeView):
 
             if event_data.triggers_menu:
                 # Uses menu from container (if present)
-                try:
-                    menu = self.container.menu
-                except AttributeError:
-                    pass
-                else:
+                menu = getattr(self.container, 'menu', None)
+                if menu:
                     menu.popup(event_data.event)
                     return True
 

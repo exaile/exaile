@@ -230,29 +230,6 @@ class FilesPanel(panel.Panel):
             return True
         return False
 
-    def button_release(self, button, event):
-        """
-            Called when the user clicks on the playlist
-        """
-        #if event.triggers_context_menu():  # fixme: fired on button press only
-        if event.button == Gdk.BUTTON_SECONDARY:
-            selection = self.tree.get_selection()
-            (x, y) = map(int, event.get_coords())
-            path = self.tree.get_path_at_pos(x, y)
-            self.menu.popup(event)
-
-            if not path:
-                return False
-
-            model, paths = selection.get_selected_rows()
-            if path[0] in paths:
-                if event.get_state() & guiutil.ModifierType.PRIMARY_SHIFT_MASK:
-                    return False
-                return True
-            else:
-                return False
-        return False
-
     def row_activated(self, *i):
         """
             Called when someone double clicks a row

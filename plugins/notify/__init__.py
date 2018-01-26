@@ -31,6 +31,7 @@ from xl import player as xl_player
 from xl import settings as xl_settings
 from xl.nls import gettext as _
 from xlgui import icons
+from xlgui.guiutil import pixbuf_from_data
 
 import notifyprefs
 
@@ -225,7 +226,7 @@ class Notifier(PlaybackAdapter):
             cover_data = covers.MANAGER.get_cover(
                 track, set_only=True, use_default=True)
             size = DEFAULT_ICON_SIZE if self.settings.resize_covers else None
-            new_icon = icons.MANAGER.pixbuf_from_data(cover_data, size)
+            new_icon = pixbuf_from_data(cover_data, size)
             self.notification.set_image_from_pixbuf(new_icon)
         return icon_name
 

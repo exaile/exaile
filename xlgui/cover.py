@@ -49,9 +49,9 @@ from xl.covers import MANAGER as COVER_MANAGER
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs, menu
 from xlgui import (
-    guiutil,
-    icons
+    guiutil
 )
+from xlgui.guiutil import pixbuf_from_data
 
 logger = logging.getLogger(__name__)
 
@@ -128,7 +128,7 @@ class CoverManager(GObject.GObject):
         self.outstanding_text = _('{outstanding} covers left to fetch')
         self.completed_text = _('All covers fetched')
         self.cover_size = (90, 90)
-        self.default_cover_pixbuf = icons.MANAGER.pixbuf_from_data(
+        self.default_cover_pixbuf = pixbuf_from_data(
             COVER_MANAGER.get_default_cover(), self.cover_size)
 
         builder = Gtk.Builder()
@@ -199,7 +199,6 @@ class CoverManager(GObject.GObject):
         outstanding = []
         # Speed up the following loop
         get_cover = COVER_MANAGER.get_cover
-        pixbuf_from_data = icons.MANAGER.pixbuf_from_data
         default_cover_pixbuf = self.default_cover_pixbuf
         cover_size = self.cover_size
 
@@ -237,7 +236,6 @@ class CoverManager(GObject.GObject):
         # Speed up the following loop
         get_cover = COVER_MANAGER.get_cover
         save = COVER_MANAGER.save
-        pixbuf_from_data = icons.MANAGER.pixbuf_from_data
 
         for i, album in enumerate(self.outstanding[:]):
             if self.stopper.is_set():
@@ -275,7 +273,7 @@ class CoverManager(GObject.GObject):
             album = self.model[path][0]
             track = self.album_tracks[album][0]  # Arbitrary track in album
             cover_data = COVER_MANAGER.get_cover(track, set_only=True)
-            cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data) if cover_data else None
+            cover_pixbuf = pixbuf_from_data(cover_data) if cover_data else None
 
             # Do not bother showing the dialog if there is no cover
             if cover_pixbuf:
@@ -400,7 +398,7 @@ class CoverManager(GObject.GObject):
 
         if path:
             album = self.model[path][0]
-            pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+            pixbuf = pixbuf_from_data(cover_data)
 
             self.emit('cover-fetched', album, pixbuf)
 
@@ -617,7 +615,7 @@ class CoverWidget(Gtk.EventBox):
         if not self.cover_data:
             return
 
-        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
+        pixbuf = pixbuf_from_data(self.cover_data)
 
         if pixbuf:
             savedir = Gio.File.new_for_uri(self.__track.get_loc_for_io()).get_parent()
@@ -651,8 +649,7 @@ class CoverWidget(Gtk.EventBox):
 
         self.drag_dest_unset()
 
-        pixbuf = icons.MANAGER.pixbuf_from_data(
-            COVER_MANAGER.get_default_cover())
+        pixbuf = pixbuf_from_data(COVER_MANAGER.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_source_enabled(False)
         self.cover_data = None
@@ -724,7 +721,7 @@ class CoverWidget(Gtk.EventBox):
         if self.filename is None:
             self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
 
-        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
+        pixbuf = pixbuf_from_data(self.cover_data)
         save_pixbuf(pixbuf, self.filename, 'png')
         selection.set_uris([Gio.File.new_for_path(self.filename).get_uri()])
 
@@ -751,8 +748,7 @@ class CoverWidget(Gtk.EventBox):
 
             self.cover_data = stream.read()
             width = settings.get_option('gui/cover_width', 100)
-            pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data,
-                                                    (width, width))
+            pixbuf = pixbuf_from_data(self.cover_data, (width, width))
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
@@ -769,7 +765,7 @@ class CoverWidget(Gtk.EventBox):
             return
 
         width = settings.get_option('gui/cover_width', 100)
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
+        pixbuf = pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_source_enabled(True)
         self.cover_data = cover_data
@@ -1089,7 +1085,7 @@ class CoverChooser(GObject.GObject):
 
                 coverdata = COVER_MANAGER.get_cover_data(db_string)
                 # Pre-render everything for faster display later
-                pixbuf = icons.MANAGER.pixbuf_from_data(coverdata)
+                pixbuf = pixbuf_from_data(coverdata)
 
                 if pixbuf:
                     self.covers_model.append([

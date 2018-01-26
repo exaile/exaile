@@ -604,66 +604,6 @@ class IconManager(object):
         # TODO: Check if fallbacks are necessary
         return pixbuf
 
-    def pixbuf_from_data(self, data, size=None, keep_ratio=True, upscale=False):
-        """
-            Generates a pixbuf from arbitrary image data
-
-            :param data: The raw image data
-            :type data: byte
-            :param size: Size to scale to; if not specified,
-                the image will render to its native size
-            :type size: tuple of int
-            :param keep_ratio: Whether to keep the original
-                image ratio on resizing operations
-            :type keep_ratio: bool
-            :param upscale: Whether to upscale if the requested
-                size exceeds the native size
-            :type upscale: bool
-
-            :returns: the generated pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf` or None
-        """
-        if not data:
-            return None
-
-        pixbuf = None
-        loader = GdkPixbuf.PixbufLoader()
-
-        if size is not None:
-            def on_size_prepared(loader, width, height):
-                """
-                    Keeps the ratio if requested
-                """
-                if keep_ratio:
-                    scale = min(size[0] / float(width), size[1] / float(height))
-
-                    if scale > 1.0 and upscale:
-                        width = int(width * scale)
-                        height = int(height * scale)
-                    elif scale <= 1.0:
-                        width = int(width * scale)
-                        height = int(height * scale)
-                else:
-                    if upscale:
-                        width, height = size
-                    else:
-                        width = height = max(width, height)
-
-                loader.set_size(width, height)
-            loader.connect('size-prepared', on_size_prepared)
-
-        try:
-            loader.write(data)
-            loader.close()
-        except GLib.GError as e:
-            logger.warning('Failed to get pixbuf from data: {error}'.format(
-                error=e.message
-            ))
-        else:
-            pixbuf = loader.get_pixbuf()
-
-        return pixbuf
-
     @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """

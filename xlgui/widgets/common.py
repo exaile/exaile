@@ -45,8 +45,7 @@ from xl import (
     trax
 )
 
-from xlgui.guiutil import get_workarea_size
-from xlgui import icons
+from xlgui.guiutil import get_workarea_size, pixbuf_from_data
 
 
 class AttachedWindow(Gtk.Window):
@@ -347,8 +346,7 @@ class DragTreeView(AutoScrollTreeView):
                 if album not in albums:
                     image_data = cover_manager.get_cover(track,
                                                          set_only=True, use_default=True)
-                    pixbuf = icons.MANAGER.pixbuf_from_data(
-                        image_data, (width, height))
+                    pixbuf = pixbuf_from_data(image_data, (width, height))
 
                     if first_pixbuf is None:
                         first_pixbuf = pixbuf

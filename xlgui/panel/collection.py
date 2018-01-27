@@ -749,4 +749,16 @@ class CollectionDragTreeView(DragTreeView):
 
         return True
 
+    def get_tracks_for_path(self, path):
+        """
+            Get tracks for a path from model (expand item)
+            :param path: Gtk.TreePath
+            :return: list of tracks [xl.trax.Track]
+        """
+        it = self.get_model().get_iter(path)
+        search = self.container.get_node_search_terms(it)
+        matcher = trax.TracksMatcher(search)
+        for i in trax.search_tracks(self.container.tracks, [matcher]):
+            yield i.track
+
 # vim: et sts=4 sw=4

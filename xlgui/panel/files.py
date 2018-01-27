@@ -47,6 +47,7 @@ from xl import (
     trax
 )
 from xl.nls import gettext as _
+from xl.trax.util import recursive_tracks_from_file
 from xlgui import (
     guiutil,
     icons,
@@ -507,3 +508,11 @@ class FilesDragTreeView(DragTreeView):
             return None
         tr = trax.Track(uri)
         return tr
+
+    def get_tracks_for_path(self, path):
+        """
+            Get tracks for a path from model (expand item)
+            :param path: Gtk.TreePath
+            :return: list of tracks [xl.trax.Track]
+        """
+        return recursive_tracks_from_file(self.get_model()[path][0])

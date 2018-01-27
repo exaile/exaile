@@ -52,13 +52,6 @@ version.register("GTK+", "%s.%s.%s" % (Gtk.MAJOR_VERSION,
                                        Gtk.MICRO_VERSION))
 
 
-def mainloop():
-    from xl.externals.sigint import InterruptibleLoopContext
-
-    with InterruptibleLoopContext(Gtk.main_quit):
-        Gtk.main()
-
-
 def get_controller():
     return Main._main
 

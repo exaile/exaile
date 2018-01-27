@@ -65,6 +65,17 @@ class LyricsCache:
         self.lock = threading.Lock()
         self.default = default
 
+        # Callback to close db
+        event.add_callback(self.on_quit_application, 'quit_application')
+
+    def on_quit_application(self, *args):
+        """
+            Closes db on quit application
+            Gets the lock/wait operations
+        """
+        with self.lock:
+            self.db.close()
+
     def keys(self):
         '''
             Return the shelve keys

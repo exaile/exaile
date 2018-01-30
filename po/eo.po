@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2018-01-24 12:09+0000\n"
-"Last-Translator: professorsloth <iris.ilexiris@gmail.com>\n"
+"PO-Revision-Date: 2018-01-31 02:36+0000\n"
+"Last-Translator: Iris Ilexiris <iris.ilexiris@gmail.com>\n"
 "Language-Team: Esperanto "
 "<https://hosted.weblate.org/projects/exaile/master/eo/>\n"
 "Language: eo\n"
@@ -26,7 +26,7 @@ msgstr "Etikedoj"
 
 #: ../xl/covers.py:507
 msgid "Local file"
-msgstr ""
+msgstr "Loka dosiero"
 
 #: ../xl/formatter.py:592
 #, python-format
@@ -184,7 +184,7 @@ msgstr "Ludlistaj Opcioj"
 
 #: ../xl/main.py:116
 msgid "Export the current playlist to LOCATION"
-msgstr ""
+msgstr "Elporti nunan ludliston al LOKO"
 
 #: ../xl/main.py:118
 msgid "Track Options"
@@ -208,7 +208,7 @@ msgstr "Montru la aktualan reproduktadlokon kiel tempo"
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:127
 msgid "TAGS"
-msgstr ""
+msgstr "ETIKEDOJ"
 
 #: ../xl/main.py:128
 msgid "Tags to retrieve from the current track; use with --format-query"

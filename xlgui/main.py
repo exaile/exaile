@@ -531,7 +531,7 @@ class MainWindow(GObject.GObject):
         """
             Indicates possible SPAT during drag motion of tracks
         """
-        target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list()).name()
+        target = widget.drag_dest_find_target(context, None).name()
         if target == 'exaile-index-list':
             widget.set_image(Gtk.Image.new_from_icon_name(
                 'process-stop', Gtk.IconSize.BUTTON))

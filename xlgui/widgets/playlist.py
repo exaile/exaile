@@ -1333,7 +1333,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         action = Gdk.DragAction.MOVE
         _, _, _, modifier = self.get_window().get_pointer()
-        target = self.drag_dest_find_target(context, self.drag_dest_get_target_list()).name()
+        target = self.drag_dest_find_target(context, None).name()
 
         if target == 'text/uri-list' or \
            (self._hack_is_osx and self._hack_osx_control_mask) or \

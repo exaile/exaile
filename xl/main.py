@@ -38,14 +38,15 @@ import sys
 import threading
 
 from xl import logger_setup
+from xl.externals.sigint import InterruptibleLoopContext
 from xl.nls import gettext as _
 
 # Imported later to avoid PyGObject imports just for --help.
-Gio = common = xdg = None
+Gio = Gtk = common = xdg = None
 
 
 def _do_heavy_imports():
-    global Gio, common, xdg
+    global Gio, Gtk, common, xdg
 
     import gi
     gi.require_version('Gdk', '3.0')
@@ -54,7 +55,7 @@ def _do_heavy_imports():
     gi.require_version('GIRepository', '2.0')
     gi.require_version('GstPbutils', '1.0')
 
-    from gi.repository import Gio
+    from gi.repository import Gio, Gtk
     from xl import common, xdg
 
 # placeholder, - xl.version can be slow to import, which would slow down
@@ -360,8 +361,9 @@ class Exaile(object):
 
             # run the GUIs mainloop, if needed
             if self.options.StartGui:
-                import xlgui
-                xlgui.mainloop()
+                # Handle keyboard interruptions
+                with InterruptibleLoopContext(self.quit):
+                    Gtk.main()  # mainloop
         except Exception:
             logger.exception("Unhandled exception")
 

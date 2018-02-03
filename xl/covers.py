@@ -421,6 +421,22 @@ class CoverManager(providers.ProviderHandler):
         self.order = order
         settings.set_option('covers/preferred_order', list(order))
 
+    def get_cover_for_tracks(self, tracks, db_strings_to_ignore):
+        """
+            For tracks, try to find a cover
+            Basically returns the first cover found
+            :param tracks: list of tracks [xl.trax.Track]
+            :param db_strings_to_ignore: list [str]
+            :return: GdkPixbuf.Pixbuf or None if no cover found
+        """
+        for track in tracks:
+            db_string = self.get_db_string(track)
+            if db_string and db_string not in db_strings_to_ignore:
+                db_strings_to_ignore.append(db_string)
+                return self.get_cover_data(db_string)
+
+        return None  # No cover found
+
 
 class CoverSearchMethod(object):
     """

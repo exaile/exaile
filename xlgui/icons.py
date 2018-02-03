@@ -34,13 +34,16 @@ from gi.repository import (
     GLib,
     Gtk
 )
+from itertools import imap, ifilter
 import logging
 import os
 
 from xl import (
     common,
+    covers,
     settings,
 )
+from xlgui.guiutil import pixbuf_from_data
 
 logger = logging.getLogger(__name__)
 
@@ -604,66 +607,6 @@ class IconManager(object):
         # TODO: Check if fallbacks are necessary
         return pixbuf
 
-    def pixbuf_from_data(self, data, size=None, keep_ratio=True, upscale=False):
-        """
-            Generates a pixbuf from arbitrary image data
-
-            :param data: The raw image data
-            :type data: byte
-            :param size: Size to scale to; if not specified,
-                the image will render to its native size
-            :type size: tuple of int
-            :param keep_ratio: Whether to keep the original
-                image ratio on resizing operations
-            :type keep_ratio: bool
-            :param upscale: Whether to upscale if the requested
-                size exceeds the native size
-            :type upscale: bool
-
-            :returns: the generated pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf` or None
-        """
-        if not data:
-            return None
-
-        pixbuf = None
-        loader = GdkPixbuf.PixbufLoader()
-
-        if size is not None:
-            def on_size_prepared(loader, width, height):
-                """
-                    Keeps the ratio if requested
-                """
-                if keep_ratio:
-                    scale = min(size[0] / float(width), size[1] / float(height))
-
-                    if scale > 1.0 and upscale:
-                        width = int(width * scale)
-                        height = int(height * scale)
-                    elif scale <= 1.0:
-                        width = int(width * scale)
-                        height = int(height * scale)
-                else:
-                    if upscale:
-                        width, height = size
-                    else:
-                        width = height = max(width, height)
-
-                loader.set_size(width, height)
-            loader.connect('size-prepared', on_size_prepared)
-
-        try:
-            loader.write(data)
-            loader.close()
-        except GLib.GError as e:
-            logger.warning('Failed to get pixbuf from data: {error}'.format(
-                error=e.message
-            ))
-        else:
-            pixbuf = loader.get_pixbuf()
-
-        return pixbuf
-
     @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """
@@ -696,6 +639,56 @@ class IconManager(object):
         active_pixbufs = active_pixbuf * rating
         inactive_pixbufs = inactive_pixbuf * (maximum - rating)
         return active_pixbufs + inactive_pixbufs
+
+    def __create_drag_cover_icon(self, pixbuf_list, cover_width):
+        """
+            Creates a stacked covers effect
+            Put a transparent frame on it (look for `border`)
+            :param pixbuf_list: list of GdkPixbuf.Pixbuf (covers)
+            :param cover_width: int
+            :return: GdkPixbuf.Pixbuf or None (if len(:param pixbuf_list:) == 0)
+        """
+        if len(pixbuf_list) == 0:
+            return None
+
+        # Sizes
+        cover_side = cover_width
+        cover_portion = int(cover_side * 0.08)  # 8% of sides
+        covers_square_side = (cover_side + cover_portion * (len(pixbuf_list) - 1))
+        border = 4
+        total_width = total_height = covers_square_side + (2 * border)
+
+        # The result pixbuf
+        result_pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True, 8, total_width, total_height)
+        result_pixbuf.fill(0x00000000)  # Fill with transparent background
+
+        covers_area = result_pixbuf.new_subpixbuf(src_x=border, src_y=border, width=covers_square_side,
+                                                  height=covers_square_side)
+        # Write covers
+        for i, pixbuf in enumerate(pixbuf_list):
+            dest = cover_portion * i  # Put in a diagonal
+            pixbuf.copy_area(0, 0, pixbuf.get_width(), pixbuf.get_height(),
+                             covers_area, dest, dest)
+
+        return result_pixbuf
+
+    def get_drag_cover_icon(self, tracks):
+        """
+            Get drag cover icon (stacked covers pixbuf)
+            Asynchronous load covers for tracks taking at most 0.333 seconds
+            :param tracks: iterable for tracks (xl.trax.Track)
+            :return: GdkPixbuf.Pixbuf or None if none found
+        """
+        cover_width = settings.get_option('gui/cover_width', 100)
+        as_pixbuf = lambda data: pixbuf_from_data(data=data, size=(cover_width, cover_width))
+        get_cover_for_tracks = covers.MANAGER.get_cover_for_tracks
+        db_string_list = []
+        cover_for_tracks = lambda tracks: get_cover_for_tracks(tracks, db_string_list)
+        filtered_covers = ifilter(None, imap(cover_for_tracks, tracks)) # Remove None cover tracks
+        async_loader = common.AsyncLoader(imap(as_pixbuf, filtered_covers))
+        async_loader.end(0.333)
+        return self.__create_drag_cover_icon(async_loader.result, cover_width)
+
 
 if 'EXAILE_BUILDING_DOCS' not in os.environ:
     MANAGER = IconManager()

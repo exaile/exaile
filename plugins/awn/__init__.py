@@ -25,7 +25,7 @@ from xl import covers, player
 import xl.event
 import xl.settings
 
-from xlgui import icons
+from xlgui.guiutil import pixbuf_from_data
 
 import awn_prefs
 
@@ -117,7 +117,7 @@ class ExaileAwn(object):
         else:
             image_data = covers.MANAGER.get_cover(player.PLAYER.current,
                                                   set_only=True, use_default=True)
-            pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
+            pixbuf = pixbuf_from_data(image_data)
             descriptor, self.temp_icon_path = tempfile.mkstemp()
             pixbuf.save(self.temp_icon_path, 'png')
             self.awn.SetTaskIconByXid(self.xid(), self.temp_icon_path)

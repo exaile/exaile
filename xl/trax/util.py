@@ -163,3 +163,24 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
         return []
     matchers = map(lambda t: TracksMatcher(track.get_tag_search(t, artist_compilations=artist_compilations)), ['artist', 'album'])
     return (r.track for r in search_tracks(tracksiter, matchers))
+
+
+def recursive_tracks_from_file(gfile):
+    """
+        Get recursive tracks from Gio.File
+        If it's a directory, expands
+        Gets only valid tracks
+        :param gfile: Gio.File
+        :return: tracks iterable [Track]
+    """
+    ftype = gfile.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+    if ftype == Gio.FileType.DIRECTORY:
+        file_infos = gfile.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, None)
+        files = (gfile.get_child(fi.get_name()) for fi in file_infos)
+        for sub_gfile in files:
+            for i in recursive_tracks_from_file(sub_gfile):
+                yield i
+    else:
+        uri = gfile.get_uri()
+        if is_valid_track(uri):
+            yield Track(uri)

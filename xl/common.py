@@ -1051,4 +1051,54 @@ def subscribe_for_settings(section, options, self):
     return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
 
 
+class AsyncLoader:
+    """
+        Async loader based on a generator
+        Threaded, load it and put it in `result_list`
+    """
+    def __init__(self, item_generator):
+        """
+            Constructs and already start processing (starts thread)
+            :param item_generator: iterable
+        """
+        self.__end = False
+        self.__result_list = []
+        self.__thread = threading.Thread(target=self.run, args=(item_generator,))
+        self.__thread.start()
+
+    def run(self, item_generator):
+        """
+            Process items putting in `result_list`
+            :param item_generator: iterable
+            :return: None
+        """
+        for i in item_generator:
+            if self.__end: break;
+            self.__result_list.append(i)
+            if self.__end: break;
+
+    def end(self, timeout=None):
+        """
+            Request process ending if it doesn't occurs in timeout
+            :param timeout: float representing seconds or None to wait infinitely (default)
+            :return: None
+        """
+        self.__thread.join(timeout)
+        self.__end = True
+
+    def ended(self):
+        """
+            If it has ended
+            :return: bool
+        """
+        return not self.__thread.is_alive()
+
+    @property
+    def result(self):
+        """
+            Gets the result
+            :return: list
+        """
+        return self.__result_list[:]
+
 # vim: et sts=4 sw=4

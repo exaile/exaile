@@ -433,26 +433,6 @@ class CollectionPanel(panel.Panel):
             self.append_to_playlist(replace=True)
             return False
 
-    def button_release(self, widget, event):
-        """
-            Called when the user releases the mouse button on the tree
-        """
-        selection = self.tree.get_selection()
-        (x, y) = map(int, event.get_coords())
-        path = self.tree.get_path_at_pos(x, y)
-        #if event.triggers_context_menu():  # fixme: fired on button press only
-        if event.button == Gdk.BUTTON_SECONDARY:
-            self.menu.popup(event)
-            if not path:
-                return False
-            (mods, paths) = selection.get_selected_rows()
-            if (path[0] in paths):
-                if event.get_state() & guiutil.ModifierType.PRIMARY_SHIFT_MASK:
-                    return False
-                return True
-            else:
-                return False
-
     def on_expanded(self, tree, iter, path):
         """
             Called when a user expands a tree item.
@@ -768,5 +748,17 @@ class CollectionDragTreeView(DragTreeView):
         widget.set_tooltip_row(tooltip, path)
 
         return True
+
+    def get_tracks_for_path(self, path):
+        """
+            Get tracks for a path from model (expand item)
+            :param path: Gtk.TreePath
+            :return: list of tracks [xl.trax.Track]
+        """
+        it = self.get_model().get_iter(path)
+        search = self.container.get_node_search_terms(it)
+        matcher = trax.TracksMatcher(search)
+        for i in trax.search_tracks(self.container.tracks, [matcher]):
+            yield i.track
 
 # vim: et sts=4 sw=4

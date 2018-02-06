@@ -1249,6 +1249,21 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         else:
             insert_position = -1
 
+        if self._hack_is_osx:
+            source_widget = Gtk.drag_get_source_widget(context)
+            if (not (source_widget is None or source_widget is self) and
+                    hasattr(source_widget, 'get_selected_tracks')):
+                try:
+                    tracks = source_widget.get_selected_tracks()
+                    if insert_position >= 0:
+                        self.playlist[insert_position:insert_position] = tracks
+                    else:
+                        self.playlist.extend(tracks)
+
+                    return
+                except:
+                    pass  # Any exception on hack is ignored
+
         tracks = []
 
         target = selection.get_target().name()

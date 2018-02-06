@@ -1249,6 +1249,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         else:
             insert_position = -1
 
+        # hack: see https://github.com/exaile/exaile/issues/479
         if self._hack_is_osx:
             source_widget = Gtk.drag_get_source_widget(context)
             if (not (source_widget is None or source_widget is self) and
@@ -1261,7 +1262,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                         self.playlist.extend(tracks)
 
                     return
-                except:
+                except Exception:
                     pass  # Any exception on hack is ignored
 
         tracks = []

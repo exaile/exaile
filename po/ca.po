@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2017-03-25 08:41+0000\n"
+"PO-Revision-Date: 2018-02-12 03:19+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
-">\n"
+"Language-Team: Catalan "
+"<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.19-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
@@ -119,10 +119,8 @@ msgid "Local"
 msgstr "Local"
 
 #: ../xl/main.py:80
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Ús: exaile [OPCIÓ]... [URI]"
+msgstr "Ús: exaile [OPCIÓ]... [UBICACIÓ...]"
 
 #: ../xl/main.py:81
 msgid ""
@@ -182,8 +180,6 @@ msgid "Playlist Options"
 msgstr "Opcions de la llista de reproducció"
 
 #: ../xl/main.py:116
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Exporta la llista de reproducció actual a la UBICACIÓ"
 
@@ -201,8 +197,6 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:124
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Recupera l'estat de la llista de reproducció actual i la informació de la "
@@ -214,11 +208,10 @@ msgid "TAGS"
 msgstr "ETIQUETES"
 
 #: ../xl/main.py:128
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
-"Les ETIQUETES a obtenir des de la pista actual, utilitzeu amb --format-query"
+"Les etiquetes a obtenir des de la pista actual, utilitzeu-ho amb --format-"
+"query"
 
 #: ../xl/main.py:130
 msgid "Show a popup with data of the current track"
@@ -279,8 +272,6 @@ msgid "Decrease the volume by N%"
 msgstr "Redueix el volum amb N%"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Silencia o treu el silenci del volum"
 
@@ -317,9 +308,6 @@ msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Inicia en mode segur: de vegades és útil si us trobeu amb problemes"
 
 #: ../xl/main.py:184
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Força la importació de dades antigues de la versió 0.2.x (sobreescriu les "
@@ -371,16 +359,13 @@ msgid "Show debugging output"
 msgstr "Mostra la sortida de depuració"
 
 #: ../xl/main.py:206
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Habilita la depuració de xl.event. Això generarà MOLTES sortides"
+msgstr "Habilita la depuració de xl.event. Això generarà moltes sortides"
 
 #: ../xl/main.py:209
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Habilita la depuració de xl.event. Això generarà MOLTES sortides"
+msgstr ""
+"Habilita la depuració completa de xl.event. Això generarà MOLTES sortides"
 
 #: ../xl/main.py:212
 msgid "Add thread name to logging messages."
@@ -504,10 +489,8 @@ msgid "ISRC"
 msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
-#, fuzzy
-#| msgid "Language:"
 msgid "Language"
-msgstr "Idioma:"
+msgstr "Idioma"
 
 #: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -912,10 +895,8 @@ msgid "$title (by $artist)"
 msgstr "$title (per $artist)"
 
 #: ../xlgui/main.py:159
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Accés a la llista de reproducció actual"
+msgstr "Desa la llista de reproducció seleccionada actualment"
 
 #: ../xlgui/main.py:161
 msgid "Save currently selected playlist under a custom name"
@@ -930,10 +911,8 @@ msgid "Focus playlist search"
 msgstr ""
 
 #: ../xlgui/main.py:167
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Activa/Desactiva la cua"
+msgstr "Neteja la cua"
 
 #: ../xlgui/main.py:170 ../plugins/minimode/controls.py:271
 msgid "Start, pause or resume the playback"
@@ -950,26 +929,20 @@ msgid "Seek to the left"
 msgstr "Restableix a la lletra del sistema"
 
 #: ../xlgui/main.py:177
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Incrementa el volum amb N%"
+msgstr "Apuja el volum"
 
 #: ../xlgui/main.py:179
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Redueix el volum amb N%"
+msgstr "Abaixa el volum"
 
 #: ../xlgui/main.py:182
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Vés a la pista anterior"
+msgstr "Canvia a la pestanya anterior"
 
 #: ../xlgui/main.py:184
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Canvia a la pestanya següent"
 
 #: ../xlgui/main.py:187
 #, fuzzy

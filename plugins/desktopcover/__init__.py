@@ -28,10 +28,8 @@ from xl import (
     player,
     settings
 )
-from xlgui import (
-    icons
-)
-from xlgui.guiutil import get_workarea_dimensions
+
+from xlgui.guiutil import get_workarea_dimensions, pixbuf_from_data
 
 import desktopcover_preferences
 
@@ -172,8 +170,8 @@ class DesktopCover(Gtk.Window):
         size = settings.get_option('plugin/desktopcover/size', 200)
         upscale = settings.get_option('plugin/desktopcover/override_size', False)
         pixbuf = self.image.get_pixbuf()
-        next_pixbuf = icons.MANAGER.pixbuf_from_data(
-            cover_data, size=(size, size), upscale=upscale)
+        next_pixbuf = pixbuf_from_data(cover_data,
+                                       size=(size, size), upscale=upscale)
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
         if fading and pixbuf is not None and self._cross_fade_id is None:

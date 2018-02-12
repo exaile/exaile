@@ -47,6 +47,7 @@ from xl import (
     trax
 )
 from xl.nls import gettext as _
+from xl.trax.util import recursive_tracks_from_file
 from xlgui import (
     guiutil,
     icons,
@@ -101,7 +102,7 @@ class FilesPanel(panel.Panel):
             Sets up tree widget for the files panel
         """
         self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str, bool)
-        self.tree = tree = FilesDragTreeView(self, True, True)
+        self.tree = tree = FilesDragTreeView(self, receive=False, source=True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
         tree.connect('key-release-event', self.on_key_released)
@@ -228,29 +229,6 @@ class FilesPanel(panel.Panel):
         if event.keyval == Gdk.KEY_F5:
             self.refresh(self.tree)
             return True
-        return False
-
-    def button_release(self, button, event):
-        """
-            Called when the user clicks on the playlist
-        """
-        #if event.triggers_context_menu():  # fixme: fired on button press only
-        if event.button == Gdk.BUTTON_SECONDARY:
-            selection = self.tree.get_selection()
-            (x, y) = map(int, event.get_coords())
-            path = self.tree.get_path_at_pos(x, y)
-            self.menu.popup(event)
-
-            if not path:
-                return False
-
-            model, paths = selection.get_selected_rows()
-            if path[0] in paths:
-                if event.get_state() & guiutil.ModifierType.PRIMARY_SHIFT_MASK:
-                    return False
-                return True
-            else:
-                return False
         return False
 
     def row_activated(self, *i):
@@ -457,18 +435,6 @@ class FilesPanel(panel.Panel):
 
         GLib.idle_add(idle)
 
-    def drag_data_received(self, *e):
-        """
-            stub
-        """
-        pass
-
-    def drag_data_delete(self, *e):
-        """
-            stub
-        """
-        pass
-
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
@@ -542,3 +508,11 @@ class FilesDragTreeView(DragTreeView):
             return None
         tr = trax.Track(uri)
         return tr
+
+    def get_tracks_for_path(self, path):
+        """
+            Get tracks for a path from model (expand item)
+            :param path: Gtk.TreePath
+            :return: list of tracks [xl.trax.Track]
+        """
+        return recursive_tracks_from_file(self.get_model()[path][0])

@@ -436,6 +436,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self._connect_events()
         self._load_playlists()
 
+    @property
+    def menu(self):
+        """
+            Gets a menu for the selected item
+            :return: xlgui.widgets.menu.Menu or None if do not have it
+        """
+        model, it = self.tree.get_selection().get_selected()
+        pl = model[it][2]
+        return (self.playlist_menu if isinstance(pl, xl_playlist.Playlist) else
+                self.smart_menu if isinstance(pl, xl_playlist.SmartPlaylist) else
+                self.track_menu if isinstance(pl, TrackWrapper) else
+                self.default_menu)
+
     def _connect_events(self):
         event.add_ui_callback(self.refresh_playlists, 'track_tags_changed')
         event.add_ui_callback(self._on_playlist_added, 'playlist_added', self.playlist_manager)
@@ -850,30 +863,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     self.remove_selected_track()
             return True
         return False
-
-    def button_release(self, button, event):
-        """
-            Called when a button is pressed, is responsible
-            for showing the context menu
-        """
-        #if event.triggers_context_menu():  # fixme: fired on button press only
-        if event.button == Gdk.BUTTON_SECONDARY:
-            button_info = self.tree.get_dest_row_at_pos(
-                int(event.x), int(event.y))
-            if not button_info:
-                return
-            iter = self.model.get_iter(button_info[0])
-            pl = self.model.get_value(iter, 2)
-            # Based on what is selected determines what
-            # menu we will show
-            if isinstance(pl, xl_playlist.Playlist):
-                self.playlist_menu.popup(event)
-            elif isinstance(pl, xl_playlist.SmartPlaylist):
-                self.smart_menu.popup(event)
-            elif isinstance(pl, TrackWrapper):
-                self.track_menu.popup(event)
-            else:
-                self.default_menu.popup(event)
 
     def _clear_node(self, node):
         """

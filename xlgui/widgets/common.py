@@ -27,13 +27,14 @@
 """
     Shared GUI widgets
 """
+from collections import namedtuple
 
 from gi.repository import Gio
 from gi.repository import Gdk
-from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
+from itertools import imap, ifilter
 from urllib2 import urlparse
 
 from xl import (
@@ -44,8 +45,8 @@ from xl import (
     trax
 )
 
-from xlgui.guiutil import get_workarea_size, ModifierType
 from xlgui import icons
+from xlgui.guiutil import get_workarea_size
 
 
 class AttachedWindow(Gtk.Window):
@@ -204,6 +205,17 @@ class DragTreeView(AutoScrollTreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
+    class EventData(namedtuple('DragTreeView_EventData',
+                               'event modifier triggers_menu target')):
+        """
+            Objects that goes inside pending events list
+        """
+        class Target(namedtuple('DragTreeView_EventData_Target',
+                                'path column is_selected')):
+            """
+                Contains target path info
+            """
+
     targets = [Gtk.TargetEntry.new("text/uri-list", 0, 0)]
     dragged_data = dict()
 
@@ -218,6 +230,7 @@ class DragTreeView(AutoScrollTreeView):
         """
         AutoScrollTreeView.__init__(self)
         self.container = container
+        self.pending_events = []
 
         if source:
             self.drag_source_set(
@@ -252,6 +265,42 @@ class DragTreeView(AutoScrollTreeView):
         """
         pass
 
+    def get_target_for(self, event):
+        """
+            Gets target
+            :see: Gtk.TreeView.get_path_at_pos
+            :param event: Gdk.Event
+            :return: DragTreeView.EventData.Target or None if no target path
+        """
+        target = self.get_path_at_pos(int(event.x), int(event.y))
+        if target:
+            return DragTreeView.EventData.Target(path=target[0], column=target[1],
+                                                 is_selected=self.get_selection().path_is_selected(target[0]))
+
+    def set_cursor_at(self, target):
+        """
+            Sets the cursor at target
+            :param target: DragTreeView.EventData.Target
+            :return: None
+        """
+        self.set_cursor(target.path, target.column, False)
+
+    def set_selection_status(self, enabled):
+        """
+            Change the set selection function
+            :param enabled: bool
+            :return: None
+        """
+        self.get_selection().set_select_function(lambda *args: enabled, None)
+
+    def reset_selection_status(self):
+        """
+            Reset
+            :return: None
+        """
+        self.set_selection_status(True)
+        del self.pending_events[:]
+
     def on_drag_end(self, list, context):
         """
             Called when the dnd is ended
@@ -268,89 +317,21 @@ class DragTreeView(AutoScrollTreeView):
         self.drag_context = context
         Gdk.drag_abort(context, Gtk.get_current_event_time())
 
-        if self.get_selection().count_selected_rows() > 1:
-            self.drag_source_set_icon_stock(Gtk.STOCK_DND_MULTIPLE)
+        self.reset_selection_status()
+
+        # Load covers
+        drag_cover_icon = None
+        get_tracks_for_path = getattr(self, 'get_tracks_for_path', None)
+        if get_tracks_for_path:
+            model, paths = self.get_selection().get_selected_rows()
+            drag_cover_icon = icons.MANAGER.get_drag_cover_icon(imap(get_tracks_for_path, paths))
+
+        if drag_cover_icon is None:
+            # Set default icon
+            icon_name = 'gtk-dnd-multiple' if self.get_selection().count_selected_rows() > 1 else 'gtk-dnd'
+            Gtk.drag_set_icon_name(context, icon_name, 0, 0)
         else:
-            self.drag_source_set_icon_stock(Gtk.STOCK_DND)
-        if self.show_cover_drag_icon:
-            tracks = self.get_selected_tracks()
-            self._on_drag_begin(widget, context, tracks)
-
-    @common.threaded
-    def _on_drag_begin(self, widget, context, tracks):
-        """
-            Async call counterpart to on_drag_begin, so that cover fetching
-            doesn't block dragging.
-        """
-        cover_manager = covers.MANAGER
-        width = height = settings.get_option('gui/cover_width', 100)
-
-        if tracks:
-            tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
-            pixbuf = None
-            first_pixbuf = None
-            albums = []
-
-            for track in tracks:
-                album = track.get_tag_raw('album', join=True)
-                if album not in albums:
-                    image_data = cover_manager.get_cover(track,
-                                                         set_only=True, use_default=True)
-                    pixbuf = icons.MANAGER.pixbuf_from_data(
-                        image_data, (width, height))
-
-                    if first_pixbuf is None:
-                        first_pixbuf = pixbuf
-                    albums += [album]
-
-                    if len(albums) >= 2:
-                        break
-
-            if pixbuf is not None:
-                cover_pixbuf = pixbuf
-
-                if len(albums) > 1:
-                    # Create stacked-cover effect
-                    cover_pixbuf = GdkPixbuf.Pixbuf.new(
-                        GdkPixbuf.Colorspace.RGB,
-                        True,
-                        8,
-                        width + 10, height + 10
-                    )
-
-                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
-                        0, 0, width + 10, height + 10)
-                    fill_pixbuf.fill(0x00000000)  # Fill with transparent background
-
-                    fill_pixbuf = cover_pixbuf.new_subpixbuf(
-                        0, 0, width, height)
-                    fill_pixbuf.fill(0xccccccff)
-
-                    if first_pixbuf != pixbuf:
-                        pixbuf.copy_area(
-                            0, 0, width, height,
-                            cover_pixbuf,
-                            5, 5
-                        )
-                    else:
-                        fill_pixbuf = cover_pixbuf.new_subpixbuf(
-                            5, 5, width, height)
-                        fill_pixbuf.fill(0x999999ff)
-
-                    first_pixbuf.copy_area(
-                        0, 0, width, height,
-                        cover_pixbuf,
-                        10, 10
-                    )
-
-                GLib.idle_add(self._set_drag_cover, context, cover_pixbuf)
-
-    def _set_drag_cover(self, context, pixbuf):
-        """
-            Completes drag icon setup
-        """
-        if context is self.drag_context:  # if it changed, the drag ended already
-            Gtk.drag_set_icon_pixbuf(context, pixbuf, 0, 0)
+            Gtk.drag_set_icon_pixbuf(context, drag_cover_icon, 0, 0)
 
     def on_drag_motion(self, treeview, context, x, y, timestamp):
         """
@@ -384,69 +365,75 @@ class DragTreeView(AutoScrollTreeView):
 
     def on_button_press(self, button, event):
         """
-            The popup menu that is displayed when you right click in the
-            playlist
+            Called when a button is pressed
         """
-        selection = self.get_selection()
-        (x, y) = event.get_coords()
-        x = int(x)
-        y = int(y)
-        path = self.get_path_at_pos(x, y)
+        # Always grab focus is a workaround to do not loose first click
+        self.grab_focus()
 
-        if path:
-            if not event.triggers_context_menu():
-                if event.type == Gdk.EventType._2BUTTON_PRESS:
-                    try:
-                        return self.container.button_press(button, event)
-                    except AttributeError:
-                        pass
+        self.reset_selection_status()
 
-                if selection.count_selected_rows() <= 1:
-                    return False
-                else:
-                    if selection.path_is_selected(path[0]):
-                        if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
-                            selection.unselect_path(path[0])
-                        return True
-                    elif not event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
-                        return True
-                    return False
+        # Only treats 1st button press
+        if event.type == Gdk.EventType.BUTTON_PRESS:
+            modifier = event.state & Gtk.accelerator_get_default_mod_mask()
+            target = self.get_target_for(event)
 
-            if not selection.count_selected_rows():
-                selection.select_path(path[0])
+            if target is None:
+                if modifier == 0:
+                    # Unselects items if the user press any mouse button on an
+                    # empty area of the TreeView and no modifier key is active
+                    self.get_selection().unselect_all()
+
+                return True  # Ignore clicks on empty areas
+
+            # Declare
+            triggers_menu = event.triggers_context_menu()
+
+            # Disable select function to to do not modify selection
+            # Triggering menu will only accept selection
+            if target.is_selected and (not modifier or triggers_menu):
+                self.set_selection_status(False)
+
+            # If it's not a DnD, it will be treated at button release event
+            self.pending_events.append(DragTreeView.EventData(event, modifier, triggers_menu, target))
+
+        # Calls `button_press` function on container (if present)
         try:
-            return self.container.button_press(button, event)
+            button_press_function = self.container.button_press
         except AttributeError:
-            pass
+            return False
+        else:
+            return button_press_function(button, event)
 
     def on_button_release(self, button, event):
-        """
-            Called when a button is released
-        """
-        if event.button != Gdk.BUTTON_PRIMARY or \
-           self.drag_context or \
-           event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
+            """
+                Called when a button is released
+                Treats the pending events added at button press event
+
+                Handles the popup menu that is displayed when you right click in
+                the TreeView list (calls `container.menu` if present)
+            """
             self.drag_context = None
 
+            # Get pending event
             try:
-                return self.container.button_release(button, event)
-            except AttributeError:
-                pass
+                event_data = self.pending_events.pop()
+            except IndexError:
+                return False
 
-        selection = self.get_selection()
-        selection.unselect_all()
+            self.reset_selection_status()
 
-        path = self.get_path_at_pos(int(event.x), int(event.y))
+            # Do not set cursor if has a modifier key pressed
+            if event_data.modifier == 0 and not (event_data.triggers_menu and event_data.target.is_selected):
+                self.set_cursor_at(event_data.target)
 
-        if not path:
+            if event_data.triggers_menu:
+                # Uses menu from container (if present)
+                menu = getattr(self.container, 'menu', None)
+                if menu:
+                    menu.popup(event_data.event)
+                    return True
+
             return False
-
-        selection.select_path(path[0])
-
-        try:
-            return self.container.button_release(button, event)
-        except AttributeError:
-            pass
 
     # TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):

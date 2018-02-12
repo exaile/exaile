@@ -36,7 +36,7 @@ from xl import (
 from xl import common
 from xl.nls import gettext as _
 import xlgui
-from xlgui import icons
+from xlgui.guiutil import pixbuf_from_data
 from xlgui.widgets import dialogs, menu
 
 
@@ -98,8 +98,8 @@ class Bookmark:
                 image = covers.MANAGER.get_cover(item, set_only=True)
                 if image:
                     try:
-                        self.__cover_pixbuf = icons.MANAGER.pixbuf_from_data(
-                            image, size=(16, 16))
+                        self.__cover_pixbuf = pixbuf_from_data(image,
+                                                               size=(16, 16))
                     except GLib.GError:
                         LOGGER.warning('Could not load cover')
             else:

@@ -731,7 +731,7 @@ msgid ""
 "lower file size than MP3."
 msgstr ""
 "Vorbis ist ein Open-Source, verlustbehafteter Audio-Codec mit hoher Qualität "
-"bei niedrigerer Dateigröße als MP3."
+"bei geringerer Dateigröße als MP3."
 
 #: ../xl/transcoder.py:67
 msgid ""
@@ -746,8 +746,8 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apples proprietärer verlustbehaftetes Audio-Format erzielt bessere "
-"Klangqualität als MP3 bei niedrigeren Bitraten."
+"Apples proprietäres verlustbehaftetes Audio-Format erzielt bei "
+"niedrigeren Bitraten bessere Klangqualität als MP3."
 
 #: ../xl/transcoder.py:90
 msgid ""
@@ -1359,7 +1359,7 @@ msgstr "Erscheinung"
 
 #: ../xlgui/preferences/appearance.py:111
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Taskleistensymbole sind auf dieser Plattform nicht unterstützt"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1766,7 +1766,7 @@ msgstr "Neue Markierung"
 
 #: ../xlgui/widgets/playback.py:1366
 msgid "_Jump to"
-msgstr ""
+msgstr "Springe zu"
 
 #: ../xlgui/widgets/playback.py:1370
 #, fuzzy
@@ -2428,7 +2428,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
-msgstr ""
+msgstr "Hinweis:"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2551,16 +2551,16 @@ msgstr "Verzögerung zwischen den Stücken (ms)"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Funktioniert nur wenn Überblenden nicht aktiviert ist"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
-msgstr "Crossfade-Dauer (ms):"
+msgstr "Überblend-Dauer (ms):"
 
 #: ../data/ui/preferences/playback.ui:282
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Crossfading (EXPERIMENTELL)"
+msgstr "Überblenden (EXPERIMENTELL)"
 
 #: ../data/ui/preferences/playback.ui:286
 #, fuzzy
@@ -2575,7 +2575,7 @@ msgstr "Übergangs-Dauer (ms):"
 #: ../data/ui/preferences/playback.ui:322
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
-msgstr "Weiche Übergange bei Interaktion"
+msgstr "Weiche Übergänge bei Interaktion"
 
 #: ../data/ui/preferences/playback.ui:340
 #: ../plugins/previewdevice/previewprefs.ui:57
@@ -2586,12 +2586,12 @@ msgstr "Wiedergabe-Engine: "
 #, fuzzy
 #| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Wiedergabe wiederholen"
+msgstr "Lückenlose Wiedergabe aktivieren"
 
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
-msgstr ""
+msgstr "Lückenlose Wiedergabe bedeutet Stücke ohne Pause dazwischen abzuspielen."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2864,7 +2864,7 @@ msgstr "Abbrechen"
 
 #: ../data/ui/widgets/progress.ui:56
 msgid "label"
-msgstr ""
+msgstr "Marke"
 
 #: ../plugins/abrepeat/__init__.py:59
 msgid "Repeat Segment"
@@ -2933,7 +2933,7 @@ msgstr "Lesezeichen"
 
 #: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
 msgid "Autodetect BPM"
-msgstr ""
+msgstr "BPM automatisch erkennen"
 
 #: ../plugins/bpm/__init__.py:129
 #, python-format
@@ -2959,7 +2959,7 @@ msgstr "CD importieren …"
 
 #: ../plugins/cd/_cdguipanel.py:176
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "Fehler beim Transkodieren der Dateien von CD."
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
@@ -3207,7 +3207,7 @@ msgstr "Neuen Gruppen-Kategorie-Wert eingeben"
 
 #: ../plugins/grouptagger/gt_widgets.py:496
 msgid "Add Tag"
-msgstr ""
+msgstr "Tag hinzufügen"
 
 #: ../plugins/grouptagger/gt_widgets.py:646
 #: ../plugins/grouptagger/gt_widgets.py:748
@@ -3315,7 +3315,7 @@ msgstr "IPython-Konsole"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:39
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "Opazität kann wegen eines Gtk+-Fehlers unter Windows nicht verwendet werden"
 
 #: ../plugins/jamendo/__init__.py:95 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3566,11 +3566,11 @@ msgstr "Benachrichtigungen"
 
 #: ../plugins/osd/__init__.py:333
 msgid "No track played yet"
-msgstr ""
+msgstr "Noch kein Titel gespielt"
 
 #: ../plugins/osd/__init__.py:373
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Verändere die Grösse oder Position des OSD"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3647,7 +3647,7 @@ msgstr "Podcasts laden …"
 
 #: ../plugins/podcasts/__init__.py:201
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Noch keine Konfiguration vorhanden"
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
@@ -3798,7 +3798,7 @@ msgstr "Schrittweite:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Zeitschritt:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -3880,7 +3880,7 @@ msgstr "BPM anwenden"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
-msgstr ""
+msgstr "BPM festlegen?"
 
 #: ../plugins/bpm/msg.ui:63
 #, python-format
@@ -4081,19 +4081,19 @@ msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui:518
 msgid "1.9K"
-msgstr "1.9K"
+msgstr "1,9k"
 
 #: ../plugins/equalizer/equalizer.ui:545
 msgid "3.8K"
-msgstr "3.8K"
+msgstr "3,8k"
 
 #: ../plugins/equalizer/equalizer.ui:572
 msgid "7.5K"
-msgstr "7.5K"
+msgstr "7,5k"
 
 #: ../plugins/equalizer/equalizer.ui:599
 msgid "15K"
-msgstr "15K"
+msgstr "15k"
 
 #: ../plugins/grouptagger/gt_import.ui:19
 msgid "Import Tags"
@@ -4319,7 +4319,7 @@ msgstr "<b>Alarme</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
 #, fuzzy
@@ -5508,7 +5508,7 @@ msgstr ""
 #~ msgstr "An Warteschlange anhängen"
 
 #~ msgid "%s KB"
-#~ msgstr "%s KB"
+#~ msgstr "%s kB"
 
 #~ msgid "Plays"
 #~ msgstr "Wiedergaben"

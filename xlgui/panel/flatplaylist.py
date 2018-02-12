@@ -119,29 +119,6 @@ class FlatPlaylistPanel(panel.Panel):
         for i, track in enumerate(tracks):
             self.model.append([i + 1, track.get_tag_display("title"), track])
 
-    def button_release(self, button, event):
-        """
-            Called when the user clicks on the playlist
-        """
-        if event.triggers_context_menu():
-            selection = self.tree.get_selection()
-            (x, y) = map(int, event.get_coords())
-            path = self.tree.get_path_at_pos(x, y)
-            self.menu.popup(event)
-
-            if not path:
-                return False
-
-            if len(self.tree.get_selected_tracks()) >= 2:
-                (mods, paths) = selection.get_selected_rows()
-                if (path[0] in paths):
-                    if event.get_state() & ModifierType.PRIMARY_SHIFT_MASK:
-                        return False
-                    return True
-                else:
-                    return False
-        return False
-
     def drag_data_received(self, *e):
         """
             stub

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2018-02-02 19:37+0000\n"
-"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
+"PO-Revision-Date: 2018-02-10 19:36+0000\n"
+"Last-Translator: jschwender <joachim.schwender@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
 "\n"
 "Language: de\n"
@@ -60,7 +60,7 @@ msgstr[1] "%d Sekunden"
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%dd, "
-msgstr "%d T., "
+msgstr "%d d, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:604
@@ -84,7 +84,7 @@ msgstr "%d s"
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%dd "
-msgstr "%dd "
+msgstr "%d d "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:616
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Lokal"
 
 #: ../xl/main.py:80
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Aufruf: exaile [OPTION ]… [URI]"
+msgstr "Aufruf: exaile [OPTION... ] [ORT...]"
 
 #: ../xl/main.py:81
 msgid ""
@@ -131,10 +129,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
-"Starten Sie Exaile und fügen Sie optional die von LOCATION spezifizierten "
-"Titel zur aktiven Wiedergabeliste hinzu. Wenn Exaile bereits läuft, wird "
-"versucht, die vorhandene Instanz zu verwenden, anstatt eine neue zu "
-"erstellen."
+"Starten Sie Exaile und fügen Sie optional die von ORT spezifizierten Titel "
+"zur aktiven Wiedergabeliste hinzu. Wenn Exaile bereits läuft, wird versucht, "
+"die vorhandene Instanz zu verwenden, anstatt eine neue zu erstellen."
 
 #: ../xl/main.py:89
 msgid "Playback Options"
@@ -155,7 +152,7 @@ msgstr "Wiedergabe stoppen"
 
 #: ../xl/main.py:97
 msgid "Play"
-msgstr "Wiedergabe"
+msgstr "Abspielen"
 
 #: ../xl/main.py:99 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
@@ -187,8 +184,6 @@ msgid "Playlist Options"
 msgstr "Wiedergabelistenoptionen"
 
 #: ../xl/main.py:116
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Aktuelle Wiedergabeliste zu ORT exportieren"
 
@@ -206,8 +201,6 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:124
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Ruft den aktuellen Wiedergabestatus und Stückinformationen als FORMAT ab"
@@ -218,14 +211,12 @@ msgid "TAGS"
 msgstr "TAGS"
 
 #: ../xl/main.py:128
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "Vom aktuellen Stück auszulesende TAGS, mit --format-query nutzen"
+msgstr "Vom aktuellen Stück auszulesende TAGS; mit --format-query nutzen"
 
 #: ../xl/main.py:130
 msgid "Show a popup with data of the current track"
-msgstr "Grafische Abfrage von Daten des aktuellen Stücks"
+msgstr "Popup-Meldung mit Daten des aktuellen Stücks"
 
 #: ../xl/main.py:132
 msgid "Print the title of current track"
@@ -270,20 +261,14 @@ msgid "Volume Options"
 msgstr "Lautstärke-Optionen"
 
 #: ../xl/main.py:156
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Lautstärke um N% erhöhen"
 
 #: ../xl/main.py:160
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Lautstärke um N% verringern"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Lautstärke stumm schalten oder wiederherstellen"
 
@@ -309,7 +294,7 @@ msgstr "Programmversion anzeigen und beenden."
 
 #: ../xl/main.py:176
 msgid "Start minimized (to tray, if possible)"
-msgstr "Minimiert starten (im Benachrichtigungssymbol, wenn möglich)"
+msgstr "Minimiert starten (als Taskleistensymbol, wenn möglich)"
 
 #: ../xl/main.py:179
 msgid "Toggle visibility of the GUI (if possible)"
@@ -320,9 +305,6 @@ msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Im abgesicherten Modus starten (nützlich bei Problemen)"
 
 #: ../xl/main.py:184
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Import alter Daten aus Version 0.2.x erzwingen (Überschreibt aktuelle Daten)"
@@ -373,14 +355,10 @@ msgid "Show debugging output"
 msgstr "Debugging-Informationen ausgeben"
 
 #: ../xl/main.py:206
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
 #: ../xl/main.py:209
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
@@ -506,10 +484,8 @@ msgid "ISRC"
 msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
-#, fuzzy
-#| msgid "Language:"
 msgid "Language"
-msgstr "Sprache:"
+msgstr "Sprache"
 
 #: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -620,6 +596,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"Es fehlt ein GStreamer 1.x Plugin für %s fehlt. Ohne diese Software wird "
+"Exaile die aktuelle Datei nicht abspielen können. Bitte installieren sie die "
+"erforderliche Software auf ihren Computer. Weiter Details unter %s."
 
 #: ../xl/player/gst/sink.py:46 ../xl/player/gst/sink.py:99
 msgid "Automatic"
@@ -632,27 +611,26 @@ msgstr "Benutzerdefiniert"
 #: ../xl/player/gst/sink.py:135
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Erstellen der Audio-Ausgabe nicht möglich (Gerät %s, Typ %s)"
 
 #: ../xl/player/gst/sink.py:142
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Keine benutzerdefinierte Pipeline angegeben!"
 
 #: ../xl/player/gst/sink.py:147
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Fehler beim erstellen der benutzerdefinierten Audioausgabe'%s'"
 
 #: ../xl/player/gst/sink.py:153
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Ungültiger Ausgabetyp '%s' angegeben"
 
 #: ../xl/player/gst/sink.py:157
-#, fuzzy, python-format
-#| msgid "Could not enable plugin: %s"
+#, python-format
 msgid "Could not create sink type '%s'"
-msgstr "Plugin %s konnte nicht aktiviert werden"
+msgstr "Audioausgabetyp '%s' konnte nicht erzeugt werden"
 
 #: ../xl/playlist.py:161 ../xl/playlist.py:181
 msgid "Invalid playlist type."
@@ -917,30 +895,25 @@ msgid "$title (by $artist)"
 msgstr "$title (von $artist)"
 
 #: ../xlgui/main.py:159
-#, fuzzy
-#| msgid "Remove current track from playlist"
 msgid "Save currently selected playlist"
-msgstr "Aktuelles Stück aus der Wiedergabeliste entfernen"
+msgstr "Aktuelle Wiedergabeliste speichern"
 
 #: ../xlgui/main.py:161
 msgid "Save currently selected playlist under a custom name"
-msgstr "Speichere aktuelle Wiedergabeliste unter benutzerdefiniertem Namen"
+msgstr ""
+"Speichere die aktuelle Wiedergabeliste unter einem benutzerdefinierten Namen"
 
 #: ../xlgui/main.py:163
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
 #: ../xlgui/main.py:165
-#, fuzzy
-#| msgid "New custom playlist name:"
 msgid "Focus playlist search"
-msgstr "Neuer Name für die eigene Wiedergabeliste:"
+msgstr "Fokus auf die Suche der Wiedergabeliste"
 
 #: ../xlgui/main.py:167
-#, fuzzy
-#| msgid "Clear"
 msgid "Clear queue"
-msgstr "Leeren"
+msgstr "Warteschlange Leeren"
 
 #: ../xlgui/main.py:170 ../plugins/minimode/controls.py:271
 msgid "Start, pause or resume the playback"
@@ -948,35 +921,27 @@ msgstr "Wiedergabe starten, pausieren oder wiederaufnehmen"
 
 #: ../xlgui/main.py:172
 msgid "Seek to the right"
-msgstr ""
+msgstr "Weiter nach rechts"
 
 #: ../xlgui/main.py:174
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Auf System-Standardschrift zurücksetzen"
+msgstr "Weiter nach links"
 
 #: ../xlgui/main.py:177
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Lautstärke um N% erhöhen"
+msgstr "Die Lautstärke erhöhen"
 
 #: ../xlgui/main.py:179
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Lautstärke um N% verringern"
+msgstr "Die Lautstärke verringern"
 
 #: ../xlgui/main.py:182
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Zum vorherigen Stück gehen"
+msgstr "Zur vorherigen Markierung gehen"
 
 #: ../xlgui/main.py:184
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Zum nächsten Stück gehen"
 
 #: ../xlgui/main.py:187
 #, fuzzy
@@ -1075,10 +1040,8 @@ msgid "_New Playlist"
 msgstr "_Neue Wiedergabeliste"
 
 #: ../xlgui/menu.py:69
-#, fuzzy
-#| msgid "Open"
 msgid "_Open"
-msgstr "Öffnen"
+msgstr "_Öffnen"
 
 #: ../xlgui/menu.py:79
 msgid "Open _URL"
@@ -1091,34 +1054,24 @@ msgid "Open _Directories"
 msgstr "Verzeichnisse öffnen"
 
 #: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
 msgstr "Wiedergabeliste importieren"
 
 #: ../xlgui/menu.py:118
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
 msgstr "Aktuelle Wiedergabeliste exportieren"
 
 #: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
 msgstr "Tab schließen"
 
 #: ../xlgui/menu.py:133
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
 msgstr "Neustarten"
 
 #: ../xlgui/menu.py:141 ../xlgui/tray.py:99
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "Über Exaile"
+msgstr "Exaile schliessen"
 
 #: ../xlgui/menu.py:158
 msgid "_Collection"
@@ -1133,8 +1086,6 @@ msgid "C_overs"
 msgstr "C_over"
 
 #: ../xlgui/menu.py:177
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "Einstellungen"
 
@@ -1147,14 +1098,10 @@ msgid "_Playlist Utilities Bar"
 msgstr "_Wiedergabewerkzeugleiste"
 
 #: ../xlgui/menu.py:213
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Spalten"
 
 #: ../xlgui/menu.py:221
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "Wiedergabeliste _löschen"
 
@@ -1163,14 +1110,10 @@ msgid "_Device Manager"
 msgstr "Gerätemanager"
 
 #: ../xlgui/menu.py:242
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
 msgstr "Bibliothek neu einlesen"
 
 #: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
-#, fuzzy
-#| msgid "Rescan Collection (slow)"
 msgid "Rescan Collection (_slow)"
 msgstr "Bibliothek neu einlesen (langsam)"
 
@@ -1179,18 +1122,16 @@ msgid "User's Guide (website)"
 msgstr "Benutzerhandbuch (Webseite)"
 
 #: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
 msgstr "Tastenkürzel"
 
 #: ../xlgui/menu.py:276
 msgid "Report an issue (GitHub)"
-msgstr "Ein Problem melden (GitHub)"
+msgstr "Ein Problem berichten (GitHub)"
 
 #: ../xlgui/menu.py:279
 msgid "_About"
-msgstr ""
+msgstr "Über"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Artist"
@@ -1268,16 +1209,13 @@ msgid "New _Smart Playlist"
 msgstr "Neue dynamische Wiedergabeliste"
 
 #: ../xlgui/panel/menus.py:259
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Neuer Sender"
+msgstr "_Neuer Sender"
 
 #: ../xlgui/panel/playlists.py:142
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Wiedergabeliste entfernen"
+msgstr "Wiedergabeliste '%s' entfernen ?"
 
 #: ../xlgui/panel/playlists.py:157
 msgid "Enter the new name you want for your playlist"
@@ -1377,22 +1315,16 @@ msgid "Drop here to create a new playlist"
 msgstr "Für eine neue Wiedergabeliste hier ablegen"
 
 #: ../xlgui/playlist_container.py:130
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear Tab History"
 msgstr "Verlauf leeren"
 
 #: ../xlgui/playlist_container.py:140
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Recently Closed _Tabs"
 msgstr "Kürzlich geschlossene Tabs"
 
 #: ../xlgui/playlist_container.py:159
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Restore closed tab"
-msgstr "Kürzlich geschlossene Tabs"
+msgstr "Tabs wiederherstellen"
 
 #: ../xlgui/playlist_container.py:198
 #, python-format
@@ -1439,8 +1371,6 @@ msgid "the"
 msgstr "der die das"
 
 #: ../xlgui/preferences/collection.py:56
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
 msgstr "Auf Standardwerte zurücksetzen"
 
@@ -1786,8 +1716,6 @@ msgstr ""
 "von der Festplatte löschen?"
 
 #: ../xlgui/widgets/menuitems.py:212
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "In den Müll verschieben"
 
@@ -2757,10 +2685,8 @@ msgid "Description:"
 msgstr "Beschreibung:"
 
 #: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
 msgid "I_nstall Plugin"
-msgstr "Installierte Plugins"
+msgstr "I_nstallierte Plugins"
 
 #: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
 msgid "<b>No Plugin Selected</b>"
@@ -2771,10 +2697,8 @@ msgid "Available Plugins"
 msgstr "Verfügbare Plugins"
 
 #: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
 msgid "_Update Plugin"
-msgstr "Plugin"
+msgstr "Plugin aktualisieren"
 
 #: ../data/ui/preferences/plugin.ui:641
 msgid "Updates"
@@ -2795,10 +2719,8 @@ msgid "Close"
 msgstr "_Schließen"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Beschreibung:"
+msgstr "Beschreibung"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2821,10 +2743,8 @@ msgid "Uppercase first letter of all tags"
 msgstr "Ersten Buchstaben aller Tags groß schreiben"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Eigenschaften"
+msgstr "Dateieigenschaften"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2931,16 +2851,12 @@ msgid "Add"
 msgstr "Hinzufügen"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Begrenzen auf: "
+msgstr "Begrenzen auf:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " Stücke"
+msgstr "Stücke"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -3000,26 +2916,18 @@ msgid "Please make sure the entered data is correct."
 msgstr "Bitte die eingegebenen Daten kontrollieren."
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
 msgstr "Lesezeichen für dieses Stück setzen"
 
 #: ../plugins/bookmarks/__init__.py:218
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
 msgstr "Lesezeichen entfernen"
 
 #: ../plugins/bookmarks/__init__.py:221
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Lesezeichen verwerfen"
 
 #: ../plugins/bookmarks/__init__.py:323
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
 msgstr "Lesezeichen"
 
@@ -3133,26 +3041,18 @@ msgid "Developer Tools"
 msgstr "Entwicklung"
 
 #: ../plugins/equalizer/__init__.py:320
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Equalizer"
+msgstr "_Equalizer"
 
 #: ../plugins/grouptagger/__init__.py:94
-#, fuzzy
-#| msgid "Get all tags from collection"
 msgid "_Get all tags from collection"
 msgstr "Alle Tags von der Sammlung holen"
 
 #: ../plugins/grouptagger/__init__.py:99
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
 msgstr "Tags aus diesem Verzeichnis importieren"
 
 #: ../plugins/grouptagger/__init__.py:104
-#, fuzzy
-#| msgid "Mass rename/delete tags"
 msgid "_Mass rename/delete tags"
 msgstr "Viele Tags umbenennen oder löschen"
 
@@ -3231,10 +3131,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "'%s' mit '%s' in allen %s Stücken ersetzen?"
 
 #: ../plugins/grouptagger/gt_mass.py:126
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "'%s' mit '%s' in allen %s Stücken ersetzen?"
+msgstr "'%s' aus '%s' Stücken löschen?"
 
 #: ../plugins/grouptagger/gt_mass.py:149
 msgid ""

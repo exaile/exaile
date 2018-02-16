@@ -7,9 +7,9 @@ in various ways:
 * Bugfixes
 * Documentation updates
 * New features + plugins
-* Translations
+* Translations on https://hosted.weblate.org/engage/exaile/
 
-The best way to contribute to the first three is to submit patches via pull
+The best way to contribute the first three is to submit patches via pull
 request on GitHub.
 
 If you think your bug report/request is being ignored, it probably isn't. All
@@ -23,11 +23,10 @@ emails can get lost in the noise or forgotten.
 Translating Exaile
 ------------------
 
-Translations for Exaile are managed through `Weblate`_.
-If you are new to Weblate, you may find the `Weblate translators guide`_ useful.
-
-.. _Weblate: https://hosted.weblate.org/engage/exaile/
-.. _Weblate translators guide: https://docs.weblate.org/en/latest/user/index.html
+Translations for Exaile should be done on `Exaile's Weblate project
+<https://hosted.weblate.org/engage/exaile/>`_.
+If you are new to Weblate, you may find the `Weblate translators guide
+<https://docs.weblate.org/en/latest/user/index.html>`_ useful.
 
 
 Python string formatting

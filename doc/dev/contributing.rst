@@ -1,4 +1,3 @@
-
 Contributing to Exaile
 ======================
 
@@ -7,14 +6,15 @@ in various ways:
 
 * Bugfixes
 * Documentation updates
-* Translations on https://hosted.weblate.org/projects/exaile/master/
 * New features + plugins
+* Translations
 
-The best way to contribute is to submit patches/etc via pull request on github.
+The best way to contribute to the first three is to submit patches via pull
+request on GitHub.
 
 If you think your bug report/request is being ignored, it probably isn't. All
 of the Exaile developers work on this project in their spare time, and so we
-don't always have time to work on your problems. We *do* try to push good 
+don't always have time to work on specific problems. We *do* try to push good
 patches as soon as we can, however. Ping the bug report, or leave a message on
 #exaile if we haven't at least made an initial response, sometimes bug report
-emails can get lost in the noise.
+emails can get lost in the noise or forgotten.

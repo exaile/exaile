@@ -37,10 +37,8 @@ The following two attributes are optional:
 * `Platforms` - A list of the platforms your plugin works on. If you have no
   specific requirements, omitting this argument or using an empty list is
   fine. The values of the list are the sys.platform value.
-* `RequiredModules` - If your plugin requires a module that may not be 
-  present on all installations of exaile (eg, modules like Gtk are
-  always going to be present, so don't need to specify those), then you
-  should specify it here.
+* `RequiredModules` - A list of additional modules required by your plugin.
+  Modules that Exaile already require (e.g. mutagen) don't need to be specified.
   To specify GObject Introspection libraries, prefix it with ``gi:``, e.g.
   ``gi:WebKit2``.
 

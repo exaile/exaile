@@ -77,7 +77,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Exaile'
-copyright = u'2009-2017 Exaile Development Team'
+copyright = u'2009-2018 Exaile Development Team'
 author = u''.join(EXAILE_AUTHORS)
 
 # The version info for the project you're documenting, acts as replacement for

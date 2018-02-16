@@ -3,62 +3,62 @@
 *~
 *.ui#
 
-tests/.cache
+/tests/.cache
 
-data/plugins
-
-po/*/
-po/POTFILES.in
+/po/*/
+/po/POTFILES.in
 
 /exaile.1.gz
 /exaile.bash-completion
 
-backup.bzr
-random
-exaile-dist.tar.bz2
-exaile-po.tar.bz2
-exaile-LATEST.exe
-Exaile.dmg
-build
-dist
+random/
+/exaile-dist.tar.bz2
+/exaile-po.tar.bz2
+/exaile-LATEST.exe
+/Exaile.dmg
+/build/
+/dist/
 
-doc/_build
-doc/_static
+/doc/_build
+/doc/_static
 
-tools/installer/src
-tools/installer/_bin
-tools/installer/_build
-tools/installer/_build_osx
-tools/installer/_build_env
-tools/installer/_build_root
-tools/installer/_copy
-tools/installer/_dist
-tools/installer/_dist_osx
-tools/installer/_home
-tools/installer/_jhbuild
-tools/installer/_inst
-tools/installer/_sdk
-tools/installer/modulesets
-tools/installer/misc
-tools/installer/*sdk.tar.gz
-tools/installer/bootstrap_osx.sh
-tools/installer/build_osx_installer.sh
-tools/installer/build_osx_sdk.sh
-tools/installer/build_win32_installer.sh
-tools/installer/build_win32_sdk.sh
-tools/installer/env.sh
-tools/installer/clean_osx.sh
-tools/installer/clean_win32.sh
+/tools/installer/src
+/tools/installer/_bin
+/tools/installer/_build
+/tools/installer/_build_osx
+/tools/installer/_build_env
+/tools/installer/_build_root
+/tools/installer/_copy
+/tools/installer/_dist
+/tools/installer/_dist_osx
+/tools/installer/_home
+/tools/installer/_jhbuild
+/tools/installer/_inst
+/tools/installer/_sdk
+/tools/installer/modulesets
+/tools/installer/misc
+/tools/installer/*sdk.tar.gz
+/tools/installer/bootstrap_osx.sh
+/tools/installer/build_osx_installer.sh
+/tools/installer/build_osx_sdk.sh
+/tools/installer/build_win32_installer.sh
+/tools/installer/build_win32_sdk.sh
+/tools/installer/env.sh
+/tools/installer/clean_osx.sh
+/tools/installer/clean_win32.sh
 
-.DS_Store
+.DS_Store/
 
 # Eclipse settings
 .project
 .pydevproject
 
+# PyCharm settings
+.idea/
+
 # Vim Pymode settings
 .ropeproject
 *.swp
 
-# Pycharm settings
-.idea
+# VS Code settings
+.vscode/

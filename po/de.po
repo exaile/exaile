@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 13:21+1000\n"
-"PO-Revision-Date: 2018-02-18 15:44+0000\n"
+"PO-Revision-Date: 2018-02-19 00:36+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
 "\n"
@@ -1297,8 +1297,9 @@ msgid "New Playlist"
 msgstr "Neue Wiedergabeliste"
 
 #: ../xlgui/panels.py:100
+#, fuzzy
 msgid "P_anels"
-msgstr "_Bedienelement"
+msgstr "_Bedienelemente"
 
 #: ../xlgui/playlist_container.py:72
 msgid "Drop here to create a new playlist"

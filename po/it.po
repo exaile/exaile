@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-16 13:21+1000\n"
+"POT-Creation-Date: 2018-02-19 11:36+1000\n"
 "PO-Revision-Date: 2017-12-18 14:56+0000\n"
 "Last-Translator: Claudio Maradonna <claudio@unitoo.pw>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Weblate 2.18\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
-#: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Tag"
 
-#: ../xl/covers.py:507
+#: ../xl/covers.py:525
 msgid "Local file"
 msgstr "File locale"
 
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:397 ../xl/trax/track.py:68
+#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
 msgid "Unknown"
 msgstr "Sconosciuto"
 
@@ -115,93 +115,93 @@ msgstr "Oggi"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: ../xl/lyrics.py:349
+#: ../xl/lyrics.py:360
 msgid "Local"
 msgstr "Locale"
 
-#: ../xl/main.py:80
+#: ../xl/main.py:81
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Uso: exaile [OPZIONE]... [URI]"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:82
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:89
+#: ../xl/main.py:90
 msgid "Playback Options"
 msgstr "Opzioni di riproduzione"
 
-#: ../xl/main.py:91
+#: ../xl/main.py:92
 msgid "Play the next track"
 msgstr "Riproduce la traccia successiva"
 
-#: ../xl/main.py:93
+#: ../xl/main.py:94
 msgid "Play the previous track"
 msgstr "Riproduce la traccia precedente"
 
-#: ../xl/main.py:95 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:366
 msgid "Stop playback"
 msgstr "Ferma la riproduzione"
 
-#: ../xl/main.py:97
+#: ../xl/main.py:98
 msgid "Play"
 msgstr "Riproduci"
 
-#: ../xl/main.py:99 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pausa"
 
-#: ../xl/main.py:101
+#: ../xl/main.py:102
 msgid "Pause or resume playback"
 msgstr "Sospende o riprende la riproduzione"
 
-#: ../xl/main.py:104 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
 msgid "Stop playback after current track"
 msgstr "Ferma la riproduzione al termine della traccia corrente"
 
-#: ../xl/main.py:106
+#: ../xl/main.py:107
 msgid "Collection Options"
 msgstr "Opzioni per le collezioni"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:109 ../xl/main.py:115
+#: ../xl/main.py:110 ../xl/main.py:116
 msgid "LOCATION"
 msgstr "POSIZIONE"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:111
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Aggiunge tracce da POSIZIONE alla collezione"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:113
 msgid "Playlist Options"
 msgstr "Opzioni della scaletta"
 
-#: ../xl/main.py:116
+#: ../xl/main.py:117
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Esporta la scaletta corrente nel PERCORSO"
 
-#: ../xl/main.py:118
+#: ../xl/main.py:119
 msgid "Track Options"
 msgstr "Opzioni per le tracce"
 
-#: ../xl/main.py:120
+#: ../xl/main.py:121
 msgid "Query player"
 msgstr "Interroga il lettore"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:123
+#: ../xl/main.py:124
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:124
+#: ../xl/main.py:125
 #, fuzzy
 #| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
@@ -210,114 +210,114 @@ msgstr ""
 "come FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:127
+#: ../xl/main.py:128
 msgid "TAGS"
 msgstr "ETICHETTE"
 
-#: ../xl/main.py:128
+#: ../xl/main.py:129
 #, fuzzy
 #| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "TAGS da recuperare dalla traccia corrente, usare con --format-query"
 
-#: ../xl/main.py:130
+#: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
 msgstr "Mostra una finestra a comparsa con informazioni sulla traccia corrente"
 
-#: ../xl/main.py:132
+#: ../xl/main.py:133
 msgid "Print the title of current track"
 msgstr "Visualizza il titolo della traccia corrente"
 
-#: ../xl/main.py:134
+#: ../xl/main.py:135
 msgid "Print the album of current track"
 msgstr "Visualizza l'album della traccia corrente"
 
-#: ../xl/main.py:136
+#: ../xl/main.py:137
 msgid "Print the artist of current track"
 msgstr "Visualizza l'artista della traccia corrente"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:139
 msgid "Print the length of current track"
 msgstr "Visualizza la durata della traccia corrente"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:141 ../xl/main.py:155 ../xl/main.py:159
+#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:142
+#: ../xl/main.py:143
 msgid "Set rating for current track to N%"
 msgstr "Imposta la valutazione per la traccia corrente a N%"
 
-#: ../xl/main.py:144
+#: ../xl/main.py:145
 msgid "Get rating for current track"
 msgstr "Ottiene la valutazione della traccia corrente"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:148
 msgid "Print the current playback position as time"
 msgstr "Visualizza la posizione della riproduzione corrente come tempo"
 
-#: ../xl/main.py:150
+#: ../xl/main.py:151
 msgid "Print the current playback progress as percentage"
 msgstr "Visualizza l'avanzamento della riproduzione corrente come percentuale"
 
-#: ../xl/main.py:152
+#: ../xl/main.py:153
 msgid "Volume Options"
 msgstr "Opzioni del volume"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:157
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Aumenta il volume di N%"
 
-#: ../xl/main.py:160
+#: ../xl/main.py:161
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Riduce il volume di N%"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:164
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Attiva o disattiva il volume"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:166
 msgid "Print the current volume percentage"
 msgstr "Visualizza il livello percentuale del volume"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:168
 msgid "Other Options"
 msgstr "Altre opzioni"
 
-#: ../xl/main.py:169
+#: ../xl/main.py:170
 msgid "Start new instance"
 msgstr "Avvia nuova istanza"
 
-#: ../xl/main.py:171
+#: ../xl/main.py:172
 msgid "Show this help message and exit"
 msgstr "Mostra questo messaggio d'aiuto ed esce"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:174
 msgid "Show program's version number and exit."
 msgstr "Mostra il numero di versione del programma ed esci"
 
-#: ../xl/main.py:176
+#: ../xl/main.py:177
 msgid "Start minimized (to tray, if possible)"
 msgstr "Avvia minimizzato (nell'area di notifica, se possibile)"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:180
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Commuta la visibilità dell'interfaccia grafica (se possibile)"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:182
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Avvia in modalità sicura - alcune volte è utile quando capitano dei problemi"
 
-#: ../xl/main.py:184
+#: ../xl/main.py:185
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -326,103 +326,103 @@ msgstr ""
 "Forza l'importazione dei dati dalla versione 0.2.x (sovrascrive i dati "
 "attuali)"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:188
 msgid "Do not import old data from version 0.2.x"
 msgstr "Non importare i dati dalla versione 0.2.x"
 
-#: ../xl/main.py:190
+#: ../xl/main.py:191
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Fa in modo che le opzioni di controllo come --play avviino Exaile, se non è "
 "in esecuzione"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:194
 msgid "Development/Debug Options"
 msgstr "Opzioni di sviluppo/debug"
 
-#: ../xl/main.py:195 ../xl/main.py:197
+#: ../xl/main.py:196 ../xl/main.py:198
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:196
 msgid "Set data directory"
 msgstr "Imposta la directory dei dati"
 
-#: ../xl/main.py:197
+#: ../xl/main.py:198
 msgid "Set data and config directory"
 msgstr "Imposta la cartella dati e configurazioni"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "MODULE"
 msgstr "MODULO"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "Limit log output to MODULE"
 msgstr "Limita l'output del registro a MODULO"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "LEVEL"
 msgstr "LIVELLO"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "Limit log output to LEVEL"
 msgstr "Limita l'output del registro a LIVELLO"
 
-#: ../xl/main.py:204
+#: ../xl/main.py:205
 msgid "Show debugging output"
 msgstr "Mostra l'output di debug"
 
-#: ../xl/main.py:206
+#: ../xl/main.py:207
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Abilita il debug di xl.event. Genera MOLTO output"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:210
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Abilita il debug di xl.event. Genera MOLTO output"
 
-#: ../xl/main.py:212
+#: ../xl/main.py:213
 msgid "Add thread name to logging messages."
 msgstr "Aggiungi il nome del thread ai messaggi di log."
 
-#: ../xl/main.py:214
+#: ../xl/main.py:215
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:216
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Limita il debug di xl.event all'output di TIPO"
 
-#: ../xl/main.py:217
+#: ../xl/main.py:218
 msgid "Reduce level of output"
 msgstr "Riduce il livello di output"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:222
 msgid "Disable D-Bus support"
 msgstr "Disabilita il supporto D-Bus"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:224
 msgid "Disable HAL support."
 msgstr "Disabilita il supporto HAL."
 
-#: ../xl/main.py:561
+#: ../xl/main.py:563
 msgid "Entire Library"
 msgstr "Intera libreria"
 
-#: ../xl/main.py:567
+#: ../xl/main.py:569
 #, python-format
 msgid "Random %d"
 msgstr "%d casuale"
 
-#: ../xl/main.py:575
+#: ../xl/main.py:577
 #, python-format
 msgid "Rating > %d"
 msgstr "Valutazione > %d"
 
-#: ../xl/main.py:734
+#: ../xl/main.py:736
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -475,7 +475,7 @@ msgstr "Compositore"
 msgid "Conductor"
 msgstr "Direttore d'orchestra"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:837
+#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
 msgid "Cover"
 msgstr "Copertina"
 
@@ -829,11 +829,11 @@ msgstr ""
 "stato: %(status)s, titolo: %(title)s, artista: %(artist)s, album: %(album)s, "
 "durata: %(length)s, posizione: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:312
+#: ../xlgui/__init__.py:305
 msgid "Scanning collection..."
 msgstr "Scansione della collezione..."
 
-#: ../xlgui/__init__.py:379
+#: ../xlgui/__init__.py:372
 #, python-format
 msgid "Scanning %s..."
 msgstr "Analisi di %s..."
@@ -867,37 +867,37 @@ msgstr "Tutte le copertine sono state recuperate"
 msgid "Collecting albums and covers..."
 msgstr "Sto raccogliendo informazioni sugli album e sulle copertine..."
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:520
 msgid "Show Cover"
 msgstr "Mostra copertina"
 
-#: ../xlgui/cover.py:523
+#: ../xlgui/cover.py:521
 msgid "Fetch Cover"
 msgstr "Recupera copertina"
 
-#: ../xlgui/cover.py:524
+#: ../xlgui/cover.py:522
 msgid "Remove Cover"
 msgstr "Rimuovi copertina"
 
-#: ../xlgui/cover.py:835
+#: ../xlgui/cover.py:831
 #, python-format
 msgid "Cover for %s"
 msgstr "Copertina per %s"
 
-#: ../xlgui/cover.py:941
+#: ../xlgui/cover.py:937
 msgid "Save File"
 msgstr ""
 
-#: ../xlgui/cover.py:1037
+#: ../xlgui/cover.py:1033
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Opzioni copertina per %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1127
 msgid "No covers found."
 msgstr "Nessuna copertina trovata."
 
-#: ../xlgui/cover.py:1132
+#: ../xlgui/cover.py:1128
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -906,7 +906,7 @@ msgstr ""
 "sorgenti."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
+#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixel"
@@ -1018,7 +1018,7 @@ msgid "Focus the seventh tab"
 msgstr ""
 
 #: ../xlgui/main.py:207
-msgid "Focus the eight tab"
+msgid "Focus the eighth tab"
 msgstr ""
 
 #: ../xlgui/main.py:208
@@ -1215,21 +1215,22 @@ msgstr "Nuova scansione della collezione"
 msgid "Transferring to %s..."
 msgstr "Trasferimento a %s in corso..."
 
-#: ../xlgui/panel/files.py:80
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "File"
 
-#: ../xlgui/panel/files.py:119 ../xlgui/widgets/playlist_columns.py:310
+#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
 #: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
 msgid "Filename"
 msgstr "Nome file"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:143
+#: ../xlgui/panel/files.py:144
 msgid "Size"
 msgstr "Dimensione"
 
-#: ../xlgui/panel/files.py:435
+#. TRANSLATORS: File size (1 kB = 1000 bytes)
+#: ../xlgui/panel/files.py:414
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1306,11 +1307,11 @@ msgstr "%(first)s e %(second)s"
 msgid "Playlists"
 msgstr "Scalette"
 
-#: ../xlgui/panel/playlists.py:489
+#: ../xlgui/panel/playlists.py:502
 msgid "Smart Playlists"
 msgstr "Scalette automatiche"
 
-#: ../xlgui/panel/playlists.py:492
+#: ../xlgui/panel/playlists.py:505
 msgid "Custom Playlists"
 msgstr "Scalette personalizzate"
 
@@ -1318,41 +1319,41 @@ msgstr "Scalette personalizzate"
 msgid "Radio"
 msgstr "Radio"
 
-#: ../xlgui/panel/radio.py:135 ../xlgui/panel/radio.py:481
-#: ../xlgui/panel/radio.py:558
+#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
+#: ../xlgui/panel/radio.py:552
 msgid "Loading streams..."
 msgstr "Caricamento flussi..."
 
-#: ../xlgui/panel/radio.py:186
+#: ../xlgui/panel/radio.py:207
 msgid "Add Radio Station"
 msgstr "Aggiungi stazione radio"
 
-#: ../xlgui/panel/radio.py:188 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Nome:"
 
-#: ../xlgui/panel/radio.py:189 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:261
+#: ../xlgui/panel/radio.py:282
 msgid "Saved Stations"
 msgstr "Stazioni Salvate"
 
-#: ../xlgui/panel/radio.py:262
+#: ../xlgui/panel/radio.py:283
 msgid "Radio Streams"
 msgstr "Flussi radio"
 
-#: ../xlgui/panel/radio.py:292 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../xlgui/panel/radio.py:423
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr "Inserire il nome per la nuova scaletta"
 
-#: ../xlgui/panel/radio.py:424 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "Nuova scaletta"
 
@@ -1534,56 +1535,57 @@ msgstr "Applicare le modifiche prima di chiudere?"
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Le modifiche andranno perse se non vengono applicate adesso."
 
-#: ../xlgui/properties.py:633
+#. TRANSLATORS: Label for a tag on the Track Properties dialog
+#: ../xlgui/properties.py:634
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:863
+#: ../xlgui/properties.py:864
 msgid "of:"
 msgstr "di:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:967
 msgid "JPEG image"
 msgstr "Immagine JPEG"
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "PNG image"
 msgstr "Immagine PNG"
 
-#: ../xlgui/properties.py:977
+#: ../xlgui/properties.py:978
 msgid "Image"
 msgstr "Immagine"
 
-#: ../xlgui/properties.py:984
+#: ../xlgui/properties.py:985
 msgid "Linked image"
 msgstr "Immagine collegata"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1112
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixels)"
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1126
 msgid "Select image to set as cover"
 msgstr "Seleziona immagine da usare come copertina"
 
-#: ../xlgui/properties.py:1134
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "Tipi di immagine supportati"
 
-#: ../xlgui/properties.py:1212
+#: ../xlgui/properties.py:1213
 msgid "Open Directory"
 msgstr "Apri directory"
 
-#: ../xlgui/properties.py:1262
+#: ../xlgui/properties.py:1263
 msgid "Apply current value to all tracks"
 msgstr "Applica il valore corrente a tutte le tracce"
 
-#: ../xlgui/properties.py:1283 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Salvate %(count)s di %(total)s."
@@ -2168,7 +2170,7 @@ msgstr "Informazioni su Exaile"
 msgid "© 2009-2017 Various Contributors"
 msgstr ""
 
-#. TRANSLATORS: Add your own name here
+#. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
@@ -2196,21 +2198,11 @@ msgstr "Nuova scansione della collezione"
 msgid "Cover Finder"
 msgstr "Trova copertine"
 
-#: ../data/ui/coverchooser.ui:52 ../data/ui/panel/collection.ui:60
-#: ../data/ui/panel/lyrics.ui:39
-msgid "page0"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:119
+#: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
 msgstr "L'origine di questa copertina"
 
-#: ../data/ui/coverchooser.ui:133 ../data/ui/panel/collection.ui:149
-#: ../data/ui/panel/lyrics.ui:49
-msgid "page1"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:169
+#: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
 msgstr "Impo_sta come copertina"
 
@@ -2327,7 +2319,7 @@ msgstr "Aggiungi musica"
 msgid "<b>Collection is empty.</b>"
 msgstr "<b>La collezione è vuota.</b>"
 
-#: ../data/ui/panel/collection.ui:100
+#: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
@@ -2336,7 +2328,7 @@ msgstr ""
 "(tenere premuto il tasto Maiusc per eseguire una nuova scansione della "
 "collezione)"
 
-#: ../data/ui/panel/collection.ui:134 ../data/ui/panel/files.ui:169
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:169
 msgid "Clear search field"
 msgstr "Pulisci il campo di ricerca"
 
@@ -2476,10 +2468,10 @@ msgstr "Mostrare la schermata di avvio all'inizio"
 
 #: ../data/ui/preferences/appearance.ui:309
 msgid ""
-"Tray icons are not supported on some platforms, most notably on wayland. On "
-"GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a href="
+"Tray icons are not supported on some platforms, most notably on Wayland. On "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
-"extension</a> (or a similar one) installed. "
+"extension</a> (or a similar one) installed."
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
@@ -3610,18 +3602,18 @@ msgstr ""
 msgid "Multi-Alarm Clock"
 msgstr "Sveglia multipla"
 
-#: ../plugins/notify/__init__.py:47
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr ""
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:49
 #, fuzzy, python-brace-format
 #| msgid "by %(artist)s"
 msgid "by {artist}"
 msgstr "artista %(artist)s"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:50
 #, fuzzy, python-brace-format
 #| msgid "Only album:"
 msgid "by {album}"

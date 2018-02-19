@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-16 13:21+1000\n"
+"POT-Creation-Date: 2018-02-19 11:36+1000\n"
 "PO-Revision-Date: 2018-02-19 00:36+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
-"\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
+">\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Weblate 2.19\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
-#: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Tags"
 
-#: ../xl/covers.py:507
+#: ../xl/covers.py:525
 msgid "Local file"
 msgstr "Lokale Datei"
 
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:397 ../xl/trax/track.py:68
+#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -115,15 +115,15 @@ msgstr "Heute"
 msgid "Yesterday"
 msgstr "Gestern"
 
-#: ../xl/lyrics.py:349
+#: ../xl/lyrics.py:360
 msgid "Local"
 msgstr "Lokal"
 
-#: ../xl/main.py:80
+#: ../xl/main.py:81
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Aufruf: exaile [Option…] [Speicherort…]"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:82
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -133,274 +133,274 @@ msgstr ""
 "zur aktiven Wiedergabeliste hinzu. Wenn Exaile bereits läuft, wird versucht, "
 "die vorhandene Instanz zu verwenden, anstatt eine neue zu erstellen."
 
-#: ../xl/main.py:89
+#: ../xl/main.py:90
 msgid "Playback Options"
 msgstr "Wiedergabeoptionen"
 
-#: ../xl/main.py:91
+#: ../xl/main.py:92
 msgid "Play the next track"
 msgstr "Nächsten Titel spielen"
 
-#: ../xl/main.py:93
+#: ../xl/main.py:94
 msgid "Play the previous track"
 msgstr "Vorherigen Titel spielen"
 
-#: ../xl/main.py:95 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:366
 msgid "Stop playback"
 msgstr "Wiedergabe stoppen"
 
-#: ../xl/main.py:97
+#: ../xl/main.py:98
 msgid "Play"
 msgstr "Abspielen"
 
-#: ../xl/main.py:99 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pause"
 
-#: ../xl/main.py:101
+#: ../xl/main.py:102
 msgid "Pause or resume playback"
 msgstr "Wiedergabe pausieren oder wieder aufnehmen"
 
-#: ../xl/main.py:104 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
 msgid "Stop playback after current track"
 msgstr "Wiedergabe nach dem aktuellen Titel beenden"
 
-#: ../xl/main.py:106
+#: ../xl/main.py:107
 msgid "Collection Options"
 msgstr "Bibliotheksoptionen"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:109 ../xl/main.py:115
+#: ../xl/main.py:110 ../xl/main.py:116
 msgid "LOCATION"
 msgstr "ORT"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:111
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Titel von ORT der Bibliothek hinzufügen"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:113
 msgid "Playlist Options"
 msgstr "Wiedergabelistenoptionen"
 
-#: ../xl/main.py:116
+#: ../xl/main.py:117
 msgid "Export the current playlist to LOCATION"
 msgstr "Aktuelle Wiedergabeliste zu ORT exportieren"
 
-#: ../xl/main.py:118
+#: ../xl/main.py:119
 msgid "Track Options"
 msgstr "Titeloptionen"
 
-#: ../xl/main.py:120
+#: ../xl/main.py:121
 msgid "Query player"
 msgstr "Abfrage"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:123
+#: ../xl/main.py:124
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:124
+#: ../xl/main.py:125
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Ruft den aktuellen Wiedergabestatus und Titelinformationen als FORMAT ab"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:127
+#: ../xl/main.py:128
 msgid "TAGS"
 msgstr "TAGS"
 
-#: ../xl/main.py:128
+#: ../xl/main.py:129
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "Vom aktuellen Titel auszulesende TAGS; mit --format-query nutzen"
 
-#: ../xl/main.py:130
+#: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
 msgstr "Popup-Meldung mit Daten des aktuellen Titels"
 
-#: ../xl/main.py:132
+#: ../xl/main.py:133
 msgid "Print the title of current track"
 msgstr "Titel des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:134
+#: ../xl/main.py:135
 msgid "Print the album of current track"
 msgstr "Album des aktuellen Titels ausgeben"
 
-#: ../xl/main.py:136
+#: ../xl/main.py:137
 msgid "Print the artist of current track"
 msgstr "Künstler des aktuellen Titels ausgeben"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:139
 msgid "Print the length of current track"
 msgstr "Länge des aktuellen Titels ausgeben"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:141 ../xl/main.py:155 ../xl/main.py:159
+#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:142
+#: ../xl/main.py:143
 msgid "Set rating for current track to N%"
 msgstr "Bewertung für den aktuellen Titel auf N% festlegen"
 
-#: ../xl/main.py:144
+#: ../xl/main.py:145
 msgid "Get rating for current track"
 msgstr "Bewertung des aktuellen Titels ausgeben"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:148
 msgid "Print the current playback position as time"
 msgstr "Aktuelle Wiedergabeposition als Zeit ausgeben"
 
-#: ../xl/main.py:150
+#: ../xl/main.py:151
 msgid "Print the current playback progress as percentage"
 msgstr "Aktuellen Wiedergabefortschritt in Prozent ausgeben"
 
-#: ../xl/main.py:152
+#: ../xl/main.py:153
 msgid "Volume Options"
 msgstr "Lautstärke-Optionen"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:157
 msgid "Increase the volume by N%"
 msgstr "Lautstärke um N% erhöhen"
 
-#: ../xl/main.py:160
+#: ../xl/main.py:161
 msgid "Decrease the volume by N%"
 msgstr "Lautstärke um N% verringern"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:164
 msgid "Mute or unmute the volume"
 msgstr "Lautstärke stumm schalten oder wiederherstellen"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:166
 msgid "Print the current volume percentage"
 msgstr "Aktuelle Lautstärke in Prozent ausgeben"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:168
 msgid "Other Options"
 msgstr "Andere Optionen"
 
-#: ../xl/main.py:169
+#: ../xl/main.py:170
 msgid "Start new instance"
 msgstr "Neue Instanz starten"
 
-#: ../xl/main.py:171
+#: ../xl/main.py:172
 msgid "Show this help message and exit"
 msgstr "Diesen Hilfetext anzeigen und beenden"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:174
 msgid "Show program's version number and exit."
 msgstr "Programmversion anzeigen und beenden."
 
-#: ../xl/main.py:176
+#: ../xl/main.py:177
 msgid "Start minimized (to tray, if possible)"
 msgstr "Minimiert starten (als Taskleistensymbol, wenn möglich)"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:180
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Sichtbarkeit der GUI wechseln (wenn möglich)"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:182
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Im abgesicherten Modus starten (nützlich bei Problemen)"
 
-#: ../xl/main.py:184
+#: ../xl/main.py:185
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Import alter Daten aus Version 0.2.x erzwingen (Überschreibt aktuelle Daten)"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:188
 msgid "Do not import old data from version 0.2.x"
 msgstr "Alte Daten aus Version 0.2.x nicht importieren"
 
-#: ../xl/main.py:190
+#: ../xl/main.py:191
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Führt in jedem Fall zum Start von Exaile durch Kontroll-Optionen wie --play"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:194
 msgid "Development/Debug Options"
 msgstr "Entwicklungs-/Debug-Optionen"
 
-#: ../xl/main.py:195 ../xl/main.py:197
+#: ../xl/main.py:196 ../xl/main.py:198
 msgid "DIRECTORY"
 msgstr "VERZEICHNIS"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:196
 msgid "Set data directory"
 msgstr "Datenverzeichnis festlegen"
 
-#: ../xl/main.py:197
+#: ../xl/main.py:198
 msgid "Set data and config directory"
 msgstr "Daten- und Konfigurationsverzeichnis festlegen"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "MODULE"
 msgstr "MODUL"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "Limit log output to MODULE"
 msgstr "Ausgaben auf MODUL beschränken"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "LEVEL"
 msgstr "STUFE"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "Limit log output to LEVEL"
 msgstr "Ausgaben auf STUFE beschränken"
 
-#: ../xl/main.py:204
+#: ../xl/main.py:205
 msgid "Show debugging output"
 msgstr "Debugging-Informationen ausgeben"
 
-#: ../xl/main.py:206
+#: ../xl/main.py:207
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:210
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
-#: ../xl/main.py:212
+#: ../xl/main.py:213
 msgid "Add thread name to logging messages."
 msgstr "Threadname in Logeinträgen anzeigen."
 
-#: ../xl/main.py:214
+#: ../xl/main.py:215
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:216
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Ausgaben von xl.event auf TYP beschränken"
 
-#: ../xl/main.py:217
+#: ../xl/main.py:218
 msgid "Reduce level of output"
 msgstr "Verringert die Menge der Ausgaben"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:222
 msgid "Disable D-Bus support"
 msgstr "D-Bus-Unterstützung deaktivieren"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:224
 msgid "Disable HAL support."
 msgstr "HAL-Unterstützung deaktivieren."
 
-#: ../xl/main.py:561
+#: ../xl/main.py:563
 msgid "Entire Library"
 msgstr "Gesamte Bibliothek"
 
-#: ../xl/main.py:567
+#: ../xl/main.py:569
 #, python-format
 msgid "Random %d"
 msgstr "Zufällige %d"
 
-#: ../xl/main.py:575
+#: ../xl/main.py:577
 #, python-format
 msgid "Rating > %d"
 msgstr "Bewertung > %d"
 
-#: ../xl/main.py:734
+#: ../xl/main.py:736
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -453,7 +453,7 @@ msgstr "Komponist"
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:837
+#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
 msgid "Cover"
 msgstr "Cover"
 
@@ -746,8 +746,8 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apples proprietäres verlustbehaftetes Audio-Format erzielt bei "
-"niedrigeren Bitraten bessere Klangqualität als MP3."
+"Apples proprietäres verlustbehaftetes Audio-Format erzielt bei niedrigeren "
+"Bitraten bessere Klangqualität als MP3."
 
 #: ../xl/transcoder.py:90
 msgid ""
@@ -809,11 +809,11 @@ msgstr ""
 "Status: %(status)s, Titel: %(title)s, Künstler: %(artist)s, Album: "
 "%(album)s, Länge: %(length)s, Position: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:312
+#: ../xlgui/__init__.py:305
 msgid "Scanning collection..."
 msgstr "Bibliothek einlesen …"
 
-#: ../xlgui/__init__.py:379
+#: ../xlgui/__init__.py:372
 #, python-format
 msgid "Scanning %s..."
 msgstr "%s einlesen …"
@@ -846,37 +846,37 @@ msgstr "Alle Cover geholt"
 msgid "Collecting albums and covers..."
 msgstr "Alben und Cover sammeln …"
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:520
 msgid "Show Cover"
 msgstr "Cover anzeigen"
 
-#: ../xlgui/cover.py:523
+#: ../xlgui/cover.py:521
 msgid "Fetch Cover"
 msgstr "Cover abrufen"
 
-#: ../xlgui/cover.py:524
+#: ../xlgui/cover.py:522
 msgid "Remove Cover"
 msgstr "Cover entfernen"
 
-#: ../xlgui/cover.py:835
+#: ../xlgui/cover.py:831
 #, python-format
 msgid "Cover for %s"
 msgstr "Cover für %s"
 
-#: ../xlgui/cover.py:941
+#: ../xlgui/cover.py:937
 msgid "Save File"
 msgstr "Datei speichern"
 
-#: ../xlgui/cover.py:1037
+#: ../xlgui/cover.py:1033
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Coveroptionen für %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1127
 msgid "No covers found."
 msgstr "Keine Cover gefunden."
 
-#: ../xlgui/cover.py:1132
+#: ../xlgui/cover.py:1128
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -885,7 +885,7 @@ msgstr ""
 "sollten weitere Quellen aktiviert werden."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
+#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} Pixel"
@@ -988,7 +988,9 @@ msgid "Focus the seventh tab"
 msgstr "Siebenten Tab in den Vordergrund holen"
 
 #: ../xlgui/main.py:207
-msgid "Focus the eight tab"
+#, fuzzy
+#| msgid "Focus the eight tab"
+msgid "Focus the eighth tab"
 msgstr "Achten Tab in den Vordergrund holen"
 
 #: ../xlgui/main.py:208
@@ -1160,21 +1162,22 @@ msgstr "Bibliothek neu einlesen"
 msgid "Transferring to %s..."
 msgstr "Übertrage auf %s …"
 
-#: ../xlgui/panel/files.py:80
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Dateien"
 
-#: ../xlgui/panel/files.py:119 ../xlgui/widgets/playlist_columns.py:310
+#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
 #: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
 msgid "Filename"
 msgstr "Dateiname"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:143
+#: ../xlgui/panel/files.py:144
 msgid "Size"
 msgstr "Größe"
 
-#: ../xlgui/panel/files.py:435
+#. TRANSLATORS: File size (1 kB = 1000 bytes)
+#: ../xlgui/panel/files.py:414
 #, python-format
 msgid "%s kB"
 msgstr "%s kB"
@@ -1246,11 +1249,11 @@ msgstr "%(first)s und %(second)s"
 msgid "Playlists"
 msgstr "Wiedergabelisten"
 
-#: ../xlgui/panel/playlists.py:489
+#: ../xlgui/panel/playlists.py:502
 msgid "Smart Playlists"
 msgstr "Dynamische Wiedergabelisten"
 
-#: ../xlgui/panel/playlists.py:492
+#: ../xlgui/panel/playlists.py:505
 msgid "Custom Playlists"
 msgstr "Eigene Wiedergabelisten"
 
@@ -1258,41 +1261,41 @@ msgstr "Eigene Wiedergabelisten"
 msgid "Radio"
 msgstr "Radio"
 
-#: ../xlgui/panel/radio.py:135 ../xlgui/panel/radio.py:481
-#: ../xlgui/panel/radio.py:558
+#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
+#: ../xlgui/panel/radio.py:552
 msgid "Loading streams..."
 msgstr "Streams laden …"
 
-#: ../xlgui/panel/radio.py:186
+#: ../xlgui/panel/radio.py:207
 msgid "Add Radio Station"
 msgstr "Radiostation hinzufügen"
 
-#: ../xlgui/panel/radio.py:188 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Name:"
 
-#: ../xlgui/panel/radio.py:189 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "Adresse:"
 
-#: ../xlgui/panel/radio.py:261
+#: ../xlgui/panel/radio.py:282
 msgid "Saved Stations"
 msgstr "Gespeicherte Stationen"
 
-#: ../xlgui/panel/radio.py:262
+#: ../xlgui/panel/radio.py:283
 msgid "Radio Streams"
 msgstr "Radio-Streams"
 
-#: ../xlgui/panel/radio.py:292 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: ../xlgui/panel/radio.py:423
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr "Name für die neue Wiedergabeliste eingeben"
 
-#: ../xlgui/panel/radio.py:424 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "Neue Wiedergabeliste"
 
@@ -1468,56 +1471,57 @@ msgstr "Änderungen vor dem Schließen anwenden?"
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Die Änderungen gehen verloren, wenn sie nicht jetzt angewendet werden."
 
-#: ../xlgui/properties.py:633
+#. TRANSLATORS: Label for a tag on the Track Properties dialog
+#: ../xlgui/properties.py:634
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:863
+#: ../xlgui/properties.py:864
 msgid "of:"
 msgstr "von:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:967
 msgid "JPEG image"
 msgstr "JPEG-Bild"
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "PNG image"
 msgstr "PNG-Bild"
 
-#: ../xlgui/properties.py:977
+#: ../xlgui/properties.py:978
 msgid "Image"
 msgstr "Bild"
 
-#: ../xlgui/properties.py:984
+#: ../xlgui/properties.py:985
 msgid "Linked image"
 msgstr "Verlinktes Bild"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1112
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} Pixel)"
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1126
 msgid "Select image to set as cover"
 msgstr "Bild für das Cover auswählen"
 
-#: ../xlgui/properties.py:1134
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "Unterstützte Bildformate"
 
-#: ../xlgui/properties.py:1212
+#: ../xlgui/properties.py:1213
 msgid "Open Directory"
 msgstr "Verzeichnis öffnen"
 
-#: ../xlgui/properties.py:1262
+#: ../xlgui/properties.py:1263
 msgid "Apply current value to all tracks"
 msgstr "Aktuellen Wert auf alle Titel anwenden"
 
-#: ../xlgui/properties.py:1283 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s von %(total)s gespeichert."
@@ -2048,7 +2052,7 @@ msgstr "Über Exaile"
 msgid "© 2009-2017 Various Contributors"
 msgstr "© 2009-2017 Verschiedene Mitwirkende"
 
-#. TRANSLATORS: Add your own name here
+#. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
@@ -2074,21 +2078,11 @@ msgstr "Sammlung neu einlesen"
 msgid "Cover Finder"
 msgstr "Covermanager"
 
-#: ../data/ui/coverchooser.ui:52 ../data/ui/panel/collection.ui:60
-#: ../data/ui/panel/lyrics.ui:39
-msgid "page0"
-msgstr "page0"
-
-#: ../data/ui/coverchooser.ui:119
+#: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
 msgstr "Die Herkunft dieses Covers"
 
-#: ../data/ui/coverchooser.ui:133 ../data/ui/panel/collection.ui:149
-#: ../data/ui/panel/lyrics.ui:49
-msgid "page1"
-msgstr "page1"
-
-#: ../data/ui/coverchooser.ui:169
+#: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
 msgstr "Als Cover _festlegen"
 
@@ -2199,7 +2193,7 @@ msgstr "Musik _hinzufügen"
 msgid "<b>Collection is empty.</b>"
 msgstr "<b>Die Bibliothek ist leer.</b>"
 
-#: ../data/ui/panel/collection.ui:100
+#: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
@@ -2207,7 +2201,7 @@ msgstr ""
 "Bibliotheksansicht aktualisieren\n"
 "(Umschalt-Taste gedrückt halten um die Bibliothek neu einzulesen)"
 
-#: ../data/ui/panel/collection.ui:134 ../data/ui/panel/files.ui:169
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:169
 msgid "Clear search field"
 msgstr "Suchfeld leeren"
 
@@ -2344,17 +2338,23 @@ msgid "Show splash screen on startup"
 msgstr "Begrüßungsbildschirm beim Starten anzeigen"
 
 #: ../data/ui/preferences/appearance.ui:309
+#, fuzzy
+#| msgid ""
+#| "Tray icons are not supported on some platforms, most notably on wayland. "
+#| "On GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a "
+#| "href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons"
+#| "\" extension</a> (or a similar one) installed. "
 msgid ""
-"Tray icons are not supported on some platforms, most notably on wayland. On "
-"GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a href="
+"Tray icons are not supported on some platforms, most notably on Wayland. On "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
-"extension</a> (or a similar one) installed. "
+"extension</a> (or a similar one) installed."
 msgstr ""
 "Tray-Symbole werden auf einigen Plattformen nicht unterstützt, vor allem "
 "nicht auf Wayland. Auf der GNOME-Shell 3.26+ auf Xorg funktionieren Tray-"
-"Symbole nur, wenn Sie die <a href=\""
-"https://extensions.gnome.org/extension/495/topicons/\""
-">„TopIcons”-Erweiterung</a> (oder eine ähnliche) installiert haben. "
+"Symbole nur, wenn Sie die <a href=\"https://extensions.gnome.org/"
+"extension/495/topicons/\">„TopIcons”-Erweiterung</a> (oder eine ähnliche) "
+"installiert haben. "
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -3210,7 +3210,8 @@ msgstr "IPython-Konsole"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:39
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr "Opazität kann wegen eines Gtk+-Fehlers unter Windows nicht verwendet werden"
+msgstr ""
+"Opazität kann wegen eines Gtk+-Fehlers unter Windows nicht verwendet werden"
 
 #: ../plugins/jamendo/__init__.py:95 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3435,17 +3436,17 @@ msgstr "{current} / {remaining}"
 msgid "Multi-Alarm Clock"
 msgstr "Multi-Weckuhr"
 
-#: ../plugins/notify/__init__.py:47
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr "aus {album} von {artist}"
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:49
 #, python-brace-format
 msgid "by {artist}"
 msgstr "von {artist}"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:50
 #, python-brace-format
 msgid "by {album}"
 msgstr "vom {album}"
@@ -4930,6 +4931,12 @@ msgstr ""
 "modernen Tastaturen) bei Nutzung von Exaile unter Windows.\n"
 "\n"
 "Benötigt: pyHook (%s) oder Tastatur (%s)"
+
+#~ msgid "page0"
+#~ msgstr "page0"
+
+#~ msgid "page1"
+#~ msgstr "page1"
 
 #~ msgid "Failed to migrate from 0.2.14"
 #~ msgstr "Migration von 0.2.14 fehlgeschlagen"

@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-16 13:21+1000\n"
+"POT-Creation-Date: 2018-02-19 11:36+1000\n"
 "PO-Revision-Date: 2018-02-12 03:19+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
-"Language-Team: Catalan "
-"<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
+">\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,11 +19,11 @@ msgstr ""
 "X-Generator: Weblate 2.19-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
-#: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Etiquetes"
 
-#: ../xl/covers.py:507
+#: ../xl/covers.py:525
 msgid "Local file"
 msgstr "Fitxer local"
 
@@ -97,7 +97,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:397 ../xl/trax/track.py:68
+#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -114,298 +114,298 @@ msgstr "Avui"
 msgid "Yesterday"
 msgstr "Ahir"
 
-#: ../xl/lyrics.py:349
+#: ../xl/lyrics.py:360
 msgid "Local"
 msgstr "Local"
 
-#: ../xl/main.py:80
+#: ../xl/main.py:81
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Ús: exaile [OPCIÓ]... [UBICACIÓ...]"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:82
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:89
+#: ../xl/main.py:90
 msgid "Playback Options"
 msgstr "Opcions de la reproducció"
 
-#: ../xl/main.py:91
+#: ../xl/main.py:92
 msgid "Play the next track"
 msgstr "Reprodueix la pista següent"
 
-#: ../xl/main.py:93
+#: ../xl/main.py:94
 msgid "Play the previous track"
 msgstr "Reprodueix la pista anterior"
 
-#: ../xl/main.py:95 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:366
 msgid "Stop playback"
 msgstr "Atura la reproducció"
 
-#: ../xl/main.py:97
+#: ../xl/main.py:98
 msgid "Play"
 msgstr "Reprodueix"
 
-#: ../xl/main.py:99 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Fes una pausa"
 
-#: ../xl/main.py:101
+#: ../xl/main.py:102
 msgid "Pause or resume playback"
 msgstr "Fes una pausa o reprèn la reproducció"
 
-#: ../xl/main.py:104 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
 msgid "Stop playback after current track"
 msgstr "Atura la reproducció després de la pista actual"
 
-#: ../xl/main.py:106
+#: ../xl/main.py:107
 msgid "Collection Options"
 msgstr "Opcions de la col·lecció"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:109 ../xl/main.py:115
+#: ../xl/main.py:110 ../xl/main.py:116
 msgid "LOCATION"
 msgstr "UBICACIÓ"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:111
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Afegeix les pistes de la UBICACIÓ a la col·lecció"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:113
 msgid "Playlist Options"
 msgstr "Opcions de la llista de reproducció"
 
-#: ../xl/main.py:116
+#: ../xl/main.py:117
 msgid "Export the current playlist to LOCATION"
 msgstr "Exporta la llista de reproducció actual a la UBICACIÓ"
 
-#: ../xl/main.py:118
+#: ../xl/main.py:119
 msgid "Track Options"
 msgstr "Opcions de la pista"
 
-#: ../xl/main.py:120
+#: ../xl/main.py:121
 msgid "Query player"
 msgstr "Consulta al reproductor"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:123
+#: ../xl/main.py:124
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:124
+#: ../xl/main.py:125
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Recupera l'estat de la llista de reproducció actual i la informació de la "
 "pista amb el FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:127
+#: ../xl/main.py:128
 msgid "TAGS"
 msgstr "ETIQUETES"
 
-#: ../xl/main.py:128
+#: ../xl/main.py:129
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 "Les etiquetes a obtenir des de la pista actual, utilitzeu-ho amb --format-"
 "query"
 
-#: ../xl/main.py:130
+#: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
 msgstr "Mostra una finestra emergent amb les dades de la pista actual"
 
-#: ../xl/main.py:132
+#: ../xl/main.py:133
 msgid "Print the title of current track"
 msgstr "Mostra el títol de la pista actual"
 
-#: ../xl/main.py:134
+#: ../xl/main.py:135
 msgid "Print the album of current track"
 msgstr "Mostra l'àlbum de la pista actual"
 
-#: ../xl/main.py:136
+#: ../xl/main.py:137
 msgid "Print the artist of current track"
 msgstr "Mostra l'artista de la pista actual"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:139
 msgid "Print the length of current track"
 msgstr "Mostra la durada de la pista actual"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:141 ../xl/main.py:155 ../xl/main.py:159
+#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:142
+#: ../xl/main.py:143
 msgid "Set rating for current track to N%"
 msgstr "Estableix la puntuació de la pista actual a N%"
 
-#: ../xl/main.py:144
+#: ../xl/main.py:145
 msgid "Get rating for current track"
 msgstr "Obté la puntuació per a la pista actual"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:148
 msgid "Print the current playback position as time"
 msgstr "Imprimeix la posició de reproducció actual com a temps"
 
-#: ../xl/main.py:150
+#: ../xl/main.py:151
 msgid "Print the current playback progress as percentage"
 msgstr "Imprimeix el progrés de reproducció actual com a percentatge"
 
-#: ../xl/main.py:152
+#: ../xl/main.py:153
 msgid "Volume Options"
 msgstr "Opcions del volum"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:157
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Incrementa el volum amb N%"
 
-#: ../xl/main.py:160
+#: ../xl/main.py:161
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Redueix el volum amb N%"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:164
 msgid "Mute or unmute the volume"
 msgstr "Silencia o treu el silenci del volum"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:166
 msgid "Print the current volume percentage"
 msgstr "Imprimeix el percentatge del volum actual"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:168
 msgid "Other Options"
 msgstr "Altres opcions"
 
-#: ../xl/main.py:169
+#: ../xl/main.py:170
 msgid "Start new instance"
 msgstr "Inicia una instància nova"
 
-#: ../xl/main.py:171
+#: ../xl/main.py:172
 msgid "Show this help message and exit"
 msgstr "Mostra aquest missatge d'ajuda i surt"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:174
 msgid "Show program's version number and exit."
 msgstr "Mostra el número de versió del programa i surt."
 
-#: ../xl/main.py:176
+#: ../xl/main.py:177
 msgid "Start minimized (to tray, if possible)"
 msgstr "Iniciar minimitzat (a la safata, si és possible)"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:180
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Alterna la visibilitat de la IGU (si es pot)"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:182
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Inicia en mode segur: de vegades és útil si us trobeu amb problemes"
 
-#: ../xl/main.py:184
+#: ../xl/main.py:185
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Força la importació de dades antigues de la versió 0.2.x (sobreescriu les "
 "dades actuals)"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:188
 msgid "Do not import old data from version 0.2.x"
 msgstr "No importis les dades antigues de la versió 0.2.x"
 
-#: ../xl/main.py:190
+#: ../xl/main.py:191
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Fa opcions de control com ara --play, inicia Exaile si no s'està executant"
 
-#: ../xl/main.py:193
+#: ../xl/main.py:194
 msgid "Development/Debug Options"
 msgstr "Opcions de desenvolupament i depuració"
 
-#: ../xl/main.py:195 ../xl/main.py:197
+#: ../xl/main.py:196 ../xl/main.py:198
 msgid "DIRECTORY"
 msgstr "DIRECTORI"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:196
 msgid "Set data directory"
 msgstr "Estableix el directori de dades"
 
-#: ../xl/main.py:197
+#: ../xl/main.py:198
 msgid "Set data and config directory"
 msgstr "Estableix el directori de les dades i de la configuració"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "MODULE"
 msgstr "MÒDUL"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "Limit log output to MODULE"
 msgstr "Limita la sortida del registre al MÒDUL"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "LEVEL"
 msgstr "NIVELL"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "Limit log output to LEVEL"
 msgstr "Limita la sortida del registre al NIVELL"
 
-#: ../xl/main.py:204
+#: ../xl/main.py:205
 msgid "Show debugging output"
 msgstr "Mostra la sortida de depuració"
 
-#: ../xl/main.py:206
+#: ../xl/main.py:207
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Habilita la depuració de xl.event. Això generarà moltes sortides"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:210
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 "Habilita la depuració completa de xl.event. Això generarà MOLTES sortides"
 
-#: ../xl/main.py:212
+#: ../xl/main.py:213
 msgid "Add thread name to logging messages."
 msgstr "Afegeix el nom del fil d'execució per enregistrar els missatges."
 
-#: ../xl/main.py:214
+#: ../xl/main.py:215
 msgid "TYPE"
 msgstr "TIPUS"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:216
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Limita la depuració de xl.event a la sortida del TIPUS"
 
-#: ../xl/main.py:217
+#: ../xl/main.py:218
 msgid "Reduce level of output"
 msgstr "Redueix el nivell de sortida"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:222
 msgid "Disable D-Bus support"
 msgstr "Inhabilita la compatibilitat amb D-Bus"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:224
 msgid "Disable HAL support."
 msgstr "Inhabilita la compatibilitat amb HAL."
 
-#: ../xl/main.py:561
+#: ../xl/main.py:563
 msgid "Entire Library"
 msgstr "Tota la biblioteca"
 
-#: ../xl/main.py:567
+#: ../xl/main.py:569
 #, python-format
 msgid "Random %d"
 msgstr "%d aleatoris"
 
-#: ../xl/main.py:575
+#: ../xl/main.py:577
 #, python-format
 msgid "Rating > %d"
 msgstr "Puntuació > %d"
 
-#: ../xl/main.py:734
+#: ../xl/main.py:736
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -458,7 +458,7 @@ msgstr "Compositor"
 msgid "Conductor"
 msgstr "Director"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:837
+#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
 msgid "Cover"
 msgstr "Coberta"
 
@@ -808,11 +808,11 @@ msgstr ""
 "estat: %(status)s, títol: %(title)s, artista: %(artist)s, àlbum: %(album)s, "
 "llargada: %(length)s, posició: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:312
+#: ../xlgui/__init__.py:305
 msgid "Scanning collection..."
 msgstr "S'està explorant la col·lecció..."
 
-#: ../xlgui/__init__.py:379
+#: ../xlgui/__init__.py:372
 #, python-format
 msgid "Scanning %s..."
 msgstr "S'està explorant %s..."
@@ -846,37 +846,37 @@ msgstr "S'han capturat totes les cobertes"
 msgid "Collecting albums and covers..."
 msgstr "S'estan recollint els àlbums i les cobertes..."
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:520
 msgid "Show Cover"
 msgstr "Mostra la coberta"
 
-#: ../xlgui/cover.py:523
+#: ../xlgui/cover.py:521
 msgid "Fetch Cover"
 msgstr "Captura la coberta"
 
-#: ../xlgui/cover.py:524
+#: ../xlgui/cover.py:522
 msgid "Remove Cover"
 msgstr "Suprimeix la coberta"
 
-#: ../xlgui/cover.py:835
+#: ../xlgui/cover.py:831
 #, python-format
 msgid "Cover for %s"
 msgstr "Coberta per %s"
 
-#: ../xlgui/cover.py:941
+#: ../xlgui/cover.py:937
 msgid "Save File"
 msgstr "Desa el fitxer"
 
-#: ../xlgui/cover.py:1037
+#: ../xlgui/cover.py:1033
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Opcions de la coberta per %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1127
 msgid "No covers found."
 msgstr "No s'ha trobat cap coberta."
 
-#: ../xlgui/cover.py:1132
+#: ../xlgui/cover.py:1128
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -885,7 +885,7 @@ msgstr ""
 "l'habilitació de més orígens."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
+#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} píxels"
@@ -993,8 +993,10 @@ msgid "Focus the seventh tab"
 msgstr ""
 
 #: ../xlgui/main.py:207
-msgid "Focus the eight tab"
-msgstr ""
+#, fuzzy
+#| msgid "Defaults to the playlist name"
+msgid "Focus the eighth tab"
+msgstr "Valors per defecte al nom de la llista de reproducció"
 
 #: ../xlgui/main.py:208
 msgid "Focus the ninth tab"
@@ -1191,21 +1193,22 @@ msgstr "Torna a explorar la col·lecció"
 msgid "Transferring to %s..."
 msgstr "S'està transferint a %s..."
 
-#: ../xlgui/panel/files.py:80
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "Fitxers"
 
-#: ../xlgui/panel/files.py:119 ../xlgui/widgets/playlist_columns.py:310
+#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
 #: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
 msgid "Filename"
 msgstr "Nom del fitxer"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:143
+#: ../xlgui/panel/files.py:144
 msgid "Size"
 msgstr "Mida"
 
-#: ../xlgui/panel/files.py:435
+#. TRANSLATORS: File size (1 kB = 1000 bytes)
+#: ../xlgui/panel/files.py:414
 #, python-format
 msgid "%s kB"
 msgstr "%s kB"
@@ -1282,11 +1285,11 @@ msgstr "%(first)s i %(second)s"
 msgid "Playlists"
 msgstr "Llistes de reproducció"
 
-#: ../xlgui/panel/playlists.py:489
+#: ../xlgui/panel/playlists.py:502
 msgid "Smart Playlists"
 msgstr "Llistes de reproducció intel·ligents"
 
-#: ../xlgui/panel/playlists.py:492
+#: ../xlgui/panel/playlists.py:505
 msgid "Custom Playlists"
 msgstr "Llistes de reproducció personalitzades"
 
@@ -1294,42 +1297,42 @@ msgstr "Llistes de reproducció personalitzades"
 msgid "Radio"
 msgstr "Ràdio"
 
-#: ../xlgui/panel/radio.py:135 ../xlgui/panel/radio.py:481
-#: ../xlgui/panel/radio.py:558
+#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
+#: ../xlgui/panel/radio.py:552
 msgid "Loading streams..."
 msgstr "S'estan carregant els fluxos de dades..."
 
-#: ../xlgui/panel/radio.py:186
+#: ../xlgui/panel/radio.py:207
 msgid "Add Radio Station"
 msgstr "Afegeix una emissora de ràdio"
 
-#: ../xlgui/panel/radio.py:188 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Nom:"
 
-#: ../xlgui/panel/radio.py:189 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:261
+#: ../xlgui/panel/radio.py:282
 msgid "Saved Stations"
 msgstr "Emissores desades"
 
-#: ../xlgui/panel/radio.py:262
+#: ../xlgui/panel/radio.py:283
 msgid "Radio Streams"
 msgstr "Fluxos de dades de ràdio"
 
-#: ../xlgui/panel/radio.py:292 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Refresca"
 
-#: ../xlgui/panel/radio.py:423
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr ""
 "Introduïu el nom que vulgueu per a la vostra llista de reproducció nova"
 
-#: ../xlgui/panel/radio.py:424 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "Llista de reproducció nova"
 
@@ -1514,56 +1517,57 @@ msgstr "Voleu aplicar els canvis abans de tancar?"
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Els vostres canvis es perdran si no els apliqueu ara."
 
-#: ../xlgui/properties.py:633
+#. TRANSLATORS: Label for a tag on the Track Properties dialog
+#: ../xlgui/properties.py:634
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:863
+#: ../xlgui/properties.py:864
 msgid "of:"
 msgstr "de:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:967
 msgid "JPEG image"
 msgstr "Imatge JPEG"
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "PNG image"
 msgstr "Imatge PNG"
 
-#: ../xlgui/properties.py:977
+#: ../xlgui/properties.py:978
 msgid "Image"
 msgstr "Imatge"
 
-#: ../xlgui/properties.py:984
+#: ../xlgui/properties.py:985
 msgid "Linked image"
 msgstr "Imatge enllaçada"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1112
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} píxels)"
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1126
 msgid "Select image to set as cover"
 msgstr "Selecciona la imatge a establir com a coberta"
 
-#: ../xlgui/properties.py:1134
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "Formats admesos de les imatges"
 
-#: ../xlgui/properties.py:1212
+#: ../xlgui/properties.py:1213
 msgid "Open Directory"
 msgstr "Obre la carpeta"
 
-#: ../xlgui/properties.py:1262
+#: ../xlgui/properties.py:1263
 msgid "Apply current value to all tracks"
 msgstr "Aplica el valor actual a totes les pistes"
 
-#: ../xlgui/properties.py:1283 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "S'han emmagatzemat %(count)s de %(total)s."
@@ -2152,7 +2156,7 @@ msgstr "Quant a Exaile"
 msgid "© 2009-2017 Various Contributors"
 msgstr ""
 
-#. TRANSLATORS: Add your own name here
+#. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
@@ -2180,21 +2184,11 @@ msgstr "Torna a explorar la col·lecció"
 msgid "Cover Finder"
 msgstr "Cercador de Cobertes"
 
-#: ../data/ui/coverchooser.ui:52 ../data/ui/panel/collection.ui:60
-#: ../data/ui/panel/lyrics.ui:39
-msgid "page0"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:119
+#: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
 msgstr "L'origen d'aquesta coberta"
 
-#: ../data/ui/coverchooser.ui:133 ../data/ui/panel/collection.ui:149
-#: ../data/ui/panel/lyrics.ui:49
-msgid "page1"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:169
+#: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
 msgstr "E_stableix com a coberta"
 
@@ -2311,7 +2305,7 @@ msgstr "Afegeix música"
 msgid "<b>Collection is empty.</b>"
 msgstr "<b>La col·lecció està buida.</b>"
 
-#: ../data/ui/panel/collection.ui:100
+#: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
@@ -2320,7 +2314,7 @@ msgstr ""
 "(Mantingueu premuda la tecla de majúscules per tornar a explorar la "
 "col·lecció)"
 
-#: ../data/ui/panel/collection.ui:134 ../data/ui/panel/files.ui:169
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:169
 msgid "Clear search field"
 msgstr "Neteja el camp de cerca"
 
@@ -2462,10 +2456,10 @@ msgstr "Mostra la pantalla de càrrega amb la inicialització"
 
 #: ../data/ui/preferences/appearance.ui:309
 msgid ""
-"Tray icons are not supported on some platforms, most notably on wayland. On "
-"GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a href="
+"Tray icons are not supported on some platforms, most notably on Wayland. On "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
-"extension</a> (or a similar one) installed. "
+"extension</a> (or a similar one) installed."
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
@@ -3623,18 +3617,18 @@ msgstr ""
 msgid "Multi-Alarm Clock"
 msgstr "Rellotge d'alarmes múltiples"
 
-#: ../plugins/notify/__init__.py:47
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr ""
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:49
 #, fuzzy, python-brace-format
 #| msgid "by %(artist)s"
 msgid "by {artist}"
 msgstr "per %(artist)s"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:50
 #, fuzzy, python-brace-format
 #| msgid "Only album:"
 msgid "by {album}"

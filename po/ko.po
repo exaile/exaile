@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-16 13:21+1000\n"
+"POT-Creation-Date: 2018-02-19 11:36+1000\n"
 "PO-Revision-Date: 2014-11-26 02:14+0200\n"
 "Last-Translator: 권 조 <chobkwon@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/exaile/master/ko/"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
-#: ../xl/covers.py:467 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "태그"
 
-#: ../xl/covers.py:507
+#: ../xl/covers.py:525
 msgid "Local file"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:397 ../xl/trax/track.py:68
+#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
 msgid "Unknown"
 msgstr "알 수 없음"
 
@@ -111,307 +111,307 @@ msgstr "오늘"
 msgid "Yesterday"
 msgstr "어제"
 
-#: ../xl/lyrics.py:349
+#: ../xl/lyrics.py:360
 msgid "Local"
 msgstr "로컬"
 
-#: ../xl/main.py:80
+#: ../xl/main.py:81
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "사용법"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:82
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:89
+#: ../xl/main.py:90
 msgid "Playback Options"
 msgstr "재생 속성"
 
-#: ../xl/main.py:91
+#: ../xl/main.py:92
 msgid "Play the next track"
 msgstr "다음 트랙 재생"
 
-#: ../xl/main.py:93
+#: ../xl/main.py:94
 msgid "Play the previous track"
 msgstr "이전 트랙 재생"
 
-#: ../xl/main.py:95 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:366
 msgid "Stop playback"
 msgstr "재생 중지"
 
-#: ../xl/main.py:97
+#: ../xl/main.py:98
 msgid "Play"
 msgstr "재생"
 
-#: ../xl/main.py:99 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "일시정지"
 
-#: ../xl/main.py:101
+#: ../xl/main.py:102
 msgid "Pause or resume playback"
 msgstr "일시정지 혹은 재생 계속"
 
-#: ../xl/main.py:104 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
 msgid "Stop playback after current track"
 msgstr "현재 트랙을 재생한 후 중지"
 
-#: ../xl/main.py:106
+#: ../xl/main.py:107
 msgid "Collection Options"
 msgstr "모음집 설정"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:109 ../xl/main.py:115
+#: ../xl/main.py:110 ../xl/main.py:116
 msgid "LOCATION"
 msgstr "파일 위치"
 
-#: ../xl/main.py:110
+#: ../xl/main.py:111
 msgid "Add tracks from LOCATION to the collection"
 msgstr "특정 위치에 있는 트랙을 모음집에 추가"
 
-#: ../xl/main.py:112
+#: ../xl/main.py:113
 msgid "Playlist Options"
 msgstr "재생목록 옵션"
 
-#: ../xl/main.py:116
+#: ../xl/main.py:117
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "현재 재생목록을  LOCATION으로 내보내기"
 
-#: ../xl/main.py:118
+#: ../xl/main.py:119
 msgid "Track Options"
 msgstr "트랙 옵션"
 
-#: ../xl/main.py:120
+#: ../xl/main.py:121
 msgid "Query player"
 msgstr "플레이어 확인"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:123
+#: ../xl/main.py:124
 msgid "FORMAT"
 msgstr "형식"
 
-#: ../xl/main.py:124
+#: ../xl/main.py:125
 #, fuzzy
 #| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "현재 재생 상태 및 트랙 정보를  FORMAT으로 검색 합니다."
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:127
+#: ../xl/main.py:128
 msgid "TAGS"
 msgstr "태그"
 
-#: ../xl/main.py:128
+#: ../xl/main.py:129
 #, fuzzy
 #| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr "현재 트랙에서 검색, 형식-쿼리-사용 태그"
 
-#: ../xl/main.py:130
+#: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
 msgstr "현재 트랙 데이터를 팝업으로 보기"
 
-#: ../xl/main.py:132
+#: ../xl/main.py:133
 msgid "Print the title of current track"
 msgstr "현재 트랙의 타이틀을  출력"
 
-#: ../xl/main.py:134
+#: ../xl/main.py:135
 msgid "Print the album of current track"
 msgstr "현재 트랙의 앨범을 출력"
 
-#: ../xl/main.py:136
+#: ../xl/main.py:137
 msgid "Print the artist of current track"
 msgstr "현재 트랙의 아티스트를 출력"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:139
 msgid "Print the length of current track"
 msgstr "현재 트랙의 길이를 출력"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:141 ../xl/main.py:155 ../xl/main.py:159
+#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:142
+#: ../xl/main.py:143
 msgid "Set rating for current track to N%"
 msgstr "현재 트랙의 선호도를 N%로 설정"
 
-#: ../xl/main.py:144
+#: ../xl/main.py:145
 msgid "Get rating for current track"
 msgstr "현재 트랙의 평가를 시작"
 
-#: ../xl/main.py:147
+#: ../xl/main.py:148
 msgid "Print the current playback position as time"
 msgstr "현재 재생 위치를 시간으로 출력"
 
-#: ../xl/main.py:150
+#: ../xl/main.py:151
 msgid "Print the current playback progress as percentage"
 msgstr "현재 재생 진행을 비율로 출력"
 
-#: ../xl/main.py:152
+#: ../xl/main.py:153
 msgid "Volume Options"
 msgstr "볼륨 속성"
 
-#: ../xl/main.py:156
+#: ../xl/main.py:157
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "N%까지 볼륨 증가"
 
-#: ../xl/main.py:160
+#: ../xl/main.py:161
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "N%까지 소리크기를 줄임"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:164
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "음소거나 음소거 해제"
 
-#: ../xl/main.py:165
+#: ../xl/main.py:166
 msgid "Print the current volume percentage"
 msgstr "현재 볼륨 비율 출력"
 
-#: ../xl/main.py:167
+#: ../xl/main.py:168
 msgid "Other Options"
 msgstr "다른 속성"
 
-#: ../xl/main.py:169
+#: ../xl/main.py:170
 msgid "Start new instance"
 msgstr "새로운 인스턴스 시작"
 
-#: ../xl/main.py:171
+#: ../xl/main.py:172
 msgid "Show this help message and exit"
 msgstr "이 도움말 메시지 표시하고 마침"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:174
 msgid "Show program's version number and exit."
 msgstr "프로그램 버전 번호 보이고 마침."
 
-#: ../xl/main.py:176
+#: ../xl/main.py:177
 msgid "Start minimized (to tray, if possible)"
 msgstr "최소화 상태로(가능하다면 트레이로) 시작"
 
-#: ../xl/main.py:179
+#: ../xl/main.py:180
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "GUI의 가시성을 토글(가능한 경우에)"
 
-#: ../xl/main.py:181
+#: ../xl/main.py:182
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "안전모드에서 시작 - 문제가 있을 때 유용합니다"
 
-#: ../xl/main.py:184
+#: ../xl/main.py:185
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr "버전 0.2.x의 예전 데이터를 강제로 가져오기 ( 현재 데이터를 덮어 씀)"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:188
 msgid "Do not import old data from version 0.2.x"
 msgstr "버전 0.2.x의 예전 데이터라 가져올 수  없습니다"
 
-#: ../xl/main.py:190
+#: ../xl/main.py:191
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
-#: ../xl/main.py:193
+#: ../xl/main.py:194
 msgid "Development/Debug Options"
 msgstr "개발/디버그 속성"
 
-#: ../xl/main.py:195 ../xl/main.py:197
+#: ../xl/main.py:196 ../xl/main.py:198
 msgid "DIRECTORY"
 msgstr "<디렉토리>"
 
-#: ../xl/main.py:195
+#: ../xl/main.py:196
 msgid "Set data directory"
 msgstr "데이터 디렉터리 설정"
 
-#: ../xl/main.py:197
+#: ../xl/main.py:198
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "MODULE"
 msgstr "<모듈>"
 
-#: ../xl/main.py:199
+#: ../xl/main.py:200
 msgid "Limit log output to MODULE"
 msgstr ""
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "LEVEL"
 msgstr "수준"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:202
 msgid "Limit log output to LEVEL"
 msgstr ""
 
-#: ../xl/main.py:204
+#: ../xl/main.py:205
 msgid "Show debugging output"
 msgstr "디버깅 출력 보기"
 
-#: ../xl/main.py:206
+#: ../xl/main.py:207
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "xl.event. 디버깅 활성화 하기. 많은 아웃풋을 생성"
 
-#: ../xl/main.py:209
+#: ../xl/main.py:210
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "xl.event. 디버깅 활성화 하기. 많은 아웃풋을 생성"
 
-#: ../xl/main.py:212
+#: ../xl/main.py:213
 msgid "Add thread name to logging messages."
 msgstr "로깅 메시지에 스레드 이름 추가"
 
-#: ../xl/main.py:214
+#: ../xl/main.py:215
 msgid "TYPE"
 msgstr ""
 
-#: ../xl/main.py:215
+#: ../xl/main.py:216
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:217
+#: ../xl/main.py:218
 msgid "Reduce level of output"
 msgstr "출력 레벨 감소"
 
-#: ../xl/main.py:221
+#: ../xl/main.py:222
 msgid "Disable D-Bus support"
 msgstr "D-bus 지원을 비활성화"
 
-#: ../xl/main.py:223
+#: ../xl/main.py:224
 msgid "Disable HAL support."
 msgstr "HAL 지원을 비활성화."
 
-#: ../xl/main.py:561
+#: ../xl/main.py:563
 msgid "Entire Library"
 msgstr "전체 라이브러리"
 
-#: ../xl/main.py:567
+#: ../xl/main.py:569
 #, python-format
 msgid "Random %d"
 msgstr "랜덤 %d"
 
-#: ../xl/main.py:575
+#: ../xl/main.py:577
 #, python-format
 msgid "Rating > %d"
 msgstr "등급 > %d"
 
-#: ../xl/main.py:734
+#: ../xl/main.py:736
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -462,7 +462,7 @@ msgstr "작곡가"
 msgid "Conductor"
 msgstr "지휘자"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:837
+#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
 msgid "Cover"
 msgstr "커버"
 
@@ -812,11 +812,11 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xlgui/__init__.py:312
+#: ../xlgui/__init__.py:305
 msgid "Scanning collection..."
 msgstr "컬렉션 검색중..."
 
-#: ../xlgui/__init__.py:379
+#: ../xlgui/__init__.py:372
 #, python-format
 msgid "Scanning %s..."
 msgstr "검사 중  %s..."
@@ -849,44 +849,44 @@ msgstr ""
 msgid "Collecting albums and covers..."
 msgstr ""
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:520
 msgid "Show Cover"
 msgstr "표지 보기"
 
-#: ../xlgui/cover.py:523
+#: ../xlgui/cover.py:521
 msgid "Fetch Cover"
 msgstr "표지 가져오기"
 
-#: ../xlgui/cover.py:524
+#: ../xlgui/cover.py:522
 msgid "Remove Cover"
 msgstr "표지 제거"
 
-#: ../xlgui/cover.py:835
+#: ../xlgui/cover.py:831
 #, python-format
 msgid "Cover for %s"
 msgstr "%s의 앨범 커버"
 
-#: ../xlgui/cover.py:941
+#: ../xlgui/cover.py:937
 msgid "Save File"
 msgstr ""
 
-#: ../xlgui/cover.py:1037
+#: ../xlgui/cover.py:1033
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "%(artist)s - %(album)s 위한 표지 속성"
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1127
 msgid "No covers found."
 msgstr "앨범 커버를 못찾았습니다."
 
-#: ../xlgui/cover.py:1132
+#: ../xlgui/cover.py:1128
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1173 ../xlgui/properties.py:1109
+#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
@@ -996,7 +996,7 @@ msgid "Focus the seventh tab"
 msgstr ""
 
 #: ../xlgui/main.py:207
-msgid "Focus the eight tab"
+msgid "Focus the eighth tab"
 msgstr ""
 
 #: ../xlgui/main.py:208
@@ -1193,21 +1193,22 @@ msgstr "컬렉션 다시 읽어들이기"
 msgid "Transferring to %s..."
 msgstr "%s(으)로 전송중..."
 
-#: ../xlgui/panel/files.py:80
+#: ../xlgui/panel/files.py:81
 msgid "Files"
 msgstr "파일"
 
-#: ../xlgui/panel/files.py:119 ../xlgui/widgets/playlist_columns.py:310
+#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
 #: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
 msgid "Filename"
 msgstr "파일 이름"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:143
+#: ../xlgui/panel/files.py:144
 msgid "Size"
 msgstr "크기"
 
-#: ../xlgui/panel/files.py:435
+#. TRANSLATORS: File size (1 kB = 1000 bytes)
+#: ../xlgui/panel/files.py:414
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1284,11 +1285,11 @@ msgstr ""
 msgid "Playlists"
 msgstr "재생목록"
 
-#: ../xlgui/panel/playlists.py:489
+#: ../xlgui/panel/playlists.py:502
 msgid "Smart Playlists"
 msgstr "스마트 재생목록"
 
-#: ../xlgui/panel/playlists.py:492
+#: ../xlgui/panel/playlists.py:505
 msgid "Custom Playlists"
 msgstr "사용자 지정 재생목록"
 
@@ -1296,41 +1297,41 @@ msgstr "사용자 지정 재생목록"
 msgid "Radio"
 msgstr "라디오"
 
-#: ../xlgui/panel/radio.py:135 ../xlgui/panel/radio.py:481
-#: ../xlgui/panel/radio.py:558
+#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
+#: ../xlgui/panel/radio.py:552
 msgid "Loading streams..."
 msgstr "스트림 읽는중..."
 
-#: ../xlgui/panel/radio.py:186
+#: ../xlgui/panel/radio.py:207
 msgid "Add Radio Station"
 msgstr "라디오 방송국 추가"
 
-#: ../xlgui/panel/radio.py:188 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "이름:"
 
-#: ../xlgui/panel/radio.py:189 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "주소:"
 
-#: ../xlgui/panel/radio.py:261
+#: ../xlgui/panel/radio.py:282
 msgid "Saved Stations"
 msgstr "저장된 방송국"
 
-#: ../xlgui/panel/radio.py:262
+#: ../xlgui/panel/radio.py:283
 msgid "Radio Streams"
 msgstr "라디오 스트림"
 
-#: ../xlgui/panel/radio.py:292 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../xlgui/panel/radio.py:423
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr "원하는 새 재생목록의 이름을 입력하세요"
 
-#: ../xlgui/panel/radio.py:424 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "새 재생목록"
 
@@ -1507,56 +1508,57 @@ msgstr ""
 msgid "Your changes will be lost if you do not apply them now."
 msgstr ""
 
-#: ../xlgui/properties.py:633
+#. TRANSLATORS: Label for a tag on the Track Properties dialog
+#: ../xlgui/properties.py:634
 #, python-format
 msgid "%s:"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:863
+#: ../xlgui/properties.py:864
 msgid "of:"
 msgstr "중:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:967
 msgid "JPEG image"
 msgstr ""
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "PNG image"
 msgstr ""
 
-#: ../xlgui/properties.py:977
+#: ../xlgui/properties.py:978
 msgid "Image"
 msgstr ""
 
-#: ../xlgui/properties.py:984
+#: ../xlgui/properties.py:985
 msgid "Linked image"
 msgstr "링크된 이미지"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1112
+#: ../xlgui/properties.py:1113
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../xlgui/properties.py:1125
+#: ../xlgui/properties.py:1126
 msgid "Select image to set as cover"
 msgstr ""
 
-#: ../xlgui/properties.py:1134
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "지원되는 이미지 형식"
 
-#: ../xlgui/properties.py:1212
+#: ../xlgui/properties.py:1213
 msgid "Open Directory"
 msgstr "폴더 열기"
 
-#: ../xlgui/properties.py:1262
+#: ../xlgui/properties.py:1263
 msgid "Apply current value to all tracks"
 msgstr "모든 트랙에 현재 값을 적용"
 
-#: ../xlgui/properties.py:1283 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "저장된 %(count)s of %(total)s."
@@ -2134,7 +2136,7 @@ msgstr "Exaile 정보"
 msgid "© 2009-2017 Various Contributors"
 msgstr ""
 
-#. TRANSLATORS: Add your own name here
+#. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
@@ -2162,21 +2164,11 @@ msgstr "컬렉션 다시 읽어들이기"
 msgid "Cover Finder"
 msgstr "표지 검색기"
 
-#: ../data/ui/coverchooser.ui:52 ../data/ui/panel/collection.ui:60
-#: ../data/ui/panel/lyrics.ui:39
-msgid "page0"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:119
+#: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
 msgstr ""
 
-#: ../data/ui/coverchooser.ui:133 ../data/ui/panel/collection.ui:149
-#: ../data/ui/panel/lyrics.ui:49
-msgid "page1"
-msgstr ""
-
-#: ../data/ui/coverchooser.ui:169
+#: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
 msgstr "커버 셋(_S)"
 
@@ -2293,13 +2285,13 @@ msgstr "음악 추가"
 msgid "<b>Collection is empty.</b>"
 msgstr "<b>컬렉션이 비었습니다.</b>"
 
-#: ../data/ui/panel/collection.ui:100
+#: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
 
-#: ../data/ui/panel/collection.ui:134 ../data/ui/panel/files.ui:169
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:169
 msgid "Clear search field"
 msgstr ""
 
@@ -2437,10 +2429,10 @@ msgstr "시작시 스플래시 화면 보기"
 
 #: ../data/ui/preferences/appearance.ui:309
 msgid ""
-"Tray icons are not supported on some platforms, most notably on wayland. On "
-"GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a href="
+"Tray icons are not supported on some platforms, most notably on Wayland. On "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
-"extension</a> (or a similar one) installed. "
+"extension</a> (or a similar one) installed."
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
@@ -3556,18 +3548,18 @@ msgstr ""
 msgid "Multi-Alarm Clock"
 msgstr "멀티-알림 시계"
 
-#: ../plugins/notify/__init__.py:47
+#: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
 msgstr ""
 
-#: ../plugins/notify/__init__.py:48
+#: ../plugins/notify/__init__.py:49
 #, fuzzy, python-brace-format
 #| msgid "by %(artist)s"
 msgid "by {artist}"
 msgstr "%(artist)s"
 
-#: ../plugins/notify/__init__.py:49
+#: ../plugins/notify/__init__.py:50
 #, fuzzy, python-brace-format
 #| msgid "Only album:"
 msgid "by {album}"

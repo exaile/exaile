@@ -1173,6 +1173,28 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             else:
                 for i in indexes[::-1]:
                     del self.playlist[i]
+        
+        # TODO: localization?
+        # -> Also, would be good to expose these shortcuts somehow to the user...
+        #    it seems that Gtk.BindingSet is the way to do it, but there isn't a
+        #    mechanism to enumerate it in python
+        elif event.keyval == Gdk.KEY_q:
+            if self.playlist is not self.player.queue:
+                self.player.queue.extend(self.get_selected_tracks())
+        
+        elif event.keyval == Gdk.KEY_Up and event.state & Gdk.ModifierType.MOD1_MASK:
+            indexes = [x[0] for x in self.get_selected_paths()]
+            if len(indexes) == 1 and indexes[0] != 0:
+                idx = indexes[0]
+                track = self.playlist.pop(idx)
+                self.playlist[idx-1:idx-1] = [track]
+                
+        elif event.keyval == Gdk.KEY_Down and event.state & Gdk.ModifierType.MOD1_MASK:
+            indexes = [x[0] for x in self.get_selected_paths()]
+            if len(indexes) == 1 and indexes[0] != len(self.playlist) - 1:
+                idx = indexes[0]
+                track = self.playlist.pop(idx)
+                self.playlist[idx+1:idx+1] = [track]
 
     def on_header_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_Menu:
@@ -1547,7 +1569,7 @@ class PlaylistModel(Gtk.ListStore):
         
         playlist = self.playlist
         
-        spatpos = playlist.spat_position 
+        spatpos = playlist.spat_position
         spat = (spatpos == rowidx)
         
         if spat:

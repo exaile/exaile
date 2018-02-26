@@ -129,7 +129,7 @@ class ExaileGstEngine(ExaileEngine):
     def __setattr__(self, name, value):
         object.__setattr__(self, name, value)
 
-        if not hasattr(self, 'initialized'):
+        if not getattr(self, 'initialized', False):
             return
 
         if name in ['crossfade_enabled', 'crossfade_duration']:
@@ -192,6 +192,12 @@ class ExaileGstEngine(ExaileEngine):
 
         if permanent:
             self.settings_unsubscribe()
+        
+        object.__setattr__(self, 'initialized', False)
+        
+        self.needs_sink = True
+        self.audiosink = None
+        self.audiosink_device = None
 
     #
     # Engine API

@@ -351,8 +351,9 @@ class PlaylistNotebook(SmartNotebook):
                 isinstance(child, PlaylistPage):
                 self.save_closed_tab(child.playlist)
 
-            # Destroy it
-            child.destroy()
+            # Destroy it unless it's the queue page
+            if not isinstance(child, QueuePage):
+                child.destroy()
 
     def restore_closed_tab(self, pos=None, playlist=None, item_name=None):
         ret = self.remove_closed_tab(pos, playlist, item_name)

@@ -222,8 +222,7 @@ class MainWindow(GObject.GObject):
             parent=self.builder.get_object('player_box'),
             buttons=Gtk.ButtonsType.CLOSE
         )
-        self.message.connect('response', self.on_messagebar_response)
-
+        
         self.info_area = MainWindowTrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
         self.info_area.set_border_width(3)
@@ -432,13 +431,6 @@ class MainWindow(GObject.GObject):
         screen = widget.get_screen()
         visual = screen.get_rgba_visual() or screen.get_rgb_visual()
         self.window.set_visual(visual)
-
-    def on_messagebar_response(self, widget, response):
-        """
-            Hides the messagebar if requested
-        """
-        if response == Gtk.ResponseType.CLOSE:
-            widget.hide()
 
     def on_panel_notebook_add_page(self, notebook, page, page_num):
         if self.splitter.get_child1() is None:

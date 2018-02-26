@@ -1135,6 +1135,14 @@ class MessageBar(Gtk.InfoBar):
         #    Pango.AttrScale(Pango.SCALE_LARGE, 0, -1))'''
 
         self.connect('response', self.on_response)
+        
+        # Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=710888
+        # -> From pitivi: https://phabricator.freedesktop.org/D1103#34aa2703
+        def _make_sure_revealer_does_nothing(widget):
+            if not isinstance(widget, Gtk.Revealer):
+                return
+            widget.set_transition_type(Gtk.RevealerTransitionType.NONE)
+        self.forall(_make_sure_revealer_does_nothing)
 
     def set_text(self, text):
         """

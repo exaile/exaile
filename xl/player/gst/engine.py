@@ -90,7 +90,7 @@ class ExaileGstEngine(ExaileEngine):
                             plugins inherit from :class:`.ElementBin`
     '''
 
-    def __init__(self, name, player):
+    def __init__(self, name, player, disable_autoswitch):
         ExaileEngine.__init__(self, name, player)
         self.logger = logging.getLogger('%s [%s]' % (__name__, name))
 
@@ -101,6 +101,10 @@ class ExaileGstEngine(ExaileEngine):
         self.audiosink_device = None
         self.audiosink = None
         self.custom_sink_pipe = None
+        
+        # If True, then playback will be stopped if the audio sink changes without
+        # the user asking for it
+        self.disable_autoswitch = disable_autoswitch
 
         # This means to fade in when the user plays a track, only enabled
         # when crossfade isn't enabled
@@ -184,7 +188,6 @@ class ExaileGstEngine(ExaileEngine):
             self.other_stream.reconfigure_sink()
 
     def destroy(self, permanent=True):
-
         self.main_stream.destroy()
 
         if self.other_stream is not None:
@@ -382,7 +385,22 @@ class AudioStream(object):
     def reconfigure_sink(self):
         self.needs_sink = False
         sink = create_device(self.engine.name)
+        
+        # Works for pulsesink, but not other sinks
+        # -> Not a perfect solution, still some audio blip is heard. Unfortunately,
+        #    can't do better without direct support from gstreamer
+        if self.engine.disable_autoswitch and hasattr(sink.props, 'current_device'):
+            self.selected_sink = sink.props.device
+            sink.connect('notify::current-device', self._on_sink_change_notify)
+        
         self.audio_sink.reconfigure(sink)
+    
+    def _on_sink_change_notify(self, sink, param):
+        if self.selected_sink != sink.props.current_device:
+            domain = GLib.quark_from_string("g-exaile-error")
+            err = GLib.Error.new_literal(domain, "Audio device disconnected", 0)
+            self.playbin.get_bus().post(Gst.Message.new_error(None, err, "Disconnected"))
+            self.logger.info("Detected device disconnect, stopping playback")
 
     def reconfigure_fader(self, fade_in_duration, fade_out_duration):
         if self.get_gst_state() != Gst.State.NULL:

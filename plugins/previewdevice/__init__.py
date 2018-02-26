@@ -71,7 +71,8 @@ class SecondaryOutputPlugin(object):
         # Initialize the player objects needed
         #
 
-        self.player = player.player.ExailePlayer('preview_device')
+        self.player = player.player.ExailePlayer('preview_device',
+                                                 disable_autoswitch=True)
         self.queue = player.queue.PlayQueue(
             self.player,
             location=os.path.join(

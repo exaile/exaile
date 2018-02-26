@@ -52,7 +52,7 @@ class ExailePlayer(object):
         with one or two noted exceptions.
     """
 
-    def __init__(self, name):
+    def __init__(self, name, disable_autoswitch=False):
         self.queue = None
         self._name = name
 
@@ -76,12 +76,12 @@ class ExailePlayer(object):
 
         self._settings_unsub = common.subscribe_for_settings(name, options, self)
 
-        self._setup_engine()
+        self._setup_engine(disable_autoswitch)
 
         event.add_callback(self._on_track_end, 'playback_track_end', self)
         event.add_callback(self._on_track_tags_changed, 'track_tags_changed')
 
-    def _setup_engine(self):
+    def _setup_engine(self, disable_autoswitch):
 
         if self._engine is not None:
             self._engine.destroy()
@@ -94,7 +94,7 @@ class ExailePlayer(object):
 
         # TODO: support other engines
         from .gst.engine import ExaileGstEngine
-        self._engine = ExaileGstEngine(self._name, self)
+        self._engine = ExaileGstEngine(self._name, self, disable_autoswitch)
         self._engine.initialize()
 
     @property

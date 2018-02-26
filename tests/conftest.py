@@ -47,7 +47,7 @@ def _fname(ext):
 
 _all_tracks = [
     TrackData(*_fname('aac'),  size=9404,  writeable=True, has_cover=True, has_tags=True),
-    TrackData(*_fname('aiff'), size=16472, writeable=False, has_cover=False, has_tags=False),
+    TrackData(*_fname('aiff'), size=21340, writeable=True, has_cover=True, has_tags=True),
     TrackData(*_fname('au'),   size=16425, writeable=False, has_cover=False, has_tags=False),
     TrackData(*_fname('flac'), size=20668, writeable=True, has_cover=True, has_tags=True),
     TrackData(*_fname('mp3'),  size=7495,  writeable=True, has_cover=True, has_tags=True),

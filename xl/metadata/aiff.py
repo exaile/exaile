@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2017 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,34 +25,11 @@
 # from your version.
 
 
-import wave
-import sunau
-import os
-
-from xl.metadata._base import BaseFormat, NotReadable
-
-type_map = {
-    "au": sunau,
-    "wav": wave,
-}
+from xl.metadata._id3 import ID3Format
+from mutagen import aiff
 
 
-class WavFormat(BaseFormat):
-    writable = False
+class AIFFFormat(ID3Format):
+    MutagenType = aiff.AIFF
 
-    def load(self):
-        ext = os.path.splitext(self.loc)[1][1:].lower()
-        opener = type_map[ext]
-
-        try:
-            fp = open(self.loc, 'rb')
-        except IOError:
-            raise NotReadable
-
-        try:
-            with fp:
-                f = opener.open(fp)
-                length = f.getnframes() / f.getframerate()
-            self.mutagen = {'__bitrate': -1, '__length': length}
-        except (IOError, KeyError):
-            self.mutagen = {'__bitrate': -1, '__length': -1}
+# vim: et sts=4 sw=4

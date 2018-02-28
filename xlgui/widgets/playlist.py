@@ -51,7 +51,8 @@ from xl import (
     xdg
 )
 
-from xlgui.widgets.common import AutoScrollTreeView
+from xl.externals.qltk_treeview import AllTreeView
+
 from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets import (
     dialogs,
@@ -700,11 +701,11 @@ class PlaylistPage(PlaylistPageBase):
             self.tab_menu.popup(None, None, None, None, e.button, e.time)
 
 
-class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
+class PlaylistView(AllTreeView, providers.ProviderHandler):
     __gsignals__ = {}
 
     def __init__(self, playlist, player):
-        AutoScrollTreeView.__init__(self)
+        AllTreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
 
         self.playlist = playlist
@@ -715,7 +716,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.header_menu.attach_to_widget(self)
 
         self.dragging = False
-        self.pending_event = None
         self._insert_focusing = False
 
         self._hack_is_osx = sys.platform == 'darwin'
@@ -753,6 +753,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self._cursor_changed = self.connect("cursor-changed", self.on_cursor_changed)
         self.connect("row-activated", self.on_row_activated)
         self.connect("key-press-event", self.on_key_press_event)
+        self.connect("popup-menu", self.on_popup_menu)
 
         self.connect("drag-begin", self.on_drag_begin)
         self.connect("drag-drop", self.on_drag_drop)
@@ -766,15 +767,23 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # if this isn't disconnected, then the columns are emptied out and
         # the user's settings are overwritten with an empty list
         self.disconnect(self.columns_changed_id)
-        AutoScrollTreeView.do_destroy(self)
+        AllTreeView.do_destroy(self)
 
     def _refilter(self):
         # don't emit spurious view events during refilter operations (issue #199)
         # -> cursor-changed
         # -> selection-changed
+        
+        # .. but, restore the view state, otherwise user is annoyed
+        # if there is a selection, grab that
+        # otherwise, just grab the center of the treeview
+        
         self.set_model(None)
         self.modelfilter.refilter()
         self.set_model(self.modelfilter)
+        
+        # ok, we're back, so find the closest item to the one that was showing
+        # when we started
 
     def filter_tracks(self, filter_string):
         '''
@@ -1085,88 +1094,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self._insert_focusing = False
             GLib.idle_add(_set_cursor)
 
-    def do_button_press_event(self, e):
-        """
-            Adds some custom selection work to
-            1) unselect all rows if clicking an empty area,
-            2) updating the selection upon right click and
-            3) popping up the context menu upon right click
-
-            Also sets the internal state for button pressed
-
-            Taken from the following sources:
-
-            * thunar_details_view_button_press_event() of thunar-details-view.c
-            * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
-        """
-        self.grab_focus()
-
-        # need this to workaround bug in GTK+ on OSX when dragging/dropping
-        # -> https://bugzilla.gnome.org/show_bug.cgi?id=722815
-        if self._hack_is_osx:
-            self._hack_osx_control_mask = True if e.state & Gdk.ModifierType.CONTROL_MASK else False
-
-        selection = self.get_selection()
-        pathtuple = self.get_path_at_pos(int(e.x), int(e.y))
-        # We only need the tree path if present
-        if pathtuple:
-            path = pathtuple[0]
-            col = pathtuple[1]
-        else:
-            path = None
-
-        # We unselect all selected items if the user clicks on an empty
-        # area of the treeview and no modifier key is active
-        if not e.state & Gtk.accelerator_get_default_mod_mask() and not path:
-            selection.unselect_all()
-
-        if path and e.type == Gdk.EventType.BUTTON_PRESS:
-            # Prevent unselection of all except the clicked item on left
-            # clicks, required to preserve the selection for DnD
-            if e.button == Gdk.BUTTON_PRIMARY \
-                    and not e.state & Gtk.accelerator_get_default_mod_mask() \
-                    and selection.path_is_selected(path):
-                selection.set_select_function(lambda *args: False, None)
-                self.pending_event = (path, col)
-
-            if e.triggers_context_menu():
-                # Select the path on which the user clicked if not selected yet
-                if not selection.path_is_selected(path):
-                    # We don't unselect all other items if Control is active
-                    if not e.state & Gdk.ModifierType.CONTROL_MASK:
-                        selection.unselect_all()
-
-                    selection.select_path(path)
-
-                self.menu.popup(None, None, None, None, e.button, e.time)
-
-                return True
-
-        return Gtk.TreeView.do_button_press_event(self, e)
-
-    def do_button_release_event(self, e):
-        """
-            Unsets the internal state for button press
-        """
-        self._hack_osx_control_mask = False
-
-        # Restore regular selection behavior in any case
-        self.get_selection().set_select_function(lambda *args: True, None)
-
-        if self.pending_event:
-            path, col = self.pending_event
-            # perform the normal selection that would have happened
-            self.set_cursor(path, col, 0)
-            self.pending_event = None
-
-        return Gtk.TreeView.do_button_release_event(self, e)
-
     def on_key_press_event(self, widget, event):
-        if event.keyval == Gdk.KEY_Menu:
-            self.menu.popup(None, None, None, None, 0, event.time)
-            return True
-
-        elif event.keyval == Gdk.KEY_Delete:
+        if event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
                 del self.playlist[indexes[0]:indexes[0] + len(indexes)]
@@ -1195,6 +1124,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 idx = indexes[0]
                 track = self.playlist.pop(idx)
                 self.playlist[idx+1:idx+1] = [track]
+        
+        else:
+            return False
+        
+        return True
+    
+    def on_popup_menu(self, widget):
+        return self.popup_menu(self.menu, 0, Gtk.get_current_event_time())
 
     def on_header_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_Menu:
@@ -1211,7 +1148,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         # TODO: set drag icon
         self.dragging = True
-        self.pending_event = None
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         """

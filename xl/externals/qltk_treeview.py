@@ -530,7 +530,9 @@ class MultiDragTreeView(BaseView):
         try:
             path, col, cellx, celly = self.get_path_at_pos(x, y)
         except TypeError:
-            return True
+            if not event.get_state() & get_primary_accel_mod():
+                self.__pending_action = (None, None, False)
+            return
         selection = self.get_selection()
         is_selected = selection.path_is_selected(path)
         mod_active = event.get_state() & (
@@ -550,6 +552,8 @@ class MultiDragTreeView(BaseView):
             selection.set_select_function(lambda *args: True, None)
             if single_unselect:
                 selection.unselect_path(path)
+            elif path is None:
+                selection.unselect_all()
             else:
                 self.set_cursor(path, col, 0)
             self.__pending_action = None
@@ -571,7 +575,7 @@ class RCMTreeView(BaseView):
         try:
             path, col, cellx, celly = self.get_path_at_pos(x, y)
         except TypeError:
-            return True
+            return
         self.grab_focus()
         selection = self.get_selection()
         if not selection.path_is_selected(path):

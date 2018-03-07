@@ -762,6 +762,7 @@ class PlaylistView(AllTreeView, providers.ProviderHandler):
         self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
+        self.connect("drag-leave", lambda *a: self.scroll_disable)
 
     def do_destroy(self):
         # if this isn't disconnected, then the columns are emptied out and
@@ -1291,19 +1292,8 @@ class PlaylistView(AllTreeView, providers.ProviderHandler):
             and sets the drop action to move or copy depending on target
             and user interaction (e.g. Ctrl key)
         """
-        drop_info = self.get_dest_row_at_pos(x, y)
-
-        if not drop_info:
-            return False
-
-        path, position = drop_info
-
-        if position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE:
-            position = Gtk.TreeViewDropPosition.BEFORE
-        elif position == Gtk.TreeViewDropPosition.INTO_OR_AFTER:
-            position = Gtk.TreeViewDropPosition.AFTER
-
-        self.set_drag_dest_row(path, position)
+        self.set_drag_dest(x, y)
+        self.scroll_motion(x, y)
 
         action = Gdk.DragAction.MOVE
         _, _, _, modifier = self.get_window().get_pointer()

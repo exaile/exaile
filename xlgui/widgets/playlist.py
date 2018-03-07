@@ -1212,6 +1212,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # TODO: set drag icon
         self.dragging = True
         self.pending_event = None
+        self.get_selection().set_select_function(lambda *args: True, None)
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         """

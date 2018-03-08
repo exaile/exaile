@@ -1015,6 +1015,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             settings.set_option('gui/columns', columns)
 
     def on_column_clicked(self, column):
+        if self.model.data_loading:
+            return
         order = None
         for col in self.get_columns()[1:]:
             if col.name == column.name:
@@ -1719,6 +1721,6 @@ class PlaylistModel(Gtk.ListStore):
 
         if self.data_load_queue:
             tracks = self.data_load_queue
-            self.data_load_queue = None
+            self.data_load_queue = []
 
             self._load_data(tracks)

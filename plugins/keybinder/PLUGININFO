@@ -2,6 +2,6 @@ Version='4.0.0'
 Name=_('Keybinder-based multimedia keys')
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Description=_('Adds support for multimedia keys using libkeybinder3.\n\nRequires: libkeybinder3 and its typelib file')
-Category=_('Hotkeys')
+Category=_('External Control')
 RequiredModules=['gi:Keybinder']
 Platforms=['linux']

@@ -879,7 +879,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         '''Internal API'''
         if not settings.get_option('playlist/enqueue_by_default', False) or \
                 (self.playlist is self.player.queue and on_activated):
-            if self.player.queue.is_play_enabled():
+            # If track is already playing, then pause/resume it instead of starting over
+            if on_activated and not self.player.is_stopped() and \
+               self.player.queue.current_playlist is self.playlist and \
+               self.playlist.get_current_position() == position:
+               self.player.toggle_pause()
+
+            elif self.player.queue.is_play_enabled():
                 self.playlist.set_current_position(position)
                 self.player.queue.set_current_playlist(self.playlist)
                 self.player.queue.play(track=track)

@@ -1,6 +1,6 @@
-git+git://github.com/exaile/pywin32-ctypes.git@sdk#egg=pywin32-ctypes
+pywin32-ctypes==0.1.2
 https://github.com/exaile/pyinstaller/archive/sdk.zip#egg=PyInstaller
 musicbrainzngs==0.6
-mutagen==1.37
+mutagen==1.40
 pylast==1.8.0
 feedparser==5.2.1

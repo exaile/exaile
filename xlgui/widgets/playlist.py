@@ -1214,6 +1214,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # TODO: set drag icon
         self.dragging = True
         self.pending_event = None
+        self.get_selection().set_select_function(lambda *args: True, None)
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         """
@@ -1293,7 +1294,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
-            positions = [int(pos) for pos in selection.get_data().split(",")]
+            selection_data = selection.get_data()
+            if selection_data == '':  # Ignore drops from empty areas
+                return
+            positions = [int(pos) for pos in selection_data.split(",")]
             tracks = common.MetadataList()
             source_playlist_view = Gtk.drag_get_source_widget(context)
             playlist = self.playlist

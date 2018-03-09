@@ -205,11 +205,14 @@ class RandomizeMenuItem(menu.MenuItem):
         positions = [path[0] for path in context['selected-paths']]
         # Randomize the full playlist if only one track was selected
         positions = positions if len(positions) > 1 else []
-        context['playlist'].randomize(positions)
+        
+        # If you don't unselect before randomizing, a large number of selected will
+        # kill performance
+        parent.get_selection().unselect_all()
+        with parent.handler_block(parent._cursor_changed):
+            context['playlist'].randomize(positions)
 
 # do this in a function to avoid polluting the global namespace
-
-
 def __create_playlist_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
@@ -1031,6 +1034,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 col.set_sort_indicator(False)
                 col.set_sort_order(Gtk.SortType.DESCENDING)
         reverse = order == Gtk.SortType.DESCENDING
+        
+        # If you don't unselect before sorting, a large number of selected will
+        # kill performance
+        self.get_selection().unselect_all()
         with self.handler_block(self._cursor_changed):
             self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
 

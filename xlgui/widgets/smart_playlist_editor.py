@@ -158,6 +158,8 @@ _criteria_types = {
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('contains word', EntryField),
+        ('does not contain word', EntryField),
         ('regex', EntryField),
         ('not regex', EntryField),
         ('is set', NullField),
@@ -223,6 +225,10 @@ _TRANS = {
     N_('contains'): '=',
     # TRANSLATORS: True if haystack does not contain needle
     N_('does not contain'): '!=',
+    # TRANSLATORS: True if haystack contains whole word
+    N_('contains word'): 'w=',
+    # TRANSLATORS: True if haystack does not contain whole word
+    N_('does not contain word'): '!w=',
     # TRANSLATORS: True if haystack matches regular expression
     N_('regex'): '~',
     # TRANSLATORS: True if haystack does not match regular expression

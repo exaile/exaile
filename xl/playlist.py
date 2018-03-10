@@ -37,6 +37,7 @@ from datetime import datetime, timedelta
 import logging
 import os
 import random
+import re
 import time
 import urlparse
 import urllib
@@ -1946,6 +1947,18 @@ class SmartPlaylist(object):
                 s += '%(field)s=="__null__"' % \
                     {
                         'field': field
+                    }
+            elif op == 'w=': # contains word
+                s += '%(field)s~"\\b%(value)s\\b"' % \
+                    {
+                        'field': field,
+                        'value': re.escape(value),
+                    }
+            elif op == '!w=': # does not contain word
+                s += '! %(field)s~"\\b%(value)s\\b"' % \
+                    {
+                        'field': field,
+                        'value': re.escape(value),
                     }
             else:
                 s += '%(field)s%(op)s"%(value)s"' % \

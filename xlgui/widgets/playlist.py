@@ -772,12 +772,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         AutoScrollTreeView.do_destroy(self)
 
     def _refilter(self):
-        # don't emit spurious view events during refilter operations (issue #199)
-        # -> cursor-changed
-        # -> selection-changed
-        self.set_model(None)
-        self.modelfilter.refilter()
-        self.set_model(self.modelfilter)
+        with guiutil.without_model(self):
+            self.modelfilter.refilter()
 
     def filter_tracks(self, filter_string):
         '''

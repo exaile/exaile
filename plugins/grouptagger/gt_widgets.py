@@ -499,11 +499,13 @@ class GroupTaggerWidget(Gtk.Box):
         self.title.set_xalign(0)
         self.title.set_yalign(0.5)
         self.title.set_line_wrap(True)
+        self.title.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
         self.title.hide()
 
         self.artist.set_xalign(0)
         self.artist.set_yalign(0.5)
         self.artist.set_line_wrap(True)
+        self.artist.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
         self.artist.hide()
 
         scroll = Gtk.ScrolledWindow()

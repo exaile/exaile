@@ -108,7 +108,6 @@ class GroupTaggerView(Gtk.TreeView):
         self.connect('notify::model', self.on_notify_model)
 
         self.set_model(model)
-        self.set_enable_search(False)
         self.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
 
         self._row_expanded_id = self.connect('row-expanded', self.on_row_expanded)
@@ -178,6 +177,11 @@ class GroupTaggerView(Gtk.TreeView):
 
         # TODO:
         # - Create smart playlist from selected
+
+    def set_model(self, model):
+        super(GroupTaggerView, self).set_model(model)
+        # this gets reset each time set_model is called... so we override
+        self.set_search_column(1)
 
     def set_font(self, font):
         self.text_column.set_property('font-desc', font)

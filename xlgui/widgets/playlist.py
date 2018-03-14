@@ -772,12 +772,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         AutoScrollTreeView.do_destroy(self)
 
     def _refilter(self):
-        # don't emit spurious view events during refilter operations (issue #199)
-        # -> cursor-changed
-        # -> selection-changed
-        self.set_model(None)
-        self.modelfilter.refilter()
-        self.set_model(self.modelfilter)
+        with guiutil.without_model(self):
+            self.modelfilter.refilter()
 
     def filter_tracks(self, filter_string):
         '''
@@ -1183,11 +1179,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
-            if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
-                del self.playlist[indexes[0]:indexes[0] + len(indexes)]
-            else:
-                for i in indexes[::-1]:
-                    del self.playlist[i]
+            with guiutil.without_model(self):
+                if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
+                    del self.playlist[indexes[0]:indexes[0] + len(indexes)]
+                else:
+                    for i in indexes[::-1]:
+                        del self.playlist[i]
         
         # TODO: localization?
         # -> Also, would be good to expose these shortcuts somehow to the user...

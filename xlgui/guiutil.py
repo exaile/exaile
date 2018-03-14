@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import contextlib
 import logging
 import os.path
 
@@ -597,5 +598,101 @@ def css_from_pango_font_description(pango_font_str):
         style, variant, weight, stretch, size, new_font.get_family(),
     )
     return font_css_str
+
+
+def _get_closest_visible(model, child_path):
+    # returns closest visible path in filter model to the given child_path
+    # (which is presumed to not be visible in the model)
+    # -> derived from python's bisect_left (Python license)
+    x = child_path.get_indices()[0]
+    
+    ll = len(model)
+    lo = 0
+    hi = ll
+    if not hi:
+        return
+    
+    while lo < hi:
+        mid = (lo + hi)//2
+        amid = model.convert_path_to_child_path(model[mid].path).get_indices()[0]
+        if amid < x:
+            lo = mid + 1
+        else:
+            hi = mid
+    if lo == ll:
+        lo -= 1
+    return model[lo].path
+
+@contextlib.contextmanager
+def without_model(tv):
+    '''
+        Context manager that removes the model from a treeview and restores the
+        view position and selection when finished.
+    
+        Issue #199: Anytime a large number of changes are made to the model,
+        it's better to just remove it before making the changes, as the UI
+        will freeze if you don't. However, that messes up the visible view, so
+        this saves/restores the view information.
+        
+        .. note:: Assumes the model is a Gtk.TreeModelFilter
+    '''
+    model = tv.get_model()
+    child_model = model.get_model()
+    selection = tv.get_selection()
+    
+    # Save existing scroll information if this is a modelfilter
+    visible_data = tv.get_visible_range()
+    if visible_data:
+        # save a ref and path data -- path is used if the row disappears
+        visible_data = model.convert_path_to_child_path(visible_data[0])
+        visible_ref = Gtk.TreeRowReference(child_model, visible_data)
+    
+    # grab selection data, convert them to child row references
+    # -> need refs because paths will change if objects are deleted
+    seldata = selection.get_selected_rows()
+    selected_rows = []
+    first_selected_path = None
+    if seldata:
+        for path in seldata[1]:
+            path = model.convert_path_to_child_path(path)
+            if not first_selected_path:
+                first_selected_path = path
+            selected_rows.append(Gtk.TreeRowReference(child_model, path))
+    
+    tv.set_model(None)
+    yield model
+    tv.set_model(model)
+    
+    # restore selection data first
+    for row in selected_rows:
+        if not row.valid():
+            continue
+        path = model.convert_child_path_to_path(row.get_path())
+        if path:
+            selection.select_path(path)
+            first_selected_path = None
+    
+    # If there were no visible iters, try to find something close
+    if first_selected_path:
+        first_selected_path = _get_closest_visible(model, first_selected_path)
+        if first_selected_path:
+            selection.select_path(first_selected_path)
+    
+    # Restore scroll position
+    if visible_data:
+        # If original item is visible, this is easy
+        if visible_ref.valid():
+            # Use the ref first if it's still valid
+            scroll_to = model.convert_child_path_to_path(visible_ref.get_path())
+        else:
+            # But if it isn't valid, then just use the path data
+            scroll_to = model.convert_child_path_to_path(visible_data)
+        
+        if scroll_to is None:
+            # If not, search for the closest visible item
+            scroll_to = _get_closest_visible(model, visible_data)
+        
+        if scroll_to:
+            tv.scroll_to_cell(scroll_to, None, True, 0, 0)
 
 # vim: et sts=4 sw=4

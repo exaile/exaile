@@ -1316,9 +1316,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if source_playlist_view is not self:
                 playlist = source_playlist_view.playlist
 
-            # TODO: this can probably be made more-efficient
-            for i in positions:
-                tracks.extend(playlist[i:i + 1])
+            current_position_index = -1
+            for i, pos in enumerate(positions):
+                if pos == playlist.current_position:
+                    current_position_index = i
+
+                tracks.append(playlist[pos])
 
             # Insert at specific position if possible
             if insert_position >= 0:
@@ -1330,6 +1333,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                         if position >= insert_position:
                             position += len(tracks)
                             positions[i] = position
+
+                # Update playlist current position
+                if current_position_index >= 0:
+                    self.playlist.current_position = insert_position + current_position_index
+                    self.model.update_row_params(self.playlist.current_position)
             else:
                 # Otherwise just append the tracks
                 self.playlist.extend(tracks)

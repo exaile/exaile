@@ -626,8 +626,8 @@ def _get_closest_visible(model, child_path):
 @contextlib.contextmanager
 def without_model(tv):
     '''
-        Context manager that removes the model from a treeview and restores it
-        when finished.
+        Context manager that removes the model from a treeview and restores the
+        view position and selection when finished.
     
         Issue #199: Anytime a large number of changes are made to the model,
         it's better to just remove it before making the changes, as the UI
@@ -637,6 +637,8 @@ def without_model(tv):
         .. note:: Assumes the model is a Gtk.TreeModelFilter
     '''
     model = tv.get_model()
+    child_model = model.get_model()
+    selection = tv.get_selection()
     
     # Save existing scroll information if this is a modelfilter
     visible_data = tv.get_visible_range()
@@ -645,9 +647,36 @@ def without_model(tv):
         visible_data = model.convert_path_to_child_path(visible_data[0])
         visible_ref = Gtk.TreeRowReference(child_model, visible_data)
     
+    # grab selection data, convert them to child row references
+    # -> need refs because paths will change if objects are deleted
+    seldata = selection.get_selected_rows()
+    selected_rows = []
+    first_selected_path = None
+    if seldata:
+        for path in seldata[1]:
+            path = model.convert_path_to_child_path(path)
+            if not first_selected_path:
+                first_selected_path = path
+            selected_rows.append(Gtk.TreeRowReference(child_model, path))
+    
     tv.set_model(None)
     yield model
     tv.set_model(model)
+    
+    # restore selection data first
+    for row in selected_rows:
+        if not row.valid():
+            continue
+        path = model.convert_child_path_to_path(row.get_path())
+        if path:
+            selection.select_path(path)
+            first_selected_path = None
+    
+    # If there were no visible iters, try to find something close
+    if first_selected_path:
+        first_selected_path = _get_closest_visible(model, first_selected_path)
+        if first_selected_path:
+            selection.select_path(first_selected_path)
     
     # Restore scroll position
     if visible_data:

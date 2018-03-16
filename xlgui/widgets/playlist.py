@@ -1269,6 +1269,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         # Stop default handler from running
         self.stop_emission('drag-data-received')
+        self._insert_focusing = True
 
         drop_info = self.get_dest_row_at_pos(x, y)
 
@@ -1295,17 +1296,34 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                         self.playlist[insert_position:insert_position] = tracks
                     else:
                         self.playlist.extend(tracks)
-
-                    return
+                        insert_position = len(self.playlist) - len(tracks)
                 except Exception:
                     pass  # Any exception on hack is ignored
+                else:
+                    # Select inserted items
+                    if tracks:
+                        self.get_selection().select_range(
+                            self.model.get_path(
+                                self.model.iter_nth_child(None, insert_position)
+                            ),
+                            self.model.get_path(
+                                self.model.iter_nth_child(None, insert_position + len(tracks) - 1)
+                            )
+                        )
+
+                    self._insert_focusing = False
+                    return
+
 
         tracks = []
+        playlist = []
+        positions = []
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
             selection_data = selection.get_data()
             if selection_data == '':  # Ignore drops from empty areas
+                self._insert_focusing = False
                 return
             positions = [int(pos) for pos in selection_data.split(",")]
             tracks = common.MetadataList()
@@ -1341,11 +1359,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             else:
                 # Otherwise just append the tracks
                 self.playlist.extend(tracks)
-
-            # Remove tracks from the source playlist if moved
-            if context.get_selected_action() == Gdk.DragAction.MOVE:
-                for i in positions[::-1]:
-                    del playlist[i]
+                insert_position = len(self.playlist) - len(tracks)
         elif target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
@@ -1361,6 +1375,24 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.playlist[insert_position:insert_position] = tracks
             else:
                 self.playlist.extend(tracks)
+                insert_position = len(self.playlist) - len(tracks)
+
+        # Select inserted items
+        if insert_position >= 0 and \
+            insert_position < len(self.playlist) and len(tracks) > 0:
+            self.get_selection().select_range(
+                self.model.get_path(
+                    self.model.iter_nth_child(None, insert_position)
+                ),
+                self.model.get_path(
+                    self.model.iter_nth_child(None, insert_position + len(tracks) - 1)
+                )
+            )
+
+        # Remove tracks from the source playlist if moved
+        if context.get_selected_action() == Gdk.DragAction.MOVE:
+            for i in positions[::-1]:
+                del playlist[i]
 
         #delete = context.action == Gdk.DragAction.MOVE
         # TODO: Selected? Suggested?
@@ -1372,6 +1404,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if scroll_when_appending_tracks and tracks:
             self.scroll_to_cell(self.playlist.index(tracks[-1]))
+
+        self._insert_focusing = False
 
     def on_drag_motion(self, widget, context, x, y, etime):
         """

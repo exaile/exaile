@@ -34,14 +34,12 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from itertools import imap, ifilter
+from itertools import imap
 from urllib2 import urlparse
 
 from xl import (
     common,
-    covers,
     playlist as xl_playlist,
-    settings,
     trax
 )
 

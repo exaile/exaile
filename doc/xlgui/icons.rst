@@ -15,7 +15,6 @@ Icon management
               add_icon_name_from_file,
               add_icon_name_from_pixbuf,
               pixbuf_from_icon_name,
-              pixbuf_from_data,
               pixbuf_from_rating
 
 Utilities

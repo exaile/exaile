@@ -233,6 +233,9 @@ dist:
 check-doc: clean
 	$(MAKE) -C doc html
 
+check-style:
+	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) -c tests/pytest.ini --cache-clear -q --flakes .
+
 BUILD_DIR		= /tmp/exaile-test-build
 test_compile:
 	mkdir -p $(BUILD_DIR)

@@ -32,7 +32,6 @@ from xl.nls import gettext as _
 from xlgui import (
     panel
 )
-from xlgui.guiutil import ModifierType
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 

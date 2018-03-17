@@ -43,7 +43,6 @@ from xl.nls import gettext as _
 import xlgui.panel.playlists as playlistpanel
 from xlgui.panel import menus
 from xlgui import (
-    guiutil,
     icons,
     panel
 )

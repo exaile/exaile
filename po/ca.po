@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2018-02-12 03:19+0000\n"
+"PO-Revision-Date: 2018-03-18 02:35+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 2.20-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
@@ -260,14 +260,10 @@ msgid "Volume Options"
 msgstr "Opcions del volum"
 
 #: ../xl/main.py:157
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Incrementa el volum amb N%"
 
 #: ../xl/main.py:161
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Redueix el volum amb N%"
 
@@ -904,11 +900,11 @@ msgstr ""
 
 #: ../xlgui/main.py:163
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Focus al filtre en la pestanya que té actualment el focus"
 
 #: ../xlgui/main.py:165
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Focus a la cerca de la llista de reproducció"
 
 #: ../xlgui/main.py:167
 msgid "Clear queue"
@@ -920,13 +916,11 @@ msgstr "Inicia, fes una pausa o reprèn la reproducció"
 
 #: ../xlgui/main.py:172
 msgid "Seek to the right"
-msgstr ""
+msgstr "Desplaça el capçal a la dreta"
 
 #: ../xlgui/main.py:174
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Restableix a la lletra del sistema"
+msgstr "Desplaça el capçal a l'esquerra"
 
 #: ../xlgui/main.py:177
 msgid "Increase the volume"
@@ -945,66 +939,60 @@ msgid "Switch to next tab"
 msgstr "Canvia a la pestanya següent"
 
 #: ../xlgui/main.py:187
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlist container"
-msgstr "Valors per defecte al nom de la llista de reproducció"
+msgstr "Focus al contenidor de la llista de reproducció"
 
 #: ../xlgui/main.py:192
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Focus al plafó dels fitxers"
 
 #: ../xlgui/main.py:196
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Focus al plafó de les emissores"
 
 #: ../xlgui/main.py:198
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlists panel"
-msgstr "Valors per defecte al nom de la llista de reproducció"
+msgstr "Focus al plafó de les llistes de reproducció"
 
 #: ../xlgui/main.py:200
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Focus a la primera pestanya"
 
 #: ../xlgui/main.py:201
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Focus a la segona pestanya"
 
 #: ../xlgui/main.py:202
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Focus a la tercera pestanya"
 
 #: ../xlgui/main.py:203
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Focus a la quarta pestanya"
 
 #: ../xlgui/main.py:204
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Focus a la cinquena pestanya"
 
 #: ../xlgui/main.py:205
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Focus a la sisena pestanya"
 
 #: ../xlgui/main.py:206
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Focus a la setena pestanya"
 
 #: ../xlgui/main.py:207
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the eighth tab"
-msgstr "Valors per defecte al nom de la llista de reproducció"
+msgstr "Focus a la vuitena pestanya"
 
 #: ../xlgui/main.py:208
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Focus a la novena pestanya"
 
 #: ../xlgui/main.py:209
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Focus a la desena pestanya"
 
 #: ../xlgui/main.py:518
 msgid "Toggle: Stop after Selected Track"
@@ -1043,50 +1031,36 @@ msgid "_New Playlist"
 msgstr "_Nova llista de reproducció"
 
 #: ../xlgui/menu.py:69
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Obre l'URL"
+msgstr "_Obre"
 
 #: ../xlgui/menu.py:79
 msgid "Open _URL"
 msgstr "Obre l'_URL"
 
 #: ../xlgui/menu.py:89
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Obre directoris"
+msgstr "Obre els _directoris"
 
 #: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
-msgstr "Importa una llista de reproducció"
+msgstr "_Importa la llista de reproducció"
 
 #: ../xlgui/menu.py:118
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Exporta la llista de reproducció actual"
+msgstr "E_xporta la llista de reproducció actual"
 
 #: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Tanca la pestanya"
+msgstr "_Tanca la pestanya"
 
 #: ../xlgui/menu.py:133
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Reinicia"
+msgstr "_Reinicia"
 
 #: ../xlgui/menu.py:141 ../xlgui/tray.py:99
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "Quant a Exaile"
+msgstr "_Surt d'Exaile"
 
 #: ../xlgui/menu.py:158
 msgid "_Collection"
@@ -1101,10 +1075,8 @@ msgid "C_overs"
 msgstr "C_obertes"
 
 #: ../xlgui/menu.py:177
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Preferències"
+msgstr "_Preferències"
 
 #: ../xlgui/menu.py:197
 msgid "_Show Playing Track"
@@ -1115,50 +1087,40 @@ msgid "_Playlist Utilities Bar"
 msgstr "Barra d'utilitats de la llista de re_producció"
 
 #: ../xlgui/menu.py:213
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "_Columnes"
+msgstr "C_olumnes"
 
 #: ../xlgui/menu.py:221
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
-msgstr "Neteja la _llista de reproducció"
+msgstr "Neteja la llista de reprodu_cció"
 
 #: ../xlgui/menu.py:239
 msgid "_Device Manager"
 msgstr "Gestor de _dispositius"
 
 #: ../xlgui/menu.py:242
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Torna a explorar la col·lecció"
+msgstr "To_rna a explorar la col·lecció"
 
 #: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
-#, fuzzy
-#| msgid "Rescan Collection (slow)"
 msgid "Rescan Collection (_slow)"
-msgstr "Torna a explorar la col·lecció (lent)"
+msgstr "Torna a explorar la col·lecció (_lent)"
 
 #: ../xlgui/menu.py:271
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Guia d'usuari (lloc web)"
 
 #: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Drecera"
+msgstr "Dreceres"
 
 #: ../xlgui/menu.py:276
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Informeu d'una incidència (GitHub)"
 
 #: ../xlgui/menu.py:279
 msgid "_About"
-msgstr ""
+msgstr "Qu_ant a"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Artist"
@@ -1224,29 +1186,24 @@ msgstr "No s'ha trobat la lletra de la cançó."
 
 #: ../xlgui/panel/lyrics.py:181
 msgid "Source: "
-msgstr ""
+msgstr "Origen: "
 
 #: ../xlgui/panel/lyrics.py:211
 msgid "Any"
 msgstr "Qualsevol"
 
 #: ../xlgui/panel/menus.py:184
-#, fuzzy
-#| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
-msgstr "Nova llista de reproducció intel·ligent"
+msgstr "Nova lli_sta de reproducció intel·ligent"
 
 #: ../xlgui/panel/menus.py:259
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Nova emissora"
+msgstr "_Nova emissora"
 
 #: ../xlgui/panel/playlists.py:142
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Elimina la llista de reproducció"
+msgstr "Eliminar la llista de reproducció «%s»?"
 
 #: ../xlgui/panel/playlists.py:157
 msgid "Enter the new name you want for your playlist"
@@ -1337,32 +1294,24 @@ msgid "New Playlist"
 msgstr "Llista de reproducció nova"
 
 #: ../xlgui/panels.py:100
-#, fuzzy
-#| msgid "Panels"
 msgid "P_anels"
-msgstr "Plafons"
+msgstr "Pl_afons"
 
 #: ../xlgui/playlist_container.py:72
 msgid "Drop here to create a new playlist"
 msgstr "Deixeu-ho caure aquí per crear una nova llista de reproducció"
 
 #: ../xlgui/playlist_container.py:130
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear Tab History"
-msgstr "Neteja l'historial"
+msgstr "Nete_ja l'historial de pestanyes"
 
 #: ../xlgui/playlist_container.py:140
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Recently Closed _Tabs"
-msgstr "Pestanyes tancades recentment"
+msgstr "Pes_tanyes tancades recentment"
 
 #: ../xlgui/playlist_container.py:159
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Restore closed tab"
-msgstr "Pestanyes tancades recentment"
+msgstr "Restaura la pestanya tancada"
 
 #: ../xlgui/playlist_container.py:198
 #, python-format
@@ -1380,10 +1329,8 @@ msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr "{playlist_name} ({track_count} pistes, s'ha tancat fa {seconds} s)"
 
 #: ../xlgui/playlist_container.py:521
-#, fuzzy
-#| msgid "Move to other View"
 msgid "_Move to Other View"
-msgstr "Mou a una altra vista"
+msgstr "_Mou a una altra vista"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:43
 msgid "Plugins"
@@ -1407,10 +1354,8 @@ msgid "the"
 msgstr "el la els les l'"
 
 #: ../xlgui/preferences/collection.py:56
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
-msgstr "Restableix als valors predeterminats"
+msgstr "Restableix als valors pre_determinats"
 
 #: ../xlgui/preferences/cover.py:35 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1456,7 +1401,7 @@ msgstr "Trieu un connector"
 
 #: ../xlgui/preferences/plugin.py:235
 msgid "Plugin Archives"
-msgstr "Arxius dels connectors"
+msgstr "Arxius de connectors"
 
 #: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
 #: ../xlgui/widgets/dialogs.py:852
@@ -1717,34 +1662,24 @@ msgid "%d selected"
 msgstr "%d seleccionats"
 
 #: ../xlgui/widgets/menuitems.py:111
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
-msgstr "Posa a la cua"
+msgstr "Posa a la _cua"
 
 #: ../xlgui/widgets/menuitems.py:139
-#, fuzzy
-#| msgid "Replace Current"
 msgid "_Replace Current"
-msgstr "Substitueix l'actual"
+msgstr "_Substitueix l'actual"
 
 #: ../xlgui/widgets/menuitems.py:144
-#, fuzzy
-#| msgid "Append to Current"
 msgid "_Append to Current"
-msgstr "Afegeix a l'actual"
+msgstr "_Afegeix a l'actual"
 
 #: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
-#, fuzzy
-#| msgid "Track Properties"
 msgid "_Track Properties"
-msgstr "Propietats de la pista"
+msgstr "Propietats de la pis_ta"
 
 #: ../xlgui/widgets/menuitems.py:170
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Obre la carpeta"
+msgstr "_Obre el directori"
 
 #: ../xlgui/widgets/menuitems.py:196
 msgid ""
@@ -1755,38 +1690,28 @@ msgstr ""
 "permanentment del disc?"
 
 #: ../xlgui/widgets/menuitems.py:212
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
-msgstr "Mou a la paperera"
+msgstr "_Mou a la paperera"
 
 #: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Reanomena"
+msgstr "_Reanomena"
 
 #: ../xlgui/widgets/menuitems.py:231 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Edita"
 
 #: ../xlgui/widgets/menuitems.py:237
-#, fuzzy
-#| msgid "Export Playlist"
 msgid "E_xport Playlist"
-msgstr "Exporta la llista de reproducció"
+msgstr "E_xporta la llista de reproducció"
 
 #: ../xlgui/widgets/menuitems.py:242
-#, fuzzy
-#| msgid "Export Files"
 msgid "Export _Files"
-msgstr "Exporta fitxers"
+msgstr "Exporta _fitxers"
 
 #: ../xlgui/widgets/menuitems.py:247
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Elimina la llista de reproducció"
+msgstr "_Elimina la llista de reproducció"
 
 #: ../xlgui/widgets/notebook.py:242
 msgid "Close Tab"
@@ -1810,10 +1735,8 @@ msgid "_Jump to"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1370
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
-msgstr "Sup_rimeix l'etiqueta"
+msgstr "Sup_rimeix la marca"
 
 #: ../xlgui/widgets/playback.py:1411
 msgid "Muted"
@@ -1830,102 +1753,72 @@ msgid "Full Volume"
 msgstr "Volum al màxim"
 
 #: ../xlgui/widgets/playback.py:1540
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Fes una pausa"
+msgstr "Fes una _pausa"
 
 #: ../xlgui/widgets/playback.py:1543
 msgid "P_lay"
-msgstr ""
+msgstr "R_eprodueix"
 
 #: ../xlgui/widgets/playback.py:1550
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Pista següent"
+msgstr "Pista següe_nt"
 
 #: ../xlgui/widgets/playback.py:1555
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Pista anterior"
+msgstr "_Pista anterior"
 
 #: ../xlgui/widgets/playback.py:1560
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Atura"
+msgstr "A_tura"
 
 #: ../xlgui/widgets/playlist.py:132
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "Mescla"
+msgstr "M_escla"
 
 #: ../xlgui/widgets/playlist.py:137
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Repeteix"
+msgstr "R_epeteix"
 
 #: ../xlgui/widgets/playlist.py:142
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dinàmic"
+msgstr "_Dinàmic"
 
 #: ../xlgui/widgets/playlist.py:159
-#, fuzzy
-#| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
-msgstr "Suprimeix la pista actual de la llista de reproducció"
+msgstr "Suprimeix la pista a_ctual de la llista de reproducció"
 
 #: ../xlgui/widgets/playlist.py:191
-#, fuzzy
-#| msgid "Randomize Playlist"
 msgid "R_andomize Playlist"
-msgstr "Aleatòriament per a la llista de reproducció"
+msgstr "_Aleatòriament per a la llista de reproducció"
 
 #: ../xlgui/widgets/playlist.py:194
-#, fuzzy
-#| msgid "Randomize Selection"
 msgid "R_andomize Selection"
-msgstr "Aleatòriament per a la selecció"
+msgstr "_Aleatòriament per a la selecció"
 
 #: ../xlgui/widgets/playlist.py:221
-#, fuzzy
-#| msgid "Save As"
 msgid "_Save"
-msgstr "Anomena i desa"
+msgstr "De_sa"
 
 #: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
-#, fuzzy
-#| msgid "Save As"
 msgid "Save _As"
-msgstr "Anomena i desa"
+msgstr "_Anomena i desa"
 
 #: ../xlgui/widgets/playlist.py:230
 msgid "_Clear"
-msgstr ""
+msgstr "Nete_ja"
 
 #: ../xlgui/widgets/playlist.py:281
-#, fuzzy
-#| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
-msgstr "Atura la reproducció després d'aquesta pista"
+msgstr "Atura la reproducció de_sprés d'aquesta pista"
 
 #: ../xlgui/widgets/playlist.py:288
-#, fuzzy
-#| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
-msgstr "Continua la reproducció després d'aquesta pista"
+msgstr "_Continua la reproducció després d'aquesta pista"
 
 #: ../xlgui/widgets/playlist.py:338
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
-msgstr "Reanomena la llista de reproducció"
+msgstr "T_reu de la llista de reproducció"
 
 #: ../xlgui/widgets/playlist.py:617
 msgid "Requires plugins providing dynamic playlists"
@@ -1938,10 +1831,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Afegeix dinàmicament pistes similars a la llista"
 
 #: ../xlgui/widgets/playlist.py:677
-#, fuzzy
-#| msgid "Loading..."
 msgid "Loading"
-msgstr "S'està carregant..."
+msgstr "Càrrega"
 
 #: ../xlgui/widgets/playlist_columns.py:170
 msgid "Track Number"
@@ -2133,10 +2024,8 @@ msgid "Edit Smart Playlist"
 msgstr "Edita llista de reproducció intel·ligent"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:425
-#, fuzzy
-#| msgid "Import Type:"
 msgid "Sort by:"
-msgstr "Tipus d'importació:"
+msgstr "Ordena per:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2154,7 +2043,7 @@ msgstr "Quant a Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2017 Various Contributors"
-msgstr ""
+msgstr "© 2009-2017 diversos contribuïdors"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
@@ -2175,10 +2064,8 @@ msgid "Scan At Startup"
 msgstr "Explora a la inicialització"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "Rescan _Collection"
-msgstr "Torna a explorar la col·lecció"
+msgstr "Torna a explorar la _col·lecció"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2202,28 +2089,24 @@ msgstr "Captura les co_bertes"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "Ampl_ia el zoom"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "Redueix el z_oom"
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original date"
 msgid "_Original Size"
-msgstr "Data de l'original"
+msgstr "Mida _original"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
+msgstr "_Millor encaix"
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "_Close"
-msgstr "Tanca %s"
+msgstr "Tan_ca"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
@@ -2296,10 +2179,8 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
-#, fuzzy
-#| msgid "Add Music"
 msgid "_Add Music"
-msgstr "Afegeix música"
+msgstr "_Afegeix música"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2351,10 +2232,8 @@ msgid "Refresh Lyrics"
 msgstr "Refresca les lletres de les cançons"
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Afegeix una emissora"
+msgstr "_Afegeix una emissora"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2464,7 +2343,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
-msgstr ""
+msgstr "Nota:"
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2479,8 +2358,6 @@ msgid "(Right click to reset to defaults)"
 msgstr "(feu clic amb el botó dret per restablir els valors predeterminats)"
 
 #: ../data/ui/preferences/collection.ui:44
-#, fuzzy
-#| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
 msgstr "Utilitza la detecció de la compilació basada en fitxers"
 
@@ -2527,10 +2404,8 @@ msgstr "Lletra de la lletra de la cançó:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
-#, fuzzy
-#| msgid "Streamripper"
 msgid "GStreamer"
-msgstr "Streamripper"
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2538,10 +2413,8 @@ msgid "Audio Sink:  "
 msgstr "Conducte d'àudio:  "
 
 #: ../data/ui/preferences/playback.ui:92
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device: "
-msgstr "Afegeix un dispositiu"
+msgstr "Dispositiu d'àudio: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2583,14 +2456,12 @@ msgid "Automatically advance to the next track"
 msgstr "Avança automàticament a la següent pista"
 
 #: ../data/ui/preferences/playback.ui:236
-#, fuzzy
-#| msgid "Delay between tracks (ms)"
 msgid "Delay between tracks (ms):"
-msgstr "Retards entre les pistes (ms)"
+msgstr "Retards entre les pistes (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Només funciona quan no està habilitada la fosa creuada"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2602,10 +2473,8 @@ msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Utilitza la fosa creuada (EXPERIMENTAL)"
 
 #: ../data/ui/preferences/playback.ui:286
-#, fuzzy
-#| msgid "Automatically advance to the next track"
 msgid "Forces automatically advancing to the next track"
-msgstr "Avança automàticament a la següent pista"
+msgstr "Força l'avanç automàticament a la següent pista"
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
@@ -2655,8 +2524,6 @@ msgstr ""
 "substituiran el contingut de la llista de reproducció actual."
 
 #: ../data/ui/preferences/playlists.ui:52
-#, fuzzy
-#| msgid "Appending/Replacing via menu item triggers playback"
 msgid "Appending/replacing via menu item triggers playback"
 msgstr ""
 "L'annexió/substitució a través de l'element del menú dispara la reproducció"
@@ -2728,10 +2595,8 @@ msgid "Description:"
 msgstr "Descripció:"
 
 #: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
 msgid "I_nstall Plugin"
-msgstr "Connectors instal·lats"
+msgstr "I_nstal·la el connector"
 
 #: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
 msgid "<b>No Plugin Selected</b>"
@@ -2742,36 +2607,28 @@ msgid "Available Plugins"
 msgstr "Connectors disponibles"
 
 #: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
 msgid "_Update Plugin"
-msgstr "Connector"
+msgstr "Act_ualitza el connector"
 
 #: ../data/ui/preferences/plugin.ui:641
 msgid "Updates"
 msgstr "Actualitzacions"
 
 #: ../data/ui/preferences/plugin.ui:662
-#, fuzzy
-#| msgid "Install Plugin File"
 msgid "Add _Plugin File"
-msgstr "Instal·la el fitxer del connector"
+msgstr "Afe_geix el fitxer d'un connector"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
 msgstr "Preferències"
 
 #: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "Close"
-msgstr "Tanca %s"
+msgstr "Tanca"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Descripció:"
+msgstr "Descripció"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2787,17 +2644,15 @@ msgstr "Sup_rimeix l'etiqueta"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
 msgstr "Primera lletra en majúscula per a totes les etiquetes"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Propietats"
+msgstr "Propietats del fitxer"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2905,16 +2760,12 @@ msgid "Add"
 msgstr "Afegeix"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Limita a: "
+msgstr "Limita a:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " pistes"
+msgstr "pistes"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2922,7 +2773,7 @@ msgstr "Cancel·la"
 
 #: ../data/ui/widgets/progress.ui:56
 msgid "label"
-msgstr ""
+msgstr "etiqueta"
 
 #: ../plugins/abrepeat/__init__.py:59
 msgid "Repeat Segment"
@@ -2974,32 +2825,24 @@ msgid "Please make sure the entered data is correct."
 msgstr "Assegureu-vos que les dades introduïdes siguin correctes."
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
-msgstr "Crea un marcador per a aquesta pista"
+msgstr "Crea un _marcador per a aquesta pista"
 
 #: ../plugins/bookmarks/__init__.py:218
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Elimina el marcador"
+msgstr "_Elimina el marcador"
 
 #: ../plugins/bookmarks/__init__.py:221
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Neteja els marcadors"
+msgstr "Nete_ja els marcadors"
 
 #: ../plugins/bookmarks/__init__.py:323
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Marcadors"
+msgstr "Marca_dors"
 
 #: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
 msgid "Autodetect BPM"
-msgstr ""
+msgstr "Detecció automàtica dels PPM"
 
 #: ../plugins/bpm/__init__.py:129
 #, python-format
@@ -3101,44 +2944,32 @@ msgid "Desktop Cover"
 msgstr "Coberta de l'escriptori"
 
 #: ../plugins/developer/__init__.py:66
-#, fuzzy
-#| msgid "Development"
 msgid "Developer Tools"
-msgstr "Desenvolupament"
+msgstr "Eines de desenvolupador"
 
 #: ../plugins/equalizer/__init__.py:320
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Equalitzador"
+msgstr "_Equalitzador"
 
 #: ../plugins/grouptagger/__init__.py:94
-#, fuzzy
-#| msgid "Get all tags from collection"
 msgid "_Get all tags from collection"
-msgstr "Obté totes les etiquetes de les col·leccions"
+msgstr "_Obté totes les etiquetes de les col·leccions"
 
 #: ../plugins/grouptagger/__init__.py:99
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Importa les etiquetes del directori"
+msgstr "_Importa les etiquetes del directori"
 
 #: ../plugins/grouptagger/__init__.py:104
-#, fuzzy
-#| msgid "Mass rename/delete tags"
 msgid "_Mass rename/delete tags"
-msgstr "Reanomenament/eliminació d'etiquetes massiu"
+msgstr "Reanomenament/eliminació d'etiquetes _massiu"
 
 #: ../plugins/grouptagger/__init__.py:109
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "E_xporta les etiquetes de les col·leccions a JSON"
 
 #: ../plugins/grouptagger/__init__.py:115
-#, fuzzy
-#| msgid "GroupTagger"
 msgid "_GroupTagger"
-msgstr "GroupTagger"
+msgstr "_GroupTagger"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with all tags"
@@ -3150,17 +2981,13 @@ msgstr "Mostra les pistes amb totes les etiquetes (personalitzat)"
 
 #: ../plugins/grouptagger/__init__.py:135
 #: ../plugins/grouptagger/gt_widgets.py:853
-#, fuzzy
-#| msgid "Yes to all"
 msgid "Add tags to all"
-msgstr "Sí a tot"
+msgstr "Afegeix les etiquetes a tot"
 
 #: ../plugins/grouptagger/__init__.py:140
 #: ../plugins/grouptagger/gt_widgets.py:855
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "Sup_rimeix l'etiqueta"
+msgstr "Suprimeix les etiquetes a tot"
 
 #: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:624
@@ -3176,7 +3003,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_export.py:52
 msgid "Export tags to JSON"
-msgstr ""
+msgstr "Exporta les etiquetes a JSON"
 
 #: ../plugins/grouptagger/gt_import.py:57
 msgid "Importing tracks"
@@ -3205,10 +3032,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "Voleu substituir '%s' amb '%s' en %s pistes?"
 
 #: ../plugins/grouptagger/gt_mass.py:126
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "Voleu substituir '%s' amb '%s' en %s pistes?"
+msgstr "Voleu suprimir '%s' de %s pistes?"
 
 #: ../plugins/grouptagger/gt_mass.py:149
 msgid ""
@@ -3233,22 +3059,16 @@ msgid "Show tracks with all selected"
 msgstr "Mostra les pistes amb tot seleccionat"
 
 #: ../plugins/grouptagger/gt_widgets.py:135
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Etiquetes"
+msgstr "Etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:150
-#, fuzzy
-#| msgid "Add new group"
 msgid "Add new tag"
-msgstr "Afegeix un nou grup"
+msgstr "Afegeix un etiqueta nova"
 
 #: ../plugins/grouptagger/gt_widgets.py:154
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Elimina"
+msgstr "Elimina l'etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:161
 msgid "Add new category"
@@ -3275,14 +3095,12 @@ msgid "New Category?"
 msgstr "Nova categoria?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
-#, fuzzy
-#| msgid "Enter new group category name"
 msgid "Enter new category name"
-msgstr "Introduïu el nou nom de la categoria d'agrupament"
+msgstr "Introduïu el nom de la categoria nova"
 
 #: ../plugins/grouptagger/gt_widgets.py:496
 msgid "Add Tag"
-msgstr ""
+msgstr "Afegeix una etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:646
 #: ../plugins/grouptagger/gt_widgets.py:748
@@ -3334,10 +3152,8 @@ msgid "Save History"
 msgstr "Desa l'historial"
 
 #: ../plugins/history/__init__.py:207
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear History"
-msgstr "Neteja l'historial"
+msgstr "Nete_ja l'historial"
 
 #: ../plugins/icecast/__init__.py:117 ../plugins/icecast/__init__.py:194
 #: ../plugins/icecast/__init__.py:217
@@ -3379,10 +3195,8 @@ msgid "IPython Console - Exaile"
 msgstr "Consola IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:204
-#, fuzzy
-#| msgid "Show IPython Console"
 msgid "Show _IPython Console"
-msgstr "Mostra la consola IPython"
+msgstr "Mostra la consola _IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3455,10 +3269,8 @@ msgstr ""
 "<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
-#, fuzzy
-#| msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
 msgid "This plugin needs at least one visible panel"
-msgstr "Aquest connector com a mínim requereix PyGTK 2.22 i GTK 2.20."
+msgstr "Aquest connector com a mínim requereix un plafó visible"
 
 #: ../plugins/mainmenubutton/__init__.py:82
 #: ../plugins/mainmenubutton/__init__.py:88
@@ -3604,13 +3416,13 @@ msgstr "$title ($__length)"
 #: ../plugins/moodbar/__init__.py:92
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
-msgstr ""
+msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
 #: ../plugins/moodbar/__init__.py:156
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current} / {remaining}"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3620,19 +3432,17 @@ msgstr "Rellotge d'alarmes múltiples"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "de {album} per {artist}"
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "per %(artist)s"
+msgstr "per {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Només l'àlbum:"
+msgstr "per {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3640,11 +3450,11 @@ msgstr "Notifica"
 
 #: ../plugins/osd/__init__.py:333
 msgid "No track played yet"
-msgstr ""
+msgstr "Encara no s'ha reproduït cap pista"
 
 #: ../plugins/osd/__init__.py:373
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Mou o redimensiona l'OSD"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3721,7 +3531,7 @@ msgstr "S'estan carregant els podcasts..."
 
 #: ../plugins/podcasts/__init__.py:201
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Encara no hi ha cap configuració"
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
@@ -3792,10 +3602,8 @@ msgid "Error connecting to SomaFM server."
 msgstr "Error en connectar al servidor SomaFM."
 
 #: ../plugins/somafm/__init__.py:195
-#, fuzzy
-#| msgid "Error loading smart playlist: %s"
 msgid "Error importing playlist"
-msgstr "Error en la càrrega de la llista de reproducció intel·ligent: %s"
+msgstr "Error en la importació de la llista de reproducció"
 
 #: ../plugins/streamripper/__init__.py:75
 msgid "Error executing streamripper"
@@ -3811,8 +3619,6 @@ msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarm time</b>"
 msgid "<b>Alarm Time</b>"
 msgstr "<b>Hora de l'alarma</b>"
 
@@ -3853,10 +3659,8 @@ msgid "Use Fading"
 msgstr "Utilitza la fosa"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Preferències"
+msgstr "<b>Preferències de l'àudio</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -3915,10 +3719,8 @@ msgid "Password:"
 msgstr "Contrasenya:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:143
-#, fuzzy
-#| msgid "Verify Login Data"
 msgid "_Verify Login Data"
-msgstr "Verifica les dades d'inici de sessió"
+msgstr "_Verifica les dades d'inici de sessió"
 
 #: ../plugins/awn/awn_prefs_pane.ui:16
 msgid "Circle display"
@@ -4006,8 +3808,6 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
-#| msgid "Simple console"
 msgid "Simple Console"
 msgstr "Consola senzilla"
 
@@ -4091,7 +3891,7 @@ msgstr "ms"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr ""
+msgstr "Eines de desenvolupador d'Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
 #, fuzzy
@@ -4101,15 +3901,15 @@ msgstr "Comptador de PPM"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
-msgstr ""
+msgstr "Filtra els tipus d'esdeveniment"
 
 #: ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "Neteja"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
-msgstr ""
+msgstr "Esdeveniments"
 
 #: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
@@ -4306,10 +4106,8 @@ msgid "Advanced"
 msgstr "Avançat"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
-#, fuzzy
-#| msgid "Request Access Permission"
 msgid "_Request Access Permission"
-msgstr "Sol·licita els permisos d'accés"
+msgstr "Sol·licita els pe_rmisos d'accés"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
@@ -4376,13 +4174,11 @@ msgstr "<b>Alarmes</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "_Afegeix"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Suprimeix"
+msgstr "Sup_rimeix"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4398,10 +4194,8 @@ msgstr "Habilita la fosa del volum"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Icones</b>"
+msgstr "<b>Àudio</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4416,26 +4210,20 @@ msgid "Fade Increment:"
 msgstr "Increment de la fosa:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
-#, fuzzy
-#| msgid "Fade Time (s):"
 msgid "Fade Time:"
-msgstr "Temps de fosa (s):"
+msgstr "Temps de fosa:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
 msgstr "Redimensiona les cobertes mostrades"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "Mostra les cobertes"
+msgstr "Visualització"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Icona"
+msgstr "Icones"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4447,10 +4235,8 @@ msgstr ""
 "Utilitza les icones del mitjà per fer pausa, per aturar i per reprendre"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "Amb l'inici, la pausa o l'aturada de la reproducció"
+msgstr "Amb la pausa, la represa o l'aturada de la reproducció"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
@@ -4499,10 +4285,12 @@ msgstr "Mostra la barra de progrés"
 msgid ""
 "As long as this preferences page is open, you can move and resize the OSD."
 msgstr ""
+"Sempre que estigui oberta aquesta pàgina de preferències, podeu moure i "
+"canviar la mida de l'OSD."
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
-msgstr ""
+msgstr "Predefinicions"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 msgid "<none selected>"
@@ -4525,38 +4313,28 @@ msgid "Defaults to the playlist name"
 msgstr "Valors per defecte al nom de la llista de reproducció"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
-#, fuzzy
-#| msgid "Generate!"
 msgid "_Generate!"
-msgstr "Genera!"
+msgstr "_Genera!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"
 msgstr "Genera"
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "Afegeix un podcast"
+msgstr "_Afegeix un podcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
 msgstr "Durada de la fosa:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Crossfade duration (ms):"
 msgid "Crossfade duration:"
-msgstr "Durada de la fosa creuada (ms):"
+msgstr "Durada de la fosa creuada:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device:"
-msgstr "Afegeix un dispositiu"
+msgstr "Dispositiu d'àudio:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4579,17 +4357,13 @@ msgstr "Protegeix contra el soroll a causa de l'excés d'amplificació"
 
 #. This is an additional amplification applied to all files prior to correction.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:56
-#, fuzzy
-#| msgid "Additional amplification (dB):"
 msgid "Additional amplification:"
-msgstr "Amplificació addicional (dB):"
+msgstr "Amplificació addicional:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
-#, fuzzy
-#| msgid "Fallback correction level (dB):"
 msgid "Fallback correction level:"
-msgstr "Nivell per al pla alternatiu de correcció (dB):"
+msgstr "Nivell per al pla alternatiu de correcció:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
@@ -4648,13 +4422,6 @@ msgid "Effect"
 msgstr "Efecte"
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
@@ -4663,9 +4430,8 @@ msgid ""
 msgstr ""
 "Reprodueix música en un instant determinat.\n"
 "\n"
-"Tingueu en compte que quan arriba el temps especificat, Exaile actuarà tan "
-"sols com si es premés la tecla de reproducció, per tant, assegureu-vos que "
-"tingueu la música que vulgueu escoltar a la vostra llista de reproducció"
+"Tingueu en compte que quan arribi el temps especificat, Exaile reproduirà "
+"les cançons que estiguin a la cua."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4730,12 +4496,7 @@ msgid "CD Playback"
 msgstr "Reproducció de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4744,7 +4505,7 @@ msgid ""
 msgstr ""
 "Afegeix compatibilitat per a la reproducció dels CD d'àudio.\n"
 "\n"
-"Requereix HAL/UDisks/UDisks2 per detectar automàticament els CD\n"
+"Requereix HAL, UDisks o UDisks2 per detectar automàticament els CD\n"
 "Requereix cddb-py (%s) per cercar etiquetes."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4765,10 +4526,8 @@ msgid "Development"
 msgstr "Desenvolupament"
 
 #: ../plugins/currentsong/PLUGININFO:3
-#, fuzzy
-#| msgid "Current Song"
 msgid "Current Song in Pidgin"
-msgstr "Cançó actual"
+msgstr "Cançó actual a Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4790,15 +4549,12 @@ msgid "Media Sources"
 msgstr "Orígens dels mitjans audiovisuals"
 
 #: ../plugins/daapserver/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "This plugin integrates spydaap (%s) into Exaile so a collection can be "
-#| "shared over DAAP."
+#, python-format
 msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
-"Aquest connector integra spydaap (%s) a Exaile per tant una col·lecció es "
+"Aquest connector integra Spydaap (%s) a Exaile, per tant una col·lecció es "
 "pot compartir a través de DAAP."
 
 #: ../plugins/desktopcover/PLUGININFO:4
@@ -4806,14 +4562,12 @@ msgid "Displays the current album cover on the desktop"
 msgstr "Mostra la coberta de l'àlbum actual a l'escriptori"
 
 #: ../plugins/developer/PLUGININFO:3
-#, fuzzy
-#| msgid "Development"
 msgid "Developer"
-msgstr "Desenvolupament"
+msgstr "Desenvolupador"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr ""
+msgstr "Proporciona informació de diagnòstic per als desenvolupadors d'Exaile"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4884,6 +4638,10 @@ msgid ""
 "\n"
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
+"Afegeix la compatibilitat per a les tecles multimèdia mitjançant "
+"libkeybinder3.\n"
+"\n"
+"Requereix: libkeybinder3 i el seu fitxer typelib"
 
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
@@ -4929,46 +4687,32 @@ msgid "Browse and listen to audiobooks from Librivox.org."
 msgstr "Navega i escola els llibres d'àudio de Librivox.org."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from www.lyricsmania.com\n"
-#| "Depends: lxml"
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
 msgstr ""
-"Connector per capturar les lletres de les cançons de www.lyricsmania.com\n"
-"Depèn: lxml"
+"Connector per capturar les lletres de les cançons de lyricsmania.com\n"
+"Requereix: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
 msgstr "Wiki de lletres"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Depends: python-beautifulsoup"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4"
 msgstr ""
 "Connector per capturar les lletres de les cançons de lyrics.wikia.com\n"
-"Depèn: python-beautifulsoup"
+"Requereix: BeautifulSoup4"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
 msgstr "Botó del menú principal"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Moves the main menu into a button on top of the panels.\n"
-#| "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgid "Moves the main menu into a button on top of the panels."
-msgstr ""
-"Mou la finestra principal a un botó en la part superior dels plafons.\n"
-"Depèn: PyGTK >= 2.22, GTK >= 2.20"
+msgstr "Mou la finestra principal a un botó en la part superior dels plafons."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -5010,7 +4754,7 @@ msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
-msgstr ""
+msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
@@ -5037,34 +4781,32 @@ msgid "MusicBrainz Covers"
 msgstr "Cobertes de MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
-#, fuzzy
-#| msgid "Integrates MusicBrainz for cover search"
 msgid ""
 "Integrates MusicBrainz for cover search.\n"
 "\n"
 "Requires: musicbrainzngs"
-msgstr "Integra la cerca de cobertes amb MusicBrainz"
+msgstr ""
+"Integra la cerca de cobertes amb MusicBrainz.\n"
+"\n"
+"Requereix: musicbrainzngs"
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pops up a notification when playback of a track starts. Requires pynotify"
 msgid ""
 "Pops up a notification when playback of a track starts or (optionally) if it "
 "is paused/resumed/stopped. Requires libnotify and its typelib file"
 msgstr ""
-"Fa aparèixer una notificació emergent amb la reproducció de l'inici de la "
-"pista. Requereix pynotify"
+"Fa aparèixer una notificació emergent quan comença la reproducció d'una "
+"pista, o bé (opcional) quan es fa una pausa, es reprèn o s'atura la "
+"reproducció. Requereix libnotify i el seu fitxer typelib"
 
 #: ../plugins/osd/PLUGININFO:4
-#, fuzzy
-#| msgid "A popup window showing information of the currently playing track."
 msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
 "Una finestra emergent que mostra la informació de la pista actualment en "
-"reproducció."
+"reproducció.\n"
+"Aquest connector no està disponible a Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -5104,12 +4846,6 @@ msgid "Enables ReplayGain support"
 msgstr "Habilita la compatibilitat amb ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME Screensaver or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -5119,8 +4855,8 @@ msgstr ""
 "Fa una pausa (i de manera opcional reprèn) en la reproducció basant-se amb "
 "l'estat de l'estalvi de pantalla.\n"
 "\n"
-"Requereix: L'estalvi de pantalla de GNOME o de KDE (no és compatible amb "
-"XScreenSaver ni tampoc amb XLockMore)"
+"Requereix: L'estalvi de pantalla de GNOME, MATE, Cinnamon o KDE (no és "
+"compatible amb XScreenSaver ni tampoc amb XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -5144,16 +4880,12 @@ msgstr ""
 "Depèn: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides Wikipedia information about the current artist.\n"
-#| "Depends: python-webkit"
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 "Proporciona informació de la Wikipedia quant a l'artista actual.\n"
-"Depèn: python-webkit"
+"Requereix: webkit2gtk i el seu fitxer typelib"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"

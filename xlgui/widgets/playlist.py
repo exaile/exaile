@@ -1269,6 +1269,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         # Stop default handler from running
         self.stop_emission('drag-data-received')
+
+        # Makes `self.on_row_inserted` to ignore inserted rows
+        # see https://github.com/exaile/exaile/issues/487
         self._insert_focusing = True
 
         drop_info = self.get_dest_row_at_pos(x, y)
@@ -1311,6 +1314,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                             )
                         )
 
+                    # Restore state to `self.on_row_inserted` do not ignore inserted rows
+                    # see https://github.com/exaile/exaile/issues/487
                     self._insert_focusing = False
                     return
 
@@ -1323,6 +1328,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if target == "exaile-index-list":
             selection_data = selection.get_data()
             if selection_data == '':  # Ignore drops from empty areas
+                # Restore state to `self.on_row_inserted` do not ignore inserted rows
+                # see https://github.com/exaile/exaile/issues/487
                 self._insert_focusing = False
                 return
             positions = [int(pos) for pos in selection_data.split(",")]
@@ -1406,6 +1413,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if scroll_when_appending_tracks and tracks:
             self.scroll_to_cell(self.playlist.index(tracks[-1]))
 
+        # Restore state to `self.on_row_inserted` do not ignore inserted rows
+        # see https://github.com/exaile/exaile/issues/487
         self._insert_focusing = False
 
     def on_drag_motion(self, widget, context, x, y, etime):

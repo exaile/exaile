@@ -1378,8 +1378,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 insert_position = len(self.playlist) - len(tracks)
 
         # Select inserted items
-        if insert_position >= 0 and \
-            insert_position < len(self.playlist) and len(tracks) > 0:
+        if (0 <= insert_position < len(self.playlist) and
+            0 < len(tracks) <= 500):
+            # More than 500 songs are loaded threaded, so ignore it
             self.get_selection().select_range(
                 self.model.get_path(
                     self.model.iter_nth_child(None, insert_position)

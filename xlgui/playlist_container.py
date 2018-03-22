@@ -197,7 +197,7 @@ class PlaylistNotebook(SmartNotebook):
         seen = []
         default_playlist_name = _('Playlist %d')
         # Split into 'Playlist ' and ''
-        default_name_parts = default_playlist_name.decode('utf-8').split('%d')
+        default_name_parts = default_playlist_name.split('%d')
 
         for n in range(self.get_n_pages()):
             page = self.get_nth_page(n)

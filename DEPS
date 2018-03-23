@@ -21,7 +21,7 @@ Essential:
 * dbus-python
 * pygobject (>= 3.13.2)
 * python-cairo
-* GIR libraries for GTK+/GStreamer and cairo 
+* GIR libraries for GTK+/GStreamer and cairo (python-gi-cairo on Ubuntu)
 
 Translation:
 

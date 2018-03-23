@@ -333,14 +333,14 @@ class NotifyPlugin(object):
         return GLib.SOURCE_REMOVE
 
     def disable(self, _exaile):
+        self.teardown(exaile)
+
+        self.__exaile = None
+
+    def teardown(self, exaile):
         if self.__notifier:
             self.__notifier.destroy()
             self.__notifier = None
-        self.__exaile = None
-
-    def teardown(self):
-        if self.__notifier:
-            self.__notifier.destroy()
 
     def get_preferences_pane(self):
         return notifyprefs

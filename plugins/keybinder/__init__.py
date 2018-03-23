@@ -68,12 +68,12 @@ class KeybinderPlugin(object):
                 self.__exaile.plugins.disable_plugin(__name__)
                 return
 
-    def teardown(self):
+    def teardown(self, exaile):
         for k in KEYS:
             Keybinder.unbind(k)
 
-    def disable(self, _exaile):
-        self.teardown()
+    def disable(self, exaile):
+        self.teardown(exaile)
         self.__exaile = None
 
 

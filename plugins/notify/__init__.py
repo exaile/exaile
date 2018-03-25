@@ -332,7 +332,7 @@ class NotifyPlugin(object):
         self.__notifier = Notifier(self.__exaile, caps)
         return GLib.SOURCE_REMOVE
 
-    def disable(self, _exaile):
+    def disable(self, exaile):
         self.teardown(exaile)
 
         self.__exaile = None

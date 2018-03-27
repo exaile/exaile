@@ -1270,6 +1270,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # Stop default handler from running
         self.stop_emission('drag-data-received')
 
+        # Makes `self.on_row_inserted` to ignore inserted rows
+        # see https://github.com/exaile/exaile/issues/487
+        self._insert_focusing = True
+
         drop_info = self.get_dest_row_at_pos(x, y)
 
         if drop_info:
@@ -1295,17 +1299,38 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                         self.playlist[insert_position:insert_position] = tracks
                     else:
                         self.playlist.extend(tracks)
-
-                    return
+                        insert_position = len(self.playlist) - len(tracks)
                 except Exception:
                     pass  # Any exception on hack is ignored
+                else:
+                    # Select inserted items
+                    if tracks:
+                        self.get_selection().select_range(
+                            self.model.get_path(
+                                self.model.iter_nth_child(None, insert_position)
+                            ),
+                            self.model.get_path(
+                                self.model.iter_nth_child(None, insert_position + len(tracks) - 1)
+                            )
+                        )
+
+                    # Restore state to `self.on_row_inserted` do not ignore inserted rows
+                    # see https://github.com/exaile/exaile/issues/487
+                    self._insert_focusing = False
+                    return
+
 
         tracks = []
+        playlist = []
+        positions = []
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
             selection_data = selection.get_data()
             if selection_data == '':  # Ignore drops from empty areas
+                # Restore state to `self.on_row_inserted` do not ignore inserted rows
+                # see https://github.com/exaile/exaile/issues/487
+                self._insert_focusing = False
                 return
             positions = [int(pos) for pos in selection_data.split(",")]
             tracks = common.MetadataList()
@@ -1316,9 +1341,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if source_playlist_view is not self:
                 playlist = source_playlist_view.playlist
 
-            # TODO: this can probably be made more-efficient
-            for i in positions:
-                tracks.extend(playlist[i:i + 1])
+            current_position_index = -1
+            for i, pos in enumerate(positions):
+                if pos == playlist.current_position:
+                    current_position_index = i
+
+                tracks.append(playlist[pos])
 
             # Insert at specific position if possible
             if insert_position >= 0:
@@ -1330,14 +1358,15 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                         if position >= insert_position:
                             position += len(tracks)
                             positions[i] = position
+
+                # Update playlist current position
+                if current_position_index >= 0:
+                    self.playlist.current_position = insert_position + current_position_index
+                    self.model.update_row_params(self.playlist.current_position)
             else:
                 # Otherwise just append the tracks
                 self.playlist.extend(tracks)
-
-            # Remove tracks from the source playlist if moved
-            if context.get_selected_action() == Gdk.DragAction.MOVE:
-                for i in positions[::-1]:
-                    del playlist[i]
+                insert_position = len(self.playlist) - len(tracks)
         elif target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
@@ -1353,6 +1382,25 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.playlist[insert_position:insert_position] = tracks
             else:
                 self.playlist.extend(tracks)
+                insert_position = len(self.playlist) - len(tracks)
+
+        # Select inserted items
+        if (0 <= insert_position < len(self.playlist) and
+            0 < len(tracks) <= 500):
+            # More than 500 songs are loaded threaded, so ignore it
+            self.get_selection().select_range(
+                self.model.get_path(
+                    self.model.iter_nth_child(None, insert_position)
+                ),
+                self.model.get_path(
+                    self.model.iter_nth_child(None, insert_position + len(tracks) - 1)
+                )
+            )
+
+        # Remove tracks from the source playlist if moved
+        if context.get_selected_action() == Gdk.DragAction.MOVE:
+            for i in positions[::-1]:
+                del playlist[i]
 
         #delete = context.action == Gdk.DragAction.MOVE
         # TODO: Selected? Suggested?
@@ -1364,6 +1412,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if scroll_when_appending_tracks and tracks:
             self.scroll_to_cell(self.playlist.index(tracks[-1]))
+
+        # Restore state to `self.on_row_inserted` do not ignore inserted rows
+        # see https://github.com/exaile/exaile/issues/487
+        self._insert_focusing = False
 
     def on_drag_motion(self, widget, context, x, y, etime):
         """

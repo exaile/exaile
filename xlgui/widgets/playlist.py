@@ -1305,7 +1305,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 else:
                     # Select inserted items
                     if tracks:
-                        self.get_selection().select_range(
+                        self.selection.unselect_all()
+                        self.selection.select_range(
                             self.model.get_path(
                                 self.model.iter_nth_child(None, insert_position)
                             ),
@@ -1388,7 +1389,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if (0 <= insert_position < len(self.playlist) and
             0 < len(tracks) <= 500):
             # More than 500 songs are loaded threaded, so ignore it
-            self.get_selection().select_range(
+            self.selection.unselect_all()
+            self.selection.select_range(
                 self.model.get_path(
                     self.model.iter_nth_child(None, insert_position)
                 ),

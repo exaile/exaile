@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2017-12-11 03:48+0000\n"
+"PO-Revision-Date: 2018-04-10 07:39+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.20\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
@@ -964,7 +964,7 @@ msgstr "Gå til forrige spor"
 
 #: ../xlgui/main.py:184
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Bytt til neste fane"
 
 #: ../xlgui/main.py:187
 #, fuzzy
@@ -973,11 +973,11 @@ msgstr "Forvalg for spillelistenavn"
 
 #: ../xlgui/main.py:192
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Fokuser på filpanelet"
 
 #: ../xlgui/main.py:196
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Fokuser på radiopanelet"
 
 #: ../xlgui/main.py:198
 #, fuzzy
@@ -986,31 +986,31 @@ msgstr "Forvalg for spillelistenavn"
 
 #: ../xlgui/main.py:200
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Fokuser på første fane"
 
 #: ../xlgui/main.py:201
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Fokuser på andre fane"
 
 #: ../xlgui/main.py:202
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Fokuser på tredje fane"
 
 #: ../xlgui/main.py:203
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Fokuser på fjerde fane"
 
 #: ../xlgui/main.py:204
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Fokuser på femte fane"
 
 #: ../xlgui/main.py:205
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Fokuser på sjette fane"
 
 #: ../xlgui/main.py:206
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Fokuser på syvende fane"
 
 #: ../xlgui/main.py:207
 #, fuzzy
@@ -1019,11 +1019,11 @@ msgstr "Forvalg for spillelistenavn"
 
 #: ../xlgui/main.py:208
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Fokuser på niende fane"
 
 #: ../xlgui/main.py:209
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Fokuser på tiende fane"
 
 #: ../xlgui/main.py:518
 msgid "Toggle: Stop after Selected Track"
@@ -1163,7 +1163,7 @@ msgstr "Søk igjennom samlingen (sakte)"
 
 #: ../xlgui/menu.py:271
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Brukerveiledning (nettside)"
 
 #: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
 #, fuzzy
@@ -1173,11 +1173,11 @@ msgstr "Snarvei"
 
 #: ../xlgui/menu.py:276
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Innrapporter feil (GitHub)"
 
 #: ../xlgui/menu.py:279
 msgid "_About"
-msgstr ""
+msgstr "_Om"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Artist"
@@ -1243,7 +1243,7 @@ msgstr "Ingen sangtekster funnet."
 
 #: ../xlgui/panel/lyrics.py:181
 msgid "Source: "
-msgstr ""
+msgstr "KIlde: "
 
 #: ../xlgui/panel/lyrics.py:211
 msgid "Any"
@@ -1825,7 +1825,7 @@ msgstr "Ny Markør"
 
 #: ../xlgui/widgets/playback.py:1366
 msgid "_Jump to"
-msgstr ""
+msgstr "_Hopp til"
 
 #: ../xlgui/widgets/playback.py:1370
 #, fuzzy
@@ -1855,7 +1855,7 @@ msgstr "Pause"
 
 #: ../xlgui/widgets/playback.py:1543
 msgid "P_lay"
-msgstr ""
+msgstr "S_pill"
 
 #: ../xlgui/widgets/playback.py:1550
 #, fuzzy
@@ -1925,7 +1925,7 @@ msgstr "Lagre som"
 
 #: ../xlgui/widgets/playlist.py:230
 msgid "_Clear"
-msgstr ""
+msgstr "_Tøm"
 
 #: ../xlgui/widgets/playlist.py:281
 #, fuzzy
@@ -2218,11 +2218,11 @@ msgstr "_Hent omslag"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "For_størr"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "For_minsk"
 
 #: ../data/ui/coverwindow.ui:68
 #, fuzzy
@@ -2232,7 +2232,7 @@ msgstr "Original dato"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
+msgstr "_Beste tilpasning"
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
@@ -2795,7 +2795,7 @@ msgstr "_Fjern knagg"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab ➜ A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
@@ -3619,13 +3619,13 @@ msgstr "$title ($__length)"
 #: ../plugins/moodbar/__init__.py:92
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
-msgstr ""
+msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
 #: ../plugins/moodbar/__init__.py:156
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current} / {remaining}"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3635,7 +3635,7 @@ msgstr "Multialarmklokke"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "fra {album} av {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, fuzzy, python-brace-format
@@ -3765,7 +3765,7 @@ msgstr "Forhåndsvisningsenhet"
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
@@ -4105,7 +4105,7 @@ msgstr "ms"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr ""
+msgstr "Exaile-utviklerverktøy"
 
 #: ../plugins/developer/developer_window.ui:75
 #, fuzzy
@@ -4115,15 +4115,15 @@ msgstr "Taktteller"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
-msgstr ""
+msgstr "Filtrer hendesestyper"
 
 #: ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "Tøm"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
-msgstr ""
+msgstr "Hendelser"
 
 #: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
@@ -4401,7 +4401,7 @@ msgstr "<b>Alarmer</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "_Legg til"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
 #, fuzzy
@@ -5027,7 +5027,7 @@ msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
-msgstr ""
+msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
@@ -5036,6 +5036,7 @@ msgid ""
 msgstr ""
 
 #: ../plugins/multialarmclock/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Plays music at specific times and days.\n"
 "\n"
@@ -5043,6 +5044,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Spiller musikk på gitte tider og dager.\n"
+"\n"
+"Merka at når angitt tid inntreffer, vil Exaile opptre akkurat som om du "
+"trykket på \"Spill\"-knappen, så forsikre deg om at du har musikken du "
+"ønsker å høre i spillelisten din"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -5145,6 +5151,8 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Lar deg ta opp strømmer med steamripper.\n"
+"Avhengigheter: steamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 #, fuzzy

@@ -928,7 +928,7 @@ class CoverWindow(object):
         """
         if event.keyval == Gdk.KEY_Escape or \
                 (event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_w):
-            widget.hide()
+            widget.destroy()
 
     def on_save_as_button_clicked(self, widget):
         """

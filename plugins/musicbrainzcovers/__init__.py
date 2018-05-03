@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 musicbrainzngs.set_useragent(
     'Exaile_MusicBrainz_Covers',
     '1.0.0',
-    'http://exaile.org/'
+    'https://exaile.org/'
 )
 
 

@@ -22,8 +22,8 @@
   </p>
  </description>
  <screenshots>
-  <screenshot type="default" width="800" height="600">http://www.exaile.org/public/images/exaile-3.4.png</screenshot>
+  <screenshot type="default" width="800" height="600">https://www.exaile.org/public/images/exaile-3.4.png</screenshot>
  </screenshots>
- <url type="homepage">http://www.exaile.org</url>
+ <url type="homepage">https://www.exaile.org</url>
  <updatecontact>exaile-devel@googlegroups.com</updatecontact>
 </application>

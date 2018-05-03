@@ -643,8 +643,8 @@ class Exaile(object):
 
             from xl import settings
 
-            default_no_plugin = 'Exaile/%(version)s (+http://www.exaile.org)'
-            default_plugin = 'Exaile/%(version)s %(plugin_name)s/%(plugin_version)s (+http://www.exaile.org)'
+            default_no_plugin = 'Exaile/%(version)s (+https://www.exaile.org)'
+            default_plugin = 'Exaile/%(version)s %(plugin_name)s/%(plugin_version)s (+https://www.exaile.org)'
 
             self._user_agent_no_plugin = \
                 settings.get_option('general/user_agent', default_no_plugin)

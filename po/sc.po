@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2017-12-26 01:00+0000\n"
+"PO-Revision-Date: 2018-05-07 22:09+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
 "sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 3.0-dev\n"
 
 #: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -180,8 +180,6 @@ msgid "Playlist Options"
 msgstr "Impostaduras de s’iscalita"
 
 #: ../xl/main.py:117
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Esporta s'iscalita atuale in sa POSITZIONE"
 
@@ -195,17 +193,14 @@ msgstr "Pòrroga su leghidore"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:124
-#, fuzzy
 msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:125
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
-"Recuperat sas informatziones chi pertocant s'istadu atuale de riprodutzione "
-"e sa rasta comente FORMAT"
+"Recùpera sas informatziones chi pertocant s'istadu atuale de riprodutzione e "
+"sa rasta comente FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:128
@@ -213,11 +208,9 @@ msgid "TAGS"
 msgstr "ETICHETAS"
 
 #: ../xl/main.py:129
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
-"ETICHETAS de recuperare dae sa rasta atuale, impreare cun --format-query"
+"Etichetas de recuperare dae sa rasta atuale, impreare cun --format-query"
 
 #: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
@@ -267,22 +260,16 @@ msgid "Volume Options"
 msgstr "Impostaduras de su volume"
 
 #: ../xl/main.py:157
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Aumenta su volume de N%"
+msgstr "Àrtzia su volume de su N%"
 
 #: ../xl/main.py:161
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Minima su volume de N%"
+msgstr "Abbassa su volume de su N%"
 
 #: ../xl/main.py:164
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Alluet o istudat su volume"
+msgstr "Allughet o istudat su volume"
 
 #: ../xl/main.py:166
 msgid "Print the current volume percentage"
@@ -318,9 +305,6 @@ msgstr ""
 "Avia in modalidade segura - carchi borta est ùtile cando bi sunt problemas"
 
 #: ../xl/main.py:185
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Fortza s'importatzione de sos datos dae sa versione 0.2.x (burrat sos datos "
@@ -373,16 +357,12 @@ msgid "Show debugging output"
 msgstr "Ammustra su resurtu d’essida de debug"
 
 #: ../xl/main.py:207
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Abìlita su debug de xl.event. Ingendra MEDA resurtu d’essida"
+msgstr "Abìlita su debug de xl.event. Ingendrat meda risultados d’essida"
 
 #: ../xl/main.py:210
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Abìlita su debug de xl.event. Ingendra MEDA resurtu d’essida"
+msgstr "Abìlita su debug intreu de xl.event. Ingendrat MEDA risultados d’essida"
 
 #: ../xl/main.py:213
 msgid "Add thread name to logging messages."
@@ -506,10 +486,8 @@ msgid "ISRC"
 msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
-#, fuzzy
-#| msgid "Language:"
 msgid "Language"
-msgstr "Limba:"
+msgstr "Limba"
 
 #: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5

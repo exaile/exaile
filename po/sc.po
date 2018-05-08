@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2018-05-07 22:09+0000\n"
+"PO-Revision-Date: 2018-05-08 22:46+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
 "sc/>\n"
@@ -307,8 +307,8 @@ msgstr ""
 #: ../xl/main.py:185
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
-"Fortza s'importatzione de sos datos dae sa versione 0.2.x (burrat sos datos "
-"atuale)"
+"Fortza s'importatzione de sos datos dae sa versione 0.2.x (iscantzellat sos "
+"datos atuales)"
 
 #: ../xl/main.py:188
 msgid "Do not import old data from version 0.2.x"
@@ -856,7 +856,7 @@ msgstr "Recùpera sa cobertedda"
 
 #: ../xlgui/cover.py:522
 msgid "Remove Cover"
-msgstr "Burra sa cobertedda"
+msgstr "Iscantzella sa cobertedda"
 
 #: ../xlgui/cover.py:831
 #, python-format
@@ -895,10 +895,8 @@ msgid "$title (by $artist)"
 msgstr "$title (de $artist)"
 
 #: ../xlgui/main.py:159
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Intra in s'iscalita atuale"
+msgstr "Sarva s'iscalita ischertada como"
 
 #: ../xlgui/main.py:161
 msgid "Save currently selected playlist under a custom name"
@@ -925,26 +923,18 @@ msgid "Seek to the right"
 msgstr ""
 
 #: ../xlgui/main.py:174
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Torra a su caràtere predefinidu"
+msgstr "Chirca a manca"
 
 #: ../xlgui/main.py:177
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Aumenta su volume de N%"
+msgstr "Aumenta su volume"
 
 #: ../xlgui/main.py:179
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Minima su volume de N%"
+msgstr "Mìnima su volume"
 
 #: ../xlgui/main.py:182
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
 msgstr "Cola a sa rasta anteposta"
 
@@ -953,10 +943,8 @@ msgid "Switch to next tab"
 msgstr ""
 
 #: ../xlgui/main.py:187
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlist container"
-msgstr "Predefinidu, a su nùmene de s'iscalita"
+msgstr ""
 
 #: ../xlgui/main.py:192
 msgid "Focus the files panel"
@@ -967,10 +955,8 @@ msgid "Focus the radio panel"
 msgstr ""
 
 #: ../xlgui/main.py:198
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the playlists panel"
-msgstr "Predefinidu, a su nùmene de s'iscalita"
+msgstr ""
 
 #: ../xlgui/main.py:200
 msgid "Focus the first tab"
@@ -1001,10 +987,8 @@ msgid "Focus the seventh tab"
 msgstr ""
 
 #: ../xlgui/main.py:207
-#, fuzzy
-#| msgid "Defaults to the playlist name"
 msgid "Focus the eighth tab"
-msgstr "Predefinidu, a su nùmene de s'iscalita"
+msgstr ""
 
 #: ../xlgui/main.py:208
 msgid "Focus the ninth tab"
@@ -1023,9 +1007,9 @@ msgid "Playback error encountered!"
 msgstr "Est istadu agatadu un’errore de riprodutzione!"
 
 #: ../xlgui/main.py:626
-#, fuzzy, python-format
+#, python-format
 msgid "Buffering: %d%%..."
-msgstr "Buffering: %d%%..."
+msgstr "Carrighende: %d%%..."
 
 #: ../xlgui/main.py:667 ../plugins/previewdevice/__init__.py:367
 msgid "Continue Playback"
@@ -1051,50 +1035,36 @@ msgid "_New Playlist"
 msgstr "_Iscalita noa"
 
 #: ../xlgui/menu.py:69
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Aberi URL"
+msgstr "_Aberi"
 
 #: ../xlgui/menu.py:79
 msgid "Open _URL"
 msgstr "Aberi _URL"
 
 #: ../xlgui/menu.py:89
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Aberi cartella"
+msgstr "Aberi _Cartellas"
 
 #: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
-msgstr "Importa iscalita"
+msgstr "_Importa Iscalita"
 
 #: ../xlgui/menu.py:118
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Esporta s’iscalita atuale"
+msgstr "E_sporta s’iscalita atuale"
 
 #: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Serra s’ischeda"
+msgstr "Serra _s’ischeda"
 
 #: ../xlgui/menu.py:133
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Torra a aviare"
+msgstr "_Torra a aviare"
 
 #: ../xlgui/menu.py:141 ../xlgui/tray.py:99
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "Informatziones chi pertocant Exaile"
+msgstr "_Serra Exaile"
 
 #: ../xlgui/menu.py:158
 msgid "_Collection"
@@ -1109,10 +1079,8 @@ msgid "C_overs"
 msgstr "C_oberteddas"
 
 #: ../xlgui/menu.py:177
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Preferèntzias"
+msgstr "_Preferèntzias"
 
 #: ../xlgui/menu.py:197
 msgid "_Show Playing Track"
@@ -1123,42 +1091,32 @@ msgid "_Playlist Utilities Bar"
 msgstr "_Barra Ainas de s'iscalita"
 
 #: ../xlgui/menu.py:213
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "_Colunna"
+msgstr "C_olunnas"
 
 #: ../xlgui/menu.py:221
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
-msgstr "I_sboida iscalita"
+msgstr "_Isbòida iscalita"
 
 #: ../xlgui/menu.py:239
 msgid "_Device Manager"
 msgstr "_Gestione dispositivu"
 
 #: ../xlgui/menu.py:242
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Torra a iscansire sa regorta"
+msgstr "_Torra a iscansire sa regorta"
 
 #: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
-#, fuzzy
-#| msgid "Rescan Collection (slow)"
 msgid "Rescan Collection (_slow)"
-msgstr "Torra a iscansire sa regorta (lentu)"
+msgstr "Torra a iscansire sa regorta (_lentu)"
 
 #: ../xlgui/menu.py:271
 msgid "User's Guide (website)"
 msgstr ""
 
 #: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Incurtzadura"
+msgstr "Incurtzaduras"
 
 #: ../xlgui/menu.py:276
 msgid "Report an issue (GitHub)"
@@ -1199,7 +1157,7 @@ msgstr "Torra a iscansire sa regorta"
 #: ../xlgui/panel/device.py:139
 #, python-format
 msgid "Transferring to %s..."
-msgstr "Tramudande in %s..."
+msgstr "Tramudende in %s..."
 
 #: ../xlgui/panel/files.py:81
 msgid "Files"
@@ -1239,22 +1197,17 @@ msgid "Any"
 msgstr "Cale si siat"
 
 #: ../xlgui/panel/menus.py:184
-#, fuzzy
-#| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
-msgstr "Iscalita automàtica noa"
+msgstr "Iscalita _automàtica noa"
 
 #: ../xlgui/panel/menus.py:259
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Istatzione noa"
+msgstr "_Istatzione noa"
 
 #: ../xlgui/panel/playlists.py:142
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Burra iscalita"
+msgstr "Iscantzellare s'iscalita \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:157
 msgid "Enter the new name you want for your playlist"
@@ -1272,7 +1225,7 @@ msgstr "Su nùmene insertadu pro s'iscalita est giai impreadu."
 #: ../xlgui/panel/playlists.py:216
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Errore carrigande s’iscalita automàtica: %s"
+msgstr "Errore carrighende s’iscalita automàtica: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1308,7 +1261,7 @@ msgstr "Ràdio"
 #: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
 #: ../xlgui/panel/radio.py:552
 msgid "Loading streams..."
-msgstr "Carrigande sos flussos..."
+msgstr "Carrighende sos flussos..."
 
 #: ../xlgui/panel/radio.py:207
 msgid "Add Radio Station"
@@ -1344,32 +1297,24 @@ msgid "New Playlist"
 msgstr "Iscalita noa"
 
 #: ../xlgui/panels.py:100
-#, fuzzy
-#| msgid "Panels"
 msgid "P_anels"
-msgstr "Pannellos"
+msgstr "P_annellos"
 
 #: ../xlgui/playlist_container.py:72
 msgid "Drop here to create a new playlist"
 msgstr "Trisina inoghe pro creare un’iscalita noa"
 
 #: ../xlgui/playlist_container.py:130
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear Tab History"
-msgstr "Isbòida s’istòria"
+msgstr "_Isbòida sa cronologia de sa ischedas"
 
 #: ../xlgui/playlist_container.py:140
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Recently Closed _Tabs"
-msgstr "Ischedas serradas dae pagu"
+msgstr "_Ischedas serradas dae pagu"
 
 #: ../xlgui/playlist_container.py:159
-#, fuzzy
-#| msgid "Recently Closed Tabs"
 msgid "Restore closed tab"
-msgstr "Ischedas serradas dae pagu"
+msgstr "Riprìstina ischedas serradas"
 
 #: ../xlgui/playlist_container.py:198
 #, python-format
@@ -1387,10 +1332,8 @@ msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr "{playlist_name} ({track_count} rastas, serradas {seconds} seg. fàghet)"
 
 #: ../xlgui/playlist_container.py:521
-#, fuzzy
-#| msgid "Move to other View"
 msgid "_Move to Other View"
-msgstr "Tramuda in un’àtera vista"
+msgstr "_Tràmuda in un’àtera vista"
 
 #: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:43
 msgid "Plugins"
@@ -1414,10 +1357,8 @@ msgid "the"
 msgstr "su los sos is las sas ddu ddus ddis dda ddas"
 
 #: ../xlgui/preferences/collection.py:56
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
-msgstr "Torra a impostare sos valores predefinidos"
+msgstr "Torra sos valores _predefinidos"
 
 #: ../xlgui/preferences/cover.py:35 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1446,8 +1387,8 @@ msgstr "Impossìbile carrigare sas informatziones chi pertocant s’estensione!"
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] "Estensione chi no est funtzionande: %s"
-msgstr[1] "Estensiones chi non sunt funtzionande: %s"
+msgstr[0] "Estensione chi no est funtzionende: %s"
+msgstr[1] "Estensiones chi non sunt funtzionende: %s"
 
 #: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
 msgid "Could not disable plugin!"
@@ -1690,7 +1631,7 @@ msgstr "Sarva comente"
 #: ../xlgui/widgets/dialogs.py:1710
 #, python-format
 msgid "Exporting %s"
-msgstr "Esportande %s"
+msgstr "Esportende %s"
 
 #: ../xlgui/widgets/dialogs.py:1713
 msgid "Choose directory to export files to"
@@ -1726,76 +1667,56 @@ msgid "%d selected"
 msgstr "%d ischertadu"
 
 #: ../xlgui/widgets/menuitems.py:111
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
-msgstr "Annanghe a s’elencu"
+msgstr "In_s’elencu"
 
 #: ../xlgui/widgets/menuitems.py:139
-#, fuzzy
-#| msgid "Replace Current"
 msgid "_Replace Current"
-msgstr "Remplasa s’atuale"
+msgstr "_Remplasa s’atuale"
 
 #: ../xlgui/widgets/menuitems.py:144
-#, fuzzy
-#| msgid "Append to Current"
 msgid "_Append to Current"
-msgstr "Annanghe a sa currente"
+msgstr "_Annanghe a sa currente"
 
 #: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
-#, fuzzy
-#| msgid "Track Properties"
 msgid "_Track Properties"
-msgstr "Informatziones rasta"
+msgstr "_Informatziones rasta"
 
 #: ../xlgui/widgets/menuitems.py:170
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Abèri cartella"
+msgstr "_Abèri cartella"
 
 #: ../xlgui/widgets/menuitems.py:196
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
-"Impossìbile tramudare sos documentos in su cestinu. Los cheres burrare "
+"Impossìbile tramudare sos documentos in su cestinu. Los cheres iscantzellare "
 "definitivamente?"
 
 #: ../xlgui/widgets/menuitems.py:212
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
-msgstr "Tramuda in su cestinu"
+msgstr "_Tramuda in su cestinu"
 
 #: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Càmbia nùmene"
+msgstr "_Càmbia nùmene"
 
 #: ../xlgui/widgets/menuitems.py:231 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Modìfica"
 
 #: ../xlgui/widgets/menuitems.py:237
-#, fuzzy
-#| msgid "Export Playlist"
 msgid "E_xport Playlist"
-msgstr "Esporta iscalita"
+msgstr "E_sporta iscalita"
 
 #: ../xlgui/widgets/menuitems.py:242
-#, fuzzy
-#| msgid "Export Files"
 msgid "Export _Files"
-msgstr "Esporta documentu"
+msgstr "Esporta _documentos"
 
 #: ../xlgui/widgets/menuitems.py:247
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Burra iscalita"
+msgstr "_Iscantzella iscalita"
 
 #: ../xlgui/widgets/notebook.py:242
 msgid "Close Tab"
@@ -1804,7 +1725,7 @@ msgstr "Serra s’ischeda"
 #: ../xlgui/widgets/playback.py:818
 #, python-format
 msgid "Seeking: %s"
-msgstr "Chircande: %s"
+msgstr "Chirchende: %s"
 
 #: ../xlgui/widgets/playback.py:1163
 msgid "Move"
@@ -1819,10 +1740,8 @@ msgid "_Jump to"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1370
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
-msgstr "_Boga eticheta"
+msgstr "_Boga marcadore"
 
 #: ../xlgui/widgets/playback.py:1411
 msgid "Muted"
@@ -1839,102 +1758,72 @@ msgid "Full Volume"
 msgstr "Volume màssimu"
 
 #: ../xlgui/widgets/playback.py:1540
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Pasada"
+msgstr "_Pàusa"
 
 #: ../xlgui/widgets/playback.py:1543
 msgid "P_lay"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1550
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Rasta imbeniente"
+msgstr "_Rasta imbeniente"
 
 #: ../xlgui/widgets/playback.py:1555
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Rasta anteposta"
+msgstr "_Rasta anteposta"
 
 #: ../xlgui/widgets/playback.py:1560
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Firma"
+msgstr "_Firma"
 
 #: ../xlgui/widgets/playlist.py:132
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "Casuale"
+msgstr "C_asuale"
 
 #: ../xlgui/widgets/playlist.py:137
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Torra a repìtere"
+msgstr "R_ipite"
 
 #: ../xlgui/widgets/playlist.py:142
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dinàmica"
+msgstr "_Dinàmica"
 
 #: ../xlgui/widgets/playlist.py:159
-#, fuzzy
-#| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
-msgstr "Boga sa rasta atuale dae s’iscalita"
+msgstr "Boga sa rasta _atuale dae s’iscalita"
 
 #: ../xlgui/widgets/playlist.py:191
-#, fuzzy
-#| msgid "Randomize Playlist"
 msgid "R_andomize Playlist"
-msgstr "Iscalita casuale"
+msgstr "Iscalita c_asuale"
 
 #: ../xlgui/widgets/playlist.py:194
-#, fuzzy
-#| msgid "Randomize Selection"
 msgid "R_andomize Selection"
-msgstr "Casualiza s’ischerta"
+msgstr "C_asualiza s’ischerta"
 
 #: ../xlgui/widgets/playlist.py:221
-#, fuzzy
-#| msgid "Save As"
 msgid "_Save"
-msgstr "Sarva comente"
+msgstr "_Sarva"
 
 #: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
-#, fuzzy
-#| msgid "Save As"
 msgid "Save _As"
-msgstr "Sarva comente"
+msgstr "Sarva _comente"
 
 #: ../xlgui/widgets/playlist.py:230
 msgid "_Clear"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:281
-#, fuzzy
-#| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
-msgstr "Firma sa riprodutzione a pustis de custa rasta"
+msgstr "_Firma sa riprodutzione a pustis de custa rasta"
 
 #: ../xlgui/widgets/playlist.py:288
-#, fuzzy
-#| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
-msgstr "Sighi cun sa riprodutzione a pustis de custa rasta"
+msgstr "_Sighi cun sa riprodutzione a pustis de custa rasta"
 
 #: ../xlgui/widgets/playlist.py:338
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
-msgstr "Càmbia nùmene a s'iscalita"
+msgstr "_Boga dae s'iscalita"
 
 #: ../xlgui/widgets/playlist.py:617
 msgid "Requires plugins providing dynamic playlists"
@@ -1945,10 +1834,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Annanghe rastas sìmiles a s’iscalita"
 
 #: ../xlgui/widgets/playlist.py:677
-#, fuzzy
-#| msgid "Loading..."
 msgid "Loading"
-msgstr "Carrigande..."
+msgstr "Carrighende"
 
 #: ../xlgui/widgets/playlist_columns.py:170
 msgid "Track Number"
@@ -2140,10 +2027,8 @@ msgid "Edit Smart Playlist"
 msgstr "Modìfica iscalita automàtica"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:425
-#, fuzzy
-#| msgid "Import Type:"
 msgid "Sort by:"
-msgstr "Importa casta:"
+msgstr "Òrdina pro:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2182,10 +2067,8 @@ msgid "Scan At Startup"
 msgstr "Iscansi a s’alluìngiu"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "Rescan _Collection"
-msgstr "Torra a iscansire sa regorta"
+msgstr "Torra a iscansire sa _regorta"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2216,10 +2099,8 @@ msgid "Zoom _Out"
 msgstr ""
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original date"
 msgid "_Original Size"
-msgstr "Data originale"
+msgstr "_Mannària originale"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
@@ -2227,10 +2108,8 @@ msgstr ""
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "_Close"
-msgstr "Serra %s"
+msgstr "_Serra"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
@@ -2303,10 +2182,8 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
-#, fuzzy
-#| msgid "Add Music"
 msgid "_Add Music"
-msgstr "Annanghe mùsica"
+msgstr "_Annanghe mùsica"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2357,10 +2234,8 @@ msgid "Refresh Lyrics"
 msgstr "Agiorna testos"
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Annanghe un’istatzione"
+msgstr "_Annanghe un’istatzione"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2487,8 +2362,6 @@ msgstr ""
 "(Carca cun su butone destru pro torrare a pònnere sos valores predefinidos)"
 
 #: ../data/ui/preferences/collection.ui:44
-#, fuzzy
-#| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
 msgstr "Imprea sa chirca de sas regortas pro documentos"
 
@@ -2535,10 +2408,8 @@ msgstr "Caràtere testos:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
-#, fuzzy
-#| msgid "Streamripper"
 msgid "GStreamer"
-msgstr "Registradore de flussu"
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2546,10 +2417,8 @@ msgid "Audio Sink:  "
 msgstr "Sink àudio:  "
 
 #: ../data/ui/preferences/playback.ui:92
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device: "
-msgstr "Annanghe unu dispositivu"
+msgstr "Dispositivu àudio: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2591,10 +2460,8 @@ msgid "Automatically advance to the next track"
 msgstr "Sighi automaticamente cun sa rasta imbeniente"
 
 #: ../data/ui/preferences/playback.ui:236
-#, fuzzy
-#| msgid "Delay between tracks (ms)"
 msgid "Delay between tracks (ms):"
-msgstr "Tempus bòidu intre sas rastas (ms)"
+msgstr "Tempus bòidu intre sas rastas (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
@@ -2610,10 +2477,8 @@ msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Imprea s’isparissione rugrada (ISPERIMENTALE)"
 
 #: ../data/ui/preferences/playback.ui:286
-#, fuzzy
-#| msgid "Automatically advance to the next track"
 msgid "Forces automatically advancing to the next track"
-msgstr "Sighi automaticamente cun sa rasta imbeniente"
+msgstr "Fortzat s'avantzamentu automàticu a sa rasta imbeniente"
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
@@ -2631,10 +2496,8 @@ msgid "Playback engine: "
 msgstr "Motore pro sa riprodutzione: "
 
 #: ../data/ui/preferences/playback.ui:367
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Repite sa riprodutzione"
+msgstr "Abìlita sa riprodutzione chene ispàtzios"
 
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
@@ -2662,8 +2525,6 @@ msgstr ""
 "ma las ant a remplasare."
 
 #: ../data/ui/preferences/playlists.ui:52
-#, fuzzy
-#| msgid "Appending/Replacing via menu item triggers playback"
 msgid "Appending/replacing via menu item triggers playback"
 msgstr ""
 "Annànghere o remplasare tramite su menù at a fàghere incumentzare sa "
@@ -2675,7 +2536,7 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
-"Cando ses impreande un’elementu de su menù pro annanghere o remplasare "
+"Cando ses impreende un’elementu de su menù pro annànghere o remplasare "
 "rastas in sa regorta, inghitza sa riprodutzione si b'est una rasta giai in "
 "riprodutzione. Custa optzione fiat predefinida finas a Exaile 0.3.3"
 
@@ -2689,8 +2550,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
-"Faghinde dòpiu clic o carcande \"Invio\" pro riproduire una rasta in una "
-"regorta, pone•la in s'elencu, imbetzes"
+"Faghende dòpiu clic o incarchende \"Invio\" pro riproduire una rasta in una "
+"regorta, pone·la in s'elencu, imbetzes"
 
 #: ../data/ui/preferences/plugin.ui:80
 msgid "Plugin"
@@ -2736,10 +2597,8 @@ msgid "Description:"
 msgstr "Descritzione:"
 
 #: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
 msgid "I_nstall Plugin"
-msgstr "Estensiones installadas"
+msgstr "I_nstalla estensione"
 
 #: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
 msgid "<b>No Plugin Selected</b>"
@@ -2750,36 +2609,28 @@ msgid "Available Plugins"
 msgstr "Estensiones disponìbiles"
 
 #: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
 msgid "_Update Plugin"
-msgstr "Estensione (plugin)"
+msgstr "_Agiorna Estensione"
 
 #: ../data/ui/preferences/plugin.ui:641
 msgid "Updates"
 msgstr "Agiornamentos"
 
 #: ../data/ui/preferences/plugin.ui:662
-#, fuzzy
-#| msgid "Install Plugin File"
 msgid "Add _Plugin File"
-msgstr "Installa s’estensione"
+msgstr "Annanghe unu _documentu de estensione"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
 msgstr "Preferèntzias"
 
 #: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "Close"
-msgstr "Serra %s"
+msgstr "Serra"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Descritzione:"
+msgstr "Descritzione"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2802,10 +2653,8 @@ msgid "Uppercase first letter of all tags"
 msgstr "Pone in maiùsculu sa prima lìtera de totu sas etichetas"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Informatziones"
+msgstr "Informatziones documentu"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2914,16 +2763,12 @@ msgid "Add"
 msgstr "Annanghe"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Finas a: "
+msgstr "Finas a:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " rastas"
+msgstr "rastas"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2955,10 +2800,8 @@ msgid "Amazon Covers"
 msgstr "Cuberteddas Amazon"
 
 #: ../plugins/audioscrobbler/__init__.py:98
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
-msgstr "AudioScrobbler"
+msgstr ""
 
 #: ../plugins/audioscrobbler/__init__.py:136
 msgid "Enable audioscrobbling"
@@ -2983,28 +2826,20 @@ msgid "Please make sure the entered data is correct."
 msgstr "Verìfica chi sos datos insertados sint curretos."
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
-msgstr "Annaghe custa rasta a sos sinnalibros"
+msgstr "_Annaghe custa rasta a sos sinnalibros"
 
 #: ../plugins/bookmarks/__init__.py:218
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Burra sinnalibru"
+msgstr "_Iscantzella sinnalibru"
 
 #: ../plugins/bookmarks/__init__.py:221
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Isbòida sinnalibros"
+msgstr "_Isbòida sinnalibros"
 
 #: ../plugins/bookmarks/__init__.py:323
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Sinnalibros"
+msgstr "_Sinnalibros"
 
 #: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
 msgid "Autodetect BPM"
@@ -3030,7 +2865,7 @@ msgstr "Discu àudio"
 
 #: ../plugins/cd/_cdguipanel.py:101
 msgid "Importing CD..."
-msgstr "Importande CD..."
+msgstr "Importende su CD..."
 
 #: ../plugins/cd/_cdguipanel.py:176
 msgid "Error transcoding files from CD."
@@ -3110,44 +2945,32 @@ msgid "Desktop Cover"
 msgstr "Cobertedda de iscrivania"
 
 #: ../plugins/developer/__init__.py:66
-#, fuzzy
-#| msgid "Development"
 msgid "Developer Tools"
-msgstr "Isvilupu"
+msgstr "Ainas de isvilupu"
 
 #: ../plugins/equalizer/__init__.py:320
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Ecualizatore"
+msgstr "_Ecualizatore"
 
 #: ../plugins/grouptagger/__init__.py:94
-#, fuzzy
-#| msgid "Get all tags from collection"
 msgid "_Get all tags from collection"
-msgstr "Piga totu sas ètichetas dae sa regorta"
+msgstr "_Piga totu sas ètichetas dae sa regorta"
 
 #: ../plugins/grouptagger/__init__.py:99
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Importa etichetas dae una cartella"
+msgstr "_Importa etichetas dae una cartella"
 
 #: ../plugins/grouptagger/__init__.py:104
-#, fuzzy
-#| msgid "Mass rename/delete tags"
 msgid "_Mass rename/delete tags"
-msgstr "Càmbia nùmene/burra etichetas in massa"
+msgstr "_Càmbia nùmene/iscantzella etichetas in massa"
 
 #: ../plugins/grouptagger/__init__.py:109
 msgid "E_xport collecton tags to JSON"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:115
-#, fuzzy
-#| msgid "GroupTagger"
 msgid "_GroupTagger"
-msgstr "Etichetadore de grupos"
+msgstr "_Etichetadore de grupos"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with all tags"
@@ -3159,17 +2982,13 @@ msgstr "Ammustra rastas cun etichetas (pessonalizadu)"
 
 #: ../plugins/grouptagger/__init__.py:135
 #: ../plugins/grouptagger/gt_widgets.py:853
-#, fuzzy
-#| msgid "Yes to all"
 msgid "Add tags to all"
-msgstr "Eja a totus"
+msgstr "Annanghe etichetas a totus"
 
 #: ../plugins/grouptagger/__init__.py:140
 #: ../plugins/grouptagger/gt_widgets.py:855
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "_Boga eticheta"
+msgstr "Boga etichetas dae totus"
 
 #: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:624
@@ -3188,15 +3007,15 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:57
 msgid "Importing tracks"
-msgstr "Importande rastas"
+msgstr "Importende sas rastas"
 
 #: ../plugins/grouptagger/gt_import.py:80
 msgid "Importing groups"
-msgstr "Importande grupos"
+msgstr "Importende sos grupos"
 
 #: ../plugins/grouptagger/gt_import.py:160
 msgid "Updating groups"
-msgstr "Agiornande sos grupos"
+msgstr "Agiornende sos grupos"
 
 #: ../plugins/grouptagger/gt_import.py:245
 msgid "Select directory to import grouping tags from"
@@ -3213,10 +3032,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "Remplasare '%s' cun '%s' in %s rastas?"
 
 #: ../plugins/grouptagger/gt_mass.py:126
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "Remplasare '%s' cun '%s' in %s rastas?"
+msgstr "Iscantzellare '%s' dae %s rastas?"
 
 #: ../plugins/grouptagger/gt_mass.py:149
 msgid ""
@@ -3227,7 +3045,6 @@ msgstr ""
 "etichetas pro èssere seguru chi siant totu agiornadas. Iscansire como?"
 
 #: ../plugins/grouptagger/gt_widgets.py:71
-#, fuzzy
 msgid "Show tracks with selected"
 msgstr "Ammustra rastas cun sas tzellas ischertadas"
 
@@ -3241,22 +3058,16 @@ msgid "Show tracks with all selected"
 msgstr "Ammustra rastas cun totu ischertadu"
 
 #: ../plugins/grouptagger/gt_widgets.py:135
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Etichetas"
+msgstr "Eticheta"
 
 #: ../plugins/grouptagger/gt_widgets.py:150
-#, fuzzy
-#| msgid "Add new group"
 msgid "Add new tag"
-msgstr "Annanghe unu grupu nou"
+msgstr "Annanghe un'eticheta noa"
 
 #: ../plugins/grouptagger/gt_widgets.py:154
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Burra"
+msgstr "Iscantzella eticheta"
 
 #: ../plugins/grouptagger/gt_widgets.py:161
 msgid "Add new category"
@@ -3264,10 +3075,9 @@ msgstr "Annanghe una categoria noa"
 
 #: ../plugins/grouptagger/gt_widgets.py:165
 msgid "Remove category"
-msgstr "Burra categoria"
+msgstr "Iscantzella sa categoria"
 
 #: ../plugins/grouptagger/gt_widgets.py:174
-#, fuzzy
 msgid "Show tracks with selected (custom)"
 msgstr "Ammustra rastas cun sas tzellas ischertadas (pessonalizadu)"
 
@@ -3284,8 +3094,6 @@ msgid "New Category?"
 msgstr "Categoria noa?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
-#, fuzzy
-#| msgid "Enter new group category name"
 msgid "Enter new category name"
 msgstr "Inserta unu nùmene nou pro sas categorias"
 
@@ -3336,22 +3144,20 @@ msgstr "Istòria riprodutzione"
 
 #: ../plugins/history/__init__.py:110
 msgid "Erase stored history?"
-msgstr "Burrare s’istòria sarvada?"
+msgstr "Iscantzellare s’istòria sarvada?"
 
 #: ../plugins/history/__init__.py:205
 msgid "Save History"
 msgstr "Sarva s’istòria"
 
 #: ../plugins/history/__init__.py:207
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear History"
-msgstr "Isbòida s’istòria"
+msgstr "_Isbòida s’istòria"
 
 #: ../plugins/icecast/__init__.py:117 ../plugins/icecast/__init__.py:194
 #: ../plugins/icecast/__init__.py:217
 msgid "Contacting Icecast server..."
-msgstr "Cuntatande su server Icecast..."
+msgstr "Cuntatende su server Icecast..."
 
 #: ../plugins/icecast/__init__.py:130 ../plugins/icecast/__init__.py:134
 #: ../plugins/icecast/__init__.py:230 ../plugins/icecast/__init__.py:234
@@ -3388,10 +3194,8 @@ msgid "IPython Console - Exaile"
 msgstr "Console IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:204
-#, fuzzy
-#| msgid "Show IPython Console"
 msgid "Show _IPython Console"
-msgstr "Ammustra sa console IPython"
+msgstr "Ammustra sa console _IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3407,11 +3211,11 @@ msgstr "Prontu"
 
 #: ../plugins/jamendo/__init__.py:96
 msgid "Searching Jamendo catalogue..."
-msgstr "Chircande in su catàlogu de Jamendo..."
+msgstr "Chirchende in su catàlogu de Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:97
 msgid "Retrieving song data..."
-msgstr "Recuperande sos datos de sa cantzone..."
+msgstr "Recuperende sos datos de sa cantzone..."
 
 #: ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -3432,10 +3236,8 @@ msgid "Last.fm Loved"
 msgstr "Preferidos Last.fm"
 
 #: ../plugins/lastfmlove/__init__.py:142
-#, fuzzy
-#| msgid "Love This Track"
 msgid "_Love This Track"
-msgstr "Inserta custa rasta intre sos preferidos"
+msgstr "_Inserta custa rasta intre sos preferidos"
 
 #: ../plugins/lastfmlove/__init__.py:164
 msgid "Unlove This Track"
@@ -3465,10 +3267,8 @@ msgstr ""
 "<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
-#, fuzzy
-#| msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
 msgid "This plugin needs at least one visible panel"
-msgstr "Custa estensione netzèssitat a su mancu de PyGTK 2.22 e GTK 2.20."
+msgstr "Custa estensione netzèssitat de a su mancu unu pannellu visìbile"
 
 #: ../plugins/mainmenubutton/__init__.py:82
 #: ../plugins/mainmenubutton/__init__.py:88
@@ -3633,16 +3433,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "artista %(artist)s"
+msgstr "de {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Album ebbia:"
+msgstr "dae {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3706,7 +3504,7 @@ msgstr "Agiorna sos podcasts"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr "Burra"
+msgstr "Iscantzella"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
@@ -3792,21 +3590,19 @@ msgstr "Istudadura faddida"
 
 #: ../plugins/shutdown/__init__.py:137
 msgid "Computer could not be shutdown using D-Bus."
-msgstr "S’elaboradore non podet èssere istudadu impreande D-Bus."
+msgstr "S’elaboradore non podet èssere istudadu impreende D-Bus."
 
 #: ../plugins/somafm/__init__.py:91 ../plugins/somafm/__init__.py:191
 msgid "Contacting SomaFM server..."
-msgstr "Cuntatande su server SomaFM..."
+msgstr "Cuntatende su server SomaFM..."
 
 #: ../plugins/somafm/__init__.py:104 ../plugins/somafm/__init__.py:107
 msgid "Error connecting to SomaFM server."
 msgstr "Errore in sa cunnessione cun su server SomaFM."
 
 #: ../plugins/somafm/__init__.py:195
-#, fuzzy
-#| msgid "Error loading smart playlist: %s"
 msgid "Error importing playlist"
-msgstr "Errore carrigande s’iscalita automàtica: %s"
+msgstr "Errore importende s'iscalita"
 
 #: ../plugins/streamripper/__init__.py:75
 msgid "Error executing streamripper"
@@ -3822,10 +3618,8 @@ msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarm time</b>"
 msgid "<b>Alarm Time</b>"
-msgstr "<b>Oràriu isvèglia</b>"
+msgstr "<b>Oràriu isvèllia</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:121
 msgid "<b>Alarm Days</b>"
@@ -3864,10 +3658,8 @@ msgid "Use Fading"
 msgstr "Imprea isparissione"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Preferèntzias"
+msgstr "<b>Preferèntzias àudio</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -3912,7 +3704,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
-msgstr "Imbia sas rastas impreande Audioscrobbler"
+msgstr "Imbia sas rastas impreende Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:34
 msgid "Show menuitem to toggle submission"
@@ -3931,10 +3723,8 @@ msgid "Password:"
 msgstr "Crae (password):"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:143
-#, fuzzy
-#| msgid "Verify Login Data"
 msgid "_Verify Login Data"
-msgstr "Verìfica sos datos de intrada"
+msgstr "_Verìfica sos datos de intrada"
 
 #: ../plugins/awn/awn_prefs_pane.ui:16
 msgid "Circle display"
@@ -4022,10 +3812,8 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
-#| msgid "Simple console"
 msgid "Simple Console"
-msgstr "Console simple/sèmplitze"
+msgstr "Console sèmplitze"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show ipv6 servers (Experimental)"
@@ -4040,7 +3828,6 @@ msgid "Server name:"
 msgstr "Nùmene de su server:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:45
-#, fuzzy
 msgid "Server host:"
 msgstr "Host de su server:"
 
@@ -4111,10 +3898,8 @@ msgid "Exaile Developer Tools"
 msgstr ""
 
 #: ../plugins/developer/developer_window.ui:75
-#, fuzzy
-#| msgid "BPM Counter"
 msgid "Count"
-msgstr "Contadore BPM"
+msgstr "Contu"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
@@ -4206,7 +3991,7 @@ msgstr "Remplasa"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
-msgstr "Càmbia nùmene/burra etichetas totu paris"
+msgstr "Càmbia nùmene/iscantzella etichetas totu paris"
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
@@ -4218,7 +4003,7 @@ msgstr "Chirca eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
-msgstr "Imprea sas istringas bòidas pro burrare s'eticheta"
+msgstr "Imprea sas istringas bòidas pro iscantzellare s'eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui:114
 msgid "Replace Tag"
@@ -4326,10 +4111,8 @@ msgid "Advanced"
 msgstr "Avantzadas"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
-#, fuzzy
-#| msgid "Request Access Permission"
 msgid "_Request Access Permission"
-msgstr "Rechesta permissu de atzessu"
+msgstr "_Rechesta permissu de atzessu"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
@@ -4359,8 +4142,8 @@ msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
-"S'òrdine de sos controllos podet èssere cambiadu trisinande•los in artu o in "
-"bassu (o carcande Alt+Susu/Giosso)"
+"S'òrdine de sos controllos podet èssere cambiadu trisinende·los in artu o in "
+"bassu (o incarchende Alt+Susu/Giosso)"
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
@@ -4379,9 +4162,8 @@ msgid "Show in tasklist"
 msgstr "Ammustra in s'elencu de sas operatziones"
 
 #: ../plugins/minimode/minimode_preferences.ui:193
-#, fuzzy
 msgid "Show on all desktops"
-msgstr "Ammustra in totu sos desktops"
+msgstr "Ammustra in totu sas iscrivanias"
 
 #: ../plugins/minimode/minimode_preferences.ui:207
 msgid "Display window decorations:"
@@ -4404,10 +4186,8 @@ msgid "_Add"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Boga"
+msgstr "_Boga"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4423,10 +4203,8 @@ msgstr "Abìlita isparissione in intrada de su volume"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Iconas</b>"
+msgstr "<b>Àudio</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4441,26 +4219,20 @@ msgid "Fade Increment:"
 msgstr "Ismanniamentu isparissione:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
-#, fuzzy
-#| msgid "Fade Time (s):"
 msgid "Fade Time:"
-msgstr "Longària isparissione (s):"
+msgstr "Longària isparissione:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
 msgstr "Càmbia sa mannària de sas coberdeddas ammustradas"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "Ammustra coberteddas"
+msgstr "Ammustra"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Icona"
+msgstr "Iconas"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4473,10 +4245,8 @@ msgstr ""
 "a leare"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "A s'incumintzu de sa riprodutzione, in pausa o firmada"
+msgstr "Ponende in pàusa, sighende o firmende"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
@@ -4513,7 +4283,6 @@ msgid "Background:"
 msgstr "Isfundu:"
 
 #: ../plugins/osd/osd_preferences.ui:166
-#, fuzzy
 msgid "Border radius:"
 msgstr "Raju de s'oru:"
 
@@ -4551,38 +4320,28 @@ msgid "Defaults to the playlist name"
 msgstr "Predefinidu, a su nùmene de s'iscalita"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
-#, fuzzy
-#| msgid "Generate!"
 msgid "_Generate!"
-msgstr "Ingendra!"
+msgstr "_Ingendra!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"
 msgstr "Ingendra"
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "Annanghe podcast"
+msgstr "_Annanghe podcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
 msgstr "Longària isparissione:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Crossfade duration (ms):"
 msgid "Crossfade duration:"
-msgstr "Durada de s’isparissione rugrada (ms):"
+msgstr "Durada de s’isparissione rugrada:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device:"
-msgstr "Annanghe unu dispositivu"
+msgstr "Dispositivu àudio:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4604,17 +4363,13 @@ msgstr "Ampara dae s’abbolotu cajonadu dae sa subra-ampriadura"
 
 #. This is an additional amplification applied to all files prior to correction.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:56
-#, fuzzy
-#| msgid "Additional amplification (dB):"
 msgid "Additional amplification:"
-msgstr "Ampriadura annantiva (dB):"
+msgstr "Ampriadura annantiva:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
-#, fuzzy
-#| msgid "Fallback correction level (dB):"
 msgid "Fallback correction level:"
-msgstr "Livellu de curretzione de sa còntiga (dB):"
+msgstr "Livellu de curretzione de sa còntiga:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
@@ -4634,7 +4389,7 @@ msgstr "Boga in unu documentu sìngulu"
 
 #: ../plugins/streamripper/streamripper.ui:74
 msgid "Delete incomplete files"
-msgstr "Burra sos documentos non cumpridos"
+msgstr "Iscantzella sos documentos non cumpridos"
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
@@ -4672,13 +4427,6 @@ msgid "Effect"
 msgstr "Efetu"
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
@@ -4687,9 +4435,8 @@ msgid ""
 msgstr ""
 "Riproduit sa mùsica in s’ora isseberada dae tie.\n"
 "\n"
-"Cando at a arribare su tempus, Exaile s'at a cumportare cumente chi tue diat "
-"àere carcadu su butone de riprodutzione, pro custu ista atentu chi su chi "
-"cheres ascurtare siat giai in s’iscalita"
+"Mira chi cando at a arribare su tempus, Exaile at a riproduire sas cantzones "
+"in s’iscalita."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4755,12 +4502,7 @@ msgid "CD Playback"
 msgstr "Riprodutzione CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4769,7 +4511,7 @@ msgid ""
 msgstr ""
 "Annanghet su suportu pro riproduire CD musicales.\n"
 "\n"
-"Tenet bisòngiu de HAL/UDisks/UDisks2 pro agatare sos CDs\n"
+"Tenet bisòngiu de HAL, UDisks, UDisks2 pro agatare sos CDs\n"
 "Tenet bisòngiu de cddb-py (%s) pro abbaidare sas etichetas."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4790,10 +4532,8 @@ msgid "Development"
 msgstr "Isvilupu"
 
 #: ../plugins/currentsong/PLUGININFO:3
-#, fuzzy
-#| msgid "Current Song"
 msgid "Current Song in Pidgin"
-msgstr "Cantzone atuale"
+msgstr "Cantzone atuale in Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4815,15 +4555,12 @@ msgid "Media Sources"
 msgstr "Mitzas de sos media"
 
 #: ../plugins/daapserver/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "This plugin integrates spydaap (%s) into Exaile so a collection can be "
-#| "shared over DAAP."
+#, python-format
 msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
-"Custa estensione integrat spydaap (%s) in intro de Exaile pro permìtere chi "
+"Custa estensione integrat Spydaap (%s) in intro de Exaile pro permìtere chi "
 "una regorta diat pòdere èssere cumpartzida in DAAP."
 
 #: ../plugins/desktopcover/PLUGININFO:4
@@ -4831,10 +4568,8 @@ msgid "Displays the current album cover on the desktop"
 msgstr "Ammustrat sa cobertedda de s'àlbum in s'iscrivania (desktop)"
 
 #: ../plugins/developer/PLUGININFO:3
-#, fuzzy
-#| msgid "Development"
 msgid "Developer"
-msgstr "Isvilupu"
+msgstr "Isvilupadore"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4961,46 +4696,32 @@ msgid "Browse and listen to audiobooks from Librivox.org."
 msgstr "Ischèrta e ascurta audiolibros dae Librivox.org."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from www.lyricsmania.com\n"
-#| "Depends: lxml"
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
 msgstr ""
 "Estensione pro iscarrigare testos dae www.lyricsmania.com\n"
-"Dipendet dae: lxml"
+"Tenet bisòngiu de: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
 msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Depends: python-beautifulsoup"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4"
 msgstr ""
 "Estensione pro iscarrigare testos dae lyrics.wikia.com\n"
-"Dipendet dae: python-beautifulsoup"
+"Tenet bisòngiu de: BeautifulSoup4"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
 msgstr "Butone menù printzipale"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Moves the main menu into a button on top of the panels.\n"
-#| "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgid "Moves the main menu into a button on top of the panels."
-msgstr ""
-"Moet su menù printzipale in unu butone in supra de sos pannellos.\n"
-"Dependet dae: PyGTK >= 2.22, GTK >= 2.20"
+msgstr "Moet su menù printzipale in unu butone in supra de sos pannellos."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -5011,7 +4732,7 @@ msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Suportu pro atzèdere a sos riprodutores multimediales portàtiles impreande "
+"Suportu pro atzèdere a sos riprodutores multimediales portàtiles impreende "
 "su protocollu USB pro sos archìvios de massa"
 
 #: ../plugins/minimode/PLUGININFO:4
@@ -5019,7 +4740,6 @@ msgid "Compact mode for Exaile with a configurable interface"
 msgstr "Modalidade minimada cun un'interfàtzia cunfiguràbile"
 
 #: ../plugins/mono/PLUGININFO:3
-#, fuzzy
 msgid "Mono"
 msgstr "Mono"
 
@@ -5068,34 +4788,32 @@ msgid "MusicBrainz Covers"
 msgstr "Coberteddas MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
-#, fuzzy
-#| msgid "Integrates MusicBrainz for cover search"
 msgid ""
 "Integrates MusicBrainz for cover search.\n"
 "\n"
 "Requires: musicbrainzngs"
-msgstr "Integra MusicBrainz pro sa chirca de coberteddas"
+msgstr ""
+"Integra MusicBrainz pro sa chirca de coberteddas.\n"
+"\n"
+"Tenet bisòngiu de: musicbrainzngs"
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pops up a notification when playback of a track starts. Requires pynotify"
 msgid ""
 "Pops up a notification when playback of a track starts or (optionally) if it "
 "is paused/resumed/stopped. Requires libnotify and its typelib file"
 msgstr ""
 "Faghet cumpàrrere una notìfica cando incumentzat sa riprodutzione de una "
-"rasta. Netzèssitat de pynotify"
+"rasta o (optzionalmente) si est posta in pàusa/fata sighire/firmada. Tenet "
+"bisòngiu de de libnotify e de su documentu suo typelib"
 
 #: ../plugins/osd/PLUGININFO:4
-#, fuzzy
-#| msgid "A popup window showing information of the currently playing track."
 msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
 "Una ventana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
-"in riprodutzione."
+"in riprodutzione.\n"
+"Custa estensione no est disponìbile in Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -5107,7 +4825,7 @@ msgid ""
 "Optimized for Chrome."
 msgstr ""
 "Aina pro agiudare a ingendrare visualizatziones HTML5 de sas iscalitas tuas "
-"impreande d3.js. Otimizadu pro Chrome."
+"impreende d3.js. Otimizadu pro Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -5134,12 +4852,6 @@ msgid "Enables ReplayGain support"
 msgstr "Abìlita su suportu pro ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME Screensaver or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -5149,7 +4861,7 @@ msgstr ""
 "Ponet in pausa (e, s'in casu, torrat a aviare) sa riprodutzione sighinde "
 "s'istadu de su screensaver.\n"
 "\n"
-"Tenet bisòngiu de: GNOME Screensaver o KDE Screensaver (non suportat "
+"Tenet bisòngiu de: GNOME, MATE, Cinnamon o KDE Screensaver (non suportat "
 "XScreenSaver e XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
@@ -5175,16 +4887,12 @@ msgstr ""
 "Dependet ade: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides Wikipedia information about the current artist.\n"
-#| "Depends: python-webkit"
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
 "Frunit informatziones chi pertocant s’artista pigadas dae Wikipedia.\n"
-"Dipendet dae: python-webkit"
+"Tenet bisòngiu de: webkit2gtk e su documentu typelib suo"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"
@@ -5199,7 +4907,7 @@ msgid ""
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
 "Annanghet su suportu pro teclas multimediales (chi bi sunt in sa majoria de "
-"sas tastieras noas) cando ses impreande Exaile in Microsoft Windows.\n"
+"sas tastieras noas) cando ses impreende Exaile in Microsoft Windows.\n"
 "\n"
 "Tenet bisòngiu de: pyHook (%s) (o %s pro àteras versiones)"
 

@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2017-09-20 19:46+0000\n"
-"Last-Translator: Eilon <eilonyair4@gmail.com>\n"
-"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/"
-">\n"
+"PO-Revision-Date: 2018-05-10 22:37+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
+"\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
@@ -414,8 +414,7 @@ msgstr "דירוג > %d"
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr ""
-"Exaile עדיין לא סיים לטעון. אולי כדאי שתאזין לאותות_הטעונים של  exaile."
+msgstr "הטעינה של Exaile עדיין לא הסתיימה. אולי כדאי להאזין לאות exaile_loaded?"
 
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:134
 #: ../xlgui/widgets/playlist_columns.py:202 ../plugins/cd/cdprefs.py:113
@@ -728,7 +727,7 @@ msgstr "אנו לא יודעים כיצד לשמור סוג כזה של הגדר
 
 #: ../xl/settings.py:283
 msgid "An Unknown type of setting was found!"
-msgstr "נמצא טיפוס הגדרה לא מוכר."
+msgstr "נמצא סוג הגדרה בלתי ידוע!"
 
 #: ../xl/transcoder.py:57
 msgid ""
@@ -788,7 +787,7 @@ msgstr ""
 
 #: ../xl/trax/trackdb.py:180
 msgid "You did not specify a location to load the db from"
-msgstr "לא ציינת מקור לטעינת מסד הנתונים (db)."
+msgstr "לא ציינת מקור לטעינת מסד הנתונים"
 
 #: ../xl/trax/trackdb.py:248
 msgid "You did not specify a location to save the db"
@@ -1255,7 +1254,7 @@ msgstr "שינוי שם לרשימת השמעה"
 #: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1644
 #: ../xlgui/widgets/smart_playlist_editor.py:397
 msgid "The playlist name you entered is already in use."
-msgstr "שם רשימת הנגינה שהכנסת כבר מצוי בשימוש"
+msgstr "שם רשימת הנגינה שהכנסת כבר נמצא בשימוש."
 
 #: ../xlgui/panel/playlists.py:216
 #, fuzzy, python-format
@@ -2385,7 +2384,7 @@ msgstr "הראה תמיד את סרגל הלשוניות"
 
 #: ../data/ui/preferences/appearance.ui:99
 msgid "Tab placement:"
-msgstr "החלפת לשונית"
+msgstr "מיקום לשוניות:"
 
 #: ../data/ui/preferences/appearance.ui:133
 msgid "Playlist font:"

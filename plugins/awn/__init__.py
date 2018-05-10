@@ -27,7 +27,7 @@ import xl.settings
 
 from xlgui.guiutil import pixbuf_from_data
 
-import awn_prefs
+from . import awn_prefs
 
 log = logging.getLogger(__name__)
 

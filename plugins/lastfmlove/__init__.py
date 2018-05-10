@@ -39,8 +39,8 @@ from xlgui.widgets.playlist_columns import (
     ColumnMenuItem
 )
 
-import lastfmlove_preferences
-from cellrenderertoggleimage import CellRendererToggleImage
+from . import lastfmlove_preferences
+from .cellrenderertoggleimage import CellRendererToggleImage
 
 LASTFMLOVER = None
 logger = logging.getLogger(__name__)

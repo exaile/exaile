@@ -439,7 +439,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        for marker, points in self._points.iteritems():
+        for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):
                 if i == 0:
                     context.move_to(x, y)
@@ -716,7 +716,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             * *width*: the width of the box
             * *height*: the height of the box
         """
-        xs, ys = zip(*points)
+        xs, ys = list(zip(*points))
         return min(xs), min(ys), max(xs), max(ys)
 
     def seek(self, position):
@@ -1548,7 +1548,7 @@ def PlayPauseMenuItem(name, player, after):
 
 def NextMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, _("_Next Track"), 'media-skip-forward',
-                                 callback=lambda *args: player.queue.next())
+                                 callback=lambda *args: next(player.queue))
 
 
 def PrevMenuItem(name, player, after):

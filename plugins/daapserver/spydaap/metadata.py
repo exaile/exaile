@@ -18,7 +18,7 @@ from hashlib import md5
 import os
 import struct
 import spydaap.cache
-import StringIO
+import io
 from spydaap.daap import do
 
 
@@ -63,7 +63,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
 
     @classmethod
     def write_entry(self, dir, name, fn, daap):
-        if isinstance(name, unicode):
+        if isinstance(name, str):
             name = name.encode('utf-8')
         data = "".join([d.encode() for d in daap])
         data = struct.pack('!i%ss' % len(name), len(name), name) + data
@@ -115,7 +115,7 @@ class MetadataCacheItem(spydaap.cache.OrderedCacheItem):
     def get_md(self):
         if self.md is None:
             self.md = {}
-            s = StringIO.StringIO(self.get_dmap_raw())
+            s = io.StringIO(self.get_dmap_raw())
             l = len(self.get_dmap_raw())
             data = []
             while s.tell() != l:

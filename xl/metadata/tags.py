@@ -29,7 +29,7 @@ class _TD(object):
         self.editable = True
         self.use_disk = False
 
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             setattr(self, k, v)
 
 #: List of metadata tags currently supported by exaile, which are
@@ -90,7 +90,7 @@ tag_data = {
 
 disk_tags = set()
 
-for k, v in tag_data.iteritems():
+for k, v in tag_data.items():
     if v:
         v.tag_name = k
         if v.use_disk:

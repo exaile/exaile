@@ -2,8 +2,8 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import logging
 from time import mktime
 from datetime import datetime, timedelta
@@ -106,9 +106,9 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
         't': tstamp,
         'a': token
     }
-    data = urllib.urlencode(values)
-    req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
+    data = urllib.parse.urlencode(values)
+    req = urllib.request.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
     result = response.read()
     lines = result.split('\n')
 
@@ -193,17 +193,17 @@ def now_playing(artist, track, album="", length="", trackno="", mbid="",
     album = album or ''
 
     values = {'s': SESSION_ID,
-              'a': unicode(artist).encode('utf-8'),
-              't': unicode(track).encode('utf-8'),
-              'b': unicode(album).encode('utf-8'),
+              'a': str(artist).encode('utf-8'),
+              't': str(track).encode('utf-8'),
+              'b': str(album).encode('utf-8'),
               'l': length,
               'n': trackno,
               'm': mbid}
 
-    data = urllib.urlencode(values)
+    data = urllib.parse.urlencode(values)
 
-    req = urllib2.Request(NOW_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(NOW_URL, data, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
     result = response.read()
 
     if result.strip() == "OK":
@@ -300,13 +300,13 @@ def submit(artist, track, time=0, source='P', rating="", length="", album="",
     album = album or ''
 
     SUBMIT_CACHE.append(
-        {'a': unicode(artist).encode('utf-8'),
-         't': unicode(track).encode('utf-8'),
+        {'a': str(artist).encode('utf-8'),
+         't': str(track).encode('utf-8'),
          'i': time,
          'o': source,
          'r': rating,
          'l': length,
-         'b': unicode(album).encode('utf-8'),
+         'b': str(album).encode('utf-8'),
          'n': trackno,
          'm': mbid
          }
@@ -336,9 +336,9 @@ you login?''')
 
     values['s'] = SESSION_ID
 
-    data = urllib.urlencode(values)
-    req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
+    data = urllib.parse.urlencode(values)
+    req = urllib.request.Request(POST_URL, data, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
     result = response.read()
     lines = result.split('\n')
 
@@ -384,4 +384,4 @@ if __name__ == "__main__":
         source='P',
         length=3 * 60 + 3
     )
-    print(flush())
+    print((flush()))

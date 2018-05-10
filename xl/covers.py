@@ -35,7 +35,7 @@ import logging
 import hashlib
 import os
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
@@ -174,7 +174,7 @@ class CoverManager(providers.ProviderHandler):
         for name in self.order:
             if name in self.methods:
                 methods.append(self.methods[name])
-        for k, method in self.methods.iteritems():
+        for k, method in self.methods.items():
             if method not in methods:
                 methods.append(method)
         nonfixed = [m for m in methods if not m.fixed]

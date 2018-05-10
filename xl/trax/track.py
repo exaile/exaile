@@ -48,18 +48,18 @@ logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
-    u'ß': u'ss',  # U+00DF
-    u'æ': u'ae',  # U+00E6
-    u'ĳ': u'ij',  # U+0133
-    u'ŋ': u'ng',  # U+014B
-    u'œ': u'oe',  # U+0153
-    u'ƕ': u'hv',  # U+0195
-    u'ǆ': u'dz',  # U+01C6
-    u'ǉ': u'lj',  # U+01C9
-    u'ǌ': u'nj',  # U+01CC
-    u'ǳ': u'dz',  # U+01F3
-    u'ҥ': u'ng',  # U+04A5
-    u'ҵ': u'ts',  # U+04B5
+    'ß': 'ss',  # U+00DF
+    'æ': 'ae',  # U+00E6
+    'ĳ': 'ij',  # U+0133
+    'ŋ': 'ng',  # U+014B
+    'œ': 'oe',  # U+0153
+    'ƕ': 'hv',  # U+0195
+    'ǆ': 'dz',  # U+01C6
+    'ǉ': 'lj',  # U+01C9
+    'ǌ': 'nj',  # U+01CC
+    'ǳ': 'dz',  # U+01F3
+    'ҥ': 'ng',  # U+04A5
+    'ҵ': 'ts',  # U+04B5
 }
 
 # Cache these here because calling gettext inside get_tag_display
@@ -67,7 +67,7 @@ _sortcharmap = {
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
 # TRANSLATORS: String multiple tag values will be joined by
-_JOINSTR = _(u' / ')
+_JOINSTR = _(' / ')
 
 _no_set_raw = {'__basename', '__loc'} | disk_tags
 
@@ -196,7 +196,7 @@ class Track(object):
 
                 if unpickles is not None:
                     tags = tr.list_tags()
-                    to_set = {tag: values for tag, values in unpickles.iteritems() \
+                    to_set = {tag: values for tag, values in unpickles.items() \
                               if tag.startswith('__') and tag not in tags}
                     if to_set:
                         tr.set_tags(**to_set)
@@ -358,7 +358,7 @@ class Track(object):
 
             # now that we've written the tags to disk, remove any tags that the
             # user asked to be deleted
-            to_remove = [k for k, v in self.__tags.iteritems() if v is None]
+            to_remove = [k for k, v in self.__tags.items() if v is None]
             for rm in to_remove:
                 self.__tags.pop(rm)
 
@@ -374,7 +374,7 @@ class Track(object):
     def read_tags(self, force=True, notify_changed=True):
         """
             Reads tags from the file for this Track.
-            
+
             :param force: If not True, then only read the tags if the file has
                           be modified.
 
@@ -387,19 +387,19 @@ class Track(object):
             if f is None:
                 self._scan_valid = False
                 return False  # not a supported type
-            
+
             # Retrieve file specific metadata
             gloc = Gio.File.new_for_uri(loc)
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
             mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
-            
+
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f
-            
+
             # Read the tags
             ntags = f.read_all()
             ntags['__modified'] = mtime
-            
+
             # TODO: this probably breaks on non-local files
             ntags['__basedir'] = gloc.get_parent().get_path()
 
@@ -408,7 +408,7 @@ class Track(object):
             # the file format.
 
             nkeys = set(ntags.keys())
-            ekeys = {k for k in self.__tags.keys() if not k.startswith('__')}
+            ekeys = {k for k in list(self.__tags.keys()) if not k.startswith('__')}
 
             # delete anything that wasn't in the new tags
             to_del = ekeys - nkeys
@@ -453,7 +453,7 @@ class Track(object):
         """
             returns a string representing the track
         """
-        vals = map(self.get_tag_display, ('title', 'artist', 'album'))
+        vals = list(map(self.get_tag_display, ('title', 'artist', 'album')))
         return "<Track %r by %r from %r>" % tuple(vals)
 
     def _pickles(self):
@@ -476,7 +476,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return [k for k, v in self.__tags.iteritems() if v is not None] + ['__basename']
+        return [k for k, v in self.__tags.items() if v is not None] + ['__basename']
 
     def _xform_set_values(self, tag, values):
         # Handle values that aren't lists
@@ -488,7 +488,7 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                if isinstance(v, basestring) else v
+                if isinstance(v, str) else v
                 for v in values
                 if v not in (None, '')
             ]
@@ -508,7 +508,7 @@ class Track(object):
                 parts of Exaile know there has been an update. Only set
                 this to False if you know that no other parts of Exaile
                 need to be updated.
-                
+
             .. note:: When setting more than one tag, prefer set_tags instead
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
@@ -529,12 +529,12 @@ class Track(object):
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
         """
-        
+
         # tag changes can cause expensive UI updates, so don't emit the event
         # if the track hasn't actually changed
         changed = set()
 
-        for tag, values in kwargs.iteritems():
+        for tag, values in kwargs.items():
             if tag in _no_set_raw:
                 if tag == '__loc':
                     logger.warning('Setting "__loc" directly is forbidden, use set_loc() instead.')
@@ -604,12 +604,12 @@ class Track(object):
         elif tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist',
-                                        u"\uffff\uffff\uffff\ufffe")
+                                        "\uffff\uffff\uffff\ufffe")
             else:
                 value = self.__tags.get('artist',
-                                        u"\uffff\uffff\uffff\uffff")
-            if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
-                                         u"\uffff\uffff\uffff\uffff"):
+                                        "\uffff\uffff\uffff\uffff")
+            if sorttag and value not in ("\uffff\uffff\uffff\ufffe",
+                                         "\uffff\uffff\uffff\uffff"):
                 value = sorttag
             else:
                 sorttag = None
@@ -631,19 +631,19 @@ class Track(object):
             value = self.__tags.get(tag)
 
         if value is None:
-            value = u"\uffff\uffff\uffff\uffff"  # unknown
+            value = "\uffff\uffff\uffff\uffff"  # unknown
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (value, basename)
+                value = "%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber', 'bpm'):
             if not sorttag:
                 value = self.format_sort(value)
             else:
                 if isinstance(value, list):
-                    value = [self.lower(v + u" " + v) for v in value]
+                    value = [self.lower(v + " " + v) for v in value]
                 else:
-                    value = self.lower(value + u" " + value)
+                    value = self.lower(value + " " + value)
             if join:
                 value = self.join_values(value)
 
@@ -674,21 +674,21 @@ class Track(object):
             else:
                 value = self.__tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            value = self.split_numerical(self.__tags.get(tag))[0] or u""
+            value = self.split_numerical(self.__tags.get(tag))[0] or ""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
-            value = self.__tags.get(tag, u"")
+            value = self.__tags.get(tag, "")
         elif tag in ('__rating', '__playcount'):
-            value = self.__tags.get(tag, u"0")
+            value = self.__tags.get(tag, "0")
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
-                    value = u""
+                    value = ""
                 else:
                     # TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
-                value = u""
+                value = ""
         elif tag == '__basename':
             value = self.get_basename_display()
         else:
@@ -698,7 +698,7 @@ class Track(object):
             value = ''
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (_UNKNOWNSTR, basename)
+                value = "%s (%s)" % (_UNKNOWNSTR, basename)
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):
@@ -774,7 +774,7 @@ class Track(object):
 
         # Convert all return values to unicode
         if isinstance(value, list):
-            value = map(shave_marks, value)
+            value = list(map(shave_marks, value))
         else:
             value = shave_marks(value)
 
@@ -891,11 +891,11 @@ class Track(object):
         return values
 
     @staticmethod
-    def join_values(values, glue=u" / "):
+    def join_values(values, glue=" / "):
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, unicode):
+        if type(values) in (str, str):
             return values
         return glue.join(map(xl.unicode.to_unicode, values))
 
@@ -965,8 +965,8 @@ class Track(object):
         # will sort together.
         normalize = unicodedata.normalize
         category = unicodedata.category
-        return u''.join([c for c in normalize('NFD', value)
-                         if category(c) != 'Mn']) + u" " + value
+        return ''.join([c for c in normalize('NFD', value)
+                         if category(c) != 'Mn']) + " " + value
 
     @staticmethod
     def expand_doubles(value):
@@ -978,7 +978,7 @@ class Track(object):
 
             value must be in lower-case
         """
-        for k, v in _sortcharmap.iteritems():
+        for k, v in _sortcharmap.items():
             value = value.replace(k, v)
         return value
 # This is slower, don't use it!

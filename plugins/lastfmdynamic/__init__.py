@@ -29,7 +29,7 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ETree
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from xl.dynamic import DynamicSource
 from xl import providers
 
@@ -63,10 +63,10 @@ class LastfmSource(DynamicSource):
         DynamicSource.__init__(self)
 
     def get_results(self, artist):
-        ar = urllib.quote_plus(artist.encode('utf-8'))
+        ar = urllib.parse.quote_plus(artist.encode('utf-8'))
         url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key=' + API_KEY
         try:
-            f = urllib.urlopen(url % ar).read()
+            f = urllib.request.urlopen(url % ar).read()
         except IOError:
             logger.exception("Error retrieving results")
             return []

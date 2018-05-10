@@ -63,7 +63,7 @@ class DeviceManager(object):
         event.log_event("device_removed", self, device)
 
     def list_devices(self):
-        return self.devices.values()
+        return list(self.devices.values())
 
 
 class TransferNotSupportedError(Exception):

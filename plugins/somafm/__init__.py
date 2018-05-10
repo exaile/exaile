@@ -16,8 +16,8 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-from urllib2 import urlparse
-import httplib
+from urllib.parse import urlparse
+import http.client
 import socket
 try:
     import xml.etree.cElementTree as ETree
@@ -92,9 +92,9 @@ class SomaFMRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http.client.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent':
@@ -127,7 +127,7 @@ class SomaFMRadioStation(RadioStation):
             Saves cache data
         """
         channellist = ETree.Element('channellist')
-        for channel_id, channel_name in self.data.items():
+        for channel_id, channel_name in list(self.data.items()):
             ETree.SubElement(channellist, 'channel', id=channel_id,
                              name=channel_name)
 
@@ -156,7 +156,7 @@ class SomaFMRadioStation(RadioStation):
 
         rlists = []
 
-        for id, name in data.items():
+        for id, name in list(data.items()):
             rlist = RadioList(name, station=self)
             rlist.get_items = lambda no_cache, id = id: \
                 self._get_subrlists(id=id, no_cache=no_cache)

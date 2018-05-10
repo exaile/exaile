@@ -120,7 +120,7 @@ FORMATS = {
 
 def get_formats():
     ret = {}
-    for name, val in FORMATS.iteritems():
+    for name, val in FORMATS.items():
         try:
             for plug in val['plugins']:
                 x = Gst.ElementFactory.find(plug)

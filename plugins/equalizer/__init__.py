@@ -25,7 +25,7 @@
 # from your version.
 
 # support python 2.5
-from __future__ import with_statement
+
 
 import os
 

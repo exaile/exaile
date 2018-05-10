@@ -124,7 +124,7 @@ class CDImporter(object):
 
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
-        default_format = formats.iterkeys().next()
+        default_format = next(iter(formats.keys()))
         self.format = settings.get_option("cd_import/format", default_format)
         default_quality = formats[default_format]['default']
         self.quality = settings.get_option("cd_import/quality", default_quality)

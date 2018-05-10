@@ -22,24 +22,24 @@ class Parser:
 
     def handle_string_tags(self, map, md, daap):
         h = {}
-        for k in md.tags.keys():
+        for k in list(md.tags.keys()):
             if k in map:
-                tag = [unicode(t) for t in md.tags[k]]
+                tag = [str(t) for t in md.tags[k]]
                 tag = [t for t in tag if t != ""]
                 if not(map[k] in h):
                     h[map[k]] = []
                 h[map[k]] = h[map[k]] + tag
-        for k in h.keys():
+        for k in list(h.keys()):
             h[k].sort()
             daap.append(do(k, "/".join(h[k])))
 
     def handle_int_tags(self, map, md, daap):
-        for k in md.tags.keys():
+        for k in list(md.tags.keys()):
             if k in map:
                 val = md.tags[k]
                 if isinstance(val, list):
                     val = val[0]
-                intval = self.my_int(unicode(val))
+                intval = self.my_int(str(val))
                 if intval:
                     daap.append(do(map[k], intval))
 
@@ -57,7 +57,7 @@ class Parser:
         return name
 
     def clean_int_string(self, s):
-        return re.sub(u'[^0-9]', '', unicode(s))
+        return re.sub('[^0-9]', '', str(s))
 
     def my_int(self, s):
         try:

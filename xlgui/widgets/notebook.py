@@ -40,32 +40,32 @@ if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
         # Work around weird Close button position on panel.
         # Need to find out why the button is not centered.
-        'notebook.vertical tab { ' +
-        'padding-left: 6px; ' +
-        'padding-right: 3px; ' +
-        '} ' +
+        b'notebook.vertical tab { ' +
+        b'padding-left: 6px; ' +
+        b'padding-right: 3px; ' +
+        b'} ' +
 
         # Remove gap between tabs
-        'header.top tab, header.bottom tab { ' +
-        'margin-left: -1px; ' +
-        'margin-right: -1px; ' +
-        '} ' +
-        'header.left tab, header.right tab { ' +
-        'margin-top: -1px; ' +
-        'margin-bottom: -1px; ' +
-        '}')
+        b'header.top tab, header.bottom tab { ' +
+        b'margin-left: -1px; ' +
+        b'margin-right: -1px; ' +
+        b'} ' +
+        b'header.left tab, header.right tab { ' +
+        b'margin-top: -1px; ' +
+        b'margin-bottom: -1px; ' +
+        b'}')
 else:
     TAB_CSS.load_from_data(
-        '.notebook { ' +
+        b'.notebook { ' +
         # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; ' +
+        b'-GtkNotebook-initial-gap: 0; ' +
         # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; ' +
-        '} ' +
-        '.notebook tab { ' +
+        b'-GtkNotebook-tab-overlap: 1; ' +
+        b'} ' +
+        b'.notebook tab { ' +
         # Make tabs smaller (or bigger on some other themes, unfortunately)
-        'padding: 6px; ' +
-        '}')
+        b'padding: 6px; ' +
+        b'}')
 
 
 class SmartNotebook(Gtk.Notebook):
@@ -164,7 +164,7 @@ class SmartNotebook(Gtk.Notebook):
     def __on_notify_tab_pos(self, _widget, _param):
         tab_pos = self.get_tab_pos()
         expand = tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM)
-        for i in xrange(self.get_n_pages()):
+        for i in range(self.get_n_pages()):
             page = self.get_nth_page(i)
             self.child_set_property(page, 'tab-expand', expand)
             tab = self.get_tab_label(page)  # type: NotebookTab

@@ -25,7 +25,7 @@
 # from your version.
 
 
-from __future__ import division
+
 
 import tempfile
 
@@ -323,7 +323,7 @@ class MprisObject(object):
 
     def Next(self):
         # TODO: Match behavior with spec
-        xl.player.QUEUE.next()
+        next(xl.player.QUEUE)
 
     def OpenUri(self, uri):
         pass  # TODO

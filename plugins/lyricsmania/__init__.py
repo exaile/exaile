@@ -54,8 +54,8 @@ class LyricsMania(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            artist = track.get_tag_raw('artist')[0]
+            title = track.get_tag_raw('title')[0]
         except TypeError:
             raise LyricsNotFoundException
 
@@ -87,8 +87,4 @@ class LyricsMania(LyricSearchMethod):
         except Exception:
             raise LyricsNotFoundException
 
-        # We end up with unicode in some systems, str (bytes) in others;
-        # no idea why and which one is correct.
-        if isinstance(lyrics, bytes):
-            lyrics = lyrics.decode('utf-8', errors='replace')
         return (lyrics, self.name, url)

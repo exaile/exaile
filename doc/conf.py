@@ -28,12 +28,12 @@ sys.path.insert(0, os.environ['EXAILE_DIR'])
 os.environ['EXAILE_BUILDING_DOCS'] = 'TRUE'
 
 EXAILE_AUTHORS = [
-    u'Adam Olsen <arolsen@gmail.com>',
-    u'Johannes Sasongko <sasongko@gmail.com>',
-    u'Aren Olsen <reacocard@gmail.com>',
-    u'Mathias Brodala <info@noctus.net>',
-    u'Dustin Spicuzza <dustin@virtualroadside.com>',
-    u'Christian Stadelmann',
+    'Adam Olsen <arolsen@gmail.com>',
+    'Johannes Sasongko <sasongko@gmail.com>',
+    'Aren Olsen <reacocard@gmail.com>',
+    'Mathias Brodala <info@noctus.net>',
+    'Dustin Spicuzza <dustin@virtualroadside.com>',
+    'Christian Stadelmann',
 ]
 
 #
@@ -76,9 +76,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Exaile'
-copyright = u'2009-2018 Exaile Development Team'
-author = u''.join(EXAILE_AUTHORS)
+project = 'Exaile'
+copyright = '2009-2018 Exaile Development Team'
+author = ''.join(EXAILE_AUTHORS)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -178,7 +178,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Exaile.tex', u'Exaile Documentation',
+    (master_doc, 'Exaile.tex', 'Exaile Documentation',
      author.replace('<', '\\textless{}').replace('>', '\\textgreater{}'),
      'manual'),
 ]
@@ -189,7 +189,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'exaile', u'Exaile Documentation',
+    (master_doc, 'exaile', 'Exaile Documentation',
      [author], 1)
 ]
 
@@ -200,7 +200,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Exaile', u'Exaile Documentation',
+    (master_doc, 'Exaile', 'Exaile Documentation',
      author, 'Exaile', 'One line description of project.',
      'Miscellaneous'),
 ]

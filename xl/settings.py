@@ -28,7 +28,7 @@
     Central storage of application and user settings
 """
 
-from ConfigParser import (
+from configparser import (
     RawConfigParser,
     NoSectionError,
     NoOptionError
@@ -50,7 +50,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
+    'U': str
 }
 
 MANAGER = None
@@ -240,12 +240,16 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
-        for k, v in TYPE_MAPPING.iteritems():
+        # Special treatment is needed for boolean values, as bool is a
+        # subclass of int.
+        if isinstance(value, bool):
+            return 'B: ' + str(value)
+        for k, v in TYPE_MAPPING.items():
             if isinstance(value, v):
                 if v is list:
                     return k + ": " + repr(value)
-                elif v is unicode:
-                    return k + ": " + value.encode('utf-8')
+                elif v is str:
+                    return k + ": " + value
                 else:
                     return k + ": " + str(value)
 
@@ -265,17 +269,18 @@ class SettingsManager(RawConfigParser):
         if kind in ('L', 'D'):
             return eval(value)
 
-        if kind in TYPE_MAPPING.keys():
+        if kind in list(TYPE_MAPPING.keys()):
             if kind == 'B':
                 if value != 'True':
                     return False
 
             try:
                 if kind == 'U':
-                    value = value.decode('utf-8')
+                    value = value
                 else:
                     value = TYPE_MAPPING[kind](value)
             except Exception:
+                raise
                 logger.exception("Failed decoding value %r of kind %r", value, kind)
 
             return value
@@ -328,6 +333,9 @@ class SettingsManager(RawConfigParser):
 
         self._saving = False
         self._dirty = False
+
+    def __hash__(self):
+        return hash(repr(self))
 
 location = xdg.get_config_dir()
 

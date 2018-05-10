@@ -161,7 +161,7 @@ def check_fader(test):
         print(data)
         now = data[0]
         stream.position = int(now * TrackFader.SECOND)
-        print(stream.position)
+        print((stream.position))
         volume = data[1]
         state = data[2]
         timer_id = data[3]
@@ -237,8 +237,8 @@ def test_calculate_fades():
 
     i = 0
     for fin, fout, start, stop, tlen, t0, t1, t2, t3 in calcs:
-        print('%2d: Fade In: %s; Fade Out: %s; start: %s; stop: %s; Len: %s' %
-              (i, fin, fout, start, stop, tlen))
+        print(('%2d: Fade In: %s; Fade Out: %s; start: %s; stop: %s; Len: %s' %
+              (i, fin, fout, start, stop, tlen)))
         track = FakeTrack(start, stop, tlen)
         assert fader.calculate_fades(track, fin, fout) == (t0, t1, t2, t3)
         i += 1

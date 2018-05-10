@@ -63,13 +63,13 @@ _ = lambda x: x
 for dir in args:
 
     if not os.path.exists(dir):
-        print("No such folder %s" % dir)
+        print(("No such folder %s" % dir))
         break
 
-    print("Making plugin %s..." % dir)
+    print(("Making plugin %s..." % dir))
 
     if not os.path.exists(os.path.join(dir, "PLUGININFO")):
-        print("ERROR: no valid info for %s, skipping..." % dir)
+        print(("ERROR: no valid info for %s, skipping..." % dir))
         continue
 
     f = open(os.path.join(dir, "PLUGININFO"))
@@ -85,7 +85,7 @@ for dir in args:
     f.close()
 
     if "Version" not in info:
-        print("ERROR: couldn't get version for %s, skipping..." % dir)
+        print(("ERROR: couldn't get version for %s, skipping..." % dir))
         continue
 
     tfile = tarfile.open(

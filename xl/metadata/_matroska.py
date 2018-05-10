@@ -31,14 +31,14 @@
 # revision 858 (2004-10-03), under "/trunk/Perl.Parser/MatroskaParser.pm".
 
 
-from __future__ import print_function
+
 
 
 import sys
 from struct import pack, unpack
 from warnings import warn
 
-SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
+SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = list(range(8))
 
 
 class EbmlException(Exception):

@@ -57,7 +57,7 @@ class AsfFormat(BaseFormat):
             def __process_tag(any_tag):
                 for attrtype in attrs:
                     if isinstance(any_tag, attrtype):
-                        return unicode(any_tag)
+                        return str(any_tag)
                 return any_tag
 
             return [__process_tag(t) for t in tag]

@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from __future__ import with_statement
+
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -28,8 +28,8 @@ from xlgui import guiutil
 from xl import event, player, settings, xdg, common
 from functools import wraps
 import logging
-import macprefs
-from cellrenderers import CellRendererDays
+from . import macprefs
+from .cellrenderers import CellRendererDays
 
 # We want to use json to write alarms to files, cuz it's prettier
 # if we're on python 2.5 it's not available...

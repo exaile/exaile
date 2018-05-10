@@ -38,9 +38,9 @@ from xl.nls import gettext as _
 
 from xlgui.widgets import menu, dialogs
 
-import gt_prefs
-import gt_widgets
-from gt_common import (
+from . import gt_prefs
+from . import gt_widgets
+from .gt_common import (
     migrate_settings,
     get_group_categories,
     set_group_categories,
@@ -50,9 +50,9 @@ from gt_common import (
     tagname_option,
     create_custom_search_playlist,
 )
-import gt_export
-import gt_import
-import gt_mass
+from . import gt_export
+from . import gt_import
+from . import gt_mass
 
 
 class GroupTaggerPlugin(object):

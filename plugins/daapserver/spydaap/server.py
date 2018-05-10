@@ -13,12 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer
+import http.server
 import errno
 import logging
 import os
 import re
-import urlparse
+import urllib.parse
 import socket
 import spydaap
 from spydaap.daap import do
@@ -28,7 +28,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1
     log = logging.getLogger('spydaap.server')
 
-    class DAAPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    class DAAPHandler(http.server.BaseHTTPRequestHandler):
         daap_server_revision = 1
         protocol_version = "HTTP/1.1"
 
@@ -41,7 +41,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.send_header('Accept-Ranges', 'bytes')
             self.send_header('Content-Language', 'en_us')
             if 'extra_headers' in kwargs:
-                for k, v in kwargs['extra_headers'].iteritems():
+                for k, v in kwargs['extra_headers'].items():
                     self.send_header(k, v)
             try:
                 if isinstance(data, file):
@@ -60,7 +60,8 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
                             self.wfile.write(d)
                     else:
                         self.wfile.write(data)
-                except socket.error, (err_no, err_str):
+                except socket.error as xxx_todo_changeme:
+                    (err_no, err_str) = xxx_todo_changeme.args
                     if err_no in [errno.ECONNRESET]:
                         # XXX: why do we need to pass this?
                         pass
@@ -76,7 +77,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         drop_q = '(?:\\?.*)?$'
 
         def do_GET(self):
-            parsed_path = urlparse.urlparse(self.path).path
+            parsed_path = urllib.parse.urlparse(self.path).path
             if re.match(self.itunes_re + "/$", parsed_path):
                 self.do_GET_login()
             elif re.match(self.itunes_re + '/server-info$', parsed_path):
@@ -144,7 +145,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
 
         def do_GET_content_codes(self):
             children = [do('dmap.status', 200)]
-            for code in spydaap.daap.dmapCodeTypes.keys():
+            for code in list(spydaap.daap.dmapCodeTypes.keys()):
                 (name, dtype) = spydaap.daap.dmapCodeTypes[code]
                 d = do('dmap.dictionary',
                        [do('dmap.contentcodesnumber', code),

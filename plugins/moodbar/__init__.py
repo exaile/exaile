@@ -20,7 +20,7 @@
 # - The previous Moodbar plugin included in Exaile <4, by Solyanov Michael.
 
 
-from __future__ import division, print_function
+
 
 import os.path
 
@@ -35,9 +35,9 @@ import xl.player
 import xl.xdg
 import xlgui.guiutil
 
-from cache import ExaileMoodbarCache
-from generator import SpectrumMoodbarGenerator
-from widget import Moodbar
+from .cache import ExaileMoodbarCache
+from .generator import SpectrumMoodbarGenerator
+from .widget import Moodbar
 
 
 class MoodbarPlugin:

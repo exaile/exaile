@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from __future__ import division, print_function, unicode_literals
+
 
 # It seems like cairo does not support GObject Introspection.
 import cairo
@@ -32,7 +32,7 @@ def paint(data):
     width = len(data) // 3
     surf = cairo.ImageSurface(cairo.FORMAT_RGB24, width, 1)
     arr = surf.get_data()
-    for index in xrange(0, width):
+    for index in range(0, width):
         index4 = index * 4
         index3 = index * 3
         # Cairo RGB24 is BGRX

@@ -72,7 +72,7 @@
 '''
 
 
-import testlib
+from . import testlib
 
 
 class HelloWorld(object):

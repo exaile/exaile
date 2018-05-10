@@ -38,12 +38,12 @@ import shelve
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 import weakref
 from functools import wraps, partial
 from collections import deque
-from UserDict import DictMixin
+from collections import MutableMapping
 
 logger = logging.getLogger(__name__)
 
@@ -127,7 +127,7 @@ def sanitize_url(url):
         :returns: the sanitized url
     """
     try:
-        components = list(urlparse.urlparse(url))
+        components = list(urllib.parse.urlparse(url))
         auth, host = components[1].split('@')
         username, password = auth.split(':')
     except (AttributeError, ValueError):
@@ -136,7 +136,7 @@ def sanitize_url(url):
         # Replace password with fixed amount of "*"
         auth = ':'.join((username, 5 * '*'))
         components[1] = '@'.join((auth, host))
-        url = urlparse.urlunparse(components)
+        url = urllib.parse.urlunparse(components)
 
     return url
 
@@ -153,8 +153,8 @@ def get_url_contents(url, user_agent):
     '''
 
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(url, None, headers)
-    fp = urllib2.urlopen(req)
+    req = urllib.request.Request(url, None, headers)
+    fp = urllib.request.urlopen(req)
     data = fp.read()
     fp.close()
 
@@ -245,7 +245,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
         callargs = inspect.getargspec(function)
         if len(callargs.args) == 0 or callargs.args[0] != 'self':
             raise RuntimeError("Must only use glib_wait* on instance methods!")
-        
+
         def thunk(*args, **kwargs):
             id_by_obj[args[0]] = None
             # if a function returns True, it wants to be called again; in that
@@ -280,7 +280,7 @@ def glib_wait(timeout):
 
         If the function returns a value that evaluates to True, it
         will be called again under the same timeout rules.
-        
+
         .. warning:: Can only be used with instance methods
     """
     # 'undefined' is a bit of a white lie - it's always the most
@@ -399,16 +399,16 @@ def open_shelf(path):
     # Existing DBs created with other backends will be migrated to Berkeley DB.
     # We do this because BDB is generally considered more performant,
     # and because gdbm currently doesn't work at all in MSYS2.
-    
+
     # Some DBM modules don't use the path we give them, but rather they have
     # multiple filenames. If the specified path doesn't exist, double check
     # to see if whichdb returns a result before trying to open it with bsddb
     force_migrate = False
     if not os.path.exists(path):
-        from whichdb import whichdb
+        from dbm import whichdb
         if whichdb(path) is not None:
             force_migrate = True
-    
+
     if not force_migrate:
         try:
             db = bsddb.hashopen(path, 'c')
@@ -417,14 +417,14 @@ def open_shelf(path):
             logger.warning("%s was created with an old backend, migrating it", path)
         except Exception:
             raise
-    
+
     # special case: zero-length file
     if not force_migrate and os.path.getsize(path) == 0:
         os.unlink(path)
     else:
         from xl.migrations.database.to_bsddb import migrate
         migrate(path)
-    
+
     db = bsddb.hashopen(path, 'c')
     return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
 
@@ -441,13 +441,13 @@ else:
     _MoveFileEx = _kernel32.MoveFileExW
     _MoveFileEx.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
     _MoveFileEx.restype = ctypes.c_bool
-    
+
     def replace_file(src, dst):
         if not _MoveFileEx(src, dst, 1):
             raise ctypes.WinError(ctypes.get_last_error())
 
 
-class LimitedCache(DictMixin):
+class LimitedCache(MutableMapping):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """
@@ -459,6 +459,9 @@ class LimitedCache(DictMixin):
 
     def __iter__(self):
         return self.cache.__iter__()
+
+    def __len__(self):
+        return self.cache.__len__()
 
     def __contains__(self, item):
         return self.cache.__contains__(item)
@@ -490,7 +493,7 @@ class LimitedCache(DictMixin):
         return str(self.cache)
 
     def keys(self):
-        return self.cache.keys()
+        return list(self.cache.keys())
 
 
 class cached(object):
@@ -506,7 +509,7 @@ class cached(object):
 
     @staticmethod
     def _freeze(d):
-        return frozenset(d.iteritems())
+        return frozenset(iter(d.items()))
 
     def __call__(self, f):
         try:
@@ -880,7 +883,7 @@ def order_poset(items):
         :type items: list of :class:`PosetItem`
     """
     items = dict([(i.name, i) for i in items])
-    for name, item in items.iteritems():
+    for name, item in items.items():
         for after in item.after:
             k = items.get(after)
             if k:
@@ -888,7 +891,7 @@ def order_poset(items):
             else:
                 item.after.remove(after)
     result = []
-    next = [i[1] for i in items.items() if not i[1].after]
+    next = [i[1] for i in list(items.items()) if not i[1].after]
     while next:
         current = sorted([(i.priority, i.name, i) for i in next])
         result.extend([i[2] for i in current])
@@ -897,14 +900,14 @@ def order_poset(items):
             for c in i[2].children:
                 nextset[c.name] = c
         removals = []
-        for name, item in nextset.iteritems():
+        for name, item in nextset.items():
             for after in item.after:
                 if after in nextset:
                     removals.append(name)
                     break
         for r in removals:
             del nextset[r]
-        next = nextset.values()
+        next = list(nextset.values())
     return result
 
 
@@ -980,7 +983,7 @@ class GioFileInputStream(_GioFileStream):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
@@ -1005,7 +1008,7 @@ class GioFileOutputStream(_GioFileStream):
     def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
-        
+
         self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
 
     def flush(self):

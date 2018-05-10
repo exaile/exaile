@@ -62,7 +62,7 @@ class CollectionManagerDialog(Gtk.Dialog):
             buttons=Gtk.ButtonsType.CLOSE
         )
 
-        for location, library in collection.libraries.iteritems():
+        for location, library in collection.libraries.items():
             self.model.append([location, library.monitored, library.startup_scan])
 
     def get_items(self):

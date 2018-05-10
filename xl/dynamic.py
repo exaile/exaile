@@ -59,7 +59,7 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
-        logger.debug(u"Searching for %s tracks related to %s",
+        logger.debug("Searching for %s tracks related to %s",
                      limit, track)
         artists = self.find_similar_artists(track)
         if artists == []:

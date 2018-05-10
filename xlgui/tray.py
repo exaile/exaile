@@ -214,7 +214,7 @@ class BaseTrayIcon(object):
             if event.direction == Gdk.ScrollDirection.UP:
                 player.QUEUE.prev()
             elif event.direction == Gdk.ScrollDirection.DOWN:
-                player.QUEUE.next()
+                next(player.QUEUE)
         else:
             if event.direction == Gdk.ScrollDirection.UP:
                 volume = settings.get_option('player/volume', 1)
@@ -227,7 +227,7 @@ class BaseTrayIcon(object):
             elif event.direction == Gdk.ScrollDirection.LEFT:
                 player.QUEUE.prev()
             elif event.direction == Gdk.ScrollDirection.RIGHT:
-                player.QUEUE.next()
+                next(player.QUEUE)
 
     def on_playback_change_state(self, event, player, current):
         """

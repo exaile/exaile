@@ -21,7 +21,7 @@
 # This requires click to be installed, which is not an Exaile dependency
 #
 
-from __future__ import print_function
+
 
 import copy
 import datetime
@@ -29,7 +29,7 @@ import json
 import os.path
 import pprint
 import shelve
-from whichdb import whichdb
+from dbm import whichdb
 
 try:
     import bsddb3 as bsddb
@@ -45,7 +45,7 @@ exaile_pickle_protocol = 2
 
 
 def tracks(data):
-    for k, v in data.iteritems():
+    for k, v in data.items():
         if not k.startswith('tracks-'):
             continue
         yield k, v
@@ -87,25 +87,25 @@ def cvtdb(ctx, data, dbtype):
     newdb = db + '.new'
     
     if dbtype == 'gdbm':
-        import gdbm
-        new_d = gdbm.open(newdb, 'n')
+        import dbm.gnu
+        new_d = dbm.gnu.open(newdb, 'n')
     elif dbtype == 'dbm':
-        import dbm
-        new_d = dbm.open(newdb, 'n')
+        import dbm.ndbm
+        new_d = dbm.ndbm.open(newdb, 'n')
     elif dbtype == 'dbhash':
-        import dbhash
-        new_d = dbhash.open(newdb, 'n')
+        import dbm.bsd
+        new_d = dbm.bsd.open(newdb, 'n')
     elif dbtype == 'bsddb':
         new_d = bsddb.hashopen(newdb, 'n')
     elif dbtype == 'dumbdbm':
-        import dumbdbm
-        new_d = dumbdbm.open(newdb, 'n')
+        import dbm.dumb
+        new_d = dbm.dumb.open(newdb, 'n')
     else:
         raise click.ClickException("Invalid type %s" % dbtype)
     
     new_data = shelve.Shelf(new_d, protocol=exaile_pickle_protocol)
     
-    for k, v in data.iteritems():
+    for k, v in data.items():
         new_data[k] = v
     
     new_data.sync()
@@ -122,7 +122,7 @@ def tojson(data, output):
     
     # not really a db type, but useful?
     d = {}
-    for k, v in data.iteritems():
+    for k, v in data.items():
         d[k] = v
     with open(output, 'w') as fp:
         json.dump(d, fp, sort_keys=True, indent=4, separators=(',', ': '))

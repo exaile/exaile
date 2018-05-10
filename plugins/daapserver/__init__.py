@@ -1,9 +1,9 @@
 
 import logging
 from xl import event, settings
-import exaile_parser
-from server import DaapServer
-import daapserverprefs
+from . import exaile_parser
+from .server import DaapServer
+from . import daapserverprefs
 
 logger = logging.getLogger(__file__)
 

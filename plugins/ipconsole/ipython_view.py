@@ -44,7 +44,7 @@ is available at U{http://www.opensource.org/licenses/bsd-license.php}
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import print_function
+
 
 import re
 import sys
@@ -52,9 +52,9 @@ import os
 import subprocess
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 from functools import reduce
 
 from gi.repository import Gtk

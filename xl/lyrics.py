@@ -80,7 +80,7 @@ class LyricsCache:
         '''
             Return the shelve keys
         '''
-        return self.db.keys()
+        return list(self.db.keys())
 
     def _get(self, key, default=None):
         with self.lock:
@@ -140,9 +140,9 @@ class LyricsManager(providers.ProviderHandler):
         """
         return (
             track.get_loc_for_io() +
-            provider.display_name.encode('utf-8') +
-            track.get_tag_display('artist').encode('utf-8') +
-            track.get_tag_display('title').encode('utf-8')
+            provider.display_name +
+            track.get_tag_display('artist') +
+            track.get_tag_display('title')
         )
 
     def set_preferred_order(self, order):
@@ -270,7 +270,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode), (method, track)
+        assert isinstance(lyrics, str), (method, track)
 
         # update cache
         time = datetime.now()

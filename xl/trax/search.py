@@ -494,9 +494,9 @@ class TracksInList(object):
     '''
 
     __slots__ = ['_tracks', 'tag']
-    tag = None
 
     def __init__(self, tracks):
+        self.tag = None
         if isinstance(tracks, dict):
             self._tracks = set(tracks.keys())
         else:

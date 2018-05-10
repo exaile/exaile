@@ -47,7 +47,7 @@ def get_current_revision(directory):
         with open(os.devnull, 'w') as devnull:
             return subprocess.check_output([
                 'git', 'rev-parse', '--short=7', 'HEAD'
-            ], stderr=devnull).strip()
+            ], stderr=devnull, encoding='utf-8').strip()
     except (subprocess.CalledProcessError, OSError):
         return None
 

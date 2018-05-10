@@ -27,8 +27,8 @@
 
 from gi.repository import Gio
 
-import dbushelper
-import mprisobject
+from . import dbushelper
+from . import mprisobject
 
 
 # MPRIS 2.2 partial introspection data.

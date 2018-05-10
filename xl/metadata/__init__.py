@@ -29,7 +29,7 @@ import os
 from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
-import urlparse
+import urllib.parse
 
 from xl.metadata import (aiff, ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
                          tta, wav, wv)
@@ -99,15 +99,6 @@ def get_format(loc):
 
     # XXX: The path that we get from GIO is, for some reason, in UTF-8.
     # Bug? Intended? No idea.
-
-    # Oddly enough, if you have a non-utf8 compatible filename (such as
-    # a file from windows), then it will just return that string without
-    # converting it (but in a form that os.path will handle). Go figure.
-
-    try:
-        loc = loc.decode('utf-8')
-    except UnicodeDecodeError:
-        pass
 
     ext = os.path.splitext(loc)[1]
     ext = ext[1:]  # remove the pesky .

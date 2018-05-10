@@ -86,7 +86,7 @@ def on_media_key(key, exaile):
         'XF86AudioPlay': PLAYER.toggle_pause,
         'XF86AudioStop': PLAYER.stop,
         'XF86AudioPrev': QUEUE.prev,
-        'XF86AudioNext': QUEUE.next,
+        'XF86AudioNext': QUEUE.__next__,
         'XF86AudioPause': PLAYER.toggle_pause,
         'XF86AudioMedia': exaile.gui.main.window.present,
         'XF86AudioRewind': lambda: PLAYER.seek(0),

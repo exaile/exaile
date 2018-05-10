@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from __future__ import division
+
 
 from collections import namedtuple
 import logging
@@ -33,7 +33,7 @@ from xl.nls import gettext as _
 from xlgui.widgets import info
 from xlgui import guiutil
 
-import osd_preferences
+from . import osd_preferences
 
 
 LOGGER = logging.getLogger(__name__)
@@ -248,7 +248,7 @@ class OSDPlugin(object):
             color_str = guiutil.css_from_rgba_without_alpha(bgcolor)
         data_str = "window { background-color: %s; border-radius: %spx; }" % (
             color_str, str(radius))
-        self.__css_provider.load_from_data(data_str)
+        self.__css_provider.load_from_data(bytes(data_str, 'utf-8'))
         return False
 
     def __on_playback_track_start(self, _event, _player, _track):

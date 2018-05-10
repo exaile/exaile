@@ -1,5 +1,5 @@
 
-from __future__ import division
+
 
 import logging
 
@@ -7,7 +7,7 @@ from gi.repository import GLib
 
 from xl import player, event
 from xl import settings as xl_settings
-import acprefs
+from . import acprefs
 
 
 LOGGER = logging.getLogger(__name__)

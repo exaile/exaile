@@ -33,7 +33,7 @@ from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.guiutil import pixbuf_from_data
 
-import notifyprefs
+from . import notifyprefs
 
 
 # For documentation on libnotify see also the "Desktop Notifications Specification":

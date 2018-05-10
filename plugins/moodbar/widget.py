@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from __future__ import division, print_function, unicode_literals
+
 
 import collections
 
@@ -28,7 +28,7 @@ from gi.repository import (
     PangoCairo,
 )
 
-import painter
+from . import painter
 
 
 Extents = collections.namedtuple('Extents', 'x_bearing y_bearing width height x_advance y_advance')

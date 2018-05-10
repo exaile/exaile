@@ -23,26 +23,26 @@ class TestMatcher(object):
     def setup(self):
         self.mox = mox.Mox()
         self.strack = get_search_result_track()
-        self.strack.track.set_tag_raw('artist', [u'foo', u'bar'])
+        self.strack.track.set_tag_raw('artist', ['foo', 'bar'])
 
     def teardown(self):
         self.mox.UnsetStubs()
 
     def test_match_list_true(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(True)
         self.mox.ReplayAll()
-        matcher = search._Matcher('artist', u'bar', lambda x: x)
+        matcher = search._Matcher('artist', 'bar', lambda x: x)
         assert matcher.match(self.strack)
         self.mox.VerifyAll()
 
     def test_match_list_false(self):
         self.mox.StubOutWithMock(search._Matcher, '_matches')
         # ensure that both tags are checked
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
-        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(str)).AndReturn(False)
         self.mox.ReplayAll()
-        matcher = search._Matcher('artist', u'bar', lambda x: x)
+        matcher = search._Matcher('artist', 'bar', lambda x: x)
         assert not matcher.match(self.strack)
         self.mox.VerifyAll()
 
@@ -378,10 +378,10 @@ class TestSearchTracks(object):
         tracks[0].track.set_tag_raw('artist', 'foooo')
         tracks[2].track.set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks(tracks, [matcher])
-        assert gen.next() == tracks[0]
-        assert gen.next() == tracks[2]
+        assert next(gen) == tracks[0]
+        assert next(gen) == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_take_not_srt(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
@@ -392,7 +392,7 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
@@ -403,12 +403,12 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     @pytest.mark.parametrize("sstr", [
         "motley crue",
-        u"mötley crüe",
-        u"motley crüe",
+        "mötley crüe",
+        "motley crüe",
     ])
     def test_search_tracks_ignore_diacritic_from_string(self, sstr):
         '''Ensure that searching for tracks with diacritics return
@@ -416,7 +416,7 @@ class TestSearchTracks(object):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'motley crue')
         tracks[1].set_tag_raw('artist', 'rubbish')
-        tracks[2].set_tag_raw('artist', u'motley crüe')
+        tracks[2].set_tag_raw('artist', 'motley crüe')
 
         gen = search.search_tracks_from_string(tracks, sstr,
                                                keyword_tags=['artist'])
@@ -424,20 +424,20 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_with_unicodemark_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'foooo')
-        tracks[2].set_tag_raw('artist', u'中')
+        tracks[2].set_tag_raw('artist', '中')
 
         # the weird character is normalized, so you can't search based on that
-        gen = search.search_tracks_from_string(tracks, u'中',
+        gen = search.search_tracks_from_string(tracks, '中',
                                                keyword_tags=['artist'])
 
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_with_int_from_string(self):
         # unlike mp3, mp4 will return integers for BPM.. make sure that works
@@ -448,4 +448,4 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[1]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)

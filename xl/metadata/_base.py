@@ -78,9 +78,9 @@ class BaseFormat(object):
         # this only needs to be run once per class
 
         if cls.case_sensitive:
-            cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
+            cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.items()}
         else:
-            cls._reverse_mapping = {v.lower(): k for k, v in cls.tag_mapping.iteritems()}
+            cls._reverse_mapping = {v.lower(): k for k, v in cls.tag_mapping.items()}
 
         from .tags import disk_tags
         cls.ignore_tags = set(disk_tags)
@@ -153,7 +153,7 @@ class BaseFormat(object):
         """
             Returns keys of all tags that can be read from disk
         """
-        return [self._reverse_mapping.get(k, k) for k in self._get_raw().keys()]
+        return [self._reverse_mapping.get(k, k) for k in list(self._get_raw().keys())]
 
     def read_all(self):
         """
@@ -169,7 +169,7 @@ class BaseFormat(object):
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if isinstance(t, basestring) and t.startswith("__"):
+            if isinstance(t, str) and t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -197,13 +197,13 @@ class BaseFormat(object):
             if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, str]:
                         t = [t]
                     elif isinstance(t, list):
                         pass
                     elif t is not None:
                         try:
-                            t = [unicode(u) for u in list(t)]
+                            t = [str(u) for u in list(t)]
                         except UnicodeDecodeError:
                             t = t
                 except (KeyError, TypeError):
@@ -211,10 +211,10 @@ class BaseFormat(object):
             if t is None and self.others and tag not in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, tag)
-                    if type(t) in [str, unicode]:
+                    if type(t) in [str, str]:
                         t = [t]
                     elif t is not None:
-                        t = [unicode(u) for u in list(t)]
+                        t = [str(u) for u in list(t)]
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
 
@@ -257,7 +257,7 @@ class BaseFormat(object):
 
             # tags starting with __ are internal and should not be written
             # -> this covers INFO_TAGS, which also shouldn't be written
-            for tag in tagdict.keys():
+            for tag in list(tagdict.keys()):
                 if tag.startswith("__"):
                     try:
                         del tagdict[tag]
@@ -266,7 +266,7 @@ class BaseFormat(object):
 
             # Only modify the tags we were told to modify
             # -> if the value is None, delete the tag
-            for tag, value in tagdict.iteritems():
+            for tag, value in tagdict.items():
                 rtag = self.tag_mapping.get(tag)
                 if rtag:
                     if value is not None:
@@ -316,6 +316,6 @@ class CaseInsensitveBaseFormat(BaseFormat):
         """
             Returns keys of all tags that can be read from disk
         """
-        return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
+        return [self._reverse_mapping.get(k.lower(), k) for k in list(self._get_raw().keys())]
 
 # vim: et sts=4 sw=4

@@ -3,7 +3,7 @@
 import sys
 import logging
 
-from client import DAAPClient
+from .client import DAAPClient
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +43,7 @@ def main():
         else:
             print('No Tracks')
         session.update()
-        print(session.revision)
+        print((session.revision))
 
     finally:
         # this here, so we logout even if there's an error somewhere,

@@ -65,12 +65,12 @@ class TrackWrapper(object):
     def __unicode__(self):
         text = self.track.get_tag_raw('title')
         if text is not None:
-            text = u' / '.join(text)
+            text = ' / '.join(text)
 
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:
-                text += u' - ' + u' / '.join(artists)
+                text += ' - ' + ' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
 
@@ -339,7 +339,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             if not track:
                 continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, str(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:
@@ -527,7 +527,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             @param pl: the playlist to be updated
         """
-        playlists = self.playlist_nodes.keys()
+        playlists = list(self.playlist_nodes.keys())
         for playlist in playlists:
             if playlist.name == pl.name:
                 node = self.playlist_nodes[playlist]

@@ -14,7 +14,7 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from xml.etree import ElementTree
 from xl import common
 import logging
@@ -82,7 +82,7 @@ def find_books(keyword, user_agent):
     '''
 
     # urlencode the search string
-    url = search_url + urllib.quote_plus(keyword)
+    url = search_url + urllib.parse.quote_plus(keyword)
 
     try:
         data = common.get_url_contents(url, user_agent)

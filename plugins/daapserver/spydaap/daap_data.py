@@ -157,9 +157,9 @@ dmapDataTypes = {
 }
 
 dmapNames = {}
-for k in dmapCodeTypes.keys():
+for k in list(dmapCodeTypes.keys()):
     dmapNames[dmapCodeTypes[k][0]] = k
 
 dmapReverseDataTypes = {}
-for k in dmapDataTypes.keys():
+for k in list(dmapDataTypes.keys()):
     dmapReverseDataTypes[dmapDataTypes[k]] = k

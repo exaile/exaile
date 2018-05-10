@@ -151,7 +151,7 @@ class PluginManager(object):
             if item[0] == uncategorized:
                 return '\xff' * 10
             return xl.unicode.strxfrm(item[0])
-        plugins_dict = sorted(plugins_dict.iteritems(), key=categorykey)
+        plugins_dict = sorted(iter(plugins_dict.items()), key=categorykey)
 
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: xl.unicode.strxfrm(x[1]))

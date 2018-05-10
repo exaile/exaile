@@ -26,7 +26,7 @@
 
 import logging
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
@@ -169,7 +169,7 @@ class PlayQueue(playlist.Playlist):
                     self.__queue_has_tracks = False
 
             if track is None and self.current_playlist is not self:
-                track = self.current_playlist.next()
+                track = next(self.current_playlist)
 
         if autoplay:
             self.player.play(track)
@@ -253,7 +253,7 @@ class PlayQueue(playlist.Playlist):
                 except ValueError:
                     pass
         else:
-            self.next()
+            next(self)
 
     def queue_length(self):
         '''

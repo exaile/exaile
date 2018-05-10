@@ -1,16 +1,16 @@
 
 try:
-    import dbm
+    import dbm.ndbm
 except ImportError:
     dbm = None
 
 try:
-    import gdbm
+    import dbm.gnu
 except ImportError:
     gdbm = None
 
 try:
-    import dumbdbm
+    import dbm.dumb
 except ImportError:
     dumbdbm = None
 
@@ -50,7 +50,7 @@ def data(request, tmpdir):
 def test_migration(data):
     truth, loc, dbtype = data
     
-    print(os.listdir(loc))
+    print((os.listdir(loc)))
     
     try:
         db = open_shelf(join(loc, 'music.db'))
@@ -64,7 +64,7 @@ def test_migration(data):
             return
         raise
     
-    for k, v in truth.iteritems():
+    for k, v in truth.items():
         assert k in db
         assert v == db[k]
     

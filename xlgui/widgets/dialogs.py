@@ -63,9 +63,9 @@ def force_unicode(obj):
     try:
         # Try this first because errors='replace' fails if the object is unicode
         # or some other non-str object.
-        return unicode(obj)
+        return str(obj)
     except UnicodeDecodeError:
-        return unicode(obj, errors='replace')
+        return str(obj, errors='replace')
 
 
 def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
@@ -130,7 +130,7 @@ class AboutDialog(Gtk.AboutDialog):
         self.set_version(xl.version.__version__)
 
         comments = []
-        for name, version in sorted(xl.version.__external_versions__.iteritems()):
+        for name, version in sorted(xl.version.__external_versions__.items()):
             comments.append('%s: %s' % (name, version))
 
         self.set_comments('\n'.join(comments))
@@ -224,7 +224,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [unicode(a.get_text(), 'utf-8') for a in self.fields]
+        return [str(a.get_text(), 'utf-8') for a in self.fields]
 
     def run(self):
         """
@@ -306,7 +306,7 @@ class TextEntryDialog(Gtk.Dialog):
         """
             Returns the text value
         """
-        return unicode(self.entry.get_text(), 'utf-8')
+        return str(self.entry.get_text(), 'utf-8')
 
     def set_value(self, value):
         """
@@ -647,7 +647,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
             @param extensions: a dictionary of extension:file type pairs
             i.e. { 'm3u':'M3U Playlist' }
         """
-        keys = extensions.keys()
+        keys = list(extensions.keys())
         for key in keys:
             self.liststore.append([extensions[key], key])
 
@@ -692,7 +692,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
         all_filter.set_name(_('All Files'))
         all_filter.add_pattern('*')
 
-        for extension in metadata.formats.iterkeys():
+        for extension in metadata.formats.keys():
             pattern = '*.%s' % extension
             supported_filter.add_pattern(pattern)
             audio_filter.add_pattern(pattern)
@@ -988,7 +988,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = unicode(self.get_uri(), 'utf-8')
+            path = str(self.get_uri(), 'utf-8')
 
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path

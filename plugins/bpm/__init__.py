@@ -41,7 +41,7 @@ from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu, dialogs
 
-import bpmdetect
+from . import bpmdetect
 autodetect_enabled = bpmdetect.autodetect_supported()
 
 menu_providers = [

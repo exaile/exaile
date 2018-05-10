@@ -17,7 +17,7 @@
 
 import functools
 from gettext import gettext as _
-import httplib
+import http.client
 import logging
 import pickle
 import os
@@ -42,8 +42,8 @@ from xlgui.panel.collection import CollectionPanel
 from xlgui.widgets import dialogs, menu, menuitems
 from xlgui import main
 
-from client import DAAPClient
-import daapclientprefs
+from .client import DAAPClient
+from . import daapclientprefs
 
 
 logger = logging.getLogger(__name__)
@@ -187,7 +187,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
         items = {}
 
-        for key, x in self.services.items():
+        for key, x in list(self.services.items()):
             name = '{0} ({1})'.format(x.name, x.host)
             if x.protocol == avahi.PROTO_INET6:
                 if not show_ipv6:
@@ -408,7 +408,7 @@ class DaapManager:
         removes the panels from the UI.
         '''
         # disconnect active shares
-        for panel in self.panels.values():
+        for panel in list(self.panels.values()):
             panel.daap_share.disconnect()
 
             # there's no point in doing this if we're just shutting down, only on
@@ -524,9 +524,9 @@ class DaapConnection(object):
                 # Don't scan tracks because gio is slow!
                 temp = trax.Track(uri, scan=False)
 
-                for field in eqiv.keys():
+                for field in list(eqiv.keys()):
                     try:
-                        tag = u'%s' % tr.atom.getAtom(eqiv[field])
+                        tag = '%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
@@ -552,7 +552,7 @@ class DaapConnection(object):
             if t.id == track_id:
                 try:
                     t.save(filename)
-                except httplib.CannotSendRequest:
+                except http.client.CannotSendRequest:
                     Gtk.MessageDialog(
                         main.mainwindow().window,
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO,

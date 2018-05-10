@@ -49,6 +49,7 @@ from xlgui import (
 from xlgui.panel import menus
 from xlgui.widgets import menu
 from xlgui.widgets.common import DragTreeView
+from functools import reduce
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +58,7 @@ SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
 
 def first_meaningful_char(s):
-    for c in unicode(s):
+    for c in str(s):
         if c.isdigit():
             return '0'
         elif c.isalpha():
@@ -84,14 +85,14 @@ class Order(object):
 
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
-        self.__levels = map(self.__parse_level, levels)
+        self.__levels = list(map(self.__parse_level, levels))
         self.__formatters = [formatter.TrackFormatter(l[1]) for l
                              in self.__levels]
         self.__use_compilations = use_compilations
 
     @staticmethod
     def __parse_level(val):
-        if type(val) in (str, unicode):
+        if type(val) in (str, str):
             val = ((val,), "$%s" % val, (val,))
         return tuple(val)
 
@@ -317,7 +318,7 @@ class CollectionPanel(panel.Panel):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = unicode(entry.get_text(), 'utf-8')
+        self.keyword = str(entry.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
 
@@ -423,7 +424,7 @@ class CollectionPanel(panel.Panel):
             Called when the user clicks on the tree
         """
         #selection = self.tree.get_selection()
-        (x, y) = map(int, event.get_coords())
+        (x, y) = list(map(int, event.get_coords()))
         #path = self.tree.get_path_at_pos(x, y)
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)
@@ -544,7 +545,7 @@ class CollectionPanel(panel.Panel):
             if not value:
                 value = self.model.get_value(iter, 2)
             if value:
-                value = unicode(value, 'utf-8')
+                value = str(value, 'utf-8')
 
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
@@ -611,7 +612,7 @@ class CollectionPanel(panel.Panel):
         to_expand = []
 
         for srtr in srtrs:
-            stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
+            stagvals = [str(srtr.track.get_tag_sort(x)) for x in tags]
             stagval = " ".join(stagvals)
             if (last_val != stagval or bottom):
                 tagval = self.order.format_track(depth, srtr.track)

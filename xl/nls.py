@@ -87,12 +87,12 @@ try:
     gettextfunc = gettextmod.gettext
 
     def gettext(text):
-        return gettextfunc(text).decode("utf-8")
+        return gettextfunc(text)
 
     ngettextfunc = gettextmod.ngettext
 
     def ngettext(singular, plural, n):
-        return ngettextfunc(singular, plural, n).decode('utf-8')
+        return ngettextfunc(singular, plural, n)
 
 except ImportError:
     # gettext is not available.  Provide a dummy function instead

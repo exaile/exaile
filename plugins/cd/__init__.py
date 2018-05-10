@@ -38,7 +38,7 @@ from xl.devices import Device, KeyedDevice
 from xl import playlist, trax, common
 import os.path
 
-import cdprefs
+from . import cdprefs
 
 try:
     import DiscID
@@ -121,7 +121,7 @@ class CDTocParser(object):
 
             self.raw_tracks = []
 
-            for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
+            for trnum in list(range(start, end + 1)) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
                 track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
@@ -179,7 +179,7 @@ class CDPlaylist(playlist.Playlist):
 
         # FIXME: this can probably be cleaner
         sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]), s)
-                            for s in songs.values()])
+                            for s in list(songs.values())])
         sorted_elements = [s[1] for s in sort_tups]
 
         self.extend(sorted_elements)

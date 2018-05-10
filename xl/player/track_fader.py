@@ -210,7 +210,7 @@ class TrackFader(object):
             self.play(*self.calculate_fades(track, fade_in, fade_out))
         else:
             stop_offset = track.get_tag_raw('__stopoffset')
-            if stop_offset > 0:
+            if stop_offset and stop_offset > 0:
                 self.play(None, None, stop_offset, stop_offset, now=now)
             else:
                 self.play(now=now)

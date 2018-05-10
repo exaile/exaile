@@ -180,7 +180,7 @@ class FilesPanel(panel.Panel):
         self.filter = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
         self.filter.connect('activate', lambda *e:
                             self.load_directory(self.current, history=False,
-                                                keyword=unicode(self.filter.get_text(), 'utf-8')))
+                                                keyword=str(self.filter.get_text(), 'utf-8')))
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
@@ -366,7 +366,7 @@ class FilesPanel(panel.Panel):
                 # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
-            name = unicode(info.get_display_name(), 'utf-8')
+            name = info.get_display_name()
             low_name = name.lower()
             if keyword and keyword.lower() not in low_name:
                 continue
@@ -411,7 +411,7 @@ class FilesPanel(panel.Panel):
                 # locale-dependent output to unicode.
                 size = locale.format_string('%d', size, True)
                 # TRANSLATORS: File size (1 kB = 1000 bytes)
-                size = _('%s kB') % unicode(size, locale.getpreferredencoding())
+                size = _('%s kB') % str(size, locale.getpreferredencoding())
 
                 model.append((f, self.track, name, size, False))
                 if cursor_file and cursor_row == -1 and cursor_uri == f.get_uri():

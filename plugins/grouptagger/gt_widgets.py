@@ -38,7 +38,7 @@ from xl.nls import gettext as _
 
 from xlgui.widgets import dialogs, menu, notebook
 
-import gt_common
+from . import gt_common
 
 #
 # GroupTaggerView signal 'changed' enum
@@ -297,7 +297,7 @@ class GroupTaggerView(Gtk.TreeView):
         model, paths = context['selected-rows']
         categories = model.delete_selected_categories(paths)
 
-        for category, groups in categories.iteritems():
+        for category, groups in categories.items():
             self.emit('category-changed', category_change.deleted, category)
             for group in groups:
                 self.emit('group-changed', group_change.deleted, group)
@@ -467,7 +467,7 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
 
             { category: [expanded, [(active, group), ... ]], ... }
         '''
-        for category, (expanded, groups) in group_categories.iteritems():
+        for category, (expanded, groups) in group_categories.items():
             cat = self.append(None, [expanded, category, False, Pango.Weight.BOLD])
             for active, group in groups:
                 self.append(cat, [active, group, True, Pango.Weight.NORMAL])
@@ -581,7 +581,7 @@ class GroupTaggerWidget(Gtk.Box):
         set_groups = set()  # this holds all groups that were found
 
         # validate it
-        for category, (visible, cgroups) in group_categories.iteritems():
+        for category, (visible, cgroups) in group_categories.items():
             dcgroups = []
             for group in cgroups:
                 if group not in set_groups:

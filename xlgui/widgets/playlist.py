@@ -333,7 +333,7 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0] + len(positions)):
+        if positions == list(range(positions[0], positions[0] + len(positions))):
             del playlist[positions[0]:positions[0] + len(positions)]
         else:
             for position, track in tracks[::-1]:
@@ -1180,7 +1180,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             with guiutil.without_model(self):
-                if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
+                if indexes and indexes == list(range(indexes[0], indexes[0] + len(indexes))):
                     del self.playlist[indexes[0]:indexes[0] + len(indexes)]
                 else:
                     for i in indexes[::-1]:

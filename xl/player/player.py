@@ -530,7 +530,7 @@ class ExailePlayer(object):
     #
 
     def _get_play_params(self, track, start_at, paused, autoadvance):
-        if start_at <= 0:
+        if not start_at or start_at <= 0:
             start_at = None
 
         if start_at is None:

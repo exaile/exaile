@@ -62,7 +62,8 @@ class AudioSinkPreference(widgets.ComboPreference):
                 return -1
             return 1
 
-        for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
+        # TODO: Actually sort? Or just assume Python dicts are sorted anyway?
+        for name, preset in SINK_PRESETS.items():
             model.append((name, preset['name']))
         self._set_value()
 

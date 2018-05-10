@@ -107,11 +107,11 @@ def run_commands(options, iface):
         'GetLength': '__length',
     }
 
-    for command, attr in info_commands.iteritems():
+    for command, attr in info_commands.items():
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:
-                print(_('Not playing.'))
+                print((_('Not playing.')))
             else:
                 print(value)
             comm = True
@@ -130,14 +130,14 @@ def run_commands(options, iface):
             if command in ('IncreaseVolume', 'DecreaseVolume'):
                 iface.ChangeVolume(argument if command == 'IncreaseVolume' else -argument)
             else:
-                print(getattr(iface, command)(argument))
+                print((getattr(iface, command)(argument)))
 
             comm = True
 
     # Special handling for FormatQuery & FormatQueryTags
     format = options.FormatQuery
     if format is not None:
-        print(iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length'))
+        print((iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length')))
         comm = True
 
     run_commands = (
@@ -167,7 +167,7 @@ def run_commands(options, iface):
 
     for command in query_commands:
         if getattr(options, command):
-            print(getattr(iface, command)(argument))
+            print((getattr(iface, command)(argument)))
             comm = True
 
     to_implement = (
@@ -258,8 +258,8 @@ class DbusManager(dbus.service.Object):
             value = ''
 
         if isinstance(value, list):
-            return u"\n".join(value)
-        return unicode(value)
+            return "\n".join(value)
+        return str(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):
@@ -361,7 +361,7 @@ class DbusManager(dbus.service.Object):
             Jumps to the next track
         """
         from xl import player
-        player.QUEUE.next()
+        next(player.QUEUE)
 
     @dbus.service.method('org.exaile.Exaile')
     def Play(self):

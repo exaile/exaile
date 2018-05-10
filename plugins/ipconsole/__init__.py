@@ -18,7 +18,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from __future__ import division
+
 
 import logging
 import sys
@@ -35,8 +35,8 @@ from xl import providers
 from xlgui.widgets import menu
 from xlgui import guiutil
 
-import ipconsoleprefs
-import ipython_view as ip
+from . import ipconsoleprefs
+from . import ipython_view as ip
 
 FONT = "Luxi Mono 10"
 SETTINGS_STRING = 'plugin_ipconsole_option_set'

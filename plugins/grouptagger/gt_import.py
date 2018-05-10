@@ -13,7 +13,7 @@ from xlgui.widgets import dialogs
 
 from xlgui.guiutil import GtkTemplate
 
-from gt_common import get_track_groups, set_track_groups
+from .gt_common import get_track_groups, set_track_groups
 
 import logging
 logger = logging.getLogger(__name__)
@@ -188,7 +188,7 @@ def track_import_thread(import_collection, user_collection, track_data):
         # -> currently exaile doesn't index tracks, and linear searches
         #    for the track instead. Oh well.
 
-        matchers = map(lambda t: TracksMatcher(track.get_tag_search(t)), fields)
+        matchers = [TracksMatcher(track.get_tag_search(t)) for t in fields]
         matched_tracks = [r.track for r in search_tracks(user_collection, matchers)]
 
         # if there are matches, add the data to the track data

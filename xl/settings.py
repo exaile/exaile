@@ -240,6 +240,10 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
+        # Special treatment is needed for boolean values, as bool is a
+        # subclass of int.
+        if isinstance(value, bool):
+            return 'B: ' + str(value)
         for k, v in TYPE_MAPPING.iteritems():
             if isinstance(value, v):
                 if v is list:

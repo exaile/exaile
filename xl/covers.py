@@ -1,4 +1,5 @@
 # Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2018 Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,6 +41,7 @@ except ImportError:
     import pickle
 
 from xl.nls import gettext as _
+import xl.unicode
 from xl import (
     common,
     event,
@@ -191,27 +193,59 @@ class CoverManager(providers.ProviderHandler):
             methods = nonfixed
         return methods
 
-    def _get_track_key(self, track):
-        """
-            Get the db mapping key for a track
-        """
-        album = track.get_tag_raw("album", join=True)
-        compilation = track.get_tag_raw("__compilation")
+    @staticmethod
+    def _get_track_key(track):
+        """Get a unique, hashable identifier for the track's album."""
 
-        if compilation:
-            value = track.get_tag_raw('albumartist')
-            if value:
-                tag = 'albumartist'
-            else:
-                tag = 'compilation'
-                value = compilation
-        elif album:
-            tag = 'album'
-            value = album
-        else:
-            # no album info, cant store it
+        # The output is in the form
+        #   u'tag1  \0  value1a \1 value1b  \0  tag2  \0  value2'
+        # without the spaces.
+        #
+        # Possible tag combinations, in order of preference:
+        #   * musicbrainz_albumid
+        #   * album albumartist [date]
+        #   * __compilation [date]
+        #   * album [artist] [date]
+
+        def _get_pair(tag):
+            value = track.get_tag_raw(tag)
+            if not value:
+                return None
+            value = u'\1'.join(
+                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape')
+                for v in value)
+            assert isinstance(tag, bytes)
+            return tag.decode('ascii') + u'\0' + value
+
+        albumid = _get_pair('musicbrainz_albumid')
+        if albumid:
+            return albumid
+
+        album = _get_pair('album')
+        if not album:
             return None
-        return (tag, tuple(value))
+
+        albumartist = _get_pair('albumartist')
+        if albumartist:
+            dbkey = album + u'\0' + albumartist
+        else:
+            compilation = _get_pair('__compilation')
+            if compilation:
+                # compilation is directory+album, where the directory mimics
+                # the role of albumartist.
+                dbkey = compilation
+            else:
+                dbkey = album
+                artist = _get_pair('artist')
+                if artist:
+                    dbkey += u'\0' + artist
+        assert dbkey
+
+        date = _get_pair('date')
+        if date:
+            dbkey += u'\0' + date
+
+        return dbkey
 
     def get_db_string(self, track):
         """

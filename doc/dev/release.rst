@@ -8,13 +8,28 @@ release for Exaile.
 Step one: Translations
 ----------------------
 
-Merge the translations from https://hosted.weblate.org/projects/exaile/master/
+Ensure that the translations from `weblate <https://hosted.weblate.org/projects/exaile/master/>`_
+are merged. Generally, this should happen automatically. It's probably easiest
+to check via the command line in your repo.
 
-If you are a member of https://github.com/exaile you should be able to
-import all translations from some github web UI into the git repository.
+If you haven't already, add weblate to your git remotes:
 
-If you are not member clone git://git.weblate.org/exaile.git and add the
-translations into your git repository.
+.. code-block:: sh
+
+    $ git remote add weblate git://git.weblate.org/exaile.git
+
+Check to see if the weblate repo has the same commits as the exaile
+repo (assuming that origin is pointing at the main exaile repo).
+
+.. code-block:: sh
+
+    $ git fetch weblate
+    $ git fetch origin
+    $ git log -1 origin/master
+    $ git log -1 weblate/master
+
+If they're equivalent, then we're all set. If not, then figure out what needs
+to be done to get them merged.
 
 Step two: Version bumping
 -------------------------
@@ -28,8 +43,7 @@ the release.:
 
 .. code-block:: sh
 
-    $ git tag RELEASE_VERSION
-
+    $ git tag -a RELEASE_VERSION
 
 .. _win32_installer:
 
@@ -103,6 +117,7 @@ TODO: Except after a beta/RC? What's the right transition?
 Step eight: send release notices
 --------------------------------
 
-* Update download links on exaile.org
-* Add notice artifact to exaile.org
-* Send email to mailing lists
+* Update website (hosted via github pages at https://github.com/exaile/exaile.github.io)
+  * Update versions in ``_config.yml``
+  * Add a new post to ``_posts``
+* Send email to exaile-dev and exaile-users mailing lists

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 11:36+1000\n"
-"PO-Revision-Date: 2018-05-10 22:37+0000\n"
+"PO-Revision-Date: 2018-05-13 08:28+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
 "\n"
@@ -261,22 +261,16 @@ msgid "Volume Options"
 msgstr "אפשרויות עוצמת קול"
 
 #: ../xl/main.py:157
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "הגבר את עוצמת הקול בN%"
+msgstr "הגברת עוצמת השמע ב־N%"
 
 #: ../xl/main.py:161
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "הנמך את עוצמת הקול בN%"
+msgstr "הנמכת עוצמת השמע ב־N%"
 
 #: ../xl/main.py:164
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "משתיק או מבטל השתקה של עוצמת הקול"
+msgstr "השתקה או ביטול השתקה"
 
 #: ../xl/main.py:166
 msgid "Print the current volume percentage"
@@ -1324,7 +1318,7 @@ msgstr "רענן"
 
 #: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
-msgstr "הזן את השם עבור רשימת הנגינה החדשה."
+msgstr "נא להזין את השם המבוקש עבור רשימת הנגינה החדשה"
 
 #: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
@@ -2368,19 +2362,19 @@ msgstr "תחתית"
 
 #: ../data/ui/preferences/appearance.ui:50
 msgid "Show info area"
-msgstr ""
+msgstr "הצגת אזור מידע"
 
 #: ../data/ui/preferences/appearance.ui:54
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "אזור המידעמכיל את עטיפת האלבום ופרטים על הרצועה"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "הצגת עטיפת אלבום באזור המידע"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
-msgstr "הראה תמיד את סרגל הלשוניות"
+msgstr "תמיד להציג את סרגל הלשוניות"
 
 #: ../data/ui/preferences/appearance.ui:99
 msgid "Tab placement:"
@@ -2737,7 +2731,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr "הפוך לאותיות גדולות את האות הראשונה בכל תג."
+msgstr "הגדלת האות הראשונה בכל התגיות"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 #, fuzzy

@@ -124,6 +124,7 @@ class CoverManager(providers.ProviderHandler):
     """
         Handles finding covers from various sources.
     """
+    DB_VERSION = 2
 
     def __init__(self, location):
         """
@@ -135,7 +136,7 @@ class CoverManager(providers.ProviderHandler):
         self.methods = {}
         self.order = settings.get_option(
             'covers/preferred_order', [])
-        self.db = {}
+        self.db = {'version': self.DB_VERSION}
         self.load()
         for method in self.get_providers():
             self.on_provider_added(method)
@@ -405,6 +406,10 @@ class CoverManager(providers.ProviderHandler):
                 break
         if data:
             self.db = data
+        version = self.db.get('version', 1)
+        if version > self.DB_VERSION:
+            logger.error("covers.db version (%s) higher than supported (%s); using anyway",
+                version, self.DB_VERSION)
 
     @common.glib_wait_seconds(60)
     def timeout_save(self):

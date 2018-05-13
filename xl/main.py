@@ -454,6 +454,10 @@ class Exaile(object):
             logger.exception("VersionError loading collection")
             sys.exit(1)
 
+        # Migrate covers.db. This can only be done after the collection is loaded.
+        import xl.migrations.database.covers_1to2 as mig
+        mig.migrate()
+
         from xl import event
         # Set up the player and playback queue
         from xl import player

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 11:36+1000\n"
+"POT-Creation-Date: 2018-05-14 22:55+1000\n"
 "PO-Revision-Date: 2016-04-21 21:47+0000\n"
 "Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
@@ -535,7 +535,7 @@ msgstr "Orijinal tarih"
 msgid "Performer"
 msgstr "İcracı"
 
-#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:101
+#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:100
 #: ../xlgui/widgets/playlist_columns.py:178
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:98
@@ -605,7 +605,7 @@ msgstr "X yerleşimi:"
 msgid "Stop offset"
 msgstr "X yerleşimi:"
 
-#: ../xl/player/gst/engine.py:634
+#: ../xl/player/gst/engine.py:658
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -649,71 +649,71 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:161 ../xl/playlist.py:181
+#: ../xl/playlist.py:162 ../xl/playlist.py:182
 msgid "Invalid playlist type."
 msgstr "Geçersiz çalma listesi türü"
 
-#: ../xl/playlist.py:189 ../xlgui/widgets/playlist.py:351
-#: ../xlgui/widgets/smart_playlist_editor.py:257
+#: ../xl/playlist.py:190 ../xlgui/widgets/playlist.py:354
+#: ../xlgui/widgets/smart_playlist_editor.py:263
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Çalma Listesi"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:340
 msgid "M3U Playlist"
 msgstr "M3U Çalma Listesi"
 
-#: ../xl/playlist.py:444
+#: ../xl/playlist.py:445
 msgid "PLS Playlist"
 msgstr "PLS Çalma Listesi"
 
-#: ../xl/playlist.py:532 ../xl/playlist.py:548
+#: ../xl/playlist.py:533 ../xl/playlist.py:549
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s için geçersiz biçim."
 
-#: ../xl/playlist.py:543
+#: ../xl/playlist.py:544
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "%(type)s için %(version)s versiyonu desteklenmiyor"
 
-#: ../xl/playlist.py:604
+#: ../xl/playlist.py:605
 msgid "ASX Playlist"
 msgstr "ASX Çalma Listesi"
 
-#: ../xl/playlist.py:778
+#: ../xl/playlist.py:779
 msgid "XSPF Playlist"
 msgstr "XSPF Çalma Listesi"
 
-#: ../xl/playlist.py:894
+#: ../xl/playlist.py:895
 msgid "Shuffle _Off"
 msgstr "Karışık _Kapalı"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Tracks"
 msgstr "Karışık _Parçalar"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Albums"
 msgstr "Karışık _Albümler"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _Off"
 msgstr "Tekrar _Kapalı"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _All"
 msgstr "_Hepsini Tekrarla"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat O_ne"
 msgstr "_Birini Tekrarla"
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic _Off"
 msgstr "Dinamik_Kapalı"
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic by Similar _Artists"
 msgstr "Benzer _Sanatçılara göre Dinamik"
 
@@ -734,11 +734,11 @@ msgstr "Eklenti arşivi güvensiz bir konum içerir."
 msgid "Settings version is newer than current."
 msgstr "Ayarlar versiyonu mevcut versiyondan daha yeni."
 
-#: ../xl/settings.py:252
+#: ../xl/settings.py:256
 msgid "We don't know how to store that kind of setting: "
 msgstr "Bu tür ayarın nasıl saklanacağını bilmiyoruz. "
 
-#: ../xl/settings.py:283
+#: ../xl/settings.py:287
 msgid "An Unknown type of setting was found!"
 msgstr "Ayarların bilinmeyen bir tipi bulundu."
 
@@ -1022,39 +1022,39 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:518
+#: ../xlgui/main.py:510
 msgid "Toggle: Stop after Selected Track"
 msgstr "Geçiş yap: Seçili Parçadan sonra Dur"
 
-#: ../xlgui/main.py:619 ../plugins/previewdevice/__init__.py:358
+#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr "Çalma hatasıyla karşılaşıldı!"
 
-#: ../xlgui/main.py:626
+#: ../xlgui/main.py:618
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Arabelleğe alınıyor: %d%%..."
 
-#: ../xlgui/main.py:667 ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "Çalmaya Devam Et"
 
-#: ../xlgui/main.py:670 ../xlgui/main.py:839
-#: ../plugins/previewdevice/__init__.py:370
+#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "Çalmayı Duraklat"
 
-#: ../xlgui/main.py:796 ../xlgui/menu.py:112
+#: ../xlgui/main.py:788 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr "Liste dışarı aktarılamadı!"
 
-#: ../xlgui/main.py:848 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:351
+#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "Çalmayı Başlat"
 
 #: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
-#: ../xlgui/widgets/playlist.py:217
+#: ../xlgui/widgets/playlist.py:220
 msgid "_New Playlist"
 msgstr "_Yeni Çalma Listesi"
 
@@ -1086,7 +1086,7 @@ msgstr "Çalma Listesini İçe Aktar"
 msgid "E_xport Current Playlist"
 msgstr "Şu anki çalma listesini dışa aktar"
 
-#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
+#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:243
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Close _Tab"
@@ -1230,7 +1230,7 @@ msgid "%s kB"
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:92 ../xlgui/widgets/playlist_columns.py:169
 msgid "#"
 msgstr "#"
 
@@ -1272,8 +1272,8 @@ msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
 msgid "Rename Playlist"
 msgstr "Çalma Listesini Yeniden Adlandır"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1644
-#: ../xlgui/widgets/smart_playlist_editor.py:397
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "Girilen çalma listesi ismi şuan kullanımda."
 
@@ -1309,45 +1309,45 @@ msgstr "Akıllı Çalma Listeleri"
 msgid "Custom Playlists"
 msgstr "Özel Çalma Listeleri"
 
-#: ../xlgui/panel/radio.py:85
+#: ../xlgui/panel/radio.py:84
 msgid "Radio"
 msgstr "Radyo"
 
-#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
-#: ../xlgui/panel/radio.py:552
+#: ../xlgui/panel/radio.py:155 ../xlgui/panel/radio.py:474
+#: ../xlgui/panel/radio.py:551
 msgid "Loading streams..."
 msgstr "Yayınlar yükleniyor"
 
-#: ../xlgui/panel/radio.py:207
+#: ../xlgui/panel/radio.py:206
 msgid "Add Radio Station"
 msgstr "Radyo istasyonu ekle"
 
-#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:208 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "İsim:"
 
-#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:209 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:282
+#: ../xlgui/panel/radio.py:281
 msgid "Saved Stations"
 msgstr "Kayıtlı İstasyonlar"
 
-#: ../xlgui/panel/radio.py:283
+#: ../xlgui/panel/radio.py:282
 msgid "Radio Streams"
 msgstr "Radyo Yayınları"
 
-#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:312 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Tazele"
 
-#: ../xlgui/panel/radio.py:417
+#: ../xlgui/panel/radio.py:416
 msgid "Enter the name you want for your new playlist"
 msgstr "Yeni müzik listeniz için istediğiniz bir isim giriniz"
 
-#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "Yeni Çalma Listesi"
 
@@ -1382,17 +1382,17 @@ msgstr "Son Kapatılan Sekmeler"
 msgid "Playlist %d"
 msgstr "Çalma listesi %d"
 
-#: ../xlgui/playlist_container.py:376
+#: ../xlgui/playlist_container.py:377
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:382
+#: ../xlgui/playlist_container.py:383
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:521
+#: ../xlgui/playlist_container.py:522
 msgid "_Move to Other View"
 msgstr ""
 
@@ -1576,7 +1576,7 @@ msgstr "Dizini Aç"
 msgid "Apply current value to all tracks"
 msgstr "Bütün parçalara bu değeri uygula"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(total)s ın %(count)s kadarı kaydedildi."
@@ -1652,47 +1652,47 @@ msgstr "Eğer kaydetmezseniz değişiklikler kaybedilecek"
 msgid "Close Without Saving"
 msgstr "Kaydetmeden Kapat"
 
-#: ../xlgui/widgets/dialogs.py:1386
+#: ../xlgui/widgets/dialogs.py:1394
 msgid "Yes to all"
 msgstr "Tümüne evet"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1402
 msgid "No to all"
 msgstr "Tümüne hayır"
 
-#: ../xlgui/widgets/dialogs.py:1557 ../xlgui/widgets/dialogs.py:1571
+#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "%s: %s kopyalanırken hata meydana geldi"
 
-#: ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1587
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Dosya mevcut, %s üzerine yazılsın mı?"
 
-#: ../xlgui/widgets/dialogs.py:1629
+#: ../xlgui/widgets/dialogs.py:1637
 msgid "Playlist name:"
 msgstr "Çalma listesi adı:"
 
-#: ../xlgui/widgets/dialogs.py:1630
+#: ../xlgui/widgets/dialogs.py:1638
 msgid "Add new playlist..."
 msgstr "Yeni çalma listesi ekle..."
 
-#: ../xlgui/widgets/dialogs.py:1641
-#: ../xlgui/widgets/smart_playlist_editor.py:390
+#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "Çalma listeniz için bir isim girmediniz"
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1657
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: ../xlgui/widgets/dialogs.py:1710
+#: ../xlgui/widgets/dialogs.py:1718
 #, python-format
 msgid "Exporting %s"
 msgstr "Dışa aktarılıyor %s"
 
-#: ../xlgui/widgets/dialogs.py:1713
+#: ../xlgui/widgets/dialogs.py:1721
 msgid "Choose directory to export files to"
 msgstr "Dosyaları dışa aktarmak için bir dizin seçin"
 
@@ -1740,7 +1740,7 @@ msgstr "Şimdikiyle Değiştir"
 msgid "_Append to Current"
 msgstr "Geçerli Listeye Ekle"
 
-#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
+#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:360
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
@@ -1765,7 +1765,7 @@ msgstr ""
 msgid "_Move to Trash"
 msgstr "Çöp Kutusuna Taşı"
 
-#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
+#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:230
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
@@ -1898,49 +1898,49 @@ msgstr "Listeyi Karıştır"
 msgid "R_andomize Selection"
 msgstr "Seçimi Karıştır"
 
-#: ../xlgui/widgets/playlist.py:221
+#: ../xlgui/widgets/playlist.py:224
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
 msgstr "Farklı Kaydet"
 
-#: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
+#: ../xlgui/widgets/playlist.py:227 ../data/ui/coverwindow.ui:26
 #, fuzzy
 #| msgid "Save As"
 msgid "Save _As"
 msgstr "Farklı Kaydet"
 
-#: ../xlgui/widgets/playlist.py:230
+#: ../xlgui/widgets/playlist.py:233
 msgid "_Clear"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:281
+#: ../xlgui/widgets/playlist.py:284
 #, fuzzy
 #| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
 msgstr "Bu Parçadan Sonra Çalmayı Durdur"
 
-#: ../xlgui/widgets/playlist.py:288
+#: ../xlgui/widgets/playlist.py:291
 #, fuzzy
 #| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
 msgstr "Bu Parçadan Sonra Çalmaya Devam Et"
 
-#: ../xlgui/widgets/playlist.py:338
+#: ../xlgui/widgets/playlist.py:341
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
 msgstr "Çalma Listesini Yeniden Adlandır"
 
-#: ../xlgui/widgets/playlist.py:617
+#: ../xlgui/widgets/playlist.py:620
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Dinamik oynatma listelerini sağlayan eklentiler gerektirir"
 
-#: ../xlgui/widgets/playlist.py:621 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:624 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Çalma listesine benzer parça ekle"
 
-#: ../xlgui/widgets/playlist.py:677
+#: ../xlgui/widgets/playlist.py:680
 #, fuzzy
 #| msgid "Loading..."
 msgid "Loading"
@@ -1955,7 +1955,7 @@ msgid "Disc Number"
 msgstr "Disk Numarası"
 
 #: ../xlgui/widgets/playlist_columns.py:227
-#: ../xlgui/widgets/smart_playlist_editor.py:256 ../plugins/cd/cdprefs.py:116
+#: ../xlgui/widgets/smart_playlist_editor.py:262 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/controls.py:545
 #: ../plugins/minimode/minimode_preferences.py:104
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
@@ -2034,121 +2034,135 @@ msgid "weeks"
 msgstr "hafta"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:213
+#: ../xlgui/widgets/smart_playlist_editor.py:215
 msgid "is"
 msgstr ""
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:215
+#: ../xlgui/widgets/smart_playlist_editor.py:217
 msgid "is not"
 msgstr ""
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:218
+#: ../xlgui/widgets/smart_playlist_editor.py:220
 msgid "is set"
 msgstr "ayarlanmış"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:221
+#: ../xlgui/widgets/smart_playlist_editor.py:223
 msgid "is not set"
 msgstr "ayarlanmamış"
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/widgets/smart_playlist_editor.py:223
+#: ../xlgui/widgets/smart_playlist_editor.py:225
 msgid "contains"
 msgstr "içeren"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/widgets/smart_playlist_editor.py:225
+#: ../xlgui/widgets/smart_playlist_editor.py:227
 msgid "does not contain"
 msgstr "içermeyen"
 
+#. TRANSLATORS: True if haystack contains whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:229
+#, fuzzy
+#| msgid "contains"
+msgid "contains word"
+msgstr "içeren"
+
+#. TRANSLATORS: True if haystack does not contain whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:231
+#, fuzzy
+#| msgid "does not contain"
+msgid "does not contain word"
+msgstr "içermeyen"
+
 #. TRANSLATORS: True if haystack matches regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:227
+#: ../xlgui/widgets/smart_playlist_editor.py:233
 msgid "regex"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not match regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:229
+#: ../xlgui/widgets/smart_playlist_editor.py:235
 msgid "not regex"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/widgets/smart_playlist_editor.py:231
+#: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "at least"
 msgstr "en az"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/widgets/smart_playlist_editor.py:233
+#: ../xlgui/widgets/smart_playlist_editor.py:239
 msgid "at most"
 msgstr "en fazla"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/widgets/smart_playlist_editor.py:235
+#: ../xlgui/widgets/smart_playlist_editor.py:241
 msgid "before"
 msgstr "önce"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/widgets/smart_playlist_editor.py:237
+#: ../xlgui/widgets/smart_playlist_editor.py:243
 msgid "after"
 msgstr "sonra"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/widgets/smart_playlist_editor.py:239
+#: ../xlgui/widgets/smart_playlist_editor.py:245
 msgid "between"
 msgstr "arasında"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:240
+#: ../xlgui/widgets/smart_playlist_editor.py:246
 msgid "greater than"
 msgstr "daha büyük"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:247
 msgid "less than"
 msgstr "daha küçük"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
-#: ../xlgui/widgets/smart_playlist_editor.py:243
+#: ../xlgui/widgets/smart_playlist_editor.py:249
 msgid "in the last"
 msgstr "son"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
-#: ../xlgui/widgets/smart_playlist_editor.py:245
+#: ../xlgui/widgets/smart_playlist_editor.py:251
 msgid "not in the last"
 msgstr "şu süreden beri değil:"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:247
+#: ../xlgui/widgets/smart_playlist_editor.py:253
 #, fuzzy
 msgid "Track is in"
 msgstr "Parça Ayarları"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:249
+#: ../xlgui/widgets/smart_playlist_editor.py:255
 #, fuzzy
 msgid "Track not in"
 msgstr "Parça Ayarları"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:304
+#: ../xlgui/widgets/smart_playlist_editor.py:310
 msgid "Add Smart Playlist"
 msgstr "Akıllı Çalma Listesi Ekle"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:353
+#: ../xlgui/widgets/smart_playlist_editor.py:359
 msgid "Edit Smart Playlist"
 msgstr "Akıllı Çalma Listesi Düzenle"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:425
+#: ../xlgui/widgets/smart_playlist_editor.py:431
 #, fuzzy
 msgid "Sort by:"
 msgstr "İçe aktarım yolu: "
 
-#: ../xlgui/widgets/smart_playlist_editor.py:439
+#: ../xlgui/widgets/smart_playlist_editor.py:445
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Artan"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:440
+#: ../xlgui/widgets/smart_playlist_editor.py:446
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Azalan"
@@ -3121,21 +3135,21 @@ msgid "Show tracks with tags (custom)"
 msgstr "Etiketli parçaları göster (özel)"
 
 #: ../plugins/grouptagger/__init__.py:135
-#: ../plugins/grouptagger/gt_widgets.py:853
+#: ../plugins/grouptagger/gt_widgets.py:859
 #, fuzzy
 #| msgid "Yes to all"
 msgid "Add tags to all"
 msgstr "Tümüne evet"
 
 #: ../plugins/grouptagger/__init__.py:140
-#: ../plugins/grouptagger/gt_widgets.py:855
+#: ../plugins/grouptagger/gt_widgets.py:861
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "Remove tags from all"
 msgstr "_Etiketi kaldır"
 
 #: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:624
+#: ../plugins/grouptagger/gt_widgets.py:630
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:105
 msgid "GroupTagger"
 msgstr ""
@@ -3201,92 +3215,92 @@ msgstr "\"%s\" olarak etiketlenmiş parçaları göster"
 msgid "Show tracks with all selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:135
+#: ../plugins/grouptagger/gt_widgets.py:134
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "Etiketler"
 
-#: ../plugins/grouptagger/gt_widgets.py:150
+#: ../plugins/grouptagger/gt_widgets.py:149
 #, fuzzy
 #| msgid "Add new group"
 msgid "Add new tag"
 msgstr "Yeni grup ekle"
 
-#: ../plugins/grouptagger/gt_widgets.py:154
+#: ../plugins/grouptagger/gt_widgets.py:153
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete tag"
 msgstr "Sil"
 
-#: ../plugins/grouptagger/gt_widgets.py:161
+#: ../plugins/grouptagger/gt_widgets.py:160
 msgid "Add new category"
 msgstr "Yeni kategori ekle"
 
-#: ../plugins/grouptagger/gt_widgets.py:165
+#: ../plugins/grouptagger/gt_widgets.py:164
 msgid "Remove category"
 msgstr "Kategoriyi kaldır"
 
-#: ../plugins/grouptagger/gt_widgets.py:174
+#: ../plugins/grouptagger/gt_widgets.py:173
 msgid "Show tracks with selected (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "New tag value?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "Enter new tag value"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 msgid "New Category?"
 msgstr "Yeni Kategori?"
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 #, fuzzy
 #| msgid "Add new category"
 msgid "Enter new category name"
 msgstr "Yeni kategori ekle"
 
-#: ../plugins/grouptagger/gt_widgets.py:496
+#: ../plugins/grouptagger/gt_widgets.py:500
 msgid "Add Tag"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:646
-#: ../plugins/grouptagger/gt_widgets.py:748
+#: ../plugins/grouptagger/gt_widgets.py:652
+#: ../plugins/grouptagger/gt_widgets.py:754
 msgid "Group"
 msgstr "Grubu"
 
-#: ../plugins/grouptagger/gt_widgets.py:683
+#: ../plugins/grouptagger/gt_widgets.py:689
 msgid "Get all tags from collection"
 msgstr "Koleksiyondaki tüm etiketleri al"
 
-#: ../plugins/grouptagger/gt_widgets.py:704
+#: ../plugins/grouptagger/gt_widgets.py:710
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:730
+#: ../plugins/grouptagger/gt_widgets.py:736
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Ignored"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:749
+#: ../plugins/grouptagger/gt_widgets.py:755
 msgid "Selected Tracks"
 msgstr "Seçili Parçalar"
 
@@ -3701,15 +3715,15 @@ msgstr ""
 msgid "Could not save podcast file"
 msgstr "Podcast dosyası kaydedilemedi."
 
-#: ../plugins/previewdevice/__init__.py:151
+#: ../plugins/previewdevice/__init__.py:152
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:159
+#: ../plugins/previewdevice/__init__.py:160
 msgid "Preview"
 msgstr "Önizleme"
 
-#: ../plugins/previewdevice/__init__.py:344
+#: ../plugins/previewdevice/__init__.py:345
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
@@ -4619,7 +4633,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
-#: ../plugins/inhibitsuspend/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/multialarmclock/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
@@ -4814,8 +4828,9 @@ msgid ""
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
 
-#: ../plugins/keybinder/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
-msgid "Hotkeys"
+#: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/winmmkeys/PLUGININFO:5
+msgid "External Control"
 msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
@@ -4922,7 +4937,8 @@ msgstr ""
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
 "Partial support for MPRIS (Media Player Remote Interfacing Specification) "
-"2.2, allowing you to control Exaile from supporting clients"
+"2.2, allowing you to control Exaile from supporting clients, for example "
+"GNOME Shell"
 msgstr ""
 
 #: ../plugins/multialarmclock/PLUGININFO:4

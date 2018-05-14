@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 11:36+1000\n"
+"POT-Creation-Date: 2018-05-14 22:55+1000\n"
 "PO-Revision-Date: 2017-09-14 22:47+0000\n"
 "Last-Translator: pitchblack <pitchblack@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
@@ -541,7 +541,7 @@ msgstr "Оригинальная дата"
 msgid "Performer"
 msgstr "Исполнитель"
 
-#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:101
+#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:100
 #: ../xlgui/widgets/playlist_columns.py:178
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:98
@@ -608,7 +608,7 @@ msgstr "Начало сдвига"
 msgid "Stop offset"
 msgstr "Конец сдвига"
 
-#: ../xl/player/gst/engine.py:634
+#: ../xl/player/gst/engine.py:658
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Возможна ошибка аудиоустройства, включено ли оно?"
 
@@ -652,71 +652,71 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:161 ../xl/playlist.py:181
+#: ../xl/playlist.py:162 ../xl/playlist.py:182
 msgid "Invalid playlist type."
 msgstr "Некорректный тип списка воспроизведения."
 
-#: ../xl/playlist.py:189 ../xlgui/widgets/playlist.py:351
-#: ../xlgui/widgets/smart_playlist_editor.py:257
+#: ../xl/playlist.py:190 ../xlgui/widgets/playlist.py:354
+#: ../xlgui/widgets/smart_playlist_editor.py:263
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Список воспроизведения"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:340
 msgid "M3U Playlist"
 msgstr "Список воспроизведения M3U"
 
-#: ../xl/playlist.py:444
+#: ../xl/playlist.py:445
 msgid "PLS Playlist"
 msgstr "Cписок воспроизведения PLS"
 
-#: ../xl/playlist.py:532 ../xl/playlist.py:548
+#: ../xl/playlist.py:533 ../xl/playlist.py:549
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Некорректный формат для %s."
 
-#: ../xl/playlist.py:543
+#: ../xl/playlist.py:544
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Неподдерживаемая версия %(version)s для %(type)s"
 
-#: ../xl/playlist.py:604
+#: ../xl/playlist.py:605
 msgid "ASX Playlist"
 msgstr "Список воспроизведения ASX"
 
-#: ../xl/playlist.py:778
+#: ../xl/playlist.py:779
 msgid "XSPF Playlist"
 msgstr "Cписок воспроизведения XSPF"
 
-#: ../xl/playlist.py:894
+#: ../xl/playlist.py:895
 msgid "Shuffle _Off"
 msgstr "_Не перемешивать"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Tracks"
 msgstr "Перемешивать _дорожки"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Albums"
 msgstr "Перемешивать _альбомы"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _Off"
 msgstr "_Не повторять"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _All"
 msgstr "Повторять _все"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat O_ne"
 msgstr "Повтор _один"
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic _Off"
 msgstr "Выключить динамический плейлист"
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic by Similar _Artists"
 msgstr "Динамический плейлист с похожими исполнителями"
 
@@ -737,11 +737,11 @@ msgstr "Архив с дополнением содержит небезопас
 msgid "Settings version is newer than current."
 msgstr "Версия параметров новее текущей."
 
-#: ../xl/settings.py:252
+#: ../xl/settings.py:256
 msgid "We don't know how to store that kind of setting: "
 msgstr "Нам неизвестно, как сохранить этот тип параметров: "
 
-#: ../xl/settings.py:283
+#: ../xl/settings.py:287
 msgid "An Unknown type of setting was found!"
 msgstr "Обнаружен неизвестный тип параметров!"
 
@@ -1029,39 +1029,39 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:518
+#: ../xlgui/main.py:510
 msgid "Toggle: Stop after Selected Track"
 msgstr "Переключатель: остановить после выбранной дорожки"
 
-#: ../xlgui/main.py:619 ../plugins/previewdevice/__init__.py:358
+#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr "При воспроизведении произошла ошибка!"
 
-#: ../xlgui/main.py:626
+#: ../xlgui/main.py:618
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Буферизация: %d%%..."
 
-#: ../xlgui/main.py:667 ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "Продолжить воспроизведение"
 
-#: ../xlgui/main.py:670 ../xlgui/main.py:839
-#: ../plugins/previewdevice/__init__.py:370
+#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "Приостановить воспроизведение"
 
-#: ../xlgui/main.py:796 ../xlgui/menu.py:112
+#: ../xlgui/main.py:788 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr "Не удалось экспортировать список воспроизведения!"
 
-#: ../xlgui/main.py:848 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:351
+#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "Начать воспроизведение"
 
 #: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
-#: ../xlgui/widgets/playlist.py:217
+#: ../xlgui/widgets/playlist.py:220
 msgid "_New Playlist"
 msgstr "_Новый список воспроизведения"
 
@@ -1093,7 +1093,7 @@ msgstr "Импортировать список воспроизведения"
 msgid "E_xport Current Playlist"
 msgstr "Экспорт текущего списка воспроизведения"
 
-#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
+#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:243
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Close _Tab"
@@ -1237,7 +1237,7 @@ msgid "%s kB"
 msgstr "%s КБ"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:92 ../xlgui/widgets/playlist_columns.py:169
 msgid "#"
 msgstr "№"
 
@@ -1279,8 +1279,8 @@ msgstr "Введите новое имя для вашего списка вос
 msgid "Rename Playlist"
 msgstr "Переименовать список воспроизведения"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1644
-#: ../xlgui/widgets/smart_playlist_editor.py:397
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "Введённое вами название списка воспроизведения уже используется."
 
@@ -1316,45 +1316,45 @@ msgstr "'Умные' списки воспроизведения"
 msgid "Custom Playlists"
 msgstr "Текущий список воспроизведения"
 
-#: ../xlgui/panel/radio.py:85
+#: ../xlgui/panel/radio.py:84
 msgid "Radio"
 msgstr "Радио"
 
-#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
-#: ../xlgui/panel/radio.py:552
+#: ../xlgui/panel/radio.py:155 ../xlgui/panel/radio.py:474
+#: ../xlgui/panel/radio.py:551
 msgid "Loading streams..."
 msgstr "Загрузка потоков..."
 
-#: ../xlgui/panel/radio.py:207
+#: ../xlgui/panel/radio.py:206
 msgid "Add Radio Station"
 msgstr "Добавить радиостанцию"
 
-#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:208 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Название:"
 
-#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:209 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:282
+#: ../xlgui/panel/radio.py:281
 msgid "Saved Stations"
 msgstr "Сохранённые станции"
 
-#: ../xlgui/panel/radio.py:283
+#: ../xlgui/panel/radio.py:282
 msgid "Radio Streams"
 msgstr "Потоковое радио"
 
-#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:312 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Обновить"
 
-#: ../xlgui/panel/radio.py:417
+#: ../xlgui/panel/radio.py:416
 msgid "Enter the name you want for your new playlist"
 msgstr "Введите новое имя для вашего списка воспроизведения"
 
-#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "Создать список воспроизведения"
 
@@ -1391,18 +1391,18 @@ msgstr "Недавно закрытые вкладки"
 msgid "Playlist %d"
 msgstr "Список воспроизведения %d"
 
-#: ../xlgui/playlist_container.py:376
+#: ../xlgui/playlist_container.py:377
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr "{playlist_name} ({track_count} дорожек, закрыто {minutes} минут назад)"
 
-#: ../xlgui/playlist_container.py:382
+#: ../xlgui/playlist_container.py:383
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 "{playlist_name} ({track_count} дорожек, закрыто {seconds} секунд назад)"
 
-#: ../xlgui/playlist_container.py:521
+#: ../xlgui/playlist_container.py:522
 #, fuzzy
 #| msgid "Move to other View"
 msgid "_Move to Other View"
@@ -1591,7 +1591,7 @@ msgstr "Открыть каталог"
 msgid "Apply current value to all tracks"
 msgstr "Применить эти значения ко всем дорожкам"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "сохранено %(count)s из %(total)s."
@@ -1667,47 +1667,47 @@ msgstr "Ваши изменения будут потеряны, если вы �
 msgid "Close Without Saving"
 msgstr "Закрыть без Сохранения"
 
-#: ../xlgui/widgets/dialogs.py:1386
+#: ../xlgui/widgets/dialogs.py:1394
 msgid "Yes to all"
 msgstr "Да для всех"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1402
 msgid "No to all"
 msgstr "Нет для всех"
 
-#: ../xlgui/widgets/dialogs.py:1557 ../xlgui/widgets/dialogs.py:1571
+#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Произошла ошибка во время копирования %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1587
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Файл существует, заменить %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1629
+#: ../xlgui/widgets/dialogs.py:1637
 msgid "Playlist name:"
 msgstr "Имя списка воспроизведения:"
 
-#: ../xlgui/widgets/dialogs.py:1630
+#: ../xlgui/widgets/dialogs.py:1638
 msgid "Add new playlist..."
 msgstr "Добавить новый список воспроизведения..."
 
-#: ../xlgui/widgets/dialogs.py:1641
-#: ../xlgui/widgets/smart_playlist_editor.py:390
+#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "Вы не указали имя для вашего списка воспроизведения"
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1657
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: ../xlgui/widgets/dialogs.py:1710
+#: ../xlgui/widgets/dialogs.py:1718
 #, python-format
 msgid "Exporting %s"
 msgstr "Экспортирование %s"
 
-#: ../xlgui/widgets/dialogs.py:1713
+#: ../xlgui/widgets/dialogs.py:1721
 msgid "Choose directory to export files to"
 msgstr "Выберите папку, в которую будут экспортированы файлы"
 
@@ -1758,7 +1758,7 @@ msgstr "Переместить текущий"
 msgid "_Append to Current"
 msgstr "Добавить к текущему"
 
-#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
+#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:360
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
@@ -1783,7 +1783,7 @@ msgstr ""
 msgid "_Move to Trash"
 msgstr "Переместить в корзину"
 
-#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
+#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:230
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
@@ -1916,51 +1916,51 @@ msgstr "Перемешать Список Воспроизведения"
 msgid "R_andomize Selection"
 msgstr "Случайный порядок выбранного"
 
-#: ../xlgui/widgets/playlist.py:221
+#: ../xlgui/widgets/playlist.py:224
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
 msgstr "Сохранить как"
 
-#: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
+#: ../xlgui/widgets/playlist.py:227 ../data/ui/coverwindow.ui:26
 #, fuzzy
 #| msgid "Save As"
 msgid "Save _As"
 msgstr "Сохранить как"
 
-#: ../xlgui/widgets/playlist.py:230
+#: ../xlgui/widgets/playlist.py:233
 msgid "_Clear"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:281
+#: ../xlgui/widgets/playlist.py:284
 #, fuzzy
 #| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
 msgstr "Остановить воспроизведение после текущей дорожки"
 
-#: ../xlgui/widgets/playlist.py:288
+#: ../xlgui/widgets/playlist.py:291
 #, fuzzy
 #| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
 msgstr "Продолжить воспроизведение после этого трека"
 
-#: ../xlgui/widgets/playlist.py:338
+#: ../xlgui/widgets/playlist.py:341
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
 msgstr "Переименовать список воспроизведения"
 
-#: ../xlgui/widgets/playlist.py:617
+#: ../xlgui/widgets/playlist.py:620
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 "Требуется модуль, обеспечивающий поддержку динамических списков "
 "воспроизведения"
 
-#: ../xlgui/widgets/playlist.py:621 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:624 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Добавлять похожие дорожки в список воспроизведения"
 
-#: ../xlgui/widgets/playlist.py:677
+#: ../xlgui/widgets/playlist.py:680
 #, fuzzy
 #| msgid "Loading..."
 msgid "Loading"
@@ -1975,7 +1975,7 @@ msgid "Disc Number"
 msgstr "Номер диска"
 
 #: ../xlgui/widgets/playlist_columns.py:227
-#: ../xlgui/widgets/smart_playlist_editor.py:256 ../plugins/cd/cdprefs.py:116
+#: ../xlgui/widgets/smart_playlist_editor.py:262 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/controls.py:545
 #: ../plugins/minimode/minimode_preferences.py:104
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
@@ -2053,120 +2053,134 @@ msgid "weeks"
 msgstr "неделя(ль, ли)"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:213
+#: ../xlgui/widgets/smart_playlist_editor.py:215
 msgid "is"
 msgstr "является"
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:215
+#: ../xlgui/widgets/smart_playlist_editor.py:217
 msgid "is not"
 msgstr "не является"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:218
+#: ../xlgui/widgets/smart_playlist_editor.py:220
 msgid "is set"
 msgstr "установлено"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:221
+#: ../xlgui/widgets/smart_playlist_editor.py:223
 msgid "is not set"
 msgstr "не установлено"
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/widgets/smart_playlist_editor.py:223
+#: ../xlgui/widgets/smart_playlist_editor.py:225
 msgid "contains"
 msgstr "содержит"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/widgets/smart_playlist_editor.py:225
+#: ../xlgui/widgets/smart_playlist_editor.py:227
 msgid "does not contain"
 msgstr "не содержит"
 
+#. TRANSLATORS: True if haystack contains whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:229
+#, fuzzy
+#| msgid "contains"
+msgid "contains word"
+msgstr "содержит"
+
+#. TRANSLATORS: True if haystack does not contain whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:231
+#, fuzzy
+#| msgid "does not contain"
+msgid "does not contain word"
+msgstr "не содержит"
+
 #. TRANSLATORS: True if haystack matches regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:227
+#: ../xlgui/widgets/smart_playlist_editor.py:233
 msgid "regex"
 msgstr "регулярное выражение"
 
 #. TRANSLATORS: True if haystack does not match regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:229
+#: ../xlgui/widgets/smart_playlist_editor.py:235
 msgid "not regex"
 msgstr "не регулярное выражение"
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/widgets/smart_playlist_editor.py:231
+#: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "at least"
 msgstr "не менее"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/widgets/smart_playlist_editor.py:233
+#: ../xlgui/widgets/smart_playlist_editor.py:239
 msgid "at most"
 msgstr "не больше"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/widgets/smart_playlist_editor.py:235
+#: ../xlgui/widgets/smart_playlist_editor.py:241
 msgid "before"
 msgstr "до"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/widgets/smart_playlist_editor.py:237
+#: ../xlgui/widgets/smart_playlist_editor.py:243
 msgid "after"
 msgstr "после"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/widgets/smart_playlist_editor.py:239
+#: ../xlgui/widgets/smart_playlist_editor.py:245
 msgid "between"
 msgstr "между"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:240
+#: ../xlgui/widgets/smart_playlist_editor.py:246
 msgid "greater than"
 msgstr "больше чем"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:247
 msgid "less than"
 msgstr "меньше чем"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
-#: ../xlgui/widgets/smart_playlist_editor.py:243
+#: ../xlgui/widgets/smart_playlist_editor.py:249
 msgid "in the last"
 msgstr "за последние"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
-#: ../xlgui/widgets/smart_playlist_editor.py:245
+#: ../xlgui/widgets/smart_playlist_editor.py:251
 msgid "not in the last"
 msgstr "не за последние"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:247
+#: ../xlgui/widgets/smart_playlist_editor.py:253
 msgid "Track is in"
 msgstr "Дорожка в"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:249
+#: ../xlgui/widgets/smart_playlist_editor.py:255
 msgid "Track not in"
 msgstr "Дорожки нет в"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:304
+#: ../xlgui/widgets/smart_playlist_editor.py:310
 msgid "Add Smart Playlist"
 msgstr "Добавить 'умный' список воспроизведения"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:353
+#: ../xlgui/widgets/smart_playlist_editor.py:359
 msgid "Edit Smart Playlist"
 msgstr "Редактировать 'умный' список воспроизведения"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:425
+#: ../xlgui/widgets/smart_playlist_editor.py:431
 #, fuzzy
 #| msgid "Import Type:"
 msgid "Sort by:"
 msgstr "Тип импорта:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:439
+#: ../xlgui/widgets/smart_playlist_editor.py:445
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "По возрастанию"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:440
+#: ../xlgui/widgets/smart_playlist_editor.py:446
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "По убыванию"
@@ -3163,21 +3177,21 @@ msgid "Show tracks with tags (custom)"
 msgstr "Показать композиции с метками (настроено пользователем)"
 
 #: ../plugins/grouptagger/__init__.py:135
-#: ../plugins/grouptagger/gt_widgets.py:853
+#: ../plugins/grouptagger/gt_widgets.py:859
 #, fuzzy
 #| msgid "Yes to all"
 msgid "Add tags to all"
 msgstr "Да для всех"
 
 #: ../plugins/grouptagger/__init__.py:140
-#: ../plugins/grouptagger/gt_widgets.py:855
+#: ../plugins/grouptagger/gt_widgets.py:861
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "Remove tags from all"
 msgstr "_Удалить метку"
 
 #: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:624
+#: ../plugins/grouptagger/gt_widgets.py:630
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:105
 msgid "GroupTagger"
 msgstr "Теги групп"
@@ -3244,92 +3258,92 @@ msgstr "Показать дорожки с метками \"%s\""
 msgid "Show tracks with all selected"
 msgstr "Показать дорожки со всеми выбранными"
 
-#: ../plugins/grouptagger/gt_widgets.py:135
+#: ../plugins/grouptagger/gt_widgets.py:134
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "Метки"
 
-#: ../plugins/grouptagger/gt_widgets.py:150
+#: ../plugins/grouptagger/gt_widgets.py:149
 #, fuzzy
 #| msgid "Add new group"
 msgid "Add new tag"
 msgstr "Добавить новую группу"
 
-#: ../plugins/grouptagger/gt_widgets.py:154
+#: ../plugins/grouptagger/gt_widgets.py:153
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete tag"
 msgstr "Удалить"
 
-#: ../plugins/grouptagger/gt_widgets.py:161
+#: ../plugins/grouptagger/gt_widgets.py:160
 msgid "Add new category"
 msgstr "Добавить новую категорию"
 
-#: ../plugins/grouptagger/gt_widgets.py:165
+#: ../plugins/grouptagger/gt_widgets.py:164
 msgid "Remove category"
 msgstr "Удалить категорию"
 
-#: ../plugins/grouptagger/gt_widgets.py:174
+#: ../plugins/grouptagger/gt_widgets.py:173
 msgid "Show tracks with selected (custom)"
 msgstr "Показать дорожки с выбранным (свой запрос)"
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "New tag value?"
 msgstr "Значение новой метки?"
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "Enter new tag value"
 msgstr "Введите значение новой метки"
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 msgid "New Category?"
 msgstr "Новая категория?"
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 #, fuzzy
 #| msgid "Enter new group category name"
 msgid "Enter new category name"
 msgstr "Введите новое имя групповой категории"
 
-#: ../plugins/grouptagger/gt_widgets.py:496
+#: ../plugins/grouptagger/gt_widgets.py:500
 msgid "Add Tag"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:646
-#: ../plugins/grouptagger/gt_widgets.py:748
+#: ../plugins/grouptagger/gt_widgets.py:652
+#: ../plugins/grouptagger/gt_widgets.py:754
 msgid "Group"
 msgstr "Группа"
 
-#: ../plugins/grouptagger/gt_widgets.py:683
+#: ../plugins/grouptagger/gt_widgets.py:689
 msgid "Get all tags from collection"
 msgstr "Получить все метки из коллекции"
 
-#: ../plugins/grouptagger/gt_widgets.py:704
+#: ../plugins/grouptagger/gt_widgets.py:710
 msgid "Add selected to choices"
 msgstr "Добавить в избранное"
 
-#: ../plugins/grouptagger/gt_widgets.py:730
+#: ../plugins/grouptagger/gt_widgets.py:736
 msgid "Show tracks with groups"
 msgstr "Показать дорожки с группами"
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must have this tag [AND]"
 msgstr "Должно иметь эту метку [И]"
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "May have this tag [OR]"
 msgstr "Должно иметь эту метку [ИЛИ]"
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must not have this tag [NOT]"
 msgstr "Не должно иметь эту метку [НЕ]"
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Ignored"
 msgstr "Игнорируемое"
 
-#: ../plugins/grouptagger/gt_widgets.py:749
+#: ../plugins/grouptagger/gt_widgets.py:755
 msgid "Selected Tracks"
 msgstr "Выбранные дорожки"
 
@@ -3739,15 +3753,15 @@ msgstr ""
 msgid "Could not save podcast file"
 msgstr "Не удалось сохранить файл подкаста"
 
-#: ../plugins/previewdevice/__init__.py:151
+#: ../plugins/previewdevice/__init__.py:152
 msgid "Preview Player"
 msgstr "Предпросмотр проигрывателя"
 
-#: ../plugins/previewdevice/__init__.py:159
+#: ../plugins/previewdevice/__init__.py:160
 msgid "Preview"
 msgstr "Предпросмотр"
 
-#: ../plugins/previewdevice/__init__.py:344
+#: ../plugins/previewdevice/__init__.py:345
 msgid "Pause Playback (double click to stop)"
 msgstr "Приостановить воспроизведение (двойной клик для остановки)"
 
@@ -4682,7 +4696,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
-#: ../plugins/inhibitsuspend/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/multialarmclock/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
@@ -4885,9 +4899,10 @@ msgid ""
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
 
-#: ../plugins/keybinder/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
-msgid "Hotkeys"
-msgstr "Сочетания клавиш"
+#: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/winmmkeys/PLUGININFO:5
+msgid "External Control"
+msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -5015,7 +5030,8 @@ msgstr ""
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
 "Partial support for MPRIS (Media Player Remote Interfacing Specification) "
-"2.2, allowing you to control Exaile from supporting clients"
+"2.2, allowing you to control Exaile from supporting clients, for example "
+"GNOME Shell"
 msgstr ""
 
 #: ../plugins/multialarmclock/PLUGININFO:4
@@ -5145,6 +5161,9 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#~ msgid "Hotkeys"
+#~ msgstr "Сочетания клавиш"
 
 #~ msgid "Failed to migrate from 0.2.14"
 #~ msgstr "Не удалось мигрировать с 0.2.14"

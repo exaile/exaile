@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 11:36+1000\n"
+"POT-Creation-Date: 2018-05-14 22:55+1000\n"
 "PO-Revision-Date: 2018-05-13 08:28+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
-"\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/"
+">\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -408,7 +408,8 @@ msgstr "דירוג > %d"
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr "הטעינה של Exaile עדיין לא הסתיימה. אולי כדאי להאזין לאות exaile_loaded?"
+msgstr ""
+"הטעינה של Exaile עדיין לא הסתיימה. אולי כדאי להאזין לאות exaile_loaded?"
 
 #: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:134
 #: ../xlgui/widgets/playlist_columns.py:202 ../plugins/cd/cdprefs.py:113
@@ -518,7 +519,7 @@ msgstr "תאריך מקורי"
 msgid "Performer"
 msgstr "מבצע"
 
-#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:101
+#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:100
 #: ../xlgui/widgets/playlist_columns.py:178
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:98
@@ -586,7 +587,7 @@ msgstr ""
 msgid "Stop offset"
 msgstr ""
 
-#: ../xl/player/gst/engine.py:634
+#: ../xl/player/gst/engine.py:658
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -630,71 +631,71 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:161 ../xl/playlist.py:181
+#: ../xl/playlist.py:162 ../xl/playlist.py:182
 msgid "Invalid playlist type."
 msgstr "טיפוס רשימת נגינה לא תקין."
 
-#: ../xl/playlist.py:189 ../xlgui/widgets/playlist.py:351
-#: ../xlgui/widgets/smart_playlist_editor.py:257
+#: ../xl/playlist.py:190 ../xlgui/widgets/playlist.py:354
+#: ../xlgui/widgets/smart_playlist_editor.py:263
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "רשימת נגינה"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:340
 msgid "M3U Playlist"
 msgstr "רשימת נגינה M3U"
 
-#: ../xl/playlist.py:444
+#: ../xl/playlist.py:445
 msgid "PLS Playlist"
 msgstr "רשימת נגינה PLS"
 
-#: ../xl/playlist.py:532 ../xl/playlist.py:548
+#: ../xl/playlist.py:533 ../xl/playlist.py:549
 #, python-format
 msgid "Invalid format for %s."
 msgstr "פורמט לא תקין עבור %s."
 
-#: ../xl/playlist.py:543
+#: ../xl/playlist.py:544
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr ""
 
-#: ../xl/playlist.py:604
+#: ../xl/playlist.py:605
 msgid "ASX Playlist"
 msgstr "רשימת נגינה ASX"
 
-#: ../xl/playlist.py:778
+#: ../xl/playlist.py:779
 msgid "XSPF Playlist"
 msgstr "רשימת נגינה XSPF"
 
-#: ../xl/playlist.py:894
+#: ../xl/playlist.py:895
 msgid "Shuffle _Off"
 msgstr "ערבוב _כבוי"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Tracks"
 msgstr "ערבוב  _רצועות"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:896
 msgid "Shuffle _Albums"
 msgstr "ערבוב _אלבומים"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _Off"
 msgstr "חזרה_ כבוי"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat _All"
 msgstr "חזרה _הכל"
 
-#: ../xl/playlist.py:899
+#: ../xl/playlist.py:900
 msgid "Repeat O_ne"
 msgstr "חזרה א_חד"
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic _Off"
 msgstr ""
 
-#: ../xl/playlist.py:903
+#: ../xl/playlist.py:904
 msgid "Dynamic by Similar _Artists"
 msgstr ""
 
@@ -715,11 +716,11 @@ msgstr ""
 msgid "Settings version is newer than current."
 msgstr "גירסת ההגדרות חדשה יותר מהנוכחית."
 
-#: ../xl/settings.py:252
+#: ../xl/settings.py:256
 msgid "We don't know how to store that kind of setting: "
 msgstr "אנו לא יודעים כיצד לשמור סוג כזה של הגדרות: "
 
-#: ../xl/settings.py:283
+#: ../xl/settings.py:287
 msgid "An Unknown type of setting was found!"
 msgstr "נמצא סוג הגדרה בלתי ידוע!"
 
@@ -995,39 +996,39 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:518
+#: ../xlgui/main.py:510
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:619 ../plugins/previewdevice/__init__.py:358
+#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr ""
 
-#: ../xlgui/main.py:626
+#: ../xlgui/main.py:618
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "כעת אוגר: %d%%..."
 
-#: ../xlgui/main.py:667 ../plugins/previewdevice/__init__.py:367
+#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "המשך נגינה"
 
-#: ../xlgui/main.py:670 ../xlgui/main.py:839
-#: ../plugins/previewdevice/__init__.py:370
+#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "השהה נגינה"
 
-#: ../xlgui/main.py:796 ../xlgui/menu.py:112
+#: ../xlgui/main.py:788 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr ""
 
-#: ../xlgui/main.py:848 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:351
+#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "התחל נגינה"
 
 #: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
-#: ../xlgui/widgets/playlist.py:217
+#: ../xlgui/widgets/playlist.py:220
 msgid "_New Playlist"
 msgstr "_רשימת נגינה חדשה"
 
@@ -1059,7 +1060,7 @@ msgstr "ייצוא רשימת השמעה"
 msgid "E_xport Current Playlist"
 msgstr "יצא רשימת נגינה נוכחית"
 
-#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:240
+#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:243
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Close _Tab"
@@ -1203,7 +1204,7 @@ msgid "%s kB"
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:92 ../xlgui/widgets/playlist_columns.py:169
 msgid "#"
 msgstr "מס'"
 
@@ -1245,8 +1246,8 @@ msgstr "יש להזין את השם החדש לרשימת ההשמעה שלך"
 msgid "Rename Playlist"
 msgstr "שינוי שם לרשימת השמעה"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1644
-#: ../xlgui/widgets/smart_playlist_editor.py:397
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "שם רשימת הנגינה שהכנסת כבר נמצא בשימוש."
 
@@ -1282,45 +1283,45 @@ msgstr "רשימות השמעה חכמות"
 msgid "Custom Playlists"
 msgstr "רשימות השמעה אישיות"
 
-#: ../xlgui/panel/radio.py:85
+#: ../xlgui/panel/radio.py:84
 msgid "Radio"
 msgstr "רדיו"
 
-#: ../xlgui/panel/radio.py:156 ../xlgui/panel/radio.py:475
-#: ../xlgui/panel/radio.py:552
+#: ../xlgui/panel/radio.py:155 ../xlgui/panel/radio.py:474
+#: ../xlgui/panel/radio.py:551
 msgid "Loading streams..."
 msgstr "טוען קישורים..."
 
-#: ../xlgui/panel/radio.py:207
+#: ../xlgui/panel/radio.py:206
 msgid "Add Radio Station"
 msgstr "הוסף תחנת רדיו"
 
-#: ../xlgui/panel/radio.py:209 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:208 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "שם:"
 
-#: ../xlgui/panel/radio.py:210 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:209 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "כתובת אינטרנט (URL):"
 
-#: ../xlgui/panel/radio.py:282
+#: ../xlgui/panel/radio.py:281
 msgid "Saved Stations"
 msgstr "תחנות שמורות"
 
-#: ../xlgui/panel/radio.py:283
+#: ../xlgui/panel/radio.py:282
 msgid "Radio Streams"
 msgstr "זרמי רדיו"
 
-#: ../xlgui/panel/radio.py:313 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:312 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "רענן"
 
-#: ../xlgui/panel/radio.py:417
+#: ../xlgui/panel/radio.py:416
 msgid "Enter the name you want for your new playlist"
 msgstr "נא להזין את השם המבוקש עבור רשימת הנגינה החדשה"
 
-#: ../xlgui/panel/radio.py:418 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:71
 msgid "New Playlist"
 msgstr "רשימת נגינה חדשה"
 
@@ -1355,17 +1356,17 @@ msgstr ""
 msgid "Playlist %d"
 msgstr "רשימת נגינה %d"
 
-#: ../xlgui/playlist_container.py:376
+#: ../xlgui/playlist_container.py:377
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:382
+#: ../xlgui/playlist_container.py:383
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:521
+#: ../xlgui/playlist_container.py:522
 msgid "_Move to Other View"
 msgstr ""
 
@@ -1550,7 +1551,7 @@ msgstr ""
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1441
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
@@ -1626,47 +1627,47 @@ msgstr "השינויים שלך יאבדו אם לא תשמור אותם"
 msgid "Close Without Saving"
 msgstr "סגירה ללא שמירה"
 
-#: ../xlgui/widgets/dialogs.py:1386
+#: ../xlgui/widgets/dialogs.py:1394
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1402
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1557 ../xlgui/widgets/dialogs.py:1571
+#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1587
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1629
+#: ../xlgui/widgets/dialogs.py:1637
 msgid "Playlist name:"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1630
+#: ../xlgui/widgets/dialogs.py:1638
 msgid "Add new playlist..."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1641
-#: ../xlgui/widgets/smart_playlist_editor.py:390
+#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "לא הזנת שם עבור רשימת הנגינה שלך"
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1657
 msgid "Save As"
 msgstr "שמור בשם"
 
-#: ../xlgui/widgets/dialogs.py:1710
+#: ../xlgui/widgets/dialogs.py:1718
 #, python-format
 msgid "Exporting %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1713
+#: ../xlgui/widgets/dialogs.py:1721
 msgid "Choose directory to export files to"
 msgstr ""
 
@@ -1714,7 +1715,7 @@ msgstr "הוסף לרשימת ההשמעה הנוכחית"
 msgid "_Append to Current"
 msgstr "הוסף לרשימת ההשמעה הנוכחית"
 
-#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:357
+#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:360
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
@@ -1738,7 +1739,7 @@ msgstr "לא ניתן להעביר את הקבצים לפח אשפה. למחוק
 msgid "_Move to Trash"
 msgstr "העבר לפח אשפה"
 
-#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:227
+#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:230
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
@@ -1871,49 +1872,49 @@ msgstr "ערבב רשימת נגינה"
 msgid "R_andomize Selection"
 msgstr "תוצאות אקראיות"
 
-#: ../xlgui/widgets/playlist.py:221
+#: ../xlgui/widgets/playlist.py:224
 #, fuzzy
 #| msgid "Save As"
 msgid "_Save"
 msgstr "שמור בשם"
 
-#: ../xlgui/widgets/playlist.py:224 ../data/ui/coverwindow.ui:26
+#: ../xlgui/widgets/playlist.py:227 ../data/ui/coverwindow.ui:26
 #, fuzzy
 #| msgid "Save As"
 msgid "Save _As"
 msgstr "שמור בשם"
 
-#: ../xlgui/widgets/playlist.py:230
+#: ../xlgui/widgets/playlist.py:233
 msgid "_Clear"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:281
+#: ../xlgui/widgets/playlist.py:284
 #, fuzzy
 #| msgid "Stop playback after current track"
 msgid "_Stop Playback After This Track"
 msgstr "הפסק נגינה אחרי הרצועה הנוכחית"
 
-#: ../xlgui/widgets/playlist.py:288
+#: ../xlgui/widgets/playlist.py:291
 #, fuzzy
 #| msgid "Continue Playback"
 msgid "_Continue Playback After This Track"
 msgstr "המשך נגינה"
 
-#: ../xlgui/widgets/playlist.py:338
+#: ../xlgui/widgets/playlist.py:341
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
 msgstr "שינוי שם לרשימת השמעה"
 
-#: ../xlgui/widgets/playlist.py:617
+#: ../xlgui/widgets/playlist.py:620
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:621 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:624 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "הוסף בצורה דינאמית רצועות דומות לרשימת הנגינה"
 
-#: ../xlgui/widgets/playlist.py:677
+#: ../xlgui/widgets/playlist.py:680
 #, fuzzy
 #| msgid "Loading..."
 msgid "Loading"
@@ -1928,7 +1929,7 @@ msgid "Disc Number"
 msgstr "תקליטור מספר"
 
 #: ../xlgui/widgets/playlist_columns.py:227
-#: ../xlgui/widgets/smart_playlist_editor.py:256 ../plugins/cd/cdprefs.py:116
+#: ../xlgui/widgets/smart_playlist_editor.py:262 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/controls.py:545
 #: ../plugins/minimode/minimode_preferences.py:104
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
@@ -2006,121 +2007,135 @@ msgid "weeks"
 msgstr "שבועות"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:213
+#: ../xlgui/widgets/smart_playlist_editor.py:215
 msgid "is"
 msgstr "הוא"
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:215
+#: ../xlgui/widgets/smart_playlist_editor.py:217
 msgid "is not"
 msgstr "אינו"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:218
+#: ../xlgui/widgets/smart_playlist_editor.py:220
 msgid "is set"
 msgstr ""
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:221
+#: ../xlgui/widgets/smart_playlist_editor.py:223
 msgid "is not set"
 msgstr ""
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/widgets/smart_playlist_editor.py:223
+#: ../xlgui/widgets/smart_playlist_editor.py:225
 msgid "contains"
 msgstr "מכיל"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/widgets/smart_playlist_editor.py:225
+#: ../xlgui/widgets/smart_playlist_editor.py:227
 msgid "does not contain"
 msgstr "אינו מכיל"
 
+#. TRANSLATORS: True if haystack contains whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:229
+#, fuzzy
+#| msgid "contains"
+msgid "contains word"
+msgstr "מכיל"
+
+#. TRANSLATORS: True if haystack does not contain whole word
+#: ../xlgui/widgets/smart_playlist_editor.py:231
+#, fuzzy
+#| msgid "does not contain"
+msgid "does not contain word"
+msgstr "אינו מכיל"
+
 #. TRANSLATORS: True if haystack matches regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:227
+#: ../xlgui/widgets/smart_playlist_editor.py:233
 msgid "regex"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not match regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:229
+#: ../xlgui/widgets/smart_playlist_editor.py:235
 msgid "not regex"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/widgets/smart_playlist_editor.py:231
+#: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "at least"
 msgstr "לפחות"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/widgets/smart_playlist_editor.py:233
+#: ../xlgui/widgets/smart_playlist_editor.py:239
 msgid "at most"
 msgstr "לכל היותר"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/widgets/smart_playlist_editor.py:235
+#: ../xlgui/widgets/smart_playlist_editor.py:241
 msgid "before"
 msgstr "לפני"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/widgets/smart_playlist_editor.py:237
+#: ../xlgui/widgets/smart_playlist_editor.py:243
 msgid "after"
 msgstr "לאחר"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/widgets/smart_playlist_editor.py:239
+#: ../xlgui/widgets/smart_playlist_editor.py:245
 msgid "between"
 msgstr "בין"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:240
+#: ../xlgui/widgets/smart_playlist_editor.py:246
 msgid "greater than"
 msgstr "גדול מ-"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:247
 msgid "less than"
 msgstr "קטן מ-"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
-#: ../xlgui/widgets/smart_playlist_editor.py:243
+#: ../xlgui/widgets/smart_playlist_editor.py:249
 msgid "in the last"
 msgstr "לאחרונה"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
-#: ../xlgui/widgets/smart_playlist_editor.py:245
+#: ../xlgui/widgets/smart_playlist_editor.py:251
 msgid "not in the last"
 msgstr "לא לאחרונה"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:247
+#: ../xlgui/widgets/smart_playlist_editor.py:253
 #, fuzzy
 msgid "Track is in"
 msgstr "רצועה"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:249
+#: ../xlgui/widgets/smart_playlist_editor.py:255
 #, fuzzy
 msgid "Track not in"
 msgstr "מאפייני הרצועה"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:304
+#: ../xlgui/widgets/smart_playlist_editor.py:310
 msgid "Add Smart Playlist"
 msgstr "הוספת רשימת השמעה חכמה"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:353
+#: ../xlgui/widgets/smart_playlist_editor.py:359
 msgid "Edit Smart Playlist"
 msgstr "עריכת רשימת השמעה חכמה"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:425
+#: ../xlgui/widgets/smart_playlist_editor.py:431
 #, fuzzy
 msgid "Sort by:"
 msgstr "יבא נתיב: "
 
-#: ../xlgui/widgets/smart_playlist_editor.py:439
+#: ../xlgui/widgets/smart_playlist_editor.py:445
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr ""
 
-#: ../xlgui/widgets/smart_playlist_editor.py:440
+#: ../xlgui/widgets/smart_playlist_editor.py:446
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr ""
@@ -3076,21 +3091,21 @@ msgid "Show tracks with tags (custom)"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:135
-#: ../plugins/grouptagger/gt_widgets.py:853
+#: ../plugins/grouptagger/gt_widgets.py:859
 #, fuzzy
 #| msgid "Add Station"
 msgid "Add tags to all"
 msgstr "הוסף תחנה"
 
 #: ../plugins/grouptagger/__init__.py:140
-#: ../plugins/grouptagger/gt_widgets.py:855
+#: ../plugins/grouptagger/gt_widgets.py:861
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "Remove tags from all"
 msgstr "_הסר תג"
 
 #: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:624
+#: ../plugins/grouptagger/gt_widgets.py:630
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:105
 msgid "GroupTagger"
 msgstr ""
@@ -3156,90 +3171,90 @@ msgstr ""
 msgid "Show tracks with all selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:135
+#: ../plugins/grouptagger/gt_widgets.py:134
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "תגיות"
 
-#: ../plugins/grouptagger/gt_widgets.py:150
+#: ../plugins/grouptagger/gt_widgets.py:149
 #, fuzzy
 #| msgid "A_dd tag"
 msgid "Add new tag"
 msgstr "ה_וסף תג"
 
-#: ../plugins/grouptagger/gt_widgets.py:154
+#: ../plugins/grouptagger/gt_widgets.py:153
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete tag"
 msgstr "מחק"
 
-#: ../plugins/grouptagger/gt_widgets.py:161
+#: ../plugins/grouptagger/gt_widgets.py:160
 msgid "Add new category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:165
+#: ../plugins/grouptagger/gt_widgets.py:164
 msgid "Remove category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:174
+#: ../plugins/grouptagger/gt_widgets.py:173
 msgid "Show tracks with selected (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "New tag value?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:249
+#: ../plugins/grouptagger/gt_widgets.py:253
 msgid "Enter new tag value"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 msgid "New Category?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:281
+#: ../plugins/grouptagger/gt_widgets.py:285
 msgid "Enter new category name"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:496
+#: ../plugins/grouptagger/gt_widgets.py:500
 msgid "Add Tag"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:646
-#: ../plugins/grouptagger/gt_widgets.py:748
+#: ../plugins/grouptagger/gt_widgets.py:652
+#: ../plugins/grouptagger/gt_widgets.py:754
 msgid "Group"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:683
+#: ../plugins/grouptagger/gt_widgets.py:689
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:704
+#: ../plugins/grouptagger/gt_widgets.py:710
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:730
+#: ../plugins/grouptagger/gt_widgets.py:736
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:741
+#: ../plugins/grouptagger/gt_widgets.py:747
 msgid "Ignored"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:749
+#: ../plugins/grouptagger/gt_widgets.py:755
 msgid "Selected Tracks"
 msgstr ""
 
@@ -3647,15 +3662,15 @@ msgstr ""
 msgid "Could not save podcast file"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:151
+#: ../plugins/previewdevice/__init__.py:152
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:159
+#: ../plugins/previewdevice/__init__.py:160
 msgid "Preview"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:344
+#: ../plugins/previewdevice/__init__.py:345
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
@@ -4548,7 +4563,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
-#: ../plugins/inhibitsuspend/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/multialarmclock/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
@@ -4731,8 +4746,9 @@ msgid ""
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
 
-#: ../plugins/keybinder/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
-msgid "Hotkeys"
+#: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
+#: ../plugins/winmmkeys/PLUGININFO:5
+msgid "External Control"
 msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
@@ -4837,7 +4853,8 @@ msgstr ""
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
 "Partial support for MPRIS (Media Player Remote Interfacing Specification) "
-"2.2, allowing you to control Exaile from supporting clients"
+"2.2, allowing you to control Exaile from supporting clients, for example "
+"GNOME Shell"
 msgstr ""
 
 #: ../plugins/multialarmclock/PLUGININFO:4

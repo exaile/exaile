@@ -123,9 +123,9 @@ class PluginManager(object):
                 continue
 
             # determine icon to show
-            if broken:
+            if not compatible:
                 icon = 'dialog-error'
-            elif not compatible:
+            elif broken:
                 icon = 'dialog-warning'
             else:
                 icon = None
@@ -276,7 +276,7 @@ class PluginManager(object):
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
 
-        self.name_label.set_markup("<b>%s</b>" % info['Name'])
+        self.name_label.set_markup("<b>%s</b> <small>%s</small>" % (info['Name'], info['Version']))
 
     def on_enabled_cellrenderer_toggled(self, cellrenderer, path):
         """

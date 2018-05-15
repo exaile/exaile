@@ -51,7 +51,7 @@ def to_unicode(x, encoding=None, errors='strict'):
     # unicode() only accepts "string or buffer", so check the type of x first.
     if isinstance(x, unicode):
         return x
-    elif isinstance(x, str):
+    elif isinstance(x, bytes):
         if encoding:
             return unicode(x, encoding, errors)
         else:

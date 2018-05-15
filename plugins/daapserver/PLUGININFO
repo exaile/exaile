@@ -3,4 +3,3 @@ Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('DAAP Server')
 Description=_('This plugin integrates Spydaap (%s) into Exaile, so that a collection can be shared over DAAP.') % 'https://gitlab.com/egh/spydaap'
 Category=_('Media Sources')
-RequiredModules=['grp', 'mutagen', 'cairo']

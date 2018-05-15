@@ -86,12 +86,8 @@ class PluginManager(object):
         self.filter_model = self.model.filter_new()
 
         self.show_incompatible_cb = builder.get_object('show_incompatible_cb')
-        self.show_broken_cb = builder.get_object('show_broken_cb')
 
         self.filter_model.set_visible_func(self._model_visible_func)
-
-        self.status_column = builder.get_object('status_column')
-        self._set_status_visible()
 
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
@@ -317,31 +313,13 @@ class PluginManager(object):
         path = self.plugin_to_path[plugin_name]
         self.model[path][3] = enabled
 
-    def on_show_broken_cb_toggled(self, widget):
-        self._set_status_visible()
-        self.filter_model.refilter()
-
     def on_show_incompatible_cb_toggled(self, widget):
-        self._set_status_visible()
         self.filter_model.refilter()
-
-    def _set_status_visible(self):
-        show_col = self.show_broken_cb.get_active() or \
-            self.show_incompatible_cb.get_active()
-        self.status_column.set_visible(show_col)
 
     def _model_visible_func(self, model, iter, data):
-
         row = model[iter]
-        broken = row[5]
         compatible = row[6]
-
-        show = not broken or self.show_broken_cb.get_active()
-        compatible = compatible or self.show_incompatible_cb.get_active()
-
-        result = compatible and show
-
-        return result
+        return compatible or self.show_incompatible_cb.get_active()
 
 
 def init(preferences, xml):

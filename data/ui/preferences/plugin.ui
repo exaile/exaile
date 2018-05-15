@@ -145,21 +145,6 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="show_broken_cb">
-                <property name="label" translatable="yes">Show potentially broken plugins</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_show_broken_cb_toggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
               </packing>
             </child>

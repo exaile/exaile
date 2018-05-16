@@ -7,18 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
-"PO-Revision-Date: 2015-01-05 09:52+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/"
-">\n"
+"POT-Creation-Date: 2018-02-19 11:36+1000\n"
+"PO-Revision-Date: 2018-05-16 15:39+0000\n"
+"Last-Translator: Piotr Strebski <strebski@o2.pl>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
 
 #: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
@@ -125,10 +125,8 @@ msgid "Local"
 msgstr "Lokalny"
 
 #: ../xl/main.py:81
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Użycie: exaile [OPCJA]... [URI]"
+msgstr "Użycie: exaile [OPCJA...] [POŁOŻENIE...]"
 
 #: ../xl/main.py:82
 msgid ""
@@ -188,10 +186,8 @@ msgid "Playlist Options"
 msgstr "Opcje listy odtwarzania"
 
 #: ../xl/main.py:117
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Eksportuje aktualną listę odtwarzania do KATALOGU"
+msgstr "Eksportuj aktualną listę odtwarzania do KATALOGU"
 
 #: ../xl/main.py:119
 msgid "Track Options"
@@ -207,10 +203,8 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:125
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
-msgstr "Pozyskuje bieżący stan odtwarzania i informacje o utworze jako FORMAT"
+msgstr "Pozyskaj bieżący stan odtwarzania i informacje o utworze jako FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:128
@@ -218,10 +212,8 @@ msgid "TAGS"
 msgstr "ZNACZNIKI"
 
 #: ../xl/main.py:129
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "ZNACZNIKI do pozyskania z bieżącego utworu, użyj z --format-query"
+msgstr "Znaczniki do pozyskania z bieżącego utworu, użyj z --format-query"
 
 #: ../xl/main.py:131
 msgid "Show a popup with data of the current track"
@@ -270,22 +262,16 @@ msgid "Volume Options"
 msgstr "Opcje głośności"
 
 #: ../xl/main.py:157
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Zwiększa poziom głośności o N%"
+msgstr "Zwiększ poziom głośności o N%"
 
 #: ../xl/main.py:161
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Zmniejsza poziom głośności o N%"
+msgstr "Zmniejsz poziom głośności o N%"
 
 #: ../xl/main.py:164
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Włącza/wyłącza wyciszenie"
+msgstr "Włącz/wyłącz wyciszenie"
 
 #: ../xl/main.py:166
 msgid "Print the current volume percentage"

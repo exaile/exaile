@@ -336,8 +336,11 @@ class MprisObject(object):
         xl.player.QUEUE.play()
 
     def PlayPause(self):
-        # TODO: Match behavior with spec
-        xl.player.PLAYER.toggle_pause()
+        if xl.player.PLAYER.is_paused() or xl.player.PLAYER.is_playing():
+            xl.player.PLAYER.toggle_pause()
+        else:
+            xl.player.QUEUE.play(track=xl.player.QUEUE.get_current())
+
 
     def Previous(self):
         # TODO: Match behavior with spec

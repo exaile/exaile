@@ -322,8 +322,8 @@ class MprisObject(object):
     # Player methods
 
     def Next(self):
-        # TODO: Match behavior with spec
-        xl.player.QUEUE.next()
+        if xl.player.PLAYER.is_playing():
+            xl.player.QUEUE.next()
 
     def OpenUri(self, uri):
         pass  # TODO
@@ -343,8 +343,8 @@ class MprisObject(object):
 
 
     def Previous(self):
-        # TODO: Match behavior with spec
-        xl.player.QUEUE.prev()
+        if xl.player.PLAYER.is_playing():
+            xl.player.QUEUE.prev()
 
     def Seek(self, offset):
         pass  # TODO

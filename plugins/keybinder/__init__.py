@@ -79,11 +79,17 @@ class KeybinderPlugin(object):
 
 plugin_class = KeybinderPlugin
 
+def start_stop_playback (PLAYER, QUEUE):
+    '''Toggles pause if playing/paused, starts playback if stopped'''
+    if PLAYER.is_paused() or PLAYER.is_playing():
+        PLAYER.toggle_pause()
+    else:
+        QUEUE.play(track=QUEUE.get_current())
 
 def on_media_key(key, exaile):
     from xl.player import PLAYER, QUEUE
     {
-        'XF86AudioPlay': PLAYER.toggle_pause,
+        'XF86AudioPlay': lambda: start_stop_playback(PLAYER, QUEUE),
         'XF86AudioStop': PLAYER.stop,
         'XF86AudioPrev': QUEUE.prev,
         'XF86AudioNext': QUEUE.next,

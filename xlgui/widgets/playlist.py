@@ -871,14 +871,17 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         '''
         self._play_track_at(position, track)
 
-    def _play_track_at(self, position, track, on_activated=False):
+    def _play_track_at(self, position, track, on_activated=False, restart_if_playing=False):
         '''Internal API'''
         if not settings.get_option('playlist/enqueue_by_default', False) or \
                 (self.playlist is self.player.queue and on_activated):
-            # If track is already playing, then pause/resume it instead of starting over
+            # If track is already playing, then:
+            # a) if restart_if_playing flag is set, restart the track
+            # b) otherwise, pause/resume it instead of starting over
             if on_activated and not self.player.is_stopped() and \
                self.player.queue.current_playlist is self.playlist and \
-               self.playlist.get_current_position() == position:
+               self.playlist.get_current_position() == position and \
+               not (restart_if_playing and self.player.is_playing()):
                self.player.toggle_pause()
 
             elif self.player.queue.is_play_enabled():
@@ -1078,7 +1081,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         except IndexError:
             return
 
-        self._play_track_at(position, track, True)
+        # Call with restart_if_playing flag set to True, so that
+        # currently-playing track will be restarted
+        self._play_track_at(position, track, True, True)
 
     def on_row_inserted(self, model, path, iter):
         '''
@@ -1207,6 +1212,20 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 idx = indexes[0]
                 track = self.playlist.pop(idx)
                 self.playlist[idx+1:idx+1] = [track]
+
+        # Prevent space-key from triggering 'row-activated' signal,
+        # which restarts the currently-playing track. Instead, we call
+        # _play_track_at() here with restart_if_playing flag set to
+        # False, so that pause will be always toggled instead.
+        elif event.keyval == Gdk.KEY_space:
+            try:
+                position, track = self.get_selected_items()[0]
+            except IndexError:
+                return True # Prevent 'row-activated'
+
+            self._play_track_at(position, track, True, False)
+
+            return True # Prevent 'row-activated'
 
     def on_header_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_Menu:

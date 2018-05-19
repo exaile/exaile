@@ -6,8 +6,8 @@ import sys
 #   - extra = not very useful
 # - bad = doesn't work
 
-EXTRA = ['console', 'helloworld']
-BAD = ['shoutcast']
+EXTRA = ['helloworld']
+BAD = []
 
 
 def scan():

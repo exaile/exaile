@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-14 22:55+1000\n"
-"PO-Revision-Date: 2018-05-08 22:46+0000\n"
+"PO-Revision-Date: 2018-05-21 00:42+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
 "sc/>\n"
@@ -1958,17 +1958,13 @@ msgstr "non cuntènnit"
 
 #. TRANSLATORS: True if haystack contains whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:229
-#, fuzzy
-#| msgid "contains"
 msgid "contains word"
-msgstr "cuntènnit"
+msgstr "cuntènnit una paràula"
 
 #. TRANSLATORS: True if haystack does not contain whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:231
-#, fuzzy
-#| msgid "does not contain"
 msgid "does not contain word"
-msgstr "non cuntènnit"
+msgstr "non cuntènnit una paràula"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:233

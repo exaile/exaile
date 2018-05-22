@@ -586,14 +586,13 @@ class Exaile(object):
     def mainloop_init(self):
         from gi.repository import GObject
 
-        major, minor, patch = GObject.pygobject_version
+        MIN_VER = (3, 10, 2)
+        ver = GObject.pygobject_version
 
-        if major < 3 or \
-            (major == 3 and minor < 10) or \
-                (major == 3 and minor == 10 and patch < 2):
+        if ver < MIN_VER:
             # Probably should exit?
-            logger.warning("Exaile requires PyGObject 3.10.2 or greater! (got %d.%d.%d)",
-                           major, minor, patch)
+            logger.warning("Exaile requires PyGObject %d.%d.%d or greater! (got %d.%d.%d)",
+                           *(MIN_VER + ver))
 
         if self.options.Dbus:
             import dbus
@@ -625,7 +624,7 @@ class Exaile(object):
 
     def get_user_agent_string(self, plugin_name=None):
         '''
-            Returns an approrpiately formatted User-agent string for
+            Returns an appropriately formatted User-agent string for
             web requests. When possible, plugins should use this to
             format user agent strings.
 

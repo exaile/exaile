@@ -8,9 +8,6 @@
 /po/*/
 /po/POTFILES.in
 
-/exaile.1.gz
-/exaile.bash-completion
-
 random/
 /exaile-dist.tar.bz2
 /exaile-po.tar.bz2

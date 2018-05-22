@@ -197,7 +197,7 @@ class Formatter(GObject.GObject):
         if property.name == 'format':
             return self._template.template
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -207,7 +207,7 @@ class Formatter(GObject.GObject):
             if value != self._template.template:
                 self._template.template = value
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def extract(self):
         """

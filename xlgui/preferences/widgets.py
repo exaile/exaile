@@ -902,8 +902,6 @@ class RGBAButtonPreference(Preference):
         A class to represent the color button
     """
 
-    __rgba = Gdk.RGBA()
-
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 

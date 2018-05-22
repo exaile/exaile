@@ -105,7 +105,7 @@ class RatingWidget(Gtk.EventBox):
         if property.name == 'rating':
             return self._rating
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -123,7 +123,7 @@ class RatingWidget(Gtk.EventBox):
 
             self.emit('rating-changed', value)
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_expose_event(self, event):
         """
@@ -277,7 +277,7 @@ class RatingMenuItem(Gtk.MenuItem):
         if property.name == 'rating':
             return self.rating_widget.props.rating
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -286,7 +286,7 @@ class RatingMenuItem(Gtk.MenuItem):
         if property.name == 'rating':
             self.rating_widget.props.rating = value
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_motion_notify_event(self, event):
         """
@@ -364,7 +364,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         if property.name == 'rating':
             return self.rating
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -374,7 +374,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             self.rating = value
             self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating, self.size_ratio).pixbuf
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_activate(self, event, widget, path,
                     background_area, cell_area, flags):

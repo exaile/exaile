@@ -197,8 +197,6 @@ clean:
 	$(MAKE) -C plugins clean
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
-	rm -f exaile.1.gz
-	rm -f exaile.bash-completion
 
 po/messages.pot: pot
 

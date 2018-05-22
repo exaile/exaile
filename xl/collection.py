@@ -417,7 +417,7 @@ class LibraryMonitor(GObject.GObject):
                 update_thread.daemon = True
                 GLib.idle_add(update_thread.start)
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def __update_monitors(self):
         """

@@ -18,6 +18,11 @@ BASHCOMPDIR   := $(shell pkg-config --define-variable=prefix="$(PREFIX)" \
   --variable=completionsdir bash-completion 2> /dev/null \
   || echo "$(PREFIX)/share/bash-completion/completions")
 
+# Like above but for Fish.
+FISHCOMPDIR   := $(shell pkg-config \
+  --variable=completionsdir fish 2> /dev/null \
+  || echo "$(PREFIX)/share/fish/vendor_completions.d")
+
 EXAILEBINDIR   = $(DESTDIR)$(EPREFIX)/bin
 EXAILELIBDIR   = $(DESTDIR)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(DATADIR)/exaile
@@ -80,6 +85,7 @@ make-install-dirs:
 	install -d -m 755 $(DESTDIR)$(DATADIR)/dbus-1/services
 	install -d -m 755 $(EXAILEMANDIR)/man1
 	install -d -m 755 $(DESTDIR)$(BASHCOMPDIR)
+	install -d -m 755 $(DESTDIR)$(FISHCOMPDIR)
 	install -d -m 755 $(EXAILECONFDIR)
 
 uninstall:
@@ -93,6 +99,7 @@ uninstall:
 	rm -f $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	rm -f $(EXAILEMANDIR)/man1/exaile.1.gz
 	rm -f $(DESTDIR)$(BASHCOMPDIR)/exaile
+	rm -f $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
@@ -149,6 +156,7 @@ install-target: make-install-dirs
 		$(DESTDIR)$(DATADIR)/appdata/
 	-install -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
 	-install -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
+	-install -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
 		"$(PYTHON2_CMD)" && \
@@ -188,7 +196,8 @@ manpage: builddir
 	  | gzip -9 > build/exaile.1.gz
 
 completion: builddir
-	$(PYTHON2_CMD) tools/generate-completion.py > build/exaile.bash-completion
+	$(PYTHON2_CMD) tools/generate-completion.py bash > build/exaile.bash-completion
+	$(PYTHON2_CMD) tools/generate-completion.py fish > build/exaile.fish-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;

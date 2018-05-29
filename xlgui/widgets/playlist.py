@@ -734,7 +734,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
 
         self._filter_matcher = None
-        
+
+        self._sort_columns = list(common.BASE_SORT_TAGS) # Column sort order
+
         self._setup_models()
         self._setup_columns()
         self.columns_changed_id = self.connect("columns-changed",
@@ -858,11 +860,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         sortcol = self.get_sort_column()
         if sortcol:
             reverse = sortcol.get_sort_order() == Gtk.SortType.DESCENDING
-            sort_by = [sortcol.name] + list(common.BASE_SORT_TAGS)
         else:
             reverse = False
-            sort_by = list(common.BASE_SORT_TAGS)
-        return (sort_by, reverse)
+        return (self._sort_columns, reverse)
 
     def play_track_at(self, position, track):
         '''
@@ -1035,16 +1035,25 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                     order = Gtk.SortType.ASCENDING
                 col.set_sort_indicator(True)
                 col.set_sort_order(order)
+
+                self._sort_columns.insert(0, column.name)
             else:
                 col.set_sort_indicator(False)
                 col.set_sort_order(Gtk.SortType.DESCENDING)
         reverse = order == Gtk.SortType.DESCENDING
-        
+
+        # Uniquify the list of sort columns
+        def unique_ordered (seq):
+            seen = set()
+            return [x for x in seq if x not in seen and not seen.add(x)]
+
+        self._sort_columns = unique_ordered(self._sort_columns)
+
         # If you don't unselect before sorting, a large number of selected will
         # kill performance
         self.get_selection().unselect_all()
         with self.handler_block(self._cursor_changed):
-            self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
+            self.playlist.sort(self._sort_columns, reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns" or data == 'gui/playlist_font':

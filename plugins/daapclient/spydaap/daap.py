@@ -102,7 +102,7 @@ class DAAPObject(object):
         if hasattr(self, 'contains'):
             for object in self.contains:
                 value = object.getAtom(code)
-                if value:
+                if value is not None:
                     return value
         return None
 

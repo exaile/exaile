@@ -629,7 +629,7 @@ class NetworkPanel(CollectionPanel):
             Expects a parent Gtk.Window, and a daap connection.
         """
 
-        self.name = library.daap_share.name
+        self.name = str(library.daap_share.name)
         self.daap_share = library.daap_share
         self.net_collection = collection.Collection(self.name)
         self.net_collection.add_library(library)

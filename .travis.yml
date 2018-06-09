@@ -1,6 +1,8 @@
+
 sudo: required
 services:
   - docker
+language: python
 
 env:
   - IMGTAG=debian8
@@ -15,6 +17,18 @@ before_install:
 
 script:
 - docker run --rm -it -e HOME=/home -v $(pwd):/app -w /app exaile/exaile-testimg:${IMGTAG} make BUILDDIR=/tmp test test_compile check-doc
+
+jobs:
+  include:
+  - stage: format-check
+    sudo: false
+    language: python
+    python:
+    - "3.6"
+    install:
+    - pip install black
+    script:
+    - make check_format
 
 notifications:
   irc:

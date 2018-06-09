@@ -1,5 +1,6 @@
 PYTHON2_CMD   ?= python2
-PYTEST         = py.test
+PYTEST        ?= py.test
+BLACK         ?= black
 
 PREFIX         = /usr/local
 EPREFIX        = $(PREFIX)
@@ -32,7 +33,7 @@ EXAILEMANDIR   = $(DESTDIR)$(MANPREFIX)/man
 .PHONY: all all_no_locale builddir compile make-install-dirs uninstall \
 	install install_no_locale install-target locale install-locale \
 	plugins-dist manpage completion clean pot potball dist check-doc test \
-	test_coverage lint_errors sanitycheck
+	test_coverage lint_errors sanitycheck format
 
 all: compile completion locale manpage
 	@echo "Ready to install..."
@@ -260,3 +261,9 @@ lint_errors:
 	-pylint -e --rcfile tools/pylint.cfg xl xlgui 2> /dev/null
 
 sanitycheck: lint_errors test
+
+format:
+	$(BLACK) -S *.py plugins/ xl/ xlgui/ tests/
+
+check_format:
+	$(BLACK) --check -S *.py plugins/ xl/ xlgui/ tests/

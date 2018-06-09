@@ -16,9 +16,15 @@ ask!
 Basic Style
 -----------
 
--  Use 4 spaces for indents, no tabs.
--  Avoid lines >80 characters. Try to insert sensible line breaks to
-   accomplish this
+Exaile uses the `black <https://github.com/ambv/black>`_ code formatter to
+enforce a consistent style across the project. You can run black like so:
+
+:: sh
+    
+    black -S *.py plugins/ xl/ xlgui/ tests/
+
+For things that the code formatter doesn't do for you, the following applies:
+
 -  In general, `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_ applies
 -  Keep imports on one line each to make sure imports cannot be missed:
 
@@ -31,20 +37,6 @@ Basic Style
     from gi.repository import Gtk
     from gi.repository import GLib
     from gi.repository import GObject
-
--  The same goes for module imports, here parentheses can be used:
-
-.. code-block:: python
-
-    # Not recommended
-    from threading import Event, Thread, Timer
-    
-    # Preferred
-    from threading import (
-        Event,
-        Thread,
-        Timer
-    )
 
 -  Always write out variable names to keep them descriptive. Thus ``notebook_page`` is to
    be preferred over ``nb``.
@@ -105,7 +97,7 @@ Events and Signals
    the (GTK) UI should prefer ``GObject`` signals over ``xl.event``.
 -  Keep in mind all events are synchronous - if your callback might take
    a while, run it in a separate thread.
--  
+-
 
     -  Make sure that every access to GTK UI components is run in the
        GTK main thread. Otherwise unpredictable issues can occur
@@ -130,7 +122,7 @@ Events and Signals
                     Serious problem: this event is run in a
                     different thread, a crash is likely to occur
                 """
-                self.label.set_text(track.get_tag_display('title'))        
+                self.label.set_text(track.get_tag_display('title'))
 
 -  Event names should be all lower-case, using underscores to separate
    words.
@@ -234,4 +226,3 @@ Other
 -  If you create a new on-disk format, add a version flag to it. This
    makes forwards and backwards compatibility MUCH easier should the
    format ever need to change.
-

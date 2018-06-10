@@ -71,6 +71,10 @@ class PlaylistFontResetButtonPreference(widgets.FontResetButtonPreference):
     condition_preference_name = 'gui/playlist_font'
 
 
+class GtkDarkThemePreference(widgets.CheckPreference):
+    default = False
+    name = 'gui/gtk_dark_hint'
+
 class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_alpha'

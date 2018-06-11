@@ -239,6 +239,8 @@ class MainWindow(GObject.GObject):
             self.window.set_visual(visual)
             self.window.connect('screen-changed', self.on_screen_changed)
             self._update_alpha()
+        
+        self._update_dark_hint()
 
         playlist_area = self.builder.get_object('playlist_area')
         self.playlist_container = PlaylistContainer('saved_tabs', player.PLAYER)
@@ -408,6 +410,21 @@ class MainWindow(GObject.GObject):
             return
         opac = 1.0 - float(settings.get_option('gui/transparency', 0.3))
         Gtk.Widget.set_opacity(self.window, opac)
+    
+    def _update_dark_hint(self):
+        gs = Gtk.Settings.get_default()
+        
+        # We should use reset_property, but that's only available in > 3.20...
+        if not hasattr(self, '_default_dark_hint'):
+            self._default_dark_hint = gs.props.gtk_application_prefer_dark_theme
+        
+        if settings.get_option('gui/gtk_dark_hint', False):
+            gs.props.gtk_application_prefer_dark_theme = True
+            
+        elif gs.props.gtk_application_prefer_dark_theme != self._default_dark_hint:
+            # don't set it explicitly otherwise the app will revert to a light
+            # theme -- what we actually want is to leave it up to the OS
+            gs.props.gtk_application_prefer_dark_theme = self._default_dark_hint
 
     def do_get_property(self, prop):
         if prop.name == 'is-fullscreen':
@@ -874,6 +891,9 @@ class MainWindow(GObject.GObject):
 
         elif option == 'gui/transparency':
             self._update_alpha()
+        
+        elif option == 'gui/gtk_dark_hint':
+            self._update_dark_hint()
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))

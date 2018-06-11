@@ -479,14 +479,12 @@ class StatusbarTextFormatter(formatter.Formatter):
         if not isinstance(page, playlist.PlaylistPage):
             return ''
 
-        playlist_duration = sum([t.get_tag_raw('__length')
-                                 for t in page.playlist
-                                 if t.get_tag_raw('__length')])
+        playlist_duration = sum(t.get_tag_raw('__length') or 0
+                                for t in page.playlist)
         selection_tracks = page.view.get_selected_tracks()
         selection_count = len(selection_tracks)
-        selection_duration = sum([t.get_tag_raw('__length')
-                                  for t in selection_tracks
-                                  if t.get_tag_raw('__length')])
+        selection_duration = sum(t.get_tag_raw('__length') or 0
+                                 for t in selection_tracks)
 
         if selection == 'none':
             duration = playlist_duration

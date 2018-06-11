@@ -358,8 +358,8 @@ class ProgressTextFormatter(Formatter):
 
         if playlist and playlist.current_position >= 0:
             tracks = playlist[playlist.current_position:]
-            total_remaining_time = sum([t.get_tag_raw('__length')
-                                        for t in tracks if t.get_tag_raw('__length')])
+            total_remaining_time = sum(t.get_tag_raw('__length') or 0
+                                       for t in tracks)
             total_remaining_time -= current_time
 
         self._substitutions['current_time'] = \

@@ -98,7 +98,7 @@ class _MetadataCacher(object):
             if item[2] < thresh:
                 self._cache.remove(item)
         if self._cache:
-            next_expiry = min([i[2] for i in self._cache])
+            next_expiry = min(i[2] for i in self._cache)
             timeout = int((next_expiry + self.timeout) - current)
             self._cleanup_id = GLib.timeout_add_seconds(timeout,
                                                         self.__cleanup)
@@ -110,7 +110,7 @@ class _MetadataCacher(object):
         item = [trackobj, formatobj, time.time()]
         self._cache.append(item)
         if len(self._cache) > self.maxentries:
-            least = min([(i[2], i) for i in self._cache])[1]
+            least = min((i[2], i) for i in self._cache)[1]
             self._cache.remove(least)
         if not self._cleanup_id:
             self._cleanup_id = GLib.timeout_add_seconds(self.timeout,

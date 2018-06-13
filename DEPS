@@ -21,7 +21,7 @@ Essential:
 * dbus-python
 * pygobject (>= 3.13.2)
 * python-cairo
-* GIR libraries for GTK+/GStreamer and cairo (python-gi-cairo on Ubuntu)
+* GI typelib files for GTK+/GStreamer and cairo (python-gi-cairo on Ubuntu)
 
 Translation:
 
@@ -58,6 +58,14 @@ Musicbrainz covers:
 Podcast plugin:
 
 * feedparser
+
+Wikipedia info:
+
+* webkit2gtk + its GI typelib
+
+Xlib-based hotkeys:
+
+* keybinder + its GI typelib
 
 Scalable icons:
 

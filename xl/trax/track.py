@@ -965,7 +965,7 @@ class Track(object):
         # will sort together.
         normalize = unicodedata.normalize
         category = unicodedata.category
-        return u''.join([c for c in normalize('NFD', value)
+        return u''.join([c for c in normalize('NFKD', value)
                          if category(c) != 'Mn']) + u" " + value
 
     @staticmethod

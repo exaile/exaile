@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-17 13:06+1000\n"
-"PO-Revision-Date: 2018-01-21 05:31+0000\n"
+"PO-Revision-Date: 2018-06-17 11:37+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
 "Language-Team: English (Australia) <https://hosted.weblate.org/projects/"
 "exaile/master/en_AU/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 3.0.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
 
 #: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
@@ -2298,7 +2298,7 @@ msgstr "Tab placement:"
 
 #: ../data/ui/preferences/appearance.ui:133
 msgid "Playlist font:"
-msgstr ""
+msgstr "Playlist font:"
 
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2351,20 +2351,26 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Tray icons are not supported on some platforms, most notably on Wayland. On "
+"GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href=\""
+"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
+"extension</a> (or a similar one) installed."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
-msgstr ""
+msgstr "Note:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Prefer dark theme"
 
 #: ../data/ui/preferences/appearance.ui:336
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2475,11 +2481,11 @@ msgstr "Automatically advance to the next track"
 
 #: ../data/ui/preferences/playback.ui:236
 msgid "Delay between tracks (ms):"
-msgstr ""
+msgstr "Delay between tracks (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Only works when crossfading not enabled"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2548,6 +2554,9 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"When using a menu item to add/replace tracks on the playlist, start playback "
+"if there is track currently playing. This option was the default behaviour "
+"before Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
@@ -2558,6 +2567,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"When you double click or press enter to play a track in a playlist, queue "
+"the track instead of playing it"
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
@@ -2613,7 +2624,7 @@ msgstr "_Remove tag"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
@@ -2637,11 +2648,11 @@ msgstr "Other"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 pixels 'file icon' (PNG only)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
-msgstr ""
+msgstr "Other file icon"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
@@ -2653,63 +2664,63 @@ msgstr "Cover (back)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "Leaflet page"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Media (e.g. label side of CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Lead artist/lead performer/soloist"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artist/performer"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Band/Orchestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Lyricist/text writer"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
-msgstr ""
+msgstr "Recording Location"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
-msgstr ""
+msgstr "During recording"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:80
 msgid "During performance"
-msgstr ""
+msgstr "During performance"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Movie/video screen capture"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "A bright coloured fish"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:92
 msgid "Illustration"
-msgstr ""
+msgstr "Illustration"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Band/artist logotype"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Publisher/Studio logotype"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Click or drag files here to change the cover image"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -2717,7 +2728,7 @@ msgstr "Description:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../data/ui/widgets/filter_dialog.ui:127
 msgid "Match any of the criteria"
@@ -2783,11 +2794,11 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Verification successful"
-msgstr ""
+msgstr "Verification successful"
 
 #: ../plugins/audioscrobbler/asprefs.py:120
 msgid "Verification failed"
-msgstr ""
+msgstr "Verification failed"
 
 #: ../plugins/audioscrobbler/asprefs.py:121
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:86

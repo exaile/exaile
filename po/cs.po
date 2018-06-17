@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
 "PO-Revision-Date: 2014-12-12 14:09+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-30 07:29+0000\n"
 
-#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Značky"
 
-#: ../xl/covers.py:525
+#: ../xl/covers.py:564
 msgid "Local file"
 msgstr "Místní soubor"
 
@@ -403,21 +403,21 @@ msgstr "Zakázat podporu D-Bus"
 msgid "Disable HAL support."
 msgstr "Zakázat podporu HAL."
 
-#: ../xl/main.py:563
+#: ../xl/main.py:567
 msgid "Entire Library"
 msgstr "Celá knihovna"
 
-#: ../xl/main.py:569
+#: ../xl/main.py:573
 #, python-format
 msgid "Random %d"
 msgstr "Náhodný %d"
 
-#: ../xl/main.py:577
+#: ../xl/main.py:581
 #, python-format
 msgid "Rating > %d"
 msgstr "Hodnocení > %d"
 
-#: ../xl/main.py:736
+#: ../xl/main.py:739
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -548,7 +548,7 @@ msgstr "Název"
 msgid "Track"
 msgstr "Skladba"
 
-#: ../xl/metadata/tags.py:72 ../data/ui/preferences/plugin.ui:93
+#: ../xl/metadata/tags.py:72
 msgid "Version"
 msgstr "Verze"
 
@@ -1024,33 +1024,33 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:510
+#: ../xlgui/main.py:527
 msgid "Toggle: Stop after Selected Track"
 msgstr "Přehrávání: zastavit po označené stopě"
 
-#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr "Při přehrávání se vyskytla chyba!"
 
-#: ../xlgui/main.py:618
+#: ../xlgui/main.py:635
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Vyrovnávací paměť: %d%%..."
 
-#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "Pokračovat v přehrávání"
 
-#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../xlgui/main.py:679 ../xlgui/main.py:848
 #: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "Pozastavit přehrávání"
 
-#: ../xlgui/main.py:788 ../xlgui/menu.py:112
+#: ../xlgui/main.py:805 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr "Export seznamu skladeb selhal!"
 
-#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../xlgui/main.py:857 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "Zahájit přehrávání"
@@ -1273,7 +1273,7 @@ msgstr "Zadejte nový název pro Váš seznam skladeb"
 msgid "Rename Playlist"
 msgstr "Přejmenovat seznam skladeb"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
 #: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "Takto pojmenovaný seznam skladeb se už používá."
@@ -1407,7 +1407,7 @@ msgstr "Zásuvné moduly"
 msgid "Appearance"
 msgstr "Vzhled"
 
-#: ../xlgui/preferences/appearance.py:111
+#: ../xlgui/preferences/appearance.py:115
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1440,16 +1440,16 @@ msgstr "Prohlížeč textů písní"
 msgid "Playback"
 msgstr "Přehrát"
 
-#: ../xlgui/preferences/plugin.py:112 ../plugins/grouptagger/gt_common.py:63
+#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr "Nezařazeno"
 
-#: ../xlgui/preferences/plugin.py:172
+#: ../xlgui/preferences/plugin.py:168
 msgid "Could not load plugin info!"
 msgstr "Nelze načíst informace o zásuvném modulu!"
 
-#: ../xlgui/preferences/plugin.py:174
+#: ../xlgui/preferences/plugin.py:170
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
@@ -1457,28 +1457,28 @@ msgstr[0] "Selhal zásuvný modul: %s"
 msgstr[1] "Selhaly zásuvné moduly: %s"
 msgstr[2] "selhalo zásuvných modulů: %s"
 
-#: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
 msgid "Could not disable plugin!"
 msgstr "Nelze zakázat zásuvný modul!"
 
-#: ../xlgui/preferences/plugin.py:218 ../xlgui/preferences/plugin.py:300
+#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
 msgid "Could not enable plugin!"
 msgstr "Nelze povolit zásuvný modul!"
 
-#: ../xlgui/preferences/plugin.py:226
+#: ../xlgui/preferences/plugin.py:222
 msgid "Choose a Plugin"
 msgstr "Vybrat zásuvný modul"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:231
 msgid "Plugin Archives"
 msgstr "Modul Archiv"
 
-#: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:852
+#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
+#: ../xlgui/widgets/dialogs.py:855
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: ../xlgui/preferences/plugin.py:254
+#: ../xlgui/preferences/plugin.py:250
 msgid "Plugin file installation failed!"
 msgstr "Instalace zásuvného modulu selhala!"
 
@@ -1583,7 +1583,7 @@ msgstr "Otevřít adresář"
 msgid "Apply current value to all tracks"
 msgstr "Použít aktuální hodnotu na všechny stopy"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Uloženo %(count)s ze %(total)s."
@@ -1616,91 +1616,91 @@ msgstr "Podporované soubory"
 msgid "Music Files"
 msgstr "Hudební soubory"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:850
+#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
 msgid "Playlist Files"
 msgstr "Soubory se seznamy skladeb"
 
-#: ../xlgui/widgets/dialogs.py:767
+#: ../xlgui/widgets/dialogs.py:770
 msgid "Choose Directory to Open"
 msgstr "Zvolte adresář k otevření"
 
-#: ../xlgui/widgets/dialogs.py:839
+#: ../xlgui/widgets/dialogs.py:842
 msgid "Import Playlist"
 msgstr "Importovat seznam skladeb"
 
-#: ../xlgui/widgets/dialogs.py:940
+#: ../xlgui/widgets/dialogs.py:946
 msgid "Export Current Playlist"
 msgstr "Exportovat stávající playlist"
 
-#: ../xlgui/widgets/dialogs.py:951
+#: ../xlgui/widgets/dialogs.py:957
 msgid "Use relative paths to tracks"
 msgstr "Použít relativní cestu k souborům"
 
-#: ../xlgui/widgets/dialogs.py:1006
+#: ../xlgui/widgets/dialogs.py:1012
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Seznam skladeb uložen jako <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1022
+#: ../xlgui/widgets/dialogs.py:1028
 #, python-format
 msgid "Close %s"
 msgstr "Zavřít %s"
 
-#: ../xlgui/widgets/dialogs.py:1023
+#: ../xlgui/widgets/dialogs.py:1029
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Uložit změny do %s před uzavřením?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1024
+#: ../xlgui/widgets/dialogs.py:1030
 msgid "Your changes will be lost if you don't save them"
 msgstr "Vaše změny budou ztraceny, pokud je neuložíte"
 
-#: ../xlgui/widgets/dialogs.py:1026
+#: ../xlgui/widgets/dialogs.py:1032
 msgid "Close Without Saving"
 msgstr "Zavřít bez uložení"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1400
 msgid "Yes to all"
 msgstr "Ano všem"
 
-#: ../xlgui/widgets/dialogs.py:1402
+#: ../xlgui/widgets/dialogs.py:1408
 msgid "No to all"
 msgstr "Ne všem"
 
-#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Během kopírování %s nastala chyba: %s"
 
-#: ../xlgui/widgets/dialogs.py:1587
+#: ../xlgui/widgets/dialogs.py:1593
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Soubor %s již existuje, přepsat?"
 
-#: ../xlgui/widgets/dialogs.py:1637
+#: ../xlgui/widgets/dialogs.py:1643
 msgid "Playlist name:"
 msgstr "Název seznamu skladeb:"
 
-#: ../xlgui/widgets/dialogs.py:1638
+#: ../xlgui/widgets/dialogs.py:1644
 msgid "Add new playlist..."
 msgstr "Přidat nový seznam skladeb..."
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1655
 #: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "Nebylo napsáno jméno seznamu skladeb"
 
-#: ../xlgui/widgets/dialogs.py:1657
+#: ../xlgui/widgets/dialogs.py:1663
 #, fuzzy
 msgid "Save As"
 msgstr "Uložit historii"
 
-#: ../xlgui/widgets/dialogs.py:1718
+#: ../xlgui/widgets/dialogs.py:1724
 #, python-format
 msgid "Exporting %s"
 msgstr "Exportuji %s"
 
-#: ../xlgui/widgets/dialogs.py:1721
+#: ../xlgui/widgets/dialogs.py:1727
 msgid "Choose directory to export files to"
 msgstr "Vybrte adresář kam se mají soubory vyexportovat"
 
@@ -2489,6 +2489,16 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+#: ../data/ui/preferences/appearance.ui:331
+msgid "Prefer dark theme"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:336
+msgid ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
+msgstr ""
+
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
@@ -2691,75 +2701,30 @@ msgstr ""
 "Při dvojkliku na písničku nebo zmáčknutí Enteru zařadit písničku do fronty "
 "místo přehrání"
 
-#: ../data/ui/preferences/plugin.ui:80
+#: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
 msgstr "Zásuvný modul"
 
-#: ../data/ui/preferences/plugin.ui:105
+#: ../data/ui/preferences/plugin.ui:76
+msgid "Status"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: ../data/ui/preferences/plugin.ui:119
-msgid "Status"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:138
+#: ../data/ui/preferences/plugin.ui:110
 #, fuzzy
 msgid "Show incompatible plugins"
 msgstr "Nelze zakázat zásuvný modul!"
 
-#: ../data/ui/preferences/plugin.ui:153
-msgid "Show potentially broken plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:171
+#: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
 msgstr "Není vybrán modul"
 
-#: ../data/ui/preferences/plugin.ui:212
-msgid "Installed Plugins"
-msgstr "Instalované moduly"
-
-#: ../data/ui/preferences/plugin.ui:269 ../data/ui/preferences/plugin.ui:484
-msgid "Version:"
-msgstr "Verze:"
-
-#: ../data/ui/preferences/plugin.ui:282 ../data/ui/preferences/plugin.ui:497
-msgid "Authors:"
-msgstr "Autoři:"
-
-#: ../data/ui/preferences/plugin.ui:326 ../data/ui/preferences/plugin.ui:541
-#: ../data/ui/trackproperties_dialog_cover_row.ui:139
-msgid "Description:"
-msgstr "Popis:"
-
-#: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
-msgid "I_nstall Plugin"
-msgstr "Instalované moduly"
-
-#: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Není vybrán modul</b>"
-
-#: ../data/ui/preferences/plugin.ui:426
-msgid "Available Plugins"
-msgstr "Dostupné zásuvné moduly"
-
-#: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
-msgid "_Update Plugin"
-msgstr "Zásuvný modul"
-
-#: ../data/ui/preferences/plugin.ui:641
-msgid "Updates"
-msgstr "Aktualizace"
-
-#: ../data/ui/preferences/plugin.ui:662
+#: ../data/ui/preferences/plugin.ui:177
 #, fuzzy
 #| msgid "Install Plugin File"
 msgid "Add _Plugin File"
@@ -2894,6 +2859,10 @@ msgstr "Logotyp vydavatele/studia"
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
 msgstr "Pro změnu obrázku obalu klikněte nebo přetáhněte soubor sem"
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui:139
+msgid "Description:"
+msgstr "Popis:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -5140,6 +5109,34 @@ msgstr ""
 "klávesnic) pro Exaile v Microsoft Windows.\n"
 "\n"
 "Vyžaduje: pyHook (%s)"
+
+#~ msgid "Installed Plugins"
+#~ msgstr "Instalované moduly"
+
+#~ msgid "Version:"
+#~ msgstr "Verze:"
+
+#~ msgid "Authors:"
+#~ msgstr "Autoři:"
+
+#, fuzzy
+#~| msgid "Installed Plugins"
+#~ msgid "I_nstall Plugin"
+#~ msgstr "Instalované moduly"
+
+#~ msgid "<b>No Plugin Selected</b>"
+#~ msgstr "<b>Není vybrán modul</b>"
+
+#~ msgid "Available Plugins"
+#~ msgstr "Dostupné zásuvné moduly"
+
+#, fuzzy
+#~| msgid "Plugin"
+#~ msgid "_Update Plugin"
+#~ msgstr "Zásuvný modul"
+
+#~ msgid "Updates"
+#~ msgstr "Aktualizace"
 
 #~ msgid "Hotkeys"
 #~ msgstr "Klávesové zkratky"

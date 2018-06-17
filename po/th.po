@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Thai <th@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
-#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr ""
 
-#: ../xl/covers.py:525
+#: ../xl/covers.py:564
 msgid "Local file"
 msgstr ""
 
@@ -385,21 +385,21 @@ msgstr ""
 msgid "Disable HAL support."
 msgstr "ปิดการรองรับ HAL"
 
-#: ../xl/main.py:563
+#: ../xl/main.py:567
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:569
+#: ../xl/main.py:573
 #, python-format
 msgid "Random %d"
 msgstr "สุ่ม %d"
 
-#: ../xl/main.py:577
+#: ../xl/main.py:581
 #, python-format
 msgid "Rating > %d"
 msgstr "ความนิยม > %d"
 
-#: ../xl/main.py:736
+#: ../xl/main.py:739
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Track"
 msgstr "แทร็ค"
 
-#: ../xl/metadata/tags.py:72 ../data/ui/preferences/plugin.ui:93
+#: ../xl/metadata/tags.py:72
 msgid "Version"
 msgstr "รุ่น"
 
@@ -978,33 +978,33 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:510
+#: ../xlgui/main.py:527
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr ""
 
-#: ../xlgui/main.py:618
+#: ../xlgui/main.py:635
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "กำลังโหลด: %d%%..."
 
-#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "เล่นต่อ"
 
-#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../xlgui/main.py:679 ../xlgui/main.py:848
 #: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "หยุดเล่นชั่วคราว"
 
-#: ../xlgui/main.py:788 ../xlgui/menu.py:112
+#: ../xlgui/main.py:805 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr ""
 
-#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../xlgui/main.py:857 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "เริ่มเล่น"
@@ -1209,7 +1209,7 @@ msgstr ""
 msgid "Rename Playlist"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
 #: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr ""
@@ -1337,7 +1337,7 @@ msgstr "ปลั๊กอิน"
 msgid "Appearance"
 msgstr "รูปโฉม"
 
-#: ../xlgui/preferences/appearance.py:111
+#: ../xlgui/preferences/appearance.py:115
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1368,44 +1368,44 @@ msgstr ""
 msgid "Playback"
 msgstr "การเล่น"
 
-#: ../xlgui/preferences/plugin.py:112 ../plugins/grouptagger/gt_common.py:63
+#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:172
+#: ../xlgui/preferences/plugin.py:168
 msgid "Could not load plugin info!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:174
+#: ../xlgui/preferences/plugin.py:170
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
 msgid "Could not disable plugin!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:218 ../xlgui/preferences/plugin.py:300
+#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
 msgid "Could not enable plugin!"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:226
+#: ../xlgui/preferences/plugin.py:222
 msgid "Choose a Plugin"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:231
 msgid "Plugin Archives"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:852
+#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
+#: ../xlgui/widgets/dialogs.py:855
 msgid "All Files"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:254
+#: ../xlgui/preferences/plugin.py:250
 msgid "Plugin file installation failed!"
 msgstr ""
 
@@ -1507,7 +1507,7 @@ msgstr "เปิดตำแหน่งไฟล์"
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
@@ -1540,90 +1540,90 @@ msgstr ""
 msgid "Music Files"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:850
+#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
 msgid "Playlist Files"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:767
+#: ../xlgui/widgets/dialogs.py:770
 msgid "Choose Directory to Open"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:839
+#: ../xlgui/widgets/dialogs.py:842
 msgid "Import Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:940
+#: ../xlgui/widgets/dialogs.py:946
 msgid "Export Current Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:951
+#: ../xlgui/widgets/dialogs.py:957
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1006
+#: ../xlgui/widgets/dialogs.py:1012
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1022
+#: ../xlgui/widgets/dialogs.py:1028
 #, python-format
 msgid "Close %s"
 msgstr "ปิด %s"
 
-#: ../xlgui/widgets/dialogs.py:1023
+#: ../xlgui/widgets/dialogs.py:1029
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1024
+#: ../xlgui/widgets/dialogs.py:1030
 msgid "Your changes will be lost if you don't save them"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1026
+#: ../xlgui/widgets/dialogs.py:1032
 msgid "Close Without Saving"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1400
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1402
+#: ../xlgui/widgets/dialogs.py:1408
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1587
+#: ../xlgui/widgets/dialogs.py:1593
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1637
+#: ../xlgui/widgets/dialogs.py:1643
 msgid "Playlist name:"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1638
+#: ../xlgui/widgets/dialogs.py:1644
 msgid "Add new playlist..."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1655
 #: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1657
+#: ../xlgui/widgets/dialogs.py:1663
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1718
+#: ../xlgui/widgets/dialogs.py:1724
 #, python-format
 msgid "Exporting %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1721
+#: ../xlgui/widgets/dialogs.py:1727
 msgid "Choose directory to export files to"
 msgstr ""
 
@@ -2363,6 +2363,16 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+#: ../data/ui/preferences/appearance.ui:331
+msgid "Prefer dark theme"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:336
+msgid ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
+msgstr ""
+
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
@@ -2547,70 +2557,29 @@ msgid ""
 "the track instead of playing it"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:80
+#: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:105
+#: ../data/ui/preferences/plugin.ui:76
+msgid "Status"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:119
-msgid "Status"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:138
+#: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:153
-msgid "Show potentially broken plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:171
+#: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:212
-msgid "Installed Plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:269 ../data/ui/preferences/plugin.ui:484
-msgid "Version:"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:282 ../data/ui/preferences/plugin.ui:497
-msgid "Authors:"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:326 ../data/ui/preferences/plugin.ui:541
-#: ../data/ui/trackproperties_dialog_cover_row.ui:139
-msgid "Description:"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:378
-msgid "I_nstall Plugin"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
-msgid "<b>No Plugin Selected</b>"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:426
-msgid "Available Plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:592
-msgid "_Update Plugin"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:641
-msgid "Updates"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:662
+#: ../data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
 msgstr ""
 
@@ -2740,6 +2709,10 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui:139
+msgid "Description:"
 msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151

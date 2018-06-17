@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
 "PO-Revision-Date: 2017-12-18 14:56+0000\n"
 "Last-Translator: Claudio Maradonna <claudio@unitoo.pw>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Weblate 2.18\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
-#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Tag"
 
-#: ../xl/covers.py:525
+#: ../xl/covers.py:564
 msgid "Local file"
 msgstr "File locale"
 
@@ -408,21 +408,21 @@ msgstr "Disabilita il supporto D-Bus"
 msgid "Disable HAL support."
 msgstr "Disabilita il supporto HAL."
 
-#: ../xl/main.py:563
+#: ../xl/main.py:567
 msgid "Entire Library"
 msgstr "Intera libreria"
 
-#: ../xl/main.py:569
+#: ../xl/main.py:573
 #, python-format
 msgid "Random %d"
 msgstr "%d casuale"
 
-#: ../xl/main.py:577
+#: ../xl/main.py:581
 #, python-format
 msgid "Rating > %d"
 msgstr "Valutazione > %d"
 
-#: ../xl/main.py:736
+#: ../xl/main.py:739
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -551,7 +551,7 @@ msgstr "Titolo"
 msgid "Track"
 msgstr "Traccia"
 
-#: ../xl/metadata/tags.py:72 ../data/ui/preferences/plugin.ui:93
+#: ../xl/metadata/tags.py:72
 msgid "Version"
 msgstr "Versione"
 
@@ -1029,33 +1029,33 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:510
+#: ../xlgui/main.py:527
 msgid "Toggle: Stop after Selected Track"
 msgstr "Commuta: interrompe dopo la traccia selezionata"
 
-#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr "È stato riscontrato un errore di riproduzione!"
 
-#: ../xlgui/main.py:618
+#: ../xlgui/main.py:635
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Buffering: %d%%..."
 
-#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "Riprendi riproduzione"
 
-#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../xlgui/main.py:679 ../xlgui/main.py:848
 #: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "Sospendi riproduzione"
 
-#: ../xlgui/main.py:788 ../xlgui/menu.py:112
+#: ../xlgui/main.py:805 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr "Esportazione della scaletta non riuscita!"
 
-#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../xlgui/main.py:857 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "Avvia riproduzione"
@@ -1278,7 +1278,7 @@ msgstr "Inserisci il nuovo nome per la scaletta"
 msgid "Rename Playlist"
 msgstr "Rinomina scaletta"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
 #: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "Il nome inserito per la scaletta è già in uso."
@@ -1410,7 +1410,7 @@ msgstr "Plugin"
 msgid "Appearance"
 msgstr "Aspetto"
 
-#: ../xlgui/preferences/appearance.py:111
+#: ../xlgui/preferences/appearance.py:115
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1443,44 +1443,44 @@ msgstr "Visualizzatore testi"
 msgid "Playback"
 msgstr "Riproduzione"
 
-#: ../xlgui/preferences/plugin.py:112 ../plugins/grouptagger/gt_common.py:63
+#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr "Senza categoria"
 
-#: ../xlgui/preferences/plugin.py:172
+#: ../xlgui/preferences/plugin.py:168
 msgid "Could not load plugin info!"
 msgstr "Impossibile caricare le informazioni sul plugin!"
 
-#: ../xlgui/preferences/plugin.py:174
+#: ../xlgui/preferences/plugin.py:170
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "Plugin non funzionante: %s"
 msgstr[1] "Plugin non funzionanti: %s"
 
-#: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
 msgid "Could not disable plugin!"
 msgstr "Impossibile disabilitare il plugin!"
 
-#: ../xlgui/preferences/plugin.py:218 ../xlgui/preferences/plugin.py:300
+#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
 msgid "Could not enable plugin!"
 msgstr "Impossibile abilitare il plugin!"
 
-#: ../xlgui/preferences/plugin.py:226
+#: ../xlgui/preferences/plugin.py:222
 msgid "Choose a Plugin"
 msgstr "Scegli un plugin"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:231
 msgid "Plugin Archives"
 msgstr "Archivi Dei Plugin"
 
-#: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:852
+#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
+#: ../xlgui/widgets/dialogs.py:855
 msgid "All Files"
 msgstr "Tutti i Files"
 
-#: ../xlgui/preferences/plugin.py:254
+#: ../xlgui/preferences/plugin.py:250
 msgid "Plugin file installation failed!"
 msgstr "Installazione del plugin non riuscita!"
 
@@ -1585,7 +1585,7 @@ msgstr "Apri directory"
 msgid "Apply current value to all tracks"
 msgstr "Applica il valore corrente a tutte le tracce"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Salvate %(count)s di %(total)s."
@@ -1618,90 +1618,90 @@ msgstr "File supportati"
 msgid "Music Files"
 msgstr "File musicali"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:850
+#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
 msgid "Playlist Files"
 msgstr "File della scaletta"
 
-#: ../xlgui/widgets/dialogs.py:767
+#: ../xlgui/widgets/dialogs.py:770
 msgid "Choose Directory to Open"
 msgstr "Seleziona la directory da aprire"
 
-#: ../xlgui/widgets/dialogs.py:839
+#: ../xlgui/widgets/dialogs.py:842
 msgid "Import Playlist"
 msgstr "Importa Playlist"
 
-#: ../xlgui/widgets/dialogs.py:940
+#: ../xlgui/widgets/dialogs.py:946
 msgid "Export Current Playlist"
 msgstr "Esporta la scaletta corrente"
 
-#: ../xlgui/widgets/dialogs.py:951
+#: ../xlgui/widgets/dialogs.py:957
 msgid "Use relative paths to tracks"
 msgstr "Usa i percorsi relativi per le tracce"
 
-#: ../xlgui/widgets/dialogs.py:1006
+#: ../xlgui/widgets/dialogs.py:1012
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Scaletta salvata come <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1022
+#: ../xlgui/widgets/dialogs.py:1028
 #, python-format
 msgid "Close %s"
 msgstr "Chiudi %s"
 
-#: ../xlgui/widgets/dialogs.py:1023
+#: ../xlgui/widgets/dialogs.py:1029
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Salvare le modifiche a %s prima di chiudere?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1024
+#: ../xlgui/widgets/dialogs.py:1030
 msgid "Your changes will be lost if you don't save them"
 msgstr "Le modifiche andranno perse se non vengono salvate"
 
-#: ../xlgui/widgets/dialogs.py:1026
+#: ../xlgui/widgets/dialogs.py:1032
 msgid "Close Without Saving"
 msgstr "Chiudi senza salvare"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1400
 msgid "Yes to all"
 msgstr "Sì a tutti"
 
-#: ../xlgui/widgets/dialogs.py:1402
+#: ../xlgui/widgets/dialogs.py:1408
 msgid "No to all"
 msgstr "No a tutti"
 
-#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Sì è verificato un errore durante la copia di %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1587
+#: ../xlgui/widgets/dialogs.py:1593
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Il file esiste, sovrascrivere %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1637
+#: ../xlgui/widgets/dialogs.py:1643
 msgid "Playlist name:"
 msgstr "Nome playlist:"
 
-#: ../xlgui/widgets/dialogs.py:1638
+#: ../xlgui/widgets/dialogs.py:1644
 msgid "Add new playlist..."
 msgstr "Aggiungi nuova playlist..."
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1655
 #: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "Non è stato inserito alcun nome per la scaletta"
 
-#: ../xlgui/widgets/dialogs.py:1657
+#: ../xlgui/widgets/dialogs.py:1663
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1718
+#: ../xlgui/widgets/dialogs.py:1724
 #, python-format
 msgid "Exporting %s"
 msgstr "Esportazione %s in corso"
 
-#: ../xlgui/widgets/dialogs.py:1721
+#: ../xlgui/widgets/dialogs.py:1727
 msgid "Choose directory to export files to"
 msgstr "Seleziona la cartella in cui esportare i file"
 
@@ -2492,6 +2492,16 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+#: ../data/ui/preferences/appearance.ui:331
+msgid "Prefer dark theme"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:336
+msgid ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
+msgstr ""
+
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
@@ -2691,75 +2701,30 @@ msgid ""
 "the track instead of playing it"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:80
+#: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
 msgstr "Plugin"
 
-#: ../data/ui/preferences/plugin.ui:105
+#: ../data/ui/preferences/plugin.ui:76
+msgid "Status"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
 msgstr "Attivato"
 
-#: ../data/ui/preferences/plugin.ui:119
-msgid "Status"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:138
+#: ../data/ui/preferences/plugin.ui:110
 #, fuzzy
 msgid "Show incompatible plugins"
 msgstr "Impossibile disabilitare il plugin!"
 
-#: ../data/ui/preferences/plugin.ui:153
-msgid "Show potentially broken plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:171
+#: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
 msgstr "Nessun plugin selezionato"
 
-#: ../data/ui/preferences/plugin.ui:212
-msgid "Installed Plugins"
-msgstr "Plugin installati"
-
-#: ../data/ui/preferences/plugin.ui:269 ../data/ui/preferences/plugin.ui:484
-msgid "Version:"
-msgstr "Versione:"
-
-#: ../data/ui/preferences/plugin.ui:282 ../data/ui/preferences/plugin.ui:497
-msgid "Authors:"
-msgstr "Autori:"
-
-#: ../data/ui/preferences/plugin.ui:326 ../data/ui/preferences/plugin.ui:541
-#: ../data/ui/trackproperties_dialog_cover_row.ui:139
-msgid "Description:"
-msgstr "Descrizione:"
-
-#: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
-msgid "I_nstall Plugin"
-msgstr "Plugin installati"
-
-#: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nessun plugin selezionato</b>"
-
-#: ../data/ui/preferences/plugin.ui:426
-msgid "Available Plugins"
-msgstr "Plugin disponibili"
-
-#: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
-msgid "_Update Plugin"
-msgstr "Plugin"
-
-#: ../data/ui/preferences/plugin.ui:641
-msgid "Updates"
-msgstr "Aggiornamenti"
-
-#: ../data/ui/preferences/plugin.ui:662
+#: ../data/ui/preferences/plugin.ui:177
 #, fuzzy
 #| msgid "Install Plugin File"
 msgid "Add _Plugin File"
@@ -2892,6 +2857,10 @@ msgstr "Logo dello studio/produttore"
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
 msgstr "Clicca o trasciona qui i file per cambiare l'immagine di copertina"
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui:139
+msgid "Description:"
+msgstr "Descrizione:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -5113,6 +5082,34 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#~ msgid "Installed Plugins"
+#~ msgstr "Plugin installati"
+
+#~ msgid "Version:"
+#~ msgstr "Versione:"
+
+#~ msgid "Authors:"
+#~ msgstr "Autori:"
+
+#, fuzzy
+#~| msgid "Installed Plugins"
+#~ msgid "I_nstall Plugin"
+#~ msgstr "Plugin installati"
+
+#~ msgid "<b>No Plugin Selected</b>"
+#~ msgstr "<b>Nessun plugin selezionato</b>"
+
+#~ msgid "Available Plugins"
+#~ msgstr "Plugin disponibili"
+
+#, fuzzy
+#~| msgid "Plugin"
+#~ msgid "_Update Plugin"
+#~ msgstr "Plugin"
+
+#~ msgid "Updates"
+#~ msgstr "Aggiornamenti"
 
 #~ msgid "Failed to migrate from 0.2.14"
 #~ msgstr "Migrazione dalla versione 0.2.14 non riuscita"

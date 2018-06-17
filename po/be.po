@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
 "PO-Revision-Date: 2015-04-24 19:19+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/exaile/master/"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:23+0000\n"
 
-#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Пазнакі"
 
-#: ../xl/covers.py:525
+#: ../xl/covers.py:564
 msgid "Local file"
 msgstr "Лакальны файл"
 
@@ -412,21 +412,21 @@ msgstr "Адключыць падтрымку D-Bus"
 msgid "Disable HAL support."
 msgstr "Адключыць падтрымку HAL."
 
-#: ../xl/main.py:563
+#: ../xl/main.py:567
 msgid "Entire Library"
 msgstr "Уся фанатэка"
 
-#: ../xl/main.py:569
+#: ../xl/main.py:573
 #, python-format
 msgid "Random %d"
 msgstr "%d выпадковых"
 
-#: ../xl/main.py:577
+#: ../xl/main.py:581
 #, python-format
 msgid "Rating > %d"
 msgstr "Рэйтынг > %d"
 
-#: ../xl/main.py:736
+#: ../xl/main.py:739
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -557,7 +557,7 @@ msgstr "Назва"
 msgid "Track"
 msgstr "Дарожка"
 
-#: ../xl/metadata/tags.py:72 ../data/ui/preferences/plugin.ui:93
+#: ../xl/metadata/tags.py:72
 msgid "Version"
 msgstr "Версія"
 
@@ -1037,33 +1037,33 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:510
+#: ../xlgui/main.py:527
 msgid "Toggle: Stop after Selected Track"
 msgstr "Перамыкач: спыніць пасля абранай дарожкі"
 
-#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr "Пры прайграванні адбылася памылка!"
 
-#: ../xlgui/main.py:618
+#: ../xlgui/main.py:635
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Буферызацыя: %d%%..."
 
-#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "Працягнуць прайграванне"
 
-#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../xlgui/main.py:679 ../xlgui/main.py:848
 #: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "Прыпыніць прайграванне"
 
-#: ../xlgui/main.py:788 ../xlgui/menu.py:112
+#: ../xlgui/main.py:805 ../xlgui/menu.py:112
 msgid "Playlist export failed!"
 msgstr "Не атрымалася экспартаваць спіс прайгравання!"
 
-#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../xlgui/main.py:857 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "Пачаць прайграванне"
@@ -1287,7 +1287,7 @@ msgstr "Увядзіце новае імя для вашага спісу пра
 msgid "Rename Playlist"
 msgstr "Пераназваць спіс прайгравання"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
 #: ../xlgui/widgets/smart_playlist_editor.py:403
 msgid "The playlist name you entered is already in use."
 msgstr "Уведзенае вамі назва спісу прайгравання ўжо выкарыстоўваецца."
@@ -1425,7 +1425,7 @@ msgstr "Модулі"
 msgid "Appearance"
 msgstr "Афармленне"
 
-#: ../xlgui/preferences/appearance.py:111
+#: ../xlgui/preferences/appearance.py:115
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1458,16 +1458,16 @@ msgstr "Аглядальнік тэкстаў песень"
 msgid "Playback"
 msgstr "Прайграванне"
 
-#: ../xlgui/preferences/plugin.py:112 ../plugins/grouptagger/gt_common.py:63
+#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr "Не класіфікаваныя"
 
-#: ../xlgui/preferences/plugin.py:172
+#: ../xlgui/preferences/plugin.py:168
 msgid "Could not load plugin info!"
 msgstr "Не атрымалася загрузіць інфармацыю пра модуль!"
 
-#: ../xlgui/preferences/plugin.py:174
+#: ../xlgui/preferences/plugin.py:170
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
@@ -1475,28 +1475,28 @@ msgstr[0] "Памылка ў модулі: %s"
 msgstr[1] "Памылкі ў модулі: %s"
 msgstr[2] "Памылак ў модулі: %s"
 
-#: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
 msgid "Could not disable plugin!"
 msgstr "Не атрымалася ўключыць модуль!"
 
-#: ../xlgui/preferences/plugin.py:218 ../xlgui/preferences/plugin.py:300
+#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
 msgid "Could not enable plugin!"
 msgstr "Немагчыма актываваць дадатак!"
 
-#: ../xlgui/preferences/plugin.py:226
+#: ../xlgui/preferences/plugin.py:222
 msgid "Choose a Plugin"
 msgstr "Абраць убудову"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:231
 msgid "Plugin Archives"
 msgstr "Архівы модуляў"
 
-#: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:852
+#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
+#: ../xlgui/widgets/dialogs.py:855
 msgid "All Files"
 msgstr "Усе файлы"
 
-#: ../xlgui/preferences/plugin.py:254
+#: ../xlgui/preferences/plugin.py:250
 msgid "Plugin file installation failed!"
 msgstr "Усталёўка модуля не атрымалася!"
 
@@ -1600,7 +1600,7 @@ msgstr "Адкрыць каталог"
 msgid "Apply current value to all tracks"
 msgstr "Ужыць гэтыя значэнні да ўсіх дарожак"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Захавана %(count)s з %(total)s."
@@ -1633,90 +1633,90 @@ msgstr "Падтрымоўваемыя тыпы файлаў"
 msgid "Music Files"
 msgstr "Музычныя файлы"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:850
+#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
 msgid "Playlist Files"
 msgstr "Файлы спісаў прайгравання"
 
-#: ../xlgui/widgets/dialogs.py:767
+#: ../xlgui/widgets/dialogs.py:770
 msgid "Choose Directory to Open"
 msgstr "Абярыце тэчку для адкрыцця"
 
-#: ../xlgui/widgets/dialogs.py:839
+#: ../xlgui/widgets/dialogs.py:842
 msgid "Import Playlist"
 msgstr "Імпартаваць спіс прайгравання"
 
-#: ../xlgui/widgets/dialogs.py:940
+#: ../xlgui/widgets/dialogs.py:946
 msgid "Export Current Playlist"
 msgstr "Экспарт дзеючага спісу прайгравання"
 
-#: ../xlgui/widgets/dialogs.py:951
+#: ../xlgui/widgets/dialogs.py:957
 msgid "Use relative paths to tracks"
 msgstr "Выкарыстоўваць адносныя адрасы да файлаў"
 
-#: ../xlgui/widgets/dialogs.py:1006
+#: ../xlgui/widgets/dialogs.py:1012
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Плэйліст захаваны як <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1022
+#: ../xlgui/widgets/dialogs.py:1028
 #, python-format
 msgid "Close %s"
 msgstr "Зачыніць %s"
 
-#: ../xlgui/widgets/dialogs.py:1023
+#: ../xlgui/widgets/dialogs.py:1029
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Захаваць змены ў %s перад выйсцем?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1024
+#: ../xlgui/widgets/dialogs.py:1030
 msgid "Your changes will be lost if you don't save them"
 msgstr "Вашы змены будуць страчаны, калі вы іх не захаваеце"
 
-#: ../xlgui/widgets/dialogs.py:1026
+#: ../xlgui/widgets/dialogs.py:1032
 msgid "Close Without Saving"
 msgstr "Зачыніць без Захавання"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1400
 msgid "Yes to all"
 msgstr "Так для ўсіх"
 
-#: ../xlgui/widgets/dialogs.py:1402
+#: ../xlgui/widgets/dialogs.py:1408
 msgid "No to all"
 msgstr "Не для ўсіх"
 
-#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Адбылася памылка падчас капіявання %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1587
+#: ../xlgui/widgets/dialogs.py:1593
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Файл існуе, замяніць %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1637
+#: ../xlgui/widgets/dialogs.py:1643
 msgid "Playlist name:"
 msgstr "Імя спісу прайгравання:"
 
-#: ../xlgui/widgets/dialogs.py:1638
+#: ../xlgui/widgets/dialogs.py:1644
 msgid "Add new playlist..."
 msgstr "Дадаць новы спіс прайгравання..."
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1655
 #: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "Вы не паказалі імя для вашага спісу прайгравання"
 
-#: ../xlgui/widgets/dialogs.py:1657
+#: ../xlgui/widgets/dialogs.py:1663
 msgid "Save As"
 msgstr "Захаваць як"
 
-#: ../xlgui/widgets/dialogs.py:1718
+#: ../xlgui/widgets/dialogs.py:1724
 #, python-format
 msgid "Exporting %s"
 msgstr "Экспартаванне %s"
 
-#: ../xlgui/widgets/dialogs.py:1721
+#: ../xlgui/widgets/dialogs.py:1727
 msgid "Choose directory to export files to"
 msgstr "Абярыце тэчку, у якую будуць экспартаваны файлы"
 
@@ -2507,6 +2507,16 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+#: ../data/ui/preferences/appearance.ui:331
+msgid "Prefer dark theme"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:336
+msgid ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
+msgstr ""
+
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
@@ -2718,74 +2728,29 @@ msgstr ""
 "кампазіцыю са спісу прайгравання, дадаваць кампазіцыі ў чаргу, а не "
 "прайграваць іх"
 
-#: ../data/ui/preferences/plugin.ui:80
+#: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
 msgstr "Модуль"
 
-#: ../data/ui/preferences/plugin.ui:105
+#: ../data/ui/preferences/plugin.ui:76
+msgid "Status"
+msgstr "Стан"
+
+#: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
 msgstr "Уключаны"
 
-#: ../data/ui/preferences/plugin.ui:119
-msgid "Status"
-msgstr "Стан"
-
-#: ../data/ui/preferences/plugin.ui:138
+#: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
 msgstr "Паказваць несумяшчальныя дапаўненні"
 
-#: ../data/ui/preferences/plugin.ui:153
-msgid "Show potentially broken plugins"
-msgstr "Паказваць патэнцыйна непрацоўныя дапаўненні"
-
-#: ../data/ui/preferences/plugin.ui:171
+#: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
 msgstr "Модуль не абраны"
 
-#: ../data/ui/preferences/plugin.ui:212
-msgid "Installed Plugins"
-msgstr "Усталяваныя модулі"
-
-#: ../data/ui/preferences/plugin.ui:269 ../data/ui/preferences/plugin.ui:484
-msgid "Version:"
-msgstr "Версія:"
-
-#: ../data/ui/preferences/plugin.ui:282 ../data/ui/preferences/plugin.ui:497
-msgid "Authors:"
-msgstr "Аўтары:"
-
-#: ../data/ui/preferences/plugin.ui:326 ../data/ui/preferences/plugin.ui:541
-#: ../data/ui/trackproperties_dialog_cover_row.ui:139
-msgid "Description:"
-msgstr "Апісанне:"
-
-#: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
-msgid "I_nstall Plugin"
-msgstr "Усталяваныя модулі"
-
-#: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Ніводны модуль не абраны</b>"
-
-#: ../data/ui/preferences/plugin.ui:426
-msgid "Available Plugins"
-msgstr "Даступныя модулі"
-
-#: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
-msgid "_Update Plugin"
-msgstr "Модуль"
-
-#: ../data/ui/preferences/plugin.ui:641
-msgid "Updates"
-msgstr "Абнаўленні"
-
-#: ../data/ui/preferences/plugin.ui:662
+#: ../data/ui/preferences/plugin.ui:177
 #, fuzzy
 #| msgid "Install Plugin File"
 msgid "Add _Plugin File"
@@ -2920,6 +2885,10 @@ msgstr "Лагатып студыі ці выдаўца"
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
 msgstr "Пстрыкніце ці перацягніце файлы сюды, каб змяніць вокладку"
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui:139
+msgid "Description:"
+msgstr "Апісанне:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -5204,6 +5173,37 @@ msgstr ""
 "клавіятур) пры запуску Exaile ў Microsoft Windows.↵\n"
 "↵\n"
 "Патрабуецца: pyHook (%s) (ці %s для іншых версій)"
+
+#~ msgid "Show potentially broken plugins"
+#~ msgstr "Паказваць патэнцыйна непрацоўныя дапаўненні"
+
+#~ msgid "Installed Plugins"
+#~ msgstr "Усталяваныя модулі"
+
+#~ msgid "Version:"
+#~ msgstr "Версія:"
+
+#~ msgid "Authors:"
+#~ msgstr "Аўтары:"
+
+#, fuzzy
+#~| msgid "Installed Plugins"
+#~ msgid "I_nstall Plugin"
+#~ msgstr "Усталяваныя модулі"
+
+#~ msgid "<b>No Plugin Selected</b>"
+#~ msgstr "<b>Ніводны модуль не абраны</b>"
+
+#~ msgid "Available Plugins"
+#~ msgstr "Даступныя модулі"
+
+#, fuzzy
+#~| msgid "Plugin"
+#~ msgid "_Update Plugin"
+#~ msgstr "Модуль"
+
+#~ msgid "Updates"
+#~ msgstr "Абнаўленні"
 
 #~ msgid "Hotkeys"
 #~ msgstr "Спалучэнні клавіш"

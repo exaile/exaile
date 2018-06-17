@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 22:55+1000\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
 "PO-Revision-Date: 2017-07-13 23:17+0000\n"
 "Last-Translator: YFdyh000 <yfdyh000@gmail.com>\n"
 "Language-Team: Chinese <https://hosted.weblate.org/projects/exaile/master/zh/"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Generator: Weblate 2.16-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
-#: ../xl/covers.py:485 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr ""
 
-#: ../xl/covers.py:525
+#: ../xl/covers.py:564
 msgid "Local file"
 msgstr ""
 
@@ -396,21 +396,21 @@ msgstr "禁用 D-Bus 支持"
 msgid "Disable HAL support."
 msgstr "禁用 HAL 支持"
 
-#: ../xl/main.py:563
+#: ../xl/main.py:567
 msgid "Entire Library"
 msgstr "整个音乐库"
 
-#: ../xl/main.py:569
+#: ../xl/main.py:573
 #, python-format
 msgid "Random %d"
 msgstr "随机 %d"
 
-#: ../xl/main.py:577
+#: ../xl/main.py:581
 #, python-format
 msgid "Rating > %d"
 msgstr "评级 > %d"
 
-#: ../xl/main.py:736
+#: ../xl/main.py:739
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -542,7 +542,7 @@ msgstr "标题"
 msgid "Track"
 msgstr "下一音轨"
 
-#: ../xl/metadata/tags.py:72 ../data/ui/preferences/plugin.ui:93
+#: ../xl/metadata/tags.py:72
 #, fuzzy
 msgid "Version"
 msgstr "版本："
@@ -1014,35 +1014,35 @@ msgstr ""
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:510
+#: ../xlgui/main.py:527
 #, fuzzy
 msgid "Toggle: Stop after Selected Track"
 msgstr "锁定：选中音乐后停止"
 
-#: ../xlgui/main.py:611 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
 msgid "Playback error encountered!"
 msgstr ""
 
-#: ../xlgui/main.py:618
+#: ../xlgui/main.py:635
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "正在缓冲：%d%%..."
 
-#: ../xlgui/main.py:659 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
 msgid "Continue Playback"
 msgstr "继续回放"
 
-#: ../xlgui/main.py:662 ../xlgui/main.py:831
+#: ../xlgui/main.py:679 ../xlgui/main.py:848
 #: ../plugins/previewdevice/__init__.py:371
 msgid "Pause Playback"
 msgstr "暂停回放"
 
-#: ../xlgui/main.py:788 ../xlgui/menu.py:112
+#: ../xlgui/main.py:805 ../xlgui/menu.py:112
 #, fuzzy
 msgid "Playlist export failed!"
 msgstr "播放列表文件"
 
-#: ../xlgui/main.py:840 ../data/ui/main.ui:174
+#: ../xlgui/main.py:857 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:352
 msgid "Start Playback"
 msgstr "开始回放"
@@ -1264,7 +1264,7 @@ msgstr "输入播放列表的新名称"
 msgid "Rename Playlist"
 msgstr "重命名播放列表"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1652
+#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
 #: ../xlgui/widgets/smart_playlist_editor.py:403
 #, fuzzy
 msgid "The playlist name you entered is already in use."
@@ -1395,7 +1395,7 @@ msgstr "插件"
 msgid "Appearance"
 msgstr ""
 
-#: ../xlgui/preferences/appearance.py:111
+#: ../xlgui/preferences/appearance.py:115
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1428,48 +1428,48 @@ msgstr ""
 msgid "Playback"
 msgstr "停止回放"
 
-#: ../xlgui/preferences/plugin.py:112 ../plugins/grouptagger/gt_common.py:63
+#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:172
+#: ../xlgui/preferences/plugin.py:168
 #, fuzzy
 msgid "Could not load plugin info!"
 msgstr "无法启用插件。"
 
-#: ../xlgui/preferences/plugin.py:174
+#: ../xlgui/preferences/plugin.py:170
 #, fuzzy, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "已加载 %s 插件"
 msgstr[1] "已加载 %s 插件"
 
-#: ../xlgui/preferences/plugin.py:208 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
 #, fuzzy
 msgid "Could not disable plugin!"
 msgstr "无法禁用插件。"
 
-#: ../xlgui/preferences/plugin.py:218 ../xlgui/preferences/plugin.py:300
+#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
 #, fuzzy
 msgid "Could not enable plugin!"
 msgstr "无法启用插件。"
 
-#: ../xlgui/preferences/plugin.py:226
+#: ../xlgui/preferences/plugin.py:222
 #, fuzzy
 msgid "Choose a Plugin"
 msgstr "选择插件"
 
-#: ../xlgui/preferences/plugin.py:235
+#: ../xlgui/preferences/plugin.py:231
 msgid "Plugin Archives"
 msgstr "插件包"
 
-#: ../xlgui/preferences/plugin.py:242 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:852
+#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
+#: ../xlgui/widgets/dialogs.py:855
 msgid "All Files"
 msgstr "所有文件"
 
-#: ../xlgui/preferences/plugin.py:254
+#: ../xlgui/preferences/plugin.py:250
 msgid "Plugin file installation failed!"
 msgstr ""
 
@@ -1579,7 +1579,7 @@ msgstr "返回上级目录"
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1449
+#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
@@ -1614,96 +1614,96 @@ msgstr "支持的文件"
 msgid "Music Files"
 msgstr "音乐文件"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:850
+#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
 msgid "Playlist Files"
 msgstr "播放列表文件"
 
-#: ../xlgui/widgets/dialogs.py:767
+#: ../xlgui/widgets/dialogs.py:770
 #, fuzzy
 msgid "Choose Directory to Open"
 msgstr "选择一个要打开的文件"
 
-#: ../xlgui/widgets/dialogs.py:839
+#: ../xlgui/widgets/dialogs.py:842
 #, fuzzy
 msgid "Import Playlist"
 msgstr "智能播放列表"
 
-#: ../xlgui/widgets/dialogs.py:940
+#: ../xlgui/widgets/dialogs.py:946
 #, fuzzy
 msgid "Export Current Playlist"
 msgstr "导出当前播放列表(_E)"
 
-#: ../xlgui/widgets/dialogs.py:951
+#: ../xlgui/widgets/dialogs.py:957
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1006
+#: ../xlgui/widgets/dialogs.py:1012
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1022
+#: ../xlgui/widgets/dialogs.py:1028
 #, fuzzy, python-format
 msgid "Close %s"
 msgstr "关闭(_C)"
 
-#: ../xlgui/widgets/dialogs.py:1023
+#: ../xlgui/widgets/dialogs.py:1029
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>关闭前保存更改到 %s？</b>"
 
-#: ../xlgui/widgets/dialogs.py:1024
+#: ../xlgui/widgets/dialogs.py:1030
 msgid "Your changes will be lost if you don't save them"
 msgstr "如果不保存，您的更改将丢失。"
 
-#: ../xlgui/widgets/dialogs.py:1026
+#: ../xlgui/widgets/dialogs.py:1032
 msgid "Close Without Saving"
 msgstr "不保存关闭"
 
-#: ../xlgui/widgets/dialogs.py:1394
+#: ../xlgui/widgets/dialogs.py:1400
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1402
+#: ../xlgui/widgets/dialogs.py:1408
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1565 ../xlgui/widgets/dialogs.py:1579
+#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1587
+#: ../xlgui/widgets/dialogs.py:1593
 #, fuzzy, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "文件不存在：%s"
 
-#: ../xlgui/widgets/dialogs.py:1637
+#: ../xlgui/widgets/dialogs.py:1643
 #, fuzzy
 msgid "Playlist name:"
 msgstr "播放列表"
 
-#: ../xlgui/widgets/dialogs.py:1638
+#: ../xlgui/widgets/dialogs.py:1644
 #, fuzzy
 msgid "Add new playlist..."
 msgstr "添加智能播放列表"
 
-#: ../xlgui/widgets/dialogs.py:1649
+#: ../xlgui/widgets/dialogs.py:1655
 #: ../xlgui/widgets/smart_playlist_editor.py:396
 msgid "You did not enter a name for your playlist"
 msgstr "您未给播放列表输入名称"
 
-#: ../xlgui/widgets/dialogs.py:1657
+#: ../xlgui/widgets/dialogs.py:1663
 #, fuzzy
 msgid "Save As"
 msgstr "保存"
 
-#: ../xlgui/widgets/dialogs.py:1718
+#: ../xlgui/widgets/dialogs.py:1724
 #, fuzzy, python-format
 msgid "Exporting %s"
 msgstr "导出"
 
-#: ../xlgui/widgets/dialogs.py:1721
+#: ../xlgui/widgets/dialogs.py:1727
 msgid "Choose directory to export files to"
 msgstr ""
 
@@ -2477,6 +2477,16 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+#: ../data/ui/preferences/appearance.ui:331
+msgid "Prefer dark theme"
+msgstr ""
+
+#: ../data/ui/preferences/appearance.ui:336
+msgid ""
+"If not checked, will not specify a preference to GTK. May not work on some "
+"platforms."
+msgstr ""
+
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
@@ -2666,76 +2676,31 @@ msgid ""
 "the track instead of playing it"
 msgstr ""
 
-#: ../data/ui/preferences/plugin.ui:80
+#: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
 msgstr "插件"
 
-#: ../data/ui/preferences/plugin.ui:105
+#: ../data/ui/preferences/plugin.ui:76
+msgid "Status"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
 #: ../plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
 msgstr "已启用"
 
-#: ../data/ui/preferences/plugin.ui:119
-msgid "Status"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:138
+#: ../data/ui/preferences/plugin.ui:110
 #, fuzzy
 msgid "Show incompatible plugins"
 msgstr "无法禁用插件。"
 
-#: ../data/ui/preferences/plugin.ui:153
-msgid "Show potentially broken plugins"
-msgstr ""
-
-#: ../data/ui/preferences/plugin.ui:171
+#: ../data/ui/preferences/plugin.ui:128
 #, fuzzy
 msgid "No Plugin Selected"
 msgstr "<b>没有选定插件</b>"
 
-#: ../data/ui/preferences/plugin.ui:212
-msgid "Installed Plugins"
-msgstr "已安装插件"
-
-#: ../data/ui/preferences/plugin.ui:269 ../data/ui/preferences/plugin.ui:484
-msgid "Version:"
-msgstr "版本："
-
-#: ../data/ui/preferences/plugin.ui:282 ../data/ui/preferences/plugin.ui:497
-msgid "Authors:"
-msgstr "作者："
-
-#: ../data/ui/preferences/plugin.ui:326 ../data/ui/preferences/plugin.ui:541
-#: ../data/ui/trackproperties_dialog_cover_row.ui:139
-msgid "Description:"
-msgstr "描述："
-
-#: ../data/ui/preferences/plugin.ui:378
-#, fuzzy
-#| msgid "Installed Plugins"
-msgid "I_nstall Plugin"
-msgstr "已安装插件"
-
-#: ../data/ui/preferences/plugin.ui:406 ../data/ui/preferences/plugin.ui:621
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>没有选定插件</b>"
-
-#: ../data/ui/preferences/plugin.ui:426
-msgid "Available Plugins"
-msgstr "可用插件"
-
-#: ../data/ui/preferences/plugin.ui:592
-#, fuzzy
-#| msgid "Plugin"
-msgid "_Update Plugin"
-msgstr "插件"
-
-#: ../data/ui/preferences/plugin.ui:641
-msgid "Updates"
-msgstr "更新"
-
-#: ../data/ui/preferences/plugin.ui:662
+#: ../data/ui/preferences/plugin.ui:177
 #, fuzzy
 msgid "Add _Plugin File"
 msgstr "已安装插件"
@@ -2870,6 +2835,10 @@ msgstr ""
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
 msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui:139
+msgid "Description:"
+msgstr "描述："
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -5070,6 +5039,34 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#~ msgid "Installed Plugins"
+#~ msgstr "已安装插件"
+
+#~ msgid "Version:"
+#~ msgstr "版本："
+
+#~ msgid "Authors:"
+#~ msgstr "作者："
+
+#, fuzzy
+#~| msgid "Installed Plugins"
+#~ msgid "I_nstall Plugin"
+#~ msgstr "已安装插件"
+
+#~ msgid "<b>No Plugin Selected</b>"
+#~ msgstr "<b>没有选定插件</b>"
+
+#~ msgid "Available Plugins"
+#~ msgstr "可用插件"
+
+#, fuzzy
+#~| msgid "Plugin"
+#~ msgid "_Update Plugin"
+#~ msgstr "插件"
+
+#~ msgid "Updates"
+#~ msgstr "更新"
 
 #~ msgid "Failed to migrate from 0.2.14"
 #~ msgstr "从 0.2.14 迁移失败"

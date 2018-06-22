@@ -14,9 +14,11 @@ block_cipher = None
 
 hiddenimports = collect_submodules('xl') + \
                 collect_submodules('xlgui') + \
+                collect_submodules('keyboard') + \
+                collect_submodules('feedparser') + \
+                collect_submodules('musicbrainzngs') + \
                 collect_submodules('mutagen') + \
-                collect_submodules('pylast') + \
-                collect_submodules('keyboard')
+                collect_submodules('pylast')
 
 datas =[
   ('_inst/usr/share/exaile/data', ''),

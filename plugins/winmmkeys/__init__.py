@@ -79,7 +79,8 @@ class HotkeyHandler_Keyboard:
         import keyboard
         from xl.player import PLAYER, QUEUE
         self.handlers = [
-            keyboard.add_hotkey('select media', exaile.gui.main.window.present),
+            # use lambda here because gi function isn't hashable
+            keyboard.add_hotkey('select media', lambda: exaile.gui.main.window.present()),
             keyboard.add_hotkey('stop media', PLAYER.stop),
             keyboard.add_hotkey('play/pause media', PLAYER.toggle_pause),
             keyboard.add_hotkey('next track', QUEUE.next),

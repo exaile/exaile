@@ -29,9 +29,12 @@ See ``--help`` for more details, but there are a few useful options:
 Where can I find log files?
 ---------------------------
 
+On Exaile 4, you can click the 'Open error logs' button in the 'Help' menu and
+it will open the directory where logs are stored.
+
 On Linux/OSX:
 
-* ``~/.local/share/exaile/logs/`` for Exaile 3.x releases
+* ``~/.local/share/exaile/logs/`` for Exaile 3.x+ releases
 
 On Windows:
 

@@ -26,10 +26,11 @@
 
 from gi.repository import Gtk
 
+import os.path
 import webbrowser
 
 from xl.nls import gettext as _
-from xl import settings, providers
+from xl import common, settings, providers, xdg
 
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
@@ -253,6 +254,9 @@ def __create_help_menu():
     items = []
     accelerators = []
 
+    def show_logs_directory(*args):
+        common.open_file_directory(os.path.join(xdg.get_logs_dir(), 'exaile.log'))
+
     def show_report_issue(*args):
         webbrowser.open('https://github.com/exaile/exaile/issues')
 
@@ -275,6 +279,8 @@ def __create_help_menu():
     items.append(_sep('about-sep1', [items[-1].name]))
     items.append(_smi('report', [items[-1].name], _("Report an issue (GitHub)"), None,
                       show_report_issue))
+    items.append(_smi('logs', [items[-1].name], _("Open error logs"), None,
+                      show_logs_directory))
     items.append(_sep('about-sep2', [items[-1].name]))
     items.append(_smi('about', [items[-1].name], _("_About"), 'help-about',
                       show_about_dialog))

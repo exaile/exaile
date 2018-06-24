@@ -61,10 +61,22 @@ SINK_PRESETS = {
         "name": "JACK",
         "pipe": "jackaudiosink"
     },
+    "directsoundsink": {
+        'name': "DirectSound",
+        'pipe': 'directsoundsink'
+    },
     "custom": {
         "name": _("Custom")
     }
 }
+
+def __filter_presets():
+    for preset in list(SINK_PRESETS.keys()):
+        pipe = SINK_PRESETS[preset].get('pipe')
+        if pipe and not Gst.ElementFactory.make(pipe):
+            SINK_PRESETS.pop(preset)
+
+__filter_presets()
 
 
 # Every audiosink is a bit different...

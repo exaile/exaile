@@ -108,6 +108,13 @@ def _gst_device_autodetect():
             if not device_id:
                 continue
             
+            display_name = device.get_display_name()
+            if hasattr(device.props, 'properties'):
+                api = device.props.properties.get_string('device.api')
+                if api:
+                    display_name = '%s [%s]' % (display_name, api)
+
+            yield (display_name,
                    device_id,
                    device.create_element)
     finally:

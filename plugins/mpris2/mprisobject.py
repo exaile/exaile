@@ -7,7 +7,7 @@
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# but WITHOUT ANY WARRANTY',' without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -81,7 +81,7 @@ class MprisObject(object):
             for obj, sig, handler in conns)
 
     def teardown(self):
-        """Quick destroy; just clean up our mess"""
+        """Quick destroy',' just clean up our mess"""
         f = self.cover_file
         if f:
             f.close()
@@ -137,7 +137,7 @@ class MprisObject(object):
             meta['xesam:artist'] = Variant('as', v)
         v = track.get_tag_raw('genre')
         if v:
-            # TODO: I've seen a client expect 'radio' on streams;
+            # TODO: I've seen a client expect 'radio' on streams','
             # is that common usage?
             meta['xesam:genre'] = Variant('as', v)
         try:
@@ -217,14 +217,14 @@ class MprisObject(object):
     @property
     def SupportedMimeTypes(self):
         # Taken from exaile.desktop
-        mimetypes = 'audio/musepack;application/musepack;application/x-ape;' \
-            'audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;' \
-            'audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;' \
-            'audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;' \
-            'audio/x-mpc;audio/mp;audio/x-mp;application/ogg;' \
-            'application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;' \
-            'audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'
-        return Variant('as', mimetypes.split(';'))
+        mimetypes = ['audio/musepack','application/musepack','application/x-ape',
+            'audio/ape','audio/x-ape','audio/x-musepack','application/x-musepack',
+            'audio/x-mp3','application/x-id3','audio/mpeg','audio/x-mpeg',
+            'audio/x-mpeg-3','audio/mpeg3','audio/mp3','audio/x-m4a','audio/mpc',
+            'audio/x-mpc','audio/mp','audio/x-mp','application/ogg',
+            'application/x-ogg','audio/vorbis','audio/x-vorbis','audio/ogg',
+            'audio/x-ogg','audio/x-flac','application/x-flac','audio/flac']
+        return Variant('as', mimetypes)
 
     @property
     def SupportedUriSchemes(self):

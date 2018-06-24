@@ -532,8 +532,8 @@ class SelectionListPreference(Preference):
 
         __gtype_name__ = 'InternalWidget'
 
-        model, tree, toggle_renderer, text_renderer, enabled_column, \
-            title_column, = GtkTemplate.Child.widgets(6)
+        (model, tree, toggle_renderer, text_renderer, enabled_column, \
+            title_column,) = GtkTemplate.Child.widgets(6)
         selectionlp = None
 
         def __init__(self, preference):

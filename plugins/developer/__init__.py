@@ -118,10 +118,10 @@ class DeveloperWindow(Gtk.Window):
 
     __gtype_name__ = 'DeveloperWindow'
 
-    event_filter_entry, \
+    (event_filter_entry, \
         event_model_filter, \
         event_tree, \
-        event_store = GtkTemplate.Child.widgets(4)
+        event_store) = GtkTemplate.Child.widgets(4)
 
     def __init__(self, parent, plugin):
         Gtk.Window.__init__(self)

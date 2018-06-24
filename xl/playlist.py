@@ -1915,6 +1915,7 @@ class SmartPlaylist(object):
                 point = datetime.now() - delta
                 value = time.mktime(point.timetuple())
 
+            # fmt: off
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
                     '| %(field)s==%(value)s )' % \
@@ -1967,6 +1968,8 @@ class SmartPlaylist(object):
                         'value': value,
                         'op': op
                     }
+
+            # fmt: on
 
             params.append(s)
 

@@ -223,7 +223,7 @@ def __create_playlist_tab_context_menu():
 
     items.append(smi('save', ['new-tab-sep'], _("_Save"), 'document-save',
                      callback=lambda w, n, p, c: p.on_save(),
-                     condition_fn=lambda n, p, c: p.can_save() and main.exaile().playlists.has_playlist_name(p.playlist.name)))
+                     condition_fn=lambda n, p, c: (p.can_save() and main.exaile().playlists.has_playlist_name(p.playlist.name))))
     items.append(smi('saveas', ['save'], _("Save _As"), 'document-save-as',
                      callback=lambda w, n, p, c: p.on_saveas(),
                      condition_fn=lambda n, p, c: p.can_saveas()))

@@ -28,13 +28,13 @@ class GtImporter(Gtk.Window):
 
     __gtype_name__ = 'GtImporter'
 
-    content_area,       \
+    (content_area,       \
         ok_button,          \
         tags_model,         \
         tags_view,          \
         tags_vbox,          \
         radio_merge,        \
-        radio_replace = GtkTemplate.Child.widgets(7)
+        radio_replace) = GtkTemplate.Child.widgets(7)
 
     def __init__(self, exaile, uris):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)

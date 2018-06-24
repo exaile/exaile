@@ -944,8 +944,8 @@ class TagImageField(Gtk.Box):
 
     __gtype_name__ = 'TagImageField'
 
-    button, image, type_model, description_entry, type_selection, \
-        info_label = GtkTemplate.Child.widgets(6)
+    (button, image, type_model, description_entry, type_selection, \
+        info_label) = GtkTemplate.Child.widgets(6)
 
     def __init__(self, all_button=True):
         Gtk.Box.__init__(self)

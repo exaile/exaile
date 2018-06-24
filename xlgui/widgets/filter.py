@@ -51,8 +51,8 @@ class FilterDialog(Gtk.Dialog):
 
     __gtype_name__ = 'FilterDialog'
 
-    name_entry, filter, \
-        match_any, random, lim_check, lim_spin \
+    (name_entry, filter, \
+        match_any, random, lim_check, lim_spin) \
         = GtkTemplate.Child.widgets(6)
 
     def __init__(self, title, parent, criteria):

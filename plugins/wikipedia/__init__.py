@@ -39,7 +39,7 @@ from gi.repository import WebKit2
 
 log = logging.getLogger(__name__)
 
-
+# fmt: off
 LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
              "ae", "ay", "az", "bm", "ba", "eu", "be", "bn", "bh", "bi", "bs", "br", "bg",
              "my", "ca", "ch", "ce", "ny", "cv", "kw", "co", "cr", "hr", "cs", "da", "dv",
@@ -54,7 +54,7 @@ LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
              "sw", "ss", "sv", "ta", "te", "th", "ti", "bo", "tk", "tl", "tn", "to", "tr",
              "ts", "tw", "ty", "uk", "ur", "ve", "vi", "vk", "vo", "wa", "cy", "wo", "fy",
              "xh", "yi", "yo", "za", "zu"]
-
+# fmt: on
 
 class WikipediaPlugin(object):
 

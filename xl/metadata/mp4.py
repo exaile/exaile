@@ -32,6 +32,7 @@ from mutagen import mp4
 class MP4Format(BaseFormat):
     MutagenType = mp4.MP4
     tag_mapping = {
+        # fmt: off
         'title':       '\xa9nam',
         'artist':      '\xa9ART',
         'albumartist': '\x61ART',
@@ -49,7 +50,8 @@ class MP4Format(BaseFormat):
         'comment':     '\xa9cmt',
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
-        'language': '----:com.apple.iTunes:LANGUAGE',
+        'language':    '----:com.apple.iTunes:LANGUAGE',
+        # fmt: on
     }
     others = False
     writable = True

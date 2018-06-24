@@ -33,6 +33,7 @@ class AsfFormat(BaseFormat):
     MutagenType = asf.ASF
     # TODO: figure out the the WM/ prefix is universal
     tag_mapping = {
+        # fmt: off
         "artist"        : "Author",
         "album"         : "WM/AlbumTitle",
         "title"         : "Title",
@@ -41,6 +42,7 @@ class AsfFormat(BaseFormat):
         "date"          : "WM/Year",
         "albumartist"   : "WM/AlbumArtist",
         "grouping"      : "WM/ContentGroupDescription"
+        # fmt: on
     }
     others = False
     writable = True

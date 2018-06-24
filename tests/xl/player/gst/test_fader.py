@@ -68,6 +68,7 @@ TmEx = 2
 # Test data:
 #   Position, Volume, State, TmSt/TmEx/None, [call, [arg1...]]
 
+# fmt: off
 @pytest.mark.parametrize('test', [
 
     # Test don't manage the volume
@@ -140,6 +141,7 @@ TmEx = 2
     #     (61, 50,  FadingIn,  TmEx, 'execute'),
     # ],
 ])
+# fmt: on
 def test_fader(test):
 
     # Test fade_out_on_play
@@ -200,6 +202,8 @@ def test_calculate_fades():
     # fin, fout, start_off, stop_off, tracklen;
     # start, start+fade, end-fade, end
     calcs = [
+        # fmt: off
+        
         # one is zero/none
         (0, 4, 0, 0, 10,        0, 0, 6, 10),
         (None, 4, 0, 0, 10,     0, 0, 6, 10),
@@ -233,6 +237,8 @@ def test_calculate_fades():
         (4, 4, 4, 8, 10,        4, 6, 6, 8),
         (2, 4, 4, 7, 10,        4, 5, 5, 7),
         (4, 2, 4, 7, 10,        4, 6, 6, 7),
+        
+        # fmt: on
     ]
 
     i = 0

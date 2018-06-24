@@ -1385,10 +1385,10 @@ class VolumeControl(Gtk.Box):
 
     __gtype_name__ = 'VolumeControl'
 
-    button,             \
+    (button,             \
         slider,             \
         button_image,       \
-        slider_adjustment = GtkTemplate.Child.widgets(4)
+        slider_adjustment) = GtkTemplate.Child.widgets(4)
 
     def __init__(self, player):
         Gtk.Box.__init__(self)

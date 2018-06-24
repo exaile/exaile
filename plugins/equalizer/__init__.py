@@ -46,10 +46,10 @@ def isclose(float_a, float_b, rel_tol=1e-09, abs_tol=0.0):
     return abs(float_a - float_b) <= \
         max(rel_tol * max(abs(float_a), abs(float_b)), abs_tol)
 
-
 # Values from <http://www.xmms.org/faq.php#General3>, adjusted to be less loud
 # in general ((mean + max) / 2 = 0).
 DEFAULT_PRESETS = [
+    # fmt: off
     ('Custom', 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
     ('Default', 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
     ('Classical', 0, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, -5.6, -5.6, -5.6, -8.0),
@@ -69,6 +69,7 @@ DEFAULT_PRESETS = [
     ('Soft', 0, -3.6, -6.8, -8.4, -10.8, -8.4, -4.4, -0.4, 1.2, 2.8, 3.6),
     ('Soft Rock', 0, -0.8, -0.8, -2.4, -4.8, -8.8, -10.4, -8.0, -4.8, -2.4, 4.0),
     ('Techno', 0, 1.2, -1.2, -6.8, -12.4, -11.6, -6.8, 1.2, 2.8, 2.8, 2.0),
+    # fmt: on
 ]
 
 
@@ -142,8 +143,8 @@ class EqualizerWindow(Gtk.Window):
 
     PRESETS_PATH = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
 
-    band0, band1, band2, band3, band4, band5, band6, band7, band8, band9, \
-        chk_enabled, combo_presets, presets, pre \
+    (band0, band1, band2, band3, band4, band5, band6, band7, band8, band9, \
+        chk_enabled, combo_presets, presets, pre) \
         = GtkTemplate.Child.widgets(14)
 
     def __init__(self):

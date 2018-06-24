@@ -47,6 +47,7 @@ logger = logging.getLogger(__name__)
 """
 
 FORMATS = {
+    # fmt: off
     "Ogg Vorbis" : {
         "default"   : 0.5,
         "raw_steps" : [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
@@ -112,6 +113,7 @@ FORMATS = {
         "desc"      : _("A very fast Free lossless audio format with "
                         "good compression."),
     },
+    # fmt: on
 }
 
 # NOTE: the transcoder is NOT designed to transfer tags. You will need to

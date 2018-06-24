@@ -118,6 +118,7 @@ class SpinNothing(SpinLabelField):
 # _NMAP, and will be really translated by filtergui; no need to clutter the
 # code here.
 _criteria_types = {
+    # fmt: off
 
     # TODO
     'bitrate': [
@@ -189,6 +190,8 @@ _criteria_types = {
         ('at least', SpinRating),
         ('at most', SpinRating),
     ],
+    
+    # fmt: on
 }
 
 # aliases

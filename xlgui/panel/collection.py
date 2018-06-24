@@ -128,6 +128,7 @@ class Order(object):
         return self.__formatters[level].format(track)
 
 DEFAULT_ORDERS = [
+    # fmt: off
     Order(_("Artist"),
           ("artist", "album",
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
@@ -150,6 +151,7 @@ DEFAULT_ORDERS = [
           ('artist',
            (('date', 'album'), "$date - $album", ('date', 'album')),
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    # fmt: on
 ]
 
 

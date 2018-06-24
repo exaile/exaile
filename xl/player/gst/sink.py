@@ -42,6 +42,7 @@ __all__ = ['SINK_PRESETS', 'create_device', 'get_devices']
 
 
 SINK_PRESETS = {
+    # fmt: off
     "auto": {
         "name": _("Automatic")
     },
@@ -73,6 +74,7 @@ SINK_PRESETS = {
     "custom": {
         "name": _("Custom")
     }
+    # fmt: on
 }
 
 def __filter_presets():

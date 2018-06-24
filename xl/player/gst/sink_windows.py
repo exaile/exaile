@@ -25,11 +25,6 @@
 # from your version.
 
 
-'''
-    The default GST DirectSound plugin does not support Gst DeviceMonitor.
-    For plugins like the Preview Device, this is critical.
-'''
-
 import logging
 
 import ctypes.wintypes as cwin
@@ -38,74 +33,6 @@ import ctypes
 from gi.repository import Gst
 
 logger = logging.getLogger(__name__)
-
-
-class _SinkSettings:
-    sink = 'directsoundsink'
-    can_set_device = False
-
-    def __init__(self):
-        sink = Gst.ElementFactory.make(self.sink)
-        if hasattr(sink.props, 'device'):
-            self.can_set_device = True
-
-_sink_settings = _SinkSettings()
-
-if _sink_settings.can_set_device:
-    _dsound_dll = ctypes.windll.LoadLibrary("dsound.dll")
-    _DirectSoundEnumerateW = _dsound_dll.DirectSoundEnumerateW
-
-    _LPDSENUMCALLBACK = ctypes.WINFUNCTYPE(cwin.BOOL,
-                                           cwin.LPVOID,
-                                           cwin.LPCWSTR,
-                                           cwin.LPCWSTR,
-                                           cwin.LPCVOID)
-
-    _ole32_dll = ctypes.oledll.ole32
-    _StringFromGUID2 = _ole32_dll.StringFromGUID2
-
-    def get_create_fn(device_id):
-        def _create_fn(name):
-            e = Gst.ElementFactory.make(_sink_settings.sink, name)
-            e.props.device = device_id
-            return e
-
-        return _create_fn
-
-    def get_devices():
-
-        devices = []
-
-        def cb_enum(lpGUID, lpszDesc, lpszDrvName, _unused):
-            dev = ""
-            if lpGUID is not None:
-                buf = ctypes.create_unicode_buffer(200)
-                if _StringFromGUID2(lpGUID, ctypes.byref(buf), 200):
-                    dev = buf.value
-
-            devices.append((lpszDesc, dev))
-            return True
-
-        _DirectSoundEnumerateW(_LPDSENUMCALLBACK(cb_enum), None)
-
-        for name, devid in devices:
-            yield (name, devid, get_create_fn(devid))
-
-else:
-    def get_devices():
-        return []
-
-
-def load_directsoundsink(presets):
-
-    preset = {
-        "name": "DirectSound",
-        "pipe": "directsoundsink"
-    }
-
-    presets['directsoundsink'] = preset
-
-    return get_devices
 
 
 def get_priority_booster():

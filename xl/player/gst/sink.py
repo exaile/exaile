@@ -67,28 +67,39 @@ SINK_PRESETS = {
 }
 
 
+# Every audiosink is a bit different...
+_autodetect_propnames = [
+    'internal_name',    # pulseaudio
+    'device_id',        # OSX
+    'device_guid',      # directsound
+    'device'            # wasapi
+]
+
 def _gst_device_autodetect():
+    # Linux: support was added in gstreamer 1.4
+    # OSX: support was added in gstreamer 1.10
+    # Windows: support was added in gstreamer 1.14
+    
     dm = Gst.DeviceMonitor.new()
     dm.add_filter('Audio/Sink', Gst.Caps.new_empty_simple('audio/x-raw'))
     dm.start()
 
     try:
         for device in dm.get_devices():
-            if hasattr(device.props, 'internal_name'):
-                device_id = device.props.internal_name
-            elif hasattr(device.props, 'device_id'):  # OSX
-                device_id = str(device.props.device_id)
-
-            yield (device.get_display_name(),
+            for prop in _autodetect_propnames:
+                if hasattr(device.props, prop):
+                    device_id = getattr(device.props, prop)
+                    break
+            else:
+                continue
+            
+            if not device_id:
+                continue
+            
                    device_id,
                    device.create_element)
     finally:
         dm.stop()
-
-_autodetect_devices = [
-    _gst_device_autodetect
-]
-
 
 def get_devices():
     '''
@@ -98,9 +109,8 @@ def get_devices():
 
     yield (_('Automatic'), 'auto', lambda name: Gst.ElementFactory.make('autoaudiosink', name))
 
-    for fn in _autodetect_devices:
-        for info in fn():
-            yield info
+    for info in _gst_device_autodetect():
+        yield info
 
 
 def create_device(player_name, return_errorsink=True):
@@ -201,19 +211,9 @@ class CustomAudioSink(Gst.Bin):
                                  elems[0].get_static_pad("sink"))
         self.add_pad(ghost)
 
-#
-# Custom per-platform sink stuff where GStreamer doesn't currently support
-# autodetection of output devices
-#
-
-# OSX: support was added in gstreamer 1.10
-
 
 if sys.platform == 'win32':
     import sink_windows
-    dev_fn = sink_windows.load_directsoundsink(SINK_PRESETS)
-    _autodetect_devices.append(dev_fn)
-
     priority_boost = sink_windows.get_priority_booster()
 
 else:

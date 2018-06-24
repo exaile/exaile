@@ -65,6 +65,10 @@ SINK_PRESETS = {
         'name': "DirectSound",
         'pipe': 'directsoundsink'
     },
+    "wasapi": {
+        'name': "WASAPI",
+        'pipe': 'wasapisink'
+    },
     "custom": {
         "name": _("Custom")
     }

@@ -194,6 +194,7 @@ def parse_stream_tags(track, tag_list):
     keep = ['bitrate',
             'duration',
             'track-number',
+            'track-count',
             'album',
             'artist',
             'genre',
@@ -229,7 +230,11 @@ def parse_stream_tags(track, tag_list):
 
     v = tags.get('track-number')
     if v:
-        etags['tracknumber'] = v
+        c = tags.get('track-count')
+        if c:
+            etags['tracknumber'] = u'%d/%d' % (v[0], c[0])
+        else:
+            etags['tracknumber'] = u'%d' % (v[0])
 
     v = tags.get('album')
     if v:

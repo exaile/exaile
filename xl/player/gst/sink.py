@@ -65,10 +65,11 @@ SINK_PRESETS = {
         'name': "DirectSound",
         'pipe': 'directsoundsink'
     },
-    "wasapi": {
-        'name': "WASAPI",
-        'pipe': 'wasapisink'
-    },
+    # TODO: uncomment when gstreamer wasapi plugin is stable
+    #"wasapi": {
+    #    'name': "WASAPI",
+    #    'pipe': 'wasapisink'
+    #},
     "custom": {
         "name": _("Custom")
     }
@@ -117,6 +118,10 @@ def _gst_device_autodetect():
                 api = device.props.properties.get_string('device.api')
                 if api:
                     display_name = '%s [%s]' % (display_name, api)
+                    
+                    # TODO: remove this when wasapi is stable
+                    if api == 'wasapi':
+                        continue
 
             yield (display_name,
                    device_id,

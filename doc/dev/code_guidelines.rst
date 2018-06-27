@@ -21,7 +21,7 @@ enforce a consistent style across the project. You can run black like so:
 
 :: sh
     
-    black -S *.py plugins/ xl/ xlgui/ tests/
+    make format
 
 For things that the code formatter doesn't do for you, the following applies:
 

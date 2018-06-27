@@ -14,13 +14,11 @@ LOGGER = logging.getLogger(__name__)
 
 
 class AlarmClock(object):
-
     def __init__(self):
         self.__timeout_id = None
         self.__fade_id = None
         self.__current_volume = None
-        event.add_callback(self.__on_option_set,
-                           'plugin_alarmclock_option_set')
+        event.add_callback(self.__on_option_set, 'plugin_alarmclock_option_set')
         self.__update_timeout()
 
     def stop_timeout(self):
@@ -41,13 +39,15 @@ class AlarmClock(object):
         if day_nr < 1 or day_nr > 7:
             raise ValueError
 
-        weekdays = [acprefs.MondayPreference,
-                    acprefs.TuesdayPreference,
-                    acprefs.WednesdayPreference,
-                    acprefs.ThursdayPreference,
-                    acprefs.FridayPreference,
-                    acprefs.SaturdayPreference,
-                    acprefs.SundayPreference]
+        weekdays = [
+            acprefs.MondayPreference,
+            acprefs.TuesdayPreference,
+            acprefs.WednesdayPreference,
+            acprefs.ThursdayPreference,
+            acprefs.FridayPreference,
+            acprefs.SaturdayPreference,
+            acprefs.SundayPreference,
+        ]
         pref_class = weekdays[day_nr - 1]
         return AlarmClock.__get_pref(pref_class)
 
@@ -62,8 +62,13 @@ class AlarmClock(object):
         hour = self.__get_pref(acprefs.HourPreference)
         minute = self.__get_pref(acprefs.MinutesPreference)
         tmp_timer = GLib.DateTime.new_local(
-            current.get_year(), current.get_month(),
-            current.get_day_of_month(), hour, minute, 0)
+            current.get_year(),
+            current.get_month(),
+            current.get_day_of_month(),
+            hour,
+            minute,
+            0,
+        )
 
         next_timer = None
         for delta_days in range(0, 8):  # current weekday is checked twice intentional
@@ -82,9 +87,10 @@ class AlarmClock(object):
             return
 
         diff = next_timer.difference(current) // 1000
-        LOGGER.debug("Alarm due in %i seconds (%i hours)", diff // 1000, diff // 3600000)
-        self.__timeout_id = GLib.timeout_add(
-            diff, self.__on_timeout_finished)
+        LOGGER.debug(
+            "Alarm due in %i seconds (%i hours)", diff // 1000, diff // 3600000
+        )
+        self.__timeout_id = GLib.timeout_add(diff, self.__on_timeout_finished)
 
     def __on_timeout_finished(self):
         LOGGER.debug("Finished timeout")
@@ -94,8 +100,7 @@ class AlarmClock(object):
             self.__current_volume = min_volume
             player.PLAYER.set_volume(self.__current_volume)
             timer_step = self.__get_pref(acprefs.TimerStepPreference)
-            self.__fade_id = GLib.timeout_add(
-                timer_step * 1000, self.__fade_in)
+            self.__fade_id = GLib.timeout_add(timer_step * 1000, self.__fade_in)
         else:
             max_volume = self.__get_pref(acprefs.MaxVolumePreference)
             player.PLAYER.set_volume(max_volume)
@@ -117,8 +122,11 @@ class AlarmClock(object):
         increment = self.__get_pref(acprefs.IncrementPreference)
         # try to detect whether the user interacted with exaile and abort
         delta_volume = abs(player.PLAYER.get_volume() - self.__current_volume)
-        if player.PLAYER.is_paused() or not player.PLAYER.is_playing() \
-                or delta_volume > (increment / 2):
+        if (
+            player.PLAYER.is_paused()
+            or not player.PLAYER.is_playing()
+            or delta_volume > (increment / 2)
+        ):
             self.__fade_id = None
             LOGGER.debug("Aborting fade in because of user interaction")
             return GLib.SOURCE_REMOVE
@@ -143,7 +151,6 @@ class AlarmClock(object):
 
 
 class AlarmclockPlugin(object):
-
     def __init__(self):
         self.__alarm_clock = None
 

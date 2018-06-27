@@ -35,6 +35,7 @@ from cellrenderers import CellRendererDays
 # if we're on python 2.5 it's not available...
 try:
     import json
+
     _write = lambda x: json.dumps(x, indent=2)
     _read = json.loads
 except ImportError:
@@ -70,11 +71,13 @@ def get_preferences_pane():
 
 def idle_add(f):
     '''Decorator that runs a function through GLib.idle_add'''
+
     @wraps(f)
     def idler(*args, **kwargs):
         GLib.idle_add(f, *args, **kwargs)
 
     return idler
+
 
 ###><><><### Alarm Clock Stuph ###><><><###
 
@@ -115,10 +118,10 @@ class AlarmClock:
     '''
 
     def __init__(self, exaile):
-        self.RANG = {}                  # Keep track of alarms that have gone off
+        self.RANG = {}  # Keep track of alarms that have gone off
         self.exaile = exaile
-#        self.view_window = None
-#        self.view = None
+        #        self.view_window = None
+        #        self.view = None
 
         # Create Model
         self.model = Gtk.ListStore(bool, str, str, object, str)
@@ -164,7 +167,9 @@ class AlarmClock:
         active = self.model[path][0]
         self.model[path][0] = not active
 
-        logger.debug('Alarm {0} {1}abled.'.format(self.model[path][1], 'dis' if active else 'en'))
+        logger.debug(
+            'Alarm {0} {1}abled.'.format(self.model[path][1], 'dis' if active else 'en')
+        )
 
         # save change
         self.save_list()
@@ -173,9 +178,9 @@ class AlarmClock:
         '''Called by exaile to initialize prefs pane.  Set up pefs UI'''
         logger.debug('init_ui() called.')
 
-#        if self.view_window is not None:
+        #        if self.view_window is not None:
         # already setup
-#            return
+        #            return
 
         # grab widgets
         view_window = builder.get_object('alarm_scrolledwindow')
@@ -213,7 +218,7 @@ class AlarmClock:
         '''Callback for edit of text columns (name and time)'''
         old_text = self.model[path][idx]
         if old_text == new_text:
-            return      # No change
+            return  # No change
 
         if idx == 1:  # Name edit
             self.model[path][1] = new_text
@@ -244,7 +249,8 @@ class AlarmClock:
         self.model.append([alarm.active, alarm.name, alarm.time, alarm.days, day_disp])
 
         # save list changes - NO, called by loader
-#        self.save_list()
+
+    #        self.save_list()
 
     def add_button(self, widget):
         '''Callback for clicking add button'''
@@ -286,14 +292,20 @@ class AlarmClock:
                 raw = f.read()
                 try:
                     alist = _read(raw)
-                    assert isinstance(alist, list)  # should be list of dicts (new format)
+                    assert isinstance(
+                        alist, list
+                    )  # should be list of dicts (new format)
 
                 except Exception:
                     try:
                         # try to import old format
                         for line in raw.strip().split('\n'):
                             a = Alarm(dict=eval(line, {'__builtin__': None}))
-                            logger.debug('loaded alarm {0} ({1}) from file.'.format(a.name, a.time))
+                            logger.debug(
+                                'loaded alarm {0} ({1}) from file.'.format(
+                                    a.name, a.time
+                                )
+                            )
                             self.add_alarm(a)
 
                         # force save in new format
@@ -301,12 +313,18 @@ class AlarmClock:
                         self.save_list()
 
                     except Exception as e:
-                        logger.warning('Failed to load alarm data from file: {0}'.format(e))
+                        logger.warning(
+                            'Failed to load alarm data from file: {0}'.format(e)
+                        )
 
                 else:
                     for a in alist:
                         alarm = Alarm(dict=a)
-                        logger.debug('loaded alarm {0} ({1}) from file.'.format(alarm.name, alarm.time))
+                        logger.debug(
+                            'loaded alarm {0} ({1}) from file.'.format(
+                                alarm.name, alarm.time
+                            )
+                        )
                         self.add_alarm(alarm)
 
         except IOError as e:  # File might not exist
@@ -321,12 +339,10 @@ class AlarmClock:
         path = os.path.join(xdg.get_data_dirs()[0], 'alarmlist.dat')
 
         if len(self.model) > 0:
-            alist = [{
-                'active': row[0],
-                'name':row[1],
-                'time':row[2],
-                'days':row[3]
-            } for row in self.model]
+            alist = [
+                {'active': row[0], 'name': row[1], 'time': row[2], 'days': row[3]}
+                for row in self.model
+            ]
 
             with open(path, 'wb') as f:
                 f.write(_write(alist))
@@ -336,7 +352,8 @@ class AlarmClock:
 ###><><><### Globals ###><><><###
 
 # This is here because sometimes get_prefs_pane gets called before _enabled
-#ALARM_CLOCK_MAIN = AlarmClock(exaile)
+# ALARM_CLOCK_MAIN = AlarmClock(exaile)
+
 
 @common.threaded
 def fade_in(main, exaile):
@@ -345,9 +362,13 @@ def fade_in(main, exaile):
 
     # pull settings
     temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume') / 100.
-    fade_max_volume = settings.get_option('plugin/multialarmclock/fade_max_volume') / 100.
+    fade_max_volume = (
+        settings.get_option('plugin/multialarmclock/fade_max_volume') / 100.
+    )
     fade_inc = settings.get_option('plugin/multialarmclock/fade_increment') / 100.
-    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / ((fade_max_volume - temp_volume) / fade_inc)
+    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / (
+        (fade_max_volume - temp_volume) / fade_inc
+    )
 
     while temp_volume < fade_max_volume:
         logger.debug('set volume to {0}'.format(temp_volume))
@@ -374,7 +395,10 @@ def check_alarms(main, exaile):
     currentDay = int(time.strftime("%w", time.localtime()))
 
     # generate list of alarms from model
-    alist = [Alarm(active=row[0], name=row[1], time=row[2], days=row[3]) for row in main.model]
+    alist = [
+        Alarm(active=row[0], name=row[1], time=row[2], days=row[3])
+        for row in main.model
+    ]
     # print(current , [ a.time for a in alist if a.active ])
     for al in alist:
         if al.active and al.time == current and al.days[currentDay] is True:
@@ -397,7 +421,9 @@ def check_alarms(main, exaile):
                 logger.warning('No tracks queued for alarm to play.')
                 return True
 
-            if player.PLAYER.is_playing():  # Check if there are songs in playlist and if it is already playing
+            if (
+                player.PLAYER.is_playing()
+            ):  # Check if there are songs in playlist and if it is already playing
                 logger.info('Alarm hit, but already playing')
                 return True
 
@@ -409,7 +435,9 @@ def check_alarms(main, exaile):
                 if player.QUEUE.current_playlist:
                     player.QUEUE.current_playlist.set_current_position(-1)
                 else:
-                    player.QUEUE.set_current_playlist(exaile.gui.main.get_selected_page())
+                    player.QUEUE.set_current_playlist(
+                        exaile.gui.main.get_selected_page()
+                    )
 
             player.QUEUE.play()
 
@@ -419,6 +447,7 @@ def check_alarms(main, exaile):
 
 
 ###><><><### Plugin Handling Functions ###><><><###
+
 
 def enable(exaile):
     '''Called by exaile to enable plugin'''
@@ -443,7 +472,7 @@ def _enable(stuff, exaile, junk):
     main = ALARM_CLOCK_MAIN
 
     if MY_BUILDER is not None:
-        #'''Since I don't know if init() or enable() will be called first, save builder and setup UI if enabled() was already called.'''
+        # '''Since I don't know if init() or enable() will be called first, save builder and setup UI if enabled() was already called.'''
         main.init_ui(MY_BUILDER)
 
     TIMER_ID = GLib.timeout_add_seconds(5, check_alarms, main, exaile)
@@ -462,6 +491,7 @@ def disable(exaile):
 
     if ALARM_CLOCK_MAIN is not None:
         ALARM_CLOCK_MAIN = None
+
 
 #   disable/enable doesn't re-call init(), so if we scrap and re-create the class, we wont' get our Gtk.Builder back, and there will
 #   be a disconnect between the Alarm class and the UI in the prefs page

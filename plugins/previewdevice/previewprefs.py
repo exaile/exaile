@@ -72,6 +72,7 @@ def __autoconfig():
             settings.set_option('preview_device/audiosink_device', device_id)
             break
 
+
 __autoconfig()
 
 
@@ -88,7 +89,9 @@ class PreviewDeviceCustomAudioSinkPreference(playback.CustomAudioSinkPreference)
     condition_preference_name = 'preview_device/audiosink'
 
 
-class PreviewDeviceSelectDeviceForSinkPreference(playback.SelectDeviceForSinkPreference):
+class PreviewDeviceSelectDeviceForSinkPreference(
+    playback.SelectDeviceForSinkPreference
+):
     name = 'preview_device/audiosink_device'
     condition_preference_name = 'preview_device/audiosink'
 

@@ -77,12 +77,15 @@ def get_tracks_from_uri(uri):
         return [Track(uri)]
 
     try:
-        file_type = gloc.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+        file_type = gloc.query_info(
+            "standard::type", Gio.FileQueryInfoFlags.NONE, None
+        ).get_file_type()
     except GLib.Error:  # E.g. cdda
         file_type = None
     if file_type == Gio.FileType.DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection
+
         tracks = Collection('scanner')
         lib = Library(uri)
         lib.set_collection(tracks)
@@ -111,8 +114,10 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
     fields = list(fields)  # we need the index method
     if trackfunc is None:
         trackfunc = lambda tr: tr
-    keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,
-                                                     artist_compilations=artist_compilations) for field in fields]
+    keyfunc = lambda tr: [
+        trackfunc(tr).get_tag_sort(field, artist_compilations=artist_compilations)
+        for field in fields
+    ]
     return sorted(iter, key=keyfunc, reverse=reverse)
 
 
@@ -122,7 +127,9 @@ def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=Fal
 
         Same params as sort_tracks.
     """
-    return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse, artist_compilations)
+    return sort_tracks(
+        fields, trackiter, lambda tr: tr.track, reverse, artist_compilations
+    )
 
 
 def get_rating_from_tracks(tracks):
@@ -138,9 +145,9 @@ def get_rating_from_tracks(tracks):
     if len(tracks) < 1:
         return 0
 
-# TODO: still needed?
-#    if len(tracks) > settings.get_option('rating/tracks_limit', 100):
-#        return 0
+    # TODO: still needed?
+    #    if len(tracks) > settings.get_option('rating/tracks_limit', 100):
+    #        return 0
 
     rating = tracks[0].get_rating()
 
@@ -161,7 +168,12 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
     if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
         return []
-    matchers = map(lambda t: TracksMatcher(track.get_tag_search(t, artist_compilations=artist_compilations)), ['artist', 'album'])
+    matchers = map(
+        lambda t: TracksMatcher(
+            track.get_tag_search(t, artist_compilations=artist_compilations)
+        ),
+        ['artist', 'album'],
+    )
     return (r.track for r in search_tracks(tracksiter, matchers))
 
 
@@ -173,9 +185,13 @@ def recursive_tracks_from_file(gfile):
         :param gfile: Gio.File
         :return: tracks iterable [Track]
     """
-    ftype = gfile.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+    ftype = gfile.query_info(
+        'standard::type', Gio.FileQueryInfoFlags.NONE, None
+    ).get_file_type()
     if ftype == Gio.FileType.DIRECTORY:
-        file_infos = gfile.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, None)
+        file_infos = gfile.enumerate_children(
+            'standard::name', Gio.FileQueryInfoFlags.NONE, None
+        )
         files = (gfile.get_child(fi.get_name()) for fi in file_infos)
         for sub_gfile in files:
             for i in recursive_tracks_from_file(sub_gfile):

@@ -75,6 +75,7 @@ class GtkDarkThemePreference(widgets.CheckPreference):
     default = False
     name = 'gui/gtk_dark_hint'
 
+
 class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_alpha'
@@ -99,6 +100,7 @@ class TrackCountsPreference(widgets.CheckPreference):
         return_value = widgets.CheckPreference.apply(self, value)
 
         import xlgui
+
         xlgui.get_controller().get_panel('collection').load_tree()
 
         return return_value
@@ -112,7 +114,9 @@ class UseTrayPreference(widgets.CheckPreference, widgets.Conditional):
         widgets.CheckPreference.__init__(self, preferences, widget)
         widgets.Conditional.__init__(self)
         if not tray.is_supported():
-            self.widget.set_tooltip_text(_("Tray icons are not supported on your platform"))
+            self.widget.set_tooltip_text(
+                _("Tray icons are not supported on your platform")
+            )
 
     def on_check_condition(self):
         return tray.is_supported()
@@ -149,6 +153,7 @@ class TabPlacementPreference(widgets.ComboPreference):
 
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
+
 
 """
 class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):

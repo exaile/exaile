@@ -76,7 +76,6 @@ import testlib
 
 
 class HelloWorld(object):
-
     def enable(self, exaile):
         print("Hello, world!")
         testlib.sucess()

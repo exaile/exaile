@@ -36,12 +36,7 @@ from gi.repository import GObject
 import re
 from string import Template, _TemplateMetaclass
 
-from xl import (
-    common,
-    providers,
-    settings,
-    trax
-)
+from xl import common, providers, settings, trax
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
 
@@ -96,6 +91,7 @@ class ParameterTemplate(Template):
         * ``${bar:parameter1, parameter2}``
         * ``${qux:parameter1=argument1, parameter2}``
     """
+
     __metaclass__ = _ParameterTemplateMetaclass
     argpattern = r'[^,}=]|\,|\}|\='
 
@@ -149,8 +145,7 @@ class ParameterTemplate(Template):
             if mo.group('invalid') is not None:
                 return self.delimiter
 
-            raise ValueError('Unrecognized named group in pattern',
-                             self.pattern)
+            raise ValueError('Unrecognized named group in pattern', self.pattern)
 
         return self.pattern.sub(convert, self.template)
 
@@ -169,13 +164,14 @@ class Formatter(GObject.GObject):
         * ``padstring``: a string to use for padding, will be repeated as often as possible to achieve the desired length specified by ``pad``
             * Example: ``${identifier:pad=4, padstring=XY}`` for *identifier* having the value *a* will become *XYXa*
     """
+
     __gproperties__ = {
         'format': (
             GObject.TYPE_STRING,
             'format string',
             'String the formatting is based on',
             '',
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
 
@@ -245,11 +241,13 @@ class Formatter(GObject.GObject):
 
             if groups['parameters'] is not None:
                 # Split parameters on unescaped comma
-                parameters = [p.lstrip()
-                              for p in re.split(r'(?<!\\),', groups['parameters'])]
+                parameters = [
+                    p.lstrip() for p in re.split(r'(?<!\\),', groups['parameters'])
+                ]
                 # Split arguments on unescaped equals sign
-                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2]
-                              for p in parameters]
+                parameters = [
+                    (re.split(r'(?<!\\)=', p, 1) + [True])[:2] for p in parameters
+                ]
                 # Turn list of lists into a proper dictionary
                 parameters = dict(parameters)
 
@@ -357,19 +355,20 @@ class ProgressTextFormatter(Formatter):
         playlist = self._player.queue.current_playlist
 
         if playlist and playlist.current_position >= 0:
-            tracks = playlist[playlist.current_position:]
-            total_remaining_time = sum(t.get_tag_raw('__length') or 0
-                                       for t in tracks)
+            tracks = playlist[playlist.current_position :]
+            total_remaining_time = sum(t.get_tag_raw('__length') or 0 for t in tracks)
             total_remaining_time -= current_time
 
-        self._substitutions['current_time'] = \
-            LengthTagFormatter.format_value(current_time)
-        self._substitutions['remaining_time'] = \
-            LengthTagFormatter.format_value(remaining_time)
-        self._substitutions['total_time'] = \
-            LengthTagFormatter.format_value(total_time)
-        self._substitutions['total_remaining_time'] = \
-            LengthTagFormatter.format_value(total_remaining_time)
+        self._substitutions['current_time'] = LengthTagFormatter.format_value(
+            current_time
+        )
+        self._substitutions['remaining_time'] = LengthTagFormatter.format_value(
+            remaining_time
+        )
+        self._substitutions['total_time'] = LengthTagFormatter.format_value(total_time)
+        self._substitutions['total_remaining_time'] = LengthTagFormatter.format_value(
+            total_remaining_time
+        )
 
         return Formatter.format(self)
 
@@ -393,8 +392,9 @@ class TrackFormatter(Formatter):
             :rtype: string
         """
         if not isinstance(track, trax.Track):
-            raise TypeError('First argument to format() needs '
-                            'to be of type xl.trax.Track')
+            raise TypeError(
+                'First argument to format() needs ' 'to be of type xl.trax.Track'
+            )
 
         extractions = self.extract()
         self._substitutions = {}
@@ -496,6 +496,8 @@ class TrackNumberTagFormatter(NumberTagFormatter):
 
     def __init__(self):
         TagFormatter.__init__(self, 'tracknumber')
+
+
 providers.register('tag-formatting', TrackNumberTagFormatter())
 
 
@@ -506,6 +508,8 @@ class DiscNumberTagFormatter(NumberTagFormatter):
 
     def __init__(self):
         TagFormatter.__init__(self, 'discnumber')
+
+
 providers.register('tag-formatting', DiscNumberTagFormatter())
 
 
@@ -534,10 +538,11 @@ class ArtistTagFormatter(TagFormatter):
             :rtype: string
         """
         compilate = parameters.get('compilate', False)
-        value = track.get_tag_display(self.name,
-                                      artist_compilations=compilate)
+        value = track.get_tag_display(self.name, artist_compilations=compilate)
 
         return value
+
+
 providers.register('tag-formatting', ArtistTagFormatter())
 
 
@@ -613,16 +618,17 @@ class TimeTagFormatter(TagFormatter):
                 text += _('%dd ') % span.days
             if span.hours > 0 or text:  # always show hours when > 1 day
                 # TRANSLATORS: Time duration (hours:minutes:seconds)
-                text += _('%d:%02d:%02d') % (
-                    span.hours, span.minutes, span.seconds)
+                text += _('%d:%02d:%02d') % (span.hours, span.minutes, span.seconds)
             else:
                 # TRANSLATORS: Time duration (minutes:seconds)
                 text += _('%d:%02d') % (span.minutes, span.seconds)
 
         else:
-            raise ValueError('Invalid argument "%s" passed to parameter '
-                             '"format" for tag "__length", possible arguments are '
-                             '"short", "long" and "verbose"' % format)
+            raise ValueError(
+                'Invalid argument "%s" passed to parameter '
+                '"format" for tag "__length", possible arguments are '
+                '"short", "long" and "verbose"' % format
+            )
 
         return text
 
@@ -634,6 +640,8 @@ class LengthTagFormatter(TimeTagFormatter):
 
     def __init__(self):
         TimeTagFormatter.__init__(self, '__length')
+
+
 providers.register('tag-formatting', LengthTagFormatter())
 
 
@@ -644,6 +652,8 @@ class StartOffsetTagFormatter(TimeTagFormatter):
 
     def __init__(self):
         TimeTagFormatter.__init__(self, '__startoffset')
+
+
 providers.register('tag-formatting', StartOffsetTagFormatter())
 
 
@@ -654,6 +664,8 @@ class StopOffsetTagFormatter(TimeTagFormatter):
 
     def __init__(self):
         TimeTagFormatter.__init__(self, '__stopoffset')
+
+
 providers.register('tag-formatting', StopOffsetTagFormatter())
 
 
@@ -685,6 +697,8 @@ class RatingTagFormatter(TagFormatter):
         empty = '☆' * int(maximum - rating)
 
         return ('%s%s' % (filled, empty)).decode('utf-8')
+
+
 providers.register('tag-formatting', RatingTagFormatter())
 
 
@@ -706,6 +720,8 @@ class YearTagFormatter(TagFormatter):
             return value[0]
 
         return _("Unknown")
+
+
 providers.register('tag-formatting', YearTagFormatter())
 
 
@@ -764,6 +780,8 @@ class LastPlayedTagFormatter(DateTagFormatter):
 
     def __init__(self):
         DateTagFormatter.__init__(self, '__last_played')
+
+
 providers.register('tag-formatting', LastPlayedTagFormatter())
 
 
@@ -775,6 +793,8 @@ class DateAddedTagFormatter(DateTagFormatter):
 
     def __init__(self):
         DateTagFormatter.__init__(self, '__date_added')
+
+
 providers.register('tag-formatting', DateAddedTagFormatter())
 
 
@@ -802,6 +822,8 @@ class LocationTagFormatter(TagFormatter):
         if path is not None:
             return path
         return common.sanitize_url(track.get_tag_raw('__loc'))
+
+
 providers.register('tag-formatting', LocationTagFormatter())
 
 
@@ -859,6 +881,8 @@ class CommentTagFormatter(TagFormatter):
             value = ' '.join(value.splitlines())
 
         return value
+
+
 providers.register('tag-formatting', CommentTagFormatter())
 
 # vim: et sts=4 sw=4

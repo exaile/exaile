@@ -39,12 +39,14 @@ class GtMassRename(Gtk.Window):
 
     __gtype_name__ = 'GTMassRename'
 
-    (found_label,    \
-        playlists,      \
-        replace,        \
-        replace_entry,  \
-        search_entry,   \
-        tracks_list) = GtkTemplate.Child.widgets(6)
+    (
+        found_label,
+        playlists,
+        replace,
+        replace_entry,
+        search_entry,
+        tracks_list,
+    ) = GtkTemplate.Child.widgets(6)
 
     def __init__(self, exaile):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
@@ -101,9 +103,13 @@ class GtMassRename(Gtk.Window):
                 if self.search_str != '' and self.search_str not in groups:
                     continue
 
-                name = ' - '.join([track.get_tag_display('artist'),
-                                   track.get_tag_display('album'),
-                                   track.get_tag_display('title')])
+                name = ' - '.join(
+                    [
+                        track.get_tag_display('artist'),
+                        track.get_tag_display('album'),
+                        track.get_tag_display('title'),
+                    ]
+                )
                 model.append((True, name, track))
 
         # unfreeze, draw it up
@@ -121,7 +127,11 @@ class GtMassRename(Gtk.Window):
         replace_str = self.replace_entry.get_text().strip()
 
         if replace_str:
-            query = _("Replace '%s' with '%s' on %s tracks?") % (self.search_str, replace_str, len(tracks))
+            query = _("Replace '%s' with '%s' on %s tracks?") % (
+                self.search_str,
+                replace_str,
+                len(tracks),
+            )
         else:
             query = _("Delete '%s' from %s tracks?") % (self.search_str, len(tracks))
 
@@ -146,8 +156,10 @@ class GtMassRename(Gtk.Window):
 
 
 def mass_rename(exaile):
-    message = _("You should rescan your collection before using mass tag "
-                "rename to ensure that all tags are up to date. Rescan now?")
+    message = _(
+        "You should rescan your collection before using mass tag "
+        "rename to ensure that all tags are up to date. Rescan now?"
+    )
 
     if dialogs.yesno(exaile.gui.main.window, message) == Gtk.ResponseType.YES:
         exaile.gui.on_rescan_collection()

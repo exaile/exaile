@@ -21,6 +21,7 @@ def __open_inheritance_hack(*args, **kwargs):
     windll.kernel32.SetHandleInformation(handle, 1, 0)
     return result
 
+
 __builtin__.open = __open_inheritance_hack
 
 
@@ -40,6 +41,7 @@ def error(message1, message2=None, die=True):
             raw_input()
     else:
         import ctypes
+
         if not message2:
             message1, message2 = message2, message1
         ctypes.windll.user32.MessageBoxW(None, message2, message1, 0x10)
@@ -50,33 +52,35 @@ def error(message1, message2=None, die=True):
 def main():
 
     import logging
-    logging.basicConfig(level=logging.INFO, datefmt="%H:%M:%S",
-                        format="%(levelname)-8s: %(message)s")
 
-    aio_message = "\r\n\r\nPlease run the 'All-In-One PyGI/PyGObject for " + \
-        "Windows Installer' and ensure that the following are selected:" + \
-                  "\r\n\r\n" + \
-                  "* GTK+ 3.x\r\n" + \
-                  "* GStreamer 1.x and the gst-plugins package(s)\r\n" + \
-                  "\r\n" + \
-                  "The 'All-In-One PyGI/PyGObject for Windows Installer' " + \
-                  "can be downloaded at\r\n" + \
-                  "http://sourceforge.net/projects/pygobjectwin32/\r\n\r\n" + \
-                  "See README.Windows for more information."
+    logging.basicConfig(
+        level=logging.INFO, datefmt="%H:%M:%S", format="%(levelname)-8s: %(message)s"
+    )
+
+    aio_message = (
+        "\r\n\r\nPlease run the 'All-In-One PyGI/PyGObject for "
+        + "Windows Installer' and ensure that the following are selected:"
+        + "\r\n\r\n"
+        + "* GTK+ 3.x\r\n"
+        + "* GStreamer 1.x and the gst-plugins package(s)\r\n"
+        + "\r\n"
+        + "The 'All-In-One PyGI/PyGObject for Windows Installer' "
+        + "can be downloaded at\r\n"
+        + "http://sourceforge.net/projects/pygobjectwin32/\r\n\r\n"
+        + "See README.Windows for more information."
+    )
 
     try:
         import gi
     except Exception:
-        error("PyGObject not found",
-              "PyGObject could not be imported. " + aio_message)
+        error("PyGObject not found", "PyGObject could not be imported. " + aio_message)
     else:
         logging.info("PyGObject works")
     try:
         gi.require_version('Gtk', '3.0')
         from gi.repository import Gtk
     except Exception:
-        error("GTK+ not found",
-              "GTK+ could not be imported. " + aio_message)
+        error("GTK+ not found", "GTK+ could not be imported. " + aio_message)
     else:
         logging.info("GTK+ works")
 
@@ -84,18 +88,19 @@ def main():
         gi.require_version('Gst', '1.0')
         from gi.repository import Gst
     except Exception:
-        error("GStreamer not found",
-              "GStreamer could not be imported. " + aio_message)
+        error("GStreamer not found", "GStreamer could not be imported. " + aio_message)
     else:
         logging.info("GStreamer works")
 
     try:
         import mutagen
     except Exception:
-        error("Mutagen not found",
-              "The Python module Mutagen could not be imported. It can be " +
-              "downloaded from http://code.google.com/p/mutagen\r\n\r\n" +
-              "See README.Windows for more information.")
+        error(
+            "Mutagen not found",
+            "The Python module Mutagen could not be imported. It can be "
+            + "downloaded from http://code.google.com/p/mutagen\r\n\r\n"
+            + "See README.Windows for more information.",
+        )
     else:
         logging.info("Mutagen works")
 
@@ -107,11 +112,14 @@ def main():
     try:
         sys.argv[1:1] = ['--startgui', '--no-dbus', '--no-hal']
         import exaile
+
         exaile.main()
     except Exception:
         import traceback
+
         traceback.print_exc()
         raw_input()
+
 
 if __name__ == '__main__':
     main()

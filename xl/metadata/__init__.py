@@ -31,8 +31,23 @@ from gi.repository import Gio
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
 import urlparse
 
-from xl.metadata import (aiff, ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
-                         tta, wav, wv)
+from xl.metadata import (
+    aiff,
+    ape,
+    asf,
+    flac,
+    mka,
+    mod,
+    mp3,
+    mp4,
+    mpc,
+    ogg,
+    sid,
+    speex,
+    tta,
+    wav,
+    wv,
+)
 
 #: dictionary mapping extensions to Format classes.
 formats = {

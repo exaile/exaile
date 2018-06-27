@@ -53,6 +53,7 @@ class CollectionStripArtistPreference(widgets.ListPreference):
 
     def _populate_popup_cb(self, entry, menu):
         from gi.repository import Gtk
+
         entry = Gtk.MenuItem.new_with_mnemonic(_('Reset to _Defaults'))
         entry.connect('activate', self._reset_to_defaults_cb)
         entry.show()
@@ -70,5 +71,6 @@ class CollectionStripArtistPreference(widgets.ListPreference):
 class FileBasedCompilationsPreference(widgets.CheckPreference):
     default = True
     name = 'collection/file_based_compilations'
+
 
 # vim:ts=4 et sw=4

@@ -24,7 +24,9 @@ def DAAPParseCodeTypes(treeroot):
     # the treeroot we are given should be a
     # dmap.contentcodesresponse
     if treeroot.codeName() != 'dmap.contentcodesresponse':
-        raise DAAPError("DAAPParseCodeTypes: We cannot generate a dictionary from this tree.")
+        raise DAAPError(
+            "DAAPParseCodeTypes: We cannot generate a dictionary from this tree."
+        )
         return
     for object in treeroot.contains:
         # each item should be one of two things
@@ -48,10 +50,17 @@ def DAAPParseCodeTypes(treeroot):
                     try:
                         dtype = dmapDataTypes[info.value]
                     except KeyError:
-                        log.debug('DAAPParseCodeTypes: unknown data type %s for code %s, defaulting to s', info.value, name)
+                        log.debug(
+                            'DAAPParseCodeTypes: unknown data type %s for code %s, defaulting to s',
+                            info.value,
+                            name,
+                        )
                         dtype = 's'
                 else:
-                    raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 2' % info.codeName())
+                    raise DAAPError(
+                        'DAAPParseCodeTypes: unexpected code %s at level 2'
+                        % info.codeName()
+                    )
             if code is None or name is None or dtype is None:
                 log.debug('DAAPParseCodeTypes: missing information, not adding entry')
             else:
@@ -59,10 +68,12 @@ def DAAPParseCodeTypes(treeroot):
                     dtype = dmapFudgeDataTypes[name]
                 except KeyError:
                     pass
-                #print("** %s %s %s", code, name, dtype)
+                # print("** %s %s %s", code, name, dtype)
                 dmapCodeTypes[code] = (name, dtype)
         else:
-            raise DAAPError('DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName())
+            raise DAAPError(
+                'DAAPParseCodeTypes: unexpected code %s at level 1' % info.codeName()
+            )
 
 
 class DAAPError(Exception):
@@ -70,10 +81,9 @@ class DAAPError(Exception):
 
 
 class DAAPObject(object):
-
     def __init__(self, code=None, value=None, **kwargs):
-        if (code is not None):
-            if (len(code) == 4):
+        if code is not None:
+            if len(code) == 4:
                 self.code = code
             else:
                 self.code = dmapNames[code]
@@ -116,9 +126,16 @@ class DAAPObject(object):
 
     def printTree(self, level=0, out=sys.stdout):
         if hasattr(self, 'value'):
-            out.write('\t' * level + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, self.value))
+            out.write(
+                '\t' * level
+                + '%s (%s)\t%s\t%s\n'
+                % (self.codeName(), self.code, self.type, self.value)
+            )
         else:
-            out.write('\t' * level + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, None))
+            out.write(
+                '\t' * level
+                + '%s (%s)\t%s\t%s\n' % (self.codeName(), self.code, self.type, None)
+            )
         if hasattr(self, 'contains'):
             for object in self.contains:
                 object.printTree(level + 1)
@@ -160,7 +177,7 @@ class DAAPObject(object):
             elif self.type == 'ul':
                 packing = 'Q'
             elif self.type == 'i':
-                if (isinstance(value, str) and len(value) <= 4):
+                if isinstance(value, str) and len(value) <= 4:
                     packing = '4s'
                 else:
                     packing = 'i'
@@ -168,9 +185,9 @@ class DAAPObject(object):
                 packing = 'I'
             elif self.type == 'h':
                 packing = 'h'
-                if (value > 32767):
+                if value > 32767:
                     value = 32767
-                elif (value < -32768):
+                elif value < -32768:
                     value = -32768
             elif self.type == 'uh':
                 packing = 'H'
@@ -257,15 +274,22 @@ class DAAPObject(object):
             # we need to read length characters from the string
             try:
                 self.value = unicode(
-                    struct.unpack('!%ss' % self.length, code)[0], 'utf-8')
+                    struct.unpack('!%ss' % self.length, code)[0], 'utf-8'
+                )
             except UnicodeDecodeError:
                 # oh, urgh
                 self.value = unicode(
-                    struct.unpack('!%ss' % self.length, code)[0], 'latin-1')
+                    struct.unpack('!%ss' % self.length, code)[0], 'latin-1'
+                )
         else:
             # we don't know what to do with this object
             # put it's raw data into value
-            log.debug('DAAPObject: Unknown code %s for type %s, writing raw data', code, self.code)
+            log.debug(
+                'DAAPObject: Unknown code %s for type %s, writing raw data',
+                code,
+                self.code,
+            )
             self.value = code
+
 
 do = DAAPObject

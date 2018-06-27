@@ -41,12 +41,7 @@ from gi.repository import Gio
 import logging
 import threading
 
-from xl import (
-    common,
-    event,
-    settings,
-    trax
-)
+from xl import common, event, settings, trax
 
 logger = logging.getLogger(__name__)
 
@@ -97,14 +92,13 @@ class CollectionScanThread(common.ProgressThread):
         """
             Runs the thread
         """
-        event.add_callback(self.on_scan_progress_update,
-                           'scan_progress_update')
+        event.add_callback(self.on_scan_progress_update, 'scan_progress_update')
 
-        self.collection.rescan_libraries(startup_only=self.startup_scan,
-                                         force_update=self.force_update)
+        self.collection.rescan_libraries(
+            startup_only=self.startup_scan, force_update=self.force_update
+        )
 
-        event.remove_callback(self.on_scan_progress_update,
-                              'scan_progress_update')
+        event.remove_callback(self.on_scan_progress_update, 'scan_progress_update')
 
     def on_scan_progress_update(self, type, collection, progress):
         """
@@ -146,8 +140,7 @@ class Collection(trax.TrackDB):
         self._frozen = False
         self._libraries_dirty = False
         pickle_attrs += ['_serial_libraries']
-        trax.TrackDB.__init__(self, name, location=location,
-                              pickle_attrs=pickle_attrs)
+        trax.TrackDB.__init__(self, name, location=location, pickle_attrs=pickle_attrs)
         COLLECTIONS.add(self)
 
     def freeze_libraries(self):
@@ -259,14 +252,16 @@ class Collection(trax.TrackDB):
 
         for library in self.libraries.itervalues():
 
-            if not force_update and startup_only and not (library.monitored and library.startup_scan):
+            if (
+                not force_update
+                and startup_only
+                and not (library.monitored and library.startup_scan)
+            ):
                 continue
 
-            event.add_callback(self._progress_update, 'tracks_scanned',
-                               library)
+            event.add_callback(self._progress_update, 'tracks_scanned', library)
             library.rescan(notify_interval=scan_interval, force_update=force_update)
-            event.remove_callback(self._progress_update, 'tracks_scanned',
-                                  library)
+            event.remove_callback(self._progress_update, 'tracks_scanned', library)
             self._running_total_count += self._running_count
             if self._scan_stopped:
                 break
@@ -308,8 +303,11 @@ class Collection(trax.TrackDB):
             return
 
         try:
-            event.log_event('scan_progress_update', self,
-                            int((float(count) / float(self.file_count)) * 100))
+            event.log_event(
+                'scan_progress_update',
+                self,
+                int((float(count) / float(self.file_count)) * 100),
+            )
         except ZeroDivisionError:
             pass
 
@@ -337,9 +335,14 @@ class Collection(trax.TrackDB):
             Should only be called once, from the constructor.
         """
         for l in _serial_libraries:
-            self.add_library(Library(l['location'],
-                                     l.get('monitored', l.get('realtime')),
-                                     l['scan_interval'], l.get('startup_scan', True)))
+            self.add_library(
+                Library(
+                    l['location'],
+                    l.get('monitored', l.get('realtime')),
+                    l['scan_interval'],
+                    l.get('startup_scan', True),
+                )
+            )
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
@@ -361,26 +364,19 @@ class LibraryMonitor(GObject.GObject):
     """
         Monitors library locations for changes
     """
+
     __gproperties__ = {
         'monitored': (
             GObject.TYPE_BOOLEAN,
             'monitoring state',
             'Whether to monitor this library',
             False,
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
     __gsignals__ = {
-        'location-added': (
-            GObject.SignalFlags.RUN_LAST,
-            None,
-            [Gio.File]
-        ),
-        'location-removed': (
-            GObject.SignalFlags.RUN_LAST,
-            None,
-            [Gio.File]
-        )
+        'location-added': (GObject.SignalFlags.RUN_LAST, None, [Gio.File]),
+        'location-removed': (GObject.SignalFlags.RUN_LAST, None, [Gio.File]),
     }
 
     def __init__(self, library):
@@ -428,7 +424,9 @@ class LibraryMonitor(GObject.GObject):
                 logger.debug('Setting up library monitors')
 
                 for directory in common.walk_directories(self.__root):
-                    monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
+                    monitor = directory.monitor_directory(
+                        Gio.FileMonitorFlags.NONE, None
+                    )
                     monitor.connect('changed', self.on_location_changed)
                     self.__monitors[directory] = monitor
 
@@ -458,8 +456,10 @@ class LibraryMonitor(GObject.GObject):
 
         if event == Gio.FileMonitorEvent.CHANGES_DONE_HINT:
             self.__process_change_queue(gfile)
-        elif event == Gio.FileMonitorEvent.CREATED or \
-                event == Gio.FileMonitorEvent.CHANGED:
+        elif (
+            event == Gio.FileMonitorEvent.CREATED
+            or event == Gio.FileMonitorEvent.CHANGED
+        ):
 
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
@@ -471,13 +471,19 @@ class LibraryMonitor(GObject.GObject):
                 GLib.timeout_add(500, self.__process_change_queue, gfile)
 
             # Set up new monitor if directory
-            fileinfo = gfile.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None)
+            fileinfo = gfile.query_info(
+                'standard::type', Gio.FileQueryInfoFlags.NONE, None
+            )
 
-            if fileinfo.get_file_type() == Gio.FileType.DIRECTORY and \
-               gfile not in self.__monitors:
+            if (
+                fileinfo.get_file_type() == Gio.FileType.DIRECTORY
+                and gfile not in self.__monitors
+            ):
 
                 for directory in common.walk_directories(gfile):
-                    monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
+                    monitor = directory.monitor_directory(
+                        Gio.FileMonitorFlags.NONE, None
+                    )
                     monitor.connect('changed', self.on_location_changed)
                     self.__monitors[directory] = monitor
 
@@ -502,8 +508,9 @@ class LibraryMonitor(GObject.GObject):
             self.__library.collection.remove_tracks(removed_tracks)
 
             # Remove obsolete monitors
-            removed_directories = [d for d in self.__monitors
-                                   if d == gfile or d.has_prefix(gfile)]
+            removed_directories = [
+                d for d in self.__monitors if d == gfile or d.has_prefix(gfile)
+            ]
 
             for directory in removed_directories:
                 self.__monitors[directory].cancel()
@@ -691,8 +698,7 @@ class Library(object):
             logger.exception("Error adding to compilation")
             return
 
-        if ccheck[basedir][album] and \
-                artist not in ccheck[basedir][album]:
+        if ccheck[basedir][album] and artist not in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
                 logger.debug("Compilation %r detected in %r", album, basedir)
@@ -713,7 +719,7 @@ class Library(object):
         uri = gloc.get_uri()
         if not uri:  # we get segfaults if this check is removed
             return None
-        
+
         tr = self.collection.get_track_by_loc(uri)
         if tr:
             tr.read_tags(force=force_update)
@@ -751,7 +757,9 @@ class Library(object):
         ccheck = {}
         for fil in common.walk(libloc):
             count += 1
-            type = fil.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+            type = fil.query_info(
+                "standard::type", Gio.FileQueryInfoFlags.NONE, None
+            ).get_file_type()
             if type == Gio.FileType.DIRECTORY:
                 if dirtracks:
                     for tr in dirtracks:
@@ -759,12 +767,13 @@ class Library(object):
                     for (basedir, album) in compilations:
                         base = basedir.replace('"', '\\"')
                         alb = album.replace('"', '\\"')
-                        items = [tr for tr in dirtracks if
-                                 tr.get_tag_raw('__basedir') == base and \
-                                 # FIXME: this is ugly
-                                 alb in "".join(
-                                     tr.get_tag_raw('album') or []).lower()
-                                 ]
+                        items = [
+                            tr
+                            for tr in dirtracks
+                            if tr.get_tag_raw('__basedir') == base and
+                            # FIXME: this is ugly
+                            alb in "".join(tr.get_tag_raw('album') or []).lower()
+                        ]
                         for item in items:
                             item.set_tag_raw('__compilation', (basedir, album))
                 dirtracks = deque()
@@ -785,9 +794,11 @@ class Library(object):
                     # 110 was chosen to accomodate "top 100"-style
                     # compilations.
                     if len(dirtracks) > 110:
-                        logger.debug("Too many files, skipping "
-                                     "compilation detection heuristic for %s",
-                                     fil.get_uri())
+                        logger.debug(
+                            "Too many files, skipping "
+                            "compilation detection heuristic for %s",
+                            fil.get_uri(),
+                        )
                         dirtracks = None
 
             if self.collection and self.collection._scan_stopped:
@@ -835,7 +846,8 @@ class Library(object):
         oldgloc = Gio.File.new_for_uri(loc)
 
         newgloc = Gio.File.new_for_uri(self.location).resolve_relative_path(
-            oldgloc.get_basename())
+            oldgloc.get_basename()
+        )
 
         if move:
             oldgloc.move(newgloc)
@@ -886,7 +898,6 @@ class Library(object):
 
 
 class TransferQueue(object):
-
     def __init__(self, library):
         self.library = library
         self.queue = []

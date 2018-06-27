@@ -28,10 +28,12 @@ from collections import namedtuple
 import copy
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 from xl import version
 import mutagen
+
 version.register('Mutagen', mutagen.version_string)
 
 
@@ -62,6 +64,7 @@ class BaseFormat(object):
 
         subclasses not using mutagen should leave MutagenType as None
     """
+
     MutagenType = None
 
     # This should contain ALL keys supported by this filetype, unless 'others'
@@ -80,9 +83,12 @@ class BaseFormat(object):
         if cls.case_sensitive:
             cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
         else:
-            cls._reverse_mapping = {v.lower(): k for k, v in cls.tag_mapping.iteritems()}
+            cls._reverse_mapping = {
+                v.lower(): k for k, v in cls.tag_mapping.iteritems()
+            }
 
         from .tags import disk_tags
+
         cls.ignore_tags = set(disk_tags)
 
     def __init__(self, loc):
@@ -317,5 +323,6 @@ class CaseInsensitveBaseFormat(BaseFormat):
             Returns keys of all tags that can be read from disk
         """
         return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
+
 
 # vim: et sts=4 sw=4

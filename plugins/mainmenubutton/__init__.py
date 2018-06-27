@@ -65,6 +65,7 @@ def on_gui_loaded(*args):
 class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     """
     """
+
     __gsignals__ = {}
 
     name = 'main-menu'
@@ -103,7 +104,9 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
 
         self.connect('toggled', self.on_toggled)
 
-        self.notebook_page_removed_connection = panel_notebook.connect('page-removed', self.on_notebook_page_removed)
+        self.notebook_page_removed_connection = panel_notebook.connect(
+            'page-removed', self.on_notebook_page_removed
+        )
 
     def destroy(self):
         """
@@ -127,11 +130,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
 
         allocation = self.get_allocation()
 
-        return (
-            x + allocation.x + allocation.width,
-            y + allocation.y,
-            False
-        )
+        return (x + allocation.x + allocation.width, y + allocation.y, False)
 
     def do_button_press_event(self, e):
         """
@@ -155,8 +154,9 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         """
             Pops out the menu upon button toggle
         """
-        self.menu.popup(None, None, self.get_menu_position, None, 0,
-                        Gtk.get_current_event_time())
+        self.menu.popup(
+            None, None, self.get_menu_position, None, 0, Gtk.get_current_event_time()
+        )
 
     def on_menu_deactivate(self, menu):
         """

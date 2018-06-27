@@ -37,6 +37,7 @@ def simple_separator(name, after):
     def factory(menu, parent, context):
         item = Gtk.SeparatorMenuItem()
         return item
+
     item = MenuItem(name, factory, after=after)
     item._pos = 'last'
     return item
@@ -53,9 +54,17 @@ def _get_accel(callback, display_name):
     return accelerator, callback, display_name
 
 
-def simple_menu_item(name, after, display_name=None, icon_name=None,
-                     callback=None, callback_args=[], submenu=None,
-                     condition_fn=None, sensitive_cb=None):
+def simple_menu_item(
+    name,
+    after,
+    display_name=None,
+    icon_name=None,
+    callback=None,
+    callback_args=[],
+    submenu=None,
+    condition_fn=None,
+    sensitive_cb=None,
+):
     """
         Factory function that should handle most cases for menus
 
@@ -75,7 +84,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
                              will be disabled
     """
     accelerator, callback, display_name = _get_accel(callback, display_name)
-    
+
     def factory(menu, parent, context):
         item = None
 
@@ -85,8 +94,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         if display_name is not None:
             if icon_name is not None:
                 item = Gtk.ImageMenuItem.new_from_stock(display_name)
-                image = Gtk.Image.new_from_icon_name(icon_name,
-                                                     size=Gtk.IconSize.MENU)
+                image = Gtk.Image.new_from_icon_name(icon_name, size=Gtk.IconSize.MENU)
                 item.set_image(image)
             else:
                 item = Gtk.MenuItem.new_with_mnemonic(display_name)
@@ -97,18 +105,22 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
             item.set_submenu(submenu)
 
         if accelerator is not None:
-            item.add_accelerator('activate', FAKEACCELGROUP,
-                                 accelerator.key, accelerator.mods,
-                                 Gtk.AccelFlags.VISIBLE)
+            item.add_accelerator(
+                'activate',
+                FAKEACCELGROUP,
+                accelerator.key,
+                accelerator.mods,
+                Gtk.AccelFlags.VISIBLE,
+            )
 
         if callback is not None:
-            item.connect('activate', callback, name,
-                         parent, context, *callback_args)
-        
+            item.connect('activate', callback, name, parent, context, *callback_args)
+
         if sensitive_cb is not None and not sensitive_cb():
             item.set_sensitive(False)
-        
+
         return item
+
     return MenuItem(name, factory, after=after)
 
 
@@ -120,17 +132,20 @@ def check_menu_item(name, after, display_name, checked_func, callback):
         active = checked_func(name, parent, context)
         item.set_active(active)
         if accelerator is not None:
-            item.add_accelerator('activate', FAKEACCELGROUP,
-                                 accelerator.key, accelerator.mods,
-                                 Gtk.AccelFlags.VISIBLE)
+            item.add_accelerator(
+                'activate',
+                FAKEACCELGROUP,
+                accelerator.key,
+                accelerator.mods,
+                Gtk.AccelFlags.VISIBLE,
+            )
         item.connect('activate', callback, name, parent, context)
         return item
+
     return MenuItem(name, factory, after=after)
 
 
-def radio_menu_item(name, after, display_name, groupname, selected_func,
-                    callback):
-
+def radio_menu_item(name, after, display_name, groupname, selected_func, callback):
     def factory(menu, parent, context):
         for index, item in enumerate(menu._items):
             if hasattr(item, 'groupname') and item.groupname == groupname:
@@ -157,6 +172,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
 
         item.connect('activate', callback, name, parent, context)
         return item
+
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
 
@@ -256,7 +272,7 @@ class Menu(Gtk.Menu):
         """
         self._items.append(item)
         self.reorder_items()
-    
+
     def add_simple(self, label, callback, icon_name=None):
         """
             Provide a simple mechanism to add menu items without a lot of hassle
@@ -269,8 +285,13 @@ class Menu(Gtk.Menu):
                       API to add items to that menu
         """
         self.add_item(
-            simple_menu_item('_i%s' % len(self._items), [], label,
-            icon_name=icon_name, callback=callback)
+            simple_menu_item(
+                '_i%s' % len(self._items),
+                [],
+                label,
+                icon_name=icon_name,
+                callback=callback,
+            )
         )
 
     def remove_item(self, item):
@@ -300,9 +321,10 @@ class Menu(Gtk.Menu):
             Reorders all menu items
         """
         pmap = {'first': 0, 'normal': 1, 'last': 2}
-        items = [common.PosetItem(i.name, i.after,
-                                  pmap[i._pos], value=i)
-                 for i in self._items]
+        items = [
+            common.PosetItem(i.name, i.after, pmap[i._pos], value=i)
+            for i in self._items
+        ]
         items = common.order_poset(items)
         self._items = [i.value for i in items]
 

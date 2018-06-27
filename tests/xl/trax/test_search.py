@@ -19,7 +19,6 @@ def get_search_result_track():
 
 
 class TestMatcher(object):
-
     def setup(self):
         self.mox = mox.Mox()
         self.strack = get_search_result_track()
@@ -61,7 +60,6 @@ class TestMatcher(object):
 
 
 class TestExactMatcher(object):
-
     def setup(self):
         self.str = get_search_result_track()
 
@@ -77,7 +75,6 @@ class TestExactMatcher(object):
 
 
 class TestInMatcher(object):
-
     def setup(self):
         self.str = get_search_result_track()
 
@@ -103,7 +100,6 @@ class TestInMatcher(object):
 
 
 class TestGtLtMatchers(object):
-
     def setup(self):
         self.str = get_search_result_track()
 
@@ -129,9 +125,7 @@ class TestGtLtMatchers(object):
 
 
 class TestMetaMatcherClasses(object):
-
     class _Matcher(object):
-
         def __init__(self, val):
             self.val = val
 
@@ -143,7 +137,6 @@ class TestMetaMatcherClasses(object):
 
 
 class TestNotMetaMatcher(TestMetaMatcherClasses):
-
     def test_true(self):
         matcher = self._Matcher(True)
         matcher = search._NotMetaMatcher(matcher)
@@ -156,7 +149,6 @@ class TestNotMetaMatcher(TestMetaMatcherClasses):
 
 
 class TestOrMetaMatcher(TestMetaMatcherClasses):
-
     def test_true_true(self):
         matcher_1 = self._Matcher(True)
         matcher_2 = self._Matcher(True)
@@ -183,7 +175,6 @@ class TestOrMetaMatcher(TestMetaMatcherClasses):
 
 
 class TestMultiMetaMatcher(TestMetaMatcherClasses):
-
     def test_true(self):
         matcher = [self._Matcher(True)] * 10
         matcher = search._MultiMetaMatcher(matcher)
@@ -196,7 +187,6 @@ class TestMultiMetaMatcher(TestMetaMatcherClasses):
 
 
 class TestManyMultiMetaMatcher(TestMetaMatcherClasses):
-
     def test_true(self):
         matcher = [self._Matcher(True)] * 10 + [self._Matcher(False)]
         for match in matcher:
@@ -213,7 +203,6 @@ class TestManyMultiMetaMatcher(TestMetaMatcherClasses):
 
 
 class TestTracksMatcher(object):
-
     def setup(self):
         self.str = get_search_result_track()
 
@@ -295,8 +284,7 @@ class TestTracksMatcher(object):
             assert not "We lost both parts of an or"
 
     def test_paren_matcher(self):
-        matcher = search.TracksMatcher("( foo | bar )",
-                                       keyword_tags=['artist'])
+        matcher = search.TracksMatcher("( foo | bar )", keyword_tags=['artist'])
         match = matcher
         # MultiMetaMatcher
         assert len(match.matchers) == 1
@@ -338,8 +326,7 @@ class TestTracksMatcher(object):
             assert not "We lost both parts of an or"
 
     def test_match_true(self):
-        matcher = search.TracksMatcher("foo",
-                                       keyword_tags=['artist'])
+        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'foo')
         assert matcher.match(self.str)
         assert self.str.on_tags == ['artist']
@@ -363,14 +350,12 @@ class TestTracksMatcher(object):
         assert self.str.on_tags == ['artist']
 
     def test_match_false(self):
-        matcher = search.TracksMatcher("foo",
-                                       keyword_tags=['artist'])
+        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
         self.str.track.set_tag_raw('artist', 'bar')
         assert not matcher.match(self.str)
 
 
 class TestSearchTracks(object):
-
     def test_search_tracks(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
@@ -398,18 +383,13 @@ class TestSearchTracks(object):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'foooo')
         tracks[2].set_tag_raw('artist', 'foooooo')
-        gen = search.search_tracks_from_string(tracks, 'foo',
-                                               keyword_tags=['artist'])
+        gen = search.search_tracks_from_string(tracks, 'foo', keyword_tags=['artist'])
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
             gen.next()
 
-    @pytest.mark.parametrize("sstr", [
-        "motley crue",
-        u"mötley crüe",
-        u"motley crüe",
-    ])
+    @pytest.mark.parametrize("sstr", ["motley crue", u"mötley crüe", u"motley crüe"])
     def test_search_tracks_ignore_diacritic_from_string(self, sstr):
         '''Ensure that searching for tracks with diacritics return
            appropriately normalized results'''
@@ -418,8 +398,7 @@ class TestSearchTracks(object):
         tracks[1].set_tag_raw('artist', 'rubbish')
         tracks[2].set_tag_raw('artist', u'motley crüe')
 
-        gen = search.search_tracks_from_string(tracks, sstr,
-                                               keyword_tags=['artist'])
+        gen = search.search_tracks_from_string(tracks, sstr, keyword_tags=['artist'])
 
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
@@ -432,8 +411,7 @@ class TestSearchTracks(object):
         tracks[2].set_tag_raw('artist', u'中')
 
         # the weird character is normalized, so you can't search based on that
-        gen = search.search_tracks_from_string(tracks, u'中',
-                                               keyword_tags=['artist'])
+        gen = search.search_tracks_from_string(tracks, u'中', keyword_tags=['artist'])
 
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):

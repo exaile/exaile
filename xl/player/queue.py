@@ -25,17 +25,13 @@
 # from your version.
 
 import logging
+
 try:
     import cPickle as pickle
 except ImportError:
     import pickle
 
-from xl import (
-    common,
-    event,
-    playlist,
-    settings
-)
+from xl import common, event, playlist, settings
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +61,7 @@ class PlayQueue(playlist.Playlist):
         playlist.Playlist.__init__(self, name=name)
 
         self.__queue_has_tracks_val = False
-        self.__current_playlist = self      # this should never be None
+        self.__current_playlist = self  # this should never be None
         self.player = player
 
         # hack for making docs work
@@ -78,7 +74,9 @@ class PlayQueue(playlist.Playlist):
         event.add_callback(self._on_option_set, '%s_option_set' % name)
 
         self.__opt_remove_item_when_played = '%s/remove_item_when_played' % name
-        self.__opt_disable_new_track_when_playing = '%s/disable_new_track_when_playing' % name
+        self.__opt_disable_new_track_when_playing = (
+            '%s/disable_new_track_when_playing' % name
+        )
         self.__opt_enqueue_begins_playback = '%s/enqueue_begins_playback' % name
 
         self._on_option_set(None, settings, self.__opt_remove_item_when_played)
@@ -115,8 +113,9 @@ class PlayQueue(playlist.Playlist):
         event.log_event('queue_current_playlist_changed', self, playlist)
 
     #: The playlist currently processed in the queue
-    current_playlist = property(lambda self: self.__current_playlist,
-                                set_current_playlist)
+    current_playlist = property(
+        lambda self: self.__current_playlist, set_current_playlist
+    )
 
     def get_next(self):
         '''
@@ -175,8 +174,7 @@ class PlayQueue(playlist.Playlist):
             self.player.play(track)
 
         if not track:
-            event.log_event("playback_playlist_end", self,
-                            self.current_playlist)
+            event.log_event("playback_playlist_end", self, self.current_playlist)
         return track
 
     def prev(self):
@@ -272,12 +270,16 @@ class PlayQueue(playlist.Playlist):
         if value != self.__queue_has_tracks_val:
             oldpos = self.current_position
             self.__queue_has_tracks_val = value
-            event.log_event("playlist_current_position_changed",
-                            self, (self.current_position, oldpos))
+            event.log_event(
+                "playlist_current_position_changed",
+                self,
+                (self.current_position, oldpos),
+            )
 
     # Internal value indicating whether the internal queue has tracks left to play
-    __queue_has_tracks = property(lambda self: self.__queue_has_tracks_val,
-                                  __set_queue_has_tracks)
+    __queue_has_tracks = property(
+        lambda self: self.__queue_has_tracks_val, __set_queue_has_tracks
+    )
 
     def __setitem__(self, i, value):
         '''
@@ -298,8 +300,11 @@ class PlayQueue(playlist.Playlist):
 
         self.__queue_has_tracks = True
 
-        if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
-           and old_len < playlist.Playlist.__len__(self):
+        if (
+            old_len == 0
+            and settings.get_option('queue/enqueue_begins_playback', True)
+            and old_len < playlist.Playlist.__len__(self)
+        ):
             self.play()
 
     def _save_player_state(self, location):
@@ -336,7 +341,8 @@ class PlayQueue(playlist.Playlist):
             if state['position'] is not None:
                 start_at = state['position']
 
-            paused = state['state'] == 'paused' or \
-                settings.get_option("%s/resume_paused" % self.player._name, False)
+            paused = state['state'] == 'paused' or settings.get_option(
+                "%s/resume_paused" % self.player._name, False
+            )
 
             self.player.play(self.get_current(), start_at=start_at, paused=paused)

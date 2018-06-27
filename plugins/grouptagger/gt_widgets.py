@@ -44,22 +44,23 @@ import gt_common
 # GroupTaggerView signal 'changed' enum
 #
 
-group_change = common.enum(added=object(),
-                           deleted=object(),
-                           edited=object())       # edited/toggled group
+group_change = common.enum(
+    added=object(), deleted=object(), edited=object()
+)  # edited/toggled group
 
-category_change = common.enum(added=object(),
-                              deleted=object(),
-                              expanded=object(),   # user expanded category display
-                              collapsed=object(),  # user collapsed category display
-                              updated=object())   # added group, changed name
+category_change = common.enum(
+    added=object(),
+    deleted=object(),
+    expanded=object(),  # user expanded category display
+    collapsed=object(),  # user collapsed category display
+    updated=object(),
+)  # added group, changed name
 
 # default group category
 uncategorized = _('Uncategorized')
 
 
 class GTShowTracksMenuItem(menu.MenuItem):
-
     def __init__(self, name, after):
         menu.MenuItem.__init__(self, name, None, after)
 
@@ -75,12 +76,16 @@ class GTShowTracksMenuItem(menu.MenuItem):
             display_name = _('Show tracks with all selected')
 
         menuitem = Gtk.MenuItem.new_with_mnemonic(display_name)
-        menuitem.connect('activate', lambda *e: gt_common.create_all_search_playlist(context['groups'], parent.exaile))
+        menuitem.connect(
+            'activate',
+            lambda *e: gt_common.create_all_search_playlist(
+                context['groups'], parent.exaile
+            ),
+        )
         return menuitem
 
 
 class GroupTaggerContextMenu(menu.Menu):
-
     def __init__(self, tagger):
         menu.Menu.__init__(self, tagger)
 
@@ -92,11 +97,26 @@ class GroupTaggerView(Gtk.TreeView):
     '''Treeview widget to display tag lists'''
 
     __gsignals__ = {
-
-        'category-changed': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING)),
-        'category-edited': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_STRING, GObject.TYPE_STRING)),
-        'group-changed': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING)),
-        'group-edited': (GObject.SignalFlags.ACTION, None, (GObject.TYPE_STRING, GObject.TYPE_STRING)),
+        'category-changed': (
+            GObject.SignalFlags.ACTION,
+            None,
+            (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING),
+        ),
+        'category-edited': (
+            GObject.SignalFlags.ACTION,
+            None,
+            (GObject.TYPE_STRING, GObject.TYPE_STRING),
+        ),
+        'group-changed': (
+            GObject.SignalFlags.ACTION,
+            None,
+            (GObject.TYPE_PYOBJECT, GObject.TYPE_STRING),
+        ),
+        'group-edited': (
+            GObject.SignalFlags.ACTION,
+            None,
+            (GObject.TYPE_STRING, GObject.TYPE_STRING),
+        ),
     }
 
     def __init__(self, exaile, model=None, editable=False):
@@ -131,7 +151,9 @@ class GroupTaggerView(Gtk.TreeView):
             cell.connect('edited', self.on_edit)
 
         self.text_column = cell
-        self.append_column(Gtk.TreeViewColumn(_('Tag'), self.text_column, text=1, weight=3))
+        self.append_column(
+            Gtk.TreeViewColumn(_('Tag'), self.text_column, text=1, weight=3)
+        )
 
         #
         # Menu setup
@@ -146,33 +168,52 @@ class GroupTaggerView(Gtk.TreeView):
 
         if editable:
 
-            item = smi('addgrp', [], _('Add new tag'),
-                       callback=self.on_menu_add_group)
+            item = smi('addgrp', [], _('Add new tag'), callback=self.on_menu_add_group)
             self.menu.add_item(item)
 
-            item = smi('delgrp', ['addgrp'], _('Delete tag'),
-                       callback=self.on_menu_delete_group,
-                       condition_fn=lambda n, p, c: False if len(c['groups']) == 0 else True)
+            item = smi(
+                'delgrp',
+                ['addgrp'],
+                _('Delete tag'),
+                callback=self.on_menu_delete_group,
+                condition_fn=lambda n, p, c: False if len(c['groups']) == 0 else True,
+            )
             self.menu.add_item(item)
 
             self.menu.add_item(sep('sep1', ['delgrp']))
 
-            item = smi('addcat', ['sep1'], _('Add new category'),
-                       callback=self.on_menu_add_category)
+            item = smi(
+                'addcat',
+                ['sep1'],
+                _('Add new category'),
+                callback=self.on_menu_add_category,
+            )
             self.menu.add_item(item)
 
-            item = smi('remcat', ['addcat'], _('Remove category'),
-                       callback=self.on_menu_del_category,
-                       condition_fn=lambda n, p, c: False if len(c['categories']) == 0 else True)
+            item = smi(
+                'remcat',
+                ['addcat'],
+                _('Remove category'),
+                callback=self.on_menu_del_category,
+                condition_fn=lambda n, p, c: False
+                if len(c['categories']) == 0
+                else True,
+            )
             self.menu.add_item(item)
 
             self.menu.add_item(sep('sep2', ['remcat']))
 
         self.menu.add_item(GTShowTracksMenuItem('sel', ['sep2']))
 
-        item = smi('selcust', ['sel'], _('Show tracks with selected (custom)'),
-                   callback=lambda w, n, p, c: gt_common.create_custom_search_playlist(c['groups'], exaile),
-                   condition_fn=lambda n, p, c: True if len(c['groups']) > 1 else False)
+        item = smi(
+            'selcust',
+            ['sel'],
+            _('Show tracks with selected (custom)'),
+            callback=lambda w, n, p, c: gt_common.create_custom_search_playlist(
+                c['groups'], exaile
+            ),
+            condition_fn=lambda n, p, c: True if len(c['groups']) > 1 else False,
+        )
         self.menu.add_item(item)
 
         # TODO:
@@ -194,9 +235,15 @@ class GroupTaggerView(Gtk.TreeView):
     def get_context(self):
         '''Returns context parameter required by menus'''
         context = common.LazyDict(self)
-        context['selected-rows'] = lambda name, parent: parent.get_selection().get_selected_rows()
-        context['groups'] = lambda name, parent: parent.get_selected_groups(context['selected-rows'])
-        context['categories'] = lambda name, parent: parent.get_selected_categories(context['selected-rows'])
+        context[
+            'selected-rows'
+        ] = lambda name, parent: parent.get_selection().get_selected_rows()
+        context['groups'] = lambda name, parent: parent.get_selected_groups(
+            context['selected-rows']
+        )
+        context['categories'] = lambda name, parent: parent.get_selected_categories(
+            context['selected-rows']
+        )
         return context
 
     def show_click_column(self):
@@ -233,7 +280,11 @@ class GroupTaggerView(Gtk.TreeView):
                 self.expand_to_path(path)
 
     def on_row_collapsed(self, widget, iter, path):
-        self.emit('category-changed', category_change.collapsed, self.get_model().get_category(path))
+        self.emit(
+            'category-changed',
+            category_change.collapsed,
+            self.get_model().get_category(path),
+        )
 
     def on_row_deleted(self, model, path):
         if self.get_model() and not model.is_category(path):
@@ -242,7 +293,11 @@ class GroupTaggerView(Gtk.TreeView):
                 self.emit('category-changed', category_change.updated, category)
 
     def on_row_expanded(self, widget, iter, path):
-        self.emit('category-changed', category_change.expanded, self.get_model().get_category(path))
+        self.emit(
+            'category-changed',
+            category_change.expanded,
+            self.get_model().get_category(path),
+        )
 
     def on_toggle(self, cell, path):
         self.get_model()[path][0] = not cell.get_active()
@@ -268,7 +323,7 @@ class GroupTaggerView(Gtk.TreeView):
                     self.emit('group-changed', group_change.added, group)
                 else:
                     self.emit('group-changed', group_change.edited, None)
-                    
+
                 self.emit('category-changed', category_change.updated, category)
 
     def on_menu_delete_group(self, widget, name, parent, context):
@@ -282,7 +337,9 @@ class GroupTaggerView(Gtk.TreeView):
 
     def on_menu_add_category(self, widget, name, parent, context):
         # TODO: instead of dialog, just add a new thing, make it editable?
-        input = dialogs.TextEntryDialog(_('New Category?'), _('Enter new category name'))
+        input = dialogs.TextEntryDialog(
+            _('New Category?'), _('Enter new category name')
+        )
 
         if input.run() == Gtk.ResponseType.OK:
             category = input.get_value()
@@ -340,10 +397,12 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     '''
 
     def __init__(self):
-        super(GroupTaggerTreeStore, self).__init__(GObject.TYPE_BOOLEAN,
-                                                   GObject.TYPE_STRING,
-                                                   GObject.TYPE_BOOLEAN,
-                                                   GObject.TYPE_INT)
+        super(GroupTaggerTreeStore, self).__init__(
+            GObject.TYPE_BOOLEAN,
+            GObject.TYPE_STRING,
+            GObject.TYPE_BOOLEAN,
+            GObject.TYPE_INT,
+        )
         self.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
     def add_category(self, category):
@@ -533,7 +592,9 @@ class GroupTaggerWidget(Gtk.Box):
         if title is None:
             self.title.hide()
         else:
-            self.title.set_markup('<big><b>' + GLib.markup_escape_text(title) + '</b></big>')
+            self.title.set_markup(
+                '<big><b>' + GLib.markup_escape_text(title) + '</b></big>'
+            )
             self.title.show()
 
     def set_artist(self, artist):
@@ -634,7 +695,6 @@ class GroupTaggerPanel(notebook.NotebookPage):
 
 
 class AllTagsListView(Gtk.TreeView):
-
     def __init__(self, model=None):
         Gtk.TreeView.__init__(self, model)
 
@@ -649,7 +709,9 @@ class AllTagsListView(Gtk.TreeView):
         self.append_column(Gtk.TreeViewColumn(None, cell, active=0))
 
         # Setup the second column
-        self.append_column(Gtk.TreeViewColumn(_('Group'), Gtk.CellRendererText(), text=1))
+        self.append_column(
+            Gtk.TreeViewColumn(_('Group'), Gtk.CellRendererText(), text=1)
+        )
 
         self.connect('key_press_event', self.on_key_press)
 
@@ -669,7 +731,6 @@ class AllTagsListView(Gtk.TreeView):
 
 
 class AllTagsListStore(Gtk.ListStore):
-
     def __init__(self):
         Gtk.ListStore.__init__(self, GObject.TYPE_BOOLEAN, GObject.TYPE_STRING)
         self.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -682,7 +743,6 @@ class AllTagsListStore(Gtk.ListStore):
 
 
 class AllTagsDialog(Gtk.Window):
-
     def __init__(self, exaile, callback):
 
         Gtk.Window.__init__(self)
@@ -744,7 +804,12 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             self.group_model.append([group])
 
         self.combo_model = Gtk.ListStore(GObject.TYPE_STRING)
-        self.choices = [_('Must have this tag [AND]'), _('May have this tag [OR]'), _('Must not have this tag [NOT]'), _('Ignored')]
+        self.choices = [
+            _('Must have this tag [AND]'),
+            _('May have this tag [OR]'),
+            _('Must not have this tag [NOT]'),
+            _('Ignored'),
+        ]
         for choice in self.choices:
             self.combo_model.append([choice])
 
@@ -775,7 +840,9 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
         self.vbox.pack_start(self.table, True, True, 0)
 
-        self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
+        self.add_buttons(
+            Gtk.STOCK_OK, Gtk.ResponseType.OK, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL
+        )
         self.show_all()
 
     def _init_combo(self, model):
@@ -794,7 +861,7 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
     def get_search_params(self):
         '''Returns (name, search_string) from user selections'''
 
-        and_p = [[], '']        # groups, name, re_string
+        and_p = [[], '']  # groups, name, re_string
         or_p = [[], '']
         not_p = [[], '']
 
@@ -820,7 +887,12 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             name += ' and '.join(and_p[0])
             first = False
 
-            and_p[1] = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_'))) for group in and_p[0]])
+            and_p[1] = ' '.join(
+                [
+                    '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_')))
+                    for group in and_p[0]
+                ]
+            )
 
         # create the NOT conditions
         if len(not_p[0]):
@@ -830,7 +902,15 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
                 name += ' and ' + ' and '.join(['not ' + p for p in not_p[0]])
             first = False
 
-            not_p[1] = ' ! %s~"%s"' % (tagname, '|'.join(['\\b' + re.escape(group.replace(' ', '_')) + '\\b' for group in not_p[0]]))
+            not_p[1] = ' ! %s~"%s"' % (
+                tagname,
+                '|'.join(
+                    [
+                        '\\b' + re.escape(group.replace(' ', '_')) + '\\b'
+                        for group in not_p[0]
+                    ]
+                ),
+            )
 
         # create the OR conditions
         if len(or_p[0]):
@@ -841,7 +921,15 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
             else:
                 name += ' and ' + ' or '.join(or_p[0])
 
-            or_p[1] = ' %s~"%s"' % (tagname, '|'.join(['\\b' + re.escape(group.replace(' ', '_')) + '\\b' for group in or_p[0]]))
+            or_p[1] = ' %s~"%s"' % (
+                tagname,
+                '|'.join(
+                    [
+                        '\\b' + re.escape(group.replace(' ', '_')) + '\\b'
+                        for group in or_p[0]
+                    ]
+                ),
+            )
 
         regex = (and_p[1] + or_p[1] + not_p[1]).strip()
 
@@ -849,7 +937,6 @@ class GroupTaggerQueryDialog(Gtk.Dialog):
 
 
 class GroupTaggerAddRemoveDialog(Gtk.Dialog):
-
     def __init__(self, add, tracks, exaile):
 
         self.add = add

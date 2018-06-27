@@ -25,9 +25,12 @@ class CellRendererDays(Gtk.CellRendererText):
     '''Custom Cell Renderer for showing a ListView of 7 days with checkboxes, based off pygtk FAQ example'''
 
     __gtype_name__ = 'CellRendererDays'
-    __gproperties__ = {'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)}
-    __gsignals__ = {'days-changed': (GObject.SignalFlags.RUN_FIRST, None,
-                                     (str, object))}
+    __gproperties__ = {
+        'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)
+    }
+    __gsignals__ = {
+        'days-changed': (GObject.SignalFlags.RUN_FIRST, None, (str, object))
+    }
     property_names = __gproperties__.keys()
 
     def __init__(self):
@@ -36,7 +39,15 @@ class CellRendererDays(Gtk.CellRendererText):
         self.view = None
         self.view_window = None
 
-        for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']:
+        for day in [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+        ]:
             self.model.append([True, day])
 
         self.set_property('text', 'Edit me')
@@ -82,7 +93,9 @@ class CellRendererDays(Gtk.CellRendererText):
         '''Get property overload'''
         return getattr(self, pspec.name)
 
-    def do_start_editing(self, event, treeview, path, background_area, cell_area, flags):
+    def do_start_editing(
+        self, event, treeview, path, background_area, cell_area, flags
+    ):
         '''Called when user starts editing the cell'''
 
         if not self.get_property('editable'):
@@ -123,7 +136,11 @@ class CellRendererDays(Gtk.CellRendererText):
     def _key_pressed(self, view, event):
         '''Key pressed event handler, finish editing on Return'''
         # event == None for day selected via doubleclick
-        if not event or event.type == Gdk.EventType.KEY_PRESS and Gdk.keyval_name(event.keyval) == 'Return':
+        if (
+            not event
+            or event.type == Gdk.EventType.KEY_PRESS
+            and Gdk.keyval_name(event.keyval) == 'Return'
+        ):
             self._done()
             return True
 

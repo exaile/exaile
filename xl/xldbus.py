@@ -65,8 +65,7 @@ def check_exit(options, args):
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
         if check_dbus(bus, 'org.exaile.Exaile'):
-            remote_object = bus.get_object('org.exaile.Exaile',
-                                           '/org/exaile/Exaile')
+            remote_object = bus.get_object('org.exaile.Exaile', '/org/exaile/Exaile')
             iface = dbus.Interface(remote_object, 'org.exaile.Exaile')
             iface.TestService('testing dbus service')
 
@@ -82,11 +81,29 @@ def check_exit(options, args):
                 iface.Enqueue(args)
 
     if not iface:
-        for command in ['GetArtist', 'GetTitle', 'GetAlbum', 'GetLength',
-                        'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
-                        'Play', 'Pause', 'Stop', 'Next', 'Prev', 'PlayPause',
-                        'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
-                        'CurrentProgress', 'GetVolume', 'Query', 'FormatQuery']:
+        for command in [
+            'GetArtist',
+            'GetTitle',
+            'GetAlbum',
+            'GetLength',
+            'GetRating',
+            'SetRating',
+            'IncreaseVolume',
+            'DecreaseVolume',
+            'Play',
+            'Pause',
+            'Stop',
+            'Next',
+            'Prev',
+            'PlayPause',
+            'StopAfterCurrent',
+            'GuiToggleVisible',
+            'CurrentPosition',
+            'CurrentProgress',
+            'GetVolume',
+            'Query',
+            'FormatQuery',
+        ]:
             if getattr(options, command):
                 return "command"
         return "continue"
@@ -121,14 +138,16 @@ def run_commands(options, iface):
         'DecreaseVolume',
         'SetRating',
         'Add',
-        'ExportPlaylist'
+        'ExportPlaylist',
     )
 
     for command in argument_commands:
         argument = getattr(options, command)
         if argument is not None:
             if command in ('IncreaseVolume', 'DecreaseVolume'):
-                iface.ChangeVolume(argument if command == 'IncreaseVolume' else -argument)
+                iface.ChangeVolume(
+                    argument if command == 'IncreaseVolume' else -argument
+                )
             else:
                 print(getattr(iface, command)(argument))
 
@@ -137,7 +156,11 @@ def run_commands(options, iface):
     # Special handling for FormatQuery & FormatQueryTags
     format = options.FormatQuery
     if format is not None:
-        print(iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length'))
+        print(
+            iface.FormatQuery(
+                format, options.FormatQueryTags or 'title,artist,album,__length'
+            )
+        )
         comm = True
 
     run_commands = (
@@ -149,7 +172,7 @@ def run_commands(options, iface):
         'PlayPause',
         'StopAfterCurrent',
         'GuiToggleVisible',
-        'ToggleMute'
+        'ToggleMute',
     )
 
     for command in run_commands:
@@ -162,7 +185,7 @@ def run_commands(options, iface):
         'CurrentProgress',
         'GetRating',
         'GetVolume',
-        'Query'
+        'Query',
     )
 
     for command in query_commands:
@@ -170,9 +193,7 @@ def run_commands(options, iface):
             print(getattr(iface, command)(argument))
             comm = True
 
-    to_implement = (
-        'GuiQuery',
-    )
+    to_implement = ('GuiQuery',)
     for command in to_implement:
         if getattr(options, command):
             logger.warning("FIXME: command not implemented")
@@ -181,10 +202,8 @@ def run_commands(options, iface):
     if not comm:
         iface.GuiToggleVisible()
 
-PlaybackStatus = namedtuple(
-    'PlaybackStatus',
-    'state progress position current'
-)
+
+PlaybackStatus = namedtuple('PlaybackStatus', 'state progress position current')
 
 
 class DbusManager(dbus.service.Object):
@@ -198,8 +217,7 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile = exaile
         self.bus = dbus.SessionBus()
-        self.bus_name = dbus.service.BusName('org.exaile.Exaile',
-                                             bus=self.bus)
+        self.bus_name = dbus.service.BusName('org.exaile.Exaile', bus=self.bus)
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
         self.cached_track = ""
         self.cached_state = ""
@@ -208,18 +226,19 @@ class DbusManager(dbus.service.Object):
     def _connect_signals(self):
         # connect events
         from xl import player
-        event.add_callback(self.emit_state_changed,
-                           'playback_player_end', player.PLAYER)
-        event.add_callback(self.emit_state_changed,
-                           'playback_track_start', player.PLAYER)
-        event.add_callback(self.emit_state_changed,
-                           'playback_toggle_pause', player.PLAYER)
-        event.add_callback(self.emit_track_changed,
-                           'tags_parsed', player.PLAYER)
-        event.add_callback(self.emit_state_changed,
-                           'playback_buffering', player.PLAYER)
-        event.add_callback(self.emit_state_changed,
-                           'playback_error', player.PLAYER)
+
+        event.add_callback(
+            self.emit_state_changed, 'playback_player_end', player.PLAYER
+        )
+        event.add_callback(
+            self.emit_state_changed, 'playback_track_start', player.PLAYER
+        )
+        event.add_callback(
+            self.emit_state_changed, 'playback_toggle_pause', player.PLAYER
+        )
+        event.add_callback(self.emit_track_changed, 'tags_parsed', player.PLAYER)
+        event.add_callback(self.emit_state_changed, 'playback_buffering', player.PLAYER)
+        event.add_callback(self.emit_state_changed, 'playback_error', player.PLAYER)
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -239,6 +258,7 @@ class DbusManager(dbus.service.Object):
             :rtype: boolean
         """
         from xl import player
+
         return bool(not player.PLAYER.is_stopped())
 
     @dbus.service.method('org.exaile.Exaile', 's', 's')
@@ -252,6 +272,7 @@ class DbusManager(dbus.service.Object):
             :rtype: string
         """
         from xl import player
+
         try:
             value = player.PLAYER.current.get_tag_raw(attr) or ''
         except (ValueError, TypeError, AttributeError):
@@ -272,6 +293,7 @@ class DbusManager(dbus.service.Object):
             :type value: any
         """
         from xl import player
+
         try:
             player.PLAYER.current.set_tag_raw(attr, value)
         except (AttributeError, TypeError):
@@ -312,6 +334,7 @@ class DbusManager(dbus.service.Object):
             :type value: int
         """
         from xl import player
+
         player.PLAYER.set_volume(player.PLAYER.get_volume() + value)
         self.cached_volume = -1
 
@@ -321,6 +344,7 @@ class DbusManager(dbus.service.Object):
             Mutes or unmutes the volume
         """
         from xl import player
+
         if self.cached_volume == -1:
             self.cached_volume = player.PLAYER.get_volume()
             player.PLAYER.set_volume(0)
@@ -337,6 +361,7 @@ class DbusManager(dbus.service.Object):
             :type value: int
         """
         from xl import player
+
         player.PLAYER.seek(value)
 
     @dbus.service.method('org.exaile.Exaile')
@@ -345,6 +370,7 @@ class DbusManager(dbus.service.Object):
             Jumps to the previous track
         """
         from xl import player
+
         player.QUEUE.prev()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -353,6 +379,7 @@ class DbusManager(dbus.service.Object):
             Stops playback
         """
         from xl import player
+
         player.PLAYER.stop()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -361,6 +388,7 @@ class DbusManager(dbus.service.Object):
             Jumps to the next track
         """
         from xl import player
+
         player.QUEUE.next()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -369,6 +397,7 @@ class DbusManager(dbus.service.Object):
             Starts playback
         """
         from xl import player
+
         player.QUEUE.play()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -377,6 +406,7 @@ class DbusManager(dbus.service.Object):
             Starts playback
         """
         from xl import player
+
         player.PLAYER.pause()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -385,6 +415,7 @@ class DbusManager(dbus.service.Object):
             Toggle Play or Pause
         """
         from xl import player
+
         if player.PLAYER.is_stopped():
             player.PLAYER.play(player.QUEUE.get_current())
         else:
@@ -396,6 +427,7 @@ class DbusManager(dbus.service.Object):
             Toggle stopping after current track
         """
         from xl import player
+
         player.QUEUE.stop_track = player.QUEUE.get_current()
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
@@ -407,6 +439,7 @@ class DbusManager(dbus.service.Object):
             :rtype: string
         """
         from xl import player
+
         progress = player.PLAYER.get_progress()
         if progress == -1:
             return ""
@@ -421,6 +454,7 @@ class DbusManager(dbus.service.Object):
             :rtype: string
         """
         from xl import player
+
         progress = player.PLAYER.get_time()
         return '%d:%02d' % (progress // 60, progress % 60)
 
@@ -433,6 +467,7 @@ class DbusManager(dbus.service.Object):
             :rtype: string
         """
         from xl import player
+
         return str(player.PLAYER.get_volume())
 
     def __get_playback_status(self, tags=["title", "artist", "album", "__length"]):
@@ -444,18 +479,12 @@ class DbusManager(dbus.service.Object):
             :returns: the playback status
             :rtype: :class:`xl.xldbus.PlaybackStatus`
         """
-        status = PlaybackStatus(
-            state='stopped',
-            current=None,
-            progress=0,
-            position=0
-        )
+        status = PlaybackStatus(state='stopped', current=None, progress=0, position=0)
 
         from xl import player
 
         current_track = player.QUEUE.get_current()
-        if current_track is not None and \
-           not player.PLAYER.is_stopped():
+        if current_track is not None and not player.PLAYER.is_stopped():
             current = {}
             # Make tags unique
             tags = list(set(tags))
@@ -466,13 +495,16 @@ class DbusManager(dbus.service.Object):
             # Special handling for internal tags
             if "__length" in tags:
                 from xl.formatter import LengthTagFormatter
-                current["__length"] = LengthTagFormatter.format_value(self.GetTrackAttr('__length'))
+
+                current["__length"] = LengthTagFormatter.format_value(
+                    self.GetTrackAttr('__length')
+                )
 
             status = PlaybackStatus(
                 state=player.PLAYER.get_state(),
                 progress=self.CurrentProgress(),
                 position=self.CurrentPosition(),
-                current=current
+                current=current,
             )
 
         return status
@@ -490,9 +522,11 @@ class DbusManager(dbus.service.Object):
         if status.current is None or status.state == "stopped":
             return _('Not playing.')
 
-        result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'
-                   ' album: %(album)s, length: %(length)s,'
-                   ' position: %(progress)s%% [%(position)s]') % {
+        result = _(
+            'status: %(status)s, title: %(title)s, artist: %(artist)s,'
+            ' album: %(album)s, length: %(length)s,'
+            ' position: %(progress)s%% [%(position)s]'
+        ) % {
             'status': status.state,
             'title': status.current["title"],
             'artist': status.current["artist"],
@@ -598,10 +632,7 @@ class DbusManager(dbus.service.Object):
         from xl import player, playlist
 
         if player.QUEUE.current_playlist is not None:
-            playlist.export_playlist(
-                player.QUEUE.current_playlist,
-                location
-            )
+            playlist.export_playlist(player.QUEUE.current_playlist, location)
 
     @dbus.service.method('org.exaile.Exaile')
     def GuiToggleVisible(self):
@@ -620,6 +651,7 @@ class DbusManager(dbus.service.Object):
             :rtype: binary data
         """
         from xl import covers, player
+
         cover = covers.MANAGER.get_cover(player.PLAYER.current, set_only=True)
         if not cover:
             cover = ''
@@ -634,6 +666,7 @@ class DbusManager(dbus.service.Object):
             :rtype: string
         """
         from xl import player
+
         return player.PLAYER.get_state()
 
     @dbus.service.signal('org.exaile.Exaile')
@@ -667,5 +700,6 @@ class DbusManager(dbus.service.Object):
         if self.cached_track != new_track:
             self.cached_track = new_track
             self.TrackChanged()
+
 
 # vim: et sts=4 sw=4

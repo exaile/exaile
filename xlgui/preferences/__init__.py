@@ -43,7 +43,7 @@ from . import (
     playback,
     playlists,
     plugin,
-    widgets
+    widgets,
 )
 
 logger = logging.getLogger(__name__)
@@ -54,8 +54,7 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (playlists, appearance, playback,
-             collection, cover, lyrics)
+    PAGES = (playlists, appearance, playback, collection, cover, lyrics)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):
@@ -74,7 +73,8 @@ class PreferencesDialog(object):
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain('exaile')
         self.builder.add_from_file(
-            xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui'))
+            xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui')
+        )
         self.builder.connect_signals(self)
 
         self.window = self.builder.get_object('PreferencesDialog')
@@ -91,7 +91,8 @@ class PreferencesDialog(object):
         title_cellrenderer.props.ypad = 3
 
         self.default_icon = icons.MANAGER.pixbuf_from_icon_name(
-            'document-properties', Gtk.IconSize.MENU)
+            'document-properties', Gtk.IconSize.MENU
+        )
 
         # sets up the default panes
         for page in self.PAGES:
@@ -102,15 +103,16 @@ class PreferencesDialog(object):
                     icon = page.icon
                 else:
                     icon = icons.MANAGER.pixbuf_from_icon_name(
-                        page.icon, Gtk.IconSize.MENU)
+                        page.icon, Gtk.IconSize.MENU
+                    )
 
             self.model.append(None, [page, page.name, icon])
 
         # Use icon name to allow overrides
         plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
-            'extension', Gtk.IconSize.MENU)
-        self.plug_root = self.model.append(None,
-                                           [plugin, _('Plugins'), plugin_icon])
+            'extension', Gtk.IconSize.MENU
+        )
+        self.plug_root = self.model.append(None, [plugin, _('Plugins'), plugin_icon])
 
         self._load_plugin_pages()
 
@@ -118,8 +120,8 @@ class PreferencesDialog(object):
         selection.connect('changed', self.switch_pane)
         # Disallow selection on rows with no widget to show
         selection.set_select_function(
-            (lambda sel, model, path, issel, dat: model[path][0] is not None),
-            None)
+            (lambda sel, model, path, issel, dat: model[path][0] is not None), None
+        )
 
         GLib.idle_add(selection.select_path, (0,))
 
@@ -146,12 +148,12 @@ class PreferencesDialog(object):
                     icon = page.icon
                 else:
                     icon = icons.MANAGER.pixbuf_from_icon_name(
-                        page.icon, Gtk.IconSize.MENU)
+                        page.icon, Gtk.IconSize.MENU
+                    )
 
             self.model.append(self.plug_root, [page, page.name, icon])
 
-        GLib.idle_add(self.tree.expand_row,
-                      self.model.get_path(self.plug_root), False)
+        GLib.idle_add(self.tree.expand_row, self.model.get_path(self.plug_root), False)
 
     def _clear_children(self, node):
         remove = []
@@ -238,8 +240,7 @@ class PreferencesDialog(object):
             try:
                 klass = getattr(page, attr)
 
-                if inspect.isclass(klass) and \
-                        issubclass(klass, widgets.Preference):
+                if inspect.isclass(klass) and issubclass(klass, widgets.Preference):
                     widget = builder.get_object(klass.name)
 
                     if not widget:
@@ -248,7 +249,8 @@ class PreferencesDialog(object):
 
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
-                            klass.condition_preference_name)
+                            klass.condition_preference_name
+                        )
                     elif issubclass(klass, widgets.MultiConditional):
                         for name in klass.condition_preference_names:
                             klass.condition_widgets[name] = builder.get_object(name)
@@ -273,5 +275,6 @@ class PreferencesDialog(object):
         else:
             PreferencesDialog.PREFERENCES_DIALOG = self
             self.window.show_all()
+
 
 # vim: et sts=4 sw=4

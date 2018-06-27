@@ -29,6 +29,7 @@ if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
     try:
         import ctypes
+
         libc = ctypes.CDLL('libc.so.6')
         libc.prctl(15, 'exaile', 0, 0, 0)  # 15 = PR_SET_NAME
     except Exception:
@@ -37,6 +38,7 @@ if sys.platform == 'linux2':
 # Set visible process name. Requires module "setproctitle"
 try:
     from setproctitle import setproctitle
+
     setproctitle('exaile')
 except ImportError:
     pass
@@ -53,8 +55,10 @@ os.environ['EXAILE_DIR'] = basedir
 
 def main():
     from xl import main
+
     global exaile
     exaile = main.Exaile()
+
 
 if __name__ == "__main__":
     main()

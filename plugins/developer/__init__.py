@@ -19,10 +19,7 @@ from __future__ import print_function
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import (
-    event,
-    providers
-)
+from xl import event, providers
 from xl.nls import gettext as _
 
 from xlgui.guiutil import GtkTemplate
@@ -63,8 +60,9 @@ class DeveloperPlugin(object):
     def on_gui_loaded(self):
 
         # add a thing to the view menu
-        self.menu = menu.simple_menu_item('developer', '', _('Developer Tools'),
-                                          callback=self.on_view_menu)
+        self.menu = menu.simple_menu_item(
+            'developer', '', _('Developer Tools'), callback=self.on_view_menu
+        )
 
         providers.register('menubar-tools-menu', self.menu)
 
@@ -118,10 +116,12 @@ class DeveloperWindow(Gtk.Window):
 
     __gtype_name__ = 'DeveloperWindow'
 
-    (event_filter_entry, \
-        event_model_filter, \
-        event_tree, \
-        event_store) = GtkTemplate.Child.widgets(4)
+    (
+        event_filter_entry,
+        event_model_filter,
+        event_tree,
+        event_store,
+    ) = GtkTemplate.Child.widgets(4)
 
     def __init__(self, parent, plugin):
         Gtk.Window.__init__(self)
@@ -140,8 +140,9 @@ class DeveloperWindow(Gtk.Window):
         self.event_model_filter.set_visible_func(self.on_event_filter_row)
 
         self.event_tree.set_search_entry(self.event_filter_entry)
-        self.event_tree.connect('start-interactive-search',
-                                lambda *a: self.event_filter_entry.grab_focus())
+        self.event_tree.connect(
+            'start-interactive-search', lambda *a: self.event_filter_entry.grab_focus()
+        )
 
         self.event_timeout_id = GLib.timeout_add(250, self.on_event_update)
 

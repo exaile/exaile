@@ -40,7 +40,6 @@ logger = logging.getLogger(__name__)
 
 
 class CDImportThread(common.ProgressThread):
-
     def __init__(self, cd_importer):
         common.ProgressThread.__init__(self)
 
@@ -75,7 +74,6 @@ class CDImportThread(common.ProgressThread):
 
 
 class CDPanel(device.FlatPlaylistDevicePanel):
-
     def __init__(self, *args):
         device.FlatPlaylistDevicePanel.__init__(self, *args)
         self.__importing = False
@@ -97,22 +95,24 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         cd_importer = CDImporter(tracks)
         thread = CDImportThread(cd_importer)
         thread.connect('done', lambda *e: self._import_finish())
-        self.main.controller.progress_manager.add_monitor(thread,
-                                                          _("Importing CD..."), 'drive-optical')
+        self.main.controller.progress_manager.add_monitor(
+            thread, _("Importing CD..."), 'drive-optical'
+        )
 
     def _import_finish(self):
         self.__importing = False
 
 
 class CDImporter(object):
-
     def __init__(self, tracks):
-        self.tracks = [t for t in tracks if
-                       t.get_loc_for_io().startswith("cdda")]
+        self.tracks = [t for t in tracks if t.get_loc_for_io().startswith("cdda")]
         self.duration = float(sum(t.get_tag_raw('__length') for t in self.tracks))
-        self.formatter = formatter.TrackFormatter(settings.get_option(
-            "cd_import/outpath",
-            "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
+        self.formatter = formatter.TrackFormatter(
+            settings.get_option(
+                "cd_import/outpath",
+                "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME"),
+            )
+        )
         self.current = None
         self.current_len = None
         self.progress = 0.0
@@ -129,7 +129,8 @@ class CDImporter(object):
         default_quality = formats[default_format]['default']
         self.quality = settings.get_option("cd_import/quality", default_quality)
         self.transcoder = transcoder.Transcoder(
-            self.format, self.quality, self._error_cb, self._end_cb)
+            self.format, self.quality, self._error_cb, self._end_cb
+        )
 
     def do_import(self):
         self.running = True
@@ -155,7 +156,9 @@ class CDImporter(object):
             if not self.running:
                 break
             tr2 = trax.Track("file://" + outloc)
-            ntags = {t: tr.get_tag_raw(t) for t in tr.list_tags() if not t.startswith("__")}
+            ntags = {
+                t: tr.get_tag_raw(t) for t in tr.list_tags() if not t.startswith("__")
+            }
             tr2.set_tags(**ntags)
             tr2.write_tags()
             try:
@@ -167,14 +170,13 @@ class CDImporter(object):
 
     def _end_cb(self):
         self.cont.set()
-        xlgui.main.mainwindow().message.show_info(
-            "Finished transcoding files")
+        xlgui.main.mainwindow().message.show_info("Finished transcoding files")
 
     def _error_cb(self, gerror, message_string):
         self.running = False
         xlgui.main.mainwindow().message.show_error(
-            _("Error transcoding files from CD."),
-            "%s" % gerror.message.encode())
+            _("Error transcoding files from CD."), "%s" % gerror.message.encode()
+        )
 
     def get_output_location(self, track):
         path = self.formatter.format(track)

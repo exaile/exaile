@@ -55,6 +55,7 @@ logger = logging.getLogger(__name__)
 class Nothing(object):
     pass
 
+
 _NONE = Nothing()  # used by event for a safe None replacement
 
 # Assumes that this module was imported on main thread
@@ -153,6 +154,7 @@ class Event(object):
     """
         Represents an Event
     """
+
     __slots__ = ['type', 'object', 'data']
 
     def __init__(self, evty, obj, data):
@@ -217,9 +219,11 @@ class _WeakMethod(object):
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):
             return False
-        return self.fun is method2.fun \
-            and self.objRef() is method2.objRef() \
+        return (
+            self.fun is method2.fun
+            and self.objRef() is method2.objRef()
             and self.objRef() is not None
+        )
 
     def __hash__(self):
         return hash(self.fun)
@@ -282,12 +286,13 @@ class EventManager(object):
             event: the Event to emit [Event]
         """
 
-        emit_logmsg = self.use_logger and (not self.logger_filter or
-                                           re.search(self.logger_filter, event.type))
+        emit_logmsg = self.use_logger and (
+            not self.logger_filter or re.search(self.logger_filter, event.type)
+        )
         emit_verbose = emit_logmsg and self.use_verbose_logger
 
         global _UiThread
-        is_ui_thread = (threading.current_thread() == _UiThread)
+        is_ui_thread = threading.current_thread() == _UiThread
 
         # note: a majority of the calls to emit are made on the
         #       UI thread
@@ -298,7 +303,9 @@ class EventManager(object):
             # Don't issue the log message twice
             with self.pending_ui_lock:
                 do_emit = not self.pending_ui
-                self.pending_ui.append((event, self.ui_callbacks, emit_logmsg, emit_verbose))
+                self.pending_ui.append(
+                    (event, self.ui_callbacks, emit_logmsg, emit_verbose)
+                )
 
             if do_emit:
                 GLib.idle_add(self._emit_pending)
@@ -345,21 +352,26 @@ class EventManager(object):
                             pass
                 else:
                     if emit_verbose:
-                        logger.debug("Attempting to call "
-                                     "%(function)s in response "
-                                     "to %(event)s." % {
-                                         'function': fn,
-                                         'event': event.type})
-                    fn.__call__(event.type, event.object,
-                                event.data, *cb.args, **cb.kwargs)
+                        logger.debug(
+                            "Attempting to call "
+                            "%(function)s in response "
+                            "to %(event)s." % {'function': fn, 'event': event.type}
+                        )
+                    fn.__call__(
+                        event.type, event.object, event.data, *cb.args, **cb.kwargs
+                    )
                 fn = None
             except Exception:
                 # something went wrong inside the function we're calling
                 logger.exception("Event callback exception caught!")
 
         if emit_logmsg:
-            logger.debug("Sent '%s' event from %r with data %r",
-                         event.type, event.object, event.data)
+            logger.debug(
+                "Sent '%s' event from %r with data %r",
+                event.type,
+                event.object,
+                event.data,
+            )
 
     def emit_async(self, event):
         """
@@ -410,12 +422,17 @@ class EventManager(object):
                 callbacks.append(cb)
 
         if self.use_logger:
-            if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
-                logger.debug("Added callback %s for [%s, %s]" %
-                             (function, evty, obj))
+            if (
+                not self.logger_filter
+                or evty is _NONE
+                or re.search(self.logger_filter, evty)
+            ):
+                logger.debug("Added callback %s for [%s, %s]" % (function, evty, obj))
 
         if destroy_with is not None:
-            destroy_with.connect('destroy', lambda w: self.remove_callback(function, evty, obj))
+            destroy_with.connect(
+                'destroy', lambda w: self.remove_callback(function, evty, obj)
+            )
 
         return lambda: self.remove_callback(function, evty, obj)
 
@@ -453,9 +470,12 @@ class EventManager(object):
                         del cbs[evty]
 
         if self.use_logger:
-            if not self.logger_filter or evty is _NONE or re.search(self.logger_filter, evty):
-                logger.debug("Removed callback %s for [%s, %s]" %
-                             (function, evty, obj))
+            if (
+                not self.logger_filter
+                or evty is _NONE
+                or re.search(self.logger_filter, evty)
+            ):
+                logger.debug("Removed callback %s for [%s, %s]" % (function, evty, obj))
 
 
 EVENT_MANAGER = EventManager()

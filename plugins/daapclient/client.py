@@ -4,35 +4,31 @@ import httplib
 import logging
 from cStringIO import StringIO
 
-from spydaap.daap import (
-    DAAPError,
-    DAAPObject,
-    DAAPParseCodeTypes,
-)
+from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 
 
 log = logging.getLogger('daapclient')
 
 
 class DAAPClient(object):
-
     def __init__(self):
         self.socket = None
         self.request_id = 0
-#        self._old_itunes = 0
+
+    #        self._old_itunes = 0
 
     def connect(self, hostname, port=3689, password=None):
         if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
-#        if ':' in hostname:
-#            raise DAAPError('cannot connect to ipv6 addresses')
-# if it's an ipv6 address
+        #        if ':' in hostname:
+        #            raise DAAPError('cannot connect to ipv6 addresses')
+        # if it's an ipv6 address
         if ':' in hostname and hostname[0] != '[':
             hostname = '[' + hostname + ']'
         self.hostname = hostname
         self.port = port
         self.password = password
-#        self.socket = httplib.HTTPConnection(hostname, port)
+        #        self.socket = httplib.HTTPConnection(hostname, port)
         self.socket = httplib.HTTPConnection(hostname + ':' + str(port))
         self.getContentCodes()  # practically required
         self.getInfo()  # to determine the remote server version
@@ -46,16 +42,14 @@ class DAAPClient(object):
 
         log.debug('getting %s', r)
 
-        headers = {
-            'Client-DAAP-Version': '3.0',
-            'Client-DAAP-Access-Index': '2',
-        }
+        headers = {'Client-DAAP-Version': '3.0', 'Client-DAAP-Access-Index': '2'}
 
         if gzip:
             headers['Accept-encoding'] = 'gzip'
 
         if self.password:
             import base64
+
             b64 = base64.encodestring('%s:%s' % ('user', self.password))[:-1]
             headers['Authorization'] = 'Basic %s' % b64
 
@@ -65,10 +59,10 @@ class DAAPClient(object):
         if self.request_id > 0:
             headers['Client-DAAP-Request-ID'] = self.request_id
 
-#        if (self._old_itunes):
-#            headers[ 'Client-DAAP-Validation' ] = hash_v2(r, 2)
-#        else:
-#            headers[ 'Client-DAAP-Validation' ] = hash_v3(r, 2, self.request_id)
+        #        if (self._old_itunes):
+        #            headers[ 'Client-DAAP-Validation' ] = hash_v2(r, 2)
+        #        else:
+        #            headers[ 'Client-DAAP-Validation' ] = hash_v3(r, 2, self.request_id)
 
         # there are servers that don't allow >1 download from a single HTTP
         # session, or something. Reset the connection each time. Thanks to
@@ -95,6 +89,7 @@ class DAAPClient(object):
             old_len = len(content)
             compressedstream = StringIO(content)
             import gzip
+
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
             content = gunzipper.read()
             log.debug("expanded from %s bytes to %s bytes", old_len, len(content))
@@ -106,12 +101,16 @@ class DAAPClient(object):
         elif status == 403:
             raise DAAPError('DAAPClient: %s: Authentication failure' % r)
         elif status == 503:
-            raise DAAPError('DAAPClient: %s: 503 - probably max connections to server' % r)
+            raise DAAPError(
+                'DAAPClient: %s: 503 - probably max connections to server' % r
+            )
         elif status == 204:
             # no content, ie logout messages
             return None
         elif status != 200:
-            raise DAAPError('DAAPClient: %s: Error %s making request' % (r, response.status))
+            raise DAAPError(
+                'DAAPClient: %s: Error %s making request' % (r, response.status)
+            )
 
         return self.readResponse(content)
 
@@ -133,11 +132,12 @@ class DAAPClient(object):
 
         # detect the 'old' iTunes 4.2 servers, and set a flag, so we use
         # the real MD5 hash algo to verify requests.
-#        version = response.getAtom("apro") or response.getAtom("ppro")
-#        if int(version) == 2:
-#            self._old_itunes = 1
 
-        # response.printTree()
+    #        version = response.getAtom("apro") or response.getAtom("ppro")
+    #        if int(version) == 2:
+    #            self._old_itunes = 1
+
+    # response.printTree()
 
     def login(self):
         response = self.request("/login")
@@ -150,7 +150,6 @@ class DAAPClient(object):
 
 
 class DAAPSession(object):
-
     def __init__(self, connection, sessionid):
         self.connection = connection
         self.sessionid = sessionid
@@ -165,7 +164,8 @@ class DAAPSession(object):
     def update(self):
         response = self.request("/update")
         self.revision = response.getAtom('musr')
-#        return response
+
+    #        return response
 
     def databases(self):
         response = self.request("/databases")
@@ -184,13 +184,10 @@ class DAAPSession(object):
 # the atoms we want. Making this list smaller reduces memory footprint,
 # and speeds up reading large libraries. It also reduces the metainformation
 # available to the client.
-daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist," \
-    "daap.songformat,daap.songtime,daap.songsize,daap.songgenre," \
-    "daap.songyear,daap.songtracknumber"
+daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist," "daap.songformat,daap.songtime,daap.songsize,daap.songgenre," "daap.songyear,daap.songtracknumber"
 
 
 class DAAPDatabase(object):
-
     def __init__(self, session, atom):
         self.session = session
         self.name = atom.getAtom("minm")
@@ -198,9 +195,9 @@ class DAAPDatabase(object):
 
     def tracks(self):
         """returns all the tracks in this database, as DAAPTrack objects"""
-        response = self.session.request("/databases/%s/items" % self.id, {
-            'meta': daap_atoms
-        })
+        response = self.session.request(
+            "/databases/%s/items" % self.id, {'meta': daap_atoms}
+        )
         # response.printTree()
         track_list = response.getAtom("mlcl").contains
         return [DAAPTrack(self, t) for t in track_list]
@@ -212,7 +209,6 @@ class DAAPDatabase(object):
 
 
 class DAAPPlaylist(object):
-
     def __init__(self, database, atom):
         self.database = database
         self.id = atom.getAtom("miid")
@@ -221,22 +217,25 @@ class DAAPPlaylist(object):
 
     def tracks(self):
         """returns all the tracks in this playlist, as DAAPTrack objects"""
-        response = self.database.session.request("/databases/%s/containers/%s/items" % (self.database.id, self.id), {
-            'meta': daap_atoms
-        })
+        response = self.database.session.request(
+            "/databases/%s/containers/%s/items" % (self.database.id, self.id),
+            {'meta': daap_atoms},
+        )
         track_list = response.getAtom("mlcl").contains
         return [DAAPTrack(self.database, t) for t in track_list]
 
 
 class DAAPTrack(object):
 
-    attrmap = {'name': 'minm',
-               'artist': 'asar',
-               'album': 'asal',
-               'id': 'miid',
-               'type': 'asfm',
-               'time': 'astm',
-               'size': 'assz'}
+    attrmap = {
+        'name': 'minm',
+        'artist': 'asar',
+        'album': 'asal',
+        'id': 'miid',
+        'type': 'asfm',
+        'time': 'astm',
+        'size': 'assz',
+    }
 
     def __init__(self, database, atom):
         self.database = database
@@ -271,7 +270,7 @@ class DAAPTrack(object):
         # doing this all on one lump seems to explode a lot. TODO - what
         # is a good block size here?
         data = r.read(32 * 1024)
-        while (data):
+        while data:
             mp3.write(data)
             data = r.read(32 * 1024)
         mp3.close()

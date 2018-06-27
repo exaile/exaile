@@ -51,7 +51,6 @@ BODY_ALBUM = _('by {album}')
 
 
 class NotifierSettings(object):
-
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
 
@@ -65,7 +64,8 @@ class NotifierSettings(object):
         if hasattr(klass, 'pre_migration_name'):
             if xl_settings.get_option(klass.name, None) is None:
                 old_value = xl_settings.get_option(
-                    klass.pre_migration_name, klass.default or None)
+                    klass.pre_migration_name, klass.default or None
+                )
                 if old_value is not None:
                     xl_settings.set_option(klass.name, old_value)
                     xl_settings.MANAGER.remove_option(klass.name)
@@ -92,8 +92,7 @@ class Notifier(PlaybackAdapter):
         notification = Notify.Notification.new("", None, None)
 
         if 'sound' in caps:
-            notification.set_hint('suppress-sound',
-                                  GLib.Variant.new_boolean(True))
+            notification.set_hint('suppress-sound', GLib.Variant.new_boolean(True))
         self.settings.can_show_markup = 'body-markup' in caps
 
         notification.set_urgency(Notify.Urgency.LOW)
@@ -101,7 +100,8 @@ class Notifier(PlaybackAdapter):
 
         # default action is invoked on clicking the notification
         notification.add_action(
-            "default", "this should never be displayed", self.__on_default_action)
+            "default", "this should never be displayed", self.__on_default_action
+        )
 
         self.notification = notification
         PlaybackAdapter.__init__(self, xl_player.PLAYER)
@@ -141,7 +141,8 @@ class Notifier(PlaybackAdapter):
         tray_icon = self.__exaile.gui.tray_icon
         if tray_icon:
             self.__tray_connection = tray_icon.connect(
-                'query-tooltip', self.__on_query_tooltip)
+                'query-tooltip', self.__on_query_tooltip
+            )
         else:
             LOGGER.warning("Tried to connect to non-existing tray icon")
 
@@ -153,7 +154,8 @@ class Notifier(PlaybackAdapter):
         if state and not self.__tray_connection:
             if tray_icon:
                 self.__tray_connection = tray_icon.connect(
-                    'query-tooltip', self.__on_query_tooltip)
+                    'query-tooltip', self.__on_query_tooltip
+                )
             else:
                 self.__try_connect_tray()
         elif not state and self.__tray_connection:
@@ -162,8 +164,7 @@ class Notifier(PlaybackAdapter):
             self.__tray_connection = None
 
     def on_option_set(self, _event, settings, option):
-        if option == notifyprefs.TrayHover.name or \
-                option == 'gui/use_tray':
+        if option == notifyprefs.TrayHover.name or option == 'gui/use_tray':
             has_tray = settings.get_option('gui/use_tray')
             shall_show_tray_hover = self.settings.tray_hover and has_tray
             self.__set_tray_hover_state(shall_show_tray_hover)
@@ -177,7 +178,9 @@ class Notifier(PlaybackAdapter):
                 new_icon = icons.MANAGER.pixbuf_from_icon_name('exaile', size)
                 self.notification.set_image_from_pixbuf(new_icon)
 
-    def __maybe_show_notification(self, summary=None, body='', icon_name=None, force_show=False):
+    def __maybe_show_notification(
+        self, summary=None, body='', icon_name=None, force_show=False
+    ):
         # If summary is none, don't update the Notification
         if summary is not None:
             try:
@@ -186,9 +189,11 @@ class Notifier(PlaybackAdapter):
                 LOGGER.exception("Could not set new notification status.")
                 return
         # decide whether to show the notification or not
-        if self.settings.show_when_focused or \
-                not self.__exaile.gui.main.window.is_active() or \
-                force_show:
+        if (
+            self.settings.show_when_focused
+            or not self.__exaile.gui.main.window.is_active()
+            or force_show
+        ):
             try:
                 self.notification.show()
             except GLib.Error:
@@ -224,7 +229,8 @@ class Notifier(PlaybackAdapter):
             icon_name = media_icon
         elif self.settings.show_covers:
             cover_data = covers.MANAGER.get_cover(
-                track, set_only=True, use_default=True)
+                track, set_only=True, use_default=True
+            )
             size = DEFAULT_ICON_SIZE if self.settings.resize_covers else None
             new_icon = pixbuf_from_data(cover_data, size)
             self.notification.set_image_from_pixbuf(new_icon)
@@ -261,7 +267,6 @@ class Notifier(PlaybackAdapter):
 
 
 class NotifyPlugin(object):
-
     def __init__(self):
         self.__notifier = None
         self.__exaile = None
@@ -285,11 +290,14 @@ class NotifyPlugin(object):
             # Test it on window manager sessions (e.g. Weston) without
             # libnotify support, not on a Desktop Environment (such as
             # GNOME, KDE) to reproduce.
-            available, name, vendor, version, spec_version = \
-                Notify.get_server_info()
+            available, name, vendor, version, spec_version = Notify.get_server_info()
             if available:
-                LOGGER.info("Connected with notify server %s (version %s) by %s",
-                            name, version, vendor)
+                LOGGER.info(
+                    "Connected with notify server %s (version %s) by %s",
+                    name,
+                    version,
+                    vendor,
+                )
                 LOGGER.info("Supported spec version: %s", spec_version)
                 # This is another synchronous, blocking call:
                 caps = Notify.get_server_caps()
@@ -302,7 +310,8 @@ class NotifyPlugin(object):
                 LOGGER.error(
                     "Failed to retrieve capabilities from notify server. "
                     "This may happen if the desktop environment does not support "
-                    "the org.freedesktop.Notifications DBus interface.")
+                    "the org.freedesktop.Notifications DBus interface."
+                )
                 can_continue = False
         self.__handle_init(can_continue, caps)
 
@@ -317,8 +326,7 @@ class NotifyPlugin(object):
 
         if can_continue:  # check again, might have changed
             if exaile.loading:
-                xl_event.add_ui_callback(
-                    self.__init_notifier, 'gui_loaded', None, caps)
+                xl_event.add_ui_callback(self.__init_notifier, 'gui_loaded', None, caps)
             else:
                 self.__init_notifier(caps)
         else:

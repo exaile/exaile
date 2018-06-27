@@ -43,7 +43,6 @@ logger = logging.getLogger(__name__)
 
 
 class TrackHolder(object):
-
     def __init__(self, track, key, **kwargs):
         self._track = track
         self._key = key
@@ -54,7 +53,6 @@ class TrackHolder(object):
 
 
 class TrackDBIterator(object):
-
     def __init__(self, track_iterator):
         self.iter = track_iterator
 
@@ -93,13 +91,18 @@ class TrackDB(object):
         # ensure that the DB is always loaded before any tracks are,
         # otherwise internal values are not loaded and may be lost/corrupted
         if loadfirst and Track._get_track_count() != 0:
-            raise RuntimeError(("Internal error! %d tracks already loaded, " +
-                                "TrackDB must be loaded first!") % Track._get_track_count())
+            raise RuntimeError(
+                (
+                    "Internal error! %d tracks already loaded, "
+                    + "TrackDB must be loaded first!"
+                )
+                % Track._get_track_count()
+            )
 
         self.name = name
         self.location = location
         self._dirty = False
-        self.tracks = {} # key is always URI of the track
+        self.tracks = {}  # key is always URI of the track
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
@@ -177,7 +180,8 @@ class TrackDB(object):
             location = self.location
         if not location:
             raise AttributeError(
-                _("You did not specify a location to load the db from"))
+                _("You did not specify a location to load the db from")
+            )
 
         logger.debug("Loading %s DB from %s.", self.name, location)
 
@@ -189,18 +193,19 @@ class TrackDB(object):
             elif pdata['_dbversion'] < self._dbversion:
                 logger.info("Upgrading DB format....")
                 import shutil
-                shutil.copyfile(location,
-                                location + "-%s.bak" % pdata['_dbversion'])
+
+                shutil.copyfile(location, location + "-%s.bak" % pdata['_dbversion'])
                 import xl.migrations.database as dbmig
-                dbmig.handle_migration(self, pdata, pdata['_dbversion'],
-                                       self._dbversion)
+
+                dbmig.handle_migration(
+                    self, pdata, pdata['_dbversion'], self._dbversion
+                )
 
         for attr in self.pickle_attrs:
             try:
                 if 'tracks' == attr:
                     data = {}
-                    for k in (x for x in pdata.keys()
-                              if x.startswith("tracks-")):
+                    for k in (x for x in pdata.keys() if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
                         loc = tr.get_loc_for_io()
@@ -244,8 +249,7 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(
-                _("You did not specify a location to save the db"))
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         if self._saving:
             return
@@ -270,7 +274,7 @@ class TrackDB(object):
                         pdata[key] = (
                             track._track._pickles(),
                             track._key,
-                            deepcopy(track._attrs)
+                            deepcopy(track._attrs),
                         )
             else:
                 pdata[attr] = deepcopy(getattr(self, attr))
@@ -380,16 +384,22 @@ class TrackDB(object):
     def get_tracks(self):
         return list(self)
 
-    def search(self, query, sort_fields=[], return_lim=-1,
-               tracks=None, reverse=False):
+    def search(self, query, sort_fields=[], return_lim=-1, tracks=None, reverse=False):
         """
             DEPRECATED, DO NOT USE IN NEW CODE
         """
         import warnings
+
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
-        tracks = [x.track for x in search_tracks_from_string(self, query,
-                                                             case_sensitive=False, keyword_tags=['artist', 'albumartist',
-                                                                                                 'album', 'title'])]
+        tracks = [
+            x.track
+            for x in search_tracks_from_string(
+                self,
+                query,
+                case_sensitive=False,
+                keyword_tags=['artist', 'albumartist', 'album', 'title'],
+            )
+        ]
 
         if sort_fields:
             tracks = sort_tracks(sort_fields, tracks, reverse)

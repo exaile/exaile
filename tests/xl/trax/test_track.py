@@ -35,8 +35,8 @@ class Test_MetadataCacher(object):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-            self.TIMEOUT,
-            self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
+            self.TIMEOUT, self.mc._MetadataCacher__cleanup
+        ).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -48,8 +48,8 @@ class Test_MetadataCacher(object):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-            mox.IsA(types.IntType),
-            mox.IsA(types.MethodType)).AndReturn(timeout_id)
+            mox.IsA(types.IntType), mox.IsA(types.MethodType)
+        ).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -61,9 +61,9 @@ class Test_MetadataCacher(object):
     def test_remove(self):
         timeout_id = 1
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
-        GLib.timeout_add_seconds(
-            self.TIMEOUT,
-            mox.IsA(types.MethodType)).AndReturn(timeout_id)
+        GLib.timeout_add_seconds(self.TIMEOUT, mox.IsA(types.MethodType)).AndReturn(
+            timeout_id
+        )
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -80,7 +80,6 @@ def random_str(l=8):
 
 
 class TestTrack(object):
-
     def setup(self):
         self.mox = mox.Mox()
 
@@ -118,8 +117,7 @@ class TestTrack(object):
     def test_different_url_not_flyweighted(self, test_tracks):
         t1 = track.Track(test_tracks.get('.mp3').filename)
         t2 = track.Track(test_tracks.get('.ogg').filename)
-        assert t1 is not t2, "%s should not be %s" % (repr(t1),
-                                                      repr(t2))
+        assert t1 is not t2, "%s should not be %s" % (repr(t1), repr(t2))
 
     def test_none_url(self):
         with pytest.raises(ValueError):
@@ -128,21 +126,15 @@ class TestTrack(object):
     def test_pickles(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', 'bar')
-        assert tr._pickles() == {
-            '__loc': u'file:///foo',
-            'artist': [u'bar']
-        }
+        assert tr._pickles() == {'__loc': u'file:///foo', 'artist': [u'bar']}
 
     def test_unpickles(self):
-        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-                                      '__loc': u'uri'})
+        tr1 = track.Track(_unpickles={'artist': [u'my_artist'], '__loc': u'uri'})
         assert tr1.get_loc_for_io() == u'uri'
 
     def test_unpickles_flyweight(self):
-        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
-                                      '__loc': u'uri'})
-        tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
-                                      '__loc': u'uri'})
+        tr1 = track.Track(_unpickles={'artist': [u'my_artist'], '__loc': u'uri'})
+        tr2 = track.Track(_unpickles={'artist': [u'my_artist'], '__loc': u'uri'})
         assert tr1 is tr2
 
     def test_takes_nonurl(self, test_track):
@@ -180,8 +172,7 @@ class TestTrack(object):
         loc = test_track.filename
         tr = track.Track(loc)
         self.empty_track_of_tags(tr, ('__loc',))
-        trstr = "<Track u'Unknown (%s)' by u'' from u''>" \
-                % os.path.basename(loc)
+        trstr = "<Track u'Unknown (%s)' by u'' from u''>" % os.path.basename(loc)
         assert str(tr) == trstr
         tr.set_tag_raw('artist', 'art')
         tr.set_tag_raw('album', 'alb')
@@ -270,6 +261,7 @@ class TestTrack(object):
 
         if writeable_track.ext in ['aac', 'mp4']:
             from mutagen.mp4 import MP4Cover
+
             newcover = CoverImage(None, None, 'image/jpeg', MP4Cover(random_str()))
         else:
             newcover = CoverImage(3, 'cover', 'image/jpeg', bytes(random_str()))
@@ -378,8 +370,7 @@ class TestTrack(object):
 
     def test_expand_doubles(self):
         value = u'ßæĳŋœƕǆǉǌǳҥҵ'
-        assert track.Track.expand_doubles(value) == \
-            u'ssaeijngoehvdzljnjdzngts'
+        assert track.Track.expand_doubles(value) == u'ssaeijngoehvdzljnjdzngts'
 
     def test_lower(self):
         value = u'FooBar'
@@ -427,8 +418,7 @@ class TestTrack(object):
     def test_get_sort_tag_artist(self):
         tr = track.Track('/foo')
         value = u'The Hëllò Wóþλdâ'
-        retval = u'hello woþλda the hëllò wóþλdâ ' \
-                 u'The Hello Woþλda The Hëllò Wóþλdâ'
+        retval = u'hello woþλda the hëllò wóþλdâ ' u'The Hello Woþλda The Hëllò Wóþλdâ'
         tr.set_tag_raw('artist', value)
         assert tr.get_tag_sort('artist') == retval
 
@@ -490,8 +480,7 @@ class TestTrack(object):
     def test_get_display_tag_compilation(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', u'foo')
-        assert tr.get_tag_display('artist') == \
-            track._VARIOUSARTISTSSTR
+        assert tr.get_tag_display('artist') == track._VARIOUSARTISTSSTR
 
     def test_get_display_tag_discnumber(self):
         tr = track.Track('/foo')
@@ -542,8 +531,7 @@ class TestTrack(object):
     def test_get_display_tag_join_false(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', [u'foo', u'bar'])
-        assert tr.get_tag_display('artist', join=False) == \
-            [u'foo', u'bar']
+        assert tr.get_tag_display('artist', join=False) == [u'foo', u'bar']
 
     ## Sort tags
     def test_get_search_tag_loc(self):

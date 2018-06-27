@@ -12,6 +12,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
     """
         Renders a toggleable state as an image
     """
+
     __gproperties__ = {
         'icon-name': (
             GObject.TYPE_STRING,
@@ -20,13 +21,13 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             'property only has an effect if not overridden '
             'the "pixbuf" property.',
             '',
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         ),
         'pixbuf': (
             GdkPixbuf.Pixbuf,
             'pixbuf',
             'The pixbuf to render.',
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         ),
         'icon-size': (
             GObject.TYPE_UINT,
@@ -35,15 +36,15 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             0,
             65535,
             Gtk.IconSize.SMALL_TOOLBAR,
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         ),
         'render-prelit': (
             GObject.TYPE_BOOLEAN,
             'render prelit',
             'Whether to render prelit states or not',
             True,
-            GObject.PARAM_READWRITE
-        )
+            GObject.PARAM_READWRITE,
+        ),
     }
 
     def __init__(self):
@@ -102,7 +103,9 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
         """
         # Get pixbuf from raw or name in that order
         if self.__pixbuf is None:
-            pixbuf = icons.MANAGER.pixbuf_from_icon_name(self.__icon_name, self.__icon_size)
+            pixbuf = icons.MANAGER.pixbuf_from_icon_name(
+                self.__icon_name, self.__icon_size
+            )
             if pixbuf is None:
                 return
             self.__pixbuf = pixbuf
@@ -114,22 +117,17 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
         self.__insensitive_pixbuf = self.__pixbuf.copy()
         # Render insensitive state
         self.__pixbuf.saturate_and_pixelate(
-            dest=self.__insensitive_pixbuf,
-            saturation=1,
-            pixelate=True
+            dest=self.__insensitive_pixbuf, saturation=1, pixelate=True
         )
 
         if self.__render_prelit:
             self.__prelit_pixbuf = self.__pixbuf.copy()
             # Desaturate the active pixbuf
             self.__pixbuf.saturate_and_pixelate(
-                dest=self.__prelit_pixbuf,
-                saturation=0,
-                pixelate=False
+                dest=self.__prelit_pixbuf, saturation=0, pixelate=False
             )
 
-    def do_render(self, window, widget, background_area,
-                  cell_area, expose_area, flags):
+    def do_render(self, window, widget, background_area, cell_area, expose_area, flags):
         """
             Renders a custom toggle image
         """
@@ -155,13 +153,9 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             area_x, area_y, area_width, area_height = cell_area
 
             # Make sure to properly align the pixbuf
-            x = area_x + \
-                area_width * self.props.xalign - \
-                self.__pixbuf_width / 2
+            x = area_x + area_width * self.props.xalign - self.__pixbuf_width / 2
 
-            y = area_y + \
-                area_height * self.props.yalign - \
-                self.__pixbuf_height / 2
+            y = area_y + area_height * self.props.yalign - self.__pixbuf_height / 2
 
             context = window.cairo_create()
             context.set_source_pixbuf(pixbuf, x, y)

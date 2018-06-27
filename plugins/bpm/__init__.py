@@ -31,29 +31,24 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GObject
 
-from xl import (
-    event,
-    providers,
-    settings
-)
+from xl import event, providers, settings
 
 from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu, dialogs
 
 import bpmdetect
+
 autodetect_enabled = bpmdetect.autodetect_supported()
 
-menu_providers = [
-    'track-panel-menu',
-    'playlist-context-menu',
-]
+menu_providers = ['track-panel-menu', 'playlist-context-menu']
 
 
 class BPMCounterPlugin(object):
     """
         Implements logic for plugin
     """
+
     # Provider API requirement
     name = 'BPM'
     menuitem = None
@@ -65,9 +60,13 @@ class BPMCounterPlugin(object):
         providers.register('mainwindow-info-area-widget', self)
 
         if autodetect_enabled:
-            self.menuitem = menu.simple_menu_item('_bpm', ['enqueue'],
-                                                  _('Autodetect BPM'), callback=self.on_auto_menuitem,
-                                                  condition_fn=lambda n, p, c: not c['selection-empty'])
+            self.menuitem = menu.simple_menu_item(
+                '_bpm',
+                ['enqueue'],
+                _('Autodetect BPM'),
+                callback=self.on_auto_menuitem,
+                condition_fn=lambda n, p, c: not c['selection-empty'],
+            )
 
             for p in menu_providers:
                 providers.register(p, self.menuitem)
@@ -95,6 +94,7 @@ class BPMCounterPlugin(object):
                 window = playlist_view.get_toplevel()
             else:
                 from xlgui import panel
+
                 if isinstance(playlist_view, panel.Panel):
                     window = playlist_view.parent
                 else:
@@ -102,7 +102,6 @@ class BPMCounterPlugin(object):
             self.autodetect_bpm(tracks[0], window)
 
     def autodetect_bpm(self, track, parent_window=None):
-
         def _on_complete(bpm, err):
             if err is not None:
                 dialogs.error(None, err)
@@ -124,9 +123,13 @@ class BPMCounterPlugin(object):
             # Turn it into a rounded int.
             bpm = int(round(float(bpm)))
 
-            msg = Gtk.MessageDialog(parent_window, Gtk.DialogFlags.MODAL,
-                                    Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-                                    _('Set BPM of %d on %s?') % (bpm, track.get_tag_display('title')))
+            msg = Gtk.MessageDialog(
+                parent_window,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.QUESTION,
+                Gtk.ButtonsType.YES_NO,
+                _('Set BPM of %d on %s?') % (bpm, track.get_tag_display('title')),
+            )
             msg.set_default_response(Gtk.ResponseType.NO)
             result = msg.run()
             msg.destroy()
@@ -136,7 +139,12 @@ class BPMCounterPlugin(object):
         if result == Gtk.ResponseType.YES:
             track.set_tags(bpm=bpm)
             if not track.write_tags():
-                dialogs.error(None, "Error writing BPM to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
+                dialogs.error(
+                    None,
+                    "Error writing BPM to %s"
+                    % GObject.markup_escape_text(track.get_loc_for_io()),
+                )
+
 
 plugin_class = BPMCounterPlugin
 
@@ -146,8 +154,7 @@ class BPMAutodetectResponse(Gtk.Dialog):
 
     __gtype_name__ = 'BPMAutodetectResponse'
 
-    q_label,       \
-        r1, r2, r3 = GtkTemplate.Child.widgets(4)
+    q_label, r1, r2, r3 = GtkTemplate.Child.widgets(4)
 
     def __init__(self, parent_window, bpm, track):
         Gtk.Dialog.__init__(self, parent=parent_window)
@@ -170,9 +177,7 @@ class BPMWidget(Gtk.Frame):
 
     __gtype_name__ = 'BPMWidget'
 
-    eventbox,       \
-        bpm_label,      \
-        apply_button = GtkTemplate.Child.widgets(3)
+    eventbox, bpm_label, apply_button = GtkTemplate.Child.widgets(3)
 
     def __init__(self, player, plugin):
         Gtk.Frame.__init__(self, label=_('BPM Counter'))
@@ -196,12 +201,15 @@ class BPMWidget(Gtk.Frame):
         if autodetect_enabled:
             self.menu = menu.Menu(None)
 
-            item = menu.simple_menu_item('_bpm', [], _('Autodetect BPM'),
-                                         callback=self.on_auto_menuitem)
+            item = menu.simple_menu_item(
+                '_bpm', [], _('Autodetect BPM'), callback=self.on_auto_menuitem
+            )
             self.menu.add_item(item)
 
         # Be notified when a new track is playing
-        event.add_ui_callback(self.playback_track_start, 'playback_track_start', self.player)
+        event.add_ui_callback(
+            self.playback_track_start, 'playback_track_start', self.player
+        )
 
         # get the main exaile window, and dock our window next to it if possible
 
@@ -232,7 +240,9 @@ class BPMWidget(Gtk.Frame):
     @GtkTemplate.Callback
     def on_destroy(self, widget):
         # de-register the exaile events
-        event.remove_callback(self.playback_track_start, 'playback_track_start', self.player)
+        event.remove_callback(
+            self.playback_track_start, 'playback_track_start', self.player
+        )
 
     @GtkTemplate.Callback
     def on_apply_button_clicked(self, widget):
@@ -265,7 +275,9 @@ class BPMWidget(Gtk.Frame):
         self.eventbox.set_state(Gtk.StateType.SELECTED)
         self.eventbox.grab_focus()
 
-        if event.type is Gdk.EventType.BUTTON_PRESS:  # Ignore double- and triple-click events
+        if (
+            event.type is Gdk.EventType.BUTTON_PRESS
+        ):  # Ignore double- and triple-click events
             self.add_bpm_tap()
         return True
 
@@ -295,7 +307,13 @@ class BPMWidget(Gtk.Frame):
         self.trim_taps()
 
         if len(self.taps) > 1:
-            self.bpm = str(int(round(((len(self.taps) - 1) * 60.0) / (self.taps[-1] - self.taps[0]))))
+            self.bpm = str(
+                int(
+                    round(
+                        ((len(self.taps) - 1) * 60.0) / (self.taps[-1] - self.taps[0])
+                    )
+                )
+            )
         else:
             self.bpm = None
 

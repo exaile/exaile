@@ -32,4 +32,5 @@ from mutagen import trueaudio
 class TTAFormat(ID3Format):
     MutagenType = trueaudio.TrueAudio
 
+
 # vim: et sts=4 sw=4

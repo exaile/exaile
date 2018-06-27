@@ -109,8 +109,11 @@ def get_workarea_dimensions(window=None):
         screen = Gdk.Screen.get_default()
         default_monitor = screen.get_primary_monitor()
         return screen.get_monitor_workarea(default_monitor)
-    elif Gtk.get_major_version() > 3 or \
-            Gtk.get_major_version() == 3 and Gtk.get_minor_version() >= 22:
+    elif (
+        Gtk.get_major_version() > 3
+        or Gtk.get_major_version() == 3
+        and Gtk.get_minor_version() >= 22
+    ):
         # Gdk.Monitor was introduced in Gtk+ 3.22
         display = window.get_window().get_display()
         work_area = display.get_monitor_at_window(window.get_window()).get_workarea()
@@ -177,6 +180,7 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
     loader = GdkPixbuf.PixbufLoader()
 
     if size is not None:
+
         def on_size_prepared(loader, width, height):
             """
                 Keeps the ratio if requested
@@ -197,15 +201,16 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
                     width = height = max(width, height)
 
             loader.set_size(width, height)
+
         loader.connect('size-prepared', on_size_prepared)
 
     try:
         loader.write(data)
         loader.close()
     except GLib.GError as e:
-        logger.warning('Failed to get pixbuf from data: {error}'.format(
-            error=e.message
-        ))
+        logger.warning(
+            'Failed to get pixbuf from data: {error}'.format(error=e.message)
+        )
     else:
         pixbuf = loader.get_pixbuf()
 
@@ -239,7 +244,9 @@ class ScalableImageWidget(Gtk.Image):
             :param fill: True to expand the image, False to keep its ratio
             :type fill: boolean
         """
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file(Gio.File.new_for_uri(location).get_path())
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(
+            Gio.File.new_for_uri(location).get_path()
+        )
         self.set_image_pixbuf(pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
@@ -307,13 +314,12 @@ class SearchEntry(object):
         """
             Called when the entry changes
         """
-        empty_search = (entry.get_text() == '')
+        empty_search = entry.get_text() == ''
         entry.props.secondary_icon_sensitive = not empty_search
 
         if self.change_id:
             GLib.source_remove(self.change_id)
-        self.change_id = GLib.timeout_add(self.timeout,
-                                          self.entry_activate)
+        self.change_id = GLib.timeout_add(self.timeout, self.entry_activate)
 
     def on_entry_icon_press(self, entry, icon_pos, event):
         """
@@ -383,7 +389,7 @@ def position_menu(menu, *args):
     menu_allocation = menu.get_allocation()
     position = (
         window_x + widget_allocation.x + 1,
-        window_y + widget_allocation.y - menu_allocation.height - 1
+        window_y + widget_allocation.y - menu_allocation.height - 1,
     )
 
     return (position[0], position[1], True)
@@ -434,7 +440,10 @@ def initialize_from_xml(this, other=None):
             for widget_name in obj.ui_widgets:
                 widget = builder.get_object(widget_name)
                 if widget is None:
-                    raise RuntimeError("Widget '%s' is not present in '%s'" % (widget_name, this.ui_filename))
+                    raise RuntimeError(
+                        "Widget '%s' is not present in '%s'"
+                        % (widget_name, this.ui_filename)
+                    )
                 setattr(obj, widget_name, widget)
 
     signals = None
@@ -445,13 +454,18 @@ def initialize_from_xml(this, other=None):
                 signals = {}
             for signal_name in obj.ui_signals:
                 if not hasattr(obj, signal_name):
-                    raise RuntimeError("Function '%s' is not present in '%s'" % (signal_name, obj))
+                    raise RuntimeError(
+                        "Function '%s' is not present in '%s'" % (signal_name, obj)
+                    )
                 signals[signal_name] = getattr(obj, signal_name)
 
     if signals is not None:
         missing = builder.connect_signals(signals)
         if missing is not None:
-            err = 'The following signals were found in %s but have no assigned handler: %s' % (this.ui_filename, str(missing))
+            err = (
+                'The following signals were found in %s but have no assigned handler: %s'
+                % (this.ui_filename, str(missing))
+            )
             raise RuntimeError(err)
 
     return builder
@@ -595,7 +609,12 @@ def css_from_pango_font_description(pango_font_str):
     # According to https://www.w3schools.com/cssref/pr_font_font-family.asp
     # "If a font name contains white-space, it must be quoted"
     font_css_str = 'font: %s %s %s %s %s "%s"' % (
-        style, variant, weight, stretch, size, new_font.get_family(),
+        style,
+        variant,
+        weight,
+        stretch,
+        size,
+        new_font.get_family(),
     )
     return font_css_str
 
@@ -605,15 +624,15 @@ def _get_closest_visible(model, child_path):
     # (which is presumed to not be visible in the model)
     # -> derived from python's bisect_left (Python license)
     x = child_path.get_indices()[0]
-    
+
     ll = len(model)
     lo = 0
     hi = ll
     if not hi:
         return
-    
+
     while lo < hi:
-        mid = (lo + hi)//2
+        mid = (lo + hi) // 2
         amid = model.convert_path_to_child_path(model[mid].path).get_indices()[0]
         if amid < x:
             lo = mid + 1
@@ -622,6 +641,7 @@ def _get_closest_visible(model, child_path):
     if lo == ll:
         lo -= 1
     return model[lo].path
+
 
 @contextlib.contextmanager
 def without_model(tv):
@@ -639,14 +659,14 @@ def without_model(tv):
     model = tv.get_model()
     child_model = model.get_model()
     selection = tv.get_selection()
-    
+
     # Save existing scroll information if this is a modelfilter
     visible_data = tv.get_visible_range()
     if visible_data:
         # save a ref and path data -- path is used if the row disappears
         visible_data = model.convert_path_to_child_path(visible_data[0])
         visible_ref = Gtk.TreeRowReference(child_model, visible_data)
-    
+
     # grab selection data, convert them to child row references
     # -> need refs because paths will change if objects are deleted
     seldata = selection.get_selected_rows()
@@ -658,11 +678,11 @@ def without_model(tv):
             if not first_selected_path:
                 first_selected_path = path
             selected_rows.append(Gtk.TreeRowReference(child_model, path))
-    
+
     tv.set_model(None)
     yield model
     tv.set_model(model)
-    
+
     # restore selection data first
     for row in selected_rows:
         if not row.valid():
@@ -671,13 +691,13 @@ def without_model(tv):
         if path:
             selection.select_path(path)
             first_selected_path = None
-    
+
     # If there were no visible iters, try to find something close
     if first_selected_path:
         first_selected_path = _get_closest_visible(model, first_selected_path)
         if first_selected_path:
             selection.select_path(first_selected_path)
-    
+
     # Restore scroll position
     if visible_data:
         # If original item is visible, this is easy
@@ -687,12 +707,13 @@ def without_model(tv):
         else:
             # But if it isn't valid, then just use the path data
             scroll_to = model.convert_child_path_to_path(visible_data)
-        
+
         if scroll_to is None:
             # If not, search for the closest visible item
             scroll_to = _get_closest_visible(model, visible_data)
-        
+
         if scroll_to:
             tv.scroll_to_cell(scroll_to, None, True, 0, 0)
+
 
 # vim: et sts=4 sw=4

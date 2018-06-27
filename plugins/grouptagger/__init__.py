@@ -27,12 +27,7 @@
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from xl import (
-    event,
-    providers,
-    player,
-    settings
-)
+from xl import event, providers, player, settings
 
 from xl.nls import gettext as _
 
@@ -84,70 +79,116 @@ class GroupTaggerPlugin(object):
 
         # ok, register for some events
         event.add_ui_callback(self.on_playback_track_start, 'playback_track_start')
-        event.add_ui_callback(self.on_playlist_cursor_changed, 'playlist_cursor_changed')
-        event.add_ui_callback(self.on_plugin_options_set, 'plugin_grouptagger_option_set')
+        event.add_ui_callback(
+            self.on_playlist_cursor_changed, 'playlist_cursor_changed'
+        )
+        event.add_ui_callback(
+            self.on_plugin_options_set, 'plugin_grouptagger_option_set'
+        )
 
         # add our own submenu for functionality
         tools_submenu = menu.Menu(None, context_func=lambda p: self.exaile)
 
         tools_submenu.add_item(
-            menu.simple_menu_item('gt_get_tags', [], _('_Get all tags from collection'),
-                                  callback=self.on_get_tags_menu)
+            menu.simple_menu_item(
+                'gt_get_tags',
+                [],
+                _('_Get all tags from collection'),
+                callback=self.on_get_tags_menu,
+            )
         )
 
         tools_submenu.add_item(
-            menu.simple_menu_item('gt_import', [], _('_Import tags from directory'),
-                                  callback=self.on_import_tags)
+            menu.simple_menu_item(
+                'gt_import',
+                [],
+                _('_Import tags from directory'),
+                callback=self.on_import_tags,
+            )
         )
 
         tools_submenu.add_item(
-            menu.simple_menu_item('gt_rename', [], _('_Mass rename/delete tags'),
-                                  callback=self.on_mass_rename)
+            menu.simple_menu_item(
+                'gt_rename',
+                [],
+                _('_Mass rename/delete tags'),
+                callback=self.on_mass_rename,
+            )
         )
-        
+
         tools_submenu.add_item(
-            menu.simple_menu_item('gt_export', [], _('E_xport collecton tags to JSON'),
-                                  callback=self.on_export_tags)
+            menu.simple_menu_item(
+                'gt_export',
+                [],
+                _('E_xport collecton tags to JSON'),
+                callback=self.on_export_tags,
+            )
         )
 
         # group them together to make it not too long
-        self.tools_menuitem = menu.simple_menu_item('grouptagger', ['plugin-sep'],
-                                                    _('_GroupTagger'), submenu=tools_submenu)
+        self.tools_menuitem = menu.simple_menu_item(
+            'grouptagger', ['plugin-sep'], _('_GroupTagger'), submenu=tools_submenu
+        )
         providers.register('menubar-tools-menu', self.tools_menuitem)
 
         # playlist context menu items
         self.provider_items = []
         track_subitem = menu.Menu(None, inherit_context=True)
 
-        track_subitem.add_item(menu.simple_menu_item('gt_search_all', [],
-                                                     _('Show tracks with all tags'),
-                                                     callback=self.on_playlist_context_select_all_menu,
-                                                     callback_args=[self.exaile]))
+        track_subitem.add_item(
+            menu.simple_menu_item(
+                'gt_search_all',
+                [],
+                _('Show tracks with all tags'),
+                callback=self.on_playlist_context_select_all_menu,
+                callback_args=[self.exaile],
+            )
+        )
 
-        track_subitem.add_item(menu.simple_menu_item('gt_search_custom', ['gt_search_all'],
-                                                     _('Show tracks with tags (custom)'),
-                                                     callback=self.on_playlist_context_select_custom_menu,
-                                                     callback_args=[self.exaile]))
+        track_subitem.add_item(
+            menu.simple_menu_item(
+                'gt_search_custom',
+                ['gt_search_all'],
+                _('Show tracks with tags (custom)'),
+                callback=self.on_playlist_context_select_custom_menu,
+                callback_args=[self.exaile],
+            )
+        )
 
         tag_cond_fn = lambda n, p, c: c['selection-count'] > 1
 
-        track_subitem.add_item(menu.simple_menu_item('gt_tag_add_multi', ['gt_search_custom'],
-                                                     _('Add tags to all'),
-                                                     callback=self.on_add_tags, condition_fn=tag_cond_fn,
-                                                     callback_args=[self.exaile]))
+        track_subitem.add_item(
+            menu.simple_menu_item(
+                'gt_tag_add_multi',
+                ['gt_search_custom'],
+                _('Add tags to all'),
+                callback=self.on_add_tags,
+                condition_fn=tag_cond_fn,
+                callback_args=[self.exaile],
+            )
+        )
 
-        track_subitem.add_item(menu.simple_menu_item('gt_tag_rm_multi', ['gt_tag_add_multi'],
-                                                     _('Remove tags from all'),
-                                                     callback=self.on_rm_tags, condition_fn=tag_cond_fn,
-                                                     callback_args=[self.exaile]))
+        track_subitem.add_item(
+            menu.simple_menu_item(
+                'gt_tag_rm_multi',
+                ['gt_tag_add_multi'],
+                _('Remove tags from all'),
+                callback=self.on_rm_tags,
+                condition_fn=tag_cond_fn,
+                callback_args=[self.exaile],
+            )
+        )
 
-        self.provider_items.append(menu.simple_menu_item('grouptagger', ['rating'],
-                                                         _('GroupTagger'), submenu=track_subitem))
+        self.provider_items.append(
+            menu.simple_menu_item(
+                'grouptagger', ['rating'], _('GroupTagger'), submenu=track_subitem
+            )
+        )
 
         for item in self.provider_items:
             providers.register('playlist-context-menu', item)
             # Hm, doesn't work..
-            #providers.register('track-panel-menu', item)
+            # providers.register('track-panel-menu', item)
 
         # trigger start event if exaile is currently playing something
         if player.PLAYER.is_playing():
@@ -173,8 +214,12 @@ class GroupTaggerPlugin(object):
 
         # de-register the exaile events
         event.remove_callback(self.on_playback_track_start, 'playback_track_start')
-        event.remove_callback(self.on_playlist_cursor_changed, 'playlist_cursor_changed')
-        event.remove_callback(self.on_plugin_options_set, 'plugin_grouptagger_option_set')
+        event.remove_callback(
+            self.on_playlist_cursor_changed, 'playlist_cursor_changed'
+        )
+        event.remove_callback(
+            self.on_plugin_options_set, 'plugin_grouptagger_option_set'
+        )
 
         providers.unregister('main-panel', self.panel)
 
@@ -192,15 +237,19 @@ class GroupTaggerPlugin(object):
     #
     # Menu callbacks
     #
-    
+
     def on_export_tags(self, widget, name, parent, exaile):
         gt_export.export_tags(exaile)
 
     def on_get_tags_menu(self, widget, name, parent, exaile):
 
         if self.tag_dialog is None:
-            self.tag_dialog = gt_widgets.AllTagsDialog(exaile, self.panel.tagger.add_groups)
-            self.tag_dialog.connect('delete-event', self.on_get_tags_menu_window_deleted)
+            self.tag_dialog = gt_widgets.AllTagsDialog(
+                exaile, self.panel.tagger.add_groups
+            )
+            self.tag_dialog.connect(
+                'delete-event', self.on_get_tags_menu_window_deleted
+            )
 
         self.tag_dialog.show_all()
 
@@ -260,7 +309,9 @@ class GroupTaggerPlugin(object):
         '''Called when a new track starts'''
         self.set_display_track(track)
 
-    def on_playlist_context_select_all_menu(self, menu, display_name, playlist_view, context, exaile):
+    def on_playlist_context_select_all_menu(
+        self, menu, display_name, playlist_view, context, exaile
+    ):
         '''Called when 'Select tracks with same tags' is selected'''
         tracks = context['selected-tracks']
         groups = set()
@@ -273,7 +324,9 @@ class GroupTaggerPlugin(object):
         else:
             dialogs.error(None, _('No categorization tags found in selected tracks'))
 
-    def on_playlist_context_select_custom_menu(self, menu, display_name, playlist_view, context, exaile):
+    def on_playlist_context_select_custom_menu(
+        self, menu, display_name, playlist_view, context, exaile
+    ):
         '''Called when 'select tracks with similar tags (custom)' is selected'''
         tracks = context['selected-tracks']
         groups = set()
@@ -359,5 +412,6 @@ class GroupTaggerPlugin(object):
         elif option == tagname_option:
             if self.track is not None:
                 self.set_display_track(self.track, True)
+
 
 plugin_class = GroupTaggerPlugin

@@ -38,6 +38,7 @@ from xlgui.widgets import dialogs
 from gt_common import get_track_groups
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -45,15 +46,17 @@ def export_tags(exaile):
     '''
         Exports all tags to a user specified JSON file
     '''
-    
-    uri = dialogs.save(parent=exaile.gui.main.window,
-                       output_fname='tags.json',
-                       output_setting='plugin/grouptagger/export_dir',
-                       title=_('Export tags to JSON'),
-                       extensions={'.json': 'grouptagger JSON export'})
-    
+
+    uri = dialogs.save(
+        parent=exaile.gui.main.window,
+        output_fname='tags.json',
+        output_setting='plugin/grouptagger/export_dir',
+        title=_('Export tags to JSON'),
+        extensions={'.json': 'grouptagger JSON export'},
+    )
+
     if uri is not None:
-        
+
         # collect the data
         trackdata = {}
         for strack in search.search_tracks_from_string(exaile.collection, ''):
@@ -61,7 +64,7 @@ def export_tags(exaile):
             tags = list(sorted(get_track_groups(track)))
             if tags:
                 trackdata[track.get_loc_for_io()] = tags
-        
+
         data = {
             '_meta': {
                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -70,10 +73,9 @@ def export_tags(exaile):
             },
             'tracks': trackdata,
         }
-        
+
         # save it
         with GioFileOutputStream(Gio.File.new_for_uri(uri), 'w') as fp:
-            json.dump(data, fp,
-                      sort_keys=True, indent=4, separators=(',', ': '))
-        
+            json.dump(data, fp, sort_keys=True, indent=4, separators=(',', ': '))
+
         logger.info("Exported tags of %s tracks to %s", len(trackdata), uri)

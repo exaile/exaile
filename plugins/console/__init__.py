@@ -29,18 +29,22 @@ import traceback
 from cStringIO import StringIO
 
 
-class PyConsole():
-
+class PyConsole:
     def __init__(self, dict, exaile):
         self.dict = dict
         self.buffer = StringIO()
 
         ui = Gtk.Builder()
-        ui.add_from_file(os.path.join(os.path.dirname(
-            os.path.realpath(__file__)), 'console_window.ui'))
+        ui.add_from_file(
+            os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), 'console_window.ui'
+            )
+        )
 
         self.window = ui.get_object('simple_console_window')
-        self.close_handler = self.window.connect('delete-event', console_destroyed, exaile)
+        self.close_handler = self.window.connect(
+            'delete-event', console_destroyed, exaile
+        )
 
         self.text_view = tv = ui.get_object('console_output')
 
@@ -84,12 +88,14 @@ class PyConsole():
         self.text_view.scroll_to_mark(self.end_mark, 0, False, 0.5, 0.5)
         self.entry.grab_focus()
 
+
 PLUGIN = None
 
 
 def enable(exaile):
     if exaile.loading:
         from xl import event
+
         event.add_callback(_enable, 'gui_loaded')
     else:
         _enable(None, exaile, None)
@@ -115,5 +121,6 @@ def disable(exaile):
         PLUGIN.window.disconnect(PLUGIN.close_handler)
         PLUGIN.window.destroy()
         PLUGIN = None
+
 
 # vi: et sts=4 sw=4 ts=4

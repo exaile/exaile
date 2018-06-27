@@ -20,8 +20,9 @@ def main():
     else:
         port = 3689
 
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)s %(message)s')
+    logging.basicConfig(
+        level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s'
+    )
 
     try:
         # do everything in a big try, so we can disconnect at the end
@@ -36,7 +37,7 @@ def main():
         tracks = library.tracks()
 
         # demo - save the first track to disk
-        #print("Saving %s by %s to disk as 'track.mp3'"%(tracks[0].name, tracks[0].artist))
+        # print("Saving %s by %s to disk as 'track.mp3'"%(tracks[0].name, tracks[0].artist))
         # tracks[0].save("track.mp3")
         if len(tracks) > 0:
             tracks[0].atom.printTree()

@@ -32,6 +32,7 @@ from gi.repository import Gst
 from gi.repository import GLib
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -110,7 +111,9 @@ class DynamicAudioSink(Gst.Bin):
 
             # Start off by blocking the src pad of the prior element
             spad = old_audio_sink.get_static_pad('sink').get_peer()
-            spad.add_probe(Gst.PadProbeType.BLOCK_DOWNSTREAM, self._pad_blocked_cb, audio_sink)
+            spad.add_probe(
+                Gst.PadProbeType.BLOCK_DOWNSTREAM, self._pad_blocked_cb, audio_sink
+            )
 
             # Don't release the lock until pad block is done
             release_lock = False
@@ -160,13 +163,19 @@ class DynamicAudioSink(Gst.Bin):
             #       the paused state because there's no buffer. This forces
             #       a resync of the buffer, so things still work.
 
-            seek_event = Gst.Event.new_seek(1.0, Gst.Format.TIME,
-                                            Gst.SeekFlags.FLUSH, Gst.SeekType.SET,
-                                            buffer_position[1],
-                                            Gst.SeekType.NONE, 0)
+            seek_event = Gst.Event.new_seek(
+                1.0,
+                Gst.Format.TIME,
+                Gst.SeekFlags.FLUSH,
+                Gst.SeekType.SET,
+                buffer_position[1],
+                Gst.SeekType.NONE,
+                0,
+            )
 
             self.send_event(seek_event)
 
         self.audio_sink = audio_sink
+
 
 # vim: et sts=4 sw=4

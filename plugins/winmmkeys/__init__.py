@@ -16,7 +16,6 @@
 
 
 class WinmmkeysPlugin:
-
     def enable(self, exaile):
         self.exaile = exaile
 
@@ -37,7 +36,6 @@ plugin_class = WinmmkeysPlugin
 
 
 class HotkeyHandler_PyHook:
-
     def __init__(self, exaile):
         import pyHook
         from xl.player import PLAYER, QUEUE
@@ -74,13 +72,15 @@ class HotkeyHandler_PyHook:
 
 
 class HotkeyHandler_Keyboard:
-
     def __init__(self, exaile):
         import keyboard
         from xl.player import PLAYER, QUEUE
+
         self.handlers = [
             # use lambda here because gi function isn't hashable
-            keyboard.add_hotkey('select media', lambda: exaile.gui.main.window.present()),
+            keyboard.add_hotkey(
+                'select media', lambda: exaile.gui.main.window.present()
+            ),
             keyboard.add_hotkey('stop media', PLAYER.stop),
             keyboard.add_hotkey('play/pause media', PLAYER.toggle_pause),
             keyboard.add_hotkey('next track', QUEUE.next),
@@ -93,6 +93,7 @@ class HotkeyHandler_Keyboard:
     def disable(self):
         if hasattr(self, 'handlers'):
             import keyboard
+
             for handler in self.handlers:
                 keyboard.remove_hotkey(handler)
             del self.handlers

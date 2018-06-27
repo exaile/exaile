@@ -53,8 +53,12 @@ class AsfFormat(BaseFormat):
         # unicode so things don't break
         tag = super(AsfFormat, self)._get_tag(raw, tag_name)
         if isinstance(tag, list):
-            attrs = [asf.ASFUnicodeAttribute, asf.ASFDWordAttribute,
-                     asf.ASFQWordAttribute, asf.ASFWordAttribute]
+            attrs = [
+                asf.ASFUnicodeAttribute,
+                asf.ASFDWordAttribute,
+                asf.ASFQWordAttribute,
+                asf.ASFWordAttribute,
+            ]
 
             def __process_tag(any_tag):
                 for attrtype in attrs:
@@ -63,5 +67,6 @@ class AsfFormat(BaseFormat):
                 return any_tag
 
             return [__process_tag(t) for t in tag]
+
 
 # vim: et sts=4 sw=4

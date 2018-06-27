@@ -55,4 +55,5 @@ class ApeFormat(CaseInsensitveBaseFormat):
     others = True
     writable = True
 
+
 # vim: et sts=4 sw=4

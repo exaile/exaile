@@ -36,22 +36,22 @@ logger = logging.getLogger(__name__)
 
 def migrate(path):
     bak_path = path + os.extsep + 'tmp'
-    
+
     try:
         old_shelf = shelve.open(path, 'r', protocol=common.PICKLE_PROTOCOL)
     except Exception:
         logger.warn("%s may be corrupt", path)
         raise
-    
+
     db = common.bsddb.hashopen(bak_path, 'c')
     new_shelf = shelve.BsdDbShelf(db, protocol=common.PICKLE_PROTOCOL)
-    
+
     for k, v in old_shelf.iteritems():
         new_shelf[k] = v
-    
+
     new_shelf.close()
     old_shelf.close()
-    
+
     try:
         common.replace_file(bak_path, path)
     except Exception:
@@ -60,7 +60,7 @@ def migrate(path):
         except Exception:
             pass
         raise
-        
+
     # Various types of *dbm modules use more than one file to store the data.
     # Now that we are assured that the migration is complete, delete them if
     # present
@@ -69,5 +69,5 @@ def migrate(path):
             os.unlink(extra)
         except Exception as e:
             logger.warning("Could not delete %s: %s", extra, e)
-    
+
     logger.info("Migration successfully completed!")

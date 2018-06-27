@@ -18,6 +18,7 @@ import urllib
 from xml.etree import ElementTree
 from xl import common
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,8 +27,7 @@ logger = logging.getLogger(__name__)
 search_url = 'https://librivox.org/api/feed/audiobooks/?title='
 
 
-class Book():
-
+class Book:
     def __init__(self, title, rssurl, user_agent):
         self.title = title
         self.rssurl = rssurl
@@ -64,7 +64,9 @@ class Book():
         for item in items:
             title = item.find("title").text
             link = item.find("link").text
-            duration = item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
+            duration = item.find(
+                "{http://www.itunes.com/dtds/podcast-1.0.dtd}duration"
+            ).text
             if duration is None:
                 duration = 'Unknown length'
             link = link.replace("_64kb.mp3", ".ogg")

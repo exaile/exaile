@@ -144,7 +144,6 @@ class TranscodeError(Exception):
 
 
 class Transcoder(object):
-
     def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None
@@ -187,8 +186,13 @@ class Transcoder(object):
 
     def start_transcode(self):
         self._construct_encoder()
-        elements = [self.input, "decodebin name=\"decoder\"", "audioconvert",
-                    self.encoder, self.output]
+        elements = [
+            self.input,
+            "decodebin name=\"decoder\"",
+            "audioconvert",
+            self.encoder,
+            self.output,
+        ]
         pipestr = " ! ".join(elements)
         logger.info("Starting GStreamer decoder with pipestring: %s", pipestr)
         pipe = Gst.parse_launch(pipestr)

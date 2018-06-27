@@ -35,6 +35,7 @@ from . import gst_utils
 import sys
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -77,28 +78,31 @@ SINK_PRESETS = {
     # fmt: on
 }
 
+
 def __filter_presets():
     for preset in list(SINK_PRESETS.keys()):
         pipe = SINK_PRESETS[preset].get('pipe')
         if pipe and not Gst.ElementFactory.make(pipe):
             SINK_PRESETS.pop(preset)
 
+
 __filter_presets()
 
 
 # Every audiosink is a bit different...
 _autodetect_propnames = [
-    'internal_name',    # pulseaudio
-    'device_id',        # OSX
-    'device_guid',      # directsound
-    'device'            # wasapi
+    'internal_name',  # pulseaudio
+    'device_id',  # OSX
+    'device_guid',  # directsound
+    'device',  # wasapi
 ]
+
 
 def _gst_device_autodetect():
     # Linux: support was added in gstreamer 1.4
     # OSX: support was added in gstreamer 1.10
     # Windows: support was added in gstreamer 1.14
-    
+
     dm = Gst.DeviceMonitor.new()
     dm.add_filter('Audio/Sink', Gst.Caps.new_empty_simple('audio/x-raw'))
     dm.start()
@@ -111,25 +115,24 @@ def _gst_device_autodetect():
                     break
             else:
                 continue
-            
+
             if not device_id:
                 continue
-            
+
             display_name = device.get_display_name()
             if hasattr(device.props, 'properties'):
                 api = device.props.properties.get_string('device.api')
                 if api:
                     display_name = '%s [%s]' % (display_name, api)
-                    
+
                     # TODO: remove this when wasapi is stable
                     if api == 'wasapi':
                         continue
 
-            yield (display_name,
-                   device_id,
-                   device.create_element)
+            yield (display_name, device_id, device.create_element)
     finally:
         dm.stop()
+
 
 def get_devices():
     '''
@@ -137,7 +140,11 @@ def get_devices():
         fn is a function that will create the audiosink when called
     '''
 
-    yield (_('Automatic'), 'auto', lambda name: Gst.ElementFactory.make('autoaudiosink', name))
+    yield (
+        _('Automatic'),
+        'auto',
+        lambda name: Gst.ElementFactory.make('autoaudiosink', name),
+    )
 
     for info in _gst_device_autodetect():
         yield info
@@ -164,7 +171,9 @@ def create_device(player_name, return_errorsink=True):
 
     if sink_type == 'auto':
 
-        specified_device = settings.get_option('%s/audiosink_device' % player_name, 'auto')
+        specified_device = settings.get_option(
+            '%s/audiosink_device' % player_name, 'auto'
+        )
 
         for _unused, device_id, create in get_devices():
             if specified_device == device_id:
@@ -209,10 +218,16 @@ def _get_error_audiosink(msg):
     sink = Gst.ElementFactory.make('fakesink', None)
 
     def handoff(s, b, p):
-        s.message_full(Gst.MessageType.ERROR,
-                       Gst.stream_error_quark(), Gst.StreamError.FAILED,
-                       msg, msg,
-                       "", "", 0)
+        s.message_full(
+            Gst.MessageType.ERROR,
+            Gst.stream_error_quark(),
+            Gst.StreamError.FAILED,
+            msg,
+            msg,
+            "",
+            "",
+            0,
+        )
 
     sink.props.signal_handoffs = True
     sink.props.sync = True
@@ -237,13 +252,13 @@ class CustomAudioSink(Gst.Bin):
         gst_utils.element_link_many(*elems)
 
         # GhostPad allows the bin to pretend to be an audio sink
-        ghost = Gst.GhostPad.new("sink",
-                                 elems[0].get_static_pad("sink"))
+        ghost = Gst.GhostPad.new("sink", elems[0].get_static_pad("sink"))
         self.add_pad(ghost)
 
 
 if sys.platform == 'win32':
     import sink_windows
+
     priority_boost = sink_windows.get_priority_booster()
 
 else:

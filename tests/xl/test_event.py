@@ -18,11 +18,11 @@ def glib_idle_add(fn, *args):
     finally:
         on_ui_thread[0] = was_ui_thread
 
+
 GLib.idle_add = glib_idle_add
 
 
 class NormalCallback(object):
-
     def __init__(self):
         self.called = False
         event.add_callback(self.on_cb, 'test')
@@ -36,7 +36,6 @@ class NormalCallback(object):
 
 
 class UiCallback(object):
-
     def __init__(self):
         self.called = False
         event.add_ui_callback(self.on_cb, 'test')

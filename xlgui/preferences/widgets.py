@@ -46,6 +46,7 @@ class Preference(object):
     """
         Representing a Gtk.Entry preferences item
     """
+
     default = ''
     restart_required = False
 
@@ -66,13 +67,16 @@ class Preference(object):
                 parent=preferences.builder.get_object('preferences_box'),
                 type=Gtk.MessageType.QUESTION,
                 buttons=Gtk.ButtonsType.CLOSE,
-                text=_('Restart Exaile?'))
+                text=_('Restart Exaile?'),
+            )
             self.message.set_secondary_text(
-                _('A restart is required for this change to take effect.'))
+                _('A restart is required for this change to take effect.')
+            )
 
             button = self.message.add_button(_('Restart'), Gtk.ResponseType.ACCEPT)
-            button.set_image(Gtk.Image.new_from_icon_name(
-                'view-refresh', Gtk.IconSize.BUTTON))
+            button.set_image(
+                Gtk.Image.new_from_icon_name('view-refresh', Gtk.IconSize.BUTTON)
+            )
 
             self.message.connect('response', self.on_message_response)
 
@@ -86,13 +90,15 @@ class Preference(object):
         """
             Sets up the function to be called when this preference is changed
         """
-        self.widget.connect('focus-out-event',
-                            self.change, self.name, self._get_value())
+        self.widget.connect(
+            'focus-out-event', self.change, self.name, self._get_value()
+        )
 
         try:
-            self.widget.connect('activate',
-                                lambda *e: self.change(self.widget, None, self.name,
-                                                       self._get_value()))
+            self.widget.connect(
+                'activate',
+                lambda *e: self.change(self.widget, None, self.name, self._get_value()),
+            )
         except TypeError:
             pass
 
@@ -109,8 +115,7 @@ class Preference(object):
         if not self.widget:
             logger.error("Widget not found: %s", self.name)
             return
-        self.widget.set_text(str(settings.get_option(
-            self.name, self.default)))
+        self.widget.set_text(str(settings.get_option(self.name, self.default)))
 
     def apply(self, value=None):
         """
@@ -165,13 +170,15 @@ class Conditional(object):
         Allows for reactions on changes
         of other preference items
     """
+
     condition_preference_name = ''
     condition_widget = None
 
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
-        GLib.idle_add(self.on_option_set,
-                      'option_set', settings, self.condition_preference_name)
+        GLib.idle_add(
+            self.on_option_set, 'option_set', settings, self.condition_preference_name
+        )
 
     def get_condition_value(self):
         '''
@@ -237,13 +244,18 @@ class MultiConditional(object):
     """
         Allows for reactions on changes of multiple preference items
     """
+
     condition_preference_names = []
     condition_widgets = {}
 
     def __init__(self):
         event.add_ui_callback(self.on_option_set, 'option_set')
-        GLib.idle_add(self.on_option_set,
-                      'option_set', settings, self.condition_preference_names[0])
+        GLib.idle_add(
+            self.on_option_set,
+            'option_set',
+            settings,
+            self.condition_preference_names[0],
+        )
 
     def get_condition_value(self, name):
         '''
@@ -321,16 +333,15 @@ class HashedPreference(Preference):
         Options:
         * type (Which hashfunction to use, default: md5)
     """
+
     type = 'md5'
 
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
         self.widget.set_visibility(True)
-        self._delete_text_id = self.widget.connect('delete-text',
-                                                   self.on_delete_text)
-        self._insert_text_id = self.widget.connect('insert-text',
-                                                   self.on_insert_text)
+        self._delete_text_id = self.widget.connect('delete-text', self.on_delete_text)
+        self._insert_text_id = self.widget.connect('insert-text', self.on_insert_text)
 
     def _setup_change(self):
         """
@@ -342,8 +353,7 @@ class HashedPreference(Preference):
         """
             Determines if changes are to be expected
         """
-        if self._delete_text_id is None and \
-           self._insert_text_id is None:
+        if self._delete_text_id is None and self._insert_text_id is None:
             return True
 
         return False
@@ -372,10 +382,8 @@ class HashedPreference(Preference):
 
         self.widget.set_text(value)
         self.widget.set_visibility(True)
-        self._delete_text_id = self.widget.connect('delete-text',
-                                                   self.on_delete_text)
-        self._insert_text_id = self.widget.connect('insert-text',
-                                                   self.on_insert_text)
+        self._delete_text_id = self.widget.connect('delete-text', self.on_delete_text)
+        self._insert_text_id = self.widget.connect('insert-text', self.on_insert_text)
 
         return True
 
@@ -413,8 +421,7 @@ class CheckPreference(Preference):
         Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
-        self.widget.connect('toggled',
-                            self.change)
+        self.widget.connect('toggled', self.change)
 
     def _set_value(self):
         self.widget.set_active(settings.get_option(self.name, self.default))
@@ -497,6 +504,7 @@ class SelectionListPreference(Preference):
         * items: list of :class:`SelectionListPreference.Item` objects
         * default: list of item ids
     """
+
     class Item(object):
         """
             Convenience class for preference item description
@@ -523,8 +531,7 @@ class SelectionListPreference(Preference):
         description = property(lambda self: self.__description)
         fixed = property(lambda self: self.__fixed)
 
-    @GtkTemplate('ui', 'preferences', 'widgets',
-                 'selection_list_preference.ui')
+    @GtkTemplate('ui', 'preferences', 'widgets', 'selection_list_preference.ui')
     class InternalWidget(Gtk.ScrolledWindow):
         """
             Internal class for making GtkTemplate work with subclassing
@@ -532,8 +539,14 @@ class SelectionListPreference(Preference):
 
         __gtype_name__ = 'InternalWidget'
 
-        (model, tree, toggle_renderer, text_renderer, enabled_column, \
-            title_column,) = GtkTemplate.Child.widgets(6)
+        (
+            model,
+            tree,
+            toggle_renderer,
+            text_renderer,
+            enabled_column,
+            title_column,
+        ) = GtkTemplate.Child.widgets(6)
         selectionlp = None
 
         def __init__(self, preference):
@@ -544,19 +557,21 @@ class SelectionListPreference(Preference):
             self.tree.enable_model_drag_source(
                 Gdk.ModifierType.BUTTON1_MASK,
                 [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
-                Gdk.DragAction.MOVE
+                Gdk.DragAction.MOVE,
             )
             self.tree.enable_model_drag_dest(
                 [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
-                Gdk.DragAction.MOVE
+                Gdk.DragAction.MOVE,
             )
             self.tree.connect('drag-end', self.selectionlp.change)
 
-            self.enabled_column.set_cell_data_func(self.toggle_renderer,
-                                                   self.enabled_data_function)
+            self.enabled_column.set_cell_data_func(
+                self.toggle_renderer, self.enabled_data_function
+            )
 
-            self.title_column.set_cell_data_func(self.text_renderer,
-                                                 self.title_data_function)
+            self.title_column.set_cell_data_func(
+                self.text_renderer, self.title_data_function
+            )
 
         @GtkTemplate.Callback
         def on_row_activated(self, tree, path, column):
@@ -677,11 +692,11 @@ class SelectionListPreference(Preference):
             return
 
         # Filter out invalid items
-        selected_items = [item for item in selected_items
-                          if item in available_items]
+        selected_items = [item for item in selected_items if item in available_items]
         # Cut out unselected items
-        unselected_items = [item for item in available_items
-                            if item not in selected_items]
+        unselected_items = [
+            item for item in available_items if item not in selected_items
+        ]
         # Move unselected items to the end
         items = selected_items + unselected_items
         new_order = [available_items.index(item) for item in items]
@@ -843,6 +858,7 @@ class ListPreference(Preference):
         # shlex is broken with unicode, so we feed it UTF-8 and decode
         # afterwards.
         import shlex
+
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
         return values
@@ -892,7 +908,6 @@ class FloatPreference(Preference):
 
 
 class IntPreference(FloatPreference):
-
     def _get_value(self):
         return int(self.widget.get_text())
 
@@ -1064,8 +1079,7 @@ class ComboEntryPreference(Preference):
             Sets up the function to be called
             when this preference is changed
         """
-        self.widget.connect('changed', self.change, self.name,
-                            self._get_value())
+        self.widget.connect('changed', self.change, self.name, self._get_value())
 
     def _set_value(self):
         """
@@ -1115,13 +1129,14 @@ class ComboEntryPreference(Preference):
             if match[:i] and match[:i] == text[match_pos:]:
                 # Delete halfway typed text
                 self.widget.get_child().delete_text(
-                    match_pos, match_pos + len(match[:i]))
+                    match_pos, match_pos + len(match[:i])
+                )
                 # Insert match at matched position
-                self.widget.get_child().insert_text(
-                    match, match_pos)
+                self.widget.get_child().insert_text(match, match_pos)
                 # Update cursor position
                 self.widget.get_child().set_position(match_pos + len(match))
 
         return True
+
 
 # vim: et sts=4 sw=4

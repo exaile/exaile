@@ -28,11 +28,7 @@
     Central storage of application and user settings
 """
 
-from ConfigParser import (
-    RawConfigParser,
-    NoSectionError,
-    NoOptionError
-)
+from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
 import sys
@@ -50,7 +46,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode
+    'U': unicode,
 }
 
 MANAGER = None
@@ -60,6 +56,7 @@ class SettingsManager(RawConfigParser):
     """
         Manages Exaile's settings
     """
+
     settings = None
     __version__ = 1
 
@@ -89,9 +86,9 @@ class SettingsManager(RawConfigParser):
 
         if location is not None:
             try:
-                self.read(self.location) or \
-                    self.read(self.location + ".new") or \
-                    self.read(self.location + ".old")
+                self.read(self.location) or self.read(
+                    self.location + ".new"
+                ) or self.read(self.location + ".old")
             except Exception:
                 pass
 
@@ -253,8 +250,9 @@ class SettingsManager(RawConfigParser):
                 else:
                     return k + ": " + str(value)
 
-        raise ValueError(_("We don't know how to store that "
-                           "kind of setting: "), type(value))
+        raise ValueError(
+            _("We don't know how to store that " "kind of setting: "), type(value)
+        )
 
     def _str_to_val(self, value):
         """
@@ -296,8 +294,7 @@ class SettingsManager(RawConfigParser):
             Save the settings to disk
         """
         if self.location is None:
-            logger.debug("Save requested but not saving settings, "
-                         "location is None")
+            logger.debug("Save requested but not saving settings, " "location is None")
             return
 
         if self._saving or not self._dirty:
@@ -333,6 +330,7 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
+
 location = xdg.get_config_dir()
 
 
@@ -346,8 +344,7 @@ else:
 
 
 MANAGER = SettingsManager(
-    os.path.join(location, "settings.ini"),
-    xdg.get_config_path("settings.ini")
+    os.path.join(location, "settings.ini"), xdg.get_config_path("settings.ini")
 )
 
 get_option = MANAGER.get_option

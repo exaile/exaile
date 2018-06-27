@@ -40,7 +40,6 @@ KEYS = [
 
 
 class KeybinderPlugin(object):
-
     def __init__(self):
         self.__exaile = None
 
@@ -54,8 +53,12 @@ class KeybinderPlugin(object):
         elif not guiutil.platform_is_x11():
             broken = True
         if broken:
-            raise Exception(_('Keybinder is not supported on this platform! '
-                              'It is only supported on X servers.'))
+            raise Exception(
+                _(
+                    'Keybinder is not supported on this platform! '
+                    'It is only supported on X servers.'
+                )
+            )
         self.__exaile = exaile
 
     def on_exaile_loaded(self):
@@ -79,15 +82,18 @@ class KeybinderPlugin(object):
 
 plugin_class = KeybinderPlugin
 
-def start_stop_playback (PLAYER, QUEUE):
+
+def start_stop_playback(PLAYER, QUEUE):
     '''Toggles pause if playing/paused, starts playback if stopped'''
     if PLAYER.is_paused() or PLAYER.is_playing():
         PLAYER.toggle_pause()
     else:
         QUEUE.play(track=QUEUE.get_current())
 
+
 def on_media_key(key, exaile):
     from xl.player import PLAYER, QUEUE
+
     {
         'XF86AudioPlay': lambda: start_stop_playback(PLAYER, QUEUE),
         'XF86AudioStop': PLAYER.stop,

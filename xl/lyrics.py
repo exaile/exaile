@@ -24,23 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from datetime import (
-    datetime,
-    timedelta
-)
+from datetime import datetime, timedelta
 import os
 import re
 import zlib
 import threading
 
 from xl.nls import gettext as _
-from xl import (
-    common,
-    event,
-    providers,
-    settings,
-    xdg
-)
+from xl import common, event, providers, settings, xdg
 
 
 class LyricsNotFoundException(Exception):
@@ -124,8 +115,7 @@ class LyricsManager(providers.ProviderHandler):
 
     def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
-        self.preferred_order = settings.get_option(
-            'lyrics/preferred_order', [])
+        self.preferred_order = settings.get_option('lyrics/preferred_order', [])
         self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(), 'lyrics.cache'))
 
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
@@ -139,10 +129,10 @@ class LyricsManager(providers.ProviderHandler):
             :return: the appropriate cache key
         """
         return (
-            track.get_loc_for_io() +
-            provider.display_name.encode('utf-8') +
-            track.get_tag_display('artist').encode('utf-8') +
-            track.get_tag_display('title').encode('utf-8')
+            track.get_loc_for_io()
+            + provider.display_name.encode('utf-8')
+            + track.get_tag_display('artist').encode('utf-8')
+            + track.get_tag_display('title').encode('utf-8')
         )
 
     def set_preferred_order(self, order):
@@ -262,7 +252,7 @@ class LyricsManager(providers.ProviderHandler):
             (lyrics, source, url, time) = self.cache[key]
             # return if they are not expired
             now = datetime.now()
-            if (now - time < timedelta(hours=cache_time) and not refresh):
+            if now - time < timedelta(hours=cache_time) and not refresh:
                 try:
                     lyrics = zlib.decompress(lyrics)
                 except zlib.error as e:
@@ -308,6 +298,7 @@ class LyricsManager(providers.ProviderHandler):
                 del self.cache[key]
             except KeyError:
                 pass
+
 
 MANAGER = LyricsManager()
 
@@ -364,4 +355,6 @@ class LocalLyricSearch(LyricSearchMethod):
         if not lyrics:
             raise LyricsNotFoundException()
         return (lyrics[0], self.name, "")
+
+
 providers.register('lyrics', LocalLyricSearch())

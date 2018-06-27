@@ -34,10 +34,7 @@ from gi.repository import GObject
 
 import re
 
-from xl import (
-    playlist,
-    settings
-)
+from xl import playlist, settings
 
 from xl.nls import gettext as _
 from xl.trax import search
@@ -62,7 +59,7 @@ def migrate_settings():
         if default_groups is not None:
             group_categories = {_('Uncategorized'): [True, default_groups]}
             set_group_categories(group_categories)
-            #settings.remove_option( 'plugin/grouptagger/default_groups' )
+            # settings.remove_option( 'plugin/grouptagger/default_groups' )
 
         settings.set_option(migrated_option, True)
 
@@ -98,7 +95,11 @@ def set_track_groups(track, groups):
     track.set_tag_raw(get_tagname(), grouping)
 
     if not track.write_tags():
-        dialogs.error(None, "Error writing tags to %s" % GObject.markup_escape_text(track.get_loc_for_io()))
+        dialogs.error(
+            None,
+            "Error writing tags to %s"
+            % GObject.markup_escape_text(track.get_loc_for_io()),
+        )
         return False
 
     return True
@@ -146,7 +147,10 @@ def get_all_collection_groups(collection):
 
 def _create_search_playlist(name, search_string, exaile):
     '''Create a playlist based on a search string'''
-    tracks = [x.track for x in search.search_tracks_from_string(exaile.collection, search_string)]
+    tracks = [
+        x.track
+        for x in search.search_tracks_from_string(exaile.collection, search_string)
+    ]
 
     # create the playlist
     pl = playlist.Playlist(name, tracks)
@@ -159,7 +163,12 @@ def create_all_search_playlist(groups, exaile):
     tagname = get_tagname()
 
     name = '%s: %s' % (tagname.title(), ' and '.join(groups))
-    search_string = ' '.join(['%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_'))) for group in groups])
+    search_string = ' '.join(
+        [
+            '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ', '_')))
+            for group in groups
+        ]
+    )
 
     _create_search_playlist(name, search_string, exaile)
 

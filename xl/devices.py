@@ -76,6 +76,7 @@ class Device(object):
 
         must be subclassed for use
     """
+
     class_autoconnect = False
     library_class = collection.Library
 
@@ -84,7 +85,7 @@ class Device(object):
         self.collection = collection.Collection(name=self.name)
         self.playlists = []
         self._connected = False
-        self.transfer = None    # subclasses need to override this
+        self.transfer = None  # subclasses need to override this
         # if they want transferring
 
     def __get_connected(self):
@@ -141,14 +142,16 @@ class Device(object):
             Send tracks to the device
         """
         if not self.transfer:
-            raise TransferNotSupportedError("Device class does not "
-                                            "support transfer.")
+            raise TransferNotSupportedError(
+                "Device class does not " "support transfer."
+            )
         self.transfer.enqueue(tracks)
 
     def start_transfer(self):
         if not self.transfer:
-            raise TransferNotSupportedError("Device class does not "
-                                            "support transfer.")
+            raise TransferNotSupportedError(
+                "Device class does not " "support transfer."
+            )
         self.transfer.transfer()
 
 

@@ -30,13 +30,7 @@ import os
 import os.path
 import datetime
 
-from xl import (
-    event,
-    player,
-    providers,
-    settings,
-    xdg
-)
+from xl import event, player, providers, settings, xdg
 
 from xl.playlist import Playlist
 from xl.nls import gettext as _
@@ -60,7 +54,9 @@ class HistoryPlugin(object):
         self.exaile = exaile
 
     def on_gui_loaded(self):
-        save_on_exit = settings.get_option('plugin/history/save_on_exit', history_preferences.save_on_exit_default)
+        save_on_exit = settings.get_option(
+            'plugin/history/save_on_exit', history_preferences.save_on_exit_default
+        )
         shown = settings.get_option('plugin/history/shown', False)
 
         # immutable playlist that stores everything we've played
@@ -75,8 +71,13 @@ class HistoryPlugin(object):
         self.history_tab = NotebookTab(main.get_playlist_notebook(), self.history_page)
 
         # add menu item to 'view' to display our playlist
-        self.menu = menu.check_menu_item('history', '', _('Playback history'),
-                                         lambda *e: self.is_shown(), self.on_playback_history)
+        self.menu = menu.check_menu_item(
+            'history',
+            '',
+            _('Playback history'),
+            lambda *e: self.is_shown(),
+            self.on_playback_history,
+        )
 
         providers.register('menubar-view-menu', self.menu)
 
@@ -87,7 +88,9 @@ class HistoryPlugin(object):
     def teardown(self, exaile):
         '''Called when exaile is exiting'''
 
-        if settings.get_option('plugin/history/save_on_exit', history_preferences.save_on_exit_default):
+        if settings.get_option(
+            'plugin/history/save_on_exit', history_preferences.save_on_exit_default
+        ):
             self.history_playlist.save_to_location(self.history_loc)
             settings.set_option('plugin/history/shown', self.is_shown())
         else:
@@ -106,8 +109,13 @@ class HistoryPlugin(object):
         if os.path.exists(self.history_loc):
             # TODO: The parent should be the Preferences window, but we don't
             # have access to it, so this just uses the main window.
-            dialog = Gtk.MessageDialog(exaile.gui.main.window, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
-                                       _('Erase stored history?'))
+            dialog = Gtk.MessageDialog(
+                exaile.gui.main.window,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.QUESTION,
+                Gtk.ButtonsType.YES_NO,
+                _('Erase stored history?'),
+            )
 
             if dialog.run() == Gtk.ResponseType.YES:
                 try:
@@ -133,6 +141,7 @@ class HistoryPlugin(object):
             pn.add_tab(self.history_tab, self.history_page)
         else:
             self.history_tab.close()
+
 
 plugin_class = HistoryPlugin
 
@@ -202,27 +211,49 @@ class HistoryPlaylistPage(PlaylistPageBase):
 def __create_history_tab_context_menu():
     smi = menu.simple_menu_item
     items = []
-    items.append(smi('save', [], _("Save History"), 'gtk-save',
-                     lambda w, n, o, c: o.save_history()))
-    items.append(smi('clear', ['save'], _("_Clear History"), 'gtk-clear',
-                     lambda w, n, o, c: o.playlist._clear()))
+    items.append(
+        smi(
+            'save',
+            [],
+            _("Save History"),
+            'gtk-save',
+            lambda w, n, o, c: o.save_history(),
+        )
+    )
+    items.append(
+        smi(
+            'clear',
+            ['save'],
+            _("_Clear History"),
+            'gtk-clear',
+            lambda w, n, o, c: o.playlist._clear(),
+        )
+    )
 
 
 class HistoryPlaylist(Playlist):
-
     def __init__(self, player):
         Playlist.__init__(self, _('History'))
 
         # catch the history
-        event.add_ui_callback(self.__on_playback_track_start, 'playback_track_start', player)
+        event.add_ui_callback(
+            self.__on_playback_track_start, 'playback_track_start', player
+        )
 
         if player.is_paused() or player.is_playing():
-            self.__on_playback_track_start('playback_track_start', player, player.current)
+            self.__on_playback_track_start(
+                'playback_track_start', player, player.current
+            )
 
     def __on_playback_track_start(self, event, player, track):
         '''Every time a track plays, add it to the playlist'''
 
-        maxlen = int(settings.get_option('plugin/history/history_length', history_preferences.history_length_default))
+        maxlen = int(
+            settings.get_option(
+                'plugin/history/history_length',
+                history_preferences.history_length_default,
+            )
+        )
         if maxlen < 0:
             maxlen = 0
             settings.set_option('plugin/history/history_length', 0)

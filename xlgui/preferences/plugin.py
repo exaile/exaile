@@ -28,16 +28,12 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 import xl.unicode
-from xl import (
-    event,
-    main,
-    plugins,
-    xdg
-)
+from xl import event, main, plugins, xdg
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 name = _('Plugins')
@@ -58,8 +54,7 @@ class PluginManager(object):
         self.plugins = main.exaile().plugins
 
         self.message = dialogs.MessageBar(
-            parent=builder.get_object('preferences_pane'),
-            buttons=Gtk.ButtonsType.CLOSE
+            parent=builder.get_object('preferences_pane'), buttons=Gtk.ButtonsType.CLOSE
         )
         self.message.connect('response', self.on_messagebar_response)
 
@@ -70,8 +65,7 @@ class PluginManager(object):
             reload_cellrenderer = common.ClickableCellRendererPixbuf()
             reload_cellrenderer.props.icon_name = 'view-refresh'
             reload_cellrenderer.props.xalign = 1
-            reload_cellrenderer.connect('clicked',
-                                        self.on_reload_cellrenderer_clicked)
+            reload_cellrenderer.connect('clicked', self.on_reload_cellrenderer_clicked)
 
             name_column = builder.get_object('name_column')
             name_column.pack_start(reload_cellrenderer, True)
@@ -93,8 +87,12 @@ class PluginManager(object):
         selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
 
-        self._evt_rm1 = event.add_ui_callback(self.on_plugin_event, 'plugin_enabled', None, True)
-        self._evt_rm2 = event.add_ui_callback(self.on_plugin_event, 'plugin_disabled', None, False)
+        self._evt_rm1 = event.add_ui_callback(
+            self.on_plugin_event, 'plugin_enabled', None, True
+        )
+        self._evt_rm2 = event.add_ui_callback(
+            self.on_plugin_event, 'plugin_disabled', None, False
+        )
         self.list.connect('destroy', self.on_destroy)
 
         GLib.idle_add(selection.select_path, (0,))
@@ -131,8 +129,16 @@ class PluginManager(object):
                 icon = None
 
             enabled = plugin_name in self.plugins.enabled_plugins
-            plugin_data = (plugin_name, info['Name'], str(info['Version']),
-                           enabled, icon, broken, compatible, True)
+            plugin_data = (
+                plugin_name,
+                info['Name'],
+                str(info['Version']),
+                enabled,
+                icon,
+                broken,
+                compatible,
+                True,
+            )
 
             if 'Category' in info:
                 cat = plugins_dict.setdefault(info['Category'], [])
@@ -147,12 +153,15 @@ class PluginManager(object):
             if item[0] == uncategorized:
                 return '\xff' * 10
             return xl.unicode.strxfrm(item[0])
+
         plugins_dict = sorted(plugins_dict.iteritems(), key=categorykey)
 
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: xl.unicode.strxfrm(x[1]))
 
-            it = self.model.append(None, (None, category, '', False, '', False, True, False))
+            it = self.model.append(
+                None, (None, category, '', False, '', False, True, False)
+            )
 
             for plugin_data in plugins_list:
                 pit = self.model.append(it, plugin_data)
@@ -165,12 +174,10 @@ class PluginManager(object):
         self.list.expand_all()
 
         if failed_list:
-            self.message.show_error(_('Could not load plugin info!'),
-                                    ngettext(
-                'Failed plugin: %s',
-                'Failed plugins: %s',
-                len(failed_list)
-            ) % ', '.join(failed_list)
+            self.message.show_error(
+                _('Could not load plugin info!'),
+                ngettext('Failed plugin: %s', 'Failed plugins: %s', len(failed_list))
+                % ', '.join(failed_list),
             )
 
     def on_destroy(self, widget):
@@ -219,12 +226,15 @@ class PluginManager(object):
             Shows a dialog allowing the user to choose a plugin to install
             from the filesystem
         """
-        dialog = Gtk.FileChooserDialog(_('Choose a Plugin'),
-                                       self.preferences.parent,
-                                       buttons=(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_ADD, Gtk.ResponseType.OK
-        )
+        dialog = Gtk.FileChooserDialog(
+            _('Choose a Plugin'),
+            self.preferences.parent,
+            buttons=(
+                Gtk.STOCK_CANCEL,
+                Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_ADD,
+                Gtk.ResponseType.OK,
+            ),
         )
 
         filter = Gtk.FileFilter()
@@ -246,8 +256,7 @@ class PluginManager(object):
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugins.InvalidPluginError as e:
-                self.message.show_error(
-                    _('Plugin file installation failed!'), str(e))
+                self.message.show_error(_('Plugin file installation failed!'), str(e))
 
                 return
 
@@ -273,10 +282,11 @@ class PluginManager(object):
 
         self.author_label.set_label(",\n".join(info['Authors']))
 
-        self.description.get_buffer().set_text(
-            info['Description'].replace(r'\n', "\n"))
+        self.description.get_buffer().set_text(info['Description'].replace(r'\n', "\n"))
 
-        self.name_label.set_markup("<b>%s</b> <small>%s</small>" % (info['Name'], info['Version']))
+        self.name_label.set_markup(
+            "<b>%s</b> <small>%s</small>" % (info['Name'], info['Version'])
+        )
 
     def on_enabled_cellrenderer_toggled(self, cellrenderer, path):
         """
@@ -306,8 +316,7 @@ class PluginManager(object):
 
     def on_plugin_event(self, evtname, obj, plugin_name, enabled):
 
-        if hasattr(self.plugins.loaded_plugins[plugin_name],
-                   'get_preferences_pane'):
+        if hasattr(self.plugins.loaded_plugins[plugin_name], 'get_preferences_pane'):
             self.preferences._load_plugin_pages()
 
         path = self.plugin_to_path[plugin_name]

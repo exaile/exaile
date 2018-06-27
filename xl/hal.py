@@ -46,7 +46,9 @@ class UDisksPropertyWrapper(object):
         self.iface_type = iface_type
 
     def __getattr__(self, name):
-        return lambda *a, **k: self.obj.__getattr__(name)(*((self.iface_type,) + a), **k)
+        return lambda *a, **k: self.obj.__getattr__(name)(
+            *((self.iface_type,) + a), **k
+        )
 
     # def connect_on_changed(self, fn):
     #    '''Connect to the PropertiesChanged signal'''
@@ -145,8 +147,11 @@ class UDisksBase(providers.ProviderHandler):
             logger.info("Connected to %s", self.name)
             event.log_event("hal_connected", self, None)
         except Exception:
-            logger.info("Failed to connect to %s, automatic detection of "
-                        "devices will be disabled.", self.name)
+            logger.info(
+                "Failed to connect to %s, automatic detection of "
+                "devices will be disabled.",
+                self.name,
+            )
             return False
 
         self._state = 'addremove'
@@ -262,8 +267,9 @@ class UDisksBase(providers.ProviderHandler):
             if priority is None:
                 continue
             # Find highest priority, preferring old provider.
-            if priority > highest_prio or \
-                    (priority == highest_prio and provider is old):
+            if priority > highest_prio or (
+                priority == highest_prio and provider is old
+            ):
                 highest_prio = priority
                 highest = provider
         return old, highest
@@ -344,7 +350,9 @@ class UDisksBase(providers.ProviderHandler):
                     return True
 
             if i == 50:
-                logger.error("%s: Failed to acquire lock. Ignoring device event.", self.name)
+                logger.error(
+                    "%s: Failed to acquire lock. Ignoring device event.", self.name
+                )
                 return False
             i += 1
             time.sleep(.1)
@@ -357,7 +365,7 @@ class UDisks2(UDisksBase):
     paths = [
         ('/org/freedesktop/UDisks2/block_devices/', 'org.freedesktop.UDisks2.Block'),
         ('/org/freedesktop/UDisks2/drives/', 'org.freedesktop.UDisks2.Drive'),
-        ('/org/freedesktop/UDisks2', 'org.freedesktop.DBus.ObjectManager')
+        ('/org/freedesktop/UDisks2', 'org.freedesktop.DBus.ObjectManager'),
     ]
 
     def _connect(self):
@@ -369,11 +377,13 @@ class UDisks2(UDisksBase):
         obj.connect_to_signal('InterfacesRemoved', self._udisks_device_removed)
 
         # listen for PropertiesChanged events on any UDisks2 object
-        self.bus.add_signal_receiver(self._udisks2_properties_changed,
-                                     signal_name='PropertiesChanged',
-                                     dbus_interface='org.freedesktop.DBus.Properties',
-                                     bus_name='org.freedesktop.UDisks2',
-                                     path_keyword='path')
+        self.bus.add_signal_receiver(
+            self._udisks2_properties_changed,
+            signal_name='PropertiesChanged',
+            dbus_interface='org.freedesktop.DBus.Properties',
+            bus_name='org.freedesktop.UDisks2',
+            path_keyword='path',
+        )
 
         return obj
 
@@ -395,7 +405,7 @@ class UDisks(UDisksBase):
     root = 'org.freedesktop.UDisks'
     paths = [
         ('/org/freedesktop/UDisks/drives', 'org.freedesktop.UDisks.Device'),
-        ('/org/freedesktop/UDisks', 'org.freedesktop.UDisks')
+        ('/org/freedesktop/UDisks', 'org.freedesktop.UDisks'),
     ]
 
     def _connect(self):
@@ -433,8 +443,9 @@ class HAL(providers.ProviderHandler):
     def connect(self):
         try:
             self.bus = dbus.SystemBus()
-            hal_obj = self.bus.get_object('org.freedesktop.Hal',
-                                          '/org/freedesktop/Hal/Manager')
+            hal_obj = self.bus.get_object(
+                'org.freedesktop.Hal', '/org/freedesktop/Hal/Manager'
+            )
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
             logger.debug("HAL Providers: %r", self.get_providers())
             for p in self.get_providers():
@@ -446,8 +457,10 @@ class HAL(providers.ProviderHandler):
             logger.debug("Connected to HAL")
             event.log_event("hal_connected", self, None)
         except Exception:
-            logger.warning("Failed to connect to HAL, "
-                           "autodetection of devices will be disabled.")
+            logger.warning(
+                "Failed to connect to HAL, "
+                "autodetection of devices will be disabled."
+            )
 
     def on_provider_added(self, provider):
         for udi in provider.get_udis(self):
@@ -477,8 +490,7 @@ class HAL(providers.ProviderHandler):
 
     def add_device(self, device_udi):
         if device_udi in self.hal_devices:
-            logger.warning(
-                "Device %s already in hal list, skipping.", device_udi)
+            logger.warning("Device %s already in hal list, skipping.", device_udi)
             return
 
         handler = self.get_handler(device_udi)
@@ -506,10 +518,8 @@ class HAL(providers.ProviderHandler):
             pass
 
     def setup_device_events(self):
-        self.bus.add_signal_receiver(self.add_device,
-                                     "DeviceAdded")
-        self.bus.add_signal_receiver(self.remove_device,
-                                     "DeviceRemoved")
+        self.bus.add_signal_receiver(self.add_device, "DeviceAdded")
+        self.bus.add_signal_receiver(self.remove_device, "DeviceRemoved")
 
 
 class Handler(object):
@@ -580,5 +590,6 @@ class UDisksProvider(object):
             :returns: 'remove' to remove the device from the provider, other
                       values ignored.
         '''
+
 
 # vim: et sts=4 sw=4

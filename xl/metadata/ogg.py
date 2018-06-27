@@ -25,10 +25,7 @@
 # from your version.
 
 import xl.unicode
-from xl.metadata._base import (
-    CaseInsensitveBaseFormat,
-    CoverImage
-)
+from xl.metadata._base import CaseInsensitveBaseFormat, CoverImage
 from mutagen import oggvorbis, oggopus
 from mutagen.flac import Picture
 import base64
@@ -49,7 +46,14 @@ class OggFormat(CaseInsensitveBaseFormat):
             new_value = []
             for v in value:
                 picture = Picture(base64.b64decode(v))
-                new_value.append(CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data))
+                new_value.append(
+                    CoverImage(
+                        type=picture.type,
+                        desc=picture.desc,
+                        mime=picture.mime,
+                        data=picture.data,
+                    )
+                )
             value = new_value
         return value
 

@@ -28,32 +28,13 @@ import locale
 import logging
 import os
 
-from gi.repository import (
-    Gdk,
-    GdkPixbuf,
-    Gio,
-    GLib,
-    GObject,
-    Gtk,
-    Pango,
-)
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango
 
 import xl.unicode
-from xl import (
-    common,
-    event,
-    metadata,
-    settings,
-    trax
-)
+from xl import common, event, metadata, settings, trax
 from xl.nls import gettext as _
 from xl.trax.util import recursive_tracks_from_file
-from xlgui import (
-    guiutil,
-    icons,
-    panel,
-    xdg
-)
+from xlgui import guiutil, icons, panel, xdg
 
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
@@ -66,6 +47,7 @@ class FilesPanel(panel.Panel):
     """
         The Files panel
     """
+
     __gsignals__ = {
         'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
         'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
@@ -92,8 +74,9 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        first_dir = Gio.File.new_for_commandline_arg(settings.get_option('gui/files_panel_dir',
-                                                                         xdg.homedir))
+        first_dir = Gio.File.new_for_commandline_arg(
+            settings.get_option('gui/files_panel_dir', xdg.homedir)
+        )
         self.history = [first_dir]
         self.load_directory(first_dir, False)
 
@@ -153,34 +136,40 @@ class FilesPanel(panel.Panel):
             Sets up the widgets for the files panel
         """
         self.directory = icons.MANAGER.pixbuf_from_icon_name(
-            'folder', Gtk.IconSize.SMALL_TOOLBAR)
+            'folder', Gtk.IconSize.SMALL_TOOLBAR
+        )
         self.track = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR
+        )
         self.back = self.builder.get_object('files_back_button')
         self.back.connect('clicked', self.go_back)
         self.forward = self.builder.get_object('files_forward_button')
         self.forward.connect('clicked', self.go_forward)
         self.up = self.builder.get_object('files_up_button')
         self.up.connect('clicked', self.go_up)
-        self.builder.get_object('files_refresh_button').connect('clicked',
-                                                                self.refresh)
-        self.builder.get_object('files_home_button').connect('clicked',
-                                                             self.go_home)
+        self.builder.get_object('files_refresh_button').connect('clicked', self.refresh)
+        self.builder.get_object('files_home_button').connect('clicked', self.go_home)
 
         # Set up the location bar
         self.location_bar = self.builder.get_object('files_entry')
         self.location_bar.connect('changed', self.on_location_bar_changed)
-        event.add_ui_callback(self.fill_libraries_location,
-                              'libraries_modified', self.collection)
+        event.add_ui_callback(
+            self.fill_libraries_location, 'libraries_modified', self.collection
+        )
         self.fill_libraries_location()
         self.entry = self.location_bar.get_children()[0]
         self.entry.connect('activate', self.entry_activate)
 
         # Set up the search entry
         self.filter = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
-        self.filter.connect('activate', lambda *e:
-                            self.load_directory(self.current, history=False,
-                                                keyword=unicode(self.filter.get_text(), 'utf-8')))
+        self.filter.connect(
+            'activate',
+            lambda *e: self.load_directory(
+                self.current,
+                history=False,
+                keyword=unicode(self.filter.get_text(), 'utf-8'),
+            ),
+        )
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
@@ -189,7 +178,13 @@ class FilesPanel(panel.Panel):
 
         if len(libraries) > 0:
             for library in libraries:
-                model.append([Gio.File.new_for_commandline_arg(library['location']).get_parse_name()])
+                model.append(
+                    [
+                        Gio.File.new_for_commandline_arg(
+                            library['location']
+                        ).get_parse_name()
+                    ]
+                )
         self.location_bar.set_model(model)
 
     def on_location_bar_changed(self, widget, *args):
@@ -210,15 +205,24 @@ class FilesPanel(panel.Panel):
             Gtk.Menu.popup(self.menu, None, None, None, None, 0, event.time)
             return True
 
-        if event.keyval == Gdk.KEY_Left and Gdk.ModifierType.MOD1_MASK & event.get_state():
+        if (
+            event.keyval == Gdk.KEY_Left
+            and Gdk.ModifierType.MOD1_MASK & event.get_state()
+        ):
             self.go_back(self.tree)
             return True
 
-        if event.keyval == Gdk.KEY_Right and Gdk.ModifierType.MOD1_MASK & event.get_state():
+        if (
+            event.keyval == Gdk.KEY_Right
+            and Gdk.ModifierType.MOD1_MASK & event.get_state()
+        ):
             self.go_forward(self.tree)
             return True
 
-        if event.keyval == Gdk.KEY_Up and Gdk.ModifierType.MOD1_MASK & event.get_state():
+        if (
+            event.keyval == Gdk.KEY_Up
+            and Gdk.ModifierType.MOD1_MASK & event.get_state()
+        ):
             self.go_up(self.tree)
             return True
 
@@ -261,7 +265,9 @@ class FilesPanel(panel.Panel):
             path = os.path.expanduser(path)
         f = Gio.file_parse_name(path)
         try:
-            ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+            ftype = f.query_info(
+                'standard::type', Gio.FileQueryInfoFlags.NONE, None
+            ).get_file_type()
         except GLib.GError as e:
             logger.exception(e)
             self.entry.set_text(self.current.get_parse_name())
@@ -281,7 +287,9 @@ class FilesPanel(panel.Panel):
         if self.i == len(self.history) - 1:
             return
         self.i += 1
-        self.load_directory(self.history[self.i], history=False, cursor_file=self.current)
+        self.load_directory(
+            self.history[self.i], history=False, cursor_file=self.current
+        )
         if self.i >= len(self.history) - 1:
             self.forward.set_sensitive(False)
         if self.history:
@@ -295,7 +303,9 @@ class FilesPanel(panel.Panel):
         if self.i == 0:
             return
         self.i -= 1
-        self.load_directory(self.history[self.i], history=False, cursor_file=self.current)
+        self.load_directory(
+            self.history[self.i], history=False, cursor_file=self.current
+        )
         if self.i == 0:
             self.back.set_sensitive(False)
         if self.history:
@@ -344,15 +354,21 @@ class FilesPanel(panel.Panel):
         """
         self.current = directory
         try:
-            infos = directory.enumerate_children('standard::is-hidden,'
-                                                 'standard::name,standard::display-name,standard::type',
-                                                 Gio.FileQueryInfoFlags.NONE, None)
+            infos = directory.enumerate_children(
+                'standard::is-hidden,'
+                'standard::name,standard::display-name,standard::type',
+                Gio.FileQueryInfoFlags.NONE,
+                None,
+            )
         except GLib.Error as e:
             logger.exception(e)
             if directory.get_path() != xdg.homedir:  # Avoid infinite recursion.
                 self.load_directory(
                     Gio.File.new_for_commandline_arg(xdg.homedir),
-                    history, keyword, cursor_file)
+                    history,
+                    keyword,
+                    cursor_file,
+                )
             return
         if self.current != directory:  # Modified from another thread.
             return
@@ -376,8 +392,7 @@ class FilesPanel(panel.Panel):
             sortname = xl.unicode.strxfrm(name)
             if ftype == Gio.FileType.DIRECTORY:
                 subdirs.append((sortname, name, f))
-            elif any(low_name.endswith('.' + ext)
-                     for ext in metadata.formats):
+            elif any(low_name.endswith('.' + ext) for ext in metadata.formats):
                 subfiles.append((sortname, name, f))
 
         subdirs.sort()
@@ -399,12 +414,20 @@ class FilesPanel(panel.Panel):
             for sortname, name, f in subdirs:
                 model.append((f, self.directory, name, '', True))
                 uri = f.get_uri()
-                if cursor_file and cursor_row == -1 and \
-                        (cursor_uri == uri or cursor_uri.startswith(uri + '/')):
+                if (
+                    cursor_file
+                    and cursor_row == -1
+                    and (cursor_uri == uri or cursor_uri.startswith(uri + '/'))
+                ):
                     cursor_row = row
                 row += 1
             for sortname, name, f in subfiles:
-                size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size() // 1000
+                size = (
+                    f.query_info(
+                        'standard::size', Gio.FileQueryInfoFlags.NONE, None
+                    ).get_size()
+                    // 1000
+                )
 
                 # locale.format_string does not support unicode objects
                 # correctly, so we call it with an str and convert the
@@ -428,7 +451,7 @@ class FilesPanel(panel.Panel):
             self.entry.set_text(directory.get_parse_name())
             if history:
                 self.back.set_sensitive(True)
-                self.history[self.i + 1:] = [self.current]
+                self.history[self.i + 1 :] = [self.current]
                 self.i = len(self.history) - 1
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))
@@ -488,9 +511,13 @@ class FilesDragTreeView(DragTreeView):
         """
             Appends recursively
         """
-        ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+        ftype = f.query_info(
+            'standard::type', Gio.FileQueryInfoFlags.NONE, None
+        ).get_file_type()
         if ftype == Gio.FileType.DIRECTORY:
-            file_infos = f.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, None)
+            file_infos = f.enumerate_children(
+                'standard::name', Gio.FileQueryInfoFlags.NONE, None
+            )
             files = (f.get_child(fi.get_name()) for fi in file_infos)
             for subf in files:
                 self.append_recursive(songs, subf)

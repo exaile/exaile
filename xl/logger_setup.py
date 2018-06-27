@@ -40,9 +40,7 @@ MAX_LINE_LENGTH = 100
 
 
 class FilterLogger(logging.Logger):
-
     class Filter(logging.Filter):
-
         def filter(self, record):
             pass_record = True
 
@@ -67,7 +65,6 @@ class FilterLogger(logging.Logger):
 
 
 class SafePrettyPrinter(PrettyPrinter):
-
     def _repr(self, *args, **kwargs):
         try:
             return PrettyPrinter._repr(self, *args, **kwargs)
@@ -103,14 +100,14 @@ class VerboseExceptionFormatter(logging.Formatter):
             locals_lines = locals_lines[:MAX_VARS_LINES]
             locals_lines[-1] = '...'
         output_lines.extend(
-            line[:MAX_LINE_LENGTH - 3] + '...' if len(line) > MAX_LINE_LENGTH else line
-            for line in locals_lines)
+            line[: MAX_LINE_LENGTH - 3] + '...' if len(line) > MAX_LINE_LENGTH else line
+            for line in locals_lines
+        )
         output_lines.append('')
         return '\n'.join(output_lines)
 
 
-def start_logging(debug, quiet, debugthreads,
-                  module_filter, level_filter):
+def start_logging(debug, quiet, debugthreads, module_filter, level_filter):
     '''
         Starts logging, only should be called from xl.main
     '''
@@ -146,8 +143,7 @@ def start_logging(debug, quiet, debugthreads,
 
     # Logging to terminal
     handler = logging.StreamHandler()
-    handler.setFormatter(fmt_class(fmt=console_format,
-                                   datefmt=datefmt))
+    handler.setFormatter(fmt_class(fmt=console_format, datefmt=datefmt))
     logging.root.addHandler(handler)
     logging.root.setLevel(console_loglevel)
 
@@ -164,12 +160,11 @@ def start_logging(debug, quiet, debugthreads,
 
     # Logging to file; this also automatically rotates the logs
     logfile = logging.handlers.RotatingFileHandler(
-        os.path.join(logdir, 'exaile.log'),
-        mode='a', backupCount=5)
+        os.path.join(logdir, 'exaile.log'), mode='a', backupCount=5
+    )
     logfile.doRollover()  # each session gets its own file
     logfile.setLevel(file_loglevel)
-    logfile.setFormatter(fmt_class(fmt=file_format,
-                                   datefmt=datefmt))
+    logfile.setFormatter(fmt_class(fmt=file_format, datefmt=datefmt))
     logging.root.addHandler(logfile)
 
     # GTK3 supports sys.excepthook
@@ -192,6 +187,7 @@ def start_logging(debug, quiet, debugthreads,
         # Windows doesn't allow custom fault handler registration
         if hasattr(faulthandler, 'register'):
             import signal
+
             faulthandler.register(signal.SIGUSR2)
         faulthandler.enable()
 

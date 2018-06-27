@@ -44,6 +44,7 @@ class Panel(GObject.GObject):
         This class is abstract and should be subclassed.  All subclasses
         should define a 'ui_info' and 'name' variables.
     """
+
     ui_info = ('panel.ui', 'PanelWindow')
 
     def __init__(self, parent, name, label=None):
@@ -56,8 +57,8 @@ class Panel(GObject.GObject):
             @param label: text of the label displayed to the user
         """
         GObject.GObject.__init__(self)
-        self.name = name        # panel id
-        self.label = label      # label to be displayed
+        self.name = name  # panel id
+        self.label = label  # label to be displayed
         self.parent = parent
 
         # if the UI designer file starts with file:// use the full path minus
@@ -92,8 +93,8 @@ class Panel(GObject.GObject):
                 if not self.label:
                     self.label = widget.get_title()
                 LOGGER.info(
-                    "Old style panel %s is creating unnecessary Gtk.Window.",
-                    self.label)
+                    "Old style panel %s is creating unnecessary Gtk.Window.", self.label
+                )
                 widget.remove(child)
                 widget.destroy()
             else:

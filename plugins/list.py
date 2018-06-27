@@ -18,6 +18,7 @@ def scan():
     main = good - extra
     return locals()
 
+
 plugins = scan()
 
 
@@ -25,6 +26,7 @@ def parse(argv):
     if len(argv) == 1:
         return plugins['all']
     return plugins[argv[1]]
+
 
 if __name__ == '__main__':
     names = sorted(parse(sys.argv))

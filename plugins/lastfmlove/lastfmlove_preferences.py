@@ -23,10 +23,7 @@ import os.path
 import pylast
 
 from xl.nls import gettext as _
-from xl import (
-    common,
-    settings
-)
+from xl import common, settings
 from xlgui import icons
 from xlgui.preferences import widgets
 from xlgui.widgets import dialogs
@@ -34,8 +31,7 @@ from xlgui.widgets import dialogs
 name = _('Last.fm Loved Tracks')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "lastfmlove_preferences.ui")
-icons.MANAGER.add_icon_name_from_directory('lastfm',
-                                           os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory('lastfm', os.path.join(basedir, 'icons'))
 icon = 'lastfm'
 
 
@@ -58,11 +54,9 @@ class RequestAccessPermissionButton(widgets.Button):
 
         self.message = dialogs.MessageBar(
             parent=preferences.builder.get_object('preferences_box'),
-            buttons=Gtk.ButtonsType.CLOSE
+            buttons=Gtk.ButtonsType.CLOSE,
         )
-        self.errors = {
-            pylast.STATUS_INVALID_API_KEY: _('The API key is invalid.')
-        }
+        self.errors = {pylast.STATUS_INVALID_API_KEY: _('The API key is invalid.')}
 
     @common.threaded
     def check_connection(self):
@@ -77,19 +71,19 @@ class RequestAccessPermissionButton(widgets.Button):
                 api_key=api_key,
                 api_secret=settings.get_option('plugin/lastfmlove/api_secret', 'S'),
                 username=settings.get_option('plugin/ascrobbler/user', ''),
-                password_hash=settings.get_option('plugin/ascrobbler/password', '')
+                password_hash=settings.get_option('plugin/ascrobbler/password', ''),
             )
         except pylast.WSError as e:
             GLib.idle_add(
                 self.message.show_error,
                 self.errors[int(e.get_id())],
-                _('Please make sure the entered data is correct.')
+                _('Please make sure the entered data is correct.'),
             )
         else:
             application_launched = Gtk.show_uri(
                 Gdk.Screen.get_default(),
                 'http://www.last.fm/api/auth?api_key={0}'.format(api_key),
-                Gdk.CURRENT_TIME
+                Gdk.CURRENT_TIME,
             )
 
             if not application_launched:
@@ -97,9 +91,11 @@ class RequestAccessPermissionButton(widgets.Button):
                 GLib.idle_add(
                     self.message.show_warning,
                     _('Could not start web browser'),
-                    _('Please copy the following URL and '
-                      'open it with your web browser:\n'
-                      '<b><a href="{url}">{url}</a></b>').format(url=url)
+                    _(
+                        'Please copy the following URL and '
+                        'open it with your web browser:\n'
+                        '<b><a href="{url}">{url}</a></b>'
+                    ).format(url=url),
                 )
 
     def on_clicked(self, button):

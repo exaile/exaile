@@ -20,11 +20,7 @@ import os
 import shutil
 from gi.repository import Gtk
 
-from xl import (
-    event,
-    player,
-    settings
-)
+from xl import event, player, settings
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
@@ -40,7 +36,6 @@ def get_preferences_pane():
 
 
 class Streamripper(object):
-
     def __init__(self):
         self.savedir = None
 
@@ -52,8 +47,9 @@ class Streamripper(object):
             logger.warning('Streamripper can only record streams')
             return True
 
-        self.savedir = settings.get_option('plugin/streamripper/save_location',
-                                           os.getenv('HOME'))
+        self.savedir = settings.get_option(
+            'plugin/streamripper/save_location', os.getenv('HOME')
+        )
         options = []
         options.append('streamripper')
         options.append(player.PLAYER._pipe.get_property('uri'))
@@ -68,18 +64,24 @@ class Streamripper(object):
         options.append(self.savedir)
 
         try:
-            self.process = subprocess.Popen(options, 0, None, subprocess.PIPE,
-                                            subprocess.PIPE, subprocess.PIPE)
+            self.process = subprocess.Popen(
+                options, 0, None, subprocess.PIPE, subprocess.PIPE, subprocess.PIPE
+            )
         except OSError:
             logger.error('There was an error executing streamripper')
-            dialogs.error(self.exaile.gui.main.window, _('Error '
-                                                         'executing streamripper'))
+            dialogs.error(
+                self.exaile.gui.main.window, _('Error ' 'executing streamripper')
+            )
             return True
 
         if add_call:
             event.add_callback(self.quit_application, 'quit_application')
-            event.add_ui_callback(self.start_track, 'playback_track_start', player.PLAYER)
-            event.add_ui_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
+            event.add_ui_callback(
+                self.start_track, 'playback_track_start', player.PLAYER
+            )
+            event.add_ui_callback(
+                self.stop_playback, 'playback_player_end', player.PLAYER
+            )
         return False
 
     def stop_ripping(self):
@@ -114,7 +116,6 @@ class Streamripper(object):
 
 
 class Button(Streamripper):
-
     def __init__(self, exaile):
         self.exaile = exaile
         self.button = Gtk.ToggleButton()
@@ -153,7 +154,7 @@ def enable(exaile):
         raise NotImplementedError('Streamripper is not available.')
         return False
 
-    if (exaile.loading):
+    if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)

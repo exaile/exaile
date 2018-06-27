@@ -41,6 +41,7 @@ import json
 import re
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 from presets import DEFAULT_PRESETS
@@ -57,7 +58,6 @@ class AnalyzerDialog(object):
 
     ui_widgets = [
         'window',
-
         'description_label',
         'info_bar',
         'playlists_list',
@@ -82,8 +82,9 @@ class AnalyzerDialog(object):
 
         guiutil.initialize_from_xml(self)
 
-        self.info_bar = dialogs.MessageBar(self.info_bar, type=Gtk.MessageType.ERROR,
-                                           buttons=Gtk.ButtonsType.CLOSE)
+        self.info_bar = dialogs.MessageBar(
+            self.info_bar, type=Gtk.MessageType.ERROR, buttons=Gtk.ButtonsType.CLOSE
+        )
 
         self.__build_template_list()
         self.__build_playlist_list(selected_playlist)
@@ -109,11 +110,15 @@ class AnalyzerDialog(object):
         self.__sorted_tags = sorted(td, key=tag_data_key)
 
         # setup the selected template
-        guiutil.persist_selection(self.template_list, 0, 'plugin/playlistanalyzer/last_tmpl')
+        guiutil.persist_selection(
+            self.template_list, 0, 'plugin/playlistanalyzer/last_tmpl'
+        )
 
     def __initialize_presets(self):
 
-        presets = settings.get_option('plugin/playlistanalyzer/presets', DEFAULT_PRESETS)
+        presets = settings.get_option(
+            'plugin/playlistanalyzer/presets', DEFAULT_PRESETS
+        )
 
         for preset in presets:
             self.preset_model.append(preset)
@@ -161,7 +166,9 @@ class AnalyzerDialog(object):
 
     def __build_tag_combo(self, idx):
 
-        model = Gtk.ListStore(GObject.TYPE_STRING, GObject.TYPE_PYOBJECT, GObject.TYPE_STRING)
+        model = Gtk.ListStore(
+            GObject.TYPE_STRING, GObject.TYPE_PYOBJECT, GObject.TYPE_STRING
+        )
         widget = Gtk.ComboBox.new_with_model(model)
         cell = Gtk.CellRendererText()
         widget.pack_start(cell, True)
@@ -332,8 +339,13 @@ class AnalyzerDialog(object):
             output_fname = '%s%sanalysis.html' % (pname, ' ' if ' ' in pname else '-')
 
         # get output file
-        output_uri = dialogs.save(self.window, output_fname, 'plugin/playlist_analyzer/dlg_location',
-                                  None, _("Save analysis"))
+        output_uri = dialogs.save(
+            self.window,
+            output_fname,
+            'plugin/playlist_analyzer/dlg_location',
+            None,
+            _("Save analysis"),
+        )
 
         if output_uri is None:
             return
@@ -355,7 +367,7 @@ class AnalyzerDialog(object):
                 'tagdata': json.dumps(tagdata),
                 'playlist_names': [pl.name for pl in playlists],
                 'data': json.dumps(self.plugin.generate_data(tracks, tagdata)),
-                'title': self._get_title()
+                'title': self._get_title(),
             }
 
             self.plugin.write_to_file(tmpl_data['fname'], output_uri, **kwargs)

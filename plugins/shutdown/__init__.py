@@ -25,19 +25,25 @@ from xlgui.widgets import dialogs, menu
 SHUTDOWN = None
 
 
-class Shutdown():
-
+class Shutdown:
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False
 
         # add menuitem to tools menu
-        providers.register('menubar-tools-menu',
-                           menu.simple_separator('plugin-sep', ['track-properties']))
+        providers.register(
+            'menubar-tools-menu',
+            menu.simple_separator('plugin-sep', ['track-properties']),
+        )
 
-        item = menu.check_menu_item('shutdown', ['plugin-sep'], _('Shutdown after Playback'),
-                                    #   checked func                # callback func
-                                    lambda *x: self.do_shutdown, lambda w, n, p, c: self.on_toggled(w))
+        item = menu.check_menu_item(
+            'shutdown',
+            ['plugin-sep'],
+            _('Shutdown after Playback'),
+            #   checked func                # callback func
+            lambda *x: self.do_shutdown,
+            lambda w, n, p, c: self.on_toggled(w),
+        )
         providers.register('menubar-tools-menu', item)
 
         self.countdown = None
@@ -45,7 +51,8 @@ class Shutdown():
 
         self.message = dialogs.MessageBar(
             parent=exaile.gui.builder.get_object('player_box'),
-            buttons=Gtk.ButtonsType.CLOSE)
+            buttons=Gtk.ButtonsType.CLOSE,
+        )
         self.message.connect('response', self.on_response)
 
     def on_toggled(self, menuitem):
@@ -56,8 +63,10 @@ class Shutdown():
             self.do_shutdown = True
             event.add_ui_callback(self.on_playback_player_end, 'playback_player_end')
 
-            self.message.show_info(_('Shutdown scheduled'),
-                                   _('Computer will be shutdown at the end of playback.'))
+            self.message.show_info(
+                _('Shutdown scheduled'),
+                _('Computer will be shutdown at the end of playback.'),
+            )
         else:
             self.disable_shutdown()
 
@@ -107,7 +116,8 @@ class Shutdown():
         self.countdown = None
         if self.counter > 0:
             self.message.set_secondary_text(
-                _('The computer will be shut down in %d seconds.') % self.counter)
+                _('The computer will be shut down in %d seconds.') % self.counter
+            )
             self.message.show()
 
             self.counter -= 1
@@ -119,22 +129,27 @@ class Shutdown():
         bus = dbus.SystemBus()
 
         try:
-            proxy = bus.get_object('org.freedesktop.login1',
-                                   '/org/freedesktop/login1')
+            proxy = bus.get_object('org.freedesktop.login1', '/org/freedesktop/login1')
             proxy.PowerOff(False, dbus_interface='org.freedesktop.login1.Manager')
         except dbus.exceptions.DBusException:
             try:
-                proxy = bus.get_object('org.freedesktop.ConsoleKit',
-                                       '/org/freedesktop/ConsoleKit/Manager')
+                proxy = bus.get_object(
+                    'org.freedesktop.ConsoleKit', '/org/freedesktop/ConsoleKit/Manager'
+                )
                 proxy.Stop(dbus_interface='org.freedesktop.ConsoleKit.Manager')
             except dbus.exceptions.DBusException:
                 try:
-                    proxy = bus.get_object('org.freedesktop.Hal',
-                                           '/org/freedesktop/Hal/devices/computer')
-                    proxy.Shutdown(dbus_interface='org.freedesktop.Hal.Device.SystemPowerManagement')
+                    proxy = bus.get_object(
+                        'org.freedesktop.Hal', '/org/freedesktop/Hal/devices/computer'
+                    )
+                    proxy.Shutdown(
+                        dbus_interface='org.freedesktop.Hal.Device.SystemPowerManagement'
+                    )
                 except dbus.exceptions.DBusException:
-                    self.message.show_warning(_('Shutdown failed'),
-                                              _('Computer could not be shutdown using D-Bus.'))
+                    self.message.show_warning(
+                        _('Shutdown failed'),
+                        _('Computer could not be shutdown using D-Bus.'),
+                    )
 
     def destroy(self):
         """
@@ -151,7 +166,7 @@ class Shutdown():
 
 
 def enable(exaile):
-    if (exaile.loading):
+    if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)

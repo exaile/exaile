@@ -11,6 +11,7 @@ import pytest
 from xl.trax.track import Track
 
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -27,23 +28,34 @@ def exaile_test_cleanup():
     for key in Track._Track__tracksdict.keys():
         del Track._Track__tracksdict[key]
 
+
 #
 # Fixtures for test track data
 #
 
 
-TrackData = collections.namedtuple('TrackData', [
-    'ext', 'filename', 'uri', 'size', 'writeable',
-    'has_cover', 'has_tags'
-])
+TrackData = collections.namedtuple(
+    'TrackData',
+    ['ext', 'filename', 'uri', 'size', 'writeable', 'has_cover', 'has_tags'],
+)
 
 
 def _fname(ext):
     local_path = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), 'data', 'music', 'delerium',
-                     'chimera', '05 - Truly') + os.extsep + ext)
+        os.path.join(
+            os.path.dirname(__file__),
+            'data',
+            'music',
+            'delerium',
+            'chimera',
+            '05 - Truly',
+        )
+        + os.extsep
+        + ext
+    )
 
     return ext, local_path, Gio.File.new_for_path(local_path).get_uri()
+
 
 _all_tracks = [
     # fmt: off
@@ -106,8 +118,8 @@ def test_tracks():
     '''
         Returns an object that can be used to retrieve test track data
     '''
-    class _TestTracks:
 
+    class _TestTracks:
         def get(self, ext):
             return [x for x in _all_tracks if x.filename.endswith(ext)][0]
 

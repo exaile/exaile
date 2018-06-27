@@ -30,7 +30,6 @@ class MoodbarGeneratorError(Exception):
 
 
 class MoodbarGenerator(object):
-
     def check(self):
         """Check whether the generator works.
 
@@ -57,14 +56,14 @@ class MoodbarGenerator(object):
         :type uri: bytes
         :type callback: Callable[[bytes, bytes], None]
         """
-        thread = threading.Thread(name=self.__class__.__name__,
-                                  target=self.generate, args=(uri, callback))
+        thread = threading.Thread(
+            name=self.__class__.__name__, target=self.generate, args=(uri, callback)
+        )
         thread.daemon = True
         thread.start()
 
 
 class SpectrumMoodbarGenerator(MoodbarGenerator):
-
     def check(self):
         try:
             with open(os.devnull, 'wb') as devnull:
@@ -73,7 +72,9 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
             # executable exists but returned an error code
             pass
         except Exception:
-            raise MoodbarGeneratorError("Failed to run moodbar; make sure it is installed")
+            raise MoodbarGeneratorError(
+                "Failed to run moodbar; make sure it is installed"
+            )
 
     def generate(self, uri, callback=None):
         path = Gio.File.new_for_uri(uri).get_path()

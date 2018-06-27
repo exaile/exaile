@@ -58,6 +58,7 @@ import prefs
 def get_preferences_pane():
     return prefs
 
+
 matches = set()
 bus = None
 was_playing = None
@@ -83,8 +84,11 @@ def _enable(*a):
     global bus
     bus = dbus.SessionBus()
     for service in SERVICES:
-        matches.add(bus.add_signal_receiver(screensaver_active_changed,
-                                            signal_name='ActiveChanged', **service))
+        matches.add(
+            bus.add_signal_receiver(
+                screensaver_active_changed, signal_name='ActiveChanged', **service
+            )
+        )
 
 
 def disable(exaile):
@@ -97,6 +101,7 @@ def disable(exaile):
 
 def test():
     import dbus.mainloop.glib as dbgl
+
     dbgl.DBusGMainLoop(set_as_default=True)
 
     global bus
@@ -104,8 +109,9 @@ def test():
 
     for service in SERVICES:
         try:
-            proxy = bus.get_object(service['bus_name'], service['path'],
-                                   follow_name_owner_changes=True)
+            proxy = bus.get_object(
+                service['bus_name'], service['path'], follow_name_owner_changes=True
+            )
         except dbus.DBusException:
             continue
         break
@@ -118,12 +124,14 @@ def test():
     def active_changed(new_value):
         if not new_value:
             mainloop.quit()
+
     interface.connect_to_signal('ActiveChanged', screensaver_active_changed)
 
     # For some reason Lock never returns.
     interface.Lock(ignore_reply=True)
 
     mainloop.run()
+
 
 if __name__ == '__main__':
     test()

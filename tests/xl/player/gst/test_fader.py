@@ -11,7 +11,6 @@ FadingOut = FadeState.FadingOut
 
 
 class FakeStream(object):
-
     def __init__(self):
         self.reset()
 
@@ -35,16 +34,16 @@ class FakeStream(object):
 
 
 class FakeTrack(object):
-
     def __init__(self, start_off, stop_off, tracklen):
         self.tags = {
             '__startoffset': start_off,
             '__stopoffset': stop_off,
-            '__length': tracklen
+            '__length': tracklen,
         }
 
     def get_tag_raw(self, t):
         return self.tags[t]
+
 
 # TODO: monkeypatch instead
 timeout_args = [()]
@@ -57,6 +56,7 @@ def glib_timeout_add(*args):
 
 def glib_source_remove(src_id):
     pass
+
 
 GLib.timeout_add = glib_timeout_add
 GLib.source_remove = glib_source_remove

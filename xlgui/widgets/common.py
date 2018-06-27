@@ -37,11 +37,7 @@ from gi.repository import Gtk
 from itertools import imap
 from urllib2 import urlparse
 
-from xl import (
-    common,
-    playlist as xl_playlist,
-    trax
-)
+from xl import common, playlist as xl_playlist, trax
 
 from xlgui import icons
 from xlgui.guiutil import get_workarea_size
@@ -52,6 +48,7 @@ class AttachedWindow(Gtk.Window):
         A window attachable to arbitrary widgets,
         follows the movement of its parent
     """
+
     __gsignals__ = {'show': 'override'}
 
     def __init__(self, parent):
@@ -78,7 +75,9 @@ class AttachedWindow(Gtk.Window):
         workarea.x = workarea.y = 0
         workarea.width, workarea.height = get_workarea_size()
         parent_alloc = self.parent_widget.get_allocation()
-        toplevel_position = self.parent_widget.get_toplevel().get_window().get_position()
+        toplevel_position = (
+            self.parent_widget.get_toplevel().get_window().get_position()
+        )
         # Use absolute screen position
         parent_alloc.x += toplevel_position[0]
         parent_alloc.y += toplevel_position[1]
@@ -117,7 +116,9 @@ class AttachedWindow(Gtk.Window):
         if not isinstance(toplevel, Gtk.Window):  # Not anchored
             return
         self.set_transient_for(toplevel)
-        conns.append(toplevel.connect('configure-event', self._on_parent_window_configure_event))
+        conns.append(
+            toplevel.connect('configure-event', self._on_parent_window_configure_event)
+        )
         conns.append(toplevel.connect('hide', self._on_parent_window_hide))
 
     def _on_parent_window_configure_event(self, _widget, _event):
@@ -155,7 +156,8 @@ class AutoScrollTreeView(Gtk.TreeView):
         """
         if not self.__autoscroll_timeout_id:
             self.__autoscroll_timeout_id = GLib.timeout_add(
-                50, self._on_autoscroll_timeout)
+                50, self._on_autoscroll_timeout
+            )
 
     def _on_drag_leave(self, widget, context, timestamp):
         """
@@ -177,12 +179,16 @@ class AutoScrollTreeView(Gtk.TreeView):
         x, y = self.convert_widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge
-        offset = y - (visible_rect.y + 3 * self._SCROLL_EDGE_SIZE)  # 3: Scroll faster upwards
+        offset = y - (
+            visible_rect.y + 3 * self._SCROLL_EDGE_SIZE
+        )  # 3: Scroll faster upwards
 
         # Check if we are near the bottom edge instead
         if offset > 0:
             # Calculate offset based on the bottom edge
-            offset = y - (visible_rect.y + visible_rect.height - 2 * self._SCROLL_EDGE_SIZE)
+            offset = y - (
+                visible_rect.y + visible_rect.height - 2 * self._SCROLL_EDGE_SIZE
+            )
 
             # Skip if we are not near to top or bottom edge
             if offset < 0:
@@ -192,7 +198,7 @@ class AutoScrollTreeView(Gtk.TreeView):
         vadjustment.props.value = common.clamp(
             vadjustment.props.value + offset,
             0,
-            vadjustment.props.upper - vadjustment.props.page_size
+            vadjustment.props.upper - vadjustment.props.page_size,
         )
         self.set_vadjustment(vadjustment)
 
@@ -203,13 +209,17 @@ class DragTreeView(AutoScrollTreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
-    class EventData(namedtuple('DragTreeView_EventData',
-                               'event modifier triggers_menu target')):
+
+    class EventData(
+        namedtuple('DragTreeView_EventData', 'event modifier triggers_menu target')
+    ):
         """
             Objects that goes inside pending events list
         """
-        class Target(namedtuple('DragTreeView_EventData_Target',
-                                'path column is_selected')):
+
+        class Target(
+            namedtuple('DragTreeView_EventData_Target', 'path column is_selected')
+        ):
             """
                 Contains target path info
             """
@@ -232,18 +242,20 @@ class DragTreeView(AutoScrollTreeView):
 
         if source:
             self.drag_source_set(
-                Gdk.ModifierType.BUTTON1_MASK, self.targets,
-                Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
+                Gdk.ModifierType.BUTTON1_MASK,
+                self.targets,
+                Gdk.DragAction.COPY | Gdk.DragAction.MOVE,
+            )
 
         if receive:
             self.drop_pos = drop_pos
-            self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                               Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT |
-                               Gdk.DragAction.MOVE)
-            self.connect('drag_data_received',
-                         self.container.drag_data_received)
-            self.connect('drag_data_delete',
-                         self.container.drag_data_delete)
+            self.drag_dest_set(
+                Gtk.DestDefaults.ALL,
+                self.targets,
+                Gdk.DragAction.COPY | Gdk.DragAction.DEFAULT | Gdk.DragAction.MOVE,
+            )
+            self.connect('drag_data_received', self.container.drag_data_received)
+            self.connect('drag_data_delete', self.container.drag_data_delete)
         self.receive = receive
         self.drag_context = None
         self.show_cover_drag_icon = True
@@ -272,8 +284,11 @@ class DragTreeView(AutoScrollTreeView):
         """
         target = self.get_path_at_pos(int(event.x), int(event.y))
         if target:
-            return DragTreeView.EventData.Target(path=target[0], column=target[1],
-                                                 is_selected=self.get_selection().path_is_selected(target[0]))
+            return DragTreeView.EventData.Target(
+                path=target[0],
+                column=target[1],
+                is_selected=self.get_selection().path_is_selected(target[0]),
+            )
 
     def set_cursor_at(self, target):
         """
@@ -305,8 +320,11 @@ class DragTreeView(AutoScrollTreeView):
         """
         self.drag_context = None
         self.unset_rows_drag_dest()
-        self.drag_dest_set(Gtk.DestDefaults.ALL, self.targets,
-                           Gdk.DragAction.COPY | Gdk.DragAction.MOVE)
+        self.drag_dest_set(
+            Gtk.DestDefaults.ALL,
+            self.targets,
+            Gdk.DragAction.COPY | Gdk.DragAction.MOVE,
+        )
 
     def on_drag_begin(self, widget, context):
         """
@@ -322,11 +340,17 @@ class DragTreeView(AutoScrollTreeView):
         get_tracks_for_path = getattr(self, 'get_tracks_for_path', None)
         if get_tracks_for_path:
             model, paths = self.get_selection().get_selected_rows()
-            drag_cover_icon = icons.MANAGER.get_drag_cover_icon(imap(get_tracks_for_path, paths))
+            drag_cover_icon = icons.MANAGER.get_drag_cover_icon(
+                imap(get_tracks_for_path, paths)
+            )
 
         if drag_cover_icon is None:
             # Set default icon
-            icon_name = 'gtk-dnd-multiple' if self.get_selection().count_selected_rows() > 1 else 'gtk-dnd'
+            icon_name = (
+                'gtk-dnd-multiple'
+                if self.get_selection().count_selected_rows() > 1
+                else 'gtk-dnd'
+            )
             Gtk.drag_set_icon_name(context, icon_name, 0, 0)
         else:
             Gtk.drag_set_icon_pixbuf(context, drag_cover_icon, 0, 0)
@@ -337,8 +361,7 @@ class DragTreeView(AutoScrollTreeView):
         """
         if not self.receive:
             return False
-        self.enable_model_drag_dest(self.targets,
-                                    Gdk.DragAction.DEFAULT)
+        self.enable_model_drag_dest(self.targets, Gdk.DragAction.DEFAULT)
         if self.drop_pos is None:
             return False
         info = treeview.get_dest_row_at_pos(x, y)
@@ -392,7 +415,9 @@ class DragTreeView(AutoScrollTreeView):
                 self.set_selection_status(False)
 
             # If it's not a DnD, it will be treated at button release event
-            self.pending_events.append(DragTreeView.EventData(event, modifier, triggers_menu, target))
+            self.pending_events.append(
+                DragTreeView.EventData(event, modifier, triggers_menu, target)
+            )
 
         # Calls `button_press` function on container (if present)
         try:
@@ -403,35 +428,37 @@ class DragTreeView(AutoScrollTreeView):
             return button_press_function(button, event)
 
     def on_button_release(self, button, event):
-            """
+        """
                 Called when a button is released
                 Treats the pending events added at button press event
 
                 Handles the popup menu that is displayed when you right click in
                 the TreeView list (calls `container.menu` if present)
             """
-            self.drag_context = None
+        self.drag_context = None
 
-            # Get pending event
-            try:
-                event_data = self.pending_events.pop()
-            except IndexError:
-                return False
-
-            self.reset_selection_status()
-
-            # Do not set cursor if has a modifier key pressed
-            if event_data.modifier == 0 and not (event_data.triggers_menu and event_data.target.is_selected):
-                self.set_cursor_at(event_data.target)
-
-            if event_data.triggers_menu:
-                # Uses menu from container (if present)
-                menu = getattr(self.container, 'menu', None)
-                if menu:
-                    menu.popup(event_data.event)
-                    return True
-
+        # Get pending event
+        try:
+            event_data = self.pending_events.pop()
+        except IndexError:
             return False
+
+        self.reset_selection_status()
+
+        # Do not set cursor if has a modifier key pressed
+        if event_data.modifier == 0 and not (
+            event_data.triggers_menu and event_data.target.is_selected
+        ):
+            self.set_cursor_at(event_data.target)
+
+        if event_data.triggers_menu:
+            # Uses menu from container (if present)
+            menu = getattr(self.container, 'menu', None)
+            if menu:
+                menu.popup(event_data.event)
+                return True
+
+        return False
 
     # TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):
@@ -489,8 +516,11 @@ class DragTreeView(AutoScrollTreeView):
         # cause the gui to hang)
         if info.scheme in ('file', ''):
             try:
-                filetype = Gio.File.new_for_uri(loc).query_info(
-                    'standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+                filetype = (
+                    Gio.File.new_for_uri(loc)
+                    .query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None)
+                    .get_file_type()
+                )
             except GLib.Error:
                 filetype = None
 
@@ -514,12 +544,13 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         Custom :class:`Gtk.CellRendererPixbuf` emitting
         an *clicked* signal upon activation of the pixbuf
     """
+
     __gsignals__ = {
         'clicked': (
             GObject.SignalFlags.RUN_LAST,
             GObject.TYPE_BOOLEAN,
             (GObject.TYPE_PYOBJECT,),
-            GObject.signal_accumulator_true_handled
+            GObject.signal_accumulator_true_handled,
         )
     }
 
@@ -527,8 +558,7 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
         Gtk.CellRendererPixbuf.__init__(self)
         self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
 
-    def do_activate(self, event, widget, path,
-                    background_area, cell_area, flags):
+    def do_activate(self, event, widget, path, background_area, cell_area, flags):
         """
             Emits the *clicked* signal
         """

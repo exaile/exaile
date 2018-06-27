@@ -50,7 +50,6 @@ class EbmlWarning(Warning):
 
 
 class BinaryData(bytes):
-
     def __repr__(self):
         return "<BinaryData>"
 
@@ -214,6 +213,7 @@ class Ebml:
                 elif type_ is DATE:
                     us = self.readInteger(size, True) / 1000.0  # ns to us
                     from datetime import datetime, timedelta
+
                     value = datetime(2001, 1, 1) + timedelta(microseconds=us)
                 elif type_ is MASTER:
                     tell = self.tell()
@@ -247,7 +247,9 @@ class GioEbml(Ebml):
         self.buffer = Gio.BufferedInputStream.new(f.read())
         self._tell = 0
 
-        self.size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size()
+        self.size = f.query_info(
+            'standard::size', Gio.FileQueryInfoFlags.NONE, None
+        ).get_size()
 
     def seek(self, offset, mode):
         if mode == 0:
@@ -360,11 +362,13 @@ def parse(location):
 
 def dump(location):
     from pprint import pprint
+
     pprint(parse(location))
 
 
 def dump_tags(location):
     from pprint import pprint
+
     mka = parse(location)
     segment = mka['Segment'][0]
     info = segment['Info'][0]
@@ -394,6 +398,7 @@ def gio_location(location):
             location = location.decode(sys.getfilesystemencoding())
         location = location.encode('utf-8')
     return location
+
 
 if __name__ == '__main__':
     location = gio_location(sys.argv[1])

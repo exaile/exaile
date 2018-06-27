@@ -59,8 +59,7 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
-        logger.debug(u"Searching for %s tracks related to %s",
-                     limit, track)
+        logger.debug(u"Searching for %s tracks related to %s", limit, track)
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -71,7 +70,8 @@ class DynamicManager(providers.ProviderHandler):
             artist = artists[i][1].replace('"', '\\\"')
             i += 1
             searchres = search.search_tracks_from_string(
-                self.collection, 'artist=="%s"' % artist, case_sensitive=False)
+                self.collection, 'artist=="%s"' % artist, case_sensitive=False
+            )
             choices = [x.track for x in searchres]
             if choices == []:
                 continue
@@ -133,8 +133,7 @@ class DynamicManager(providers.ProviderHandler):
     def _save_info(self, track, info):
         if info == []:
             return
-        filename = os.path.join(self.cachedir,
-                                track.get_tag_raw('artist', join=True))
+        filename = os.path.join(self.cachedir, track.get_tag_raw('artist', join=True))
         with open(filename, 'w') as f:
             f.write("%s\n" % time.time())
             for item in info:
@@ -157,8 +156,7 @@ class DynamicManager(providers.ProviderHandler):
         curr = playlist.current
 
         starttime = time.time()
-        tracks = self.find_similar_tracks(curr, needed,
-                                          playlist)
+        tracks = self.find_similar_tracks(curr, needed, playlist)
 
         remainingtime = 5 - (time.time() - starttime)
 
@@ -175,7 +173,6 @@ MANAGER = DynamicManager()
 
 
 class DynamicSource(object):
-
     def __init__(self):
         pass
 
@@ -184,5 +181,6 @@ class DynamicSource(object):
 
     def _set_manager(self, manager):
         self.manager = manager
+
 
 # vim: et sts=4 sw=4

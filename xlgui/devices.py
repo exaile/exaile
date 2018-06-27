@@ -42,8 +42,7 @@ class ManagerDialog(Gtk.Window):
 
     __gtype_name__ = 'DeviceManager'
 
-    btn_add, btn_edit, btn_remove, tree_devices, model \
-        = GtkTemplate.Child.widgets(5)
+    btn_add, btn_edit, btn_remove, tree_devices, model = GtkTemplate.Child.widgets(5)
 
     def __init__(self, parent, main):
         Gtk.Window.__init__(self)

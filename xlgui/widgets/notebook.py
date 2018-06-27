@@ -40,36 +40,40 @@ if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
         # Work around weird Close button position on panel.
         # Need to find out why the button is not centered.
-        'notebook.vertical tab { ' +
-        'padding-left: 6px; ' +
-        'padding-right: 3px; ' +
-        '} ' +
-
+        'notebook.vertical tab { '
+        + 'padding-left: 6px; '
+        + 'padding-right: 3px; '
+        + '} '
+        +
         # Remove gap between tabs
-        'header.top tab, header.bottom tab { ' +
-        'margin-left: -1px; ' +
-        'margin-right: -1px; ' +
-        '} ' +
-        'header.left tab, header.right tab { ' +
-        'margin-top: -1px; ' +
-        'margin-bottom: -1px; ' +
-        '}')
+        'header.top tab, header.bottom tab { '
+        + 'margin-left: -1px; '
+        + 'margin-right: -1px; '
+        + '} '
+        + 'header.left tab, header.right tab { '
+        + 'margin-top: -1px; '
+        + 'margin-bottom: -1px; '
+        + '}'
+    )
 else:
     TAB_CSS.load_from_data(
-        '.notebook { ' +
+        '.notebook { '
+        +
         # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; ' +
+        '-GtkNotebook-initial-gap: 0; '
+        +
         # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; ' +
-        '} ' +
-        '.notebook tab { ' +
+        '-GtkNotebook-tab-overlap: 1; '
+        + '} '
+        + '.notebook tab { '
+        +
         # Make tabs smaller (or bigger on some other themes, unfortunately)
-        'padding: 6px; ' +
-        '}')
+        'padding: 6px; '
+        + '}'
+    )
 
 
 class SmartNotebook(Gtk.Notebook):
-
     def __init__(self, vertical=False):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
@@ -151,14 +155,16 @@ class SmartNotebook(Gtk.Notebook):
         self._add_tab_on_empty = add_tab_on_empty
 
     def on_button_press(self, widget, event):
-        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == Gdk.BUTTON_MIDDLE:
+        if (
+            event.type == Gdk.EventType.BUTTON_PRESS
+            and event.button == Gdk.BUTTON_MIDDLE
+        ):
             self.add_default_tab()
 
     def on_popup_menu(self, widget):
         page = self.get_current_tab()
         tab_label = self.get_tab_label(self.get_current_tab())
-        page.tab_menu.popup(None, None, guiutil.position_menu, tab_label,
-                            0, 0)
+        page.tab_menu.popup(None, None, guiutil.position_menu, tab_label, 0, 0)
         return True
 
     def __on_notify_tab_pos(self, _widget, _param):
@@ -175,6 +181,7 @@ class NotebookTab(Gtk.EventBox):
     """
         Class to represent a generic tab in a Gtk.Notebook.
     """
+
     reorderable = True
 
     def __init__(self, notebook, page, vertical=False):
@@ -298,13 +305,15 @@ class NotebookTab(Gtk.EventBox):
 
             Typically triggers renaming, closing and menu.
         """
-        if event.button == Gdk.BUTTON_PRIMARY and event.type == Gdk.EventType._2BUTTON_PRESS:
+        if (
+            event.button == Gdk.BUTTON_PRIMARY
+            and event.type == Gdk.EventType._2BUTTON_PRESS
+        ):
             self.start_rename()
         elif event.button == Gdk.BUTTON_MIDDLE:
             self.close()
         elif event.triggers_context_menu():
-            self.page.tab_menu.popup(None, None, None, None,
-                                     event.button, event.time)
+            self.page.tab_menu.popup(None, None, None, None, event.button, event.time)
             return True
 
     def on_entry_activate(self, entry):
@@ -375,19 +384,12 @@ class NotebookPage(Gtk.Box):
     """
         Base class representing a page. Should never be used directly.
     """
+
     menu_provider_name = 'tab-context'  # override this in subclasses
     reorderable = True
     __gsignals__ = {
-        'name-changed': (
-            GObject.SignalFlags.RUN_LAST,
-            None,
-            ()
-        ),
-        'closing': (
-            GObject.SignalFlags.RUN_LAST,
-            GObject.TYPE_BOOLEAN,
-            ()
-        )
+        'name-changed': (GObject.SignalFlags.RUN_LAST, None, ()),
+        'closing': (GObject.SignalFlags.RUN_LAST, GObject.TYPE_BOOLEAN, ()),
     }
 
     def __init__(self, child=None, page_name=None, menu_provider_name=None):
@@ -446,6 +448,7 @@ class NotebookAction(object):
     """
         A custom action to be placed to the left or right of tabs in a notebook
     """
+
     name = None
     position = Gtk.PackType.END
 

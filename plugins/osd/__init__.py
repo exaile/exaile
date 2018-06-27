@@ -24,11 +24,7 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import (
-    event,
-    player,
-    settings as xl_settings
-)
+from xl import event, player, settings as xl_settings
 from xl.nls import gettext as _
 from xlgui.widgets import info
 from xlgui import guiutil
@@ -50,7 +46,9 @@ def do_assert(is_bool):
         raise AssertionError()
 
 
-def _sanitize_window_geometry(window, current_allocation, padding, width_fill, height_fill):
+def _sanitize_window_geometry(
+    window, current_allocation, padding, width_fill, height_fill
+):
     """
         Sanitizes (x-offset, y-offset, width, height) of the given window,
         to make the window show on the screen.
@@ -77,8 +75,7 @@ def _sanitize_window_geometry(window, current_allocation, padding, width_fill, h
 
     if cural.x != newal.x or cural.y != newal.y:
         if cural.width != newal.width or cural.height != newal.height:
-            window.get_window().move_resize(
-                newal.x, newal.y, newal.width, newal.height)
+            window.get_window().move_resize(newal.x, newal.y, newal.width, newal.height)
         else:
             window.move(newal.x, newal.y)
     else:
@@ -124,7 +121,9 @@ class OSDPlugin(object):
             # Setting opacity on Windows crashes with segfault,
             # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
             self.__options['use_alpha'] = False
-            LOGGER.warn("OSD: Disabling alpha channel because it is not supported on Windows.")
+            LOGGER.warn(
+                "OSD: Disabling alpha channel because it is not supported on Windows."
+            )
         else:
             self.__options['use_alpha'] = True
 
@@ -182,11 +181,21 @@ class OSDPlugin(object):
         do_assert(self.__window is None)
         self.__window = OSDWindow(self.__css_provider, self.__options, be_editable)
         # Trigger initial setup through options.
-        for option in ('format', 'background', 'display_duration',
-                       'show_progress', 'position', 'width', 'height',
-                       'border_radius'):
-            self.__on_option_set('plugin_osd_option_set', xl_settings,
-                                 'plugin/osd/{option}'.format(option=option))
+        for option in (
+            'format',
+            'background',
+            'display_duration',
+            'show_progress',
+            'position',
+            'width',
+            'height',
+            'border_radius',
+        ):
+            self.__on_option_set(
+                'plugin_osd_option_set',
+                xl_settings,
+                'plugin/osd/{option}'.format(option=option),
+            )
         self.__window.restore_geometry_and_show()
 
     def __on_option_set(self, _event, settings, option):
@@ -194,14 +203,18 @@ class OSDPlugin(object):
             Updates appearance on setting change
         """
         if option == 'plugin/osd/format':
-            self.__window.info_area.set_info_format(settings.get_option(
-                option, osd_preferences.FormatPreference.default))
+            self.__window.info_area.set_info_format(
+                settings.get_option(option, osd_preferences.FormatPreference.default)
+            )
         elif option == 'plugin/osd/background':
             if not self.__options['background']:
                 self.__options['background'] = Gdk.RGBA()
             rgba = self.__options['background']
-            rgba.parse(settings.get_option(
-                option, osd_preferences.BackgroundPreference.default))
+            rgba.parse(
+                settings.get_option(
+                    option, osd_preferences.BackgroundPreference.default
+                )
+            )
             if self.__options['use_alpha'] is True:
                 if rgba.alpha > 0.995:
                     # Bug: We need to set opacity to some value < 1 here
@@ -215,17 +228,24 @@ class OSDPlugin(object):
             GLib.idle_add(self.__update_css_provider)
         elif option == 'plugin/osd/border_radius':
             value = settings.get_option(
-                option, osd_preferences.BorderRadiusPreference.default)
+                option, osd_preferences.BorderRadiusPreference.default
+            )
             self.__window.set_border_width(max(6, value // 2))
             self.__options['border_radius'] = value
             GLib.idle_add(self.__update_css_provider)
             self.__window.emit('size-allocate', self.__window.get_allocation())
         elif option == 'plugin/osd/display_duration':
-            self.__options['display_duration'] = int(settings.get_option(
-                option, osd_preferences.DisplayDurationPreference.default))
+            self.__options['display_duration'] = int(
+                settings.get_option(
+                    option, osd_preferences.DisplayDurationPreference.default
+                )
+            )
         elif option == 'plugin/osd/show_progress':
-            self.__window.info_area.set_display_progress(settings.get_option(
-                option, osd_preferences.ShowProgressPreference.default))
+            self.__window.info_area.set_display_progress(
+                settings.get_option(
+                    option, osd_preferences.ShowProgressPreference.default
+                )
+            )
         elif option == 'plugin/osd/position':
             position = Point._make(settings.get_option(option, [20, 20]))
             self.__window.geometry['x'] = position.x
@@ -247,7 +267,9 @@ class OSDPlugin(object):
         else:
             color_str = guiutil.css_from_rgba_without_alpha(bgcolor)
         data_str = "window { background-color: %s; border-radius: %spx; }" % (
-            color_str, str(radius))
+            color_str,
+            str(radius),
+        )
         self.__css_provider.load_from_data(data_str)
         return False
 
@@ -326,7 +348,9 @@ class OSDWindow(Gtk.Window):
         self.connect('screen-changed', self.__on_screen_changed)
 
         style_context = self.get_style_context()
-        style_context.add_provider(css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        style_context.add_provider(
+            css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
         # Init child widgets
         self.info_area = info.TrackInfoPane(player.PLAYER)
@@ -372,9 +396,12 @@ class OSDWindow(Gtk.Window):
             self.set_type_hint(Gdk.WindowTypeHint.NORMAL)
             self.set_title(_("Move or resize OSD"))
             # This is often ignored, but we could try:
-            self.connect('realize', lambda _widget:
-                         self.get_window().set_decorations(
-                             Gdk.WMDecoration.RESIZEH | Gdk.WMDecoration.TITLE))
+            self.connect(
+                'realize',
+                lambda _widget: self.get_window().set_decorations(
+                    Gdk.WMDecoration.RESIZEH | Gdk.WMDecoration.TITLE
+                ),
+            )
         else:
             # On X11 (at least XWayland), this will make the window be not movable,
             # but makes sure the user can still type.
@@ -386,10 +413,17 @@ class OSDWindow(Gtk.Window):
         self.__autohide = not allow_resize_move
 
     def __on_window_state_event(self, _widget, win_state):
-        illegal_states = Gdk.WindowState.FULLSCREEN | Gdk.WindowState.ICONIFIED | \
-            Gdk.WindowState.TILED | Gdk.WindowState.MAXIMIZED | Gdk.WindowState.BELOW
-        if win_state.changed_mask & illegal_states and \
-                win_state.new_window_state & illegal_states:
+        illegal_states = (
+            Gdk.WindowState.FULLSCREEN
+            | Gdk.WindowState.ICONIFIED
+            | Gdk.WindowState.TILED
+            | Gdk.WindowState.MAXIMIZED
+            | Gdk.WindowState.BELOW
+        )
+        if (
+            win_state.changed_mask & illegal_states
+            and win_state.new_window_state & illegal_states
+        ):
             # Just returning Gdk.EVENT_STOP doesn't stop the window manager
             # from changing window state.
             # TODO: This often does not work at all.
@@ -433,8 +467,11 @@ class OSDWindow(Gtk.Window):
 
         gdk_display = self.get_window().get_display()
         # Keep showing the OSD in case the pointer is still over the OSD
-        if Gtk.get_major_version() > 3 or \
-                Gtk.get_major_version() == 3 and Gtk.get_minor_version() >= 20:
+        if (
+            Gtk.get_major_version() > 3
+            or Gtk.get_major_version() == 3
+            and Gtk.get_minor_version() >= 20
+        ):
             gdk_seat = gdk_display.get_default_seat()
             gdk_device = gdk_seat.get_pointer()
         else:
@@ -473,7 +510,8 @@ class OSDWindow(Gtk.Window):
         # (re)start hide process
         if self.__autohide:
             self.__hide_id = GLib.timeout_add_seconds(
-                self.__options['display_duration'], self.__start_fadeout)
+                self.__options['display_duration'], self.__start_fadeout
+            )
         Gtk.Window.present(self)
 
     def restore_geometry_and_show(self):
@@ -529,8 +567,10 @@ class OSDWindow(Gtk.Window):
             # does not support transparency
             visual = screen.get_system_visual()
             self.__options['use_alpha'] = False
-            LOGGER.warn("OSD: Disabling alpha channel because the Gtk+ "
-                        "backend does not support it.")
+            LOGGER.warn(
+                "OSD: Disabling alpha channel because the Gtk+ "
+                "backend does not support it."
+            )
         self.set_visual(visual)
 
     '''

@@ -16,17 +16,13 @@
 #
 
 from urllib import quote_plus
+
 try:
     import xml.etree.cElementTree as ETree
 except ImportError:
     import xml.etree.ElementTree as ETree
 
-from xl import (
-    common,
-    covers,
-    event,
-    providers
-)
+from xl import common, covers, event, providers
 
 # Last.fm API Key for Exaile
 # if you reuse this code in a different application, please
@@ -57,6 +53,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     """
         Searches Last.fm for covers
     """
+
     name = 'lastfm'
     title = 'Last.fm'
     type = 'remote'  # fetches remotely as opposed to locally
@@ -72,9 +69,11 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
         """
         # TODO: handle multi-valued fields better
         try:
-            (artist, album, title) = track.get_tag_raw('artist')[0], \
-                track.get_tag_raw('album')[0], \
-                track.get_tag_raw('title')[0]
+            (artist, album, title) = (
+                track.get_tag_raw('artist')[0],
+                track.get_tag_raw('album')[0],
+                track.get_tag_raw('title')[0],
+            )
         except TypeError:
             return []
 
@@ -83,9 +82,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
         for type, value in (('album', album), ('track', title)):
             url = self.url.format(
-                type=type,
-                value=quote_plus(value.encode("utf-8")),
-                api_key=API_KEY
+                type=type, value=quote_plus(value.encode("utf-8")), api_key=API_KEY
             )
             try:
                 data = common.get_url_contents(url, self.user_agent)
@@ -98,9 +95,9 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
                 continue
 
             for element in xml.getiterator(type):
-                if (element.find('artist').text == artist.encode("utf-8")):
+                if element.find('artist').text == artist.encode("utf-8"):
                     for sub_element in element.findall('image'):
-                        if (sub_element.attrib['size'] == 'extralarge'):
+                        if sub_element.attrib['size'] == 'extralarge':
                             url = sub_element.text
                             if url:
                                 return [url]

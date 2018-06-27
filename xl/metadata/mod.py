@@ -31,13 +31,14 @@ import os
 
 try:
     import ctypes
+
     modplug = ctypes.cdll.LoadLibrary("libmodplug.so.0")
     modplug.ModPlug_Load.restype = ctypes.c_void_p
     modplug.ModPlug_Load.argtypes = (ctypes.c_void_p, ctypes.c_int)
     modplug.ModPlug_GetName.restype = ctypes.c_char_p
-    modplug.ModPlug_GetName.argtypes = (ctypes.c_void_p, )
+    modplug.ModPlug_GetName.argtypes = (ctypes.c_void_p,)
     modplug.ModPlug_GetLength.restype = ctypes.c_int
-    modplug.ModPlug_GetLength.argtypes = (ctypes.c_void_p, )
+    modplug.ModPlug_GetLength.argtypes = (ctypes.c_void_p,)
 except (ImportError, OSError):
     modplug = None
 
@@ -64,5 +65,6 @@ class ModFormat(BaseFormat):
 
     def get_bitrate(self):
         return -1
+
 
 # vim: et sts=4 sw=4

@@ -9,9 +9,9 @@ def N_(x):
 class _TD(object):
 
     __slots__ = [
-        'name',                 # descriptive name
-        'translated_name',      # translated name
-        'tag_name',             # raw tag name
+        'name',  # descriptive name
+        'translated_name',  # translated name
+        'tag_name',  # raw tag name
         'type',
         'editable',
         'min',
@@ -31,6 +31,7 @@ class _TD(object):
 
         for k, v in kwargs.iteritems():
             setattr(self, k, v)
+
 
 #: List of metadata tags currently supported by exaile, which are
 #: translated into the corresponding tag for each audio format if
@@ -87,7 +88,6 @@ tag_data = {
     '__rating':         None,  # currently special.
     '__startoffset':    _TD(N_('Start offset'), 'time', min=0, max=3600),  # TODO: calculate these parameters
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
-    
     # fmt: on
 }
 

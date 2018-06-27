@@ -64,7 +64,9 @@ class DBusHelper:
     def __init__(self, obj):
         self.object = obj
 
-    def method_call(self, connection, sender, path, interface, method, args, invocation):
+    def method_call(
+        self, connection, sender, path, interface, method, args, invocation
+    ):
         self._check_method(method)
         result = getattr(self.object, method)(*args)
         # If the method returns nothing, return empty tuple. If the method
@@ -92,6 +94,7 @@ class DBusHelper:
     def _check_method(self, meth):
         """Check that `meth` is a valid property of `self.object`"""
         import types
+
         if meth and meth[0].isupper() and not meth.endswith('_'):
             classprop = getattr(self.object.__class__, meth, None)
             if isinstance(classprop, types.MethodType):

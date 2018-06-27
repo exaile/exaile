@@ -41,8 +41,7 @@ class ProgressMonitor(Gtk.Box):
 
     __gtype_name__ = 'ProgressMonitor'
 
-    label,          \
-        progressbar = GtkTemplate.Child.widgets(2)
+    label, progressbar = GtkTemplate.Child.widgets(2)
 
     def __init__(self, manager, thread, description, image=None):
         """
@@ -70,8 +69,9 @@ class ProgressMonitor(Gtk.Box):
         self.show_all()
         GLib.timeout_add(100, self.pulsate_progress)
 
-        self.progress_update_id = self.thread.connect('progress-update',
-                                                      self.on_progress_update)
+        self.progress_update_id = self.thread.connect(
+            'progress-update', self.on_progress_update
+        )
         self.done_id = self.thread.connect('done', self.on_done)
         self.thread.start()
 

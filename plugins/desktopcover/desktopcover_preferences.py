@@ -59,8 +59,7 @@ class FadingPreference(widgets.CheckPreference):
     name = 'plugin/desktopcover/fading'
 
 
-class FadingDurationPreference(widgets.SpinPreference,
-                               widgets.CheckConditional):
+class FadingDurationPreference(widgets.SpinPreference, widgets.CheckConditional):
     default = 50
     name = 'plugin/desktopcover/fading_duration'
     condition_preference_name = 'plugin/desktopcover/fading'
@@ -68,5 +67,6 @@ class FadingDurationPreference(widgets.SpinPreference,
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
+
 
 # vi: et sts=4 sw=4 tw=80

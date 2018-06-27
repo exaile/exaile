@@ -32,4 +32,5 @@ from mutagen import aiff
 class AIFFFormat(ID3Format):
     MutagenType = aiff.AIFF
 
+
 # vim: et sts=4 sw=4

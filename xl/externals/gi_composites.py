@@ -33,8 +33,7 @@ class GtkTemplateWarning(UserWarning):
     pass
 
 
-def _connect_func(builder, obj, signal_name, handler_name,
-                  connect_object, flags, cls):
+def _connect_func(builder, obj, signal_name, handler_name, connect_object, flags, cls):
     '''Handles GtkBuilder signal connect events'''
 
     if connect_object is None:
@@ -47,9 +46,11 @@ def _connect_func(builder, obj, signal_name, handler_name,
     template_inst = builder.get_object(cls.__gtype_name__)
 
     if template_inst is None:  # This should never happen
-        errmsg = "Internal error: cannot find template instance! obj: %s; " \
-                 "signal: %s; handler: %s; connect_obj: %s; class: %s" % \
-                 (obj, signal_name, handler_name, connect_object, cls)
+        errmsg = (
+            "Internal error: cannot find template instance! obj: %s; "
+            "signal: %s; handler: %s; connect_obj: %s; class: %s"
+            % (obj, signal_name, handler_name, connect_object, cls)
+        )
         warnings.warn(errmsg, GtkTemplateWarning)
         return
 
@@ -86,7 +87,7 @@ def _register_template(cls, template_bytes):
             if hasattr(o, '_gtk_callback'):
                 bound_methods.add(name)
                 # Don't need to call this, as connect_func always gets called
-                #cls.bind_template_callback_full(name, o)
+                # cls.bind_template_callback_full(name, o)
         elif isinstance(o, _Child):
             cls.bind_template_child_full(name, True, 0)
             bound_widgets.add(name)
@@ -108,8 +109,10 @@ def _init_template(self, cls, base_init_template):
     # TODO: could disallow using a metaclass.. but this is good enough
     # .. if you disagree, feel free to fix it and issue a PR :)
     if self.__class__ is not cls:
-        raise TypeError("Inheritance from classes with @GtkTemplate decorators "
-                        "is not allowed at this time")
+        raise TypeError(
+            "Inheritance from classes with @GtkTemplate decorators "
+            "is not allowed at this time"
+        )
 
     connected_signals = set()
     self.__connected_template_signals__ = connected_signals
@@ -126,14 +129,18 @@ def _init_template(self, cls, base_init_template):
             #      it's not currently possible for us to know which
             #      one is broken either -- but the stderr should show
             #      something useful with a Gtk-CRITICAL message)
-            raise AttributeError("A missing child widget was set using "
-                                 "GtkTemplate.Child and the entire "
-                                 "template is now broken (widgets: %s)" %
-                                 ', '.join(self.__gtemplate_widgets__))
+            raise AttributeError(
+                "A missing child widget was set using "
+                "GtkTemplate.Child and the entire "
+                "template is now broken (widgets: %s)"
+                % ', '.join(self.__gtemplate_widgets__)
+            )
 
     for name in self.__gtemplate_methods__.difference(connected_signals):
-        errmsg = ("Signal '%s' was declared with @GtkTemplate.Callback " +
-                  "but was not present in template") % name
+        errmsg = (
+            "Signal '%s' was declared with @GtkTemplate.Callback "
+            + "but was not present in template"
+        ) % name
         warnings.warn(errmsg, GtkTemplateWarning)
 
 
@@ -248,7 +255,9 @@ class _GtkTemplate(object):
         # - Prefer the resource path first
 
         try:
-            template_bytes = Gio.resources_lookup_data(self.ui, Gio.ResourceLookupFlags.NONE)
+            template_bytes = Gio.resources_lookup_data(
+                self.ui, Gio.ResourceLookupFlags.NONE
+            )
         except GLib.GError:
             ui = self.ui
             if isinstance(ui, (list, tuple)):

@@ -54,13 +54,13 @@ class PodcastPanel(panel.Panel):
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, 'podcasts', _('Podcasts'))
         self.podcasts = []
-        self.podcast_playlists = playlist.PlaylistManager(
-            'podcast_plugin_playlists')
+        self.podcast_playlists = playlist.PlaylistManager('podcast_plugin_playlists')
 
         self._setup_widgets()
         self._connect_events()
-        self.podcast_file = os.path.join(xdg.get_plugin_data_dir(),
-                                         'podcasts_plugin.db')
+        self.podcast_file = os.path.join(
+            xdg.get_plugin_data_dir(), 'podcasts_plugin.db'
+        )
         self._load_podcasts()
 
     def _setup_widgets(self):
@@ -90,9 +90,7 @@ class PodcastPanel(panel.Panel):
             GLib.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
-        self.builder.connect_signals({
-            'on_add_button_clicked': self.on_add_podcast,
-        })
+        self.builder.connect_signals({'on_add_button_clicked': self.on_add_podcast})
 
         self.tree.connect('row-activated', self._on_row_activated)
         self.tree.connect('button-press-event', self._on_button_press)
@@ -118,8 +116,9 @@ class PodcastPanel(panel.Panel):
         self._load_podcasts()
 
     def on_add_podcast(self, *e):
-        dialog = dialogs.TextEntryDialog(_('Enter the URL of the '
-                                           'podcast to add'), _('Open Podcast'))
+        dialog = dialogs.TextEntryDialog(
+            _('Enter the URL of the ' 'podcast to add'), _('Open Podcast')
+        )
         dialog.set_transient_for(self.parent)
         dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
@@ -168,9 +167,11 @@ class PodcastPanel(panel.Panel):
                 for link in e.get('enclosures', []):
                     tr = trax.Track(link.href)
                     date = e['updated_parsed']
-                    tr.set_tags(artist=title,
-                                title='%s: %s' % (e['title'], link.href.split('/')[-1]),
-                                date="%d-%02d-%02d" % (date.tm_year, date.tm_mon, date.tm_mday))
+                    tr.set_tags(
+                        artist=title,
+                        title='%s: %s' % (e['title'], link.href.split('/')[-1]),
+                        date="%d-%02d-%02d" % (date.tm_year, date.tm_mon, date.tm_mday),
+                    )
                     tracks.append(tr)
 
             pl.extend(tracks)

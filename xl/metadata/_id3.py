@@ -24,10 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.metadata._base import (
-    BaseFormat,
-    CoverImage
-)
+from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import id3
 
 
@@ -99,15 +96,22 @@ class ID3Format(BaseFormat):
             for value in field:
                 ret.extend([unicode(value.url.replace('\n', '').replace('\r', ''))])
         elif t == 'APIC':
-            ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
+            ret = [
+                CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data)
+                for f in field
+            ]
         elif t == 'COMM':  # Newlines within comments are allowed, keep them
             for item in field:
                 ret.extend([value for value in item.text])
         else:
             for value in field:
                 try:
-                    ret.extend([unicode(x.replace('\n', '').replace('\r', ''))
-                                for x in value.text])
+                    ret.extend(
+                        [
+                            unicode(x.replace('\n', '').replace('\r', ''))
+                            for x in value.text
+                        ]
+                    )
                 except Exception:
                     pass
         return ret
@@ -124,10 +128,20 @@ class ID3Format(BaseFormat):
             data = data[0]
 
         if tag == 'APIC':
-            frames = [id3.Frames[tag](encoding=3, mime=info.mime, type=info.type, desc=info.desc, data=info.data)
-                      for info in data]
+            frames = [
+                id3.Frames[tag](
+                    encoding=3,
+                    mime=info.mime,
+                    type=info.type,
+                    desc=info.desc,
+                    data=info.data,
+                )
+                for info in data
+            ]
         elif tag == 'COMM':
-            frames = [id3.COMM(encoding=3, text=d, desc='', lang='\x00\x00\x00') for d in data]
+            frames = [
+                id3.COMM(encoding=3, text=d, desc='', lang='\x00\x00\x00') for d in data
+            ]
         elif tag == 'WOAR':
             frames = [id3.WOAR(encoding=3, url=d) for d in data]
         else:
@@ -142,5 +156,6 @@ class ID3Format(BaseFormat):
             tag = "TXXX:" + tag
         if raw.tags is not None:
             raw.tags.delall(tag)
+
 
 # vim: et sts=4 sw=4

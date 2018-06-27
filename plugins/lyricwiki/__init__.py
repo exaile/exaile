@@ -6,10 +6,7 @@ import HTMLParser
 import re
 import urllib
 
-from xl.lyrics import (
-    LyricSearchMethod,
-    LyricsNotFoundException
-)
+from xl.lyrics import LyricSearchMethod, LyricsNotFoundException
 from xl import common, providers
 
 
@@ -39,8 +36,10 @@ class LyricWiki(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            (artist, title) = (
+                track.get_tag_raw('artist')[0].encode("utf-8"),
+                track.get_tag_raw('title')[0].encode("utf-8"),
+            )
         except TypeError:
             raise LyricsNotFoundException
 
@@ -64,7 +63,9 @@ class LyricWiki(LyricSearchMethod):
         lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
             with_div = lyrics[0].renderContents().replace('<br />', '\n')
-            string = '\n'.join(self.remove_div(with_div).replace('\n\n\n', '').split('\n'))
+            string = '\n'.join(
+                self.remove_div(with_div).replace('\n\n\n', '').split('\n')
+            )
             lyrics = re.sub(r' Send.*?Ringtone to your Cell ', '', string)
         else:
             raise LyricsNotFoundException

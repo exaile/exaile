@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-17 13:06+1000\n"
+"POT-Creation-Date: 2018-06-27 13:43+1000\n"
 "PO-Revision-Date: 2015-01-09 09:35+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
@@ -21,15 +21,15 @@ msgstr ""
 "X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
-#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Oznake"
 
-#: ../xl/covers.py:564
+#: ../xl/covers.py:565
 msgid "Local file"
 msgstr ""
 
-#: ../xl/formatter.py:592
+#: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
@@ -37,7 +37,7 @@ msgstr[0] "%d dan, "
 msgstr[1] "%d dani, "
 msgstr[2] "%d dani, "
 
-#: ../xl/formatter.py:594
+#: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
@@ -45,7 +45,7 @@ msgstr[0] "%d sat, "
 msgstr[1] "%d sati, "
 msgstr[2] "%d sati, "
 
-#: ../xl/formatter.py:595
+#: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
@@ -53,7 +53,7 @@ msgstr[0] "%d minuta, "
 msgstr[1] "%d minute, "
 msgstr[2] "%d minute, "
 
-#: ../xl/formatter.py:596
+#: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -62,263 +62,263 @@ msgstr[1] "%d sekunde"
 msgstr[2] "%d sekunde"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:601
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
 msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:604
+#: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
 msgstr "%ds, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:606
+#: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
 msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:608
+#: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
 msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:613
+#: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
 msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:616
+#: ../xl/formatter.py:621
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:620
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
+#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:64
 msgid "Unknown"
 msgstr "Nepoznato"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:740 ../xl/formatter.py:745
+#: ../xl/formatter.py:756 ../xl/formatter.py:761
 msgid "Never"
 msgstr "Nikada"
 
-#: ../xl/formatter.py:751
+#: ../xl/formatter.py:767
 msgid "Today"
 msgstr "Danas"
 
-#: ../xl/formatter.py:753
+#: ../xl/formatter.py:769
 msgid "Yesterday"
 msgstr "Jučer"
 
-#: ../xl/lyrics.py:360
+#: ../xl/lyrics.py:351
 msgid "Local"
 msgstr "Lokalno"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:83
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Upotreba: exaile [OPTION]... [URI]"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:90
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "Postavke reprodukcije"
 
-#: ../xl/main.py:92
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "Sviraj slijedeću pjesmu"
 
-#: ../xl/main.py:94
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "Sviraj prethodnu pjesmu"
 
-#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
-#: ../plugins/minimode/controls.py:366
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
+#: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Zaustavi reprodukciju"
 
-#: ../xl/main.py:98
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "Sviraj"
 
-#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Pauza"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "Pauziraj ili nastavi reprodukciju"
 
-#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Zaustavi reprodukciju nakon trenutne pjesme"
 
-#: ../xl/main.py:107
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "Mogućnosti Zbirke"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:110 ../xl/main.py:116
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "Lokacija"
 
-#: ../xl/main.py:111
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Dodaj pjesme s lokacije u zbirku"
 
-#: ../xl/main.py:113
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "Mogućnosti popisa pjesama"
 
-#: ../xl/main.py:117
+#: ../xl/main.py:163
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Izvozi trenutni popis pjesama na LOKACIJU"
 
-#: ../xl/main.py:119
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "Opcije pjesme"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "Ispitaj preglednika"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:124
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:125
+#: ../xl/main.py:180
 #, fuzzy
 #| msgid "Print the current playback position as time"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Ispis trenutne pozicije reprodukcije, kao vrijeme"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:128
+#: ../xl/main.py:186
 msgid "TAGS"
 msgstr ""
 
-#: ../xl/main.py:129
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:131
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "Prikaži popup prozor sa podacima o trenutnoj pjesmi"
 
-#: ../xl/main.py:133
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "Ispiši naslov trenutne pjesme"
 
-#: ../xl/main.py:135
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "Ispiši album trenutne pjesme"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "Ispiši izvođača trenutne pjesme"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "Ispiši dužinu trenutne pjesme"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:143
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "Postavi ocjenu za trenutnu pjesmu na N%"
 
-#: ../xl/main.py:145
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "Dobavi ocjenu za trenutnu pjesmu"
 
-#: ../xl/main.py:148
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "Ispis trenutne pozicije reprodukcije, kao vrijeme"
 
-#: ../xl/main.py:151
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "Ispis trenutne pozicije reprodukcije, u obliku postotka"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "Postavke glasnoće"
 
-#: ../xl/main.py:157
+#: ../xl/main.py:262
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Povećava glasnoću za N%"
 
-#: ../xl/main.py:161
+#: ../xl/main.py:271
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Smanjuje glasnoću za N%"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:279
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Isključuje ili uključuje zvuk"
 
-#: ../xl/main.py:166
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "Ispiši postotak trenutne glasnoće"
 
-#: ../xl/main.py:168
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "Ostale postavke"
 
-#: ../xl/main.py:170
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "Pokreni novu instancu"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "Prikaži ovu poruku pomoći i izađi"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "Prikaži verziju programa i izađi."
 
-#: ../xl/main.py:177
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "Pokreni minimizirano (u trayu, ako je moguće)"
 
-#: ../xl/main.py:180
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Preklopi vidljivost GUI-a (ako je moguće)"
 
-#: ../xl/main.py:182
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Pokreni u sigurnom načinu rada - ponekad korisno ako naiđete na probleme"
 
-#: ../xl/main.py:185
+#: ../xl/main.py:335
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -326,101 +326,101 @@ msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Prisilno uvedi stare podatke iz inačice 0.2.x (Prebrisat će trenutne podatke)"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "Ne uvodi stare podatke iz inačice 0.2.x"
 
-#: ../xl/main.py:191
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr "Učini da opcije kao --sviraj pokrenu Exaile ukoliko nije pokrenut"
 
-#: ../xl/main.py:194
+#: ../xl/main.py:353
 msgid "Development/Debug Options"
 msgstr "Razvoj/Debug postavke"
 
-#: ../xl/main.py:196 ../xl/main.py:198
+#: ../xl/main.py:357 ../xl/main.py:363
 msgid "DIRECTORY"
 msgstr "DIREKTORIJ"
 
-#: ../xl/main.py:196
+#: ../xl/main.py:358
 msgid "Set data directory"
 msgstr "Postavi direktorij podataka"
 
-#: ../xl/main.py:198
+#: ../xl/main.py:364
 msgid "Set data and config directory"
 msgstr "Postavlja podatke i konfiguracijski direktorij"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:369
 msgid "MODULE"
 msgstr "MODUL"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:370
 msgid "Limit log output to MODULE"
 msgstr "Ograniči izlaz informacija na MODUL"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:375
 msgid "LEVEL"
 msgstr "RAZINA"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:376
 msgid "Limit log output to LEVEL"
 msgstr "Ograniči izlaz informacija na RAZINU"
 
-#: ../xl/main.py:205
+#: ../xl/main.py:384
 msgid "Show debugging output"
 msgstr "Prikaži izlaz otklanjanja grešaka"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:391
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Omogući debuggiranje xl.događaja. Generira PUNO ispisa."
 
-#: ../xl/main.py:210
+#: ../xl/main.py:398
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Omogući debuggiranje xl.događaja. Generira PUNO ispisa."
 
-#: ../xl/main.py:213
+#: ../xl/main.py:405
 msgid "Add thread name to logging messages."
 msgstr "Dodaj ime Thread-a u poruke zapisa"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:410
 msgid "TYPE"
 msgstr "TIP"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:411
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Ograniči xl.event otklanjanje grešaka na izlaz informacija za TIP"
 
-#: ../xl/main.py:218
+#: ../xl/main.py:418
 msgid "Reduce level of output"
 msgstr "Smanji razinu izlaza"
 
-#: ../xl/main.py:222
+#: ../xl/main.py:428
 msgid "Disable D-Bus support"
 msgstr "Onemogući D-Bus podršku"
 
-#: ../xl/main.py:224
+#: ../xl/main.py:435
 msgid "Disable HAL support."
 msgstr "Onemogući HAL podršku"
 
-#: ../xl/main.py:567
+#: ../xl/main.py:816
 msgid "Entire Library"
 msgstr "Cijela Knjižnica"
 
-#: ../xl/main.py:573
+#: ../xl/main.py:823
 #, python-format
 msgid "Random %d"
 msgstr "Nasumično %d"
 
-#: ../xl/main.py:581
+#: ../xl/main.py:832
 #, python-format
 msgid "Rating > %d"
 msgstr "Ocjena > %d"
 
-#: ../xl/main.py:739
+#: ../xl/main.py:1001
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -428,185 +428,185 @@ msgstr ""
 "Exaile još nije završio učitavanje. Možda bi trebali slušati čuje li se "
 "'exaile_loaded' signal?"
 
-#: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:134
-#: ../xlgui/widgets/playlist_columns.py:202 ../plugins/cd/cdprefs.py:113
-#: ../plugins/minimode/minimode_preferences.py:101
+#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:125
+#: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
+#: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "Album"
 
-#: ../xl/metadata/tags.py:46
+#: ../xl/metadata/tags.py:48
 msgid "Arranger"
 msgstr "Aranžer"
 
-#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:131
-#: ../xlgui/widgets/playlist_columns.py:186 ../plugins/cd/cdprefs.py:111
-#: ../plugins/minimode/minimode_preferences.py:99
+#: ../xl/metadata/tags.py:49 ../xlgui/panel/collection.py:122
+#: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
+#: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Izvođač"
 
-#: ../xl/metadata/tags.py:48
+#: ../xl/metadata/tags.py:50
 msgid "Author"
 msgstr "Autor"
 
-#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:326
-#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:112
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:356
+#: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xl/metadata/tags.py:50
+#: ../xl/metadata/tags.py:52
 msgid "Copyright"
 msgstr "Autorsko pravo"
 
-#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:478
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:527
 msgid "Comment"
 msgstr ""
 
-#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:194
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:200
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:100
+#: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Skladatelj"
 
-#: ../xl/metadata/tags.py:53 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "Omot"
 
-#: ../xl/metadata/tags.py:55 ../xlgui/widgets/playlist_columns.py:272
-#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:105
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:288
+#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Datum"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:218
+#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:230
 msgid "Disc"
 msgstr "Disk"
 
-#: ../xl/metadata/tags.py:57
+#: ../xl/metadata/tags.py:59
 msgid "Encoded by"
 msgstr ""
 
-#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:286
-#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:106
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:306
+#: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Žanr"
 
-#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:488
+#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:539
 msgid "Grouping"
 msgstr ""
 
-#: ../xl/metadata/tags.py:60
+#: ../xl/metadata/tags.py:62
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
+#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:366
 msgid "Language"
 msgstr ""
 
-#: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Tekst pjesme"
 
-#: ../xl/metadata/tags.py:63
+#: ../xl/metadata/tags.py:65
 msgid "Lyricist"
 msgstr "Lirik"
 
-#: ../xl/metadata/tags.py:64
+#: ../xl/metadata/tags.py:66
 msgid "Organization"
 msgstr "Organizacija"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:67
 msgid "Original album"
 msgstr "Originalni album"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:68
 msgid "Original artist"
 msgstr "Originalni umjetnik"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:69
 msgid "Original date"
 msgstr "Originalni datum"
 
-#: ../xl/metadata/tags.py:69
+#: ../xl/metadata/tags.py:71
 msgid "Performer"
 msgstr "Izvođač"
 
-#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:100
-#: ../xlgui/widgets/playlist_columns.py:178
+#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:180
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Naslov"
 
-#: ../xl/metadata/tags.py:71 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Traka"
 
-#: ../xl/metadata/tags.py:72
+#: ../xl/metadata/tags.py:74
 msgid "Version"
 msgstr "Inačica"
 
-#: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:512
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:569
 msgid "Website"
 msgstr "Web stranica"
 
-#: ../xl/metadata/tags.py:77 ../xlgui/widgets/playlist_columns.py:294
-#: ../plugins/cd/cdprefs.py:119 ../plugins/icecast/__init__.py:402
-#: ../plugins/minimode/minimode_preferences.py:107
+#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:316
+#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:408
+#: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Protok bitova"
 
-#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:349
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:385
 msgid "Date added"
 msgstr "Datum dodavanja"
 
-#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:342
-#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:111
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:376
+#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Zadnje svirano"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:210
-#: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:102
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:220
+#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Duljina"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:302
-#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
-#: ../plugins/minimode/minimode_preferences.py:108
+#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:326
+#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
+#: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Lokacija"
 
-#: ../xl/metadata/tags.py:83
+#: ../xl/metadata/tags.py:85
 msgid "Modified"
 msgstr "Promijenjeno"
 
-#: ../xl/metadata/tags.py:84
+#: ../xl/metadata/tags.py:86
 #, fuzzy
 msgid "Play time"
 msgstr "Brojač"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr "Broj reprodukcija"
 
-#: ../xl/metadata/tags.py:87
+#: ../xl/metadata/tags.py:89
 #, fuzzy
 msgid "Start offset"
 msgstr "X ofset:"
 
-#: ../xl/metadata/tags.py:88
+#: ../xl/metadata/tags.py:90
 #, fuzzy
 msgid "Stop offset"
 msgstr "X ofset:"
 
-#: ../xl/player/gst/engine.py:658
+#: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -618,132 +618,132 @@ msgid ""
 "required software on your computer. See %s for details."
 msgstr ""
 
-#: ../xl/player/gst/sink.py:46 ../xl/player/gst/sink.py:99
+#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
 msgstr "Automatski"
 
-#: ../xl/player/gst/sink.py:65
+#: ../xl/player/gst/sink.py:76
 msgid "Custom"
 msgstr "Prilagođeni"
 
-#: ../xl/player/gst/sink.py:135
+#: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:142
+#: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:147
+#: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:157
+#: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:162 ../xl/playlist.py:182
+#: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
 msgstr "Neodgovarajući tip popisa pjesama"
 
-#: ../xl/playlist.py:190 ../xlgui/widgets/playlist.py:354
-#: ../xlgui/widgets/smart_playlist_editor.py:263
+#: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
+#: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Lista izvođenja"
 
-#: ../xl/playlist.py:340
+#: ../xl/playlist.py:342
 msgid "M3U Playlist"
 msgstr "M3U lista pjesama"
 
-#: ../xl/playlist.py:445
+#: ../xl/playlist.py:457
 msgid "PLS Playlist"
 msgstr "PLS lista pjesama"
 
-#: ../xl/playlist.py:533 ../xl/playlist.py:549
+#: ../xl/playlist.py:548 ../xl/playlist.py:563
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Neispravni format za %s."
 
-#: ../xl/playlist.py:544
+#: ../xl/playlist.py:558
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr ""
 
-#: ../xl/playlist.py:605
+#: ../xl/playlist.py:618
 msgid "ASX Playlist"
 msgstr "ASX lista pjesama"
 
-#: ../xl/playlist.py:779
+#: ../xl/playlist.py:797
 msgid "XSPF Playlist"
 msgstr "XSPF lista pjesama"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:915
 msgid "Shuffle _Off"
 msgstr "Miješanje isključen_o"
 
-#: ../xl/playlist.py:896
+#: ../xl/playlist.py:915
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xl/playlist.py:896
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat _Off"
 msgstr "Ponavljanje _Isključeno"
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat _All"
 msgstr "Ponovi _sve"
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat O_ne"
 msgstr "Ponovi jed_nu"
 
-#: ../xl/playlist.py:904
+#: ../xl/playlist.py:923
 msgid "Dynamic _Off"
 msgstr ""
 
-#: ../xl/playlist.py:904
+#: ../xl/playlist.py:923
 msgid "Dynamic by Similar _Artists"
 msgstr ""
 
-#: ../xl/plugins.py:99
+#: ../xl/plugins.py:91
 msgid "Plugin archive is not in the correct format."
 msgstr "Arhiva dodataka nije u pravilnom formatu."
 
-#: ../xl/plugins.py:106
+#: ../xl/plugins.py:98
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
 msgstr "Dodatak imenovan \"%s\" je već instaliran."
 
-#: ../xl/plugins.py:111
+#: ../xl/plugins.py:103
 msgid "Plugin archive contains an unsafe path."
 msgstr "Arhiva dodataka sadrži nesigurnu putanju"
 
-#: ../xl/settings.py:102
+#: ../xl/settings.py:99
 msgid "Settings version is newer than current."
 msgstr "Inačica postavki je novija od aktivne."
 
-#: ../xl/settings.py:256
+#: ../xl/settings.py:254
 msgid "We don't know how to store that kind of setting: "
 msgstr "Ne znamo kako pohraniti takvu vrstu postavki. "
 
-#: ../xl/settings.py:287
+#: ../xl/settings.py:285
 msgid "An Unknown type of setting was found!"
 msgstr "Pronađen je nepoznati tip postavki."
 
-#: ../xl/transcoder.py:57
+#: ../xl/transcoder.py:58
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
@@ -751,7 +751,7 @@ msgstr ""
 "Vorbis je audio kodek otvorenog koda s degradacijom kvalitete. Pruža visoku "
 "kvalitetu uz manju veličinu datoteke od MP3 formata."
 
-#: ../xl/transcoder.py:67
+#: ../xl/transcoder.py:68
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
@@ -759,7 +759,7 @@ msgstr ""
 "Free Lossless Audio Codec (FLAC) kodek je otvorenog koda koji komprimira "
 "zvuk bez gubitka na kvaliteti."
 
-#: ../xl/transcoder.py:79
+#: ../xl/transcoder.py:80
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
@@ -767,7 +767,7 @@ msgstr ""
 "Appleov audio format s degradacijom kvalitete koji pri većoj kompresiji "
 "(manji bitrate) postiže bolju kvalitetu od MP3 formata."
 
-#: ../xl/transcoder.py:90
+#: ../xl/transcoder.py:91
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
@@ -776,7 +776,7 @@ msgstr ""
 "kvalitete. VBR nudi višu kvalitetu nego CBR, ali možda nije kompatibilan sa "
 "nekim sviračima."
 
-#: ../xl/transcoder.py:101
+#: ../xl/transcoder.py:102
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
@@ -785,40 +785,40 @@ msgstr ""
 "kvalitete. CBR nudi manju kvalitetu nego VBR, ali je kompatibilan sa svim "
 "sviračima."
 
-#: ../xl/transcoder.py:112
+#: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 "Vrlo brz, besplatan audio format bez degradacije kvalitete, s dobrom "
 "kompresijom."
 
-#: ../xl/trax/track.py:67
+#: ../xl/trax/track.py:63
 msgid "Various Artists"
 msgstr "Razni izvođači"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:70
+#: ../xl/trax/track.py:66
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:689 ../xl/trax/track.py:746
+#: ../xl/trax/track.py:702 ../xl/trax/track.py:766
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:180
+#: ../xl/trax/trackdb.py:183
 msgid "You did not specify a location to load the db from"
 msgstr "Niste specificirali lokaciju iz koje učitati db"
 
-#: ../xl/trax/trackdb.py:248
+#: ../xl/trax/trackdb.py:252
 msgid "You did not specify a location to save the db"
 msgstr "Niste specificirali lokaciju za spremanje db"
 
-#: ../xl/xldbus.py:114 ../xl/xldbus.py:491 ../xlgui/panel/lyrics.py:135
+#: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
 msgid "Not playing."
 msgstr "Ne svira."
 
-#: ../xl/xldbus.py:493
+#: ../xl/xldbus.py:526
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
@@ -827,11 +827,11 @@ msgstr ""
 "status: %(status)s, naslov: %(title)s, izvođač: %(artist)s, album: "
 "%(album)s, dužina: %(length)s, pozicija: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:305
+#: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
 msgstr "Pretražujem zbirku..."
 
-#: ../xlgui/__init__.py:372
+#: ../xlgui/__init__.py:397
 #, python-format
 msgid "Scanning %s..."
 msgstr "Skeniranje %s"
@@ -840,11 +840,11 @@ msgstr "Skeniranje %s"
 msgid "Add a Directory"
 msgstr "Dodaj direktorij"
 
-#: ../xlgui/collection.py:129
+#: ../xlgui/collection.py:135
 msgid "Directory not added."
 msgstr "Direktorij nije dodan."
 
-#: ../xlgui/collection.py:130
+#: ../xlgui/collection.py:137
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -852,551 +852,555 @@ msgstr ""
 "Direktorij se već nalazi u vašoj kolekciji ili je poddirektorij drugog "
 "direktorija u vašoj kolekciji."
 
-#: ../xlgui/cover.py:128
+#: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
 msgstr ""
 
-#: ../xlgui/cover.py:129
+#: ../xlgui/cover.py:98
 msgid "All covers fetched"
 msgstr ""
 
-#: ../xlgui/cover.py:154
+#: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
 msgstr "Prikupljam albume i omote..."
 
-#: ../xlgui/cover.py:520
+#: ../xlgui/cover.py:494
 msgid "Show Cover"
 msgstr "Prikaži sliku albuma"
 
-#: ../xlgui/cover.py:521
+#: ../xlgui/cover.py:495
 msgid "Fetch Cover"
 msgstr "Nabavi sliku albuma"
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:496
 msgid "Remove Cover"
 msgstr "Ukloni sliku albuma"
 
-#: ../xlgui/cover.py:831
+#: ../xlgui/cover.py:805
 #, python-format
 msgid "Cover for %s"
 msgstr "Omot za %s"
 
-#: ../xlgui/cover.py:937
+#: ../xlgui/cover.py:927
 msgid "Save File"
 msgstr ""
 
-#: ../xlgui/cover.py:1033
+#: ../xlgui/cover.py:1025
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
-#: ../xlgui/cover.py:1127
+#: ../xlgui/cover.py:1129
 msgid "No covers found."
 msgstr "NIjedan omot nije nađen"
 
-#: ../xlgui/cover.py:1128
+#: ../xlgui/cover.py:1131
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
+#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pikseli"
 
-#: ../xlgui/main.py:111
+#: ../xlgui/main.py:95
 msgid "$title (by $artist)"
 msgstr "$title ($artist)"
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:149
 #, fuzzy
 #| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
 msgstr "Pristupi trenutnom popisu izvođenja"
 
-#: ../xlgui/main.py:161
+#: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
 msgstr ""
 
-#: ../xlgui/main.py:163
+#: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
-#: ../xlgui/main.py:165
+#: ../xlgui/main.py:164
 msgid "Focus playlist search"
 msgstr ""
 
-#: ../xlgui/main.py:167
+#: ../xlgui/main.py:169
 #, fuzzy
 #| msgid "Toggle Queue"
 msgid "Clear queue"
 msgstr "Stavi u red puštanja"
 
-#: ../xlgui/main.py:170 ../plugins/minimode/controls.py:271
+#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr "Pokreni, pauziraj ili nastavi izvođenje"
 
-#: ../xlgui/main.py:172
+#: ../xlgui/main.py:179
 msgid "Seek to the right"
 msgstr ""
 
-#: ../xlgui/main.py:174
+#: ../xlgui/main.py:184
 msgid "Seek to the left"
 msgstr ""
 
-#: ../xlgui/main.py:177
+#: ../xlgui/main.py:189
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume"
 msgstr "Povećava glasnoću za N%"
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:194
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
 msgstr "Smanjuje glasnoću za N%"
 
-#: ../xlgui/main.py:182
+#: ../xlgui/main.py:197
 #, fuzzy
 #| msgid "Go to the previous track"
 msgid "Switch to previous tab"
 msgstr "Idi na prethodnu pjesmu"
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:198
 msgid "Switch to next tab"
 msgstr ""
 
-#: ../xlgui/main.py:187
+#: ../xlgui/main.py:201
 msgid "Focus the playlist container"
 msgstr ""
 
-#: ../xlgui/main.py:192
+#: ../xlgui/main.py:208
 msgid "Focus the files panel"
 msgstr ""
 
-#: ../xlgui/main.py:196
+#: ../xlgui/main.py:215
 msgid "Focus the radio panel"
 msgstr ""
 
-#: ../xlgui/main.py:198
+#: ../xlgui/main.py:220
 msgid "Focus the playlists panel"
 msgstr ""
 
-#: ../xlgui/main.py:200
+#: ../xlgui/main.py:223
 msgid "Focus the first tab"
 msgstr ""
 
-#: ../xlgui/main.py:201
+#: ../xlgui/main.py:224
 msgid "Focus the second tab"
 msgstr ""
 
-#: ../xlgui/main.py:202
+#: ../xlgui/main.py:225
 msgid "Focus the third tab"
 msgstr ""
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:226
 msgid "Focus the fourth tab"
 msgstr ""
 
-#: ../xlgui/main.py:204
+#: ../xlgui/main.py:227
 msgid "Focus the fifth tab"
 msgstr ""
 
-#: ../xlgui/main.py:205
+#: ../xlgui/main.py:228
 msgid "Focus the sixth tab"
 msgstr ""
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:229
 msgid "Focus the seventh tab"
 msgstr ""
 
-#: ../xlgui/main.py:207
+#: ../xlgui/main.py:230
 msgid "Focus the eighth tab"
 msgstr ""
 
-#: ../xlgui/main.py:208
+#: ../xlgui/main.py:231
 msgid "Focus the ninth tab"
 msgstr ""
 
-#: ../xlgui/main.py:209
+#: ../xlgui/main.py:232
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:527
+#: ../xlgui/main.py:587
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:700 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
 msgstr "Greška pri reprodukciji!"
 
-#: ../xlgui/main.py:635
+#: ../xlgui/main.py:707
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Međuspremanje: %d%%..."
 
-#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
 msgstr "Nastavi Reprodukciju"
 
-#: ../xlgui/main.py:679 ../xlgui/main.py:848
-#: ../plugins/previewdevice/__init__.py:371
+#: ../xlgui/main.py:751 ../xlgui/main.py:924
+#: ../plugins/previewdevice/__init__.py:367
 msgid "Pause Playback"
 msgstr "Pauziraj Reprodukciju"
 
-#: ../xlgui/main.py:805 ../xlgui/menu.py:112
+#: ../xlgui/main.py:880 ../xlgui/menu.py:145
 msgid "Playlist export failed!"
 msgstr "Neuspjeli izvoz liste izvođenja!"
 
-#: ../xlgui/main.py:857 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:352
+#: ../xlgui/main.py:933 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:349
 msgid "Start Playback"
 msgstr "Počni Reprodukciju"
 
-#: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
-#: ../xlgui/widgets/playlist.py:220
+#: ../xlgui/menu.py:62 ../xlgui/panel/menus.py:211
+#: ../xlgui/widgets/playlist.py:213
 msgid "_New Playlist"
 msgstr "_Nova Lista izvođenja"
 
-#: ../xlgui/menu.py:69
+#: ../xlgui/menu.py:75
 #, fuzzy
 #| msgid "Open URL"
 msgid "_Open"
 msgstr "Otvori URL"
 
-#: ../xlgui/menu.py:79
+#: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Otvori _URL"
 
-#: ../xlgui/menu.py:89
+#: ../xlgui/menu.py:114
 #, fuzzy
 #| msgid "Open Directory"
 msgid "Open _Directories"
 msgstr "Open Directory"
 
-#: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
+#: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
 #, fuzzy
 #| msgid "Smart Playlists"
 msgid "_Import Playlist"
 msgstr "Pametne liste pjesama"
 
-#: ../xlgui/menu.py:118
+#: ../xlgui/menu.py:156
 #, fuzzy
 #| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
 msgstr "Izvoz trenutne liste pjesama"
 
-#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:243
+#: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Close _Tab"
 msgstr "Zatvori karticu"
 
-#: ../xlgui/menu.py:133
+#: ../xlgui/menu.py:183
 #, fuzzy
 #| msgid "Restart"
 msgid "_Restart"
 msgstr "Ponovo pokreni"
 
-#: ../xlgui/menu.py:141 ../xlgui/tray.py:99
+#: ../xlgui/menu.py:193 ../xlgui/tray.py:115
 #, fuzzy
 #| msgid "About Exaile"
 msgid "_Quit Exaile"
 msgstr "O Exaileu"
 
-#: ../xlgui/menu.py:158
+#: ../xlgui/menu.py:219
 msgid "_Collection"
 msgstr "_Kolekcija"
 
-#: ../xlgui/menu.py:163
+#: ../xlgui/menu.py:225
 msgid "_Queue"
 msgstr "_Red"
 
-#: ../xlgui/menu.py:170
+#: ../xlgui/menu.py:237
 msgid "C_overs"
 msgstr "O_moti"
 
-#: ../xlgui/menu.py:177
+#: ../xlgui/menu.py:253
 #, fuzzy
 #| msgid "Preferences"
 msgid "_Preferences"
 msgstr "Postavke"
 
-#: ../xlgui/menu.py:197
+#: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
 msgstr ""
 
-#: ../xlgui/menu.py:211
+#: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
 msgstr ""
 
-#: ../xlgui/menu.py:213
+#: ../xlgui/menu.py:312
 #, fuzzy
 #| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Kolone"
 
-#: ../xlgui/menu.py:221
+#: ../xlgui/menu.py:323
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "O_čisti listu izvođenja"
 
-#: ../xlgui/menu.py:239
+#: ../xlgui/menu.py:352
 msgid "_Device Manager"
 msgstr "Upravitelj _Uređaja"
 
-#: ../xlgui/menu.py:242
+#: ../xlgui/menu.py:362
 #, fuzzy
 #| msgid "Rescan Collection"
 msgid "_Rescan Collection"
 msgstr "Ponovno skeniraj Kolekciju"
 
-#: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
+#: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 #, fuzzy
 msgid "Rescan Collection (_slow)"
 msgstr "Ponovno skeniraj Kolekciju"
 
-#: ../xlgui/menu.py:271
+#: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
 msgstr ""
 
-#: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
+#: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 #, fuzzy
 #| msgid "Shortcut"
 msgid "Shortcuts"
 msgstr "Prečica"
 
-#: ../xlgui/menu.py:276
+#: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
 msgstr ""
 
-#: ../xlgui/menu.py:279
+#: ../xlgui/menu.py:421
+msgid "Open error logs"
+msgstr ""
+
+#: ../xlgui/menu.py:425
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:128
 msgid "Genre - Artist"
 msgstr "Žanr - Izvođač"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:131
 msgid "Genre - Album"
 msgstr "Žanr - Album"
 
-#: ../xlgui/panel/collection.py:143
+#: ../xlgui/panel/collection.py:134
 msgid "Date - Artist"
 msgstr "Datum - Umjetnik"
 
-#: ../xlgui/panel/collection.py:146
+#: ../xlgui/panel/collection.py:137
 msgid "Date - Album"
 msgstr "Datum - Album"
 
-#: ../xlgui/panel/collection.py:149
+#: ../xlgui/panel/collection.py:140
 msgid "Artist - (Date - Album)"
 msgstr "Umjetnik - (Datum -Album)"
 
-#: ../xlgui/panel/collection.py:170 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:168 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Zbirka"
 
-#: ../xlgui/panel/collection.py:268
+#: ../xlgui/panel/collection.py:271
 msgid "Rescan Collection"
 msgstr "Ponovno skeniraj Kolekciju"
 
-#: ../xlgui/panel/device.py:139
+#: ../xlgui/panel/device.py:151
 #, python-format
 msgid "Transferring to %s..."
 msgstr "Prijenos u %s..."
 
-#: ../xlgui/panel/files.py:81
+#: ../xlgui/panel/files.py:63
 msgid "Files"
 msgstr "Datoteke"
 
-#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
-#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
+#: ../xlgui/panel/files.py:103 ../xlgui/widgets/playlist_columns.py:336
+#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Ime datoteke"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:144
+#: ../xlgui/panel/files.py:127
 msgid "Size"
 msgstr "Veličina"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:414
+#: ../xlgui/panel/files.py:437
 #, python-format
 msgid "%s kB"
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:92 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
 msgid "#"
 msgstr "Broj"
 
-#: ../xlgui/panel/lyrics.py:168
+#: ../xlgui/panel/lyrics.py:185
 msgid "No lyrics found."
 msgstr "Nisu pronađeni stihovi."
 
-#: ../xlgui/panel/lyrics.py:181
+#: ../xlgui/panel/lyrics.py:198
 msgid "Source: "
 msgstr ""
 
-#: ../xlgui/panel/lyrics.py:211
+#: ../xlgui/panel/lyrics.py:226
 msgid "Any"
 msgstr ""
 
-#: ../xlgui/panel/menus.py:184
+#: ../xlgui/panel/menus.py:219
 #, fuzzy
 #| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
 msgstr "Nova Pametna Lista izvođenja"
 
-#: ../xlgui/panel/menus.py:259
+#: ../xlgui/panel/menus.py:325
 #, fuzzy
 #| msgid "New Station"
 msgid "_New Station"
 msgstr "Nova Stanica"
 
-#: ../xlgui/panel/playlists.py:142
+#: ../xlgui/panel/playlists.py:132
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "Izbriši listu pjesama"
 
-#: ../xlgui/panel/playlists.py:157
+#: ../xlgui/panel/playlists.py:148
 msgid "Enter the new name you want for your playlist"
 msgstr "Unesite novo ime liste pjesama."
 
-#: ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/playlists.py:149
 msgid "Rename Playlist"
 msgstr "Preimenuj listu pjesama"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
-#: ../xlgui/widgets/smart_playlist_editor.py:403
+#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr "Naziv liste izvođenja koji ste unijeli je već u upotrebi."
 
-#: ../xlgui/panel/playlists.py:216
+#: ../xlgui/panel/playlists.py:211
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Greška učitavanja podcaasta."
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:289
-#: ../xlgui/panel/playlists.py:303
+#: ../xlgui/panel/playlists.py:272 ../xlgui/panel/playlists.py:288
+#: ../xlgui/panel/playlists.py:304
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr ""
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:280 ../xlgui/panel/playlists.py:294
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:278 ../xlgui/panel/playlists.py:294
+#: ../xlgui/panel/playlists.py:310
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:380 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:386 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Liste pjesama"
 
-#: ../xlgui/panel/playlists.py:502
+#: ../xlgui/panel/playlists.py:522
 msgid "Smart Playlists"
 msgstr "Pametne liste pjesama"
 
-#: ../xlgui/panel/playlists.py:505
+#: ../xlgui/panel/playlists.py:525
 msgid "Custom Playlists"
 msgstr "Korisničke liste pjesama"
 
-#: ../xlgui/panel/radio.py:84
+#: ../xlgui/panel/radio.py:73
 msgid "Radio"
 msgstr "Radio"
 
-#: ../xlgui/panel/radio.py:155 ../xlgui/panel/radio.py:474
-#: ../xlgui/panel/radio.py:551
+#: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
+#: ../xlgui/panel/radio.py:554
 msgid "Loading streams..."
 msgstr "Učitavam <i>streamove</i>..."
 
-#: ../xlgui/panel/radio.py:206
+#: ../xlgui/panel/radio.py:195
 msgid "Add Radio Station"
 msgstr "Dodaj Radio Stanicu"
 
-#: ../xlgui/panel/radio.py:208 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Ime:"
 
-#: ../xlgui/panel/radio.py:209 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:198 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:281
+#: ../xlgui/panel/radio.py:274
 msgid "Saved Stations"
 msgstr "Spremljene stanice"
 
-#: ../xlgui/panel/radio.py:282
+#: ../xlgui/panel/radio.py:276
 msgid "Radio Streams"
 msgstr "Radiostanice"
 
-#: ../xlgui/panel/radio.py:312 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:306 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Osvježi"
 
-#: ../xlgui/panel/radio.py:416
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr "Unesite ime nove liste pjesama"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
 msgid "New Playlist"
 msgstr "Nova lista pjesama"
 
-#: ../xlgui/panels.py:100
+#: ../xlgui/panels.py:99
 msgid "P_anels"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:72
+#: ../xlgui/playlist_container.py:69
 msgid "Drop here to create a new playlist"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:130
+#: ../xlgui/playlist_container.py:129
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear Tab History"
 msgstr "O_čisti listu izvođenja"
 
-#: ../xlgui/playlist_container.py:140
+#: ../xlgui/playlist_container.py:141
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
 msgstr "Zatvori karticu"
 
-#: ../xlgui/playlist_container.py:159
+#: ../xlgui/playlist_container.py:161
 msgid "Restore closed tab"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:198
+#: ../xlgui/playlist_container.py:200
 #, python-format
 msgid "Playlist %d"
 msgstr "Lista izvođenja %d"
 
-#: ../xlgui/playlist_container.py:377
+#: ../xlgui/playlist_container.py:384
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:383
+#: ../xlgui/playlist_container.py:392
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:522
+#: ../xlgui/playlist_container.py:544
 msgid "_Move to Other View"
 msgstr ""
 
-#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:43
+#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:39
 msgid "Plugins"
 msgstr "Dodaci"
 
@@ -1404,7 +1408,7 @@ msgstr "Dodaci"
 msgid "Appearance"
 msgstr "Izgled"
 
-#: ../xlgui/preferences/appearance.py:115
+#: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1417,13 +1421,13 @@ msgstr ""
 msgid "the"
 msgstr ""
 
-#: ../xlgui/preferences/collection.py:56
+#: ../xlgui/preferences/collection.py:57
 #, fuzzy
 #| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
 msgstr "Vrati na Uobičajeno"
 
-#: ../xlgui/preferences/cover.py:35 ../plugins/amazoncovers/PLUGININFO:5
+#: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
 msgid "Covers"
@@ -1437,122 +1441,122 @@ msgstr "Preglednik stihova"
 msgid "Playback"
 msgstr "Reprodukcija"
 
-#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
-#: ../plugins/grouptagger/gt_widgets.py:58
+#: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
+#: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:168
+#: ../xlgui/preferences/plugin.py:178
 msgid "Could not load plugin info!"
 msgstr "Ne mogu učitati informacije o priključku"
 
-#: ../xlgui/preferences/plugin.py:170
+#: ../xlgui/preferences/plugin.py:179
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
+#: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
 msgstr "Ne mogu onemogućiti priključak!"
 
-#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
+#: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
 msgstr "Ne mogu omogućiti priključak!"
 
-#: ../xlgui/preferences/plugin.py:222
+#: ../xlgui/preferences/plugin.py:230
 msgid "Choose a Plugin"
 msgstr "Odaberite Priključak"
 
-#: ../xlgui/preferences/plugin.py:231
+#: ../xlgui/preferences/plugin.py:241
 msgid "Plugin Archives"
 msgstr "Arhiva Priključaka"
 
-#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:855
+#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:724
+#: ../xlgui/widgets/dialogs.py:901
 msgid "All Files"
 msgstr "Sve Datoteke"
 
-#: ../xlgui/preferences/plugin.py:250
+#: ../xlgui/preferences/plugin.py:259
 msgid "Plugin file installation failed!"
 msgstr "Neuspjela instalacija datoteke priključka!"
 
-#: ../xlgui/preferences/widgets.py:69
+#: ../xlgui/preferences/widgets.py:70
 msgid "Restart Exaile?"
 msgstr "Želite li ponovo pokrenuti Exaile?"
 
-#: ../xlgui/preferences/widgets.py:71
+#: ../xlgui/preferences/widgets.py:73
 msgid "A restart is required for this change to take effect."
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:73
+#: ../xlgui/preferences/widgets.py:76
 msgid "Restart"
 msgstr "Ponovo pokreni"
 
-#: ../xlgui/preferences/widgets.py:712
+#: ../xlgui/preferences/widgets.py:727
 msgid "Action"
 msgstr "Akcija"
 
-#: ../xlgui/preferences/widgets.py:720 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:735 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Prečica"
 
-#: ../xlgui/properties.py:271
+#: ../xlgui/properties.py:255
 msgid "Writing of tags failed"
 msgstr ""
 
-#: ../xlgui/properties.py:272
+#: ../xlgui/properties.py:257
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
 
-#: ../xlgui/properties.py:292
+#: ../xlgui/properties.py:277
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Uređivanje trake %(current)d od %(total)d"
 
-#: ../xlgui/properties.py:408
+#: ../xlgui/properties.py:400
 #, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
 "Jeste li sigurni da želite nepovratno izbrisati označenu listu pjesama?"
 
-#: ../xlgui/properties.py:449
+#: ../xlgui/properties.py:442
 msgid "Apply changes before closing?"
 msgstr "Primjeni izmjene prije zatvaranja?"
 
-#: ../xlgui/properties.py:450
+#: ../xlgui/properties.py:443
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Vaše će izmjene biti izgubljene ako ih sada ne primjenite."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:634
+#: ../xlgui/properties.py:625
 #, python-format
 msgid "%s:"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:864
+#: ../xlgui/properties.py:856
 msgid "of:"
 msgstr "od:"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr ""
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr ""
 
-#: ../xlgui/properties.py:978
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr ""
 
-#: ../xlgui/properties.py:985
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr ""
 
@@ -1562,143 +1566,143 @@ msgstr ""
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pikseli)"
 
-#: ../xlgui/properties.py:1126
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Odaberite sliku koju ćete postaviti kao omot"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Podržani formati slika"
 
-#: ../xlgui/properties.py:1213
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Open Directory"
 
-#: ../xlgui/properties.py:1263
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Primijeni trenutnu vrijednost na sve pjesme"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1543
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Sačuvano %(count)s od %(total)s."
 
-#: ../xlgui/tray.py:165
+#: ../xlgui/tray.py:203
 msgid "Exaile Music Player"
 msgstr "Exaile Music Player"
 
-#: ../xlgui/widgets/dialogs.py:343
+#: ../xlgui/widgets/dialogs.py:357
 msgid "Enter the URL to open"
 msgstr "Unesite URL za otvoriti"
 
-#: ../xlgui/widgets/dialogs.py:344
+#: ../xlgui/widgets/dialogs.py:357
 msgid "Open URL"
 msgstr "Otvori URL"
 
-#: ../xlgui/widgets/dialogs.py:618
+#: ../xlgui/widgets/dialogs.py:644
 msgid "Select File Type (by Extension)"
 msgstr "Odaberite tip datoteke ( po ekstenziji)"
 
-#: ../xlgui/widgets/dialogs.py:675
+#: ../xlgui/widgets/dialogs.py:703
 msgid "Choose Media to Open"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:686
+#: ../xlgui/widgets/dialogs.py:718
 msgid "Supported Files"
 msgstr "Podržane Datoteke"
 
-#: ../xlgui/widgets/dialogs.py:688
+#: ../xlgui/widgets/dialogs.py:720
 msgid "Music Files"
 msgstr "Glazbene Datoteke"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
+#: ../xlgui/widgets/dialogs.py:722 ../xlgui/widgets/dialogs.py:899
 msgid "Playlist Files"
 msgstr "Datoteke Liste izvođenja"
 
-#: ../xlgui/widgets/dialogs.py:770
+#: ../xlgui/widgets/dialogs.py:804
 msgid "Choose Directory to Open"
 msgstr "Odaberite direktorij za otvaranje"
 
-#: ../xlgui/widgets/dialogs.py:842
+#: ../xlgui/widgets/dialogs.py:884
 msgid "Import Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:946
+#: ../xlgui/widgets/dialogs.py:996
 msgid "Export Current Playlist"
 msgstr "Izvoz trenutne liste pjesama"
 
-#: ../xlgui/widgets/dialogs.py:957
+#: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1012
+#: ../xlgui/widgets/dialogs.py:1066
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Popis izvođenja spremljen kao <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1028
+#: ../xlgui/widgets/dialogs.py:1083
 #, python-format
 msgid "Close %s"
 msgstr "Zatvori %s"
 
-#: ../xlgui/widgets/dialogs.py:1029
+#: ../xlgui/widgets/dialogs.py:1084
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Da spremim promjene prije zatvaranja? (%s)</b>"
 
-#: ../xlgui/widgets/dialogs.py:1030
+#: ../xlgui/widgets/dialogs.py:1086
 msgid "Your changes will be lost if you don't save them"
 msgstr "Vaše će promjene nestati ako ih ne spremite."
 
-#: ../xlgui/widgets/dialogs.py:1032
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Close Without Saving"
 msgstr "Zatvori bez spremanja"
 
-#: ../xlgui/widgets/dialogs.py:1400
+#: ../xlgui/widgets/dialogs.py:1483
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1408
+#: ../xlgui/widgets/dialogs.py:1491
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
+#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Došlo je do greške prilikom kopiranja %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1593
+#: ../xlgui/widgets/dialogs.py:1692
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Datoteka postoji, prebrisati %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1643
+#: ../xlgui/widgets/dialogs.py:1749
 msgid "Playlist name:"
 msgstr "Ime liste izvođenja"
 
-#: ../xlgui/widgets/dialogs.py:1644
+#: ../xlgui/widgets/dialogs.py:1750
 msgid "Add new playlist..."
 msgstr "Dodaj novu listu izvođenja..."
 
-#: ../xlgui/widgets/dialogs.py:1655
-#: ../xlgui/widgets/smart_playlist_editor.py:396
+#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr "Niste unijeli ime za listu pjesama."
 
-#: ../xlgui/widgets/dialogs.py:1663
+#: ../xlgui/widgets/dialogs.py:1772
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1724
+#: ../xlgui/widgets/dialogs.py:1841
 #, python-format
 msgid "Exporting %s"
 msgstr "Izvozim %s"
 
-#: ../xlgui/widgets/dialogs.py:1727
+#: ../xlgui/widgets/dialogs.py:1846
 msgid "Choose directory to export files to"
 msgstr "Odaberite direktorij u koji ćete izvesti datoteke"
 
-#: ../xlgui/widgets/info.py:68
+#: ../xlgui/widgets/info.py:59
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1708,56 +1712,56 @@ msgstr ""
 "izvođač: $artist\n"
 "album: $album"
 
-#: ../xlgui/widgets/info.py:74 ../xlgui/widgets/playback.py:112
+#: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Ništa ne svira"
 
-#: ../xlgui/widgets/info.py:416
+#: ../xlgui/widgets/info.py:414
 #, python-format
 msgid "%d in collection"
 msgstr "%d u kolekciji"
 
-#: ../xlgui/widgets/info.py:438 ../xlgui/widgets/info.py:445
+#: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
 msgid "%d showing"
 msgstr "%d prikazano"
 
-#: ../xlgui/widgets/info.py:442 ../xlgui/widgets/info.py:449
+#: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
 msgid "%d selected"
 msgstr "%d odabrano"
 
-#: ../xlgui/widgets/menuitems.py:111
+#: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
 #| msgid "Enqueue"
 msgid "En_queue"
 msgstr "Stavi u red izvođenja"
 
-#: ../xlgui/widgets/menuitems.py:139
+#: ../xlgui/widgets/menuitems.py:153
 #, fuzzy
 #| msgid "Replace Current"
 msgid "_Replace Current"
 msgstr "Prebriši trenutnu listu pjesama"
 
-#: ../xlgui/widgets/menuitems.py:144
+#: ../xlgui/widgets/menuitems.py:164
 #, fuzzy
 #| msgid "Append to Current"
 msgid "_Append to Current"
 msgstr "Dodaj u trenutnu listu pjesama"
 
-#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:360
+#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "Svojstva Pjesme"
 
-#: ../xlgui/widgets/menuitems.py:170
+#: ../xlgui/widgets/menuitems.py:202
 #, fuzzy
 #| msgid "Open Directory"
 msgid "_Open Directory"
 msgstr "Open Directory"
 
-#: ../xlgui/widgets/menuitems.py:196
+#: ../xlgui/widgets/menuitems.py:240
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
@@ -1765,138 +1769,138 @@ msgstr ""
 "Odabrane datoteke nije moguće premjestiti u smeće. Želite li ih trajno "
 "ukloniti s diska?"
 
-#: ../xlgui/widgets/menuitems.py:212
+#: ../xlgui/widgets/menuitems.py:270
 #, fuzzy
 #| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "Premjesti u smeće"
 
-#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:230
+#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
 msgstr "Preimenuj"
 
-#: ../xlgui/widgets/menuitems.py:231 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../xlgui/widgets/menuitems.py:237
+#: ../xlgui/widgets/menuitems.py:315
 #, fuzzy
 #| msgid "Export Current Playlist"
 msgid "E_xport Playlist"
 msgstr "Izvoz trenutne liste pjesama"
 
-#: ../xlgui/widgets/menuitems.py:242
+#: ../xlgui/widgets/menuitems.py:325
 #, fuzzy
 #| msgid "Export Files"
 msgid "Export _Files"
 msgstr "Izvoz datoteka"
 
-#: ../xlgui/widgets/menuitems.py:247
+#: ../xlgui/widgets/menuitems.py:335
 #, fuzzy
 #| msgid "Delete Playlist"
 msgid "_Delete Playlist"
 msgstr "Izbriši listu pjesama"
 
-#: ../xlgui/widgets/notebook.py:242
+#: ../xlgui/widgets/notebook.py:249
 msgid "Close Tab"
 msgstr "Zatvori karticu"
 
-#: ../xlgui/widgets/playback.py:818
+#: ../xlgui/widgets/playback.py:822
 #, python-format
 msgid "Seeking: %s"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1163
+#: ../xlgui/widgets/playback.py:1173
 msgid "Move"
 msgstr "Premjesti"
 
-#: ../xlgui/widgets/playback.py:1311
+#: ../xlgui/widgets/playback.py:1318
 msgid "New Marker"
 msgstr "Nova oznaka"
 
-#: ../xlgui/widgets/playback.py:1366
+#: ../xlgui/widgets/playback.py:1377
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1370
+#: ../xlgui/widgets/playback.py:1385
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Ukloni citat"
 
-#: ../xlgui/widgets/playback.py:1411
+#: ../xlgui/widgets/playback.py:1428
 msgid "Muted"
 msgstr "Utišano"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1417
+#: ../xlgui/widgets/playback.py:1434
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1422
+#: ../xlgui/widgets/playback.py:1439
 msgid "Full Volume"
 msgstr "Puna Glasnoća"
 
-#: ../xlgui/widgets/playback.py:1540
+#: ../xlgui/widgets/playback.py:1558
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Pauza"
 
-#: ../xlgui/widgets/playback.py:1543
+#: ../xlgui/widgets/playback.py:1561
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1550
+#: ../xlgui/widgets/playback.py:1573
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Sljedeća pjesma"
 
-#: ../xlgui/widgets/playback.py:1555
+#: ../xlgui/widgets/playback.py:1583
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Prethodna pjesma"
 
-#: ../xlgui/widgets/playback.py:1560
+#: ../xlgui/widgets/playback.py:1593
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
 msgstr "Zaustavi"
 
-#: ../xlgui/widgets/playlist.py:132
+#: ../xlgui/widgets/playlist.py:118
 #, fuzzy
 #| msgid "Shuffle"
 msgid "S_huffle"
 msgstr "Napreskokce"
 
-#: ../xlgui/widgets/playlist.py:137
+#: ../xlgui/widgets/playlist.py:123
 #, fuzzy
 #| msgid "Repeat"
 msgid "R_epeat"
 msgstr "Ponavljaj"
 
-#: ../xlgui/widgets/playlist.py:142
+#: ../xlgui/widgets/playlist.py:128
 msgid "_Dynamic"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:159
+#: ../xlgui/widgets/playlist.py:146
 #, fuzzy
 #| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
 msgstr "Ukloni trenutnu pjesmu s popisa izvođenja"
 
-#: ../xlgui/widgets/playlist.py:191
+#: ../xlgui/widgets/playlist.py:179
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "R_andomize Playlist"
 msgstr "Preimenuj listu pjesama"
 
-#: ../xlgui/widgets/playlist.py:194
+#: ../xlgui/widgets/playlist.py:182
 #, fuzzy
 #| msgid "Randomize results"
 msgid "R_andomize Selection"
@@ -1906,43 +1910,43 @@ msgstr "Promiješaj rezultate"
 msgid "_Save"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:227 ../data/ui/coverwindow.ui:26
+#: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 #, fuzzy
 #| msgid "Save History"
 msgid "Save _As"
 msgstr "Spremi povijest"
 
-#: ../xlgui/widgets/playlist.py:233
+#: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:284
+#: ../xlgui/widgets/playlist.py:325
 #, fuzzy
 #| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
 msgstr "Zaustavi izvođenje nakon ove pjesme"
 
-#: ../xlgui/widgets/playlist.py:291
+#: ../xlgui/widgets/playlist.py:332
 #, fuzzy
 #| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
 msgstr "Nastavi izvođenje nakon ove pjesme"
 
-#: ../xlgui/widgets/playlist.py:341
+#: ../xlgui/widgets/playlist.py:386
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
 msgstr "Preimenuj listu pjesama"
 
-#: ../xlgui/widgets/playlist.py:620
+#: ../xlgui/widgets/playlist.py:738
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:624 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:742 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dinamično dodaj slične pjesme u popis izvođenja"
 
-#: ../xlgui/widgets/playlist.py:680
+#: ../xlgui/widgets/playlist.py:798
 #, fuzzy
 #| msgid "Loading %s..."
 msgid "Loading"
@@ -1952,219 +1956,219 @@ msgstr "Učitavanje %s..."
 msgid "Track Number"
 msgstr "Broj pjesme"
 
-#: ../xlgui/widgets/playlist_columns.py:219
+#: ../xlgui/widgets/playlist_columns.py:231
 msgid "Disc Number"
 msgstr "Broj diska"
 
-#: ../xlgui/widgets/playlist_columns.py:227
-#: ../xlgui/widgets/smart_playlist_editor.py:262 ../plugins/cd/cdprefs.py:116
-#: ../plugins/minimode/controls.py:545
-#: ../plugins/minimode/minimode_preferences.py:104
+#: ../xlgui/widgets/playlist_columns.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
+#: ../plugins/minimode/controls.py:555
+#: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
 msgstr "Ocjena"
 
-#: ../xlgui/widgets/playlist_columns.py:279
+#: ../xlgui/widgets/playlist_columns.py:297
 msgid "Year"
 msgstr "g"
 
-#: ../xlgui/widgets/playlist_columns.py:318
+#: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
 msgstr "Broj puštanja"
 
-#: ../xlgui/widgets/playlist_columns.py:356
+#: ../xlgui/widgets/playlist_columns.py:394
 msgid "Schedule"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:496
+#: ../xlgui/widgets/playlist_columns.py:549
 msgid "Start Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:504
+#: ../xlgui/widgets/playlist_columns.py:559
 #, fuzzy
 msgid "Stop Offset"
 msgstr "X ofset:"
 
-#: ../xlgui/widgets/playlist_columns.py:634
+#: ../xlgui/widgets/playlist_columns.py:704
 msgid "_Resizable"
 msgstr "_Promjenljive veličine"
 
-#: ../xlgui/widgets/playlist_columns.py:639
+#: ../xlgui/widgets/playlist_columns.py:715
 msgid "_Autosize"
 msgstr "_Autoveličina"
 
-#: ../xlgui/widgets/queue.py:74
+#: ../xlgui/widgets/queue.py:81
 msgid "Queue"
 msgstr ""
 
-#: ../xlgui/widgets/queue.py:76
+#: ../xlgui/widgets/queue.py:83
 #, python-format
 msgid "Queue (%d)"
 msgstr "Red čekanja (%d)"
 
-#: ../xlgui/widgets/rating.py:264
+#: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
 msgstr "Ocjena:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:60
-#: ../xlgui/widgets/smart_playlist_editor.py:86
-#: ../xlgui/widgets/smart_playlist_editor.py:98
+#: ../xlgui/widgets/smart_playlist_editor.py:56
+#: ../xlgui/widgets/smart_playlist_editor.py:79
+#: ../xlgui/widgets/smart_playlist_editor.py:89
 #: ../plugins/osd/osd_preferences.ui:130
 msgid "seconds"
 msgstr "s"
 
 #. TRANSLATORS: Logical AND used for smart playlists
-#: ../xlgui/widgets/smart_playlist_editor.py:67
+#: ../xlgui/widgets/smart_playlist_editor.py:62
 msgid "and"
 msgstr "i"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:73
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:67
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "days"
 msgstr "d"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "minutes"
 msgstr "min"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "hours"
 msgstr "h"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "weeks"
 msgstr "tj"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:215
+#: ../xlgui/widgets/smart_playlist_editor.py:206
 msgid "is"
 msgstr "jest"
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:217
+#: ../xlgui/widgets/smart_playlist_editor.py:208
 msgid "is not"
 msgstr "nije"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:220
+#: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
 msgstr ""
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:223
+#: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
 msgstr ""
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/widgets/smart_playlist_editor.py:225
+#: ../xlgui/widgets/smart_playlist_editor.py:216
 msgid "contains"
 msgstr "sadrži"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/widgets/smart_playlist_editor.py:227
+#: ../xlgui/widgets/smart_playlist_editor.py:218
 msgid "does not contain"
 msgstr "ne sadrži"
 
 #. TRANSLATORS: True if haystack contains whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:229
+#: ../xlgui/widgets/smart_playlist_editor.py:220
 #, fuzzy
 #| msgid "contains"
 msgid "contains word"
 msgstr "sadrži"
 
 #. TRANSLATORS: True if haystack does not contain whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:231
+#: ../xlgui/widgets/smart_playlist_editor.py:222
 #, fuzzy
 #| msgid "does not contain"
 msgid "does not contain word"
 msgstr "ne sadrži"
 
 #. TRANSLATORS: True if haystack matches regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:233
+#: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not match regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:235
+#: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/widgets/smart_playlist_editor.py:237
+#: ../xlgui/widgets/smart_playlist_editor.py:228
 msgid "at least"
 msgstr "najmanje"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/widgets/smart_playlist_editor.py:239
+#: ../xlgui/widgets/smart_playlist_editor.py:230
 msgid "at most"
 msgstr "najviše"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/widgets/smart_playlist_editor.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:232
 msgid "before"
 msgstr "prije"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/widgets/smart_playlist_editor.py:243
+#: ../xlgui/widgets/smart_playlist_editor.py:234
 msgid "after"
 msgstr "poslije"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/widgets/smart_playlist_editor.py:245
+#: ../xlgui/widgets/smart_playlist_editor.py:236
 msgid "between"
 msgstr "između"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:246
+#: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "greater than"
 msgstr "veće od"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:247
+#: ../xlgui/widgets/smart_playlist_editor.py:238
 msgid "less than"
 msgstr "manje od"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
-#: ../xlgui/widgets/smart_playlist_editor.py:249
+#: ../xlgui/widgets/smart_playlist_editor.py:240
 msgid "in the last"
 msgstr "u zadnjih"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
-#: ../xlgui/widgets/smart_playlist_editor.py:251
+#: ../xlgui/widgets/smart_playlist_editor.py:242
 msgid "not in the last"
 msgstr "nije u posljednjih"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:253
+#: ../xlgui/widgets/smart_playlist_editor.py:244
 #, fuzzy
 msgid "Track is in"
 msgstr "Opcije pjesme"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:255
+#: ../xlgui/widgets/smart_playlist_editor.py:246
 #, fuzzy
 msgid "Track not in"
 msgstr "Opcije pjesme"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:310
+#: ../xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
 msgstr "Dodaj pametnu listu pjesama"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:359
+#: ../xlgui/widgets/smart_playlist_editor.py:350
 msgid "Edit Smart Playlist"
 msgstr "Uredi pametnu listu pjesama"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:431
+#: ../xlgui/widgets/smart_playlist_editor.py:421
 #, fuzzy
 msgid "Sort by:"
 msgstr "Uvozni put: "
 
-#: ../xlgui/widgets/smart_playlist_editor.py:445
+#: ../xlgui/widgets/smart_playlist_editor.py:436
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Uzlazno sortiranje"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:446
+#: ../xlgui/widgets/smart_playlist_editor.py:437
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Silazno sortiranje"
@@ -2384,7 +2388,7 @@ msgstr "Promiješaj redoslijed reprodukcije"
 msgid "Repeat playback"
 msgstr "Ponovi izvođenje"
 
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:387
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:394
 msgid "Search"
 msgstr "Pretraga"
 
@@ -2877,19 +2881,15 @@ msgstr " zapisi"
 msgid "Cancel"
 msgstr "Poništi"
 
-#: ../data/ui/widgets/progress.ui:56
-msgid "label"
-msgstr ""
-
-#: ../plugins/abrepeat/__init__.py:59
+#: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
 msgstr "Ponavljaj dio"
 
-#: ../plugins/abrepeat/__init__.py:67
+#: ../plugins/abrepeat/__init__.py:64
 msgid "Repeat Beginning"
 msgstr "Ponovi početak"
 
-#: ../plugins/abrepeat/__init__.py:71
+#: ../plugins/abrepeat/__init__.py:68
 msgid "Repeat End"
 msgstr "Ponovi kraj"
 
@@ -2902,86 +2902,86 @@ msgstr "Alarmni Sat"
 msgid "Amazon Covers"
 msgstr "Amazon Omoti"
 
-#: ../plugins/audioscrobbler/__init__.py:98
+#: ../plugins/audioscrobbler/__init__.py:97
 #, fuzzy
 #| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
 msgstr "AudioScrobbler"
 
-#: ../plugins/audioscrobbler/__init__.py:136
+#: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
 msgstr "Uključi audioscrobbling"
 
-#: ../plugins/audioscrobbler/asprefs.py:32
+#: ../plugins/audioscrobbler/asprefs.py:29
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
 msgstr "AudioScrobbler"
 
-#: ../plugins/audioscrobbler/asprefs.py:114
+#: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs.py:120
+#: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs.py:121
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:86
+#: ../plugins/audioscrobbler/asprefs.py:116
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 msgid "Please make sure the entered data is correct."
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:216
+#: ../plugins/bookmarks/__init__.py:210
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Bookmark This Track"
 msgstr "Oznake"
 
-#: ../plugins/bookmarks/__init__.py:218
+#: ../plugins/bookmarks/__init__.py:216
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Delete Bookmark"
 msgstr "Oznake"
 
-#: ../plugins/bookmarks/__init__.py:221
+#: ../plugins/bookmarks/__init__.py:220
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Oznake"
 
-#: ../plugins/bookmarks/__init__.py:323
+#: ../plugins/bookmarks/__init__.py:328
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Bookmarks"
 msgstr "Oznake"
 
-#: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
+#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:129
+#: ../plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:178 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:318 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
 #, fuzzy
 msgid "Update"
 msgstr "Nadogradnja"
 
-#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:228
+#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
 msgid "Audio Disc"
 msgstr "Audio Disk"
 
-#: ../plugins/cd/_cdguipanel.py:101
+#: ../plugins/cd/_cdguipanel.py:99
 msgid "Importing CD..."
 msgstr "Importiraj CD..."
 
-#: ../plugins/cd/_cdguipanel.py:176
+#: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
 msgstr ""
 
@@ -2989,37 +2989,37 @@ msgstr ""
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:97
+#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
 msgstr "Broj trake"
 
-#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:103
+#: ../plugins/cd/cdprefs.py:116 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
 msgstr "Broj diska"
 
-#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:110
+#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
 msgstr "Brojač"
 
-#: ../plugins/daapclient/__init__.py:300 ../plugins/history/__init__.py:178
-#: ../plugins/history/__init__.py:214
+#: ../plugins/daapclient/__init__.py:316 ../plugins/history/__init__.py:187
+#: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:306
+#: ../plugins/daapclient/__init__.py:323
 msgid "Manually..."
 msgstr "Ručno..."
 
-#: ../plugins/daapclient/__init__.py:360
+#: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port for share"
 msgstr "Unesite IP adresu i port za dijeljenje"
 
-#: ../plugins/daapclient/__init__.py:361
+#: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port."
 msgstr "Unesite IP adresu i port."
 
-#: ../plugins/daapclient/__init__.py:560
+#: ../plugins/daapclient/__init__.py:593
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3027,19 +3027,19 @@ msgstr ""
 "Ovaj poslužitelj ne podržava višestruka spajanja.\n"
 "Morate zaustaviti izvođenje prije preuzimanja pjesama."
 
-#: ../plugins/daapclient/__init__.py:655
+#: ../plugins/daapclient/__init__.py:703
 msgid "Refresh Server List"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:658
+#: ../plugins/daapclient/__init__.py:711
 msgid "Disconnect from Server"
 msgstr "Prekini vezu s poslužiteljem"
 
-#: ../plugins/daapclient/__init__.py:677
+#: ../plugins/daapclient/__init__.py:732
 msgid "Select a Location for Saving"
 msgstr "Odaberite mjesto za spremanje"
 
-#: ../plugins/daapclient/__init__.py:721
+#: ../plugins/daapclient/__init__.py:786
 msgid "Connect to DAAP..."
 msgstr "Spojen na DAAP..."
 
@@ -3058,280 +3058,280 @@ msgstr "DAAP poslužitelj"
 msgid "Desktop Cover"
 msgstr "Omot Radne Površine"
 
-#: ../plugins/developer/__init__.py:66
+#: ../plugins/developer/__init__.py:64
 msgid "Developer Tools"
 msgstr ""
 
-#: ../plugins/equalizer/__init__.py:320
+#: ../plugins/equalizer/__init__.py:344
 #, fuzzy
 #| msgid "Equalizer"
 msgid "_Equalizer"
 msgstr "Equalizer"
 
-#: ../plugins/grouptagger/__init__.py:94
+#: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:99
+#: ../plugins/grouptagger/__init__.py:105
 #, fuzzy
 msgid "_Import tags from directory"
 msgstr "Postavi direktorij podataka"
 
-#: ../plugins/grouptagger/__init__.py:104
+#: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:109
+#: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:115
+#: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:123
+#: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:128
+#: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:135
-#: ../plugins/grouptagger/gt_widgets.py:859
+#: ../plugins/grouptagger/__init__.py:164
+#: ../plugins/grouptagger/gt_widgets.py:946
 #, fuzzy
 #| msgid "Add Station"
 msgid "Add tags to all"
 msgstr "Dodaj stanicu"
 
-#: ../plugins/grouptagger/__init__.py:140
-#: ../plugins/grouptagger/gt_widgets.py:861
+#: ../plugins/grouptagger/__init__.py:175
+#: ../plugins/grouptagger/gt_widgets.py:948
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "Remove tags from all"
 msgstr "_Ukloni citat"
 
-#: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:630
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:105
+#: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
+#: ../plugins/grouptagger/gt_widgets.py:691
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:274
-#: ../plugins/grouptagger/__init__.py:287
+#: ../plugins/grouptagger/__init__.py:325
+#: ../plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_export.py:52
+#: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:57
+#: ../plugins/grouptagger/gt_import.py:59
 #, fuzzy
 msgid "Importing tracks"
 msgstr "Importiraj CD..."
 
-#: ../plugins/grouptagger/gt_import.py:80
+#: ../plugins/grouptagger/gt_import.py:87
 #, fuzzy
 msgid "Importing groups"
 msgstr "Importiraj CD..."
 
-#: ../plugins/grouptagger/gt_import.py:160
+#: ../plugins/grouptagger/gt_import.py:182
 msgid "Updating groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:245
+#: ../plugins/grouptagger/gt_import.py:272
 msgid "Select directory to import grouping tags from"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:113
+#: ../plugins/grouptagger/gt_mass.py:119
 #, python-format
 msgid "%s tracks found"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:124
+#: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:126
+#: ../plugins/grouptagger/gt_mass.py:136
 #, python-format
 msgid "Delete '%s' from %s tracks?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:149
+#: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:71
+#: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:73
+#: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:75
+#: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:134
+#: ../plugins/grouptagger/gt_widgets.py:155
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "Oznake"
 
-#: ../plugins/grouptagger/gt_widgets.py:149
+#: ../plugins/grouptagger/gt_widgets.py:171
 #, fuzzy
 #| msgid "Add new group"
 msgid "Add new tag"
 msgstr "Dodaj novu grupu"
 
-#: ../plugins/grouptagger/gt_widgets.py:153
+#: ../plugins/grouptagger/gt_widgets.py:177
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete tag"
 msgstr "Izbrisati"
 
-#: ../plugins/grouptagger/gt_widgets.py:160
+#: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
 msgstr "Dodaj novu kategoriju"
 
-#: ../plugins/grouptagger/gt_widgets.py:164
+#: ../plugins/grouptagger/gt_widgets.py:196
 msgid "Remove category"
 msgstr "Ukloni kategoriju"
 
-#: ../plugins/grouptagger/gt_widgets.py:173
+#: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:253
+#: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:253
+#: ../plugins/grouptagger/gt_widgets.py:308
 msgid "Enter new tag value"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:285
+#: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
 msgstr "Nova kategorija?"
 
-#: ../plugins/grouptagger/gt_widgets.py:285
+#: ../plugins/grouptagger/gt_widgets.py:341
 #, fuzzy
 #| msgid "Add new category"
 msgid "Enter new category name"
 msgstr "Dodaj novu kategoriju"
 
-#: ../plugins/grouptagger/gt_widgets.py:500
+#: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:652
-#: ../plugins/grouptagger/gt_widgets.py:754
+#: ../plugins/grouptagger/gt_widgets.py:713
+#: ../plugins/grouptagger/gt_widgets.py:819
 msgid "Group"
 msgstr "Grupa"
 
-#: ../plugins/grouptagger/gt_widgets.py:689
+#: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:710
+#: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:736
+#: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:808
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:809
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:810
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Ignored"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:755
+#: ../plugins/grouptagger/gt_widgets.py:820
 msgid "Selected Tracks"
 msgstr ""
 
-#: ../plugins/history/__init__.py:78
+#: ../plugins/history/__init__.py:77
 msgid "Playback history"
 msgstr "Povijest izvođenja"
 
-#: ../plugins/history/__init__.py:110
+#: ../plugins/history/__init__.py:117
 msgid "Erase stored history?"
 msgstr ""
 
-#: ../plugins/history/__init__.py:205
+#: ../plugins/history/__init__.py:218
 msgid "Save History"
 msgstr "Spremi povijest"
 
-#: ../plugins/history/__init__.py:207
+#: ../plugins/history/__init__.py:227
 #, fuzzy
 #| msgid "Save History"
 msgid "_Clear History"
 msgstr "Spremi povijest"
 
-#: ../plugins/icecast/__init__.py:117 ../plugins/icecast/__init__.py:194
-#: ../plugins/icecast/__init__.py:217
+#: ../plugins/icecast/__init__.py:116 ../plugins/icecast/__init__.py:190
+#: ../plugins/icecast/__init__.py:213
 #, fuzzy
 msgid "Contacting Icecast server..."
 msgstr "Kontaktiram Shoutcast server..."
 
-#: ../plugins/icecast/__init__.py:130 ../plugins/icecast/__init__.py:134
-#: ../plugins/icecast/__init__.py:230 ../plugins/icecast/__init__.py:234
+#: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
+#: ../plugins/icecast/__init__.py:228 ../plugins/icecast/__init__.py:231
 #, fuzzy
 msgid "Error connecting to Icecast server."
 msgstr "Greška povezivanja sa Shoutcast serverom."
 
-#: ../plugins/icecast/__init__.py:326
+#: ../plugins/icecast/__init__.py:333
 msgid "Enter the search keywords"
 msgstr "Unesite ključne riječi za traženje"
 
-#: ../plugins/icecast/__init__.py:327
+#: ../plugins/icecast/__init__.py:333
 #, fuzzy
 msgid "Icecast Search"
 msgstr "Shoutcast Traženje"
 
-#: ../plugins/icecast/__init__.py:350
+#: ../plugins/icecast/__init__.py:357
 #, fuzzy
 msgid "No Stations Found"
 msgstr "Nova Stanica"
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:360
 #, fuzzy
 msgid "Icecast Search Results"
 msgstr "Rezultati Pretrage"
 
-#: ../plugins/icecast/__init__.py:396
+#: ../plugins/icecast/__init__.py:402
 #: ../plugins/developer/developer_window.ui:59
 #, fuzzy
 msgid "Name"
 msgstr "Ime:"
 
-#: ../plugins/icecast/__init__.py:408
+#: ../plugins/icecast/__init__.py:418
 #, fuzzy
 msgid "Format"
 msgstr "Normalno"
 
-#: ../plugins/ipconsole/__init__.py:149
+#: ../plugins/ipconsole/__init__.py:156
 msgid "IPython Console - Exaile"
 msgstr "IPython Konzola - Exaile"
 
-#: ../plugins/ipconsole/__init__.py:204
+#: ../plugins/ipconsole/__init__.py:214
 #, fuzzy
 #| msgid "Show IPython Console"
 msgid "Show _IPython Console"
@@ -3341,64 +3341,64 @@ msgstr "Prikaži IPython Konzolu"
 msgid "IPython Console"
 msgstr "IPython Konzola"
 
-#: ../plugins/ipconsole/ipconsoleprefs.py:39
+#: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:95 ../plugins/jamendo/ui/jamendo_panel.ui:294
+#: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
 msgstr "Spremno"
 
-#: ../plugins/jamendo/__init__.py:96
+#: ../plugins/jamendo/__init__.py:87
 msgid "Searching Jamendo catalogue..."
 msgstr "Pretražujem Jamendo katalog..."
 
-#: ../plugins/jamendo/__init__.py:97
+#: ../plugins/jamendo/__init__.py:88
 msgid "Retrieving song data..."
 msgstr "Preuzimam podatke o pjesmi..."
 
-#: ../plugins/jamendo/menu.py:11
+#: ../plugins/jamendo/menu.py:14
 msgid "Append to Current"
 msgstr "Dodaj u trenutnu listu pjesama"
 
-#: ../plugins/keybinder/__init__.py:57
+#: ../plugins/keybinder/__init__.py:58
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:79
+#: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:80
+#: ../plugins/lastfmlove/__init__.py:67
 msgid "Last.fm Loved"
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:142
+#: ../plugins/lastfmlove/__init__.py:129
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Love This Track"
 msgstr "Prethodna pjesma"
 
-#: ../plugins/lastfmlove/__init__.py:164
+#: ../plugins/lastfmlove/__init__.py:150
 msgid "Unlove This Track"
 msgstr ""
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:34
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
 msgstr ""
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:64
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
 msgstr "API ključ je neispravan."
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:99
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
 msgstr "Nemoguće pokrenuti preglednik weba"
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:100
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:95
 #, python-brace-format
 msgid ""
 "Please copy the following URL and open it with your web browser:\n"
@@ -3411,54 +3411,54 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:83
+#: ../plugins/mainmenubutton/__init__.py:89
 msgid "Main Menu"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:113
+#: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr "Minimalan Način rada"
 
-#: ../plugins/minimode/controls.py:227
+#: ../plugins/minimode/controls.py:224
 msgid "Previous"
 msgstr "Nazad"
 
-#: ../plugins/minimode/controls.py:228
+#: ../plugins/minimode/controls.py:225
 msgid "Go to the previous track"
 msgstr "Idi na prethodnu pjesmu"
 
-#: ../plugins/minimode/controls.py:234
+#: ../plugins/minimode/controls.py:231
 msgid "Previous track"
 msgstr "Prethodna pjesma"
 
-#: ../plugins/minimode/controls.py:248
+#: ../plugins/minimode/controls.py:246
 msgid "Next"
 msgstr "Dalje"
 
-#: ../plugins/minimode/controls.py:249
+#: ../plugins/minimode/controls.py:247
 msgid "Go to the next track"
 msgstr "Idi na sljedeću pjesmu"
 
-#: ../plugins/minimode/controls.py:255
+#: ../plugins/minimode/controls.py:253
 msgid "Next track"
 msgstr "Sljedeća pjesma"
 
-#: ../plugins/minimode/controls.py:270
+#: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
 msgstr "Sviraj/Pauziraj"
 
-#: ../plugins/minimode/controls.py:291
+#: ../plugins/minimode/controls.py:290
 msgid "Start playback"
 msgstr "Pokreni izvođenje"
 
-#: ../plugins/minimode/controls.py:295
+#: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
 msgstr "Nastavi izvođenje"
 
-#: ../plugins/minimode/controls.py:298
+#: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
 msgstr "Pauziraj izvođenje"
 
@@ -3470,95 +3470,95 @@ msgstr "Zaustavi"
 msgid "Stop the playback"
 msgstr "Zaustavi izvođenje"
 
-#: ../plugins/minimode/controls.py:372
+#: ../plugins/minimode/controls.py:374
 msgid "Continue playback after current track"
 msgstr "Nastavi izvođenje nakon trenutne pjesme"
 
-#: ../plugins/minimode/controls.py:442
+#: ../plugins/minimode/controls.py:447
 msgid "Volume"
 msgstr "Jačina zvuka"
 
-#: ../plugins/minimode/controls.py:443
+#: ../plugins/minimode/controls.py:448
 msgid "Change the volume"
 msgstr "Promijeni glasnoću"
 
-#: ../plugins/minimode/controls.py:506
+#: ../plugins/minimode/controls.py:514
 msgid "Restore"
 msgstr "Vrati"
 
-#: ../plugins/minimode/controls.py:507
+#: ../plugins/minimode/controls.py:515
 msgid "Restore the main window"
 msgstr "Vrati glavni prozor"
 
-#: ../plugins/minimode/controls.py:515
+#: ../plugins/minimode/controls.py:523
 msgid "Restore main window"
 msgstr "Vrati glavni prozor"
 
-#: ../plugins/minimode/controls.py:546
+#: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
 msgstr "Odaberite ocjenu trenutne pjesme"
 
-#: ../plugins/minimode/controls.py:564
+#: ../plugins/minimode/controls.py:574
 msgid "Track selector"
 msgstr "Odabirač pjesama"
 
-#: ../plugins/minimode/controls.py:565
+#: ../plugins/minimode/controls.py:575
 msgid "Simple track list selector"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/controls.py:712 ../plugins/minimode/controls.py:953
-#: ../plugins/minimode/minimode_preferences.py:116
-#: ../plugins/minimode/minimode_preferences.py:122
+#: ../plugins/minimode/controls.py:721 ../plugins/minimode/controls.py:966
+#: ../plugins/minimode/minimode_preferences.py:124
+#: ../plugins/minimode/minimode_preferences.py:130
 msgid "$tracknumber - $title"
 msgstr "$brojtrake - $naslov"
 
-#: ../plugins/minimode/controls.py:718
+#: ../plugins/minimode/controls.py:727
 msgid "Playlist button"
 msgstr "Tipka za listu izvođenja"
 
-#: ../plugins/minimode/controls.py:719
+#: ../plugins/minimode/controls.py:728
 msgid "Access the current playlist"
 msgstr "Pristupi trenutnom popisu izvođenja"
 
-#: ../plugins/minimode/controls.py:995
+#: ../plugins/minimode/controls.py:1009
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1019
+#: ../plugins/minimode/controls.py:1034
 msgid "Progress button"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1020
+#: ../plugins/minimode/controls.py:1035
 msgid "Playback progress and access to the current playlist"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1097
+#: ../plugins/minimode/controls.py:1109
 msgid "Progress bar"
 msgstr "Traka progresa"
 
-#: ../plugins/minimode/controls.py:1098
+#: ../plugins/minimode/controls.py:1110
 msgid "Playback progress and seeking"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
 msgstr "$naslov po $umjetnik"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:120
+#: ../plugins/minimode/minimode_preferences.py:128
 msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:92
+#: ../plugins/moodbar/__init__.py:102
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:156
+#: ../plugins/moodbar/__init__.py:179
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr ""
@@ -3589,11 +3589,11 @@ msgstr "Samo album:"
 msgid "Notify"
 msgstr "Obavijesti"
 
-#: ../plugins/osd/__init__.py:333
+#: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:373
+#: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
 msgstr ""
 
@@ -3601,7 +3601,7 @@ msgstr ""
 msgid "On Screen Display"
 msgstr "Prikaz Na Zaslon"
 
-#: ../plugins/osd/osd_preferences.py:71
+#: ../plugins/osd/osd_preferences.py:72
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3613,23 +3613,23 @@ msgstr ""
 msgid "Analyze playlists"
 msgstr "Preimenuj listu pjesama"
 
-#: ../plugins/playlistanalyzer/__init__.py:60
+#: ../plugins/playlistanalyzer/__init__.py:63
 #: ../plugins/playlistanalyzer/analyzer.ui:55
 #, fuzzy
 msgid "Analyze playlist"
 msgstr "Preimenuj listu pjesama"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:192
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:199
 #, fuzzy
 msgid "Modulus this number"
 msgstr "Broj diska"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:212
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:219
 #, python-format
 msgid "Tag %s"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:336
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:347
 msgid "Save analysis"
 msgstr ""
 
@@ -3649,44 +3649,44 @@ msgstr "Osvježi Podcast"
 msgid "Delete"
 msgstr "Izbrisati"
 
-#: ../plugins/podcasts/__init__.py:121
+#: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
 msgstr "Unesite URL podcasta za dodavanje"
 
-#: ../plugins/podcasts/__init__.py:122
+#: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
 msgstr "Otvori Podcast"
 
-#: ../plugins/podcasts/__init__.py:155
+#: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
 msgstr "Učitavanje %s..."
 
-#: ../plugins/podcasts/__init__.py:183
+#: ../plugins/podcasts/__init__.py:184
 msgid "Error loading podcast."
 msgstr "Greška učitavanja podcaasta."
 
-#: ../plugins/podcasts/__init__.py:199
+#: ../plugins/podcasts/__init__.py:200
 msgid "Loading Podcasts..."
 msgstr "Učitavanje Podcasta..."
 
-#: ../plugins/podcasts/__init__.py:201
+#: ../plugins/podcasts/__init__.py:202
 msgid "No configuration present yet"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:234
+#: ../plugins/podcasts/__init__.py:235
 msgid "Could not save podcast file"
 msgstr "Nemoguće spremiti podcast datoteku"
 
-#: ../plugins/previewdevice/__init__.py:152
+#: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:160
+#: ../plugins/previewdevice/__init__.py:156
 msgid "Preview"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:345
+#: ../plugins/previewdevice/__init__.py:341
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
@@ -3705,51 +3705,51 @@ msgstr "ReplayGain"
 msgid "Pause on Screensaver"
 msgstr "Pauza na Screensaver"
 
-#: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:42 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Ugasi nakon izvođenja"
 
-#: ../plugins/shutdown/__init__.py:59
+#: ../plugins/shutdown/__init__.py:67
 msgid "Shutdown scheduled"
 msgstr ""
 
-#: ../plugins/shutdown/__init__.py:60
+#: ../plugins/shutdown/__init__.py:68
 msgid "Computer will be shutdown at the end of playback."
 msgstr "Računalo će se ugasiti nakon završetka izvođenja."
 
-#: ../plugins/shutdown/__init__.py:86
+#: ../plugins/shutdown/__init__.py:95
 msgid "Imminent Shutdown"
 msgstr "Gašenje neizbježno"
 
-#: ../plugins/shutdown/__init__.py:110
+#: ../plugins/shutdown/__init__.py:119
 #, python-format
 msgid "The computer will be shut down in %d seconds."
 msgstr "Računalo će se ugasiti za %d sekundi."
 
-#: ../plugins/shutdown/__init__.py:136
+#: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
 msgstr ""
 
-#: ../plugins/shutdown/__init__.py:137
+#: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "Računalo se ne može isključiti koristeći D-bus."
 
-#: ../plugins/somafm/__init__.py:91 ../plugins/somafm/__init__.py:191
+#: ../plugins/somafm/__init__.py:84 ../plugins/somafm/__init__.py:183
 #, fuzzy
 msgid "Contacting SomaFM server..."
 msgstr "Kontaktiram Shoutcast server..."
 
-#: ../plugins/somafm/__init__.py:104 ../plugins/somafm/__init__.py:107
+#: ../plugins/somafm/__init__.py:96 ../plugins/somafm/__init__.py:99
 #, fuzzy
 msgid "Error connecting to SomaFM server."
 msgstr "Greška povezivanja sa Shoutcast serverom."
 
-#: ../plugins/somafm/__init__.py:195
+#: ../plugins/somafm/__init__.py:187
 #, fuzzy
 msgid "Error importing playlist"
 msgstr "Greška učitavanja podcaasta."
 
-#: ../plugins/streamripper/__init__.py:75
+#: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
 msgstr "Greška pri pokretanju streamrippera"
 

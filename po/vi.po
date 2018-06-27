@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-17 13:06+1000\n"
+"POT-Creation-Date: 2018-06-27 13:43+1000\n"
 "PO-Revision-Date: 2017-12-26 01:00+0000\n"
 "Last-Translator: Phạm Nguyễn Hoàng <pnhoang96@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/exaile/master/"
@@ -20,579 +20,579 @@ msgstr ""
 "X-Generator: Weblate 2.19-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
-#: ../xl/covers.py:524 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Thẻ"
 
-#: ../xl/covers.py:564
+#: ../xl/covers.py:565
 msgid "Local file"
 msgstr "Tập tin trên máy"
 
-#: ../xl/formatter.py:592
+#: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] "%d ngày, "
 
-#: ../xl/formatter.py:594
+#: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] "%d giờ, "
 
-#: ../xl/formatter.py:595
+#: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d phút, "
 
-#: ../xl/formatter.py:596
+#: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d giây"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:601
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
 msgstr "%dng, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:604
+#: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
 msgstr "%dg, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:606
+#: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
 msgstr "%dp, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:608
+#: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
 msgstr "%dgiây"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:613
+#: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
 msgstr "%dng "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:616
+#: ../xl/formatter.py:621
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:620
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:708 ../xl/main.py:399 ../xl/trax/track.py:68
+#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:64
 msgid "Unknown"
 msgstr "Chưa xác định"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:740 ../xl/formatter.py:745
+#: ../xl/formatter.py:756 ../xl/formatter.py:761
 msgid "Never"
 msgstr "Chưa bao giờ"
 
-#: ../xl/formatter.py:751
+#: ../xl/formatter.py:767
 msgid "Today"
 msgstr "Hôm nay"
 
-#: ../xl/formatter.py:753
+#: ../xl/formatter.py:769
 msgid "Yesterday"
 msgstr "Hôm qua"
 
-#: ../xl/lyrics.py:360
+#: ../xl/lyrics.py:351
 msgid "Local"
 msgstr "Trên máy"
 
-#: ../xl/main.py:81
+#: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Cách dùng: exaile [TUỲ CHỌN...] [VỊ TRÍ...]"
 
-#: ../xl/main.py:82
+#: ../xl/main.py:85
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:90
+#: ../xl/main.py:96
 msgid "Playback Options"
 msgstr "Tùy chỉnh phát nhạc"
 
-#: ../xl/main.py:92
+#: ../xl/main.py:103
 msgid "Play the next track"
 msgstr "Phát bài tiếp theo"
 
-#: ../xl/main.py:94
+#: ../xl/main.py:111
 msgid "Play the previous track"
 msgstr "Phát bài trước"
 
-#: ../xl/main.py:96 ../plugins/minimode/controls.py:351
-#: ../plugins/minimode/controls.py:366
+#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
+#: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Ngừng phát"
 
-#: ../xl/main.py:98
+#: ../xl/main.py:122
 msgid "Play"
 msgstr "Phát"
 
-#: ../xl/main.py:100 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Tạm dừng"
 
-#: ../xl/main.py:102
+#: ../xl/main.py:138
 msgid "Pause or resume playback"
 msgstr "Tạm dừng hoặc tiếp tục phát"
 
-#: ../xl/main.py:105 ../plugins/minimode/controls.py:374
+#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Dừng phát sau bài này"
 
-#: ../xl/main.py:107
+#: ../xl/main.py:148
 msgid "Collection Options"
 msgstr "Tùy chọn bộ sưu tập"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:110 ../xl/main.py:116
+#: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
 msgstr "LOCATION"
 
-#: ../xl/main.py:111
+#: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Thêm các track từ LOCATION đến bộ sưu tập"
 
-#: ../xl/main.py:113
+#: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "Tùy chọn danh sách"
 
-#: ../xl/main.py:117
+#: ../xl/main.py:163
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Xuất danh sách hiện tại vào LOCATION"
 
-#: ../xl/main.py:119
+#: ../xl/main.py:166
 msgid "Track Options"
 msgstr "Tùy chỉnh bài hát"
 
-#: ../xl/main.py:121
+#: ../xl/main.py:173
 msgid "Query player"
 msgstr "Query player"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:124
+#: ../xl/main.py:179
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../xl/main.py:125
+#: ../xl/main.py:180
 #, fuzzy
 #| msgid "Print the current playback position as time"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Hiện thời gian hiện đang phát"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:128
+#: ../xl/main.py:186
 #, fuzzy
 msgid "TAGS"
 msgstr "Thẻ"
 
-#: ../xl/main.py:129
+#: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:131
+#: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
 msgstr "Hiện một popup với thông tin của bài hiện tại"
 
-#: ../xl/main.py:133
+#: ../xl/main.py:201
 msgid "Print the title of current track"
 msgstr "Hiện tựa đề của bài hiện tại"
 
-#: ../xl/main.py:135
+#: ../xl/main.py:208
 msgid "Print the album of current track"
 msgstr "Hiện album của bài hiện tại"
 
-#: ../xl/main.py:137
+#: ../xl/main.py:215
 msgid "Print the artist of current track"
 msgstr "Hiện nghệ sĩ của bài hiện tại"
 
-#: ../xl/main.py:139
+#: ../xl/main.py:222
 msgid "Print the length of current track"
 msgstr "Hiện độ dài của bài hiện tại"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:142 ../xl/main.py:156 ../xl/main.py:160
+#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:143
+#: ../xl/main.py:230
 msgid "Set rating for current track to N%"
 msgstr "Thiết lập đánh giá cho bài hiện tại đến N%"
 
-#: ../xl/main.py:145
+#: ../xl/main.py:237
 msgid "Get rating for current track"
 msgstr "Lấy đánh giá cho bài hiện tại"
 
-#: ../xl/main.py:148
+#: ../xl/main.py:244
 msgid "Print the current playback position as time"
 msgstr "Hiện thời gian hiện đang phát"
 
-#: ../xl/main.py:151
+#: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
 msgstr "Hiện tiến trình phát hiện tại dưới dạng phần trăm"
 
-#: ../xl/main.py:153
+#: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "Tùy chọn âm lượng"
 
-#: ../xl/main.py:157
+#: ../xl/main.py:262
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Tăng âm lượng lên N%"
 
-#: ../xl/main.py:161
+#: ../xl/main.py:271
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Giảm âm lượng xuống N%"
 
-#: ../xl/main.py:164
+#: ../xl/main.py:279
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Tắt hay bật âm thanh"
 
-#: ../xl/main.py:166
+#: ../xl/main.py:286
 msgid "Print the current volume percentage"
 msgstr "Hiển thị mức phần trăm của âm lượng hiện tại"
 
-#: ../xl/main.py:168
+#: ../xl/main.py:289
 msgid "Other Options"
 msgstr "Tùy chọn khác"
 
-#: ../xl/main.py:170
+#: ../xl/main.py:295
 msgid "Start new instance"
 msgstr "Tiến trình mới"
 
-#: ../xl/main.py:172
+#: ../xl/main.py:298
 msgid "Show this help message and exit"
 msgstr "Hiện trợ giúp này và thoát"
 
-#: ../xl/main.py:174
+#: ../xl/main.py:304
 msgid "Show program's version number and exit."
 msgstr "Hiện phiên bản của chương trình và thoát."
 
-#: ../xl/main.py:177
+#: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
 msgstr "Bắt đầu thu nhỏ (vào khay hệ thống, nếu có thể)"
 
-#: ../xl/main.py:180
+#: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Chuyển sang hiển thị giao diện đồ họa (nếu có thể)"
 
-#: ../xl/main.py:182
+#: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Khởi động trong chế độ an toàn, điều này sẽ hữu ích nếu bạn gặp vấn đề gì đó "
 "trong khi chạy"
 
-#: ../xl/main.py:185
+#: ../xl/main.py:335
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr "Nhập dữ liệu cũ từ phiên bản 0.2.x (Ghi đè dữ liệu hiện tại)"
 
-#: ../xl/main.py:188
+#: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
 msgstr "Không nhập dữ liệu cũ từ phiên bản 0.2.x"
 
-#: ../xl/main.py:191
+#: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Tạo tuỳ chỉnh điều khiển như --play khởi động Exaile nếu nó không chạyTạo "
 "tuỳ chọn điều khiển như --play khởi động Exaile nếu nó không chạy"
 
-#: ../xl/main.py:194
+#: ../xl/main.py:353
 msgid "Development/Debug Options"
 msgstr "Tùy chọn Phát triển/Gỡ lỗi"
 
-#: ../xl/main.py:196 ../xl/main.py:198
+#: ../xl/main.py:357 ../xl/main.py:363
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:196
+#: ../xl/main.py:358
 msgid "Set data directory"
 msgstr "Thiết lập thư mục dữ liệu"
 
-#: ../xl/main.py:198
+#: ../xl/main.py:364
 msgid "Set data and config directory"
 msgstr "Thiết lập thư mục dữ liệu và cấu hình"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:369
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:200
+#: ../xl/main.py:370
 msgid "Limit log output to MODULE"
 msgstr "Giới hạn nhật kí xuất vào MODULE"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:375
 msgid "LEVEL"
 msgstr "LEVEL"
 
-#: ../xl/main.py:202
+#: ../xl/main.py:376
 msgid "Limit log output to LEVEL"
 msgstr "Giới hạn nhật kí xuất vào LEVEL"
 
-#: ../xl/main.py:205
+#: ../xl/main.py:384
 msgid "Show debugging output"
 msgstr "Hiện thông tin gỡ lỗi"
 
-#: ../xl/main.py:207
+#: ../xl/main.py:391
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr ""
 
-#: ../xl/main.py:210
+#: ../xl/main.py:398
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:213
+#: ../xl/main.py:405
 msgid "Add thread name to logging messages."
 msgstr "Thêm tên luồng vào nhật kí."
 
-#: ../xl/main.py:215
+#: ../xl/main.py:410
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:216
+#: ../xl/main.py:411
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:218
+#: ../xl/main.py:418
 msgid "Reduce level of output"
 msgstr "Giảm mức độ xuất"
 
-#: ../xl/main.py:222
+#: ../xl/main.py:428
 msgid "Disable D-Bus support"
 msgstr "Tắt hỗ trợ D-Bus"
 
-#: ../xl/main.py:224
+#: ../xl/main.py:435
 msgid "Disable HAL support."
 msgstr "Tắt hỗ trợ HAL."
 
-#: ../xl/main.py:567
+#: ../xl/main.py:816
 msgid "Entire Library"
 msgstr "Toàn bộ Thư viện"
 
-#: ../xl/main.py:573
+#: ../xl/main.py:823
 #, python-format
 msgid "Random %d"
 msgstr "Ngẫu nhiên %d"
 
-#: ../xl/main.py:581
+#: ../xl/main.py:832
 #, python-format
 msgid "Rating > %d"
 msgstr "Đánh giá > %d"
 
-#: ../xl/main.py:739
+#: ../xl/main.py:1001
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr "Exail chưa nạp xong. Bạn nên chờ tín hiệu exaile_loaded?"
 
-#: ../xl/metadata/tags.py:45 ../xlgui/panel/collection.py:134
-#: ../xlgui/widgets/playlist_columns.py:202 ../plugins/cd/cdprefs.py:113
-#: ../plugins/minimode/minimode_preferences.py:101
+#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:125
+#: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
+#: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "Album"
 
-#: ../xl/metadata/tags.py:46
+#: ../xl/metadata/tags.py:48
 msgid "Arranger"
 msgstr "Sắp xếp"
 
-#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:131
-#: ../xlgui/widgets/playlist_columns.py:186 ../plugins/cd/cdprefs.py:111
-#: ../plugins/minimode/minimode_preferences.py:99
+#: ../xl/metadata/tags.py:49 ../xlgui/panel/collection.py:122
+#: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
+#: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Nghệ sĩ"
 
-#: ../xl/metadata/tags.py:48
+#: ../xl/metadata/tags.py:50
 msgid "Author"
 msgstr "Tác giả"
 
-#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:326
-#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:112
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:356
+#: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xl/metadata/tags.py:50
+#: ../xl/metadata/tags.py:52
 msgid "Copyright"
 msgstr "Bản quyền"
 
-#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:478
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:527
 msgid "Comment"
 msgstr "Bình luận"
 
-#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:194
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:200
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:100
+#: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Soạn nhạc"
 
-#: ../xl/metadata/tags.py:53 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr "Chỉ đạo"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/cover.py:833
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "Ảnh bìa"
 
-#: ../xl/metadata/tags.py:55 ../xlgui/widgets/playlist_columns.py:272
-#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:105
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:288
+#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Ngày"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:218
+#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:230
 msgid "Disc"
 msgstr "Đĩa"
 
-#: ../xl/metadata/tags.py:57
+#: ../xl/metadata/tags.py:59
 msgid "Encoded by"
 msgstr "Mã hóa bởi"
 
-#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:286
-#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:106
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:306
+#: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Thể loại"
 
-#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:488
+#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:539
 msgid "Grouping"
 msgstr "Nhóm"
 
-#: ../xl/metadata/tags.py:60
+#: ../xl/metadata/tags.py:62
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:334
+#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:366
 #, fuzzy
 #| msgid "Language:"
 msgid "Language"
 msgstr "Ngôn ngữ:"
 
-#: ../xl/metadata/tags.py:62 ../xlgui/panel/lyrics.py:49
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Lời bài hát"
 
-#: ../xl/metadata/tags.py:63
+#: ../xl/metadata/tags.py:65
 msgid "Lyricist"
 msgstr "Lời bài hát"
 
-#: ../xl/metadata/tags.py:64
+#: ../xl/metadata/tags.py:66
 msgid "Organization"
 msgstr "Tổ chức"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:67
 msgid "Original album"
 msgstr "Album gốc"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:68
 msgid "Original artist"
 msgstr "Nghệ sĩ gốc"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:69
 msgid "Original date"
 msgstr "Ngày gốc"
 
-#: ../xl/metadata/tags.py:69
+#: ../xl/metadata/tags.py:71
 msgid "Performer"
 msgstr "Người biểu diễn"
 
-#: ../xl/metadata/tags.py:70 ../xlgui/panel/flatplaylist.py:100
-#: ../xlgui/widgets/playlist_columns.py:178
+#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:180
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Tựa đề"
 
-#: ../xl/metadata/tags.py:71 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Bài hát"
 
-#: ../xl/metadata/tags.py:72
+#: ../xl/metadata/tags.py:74
 msgid "Version"
 msgstr "Phiên bản"
 
-#: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:512
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:569
 msgid "Website"
 msgstr "Trang Web"
 
-#: ../xl/metadata/tags.py:77 ../xlgui/widgets/playlist_columns.py:294
-#: ../plugins/cd/cdprefs.py:119 ../plugins/icecast/__init__.py:402
-#: ../plugins/minimode/minimode_preferences.py:107
+#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:316
+#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:408
+#: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:349
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:385
 msgid "Date added"
 msgstr "Ngày khởi tạo"
 
-#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:342
-#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:111
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:376
+#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Lần phát chót"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:210
-#: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:102
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:220
+#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Thời lượng"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:302
-#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
-#: ../plugins/minimode/minimode_preferences.py:108
+#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:326
+#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
+#: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Vị trí"
 
-#: ../xl/metadata/tags.py:83
+#: ../xl/metadata/tags.py:85
 msgid "Modified"
 msgstr "Đã sửa đổi"
 
-#: ../xl/metadata/tags.py:84
+#: ../xl/metadata/tags.py:86
 #, fuzzy
 msgid "Play time"
 msgstr "Số lần phát"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr "Số lần phát"
 
-#: ../xl/metadata/tags.py:87
+#: ../xl/metadata/tags.py:89
 msgid "Start offset"
 msgstr ""
 
-#: ../xl/metadata/tags.py:88
+#: ../xl/metadata/tags.py:90
 msgid "Stop offset"
 msgstr ""
 
-#: ../xl/player/gst/engine.py:658
+#: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
@@ -604,132 +604,132 @@ msgid ""
 "required software on your computer. See %s for details."
 msgstr ""
 
-#: ../xl/player/gst/sink.py:46 ../xl/player/gst/sink.py:99
+#: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
 msgstr "Tự động"
 
-#: ../xl/player/gst/sink.py:65
+#: ../xl/player/gst/sink.py:76
 msgid "Custom"
 msgstr "Tuỳ chọn"
 
-#: ../xl/player/gst/sink.py:135
+#: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:142
+#: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:147
+#: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:153
+#: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
 msgstr ""
 
-#: ../xl/player/gst/sink.py:157
+#: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:162 ../xl/playlist.py:182
+#: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
 msgstr "Kiểu danh sách không hợp lệ."
 
-#: ../xl/playlist.py:190 ../xlgui/widgets/playlist.py:354
-#: ../xlgui/widgets/smart_playlist_editor.py:263
+#: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
+#: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Danh sách"
 
-#: ../xl/playlist.py:340
+#: ../xl/playlist.py:342
 msgid "M3U Playlist"
 msgstr "Danh sách M3U"
 
-#: ../xl/playlist.py:445
+#: ../xl/playlist.py:457
 msgid "PLS Playlist"
 msgstr "Danh sách PLS"
 
-#: ../xl/playlist.py:533 ../xl/playlist.py:549
+#: ../xl/playlist.py:548 ../xl/playlist.py:563
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Định dạng không hợp lệ %s."
 
-#: ../xl/playlist.py:544
+#: ../xl/playlist.py:558
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Phiên bản %(version)s không hỗ trợ %(type)s"
 
-#: ../xl/playlist.py:605
+#: ../xl/playlist.py:618
 msgid "ASX Playlist"
 msgstr "Danh sách ASX"
 
-#: ../xl/playlist.py:779
+#: ../xl/playlist.py:797
 msgid "XSPF Playlist"
 msgstr "Danh sách XSPFt"
 
-#: ../xl/playlist.py:895
+#: ../xl/playlist.py:915
 msgid "Shuffle _Off"
 msgstr "_Tắt Phát ngẫu nhiên"
 
-#: ../xl/playlist.py:896
+#: ../xl/playlist.py:915
 msgid "Shuffle _Tracks"
 msgstr "Phát ngẫu nhiên _bài hát"
 
-#: ../xl/playlist.py:896
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr "Phát ngẫu nhiên _Album"
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat _Off"
 msgstr "Tắt Lặp lạ_i"
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat _All"
 msgstr "_Lặp lại tất cả"
 
-#: ../xl/playlist.py:900
+#: ../xl/playlist.py:919
 msgid "Repeat O_ne"
 msgstr "Lặp lại _một lần"
 
-#: ../xl/playlist.py:904
+#: ../xl/playlist.py:923
 msgid "Dynamic _Off"
 msgstr "Dynamic _Off"
 
-#: ../xl/playlist.py:904
+#: ../xl/playlist.py:923
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamic by Similar _Artists"
 
-#: ../xl/plugins.py:99
+#: ../xl/plugins.py:91
 msgid "Plugin archive is not in the correct format."
 msgstr "Không đúng định dạng phần mở rộng."
 
-#: ../xl/plugins.py:106
+#: ../xl/plugins.py:98
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
 msgstr "Phần mở rộng có tên \"%s\" đã được cài đặt."
 
-#: ../xl/plugins.py:111
+#: ../xl/plugins.py:103
 msgid "Plugin archive contains an unsafe path."
 msgstr "Phần mở rộng chứa một đường dẫn không an toàn."
 
-#: ../xl/settings.py:102
+#: ../xl/settings.py:99
 msgid "Settings version is newer than current."
 msgstr "Cài đặt phiên bản mới hơn so với bản hiện tại."
 
-#: ../xl/settings.py:256
+#: ../xl/settings.py:254
 msgid "We don't know how to store that kind of setting: "
 msgstr "Không biết cách lưu giữ loại thiết đặt: "
 
-#: ../xl/settings.py:287
+#: ../xl/settings.py:285
 msgid "An Unknown type of setting was found!"
 msgstr "Chưa xác định được kiểu thiết đặt!"
 
-#: ../xl/transcoder.py:57
+#: ../xl/transcoder.py:58
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
@@ -737,7 +737,7 @@ msgstr ""
 "Vorbis là bộ mã hóa mã nguồn mở với chất lượng đầu ra cao và có kích thước "
 "tập tin nhỏ hơn MP3."
 
-#: ../xl/transcoder.py:67
+#: ../xl/transcoder.py:68
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
@@ -745,7 +745,7 @@ msgstr ""
 "Free Lossless Audio Codec (FLAC) là chuẩn mã hóa mở, dùng để nén âm thanh mà "
 "không ảnh hưởng nhiều đến chất lượng."
 
-#: ../xl/transcoder.py:79
+#: ../xl/transcoder.py:80
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
@@ -753,7 +753,7 @@ msgstr ""
 "Một định dạng nén audio có hao tổn, thuộc quyền sở hữu của Apple, cho chất "
 "lượng âm thanh tốt hơn MP3 với bitrate nhỏ hơn."
 
-#: ../xl/transcoder.py:90
+#: ../xl/transcoder.py:91
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
@@ -762,7 +762,7 @@ msgstr ""
 "cho chất lượng cao hơn CBR, nhưng có thể không tương thích với một số trình "
 "phát nhạc."
 
-#: ../xl/transcoder.py:101
+#: ../xl/transcoder.py:102
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
@@ -770,38 +770,38 @@ msgstr ""
 "Một định dạng âm thanh độc quyền cũ, nhưng cũng phổ biến, ít hao tổn. CBR "
 "cho chất lượng thấp hơn VBR, nhưng tương thích tốt với mọi trình phát nhạc."
 
-#: ../xl/transcoder.py:112
+#: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Một chuẩn nén âm thanh ít hao tổn với chất lượng nén tốt."
 
-#: ../xl/trax/track.py:67
+#: ../xl/trax/track.py:63
 msgid "Various Artists"
 msgstr "Nhiều nghệ sĩ"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:70
+#: ../xl/trax/track.py:66
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:689 ../xl/trax/track.py:746
+#: ../xl/trax/track.py:702 ../xl/trax/track.py:766
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:180
+#: ../xl/trax/trackdb.py:183
 msgid "You did not specify a location to load the db from"
 msgstr "Bạn chưa xác định vị trí để tải cơ sở dữ liệu từ"
 
-#: ../xl/trax/trackdb.py:248
+#: ../xl/trax/trackdb.py:252
 msgid "You did not specify a location to save the db"
 msgstr "Bạn chưa xác định vị trí để lưu cơ sở dữ liệu"
 
-#: ../xl/xldbus.py:114 ../xl/xldbus.py:491 ../xlgui/panel/lyrics.py:135
+#: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
 msgid "Not playing."
 msgstr "Chưa phát nhạc."
 
-#: ../xl/xldbus.py:493
+#: ../xl/xldbus.py:526
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
@@ -810,11 +810,11 @@ msgstr ""
 "trạng thái: %(status)s, tựa đề: %(title)s, nghệ sĩ: %(artist)s, album: "
 "%(album)s, độ dài: %(length)s, vị trí: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:305
+#: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
 msgstr "Đang quét bộ sưu tập..."
 
-#: ../xlgui/__init__.py:372
+#: ../xlgui/__init__.py:397
 #, python-format
 msgid "Scanning %s..."
 msgstr "Đang quét %s..."
@@ -823,11 +823,11 @@ msgstr "Đang quét %s..."
 msgid "Add a Directory"
 msgstr "Thêm một Thư mục"
 
-#: ../xlgui/collection.py:129
+#: ../xlgui/collection.py:135
 msgid "Directory not added."
 msgstr "Thư mục không được thêm vào."
 
-#: ../xlgui/collection.py:130
+#: ../xlgui/collection.py:137
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -835,51 +835,51 @@ msgstr ""
 "Thư mục đã có trong bộ sưu tập hoặc nó là thư mục con của một thư mục khác "
 "trong bộ sưu tập."
 
-#: ../xlgui/cover.py:128
+#: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
 msgstr "Đang tải {outstanding} ảnh bìa"
 
-#: ../xlgui/cover.py:129
+#: ../xlgui/cover.py:98
 msgid "All covers fetched"
 msgstr "Đã tải xong tất cả ảnh bìa"
 
-#: ../xlgui/cover.py:154
+#: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
 msgstr "Tập hợp các album và bìa"
 
-#: ../xlgui/cover.py:520
+#: ../xlgui/cover.py:494
 msgid "Show Cover"
 msgstr "Hiện ảnh bìa"
 
-#: ../xlgui/cover.py:521
+#: ../xlgui/cover.py:495
 msgid "Fetch Cover"
 msgstr "Tải ảnh bìa"
 
-#: ../xlgui/cover.py:522
+#: ../xlgui/cover.py:496
 msgid "Remove Cover"
 msgstr "Loại bỏ ảnh bìa"
 
-#: ../xlgui/cover.py:831
+#: ../xlgui/cover.py:805
 #, python-format
 msgid "Cover for %s"
 msgstr "Ảnh bìa cho %s"
 
-#: ../xlgui/cover.py:937
+#: ../xlgui/cover.py:927
 #, fuzzy
 msgid "Save File"
 msgstr "Lưu tệp tin"
 
-#: ../xlgui/cover.py:1033
+#: ../xlgui/cover.py:1025
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Tùy chọn ảnh bìa cho %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1127
+#: ../xlgui/cover.py:1129
 msgid "No covers found."
 msgstr "Không tìm thấy ảnh bìa."
 
-#: ../xlgui/cover.py:1128
+#: ../xlgui/cover.py:1131
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -888,503 +888,507 @@ msgstr ""
 "còn lại."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1169 ../xlgui/properties.py:1110
+#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} điểm ảnh"
 
-#: ../xlgui/main.py:111
+#: ../xlgui/main.py:95
 msgid "$title (by $artist)"
 msgstr "$title ($artist)"
 
-#: ../xlgui/main.py:159
+#: ../xlgui/main.py:149
 #, fuzzy
 #| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
 msgstr "Truy cập danh sách hiện tại"
 
-#: ../xlgui/main.py:161
+#: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
 msgstr ""
 
-#: ../xlgui/main.py:163
+#: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
 msgstr ""
 
-#: ../xlgui/main.py:165
+#: ../xlgui/main.py:164
 msgid "Focus playlist search"
 msgstr ""
 
-#: ../xlgui/main.py:167
+#: ../xlgui/main.py:169
 #, fuzzy
 #| msgid "Toggle Queue"
 msgid "Clear queue"
 msgstr "Chuyển đổi d.sách chờ"
 
-#: ../xlgui/main.py:170 ../plugins/minimode/controls.py:271
+#: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
 msgstr "Bắt đầu, tạm dừng hoặc phát trở lại"
 
-#: ../xlgui/main.py:172
+#: ../xlgui/main.py:179
 msgid "Seek to the right"
 msgstr ""
 
-#: ../xlgui/main.py:174
+#: ../xlgui/main.py:184
 msgid "Seek to the left"
 msgstr ""
 
-#: ../xlgui/main.py:177
+#: ../xlgui/main.py:189
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume"
 msgstr "Tăng âm lượng lên N%"
 
-#: ../xlgui/main.py:179
+#: ../xlgui/main.py:194
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
 msgstr "Giảm âm lượng xuống N%"
 
-#: ../xlgui/main.py:182
+#: ../xlgui/main.py:197
 #, fuzzy
 #| msgid "Go to the previous track"
 msgid "Switch to previous tab"
 msgstr "Đến track trước"
 
-#: ../xlgui/main.py:184
+#: ../xlgui/main.py:198
 msgid "Switch to next tab"
 msgstr ""
 
-#: ../xlgui/main.py:187
+#: ../xlgui/main.py:201
 msgid "Focus the playlist container"
 msgstr ""
 
-#: ../xlgui/main.py:192
+#: ../xlgui/main.py:208
 msgid "Focus the files panel"
 msgstr ""
 
-#: ../xlgui/main.py:196
+#: ../xlgui/main.py:215
 msgid "Focus the radio panel"
 msgstr ""
 
-#: ../xlgui/main.py:198
+#: ../xlgui/main.py:220
 msgid "Focus the playlists panel"
 msgstr ""
 
-#: ../xlgui/main.py:200
+#: ../xlgui/main.py:223
 msgid "Focus the first tab"
 msgstr ""
 
-#: ../xlgui/main.py:201
+#: ../xlgui/main.py:224
 msgid "Focus the second tab"
 msgstr ""
 
-#: ../xlgui/main.py:202
+#: ../xlgui/main.py:225
 msgid "Focus the third tab"
 msgstr ""
 
-#: ../xlgui/main.py:203
+#: ../xlgui/main.py:226
 msgid "Focus the fourth tab"
 msgstr ""
 
-#: ../xlgui/main.py:204
+#: ../xlgui/main.py:227
 msgid "Focus the fifth tab"
 msgstr ""
 
-#: ../xlgui/main.py:205
+#: ../xlgui/main.py:228
 msgid "Focus the sixth tab"
 msgstr ""
 
-#: ../xlgui/main.py:206
+#: ../xlgui/main.py:229
 msgid "Focus the seventh tab"
 msgstr ""
 
-#: ../xlgui/main.py:207
+#: ../xlgui/main.py:230
 msgid "Focus the eighth tab"
 msgstr ""
 
-#: ../xlgui/main.py:208
+#: ../xlgui/main.py:231
 msgid "Focus the ninth tab"
 msgstr ""
 
-#: ../xlgui/main.py:209
+#: ../xlgui/main.py:232
 msgid "Focus the tenth tab"
 msgstr ""
 
-#: ../xlgui/main.py:527
+#: ../xlgui/main.py:587
 msgid "Toggle: Stop after Selected Track"
 msgstr "Chuyển đổi: Dừng sau bài đã chọn"
 
-#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:359
+#: ../xlgui/main.py:700 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
 msgstr "Gặp lỗi khi phát!"
 
-#: ../xlgui/main.py:635
+#: ../xlgui/main.py:707
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Đang nạp bộ đệm: %d%%..."
 
-#: ../xlgui/main.py:676 ../plugins/previewdevice/__init__.py:368
+#: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
 msgstr "Tiếp tục phát"
 
-#: ../xlgui/main.py:679 ../xlgui/main.py:848
-#: ../plugins/previewdevice/__init__.py:371
+#: ../xlgui/main.py:751 ../xlgui/main.py:924
+#: ../plugins/previewdevice/__init__.py:367
 msgid "Pause Playback"
 msgstr "Dừng"
 
-#: ../xlgui/main.py:805 ../xlgui/menu.py:112
+#: ../xlgui/main.py:880 ../xlgui/menu.py:145
 msgid "Playlist export failed!"
 msgstr "Xuất danh sách thất bại!"
 
-#: ../xlgui/main.py:857 ../data/ui/main.ui:174
-#: ../plugins/previewdevice/__init__.py:352
+#: ../xlgui/main.py:933 ../data/ui/main.ui:174
+#: ../plugins/previewdevice/__init__.py:349
 msgid "Start Playback"
 msgstr "Bắt đầu phát"
 
-#: ../xlgui/menu.py:58 ../xlgui/panel/menus.py:179
-#: ../xlgui/widgets/playlist.py:220
+#: ../xlgui/menu.py:62 ../xlgui/panel/menus.py:211
+#: ../xlgui/widgets/playlist.py:213
 msgid "_New Playlist"
 msgstr "Danh sách _mới"
 
-#: ../xlgui/menu.py:69
+#: ../xlgui/menu.py:75
 #, fuzzy
 #| msgid "Open URL"
 msgid "_Open"
 msgstr "Mở URL"
 
-#: ../xlgui/menu.py:79
+#: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Mở _URL"
 
-#: ../xlgui/menu.py:89
+#: ../xlgui/menu.py:114
 #, fuzzy
 #| msgid "Open Directories"
 msgid "Open _Directories"
 msgstr "Mở thư mục"
 
-#: ../xlgui/menu.py:95 ../xlgui/panel/menus.py:189
+#: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
 #, fuzzy
 #| msgid "Import Playlist"
 msgid "_Import Playlist"
 msgstr "Nhập danh sách"
 
-#: ../xlgui/menu.py:118
+#: ../xlgui/menu.py:156
 #, fuzzy
 #| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
 msgstr "Xuất danh sách hiện tại"
 
-#: ../xlgui/menu.py:124 ../xlgui/widgets/playlist.py:243
+#: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Close _Tab"
 msgstr "Đóng thẻ"
 
-#: ../xlgui/menu.py:133
+#: ../xlgui/menu.py:183
 #, fuzzy
 #| msgid "Restart"
 msgid "_Restart"
 msgstr "Khởi động lại"
 
-#: ../xlgui/menu.py:141 ../xlgui/tray.py:99
+#: ../xlgui/menu.py:193 ../xlgui/tray.py:115
 #, fuzzy
 #| msgid "About Exaile"
 msgid "_Quit Exaile"
 msgstr "Giới thiệu về Exaile"
 
-#: ../xlgui/menu.py:158
+#: ../xlgui/menu.py:219
 msgid "_Collection"
 msgstr "_Bộ sưu tập"
 
-#: ../xlgui/menu.py:163
+#: ../xlgui/menu.py:225
 msgid "_Queue"
 msgstr "Danh sách _chờ"
 
-#: ../xlgui/menu.py:170
+#: ../xlgui/menu.py:237
 msgid "C_overs"
 msgstr "Ảnh _bìa"
 
-#: ../xlgui/menu.py:177
+#: ../xlgui/menu.py:253
 #, fuzzy
 #| msgid "Preferences"
 msgid "_Preferences"
 msgstr "Ưu tiên"
 
-#: ../xlgui/menu.py:197
+#: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
 msgstr "_Hiện Track đang phát"
 
-#: ../xlgui/menu.py:211
+#: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
 msgstr "_Thanh tiện ích danh sách"
 
-#: ../xlgui/menu.py:213
+#: ../xlgui/menu.py:312
 #, fuzzy
 #| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Cột"
 
-#: ../xlgui/menu.py:221
+#: ../xlgui/menu.py:323
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "Làm trốn_g danh sách"
 
-#: ../xlgui/menu.py:239
+#: ../xlgui/menu.py:352
 msgid "_Device Manager"
 msgstr "Quản lý thiết _bị"
 
-#: ../xlgui/menu.py:242
+#: ../xlgui/menu.py:362
 #, fuzzy
 #| msgid "Rescan Collection"
 msgid "_Rescan Collection"
 msgstr "Quét lại Bộ sưu tập"
 
-#: ../xlgui/menu.py:245 ../data/ui/collection_manager.ui:226
+#: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 #, fuzzy
 msgid "Rescan Collection (_slow)"
 msgstr "Quét lại Bộ sưu tập"
 
-#: ../xlgui/menu.py:271
+#: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
 msgstr ""
 
-#: ../xlgui/menu.py:273 ../data/ui/shortcuts_dialog.ui:21
+#: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 #, fuzzy
 #| msgid "Shortcut"
 msgid "Shortcuts"
 msgstr "Phím tắt"
 
-#: ../xlgui/menu.py:276
+#: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
 msgstr ""
 
-#: ../xlgui/menu.py:279
+#: ../xlgui/menu.py:421
+msgid "Open error logs"
+msgstr ""
+
+#: ../xlgui/menu.py:425
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:128
 msgid "Genre - Artist"
 msgstr "Thể loại - Nghệ sĩ"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:131
 msgid "Genre - Album"
 msgstr "Thể loại - Album"
 
-#: ../xlgui/panel/collection.py:143
+#: ../xlgui/panel/collection.py:134
 msgid "Date - Artist"
 msgstr "Ngày - Nghệ sĩ"
 
-#: ../xlgui/panel/collection.py:146
+#: ../xlgui/panel/collection.py:137
 msgid "Date - Album"
 msgstr "Ngày - Album"
 
-#: ../xlgui/panel/collection.py:149
+#: ../xlgui/panel/collection.py:140
 msgid "Artist - (Date - Album)"
 msgstr "Nghệ sĩ - (Ngày - Album)"
 
-#: ../xlgui/panel/collection.py:170 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:168 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Bộ sưu tập"
 
-#: ../xlgui/panel/collection.py:268
+#: ../xlgui/panel/collection.py:271
 msgid "Rescan Collection"
 msgstr "Quét lại Bộ sưu tập"
 
-#: ../xlgui/panel/device.py:139
+#: ../xlgui/panel/device.py:151
 #, python-format
 msgid "Transferring to %s..."
 msgstr "Đang chuyển đến %s..."
 
-#: ../xlgui/panel/files.py:81
+#: ../xlgui/panel/files.py:63
 msgid "Files"
 msgstr "Tập tin"
 
-#: ../xlgui/panel/files.py:120 ../xlgui/widgets/playlist_columns.py:310
-#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:109
+#: ../xlgui/panel/files.py:103 ../xlgui/widgets/playlist_columns.py:336
+#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Tên tập tin"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:144
+#: ../xlgui/panel/files.py:127
 msgid "Size"
 msgstr "Kích thước"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:414
+#: ../xlgui/panel/files.py:437
 #, python-format
 msgid "%s kB"
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:92 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
 msgid "#"
 msgstr "#"
 
-#: ../xlgui/panel/lyrics.py:168
+#: ../xlgui/panel/lyrics.py:185
 msgid "No lyrics found."
 msgstr "Không tìm thấy lời bài hát."
 
-#: ../xlgui/panel/lyrics.py:181
+#: ../xlgui/panel/lyrics.py:198
 msgid "Source: "
 msgstr ""
 
-#: ../xlgui/panel/lyrics.py:211
+#: ../xlgui/panel/lyrics.py:226
 msgid "Any"
 msgstr "Bất kỳ"
 
-#: ../xlgui/panel/menus.py:184
+#: ../xlgui/panel/menus.py:219
 #, fuzzy
 #| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
 msgstr "Danh sách thông minh mới"
 
-#: ../xlgui/panel/menus.py:259
+#: ../xlgui/panel/menus.py:325
 #, fuzzy
 #| msgid "New Station"
 msgid "_New Station"
 msgstr "Trạm phát mới"
 
-#: ../xlgui/panel/playlists.py:142
+#: ../xlgui/panel/playlists.py:132
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "Xoá danh sách"
 
-#: ../xlgui/panel/playlists.py:157
+#: ../xlgui/panel/playlists.py:148
 msgid "Enter the new name you want for your playlist"
 msgstr "Nhập tên danh sách"
 
-#: ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/playlists.py:149
 msgid "Rename Playlist"
 msgstr "Đổi tên danh sách"
 
-#: ../xlgui/panel/playlists.py:170 ../xlgui/widgets/dialogs.py:1658
-#: ../xlgui/widgets/smart_playlist_editor.py:403
+#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr "Tên danh sách bạn nhập đã được sử dụng."
 
-#: ../xlgui/panel/playlists.py:216
+#: ../xlgui/panel/playlists.py:211
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Lỗi khi nạp podcast."
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:289
-#: ../xlgui/panel/playlists.py:303
+#: ../xlgui/panel/playlists.py:272 ../xlgui/panel/playlists.py:288
+#: ../xlgui/panel/playlists.py:304
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s and others"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:280 ../xlgui/panel/playlists.py:294
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:278 ../xlgui/panel/playlists.py:294
+#: ../xlgui/panel/playlists.py:310
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s and %(second)s"
 
-#: ../xlgui/panel/playlists.py:380 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:386 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Danh sách"
 
-#: ../xlgui/panel/playlists.py:502
+#: ../xlgui/panel/playlists.py:522
 msgid "Smart Playlists"
 msgstr "Các Danh sách thông minh"
 
-#: ../xlgui/panel/playlists.py:505
+#: ../xlgui/panel/playlists.py:525
 msgid "Custom Playlists"
 msgstr "Các Danh sách tùy chọn"
 
-#: ../xlgui/panel/radio.py:84
+#: ../xlgui/panel/radio.py:73
 msgid "Radio"
 msgstr "Radio"
 
-#: ../xlgui/panel/radio.py:155 ../xlgui/panel/radio.py:474
-#: ../xlgui/panel/radio.py:551
+#: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
+#: ../xlgui/panel/radio.py:554
 msgid "Loading streams..."
 msgstr "Đang nạp luồng dữ liệu..."
 
-#: ../xlgui/panel/radio.py:206
+#: ../xlgui/panel/radio.py:195
 msgid "Add Radio Station"
 msgstr "Thêm kênh radio"
 
-#: ../xlgui/panel/radio.py:208 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:55
 msgid "Name:"
 msgstr "Tên:"
 
-#: ../xlgui/panel/radio.py:209 ../plugins/audioscrobbler/asprefs_pane.ui:118
+#: ../xlgui/panel/radio.py:198 ../plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:281
+#: ../xlgui/panel/radio.py:274
 msgid "Saved Stations"
 msgstr "Các Đài đã lưu"
 
-#: ../xlgui/panel/radio.py:282
+#: ../xlgui/panel/radio.py:276
 msgid "Radio Streams"
 msgstr "Radio Streams"
 
-#: ../xlgui/panel/radio.py:312 ../plugins/wikipedia/data/wikipanel.ui:75
+#: ../xlgui/panel/radio.py:306 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
 msgstr "Làm mới"
 
-#: ../xlgui/panel/radio.py:416
+#: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
 msgstr "Nhập tên cho danh sách mới"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:71
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
 msgid "New Playlist"
 msgstr "Danh sách mới"
 
-#: ../xlgui/panels.py:100
+#: ../xlgui/panels.py:99
 msgid "P_anels"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:72
+#: ../xlgui/playlist_container.py:69
 msgid "Drop here to create a new playlist"
 msgstr "Thả vào đây để tạo d.sách mới"
 
-#: ../xlgui/playlist_container.py:130
+#: ../xlgui/playlist_container.py:129
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear Tab History"
 msgstr "Làm trốn_g danh sách"
 
-#: ../xlgui/playlist_container.py:140
+#: ../xlgui/playlist_container.py:141
 #, fuzzy
 #| msgid "Recently Closed Tabs"
 msgid "Recently Closed _Tabs"
 msgstr "Các thẻ đóng gần đây"
 
-#: ../xlgui/playlist_container.py:159
+#: ../xlgui/playlist_container.py:161
 #, fuzzy
 #| msgid "Recently Closed Tabs"
 msgid "Restore closed tab"
 msgstr "Các thẻ đóng gần đây"
 
-#: ../xlgui/playlist_container.py:198
+#: ../xlgui/playlist_container.py:200
 #, python-format
 msgid "Playlist %d"
 msgstr "Danh sách %d"
 
-#: ../xlgui/playlist_container.py:377
+#: ../xlgui/playlist_container.py:384
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 
-#: ../xlgui/playlist_container.py:383
+#: ../xlgui/playlist_container.py:392
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:522
+#: ../xlgui/playlist_container.py:544
 msgid "_Move to Other View"
 msgstr ""
 
-#: ../xlgui/preferences/__init__.py:113 ../xlgui/preferences/plugin.py:43
+#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:39
 msgid "Plugins"
 msgstr "Phần mở rộng"
 
@@ -1392,7 +1396,7 @@ msgstr "Phần mở rộng"
 msgid "Appearance"
 msgstr "Giao diện"
 
-#: ../xlgui/preferences/appearance.py:115
+#: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
 msgstr ""
 
@@ -1405,13 +1409,13 @@ msgstr ""
 msgid "the"
 msgstr "the"
 
-#: ../xlgui/preferences/collection.py:56
+#: ../xlgui/preferences/collection.py:57
 #, fuzzy
 #| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
 msgstr "Đặt lại về Mặc định"
 
-#: ../xlgui/preferences/cover.py:35 ../plugins/amazoncovers/PLUGININFO:5
+#: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
 msgid "Covers"
@@ -1425,72 +1429,72 @@ msgstr "Lyrics Viewer"
 msgid "Playback"
 msgstr "Phát"
 
-#: ../xlgui/preferences/plugin.py:108 ../plugins/grouptagger/gt_common.py:63
-#: ../plugins/grouptagger/gt_widgets.py:58
+#: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
+#: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "Chưa phân loại"
 
-#: ../xlgui/preferences/plugin.py:168
+#: ../xlgui/preferences/plugin.py:178
 msgid "Could not load plugin info!"
 msgstr "Không thể nạp thông tin phần mở rộng!"
 
-#: ../xlgui/preferences/plugin.py:170
+#: ../xlgui/preferences/plugin.py:179
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xlgui/preferences/plugin.py:204 ../xlgui/preferences/plugin.py:302
+#: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
 msgstr "Không thể tắt phần mở rộng!"
 
-#: ../xlgui/preferences/plugin.py:214 ../xlgui/preferences/plugin.py:296
+#: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
 msgstr "Không thể bật phần mở rộng!"
 
-#: ../xlgui/preferences/plugin.py:222
+#: ../xlgui/preferences/plugin.py:230
 msgid "Choose a Plugin"
 msgstr "Chọn một Phần mở rộng"
 
-#: ../xlgui/preferences/plugin.py:231
+#: ../xlgui/preferences/plugin.py:241
 msgid "Plugin Archives"
 msgstr "Lưu trữ Phần mở rộng"
 
-#: ../xlgui/preferences/plugin.py:238 ../xlgui/widgets/dialogs.py:692
-#: ../xlgui/widgets/dialogs.py:855
+#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:724
+#: ../xlgui/widgets/dialogs.py:901
 msgid "All Files"
 msgstr "Tất cả Tập tin"
 
-#: ../xlgui/preferences/plugin.py:250
+#: ../xlgui/preferences/plugin.py:259
 msgid "Plugin file installation failed!"
 msgstr "Cài đặt tập tin Phần mở rộng thất bại!"
 
-#: ../xlgui/preferences/widgets.py:69
+#: ../xlgui/preferences/widgets.py:70
 msgid "Restart Exaile?"
 msgstr "Khởi động lại Exaile?"
 
-#: ../xlgui/preferences/widgets.py:71
+#: ../xlgui/preferences/widgets.py:73
 msgid "A restart is required for this change to take effect."
 msgstr "Yêu cầu khởi động lại để thấy được sự thay đổi."
 
-#: ../xlgui/preferences/widgets.py:73
+#: ../xlgui/preferences/widgets.py:76
 msgid "Restart"
 msgstr "Khởi động lại"
 
-#: ../xlgui/preferences/widgets.py:712
+#: ../xlgui/preferences/widgets.py:727
 msgid "Action"
 msgstr "Hành động"
 
-#: ../xlgui/preferences/widgets.py:720 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:735 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Phím tắt"
 
-#: ../xlgui/properties.py:271
+#: ../xlgui/properties.py:255
 msgid "Writing of tags failed"
 msgstr "Lỗi ghi thông tin"
 
-#: ../xlgui/properties.py:272
+#: ../xlgui/properties.py:257
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1499,49 +1503,49 @@ msgstr ""
 "Không thể ghi thông tin vào các tập tin sau:\n"
 "{files}"
 
-#: ../xlgui/properties.py:292
+#: ../xlgui/properties.py:277
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Chỉnh sửa %(current)d trong số %(total)d bài"
 
-#: ../xlgui/properties.py:408
+#: ../xlgui/properties.py:400
 #, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Bạn có chắc là muốn xóa vĩnh viễn danh sách đã chọn không?"
 
-#: ../xlgui/properties.py:449
+#: ../xlgui/properties.py:442
 msgid "Apply changes before closing?"
 msgstr "Áp dụng các thay đổi trước khi đóng?"
 
-#: ../xlgui/properties.py:450
+#: ../xlgui/properties.py:443
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Các thay đổi sẽ bị mất nếu bạn không áp dụng ngay."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:634
+#: ../xlgui/properties.py:625
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:864
+#: ../xlgui/properties.py:856
 msgid "of:"
 msgstr "of:"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:965
 msgid "JPEG image"
 msgstr "Ảnh JPEG"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:970
 msgid "PNG image"
 msgstr "Ảnh PNG"
 
-#: ../xlgui/properties.py:978
+#: ../xlgui/properties.py:972
 msgid "Image"
 msgstr "Ảnh"
 
-#: ../xlgui/properties.py:985
+#: ../xlgui/properties.py:978
 msgid "Linked image"
 msgstr "Ảnh đã liên kết"
 
@@ -1551,144 +1555,144 @@ msgstr "Ảnh đã liên kết"
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} điểm ảnh"
 
-#: ../xlgui/properties.py:1126
+#: ../xlgui/properties.py:1127
 msgid "Select image to set as cover"
 msgstr "Chọn ảnh làm ảnh bìa"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1140
 msgid "Supported image formats"
 msgstr "Định dạng ảnh được hỗ trợ"
 
-#: ../xlgui/properties.py:1213
+#: ../xlgui/properties.py:1223
 msgid "Open Directory"
 msgstr "Mở Thư mục"
 
-#: ../xlgui/properties.py:1263
+#: ../xlgui/properties.py:1273
 msgid "Apply current value to all tracks"
 msgstr "Sử dụng giá trị hiện tại cho mọi bài hát"
 
-#: ../xlgui/properties.py:1284 ../xlgui/widgets/dialogs.py:1455
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1543
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Đã lưu %(count)s trong số %(total)s."
 
-#: ../xlgui/tray.py:165
+#: ../xlgui/tray.py:203
 msgid "Exaile Music Player"
 msgstr "Chương trình phát nhạc Exaile"
 
-#: ../xlgui/widgets/dialogs.py:343
+#: ../xlgui/widgets/dialogs.py:357
 msgid "Enter the URL to open"
 msgstr "Nhập URL để mở"
 
-#: ../xlgui/widgets/dialogs.py:344
+#: ../xlgui/widgets/dialogs.py:357
 msgid "Open URL"
 msgstr "Mở URL"
 
-#: ../xlgui/widgets/dialogs.py:618
+#: ../xlgui/widgets/dialogs.py:644
 msgid "Select File Type (by Extension)"
 msgstr "Chọn loại tập tin (Phần mở rộng)"
 
-#: ../xlgui/widgets/dialogs.py:675
+#: ../xlgui/widgets/dialogs.py:703
 msgid "Choose Media to Open"
 msgstr "Chọn tập tin để mở"
 
-#: ../xlgui/widgets/dialogs.py:686
+#: ../xlgui/widgets/dialogs.py:718
 msgid "Supported Files"
 msgstr "Các loại tập tin được hỗ trợ"
 
-#: ../xlgui/widgets/dialogs.py:688
+#: ../xlgui/widgets/dialogs.py:720
 msgid "Music Files"
 msgstr "Các tập tin nhạc"
 
-#: ../xlgui/widgets/dialogs.py:690 ../xlgui/widgets/dialogs.py:853
+#: ../xlgui/widgets/dialogs.py:722 ../xlgui/widgets/dialogs.py:899
 msgid "Playlist Files"
 msgstr "Các tập tin danh sách"
 
-#: ../xlgui/widgets/dialogs.py:770
+#: ../xlgui/widgets/dialogs.py:804
 msgid "Choose Directory to Open"
 msgstr "Chọn thư mục để mở"
 
-#: ../xlgui/widgets/dialogs.py:842
+#: ../xlgui/widgets/dialogs.py:884
 msgid "Import Playlist"
 msgstr "Nhập danh sách"
 
-#: ../xlgui/widgets/dialogs.py:946
+#: ../xlgui/widgets/dialogs.py:996
 msgid "Export Current Playlist"
 msgstr "Xuất danh sách hiện tại"
 
-#: ../xlgui/widgets/dialogs.py:957
+#: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
 msgstr "Sử dụng các đường dẫn lân cận đến các bài"
 
-#: ../xlgui/widgets/dialogs.py:1012
+#: ../xlgui/widgets/dialogs.py:1066
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Lưu danh sách <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1028
+#: ../xlgui/widgets/dialogs.py:1083
 #, python-format
 msgid "Close %s"
 msgstr "Đóng %s"
 
-#: ../xlgui/widgets/dialogs.py:1029
+#: ../xlgui/widgets/dialogs.py:1084
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Lưu lại các thay đổi vào %s trước khi đóng?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1030
+#: ../xlgui/widgets/dialogs.py:1086
 msgid "Your changes will be lost if you don't save them"
 msgstr "Mọi sự thay đổi của bạn sẽ bị mất nếu bạn không lưu lại"
 
-#: ../xlgui/widgets/dialogs.py:1032
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Close Without Saving"
 msgstr "Đóng và không Lưu"
 
-#: ../xlgui/widgets/dialogs.py:1400
+#: ../xlgui/widgets/dialogs.py:1483
 msgid "Yes to all"
 msgstr "Đồng ý tất cả"
 
-#: ../xlgui/widgets/dialogs.py:1408
+#: ../xlgui/widgets/dialogs.py:1491
 msgid "No to all"
 msgstr "Không cho tất cả"
 
-#: ../xlgui/widgets/dialogs.py:1571 ../xlgui/widgets/dialogs.py:1585
+#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Có lỗi khi chép %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1593
+#: ../xlgui/widgets/dialogs.py:1692
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Tập tin đã tồn tại, ghi đè %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1643
+#: ../xlgui/widgets/dialogs.py:1749
 msgid "Playlist name:"
 msgstr "Tên danh sách:"
 
-#: ../xlgui/widgets/dialogs.py:1644
+#: ../xlgui/widgets/dialogs.py:1750
 msgid "Add new playlist..."
 msgstr "Thêm danh sách mới..."
 
-#: ../xlgui/widgets/dialogs.py:1655
-#: ../xlgui/widgets/smart_playlist_editor.py:396
+#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr "Bạn chưa nhập tên cho danh sách"
 
-#: ../xlgui/widgets/dialogs.py:1663
+#: ../xlgui/widgets/dialogs.py:1772
 #, fuzzy
 msgid "Save As"
 msgstr "Lưu nhật ký"
 
-#: ../xlgui/widgets/dialogs.py:1724
+#: ../xlgui/widgets/dialogs.py:1841
 #, python-format
 msgid "Exporting %s"
 msgstr "Đang xuất %s"
 
-#: ../xlgui/widgets/dialogs.py:1727
+#: ../xlgui/widgets/dialogs.py:1846
 msgid "Choose directory to export files to"
 msgstr "Chọn thư mục để chứa tập tin xuất ra"
 
-#: ../xlgui/widgets/info.py:68
+#: ../xlgui/widgets/info.py:59
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1698,56 +1702,56 @@ msgstr ""
 "nghệ sĩ $artist\n"
 "album $album"
 
-#: ../xlgui/widgets/info.py:74 ../xlgui/widgets/playback.py:112
+#: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Chưa phát nhạc"
 
-#: ../xlgui/widgets/info.py:416
+#: ../xlgui/widgets/info.py:414
 #, python-format
 msgid "%d in collection"
 msgstr "%d trong bộ sưu tập"
 
-#: ../xlgui/widgets/info.py:438 ../xlgui/widgets/info.py:445
+#: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
 msgid "%d showing"
 msgstr "Đang hiện %d"
 
-#: ../xlgui/widgets/info.py:442 ../xlgui/widgets/info.py:449
+#: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
 msgid "%d selected"
 msgstr "Đã chọn %d"
 
-#: ../xlgui/widgets/menuitems.py:111
+#: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
 #| msgid "Enqueue"
 msgid "En_queue"
 msgstr "Loại khỏi d.sách chờ"
 
-#: ../xlgui/widgets/menuitems.py:139
+#: ../xlgui/widgets/menuitems.py:153
 #, fuzzy
 #| msgid "Replace Current"
 msgid "_Replace Current"
 msgstr "Thay thế danh sách hiện tại"
 
-#: ../xlgui/widgets/menuitems.py:144
+#: ../xlgui/widgets/menuitems.py:164
 #, fuzzy
 #| msgid "Append to Current"
 msgid "_Append to Current"
 msgstr "Bổ sung vào danh sách hiện tại"
 
-#: ../xlgui/widgets/menuitems.py:156 ../xlgui/widgets/playlist.py:360
+#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "Thông tin của Track"
 
-#: ../xlgui/widgets/menuitems.py:170
+#: ../xlgui/widgets/menuitems.py:202
 #, fuzzy
 #| msgid "Open Directory"
 msgid "_Open Directory"
 msgstr "Mở Thư mục"
 
-#: ../xlgui/widgets/menuitems.py:196
+#: ../xlgui/widgets/menuitems.py:240
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
@@ -1755,140 +1759,140 @@ msgstr ""
 "Không thể chuyển các tập tin vào thùng rác. Bạn có muốn xóa chúng khỏi đĩa "
 "cứng?"
 
-#: ../xlgui/widgets/menuitems.py:212
+#: ../xlgui/widgets/menuitems.py:270
 #, fuzzy
 #| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "Chuyển vào thùng rác"
 
-#: ../xlgui/widgets/menuitems.py:225 ../xlgui/widgets/playlist.py:230
+#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
 msgstr "Đổi tên"
 
-#: ../xlgui/widgets/menuitems.py:231 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "Chỉnh _sửa"
 
-#: ../xlgui/widgets/menuitems.py:237
+#: ../xlgui/widgets/menuitems.py:315
 #, fuzzy
 #| msgid "Export Playlist"
 msgid "E_xport Playlist"
 msgstr "Xuất danh sách"
 
-#: ../xlgui/widgets/menuitems.py:242
+#: ../xlgui/widgets/menuitems.py:325
 #, fuzzy
 #| msgid "Export Files"
 msgid "Export _Files"
 msgstr "Xuất tập tin"
 
-#: ../xlgui/widgets/menuitems.py:247
+#: ../xlgui/widgets/menuitems.py:335
 #, fuzzy
 #| msgid "Delete Playlist"
 msgid "_Delete Playlist"
 msgstr "Xoá danh sách"
 
-#: ../xlgui/widgets/notebook.py:242
+#: ../xlgui/widgets/notebook.py:249
 msgid "Close Tab"
 msgstr "Đóng thẻ"
 
-#: ../xlgui/widgets/playback.py:818
+#: ../xlgui/widgets/playback.py:822
 #, python-format
 msgid "Seeking: %s"
 msgstr "Tìm kiếm: %s"
 
-#: ../xlgui/widgets/playback.py:1163
+#: ../xlgui/widgets/playback.py:1173
 msgid "Move"
 msgstr "Di chuyển"
 
-#: ../xlgui/widgets/playback.py:1311
+#: ../xlgui/widgets/playback.py:1318
 msgid "New Marker"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1366
+#: ../xlgui/widgets/playback.py:1377
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1370
+#: ../xlgui/widgets/playback.py:1385
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Gỡ bỏ thẻ"
 
-#: ../xlgui/widgets/playback.py:1411
+#: ../xlgui/widgets/playback.py:1428
 msgid "Muted"
 msgstr "Đã tắt âm"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1417
+#: ../xlgui/widgets/playback.py:1434
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1422
+#: ../xlgui/widgets/playback.py:1439
 msgid "Full Volume"
 msgstr "Âm lượng tối đa"
 
-#: ../xlgui/widgets/playback.py:1540
+#: ../xlgui/widgets/playback.py:1558
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Tạm dừng"
 
-#: ../xlgui/widgets/playback.py:1543
+#: ../xlgui/widgets/playback.py:1561
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1550
+#: ../xlgui/widgets/playback.py:1573
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Track tiếp theo"
 
-#: ../xlgui/widgets/playback.py:1555
+#: ../xlgui/widgets/playback.py:1583
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Track trước"
 
-#: ../xlgui/widgets/playback.py:1560
+#: ../xlgui/widgets/playback.py:1593
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
 msgstr "Dừng"
 
-#: ../xlgui/widgets/playlist.py:132
+#: ../xlgui/widgets/playlist.py:118
 #, fuzzy
 #| msgid "Shuffle"
 msgid "S_huffle"
 msgstr "Phát ngẫu nhiên"
 
-#: ../xlgui/widgets/playlist.py:137
+#: ../xlgui/widgets/playlist.py:123
 #, fuzzy
 #| msgid "Repeat"
 msgid "R_epeat"
 msgstr "Lặp lại"
 
-#: ../xlgui/widgets/playlist.py:142
+#: ../xlgui/widgets/playlist.py:128
 #, fuzzy
 #| msgid "Dynamic"
 msgid "_Dynamic"
 msgstr "Động"
 
-#: ../xlgui/widgets/playlist.py:159
+#: ../xlgui/widgets/playlist.py:146
 #, fuzzy
 #| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
 msgstr "Loại bài hiện tại khỏi danh sách"
 
-#: ../xlgui/widgets/playlist.py:191
+#: ../xlgui/widgets/playlist.py:179
 #, fuzzy
 #| msgid "Randomize Playlist"
 msgid "R_andomize Playlist"
 msgstr "Phát ngẫu nhiên d.sách"
 
-#: ../xlgui/widgets/playlist.py:194
+#: ../xlgui/widgets/playlist.py:182
 #, fuzzy
 #| msgid "Randomize Selection"
 msgid "R_andomize Selection"
@@ -1899,42 +1903,42 @@ msgstr "Phát ngẫu nhiên phần đã chọn"
 msgid "_Save"
 msgstr "Lưu nhật ký"
 
-#: ../xlgui/widgets/playlist.py:227 ../data/ui/coverwindow.ui:26
+#: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 #, fuzzy
 msgid "Save _As"
 msgstr "Lưu nhật ký"
 
-#: ../xlgui/widgets/playlist.py:233
+#: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:284
+#: ../xlgui/widgets/playlist.py:325
 #, fuzzy
 #| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
 msgstr "Dừng sau bài này"
 
-#: ../xlgui/widgets/playlist.py:291
+#: ../xlgui/widgets/playlist.py:332
 #, fuzzy
 #| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
 msgstr "Tiếp tục sau bài này"
 
-#: ../xlgui/widgets/playlist.py:341
+#: ../xlgui/widgets/playlist.py:386
 #, fuzzy
 #| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
 msgstr "Đổi tên danh sách"
 
-#: ../xlgui/widgets/playlist.py:620
+#: ../xlgui/widgets/playlist.py:738
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Yêu cầu các phần mở rộng cung cấp các danh sách động"
 
-#: ../xlgui/widgets/playlist.py:624 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:742 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Tự động thêm các bài tương tự vào danh sách"
 
-#: ../xlgui/widgets/playlist.py:680
+#: ../xlgui/widgets/playlist.py:798
 #, fuzzy
 #| msgid "Loading..."
 msgid "Loading"
@@ -1944,218 +1948,218 @@ msgstr "Đang nạp..."
 msgid "Track Number"
 msgstr "Số thứ tự của bài"
 
-#: ../xlgui/widgets/playlist_columns.py:219
+#: ../xlgui/widgets/playlist_columns.py:231
 msgid "Disc Number"
 msgstr "Số đĩa"
 
-#: ../xlgui/widgets/playlist_columns.py:227
-#: ../xlgui/widgets/smart_playlist_editor.py:262 ../plugins/cd/cdprefs.py:116
-#: ../plugins/minimode/controls.py:545
-#: ../plugins/minimode/minimode_preferences.py:104
+#: ../xlgui/widgets/playlist_columns.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
+#: ../plugins/minimode/controls.py:555
+#: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
 msgstr "Đánh giá"
 
-#: ../xlgui/widgets/playlist_columns.py:279
+#: ../xlgui/widgets/playlist_columns.py:297
 msgid "Year"
 msgstr "Năm"
 
-#: ../xlgui/widgets/playlist_columns.py:318
+#: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
 msgstr "Số lần phát"
 
-#: ../xlgui/widgets/playlist_columns.py:356
+#: ../xlgui/widgets/playlist_columns.py:394
 msgid "Schedule"
 msgstr "Lịch"
 
-#: ../xlgui/widgets/playlist_columns.py:496
+#: ../xlgui/widgets/playlist_columns.py:549
 msgid "Start Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:504
+#: ../xlgui/widgets/playlist_columns.py:559
 msgid "Stop Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:634
+#: ../xlgui/widgets/playlist_columns.py:704
 msgid "_Resizable"
 msgstr "Có thể điều chỉnh _kích thước"
 
-#: ../xlgui/widgets/playlist_columns.py:639
+#: ../xlgui/widgets/playlist_columns.py:715
 msgid "_Autosize"
 msgstr "_Tự động điều chỉnh kích thước"
 
-#: ../xlgui/widgets/queue.py:74
+#: ../xlgui/widgets/queue.py:81
 msgid "Queue"
 msgstr "D.sách chờ"
 
-#: ../xlgui/widgets/queue.py:76
+#: ../xlgui/widgets/queue.py:83
 #, python-format
 msgid "Queue (%d)"
 msgstr "Chờ phát (%d)"
 
-#: ../xlgui/widgets/rating.py:264
+#: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
 msgstr "Đánh giá:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:60
-#: ../xlgui/widgets/smart_playlist_editor.py:86
-#: ../xlgui/widgets/smart_playlist_editor.py:98
+#: ../xlgui/widgets/smart_playlist_editor.py:56
+#: ../xlgui/widgets/smart_playlist_editor.py:79
+#: ../xlgui/widgets/smart_playlist_editor.py:89
 #: ../plugins/osd/osd_preferences.ui:130
 msgid "seconds"
 msgstr "giây"
 
 #. TRANSLATORS: Logical AND used for smart playlists
-#: ../xlgui/widgets/smart_playlist_editor.py:67
+#: ../xlgui/widgets/smart_playlist_editor.py:62
 msgid "and"
 msgstr "and"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:73
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:67
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "days"
 msgstr "ngày"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "minutes"
 msgstr "phút"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "hours"
 msgstr "giờ"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:86
+#: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "weeks"
 msgstr "tuần"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:215
+#: ../xlgui/widgets/smart_playlist_editor.py:206
 msgid "is"
 msgstr "is"
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/widgets/smart_playlist_editor.py:217
+#: ../xlgui/widgets/smart_playlist_editor.py:208
 msgid "is not"
 msgstr "is not"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:220
+#: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
 msgstr "được đặt"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
-#: ../xlgui/widgets/smart_playlist_editor.py:223
+#: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
 msgstr "chưa đặt"
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/widgets/smart_playlist_editor.py:225
+#: ../xlgui/widgets/smart_playlist_editor.py:216
 msgid "contains"
 msgstr "contains"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/widgets/smart_playlist_editor.py:227
+#: ../xlgui/widgets/smart_playlist_editor.py:218
 msgid "does not contain"
 msgstr "does not contain"
 
 #. TRANSLATORS: True if haystack contains whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:229
+#: ../xlgui/widgets/smart_playlist_editor.py:220
 #, fuzzy
 #| msgid "contains"
 msgid "contains word"
 msgstr "contains"
 
 #. TRANSLATORS: True if haystack does not contain whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:231
+#: ../xlgui/widgets/smart_playlist_editor.py:222
 #, fuzzy
 #| msgid "does not contain"
 msgid "does not contain word"
 msgstr "does not contain"
 
 #. TRANSLATORS: True if haystack matches regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:233
+#: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not match regular expression
-#: ../xlgui/widgets/smart_playlist_editor.py:235
+#: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/widgets/smart_playlist_editor.py:237
+#: ../xlgui/widgets/smart_playlist_editor.py:228
 msgid "at least"
 msgstr "at least"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/widgets/smart_playlist_editor.py:239
+#: ../xlgui/widgets/smart_playlist_editor.py:230
 msgid "at most"
 msgstr "at most"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/widgets/smart_playlist_editor.py:241
+#: ../xlgui/widgets/smart_playlist_editor.py:232
 msgid "before"
 msgstr "before"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/widgets/smart_playlist_editor.py:243
+#: ../xlgui/widgets/smart_playlist_editor.py:234
 msgid "after"
 msgstr "after"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/widgets/smart_playlist_editor.py:245
+#: ../xlgui/widgets/smart_playlist_editor.py:236
 msgid "between"
 msgstr "between"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:246
+#: ../xlgui/widgets/smart_playlist_editor.py:237
 msgid "greater than"
 msgstr "greater than"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:247
+#: ../xlgui/widgets/smart_playlist_editor.py:238
 msgid "less than"
 msgstr "less than"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
-#: ../xlgui/widgets/smart_playlist_editor.py:249
+#: ../xlgui/widgets/smart_playlist_editor.py:240
 msgid "in the last"
 msgstr "in the last"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
-#: ../xlgui/widgets/smart_playlist_editor.py:251
+#: ../xlgui/widgets/smart_playlist_editor.py:242
 msgid "not in the last"
 msgstr "not in the last"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:253
+#: ../xlgui/widgets/smart_playlist_editor.py:244
 #, fuzzy
 msgid "Track is in"
 msgstr "Tùy chỉnh bài hát"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
-#: ../xlgui/widgets/smart_playlist_editor.py:255
+#: ../xlgui/widgets/smart_playlist_editor.py:246
 #, fuzzy
 msgid "Track not in"
 msgstr "Tùy chỉnh bài hát"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:310
+#: ../xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
 msgstr "Thêm Danh sách thông minh"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:359
+#: ../xlgui/widgets/smart_playlist_editor.py:350
 msgid "Edit Smart Playlist"
 msgstr "Sửa đổi Danh sách Thông minh"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:431
+#: ../xlgui/widgets/smart_playlist_editor.py:421
 #, fuzzy
 msgid "Sort by:"
 msgstr "Đường dẫn nhập: "
 
-#: ../xlgui/widgets/smart_playlist_editor.py:445
+#: ../xlgui/widgets/smart_playlist_editor.py:436
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Tăng dần"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:446
+#: ../xlgui/widgets/smart_playlist_editor.py:437
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Giảm dần"
@@ -2375,7 +2379,7 @@ msgstr "Đảo thứ tự phát"
 msgid "Repeat playback"
 msgstr "Lặp lại"
 
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:387
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:394
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -2872,19 +2876,15 @@ msgstr " bài"
 msgid "Cancel"
 msgstr "Hủy"
 
-#: ../data/ui/widgets/progress.ui:56
-msgid "label"
-msgstr ""
-
-#: ../plugins/abrepeat/__init__.py:59
+#: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
 msgstr "Lặp lại đoạn"
 
-#: ../plugins/abrepeat/__init__.py:67
+#: ../plugins/abrepeat/__init__.py:64
 msgid "Repeat Beginning"
 msgstr "Bắt đầu lặp lại"
 
-#: ../plugins/abrepeat/__init__.py:71
+#: ../plugins/abrepeat/__init__.py:68
 msgid "Repeat End"
 msgstr "Kết thúc lặp lại"
 
@@ -2897,86 +2897,86 @@ msgstr "Alarm Clock"
 msgid "Amazon Covers"
 msgstr "Amazon Covers"
 
-#: ../plugins/audioscrobbler/__init__.py:98
+#: ../plugins/audioscrobbler/__init__.py:97
 #, fuzzy
 #| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
 msgstr "AudioScrobbler"
 
-#: ../plugins/audioscrobbler/__init__.py:136
+#: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
 msgstr "Bật truyền tải thông tin âm thanh"
 
-#: ../plugins/audioscrobbler/asprefs.py:32
+#: ../plugins/audioscrobbler/asprefs.py:29
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
 msgstr "AudioScrobbler"
 
-#: ../plugins/audioscrobbler/asprefs.py:114
+#: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
 msgstr "Xác nhận thành công"
 
-#: ../plugins/audioscrobbler/asprefs.py:120
+#: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
 msgstr "Xác nhận thất bại"
 
-#: ../plugins/audioscrobbler/asprefs.py:121
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:86
+#: ../plugins/audioscrobbler/asprefs.py:116
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 msgid "Please make sure the entered data is correct."
 msgstr "Hãy chắc rằng dữ liệu nhập vào đúng."
 
-#: ../plugins/bookmarks/__init__.py:216
+#: ../plugins/bookmarks/__init__.py:210
 #, fuzzy
 #| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
 msgstr "Đánh dấu Track này"
 
-#: ../plugins/bookmarks/__init__.py:218
+#: ../plugins/bookmarks/__init__.py:216
 #, fuzzy
 #| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
 msgstr "Xóa đánh dấu"
 
-#: ../plugins/bookmarks/__init__.py:221
+#: ../plugins/bookmarks/__init__.py:220
 #, fuzzy
 #| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Xóa các đánh dấu"
 
-#: ../plugins/bookmarks/__init__.py:323
+#: ../plugins/bookmarks/__init__.py:328
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Bookmarks"
 msgstr "Bookmarks"
 
-#: ../plugins/bpm/__init__.py:69 ../plugins/bpm/__init__.py:199
+#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:129
+#: ../plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:178 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:318 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
 #, fuzzy
 msgid "Update"
 msgstr "Cập nhật"
 
-#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:228
+#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
 msgid "Audio Disc"
 msgstr "Đĩa nhạc"
 
-#: ../plugins/cd/_cdguipanel.py:101
+#: ../plugins/cd/_cdguipanel.py:99
 msgid "Importing CD..."
 msgstr "Nhập đĩa CD..."
 
-#: ../plugins/cd/_cdguipanel.py:176
+#: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
 msgstr ""
 
@@ -2984,37 +2984,37 @@ msgstr ""
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:97
+#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
 msgstr "Số track"
 
-#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:103
+#: ../plugins/cd/cdprefs.py:116 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
 msgstr "Số của đĩa"
 
-#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:110
+#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
 msgstr "Số lần phát"
 
-#: ../plugins/daapclient/__init__.py:300 ../plugins/history/__init__.py:178
-#: ../plugins/history/__init__.py:214
+#: ../plugins/daapclient/__init__.py:316 ../plugins/history/__init__.py:187
+#: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr "Nhật ký"
 
-#: ../plugins/daapclient/__init__.py:306
+#: ../plugins/daapclient/__init__.py:323
 msgid "Manually..."
 msgstr "Thủ công..."
 
-#: ../plugins/daapclient/__init__.py:360
+#: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port for share"
 msgstr "Nhập địa chỉ IP và cổng để chia sẻ"
 
-#: ../plugins/daapclient/__init__.py:361
+#: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port."
 msgstr "Nhập địa chỉ IP và cổng."
 
-#: ../plugins/daapclient/__init__.py:560
+#: ../plugins/daapclient/__init__.py:593
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3022,19 +3022,19 @@ msgstr ""
 "Máy chủ này không hỗ trợ đa kết nối.\n"
 "Bạn phải dừng phát trước khi tải các bài hát."
 
-#: ../plugins/daapclient/__init__.py:655
+#: ../plugins/daapclient/__init__.py:703
 msgid "Refresh Server List"
 msgstr "Làm mới danh sách máy chủ"
 
-#: ../plugins/daapclient/__init__.py:658
+#: ../plugins/daapclient/__init__.py:711
 msgid "Disconnect from Server"
 msgstr "Ngắt kết nối với máy chủ"
 
-#: ../plugins/daapclient/__init__.py:677
+#: ../plugins/daapclient/__init__.py:732
 msgid "Select a Location for Saving"
 msgstr "Chọn nơi để lưu lại"
 
-#: ../plugins/daapclient/__init__.py:721
+#: ../plugins/daapclient/__init__.py:786
 msgid "Connect to DAAP..."
 msgstr "Kết nối đến DAAP..."
 
@@ -3053,283 +3053,283 @@ msgstr "DAAP Server"
 msgid "Desktop Cover"
 msgstr "Desktop Cover"
 
-#: ../plugins/developer/__init__.py:66
+#: ../plugins/developer/__init__.py:64
 #, fuzzy
 #| msgid "Development"
 msgid "Developer Tools"
 msgstr "Phát triển"
 
-#: ../plugins/equalizer/__init__.py:320
+#: ../plugins/equalizer/__init__.py:344
 #, fuzzy
 #| msgid "Equalizer"
 msgid "_Equalizer"
 msgstr "Bộ cân chỉnh âm"
 
-#: ../plugins/grouptagger/__init__.py:94
+#: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:99
+#: ../plugins/grouptagger/__init__.py:105
 #, fuzzy
 msgid "_Import tags from directory"
 msgstr "Thiết lập thư mục dữ liệu"
 
-#: ../plugins/grouptagger/__init__.py:104
+#: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:109
+#: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:115
+#: ../plugins/grouptagger/__init__.py:130
 #, fuzzy
 #| msgid "Grouping"
 msgid "_GroupTagger"
 msgstr "Nhóm"
 
-#: ../plugins/grouptagger/__init__.py:123
+#: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:128
+#: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:135
-#: ../plugins/grouptagger/gt_widgets.py:859
+#: ../plugins/grouptagger/__init__.py:164
+#: ../plugins/grouptagger/gt_widgets.py:946
 #, fuzzy
 #| msgid "Yes to all"
 msgid "Add tags to all"
 msgstr "Đồng ý tất cả"
 
-#: ../plugins/grouptagger/__init__.py:140
-#: ../plugins/grouptagger/gt_widgets.py:861
+#: ../plugins/grouptagger/__init__.py:175
+#: ../plugins/grouptagger/gt_widgets.py:948
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "Remove tags from all"
 msgstr "_Gỡ bỏ thẻ"
 
-#: ../plugins/grouptagger/__init__.py:145 ../plugins/grouptagger/gt_prefs.py:20
-#: ../plugins/grouptagger/gt_widgets.py:630
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:105
+#: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
+#: ../plugins/grouptagger/gt_widgets.py:691
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:274
-#: ../plugins/grouptagger/__init__.py:287
+#: ../plugins/grouptagger/__init__.py:325
+#: ../plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_export.py:52
+#: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:57
+#: ../plugins/grouptagger/gt_import.py:59
 #, fuzzy
 msgid "Importing tracks"
 msgstr "Nhập đĩa CD..."
 
-#: ../plugins/grouptagger/gt_import.py:80
+#: ../plugins/grouptagger/gt_import.py:87
 #, fuzzy
 msgid "Importing groups"
 msgstr "Nhập đĩa CD..."
 
-#: ../plugins/grouptagger/gt_import.py:160
+#: ../plugins/grouptagger/gt_import.py:182
 msgid "Updating groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:245
+#: ../plugins/grouptagger/gt_import.py:272
 #, fuzzy
 msgid "Select directory to import grouping tags from"
 msgstr "Chọn thư mục để chứa tập tin xuất ra"
 
-#: ../plugins/grouptagger/gt_mass.py:113
+#: ../plugins/grouptagger/gt_mass.py:119
 #, fuzzy, python-format
 msgid "%s tracks found"
 msgstr "Không tìm thấy lời bài hát."
 
-#: ../plugins/grouptagger/gt_mass.py:124
+#: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:126
+#: ../plugins/grouptagger/gt_mass.py:136
 #, python-format
 msgid "Delete '%s' from %s tracks?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:149
+#: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:71
+#: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:73
+#: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:75
+#: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:134
+#: ../plugins/grouptagger/gt_widgets.py:155
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "Thẻ"
 
-#: ../plugins/grouptagger/gt_widgets.py:149
+#: ../plugins/grouptagger/gt_widgets.py:171
 #, fuzzy
 #| msgid "Add new group"
 msgid "Add new tag"
 msgstr "Thêm nhóm mới"
 
-#: ../plugins/grouptagger/gt_widgets.py:153
+#: ../plugins/grouptagger/gt_widgets.py:177
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete tag"
 msgstr "Xóa"
 
-#: ../plugins/grouptagger/gt_widgets.py:160
+#: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:164
+#: ../plugins/grouptagger/gt_widgets.py:196
 msgid "Remove category"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:173
+#: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:253
+#: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:253
+#: ../plugins/grouptagger/gt_widgets.py:308
 msgid "Enter new tag value"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:285
+#: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:285
+#: ../plugins/grouptagger/gt_widgets.py:341
 msgid "Enter new category name"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:500
+#: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:652
-#: ../plugins/grouptagger/gt_widgets.py:754
+#: ../plugins/grouptagger/gt_widgets.py:713
+#: ../plugins/grouptagger/gt_widgets.py:819
 msgid "Group"
 msgstr "Nhóm"
 
-#: ../plugins/grouptagger/gt_widgets.py:689
+#: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:710
+#: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:736
+#: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:808
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:809
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:810
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:747
+#: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Ignored"
 msgstr "Đã bỏ qua"
 
-#: ../plugins/grouptagger/gt_widgets.py:755
+#: ../plugins/grouptagger/gt_widgets.py:820
 msgid "Selected Tracks"
 msgstr ""
 
-#: ../plugins/history/__init__.py:78
+#: ../plugins/history/__init__.py:77
 msgid "Playback history"
 msgstr "Nhật ký phát nhạc"
 
-#: ../plugins/history/__init__.py:110
+#: ../plugins/history/__init__.py:117
 msgid "Erase stored history?"
 msgstr "Xoá nhật ký đã lưu?"
 
-#: ../plugins/history/__init__.py:205
+#: ../plugins/history/__init__.py:218
 msgid "Save History"
 msgstr "Lưu nhật ký"
 
-#: ../plugins/history/__init__.py:207
+#: ../plugins/history/__init__.py:227
 #, fuzzy
 #| msgid "Save History"
 msgid "_Clear History"
 msgstr "Lưu nhật ký"
 
-#: ../plugins/icecast/__init__.py:117 ../plugins/icecast/__init__.py:194
-#: ../plugins/icecast/__init__.py:217
+#: ../plugins/icecast/__init__.py:116 ../plugins/icecast/__init__.py:190
+#: ../plugins/icecast/__init__.py:213
 #, fuzzy
 msgid "Contacting Icecast server..."
 msgstr "Đang liên lạc với máy chủ Shoutcast..."
 
-#: ../plugins/icecast/__init__.py:130 ../plugins/icecast/__init__.py:134
-#: ../plugins/icecast/__init__.py:230 ../plugins/icecast/__init__.py:234
+#: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
+#: ../plugins/icecast/__init__.py:228 ../plugins/icecast/__init__.py:231
 #, fuzzy
 msgid "Error connecting to Icecast server."
 msgstr "Lỗi khi kết nối đến máy chủ Shoutcast."
 
-#: ../plugins/icecast/__init__.py:326
+#: ../plugins/icecast/__init__.py:333
 msgid "Enter the search keywords"
 msgstr "Nhập từ khóa tìm kiếm"
 
-#: ../plugins/icecast/__init__.py:327
+#: ../plugins/icecast/__init__.py:333
 #, fuzzy
 msgid "Icecast Search"
 msgstr "Tìm kiếm Shoutcast"
 
-#: ../plugins/icecast/__init__.py:350
+#: ../plugins/icecast/__init__.py:357
 #, fuzzy
 msgid "No Stations Found"
 msgstr "Không tìm thấy ảnh bìa."
 
-#: ../plugins/icecast/__init__.py:353
+#: ../plugins/icecast/__init__.py:360
 #, fuzzy
 msgid "Icecast Search Results"
 msgstr "Kết quả tìm kiếm"
 
-#: ../plugins/icecast/__init__.py:396
+#: ../plugins/icecast/__init__.py:402
 #: ../plugins/developer/developer_window.ui:59
 #, fuzzy
 msgid "Name"
 msgstr "Tên:"
 
-#: ../plugins/icecast/__init__.py:408
+#: ../plugins/icecast/__init__.py:418
 #, fuzzy
 msgid "Format"
 msgstr "Bình thường"
 
-#: ../plugins/ipconsole/__init__.py:149
+#: ../plugins/ipconsole/__init__.py:156
 msgid "IPython Console - Exaile"
 msgstr "IPython Console - Exaile"
 
-#: ../plugins/ipconsole/__init__.py:204
+#: ../plugins/ipconsole/__init__.py:214
 #, fuzzy
 #| msgid "Show IPython Console"
 msgid "Show _IPython Console"
@@ -3339,64 +3339,64 @@ msgstr "Hiện IPython Console"
 msgid "IPython Console"
 msgstr "IPython Console"
 
-#: ../plugins/ipconsole/ipconsoleprefs.py:39
+#: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:95 ../plugins/jamendo/ui/jamendo_panel.ui:294
+#: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
 msgstr "Sẵn sàng"
 
-#: ../plugins/jamendo/__init__.py:96
+#: ../plugins/jamendo/__init__.py:87
 msgid "Searching Jamendo catalogue..."
 msgstr "Đang tìm mục lục Jamendo..."
 
-#: ../plugins/jamendo/__init__.py:97
+#: ../plugins/jamendo/__init__.py:88
 msgid "Retrieving song data..."
 msgstr "Đang lấy dữ liệu bài hát..."
 
-#: ../plugins/jamendo/menu.py:11
+#: ../plugins/jamendo/menu.py:14
 msgid "Append to Current"
 msgstr "Bổ sung vào danh sách hiện tại"
 
-#: ../plugins/keybinder/__init__.py:57
+#: ../plugins/keybinder/__init__.py:58
 msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:79
+#: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:80
+#: ../plugins/lastfmlove/__init__.py:67
 msgid "Last.fm Loved"
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:142
+#: ../plugins/lastfmlove/__init__.py:129
 #, fuzzy
 #| msgid "Bookmark This Track"
 msgid "_Love This Track"
 msgstr "Đánh dấu Track này"
 
-#: ../plugins/lastfmlove/__init__.py:164
+#: ../plugins/lastfmlove/__init__.py:150
 msgid "Unlove This Track"
 msgstr ""
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:34
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
 msgstr ""
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:64
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
 msgstr "Khoá API không hợp lệ."
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:99
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
 msgstr "Không thể khởi động trình duyệt web"
 
-#: ../plugins/lastfmlove/lastfmlove_preferences.py:100
+#: ../plugins/lastfmlove/lastfmlove_preferences.py:95
 #, python-brace-format
 msgid ""
 "Please copy the following URL and open it with your web browser:\n"
@@ -3411,54 +3411,54 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr "Phần mở rộng này cần PyGTK 2.22 và GTK 2.20 trở lên."
 
-#: ../plugins/mainmenubutton/__init__.py:82
-#: ../plugins/mainmenubutton/__init__.py:88
+#: ../plugins/mainmenubutton/__init__.py:83
+#: ../plugins/mainmenubutton/__init__.py:89
 msgid "Main Menu"
 msgstr "Trình đơn chính"
 
-#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:113
+#: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr "Mini Mode"
 
-#: ../plugins/minimode/controls.py:227
+#: ../plugins/minimode/controls.py:224
 msgid "Previous"
 msgstr "Trước"
 
-#: ../plugins/minimode/controls.py:228
+#: ../plugins/minimode/controls.py:225
 msgid "Go to the previous track"
 msgstr "Đến track trước"
 
-#: ../plugins/minimode/controls.py:234
+#: ../plugins/minimode/controls.py:231
 msgid "Previous track"
 msgstr "Track trước"
 
-#: ../plugins/minimode/controls.py:248
+#: ../plugins/minimode/controls.py:246
 msgid "Next"
 msgstr "Tiếp theo"
 
-#: ../plugins/minimode/controls.py:249
+#: ../plugins/minimode/controls.py:247
 msgid "Go to the next track"
 msgstr "Đến track tiếp theo"
 
-#: ../plugins/minimode/controls.py:255
+#: ../plugins/minimode/controls.py:253
 msgid "Next track"
 msgstr "Track tiếp theo"
 
-#: ../plugins/minimode/controls.py:270
+#: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
 msgstr "Phát/Tạm dừng"
 
-#: ../plugins/minimode/controls.py:291
+#: ../plugins/minimode/controls.py:290
 msgid "Start playback"
 msgstr "Bắt đầu phát"
 
-#: ../plugins/minimode/controls.py:295
+#: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
 msgstr "Tiếp tục phát"
 
-#: ../plugins/minimode/controls.py:298
+#: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
 msgstr "Tạm dừng phát"
 
@@ -3470,95 +3470,95 @@ msgstr "Dừng"
 msgid "Stop the playback"
 msgstr "Dừng phát"
 
-#: ../plugins/minimode/controls.py:372
+#: ../plugins/minimode/controls.py:374
 msgid "Continue playback after current track"
 msgstr "Tiếp tục phát sau track hiện tại"
 
-#: ../plugins/minimode/controls.py:442
+#: ../plugins/minimode/controls.py:447
 msgid "Volume"
 msgstr "Âm lượng"
 
-#: ../plugins/minimode/controls.py:443
+#: ../plugins/minimode/controls.py:448
 msgid "Change the volume"
 msgstr "Thay đổi âm lượng"
 
-#: ../plugins/minimode/controls.py:506
+#: ../plugins/minimode/controls.py:514
 msgid "Restore"
 msgstr "Khôi phục"
 
-#: ../plugins/minimode/controls.py:507
+#: ../plugins/minimode/controls.py:515
 msgid "Restore the main window"
 msgstr "Khôi phục cửa sổ chính"
 
-#: ../plugins/minimode/controls.py:515
+#: ../plugins/minimode/controls.py:523
 msgid "Restore main window"
 msgstr "Khôi phục cửa sổ chính"
 
-#: ../plugins/minimode/controls.py:546
+#: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
 msgstr "Chọn đánh giá của track hiện tại"
 
-#: ../plugins/minimode/controls.py:564
+#: ../plugins/minimode/controls.py:574
 msgid "Track selector"
 msgstr "Chọn track"
 
-#: ../plugins/minimode/controls.py:565
+#: ../plugins/minimode/controls.py:575
 msgid "Simple track list selector"
 msgstr "Chọn danh sách track đơn  giản"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/controls.py:712 ../plugins/minimode/controls.py:953
-#: ../plugins/minimode/minimode_preferences.py:116
-#: ../plugins/minimode/minimode_preferences.py:122
+#: ../plugins/minimode/controls.py:721 ../plugins/minimode/controls.py:966
+#: ../plugins/minimode/minimode_preferences.py:124
+#: ../plugins/minimode/minimode_preferences.py:130
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
-#: ../plugins/minimode/controls.py:718
+#: ../plugins/minimode/controls.py:727
 msgid "Playlist button"
 msgstr "Nút danh sách"
 
-#: ../plugins/minimode/controls.py:719
+#: ../plugins/minimode/controls.py:728
 msgid "Access the current playlist"
 msgstr "Truy cập danh sách hiện tại"
 
-#: ../plugins/minimode/controls.py:995
+#: ../plugins/minimode/controls.py:1009
 msgid "$title ($current_time / $total_time)"
 msgstr "$title ($current_time / $total_time)"
 
-#: ../plugins/minimode/controls.py:1019
+#: ../plugins/minimode/controls.py:1034
 msgid "Progress button"
 msgstr "Nút tiến trình"
 
-#: ../plugins/minimode/controls.py:1020
+#: ../plugins/minimode/controls.py:1035
 msgid "Playback progress and access to the current playlist"
 msgstr "Tiến độ phát và truy cập đến danh sách hiện tại"
 
-#: ../plugins/minimode/controls.py:1097
+#: ../plugins/minimode/controls.py:1109
 msgid "Progress bar"
 msgstr "Thanh tiến độ"
 
-#: ../plugins/minimode/controls.py:1098
+#: ../plugins/minimode/controls.py:1110
 msgid "Playback progress and seeking"
 msgstr "Tiến độ và thời gian phát"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
 msgstr "$title by $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:120
+#: ../plugins/minimode/minimode_preferences.py:128
 msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:92
+#: ../plugins/moodbar/__init__.py:102
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:156
+#: ../plugins/moodbar/__init__.py:179
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr ""
@@ -3589,11 +3589,11 @@ msgstr "Chỉ album:"
 msgid "Notify"
 msgstr "Notify"
 
-#: ../plugins/osd/__init__.py:333
+#: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:373
+#: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
 msgstr ""
 
@@ -3601,7 +3601,7 @@ msgstr ""
 msgid "On Screen Display"
 msgstr "Hiển thị trên màn hình"
 
-#: ../plugins/osd/osd_preferences.py:71
+#: ../plugins/osd/osd_preferences.py:72
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
 "by $artist\n"
@@ -3613,23 +3613,23 @@ msgstr ""
 msgid "Analyze playlists"
 msgstr "Làm trốn_g danh sách"
 
-#: ../plugins/playlistanalyzer/__init__.py:60
+#: ../plugins/playlistanalyzer/__init__.py:63
 #: ../plugins/playlistanalyzer/analyzer.ui:55
 #, fuzzy
 msgid "Analyze playlist"
 msgstr "Làm trốn_g danh sách"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:192
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:199
 #, fuzzy
 msgid "Modulus this number"
 msgstr "Số của đĩa"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:212
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:219
 #, python-format
 msgid "Tag %s"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:336
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:347
 msgid "Save analysis"
 msgstr ""
 
@@ -3649,44 +3649,44 @@ msgstr "Làm mới Podcast"
 msgid "Delete"
 msgstr "Xóa"
 
-#: ../plugins/podcasts/__init__.py:121
+#: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
 msgstr "Nhập URL của podcast để thêm vào"
 
-#: ../plugins/podcasts/__init__.py:122
+#: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
 msgstr "Mở Podcast"
 
-#: ../plugins/podcasts/__init__.py:155
+#: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
 msgstr "Đang nạp %s..."
 
-#: ../plugins/podcasts/__init__.py:183
+#: ../plugins/podcasts/__init__.py:184
 msgid "Error loading podcast."
 msgstr "Lỗi khi nạp podcast."
 
-#: ../plugins/podcasts/__init__.py:199
+#: ../plugins/podcasts/__init__.py:200
 msgid "Loading Podcasts..."
 msgstr "Đang nạp các Podcast..."
 
-#: ../plugins/podcasts/__init__.py:201
+#: ../plugins/podcasts/__init__.py:202
 msgid "No configuration present yet"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:234
+#: ../plugins/podcasts/__init__.py:235
 msgid "Could not save podcast file"
 msgstr "Không thể lưu tập tin podcast"
 
-#: ../plugins/previewdevice/__init__.py:152
+#: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:160
+#: ../plugins/previewdevice/__init__.py:156
 msgid "Preview"
 msgstr "Xem trước"
 
-#: ../plugins/previewdevice/__init__.py:345
+#: ../plugins/previewdevice/__init__.py:341
 msgid "Pause Playback (double click to stop)"
 msgstr ""
 
@@ -3705,51 +3705,51 @@ msgstr "ReplayGain"
 msgid "Pause on Screensaver"
 msgstr "Pause on Screensaver"
 
-#: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:42 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Shutdown after Playback"
 
-#: ../plugins/shutdown/__init__.py:59
+#: ../plugins/shutdown/__init__.py:67
 msgid "Shutdown scheduled"
 msgstr "Lịch tắt máy"
 
-#: ../plugins/shutdown/__init__.py:60
+#: ../plugins/shutdown/__init__.py:68
 msgid "Computer will be shutdown at the end of playback."
 msgstr "Máy sẽ tắt khi phát xong."
 
-#: ../plugins/shutdown/__init__.py:86
+#: ../plugins/shutdown/__init__.py:95
 msgid "Imminent Shutdown"
 msgstr ""
 
-#: ../plugins/shutdown/__init__.py:110
+#: ../plugins/shutdown/__init__.py:119
 #, python-format
 msgid "The computer will be shut down in %d seconds."
 msgstr "Máy sẽ tắt sau %d giây."
 
-#: ../plugins/shutdown/__init__.py:136
+#: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
 msgstr "Không thể tắt máy"
 
-#: ../plugins/shutdown/__init__.py:137
+#: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "Máy không thể tắt vì D-Bus."
 
-#: ../plugins/somafm/__init__.py:91 ../plugins/somafm/__init__.py:191
+#: ../plugins/somafm/__init__.py:84 ../plugins/somafm/__init__.py:183
 #, fuzzy
 msgid "Contacting SomaFM server..."
 msgstr "Đang liên lạc với máy chủ Shoutcast..."
 
-#: ../plugins/somafm/__init__.py:104 ../plugins/somafm/__init__.py:107
+#: ../plugins/somafm/__init__.py:96 ../plugins/somafm/__init__.py:99
 #, fuzzy
 msgid "Error connecting to SomaFM server."
 msgstr "Lỗi khi kết nối đến máy chủ Shoutcast."
 
-#: ../plugins/somafm/__init__.py:195
+#: ../plugins/somafm/__init__.py:187
 #, fuzzy
 msgid "Error importing playlist"
 msgstr "Lỗi khi nạp podcast."
 
-#: ../plugins/streamripper/__init__.py:75
+#: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
 msgstr "Lỗi khi thực thi streamripper"
 

@@ -17,27 +17,15 @@ from gi.repository import Gtk
 
 import logging
 import os.path
-from threading import (
-    Thread,
-    Timer
-)
+from threading import Thread, Timer
 
 import pylast
 
-from xl import (
-    common,
-    event,
-    player,
-    providers,
-    settings
-)
+from xl import common, event, player, providers, settings
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets.menu import MenuItem
-from xlgui.widgets.playlist_columns import (
-    Column,
-    ColumnMenuItem
-)
+from xlgui.widgets.playlist_columns import Column, ColumnMenuItem
 
 import lastfmlove_preferences
 from cellrenderertoggleimage import CellRendererToggleImage
@@ -46,14 +34,13 @@ LASTFMLOVER = None
 logger = logging.getLogger(__name__)
 
 basedir = os.path.dirname(os.path.realpath(__file__))
-icons.MANAGER.add_icon_name_from_directory('love',
-                                           os.path.join(basedir, 'icons'))
-icons.MANAGER.add_icon_name_from_directory('send-receive',
-                                           os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory('love', os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory(
+    'send-receive', os.path.join(basedir, 'icons')
+)
 
 
 class LastFMPlugin(object):
-
     def enable(self, exaile):
         """
             Handles the deferred enable call
@@ -101,7 +88,7 @@ class LoveColumn(Column):
         lastfm_track = pylast.Track(
             track.get_tag_display('artist'),
             track.get_tag_display('title'),
-            self.last_fm_lover.network
+            self.last_fm_lover.network,
         )
         cellrenderer.props.active = lastfm_track in self.last_fm_lover.loved_tracks
 
@@ -140,8 +127,7 @@ class LoveMenuItem(MenuItem):
             Sets up the menu item
         """
         item = Gtk.ImageMenuItem.new_with_mnemonic(_('_Love This Track'))
-        item.set_image(Gtk.Image.new_from_icon_name(
-            'love', Gtk.IconSize.MENU))
+        item.set_image(Gtk.Image.new_from_icon_name('love', Gtk.IconSize.MENU))
 
         if self.get_tracks_function is not None:
             tracks = self.get_tracks_function()
@@ -157,7 +143,7 @@ class LoveMenuItem(MenuItem):
             lastfm_track = pylast.Track(
                 track.get_tag_display('artist'),
                 track.get_tag_display('title'),
-                self.__lastfmlover.network
+                self.__lastfmlover.network,
             )
 
             if lastfm_track in self.__lastfmlover.loved_tracks:
@@ -207,9 +193,7 @@ class LastFMLover(object):
             return []
 
         self.tray_menu_item = LoveMenuItem(
-            self,
-            after=['rating'],
-            get_tracks_function=get_tracks_function
+            self, after=['rating'], get_tracks_function=get_tracks_function
         )
 
         self.setup_network()
@@ -245,7 +229,7 @@ class LastFMLover(object):
                 api_key=settings.get_option('plugin/lastfmlove/api_key', 'K'),
                 api_secret=settings.get_option('plugin/lastfmlove/api_secret', 'S'),
                 username=settings.get_option('plugin/ascrobbler/user', ''),
-                password_hash=settings.get_option('plugin/ascrobbler/password', '')
+                password_hash=settings.get_option('plugin/ascrobbler/password', ''),
             )
             self.user = self.network.get_user(self.network.username)
         except Exception as e:
@@ -272,7 +256,7 @@ class LastFMLover(object):
 
         self.timer = Timer(
             settings.get_option('plugin/lastfmlove/refresh_interval', 3600),
-            self.get_loved_tracks
+            self.get_loved_tracks,
         )
         self.timer.daemon = True
         self.timer.start()
@@ -302,7 +286,7 @@ class LastFMLover(object):
         lastfm_track = pylast.Track(
             track.get_tag_display('artist'),
             track.get_tag_display('title'),
-            self.network
+            self.network,
         )
 
         if lastfm_track in self.loved_tracks:

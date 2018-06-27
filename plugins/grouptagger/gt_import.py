@@ -1,7 +1,5 @@
 
-from gi.repository import (
-    Gtk
-)
+from gi.repository import Gtk
 
 from xl.common import idle_add, SimpleProgressThread
 from xl.collection import Collection, Library, CollectionScanThread
@@ -16,6 +14,7 @@ from xlgui.guiutil import GtkTemplate
 from gt_common import get_track_groups, set_track_groups
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -28,13 +27,15 @@ class GtImporter(Gtk.Window):
 
     __gtype_name__ = 'GtImporter'
 
-    content_area,       \
-        ok_button,          \
-        tags_model,         \
-        tags_view,          \
-        tags_vbox,          \
-        radio_merge,        \
-        radio_replace = GtkTemplate.Child.widgets(7)
+    (
+        content_area,
+        ok_button,
+        tags_model,
+        tags_view,
+        tags_vbox,
+        radio_merge,
+        radio_replace,
+    ) = GtkTemplate.Child.widgets(7)
 
     def __init__(self, exaile, uris):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
@@ -54,7 +55,9 @@ class GtImporter(Gtk.Window):
 
         self.import_thread = None
 
-        self.manager.add_monitor(self.rescan_thread, _("Importing tracks"), 'document-open')
+        self.manager.add_monitor(
+            self.rescan_thread, _("Importing tracks"), 'document-open'
+        )
 
     #
     # Status routines
@@ -73,11 +76,16 @@ class GtImporter(Gtk.Window):
 
         # now that the collection has loaded, import the groups from them
         self.import_track_data = []
-        self.import_thread = SimpleProgressThread(track_import_thread,
-                                                  self.collection, self.exaile.collection,
-                                                  self.import_track_data)
+        self.import_thread = SimpleProgressThread(
+            track_import_thread,
+            self.collection,
+            self.exaile.collection,
+            self.import_track_data,
+        )
         self.import_thread.connect('done', self._on_import_done)
-        self.manager.add_monitor(self.import_thread, _("Importing groups"), 'document-open')
+        self.manager.add_monitor(
+            self.import_thread, _("Importing groups"), 'document-open'
+        )
 
     @idle_add()
     def _on_import_done(self, thread):
@@ -95,9 +103,13 @@ class GtImporter(Gtk.Window):
         if len(track_data) == 0:
             self.destroy()
 
-            locations = ';'.join([l.get_location() for l in self.collection.get_libraries()])
+            locations = ';'.join(
+                [l.get_location() for l in self.collection.get_libraries()]
+            )
 
-            dialogs.info(self.exaile.gui.main.window, 'No new tracks found at "%s"' % locations)
+            dialogs.info(
+                self.exaile.gui.main.window, 'No new tracks found at "%s"' % locations
+            )
             return
 
         self.tags_view.freeze_child_notify()
@@ -105,7 +117,16 @@ class GtImporter(Gtk.Window):
 
         # add the data to the model
         for old_group_str, new_group_str, matched_track, newgroups in track_data:
-            self.tags_model.append((True, str(matched_track), old_group_str, new_group_str, matched_track, newgroups))
+            self.tags_model.append(
+                (
+                    True,
+                    str(matched_track),
+                    old_group_str,
+                    new_group_str,
+                    matched_track,
+                    newgroups,
+                )
+            )
 
         self.tags_view.set_model(self.tags_model)
         self.tags_view.thaw_child_notify()
@@ -153,8 +174,9 @@ class GtImporter(Gtk.Window):
         data = [(row[4], row[5]) for row in self.tags_model if row[0]]
         logger.info('Updating %s tracks', len(data))
 
-        self.update_thread = SimpleProgressThread(track_update_thread,
-                                                  data, self.radio_replace.get_active())
+        self.update_thread = SimpleProgressThread(
+            track_update_thread, data, self.radio_replace.get_active()
+        )
         self.update_thread.connect('done', self._on_update_done)
 
         self.manager.add_monitor(self.update_thread, _("Updating groups"), 'system-run')
@@ -211,7 +233,12 @@ def track_import_thread(import_collection, user_collection, track_data):
 
         yield (i, total)
 
-    logger.info("Match information: %s exact dups, %s no change, %s differing tracks", exact_dups, no_change, len(track_data))
+    logger.info(
+        "Match information: %s exact dups, %s no change, %s differing tracks",
+        exact_dups,
+        no_change,
+        len(track_data),
+    )
 
 
 def track_update_thread(trackdata, replace):
@@ -241,8 +268,9 @@ def import_tags(exaile):
         import_dialog = GtImporter(exaile, uris)
         import_dialog.show()
 
-    file_dialog = dialogs.DirectoryOpenDialog(exaile.gui.main.window,
-                                              title=_('Select directory to import grouping tags from'))
+    file_dialog = dialogs.DirectoryOpenDialog(
+        exaile.gui.main.window, title=_('Select directory to import grouping tags from')
+    )
     file_dialog.connect('uris-selected', _on_uris_selected)
     file_dialog.run()
     file_dialog.destroy()

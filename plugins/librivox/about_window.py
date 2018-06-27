@@ -18,8 +18,7 @@ from gi.repository import Gtk
 from gi.repository import Pango
 
 
-class AboutWindow():
-
+class AboutWindow:
     def __init__(self):
 
         self.book = None
@@ -55,7 +54,9 @@ class AboutWindow():
 
         self.closebutton = Gtk.Button("Close")
         self.closebutton.connect("pressed", self.closebutton_pressed)
-        self.closeimage = Gtk.Image.new_from_icon_name('window-close', Gtk.IconSize.MENU)
+        self.closeimage = Gtk.Image.new_from_icon_name(
+            'window-close', Gtk.IconSize.MENU
+        )
         self.closebutton.set_image(self.closeimage)
         self.hbox.pack_end(self.closebutton, False, False)
 

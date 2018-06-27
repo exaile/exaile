@@ -22,7 +22,6 @@ from xlgui.widgets import playback
 
 
 class ABRepeatPlugin(object):
-
     def __init__(self):
         self.__menu_item = None
 
@@ -47,19 +46,17 @@ class ABRepeatPlugin(object):
 plugin_class = ABRepeatPlugin
 
 
-class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
-                            providers.ProviderHandler):
+class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandler):
     """
         Menu item allowing for insertion of two markers
         to signify beginning and end of the segment to repeat
     """
 
     def __init__(self):
-        playback.MoveMarkerMenuItem.__init__(self,
-                                             'repeat-segment', [], _('Repeat Segment'),
-                                             'media-playlist-repeat')
-        providers.ProviderHandler.__init__(self,
-                                           'playback-markers')
+        playback.MoveMarkerMenuItem.__init__(
+            self, 'repeat-segment', [], _('Repeat Segment'), 'media-playlist-repeat'
+        )
+        providers.ProviderHandler.__init__(self, 'playback-markers')
 
         self.beginning_marker = playback.Marker()
         self.beginning_marker.name = 'repeat-beginning'
@@ -84,11 +81,12 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         """
             Generates the menu item
         """
-        item = playback.MoveMarkerMenuItem.factory(self, menu,
-                                                   parent, context)
+        item = playback.MoveMarkerMenuItem.factory(self, menu, parent, context)
 
-        markers = (providers.get_provider('playback-markers', n)
-                   for n in ('repeat-beginning', 'repeat-end'))
+        markers = (
+            providers.get_provider('playback-markers', n)
+            for n in ('repeat-beginning', 'repeat-end')
+        )
 
         if player.PLAYER.current is None:
             item.set_sensitive(False)
@@ -116,8 +114,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         providers.register('playback-markers', self.beginning_marker)
         context['current-marker'] = self.beginning_marker
 
-        playback.MoveMarkerMenuItem.on_activate(self, widget,
-                                                parent, context)
+        playback.MoveMarkerMenuItem.on_activate(self, widget, parent, context)
 
     def on_parent_button_press_event(self, widget, event):
         """
@@ -125,8 +122,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             if self.move_finish():
-                if providers.get_provider('playback-markers',
-                                          'repeat-end') is None:
+                if providers.get_provider('playback-markers', 'repeat-end') is None:
                     position = event.x / widget.get_allocation().width
                     self.end_marker.props.position = position
                     providers.register('playback-markers', self.end_marker)

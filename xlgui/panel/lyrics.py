@@ -28,12 +28,7 @@ from gi.repository import Gtk
 from gi.repository import GLib
 
 from xl.nls import gettext as _
-from xl import (
-    common,
-    event,
-    player,
-    providers,
-)
+from xl import common, event, player, providers
 from xl import settings as xl_settings
 from xl import lyrics as xl_lyrics
 from xlgui import guiutil, panel
@@ -50,20 +45,34 @@ class LyricsPanel(panel.Panel):
 
         self.__lyrics_found = []
         self.__css_provider = Gtk.CssProvider()
-        
-        WIDGET_LIST = \
-            ['lyrics_top_box', 'refresh_button', 'refresh_button_stack',
-             'refresh_icon', 'refresh_spinner', 'track_text',
-             'scrolled_window', 'lyrics_text', 'lyrics_source_label',
-             'track_text_buffer', 'lyrics_text_buffer']
+
+        WIDGET_LIST = [
+            'lyrics_top_box',
+            'refresh_button',
+            'refresh_button_stack',
+            'refresh_icon',
+            'refresh_spinner',
+            'track_text',
+            'scrolled_window',
+            'lyrics_text',
+            'lyrics_source_label',
+            'track_text_buffer',
+            'lyrics_text_buffer',
+        ]
         for name in WIDGET_LIST:
-            setattr(self, '_' + LyricsPanel.__name__ + '__' + name, self.builder.get_object(name))
+            setattr(
+                self,
+                '_' + LyricsPanel.__name__ + '__' + name,
+                self.builder.get_object(name),
+            )
         self.__initialize_widgets()
 
         event.add_ui_callback(self.__on_playback_track_start, 'playback_track_start')
         event.add_ui_callback(self.__on_track_tags_changed, 'track_tags_changed')
         event.add_ui_callback(self.__on_playback_player_end, 'playback_player_end')
-        event.add_ui_callback(self.__on_lyrics_search_method_added, 'lyrics_search_method_added')
+        event.add_ui_callback(
+            self.__on_lyrics_search_method_added, 'lyrics_search_method_added'
+        )
         event.add_ui_callback(self.__on_option_set, 'plugin_lyricsviewer_option_set')
 
         self.__update_lyrics()
@@ -77,18 +86,23 @@ class LyricsPanel(panel.Panel):
 
         track_text_style = Gtk.CssProvider()
         style_context = self.__track_text.get_style_context()
-        style_context.add_provider(track_text_style, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        style_context.add_provider(
+            track_text_style, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
         track_text_style.load_from_data("textview {font-weight: bold; }")
 
         style_context = self.__lyrics_text.get_style_context()
-        style_context.add_provider(self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        style_context.add_provider(
+            self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
-        lyricsprefs.DEFAULT_FONT = self.__lyrics_text.get_default_attributes().font.to_string()
+        lyricsprefs.DEFAULT_FONT = (
+            self.__lyrics_text.get_default_attributes().font.to_string()
+        )
         # trigger initial setup through options
         self.__on_option_set(None, xl_settings, 'plugin/lyricsviewer/lyrics_font')
 
-        self.__refresh_button.connect(
-            'clicked', self.__on_refresh_button_clicked)
+        self.__refresh_button.connect('clicked', self.__on_refresh_button_clicked)
 
     def __on_option_set(self, _event, settings, option):
         if option == 'plugin/lyricsviewer/lyrics_font':
@@ -141,8 +155,11 @@ class LyricsPanel(panel.Panel):
         track_text = ''
         try:
             try:
-                track_text = track.get_tag_raw('artist')[0] + \
-                    " - " + track.get_tag_raw('title')[0]
+                track_text = (
+                    track.get_tag_raw('artist')[0]
+                    + " - "
+                    + track.get_tag_raw('title')[0]
+                )
             except Exception:
                 raise xl_lyrics.LyricsNotFoundException
             lyrics_found = xl_lyrics.MANAGER.find_all_lyrics(track, refresh)
@@ -185,11 +202,9 @@ class LyricsPanel(panel.Panel):
     def __set_top_box_widgets(self, state, init=False):
         if state or init:
             self.__refresh_spinner.stop()
-            self.__refresh_button_stack.set_visible_child(
-                self.__refresh_icon)
+            self.__refresh_button_stack.set_visible_child(self.__refresh_icon)
         else:
-            self.__refresh_button_stack.set_visible_child(
-                self.__refresh_spinner)
+            self.__refresh_button_stack.set_visible_child(self.__refresh_spinner)
             self.__refresh_spinner.start()
 
         self.__refresh_button.set_sensitive(state)

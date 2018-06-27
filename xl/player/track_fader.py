@@ -30,12 +30,7 @@ from xl import common
 
 import logging
 
-FadeState = common.enum(
-    NoFade=1,
-    FadingIn=2,
-    Normal=3,
-    FadingOut=4
-)
+FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
 class TrackFader(object):
@@ -115,8 +110,12 @@ class TrackFader(object):
             fade_in = playlen * (float(fade_in) / total_fade)
             fade_out = playlen * (float(fade_out) / total_fade)
 
-        return (start_offset, start_offset + fade_in,
-                stop_offset - fade_out, stop_offset)
+        return (
+            start_offset,
+            start_offset + fade_in,
+            stop_offset - fade_out,
+            stop_offset,
+        )
 
     def calculate_user_volume(self, real_volume):
         '''Given the 'real' output volume, calculate what the user
@@ -132,7 +131,7 @@ class TrackFader(object):
             return real_volume, True
         else:
             user_vol = real_volume / self.fade_volume
-            is_same = (abs(user_vol - self.user_volume) < 0.01)
+            is_same = abs(user_vol - self.user_volume) < 0.01
             return user_vol, is_same
 
     def fade_out_on_play(self):
@@ -158,14 +157,16 @@ class TrackFader(object):
         else:
             return
 
-        self.logger.debug("foop: starting fade (now: %s, start: %s, len: %s)",
-                          self.now, start, fade_len)
+        self.logger.debug(
+            "foop: starting fade (now: %s, start: %s, len: %s)",
+            self.now,
+            start,
+            fade_len,
+        )
 
         self._cancel()
         if self._execute_fade(start, fade_len):
-            self.timer_id = GLib.timeout_add(10, self._execute_fade,
-                                             start,
-                                             fade_len)
+            self.timer_id = GLib.timeout_add(10, self._execute_fade, start, fade_len)
 
     def get_user_volume(self):
         return self.user_volume
@@ -189,7 +190,7 @@ class TrackFader(object):
         # If user disables crossfade during a transition, then don't
         # cancel the transition
 
-        has_fade = (fade_in is not None or fade_out is not None)
+        has_fade = fade_in is not None or fade_out is not None
 
         if is_update and has_fade:
 
@@ -200,8 +201,9 @@ class TrackFader(object):
             elif self.state == FadeState.FadingIn:
                 # Don't cancel the current fade in, but adjust the
                 # current fade out
-                _, _, self.fade_out_start, self.fade_out_end = \
-                    self.calculate_fades(track, fade_in, fade_out)
+                _, _, self.fade_out_start, self.fade_out_end = self.calculate_fades(
+                    track, fade_in, fade_out
+                )
 
                 self._next(now=now)
                 return
@@ -215,11 +217,14 @@ class TrackFader(object):
             else:
                 self.play(now=now)
 
-    def play(self, fade_in_start=None,
-             fade_in_end=None,
-             fade_out_start=None,
-             fade_out_end=None,
-             now=None):
+    def play(
+        self,
+        fade_in_start=None,
+        fade_in_end=None,
+        fade_out_start=None,
+        fade_out_end=None,
+        now=None,
+    ):
         '''Don't call this when doing crossfading'''
 
         self.fade_in_start = fade_in_start
@@ -270,9 +275,14 @@ class TrackFader(object):
             now = self.stream.get_position() / self.SECOND
 
         msg = "Fade data: now: %.2f; in: %s,%s; out: %s,%s"
-        self.logger.debug(msg, now,
-                          self.fade_in_start, self.fade_in_end,
-                          self.fade_out_start, self.fade_out_end)
+        self.logger.debug(
+            msg,
+            now,
+            self.fade_in_start,
+            self.fade_in_end,
+            self.fade_out_start,
+            self.fade_out_end,
+        )
 
         if self.state == FadeState.FadingIn:
             if now < self.fade_in_end:
@@ -303,7 +313,7 @@ class TrackFader(object):
     def _on_fade_start(self, now=None):
 
         if now is None:
-            now = (self.stream.get_position() / self.SECOND)
+            now = self.stream.get_position() / self.SECOND
 
         self.now = now - 0.010
 
@@ -323,9 +333,7 @@ class TrackFader(object):
         fade_len = float(end - start)
 
         if self._execute_fade(start, fade_len):
-            self.timer_id = GLib.timeout_add(10, self._execute_fade,
-                                             start,
-                                             fade_len)
+            self.timer_id = GLib.timeout_add(10, self._execute_fade, start, fade_len)
         return False
 
     def _execute_fade(self, fade_start, fade_len):
@@ -338,7 +346,7 @@ class TrackFader(object):
 
         # Don't query the stream, just assume this is close enough
         self.now += 0.010
-        fading_in = (self.state == FadeState.FadingIn)
+        fading_in = self.state == FadeState.FadingIn
 
         if fade_len < 0.01:
             volume = 0.0

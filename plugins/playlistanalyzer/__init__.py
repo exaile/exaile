@@ -38,7 +38,6 @@ from analyzer_dialog import AnalyzerDialog
 
 
 class PlaylistAnalyzerPlugin(object):
-
     def __init__(self):
         self.menu_items = []
         self.dialog = None
@@ -52,13 +51,18 @@ class PlaylistAnalyzerPlugin(object):
     def on_gui_loaded(self):
 
         # register menu items
-        item = menu.simple_menu_item('pz-run', [], _('Analyze playlists'),
-                                     callback=self.on_analyze_playlists)
+        item = menu.simple_menu_item(
+            'pz-run', [], _('Analyze playlists'), callback=self.on_analyze_playlists
+        )
         item.register('menubar-tools-menu')
         self.menu_items.append(item)
 
-        item = menu.simple_menu_item('pz-run', ['export-files'], _('Analyze playlist'),
-                                     callback=self.on_analyze_playlist)
+        item = menu.simple_menu_item(
+            'pz-run',
+            ['export-files'],
+            _('Analyze playlist'),
+            callback=self.on_analyze_playlist,
+        )
         item.register('playlist-panel-context-menu')
         self.menu_items.append(item)
 
@@ -86,9 +90,13 @@ class PlaylistAnalyzerPlugin(object):
         if self._get_track_groups is None:
 
             if 'grouptagger' not in self.exaile.plugins.enabled_plugins:
-                raise ValueError("GroupTagger plugin must be loaded to use the GroupTagger tag")
+                raise ValueError(
+                    "GroupTagger plugin must be loaded to use the GroupTagger tag"
+                )
 
-            self._get_track_groups = self.exaile.plugins.enabled_plugins['grouptagger'].get_track_groups
+            self._get_track_groups = self.exaile.plugins.enabled_plugins[
+                'grouptagger'
+            ].get_track_groups
 
         return self._get_track_groups(track)
 
@@ -161,21 +169,27 @@ class PlaylistAnalyzerPlugin(object):
         try:
             contents = contents % kwargs
         except Exception:
-            raise RuntimeError("Format string error in template (probably has unescaped % in it)")
+            raise RuntimeError(
+                "Format string error in template (probably has unescaped % in it)"
+            )
 
         outfile = Gio.File.new_for_uri(uri)
         parent_dir = outfile.get_parent()
         if parent_dir:
             parent_dir = parent_dir.get_child("d3.min.js")
 
-        with closing(outfile.replace(None, False, Gio.FileCreateFlags.NONE, None)) as fp:
+        with closing(
+            outfile.replace(None, False, Gio.FileCreateFlags.NONE, None)
+        ) as fp:
             fp.write(str(contents))
 
         # copy d3 to the destination
         # -> TODO: add checkbox to indicate whether it should write d3 there or not
         if parent_dir:
             with open(self.d3_loc, 'rb') as d3fp:
-                with closing(parent_dir.replace(None, False, Gio.FileCreateFlags.NONE, None)) as pfp:
+                with closing(
+                    parent_dir.replace(None, False, Gio.FileCreateFlags.NONE, None)
+                ) as pfp:
                     pfp.write(d3fp.read())
 
 

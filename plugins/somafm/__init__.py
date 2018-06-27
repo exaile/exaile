@@ -14,26 +14,19 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import logging
+
 logger = logging.getLogger(__name__)
 import os
 from urllib2 import urlparse
 import httplib
 import socket
+
 try:
     import xml.etree.cElementTree as ETree
 except ImportError:
     import xml.etree.ElementTree as ETree
-from xl import (
-    event,
-    main,
-    playlist,
-    xdg
-)
-from xl.radio import (
-    RadioStation,
-    RadioList,
-    RadioItem,
-)
+from xl import event, main, playlist, xdg
+from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _
 from xlgui.panel import radio
 
@@ -97,8 +90,7 @@ class SomaFMRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc)
 
         try:
-            c.request('GET', hostinfo.path, headers={'User-Agent':
-                                                     self.user_agent})
+            c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(_('Error connecting to SomaFM server.'))
@@ -128,8 +120,7 @@ class SomaFMRadioStation(RadioStation):
         """
         channellist = ETree.Element('channellist')
         for channel_id, channel_name in self.data.items():
-            ETree.SubElement(channellist, 'channel', id=channel_id,
-                             name=channel_name)
+            ETree.SubElement(channellist, 'channel', id=channel_id, name=channel_name)
 
         with open(self.cache_file, 'w') as h:
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
@@ -158,8 +149,9 @@ class SomaFMRadioStation(RadioStation):
 
         for id, name in data.items():
             rlist = RadioList(name, station=self)
-            rlist.get_items = lambda no_cache, id = id: \
-                self._get_subrlists(id=id, no_cache=no_cache)
+            rlist.get_items = lambda no_cache, id=id: self._get_subrlists(
+                id=id, no_cache=no_cache
+            )
             rlists.append(rlist)
 
         sort_list = sorted([(item.name, item) for item in rlists])
@@ -215,9 +207,9 @@ class SomaFMRadioStation(RadioStation):
 
             rlist = RadioItem(display_name, station=self)
             rlist.format = format
-            rlist.get_playlist = lambda url = url,\
-                playlist_id = self.playlist_id:\
-                self._get_playlist(url, playlist_id)
+            rlist.get_playlist = lambda url=url, playlist_id=self.playlist_id: self._get_playlist(
+                url, playlist_id
+            )
 
             self.playlist_id += 1
             rlists.append(rlist)

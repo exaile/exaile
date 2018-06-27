@@ -29,9 +29,7 @@ from gi.repository import Gtk
 
 from xl import trax
 from xl.nls import gettext as _
-from xlgui import (
-    panel
-)
+from xlgui import panel
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
@@ -40,6 +38,7 @@ class FlatPlaylistPanel(panel.Panel):
     """
         Flat playlist panel; represents a single playlist
     """
+
     __gsignals__ = {
         'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
         'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
@@ -61,10 +60,12 @@ class FlatPlaylistPanel(panel.Panel):
         self._connect_events()
 
     def _connect_events(self):
-        self.builder.connect_signals({
-            'on_add_button_clicked': self._on_add_button_clicked,
-            'on_import_button_clicked': self._on_import_button_clicked,
-        })
+        self.builder.connect_signals(
+            {
+                'on_add_button_clicked': self._on_add_button_clicked,
+                'on_import_button_clicked': self._on_import_button_clicked,
+            }
+        )
 
     def _on_add_button_clicked(self, *e):
         self.emit('append-items', self.tracks, False)

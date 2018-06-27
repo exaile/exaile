@@ -26,13 +26,7 @@ import threading
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import (
-    covers,
-    player,
-    trax,
-    xdg,
-    providers
-)
+from xl import covers, player, trax, xdg, providers
 from xl import common
 from xl.nls import gettext as _
 import xlgui
@@ -54,8 +48,9 @@ class Bookmark:
 
     __counter = 0
 
-    def __init__(self, bookmarks_menu, delete_menu,
-                 delete_bookmark_callback, path, time):
+    def __init__(
+        self, bookmarks_menu, delete_menu, delete_bookmark_callback, path, time
+    ):
         """
             Creates a bookmark for current track/position if path or time are
             None. Creates a bookmark for the given track/positon otherwise.
@@ -78,8 +73,7 @@ class Bookmark:
         self.item = None
 
         self.__fetch_metadata()
-        self.__create_menu_item(bookmarks_menu, delete_menu,
-                                delete_bookmark_callback)
+        self.__create_menu_item(bookmarks_menu, delete_menu, delete_bookmark_callback)
 
     def get_menu_item(self):
         return self.item
@@ -98,8 +92,7 @@ class Bookmark:
                 image = covers.MANAGER.get_cover(item, set_only=True)
                 if image:
                     try:
-                        self.__cover_pixbuf = pixbuf_from_data(image,
-                                                               size=(16, 16))
+                        self.__cover_pixbuf = pixbuf_from_data(image, size=(16, 16))
                     except GLib.GError:
                         LOGGER.warning('Could not load cover')
             else:
@@ -108,8 +101,7 @@ class Bookmark:
             LOGGER.exception("Cannot open %s", self.__path)
             return
 
-    def __create_menu_item(self, bookmarks_menu, delete_menu,
-                           delete_bookmark_callback):
+    def __create_menu_item(self, bookmarks_menu, delete_menu, delete_bookmark_callback):
         """
             Create menu entries for this bookmark.
         """
@@ -120,8 +112,7 @@ class Bookmark:
             "menu factory for new bookmarks"
             menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
             if self.__cover_pixbuf:
-                menu_item.set_image(
-                    Gtk.Image.new_from_pixbuf(self.__cover_pixbuf))
+                menu_item.set_image(Gtk.Image.new_from_pixbuf(self.__cover_pixbuf))
 
             if menu_ is bookmarks_menu:
                 menu_item.connect('activate', self.__on_bookmark_activated)
@@ -197,8 +188,7 @@ class BookmarksManager:
 
             def factory(_menu, _parent, _context):
                 item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
-                image = Gtk.Image.new_from_icon_name(icon_name,
-                                                     size=Gtk.IconSize.MENU)
+                image = Gtk.Image.new_from_icon_name(icon_name, size=Gtk.IconSize.MENU)
                 item.set_image(image)
 
                 if callback is not None:
@@ -213,13 +203,22 @@ class BookmarksManager:
             return factory
 
         items = []
-        items.append(_smi('bookmark', [], _('_Bookmark This Track'),
-                          'bookmark-new', self.__on_add_bookmark))
-        delete_cb = factory_factory(_('_Delete Bookmark'), 'gtk-close',
-                                    submenu=self.delete_menu)
+        items.append(
+            _smi(
+                'bookmark',
+                [],
+                _('_Bookmark This Track'),
+                'bookmark-new',
+                self.__on_add_bookmark,
+            )
+        )
+        delete_cb = factory_factory(
+            _('_Delete Bookmark'), 'gtk-close', submenu=self.delete_menu
+        )
         items.append(menu.MenuItem('delete', delete_cb, ['bookmark']))
-        clear_cb = factory_factory(_('_Clear Bookmarks'), 'gtk-clear',
-                                   callback=self.__clear_bookmarks)
+        clear_cb = factory_factory(
+            _('_Clear Bookmarks'), 'gtk-clear', callback=self.__clear_bookmarks
+        )
         items.append(menu.MenuItem('clear', clear_cb, ['delete']))
         items.append(_sep('sep', ['clear']))
 
@@ -232,8 +231,9 @@ class BookmarksManager:
     def __add_bookmark(self, path=None, time=None, save_db=True):
         if not self.menu:
             return  # this plugin is shutting down
-        bookmark = Bookmark(self.menu, self.delete_menu,
-                            self.__delete_bookmark, path, time)
+        bookmark = Bookmark(
+            self.menu, self.delete_menu, self.__delete_bookmark, path, time
+        )
         self.__bookmarks.append(bookmark)
         if save_db:
             self.__save_db()
@@ -297,13 +297,13 @@ class BookmarksManager:
     def __do_save_db(self, bookmarks):
         with self.__db_file_lock:
             with open(self.__PATH, 'wb') as bm_file:
-                json.dump(bookmarks, bm_file, indent=2,
-                          default=Bookmark.serialize_bookmark)
+                json.dump(
+                    bookmarks, bm_file, indent=2, default=Bookmark.serialize_bookmark
+                )
             LOGGER.debug('saved %d bookmarks', len(bookmarks))
 
 
 class BookmarksPlugin(object):
-
     def __init__(self):
         self.__manager = None
 
@@ -319,9 +319,16 @@ class BookmarksPlugin(object):
         self.__manager = BookmarksManager()
 
         # add tools menu items
-        providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
-        item = _smi('bookmarks', ['plugin-sep'], _('_Bookmarks'),
-                    'user-bookmarks', submenu=self.__manager.menu)
+        providers.register(
+            'menubar-tools-menu', _sep('plugin-sep', ['track-properties'])
+        )
+        item = _smi(
+            'bookmarks',
+            ['plugin-sep'],
+            _('_Bookmarks'),
+            'user-bookmarks',
+            submenu=self.__manager.menu,
+        )
         providers.register('menubar-tools-menu', item)
 
     def disable(self, _exaile):

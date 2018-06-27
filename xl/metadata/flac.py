@@ -25,10 +25,7 @@
 # from your version.
 
 import xl.unicode
-from xl.metadata._base import (
-    CaseInsensitveBaseFormat,
-    CoverImage
-)
+from xl.metadata._base import CaseInsensitveBaseFormat, CoverImage
 from mutagen import flac
 from mutagen.flac import Picture
 
@@ -55,8 +52,10 @@ class FlacFormat(CaseInsensitveBaseFormat):
 
     def _get_tag(self, raw, tag):
         if tag == '__cover':
-            return [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data)
-                    for p in raw.pictures]
+            return [
+                CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data)
+                for p in raw.pictures
+            ]
 
         return CaseInsensitveBaseFormat._get_tag(self, raw, tag)
 
@@ -81,5 +80,6 @@ class FlacFormat(CaseInsensitveBaseFormat):
             raw.clear_pictures()
         elif tag in raw:
             del raw[tag]
+
 
 # vim: et sts=4 sw=4

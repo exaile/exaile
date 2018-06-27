@@ -33,26 +33,19 @@ import sys
 import tarfile
 
 from xl.nls import gettext as _
-from xl import (
-    event,
-    settings,
-    xdg
-)
+from xl import event, settings, xdg
 
 logger = logging.getLogger(__name__)
 
 
 class InvalidPluginError(Exception):
-
     def __str__(self):
         return str(self.args[0])
 
 
 class PluginsManager(object):
-
     def __init__(self, exaile, load=True):
-        self.plugindirs = [os.path.join(p, 'plugins')
-                           for p in xdg.get_data_dirs()]
+        self.plugindirs = [os.path.join(p, 'plugins') for p in xdg.get_data_dirs()]
         if xdg.local_hack:
             self.plugindirs.insert(1, os.path.join(xdg.exaile_dir, 'plugins'))
 
@@ -95,20 +88,19 @@ class PluginsManager(object):
         try:
             tar = tarfile.open(path, "r:*")  # transparently supports gz, bz2
         except (tarfile.ReadError, OSError):
-            raise InvalidPluginError(
-                _('Plugin archive is not in the correct format.'))
+            raise InvalidPluginError(_('Plugin archive is not in the correct format.'))
 
         # ensure the paths in the archive are sane
         mems = tar.getmembers()
         base = os.path.basename(path).split('.')[0]
         if os.path.isdir(os.path.join(self.plugindirs[0], base)):
             raise InvalidPluginError(
-                _('A plugin with the name "%s" is already installed.') % base)
+                _('A plugin with the name "%s" is already installed.') % base
+            )
 
         for m in mems:
             if not m.name.startswith(base):
-                raise InvalidPluginError(
-                    _('Plugin archive contains an unsafe path.'))
+                raise InvalidPluginError(_('Plugin archive contains an unsafe path.'))
 
         tar.extractall(self.plugindirs[0])
 
@@ -121,15 +113,23 @@ class PluginsManager(object):
 
         if hasattr(plugin, 'on_gui_loaded'):
             if self.exaile.loading:
-                event.add_ui_callback(self.__on_new_plugin_loaded, 'gui_loaded',
-                                      None, plugin.on_gui_loaded)
+                event.add_ui_callback(
+                    self.__on_new_plugin_loaded,
+                    'gui_loaded',
+                    None,
+                    plugin.on_gui_loaded,
+                )
             else:
                 plugin.on_gui_loaded()
 
         if hasattr(plugin, 'on_exaile_loaded'):
             if self.exaile.loading:
-                event.add_ui_callback(self.__on_new_plugin_loaded, 'exaile_loaded',
-                                      None, plugin.on_exaile_loaded)
+                event.add_ui_callback(
+                    self.__on_new_plugin_loaded,
+                    'exaile_loaded',
+                    None,
+                    plugin.on_exaile_loaded,
+                )
             else:
                 plugin.on_exaile_loaded()
 
@@ -183,8 +183,11 @@ class PluginsManager(object):
             if not os.path.exists(directory):
                 continue
             for name in os.listdir(directory):
-                if name == '__pycache__' or name in pluginlist or \
-                        not os.path.exists(os.path.join(directory, name, 'PLUGININFO')):
+                if (
+                    name == '__pycache__'
+                    or name in pluginlist
+                    or not os.path.exists(os.path.join(directory, name, 'PLUGININFO'))
+                ):
                     continue
                 pluginlist.append(name)
         return pluginlist
@@ -233,6 +236,7 @@ class PluginsManager(object):
             :param info: The data returned from get_plugin_info()
         '''
         from gi.repository import GIRepository
+
         gir = GIRepository.Repository.get_default()
 
         modules = info.get('RequiredModules', [])
@@ -296,5 +300,6 @@ class PluginsManager(object):
                     plugin.teardown(main)
                 except Exception:
                     logger.exception("Unable to tear down plugin %s", plugin_name)
+
 
 # vim: et sts=4 sw=4

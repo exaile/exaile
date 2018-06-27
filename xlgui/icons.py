@@ -29,20 +29,12 @@
 """
 
 import glob
-from gi.repository import (
-    GdkPixbuf,
-    GLib,
-    Gtk
-)
+from gi.repository import GdkPixbuf, GLib, Gtk
 from itertools import imap, ifilter
 import logging
 import os
 
-from xl import (
-    common,
-    covers,
-    settings,
-)
+from xl import common, covers, settings
 from xlgui.guiutil import pixbuf_from_data
 
 logger = logging.getLogger(__name__)
@@ -70,13 +62,16 @@ class ExtendedPixbuf(object):
             pixbuf.get_has_alpha(),
             pixbuf.get_bits_per_sample(),
             pixbuf.get_width(),
-            pixbuf.get_height()
+            pixbuf.get_height(),
         )
         pixbuf.copy_area(
-            src_x=0, src_y=0,
-            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+            src_x=0,
+            src_y=0,
+            width=self.pixbuf.get_width(),
+            height=self.pixbuf.get_height(),
             dest_pixbuf=self.pixbuf,
-            dest_x=0, dest_y=0
+            dest_x=0,
+            dest_y=0,
         )
 
     def get_width(self):
@@ -208,21 +203,27 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
             self.pixbuf.get_width() + spacing + other.get_width(),
-            height
+            height,
         )
         new_pixbuf.fill(0xffffff00)
 
         self.pixbuf.copy_area(
-            src_x=0, src_y=0,
-            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+            src_x=0,
+            src_y=0,
+            width=self.pixbuf.get_width(),
+            height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=0, dest_y=0
+            dest_x=0,
+            dest_y=0,
         )
         other.copy_area(
-            src_x=0, src_y=0,
-            width=other.get_width(), height=other.get_height(),
+            src_x=0,
+            src_y=0,
+            width=other.get_width(),
+            height=other.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=self.pixbuf.get_width() + spacing, dest_y=0
+            dest_x=self.pixbuf.get_width() + spacing,
+            dest_y=0,
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -249,21 +250,27 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
             width,
-            self.pixbuf.get_height() + spacing + other.get_height()
+            self.pixbuf.get_height() + spacing + other.get_height(),
         )
         new_pixbuf.fill(0xffffff00)
 
         self.pixbuf.copy_area(
-            src_x=0, src_y=0,
-            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+            src_x=0,
+            src_y=0,
+            width=self.pixbuf.get_width(),
+            height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=0, dest_y=0
+            dest_x=0,
+            dest_y=0,
         )
         other.copy_area(
-            src_x=0, src_y=0,
-            width=other.get_width(), height=other.get_height(),
+            src_x=0,
+            src_y=0,
+            width=other.get_width(),
+            height=other.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=0, dest_y=self.pixbuf.get_height() + spacing
+            dest_x=0,
+            dest_y=self.pixbuf.get_height() + spacing,
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -286,16 +293,19 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
             self.pixbuf.get_width() * multiplier + spacing * multiplier,
-            self.pixbuf.get_height()
+            self.pixbuf.get_height(),
         )
         new_pixbuf.fill(0xffffff00)
 
         for n in xrange(0, multiplier):
             self.pixbuf.copy_area(
-                src_x=0, src_y=0,
-                width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+                src_x=0,
+                src_y=0,
+                width=self.pixbuf.get_width(),
+                height=self.pixbuf.get_height(),
                 dest_pixbuf=new_pixbuf,
-                dest_x=n * self.pixbuf.get_width() + n * spacing, dest_y=0
+                dest_x=n * self.pixbuf.get_width() + n * spacing,
+                dest_y=0,
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -318,16 +328,19 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
             self.pixbuf.get_width(),
-            self.pixbuf.get_height() * multiplier + spacing * multiplier
+            self.pixbuf.get_height() * multiplier + spacing * multiplier,
         )
         new_pixbuf.fill(0xffffff00)
 
         for n in xrange(0, multiplier):
             self.pixbuf.copy_area(
-                src_x=0, src_y=0,
-                width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+                src_x=0,
+                src_y=0,
+                width=self.pixbuf.get_width(),
+                height=self.pixbuf.get_height(),
                 dest_pixbuf=new_pixbuf,
-                dest_x=0, dest_y=n * self.pixbuf.get_height() + n * spacing
+                dest_x=0,
+                dest_y=n * self.pixbuf.get_height() + n * spacing,
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -352,21 +365,25 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
-            width, height
+            width,
+            height,
         )
         new_pixbuf.fill(0xffffff00)
 
         for pixbuf in (self.pixbuf, other):
             pixbuf.composite(
                 dest=new_pixbuf,
-                dest_x=0, dest_y=0,
+                dest_x=0,
+                dest_y=0,
                 dest_width=pixbuf.get_width(),
                 dest_height=pixbuf.get_height(),
-                offset_x=0, offset_y=0,
-                scale_x=1, scale_y=1,
+                offset_x=0,
+                offset_y=0,
+                scale_x=1,
+                scale_y=1,
                 interp_type=GdkPixbuf.InterpType.BILINEAR,
                 # Alpha needs to be embedded in the pixbufs
-                overall_alpha=255
+                overall_alpha=255,
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -401,16 +418,19 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
-            width, height
+            width,
+            height,
         )
         new_pixbuf.fill(0xffffff00)
 
         self.pixbuf.copy_area(
-            src_x=0, src_y=0,
+            src_x=0,
+            src_y=0,
             width=self.pixbuf.get_width(),
             height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=offset_x, dest_y=offset_y
+            dest_x=offset_x,
+            dest_y=offset_y,
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -425,31 +445,53 @@ class ExtendedPixbuf(object):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(GdkPixbuf.Pixbuf.add_alpha(
-            self.pixbuf, substitute_color, r, g, b))
+        return ExtendedPixbuf(
+            GdkPixbuf.Pixbuf.add_alpha(self.pixbuf, substitute_color, r, g, b)
+        )
 
     def scale_simple(self, dest_width, dest_height, interp_type):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(GdkPixbuf.Pixbuf.scale_simple(
-            self.pixbuf, dest_width, dest_height, interp_type))
+        return ExtendedPixbuf(
+            GdkPixbuf.Pixbuf.scale_simple(
+                self.pixbuf, dest_width, dest_height, interp_type
+            )
+        )
 
-    def composite_color_simple(self, dest_width, dest_height, interp_type,
-                               overall_alpha, check_size, color1, color2):
+    def composite_color_simple(
+        self,
+        dest_width,
+        dest_height,
+        interp_type,
+        overall_alpha,
+        check_size,
+        color1,
+        color2,
+    ):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(GdkPixbuf.Pixbuf.composite_color_simple(
-            self.pixbuf, dest_width, dest_height, interp_type,
-            overall_alpha, check_size, color1, color2))
+        return ExtendedPixbuf(
+            GdkPixbuf.Pixbuf.composite_color_simple(
+                self.pixbuf,
+                dest_width,
+                dest_height,
+                interp_type,
+                overall_alpha,
+                check_size,
+                color1,
+                color2,
+            )
+        )
 
     def new_subpixbuf(self, src_x, src_y, width, height):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_subpixbuf(
-            self.pixbuf, src_x, src_y, width, height))
+        return ExtendedPixbuf(
+            GdkPixbuf.Pixbuf.new_subpixbuf(self.pixbuf, src_x, src_y, width, height)
+        )
 
     def rotate_simple(self, angle):
         """
@@ -491,12 +533,14 @@ class IconManager(object):
         self._cache = {}
 
         self.rating_active_pixbuf = ExtendedPixbuf(
-            self.pixbuf_from_icon_name('starred', size=Gtk.IconSize.MENU))
+            self.pixbuf_from_icon_name('starred', size=Gtk.IconSize.MENU)
+        )
         self.rating_inactive_pixbuf = ExtendedPixbuf(
-            self.pixbuf_from_icon_name('non-starred', size=Gtk.IconSize.MENU))
+            self.pixbuf_from_icon_name('non-starred', size=Gtk.IconSize.MENU)
+        )
 
         # nobody actually sets the rating option, so don't handle it for now
-        #event.add_ui_callback(self.on_option_set, 'rating_option_set')
+        # event.add_ui_callback(self.on_option_set, 'rating_option_set')
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
@@ -553,12 +597,12 @@ class IconManager(object):
             self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
         except Exception as e:
             # Happens if, e.g., librsvg is not installed.
-            logger.warning('Failed to add icon name "{icon_name}" '
-                           'from file "{filename}": {error}'.format(
-                               icon_name=icon_name,
-                               filename=filename,
-                               error=e.message
-                           ))
+            logger.warning(
+                'Failed to add icon name "{icon_name}" '
+                'from file "{filename}": {error}'.format(
+                    icon_name=icon_name, filename=filename, error=e.message
+                )
+            )
             pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
@@ -596,12 +640,16 @@ class IconManager(object):
 
         try:
             pixbuf = self.icon_theme.load_icon(
-                icon_name, size, Gtk.IconLookupFlags.NO_SVG | Gtk.IconLookupFlags.FORCE_SIZE)
+                icon_name,
+                size,
+                Gtk.IconLookupFlags.NO_SVG | Gtk.IconLookupFlags.FORCE_SIZE,
+            )
         except GLib.GError as e:
-            logger.warning('Failed to get pixbuf from "{icon_name}": {error}'.format(
-                icon_name=icon_name,
-                error=e.message
-            ))
+            logger.warning(
+                'Failed to get pixbuf from "{icon_name}": {error}'.format(
+                    icon_name=icon_name, error=e.message
+                )
+            )
             pixbuf = None
 
         # TODO: Check if fallbacks are necessary
@@ -622,12 +670,16 @@ class IconManager(object):
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
 
-        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width * size_ratio),
-                                                               int(height * size_ratio),
-                                                               GdkPixbuf.InterpType.BILINEAR)
-        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width * size_ratio),
-                                                                   int(height * size_ratio),
-                                                                   GdkPixbuf.InterpType.BILINEAR)
+        active_pixbuf = self.rating_active_pixbuf.scale_simple(
+            int(width * size_ratio),
+            int(height * size_ratio),
+            GdkPixbuf.InterpType.BILINEAR,
+        )
+        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(
+            int(width * size_ratio),
+            int(height * size_ratio),
+            GdkPixbuf.InterpType.BILINEAR,
+        )
         rating = max(0, rating)
         rating = min(rating, maximum)
 
@@ -654,21 +706,28 @@ class IconManager(object):
         # Sizes
         cover_side = cover_width
         cover_portion = int(cover_side * 0.08)  # 8% of sides
-        covers_square_side = (cover_side + cover_portion * (len(pixbuf_list) - 1))
+        covers_square_side = cover_side + cover_portion * (len(pixbuf_list) - 1)
         border = 4
         total_width = total_height = covers_square_side + (2 * border)
 
         # The result pixbuf
-        result_pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True, 8, total_width, total_height)
+        result_pixbuf = GdkPixbuf.Pixbuf.new(
+            GdkPixbuf.Colorspace.RGB, True, 8, total_width, total_height
+        )
         result_pixbuf.fill(0x00000000)  # Fill with transparent background
 
-        covers_area = result_pixbuf.new_subpixbuf(src_x=border, src_y=border, width=covers_square_side,
-                                                  height=covers_square_side)
+        covers_area = result_pixbuf.new_subpixbuf(
+            src_x=border,
+            src_y=border,
+            width=covers_square_side,
+            height=covers_square_side,
+        )
         # Write covers
         for i, pixbuf in enumerate(pixbuf_list):
             dest = cover_portion * i  # Put in a diagonal
-            pixbuf.copy_area(0, 0, pixbuf.get_width(), pixbuf.get_height(),
-                             covers_area, dest, dest)
+            pixbuf.copy_area(
+                0, 0, pixbuf.get_width(), pixbuf.get_height(), covers_area, dest, dest
+            )
 
         return result_pixbuf
 
@@ -680,11 +739,15 @@ class IconManager(object):
             :return: GdkPixbuf.Pixbuf or None if none found
         """
         cover_width = settings.get_option('gui/cover_width', 100)
-        as_pixbuf = lambda data: pixbuf_from_data(data=data, size=(cover_width, cover_width))
+        as_pixbuf = lambda data: pixbuf_from_data(
+            data=data, size=(cover_width, cover_width)
+        )
         get_cover_for_tracks = covers.MANAGER.get_cover_for_tracks
         db_string_list = []
         cover_for_tracks = lambda tracks: get_cover_for_tracks(tracks, db_string_list)
-        filtered_covers = ifilter(None, imap(cover_for_tracks, tracks)) # Remove None cover tracks
+        filtered_covers = ifilter(
+            None, imap(cover_for_tracks, tracks)
+        )  # Remove None cover tracks
         async_loader = common.AsyncLoader(imap(as_pixbuf, filtered_covers))
         async_loader.end(0.333)
         return self.__create_drag_cover_icon(async_loader.result, cover_width)

@@ -35,6 +35,7 @@ from gi.repository import Gio
 import logging
 import hashlib
 import os
+
 try:
     import cPickle as pickle
 except ImportError:
@@ -42,14 +43,7 @@ except ImportError:
 
 from xl.nls import gettext as _
 import xl.unicode
-from xl import (
-    common,
-    event,
-    providers,
-    settings,
-    trax,
-    xdg
-)
+from xl import common, event, providers, settings, trax, xdg
 
 logger = logging.getLogger(__name__)
 
@@ -124,6 +118,7 @@ class CoverManager(providers.ProviderHandler):
     """
         Handles finding covers from various sources.
     """
+
     DB_VERSION = 2
 
     def __init__(self, location):
@@ -134,8 +129,7 @@ class CoverManager(providers.ProviderHandler):
         self.__cache = Cacher(os.path.join(location, 'cache'))
         self.location = location
         self.methods = {}
-        self.order = settings.get_option(
-            'covers/preferred_order', [])
+        self.order = settings.get_option('covers/preferred_order', [])
         self.db = {'version': self.DB_VERSION}
         self.load()
         for method in self.get_providers():
@@ -213,8 +207,8 @@ class CoverManager(providers.ProviderHandler):
             if not value:
                 return None
             value = u'\1'.join(
-                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape')
-                for v in value)
+                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
+            )
             assert isinstance(tag, bytes)
             return tag.decode('ascii') + u'\0' + value
 
@@ -320,8 +314,7 @@ class CoverManager(providers.ProviderHandler):
             self.timeout_save()
             event.log_event('cover_removed', self, track)
 
-    def get_cover(self, track, save_cover=True, set_only=False,
-                  use_default=False):
+    def get_cover(self, track, save_cover=True, set_only=False, use_default=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
@@ -341,7 +334,7 @@ class CoverManager(providers.ProviderHandler):
         db_string = self.get_db_string(track)
         if db_string:
             cover = self.get_cover_data(db_string, use_default=use_default)
-            if cover: 
+            if cover:
                 return cover
 
         if set_only:
@@ -408,8 +401,11 @@ class CoverManager(providers.ProviderHandler):
             self.db = data
         version = self.db.get('version', 1)
         if version > self.DB_VERSION:
-            logger.error("covers.db version (%s) higher than supported (%s); using anyway",
-                version, self.DB_VERSION)
+            logger.error(
+                "covers.db version (%s) higher than supported (%s); using anyway",
+                version,
+                self.DB_VERSION,
+            )
 
     @common.glib_wait_seconds(60)
     def timeout_save(self):
@@ -484,6 +480,7 @@ class CoverSearchMethod(object):
         Search methods do not have to inherit from this class, it's
         intended more as a template to demonstrate the needed interface.
     """
+
     #: If true, cover results will be cached for faster lookup
     use_cache = True
     #: A name uniquely identifing the search method.
@@ -519,6 +516,7 @@ class TagCoverFetcher(CoverSearchMethod):
     """
         Cover source that looks for images embedded in tags.
     """
+
     use_cache = False
     name = "tags"
     title = _('Tags')
@@ -540,8 +538,10 @@ class TagCoverFetcher(CoverSearchMethod):
             except (TypeError, KeyError):
                 pass
 
-        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri)
-                for index in range(0, len(covers))]
+        return [
+            '{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri)
+            for index in range(0, len(covers))
+        ]
 
     def get_cover_data(self, db_string):
         tag, index, uri = db_string.split(':', 2)
@@ -559,6 +559,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         Cover source that looks for images in the same directory as the
         Track.
     """
+
     use_cache = False
     name = "localfile"
     title = _('Local file')
@@ -572,7 +573,9 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         CoverSearchMethod.__init__(self)
 
         event.add_callback(self.on_option_set, 'covers_localfile_option_set')
-        self.on_option_set('covers_localfile_option_set', settings, 'covers/localfile/preferred_names')
+        self.on_option_set(
+            'covers_localfile_option_set', settings, 'covers/localfile/preferred_names'
+        )
 
     def find_covers(self, track, limit=-1):
         # TODO: perhaps should instead check to see if its mounted in
@@ -582,14 +585,19 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             return []
         basedir = Gio.File.new_for_uri(track.get_loc_for_io()).get_parent()
         try:
-            if not basedir.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type() == \
-                    Gio.FileType.DIRECTORY:
+            if (
+                not basedir.query_info(
+                    "standard::type", Gio.FileQueryInfoFlags.NONE, None
+                ).get_file_type()
+                == Gio.FileType.DIRECTORY
+            ):
                 return []
         except GLib.Error:
             return []
         covers = []
-        for fileinfo in basedir.enumerate_children("standard::type"
-                                                   ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
+        for fileinfo in basedir.enumerate_children(
+            "standard::type" ",standard::name", Gio.FileQueryInfoFlags.NONE, None
+        ):
             gloc = basedir.get_child(fileinfo.get_name())
             if not fileinfo.get_file_type() == Gio.FileType.REGULAR:
                 continue
@@ -622,5 +630,4 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
 
 #: The singleton :class:`CoverManager` instance
-MANAGER = CoverManager(location=xdg.get_data_home_path("covers",
-                                                       check_exists=False))
+MANAGER = CoverManager(location=xdg.get_data_home_path("covers", check_exists=False))

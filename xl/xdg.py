@@ -31,7 +31,7 @@ from gi.repository import GLib
 # We need the local hack for OSX bundled apps, so we depend on the main script
 # to set the environment variable correctly instead of trying to infer an
 # absolute path
-#exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+# exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 exaile_dir = os.environ['EXAILE_DIR']
 
 homedir = os.path.expanduser("~")
@@ -155,5 +155,6 @@ def _make_missing_dirs():
         os.makedirs(cache_home)
     if not os.path.exists(logs_home):
         os.makedirs(logs_home)
+
 
 # vim: et sts=4 sw=4

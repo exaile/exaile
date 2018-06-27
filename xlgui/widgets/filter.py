@@ -51,9 +51,14 @@ class FilterDialog(Gtk.Dialog):
 
     __gtype_name__ = 'FilterDialog'
 
-    name_entry, filter, \
-        match_any, random, lim_check, lim_spin \
-        = GtkTemplate.Child.widgets(6)
+    (
+        name_entry,
+        filter,
+        match_any,
+        random,
+        lim_check,
+        lim_spin,
+    ) = GtkTemplate.Child.widgets(6)
 
     def __init__(self, title, parent, criteria):
         """Create a filter dialog.
@@ -66,8 +71,12 @@ class FilterDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, title=title, transient_for=parent)
         self.init_template()
 
-        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
-                         Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT)
+        self.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.REJECT,
+            Gtk.STOCK_OK,
+            Gtk.ResponseType.ACCEPT,
+        )
 
         f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_criteria_row()
@@ -229,8 +238,7 @@ class FilterWidget(Gtk.Grid):
         image = Gtk.Image()
         image.set_from_icon_name('list-remove', Gtk.IconSize.BUTTON)
         remove_btn.add(image)
-        remove_btn_handler_id = remove_btn.connect(
-            'clicked', self.__remove_clicked)
+        remove_btn_handler_id = remove_btn.connect('clicked', self.__remove_clicked)
         remove_btn.show_all()
 
         self.attach(criterion, 0, n, 1, 1)
@@ -357,6 +365,7 @@ class Criterion(Gtk.Box):
             if len(state) > 1:
                 self.child.set_state(state[1])
 
+
 # Sample fields
 
 
@@ -431,7 +440,6 @@ class MultiEntryField(Gtk.Box):
 
 
 class EntryField(Gtk.Entry):
-
     def __init__(self):
         Gtk.Entry.__init__(self)
 
@@ -445,7 +453,6 @@ class EntryField(Gtk.Entry):
 
 
 class QuotedEntryField(Gtk.Entry):
-
     def __init__(self):
         Gtk.Entry.__init__(self)
 
@@ -459,13 +466,11 @@ class QuotedEntryField(Gtk.Entry):
 
 
 class EntryLabelEntryField(MultiEntryField):
-
     def __init__(self, label):
         MultiEntryField.__init__(self, (50, label, 50))
 
 
 class SpinLabelField(Gtk.Box):
-
     def __init__(self, label='', top=999999, lower=-999999):
         Gtk.Box.__init__(self, spacing=5)
         self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
@@ -487,7 +492,6 @@ class SpinLabelField(Gtk.Box):
 
 
 class SpinButtonAndComboField(Gtk.Box):
-
     def __init__(self, items=()):
         Gtk.Box.__init__(self, spacing=5)
         self.items = items

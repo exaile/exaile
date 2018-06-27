@@ -46,10 +46,9 @@ class InterruptibleLoopContext(object):
         # not already been one.
         if sys.platform != 'win32' and not InterruptibleLoopContext._loop_contexts:
             # Add a glib signal handler
-            source_id = GLib.unix_signal_add(GLib.PRIORITY_DEFAULT,
-                                             signal.SIGINT,
-                                             self._glib_sigint_handler,
-                                             None)
+            source_id = GLib.unix_signal_add(
+                GLib.PRIORITY_DEFAULT, signal.SIGINT, self._glib_sigint_handler, None
+            )
             InterruptibleLoopContext._signal_source_id = source_id
 
         InterruptibleLoopContext._loop_contexts.append(self)
@@ -60,8 +59,10 @@ class InterruptibleLoopContext(object):
 
         # if the context stack is empty and we have a GLib signal source,
         # remove the source from GLib and clear out the variable.
-        if not InterruptibleLoopContext._loop_contexts and \
-                InterruptibleLoopContext._signal_source_id is not None:
+        if (
+            not InterruptibleLoopContext._loop_contexts
+            and InterruptibleLoopContext._signal_source_id is not None
+        ):
             GLib.source_remove(InterruptibleLoopContext._signal_source_id)
             InterruptibleLoopContext._signal_source_id = None
 

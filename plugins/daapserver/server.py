@@ -72,6 +72,7 @@ __all__ = ['DaapServer']
 
 class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """Handle requests in a separate thread."""
+
     timeout = 1
     daemon_threads = True
 
@@ -81,8 +82,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
         BaseHTTPServer.HTTPServer.__init__(self, *args)
 
 
-class DaapServer():
-
+class DaapServer:
     def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
         #        Thread.__init__(self)
         self.host = host
@@ -95,16 +95,17 @@ class DaapServer():
         self.__cache.clean()
 
         # Set a callback that will let us propagate library changes to clients
-        event.add_callback(self.update_rev, 'libraries_modified',
-                           library.collection)
+        event.add_callback(self.update_rev, 'libraries_modified', library.collection)
 
     def update_rev(self, *args):
         if self.handler is not None:
             # Updating the server revision, so if a client checks
             # it can see the library has changed
             self.handler.daap_server_revision += 1
-            logger.info('Libraries Changed, incrementing revision to %d.'
-                        % self.handler.daap_server_revision)
+            logger.info(
+                'Libraries Changed, incrementing revision to %d.'
+                % self.handler.daap_server_revision
+            )
         self.__cache.clean()
 
     def set(self, **kwargs):
@@ -113,16 +114,16 @@ class DaapServer():
 
     @common.threaded
     def run(self):
-        self.zeroconf = spydaap.zeroconf.Zeroconf(self.name,
-                                                  self.port,
-                                                  stype="_daap._tcp")
+        self.zeroconf = spydaap.zeroconf.Zeroconf(
+            self.name, self.port, stype="_daap._tcp"
+        )
         self.handler = spydaap.server.makeDAAPHandlerClass(
-            str(self.name), self.__cache, self.library, [])
-        self.httpd = MyThreadedHTTPServer((self.host, self.port),
-                                          self.handler)
+            str(self.name), self.__cache, self.library, []
+        )
+        self.httpd = MyThreadedHTTPServer((self.host, self.port), self.handler)
 
-        #signal.signal(signal.SIGTERM, make_shutdown(httpd))
-        #signal.signal(signal.SIGHUP, rebuild_cache)
+        # signal.signal(signal.SIGTERM, make_shutdown(httpd))
+        # signal.signal(signal.SIGHUP, rebuild_cache)
         if self.httpd.address_family == socket.AF_INET:
             self.zeroconf.publish(ipv4=True, ipv6=False)
         else:
@@ -156,6 +157,7 @@ class DaapServer():
 
     def stop_server(self):
         self.stop()
+
 
 # def rebuild_cache(signum=None, frame=None):
 #    md_cache.build(os.path.abspath(spydaap.media_path))

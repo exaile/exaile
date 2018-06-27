@@ -26,7 +26,6 @@
 
 
 class TreeItem(object):
-
     def __init__(self, id, name, has_been_expanded=False):
         self._id = id
         self._name = name
@@ -63,7 +62,6 @@ class TreeItem(object):
 
 
 class Artist(TreeItem):
-
     def __init__(self, id, name, has_been_expanded=False):
         TreeItem.__init__(self, id, name, has_been_expanded)
         self._albums = []
@@ -81,7 +79,6 @@ class Artist(TreeItem):
 
 
 class Album(TreeItem):
-
     def __init__(self, id, name, has_been_expanded=False):
         TreeItem.__init__(self, id, name, has_been_expanded)
         self._tracks = []
@@ -107,7 +104,6 @@ class Album(TreeItem):
 
 
 class Track(TreeItem):
-
     def __init__(self, id, name, url):
         TreeItem.__init__(self, id, name)
         self._url = url

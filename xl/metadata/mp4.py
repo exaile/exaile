@@ -32,6 +32,7 @@ from mutagen import mp4
 class MP4Format(BaseFormat):
     MutagenType = mp4.MP4
     tag_mapping = {
+        # fmt: off
         'title':       '\xa9nam',
         'artist':      '\xa9ART',
         'albumartist': '\x61ART',
@@ -49,7 +50,8 @@ class MP4Format(BaseFormat):
         'comment':     '\xa9cmt',
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
-        'language': '----:com.apple.iTunes:LANGUAGE',
+        'language':    '----:com.apple.iTunes:LANGUAGE',
+        # fmt: on
     }
     others = False
     writable = True
@@ -94,12 +96,15 @@ class MP4Format(BaseFormat):
                 elif val.mime == 'image/png':
                     f[name].append(mp4.MP4Cover(val.data, mp4.MP4Cover.FORMAT_JPEG))
                 else:
-                    raise ValueError('MP4 does not support cover image type %s' % val.type)
+                    raise ValueError(
+                        'MP4 does not support cover image type %s' % val.type
+                    )
         elif name == 'tmpo':
             f[name] = [int(v) for v in value]
         elif name == '----:com.apple.iTunes:ORIGYEAR':
             f[name] = [str(v) for v in value]
         else:
             f[name] = value
+
 
 # vim: et sts=4 sw=4

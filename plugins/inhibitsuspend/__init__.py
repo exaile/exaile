@@ -82,8 +82,10 @@ class SuspendInhibit(object):
             self.adapter = XfceAdapter()
         # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
         elif session is '' and xdg_session is '':
-            logger.warning('Could not detect Desktop Session, will try default \
-                    Power Manager then Gnome')
+            logger.warning(
+                'Could not detect Desktop Session, will try default \
+                    Power Manager then Gnome'
+            )
             try:
                 self.adapter = PowerManagerAdapter()
             except EnvironmentError:
@@ -104,6 +106,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
         Thread safe
     """
+
     PROGRAM = 'exaile'
     ACTIVITY = 'playing-music'
 
@@ -218,9 +221,12 @@ class PowerManagerAdapter(SuspendAdapter):
         and have other small variances
     """
 
-    def __init__(self, bus_name='org.freedesktop.PowerManagement',
-                 object_name='/org/freedesktop/PowerManagement/Inhibit',
-                 interface_name='org.freedesktop.PowerManagement.Inhibit'):
+    def __init__(
+        self,
+        bus_name='org.freedesktop.PowerManagement',
+        object_name='/org/freedesktop/PowerManagement/Inhibit',
+        interface_name='org.freedesktop.PowerManagement.Inhibit',
+    ):
         SuspendAdapter.__init__(self, bus_name, object_name, interface_name)
 
     def _dbus_inhibit_call(self):
@@ -236,18 +242,24 @@ class GnomeAdapter(SuspendAdapter):
         but is has different bus name, object path and interface name
         The inhibit and uninhibit method signatures are also different
     """
+
     SUSPEND_FLAG = 8
 
     def __init__(self):
-        SuspendAdapter.__init__(self, 'org.gnome.SessionManager',
-                                '/org/gnome/SessionManager',
-                                'org.gnome.SessionManager')
+        SuspendAdapter.__init__(
+            self,
+            'org.gnome.SessionManager',
+            '/org/gnome/SessionManager',
+            'org.gnome.SessionManager',
+        )
 
     def _dbus_inhibit_call(self):
         """
             Gnome Interface has more paramters
         """
-        self.cookie = self.iface.Inhibit(self.PROGRAM, 1, self.ACTIVITY, self.SUSPEND_FLAG)
+        self.cookie = self.iface.Inhibit(
+            self.PROGRAM, 1, self.ACTIVITY, self.SUSPEND_FLAG
+        )
 
     def _dbus_uninhibit_call(self):
         """

@@ -68,9 +68,11 @@ class BackgroundPreference(widgets.RGBAButtonPreference):
 
 class FormatPreference(widgets.TextViewPreference):
     name = 'plugin/osd/format'
-    default = _('<span font_desc="Sans 11" foreground="#fff">$title</span>\n'
-                'by $artist\n'
-                'from $album')
+    default = _(
+        '<span font_desc="Sans 11" foreground="#fff">$title</span>\n'
+        'by $artist\n'
+        'from $album'
+    )
 
 
 class BorderRadiusPreference(widgets.SpinPreference):

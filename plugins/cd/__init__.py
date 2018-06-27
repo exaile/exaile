@@ -43,6 +43,7 @@ import cdprefs
 try:
     import DiscID
     import CDDB
+
     CDDB_AVAIL = True
 except Exception:
     CDDB_AVAIL = False
@@ -61,7 +62,6 @@ CDROM_DATA_TRACK = 0x04
 
 
 class CdPlugin(object):
-
     def enable(self, exaile):
         self.exaile = exaile
         self.hal = None
@@ -94,6 +94,7 @@ class CdPlugin(object):
 
     def get_preferences_pane(self):
         return cdprefs
+
 
 plugin_class = CdPlugin
 
@@ -151,7 +152,6 @@ class CDTocParser(object):
 
 
 class CDPlaylist(playlist.Playlist):
-
     def __init__(self, name=_("Audio Disc"), device=None):
         playlist.Playlist.__init__(self, name=name)
 
@@ -172,14 +172,15 @@ class CDPlaylist(playlist.Playlist):
         for count, length in enumerate(lengths):
             count += 1
             song = trax.Track("cdda://%d/#%s" % (count, self.device))
-            song.set_tags(title="Track %d" % count,
-                          tracknumber=str(count),
-                          __length=length)
+            song.set_tags(
+                title="Track %d" % count, tracknumber=str(count), __length=length
+            )
             songs[song.get_loc_for_io()] = song
 
         # FIXME: this can probably be cleaner
-        sort_tups = sorted([(int(s.get_tag_raw('tracknumber')[0]), s)
-                            for s in songs.values()])
+        sort_tups = sorted(
+            [(int(s.get_tag_raw('tracknumber')[0]), s) for s in songs.values()]
+        )
         sorted_elements = [s[1] for s in sort_tups]
 
         self.extend(sorted_elements)
@@ -207,11 +208,13 @@ class CDPlaylist(playlist.Playlist):
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
             tr = self[i]
-            tr.set_tags(title=info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'),
-                        album=title[1].decode('iso-8859-15', 'replace'),
-                        artist=title[0].decode('iso-8859-15', 'replace'),
-                        year=info['EXTD'].replace("YEAR: ", ""),
-                        genre=info['DGENRE'])
+            tr.set_tags(
+                title=info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'),
+                album=title[1].decode('iso-8859-15', 'replace'),
+                artist=title[0].decode('iso-8859-15', 'replace'),
+                year=info['EXTD'].replace("YEAR: ", ""),
+                genre=info['DGENRE'],
+            )
 
         self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
@@ -221,6 +224,7 @@ class CDDevice(KeyedDevice):
     """
         represents a CD
     """
+
     class_autoconnect = True
 
     def __init__(self, dev):
@@ -230,9 +234,11 @@ class CDDevice(KeyedDevice):
 
     def _get_panel_type(self):
         import imp
+
         try:
-            _cdguipanel = imp.load_source("_cdguipanel",
-                                          os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
+            _cdguipanel = imp.load_source(
+                "_cdguipanel", os.path.join(os.path.dirname(__file__), "_cdguipanel.py")
+            )
             return _cdguipanel.CDPanel
         except Exception:
             logger.exception("Could not import cd gui panel")
@@ -326,5 +332,6 @@ class UDisks2CdProvider(UDisksProvider):
     def on_device_changed(self, obj, udisks, device):
         if self._get_num_tracks(obj, udisks) is None:
             return 'remove'
+
 
 # vim: et sts=4 sw=4

@@ -35,6 +35,7 @@ from xl import event
 from xl import settings
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -94,6 +95,7 @@ class ExailePlayer(object):
 
         # TODO: support other engines
         from .gst.engine import ExaileGstEngine
+
         self._engine = ExaileGstEngine(self._name, self, disable_autoswitch)
         self._engine.initialize()
 
@@ -114,8 +116,7 @@ class ExailePlayer(object):
             i = int(track.get_tag_raw('__playcount'))
         except Exception:
             i = 0
-        track.set_tags(__playcount=i + 1,
-                       __last_played=time.time())
+        track.set_tags(__playcount=i + 1, __last_played=time.time())
 
     @common.idle_add()
     def _on_track_tags_changed(self, eventtype, track, tags):
@@ -502,8 +503,7 @@ class ExailePlayer(object):
             return
 
         if gapless:
-            if (self._auto_advance_delay != 0 or
-                    not self._gapless_enabled):
+            if self._auto_advance_delay != 0 or not self._gapless_enabled:
                 return
 
         return self.queue.get_next()
@@ -569,8 +569,9 @@ class ExailePlayer(object):
                     last = 0
             elif not isinstance(last, int):
                 last = 0
-            track.set_tag_raw('__playtime', last + int(time.time() -
-                                                       self._playtime_stamp))
+            track.set_tag_raw(
+                '__playtime', last + int(time.time() - self._playtime_stamp)
+            )
             self._playtime_stamp = None
 
     def _reset_playtime_stamp(self):

@@ -64,7 +64,9 @@ def get_priority_booster():
             # note that we use "Pro Audio" because it gives a higher priority, and
             # that's what Chrome does anyways...
             unused = cwin.DWORD()
-            obj.task_handle = AvSetMmThreadCharacteristics("Pro Audio", ctypes.byref(unused))
+            obj.task_handle = AvSetMmThreadCharacteristics(
+                "Pro Audio", ctypes.byref(unused)
+            )
 
         # A gstreamer thread ends
         elif status.type == Gst.StreamStatusType.LEAVE:

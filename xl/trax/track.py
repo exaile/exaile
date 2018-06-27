@@ -35,11 +35,7 @@ import weakref
 import re
 
 import xl.unicode
-from xl import (
-    event,
-    metadata,
-    settings,
-)
+from xl import event, metadata, settings
 from xl.metadata.tags import disk_tags
 from xl.nls import gettext as _
 from xl.unicode import shave_marks
@@ -73,6 +69,7 @@ _no_set_raw = {'__basename', '__loc'} | disk_tags
 
 _unset = object()
 
+
 class _MetadataCacher(object):
     """
         Cache metadata Format objects to speed up get_tag_disk
@@ -100,8 +97,7 @@ class _MetadataCacher(object):
         if self._cache:
             next_expiry = min(i[2] for i in self._cache)
             timeout = int((next_expiry + self.timeout) - current)
-            self._cleanup_id = GLib.timeout_add_seconds(timeout,
-                                                        self.__cleanup)
+            self._cleanup_id = GLib.timeout_add_seconds(timeout, self.__cleanup)
 
     def add(self, trackobj, formatobj):
         for item in self._cache:
@@ -113,8 +109,7 @@ class _MetadataCacher(object):
             least = min((i[2], i) for i in self._cache)[1]
             self._cache.remove(least)
         if not self._cleanup_id:
-            self._cleanup_id = GLib.timeout_add_seconds(self.timeout,
-                                                        self.__cleanup)
+            self._cleanup_id = GLib.timeout_add_seconds(self.timeout, self.__cleanup)
 
     def remove(self, trackobj):
         for item in self._cache:
@@ -136,9 +131,9 @@ class Track(object):
     """
         Represents a single track.
     """
+
     # save a little memory this way
-    __slots__ = ["__tags", "_scan_valid",
-                 "_dirty", "__weakref__", "_init"]
+    __slots__ = ["__tags", "_scan_valid", "_dirty", "__weakref__", "_init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
@@ -196,8 +191,11 @@ class Track(object):
 
                 if unpickles is not None:
                     tags = tr.list_tags()
-                    to_set = {tag: values for tag, values in unpickles.iteritems() \
-                              if tag.startswith('__') and tag not in tags}
+                    to_set = {
+                        tag: values
+                        for tag, values in unpickles.iteritems()
+                        if tag.startswith('__') and tag not in tags
+                    }
                     if to_set:
                         tr.set_tags(**to_set)
 
@@ -300,8 +298,9 @@ class Track(object):
             If a path is returned, it is safe to use for IO operations.
             Existence of a path does *not* guarantee file existence.
         """
-        raise DeprecationWarning('get_local_path() is '
-                                 'preferred over local_file_name()')
+        raise DeprecationWarning(
+            'get_local_path() is ' 'preferred over local_file_name()'
+        )
         return self.get_local_path()
 
     def get_local_path(self):
@@ -387,19 +386,21 @@ class Track(object):
             if f is None:
                 self._scan_valid = False
                 return False  # not a supported type
-            
+
             # Retrieve file specific metadata
             gloc = Gio.File.new_for_uri(loc)
-            mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+            mtime = gloc.query_info(
+                "time::modified", Gio.FileQueryInfoFlags.NONE, None
+            ).get_modification_time()
             mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
-            
+
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f
-            
+
             # Read the tags
             ntags = f.read_all()
             ntags['__modified'] = mtime
-            
+
             # TODO: this probably breaks on non-local files
             ntags['__basedir'] = gloc.get_parent().get_path()
 
@@ -444,7 +445,9 @@ class Track(object):
             Get the raw size of the file. Potentially slow.
         """
         f = Gio.File.new_for_uri(self.get_loc_for_io())
-        return f.query_info("standard::size", Gio.FileQueryInfoFlags.NONE, None).get_size()
+        return f.query_info(
+            "standard::size", Gio.FileQueryInfoFlags.NONE, None
+        ).get_size()
 
     def __repr__(self):
         return str(self)
@@ -488,7 +491,8 @@ class Track(object):
         if isinstance(values, list):
             values = [
                 xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                if isinstance(v, basestring) else v
+                if isinstance(v, basestring)
+                else v
                 for v in values
                 if v not in (None, '')
             ]
@@ -529,7 +533,7 @@ class Track(object):
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
         """
-        
+
         # tag changes can cause expensive UI updates, so don't emit the event
         # if the track hasn't actually changed
         changed = set()
@@ -537,11 +541,15 @@ class Track(object):
         for tag, values in kwargs.iteritems():
             if tag in _no_set_raw:
                 if tag == '__loc':
-                    logger.warning('Setting "__loc" directly is forbidden, use set_loc() instead.')
+                    logger.warning(
+                        'Setting "__loc" directly is forbidden, use set_loc() instead.'
+                    )
                 elif tag == '__basename':
                     logger.warning('Setting "__basename" directly is forbidden.')
                 else:
-                    logger.warning('Cannot set "%s" via set_tag_raw, use set_tag_disk instead', tag)
+                    logger.warning(
+                        'Cannot set "%s" via set_tag_raw, use set_tag_disk instead', tag
+                    )
                 continue
 
             # Transform and set the value. We do NOT delete the value from the tag
@@ -580,8 +588,9 @@ class Track(object):
 
         return value
 
-    def get_tag_sort(self, tag, join=True, artist_compilations=False,
-                     extend_title=True):
+    def get_tag_sort(
+        self, tag, join=True, artist_compilations=False, extend_title=True
+    ):
         """
             Get a tag value in a form suitable for sorting.
 
@@ -603,13 +612,13 @@ class Track(object):
             value = sorttag
         elif tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist',
-                                        u"\uffff\uffff\uffff\ufffe")
+                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\ufffe")
             else:
-                value = self.__tags.get('artist',
-                                        u"\uffff\uffff\uffff\uffff")
-            if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
-                                         u"\uffff\uffff\uffff\uffff"):
+                value = self.__tags.get('artist', u"\uffff\uffff\uffff\uffff")
+            if sorttag and value not in (
+                u"\uffff\uffff\uffff\ufffe",
+                u"\uffff\uffff\uffff\uffff",
+            ):
                 value = sorttag
             else:
                 sorttag = None
@@ -635,8 +644,11 @@ class Track(object):
             if tag == 'title':
                 basename = self.get_basename_display()
                 value = u"%s (%s)" % (value, basename)
-        elif not tag.startswith("__") and \
-                tag not in ('tracknumber', 'discnumber', 'bpm'):
+        elif not tag.startswith("__") and tag not in (
+            'tracknumber',
+            'discnumber',
+            'bpm',
+        ):
             if not sorttag:
                 value = self.format_sort(value)
             else:
@@ -649,8 +661,9 @@ class Track(object):
 
         return value
 
-    def get_tag_display(self, tag, join=True, artist_compilations=False,
-                        extend_title=True):
+    def get_tag_display(
+        self, tag, join=True, artist_compilations=False, extend_title=True
+    ):
         """
             Get a tag value in a form suitable for display.
 
@@ -711,8 +724,9 @@ class Track(object):
 
         return value
 
-    def get_tag_search(self, tag, format=True, artist_compilations=False,
-                       extend_title=True):
+    def get_tag_search(
+        self, tag, format=True, artist_compilations=False, extend_title=True
+    ):
         """
             Get a tag value suitable for passing to the search system.
             This includes quoting and list joining.
@@ -736,15 +750,20 @@ class Track(object):
                 value = self.__tags.get('artist')
         elif tag in ('tracknumber', 'discnumber'):
             value = self.split_numerical(self.__tags.get(tag))[0]
-        elif tag in ('__length', '__playcount', '__rating', '__startoffset', '__stopoffset'):
+        elif tag in (
+            '__length',
+            '__playcount',
+            '__rating',
+            '__startoffset',
+            '__stopoffset',
+        ):
             value = self.__tags.get(tag, 0)
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value != -1:
                     # TRANSLATORS: Bitrate (k here is short for kbps).
-                    value = [_("%dk") % value,
-                             self.__tags['__bitrate']]
+                    value = [_("%dk") % value, self.__tags['__bitrate']]
             except (KeyError, ValueError):
                 value = -1
         elif tag == '__basename':
@@ -935,7 +954,8 @@ class Track(object):
             returned with only whitespace removed.
         """
         stripped = xl.unicode.to_unicode(value).lstrip(
-            " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+            " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./"
+        )
         if stripped:
             return stripped
         else:
@@ -952,7 +972,7 @@ class Track(object):
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
-                value = value[len(word):]
+                value = value[len(word) :]
                 break
         return value
 
@@ -965,8 +985,11 @@ class Track(object):
         # will sort together.
         normalize = unicodedata.normalize
         category = unicodedata.category
-        return u''.join([c for c in normalize('NFKD', value)
-                         if category(c) != 'Mn']) + u" " + value
+        return (
+            u''.join([c for c in normalize('NFKD', value) if category(c) != 'Mn'])
+            + u" "
+            + value
+        )
 
     @staticmethod
     def expand_doubles(value):
@@ -981,8 +1004,9 @@ class Track(object):
         for k, v in _sortcharmap.iteritems():
             value = value.replace(k, v)
         return value
-# This is slower, don't use it!
-#        return u''.join((_sortcharmap.get(c, c) for c in value))
+
+    # This is slower, don't use it!
+    #        return u''.join((_sortcharmap.get(c, c) for c in value))
 
     @staticmethod
     def lower(value):
@@ -1023,5 +1047,6 @@ class Track(object):
     def _get_track_count(cls):
         '''Internal API, returns number of track objects we have'''
         return len(cls._Track__tracksdict)
+
 
 event.add_callback(Track._the_cuts_cb, 'collection_option_set')

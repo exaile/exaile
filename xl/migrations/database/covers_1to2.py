@@ -37,6 +37,7 @@ import xl.covers
 
 logger = logging.getLogger(__name__)
 
+
 def old_get_track_key(track):
     """
         Get the db mapping key for a track
@@ -58,6 +59,7 @@ def old_get_track_key(track):
         # no album info, cant store it
         return None
     return (tag, tuple(value))
+
 
 def migrate():
     """Migrate covers.db version 1 to 2 (Exaile 4.0)."""
@@ -84,5 +86,5 @@ def migrate():
     man.save()
 
     cachedir = os.path.join(man.location, 'cache')
-    for cachefile in (frozenset(os.listdir(cachedir)) - valid_cachefiles):
+    for cachefile in frozenset(os.listdir(cachedir)) - valid_cachefiles:
         os.remove(os.path.join(cachedir, cachefile))

@@ -11,6 +11,7 @@ logger = logging.getLogger(__file__)
 # todo support multiple connections?
 class CollectionWrapper:
     '''Class to wrap Exaile's collection to make it spydaap compatible'''
+
     class TrackWrapper:
         '''Wrap a single track for spydaap'''
 
@@ -65,9 +66,10 @@ class DaapServerPlugin(object):
         name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
         host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
 
-        self.__daapserver = DaapServer(CollectionWrapper(self.__exaile.collection),
-                                       port=port, name=name, host=host)
-        if(settings.get_option('plugin/daapserver/enabled', True)):
+        self.__daapserver = DaapServer(
+            CollectionWrapper(self.__exaile.collection), port=port, name=name, host=host
+        )
+        if settings.get_option('plugin/daapserver/enabled', True):
             self.__daapserver.start()
 
     def enable(self, exaile):

@@ -29,19 +29,10 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Pango
 
-from xl import (
-    event,
-    formatter,
-    main,
-    settings,
-    xdg
-)
+from xl import event, formatter, main, settings, xdg
 from xl.nls import gettext as _
 import xlgui
-from xlgui import (
-    cover,
-    guiutil
-)
+from xlgui import cover, guiutil
 from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
@@ -56,8 +47,7 @@ class TrackInfoPane(Gtk.Bin):
         self.__player = player
 
         builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path(
-            'ui', 'widgets', 'track_info.ui'))
+        builder.add_from_file(xdg.get_data_path('ui', 'widgets', 'track_info.ui'))
 
         info_box = builder.get_object('info_box')
         info_box.reparent(self)
@@ -65,13 +55,16 @@ class TrackInfoPane(Gtk.Bin):
         self.__auto_update = False
         self.__display_progress = False
         self.__formatter = formatter.TrackFormatter(
-            _('<span size="x-large" weight="bold">$title</span>\n'
-              'by $artist\n'
-              'from $album')
+            _(
+                '<span size="x-large" weight="bold">$title</span>\n'
+                'by $artist\n'
+                'from $album'
+            )
         )
         self.__formatter.connect('notify::format', self.on_notify_format)
-        self.__default_text = ('<span size="x-large" '
-                               'weight="bold">%s</span>\n\n' % _('Not Playing'))
+        self.__default_text = '<span size="x-large" ' 'weight="bold">%s</span>\n\n' % _(
+            'Not Playing'
+        )
         self.__cover_size = None
         self.__timer = None
         self.__track = None
@@ -81,8 +74,7 @@ class TrackInfoPane(Gtk.Bin):
         self.progress_box = builder.get_object('progress_box')
         self.playback_image = builder.get_object('playback_image')
         self.progressbar = PlaybackProgressBar(player)
-        guiutil.gtk_widget_replace(builder.get_object('progressbar'),
-                                   self.progressbar)
+        guiutil.gtk_widget_replace(builder.get_object('progressbar'), self.progressbar)
 
         self.cover = cover.CoverWidget(builder.get_object('cover_image'))
         self.cover.hide()
@@ -121,8 +113,12 @@ class TrackInfoPane(Gtk.Bin):
         if auto_update != self.__auto_update:
             self.__auto_update = auto_update
 
-            p_evts = ['playback_player_end', 'playback_track_start',
-                      'playback_toggle_pause', 'playback_error']
+            p_evts = [
+                'playback_player_end',
+                'playback_track_start',
+                'playback_toggle_pause',
+                'playback_error',
+            ]
             events = ['track_tags_changed', 'cover_set', 'cover_removed']
 
             if auto_update:
@@ -144,8 +140,7 @@ class TrackInfoPane(Gtk.Bin):
 
             :rtype: int
         """
-        return self.__cover_size or \
-            settings.get_option('gui/cover_width', 100)
+        return self.__cover_size or settings.get_option('gui/cover_width', 100)
 
     def set_cover_size(self, cover_size):
         """
@@ -233,21 +228,20 @@ class TrackInfoPane(Gtk.Bin):
 
         self.cover.set_track(track)
 
-        self.info_label.set_markup(self.__formatter.format(
-            track, markup_escape=True))
+        self.info_label.set_markup(self.__formatter.format(track, markup_escape=True))
         self.__update_widget_state()
 
     def __update_widget_state(self):
         if self.__display_progress:
-            if self.__track == self.__player.current and \
-               not self.__player.is_stopped():
+            if self.__track == self.__player.current and not self.__player.is_stopped():
 
                 if self.__player.is_paused():
                     icon_name = 'media-playback-pause'
                 else:
                     icon_name = 'media-playback-start'
                 self.playback_image.set_from_icon_name(
-                    icon_name, Gtk.IconSize.SMALL_TOOLBAR)
+                    icon_name, Gtk.IconSize.SMALL_TOOLBAR
+                )
 
             self.progress_box.set_no_show_all(False)
             self.progress_box.set_visible(True)
@@ -312,9 +306,11 @@ class TrackInfoPane(Gtk.Bin):
         """
             Updates the info pane on tag changes
         """
-        if self.__player is not None and \
-           not self.__player.is_stopped() and \
-           track is self.__track:
+        if (
+            self.__player is not None
+            and not self.__player.is_stopped()
+            and track is self.__track
+        ):
             self.set_track(track)
 
     def on_cover_set(self, event, covers, track):
@@ -346,8 +342,10 @@ class ToolTip(object):
                 for the tooltip
         """
         if self.__class__.__name__ == 'ToolTip':
-            raise TypeError("cannot create instance of abstract "
-                            "(non-instantiable) type `ToolTip'")
+            raise TypeError(
+                "cannot create instance of abstract "
+                "(non-instantiable) type `ToolTip'"
+            )
 
         self.__widget = widget
         self.__widget.unparent()  # Just to be sure
@@ -406,7 +404,7 @@ class StatusbarTextFormatter(formatter.Formatter):
         self._substitutions = {
             'collection_count': self.get_collection_count,
             'playlist_count': self.get_playlist_count,
-            'playlist_duration': self.get_playlist_duration
+            'playlist_duration': self.get_playlist_duration,
         }
 
     def get_collection_count(self):
@@ -450,9 +448,11 @@ class StatusbarTextFormatter(formatter.Formatter):
             else:
                 count = 0
         else:
-            raise ValueError('Invalid argument "%s" passed to parameter '
-                             '"selection" for "playlist_count", possible arguments are '
-                             '"none", "override" and "only"' % selection)
+            raise ValueError(
+                'Invalid argument "%s" passed to parameter '
+                '"selection" for "playlist_count", possible arguments are '
+                '"none", "override" and "only"' % selection
+            )
 
         if count == 0:
             return ''
@@ -479,12 +479,12 @@ class StatusbarTextFormatter(formatter.Formatter):
         if not isinstance(page, playlist.PlaylistPage):
             return ''
 
-        playlist_duration = sum(t.get_tag_raw('__length') or 0
-                                for t in page.playlist)
+        playlist_duration = sum(t.get_tag_raw('__length') or 0 for t in page.playlist)
         selection_tracks = page.view.get_selected_tracks()
         selection_count = len(selection_tracks)
-        selection_duration = sum(t.get_tag_raw('__length') or 0
-                                 for t in selection_tracks)
+        selection_duration = sum(
+            t.get_tag_raw('__length') or 0 for t in selection_tracks
+        )
 
         if selection == 'none':
             duration = playlist_duration
@@ -499,9 +499,11 @@ class StatusbarTextFormatter(formatter.Formatter):
             else:
                 duration = 0
         else:
-            raise ValueError('Invalid argument "%s" passed to parameter '
-                             '"selection" for "playlist_duration", possible arguments are '
-                             '"none", "override" and "only"' % selection)
+            raise ValueError(
+                'Invalid argument "%s" passed to parameter '
+                '"selection" for "playlist_duration", possible arguments are '
+                '"none", "override" and "only"' % selection
+            )
 
         if duration == 0:
             return ''
@@ -523,10 +525,13 @@ class Statusbar(object):
         # widgets of the status bar into it.
         self.status_bar = status_bar
         self.formatter = StatusbarTextFormatter(
-            settings.get_option('gui/statusbar_info_format',
-                                '${playlist_count:selection=override, suffix= }'
-                                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
-                                '$collection_count'))
+            settings.get_option(
+                'gui/statusbar_info_format',
+                '${playlist_count:selection=override, suffix= }'
+                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
+                '$collection_count',
+            )
+        )
 
         self.info_label = Gtk.Label()
 
@@ -539,7 +544,7 @@ class Statusbar(object):
 
         # TODO: GI
         # self.status_bar.set_app_paintable(True)
-        #self.status_bar.connect('draw', self.on_draw)
+        # self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):
         """

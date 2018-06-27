@@ -16,20 +16,14 @@
 import logging
 import urllib2
 
-from xl import (
-    common,
-    covers,
-    providers
-)
+from xl import common, covers, providers
 
 import musicbrainzngs
 
 logger = logging.getLogger(__name__)
 
 musicbrainzngs.set_useragent(
-    'Exaile_MusicBrainz_Covers',
-    '1.0.0',
-    'https://exaile.org/'
+    'Exaile_MusicBrainz_Covers', '1.0.0', 'https://exaile.org/'
 )
 
 
@@ -51,6 +45,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
         Searches MusicBrainz for an album cover
     """
+
     name = 'musicbrainz'
     title = 'MusicBrainz'
     __caa_url = 'http://coverartarchive.org/release/{mbid}/front-{size}'
@@ -72,7 +67,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
             release=album,
             artistname=artist,
             format='CD',
-            limit=3  # Unlimited search is slow
+            limit=3,  # Unlimited search is slow
         )
 
         if result['release-list']:

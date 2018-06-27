@@ -27,15 +27,9 @@
 import logging
 
 from xl.nls import gettext as _
-from xl import (
-    providers,
-    settings
-)
+from xl import providers, settings
 
-from xlgui.widgets import (
-    menu,
-    notebook
-)
+from xlgui.widgets import menu, notebook
 from xlgui.panel import lyrics
 
 
@@ -47,19 +41,23 @@ class PanelData(object):
     __slots__ = ['tab', 'menuitem', 'panel', 'position', 'shown']
 
     def __init__(self, tab, panel, position, menuitem):
-        self.tab = tab              # Notebook tab
-        self.menuitem = menuitem    # Menuitem
-        self.panel = panel          # Panel provider
-        self.position = position    # Position in notebook
-        self.shown = True           # Whether the panel is shown
+        self.tab = tab  # Notebook tab
+        self.menuitem = menuitem  # Menuitem
+        self.panel = panel  # Panel provider
+        self.position = position  # Position in notebook
+        self.shown = True  # Whether the panel is shown
 
     @property
     def opts(self):
         return (self.shown, self.position)
 
     def __repr__(self):
-        return '<PanelData tab: %s, panel: %s, position: %s, shown: %s>' % \
-            (self.tab, self.panel, self.position, self.shown)
+        return '<PanelData tab: %s, panel: %s, position: %s, shown: %s>' % (
+            self.tab,
+            self.panel,
+            self.position,
+            self.shown,
+        )
 
 
 class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
@@ -82,7 +80,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         notebook.SmartNotebook.__init__(self, vertical=True)
 
         self.exaile = exaile
-        self.panels = {}    # key: name, value: PanelData object
+        self.panels = {}  # key: name, value: PanelData object
 
         self.set_add_tab_on_empty(False)
 
@@ -97,9 +95,9 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         self.view_menu = menu.ProviderMenu('panel-tab-context', None)
 
         # setup/register the view menu
-        menu.simple_menu_item('panel-menu', ['show-playing-track'], _('P_anels'),
-                              submenu=self.view_menu) \
-            .register('menubar-view-menu')
+        menu.simple_menu_item(
+            'panel-menu', ['show-playing-track'], _('P_anels'), submenu=self.view_menu
+        ).register('menubar-view-menu')
 
         providers.ProviderHandler.__init__(self, 'main-panel', simple_init=True)
 
@@ -145,15 +143,20 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         tab = notebook.NotebookTab(self, panel, vertical=True)
         tab.provider = provider
 
-        item = menu.check_menu_item(provider.name, [],
-                                    panel.get_page_name(),
-                                    lambda *a: self.panels[provider.name].shown,
-                                    lambda *a: self.toggle_panel(provider.name))
+        item = menu.check_menu_item(
+            provider.name,
+            [],
+            panel.get_page_name(),
+            lambda *a: self.panels[provider.name].shown,
+            lambda *a: self.toggle_panel(provider.name),
+        )
 
         providers.register('panel-tab-context', item)
 
         self.add_tab(tab, panel)
-        self.panels[provider.name] = PanelData(tab, provider, self.get_n_pages() - 1, item)
+        self.panels[provider.name] = PanelData(
+            tab, provider, self.get_n_pages() - 1, item
+        )
 
         self.save_panel_settings()
 
@@ -216,14 +219,18 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
     def on_gui_loaded(self):
 
         last_selected_panel = settings.get_option(
-            'gui/last_selected_panel', 'collection')
+            'gui/last_selected_panel', 'collection'
+        )
 
-        order = settings.get_option('gui/panels',
-                                    {'collection': (True, 0),
-                                     'radio': (True, 1),
-                                     'playlists': (True, 2),
-                                     'files': (True, 3)
-                                     })
+        order = settings.get_option(
+            'gui/panels',
+            {
+                'collection': (True, 0),
+                'radio': (True, 1),
+                'playlists': (True, 2),
+                'files': (True, 3),
+            },
+        )
 
         selected_panel = None
 
@@ -260,30 +267,33 @@ def _register_builtin_panels(exaile, window):
 
     logger.info("Loading panels...")
 
-    providers.register('main-panel',
-                       collection.CollectionPanel(window,
-                                                  exaile.collection,
-                                                  'collection',
-                                                  _show_collection_empty_message=True)
-                       )
+    providers.register(
+        'main-panel',
+        collection.CollectionPanel(
+            window, exaile.collection, 'collection', _show_collection_empty_message=True
+        ),
+    )
 
-    providers.register('main-panel',
-                       radio.RadioPanel(window, exaile.collection,
-                                        exaile.radio, exaile.stations, 'radio')
-                       )
+    providers.register(
+        'main-panel',
+        radio.RadioPanel(
+            window, exaile.collection, exaile.radio, exaile.stations, 'radio'
+        ),
+    )
 
-    providers.register('main-panel',
-                       playlists.PlaylistsPanel(window,
-                                                exaile.playlists,
-                                                exaile.smart_playlists,
-                                                exaile.collection,
-                                                'playlists')
-                       )
+    providers.register(
+        'main-panel',
+        playlists.PlaylistsPanel(
+            window,
+            exaile.playlists,
+            exaile.smart_playlists,
+            exaile.collection,
+            'playlists',
+        ),
+    )
 
-    providers.register('main-panel',
-                       files.FilesPanel(window, exaile.collection, 'files')
-                       )
+    providers.register(
+        'main-panel', files.FilesPanel(window, exaile.collection, 'files')
+    )
 
-    providers.register('main-panel',
-                       lyrics.LyricsPanel(window, 'lyrics')
-                       )
+    providers.register('main-panel', lyrics.LyricsPanel(window, 'lyrics'))

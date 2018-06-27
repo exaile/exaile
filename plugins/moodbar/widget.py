@@ -20,18 +20,17 @@ from __future__ import division, print_function, unicode_literals
 import collections
 
 import gi
+
 gi.require_version('PangoCairo', '1.0')
 
-from gi.repository import (
-    Gtk,
-    Pango,
-    PangoCairo,
-)
+from gi.repository import Gtk, Pango, PangoCairo
 
 import painter
 
 
-Extents = collections.namedtuple('Extents', 'x_bearing y_bearing width height x_advance y_advance')
+Extents = collections.namedtuple(
+    'Extents', 'x_bearing y_bearing width height x_advance y_advance'
+)
 
 
 class Moodbar(Gtk.DrawingArea):

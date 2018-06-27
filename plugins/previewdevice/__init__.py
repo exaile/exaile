@@ -29,13 +29,7 @@ from gi.repository import Gtk
 
 import os
 
-from xl import (
-    event,
-    providers,
-    player,
-    settings,
-    xdg
-)
+from xl import event, providers, player, settings, xdg
 
 from xl.nls import gettext as _
 
@@ -45,6 +39,7 @@ from xlgui.widgets import menu, playback
 import previewprefs
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -52,9 +47,11 @@ class SecondaryOutputPlugin(object):
     '''Implements logic for plugin'''
 
     __play_image = Gtk.Image.new_from_icon_name(
-        'media-playback-start', Gtk.IconSize.BUTTON)
+        'media-playback-start', Gtk.IconSize.BUTTON
+    )
     __pause_image = Gtk.Image.new_from_icon_name(
-        'media-playback-pause', Gtk.IconSize.BUTTON)
+        'media-playback-pause', Gtk.IconSize.BUTTON
+    )
 
     def get_preferences_pane(self):
         return previewprefs
@@ -71,15 +68,13 @@ class SecondaryOutputPlugin(object):
         # Initialize the player objects needed
         #
 
-        self.player = player.player.ExailePlayer('preview_device',
-                                                 disable_autoswitch=True)
+        self.player = player.player.ExailePlayer(
+            'preview_device', disable_autoswitch=True
+        )
         self.queue = player.queue.PlayQueue(
             self.player,
-            location=os.path.join(
-                xdg.get_data_dir(),
-                'preview_device_queue.state'
-            ),
-            name='Preview Device Queue'
+            location=os.path.join(xdg.get_data_dir(), 'preview_device_queue.state'),
+            name='Preview Device Queue',
         )
 
         #
@@ -121,8 +116,7 @@ class SecondaryOutputPlugin(object):
         self.playpause_button.set_relief(Gtk.ReliefStyle.NONE)
         self._on_playback_end(None, None, None)
         self.playpause_button.connect(
-            'button-press-event',
-            self._on_playpause_button_clicked
+            'button-press-event', self._on_playpause_button_clicked
         )
 
         self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
@@ -151,20 +145,21 @@ class SecondaryOutputPlugin(object):
             '',
             _('Preview Player'),
             lambda *e: self.hooked,
-            self._on_view
+            self._on_view,
         )
 
         providers.register('menubar-view-menu', self.menu)
 
-        self.preview_menuitem = menu.simple_menu_item('_preview', ['enqueue'],
-                                                      _('Preview'), callback=self._on_preview,
-                                                      condition_fn=lambda n, p, c: not c['selection-empty'])
+        self.preview_menuitem = menu.simple_menu_item(
+            '_preview',
+            ['enqueue'],
+            _('Preview'),
+            callback=self._on_preview,
+            condition_fn=lambda n, p, c: not c['selection-empty'],
+        )
 
         # TODO: Setup on other context menus
-        self.preview_provides = [
-            'track-panel-menu',
-            'playlist-context-menu',
-        ]
+        self.preview_provides = ['track-panel-menu', 'playlist-context-menu']
 
         for provide in self.preview_provides:
             providers.register(provide, self.preview_menuitem)
@@ -300,8 +295,9 @@ class SecondaryOutputPlugin(object):
         """
 
         if event.button == Gdk.BUTTON_PRIMARY:
-            if event.type == Gdk.EventType.BUTTON_PRESS and \
-                    (self.player.is_paused() or self.player.is_playing()):
+            if event.type == Gdk.EventType.BUTTON_PRESS and (
+                self.player.is_paused() or self.player.is_playing()
+            ):
                 self.player.toggle_pause()
             elif event.type == Gdk.EventType._2BUTTON_PRESS:
                 self.player.stop()
@@ -342,7 +338,8 @@ class SecondaryOutputPlugin(object):
 
         self.playpause_button.set_image(self.__pause_image)
         self.playpause_button.set_tooltip_text(
-            _('Pause Playback (double click to stop)'))
+            _('Pause Playback (double click to stop)')
+        )
 
     def _on_playback_end(self, type, player, object):
         """
@@ -355,8 +352,7 @@ class SecondaryOutputPlugin(object):
         """
             Called when there has been a playback error
         """
-        main.mainwindow().message.show_error(
-            _('Playback error encountered!'), message)
+        main.mainwindow().message.show_error(_('Playback error encountered!'), message)
 
     def _on_toggle_pause(self, type, player, object):
         """

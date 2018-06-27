@@ -32,6 +32,7 @@
 
 from xl import event
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -72,11 +73,8 @@ class ProviderManager(object):
             providers.append(provider)
             logger.debug(
                 "Provider %(provider)s registered for service %(service)s "
-                "with target %(target)s" % {
-                    'provider': provider.name,
-                    'service': servicename,
-                    'target': target
-                }
+                "with target %(target)s"
+                % {'provider': provider.name, 'service': servicename, 'target': target}
             )
             event.log_event("%s_provider_added" % servicename, self, (provider, target))
 
@@ -99,13 +97,16 @@ class ProviderManager(object):
                 service[target].remove(provider)
                 logger.debug(
                     "Provider %(provider)s unregistered from "
-                    "service %(service)s with target %(target)s" % {
+                    "service %(service)s with target %(target)s"
+                    % {
                         'provider': provider.name,
                         'service': servicename,
-                        'target': target
+                        'target': target,
                     }
                 )
-                event.log_event("%s_provider_removed" % servicename, self, (provider, target))
+                event.log_event(
+                    "%s_provider_removed" % servicename, self, (provider, target)
+                )
                 if not service[target]:  # no values for target key then del it
                     del service[target]
         except KeyError:
@@ -167,6 +168,7 @@ class ProviderManager(object):
 
         return None
 
+
 MANAGER = ProviderManager()
 register = MANAGER.register_provider
 unregister = MANAGER.unregister_provider
@@ -200,10 +202,10 @@ class ProviderHandler(object):
         if simple_init:
             for provider in MANAGER.get_providers(servicename, target):
                 self.on_provider_added(provider)
-        event.add_ui_callback(self._add_callback,
-                              "%s_provider_added" % servicename)
-        event.add_ui_callback(self._remove_callback,
-                              "%s_provider_removed" % servicename)
+        event.add_ui_callback(self._add_callback, "%s_provider_added" % servicename)
+        event.add_ui_callback(
+            self._remove_callback, "%s_provider_removed" % servicename
+        )
 
     def _add_callback(self, name, obj, ptuple):
         """
@@ -271,7 +273,6 @@ class MultiProviderHandler(object):
     '''
 
     class _ProxyProvider(ProviderHandler):
-
         def __init__(self, servicename, target, simple_init, parent):
             self.parent = parent
             ProviderHandler.__init__(self, servicename, target, simple_init)
@@ -285,7 +286,11 @@ class MultiProviderHandler(object):
     def __init__(self, servicenames, target=None, simple_init=False):
         self.providers = []
         for servicename in servicenames:
-            self.providers.append(MultiProviderHandler._ProxyProvider(servicename, target, simple_init, self))
+            self.providers.append(
+                MultiProviderHandler._ProxyProvider(
+                    servicename, target, simple_init, self
+                )
+            )
 
     def on_provider_added(self, provider):
         """
@@ -315,5 +320,6 @@ class MultiProviderHandler(object):
         for provider in self.providers:
             providers.extend(provider.get_providers())
         return providers
+
 
 # vim: et sts=4 sw=4

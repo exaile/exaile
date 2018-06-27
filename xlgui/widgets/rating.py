@@ -40,6 +40,7 @@ class RatingWidget(Gtk.EventBox):
         A rating widget which displays a row of
         images and allows for selecting the rating
     """
+
     __gproperties__ = {
         'rating': (
             GObject.TYPE_INT,
@@ -48,15 +49,11 @@ class RatingWidget(Gtk.EventBox):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
     __gsignals__ = {
-        'rating-changed': (
-            GObject.SignalFlags.RUN_LAST,
-            None,
-            (GObject.TYPE_INT,)
-        )
+        'rating-changed': (GObject.SignalFlags.RUN_LAST, None, (GObject.TYPE_INT,))
     }
 
     def __init__(self, rating=0, player=None):
@@ -83,8 +80,12 @@ class RatingWidget(Gtk.EventBox):
 
         if self._player is not None:
 
-            event.add_ui_callback(self.on_rating_update, 'playback_track_start', self._player)
-            event.add_ui_callback(self.on_rating_update, 'playback_track_end', self._player)
+            event.add_ui_callback(
+                self.on_rating_update, 'playback_track_start', self._player
+            )
+            event.add_ui_callback(
+                self.on_rating_update, 'playback_track_end', self._player
+            )
             event.add_ui_callback(self.on_rating_update, 'rating_changed')
 
             self.on_rating_update('rating_changed', None, None)
@@ -94,8 +95,12 @@ class RatingWidget(Gtk.EventBox):
             Cleanups
         """
         if self._player is not None:
-            event.remove_callback(self.on_rating_update, 'playback_track_start', self._player)
-            event.remove_callback(self.on_rating_update, 'playback_track_end', self._player)
+            event.remove_callback(
+                self.on_rating_update, 'playback_track_start', self._player
+            )
+            event.remove_callback(
+                self.on_rating_update, 'playback_track_end', self._player
+            )
             event.remove_callback(self.on_rating_update, 'rating_changed')
 
     def do_get_property(self, property):
@@ -118,8 +123,7 @@ class RatingWidget(Gtk.EventBox):
                 value = clamp(value, 0, settings.get_option('rating/maximum', 5))
 
             self._rating = value
-            self._image.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_rating(value).pixbuf)
+            self._image.set_from_pixbuf(icons.MANAGER.pixbuf_from_rating(value).pixbuf)
 
             self.emit('rating-changed', value)
         else:
@@ -139,7 +143,7 @@ class RatingWidget(Gtk.EventBox):
                 x=event.area.x,
                 y=event.area.y,
                 width=event.area.width,
-                height=event.area.height
+                height=event.area.height,
             )
 
         Gtk.EventBox.do_expose_event(self, event)
@@ -159,8 +163,7 @@ class RatingWidget(Gtk.EventBox):
         position = (event.x + threshold) / allocation.width
         rating = int(position * maximum)
 
-        self._image.set_from_pixbuf(
-            icons.MANAGER.pixbuf_from_rating(rating).pixbuf)
+        self._image.set_from_pixbuf(icons.MANAGER.pixbuf_from_rating(rating).pixbuf)
 
     def do_leave_notify_event(self, event):
         """
@@ -170,7 +173,8 @@ class RatingWidget(Gtk.EventBox):
             return
 
         self._image.set_from_pixbuf(
-            icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
+            icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf
+        )
 
     def do_button_release_event(self, event):
         """
@@ -221,7 +225,8 @@ class RatingWidget(Gtk.EventBox):
         if self._player.current is not None:
             self._rating = self._player.current.get_rating()
             self._image.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
+                icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf
+            )
             self.set_sensitive(True)
         else:
             self.set_sensitive(False)
@@ -231,6 +236,7 @@ class RatingMenuItem(Gtk.MenuItem):
     """
         A menuitem containing a rating widget
     """
+
     __gproperties__ = {
         'rating': (
             GObject.TYPE_INT,
@@ -239,15 +245,11 @@ class RatingMenuItem(Gtk.MenuItem):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
     __gsignals__ = {
-        'rating-changed': (
-            GObject.SignalFlags.RUN_LAST,
-            None,
-            (GObject.TYPE_INT,)
-        )
+        'rating-changed': (GObject.SignalFlags.RUN_LAST, None, (GObject.TYPE_INT,))
     }
 
     def __init__(self, rating=0, player=None):
@@ -267,8 +269,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
         self.add(box)
 
-        self.rating_widget.connect('rating-changed',
-                                   self.on_rating_changed)
+        self.rating_widget.connect('rating-changed', self.on_rating_changed)
 
     def do_get_property(self, property):
         """
@@ -295,8 +296,9 @@ class RatingMenuItem(Gtk.MenuItem):
         allocation = self.rating_widget.get_allocation()
 
         if allocation.x < event.x < allocation.x + allocation.width:
-            x, y = self.translate_coordinates(self.rating_widget,
-                                              int(event.x), int(event.y))
+            x, y = self.translate_coordinates(
+                self.rating_widget, int(event.x), int(event.y)
+            )
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('motion-notify-event', event.copy())
 
@@ -313,8 +315,9 @@ class RatingMenuItem(Gtk.MenuItem):
         allocation = self.rating_widget.get_allocation()
 
         if allocation.x < event.x < allocation.x + allocation.width:
-            x, y = self.translate_coordinates(self.rating_widget,
-                                              int(event.x), int(event.y))
+            x, y = self.translate_coordinates(
+                self.rating_widget, int(event.x), int(event.y)
+            )
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('button-release-event', event.copy())
 
@@ -330,6 +333,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         A cell renderer drawing rating images
         and allowing for selection of ratings
     """
+
     __gproperties__ = {
         'rating': (
             GObject.TYPE_INT,
@@ -338,14 +342,14 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
     __gsignals__ = {
         'rating-changed': (
             GObject.SignalFlags.RUN_LAST,
             None,
-            (GObject.TYPE_PYOBJECT, GObject.TYPE_INT)
+            (GObject.TYPE_PYOBJECT, GObject.TYPE_INT),
         )
     }
 
@@ -372,12 +376,13 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         """
         if property.name == 'rating':
             self.rating = value
-            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating, self.size_ratio).pixbuf
+            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(
+                self.rating, self.size_ratio
+            ).pixbuf
         else:
             raise AttributeError('unknown property %s' % property.name)
 
-    def do_activate(self, event, widget, path,
-                    background_area, cell_area, flags):
+    def do_activate(self, event, widget, path, background_area, cell_area, flags):
         """
             Checks if a button press event did occur
             within the clickable rating image area
@@ -390,19 +395,20 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             x=0,
             y=self.props.ypad,
             width=self.props.pixbuf.get_width(),
-            height=self.props.pixbuf.get_height()
+            height=self.props.pixbuf.get_height(),
         )
 
         # Move event location relative to zero
         event.x -= cell_area.x + click_area.x
         event.y -= cell_area.y + click_area.y
 
-        if 0 <= event.x <= click_area.width and \
-           0 <= event.y <= click_area.height:
+        if 0 <= event.x <= click_area.width and 0 <= event.y <= click_area.height:
             fraction = event.x / click_area.width
             maximum = settings.get_option('rating/maximum', 5)
             rating = fraction * maximum + 1
             self.emit('rating-changed', (int(path),), rating)
+
+
 '''
     No longer needed in GTK3?
 

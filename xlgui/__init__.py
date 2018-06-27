@@ -31,25 +31,19 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 import os
 import sys
 
-from xl import (
-    common,
-    player,
-    providers,
-    settings,
-    version,
-    xdg
-)
+from xl import common, player, providers, settings, version, xdg
 from xl.nls import gettext as _
 from xlgui import guiutil
 
-version.register("GTK+", "%s.%s.%s" % (Gtk.MAJOR_VERSION,
-                                       Gtk.MINOR_VERSION,
-                                       Gtk.MICRO_VERSION))
+version.register(
+    "GTK+", "%s.%s.%s" % (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION)
+)
 
 
 def get_controller():
@@ -60,6 +54,7 @@ class Main(object):
     """
         This is the main gui controller for exaile
     """
+
     _main = None
 
     def __init__(self, exaile):
@@ -98,9 +93,15 @@ class Main(object):
             # some clients, e.g. pavucontrol.
             os.environ['PULSE_PROP_application.icon_name'] = exaile_icon_path
 
-        for name in ('exaile-pause', 'exaile-play',
-                     'office-calendar', 'extension',
-                     'music-library', 'artist', 'genre'):
+        for name in (
+            'exaile-pause',
+            'exaile-play',
+            'office-calendar',
+            'extension',
+            'music-library',
+            'artist',
+            'genre',
+        ):
             add_icon(name, images_dir)
         for name in ('dynamic', 'repeat', 'shuffle'):
             add_icon('media-playlist-' + name, images_dir)
@@ -126,19 +127,22 @@ class Main(object):
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
 
-        guiutil.gtk_widget_replace(panel_notebook,
-                                   self.panel_notebook)
-        self.panel_notebook.get_parent()    \
-            .child_set_property(self.panel_notebook, 'shrink', False)
+        guiutil.gtk_widget_replace(panel_notebook, self.panel_notebook)
+        self.panel_notebook.get_parent().child_set_property(
+            self.panel_notebook, 'shrink', False
+        )
 
         if settings.get_option('gui/use_tray', False):
             if tray.is_supported():
                 self.tray_icon = tray.TrayIcon(self.main)
             else:
                 settings.set_option('gui/use_tray', False)
-                logger.warn("Tray icons are not supported on your platform. Disabling tray icon.")
+                logger.warn(
+                    "Tray icons are not supported on your platform. Disabling tray icon."
+                )
 
         from xl import event
+
         event.add_ui_callback(self.add_device_panel, 'device_connected')
         event.add_ui_callback(self.remove_device_panel, 'device_disconnected')
         event.add_ui_callback(self.on_gui_loaded, 'gui_loaded')
@@ -204,19 +208,21 @@ class Main(object):
             Shows the cover manager
         """
         from xlgui.cover import CoverManager
-        CoverManager(self.main.window,
-                     self.exaile.collection)
+
+        CoverManager(self.main.window, self.exaile.collection)
 
     def show_preferences(self):
         """
             Shows the preferences dialog
         """
         from xlgui.preferences import PreferencesDialog
+
         dialog = PreferencesDialog(self.main.window, self)
         dialog.run()
 
     def show_devices(self):
         from xlgui.devices import ManagerDialog
+
         dialog = ManagerDialog(self.main.window, self)
         dialog.run()
 
@@ -230,8 +236,7 @@ class Main(object):
         from xl.collection import Library
         from xlgui.collection import CollectionManagerDialog
 
-        dialog = CollectionManagerDialog(self.main.window,
-                                         self.exaile.collection)
+        dialog = CollectionManagerDialog(self.main.window, self.exaile.collection)
         result = dialog.run()
         dialog.hide()
 
@@ -239,15 +244,22 @@ class Main(object):
             collection = self.exaile.collection
             collection.freeze_libraries()
 
-            collection_libraries = sorted([(l.location, l.monitored, l.startup_scan)
-                                           for l in collection.libraries.itervalues()])
+            collection_libraries = sorted(
+                [
+                    (l.location, l.monitored, l.startup_scan)
+                    for l in collection.libraries.itervalues()
+                ]
+            )
             new_libraries = sorted(dialog.get_items())
 
             if collection_libraries != new_libraries:
-                collection_locations = [location
-                                        for location, monitored, startup_scan in collection_libraries]
-                new_locations = [location
-                                 for location, monitored, startup_scan in new_libraries]
+                collection_locations = [
+                    location
+                    for location, monitored, startup_scan in collection_libraries
+                ]
+                new_locations = [
+                    location for location, monitored, startup_scan in new_libraries
+                ]
 
                 if collection_locations != new_locations:
                     for location in new_locations:
@@ -298,11 +310,13 @@ class Main(object):
         if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread
 
-            thread = CollectionScanThread(self.exaile.collection, startup_scan=startup,
-                                          force_update=force_update)
+            thread = CollectionScanThread(
+                self.exaile.collection, startup_scan=startup, force_update=force_update
+            )
             thread.connect('done', self.on_rescan_done)
-            self.progress_manager.add_monitor(thread,
-                                              _("Scanning collection..."), 'drive-harddisk')
+            self.progress_manager.add_monitor(
+                thread, _("Scanning collection..."), 'drive-harddisk'
+            )
 
     def on_rescan_done(self, thread):
         """
@@ -353,28 +367,39 @@ class Main(object):
             elif issubclass(device.panel_type, xlgui.panel.Panel):
                 paneltype = device.panel_type
 
-        panel = paneltype(self.main.window, self.main,
-                          device, device.get_name())
+        panel = paneltype(self.main.window, self.main, device, device.get_name())
 
         do_sort = True
-        panel.connect('append-items', lambda _panel, items, play:
-                      self.main.on_append_items(items, play, sort=do_sort))
-        panel.connect('queue-items', lambda _panel, items:
-                      self.main.on_append_items(items, queue=True, sort=do_sort))
-        panel.connect('replace-items', lambda _panel, items:
-                      self.main.on_append_items(items, replace=True, sort=do_sort))
+        panel.connect(
+            'append-items',
+            lambda _panel, items, play: self.main.on_append_items(
+                items, play, sort=do_sort
+            ),
+        )
+        panel.connect(
+            'queue-items',
+            lambda _panel, items: self.main.on_append_items(
+                items, queue=True, sort=do_sort
+            ),
+        )
+        panel.connect(
+            'replace-items',
+            lambda _panel, items: self.main.on_append_items(
+                items, replace=True, sort=do_sort
+            ),
+        )
 
         self.device_panels[device.get_name()] = panel
         GLib.idle_add(providers.register, 'main-panel', panel)
         thread = CollectionScanThread(device.get_collection())
         thread.connect('done', panel.load_tree)
-        self.progress_manager.add_monitor(thread,
-                                          _("Scanning %s..." % device.name), 'drive-harddisk')
+        self.progress_manager.add_monitor(
+            thread, _("Scanning %s..." % device.name), 'drive-harddisk'
+        )
 
     def remove_device_panel(self, type, obj, device):
         try:
-            providers.unregister('main-panel',
-                                 self.device_panels[device.get_name()])
+            providers.unregister('main-panel', self.device_panels[device.get_name()])
         except ValueError:
             logger.debug("Couldn't remove panel for %s", device.get_name())
         del self.device_panels[device.get_name()]
@@ -389,6 +414,7 @@ class Main(object):
 
         try:
             import gi
+
             gi.require_version('GtkosxApplication', '1.0')
             from gi.repository import GtkosxApplication
         except (ValueError, ImportError):
@@ -408,10 +434,8 @@ class Main(object):
         # If the dock icon gets clicked we get
         # applicationShouldHandleReopen_hasVisibleWindows_ and show everything.
         class Delegate(NSObject):
-
             @objc.signature('B@:#B')
-            def applicationShouldHandleReopen_hasVisibleWindows_(
-                    self, ns_app, flag):
+            def applicationShouldHandleReopen_hasVisibleWindows_(self, ns_app, flag):
                 logger.debug("osx: handle reopen")
                 # TODO
                 # app.present()

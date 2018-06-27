@@ -57,9 +57,9 @@ class Quitter(object):
         return 'Type %s() to exit.' % self.name
 
     def __call__(self):
-        self.exit_function()     # Passed in exit function
-        site.setquit()           # Restore default builtins
-        exit()                   # Call builtin
+        self.exit_function()  # Passed in exit function
+        site.setquit()  # Restore default builtins
+        exit()  # Call builtin
 
 
 class IPView(ip.IPythonView):
@@ -85,17 +85,18 @@ class IPView(ip.IPythonView):
         self.updateNamespace(namespace)  # expose exaile (passed in)
 
         # prevent exit and quit - freezes window? does bad things
-        self.updateNamespace({'exit': None,
-                              'quit': None})
+        self.updateNamespace({'exit': None, 'quit': None})
 
         style_context = self.get_style_context()
         self.__css_provider = Gtk.CssProvider()
-        style_context.add_provider(self.__css_provider,
-                                   Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        style_context.add_provider(
+            self.__css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
         # Trigger setup through options
         for option in ('text_color', 'background_color', 'font'):
-            self.__on_option_set(None, xl_settings,
-                                 'plugin/ipconsole/{option}'.format(option=option))
+            self.__on_option_set(
+                None, xl_settings, 'plugin/ipconsole/{option}'.format(option=option)
+            )
 
     def __on_option_set(self, _event, settings, option):
         if option == 'plugin/ipconsole/font':
@@ -106,26 +107,32 @@ class IPView(ip.IPythonView):
             rgba_str = settings.get_option(option, 'lavender')
             rgba = Gdk.RGBA()
             rgba.parse(rgba_str)
-            self.__text_color_str = "color: " \
-                + guiutil.css_from_rgba_without_alpha(rgba)
+            self.__text_color_str = "color: " + guiutil.css_from_rgba_without_alpha(
+                rgba
+            )
             GLib.idle_add(self.__update_css)
         if option == 'plugin/ipconsole/background_color':
             rgba_str = settings.get_option(option, 'black')
             rgba = Gdk.RGBA()
             rgba.parse(rgba_str)
-            self.__background_color_str = "background-color: " \
-                + guiutil.css_from_rgba_without_alpha(rgba)
+            self.__background_color_str = (
+                "background-color: " + guiutil.css_from_rgba_without_alpha(rgba)
+            )
             GLib.idle_add(self.__update_css)
 
     def __update_css(self):
-        if self.__text_color_str is None \
-                or self.__background_color_str is None \
-                or self.__font_str is None:
+        if (
+            self.__text_color_str is None
+            or self.__background_color_str is None
+            or self.__font_str is None
+        ):
             # early initialization state: not all properties have been initialized yet
             return False
 
         data_str = "text {%s; %s;} textview {%s;}" % (
-            self.__background_color_str, self.__text_color_str, self.__font_str
+            self.__background_color_str,
+            self.__text_color_str,
+            self.__font_str,
         )
         self.__css_provider.load_from_data(data_str)
         return False
@@ -201,8 +208,12 @@ class IPConsolePlugin(object):
             self.__show_console()
 
         # add menuitem to tools menu
-        item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show _IPython Console'),
-                                     callback=lambda *_args: self.__show_console())
+        item = menu.simple_menu_item(
+            'ipconsole',
+            ['plugin-sep'],
+            _('Show _IPython Console'),
+            callback=lambda *_args: self.__show_console(),
+        )
         providers.register('menubar-tools-menu', item)
 
     def teardown(self, _exaile):
@@ -230,12 +241,16 @@ class IPConsolePlugin(object):
         if self.__console_window is None:
             import xl
             import xlgui
+
             self.__console_window = IPythonConsoleWindow(
-                {'exaile': self.__exaile, 'xl': xl, 'xlgui': xlgui})
+                {'exaile': self.__exaile, 'xl': xl, 'xlgui': xlgui}
+            )
             self.__console_window.connect('destroy', self.__console_destroyed)
 
         self.__console_window.present()
-        self.__console_window.on_option_set(None, xl_settings, 'plugin/ipconsole/opacity')
+        self.__console_window.on_option_set(
+            None, xl_settings, 'plugin/ipconsole/opacity'
+        )
 
     def __console_destroyed(self, *_args):
         """

@@ -38,10 +38,12 @@ try:
     locale.setlocale(locale.LC_ALL, '')
 except locale.Error as e:
     # Error message copied from bzr
-    sys.stderr.write('exaile: Warning: %s\n'
-                     '  Exaile could not set the application locale, this\n'
-                     '  may cause language-specific problems. To investigate this\n'
-                     '  issue, look at the output of the locale tool.\n' % e)
+    sys.stderr.write(
+        'exaile: Warning: %s\n'
+        '  Exaile could not set the application locale, this\n'
+        '  may cause language-specific problems. To investigate this\n'
+        '  issue, look at the output of the locale tool.\n' % e
+    )
 
 try:
     import gettext as gettextmod
@@ -71,7 +73,7 @@ try:
 
         # Detect the prefix, to see if we need to correct the locale path
         elif exaile_path.endswith(os.path.join('lib', 'exaile')):
-            exaile_prefix = exaile_path[:-len(os.path.join('lib', 'exaile'))]
+            exaile_prefix = exaile_path[: -len(os.path.join('lib', 'exaile'))]
             if os.path.exists(os.path.join(exaile_prefix, 'share', 'locale')):
                 locale_path = os.path.join(exaile_prefix, 'share', 'locale')
 
@@ -94,6 +96,7 @@ try:
     def ngettext(singular, plural, n):
         return ngettextfunc(singular, plural, n).decode('utf-8')
 
+
 except ImportError:
     # gettext is not available.  Provide a dummy function instead
     def gettext(text):
@@ -104,5 +107,6 @@ except ImportError:
             return singular
         else:
             return plural
+
 
 # vim: et sts=4 sw=4

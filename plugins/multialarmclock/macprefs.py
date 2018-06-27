@@ -23,8 +23,7 @@ name = _('Multi-Alarm Clock')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "malrmclk.ui")
 
-icons.MANAGER.add_icon_name_from_directory('clock',
-                                           os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory('clock', os.path.join(basedir, 'icons'))
 icon = 'clock'
 
 

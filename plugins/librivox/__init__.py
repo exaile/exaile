@@ -27,18 +27,8 @@ import os
 
 import librivoxsearch as LS
 import about_window as AW
-from xl import (
-    common,
-    event,
-    providers,
-    settings,
-    trax,
-)
-from xlgui import (
-    guiutil,
-    icons,
-    main
-)
+from xl import common, event, providers, settings, trax
+from xlgui import guiutil, icons, main
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.notebook import NotebookPage
 
@@ -65,8 +55,7 @@ def disable(exaile):
     providers.unregister('main-panel', LVPANEL)
 
 
-class LVPanel():
-
+class LVPanel:
     def on_search(self, widget):
         self.run_search(widget)
 
@@ -106,16 +95,19 @@ class LVPanel():
 
     def __init__(self, exaile):
 
-        self.name = 'librivox'   # needed for panel provider
+        self.name = 'librivox'  # needed for panel provider
         self._panel = None
 
         self._user_agent = exaile.get_user_agent_string('librivox')
 
         self.librivoxdir = os.path.dirname(__file__)
         self.abicon = GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir + '/ebook.png')
-        self.clock_icon = GdkPixbuf.Pixbuf.new_from_file(self.librivoxdir + '/clock.png')
+        self.clock_icon = GdkPixbuf.Pixbuf.new_from_file(
+            self.librivoxdir + '/clock.png'
+        )
         self.chapter_icon = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR
+        )
         self.gui_init(exaile)
         self.connect_events()
         self.getting_info = False
@@ -153,6 +145,7 @@ class LVPanel():
         self.cell = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             from gi.repository import Pango
+
             self.cell.set_property('ellipsize-set', True)
             self.cell.set_property('ellipsize', Pango.EllipsizeMode.END)
         self.cellpb = Gtk.CellRendererPixbuf()
@@ -163,7 +156,11 @@ class LVPanel():
         self.treeview.append_column(self.column)
         self.treeview.connect("row-expanded", self.on_row_exp)
 
-        self.treeview.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [Gtk.TargetEntry.new('text/uri-list', 0, 0)], Gdk.DragAction.COPY)
+        self.treeview.drag_source_set(
+            Gdk.ModifierType.BUTTON1_MASK,
+            [Gtk.TargetEntry.new('text/uri-list', 0, 0)],
+            Gdk.DragAction.COPY,
+        )
         self.treeview.connect("drag-data-get", self.drag_data_get)
         self.scrlw.add(self.treeview)
 
@@ -172,9 +169,13 @@ class LVPanel():
 
         self.popup_menu = Gtk.Menu()
         self.add_to_pl = Gtk.ImageMenuItem.new_with_label("Append to Current")
-        self.add_to_pl.set_image(Gtk.Image.new_from_icon_name('list-add', Gtk.IconSize.MENU))
+        self.add_to_pl.set_image(
+            Gtk.Image.new_from_icon_name('list-add', Gtk.IconSize.MENU)
+        )
         self.about_book = Gtk.ImageMenuItem.new_with_label("About the Book")
-        self.about_book.set_image(Gtk.Image.new_from_icon_name('help-about', Gtk.IconSize.MENU))
+        self.about_book.set_image(
+            Gtk.Image.new_from_icon_name('help-about', Gtk.IconSize.MENU)
+        )
         self.popup_menu.add(self.add_to_pl)
         self.popup_menu.add(self.about_book)
         self.popup_menu.show_all()
@@ -192,9 +193,9 @@ class LVPanel():
         tracks = []
         for chapter in chapters:
             chapter_track = trax.Track(chapter[1])
-            chapter_track.set_tags(artist='Librivox.org',
-                                   title=chapter[0],
-                                   album='Audiobook')
+            chapter_track.set_tags(
+                artist='Librivox.org', title=chapter[0], album='Audiobook'
+            )
             tracks.append(chapter_track)
         return tracks
 
@@ -240,7 +241,9 @@ class LVPanel():
         self.treestore.clear()
         for book in books:
             self.rowlvl1 = self.treestore.append(None, [book.title, self.abicon])
-            self.rowlvl2 = self.treestore.append(self.rowlvl1, ["Loading...", self.clock_icon])
+            self.rowlvl2 = self.treestore.append(
+                self.rowlvl1, ["Loading...", self.clock_icon]
+            )
 
     def drag_data_get(self, treeview, context, selection, info, timestamp):
         path = self.treeview.get_cursor()[0]
@@ -276,7 +279,7 @@ class LVPanel():
 
                 if drop_info:
                     PLpath, position = drop_info
-                    if (position == Gtk.TreeViewDropPosition.AFTER):
+                    if position == Gtk.TreeViewDropPosition.AFTER:
                         after = True
                     else:
                         after = False
@@ -365,7 +368,7 @@ class LVPanel():
         return self._panel
 
 
-class Status():
+class Status:
     '''Status bar'''
 
     def __init__(self):

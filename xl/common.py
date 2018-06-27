@@ -64,7 +64,6 @@ VALID_TAGS = (
     # Ogg Vorbis spec tags
     "title version album tracknumber artist genre performer copyright "
     "license organization description location contact isrc date "
-
     # Other tags we like
     "arranger author composer conductor lyricist discnumber labelid part "
     "website language encodedby bpm albumartist originaldate originalalbum "
@@ -167,6 +166,7 @@ def threaded(func):
 
         :param func: the function to run threaded
     """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         t = threading.Thread(target=func, args=args, kwargs=kwargs)
@@ -187,18 +187,21 @@ def synchronized(func):
         If this function is used on multiple functions in an object, they
         will be locked with respect to each other. The lock is re-entrant.
     """
+
     @wraps(func)
     def wrapper(self, *__args, **__kw):
         try:
             rlock = self._sync_lock
         except AttributeError:
             from threading import RLock
+
             rlock = self.__dict__.setdefault('_sync_lock', RLock())
         rlock.acquire()
         try:
             return func(self, *__args, **__kw)
         finally:
             rlock.release()
+
     return wrapper
 
 
@@ -221,13 +224,14 @@ def idle_add(callback=None):
         @param callback: optional callback that will be called when the
             wrapped function is done running
     """
+
     def wrap(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
-            GLib.idle_add(_idle_callback, f, callback,
-                          *args, **kwargs)
+            GLib.idle_add(_idle_callback, f, callback, *args, **kwargs)
 
         return wrapped
+
     return wrap
 
 
@@ -245,7 +249,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
         callargs = inspect.getargspec(function)
         if len(callargs.args) == 0 or callargs.args[0] != 'self':
             raise RuntimeError("Must only use glib_wait* on instance methods!")
-        
+
         def thunk(*args, **kwargs):
             id_by_obj[args[0]] = None
             # if a function returns True, it wants to be called again; in that
@@ -260,7 +264,9 @@ def _glib_wait_inner(timeout, glib_timeout_func):
             if srcid:
                 GLib.source_remove(srcid)
             id_by_obj[self] = glib_timeout_func(timeout, thunk, *args, **kwargs)
+
         return delayer
+
     return waiter
 
 
@@ -320,6 +326,7 @@ def profileit(func):
         print(">>>---- End profiling print")
         prof = stats = None
         return res
+
     return wrapper
 
 
@@ -339,6 +346,7 @@ class VersionError(Exception):
     """
        Represents version discrepancies
     """
+
     #: the error message
     message = None
 
@@ -377,6 +385,7 @@ def open_file_directory(path_or_uri):
         # always calls CreateProcessA, which doesn't support Unicode. We could
         # call CreateProcessW with ctypes, but the following is more robust.
         import ctypes
+
         ctypes.windll.ole32.CoInitialize(None)
         # Not sure why this is always UTF-8.
         upath = f.get_path().decode('utf-8')
@@ -399,16 +408,17 @@ def open_shelf(path):
     # Existing DBs created with other backends will be migrated to Berkeley DB.
     # We do this because BDB is generally considered more performant,
     # and because gdbm currently doesn't work at all in MSYS2.
-    
+
     # Some DBM modules don't use the path we give them, but rather they have
     # multiple filenames. If the specified path doesn't exist, double check
     # to see if whichdb returns a result before trying to open it with bsddb
     force_migrate = False
     if not os.path.exists(path):
         from whichdb import whichdb
+
         if whichdb(path) is not None:
             force_migrate = True
-    
+
     if not force_migrate:
         try:
             db = bsddb.hashopen(path, 'c')
@@ -417,14 +427,15 @@ def open_shelf(path):
             logger.warning("%s was created with an old backend, migrating it", path)
         except Exception:
             raise
-    
+
     # special case: zero-length file
     if not force_migrate and os.path.getsize(path) == 0:
         os.unlink(path)
     else:
         from xl.migrations.database.to_bsddb import migrate
+
         migrate(path)
-    
+
     db = bsddb.hashopen(path, 'c')
     return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
 
@@ -437,11 +448,12 @@ elif sys.platform != 'win32':
 else:
     # http://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
     import ctypes
+
     _kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
     _MoveFileEx = _kernel32.MoveFileExW
     _MoveFileEx.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
     _MoveFileEx.restype = ctypes.c_bool
-    
+
     def replace_file(src, dst):
         if not _MoveFileEx(src, dst, 1):
             raise ctypes.WinError(ctypes.get_last_error())
@@ -526,6 +538,7 @@ class cached(object):
             except TypeError:  # args can't be hashed
                 pass
             return ret
+
         return wrapper
 
     def __get__(self, obj, objtype):
@@ -555,10 +568,13 @@ def walk(root):
         dir = queue.pop()
         yield dir
         try:
-            for fileinfo in dir.enumerate_children("standard::type,"
-                                                   "standard::is-symlink,standard::name,"
-                                                   "standard::symlink-target,time::modified",
-                                                   Gio.FileQueryInfoFlags.NONE, None):
+            for fileinfo in dir.enumerate_children(
+                "standard::type,"
+                "standard::is-symlink,standard::name,"
+                "standard::symlink-target,time::modified",
+                Gio.FileQueryInfoFlags.NONE,
+                None,
+            ):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
@@ -594,15 +610,20 @@ def walk_directories(root):
 
     try:
         for fileinfo in root.enumerate_children(
-                'standard::name,standard::type', Gio.FileQueryInfoFlags.NONE, None):
+            'standard::name,standard::type', Gio.FileQueryInfoFlags.NONE, None
+        ):
             if fileinfo.get_file_type() == Gio.FileType.DIRECTORY:
                 directory = root.get_child(fileinfo.get_name())
 
                 for subdirectory in walk_directories(directory):
                     yield subdirectory
     except GLib.Error:
-        logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
-                         root, directory, subdirectory)
+        logger.exception(
+            "Unhandled exception while walking dirs on %s, %s, %s",
+            root,
+            directory,
+            subdirectory,
+        )
 
 
 class TimeSpan(object):
@@ -610,6 +631,7 @@ class TimeSpan(object):
         Calculates the number of days, hours, minutes,
         and seconds in a time span
     """
+
     #: number of days
     days = 0
     #: number of hours
@@ -638,7 +660,11 @@ class TimeSpan(object):
 
     def __str__(self):
         return '%dd, %dh, %dm, %ds' % (
-            self.days, self.hours, self.minutes, self.seconds)
+            self.days,
+            self.hours,
+            self.minutes,
+            self.seconds,
+        )
 
 
 class MetadataList(object):
@@ -655,6 +681,7 @@ class MetadataList(object):
             * comparisons other than equality
             * multiply
     """
+
     __slots__ = ['__list', 'metadata']
 
     def __init__(self, iterable=[], metadata=[]):
@@ -712,7 +739,7 @@ class MetadataList(object):
         self.insert(len(self), other, metadata=metadata)
 
     def extend(self, other):
-        self[len(self):len(self)] = other
+        self[len(self) : len(self)] = other
 
     def insert(self, i, item, metadata=None):
         if i >= len(self):
@@ -769,18 +796,15 @@ class ProgressThread(GObject.GObject, threading.Thread):
         be number between 0 and 100, or a tuple of (n, total) where
         n is the current step.
     """
+
     __gsignals__ = {
         'progress-update': (
             GObject.SignalFlags.RUN_FIRST,
             None,
-            (GObject.TYPE_PYOBJECT,)
+            (GObject.TYPE_PYOBJECT,),
         ),
         # TODO: Check if 'stopped' is required
-        'done': (
-            GObject.SignalFlags.RUN_FIRST,
-            None,
-            ()
-        )
+        'done': (GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     def __init__(self):
@@ -856,7 +880,6 @@ class SimpleProgressThread(ProgressThread):
 
 
 class PosetItem(object):
-
     def __init__(self, name, after, priority, value=None):
         """
             :param name: unique identifier for this item
@@ -971,6 +994,7 @@ class GioFileInputStream(_GioFileStream):
 
         TODO: More complete wrapper
     '''
+
     __slots__ = ['stream', 'gfile']
 
     def __init__(self, gfile):
@@ -1000,12 +1024,13 @@ class GioFileOutputStream(_GioFileStream):
     '''
         Wrapper around Gio.File for writing like a python file object
     '''
+
     __slots__ = ['stream']
 
     def __init__(self, gfile, mode='w'):
         if mode != 'w':
             raise IOError("Not implemented")
-        
+
         self.stream = gfile.replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)
 
     def flush(self):
@@ -1040,15 +1065,16 @@ def subscribe_for_settings(section, options, self):
     def _on_option_set(unused_name, unused_object, data):
         attrname = options.get(data)
         if attrname is not None:
-            setattr(self, attrname,
-                    settings.get_option(data, getattr(self, attrname)))
+            setattr(self, attrname, settings.get_option(data, getattr(self, attrname)))
 
     for k in options:
         if not k.startswith('%s/' % section):
             raise ValueError("Option is not part of section %s" % section)
         _on_option_set(None, None, k)
 
-    return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
+    return event.add_callback(
+        _on_option_set, '%s_option_set' % section.replace('/', '_')
+    )
 
 
 class AsyncLoader:
@@ -1056,6 +1082,7 @@ class AsyncLoader:
         Async loader based on a generator
         Threaded, load it and put it in `result_list`
     """
+
     def __init__(self, item_generator):
         """
             Constructs and already start processing (starts thread)
@@ -1073,9 +1100,11 @@ class AsyncLoader:
             :return: None
         """
         for i in item_generator:
-            if self.__end: break;
+            if self.__end:
+                break
             self.__result_list.append(i)
-            if self.__end: break;
+            if self.__end:
+                break
 
     def end(self, timeout=None):
         """
@@ -1100,5 +1129,6 @@ class AsyncLoader:
             :return: list
         """
         return self.__result_list[:]
+
 
 # vim: et sts=4 sw=4

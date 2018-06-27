@@ -33,4 +33,5 @@ class SpeexFormat(CaseInsensitveBaseFormat):
     MutagenType = oggspeex.OggSpeex
     writable = True
 
+
 # vim: et sts=4 sw=4

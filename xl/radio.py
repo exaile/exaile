@@ -105,7 +105,6 @@ class RadioManager(providers.ProviderHandler):
 
 
 class RadioList(object):
-
     def __init__(self, name, station=None):
         """
             Initializes the rlist

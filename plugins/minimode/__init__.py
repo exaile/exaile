@@ -79,6 +79,7 @@ class MiniMode(Gtk.Window):
     """
         Mini Mode main window
     """
+
     __gsignals__ = {'show': 'override'}
 
     def __init__(self, exaile):
@@ -100,19 +101,24 @@ class MiniMode(Gtk.Window):
         self.border_frame.add(self.box)
         self.add(self.border_frame)
 
-        self.accelerator = Accelerator('<Primary><Alt>M', _('Mini Mode'),
-                                       self.on_menuitem_activate)
+        self.accelerator = Accelerator(
+            '<Primary><Alt>M', _('Mini Mode'), self.on_menuitem_activate
+        )
 
         self.menuitem = menu.simple_menu_item(
-            'minimode', ['clear-playlist'], icon_name='exaile-minimode',
-            callback=self.accelerator)
-        
+            'minimode',
+            ['clear-playlist'],
+            icon_name='exaile-minimode',
+            callback=self.accelerator,
+        )
+
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
 
         self.mainbutton = Gtk.Button(label=_('Mini Mode'))
-        self.mainbutton.set_image(Gtk.Image.new_from_icon_name(
-            'exaile-minimode', Gtk.IconSize.BUTTON))
+        self.mainbutton.set_image(
+            Gtk.Image.new_from_icon_name('exaile-minimode', Gtk.IconSize.BUTTON)
+        )
         self.mainbutton.connect('clicked', self.on_mainbutton_clicked)
         action_area = exaile.gui.main.info_area.get_action_area()
         action_area.pack_end(self.mainbutton, False, False, 6)
@@ -129,14 +135,16 @@ class MiniMode(Gtk.Window):
             'plugin/minimode/use_alpha': False,
             'plugin/minimode/transparency': 0.3,
             'plugin/minimode/horizontal_position': 10,
-            'plugin/minimode/vertical_position': 10
+            'plugin/minimode/vertical_position': 10,
         }
 
-        exaile.gui.main.connect('main-visible-toggle',
-                                self.on_main_visible_toggle)
+        exaile.gui.main.connect('main-visible-toggle', self.on_main_visible_toggle)
         event.add_ui_callback(self.on_option_set, 'plugin_minimode_option_set')
-        self.on_option_set('plugin_minimode_option_set', settings,
-                           'plugin/minimode/button_in_mainwindow')
+        self.on_option_set(
+            'plugin_minimode_option_set',
+            settings,
+            'plugin/minimode/button_in_mainwindow',
+        )
 
     def destroy(self):
         """
@@ -192,8 +200,7 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/display_window_decorations':
                     if value:
                         option = 'plugin/minimode/window_decoration_type'
-                        value = settings.get_option(option,
-                                                    self.__defaults[option])
+                        value = settings.get_option(option, self.__defaults[option])
 
                         if value == 'full':
                             self.set_decorated(True)
@@ -207,7 +214,9 @@ class MiniMode(Gtk.Window):
                 elif option == 'plugin/minimode/use_alpha':
                     if value:
                         option = 'plugin/minimode/transparency'
-                        opacity = 1 - settings.get_option(option, self.__defaults[option])
+                        opacity = 1 - settings.get_option(
+                            option, self.__defaults[option]
+                        )
                         self.set_opacity(opacity)
                 elif option == 'plugin/minimode/horizontal_position':
                     h = value
@@ -290,5 +299,6 @@ class MiniMode(Gtk.Window):
             else:
                 self.mainbutton.hide()
                 self.mainbutton.set_no_show_all(True)
+
 
 # vim: et sts=4 sw=4

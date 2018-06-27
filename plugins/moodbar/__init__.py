@@ -24,10 +24,7 @@ from __future__ import division, print_function
 
 import os.path
 
-from gi.repository import (
-    Gdk,
-    GLib,
-)
+from gi.repository import Gdk, GLib
 
 import xl.event
 from xl.nls import gettext as _
@@ -56,20 +53,30 @@ class MoodbarPlugin:
         self.exaile = exaile
         self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
 
-        xl.event.add_ui_callback(self._on_preview_device_enabled, 'preview_device_enabled')
-        xl.event.add_ui_callback(self._on_preview_device_disabling, 'preview_device_disabling')
+        xl.event.add_ui_callback(
+            self._on_preview_device_enabled, 'preview_device_enabled'
+        )
+        xl.event.add_ui_callback(
+            self._on_preview_device_disabling, 'preview_device_disabling'
+        )
         previewdevice = exaile.plugins.enabled_plugins.get('previewdevice', None)
         if previewdevice:
             self.on_preview_device_enabled('', previewdevice)
 
     def on_gui_loaded(self):
-        self.main_controller = MoodbarController(self, xl.player.PLAYER, self.exaile.gui.main.progress_bar)
+        self.main_controller = MoodbarController(
+            self, xl.player.PLAYER, self.exaile.gui.main.progress_bar
+        )
 
     def disable(self, exaile):
         if not self.main_controller:  # Disabled more than once or before gui_loaded
             return
-        xl.event.remove_callback(self._on_preview_device_enabled, 'preview_device_enabled')
-        xl.event.remove_callback(self._on_preview_device_disabling, 'preview_device_disabling')
+        xl.event.remove_callback(
+            self._on_preview_device_enabled, 'preview_device_enabled'
+        )
+        xl.event.remove_callback(
+            self._on_preview_device_disabling, 'preview_device_disabling'
+        )
         self.main_controller.destroy()
         if self.preview_controller:
             self.preview_controller.destroy()
@@ -79,11 +86,14 @@ class MoodbarPlugin:
     # Preview Device events
 
     def _on_preview_device_enabled(self, event, plugin, _=None):
-        self.preview_controller = MoodbarController(self, plugin.player, plugin.progress_bar)
+        self.preview_controller = MoodbarController(
+            self, plugin.player, plugin.progress_bar
+        )
 
     def _on_preview_device_disabling(self, event, plugin, _=None):
         self.preview_controller.destroy()
         self.preview_controller = None
+
 
 plugin_class = MoodbarPlugin
 
@@ -96,7 +106,6 @@ def format_time(seconds, time_format=_("{minutes}:{seconds:02}")):
 
 
 class MoodbarController:
-
     def __init__(self, plugin, player, orig_seekbar):
         self.plugin = plugin
         self.player = player
@@ -104,19 +113,31 @@ class MoodbarController:
         self.timer = self.seeking = False
 
         self.moodbar = moodbar = Moodbar()
-        moodbar.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK)
+        moodbar.add_events(
+            Gdk.EventMask.BUTTON_PRESS_MASK
+            | Gdk.EventMask.BUTTON1_MOTION_MASK
+            | Gdk.EventMask.BUTTON_RELEASE_MASK
+        )
         xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, moodbar)
         moodbar.show()
         # TODO: If currently playing, this needs to run now as well:
-        xl.event.add_ui_callback(self._on_playback_track_start, 'playback_track_start', self.player)
-        xl.event.add_ui_callback(self._on_playback_track_end, 'playback_track_end', self.player)
+        xl.event.add_ui_callback(
+            self._on_playback_track_start, 'playback_track_start', self.player
+        )
+        xl.event.add_ui_callback(
+            self._on_playback_track_end, 'playback_track_end', self.player
+        )
         moodbar.connect('button-press-event', self._on_moodbar_button_press)
         moodbar.connect('motion-notify-event', self._on_moodbar_motion)
         moodbar.connect('button-release-event', self._on_moodbar_button_release)
 
     def destroy(self):
-        xl.event.remove_callback(self._on_playback_track_end, 'playback_track_start', self.player)
-        xl.event.remove_callback(self._on_playback_track_end, 'playback_track_end', self.player)
+        xl.event.remove_callback(
+            self._on_playback_track_end, 'playback_track_start', self.player
+        )
+        xl.event.remove_callback(
+            self._on_playback_track_end, 'playback_track_end', self.player
+        )
         if self.timer:
             GLib.source_remove(self.timer)
         assert self.orig_seekbar
@@ -134,10 +155,12 @@ class MoodbarController:
         self._on_timer()
         self.timer = GLib.timeout_add_seconds(1, self._on_timer)
         if not data and uri.startswith('file://'):
+
             def callback(uri, data):
                 if cache:
                     cache.put(uri, data)
                 self.moodbar.set_mood(data)
+
             self.plugin.generator.generate_async(uri, callback)
 
     def _on_timer(self):

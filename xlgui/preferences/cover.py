@@ -24,11 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import (
-    covers,
-    settings,
-    xdg
-)
+from xl import covers, settings, xdg
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
@@ -66,8 +62,7 @@ class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditi
         """
             Converts the list to a string value
         """
-        self.widget.set_text(', '.join(settings.get_option(
-            self.name, self.default)))
+        self.widget.set_text(', '.join(settings.get_option(self.name, self.default)))
 
 
 class CoverOrderPreference(widgets.OrderListPreference):
@@ -75,6 +70,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
         This little preference item shows kind of a complicated preference
         widget in action.  The defaults are dynamic.
     """
+
     name = 'covers/preferred_order'
 
     def __init__(self, preferences, widget):
@@ -88,8 +84,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
 
     def apply(self):
         if widgets.OrderListPreference.apply(self):
-            covers.MANAGER.set_preferred_order(
-                self._get_value())
+            covers.MANAGER.set_preferred_order(self._get_value())
         return True
 
 

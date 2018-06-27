@@ -24,8 +24,9 @@ from xlgui.preferences import widgets
 name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "minimode_preferences.ui")
-icons.MANAGER.add_icon_name_from_directory('exaile-minimode',
-                                           os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory(
+    'exaile-minimode', os.path.join(basedir, 'icons')
+)
 icon = 'exaile-minimode'
 
 
@@ -54,8 +55,7 @@ class DisplayWindowDecorationsPreference(widgets.CheckPreference):
     default = True
 
 
-class WindowDecorationTypePreference(widgets.ComboPreference,
-                                     widgets.CheckConditional):
+class WindowDecorationTypePreference(widgets.ComboPreference, widgets.CheckConditional):
     name = 'plugin/minimode/window_decoration_type'
     default = 'full'
     condition_preference_name = 'plugin/minimode/display_window_decorations'
@@ -82,12 +82,20 @@ class TransparencyPreference(widgets.ScalePreference, widgets.CheckConditional):
 
 class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
-    default = ['previous', 'play_pause', 'next', 'playlist_button',
-               'progress_bar', 'restore']
+    default = [
+        'previous',
+        'play_pause',
+        'next',
+        'playlist_button',
+        'progress_bar',
+        'restore',
+    ]
 
     def __init__(self, preferences, widget):
-        self.items = [self.Item(p.name, p.title, p.description, p.fixed)
-                      for p in providers.get('minimode-controls')]
+        self.items = [
+            self.Item(p.name, p.title, p.description, p.fixed)
+            for p in providers.get('minimode-controls')
+        ]
         widgets.SelectionListPreference.__init__(self, preferences, widget)
 
 
@@ -117,6 +125,6 @@ class TrackTitleFormatPreference(widgets.ComboEntryPreference):
         # TRANSLATORS: Mini mode track selector title preset
         _('$title by $artist'),
         # TRANSLATORS: Mini mode track selector title preset
-        _('$title ($__length)')
+        _('$title ($__length)'),
     ]
     default = _('$tracknumber - $title')

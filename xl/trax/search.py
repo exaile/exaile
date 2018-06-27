@@ -38,6 +38,7 @@ class SearchResultTrack(object):
 
         :param track: The Track object
     """
+
     __slots__ = ['track', 'on_tags']
 
     def __init__(self, track):
@@ -49,6 +50,7 @@ class _Matcher(object):
     """
         Base class for match conditions
     """
+
     __slots__ = ['tag', 'content', 'lower']
 
     def __init__(self, tag, content, lower):
@@ -164,6 +166,7 @@ class _NotMetaMatcher(object):
     """
         Condition for boolean NOT
     """
+
     __slots__ = ['matcher']
     tag = None
 
@@ -178,6 +181,7 @@ class _OrMetaMatcher(object):
     """
         Condition for boolean OR
     """
+
     __slots__ = ['left', 'right']
     tag = None
 
@@ -192,6 +196,7 @@ class _MultiMetaMatcher(object):
     """
         Condition for boolean AND
     """
+
     __slots__ = ['matchers']
     tag = None
 
@@ -213,6 +218,7 @@ class _ManyMultiMetaMatcher(object):
         fashion, but also know which tags were matched. Useful for
         the collection panel expansion.
     """
+
     __slots__ = ['matchers', 'tags']
     tag = None
 
@@ -239,6 +245,7 @@ class TracksMatcher(object):
         Holds criteria and determines whether
         a given track matches those criteria.
     """
+
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
 
     def __init__(self, search_string, case_sensitive=True, keyword_tags=None):
@@ -316,8 +323,9 @@ class TracksMatcher(object):
             elif subtoken == "|":
                 left = self.__tokens_to_matchers([token[1][0]])
                 right = self.__tokens_to_matchers([token[1][1]])
-                matchers.append(_OrMetaMatcher(
-                    _MultiMetaMatcher(left), _MultiMetaMatcher(right)))
+                matchers.append(
+                    _OrMetaMatcher(_MultiMetaMatcher(left), _MultiMetaMatcher(right))
+                )
             # ()
             elif subtoken == "(":
                 inner = self.__tokens_to_matchers([token[1]])
@@ -409,7 +417,7 @@ class TracksMatcher(object):
                 newsearch += c
             elif c == "\"":
                 in_quotes = not in_quotes  # toggle
-                #newsearch += c
+                # newsearch += c
             elif c in ["|", "!", "(", ")"]:
                 newsearch += c
             elif c == " ":
@@ -451,8 +459,8 @@ class TracksMatcher(object):
                     break
                 count += 1
             before = tokens[:start]
-            inside = self.__red(tokens[start + 1:end])
-            after = tokens[end + 1:]
+            inside = self.__red(tokens[start + 1 : end])
+            after = tokens[end + 1 :]
             tokens = before + [["(", inside]] + after
 
         # handle NOT
@@ -460,7 +468,7 @@ class TracksMatcher(object):
             start = tokens.index("!")
             end = start + 2
             before = tokens[:start]
-            inside = tokens[start + 1:end]
+            inside = tokens[start + 1 : end]
             after = tokens[end:]
             tokens = before + [["!", inside]] + after
 
@@ -468,8 +476,8 @@ class TracksMatcher(object):
         elif "|" in tokens:
             start = tokens.index("|")
             inside = [tokens[start - 1], tokens[start + 1]]
-            before = tokens[:start - 1]
-            after = tokens[start + 2:]
+            before = tokens[: start - 1]
+            after = tokens[start + 2 :]
             tokens = before + [["|", inside]] + after
 
         # nothing special, so just return it
@@ -540,8 +548,9 @@ def search_tracks(trackiter, trackmatchers):
         time.sleep(0)
 
 
-def search_tracks_from_string(trackiter, search_string,
-                              case_sensitive=True, keyword_tags=None):
+def search_tracks_from_string(
+    trackiter, search_string, case_sensitive=True, keyword_tags=None
+):
     """
         Convenience wrapper around search_tracks that builds matchers
         automatically from the search string.
@@ -549,13 +558,18 @@ def search_tracks_from_string(trackiter, search_string,
         Arguments have the same meaning as the corresponding arguments on
         on :class:`search_tracks` and :class:`TracksMatcher`.
     """
-    matchers = [TracksMatcher(search_string, case_sensitive=case_sensitive,
-                              keyword_tags=keyword_tags)]
+    matchers = [
+        TracksMatcher(
+            search_string, case_sensitive=case_sensitive, keyword_tags=keyword_tags
+        )
+    ]
     return search_tracks(trackiter, matchers)
 
 
-def match_track_from_string(track, search_string,
-                            case_sensitive=True, keyword_tags=None):
-    matcher = TracksMatcher(search_string, case_sensitive=case_sensitive,
-                            keyword_tags=keyword_tags)
+def match_track_from_string(
+    track, search_string, case_sensitive=True, keyword_tags=None
+):
+    matcher = TracksMatcher(
+        search_string, case_sensitive=case_sensitive, keyword_tags=keyword_tags
+    )
     return matcher.match(SearchResultTrack(track))

@@ -31,10 +31,7 @@ import os
 
 from xl.metadata._base import BaseFormat, NotReadable
 
-type_map = {
-    "au": sunau,
-    "wav": wave,
-}
+type_map = {"au": sunau, "wav": wave}
 
 
 class WavFormat(BaseFormat):

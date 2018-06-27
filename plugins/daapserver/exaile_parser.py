@@ -27,7 +27,7 @@ class ExaileParser(spydaap.parser.Parser):
         'artist': 'daap.songartist',
         'composer': 'daap.songcomposer',
         'genre': 'daap.songgenre',
-        'album': 'daap.songalbum'
+        'album': 'daap.songalbum',
     }
 
     _int_map = {
@@ -37,11 +37,12 @@ class ExaileParser(spydaap.parser.Parser):
         'year': 'daap.songyear',
         'tracknumber': 'daap.songtracknumber',
         'tracktotal': 'daap.songtrackcount',
-        'discnumber': 'daap.songdiscnumber'
+        'discnumber': 'daap.songdiscnumber',
     }
 
     def understands(self, filename):
         return True
+
     #   return self.file_re.match(filename)
 
     # returns a list in exaile
@@ -52,15 +53,16 @@ class ExaileParser(spydaap.parser.Parser):
                     tn = str(md.get_tag_raw(k)[0])
                     if '/' in tn:
                         num, tot = tn.split('/')
-                        if num == '':           # empty tags
+                        if num == '':  # empty tags
                             num = 0
                         daap.append(do(map[k], int(num)))
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
                 except Exception:
-                    logger.exception('exception caught parsing tag: %s=%s from %s',
-                                     k, tn, md)
+                    logger.exception(
+                        'exception caught parsing tag: %s=%s from %s', k, tn, md
+                    )
 
     # We can't use functions in __init__ because exaile tracks no longer
     # give us access to .tags
@@ -76,7 +78,7 @@ class ExaileParser(spydaap.parser.Parser):
 
     def parse(self, trk):
         try:
-            #trk = mutagen.File(filename)
+            # trk = mutagen.File(filename)
             d = []
             if len(trk.list_tags()) > 0:
                 if 'title' in trk.list_tags():
@@ -86,24 +88,28 @@ class ExaileParser(spydaap.parser.Parser):
 
                 self.handle_string_tags(self._string_map, trk, d)
                 self.handle_int_tags(self._int_map, trk, d)
-#                self.handle_rating(trk, d)
+            #                self.handle_rating(trk, d)
             else:
                 name = str(trk)
-            #statinfo = os.stat(filename)
+            # statinfo = os.stat(filename)
 
             _len = trk.get_tag_raw('__length')
-            if _len is None:    # don't parse songs that don't have length
+            if _len is None:  # don't parse songs that don't have length
                 return (None, None)
 
-            d.extend([  # do('daap.songsize', trk.get_size()),
-                #do('daap.songdateadded', statinfo.st_ctime),
-                #do('daap.songdatemodified', statinfo.st_ctime),
-                do('daap.songtime', _len * 1000),
-                #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
-                #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
-                do('daap.songformat', trk.get_local_path().split('.')[-1]),  # todo ??
-                do('daap.songdescription', 'Exaile Streaming Audio'),
-            ])
+            d.extend(
+                [  # do('daap.songsize', trk.get_size()),
+                    # do('daap.songdateadded', statinfo.st_ctime),
+                    # do('daap.songdatemodified', statinfo.st_ctime),
+                    do('daap.songtime', _len * 1000),
+                    #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
+                    #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
+                    do(
+                        'daap.songformat', trk.get_local_path().split('.')[-1]
+                    ),  # todo ??
+                    do('daap.songdescription', 'Exaile Streaming Audio'),
+                ]
+            )
             return (d, name)
 
         except Exception:

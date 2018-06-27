@@ -23,7 +23,6 @@ from xl import event, player
 
 
 class Pidgin:
-
     def __init__(self, dbusInterface):
         """
             Constructor
@@ -74,6 +73,7 @@ class Pidgin:
 
         return True
 
+
 ##############################################################################
 
 
@@ -81,7 +81,7 @@ def on_begin_action(type, player, track):
     client.setTune(
         track.get_tag_display('artist'),
         track.get_tag_display('title'),
-        track.get_tag_display('album')
+        track.get_tag_display('album'),
     )
 
 
@@ -98,8 +98,9 @@ def on_pause_action(type, player, track):
 
 def enable(exaile):
     global client
-    obj = dbus.SessionBus().get_object('im.pidgin.purple.PurpleService',
-                                       '/im/pidgin/purple/PurpleObject')
+    obj = dbus.SessionBus().get_object(
+        'im.pidgin.purple.PurpleService', '/im/pidgin/purple/PurpleObject'
+    )
     purple = dbus.Interface(obj, "im.pidgin.purple.PurpleInterface")
     client = Pidgin(purple)
     event.add_callback(on_stop_action, 'quit_application')

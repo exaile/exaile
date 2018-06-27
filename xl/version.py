@@ -28,6 +28,7 @@ import os
 from . import xdg
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 major = "4.0"
@@ -45,11 +46,12 @@ def get_current_revision(directory):
 
     try:
         with open(os.devnull, 'w') as devnull:
-            return subprocess.check_output([
-                'git', 'rev-parse', '--short=7', 'HEAD'
-            ], stderr=devnull).strip()
+            return subprocess.check_output(
+                ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=devnull
+            ).strip()
     except (subprocess.CalledProcessError, OSError):
         return None
+
 
 if xdg.local_hack:
     revision = get_current_revision(xdg.exaile_dir)

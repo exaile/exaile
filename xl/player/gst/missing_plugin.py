@@ -85,8 +85,8 @@ def __handle_plugin_missing_message(message, engine):
     user_message = _(
         "A GStreamer 1.x plugin for %s is missing. "
         "Without this software installed, Exaile will not be able to play the current file. "
-        "Please install the required software on your computer. See %s for details.") \
-        % (desc, MISSING_PLUGIN_URL)
+        "Please install the required software on your computer. See %s for details."
+    ) % (desc, MISSING_PLUGIN_URL)
     # TODO make URL clickable by utilizing xlgui.widgets.dialogs.MessageBar
 
     engine.stop()
@@ -112,9 +112,12 @@ def __run_installer_helper(installer_details):
     LOGGER.info("Prompting user to install missing codec(s): %s", installer_details)
 
     start_result = GstPbutils.install_plugins_async(
-        [installer_details], cntxt, __installer_finished_callback)
-    LOGGER.debug("GstPbutils.install_plugins_async() return value: %s",
-                 GstPbutils.InstallPluginsReturn.get_name(start_result))
+        [installer_details], cntxt, __installer_finished_callback
+    )
+    LOGGER.debug(
+        "GstPbutils.install_plugins_async() return value: %s",
+        GstPbutils.InstallPluginsReturn.get_name(start_result),
+    )
     if start_result == GstPbutils.InstallPluginsReturn.INTERNAL_FAILURE:
         # should only happen when there is a bug in Exaile or its libs:
         LOGGER.error("Internal failure starting assisted GStreamer plugin installation")
@@ -130,20 +133,26 @@ def __run_installer_helper(installer_details):
         LOGGER.info("Successfully started assisted GStreamer plugin installation")
         return True
     else:
-        LOGGER.error("Code should not be reached. "
-                     "Unexpected return value from install_plugins_async: %s",
-                     GstPbutils.InstallPluginsReturn.get_name(start_result))
+        LOGGER.error(
+            "Code should not be reached. "
+            "Unexpected return value from install_plugins_async: %s",
+            GstPbutils.InstallPluginsReturn.get_name(start_result),
+        )
         return False
 
 
 def __installer_finished_callback(result):
     # due to a bug in PackageKit, this function will be called immediately
     # after starting the helper: https://bugs.freedesktop.org/show_bug.cgi?id=100791
-    LOGGER.debug("GstPbutils.install_plugins_async() helper process exit code: %s",
-                 GstPbutils.InstallPluginsReturn.get_name(result))
+    LOGGER.debug(
+        "GstPbutils.install_plugins_async() helper process exit code: %s",
+        GstPbutils.InstallPluginsReturn.get_name(result),
+    )
 
-    if result == GstPbutils.InstallPluginsReturn.SUCCESS or \
-            result == GstPbutils.InstallPluginsReturn.PARTIAL_SUCCESS:
+    if (
+        result == GstPbutils.InstallPluginsReturn.SUCCESS
+        or result == GstPbutils.InstallPluginsReturn.PARTIAL_SUCCESS
+    ):
         # TODO notify user that installation of plugins was successful and ask
         # the user whether we may restart GStreamer engine to apply plugin updates,
         # because the user might have resumed playback in the meantime, and we do
@@ -158,20 +167,26 @@ def __installer_finished_callback(result):
         LOGGER.warn("GStreamer helper was unable to install missing plugin.")
         # we do not care about these, the user already got a notification how
         # to install plugins. There is nothing more we can do.
-    elif result == GstPbutils.InstallPluginsReturn.ERROR or \
-            result == GstPbutils.InstallPluginsReturn.CRASHED or \
-            result == GstPbutils.InstallPluginsReturn.INVALID or \
-            result == GstPbutils.InstallPluginsReturn.INTERNAL_FAILURE:
-        LOGGER.error("GStreamer plugin helper failed with %s",
-                     GstPbutils.InstallPluginsReturn.get_name(result))
+    elif (
+        result == GstPbutils.InstallPluginsReturn.ERROR
+        or result == GstPbutils.InstallPluginsReturn.CRASHED
+        or result == GstPbutils.InstallPluginsReturn.INVALID
+        or result == GstPbutils.InstallPluginsReturn.INTERNAL_FAILURE
+    ):
+        LOGGER.error(
+            "GStreamer plugin helper failed with %s",
+            GstPbutils.InstallPluginsReturn.get_name(result),
+        )
     elif result == GstPbutils.InstallPluginsReturn.USER_ABORT:
         LOGGER.info("User aborted the GStreamer plugin installation.")
         # the user decided not to install any software, which might have been on purpose,
         # so we do not want to ask again immediately.
     else:
-        LOGGER.error("Code should not be reached. "
-                     "Unexpected return value from install_plugins_async callback: %s",
-                     GstPbutils.InstallPluginsReturn.get_name(result))
+        LOGGER.error(
+            "Code should not be reached. "
+            "Unexpected return value from install_plugins_async callback: %s",
+            GstPbutils.InstallPluginsReturn.get_name(result),
+        )
 
 
 def __create_context():

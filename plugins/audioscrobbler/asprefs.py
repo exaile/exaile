@@ -20,10 +20,7 @@ from gi.repository import Gtk
 import os.path
 import _scrobbler
 
-from xl import (
-    common,
-    settings,
-)
+from xl import common, settings
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.preferences import widgets
@@ -33,8 +30,9 @@ name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
 
-icons.MANAGER.add_icon_name_from_directory('audioscrobbler',
-                                           os.path.join(basedir, 'icons'))
+icons.MANAGER.add_icon_name_from_directory(
+    'audioscrobbler', os.path.join(basedir, 'icons')
+)
 icon = 'audioscrobbler'
 
 
@@ -66,7 +64,7 @@ class UrlPreference(widgets.ComboEntryPreference):
     default = 'http://post.audioscrobbler.com/'
     preset_items = {
         'http://post.audioscrobbler.com/': 'Last.fm',
-        'http://turtle.libre.fm/': 'Libre.fm'
+        'http://turtle.libre.fm/': 'Libre.fm',
     }
 
 
@@ -81,7 +79,7 @@ class VerifyLoginButton(widgets.Button):
 
         self.message = dialogs.MessageBar(
             parent=preferences.builder.get_object('preferences_box'),
-            buttons=Gtk.ButtonsType.CLOSE
+            buttons=Gtk.ButtonsType.CLOSE,
         )
 
     @common.threaded
@@ -92,8 +90,9 @@ class VerifyLoginButton(widgets.Button):
         """
         username = settings.get_option('plugin/ascrobbler/user', '')
         password = settings.get_option('plugin/ascrobbler/password', '')
-        url = settings.get_option('plugin/ascrobbler/url',
-                                  'http://post.audioscrobbler.com/')
+        url = settings.get_option(
+            'plugin/ascrobbler/url', 'http://post.audioscrobbler.com/'
+        )
         login_verified = False
 
         try:
@@ -109,16 +108,12 @@ class VerifyLoginButton(widgets.Button):
             login_verified = True
 
         if login_verified:
-            GLib.idle_add(
-                self.message.show_info,
-                _('Verification successful'),
-                ''
-            )
+            GLib.idle_add(self.message.show_info, _('Verification successful'), '')
         else:
             GLib.idle_add(
                 self.message.show_error,
                 _('Verification failed'),
-                _('Please make sure the entered data is correct.')
+                _('Please make sure the entered data is correct.'),
             )
 
         GLib.idle_add(self.widget.set_sensitive, True)

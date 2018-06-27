@@ -17,13 +17,7 @@
 import logging
 import time
 
-from xl import (
-    common,
-    covers,
-    event,
-    providers,
-    settings
-)
+from xl import common, covers, event, providers, settings
 
 import _ecs as ecs
 import amazonprefs
@@ -60,6 +54,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
     """
         Searches amazon for an album cover
     """
+
     name = 'amazon'
     title = 'Amazon'
 
@@ -77,13 +72,13 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
             return []
 
         # get the settings for amazon key and secret key
-        api_key = settings.get_option(
-            'plugin/amazoncovers/api_key', '')
-        secret_key = settings.get_option(
-            'plugin/amazoncovers/secret_key', '')
+        api_key = settings.get_option('plugin/amazoncovers/api_key', '')
+        secret_key = settings.get_option('plugin/amazoncovers/secret_key', '')
         if not api_key or not secret_key:
-            logger.warning('Please enter your Amazon API and secret '
-                           'keys in the Amazon Covers preferences')
+            logger.warning(
+                'Please enter your Amazon API and secret '
+                'keys in the Amazon Covers preferences'
+            )
             return []
 
         # wait at least 1 second until the next attempt

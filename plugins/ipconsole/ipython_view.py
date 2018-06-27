@@ -126,6 +126,7 @@ class IterableIPShell(object):
         excepthook = sys.excepthook
 
         from IPython.config.loader import Config
+
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"
 
@@ -138,12 +139,14 @@ class IterableIPShell(object):
         # InteractiveShell inherits from SingletonConfigurable, so use instance()
         #
         self.IP = IPython.terminal.embed.InteractiveShellEmbed.instance(
-            config=cfg, user_ns=user_ns)
+            config=cfg, user_ns=user_ns
+        )
 
         sys.stdout, sys.stderr = old_stdout, old_stderr
 
-        self.IP.system = lambda cmd: self.shell(self.IP.var_expand(cmd),
-                                                header='IPython system call: ')
+        self.IP.system = lambda cmd: self.shell(
+            self.IP.var_expand(cmd), header='IPython system call: '
+        )
         # local_ns=user_ns)
         # global_ns=user_global_ns)
         # verbose=self.IP.rc.system_verbose)
@@ -163,6 +166,7 @@ class IterableIPShell(object):
 
         # help() is blocking, which hangs GTK+.
         import pydoc
+
         self.updateNamespace({'help': pydoc.doc})
 
     def __update_namespace(self):
@@ -209,8 +213,7 @@ class IterableIPShell(object):
             self.IP.input_splitter.push(line)
             self.iter_more = self.IP.input_splitter.push_accepts_more()
             self.prompt = self.generatePrompt(self.iter_more)
-            if (self.IP.SyntaxTB.last_syntax_error and
-                    self.IP.autoedit_syntax):
+            if self.IP.SyntaxTB.last_syntax_error and self.IP.autoedit_syntax:
                 self.IP.edit_syntax_error()
             if not self.iter_more:
                 source_raw = self.IP.input_splitter.raw_reset()
@@ -307,6 +310,7 @@ class IterableIPShell(object):
             completed = line
             possibilities = ['', []]
         if possibilities:
+
             def _commonPrefix(str1, str2):
                 '''
                 Reduction function. returns common prefix of two given strings.
@@ -320,12 +324,13 @@ class IterableIPShell(object):
                 @rtype: string
                 '''
                 for i in range(len(str1)):
-                    if not str2.startswith(str1[:i + 1]):
+                    if not str2.startswith(str1[: i + 1]):
                         return str1[:i]
                 return str1
+
             if possibilities[1]:
                 common_prefix = reduce(_commonPrefix, possibilities[1]) or line[-1]
-                completed = line[:-len(split_line[-1])] + common_prefix
+                completed = line[: -len(split_line[-1])] + common_prefix
             else:
                 completed = line
         else:
@@ -350,8 +355,13 @@ class IterableIPShell(object):
         # flush stdout so we don't mangle python's buffering
         if not debug:
             popen = subprocess.Popen(
-                cmd, bufsize=0, stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
+                cmd,
+                bufsize=0,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                close_fds=True,
+            )
             print((popen.stdout.read()))
 
 
@@ -371,14 +381,25 @@ class ConsoleView(Gtk.TextView):
     @ivar line_start: Start of command line mark.
     @type line_start: gtk.TextMark
     '''
-    ANSI_COLORS = {'0;30': 'Black', '0;31': 'Red',
-                   '0;32': 'Green', '0;33': 'Brown',
-                   '0;34': 'Blue', '0;35': 'Purple',
-                   '0;36': 'Cyan', '0;37': 'LightGray',
-                   '1;30': 'DarkGray', '1;31': 'DarkRed',
-                   '1;32': 'SeaGreen', '1;33': 'Yellow',
-                   '1;34': 'LightBlue', '1;35': 'MediumPurple',
-                   '1;36': 'LightCyan', '1;37': 'White'}
+
+    ANSI_COLORS = {
+        '0;30': 'Black',
+        '0;31': 'Red',
+        '0;32': 'Green',
+        '0;33': 'Brown',
+        '0;34': 'Blue',
+        '0;35': 'Purple',
+        '0;36': 'Cyan',
+        '0;37': 'LightGray',
+        '1;30': 'DarkGray',
+        '1;31': 'DarkRed',
+        '1;32': 'SeaGreen',
+        '1;33': 'Yellow',
+        '1;34': 'LightBlue',
+        '1;35': 'MediumPurple',
+        '1;36': 'LightCyan',
+        '1;37': 'White',
+    }
 
     def __init__(self):
         '''
@@ -389,15 +410,18 @@ class ConsoleView(Gtk.TextView):
         self.set_cursor_visible(True)
         self.text_buffer = self.get_buffer()
         self.mark = self.text_buffer.create_mark(
-            'scroll_mark', self.text_buffer.get_end_iter(), False)
+            'scroll_mark', self.text_buffer.get_end_iter(), False
+        )
         for code in self.ANSI_COLORS:
             self.text_buffer.create_tag(
-                code, foreground=self.ANSI_COLORS[code], weight=700)
+                code, foreground=self.ANSI_COLORS[code], weight=700
+            )
         self.text_buffer.create_tag('0')
         self.text_buffer.create_tag('notouch', editable=False)
         self.color_pat = re.compile(r'\x01?\x1b\[(.*?)m\x02?')
         self.line_start = self.text_buffer.create_mark(
-            'line_start', self.text_buffer.get_end_iter(), True)
+            'line_start', self.text_buffer.get_end_iter(), True
+        )
         self.connect('key-press-event', self.onKeyPress)
 
     def write(self, text, editable=False):
@@ -415,7 +439,8 @@ class ConsoleView(Gtk.TextView):
         segments = self.color_pat.split(text)
         segment = segments.pop(0)
         start_mark = self.text_buffer.create_mark(
-            None, self.text_buffer.get_end_iter(), True)
+            None, self.text_buffer.get_end_iter(), True
+        )
         self.text_buffer.insert(self.text_buffer.get_end_iter(), segment)
 
         if segments:
@@ -423,12 +448,15 @@ class ConsoleView(Gtk.TextView):
             for tag in ansi_tags:
                 i = segments.index(tag)
                 self.text_buffer.insert_with_tags_by_name(
-                    self.text_buffer.get_end_iter(), segments[i + 1], tag)
+                    self.text_buffer.get_end_iter(), segments[i + 1], tag
+                )
                 segments.pop(i)
         if not editable:
             self.text_buffer.apply_tag_by_name(
-                'notouch', self.text_buffer.get_iter_at_mark(start_mark),
-                self.text_buffer.get_end_iter())
+                'notouch',
+                self.text_buffer.get_iter_at_mark(start_mark),
+                self.text_buffer.get_end_iter(),
+            )
         self.text_buffer.delete_mark(start_mark)
         self.scroll_mark_onscreen(self.mark)
 
@@ -443,8 +471,7 @@ class ConsoleView(Gtk.TextView):
         @type prompt: string
         '''
         self._write(prompt)
-        self.text_buffer.move_mark(self.line_start,
-                                   self.text_buffer.get_end_iter())
+        self.text_buffer.move_mark(self.line_start, self.text_buffer.get_end_iter())
 
     def changeLine(self, text):
         GLib.idle_add(self._changeLine, text)
@@ -458,7 +485,9 @@ class ConsoleView(Gtk.TextView):
         '''
         text_iter = self.text_buffer.get_iter_at_mark(self.line_start)
         text_iter.forward_to_line_end()
-        self.text_buffer.delete(self.text_buffer.get_iter_at_mark(self.line_start), text_iter)
+        self.text_buffer.delete(
+            self.text_buffer.get_iter_at_mark(self.line_start), text_iter
+        )
         self._write(text, True)
 
     def getCurrentLine(self):
@@ -470,7 +499,9 @@ class ConsoleView(Gtk.TextView):
         '''
         rv = self.text_buffer.get_slice(
             self.text_buffer.get_iter_at_mark(self.line_start),
-            self.text_buffer.get_end_iter(), False)
+            self.text_buffer.get_end_iter(),
+            False,
+        )
         return rv
 
     def showReturned(self, text):
@@ -486,13 +517,12 @@ class ConsoleView(Gtk.TextView):
         text_iter = self.text_buffer.get_iter_at_mark(self.line_start)
         text_iter.forward_to_line_end()
         self.text_buffer.apply_tag_by_name(
-            'notouch',
-            self.text_buffer.get_iter_at_mark(self.line_start),
-            text_iter)
+            'notouch', self.text_buffer.get_iter_at_mark(self.line_start), text_iter
+        )
         self._write('\n' + text)
         if text:
             self._write('\n')
-        self._write('\n')    # Add extra line, like normal IPython
+        self._write('\n')  # Add extra line, like normal IPython
         self._showPrompt(self.prompt)
         self.text_buffer.move_mark(self.line_start, self.text_buffer.get_end_iter())
         self.text_buffer.place_cursor(self.text_buffer.get_end_iter())
@@ -521,8 +551,10 @@ class ConsoleView(Gtk.TextView):
         selection_iter = self.text_buffer.get_iter_at_mark(selection_mark)
         start_iter = self.text_buffer.get_iter_at_mark(self.line_start)
         if event.keyval == Gdk.KEY_Home:
-            if event.state & Gdk.ModifierType.CONTROL_MASK or \
-                    event.state & Gdk.ModifierType.MOD1_MASK:
+            if (
+                event.state & Gdk.ModifierType.CONTROL_MASK
+                or event.state & Gdk.ModifierType.MOD1_MASK
+            ):
                 pass
             elif event.state & Gdk.ModifierType.SHIFT_MASK:
                 self.text_buffer.move_mark(insert_mark, start_iter)
@@ -536,11 +568,15 @@ class ConsoleView(Gtk.TextView):
                 return True
         elif not event.string:
             pass
-        elif start_iter.compare(insert_iter) <= 0 and \
-                start_iter.compare(selection_iter) <= 0:
+        elif (
+            start_iter.compare(insert_iter) <= 0
+            and start_iter.compare(selection_iter) <= 0
+        ):
             pass
-        elif start_iter.compare(insert_iter) > 0 and \
-                start_iter.compare(selection_iter) > 0:
+        elif (
+            start_iter.compare(insert_iter) > 0
+            and start_iter.compare(selection_iter) > 0
+        ):
             self.text_buffer.place_cursor(start_iter)
         elif insert_iter.compare(selection_iter) < 0:
             self.text_buffer.move_mark(insert_mark, start_iter)
@@ -568,9 +604,10 @@ class IPythonView(ConsoleView, IterableIPShell):
         '''
         ConsoleView.__init__(self)
         self.cout = StringIO()
-        IterableIPShell.__init__(self, cout=self.cout, cerr=self.cout,
-                                 input_func=self.raw_input)
-#        self.connect('key_press_event', self.keyPress)
+        IterableIPShell.__init__(
+            self, cout=self.cout, cerr=self.cout, input_func=self.raw_input
+        )
+        #        self.connect('key_press_event', self.keyPress)
         self.interrupt = False
         self.execute()
         self.prompt = self.generatePrompt(False)

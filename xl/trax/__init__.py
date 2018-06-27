@@ -40,7 +40,8 @@ from xl.trax.search import (
     TracksMatcher,
     TracksInList,
     TracksNotInList,
-    match_track_from_string)
+    match_track_from_string,
+)
 from xl.trax.util import (
     is_valid_track,
     get_album_tracks,
@@ -48,4 +49,5 @@ from xl.trax.util import (
     get_tracks_from_uri,
     sort_tracks,
     sort_result_tracks,
-    get_rating_from_tracks)
+    get_rating_from_tracks,
+)

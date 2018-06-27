@@ -36,7 +36,9 @@ class OpacityPreference(widgets.ScalePreference):
             self.set_widget_sensitive(False)
             # Setting opacity on Windows crashes with segfault,
             # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
-            self.widget.set_tooltip(_("Opacity cannot be set on Windows due to a bug in Gtk+"))
+            self.widget.set_tooltip(
+                _("Opacity cannot be set on Windows due to a bug in Gtk+")
+            )
 
 
 class FontPreference(widgets.FontButtonPreference):

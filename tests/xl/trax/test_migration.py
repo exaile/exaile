@@ -30,28 +30,28 @@ def data(request, tmpdir):
     dbtype = request.param
     base = join(dirname(__file__), '..', '..', 'data', 'db')
     truth = {}
-    
+
     # uses pickle instead of JSON because of unicode issues...
     with open(join(base, 'music.db.pickle')) as fp:
         truth = pickle.load(fp)
-    
+
     if globals()[dbtype] is None:
         pytest.skip('Module %s does not exist' % dbtype)
     else:
         # copy the test data to a tempdir
         loc = str(tmpdir.mkdir(dbtype))
-        
+
         for f in glob.glob(join(base, dbtype, 'music.*')):
             shutil.copyfile(f, join(loc, basename(f)))
-        
+
         return truth, loc, dbtype
 
 
 def test_migration(data):
     truth, loc, dbtype = data
-    
+
     print(os.listdir(loc))
-    
+
     try:
         db = open_shelf(join(loc, 'music.db'))
     except Exception as e:
@@ -63,11 +63,11 @@ def test_migration(data):
             pytest.skip("Invalid dbm module")
             return
         raise
-    
+
     for k, v in truth.iteritems():
         assert k in db
         assert v == db[k]
-    
+
     assert os.listdir(loc) == ['music.db']
-    
+
     db.close()

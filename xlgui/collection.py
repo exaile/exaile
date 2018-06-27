@@ -58,8 +58,7 @@ class CollectionManagerDialog(Gtk.Dialog):
 
         self.set_transient_for(self.parent)
         self.message = dialogs.MessageBar(
-            parent=self.content_area,
-            buttons=Gtk.ButtonsType.CLOSE
+            parent=self.content_area, buttons=Gtk.ButtonsType.CLOSE
         )
 
         for location, library in collection.libraries.iteritems():
@@ -100,10 +99,17 @@ class CollectionManagerDialog(Gtk.Dialog):
         """
             Adds a path to the list
         """
-        dialog = Gtk.FileChooserDialog(_("Add a Directory"),
-                                       self.parent, Gtk.FileChooserAction.SELECT_FOLDER,
-                                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                                        Gtk.STOCK_ADD, Gtk.ResponseType.OK))
+        dialog = Gtk.FileChooserDialog(
+            _("Add a Directory"),
+            self.parent,
+            Gtk.FileChooserAction.SELECT_FOLDER,
+            (
+                Gtk.STOCK_CANCEL,
+                Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_ADD,
+                Gtk.ResponseType.OK,
+            ),
+        )
         dialog.set_current_folder(xdg.get_last_dir())
         dialog.set_local_only(False)  # enable gio
         response = dialog.run()
@@ -121,15 +127,17 @@ class CollectionManagerDialog(Gtk.Dialog):
 
             for row in self.model:
                 library_location = Gio.File.new_for_uri(row[0])
-                #monitored = row[1]
-                #scan_on_startup = row[2]
+                # monitored = row[1]
+                # scan_on_startup = row[2]
 
                 if location.has_prefix(library_location):
                     self.message.show_warning(
                         _('Directory not added.'),
-                        _('The directory is already in your collection '
-                          'or is a subdirectory of another directory in '
-                          'your collection.')
+                        _(
+                            'The directory is already in your collection '
+                            'or is a subdirectory of another directory in '
+                            'your collection.'
+                        ),
                     )
                     break
                 elif library_location.has_prefix(location):
@@ -158,6 +166,7 @@ class CollectionManagerDialog(Gtk.Dialog):
         """
 
         from xlgui import main
+
         main.mainwindow().controller.on_rescan_collection()
 
     @GtkTemplate.Callback
@@ -167,6 +176,7 @@ class CollectionManagerDialog(Gtk.Dialog):
         """
 
         from xlgui import main
+
         main.mainwindow().controller.on_rescan_collection_forced()
 
     @GtkTemplate.Callback

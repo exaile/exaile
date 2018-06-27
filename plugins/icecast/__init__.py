@@ -12,11 +12,7 @@ from urllib2 import urlparse
 from xml.dom import minidom
 
 from xl import common, event, playlist, xdg
-from xl.radio import (
-    RadioStation,
-    RadioList,
-    RadioItem,
-)
+from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
@@ -47,6 +43,7 @@ def disable(exaile):
 
 def set_status(message, timeout=0):
     from xlgui.panel import radio
+
     radio.set_status(message, timeout)
 
 
@@ -64,6 +61,7 @@ class IcecastRadioStation(RadioStation):
         True
         >>>
     """
+
     name = 'icecast'
 
     def __init__(self, exaile):
@@ -113,25 +111,22 @@ class IcecastRadioStation(RadioStation):
             Returns the rlists for icecast
         """
         from xlgui.panel import radio
+
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
             hostinfo = urlparse.urlparse(self.genre_url)
             try:
-                c = httplib.HTTPConnection(hostinfo.netloc,
-                                           timeout=20)
+                c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
             except TypeError:  # python 2.5 doesnt have timeout=
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
-                c.request('GET', hostinfo.path, headers={'User-Agent':
-                                                         self.user_agent})
+                c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
-                raise radio.RadioException(
-                    _('Error connecting to Icecast server.'))
+                raise radio.RadioException(_('Error connecting to Icecast server.'))
 
             if response.status != 200:
-                raise radio.RadioException(
-                    _('Error connecting to Icecast server.'))
+                raise radio.RadioException(_('Error connecting to Icecast server.'))
 
             body = response.read()
             c.close()
@@ -158,8 +153,9 @@ class IcecastRadioStation(RadioStation):
 
         for item in data.keys():
             rlist = RadioList(item, station=self)
-            rlist.get_items = lambda no_cache, name=item: \
-                self._get_subrlists(name=name, no_cache=no_cache)
+            rlist.get_items = lambda no_cache, name=item: self._get_subrlists(
+                name=name, no_cache=no_cache
+            )
             rlists.append(rlist)
 
         sort_list = sorted([(item.name, item) for item in rlists])
@@ -222,16 +218,17 @@ class IcecastRadioStation(RadioStation):
         while thisPage < nextPage:
             thisPage += 1
             try:
-                c.request('GET', "%s?%s" % (hostinfo.path, query),
-                          headers={'User-Agent': self.user_agent})
+                c.request(
+                    'GET',
+                    "%s?%s" % (hostinfo.path, query),
+                    headers={'User-Agent': self.user_agent},
+                )
                 response = c.getresponse()
             except (socket.timeout, socket.error):
-                raise radio.RadioException(
-                    _('Error connecting to Icecast server.'))
+                raise radio.RadioException(_('Error connecting to Icecast server.'))
 
             if response.status != 200:
-                raise radio.RadioException(
-                    _('Error connecting to Icecast server.'))
+                raise radio.RadioException(_('Error connecting to Icecast server.'))
 
             body = response.read()
 
@@ -259,21 +256,27 @@ class IcecastRadioStation(RadioStation):
                                 anchors = td.getElementsByTagName('a')
                                 for anchor in anchors:
                                     href = anchor.getAttribute('href')
-                                    matcher = re.match('/listen/(\d+)/listen\.xspf\Z', href)
+                                    matcher = re.match(
+                                        '/listen/(\d+)/listen\.xspf\Z', href
+                                    )
                                     if matcher:
                                         sid = matcher.group(1)
                                         break
                                 paragraphs = td.getElementsByTagName('p')
                                 for paragraph in paragraphs:
                                     if paragraph.hasAttribute('title'):
-                                        quality = paragraph.getAttribute('title').split()
+                                        quality = paragraph.getAttribute(
+                                            'title'
+                                        ).split()
                                         if quality[0] == 'Quality':
                                             sbitrate = self._calc_bitrate(quality[1])
                                         elif len(quality[0]) > 3:
                                             sbitrate = str(int(quality[0]) / 1024)
                                         else:
                                             sbitrate = quality[0]
-                                        anchor = paragraph.getElementsByTagName('a').item(0)
+                                        anchor = paragraph.getElementsByTagName(
+                                            'a'
+                                        ).item(0)
                                         anchor.normalize()
                                         for text in anchor.childNodes:
                                             if text.nodeType == minidom.Node.TEXT_NODE:
@@ -288,7 +291,9 @@ class IcecastRadioStation(RadioStation):
                     for ul in uls:
                         if ul.getAttribute('class') == 'pager':
                             anchors = ul.getElementsByTagName('a')
-                            query = anchors.item(anchors.length - 1).getAttribute('href')
+                            query = anchors.item(anchors.length - 1).getAttribute(
+                                'href'
+                            )
                             matcher = re.match('\?(.*?page=(\d+))\Z', query)
                             query = matcher.group(1)
                             nextPage = int(matcher.group(2))
@@ -303,8 +308,9 @@ class IcecastRadioStation(RadioStation):
             rlist = RadioItem(item[0], station=self)
             rlist.bitrate = item[2]
             rlist.format = item[3]
-            rlist.get_playlist = lambda name=item[0], station_id=item[1]: \
-                self._get_playlist(name, station_id)
+            rlist.get_playlist = lambda name=item[0], station_id=item[
+                1
+            ]: self._get_playlist(name, station_id)
             rlists.append(rlist)
 
         return rlists
@@ -323,8 +329,9 @@ class IcecastRadioStation(RadioStation):
         """
             Called when the user wants to search for a specific stream
         """
-        dialog = dialogs.TextEntryDialog(_("Enter the search keywords"),
-                                         _("Icecast Search"))
+        dialog = dialogs.TextEntryDialog(
+            _("Enter the search keywords"), _("Icecast Search")
+        )
 
         result = dialog.run()
         if result == Gtk.ResponseType.OK:
@@ -389,7 +396,6 @@ class IcecastRadioStation(RadioStation):
 
 
 class ResultsDialog(dialogs.ListDialog):
-
     def __init__(self, title):
         dialogs.ListDialog.__init__(self, title)
         col = self.list.get_column(0)
@@ -400,12 +406,20 @@ class ResultsDialog(dialogs.ListDialog):
         text = Gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         col = Gtk.TreeViewColumn(_('Bitrate'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter:
-                               cell.set_property('text', model.get_value(iter, 0).bitrate))
+        col.set_cell_data_func(
+            text,
+            lambda column, cell, model, iter: cell.set_property(
+                'text', model.get_value(iter, 0).bitrate
+            ),
+        )
         self.list.append_column(col)
         text = Gtk.CellRendererText()
         text.set_property('xalign', 0.5)
         col = Gtk.TreeViewColumn(_('Format'), text)
-        col.set_cell_data_func(text, lambda column, cell, model, iter:
-                               cell.set_property('text', model.get_value(iter, 0).format))
+        col.set_cell_data_func(
+            text,
+            lambda column, cell, model, iter: cell.set_property(
+                'text', model.get_value(iter, 0).format
+            ),
+        )
         self.list.append_column(col)

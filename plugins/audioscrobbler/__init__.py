@@ -72,7 +72,6 @@ def get_preferences_pane():
 
 
 class ExaileScrobbler(object):
-
     def __init__(self, exaile):
         """
             Connects events to the player object, loads settings and cache
@@ -82,8 +81,7 @@ class ExaileScrobbler(object):
         self.connecting = False
         self.use_menu = False
         self.exaile = exaile
-        self.cachefile = os.path.join(xdg.get_data_dirs()[0],
-                                      "audioscrobbler.cache")
+        self.cachefile = os.path.join(xdg.get_data_dirs()[0], "audioscrobbler.cache")
         self.get_options('', '', 'plugin/ascrobbler/cache_size')
         self.get_options('', '', 'plugin/ascrobbler/user')
         self.load_cache()
@@ -95,23 +93,32 @@ class ExaileScrobbler(object):
             logger.debug('Toggling AudioScrobbler submissions.')
             settings.set_option('plugin/ascrobbler/submit', not self.submit)
 
-        self.accelerator = Accelerator('<Primary>b', _('Toggle AudioScrobbler submit'),
-                                       toggle_submit)
+        self.accelerator = Accelerator(
+            '<Primary>b', _('Toggle AudioScrobbler submit'), toggle_submit
+        )
         providers.register('mainwindow-accelerators', self.accelerator)
 
     def get_options(self, type, sm, option):
         if option == 'plugin/ascrobbler/cache_size':
             self.set_cache_size(
-                settings.get_option('plugin/ascrobbler/cache_size', 100), False)
+                settings.get_option('plugin/ascrobbler/cache_size', 100), False
+            )
             return
 
-        if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
-                      'plugin/ascrobbler/submit', 'plugin/ascrobbler/scrobble_remote']:
+        if option in [
+            'plugin/ascrobbler/user',
+            'plugin/ascrobbler/password',
+            'plugin/ascrobbler/submit',
+            'plugin/ascrobbler/scrobble_remote',
+        ]:
             username = settings.get_option('plugin/ascrobbler/user', '')
             password = settings.get_option('plugin/ascrobbler/password', '')
-            server = settings.get_option('plugin/ascrobbler/url',
-                                         'http://post.audioscrobbler.com/')
-            self.scrobble_remote = settings.get_option('plugin/ascrobbler/scrobble_remote', False)
+            server = settings.get_option(
+                'plugin/ascrobbler/url', 'http://post.audioscrobbler.com/'
+            )
+            self.scrobble_remote = settings.get_option(
+                'plugin/ascrobbler/scrobble_remote', False
+            )
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
             if (not self.connecting and not self.connected) and self.submit:
@@ -129,15 +136,18 @@ class ExaileScrobbler(object):
     def setup_menu(self):
         self.menu_agr = self.exaile.gui.main.accel_group
 
-        providers.register('menubar-tools-menu',
-                           menu.simple_separator('plugin-sep', ['track-properties']))
+        providers.register(
+            'menubar-tools-menu',
+            menu.simple_separator('plugin-sep', ['track-properties']),
+        )
 
         def factory(menu_, parent, context):
             item = Gtk.CheckMenuItem.new_with_label(_('Enable audioscrobbling'))
             item.set_active(self.submit)
             key, mods = Gtk.accelerator_parse('<Primary>B')
-            item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                                 Gtk.AccelFlags.VISIBLE)
+            item.add_accelerator(
+                'activate', menu.FAKEACCELGROUP, key, mods, Gtk.AccelFlags.VISIBLE
+            )
             item.connect('toggled', self._menu_entry_toggled)
             return item
 
@@ -197,41 +207,49 @@ class ExaileScrobbler(object):
         if player.current != track:
             return
 
-        logger.info("Attempting to submit \"Now Playing\" information to AudioScrobbler...")
+        logger.info(
+            "Attempting to submit \"Now Playing\" information to AudioScrobbler..."
+        )
         try:
             scrobbler.now_playing(
                 track.get_tag_raw('artist', join=True),
                 track.get_tag_raw('title', join=True),
                 track.get_tag_raw('album', join=True),
                 int(track.get_tag_raw('__length')),
-                track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
+                track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0,
             )
         except Exception as e:
             logger.warning("Error submitting \"Now Playing\": %s", e)
 
     def on_play(self, type, player, track):
         if self.submit:
-            track.set_tags(__audioscrobbler_playtime=track.get_tag_raw('__playtime'),
-                           __audioscrobbler_starttime=time.time())
+            track.set_tags(
+                __audioscrobbler_playtime=track.get_tag_raw('__playtime'),
+                __audioscrobbler_starttime=time.time(),
+            )
 
             if track.is_local() or self.scrobble_remote:
                 self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
-        if not track or (not track.is_local() and not self.scrobble_remote) \
-           or track.get_tag_raw('__playtime') is None:
+        if (
+            not track
+            or (not track.is_local() and not self.scrobble_remote)
+            or track.get_tag_raw('__playtime') is None
+        ):
             return
-        playtime = (track.get_tag_raw('__playtime') or 0) - \
-            (track.get_tag_raw('__audioscrobbler_playtime') or 0)
-        if playtime > 240 or \
-                playtime > float(track.get_tag_raw('__length')) / 2.0:
+        playtime = (track.get_tag_raw('__playtime') or 0) - (
+            track.get_tag_raw('__audioscrobbler_playtime') or 0
+        )
+        if playtime > 240 or playtime > float(track.get_tag_raw('__length')) / 2.0:
             if self.submit and track.get_tag_raw('__length') > 30:
-                self.submit_to_scrobbler(track,
-                                         track.get_tag_raw('__audioscrobbler_starttime'),
-                                         playtime)
+                self.submit_to_scrobbler(
+                    track, track.get_tag_raw('__audioscrobbler_starttime'), playtime
+                )
 
-        track.set_tag_raw(__audioscrobbler_starttime=None,
-                          __audioscrobbler_playtime=None)
+        track.set_tag_raw(
+            __audioscrobbler_starttime=None, __audioscrobbler_playtime=None
+        )
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size
@@ -263,7 +281,9 @@ class ExaileScrobbler(object):
                 scrobbler.submit(
                     track.get_tag_raw('artist', join=True),
                     track.get_tag_raw('title', join=True),
-                    int(time_started), 'P', '',
+                    int(time_started),
+                    'P',
+                    '',
                     int(track.get_tag_raw('__length')),
                     track.get_tag_raw('album', join=True),
                     track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0,

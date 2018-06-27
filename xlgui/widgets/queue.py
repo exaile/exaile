@@ -34,7 +34,6 @@ from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
 
 class QueuePage(PlaylistPageBase):
-
     def __init__(self, container, player):
         PlaylistPageBase.__init__(self)
         self.plcontainer = container
@@ -49,9 +48,17 @@ class QueuePage(PlaylistPageBase):
         self.view.dragdrop_copyonly = True
         self.swindow.add(self.view)
 
-        event.add_ui_callback(self.on_length_changed, 'playlist_current_position_changed', self.player.queue)
-        event.add_ui_callback(self.on_length_changed, "playlist_tracks_added", self.player.queue)
-        event.add_ui_callback(self.on_length_changed, "playlist_tracks_removed", self.player.queue)
+        event.add_ui_callback(
+            self.on_length_changed,
+            'playlist_current_position_changed',
+            self.player.queue,
+        )
+        event.add_ui_callback(
+            self.on_length_changed, "playlist_tracks_added", self.player.queue
+        )
+        event.add_ui_callback(
+            self.on_length_changed, "playlist_tracks_removed", self.player.queue
+        )
 
         self.show_all()
 
@@ -89,8 +96,7 @@ class QueuePage(PlaylistPageBase):
 
     def on_saveas(self):
         exaile = main.exaile()
-        name = dialogs.ask_for_playlist_name(
-            exaile.gui.main.window, exaile.playlists)
+        name = dialogs.ask_for_playlist_name(exaile.gui.main.window, exaile.playlists)
         if name is not None:
             pl = playlist.Playlist(name, self.playlist[:])
             exaile.playlists.save_playlist(pl)

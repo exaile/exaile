@@ -173,6 +173,7 @@ class EngineConditional(widgets.Conditional):
     """
         True if the specified engine is selected
     """
+
     condition_preference_name = 'player/engine'
     conditional_engine = ''
 
@@ -250,5 +251,6 @@ class CrossfadeDurationPreference(widgets.SpinPreference, EngineConditional):
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
         EngineConditional.__init__(self)
+
 
 # vim: et sts=4 sw=4

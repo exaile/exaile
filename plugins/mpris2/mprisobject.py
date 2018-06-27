@@ -7,7 +7,7 @@
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# but WITHOUT ANY WARRANTY',' without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -29,10 +29,7 @@ from __future__ import division
 
 import tempfile
 
-from gi.repository import (
-    Gio,
-    GLib,
-)
+from gi.repository import Gio, GLib
 
 import xl.covers
 import xl.event
@@ -43,7 +40,6 @@ Variant = GLib.Variant
 
 
 class MprisObject(object):
-
     def __init__(self, exaile, connection):
         self.exaile = exaile
         self.connection = connection
@@ -74,14 +70,14 @@ class MprisObject(object):
 
     def _init_gui(self):
         conns = [
-            (self.exaile.gui.main, 'notify::is-fullscreen', self._on_notify_fullscreen),
+            (self.exaile.gui.main, 'notify::is-fullscreen', self._on_notify_fullscreen)
         ]
         self.signal_connections.extend(
-            (obj, obj.connect(sig, handler))
-            for obj, sig, handler in conns)
+            (obj, obj.connect(sig, handler)) for obj, sig, handler in conns
+        )
 
     def teardown(self):
-        """Quick destroy; just clean up our mess"""
+        """Quick destroy',' just clean up our mess"""
         f = self.cover_file
         if f:
             f.close()
@@ -91,19 +87,28 @@ class MprisObject(object):
         if f:
             f.close()
         self.cover_file = f = tempfile.NamedTemporaryFile(
-            prefix='exaile.mpris2.cover.', suffix='.tmp')
+            prefix='exaile.mpris2.cover.', suffix='.tmp'
+        )
         uri = Gio.File.new_for_path(f.name).get_uri()
         return f, uri
 
     def _emit(self, interface, signame, *args):
-        self.connection.emit_signal(None, '/org/mpris/MediaPlayer2', interface,
-                                    signame, Variant.new_tuple(*args))
+        self.connection.emit_signal(
+            None,
+            '/org/mpris/MediaPlayer2',
+            interface,
+            signame,
+            Variant.new_tuple(*args),
+        )
 
     def _emit_propchange(self, interface, changed_props={}, invalidated_props=[]):
-        self._emit('org.freedesktop.DBus.Properties', 'PropertiesChanged',
-                   Variant('s', interface),
-                   Variant('a{sv}', changed_props),
-                   Variant('as', invalidated_props))
+        self._emit(
+            'org.freedesktop.DBus.Properties',
+            'PropertiesChanged',
+            Variant('s', interface),
+            Variant('a{sv}', changed_props),
+            Variant('as', invalidated_props),
+        )
 
     def _get_metadata(self):
         track = xl.player.PLAYER.current
@@ -114,9 +119,7 @@ class MprisObject(object):
 
         # mpris
 
-        meta = {
-            'mpris:trackid': Variant('o', '/org/exaile/track/%d' % id(track)),
-        }
+        meta = {'mpris:trackid': Variant('o', '/org/exaile/track/%d' % id(track))}
         v = track.get_tag_raw('__length')
         if v:
             meta['mpris:length'] = Variant('x', v * 1e6)
@@ -137,7 +140,7 @@ class MprisObject(object):
             meta['xesam:artist'] = Variant('as', v)
         v = track.get_tag_raw('genre')
         if v:
-            # TODO: I've seen a client expect 'radio' on streams;
+            # TODO: I've seen a client expect 'radio' on streams','
             # is that common usage?
             meta['xesam:genre'] = Variant('as', v)
         try:
@@ -159,33 +162,38 @@ class MprisObject(object):
         return meta
 
     def _on_notify_fullscreen(self, obj, param):
-        self._emit_propchange('org.mpris.MediaPlayer2', {
-            'FullScreen': self.FullScreen,
-        })
+        self._emit_propchange('org.mpris.MediaPlayer2', {'FullScreen': self.FullScreen})
 
     def _on_playback_track_start(self, event, player, track):
-        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-            'Metadata': self.Metadata,
-            'PlaybackStatus': Variant('s', 'Playing'),
-        })
+        self._emit_propchange(
+            'org.mpris.MediaPlayer2.Player',
+            {'Metadata': self.Metadata, 'PlaybackStatus': Variant('s', 'Playing')},
+        )
 
     def _on_playback_track_end(self, event, player, track):
-        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-            'Metadata': Variant('a{sv}', {}),
-            'PlaybackStatus': Variant('s', 'Stopped'),
-        })
+        self._emit_propchange(
+            'org.mpris.MediaPlayer2.Player',
+            {
+                'Metadata': Variant('a{sv}', {}),
+                'PlaybackStatus': Variant('s', 'Stopped'),
+            },
+        )
 
     def _on_playback_toggle_pause(self, event, player, track):
-        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-            'PlaybackStatus': Variant('s',
-                                      'Paused' if xl.player.PLAYER.is_paused() else 'Playing'),
-        })
+        self._emit_propchange(
+            'org.mpris.MediaPlayer2.Player',
+            {
+                'PlaybackStatus': Variant(
+                    's', 'Paused' if xl.player.PLAYER.is_paused() else 'Playing'
+                )
+            },
+        )
 
     def _on_player_option_set(self, event, settings, option):
         if option == 'player/volume':
-            self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-                'Volume': self.Volume,
-            })
+            self._emit_propchange(
+                'org.mpris.MediaPlayer2.Player', {'Volume': self.Volume}
+            )
 
     def _return_true(self):  # Positive reply for the "Can*" properties
         return Variant('b', True)
@@ -217,14 +225,37 @@ class MprisObject(object):
     @property
     def SupportedMimeTypes(self):
         # Taken from exaile.desktop
-        mimetypes = 'audio/musepack;application/musepack;application/x-ape;' \
-            'audio/ape;audio/x-ape;audio/x-musepack;application/x-musepack;' \
-            'audio/x-mp3;application/x-id3;audio/mpeg;audio/x-mpeg;' \
-            'audio/x-mpeg-3;audio/mpeg3;audio/mp3;audio/x-m4a;audio/mpc;' \
-            'audio/x-mpc;audio/mp;audio/x-mp;application/ogg;' \
-            'application/x-ogg;audio/vorbis;audio/x-vorbis;audio/ogg;' \
-            'audio/x-ogg;audio/x-flac;application/x-flac;audio/flac'
-        return Variant('as', mimetypes.split(';'))
+        mimetypes = [
+            'audio/musepack',
+            'application/musepack',
+            'application/x-ape',
+            'audio/ape',
+            'audio/x-ape',
+            'audio/x-musepack',
+            'application/x-musepack',
+            'audio/x-mp3',
+            'application/x-id3',
+            'audio/mpeg',
+            'audio/x-mpeg',
+            'audio/x-mpeg-3',
+            'audio/mpeg3',
+            'audio/mp3',
+            'audio/x-m4a',
+            'audio/mpc',
+            'audio/x-mpc',
+            'audio/mp',
+            'audio/x-mp',
+            'application/ogg',
+            'application/x-ogg',
+            'audio/vorbis',
+            'audio/x-vorbis',
+            'audio/ogg',
+            'audio/x-ogg',
+            'audio/x-flac',
+            'application/x-flac',
+            'audio/flac',
+        ]
+        return Variant('as', mimetypes)
 
     @property
     def SupportedUriSchemes(self):
@@ -242,7 +273,9 @@ class MprisObject(object):
 
     # Player properties
 
-    CanControl = CanGoNext = CanGoPrevious = CanPause = CanPlay = CanSeek = property(_return_true)
+    CanControl = CanGoNext = CanGoPrevious = CanPause = CanPlay = CanSeek = property(
+        _return_true
+    )
 
     @property
     def LoopStatus(self):
@@ -262,9 +295,7 @@ class MprisObject(object):
         playlist = xl.player.QUEUE.current_playlist
         playlist.set_repeat_mode(state)
         # TODO: Connect to actual event in playlist
-        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-            'LoopStatus': value,
-        })
+        self._emit_propchange('org.mpris.MediaPlayer2.Player', {'LoopStatus': value})
 
     @property
     def MaximumRate(self):
@@ -307,9 +338,9 @@ class MprisObject(object):
         playlist = xl.player.QUEUE.current_playlist
         playlist.set_shuffle_mode('track' if value_b else 'disabled')
         # TODO: Connect to actual event in playlist
-        self._emit_propchange('org.mpris.MediaPlayer2.Player', {
-            'Shuffle': Variant('b', value_b),
-        })
+        self._emit_propchange(
+            'org.mpris.MediaPlayer2.Player', {'Shuffle': Variant('b', value_b)}
+        )
 
     @property
     def Volume(self):
@@ -352,7 +383,6 @@ class MprisObject(object):
             queue = xl.player.QUEUE
             queue.play(queue.get_current())
 
-
     def Previous(self):
         if xl.player.PLAYER.is_playing():
             xl.player.QUEUE.prev()
@@ -365,8 +395,9 @@ class MprisObject(object):
             return
         xl.player.PLAYER.seek(position / 1e6)
         # TODO: Can we get this event from Exaile?
-        self._emit('org.mpris.MediaPlayer2.Player', 'Seeked',
-                   GLib.Variant('x', position))
+        self._emit(
+            'org.mpris.MediaPlayer2.Player', 'Seeked', GLib.Variant('x', position)
+        )
 
     def Stop(self):
         xl.player.PLAYER.stop()

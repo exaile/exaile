@@ -40,13 +40,14 @@ class Accelerator(object):
 
 
 class AcceleratorManager(providers.ProviderHandler):
-
     def __init__(self, providername, accelgroup):
         self.accelgroup = accelgroup
         providers.ProviderHandler.__init__(self, providername, simple_init=True)
-        
+
     def on_provider_added(self, provider):
-        self.accelgroup.connect(provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback)
+        self.accelgroup.connect(
+            provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback
+        )
 
     def on_provider_removed(self, provider):
         self.accelgroup.disconnect_key(provider.key, provider.mods)

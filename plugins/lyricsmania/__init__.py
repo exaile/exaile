@@ -20,10 +20,7 @@ except ImportError:
 
 import re
 
-from xl.lyrics import (
-    LyricSearchMethod,
-    LyricsNotFoundException
-)
+from xl.lyrics import LyricSearchMethod, LyricsNotFoundException
 from xl import common, providers
 
 
@@ -40,8 +37,7 @@ def enable(exaile):
 
 
 def disable(exaile):
-    providers.unregister('lyrics', providers.get_provider('lyrics',
-                                                          'lyricsmania'))
+    providers.unregister('lyrics', providers.get_provider('lyrics', 'lyricsmania'))
 
 
 class LyricsMania(LyricSearchMethod):
@@ -54,8 +50,10 @@ class LyricsMania(LyricSearchMethod):
 
     def find_lyrics(self, track):
         try:
-            (artist, title) = track.get_tag_raw('artist')[0].encode("utf-8"), \
-                track.get_tag_raw('title')[0].encode("utf-8")
+            (artist, title) = (
+                track.get_tag_raw('artist')[0].encode("utf-8"),
+                track.get_tag_raw('title')[0].encode("utf-8"),
+            )
         except TypeError:
             raise LyricsNotFoundException
 

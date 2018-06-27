@@ -22,12 +22,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
 
-from xl import (
-    covers,
-    event,
-    player,
-    settings
-)
+from xl import covers, event, player, settings
 
 from xlgui.guiutil import get_workarea_dimensions, pixbuf_from_data
 
@@ -37,7 +32,6 @@ DESKTOPCOVER = None
 
 
 class DesktopCoverPlugin(object):
-
     def __init__(self):
         self.__desktop_cover = None
 
@@ -89,7 +83,7 @@ class DesktopCover(Gtk.Window):
         'topleft': Gdk.Gravity.NORTH_WEST,
         'topright': Gdk.Gravity.NORTH_EAST,
         'bottomleft': Gdk.Gravity.SOUTH_WEST,
-        'bottomright': Gdk.Gravity.SOUTH_EAST
+        'bottomright': Gdk.Gravity.SOUTH_EAST,
     }
 
     def __init__(self):
@@ -118,7 +112,7 @@ class DesktopCover(Gtk.Window):
             'playback_track_start',
             'playback_player_end',
             'cover_set',
-            'cover_removed'
+            'cover_removed',
         ]
 
         screen = self.get_screen()
@@ -170,8 +164,7 @@ class DesktopCover(Gtk.Window):
         size = settings.get_option('plugin/desktopcover/size', 200)
         upscale = settings.get_option('plugin/desktopcover/override_size', False)
         pixbuf = self.image.get_pixbuf()
-        next_pixbuf = pixbuf_from_data(cover_data,
-                                       size=(size, size), upscale=upscale)
+        next_pixbuf = pixbuf_from_data(cover_data, size=(size, size), upscale=upscale)
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
         if fading and pixbuf is not None and self._cross_fade_id is None:
@@ -180,11 +173,11 @@ class DesktopCover(Gtk.Window):
             pixbuf = pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
             self.image.set_from_pixbuf(pixbuf)
 
-            duration = settings.get_option(
-                'plugin/desktopcover/fading_duration', 50)
+            duration = settings.get_option('plugin/desktopcover/fading_duration', 50)
 
-            self._cross_fade_id = GLib.timeout_add(int(duration),
-                                                   self.cross_fade, pixbuf, next_pixbuf, duration)
+            self._cross_fade_id = GLib.timeout_add(
+                int(duration), self.cross_fade, pixbuf, next_pixbuf, duration
+            )
         else:
             self.image.set_from_pixbuf(next_pixbuf)
 
@@ -193,8 +186,9 @@ class DesktopCover(Gtk.Window):
             Updates the position based
             on gravity and offsets
         """
-        gravity = self.gravity_map[settings.get_option(
-            'plugin/desktopcover/anchor', 'topleft')]
+        gravity = self.gravity_map[
+            settings.get_option('plugin/desktopcover/anchor', 'topleft')
+        ]
         cover_offset_x = settings.get_option('plugin/desktopcover/x', 0)
         cover_offset_y = settings.get_option('plugin/desktopcover/y', 0)
         allocation = self.get_allocation()
@@ -226,10 +220,8 @@ class DesktopCover(Gtk.Window):
         Gtk.Window.show(self)
 
         if fading and self._fade_in_id is None:
-            duration = settings.get_option(
-                'plugin/desktopcover/fading_duration', 50)
-            self._fade_in_id = GLib.timeout_add(
-                int(duration), self.fade_in)
+            duration = settings.get_option('plugin/desktopcover/fading_duration', 50)
+            self._fade_in_id = GLib.timeout_add(int(duration), self.fade_in)
 
     def hide(self):
         """
@@ -238,10 +230,8 @@ class DesktopCover(Gtk.Window):
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
         if fading and self._fade_out_id is None:
-            duration = settings.get_option(
-                'plugin/desktopcover/fading_duration', 50)
-            self._fade_out_id = GLib.timeout_add(
-                int(duration), self.fade_out)
+            duration = settings.get_option('plugin/desktopcover/fading_duration', 50)
+            self._fade_out_id = GLib.timeout_add(int(duration), self.fade_out)
         else:
             Gtk.Window.hide(self)
             self.image.set_from_pixbuf(None)
@@ -295,12 +285,16 @@ class DesktopCover(Gtk.Window):
 
             next_pixbuf.composite(
                 dest=pixbuf,
-                dest_x=0, dest_y=0,
-                dest_width=width, dest_height=height,
-                offset_x=0, offset_y=0,
-                scale_x=1, scale_y=1,
+                dest_x=0,
+                dest_y=0,
+                dest_width=width,
+                dest_height=height,
+                offset_x=0,
+                offset_y=0,
+                scale_x=1,
+                scale_y=1,
                 interp_type=GdkPixbuf.InterpType.BILINEAR,
-                overall_alpha=int(alpha)
+                overall_alpha=int(alpha),
             )
 
             self.image.queue_draw()
@@ -362,12 +356,17 @@ class DesktopCover(Gtk.Window):
         """
             Updates the appearance
         """
-        if option in ('plugin/desktopcover/anchor',
-                      'plugin/desktopcover/x',
-                      'plugin/desktopcover/y'):
+        if option in (
+            'plugin/desktopcover/anchor',
+            'plugin/desktopcover/x',
+            'plugin/desktopcover/y',
+        ):
             self.update_position()
-        elif option in ('plugin/desktopcover/override_size',
-                        'plugin/desktopcover/size'):
+        elif option in (
+            'plugin/desktopcover/override_size',
+            'plugin/desktopcover/size',
+        ):
             self.set_cover_from_track(player.PLAYER.current)
+
 
 # vi: et sts=4 sw=4 tw=80

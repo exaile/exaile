@@ -30,6 +30,7 @@ from gi.repository import Gst
 from xl.providers import ProviderHandler
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -165,12 +166,16 @@ class ProviderBin(ElementBin, ProviderHandler):
             try:
                 self.elements[idx] = provider()
             except Exception:
-                logger.exception("Could not create %s element for %s.",
-                                 provider, self.get_name())
+                logger.exception(
+                    "Could not create %s element for %s.", provider, self.get_name()
+                )
 
         for k, v in dups.iteritems():
-            logger.warning("Audio plugins %s are sharing index %s (may have unpredictable output!)",
-                           v, k)
+            logger.warning(
+                "Audio plugins %s are sharing index %s (may have unpredictable output!)",
+                v,
+                k,
+            )
 
     def on_provider_added(self, provider):
         self.reset_providers()
@@ -191,17 +196,19 @@ def parse_stream_tags(track, tag_list):
 
     newsong = False
 
-    keep = ['bitrate',
-            'duration',
-            'track-number',
-            'track-count',
-            'album-disc-number',
-            'album-disc-count',
-            'album',
-            'artist',
-            'genre',
-            'comment',
-            'title']
+    keep = [
+        'bitrate',
+        'duration',
+        'track-number',
+        'track-count',
+        'album-disc-number',
+        'album-disc-count',
+        'album',
+        'artist',
+        'genre',
+        'comment',
+        'title',
+    ]
 
     # Build a dictionary first
     tags = {}
@@ -210,7 +217,9 @@ def parse_stream_tags(track, tag_list):
         if k not in keep:
             continue
 
-        values = [tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))]
+        values = [
+            tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))
+        ]
         if isinstance(values[0], str):
             try:
                 values = [unicode(v, 'utf-8') for v in values]
@@ -275,15 +284,14 @@ def parse_stream_tags(track, tag_list):
 
         if not track.get_tag_raw('artist'):
             title_array = v[0].split(' - ', 1)
-            if len(title_array) == 1 or \
-                    track.get_loc_for_io().lower().endswith(".mp3"):
+            if len(title_array) == 1 or track.get_loc_for_io().lower().endswith(".mp3"):
                 etags['title'] = v
             else:
                 etags['artist'] = [title_array[0]]
                 etags['title'] = [title_array[1]]
         else:
             etags['title'] = v
-    
+
     track.set_tags(**etags)
     return newsong
 

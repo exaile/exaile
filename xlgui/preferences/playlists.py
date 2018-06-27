@@ -57,6 +57,7 @@ class EnqueueTrackByDefaultPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/enqueue_by_default'
 
+
 # FIXME: Is this still relevant?
 # class QueueSavePreferences(widgets.CheckPreference):
 #    default = True

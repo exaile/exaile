@@ -32,4 +32,5 @@ from mutagen import musepack
 class MpcFormat(ApeFormat):
     MutagenType = musepack.Musepack
 
+
 # vim: et sts=4 sw=4

@@ -35,20 +35,24 @@ class PlaybackAdapter(object):
     def __init__(self, player):
 
         self.__player = player
-        self.__events = ('playback_track_start', 'playback_track_end',
-                         'playback_player_end', 'playback_toggle_pause',
-                         'playback_error')
+        self.__events = (
+            'playback_track_start',
+            'playback_track_end',
+            'playback_player_end',
+            'playback_toggle_pause',
+            'playback_error',
+        )
 
         for e in self.__events:
             event.add_callback(getattr(self, 'on_%s' % e), e, player)
 
         if player.current is not None:
-            self.on_playback_track_start('playback_track_start',
-                                         player, player.current)
+            self.on_playback_track_start('playback_track_start', player, player.current)
 
             if player.is_paused():
-                self.on_playback_toggle_pause('playback_toggle_pause',
-                                              player, player.current)
+                self.on_playback_toggle_pause(
+                    'playback_toggle_pause', player, player.current
+                )
 
     def destroy(self):
         """
@@ -86,27 +90,35 @@ class QueueAdapter(object):
     def __init__(self, queue):
         self.__queue = queue
 
-        event.add_callback(self.on_queue_current_playlist_changed,
-                           'queue_current_playlist_changed', queue)
-        event.add_callback(self.__on_playlist_current_position_changed,
-                           'playlist_current_position_changed')
-        event.add_callback(self.__on_playlist_tracks_added,
-                           'playlist_tracks_added')
-        event.add_callback(self.__on_playlist_tracks_removed,
-                           'playlist_tracks_removed')
+        event.add_callback(
+            self.on_queue_current_playlist_changed,
+            'queue_current_playlist_changed',
+            queue,
+        )
+        event.add_callback(
+            self.__on_playlist_current_position_changed,
+            'playlist_current_position_changed',
+        )
+        event.add_callback(self.__on_playlist_tracks_added, 'playlist_tracks_added')
+        event.add_callback(self.__on_playlist_tracks_removed, 'playlist_tracks_removed')
 
     def destroy(self):
         """
             Cleanups
         """
-        event.remove_callback(self.on_queue_current_playlist_changed,
-                              'queue_current_playlist_changed', self.__queue)
-        event.remove_callback(self.__on_playlist_current_position_changed,
-                              'playlist_current_position_changed')
-        event.remove_callback(self.__on_playlist_tracks_added,
-                              'playlist_tracks_added')
-        event.remove_callback(self.__on_playlist_tracks_removed,
-                              'playlist_tracks_removed')
+        event.remove_callback(
+            self.on_queue_current_playlist_changed,
+            'queue_current_playlist_changed',
+            self.__queue,
+        )
+        event.remove_callback(
+            self.__on_playlist_current_position_changed,
+            'playlist_current_position_changed',
+        )
+        event.remove_callback(self.__on_playlist_tracks_added, 'playlist_tracks_added')
+        event.remove_callback(
+            self.__on_playlist_tracks_removed, 'playlist_tracks_removed'
+        )
 
     def __on_playlist_current_position_changed(self, event, playlist, positions):
         """

@@ -34,6 +34,8 @@ try:
 
     def get_preferences_pane():
         return replaygainprefs
+
+
 except Exception:  # fail gracefully if we cant set up the UI
     pass
 
@@ -60,6 +62,7 @@ class ReplaygainVolume(ElementBin):
         Placed at 20 in the pipeline, since most elements should do their
         processing after it.
     """
+
     index = 20
     name = "rgvolume"
 
@@ -75,19 +78,21 @@ class ReplaygainVolume(ElementBin):
 
         # load settings
         for x in ("album-mode", "pre-amp", "fallback-gain"):
-            self._on_option_set("replaygain_option_set", None,
-                                "replaygain/%s" % x)
+            self._on_option_set("replaygain_option_set", None, "replaygain/%s" % x)
 
     def _on_option_set(self, name, object, data):
         if data == "replaygain/album-mode":
-            self.rgvol.set_property("album-mode",
-                                    settings.get_option("replaygain/album-mode", True))
+            self.rgvol.set_property(
+                "album-mode", settings.get_option("replaygain/album-mode", True)
+            )
         elif data == "replaygain/pre-amp":
-            self.rgvol.set_property("pre-amp",
-                                    settings.get_option("replaygain/pre-amp", 0))
+            self.rgvol.set_property(
+                "pre-amp", settings.get_option("replaygain/pre-amp", 0)
+            )
         elif data == "replaygain/fallback-gain":
-            self.rgvol.set_property("fallback-gain",
-                                    settings.get_option("replaygain/fallback-gain", 0))
+            self.rgvol.set_property(
+                "fallback-gain", settings.get_option("replaygain/fallback-gain", 0)
+            )
 
 
 class ReplaygainLimiter(ElementBin):
@@ -97,6 +102,7 @@ class ReplaygainLimiter(ElementBin):
         Placed at 80 in the pipeline so that other elements can come
         before it if necessary.
     """
+
     index = 80
     name = "rglimiter"
 
@@ -109,11 +115,12 @@ class ReplaygainLimiter(ElementBin):
         self.setup_elements()
 
         event.add_ui_callback(self._on_option_set, "replaygain_option_set")
-        self._on_option_set("replaygain_option_set", None,
-                            "replaygain/clipping-protection")
+        self._on_option_set(
+            "replaygain_option_set", None, "replaygain/clipping-protection"
+        )
 
     def _on_option_set(self, name, object, data):
         if data == "replaygain/clipping-protection":
-            self.rglimit.set_property("enabled",
-                                      settings.get_option("replaygain/clipping-protection",
-                                                          True))
+            self.rglimit.set_property(
+                "enabled", settings.get_option("replaygain/clipping-protection", True)
+            )

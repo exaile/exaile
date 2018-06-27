@@ -76,7 +76,8 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
                 self.default = default  # raw value
 
         default_title = formatinfo['kbs_steps'][
-            formatinfo['raw_steps'].index(self.default)]
+            formatinfo['raw_steps'].index(self.default)
+        ]
         active_iter = self.widget.get_active_iter()
 
         if active_iter is not None:
@@ -123,9 +124,8 @@ class OutputPathPreference(widgets.ComboEntryPreference):
         '$__last_played': _('Last played'),
         '$bpm': _('BPM'),
     }
-    preset_items = [
-        "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")
-    ]
+    preset_items = ["%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")]
     default = "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")
+
 
 # vim: et sts=4 sw=4

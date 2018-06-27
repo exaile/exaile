@@ -26,11 +26,7 @@
 
 from gi.repository import Gtk
 
-from xl import (
-    main,
-    playlist,
-    settings
-)
+from xl import main, playlist, settings
 
 from xl.nls import gettext as _
 
@@ -47,6 +43,7 @@ from .filter import (
 )
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -55,26 +52,22 @@ def N_(x):
 
 
 class EntrySecondsField(MultiEntryField):
-
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('seconds')))
 
 
 class EntryAndEntryField(MultiEntryField):
-
     def __init__(self):
         # TRANSLATORS: Logical AND used for smart playlists
         MultiEntryField.__init__(self, (50, _('and'), 50))
 
 
 class EntryDaysField(MultiEntryField):
-
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('days')))
 
 
 class PlaylistField(ComboEntryField):
-
     def __init__(self):
         playlists = []
         playlists.extend(main.exaile().smart_playlists.list_playlists())
@@ -82,33 +75,29 @@ class PlaylistField(ComboEntryField):
         playlists.sort()
         ComboEntryField.__init__(self, playlists)
 
-DATE_FIELDS = [
-    N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
+
+DATE_FIELDS = [N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
 
 
 class SpinDateField(SpinButtonAndComboField):
-
     def __init__(self):
         SpinButtonAndComboField.__init__(self, DATE_FIELDS)
 
 
 class SpinSecondsField(SpinLabelField):
-
     def __init__(self):
         SpinLabelField.__init__(self, _('seconds'))
 
 
 class SpinRating(SpinLabelField):
-
     def __init__(self):
-        SpinLabelField.__init__(self, '',
-                                settings.get_option("rating/maximum", 5), 0)
+        SpinLabelField.__init__(self, '', settings.get_option("rating/maximum", 5), 0)
 
 
 class SpinNothing(SpinLabelField):
-
     def __init__(self):
         SpinLabelField.__init__(self, '')
+
 
 # This sets up the CRITERIA for all the available types of tags
 # that exaile supports. The actual CRITERIA dict is populated
@@ -118,6 +107,7 @@ class SpinNothing(SpinLabelField):
 # _NMAP, and will be really translated by filtergui; no need to clutter the
 # code here.
 _criteria_types = {
+    # fmt: off
 
     # TODO
     'bitrate': [
@@ -189,6 +179,7 @@ _criteria_types = {
         ('at least', SpinRating),
         ('at most', SpinRating),
     ],
+    # fmt: on
 }
 
 # aliases
@@ -291,11 +282,11 @@ def __update_maps():
             raise ValueError("_REV_NMAP Internal error: '%s', '%s'" % (k, v))
         _REV_NMAP[v] = k
 
+
 __update_maps()
 
 
 class SmartPlaylistEditor(object):
-
     @classmethod
     def create(cls, collection, smart_manager, parent=None):
         """
@@ -367,15 +358,12 @@ class SmartPlaylistEditor(object):
 
         cls._attach_sort_widgets(dialog, *pl.get_sort_tags())
 
-        return cls._run_edit_dialog(dialog, collection, smart_manager, parent,
-                                    orig_pl=pl)
+        return cls._run_edit_dialog(
+            dialog, collection, smart_manager, parent, orig_pl=pl
+        )
 
     @classmethod
-    def _run_edit_dialog(cls, dialog,
-                         collection,
-                         smart_manager,
-                         parent,
-                         orig_pl=None):
+    def _run_edit_dialog(cls, dialog, collection, smart_manager, parent, orig_pl=None):
         '''internal helper function'''
 
         while True:
@@ -393,15 +381,17 @@ class SmartPlaylistEditor(object):
             sort_tags = cls._get_sort_tags(dialog)
 
             if not name:
-                dialogs.error(parent, _("You did "
-                                        "not enter a name for your playlist"))
+                dialogs.error(
+                    parent, _("You did " "not enter a name for your playlist")
+                )
                 continue
 
             if not orig_pl or name != orig_pl.name:
                 try:
                     pl = smart_manager.get_playlist(name)
-                    dialogs.error(parent, _("The "
-                                            "playlist name you entered is already in use."))
+                    dialogs.error(
+                        parent, _("The " "playlist name you entered is already in use.")
+                    )
                     continue
                 except ValueError:
                     pass  # playlist didn't exist
@@ -429,6 +419,7 @@ class SmartPlaylistEditor(object):
         from xl.metadata.tags import tag_data
 
         dialog.sort_enable = sort_enable = Gtk.CheckButton.new_with_label(_('Sort by:'))
+
         def _on_sort_enable_changed(ck):
             sort_tags.set_sensitive(ck.get_active())
             sort_order.set_sensitive(ck.get_active())

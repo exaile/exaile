@@ -101,7 +101,7 @@ class ExaileGstEngine(ExaileEngine):
         self.audiosink_device = None
         self.audiosink = None
         self.custom_sink_pipe = None
-        
+
         # If True, then playback will be stopped if the audio sink changes without
         # the user asking for it
         self.disable_autoswitch = disable_autoswitch
@@ -115,16 +115,16 @@ class ExaileGstEngine(ExaileEngine):
         options = {
             '%s/crossfading' % self.name: 'crossfade_enabled',
             '%s/crossfade_duration' % self.name: 'crossfade_duration',
-
             '%s/audiosink_device' % self.name: 'audiosink_device',
             '%s/audiosink' % self.name: 'audiosink',
             '%s/custom_sink_pipe' % self.name: 'custom_sink_pipe',
-
             '%s/user_fade_enabled' % self.name: 'user_fade_enabled',
-            '%s/user_fade' % self.name: 'user_fade_duration'
+            '%s/user_fade' % self.name: 'user_fade_duration',
         }
 
-        self.settings_unsubscribe = common.subscribe_for_settings(self.name, options, self)
+        self.settings_unsubscribe = common.subscribe_for_settings(
+            self.name, options, self
+        )
 
     #
     # Dynamic properties
@@ -195,9 +195,9 @@ class ExaileGstEngine(ExaileEngine):
 
         if permanent:
             self.settings_unsubscribe()
-        
+
         object.__setattr__(self, 'initialized', False)
-        
+
         self.needs_sink = True
         self.audiosink = None
         self.audiosink_device = None
@@ -234,8 +234,9 @@ class ExaileGstEngine(ExaileEngine):
             # The fader executes the stop offset, so reconfigure it
 
             if self.crossfade_enabled:
-                stream.reconfigure_fader(self.crossfade_duration,
-                                         self.crossfade_duration)
+                stream.reconfigure_fader(
+                    self.crossfade_duration, self.crossfade_duration
+                )
             else:
                 stream.reconfigure_fader(None, None)
 
@@ -275,7 +276,10 @@ class ExaileGstEngine(ExaileEngine):
         track = self.player.engine_autoadvance_get_next_track()
 
         if track:
-            play_args = self.player.engine_autoadvance_notify_next(track) + (False, True)
+            play_args = self.player.engine_autoadvance_notify_next(track) + (
+                False,
+                True,
+            )
             self._next_track(*play_args)
 
         # If still fading, don't stop
@@ -305,13 +309,23 @@ class ExaileGstEngine(ExaileEngine):
 
         if self.crossfade_enabled:
             self.main_stream, self.other_stream = self.other_stream, self.main_stream
-            self.main_stream.play(track, start_at, paused, already_queued,
-                                  self.crossfade_duration / 1000.0,
-                                  self.crossfade_duration / 1000.0)
+            self.main_stream.play(
+                track,
+                start_at,
+                paused,
+                already_queued,
+                self.crossfade_duration / 1000.0,
+                self.crossfade_duration / 1000.0,
+            )
             self.other_stream.fader.fade_out_on_play()
         elif self.user_fade_enabled and not autoadvance:
-            self.main_stream.play(track, start_at, paused, already_queued,
-                                  self.user_fade_duration / 1000.0)
+            self.main_stream.play(
+                track,
+                start_at,
+                paused,
+                already_queued,
+                self.user_fade_duration / 1000.0,
+            )
         else:
             self.main_stream.play(track, start_at, paused, already_queued)
 
@@ -331,7 +345,9 @@ class AudioStream(object):
         self.name = '%s-audiostream-%s' % (engine.name, self.idx)
         self.engine = engine
 
-        self.logger = logging.getLogger('%s [%s-a%s]' % (__name__, engine.name, self.idx))
+        self.logger = logging.getLogger(
+            '%s [%s-a%s]' % (__name__, engine.name, self.idx)
+        )
 
         #  track being played by this stream
         self.current_track = None
@@ -344,8 +360,9 @@ class AudioStream(object):
         self.needs_sink = True
         self.last_position = 0
 
-        self.audio_filters = gst_utils.ProviderBin('gst_audio_filter',
-                                                   '%s-filters' % self.name)
+        self.audio_filters = gst_utils.ProviderBin(
+            'gst_audio_filter', '%s-filters' % self.name
+        )
 
         self.playbin = Gst.ElementFactory.make("playbin", "%s-playbin" % self.name)
         if self.playbin is None:
@@ -373,8 +390,9 @@ class AudioStream(object):
         # Pulsesink changes volume behind our back, track it
         self.playbin.connect('notify::volume', self.on_volume_change)
 
-        self.fader = TrackFader(self, self.on_fade_out_begin,
-                                '%s-fade-%s' % (engine.name, self.idx))
+        self.fader = TrackFader(
+            self, self.on_fade_out_begin, '%s-fade-%s' % (engine.name, self.idx)
+        )
 
     def destroy(self):
 
@@ -385,28 +403,30 @@ class AudioStream(object):
     def reconfigure_sink(self):
         self.needs_sink = False
         sink = create_device(self.engine.name)
-        
+
         # Works for pulsesink, but not other sinks
         # -> Not a perfect solution, still some audio blip is heard. Unfortunately,
         #    can't do better without direct support from gstreamer
         if self.engine.disable_autoswitch and hasattr(sink.props, 'current_device'):
             self.selected_sink = sink.props.device
             sink.connect('notify::current-device', self._on_sink_change_notify)
-        
+
         self.audio_sink.reconfigure(sink)
-    
+
     def _on_sink_change_notify(self, sink, param):
         if self.selected_sink != sink.props.current_device:
             domain = GLib.quark_from_string("g-exaile-error")
             err = GLib.Error.new_literal(domain, "Audio device disconnected", 0)
-            self.playbin.get_bus().post(Gst.Message.new_error(None, err, "Disconnected"))
+            self.playbin.get_bus().post(
+                Gst.Message.new_error(None, err, "Disconnected")
+            )
             self.logger.info("Detected device disconnect, stopping playback")
 
     def reconfigure_fader(self, fade_in_duration, fade_out_duration):
         if self.get_gst_state() != Gst.State.NULL:
-            self.fader.setup_track(self.current_track,
-                                   fade_in_duration, fade_out_duration,
-                                   is_update=True)
+            self.fader.setup_track(
+                self.current_track, fade_in_duration, fade_out_duration, is_update=True
+            )
 
     def get_gst_state(self):
         return self.playbin.get_state(timeout=50 * Gst.MSECOND)[1]
@@ -414,8 +434,7 @@ class AudioStream(object):
     def get_position(self):
         # TODO: This only works when pipeline is prerolled/ready?
         if not self.get_gst_state() == Gst.State.PAUSED:
-            res, self.last_position = \
-                self.playbin.query_position(Gst.Format.TIME)
+            res, self.last_position = self.playbin.query_position(Gst.Format.TIME)
 
             if res is False:
                 self.last_position = 0
@@ -434,8 +453,15 @@ class AudioStream(object):
         self.playbin.set_state(Gst.State.PAUSED)
         self.fader.pause()
 
-    def play(self, track, start_at, paused, already_queued,
-             fade_in_duration=None, fade_out_duration=None):
+    def play(
+        self,
+        track,
+        start_at,
+        paused,
+        already_queued,
+        fade_in_duration=None,
+        fade_out_duration=None,
+    ):
         '''fade duration is in seconds'''
 
         if not already_queued:
@@ -464,8 +490,9 @@ class AudioStream(object):
         if not already_queued:
             self.playbin.set_property("uri", uri)
             if urlparse.urlsplit(uri)[0] == "cdda":
-                self.notify_id = self.playbin.connect('source-setup',
-                                                      self.on_source_setup, track)
+                self.notify_id = self.playbin.connect(
+                    'source-setup', self.on_source_setup, track
+                )
 
         # Start in paused mode if we need to seek
         if paused or start_at is not None:
@@ -489,18 +516,26 @@ class AudioStream(object):
         # TODO: Make sure that we're in a valid seekable state before seeking?
 
         # wait up to 1s for the state to switch, else this fails
-        if self.playbin.get_state(timeout=1000 * Gst.MSECOND)[0] != Gst.StateChangeReturn.SUCCESS:
+        if (
+            self.playbin.get_state(timeout=1000 * Gst.MSECOND)[0]
+            != Gst.StateChangeReturn.SUCCESS
+        ):
             # TODO: This error message is misleading, when does this ever happen?
             # TODO: if the sink is incorrectly specified, this error happens first.
-            #self.engine._error_func(self, "Could not start at specified offset")
+            # self.engine._error_func(self, "Could not start at specified offset")
             self.logger.warning("Error seeking to specified offset")
             return False
 
         new_position = int(Gst.SECOND * value)
-        seek_event = Gst.Event.new_seek(1.0, Gst.Format.TIME,
-                                        Gst.SeekFlags.FLUSH, Gst.SeekType.SET,
-                                        new_position,
-                                        Gst.SeekType.NONE, 0)
+        seek_event = Gst.Event.new_seek(
+            1.0,
+            Gst.Format.TIME,
+            Gst.SeekFlags.FLUSH,
+            Gst.SeekType.SET,
+            new_position,
+            Gst.SeekType.NONE,
+            0,
+        )
 
         self.last_position = new_position
         self.fader.seek(value)
@@ -508,7 +543,7 @@ class AudioStream(object):
         return self.playbin.send_event(seek_event)
 
     def set_volume(self, volume):
-        #self.logger.debug("Set playbin volume: %.2f", volume)
+        # self.logger.debug("Set playbin volume: %.2f", volume)
         # TODO: strange issue where pulse sets the system audio volume
         #       when exaile starts up...
         self.playbin.props.volume = volume
@@ -562,7 +597,9 @@ class AudioStream(object):
             self.playbin.set_property('uri', uri)
             self.buffered_track = track
 
-            self.logger.debug("Gapless transition: queuing %s", common.sanitize_url(uri))
+            self.logger.debug(
+                "Gapless transition: queuing %s", common.sanitize_url(uri)
+            )
 
     def on_fade_out_begin(self):
 
@@ -599,18 +636,24 @@ class AudioStream(object):
                 if duration > 0:
                     current.set_tag_raw('__length', duration)
 
-        elif message.type == Gst.MessageType.EOS and \
-                not self.get_gst_state() == Gst.State.PAUSED:
+        elif (
+            message.type == Gst.MessageType.EOS
+            and not self.get_gst_state() == Gst.State.PAUSED
+        ):
             self.engine._eos_func(self)
 
-        elif message.type == Gst.MessageType.STREAM_START and \
-                message.src == self.playbin and \
-                self.buffered_track is not None:
+        elif (
+            message.type == Gst.MessageType.STREAM_START
+            and message.src == self.playbin
+            and self.buffered_track is not None
+        ):
 
             # This handles starting the next track during gapless transition
             buffered_track = self.buffered_track
             self.buffered_track = None
-            play_args = self.engine.player.engine_autoadvance_notify_next(buffered_track) + (True, True)
+            play_args = self.engine.player.engine_autoadvance_notify_next(
+                buffered_track
+            ) + (True, True)
             self.engine._next_track(*play_args)
 
         elif message.type == Gst.MessageType.STATE_CHANGED:
@@ -628,18 +671,24 @@ class AudioStream(object):
             if not missing_plugin.handle_message(message, self.engine):
                 logger.debug(
                     "Unexpected element-specific GstMessage received from %s: %s",
-                    message.src, message)
+                    message.src,
+                    message,
+                )
 
         elif message.type == Gst.MessageType.WARNING:
             # TODO there might be some useful warnings we ignore for now.
             gerror, debug_text = Gst.Message.parse_warning(message)
-            logger.warn("Unhandled GStreamer warning received:\n\tGError: %s\n\tDebug text: %s",
-                        gerror, debug_text)
+            logger.warn(
+                "Unhandled GStreamer warning received:\n\tGError: %s\n\tDebug text: %s",
+                gerror,
+                debug_text,
+            )
 
         else:
             # TODO there might be some useful messages we ignore for now.
-            logger.debug("Unhandled GstMessage of type %s received: %s",
-                         message.type, message)
+            logger.debug(
+                "Unhandled GstMessage of type %s received: %s", message.type, message
+            )
 
     def __handle_error_message(self, message):
         # Error handling code is from quodlibet
@@ -650,12 +699,14 @@ class AudioStream(object):
 
         if message_text == "":
             # The most readable part is always the last..
-            message_text = debug_info[debug_info.rfind(':') + 1:]
+            message_text = debug_info[debug_info.rfind(':') + 1 :]
 
             # .. unless there's nothing in it.
             if ' ' not in message_text:
                 if debug_info.startswith('playsink'):
-                    message_text += _(': Possible audio device error, is it plugged in?')
+                    message_text += _(
+                        ': Possible audio device error, is it plugged in?'
+                    )
 
         self.logger.error("Playback error: %s", message_text)
         self.logger.debug("- Extra error info: %s", debug_info)
@@ -663,11 +714,15 @@ class AudioStream(object):
         envname = 'GST_DEBUG_DUMP_DOT_DIR'
         if envname not in os.environ:
             import xl.xdg
+
             os.environ[envname] = xl.xdg.get_logs_dir()
 
         Gst.debug_bin_to_dot_file(self.playbin, Gst.DebugGraphDetails.ALL, self.name)
-        self.logger.debug("- Pipeline debug info written to file '%s/%s.dot'",
-                          os.environ[envname], self.name)
+        self.logger.debug(
+            "- Pipeline debug info written to file '%s/%s.dot'",
+            os.environ[envname],
+            self.name,
+        )
 
         self.engine._error_func(self, message_text)
 

@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-02-19 00:36+0000\n"
-"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"POT-Creation-Date: 2018-06-17 13:06+1000\n"
+"PO-Revision-Date: 2018-06-28 20:36+0000\n"
+"Last-Translator: Mathias Brodala <info@noctus.net>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19\n"
+"X-Generator: Weblate 3.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -987,9 +987,7 @@ msgstr "Sechsten Tab in den Vordergrund holen"
 msgid "Focus the seventh tab"
 msgstr "Siebenten Tab in den Vordergrund holen"
 
-#: ../xlgui/main.py:230
-#, fuzzy
-#| msgid "Focus the eight tab"
+#: ../xlgui/main.py:207
 msgid "Focus the eighth tab"
 msgstr "Achten Tab in den Vordergrund holen"
 
@@ -1303,8 +1301,7 @@ msgstr "Name für die neue Wiedergabeliste eingeben"
 msgid "New Playlist"
 msgstr "Neue Wiedergabeliste"
 
-#: ../xlgui/panels.py:99
-#, fuzzy
+#: ../xlgui/panels.py:100
 msgid "P_anels"
 msgstr "_Bedienelemente"
 
@@ -1964,18 +1961,14 @@ msgid "does not contain"
 msgstr "enthält nicht"
 
 #. TRANSLATORS: True if haystack contains whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:220
-#, fuzzy
-#| msgid "contains"
+#: ../xlgui/widgets/smart_playlist_editor.py:229
 msgid "contains word"
-msgstr "enthält"
+msgstr "enthält Wort"
 
 #. TRANSLATORS: True if haystack does not contain whole word
-#: ../xlgui/widgets/smart_playlist_editor.py:222
-#, fuzzy
-#| msgid "does not contain"
+#: ../xlgui/widgets/smart_playlist_editor.py:231
 msgid "does not contain word"
-msgstr "enthält nicht"
+msgstr "enthält Wort nicht"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
@@ -2356,12 +2349,6 @@ msgid "Show splash screen on startup"
 msgstr "Begrüßungsbildschirm beim Starten anzeigen"
 
 #: ../data/ui/preferences/appearance.ui:309
-#, fuzzy
-#| msgid ""
-#| "Tray icons are not supported on some platforms, most notably on wayland. "
-#| "On GNOME shell 3.26+ on Xorg, tray icons only work if you have the <a "
-#| "href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons"
-#| "\" extension</a> (or a similar one) installed. "
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2370,9 +2357,9 @@ msgid ""
 msgstr ""
 "Tray-Symbole werden auf einigen Plattformen nicht unterstützt, vor allem "
 "nicht auf Wayland. Auf der GNOME-Shell 3.26+ auf Xorg funktionieren Tray-"
-"Symbole nur, wenn Sie die <a href=\"https://extensions.gnome.org/"
-"extension/495/topicons/\">„TopIcons”-Erweiterung</a> (oder eine ähnliche) "
-"installiert haben. "
+"Symbole nur, wenn Sie die <a href=\"https://extensions.gnome.org/extension/"
+"495/topicons/\">„TopIcons”-Erweiterung</a> (oder eine ähnliche) installiert "
+"haben."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -2380,13 +2367,15 @@ msgstr "Hinweis:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Dunkles Thema bevorzugen"
 
 #: ../data/ui/preferences/appearance.ui:336
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Wenn inaktiv wird keine Einstellung für GTK festgelegt. Funktioniert nicht "
+"auf allen Plattformen."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -4653,7 +4642,7 @@ msgstr ""
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "External Control"
-msgstr ""
+msgstr "Fernsteuerung"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4773,18 +4762,14 @@ msgid "MPRIS 2"
 msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Partial support for MPRIS (Media Player Remote Interfacing Specification) "
-#| "2.2, allowing you to control Exaile from supporting clients"
 msgid ""
 "Partial support for MPRIS (Media Player Remote Interfacing Specification) "
 "2.2, allowing you to control Exaile from supporting clients, for example "
 "GNOME Shell"
 msgstr ""
 "Teilweise Unterstützung für MPRIS (Media Player Remote Interfacing "
-"Specification) 2.2, mit der Sie Exaile von unterstützenden Clients aus "
-"steuern können."
+"Specification) 2.2, mit der Sie Exaile von unterstützenden Clients (z.B. "
+"GNOME Shell) aus steuern können."
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""

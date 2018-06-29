@@ -1,5 +1,7 @@
 # -*- mode: python -*-
 
+from __future__ import print_function
+
 import sys
 from PyInstaller.utils.hooks import collect_submodules
 
@@ -26,6 +28,46 @@ datas =[
   ('_inst/usr/share/locale', 'share/locale')
 ]
 
+# requires https://github.com/pyinstaller/pyinstaller/pull/3608
+def assemble_hook(analysis):
+    # filter out gstreamer plugins we don't want
+    to_remove = [
+      'gstassrender',
+      'gstcacasink',
+      'gstdaala',
+      'gstdvdread',
+      'gstdvdsub',
+      'gstfaac',
+      'gstmxf',
+      'gstopenal',
+      'gstopenexr',
+      'gstopengl',
+      'gstopenh264',
+      'gstopencv',
+      'gstresindvd',
+      'gstrtmp',
+      'gstschro',
+      'gstvideo',
+      'gstvpx',
+      'gstwebp',
+      'gstwebrtc',
+      'gstx264',
+      'gstx265',
+      'gstxvimage',
+      'gstzbar',
+    ]
+    
+    def _exclude(b):
+        for r in to_remove:
+            if r in b and 'libgstvideo-1' not in b:
+                print("Excluding", b)
+                return True
+        return False
+    
+    analysis.binaries = [
+      b for b in analysis.binaries if not _exclude(b[0])
+    ]
+
 a = Analysis([afile],
              pathex=['_inst/usr/lib/exaile'],
              binaries=None,
@@ -36,7 +78,9 @@ a = Analysis([afile],
              excludes=['tcl', 'tk', '_tkinter', 'tkinter', 'Tkinter'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
-             cipher=block_cipher)
+             cipher=block_cipher,
+             assemble_hook=assemble_hook)
+
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

@@ -28,7 +28,7 @@ import spydaap.metadata
 import spydaap.containers
 import spydaap.cache
 import spydaap.server
-import spydaap.zeroconf
+import spydaap.zeroconfimpl
 
 from xl import common, event, xdg
 
@@ -114,7 +114,7 @@ class DaapServer:
 
     @common.threaded
     def run(self):
-        self.zeroconf = spydaap.zeroconf.Zeroconf(
+        self.zeroconf = spydaap.zeroconfimpl.ZeroconfImpl(
             self.name, self.port, stype="_daap._tcp"
         )
         self.handler = spydaap.server.makeDAAPHandlerClass(
@@ -167,7 +167,7 @@ class DaapServer:
 
 # def really_main():
 #    rebuild_cache()
-#    zeroconf = spydaap.zeroconf.Zeroconf(spydaap.server_name,
+#    zeroconf = spydaap.zeroconfimpl.ZeroconfImpl(spydaap.server_name,
 #                                         spydaap.port,
 #                                         stype="_daap._tcp")
 #    zeroconf.publish()

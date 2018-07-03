@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 major = "4.0"
 minor = "0"
-extra = "rc0"
+extra = "rc1"
 
 
 def get_current_revision(directory):

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-07-03 05:03+0000\n"
+"PO-Revision-Date: 2018-07-03 13:42+0000\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/exaile/master/"
 "sl/>\n"
@@ -2950,7 +2950,7 @@ msgstr "I_zvoz zbirke značk v JSON datoteko"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
-msgstr "_GroupTagger"
+msgstr "_ZnačkeSkupine"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"

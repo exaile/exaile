@@ -986,7 +986,7 @@ class Track(object):
         normalize = unicodedata.normalize
         category = unicodedata.category
         return (
-            u''.join([c for c in normalize('NFK', value) if category(c) != 'Mn'])
+            u''.join([c for c in normalize('NFD', value) if category(c) != 'Mn'])
             + u" "
             + value
         )

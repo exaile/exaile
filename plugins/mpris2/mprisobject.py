@@ -7,7 +7,7 @@
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY',' without even the implied warranty of
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -77,7 +77,7 @@ class MprisObject(object):
         )
 
     def teardown(self):
-        """Quick destroy',' just clean up our mess"""
+        """Quick destroy; just clean up our mess"""
         f = self.cover_file
         if f:
             f.close()
@@ -140,7 +140,7 @@ class MprisObject(object):
             meta['xesam:artist'] = Variant('as', v)
         v = track.get_tag_raw('genre')
         if v:
-            # TODO: I've seen a client expect 'radio' on streams','
+            # TODO: I've seen a client expect 'radio' on streams;
             # is that common usage?
             meta['xesam:genre'] = Variant('as', v)
         try:

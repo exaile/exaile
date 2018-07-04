@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2015-03-09 08:56+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/"
-">\n"
+"PO-Revision-Date: 2018-07-04 18:02+0000\n"
+"Last-Translator: Xorg <xorgbreaker@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Local"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Usage : exaile [OPTION]... [URI]"
+msgstr "Usage: exaile [OPTION...] [EMPLACEMENT...]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -183,8 +181,6 @@ msgid "Playlist Options"
 msgstr "Options de la liste de lecture"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Exporte la liste de lecture courante vers EMPLACEMENT"
 
@@ -202,8 +198,6 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:180
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Récupère l'état de lecture en cours et les informations sur la piste comme "
@@ -215,11 +209,9 @@ msgid "TAGS"
 msgstr "ÉTIQUETTES"
 
 #: ../xl/main.py:187
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
-"ÉTIQUETTES à récupérer de la piste actuelle, s'utilise avec --format-query"
+"Étiquettes à récupérer de la piste actuelle, s'utilise avec --format-query"
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
@@ -268,20 +260,14 @@ msgid "Volume Options"
 msgstr "Options du volume"
 
 #: ../xl/main.py:262
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Augmente le volume de %N"
 
 #: ../xl/main.py:271
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Diminue le volume de %N"
 
 #: ../xl/main.py:279
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Rend le volume muet ou non muet"
 
@@ -319,12 +305,9 @@ msgstr ""
 "Démarrer en mode sans échec - utile quand vous rencontrez des problèmes"
 
 #: ../xl/main.py:335
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
-"Forcer la récupération des données des versions 0.2.x (Écrase les données "
+"Forcer la récupération des données des versions 0.2.x (écrase les données "
 "actuelles)"
 
 #: ../xl/main.py:343
@@ -374,20 +357,16 @@ msgid "Show debugging output"
 msgstr "Afficher la sortie de débogage"
 
 #: ../xl/main.py:391
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr ""
-"Activer le débogage de xl.event. Génére une grande quantité de données de "
+"Activer le débogage de xl.event. Génère une grande quantité de données de "
 "sortie"
 
 #: ../xl/main.py:398
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
-"Activer le débogage de xl.event. Génére une grande quantité de données de "
-"sortie"
+"Activer le débogage complet de xl.event. Génère une grande quantité de "
+"données de sortie"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
@@ -511,10 +490,8 @@ msgid "ISRC"
 msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:366
-#, fuzzy
-#| msgid "Language:"
 msgid "Language"
-msgstr "Langue :"
+msgstr "Langue"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -923,10 +900,8 @@ msgid "$title (by $artist)"
 msgstr "$title (par $artist)"
 
 #: ../xlgui/main.py:149
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Accéder à la liste de lecture en cours"
+msgstr "Sauvegarde la liste de lecture en cours"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"

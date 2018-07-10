@@ -321,12 +321,21 @@ class EqualizerPlugin(object):
         if self.window:
             self.window.hide()
             self.window.destroy()
+            self.window = None
         providers.unregister("gst_audio_filter", GSTEqualizer)
 
     def __show_gui(self):
         """
         Display main window.
         """
+        if not self.window:
+            self.window = EqualizerWindow()
+            self.window.set_transient_for(self.__exaile.gui.main.window)
+
+            def _destroy(w):
+                self.window = None
+
+            self.window.connect('destroy', _destroy)
         self.window.show_all()
 
     def enable(self, exaile):
@@ -345,9 +354,6 @@ class EqualizerPlugin(object):
             callback=lambda *x: self.__show_gui(),
         )
         providers.register('menubar-tools-menu', self.__menu_item)
-
-        self.window = EqualizerWindow()
-        self.window.set_transient_for(self.__exaile.gui.main.window)
 
 
 plugin_class = EqualizerPlugin

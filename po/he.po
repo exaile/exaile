@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-05-13 08:28+0000\n"
+"PO-Revision-Date: 2018-07-14 14:27+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/"
-">\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
+"\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -27,7 +27,7 @@ msgstr "תגיות"
 
 #: ../xl/covers.py:565
 msgid "Local file"
-msgstr ""
+msgstr "קובץ מקומי"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -118,7 +118,7 @@ msgstr "אתמול"
 
 #: ../xl/lyrics.py:351
 msgid "Local"
-msgstr ""
+msgstr "מקומי"
 
 #: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
@@ -480,7 +480,7 @@ msgstr "ז'אנר"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:539
 msgid "Grouping"
-msgstr ""
+msgstr "קיבוץ"
 
 #: ../xl/metadata/tags.py:62
 msgid "ISRC"
@@ -488,7 +488,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:366
 msgid "Language"
-msgstr ""
+msgstr "שפה"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -571,9 +571,8 @@ msgid "Modified"
 msgstr "השתנה"
 
 #: ../xl/metadata/tags.py:86
-#, fuzzy
 msgid "Play time"
-msgstr "מספר השמעות"
+msgstr "זמן נגינה"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"
@@ -581,15 +580,15 @@ msgstr "מספר הפעמים שנוגן"
 
 #: ../xl/metadata/tags.py:89
 msgid "Start offset"
-msgstr ""
+msgstr "היסט התחלה"
 
 #: ../xl/metadata/tags.py:90
 msgid "Stop offset"
-msgstr ""
+msgstr "היסט עצירה"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": כנראה שגיאה בהתקן השמע, הוא מחובר?"
 
 #: ../xl/player/gst/missing_plugin.py:86
 #, python-format
@@ -657,7 +656,7 @@ msgstr "פורמט לא תקין עבור %s."
 #: ../xl/playlist.py:558
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "גרסה לא נתמכת %(version)s עבור %(type)s"
 
 #: ../xl/playlist.py:618
 msgid "ASX Playlist"

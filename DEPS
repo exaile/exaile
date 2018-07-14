@@ -21,7 +21,7 @@ Essential:
 * dbus-python
 * pygobject (>= 3.13.2)
 * python-cairo
-* GI typelib files for GTK+/GStreamer and cairo (python-gi-cairo on Ubuntu)
+* GI typelib files for GTK+, GStreamer (including gstreamer-plugins-base) and cairo (python-gi-cairo on Ubuntu)
 
 Translation:
 

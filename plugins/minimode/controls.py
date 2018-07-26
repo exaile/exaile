@@ -952,9 +952,12 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
             Updates the button on tag changes
         """
         playlist = self.view.playlist
-        track_position = playlist.index(track)
 
-        if track in playlist and track_position == playlist.current_position:
+        if track not in playlist:
+            return
+
+        track_position = playlist.index(track)
+        if track_position == playlist.current_position:
             self.label.set_text(self.formatter.format(track))
 
     def on_option_set(self, event, settings, option):

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2014-12-29 10:54+0200\n"
-"Last-Translator: Rifthy Ahmed <rifthy456@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/"
-">\n"
+"PO-Revision-Date: 2018-08-05 10:43+0000\n"
+"Last-Translator: Pratyush <pratyushvenk14@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/>"
+"\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -66,19 +66,19 @@ msgstr ""
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%dமணிகள், "
+msgstr "%d மணிகள், "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%dநிமிடங்கள், "
+msgstr "%d நிமிடங்கள், "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%dநொடிகள்"
+msgstr "%d நொடிகள்"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618

@@ -1919,8 +1919,7 @@ class PlaylistModel(Gtk.ListStore):
         self._load_data(tracks)
 
     def on_tracks_removed(self, event_type, playlist, tracks):
-        tracks.reverse()
-        for position, track in tracks:
+        for position, track in reversed(tracks):
             self.remove(self.iter_nth_child(None, position))
 
     def on_current_position_changed(self, event_type, playlist, positions):

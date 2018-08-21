@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-03-18 02:35+0000\n"
+"PO-Revision-Date: 2018-08-22 00:35+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -1120,7 +1120,7 @@ msgstr "Informeu d'una incidència (GitHub)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Obre els registres d'error"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
@@ -1346,7 +1346,7 @@ msgstr "Aparença"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Les icones de la safata no són compatibles a la vostra plataforma"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -2365,13 +2365,15 @@ msgstr "Nota:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Prefereix un tema fosc"
 
 #: ../data/ui/preferences/appearance.ui:336
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Si no està marcada, no especificarà cap preferència a GTK. Pot no funcionar "
+"en algunes plataformes."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2855,7 +2857,7 @@ msgstr "S'està important el CD..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "S'ha produït un error en la transcodificació de fitxers del CD."
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
@@ -3191,7 +3193,7 @@ msgstr "Consola IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "L'opacitat no es pot establir a Windows a causa d'un error en Gtk+"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3214,6 +3216,8 @@ msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
+"L'eina de vinculació de tecles no és compatible amb aquesta plataforma. "
+"Només és compatible amb els servidors de les X."
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
@@ -3735,7 +3739,7 @@ msgstr "Aplica les PPM"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
-msgstr ""
+msgstr "Voleu establir les PPM?"
 
 #: ../plugins/bpm/msg.ui:63
 #, python-format
@@ -4633,7 +4637,7 @@ msgstr ""
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "External Control"
-msgstr ""
+msgstr "Control extern"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"

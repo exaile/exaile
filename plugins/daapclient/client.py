@@ -17,7 +17,7 @@ class DAAPClient(object):
 
     #        self._old_itunes = 0
 
-    def connect(self, hostname, port=3689, password=None):
+    def connect(self, hostname, port=3689, password=None, user_agent=None):
         if self.socket is not None:
             raise DAAPError("DAAPClient: already connected.")
         #        if ':' in hostname:
@@ -28,6 +28,7 @@ class DAAPClient(object):
         self.hostname = hostname
         self.port = port
         self.password = password
+        self.user_agent = user_agent
         #        self.socket = httplib.HTTPConnection(hostname, port)
         self.socket = httplib.HTTPConnection(hostname + ':' + str(port))
         self.getContentCodes()  # practically required
@@ -43,6 +44,9 @@ class DAAPClient(object):
         log.debug('getting %s', r)
 
         headers = {'Client-DAAP-Version': '3.0', 'Client-DAAP-Access-Index': '2'}
+
+        if self.user_agent:
+            headers['User-Agent'] = self.user_agent
 
         if gzip:
             headers['Accept-encoding'] = 'gzip'

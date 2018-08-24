@@ -338,7 +338,8 @@ class DaapManager:
             `args` is a tuple of (name, address, port, service)
         '''
         name, address, port, _svc = args  # unpack tuple
-        conn = DaapConnection(name, address, port)
+        user_agent = self.exaile.get_user_agent_string(__name__)
+        conn = DaapConnection(name, address, port, user_agent)
 
         conn.connect()
         library = DaapLibrary(conn)
@@ -442,7 +443,7 @@ class DaapConnection(object):
         A connection to a DAAP share.
     """
 
-    def __init__(self, name, server, port):
+    def __init__(self, name, server, port, user_agent):
         # if it's an ipv6 address
         if ':' in server and server[0] != '[':
             server = '[' + server + ']'
@@ -456,6 +457,7 @@ class DaapConnection(object):
         self.name = name
         self.auth = False
         self.password = None
+        self.user_agent = user_agent
 
     def connect(self, password=None):
         """
@@ -464,9 +466,9 @@ class DaapConnection(object):
         try:
             client = DAAPClient()
             if AUTH and password:
-                client.connect(self.server, self.port, password)
+                client.connect(self.server, self.port, password, self.user_agent)
             else:
-                client.connect(self.server, self.port)
+                client.connect(self.server, self.port, None, self.user_agent)
             self.session = client.login()
             self.connected = True
         #        except DAAPError:

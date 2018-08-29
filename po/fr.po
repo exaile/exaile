@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-07-08 17:37+0000\n"
-"Last-Translator: Xorg <xorgbreaker@gmail.com>\n"
+"PO-Revision-Date: 2018-08-29 13:30+0000\n"
+"Last-Translator: bidouille <harrycovert_68@hotmail.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.1-dev\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -616,14 +616,13 @@ msgid "Custom"
 msgstr "Personnalisé"
 
 #: ../xl/player/gst/sink.py:184
-#, fuzzy, python-format
+#, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr "Impossible de créer l'AudioSink (périphérique : %s, type : %s)"
+msgstr "Impossible de créer la cible audio (périphérique : %s, type : %s)"
 
 #: ../xl/player/gst/sink.py:191
-#, fuzzy
 msgid "No custom pipeline specified!"
-msgstr "Aucun pipeline personnalisé n'est spécifié !"
+msgstr "Pipeline personnalisé non spécifié !"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
@@ -631,14 +630,14 @@ msgid "Error creating custom audiosink '%s'"
 msgstr "Erreur lors de la création d'un AudioSink personnalisé '%s'"
 
 #: ../xl/player/gst/sink.py:202
-#, fuzzy, python-format
+#, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr "Type d'évier spécifié invalide : %s"
+msgstr "Type de cible spécifié invalide : %s"
 
 #: ../xl/player/gst/sink.py:206
-#, fuzzy, python-format
+#, python-format
 msgid "Could not create sink type '%s'"
-msgstr "Impossible de créer l'évier de type %s"
+msgstr "Impossible de créer la source de type \"%s\""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -2365,18 +2364,16 @@ msgid "Show splash screen on startup"
 msgstr "Afficher l'écran d'accueil au démarrage"
 
 #: ../data/ui/preferences/appearance.ui:309
-#, fuzzy
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
-"Les icônes de la zone de notification ne sont pas supportées sur certaines "
-"plateformes, en particulier sur Wayland. Sur GNOME Shell 3.26+ sur Xorg, les "
-"icônes de la zone de notification fonctionnent uniquement si l'<a href=\""
-"https://extensions.gnome.org/extension/495/topicons/\">extension \"TopIcons\""
-"</a> (ou équivalent) est installée."
+"Les icônes de zone de notifications ne sont pas supportées sur certaines "
+"plateformes, notamment sur Wayland. Sur GNOME Shell 3.26+ sur Xorg, elles ne "
+"fonctionnent que si l'<a href=\"https://extensions.gnome.org/extension/495/"
+"topicons/\">extension \"TopIcons\"</a> (ou équivalent) est installée."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -2407,8 +2404,6 @@ msgid "(Right click to reset to defaults)"
 msgstr "(Clic droit pour remettre par défaut)"
 
 #: ../data/ui/preferences/collection.ui:44
-#, fuzzy
-#| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
 msgstr "Détecter les compilations en se basant sur les fichiers"
 
@@ -2526,10 +2521,8 @@ msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Utiliser le fondu enchaîné (expérimental)"
 
 #: ../data/ui/preferences/playback.ui:286
-#, fuzzy
-#| msgid "Automatically advance to the next track"
 msgid "Forces automatically advancing to the next track"
-msgstr "Force le passage automatiquement à la piste suivante"
+msgstr "Force le passage automatique à la piste suivante"
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
@@ -2811,8 +2804,6 @@ msgid "Amazon Covers"
 msgstr "Jaquettes Amazon"
 
 #: ../plugins/audioscrobbler/__init__.py:97
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
 msgstr "Activer/désactiver la soumission AudioScrobbler"
 
@@ -2978,13 +2969,10 @@ msgid "_Mass rename/delete tags"
 msgstr "Renommer en _masse/supprimer des étiquettes"
 
 #: ../plugins/grouptagger/__init__.py:123
-#, fuzzy
 msgid "E_xport collecton tags to JSON"
-msgstr "E_xporter la collection d'étiquettes au format JSON"
+msgstr "E_xporter les étiquettes de collection au format JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
-#, fuzzy
-#| msgid "GroupTagger"
 msgid "_GroupTagger"
 msgstr "_GroupTagger"
 
@@ -3018,9 +3006,8 @@ msgid "No categorization tags found in selected tracks"
 msgstr "Pas de trie effectué en utilisant les étiquettes trouvé dans le titre"
 
 #: ../plugins/grouptagger/gt_export.py:54
-#, fuzzy
 msgid "Export tags to JSON"
-msgstr "Exporte les étiquettes au format JSON"
+msgstr "Exporter les étiquettes au format JSON"
 
 #: ../plugins/grouptagger/gt_import.py:59
 msgid "Importing tracks"
@@ -3049,10 +3036,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "Remplacer '%s' par '%s' dans %s titres ?"
 
 #: ../plugins/grouptagger/gt_mass.py:136
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "Supprimer '%s' depuis les pistes %s ?"
+msgstr "Supprimer «%s» depuis les pistes %s ?"
 
 #: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
@@ -4262,10 +4248,8 @@ msgid "Use media icons for pause, stop and resume"
 msgstr "Utiliser les icônes média pour mettre en pause, arrêter ou reprendre"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "Pendant la pause de lecture, reprendre et arrêter."
+msgstr "Pendant la pause, reprendre et arrêter."
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"

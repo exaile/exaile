@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-08-29 13:30+0000\n"
+"PO-Revision-Date: 2018-08-29 22:15+0000\n"
 "Last-Translator: bidouille <harrycovert_68@hotmail.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -4249,7 +4249,7 @@ msgstr "Utiliser les icônes média pour mettre en pause, arrêter ou reprendre"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
 msgid "On playback pause, resume and stop"
-msgstr "Pendant la pause, reprendre et arrêter."
+msgstr "Pendant la pause, reprendre et arrêter"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"

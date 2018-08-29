@@ -1134,17 +1134,17 @@ class Playlist(object):
                 t = [x for x in self if x.get_tag_raw('album') == album]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
-	if mode == 'random':
-	    try:
+    if mode == 'random':
+        try:
                 return random.choice(
                     [
                         (i, self.__tracks[i])
                         for i, tr in enumerate(self.__tracks)
                     ]
                 )
-	    except IndexError:
-		return -1, None
-	else:
+        except IndexError:
+        return -1, None
+    else:
             hist = {i for i, tr in self.get_shuffle_history()}
             try:
                 return random.choice(

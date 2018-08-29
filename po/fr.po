@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
 "PO-Revision-Date: 2018-08-29 22:15+0000\n"
-"Last-Translator: bidouille <harrycovert_68@hotmail.fr>\n"
+"Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
 "Language: fr\n"
@@ -1890,7 +1890,7 @@ msgstr "Décalage du point de lecture"
 
 #: ../xlgui/widgets/playlist_columns.py:559
 msgid "Stop Offset"
-msgstr "Décalage du point d'arrêt"
+msgstr "Décalage du point d’arrêt"
 
 #: ../xlgui/widgets/playlist_columns.py:704
 msgid "_Resizable"
@@ -1911,7 +1911,7 @@ msgstr "File d'attente (%d)"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
-msgstr "Note :"
+msgstr "Note :"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:56
 #: ../xlgui/widgets/smart_playlist_editor.py:79

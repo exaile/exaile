@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-04-10 07:39+0000\n"
+"PO-Revision-Date: 2018-08-30 21:20+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -131,6 +131,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Kjøre Exaile, alternativt ved å legge til spor angitt av PLASSERING i den "
+"aktive spillelisten. Hvis Exaile allerede kjører, vil dette forsøksvist bli "
+"gjort i eksisterende instans, istedenfor å opprette en ny."
 
 #: ../xl/main.py:96
 msgid "Playback Options"
@@ -614,6 +617,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"Et GStreamer 1.x-programtillegg for %s mangler. Uten denne programvaren "
+"installert, vil ikke Exaile kunne spille nåværende fil. Installert påkrevd "
+"programvare på din datamaskin. Se %s for detaljer."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -624,28 +630,29 @@ msgid "Custom"
 msgstr "Egendefinert"
 
 #: ../xl/player/gst/sink.py:184
-#, python-format
+#, fuzzy, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Kunne ikke opprette lydsink (enhet: %s, type: %s)"
 
 #: ../xl/player/gst/sink.py:191
+#, fuzzy
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Ingen egedefinert pipeline angitt!"
 
 #: ../xl/player/gst/sink.py:196
-#, python-format
+#, fuzzy, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Feil ved opprettelse av egendefinert lydsink \"%s\""
 
 #: ../xl/player/gst/sink.py:202
-#, python-format
+#, fuzzy, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Ugyldig sink-type \"%s\" angitt"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Kunne ikke opprette sink-type \"%s\""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -914,15 +921,15 @@ msgstr "Få tilgang til gjeldende spilleliste"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Lagre den spillelisten som nå er valgt under et egendefinert navn"
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Fokuser filter i nåværende fokusert panel"
 
 #: ../xlgui/main.py:164
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Fokuser på spillelistesøk"
 
 #: ../xlgui/main.py:169
 #, fuzzy
@@ -935,8 +942,9 @@ msgid "Start, pause or resume the playback"
 msgstr "Start, pause eller gjenoppta avspillingen"
 
 #: ../xlgui/main.py:179
+#, fuzzy
 msgid "Seek to the right"
-msgstr ""
+msgstr "Søk til høyre"
 
 #: ../xlgui/main.py:184
 #, fuzzy
@@ -1177,7 +1185,7 @@ msgstr "Innrapporter feil (GitHub)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Åpne feillogger"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
@@ -1417,7 +1425,7 @@ msgstr "Utseende"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Spillelisteikoner støttes ikke på din plattform"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -2187,8 +2195,9 @@ msgid "About Exaile"
 msgstr "Om Exaile"
 
 #: ../data/ui/about_dialog.ui:13
+#, fuzzy
 msgid "© 2009-2017 Various Contributors"
-msgstr ""
+msgstr "© 2009-2018 Forskjellige bidragsytere"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
@@ -2496,12 +2505,13 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
+#, fuzzy
 msgid "Note:"
-msgstr ""
+msgstr "Merk:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Foretrekk mørkt drakt"
 
 #: ../data/ui/preferences/appearance.ui:336
 msgid ""
@@ -2577,8 +2587,9 @@ msgstr "Streamripper"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
+#, fuzzy
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Lydsink:  "
 
 #: ../data/ui/preferences/playback.ui:92
 #, fuzzy
@@ -3275,7 +3286,7 @@ msgstr "Skriv inn nytt gruppekategorinavn"
 
 #: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
-msgstr ""
+msgstr "Legg til etikett"
 
 #: ../plugins/grouptagger/gt_widgets.py:713
 #: ../plugins/grouptagger/gt_widgets.py:819
@@ -3387,8 +3398,9 @@ msgid "IPython Console"
 msgstr "IPython-konsoll"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
+#, fuzzy
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "Gjennomsiktighet kan ikke settes i Windows på grunn av en feil i GTK+"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3638,7 +3650,7 @@ msgstr "Varsle"
 
 #: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
-msgstr ""
+msgstr "Inget spor avspilt enda"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
@@ -3873,7 +3885,7 @@ msgstr "Økningsintervall:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Tidssteg:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -4886,7 +4898,7 @@ msgstr ""
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "External Control"
-msgstr ""
+msgstr "Ekstern kontroll"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-08-30 11:34+0000\n"
+"PO-Revision-Date: 2018-08-30 20:20+0000\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Occidental <https://hosted.weblate.org/projects/exaile/master/"
 "ie/>\n"
@@ -809,7 +809,7 @@ msgstr "{outstanding} covrimentes resta a obtener"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
-msgstr "Omni covrimentes esset obtenet."
+msgstr "Omni covrimentes esset obtenet"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
@@ -4164,7 +4164,7 @@ msgstr "Funde:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
-msgstr "Rádius del bordes"
+msgstr "Rádius del bordes:"
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"

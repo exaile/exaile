@@ -1134,7 +1134,7 @@ class Playlist(object):
                 t = [x for x in self if x.get_tag_raw('album') == album]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
-        if mode == 'random':
+        elif mode == 'random':
             try:
                 return random.choice(
                     [

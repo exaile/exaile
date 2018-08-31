@@ -1143,7 +1143,7 @@ class Playlist(object):
                     ]
                 )
         except IndexError:
-        return -1, None
+            return -1, None
     else:
             hist = {i for i, tr in self.get_shuffle_history()}
             try:

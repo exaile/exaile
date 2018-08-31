@@ -812,6 +812,7 @@ class XSPFConverter(FormatConverter):
         """
             Export a playlist to a given path
 
+
             :param playlist: the playlist
             :type playlist: :class:`Playlist`
             :param path: the target path
@@ -910,9 +911,9 @@ class Playlist(object):
             * playlist_dynamic_mode_changed
     """
     #: Valid shuffle modes (list of string)
-    shuffle_modes = ['disabled', 'track', 'album']
+    shuffle_modes = ['disabled', 'track', 'album', 'random']
     #: Titles of the valid shuffle modes (list of string)
-    shuffle_mode_names = [_('Shuffle _Off'), _('Shuffle _Tracks'), _('Shuffle _Albums')]
+    shuffle_mode_names = [_('Shuffle _Off'), _('Shuffle _Tracks'), _('Shuffle _Albums'), _('_Random')]
     #: Valid repeat modes (list of string)
     repeat_modes = ['disabled', 'all', 'track']
     #: Titles of the valid repeat modes (list of string)
@@ -1133,6 +1134,16 @@ class Playlist(object):
                 t = [x for x in self if x.get_tag_raw('album') == album]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
+        elif mode == 'random':
+            try:
+                return random.choice(
+                    [
+                        (i, self.__tracks[i])
+                        for i, tr in enumerate(self.__tracks)
+                    ]
+                )
+            except IndexError:
+                return -1, None
         else:
             hist = {i for i, tr in self.get_shuffle_history()}
             try:

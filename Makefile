@@ -266,4 +266,4 @@ format:
 	$(BLACK) -S *.py plugins/ xl/ xlgui/ tests/
 
 check_format:
-	$(BLACK) --check -S *.py plugins/ xl/ xlgui/ tests/
+	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/

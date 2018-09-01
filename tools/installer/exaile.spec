@@ -49,6 +49,7 @@ def assemble_hook(analysis):
       'gstschro',
       'gstvideo',
       'gstvpx',
+      'gstwasapi',  # Generally buggy, e.g. https://github.com/exaile/exaile/issues/532
       'gstwebp',
       'gstwebrtc',
       'gstx264',

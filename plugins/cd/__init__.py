@@ -167,7 +167,7 @@ class CDPlaylist(playlist.Playlist):
         toc = CDTocParser(self.device)
         lengths = toc.get_track_lengths()
 
-        songs = {}
+        songs = []
 
         for count, length in enumerate(lengths):
             count += 1
@@ -175,15 +175,9 @@ class CDPlaylist(playlist.Playlist):
             song.set_tags(
                 title="Track %d" % count, tracknumber=str(count), __length=length
             )
-            songs[song.get_loc_for_io()] = song
+            songs.append(song)
 
-        # FIXME: this can probably be cleaner
-        sort_tups = sorted(
-            [(int(s.get_tag_raw('tracknumber')[0]), s) for s in songs.values()]
-        )
-        sorted_elements = [s[1] for s in sort_tups]
-
-        self.extend(sorted_elements)
+        self.extend(songs)
 
         if CDDB_AVAIL:
             self.get_cddb_info()

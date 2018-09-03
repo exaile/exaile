@@ -68,7 +68,9 @@ class MprisObject(object):
             xl.event.remove_callback(*cb)
         self.teardown()
 
-    def _init_gui(self):
+    def _init_gui(self, *_args):
+        if not hasattr(self.exaile.gui, 'main'):
+            return  # No GUI
         conns = [
             (self.exaile.gui.main, 'notify::is-fullscreen', self._on_notify_fullscreen)
         ]

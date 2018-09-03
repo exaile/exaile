@@ -26,13 +26,14 @@
 # from your version.
 
 from copy import deepcopy
-from gi.repository import Gio
-from gi.repository import GLib
 import logging
+import re
 import time
 import unicodedata
 import weakref
-import re
+
+from gi.repository import Gio
+from gi.repository import GLib
 
 import xl.unicode
 from xl import event, metadata, settings

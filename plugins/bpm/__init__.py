@@ -266,6 +266,8 @@ class BPMWidget(Gtk.Frame):
 
     @GtkTemplate.Callback
     def on_eventbox_button_press_event(self, widget, event):
+        if event.type is not Gdk.EventType.BUTTON_PRESS:
+            return False  # Ignore double- and triple-click events
 
         if event.triggers_context_menu():
             if self.menu is not None and self.track is not None:
@@ -275,10 +277,7 @@ class BPMWidget(Gtk.Frame):
         self.eventbox.set_state(Gtk.StateType.SELECTED)
         self.eventbox.grab_focus()
 
-        if (
-            event.type is Gdk.EventType.BUTTON_PRESS
-        ):  # Ignore double- and triple-click events
-            self.add_bpm_tap()
+        self.add_bpm_tap()
         return True
 
     @GtkTemplate.Callback

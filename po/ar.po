@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2014-12-09 19:46+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/exaile/master/ar/"
-">\n"
+"PO-Revision-Date: 2018-09-04 19:12+0000\n"
+"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/exaile/master/ar/>"
+"\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2.1\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:23+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -186,10 +186,8 @@ msgid "Playlist Options"
 msgstr "خيارات قوائم التشغيل"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "تصدير قائمة التشغيل الحالية إلى موقع"
+msgstr "تصدير قائمة التشغيل الحالية إلى LOCATION"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -264,22 +262,16 @@ msgid "Volume Options"
 msgstr "خيارات حجم الصوت"
 
 #: ../xl/main.py:262
-#, fuzzy
-#| msgid "Change the volume"
 msgid "Increase the volume by N%"
-msgstr "تغيير حجم الصوت"
+msgstr "تغيير حجم الصوت بنسبة N%"
 
 #: ../xl/main.py:271
-#, fuzzy
-#| msgid "Change the volume"
 msgid "Decrease the volume by N%"
-msgstr "تغيير حجم الصوت"
+msgstr "تخفيض حجم الصوت بنسبة N%"
 
 #: ../xl/main.py:279
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "كتم أو عدم كتم الصوت"
+msgstr "كتم أو إلغاء كتم الصوت"
 
 #: ../xl/main.py:286
 msgid "Print the current volume percentage"
@@ -395,7 +387,7 @@ msgstr "تعطيل دعم (د-بيس/ D-Bus )"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
-msgstr "تعطيل دعم (هال-HAL)"
+msgstr "تعطيل دعم (هال HAL)."
 
 #: ../xl/main.py:816
 msgid "Entire Library"
@@ -731,6 +723,7 @@ msgid "An Unknown type of setting was found!"
 msgstr "نوع غير معروف من الإعدادات وجدت !"
 
 #: ../xl/transcoder.py:58
+#, fuzzy
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
@@ -739,6 +732,7 @@ msgstr ""
 "عند حجم ملف متدني بعد mp3"
 
 #: ../xl/transcoder.py:68
+#, fuzzy
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
@@ -769,6 +763,7 @@ msgstr ""
 "لكنه متوافق مع اي مشغل."
 
 #: ../xl/transcoder.py:113
+#, fuzzy
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "سريع جدا نوع الصوت(lossless-لوسليس) مع ضغط جيد"
 
@@ -871,6 +866,7 @@ msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
 #: ../xlgui/cover.py:1129
+#, fuzzy
 msgid "No covers found."
 msgstr "لم إيجاد أي غلاف"
 
@@ -1190,7 +1186,7 @@ msgstr "إعادة فحص المجموعة"
 #: ../xlgui/panel/device.py:151
 #, python-format
 msgid "Transferring to %s..."
-msgstr "%sجاري النقل إلى"
+msgstr "جارٍ النقل إلى%s…"
 
 #: ../xlgui/panel/files.py:63
 msgid "Files"
@@ -1257,6 +1253,7 @@ msgstr "إعادة تسمية قائمة التشغيل"
 
 #: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1766
 #: ../xlgui/widgets/smart_playlist_editor.py:393
+#, fuzzy
 msgid "The playlist name you entered is already in use."
 msgstr "اسم قائمة التشغيل الذي ادخلته  مستعمل بلفعل"
 
@@ -2391,6 +2388,7 @@ msgid "Always show tab bar"
 msgstr "عرض دائم عارضة تاب"
 
 #: ../data/ui/preferences/appearance.ui:99
+#, fuzzy
 msgid "Tab placement:"
 msgstr "وضعية تاب"
 
@@ -2502,7 +2500,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:70
 msgid "Cover Search Order:"
-msgstr "ترتيب بحث الأغلفة"
+msgstr "ترتيب بحث الأغلفة:"
 
 #: ../data/ui/preferences/cover.ui:105
 msgid "(drag to reorder)"
@@ -2809,7 +2807,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
-msgstr "الوصف"
+msgstr "الوصف:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -2979,7 +2977,7 @@ msgstr "ادخل عنوان الإيبي و البوابة للمشاركة"
 
 #: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port."
-msgstr "ادخل عنوان الإيبي و البوابة"
+msgstr "أدخل عنوان الإيبي والمنفذ."
 
 #: ../plugins/daapclient/__init__.py:593
 msgid ""
@@ -3003,7 +3001,7 @@ msgstr "تحديد موقع لحفظ"
 
 #: ../plugins/daapclient/__init__.py:786
 msgid "Connect to DAAP..."
-msgstr "DAAP ....إتصال الى"
+msgstr "الإتصال بـ DAAP…"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3305,7 +3303,7 @@ msgstr "جاهز"
 
 #: ../plugins/jamendo/__init__.py:87
 msgid "Searching Jamendo catalogue..."
-msgstr "بحث  في فهرس Jamendo"
+msgstr "جارٍ البحث في فهرس جامندو…"
 
 #: ../plugins/jamendo/__init__.py:88
 msgid "Retrieving song data..."
@@ -3765,6 +3763,7 @@ msgid "Maximum volume:"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
+#, fuzzy
 msgid "Increment:"
 msgstr "التزايد"
 
@@ -4262,7 +4261,7 @@ msgstr "خيارات"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>الإنذارات</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"

@@ -188,7 +188,7 @@ class DAAPSession(object):
 # the atoms we want. Making this list smaller reduces memory footprint,
 # and speeds up reading large libraries. It also reduces the metainformation
 # available to the client.
-daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist," "daap.songformat,daap.songtime,daap.songsize,daap.songgenre," "daap.songyear,daap.songtracknumber"
+daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber"
 
 
 class DAAPDatabase(object):

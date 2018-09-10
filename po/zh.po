@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-09-10 22:14+0000\n"
+"PO-Revision-Date: 2018-09-11 09:14+0000\n"
 "Last-Translator: Retia Adolf <retia@protonmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -2676,64 +2676,63 @@ msgstr "封底（后）"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "画册页"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "媒质（例如 CD 标签面）"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "艺术指导/领奏/独奏"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr ""
+msgstr "艺术/演奏"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "乐队/剧场"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "歌词/脚本"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
-#, fuzzy
 msgid "Recording Location"
-msgstr "重新扫描音乐库"
+msgstr "录音场所"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
-msgstr ""
+msgstr "录音期间"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:80
 msgid "During performance"
-msgstr ""
+msgstr "演出期间"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "电影/视频截屏"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "某条鲜艳的剑尾鱼"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:92
 msgid "Illustration"
-msgstr ""
+msgstr "插图"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "乐队/艺术标识"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "发行/工坊标识"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "点击或拖放文件到此以更改封面"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -2741,7 +2740,7 @@ msgstr "描述："
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
-msgstr ""
+msgstr "类别:"
 
 #: ../data/ui/widgets/filter_dialog.ui:127
 msgid "Match any of the criteria"
@@ -2753,18 +2752,15 @@ msgstr "随机结果"
 
 #: ../data/ui/widgets/filter_dialog.ui:155
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "限定在： "
+msgstr "限定为:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
 msgid "tracks"
-msgstr "0/0 个音轨"
+msgstr "音轨"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2772,177 +2768,164 @@ msgstr "取消"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
-msgstr ""
+msgstr "循环片段"
 
 #: ../plugins/abrepeat/__init__.py:64
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "循环起点"
 
 #: ../plugins/abrepeat/__init__.py:68
 msgid "Repeat End"
-msgstr ""
+msgstr "循环终点"
 
 #: ../plugins/alarmclock/acprefs.py:21 ../plugins/alarmclock/PLUGININFO:3
-#, fuzzy
 msgid "Alarm Clock"
-msgstr "多点闹钟"
+msgstr "闹钟"
 
 #: ../plugins/amazoncovers/amazonprefs.py:21
 #: ../plugins/amazoncovers/PLUGININFO:3
-#, fuzzy
 msgid "Amazon Covers"
-msgstr "删除封面"
+msgstr "Amazon 封面"
 
 #: ../plugins/audioscrobbler/__init__.py:97
 msgid "Toggle AudioScrobbler submit"
-msgstr ""
+msgstr "切换 AudioScrobbler 提交"
 
 #: ../plugins/audioscrobbler/__init__.py:145
-#, fuzzy
 msgid "Enable audioscrobbling"
-msgstr "启用渐变"
+msgstr "启用音频扒寻"
 
 #: ../plugins/audioscrobbler/asprefs.py:29
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
-msgstr ""
+msgstr "验证成功"
 
 #: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
-msgstr ""
+msgstr "验证失败"
 
 #: ../plugins/audioscrobbler/asprefs.py:116
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "请确认您输入的数据是否正确。"
 
 #: ../plugins/bookmarks/__init__.py:210
-#, fuzzy
 msgid "_Bookmark This Track"
-msgstr "将此音轨加入书签"
+msgstr "_收藏该曲"
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
 msgid "_Delete Bookmark"
-msgstr "删除书签"
+msgstr "_删除书签"
 
 #: ../plugins/bookmarks/__init__.py:220
-#, fuzzy
 msgid "_Clear Bookmarks"
-msgstr "清空书签"
+msgstr "_清空书签"
 
 #: ../plugins/bookmarks/__init__.py:328
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "书签"
+msgstr "_书签"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
-msgstr ""
+msgstr "自动检测 BPM"
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "要将 %s 的 BPM 设为 %d 吗？"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "BPM 计数"
 
 #: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
-#, fuzzy
 msgid "Update"
 msgstr "更新"
 
 #: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
-#, fuzzy
 msgid "Audio Disc"
-msgstr "音频接收器：  "
+msgstr "唱片"
 
 #: ../plugins/cd/_cdguipanel.py:99
 msgid "Importing CD..."
-msgstr ""
+msgstr "导入 CD…"
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "从 CD 编码文件时发生错误。"
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:105
-#, fuzzy
 msgid "Track number"
-msgstr "音轨编号"
+msgstr "音轨号"
 
 #: ../plugins/cd/cdprefs.py:116 ../plugins/minimode/minimode_preferences.py:111
-#, fuzzy
 msgid "Disc number"
 msgstr "盘片编号"
 
 #: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:118
-#, fuzzy
 msgid "Play count"
-msgstr "播放计数"
+msgstr "播放次数"
 
 #: ../plugins/daapclient/__init__.py:316 ../plugins/history/__init__.py:187
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 #: ../plugins/daapclient/__init__.py:323
 msgid "Manually..."
-msgstr ""
+msgstr "手动…"
 
 #: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "输入用于共享的 IP 地址和端口"
 
 #: ../plugins/daapclient/__init__.py:377
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "输入 IP 地址和端口。"
 
 #: ../plugins/daapclient/__init__.py:593
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"该服务器不支持多重连接。\n"
+"在下载歌曲前您必须先停止回放。"
 
 #: ../plugins/daapclient/__init__.py:703
-#, fuzzy
 msgid "Refresh Server List"
-msgstr "刷新目录列表"
+msgstr "刷新服务器列表"
 
 #: ../plugins/daapclient/__init__.py:711
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "离开服务器"
 
 #: ../plugins/daapclient/__init__.py:732
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "选择要保存到的位置"
 
 #: ../plugins/daapclient/__init__.py:786
-#, fuzzy
 msgid "Connect to DAAP..."
-msgstr "已连接至 HAL"
+msgstr "连接 DAAP…"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP 客户端"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "DAAP 服务端"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
@@ -2951,145 +2934,134 @@ msgstr "桌面封面"
 
 #: ../plugins/developer/__init__.py:64
 msgid "Developer Tools"
-msgstr ""
+msgstr "开发者工具"
 
 #: ../plugins/equalizer/__init__.py:344
 msgid "_Equalizer"
-msgstr ""
+msgstr "_均衡"
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
-msgstr ""
+msgstr "_获取收藏集中所有标签"
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
 msgid "_Import tags from directory"
-msgstr "设置数据目录"
+msgstr "_导入目录中的标签"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
-msgstr ""
+msgstr "_批量重命名/删除标签"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "导_出 收藏集的标签为 JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
-msgstr ""
+msgstr "_分组标签"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "显示所有标签下的音轨"
 
 #: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "显示指定标签的音轨（自定义）"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
-#, fuzzy
 msgid "Add tags to all"
-msgstr "新电台"
+msgstr "全都加上这些标签"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
-#, fuzzy
 msgid "Remove tags from all"
-msgstr "删除"
+msgstr "全都移去这些标签"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr ""
+msgstr "分组标签"
 
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "选中的音轨中未发现分类标签"
 
 #: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
-msgstr ""
+msgstr "导出标签为 JSON"
 
 #: ../plugins/grouptagger/gt_import.py:59
-#, fuzzy
 msgid "Importing tracks"
-msgstr "导出"
+msgstr "导入音轨"
 
 #: ../plugins/grouptagger/gt_import.py:87
-#, fuzzy
 msgid "Importing groups"
-msgstr "导出"
+msgstr "导入分组"
 
 #: ../plugins/grouptagger/gt_import.py:182
 msgid "Updating groups"
-msgstr ""
+msgstr "更新分组"
 
 #: ../plugins/grouptagger/gt_import.py:272
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "选择要从中导入分组标签的目录"
 
 #: ../plugins/grouptagger/gt_mass.py:119
-#, fuzzy, python-format
+#, python-format
 msgid "%s tracks found"
-msgstr "未找到封面"
+msgstr "找到 %s 条音轨"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "替换 %s 条音轨上的「%s」为「%s」吗？"
 
 #: ../plugins/grouptagger/gt_mass.py:136
 #, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr ""
+msgstr "删除 %s 条音轨上的「%s」吗？"
 
 #: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
-msgstr ""
+msgstr "在使用批量标签重命名功能前，您应该重新扫描您的收藏集以确保所有标签都是最新的。是否现在重新扫描？"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "显示选中分组中的音轨"
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "显示有「%s」标签的音轨"
 
 #: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "显示所有选中分组中的音轨"
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
 msgid "Tag"
-msgstr "现在播放 %s"
+msgstr "标签"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
 msgid "Add new tag"
-msgstr "添加目录"
+msgstr "添加新标签"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "Delete tag"
-msgstr "删除播放列表"
+msgstr "删除标签"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
-#, fuzzy
 msgid "Add new category"
-msgstr "添加目录"
+msgstr "添加新分类"
 
 #: ../plugins/grouptagger/gt_widgets.py:196
-#, fuzzy
 msgid "Remove category"
-msgstr "删除封面"
+msgstr "移除分类"
 
 #: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"

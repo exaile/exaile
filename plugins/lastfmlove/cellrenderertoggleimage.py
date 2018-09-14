@@ -1,9 +1,12 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from gi.repository import GdkPixbuf
-from gi.repository import GObject
-from gi.repository import Gtk
+from gi.repository import (
+    GdkPixbuf,
+    GObject,
+    Gtk,
+    Gdk
+)
 
 from xlgui import icons
 
@@ -127,7 +130,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
                 dest=self.__prelit_pixbuf, saturation=0, pixelate=False
             )
 
-    def do_render(self, window, widget, background_area, cell_area, expose_area, flags):
+    def do_render(self, cairo_context, widget, background_area, cell_area, flags):
         """
             Renders a custom toggle image
         """
@@ -150,13 +153,17 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
         # Do nothing if we are inactive or not prelit
         if pixbuf is not None:
-            area_x, area_y, area_width, area_height = cell_area
+            area_x, area_y, area_width, area_height = (
+                cell_area.x,
+                cell_area.y,
+                cell_area.width,
+                cell_area.height,
+            )
 
             # Make sure to properly align the pixbuf
             x = area_x + area_width * self.props.xalign - self.__pixbuf_width / 2
 
             y = area_y + area_height * self.props.yalign - self.__pixbuf_height / 2
 
-            context = window.cairo_create()
-            context.set_source_pixbuf(pixbuf, x, y)
-            context.paint()
+            Gdk.cairo_set_source_pixbuf(cairo_context, pixbuf, x, y)
+            cairo_context.paint()

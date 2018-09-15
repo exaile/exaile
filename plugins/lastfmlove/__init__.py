@@ -13,18 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import (
-    Gtk,
-    Pango,
-    GdkPixbuf
-)
+from gi.repository import Gtk, Pango, GdkPixbuf
 
 import logging
 import os.path
-from threading import (
-    Thread,
-    Timer
-)
+from threading import Thread, Timer
 
 import pylast
 

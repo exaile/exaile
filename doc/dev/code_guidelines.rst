@@ -19,7 +19,7 @@ Basic Style
 Exaile uses the `black <https://github.com/ambv/black>`_ code formatter to
 enforce a consistent style across the project. You can run black like so:
 
-:: sh
+.. code-block:: sh
     
     make format
 

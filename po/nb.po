@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-08-30 21:20+0000\n"
+"PO-Revision-Date: 2018-09-18 14:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb/>\n"
@@ -123,7 +123,7 @@ msgstr "Lokal"
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Bruk: exaile [VALG]… [URI]"
+msgstr "Bruk: exaile [VALG]… [PLASSERING…]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -186,10 +186,8 @@ msgid "Playlist Options"
 msgstr "Spillelistevalg"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Eksporterer den gjeldende spillelisten til LOKASJON"
+msgstr "Eksporter den gjeldende spillelisten til PLASSERING"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -205,10 +203,8 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:180
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
-msgstr "Henter inn gjeldende avspillingsstatus og sporinformasjon som FORMAT"
+msgstr "Hent inn gjeldende avspillingsstatus og sporinformasjon som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
@@ -942,33 +938,24 @@ msgid "Start, pause or resume the playback"
 msgstr "Start, pause eller gjenoppta avspillingen"
 
 #: ../xlgui/main.py:179
-#, fuzzy
 msgid "Seek to the right"
-msgstr "Søk til høyre"
+msgstr "Blafre til høyre"
 
 #: ../xlgui/main.py:184
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Tilbakestill til systemskrift"
+msgstr "Blafre til venstre"
 
 #: ../xlgui/main.py:189
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Øker volumet med N%"
+msgstr "Øk lydstyrken"
 
 #: ../xlgui/main.py:194
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Senker volumet med N%"
+msgstr "Senk lydstyrken"
 
 #: ../xlgui/main.py:197
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Gå til forrige spor"
+msgstr "Bytt til forrige fane"
 
 #: ../xlgui/main.py:198
 msgid "Switch to next tab"
@@ -1825,7 +1812,7 @@ msgstr "Lukk fane"
 #: ../xlgui/widgets/playback.py:822
 #, python-format
 msgid "Seeking: %s"
-msgstr "Søker: %s"
+msgstr "Sanntidsspoler: %s"
 
 #: ../xlgui/widgets/playback.py:1173
 msgid "Move"

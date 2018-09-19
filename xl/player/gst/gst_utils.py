@@ -208,6 +208,7 @@ def parse_stream_tags(track, tag_list):
         'genre',
         'comment',
         'title',
+        'datetime',
     ]
 
     # Build a dictionary first
@@ -266,6 +267,11 @@ def parse_stream_tags(track, tag_list):
     v = tags.get('genre')
     if v:
         etags['genre'] = v
+
+    v = tags.get('datetime')
+    if v:
+        # v[0] is a Gst.DateTime object
+        etags['date'] = v[0].to_iso8601_string()
 
     # if there's a comment, but no album, set album to the comment
     v = tags.get('comment')

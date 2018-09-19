@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-09-18 14:29+0000\n"
+"PO-Revision-Date: 2018-09-19 13:28+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb/>\n"
@@ -2490,6 +2490,10 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Systemkurvsikoner støttes ikke på noen plattformer, ikke minst på Wayland. I "
+"GNOME-skall 3.26+ på Xorg, fungerer bare systemkurvsikoner hvis du har <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\""
+"-utvidelsen</a> (eller en lignende utvidelse) installert."
 
 #: ../data/ui/preferences/appearance.ui:319
 #, fuzzy
@@ -2630,16 +2634,16 @@ msgstr "Forsinkelse mellom spor (ms)"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Fungerer kun når kryssoverganger ikke er påslått"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Kryssovergangsvarighet (ms):"
 
 #: ../data/ui/preferences/playback.ui:282
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Bruk kryssoverganger (EKSPERIMENTELT)"
 
 #: ../data/ui/preferences/playback.ui:286
 #, fuzzy
@@ -2670,7 +2674,7 @@ msgstr "Gjenta avspilling"
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
-msgstr ""
+msgstr "Sømløs avspilling betyr å spille spor uten å ha noen pause mellom dem."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -3016,7 +3020,7 @@ msgstr "Importerer CD..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "Feil under transkoding av filer fra CD."
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
@@ -3122,7 +3126,7 @@ msgstr "Massenavneendring/sletting av etiketter"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "E_ksporter samlingsetiketter til JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 #, fuzzy
@@ -3166,7 +3170,7 @@ msgstr "Ingen kategoriseringsetiketter funnet i valgte spor"
 
 #: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
-msgstr ""
+msgstr "Eksporter samlingsetiketter til JSON"
 
 #: ../plugins/grouptagger/gt_import.py:59
 #, fuzzy
@@ -3641,7 +3645,7 @@ msgstr "Inget spor avspilt enda"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Flytt eller endre størrelse på OSD"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3721,7 +3725,7 @@ msgstr "Laster Podkaster..."
 
 #: ../plugins/podcasts/__init__.py:202
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Inget oppsett tilgjengelig enda"
 
 #: ../plugins/podcasts/__init__.py:235
 msgid "Could not save podcast file"
@@ -3885,6 +3889,7 @@ msgid "Secret:"
 msgstr "Hemmelighet:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
+#, fuzzy
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
@@ -3892,6 +3897,12 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
+"<i>For å registrere deg for en Amazon AWS-konto og få denne informasjonen,\n"
+"besøk <a href=\"http://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
+"\n"
+"Det kan hende du også må <a href=\"https://affiliate-program.amazon.com/gp/"
+"flex/advertising/api/sign-in.html\">aktivere produktreklameringsAPI-"
+"et</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4881,6 +4892,9 @@ msgid ""
 "\n"
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
+"Legger til støtte for multimediataster ved bruk av libkeybinder3.\n"
+"\n"
+"Krever: libkeybinder3 og dens typelib-fil"
 
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
@@ -5007,6 +5021,10 @@ msgid ""
 "Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
 "decode files)"
 msgstr ""
+"Vis visuell representasjon av musikktidslinjen.\n"
+"\n"
+"Krever: moodbar (som krever gst-plugins-* fra GStreamer 0.10 for å dekode "
+"filer)"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
@@ -5018,6 +5036,9 @@ msgid ""
 "2.2, allowing you to control Exaile from supporting clients, for example "
 "GNOME Shell"
 msgstr ""
+"Delvis støtte for MPRIS (Mediaspiller-fjernkontrollspesifikasjon) 2.2, noe "
+"som lar deg kontrollere Exaile fra støttede klienter, for eksempel GNOME-"
+"skall"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 #, fuzzy

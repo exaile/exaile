@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango, GdkPixbuf
 
 import logging
 import os.path
@@ -76,11 +76,13 @@ class LoveColumn(Column):
 
         self.model = None
 
-        pixbuf = icons.MANAGER.pixbuf_from_icon_name('love', self.get_icon_height())
+        pixbuf = icons.MANAGER.pixbuf_from_icon_name('love')
+        pixbuf = self._set_icon_size(pixbuf)
+
         self.cellrenderer.props.pixbuf = pixbuf
         self.cellrenderer.connect('toggled', self.on_toggled)
 
-    def data_func(self, column, cellrenderer, model, iter):
+    def data_func(self, column, cellrenderer, model, iter, user_data):
         """
             Displays the loved state
         """
@@ -109,6 +111,32 @@ class LoveColumn(Column):
             track = self.model.get_value(self.model.get_iter(path), 0)
             self.last_fm_lover.toggle_loved(track)
 
+    def _set_icon_size(self, pixbuf):
+        if pixbuf is None:
+            return pixbuf
+
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            # get default font
+            default = float(Gtk.Widget.get_default_style().font_desc.get_size())
+            new_font = Pango.FontDescription(font).get_size()
+
+            # scale pixbuf accordingly
+            t = GdkPixbuf.InterpType.BILINEAR
+            s = max(int(pixbuf.get_width() * (new_font / default)), 1)
+            pixbuf = pixbuf.scale_simple(s, s, t)
+
+        return pixbuf
+
+    def on_option_set(self, typ, obj, data):
+        """
+            Refresh playlist love icon size on playlist font option set
+        """
+        if data == "gui/playlist_font":
+            self.cellrenderer.props.pixbuf = self._set_icon_size(
+                self.cellrenderer.props.pixbuf
+            )
+
 
 class LoveMenuItem(MenuItem):
     """
@@ -118,7 +146,7 @@ class LoveMenuItem(MenuItem):
 
     def __init__(self, last_fm_lover, after, get_tracks_function=None):
         MenuItem.__init__(self, 'loved', None, after)
-        LoveColumn.last_fm_lover = self
+        LoveColumn.last_fm_lover = last_fm_lover
         self.__lastfmlover = last_fm_lover
         self.get_tracks_function = get_tracks_function
 

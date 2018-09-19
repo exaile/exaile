@@ -15,13 +15,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+import json
 from urllib import quote_plus
-
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    import xml.etree.ElementTree as ETree
-
 from xl import common, covers, event, providers
 
 # Last.fm API Key for Exaile
@@ -29,6 +24,7 @@ from xl import common, covers, event, providers
 # register your own key with last.fm
 API_KEY = '3599c79a97fd61ce518b75922688bc38'
 
+API_ROOT_URL = 'https://ws.audioscrobbler.com/2.0/'
 LASTFM = None
 
 
@@ -58,7 +54,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     title = 'Last.fm'
     type = 'remote'  # fetches remotely as opposed to locally
 
-    url = 'https://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
+    url = '{api_rurl}?method={type}.search&{type}={value}&format=json&api_key={api_key}'
 
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('lastfmcovers')
@@ -82,29 +78,35 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
         for type, value in (('album', album), ('track', title)):
             url = self.url.format(
-                type=type, value=quote_plus(value.encode("utf-8")), api_key=API_KEY
+                api_rurl=API_ROOT_URL,
+                type=type,
+                value=quote_plus(value.encode("utf-8")),
+                api_key=API_KEY,
             )
             try:
                 data = common.get_url_contents(url, self.user_agent)
             except IOError:
+                return []
+
+            try:
+                data_json = json.loads(data)
+            except ValueError:
                 continue
 
             try:
-                xml = ETree.fromstring(data)
-            except SyntaxError:
+                for element in data_json['results']["%smatches" % type][type]:
+                    if element['artist'] == artist.encode("utf-8"):
+                        for image in element['image']:
+                            if image['size'] == 'extralarge':
+                                return [image['#text']]
+            except KeyError:
                 continue
-
-            for element in xml.getiterator(type):
-                if element.find('artist').text == artist.encode("utf-8"):
-                    for sub_element in element.findall('image'):
-                        if sub_element.attrib['size'] == 'extralarge':
-                            url = sub_element.text
-                            if url:
-                                return [url]
 
         return []
 
     def get_cover_data(self, cover_url):
+        if not cover_url:
+            return None
         try:
             return common.get_url_contents(cover_url, self.user_agent)
         except IOError:

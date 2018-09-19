@@ -418,9 +418,6 @@ get_markers_at = __MARKERMANAGER.get_markers_at
 
 
 class _SeekInternalProgressBar(PlaybackProgressBar):
-
-    __gsignals__ = {'draw': 'override'}
-
     def __init__(self, player, points, marker_scale):
         PlaybackProgressBar.__init__(self, player)
         self._points = points

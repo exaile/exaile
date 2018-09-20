@@ -1898,10 +1898,11 @@ class SmartPlaylist(object):
             @param collection: the collection to search (leave None to
                     search internal ref)
         """
+        pl = Playlist(name=self.name)
         if not collection:
             collection = self.collection
         if not collection:  # if there wasnt one set we might not have one
-            return
+            return pl
 
         search_string, matchers = self._create_search_data(collection)
 
@@ -1926,7 +1927,6 @@ class SmartPlaylist(object):
         if self.track_count > 0 and len(trs) > self.track_count:
             trs = trs[: self.track_count]
 
-        pl = Playlist(name=self.name)
         pl.extend(trs)
 
         return pl

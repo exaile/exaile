@@ -11,10 +11,9 @@ If you want to build your own installer, see :ref:`win32_installer`.
 Install on OSX
 --------------
 
-On OSX, using the official OSX installation DMG is recommended. See
-:ref:`osx_notes`
-
-If you want to build your own installer, see :ref:`osx_installer`.
+We are not currently distributing an installer for OSX. Instead, you must
+install Exaile via Homebrew. For more details, see the
+`homebrew-exaile <https://github.com/exaile/homebrew-exaile>` repo.
 
 Linux/\*nix
 -----------

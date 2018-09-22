@@ -26,6 +26,7 @@
 
 from collections import namedtuple
 import copy
+import threading
 
 import logging
 
@@ -38,6 +39,8 @@ version.register('Mutagen', mutagen.version_string)
 
 
 INFO_TAGS = ['__bitrate', '__length']
+
+_compute_lock = threading.Lock()
 
 # Generic description of cover images
 # - type is a number corresponding to the cover type of ID3 APIC tags,
@@ -78,18 +81,24 @@ class BaseFormat(object):
 
     @classmethod
     def _compute_mappings(cls):
-        # this only needs to be run once per class
+        with _compute_lock:
+            # this only needs to be run once per class
+            if hasattr(cls, '_computed'):
+                return
 
-        if cls.case_sensitive:
-            cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
-        else:
-            cls._reverse_mapping = {
-                v.lower(): k for k, v in cls.tag_mapping.iteritems()
-            }
+            if cls.case_sensitive:
+                cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
+            else:
+                cls._reverse_mapping = {
+                    v.lower(): k for k, v in cls.tag_mapping.iteritems()
+                }
 
-        from .tags import disk_tags
+            from .tags import disk_tags
 
-        cls.ignore_tags = set(disk_tags)
+            cls.ignore_tags = set(disk_tags)
+
+            # This comes last to indicate success
+            cls._computed = True
 
     def __init__(self, loc):
         """
@@ -103,7 +112,7 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         try:
-            self._reverse_mapping
+            self._computed
         except AttributeError:
             self.__class__._compute_mappings()
 

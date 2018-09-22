@@ -102,6 +102,12 @@ formats = {
 
 # pass get_loc_for_io() to this.
 
+# Dummy format class to use with unsupported format instead of directly
+# instantiating BaseFormat, which may cause issues with tag mapping
+# initialization in subclasses (see issue #539)
+class DummyFormat(BaseFormat):
+    pass
+
 
 def get_format(loc):
     """
@@ -136,7 +142,7 @@ def get_format(loc):
         return None  # not supported
 
     if formatclass is None:
-        formatclass = BaseFormat
+        formatclass = DummyFormat
 
     try:
         return formatclass(loc)

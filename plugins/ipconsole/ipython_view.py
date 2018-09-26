@@ -62,10 +62,7 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Pango
 
-try:
-    import IPython
-except ImportError:
-    IPython = None
+import IPython
 
 
 class IterableIPShell(object):

@@ -342,7 +342,7 @@ class AnalyzerDialog(object):
         output_uri = dialogs.save(
             self.window,
             output_fname,
-            'plugin/playlist_analyzer/dlg_location',
+            'plugin/playlistanalyzer/dlg_location',
             None,
             _("Save analysis"),
         )

@@ -1,4 +1,3 @@
-
 import unittest
 
 from mox3 import mox

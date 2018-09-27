@@ -129,7 +129,7 @@ class CDTocParser(object):
                 m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
 
                 # adr = adrctrl & 0xf
-                ctrl = (adrctrl & 0xf0) >> 4
+                ctrl = (adrctrl & 0xF0) >> 4
 
                 data = 0
                 if ctrl & CDROM_DATA_TRACK:

@@ -1,4 +1,3 @@
-
 from xl.nls import gettext as _
 from xlgui.widgets import menu
 

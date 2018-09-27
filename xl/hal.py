@@ -355,7 +355,7 @@ class UDisksBase(providers.ProviderHandler):
                 )
                 return False
             i += 1
-            time.sleep(.1)
+            time.sleep(0.1)
 
 
 class UDisks2(UDisksBase):

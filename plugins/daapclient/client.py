@@ -1,5 +1,3 @@
-
-
 import httplib
 import logging
 from cStringIO import StringIO

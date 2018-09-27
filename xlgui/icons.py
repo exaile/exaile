@@ -205,7 +205,7 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_width() + spacing + other.get_width(),
             height,
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         self.pixbuf.copy_area(
             src_x=0,
@@ -252,7 +252,7 @@ class ExtendedPixbuf(object):
             width,
             self.pixbuf.get_height() + spacing + other.get_height(),
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         self.pixbuf.copy_area(
             src_x=0,
@@ -295,7 +295,7 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_width() * multiplier + spacing * multiplier,
             self.pixbuf.get_height(),
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         for n in xrange(0, multiplier):
             self.pixbuf.copy_area(
@@ -330,7 +330,7 @@ class ExtendedPixbuf(object):
             self.pixbuf.get_width(),
             self.pixbuf.get_height() * multiplier + spacing * multiplier,
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         for n in xrange(0, multiplier):
             self.pixbuf.copy_area(
@@ -368,7 +368,7 @@ class ExtendedPixbuf(object):
             width,
             height,
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         for pixbuf in (self.pixbuf, other):
             pixbuf.composite(
@@ -421,7 +421,7 @@ class ExtendedPixbuf(object):
             width,
             height,
         )
-        new_pixbuf.fill(0xffffff00)
+        new_pixbuf.fill(0xFFFFFF00)
 
         self.pixbuf.copy_area(
             src_x=0,

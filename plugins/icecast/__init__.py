@@ -1,4 +1,3 @@
-
 from gi.repository import GLib
 from gi.repository import Gtk
 

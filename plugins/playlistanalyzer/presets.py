@@ -1,4 +1,3 @@
-
 #
 # Format is pretty simple. Provide the presets so that users
 # can play around with 'proven' interesting visualizations

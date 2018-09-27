@@ -1,4 +1,3 @@
-
 from xlgui.preferences import widgets
 from xl.nls import gettext as _
 import os

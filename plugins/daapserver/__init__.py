@@ -1,4 +1,3 @@
-
 import logging
 from xl import event, settings
 import exaile_parser

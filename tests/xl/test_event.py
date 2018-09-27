@@ -1,4 +1,3 @@
-
 from gi.repository import GLib
 import threading
 from xl import event

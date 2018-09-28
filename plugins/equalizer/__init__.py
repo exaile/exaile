@@ -27,6 +27,7 @@
 # support python 2.5
 from __future__ import with_statement
 
+import logging
 import os
 
 from gi.repository import Gst
@@ -37,6 +38,8 @@ from xl.player.gst.gst_utils import ElementBin
 from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu
+
+logger = logging.getLogger('equalizer')
 
 
 def isclose(float_a, float_b, rel_tol=1e-09, abs_tol=0.0):
@@ -264,8 +267,7 @@ class EqualizerWindow(Gtk.Window):
         with open(self.PRESETS_PATH, 'w') as config_file:
             for row in self.presets:
                 config_file.write(row[0] + '\n')
-                line = ""
-                line.join(str(row[i]) + " " for i in range(1, 12))
+                line = "".join(str(row[i]) + " " for i in range(1, 12))
                 line += "\n"
                 config_file.write(line)
 
@@ -273,20 +275,29 @@ class EqualizerWindow(Gtk.Window):
         """
         Populate the GTK ListStore with presets
         """
+        load_defaults = True
         if os.path.exists(self.PRESETS_PATH):
-            with open(self.PRESETS_PATH, 'r') as presets_file:
-                line = presets_file.readline()
-                while line != "":
-                    preset = []
-                    preset.append(line[:-1])
+            try:
+                with open(self.PRESETS_PATH, 'r') as presets_file:
                     line = presets_file.readline()
-                    vals = line.split(" ")
-                    for i in range(11):
-                        preset.append(float(vals[i]))
+                    while line != "":
+                        preset = []
+                        preset.append(line[:-1])
+                        line = presets_file.readline()
+                        vals = line.split(" ")
+                        for i in range(11):
+                            preset.append(float(vals[i]))
 
-                    self.presets.append(preset)
-                    line = presets_file.readline()
-        else:
+                        self.presets.append(preset)
+                        line = presets_file.readline()
+            except Exception:
+                logger.exception(
+                    "Error loading equalizer presets, reverting to defaults"
+                )
+            else:
+                load_defaults = False
+
+        if load_defaults:
             for preset in DEFAULT_PRESETS:
                 self.presets.append(preset)
 

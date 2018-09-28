@@ -94,7 +94,7 @@
       <object class="GtkComboBox" id="plugin/grouptagger/tagname">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="tooltip_text" translatable="yes">'grouping' and 'comment' are probably the best supported choices. Other choices may only work with certain file formats. </property>
+        <property name="tooltip_text" translatable="yes">'grouping' and 'comment' are probably the best supported choices. Other choices may only work with certain file formats.</property>
         <property name="model">liststore1</property>
         <property name="active">0</property>
         <child>

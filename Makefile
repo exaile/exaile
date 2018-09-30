@@ -151,6 +151,8 @@ install-target: make-install-dirs
 	install -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
+	intltool-merge -d po data/exaile.desktop.in data/exaile.desktop
+	intltool-merge -x po data/exaile.appdata.xml.in data/exaile.appdata.xml
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
 	install -m 644 data/exaile.appdata.xml \
@@ -205,19 +207,28 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	rm -rf build/
 	$(MAKE) -C plugins clean
+	rm -f data/*.in.h
+	rm -f data/*.desktop data/*.appdata.xml
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
 
 po/messages.pot: pot
 
+%.desktop.in.h: %.desktop.in
+	intltool-extract --type=gettext/ini $<
+
+%.xml.in.h: %.xml.in
+	intltool-extract --type=gettext/xml $<
+
 # The "set -o pipefail" makes the whole thing die if any of the find fails.
 #   dash (Debian's /bin/sh) doesn't support it and exits immediately, so we test it in a subshell.
 # The "export LC_ALL=C" disables any locale-dependent sort behavior.
-pot:
+pot: data/exaile.appdata.xml.in.h data/exaile.desktop.in.h
 	( ( set -o pipefail 2> /dev/null ) && set -o pipefail ; \
 	  export LC_ALL=C && cd po && \
 	  { find ../xl ../xlgui -name "*.py" | sort && \
 	    find ../data/ui -name "*.ui" | sort && \
+	    find ../data -name "*.h" | sort && \
 	    find ../plugins -name "*.py" | sort && \
 	    find ../plugins -name "*.ui" | sort ; } \
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \

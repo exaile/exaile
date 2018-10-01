@@ -1037,6 +1037,8 @@ class GioFileOutputStream(_GioFileStream):
         self.stream.flush()
 
     def write(self, s):
+        if isinstance(s, unicode):
+            s = s.encode('utf-8')
         return self.stream.write(s)
 
 

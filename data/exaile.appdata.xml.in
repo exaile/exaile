@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application>
- <id type="desktop">exaile.desktop</id>
+<component type="desktop-application">
+ <id>exaile.desktop</id>
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-2.0+</project_license>
  <name>Exaile</name>
- <_summary>Listen to, explore, or manage your audio collection</_summary>
+ <summary>Listen to, explore, or manage your audio collection</summary>
  <description>
-  <_p>
+  <p>
    Exaile is a music player with a simple interface and powerful music
    management capabilities. Features include automatic fetching of album art,
    lyrics fetching, streaming internet radio, tabbed playlists, smart
    playlists with extensive filtering/search capabilities, and much more. 
-  </_p>
-  <_p>
+  </p>
+  <p>
    Exaile is written using python and GTK+ and is easily extensible via
    plugins. There are over 50 plugins distributed with Exaile that include
    advanced track tagging, last.fm scrobbling, support for portable media
    players, podcasts, internet radio such as icecast and Soma.FM,
    ReplayGain, output via a secondary output device (great for DJs!), and
    much more.
-  </_p>
+  </p>
  </description>
  <screenshots>
   <screenshot type="default" width="800" height="600">https://www.exaile.org/public/images/exaile-3.4.png</screenshot>
  </screenshots>
  <url type="homepage">https://www.exaile.org</url>
+ <provides>
+  <binary>exaile</binary>
+  <dbus type="user">org.exaile.Exaile</dbus>
+ </provides>
+ <releases>
+  <release version="4.0.0rc3" type="development" date="2018-09-23"/>
+ </releases>
+ <launchable type="desktop-id">exaile.desktop</launchable>
  <update_contact>exaile-devel@googlegroups.com</update_contact>
+ <url type="bugtracker">https://github.com/exaile/exaile/issues</url>
+ <url type="translate">https://hosted.weblate.org/projects/exaile</url>
  <translation type="gettext">exaile</translation>
-</application>
+</component>

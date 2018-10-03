@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2018-09-28 15:31+0000\n"
+"PO-Revision-Date: 2018-10-03 08:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb/>\n"
@@ -217,7 +217,7 @@ msgstr "Etiketter å hente inn fra gjeldende spor, bruk med --format-query"
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
-msgstr "Vis en popup med informasjon for gjeldende spor"
+msgstr "Vis oppsprett med info om gjeldende spor"
 
 #: ../xl/main.py:201
 msgid "Print the title of current track"

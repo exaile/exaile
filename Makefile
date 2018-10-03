@@ -104,6 +104,11 @@ uninstall:
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
+# List a *.mo file for any *.po file
+LOCALE_SRCS=$(wildcard po/*.po)
+LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
+LINGUAS=$(sort $(patsubst po/%.po,%,$(LOCALE_SRCS)))
+
 install: install-target install-locale
 
 install_no_locale: install-target
@@ -151,8 +156,9 @@ install-target: make-install-dirs
 	install -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
 	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
-	intltool-merge -d po data/exaile.desktop.in data/exaile.desktop
-	intltool-merge -x po data/exaile.appdata.xml.in data/exaile.appdata.xml
+	echo $(LINGUAS) > po/LINGUAS
+	msgfmt --desktop --template=data/exaile.desktop.in -d po -o data/exaile.desktop
+	msgfmt --xml --template=data/exaile.appdata.xml.in -d po -o data/exaile.appdata.xml
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
 	install -m 644 data/exaile.appdata.xml \
@@ -168,11 +174,6 @@ install-target: make-install-dirs
 		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service && \
 		chmod 644 $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
 	$(MAKE) -C plugins install
-
-
-# List a *.mo file for any *.po file
-LOCALE_SRCS=$(wildcard po/*.po)
-LOCALE_OBJS=$(LOCALE_SRCS:.po=.mo)
 
 %.mo: %.po po/messages.pot
 	$(eval LOCALE_DIR := `echo $< | sed "s|^po/|build/locale/|" | sed "s|.po|/LC_MESSAGES|"`)
@@ -207,33 +208,27 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	rm -rf build/
 	$(MAKE) -C plugins clean
-	rm -f data/*.in.h
 	rm -f data/*.desktop data/*.appdata.xml
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
 
 po/messages.pot: pot
 
-%.desktop.in.h: %.desktop.in
-	intltool-extract --type=gettext/ini $<
-
-%.xml.in.h: %.xml.in
-	intltool-extract --type=gettext/xml $<
-
 # The "set -o pipefail" makes the whole thing die if any of the find fails.
 #   dash (Debian's /bin/sh) doesn't support it and exits immediately, so we test it in a subshell.
 # The "export LC_ALL=C" disables any locale-dependent sort behavior.
-pot: data/exaile.appdata.xml.in.h data/exaile.desktop.in.h
+pot:
 	( ( set -o pipefail 2> /dev/null ) && set -o pipefail ; \
 	  export LC_ALL=C && cd po && \
 	  { find ../xl ../xlgui -name "*.py" | sort && \
 	    find ../data/ui -name "*.ui" | sort && \
-	    find ../data -name "*.h" | sort && \
 	    find ../plugins -name "*.py" | sort && \
 	    find ../plugins -name "*.ui" | sort ; } \
 	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
 	  find ../plugins -name PLUGININFO | sort \
-	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python && \
+	  xgettext -j -o messages.pot --keyword=X-GNOME-FullName '../data/exaile.desktop.in' && \
+	  xgettext -j -o messages.pot '../data/exaile.appdata.xml.in' )
 	find po -name '*.po' -exec \
 	  msgmerge --previous --update {} po/messages.pot \;
 

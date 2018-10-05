@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-27 13:43+1000\n"
-"PO-Revision-Date: 2016-12-26 11:50+0000\n"
-"Last-Translator: Lari Oesch <lari@oesch.me>\n"
+"PO-Revision-Date: 2018-10-05 18:26+0000\n"
+"Last-Translator: Arto Keiski <arto.keiski@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 3.2\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -26,7 +26,7 @@ msgstr "Tunnisteet"
 
 #: ../xl/covers.py:565
 msgid "Local file"
-msgstr ""
+msgstr "tiedosto"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -120,8 +120,6 @@ msgid "Local"
 msgstr "Paikallinen"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Käyttö: exaile [VALINTA]... [URI]"
 

@@ -132,6 +132,10 @@ class AboutDialog(Gtk.AboutDialog):
 
         self.set_version(xl.version.__version__)
 
+        # The user may have changed the theme since startup.
+        theme = Gtk.Settings.get_default().props.gtk_theme_name
+        xl.version.__external_versions__["GTK+ theme"] = theme
+
         comments = []
         for name, version in sorted(xl.version.__external_versions__.iteritems()):
             comments.append('%s: %s' % (name, version))

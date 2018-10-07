@@ -44,6 +44,7 @@ from xlgui import guiutil
 version.register(
     "GTK+", "%s.%s.%s" % (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION)
 )
+version.register("GTK+ theme", Gtk.Settings.get_default().props.gtk_theme_name)
 
 
 def get_controller():

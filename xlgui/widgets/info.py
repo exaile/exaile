@@ -520,9 +520,6 @@ class Statusbar(object):
         """
             Initialises the status bar
         """
-        # The first child of the status bar is a frame containing a label. We
-        # create an HBox, pack it inside the frame, and move the label and other
-        # widgets of the status bar into it.
         self.status_bar = status_bar
         self.formatter = StatusbarTextFormatter(
             settings.get_option(
@@ -541,10 +538,6 @@ class Statusbar(object):
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
-
-        # TODO: GI
-        # self.status_bar.set_app_paintable(True)
-        # self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):
         """

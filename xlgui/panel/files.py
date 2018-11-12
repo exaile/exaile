@@ -43,6 +43,26 @@ from xlgui.widgets.common import DragTreeView
 logger = logging.getLogger(__name__)
 
 
+def gfile_enumerate_children(gfile, attributes, follow_symlinks=True):
+    """Like Gio.File.enumerate_children but ignores errors"""
+    flags = (
+        Gio.FileQueryInfoFlags.NONE
+        if follow_symlinks
+        else Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS
+    )
+    infos = gfile.enumerate_children(attributes, flags, None)
+    it = iter(infos)
+    while True:
+        try:
+            yield next(it)
+        except StopIteration:
+            break
+        except GLib.Error:
+            logger.warning(
+                "Error while iterating on %r", gfile.get_parse_name(), exc_info=True
+            )
+
+
 class FilesPanel(panel.Panel):
     """
         The Files panel
@@ -354,11 +374,9 @@ class FilesPanel(panel.Panel):
         """
         self.current = directory
         try:
-            infos = directory.enumerate_children(
-                'standard::is-hidden,'
-                'standard::name,standard::display-name,standard::type',
-                Gio.FileQueryInfoFlags.NONE,
-                None,
+            infos = gfile_enumerate_children(
+                directory,
+                'standard::display-name,standard::is-hidden,standard::name,standard::type',
             )
         except GLib.Error as e:
             logger.exception(e)
@@ -515,9 +533,7 @@ class FilesDragTreeView(DragTreeView):
             'standard::type', Gio.FileQueryInfoFlags.NONE, None
         ).get_file_type()
         if ftype == Gio.FileType.DIRECTORY:
-            file_infos = f.enumerate_children(
-                'standard::name', Gio.FileQueryInfoFlags.NONE, None
-            )
+            file_infos = gfile_enumerate_children(f, 'standard::name')
             files = (f.get_child(fi.get_name()) for fi in file_infos)
             for subf in files:
                 self.append_recursive(songs, subf)

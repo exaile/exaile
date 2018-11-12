@@ -106,7 +106,6 @@
         </child>
         <child>
           <object class="GtkButton" id="files_home_button">
-            <property name="width_request">36</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

@@ -39,12 +39,18 @@ TAB_CSS = Gtk.CssProvider()
 if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
         '''
-        /* Work around weird Close button position on panel.
-           Need to find out why the button is not centered. */
+        /* Most themes don't handle vertical notebooks well,
+           so we override everything. */
         notebook.vertical tab {
-          padding-left: 6px;
-          padding-right: 3px;
-          }
+          padding: 3px 4px 3px 4px;
+        }
+        notebook.vertical tab * {
+          margin: 0;
+          padding: 0;
+        }
+        notebook.vertical tab label {
+          margin: 0 0 3px 0;
+        }
         /* Remove gap between tabs */
         header.top tab, header.bottom tab {
           margin-left: -1px;
@@ -73,6 +79,12 @@ else:
     )
 
 
+def apply_css(widget):
+    sc = widget.get_style_context()
+    sc.add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    return sc
+
+
 class SmartNotebook(Gtk.Notebook):
     def __init__(self, vertical=False):
         Gtk.Notebook.__init__(self)
@@ -82,8 +94,7 @@ class SmartNotebook(Gtk.Notebook):
         self.connect('notify::tab-pos', self.__on_notify_tab_pos)
         self._add_tab_on_empty = True
 
-        sc = self.get_style_context()
-        sc.add_provider(TAB_CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        sc = apply_css(self)
         if vertical:
             sc.add_class('vertical')
             self.set_tab_pos(Gtk.PositionType.LEFT)
@@ -210,11 +221,15 @@ class NotebookTab(Gtk.EventBox):
         else:
             box = Gtk.Box(spacing=2)
         self.add(box)
+        apply_css(box)
 
         self.icon = Gtk.Image()
         self.icon.set_no_show_all(True)
+        apply_css(self.icon)
 
         self.label = Gtk.Label(label=self.page.get_page_name())
+        self.label.set_tooltip_text(self.page.get_page_name())
+        apply_css(self.label)
 
         if vertical:
             self.label.set_angle(90)
@@ -226,20 +241,19 @@ class NotebookTab(Gtk.EventBox):
             self.label.set_ellipsize(Pango.EllipsizeMode.END)
             self.adjust_label_width(Gtk.PositionType.TOP)
 
-        self.label.set_tooltip_text(self.page.get_page_name())
-
         if self.can_rename():
-            self.entry = Gtk.Entry()
-            self.entry.set_width_chars(self.label.get_max_width_chars())
-            self.entry.set_text(self.label.get_text())
+            self.entry = entry = Gtk.Entry()
+            entry.set_width_chars(self.label.get_max_width_chars())
+            entry.set_text(self.label.get_text())
             border = Gtk.Border.new()
             border.left = 1
             border.right = 1
-            self.entry.set_inner_border(border)
-            self.entry.connect('activate', self.on_entry_activate)
-            self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
-            self.entry.connect('key-press-event', self.on_entry_key_press_event)
-            self.entry.set_no_show_all(True)
+            entry.set_inner_border(border)
+            entry.connect('activate', self.on_entry_activate)
+            entry.connect('focus-out-event', self.on_entry_focus_out_event)
+            entry.connect('key-press-event', self.on_entry_key_press_event)
+            entry.set_no_show_all(True)
+            apply_css(entry)
 
         self.button = button = Gtk.Button()
         button.set_relief(Gtk.ReliefStyle.NONE)
@@ -250,6 +264,7 @@ class NotebookTab(Gtk.EventBox):
         button.add(Gtk.Image.new_from_icon_name('window-close', Gtk.IconSize.MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
+        apply_css(button)
 
         # pack the widgets in
         if vertical:
@@ -268,7 +283,8 @@ class NotebookTab(Gtk.EventBox):
 
         page.set_tab(self)
         page.connect('name-changed', self.on_name_changed)
-        self.show_all()
+
+        box.show_all()
 
     def adjust_label_width(self, tab_pos):
         """Change the label's minimum width according to tab position"""

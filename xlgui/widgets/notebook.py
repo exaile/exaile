@@ -38,38 +38,38 @@ from xlgui.widgets import menu
 TAB_CSS = Gtk.CssProvider()
 if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
-        # Work around weird Close button position on panel.
-        # Need to find out why the button is not centered.
-        'notebook.vertical tab { '
-        + 'padding-left: 6px; '
-        + 'padding-right: 3px; '
-        + '} '
-        +
-        # Remove gap between tabs
-        'header.top tab, header.bottom tab { '
-        + 'margin-left: -1px; '
-        + 'margin-right: -1px; '
-        + '} '
-        + 'header.left tab, header.right tab { '
-        + 'margin-top: -1px; '
-        + 'margin-bottom: -1px; '
-        + '}'
+        '''
+        /* Work around weird Close button position on panel.
+           Need to find out why the button is not centered. */
+        notebook.vertical tab {
+          padding-left: 6px;
+          padding-right: 3px;
+          }
+        /* Remove gap between tabs */
+        header.top tab, header.bottom tab {
+          margin-left: -1px;
+          margin-right: -1px;
+        }
+        header.left tab, header.right tab {
+          margin-top: -1px;
+          margin-bottom: -1px;
+        }
+        '''
     )
 else:
     TAB_CSS.load_from_data(
-        '.notebook { '
-        +
-        # Remove gap before first tab
-        '-GtkNotebook-initial-gap: 0; '
-        +
-        # Remove gap between tabs
-        '-GtkNotebook-tab-overlap: 1; '
-        + '} '
-        + '.notebook tab { '
-        +
-        # Make tabs smaller (or bigger on some other themes, unfortunately)
-        'padding: 6px; '
-        + '}'
+        '''
+        .notebook {
+          /* Remove gap before first tab */
+          -GtkNotebook-initial-gap: 0;
+          /* Remove gap between tabs */
+          -GtkNotebook-tab-overlap: 1;
+        }
+        .notebook tab {
+          /* Make tabs smaller (or bigger on some other themes, unfortunately) */
+          padding: 6px;
+        }
+        '''
     )
 
 

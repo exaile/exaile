@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-11-24 05:11+0000\n"
+"PO-Revision-Date: 2018-11-25 05:07+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -2377,6 +2377,8 @@ msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Se não estiver ativado, não especificará uma preferência ao GTK. Pode não "
+"funcionar em algumas plataformas."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2481,6 +2483,8 @@ msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Se uma faixa estiver sendo reproduzida, não permitir que novas faixas sejam "
+"iniciadas, exceto ao clicar nos controles de reprodução"
 
 #: ../data/ui/preferences/playback.ui:219
 msgid "Automatically advance to the next track"
@@ -2529,6 +2533,8 @@ msgstr "Ativar reprodução ininterrupta"
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"Reprodução ininterrupta significa reproduzir faixas sem inserir silêncio "
+"entre eles."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2552,7 +2558,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
-msgstr ""
+msgstr "Acrescentar/substituir através do item de menu dispara a reprodução"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2560,10 +2566,13 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Ao usar um item de menu para adicionar/substituir faixas na lista de "
+"reprodução, iniciar a reprodução se uma faixa estiver a ser reproduzida. "
+"Esta opção foi o comportamento predefinido antes de Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Filar faixas por predefinição em vez de as reproduzir"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""

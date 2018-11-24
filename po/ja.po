@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-27 13:43+1000\n"
+"POT-Creation-Date: 2018-11-24 15:07+1000\n"
 "PO-Revision-Date: 2015-08-17 10:26+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/exaile/master/"
@@ -424,117 +424,117 @@ msgstr ""
 "Exaile は読み込みを完了していません. exaile_loaded シグナルを受信待機中です"
 "か?"
 
-#: ../xl/metadata/tags.py:47 ../xlgui/panel/collection.py:125
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:125
 #: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
 msgstr "アルバム"
 
-#: ../xl/metadata/tags.py:48
+#: ../xl/metadata/tags.py:47
 msgid "Arranger"
 msgstr "編曲者"
 
-#: ../xl/metadata/tags.py:49 ../xlgui/panel/collection.py:122
+#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
 #: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "アーティスト"
 
-#: ../xl/metadata/tags.py:50
+#: ../xl/metadata/tags.py:49
 msgid "Author"
 msgstr "作者"
 
-#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:356
+#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:356
 #: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "拍/分"
 
-#: ../xl/metadata/tags.py:52
+#: ../xl/metadata/tags.py:51
 msgid "Copyright"
 msgstr "著作権"
 
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:527
+#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:527
 msgid "Comment"
 msgstr "コメント"
 
-#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:200
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:200
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
 #: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "作曲者"
 
-#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:54 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr "指揮者"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:55 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "カバー"
 
-#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:288
+#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:288
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "日付"
 
-#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:230
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:230
 msgid "Disc"
 msgstr "ディスク"
 
-#: ../xl/metadata/tags.py:59
+#: ../xl/metadata/tags.py:58
 msgid "Encoded by"
 msgstr "~エンコード"
 
-#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:306
+#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:306
 #: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "ジャンル"
 
-#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:539
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:539
 msgid "Grouping"
 msgstr "グルーピング"
 
-#: ../xl/metadata/tags.py:62
+#: ../xl/metadata/tags.py:61
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:366
+#: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:366
 #, fuzzy
 #| msgid "Language:"
 msgid "Language"
 msgstr "言語:"
 
-#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
+#: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:64
 msgid "Lyricist"
 msgstr "作詞家"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:65
 msgid "Organization"
 msgstr "組織"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:66
 msgid "Original album"
 msgstr "オリジナルのアルバム"
 
-#: ../xl/metadata/tags.py:68
+#: ../xl/metadata/tags.py:67
 msgid "Original artist"
 msgstr "オリジナルのアーティスト"
 
-#: ../xl/metadata/tags.py:69
+#: ../xl/metadata/tags.py:68
 msgid "Original date"
 msgstr "オリジナルの日付"
 
-#: ../xl/metadata/tags.py:71
+#: ../xl/metadata/tags.py:70
 msgid "Performer"
 msgstr "演奏者"
 
-#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xl/metadata/tags.py:71 ../xlgui/panel/flatplaylist.py:101
 #: ../xlgui/widgets/playlist_columns.py:180
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
@@ -542,62 +542,62 @@ msgstr "演奏者"
 msgid "Title"
 msgstr "タイトル"
 
-#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "トラック"
 
-#: ../xl/metadata/tags.py:74
+#: ../xl/metadata/tags.py:73
 msgid "Version"
 msgstr "バージョン"
 
-#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:569
+#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:569
 msgid "Website"
 msgstr "ウェブサイト"
 
-#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:316
-#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:408
+#: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:316
+#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:407
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "ビットレート"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:385
+#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:385
 msgid "Date added"
 msgstr "追加した日"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:376
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:376
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "前回再生"
 
-#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:220
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:220
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "長さ"
 
-#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:326
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:326
 #: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "ロケーション"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:84
 msgid "Modified"
 msgstr "変更済み"
 
-#: ../xl/metadata/tags.py:86
+#: ../xl/metadata/tags.py:85
 msgid "Play time"
 msgstr "演奏回数"
 
-#: ../xl/metadata/tags.py:87
+#: ../xl/metadata/tags.py:86
 msgid "Times played"
 msgstr "再生時間"
 
-#: ../xl/metadata/tags.py:89
+#: ../xl/metadata/tags.py:88
 msgid "Start offset"
 msgstr "スタートオフセット"
 
-#: ../xl/metadata/tags.py:90
+#: ../xl/metadata/tags.py:89
 msgid "Stop offset"
 msgstr "ストップオフセット"
 
@@ -681,35 +681,41 @@ msgstr "ASX プレイリスト"
 msgid "XSPF Playlist"
 msgstr "XSPF プレイリスト"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:916
 msgid "Shuffle _Off"
 msgstr "シャッフルオフ(_O)"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:917
 msgid "Shuffle _Tracks"
 msgstr "シャッフル-トラック(_T)"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:918
 msgid "Shuffle _Albums"
 msgstr "シャッフル-アルバム(_A)"
 
 #: ../xl/playlist.py:919
+#, fuzzy
+#| msgid "Random %d"
+msgid "_Random"
+msgstr "ランダム %d"
+
+#: ../xl/playlist.py:924
 msgid "Repeat _Off"
 msgstr "リピート-オフ(_O)"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:924
 msgid "Repeat _All"
 msgstr "リピート-ALL(_A)"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:924
 msgid "Repeat O_ne"
 msgstr "1トラックをリピート(_N)"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:928
 msgid "Dynamic _Off"
 msgstr "ダイナミックオフ(_O)"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:928
 msgid "Dynamic by Similar _Artists"
 msgstr "似たアーティストによるダイナミック(_A)"
 
@@ -818,11 +824,11 @@ msgstr ""
 "状態: %(status)s, タイトル: %(title)s, アーティスト: %(artist)s, アルバム: "
 "%(album)s, 長さ: %(length)s, 位置: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:318
+#: ../xlgui/__init__.py:319
 msgid "Scanning collection..."
 msgstr "コレクションを取り込んでいます..."
 
-#: ../xlgui/__init__.py:397
+#: ../xlgui/__init__.py:398
 #, python-format
 msgid "Scanning %s..."
 msgstr "%sを取り込んでいます..."
@@ -1205,22 +1211,22 @@ msgstr "コレクションを再スキャン"
 msgid "Transferring to %s..."
 msgstr "%s に転送..."
 
-#: ../xlgui/panel/files.py:63
+#: ../xlgui/panel/files.py:83
 msgid "Files"
 msgstr "ファイル"
 
-#: ../xlgui/panel/files.py:103 ../xlgui/widgets/playlist_columns.py:336
+#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:336
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "ファイル名"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:127
+#: ../xlgui/panel/files.py:147
 msgid "Size"
 msgstr "サイズ"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:437
+#: ../xlgui/panel/files.py:455
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1268,7 +1274,7 @@ msgstr "プレイリストの名前を入力してください"
 msgid "Rename Playlist"
 msgstr "プレイリスト名の変更"
 
-#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
 #: ../xlgui/widgets/smart_playlist_editor.py:393
 msgid "The playlist name you entered is already in use."
 msgstr "入力されたプレイリストの名前は既に使用されています。"
@@ -1409,11 +1415,11 @@ msgstr ""
 #. the space-separated list "l' la le les".
 #. If this practice is not common in your locale, simply
 #. translate this to string with single space.
-#: ../xlgui/preferences/collection.py:33
+#: ../xlgui/preferences/collection.py:36
 msgid "the"
 msgstr ""
 
-#: ../xlgui/preferences/collection.py:57
+#: ../xlgui/preferences/collection.py:60
 #, fuzzy
 #| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
@@ -1465,8 +1471,8 @@ msgstr "プラグインを選択して下さい"
 msgid "Plugin Archives"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:724
-#: ../xlgui/widgets/dialogs.py:901
+#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:728
+#: ../xlgui/widgets/dialogs.py:905
 msgid "All Files"
 msgstr "全てのファイル"
 
@@ -1572,7 +1578,7 @@ msgstr "ディレクトリを開く"
 msgid "Apply current value to all tracks"
 msgstr "現在の音量をすべてのトラックに適用する"
 
-#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1547
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s 中 %(total)s を保存完了。"
@@ -1581,114 +1587,114 @@ msgstr "%(count)s 中 %(total)s を保存完了。"
 msgid "Exaile Music Player"
 msgstr "Exaile ミュージックプレイヤ"
 
-#: ../xlgui/widgets/dialogs.py:357
+#: ../xlgui/widgets/dialogs.py:361
 msgid "Enter the URL to open"
 msgstr "URLを入力してください"
 
-#: ../xlgui/widgets/dialogs.py:357
+#: ../xlgui/widgets/dialogs.py:361
 msgid "Open URL"
 msgstr "URLを指定して開く"
 
-#: ../xlgui/widgets/dialogs.py:644
+#: ../xlgui/widgets/dialogs.py:648
 msgid "Select File Type (by Extension)"
 msgstr "ファイルタイプを選択(拡張子から)"
 
-#: ../xlgui/widgets/dialogs.py:703
+#: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Media to Open"
 msgstr "開くメディアを指定してください"
 
-#: ../xlgui/widgets/dialogs.py:718
+#: ../xlgui/widgets/dialogs.py:722
 msgid "Supported Files"
 msgstr "サポートされているファイル"
 
-#: ../xlgui/widgets/dialogs.py:720
+#: ../xlgui/widgets/dialogs.py:724
 msgid "Music Files"
 msgstr "音楽ファイル"
 
-#: ../xlgui/widgets/dialogs.py:722 ../xlgui/widgets/dialogs.py:899
+#: ../xlgui/widgets/dialogs.py:726 ../xlgui/widgets/dialogs.py:903
 msgid "Playlist Files"
 msgstr "プレイリストファイル"
 
-#: ../xlgui/widgets/dialogs.py:804
+#: ../xlgui/widgets/dialogs.py:808
 msgid "Choose Directory to Open"
 msgstr "開くディレクトリを指定してください"
 
-#: ../xlgui/widgets/dialogs.py:884
+#: ../xlgui/widgets/dialogs.py:888
 msgid "Import Playlist"
 msgstr "プレイリストのインポート"
 
-#: ../xlgui/widgets/dialogs.py:996
+#: ../xlgui/widgets/dialogs.py:1000
 msgid "Export Current Playlist"
 msgstr "現在のプレイリストをエクスポート"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1013
 msgid "Use relative paths to tracks"
 msgstr "トラックに相対パスを使用"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1070
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "プレイリストを <b>%s</b> に保存完了。"
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1087
 #, python-format
 msgid "Close %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1088
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>%s は変更されています。閉じる前に保存しますか?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Your changes will be lost if you don't save them"
 msgstr "これらを保存しないと変更は失われます"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1094
 msgid "Close Without Saving"
 msgstr "保存せずに閉じる"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1487
 msgid "Yes to all"
 msgstr "すべてYES"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1495
 msgid "No to all"
 msgstr "すべてNO"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1667 ../xlgui/widgets/dialogs.py:1685
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "%s: %s をコピー中にエラー発生"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1696
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "ファイルが存在します。%s を上書きしますか?"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1753
 msgid "Playlist name:"
 msgstr "プレイリスト名:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1754
 msgid "Add new playlist..."
 msgstr "新しいプレイリストを追加..."
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1767
 #: ../xlgui/widgets/smart_playlist_editor.py:385
 msgid "You did not enter a name for your playlist"
 msgstr "プレイリスト名が入力されていません"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1776
 msgid "Save As"
 msgstr "名前をつけて保存"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1845
 #, python-format
 msgid "Exporting %s"
 msgstr "\"%s をエクスポート"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1850
 msgid "Choose directory to export files to"
 msgstr "ファイルをエクスポートするディレクトリを選択"
 
@@ -1790,70 +1796,70 @@ msgstr "ファイルのエクスポート"
 msgid "_Delete Playlist"
 msgstr "プレイリストの削除"
 
-#: ../xlgui/widgets/notebook.py:249
+#: ../xlgui/widgets/notebook.py:263
 msgid "Close Tab"
 msgstr "タブを閉じる"
 
-#: ../xlgui/widgets/playback.py:822
+#: ../xlgui/widgets/playback.py:819
 #, python-format
 msgid "Seeking: %s"
 msgstr "シーク: %s"
 
-#: ../xlgui/widgets/playback.py:1173
+#: ../xlgui/widgets/playback.py:1170
 msgid "Move"
 msgstr "移動"
 
-#: ../xlgui/widgets/playback.py:1318
+#: ../xlgui/widgets/playback.py:1315
 msgid "New Marker"
 msgstr "新しいマーカー"
 
-#: ../xlgui/widgets/playback.py:1377
+#: ../xlgui/widgets/playback.py:1374
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1385
+#: ../xlgui/widgets/playback.py:1382
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "タグの削除(_R)"
 
-#: ../xlgui/widgets/playback.py:1428
+#: ../xlgui/widgets/playback.py:1425
 msgid "Muted"
 msgstr "ミュート中"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1434
+#: ../xlgui/widgets/playback.py:1431
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1439
+#: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
 msgstr "最大音量"
 
-#: ../xlgui/widgets/playback.py:1558
+#: ../xlgui/widgets/playback.py:1555
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "一時停止"
 
-#: ../xlgui/widgets/playback.py:1561
+#: ../xlgui/widgets/playback.py:1558
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1573
+#: ../xlgui/widgets/playback.py:1570
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "次のトラック"
 
-#: ../xlgui/widgets/playback.py:1583
+#: ../xlgui/widgets/playback.py:1580
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "前のトラック"
 
-#: ../xlgui/widgets/playback.py:1593
+#: ../xlgui/widgets/playback.py:1590
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -2333,7 +2339,7 @@ msgid ""
 "(Hold Shift key to rescan the collection)"
 msgstr ""
 
-#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:169
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:168
 msgid "Clear search field"
 msgstr "検索フィールドをクリア"
 
@@ -2353,7 +2359,7 @@ msgstr ""
 msgid "Refresh directory listing"
 msgstr ""
 
-#: ../data/ui/panel/files.ui:113
+#: ../data/ui/panel/files.ui:112
 msgid "Home directory"
 msgstr "ホームディレクトリ"
 
@@ -2383,7 +2389,7 @@ msgstr "再生順をシャッフル"
 msgid "Repeat playback"
 msgstr "リピート再生"
 
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:394
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:393
 msgid "Search"
 msgstr "検索"
 
@@ -2485,7 +2491,8 @@ msgstr ""
 msgid "Prefer dark theme"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:336
+#. TRANSLATORS: "Checked" here refers to checkbox state.
+#: ../data/ui/preferences/appearance.ui:335
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
@@ -3000,15 +3007,15 @@ msgstr ""
 msgid "Manually..."
 msgstr "手動で..."
 
-#: ../plugins/daapclient/__init__.py:377
+#: ../plugins/daapclient/__init__.py:378
 msgid "Enter IP address and port for share"
 msgstr "共有している IP アドレスとポート番号を入力してください"
 
-#: ../plugins/daapclient/__init__.py:377
+#: ../plugins/daapclient/__init__.py:378
 msgid "Enter IP address and port."
 msgstr "IP アドレスとポートを入力してください。"
 
-#: ../plugins/daapclient/__init__.py:593
+#: ../plugins/daapclient/__init__.py:597
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3016,19 +3023,19 @@ msgstr ""
 "このサーバは複数接続をサポートしていません。\n"
 "楽曲をダウンロードする前に再生を止めなければなりません。"
 
-#: ../plugins/daapclient/__init__.py:703
+#: ../plugins/daapclient/__init__.py:707
 msgid "Refresh Server List"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:711
+#: ../plugins/daapclient/__init__.py:715
 msgid "Disconnect from Server"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:732
+#: ../plugins/daapclient/__init__.py:736
 msgid "Select a Location for Saving"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:786
+#: ../plugins/daapclient/__init__.py:790
 msgid "Connect to DAAP..."
 msgstr "DAAPに接続する..."
 
@@ -3037,7 +3044,7 @@ msgstr "DAAPに接続する..."
 msgid "DAAP Client"
 msgstr ""
 
-#: ../plugins/daapserver/daapserverprefs.py:6
+#: ../plugins/daapserver/daapserverprefs.py:5
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
 msgstr ""
@@ -3051,7 +3058,7 @@ msgstr "デスクトップカバー"
 msgid "Developer Tools"
 msgstr ""
 
-#: ../plugins/equalizer/__init__.py:344
+#: ../plugins/equalizer/__init__.py:364
 #, fuzzy
 #| msgid "Equalizer"
 msgid "_Equalizer"
@@ -3117,20 +3124,20 @@ msgstr ""
 msgid "Export tags to JSON"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:59
+#: ../plugins/grouptagger/gt_import.py:58
 msgid "Importing tracks"
 msgstr "トラックをエクスポート"
 
-#: ../plugins/grouptagger/gt_import.py:87
+#: ../plugins/grouptagger/gt_import.py:86
 #, fuzzy
 msgid "Importing groups"
 msgstr "\"%s をエクスポート"
 
-#: ../plugins/grouptagger/gt_import.py:182
+#: ../plugins/grouptagger/gt_import.py:181
 msgid "Updating groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_import.py:272
+#: ../plugins/grouptagger/gt_import.py:271
 #, fuzzy
 msgid "Select directory to import grouping tags from"
 msgstr "ファイルをエクスポートするディレクトリを選択"
@@ -3274,40 +3281,40 @@ msgstr ""
 msgid "_Clear History"
 msgstr "プレイリストのクリア(_L)"
 
-#: ../plugins/icecast/__init__.py:116 ../plugins/icecast/__init__.py:190
-#: ../plugins/icecast/__init__.py:213
+#: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:189
+#: ../plugins/icecast/__init__.py:212
 msgid "Contacting Icecast server..."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
-#: ../plugins/icecast/__init__.py:228 ../plugins/icecast/__init__.py:231
+#: ../plugins/icecast/__init__.py:125 ../plugins/icecast/__init__.py:128
+#: ../plugins/icecast/__init__.py:227 ../plugins/icecast/__init__.py:230
 msgid "Error connecting to Icecast server."
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:333
+#: ../plugins/icecast/__init__.py:332
 msgid "Enter the search keywords"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:333
+#: ../plugins/icecast/__init__.py:332
 #, fuzzy
 msgid "Icecast Search"
 msgstr "検索"
 
-#: ../plugins/icecast/__init__.py:357
+#: ../plugins/icecast/__init__.py:356
 #, fuzzy
 msgid "No Stations Found"
 msgstr "新しいステーション"
 
-#: ../plugins/icecast/__init__.py:360
+#: ../plugins/icecast/__init__.py:359
 msgid "Icecast Search Results"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:402
+#: ../plugins/icecast/__init__.py:401
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "名前"
 
-#: ../plugins/icecast/__init__.py:418
+#: ../plugins/icecast/__init__.py:417
 msgid "Format"
 msgstr ""
 
@@ -3339,7 +3346,7 @@ msgstr ""
 msgid "Retrieving song data..."
 msgstr ""
 
-#: ../plugins/jamendo/menu.py:14
+#: ../plugins/jamendo/menu.py:13
 msgid "Append to Current"
 msgstr "現在のプレイリストに追加"
 
@@ -3357,13 +3364,13 @@ msgstr ""
 msgid "Last.fm Loved"
 msgstr ""
 
-#: ../plugins/lastfmlove/__init__.py:129
+#: ../plugins/lastfmlove/__init__.py:157
 #, fuzzy
 #| msgid "Bookmark This Track"
 msgid "_Love This Track"
 msgstr "その曲の演奏をブックマークする"
 
-#: ../plugins/lastfmlove/__init__.py:150
+#: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
 msgstr ""
 
@@ -3487,7 +3494,7 @@ msgid "Simple track list selector"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/controls.py:721 ../plugins/minimode/controls.py:966
+#: ../plugins/minimode/controls.py:721 ../plugins/minimode/controls.py:969
 #: ../plugins/minimode/minimode_preferences.py:124
 #: ../plugins/minimode/minimode_preferences.py:130
 msgid "$tracknumber - $title"
@@ -3501,23 +3508,23 @@ msgstr "プレイリスト ボタン"
 msgid "Access the current playlist"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1009
+#: ../plugins/minimode/controls.py:1012
 msgid "$title ($current_time / $total_time)"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1034
+#: ../plugins/minimode/controls.py:1037
 msgid "Progress button"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1035
+#: ../plugins/minimode/controls.py:1038
 msgid "Playback progress and access to the current playlist"
 msgstr ""
 
-#: ../plugins/minimode/controls.py:1109
+#: ../plugins/minimode/controls.py:1112
 msgid "Progress bar"
 msgstr "プログレスバー"
 
-#: ../plugins/minimode/controls.py:1110
+#: ../plugins/minimode/controls.py:1113
 msgid "Playback progress and seeking"
 msgstr ""
 
@@ -3611,48 +3618,48 @@ msgstr ""
 msgid "Save analysis"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+#: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
 msgstr "ポッドキャスト"
 
-#: ../plugins/podcasts/__init__.py:72
+#: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
 msgstr "ポッドキャスト"
 
-#: ../plugins/podcasts/__init__.py:81
+#: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
 msgstr "ポッドキャストをリフレッシュする"
 
-#: ../plugins/podcasts/__init__.py:82
+#: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
 msgstr "削除"
 
-#: ../plugins/podcasts/__init__.py:120
+#: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:120
+#: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:154
+#: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
 msgstr "%s をロード中…"
 
-#: ../plugins/podcasts/__init__.py:184
+#: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:200
+#: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:202
+#: ../plugins/podcasts/__init__.py:201
 msgid "No configuration present yet"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:235
+#: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
 msgstr ""
 

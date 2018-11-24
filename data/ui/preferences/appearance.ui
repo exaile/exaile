@@ -332,8 +332,8 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
         <property name="draw_indicator">True</property>
-        <property name="tooltip_text" translatable="yes">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
       </object>
       <packing>
         <property name="left_attach">0</property>

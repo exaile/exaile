@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-07-02 00:41+0000\n"
+"PO-Revision-Date: 2018-11-26 21:07+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
 "sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -679,10 +679,8 @@ msgid "Shuffle _Albums"
 msgstr "Riprodutzione casuale de sos _Albums"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "%d casuale"
+msgstr "_Casuale"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-12-01 22:11+0000\n"
-"Last-Translator: Simão Garcia <simaogarcia@gmail.com>\n"
+"PO-Revision-Date: 2018-12-02 07:08+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -613,7 +613,7 @@ msgstr "Não foi possível criar audiosink (dispositivo: %s, tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Nehuma pipeline personalizada especificada!"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
@@ -2832,7 +2832,7 @@ msgstr "Detecção automática de BPM"
 #: ../plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Definir BPM de %d em %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -2946,7 +2946,7 @@ msgstr "Importar etiquetas do diretório"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
-msgstr ""
+msgstr "Renomear/excluir etiquetas em _massa"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
@@ -2956,7 +2956,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Grouping"
 msgid "_GroupTagger"
-msgstr "Agrupamento"
+msgstr "Etiquetor de _grupos"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -3027,6 +3027,9 @@ msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Você deve re-analisar a sua coleção antes de utilizar a função de renomear "
+"etiquetas em massa para garantir que todas as etiquetas estão atualizadas. "
+"Re-analizar agora?"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
@@ -3039,7 +3042,7 @@ msgstr "Exibir faixas etiquetadas com \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Mostrar faixas com tudo seleccionado"
 
 #: ../plugins/grouptagger/gt_widgets.py:155
 msgid "Tag"
@@ -3067,11 +3070,11 @@ msgstr "Mostrar faixas com seleção (personalizado)"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
-msgstr ""
+msgstr "Novo valor de etiqueta?"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Introduza o novo valor de etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
@@ -3096,7 +3099,7 @@ msgstr "Buscar todas as etiquetas da coleção"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Adicionar selecionados às escolhas"
 
 #: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
@@ -3104,7 +3107,7 @@ msgstr "Exibir faixas com grupos"
 
 #: ../plugins/grouptagger/gt_widgets.py:808
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Deve ter esta etiqueta [E]"
 
 #: ../plugins/grouptagger/gt_widgets.py:809
 msgid "May have this tag [OR]"
@@ -3472,7 +3475,7 @@ msgstr "Etiqueta %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:347
 msgid "Save analysis"
-msgstr "Guardar análise"
+msgstr "Gravar análise"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3513,7 +3516,7 @@ msgstr "A carregar podcasts..."
 
 #: ../plugins/podcasts/__init__.py:201
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Nenhuma configuração presente"
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
@@ -3521,7 +3524,7 @@ msgstr "Não foi possível guardar o ficheiro podcast"
 
 #: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
-msgstr ""
+msgstr "Visualização Player"
 
 #: ../plugins/previewdevice/__init__.py:156
 msgid "Preview"
@@ -3529,7 +3532,7 @@ msgstr "Visualizar"
 
 #: ../plugins/previewdevice/__init__.py:341
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Interromper a Reprodução (clique duas vezes para parar)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
 #: ../plugins/previewdevice/PLUGININFO:3
@@ -3646,11 +3649,11 @@ msgstr "<b>Preferências de Áudio</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Volume mínimo:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:294
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Volume máximo:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
 msgid "Increment:"
@@ -3658,7 +3661,7 @@ msgstr "Incremento:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Passo de tempo:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -3695,7 +3698,7 @@ msgstr "Mostrar o item do menu para alternar a apresentação"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:51
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
-msgstr ""
+msgstr "Enviar faixas transmitidas (por exemplo DAAP, rádio Shoutcast, etc.)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:70
 msgid "Username:"
@@ -3731,16 +3734,16 @@ msgstr "Capas do display"
 
 #: ../plugins/bpm/bpm.ui:41
 msgid "Apply BPM"
-msgstr ""
+msgstr "Aplicar BPM"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
-msgstr ""
+msgstr "Definir BPM?"
 
 #: ../plugins/bpm/msg.ui:63
 #, python-format
 msgid "Set autodetected BPM on %s?"
-msgstr ""
+msgstr "Definir BPM autodetectado em %s?"
 
 #: ../plugins/bpm/msg.ui:78 ../plugins/bpm/msg.ui:94 ../plugins/bpm/msg.ui:110
 msgid "0"
@@ -3865,7 +3868,7 @@ msgstr "Tamanho:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "Use fading"
-msgstr ""
+msgstr "Usar desvanecimento"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:245
 msgid "Fading duration:"
@@ -3877,7 +3880,7 @@ msgstr "ms"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr ""
+msgstr "Ferramentas Do Desenvolvedor Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"
@@ -3885,15 +3888,15 @@ msgstr "Contagem"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
-msgstr ""
+msgstr "Filtrar tipos de eventos"
 
 #: ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "Limpar"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 #: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
@@ -3965,7 +3968,7 @@ msgstr "Tipo de importação:"
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
-msgstr ""
+msgstr "Unir"
 
 #: ../plugins/grouptagger/gt_import.ui:144
 msgid "Replace"
@@ -3973,11 +3976,11 @@ msgstr "Substituir"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
-msgstr ""
+msgstr "Renomear/excluir Etiquetas em Massa"
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Se estiver vazio, corresponde a todas as faixas"
 
 #: ../plugins/grouptagger/gt_mass.ui:101
 msgid "Search Tag"
@@ -3985,7 +3988,7 @@ msgstr "Pesquisar etiquetas"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Use a cadeia de caracteres vazia para apagar a etiqueta"
 
 #: ../plugins/grouptagger/gt_mass.ui:114
 msgid "Replace Tag"
@@ -3997,21 +4000,24 @@ msgstr "0 faixas encontradas"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Fontes para grupo/categorias:"
 
 #: ../plugins/grouptagger/gt_prefs.ui:86
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Categorização de nome de etiqueta"
 
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'agrupamento' e 'comentar' são provavelmente as melhores escolhas "
+"suportadas. Outras opções podem funcionar apenas com determinados formatos "
+"de ficheiro. "
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Manter história depois do player terminar"
 
 #: ../plugins/history/history_preferences.ui:36
 msgid "History length:"
@@ -4027,7 +4033,7 @@ msgstr "Tipo de letra:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
-msgstr ""
+msgstr "Cor Do Texto:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
@@ -4162,7 +4168,7 @@ msgstr "<b>Alarmes</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "_Adicionar"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
 msgid "_Remove"
@@ -4249,15 +4255,15 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
-msgstr ""
+msgstr "Exibir Formato"
 
 #: ../plugins/osd/osd_preferences.ui:106
 msgid "Display duration:"
-msgstr ""
+msgstr "Duração da exibição:"
 
 #: ../plugins/osd/osd_preferences.ui:142
 msgid "Background:"
-msgstr ""
+msgstr "Plano de fundo:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
@@ -4271,10 +4277,12 @@ msgstr "Exibir barra de progresso"
 msgid ""
 "As long as this preferences page is open, you can move and resize the OSD."
 msgstr ""
+"Enquanto esta página de preferências estiver aberta, você pode mover e "
+"redimensionar o OSD."
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
-msgstr ""
+msgstr "Predefinições"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 msgid "<none selected>"
@@ -4282,7 +4290,7 @@ msgstr "<nada selecionado>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
-msgstr ""
+msgstr "Seleccionar a análise"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
 msgid "Playlist(s) to analyze"
@@ -4298,11 +4306,11 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
 msgid "_Generate!"
-msgstr ""
+msgstr "_Gerar!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"
-msgstr ""
+msgstr "Gerar"
 
 #: ../plugins/podcasts/podcasts.ui:18
 msgid "_Add Podcast"
@@ -4370,24 +4378,24 @@ msgstr "Deletar ficheiros incompletos"
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
-msgstr ""
+msgstr "Idioma:"
 
 #: ../plugins/wikipedia/data/preferences.ui:30
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "Código curto da versão de idioma da Wikipedia (en, de, fr,...)"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:24
 #: ../plugins/wikipedia/data/wikipanel.ui:25
 msgid "Home"
-msgstr ""
+msgstr "Início"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:49
 msgid "Back"
-msgstr ""
+msgstr "Voltar"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:101
 msgid "Forward"
-msgstr ""
+msgstr "Avançar"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
@@ -4401,7 +4409,7 @@ msgstr "Repetir continuamente um segmento de uma faixa."
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Efeito"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4421,7 +4429,7 @@ msgstr ""
 #: ../plugins/multialarmclock/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Utilidade"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4445,7 +4453,7 @@ msgstr ""
 #: ../plugins/audioscrobbler/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notify/PLUGININFO:5 ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Notificações"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -4455,7 +4463,7 @@ msgstr "Define a capa e adiciona alguns itens de menu ao AWN para o Exaile"
 #: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "GUI"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
@@ -4471,6 +4479,8 @@ msgid ""
 "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
 "and the bpmdetect plugin are installed"
 msgstr ""
+"Fornece um contador de BPM manual e a detecção automática de BPM quando gst-"
+"plugins-bad e o bpmdetect plugin estão instalados"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4484,6 +4494,10 @@ msgid ""
 "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
 "Requires cddb-py (%s) to look up tags."
 msgstr ""
+"Adiciona suporte para a reprodução de CDs de áudio.\n"
+"\n"
+"Requer HAL, UDisks ou UDisks2 para detecção automática de CDs\n"
+"Requer cddb-py (%s) para procurar tags."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4491,16 +4505,16 @@ msgstr "Dispositivos"
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
-msgstr ""
+msgstr "Console simples"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr ""
+msgstr "Console simples para interagir com o API do Exaile"
 
 #: ../plugins/console/PLUGININFO:5 ../plugins/developer/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5 ../plugins/ipconsole/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Desenvolvimento"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song in Pidgin"
@@ -4523,7 +4537,7 @@ msgstr "Permite reprodução de compartilhamento de músicas DAAP."
 #: ../plugins/librivox/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
 #: ../plugins/somafm/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Fontes De Mídia"
 
 #: ../plugins/daapserver/PLUGININFO:4
 #, python-format
@@ -4540,11 +4554,11 @@ msgstr "Mostra a capa do album atual na área de trabalho"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr ""
+msgstr "Programador"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr ""
+msgstr "Fornece informações de diagnóstico para os programadores do Exaile"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4559,10 +4573,12 @@ msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Facilita a categorização de sua música pela gestão do agrupamento/categoria "
+"de etiquetas nos ficheiros de áudio"
 
 #: ../plugins/grouptagger/PLUGININFO:5 ../plugins/lastfmlove/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Etiquetagem"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -4605,7 +4621,7 @@ msgstr "Remover vozes do áudio"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
-msgstr ""
+msgstr "Chaves mulitmídia baseados no Keybinder"
 
 #: ../plugins/keybinder/PLUGININFO:4
 msgid ""
@@ -4613,11 +4629,14 @@ msgid ""
 "\n"
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
+"Adiciona o suporte a teclas multimídia usando libkeybinder3.\n"
+"\n"
+"Requer: libkeybinder3 e seu ficheiro typelib"
 
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "External Control"
-msgstr ""
+msgstr "Controle Externo"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4637,7 +4656,7 @@ msgstr "O mecanismo Last.fm para listas de reprodução dinâmicas"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Listas De Reprodução Dinâmicas"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4709,11 +4728,11 @@ msgstr "Modo compacto para Exaile com uma interface configurável"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Mistura de áudio para um canal."
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
@@ -4726,10 +4745,14 @@ msgid ""
 "Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
 "decode files)"
 msgstr ""
+"Mostrar a representação visual na linha do tempo de música.\n"
+"\n"
+"Requer: moodbar (que requer gst-plugins-* do GStreamer 0.10 para decodificar "
+"ficheiros)"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
-msgstr ""
+msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
@@ -4737,6 +4760,9 @@ msgid ""
 "2.2, allowing you to control Exaile from supporting clients, for example "
 "GNOME Shell"
 msgstr ""
+"Suporte parcial para MPRIS (Media Player Remote Interface Specification) "
+"2.2, permitindo que você controle Exaile de clientes suportados, por "
+"exemplo, o GNOME Shell"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4780,6 +4806,8 @@ msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
+"Uma janela pop-up com informações da faixa actualmente em reprodução.\n"
+"Este plugin não está disponível no Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4790,6 +4818,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Ferramenta para ajudar a gerar visualizações em HTML5 das suas listas de "
+"reprodução usando d3.js. Otimizado para o Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -4804,10 +4834,12 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Permite a reprodução de áudio num dispositivo secundário (clique direito na "
+"lista de reprodução e selecione 'pré-visualização'). Útil para DJs."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Saída"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -4820,6 +4852,11 @@ msgid ""
 "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Pausa (e opcionalmente resume) a reprodução com base no protetor de tela de "
+"status.\n"
+"\n"
+"Requer: GNOME, MATE, Cinnamon ou protetor de tela doKDE (não suporta o "
+"XScreenSaver nem XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4832,7 +4869,7 @@ msgstr "Rádio SomaFM"
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format
 msgid "SomaFM Radio list%s%s"
-msgstr ""
+msgstr "Lista de rádio SomaFM %s%s"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""

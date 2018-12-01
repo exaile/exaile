@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-12-01 04:08+0000\n"
+"PO-Revision-Date: 2018-12-01 22:11+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -3108,19 +3108,19 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:809
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Pode ter esta etiqueta [OU]"
 
 #: ../plugins/grouptagger/gt_widgets.py:810
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Não deve ter essa etiqueta [NÃO]"
 
 #: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorado"
 
 #: ../plugins/grouptagger/gt_widgets.py:820
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Faixas Selecionadas"
 
 #: ../plugins/history/__init__.py:77
 msgid "Playback history"
@@ -3132,7 +3132,7 @@ msgstr "Apagar o histórico armazenado?"
 
 #: ../plugins/history/__init__.py:218
 msgid "Save History"
-msgstr ""
+msgstr "Gravar História"
 
 #: ../plugins/history/__init__.py:227
 msgid "_Clear History"
@@ -3171,7 +3171,7 @@ msgstr "Nome"
 
 #: ../plugins/icecast/__init__.py:417
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "IPython Console - Exaile"
@@ -3187,7 +3187,7 @@ msgstr "Consola IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "A opacidade não pode ser definida no Windows devido a um bug no Gtk+"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3210,6 +3210,7 @@ msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
+"Keybinder não é suportado nesta plataforma! Só é suportado em servidores X."
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
@@ -3274,7 +3275,7 @@ msgstr "Voltar para a ultima música"
 
 #: ../plugins/minimode/controls.py:231
 msgid "Previous track"
-msgstr ""
+msgstr "Faixa anterior"
 
 #: ../plugins/minimode/controls.py:246
 msgid "Next"
@@ -3286,7 +3287,7 @@ msgstr "Ir para a próxima faixa"
 
 #: ../plugins/minimode/controls.py:253
 msgid "Next track"
-msgstr ""
+msgstr "Próxima faixa"
 
 #: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
@@ -3294,15 +3295,15 @@ msgstr "Reproduzir/Pausa"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Start playback"
-msgstr ""
+msgstr "Iniciar reprodução"
 
 #: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
-msgstr ""
+msgstr "Continuar reprodução"
 
 #: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
-msgstr ""
+msgstr "Pausar reprodução"
 
 #: ../plugins/minimode/controls.py:337
 msgid "Stop"
@@ -3397,13 +3398,13 @@ msgstr "$title ($__length)"
 #: ../plugins/moodbar/__init__.py:102
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
-msgstr ""
+msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
 #: ../plugins/moodbar/__init__.py:179
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current} / {remaining}"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3413,7 +3414,7 @@ msgstr "Relógio multi-alarme"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "de {album} por {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, python-brace-format
@@ -3431,11 +3432,11 @@ msgstr "Notificação"
 
 #: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
-msgstr ""
+msgstr "Ainda nenhum track reproduczido"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Mover ou redimensionar OSD"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3447,6 +3448,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"por $artist\n"
+"do $album"
 
 #: ../plugins/playlistanalyzer/__init__.py:55
 msgid "Analyze playlists"
@@ -3464,7 +3468,7 @@ msgstr "Módulo este número"
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:219
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Etiqueta %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:347
 msgid "Save analysis"

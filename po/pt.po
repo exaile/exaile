@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-12-02 07:08+0000\n"
+"PO-Revision-Date: 2018-12-03 00:08+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -618,17 +618,17 @@ msgstr "Nehuma pipeline personalizada especificada!"
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Erro ao criar audiosink personalizado '%s'"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Inválido tipo de sink '%s' especificado"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Não foi possivel criar sink do tipo '%s'"
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -679,10 +679,8 @@ msgid "Shuffle _Albums"
 msgstr "Álbuns _aleatórios"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Aleatório %d"
+msgstr "Aleató_rio"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -2453,7 +2451,7 @@ msgstr "Dispositivo de áudio: "
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Pipeline sink personalizado:"
 
 #: ../data/ui/preferences/playback.ui:142
 msgid "Resume playback on start"
@@ -2492,11 +2490,11 @@ msgstr "Avançar automaticamente para a próxima faixa"
 
 #: ../data/ui/preferences/playback.ui:236
 msgid "Delay between tracks (ms):"
-msgstr ""
+msgstr "Demora entre faixas (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Só funciona sem sobreposição ativado"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2579,6 +2577,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Quando você der um clique duplo ou carregar em enter para reproduzir uma "
+"faixa da lista de reprodução, enfileire-a a faixa em vez de reproduzi-la"
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
@@ -2680,7 +2680,7 @@ msgstr "Mídia (por exemplo lado da etiqueta do CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Artista principal/intérprete principal/solista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
@@ -2950,13 +2950,13 @@ msgstr "Renomear/excluir etiquetas em _massa"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "Exportar tags de coleção para JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
 #, fuzzy
 #| msgid "Grouping"
 msgid "_GroupTagger"
-msgstr "Etiquetor de _grupos"
+msgstr "_GroupTagger"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -2980,7 +2980,7 @@ msgstr "_Remover etiquetas de todos"
 #: ../plugins/grouptagger/gt_widgets.py:691
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr ""
+msgstr "GroupTagger"
 
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340
@@ -4298,11 +4298,11 @@ msgstr "Lista(s) de reprodução a analisar"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
-msgstr ""
+msgstr "Título de saída"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:501
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Predefinição para o nome de lista de reprodução"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
 msgid "_Generate!"
@@ -4565,8 +4565,9 @@ msgid "A 10-band equalizer"
 msgstr "Um equalizador de 10 canais"
 
 #: ../plugins/grouptagger/PLUGININFO:3
+#, fuzzy
 msgid "Group Tagger"
-msgstr ""
+msgstr "Group Tagger"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""

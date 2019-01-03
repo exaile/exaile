@@ -391,12 +391,11 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             return
 
         # Locate click area at zero
-        click_area = Gdk.Rectangle(
-            x=0,
-            y=self.props.ypad,
-            width=self.props.pixbuf.get_width(),
-            height=self.props.pixbuf.get_height(),
-        )
+        click_area = Gdk.Rectangle()
+        click_area.x = 0
+        click_area.y = self.props.ypad
+        click_area.width = self.props.pixbuf.get_width()
+        click_area.height = self.props.pixbuf.get_height()
 
         # Move event location relative to zero
         event.x -= cell_area.x + click_area.x

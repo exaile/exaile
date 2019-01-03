@@ -401,7 +401,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         event.x -= cell_area.x + click_area.x
         event.y -= cell_area.y + click_area.y
 
-        if 0 <= event.x <= click_area.width and 0 <= event.y <= click_area.height:
+        if 0 <= event.x <= click_area.width:
             fraction = event.x / click_area.width
             maximum = settings.get_option('rating/maximum', 5)
             rating = fraction * maximum + 1

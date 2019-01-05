@@ -429,7 +429,7 @@ class StatusbarTextFormatter(formatter.Formatter):
             return ''
 
         playlist_count = len(page.playlist)
-        selection_count = len(page.view.get_selected_tracks())
+        selection_count = page.view.get_selection_count()
 
         if selection == 'none':
             count = playlist_count

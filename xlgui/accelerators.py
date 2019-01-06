@@ -44,10 +44,30 @@ class AcceleratorManager(providers.ProviderHandler):
         self.accelgroup = accelgroup
         providers.ProviderHandler.__init__(self, providername, simple_init=True)
 
+        self.accelerators = {}
+
     def on_provider_added(self, provider):
         self.accelgroup.connect(
             provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback
         )
 
+        # Add accelerator to internal list, so we can enable and disable
+        # them via enable_accelerators() and disable_accelerators()
+        self.accelerators[(provider.key, provider.mods)] = provider
+
     def on_provider_removed(self, provider):
         self.accelgroup.disconnect_key(provider.key, provider.mods)
+
+        # Remove accelerator from our internal list
+        del self.accelerators[(provider.key, provider.mods)]
+
+    ## Global accelerator enable/disable
+    def disable_accelerators(self):
+        for provider in self.accelerators.values():
+            self.accelgroup.disconnect_key(provider.key, provider.mods)
+
+    def enable_accelerators(self):
+        for provider in self.accelerators.values():
+            self.accelgroup.connect(
+                provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback
+            )

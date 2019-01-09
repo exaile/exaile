@@ -76,7 +76,7 @@ class AnalyzerDialog(object):
         'on_generate_clicked',
     ]
 
-    def __init__(self, plugin, selected_playlist=None):
+    def __init__(self, plugin, parent_window, selected_playlist=None):
 
         self.plugin = plugin
 
@@ -92,6 +92,7 @@ class AnalyzerDialog(object):
 
         self.__tag_widgets = []
 
+        self.window.set_transient_for(parent_window)
         self.window.show_all()
 
         def tag_data_key(td):

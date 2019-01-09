@@ -105,14 +105,22 @@ class PlaylistAnalyzerPlugin(object):
     #
 
     def on_analyze_playlist(self, widget, name, parent, context):
+        '''
+            :param parent: The PlaylistsPanel that triggered this callback
+        '''
 
         if self.dialog is None:
-            self.dialog = AnalyzerDialog(self, context['selected-playlist'])
+            self.dialog = AnalyzerDialog(
+                self, parent.parent, context['selected-playlist']
+            )
 
     def on_analyze_playlists(self, widget, name, parent, context):
+        '''
+            :param parent: The Exaile MainWindow object
+        '''
 
         if self.dialog is None:
-            self.dialog = AnalyzerDialog(self)
+            self.dialog = AnalyzerDialog(self, parent.window)
 
     #
     # Functions to generate the analysis

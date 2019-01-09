@@ -543,6 +543,18 @@ class CommentColumn(Column):
     autoexpand = True
     # Remove the newlines to fit into the vertical space of rows
     formatter = TrackFormatter('${comment:newlines=strip}')
+    cellproperties = {'editable': True}
+
+    def __init__(self, *args):
+        Column.__init__(self, *args)
+        self.cellrenderer.connect('edited', self.on_edited)
+
+    def on_edited(self, cellrenderer, path, new_text):
+        model = self.get_tree_view().get_model()
+        iter = model.get_iter(path)
+        track = model.get_value(iter, 0)
+
+        track.set_tag_raw("comment", new_text)
 
 
 providers.register('playlist-columns', CommentColumn)

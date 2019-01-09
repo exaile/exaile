@@ -303,7 +303,9 @@ class SmartPlaylistEditor(object):
 
         cls._attach_sort_widgets(dialog, None, None)
 
-        return cls._run_edit_dialog(dialog, collection, smart_manager, parent)
+        pl = cls._run_edit_dialog(dialog, collection, smart_manager, parent)
+        dialog.destroy()
+        return pl
 
     @classmethod
     def edit(cls, pl, collection, smart_manager, parent=None):
@@ -358,9 +360,11 @@ class SmartPlaylistEditor(object):
 
         cls._attach_sort_widgets(dialog, *pl.get_sort_tags())
 
-        return cls._run_edit_dialog(
+        pl = cls._run_edit_dialog(
             dialog, collection, smart_manager, parent, orig_pl=pl
         )
+        dialog.destroy()
+        return pl
 
     @classmethod
     def _run_edit_dialog(cls, dialog, collection, smart_manager, parent, orig_pl=None):

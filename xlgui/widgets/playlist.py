@@ -1320,6 +1320,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 e.button == Gdk.BUTTON_PRIMARY
                 and not e.state & Gtk.accelerator_get_default_mod_mask()
                 and selection.path_is_selected(path)
+                and selection.count_selected_rows() > 1
             ):
                 selection.set_select_function(lambda *args: False, None)
                 self.pending_event = (path, col)

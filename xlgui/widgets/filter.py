@@ -516,7 +516,7 @@ class SpinButtonAndComboField(Gtk.Box):
             self.entry.set_value(int(state[0]))
         except ValueError:
             pass
-        combo_state = _(state[1])
+        combo_state = state[1]
         try:
             index = self.items.index(combo_state)
         except ValueError:

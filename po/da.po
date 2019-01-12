@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-01-12 04:58+0000\n"
+"PO-Revision-Date: 2019-01-12 06:41+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -170,7 +170,7 @@ msgstr "Indstillinger for samlinger"
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
-msgstr "STED"
+msgstr "PLACERING"
 
 #: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"

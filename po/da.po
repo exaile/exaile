@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2017-11-13 16:45+0000\n"
-"Last-Translator: jan madsen <jsm@janz.dk>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/"
-">\n"
+"PO-Revision-Date: 2019-01-12 04:58+0000\n"
+"Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
+"\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Lokalt"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Brug: exaile [TILVALG]... [URI]"
+msgstr "Brug: exaile [TILVALG...] [PLACERING...]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -176,17 +174,15 @@ msgstr "STED"
 
 #: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Tilføj nummer fra STED til samling"
+msgstr "Tilføj nummre fra PLACERING til samlingen"
 
 #: ../xl/main.py:157
 msgid "Playlist Options"
 msgstr "Indstillinger for spilleliste"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Eksportér den nuværende afspilningsliste til LOCATION"
+msgstr "Eksportér den nuværende afspilningsliste til PLACERING"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -506,7 +502,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:366
 msgid "Language"
-msgstr ""
+msgstr "Sprog"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -697,10 +693,8 @@ msgid "Shuffle _Albums"
 msgstr "Tilfældige _album"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Tilfældig %d"
+msgstr "_Tilfældig"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -803,17 +797,17 @@ msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:702 ../xl/trax/track.py:766
-#, fuzzy, python-format
+#, python-format
 msgid "%dk"
-msgstr "%dk"
+msgstr "%d k"
 
 #: ../xl/trax/trackdb.py:183
 msgid "You did not specify a location to load the db from"
-msgstr "Du angav intet sted at indlæse db'en fra"
+msgstr "Du angav ikke en placering at indlæse db'en fra"
 
 #: ../xl/trax/trackdb.py:252
 msgid "You did not specify a location to save the db"
-msgstr "Du angav intet sted at gemme db'en"
+msgstr "Du angav ikke en placering at gemmes db'en til"
 
 #: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
 msgid "Not playing."
@@ -885,7 +879,7 @@ msgstr "Omslag til %s"
 
 #: ../xlgui/cover.py:927
 msgid "Save File"
-msgstr ""
+msgstr "Gem fil"
 
 #: ../xlgui/cover.py:1025
 #, python-format
@@ -913,10 +907,8 @@ msgid "$title (by $artist)"
 msgstr "$title (af $artist)"
 
 #: ../xlgui/main.py:149
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Tilgå den nuværende afspilningsliste"
+msgstr "Gem den valgte afspilningsliste"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
@@ -931,10 +923,8 @@ msgid "Focus playlist search"
 msgstr ""
 
 #: ../xlgui/main.py:169
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Slå kø til eller fra"
+msgstr "Ryd kø"
 
 #: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
@@ -1063,50 +1053,36 @@ msgid "_New Playlist"
 msgstr "_Ny afpilningsliste"
 
 #: ../xlgui/menu.py:75
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Åbn URL"
+msgstr "_Åbn"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Åbn _URL"
 
 #: ../xlgui/menu.py:114
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Åbn mapper"
+msgstr "Åbn _mapper"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "Import Playlist"
 msgid "_Import Playlist"
-msgstr "Importer afspilningsliste"
+msgstr "_Importér afspilningsliste"
 
 #: ../xlgui/menu.py:156
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Eksportér den aktuelle afspilningsliste"
+msgstr "_Eksportér nuværende afspilningsliste"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Luk faneblad"
+msgstr "_Luk faneblad"
 
 #: ../xlgui/menu.py:183
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Genstart"
+msgstr "_Genstart"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "Om Exaile"
+msgstr "_Afslut Exaile"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
@@ -1121,10 +1097,8 @@ msgid "C_overs"
 msgstr "_Omslag"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Indstillinger"
+msgstr "_Indstillinger"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1135,14 +1109,10 @@ msgid "_Playlist Utilities Bar"
 msgstr "Værktøjslinje til _afspilningsliste"
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Kolonner"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "_Ryd afspilningsliste"
 
@@ -1151,26 +1121,20 @@ msgid "_Device Manager"
 msgstr "_Enhedshåndtering"
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Genskan samling"
+msgstr "_Genskan samling"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
-#, fuzzy
-#| msgid "Rescan Collection (slow)"
 msgid "Rescan Collection (_slow)"
-msgstr "Genskan samling (langsom)"
+msgstr "Genskan samling (_langsom)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
 msgstr ""
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Genvej"
+msgstr "Genveje"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -1261,16 +1225,13 @@ msgid "New _Smart Playlist"
 msgstr "Ny smart-afspilningsliste"
 
 #: ../xlgui/panel/menus.py:325
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Ny station"
+msgstr "_Ny station"
 
 #: ../xlgui/panel/playlists.py:132
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Slet afspilningsliste"
+msgstr "Slet afspilningslisten \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:148
 msgid "Enter the new name you want for your playlist"
@@ -1361,23 +1322,19 @@ msgstr "Ny afspilningsliste"
 
 #: ../xlgui/panels.py:99
 msgid "P_anels"
-msgstr ""
+msgstr "_Paneler"
 
 #: ../xlgui/playlist_container.py:69
 msgid "Drop here to create a new playlist"
 msgstr ""
 
 #: ../xlgui/playlist_container.py:129
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear Tab History"
-msgstr "_Ryd afspilningsliste"
+msgstr "_Ryd fanebladets historik"
 
 #: ../xlgui/playlist_container.py:141
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Luk faneblad"
+msgstr "Nyligt lukkede _faneblade"
 
 #: ../xlgui/playlist_container.py:161
 msgid "Restore closed tab"
@@ -1538,7 +1495,7 @@ msgstr "Dine ændringer bliver tabt hvis du ikke anvender dem nu."
 #: ../xlgui/properties.py:625
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1548,15 +1505,15 @@ msgstr "af:"
 
 #: ../xlgui/properties.py:965
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG-billede"
 
 #: ../xlgui/properties.py:970
 msgid "PNG image"
-msgstr ""
+msgstr "PNG-billede"
 
 #: ../xlgui/properties.py:972
 msgid "Image"
-msgstr ""
+msgstr "Billede"
 
 #: ../xlgui/properties.py:978
 msgid "Linked image"
@@ -1693,7 +1650,7 @@ msgstr "Du angav ikke et navn til din afspilningsliste"
 
 #: ../xlgui/widgets/dialogs.py:1776
 msgid "Save As"
-msgstr ""
+msgstr "Gem som"
 
 #: ../xlgui/widgets/dialogs.py:1845
 #, python-format
@@ -1734,16 +1691,12 @@ msgid "%d selected"
 msgstr "%d valgt"
 
 #: ../xlgui/widgets/menuitems.py:117
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
-msgstr "Sæt i kø"
+msgstr "Sæt i _kø"
 
 #: ../xlgui/widgets/menuitems.py:153
-#, fuzzy
-#| msgid "Replace Current"
 msgid "_Replace Current"
-msgstr "Erstat nuværende"
+msgstr "_Erstat nuværende"
 
 #: ../xlgui/widgets/menuitems.py:164
 #, fuzzy
@@ -1758,10 +1711,8 @@ msgid "_Track Properties"
 msgstr "Egenskaber for nummer"
 
 #: ../xlgui/widgets/menuitems.py:202
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Åbn mappe"
+msgstr "_Åbn mappe"
 
 #: ../xlgui/widgets/menuitems.py:240
 msgid ""
@@ -1771,38 +1722,28 @@ msgstr ""
 "Filerne kan ikke flyttes til papirkurven. Slet dem fra disken permanent?"
 
 #: ../xlgui/widgets/menuitems.py:270
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
-msgstr "Flyt til papirkurv"
+msgstr "_Flyt til papirkurv"
 
 #: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Omdøb"
+msgstr "_Omdøb"
 
 #: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Redigér"
 
 #: ../xlgui/widgets/menuitems.py:315
-#, fuzzy
-#| msgid "Export Playlist"
 msgid "E_xport Playlist"
-msgstr "Eksporter spilleliste"
+msgstr "_Eksportér afspilningsliste"
 
 #: ../xlgui/widgets/menuitems.py:325
-#, fuzzy
-#| msgid "Export Files"
 msgid "Export _Files"
-msgstr "Eksporter filer"
+msgstr "Eksportér _filer"
 
 #: ../xlgui/widgets/menuitems.py:335
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Slet afspilningsliste"
+msgstr "_Slet afspilningsliste"
 
 #: ../xlgui/widgets/notebook.py:263
 msgid "Close Tab"
@@ -1823,7 +1764,7 @@ msgstr "Ny markør"
 
 #: ../xlgui/widgets/playback.py:1374
 msgid "_Jump to"
-msgstr ""
+msgstr "_Hop til"
 
 #: ../xlgui/widgets/playback.py:1382
 #, fuzzy
@@ -1846,32 +1787,24 @@ msgid "Full Volume"
 msgstr "Fuld lydstyrke"
 
 #: ../xlgui/widgets/playback.py:1555
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Pause"
+msgstr "_Pause"
 
 #: ../xlgui/widgets/playback.py:1558
 msgid "P_lay"
-msgstr ""
+msgstr "_Afspil"
 
 #: ../xlgui/widgets/playback.py:1570
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Næste nummer"
+msgstr "_Næste spor"
 
 #: ../xlgui/widgets/playback.py:1580
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Forrige spor"
+msgstr "_Forrige spor"
 
 #: ../xlgui/widgets/playback.py:1590
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Stop"
+msgstr "_Stop"
 
 #: ../xlgui/widgets/playlist.py:118
 #, fuzzy
@@ -1880,16 +1813,12 @@ msgid "S_huffle"
 msgstr "Vælg tilfældigt"
 
 #: ../xlgui/widgets/playlist.py:123
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Gentag"
+msgstr "_Gentag"
 
 #: ../xlgui/widgets/playlist.py:128
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dynamisk"
+msgstr "_Dynamisk"
 
 #: ../xlgui/widgets/playlist.py:146
 #, fuzzy
@@ -1911,15 +1840,15 @@ msgstr "Tilfældig udvælgelse"
 
 #: ../xlgui/widgets/playlist.py:224
 msgid "_Save"
-msgstr ""
+msgstr "_Gem"
 
 #: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 msgid "Save _As"
-msgstr ""
+msgstr "Gem _som"
 
 #: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
-msgstr ""
+msgstr "_Ryd"
 
 #: ../xlgui/widgets/playlist.py:325
 #, fuzzy
@@ -1948,10 +1877,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Tilføj lignende numre til afspilningslisten dynamisk"
 
 #: ../xlgui/widgets/playlist.py:798
-#, fuzzy
-#| msgid "Loading %s..."
 msgid "Loading"
-msgstr "Indlæser %s..."
+msgstr "Indlæser"
 
 #: ../xlgui/widgets/playlist_columns.py:170
 msgid "Track Number"
@@ -2053,13 +1980,13 @@ msgstr "er ikke"
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
-msgstr ""
+msgstr "er indstillet"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
-msgstr ""
+msgstr "er ikke indstillet"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:216
@@ -2073,17 +2000,13 @@ msgstr "indeholder ikke"
 
 #. TRANSLATORS: True if haystack contains whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:220
-#, fuzzy
-#| msgid "contains"
 msgid "contains word"
-msgstr "indeholder"
+msgstr "indeholder ord"
 
 #. TRANSLATORS: True if haystack does not contain whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:222
-#, fuzzy
-#| msgid "does not contain"
 msgid "does not contain word"
-msgstr "indeholder ikke"
+msgstr "indeholder ikke ord"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
@@ -2157,10 +2080,8 @@ msgid "Edit Smart Playlist"
 msgstr "Redigér smart-afspilningsliste"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:421
-#, fuzzy
-#| msgid "Import Type:"
 msgid "Sort by:"
-msgstr "Importype:"
+msgstr "Sortér efter:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:436
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2178,13 +2099,15 @@ msgstr "Om Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2017 Various Contributors"
-msgstr ""
+msgstr "© 2009-2017 diverse bidragydere"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
 msgstr ""
+"Jan Madsen\n"
+"scootergrisen"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2196,13 +2119,11 @@ msgstr "Overvåget"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Skan ved opstart"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "Rescan _Collection"
-msgstr "Genskan samling"
+msgstr "Genskan _samling"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2233,10 +2154,8 @@ msgid "Zoom _Out"
 msgstr ""
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original date"
 msgid "_Original Size"
-msgstr "Oprindelig dato"
+msgstr "_Oprindelig størrelse"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
@@ -2244,10 +2163,8 @@ msgstr ""
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
 msgid "_Close"
-msgstr "Luk"
+msgstr "_Luk"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
@@ -2320,10 +2237,8 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
-#, fuzzy
-#| msgid "Add Music"
 msgid "_Add Music"
-msgstr "Tilføj musik"
+msgstr "_Tilføj musik"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2374,10 +2289,8 @@ msgid "Refresh Lyrics"
 msgstr "Opdatér sangtekster"
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Tilføj station"
+msgstr "_Tilføj station"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2485,7 +2398,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
-msgstr ""
+msgstr "Bemærk:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
@@ -2558,10 +2471,8 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
-#, fuzzy
-#| msgid "Streamripper"
 msgid "GStreamer"
-msgstr "Streamripper"
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2702,7 +2613,7 @@ msgstr "Udvidelsesmodul"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
@@ -2733,10 +2644,8 @@ msgid "Close"
 msgstr "Luk"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Beskrivelse:"
+msgstr "Beskrivelse"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2752,21 +2661,19 @@ msgstr "_Fjern mærke"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
 msgstr "Skriv første bogstav i alle mærker med stort"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Egenskaber"
+msgstr "Filegenskaber"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
-msgstr "_Foregående"
+msgstr "_Forrige"
 
 #: ../data/ui/trackproperties_dialog.ui:278
 msgid "_Next"
@@ -2858,7 +2765,7 @@ msgstr "Beskrivelse:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../data/ui/widgets/filter_dialog.ui:127
 msgid "Match any of the criteria"
@@ -2873,16 +2780,12 @@ msgid "Add"
 msgstr "Tilføj"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Begræns til: "
+msgstr "Begræns til:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " numre"
+msgstr "spor"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2938,28 +2841,20 @@ msgid "Please make sure the entered data is correct."
 msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:210
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
-msgstr "Bogmærk dette nummer"
+msgstr "_Bogmærk dette spor"
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Slet bogmærke"
+msgstr "_Slet bogmærke"
 
 #: ../plugins/bookmarks/__init__.py:220
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Ryd bogmærker"
+msgstr "_Ryd bogmærker"
 
 #: ../plugins/bookmarks/__init__.py:328
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Bogmærker"
+msgstr "_Bogmærker"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
@@ -3043,7 +2938,7 @@ msgstr "Afbryd forbindelse til server"
 
 #: ../plugins/daapclient/__init__.py:736
 msgid "Select a Location for Saving"
-msgstr "Vælg et sted at gemme"
+msgstr "Vælg en placering hvor der skal gemmes"
 
 #: ../plugins/daapclient/__init__.py:790
 msgid "Connect to DAAP..."
@@ -3069,20 +2964,16 @@ msgid "Developer Tools"
 msgstr ""
 
 #: ../plugins/equalizer/__init__.py:364
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Equalizer"
+msgstr "_Equalizer"
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Import tags fra bibliotek"
+msgstr "_Importér mærker fra mappe"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
@@ -3186,22 +3077,16 @@ msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Mærker"
+msgstr "Mærke"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "A_dd tag"
 msgid "Add new tag"
-msgstr "_Tilføj mærke"
+msgstr "Tilføj nyt mærke"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Slet"
+msgstr "Slet mærke"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
@@ -3225,7 +3110,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
-msgstr ""
+msgstr "Ny kategori?"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "Enter new category name"
@@ -3238,7 +3123,7 @@ msgstr ""
 #: ../plugins/grouptagger/gt_widgets.py:713
 #: ../plugins/grouptagger/gt_widgets.py:819
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
@@ -3285,10 +3170,8 @@ msgid "Save History"
 msgstr ""
 
 #: ../plugins/history/__init__.py:227
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear History"
-msgstr "_Ryd afspilningsliste"
+msgstr "_Ryd historik"
 
 #: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:189
 #: ../plugins/icecast/__init__.py:212
@@ -3330,10 +3213,8 @@ msgid "IPython Console - Exaile"
 msgstr "IPython-konsol - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:214
-#, fuzzy
-#| msgid "Show IPython Console"
 msgid "Show _IPython Console"
-msgstr "Vis IPython-konsol"
+msgstr "Vis _IPython-konsol"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3410,7 +3291,7 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:83
 #: ../plugins/mainmenubutton/__init__.py:89
 msgid "Main Menu"
-msgstr ""
+msgstr "Hovedmenu"
 
 #: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
@@ -3570,16 +3451,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "af %(artist)s"
+msgstr "af {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Kun album:"
+msgstr "efter {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3797,10 +3676,8 @@ msgid "Use Fading"
 msgstr "Brug fading"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Indstillinger"
+msgstr "<b>Lydindstillinger</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4317,10 +4194,8 @@ msgid "_Add"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Fjern"
+msgstr "_Fjern"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4336,10 +4211,8 @@ msgstr ""
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Ikoner</b>"
+msgstr "<b>Lyd</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4368,10 +4241,8 @@ msgid "Display"
 msgstr "Vis omslag"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Ikon"
+msgstr "Ikoner"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4462,10 +4333,8 @@ msgid "Generate"
 msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "Tilføj Podcast"
+msgstr "_Tilføj Podcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
 #, fuzzy
@@ -4573,13 +4442,6 @@ msgid "Effect"
 msgstr ""
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
@@ -4588,9 +4450,8 @@ msgid ""
 msgstr ""
 "Afspiller musik på et bestemt tidspunkt.\n"
 "\n"
-"Bemærk at når det angivne tidspunkt oprinder, vil Exaile blot opføre sig som "
-"havde du trykket på afspil-knappen, sørg derfor, at den ønskede musik "
-"befinder sig i afspilningslisten"
+"Bemærk at når det angivne tidspunkt oprinder, vil Exaile afspille sangene i "
+"køen."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5

@@ -176,6 +176,7 @@ class FilesPanel(panel.Panel):
             self.fill_libraries_location, 'libraries_modified', self.collection
         )
         self.fill_libraries_location()
+        self.location_bar.set_row_separator_func(lambda m, i: m[i][1] is None)
         self.entry = self.location_bar.get_children()[0]
         self.entry.connect('activate', self.entry_activate)
 
@@ -189,19 +190,26 @@ class FilesPanel(panel.Panel):
         )
 
     def fill_libraries_location(self, *e):
+        libraries = []
+        for library in self.collection._serial_libraries:
+            f = Gio.File.new_for_commandline_arg(library['location'])
+            libraries.append((f.get_parse_name(), f.get_uri()))
+
+        mounts = []
+        for mount in Gio.VolumeMonitor.get().get_mounts():
+            name = mount.get_name()
+            uri = mount.get_default_location().get_uri()
+            mounts.append((name, uri))
+        mounts.sort(key=lambda row: locale.strxfrm(row[0]))
+
         model = self.location_bar.get_model()
         model.clear()
-        libraries = self.collection._serial_libraries
-
-        if len(libraries) > 0:
-            for library in libraries:
-                model.append(
-                    [
-                        Gio.File.new_for_commandline_arg(
-                            library['location']
-                        ).get_parse_name()
-                    ]
-                )
+        for row in libraries:
+            model.append(row)
+        if libraries and mounts:
+            model.append((None, None))
+        for row in mounts:
+            model.append(row)
         self.location_bar.set_model(model)
 
     def on_location_bar_changed(self, widget, *args):
@@ -210,9 +218,9 @@ class FilesPanel(panel.Panel):
         if not iter:
             return
         model = self.location_bar.get_model()
-        location = model.get_value(iter, 0)
-        if location != '':
-            self.load_directory(Gio.File.new_for_commandline_arg(location))
+        uri = model.get_value(iter, 1)
+        if uri:
+            self.load_directory(Gio.File.new_for_uri(uri))
 
     def on_key_released(self, widget, event):
         """
@@ -272,6 +280,7 @@ class FilesPanel(panel.Panel):
         treepath = self.tree.get_cursor()[0]
         cursorf = self.model[treepath][0] if treepath else None
         self.load_directory(self.current, history=False, cursor_file=cursorf)
+        self.fill_libraries_location()
 
     def entry_activate(self, widget, event=None):
         """

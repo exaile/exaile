@@ -1669,7 +1669,10 @@ class Playlist(object):
         """
             Appends a single track to the playlist
 
-            :param other: list of :class:`xl.trax.Track`
+            Prefer extend() for batch updates, so that
+            playlist_tracks_added is not emitted excessively.
+
+            :param other: a :class:`xl.trax.Track`
         """
         self[len(self) : len(self)] = [other]
 

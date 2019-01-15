@@ -195,6 +195,16 @@ class ArtistColumn(Column):
 providers.register('playlist-columns', ArtistColumn)
 
 
+class AlbumArtistColumn(Column):
+    name = 'albumartist'
+    display = _('Album artist')
+    size = 150
+    autoexpand = True
+
+
+providers.register('playlist-columns', AlbumArtistColumn)
+
+
 class ComposerColumn(Column):
     name = 'composer'
     display = _('Composer')

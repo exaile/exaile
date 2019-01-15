@@ -107,6 +107,7 @@ class TrackPropertiesDialog(GObject.GObject):
             'tracknumber',
             'title',
             'artist',
+            'albumartist',
             'album',
             'discnumber',
             'date',

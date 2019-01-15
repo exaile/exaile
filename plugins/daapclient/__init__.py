@@ -539,6 +539,7 @@ class DaapConnection(object):
             'tracknumber': 'astn',
             'date': 'asyr',
             'discnumber': 'asdn',
+            'albumartist': 'asaa',
         }
         #            'genre':'asgn','enc':'asfm','bitrate':'asbr'}
 

@@ -46,6 +46,7 @@ tag_data = {
     'album':            _TD(N_('Album'),        'text'),
     'arranger':         _TD(N_('Arranger'),     'text'),
     'artist':           _TD(N_('Artist'),       'text'),
+    'albumartist':      _TD(N_('Album artist'), 'text'),
     'author':           _TD(N_('Author'),       'text'),
     'bpm':              _TD(N_('BPM'),          'int', min=0, max=500),
     'copyright':        _TD(N_('Copyright'),    'text'),

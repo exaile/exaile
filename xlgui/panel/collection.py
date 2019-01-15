@@ -122,11 +122,17 @@ DEFAULT_ORDERS = [
     Order(_("Artist"),
           ("artist", "album",
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    Order(_("Album Artist"),
+          ("albumartist", "album",
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Album"),
           ("album",
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Genre - Artist"),
           ('genre', 'artist', 'album',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    Order(_("Genre - Album Artist"),
+          ('genre', 'albumartist', 'album',
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Genre - Album"),
           ('genre', 'album', 'artist',
@@ -134,11 +140,18 @@ DEFAULT_ORDERS = [
     Order(_("Date - Artist"),
           ('date', 'artist', 'album',
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    Order(_("Date - Album Artist"),
+          ('date', 'albumartist', 'album',
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Date - Album"),
           ('date', 'album', 'artist',
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     Order(_("Artist - (Date - Album)"),
           ('artist',
+           (('date', 'album'), "$date - $album", ('date', 'album')),
+           (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    Order(_("Album Artist - (Date - Album)"),
+          ('albumartist',
            (('date', 'album'), "$date - $album", ('date', 'album')),
            (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
     # fmt: on
@@ -333,6 +346,9 @@ class CollectionPanel(panel.Panel):
             Sets up the various images that will be used in the tree
         """
         self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
+            'artist', Gtk.IconSize.SMALL_TOOLBAR
+        )
+        self.albumartist_image = icons.MANAGER.pixbuf_from_icon_name(
             'artist', Gtk.IconSize.SMALL_TOOLBAR
         )
         self.date_image = icons.MANAGER.pixbuf_from_icon_name(

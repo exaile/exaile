@@ -1955,6 +1955,9 @@ class SmartPlaylist(object):
                 params += [param]
                 continue
             (field, op, value) = param
+            fieldtype = tag_data.get(field)
+            if fieldtype is not None:
+                fieldtype = fieldtype.type
 
             s = ""
 
@@ -1978,7 +1981,7 @@ class SmartPlaylist(object):
                 else:
                     matchers.append(trax.TracksNotInList(pl))
                 continue
-            elif tag_data.get(field) == 'timestamp':
+            elif fieldtype == 'timestamp':
                 duration, unit = value
                 delta = durations[unit](duration)
                 point = datetime.now() - delta

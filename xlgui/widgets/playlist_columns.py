@@ -112,6 +112,10 @@ class Column(Gtk.TreeViewColumn):
     @common.glib_wait(100)
     def on_width_changed(self, column, wid):
         width = self.get_width()
+        if width == 0:
+            # Some older GTK+ versions (possibly <3.20) trigger this
+            # with 0 width on startup.
+            return
         if not self.destroyed and width != settings.get_option(
             self.settings_width_name, -1
         ):

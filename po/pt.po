@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-01-26 19:04+0000\n"
+"PO-Revision-Date: 2019-01-27 08:04+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -2708,7 +2708,7 @@ msgstr "Duração da performance"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr "Capturar tela de vídeo/filme"
+msgstr "Captura de ecrã de filme/video"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
@@ -4356,7 +4356,7 @@ msgstr "Nível de correção de recurso:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
-msgstr "Retomar quando sair da tela de descanso"
+msgstr "Retomar quando sair do ecrã de descanso"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4853,7 +4853,7 @@ msgstr ""
 "Pausa (e opcionalmente resume) a reprodução com base no protetor de tela de "
 "status.\n"
 "\n"
-"Requer: GNOME, MATE, Cinnamon ou protetor de tela doKDE (não suporta o "
+"Requer: GNOME, MATE, Cinnamon ou protetor de ecrã do KDE (não suporta o "
 "XScreenSaver nem XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4

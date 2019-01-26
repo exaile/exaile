@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-10-25 00:24+0000\n"
+"PO-Revision-Date: 2019-01-26 19:04+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -677,10 +677,8 @@ msgid "Shuffle _Albums"
 msgstr "Mescl_a els àlbums"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "%d aleatoris"
+msgstr "Aleato_ri"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"

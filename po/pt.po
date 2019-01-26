@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2018-12-03 00:08+0000\n"
+"PO-Revision-Date: 2019-01-26 19:04+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3\n"
+"X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -607,9 +607,9 @@ msgid "Custom"
 msgstr "Personalizado"
 
 #: ../xl/player/gst/sink.py:184
-#, fuzzy, python-format
+#, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr "Não foi possível criar audiosink (dispositivo: %s, tipo: %s)"
+msgstr "Não foi possível criar destino para audio (dispositivo: %s, tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
@@ -2953,10 +2953,8 @@ msgid "E_xport collecton tags to JSON"
 msgstr "Exportar tags de coleção para JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
-#, fuzzy
-#| msgid "Grouping"
 msgid "_GroupTagger"
-msgstr "_GroupTagger"
+msgstr "Etiquetor de _grupos"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -4565,9 +4563,8 @@ msgid "A 10-band equalizer"
 msgstr "Um equalizador de 10 canais"
 
 #: ../plugins/grouptagger/PLUGININFO:3
-#, fuzzy
 msgid "Group Tagger"
-msgstr "Group Tagger"
+msgstr "Etiquetor de grupos"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""

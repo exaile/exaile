@@ -675,6 +675,11 @@ def __register_playlist_columns_menuitems():
         """
             Updates column sizing setting
         """
+
+        # Ignore the activation if the menu item is not actually active
+        if not menu_item.get_active():
+            return
+
         if name == 'resizable':
             settings.set_option('gui/resizable_cols', True)
         elif name == 'autosize':

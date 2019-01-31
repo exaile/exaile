@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-01-13 03:07+0000\n"
+"PO-Revision-Date: 2019-02-01 13:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -608,26 +608,26 @@ msgstr "Brugertilpasset"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Kunne ikke oprette audiosink (enhed: %s, type: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Ingen tilpasset pipeline angivet!"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Fejl ved oprettelse af tilpasset audiosink '%s'"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Ugyldig sinktype '%s' angivet"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Kunne ikke oprette sinktypen '%s'"
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -1303,7 +1303,7 @@ msgstr "_Paneler"
 
 #: ../xlgui/playlist_container.py:69
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Drop her for at oprette en ny afspilningsliste"
 
 #: ../xlgui/playlist_container.py:129
 msgid "_Clear Tab History"
@@ -2086,7 +2086,7 @@ msgstr "Omslagssøgning"
 
 #: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Omslagets oprindelse"
 
 #: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
@@ -2297,7 +2297,7 @@ msgstr "Placering af faneblad:"
 
 #: ../data/ui/preferences/appearance.ui:133
 msgid "Playlist font:"
-msgstr ""
+msgstr "Skrifttype for afspilningsliste:"
 
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
@@ -2400,7 +2400,7 @@ msgstr "Foretrukne filnavne:"
 
 #: ../data/ui/preferences/cover.ui:43
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "En kommasepareret liste over filnavne uden filendelser"
 
 #: ../data/ui/preferences/cover.ui:52
 msgid "Fetch covers automatically on playback start"
@@ -2420,7 +2420,7 @@ msgstr "Brug omslag, der er indlejret i mærker"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Skrifttype for sangtekster:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
@@ -2477,7 +2477,7 @@ msgstr "Forsinkelse mellem spor (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Virker kun når krydsfading ikke er aktiveret"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2548,7 +2548,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Sæt spor i kø som standard i stedet for at afspille dem"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""
@@ -2648,7 +2648,7 @@ msgstr "Omslag (bagside)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "Pamfletside"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
@@ -2660,11 +2660,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr ""
+msgstr "Kunstner/optræder"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Band/orkestre"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
@@ -2672,15 +2672,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
-msgstr ""
+msgstr "Optagelsessted"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
-msgstr ""
+msgstr "Under optagelse"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:80
 msgid "During performance"
-msgstr ""
+msgstr "Under optrædning"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
@@ -2688,23 +2688,23 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "En farverig fisk"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:92
 msgid "Illustration"
-msgstr ""
+msgstr "Illustration"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logotype for band/kunstner"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logotype for udgiver/studie"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Klik eller træk filer her for at skifte omslagets billede"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -3037,7 +3037,7 @@ msgstr "Fjern kategori"
 
 #: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Vis spor med valgte (tilpasset)"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
@@ -3074,7 +3074,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Vis spor med grupper"
 
 #: ../plugins/grouptagger/gt_widgets.py:808
 msgid "Must have this tag [AND]"
@@ -3102,7 +3102,7 @@ msgstr "Afspilningshistorik"
 
 #: ../plugins/history/__init__.py:117
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Slet gemt historik?"
 
 #: ../plugins/history/__init__.py:218
 msgid "Save History"
@@ -3161,7 +3161,7 @@ msgstr "IPython-konsol"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "Opacity kan ikke indstilles på Windows pga. en fejl i Gtk+"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3184,6 +3184,8 @@ msgid ""
 "Keybinder is not supported on this platform! It is only supported on X "
 "servers."
 msgstr ""
+"Tastebinding understøttes ikke på denne platform! Det understøttes kun på "
+"X-servere."
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
@@ -3208,11 +3210,11 @@ msgstr "Last.fm-loved spor"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
-msgstr ""
+msgstr "API-nøglen er ugyldig."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Kunne ikke starte webbrowser"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:95
 #, python-brace-format
@@ -3220,10 +3222,12 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Kopiér venligst følgende URL og åbn den med din webbrowser:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
 msgid "This plugin needs at least one visible panel"
-msgstr ""
+msgstr "Pluginet skal have mindst ét synligt panel"
 
 #: ../plugins/mainmenubutton/__init__.py:83
 #: ../plugins/mainmenubutton/__init__.py:89
@@ -3385,7 +3389,7 @@ msgstr "Multi-vækkeur"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "fra {album} af {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, python-brace-format
@@ -3403,11 +3407,11 @@ msgstr "Underret"
 
 #: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
-msgstr ""
+msgstr "Der er endnu ikke afspillet nogen spor"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Flyt eller tilpas størrelsen på skærmdisplay"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3440,7 +3444,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:347
 msgid "Save analysis"
-msgstr ""
+msgstr "Gem analyse"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3497,7 +3501,7 @@ msgstr ""
 
 #: ../plugins/previewdevice/__init__.py:341
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Sæt afspilning på pause (dobbeltklik for at stoppe)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
 #: ../plugins/previewdevice/PLUGININFO:3
@@ -3520,7 +3524,7 @@ msgstr "Luk ned efter afspilning"
 
 #: ../plugins/shutdown/__init__.py:67
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Nedlukning planlagt"
 
 #: ../plugins/shutdown/__init__.py:68
 msgid "Computer will be shutdown at the end of playback."
@@ -3528,16 +3532,16 @@ msgstr "Computeren vil blive lukket ned når afspilningen er færdig."
 
 #: ../plugins/shutdown/__init__.py:95
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Snarlig nedlukning"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "Computeren lukkes om %d sekunder."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Nedlukning mislykkedes"
 
 #: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
@@ -3566,7 +3570,7 @@ msgstr "Streamripper"
 #: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
 msgid "<b>Alarm Time</b>"
@@ -3614,11 +3618,11 @@ msgstr "<b>Lydindstillinger</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Minimum lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:294
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Maximum lydstyrke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
 msgid "Increment:"
@@ -3626,7 +3630,7 @@ msgstr "Forøgelse:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Tidstrin:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -3636,7 +3640,7 @@ msgstr "API-nøgle:"
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:39
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:43
 msgid "Secret:"
-msgstr ""
+msgstr "Hemmelighed:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
 msgid ""
@@ -3764,11 +3768,11 @@ msgstr "Simpel konsol"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Vis ipv6-servere (eksperimentel)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Husk seneste DAAP-servere"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:21
 msgid "Server name:"
@@ -3962,7 +3966,7 @@ msgstr "0 spor fundet"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Skrifttype for gruppe/kategorier:"
 
 #: ../plugins/grouptagger/gt_prefs.ui:86
 msgid "Categorization tag name"
@@ -3980,7 +3984,7 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui:36
 msgid "History length:"
-msgstr ""
+msgstr "Historiklængde:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:23
 msgid "Terminal opacity:"
@@ -3992,7 +3996,7 @@ msgstr "Skrifttype:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
-msgstr ""
+msgstr "Tekstfarve:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
@@ -4085,7 +4089,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
-msgstr ""
+msgstr "Styringer"
 
 #: ../plugins/minimode/minimode_preferences.ui:149
 msgid "Track Title Format"
@@ -4109,7 +4113,7 @@ msgstr "Vis vinduesdekorationer:"
 
 #: ../plugins/minimode/minimode_preferences.ui:263
 msgid "Show button in main window"
-msgstr ""
+msgstr "Vis knap i hovedvindue"
 
 #: ../plugins/minimode/minimode_preferences.ui:284
 msgid "Options"
@@ -4117,11 +4121,11 @@ msgstr "Tilvalg"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Alarmer</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "_Tilføj"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
 msgid "_Remove"
@@ -4129,7 +4133,7 @@ msgstr "_Fjern"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Afspilning</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:147
 msgid "Restart playlist"
@@ -4137,7 +4141,7 @@ msgstr "Begynd forfra på afspilningsliste"
 
 #: ../plugins/multialarmclock/malrmclk.ui:161
 msgid "Enable volume fade-in"
-msgstr ""
+msgstr "Aktivér optoning af lydstyrke"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
@@ -4211,7 +4215,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:142
 msgid "Background:"
-msgstr ""
+msgstr "Baggrund:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
@@ -4219,7 +4223,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
-msgstr ""
+msgstr "Vis forløbslinje"
 
 #: ../plugins/osd/osd_preferences.ui:271
 msgid ""
@@ -4236,7 +4240,7 @@ msgstr "<ingen valgt>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
-msgstr ""
+msgstr "Vælg analyse"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
 msgid "Playlist(s) to analyze"
@@ -4252,11 +4256,11 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
 msgid "_Generate!"
-msgstr ""
+msgstr "_Generer!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:555
 msgid "Generate"
-msgstr ""
+msgstr "Generer"
 
 #: ../plugins/podcasts/podcasts.ui:18
 msgid "_Add Podcast"
@@ -4355,7 +4359,7 @@ msgstr "Gentager et segment af et nummer flydende."
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Effekt"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4409,7 +4413,7 @@ msgstr "Angiver omslag og tilføjer nogle menuelementer til AWN for Exaile"
 #: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "Brugerflade"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
@@ -4453,7 +4457,7 @@ msgstr ""
 #: ../plugins/console/PLUGININFO:5 ../plugins/developer/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5 ../plugins/ipconsole/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Udvikling"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song in Pidgin"
@@ -4476,7 +4480,7 @@ msgstr "Tillader afspilning af DAAP-musikdelinger."
 #: ../plugins/librivox/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
 #: ../plugins/somafm/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Mediekilder"
 
 #: ../plugins/daapserver/PLUGININFO:4
 #, python-format
@@ -4493,7 +4497,7 @@ msgstr "Viser det aktuelle albumomslag på skrivebordet"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr ""
+msgstr "Udvikler"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4652,7 +4656,7 @@ msgstr "Kompakt tilstand for Exaile med en konfigurérbar grænseflade"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
@@ -4672,7 +4676,7 @@ msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
-msgstr ""
+msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
@@ -4697,7 +4701,7 @@ msgstr ""
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "MusicBrainz-omslag"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid ""
@@ -4746,7 +4750,7 @@ msgstr ""
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -4789,7 +4793,7 @@ msgstr ""
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"
-msgstr ""
+msgstr "Multimedietaster til Windows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
 #, python-format

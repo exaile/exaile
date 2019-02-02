@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-02-01 13:09+0000\n"
+"PO-Revision-Date: 2019-02-02 21:36+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -4060,7 +4060,7 @@ msgstr "Avanceret"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
 msgid "_Request Access Permission"
-msgstr ""
+msgstr "_Anmod om adgangstilladelse"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
@@ -4093,7 +4093,7 @@ msgstr "Styringer"
 
 #: ../plugins/minimode/minimode_preferences.ui:149
 msgid "Track Title Format"
-msgstr ""
+msgstr "Format for sportitel"
 
 #: ../plugins/minimode/minimode_preferences.ui:165
 msgid "Always on top"
@@ -4207,11 +4207,11 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
-msgstr ""
+msgstr "Displayformat"
 
 #: ../plugins/osd/osd_preferences.ui:106
 msgid "Display duration:"
-msgstr ""
+msgstr "Varighed for display:"
 
 #: ../plugins/osd/osd_preferences.ui:142
 msgid "Background:"
@@ -4219,7 +4219,7 @@ msgstr "Baggrund:"
 
 #: ../plugins/osd/osd_preferences.ui:166
 msgid "Border radius:"
-msgstr ""
+msgstr "Kantradius:"
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
@@ -4229,10 +4229,12 @@ msgstr "Vis forløbslinje"
 msgid ""
 "As long as this preferences page is open, you can move and resize the OSD."
 msgstr ""
+"Du kan flytte og tilpasse størrelsen på skærmdisplayet. så længde "
+"præferencer-siden er åben."
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
-msgstr ""
+msgstr "Forudindstilling"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 msgid "<none selected>"
@@ -4248,11 +4250,11 @@ msgstr "Afspilningsliste(r) som skal analyseres"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
-msgstr ""
+msgstr "Outputtitel"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:501
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Afspilningslistenavnet er standard"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:522
 msgid "_Generate!"
@@ -4308,7 +4310,7 @@ msgstr "Niveau for reservekorrektion:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
-msgstr ""
+msgstr "Fjern fra pause når pauseskærmen slutter"
 
 #: ../plugins/streamripper/streamripper.ui:15
 msgid "Save location:"
@@ -4501,7 +4503,7 @@ msgstr "Udvikler"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr ""
+msgstr "Giver diagnostisksinformation til Exaile-udviklere"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4531,11 +4533,11 @@ msgstr "Et simpelt udvidelesmodul som tester modulsystemet"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Forhindr suspendering"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
+msgstr "Forhindre suspendering af brugersessionen når der afspilles musik"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
@@ -4559,7 +4561,7 @@ msgstr "Fjerner stemmer fra musikken"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
-msgstr ""
+msgstr "Tastebinder-baserede multimedietaster"
 
 #: ../plugins/keybinder/PLUGININFO:4
 msgid ""
@@ -4571,7 +4573,7 @@ msgstr ""
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "External Control"
-msgstr ""
+msgstr "Ekstern styring"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4591,7 +4593,7 @@ msgstr "Last.fm-motoren for dynamiske afspilningslister"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiske afspilningslister"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4632,11 +4634,11 @@ msgstr ""
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Hovedmenuknap"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid "Moves the main menu into a button on top of the panels."
-msgstr ""
+msgstr "Flyttes hovedmenuen til en knap øverst i panelerne."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4660,7 +4662,7 @@ msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Nedmixer lyd til én kanal."
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"

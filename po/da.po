@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-02-03 10:30+0000\n"
+"PO-Revision-Date: 2019-02-03 20:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -354,7 +354,7 @@ msgstr "Begræns logudskrift til NIVEAU"
 
 #: ../xl/main.py:384
 msgid "Show debugging output"
-msgstr "Vis fejlfindingsuddata"
+msgstr "Vis fejlsøgningsuddata"
 
 #: ../xl/main.py:391
 msgid "Enable debugging of xl.event. Generates lots of output"
@@ -382,7 +382,7 @@ msgstr "Reducér udskriftsniveauet"
 
 #: ../xl/main.py:428
 msgid "Disable D-Bus support"
-msgstr "Deaktivér D-Bus-understøttelse"
+msgstr "Deaktivér understøttelse af D-Bus"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
@@ -435,7 +435,7 @@ msgstr "Forfatter"
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:356
 #: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
-msgstr "Taktslag/min"
+msgstr "BPM"
 
 #: ../xl/metadata/tags.py:51
 msgid "Copyright"
@@ -711,11 +711,11 @@ msgstr "Udvidelsesmodularkivet er ikke i det rigtige format."
 #: ../xl/plugins.py:98
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Et plugin med navnet \"%s\" er allerede installeret."
+msgstr "Et udvidelsesmodul med navnet \"%s\" er allerede installeret."
 
 #: ../xl/plugins.py:103
 msgid "Plugin archive contains an unsafe path."
-msgstr "Plugin arkivet indeholder en usikker sti."
+msgstr "Udvidelsesmodularkivet indeholder en usikker sti."
 
 #: ../xl/settings.py:99
 msgid "Settings version is newer than current."
@@ -734,8 +734,8 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis er et open source, tabsbehæftet lydcodec med høj lydkvalitet, som "
-"fylder mindre end MP3."
+"Vorbis er et open source, lossy lydcodec med høj lydkvalitet, som fylder "
+"mindre end MP3."
 
 #: ../xl/transcoder.py:68
 msgid ""
@@ -750,24 +750,24 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apples proprietære tabsbehæftet lydformat opnår en bedre lydkvalitet end MP3 "
-"ved lavere bitrater."
+"Apples proprietære lossy lydformat opnår en bedre lydkvalitet end MP3 ved "
+"lavere bitrater."
 
 #: ../xl/transcoder.py:91
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Et proprietært og ældre, men også populært tabsbehæftet lydformat. VBR giver "
-"højere kvalitet end CBR, men er måske ikke kompatibel med visse afspillere."
+"Et proprietært og ældre, men også populært lossy lydformat. VBR giver højere "
+"kvalitet end CBR, men er måske ikke kompatibel med visse afspillere."
 
 #: ../xl/transcoder.py:102
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Et proprietært og ældre, men også populært tabsbehæftet lydformat. CBR giver "
-"lavere kvalitet end VBR, men er kompatibel med alle afspillere."
+"Et proprietært og ældre, men også populært lossy lydformat. CBR giver lavere "
+"kvalitet end VBR, men er kompatibel med alle afspillere."
 
 #: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
@@ -1001,7 +1001,7 @@ msgstr "Fokuser på det tiende faneblad"
 
 #: ../xlgui/main.py:587
 msgid "Toggle: Stop after Selected Track"
-msgstr "Slå til/fra: Stop efter valgte spor"
+msgstr "Til/fra: Stop efter valgte spor"
 
 #: ../xlgui/main.py:700 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
@@ -1133,7 +1133,7 @@ msgstr "_Om"
 
 #: ../xlgui/panel/collection.py:128
 msgid "Genre - Artist"
-msgstr "Genre - kunstner"
+msgstr "Genre - Kunstner"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Album"
@@ -1291,7 +1291,7 @@ msgstr "Radiostreams"
 #: ../xlgui/panel/radio.py:306 ../plugins/wikipedia/data/wikipanel.ui:75
 #: ../plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
-msgstr "Opdatér"
+msgstr "Opdater"
 
 #: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
@@ -1397,7 +1397,7 @@ msgstr[1] "Fejl for udvidelsesmoduler: %s"
 
 #: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
-msgstr "Kunne ikke deaktivere plugin!"
+msgstr "Kunne ikke deaktivere udvidelsesmodul!"
 
 #: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
@@ -1468,7 +1468,7 @@ msgstr "Luk uden at anvende ændringer i mærker?"
 
 #: ../xlgui/properties.py:443
 msgid "Your changes will be lost if you do not apply them now."
-msgstr "Dine ændringer bliver tabt hvis du ikke anvender dem nu."
+msgstr "Dine ændringer går tabt, hvis du ikke anvender dem nu."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:625
@@ -1576,7 +1576,7 @@ msgstr "Brug relative stier til spor"
 #: ../xlgui/widgets/dialogs.py:1070
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Afspilningliste gemt som <b>%s</b>."
+msgstr "Afspilningsliste gemt som <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:1087
 #, python-format
@@ -1590,7 +1590,7 @@ msgstr "<b>Gem ændringer til %s før lukning?</b>"
 
 #: ../xlgui/widgets/dialogs.py:1090
 msgid "Your changes will be lost if you don't save them"
-msgstr "Dine ændringer vil gå tabt, hvis du ikke gemmer dem"
+msgstr "Dine ændringer går tabt, hvis du ikke gemmer dem"
 
 #: ../xlgui/widgets/dialogs.py:1094
 msgid "Close Without Saving"
@@ -2193,7 +2193,7 @@ msgstr "Næste spor"
 
 #: ../data/ui/main.ui:246
 msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
+msgstr "0:00/0:00"
 
 #: ../data/ui/panel/collection.ui:28
 msgid "_Add Music"
@@ -2208,7 +2208,7 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
-"Opdatér vinduet med samlingen\n"
+"Opdater vinduet med samlingen\n"
 "(Hold Skift-tasten nede for at genskanne samlingen)"
 
 #: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:168
@@ -2229,7 +2229,7 @@ msgstr "En mappe op"
 
 #: ../data/ui/panel/files.ui:91
 msgid "Refresh directory listing"
-msgstr "Opdatér mappevisning"
+msgstr "Opdater mappevisning"
 
 #: ../data/ui/panel/files.ui:112
 msgid "Home directory"
@@ -2245,7 +2245,7 @@ msgstr "Importér cd"
 
 #: ../data/ui/panel/lyrics.ui:25
 msgid "Refresh Lyrics"
-msgstr "Opdatér sangtekster"
+msgstr "Opdater sangtekster"
 
 #: ../data/ui/panel/radio.ui:18
 msgid "_Add Station"
@@ -2281,7 +2281,7 @@ msgstr "Nederst"
 
 #: ../data/ui/preferences/appearance.ui:50
 msgid "Show info area"
-msgstr "Vis inforområde"
+msgstr "Vis infoområde"
 
 #: ../data/ui/preferences/appearance.ui:54
 msgid "The info area contains the cover art and track information"
@@ -2289,11 +2289,11 @@ msgstr "Infoområdet indeholder omslaget og sporinformation"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr "Vis omslag i inforområde"
+msgstr "Vis omslag i infoområde"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
-msgstr "Vis altid fanebladsbjælke"
+msgstr "Vis altid fanebladslinje"
 
 #: ../data/ui/preferences/appearance.ui:99
 msgid "Tab placement:"
@@ -2306,7 +2306,7 @@ msgstr "Skrifttype for afspilningsliste:"
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr "Nultil til systemets skrifttype"
+msgstr "Nusltil til systemets skrifttype"
 
 #: ../data/ui/preferences/appearance.ui:183
 msgid "Display track counts in collection"
@@ -2489,7 +2489,7 @@ msgstr "Forsinkelse mellem spor (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr "Virker kun når krydsfading ikke er aktiveret"
+msgstr "Virker kun når crossfading ikke er aktiveret"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2591,11 +2591,11 @@ msgstr "Aktiveret"
 
 #: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
-msgstr "Vis inkompatible plugins"
+msgstr "Vis inkompatible udvidelsesmoduler"
 
 #: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
-msgstr "Ingen plugin valgt"
+msgstr "Intet udvidelsesmodul valgt"
 
 #: ../data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
@@ -2784,7 +2784,7 @@ msgstr "AudioScrobbler-indsendelse til/fra"
 
 #: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
-msgstr "Slå audioscrobbling til"
+msgstr "Aktivér audioscrobbling"
 
 #: ../plugins/audioscrobbler/asprefs.py:29
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -3248,7 +3248,7 @@ msgstr ""
 
 #: ../plugins/mainmenubutton/__init__.py:60
 msgid "This plugin needs at least one visible panel"
-msgstr "Pluginet skal have mindst ét synligt panel"
+msgstr "Udvidelsesmodulet skal have mindst ét synligt panel"
 
 #: ../plugins/mainmenubutton/__init__.py:83
 #: ../plugins/mainmenubutton/__init__.py:89
@@ -3287,7 +3287,7 @@ msgstr "Næste spor"
 
 #: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
-msgstr "Afspil/Pause"
+msgstr "Afspil/pause"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Start playback"
@@ -3362,7 +3362,7 @@ msgstr "Tilgå den nuværende afspilningsliste"
 
 #: ../plugins/minimode/controls.py:1012
 msgid "$title ($current_time / $total_time)"
-msgstr "$title ($current_time / $total_time)"
+msgstr "$title ($current_time/$total_time)"
 
 #: ../plugins/minimode/controls.py:1037
 msgid "Progress button"
@@ -3480,7 +3480,7 @@ msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr "Opdatér podcast"
+msgstr "Opdater podcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
@@ -3513,7 +3513,7 @@ msgstr "Der findes endnu ingen konfiguration"
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
-msgstr "Kunne ikke gemme podcastfil"
+msgstr "Kunne ikke gemme podcast-fil"
 
 #: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
@@ -3686,7 +3686,7 @@ msgstr "Indsend spor ved hjælp af Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:34
 msgid "Show menuitem to toggle submission"
-msgstr "Vis menupunkt for at slå indsending til/fra"
+msgstr "Vis menupunkt for at slå indsendelse til/fra"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:51
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
@@ -3784,7 +3784,7 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
-"Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker "
+"Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker, "
 "såsom <b>$__length</b> skal foranstilles med to understregningstegn."
 
 #. Window title
@@ -3956,7 +3956,7 @@ msgstr "Nye grupper"
 
 #: ../plugins/grouptagger/gt_import.ui:119
 msgid "Import Type:"
-msgstr "Importype:"
+msgstr "Importtype:"
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
@@ -4239,7 +4239,7 @@ msgid ""
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 "Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker, "
-"såssom <b>$__length</b> skal foranstilles med to understregningstegn.\n"
+"såsom <b>$__length</b> skal foranstilles med to understregningstegn.\n"
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
 "Pango Text Attribute Markup</a> understøttes."
 
@@ -4468,9 +4468,8 @@ msgid ""
 "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
 "and the bpmdetect plugin are installed"
 msgstr ""
-"Giver en manuel taktslag/min.-tæller og taktslag/min.-automatisk "
-"registrering når gst-plugins-bad og bpmdetect-udvidelsesmodulet er "
-"installeret"
+"Giver en manuel BPM-tæller og BPM-automatisk registrering når gst-plugins-"
+"bad og bpmdetect-udvidelsesmodulet er installeret"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4548,7 +4547,7 @@ msgstr "Udvikler"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
-msgstr "Giver diagnostisksinformation til Exaile-udviklere"
+msgstr "Giver information om diagnostisk til Exaile-udviklere"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -4572,7 +4571,7 @@ msgstr "Mærkning"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr "Hej Verden"
+msgstr "Hej verden"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -4596,7 +4595,7 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr "Tillader adgang til Jamendos musikkatalog."
+msgstr "Aktiverer adgang til Jamendos-musikkataloget."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -4710,7 +4709,7 @@ msgstr ""
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr "Kompakt tilstand for Exaile med en konfigurérbar grænseflade"
+msgstr "Kompakt tilstand for Exaile med en konfigurerbar grænseflade"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
@@ -4734,7 +4733,7 @@ msgstr ""
 "Vis visuel præsentation af musiktidslinjen.\n"
 "\n"
 "Kræver: moodbar (som kræver gst-plugins-* fra GStreamer 0.10 til at afkode "
-"fier)"
+"filer)"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
@@ -4803,7 +4802,7 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
-"Værktøj til at hjælpe med generering af HTML5-visualigeringer på din "
+"Værktøj til at hjælpe med generering af HTML5-visualiseringer på din "
 "afspilningsliste med d3.js. Optimeret til Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
@@ -4828,7 +4827,7 @@ msgstr "Output"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr "Slår understøttelse af ReplayGain til"
+msgstr "Aktiverer understøttelse af ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""

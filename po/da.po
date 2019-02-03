@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-02-03 02:08+0000\n"
+"PO-Revision-Date: 2019-02-03 10:30+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -135,7 +135,7 @@ msgstr ""
 
 #: ../xl/main.py:96
 msgid "Playback Options"
-msgstr "Afspilningsindstillinger"
+msgstr "Indstillinger for afspilning"
 
 #: ../xl/main.py:103
 msgid "Play the next track"
@@ -189,7 +189,7 @@ msgstr "Eksportér den nuværende afspilningsliste til PLACERING"
 
 #: ../xl/main.py:166
 msgid "Track Options"
-msgstr "Sportilvalg"
+msgstr "Tilvalg for spor"
 
 #: ../xl/main.py:173
 msgid "Query player"
@@ -207,7 +207,7 @@ msgstr "Hent den nuværende afspilningstilstand og sporinformation som FORMAT"
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
 msgid "TAGS"
-msgstr "Mærker"
+msgstr "MÆRKER"
 
 #: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ../xl/main.py:353
 msgid "Development/Debug Options"
-msgstr "Udviklings- og fejlsøgningstilvalg"
+msgstr "Tilvalg for udvikling/fejlsøgning"
 
 #: ../xl/main.py:357 ../xl/main.py:363
 msgid "DIRECTORY"
@@ -596,6 +596,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"Der mangler et GStreamer 1.x-udvidelsesmodul til %s. Når softwaren ikke er "
+"installeret, så kan Exaile ikke afspille den nuværende fil. Installer "
+"venligst det krævede software på din computer. Se %s for detaljer."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -868,7 +871,7 @@ msgstr "Gem fil"
 #: ../xlgui/cover.py:1025
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr "Omslagsindstillinger for %(artist)s - %(album)s"
+msgstr "Omslagstilvalg for %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1129
 msgid "No covers found."
@@ -879,6 +882,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Ingen af de aktiverede kilder har et omslag til sporet, prøv at aktivere "
+"flere kilder."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
@@ -2318,7 +2323,7 @@ msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
-"Advarsel: Indstillingen kan forsage grafikfejl, hvis den bruges i en "
+"Advarsel: Tilvalget kan forårsage grafikfejl, hvis den bruges i en "
 "vindueshåndtering, som ikke understøtter komposition."
 
 #: ../data/ui/preferences/appearance.ui:223
@@ -2368,6 +2373,8 @@ msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Hvis den er fravalgt, så vil det ikke angive en præference til GTK. Virker "
+"måske ikke på nogle platforme."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2394,8 +2401,8 @@ msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
-"Denne indstilling vil søge for billedfiler med omslag i \n"
-"samme mappe som musikfilen."
+"Tilvalget søger efter omslagsbilledfiler i \n"
+"den samme mappe som musikfilen."
 
 #: ../data/ui/preferences/cover.ui:30
 msgid "Preferred file names:"
@@ -2454,7 +2461,7 @@ msgstr "Genoptag afspilning i pausetilstand"
 
 #: ../data/ui/preferences/playback.ui:173
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Tilføjelse af et punkt til en tom kø starter afspilning"
 
 #: ../data/ui/preferences/playback.ui:188
 msgid "Remove track from queue upon playback"
@@ -2462,13 +2469,15 @@ msgstr "Fjern spor fra kø når det afspilles"
 
 #: ../data/ui/preferences/playback.ui:203
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Tillad ikke afspilning af nye spor når et andet spor afspilles"
 
 #: ../data/ui/preferences/playback.ui:207
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Hvis et spor afspilles, så tillad ikke start af nye spor, undtagen når der "
+"klikkes på afspilningsstyringer"
 
 #: ../data/ui/preferences/playback.ui:219
 msgid "Automatically advance to the next track"
@@ -2550,6 +2559,9 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Når et menupunkt bruges til at tilføje/erstatte spor på afspilningslisten, "
+"så starter afspilning hvis et spor afspilles. Tilvalget blev "
+"standardopførsel inden Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
@@ -3772,6 +3784,8 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
+"Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker "
+"såsom <b>$__length</b> skal foranstilles med to understregningstegn."
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
@@ -3989,6 +4003,8 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'gruppering' og 'kommentar' er nok de valg som er bedst understøttet. Andre "
+"valg virker måske kun med bestemte filformater. "
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4082,6 +4098,10 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Gå til <b><a href=\"http://www.last.fm/api/account\">din API-konto</a></b>-"
+"side for at hente en <b>API-nøgle</b> og <b>hemmelighed</b> og indtast dem "
+"her. Når du har indtastet dem, så <b>anmod om adgangstilladelse</b> og "
+"bekræft, for at fuldføre opsætningen."
 
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:15
@@ -4098,6 +4118,8 @@ msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
+"Rækkefølgen på styringer kan ændres ved at trække dem op eller ned (eller "
+"ved at trykke på Alt+op/ned)."
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
@@ -4216,6 +4238,10 @@ msgid ""
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
+"Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker, "
+"såssom <b>$__length</b> skal foranstilles med to understregningstegn.\n"
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
+"Pango Text Attribute Markup</a> understøttes."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4421,7 +4447,7 @@ msgstr "Notifikationer"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr "Angiver omslag og tilføjer nogle menuelementer til AWN for Exaile"
+msgstr "Indstiller omslaget og tilføjer nogle menupunkter til AWN for Exaile"
 
 #: ../plugins/awn/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
 #: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
@@ -4442,6 +4468,9 @@ msgid ""
 "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
 "and the bpmdetect plugin are installed"
 msgstr ""
+"Giver en manuel taktslag/min.-tæller og taktslag/min.-automatisk "
+"registrering når gst-plugins-bad og bpmdetect-udvidelsesmodulet er "
+"installeret"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4534,6 +4563,8 @@ msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Hjælper med at kategorisere din musik ved at håndtere grupperings-/"
+"kategoriseringsmærket i lydfiler"
 
 #: ../plugins/grouptagger/PLUGININFO:5 ../plugins/lastfmlove/PLUGININFO:5
 msgid "Tagging"
@@ -4622,6 +4653,13 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
+"Viser hvilke spor som har været loved og tillader loving af spor.\n"
+"\n"
+"Sørg for at indtaste en gyldig API-nøgle og hemmelighed i udvidelsesmodulets "
+"præferencer.\n"
+"\n"
+"Afhænger af \"AudioScrobbler\"-udvidelsesmodulet for brugernavn og "
+"adgangskode."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4693,6 +4731,10 @@ msgid ""
 "Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
 "decode files)"
 msgstr ""
+"Vis visuel præsentation af musiktidslinjen.\n"
+"\n"
+"Kræver: moodbar (som kræver gst-plugins-* fra GStreamer 0.10 til at afkode "
+"fier)"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
@@ -4842,6 +4884,10 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+"Tilføjer understøttelse af multimedietaster (findes på de fleste nye "
+"tastaturer) når Exaile køres i Microsoft Windows.\n"
+"\n"
+"Kræver: pyHook (%s) eller keyboard (%s)"
 
 #~ msgid "Installed Plugins"
 #~ msgstr "Installerede udvidelsesmoduler"

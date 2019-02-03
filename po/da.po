@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-24 15:07+1000\n"
-"PO-Revision-Date: 2019-02-03 01:01+0000\n"
+"PO-Revision-Date: 2019-02-03 02:08+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -667,7 +667,7 @@ msgstr "XSPF-afspilningsliste"
 
 #: ../xl/playlist.py:916
 msgid "Shuffle _Off"
-msgstr "_Ikke tilfældig"
+msgstr "Bland _fra"
 
 #: ../xl/playlist.py:917
 msgid "Shuffle _Tracks"
@@ -675,7 +675,7 @@ msgstr "Bland _spor"
 
 #: ../xl/playlist.py:918
 msgid "Shuffle _Albums"
-msgstr "Tilfældige _album"
+msgstr "Bland _album"
 
 #: ../xl/playlist.py:919
 msgid "_Random"
@@ -747,25 +747,24 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apples proprietære lydformat opnår en bedre lydkvalitet end MP3 ved lavere "
-"bitrater."
+"Apples proprietære tabsbehæftet lydformat opnår en bedre lydkvalitet end MP3 "
+"ved lavere bitrater."
 
 #: ../xl/transcoder.py:91
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"VBR er et ældre proprietært men populært lydformat, som giver bedre kvalitet "
-"end CBR, men som ikke er kompatibelt med visse afspillere."
+"Et proprietært og ældre, men også populært tabsbehæftet lydformat. VBR giver "
+"højere kvalitet end CBR, men er måske ikke kompatibel med visse afspillere."
 
 #: ../xl/transcoder.py:102
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"CBR er et ældre men også populært, proprietært lydformat. CBR giver "
-"dårligere kvalitet end VBR, men er til gengæld kompatibelt med alle "
-"afspillere."
+"Et proprietært og ældre, men også populært tabsbehæftet lydformat. CBR giver "
+"lavere kvalitet end VBR, men er kompatibel med alle afspillere."
 
 #: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
@@ -835,7 +834,7 @@ msgstr ""
 #: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "{outstanding}-omslag tilbage at hente"
+msgstr "{outstanding} omslag tilbage at hente"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
@@ -901,7 +900,7 @@ msgstr "Gem nuværende afspilningsliste under et tilpasset navn"
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Fokuser filter i nuværende fokuseret panel"
 
 #: ../xlgui/main.py:164
 msgid "Focus playlist search"
@@ -2249,7 +2248,7 @@ msgstr "_Tilføj station"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
-msgstr "Afspil i tilfældig rækkefølge"
+msgstr "Bland afspilningsrækkefølge"
 
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
@@ -2319,7 +2318,7 @@ msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
-"Advarsel: Denne indstilling kan forsage grafikfejl, hvis den bruges i en "
+"Advarsel: Indstillingen kan forsage grafikfejl, hvis den bruges i en "
 "vindueshåndtering, som ikke understøtter komposition."
 
 #: ../data/ui/preferences/appearance.ui:223
@@ -2350,6 +2349,10 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Bakkeikoner understøttes ikke på nogen platforme, mest nævneværdigt i "
+"Wayland. I GNOME Shell 3.26+ i Xorg, virker bakkeikoner kun hvis du har <a "
+"href=\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\""
+"-udvidelsen</a> installeret (eller en lignende)."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -2514,6 +2517,8 @@ msgstr "Aktivér gabsfri afspilning"
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"Gabsfri afspilning betyder afspilning af spor uden der indsættes stil mellem "
+"dem."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2537,7 +2542,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
-msgstr ""
+msgstr "Tilføjelse/erstatning via menupunkt udløser afspilning"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2555,6 +2560,8 @@ msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Hvis du dobbeltklikker eller trykker på enter for at afspille et spor i en "
+"afspilningsliste, så sæt sporet i kø i stedet for at afspille det"
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
@@ -2652,11 +2659,11 @@ msgstr "Pamfletside"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
-msgstr "Medie (f.eks. etiketside fra CD)"
+msgstr "Medie (f.eks. etiketside fra cd)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Frontfigur/frontoptræder/solist"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
@@ -2668,7 +2675,7 @@ msgstr "Band/orkestre"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Sangtekstforfatter/tekstskriver"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
@@ -2684,7 +2691,7 @@ msgstr "Under optrædning"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Film-/videoskærmoptagelse"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
@@ -2829,7 +2836,7 @@ msgstr "Importerer cd..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr "Fejl ved transkodning af filer fra CD."
+msgstr "Fejl ved transkodning af filer fra cd."
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
@@ -3001,6 +3008,8 @@ msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Du bør genskanne din samling inden masseomdøbning af mærker bruges, for at "
+"sikre at alle mærker er opdateret. Genskan nu?"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
@@ -3066,11 +3075,11 @@ msgstr "Gruppe"
 
 #: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Hent alle mærker fra samling"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Tilføj valgte til valg"
 
 #: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
@@ -3078,15 +3087,15 @@ msgstr "Vis spor med grupper"
 
 #: ../plugins/grouptagger/gt_widgets.py:808
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Skal have mærket [OG]"
 
 #: ../plugins/grouptagger/gt_widgets.py:809
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Må gerne have mærket [ELLER]"
 
 #: ../plugins/grouptagger/gt_widgets.py:810
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Må ikke have mærket [IKKE]"
 
 #: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Ignored"
@@ -3373,13 +3382,13 @@ msgstr "$title ($__length)"
 #: ../plugins/moodbar/__init__.py:102
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
-msgstr ""
+msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
 #: ../plugins/moodbar/__init__.py:179
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current}/{remaining}"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3657,7 +3666,7 @@ msgstr ""
 "besøge <a href=\"http://aws.amazon.com/\"> http://aws.amazon.com/</a>.\n"
 "\n"
 "Du skal muligvis også <a href=\"https://affiliate-program.amazon.com/gp/flex/"
-"advertising/api/sign-in.html\">aktivere produktets reklame-API'et</a></i>."
+"advertising/api/sign-in.html\">aktivere produktets reklame-API</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4446,9 +4455,9 @@ msgid ""
 "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
 "Requires cddb-py (%s) to look up tags."
 msgstr ""
-"Tilføjer understøttelse for afspilning af lyd-CD'er.\n"
+"Tilføjer understøttelse for afspilning af lyd-cd'er.\n"
 "\n"
-"Kræver HAL, UDisks eller UDisks2 for automatisk registrering af CD'er\n"
+"Kræver HAL, UDisks eller UDisks2 for automatisk registrering af cd'er\n"
 "Kræver cddb-py (%s) for at opslå mærker."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4576,6 +4585,9 @@ msgid ""
 "\n"
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
+"Tilføjer understøttelse af multimedietaster med libkeybinder3.\n"
+"\n"
+"Kræver: libkeybinder3 og dets typelib-fil"
 
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
@@ -4692,6 +4704,9 @@ msgid ""
 "2.2, allowing you to control Exaile from supporting clients, for example "
 "GNOME Shell"
 msgstr ""
+"Delvis understøttelse af MPRIS (Media Player Remote Interfacing "
+"Specification) 2.2, der giver dig mulighed for at styre Exaile fra "
+"understøttede klienter, f.eks. GNOME Shell"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4717,6 +4732,9 @@ msgid ""
 "\n"
 "Requires: musicbrainzngs"
 msgstr ""
+"Integrerer MusicBrainz til søgning efter omslag.\n"
+"\n"
+"Kræver: musicbrainzngs"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid ""
@@ -4731,6 +4749,8 @@ msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
+"Et pop op-vindue som viser information om det spor der afspilles.\n"
+"Udvidelsesmodulet er ikke tilgængeligt i Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4741,6 +4761,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Værktøj til at hjælpe med generering af HTML5-visualigeringer på din "
+"afspilningsliste med d3.js. Optimeret til Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -4755,6 +4777,8 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Tillader afspilning af lyd over en sekundær enhed (højreklik på "
+"afspilningslisten og 'forhåndsvis'). Nyttig til DJ's."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
@@ -4771,6 +4795,11 @@ msgid ""
 "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Pauser (og genoptager valgfrit) afspilning, baseret på pauseskærmens status."
+"\n"
+"\n"
+"Kræver: GNOME, MATE, Cinnamon eller KDE-pauseskærm (understøtter ikke "
+"XScreenSaver eller XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4791,13 +4820,15 @@ msgid ""
 "Depends: streamripper"
 msgstr ""
 "Tillader dig at optage streams med streamripper.\n"
-"Afhænger: streamripper"
+"Afhænger af: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
+"Giver Wikipedia-information om den nuværende kunstner.\n"
+"Kræver: webkit2gtk og dets typelib-fil"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"

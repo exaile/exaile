@@ -25,7 +25,12 @@ import os.path
 
 import xl.settings
 
-from _utils import Event, PluginInfo, get_database_path_from_beets_config, get_default_view_pattern
+from _utils import (
+    Event,
+    PluginInfo,
+    get_database_path_from_beets_config,
+    get_default_view_pattern,
+)
 
 #: str: Base dir to plugin
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -54,18 +59,19 @@ def create_event(name):
 
 
 def get_path(*paths):
-        """
+    """
             Get a path on plugin
             :param paths:
             :return: str (joining paths with base dir)
         """
-        return os.path.join(BASE_DIR, *paths)
+    return os.path.join(BASE_DIR, *paths)
 
 
 class Logger:
     """
         A wrapper to logging.Logger
     """
+
     def __init__(self, name):
         self.__logger = logging.getLogger(name)
 
@@ -95,28 +101,27 @@ class _Settings:
     """
         A wrapper to handle settings
     """
+
     #: Default values
     DEFAULTS = {
         'current_view_pattern': lambda: '',
         'database': get_database_path_from_beets_config,
-        'draw_separators':
-            lambda: xl.settings.get_option('gui/draw_separators', True),
+        'draw_separators': lambda: xl.settings.get_option('gui/draw_separators', True),
         'expand': lambda: 30,
         'font': lambda: 'Sans 12',
         'icon_size': lambda: 16,
-        'icons':
-            lambda: {
-                'album': 'image-x-generic',
-                'albumartist': 'artist',
-                'artist': 'artist',
-                'genre': 'genre',
-                'media': 'media-optical',
-                'original_year': 'office-calendar',
-                'title': 'audio-x-generic',
-                'year': 'office-calendar',
-            },
+        'icons': lambda: {
+            'album': 'image-x-generic',
+            'albumartist': 'artist',
+            'artist': 'artist',
+            'genre': 'genre',
+            'media': 'media-optical',
+            'original_year': 'office-calendar',
+            'title': 'audio-x-generic',
+            'year': 'office-calendar',
+        },
         'monitor': lambda: 30,
-        'patterns': get_default_view_pattern
+        'patterns': get_default_view_pattern,
     }
 
     #: Event: Setting changed event
@@ -138,8 +143,7 @@ class _Settings:
             :return: the value, the value from self.DEFAULTS or None
         """
         return xl.settings.get_option(
-            self.__get_full_name(item),
-            self.DEFAULTS.get(item, lambda: None)()
+            self.__get_full_name(item), self.DEFAULTS.get(item, lambda: None)()
         )
 
     def __setitem__(self, key, value):
@@ -152,10 +156,7 @@ class _Settings:
             :return: None
         """
         if self[key] != value:
-            xl.settings.set_option(
-                self.__get_full_name(key),
-                value
-            )
+            xl.settings.set_option(self.__get_full_name(key), value)
             self.EVENT.log(None, key)
 
 

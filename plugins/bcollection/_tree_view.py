@@ -49,6 +49,7 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
     """
         The tree view
     """
+
     #: Event: Event to request expansion
     EXPAND_ROW_EVENT = create_event('expand-row')
 
@@ -108,12 +109,8 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
             subgroup = view_pattern[depth]
             parent_values = _model.get_parent_values(model, it)
             select_params = (
-                subgroup.get_select_path(
-                    parent_values,
-                    additional_filter[0]
-                ),
-                (filter(lambda x: x is not None, parent_values) +
-                 additional_filter[1])
+                subgroup.get_select_path(parent_values, additional_filter[0]),
+                (filter(lambda x: x is not None, parent_values) + additional_filter[1]),
             )
             for row in execute_select(*select_params):
                 if xl.trax.is_valid_track(unicode(row[0])):
@@ -185,10 +182,8 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
         for path in paths:
             it = model.get_iter(path)
             icons.append(
-                view_pattern[
-                    model.iter_depth(it)
-                ].icons['tree_view']
-                    if _model.get_value_array(model, it)
+                view_pattern[model.iter_depth(it)].icons['tree_view']
+                if _model.get_value_array(model, it)
                 else get_error_icon(icon_size)
             )
 
@@ -196,9 +191,7 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
                 break
 
         Gtk.drag_set_icon_pixbuf(
-            context,
-            create_stacked_images_pixbuf(icons, icon_size, 0.25, 180),
-            0, 0
+            context, create_stacked_images_pixbuf(icons, icon_size, 0.25, 180), 0, 0
         )
 
     def on_expand_row(self, _evt_name, _tree, data):
@@ -215,8 +208,11 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
             model = row_ref.get_model()
             if model is self.model:
                 _loader.load(
-                    model, view_pattern, model.get_iter(row_ref.get_path()),
-                    end_notify, self.container.additional_filter
+                    model,
+                    view_pattern,
+                    model.get_iter(row_ref.get_path()),
+                    end_notify,
+                    self.container.additional_filter,
                 )
                 treated = True
 
@@ -286,18 +282,12 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
         text_cell = self.text_cell = Gtk.CellRendererText()
 
         if xl.settings.get_option('gui/ellipsize_text_in_panels', False):
-            text_cell.set_property(
-                'ellipsize-set', True
-            )
-            text_cell.set_property(
-                'ellipsize', Pango.EllipsizeMode.END
-            )
+            text_cell.set_property('ellipsize-set', True)
+            text_cell.set_property('ellipsize', Pango.EllipsizeMode.END)
 
         font = SETTINGS['font']
         if font:
-            text_cell.set_property(
-                'font-desc', Pango.FontDescription.from_string(font)
-            )
+            text_cell.set_property('font-desc', Pango.FontDescription.from_string(font))
 
         column.pack_start(text_cell, True)
         column.set_attributes(text_cell, markup=_model.index("Title"))
@@ -318,7 +308,7 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
         elif event.type == getattr(Gdk.EventType, '2BUTTON_PRESS'):
             self.container.append_items(
                 self.get_selected_tracks(),
-                replace=xl.settings.get_option('playlist/replace_content', False)
+                replace=xl.settings.get_option('playlist/replace_content', False),
             )
         elif event.button == Gdk.BUTTON_MIDDLE:
             target = self.get_target_for(event)
@@ -351,8 +341,7 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
             notify_end.clear()
 
             self.EXPAND_ROW_EVENT.log(
-                self,
-                (row_ref, self.container.current_view_pattern, notify_end)
+                self, (row_ref, self.container.current_view_pattern, notify_end)
             )
             # Wait it ends
             notify_end.wait()
@@ -407,6 +396,7 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
             :param notify_end:
             :return:
         """
+
         @xl.common.threaded
         def expand(model, notify_end):
             """
@@ -451,5 +441,10 @@ class CollectionTreeView(xlgui.widgets.common.DragTreeView):
 
                 expand(model, notify_end)
 
-        _loader.load(model, self.container.current_view_pattern, parent,
-                     notify_end, self.container.additional_filter)
+        _loader.load(
+            model,
+            self.container.current_view_pattern,
+            parent,
+            notify_end,
+            self.container.additional_filter,
+        )

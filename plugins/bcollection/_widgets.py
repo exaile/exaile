@@ -127,6 +127,7 @@ class Widgets:
     """
         Class helper to deal with Widgets
     """
+
     class Event:
         """
             Class to handle a event to widget (Gtk)
@@ -183,6 +184,7 @@ class Widgets:
         """
             Widget item
         """
+
         def __init__(self, name, parent, builder, model):
             """
                 Constructor
@@ -246,7 +248,10 @@ class Widgets:
             """
             if evt.keyval in (Gdk.KEY_Tab, Gdk.KEY_ISO_Left_Tab):
                 all_child = _all(self.parent.child)
-                index = (all_child.index(self) + (-1 if evt.state & Gdk.ModifierType.SHIFT_MASK else 1)) % len(all_child)
+                index = (
+                    all_child.index(self)
+                    + (-1 if evt.state & Gdk.ModifierType.SHIFT_MASK else 1)
+                ) % len(all_child)
                 return all_child[index].focus()
 
             return False

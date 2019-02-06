@@ -25,13 +25,13 @@ from gi.repository import Gtk
 
 #: dict: Fields to model
 _FIELDS = {
-    "Icon":         (0, GdkPixbuf.Pixbuf),
-    "Title":        (1, str),
-    "ValueArray":   (2, object),
-    "ValueDict":    (3, object),
-    "TooltipIcon":  (4, GdkPixbuf.Pixbuf),
-    "TooltipText":  (5, str),
-    "Id":           (6, int)
+    "Icon": (0, GdkPixbuf.Pixbuf),
+    "Title": (1, str),
+    "ValueArray": (2, object),
+    "ValueDict": (3, object),
+    "TooltipIcon": (4, GdkPixbuf.Pixbuf),
+    "TooltipText": (5, str),
+    "Id": (6, int),
 }
 
 
@@ -42,7 +42,7 @@ def indexed():
     """
     return sorted(
         _FIELDS.items(),
-        key=lambda x: x[1][0] if x[1][0] >= 0 else (len(_FIELDS) - 1) + (x[1][0] * -1)
+        key=lambda x: x[1][0] if x[1][0] >= 0 else (len(_FIELDS) - 1) + (x[1][0] * -1),
     )
 
 
@@ -89,6 +89,7 @@ def row(d):
         :param d: dict
         :return: list
     """
+
     def columns():
         """
             Based on index, yield columns
@@ -111,7 +112,7 @@ def row_separator_func(model, it, _d):
         :param _d: object or None
         :return: value array or None
     """
-    return (get_value_array(model, it) is None)
+    return get_value_array(model, it) is None
 
 
 def get_each_child(model, it):

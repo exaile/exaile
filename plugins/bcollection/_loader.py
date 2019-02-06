@@ -36,7 +36,12 @@ import _model
 from _base import SETTINGS, Logger, create_event
 from _database import CantSelectException, execute_select
 from _pattern import CONST_FIELDS
-from _utils import ADDITIONAL_FILTER_NONE_VALUE, get_error_icon, represent_length_as_str, represent_timestamp_as_str
+from _utils import (
+    ADDITIONAL_FILTER_NONE_VALUE,
+    get_error_icon,
+    represent_length_as_str,
+    represent_timestamp_as_str,
+)
 
 # Logger
 _LOGGER = Logger(__name__)
@@ -53,8 +58,7 @@ _loading_ids_lock = threading.Lock()
 
 
 @xl.common.threaded
-def _process_select(loading_id, model, parent, place_holder,
-                    select_params, subgroup):
+def _process_select(loading_id, model, parent, place_holder, select_params, subgroup):
     """
         Process a selection (tree view item load)
         :param loading_id: the id to load
@@ -69,9 +73,7 @@ def _process_select(loading_id, model, parent, place_holder,
     initial_timer = timeit.default_timer()
     info_msg = '%sed loading (%d)'
     last_group = ''
-    separator_index = (1 if subgroup.is_root and
-                            SETTINGS['draw_separators']
-                       else 0)
+    separator_index = 1 if subgroup.is_root and SETTINGS['draw_separators'] else 0
     items_count = 0
     _LOGGER.debug(info_msg, 'start', loading_id)
     ex = None
@@ -82,39 +84,51 @@ def _process_select(loading_id, model, parent, place_holder,
     except CantSelectException as e:
         ex = e
     else:
-        item_format = dict(length=represent_length_as_str,
-                           added=represent_timestamp_as_str,
-                           mtime=represent_timestamp_as_str)
+        item_format = dict(
+            length=represent_length_as_str,
+            added=represent_timestamp_as_str,
+            mtime=represent_timestamp_as_str,
+        )
         for row in rows:
             items_count += 1
             if separator_index and row[0] != last_group:
                 last_group = row[0]
                 append_row_event.log(None, (model, parent, {}, True))
 
-            field_values = row[separator_index:-len(CONST_FIELDS)]
+            field_values = row[separator_index : -len(CONST_FIELDS)]
             item_data = {
                 field: (
                     GLib.markup_escape_text(value).decode(encoding='utf-8')
-                        if isinstance(value, basestring) else
-                    (item_format.get(field, lambda x: x)(value))
-                ) for field, value in zip(subgroup.fields, field_values)
+                    if isinstance(value, basestring)
+                    else (item_format.get(field, lambda x: x)(value))
+                )
+                for field, value in zip(subgroup.fields, field_values)
             }
 
-            item_data.update({
-                val: item_format.get(val, lambda x: x)(row[-len(CONST_FIELDS) + idx])
+            item_data.update(
+                {
+                    val: item_format.get(val, lambda x: x)(
+                        row[-len(CONST_FIELDS) + idx]
+                    )
                     for idx, val in enumerate(CONST_FIELDS)
-            })
+                }
+            )
 
             append_row_event.log(
                 None,
-                (model, parent,
-                 {"Icon": icons['tree_view'],
-                  "Title": outputs['tree_view'].format(item_data),
-                  "ValueArray": field_values,
-                  "ValueDict": item_data,
-                  "TooltipIcon": icons['tooltip'],
-                  "TooltipText": outputs['tooltip'].format(item_data)},
-                 subgroup.is_bottom)
+                (
+                    model,
+                    parent,
+                    {
+                        "Icon": icons['tree_view'],
+                        "Title": outputs['tree_view'].format(item_data),
+                        "ValueArray": field_values,
+                        "ValueDict": item_data,
+                        "TooltipIcon": icons['tooltip'],
+                        "TooltipText": outputs['tooltip'].format(item_data),
+                    },
+                    subgroup.is_bottom,
+                ),
             )
 
     def post_remove():
@@ -128,13 +142,14 @@ def _process_select(loading_id, model, parent, place_holder,
                 if notify_end:
                     notify_end.set()
 
-    _LOAD_END_EVENT.log(
-        None, (model, place_holder, post_remove, ex)
-    )
+    _LOAD_END_EVENT.log(None, (model, place_holder, post_remove, ex))
 
     _LOGGER.debug(
-        info_msg + ': %.3f secs, %d items', 'end', loading_id,
-        timeit.default_timer() - initial_timer, items_count
+        info_msg + ': %.3f secs, %d items',
+        'end',
+        loading_id,
+        timeit.default_timer() - initial_timer,
+        items_count,
     )
 
 
@@ -147,12 +162,14 @@ def _add_place_holder(model, parent):
     """
     return model.append(
         parent,
-        _model.row({
-            'Title': _LOADING_MSG,
-            'TooltipText': _LOADING_MSG,
-            'ValueArray': '',
-            'Id': -1
-        })
+        _model.row(
+            {
+                'Title': _LOADING_MSG,
+                'TooltipText': _LOADING_MSG,
+                'ValueArray': '',
+                'Id': -1,
+            }
+        ),
     )
 
 
@@ -162,6 +179,7 @@ def _get_id():
         :return: int
     """
     return _id_count.next()
+
 
 def _on_append_row(_evt_name, _obj, data):
     """
@@ -195,7 +213,9 @@ def _on_load_end(_evt_name, _obj, data):
 
     if error_msg:
         for i in ["Icon", "TooltipIcon"]:
-            model.set_value(it, _model.index(i), get_error_icon(Gtk.IconSize.SMALL_TOOLBAR))
+            model.set_value(
+                it, _model.index(i), get_error_icon(Gtk.IconSize.SMALL_TOOLBAR)
+            )
 
         for i in ["Title", "TooltipText"]:
             model.set_value(it, _model.index(i), '<b>' + error_msg + '</b>')
@@ -205,8 +225,13 @@ def _on_load_end(_evt_name, _obj, data):
     post_action()
 
 
-def load(model, view_pattern, parent, notify_end=None,
-         additional_filter=ADDITIONAL_FILTER_NONE_VALUE):
+def load(
+    model,
+    view_pattern,
+    parent,
+    notify_end=None,
+    additional_filter=ADDITIONAL_FILTER_NONE_VALUE,
+):
     """
         Loads an item
         :param model: Gtk.ListStore
@@ -223,8 +248,7 @@ def load(model, view_pattern, parent, notify_end=None,
     else:
         depth = model.iter_depth(parent) + 1
         place_holder = model.iter_children(parent)
-        if place_holder is None or \
-                _model.get_value_array(model, place_holder) != '':
+        if place_holder is None or _model.get_value_array(model, place_holder) != '':
             if notify_end:
                 notify_end.set()
             return  # already loaded or bottom
@@ -243,13 +267,10 @@ def load(model, view_pattern, parent, notify_end=None,
     parent_values = _model.get_parent_values(model, parent)
     select_params = (
         subgroup.get_select(parent_values, additional_filter[0]),
-        filter(lambda x: x is not None, parent_values + additional_filter[1])
+        filter(lambda x: x is not None, parent_values + additional_filter[1]),
     )
 
-    _process_select(
-        loading_id, model, parent,
-        place_holder, select_params, subgroup
-    )
+    _process_select(loading_id, model, parent, place_holder, select_params, subgroup)
 
 
 _APPEND_ROW_EVENT.connect(_on_append_row)

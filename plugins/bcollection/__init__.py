@@ -26,10 +26,12 @@ import _monitor
 import _panel
 import _preferences
 
+
 class PluginClass(object):
     """
         Plugin Class
     """
+
     def enable(self, exaile):
         self.__exaile = exaile
 

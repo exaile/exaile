@@ -76,8 +76,11 @@ def append_to_playlist(tracks, replace=False):
 
     pl.extend(tracks)
 
-    if (xl.settings.get_option('playlist/append_menu_starts_playback', False) and
-        not xl.player.PLAYER.current): page.view.play_track_at(offset, tracks[0]);
+    if (
+        xl.settings.get_option('playlist/append_menu_starts_playback', False)
+        and not xl.player.PLAYER.current
+    ):
+        page.view.play_track_at(offset, tracks[0])
 
     read_tags(tracks)
 
@@ -158,7 +161,7 @@ def trash_tracks(_widget, parent):
                 parent=parent.tree_box,
                 type=message_type,
                 buttons=Gtk.ButtonsType.YES_NO,
-                text=text % len(tracks_path)
+                text=text % len(tracks_path),
             )
 
             if secondary_text:
@@ -219,7 +222,7 @@ def trash_tracks(_widget, parent):
                 parent=parent.tree_box,
                 type=Gtk.MessageType.ERROR,
                 buttons=Gtk.ButtonsType.CLOSE,
-                text=_('%d tracks cannot be removed.') % len(tracks_path)
+                text=_('%d tracks cannot be removed.') % len(tracks_path),
             )
 
             message.connect('response', lambda widget, _response: widget.destroy())
@@ -230,14 +233,13 @@ def trash_tracks(_widget, parent):
         _("Deleting %d tracks from library."),
         _('Proceed?'),
         lambda gio_file: gio_file.trash(),
-        lambda:
-            delete_tracks_msg(
-                Gtk.MessageType.WARNING,
-                _('%d tracks cannot be moved to Trash.'),
-                _('Delete permanently from disk?'),
-                lambda gio_file: gio_file.delete(),
-                error_msg
-            )
+        lambda: delete_tracks_msg(
+            Gtk.MessageType.WARNING,
+            _('%d tracks cannot be moved to Trash.'),
+            _('Delete permanently from disk?'),
+            lambda gio_file: gio_file.delete(),
+            error_msg,
+        ),
     )
 
 
@@ -245,6 +247,7 @@ class Menu(menu.Menu):
     """
         Context menu to tree view
     """
+
     def __init__(self, container):
         """
             Constructor
@@ -275,9 +278,7 @@ class Menu(menu.Menu):
                 if icon:
                     menu_item = Gtk.ImageMenuItem.new_with_mnemonic(text)
                     menu_item.set_image(
-                        Gtk.Image.new_from_pixbuf(
-                            get_icon(icon, Gtk.IconSize.MENU)
-                        )
+                        Gtk.Image.new_from_pixbuf(get_icon(icon, Gtk.IconSize.MENU))
                     )
                     menu_item.props.always_show_image = True
                 else:

@@ -28,6 +28,7 @@ class _DataHandler:
         Store and parse data grouping it
         :see: _parse
     """
+
     def __init__(self, data, tokenized_list_it):
         """
             Constructor
@@ -198,6 +199,4 @@ def mount_where_sql(text, search_fields):
         elif i == '|':
             use_or_as_join()
 
-    return (
-        ' '.join(result), values
-    )
+    return (' '.join(result), values)

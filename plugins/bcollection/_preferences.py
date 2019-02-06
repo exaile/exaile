@@ -60,7 +60,9 @@ def _get_icon_size():
         Gets icon size
         :return: int
     """
-    return _icon_size_preference.value if _icon_size_preference else SETTINGS['icon_size']
+    return (
+        _icon_size_preference.value if _icon_size_preference else SETTINGS['icon_size']
+    )
 
 
 def _link_icons_widgets():
@@ -69,7 +71,9 @@ def _link_icons_widgets():
         :return: None
     """
     if _icon_size_preference and _icon_preference:
-        _icon_size_preference.widget.connect('value-changed', _icon_preference.on_icon_size_changed)
+        _icon_size_preference.widget.connect(
+            'value-changed', _icon_preference.on_icon_size_changed
+        )
 
 
 def _create_base_class(s_name, base_class=widgets.Preference):
@@ -79,6 +83,7 @@ def _create_base_class(s_name, base_class=widgets.Preference):
         :param base_class: widgets.Preference
         :return: type
     """
+
     def apply(self):
         """
             Applies change
@@ -94,9 +99,7 @@ def _create_base_class(s_name, base_class=widgets.Preference):
             :param self: widgets.Preference
             :return: Gtk.Builder
         """
-        return self.preferences.builders[
-                sys.modules[__name__]
-            ]
+        return self.preferences.builders[sys.modules[__name__]]
 
     obj = {
         'S_NAME': s_name,
@@ -104,7 +107,7 @@ def _create_base_class(s_name, base_class=widgets.Preference):
         'builder': builder,
         'default': SETTINGS.DEFAULTS.get(s_name, lambda: '')(),
         'name': '/'.join(['plugin', PLUGIN_INFO.id, s_name]),
-        'value': property(lambda self: self._get_value())
+        'value': property(lambda self: self._get_value()),
     }
 
     return type('_%sPreferenceBase' % s_name.capitalize(), (base_class,), obj)
@@ -128,9 +131,8 @@ def _create_on_off_value_preference(s_name):
         widgets = getattr(self, 'widgets', None)
         if widgets is None:
             widgets = self.widgets = _widgets.Widgets(
-            self.builder, SWITCH_NAME,
-            **{SWITCH_NAME: self.on_state_set}
-        )
+                self.builder, SWITCH_NAME, **{SWITCH_NAME: self.on_state_set}
+            )
 
         return widgets[SWITCH_NAME]
 
@@ -154,7 +156,7 @@ def _create_on_off_value_preference(s_name):
             :return: None
         """
         value = SETTINGS[self.S_NAME]
-        active = (value > 0)
+        active = value > 0
         if not active:
             value = SETTINGS.DEFAULTS[self.S_NAME]()
 
@@ -186,7 +188,7 @@ def _create_on_off_value_preference(s_name):
         '_get_value': _get_value,
         '_set_value': _set_value,
         '_setup_change': _setup_change,
-        'on_state_set': on_state_set
+        'on_state_set': on_state_set,
     }
 
     return type('%sPreference' % s_name.capitalize(), (base_class,), obj)
@@ -203,6 +205,7 @@ class DatabasePreference(_create_base_class('database')):
     """
         Class that handles 'database' preference
     """
+
     def __init__(self, preferences, widget):
         """
             Constructor
@@ -210,18 +213,15 @@ class DatabasePreference(_create_base_class('database')):
             :param preferences: xlgui.preferences.PreferencesDialog
             :param widget: Gtk.Widget
         """
-        super(DatabasePreference, self).__init__(
-            preferences, widget
-        )
+        super(DatabasePreference, self).__init__(preferences, widget)
 
         self.widgets = _widgets.Widgets(
             self.builder,
             ['file_button'],
             file_button=FileChooserDialog(
-                preferences.window,
-                self.__on_database_config_change)
+                preferences.window, self.__on_database_config_change
+            ),
         )
-
 
     # Called by super
     def _get_value(self):
@@ -256,9 +256,7 @@ class DrawSeparatorsPreference(
     """
 
 
-class FontPreference(
-    _create_base_class('font', widgets.FontButtonPreference)
-):
+class FontPreference(_create_base_class('font', widgets.FontButtonPreference)):
     """
         Class that handles 'font' preference
     """
@@ -268,6 +266,7 @@ class IconsPreference(_create_base_class('icons')):
     """
         Class that handles 'icons' preference
     """
+
     def __init__(self, preferences, widget):
         """
             Constructor
@@ -294,7 +293,7 @@ class IconsPreference(_create_base_class('icons')):
 
         self.widget.append_column(col)
 
-        #self.icons_model = self.widgets['icons_model']
+        # self.icons_model = self.widgets['icons_model']
 
         global _icon_preference
         _icon_preference = self
@@ -350,9 +349,7 @@ class IconsPreference(_create_base_class('icons')):
         icons_model.clear()
         icons_settings = SETTINGS[self.S_NAME]
         for key, value in sorted(icons_settings.items()):
-            icons_model.append([
-                get_icon(value, _get_icon_size()), key, value
-            ])
+            icons_model.append([get_icon(value, _get_icon_size()), key, value])
 
         icons_model.append([None, '', ''])
 
@@ -375,21 +372,18 @@ class IconsPreference(_create_base_class('icons')):
         return result if result else self.default
 
 
-class IconSizePreference(
-    _create_base_class('icon_size', widgets.ScalePreference)
-):
+class IconSizePreference(_create_base_class('icon_size', widgets.ScalePreference)):
     """
         Class that handles 'icon_size' preference
     """
+
     def __init__(self, preferences, widget):
         """
             Constructor
             :param preferences: xlgui.preferences.PreferencesDialog
             :param widget: Gtk.Widget
         """
-        super(IconSizePreference, self).__init__(
-            preferences, widget
-        )
+        super(IconSizePreference, self).__init__(preferences, widget)
 
         for val in [16, 24, 32, 48]:
             widget.add_mark(val, Gtk.PositionType.BOTTOM, str(val))
@@ -405,15 +399,12 @@ class IconSizePreference(
             :return: None
         """
         widget = self.widget
+        _widgets.connect(widget, ['focus-out-event'], self.change)
+        _widgets.connect(widget, ['change-value'], lambda *_: widget.grab_focus())
         _widgets.connect(
-            widget, ['focus-out-event'], self.change
-        )
-        _widgets.connect(
-            widget, ['change-value'], lambda *_: widget.grab_focus()
-        )
-        _widgets.connect(
-            widget, ['format-value'],
-            lambda _gtk_scale, value: str(int(value)) + ' ' + _('px')
+            widget,
+            ['format-value'],
+            lambda _gtk_scale, value: str(int(value)) + ' ' + _('px'),
         )
 
     # Called by super
@@ -425,15 +416,12 @@ class IconSizePreference(
         return int(super(IconSizePreference, self)._get_value())
 
 
-class PatternsPreference(
-    _create_base_class(
-        'patterns', widgets.TextViewPreference
-    )
-):
+class PatternsPreference(_create_base_class('patterns', widgets.TextViewPreference)):
     """
         Class that handles 'patterns' preference
         This is handled as a list of strings
     """
+
     TagClasses = enum(General=0, Name=1, Operator=2, Escape=3)
 
     def __init__(self, preferences, widget):
@@ -448,24 +436,20 @@ class PatternsPreference(
         # Define tag classes
         tag_classes = self.TagClasses
         self._TAGS = {
-            tag_classes.General:
-                text_buffer.create_tag(None, foreground="Black"),
-            tag_classes.Name:
-                text_buffer.create_tag(None, foreground="Green"),
-            tag_classes.Operator:
-                text_buffer.create_tag(None, foreground="Red"),
-            tag_classes.Escape:
-                text_buffer.create_tag(None, foreground="Black",
-                                       weight=Pango.Weight.BOLD)
+            tag_classes.General: text_buffer.create_tag(None, foreground="Black"),
+            tag_classes.Name: text_buffer.create_tag(None, foreground="Green"),
+            tag_classes.Operator: text_buffer.create_tag(None, foreground="Red"),
+            tag_classes.Escape: text_buffer.create_tag(
+                None, foreground="Black", weight=Pango.Weight.BOLD
+            ),
         }
 
         # super.__init__
-        super(PatternsPreference, self).__init__(
-            preferences, widget
-        )
+        super(PatternsPreference, self).__init__(preferences, widget)
 
-        self.widgets = _widgets.Widgets(self.builder, ['help_button'],
-                                        help_button=self.__on_clicked)
+        self.widgets = _widgets.Widgets(
+            self.builder, ['help_button'], help_button=self.__on_clicked
+        )
 
         # Connect signals
         text_buffer.connect('changed', self.__on_pattern_textbuffer_changed)
@@ -544,10 +528,7 @@ class PatternsPreference(
             :return: [str] - list of strings
         """
         value = self.get_all_text()
-        return (
-            SETTINGS.DEFAULTS[self.S_NAME]() if value == ''
-            else value.split('\n')
-        )
+        return SETTINGS.DEFAULTS[self.S_NAME]() if value == '' else value.split('\n')
 
     # Called by super
     def _set_value(self):

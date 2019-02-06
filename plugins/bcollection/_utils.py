@@ -80,27 +80,35 @@ def create_stacked_images_pixbuf(images, cover_width, offset_factor, overall_alp
     # Sizes
     cover_side = cover_width
     cover_portion = int(cover_side * offset_factor)
-    covers_square_side = (cover_side + cover_portion * (len(images) - 1))
+    covers_square_side = cover_side + cover_portion * (len(images) - 1)
     border = 4
     total_width = total_height = covers_square_side + (2 * border)
 
     # The result pixbuf
-    result_pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True, 8,
-                                         total_width, total_height)
+    result_pixbuf = GdkPixbuf.Pixbuf.new(
+        GdkPixbuf.Colorspace.RGB, True, 8, total_width, total_height
+    )
     result_pixbuf.fill(0x00000000)  # Fill with transparent background
 
     covers_area = result_pixbuf.new_subpixbuf(
-        src_x=border, src_y=border,
-        width=covers_square_side,
-        height=covers_square_side
+        src_x=border, src_y=border, width=covers_square_side, height=covers_square_side
     )
 
     # Write covers
     for i, pixbuf in enumerate(images):
         dest = cover_portion * i  # Put in a diagonal
         pixbuf.composite(
-            covers_area, 0, 0, covers_square_side, covers_square_side,
-            dest, dest, 1, 1, GdkPixbuf.InterpType.HYPER, overall_alpha
+            covers_area,
+            0,
+            0,
+            covers_square_side,
+            covers_square_side,
+            dest,
+            dest,
+            1,
+            1,
+            GdkPixbuf.InterpType.HYPER,
+            overall_alpha,
         )
 
     return result_pixbuf
@@ -170,7 +178,12 @@ def get_default_view_pattern():
         ('acoustid_fingerprint', _('AcoustID Fingerprint')),
         ('acoustid_id', _('AcoustID')),
         ('added', _('Added')),
-        ('album', _('Album'), '[album](?albumdisambig: <i>\\([albumdisambig]\\)</i>)', untitled_album),
+        (
+            'album',
+            _('Album'),
+            '[album](?albumdisambig: <i>\\([albumdisambig]\\)</i>)',
+            untitled_album,
+        ),
         ('album_id', _('Album Id')),
         ('albumartist', _('Album Artist'), '', untitled_artist),
         ('albumartist_credit', _('Album Artist Credit')),
@@ -210,8 +223,11 @@ def get_default_view_pattern():
         ('mb_releasegroupid', _('MusicBrainz Release Group Id'), '', unknown_text),
         ('media', _('Media')),
         ('mtime', _('Modification')),
-        ('original_year', _('Original Release Date'),
-         '[original_year:04d](?original_month:-[original_month:02d](?original_day:-[original_day:02d]))'),
+        (
+            'original_year',
+            _('Original Release Date'),
+            '[original_year:04d](?original_month:-[original_month:02d](?original_day:-[original_day:02d]))',
+        ),
         ('path', _('Path')),
         ('samplerate', _('Sampling Rate'), '[samplerate:,] Hz'),
         ('script', _('Script')),
@@ -227,19 +243,61 @@ def get_default_view_pattern():
 
     tooltips = {
         'album': (
-            'album', 'disctotal', 'tracktotal', 'albumartist_credit', 'br', 'original_year',
-            'year', 'albumtype', 'albumstatus', 'script', 'language', 'label', 'catalognum',
-            'country', 'media', 'br', 'grouping', 'comp', 'asin'
+            'album',
+            'disctotal',
+            'tracktotal',
+            'albumartist_credit',
+            'br',
+            'original_year',
+            'year',
+            'albumtype',
+            'albumstatus',
+            'script',
+            'language',
+            'label',
+            'catalognum',
+            'country',
+            'media',
+            'br',
+            'grouping',
+            'comp',
+            'asin',
         ),
         'albumartist': ('albumartist', 'br', 'albums', 'tracks'),
         'genre': ('genre', 'br', 'albumartists', 'albums', 'tracks'),
         'original_year': ('original_year', 'br', 'albumartists', 'albums', 'tracks'),
         'title': (
-            'title', 'track', 'br', 'album', 'disc', 'disctitle', 'br', 'artist_credit', 'composer',
-            'lyricist', 'arranger', 'length', 'bitrate', 'samplerate', 'channels', 'format', 'bitdepth',
-            'encoder', 'br', 'bpm', 'acoustid_id', 'acoustid_fingerprint', 'initial_key', 'genre',
-            'lyrics', 'comments', 'br', 'added', 'mtime', 'path'
-        )
+            'title',
+            'track',
+            'br',
+            'album',
+            'disc',
+            'disctitle',
+            'br',
+            'artist_credit',
+            'composer',
+            'lyricist',
+            'arranger',
+            'length',
+            'bitrate',
+            'samplerate',
+            'channels',
+            'format',
+            'bitdepth',
+            'encoder',
+            'br',
+            'bpm',
+            'acoustid_id',
+            'acoustid_fingerprint',
+            'initial_key',
+            'genre',
+            'lyrics',
+            'comments',
+            'br',
+            'added',
+            'mtime',
+            'path',
+        ),
     }
 
     tags_for_path = {i[0]: format_data(i, False) for i in tags_list}
@@ -268,6 +326,7 @@ def get_default_view_pattern():
             :param args: *args
             :return: list
         """
+
         def get_():
             """
                 Helper to yield items
@@ -285,21 +344,56 @@ def get_default_view_pattern():
     date = [labels['date'], '[original_year:04d]']
     return list_(
         # Artist
-        get('albumartist', True), group_mark, get('album'), group_mark, get('title'), end_pattern,
+        get('albumartist', True),
+        group_mark,
+        get('album'),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Album
-        get('album', True), group_mark, get('title'), end_pattern,
+        get('album', True),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Genre - Artist
-        get('genre', True), group_mark, get('albumartist', True), group_mark, get('title'), end_pattern,
+        get('genre', True),
+        group_mark,
+        get('albumartist', True),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Genre - Album
-        get('genre', True), group_mark, get('album', True), group_mark, get('title'), end_pattern,
+        get('genre', True),
+        group_mark,
+        get('album', True),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Date - Artist
-        date, group_mark, get('albumartist', True), group_mark, get('album'), group_mark,
-        get('title'), end_pattern,
+        date,
+        group_mark,
+        get('albumartist', True),
+        group_mark,
+        get('album'),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Date - Album
-        date, group_mark, get('album', True), group_mark, get('title'), end_pattern,
+        date,
+        group_mark,
+        get('album', True),
+        group_mark,
+        get('title'),
+        end_pattern,
         # Artist - (Date - Album)
-        get('albumartist', True), group_mark, date, [' - '], get('album', True), group_mark,
-        get('title'), end_pattern,
+        get('albumartist', True),
+        group_mark,
+        date,
+        [' - '],
+        get('album', True),
+        group_mark,
+        get('title'),
+        end_pattern,
     )
 
 
@@ -310,7 +404,9 @@ def get_database_path_from_beets_config():
     """
     exp = re.compile(r'^library: *(.+) *$')
     try:
-        with open(os.path.join(os.path.expanduser("~"), '.config/beets/config.yaml')) as f:
+        with open(
+            os.path.join(os.path.expanduser("~"), '.config/beets/config.yaml')
+        ) as f:
             for line in f:
                 match_object = exp.match(line)
                 if match_object:
@@ -386,6 +482,7 @@ class Event:
     """
         Represents an event (see `xl.event`) as a Class
     """
+
     class _InternalClass:
         pass
 
@@ -427,6 +524,7 @@ class FileFilter(Gtk.FileFilter):
     """
         A wrapper to Gtk.FileFilter
     """
+
     def __init__(self, name, patterns):
         """
             Constructor
@@ -440,42 +538,37 @@ class FileFilter(Gtk.FileFilter):
 
 
 class PluginInfo:
-        """
+    """
             A class to handle PLUGININFO files as dict
         """
-        def __init__(self, base_dir):
-            """
+
+    def __init__(self, base_dir):
+        """
                 Constructor
                 :param base_dir: str - the plugins base dir
             """
-            self.id = os.path.basename(base_dir)
-            self.__dict_file = dict_file = {}
-            with open(
-                os.path.join(base_dir, 'PLUGININFO')
-            ) as f:
-                for line in f:
-                    try:
-                        key, val = line.split("=", 1)
-                        # restricted eval - no bult-in funcs.
-                        # marginally more secure.
-                        dict_file[key] = eval(
-                            val,
-                            {'__builtins__': None, '_': _},
-                            {}
-                        )
-                    except ValueError:
-                        pass  # this happens on blank lines
+        self.id = os.path.basename(base_dir)
+        self.__dict_file = dict_file = {}
+        with open(os.path.join(base_dir, 'PLUGININFO')) as f:
+            for line in f:
+                try:
+                    key, val = line.split("=", 1)
+                    # restricted eval - no bult-in funcs.
+                    # marginally more secure.
+                    dict_file[key] = eval(val, {'__builtins__': None, '_': _}, {})
+                except ValueError:
+                    pass  # this happens on blank lines
 
-        @property
-        def name(self):
-            """
+    @property
+    def name(self):
+        """
                 Accessor to 'Name' property
                 :return: str
             """
-            return self['Name']
+        return self['Name']
 
-        def __getitem__(self, item):
-            """
+    def __getitem__(self, item):
+        """
                 Gets info of PLUGININFO file
 
                 Usage:
@@ -485,13 +578,14 @@ class PluginInfo:
                 :param item: str
                 :return: as defined on PLUGININFO file (str, list...)
             """
-            return self.__dict_file[item]
+        return self.__dict_file[item]
 
 
 class SQLStatements:
     """
         Helper to build sql statements
     """
+
     def __init__(self, statement='', *args):
         """
             Constructor
@@ -525,6 +619,7 @@ class WithClass:
         Generic enter/exit class
         :see: https://docs.python.org/2.5/whatsnew/pep-343.html
     """
+
     def __init__(self, fnc_enter, fnc_exit):
         """
             Constructor

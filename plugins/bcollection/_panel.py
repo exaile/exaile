@@ -49,6 +49,7 @@ class MainPanel(xlgui.panel.Panel):
     """
         Main panel
     """
+
     def __init__(self, exaile):
         """
             Constructor
@@ -63,18 +64,34 @@ class MainPanel(xlgui.panel.Panel):
         self.word = ''
         self.last_keyboard_event = None
 
-        self.__setup_widgets([
-            {'panel_stack':
-                (
-                    {'msg_box': (
-                        {'info_stack': ('initial_box', {'error_box': 'path_label'})},
-                        'open_database_button'
-                    ), },
-                    {'collection_box': ['combo_box', 'refresh_button', 'search_entry', 'tree']}
-                )
-            },
-            'combo_box_model'
-        ])
+        self.__setup_widgets(
+            [
+                {
+                    'panel_stack': (
+                        {
+                            'msg_box': (
+                                {
+                                    'info_stack': (
+                                        'initial_box',
+                                        {'error_box': 'path_label'},
+                                    )
+                                },
+                                'open_database_button',
+                            )
+                        },
+                        {
+                            'collection_box': [
+                                'combo_box',
+                                'refresh_button',
+                                'search_entry',
+                                'tree',
+                            ]
+                        },
+                    )
+                },
+                'combo_box_model',
+            ]
+        )
 
         SETTINGS.EVENT.connect(self.on_setting_changed)
         self.__check_connection_status()
@@ -114,12 +131,12 @@ class MainPanel(xlgui.panel.Panel):
         """
         widgets = self.widgets
         connection_status = get_connection_status()
-        is_error = (connection_status == ConnectionStatus.Error)
+        is_error = connection_status == ConnectionStatus.Error
         widgets["error_box" if is_error else "initial_box"].visible()
         if is_error:
             widgets["path_label"].set_text(SETTINGS["database"])
 
-        is_fine = (connection_status == ConnectionStatus.Fine)
+        is_fine = connection_status == ConnectionStatus.Fine
         widgets["collection_box" if is_fine else "msg_box"].visible()
 
         return is_fine
@@ -146,7 +163,8 @@ class MainPanel(xlgui.panel.Panel):
         """
         self.tree = CollectionTreeView(self)
         self.widgets = Widgets(
-            self.builder, ws,
+            self.builder,
+            ws,
             combo_box=self.on_pattern_combo_box_changed,
             open_database_button=lambda *_: FileChooserDialog(self.parent).run(),
             refresh_button=self.on_refresh_button_activate,
@@ -173,9 +191,7 @@ class MainPanel(xlgui.panel.Panel):
             Called when a drag source wants data for this drag operation
         """
         selection.set_uris(
-            xl.trax.util.get_uris_from_tracks(
-                treeview.get_selected_tracks()
-            )
+            xl.trax.util.get_uris_from_tracks(treeview.get_selected_tracks())
         )
 
     def on_search_entry_activate(self, entry):
@@ -185,9 +201,11 @@ class MainPanel(xlgui.panel.Panel):
             :return: None
         """
         value = entry.get_text()
-        self.additional_filter = mount_where_sql(
-            value, self.current_view_pattern.all_fields
-        ) if value else ADDITIONAL_FILTER_NONE_VALUE
+        self.additional_filter = (
+            mount_where_sql(value, self.current_view_pattern.all_fields)
+            if value
+            else ADDITIONAL_FILTER_NONE_VALUE
+        )
 
         self.tree.load()
 
@@ -259,7 +277,7 @@ class MainPanel(xlgui.panel.Panel):
         elif key == 'font':
             font = SETTINGS['font']
             if font:
-                self.tree.text_cell.set_property('font-desc',
-                                            Pango.FontDescription.from_string(font))
+                self.tree.text_cell.set_property(
+                    'font-desc', Pango.FontDescription.from_string(font)
+                )
                 self.tree.columns_autosize()
-

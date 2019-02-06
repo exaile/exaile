@@ -29,21 +29,18 @@ from _utils import SQLStatements, get_icon
 
 
 #: list: Constant fields
-CONST_FIELDS = ['count',
-                'albums',
-                'albumartists',
-                'tracks',
-                'length',
-                'bpm']
+CONST_FIELDS = ['count', 'albums', 'albumartists', 'tracks', 'length', 'bpm']
 
 #: str: Const fields select
 _CONST_SELECT_FIELDS_SQL = ', '.join(
-    ['count(*)',
-     'count(distinct albumartist||album)',
-     'count(distinct albumartist)',
-     'count(distinct path)',
-     'sum(length)',
-     'avg(bpm)']
+    [
+        'count(*)',
+        'count(distinct albumartist||album)',
+        'count(distinct albumartist)',
+        'count(distinct path)',
+        'sum(length)',
+        'avg(bpm)',
+    ]
 )
 
 # CHARS #
@@ -192,7 +189,7 @@ def _split_expressions(text):
             end_exp = False
             if exp_stack and text_char[0] == exp_stack[-1]:
                 exp_stack.pop()
-                end_exp = (len(exp_stack) == 0)
+                end_exp = len(exp_stack) == 0
             else:
                 open_index = _OPEN_BRACKETS.find(text_char[0])
                 if open_index + 1:
@@ -208,10 +205,7 @@ def _split_expressions(text):
     return expressions
 
 
-def _parse_text(text, all_fields,
-                fields, output_fields,
-                output, icons, names,
-                desc):
+def _parse_text(text, all_fields, fields, output_fields, output, icons, names, desc):
     """
         Parse text looking for fields
 
@@ -284,18 +278,29 @@ def _parse_text(text, all_fields,
                 add_field(groups[1])
                 inner_output = []
                 _parse_text(
-                    groups[2], all_fields, fields,
-                    output_fields, inner_output,
-                    icons, names, desc
+                    groups[2],
+                    all_fields,
+                    fields,
+                    output_fields,
+                    inner_output,
+                    icons,
+                    names,
+                    desc,
                 )
                 output.append((groups[0], groups[1], inner_output))
                 continue
 
-            if (_OPEN_BRACKETS.find(i[0]) == _CLOSE_BRACKETS.find(i[-1]) != -1):
+            if _OPEN_BRACKETS.find(i[0]) == _CLOSE_BRACKETS.find(i[-1]) != -1:
                 output.append(i[0])
                 _parse_text(
-                    i[1:len(i) - 2], all_fields, fields,
-                    output_fields, output, icons, names, desc
+                    i[1 : len(i) - 2],
+                    all_fields,
+                    fields,
+                    output_fields,
+                    output,
+                    icons,
+                    names,
+                    desc,
                 )
                 output.append(i[-1])
             else:
@@ -352,14 +357,17 @@ class ViewPattern(list):
     """
         Pattern to the tree view
     """
+
     class Subgroup(object):
         """
             A pattern subgroup
         """
+
         class Icons:
             """
                 Class to handle icons
             """
+
             def __init__(self, name):
                 """
                     Constructor
@@ -379,6 +387,7 @@ class ViewPattern(list):
             """
                 Class that handles the format to output texts
             """
+
             def __init__(self, data):
                 """
                     Constructor
@@ -421,6 +430,7 @@ class ViewPattern(list):
                 :param names: []
                 :param text: str
             """
+
             def try_icons(fields):
                 """
                     Try to get icon
@@ -447,13 +457,14 @@ class ViewPattern(list):
                     :return: None
                 """
                 _parse_text(
-                    text, all_fields,
+                    text,
+                    all_fields,
                     subgroup_data['fields'],
                     data['fields'],
                     data['output'],
                     data['icons'],
                     subgroup_data['names'],
-                    subgroup_data['desc']
+                    subgroup_data['desc'],
                 )
 
             split_text = _split(text, _TOOLTIP_MARK)
@@ -471,23 +482,27 @@ class ViewPattern(list):
                 names.append(_clean_text(subgroup_data['names'][0]))
             elif len(subgroup_data['names']) > 1:
                 names.append(
-                    '(' + ' - '.join([
-                        _clean_text(name) for name in subgroup_data['names']
-                    ]) + ')'
+                    '('
+                    + ' - '.join([_clean_text(name) for name in subgroup_data['names']])
+                    + ')'
                 )
 
             self.parent_subgroup = parent_subgroup
             self.fields = subgroup_data['fields']
 
-            self.outputs = {
-                i: self.Output(spec_data[i]) for i in specs
-            }
+            self.outputs = {i: self.Output(spec_data[i]) for i in specs}
 
             self.order_by_statement = 'order by %s' % ', '.join(
-                ['normalize(%s) %s' % i for i in zip(
-                    self.fields,
-                    ['desc' if i in subgroup_data['desc'] else 'asc' for i in self.fields]
-                )]
+                [
+                    'normalize(%s) %s' % i
+                    for i in zip(
+                        self.fields,
+                        [
+                            'desc' if i in subgroup_data['desc'] else 'asc'
+                            for i in self.fields
+                        ],
+                    )
+                ]
             )
 
             icons = self.icons = {}
@@ -502,16 +517,16 @@ class ViewPattern(list):
                             pass
 
                 icon_name = (
-                    try_icons(map(lambda x: x[0], data['icons'])) or
-                    try_icons(data['fields']) or
-                    try_icons(subgroup_data['fields']) or
-                    'image-x-generic'
+                    try_icons(map(lambda x: x[0], data['icons']))
+                    or try_icons(data['fields'])
+                    or try_icons(subgroup_data['fields'])
+                    or 'image-x-generic'
                 )
 
                 icons[i] = get_icon(icon_name, icon_size)
 
             self.__paths_sql = self.__sql = None
-            self.is_root = (parent_subgroup is None)
+            self.is_root = parent_subgroup is None
             self.is_bottom = False
 
         @classmethod
@@ -552,13 +567,19 @@ class ViewPattern(list):
                 :return: str
             """
             where_sql = ' and '.join(
-                '(%s)' % i for i in filter(None, [
-                    ' and '.join([
-                        ('%s is null' if v is None
-                         else '%s = ?') % f for f, v in zip(fields, values)
-                    ]),
-                    where_search
-                ])
+                '(%s)' % i
+                for i in filter(
+                    None,
+                    [
+                        ' and '.join(
+                            [
+                                ('%s is null' if v is None else '%s = ?') % f
+                                for f, v in zip(fields, values)
+                            ]
+                        ),
+                        where_search,
+                    ],
+                )
             )
             return ('where ' + where_sql) if where_sql else ''
 
@@ -575,9 +596,7 @@ class ViewPattern(list):
 
             select_fields_sql = ', '.join(pre_fields + self.fields)
             sql_statement = SQLStatements(
-                'select %s, %s from items',
-                select_fields_sql,
-                _CONST_SELECT_FIELDS_SQL
+                'select %s, %s from items', select_fields_sql, _CONST_SELECT_FIELDS_SQL
             )
             sql_statement.append(
                 self.__mount_where_clause(
@@ -598,8 +617,7 @@ class ViewPattern(list):
             sql_statement = SQLStatements('select path from items')
             sql_statement.append(
                 self.__mount_where_clause(
-                    list(self.__get_parent_fields()) + self.fields,
-                    values, where_search
+                    list(self.__get_parent_fields()) + self.fields, values, where_search
                 )
             )
             sql_statement.append(self.order_by_statement)
@@ -616,11 +634,9 @@ class ViewPattern(list):
         all_fields = CONST_FIELDS[:]
         names = []
         parent_subgroup = None
-        for i in _split(text, _SUBGROUP_MARK): # subgroups
+        for i in _split(text, _SUBGROUP_MARK):  # subgroups
             try:
-                subgroup = self.Subgroup(
-                    parent_subgroup, all_fields, names, i
-                )
+                subgroup = self.Subgroup(parent_subgroup, all_fields, names, i)
             except ValueError:
                 pass
             else:
@@ -632,7 +648,7 @@ class ViewPattern(list):
         else:
             parent_subgroup.is_bottom = True
             self.name = ' - '.join(names)
-            self.all_fields = all_fields[len(CONST_FIELDS):]
+            self.all_fields = all_fields[len(CONST_FIELDS) :]
 
 
 def parse_patterns(pattern):

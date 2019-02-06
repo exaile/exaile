@@ -40,15 +40,24 @@ _LOGGER = Logger(__name__)
 
 #: tuple: Key values to ignore
 IGNORED_KEY_VALS = (
-    Gdk.KEY_Alt_L, Gdk.KEY_Alt_R,
-    Gdk.KEY_Control_L, Gdk.KEY_Control_R,
-    Gdk.KEY_Delete, Gdk.KEY_Insert,
-    Gdk.KEY_Down, Gdk.KEY_Up,
-    Gdk.KEY_Home, Gdk.KEY_End,
-    Gdk.KEY_Meta_L, Gdk.KEY_Meta_R,
-    Gdk.KEY_Prior, Gdk.KEY_Next,
-    Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
-    Gdk.KEY_VoidSymbol, Gdk.KEY_BackSpace
+    Gdk.KEY_Alt_L,
+    Gdk.KEY_Alt_R,
+    Gdk.KEY_Control_L,
+    Gdk.KEY_Control_R,
+    Gdk.KEY_Delete,
+    Gdk.KEY_Insert,
+    Gdk.KEY_Down,
+    Gdk.KEY_Up,
+    Gdk.KEY_Home,
+    Gdk.KEY_End,
+    Gdk.KEY_Meta_L,
+    Gdk.KEY_Meta_R,
+    Gdk.KEY_Prior,
+    Gdk.KEY_Next,
+    Gdk.KEY_Shift_L,
+    Gdk.KEY_Shift_R,
+    Gdk.KEY_VoidSymbol,
+    Gdk.KEY_BackSpace,
 )
 
 
@@ -83,6 +92,7 @@ def key_pressed_is_a_word(tree, evt):
             :param word: str
             :return: bool
         """
+
         def check_word(it, path):
             """
                 Check a word for a path
@@ -119,7 +129,7 @@ def key_pressed_is_a_word(tree, evt):
                 while it and not check(it, model.get_path(it)):
                     it = model.iter_next(it)
 
-                return (it is not None)
+                return it is not None
             else:
                 return False
 
@@ -142,7 +152,7 @@ def key_pressed_is_a_word(tree, evt):
         it = first_it
         if len(word) > 1:
             # Treats first current/initial path
-            treated = (check_word(first_it, first_path))
+            treated = check_word(first_it, first_path)
 
         if not treated:
             treated = check_children(first_it, first_path)
@@ -170,11 +180,14 @@ def key_pressed_is_a_word(tree, evt):
     treated = False
     if not (evt.state & Gtk.accelerator_get_default_mod_mask()):
         from datetime import timedelta, datetime
+
         old_keyboard_event = tree.last_keyboard_event
         current_datetime = datetime.utcnow()
 
-        if (old_keyboard_event is None or
-                (old_keyboard_event + timedelta(seconds=2)) <= current_datetime):
+        if (
+            old_keyboard_event is None
+            or (old_keyboard_event + timedelta(seconds=2)) <= current_datetime
+        ):
             tree.word = ''
 
         keyval_unicode = Gdk.keyval_to_unicode(evt.keyval)
@@ -248,9 +261,7 @@ def key_pressed_to_surf_in_tree(tree, evt):
         for i in paths_:
             notify_end.clear()
 
-            tree.EXPAND_ROW_EVENT.log(
-                tree, (i, current_view_pattern, notify_end)
-            )
+            tree.EXPAND_ROW_EVENT.log(tree, (i, current_view_pattern, notify_end))
 
             # Wait it ends
             notify_end.wait()
@@ -264,6 +275,7 @@ def key_pressed_to_surf_in_tree(tree, evt):
             Check if all subsequent paths (children) are expanded
             :return: bool
         """
+
         def is_expanded(it):
             """
                 Check if an iterator and children are expanded
@@ -290,8 +302,7 @@ def key_pressed_to_surf_in_tree(tree, evt):
     if evt.keyval in (Gdk.KEY_asterisk, Gdk.KEY_KP_Multiply):
         if not is_all_expanded():
             tree.expand_rows(
-                [Gtk.TreeRowReference.new(model, path) for path in paths],
-                [-MAX_INT]
+                [Gtk.TreeRowReference.new(model, path) for path in paths], [-MAX_INT]
             )
         else:
             for path in paths:
@@ -337,9 +348,7 @@ def key_pressed_to_surf_in_tree(tree, evt):
                 if model.iter_has_child(it):
                     if not tree.collapse_row(path):
                         tree.expand_row(path, False)
-                        rows_reference.append(
-                            Gtk.TreeRowReference.new(model, path)
-                        )
+                        rows_reference.append(Gtk.TreeRowReference.new(model, path))
 
         elif evt.keyval in (Gdk.KEY_Left, Gdk.KEY_KP_Subtract, Gdk.KEY_minus):
             for path in paths:
@@ -357,9 +366,7 @@ def key_pressed_to_surf_in_tree(tree, evt):
                         selection.unselect_path(path)
                         select_range_from_parent.append(it)
 
-                    rows_reference.append(
-                        Gtk.TreeRowReference.new(model, path)
-                    )
+                    rows_reference.append(Gtk.TreeRowReference.new(model, path))
                 else:
                     it_parent = model.iter_parent(it)
                     if it_parent:
@@ -392,9 +399,7 @@ def key_pressed_is_menu_or_return(tree, evt):
         Gtk.Menu.popup(tree.menu, None, None, None, None, 0, evt.time)
         return True
     elif evt.keyval in (Gdk.KEY_Return, Gdk.KEY_space):
-        tree.container.append_items(
-            tree.get_selected_tracks(), force_play=True
-        )
+        tree.container.append_items(tree.get_selected_tracks(), force_play=True)
         return True
 
     return False
@@ -407,11 +412,10 @@ def key_pressed_is_tab(tree, evt):
         :param evt: Gdk.EventKey
         :return: bool
     """
-    is_tab = (evt.keyval == Gdk.KEY_Tab)
+    is_tab = evt.keyval == Gdk.KEY_Tab
     if is_tab:
         tree.container.widgets[
-            'search_entry' if (evt.state & Gdk.ModifierType.SHIFT_MASK)
-            else 'combo_box'
+            'search_entry' if (evt.state & Gdk.ModifierType.SHIFT_MASK) else 'combo_box'
         ].grab_focus()
 
     return is_tab
@@ -428,11 +432,11 @@ def on_key_press_event(tree, evt):
     treated = False
     if evt.keyval not in IGNORED_KEY_VALS:
         for x in [
-          _keys.key_pressed_is_tab,
-          _keys.key_pressed_is_menu_or_return,
-          _keys.key_pressed_to_change_font_size,
-          _keys.key_pressed_to_surf_in_tree,
-          _keys.key_pressed_is_a_word
+            _keys.key_pressed_is_tab,
+            _keys.key_pressed_is_menu_or_return,
+            _keys.key_pressed_to_change_font_size,
+            _keys.key_pressed_to_surf_in_tree,
+            _keys.key_pressed_is_a_word,
         ]:
             treated = x(tree, evt)
             if treated:

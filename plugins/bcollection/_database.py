@@ -45,6 +45,7 @@ class CantCreateConnectionException(Exception):
     """
         Exception to express when can't create connection to database
     """
+
     #: Event: Triggered when can't create connection to database
     EVENT = create_event('cant-create-connection')
 
@@ -62,6 +63,7 @@ class CantSelectException(Exception):
     """
         Exception to express when can't execute select on database
     """
+
     def __init__(self, ex, sql, values):
         """
             Constructor
@@ -71,8 +73,7 @@ class CantSelectException(Exception):
         """
         Exception.__init__(self, ex)
         _LOGGER.exception(
-            'could not select from database: ex=%s (sql=%s, values=%s)',
-            ex, sql, values
+            'could not select from database: ex=%s (sql=%s, values=%s)', ex, sql, values
         )
 
 
@@ -80,16 +81,18 @@ class FileChooserDialog(Gtk.FileChooserDialog):
     """
         A wrapper to Gtk.FileChooserDialog
     """
+
     def __init__(self, parent, notify=lambda: None):
         """
             Constructor
             :param parent: Gtk.Window
         """
         Gtk.FileChooserDialog.__init__(
-            self, _("Select a beets media library database"),
-            parent, Gtk.FileChooserAction.OPEN,
-            ('gtk-cancel', Gtk.ResponseType.CANCEL,
-             'gtk-open', Gtk.ResponseType.OK)
+            self,
+            _("Select a beets media library database"),
+            parent,
+            Gtk.FileChooserAction.OPEN,
+            ('gtk-cancel', Gtk.ResponseType.CANCEL, 'gtk-open', Gtk.ResponseType.OK),
         )
 
         self.add_filter(
@@ -97,11 +100,16 @@ class FileChooserDialog(Gtk.FileChooserDialog):
                 _('Beets / SQLite database'),
                 # blb sl2 sl3 db db2 db3 sdb s2db s3db sqlite
                 # sqlite2 sqlite3
-                ['*.[bB][lL][bB]', '*.[sS][lL][23]',
-                 '*.[dD][bB]', '*.[dD][bB][23]',
-                 '*.[sS][dD][bB]', '*.[sS][23][dD][bB]',
-                 '*.[sS][qQ][lL][iI][tT][eE]',
-                    '*.[sS][qQ][lL][iI][tT][eE][23]']
+                [
+                    '*.[bB][lL][bB]',
+                    '*.[sS][lL][23]',
+                    '*.[dD][bB]',
+                    '*.[dD][bB][23]',
+                    '*.[sS][dD][bB]',
+                    '*.[sS][23][dD][bB]',
+                    '*.[sS][qQ][lL][iI][tT][eE]',
+                    '*.[sS][qQ][lL][iI][tT][eE][23]',
+                ],
             )
         )
         self.add_filter(FileFilter(_('All files'), ['*']))
@@ -135,9 +143,7 @@ class FileChooserDialog(Gtk.FileChooserDialog):
             try:
                 self.__notify()
             except Exception:
-                _LOGGER.exception(
-                    'error notifying database file change'
-                )
+                _LOGGER.exception('error notifying database file change')
 
         self.hide()
         return result
@@ -211,9 +217,7 @@ def execute_select(sql, values):
     except sqlite3.Error:
         _LOGGER.exception('could not create database cursor')
     else:
-        _LOGGER.debug(
-            'executes sql: "%s", params=%s', sql, values
-        )
+        _LOGGER.debug('executes sql: "%s", params=%s', sql, values)
         try:
             cursor.execute(sql, values)
         except sqlite3.Error as ex:

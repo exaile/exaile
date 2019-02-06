@@ -82,15 +82,13 @@ def _split(text, sep):
         Empty expressions are ignored, so you can use how much characters
         you want (e.g. group1%%%group2)
 
-        Use '\\' to escape
+        Use '\' to escape
 
         Usage:
             >>> _split('group 1%group 2%group 3', '%')
             ['group 1', 'group 2', 'group 3']
             >>> _split('group 1%%%group 2%%%group 3', '%')
             ['group 1', 'group 2', 'group 3']
-            >>> _split('group 10\%%%group 20\%%%group 30\%', '%')
-            ['group 10\\\%', 'group 20\\\%', 'group 30\\\%']
 
         :param text: str
         :return: list of split groups [str]

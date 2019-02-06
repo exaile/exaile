@@ -1,0 +1,5 @@
+Version='1.0.0'
+Authors=['Fernando Póvoa <sbrubes@zoho.com>']
+Name=_('BCollection')
+Description=_('Opens a Beets music library database and use it as a collection panel')
+Category=_('Media Sources')

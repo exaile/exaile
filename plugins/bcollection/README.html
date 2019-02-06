@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BCollection plugin for Exaile</title>
+</head>
+<body>
+<h1 id="bcollectionpluginforexaile">BCollection plugin for Exaile</h1>
+
+<p>The BCollection it's a plugin to Exaile and it aims to provide access to sqlite3 databases,
+more precisely to databases of <a href="http://beets.io/">Beets (The Music Geek's Media Organizer)</a>,
+as-like the standard <em>Collection Panel</em>.</p>
+
+<p>The plugin it's quite customizable and tries to reach an easy to comprehend interface with some over topics listed below.</p>
+
+<h2 id="beetsdatabase">Beets Database</h2>
+
+<p>The database to Beets, it's a sqlite3 database, with a table called <code>Items</code>.</p>
+
+<p>You can list the fields defined on it with: <code>beet fields</code>  </p>
+
+<p>So, now we have defined the concept of field over this document, a field to beets or, more correct, a field to <code>Items</code> table.</p>
+
+<p>Pre-defined fields:
+    <br>&emsp; <code>count</code> - as <code>count(*)</code>
+    <br>&emsp; <code>albumartists</code> - as <code>count(distinct albumartist)</code>
+    <br>&emsp; <code>albums</code> - as <code>count(distinct albumartist||album)</code>
+    <br>&emsp; <code>tracks</code> - as <code>count(distinct path)</code>
+    <br>&emsp; <code>length</code> - as <code>sum(length)</code>, formatted in hours (e.g. 09:10:10)
+    <br>&emsp; <code>bpm</code> - as <code>avg(bpm)</code>
+    <br>&emsp; <code>added</code> and <code>mtime</code> - formatted as datetime (based on current locale)</p>
+
+<h2 id="treeview">Tree View</h2>
+
+<p>Basically the Tree View (as each other) has the format:</p>
+
+<pre><code>subgroup
+  |- subgroup
+    |- subgroup
+      |- ...
+</code></pre>
+
+<p>Each subgroup is filtered by parent and it self, and go on...</p>
+
+<p>This way, we have a syntax that divides it, with <strong>%</strong>:</p>
+
+<pre><code>subgroup % subgroup % ...
+</code></pre>
+
+<p>Each subgroup, define rules to sort, label and icon on Tree View's path, as, the text and icon for tooltip (of each subgroup), having the format:</p>
+
+<pre><code>path &amp; tooltip
+</code></pre>
+
+<p>Using <strong>&amp;</strong> to separate it:</p>
+
+<pre><code>subgroup 1 path &amp; tooltip % subgroup 2 path &amp; tooltip ...
+</code></pre>
+
+<p>Each subgroup can have a name, which is joined with ' - ', forming the names on <em>Select a view pattern</em> combo. </p>
+
+<pre><code>(:Artist) % (:Album) % (:Track)
+
+Artist - Album - Track
+</code></pre>
+
+<p>To output a field value, use:</p>
+
+<pre><code>[field_name]
+</code></pre>
+
+<p>And it can have some format options from <a href="https://docs.python.org/2/library/string.html#format-string-syntax">Format String Syntax</a>,
+basically the <a href="https://docs.python.org/2/library/string.html#grammar-token-format-spec">format_spec</a>.</p>
+
+<pre><code>[day:02d]-[month:02d]-[year:04d]
+</code></pre>
+
+<p>And it also could have initial marks:
+    <br>&emsp; <code>*</code> - as icon
+    <br>&emsp; <code>&gt;</code> - in descendant order</p>
+
+<pre><code>[&gt;year:04d] [*album]
+</code></pre>
+
+<p>Well those defines fields to be showed on interface, but a field could be defined not to be showed, but to be used as sort.
+It's the concept of hidden fields, and it's defined as:</p>
+
+<pre><code>(disc)(track)
+</code></pre>
+
+<p>It also accepts the same marks (icon and desc order), but do not uses the format_spec.
+Instead of that, for icons, it could define a size for it, as:</p>
+
+<pre><code>(*album:52)
+</code></pre>
+
+<p>Attributes for that subgroup, the icon linked to <code>album</code> with 52 px. It could be used on path or tooltip.</p>
+
+<p>Hidden fields also inserts another concept of field, an evaluated field, having the format:</p>
+
+<pre><code>(?album:[album])
+(!album:Untitled album)
+</code></pre>
+
+<p>So, the concept is <code>?</code> for do have, and <code>!</code> for don't have, and all that comes after colon (<code>:</code>), is interpreted, if have or do not have value for field.</p>
+
+<p>Use <code>\</code> to escape chars.</p>
+
+<p>A blank line separates patterns.</p>
+
+<h2 id="icons">Icons</h2>
+
+<p>Icons can be customized at preferences.</p>
+
+<p>With Edit icons list, the name of icons used to each field can be changed.</p>
+
+<p>The name must be a <a href="https://lazka.github.io/pgi-docs/index.html#Gtk-3.0/classes/Image.html#Gtk.Image.new_from_icon_name">valid gtk icon name</a>, or some icon defined by Exaile.</p>
+
+<h2 id="tips">Tips</h2>
+
+<ul>
+<li><p>The auto-expand option at preferences, it's util for searches, so you could select the maximum rows to better fit your screen</p></li>
+
+<li><p><a href="https://developer.gnome.org/pango/stable/PangoMarkupFormat.html">Pango Text Attribute Markup Language</a> can be used to customize paths or tooltips, like:</p>
+
+<p><code>&lt;span foreground="blue"&gt;[album]&lt;/span&gt;</code></p>
+
+<p><code>&lt;b&gt;Untitled&lt;/b&gt;</code></p></li>
+
+<li><p>Fonts are also customizable at preferences</p></li>
+
+<li><p>You can navigate on Tree View using arrow keys, plus, minus, divide and multiply keys, and also the initial letters, trying to find node that starts with the typed word</p></li>
+
+<li><p><code>Ctrl</code> + <code>+</code> / <code>-</code> grows / compress letter size on Tree View</p></li>
+
+<li><p><code>Ctrl</code> + <code>a</code> select all </p></li>
+
+<li><p>Using <code>Shift</code> + <code>letter</code> will write it on search entry, grabbing focus</p></li>
+
+<li><p>Search entry accepts keys:</p>
+
+<p><code>!</code> - NOT</p>
+
+<p><code>|</code> - OR</p>
+
+<p><code>~</code> - REGEXP</p>
+
+<p><code>=</code> - <code>like</code> (values auto gets <code>%</code> at begin and end)</p>
+
+<p><code>==</code> - explicit <code>like</code> operator (you must adds the <code>%</code> where you want)</p>
+
+<p><code>()</code> - parentheses for precedence</p></li>
+
+<li><p>Searches are case insensitive and only use fields defined on current pattern (path/tooltip)</p></li>
+
+<li><p>Clearing the patterns (on preferences) restore the default view pattern</p></li>
+</ul>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>If you think that any data are being showed duplicated on your tree view, look at items data, some of it may be different, as having a distinct <code>media</code> or any field that are listed on pattern, since fields are grouped on each level, any variation will generate a new row.</p>
+
+<p>To fix it, you must fix data on Beets database (the sqlite3 database, blb) or you should avoid using this field, removing it from your path.</p>
+</body>
+</html>

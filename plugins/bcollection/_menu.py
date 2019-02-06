@@ -40,9 +40,6 @@ from _utils import get_icon
 #: Logger: Logger to file
 _LOGGER = Logger(__name__)
 
-#: str
-_CONTEXT_MENU_NAME = get_name('tree-view-menu')
-
 
 @xl.common.threaded
 def read_tags(tracks):

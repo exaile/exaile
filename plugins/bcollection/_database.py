@@ -97,11 +97,11 @@ class FileChooserDialog(Gtk.FileChooserDialog):
                 _('Beets / SQLite database'),
                 # blb sl2 sl3 db db2 db3 sdb s2db s3db sqlite
                 # sqlite2 sqlite3
-                ['*.[b|B][l|L][b|B]', '*.[s|S][l|L][2|3]',
-                 '*.[d|D][b|B]', '*.[d|D][b|B][2|3]',
-                 '*.[s|S][d|D][b|B]', '*.[s|S][2|3][d|D][b|B]',
-                 '*.[s|S][q|Q][l|L][i|I][t|T][e|E]',
-                    '*.[s|S][q|Q][l|L][i|I][t|T][e|E][2|3]']
+                ['*.[bB][lL][bB]', '*.[sS][lL][23]',
+                 '*.[dD][bB]', '*.[dD][bB][23]',
+                 '*.[sS][dD][bB]', '*.[sS][23][dD][bB]',
+                 '*.[sS][qQ][lL][iI][tT][eE]',
+                    '*.[sS][qQ][lL][iI][tT][eE][23]']
             )
         )
         self.add_filter(FileFilter(_('All files'), ['*']))

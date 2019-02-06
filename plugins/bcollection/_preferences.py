@@ -24,6 +24,8 @@ import os.path
 import sys
 import webbrowser
 
+from urllib import pathname2url
+
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -474,7 +476,7 @@ class PatternsPreference(
             :param _args: ignored
             :return: None
         """
-        uri = 'file://' + os.path.join(BASE_DIR, 'README.html')
+        uri = 'file:' + pathname2url(os.path.join(BASE_DIR, 'README.html'))
         webbrowser.open(uri)
 
     def __apply_tags(self):

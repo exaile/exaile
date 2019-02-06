@@ -109,9 +109,13 @@ class Column(Gtk.TreeViewColumn):
         if data in ("gui/resizable_cols", self.settings_width_name):
             self._setup_sizing()
 
-    @common.glib_wait(100)
     def on_width_changed(self, column, wid):
-        width = self.get_width()
+        # Don't call get_width in the delayed function; it can be incorrect.
+        # See https://github.com/exaile/exaile/issues/580
+        self._delayed_width_changed(self.get_width())
+
+    @common.glib_wait(100)
+    def _delayed_width_changed(self, width):
         if not self.destroyed and width != settings.get_option(
             self.settings_width_name, -1
         ):

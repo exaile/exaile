@@ -280,20 +280,14 @@ def glib_wait(timeout):
         called once, then again half a second later, it would run
         only once, 1.5 seconds after the first call to it.
 
-        Arguments are supported, but which call's set of arguments
-        is used is undefined, so this is not useful for much beyond
-        passing in unchanging arguments like 'self' or 'cls'.
+        If arguments are given to the function, only the last call's set
+        of arguments will be used.
 
         If the function returns a value that evaluates to True, it
         will be called again under the same timeout rules.
         
         .. warning:: Can only be used with instance methods
     """
-    # 'undefined' is a bit of a white lie - it's always the most
-    # recent call's args. However, I'm reserving the right to change
-    # the implementation later for the moment, and really I don't
-    # think it makes sense to use functions that have changing args
-    # with this decorator.
     return _glib_wait_inner(timeout, GLib.timeout_add)
 
 

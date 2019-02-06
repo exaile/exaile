@@ -42,7 +42,7 @@ _LOGGER = Logger(__name__)
 
 
 @xl.common.threaded
-def read_tags(tracks):
+def _read_tags(tracks):
     """
         Threaded read tags notifying changes
         :param tracks: list
@@ -53,7 +53,7 @@ def read_tags(tracks):
         sleep(0.055)
 
 
-def append_to_playlist(tracks, replace=False):
+def _append_to_playlist(tracks, replace=False):
     """
         Helper function to append to playlist
         :param tracks: list
@@ -79,7 +79,7 @@ def append_to_playlist(tracks, replace=False):
     ):
         page.view.play_track_at(offset, tracks[0])
 
-    read_tags(tracks)
+    _read_tags(tracks)
 
 
 def append(_widget, parent):
@@ -89,13 +89,13 @@ def append(_widget, parent):
         :param parent: _panel.MainPanel
         :return: None
     """
-    append_to_playlist(parent.tree.get_selected_tracks(), False)
+    _append_to_playlist(parent.tree.get_selected_tracks(), False)
 
 
 def enqueue(_widget, parent):
     tracks = parent.tree.get_selected_tracks()
     xl.player.QUEUE.extend(tracks)
-    read_tags(tracks)
+    _read_tags(tracks)
 
 
 def replace(_widget, parent):
@@ -105,7 +105,7 @@ def replace(_widget, parent):
         :param parent: _panel.MainPanel
         :return: None
     """
-    append_to_playlist(parent.tree.get_selected_tracks(), True)
+    _append_to_playlist(parent.tree.get_selected_tracks(), True)
 
 
 def properties(_widget, parent):
@@ -118,7 +118,7 @@ def properties(_widget, parent):
     tracks = parent.tree.get_selected_tracks(True)
     if tracks:
         xlgui.properties.TrackPropertiesDialog(None, tracks)
-        read_tags(tracks)
+        _read_tags(tracks)
 
 
 def open_directory(_widget, parent):

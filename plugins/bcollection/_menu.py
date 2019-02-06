@@ -296,7 +296,7 @@ class Menu(menu.Menu):
                 Adds a separator menu item
                 :return: None
             """
-            name = '-'.join(['sep', str(separator[0])])
+            name = 'sep-' + str(separator[0])
             self.add_item(menu.simple_separator(name, list(after)))
             separator[0] += 1
             after[0] = name

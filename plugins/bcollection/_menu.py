@@ -20,8 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from time import sleep
-
 import xl
 import xlgui
 
@@ -50,7 +48,6 @@ def _read_tags(tracks):
     """
     for i in tracks:
         i.read_tags()
-        sleep(0.055)
 
 
 def _append_to_playlist(tracks, replace=False):

@@ -120,6 +120,8 @@ def key_pressed_is_a_word(tree, evt):
                     it = model.iter_next(it)
 
                 return (it is not None)
+            else:
+                return False
 
         def check(it, path):
             """

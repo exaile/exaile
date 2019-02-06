@@ -73,7 +73,7 @@ class Logger:
         self.log(logging.CRITICAL, msg, *args, **kwargs)
 
     def debug(self, msg, *args, **kwargs):
-        self.log(logging.WARNING, msg, *args, **kwargs)
+        self.log(logging.DEBUG, msg, *args, **kwargs)
 
     def error(self, msg, *args, **kwargs):
         self.log(logging.ERROR, msg, *args, **kwargs)

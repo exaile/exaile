@@ -23,8 +23,8 @@ hiddenimports = collect_submodules('xl') + \
                 collect_submodules('pylast')
 
 datas =[
-  ('_inst/usr/share/exaile/data', ''),
-  ('_inst/usr/share/exaile/plugins', ''),
+  ('_inst/usr/share/exaile/data', 'data'),
+  ('_inst/usr/share/exaile/plugins', 'plugins'),
   ('_inst/usr/share/locale', 'share/locale')
 ]
 

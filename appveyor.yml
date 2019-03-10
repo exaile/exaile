@@ -1,0 +1,65 @@
+branches:
+  only:
+    - master
+
+skip_non_tags: true
+
+version: "{branch}-{build}"
+
+image: Visual Studio 2015
+
+environment:
+  APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
+  GTK_SDK_VERBOSE: 1
+  BUILD_DIR: C:\msys64\home\appveyor
+  BUILD_ROOT: exaile/tools/installer/_build_root
+  SDK_NAME: exaile-binenv-win
+  SDK_VER: 1
+  SDK_URL: https://github.com/exaile/exaile-binenv-win-appveyor/releases/download/$(SDK_NAME)-$(SDK_VER)/$(SDK_NAME)-$(SDK_VER).tar.xz
+  dist_name: $(APPVEYOR_PROJECT_NAME)-$(APPVEYOR_REPO_TAG_NAME)
+
+clone_folder: $(BUILD_DIR)\$(APPVEYOR_PROJECT_NAME)
+
+clone_depth: 1
+
+cache:
+  - C:\msys64\var\cache\pacman\pkg
+  - '%BUILD_DIR%\%SDK_NAME%-%SDK_VER%.tar.xz'
+
+init:
+  - set PATH=C:\msys64\usr\bin;%PATH%
+
+install:
+  - cmd: |
+      cd %BUILD_DIR%
+      git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
+      bash -lc "[[ -f $SDK_NAME-$SDK_VER.tar.xz ]] || time wget -O $SDK_NAME-$SDK_VER.tar.xz $SDK_URL"
+      bash -lc "time pacman --noconfirm --noprogressbar -Syuu"
+
+before_build:
+  - cmd: |
+      bash -lc "mkdir $BUILD_ROOT"
+      bash -lc "time tar -xf $SDK_NAME-$SDK_VER.tar.xz -C $BUILD_ROOT"
+
+build_script:
+  - cmd: |
+      bash -lc "cd exaile/tools/installer && time ../../../python-gtk3-gst-sdk/win_installer/build_win32_installer.sh"
+
+after_build:
+  - cmd: |
+      move "exaile\tools\installer\exaile-LATEST.exe" "%APPVEYOR_BUILD_FOLDER%\%dist_name%.exe"
+
+artifacts:
+  - path: $(dist_name).exe
+    name: dist
+
+deploy:
+  provider: GitHub
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  description: ""
+  auth_token:
+    secure: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  artifact: dist
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true

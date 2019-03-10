@@ -10,36 +10,36 @@ image: Visual Studio 2015
 
 environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
-  GTK_SDK_VERBOSE: 1
-  BUILD_DIR: C:\msys64\home\appveyor
-  BUILD_ROOT: exaile/tools/installer/_build_root
-  SDK_NAME: exaile-binenv-win
-  SDK_VER: 1
-  SDK_URL: https://github.com/exaile/exaile-binenv-win-appveyor/releases/download/$(SDK_NAME)-$(SDK_VER)/$(SDK_NAME)-$(SDK_VER).tar.xz
+  build_dir: C:\msys64\home\appveyor
+  build_root: exaile/tools/installer/_build_root
+  sdk_name: exaile-binenv-win
+  sdk_ver: 1
+  sdk_url: https://github.com/exaile/exaile-binenv-win-appveyor/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
   dist_name: $(APPVEYOR_PROJECT_NAME)-$(APPVEYOR_REPO_TAG_NAME)
 
-clone_folder: $(BUILD_DIR)\$(APPVEYOR_PROJECT_NAME)
+clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)
 
 clone_depth: 1
 
 cache:
   - C:\msys64\var\cache\pacman\pkg
-  - '%BUILD_DIR%\%SDK_NAME%-%SDK_VER%.tar.xz'
+  - '%build_dir%\%sdk_name%-%sdk_ver%.tar.xz'
 
 init:
   - set PATH=C:\msys64\usr\bin;%PATH%
+  - set GTK_SDK_VERBOSE=1
 
 install:
   - cmd: |
-      cd %BUILD_DIR%
+      cd %build_dir%
       git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
-      bash -lc "[[ -f $SDK_NAME-$SDK_VER.tar.xz ]] || time wget -O $SDK_NAME-$SDK_VER.tar.xz $SDK_URL"
+      bash -lc "[[ -f $sdk_name-$sdk_ver.tar.xz ]] || time wget -O $sdk_name-$sdk_ver.tar.xz $sdk_url"
       bash -lc "time pacman --noconfirm --noprogressbar -Syuu"
 
 before_build:
   - cmd: |
-      bash -lc "mkdir $BUILD_ROOT"
-      bash -lc "time tar -xf $SDK_NAME-$SDK_VER.tar.xz -C $BUILD_ROOT"
+      bash -lc "mkdir $build_root"
+      bash -lc "time tar -xf $sdk_name-$sdk_ver.tar.xz -C $build_root"
 
 build_script:
   - cmd: |

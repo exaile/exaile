@@ -12,9 +12,9 @@ environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
   build_dir: C:\msys64\home\appveyor
   build_root: exaile/tools/installer/_build_root
-  sdk_name: exaile-binenv-win
-  sdk_ver: 1
-  sdk_url: https://github.com/exaile/exaile-binenv-win-appveyor/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
+  sdk_name: $(APPVEYOR_PROJECT_NAME)
+  sdk_ver: 6
+  sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
   dist_name: $(APPVEYOR_PROJECT_NAME)-$(APPVEYOR_REPO_TAG_NAME)
 
 clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)

@@ -22,6 +22,11 @@ hiddenimports = collect_submodules('xl') + \
                 collect_submodules('mutagen') + \
                 collect_submodules('pylast')
 
+# We don't use packaging directly, but this is required because something else
+# uses it and PyInstaller (tested with v3.4) fails to detect some of
+# packaging's subpackages.
+hiddenimports += collect_submodules('packaging')
+
 datas =[
   ('_inst/usr/share/exaile/data', 'data'),
   ('_inst/usr/share/exaile/plugins', 'plugins'),

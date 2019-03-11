@@ -2101,7 +2101,7 @@ msgid "About Exaile"
 msgstr "O Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2017 Various Contributors"
+msgid "© 2009-2019 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
@@ -4048,7 +4048,7 @@ msgstr ""
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
-"choices may only work with certain file formats. "
+"choices may only work with certain file formats."
 msgstr ""
 
 #: ../plugins/history/history_preferences.ui:18
@@ -4737,8 +4737,7 @@ msgstr ""
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"
-"Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
-"decode files)"
+"Requires: moodbar"
 msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3

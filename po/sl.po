@@ -2071,8 +2071,8 @@ msgid "About Exaile"
 msgstr "O programu"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2017 Various Contributors"
-msgstr "© 2009-2017 Različni soavtorji"
+msgid "© 2009-2019 Various Contributors"
+msgstr "© 2009-2019 Različni soavtorji"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:25
@@ -4009,10 +4009,10 @@ msgstr "Ime kategorizacijske značke"
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
-"choices may only work with certain file formats. "
+"choices may only work with certain file formats."
 msgstr ""
 "'grupiranje' in 'komentiranje' sta verjetno najbolj podprti izbiri. Ostale "
-"možnosti lahko delujejo le z nekaterimi vrstami zapisa. "
+"možnosti lahko delujejo le z nekaterimi vrstami zapisa."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4733,13 +4733,11 @@ msgstr "Vrstica razpoloženja"
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"
-"Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
-"decode files)"
+"Requires: moodbar"
 msgstr ""
 "Prikazuje vidno predstavitev glasbene časovnice.\n"
 "\n"
-"Zahteva: moodbar (ki zahteva gst-plugins-* iz GStreamer 0.10 za dekodiranje "
-"datotek)"
+"Zahteva: moodbar"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"

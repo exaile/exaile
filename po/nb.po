@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2018-11-24 17:07+0000\n"
+"PO-Revision-Date: 2019-03-12 07:03+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.5.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -4224,8 +4224,9 @@ msgid "Waveform view (experimental)"
 msgstr "Vis IPv6-tjenere (eksperimentelt)"
 
 #: ../plugins/moodbar/prefs.ui:25
+#, fuzzy
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Fargesjattering (eksperimentelt)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

@@ -24,8 +24,9 @@ init:
       set PATH=C:\msys64\usr\bin;%PATH%
       set GTK_SDK_VERBOSE=1
       set MAKEFLAGS=-j2
-      IF "%APPVEYOR_REPO_TAG%" == "true"  (set dist_name="%APPVEYOR_PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%")
-      IF "%APPVEYOR_REPO_TAG%" == "false" (set dist_name="%APPVEYOR_PROJECT_NAME%-%APPVEYOR_BUILD_NUMBER%")
+      IF "%APPVEYOR_REPO_TAG%" == "true"  (set dist_name=%APPVEYOR_PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%)
+      IF "%APPVEYOR_REPO_TAG%" == "false" (set dist_name=%APPVEYOR_PROJECT_NAME%-%APPVEYOR_BUILD_NUMBER%)
+      echo Using dist_name %dist_name%
 
       REM Show detailed package statistics on pacman -S
       echo [options]>> C:\msys64\etc\pacman.conf

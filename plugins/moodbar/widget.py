@@ -1,5 +1,5 @@
 # moodbar - Replace Exaile's seekbar with a moodbar
-# Copyright (C) 2015  Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2015, 2019  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,8 @@ class Moodbar(Gtk.DrawingArea):
         # TODO: Handle screen-changed.
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
-        self.surf = self.text = self.text_extents = self.tint = None
+        self.data = self.painter = self.surf = self.text = self.text_extents = self.tint = None
+        self._use_waveform = False
         self._seek_position = None
 
     def set_mood(self, data):
@@ -52,8 +53,9 @@ class Moodbar(Gtk.DrawingArea):
         :return: Whether the mood data is successfully set
         :rtype: bool
         """
+        self.data = data
         if data:
-            self.surf = painter.paint(data)
+            self.surf = self._paint(data)
             self._invalidate()
             return bool(self.surf)
         else:
@@ -100,6 +102,26 @@ class Moodbar(Gtk.DrawingArea):
         if tint != old_tint:
             self.tint = tint
             self._invalidate()
+
+    def set_use_waveform(self, use_waveform):
+        """Set whether to paint using the waveform painter (or the normal one).
+
+        :type use_waveform: bool
+        """
+        old_use_waveform = self._use_waveform
+        if use_waveform != old_use_waveform:
+            self._use_waveform = use_waveform
+            self.painter = None
+            data = self.data
+            if data:
+                self.surf = self._paint(data)
+                self._invalidate()
+
+    def _paint(self, *args, **kwargs):
+        p = self.painter
+        if not p:
+            self.painter = p = painter.WaveformPainter() if self._use_waveform else painter.NormalPainter()
+        return p.paint(*args, **kwargs)
 
     def _invalidate(self):
         alloc = self.get_allocation()

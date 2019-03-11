@@ -73,7 +73,9 @@ class WaveformPainter(Painter):
                 # Cairo RGB24 is BGRX
                 val = rgb[2 - ic]
                 for i in xrange(
-                    ystart * stride + index4 + ic, yend * stride + index4 + ic + 1, stride
+                    ystart * stride + index4 + ic,
+                    yend * stride + index4 + ic + 1,
+                    stride,
                 ):
                     arr[i] = val
         return surf
@@ -105,6 +107,7 @@ class WaveformPainter(Painter):
 
         def to_chr(c):
             return chr(int(_clamp(c, 0, 1) * 255))
+
         return to_chr(r), to_chr(g), to_chr(b)
 
     @staticmethod

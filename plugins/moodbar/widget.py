@@ -42,7 +42,8 @@ class Moodbar(Gtk.DrawingArea):
         # TODO: Handle screen-changed.
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
-        self.data = self.painter = self.surf = self.text = self.text_extents = self.tint = None
+        self.data = self.surf = self.text = self.text_extents = self.tint = None
+        self.painter = None
         self._use_waveform = False
         self._seek_position = None
 
@@ -120,7 +121,11 @@ class Moodbar(Gtk.DrawingArea):
     def _paint(self, *args, **kwargs):
         p = self.painter
         if not p:
-            self.painter = p = painter.WaveformPainter() if self._use_waveform else painter.NormalPainter()
+            self.painter = p = (
+                painter.WaveformPainter()
+                if self._use_waveform
+                else painter.NormalPainter()
+            )
         return p.paint(*args, **kwargs)
 
     def _invalidate(self):

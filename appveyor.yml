@@ -9,7 +9,6 @@ environment:
   sdk_name: exaile-sdk-win
   sdk_ver: 6
   sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
-  dist_name: $(APPVEYOR_PROJECT_NAME)-$(APPVEYOR_REPO_TAG_NAME)
 
 clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)
 
@@ -25,6 +24,8 @@ init:
       set PATH=C:\msys64\usr\bin;%PATH%
       set GTK_SDK_VERBOSE=1
       set MAKEFLAGS=-j2
+      IF "%APPVEYOR_REPO_TAG%" == "true"  (set dist_name="%APPVEYOR_PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%")
+      IF "%APPVEYOR_REPO_TAG%" == "false" (set dist_name="%APPVEYOR_PROJECT_NAME%-%APPVEYOR_BUILD_NUMBER%")
 
       REM Show detailed package statistics on pacman -S
       echo [options]>> C:\msys64\etc\pacman.conf

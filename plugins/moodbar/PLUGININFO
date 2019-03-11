@@ -1,6 +1,6 @@
 Version='4.0.0'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Moodbar')
-Description=_('Show visual representation of the music timeline.\n\nRequires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to decode files)')
+Description=_('Show visual representation of the music timeline.\n\nRequires: moodbar')
 Category=_('GUI')
 RequiredModules=['gi:PangoCairo']

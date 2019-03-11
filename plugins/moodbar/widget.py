@@ -34,8 +34,8 @@ Extents = collections.namedtuple(
 
 
 class Moodbar(Gtk.DrawingArea):
-    pos_size = 0.4  # Size of seek notch, in fraction of bar height
-    pos_linesize = 2
+    POS_SIZE = 0.4  # Size of seek notch, in fraction of bar height
+    POS_LINESIZE = 2
 
     def __init__(self):
         super(Moodbar, self).__init__()
@@ -48,7 +48,7 @@ class Moodbar(Gtk.DrawingArea):
     def set_mood(self, data):
         """
         :param data: Mood data, or None to not show any
-        :type data: bytes|None
+        :type data: Optional[bytes]
         :return: Whether the mood data is successfully set
         :rtype: bool
         """
@@ -69,7 +69,7 @@ class Moodbar(Gtk.DrawingArea):
     def seek_position(self, pos):
         """
         :param pos: Seek position, between 0 and 1 inclusive, or None to hide
-        :type pos: float|None
+        :type pos: Optional[float]
         """
         old_pos = self._seek_position
         if pos != old_pos:
@@ -79,7 +79,7 @@ class Moodbar(Gtk.DrawingArea):
     def set_text(self, text):
         """Set the text in the middle of the moodbar.
 
-        :type text: str|None
+        :type text: Optional[str]
         """
         old_text = self.text
         if text != old_text:
@@ -91,9 +91,10 @@ class Moodbar(Gtk.DrawingArea):
             self._invalidate()
 
     def set_tint(self, tint):
-        """Add a color layer to the whole moodbar, or None to disable.
+        """Add a color layer to the whole moodbar.
 
-        :type tint: Gdk.ARGB|None
+        :param tint: The color tint, or None to disable
+        :type tint: Optional[Gdk.ARGB]
         """
         old_tint = self.tint
         if tint != old_tint:
@@ -113,10 +114,10 @@ class Moodbar(Gtk.DrawingArea):
         alloc = self.get_allocation()
         width, height = alloc.width, alloc.height
 
+        # Mood
         if self.surf:
-            # Mood
             cr.save()
-            cr.scale(width / self.surf.get_width(), height)
+            cr.scale(width / self.surf.get_width(), height / self.surf.get_height())
             cr.set_source_surface(self.surf, 0, 0)
             cr.paint()
             cr.restore()
@@ -144,9 +145,9 @@ class Moodbar(Gtk.DrawingArea):
         if pos is not None:
             cr.save()
             x = pos * width
-            y = height * self.pos_size
+            y = height * self.POS_SIZE
             xd = y
-            linesize = self.pos_linesize
+            linesize = self.POS_LINESIZE
             top = linesize / 2 - 0.5
             # Triangle
             cr.move_to(x, y)

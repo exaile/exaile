@@ -32,26 +32,21 @@ import xl.player
 import xl.xdg
 import xlgui.guiutil
 
-from cache import ExaileMoodbarCache
-from generator import SpectrumMoodbarGenerator
+from cache import MoodbarCache
+from generator import MoodbarGenerator
 from widget import Moodbar
 
 
 class MoodbarPlugin:
-
-    exaile = None
-    generator = None
-    cache = None
-
     def __init__(self):
         self.main_controller = self.preview_controller = None
 
     def enable(self, exaile):
-        self.generator = SpectrumMoodbarGenerator()
+        self.generator = MoodbarGenerator()
         self.generator.check()
 
         self.exaile = exaile
-        self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
+        self.cache = MoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
 
         xl.event.add_ui_callback(
             self._on_preview_device_enabled, 'preview_device_enabled'
@@ -113,11 +108,6 @@ class MoodbarController:
         self.timer = self.seeking = False
 
         self.moodbar = moodbar = Moodbar()
-        moodbar.add_events(
-            Gdk.EventMask.BUTTON_PRESS_MASK
-            | Gdk.EventMask.BUTTON1_MOTION_MASK
-            | Gdk.EventMask.BUTTON_RELEASE_MASK
-        )
         xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, moodbar)
         moodbar.show()
         # TODO: If currently playing, this needs to run now as well:
@@ -126,6 +116,12 @@ class MoodbarController:
         )
         xl.event.add_ui_callback(
             self._on_playback_track_end, 'playback_track_end', self.player
+        )
+
+        moodbar.add_events(
+            Gdk.EventMask.BUTTON_PRESS_MASK
+            | Gdk.EventMask.BUTTON1_MOTION_MASK
+            | Gdk.EventMask.BUTTON_RELEASE_MASK
         )
         moodbar.connect('button-press-event', self._on_moodbar_button_press)
         moodbar.connect('motion-notify-event', self._on_moodbar_motion)

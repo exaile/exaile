@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-24 15:07+1000\n"
+"POT-Creation-Date: 2019-03-12 03:21+1000\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: Filippos Kolyvas <fkolyvas@gmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -97,7 +97,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:64
+#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
 msgstr "Άγνωστο"
 
@@ -427,8 +427,8 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:125
-#: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
+#: ../xlgui/widgets/playlist_columns.py:224 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
@@ -439,167 +439,173 @@ msgid "Arranger"
 msgstr "Ενορχηστρωτής"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
-#: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
+#: ../xlgui/widgets/playlist_columns.py:194 ../plugins/cd/cdprefs.py:112
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Καλλιτέχνης:"
 
-#: ../xl/metadata/tags.py:49
+#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
+#, fuzzy
+#| msgid "by %(artist)s"
+msgid "Album artist"
+msgstr "από %(artist)s"
+
+#: ../xl/metadata/tags.py:50
 msgid "Author"
 msgstr "Δημιουργός"
 
-#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:356
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:370
 #: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xl/metadata/tags.py:51
+#: ../xl/metadata/tags.py:52
 msgid "Copyright"
 msgstr "Πνευματικά Δικαιώματα"
 
-#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:527
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:541
 msgid "Comment"
 msgstr ""
 
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:200
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:214
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
 #: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Συνθέτης"
 
-#: ../xl/metadata/tags.py:54 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr ""
 
-#: ../xl/metadata/tags.py:55 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "Εξώφυλλο"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:288
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:302
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:230
+#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:244
 msgid "Disc"
 msgstr "Δίσκος"
 
-#: ../xl/metadata/tags.py:58
+#: ../xl/metadata/tags.py:59
 msgid "Encoded by"
 msgstr "Σύνθεση από"
 
-#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:306
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:320
 #: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Είδος μουσικής"
 
-#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:539
+#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:553
 msgid "Grouping"
 msgstr ""
 
-#: ../xl/metadata/tags.py:61
+#: ../xl/metadata/tags.py:62
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:366
+#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:380
 msgid "Language"
 msgstr ""
 
-#: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:44
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr ""
 
-#: ../xl/metadata/tags.py:64
+#: ../xl/metadata/tags.py:65
 msgid "Lyricist"
 msgstr "Στιχουργός"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:66
 msgid "Organization"
 msgstr "Οργανισμός"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:67
 msgid "Original album"
 msgstr "Γνήσιο άλμπουμ"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:68
 msgid "Original artist"
 msgstr "Αρχικός καλλιτέχνης"
 
-#: ../xl/metadata/tags.py:68
+#: ../xl/metadata/tags.py:69
 msgid "Original date"
 msgstr "Αρχική ημερομηνία"
 
-#: ../xl/metadata/tags.py:70
+#: ../xl/metadata/tags.py:71
 msgid "Performer"
 msgstr "Καλλιτέχνης"
 
-#: ../xl/metadata/tags.py:71 ../xlgui/panel/flatplaylist.py:101
-#: ../xlgui/widgets/playlist_columns.py:180
+#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:184
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Τίτλος"
 
-#: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Κομμάτι"
 
-#: ../xl/metadata/tags.py:73
+#: ../xl/metadata/tags.py:74
 msgid "Version"
 msgstr "Έκδοση"
 
-#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:569
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:583
 msgid "Website"
 msgstr "Ιστοσελίδα"
 
-#: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:316
+#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:330
 #: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:407
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Ρυθμός bit"
 
-#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:385
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:399
 msgid "Date added"
 msgstr ""
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:376
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:390
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Τελευταία αναπαραγωγή"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:220
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:234
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Διάρκεια"
 
-#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:326
+#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:340
 #: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Τοποθεσία"
 
-#: ../xl/metadata/tags.py:84
+#: ../xl/metadata/tags.py:85
 msgid "Modified"
 msgstr "Τροποποιήθηκε"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:86
 #, fuzzy
 msgid "Play time"
 msgstr "Μετρητής εκτελέσεων"
 
-#: ../xl/metadata/tags.py:86
+#: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr ""
 
-#: ../xl/metadata/tags.py:88
+#: ../xl/metadata/tags.py:89
 msgid "Start offset"
 msgstr ""
 
-#: ../xl/metadata/tags.py:89
+#: ../xl/metadata/tags.py:90
 msgid "Stop offset"
 msgstr ""
 
@@ -784,17 +790,17 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/trax/track.py:63
+#: ../xl/trax/track.py:64
 msgid "Various Artists"
 msgstr "Διάφοροι Καλλιτέχνες"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:66
+#: ../xl/trax/track.py:67
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:702 ../xl/trax/track.py:766
+#: ../xl/trax/track.py:707 ../xl/trax/track.py:773
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -893,7 +899,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
+#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
@@ -1169,31 +1175,53 @@ msgstr ""
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:128
+#: ../xlgui/panel/collection.py:125
+#, fuzzy
+#| msgid "Artist"
+msgid "Album Artist"
+msgstr "Καλλιτέχνης:"
+
+#: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Είδος - Καλλιτέχνης"
 
-#: ../xlgui/panel/collection.py:131
+#: ../xlgui/panel/collection.py:134
+#, fuzzy
+#| msgid "Genre - Artist"
+msgid "Genre - Album Artist"
+msgstr "Είδος - Καλλιτέχνης"
+
+#: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
 msgstr "Είδος - Άλμπουμ"
 
-#: ../xlgui/panel/collection.py:134
+#: ../xlgui/panel/collection.py:140
 msgid "Date - Artist"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:143
+#, fuzzy
+#| msgid "Genre - Artist"
+msgid "Date - Album Artist"
+msgstr "Είδος - Καλλιτέχνης"
+
+#: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:149
 msgid "Artist - (Date - Album)"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:168 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:153
+msgid "Album Artist - (Date - Album)"
+msgstr ""
+
+#: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Συλλογή"
 
-#: ../xlgui/panel/collection.py:271
+#: ../xlgui/panel/collection.py:284
 msgid "Rescan Collection"
 msgstr "Επανασάρωση συλλογής"
 
@@ -1206,7 +1234,7 @@ msgstr ""
 msgid "Files"
 msgstr "Αρχεία"
 
-#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:336
+#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:350
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Όνομα αρχείου"
@@ -1223,7 +1251,7 @@ msgid "%s kB"
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:173
 msgid "#"
 msgstr "#"
 
@@ -1266,7 +1294,7 @@ msgid "Rename Playlist"
 msgstr "Μετονομασία Λίστας Αναπαραγωγής"
 
 #: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
-#: ../xlgui/widgets/smart_playlist_editor.py:393
+#: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr ""
 
@@ -1487,88 +1515,88 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Συντόμευση"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr ""
 
-#: ../xlgui/properties.py:257
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
 
-#: ../xlgui/properties.py:277
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../xlgui/properties.py:400
+#: ../xlgui/properties.py:401
 #, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
 "Είστε σίγουροι ότι θέλετε να διαγραφεί για πάντα η επιλεγμένη λίστα "
 "αναπαραγωγής;"
 
-#: ../xlgui/properties.py:442
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr ""
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr ""
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:625
+#: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:856
+#: ../xlgui/properties.py:857
 msgid "of:"
 msgstr ""
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:966
 msgid "JPEG image"
 msgstr ""
 
-#: ../xlgui/properties.py:970
+#: ../xlgui/properties.py:971
 msgid "PNG image"
 msgstr ""
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "Image"
 msgstr ""
 
-#: ../xlgui/properties.py:978
+#: ../xlgui/properties.py:979
 msgid "Linked image"
 msgstr ""
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1113
+#: ../xlgui/properties.py:1114
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../xlgui/properties.py:1127
+#: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
 msgstr ""
 
-#: ../xlgui/properties.py:1140
+#: ../xlgui/properties.py:1141
 msgid "Supported image formats"
 msgstr ""
 
-#: ../xlgui/properties.py:1223
+#: ../xlgui/properties.py:1224
 msgid "Open Directory"
 msgstr "Άνοιγμα καταλόγου"
 
-#: ../xlgui/properties.py:1273
+#: ../xlgui/properties.py:1274
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1547
+#: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
@@ -1671,7 +1699,7 @@ msgid "Add new playlist..."
 msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:1767
-#: ../xlgui/widgets/smart_playlist_editor.py:385
+#: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Δε δώσατε όνομα για τη λίστα αναπαραγωγής"
 
@@ -1932,15 +1960,15 @@ msgstr ""
 msgid "Loading"
 msgstr "Γίνεται φόρτωση %s..."
 
-#: ../xlgui/widgets/playlist_columns.py:170
+#: ../xlgui/widgets/playlist_columns.py:174
 msgid "Track Number"
 msgstr "Αριθμός κομματιού"
 
-#: ../xlgui/widgets/playlist_columns.py:231
+#: ../xlgui/widgets/playlist_columns.py:245
 msgid "Disc Number"
 msgstr "Αριθμός δίσκου"
 
-#: ../xlgui/widgets/playlist_columns.py:241
+#: ../xlgui/widgets/playlist_columns.py:255
 #: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
@@ -1948,31 +1976,31 @@ msgstr "Αριθμός δίσκου"
 msgid "Rating"
 msgstr "Βαθμολογία"
 
-#: ../xlgui/widgets/playlist_columns.py:297
+#: ../xlgui/widgets/playlist_columns.py:311
 msgid "Year"
 msgstr "Χρονιά"
 
-#: ../xlgui/widgets/playlist_columns.py:346
+#: ../xlgui/widgets/playlist_columns.py:360
 msgid "Playcount"
 msgstr "Μετρητής εκτελέσεων"
 
-#: ../xlgui/widgets/playlist_columns.py:394
+#: ../xlgui/widgets/playlist_columns.py:408
 msgid "Schedule"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:549
+#: ../xlgui/widgets/playlist_columns.py:563
 msgid "Start Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:559
+#: ../xlgui/widgets/playlist_columns.py:573
 msgid "Stop Offset"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:704
+#: ../xlgui/widgets/playlist_columns.py:723
 msgid "_Resizable"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:715
+#: ../xlgui/widgets/playlist_columns.py:734
 msgid "_Autosize"
 msgstr ""
 
@@ -2133,21 +2161,21 @@ msgstr "Επιλογές κομματιού"
 msgid "Add Smart Playlist"
 msgstr "Προσθήκη Έξυπνης Λίστας"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:350
+#: ../xlgui/widgets/smart_playlist_editor.py:352
 msgid "Edit Smart Playlist"
 msgstr "Επεξεργασία Έξυπνης Λίστας"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:421
+#: ../xlgui/widgets/smart_playlist_editor.py:423
 #, fuzzy
 msgid "Sort by:"
 msgstr "Εισαγωγή CD"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:436
+#: ../xlgui/widgets/smart_playlist_editor.py:438
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr ""
 
-#: ../xlgui/widgets/smart_playlist_editor.py:437
+#: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr ""
@@ -2161,7 +2189,7 @@ msgid "© 2009-2019 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
-#: ../data/ui/about_dialog.ui:25
+#: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
 msgstr ""
@@ -2935,12 +2963,12 @@ msgstr ""
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
 #, fuzzy
 msgid "Update"
 msgstr "Ενημερώσεις"
 
-#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
+#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
 msgstr "Δίσκος ήχου"
 
@@ -2986,25 +3014,25 @@ msgstr "Εισάγετε την διεύθυνση IP και τη θύρα γι�
 msgid "Enter IP address and port."
 msgstr "Εισάγετε την διεύθυνση IP και τη θύρα."
 
-#: ../plugins/daapclient/__init__.py:597
+#: ../plugins/daapclient/__init__.py:598
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:707
+#: ../plugins/daapclient/__init__.py:708
 msgid "Refresh Server List"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:715
+#: ../plugins/daapclient/__init__.py:716
 msgid "Disconnect from Server"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:736
+#: ../plugins/daapclient/__init__.py:737
 msgid "Select a Location for Saving"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:790
+#: ../plugins/daapclient/__init__.py:791
 msgid "Connect to DAAP..."
 msgstr ""
 
@@ -3076,7 +3104,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:107
 msgid "GroupTagger"
 msgstr ""
 
@@ -3505,15 +3533,19 @@ msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:102
+#: ../plugins/moodbar/__init__.py:101
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:179
+#: ../plugins/moodbar/__init__.py:206
 #, python-brace-format
 msgid "{current} / {remaining}"
+msgstr ""
+
+#: ../plugins/moodbar/prefs.py:28 ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
 msgstr ""
 
 #: ../plugins/multialarmclock/macprefs.py:22
@@ -3572,17 +3604,17 @@ msgstr "Μετονομασία Λίστας Αναπαραγωγής"
 msgid "Analyze playlist"
 msgstr "Μετονομασία Λίστας Αναπαραγωγής"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:199
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 #, fuzzy
 msgid "Modulus this number"
 msgstr "Αριθμός δίσκου"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:219
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:347
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"
 msgstr ""
 
@@ -4266,6 +4298,14 @@ msgstr ""
 msgid "Options"
 msgstr "Επιλογές"
 
+#: ../plugins/moodbar/prefs.ui:11
+msgid "Waveform view (experimental)"
+msgstr ""
+
+#: ../plugins/moodbar/prefs.ui:25
+msgid "Color tint (experimental)"
+msgstr ""
+
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
 msgstr ""
@@ -4804,10 +4844,6 @@ msgstr ""
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
-
-#: ../plugins/moodbar/PLUGININFO:3
-msgid "Moodbar"
 msgstr ""
 
 #: ../plugins/moodbar/PLUGININFO:4

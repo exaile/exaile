@@ -125,7 +125,7 @@ class WaveformPainter(Painter):
         level /= math.sqrt(255 ** 2 * 3)
 
         # These numbers are pulled out of thin air
-        MIN = 20 / 255
+        MIN = 10 / 255
         level = level * (1 - MIN) + MIN
         level = math.log(level + 1, 2)
 

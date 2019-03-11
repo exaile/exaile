@@ -1,9 +1,3 @@
-branches:
-  only:
-    - master
-
-skip_non_tags: true
-
 version: "{branch}-{build}"
 
 image: Visual Studio 2015
@@ -62,7 +56,7 @@ artifacts:
 
 deploy:
   provider: GitHub
-  release: $(APPVEYOR_REPO_TAG_NAME)
+  tag: $(APPVEYOR_REPO_TAG_NAME)
   description: ""
   draft: true
   auth_token:

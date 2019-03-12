@@ -1,0 +1,69 @@
+version: "{branch}-{build}"
+
+image: Visual Studio 2015
+
+environment:
+  APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
+  build_dir: C:\msys64\home\appveyor
+  build_root: exaile/tools/installer/_build_root
+  sdk_name: exaile-sdk-win
+  sdk_ver: 6
+  sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
+
+clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)
+
+clone_depth: 1
+
+cache:
+  - C:\msys64\var\cache\pacman\pkg
+  - '%build_dir%\%sdk_name%-%sdk_ver%.tar.xz'
+
+init:
+  - cmd: |
+      REM Update PATH for Bash
+      set PATH=C:\msys64\usr\bin;%PATH%
+      set GTK_SDK_VERBOSE=1
+      set MAKEFLAGS=-j2
+      IF "%APPVEYOR_REPO_TAG%" == "true"  (set dist_name=%APPVEYOR_PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%)
+      IF "%APPVEYOR_REPO_TAG%" == "false" (set dist_name=%APPVEYOR_PROJECT_NAME%-%APPVEYOR_BUILD_NUMBER%)
+      echo Using dist_name %dist_name%
+
+      REM Show detailed package statistics on pacman -S
+      echo [options]>> C:\msys64\etc\pacman.conf
+      echo VerbosePkgLists>> C:\msys64\etc\pacman.conf
+
+install:
+  - cmd: |
+      cd %build_dir%
+      git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
+      bash -lc "[[ -f $sdk_name-$sdk_ver.tar.xz ]] || time wget -O $sdk_name-$sdk_ver.tar.xz $sdk_url"
+      bash -lc "time pacman --noconfirm --noprogressbar -Syuu"
+
+before_build:
+  - cmd: |
+      bash -lc "mkdir $build_root"
+      bash -lc "time tar -xf $sdk_name-$sdk_ver.tar.xz -C $build_root"
+
+build_script:
+  - cmd: |
+      bash -lc "cd exaile/tools/installer && time ../../../python-gtk3-gst-sdk/win_installer/build_win32_installer.sh"
+
+after_build:
+  - cmd: |
+      move "exaile\tools\installer\exaile-LATEST.exe" "%APPVEYOR_BUILD_FOLDER%\%dist_name%.exe"
+
+artifacts:
+  - path: $(dist_name).exe
+    name: dist
+
+deploy:
+  provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  description: ""
+  draft: true
+  auth_token:
+    secure: vvfih0eox0HI74Oo9hdPhgi5yoXjcGS4YhSkDAM9mLTqxam8+F5iro4/QppvmD9M # sjohannes's access token
+  artifact: dist
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true

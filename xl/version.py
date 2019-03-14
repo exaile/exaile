@@ -53,7 +53,7 @@ def get_current_revision(directory):
         return None
 
 
-if xdg.local_hack:
+if os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
     revision = get_current_revision(xdg.exaile_dir)
     if revision is not None:
         extra += "+" + revision

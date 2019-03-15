@@ -29,31 +29,31 @@ msgstr "Lokale lêer"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dag, "
-msgstr[1] "%d dae, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dag, "
+msgstr[1] "{} dae, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d uur, "
-msgstr[1] "%d ure, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} uur, "
+msgstr[1] "{} ure, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuut, "
-msgstr[1] "%d minute, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuut, "
+msgstr[1] "{} minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekonde"
-msgstr[1] "%d sekondes"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekonde"
+msgstr[1] "{} sekondes"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -88,14 +88,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -409,13 +409,13 @@ msgstr "Hele biblioteek"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Willekeurig %d"
+msgid "Random {}"
+msgstr "Willekeurig {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Keuring > %d"
+msgid "Rating > {}"
+msgstr "Keuring > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -705,9 +705,9 @@ msgstr "_Albums deurmekaar"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Willekeurig %d"
+msgstr "Willekeurig {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1043,8 +1043,8 @@ msgstr "Fout tydens terugspeel voorgekom!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Buffer tans: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Buffer tans: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1417,8 +1417,8 @@ msgstr "Onlangs geslote oortjies"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Speellys %d"
+msgid "Playlist {}"
+msgstr "Speellys {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1755,18 +1755,18 @@ msgstr "Speel nie tans nie"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d in versameling"
+msgid "{} in collection"
+msgstr "{} in versameling"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d vertoon"
+msgid "{} showing"
+msgstr "{} vertoon"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d geselekteer"
+msgid "{} selected"
+msgstr "{} geselekteer"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1874,8 +1874,8 @@ msgstr "Uitgedoof"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2042,8 +2042,8 @@ msgstr "Wagtou"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Wagtou (%d)"
+msgid "Queue ({})"
+msgstr "Wagtou ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3006,8 +3006,8 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "BPM instel van %d na %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "BPM instel van {} na %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3774,8 +3774,8 @@ msgstr "Afskakeling sal binnekort begin"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Die rekenaar sal na %d sekondes afgeskakel word."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Die rekenaar sal na {} sekondes afgeskakel word."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4510,7 +4510,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d geselekteer"
+msgstr "{} geselekteer"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 #, fuzzy
@@ -5333,8 +5333,8 @@ msgstr ""
 #~ msgid "&#xA9; 2009-2010"
 #~ msgstr "&#xA9; 2009-2010"
 
-#~ msgid "%d KB"
-#~ msgstr "%d KG"
+#~ msgid "{} KB"
+#~ msgstr "{} KG"
 
 #~ msgid "ALSA"
 #~ msgstr "ALSA"

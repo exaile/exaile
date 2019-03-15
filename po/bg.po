@@ -30,31 +30,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d ден, "
-msgstr[1] "%d дни, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} ден, "
+msgstr[1] "{} дни, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d час, "
-msgstr[1] "%d часа, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} час, "
+msgstr[1] "{} часа, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d минута, "
-msgstr[1] "%d минути, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} минута, "
+msgstr[1] "{} минути, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d секунда"
-msgstr[1] "%d секунди"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} секунда"
+msgstr[1] "{} секунди"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,14 +89,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -419,13 +419,13 @@ msgstr "Цялата фонотека"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Произволни %d"
+msgid "Random {}"
+msgstr "Произволни {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Рейтинг > %d"
+msgid "Rating > {}"
+msgstr "Рейтинг > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -711,9 +711,9 @@ msgstr "Разбъркване на _албумите"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Произволни %d"
+msgstr "Произволни {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1045,8 +1045,8 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Буфериране: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Буфериране: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1415,8 +1415,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Списък с песни %d"
+msgid "Playlist {}"
+msgstr "Списък с песни {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1749,18 +1749,18 @@ msgstr "Пуснете песен"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d във фонотеката"
+msgid "{} in collection"
+msgstr "{} във фонотеката"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d са показани"
+msgid "{} showing"
+msgstr "{} са показани"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d избрани"
+msgid "{} selected"
+msgstr "{} избрани"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1866,8 +1866,8 @@ msgstr "Без звук"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2030,8 +2030,8 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Опашка (%d)"
+msgid "Queue ({})"
+msgstr "Опашка ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2976,7 +2976,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3737,8 +3737,8 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Компютърът ще се изключи след %d секунди."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Компютърът ще се изключи след {} секунди."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4479,7 +4479,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d избрани"
+msgstr "{} избрани"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5299,8 +5299,8 @@ msgstr ""
 #~ msgid "PulseAudio"
 #~ msgstr "PulseAudio"
 
-#~ msgid "%d KB"
-#~ msgstr "%d КБ"
+#~ msgid "{} KB"
+#~ msgstr "{} КБ"
 
 #~ msgid "GNOME"
 #~ msgstr "ГНОМ"

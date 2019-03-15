@@ -1,4 +1,4 @@
-# Ukrainian translation for exaile
+{}# Ukrainian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -33,35 +33,35 @@ msgstr "Локальний файл"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d день, "
-msgstr[1] "%d дні, "
-msgstr[2] "%d днів, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} день, "
+msgstr[1] "{} дні, "
+msgstr[2] "{} днів, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d година, "
-msgstr[1] "%d години, "
-msgstr[2] "%d годин, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} година, "
+msgstr[1] "{} години, "
+msgstr[2] "{} годин, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d хвилина, "
-msgstr[1] "%d хвилини, "
-msgstr[2] "%d хвилин, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} хвилина, "
+msgstr[1] "{} хвилини, "
+msgstr[2] "{} хвилин, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d секунда"
-msgstr[1] "%d секунди"
-msgstr[2] "%d секунд"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} секунда"
+msgstr[1] "{} секунди"
+msgstr[2] "{} секунд"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -96,14 +96,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -412,13 +412,13 @@ msgstr "Вся фонотека"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Випадковий %d"
+msgid "Random {}"
+msgstr "Випадковий {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Рейтинг > %d"
+msgid "Rating > {}"
+msgstr "Рейтинг > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -705,9 +705,9 @@ msgstr "Перемішувати _альбоми"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Випадковий %d"
+msgstr "Випадковий {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1048,8 +1048,8 @@ msgstr "Виникла помилка відтворення!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Буферизація: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Буферизація: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1425,8 +1425,8 @@ msgstr "Недавно закриті вкладки"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Список відтворення %d"
+msgid "Playlist {}"
+msgstr "Список відтворення {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1763,18 +1763,18 @@ msgstr "Нічого не відтворюється"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d у фонотеці"
+msgid "{} in collection"
+msgstr "{} у фонотеці"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d показано"
+msgid "{} showing"
+msgstr "{} показано"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "вибрано %d"
+msgid "{} selected"
+msgstr "вибрано {}"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1880,8 +1880,8 @@ msgstr "Приглушено"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2049,8 +2049,8 @@ msgstr "Черга"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Черга (%d)"
+msgid "Queue ({})"
+msgstr "Черга ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3026,8 +3026,8 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "Встановити BPM з %d на %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "Встановити BPM з {} на %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3797,8 +3797,8 @@ msgstr "Неминуче вимкнення системи"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Комп’ютер буде вимкнено через %d секунд."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Комп’ютер буде вимкнено через {} секунд."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -5664,8 +5664,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Експортувати як..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d Кбайт"
+#~ msgid "{} KB"
+#~ msgstr "{} Кбайт"
 
 #~ msgid "GNOME"
 #~ msgstr "Середовище GNOME"

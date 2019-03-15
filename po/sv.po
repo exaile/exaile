@@ -1,4 +1,4 @@
-# Swedish translation of exaile
+{}# Swedish translation of exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
@@ -30,31 +30,31 @@ msgstr "Lokal fil"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dag, "
-msgstr[1] "%d dagar, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dag, "
+msgstr[1] "{} dagar, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d timme, "
-msgstr[1] "%d timmar, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} timme, "
+msgstr[1] "{} timmar, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minut, "
-msgstr[1] "%d minuter, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minut, "
+msgstr[1] "{} minuter, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekunder"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekund"
+msgstr[1] "{} sekunder"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,14 +89,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -411,13 +411,13 @@ msgstr "Hela biblioteket"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Slumpa %d"
+msgid "Random {}"
+msgstr "Slumpa {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Betyg större än %d"
+msgid "Rating > {}"
+msgstr "Betyg större än {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -705,9 +705,9 @@ msgstr "Blanda a_lbum"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Slumpa %d"
+msgstr "Slumpa {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1043,8 +1043,8 @@ msgstr "Uppspelningsfel har uppstått!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Buffrar: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Buffrar: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1413,8 +1413,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Spellista %d"
+msgid "Playlist {}"
+msgstr "Spellista {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1747,18 +1747,18 @@ msgstr "Ingen uppspelning"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d i samlingen"
+msgid "{} in collection"
+msgstr "{} i samlingen"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d visar"
+msgid "{} showing"
+msgstr "{} visar"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d markerad"
+msgid "{} selected"
+msgstr "{} markerad"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1866,8 +1866,8 @@ msgstr "Tyst"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2032,8 +2032,8 @@ msgstr "Kö"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Kölägg (%d)"
+msgid "Queue ({})"
+msgstr "Kölägg ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2998,7 +2998,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3763,8 +3763,8 @@ msgstr "Omedelbar avstängning"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Datorn kommer att stängas av om %d sekunder."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Datorn kommer att stängas av om {} sekunder."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4497,7 +4497,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d markerad"
+msgstr "{} markerad"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5485,8 +5485,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Exportera som..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

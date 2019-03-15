@@ -1,4 +1,4 @@
-# Estonian translation for exaile
+{}# Estonian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d päev, "
-msgstr[1] "%d päeva, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} päev, "
+msgstr[1] "{} päeva, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d tund, "
-msgstr[1] "%d tundi, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} tund, "
+msgstr[1] "{} tundi, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minut, "
-msgstr[1] "%d minutit, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minut, "
+msgstr[1] "{} minutit, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekundit"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekund"
+msgstr[1] "{} sekundit"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,13 +89,13 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
+msgid "{}:%02d"
 msgstr ""
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
@@ -399,13 +399,13 @@ msgstr "Terve kogumik"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Juhuslik %d"
+msgid "Random {}"
+msgstr "Juhuslik {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Hinnang > %d"
+msgid "Rating > {}"
+msgstr "Hinnang > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -688,9 +688,9 @@ msgstr ""
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Juhuslik %d"
+msgstr "Juhuslik {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1019,8 +1019,8 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Puhverdamine: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Puhverdamine: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1382,8 +1382,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Esitusloend %d"
+msgid "Playlist {}"
+msgstr "Esitusloend {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1712,18 +1712,18 @@ msgstr "Ei Mängi"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{}in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
+msgid "{} showing"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d valitud"
+msgid "{} selected"
+msgstr "{} valitud"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1825,8 +1825,8 @@ msgstr "Tumm"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1986,7 +1986,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
+msgid "Queue ({})"
 msgstr ""
 
 #: ../xlgui/widgets/rating.py:266
@@ -2917,7 +2917,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3658,7 +3658,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -5014,8 +5014,8 @@ msgstr ""
 #~ msgid "Close tab"
 #~ msgstr "Sulge sakk"
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

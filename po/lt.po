@@ -1,4 +1,4 @@
-# Lithuanian translation for exaile
+{}# Lithuanian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -32,35 +32,35 @@ msgstr "Vietinis failas"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d diena, "
-msgstr[1] "%d dienos, "
-msgstr[2] "%d dienų, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} diena, "
+msgstr[1] "{} dienos, "
+msgstr[2] "{} dienų, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d valanda, "
-msgstr[1] "%d valandos, "
-msgstr[2] "%d valandų, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} valanda, "
+msgstr[1] "{} valandos, "
+msgstr[2] "{} valandų, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minutė, "
-msgstr[1] "%d minutės, "
-msgstr[2] "%d minučių, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minutė, "
+msgstr[1] "{} minutės, "
+msgstr[2] "{} minučių, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekundė"
-msgstr[1] "%d sekundės"
-msgstr[2] "%d sekundžių"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekundė"
+msgstr[1] "{} sekundės"
+msgstr[2] "{} sekundžių"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -95,14 +95,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -416,13 +416,13 @@ msgstr "Visa biblioteka"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Atsitiktinis %d"
+msgid "Random {}"
+msgstr "Atsitiktinis {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Reitingas > %d"
+msgid "Rating > {}"
+msgstr "Reitingas > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -709,9 +709,9 @@ msgstr "Maišyti _albumus"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Atsitiktinis %d"
+msgstr "Atsitiktinis {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1051,8 +1051,8 @@ msgstr "Įvyko grojimo klaida!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Įkeliama: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Įkeliama: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1423,8 +1423,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Grojaraštis %d"
+msgid "Playlist {}"
+msgstr "Grojaraštis {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1758,18 +1758,18 @@ msgstr "Negrojama"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "Kolekcijoje %d"
+msgid "{} in collection"
+msgstr "Kolekcijoje {}"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "Rodoma %d"
+msgid "{} showing"
+msgstr "Rodoma {}"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "Pasirinkta %d"
+msgid "{} selected"
+msgstr "Pasirinkta {}"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1875,8 +1875,8 @@ msgstr "Nutildyta"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2041,8 +2041,8 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Pridėti į grojimo eilę (%d)"
+msgid "Queue ({})"
+msgstr "Pridėti į grojimo eilę ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3007,7 +3007,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3767,8 +3767,8 @@ msgstr "Neišvengiams išjungimas"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Kompiuteris bus išjungtas po %d sekundžių."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Kompiuteris bus išjungtas po {} sekundžių."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4515,7 +4515,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "Pasirinkta %d"
+msgstr "Pasirinkta {}"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5499,8 +5499,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Eksportuoti kaip..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

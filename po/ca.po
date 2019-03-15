@@ -29,73 +29,73 @@ msgstr "Fitxer local"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dia, "
-msgstr[1] "%d dies, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dia, "
+msgstr[1] "{} dies, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hora, "
-msgstr[1] "%d hores, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hora, "
+msgstr[1] "{} hores, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minut, "
-msgstr[1] "%d minuts, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minut, "
+msgstr[1] "{} minuts, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d segon"
-msgstr[1] "%d segons"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} segon"
+msgstr[1] "{} segons"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr "%d d, "
+msgstr "{} d, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d h, "
+msgstr "{} h, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d min, "
+msgstr "{} min, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%d s"
+msgstr "{} s"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr "%d d "
+msgstr "{} d "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -393,13 +393,13 @@ msgstr "Tota la biblioteca"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "%d aleatoris"
+msgid "Random {}"
+msgstr "{} aleatoris"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Puntuació > %d"
+msgid "Rating > {}"
+msgstr "Puntuació > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -791,7 +791,7 @@ msgstr " / "
 #: ../xl/trax/track.py:707 ../xl/trax/track.py:773
 #, python-format
 msgid "%dk"
-msgstr "%d k"
+msgstr "{} k"
 
 #: ../xl/trax/trackdb.py:183
 msgid "You did not specify a location to load the db from"
@@ -1014,8 +1014,8 @@ msgstr "S'ha trobat un error en la reproducció!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Àrea de memòria temporal: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Àrea de memòria temporal: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1353,8 +1353,8 @@ msgstr "Restaura la pestanya tancada"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Llista de reproducció %d"
+msgid "Playlist {}"
+msgstr "Llista de reproducció {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1686,18 +1686,18 @@ msgstr "No s'està reproduint res"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d a la col·lecció"
+msgid "{} in collection"
+msgstr "{} a la col·lecció"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "Es mostren %d"
+msgid "{} showing"
+msgstr "Es mostren {}"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d seleccionats"
+msgid "{} selected"
+msgstr "{} seleccionats"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1783,8 +1783,8 @@ msgstr "Silenci"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1922,8 +1922,8 @@ msgstr "Cua"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Cua (%d)"
+msgid "Queue ({})"
+msgstr "Cua ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2866,8 +2866,8 @@ msgstr "Detecció automàtica dels PPM"
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "Voleu establir les PPM de %d a %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "Voleu establir les PPM de {} a %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3608,8 +3608,8 @@ msgstr "Apagada imminent"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "L'ordinador s'apagarà en %d segons."
+msgid "The computer will be shut down in {} seconds."
+msgstr "L'ordinador s'apagarà en {} segons."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"

@@ -1,4 +1,4 @@
-# Tamil translation for exaile
+{}# Tamil translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d நாள், "
-msgstr[1] "%d நாட்கள், "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} நாள், "
+msgstr[1] "{} நாட்கள், "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d மணித்தியாலம், "
-msgstr[1] "%d மணித்தியாலங்கள், "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} மணித்தியாலம், "
+msgstr[1] "{} மணித்தியாலங்கள், "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d நிமிடம், "
-msgstr[1] "%d நிமிடங்கள், "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} நிமிடம், "
+msgstr[1] "{} நிமிடங்கள், "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d விநாடி"
-msgstr[1] "%d விநாடிகள்"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} விநாடி"
+msgstr[1] "{} விநாடிகள்"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -66,19 +66,19 @@ msgstr ""
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d மணிகள், "
+msgstr "{} மணிகள், "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d நிமிடங்கள், "
+msgstr "{} நிமிடங்கள், "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%d நொடிகள்"
+msgstr "{} நொடிகள்"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
@@ -89,13 +89,13 @@ msgstr ""
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
 msgstr ""
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
+msgid "{}:%02d"
 msgstr ""
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
@@ -390,13 +390,13 @@ msgstr "முழு நூலகமும்"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
+msgid "Random {}"
 msgstr ""
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "தரவரிசை > %d"
+msgid "Rating > {}"
+msgstr "தரவரிசை > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -997,7 +997,7 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
+msgid "Buffering: {}%%..."
 msgstr ""
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
@@ -1342,8 +1342,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "இசைப்பட்டியல் %d"
+msgid "Playlist {}"
+msgstr "இசைப்பட்டியல் {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1670,17 +1670,17 @@ msgstr "இசைக்கவில்லை"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{} in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
+msgid "{} showing"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
+msgid "{} selected"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -1777,7 +1777,7 @@ msgstr ""
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
+msgid "{}%%"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1436
@@ -1926,7 +1926,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
+msgid "Queue ({})"
 msgstr ""
 
 #: ../xlgui/widgets/rating.py:266
@@ -2849,7 +2849,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3584,7 +3584,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -4753,7 +4753,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 #, fuzzy
 msgid "Playlist Analyzer"
-msgstr "இசைப்பட்டியல் %d"
+msgstr "இசைப்பட்டியல் {}"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""

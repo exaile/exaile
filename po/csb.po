@@ -30,29 +30,29 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
+msgid "{} day, "
+msgid_plural "{} days, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -89,13 +89,13 @@ msgstr ""
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
 msgstr ""
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
+msgid "{}:%02d"
 msgstr ""
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
@@ -392,13 +392,13 @@ msgstr "Całownô bibloteka"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Przëtrôfkòwé %d"
+msgid "Random {}"
+msgstr "Przëtrôfkòwé {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Òbsąd > %d"
+msgid "Rating > {}"
+msgstr "Òbsąd > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -686,9 +686,9 @@ msgstr ""
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Przëtrôfkòwé %d"
+msgstr "Przëtrôfkòwé {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1017,8 +1017,8 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Bùfòrowanié: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Bùfòrowanié: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1383,8 +1383,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Lësta graniô %d"
+msgid "Playlist {}"
+msgstr "Lësta graniô {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1714,17 +1714,17 @@ msgstr "Nie grô"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{} in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
+msgid "{} showing"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
+msgid "{} selected"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -1829,8 +1829,8 @@ msgstr "Wëcëszony"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1987,7 +1987,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
+msgid "Queue ({})"
 msgstr ""
 
 #: ../xlgui/widgets/rating.py:266
@@ -2940,7 +2940,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3698,7 +3698,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -5173,8 +5173,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Ekspòrtëjë jakno..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

@@ -1,4 +1,4 @@
-# Romanian translation for exaile
+{}# Romanian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d zi, "
-msgstr[1] "%d zile, "
-msgstr[2] "%d de zile, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} zi, "
+msgstr[1] "{} zile, "
+msgstr[2] "{} de zile, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
 msgstr[0] "o oră, "
-msgstr[1] "%d ore, "
-msgstr[2] "%d de ore, "
+msgstr[1] "{} ore, "
+msgstr[2] "{} de ore, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
 msgstr[0] "un minut, "
-msgstr[1] "%d minute, "
-msgstr[2] "%d de minute, "
+msgstr[1] "{} minute, "
+msgstr[2] "{} de minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
 msgstr[0] "o secundă"
-msgstr[1] "%d secunde"
-msgstr[2] "%d de secunde"
+msgstr[1] "{} secunde"
+msgstr[2] "{} de secunde"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -94,14 +94,14 @@ msgstr "%dz "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -414,13 +414,13 @@ msgstr "Toată colecţia"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "%d aleator"
+msgid "Random {}"
+msgstr "{} aleator"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Apreciere > %d"
+msgid "Rating > {}"
+msgstr "Apreciere > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -706,9 +706,9 @@ msgstr "Amestecă _albumele"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "%d aleator"
+msgstr "{} aleator"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1044,8 +1044,8 @@ msgstr "S-a întâmpinat o eroare de redare!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Se creează memoria tampon: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Se creează memoria tampon: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1411,7 +1411,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
+msgid "Playlist {}"
 msgstr ""
 
 #: ../xlgui/playlist_container.py:384
@@ -1745,18 +1745,18 @@ msgstr "Nu se redă nimic"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d în colecție"
+msgid "{} in collection"
+msgstr "{} în colecție"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d arătate"
+msgid "{} showing"
+msgstr "{} arătate"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d selectate"
+msgid "{} selected"
+msgstr "{} selectate"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1862,8 +1862,8 @@ msgstr "Amuțit"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2027,8 +2027,8 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Coadă (%d)"
+msgid "Queue ({})"
+msgstr "Coadă ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2976,7 +2976,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3729,7 +3729,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150

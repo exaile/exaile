@@ -30,35 +30,35 @@ msgstr "Místní soubor"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d den, "
-msgstr[1] "%d dny, "
-msgstr[2] "%d dnů, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} den, "
+msgstr[1] "{} dny, "
+msgstr[2] "{} dnů, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hodina, "
-msgstr[1] "%d hodiny, "
-msgstr[2] "%d hodin, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hodina, "
+msgstr[1] "{} hodiny, "
+msgstr[2] "{} hodin, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta, "
-msgstr[1] "%d minuty, "
-msgstr[2] "%d minut, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuta, "
+msgstr[1] "{} minuty, "
+msgstr[2] "{} minut, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunda"
-msgstr[1] "%d sekundy"
-msgstr[2] "%d sekund"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekunda"
+msgstr[1] "{} sekundy"
+msgstr[2] "{} sekund"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -93,14 +93,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -409,13 +409,13 @@ msgstr "Celá knihovna"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Náhodný %d"
+msgid "Random {}"
+msgstr "Náhodný {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Hodnocení > %d"
+msgid "Rating > {}"
+msgstr "Hodnocení > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -705,9 +705,9 @@ msgstr "Míchat _alba"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Náhodný %d"
+msgstr "Náhodný {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1046,8 +1046,8 @@ msgstr "Při přehrávání se vyskytla chyba!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Vyrovnávací paměť: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Vyrovnávací paměť: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1420,8 +1420,8 @@ msgstr "Naposledy zavřené karty"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Seznam skladeb %d"
+msgid "Playlist {}"
+msgstr "Seznam skladeb {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1760,18 +1760,18 @@ msgstr "Nepřehrává se"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d v kolekci"
+msgid "{} in collection"
+msgstr "{} v kolekci"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d zobrazeno"
+msgid "{} showing"
+msgstr "{} zobrazeno"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d vybráno"
+msgid "{} selected"
+msgstr "{} vybráno"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1877,8 +1877,8 @@ msgstr "Ztišeno"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2045,8 +2045,8 @@ msgstr "Fronta"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Fronta (%d)"
+msgid "Queue ({})"
+msgstr "Fronta ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3016,8 +3016,8 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "Nastavit BPM z %d na %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "Nastavit BPM z {} na %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3792,8 +3792,8 @@ msgstr "Počítač bude za chvíli vypnut"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Počítač bude vypnut za %d sekund."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Počítač bude vypnut za {} sekund."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4546,7 +4546,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d vybráno"
+msgstr "{} vybráno"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 #, fuzzy
@@ -5598,8 +5598,8 @@ msgstr ""
 #~ msgid "JACK"
 #~ msgstr "JACK"
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "&#xA9; 2009-2010"
 #~ msgstr "&#xA9; 2009-2010"

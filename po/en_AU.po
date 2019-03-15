@@ -30,31 +30,31 @@ msgstr "Local file"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d day, "
-msgstr[1] "%d days, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} day, "
+msgstr[1] "{} days, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hour, "
-msgstr[1] "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hour, "
+msgstr[1] "{} hours, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minute, "
-msgstr[1] "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minute, "
+msgstr[1] "{} minutes, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d second"
-msgstr[1] "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} second"
+msgstr[1] "{} seconds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,14 +89,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -390,13 +390,13 @@ msgstr "Entire Library"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Random %d"
+msgid "Random {}"
+msgstr "Random {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Rating > %d"
+msgid "Rating > {}"
+msgstr "Rating > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -684,9 +684,9 @@ msgstr "Shuffle _Albums"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Random %d"
+msgstr "Random {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1015,8 +1015,8 @@ msgstr "Playback error encountered!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Buffering: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Buffering: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1353,8 +1353,8 @@ msgstr "Restore closed tab"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Playlist %d"
+msgid "Playlist {}"
+msgstr "Playlist {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1686,18 +1686,18 @@ msgstr "Not Playing"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d in collection"
+msgid "{} in collection"
+msgstr "{} in collection"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d showing"
+msgid "{} showing"
+msgstr "{} showing"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d selected"
+msgid "{} selected"
+msgstr "{} selected"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1785,8 +1785,8 @@ msgstr "Muted"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1922,8 +1922,8 @@ msgstr "Queue"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Queue (%d)"
+msgid "Queue ({})"
+msgstr "Queue ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2864,7 +2864,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3619,8 +3619,8 @@ msgstr "Imminent Shutdown"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
+msgstr "The computer will be shut down in {} seconds."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4364,7 +4364,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d selected"
+msgstr "{} selected"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"

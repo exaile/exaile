@@ -1,4 +1,4 @@
-# Traditional Chinese translation for exaile
+{}# Traditional Chinese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,69 +30,69 @@ msgstr "本地檔案"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d 天, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} 天, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d 時， "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} 時， "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d 分， "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} 分， "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d 秒"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr "%d 天， "
+msgstr "{} 天， "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d 時， "
+msgstr "{} 時， "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d 分， "
+msgstr "{} 分， "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%d 秒"
+msgstr "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr "%d 天 "
+msgstr "{} 天 "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -403,13 +403,13 @@ msgstr "全部音樂庫"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "隨機 %d"
+msgid "Random {}"
+msgstr "隨機 {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "評價 > %d"
+msgid "Rating > {}"
+msgstr "評價 > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -694,9 +694,9 @@ msgstr "隨機播放專輯 (_A)"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "隨機 %d"
+msgstr "隨機 {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1030,8 +1030,8 @@ msgstr "播放發生錯誤！"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "緩衝中：%d%%..."
+msgid "Buffering: {}%%..."
+msgstr "緩衝中：{}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1406,8 +1406,8 @@ msgstr "最近關閉的分頁"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "播放清單 %d"
+msgid "Playlist {}"
+msgstr "播放清單 {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1741,18 +1741,18 @@ msgstr "未播放"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d 在音樂庫中"
+msgid "{} in collection"
+msgstr "{} 在音樂庫中"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d 首陳列"
+msgid "{} showing"
+msgstr "{} 首陳列"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "已選擇 %d 個"
+msgid "{} selected"
+msgstr "已選擇 {} 個"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1858,8 +1858,8 @@ msgstr "靜音"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2028,8 +2028,8 @@ msgstr "佇列"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "佇列 (%d)"
+msgid "Queue ({})"
+msgstr "佇列 ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2997,7 +2997,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3767,7 +3767,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -4496,7 +4496,7 @@ msgstr "預置"
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "已選擇 %d 個"
+msgstr "已選擇 {} 個"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5382,8 +5382,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "匯出為..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

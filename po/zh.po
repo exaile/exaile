@@ -1,4 +1,4 @@
-# Simplified Chinese translation for exaile
+{}# Simplified Chinese translation for exaile
 # Copyright (c) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the exaile package.
 # Aron Xu <aronxu@gnome.org>, 2009.
@@ -31,27 +31,27 @@ msgstr "本机文件"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d 天, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} 天, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d小时, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{}小时, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d分钟, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{}分钟, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d秒"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{}秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -86,14 +86,14 @@ msgstr "%d天 "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -388,13 +388,13 @@ msgstr "整个音乐库"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "随机 %d"
+msgid "Random {}"
+msgstr "随机 {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "评级 > %d"
+msgid "Rating > {}"
+msgstr "评级 > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -683,9 +683,9 @@ msgstr "乱序模式（_专辑）"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "随机 %d"
+msgstr "随机 {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -836,12 +836,12 @@ msgstr "路径已存在于您的音乐库，或者是音乐库中另一路径的
 #: ../xlgui/cover.py:97
 #, fuzzy, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "取得 %d 个封面"
+msgstr "取得 {} 个封面"
 
 #: ../xlgui/cover.py:98
 #, fuzzy
 msgid "All covers fetched"
-msgstr "取得 %d 个封面"
+msgstr "取得 {} 个封面"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
@@ -1017,8 +1017,8 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "正在缓冲：%d%%..."
+msgid "Buffering: {}%%..."
+msgstr "正在缓冲：{}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1386,8 +1386,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "播放列表 %d"
+msgid "Playlist {}"
+msgstr "播放列表 {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1718,18 +1718,18 @@ msgstr "未播放"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "共有 %d 在收藏集中"
+msgid "{} in collection"
+msgstr "共有 {} 在收藏集中"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d首展出"
+msgid "{} showing"
+msgstr "{}首展出"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d首选中"
+msgid "{} selected"
+msgstr "{}首选中"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1814,8 +1814,8 @@ msgstr "静音了"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1951,8 +1951,8 @@ msgstr "队列"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "队列 (%d)"
+msgid "Queue ({})"
+msgstr "队列 ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2872,8 +2872,8 @@ msgstr "自动检测 BPM"
 
 #: ../plugins/bpm/__init__.py:131
 #, fuzzy, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "要将 %s 的 BPM 设为 %d 吗？"
+msgid "Set BPM of {} on %s?"
+msgstr "要将 %s 的 BPM 设为 {} 吗？"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3647,7 +3647,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -5290,8 +5290,8 @@ msgstr ""
 #~ msgid "  New song, fetching cover."
 #~ msgstr "  新歌曲，正在获取封面。"
 
-#~ msgid "File count: %d"
-#~ msgstr "文件计数：%d"
+#~ msgid "File count: {}"
+#~ msgstr "文件计数：{}"
 
 #~ msgid "Watching directory: %s"
 #~ msgstr "监视目录：%s"

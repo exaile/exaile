@@ -1,4 +1,4 @@
-# Hindi translation for exaile
+{}# Hindi translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,49 +30,49 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d दिन "
-msgstr[1] "%d दिन "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} दिन "
+msgstr[1] "{} दिन "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d घंटा, "
-msgstr[1] "%d घंटे, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} घंटा, "
+msgstr[1] "{} घंटे, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d मिनट, "
-msgstr[1] "%d कार्यवृत्त, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} मिनट, "
+msgstr[1] "{} कार्यवृत्त, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d सेकंड"
-msgstr[1] "%d सेकंड्‌स"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} सेकंड"
+msgstr[1] "{} सेकंड्‌स"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr "%d दि, "
+msgstr "{} दि, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d घं, "
+msgstr "{} घं, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d मि, "
+msgstr "{} मि, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
@@ -89,14 +89,14 @@ msgstr "%dदि "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -407,12 +407,12 @@ msgstr ""
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
+msgid "Random {}"
 msgstr ""
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
+msgid "Rating > {}"
 msgstr ""
 
 #: ../xl/main.py:1001
@@ -1016,7 +1016,7 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
+msgid "Buffering: {}%%..."
 msgstr ""
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
@@ -1367,7 +1367,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
+msgid "Playlist {}"
 msgstr ""
 
 #: ../xlgui/playlist_container.py:384
@@ -1695,17 +1695,17 @@ msgstr "गीत बंद है"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{} in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
+msgid "{} showing"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
+msgid "{} selected"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -1802,7 +1802,7 @@ msgstr "मौन"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
+msgid "{}%%"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1436
@@ -1954,7 +1954,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
+msgid "Queue ({})"
 msgstr ""
 
 #: ../xlgui/widgets/rating.py:266
@@ -2870,7 +2870,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3603,7 +3603,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150

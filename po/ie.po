@@ -1,4 +1,4 @@
-# SOME DESCRIPTIVE TITLE.
+{}# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -29,31 +29,31 @@ msgstr "Local file"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d die, "
-msgstr[1] "%d dies, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} die, "
+msgstr[1] "{} dies, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hor, "
-msgstr[1] "%d hores, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hor, "
+msgstr[1] "{} hores, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minute, "
-msgstr[1] "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minute, "
+msgstr[1] "{} minutes, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d seconde"
-msgstr[1] "%d secondes"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} seconde"
+msgstr[1] "{} secondes"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -88,14 +88,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -385,13 +385,13 @@ msgstr "Tot collection"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "%d al hazarde"
+msgid "Random {}"
+msgstr "{} al hazarde"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Evaluation > %d"
+msgid "Rating > {}"
+msgstr "Evaluation > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -674,9 +674,9 @@ msgstr "Mixter _albums"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "%d al hazarde"
+msgstr "{} al hazarde"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -987,7 +987,7 @@ msgstr "Errore de reproduction!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
+msgid "Buffering: {}%%..."
 msgstr ""
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
@@ -1325,8 +1325,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Playlist %d"
+msgid "Playlist {}"
+msgstr "Playlist {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1656,18 +1656,18 @@ msgstr ""
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d in li collection"
+msgid "{} in collection"
+msgstr "{} in li collection"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d monstrat"
+msgid "{} showing"
+msgstr "{} monstrat"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d selectet"
+msgid "{} selected"
+msgstr "{} selectet"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1751,8 +1751,8 @@ msgstr "Assurdat"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1888,8 +1888,8 @@ msgstr "Linea"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Linea (%d)"
+msgid "Queue ({})"
+msgstr "Linea ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2795,7 +2795,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3527,8 +3527,8 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Va extinter li computator pos %d secondes."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Va extinter li computator pos {} secondes."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"

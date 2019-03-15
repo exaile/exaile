@@ -1,4 +1,4 @@
-# Croatian translation for exaile
+{}# Croatian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dan, "
-msgstr[1] "%d dani, "
-msgstr[2] "%d dani, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dan, "
+msgstr[1] "{} dani, "
+msgstr[2] "{} dani, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d sat, "
-msgstr[1] "%d sati, "
-msgstr[2] "%d sati, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} sat, "
+msgstr[1] "{} sati, "
+msgstr[2] "{} sati, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta, "
-msgstr[1] "%d minute, "
-msgstr[2] "%d minute, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuta, "
+msgstr[1] "{} minute, "
+msgstr[2] "{} minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunda"
-msgstr[1] "%d sekunde"
-msgstr[2] "%d sekunde"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekunda"
+msgstr[1] "{} sekunde"
+msgstr[2] "{} sekunde"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -94,14 +94,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -412,13 +412,13 @@ msgstr "Cijela Knjižnica"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Nasumično %d"
+msgid "Random {}"
+msgstr "Nasumično {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Ocjena > %d"
+msgid "Rating > {}"
+msgstr "Ocjena > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -706,9 +706,9 @@ msgstr ""
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Nasumično %d"
+msgstr "Nasumično {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1047,8 +1047,8 @@ msgstr "Greška pri reprodukciji!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Međuspremanje: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Međuspremanje: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1419,8 +1419,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Lista izvođenja %d"
+msgid "Playlist {}"
+msgstr "Lista izvođenja {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1754,18 +1754,18 @@ msgstr "Ništa ne svira"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d u kolekciji"
+msgid "{} in collection"
+msgstr "{} u kolekciji"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d prikazano"
+msgid "{} showing"
+msgstr "{} prikazano"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d odabrano"
+msgid "{} selected"
+msgstr "{} odabrano"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1873,8 +1873,8 @@ msgstr "Utišano"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2039,8 +2039,8 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Red čekanja (%d)"
+msgid "Queue ({})"
+msgstr "Red čekanja ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2997,7 +2997,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3764,8 +3764,8 @@ msgstr "Gašenje neizbježno"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Računalo će se ugasiti za %d sekundi."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Računalo će se ugasiti za {} sekundi."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4495,7 +4495,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d odabrano"
+msgstr "{} odabrano"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5331,8 +5331,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Izvoz kao..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

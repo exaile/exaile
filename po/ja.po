@@ -1,4 +1,4 @@
-# Japanese translation for exaile
+{}# Japanese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,27 +30,27 @@ msgstr "ローカルファイル"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d 日, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} 日, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d 時間, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} 時間, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d 分, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} 分, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d 秒"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -85,14 +85,14 @@ msgstr "%d日 "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -408,13 +408,13 @@ msgstr "ライブラリ全体"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "ランダム %d"
+msgid "Random {}"
+msgstr "ランダム {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "レーティング > %d"
+msgid "Rating > {}"
+msgstr "レーティング > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -701,9 +701,9 @@ msgstr "シャッフル-アルバム(_A)"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "ランダム %d"
+msgstr "ランダム {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1036,8 +1036,8 @@ msgstr "再生エラー!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "バッファリング: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "バッファリング: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1411,8 +1411,8 @@ msgstr "最近閉じたタブ"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "プレイリスト %d"
+msgid "Playlist {}"
+msgstr "プレイリスト {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1741,18 +1741,18 @@ msgstr "再生していません"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d トラックがコレクションされています"
+msgid "{} in collection"
+msgstr "{} トラックがコレクションされています"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d トラック表示中"
+msgid "{} showing"
+msgstr "{} トラック表示中"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d 選択中"
+msgid "{} selected"
+msgstr "{} 選択中"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1860,8 +1860,8 @@ msgstr "ミュート中"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2031,8 +2031,8 @@ msgstr "キュー"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "キュー (%d)"
+msgid "Queue ({})"
+msgstr "キュー ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2986,7 +2986,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3742,7 +3742,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -4464,7 +4464,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d 選択中"
+msgstr "{} 選択中"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5207,8 +5207,8 @@ msgstr ""
 #~ msgid "Close tab"
 #~ msgstr "タブを閉じる"
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "ALSA"
 #~ msgstr "ALSA"

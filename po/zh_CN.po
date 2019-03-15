@@ -1,4 +1,4 @@
-# Simplified Chinese translation for exaile
+{}# Simplified Chinese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,68 +30,68 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d 天, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} 天, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d 时, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} 时, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d 分, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} 分, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d 秒"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr "%d 天， "
+msgstr "{} 天， "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d 小时， "
+msgstr "{} 小时， "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d 分钟， "
+msgstr "{} 分钟， "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%d 秒"
+msgstr "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr "%d 天 "
+msgstr "{} 天 "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
 msgstr ""
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
+msgid "{}:%02d"
 msgstr ""
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
@@ -401,13 +401,13 @@ msgstr "整个媒体库"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "随机 %d"
+msgid "Random {}"
+msgstr "随机 {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "评分 > %d"
+msgid "Rating > {}"
+msgstr "评分 > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -693,9 +693,9 @@ msgstr "随机播放专辑(_A)"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "随机 %d"
+msgstr "随机 {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1022,8 +1022,8 @@ msgstr "播放遇到错误"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "正在缓冲：%d%%..."
+msgid "Buffering: {}%%..."
+msgstr "正在缓冲：{}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1392,8 +1392,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "播放列表 %d"
+msgid "Playlist {}"
+msgstr "播放列表 {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1725,17 +1725,17 @@ msgstr "未播放"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "总计 %d 个"
+msgid "{} in collection"
+msgstr "总计 {} 个"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "显示 %d 个"
+msgid "{} showing"
+msgstr "显示 {} 个"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
+msgid "{} selected"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -1842,7 +1842,7 @@ msgstr "已静音"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
+msgid "{}%%"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1436
@@ -2010,8 +2010,8 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "查询 (%d)"
+msgid "Queue ({})"
+msgstr "查询 ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2968,7 +2968,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3730,7 +3730,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150
@@ -5331,8 +5331,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "导出..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

@@ -30,35 +30,35 @@ msgstr "Lakaĺny fajl"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dzień, "
-msgstr[1] "%d dni, "
-msgstr[2] "%d dzion, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dzień, "
+msgstr[1] "{} dni, "
+msgstr[2] "{} dzion, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hadzina, "
-msgstr[1] "%d hadziny, "
-msgstr[2] "%d hadzin, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hadzina, "
+msgstr[1] "{} hadziny, "
+msgstr[2] "{} hadzin, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d chvilina, "
-msgstr[1] "%d chviliny, "
-msgstr[2] "%d chvilin, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} chvilina, "
+msgstr[1] "{} chviliny, "
+msgstr[2] "{} chvilin, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d siekunda,"
-msgstr[1] "%d siekundy,"
-msgstr[2] "%d siekund,"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} siekunda,"
+msgstr[1] "{} siekundy,"
+msgstr[2] "{} siekund,"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -93,14 +93,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -417,13 +417,13 @@ msgstr "Usia fanateka"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "%d vypadkovych"
+msgid "Random {}"
+msgstr "{} vypadkovych"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Rejtynh > %d"
+msgid "Rating > {}"
+msgstr "Rejtynh > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -708,9 +708,9 @@ msgstr "Zmiešvać _aĺbomy"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "%d vypadkovych"
+msgstr "{} vypadkovych"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1051,8 +1051,8 @@ msgstr "Pry prajhravanni adbylasia pamylka!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Bufieryzacyja: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Bufieryzacyja: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1428,8 +1428,8 @@ msgstr "Niadaŭna začynienyja ŭkladki"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Spis prajhravannia %d"
+msgid "Playlist {}"
+msgstr "Spis prajhravannia {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1768,18 +1768,18 @@ msgstr "Nie prajhravajecca"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d u kaliekcyi"
+msgid "{} in collection"
+msgstr "{} u kaliekcyi"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d pakazana"
+msgid "{} showing"
+msgstr "{} pakazana"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "abrana %d"
+msgid "{} selected"
+msgstr "abrana {}"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1885,8 +1885,8 @@ msgstr "huk vykliučany"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d %%"
+msgid "{}%%"
+msgstr "{} %%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2056,8 +2056,8 @@ msgstr "Čarha"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Čarha (%d)"
+msgid "Queue ({})"
+msgstr "Čarha ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3028,7 +3028,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3783,8 +3783,8 @@ msgstr "Chutkaje zaviaršennie pracy"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Kamputar budzie vykliučany praz %d siekund."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Kamputar budzie vykliučany praz {} siekund."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"

@@ -30,73 +30,73 @@ msgstr "Lokale Datei"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d Tag, "
-msgstr[1] "%d Tage, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} Tag, "
+msgstr[1] "{} Tage, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d Stunde, "
-msgstr[1] "%d Stunden, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} Stunde, "
+msgstr[1] "{} Stunden, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d Minute, "
-msgstr[1] "%d Minuten, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} Minute, "
+msgstr[1] "{} Minuten, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d Sekunde"
-msgstr[1] "%d Sekunden"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} Sekunde"
+msgstr[1] "{} Sekunden"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr "%d d, "
+msgstr "{} d, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr "%d h, "
+msgstr "{} h, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr "%d min, "
+msgstr "{} min, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr "%d s"
+msgstr "{} s"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr "%d d "
+msgstr "{} d "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -392,13 +392,13 @@ msgstr "Gesamte Bibliothek"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Zufällige %d"
+msgid "Random {}"
+msgstr "Zufällige {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Bewertung > %d"
+msgid "Rating > {}"
+msgstr "Bewertung > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -1019,8 +1019,8 @@ msgstr "Fehler bei der Wiedergabe!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Puffern: %d%% …"
+msgid "Buffering: {}%%..."
+msgstr "Puffern: {}%% …"
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1357,8 +1357,8 @@ msgstr "Tabs wiederherstellen"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Wiedergabeliste %d"
+msgid "Playlist {}"
+msgstr "Wiedergabeliste {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1692,18 +1692,18 @@ msgstr "Keine Wiedergabe"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d in Bibliothek"
+msgid "{} in collection"
+msgstr "{} in Bibliothek"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d angezeigt"
+msgid "{} showing"
+msgstr "{} angezeigt"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d ausgewählt"
+msgid "{} selected"
+msgstr "{} ausgewählt"
 
 #: ../xlgui/widgets/menuitems.py:117
 msgid "En_queue"
@@ -1789,8 +1789,8 @@ msgstr "Stumm"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -1926,8 +1926,8 @@ msgstr "Warteschlange"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Warteschlange (%d)"
+msgid "Queue ({})"
+msgstr "Warteschlange ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2862,8 +2862,8 @@ msgstr "BPM automatisch erkennen"
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "BPM von %d für %s festlegen?"
+msgid "Set BPM of {} on %s?"
+msgstr "BPM von {} für %s festlegen?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3604,8 +3604,8 @@ msgstr "Bevorstehendes Herunterfahren"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Der Computer wird in %d Sekunden heruntergefahren."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Der Computer wird in {} Sekunden heruntergefahren."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -5540,8 +5540,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Exportieren als …"
 
-#~ msgid "%d covers to fetch"
-#~ msgstr "%d Cover zu holen"
+#~ msgid "{} covers to fetch"
+#~ msgstr "{} Cover zu holen"
 
 #~ msgid "Start"
 #~ msgstr "Starten"
@@ -5967,8 +5967,8 @@ msgstr ""
 #~ msgid "Track title format:"
 #~ msgstr "Format des Stücktitels:"
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "Awn"
 #~ msgstr "Awn"

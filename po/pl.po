@@ -1,4 +1,4 @@
-# Polish translation for exaile
+{}# Polish translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr "Plik lokalny"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dzień, "
-msgstr[1] "%d dni, "
-msgstr[2] "%d dni, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dzień, "
+msgstr[1] "{} dni, "
+msgstr[2] "{} dni, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d godzina, "
-msgstr[1] "%d godziny, "
-msgstr[2] "%d godzin, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} godzina, "
+msgstr[1] "{} godziny, "
+msgstr[2] "{} godzin, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta, "
-msgstr[1] "%d minuty, "
-msgstr[2] "%d minut, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuta, "
+msgstr[1] "{} minuty, "
+msgstr[2] "{} minut, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunda"
-msgstr[1] "%d sekundy"
-msgstr[2] "%d sekund"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekunda"
+msgstr[1] "{} sekundy"
+msgstr[2] "{} sekund"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -94,14 +94,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -402,13 +402,13 @@ msgstr "Cała biblioteka"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Losowo %d"
+msgid "Random {}"
+msgstr "Losowo {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Ocena > %d"
+msgid "Rating > {}"
+msgstr "Ocena > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -695,9 +695,9 @@ msgstr "Losowa kolejność albumów"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Losowo %d"
+msgstr "Losowo {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1043,8 +1043,8 @@ msgstr "Błąd odtwarzania!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Buforowanie: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Buforowanie: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1420,8 +1420,8 @@ msgstr "Ostatnio zamknięte karty"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Lista odtwarzania %d"
+msgid "Playlist {}"
+msgstr "Lista odtwarzania {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1760,18 +1760,18 @@ msgstr "Nie odtwarza"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d w kolekcji"
+msgid "{} in collection"
+msgstr "{} w kolekcji"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d wyświetlonych"
+msgid "{} showing"
+msgstr "{} wyświetlonych"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d zaznaczono"
+msgid "{} selected"
+msgstr "{} zaznaczono"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1878,8 +1878,8 @@ msgstr "Wyciszony"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2047,8 +2047,8 @@ msgstr "Kolejka odtwarzania"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Kolejka (%d)"
+msgid "Queue ({})"
+msgstr "Kolejka ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3025,8 +3025,8 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "Ustawić tempo %d na %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "Ustawić tempo {} na %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3798,8 +3798,8 @@ msgstr "Natychmiastowe zamknięcie"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Komputer zostanie wyłączony za %d sekund."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Komputer zostanie wyłączony za {} sekund."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -5686,8 +5686,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Eksport jako..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

@@ -1,4 +1,4 @@
-# Vietnamese translation for exaile
+{}# Vietnamese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,27 +30,27 @@ msgstr "Tập tin trên máy"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d ngày, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} ngày, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d giờ, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} giờ, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d phút, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} phút, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d giây"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} giây"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -85,14 +85,14 @@ msgstr "%dng "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -400,13 +400,13 @@ msgstr "Toàn bộ Thư viện"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Ngẫu nhiên %d"
+msgid "Random {}"
+msgstr "Ngẫu nhiên {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Đánh giá > %d"
+msgid "Rating > {}"
+msgstr "Đánh giá > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -692,9 +692,9 @@ msgstr "Phát ngẫu nhiên _Album"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Ngẫu nhiên %d"
+msgstr "Ngẫu nhiên {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1033,8 +1033,8 @@ msgstr "Gặp lỗi khi phát!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Đang nạp bộ đệm: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Đang nạp bộ đệm: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1407,8 +1407,8 @@ msgstr "Các thẻ đóng gần đây"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Danh sách %d"
+msgid "Playlist {}"
+msgstr "Danh sách {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1744,18 +1744,18 @@ msgstr "Chưa phát nhạc"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d trong bộ sưu tập"
+msgid "{} in collection"
+msgstr "{} trong bộ sưu tập"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "Đang hiện %d"
+msgid "{} showing"
+msgstr "Đang hiện {}"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "Đã chọn %d"
+msgid "{} selected"
+msgstr "Đã chọn {}"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1863,8 +1863,8 @@ msgstr "Đã tắt âm"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2030,8 +2030,8 @@ msgstr "D.sách chờ"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Chờ phát (%d)"
+msgid "Queue ({})"
+msgstr "Chờ phát ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2992,7 +2992,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3764,8 +3764,8 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Máy sẽ tắt sau %d giây."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Máy sẽ tắt sau {} giây."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4500,7 +4500,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "Đã chọn %d"
+msgstr "Đã chọn {}"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
@@ -5365,8 +5365,8 @@ msgstr ""
 #~ msgid "Export as..."
 #~ msgstr "Xuất dưới dạng..."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"

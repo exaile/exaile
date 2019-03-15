@@ -31,35 +31,35 @@ msgstr "Лакальны файл"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d дзень, "
-msgstr[1] "%d дні, "
-msgstr[2] "%d дзён, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} дзень, "
+msgstr[1] "{} дні, "
+msgstr[2] "{} дзён, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d гадзіна, "
-msgstr[1] "%d гадзіны, "
-msgstr[2] "%d гадзін, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} гадзіна, "
+msgstr[1] "{} гадзіны, "
+msgstr[2] "{} гадзін, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d хвіліна, "
-msgstr[1] "%d хвіліны, "
-msgstr[2] "%d хвілін, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} хвіліна, "
+msgstr[1] "{} хвіліны, "
+msgstr[2] "{} хвілін, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d секунда"
-msgstr[1] "%d секунды"
-msgstr[2] "%d секунд"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} секунда"
+msgstr[1] "{} секунды"
+msgstr[2] "{} секунд"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -94,14 +94,14 @@ msgstr "%dд "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -418,13 +418,13 @@ msgstr "Уся фанатэка"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "%d выпадковых"
+msgid "Random {}"
+msgstr "{} выпадковых"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Рэйтынг > %d"
+msgid "Rating > {}"
+msgstr "Рэйтынг > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -711,9 +711,9 @@ msgstr "Змешваць _альбомы"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "%d выпадковых"
+msgstr "{} выпадковых"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1059,8 +1059,8 @@ msgstr "Пры прайграванні адбылася памылка!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Буферызацыя: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Буферызацыя: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1436,8 +1436,8 @@ msgstr "Нядаўна зачыненыя ўкладкі"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Спіс прайгравання %d"
+msgid "Playlist {}"
+msgstr "Спіс прайгравання {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1776,18 +1776,18 @@ msgstr "Не прайграваецца"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
-msgstr "%d у калекцыі"
+msgid "{} in collection"
+msgstr "{} у калекцыі"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d паказана"
+msgid "{} showing"
+msgstr "{} паказана"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "абрана %d"
+msgid "{} selected"
+msgstr "абрана {}"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1893,8 +1893,8 @@ msgstr "гук выключаны"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2063,8 +2063,8 @@ msgstr "Чарга"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Чарга (%d)"
+msgid "Queue ({})"
+msgstr "Чарга ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -3042,8 +3042,8 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
-msgstr "Усталяваць BPM %d на %s?"
+msgid "Set BPM of {} on %s?"
+msgstr "Усталяваць BPM {} на %s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
@@ -3813,8 +3813,8 @@ msgstr "Хуткае завяршэнне працы"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Кампутар будзе выключаны праз %d секунд."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Кампутар будзе выключаны праз {} секунд."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"

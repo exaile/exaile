@@ -30,31 +30,31 @@ msgstr "Loka dosiero"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d tago, "
-msgstr[1] "%d tagoj, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} tago, "
+msgstr[1] "{}{} tagoj, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d horo, "
-msgstr[1] "%d horoj, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} horo, "
+msgstr[1] "{} horoj, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuto, "
-msgstr[1] "%d minutoj, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuto, "
+msgstr[1] "{} minutoj, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekundo"
-msgstr[1] "%d sekundoj"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekundo"
+msgstr[1] "{} sekundoj"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,14 +89,14 @@ msgstr "%dd "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, fuzzy, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -405,13 +405,13 @@ msgstr "Tuta muzik-kolekto"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Hazarda %d"
+msgid "Random {}"
+msgstr "Hazarda {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Takso > %d"
+msgid "Rating > {}"
+msgstr "Takso > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -695,9 +695,9 @@ msgstr ""
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Hazarda %d"
+msgstr "Hazarda {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1026,8 +1026,8 @@ msgstr ""
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Bufrado: %d%%…"
+msgid "Buffering: {}%%..."
+msgstr "Bufrado: {}%%…"
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1384,8 +1384,8 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Ludlisto %d"
+msgid "Playlist {}"
+msgstr "Ludlisto {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1713,17 +1713,17 @@ msgstr "Neleganta"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{} in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
+msgid "{} showing"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
+msgid "{} selected"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:117
@@ -1828,7 +1828,7 @@ msgstr ""
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
+msgid "{}%%"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1436
@@ -1983,7 +1983,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
+msgid "Queue ({})"
 msgstr ""
 
 #: ../xlgui/widgets/rating.py:266
@@ -2910,7 +2910,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3650,7 +3650,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
+msgid "The computer will be shut down in {} seconds."
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:150

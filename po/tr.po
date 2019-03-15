@@ -1,4 +1,4 @@
-# Turkish translation for exaile
+{}# Turkish translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr "Yerel dosya"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d gün, "
-msgstr[1] "%d gün, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} gün, "
+msgstr[1] "{} gün, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d saat, "
-msgstr[1] "%d saat, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} saat, "
+msgstr[1] "{} saat, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d dakika, "
-msgstr[1] "%d dakika, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} dakika, "
+msgstr[1] "{} dakika, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d saniye"
-msgstr[1] "%d saniye"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} saniye"
+msgstr[1] "{} saniye"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -89,14 +89,14 @@ msgstr "%dg "
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
-msgid "%d:%02d:%02d"
-msgstr "%d:%02d:%02d"
+msgid "{}:%02d:%02d"
+msgstr "{}:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
-msgid "%d:%02d"
-msgstr "%d:%02d"
+msgid "{}:%02d"
+msgstr "{}:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
@@ -411,13 +411,13 @@ msgstr "Tüm Kütüphane"
 
 #: ../xl/main.py:823
 #, python-format
-msgid "Random %d"
-msgstr "Rasgele %d"
+msgid "Random {}"
+msgstr "Rasgele {}"
 
 #: ../xl/main.py:832
 #, python-format
-msgid "Rating > %d"
-msgstr "Derecelendirme > %d"
+msgid "Rating > {}"
+msgstr "Derecelendirme > {}"
 
 #: ../xl/main.py:1001
 msgid ""
@@ -705,9 +705,9 @@ msgstr "Karışık _Albümler"
 
 #: ../xl/playlist.py:919
 #, fuzzy
-#| msgid "Random %d"
+#| msgid "Random {}"
 msgid "_Random"
-msgstr "Rasgele %d"
+msgstr "Rasgele {}"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1044,8 +1044,8 @@ msgstr "Çalma hatasıyla karşılaşıldı!"
 
 #: ../xlgui/main.py:707
 #, python-format
-msgid "Buffering: %d%%..."
-msgstr "Arabelleğe alınıyor: %d%%..."
+msgid "Buffering: {}%%..."
+msgstr "Arabelleğe alınıyor: {}%%..."
 
 #: ../xlgui/main.py:748 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
@@ -1419,8 +1419,8 @@ msgstr "Son Kapatılan Sekmeler"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
-msgid "Playlist %d"
-msgstr "Çalma listesi %d"
+msgid "Playlist {}"
+msgstr "Çalma listesi {}"
 
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1749,18 +1749,18 @@ msgstr "Çalmıyor"
 
 #: ../xlgui/widgets/info.py:414
 #, python-format
-msgid "%d in collection"
+msgid "{} in collection"
 msgstr ""
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
-msgid "%d showing"
-msgstr "%d gösteriliyor"
+msgid "{} showing"
+msgstr "{} gösteriliyor"
 
 #: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
 #, python-format
-msgid "%d selected"
-msgstr "%d seçildi"
+msgid "{} selected"
+msgstr "{} seçildi"
 
 #: ../xlgui/widgets/menuitems.py:117
 #, fuzzy
@@ -1867,8 +1867,8 @@ msgstr "Sessiz"
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1431
 #, python-format
-msgid "%d%%"
-msgstr "%d%%"
+msgid "{}%%"
+msgstr "{}%%"
 
 #: ../xlgui/widgets/playback.py:1436
 msgid "Full Volume"
@@ -2037,8 +2037,8 @@ msgstr "Kuyruk"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
-msgid "Queue (%d)"
-msgstr "Sıra (%d)"
+msgid "Queue ({})"
+msgstr "Sıra ({})"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -2999,7 +2999,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
-msgid "Set BPM of %d on %s?"
+msgid "Set BPM of {} on %s?"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
@@ -3770,8 +3770,8 @@ msgstr "Acil Kapatma"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
-msgid "The computer will be shut down in %d seconds."
-msgstr "Bilgisayar %d saniye içinde kapatılacak."
+msgid "The computer will be shut down in {} seconds."
+msgstr "Bilgisayar {} saniye içinde kapatılacak."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
@@ -4504,7 +4504,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 #, fuzzy
 msgid "<none selected>"
-msgstr "%d seçildi"
+msgstr "{} seçildi"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 #, fuzzy
@@ -5415,8 +5415,8 @@ msgstr ""
 #~ "Dışarı çıkart...Inc.,\n"
 #~ "olacak."
 
-#~ msgid "%d KB"
-#~ msgstr "%d KB"
+#~ msgid "{} KB"
+#~ msgstr "{} KB"
 
 #~ msgid "by %s"
 #~ msgstr "%s tarafından"

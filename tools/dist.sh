@@ -43,8 +43,8 @@ tar --gzip --format=posix --owner 0 --group 0 \
 
 #mv tools/installer/exaile-LATEST.exe dist/exaile-${DIST_VERSION}.exe
 
-echo "Successfully built exaile installer! Going to sign the resulting packages"
-echo "with gpg (feel free to CTRL-C at this point if you don't care about that)"
+#echo "Successfully built exaile installer! Going to sign the resulting packages"
+#echo "with gpg (feel free to CTRL-C at this point if you don't care about that)"
 
-gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz
+#gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz
 #gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.exe

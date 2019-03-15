@@ -22,27 +22,7 @@ import os
 
 
 class MoodbarCache(object):
-    """ Abstract class for a cache for moodbar metadata files """
-
-    def get(self, uri):
-        """
-        :type uri: bytes
-        :rtype: bytes
-        """
-        raise NotImplementedError
-
-    def put(self, uri, data):
-        """
-        :type uri: bytes
-        :type data: bytes
-        """
-        raise NotImplementedError
-
-
-class ExaileMoodbarCache(MoodbarCache):
-    """ Exaile's implementation of a cache for moodbar files """
-
-    __loc = None
+    """Cache for moodbar files"""
 
     def __init__(self, location):
         try:
@@ -52,6 +32,10 @@ class ExaileMoodbarCache(MoodbarCache):
         self.__loc = location
 
     def get(self, uri):
+        """
+        :type uri: bytes
+        :rtype: bytes
+        """
         try:
             with open(self._get_cache_path(uri), 'rb') as cachefile:
                 return cachefile.read()
@@ -59,6 +43,10 @@ class ExaileMoodbarCache(MoodbarCache):
             return None
 
     def put(self, uri, data):
+        """
+        :type uri: bytes
+        :type data: bytes
+        """
         if data is None:
             return
         with open(self._get_cache_path(uri), 'wb') as cachefile:

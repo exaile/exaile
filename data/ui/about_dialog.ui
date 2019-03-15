@@ -10,7 +10,7 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Exaile</property>
-    <property name="copyright" translatable="yes">© 2009-2017 Various Contributors</property>
+    <property name="copyright" translatable="yes">© 2009-2019 Various Contributors</property>
     <property name="website">https://www.exaile.org</property>
     <property name="authors">Adam Olsen 
 Johannes Sasongko 
@@ -21,7 +21,8 @@ Brian Parma
 Dustin Spicuzza
 Fabiano Fidêncio
 Joseph S. Atkinson
-Christian Stadelmann</property>
+Christian Stadelmann
+Rok Mandeljc</property>
     <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here. Separate translator names with newlines.">Unknown translator</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg

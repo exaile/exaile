@@ -1,5 +1,5 @@
 # moodbar - Replace Exaile's seekbar with a moodbar
-# Copyright (C) 2015  Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2015, 2019  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,26 +34,29 @@ Extents = collections.namedtuple(
 
 
 class Moodbar(Gtk.DrawingArea):
-    pos_size = 0.4  # Size of seek notch, in fraction of bar height
-    pos_linesize = 2
+    POS_SIZE = 0.4  # Size of seek notch, in fraction of bar height
+    POS_LINESIZE = 2
 
     def __init__(self):
         super(Moodbar, self).__init__()
         # TODO: Handle screen-changed.
         # See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-create-pango-layout
         self.pango_layout = self.create_pango_layout()
-        self.surf = self.text = self.text_extents = self.tint = None
+        self.data = self.surf = self.text = self.text_extents = self.tint = None
+        self.painter = None
+        self._use_waveform = False
         self._seek_position = None
 
     def set_mood(self, data):
         """
         :param data: Mood data, or None to not show any
-        :type data: bytes|None
+        :type data: Optional[bytes]
         :return: Whether the mood data is successfully set
         :rtype: bool
         """
+        self.data = data
         if data:
-            self.surf = painter.paint(data)
+            self.surf = self._paint(data)
             self._invalidate()
             return bool(self.surf)
         else:
@@ -69,7 +72,7 @@ class Moodbar(Gtk.DrawingArea):
     def seek_position(self, pos):
         """
         :param pos: Seek position, between 0 and 1 inclusive, or None to hide
-        :type pos: float|None
+        :type pos: Optional[float]
         """
         old_pos = self._seek_position
         if pos != old_pos:
@@ -79,7 +82,7 @@ class Moodbar(Gtk.DrawingArea):
     def set_text(self, text):
         """Set the text in the middle of the moodbar.
 
-        :type text: str|None
+        :type text: Optional[str]
         """
         old_text = self.text
         if text != old_text:
@@ -91,14 +94,39 @@ class Moodbar(Gtk.DrawingArea):
             self._invalidate()
 
     def set_tint(self, tint):
-        """Add a color layer to the whole moodbar, or None to disable.
+        """Add a color layer to the whole moodbar.
 
-        :type tint: Gdk.ARGB|None
+        :param tint: The color tint, or None to disable
+        :type tint: Optional[Gdk.ARGB]
         """
         old_tint = self.tint
         if tint != old_tint:
             self.tint = tint
             self._invalidate()
+
+    def set_use_waveform(self, use_waveform):
+        """Set whether to paint using the waveform painter (or the normal one).
+
+        :type use_waveform: bool
+        """
+        old_use_waveform = self._use_waveform
+        if use_waveform != old_use_waveform:
+            self._use_waveform = use_waveform
+            self.painter = None
+            data = self.data
+            if data:
+                self.surf = self._paint(data)
+                self._invalidate()
+
+    def _paint(self, *args, **kwargs):
+        p = self.painter
+        if not p:
+            self.painter = p = (
+                painter.WaveformPainter()
+                if self._use_waveform
+                else painter.NormalPainter()
+            )
+        return p.paint(*args, **kwargs)
 
     def _invalidate(self):
         alloc = self.get_allocation()
@@ -113,10 +141,10 @@ class Moodbar(Gtk.DrawingArea):
         alloc = self.get_allocation()
         width, height = alloc.width, alloc.height
 
+        # Mood
         if self.surf:
-            # Mood
             cr.save()
-            cr.scale(width / self.surf.get_width(), height)
+            cr.scale(width / self.surf.get_width(), height / self.surf.get_height())
             cr.set_source_surface(self.surf, 0, 0)
             cr.paint()
             cr.restore()
@@ -144,9 +172,9 @@ class Moodbar(Gtk.DrawingArea):
         if pos is not None:
             cr.save()
             x = pos * width
-            y = height * self.pos_size
+            y = height * self.POS_SIZE
             xd = y
-            linesize = self.pos_linesize
+            linesize = self.POS_LINESIZE
             top = linesize / 2 - 0.5
             # Triangle
             cr.move_to(x, y)

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-24 15:07+1000\n"
+"POT-Creation-Date: 2019-03-12 03:21+1000\n"
 "PO-Revision-Date: 2019-01-26 19:04+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
@@ -97,7 +97,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:64
+#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -409,8 +409,8 @@ msgstr ""
 "Exaile encara no ha acabat la càrrega. Potser heu escoltat el senyal "
 "exaile_loaded signal?"
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:125
-#: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
+#: ../xlgui/widgets/playlist_columns.py:224 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
@@ -421,166 +421,172 @@ msgid "Arranger"
 msgstr "Organitzador"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
-#: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
+#: ../xlgui/widgets/playlist_columns.py:194 ../plugins/cd/cdprefs.py:112
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Artista"
 
-#: ../xl/metadata/tags.py:49
+#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
+#, fuzzy
+#| msgid "by {artist}"
+msgid "Album artist"
+msgstr "per {artist}"
+
+#: ../xl/metadata/tags.py:50
 msgid "Author"
 msgstr "Autor"
 
-#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:356
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:370
 #: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "PPM"
 
-#: ../xl/metadata/tags.py:51
+#: ../xl/metadata/tags.py:52
 msgid "Copyright"
 msgstr "Drets d'autor"
 
-#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:527
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:541
 msgid "Comment"
 msgstr "Comentari"
 
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:200
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:214
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
 #: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Compositor"
 
-#: ../xl/metadata/tags.py:54 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr "Director"
 
-#: ../xl/metadata/tags.py:55 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "Coberta"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:288
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:302
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Data"
 
-#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:230
+#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:244
 msgid "Disc"
 msgstr "Disc"
 
-#: ../xl/metadata/tags.py:58
+#: ../xl/metadata/tags.py:59
 msgid "Encoded by"
 msgstr "Codificat per"
 
-#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:306
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:320
 #: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Gènere"
 
-#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:539
+#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:553
 msgid "Grouping"
 msgstr "Agrupament"
 
-#: ../xl/metadata/tags.py:61
+#: ../xl/metadata/tags.py:62
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:366
+#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:380
 msgid "Language"
 msgstr "Idioma"
 
-#: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:44
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Lletres"
 
-#: ../xl/metadata/tags.py:64
+#: ../xl/metadata/tags.py:65
 msgid "Lyricist"
 msgstr "Lletrista"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:66
 msgid "Organization"
 msgstr "Organització"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:67
 msgid "Original album"
 msgstr "Àlbum original"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:68
 msgid "Original artist"
 msgstr "Artista original"
 
-#: ../xl/metadata/tags.py:68
+#: ../xl/metadata/tags.py:69
 msgid "Original date"
 msgstr "Data de l'original"
 
-#: ../xl/metadata/tags.py:70
+#: ../xl/metadata/tags.py:71
 msgid "Performer"
 msgstr "Intèrpret"
 
-#: ../xl/metadata/tags.py:71 ../xlgui/panel/flatplaylist.py:101
-#: ../xlgui/widgets/playlist_columns.py:180
+#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:184
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Títol"
 
-#: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Pista"
 
-#: ../xl/metadata/tags.py:73
+#: ../xl/metadata/tags.py:74
 msgid "Version"
 msgstr "Versió"
 
-#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:569
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:583
 msgid "Website"
 msgstr "Pàgina web"
 
-#: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:316
+#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:330
 #: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:407
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Taxa de bits"
 
-#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:385
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:399
 msgid "Date added"
 msgstr "Data d'afegiment"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:376
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:390
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Última reproducció"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:220
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:234
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Durada"
 
-#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:326
+#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:340
 #: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Ubicació"
 
-#: ../xl/metadata/tags.py:84
+#: ../xl/metadata/tags.py:85
 msgid "Modified"
 msgstr "Modificat"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:86
 msgid "Play time"
 msgstr "Temps de reproducció"
 
-#: ../xl/metadata/tags.py:86
+#: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr "Nombre de reproduccions"
 
-#: ../xl/metadata/tags.py:88
+#: ../xl/metadata/tags.py:89
 msgid "Start offset"
 msgstr "Començament de la compensació"
 
-#: ../xl/metadata/tags.py:89
+#: ../xl/metadata/tags.py:90
 msgid "Stop offset"
 msgstr "Acabament de la compensació"
 
@@ -772,17 +778,17 @@ msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 "Format d'àudio sense pèrdua, molt ràpid i amb bon nivell de compressió."
 
-#: ../xl/trax/track.py:63
+#: ../xl/trax/track.py:64
 msgid "Various Artists"
 msgstr "Artistes diversos"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:66
+#: ../xl/trax/track.py:67
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:702 ../xl/trax/track.py:766
+#: ../xl/trax/track.py:707 ../xl/trax/track.py:773
 #, python-format
 msgid "%dk"
 msgstr "%d k"
@@ -885,7 +891,7 @@ msgstr ""
 "l'habilitació de més orígens."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
+#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} píxels"
@@ -1130,31 +1136,55 @@ msgstr "Obre els registres d'error"
 msgid "_About"
 msgstr "Qu_ant a"
 
-#: ../xlgui/panel/collection.py:128
+#: ../xlgui/panel/collection.py:125
+#, fuzzy
+#| msgid "Artist"
+msgid "Album Artist"
+msgstr "Artista"
+
+#: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Gènere - artista"
 
-#: ../xlgui/panel/collection.py:131
+#: ../xlgui/panel/collection.py:134
+#, fuzzy
+#| msgid "Genre - Artist"
+msgid "Genre - Album Artist"
+msgstr "Gènere - artista"
+
+#: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
 msgstr "Gènere - àlbum"
 
-#: ../xlgui/panel/collection.py:134
+#: ../xlgui/panel/collection.py:140
 msgid "Date - Artist"
 msgstr "Data - artista"
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:143
+#, fuzzy
+#| msgid "Date - Artist"
+msgid "Date - Album Artist"
+msgstr "Data - artista"
+
+#: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
 msgstr "Data - àlbum"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:149
 msgid "Artist - (Date - Album)"
 msgstr "Artista - (data - àlbum)"
 
-#: ../xlgui/panel/collection.py:168 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:153
+#, fuzzy
+#| msgid "Artist - (Date - Album)"
+msgid "Album Artist - (Date - Album)"
+msgstr "Artista - (data - àlbum)"
+
+#: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Col·lecció"
 
-#: ../xlgui/panel/collection.py:271
+#: ../xlgui/panel/collection.py:284
 msgid "Rescan Collection"
 msgstr "Torna a explorar la col·lecció"
 
@@ -1167,7 +1197,7 @@ msgstr "S'està transferint a %s..."
 msgid "Files"
 msgstr "Fitxers"
 
-#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:336
+#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:350
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Nom del fitxer"
@@ -1184,7 +1214,7 @@ msgid "%s kB"
 msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:173
 msgid "#"
 msgstr "Núm."
 
@@ -1222,7 +1252,7 @@ msgid "Rename Playlist"
 msgstr "Reanomena la llista de reproducció"
 
 #: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
-#: ../xlgui/widgets/smart_playlist_editor.py:393
+#: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "El nom de la llista de reproducció que heu introduït ja està en ús."
 
@@ -1440,11 +1470,11 @@ msgstr "Acció"
 msgid "Shortcut"
 msgstr "Drecera"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr "Ha fallat l'escriptura de les etiquetes"
 
-#: ../xlgui/properties.py:257
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1453,74 +1483,74 @@ msgstr ""
 "No es poden escriure les etiquetes als següents fitxers:\n"
 "{files}"
 
-#: ../xlgui/properties.py:277
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Edició de la pista %(current)d de %(total)d"
 
-#: ../xlgui/properties.py:400
+#: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Esteu segur que voleu aplicar els canvis a totes les pistes?"
 
-#: ../xlgui/properties.py:442
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr "Voleu aplicar els canvis abans de tancar?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Els vostres canvis es perdran si no els apliqueu ara."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:625
+#: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:856
+#: ../xlgui/properties.py:857
 msgid "of:"
 msgstr "de:"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:966
 msgid "JPEG image"
 msgstr "Imatge JPEG"
 
-#: ../xlgui/properties.py:970
+#: ../xlgui/properties.py:971
 msgid "PNG image"
 msgstr "Imatge PNG"
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "Image"
 msgstr "Imatge"
 
-#: ../xlgui/properties.py:978
+#: ../xlgui/properties.py:979
 msgid "Linked image"
 msgstr "Imatge enllaçada"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1113
+#: ../xlgui/properties.py:1114
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} píxels)"
 
-#: ../xlgui/properties.py:1127
+#: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
 msgstr "Selecciona la imatge a establir com a coberta"
 
-#: ../xlgui/properties.py:1140
+#: ../xlgui/properties.py:1141
 msgid "Supported image formats"
 msgstr "Formats admesos de les imatges"
 
-#: ../xlgui/properties.py:1223
+#: ../xlgui/properties.py:1224
 msgid "Open Directory"
 msgstr "Obre la carpeta"
 
-#: ../xlgui/properties.py:1273
+#: ../xlgui/properties.py:1274
 msgid "Apply current value to all tracks"
 msgstr "Aplica el valor actual a totes les pistes"
 
-#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1547
+#: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "S'han emmagatzemat %(count)s de %(total)s."
@@ -1623,7 +1653,7 @@ msgid "Add new playlist..."
 msgstr "Afegeix una nova llista de reproducció..."
 
 #: ../xlgui/widgets/dialogs.py:1767
-#: ../xlgui/widgets/smart_playlist_editor.py:385
+#: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "No heu introduït el nom per a la vostra llista de reproducció"
 
@@ -1842,15 +1872,15 @@ msgstr "Afegeix dinàmicament pistes similars a la llista"
 msgid "Loading"
 msgstr "Càrrega"
 
-#: ../xlgui/widgets/playlist_columns.py:170
+#: ../xlgui/widgets/playlist_columns.py:174
 msgid "Track Number"
 msgstr "Número de la pista"
 
-#: ../xlgui/widgets/playlist_columns.py:231
+#: ../xlgui/widgets/playlist_columns.py:245
 msgid "Disc Number"
 msgstr "Número del disc"
 
-#: ../xlgui/widgets/playlist_columns.py:241
+#: ../xlgui/widgets/playlist_columns.py:255
 #: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
@@ -1858,31 +1888,31 @@ msgstr "Número del disc"
 msgid "Rating"
 msgstr "Puntuació"
 
-#: ../xlgui/widgets/playlist_columns.py:297
+#: ../xlgui/widgets/playlist_columns.py:311
 msgid "Year"
 msgstr "Any"
 
-#: ../xlgui/widgets/playlist_columns.py:346
+#: ../xlgui/widgets/playlist_columns.py:360
 msgid "Playcount"
 msgstr "Recompte de reproduccions"
 
-#: ../xlgui/widgets/playlist_columns.py:394
+#: ../xlgui/widgets/playlist_columns.py:408
 msgid "Schedule"
 msgstr "Planificació"
 
-#: ../xlgui/widgets/playlist_columns.py:549
+#: ../xlgui/widgets/playlist_columns.py:563
 msgid "Start Offset"
 msgstr "Començament del desplaçament"
 
-#: ../xlgui/widgets/playlist_columns.py:559
+#: ../xlgui/widgets/playlist_columns.py:573
 msgid "Stop Offset"
 msgstr "Acabament del desplaçament"
 
-#: ../xlgui/widgets/playlist_columns.py:704
+#: ../xlgui/widgets/playlist_columns.py:723
 msgid "_Resizable"
 msgstr "_Redimensionament"
 
-#: ../xlgui/widgets/playlist_columns.py:715
+#: ../xlgui/widgets/playlist_columns.py:734
 msgid "_Autosize"
 msgstr "Mida _automàtica"
 
@@ -2037,20 +2067,20 @@ msgstr "La pista no està al"
 msgid "Add Smart Playlist"
 msgstr "Afegeix una llista de reproducció intel·ligent"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:350
+#: ../xlgui/widgets/smart_playlist_editor.py:352
 msgid "Edit Smart Playlist"
 msgstr "Edita llista de reproducció intel·ligent"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:421
+#: ../xlgui/widgets/smart_playlist_editor.py:423
 msgid "Sort by:"
 msgstr "Ordena per:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:436
+#: ../xlgui/widgets/smart_playlist_editor.py:438
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Ascendent"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:437
+#: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Descendent"
@@ -2060,11 +2090,11 @@ msgid "About Exaile"
 msgstr "Quant a Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2017 Various Contributors"
-msgstr "© 2009-2017 diversos contribuïdors"
+msgid "© 2009-2019 Various Contributors"
+msgstr "© 2009-2019 diversos contribuïdors"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
-#: ../data/ui/about_dialog.ui:25
+#: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
 msgstr "Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>"
@@ -2844,11 +2874,11 @@ msgstr "Voleu establir les PPM de %d a %s?"
 msgid "BPM Counter"
 msgstr "Comptador de PPM"
 
-#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
 msgid "Update"
 msgstr "Actualitza"
 
-#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
+#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
 msgstr "Disc d'àudio"
 
@@ -2894,7 +2924,7 @@ msgstr "Introduïu l'adreça IP i el port per a la compartició"
 msgid "Enter IP address and port."
 msgstr "Introduïu l'adreça IP i el port."
 
-#: ../plugins/daapclient/__init__.py:597
+#: ../plugins/daapclient/__init__.py:598
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -2902,19 +2932,19 @@ msgstr ""
 "Aquest servidor no admet múltiples connexions.\n"
 "Heu d'aturar la reproducció abans de baixar les cançons."
 
-#: ../plugins/daapclient/__init__.py:707
+#: ../plugins/daapclient/__init__.py:708
 msgid "Refresh Server List"
 msgstr "Refresca la llista dels servidors"
 
-#: ../plugins/daapclient/__init__.py:715
+#: ../plugins/daapclient/__init__.py:716
 msgid "Disconnect from Server"
 msgstr "Desconnecta't del servidor"
 
-#: ../plugins/daapclient/__init__.py:736
+#: ../plugins/daapclient/__init__.py:737
 msgid "Select a Location for Saving"
 msgstr "Selecciona una ubicació per al desament"
 
-#: ../plugins/daapclient/__init__.py:790
+#: ../plugins/daapclient/__init__.py:791
 msgid "Connect to DAAP..."
 msgstr "Connecta't al DAAP..."
 
@@ -2981,7 +3011,7 @@ msgstr "Suprimeix les etiquetes a tot"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:107
 msgid "GroupTagger"
 msgstr "GroupTagger"
 
@@ -3405,16 +3435,20 @@ msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:102
+#: ../plugins/moodbar/__init__.py:101
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:179
+#: ../plugins/moodbar/__init__.py:206
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr "{current} / {remaining}"
+
+#: ../plugins/moodbar/prefs.py:28 ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
+msgstr "Barra dels mood"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3471,16 +3505,16 @@ msgstr "Analitza les llistes de reproducció"
 msgid "Analyze playlist"
 msgstr "Analitza la llista de reproducció"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:199
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 msgid "Modulus this number"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:219
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
 msgstr "Etiqueta %s"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:347
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"
 msgstr "Desa l'anàlisi"
 
@@ -4014,7 +4048,7 @@ msgstr "Nom de l'etiqueta de categorització"
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
-"choices may only work with certain file formats. "
+"choices may only work with certain file formats."
 msgstr ""
 
 #: ../plugins/history/history_preferences.ui:18
@@ -4159,6 +4193,16 @@ msgstr "Mostra el botó a la finestra principal"
 #: ../plugins/minimode/minimode_preferences.ui:284
 msgid "Options"
 msgstr "Opcions"
+
+#: ../plugins/moodbar/prefs.ui:11
+#, fuzzy
+#| msgid "Show ipv6 servers (Experimental)"
+msgid "Waveform view (experimental)"
+msgstr "Mostra els servidors ipv6 (experimental)"
+
+#: ../plugins/moodbar/prefs.ui:25
+msgid "Color tint (experimental)"
+msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4733,16 +4777,11 @@ msgstr "Mono"
 msgid "Downmixes audio to one channel."
 msgstr "Redueix el nombre de canals d'àudio a un únic canal."
 
-#: ../plugins/moodbar/PLUGININFO:3
-msgid "Moodbar"
-msgstr "Barra dels mood"
-
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"
-"Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
-"decode files)"
+"Requires: moodbar"
 msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3

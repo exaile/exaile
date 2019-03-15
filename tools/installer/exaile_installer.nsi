@@ -143,7 +143,7 @@ Section "-Exaile" SecExaile
 
     SetOutPath "$INSTDIR"
 
-    File /r "_dist\exaile\*.*"
+    File /r /x "fonts" /x "fontconfig" "_dist\exaile\*.*"
 
     ;Store installation folder
     WriteRegStr SHCTX "${INSTDIR_KEY}" "${INSTDIR_SUBKEY}" $INSTDIR

@@ -1,5 +1,5 @@
 # moodbar - Replace Exaile's seekbar with a moodbar
-# Copyright (C) 2015  Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2015, 2019  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,26 +32,22 @@ import xl.player
 import xl.xdg
 import xlgui.guiutil
 
-from cache import ExaileMoodbarCache
-from generator import SpectrumMoodbarGenerator
+from cache import MoodbarCache
+from generator import MoodbarGenerator
+import prefs
 from widget import Moodbar
 
 
 class MoodbarPlugin:
-
-    exaile = None
-    generator = None
-    cache = None
-
     def __init__(self):
         self.main_controller = self.preview_controller = None
 
     def enable(self, exaile):
-        self.generator = SpectrumMoodbarGenerator()
+        self.generator = MoodbarGenerator()
         self.generator.check()
 
         self.exaile = exaile
-        self.cache = ExaileMoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
+        self.cache = MoodbarCache(os.path.join(xl.xdg.get_cache_dir(), 'moods'))
 
         xl.event.add_ui_callback(
             self._on_preview_device_enabled, 'preview_device_enabled'
@@ -67,6 +63,9 @@ class MoodbarPlugin:
         self.main_controller = MoodbarController(
             self, xl.player.PLAYER, self.exaile.gui.main.progress_bar
         )
+
+    def get_preferences_pane(self):
+        return prefs
 
     def disable(self, exaile):
         if not self.main_controller:  # Disabled more than once or before gui_loaded
@@ -113,13 +112,11 @@ class MoodbarController:
         self.timer = self.seeking = False
 
         self.moodbar = moodbar = Moodbar()
-        moodbar.add_events(
-            Gdk.EventMask.BUTTON_PRESS_MASK
-            | Gdk.EventMask.BUTTON1_MOTION_MASK
-            | Gdk.EventMask.BUTTON_RELEASE_MASK
-        )
+        self._update_painter()
+        self._update_tint()
         xlgui.guiutil.gtk_widget_replace(self.orig_seekbar, moodbar)
         moodbar.show()
+
         # TODO: If currently playing, this needs to run now as well:
         xl.event.add_ui_callback(
             self._on_playback_track_start, 'playback_track_start', self.player
@@ -127,9 +124,17 @@ class MoodbarController:
         xl.event.add_ui_callback(
             self._on_playback_track_end, 'playback_track_end', self.player
         )
+
+        moodbar.add_events(
+            Gdk.EventMask.BUTTON_PRESS_MASK
+            | Gdk.EventMask.BUTTON1_MOTION_MASK
+            | Gdk.EventMask.BUTTON_RELEASE_MASK
+        )
         moodbar.connect('button-press-event', self._on_moodbar_button_press)
         moodbar.connect('motion-notify-event', self._on_moodbar_motion)
         moodbar.connect('button-release-event', self._on_moodbar_button_release)
+
+        xl.event.add_callback(self._on_option_set, 'plugin_moodbar_option_set')
 
     def destroy(self):
         xl.event.remove_callback(
@@ -144,6 +149,28 @@ class MoodbarController:
         xlgui.guiutil.gtk_widget_replace(self.moodbar, self.orig_seekbar)
         self.moodbar.destroy()
         self.moodbar = None
+
+    # Helpers to set moodbar state from prefs
+
+    def _update_painter(self):
+        use_waveform = xl.settings.get_option(
+            prefs.UseWaveformPreference.name, prefs.UseWaveformPreference.default
+        )
+        self.moodbar.set_use_waveform(use_waveform)
+
+    def _update_tint(self):
+        use_tint = xl.settings.get_option(
+            prefs.UseTintPreference.name, prefs.UseTintPreference.default
+        )
+        if use_tint:
+            tint_s = xl.settings.get_option(
+                prefs.TintPreference.name, prefs.TintPreference.default
+            )
+            tint = Gdk.RGBA()
+            tint.parse(tint_s)
+        else:
+            tint = None
+        self.moodbar.set_tint(tint)
 
     # Playback events
 
@@ -220,6 +247,16 @@ class MoodbarController:
         if event.button == Gdk.BUTTON_PRIMARY and self.seeking:
             self.player.set_progress(moodbar.seek_position)
             self.seeking = False
+
+    # Preferences events
+
+    def _on_option_set(self, _event, _settings, option):
+        if option == prefs.UseWaveformPreference.name:
+            self._update_painter()
+        elif option in (prefs.UseTintPreference.name, prefs.TintPreference.name):
+            self._update_tint()
+        else:
+            assert False
 
 
 # vi: et sts=4 sw=4 tw=99

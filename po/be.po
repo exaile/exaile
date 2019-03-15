@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-24 15:07+1000\n"
+"POT-Creation-Date: 2019-03-12 03:21+1000\n"
 "PO-Revision-Date: 2015-04-24 19:19+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/exaile/master/"
@@ -103,7 +103,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:64
+#: ../xl/formatter.py:722 ../xl/main.py:628 ../xl/trax/track.py:65
 msgid "Unknown"
 msgstr "Невядома"
 
@@ -434,8 +434,8 @@ msgstr ""
 "Exaile яшчэ не запусціўся. Магчыма, вам варта дачакацца сігналу "
 "exaile_loaded?"
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:125
-#: ../xlgui/widgets/playlist_columns.py:210 ../plugins/cd/cdprefs.py:114
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
+#: ../xlgui/widgets/playlist_columns.py:224 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
@@ -446,168 +446,174 @@ msgid "Arranger"
 msgstr "Апрацоўка"
 
 #: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
-#: ../xlgui/widgets/playlist_columns.py:190 ../plugins/cd/cdprefs.py:112
+#: ../xlgui/widgets/playlist_columns.py:194 ../plugins/cd/cdprefs.py:112
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
 msgstr "Выканавец"
 
-#: ../xl/metadata/tags.py:49
+#: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
+#, fuzzy
+#| msgid "by %(artist)s"
+msgid "Album artist"
+msgstr "(%(artist)s)"
+
+#: ../xl/metadata/tags.py:50
 msgid "Author"
 msgstr "Аўтар"
 
-#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:356
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:370
 #: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xl/metadata/tags.py:51
+#: ../xl/metadata/tags.py:52
 msgid "Copyright"
 msgstr "Аўтарскія правы"
 
-#: ../xl/metadata/tags.py:52 ../xlgui/widgets/playlist_columns.py:527
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:541
 msgid "Comment"
 msgstr "Апісанне"
 
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:200
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:214
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
 #: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Кампазітар"
 
-#: ../xl/metadata/tags.py:54 ../data/ui/trackproperties_dialog_cover_row.ui:56
+#: ../xl/metadata/tags.py:55 ../data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
 msgstr "Дырыжор"
 
-#: ../xl/metadata/tags.py:55 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
 msgstr "Вокладка"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/widgets/playlist_columns.py:288
+#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:302
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Дата"
 
-#: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:230
+#: ../xl/metadata/tags.py:58 ../xlgui/widgets/playlist_columns.py:244
 msgid "Disc"
 msgstr "Дыск"
 
-#: ../xl/metadata/tags.py:58
+#: ../xl/metadata/tags.py:59
 msgid "Encoded by"
 msgstr "Кадаваны"
 
-#: ../xl/metadata/tags.py:59 ../xlgui/widgets/playlist_columns.py:306
+#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:320
 #: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Жанр"
 
-#: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:539
+#: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:553
 msgid "Grouping"
 msgstr "Групаванне"
 
-#: ../xl/metadata/tags.py:61
+#: ../xl/metadata/tags.py:62
 msgid "ISRC"
 msgstr "ISRC"
 
-#: ../xl/metadata/tags.py:62 ../xlgui/widgets/playlist_columns.py:366
+#: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:380
 #, fuzzy
 #| msgid "Language:"
 msgid "Language"
 msgstr "Мова:"
 
-#: ../xl/metadata/tags.py:63 ../xlgui/panel/lyrics.py:44
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Тэкст песні"
 
-#: ../xl/metadata/tags.py:64
+#: ../xl/metadata/tags.py:65
 msgid "Lyricist"
 msgstr "Аўтар тэксту"
 
-#: ../xl/metadata/tags.py:65
+#: ../xl/metadata/tags.py:66
 msgid "Organization"
 msgstr "Арганізацыя"
 
-#: ../xl/metadata/tags.py:66
+#: ../xl/metadata/tags.py:67
 msgid "Original album"
 msgstr "Зыходны альбом"
 
-#: ../xl/metadata/tags.py:67
+#: ../xl/metadata/tags.py:68
 msgid "Original artist"
 msgstr "Арыгінальны выканавец"
 
-#: ../xl/metadata/tags.py:68
+#: ../xl/metadata/tags.py:69
 msgid "Original date"
 msgstr "Арыгінальная дата"
 
-#: ../xl/metadata/tags.py:70
+#: ../xl/metadata/tags.py:71
 msgid "Performer"
 msgstr "Выканавец"
 
-#: ../xl/metadata/tags.py:71 ../xlgui/panel/flatplaylist.py:101
-#: ../xlgui/widgets/playlist_columns.py:180
+#: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
+#: ../xlgui/widgets/playlist_columns.py:184
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Назва"
 
-#: ../xl/metadata/tags.py:72 ../plugins/grouptagger/gt_mass.ui:162
+#: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
 msgstr "Дарожка"
 
-#: ../xl/metadata/tags.py:73
+#: ../xl/metadata/tags.py:74
 msgid "Version"
 msgstr "Версія"
 
-#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:569
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:583
 msgid "Website"
 msgstr "Сайт"
 
-#: ../xl/metadata/tags.py:78 ../xlgui/widgets/playlist_columns.py:316
+#: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:330
 #: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:407
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Бітрэйт"
 
-#: ../xl/metadata/tags.py:80 ../xlgui/widgets/playlist_columns.py:385
+#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:399
 msgid "Date added"
 msgstr "Дата дадання"
 
-#: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:376
+#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:390
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Апошняе прайграванне"
 
-#: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:220
+#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:234
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Час"
 
-#: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:326
+#: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:340
 #: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Месцазнаходжанне"
 
-#: ../xl/metadata/tags.py:84
+#: ../xl/metadata/tags.py:85
 msgid "Modified"
 msgstr "Зменены"
 
-#: ../xl/metadata/tags.py:85
+#: ../xl/metadata/tags.py:86
 msgid "Play time"
 msgstr "Час прайгравання"
 
-#: ../xl/metadata/tags.py:86
+#: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr "Прайграны раз"
 
-#: ../xl/metadata/tags.py:88
+#: ../xl/metadata/tags.py:89
 msgid "Start offset"
 msgstr "Зрух пачатку"
 
-#: ../xl/metadata/tags.py:89
+#: ../xl/metadata/tags.py:90
 msgid "Stop offset"
 msgstr "Зрух канца"
 
@@ -801,17 +807,17 @@ msgstr ""
 "Cвободный фармат сціску гуку без страты якасці з высокай хуткасцю і добрай "
 "кампрэсіяй."
 
-#: ../xl/trax/track.py:63
+#: ../xl/trax/track.py:64
 msgid "Various Artists"
 msgstr "Розныя выканаўцы"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:66
+#: ../xl/trax/track.py:67
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:702 ../xl/trax/track.py:766
+#: ../xl/trax/track.py:707 ../xl/trax/track.py:773
 #, python-format
 msgid "%dk"
 msgstr "%dк"
@@ -914,7 +920,7 @@ msgstr ""
 "кампазіцыі, паспрабуйце задзейнічаць дадатковыя крыніцы."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1110
+#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} пікселяў"
@@ -1201,31 +1207,55 @@ msgstr ""
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:128
+#: ../xlgui/panel/collection.py:125
+#, fuzzy
+#| msgid "Artist"
+msgid "Album Artist"
+msgstr "Выканавец"
+
+#: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Жанр - Выканавец"
 
-#: ../xlgui/panel/collection.py:131
+#: ../xlgui/panel/collection.py:134
+#, fuzzy
+#| msgid "Genre - Artist"
+msgid "Genre - Album Artist"
+msgstr "Жанр - Выканавец"
+
+#: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
 msgstr "Жанр - Альбом"
 
-#: ../xlgui/panel/collection.py:134
+#: ../xlgui/panel/collection.py:140
 msgid "Date - Artist"
 msgstr "Дата - Выканавец"
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:143
+#, fuzzy
+#| msgid "Date - Artist"
+msgid "Date - Album Artist"
+msgstr "Дата - Выканавец"
+
+#: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
 msgstr "Дата - Альбом"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:149
 msgid "Artist - (Date - Album)"
 msgstr "Выканавец - (Дата - Альбом)"
 
-#: ../xlgui/panel/collection.py:168 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:153
+#, fuzzy
+#| msgid "Artist - (Date - Album)"
+msgid "Album Artist - (Date - Album)"
+msgstr "Выканавец - (Дата - Альбом)"
+
+#: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Калекцыя"
 
-#: ../xlgui/panel/collection.py:271
+#: ../xlgui/panel/collection.py:284
 msgid "Rescan Collection"
 msgstr "Нанова прасканаваць фанатэку"
 
@@ -1238,7 +1268,7 @@ msgstr "Перадача ў %s..."
 msgid "Files"
 msgstr "Файлы"
 
-#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:336
+#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:350
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Назва файла"
@@ -1255,7 +1285,7 @@ msgid "%s kB"
 msgstr "%s КБ"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:169
+#: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:173
 msgid "#"
 msgstr "№"
 
@@ -1298,7 +1328,7 @@ msgid "Rename Playlist"
 msgstr "Пераназваць спіс прайгравання"
 
 #: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
-#: ../xlgui/widgets/smart_playlist_editor.py:393
+#: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Уведзенае вамі назва спісу прайгравання ўжо выкарыстоўваецца."
 
@@ -1530,11 +1560,11 @@ msgstr "Дзеянне"
 msgid "Shortcut"
 msgstr "Камбінацыя клавіш"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr "Памылка запісу пазнак"
 
-#: ../xlgui/properties.py:257
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1543,74 +1573,74 @@ msgstr ""
 "Пазнакі не могуць быць запісаны для наступных файлаў:\n"
 "{files}"
 
-#: ../xlgui/properties.py:277
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Рэдагуецца дарожка %(current)d з %(total)d"
 
-#: ../xlgui/properties.py:400
+#: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Вы сапраўды хочаце ўжыць змены для ўсіх дарожак?"
 
-#: ../xlgui/properties.py:442
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr "Ужыць змены перад зачыненнем?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Занесеныя змены будуць страчаны, калі вы не ўжывяце іх цяпер."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:625
+#: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:856
+#: ../xlgui/properties.py:857
 msgid "of:"
 msgstr "з:"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:966
 msgid "JPEG image"
 msgstr "Малюнак JPEG"
 
-#: ../xlgui/properties.py:970
+#: ../xlgui/properties.py:971
 msgid "PNG image"
 msgstr "Малюнак PNG"
 
-#: ../xlgui/properties.py:972
+#: ../xlgui/properties.py:973
 msgid "Image"
 msgstr "Малюнак"
 
-#: ../xlgui/properties.py:978
+#: ../xlgui/properties.py:979
 msgid "Linked image"
 msgstr "Адпаведны малюнак"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1113
+#: ../xlgui/properties.py:1114
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} пікселяў)"
 
-#: ../xlgui/properties.py:1127
+#: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
 msgstr "Абярыце малюнак для выкарыстання ў якасці вокладкі"
 
-#: ../xlgui/properties.py:1140
+#: ../xlgui/properties.py:1141
 msgid "Supported image formats"
 msgstr "Падтрымоўваныя фарматы малюнкаў"
 
-#: ../xlgui/properties.py:1223
+#: ../xlgui/properties.py:1224
 msgid "Open Directory"
 msgstr "Адкрыць каталог"
 
-#: ../xlgui/properties.py:1273
+#: ../xlgui/properties.py:1274
 msgid "Apply current value to all tracks"
 msgstr "Ужыць гэтыя значэнні да ўсіх дарожак"
 
-#: ../xlgui/properties.py:1293 ../xlgui/widgets/dialogs.py:1547
+#: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Захавана %(count)s з %(total)s."
@@ -1713,7 +1743,7 @@ msgid "Add new playlist..."
 msgstr "Дадаць новы спіс прайгравання..."
 
 #: ../xlgui/widgets/dialogs.py:1767
-#: ../xlgui/widgets/smart_playlist_editor.py:385
+#: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Вы не паказалі імя для вашага спісу прайгравання"
 
@@ -1983,15 +2013,15 @@ msgstr "Дадаваць падобныя дарожкі ў спіс прайг�
 msgid "Loading"
 msgstr "Загрузка…"
 
-#: ../xlgui/widgets/playlist_columns.py:170
+#: ../xlgui/widgets/playlist_columns.py:174
 msgid "Track Number"
 msgstr "Нумар дарожкі"
 
-#: ../xlgui/widgets/playlist_columns.py:231
+#: ../xlgui/widgets/playlist_columns.py:245
 msgid "Disc Number"
 msgstr "Нумар дыска"
 
-#: ../xlgui/widgets/playlist_columns.py:241
+#: ../xlgui/widgets/playlist_columns.py:255
 #: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
@@ -1999,31 +2029,31 @@ msgstr "Нумар дыска"
 msgid "Rating"
 msgstr "Адзнака"
 
-#: ../xlgui/widgets/playlist_columns.py:297
+#: ../xlgui/widgets/playlist_columns.py:311
 msgid "Year"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:346
+#: ../xlgui/widgets/playlist_columns.py:360
 msgid "Playcount"
 msgstr "Колькасць прайграванняў"
 
-#: ../xlgui/widgets/playlist_columns.py:394
+#: ../xlgui/widgets/playlist_columns.py:408
 msgid "Schedule"
 msgstr "Расклад"
 
-#: ../xlgui/widgets/playlist_columns.py:549
+#: ../xlgui/widgets/playlist_columns.py:563
 msgid "Start Offset"
 msgstr "Зрух пачатка"
 
-#: ../xlgui/widgets/playlist_columns.py:559
+#: ../xlgui/widgets/playlist_columns.py:573
 msgid "Stop Offset"
 msgstr "Зрух канца"
 
-#: ../xlgui/widgets/playlist_columns.py:704
+#: ../xlgui/widgets/playlist_columns.py:723
 msgid "_Resizable"
 msgstr "_Змяняльны памер"
 
-#: ../xlgui/widgets/playlist_columns.py:715
+#: ../xlgui/widgets/playlist_columns.py:734
 msgid "_Autosize"
 msgstr "_Аўтаматычны памер"
 
@@ -2182,22 +2212,22 @@ msgstr "Дарожкі няма ў"
 msgid "Add Smart Playlist"
 msgstr "Дадаць 'разумны' спіс прайгравання"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:350
+#: ../xlgui/widgets/smart_playlist_editor.py:352
 msgid "Edit Smart Playlist"
 msgstr "Рэдагаваць 'разумны' спіс прайгравання"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:421
+#: ../xlgui/widgets/smart_playlist_editor.py:423
 #, fuzzy
 #| msgid "Import Type:"
 msgid "Sort by:"
 msgstr "Тып імпарту:"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:436
+#: ../xlgui/widgets/smart_playlist_editor.py:438
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
 msgid "Ascending"
 msgstr "Па ўзрастанні"
 
-#: ../xlgui/widgets/smart_playlist_editor.py:437
+#: ../xlgui/widgets/smart_playlist_editor.py:439
 #: ../plugins/jamendo/ui/jamendo_panel.ui:22
 msgid "Descending"
 msgstr "Па змяншэнні"
@@ -2207,11 +2237,11 @@ msgid "About Exaile"
 msgstr "Пра Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2017 Various Contributors"
+msgid "© 2009-2019 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
-#: ../data/ui/about_dialog.ui:25
+#: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
 msgstr "Невядомы перакладнік"
@@ -3020,11 +3050,11 @@ msgstr "Усталяваць BPM %d на %s?"
 msgid "BPM Counter"
 msgstr "Лічыльнік BPM"
 
-#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
 msgid "Update"
 msgstr "Абнавіць"
 
-#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:232
+#: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
 msgstr "Гукавы Дыск"
 
@@ -3070,7 +3100,7 @@ msgstr "Увядзіце IP адрас і порт для"
 msgid "Enter IP address and port."
 msgstr "Увядзіце ip-адрас і порт."
 
-#: ../plugins/daapclient/__init__.py:597
+#: ../plugins/daapclient/__init__.py:598
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3078,19 +3108,19 @@ msgstr ""
 "Гэты сервер не падтрымлівае множныя злучэнні.\n"
 "Вы павінны спыніць прайграванне перад спампоўкай песень."
 
-#: ../plugins/daapclient/__init__.py:707
+#: ../plugins/daapclient/__init__.py:708
 msgid "Refresh Server List"
 msgstr "Абнавіць спіс сервераў"
 
-#: ../plugins/daapclient/__init__.py:715
+#: ../plugins/daapclient/__init__.py:716
 msgid "Disconnect from Server"
 msgstr "Адключыцца ад сервера"
 
-#: ../plugins/daapclient/__init__.py:736
+#: ../plugins/daapclient/__init__.py:737
 msgid "Select a Location for Saving"
 msgstr "Абраць месца для захавання"
 
-#: ../plugins/daapclient/__init__.py:790
+#: ../plugins/daapclient/__init__.py:791
 msgid "Connect to DAAP..."
 msgstr "Злучаюся з DAAP..."
 
@@ -3173,7 +3203,7 @@ msgstr "_Выдаліць пазнаку"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:107
 msgid "GroupTagger"
 msgstr "Тэгі груп"
 
@@ -3608,16 +3638,20 @@ msgid "$title ($__length)"
 msgstr "$загаловак ($__даўжыня)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:102
+#: ../plugins/moodbar/__init__.py:101
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:179
+#: ../plugins/moodbar/__init__.py:206
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr ""
+
+#: ../plugins/moodbar/prefs.py:28 ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
+msgstr "Moodbar"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3676,16 +3710,16 @@ msgstr "Аналізаваць спісы прайгравання"
 msgid "Analyze playlist"
 msgstr "Аналізаваць спіс прайгравання"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:199
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 msgid "Modulus this number"
 msgstr "Мадуляваць гэты нумар"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:219
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
 msgstr "Тэг %s"
 
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:347
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"
 msgstr "Захаваць аналіз"
 
@@ -4236,10 +4270,10 @@ msgstr "Класіфікацыя імя тэга"
 #: ../plugins/grouptagger/gt_prefs.ui:97
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
-"choices may only work with certain file formats. "
+"choices may only work with certain file formats."
 msgstr ""
 "\"групоўка\" і \"каментар\", верагодна, лепш за ўсё падтрымліваемыя "
-"варыянты. Іншыя варыянты могуць працаваць толькі з пэўнымі фарматамі файлаў. "
+"варыянты. Іншыя варыянты могуць працаваць толькі з пэўнымі фарматамі файлаў."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4389,6 +4423,16 @@ msgstr "Паказаць кнопку ў галоўным акне"
 #: ../plugins/minimode/minimode_preferences.ui:284
 msgid "Options"
 msgstr "Налады"
+
+#: ../plugins/moodbar/prefs.ui:11
+#, fuzzy
+#| msgid "Show ipv6 servers (Experimental)"
+msgid "Waveform view (experimental)"
+msgstr "Паказаць серверы ipv6 (Эксперыментальная)"
+
+#: ../plugins/moodbar/prefs.ui:25
+msgid "Color tint (experimental)"
+msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -5008,16 +5052,11 @@ msgstr "Мона"
 msgid "Downmixes audio to one channel."
 msgstr "Мікшыраванне аўдыё ў адзін канал."
 
-#: ../plugins/moodbar/PLUGININFO:3
-msgid "Moodbar"
-msgstr "Moodbar"
-
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"
-"Requires: moodbar (which requires gst-plugins-* from GStreamer 0.10 to "
-"decode files)"
+"Requires: moodbar"
 msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3

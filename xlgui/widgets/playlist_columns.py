@@ -368,7 +368,7 @@ providers.register('playlist-columns', PlayCountColumn)
 class BPMColumn(Column):
     name = 'bpm'
     display = _('BPM')
-    size = 50
+    size = 40
     cellproperties = {'xalign': 1.0}
 
 

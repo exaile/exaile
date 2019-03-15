@@ -40,31 +40,6 @@ class MoodbarGenerator(object):
         :rtype: None
         :raise MoodbarGeneratorError: if the check fails
         """
-        raise NotImplementedError
-
-    def generate(self, uri, callback=None):
-        """
-        :type uri: bytes
-        :type callback: Callable[[bytes, bytes], None]
-        :rtype: Optional[bytes]
-        :raise MoodbarGeneratorError: on any error while generating moodbar
-        """
-        raise NotImplementedError
-
-    def generate_async(self, uri, callback=None):
-        """
-        :type uri: bytes
-        :type callback: Callable[[bytes, bytes], None]
-        """
-        thread = threading.Thread(
-            name=self.__class__.__name__, target=self.generate, args=(uri, callback)
-        )
-        thread.daemon = True
-        thread.start()
-
-
-class SpectrumMoodbarGenerator(MoodbarGenerator):
-    def check(self):
         try:
             with open(os.devnull, 'wb') as devnull:
                 subprocess.check_call(('moodbar', '--help'), stdout=devnull)
@@ -77,6 +52,12 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
             )
 
     def generate(self, uri, callback=None):
+        """
+        :type uri: bytes
+        :type callback: Callable[[bytes, bytes], None]
+        :rtype: Optional[bytes]
+        :raise MoodbarGeneratorError: on any error while generating moodbar
+        """
         path = Gio.File.new_for_uri(uri).get_path()
         data = None
         if path:
@@ -101,6 +82,17 @@ class SpectrumMoodbarGenerator(MoodbarGenerator):
         if callback:
             callback(uri, data)
         return data
+
+    def generate_async(self, uri, callback=None):
+        """
+        :type uri: bytes
+        :type callback: Callable[[bytes, bytes], None]
+        """
+        thread = threading.Thread(
+            name=self.__class__.__name__, target=self.generate, args=(uri, callback)
+        )
+        thread.daemon = True
+        thread.start()
 
 
 # vi: et sts=4 sw=4 tw=99

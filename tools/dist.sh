@@ -5,7 +5,9 @@ set -e
 THISDIR=`dirname $0`
 EXAILE_DIR="$THISDIR"/..
 
-sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" dist/copy/xl/version.py
+if [[ -n "$DIST_VERSION" ]]; then
+    sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" dist/copy/xl/version.py
+fi
 
 if ! "$THISDIR"/plugin_tool.py check; then
     if [ -z "$EXAILE_IGNORE_PLUGINS" ]; then

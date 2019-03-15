@@ -1,4 +1,4 @@
-# English (Australia) translation for exaile
+{}# English (Australia) translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr "Local file"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d day, "
-msgstr[1] "%d days, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} day, "
+msgstr[1] "{} days, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hour, "
-msgstr[1] "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hour, "
+msgstr[1] "{} hours, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minute, "
-msgstr[1] "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minute, "
+msgstr[1] "{} minutes, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d second"
-msgstr[1] "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} second"
+msgstr[1] "{} seconds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

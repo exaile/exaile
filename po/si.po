@@ -1,4 +1,4 @@
-# Sinhalese translation for exaile
+{}# Sinhalese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -29,31 +29,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "දින %d, "
-msgstr[1] "දින %d, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "දින {}, "
+msgstr[1] "දින {}, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "පැය %d, "
-msgstr[1] "පැය %d, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "පැය {}, "
+msgstr[1] "පැය {}, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "මිනිත්තු %d, "
-msgstr[1] "මිනිත්තු %d, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "මිනිත්තු {}, "
+msgstr[1] "මිනිත්තු {}, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "තත්පර %d"
-msgstr[1] "තත්පර %d"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "තත්පර {}"
+msgstr[1] "තත්පර {}"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

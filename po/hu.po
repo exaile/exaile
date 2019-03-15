@@ -1,4 +1,4 @@
-# Hungarian translation for exaile
+{}# Hungarian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -29,31 +29,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d nap, "
-msgstr[1] "%d nap, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} nap, "
+msgstr[1] "{} nap, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d óra, "
-msgstr[1] "%d óra, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} óra, "
+msgstr[1] "{} óra, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d perc, "
-msgstr[1] "%d perc, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} perc, "
+msgstr[1] "{} perc, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d másodperc"
-msgstr[1] "%d másodperc"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} másodperc"
+msgstr[1] "{} másodperc"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

@@ -1,4 +1,4 @@
-# Croatian translation for exaile
+{}# Croatian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dan, "
-msgstr[1] "%d dani, "
-msgstr[2] "%d dani, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dan, "
+msgstr[1] "{} dani, "
+msgstr[2] "{} dani, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d sat, "
-msgstr[1] "%d sati, "
-msgstr[2] "%d sati, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} sat, "
+msgstr[1] "{} sati, "
+msgstr[2] "{} sati, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta, "
-msgstr[1] "%d minute, "
-msgstr[2] "%d minute, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuta, "
+msgstr[1] "{} minute, "
+msgstr[2] "{} minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunda"
-msgstr[1] "%d sekunde"
-msgstr[2] "%d sekunde"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekunda"
+msgstr[1] "{} sekunde"
+msgstr[2] "{} sekunde"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

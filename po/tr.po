@@ -1,4 +1,4 @@
-# Turkish translation for exaile
+{}# Turkish translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr "Yerel dosya"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d gün, "
-msgstr[1] "%d gün, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} gün, "
+msgstr[1] "{} gün, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d saat, "
-msgstr[1] "%d saat, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} saat, "
+msgstr[1] "{} saat, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d dakika, "
-msgstr[1] "%d dakika, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} dakika, "
+msgstr[1] "{} dakika, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d saniye"
-msgstr[1] "%d saniye"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} saniye"
+msgstr[1] "{} saniye"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

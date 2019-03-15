@@ -594,11 +594,11 @@ class TimeTagFormatter(TagFormatter):
 
         if format == 'verbose':
             if span.days > 0:
-                text += ngettext('%d day, ', '%d days, ', span.days) % span.days
+                text += ngettext('{} day, ', '{} days, ', span.days).format(span.days)
             if span.hours > 0:
-                text += ngettext('%d hour, ', '%d hours, ', span.hours) % span.hours
-            text += ngettext('%d minute, ', '%d minutes, ', span.minutes) % span.minutes
-            text += ngettext('%d second', '%d seconds', span.seconds) % span.seconds
+                text += ngettext('{} hour, ', '{} hours, ', span.hours).format(span.hours)
+            text += ngettext('{} minute, ', '{} minutes, ', span.minutes).format(span.minutes)
+            text += ngettext('{} second', '{} seconds', span.seconds).format(span.seconds)
 
         elif format == 'long':
             if span.days > 0:

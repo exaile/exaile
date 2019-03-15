@@ -1,4 +1,4 @@
-# Romanian translation for exaile
+{}# Romanian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d zi, "
-msgstr[1] "%d zile, "
-msgstr[2] "%d de zile, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} zi, "
+msgstr[1] "{} zile, "
+msgstr[2] "{} de zile, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
 msgstr[0] "o oră, "
-msgstr[1] "%d ore, "
-msgstr[2] "%d de ore, "
+msgstr[1] "{} ore, "
+msgstr[2] "{} de ore, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
 msgstr[0] "un minut, "
-msgstr[1] "%d minute, "
-msgstr[2] "%d de minute, "
+msgstr[1] "{} minute, "
+msgstr[2] "{} de minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
 msgstr[0] "o secundă"
-msgstr[1] "%d secunde"
-msgstr[2] "%d de secunde"
+msgstr[1] "{} secunde"
+msgstr[2] "{} de secunde"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

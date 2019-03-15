@@ -1,4 +1,4 @@
-# Vietnamese translation for exaile
+{}# Vietnamese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,27 +30,27 @@ msgstr "Tập tin trên máy"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d ngày, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} ngày, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d giờ, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} giờ, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d phút, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} phút, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d giây"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} giây"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

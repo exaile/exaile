@@ -1,4 +1,4 @@
-# Esperanto translation for exaile
+{}# Esperanto translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr "Loka dosiero"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d tago, "
-msgstr[1] "%d tagoj, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} tago, "
+msgstr[1] "{} tagoj, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d horo, "
-msgstr[1] "%d horoj, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} horo, "
+msgstr[1] "{} horoj, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuto, "
-msgstr[1] "%d minutoj, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuto, "
+msgstr[1] "{} minutoj, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekundo"
-msgstr[1] "%d sekundoj"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekundo"
+msgstr[1] "{} sekundoj"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

@@ -1,4 +1,4 @@
-# Norwegian Bokmal translation for exaile
+{}# Norwegian Bokmal translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,31 +30,31 @@ msgstr "Lokal fil"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dag, "
-msgstr[1] "%d dager, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dag, "
+msgstr[1] "{} dager, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d time, "
-msgstr[1] "%d timer, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} time, "
+msgstr[1] "{} timer, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minutt, "
-msgstr[1] "%d minutter, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minutt, "
+msgstr[1] "{} minutter, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekunder"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekund"
+msgstr[1] "{} sekunder"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

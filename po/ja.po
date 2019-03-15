@@ -1,4 +1,4 @@
-# Japanese translation for exaile
+{}# Japanese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -30,27 +30,27 @@ msgstr "ローカルファイル"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d 日, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} 日, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d 時間, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} 時間, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d 分, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} 分, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d 秒"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

@@ -1,4 +1,4 @@
-# Belarusian translation for exaile
+{}# Belarusian translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -31,35 +31,35 @@ msgstr "Лакальны файл"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d дзень, "
-msgstr[1] "%d дні, "
-msgstr[2] "%d дзён, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} дзень, "
+msgstr[1] "{} дні, "
+msgstr[2] "{} дзён, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d гадзіна, "
-msgstr[1] "%d гадзіны, "
-msgstr[2] "%d гадзін, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} гадзіна, "
+msgstr[1] "{} гадзіны, "
+msgstr[2] "{} гадзін, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d хвіліна, "
-msgstr[1] "%d хвіліны, "
-msgstr[2] "%d хвілін, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} хвіліна, "
+msgstr[1] "{} хвіліны, "
+msgstr[2] "{} хвілін, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d секунда"
-msgstr[1] "%d секунды"
-msgstr[2] "%d секунд"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} секунда"
+msgstr[1] "{} секунды"
+msgstr[2] "{} секунд"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

@@ -35,10 +35,11 @@ jobs:
     - "2.7"
     virtualenv:
       system_site_packages: true
+    if: tag IS present
     install:
     - sudo apt-get install -y python-gi
     script:
-    - make dist
+    - make DIST_VERSION=$TRAVIS_TAG dist
     deploy:
       provider: releases
       draft: true

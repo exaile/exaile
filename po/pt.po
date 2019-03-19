@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-01-27 08:04+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2019-03-20 11:03+0000\n"
+"Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -53,8 +53,8 @@ msgstr[1] "%d minutos, "
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d segundo"
+msgstr[1] "%d segundos"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -428,10 +428,8 @@ msgid "Artist"
 msgstr "Artista"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by {artist}"
 msgid "Album artist"
-msgstr "por {artist}"
+msgstr "Artista do álbum"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -1140,20 +1138,16 @@ msgid "_About"
 msgstr "S_obre"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Artista"
+msgstr "Artista do Álbum"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Género - Artista"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Género - Artista"
+msgstr "Género - Artista do Álbum"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1164,10 +1158,8 @@ msgid "Date - Artist"
 msgstr "Data - Artista"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Data - Artista"
+msgstr "Data - Artista do Álbum"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
@@ -1178,10 +1170,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Artista - (Data - Álbum)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Artista - (Data - Álbum)"
+msgstr "Artista do Álbum - (Data - Álbum)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1425,8 +1415,8 @@ msgstr "Não foi possível carregar informações do plugin!"
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Plugin que falhou: %s"
+msgstr[1] "Plugins que falharam: %s"
 
 #: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
@@ -1560,7 +1550,7 @@ msgstr "Guardadas %(count)s de %(total)s."
 
 #: ../xlgui/tray.py:203
 msgid "Exaile Music Player"
-msgstr "Exaile Music Player"
+msgstr "Reprodutor de Música Exaile"
 
 #: ../xlgui/widgets/dialogs.py:361
 msgid "Enter the URL to open"
@@ -2004,7 +1994,7 @@ msgstr "não contém a palavra"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
-msgstr "regex"
+msgstr "expressão regular"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
@@ -4197,14 +4187,12 @@ msgid "Options"
 msgstr "Opções"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "Exibir servidores IPV6 (Experimental)"
+msgstr "Visualização em forma de onda (experimental)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Matiz da cor (experimental)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

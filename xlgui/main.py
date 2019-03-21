@@ -189,7 +189,7 @@ class MainWindow(GObject.GObject):
                 _('Increase the volume'),
                 lambda *_e: self._on_volume_key(True),
             ),
-             (
+            (
                 '<Primary>equal',
                 _('Increase the volume'),
                 lambda *_e: self._on_volume_key(True),

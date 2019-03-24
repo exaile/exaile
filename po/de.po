@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2018-11-24 17:07+0000\n"
+"PO-Revision-Date: 2019-03-24 21:38+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -427,10 +427,8 @@ msgid "Artist"
 msgstr "Künstler"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "Only artist"
 msgid "Album artist"
-msgstr "Nur Künstler"
+msgstr "Album-Interpret"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -1142,20 +1140,16 @@ msgid "_About"
 msgstr "Über"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Künstler"
+msgstr "Album-Interpret"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Genre – Künstler"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Genre – Künstler"
+msgstr "Genre – Album-Interpret"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1166,10 +1160,8 @@ msgid "Date - Artist"
 msgstr "Jahr – Künstler"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Jahr – Künstler"
+msgstr "Jahr – Album-Interpret"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
@@ -1180,10 +1172,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Künstler (Jahr – Album)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Künstler (Jahr – Album)"
+msgstr "Album-Interpret (Datum – Album)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -4204,14 +4194,12 @@ msgid "Options"
 msgstr "Optionen"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "IPv6-Server anzeigen (experimentell)"
+msgstr "Wellenformansicht (experimentell)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Farbton (experimentell)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

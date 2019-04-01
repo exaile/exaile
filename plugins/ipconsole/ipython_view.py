@@ -121,7 +121,10 @@ class IterableIPShell:
         os.environ['TERM'] = 'dumb'
         excepthook = sys.excepthook
 
-        from IPython.config.loader import Config
+        if IPYTHON_VERSION >= 4:
+            from traitlets.config.loader import Config
+        else:
+            from IPython.config.loader import Config
 
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"

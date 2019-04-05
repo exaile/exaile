@@ -211,7 +211,7 @@ class NotebookTab(Gtk.EventBox):
 
         self.notebook = notebook
         self.page = page
-        self.page.tab_menu.attach_to_widget(self, None)
+        self.page.tab_menu.attach_to_widget(self.page, None)
 
         self.connect('button-press-event', self.on_button_press)
 

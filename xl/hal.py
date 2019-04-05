@@ -29,7 +29,8 @@ import threading
 import time
 import dbus
 
-from xl import common, providers, event
+from xl import providers, event
+from xl.main import common
 
 logger = logging.getLogger(__name__)
 
@@ -397,129 +398,6 @@ class UDisks2(UDisksBase):
         assert self._state == 'addremove'
         for path in obj.GetManagedObjects():
             self._add_device(path)
-
-
-class UDisks(UDisksBase):
-
-    name = 'udisks'
-    root = 'org.freedesktop.UDisks'
-    paths = [
-        ('/org/freedesktop/UDisks/drives', 'org.freedesktop.UDisks.Device'),
-        ('/org/freedesktop/UDisks', 'org.freedesktop.UDisks'),
-    ]
-
-    def _connect(self):
-
-        self.bus = dbus.SystemBus()
-        obj = self.get_object_by_path('/org/freedesktop/UDisks')
-
-        obj.connect_to_signal('DeviceAdded', self._udisks_device_added)
-        obj.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
-        obj.connect_to_signal('DeviceChanged', self._udisks_device_changed)
-
-        return obj
-
-    def _add_all(self, obj):
-        assert self._state == 'addremove'
-        for path in obj.EnumerateDevices():
-            self._add_device(path)
-
-
-class HAL(providers.ProviderHandler):
-    """
-        HAL interface
-    """
-
-    def __init__(self, devicemanager):
-        providers.ProviderHandler.__init__(self, "hal")
-        self.devicemanager = devicemanager
-
-        self.bus = None
-        self.hal = None
-
-        self.hal_devices = {}
-
-    @common.threaded
-    def connect(self):
-        try:
-            self.bus = dbus.SystemBus()
-            hal_obj = self.bus.get_object(
-                'org.freedesktop.Hal', '/org/freedesktop/Hal/Manager'
-            )
-            self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
-            logger.debug("HAL Providers: %r", self.get_providers())
-            for p in self.get_providers():
-                try:
-                    self.on_provider_added(p)
-                except Exception:
-                    logger.exception("Failed to load HAL devices for %s", p.name)
-            self.setup_device_events()
-            logger.debug("Connected to HAL")
-            event.log_event("hal_connected", self, None)
-        except Exception:
-            logger.warning(
-                "Failed to connect to HAL, "
-                "autodetection of devices will be disabled."
-            )
-
-    def on_provider_added(self, provider):
-        for udi in provider.get_udis(self):
-            self.add_device(udi)
-
-    def on_provider_removed(self, provider):
-        pass  # TODO: disconnect and remove all devices of this type
-
-    def get_handler(self, udi):
-        dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
-        device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
-        try:
-            capabilities = device.GetProperty("info.capabilities")
-        except dbus.exceptions.DBusException as e:
-            if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
-                logger.exception("info.capabilities property not set for %s", udi)
-            return None
-        handlers = []
-        for handler in self.get_providers():
-            rank = handler.is_type(device, capabilities)
-            if rank == 0:
-                continue
-            handlers.append((rank, handler))
-        if handlers != []:
-            return max(handlers)[1]
-        return None
-
-    def add_device(self, device_udi):
-        if device_udi in self.hal_devices:
-            logger.warning("Device %s already in hal list, skipping.", device_udi)
-            return
-
-        handler = self.get_handler(device_udi)
-        if handler is None:
-            logger.debug("Found no HAL device handler for %s", device_udi)
-            return
-
-        dev = handler.device_from_udi(self, device_udi)
-        if not dev:
-            logger.debug("Failed to create device for %s", device_udi)
-            return
-
-        logger.debug("Found new %s device at %s", handler.name, device_udi)
-        dev.autoconnect()
-
-        self.devicemanager.add_device(dev)
-        self.hal_devices[device_udi] = dev
-
-    def remove_device(self, device_udi):
-        logger.debug("Got request to remove %s", device_udi)
-        try:
-            self.devicemanager.remove_device(self.hal_devices[device_udi])
-            del self.hal_devices[device_udi]
-        except KeyError:
-            pass
-
-    def setup_device_events(self):
-        self.bus.add_signal_receiver(self.add_device, "DeviceAdded")
-        self.bus.add_signal_receiver(self.remove_device, "DeviceRemoved")
 
 
 class Handler(object):

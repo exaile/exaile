@@ -64,31 +64,15 @@ CDROM_DATA_TRACK = 0x04
 class CdPlugin(object):
     def enable(self, exaile):
         self.exaile = exaile
-        self.hal = None
-        self.udisks = None
         self.udisks2 = None
 
     def on_exaile_loaded(self):
-
         # verify that hal/whatever is loaded, load correct provider
-
         if self.exaile.udisks2 is not None:
             self.udisks2 = UDisks2CdProvider()
             providers.register('udisks2', self.udisks2)
 
-        elif self.exaile.udisks is not None:
-            self.udisks = UDisksCdProvider()
-            providers.register('udisks', self.udisks)
-
-        elif self.exaile.hal is not None:
-            self.udisks = HALCdProvider()
-            providers.register('hal', self.udisks)
-
     def disable(self, exaile):
-        if self.hal is not None:
-            providers.unregister('hal', self.hal)
-        if self.udisks is not None:
-            providers.unregister('udisks', self.udisks)
         if self.udisks2 is not None:
             providers.unregister('udisks2', self.udisks2)
 
@@ -249,51 +233,6 @@ class CDDevice(KeyedDevice):
         self.playlists = []
         self.connected = False
         CDDevice.destroy(self)
-
-
-class HALCdProvider(Handler):
-    name = "cd"
-
-    def is_type(self, device, capabilities):
-        if "volume.disc" in capabilities:
-            return True
-        return False
-
-    def get_udis(self, hal):
-        udis = hal.hal.FindDeviceByCapability("volume.disc")
-        return udis
-
-    def device_from_udi(self, hal, udi):
-        cd_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
-        cd = dbus.Interface(cd_obj, "org.freedesktop.Hal.Device")
-        if not cd.GetProperty("volume.disc.has_audio"):
-            return
-
-        device = str(cd.GetProperty("block.device"))
-
-        cddev = CDDevice(dev=device)
-
-        return cddev
-
-
-class UDisksCdProvider(UDisksProvider):
-    name = 'cd'
-    PRIORITY = UDisksProvider.NORMAL
-
-    def get_priority(self, obj, udisks):
-        # DeviceChanged is called before and after tracks are read. We only want
-        # the second case, so use number of audio tracks to identify supported
-        # media. As a bonus, this means we never have to care about the type of
-        # disc (CD, DVD, etc.).
-        ntracks = obj.props.Get('OpticalDiscNumAudioTracks')
-        return self.PRIORITY if ntracks > 0 else None
-
-    def get_device(self, obj, udisks):
-        return CDDevice(str(obj.props.Get('DeviceFile')))
-
-    def on_device_changed(self, obj, udisks, device):
-        if obj.props.Get('OpticalDiscNumAudioTracks') <= 0:
-            return 'remove'
 
 
 class UDisks2CdProvider(UDisksProvider):

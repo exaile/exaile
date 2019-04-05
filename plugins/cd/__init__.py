@@ -63,18 +63,23 @@ CDROM_DATA_TRACK = 0x04
 
 class CdPlugin(object):
     def enable(self, exaile):
-        self.exaile = exaile
-        self.udisks2 = None
+        self.__exaile = exaile
+        self.__udisks2 = None
 
     def on_exaile_loaded(self):
         # verify that hal/whatever is loaded, load correct provider
-        if self.exaile.udisks2 is not None:
-            self.udisks2 = UDisks2CdProvider()
-            providers.register('udisks2', self.udisks2)
+        if self.__exaile.udisks2 is not None:
+            self.__udisks2 = UDisks2CdProvider()
+            providers.register('udisks2', self.__udisks2)
+
+    def teardown(self, exaile):
+        if self.__udisks2 is not None:
+            providers.unregister('udisks2', self.__udisks2)
+        self.__udisks2 = None
+        self.__exaile = None
 
     def disable(self, exaile):
-        if self.udisks2 is not None:
-            providers.unregister('udisks2', self.udisks2)
+        self.teardown(exaile)
 
     def get_preferences_pane(self):
         return cdprefs
@@ -83,55 +88,62 @@ class CdPlugin(object):
 plugin_class = CdPlugin
 
 
+class _CDTrack(object):
+    """
+        @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
+        @ivar data: `True` if this "track" contains data, `False` if it is audio
+        @ivar minutes: Minutes from begin of CD
+        @ivar seconds: Seconds after `minutes`, from begin of CD
+        @ivar frames: Frames after `seconds`, from begin of CD
+    """
+
+    def __init__(self, entry):
+        self.track, adrctrl, _format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
+        self.minutes, self.seconds, self.frames = struct.unpack(
+            ADDR_FMT, struct.pack('i', addr)
+        )
+
+        # adr = adrctrl & 0xf
+        ctrl = (adrctrl & 0xF0) >> 4
+
+        self.data = False
+        if ctrl & CDROM_DATA_TRACK:
+            self.data = True
+
+    def get_frame_count(self):
+        return (self.minutes * 60 + self.seconds) * 75 + self.frames
+
+
 class CDTocParser(object):
     # based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
 
     def __init__(self, device):
-        self.device = device
+        self.__raw_tracks = []
+        self.__read_toc(device)
 
-        # raw_tracks becomes a list of tuples in the form
-        # (track number, minutes, seconds, frames, total frames, data)
-        # minutes, seconds, frames and total trames are absolute offsets
-        # data is 1 if this is a track containing data, 0 if audio
-        self.raw_tracks = []
-
-        self.read_toc()
-
-    def read_toc(self):
-        fd = os.open(self.device, os.O_RDONLY)
+    def __read_toc(self, device):
+        fd = os.open(device, os.O_RDONLY)
         try:
             toc_header = struct.pack(TOC_HEADER_FMT, 0, 0)
             toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
             start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
 
-            self.raw_tracks = []
-
             for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
-                track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
-                m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
-
-                # adr = adrctrl & 0xf
-                ctrl = (adrctrl & 0xF0) >> 4
-
-                data = 0
-                if ctrl & CDROM_DATA_TRACK:
-                    data = 1
-
-                self.raw_tracks.append((track, m, s, f, (m * 60 + s) * 75 + f, data))
+                self.__raw_tracks.append(_CDTrack(entry))
         finally:
             os.close(fd)
 
-    def get_raw_info(self):
-        return self.raw_tracks[:]
-
-    def get_track_lengths(self):
-        offset = self.raw_tracks[0][4]
+    def _get_track_lengths(self):
+        """ returns track length in seconds """
+        track = self.__raw_tracks[0]
+        offset = track.get_frame_count()
         lengths = []
-        for track in self.raw_tracks[1:]:
-            lengths.append((track[4] - offset) / 75)
-            offset = track[4]
+        for track in self.__raw_tracks[1:]:
+            frame_end = track.get_frame_count()
+            lengths.append((frame_end - offset) / 75)
+            offset = frame_end
         return lengths
 
 
@@ -140,22 +152,22 @@ class CDPlaylist(playlist.Playlist):
         playlist.Playlist.__init__(self, name=name)
 
         if not device:
-            self.device = "/dev/cdrom"
+            self.__device = "/dev/cdrom"
         else:
-            self.device = device
+            self.__device = device
 
         self.open_disc()
 
     def open_disc(self):
 
-        toc = CDTocParser(self.device)
-        lengths = toc.get_track_lengths()
+        toc = CDTocParser(self.__device)
+        lengths = toc._get_track_lengths()
 
         songs = []
 
         for count, length in enumerate(lengths):
             count += 1
-            song = trax.Track("cdda://%d/#%s" % (count, self.device))
+            song = trax.Track("cdda://%d/#%s" % (count, self.__device))
             song.set_tags(
                 title="Track %d" % count, tracknumber=str(count), __length=length
             )
@@ -169,9 +181,9 @@ class CDPlaylist(playlist.Playlist):
     @common.threaded
     def get_cddb_info(self):
         try:
-            disc = DiscID.open(self.device)
-            self.info = DiscID.disc_id(disc)
-            status, info = CDDB.query(self.info)
+            disc = DiscID.open(self.__device)
+            self.__device = DiscID.disc_id(disc)
+            status, info = CDDB.query(self.__device)
         except IOError:
             return
 
@@ -184,7 +196,7 @@ class CDPlaylist(playlist.Playlist):
         (status, info) = CDDB.read(info['category'], info['disc_id'])
 
         title = info['DTITLE'].split(" / ")
-        for i in range(self.info[1]):
+        for i in range(self.__device[1]):
             tr = self[i]
             tr.set_tags(
                 title=info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'),

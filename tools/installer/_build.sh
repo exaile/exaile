@@ -42,7 +42,7 @@ done
 pushd "$EXAILE_DIR"
 build_git archive HEAD --prefix=_copy/ | build_tar -x -C tools/installer/
 if [[ -n "$DIST_VERSION" ]]; then
-  sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" tools/installer/xl/version.py
+  sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" "$COPYDIR"/xl/version.py
 fi
 popd
 

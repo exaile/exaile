@@ -43,8 +43,7 @@ jobs:
     deploy:
       provider: releases
       draft: true
-      api_key:
-        secure: "FfKvA/NLFpLLRFWyoDIjPA8CDZ3F7sVDQAxHbRmAFjFtDP2Y0xethxWNisC0BFLlY2NdPVlexlhOYtP87+Z9TCPlAJB/5arabMID34qFxQyeF4Mnuq9xx6YRxlKfY48GWxt7/8pEis9nsH3KzKmoZJl1l7opKXHvccDosE8A/xQiJmWwbGdT40x89CMuOuPbHi/oD/RLcnVjx/O7/KT8PuO2JY4D6bSBZWUuUOtvIv0weMkR/KTz3tNPl+JlVB3n1mSYeBJ+EHIfnbGAc+qzW4Ih31cYLht1hYwiEm0CCGtisCHhRerAgho/QhHPwYN58OHgC60w6GdQk2vMIwyLYzKFL0DjYYmxLs4OXLLJwM1cS79FA9HgSVYc6aDnHVzoPvAOSi0dyhZomuO+IRHYqTO5Q6wN1P63KUN8boq8wYKhA5w8/wWswvBcbhIwsYnfpOhI3wiDfPUbQo8SN9U7hpxcbnQZZ0W+3YwB2dy1KCJ928d0O6Nh+TQrCdsqUUUHIBukPsOJK5cWea8NE76D/77u6CLWMeqOhevAN1PNqvqA5j/Wh5AIzYMJTfqWG74Vq3sOr5YYrCXu80J2Y0XXoW9OKAQUlRxZuypLPK4YKo6oZaGsGeaNKqupXlX62IYCbSNxHKpyIAFmKoEjmgNuJrCtOaTHpVxAsVGQVtsqthw="
+      api_key: $EXAILEBOT_OAUTH_KEY
       file_glob: true
       file: dist/*
       skip_cleanup: true

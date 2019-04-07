@@ -4,7 +4,10 @@ set -e
 
 THISDIR=`dirname $0`
 EXAILE_DIR="$THISDIR"/..
-DIST_VERSION=`EXAILE_DIR=$EXAILE_DIR python2 -c 'import xl.xdg; xl.xdg.local_hack=False; import xl.version; print xl.version.__version__'` 
+
+if [[ -n "$DIST_VERSION" ]]; then
+    sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" dist/copy/xl/version.py
+fi
 
 if ! "$THISDIR"/plugin_tool.py check; then
     if [ -z "$EXAILE_IGNORE_PLUGINS" ]; then
@@ -39,12 +42,12 @@ tar --gzip --format=posix --owner 0 --group 0 \
 #    echo "Warning: the win32 installer build seems to have failed..."
 #fi
 
-#popd 
+#popd
 
 #mv tools/installer/exaile-LATEST.exe dist/exaile-${DIST_VERSION}.exe
 
-echo "Successfully built exaile installer! Going to sign the resulting packages"
-echo "with gpg (feel free to CTRL-C at this point if you don't care about that)"
+#echo "Successfully built exaile installer! Going to sign the resulting packages"
+#echo "with gpg (feel free to CTRL-C at this point if you don't care about that)"
 
-gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz
+#gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz
 #gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.exe

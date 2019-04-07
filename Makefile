@@ -165,6 +165,10 @@ install-target: make-install-dirs
 	sed "s|\@bindir\@|$(EPREFIX)/bin|" data/org.exaile.Exaile.service.in > \
 		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service && \
 		chmod 644 $(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service
+	if [ -d ".git" ]; then \
+		sed "s|__version__ = \"devel\"|__version__ = \"$(shell git describe --tags --abbrev=0)\"|" \
+			xl/version.py > $(EXAILELIBDIR)/xl/version.py; \
+	fi
 	$(MAKE) -C plugins install
 
 

@@ -57,7 +57,7 @@ if __name__ == '__main__':
     import xl.xdg
     xl.xdg.local_hack = False
     import xl.version
-    v = '%s.%s' % (xl.version.major, xl.version.minor)
+    v = '%s' % (xl.version.__version__.split("-")[0])
 
     arg = sys.argv[1] if len(sys.argv) > 1 else ''
 

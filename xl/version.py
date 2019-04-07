@@ -31,9 +31,24 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-major = "4.0"
-minor = "0"
-extra = "rc3"
+__version__ = "devel"
+
+
+def get_current_version(directory):
+    """
+        Get the latest version identifier for the branch contained in
+        'directory'. Returns None if the directory is not a branch or
+        the version identifier cannot be found.
+    """
+    import subprocess
+
+    try:
+        with open(os.devnull, 'w') as devnull:
+            return subprocess.check_output(
+                ['git', 'describe', '--tags', '--abbrev=0'], stderr=devnull
+            ).strip()
+    except (subprocess.CalledProcessError, OSError):
+        return None
 
 
 def get_current_revision(directory):
@@ -53,12 +68,15 @@ def get_current_revision(directory):
         return None
 
 
-if os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
+if "DIST_VERSION" in os.environ:
+    __version__ = os.environ['DIST_VERSION']
+elif os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
+    version = get_current_version(xdg.exaile_dir)
+    if version is not None:
+        __version__ = version
     revision = get_current_revision(xdg.exaile_dir)
     if revision is not None:
-        extra += "+" + revision
-
-__version__ = major + "." + minor + extra
+        __version__ += "+" + revision
 
 __external_versions__ = {}
 

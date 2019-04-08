@@ -66,5 +66,4 @@ deploy:
     secure: vvfih0eox0HI74Oo9hdPhgi5yoXjcGS4YhSkDAM9mLTqxam8+F5iro4/QppvmD9M # sjohannes's access token
   artifact: dist
   on:
-    branch: master
     APPVEYOR_REPO_TAG: true

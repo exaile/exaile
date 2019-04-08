@@ -66,5 +66,4 @@ deploy:
     secure: SIgbVNCx4ge9VT0J/0X8kovjreWVKJyWiquTLXmoUZItQk5aNr5jl1KNbOiTPdeu # exailebot's access token
   artifact: dist
   on:
-    branch: master
     APPVEYOR_REPO_TAG: true

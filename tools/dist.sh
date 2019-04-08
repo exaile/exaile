@@ -2,10 +2,9 @@
 
 set -e
 
-THISDIR=`dirname $0`
-EXAILE_DIR="$THISDIR"/..
+THISDIR=$(dirname "$0")
 
-if [[ -n "$DIST_VERSION" ]]; then
+if [ -n "$DIST_VERSION" ]; then
     sed --in-place "s|__version__ = \"devel\"|__version__ = \"$DIST_VERSION\"|" dist/copy/xl/version.py
 fi
 
@@ -24,7 +23,7 @@ fi
 echo "Creating distribution for Exaile $DIST_VERSION"
 
 tar --gzip --format=posix --owner 0 --group 0 \
-    -cf dist/exaile-${DIST_VERSION}.tar.gz \
+    -cf "dist/exaile-${DIST_VERSION}.tar.gz" \
     --exclude=dist/copy/.git* \
     --transform s/dist\\/copy/exaile-${DIST_VERSION}/ \
     dist/copy

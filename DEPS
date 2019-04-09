@@ -33,10 +33,8 @@ Documentation:
 * sphinx_rtd_theme
 * help2man
 
-Device detection (one of the following):
+Device detection:
 
-* hal
-* udisks
 * udisks2
 
 CD info:

@@ -7,7 +7,7 @@ environment:
   build_dir: C:\msys64\home\appveyor
   build_root: exaile/tools/installer/_build_root
   sdk_name: exaile-sdk-win
-  sdk_ver: 6
+  sdk_ver: 7
   sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
 
 clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)

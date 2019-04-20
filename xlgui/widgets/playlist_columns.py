@@ -187,6 +187,11 @@ class EditableColumn(Column):
 
         track.set_tag_raw(self.name, new_text)
 
+        # Invalidate/redraw the value immediately because we know
+        # it's just a single change
+        model.get_value(iter, 1).clear()
+        model.row_changed(path, iter)
+
         if not track.write_tags():
             dialogs.error(
                 None,

@@ -26,6 +26,7 @@
 
 
 from gi.repository import GLib
+from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -37,7 +38,7 @@ from xl.common import classproperty
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
-from xlgui.widgets import rating, menu
+from xlgui.widgets import dialogs, rating, menu
 
 logger = logging.getLogger(__name__)
 
@@ -185,6 +186,13 @@ class EditableColumn(Column):
         track = model.get_value(iter, 0)
 
         track.set_tag_raw(self.name, new_text)
+
+        if not track.write_tags():
+            dialogs.error(
+                None,
+                "Error writing tags to %s"
+                % GObject.markup_escape_text(track.get_loc_for_io()),
+            )
 
     def on_editing_started(self, cellrenderer, editable, path):
         # Retrieve text in original form

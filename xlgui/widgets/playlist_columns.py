@@ -167,6 +167,41 @@ class Column(Gtk.TreeViewColumn):
         )
 
 
+class EditableColumn(Column):
+    cellproperties = {'editable': True}
+
+    def __init__(self, *args):
+        Column.__init__(self, *args)
+        self.cellrenderer.connect('edited', self.on_edited)
+        self.cellrenderer.connect('editing-started', self.on_editing_started)
+
+    def on_edited(self, cellrenderer, path, new_text):
+        # Undo newline escaping
+        new_text = new_text.decode('unicode-escape')
+
+        # Update the track
+        model = self.get_tree_view().get_model()
+        iter = model.get_iter(path)
+        track = model.get_value(iter, 0)
+
+        track.set_tag_raw(self.name, new_text)
+
+    def on_editing_started(self, cellrenderer, editable, path):
+        # Retrieve text in original form
+        model = self.get_tree_view().get_model()
+
+        iter = model.get_iter(path)
+        track = model.get_value(iter, 0)
+
+        text = getattr(self, 'edit_formatter', self.formatter).format(track)
+
+        # Escape newlines
+        text = text.encode('unicode-escape')
+
+        # Set text
+        editable.set_text(text)
+
+
 class TrackNumberColumn(Column):
     name = 'tracknumber'
     # TRANSLATORS: Title of the track number column
@@ -536,45 +571,15 @@ class ScheduleTimeColumn(Column):
 providers.register('playlist-columns', ScheduleTimeColumn)
 
 
-class CommentColumn(Column):
+class CommentColumn(EditableColumn):
     name = 'comment'
     display = _('Comment')
     size = 200
     autoexpand = True
     # Remove the newlines to fit into the vertical space of rows
     formatter = TrackFormatter('${comment:newlines=strip}')
+    edit_formatter = TrackFormatter('$comment')
     cellproperties = {'editable': True}
-
-    def __init__(self, *args):
-        Column.__init__(self, *args)
-        self.cellrenderer.connect('edited', self.on_edited)
-        self.cellrenderer.connect('editing-started', self.on_editing_started)
-
-    def on_edited(self, cellrenderer, path, new_text):
-        # Undo newline escaping
-        new_text = new_text.decode('unicode-escape')
-
-        # Set comment
-        model = self.get_tree_view().get_model()
-        iter = model.get_iter(path)
-        track = model.get_value(iter, 0)
-
-        track.set_tag_raw("comment", new_text)
-
-    def on_editing_started(self, cellrenderer, editable, path):
-        # Retrieve comment in original form
-        model = self.get_tree_view().get_model()
-
-        iter = model.get_iter(path)
-        track = model.get_value(iter, 0)
-
-        comment = TrackFormatter('$comment').format(track)
-
-        # Escape newlines
-        comment = comment.encode('unicode-escape')
-
-        # Set text
-        editable.set_text(comment)
 
 
 providers.register('playlist-columns', CommentColumn)

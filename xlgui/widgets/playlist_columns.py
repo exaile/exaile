@@ -180,6 +180,13 @@ class EditableColumn(Column):
         # Undo newline escaping
         new_text = new_text.decode('unicode-escape')
 
+        validate = getattr(self, 'validate', None)
+        if validate:
+            try:
+                new_text = validate(new_text)
+            except ValueError:
+                return
+
         # Update the track
         model = self.get_tree_view().get_model()
         iter = model.get_iter(path)
@@ -214,6 +221,17 @@ class EditableColumn(Column):
         # Set text
         editable.set_text(text)
 
+        if hasattr(self, 'validate'):
+            editable.connect('changed', self.on_editing_changed)
+
+    def on_editing_changed(self, w):
+        try:
+            self.validate(w.get_text())
+        except ValueError:
+            w.get_style_context().add_class('warning')
+        else:
+            w.get_style_context().remove_class('warning')
+
 
 class TrackNumberColumn(Column):
     name = 'tracknumber'
@@ -227,7 +245,7 @@ class TrackNumberColumn(Column):
 providers.register('playlist-columns', TrackNumberColumn)
 
 
-class TitleColumn(Column):
+class TitleColumn(EditableColumn):
     name = 'title'
     display = _('Title')
     size = 200
@@ -237,7 +255,7 @@ class TitleColumn(Column):
 providers.register('playlist-columns', TitleColumn)
 
 
-class ArtistColumn(Column):
+class ArtistColumn(EditableColumn):
     name = 'artist'
     display = _('Artist')
     size = 150
@@ -247,7 +265,7 @@ class ArtistColumn(Column):
 providers.register('playlist-columns', ArtistColumn)
 
 
-class AlbumArtistColumn(Column):
+class AlbumArtistColumn(EditableColumn):
     name = 'albumartist'
     display = _('Album artist')
     size = 150
@@ -257,7 +275,7 @@ class AlbumArtistColumn(Column):
 providers.register('playlist-columns', AlbumArtistColumn)
 
 
-class ComposerColumn(Column):
+class ComposerColumn(EditableColumn):
     name = 'composer'
     display = _('Composer')
     size = 150
@@ -267,7 +285,7 @@ class ComposerColumn(Column):
 providers.register('playlist-columns', ComposerColumn)
 
 
-class AlbumColumn(Column):
+class AlbumColumn(EditableColumn):
     name = 'album'
     display = _('Album')
     size = 150
@@ -363,7 +381,7 @@ class YearColumn(Column):
 providers.register('playlist-columns', YearColumn)
 
 
-class GenreColumn(Column):
+class GenreColumn(EditableColumn):
     name = 'genre'
     display = _('Genre')
     size = 100
@@ -413,17 +431,18 @@ class PlayCountColumn(Column):
 providers.register('playlist-columns', PlayCountColumn)
 
 
-class BPMColumn(Column):
+class BPMColumn(EditableColumn):
     name = 'bpm'
     display = _('BPM')
     size = 40
-    cellproperties = {'xalign': 1.0}
+    cellproperties = {'xalign': 1.0, 'editable': True}
+    validate = lambda s, v: int(v)
 
 
 providers.register('playlist-columns', BPMColumn)
 
 
-class LanguageColumn(Column):
+class LanguageColumn(EditableColumn):
     name = 'language'
     display = _('Language')
     size = 100
@@ -598,7 +617,7 @@ class CommentColumn(EditableColumn):
 providers.register('playlist-columns', CommentColumn)
 
 
-class GroupingColumn(Column):
+class GroupingColumn(EditableColumn):
     name = 'grouping'
     display = _('Grouping')
     size = 200
@@ -608,27 +627,41 @@ class GroupingColumn(Column):
 providers.register('playlist-columns', GroupingColumn)
 
 
-class StartOffsetColumn(Column):
+def _validate_time(self, v):
+    rv = 0
+    m = 1
+    for i in reversed(v.split(':')):
+        i = int(i)
+        if i < 0 or i > 59:
+            raise ValueError
+        rv += i * m
+        m *= 60
+    return rv
+
+
+class StartOffsetColumn(EditableColumn):
     name = '__startoffset'
     display = _('Start Offset')
     size = 50
-    cellproperties = {'xalign': 1.0}
+    cellproperties = {'xalign': 1.0, 'editable': True}
+    validate = _validate_time
 
 
 providers.register('playlist-columns', StartOffsetColumn)
 
 
-class StopOffsetColumn(Column):
+class StopOffsetColumn(EditableColumn):
     name = '__stopoffset'
     display = _('Stop Offset')
     size = 50
-    cellproperties = {'xalign': 1.0}
+    cellproperties = {'xalign': 1.0, 'editable': True}
+    validate = _validate_time
 
 
 providers.register('playlist-columns', StopOffsetColumn)
 
 
-class WebsiteColumn(Column):
+class WebsiteColumn(EditableColumn):
     name = 'website'
     display = _('Website')
     size = 200

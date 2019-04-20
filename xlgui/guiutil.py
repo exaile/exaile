@@ -37,6 +37,9 @@ from gi.repository import Pango
 
 from xl import settings, xdg
 
+# Required for xlgui.get_controller()
+import xlgui
+
 # Import from external namespace
 from xl.externals.gi_composites import GtkTemplate as _GtkTemplate
 
@@ -309,6 +312,17 @@ class SearchEntry(object):
         entry.connect('changed', self.on_entry_changed)
         entry.connect('icon-press', self.on_entry_icon_press)
         entry.connect('activate', self.on_entry_activated)
+
+        # Disable global accelerators while editing, re-enable when
+        # done
+        entry.connect(
+            'focus-in-event',
+            lambda w, e: xlgui.get_controller().main.accel_manager.disable_accelerators(),
+        )
+        entry.connect(
+            'focus-out-event',
+            lambda w, e: xlgui.get_controller().main.accel_manager.enable_accelerators(),
+        )
 
     def on_entry_changed(self, entry):
         """

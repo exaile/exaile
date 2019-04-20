@@ -850,7 +850,7 @@ class CommentTagFormatter(TagFormatter):
             :returns: the formatted value
             :rtype: string
         """
-        value = track.get_tag_disk(self.name)
+        value = track.get_tag_raw(self.name)
 
         if not value:
             return ''

@@ -662,12 +662,12 @@ def without_model(tv):
     '''
         Context manager that removes the model from a treeview and restores the
         view position and selection when finished.
-    
+
         Issue #199: Anytime a large number of changes are made to the model,
         it's better to just remove it before making the changes, as the UI
         will freeze if you don't. However, that messes up the visible view, so
         this saves/restores the view information.
-        
+
         .. note:: Assumes the model is a Gtk.TreeModelFilter
     '''
     model = tv.get_model()

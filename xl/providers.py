@@ -132,19 +132,19 @@ class ProviderManager(object):
             return []
 
         try:
-            any = service[None]
+            generic = service[None]
         except KeyError:
-            any = []
+            generic = []
 
         if target is None:
-            return any[:]
+            return generic[:]
 
         try:
             specific = service[target]
         except KeyError:
             specific = []
 
-        return specific + any
+        return specific + generic
 
     def get_provider(self, servicename, providername, target=None):
         """

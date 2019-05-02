@@ -31,7 +31,7 @@ import os
 import struct
 
 from xl.nls import gettext as _
-from xl import providers, event
+from xl import providers, event, main
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
 
@@ -39,16 +39,22 @@ from xl import playlist, trax, common
 import os.path
 
 import cdprefs
+from sys import exc_info
 
-try:
-    import DiscID
-    import CDDB
-
-    CDDB_AVAIL = True
-except Exception:
-    CDDB_AVAIL = False
 
 logger = logging.getLogger(__name__)
+
+try:
+    try:
+        from libdiscid.compat import discid
+    except ImportError:
+        import discid
+    import musicbrainzngs
+
+    DISCID_AVAILABLE = True
+except ImportError:
+    logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
+    DISCID_AVAILABLE = False
 
 
 TOC_HEADER_FMT = 'BB'
@@ -175,38 +181,59 @@ class CDPlaylist(playlist.Playlist):
 
         self.extend(songs)
 
-        if CDDB_AVAIL:
-            self.get_cddb_info()
+        if DISCID_AVAILABLE:
+            try:
+                musicbrainz_data = self.__get_discid_info()
+                self.__parse_musicbrainz_data(musicbrainz_data)
+            except WebServiceError as web_error:
+                logger.warn('Failed to fetch data from musicbrainz', exc_info=True)
 
     @common.threaded
-    def get_cddb_info(self):
-        try:
-            disc = DiscID.open(self.__device)
-            self.__device = DiscID.disc_id(disc)
-            status, info = CDDB.query(self.__device)
-        except IOError:
-            return
-
-        if status in (210, 211):
-            info = info[0]
-            status = 200
-        if status != 200:
-            return
-
-        (status, info) = CDDB.read(info['category'], info['disc_id'])
-
-        title = info['DTITLE'].split(" / ")
-        for i in range(self.__device[1]):
-            tr = self[i]
-            tr.set_tags(
-                title=info['TTITLE' + str(i)].decode('iso-8859-15', 'replace'),
-                album=title[1].decode('iso-8859-15', 'replace'),
-                artist=title[0].decode('iso-8859-15', 'replace'),
-                year=info['EXTD'].replace("YEAR: ", ""),
-                genre=info['DGENRE'],
-            )
-
-        self.name = title[1].decode('iso-8859-15', 'replace')
+    def __get_discid_info(self):
+        disc_id = discid.read(self.__device)
+        version = main.exaile().get_user_agent_for_musicbrainz()
+        musicbrainzngs.set_useragent(*version)
+        result = musicbrainzngs.get_releases_by_discid(
+            disc_id.id, toc=disc_id.toc_string, includes=["artists", "recordings"])
+        return result
+    
+    def __parse_musicbrainz_data(self, musicbrainz_data):
+        if musicbrainz_data.get('disc'):  # preferred: good quality
+            # arbitrarily choose first release. There may be more!
+            release = musicbrainz_data['disc']['release-list'][0]
+            artist = release['artist-credit-phrase']
+            album_title = release['title']
+            date = release['date']
+            if release['medium-count'] > 1 or release['medium-list'][0]['disc-count'] > 1:
+                raise NotImplementedError
+            if len(self) is not release['medium-list'][0]['track-count']:
+                raise NotImplementedError
+            track_list = release['medium-list'][0]['track-list']
+            disc_number = '{0}/{1}'.format(
+                release['medium-list'][0]['position'],
+                1)  # TODO calculate disk number?
+            
+            for track_index in range(0, len(self)):
+                # TODO put this into a new musicbrainz parser in xl/metadata
+                track = self[track_index]
+                track_number = '{0}/{1}'.format(
+                    track_list[track_index]['number'],  # TODO or position?
+                    release['medium-list'][0]['track-count'])
+                track.set_tags(
+                    artist=artist,
+                    title=track_list[track_index]['recording']['title'],
+                    albumartist=artist,
+                    album=album_title,
+                    tracknumber=track_number,
+                    discnumber=disc_number,
+                    date=date,
+                    # TODO Get more data with secondary query, e.g. genre ("tags")? 
+                    )
+            
+            self.name = album_title
+            
+        elif musicbrainz_data.get('cdstub'):  # not so nice
+            raise NotImplementedError
         event.log_event('cd_info_retrieved', self, True)
 
 

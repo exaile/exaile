@@ -42,7 +42,8 @@ Device detection:
 
 CD info:
 
-* cddb (python2), from http://cddb-py.sourceforge.net/
+* python-libdiscid (optional)
+* python-musicbrainzngs (optional)
 
 DAAP plugins (daapserver and daapclient):
 

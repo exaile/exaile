@@ -59,15 +59,15 @@ def main():
 
     aio_message = (
         "\r\n\r\nPlease run the 'All-In-One PyGI/PyGObject for "
-        + "Windows Installer' and ensure that the following are selected:"
-        + "\r\n\r\n"
-        + "* GTK+ 3.x\r\n"
-        + "* GStreamer 1.x and the gst-plugins package(s)\r\n"
-        + "\r\n"
-        + "The 'All-In-One PyGI/PyGObject for Windows Installer' "
-        + "can be downloaded at\r\n"
-        + "http://sourceforge.net/projects/pygobjectwin32/\r\n\r\n"
-        + "See README.Windows for more information."
+        "Windows Installer' and ensure that the following are selected:"
+        "\r\n\r\n"
+        "* GTK+ 3.x\r\n"
+        "* GStreamer 1.x and the gst-plugins package(s)\r\n"
+        "\r\n"
+        "The 'All-In-One PyGI/PyGObject for Windows Installer' "
+        "can be downloaded at\r\n"
+        "http://sourceforge.net/projects/pygobjectwin32/\r\n\r\n"
+        "See README.Windows for more information."
     )
 
     try:
@@ -98,8 +98,8 @@ def main():
         error(
             "Mutagen not found",
             "The Python module Mutagen could not be imported. It can be "
-            + "downloaded from http://code.google.com/p/mutagen\r\n\r\n"
-            + "See README.Windows for more information.",
+            "downloaded from http://code.google.com/p/mutagen\r\n\r\n"
+            "See README.Windows for more information.",
         )
     else:
         logging.info("Mutagen works")

@@ -212,7 +212,7 @@ class PluginManager(object):
                 return
 
         logger.info('Reloading plugin %s...', plugin_name)
-        self.plugins.load_plugin(plugin_name, reload=True)
+        self.plugins.load_plugin(plugin_name, reload_plugin=True)
 
         if enabled:
             try:

@@ -63,13 +63,13 @@ class PluginsManager(object):
         self.load = load
 
     def __findplugin(self, pluginname):
-        for dir in self.plugindirs:
-            path = os.path.join(dir, pluginname)
+        for plugin_dir in self.plugindirs:
+            path = os.path.join(plugin_dir, pluginname)
             if os.path.exists(path):
                 return path
         return None
 
-    def load_plugin(self, pluginname, reload=False):
+    def load_plugin(self, pluginname, reload_plugin=False):
         if not reload and pluginname in self.loaded_plugins:
             return self.loaded_plugins[pluginname]
 
@@ -135,7 +135,7 @@ class PluginsManager(object):
 
     def uninstall_plugin(self, pluginname):
         self.disable_plugin(pluginname)
-        for dir in self.plugindirs:
+        for plugin_dir in self.plugindirs:
             try:
                 shutil.rmtree(self.__findplugin(pluginname))
                 return True

@@ -78,7 +78,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         device.FlatPlaylistDevicePanel.__init__(self, *args)
         self.__importing = False
 
-        event.add_ui_callback(self._tree_queue_draw, 'cddb_info_retrieved')
+        event.add_ui_callback(self._tree_queue_draw, 'cd_info_retrieved')
 
     def _tree_queue_draw(self, type, cdplaylist, object=None):
         if not hasattr(self.fppanel, 'tree'):

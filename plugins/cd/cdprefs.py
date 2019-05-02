@@ -37,7 +37,6 @@ ui = os.path.join(basedir, "cdprefs_pane.ui")
 
 FORMAT_WIDGET = None
 
-# TODO: allow setting cddb server?
 
 
 class OutputFormatPreference(widgets.ComboPreference):

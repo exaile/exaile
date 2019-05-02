@@ -207,7 +207,7 @@ class CDPlaylist(playlist.Playlist):
             )
 
         self.name = title[1].decode('iso-8859-15', 'replace')
-        event.log_event('cddb_info_retrieved', self, True)
+        event.log_event('cd_info_retrieved', self, True)
 
 
 class CDDevice(KeyedDevice):

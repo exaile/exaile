@@ -34,6 +34,7 @@ def read_cd_index(device):
         @return: an array of xl.trax.Track representing the disc's contents
     """
     (toc_entries, mcn) = __read_toc(device)
+    logger.debug('Successfully read TOC of CD with MCN %s : %s', mcn, toc_entries)
     return __parse_tracks(toc_entries, mcn, device)
 
 

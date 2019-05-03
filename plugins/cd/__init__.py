@@ -106,42 +106,59 @@ class CDPlaylist(playlist.Playlist):
     # TODO make this threaded later!
     #@common.threaded
     def __read_disc_index(self):
-        self.__read_disc_index_internal()
+        self.__read_disc_index_internal(self.__device)
         event.log_event('cd_info_retrieved', self, True)
 
-    def __read_disc_index_internal(self):
+    def __read_disc_index_internal(self, device):
         """
             priority (corresponds with expected data quality):
             1. LibdiscID+Musicbrainzngs: Requires internet connection
             2. LibdiscID+parsing
             3. linux_cd_parser: Parse from CD TOC (linux only)
         """
-
-        if DISCID_AVAILABLE and MUSICBRAINZNGS_AVAILABLE:
-            try:
-                disc_id = discid.read(self.__device)
-                (tracks, title) = musicbrainzngs_parser.parse_disc_id(disc_id, self.__device)
-                self.extend(tracks)
-                print(title)  # TODO: set as playlist title, panel title?
-                #return # TODO commented out for debugging purposes
-            except musicbrainzngs.WebServiceError as web_error:
-                # This is expected to fail if user is offline or behind an
-                # aggressive firewall.
-                logger.info('Failed to fetch data from musicbrainz database', exc_info=True)
-            except:
-                logger.warn('Failed to fetch data from cd using discid and musicbrainz.', exc_info=True)
         
+        # TODO: Add more providers?
+        # Discogs:
+        # * https://github.com/discogs/discogs_client
+        # * https://www.discogs.com/developers/
+        # CDDB/freedb:
+        # * old python code: http://pycddb.sourceforge.net/
+        # * even older python code: http://cddb-py.sourceforge.net/
+        # * http://ftp.freedb.org/pub/freedb/latest/DBFORMAT
+        # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
+        # * Servers: http://freedb.freedb.org/, 
+
         if DISCID_AVAILABLE:
             try:
-                tracks = discid_parser.parse_disc(self.__device)
+                disc_id = discid_parser.read_disc_id(device)
+                logger.debug('Successfully read CD using discid with %i tracks. '
+                             'Musicbrainz id: %s',
+                             len(disc_id.tracks), disc_id.id)
+                
+                if MUSICBRAINZNGS_AVAILABLE:
+                    try:
+                        result = musicbrainzngs_parser.fetch_with_disc_id(disc_id, device)
+                        if result is not None:
+                            (tracks, title) = result
+                            self.extend(tracks)
+                            print(title)  # TODO: set as playlist title, panel title?
+                            return # TODO commented out for debugging purposes
+                    except musicbrainzngs.WebServiceError as web_error:
+                        # This is expected to fail if user is offline or behind an
+                        # aggressive firewall.
+                        logger.info('Failed to fetch data from musicbrainz database.', exc_info=True)
+                    except:
+                        logger.warn('Failed to parse data from musicbrainz database.', exc_info=True)
+                
+                tracks = discid_parser.parse_disc(disc_id, device)
                 self.extend(tracks)
-                #return # TODO commented out for debugging purposes
+                return # TODO commented out for debugging purposes
             except:
                 logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
         
         if sys.platform.startswith('linux'):
             try:
-                tracks = linux_cd_parser.read_cd_index(self.__device)
+                tracks = linux_cd_parser.read_cd_index(device)
                 self.extend(tracks)
             except:
                 logger.warn('Failed to read metadata from CD.', exc_info=True)

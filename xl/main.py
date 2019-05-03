@@ -908,6 +908,17 @@ class Exaile(object):
         else:
             return self._user_agent_no_plugin % fmt
 
+    def get_user_agent_for_musicbrainz(self):
+        '''
+            Returns an appropriately formatted User-agent tuple for
+            musicbrainz. When possible, plugins should use this to
+            access musicbrainz.
+            Note: This user agent does not include a plugin name because
+            that would not be thread-safe, i.e. plugin A may operate with the
+            user agent of plugin B.
+        '''
+        return ('Exaile', __version__, 'https://www.exaile.org')
+
     def quit(self, restart=False):
         """
             Exits Exaile normally. Takes care of saving

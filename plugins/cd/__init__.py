@@ -25,46 +25,44 @@
 # from your version.
 
 import dbus
-from fcntl import ioctl
 import logging
-import os
-import struct
+import os.path
+import sys
 
 from xl.nls import gettext as _
 from xl import providers, event, main
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
-
 from xl import playlist, trax, common
-import os.path
+from xl.trax import Track
 
 import cdprefs
-from sys import exc_info
 
 
 logger = logging.getLogger(__name__)
 
+
+if sys.platform.startswith('linux'):
+    import linux_cd_parser
+
 try:
-    try:
+    try:  # allow both python-discid and python-libdiscid
         from libdiscid.compat import discid
     except ImportError:
         import discid
-    import musicbrainzngs
-
+    import discid_parser
     DISCID_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
     DISCID_AVAILABLE = False
 
-
-TOC_HEADER_FMT = 'BB'
-TOC_ENTRY_FMT = 'BBBix'
-ADDR_FMT = 'BBB' + 'x' * (struct.calcsize('i') - 3)
-CDROMREADTOCHDR = 0x5305
-CDROMREADTOCENTRY = 0x5306
-CDROM_LEADOUT = 0xAA
-CDROM_MSF = 0x02
-CDROM_DATA_TRACK = 0x04
+try:
+    import musicbrainzngs
+    import musicbrainzngs_parser
+    MUSICBRAINZNGS_AVAILABLE = True
+except ImportError:
+    logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
+    MUSICBRAINZNGS_AVAILABLE = False
 
 
 class CdPlugin(object):
@@ -94,65 +92,6 @@ class CdPlugin(object):
 plugin_class = CdPlugin
 
 
-class _CDTrack(object):
-    """
-        @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
-        @ivar data: `True` if this "track" contains data, `False` if it is audio
-        @ivar minutes: Minutes from begin of CD
-        @ivar seconds: Seconds after `minutes`, from begin of CD
-        @ivar frames: Frames after `seconds`, from begin of CD
-    """
-
-    def __init__(self, entry):
-        self.track, adrctrl, _format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
-        self.minutes, self.seconds, self.frames = struct.unpack(
-            ADDR_FMT, struct.pack('i', addr)
-        )
-
-        # adr = adrctrl & 0xf
-        ctrl = (adrctrl & 0xF0) >> 4
-
-        self.data = False
-        if ctrl & CDROM_DATA_TRACK:
-            self.data = True
-
-    def get_frame_count(self):
-        return (self.minutes * 60 + self.seconds) * 75 + self.frames
-
-
-class CDTocParser(object):
-    # based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
-
-    def __init__(self, device):
-        self.__raw_tracks = []
-        self.__read_toc(device)
-
-    def __read_toc(self, device):
-        fd = os.open(device, os.O_RDONLY)
-        try:
-            toc_header = struct.pack(TOC_HEADER_FMT, 0, 0)
-            toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
-            start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
-
-            for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
-                entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
-                entry = ioctl(fd, CDROMREADTOCENTRY, entry)
-                self.__raw_tracks.append(_CDTrack(entry))
-        finally:
-            os.close(fd)
-
-    def _get_track_lengths(self):
-        """ returns track length in seconds """
-        track = self.__raw_tracks[0]
-        offset = track.get_frame_count()
-        lengths = []
-        for track in self.__raw_tracks[1:]:
-            frame_end = track.get_frame_count()
-            lengths.append((frame_end - offset) / 75)
-            offset = frame_end
-        return lengths
-
-
 class CDPlaylist(playlist.Playlist):
     def __init__(self, name=_("Audio Disc"), device=None):
         playlist.Playlist.__init__(self, name=name)
@@ -162,79 +101,50 @@ class CDPlaylist(playlist.Playlist):
         else:
             self.__device = device
 
-        self.open_disc()
+        self.__read_disc_index()
 
-    def open_disc(self):
+    # TODO make this threaded later!
+    #@common.threaded
+    def __read_disc_index(self):
+        self.__read_disc_index_internal()
+        event.log_event('cd_info_retrieved', self, True)
 
-        toc = CDTocParser(self.__device)
-        lengths = toc._get_track_lengths()
+    def __read_disc_index_internal(self):
+        """
+            priority (corresponds with expected data quality):
+            1. LibdiscID+Musicbrainzngs: Requires internet connection
+            2. LibdiscID+parsing
+            3. linux_cd_parser: Parse from CD TOC (linux only)
+        """
 
-        songs = []
-
-        for count, length in enumerate(lengths):
-            count += 1
-            song = trax.Track("cdda://%d/#%s" % (count, self.__device))
-            song.set_tags(
-                title="Track %d" % count, tracknumber=str(count), __length=length
-            )
-            songs.append(song)
-
-        self.extend(songs)
-
+        if DISCID_AVAILABLE and MUSICBRAINZNGS_AVAILABLE:
+            try:
+                disc_id = discid.read(self.__device)
+                (tracks, title) = musicbrainzngs_parser.parse_disc_id(disc_id, self.__device)
+                self.extend(tracks)
+                print(title)  # TODO: set as playlist title, panel title?
+                #return # TODO commented out for debugging purposes
+            except musicbrainzngs.WebServiceError as web_error:
+                # This is expected to fail if user is offline or behind an
+                # aggressive firewall.
+                logger.info('Failed to fetch data from musicbrainz database', exc_info=True)
+            except:
+                logger.warn('Failed to fetch data from cd using discid and musicbrainz.', exc_info=True)
+        
         if DISCID_AVAILABLE:
             try:
-                musicbrainz_data = self.__get_discid_info()
-                self.__parse_musicbrainz_data(musicbrainz_data)
-            except WebServiceError as web_error:
-                logger.warn('Failed to fetch data from musicbrainz', exc_info=True)
-
-    @common.threaded
-    def __get_discid_info(self):
-        disc_id = discid.read(self.__device)
-        version = main.exaile().get_user_agent_for_musicbrainz()
-        musicbrainzngs.set_useragent(*version)
-        result = musicbrainzngs.get_releases_by_discid(
-            disc_id.id, toc=disc_id.toc_string, includes=["artists", "recordings"])
-        return result
-    
-    def __parse_musicbrainz_data(self, musicbrainz_data):
-        if musicbrainz_data.get('disc'):  # preferred: good quality
-            # arbitrarily choose first release. There may be more!
-            release = musicbrainz_data['disc']['release-list'][0]
-            artist = release['artist-credit-phrase']
-            album_title = release['title']
-            date = release['date']
-            if release['medium-count'] > 1 or release['medium-list'][0]['disc-count'] > 1:
-                raise NotImplementedError
-            if len(self) is not release['medium-list'][0]['track-count']:
-                raise NotImplementedError
-            track_list = release['medium-list'][0]['track-list']
-            disc_number = '{0}/{1}'.format(
-                release['medium-list'][0]['position'],
-                1)  # TODO calculate disk number?
-            
-            for track_index in range(0, len(self)):
-                # TODO put this into a new musicbrainz parser in xl/metadata
-                track = self[track_index]
-                track_number = '{0}/{1}'.format(
-                    track_list[track_index]['number'],  # TODO or position?
-                    release['medium-list'][0]['track-count'])
-                track.set_tags(
-                    artist=artist,
-                    title=track_list[track_index]['recording']['title'],
-                    albumartist=artist,
-                    album=album_title,
-                    tracknumber=track_number,
-                    discnumber=disc_number,
-                    date=date,
-                    # TODO Get more data with secondary query, e.g. genre ("tags")? 
-                    )
-            
-            self.name = album_title
-            
-        elif musicbrainz_data.get('cdstub'):  # not so nice
-            raise NotImplementedError
-        event.log_event('cd_info_retrieved', self, True)
+                tracks = discid_parser.parse_disc(self.__device)
+                self.extend(tracks)
+                #return # TODO commented out for debugging purposes
+            except:
+                logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
+        
+        if sys.platform.startswith('linux'):
+            try:
+                tracks = linux_cd_parser.read_cd_index(self.__device)
+                self.extend(tracks)
+            except:
+                logger.warn('Failed to read metadata from CD.', exc_info=True)
 
 
 class CDDevice(KeyedDevice):

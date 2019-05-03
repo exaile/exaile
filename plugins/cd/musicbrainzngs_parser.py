@@ -1,10 +1,8 @@
-'''
-Created on 03.05.2019
-
-@author: christian
-'''
-
-
+"""
+    This module is a parser for audio CDs based on musicbrainzngs and discid.
+    
+    It uses the online database provided by musicbrainzngs.
+"""
 
 
 import musicbrainzngs
@@ -16,6 +14,8 @@ from xl.trax import Track
 
 MUSICBRAINZNGS_INITIALIZED = False
 
+# TODO some of the stuff in this module is not implemented yet
+# TODO add musicbrainz disc id, freedb disc id, MCN, ISRC
 
 
 def parse_disc_id(disc_id, device):

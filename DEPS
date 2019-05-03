@@ -42,7 +42,7 @@ Device detection:
 
 CD info:
 
-* python-libdiscid (optional)
+* python-libdiscid or python-discid (optional on linux, required to use musicbrainz)
 * python-musicbrainzngs (optional)
 
 DAAP plugins (daapserver and daapclient):

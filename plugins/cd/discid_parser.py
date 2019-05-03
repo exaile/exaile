@@ -30,22 +30,21 @@ def parse_disc(disc_id, device):
     """
     xl_tracks = []
     for discid_track in disc_id.tracks:
-        track_uri = "cdda://%d/#%s" % (discid_track.number, device)
-        track = Track(uri=track_uri, scan=False)
         
-        track_number = '{0}/{1}'.format(discid_track.number, len(disc_id.tracks))
-        track.set_tags(
-            title="Track %d" % discid_track.number,
-            tracknumber=track_number,
-            __length=discid_track.seconds,
-            musicbrainz_disc_id=disc_id.id,
-            freedb_disc_id=disc_id.freedb_id,
-        )
+        tags = dict()
+        tags['tracknumber'] = '{0}/{1}'.format(discid_track.number, len(disc_id.tracks))
+        tags['title'] = "Track %d" % discid_track.number
+        tags['__length'] = discid_track.seconds
+        tags['__musicbrainz_disc_id'] = disc_id.id
+        tags['__freedb_disc_id'] = disc_id.freedb_id
 
         if discid_track.isrc:
-            track.set_tags(isrc=discid_track.isrc)
-
+            tags['__isrc'] = discid_track.isrc
         if disc_id.mcn and '0000000000000' not in disc_id.mcn:
-            track.set_tags(mcn=disc_id.mcn)
+            tags['__mcn'] = disc_id.mcn
+
+        track_uri = "cdda://%d/#%s" % (discid_track.number, device)
+        track = Track(uri=track_uri, scan=False)
+        track.set_tags(**tags)
         xl_tracks.append(track)
     return xl_tracks

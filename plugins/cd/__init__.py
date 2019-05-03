@@ -135,7 +135,7 @@ class CDPlaylist(playlist.Playlist):
                              'Musicbrainz id: %s',
                              len(disc_id.tracks), disc_id.id)
                 
-                if MUSICBRAINZNGS_AVAILABLE:
+                if MUSICBRAINZNGS_AVAILABLE: # TODO add setting to let user choose whether he wants internet connections
                     try:
                         result = musicbrainzngs_parser.fetch_with_disc_id(disc_id, device)
                         if result is not None:

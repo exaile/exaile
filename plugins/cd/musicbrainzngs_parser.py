@@ -27,7 +27,6 @@ logger = logging.getLogger(__name__)
 
 MUSICBRAINZNGS_INITIALIZED = False
 
-# TODO add musicbrainz disc id, freedb disc id, MCN, ISRC
 # TODO which fields are optional?
 # TODO test
 # TODO adapt log levels
@@ -59,7 +58,7 @@ def fetch_with_disc_id(disc_id, device):
 
 
 def __parse_musicbrainz_cdstub_data(cdstub_data, disc_id, device):
-    # use discid_parser first to get some data t rely on
+    # prepopulate from disc_id parser
     tracks = discid_parser.parse_disc(disc_id, device)
     
     if cdstub_data['track-count']:
@@ -90,14 +89,12 @@ def __parse_musicbrainz_cdstub_data(cdstub_data, disc_id, device):
             if track_title is not None:
                 new_tags['title'] = track_title
             
-            new_tags['tracknumber'] = '{0}/{1}'.format(i + 1, len(tracks))
-            
             if artist is not None:
                 new_tags['artist'] = artist
                 new_tags['albumartist'] = artist
             
             track.set_tags(**new_tags)
-    return (tracks, album_title)
+    return tracks, album_title
 
 
 def __parse_musicbrainz_disc_data(disc_data, disc_id, device):
@@ -115,7 +112,7 @@ def __parse_musicbrainz_disc_data(disc_data, disc_id, device):
     
     (release, medium) = __choose_release_and_medium(suitable_releases)
     
-    return __parse_from_disc_data(release, medium, device)
+    return __parse_from_disc_data(release, medium, device, disc_id)
 
 
 def __choose_release_and_medium(suitable_releases):
@@ -254,7 +251,10 @@ def __check_single_track(single_mb_track, single_disc_track):
     return priority
 
 
-def __parse_from_disc_data(release, medium, device):
+def __parse_from_disc_data(release, medium, device, disk_id):
+    # prepopulate from disc_id parser
+    tracks = discid_parser.parse_disc(disc_id, device)
+    
     artist = release['artist-credit-phrase']
     album_title = release['title']
     date = release['date']
@@ -262,23 +262,20 @@ def __parse_from_disc_data(release, medium, device):
     disc_number = '{0}/{1}'.format(medium['position'], 1)  # TODO calculate disc number?
     
     track_count = medium['track-count']
-    tracks = []
     for track_index in range(0, track_count):
-        # TODO put this into a new musicbrainz parser in xl/metadata?
-        track_uri = "cdda://%d/#%s" % (track_index+1, device)
-        track = Track(uri=track_uri, scan=False)
-        track_number = '{0}/{1}'.format(
-            track_list[track_index]['number'],  # TODO or position?
-            medium['track-count'])
+        track = tracks[track_index]
+        #track_number = '{0}/{1}'.format(
+        #    track_list[track_index]['number'],  # TODO or position?
+        #    medium['track-count'])
         track.set_tags(
             artist=artist,
             title=track_list[track_index]['recording']['title'],
             albumartist=artist,
             album=album_title,
-            tracknumber=track_number,
+            #tracknumber=track_number,
             discnumber=disc_number,
             date=date,
-            __length=int(track_list[track_index]['length']) / 1000,
+            #__length=int(track_list[track_index]['length']) / 1000,
             # or track_list[track_index]['recording']['length']
             # or track_list[track_index]['track_or_recording_length']
             # TODO Get more data with secondary query, e.g. genre ("tags")? 

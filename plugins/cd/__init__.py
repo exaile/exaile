@@ -135,14 +135,14 @@ class CDPlaylist(playlist.Playlist):
                              'Musicbrainz id: %s',
                              len(disc_id.tracks), disc_id.id)
                 
-                if MUSICBRAINZNGS_AVAILABLE: # TODO add setting to let user choose whether he wants internet connections
+                if MUSICBRAINZNGS_AVAILABLE: # TODO: add setting to let user choose whether he wants internet connections
                     try:
                         result = musicbrainzngs_parser.fetch_with_disc_id(disc_id, device)
                         if result is not None:
                             (tracks, title) = result
                             self.extend(tracks)
                             print(title)  # TODO: set as playlist title, panel title?
-                            return # TODO commented out for debugging purposes
+                            return
                     except musicbrainzngs.WebServiceError as web_error:
                         # This is expected to fail if user is offline or behind an
                         # aggressive firewall.

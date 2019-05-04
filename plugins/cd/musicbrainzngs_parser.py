@@ -38,26 +38,27 @@ from plugins.cd import discid_parser
 logger = logging.getLogger(__name__)
 
 
-def __init_musicbrainzngs():
+def fetch_with_disc_id(disc_id, device):
     version = main.exaile().get_user_agent_for_musicbrainz()
     musicbrainzngs.set_useragent(*version)
 
-
-__init_musicbrainzngs()
-
-
-def fetch_with_disc_id(disc_id, device):
     musicbrainz_data = musicbrainzngs.get_releases_by_discid(
-        disc_id.id, toc=disc_id.toc_string, includes=[
-            'artists', 'recordings', 'isrcs', 'artist-credits'])
+        disc_id.id,
+        toc=disc_id.toc_string,
+        includes=['artists', 'recordings', 'isrcs', 'artist-credits'],
+    )
 
     if musicbrainz_data.get('disc') is not None:  # preferred: good quality
-        disc_tracks = __parse_musicbrainz_disc_data(musicbrainz_data['disc'], disc_id, device)
+        disc_tracks = __parse_musicbrainz_disc_data(
+            musicbrainz_data['disc'], disc_id, device
+        )
         if disc_tracks is not None:
             return disc_tracks
 
     if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
-        disc_tracks = __parse_musicbrainz_cdstub_data(musicbrainz_data['cdstub'], disc_id, device)
+        disc_tracks = __parse_musicbrainz_cdstub_data(
+            musicbrainz_data['cdstub'], disc_id, device
+        )
         if disc_tracks is not None:
             return disc_tracks
 
@@ -77,8 +78,12 @@ def __parse_musicbrainz_cdstub_data(cdstub_data, disc_id, device):
     track_count = cdstub_data.get('track-count')
     if track_count is not None:
         if len(tracks) is not track_count:
-            logger.debug('Track count mismatch: real disc has %i, musicbrainz says %i. '
-                         'Ignoring all data.', len(tracks), track_count)
+            logger.debug(
+                'Track count mismatch: real disc has %i, musicbrainz says %i. '
+                'Ignoring all data.',
+                len(tracks),
+                track_count,
+            )
             return None
 
     album_tags = dict()
@@ -170,8 +175,11 @@ def __check_single_release(single_release, disc_id):
                 logger.debug('Found exact barcode match: %s', disc_barcode)
                 priority = 100
             else:  # could be a different barcode format or a weak match
-                logger.debug('Barcode mismatch: real disc has %s, musicbrainz says %s.',
-                             disc_barcode, mb_barcode)
+                logger.debug(
+                    'Barcode mismatch: real disc has %s, musicbrainz says %s.',
+                    disc_barcode,
+                    mb_barcode,
+                )
                 priority = -19
 
     medium_list = single_release.get('medium-list')
@@ -198,16 +206,21 @@ def __check_single_medium(single_medium, disc_id):
     mb_format = single_medium.get('format')
     if mb_format is not None:
         if not mb_format == 'CD':
-            logger.debug('Medium format mismatch: real disc is CD, musicbrainz says %s. Ignoring.',
-                         mb_format)
+            logger.debug(
+                'Medium format mismatch: real disc is CD, musicbrainz says %s. Ignoring.',
+                mb_format,
+            )
             return None
         priority = priority + 7
 
     track_count = single_medium.get('track-count')
     if track_count is not None:
         if not track_count == len(disc_id.tracks):
-            logger.debug('Track count mismatch: real disc has %i, musicbrainz says %i. Ignoring.',
-                         len(disc_id.tracks), track_count)
+            logger.debug(
+                'Track count mismatch: real disc has %i, musicbrainz says %i. Ignoring.',
+                len(disc_id.tracks),
+                track_count,
+            )
             return None
         priority = priority + 2
 
@@ -215,8 +228,11 @@ def __check_single_medium(single_medium, disc_id):
     if track_list is None:
         logger.debug('Medium contains no `track-list`. This sounds fishy, ignoring.')
     if not len(track_list) == len(disc_id.tracks):
-        logger.debug('Track number mismatch: real disc has %i, musicbrainz says %i. Ignoring.',
-                     len(disc_id.tracks), track_list)
+        logger.debug(
+            'Track number mismatch: real disc has %i, musicbrainz says %i. Ignoring.',
+            len(disc_id.tracks),
+            track_list,
+        )
         return None
 
     # disc-list does not seem to contain important information.
@@ -244,8 +260,11 @@ def __check_single_track(single_mb_track, single_disc_track):
         if mb_position == single_disc_track.number:
             priority = priority + 9
         else:
-            logger.info('Track position mismatch: real disc has %i, musicbrainz says %i.',
-                        single_disc_track.number, mb_position)
+            logger.info(
+                'Track position mismatch: real disc has %i, musicbrainz says %i.',
+                single_disc_track.number,
+                mb_position,
+            )
             return None
 
     if single_mb_track.get('number') is not None:
@@ -253,8 +272,11 @@ def __check_single_track(single_mb_track, single_disc_track):
         if mb_number == single_disc_track.number:
             priority = priority + 9
         else:
-            logger.info('Track number mismatch: real disc has %i, musicbrainz says %i.',
-                        single_disc_track.number, mb_number)
+            logger.info(
+                'Track number mismatch: real disc has %i, musicbrainz says %i.',
+                single_disc_track.number,
+                mb_number,
+            )
             return None
 
     # compare length
@@ -263,19 +285,26 @@ def __check_single_track(single_mb_track, single_disc_track):
         real_length_ms = single_disc_track.sectors * 1000 / 75
         len_diff = abs(real_length_ms - mb_length_ms)
         if len_diff > 10000:  # up to 5 seconds fade in / fade out time at start and end
-            logger.debug('Massive track length mismatch: real disc has %ims, musicbrainz says %ims.',
-                         real_length_ms, mb_length_ms)
+            logger.debug(
+                'Massive track length mismatch: real disc has %ims, musicbrainz says %ims.',
+                real_length_ms,
+                mb_length_ms,
+            )
             return None
         elif len_diff < 20:  # sector length = 1000ms/75 = (13+1/3)ms
             priority = priority + 50  # priority bonus for "exact" length match
         else:
             priority = priority - len_diff / 100
-            logger.debug('Slight track length mismatch: real disc has %i, musicbrainz says %i.',
-                         real_length_ms, mb_length_ms)
+            logger.debug(
+                'Slight track length mismatch: real disc has %i, musicbrainz says %i.',
+                real_length_ms,
+                mb_length_ms,
+            )
 
     if single_mb_track.get('recording') is not None:
         resource_priority = __check_single_track_as_recording(
-            single_mb_track.get('recording'), single_disc_track)
+            single_mb_track.get('recording'), single_disc_track
+        )
         if resource_priority is None:
             return None
         else:
@@ -332,7 +361,8 @@ def __parse_medium_from_disc_data(release, medium, device, disc_id):
     mb_tracks = medium['track-list']
     for track_index in range(0, len(mb_tracks)):
         __parse_track_from_disc_data(
-            medium_tags.copy(), tracks[track_index], mb_tracks[track_index])
+            medium_tags.copy(), tracks[track_index], mb_tracks[track_index]
+        )
 
     # needs the 'musicbrainz_albumid' tag to be set, thus this happens after writing track tags
     __get_cover_image(release, tracks)
@@ -365,8 +395,9 @@ def __get_cover_image(release, tracks):
             cover_data = cover_searcher.get_cover_data(db_string)
             break
         except Exception:
-            logger.debug('Cannot fetch cover for %s in resolution %s',
-                         release['id'], resolution)
+            logger.debug(
+                'Cannot fetch cover for %s in resolution %s', release['id'], resolution
+            )
 
     if cover_data is not None:
         for track in tracks:

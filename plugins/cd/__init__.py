@@ -51,6 +51,7 @@ try:
     except ImportError:
         import discid
     import discid_parser
+
     DISCID_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
@@ -59,6 +60,7 @@ except ImportError:
 try:
     import musicbrainzngs
     import musicbrainzngs_parser
+
     MUSICBRAINZNGS_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
@@ -126,7 +128,7 @@ class CDPlaylist(playlist.Playlist):
         # * even older python code: http://cddb-py.sourceforge.net/
         # * http://ftp.freedb.org/pub/freedb/latest/DBFORMAT
         # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
-        # * Servers: http://freedb.freedb.org/, 
+        # * Servers: http://freedb.freedb.org/,
 
         if DISCID_AVAILABLE:
             try:
@@ -137,30 +139,38 @@ class CDPlaylist(playlist.Playlist):
                 
                 if MUSICBRAINZNGS_AVAILABLE: # TODO: add setting to let user choose whether he wants internet connections
                     try:
-                        result = musicbrainzngs_parser.fetch_with_disc_id(disc_id, device)
+                        result = musicbrainzngs_parser.fetch_with_disc_id(
+                            disc_id, device
+                        )
                         if result is not None:
                             (tracks, title) = result
                             self.extend(tracks)
                             print(title)  # TODO: set as playlist title, panel title?
                             return
-                    except musicbrainzngs.WebServiceError as web_error:
+                    except musicbrainzngs.WebServiceError:
                         # This is expected to fail if user is offline or behind an
                         # aggressive firewall.
-                        logger.info('Failed to fetch data from musicbrainz database.', exc_info=True)
-                    except:
-                        logger.warn('Failed to parse data from musicbrainz database.', exc_info=True)
-                
+                        logger.info(
+                            'Failed to fetch data from musicbrainz database.',
+                            exc_info=True,
+                        )
+                    except Exception:
+                        logger.warn(
+                            'Failed to parse data from musicbrainz database.',
+                            exc_info=True,
+                        )
+
                 tracks = discid_parser.parse_disc(disc_id, device)
                 self.extend(tracks)
-                return # TODO commented out for debugging purposes
-            except:
+                return
+            except Exception:
                 logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
-        
+
         if sys.platform.startswith('linux'):
             try:
                 tracks = linux_cd_parser.read_cd_index(device)
                 self.extend(tracks)
-            except:
+            except Exception:
                 logger.warn('Failed to read metadata from CD.', exc_info=True)
 
 

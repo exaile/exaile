@@ -38,7 +38,6 @@ ui = os.path.join(basedir, "cdprefs_pane.ui")
 FORMAT_WIDGET = None
 
 
-
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
 
@@ -65,10 +64,10 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             return False
 
         curiter = self.condition_widget.get_active_iter()
-        format = self.condition_widget.get_model().get_value(curiter, 0)
-        formatinfo = transcoder.FORMATS[format]
-        if self.format != format:
-            self.format = format
+        tc_format = self.condition_widget.get_model().get_value(curiter, 0)
+        formatinfo = transcoder.FORMATS[tc_format]
+        if self.format != tc_format:
+            self.format = tc_format
             default = formatinfo['default']
 
             if self.default != default:

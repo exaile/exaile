@@ -1,10 +1,10 @@
 """
     This module is a low-level reader and parser for audio CDs.
     It heavily relies on ioctls to the linux kernel.
-    
+
     Original source for most of the code:
     http://www.carey.geek.nz/code/python-cdrom/cdtoc.py
-    
+
     Source for all the magical constants and more infos on the ioctls:
     linux/include/uapi/linux/cdrom.h
     https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/cdrom.h
@@ -19,7 +19,6 @@ import logging
 import os
 import struct
 
-from xl.main import common
 from xl.trax import Track
 
 
@@ -29,7 +28,7 @@ logger = logging.getLogger(__name__)
 def read_cd_index(device):
     """
         Reads a CD's index and parses it to Exaile's trax.
-        
+
         @param device: a path to a CD device
         @return: an array of xl.trax.Track representing the disc's contents
     """
@@ -41,7 +40,7 @@ def read_cd_index(device):
 def __read_toc(device):
     """
         Does all the I/O work on reading the disc table of contents (TOC)
-        
+
         @param device: a path to a CD device
         @return: Array of toc entries. The last one is a dummy.
     """
@@ -100,7 +99,7 @@ def __read_toc_entry(fd, toc_entry_num):
     # value constant: Minute, Second, Frame: binary (not bcd here)
     CDROM_MSF = 0x02
 
-    # struct cdrom_tocentry of 3 times u8 followed by an int and another u8 
+    # struct cdrom_tocentry of 3 times u8 followed by an int and another u8
     FORMAT_cdrom_tocentry = 'BBBiB'
     # u8 cdte_track: Track number. Starts with 1, which is used for the TOC and contains data.
     # u8 cdte_adr_ctrl: 4 high bits -> cdte_ctrl, 4 low bits -> cdte_adr
@@ -112,7 +111,7 @@ def __read_toc_entry(fd, toc_entry_num):
     CDROMREADTOCENTRY = 0x5306
     cdrom_tocentry = fcntl.ioctl(fd, CDROMREADTOCENTRY, cdrom_tocentry)
 
-    cdte_track, cdte_adr_ctrl, cdte_format, cdte_addr, cdte_datamode = \
+    cdte_track, cdte_adr_ctrl, cdte_format, cdte_addr, _cdte_datamode = \
         struct.unpack(FORMAT_cdrom_tocentry, cdrom_tocentry)
 
     if cdte_format is not CDROM_MSF:
@@ -167,7 +166,7 @@ def __parse_tracks(toc_entries, mcn, device):
 
         if mcn:
             track.set_tags(mcn=mcn)
-        
+
         tracks.append(track)
     return tracks
 

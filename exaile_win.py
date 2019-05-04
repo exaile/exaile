@@ -97,8 +97,9 @@ def main():
     except Exception:
         error(
             "Mutagen not found",
-            "The Python module Mutagen could not be imported. It can be "
-            "downloaded from http://code.google.com/p/mutagen\r\n\r\n"
+            "The Python module Mutagen could not be imported. For download "
+            "and installation instructions see "
+            "https://mutagen.readthedocs.io/en/latest/\r\n\r\n"
             "See README.Windows for more information.",
         )
     else:

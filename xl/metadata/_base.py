@@ -261,7 +261,7 @@ class BaseFormat(object):
             # Add tags if it doesn't have them.
             # Most of Mutagen's modules throw an exception if the file already
             # contains tags, except for mp4. See also
-            # http://code.google.com/p/mutagen/issues/detail?id=101
+            # https://github.com/quodlibet/mutagen/issues/101
             if getattr(raw, 'tags', None) is None:
                 try:
                     raw.add_tags()

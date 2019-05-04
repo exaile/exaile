@@ -209,6 +209,7 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	rm -rf build/
 	$(MAKE) -C plugins clean
+	-$(MAKE) -C doc clean
 	# for older versions of this Makefile:
 	find po/* -depth -type d -exec rm -r {} \;
 

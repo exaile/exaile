@@ -2,7 +2,7 @@
     Provided so that we can build docs without needing to have any
     dependencies installed (such as for RTFD).
 
-    Derived from http://read-the-docs.readthedocs.org/en/latest/faq.html
+    Derived from https://read-the-docs.readthedocs.org/en/latest/faq.html
 '''
 
 import sys

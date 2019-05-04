@@ -1569,7 +1569,7 @@ class Playlist(object):
 
     ### list-like API methods ###
     # parts of this section are taken from
-    # http://code.activestate.com/recipes/440656-list-mixin/
+    # https://code.activestate.com/recipes/440656-list-mixin/
 
     def __len__(self):
         return len(self.__tracks)

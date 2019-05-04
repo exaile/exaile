@@ -86,7 +86,7 @@ Documentation
 -------------
 
 -  Always add docstrings to your public classes, methods and functions.
--  Follow the `Sphinx <http://www.sphinx-doc.org>`__ format for
+-  Follow the `Sphinx <https://www.sphinx-doc.org>`__ format for
    documentation within docstrings.
 
 Events and Signals

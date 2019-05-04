@@ -52,7 +52,7 @@ dependencies:
 Windows
 ~~~~~~~
 
-First, install `msys2 <http://www.msys2.org/>`_. Then, open the MinGW32
+First, install `msys2 <https://www.msys2.org/>`_. Then, open the MinGW32
 shell window (look in the Start Menu for it), and run this monster (it may take
 awhile):
 

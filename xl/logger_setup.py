@@ -74,7 +74,7 @@ class SafePrettyPrinter(PrettyPrinter):
 
 class VerboseExceptionFormatter(logging.Formatter):
     '''
-        Taken from http://word.bitly.com/post/69080588278/logging-locals
+        Taken from https://word.bitly.com/post/69080588278/logging-locals
     '''
 
     def __init__(self, log_locals_on_exception=True, *args, **kwargs):

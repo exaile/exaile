@@ -66,7 +66,7 @@ def main():
         "\r\n"
         "The 'All-In-One PyGI/PyGObject for Windows Installer' "
         "can be downloaded at\r\n"
-        "http://sourceforge.net/projects/pygobjectwin32/\r\n\r\n"
+        "https://sourceforge.net/projects/pygobjectwin32/\r\n\r\n"
         "See README.Windows for more information."
     )
 

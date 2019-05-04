@@ -67,7 +67,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
                      internally. If set to False (the default), then the module
                      assumes the passed value is already a valid md5-hash of the
                      password.
-    @param client:   Client information (see http://www.audioscrobbler.net/development/protocol/ for more info)
+    @param client:   Client information (see https://www.last.fm/api for more info)
     @type  client:   Tuple: (client-id, client-version)"""
     global LAST_HS, SESSION_ID, POST_URL, NOW_URL, HARD_FAILS, HS_DELAY, PROTOCOL_VERSION, INITIAL_URL, __LOGIN
 

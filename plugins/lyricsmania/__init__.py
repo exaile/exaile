@@ -63,7 +63,7 @@ class LyricsMania(LyricSearchMethod):
         artist = artist.replace(' ', '_').replace('\'', '').lower()
         title = title.replace(' ', '_').replace('\'', '').lower()
 
-        url = 'http://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
+        url = 'https://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
 
         try:
             html = common.get_url_contents(url, self.user_agent)

@@ -49,7 +49,7 @@ class LyricWiki(LyricSearchMethod):
         artist = urllib.quote(artist.replace(' ', '_'))
         title = urllib.quote(title.replace(' ', '_'))
 
-        url = 'http://lyrics.wikia.com/wiki/%s:%s' % (artist, title)
+        url = 'https://lyrics.fandom.com/wiki/%s:%s' % (artist, title)
 
         try:
             html = common.get_url_contents(url, self.user_agent)

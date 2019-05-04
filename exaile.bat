@@ -61,7 +61,7 @@ REM Various errors
 
 :nopython
 echo Python 2.7 was not detected. Please include the python directory in your>&2
-echo PATH, or install it. You can download it at http://www.python.com/>&2
+echo PATH, or install it. You can download it at https://www.python.org/>&2
 if not "%EXAILE_CONSOLE%" == "Y" (
 	echo.>&2
 	pause

@@ -112,7 +112,7 @@ def enum(**enums):
     """
         Creates an enum type
 
-        :see: http://stackoverflow.com/a/1695250
+        :see: https://stackoverflow.com/a/1695250
     """
     return type('Enum', (), enums)
 
@@ -440,7 +440,7 @@ if hasattr(os, 'replace'):
 elif sys.platform != 'win32':
     replace_file = os.rename
 else:
-    # http://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
+    # https://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
     import ctypes
 
     _kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)

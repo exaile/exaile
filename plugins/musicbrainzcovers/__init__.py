@@ -11,7 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
 import urllib2
@@ -48,7 +48,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
 
     name = 'musicbrainz'
     title = 'MusicBrainz'
-    __caa_url = 'http://coverartarchive.org/release/{mbid}/front-{size}'
+    __caa_url = 'https://coverartarchive.org/release/{mbid}/front-{size}'
 
     def __init__(self, exaile):
         self.user_agent = exaile.get_user_agent_string('musicbrainzcovers')

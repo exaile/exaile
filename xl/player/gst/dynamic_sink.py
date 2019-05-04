@@ -106,7 +106,7 @@ class DynamicAudioSink(Gst.Bin):
             # Otherwise, disconnecting the old device is a bit complex. Code is
             # derived from algorithm/code described at the following link:
             #
-            # http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-dynamic-pipelines.html
+            # https://gstreamer.freedesktop.org/documentation/application-development/advanced/pipeline-manipulation.html
             #
 
             # Start off by blocking the src pad of the prior element

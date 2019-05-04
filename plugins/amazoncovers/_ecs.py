@@ -36,7 +36,7 @@ def generate_timestamp():
 
 
 # make a valid RESTful AWS query, that is signed, from a dictionary
-# http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.html?RequestAuthenticationArticle.html
+# https://docs.aws.amazon.com/AWSECommerceService/latest/DG/RequestAuthenticationArticle.html
 # code by Robert Wallis: SmilingRob@gmail.com, your hourly software contractor
 
 

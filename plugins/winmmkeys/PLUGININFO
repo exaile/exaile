@@ -1,7 +1,7 @@
 Version='4.0.0'
 Name=_('Multimedia keys for Windows')
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
-Description=_('Adds support for multimedia keys (present on most new keyboards) when running Exaile in Microsoft Windows.\n\nRequires: pyHook (%s) or keyboard (%s)') % ('http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook', 'https://github.com/boppreh/keyboard')
+Description=_('Adds support for multimedia keys (present on most new keyboards) when running Exaile in Microsoft Windows.\n\nRequires: pyHook (%s) or keyboard (%s)') % ('https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook', 'https://github.com/boppreh/keyboard')
 Category=_('External Control')
 RequiredModules=['pyHook']
 Platforms=['win32']

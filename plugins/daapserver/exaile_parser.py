@@ -12,7 +12,7 @@
 # General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
+# along with Spydaap. If not, see <https://www.gnu.org/licenses/>.
 
 import spydaap.parser
 from spydaap.daap import do

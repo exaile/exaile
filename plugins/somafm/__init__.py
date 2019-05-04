@@ -66,7 +66,7 @@ class SomaFMRadioStation(RadioStation):
             Initializes the somafm radio station
         """
         self.user_agent = main.exaile().get_user_agent_string('somafm')
-        self.somafm_url = 'http://somafm.com/'
+        self.somafm_url = 'https://somafm.com/'
         self.channels_xml_url = self.somafm_url + 'channels.xml'
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'somafm.cache')
         self.channelist = ''

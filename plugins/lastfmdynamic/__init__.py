@@ -66,7 +66,7 @@ class LastfmSource(DynamicSource):
     def get_results(self, artist):
         ar = urllib.quote_plus(artist.encode('utf-8'))
         url = (
-            'http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key='
+            'https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key='
             + API_KEY
         )
         try:

@@ -9,7 +9,7 @@ Provides IPython console widget.
 
 All rights reserved. This program and the accompanying materials are made
 available under the terms of the BSD which accompanies this distribution, and
-is available at U{http://www.opensource.org/licenses/bsd-license.php}
+is available at U{https://www.opensource.org/licenses/bsd-license.php}
 '''
 
 # Taken from [1] (rev 64b6e0c, 2014-03-18) with slight modifications.

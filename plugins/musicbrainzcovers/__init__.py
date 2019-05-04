@@ -16,15 +16,19 @@
 import logging
 import urllib2
 
-from xl import common, covers, providers
+from xl import common, covers, main, providers
 
 import musicbrainzngs
 
 logger = logging.getLogger(__name__)
 
-musicbrainzngs.set_useragent(
-    'Exaile_MusicBrainz_Covers', '1.0.0', 'https://exaile.org/'
-)
+
+def __init_musicbrainzngs():
+    version = main.exaile().get_user_agent_for_musicbrainz()
+    musicbrainzngs.set_useragent(*version)
+
+
+__init_musicbrainzngs()
 
 
 def enable(exaile):

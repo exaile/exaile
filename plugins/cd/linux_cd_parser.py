@@ -106,13 +106,16 @@ def __read_toc_entry(fd, toc_entry_num):
     # u8 cdte_format: should be CDROM_MSF=0x02 as requested before
     # int cdte_addr: see below
     # u8 cdte_datamode: ??? (ignored)
-    cdrom_tocentry = struct.pack(FORMAT_cdrom_tocentry, toc_entry_num, 0, CDROM_MSF, 0, 0)
+    cdrom_tocentry = struct.pack(
+        FORMAT_cdrom_tocentry, toc_entry_num, 0, CDROM_MSF, 0, 0
+    )
 
     CDROMREADTOCENTRY = 0x5306
     cdrom_tocentry = fcntl.ioctl(fd, CDROMREADTOCENTRY, cdrom_tocentry)
 
-    cdte_track, cdte_adr_ctrl, cdte_format, cdte_addr, _cdte_datamode = \
-        struct.unpack(FORMAT_cdrom_tocentry, cdrom_tocentry)
+    cdte_track, cdte_adr_ctrl, cdte_format, cdte_addr, _cdte_datamode = struct.unpack(
+        FORMAT_cdrom_tocentry, cdrom_tocentry
+    )
 
     if cdte_format is not CDROM_MSF:
         raise OSError('Invalid syscall answer')
@@ -133,7 +136,8 @@ def __read_toc_entry(fd, toc_entry_num):
     # u8 second: Seconds after `minute`
     # u8 frame: Frames after `frame`
     minute, second, frame = struct.unpack(
-        FORMAT_cdrom_addr, struct.pack('i', cdte_addr))
+        FORMAT_cdrom_addr, struct.pack('i', cdte_addr)
+    )
 
     return (cdte_track, is_data_track, minute, second, frame)
 
@@ -143,25 +147,26 @@ def __parse_tracks(toc_entries, mcn, device):
     real_track_count = len(toc_entries) - 1  # ignore the empty dummy track at the end
     tracks = []
     for toc_entry_index in range(0, real_track_count):
-        (track_index, is_data_track, _, _, _) = \
-            toc_entries[toc_entry_index]
+        (track_index, is_data_track, _, _, _) = toc_entries[toc_entry_index]
         if is_data_track:
             continue
         if track_index is not toc_entry_index + 1:
-            logger.warn('Unexpected index found. %ith toc entry claims to be track number %i',
-                        toc_entry_index, track_index)
+            logger.warn(
+                'Unexpected index found. %ith toc entry claims to be track number %i',
+                toc_entry_index,
+                track_index,
+            )
 
-        length = __calculate_track_length(toc_entries[toc_entry_index],
-                                          toc_entries[toc_entry_index + 1])
+        length = __calculate_track_length(
+            toc_entries[toc_entry_index], toc_entries[toc_entry_index + 1]
+        )
         track_uri = "cdda://%d/#%s" % (track_index, device)
 
         track = Track(uri=track_uri, scan=False)
 
         track_number = '{0}/{1}'.format(track_index, real_track_count)
         track.set_tags(
-            title="Track %d" % track_index,
-            tracknumber=track_number,
-            __length=length
+            title="Track %d" % track_index, tracknumber=track_number, __length=length
         )
 
         if mcn:

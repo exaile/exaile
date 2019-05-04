@@ -39,7 +39,9 @@ def parse_disc(disc_id, device):
 
     for discid_track in disc_id.tracks:
         track_tags = disc_tags.copy()
-        track_tags['tracknumber'] = '{0}/{1}'.format(discid_track.number, len(disc_id.tracks))
+        track_tags['tracknumber'] = '{0}/{1}'.format(
+            discid_track.number, len(disc_id.tracks)
+        )
         track_tags['title'] = "Track %d" % discid_track.number
         track_tags['__length'] = discid_track.seconds
         if discid_track.isrc:

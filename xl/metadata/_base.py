@@ -258,10 +258,8 @@ class BaseFormat(object):
         else:
             tagdict = copy.deepcopy(tagdict)
             raw = self._get_raw()
-            # Add tags if it doesn't have them.
-            # Most of Mutagen's modules throw an exception if the file already
-            # contains tags, except for mp4. See also
-            # https://github.com/quodlibet/mutagen/issues/101
+            # Add tags if it doesn't have them. Mutagen will throw an exception
+            # if the file already contains tags.
             if getattr(raw, 'tags', None) is None:
                 try:
                     raw.add_tags()

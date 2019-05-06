@@ -833,7 +833,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             return True
         else:  # No drop info
             if dragging_playlist:
-                context.drag_status(Gdk.DragAction.MOVE, time)
+                Gdk.drag_status(context, Gdk.DragAction.MOVE, time)
                 # Change target as well
                 self.tree.enable_model_drag_dest(
                     [self.playlist_target], Gdk.DragAction.DEFAULT

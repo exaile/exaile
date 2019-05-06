@@ -1608,8 +1608,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             for i in positions[::-1]:
                 del playlist[i]
 
-        # delete = context.action == Gdk.DragAction.MOVE
-        # TODO: Selected? Suggested?
         delete = context.get_selected_action() == Gdk.DragAction.MOVE
         context.finish(True, delete, etime)
 

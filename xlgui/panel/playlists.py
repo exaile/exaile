@@ -693,7 +693,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # so we do not get duplicates
             # right now the playlist does not support
             # duplicate tracks very well
-            if context.action == Gdk.DragAction.MOVE:
+            if context.get_selected_action() == Gdk.DragAction.MOVE:
                 # On a move action the second True makes the
                 # drag_data_delete function called
                 context.finish(True, True, etime)

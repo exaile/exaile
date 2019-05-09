@@ -168,8 +168,37 @@ class Column(Gtk.TreeViewColumn):
         )
 
 
+class CustomizedCellRendererText(Gtk.CellRendererText):
+    '''
+        The default GTK cell renderer triggers editing when any part of the column is
+        clicked. This is undesirable, as tracks can never be played if we allow columns
+        to be edited!
+
+        Instead, this only triggers editing if the mouse clicks the text of the
+        column.
+    '''
+
+    def do_start_editing(self, event, widget, path, background_area, cell_area, flags):
+        if event:
+            has_coords, x, y = event.get_coords()
+            if has_coords:
+                # The 'aligned area' seems to correspond to where the text actually
+                # is rendered. If the coordinates don't overlap that, then we don't
+                # allow the edit to occur. Conveniently, this should deal with RTL
+                # issues as well (not tested)
+                aa = self.get_aligned_area(widget, flags, cell_area)
+
+                if x < aa.x or x > aa.x + aa.width:
+                    return None
+
+        return Gtk.CellRendererText.do_start_editing(
+            self, event, widget, path, background_area, cell_area, flags
+        )
+
+
 class EditableColumn(Column):
     cellproperties = {'editable': True}
+    renderer = CustomizedCellRendererText
 
     def __init__(self, *args):
         Column.__init__(self, *args)

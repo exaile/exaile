@@ -31,81 +31,43 @@ repo (assuming that origin is pointing at the main exaile repo).
 If they're equivalent, then we're all set. If not, then figure out what needs
 to be done to get them merged.
 
-Step two: Version bumping
--------------------------
+Step two: gather release notes
+------------------------------
 
-First, adjust the version in your local working tree to reflect the version
-you want to make a release for. We should *never* do releases with -dev in
-them.
+There's a lot of ways to go about this. I find that the easiest way to see
+what has changed is go to github releases page, find the last release, and
+click on XXX commits since this release. Then you can browse the list of
+commits and pick out anything worth noting there.
 
-The file to adjust is xl/version.py. You should do a commit, and then tag
-the release.:
+Step three: Tag the release
+---------------------------
+
+Make sure you have the correct thing checked out in your git tree, and then
+tag the release. 
 
 .. code-block:: sh
 
     $ git tag -a RELEASE_VERSION
 
-Step three: Build the source distribution
------------------------------------------
+You'll want to paste in the release notes into the tag message. Then, push
+the tag to github:
 
 .. code-block:: sh
 
-    $ make dist
+    $ git push origin RELEASE_VERSION
 
-.. _win32_installer:
+Step four: Release the release
+------------------------------
 
-Step four: Build the Windows installer
---------------------------------------
-
-Install the SDK
-~~~~~~~~~~~~~~~
-
-You will need to have the SDK installed on your Windows machine. First clone
-the repo somewhere.
-
-.. code-block:: sh
-
-    git clone https://github.com/exaile/python-gtk3-gst-sdk
-
-Next install the SDK by running this from inside the tools/installer directory:
-
-.. code-block:: sh
-
-    /path/to/python-gtk3-gst-sdk/win_installer/build_win32_sdk.sh
-
-Build the installer
-~~~~~~~~~~~~~~~~~~~
-
-Build the installer by running this command from the tools/installer directory:
-
-.. code-block:: sh
-
-    /path/to/python-gtk3-gst-sdk/win_installer/build_win32_installer.sh
-
-.. _osx_installer:
-
-Step five: OSX
---------------
-
-This does not currently work, so we're not building releases for OSX at this
-time.
+Once the tag is in github, Travis-CI will build a Linux dist and Appveyor
+will build a Windows installer and upload it to Github releases as a draft.
+Once the assets are uploaded, you can edit the draft release and paste in
+your release notes, then click 'Publish Release'.
 
 Final steps
 -----------
 
-Upload everything to github:
-
-* Linux: exaile-VERSION.tar.gz + exaile-VERSION.tar.gz.asc
-* Windows: exaile-VERSION.exe + exaile-VERSION.exe.asc
-* OSX: exaile-VERSION.dmg + exaile-VERSION.dmg.asc
-
-
 Next, close out the milestone (if applicable) on github.
-
-Next, bump the version again. The version in trunk should reflect the upcoming
-release with a -dev in it.
-
-TODO: Except after a beta/RC? What's the right transition?
 
 Sending release notices
 -----------------------
@@ -117,4 +79,4 @@ After a release, we should:
   - Update versions in ``_config.yml``
   - Add a new post to ``_posts``
  
-* Send email to exaile-dev and exaile-users mailing lists
+* Send email to exaile-dev and exaile-users mailing lists with the release notes

@@ -8,6 +8,7 @@ Developer's guide
     debugging
     code_guidelines
     plugin_guide
+    windows_build
     release
     
 .. _api_docs:

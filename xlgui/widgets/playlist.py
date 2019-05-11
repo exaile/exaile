@@ -1407,6 +1407,12 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             return True  # Prevent 'row-activated'
 
+        # Columns with editable rows will take row-activated and start editing
+        # but we want to start playback, so simulate it instead
+        elif event.keyval == Gdk.KEY_Return:
+            self.on_row_activated()
+            return True  # Prevent 'row-activated'
+
     def on_header_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_Menu:
             # Open context menu for selecting visible columns

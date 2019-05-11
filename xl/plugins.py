@@ -235,6 +235,7 @@ class PluginsManager(object):
 
             :param info: The data returned from get_plugin_info()
         '''
+        import pkgutil
         from gi.repository import GIRepository
 
         gir = GIRepository.Repository.get_default()
@@ -249,11 +250,7 @@ class PluginsManager(object):
                     if not gir.enumerate_versions(module):
                         return True
             else:
-                try:
-                    mdata = imp.find_module(module)
-                    if mdata[0] is not None:
-                        mdata[0].close()
-                except Exception:
+                if not pkgutil.find_loader(module):
                     return True
 
         return False

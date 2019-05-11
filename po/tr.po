@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2016-04-21 21:47+0000\n"
+"PO-Revision-Date: 2019-05-11 10:36+0000\n"
 "Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.6-dev\n"
+"X-Generator: Weblate 3.7-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -183,10 +183,8 @@ msgid "Playlist Options"
 msgstr "Çalmalistesi Seçenekleri"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Geçerli çalma listesini KONUMa aktar"
+msgstr "Geçerli çalma listesini KONUMa dışa aktar"
 
 #: ../xl/main.py:166
 msgid "Track Options"

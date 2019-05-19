@@ -482,8 +482,8 @@ class Exaile(object):
         # this is useful on Win32, because you cannot set these directories
         # via environment variables
         if self.options.UseAllDataDir:
+            alldatadir = self.options.UseAllDataDir
             if not os.path.supports_unicode_filenames:
-                alldatadir = self.options.UseAllDataDir
                 try:
                     alldatadir.decode('ascii')
                 except UnicodeDecodeError:

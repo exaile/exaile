@@ -42,9 +42,8 @@ class Accelerator(object):
 class AcceleratorManager(providers.ProviderHandler):
     def __init__(self, providername, accelgroup):
         self.accelgroup = accelgroup
-        providers.ProviderHandler.__init__(self, providername, simple_init=True)
-
         self.accelerators = {}
+        providers.ProviderHandler.__init__(self, providername, simple_init=True)
 
     def on_provider_added(self, provider):
         self.accelgroup.connect(

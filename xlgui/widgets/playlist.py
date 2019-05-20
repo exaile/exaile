@@ -1290,7 +1290,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             * thunar_details_view_button_press_event() of thunar-details-view.c
             * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
         """
-        self.grab_focus()
 
         # need this to workaround bug in GTK+ on OSX when dragging/dropping
         # -> https://bugzilla.gnome.org/show_bug.cgi?id=722815

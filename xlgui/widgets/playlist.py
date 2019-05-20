@@ -1392,6 +1392,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 track = self.playlist.pop(idx)
                 self.playlist[idx + 1 : idx + 1] = [track]
 
+        elif event.keyval == Gdk.KEY_F2:
+            path, column = self.get_cursor()
+            if path and isinstance(column, playlist_columns.EditableColumn):
+                column.start_editing(self, path)
+
         # Prevent space-key from triggering 'row-activated' signal,
         # which restarts the currently-playing track. Instead, we call
         # _play_track_at() here with restart_if_playing flag set to

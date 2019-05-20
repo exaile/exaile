@@ -127,6 +127,11 @@ Refer to the `Gtk+ <https://developer.gnome.org/gtk3/stable/gtk-running.html>`_
 and `GLib <https://developer.gnome.org/glib/stable/glib-running.html>`_
 debugging documentation.
 
+In particular, the GTK+ Inspector is very useful. On GTK 3.14+, hit CTRL-SHIFT-D
+or CTRL-SHIFT-I to bring up GtkInspector to help debug UI problems. If the
+hotkeys don't work, run Exaile with GTK_DEBUG=interactive. (On Gtk=3.18 this
+sometimes causes GtkDialogs to crash on closing.)
+
 Enable diagnostic warnings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 

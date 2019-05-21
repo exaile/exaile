@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2018-07-03 13:42+0000\n"
+"PO-Revision-Date: 2019-05-21 12:44+0000\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/exaile/master/"
 "sl/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 3.1-dev\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 3.7-dev\n"
 "X-Launchpad-Export-Date: 2014-09-09 07:47+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -33,8 +33,8 @@ msgstr "Krajevna datoteka"
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] "%d dni, "
-msgstr[1] "%d dan, "
+msgstr[0] "%d dan, "
+msgstr[1] "%d dneva, "
 msgstr[2] "%d dni, "
 msgstr[3] "%d dni, "
 
@@ -42,27 +42,27 @@ msgstr[3] "%d dni, "
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] "%d ur, "
-msgstr[1] "%d ura, "
-msgstr[2] "%d uri, "
+msgstr[0] "%d ura, "
+msgstr[1] "%d uri, "
+msgstr[2] "%d ur, "
 msgstr[3] "%d ure, "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] "%d minut, "
-msgstr[1] "%d minuta, "
-msgstr[2] "%d minuti, "
+msgstr[0] "%d minuta, "
+msgstr[1] "%d minuti, "
+msgstr[2] "%d minut, "
 msgstr[3] "%d minute, "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekunda"
-msgstr[2] "%d sekundi"
+msgstr[0] "%d sekunda"
+msgstr[1] "%d sekundi"
+msgstr[2] "%d sekund"
 msgstr[3] "%d sekunde"
 
 #. TRANSLATORS: Short form of an amount of days
@@ -437,10 +437,8 @@ msgid "Artist"
 msgstr "Izvajalec"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by {artist}"
 msgid "Album artist"
-msgstr "izvajalca {artist}"
+msgstr "Izvajalec"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -695,10 +693,8 @@ msgid "Shuffle _Albums"
 msgstr "Mešanje _albumov"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Naključno %d"
+msgstr "_Naključno"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -1147,8 +1143,6 @@ msgid "_About"
 msgstr "_O"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
 msgstr "Izvajalec"
 
@@ -1157,8 +1151,6 @@ msgid "Genre - Artist"
 msgstr "Zvrst - Izvajalec"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
 msgstr "Zvrst - Izvajalec"
 
@@ -1171,8 +1163,6 @@ msgid "Date - Artist"
 msgstr "Datum - Izvajalec"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
 msgstr "Datum - Izvajalec"
 
@@ -1185,8 +1175,6 @@ msgid "Artist - (Date - Album)"
 msgstr "Izvajalec - (Datum - Album)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
 msgstr "Izvajalec - (Datum - Album)"
 
@@ -4196,14 +4184,12 @@ msgid "Options"
 msgstr "Možnosti"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "Prikaz ipv6 strežnikov (Poskusno)"
+msgstr "Pogled Waveform (Poskusno)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Barva tinte (poskusno)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"

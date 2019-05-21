@@ -238,7 +238,7 @@ class MainWindow(GObject.GObject):
         )
 
         for keys, helptext, function in hotkeys:
-            accelerator = Accelerator(_(keys), helptext, function)
+            accelerator = Accelerator(keys, helptext, function)
             providers.register('mainwindow-accelerators', accelerator)
 
     def _setup_widgets(self):

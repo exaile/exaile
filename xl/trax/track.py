@@ -517,8 +517,11 @@ class Track(object):
             .. note:: When setting more than one tag, prefer set_tags instead
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
+
+            :returns: True if changed, False otherwise
         """
-        self.set_tags(notify_changed=notify_changed, **{tag: values})
+        changed = self.set_tags(notify_changed=notify_changed, **{tag: values})
+        return bool(changed)
 
     def set_tags(self, notify_changed=True, **kwargs):
         """
@@ -533,6 +536,8 @@ class Track(object):
             method will be more efficient.
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
+
+            :returns: Set of tags that have changed
         """
 
         # tag changes can cause expensive UI updates, so don't emit the event
@@ -565,6 +570,8 @@ class Track(object):
             self._dirty = True
             if notify_changed:
                 event.log_event("track_tags_changed", self, changed)
+
+        return changed
 
     def get_tag_raw(self, tag, join=False):
         """

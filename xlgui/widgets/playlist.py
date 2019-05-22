@@ -841,6 +841,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.dragging = False
         self.pending_event = None
+
+        self.pending_edit_id = None  # Timeout to ensure a double-click didn't occur
+        self.pending_edit_data = None  # (path, col) or None
+        self.pending_edit_ok = False  # Set to True by release or timeout
+
         self._insert_focusing = False
 
         self._hack_is_osx = sys.platform == 'darwin'
@@ -1319,10 +1324,21 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 e.button == Gdk.BUTTON_PRIMARY
                 and not e.state & Gtk.accelerator_get_default_mod_mask()
                 and selection.path_is_selected(path)
-                and selection.count_selected_rows() > 1
             ):
-                selection.set_select_function(lambda *args: False, None)
-                self.pending_event = (path, col)
+
+                if selection.count_selected_rows() > 1:
+                    selection.set_select_function(lambda *args: False, None)
+                    self.pending_event = (path, col)
+                elif hasattr(col, 'could_edit') and col.could_edit(self, path, e):
+                    # TODO: should cache this?
+                    tm = self.get_settings().props.gtk_double_click_time
+                    if self.pending_edit_id:
+                        GLib.source_remove(self.pending_edit_id)
+                    self.pending_edit_data = (path, col)
+                    self.pending_edit_ok = False
+                    self.pending_edit_id = GLib.timeout_add(
+                        tm, self._editing_double_click_ok
+                    )
 
             if e.triggers_context_menu():
                 # Select the path on which the user clicked if not selected yet
@@ -1336,6 +1352,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.menu.popup(None, None, None, None, e.button, e.time)
 
                 return True
+
+        elif e.type == Gdk.EventType.DOUBLE_BUTTON_PRESS:
+            self._cancel_editing()
 
         return Gtk.TreeView.do_button_press_event(self, e)
 
@@ -1354,7 +1373,32 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.set_cursor(path, col, 0)
             self.pending_event = None
 
+        self._maybe_start_editing()
+
         return Gtk.TreeView.do_button_release_event(self, e)
+
+    def _cancel_editing(self):
+        self.pending_edit_ok = False
+        self.pending_edit_data = None
+        if self.pending_edit_id:
+            GLib.source_remove(self.pending_edit_id)
+            self.pending_edit_id = None
+
+    def _editing_double_click_ok(self):
+        self.pending_edit_id = None
+        self._maybe_start_editing()
+        return False
+
+    def _maybe_start_editing(self):
+        # this has to be called twice for an edit to start
+        # -> either by the double click timeout, or button release
+        if self.pending_edit_ok:
+            path, col = self.pending_edit_data
+            col.start_editing(self, path)
+            self.pending_edit_ok = False
+            self.pending_edit_data = None
+        elif self.pending_edit_data:
+            self.pending_edit_ok = True
 
     def on_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_Menu:
@@ -1433,6 +1477,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # TODO: set drag icon
         self.dragging = True
         self.pending_event = None
+        self._cancel_editing()
         self.get_selection().set_select_function(lambda *args: True, None)
 
     def on_drag_data_get(self, widget, context, selection, info, etime):

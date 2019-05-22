@@ -177,6 +177,24 @@ class EditableColumn(Column):
         self.cellrenderer.connect('editing-started', self.on_editing_started)
         self.cellrenderer.connect('editing-canceled', self._reset_editable)
 
+    def could_edit(self, treeview, path, event):
+        # Returns True if an edit could take place
+
+        # The 'aligned area' seems to correspond to where the text actually
+        # is rendered. If the coordinates don't overlap that, then we don't
+        # allow the edit to occur. Conveniently, this should deal with RTL
+        # issues as well (not tested)
+        cell_area = treeview.get_cell_area(path, self)
+
+        # Ensure the renderer text attribute is updated before finding
+        # it's width
+        model = treeview.get_model()
+        iter = model.get_iter(path)
+        self.data_func(self, self.cellrenderer, model, iter, None)
+
+        aa = self.cellrenderer.get_aligned_area(treeview, 0, cell_area)
+        return aa.x <= event.x <= aa.x + aa.width
+
     def start_editing(self, treeview, path):
         # We normally keep the cell renderer's `editable` False so it doesn't
         # trigger editing on double-click. To actually start editing, we have

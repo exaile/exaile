@@ -221,7 +221,8 @@ class EditableColumn(Column):
         iter = model.get_iter(path)
         track = model.get_value(iter, 0)
 
-        track.set_tag_raw(self.name, new_text)
+        if not track.set_tag_raw(self.name, new_text):
+            return
 
         # Invalidate/redraw the value immediately because we know
         # it's just a single change

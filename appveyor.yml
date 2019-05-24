@@ -37,7 +37,7 @@ install:
   - cmd: |
       cd %build_dir%
       git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
-      bash -lc "[[ -f $sdk_name-$sdk_ver.tar.xz ]] || time wget -O $sdk_name-$sdk_ver.tar.xz $sdk_url"
+      bash -lc "[[ -f $sdk_name-$sdk_ver.tar.xz ]] || time curl -qfLo $sdk_name-$sdk_ver.tar.xz $sdk_url"
       bash -lc "time pacman --noconfirm --noprogressbar -Syuu"
 
 before_build:

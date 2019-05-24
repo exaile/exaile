@@ -168,44 +168,46 @@ class Column(Gtk.TreeViewColumn):
         )
 
 
-class CustomizedCellRendererText(Gtk.CellRendererText):
-    '''
-        The default GTK cell renderer triggers editing when any part of the column is
-        clicked. This is undesirable, as tracks can never be played if we allow columns
-        to be edited!
-
-        Instead, this only triggers editing if the mouse clicks the text of the
-        column.
-    '''
-
-    def do_start_editing(self, event, widget, path, background_area, cell_area, flags):
-        if event:
-            has_coords, x, y = event.get_coords()
-            if has_coords:
-                # The 'aligned area' seems to correspond to where the text actually
-                # is rendered. If the coordinates don't overlap that, then we don't
-                # allow the edit to occur. Conveniently, this should deal with RTL
-                # issues as well (not tested)
-                aa = self.get_aligned_area(widget, flags, cell_area)
-
-                if x < aa.x or x > aa.x + aa.width:
-                    return None
-
-        return Gtk.CellRendererText.do_start_editing(
-            self, event, widget, path, background_area, cell_area, flags
-        )
-
-
 class EditableColumn(Column):
-    cellproperties = {'editable': True}
-    renderer = CustomizedCellRendererText
+    renderer = Gtk.CellRendererText
 
     def __init__(self, *args):
         Column.__init__(self, *args)
         self.cellrenderer.connect('edited', self.on_edited)
         self.cellrenderer.connect('editing-started', self.on_editing_started)
+        self.cellrenderer.connect('editing-canceled', self._reset_editable)
+
+    def could_edit(self, treeview, path, event):
+        # Returns True if an edit could take place
+
+        # The 'aligned area' seems to correspond to where the text actually
+        # is rendered. If the coordinates don't overlap that, then we don't
+        # allow the edit to occur. Conveniently, this should deal with RTL
+        # issues as well (not tested)
+        cell_area = treeview.get_cell_area(path, self)
+
+        # Ensure the renderer text attribute is updated before finding
+        # it's width
+        model = treeview.get_model()
+        iter = model.get_iter(path)
+        self.data_func(self, self.cellrenderer, model, iter, None)
+
+        aa = self.cellrenderer.get_aligned_area(treeview, 0, cell_area)
+        return aa.x <= event.x <= aa.x + aa.width
+
+    def start_editing(self, treeview, path):
+        # We normally keep the cell renderer's `editable` False so it doesn't
+        # trigger editing on double-click. To actually start editing, we have
+        # to temporarily set it to True until the user finishes editing.
+        self.cellrenderer.props.editable = True
+        treeview.set_cursor_on_cell(path, self, self.cellrenderer, start_editing=True)
+
+    def _reset_editable(self, cellrenderer):
+        cellrenderer.props.editable = False
 
     def on_edited(self, cellrenderer, path, new_text):
+        self._reset_editable(cellrenderer)
+
         # Undo newline escaping
         new_text = new_text.decode('unicode-escape')
 

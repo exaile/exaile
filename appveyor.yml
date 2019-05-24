@@ -5,7 +5,8 @@ image: Visual Studio 2015
 environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: "true"
   build_dir: C:\msys64\home\appveyor
-  build_root: exaile/tools/installer/_build_root
+  build_root: exaile\tools\installer\_build_root
+  build_root_slash: exaile/tools/installer/_build_root
   sdk_name: exaile-sdk-win
   sdk_ver: 14
   sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
@@ -21,7 +22,8 @@ cache:
 init:
   - cmd: |
       REM Update PATH for Bash
-      set PATH=C:\msys64\usr\bin;%PATH%
+      set hostbash=C:\msys64\usr\bin\bash.exe
+      set sdkbash=%build_dir%\%build_root%\usr\bin\bash.exe
       set GTK_SDK_VERBOSE=1
       set MAKEFLAGS=-j2
       IF "%APPVEYOR_REPO_TAG%" == "true"  (set DIST_VERSION=%APPVEYOR_REPO_TAG_NAME%)
@@ -37,17 +39,17 @@ install:
   - cmd: |
       cd %build_dir%
       git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
-      bash -lc "[[ -f $sdk_name-$sdk_ver.tar.xz ]] || time curl -qfLo $sdk_name-$sdk_ver.tar.xz $sdk_url"
-      bash -lc "time pacman --noconfirm --noprogressbar -Syuu"
+      %hostbash% -lc "[ -f $sdk_name-$sdk_ver.tar.xz ] || time curl -qfLo $sdk_name-$sdk_ver.tar.xz $sdk_url"
 
 before_build:
   - cmd: |
-      bash -lc "mkdir $build_root"
-      bash -lc "time tar -xf $sdk_name-$sdk_ver.tar.xz -C $build_root"
+      mkdir %build_root%
+      %hostbash% -lc "time tar -xf $sdk_name-$sdk_ver.tar.xz -C $build_root_slash"
+      %sdkbash% -lc exit
 
 build_script:
   - cmd: |
-      bash -lc "cd exaile/tools/installer && time ../../../python-gtk3-gst-sdk/win_installer/build_win32_installer.sh"
+      %sdkbash% -lc "cd ""$build_dir/exaile/tools/installer"" && time ../../../python-gtk3-gst-sdk/win_installer/build_win32_installer.sh"
 
 after_build:
   - cmd: |

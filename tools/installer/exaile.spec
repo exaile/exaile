@@ -37,6 +37,7 @@ datas =[
 def assemble_hook(analysis):
     # filter out gstreamer plugins we don't want
     to_remove = [
+      'gstaom',
       'gstassrender',
       'gstcacasink',
       'gstdaala',

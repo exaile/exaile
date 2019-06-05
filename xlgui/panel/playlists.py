@@ -743,7 +743,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             Called after a drag data operation is complete
             and we want to delete the source data
         """
-        if context.drag_drop_succeeded():
+        if Gdk.drag_drop_succeeded(context):
             self.remove_selected_track()
 
     def drag_get_data(self, tv, context, selection_data, info, time):
@@ -754,7 +754,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if info == self.playlist_name_info:
             pl = self.tree.get_selected_page()
             if pl is not None:
-                selection_data.set(Gdk.SELECTION_TYPE_STRING, 8, pl.name)
+                selection_data.set_text(pl.name, len(pl.name))
         else:
             pl = self.tree.get_selected_page()
             if pl is not None:
@@ -838,6 +838,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.tree.enable_model_drag_dest(
                     [self.playlist_target], Gdk.DragAction.DEFAULT
                 )
+                return True
+            return False
 
     def on_key_released(self, widget, event):
         """

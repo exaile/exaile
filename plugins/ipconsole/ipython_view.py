@@ -168,6 +168,12 @@ class IterableIPShell:
 
         self.updateNamespace({'help': pydoc.doc})
 
+        # Avoid using input splitter when not really needed.
+        # Perhaps it could work even before 5.8.0
+        # But it definitely does not work any more with >= 7.0.0
+        self.no_input_splitter = IPYTHON_VERSION >= 5
+        self.lines = []
+
     def __update_namespace(self):
         '''
         Update self.IP namespace for autocompletion with sys.modules
@@ -209,13 +215,21 @@ class IterableIPShell:
         except:
             self.IP.showtraceback()
         else:
-            self.IP.input_splitter.push(line)
-            self.iter_more = self.IP.input_splitter.push_accepts_more()
+            if self.no_input_splitter:
+                self.lines.append(self.IP.raw_input(self.prompt))
+                self.iter_more = self.IP.check_complete('\n'.join(self.lines))[0] == 'incomplete'
+            else:
+                self.IP.input_splitter.push(line)
+                self.iter_more = self.IP.input_splitter.push_accepts_more()
             self.prompt = self.generatePrompt(self.iter_more)
             if self.IP.SyntaxTB.last_syntax_error and self.IP.autoedit_syntax:
                 self.IP.edit_syntax_error()
             if not self.iter_more:
-                source_raw = self.IP.input_splitter.raw_reset()
+                if self.no_input_splitter:
+                    source_raw = '\n'.join(self.lines)
+                    self.lines = []
+                else:
+                    source_raw = self.IP.input_splitter.raw_reset()
                 self.IP.run_cell(source_raw, store_history=True)
                 self.IP.rl_do_indent = False
             else:

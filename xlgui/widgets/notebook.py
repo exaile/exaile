@@ -377,6 +377,9 @@ class NotebookTab(Gtk.EventBox):
         """
         name = self.entry.get_text()
 
+        if not isinstance(name, unicode):
+            name = name.decode('utf-8', errors='replace')
+
         if name.strip() != "" and not self.entry.props.editing_canceled:
             self.page.set_page_name(name)
             self.label.set_text(name)

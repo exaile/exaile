@@ -216,7 +216,7 @@ class IterableIPShell:
             self.IP.showtraceback()
         else:
             if self.no_input_splitter:
-                self.lines.append(self.IP.raw_input(self.prompt))
+                self.lines.append(line)
                 self.iter_more = self.IP.check_complete('\n'.join(self.lines))[0] == 'incomplete'
             else:
                 self.IP.input_splitter.push(line)

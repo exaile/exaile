@@ -419,7 +419,20 @@ class ConsoleView(Gtk.TextView):
         Initialize console view.
         '''
         Gtk.TextView.__init__(self)
-        self.modify_font(Pango.FontDescription('Mono'))
+        pango_ctx = self.get_pango_context()
+        chosen = None
+        for f in pango_ctx.list_families():
+            name = f.get_name()
+            # These are known to show e.g U+FFFC
+            if name in [ "Courier New", "Courier Mono" ]:
+                chosen = name
+                break
+            if name in [ "Liberation Sans" ]:
+                chosen = name
+                # But prefer a monospace one if possible
+        if chosen == None:
+            chosen = "Mono"
+        self.modify_font(Pango.FontDescription(chosen))
         self.set_cursor_visible(True)
         self.text_buffer = self.get_buffer()
         self.mark = self.text_buffer.create_mark(

@@ -1,5 +1,5 @@
 Version='4.0.0'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name=_("BPM Counter")
-Description=_("Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad and the bpmdetect plugin are installed")
+Description=_("Provides a manual BPM counter, and BPM autodetection when the bpmdetect plugin from gst-plugins-bad is installed")
 Category=_('Utility')

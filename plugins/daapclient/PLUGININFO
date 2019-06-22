@@ -1,6 +1,6 @@
 Version='4.0.0'
 Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>']
 Name=_('DAAP Client')
-Description=_('Allows playing of DAAP music shares.')
+Description=_('Allows playing of DAAP music shares using the spydaap library.')
 Category=_('Media Sources')
-RequiredModules=['dbus']
+RequiredModules=['dbus', 'spydaap']

@@ -169,6 +169,15 @@ class AutoScrollTreeView(Gtk.TreeView):
             GLib.source_remove(autoscroll_timeout_id)
             self.__autoscroll_timeout_id = None
 
+        adj = self.get_vadjustment()
+        self._scroll_position_to_restore = adj.props.value
+        self.__scroll_restore_timeout_id = GLib.timeout_add(
+            50, self._restore_scroll_position
+        )
+
+    def _restore_scroll_position(self):
+        self.scroll_to_voffset(self._scroll_position_to_restore)
+
     def _on_autoscroll_timeout(self):
         """
             Automatically scrolls during drag operations
@@ -195,14 +204,18 @@ class AutoScrollTreeView(Gtk.TreeView):
                 return True
 
         vadjustment = self.get_vadjustment()
+        self.scroll_to_voffset(vadjustment.props.value + offset)
+
+        return True
+
+    def scroll_to_voffset(self, offset):
+        vadjustment = self.get_vadjustment()
         vadjustment.props.value = common.clamp(
-            vadjustment.props.value + offset,
+            offset,
             0,
             vadjustment.props.upper - vadjustment.props.page_size,
         )
         self.set_vadjustment(vadjustment)
-
-        return True
 
 
 class DragTreeView(AutoScrollTreeView):

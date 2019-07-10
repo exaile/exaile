@@ -31,47 +31,71 @@ import musicbrainzngs
 from xl import main
 
 from xl.covers import MANAGER as CoverManager
-
-from plugins.cd import discid_parser
+from xl.main import common
+from gi.repository import GLib
 
 
 logger = logging.getLogger(__name__)
 
 
-def fetch_with_disc_id(disc_id, device):
+def fetch_with_disc_id(disc_id, tracks, callback):
     version = main.exaile().get_user_agent_for_musicbrainz()
     musicbrainzngs.set_useragent(*version)
+    logger.debug('Querying Musicbrainz web servers with disc id %s', disc_id)
+    __fetch_from_server(disc_id, tracks, callback, __parse_musicbrainz_data)
 
-    musicbrainz_data = musicbrainzngs.get_releases_by_discid(
-        disc_id.id,
-        toc=disc_id.toc_string,
-        includes=['artists', 'recordings', 'isrcs', 'artist-credits'],
-    )
 
-    if musicbrainz_data.get('disc') is not None:  # preferred: good quality
-        disc_tracks = __parse_musicbrainz_disc_data(
-            musicbrainz_data['disc'], disc_id, device
+@common.threaded
+def __fetch_from_server(disc_id, tracks, callback, local_callback):
+    """ This function must be run async because of potentially blocking I/O """
+    try:
+        musicbrainz_data = musicbrainzngs.get_releases_by_discid(
+            disc_id.id,
+            toc=disc_id.toc_string,
+            includes=['artists', 'recordings', 'isrcs', 'artist-credits'],
         )
-        if disc_tracks is not None:
-            return disc_tracks
-
-    if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
-        disc_tracks = __parse_musicbrainz_cdstub_data(
-            musicbrainz_data['cdstub'], disc_id, device
+        logger.debug('Received data from musicbrainzngs')
+        GLib.idle_add(local_callback, musicbrainz_data, disc_id, tracks, callback)
+    except musicbrainzngs.WebServiceError:
+        # This is expected to fail if user is offline or behind an
+        # aggressive firewall.
+        logger.info(
+            'Failed to fetch data from musicbrainz database.',
+            exc_info=True,
         )
-        if disc_tracks is not None:
-            return disc_tracks
-
-    # no useful data returned
-    logger.info('Musicbrainz returned no useful data: %s', musicbrainz_data)
-    return None
 
 
-def __parse_musicbrainz_cdstub_data(cdstub_data, disc_id, device):
+def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
+    """ This function must be run sync because it modifies tracks """
+    try:
+        if musicbrainz_data.get('disc') is not None:  # preferred: good quality
+            disc_tracks = __parse_musicbrainz_disc_data(
+                musicbrainz_data['disc'], disc_id, tracks
+            )
+            if disc_tracks is not None:
+                logger.debug('Parsed disc data: %s', disc_tracks)
+                GLib.idle_add(callback, disc_tracks)
+                return
+        if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
+            disc_tracks = __parse_musicbrainz_cdstub_data(
+                musicbrainz_data['cdstub'], tracks
+            )
+            if disc_tracks is not None:
+                logger.debug('Parsed cdstub data: %s', disc_tracks)
+                GLib.idle_add(callback, disc_tracks)
+                return
+        # no useful data returned
+        logger.info('Musicbrainz returned no useful data: %s', musicbrainz_data)
+        return None
+    except Exception:
+        logger.warn(
+            'Failed to parse data from musicbrainz database.',
+            exc_info=True,
+        )
+
+
+def __parse_musicbrainz_cdstub_data(cdstub_data, tracks):
     """ Parses cdstub data into xl.trax.Track """
-    # populate from disc_id parser
-    tracks = discid_parser.parse_disc(disc_id, device)
-
     # See "def_cdstub"
     # Unused: disambiguation, def_cdstub-attribute_extension, def_cdstub-element_extension
 
@@ -120,7 +144,7 @@ def __parse_musicbrainz_cdstub_data(cdstub_data, disc_id, device):
     return tracks, album_title
 
 
-def __parse_musicbrainz_disc_data(disc_data, disc_id, device):
+def __parse_musicbrainz_disc_data(disc_data, disc_id, tracks):
 
     # get list of potential candidates, throw away the rest
     release_list = disc_data['release-list']
@@ -134,7 +158,7 @@ def __parse_musicbrainz_disc_data(disc_data, disc_id, device):
         return None
 
     (release, medium) = __choose_release_and_medium(suitable_releases)
-    return __parse_medium_from_disc_data(release, medium, device, disc_id)
+    return __parse_medium_from_disc_data(release, medium, tracks)
 
 
 def __choose_release_and_medium(suitable_releases):
@@ -326,9 +350,7 @@ def __check_single_track_as_recording(mb_recording, disc_track):
     return priority
 
 
-def __parse_medium_from_disc_data(release, medium, device, disc_id):
-    # populate from disc_id parser
-    tracks = discid_parser.parse_disc(disc_id, device)
+def __parse_medium_from_disc_data(release, medium, tracks):
     medium_tags = dict()
 
     disc_number = __get_disc_number(medium, release)

@@ -29,6 +29,8 @@ import logging
 import os.path
 import sys
 
+from gi.repository import GLib
+
 from xl.nls import gettext as _
 from xl import providers, event, main
 from xl.hal import Handler, UDisksProvider
@@ -37,6 +39,7 @@ from xl import playlist, trax, common
 from xl.trax import Track
 
 import cdprefs
+from __builtin__ import staticmethod
 
 
 logger = logging.getLogger(__name__)
@@ -102,23 +105,65 @@ class CDPlaylist(playlist.Playlist):
             self.__device = "/dev/cdrom"
         else:
             self.__device = device
+        self.__read_disc_index_async(device, self.__apply_disc_index)
 
-        self.__read_disc_index()
+    @common.threaded
+    def __read_disc_index_async(self, device, callback):
+        """ This function must be run async because it does slow I/O """
+        logger.info('Starting to read disc index')
+        (tracks, disc_id) = CDPlaylist.__read_disc_index_internal(device)
+        logger.info('Done reading disc index')
+        GLib.idle_add(callback, tracks, disc_id)
 
-    # TODO make this threaded later!
-    #@common.threaded
-    def __read_disc_index(self):
-        self.__read_disc_index_internal(self.__device)
-        event.log_event('cd_info_retrieved', self, True)
+    def __apply_disc_index(self, tracks, disc_id):
+        """ This function must be run sync because it accesses the track database """
+        logger.debug('Applying disc contents to playlist')
+        if tracks is not None:
+            self.extend(tracks)
+            event.log_event('cd_info_retrieved', self, True)
+        else:
+            logger.err('Could not read disc index')
+            return
 
-    def __read_disc_index_internal(self, device):
+        if disc_id is None:
+            return
+
+        logger.info('Starting to get disc metadata')
+        self.__read_disc_metadata_internal(disc_id, tracks, self.__device)
+
+    @staticmethod
+    def __read_disc_index_internal(device):
         """
-            priority (corresponds with expected data quality):
-            1. LibdiscID+Musicbrainzngs: Requires internet connection
-            2. LibdiscID+parsing
-            3. linux_cd_parser: Parse from CD TOC (linux only)
+            Read disc index if we have providers for it.
+
+            Multithreading:
+            This function is meant to be called on a separate thread.
+            The only side-effect is the creation of xl.trax.Track objects.
         """
-        
+        # TODO: Show progress?
+        if DISCID_AVAILABLE:
+            try:
+                disc_id = discid_parser.read_disc_id(device)
+                logger.debug('Successfully read CD using discid with %i tracks. '
+                             'Musicbrainz id: %s',
+                             len(disc_id.tracks), disc_id.id)
+                tracks = discid_parser.parse_disc(disc_id, device)
+                return tracks, disc_id
+            except Exception:
+                logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
+
+        if sys.platform.startswith('linux'):
+            try:
+                tracks = linux_cd_parser.read_cd_index(device)
+                return tracks, None
+            except Exception:
+                logger.warn('Failed to read metadata from CD.', exc_info=True)
+
+        return None
+
+    def __read_disc_metadata_internal(self, disc_id, tracks, device):
+        # TODO: show progress during work
+
         # TODO: Add more providers?
         # Discogs:
         # * https://github.com/discogs/discogs_client
@@ -130,48 +175,17 @@ class CDPlaylist(playlist.Playlist):
         # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
         # * Servers: http://freedb.freedb.org/,
 
-        if DISCID_AVAILABLE:
-            try:
-                disc_id = discid_parser.read_disc_id(device)
-                logger.debug('Successfully read CD using discid with %i tracks. '
-                             'Musicbrainz id: %s',
-                             len(disc_id.tracks), disc_id.id)
-                
-                if MUSICBRAINZNGS_AVAILABLE: # TODO: add setting to let user choose whether he wants internet connections
-                    try:
-                        result = musicbrainzngs_parser.fetch_with_disc_id(
-                            disc_id, device
-                        )
-                        if result is not None:
-                            (tracks, title) = result
-                            self.extend(tracks)
-                            print(title)  # TODO: set as playlist title, panel title?
-                            return
-                    except musicbrainzngs.WebServiceError:
-                        # This is expected to fail if user is offline or behind an
-                        # aggressive firewall.
-                        logger.info(
-                            'Failed to fetch data from musicbrainz database.',
-                            exc_info=True,
-                        )
-                    except Exception:
-                        logger.warn(
-                            'Failed to parse data from musicbrainz database.',
-                            exc_info=True,
-                        )
+        # TODO: add setting to let user choose whether he wants internet connections
+        if MUSICBRAINZNGS_AVAILABLE:
+            musicbrainzngs_parser.fetch_with_disc_id(
+                disc_id, tracks, self.__metadata_parsed_callback
+            )
 
-                tracks = discid_parser.parse_disc(disc_id, device)
-                self.extend(tracks)
-                return
-            except Exception:
-                logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
-
-        if sys.platform.startswith('linux'):
-            try:
-                tracks = linux_cd_parser.read_cd_index(device)
-                self.extend(tracks)
-            except Exception:
-                logger.warn('Failed to read metadata from CD.', exc_info=True)
+    def __metadata_parsed_callback(self, metadata):
+        (tracks, title) = metadata
+        # TODO: progress: finished
+        logger.info('Finished getting disc metadata. Disc title: %s', title)
+        print(title)
 
 
 class CDDevice(KeyedDevice):
@@ -200,12 +214,19 @@ class CDDevice(KeyedDevice):
 
     panel_type = property(_get_panel_type)
 
-    def connect(self):
-        cdpl = CDPlaylist(device=self.dev)
-        self.playlists.append(cdpl)
+    def __on_cd_info_retrieved(self, type, cd_playlist, data):
+        self.playlists.append(cd_playlist)
         self.connected = True
 
+    def connect(self):
+        if self.connected:
+            return
+        event.add_ui_callback(self.__on_cd_info_retrieved, 'cd_info_retrieved')
+        CDPlaylist(device=self.dev)
+
     def disconnect(self):
+        if not self.connected:
+            return
         self.playlists = []
         self.connected = False
         CDDevice.destroy(self)

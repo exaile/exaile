@@ -119,13 +119,13 @@ class CDPlaylist(playlist.Playlist):
         """ This function must be run sync because it accesses the track database """
         logger.debug('Applying disc contents to playlist')
         if tracks is not None:
+            logger.debug('Read disc with tracks %s', tracks)
             self.extend(tracks)
-            event.log_event('cd_info_retrieved', self, True)
         else:
             logger.err('Could not read disc index')
-            return
+        event.log_event('cd_info_retrieved', self, None)
 
-        if disc_id is None:
+        if tracks is None or disc_id is None:
             return
 
         allow_internet = settings.get_option('cd_metadata/fetch_from_internet', True)
@@ -182,10 +182,12 @@ class CDPlaylist(playlist.Playlist):
             )
 
     def __metadata_parsed_callback(self, metadata):
-        (tracks, title) = metadata
         # TODO: progress: finished
-        logger.info('Finished getting disc metadata. Disc title: %s', title)
-        print(title)
+        if metadata is not None:
+            (tracks, title) = metadata
+            logger.info('Finished getting disc metadata. Disc title: %s', title)
+            event.log_event('cd_info_retrieved', self, title)
+            self.name = title
 
 
 class CDDevice(KeyedDevice):
@@ -214,7 +216,7 @@ class CDDevice(KeyedDevice):
 
     panel_type = property(_get_panel_type)
 
-    def __on_cd_info_retrieved(self, type, cd_playlist, data):
+    def __on_cd_info_retrieved(self, _event_type, cd_playlist, _disc_title):
         self.playlists.append(cd_playlist)
         self.connected = True
 

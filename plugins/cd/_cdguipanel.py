@@ -80,9 +80,17 @@ class CDPanel(device.FlatPlaylistDevicePanel):
 
         event.add_ui_callback(self._tree_queue_draw, 'cd_info_retrieved')
 
-    def _tree_queue_draw(self, type, cdplaylist, object=None):
+    def _tree_queue_draw(self, type, cdplaylist, disc_title=None):
         if not hasattr(self.fppanel, 'tree'):
             return
+
+        # TODO: set name to panel. This requires a GUI change in
+        # panel/flatplaylist/FlatPlaylistPanel respectively flatplaylist.ui
+        # Do not use self.name because it breaks the panel after switching to another CD
+        if disc_title is None:
+            self.panel_title = _('Unknown disc')
+        else:
+            self.panel_title = disc_title
 
         if cdplaylist in self.device.playlists:
             logger.info("Calling queue_draw for %s", str(cdplaylist))

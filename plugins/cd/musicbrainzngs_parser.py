@@ -55,7 +55,6 @@ def __fetch_from_server(disc_id, tracks, callback, local_callback):
             includes=['artists', 'recordings', 'isrcs', 'artist-credits'],
         )
         logger.debug('Received data from musicbrainzngs')
-        GLib.idle_add(local_callback, musicbrainz_data, disc_id, tracks, callback)
     except musicbrainzngs.WebServiceError:
         # This is expected to fail if user is offline or behind an
         # aggressive firewall.
@@ -63,10 +62,15 @@ def __fetch_from_server(disc_id, tracks, callback, local_callback):
             'Failed to fetch data from musicbrainz database.',
             exc_info=True,
         )
+        musicbrainz_data = None
+    GLib.idle_add(local_callback, musicbrainz_data, disc_id, tracks, callback)
 
 
 def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
     """ This function must be run sync because it modifies tracks """
+    if musicbrainz_data is None:
+        return None
+    disc_tracks = None
     try:
         if musicbrainz_data.get('disc') is not None:  # preferred: good quality
             disc_tracks = __parse_musicbrainz_disc_data(
@@ -74,24 +78,21 @@ def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
             )
             if disc_tracks is not None:
                 logger.debug('Parsed disc data: %s', disc_tracks)
-                GLib.idle_add(callback, disc_tracks)
-                return
-        if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
-            disc_tracks = __parse_musicbrainz_cdstub_data(
-                musicbrainz_data['cdstub'], tracks
-            )
-            if disc_tracks is not None:
-                logger.debug('Parsed cdstub data: %s', disc_tracks)
-                GLib.idle_add(callback, disc_tracks)
-                return
-        # no useful data returned
-        logger.info('Musicbrainz returned no useful data: %s', musicbrainz_data)
-        return None
+        if disc_tracks is None:
+            if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
+                disc_tracks = __parse_musicbrainz_cdstub_data(
+                    musicbrainz_data['cdstub'], tracks
+                )
+                if disc_tracks is not None:
+                    logger.debug('Parsed cdstub data: %s', disc_tracks)
+        if disc_tracks is None:
+            logger.info('Musicbrainz returned no useful data: %s', musicbrainz_data)
     except Exception:
         logger.warn(
             'Failed to parse data from musicbrainz database.',
             exc_info=True,
         )
+    GLib.idle_add(callback, disc_tracks)
 
 
 def __parse_musicbrainz_cdstub_data(cdstub_data, tracks):

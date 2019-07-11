@@ -13,6 +13,10 @@ from xl.trax import Track
 
 
 def read_disc_id(device):
+    """
+        I/O operation to read an ID from the disc.
+        This must happen async because it may take quite some time.
+    """
     try:  # retry with reduced features if it fails
         # Note: reading additional features like isrc will take some time.
         disc_id = discid.read(device, features=discid.FEATURES)

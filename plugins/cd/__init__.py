@@ -49,21 +49,14 @@ if sys.platform.startswith('linux'):
     import linux_cd_parser
 
 try:
-    try:  # allow both python-discid and python-libdiscid
-        from libdiscid.compat import discid
-    except ImportError:
-        import discid
     import discid_parser
-
     DISCID_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
     DISCID_AVAILABLE = False
 
 try:
-    import musicbrainzngs
     import musicbrainzngs_parser
-
     MUSICBRAINZNGS_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)

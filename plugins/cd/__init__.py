@@ -35,7 +35,7 @@ from xl.nls import gettext as _
 from xl import providers, event, main
 from xl.hal import Handler, UDisksProvider
 from xl.devices import Device, KeyedDevice
-from xl import playlist, trax, common
+from xl import playlist, trax, common, settings
 from xl.trax import Track
 
 import cdprefs
@@ -128,8 +128,10 @@ class CDPlaylist(playlist.Playlist):
         if disc_id is None:
             return
 
-        logger.info('Starting to get disc metadata')
-        self.__read_disc_metadata_internal(disc_id, tracks, self.__device)
+        allow_internet = settings.get_option('cd_metadata/fetch_from_internet', True)
+        if allow_internet:
+            logger.info('Starting to get disc metadata')
+            self.__read_disc_metadata_internal(disc_id, tracks, self.__device)
 
     @staticmethod
     def __read_disc_index_internal(device):
@@ -174,8 +176,6 @@ class CDPlaylist(playlist.Playlist):
         # * http://ftp.freedb.org/pub/freedb/latest/DBFORMAT
         # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
         # * Servers: http://freedb.freedb.org/,
-
-        # TODO: add setting to let user choose whether he wants internet connections
         if MUSICBRAINZNGS_AVAILABLE:
             musicbrainzngs_parser.fetch_with_disc_id(
                 disc_id, tracks, self.__metadata_parsed_callback

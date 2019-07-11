@@ -27,23 +27,13 @@ logger = logging.getLogger(__name__)
 
 def read_cd_index(device):
     """
-        Reads a CD's index and parses it to Exaile's trax.
+        Reads a CD's index (table of contents, TOC).
+        This must happen async because the I/O operations may take some time.
 
         @param device: a path to a CD device
-        @return: an array of xl.trax.Track representing the disc's contents
+        @return: Array of toc entries. The last one is a dummy. To be read by parse_tracks().
     """
-    (toc_entries, mcn) = __read_toc(device)
-    logger.debug('Successfully read TOC of CD with MCN %s : %s', mcn, toc_entries)
-    return __parse_tracks(toc_entries, mcn, device)
-
-
-def __read_toc(device):
-    """
-        Does all the I/O work on reading the disc table of contents (TOC)
-
-        @param device: a path to a CD device
-        @return: Array of toc entries. The last one is a dummy.
-    """
+    mcn = None
     toc_entries = []
     fd = os.open(device, os.O_RDONLY)
     try:
@@ -56,8 +46,14 @@ def __read_toc(device):
             toc_entry = __read_toc_entry(fd, toc_entry_index)
             # XXX one could also reat+compute the `isrc` track id, see libdiscid
             toc_entries.append(toc_entry)
+        logger.debug('Successfully read TOC of CD with MCN %s : %s', mcn, toc_entries)
+    except Exception:
+        logger.warn('Failed to read CD TOC', exc_info=True)
     finally:
         os.close(fd)
+    # clear output for convenience
+    if len(toc_entries) == 0:
+        toc_entries = None
     return toc_entries, mcn
 
 
@@ -142,8 +138,17 @@ def __read_toc_entry(fd, toc_entry_num):
     return (cdte_track, is_data_track, minute, second, frame)
 
 
-def __parse_tracks(toc_entries, mcn, device):
-    """ Parse the data from ioctl into xl.trax.Track """
+def parse_tracks(toc_entries, mcn, device):
+    """
+        Parses the given toc entries and mcn into tracks.
+        As a result, the data will only contain track numbers and lengths but
+        no sophisticated metadata.
+
+        @param toc_entries: from read_cd_index()
+        @param mcn: from read_cd_index()
+        @param device: Name of the CD device
+        @return: An array of xl.trax.Track with minimal information
+    """
     real_track_count = len(toc_entries) - 1  # ignore the empty dummy track at the end
     tracks = []
     for toc_entry_index in range(0, real_track_count):

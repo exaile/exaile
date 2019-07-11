@@ -95,10 +95,11 @@ def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
 
 
 def __parse_musicbrainz_cdstub_data(cdstub_data, tracks):
-    """ Parses cdstub data into xl.trax.Track """
-    # See "def_cdstub"
-    # Unused: disambiguation, def_cdstub-attribute_extension, def_cdstub-element_extension
-
+    """
+        Parses cdstub data into xl.trax.Track
+        See "def_cdstub"
+        Unused: disambiguation, def_cdstub-attribute_extension, def_cdstub-element_extension
+    """
     track_count = cdstub_data.get('track-count')
     if track_count is not None:
         if len(tracks) is not track_count:
@@ -145,7 +146,6 @@ def __parse_musicbrainz_cdstub_data(cdstub_data, tracks):
 
 
 def __parse_musicbrainz_disc_data(disc_data, disc_id, tracks):
-
     # get list of potential candidates, throw away the rest
     release_list = disc_data['release-list']
     suitable_releases = []
@@ -162,7 +162,9 @@ def __parse_musicbrainz_disc_data(disc_data, disc_id, tracks):
 
 
 def __choose_release_and_medium(suitable_releases):
-    # find the most suitable release
+    """
+        find the most suitable release
+    """
     chosen_prio = -10  # this is a threshold
     chosen_release = None
     chosen_release_media = None
@@ -184,7 +186,9 @@ def __choose_release_and_medium(suitable_releases):
 
 
 def __check_single_release(single_release, disc_id):
-    # https://wiki.musicbrainz.org/Recording
+    """
+        Documentation: https://wiki.musicbrainz.org/Recording
+    """
 
     priority = 0
     # See https://wiki.musicbrainz.org/Barcode
@@ -224,7 +228,9 @@ def __check_single_release(single_release, disc_id):
 
 
 def __check_single_medium(single_medium, disc_id):
-    # https://wiki.musicbrainz.org/Medium
+    """
+        Documentation: https://wiki.musicbrainz.org/Medium
+    """
     priority = 0
     mb_format = single_medium.get('format')
     if mb_format is not None:
@@ -273,7 +279,9 @@ def __check_single_medium(single_medium, disc_id):
 
 
 def __check_single_track(single_mb_track, single_disc_track):
-    # See "def_track-data"
+    """
+        See "def_track-data"
+    """
     priority = 0
 
     # TODO: position or number?
@@ -337,7 +345,9 @@ def __check_single_track(single_mb_track, single_disc_track):
 
 
 def __check_single_track_as_recording(mb_recording, disc_track):
-    # See "def_recording-element"
+    """
+        See "def_recording-element"
+    """
 
     priority = 0
     if hasattr(disc_track, 'isrc') and disc_track.isrc is not None:
@@ -431,9 +441,11 @@ def __get_cover_image(release, tracks):
 
 
 def __parse_track_from_disc_data(track_tags, xl_track, mb_track):
-    # See "def_track-data" in https://github.com/metabrainz/mmd-schema/blob/master/schema/musicbrainz_mmd-2.0.rng
-    # unused and populated from discid: position, number, length
-
+    """
+        See "def_track-data" in
+        https://github.com/metabrainz/mmd-schema/blob/master/schema/musicbrainz_mmd-2.0.rng
+        unused and populated from discid: position, number, length
+    """
     if mb_track.get('id') is not None:
         track_tags['__musicbrainz_track_id'] = mb_track['id']
 
@@ -457,7 +469,9 @@ def __parse_track_from_disc_data(track_tags, xl_track, mb_track):
 
 
 def __get_disc_number(medium, release):
-    """ Helper function to extract disc number string, e.g. 1/2 for the first of 2 CDs """
+    """
+        Helper function to extract disc number string, e.g. 1/2 for the first of 2 CDs
+    """
     # We may also be able to use the 'disc-count' field of "medium"
     medium_position = medium.get('position')
     medium_count = release.get('medium-count')

@@ -38,6 +38,11 @@ ui = os.path.join(basedir, "cdprefs_pane.ui")
 FORMAT_WIDGET = None
 
 
+class ImportMetadataPreference(widgets.CheckPreference):
+    name = 'cd_metadata/fetch_from_internet'
+    default = True
+
+
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
 

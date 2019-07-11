@@ -187,7 +187,6 @@ def __check_single_release(single_release, disc_id):
     # https://wiki.musicbrainz.org/Recording
 
     priority = 0
-
     # See https://wiki.musicbrainz.org/Barcode
     mb_barcode = single_release.get('barcode')
     if mb_barcode is not None and disc_id.mcn is not None:
@@ -339,7 +338,7 @@ def __check_single_track(single_mb_track, single_disc_track):
 
 def __check_single_track_as_recording(mb_recording, disc_track):
     # See "def_recording-element"
-
+    priority = 0
     if hasattr(disc_track, 'isrc') and disc_track.isrc is not None:
         mb_isrc_list = mb_recording.get('isrc-list')
         if mb_isrc_list is not None:

@@ -31,23 +31,22 @@ import musicbrainzngs
 from xl import main
 
 from xl.covers import MANAGER as CoverManager
-from xl.main import common
-from gi.repository import GLib
 
 
 logger = logging.getLogger(__name__)
 
 
-def fetch_with_disc_id(disc_id, tracks, callback):
+def fetch_with_disc_id(disc_id):
+    """
+        I/O operation to fetch data from musicbrainz over the internet.
+        This must happen async because it may take quite some time.
+
+        @param disc_id: A musicbrainz disc ID
+        @return: Metadata for the parse() function
+    """
     version = main.exaile().get_user_agent_for_musicbrainz()
     musicbrainzngs.set_useragent(*version)
     logger.debug('Querying Musicbrainz web servers with disc id %s', disc_id)
-    __fetch_from_server(disc_id, tracks, callback, __parse_musicbrainz_data)
-
-
-@common.threaded
-def __fetch_from_server(disc_id, tracks, callback, local_callback):
-    """ This function must be run async because of potentially blocking I/O """
     try:
         musicbrainz_data = musicbrainzngs.get_releases_by_discid(
             disc_id.id,
@@ -63,11 +62,22 @@ def __fetch_from_server(disc_id, tracks, callback, local_callback):
             exc_info=True,
         )
         musicbrainz_data = None
-    GLib.idle_add(local_callback, musicbrainz_data, disc_id, tracks, callback)
+    return musicbrainz_data
 
 
-def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
-    """ This function must be run sync because it modifies tracks """
+def parse(musicbrainz_data, disc_id, tracks):
+    """
+        Parses the given musicbrainz data into existing tracks.
+        This function must be run on the main thread because it modifies
+        tracks, which may be in use by the main thread!
+
+        @param musicbrainz_data: The data from fetch_with_disc_id()
+        @param disc_id: The disc ID from read_disc_id()
+        @param device: Name of the CD device
+        @return: An array of xl.trax.Track with more information
+    """
+    # TODO: This parser is very slow, especially before creating tracks.
+    # Put some of the parser (which does not modify tracks) into separate thread
     if musicbrainz_data is None:
         return None
     disc_tracks = None
@@ -92,7 +102,7 @@ def __parse_musicbrainz_data(musicbrainz_data, disc_id, tracks, callback):
             'Failed to parse data from musicbrainz database.',
             exc_info=True,
         )
-    GLib.idle_add(callback, disc_tracks)
+    return disc_tracks
 
 
 def __parse_musicbrainz_cdstub_data(cdstub_data, tracks):

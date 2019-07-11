@@ -39,7 +39,6 @@ from xl import playlist, trax, common, settings
 from xl.trax import Track
 
 import cdprefs
-from __builtin__ import staticmethod
 
 
 logger = logging.getLogger(__name__)
@@ -98,69 +97,60 @@ class CDPlaylist(playlist.Playlist):
             self.__device = "/dev/cdrom"
         else:
             self.__device = device
-        self.__read_disc_index_async(device, self.__apply_disc_index)
+        self.__read_disc_index_async(device)
 
     @common.threaded
-    def __read_disc_index_async(self, device, callback):
+    def __read_disc_index_async(self, device):
         """ This function must be run async because it does slow I/O """
         logger.info('Starting to read disc index')
-        (tracks, disc_id) = CDPlaylist.__read_disc_index_internal(device)
-        logger.info('Done reading disc index')
-        GLib.idle_add(callback, tracks, disc_id)
 
-    def __apply_disc_index(self, tracks, disc_id):
-        """ This function must be run sync because it accesses the track database """
-        logger.debug('Applying disc contents to playlist')
-        if tracks is not None:
-            logger.debug('Read disc with tracks %s', tracks)
-            self.extend(tracks)
-        else:
-            logger.err('Could not read disc index')
-        event.log_event('cd_info_retrieved', self, None)
-
-        if tracks is None or disc_id is None:
-            return
-
-        allow_internet = settings.get_option('cd_metadata/fetch_from_internet', True)
-        if allow_internet:
-            logger.info('Starting to get disc metadata')
-            self.__read_disc_metadata_internal(disc_id, tracks, self.__device)
-
-    @staticmethod
-    def __read_disc_index_internal(device):
-        """
-            Read disc index if we have providers for it.
-
-            Multithreading:
-            This function is meant to be called on a separate thread.
-            The only side-effect is the creation of xl.trax.Track objects.
-        """
-        # TODO: Show progress?
         if DISCID_AVAILABLE:
             try:
                 disc_id = discid_parser.read_disc_id(device)
                 logger.debug('Successfully read CD using discid with %i tracks. '
                              'Musicbrainz id: %s',
                              len(disc_id.tracks), disc_id.id)
-                tracks = discid_parser.parse_disc(disc_id, device)
-                return tracks, disc_id
+                GLib.idle_add(self.__apply_disc_index, disc_id, None, None)
+                return
             except Exception:
-                logger.warn('Failed to fetch data from cd using discid.', exc_info=True)
+                logger.warn('Failed to read from cd using discid.', exc_info=True)
 
         if sys.platform.startswith('linux'):
             try:
-                tracks = linux_cd_parser.read_cd_index(device)
-                return tracks, None
+                (toc_entries, mcn) = linux_cd_parser.read_cd_index(device)
+                GLib.idle_add(self.__apply_disc_index, None, toc_entries, mcn)
+                return
             except Exception:
                 logger.warn('Failed to read metadata from CD.', exc_info=True)
 
-        return None
+        GLib.idle_add(self.__apply_disc_index, None, None, None)
 
-    def __read_disc_metadata_internal(self, disc_id, tracks, device):
+    def __apply_disc_index(self, disc_id, toc_entries, mcn):
+        """ This function must be run sync because it accesses the track database """
+        logger.debug('Applying disc contents to playlist')
+        if disc_id is not None:
+            tracks = discid_parser.parse_disc(disc_id, self.__device)
+            if tracks is not None:
+                allow_internet = settings.get_option('cd_metadata/fetch_from_internet', True)
+                if allow_internet:
+                    logger.info('Starting to get disc metadata')
+                    self.__fetch_disc_metadata(disc_id, tracks)
+        elif toc_entries is not None:
+            tracks = linux_cd_parser.parse_tracks(toc_entries, mcn, self.__device)
+        else:
+            logger.err('Could not read disc index')
+        if tracks is not None:
+            logger.debug('Read disc with tracks %s', tracks)
+            self.extend(tracks)
+        event.log_event('cd_info_retrieved', self, None)
+
+    @common.threaded
+    def __fetch_disc_metadata(self, disc_id, tracks):
         # TODO: show progress during work
 
         # TODO: Add more providers?
         # Discogs:
+        #    Problem: Barely documented, no known support for disc_id
         # * https://github.com/discogs/discogs_client
         # * https://www.discogs.com/developers/
         # CDDB/freedb:
@@ -170,11 +160,11 @@ class CDPlaylist(playlist.Playlist):
         # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
         # * Servers: http://freedb.freedb.org/,
         if MUSICBRAINZNGS_AVAILABLE:
-            musicbrainzngs_parser.fetch_with_disc_id(
-                disc_id, tracks, self.__metadata_parsed_callback
-            )
+            musicbrainz_data = musicbrainzngs_parser.fetch_with_disc_id(disc_id)
+            GLib.idle_add(self.__musicbrainz_metadata_fetched, musicbrainz_data, disc_id, tracks)
 
-    def __metadata_parsed_callback(self, metadata):
+    def __musicbrainz_metadata_fetched(self, musicbrainz_data, disc_id, tracks):
+        metadata = musicbrainzngs_parser.parse(musicbrainz_data, disc_id, tracks)
         # TODO: progress: finished
         if metadata is not None:
             (tracks, title) = metadata

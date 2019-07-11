@@ -16,6 +16,9 @@ def read_disc_id(device):
     """
         I/O operation to read an ID from the disc.
         This must happen async because it may take quite some time.
+
+        @param device: Name of the CD device
+        @return: The disc ID as understood by musicbrainz and parse_disc()
     """
     try:  # retry with reduced features if it fails
         # Note: reading additional features like isrc will take some time.
@@ -27,9 +30,11 @@ def read_disc_id(device):
 
 def parse_disc(disc_id, device):
     """
-        Retrieves data from the disc using discid only.
-        As a result, the data will only contain track numbers and lengths.
+        Parses the given disc ID into tracks.
+        As a result, the data will only contain track numbers and lengths but
+        no sophisticated metadata.
 
+        @param disc_id: The disc ID from read_disc_id()
         @param device: Name of the CD device
         @return: An array of xl.trax.Track with minimal information
     """

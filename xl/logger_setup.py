@@ -131,7 +131,7 @@ def start_logging(debug, quiet, debugthreads, module_filter, level_filter):
     if debug:
         file_loglevel = logging.DEBUG
         console_loglevel = logging.DEBUG
-        console_format = "%(asctime)s,%(msecs)3d:" + console_format
+        console_format = "%(asctime)s,%(msecs)03d:" + console_format
         console_format += " (%(name)s)"  # add module name
     elif quiet:
         console_loglevel = logging.WARNING

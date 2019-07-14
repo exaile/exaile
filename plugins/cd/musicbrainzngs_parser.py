@@ -57,10 +57,7 @@ def fetch_with_disc_id(disc_id):
     except musicbrainzngs.WebServiceError:
         # This is expected to fail if user is offline or behind an
         # aggressive firewall.
-        logger.info(
-            'Failed to fetch data from musicbrainz database.',
-            exc_info=True,
-        )
+        logger.info('Failed to fetch data from musicbrainz database.', exc_info=True)
         musicbrainz_data = None
     return musicbrainz_data
 
@@ -89,7 +86,9 @@ def parse(musicbrainz_data, disc_id, tracks):
             if disc_tracks is not None:
                 logger.debug('Parsed disc data: %s', disc_tracks)
         if disc_tracks is None:
-            if musicbrainz_data.get('cdstub') is not None:  # bad quality, use as fallback
+            if (
+                musicbrainz_data.get('cdstub') is not None
+            ):  # bad quality, use as fallback
                 disc_tracks = __parse_musicbrainz_cdstub_data(
                     musicbrainz_data['cdstub'], tracks
                 )
@@ -98,10 +97,7 @@ def parse(musicbrainz_data, disc_id, tracks):
         if disc_tracks is None:
             logger.info('Musicbrainz returned no useful data: %s', musicbrainz_data)
     except Exception:
-        logger.warn(
-            'Failed to parse data from musicbrainz database.',
-            exc_info=True,
-        )
+        logger.warn('Failed to parse data from musicbrainz database.', exc_info=True)
     return disc_tracks
 
 

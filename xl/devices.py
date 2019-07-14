@@ -168,13 +168,13 @@ class KeyedDevice(Device):
     '''
 
     @staticmethod
-    def __new__(cls, key, *args, **kwargs):
+    def __new__(cls, key):
 
         devices = getattr(cls, '__devices', {})
 
         device = devices.get(key, None)
         if device is None:
-            device = Device.__new__(cls, key, *args, **kwargs)
+            device = Device.__new__(cls)
             device.__initialized = False
             device.__key = key
             devices[key] = device

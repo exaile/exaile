@@ -39,6 +39,7 @@ from xl import playlist, trax, common, settings
 from xl.trax import Track
 
 import cdprefs
+import _cdguipanel
 
 
 logger = logging.getLogger(__name__)
@@ -185,19 +186,7 @@ class CDDevice(KeyedDevice):
         self.name = _("Audio Disc")
         self.dev = dev
 
-    def _get_panel_type(self):
-        import imp
-
-        try:
-            _cdguipanel = imp.load_source(
-                "_cdguipanel", os.path.join(os.path.dirname(__file__), "_cdguipanel.py")
-            )
-            return _cdguipanel.CDPanel
-        except Exception:
-            logger.exception("Could not import cd gui panel")
-            return 'flatplaylist'
-
-    panel_type = property(_get_panel_type)
+    panel_type = _cdguipanel.CDPanel
 
     def __on_cd_info_retrieved(self, _event_type, cd_playlist, _disc_title):
         self.playlists.append(cd_playlist)

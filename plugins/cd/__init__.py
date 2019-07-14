@@ -51,6 +51,7 @@ if sys.platform.startswith('linux'):
 
 try:
     import discid_parser
+
     DISCID_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
@@ -58,6 +59,7 @@ except ImportError:
 
 try:
     import musicbrainzngs_parser
+
     MUSICBRAINZNGS_AVAILABLE = True
 except ImportError:
     logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
@@ -109,9 +111,12 @@ class CDPlaylist(playlist.Playlist):
         if DISCID_AVAILABLE:
             try:
                 disc_id = discid_parser.read_disc_id(device)
-                logger.debug('Successfully read CD using discid with %i tracks. '
-                             'Musicbrainz id: %s',
-                             len(disc_id.tracks), disc_id.id)
+                logger.debug(
+                    'Successfully read CD using discid with %i tracks. '
+                    'Musicbrainz id: %s',
+                    len(disc_id.tracks),
+                    disc_id.id,
+                )
                 GLib.idle_add(self.__apply_disc_index, disc_id, None, None)
                 return
             except Exception:
@@ -133,7 +138,9 @@ class CDPlaylist(playlist.Playlist):
         if disc_id is not None:
             tracks = discid_parser.parse_disc(disc_id, self.__device)
             if tracks is not None:
-                allow_internet = settings.get_option('cd_metadata/fetch_from_internet', True)
+                allow_internet = settings.get_option(
+                    'cd_metadata/fetch_from_internet', True
+                )
                 if allow_internet:
                     logger.info('Starting to get disc metadata')
                     self.__fetch_disc_metadata(disc_id, tracks)
@@ -163,7 +170,9 @@ class CDPlaylist(playlist.Playlist):
         # * Servers: http://freedb.freedb.org/,
         if MUSICBRAINZNGS_AVAILABLE:
             musicbrainz_data = musicbrainzngs_parser.fetch_with_disc_id(disc_id)
-            GLib.idle_add(self.__musicbrainz_metadata_fetched, musicbrainz_data, disc_id, tracks)
+            GLib.idle_add(
+                self.__musicbrainz_metadata_fetched, musicbrainz_data, disc_id, tracks
+            )
 
     def __musicbrainz_metadata_fetched(self, musicbrainz_data, disc_id, tracks):
         metadata = musicbrainzngs_parser.parse(musicbrainz_data, disc_id, tracks)

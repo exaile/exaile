@@ -39,6 +39,12 @@ import xlgui
 logger = logging.getLogger(__name__)
 
 
+# TODO: Improve progress update
+# TODO: Ask for folder where to put the disc instead of blindly copying it
+# TODO: add eject button
+# TODO: allow to directly play from panel
+
+
 class CDImportThread(common.ProgressThread):
     def __init__(self, cd_importer):
         common.ProgressThread.__init__(self)
@@ -80,7 +86,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
 
         event.add_ui_callback(self._tree_queue_draw, 'cd_info_retrieved')
 
-    def _tree_queue_draw(self, type, cdplaylist, disc_title=None):
+    def _tree_queue_draw(self, _event_type, cdplaylist, disc_title=None):
         if not hasattr(self.fppanel, 'tree'):
             return
 

@@ -146,7 +146,8 @@ class CDPlaylist(playlist.Playlist):
         elif toc_entries is not None:
             tracks = linux_cd_parser.parse_tracks(toc_entries, mcn, self.__device)
         else:
-            logger.err('Could not read disc index')
+            logger.error('Could not read disc index')
+            tracks = None
         if tracks is not None:
             logger.debug('Read disc with tracks %s', tracks)
             self.extend(tracks)

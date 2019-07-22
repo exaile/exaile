@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-07-17 02:04+0000\n"
+"PO-Revision-Date: 2019-07-23 05:06+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -1078,7 +1078,7 @@ msgstr "恢复"
 #, fuzzy
 #| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "关于 Exaile"
+msgstr "关于Exaile"
 
 #: ../xlgui/menu.py:219
 #, fuzzy

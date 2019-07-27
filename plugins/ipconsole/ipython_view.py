@@ -128,6 +128,7 @@ class IterableIPShell:
 
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"
+        cfg.Completer.use_jedi = False
 
         # InteractiveShell's __init__ overwrites ip_io.stdout,ip_io.stderr with
         # sys.stdout, sys.stderr, this makes sure they are right

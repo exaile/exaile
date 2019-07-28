@@ -42,11 +42,11 @@ from xl.externals.sigint import InterruptibleLoopContext
 from xl.nls import gettext as _
 
 # Imported later to avoid PyGObject imports just for --help.
-Gio = Gtk = common = xdg = None
+GLib = Gio = Gtk = common = xdg = None
 
 
 def _do_heavy_imports():
-    global Gio, Gtk, common, xdg
+    global GLib, Gio, Gtk, common, xdg
 
     import gi
 
@@ -56,7 +56,7 @@ def _do_heavy_imports():
     gi.require_version('GIRepository', '2.0')
     gi.require_version('GstPbutils', '1.0')
 
-    from gi.repository import Gio, Gtk
+    from gi.repository import GLib, Gio, Gtk
     from xl import common, xdg
 
 
@@ -475,6 +475,11 @@ class Exaile(object):
             return
 
         _do_heavy_imports()
+
+        # Set program name for matching with .desktop file in Plasma
+        # under wayland (see #653); should be done before splash screen
+        # is displayed.
+        GLib.set_prgname('exaile')
 
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)

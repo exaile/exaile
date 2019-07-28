@@ -138,7 +138,7 @@ class CDPlaylist(playlist.Playlist):
             tracks = discid_parser.parse_disc(disc_id, self.__device)
             if tracks is not None:
                 allow_internet = settings.get_option(
-                    'cd_metadata/fetch_from_internet', True
+                    'plugin/cd/fetch_metadata_from_internet', True
                 )
                 if allow_internet:
                     logger.info('Starting to get disc metadata')

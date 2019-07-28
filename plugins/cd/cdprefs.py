@@ -39,7 +39,7 @@ FORMAT_WIDGET = None
 
 
 class ImportMetadataPreference(widgets.CheckPreference):
-    name = 'cd_metadata/fetch_from_internet'
+    name = 'plugin/cd/fetch_metadata_from_internet'
     default = True
 
 

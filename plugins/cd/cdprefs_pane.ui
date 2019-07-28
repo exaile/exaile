@@ -52,7 +52,7 @@
             <property name="can_focus">False</property>
             <property name="left_padding">12</property>
             <child>
-              <object class="GtkCheckButton" id="cd_metadata/fetch_from_internet">
+              <object class="GtkCheckButton" id="plugin/cd/fetch_metadata_from_internet">
                 <property name="label" translatable="yes">Fetch metadata from internet servers</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

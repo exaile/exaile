@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-07-23 05:06+0000\n"
+"PO-Revision-Date: 2019-08-05 22:22+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -424,10 +424,8 @@ msgid "Artist"
 msgstr "艺人"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "艺人：%(artist)s"
+msgstr "艺人"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -837,9 +835,8 @@ msgid "{outstanding} covers left to fetch"
 msgstr "取得 %d 个封面"
 
 #: ../xlgui/cover.py:98
-#, fuzzy
 msgid "All covers fetched"
-msgstr "取得 %d 个封面"
+msgstr ""
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
@@ -858,9 +855,9 @@ msgid "Remove Cover"
 msgstr "删除封面"
 
 #: ../xlgui/cover.py:805
-#, fuzzy, python-format
+#, python-format
 msgid "Cover for %s"
-msgstr "从 %s 找到封面"
+msgstr ""
 
 #: ../xlgui/cover.py:927
 msgid "Save File"

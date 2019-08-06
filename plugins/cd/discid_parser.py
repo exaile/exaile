@@ -54,7 +54,7 @@ def parse_disc(disc_id, device):
         track_tags['title'] = "Track %d" % discid_track.number
         track_tags['__length'] = discid_track.seconds
         if discid_track.isrc:
-            track_tags['__isrc'] = discid_track.isrc
+            track_tags['isrc'] = discid_track.isrc
 
         track_uri = "cdda://%d/#%s" % (discid_track.number, device)
         track = Track(uri=track_uri, scan=False)

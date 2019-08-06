@@ -25,6 +25,7 @@
 # from your version.
 
 import dbus
+import importlib
 import logging
 import os.path
 import sys
@@ -48,25 +49,29 @@ logger = logging.getLogger(__name__)
 if sys.platform.startswith('linux'):
     import linux_cd_parser
 
-try:
-    import discid_parser
-
-    DISCID_AVAILABLE = True
-except ImportError:
-    logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
-    DISCID_AVAILABLE = False
-
-try:
-    import musicbrainzngs_parser
-
-    MUSICBRAINZNGS_AVAILABLE = True
-except ImportError:
-    logger.warn('Cannot import dependency for plugin cd.', exc_info=True)
-    MUSICBRAINZNGS_AVAILABLE = False
-
 
 class CdPlugin(object):
+    discid_parser = None
+    musicbrainzngs_parser = None
+
+    def __import_dependency(self, module_name):
+        try:
+            full_name = 'plugins.cd.' + module_name + '_parser'
+            return importlib.import_module(full_name)
+        except ImportError:
+            logger.warn(
+                'Cannot import optional dependency "%s" for plugin cd.', module_name
+            )
+            logger.debug(
+                'Traceback for importing dependency "%s" for plugin cd.',
+                module_name,
+                exc_info=True,
+            )
+            return None
+
     def enable(self, exaile):
+        CdPlugin.discid_parser = self.__import_dependency('discid')
+        CdPlugin.musicbrainzngs_parser = self.__import_dependency('musicbrainzngs')
         self.__exaile = exaile
         self.__udisks2 = None
 
@@ -107,9 +112,9 @@ class CDPlaylist(playlist.Playlist):
         """ This function must be run async because it does slow I/O """
         logger.info('Starting to read disc index')
 
-        if DISCID_AVAILABLE:
+        if CdPlugin.discid_parser is not None:
             try:
-                disc_id = discid_parser.read_disc_id(device)
+                disc_id = CdPlugin.discid_parser.read_disc_id(device)
                 logger.debug(
                     'Successfully read CD using discid with %i tracks. '
                     'Musicbrainz id: %s',
@@ -135,7 +140,7 @@ class CDPlaylist(playlist.Playlist):
         """ This function must be run sync because it accesses the track database """
         logger.debug('Applying disc contents to playlist')
         if disc_id is not None:
-            tracks = discid_parser.parse_disc(disc_id, self.__device)
+            tracks = CdPlugin.discid_parser.parse_disc(disc_id, self.__device)
             if tracks is not None:
                 allow_internet = settings.get_option(
                     'plugin/cd/fetch_metadata_from_internet', True
@@ -168,14 +173,18 @@ class CDPlaylist(playlist.Playlist):
         # * http://ftp.freedb.org/pub/freedb/latest/DBFORMAT
         # * http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
         # * Servers: http://freedb.freedb.org/,
-        if MUSICBRAINZNGS_AVAILABLE:
-            musicbrainz_data = musicbrainzngs_parser.fetch_with_disc_id(disc_id)
+        if CdPlugin.musicbrainzngs_parser is not None:
+            musicbrainz_data = CdPlugin.musicbrainzngs_parser.fetch_with_disc_id(
+                disc_id
+            )
             GLib.idle_add(
                 self.__musicbrainz_metadata_fetched, musicbrainz_data, disc_id, tracks
             )
 
     def __musicbrainz_metadata_fetched(self, musicbrainz_data, disc_id, tracks):
-        metadata = musicbrainzngs_parser.parse(musicbrainz_data, disc_id, tracks)
+        metadata = CdPlugin.musicbrainzngs_parser.parse(
+            musicbrainz_data, disc_id, tracks
+        )
         # TODO: progress: finished
         if metadata is not None:
             (tracks, title) = metadata

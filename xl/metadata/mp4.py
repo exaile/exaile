@@ -51,6 +51,11 @@ class MP4Format(BaseFormat):
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
         'language':    '----:com.apple.iTunes:LANGUAGE',
+        'musicbrainz_albumartistid': '----:com.apple.iTunes:MusicBrainz Album Artist Id',
+        'musicbrainz_albumid': '----:com.apple.iTunes:MusicBrainz Album Id',
+        'musicbrainz_artistid': '----:com.apple.iTunes:MusicBrainz Artist Id',
+        'musicbrainz_discid': '----:com.apple.iTunes:MusicBrainz Disc Id',
+        'musicbrainz_releasetrackid': '----:com.apple.iTunes:MusicBrainz Release Track Id',
         # fmt: on
     }
     others = False

@@ -60,6 +60,11 @@ class ID3Format(BaseFormat):
         "grouping": "TIT1",
         "comment": "COMM",
         'language': "TLAN",
+        'musicbrainz_albumartistid': 'TXXX:MusicBrainz Album Artist Id',
+        'musicbrainz_albumid': 'TXXX:MusicBrainz Album Id',
+        'musicbrainz_artistid': 'TXXX:MusicBrainz Artist Id',
+        'musicbrainz_discid': 'TXXX:MusicBrainz Disc Id',
+        'musicbrainz_releasetrackid': 'TXXX:MusicBrainz Release Track Id',
     }
     writable = True
     others = False  # make this true once custom tag support actually works

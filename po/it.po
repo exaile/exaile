@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2017-12-18 14:56+0000\n"
-"Last-Translator: Claudio Maradonna <claudio@unitoo.pw>\n"
+"PO-Revision-Date: 2019-08-26 15:23+0000\n"
+"Last-Translator: leela <53352@protonmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
 ">\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -428,7 +428,7 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 "Caricamento non ancora completato. Potrebbe essere necessario attendere il "
-"segnale exaile_loaded."
+"segnale exaile_loaded?"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
 #: ../xlgui/widgets/playlist_columns.py:224 ../plugins/cd/cdprefs.py:114

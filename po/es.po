@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-03-01 09:17+0000\n"
+"PO-Revision-Date: 2019-08-28 12:23+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -430,10 +430,8 @@ msgid "Artist"
 msgstr "Artista"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "de %(artist)s"
+msgstr "Artista del álbum"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -1143,20 +1141,16 @@ msgid "_About"
 msgstr "_Acerca de"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Artista"
+msgstr "Artista del álbum"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Género - Artista"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Género - Artista"
+msgstr "Género - Artista del álbum"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1167,10 +1161,8 @@ msgid "Date - Artist"
 msgstr "Fecha - Artista"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Fecha - Artista"
+msgstr "Fecha - Artista del álbum"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
@@ -1181,10 +1173,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Artista - (Fecha - Álbum)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Artista - (Fecha - Álbum)"
+msgstr "Artista del álbum - (Fecha - Álbum)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -2587,11 +2577,9 @@ msgstr ""
 "los paneles reemplazarán el contenido de la lista de reproducción actual."
 
 #: ../data/ui/preferences/playlists.ui:52
-#, fuzzy
-#| msgid "Appending/Replacing via menu item triggers playback"
 msgid "Appending/replacing via menu item triggers playback"
 msgstr ""
-"Añadir/Reemplazar por medio del elemento del menú inicia la reproducción"
+"Anexar/reemplazar por medio del elemento del menú inicia la reproducción"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2639,26 +2627,20 @@ msgid "No Plugin Selected"
 msgstr "No se han seleccionado plugins"
 
 #: ../data/ui/preferences/plugin.ui:177
-#, fuzzy
-#| msgid "Install Plugin File"
 msgid "Add _Plugin File"
-msgstr "Instalar archivo de complemento"
+msgstr "Añadir archivo de _complemento"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
 msgstr "Preferencias"
 
 #: ../data/ui/shortcuts_dialog.ui:39
-#, fuzzy
-#| msgid "Close %s"
 msgid "Close"
-msgstr "Cerrar %s"
+msgstr "Cerrar"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Descripción:"
+msgstr "Descripción"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2681,10 +2663,8 @@ msgid "Uppercase first letter of all tags"
 msgstr "Primera letra en mayúscula de todas las etiquetas"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Propiedades"
+msgstr "Propiedades del archivo"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2795,16 +2775,12 @@ msgid "Add"
 msgstr "Añadir"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Limitar a: "
+msgstr "Limitar a:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " pistas"
+msgstr "pistas"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2832,10 +2808,8 @@ msgid "Amazon Covers"
 msgstr "Carátulas de Amazon"
 
 #: ../plugins/audioscrobbler/__init__.py:97
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
-msgstr "AudioScrobbler"
+msgstr "Conmutar envío a AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"

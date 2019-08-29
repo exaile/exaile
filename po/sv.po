@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2017-09-30 19:48+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"PO-Revision-Date: 2019-08-29 16:23+0000\n"
+"Last-Translator: Henrik Johansson <tors42@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/exaile/master/sv/"
 ">\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Lokal"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Användning: exaile [ALTERNATIV]... [URI]"
+msgstr "Användning: exaile [ALTERNATIV]... [PLATS]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -131,6 +129,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Starta Exaile, med möjlighet att lägga till spår från PLATS till den aktiva "
+"spellistan. Om Exaile redan körs, kommer detta att försöka använda den "
+"existerande instansen istället för att skapa en ny."
 
 #: ../xl/main.py:96
 msgid "Playback Options"
@@ -183,10 +184,8 @@ msgid "Playlist Options"
 msgstr "Spellistealternativ"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Exporterar aktuell spellista till LOCATION"
+msgstr "Exporterar aktuell spellista till PLATS"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -202,11 +201,9 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:180
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
-"Hämtar den nuvarande uppspelningsstatusen och låtinformationen som FORMAT"
+"Hämta den nuvarande uppspelningsstatusen och låtinformationen som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
@@ -214,10 +211,8 @@ msgid "TAGS"
 msgstr "TAGGAR"
 
 #: ../xl/main.py:187
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "TAGGAR att ta emot från det nuvarande spåret, använd med --format-"
+msgstr "Taggar att ta emot från det nuvarande spåret, använd med --format-"
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
@@ -278,10 +273,8 @@ msgid "Decrease the volume by N%"
 msgstr "Sänk volymen med N%"
 
 #: ../xl/main.py:279
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Tystar eller aktiverar ljudet"
+msgstr "Tysta eller aktivera ljudet"
 
 #: ../xl/main.py:286
 msgid "Print the current volume percentage"
@@ -370,16 +363,12 @@ msgid "Show debugging output"
 msgstr "Visa felsökningsutdata"
 
 #: ../xl/main.py:391
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Aktivera felsökning av xl.event. Skapar MASSOR av utdata"
+msgstr "Aktivera felsökning av xl.event. Skapar massor av utdata"
 
 #: ../xl/main.py:398
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Aktivera felsökning av xl.event. Skapar MASSOR av utdata"
+msgstr "Aktivera full felsökning av xl.event. Skapar MASSOR av utdata"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
@@ -446,10 +435,8 @@ msgid "Artist"
 msgstr "Artist"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "av %(artist)s"
+msgstr "Album-artist"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -466,7 +453,7 @@ msgstr "Copyright"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:541
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:214
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
@@ -502,7 +489,7 @@ msgstr "Genre"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:553
 msgid "Grouping"
-msgstr ""
+msgstr "Gruppering"
 
 #: ../xl/metadata/tags.py:62
 msgid "ISRC"
@@ -510,7 +497,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:380
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -593,9 +580,8 @@ msgid "Modified"
 msgstr "Ändrad"
 
 #: ../xl/metadata/tags.py:86
-#, fuzzy
 msgid "Play time"
-msgstr "Spelräknare"
+msgstr "Speltid"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"

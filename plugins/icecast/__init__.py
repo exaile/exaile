@@ -112,7 +112,7 @@ class IcecastRadioStation(RadioStation):
         from xlgui.panel import radio
 
         if no_cache or not self.data:
-            set_status(_('Contacting Icecast server...'))
+            set_status(_('Contacting Icecast server…'))
             hostinfo = urlparse.urlparse(self.genre_url)
             try:
                 c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
@@ -186,7 +186,7 @@ class IcecastRadioStation(RadioStation):
         if station_id in self.playlists:
             return self.playlists[station_id]
         url = self.icecast_url + '/listen/' + station_id + '/listen.xspf'
-        set_status(_('Contacting Icecast server...'))
+        set_status(_('Contacting Icecast server…'))
 
         self.playlists[station_id] = playlist.import_playlist(url)
         set_status('')
@@ -209,7 +209,7 @@ class IcecastRadioStation(RadioStation):
         items = []
         thisPage = -1
         nextPage = 0
-        set_status(_('Contacting Icecast server...'))
+        set_status(_('Contacting Icecast server…'))
         try:
             c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:  # python 2.5 doesnt have timeout=

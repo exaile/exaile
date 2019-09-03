@@ -148,7 +148,7 @@ class DevicePanel(panel.Panel):
         thread = DeviceTransferThread(self.device)
         thread.connect('done', lambda *e: self.load_tree())
         self.main.controller.progress_manager.add_monitor(
-            thread, _("Transferring to %s...") % self.name, 'drive-harddisk'
+            thread, _("Transferring to %s…") % self.name, 'drive-harddisk'
         )
 
     def get_panel(self):

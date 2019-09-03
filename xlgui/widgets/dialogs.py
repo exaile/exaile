@@ -1751,7 +1751,7 @@ def ask_for_playlist_name(parent, playlist_manager, name=None):
 
         dialog = TextEntryDialog(
             _('Playlist name:'),
-            _('Add new playlist...'),
+            _('Add new playlist…'),
             name,
             parent=parent,
             okbutton=Gtk.STOCK_ADD,

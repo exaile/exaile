@@ -96,7 +96,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         thread = CDImportThread(cd_importer)
         thread.connect('done', lambda *e: self._import_finish())
         self.main.controller.progress_manager.add_monitor(
-            thread, _("Importing CD..."), 'drive-optical'
+            thread, _("Importing CD…"), 'drive-optical'
         )
 
     def _import_finish(self):

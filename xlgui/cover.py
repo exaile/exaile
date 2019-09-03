@@ -120,7 +120,7 @@ class CoverManager(GObject.GObject):
         self.menu.attach_to_widget(self.previews_box, lambda menu, widget: True)
 
         self.progress_bar = builder.get_object('progressbar')
-        self.progress_bar.set_text(_('Collecting albums and covers...'))
+        self.progress_bar.set_text(_('Collecting albums and covers…'))
         self.progress_bar.pulse_timeout = GLib.timeout_add(
             100, self.on_progress_pulse_timeout
         )

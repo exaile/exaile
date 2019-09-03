@@ -84,8 +84,8 @@ class JamendoPanel(panel.Panel):
         self.exaile = exaile
 
         self.STATUS_READY = _("Ready")
-        self.STATUS_SEARCHING = _("Searching Jamendo catalogue...")
-        self.STATUS_RETRIEVING_DATA = _("Retrieving song data...")
+        self.STATUS_SEARCHING = _("Searching Jamendo catalogue…")
+        self.STATUS_RETRIEVING_DATA = _("Retrieving song data…")
 
         self.setup_widgets()
 

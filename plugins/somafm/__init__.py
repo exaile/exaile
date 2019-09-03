@@ -81,7 +81,7 @@ class SomaFMRadioStation(RadioStation):
         """
             Connects to the server and retrieves the document
         """
-        set_status(_('Contacting SomaFM server...'))
+        set_status(_('Contacting SomaFM server…'))
         hostinfo = urlparse.urlparse(url)
 
         try:
@@ -180,7 +180,7 @@ class SomaFMRadioStation(RadioStation):
             Gets the playlist for the given url and id
         """
         if playlist_id not in self.playlists:
-            set_status(_('Contacting SomaFM server...'))
+            set_status(_('Contacting SomaFM server…'))
             try:
                 self.playlists[playlist_id] = playlist.import_playlist(url)
             except Exception:

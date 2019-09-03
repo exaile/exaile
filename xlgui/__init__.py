@@ -316,7 +316,7 @@ class Main(object):
             )
             thread.connect('done', self.on_rescan_done)
             self.progress_manager.add_monitor(
-                thread, _("Scanning collection..."), 'drive-harddisk'
+                thread, _("Scanning collection…"), 'drive-harddisk'
             )
 
     def on_rescan_done(self, thread):
@@ -395,7 +395,7 @@ class Main(object):
         thread = CollectionScanThread(device.get_collection())
         thread.connect('done', panel.load_tree)
         self.progress_manager.add_monitor(
-            thread, _("Scanning %s..." % device.name), 'drive-harddisk'
+            thread, _("Scanning %s…" % device.name), 'drive-harddisk'
         )
 
     def remove_device_panel(self, type, obj, device):

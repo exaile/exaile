@@ -150,7 +150,7 @@ class PodcastPanel(panel.Panel):
         try:
             url = url.replace('itpc://', 'http://')
 
-            self._set_status(_('Loading %s...') % url)
+            self._set_status(_('Loading %s…') % url)
             d = feedparser.parse(url)
             entries = d['entries']
 
@@ -196,7 +196,7 @@ class PodcastPanel(panel.Panel):
 
     @common.threaded
     def _load_podcasts(self):
-        self._set_status(_("Loading Podcasts..."))
+        self._set_status(_("Loading Podcasts…"))
         if not os.path.exists(self.podcast_file):
             self._set_status(_("No configuration present yet"))
             return

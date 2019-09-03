@@ -320,7 +320,7 @@ class DaapManager:
             return item
 
         _menu.add_item(
-            _smi('manual', [], _('Manually...'), callback=self.manual_connect)
+            _smi('manual', [], _('Manually…'), callback=self.manual_connect)
         )
         _menu.add_item(menu.MenuItem('history', hmfactory, ['manual']))
         _menu.add_item(_sep('sep', ['history']))
@@ -788,7 +788,7 @@ class DaapClientPlugin(object):
             'menubar-tools-menu', _sep('plugin-sep', ['track-properties'])
         )
 
-        item = _smi('daap', ['plugin-sep'], _('Connect to DAAP...'), submenu=menu_)
+        item = _smi('daap', ['plugin-sep'], _('Connect to DAAP…'), submenu=menu_)
         providers.register('menubar-tools-menu', item)
 
         if AVAHI:

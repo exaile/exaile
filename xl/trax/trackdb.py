@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import
 
+from builtins import object
 import logging
 
 from copy import deepcopy
@@ -59,7 +60,7 @@ class TrackDBIterator(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         return self.iter.next()[1]._track
 
 
@@ -121,7 +122,7 @@ class TrackDB(object):
             or removed during iteration, iteration will halt
             wuth a RuntimeError.
         """
-        track_iterator = self.tracks.iteritems()
+        track_iterator = iter(self.tracks.items())
         iterator = TrackDBIterator(track_iterator)
         return iterator
 
@@ -205,7 +206,7 @@ class TrackDB(object):
             try:
                 if 'tracks' == attr:
                     data = {}
-                    for k in (x for x in pdata.keys() if x.startswith("tracks-")):
+                    for k in (x for x in list(pdata.keys()) if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
                         loc = tr.get_loc_for_io()
@@ -238,7 +239,7 @@ class TrackDB(object):
             :type location: string
         """
         if not self._dirty:
-            for track in self.tracks.itervalues():
+            for track in self.tracks.values():
                 if track._track._dirty:
                     self._dirty = True
                     break
@@ -268,7 +269,7 @@ class TrackDB(object):
         for attr in self.pickle_attrs:
             # bad hack to allow saving of lists/dicts of Tracks
             if 'tracks' == attr:
-                for k, track in self.tracks.iteritems():
+                for k, track in self.tracks.items():
                     key = "tracks-%s" % track._key
                     if track._track._dirty or key not in pdata:
                         pdata[key] = (
@@ -289,7 +290,7 @@ class TrackDB(object):
         pdata.sync()
         pdata.close()
 
-        for track in self.tracks.itervalues():
+        for track in self.tracks.values():
             track._track._dirty = False
 
         self._dirty = False

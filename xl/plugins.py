@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import object
 import imp
 import inspect
 import logging
@@ -277,7 +279,7 @@ class PluginsManager(object):
 
     def save_enabled(self):
         if self.load:
-            settings.set_option("plugins/enabled", self.enabled_plugins.keys())
+            settings.set_option("plugins/enabled", list(self.enabled_plugins.keys()))
 
     def load_enabled(self):
         to_enable = settings.get_option("plugins/enabled", [])
@@ -291,7 +293,7 @@ class PluginsManager(object):
         """
             Tears down all enabled plugins
         """
-        for plugin_name, plugin in self.enabled_plugins.iteritems():
+        for plugin_name, plugin in self.enabled_plugins.items():
             if hasattr(plugin, 'teardown'):
                 try:
                     plugin.teardown(main)

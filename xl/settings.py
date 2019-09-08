@@ -28,7 +28,10 @@
     Central storage of application and user settings
 """
 
-from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from configparser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
 import sys
@@ -46,7 +49,7 @@ TYPE_MAPPING = {
     'B': bool,
     'L': list,
     'D': dict,
-    'U': unicode,
+    'U': str,
 }
 
 MANAGER = None
@@ -241,11 +244,11 @@ class SettingsManager(RawConfigParser):
         # subclass of int.
         if isinstance(value, bool):
             return 'B: ' + str(value)
-        for k, v in TYPE_MAPPING.iteritems():
+        for k, v in TYPE_MAPPING.items():
             if isinstance(value, v):
                 if v is list:
                     return k + ": " + repr(value)
-                elif v is unicode:
+                elif v is str:
                     return k + ": " + value.encode('utf-8')
                 else:
                     return k + ": " + str(value)
@@ -267,7 +270,7 @@ class SettingsManager(RawConfigParser):
         if kind in ('L', 'D'):
             return eval(value)
 
-        if kind in TYPE_MAPPING.keys():
+        if kind in list(TYPE_MAPPING.keys()):
             if kind == 'B':
                 if value != 'True':
                     return False

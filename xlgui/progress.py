@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
+from past.utils import old_div
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -113,7 +116,7 @@ class ProgressMonitor(Gtk.Box):
         # Accept a tuple or number between 0 and 100
         if hasattr(progress, '__len__'):
             step, total = progress
-            percent = int(((step + 1) / total) * 100)
+            percent = int((old_div((step + 1), total)) * 100)
         else:
             percent = int(progress)
 

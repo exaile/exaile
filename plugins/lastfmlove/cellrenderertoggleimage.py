@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import division
+from past.utils import old_div
 from gi.repository import GdkPixbuf, GObject, Gtk, Gdk
 
 from xlgui import icons
@@ -155,9 +157,9 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             )
 
             # Make sure to properly align the pixbuf
-            x = area_x + area_width * self.props.xalign - self.__pixbuf_width / 2
+            x = area_x + area_width * self.props.xalign - old_div(self.__pixbuf_width, 2)
 
-            y = area_y + area_height * self.props.yalign - self.__pixbuf_height / 2
+            y = area_y + area_height * self.props.yalign - old_div(self.__pixbuf_height, 2)
 
             Gdk.cairo_set_source_pixbuf(cairo_context, pixbuf, x, y)
             cairo_context.paint()

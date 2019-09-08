@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2011 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -42,7 +43,7 @@ from xl.trax import search
 from xlgui import main
 from xlgui.widgets import dialogs
 
-import gt_widgets
+from . import gt_widgets
 
 
 group_categories_option = 'plugin/grouptagger/group_categories'
@@ -120,7 +121,7 @@ def get_groups_from_categories():
 
     groups = set()
     categories = get_group_categories()
-    for category, (expanded, cgroups) in categories.iteritems():
+    for category, (expanded, cgroups) in categories.items():
         for group in cgroups:
             groups.add(group)
     return groups

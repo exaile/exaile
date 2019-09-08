@@ -19,7 +19,9 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import division
+from __future__ import absolute_import
 
+from builtins import object
 import logging
 import sys
 import site
@@ -35,8 +37,8 @@ from xl import providers
 from xlgui.widgets import menu
 from xlgui import guiutil
 
-import ipconsoleprefs
-import ipython_view as ip
+from . import ipconsoleprefs
+from . import ipython_view as ip
 
 FONT = "Luxi Mono 10"
 SETTINGS_STRING = 'plugin_ipconsole_option_set'

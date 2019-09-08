@@ -24,6 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import range
+from builtins import object
 import hashlib
 import logging
 import os
@@ -106,7 +109,7 @@ class Preference(object):
         """
             Value to be stored into the settings file
         """
-        return unicode(self.widget.get_text(), 'utf-8')
+        return str(self.widget.get_text(), 'utf-8')
 
     def _set_value(self):
         """
@@ -792,7 +795,7 @@ class ShortcutListPreference(Preference):
             Updates the displayed items
         """
         self.list.clear()
-        for action in self.available_items.iterkeys():
+        for action in self.available_items.keys():
             try:
                 accel = items[action]
             except KeyError:
@@ -821,7 +824,7 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return unicode(buf.get_text(start, end, True), 'utf-8')
+        return str(buf.get_text(start, end, True), 'utf-8')
 
     def _set_value(self):
         """
@@ -860,7 +863,7 @@ class ListPreference(Preference):
         import shlex
 
         values = shlex.split(self.widget.get_text())
-        values = [unicode(value, 'utf-8') for value in values]
+        values = [str(value, 'utf-8') for value in values]
         return values
 
 
@@ -1025,7 +1028,7 @@ class ComboEntryPreference(Preference):
 
         try:
             try:
-                preset_items = self.preset_items.items()
+                preset_items = list(self.preset_items.items())
                 self.list = Gtk.ListStore(str, str)
                 text_renderer = self.widget.get_cells()[0]
                 text_renderer.set_property('weight', Pango.Weight.BOLD)
@@ -1048,7 +1051,7 @@ class ComboEntryPreference(Preference):
             completion = Gtk.EntryCompletion()
 
             try:
-                completion_items = self.completion_items.items()
+                completion_items = list(self.completion_items.items())
                 self.completion_list = Gtk.ListStore(str, str)
 
                 title_renderer = Gtk.CellRendererText()

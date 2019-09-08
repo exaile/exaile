@@ -31,7 +31,7 @@ class CellRendererDays(Gtk.CellRendererText):
     __gsignals__ = {
         'days-changed': (GObject.SignalFlags.RUN_FIRST, None, (str, object))
     }
-    property_names = __gproperties__.keys()
+    property_names = list(__gproperties__.keys())
 
     def __init__(self):
         Gtk.CellRendererText.__init__(self)

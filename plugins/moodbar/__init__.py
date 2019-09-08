@@ -21,7 +21,9 @@
 
 
 from __future__ import division, print_function
+from __future__ import absolute_import
 
+from builtins import object
 import os.path
 
 from gi.repository import Gdk, GLib
@@ -32,13 +34,13 @@ import xl.player
 import xl.xdg
 import xlgui.guiutil
 
-from cache import MoodbarCache
-from generator import MoodbarGenerator
-import prefs
-from widget import Moodbar
+from .cache import MoodbarCache
+from .generator import MoodbarGenerator
+from . import prefs
+from .widget import Moodbar
 
 
-class MoodbarPlugin:
+class MoodbarPlugin(object):
     def __init__(self):
         self.main_controller = self.preview_controller = None
 
@@ -104,7 +106,7 @@ def format_time(seconds, time_format=_("{minutes}:{seconds:02}")):
     return time_format.format(minutes=int(minutes), seconds=seconds)
 
 
-class MoodbarController:
+class MoodbarController(object):
     def __init__(self, plugin, player, orig_seekbar):
         self.plugin = plugin
         self.player = player

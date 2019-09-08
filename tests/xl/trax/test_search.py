@@ -1,5 +1,7 @@
 # -*- coding: utf-8
 
+from past.builtins import basestring
+from builtins import object
 from mox3 import mox
 
 from xl.trax import search
@@ -363,10 +365,10 @@ class TestSearchTracks(object):
         tracks[0].track.set_tag_raw('artist', 'foooo')
         tracks[2].track.set_tag_raw('artist', 'foooooo')
         gen = search.search_tracks(tracks, [matcher])
-        assert gen.next() == tracks[0]
-        assert gen.next() == tracks[2]
+        assert next(gen) == tracks[0]
+        assert next(gen) == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_take_not_srt(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
@@ -377,7 +379,7 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
@@ -387,7 +389,7 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     @pytest.mark.parametrize("sstr", ["motley crue", u"mötley crüe", u"motley crüe"])
     def test_search_tracks_ignore_diacritic_from_string(self, sstr):
@@ -403,7 +405,7 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[0]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_with_unicodemark_from_string(self):
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
@@ -415,7 +417,7 @@ class TestSearchTracks(object):
 
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)
 
     def test_search_tracks_with_int_from_string(self):
         # unlike mp3, mp4 will return integers for BPM.. make sure that works
@@ -426,4 +428,4 @@ class TestSearchTracks(object):
         assert gen.next().track == tracks[1]
         assert gen.next().track == tracks[2]
         with pytest.raises(StopIteration):
-            gen.next()
+            next(gen)

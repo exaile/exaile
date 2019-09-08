@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2006 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,11 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import _scrobbler as scrobbler
-import asprefs
+from . import _scrobbler as scrobbler
+from . import asprefs
 from xl import common, event, xdg, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator

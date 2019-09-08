@@ -26,7 +26,12 @@
 """
     General functions and classes shared in the codebase
 """
+from __future__ import print_function
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
 import inspect
 from gi.repository import Gio
 from gi.repository import GLib
@@ -38,8 +43,8 @@ import shelve
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 import weakref
 from functools import wraps, partial
 from collections import deque
@@ -126,7 +131,7 @@ def sanitize_url(url):
         :returns: the sanitized url
     """
     try:
-        components = list(urlparse.urlparse(url))
+        components = list(urllib.parse.urlparse(url))
         auth, host = components[1].split('@')
         username, password = auth.split(':')
     except (AttributeError, ValueError):
@@ -135,7 +140,7 @@ def sanitize_url(url):
         # Replace password with fixed amount of "*"
         auth = ':'.join((username, 5 * '*'))
         components[1] = '@'.join((auth, host))
-        url = urlparse.urlunparse(components)
+        url = urllib.parse.urlunparse(components)
 
     return url
 
@@ -152,8 +157,8 @@ def get_url_contents(url, user_agent):
     '''
 
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(url, None, headers)
-    fp = urllib2.urlopen(req)
+    req = urllib.request.Request(url, None, headers)
+    fp = urllib.request.urlopen(req)
     data = fp.read()
     fp.close()
 
@@ -496,7 +501,7 @@ class LimitedCache(DictMixin):
         return str(self.cache)
 
     def keys(self):
-        return self.cache.keys()
+        return list(self.cache.keys())
 
 
 class cached(object):
@@ -512,7 +517,7 @@ class cached(object):
 
     @staticmethod
     def _freeze(d):
-        return frozenset(d.iteritems())
+        return frozenset(iter(d.items()))
 
     def __call__(self, f):
         try:
@@ -897,7 +902,7 @@ def order_poset(items):
         :type items: list of :class:`PosetItem`
     """
     items = dict([(i.name, i) for i in items])
-    for name, item in items.iteritems():
+    for name, item in items.items():
         for after in item.after:
             k = items.get(after)
             if k:
@@ -905,7 +910,7 @@ def order_poset(items):
             else:
                 item.after.remove(after)
     result = []
-    next = [i[1] for i in items.items() if not i[1].after]
+    next = [i[1] for i in list(items.items()) if not i[1].after]
     while next:
         current = sorted([(i.priority, i.name, i) for i in next])
         result.extend([i[2] for i in current])
@@ -914,14 +919,14 @@ def order_poset(items):
             for c in i[2].children:
                 nextset[c.name] = c
         removals = []
-        for name, item in nextset.iteritems():
+        for name, item in nextset.items():
             for after in item.after:
                 if after in nextset:
                     removals.append(name)
                     break
         for r in removals:
             del nextset[r]
-        next = nextset.values()
+        next = list(nextset.values())
     return result
 
 
@@ -998,7 +1003,7 @@ class GioFileInputStream(_GioFileStream):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
@@ -1031,7 +1036,7 @@ class GioFileOutputStream(_GioFileStream):
         self.stream.flush()
 
     def write(self, s):
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             s = s.encode('utf-8')
         return self.stream.write(s)
 
@@ -1073,7 +1078,7 @@ def subscribe_for_settings(section, options, self):
     )
 
 
-class AsyncLoader:
+class AsyncLoader(object):
     """
         Async loader based on a generator
         Threaded, load it and put it in `result_list`

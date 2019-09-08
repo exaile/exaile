@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
@@ -131,7 +132,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self._load_playlist_nodes(pl)
         self.tree.expand_row(self.model.get_path(self.custom), False)
 
-        for name, value in self.manager.stations.iteritems():
+        for name, value in self.manager.stations.items():
             self.add_driver(value)
 
     def _add_driver_cb(self, type, object, driver):

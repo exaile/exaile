@@ -1,3 +1,4 @@
+from builtins import object
 import collections
 import os
 import shutil
@@ -24,7 +25,7 @@ def exaile_test_cleanup():
 
     Track._Track__the_cuts = ['the', 'a']
 
-    for key in Track._Track__tracksdict.keys():
+    for key in list(Track._Track__tracksdict.keys()):
         del Track._Track__tracksdict[key]
 
 
@@ -118,7 +119,7 @@ def test_tracks():
         Returns an object that can be used to retrieve test track data
     '''
 
-    class _TestTracks:
+    class _TestTracks(object):
         def get(self, ext):
             return [x for x in _all_tracks if x.filename.endswith(ext)][0]
 

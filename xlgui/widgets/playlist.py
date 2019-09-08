@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import zip
+from builtins import str
+from builtins import range
+from past.utils import old_div
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -373,7 +378,7 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0] + len(positions)):
+        if positions == list(range(positions[0], positions[0] + len(positions))):
             del playlist[positions[0] : positions[0] + len(positions)]
         else:
             for position, track in tracks[::-1]:
@@ -1103,7 +1108,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         def_font_sz = float(default_font.get_size())
 
         # how much has the font deviated from normal?
-        ratio = font.get_size() / def_font_sz
+        ratio = old_div(font.get_size(), def_font_sz)
 
         # small fonts can be problematic..
         # -> TODO: perhaps default widths could be specified
@@ -1408,7 +1413,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             with guiutil.without_model(self):
-                if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
+                if indexes and indexes == list(range(indexes[0], indexes[0] + len(indexes))):
                     del self.playlist[indexes[0] : indexes[0] + len(indexes)]
                 else:
                     for i in indexes[::-1]:
@@ -1871,8 +1876,8 @@ class PlaylistModel(Gtk.ListStore):
             icons.MANAGER.pixbuf_from_icon_name('media-playback-stop')
         )
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
-            dest_width=self.stop_pixbuf.pixbuf.get_width() / 2,
-            dest_height=self.stop_pixbuf.pixbuf.get_height() / 2,
+            dest_width=old_div(self.stop_pixbuf.pixbuf.get_width(), 2),
+            dest_height=old_div(self.stop_pixbuf.pixbuf.get_height(), 2),
             interp_type=GdkPixbuf.InterpType.BILINEAR,
         )
         stop_overlay_pixbuf = stop_overlay_pixbuf.move(
@@ -1893,7 +1898,7 @@ class PlaylistModel(Gtk.ListStore):
 
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(self.play_pixbuf.get_width() * (new_font / default)), 1)
+            s = max(int(self.play_pixbuf.get_width() * (old_div(new_font, default))), 1)
 
             self.play_pixbuf = self.play_pixbuf.scale_simple(s, s, t)
             self.pause_pixbuf = self.pause_pixbuf.scale_simple(s, s, t)

@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2009-2010 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from past.utils import old_div
+from builtins import object
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -76,7 +79,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
         """
             Cleanups
         """
-        for control in self.__controls.itervalues():
+        for control in self.__controls.values():
             control.destroy()
 
     def __contains__(self, item):
@@ -256,7 +259,7 @@ class NextButtonControl(ButtonControl):
         """
             Goes to the next track
         """
-        player.QUEUE.next()
+        next(player.QUEUE)
 
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
@@ -566,7 +569,7 @@ class RatingControl(RatingWidget, BaseControl):
         if player.PLAYER.current is not None:
             player.PLAYER.current.set_rating(rating)
             maximum = settings.get_option('rating/maximum', 5)
-            event.log_event('rating_changed', self, rating / maximum * 100)
+            event.log_event('rating_changed', self, old_div(rating, maximum * 100))
 
 
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
@@ -820,7 +823,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         if event.direction == Gdk.ScrollDirection.UP:
             self.view.playlist.prev()
         elif event.direction == Gdk.ScrollDirection.DOWN:
-            self.view.playlist.next()
+            next(self.view.playlist)
         else:
             return
 

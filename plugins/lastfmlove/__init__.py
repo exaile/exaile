@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 # Copyright (C) 2011  Mathias Brodala <info@noctus.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -13,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from future import standard_library
+standard_library.install_aliases()
+from past.utils import old_div
+from builtins import object
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 import logging
@@ -27,8 +33,8 @@ from xlgui import icons
 from xlgui.widgets.menu import MenuItem
 from xlgui.widgets.playlist_columns import Column, ColumnMenuItem
 
-import lastfmlove_preferences
-from cellrenderertoggleimage import CellRendererToggleImage
+from . import lastfmlove_preferences
+from .cellrenderertoggleimage import CellRendererToggleImage
 
 LASTFMLOVER = None
 logger = logging.getLogger(__name__)
@@ -123,7 +129,7 @@ class LoveColumn(Column):
 
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(pixbuf.get_width() * (new_font / default)), 1)
+            s = max(int(pixbuf.get_width() * (old_div(new_font, default))), 1)
             pixbuf = pixbuf.scale_simple(s, s, t)
 
         return pixbuf

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2011 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 from gi.repository import Gtk
 
 import os
@@ -41,7 +43,7 @@ from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookTab
 from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 
-import history_preferences
+from . import history_preferences
 
 
 class HistoryPlugin(object):

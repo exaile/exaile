@@ -25,11 +25,13 @@
 # from your version.
 
 
+from future import standard_library
+standard_library.install_aliases()
 import os
 from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
-import urlparse
+import urllib.parse
 
 from xl.metadata import (
     aiff,

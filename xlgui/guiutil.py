@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import range
+from past.builtins import basestring
+from builtins import object
+from past.utils import old_div
 import contextlib
 import logging
 import os.path
@@ -152,7 +158,7 @@ def gtk_widget_replace(widget, replacement):
     parent.remove(widget)
     parent.add(replacement)
 
-    for name, value in props.items():
+    for name, value in list(props.items()):
         parent.child_set_property(replacement, name, value)
     return replacement
 
@@ -279,7 +285,7 @@ class ScalableImageWidget(Gtk.Image):
         if not fill:
             origw = float(pixbuf.get_width())
             origh = float(pixbuf.get_height())
-            scale = min(width / origw, height / origh)
+            scale = min(old_div(width, origw), old_div(height, origh))
             width = int(origw * scale)
             height = int(origh * scale)
         self.width = width
@@ -361,7 +367,7 @@ class SearchEntry(object):
         return getattr(self.entry, attr)
 
 
-class ModifierType:
+class ModifierType(object):
     '''
         Common Gdk.ModifierType combinations that work in a cross platform way
     '''
@@ -503,7 +509,7 @@ def persist_selection(widget, key_col, setting_name):
 
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)
@@ -616,7 +622,7 @@ def css_from_pango_font_description(pango_font_str):
     variant = variant_name.split('_', 2)[2].lower().replace('_', '-')
 
     # Pango multiplies its font by Pango.SCALE
-    size = str(new_font.get_size() / Pango.SCALE) + "pt"
+    size = str(old_div(new_font.get_size(), Pango.SCALE)) + "pt"
 
     # See "GTK+ CSS" documentation page for the syntax
 

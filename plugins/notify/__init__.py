@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2009-2010
 #     Adam Olsen <arolsen@gmail.com>
 #     Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
@@ -18,6 +19,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from builtins import object
 import cgi
 import logging
 
@@ -33,7 +35,7 @@ from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.guiutil import pixbuf_from_data
 
-import notifyprefs
+from . import notifyprefs
 
 
 # For documentation on libnotify see also the "Desktop Notifications Specification":

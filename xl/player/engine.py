@@ -26,6 +26,7 @@
 # from your version.
 
 
+from builtins import object
 class ExaileEngine(object):
     '''
         Interface that the ExailePlayer uses to control the engines. Other

@@ -27,6 +27,8 @@
 """
     Shared GUI widgets
 """
+from future import standard_library
+standard_library.install_aliases()
 from collections import namedtuple
 
 from gi.repository import Gio
@@ -34,7 +36,7 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-from itertools import imap
+
 from urllib2 import urlparse
 
 from xl import common, playlist as xl_playlist, trax
@@ -341,7 +343,7 @@ class DragTreeView(AutoScrollTreeView):
         if get_tracks_for_path:
             model, paths = self.get_selection().get_selected_rows()
             drag_cover_icon = icons.MANAGER.get_drag_cover_icon(
-                imap(get_tracks_for_path, paths)
+                map(get_tracks_for_path, paths)
             )
 
         if drag_cover_icon is None:

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2014 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import object
 from gi.repository import Gio
 
 from os.path import dirname, join
@@ -34,7 +37,7 @@ from xl.nls import gettext as _
 from xl.metadata.tags import tag_data
 
 from xlgui.widgets import menu
-from analyzer_dialog import AnalyzerDialog
+from .analyzer_dialog import AnalyzerDialog
 
 
 class PlaylistAnalyzerPlugin(object):

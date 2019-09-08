@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import range
+from builtins import object
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -181,7 +183,7 @@ class SmartNotebook(Gtk.Notebook):
     def __on_notify_tab_pos(self, _widget, _param):
         tab_pos = self.get_tab_pos()
         expand = tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM)
-        for i in xrange(self.get_n_pages()):
+        for i in range(self.get_n_pages()):
             page = self.get_nth_page(i)
             self.child_set_property(page, 'tab-expand', expand)
             tab = self.get_tab_label(page)  # type: NotebookTab
@@ -377,7 +379,7 @@ class NotebookTab(Gtk.EventBox):
         """
         name = self.entry.get_text()
 
-        if not isinstance(name, unicode):
+        if not isinstance(name, str):
             name = name.decode('utf-8', errors='replace')
 
         if name.strip() != "" and not self.entry.props.editing_canceled:

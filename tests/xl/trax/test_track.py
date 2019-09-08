@@ -1,5 +1,9 @@
 # -*- coding: utf-8  -*-
 
+from builtins import str
+from builtins import bytes
+from builtins import range
+from builtins import object
 import os
 import unittest
 import logging
@@ -48,7 +52,7 @@ class Test_MetadataCacher(object):
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
         GLib.timeout_add_seconds(
-            mox.IsA(types.IntType), mox.IsA(types.MethodType)
+            mox.IsA(int), mox.IsA(types.MethodType)
         ).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
@@ -320,7 +324,7 @@ class TestTrack(object):
         tr = track.Track(test_track.filename)
         tags = {'artist': 'foo', 'album': 'bar', '__loc': test_track.filename}
         self.empty_track_of_tags(tr, tags)
-        for tag, val in tags.iteritems():
+        for tag, val in tags.items():
             tr.set_tag_raw(tag, val)
         assert set(tr.list_tags()) == {'album', '__loc', 'artist', '__basename'}
 

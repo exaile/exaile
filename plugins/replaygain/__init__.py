@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2009-2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify
@@ -30,7 +31,7 @@ from xl.player.gst.gst_utils import ElementBin
 from gi.repository import Gst
 
 try:
-    import replaygainprefs
+    from . import replaygainprefs
 
     def get_preferences_pane():
         return replaygainprefs

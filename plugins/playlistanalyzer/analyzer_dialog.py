@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2014 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import range
+from builtins import object
 from gi.repository import GObject
 from gi.repository import Gtk
 
@@ -44,7 +48,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from presets import DEFAULT_PRESETS
+from .presets import DEFAULT_PRESETS
 
 
 class AnalyzerDialog(object):
@@ -100,7 +104,7 @@ class AnalyzerDialog(object):
                 return td.translated_name
 
         # convenience
-        td = tag_data.values()
+        td = list(tag_data.values())
 
         # Add grouptagger to the list
         gt = get_default_tagdata('__grouptagger')
@@ -215,7 +219,7 @@ class AnalyzerDialog(object):
         if tmpl is None:
             return
 
-        for i in xrange(0, tmpl['maxtags']):
+        for i in range(0, tmpl['maxtags']):
 
             label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
@@ -235,7 +239,7 @@ class AnalyzerDialog(object):
 
     def __set_tag_combo_active(self, cb, tag_name):
         model = cb.get_model()
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][1].tag_name == tag_name:
                 cb.set_active(i)
                 return
@@ -300,7 +304,7 @@ class AnalyzerDialog(object):
             settings.set_option('plugin/playlistanalyzer/tag%s' % i, td)
 
         # switch the template
-        for i in xrange(0, len(self.template_store)):
+        for i in range(0, len(self.template_store)):
             if tmpl == basename(self.template_store[i][1]['fname']):
                 self.template_list.set_cursor((i,))
                 break

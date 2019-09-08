@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +27,8 @@
 # from your version.
 
 
+from builtins import range
+from past.utils import old_div
 import time
 
 
@@ -34,5 +38,5 @@ def timeit(n, func, *args):
         start = time.clock()
         func.__call__(*args)
         runs.append(time.clock() - start)
-    avg = sum(runs) / len(runs)
+    avg = old_div(sum(runs), len(runs))
     print("%1.8f seconds" % avg)

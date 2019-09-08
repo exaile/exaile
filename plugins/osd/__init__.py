@@ -15,7 +15,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from __future__ import division
+from __future__ import absolute_import
 
+from builtins import str
+from builtins import object
 from collections import namedtuple
 import logging
 import sys
@@ -29,7 +32,7 @@ from xl.nls import gettext as _
 from xlgui.widgets import info
 from xlgui import guiutil
 
-import osd_preferences
+from . import osd_preferences
 
 
 LOGGER = logging.getLogger(__name__)

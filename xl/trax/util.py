@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import map
 from gi.repository import Gio
 from gi.repository import GLib
 
@@ -168,12 +169,12 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
     if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
         return []
-    matchers = map(
+    matchers = list(map(
         lambda t: TracksMatcher(
             track.get_tag_search(t, artist_compilations=artist_compilations)
         ),
         ['artist', 'album'],
-    )
+    ))
     return (r.track for r in search_tracks(tracksiter, matchers))
 
 

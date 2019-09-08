@@ -2,6 +2,7 @@
     Routines useful for dealing with unicode data
 '''
 
+from builtins import str
 import locale
 import unicodedata
 import string
@@ -15,7 +16,7 @@ def shave_marks(text):
         :param text: Some input that will be converted to unicode string
         :returns: unicode string
     '''
-    text = unicode(text)
+    text = str(text)
     decomposed_text = unicodedata.normalize('NFD', text)
 
     # Don't look for decomposed characters if there aren't any..
@@ -41,7 +42,7 @@ def strxfrm(x):
     cases): https://bugs.python.org/issue2481
     """
 
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return locale.strxfrm(x.encode('utf-8', 'replace'))
     return locale.strxfrm(x)
 
@@ -49,12 +50,12 @@ def strxfrm(x):
 def to_unicode(x, encoding=None, errors='strict'):
     """Force getting a unicode string from any object."""
     # unicode() only accepts "string or buffer", so check the type of x first.
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return x
     elif isinstance(x, bytes):
         if encoding:
-            return unicode(x, encoding, errors)
+            return str(x, encoding, errors)
         else:
-            return unicode(x, errors=errors)
+            return str(x, errors=errors)
     else:
-        return unicode(x)
+        return str(x)

@@ -19,6 +19,7 @@
 from __future__ import division, print_function, unicode_literals
 
 
+from builtins import str
 def bash_completion(parser):
     """
     :type parser: argparse.ArgumentParser

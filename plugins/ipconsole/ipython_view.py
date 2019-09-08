@@ -46,15 +46,19 @@ is available at U{https://www.opensource.org/licenses/bsd-license.php}
 
 from __future__ import print_function
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
 import re
 import sys
 import os
 import subprocess
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 from functools import reduce
 
 from gi.repository import Gtk

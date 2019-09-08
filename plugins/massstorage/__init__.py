@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import object
 from xl import providers, collection
 from xl.hal import Handler
 from xl.devices import Device
@@ -62,7 +64,7 @@ class MassStorageDevice(Device):
         self.mountpoints = [
             str(x)
             for x in self._mountpoints
-            if str(x) is not "" and os.path.exists(unicode(x))
+            if str(x) is not "" and os.path.exists(str(x))
         ]
         if self.mountpoints == []:
             raise IOError("Device is not mounted.")

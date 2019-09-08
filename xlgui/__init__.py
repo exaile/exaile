@@ -24,6 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
+from builtins import object
 __all__ = ['main', 'panel', 'playlist']
 
 from gi.repository import Gdk
@@ -248,7 +252,7 @@ class Main(object):
             collection_libraries = sorted(
                 [
                     (l.location, l.monitored, l.startup_scan)
-                    for l in collection.libraries.itervalues()
+                    for l in collection.libraries.values()
                 ]
             )
             new_libraries = sorted(dialog.get_items())
@@ -269,11 +273,11 @@ class Main(object):
 
                     removals = []
 
-                    for location, library in collection.libraries.iteritems():
+                    for location, library in collection.libraries.items():
                         if location not in new_locations:
                             removals += [library]
 
-                    map(collection.remove_library, removals)
+                    list(map(collection.remove_library, removals))
 
                     self.on_rescan_collection()
 

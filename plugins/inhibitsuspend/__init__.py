@@ -8,10 +8,13 @@
 """
 from __future__ import print_function, with_statement
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 try:
-    import thread as _thread
+    import _thread as _thread
 except ImportError:
-    import dummy_thread as _thread
+    import _dummy_thread as _thread
 import logging
 import os
 

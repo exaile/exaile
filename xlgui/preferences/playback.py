@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from past.builtins import cmp
 from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
@@ -62,7 +63,7 @@ class AudioSinkPreference(widgets.ComboPreference):
                 return -1
             return 1
 
-        for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
+        for name, preset in sorted(iter(SINK_PRESETS.items()), _sink_cmp):
             model.append((name, preset['name']))
         self._set_value()
 

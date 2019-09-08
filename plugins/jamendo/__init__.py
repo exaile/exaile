@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 # Copyright (C) 2009-2010 Erin Drummond
 #
 # This program is free software; you can redistribute it and/or modify
@@ -29,9 +31,9 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gtk
 
-import jamtree
-import jamapi
-import menu
+from . import jamtree
+from . import jamapi
+from . import menu
 import os
 from xl import common, event, settings, providers, trax as xltrack
 from xl.covers import CoverSearchMethod

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2014 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -31,7 +32,7 @@ from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import dialogs
 
-import gt_common
+from . import gt_common
 
 
 @GtkTemplate('gt_mass.ui', relto=__file__)

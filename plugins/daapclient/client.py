@@ -1,6 +1,10 @@
-import httplib
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+import http.client
 import logging
-from cStringIO import StringIO
+from io import StringIO
 
 from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 
@@ -28,7 +32,7 @@ class DAAPClient(object):
         self.password = password
         self.user_agent = user_agent
         #        self.socket = httplib.HTTPConnection(hostname, port)
-        self.socket = httplib.HTTPConnection(hostname + ':' + str(port))
+        self.socket = http.client.HTTPConnection(hostname + ':' + str(port))
         self.getContentCodes()  # practically required
         self.getInfo()  # to determine the remote server version
 
@@ -36,7 +40,7 @@ class DAAPClient(object):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
+            l = ['%s=%s' % (k, v) for k, v in params.items()]
             r = '%s?%s' % (r, '&'.join(l))
 
         log.debug('getting %s', r)

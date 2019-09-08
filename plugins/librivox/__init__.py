@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
@@ -19,14 +20,16 @@
 #    Otherwise, (without threaded functions) UI is non responsive, while
 #    fetching that info...
 
+from builtins import str
+from builtins import object
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Gtk
 
 import os
 
-import librivoxsearch as LS
-import about_window as AW
+from . import librivoxsearch as LS
+from . import about_window as AW
 from xl import common, event, providers, settings, trax
 from xlgui import guiutil, icons, main
 from xlgui.widgets.common import DragTreeView
@@ -55,14 +58,14 @@ def disable(exaile):
     providers.unregister('main-panel', LVPANEL)
 
 
-class LVPanel:
+class LVPanel(object):
     def on_search(self, widget):
         self.run_search(widget)
 
     @common.threaded
     def run_search(self, widget):
         (c_id, msg_id) = self.statusbar.set_status('Searching...')
-        self.keyword = unicode(self.entry.get_text(), 'utf-8')
+        self.keyword = str(self.entry.get_text(), 'utf-8')
         self.books = LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)
@@ -368,7 +371,7 @@ class LVPanel:
         return self._panel
 
 
-class Status:
+class Status(object):
     '''Status bar'''
 
     def __init__(self):

@@ -16,7 +16,12 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import with_statement
+from __future__ import division
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+from past.utils import old_div
 import copy
 import json
 import logging
@@ -41,7 +46,7 @@ _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
 
-class Bookmark:
+class Bookmark(object):
     """
         Manages a bookmark and provides a method to create a menu item.
     """
@@ -105,7 +110,7 @@ class Bookmark:
         """
             Create menu entries for this bookmark.
         """
-        time = '%d:%02d' % (self.__time / 60, self.__time % 60)
+        time = '%d:%02d' % (old_div(self.__time, 60), self.__time % 60)
         label = '%s @ %s' % (self.__title, time)
 
         def factory(menu_, _parent, _context):
@@ -154,7 +159,7 @@ class Bookmark:
         return (self.__path, self.__time)
 
 
-class BookmarksManager:
+class BookmarksManager(object):
     """
         Manages a list of bookmarks and the associated menu entries
     """

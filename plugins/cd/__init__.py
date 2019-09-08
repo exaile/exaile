@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 # Copyright (C) 2009-2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +26,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
+from builtins import range
+from past.utils import old_div
+from builtins import object
 import dbus
 from fcntl import ioctl
 import logging
@@ -38,7 +44,7 @@ from xl.devices import Device, KeyedDevice
 from xl import playlist, trax, common
 import os.path
 
-import cdprefs
+from . import cdprefs
 
 try:
     import DiscID
@@ -128,7 +134,7 @@ class CDTocParser(object):
             toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
             start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
 
-            for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
+            for trnum in list(range(start, end + 1)) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
                 self.__raw_tracks.append(_CDTrack(entry))
@@ -142,7 +148,7 @@ class CDTocParser(object):
         lengths = []
         for track in self.__raw_tracks[1:]:
             frame_end = track.get_frame_count()
-            lengths.append((frame_end - offset) / 75)
+            lengths.append(old_div((frame_end - offset), 75))
             offset = frame_end
         return lengths
 

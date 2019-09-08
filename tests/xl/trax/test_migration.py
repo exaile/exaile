@@ -1,15 +1,19 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 try:
-    import dbm
+    import dbm.ndbm
 except ImportError:
     dbm = None
 
 try:
-    import gdbm
+    import dbm.gnu
 except ImportError:
     gdbm = None
 
 try:
-    import dumbdbm
+    import dbm.dumb
 except ImportError:
     dumbdbm = None
 
@@ -63,7 +67,7 @@ def test_migration(data):
             return
         raise
 
-    for k, v in truth.iteritems():
+    for k, v in truth.items():
         assert k in db
         assert v == db[k]
 

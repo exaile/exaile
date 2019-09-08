@@ -7,6 +7,7 @@
 #
 
 
+from builtins import object
 import sys
 import signal
 

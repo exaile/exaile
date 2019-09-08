@@ -25,12 +25,13 @@
 # from your version.
 
 
+from builtins import object
 from gi.repository import GLib
 
 Variant = GLib.Variant
 
 
-class DBusHelper:
+class DBusHelper(object):
     """Helper to make D-Bus handling more Pythonic.
 
     The `object` argument of the constructor should be a Python object in the

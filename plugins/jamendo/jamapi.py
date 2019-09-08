@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2009-2010 Erin Drummond
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,7 +26,7 @@
 # from your version.
 
 import json
-import jamtree
+from . import jamtree
 import threading
 
 from xl import common

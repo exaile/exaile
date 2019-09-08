@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2017 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -35,7 +36,7 @@ from xl.trax import search
 
 from xlgui.widgets import dialogs
 
-from gt_common import get_track_groups
+from .gt_common import get_track_groups
 
 import logging
 

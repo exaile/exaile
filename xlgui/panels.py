@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import range
+from builtins import object
 import logging
 
 from xl.nls import gettext as _
@@ -177,7 +179,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         if self.loading_panels:
             return
 
-        for name, data in self.panels.iteritems():
+        for name, data in self.panels.items():
             if data.tab.page == page:
                 data.shown = False
                 break
@@ -189,7 +191,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         if self.loading_panels:
             return
 
-        for name, data in self.panels.iteritems():
+        for name, data in self.panels.items():
             if data.shown:
                 data.position = self.page_num(data.tab.page)
 
@@ -203,7 +205,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
             return
 
         page = notebook.get_nth_page(pagenum)
-        for name, data in self.panels.iteritems():
+        for name, data in self.panels.items():
             if data.tab.page == page:
                 settings.set_option('gui/last_selected_panel', name)
                 return
@@ -213,7 +215,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         if self.loading_panels:
             return
 
-        param = dict([(k, v.opts) for k, v in self.panels.iteritems()])
+        param = dict([(k, v.opts) for k, v in self.panels.items()])
         settings.set_option('gui/panels', param)
 
     def on_gui_loaded(self):
@@ -234,7 +236,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
 
         selected_panel = None
 
-        for name, (shown, pos) in order.iteritems():
+        for name, (shown, pos) in order.items():
 
             panel_data = self.panels.get(name, None)
             if panel_data is None:

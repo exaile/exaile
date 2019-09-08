@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from builtins import object
 import logging
 
 import gi
@@ -98,7 +99,7 @@ def on_media_key(key, exaile):
         'XF86AudioPlay': lambda: start_stop_playback(PLAYER, QUEUE),
         'XF86AudioStop': PLAYER.stop,
         'XF86AudioPrev': QUEUE.prev,
-        'XF86AudioNext': QUEUE.next,
+        'XF86AudioNext': QUEUE.__next__,
         'XF86AudioPause': PLAYER.toggle_pause,
         'XF86AudioMedia': exaile.gui.main.window.present,
         'XF86AudioRewind': lambda: PLAYER.seek(0),

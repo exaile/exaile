@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 from gi.repository import Gtk
 from xl import providers
 
@@ -62,11 +63,11 @@ class AcceleratorManager(providers.ProviderHandler):
 
     ## Global accelerator enable/disable
     def disable_accelerators(self):
-        for provider in self.accelerators.values():
+        for provider in list(self.accelerators.values()):
             self.accelgroup.disconnect_key(provider.key, provider.mods)
 
     def enable_accelerators(self):
-        for provider in self.accelerators.values():
+        for provider in list(self.accelerators.values()):
             self.accelgroup.connect(
                 provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback
             )

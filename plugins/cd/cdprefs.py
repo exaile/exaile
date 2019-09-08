@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import zip
+from builtins import str
 from __future__ import with_statement
 import os
 
@@ -88,7 +90,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_model(None)
         model.clear()
 
-        steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
+        steps = list(zip(formatinfo['raw_steps'], formatinfo['kbs_steps']))
 
         for item, title in steps:
             model.append([item, str(title)])

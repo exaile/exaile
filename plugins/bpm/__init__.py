@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 # Copyright (C) 2011 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +27,9 @@
 # from your version.
 
 
+from builtins import str
+from past.utils import old_div
+from builtins import object
 import time
 
 from gi.repository import Gdk
@@ -37,7 +42,7 @@ from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu, dialogs
 
-import bpmdetect
+from . import bpmdetect
 
 autodetect_enabled = bpmdetect.autodetect_supported()
 
@@ -309,7 +314,7 @@ class BPMWidget(Gtk.Frame):
             self.bpm = str(
                 int(
                     round(
-                        ((len(self.taps) - 1) * 60.0) / (self.taps[-1] - self.taps[0])
+                        old_div(((len(self.taps) - 1) * 60.0), (self.taps[-1] - self.taps[0]))
                     )
                 )
             )

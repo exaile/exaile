@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2006 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from builtins import object
 import subprocess
 import logging
 import os
@@ -24,7 +26,7 @@ from xl import event, player, settings
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
-import srprefs
+from . import srprefs
 
 logger = logging.getLogger(__name__)
 

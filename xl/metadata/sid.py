@@ -25,6 +25,7 @@
 # from your version.
 
 
+from builtins import chr
 from xl.metadata._base import BaseFormat
 
 

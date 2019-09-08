@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2015 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
+from past.utils import old_div
 from gi.repository import GLib
 
 from xl import common
@@ -130,7 +133,7 @@ class TrackFader(object):
         if self.fade_volume < 0.01:
             return real_volume, True
         else:
-            user_vol = real_volume / self.fade_volume
+            user_vol = old_div(real_volume, self.fade_volume)
             is_same = abs(user_vol - self.user_volume) < 0.01
             return user_vol, is_same
 
@@ -141,7 +144,7 @@ class TrackFader(object):
             self.stream.stop()
             return
 
-        self.now = (self.stream.get_position() / self.SECOND) - 0.010
+        self.now = (old_div(self.stream.get_position(), self.SECOND)) - 0.010
         fade_len = float(self.fade_out_end - self.fade_out_start)
 
         # If playing, and is not fading out, then force a fade out
@@ -272,7 +275,7 @@ class TrackFader(object):
             return
 
         if now is None:
-            now = self.stream.get_position() / self.SECOND
+            now = old_div(self.stream.get_position(), self.SECOND)
 
         msg = "Fade data: now: %.2f; in: %s,%s; out: %s,%s"
         self.logger.debug(
@@ -313,7 +316,7 @@ class TrackFader(object):
     def _on_fade_start(self, now=None):
 
         if now is None:
-            now = self.stream.get_position() / self.SECOND
+            now = old_div(self.stream.get_position(), self.SECOND)
 
         self.now = now - 0.010
 
@@ -351,7 +354,7 @@ class TrackFader(object):
         if fade_len < 0.01:
             volume = 0.0
         else:
-            volume = (self.now - fade_start) / fade_len
+            volume = old_div((self.now - fade_start), fade_len)
 
         if not fading_in:
             volume = 1.0 - volume

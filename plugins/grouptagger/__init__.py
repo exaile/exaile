@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2011 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -33,9 +35,9 @@ from xl.nls import gettext as _
 
 from xlgui.widgets import menu, dialogs
 
-import gt_prefs
-import gt_widgets
-from gt_common import (
+from . import gt_prefs
+from . import gt_widgets
+from .gt_common import (
     migrate_settings,
     get_group_categories,
     set_group_categories,
@@ -45,9 +47,9 @@ from gt_common import (
     tagname_option,
     create_custom_search_playlist,
 )
-import gt_export
-import gt_import
-import gt_mass
+from . import gt_export
+from . import gt_import
+from . import gt_mass
 
 
 class GroupTaggerPlugin(object):

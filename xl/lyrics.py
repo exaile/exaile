@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 from datetime import datetime, timedelta
 import os
 import re
@@ -38,7 +39,7 @@ class LyricsNotFoundException(Exception):
     pass
 
 
-class LyricsCache:
+class LyricsCache(object):
     '''
         Basically just a thread-safe shelf for convinience.
         Supports container syntax.
@@ -71,7 +72,7 @@ class LyricsCache:
         '''
             Return the shelve keys
         '''
-        return self.db.keys()
+        return list(self.db.keys())
 
     def _get(self, key, default=None):
         with self.lock:
@@ -260,7 +261,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode), (method, track)
+        assert isinstance(lyrics, str), (method, track)
 
         # update cache
         time = datetime.now()

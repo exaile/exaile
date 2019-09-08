@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # mpris2 - Support MPRIS 2 in Exaile
 # Copyright (C) 2015-2016  Johannes Sasongko <sasongko@gmail.com>
 #
@@ -25,10 +26,11 @@
 # from your version.
 
 
+from builtins import object
 from gi.repository import Gio
 
-import dbushelper
-import mprisobject
+from . import dbushelper
+from . import mprisobject
 
 
 # MPRIS 2.2 partial introspection data.
@@ -118,7 +120,7 @@ MPRIS_INTROSPECTION = '''\
 '''
 
 
-class MprisPlugin:
+class MprisPlugin(object):
     def enable(self, exaile):
         self.handler = MprisHandler(exaile)
 
@@ -133,7 +135,7 @@ class MprisPlugin:
 plugin_class = MprisPlugin
 
 
-class MprisHandler:
+class MprisHandler(object):
     root_interface = player_interface = None
 
     def __init__(self, exaile):

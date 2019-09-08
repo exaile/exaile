@@ -28,7 +28,7 @@ from gi.repository import Gio
 
 
 def migrate(db, pdata, oldversion, newversion):
-    for k in (x for x in pdata.keys() if x.startswith("tracks-")):
+    for k in (x for x in list(pdata.keys()) if x.startswith("tracks-")):
         p = pdata[k]
         tags = p[0]
         try:

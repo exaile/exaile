@@ -14,7 +14,10 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-import urllib
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import urllib.request, urllib.parse, urllib.error
 from xml.etree import ElementTree
 from xl import common
 import logging
@@ -27,7 +30,7 @@ logger = logging.getLogger(__name__)
 search_url = 'https://librivox.org/api/feed/audiobooks/?title='
 
 
-class Book:
+class Book(object):
     def __init__(self, title, rssurl, user_agent):
         self.title = title
         self.rssurl = rssurl
@@ -84,7 +87,7 @@ def find_books(keyword, user_agent):
     '''
 
     # urlencode the search string
-    url = search_url + urllib.quote_plus(keyword)
+    url = search_url + urllib.parse.quote_plus(keyword)
 
     try:
         data = common.get_url_contents(url, user_agent)

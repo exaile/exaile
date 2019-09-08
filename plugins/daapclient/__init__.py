@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 # Copyright (C) 2006-2007 Aren Olson
 #                    2011 Brian Parma
 #
@@ -15,9 +17,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from past.utils import old_div
+from builtins import object
 import functools
 from gettext import gettext as _
-import httplib
+import http.client
 import logging
 import pickle
 import os
@@ -34,8 +41,8 @@ from xlgui.panel.collection import CollectionPanel
 from xlgui.widgets import dialogs, menu, menuitems
 from xlgui import main
 
-from client import DAAPClient
-import daapclientprefs
+from .client import DAAPClient
+from . import daapclientprefs
 
 
 logger = logging.getLogger(__name__)
@@ -189,7 +196,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
         items = {}
 
-        for key, x in self.services.items():
+        for key, x in list(self.services.items()):
             name = '{0} ({1})'.format(x.name, x.host)
             if x.protocol == avahi.PROTO_INET6:
                 if not show_ipv6:
@@ -296,7 +303,7 @@ class DaapHistory(common.LimitedCache):
             pickle.dump(self.cache, f, common.PICKLE_PROTOCOL)
 
 
-class DaapManager:
+class DaapManager(object):
     '''
         DaapManager is a class that manages DaapConnections, both manual
     and avahi-generated.
@@ -429,7 +436,7 @@ class DaapManager:
         removes the panels from the UI.
         '''
         # disconnect active shares
-        for panel in self.panels.values():
+        for panel in list(self.panels.values()):
             panel.daap_share.disconnect()
 
             # there's no point in doing this if we're just shutting down, only on
@@ -559,7 +566,7 @@ class DaapConnection(object):
                 # Don't scan tracks because gio is slow!
                 temp = trax.Track(uri, scan=False)
 
-                for field in eqiv.keys():
+                for field in list(eqiv.keys()):
                     try:
                         tag = u'%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
@@ -572,7 +579,7 @@ class DaapConnection(object):
                 # TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw(
-                        "__length", tr.atom.getAtom('astm') / 1000, notify_changed=False
+                        "__length", old_div(tr.atom.getAtom('astm'), 1000), notify_changed=False
                     )
                 except Exception:
                     temp.set_tag_raw("__length", 0, notify_changed=False)
@@ -588,7 +595,7 @@ class DaapConnection(object):
             if t.id == track_id:
                 try:
                     t.save(filename)
-                except httplib.CannotSendRequest:
+                except http.client.CannotSendRequest:
                     Gtk.MessageDialog(
                         main.mainwindow().window,
                         Gtk.DialogFlags.MODAL,

@@ -30,6 +30,10 @@ Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
 from gi.repository import GLib
 from gi.repository import Gio
 import logging
@@ -37,12 +41,12 @@ import hashlib
 import os
 
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
 from xl.nls import gettext as _
-import xl.unicode
+import xl.str
 from xl import common, event, providers, settings, trax, xdg
 
 logger = logging.getLogger(__name__)
@@ -171,7 +175,7 @@ class CoverManager(providers.ProviderHandler):
         for name in self.order:
             if name in self.methods:
                 methods.append(self.methods[name])
-        for k, method in self.methods.iteritems():
+        for k, method in self.methods.items():
             if method not in methods:
                 methods.append(method)
         nonfixed = [m for m in methods if not m.fixed]
@@ -207,7 +211,7 @@ class CoverManager(providers.ProviderHandler):
             if not value:
                 return None
             value = u'\1'.join(
-                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
+                xl.str.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
             )
             assert isinstance(tag, bytes)
             return tag.decode('ascii') + u'\0' + value

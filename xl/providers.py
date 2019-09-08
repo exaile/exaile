@@ -30,6 +30,7 @@
     sources can offer the required data.
 """
 
+from builtins import object
 from xl import event
 import logging
 

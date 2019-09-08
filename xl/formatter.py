@@ -29,7 +29,10 @@
 Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
+from __future__ import division
 
+from builtins import object
+from past.utils import old_div
 from datetime import date
 from gi.repository import GLib
 from gi.repository import GObject
@@ -39,6 +42,7 @@ from string import Template, _TemplateMetaclass
 from xl import common, providers, settings, trax
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
+from future.utils import with_metaclass
 
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
@@ -76,7 +80,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
 
-class ParameterTemplate(Template):
+class ParameterTemplate(with_metaclass(_ParameterTemplateMetaclass, Template)):
     """
         An extended template class which additionally
         accepts parameters assigned to identifiers.
@@ -91,8 +95,6 @@ class ParameterTemplate(Template):
         * ``${bar:parameter1, parameter2}``
         * ``${qux:parameter1=argument1, parameter2}``
     """
-
-    __metaclass__ = _ParameterTemplateMetaclass
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):
@@ -280,7 +282,7 @@ class Formatter(GObject.GObject):
         extractions = self.extract()
         substitutions = {}
 
-        for needle, (identifier, parameters) in extractions.iteritems():
+        for needle, (identifier, parameters) in extractions.items():
             substitute = None
 
             if needle in self._substitutions:
@@ -301,7 +303,7 @@ class Formatter(GObject.GObject):
                     # Decrease pad length by value length
                     pad = max(0, pad - len(substitute))
                     # Retrieve the maximum multiplier for the pad string
-                    padcount = pad / len(padstring) + 1
+                    padcount = old_div(pad, len(padstring)) + 1
                     # Generate pad string
                     padstring = padcount * padstring
                     # Clamp pad string
@@ -399,7 +401,7 @@ class TrackFormatter(Formatter):
         extractions = self.extract()
         self._substitutions = {}
 
-        for identifier, (tag, parameters) in extractions.iteritems():
+        for identifier, (tag, parameters) in extractions.items():
             provider = providers.get_provider('tag-formatting', tag)
 
             if provider is None:

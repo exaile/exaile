@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,9 @@
 # from your version.
 
 
+from builtins import str
+from past.utils import old_div
+from builtins import object
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -188,7 +192,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             track.set_rating(rating)
 
         maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
+        event.log_event('rating_changed', self, old_div(rating, maximum * 100))
 
     def open_item(self, tree, path, col):
         """
@@ -344,7 +348,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             if not track:
                 continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, str(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:
@@ -551,7 +555,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             @param pl: the playlist to be updated
         """
-        playlists = self.playlist_nodes.keys()
+        playlists = list(self.playlist_nodes.keys())
         for playlist in playlists:
             if playlist.name == pl.name:
                 node = self.playlist_nodes[playlist]

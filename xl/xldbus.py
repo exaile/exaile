@@ -30,7 +30,9 @@
     Access through the ``/org/exaile/Exaile`` object which
     implements the ``org.exaile.Exaile`` interface
 """
+from __future__ import print_function
 
+from builtins import str
 from collections import namedtuple
 import logging
 import sys
@@ -124,7 +126,7 @@ def run_commands(options, iface):
         'GetLength': '__length',
     }
 
-    for command, attr in info_commands.iteritems():
+    for command, attr in info_commands.items():
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:
@@ -280,7 +282,7 @@ class DbusManager(dbus.service.Object):
 
         if isinstance(value, list):
             return u"\n".join(value)
-        return unicode(value)
+        return str(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):
@@ -389,7 +391,7 @@ class DbusManager(dbus.service.Object):
         """
         from xl import player
 
-        player.QUEUE.next()
+        next(player.QUEUE)
 
     @dbus.service.method('org.exaile.Exaile')
     def Play(self):

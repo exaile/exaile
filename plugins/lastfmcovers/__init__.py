@@ -15,8 +15,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+from future import standard_library
+standard_library.install_aliases()
 import json
-from urllib import quote_plus
+from urllib.parse import quote_plus
 from xl import common, covers, event, providers
 
 # Last.fm API Key for Exaile

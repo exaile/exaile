@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 # Copyright (C) 2014-2015 Dustin Spicuzza
 #
@@ -26,6 +27,8 @@
 # from your version.
 
 
+from builtins import object
+from past.utils import old_div
 import time
 
 from gi.repository import GLib
@@ -320,7 +323,7 @@ class ExailePlayer(object):
             :rtype: float
         """
         try:
-            progress = self.get_time() / self.current.get_tag_raw("__length")
+            progress = old_div(self.get_time(), self.current.get_tag_raw("__length"))
         except TypeError:  # track doesn't have duration info
             progress = 0
         except AttributeError:  # no current track

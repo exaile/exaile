@@ -5,6 +5,7 @@
     Derived from https://read-the-docs.readthedocs.org/en/latest/faq.html
 '''
 
+from builtins import object
 import sys
 
 
@@ -41,7 +42,7 @@ class Mock(object):
 
     # gtk/gdk mocks
 
-    class ModifierType:
+    class ModifierType(object):
         SHIFT_MASK = 0
 
     @classmethod

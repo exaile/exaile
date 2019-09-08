@@ -70,9 +70,12 @@
     Note that the old style of writing plugins is not going away, so you
     can continue to write plugins that way if its simpler.
 '''
+from __future__ import print_function
+from __future__ import absolute_import
 
 
-import testlib
+from builtins import object
+from . import testlib
 
 
 class HelloWorld(object):

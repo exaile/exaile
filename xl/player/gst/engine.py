@@ -25,12 +25,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 from gi.repository import GLib
 from gi.repository import Gst
 
 import logging
 import os
-import urlparse
+import urllib.parse
 
 from xl import common
 from xl import event
@@ -489,7 +492,7 @@ class AudioStream(object):
         # This is only set for gapless playback
         if not already_queued:
             self.playbin.set_property("uri", uri)
-            if urlparse.urlsplit(uri)[0] == "cdda":
+            if urllib.parse.urlsplit(uri)[0] == "cdda":
                 self.notify_id = self.playbin.connect(
                     'source-setup', self.on_source_setup, track
                 )

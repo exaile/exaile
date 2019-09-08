@@ -25,6 +25,8 @@
 # from your version.
 
 
+from builtins import str
+from builtins import map
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import mp4
 
@@ -83,7 +85,7 @@ class MP4Format(BaseFormat):
             try:
                 f[name] = []
                 for val in value:
-                    tmp = map(int, val.split('/'))
+                    tmp = list(map(int, val.split('/')))
                     f[name].append(tuple(tmp))
             except (TypeError, ValueError):
                 pass

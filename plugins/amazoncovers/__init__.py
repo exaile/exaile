@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2006 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,8 +20,8 @@ import time
 
 from xl import common, covers, event, providers, settings
 
-import _ecs as ecs
-import amazonprefs
+from . import _ecs as ecs
+from . import amazonprefs
 
 logger = logging.getLogger(__name__)
 

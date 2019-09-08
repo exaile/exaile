@@ -28,9 +28,11 @@
     Provides methods for convenient icons and image handling
 """
 
+from builtins import range
+from builtins import object
 import glob
 from gi.repository import GdkPixbuf, GLib, Gtk
-from itertools import imap, ifilter
+
 import logging
 import os
 
@@ -297,7 +299,7 @@ class ExtendedPixbuf(object):
         )
         new_pixbuf.fill(0xFFFFFF00)
 
-        for n in xrange(0, multiplier):
+        for n in range(0, multiplier):
             self.pixbuf.copy_area(
                 src_x=0,
                 src_y=0,
@@ -332,7 +334,7 @@ class ExtendedPixbuf(object):
         )
         new_pixbuf.fill(0xFFFFFF00)
 
-        for n in xrange(0, multiplier):
+        for n in range(0, multiplier):
             self.pixbuf.copy_area(
                 src_x=0,
                 src_y=0,
@@ -745,10 +747,10 @@ class IconManager(object):
         get_cover_for_tracks = covers.MANAGER.get_cover_for_tracks
         db_string_list = []
         cover_for_tracks = lambda tracks: get_cover_for_tracks(tracks, db_string_list)
-        filtered_covers = ifilter(
-            None, imap(cover_for_tracks, tracks)
+        filtered_covers = filter(
+            None, map(cover_for_tracks, tracks)
         )  # Remove None cover tracks
-        async_loader = common.AsyncLoader(imap(as_pixbuf, filtered_covers))
+        async_loader = common.AsyncLoader(map(as_pixbuf, filtered_covers))
         async_loader.end(0.333)
         return self.__create_drag_cover_icon(async_loader.result, cover_width)
 

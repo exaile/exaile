@@ -46,7 +46,7 @@ def migrate(path):
     db = common.bsddb.hashopen(bak_path, 'c')
     new_shelf = shelve.BsdDbShelf(db, protocol=common.PICKLE_PROTOCOL)
 
-    for k, v in old_shelf.iteritems():
+    for k, v in old_shelf.items():
         new_shelf[k] = v
 
     new_shelf.close()

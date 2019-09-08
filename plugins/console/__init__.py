@@ -21,15 +21,18 @@ For better development experience, please use the IPython console plugin. This
 plugin is meant as a basic alternative without the extra dependencies.
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 from gi.repository import Gtk
 
 import os
 import sys
 import traceback
-from cStringIO import StringIO
+from io import StringIO
 
 
-class PyConsole:
+class PyConsole(object):
     def __init__(self, dict, exaile):
         self.dict = dict
         self.buffer = StringIO()

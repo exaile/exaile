@@ -32,13 +32,17 @@
 
 
 from __future__ import print_function
+from __future__ import division
 
 
+from builtins import range
+from past.utils import old_div
+from builtins import object
 import sys
 from struct import pack, unpack
 from warnings import warn
 
-SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
+SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = list(range(8))
 
 
 class EbmlException(Exception):
@@ -59,7 +63,7 @@ def bchr(n):
     return pack('B', n)
 
 
-class Ebml:
+class Ebml(object):
     """EBML parser.
 
     Usage: Ebml(location, tags).parse()
@@ -376,7 +380,7 @@ def dump_tags(location):
         timecodescale = info['TimecodeScale'][0]
     except KeyError:
         timecodescale = 1000000
-    length = info['Duration'][0] * timecodescale / 1e9
+    length = old_div(info['Duration'][0] * timecodescale, 1e9)
     print("Length = %s seconds" % length)
     pprint(segment['Tags'][0]['Tag'])
 

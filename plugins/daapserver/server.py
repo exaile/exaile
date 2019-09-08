@@ -15,8 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <https://www.gnu.org/licenses/>.
 
-import BaseHTTPServer
-import SocketServer
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+import http.server
+import socketserver
 import logging
 import select
 import socket
@@ -70,7 +74,7 @@ logger = logging.getLogger('daapserver')
 __all__ = ['DaapServer']
 
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
 
     timeout = 1
@@ -79,10 +83,10 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     def __init__(self, *args):
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6
-        BaseHTTPServer.HTTPServer.__init__(self, *args)
+        http.server.HTTPServer.__init__(self, *args)
 
 
-class DaapServer:
+class DaapServer(object):
     def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
         #        Thread.__init__(self)
         self.host = host

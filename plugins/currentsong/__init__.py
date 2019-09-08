@@ -16,13 +16,14 @@
 
 # Code based on Ingelrest FranÃ§ois' "im status" plugin
 
+from builtins import object
 import dbus
 from xl import event, player
 
 ##############################################################################
 
 
-class Pidgin:
+class Pidgin(object):
     def __init__(self, dbusInterface):
         """
             Constructor

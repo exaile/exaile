@@ -25,6 +25,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import division
+from builtins import str
+from builtins import map
+from past.builtins import basestring
+from past.utils import old_div
+from builtins import object
 from copy import deepcopy
 import logging
 import re
@@ -35,11 +41,11 @@ import weakref
 from gi.repository import Gio
 from gi.repository import GLib
 
-import xl.unicode
+import xl.str
 from xl import event, metadata, settings
 from xl.metadata.tags import disk_tags
 from xl.nls import gettext as _
-from xl.unicode import shave_marks
+from xl.str import shave_marks
 
 logger = logging.getLogger(__name__)
 
@@ -194,7 +200,7 @@ class Track(object):
                     tags = tr.list_tags()
                     to_set = {
                         tag: values
-                        for tag, values in unpickles.iteritems()
+                        for tag, values in unpickles.items()
                         if tag.startswith('__') and tag not in tags
                     }
                     if to_set:
@@ -358,7 +364,7 @@ class Track(object):
 
             # now that we've written the tags to disk, remove any tags that the
             # user asked to be deleted
-            to_remove = [k for k, v in self.__tags.iteritems() if v is None]
+            to_remove = [k for k, v in self.__tags.items() if v is None]
             for rm in to_remove:
                 self.__tags.pop(rm)
 
@@ -410,7 +416,7 @@ class Track(object):
             # the file format.
 
             nkeys = set(ntags.keys())
-            ekeys = {k for k in self.__tags.keys() if not k.startswith('__')}
+            ekeys = {k for k in list(self.__tags.keys()) if not k.startswith('__')}
 
             # delete anything that wasn't in the new tags
             to_del = ekeys - nkeys
@@ -457,7 +463,7 @@ class Track(object):
         """
             returns a string representing the track
         """
-        vals = map(self.get_tag_display, ('title', 'artist', 'album'))
+        vals = list(map(self.get_tag_display, ('title', 'artist', 'album')))
         return "<Track %r by %r from %r>" % tuple(vals)
 
     def _pickles(self):
@@ -480,7 +486,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return [k for k, v in self.__tags.iteritems() if v is not None] + ['__basename']
+        return [k for k, v in self.__tags.items() if v is not None] + ['__basename']
 
     def _xform_set_values(self, tag, values):
         # Handle values that aren't lists
@@ -491,7 +497,7 @@ class Track(object):
         # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
             values = [
-                xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
+                xl.str.to_unicode(v, self.__tags.get('__encoding'), 'replace')
                 if isinstance(v, basestring)
                 else v
                 for v in values
@@ -544,7 +550,7 @@ class Track(object):
         # if the track hasn't actually changed
         changed = set()
 
-        for tag, values in kwargs.iteritems():
+        for tag, values in kwargs.items():
             if tag in _no_set_raw:
                 if tag == '__loc':
                     logger.warning(
@@ -727,9 +733,9 @@ class Track(object):
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):
-            value = [xl.unicode.to_unicode(x, errors='replace') for x in value]
+            value = [xl.str.to_unicode(x, errors='replace') for x in value]
         else:
-            value = xl.unicode.to_unicode(value, errors='replace')
+            value = xl.str.to_unicode(value, errors='replace')
 
         if join:
             value = self.join_values(value, _JOINSTR)
@@ -807,7 +813,7 @@ class Track(object):
 
         # Convert all return values to unicode
         if isinstance(value, list):
-            value = map(shave_marks, value)
+            value = list(map(shave_marks, value))
         else:
             value = shave_marks(value)
 
@@ -905,7 +911,7 @@ class Track(object):
         maximum = float(settings.get_option("rating/maximum", 5))
         rating = min(rating, maximum)
         rating = max(0, rating)
-        rating = float(rating * 100.0 / maximum)
+        rating = float(old_div(rating * 100.0, maximum))
         self.set_tags(__rating=rating)
         return rating
 
@@ -928,9 +934,9 @@ class Track(object):
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, unicode):
+        if type(values) in (str, str):
             return values
-        return glue.join(map(xl.unicode.to_unicode, values))
+        return glue.join(map(xl.str.to_unicode, values))
 
     @staticmethod
     def split_numerical(values):
@@ -967,7 +973,7 @@ class Track(object):
             stripping the chars leaves nothing the original field is
             returned with only whitespace removed.
         """
-        stripped = xl.unicode.to_unicode(value).lstrip(
+        stripped = xl.str.to_unicode(value).lstrip(
             " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./"
         )
         if stripped:
@@ -1015,7 +1021,7 @@ class Track(object):
 
             value must be in lower-case
         """
-        for k, v in _sortcharmap.iteritems():
+        for k, v in _sortcharmap.items():
             value = value.replace(k, v)
         return value
 

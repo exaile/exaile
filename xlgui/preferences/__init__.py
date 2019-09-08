@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -31,7 +32,7 @@ from gi.repository import Gtk
 import inspect
 import logging
 
-import xl.unicode
+import xl.str
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui import icons
@@ -138,7 +139,7 @@ class PreferencesDialog(object):
                 except Exception:
                     logger.exception('Error loading preferences pane')
 
-        plugin_pages.sort(key=lambda x: xl.unicode.strxfrm(x.name))
+        plugin_pages.sort(key=lambda x: xl.str.strxfrm(x.name))
 
         for page in plugin_pages:
             icon = self.default_icon

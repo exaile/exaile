@@ -1,10 +1,13 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 try:
     from bs4 import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
-import HTMLParser
+import html.parser
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from xl.lyrics import LyricSearchMethod, LyricsNotFoundException
 from xl import common, providers
@@ -46,8 +49,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ', '_'))
-        title = urllib.quote(title.replace(' ', '_'))
+        artist = urllib.parse.quote(artist.replace(' ', '_'))
+        title = urllib.parse.quote(title.replace(' ', '_'))
 
         url = 'https://lyrics.fandom.com/wiki/%s:%s' % (artist, title)
 
@@ -58,7 +61,7 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             soup = BeautifulSoup(html, "lxml")
-        except HTMLParser.HTMLParseError:
+        except html.parser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
@@ -71,6 +74,6 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup(lyrics, "lxml")))
+        lyrics = self.remove_html_tags(str(BeautifulSoup(lyrics, "lxml")))
 
         return (lyrics, self.name, url)

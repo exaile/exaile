@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import str
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import id3
 
@@ -66,7 +67,7 @@ class ID3Format(BaseFormat):
 
     def get_keys_disk(self):
         keys = []
-        for v in self._get_raw().values():
+        for v in list(self._get_raw().values()):
             # Have to use this because some ID3 tags have a colon
             # in them, and so self._get_raw().keys() doesn't return
             # the expected value
@@ -80,7 +81,7 @@ class ID3Format(BaseFormat):
     def _get_tag(self, raw, t):
         if not raw.tags:
             return []
-        if t not in self.tag_mapping.itervalues():
+        if t not in iter(self.tag_mapping.values()):
             t = "TXXX:" + t
         field = raw.tags.getall(t)
         if len(field) <= 0:
@@ -88,13 +89,13 @@ class ID3Format(BaseFormat):
         ret = []
         if t in ('TDRC', 'TDOR'):  # values are ID3TimeStamps
             for value in field:
-                ret.extend([unicode(x) for x in value.text])
+                ret.extend([str(x) for x in value.text])
         elif t == 'USLT':  # Lyrics are stored in plain old strings
             for value in field:
-                ret.append(unicode(value.text))
+                ret.append(str(value.text))
         elif t == 'WOAR':  # URLS are stored in url not text
             for value in field:
-                ret.extend([unicode(value.url.replace('\n', '').replace('\r', ''))])
+                ret.extend([str(value.url.replace('\n', '').replace('\r', ''))])
         elif t == 'APIC':
             ret = [
                 CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data)
@@ -108,7 +109,7 @@ class ID3Format(BaseFormat):
                 try:
                     ret.extend(
                         [
-                            unicode(x.replace('\n', '').replace('\r', ''))
+                            str(x.replace('\n', '').replace('\r', ''))
                             for x in value.text
                         ]
                     )
@@ -117,7 +118,7 @@ class ID3Format(BaseFormat):
         return ret
 
     def _set_tag(self, raw, tag, data):
-        if tag not in self.tag_mapping.itervalues():
+        if tag not in iter(self.tag_mapping.values()):
             tag = "TXXX:" + tag
 
         if raw.tags is not None:
@@ -152,7 +153,7 @@ class ID3Format(BaseFormat):
                 raw.tags.add(frame)
 
     def _del_tag(self, raw, tag):
-        if tag not in self.tag_mapping.itervalues():
+        if tag not in iter(self.tag_mapping.values()):
             tag = "TXXX:" + tag
         if raw.tags is not None:
             raw.tags.delall(tag)

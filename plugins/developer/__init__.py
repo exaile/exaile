@@ -16,6 +16,7 @@
 
 from __future__ import print_function
 
+from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -176,7 +177,7 @@ class DeveloperWindow(Gtk.Window):
         data = self.plugin.get_event_data(self.events_count)
         if data:
             events, self.events_count = data
-            for name, count in events.iteritems():
+            for name, count in events.items():
                 titer = self.event_model_idx.get(name)
                 if titer:
                     self.event_store[titer][1] = count

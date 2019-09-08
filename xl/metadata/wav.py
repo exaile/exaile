@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,7 @@
 # from your version.
 
 
+from past.utils import old_div
 import wave
 import sunau
 import os
@@ -49,7 +51,7 @@ class WavFormat(BaseFormat):
         try:
             with fp:
                 f = opener.open(fp)
-                length = f.getnframes() / f.getframerate()
+                length = old_div(f.getnframes(), f.getframerate())
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
             self.mutagen = {'__bitrate': -1, '__length': -1}

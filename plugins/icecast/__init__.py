@@ -1,12 +1,17 @@
+from __future__ import division
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from past.utils import old_div
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import httplib
+import http.client
 import logging
 import os
 import re
 import socket
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from urllib2 import urlparse
 from xml.dom import minidom
 
@@ -97,7 +102,7 @@ class IcecastRadioStation(RadioStation):
         impl = minidom.getDOMImplementation()
         document = impl.createDocument(None, 'genrelist', None)
         genrelist = document.documentElement
-        for k, v in self.data.items():
+        for k, v in list(self.data.items()):
             genre = document.createElement('genre')
             genre.setAttribute('name', k)
             genre.setAttribute('location', v)
@@ -115,9 +120,9 @@ class IcecastRadioStation(RadioStation):
             set_status(_('Contacting Icecast server...'))
             hostinfo = urlparse.urlparse(self.genre_url)
             try:
-                c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+                c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
             except TypeError:  # python 2.5 doesnt have timeout=
-                c = httplib.HTTPConnection(hostinfo.netloc)
+                c = http.client.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
@@ -150,7 +155,7 @@ class IcecastRadioStation(RadioStation):
             data = self.data
         rlists = []
 
-        for item in data.keys():
+        for item in list(data.keys()):
             rlist = RadioList(item, station=self)
             rlist.get_items = lambda no_cache, name=item: self._get_subrlists(
                 name=name, no_cache=no_cache
@@ -198,7 +203,7 @@ class IcecastRadioStation(RadioStation):
 
             @param keyword: the keyword to search
         """
-        url = self.search_url_prefix + urllib.quote_plus(keyword)
+        url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
         return self._get_stations(url)
 
     def _get_stations(self, url):
@@ -211,9 +216,9 @@ class IcecastRadioStation(RadioStation):
         nextPage = 0
         set_status(_('Contacting Icecast server...'))
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:  # python 2.5 doesnt have timeout=
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http.client.HTTPConnection(hostinfo.netloc)
         while thisPage < nextPage:
             thisPage += 1
             try:
@@ -270,7 +275,7 @@ class IcecastRadioStation(RadioStation):
                                         if quality[0] == 'Quality':
                                             sbitrate = self._calc_bitrate(quality[1])
                                         elif len(quality[0]) > 3:
-                                            sbitrate = str(int(quality[0]) / 1024)
+                                            sbitrate = str(old_div(int(quality[0]), 1024))
                                         else:
                                             sbitrate = quality[0]
                                         anchor = paragraph.getElementsByTagName(

@@ -86,7 +86,7 @@ class Column(Gtk.TreeViewColumn):
         except TypeError:  # cellrenderer doesn't do ellipsize - eg. rating
             pass
 
-        for name, val in self.cellproperties.iteritems():
+        for name, val in self.cellproperties.items():
             self.cellrenderer.set_property(name, val)
 
         self.set_reorderable(True)

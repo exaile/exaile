@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
+from past.utils import old_div
 from gi.repository import Gst
 
 from xl.nls import gettext as _
@@ -122,7 +125,7 @@ FORMATS = {
 
 def get_formats():
     ret = {}
-    for name, val in FORMATS.iteritems():
+    for name, val in FORMATS.items():
         try:
             for plug in val['plugins']:
                 x = Gst.ElementFactory.find(plug)
@@ -228,7 +231,7 @@ class Transcoder(object):
             return 0.0
         try:
             tim = self.pipe.query_position(Gst.Format.TIME)[0]
-            tim = tim / Gst.SECOND
+            tim = old_div(tim, Gst.SECOND)
             self.__last_time = tim
             return tim
         except Exception:

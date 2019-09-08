@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import object
 import time
 import re
 
-from xl.unicode import shave_marks
+from xl.str import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 

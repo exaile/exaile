@@ -1,3 +1,5 @@
+from builtins import zip
+from builtins import object
 import unittest
 
 from mox3 import mox
@@ -23,7 +25,7 @@ def test_is_valid_track_invalid():
 
 
 class TestGetTracksFromUri(object):
-    class DummyClass:
+    class DummyClass(object):
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval

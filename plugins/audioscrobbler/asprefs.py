@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2006 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,7 +19,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 import os.path
-import _scrobbler
+from . import _scrobbler
 
 from xl import common, settings
 from xl.nls import gettext as _

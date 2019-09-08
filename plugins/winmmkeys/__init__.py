@@ -15,7 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-class WinmmkeysPlugin:
+from builtins import object
+class WinmmkeysPlugin(object):
     def enable(self, exaile):
         self.exaile = exaile
 
@@ -35,7 +36,7 @@ class WinmmkeysPlugin:
 plugin_class = WinmmkeysPlugin
 
 
-class HotkeyHandler_PyHook:
+class HotkeyHandler_PyHook(object):
     def __init__(self, exaile):
         import pyHook
         from xl.player import PLAYER, QUEUE
@@ -44,7 +45,7 @@ class HotkeyHandler_PyHook:
             'Launch_Media_Select': exaile.gui.main.window.present,
             'Media_Stop': PLAYER.stop,
             'Media_Play_Pause': PLAYER.toggle_pause,
-            'Media_Next_Track': QUEUE.next,
+            'Media_Next_Track': QUEUE.__next__,
             'Media_Prev_Track': QUEUE.prev,
         }
 
@@ -71,7 +72,7 @@ class HotkeyHandler_PyHook:
             del self.hook_manager
 
 
-class HotkeyHandler_Keyboard:
+class HotkeyHandler_Keyboard(object):
     def __init__(self, exaile):
         import keyboard
         from xl.player import PLAYER, QUEUE
@@ -83,7 +84,7 @@ class HotkeyHandler_Keyboard:
             ),
             keyboard.add_hotkey('stop media', PLAYER.stop),
             keyboard.add_hotkey('play/pause media', PLAYER.toggle_pause),
-            keyboard.add_hotkey('next track', QUEUE.next),
+            keyboard.add_hotkey('next track', QUEUE.__next__),
             keyboard.add_hotkey('previous track', QUEUE.prev),
         ]
 

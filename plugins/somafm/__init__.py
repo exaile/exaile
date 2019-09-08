@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from future import standard_library
+standard_library.install_aliases()
 import logging
 
 logger = logging.getLogger(__name__)
 import os
 from urllib2 import urlparse
-import httplib
+import http.client
 import socket
 
 try:
@@ -85,9 +87,9 @@ class SomaFMRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http.client.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
@@ -119,7 +121,7 @@ class SomaFMRadioStation(RadioStation):
             Saves cache data
         """
         channellist = ETree.Element('channellist')
-        for channel_id, channel_name in self.data.items():
+        for channel_id, channel_name in list(self.data.items()):
             ETree.SubElement(channellist, 'channel', id=channel_id, name=channel_name)
 
         with open(self.cache_file, 'w') as h:
@@ -147,7 +149,7 @@ class SomaFMRadioStation(RadioStation):
 
         rlists = []
 
-        for id, name in data.items():
+        for id, name in list(data.items()):
             rlist = RadioList(name, station=self)
             rlist.get_items = lambda no_cache, id=id: self._get_subrlists(
                 id=id, no_cache=no_cache

@@ -17,6 +17,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from __future__ import division
+from __future__ import absolute_import
+from builtins import range
+from past.utils import old_div
+from builtins import object
 from __future__ import with_statement
 
 from gi.repository import GLib
@@ -28,8 +33,8 @@ from xlgui import guiutil
 from xl import event, player, settings, xdg, common
 from functools import wraps
 import logging
-import macprefs
-from cellrenderers import CellRendererDays
+from . import macprefs
+from .cellrenderers import CellRendererDays
 
 # We want to use json to write alarms to files, cuz it's prettier
 # if we're on python 2.5 it's not available...
@@ -82,7 +87,7 @@ def idle_add(f):
 ###><><><### Alarm Clock Stuph ###><><><###
 
 
-class Alarm:
+class Alarm(object):
     '''
         Class for individual alarms.
     '''
@@ -112,7 +117,7 @@ class Alarm:
             self.on()
 
 
-class AlarmClock:
+class AlarmClock(object):
     '''
         Class that handles the TreeView interaction and keeps track of alarms.
     '''
@@ -366,9 +371,9 @@ def fade_in(main, exaile):
         settings.get_option('plugin/multialarmclock/fade_max_volume') / 100.0
     )
     fade_inc = settings.get_option('plugin/multialarmclock/fade_increment') / 100.0
-    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / (
-        (fade_max_volume - temp_volume) / fade_inc
-    )
+    time_per_inc = old_div(settings.get_option('plugin/multialarmclock/fade_time'), (
+        old_div((fade_max_volume - temp_volume), fade_inc)
+    ))
 
     while temp_volume < fade_max_volume:
         logger.debug('set volume to {0}'.format(temp_volume))

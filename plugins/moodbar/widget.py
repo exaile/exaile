@@ -16,6 +16,7 @@
 
 
 from __future__ import division, print_function, unicode_literals
+from __future__ import absolute_import
 
 import collections
 
@@ -25,7 +26,7 @@ gi.require_version('PangoCairo', '1.0')
 
 from gi.repository import Gtk, Pango, PangoCairo
 
-import painter
+from . import painter
 
 
 Extents = collections.namedtuple(

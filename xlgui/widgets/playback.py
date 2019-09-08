@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import zip
+from past.utils import old_div
 from gi.repository import Atk
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -119,7 +122,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         interval = settings.get_option('gui/progress_update_millisecs', 1000)
 
         if interval % 1000 == 0:
-            self.__timer_id = GLib.timeout_add_seconds(interval / 1000, self.on_timer)
+            self.__timer_id = GLib.timeout_add_seconds(old_div(interval, 1000), self.on_timer)
         else:
             self.__timer_id = GLib.timeout_add(interval, self.on_timer)
 
@@ -436,7 +439,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        for marker, points in self._points.iteritems():
+        for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):
                 if i == 0:
                     context.move_to(x, y)
@@ -454,9 +457,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
                     base = style.get_color(marker.props.state)
 
                 context.set_source_rgba(
-                    base.red / 256.0 ** 2,
-                    base.green / 256.0 ** 2,
-                    base.blue / 256.0 ** 2,
+                    old_div(base.red, 256.0 ** 2),
+                    old_div(base.green, 256.0 ** 2),
+                    old_div(base.blue, 256.0 ** 2),
                     0.7,
                 )
             context.fill_preserve()
@@ -467,9 +470,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             else:
                 foreground = style.get_color(marker.props.state)
                 context.set_source_rgba(
-                    foreground.red / 256.0 ** 2,
-                    foreground.green / 256.0 ** 2,
-                    foreground.blue / 256.0 ** 2,
+                    old_div(foreground.red, 256.0 ** 2),
+                    old_div(foreground.green, 256.0 ** 2),
+                    old_div(foreground.blue, 256.0 ** 2),
                     0.7,
                 )
             context.stroke()
@@ -652,9 +655,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.NORTH:
             points = (
-                (position - offset, marker_scale / 2 + offset),
-                (position + marker_scale / 2 - offset, offset),
-                (position - marker_scale / 2 - offset, offset),
+                (position - offset, old_div(marker_scale, 2) + offset),
+                (position + old_div(marker_scale, 2) - offset, offset),
+                (position - old_div(marker_scale, 2) - offset, offset),
             )
         elif marker.props.anchor == Anchor.NORTH_EAST:
             points = (
@@ -664,9 +667,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.EAST:
             points = (
-                (position - marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
+                (position - old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
+                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
+                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_EAST:
             points = (
@@ -676,9 +679,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.SOUTH:
             points = (
-                (position - offset, height - marker_scale / 2 - offset),
-                (position + marker_scale / 2 - offset, height - offset),
-                (position - marker_scale / 2 - offset, height - offset),
+                (position - offset, height - old_div(marker_scale, 2) - offset),
+                (position + old_div(marker_scale, 2) - offset, height - offset),
+                (position - old_div(marker_scale, 2) - offset, height - offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_WEST:
             points = (
@@ -688,16 +691,16 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.WEST:
             points = (
-                (position + marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
+                (position + old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
+                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
+                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
             )
         elif marker.props.anchor == Anchor.CENTER:
             points = (
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position + marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
-                (position - marker_scale / 2 - offset, height / 2 + offset),
+                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
+                (position + old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
+                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
+                (position - old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
             )
 
         return points
@@ -717,7 +720,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             * *width*: the width of the box
             * *height*: the height of the box
         """
-        xs, ys = zip(*points)
+        xs, ys = list(zip(*points))
         return min(xs), min(ys), max(xs), max(ys)
 
     def seek(self, position):
@@ -810,7 +813,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             if len(hit_markers) > 0:
                 self.seek(hit_markers[0].props.position)
             else:
-                fraction = event.x / self.get_allocation().width
+                fraction = old_div(event.x, self.get_allocation().width)
                 fraction = max(0, fraction)
                 fraction = min(fraction, 1)
 
@@ -839,7 +842,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 marker.props.state = Gtk.StateType.PRELIGHT
 
         if event.button == Gdk.BUTTON_PRIMARY and self.__progressbar._seeking:
-            fraction = event.x / self.get_allocation().width
+            fraction = old_div(event.x, self.get_allocation().width)
             fraction = max(0, fraction)
             fraction = min(fraction, 1)
 
@@ -1093,7 +1096,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
             :param event: an event
             :type event: :class:`Gdk.Event`
         """
-        self._position = event.x / self._parent.get_allocation().width
+        self._position = old_div(event.x, self._parent.get_allocation().width)
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1157,7 +1160,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             :type markers: (:class:`Marker`, ...)
         """
         self._markers = markers
-        self._position = event.x / self._parent.get_allocation().width
+        self._position = old_div(event.x, self._parent.get_allocation().width)
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1294,7 +1297,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
             Moves markers
         """
-        position = event.x / widget.get_allocation().width
+        position = old_div(event.x, widget.get_allocation().width)
 
         return self.move_update(position)
 
@@ -1569,7 +1572,7 @@ def NextMenuItem(name, player, after):
         after,
         _("_Next Track"),
         'media-skip-forward',
-        callback=lambda *args: player.queue.next(),
+        callback=lambda *args: next(player.queue),
     )
 
 

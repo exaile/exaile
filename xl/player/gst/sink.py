@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Copyright (C) 2008-2010 Adam Olsen
 # Copyright (C) 2013-2015 Dustin Spicuzza
 #
@@ -257,7 +258,7 @@ class CustomAudioSink(Gst.Bin):
 
 
 if sys.platform == 'win32':
-    import sink_windows
+    from . import sink_windows
 
     priority_boost = sink_windows.get_priority_booster()
 

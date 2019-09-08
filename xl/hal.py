@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from builtins import range
+from builtins import object
 import logging
 import threading
 import time
@@ -326,7 +328,7 @@ class UDisksBase(providers.ProviderHandler):
         if self._addremove():
             try:
                 to_remove = []
-                for path, provider_ in self.providers.iteritems():
+                for path, provider_ in self.providers.items():
                     if provider_ is provider:
                         to_remove.append(path)
 
@@ -429,7 +431,7 @@ class UDisksProvider(object):
         This API is subject to change.
     '''
 
-    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
+    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = list(range(0, 101, 25))
 
     def get_priority(self, obj, udisks):
         '''

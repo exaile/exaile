@@ -30,6 +30,7 @@ Devices
 contains the DeviceManager and some generic Device classes
 """
 
+from builtins import object
 from xl import event, collection
 
 
@@ -63,7 +64,7 @@ class DeviceManager(object):
         event.log_event("device_removed", self, device)
 
     def list_devices(self):
-        return self.devices.values()
+        return list(self.devices.values())
 
 
 class TransferNotSupportedError(Exception):

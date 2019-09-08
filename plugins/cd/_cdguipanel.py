@@ -1,3 +1,4 @@
+from __future__ import division
 # Copyright (C) 2009-2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+from past.utils import old_div
 import logging
 import threading
 import os
@@ -124,7 +130,7 @@ class CDImporter(object):
 
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
-        default_format = formats.iterkeys().next()
+        default_format = next(iter(formats.keys()))
         self.format = settings.get_option("cd_import/format", default_format)
         default_quality = formats[default_format]['default']
         self.quality = settings.get_option("cd_import/quality", default_quality)
@@ -162,7 +168,7 @@ class CDImporter(object):
             tr2.set_tags(**ntags)
             tr2.write_tags()
             try:
-                incr = tr.get_tag_raw('__length') / self.duration
+                incr = old_div(tr.get_tag_raw('__length'), self.duration)
                 self.progress += incr
             except Exception:
                 raise
@@ -196,6 +202,6 @@ class CDImporter(object):
     def get_progress(self):
         if not self.current or not self.current_len:
             return self.progress
-        incr = self.current_len / self.duration
+        incr = old_div(self.current_len, self.duration)
         pos = self.transcoder.get_time() / float(self.current_len)
         return self.progress + pos * incr

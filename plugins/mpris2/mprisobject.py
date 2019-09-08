@@ -27,6 +27,7 @@
 
 from __future__ import division
 
+from builtins import object
 import tempfile
 
 from gi.repository import Gio, GLib
@@ -356,7 +357,7 @@ class MprisObject(object):
 
     def Next(self):
         if xl.player.PLAYER.is_playing():
-            xl.player.QUEUE.next()
+            next(xl.player.QUEUE)
 
     def OpenUri(self, uri):
         pass  # TODO

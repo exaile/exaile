@@ -359,7 +359,7 @@ class MainWindow(GObject.GObject):
                 'on_window_state_event': self.window_state_change_event,
                 'on_delete_event': self.on_delete_event,
                 'on_playpause_button_clicked': self._on_playpause_button,
-                'on_next_button_clicked': lambda *e: next(player.QUEUE),
+                'on_next_button_clicked': lambda *e: player.QUEUE.next(),
                 'on_prev_button_clicked': lambda *e: player.QUEUE.prev(),
                 'on_about_item_activate': self.on_about_item_activate,
                 # Controller

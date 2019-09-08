@@ -257,7 +257,7 @@ class NextButtonControl(ButtonControl):
         """
             Goes to the next track
         """
-        next(player.QUEUE)
+        player.QUEUE.next()
 
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
@@ -821,7 +821,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
         if event.direction == Gdk.ScrollDirection.UP:
             self.view.playlist.prev()
         elif event.direction == Gdk.ScrollDirection.DOWN:
-            next(self.view.playlist)
+            self.view.playlist.next()
         else:
             return
 

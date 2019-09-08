@@ -44,7 +44,7 @@ class HotkeyHandler_PyHook:
             'Launch_Media_Select': exaile.gui.main.window.present,
             'Media_Stop': PLAYER.stop,
             'Media_Play_Pause': PLAYER.toggle_pause,
-            'Media_Next_Track': QUEUE.__next__,
+            'Media_Next_Track': QUEUE.next,
             'Media_Prev_Track': QUEUE.prev,
         }
 
@@ -83,7 +83,7 @@ class HotkeyHandler_Keyboard:
             ),
             keyboard.add_hotkey('stop media', PLAYER.stop),
             keyboard.add_hotkey('play/pause media', PLAYER.toggle_pause),
-            keyboard.add_hotkey('next track', QUEUE.__next__),
+            keyboard.add_hotkey('next track', QUEUE.next),
             keyboard.add_hotkey('previous track', QUEUE.prev),
         ]
 

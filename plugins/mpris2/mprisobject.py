@@ -354,7 +354,7 @@ class MprisObject:
 
     def Next(self):
         if xl.player.PLAYER.is_playing():
-            next(xl.player.QUEUE)
+            xl.player.QUEUE.next()
 
     def OpenUri(self, uri):
         pass  # TODO

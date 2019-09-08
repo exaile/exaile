@@ -389,7 +389,7 @@ class DbusManager(dbus.service.Object):
         """
         from xl import player
 
-        next(player.QUEUE)
+        player.QUEUE.next()
 
     @dbus.service.method('org.exaile.Exaile')
     def Play(self):

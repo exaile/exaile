@@ -168,7 +168,7 @@ class PlayQueue(playlist.Playlist):
                     self.__queue_has_tracks = False
 
             if track is None and self.current_playlist is not self:
-                track = next(self.current_playlist)
+                track = self.current_playlist.next()
 
         if autoplay:
             self.player.play(track)
@@ -251,7 +251,7 @@ class PlayQueue(playlist.Playlist):
                 except ValueError:
                     pass
         else:
-            next(self)
+            self.next()
 
     def queue_length(self):
         '''

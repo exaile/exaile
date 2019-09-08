@@ -1222,7 +1222,7 @@ class Playlist:
         '''
         return self.__get_next(self.current_position)
 
-    def __next__(self):
+    def next(self):
         """
             Progresses to the next track within the playlist
             and takes shuffle and repeat modes into account

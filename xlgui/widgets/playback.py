@@ -1570,7 +1570,7 @@ def NextMenuItem(name, player, after):
         after,
         _("_Next Track"),
         'media-skip-forward',
-        callback=lambda *args: next(player.queue),
+        callback=lambda *args: player.queue.next(),
     )
 
 

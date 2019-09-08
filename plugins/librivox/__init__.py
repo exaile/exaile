@@ -62,7 +62,7 @@ class LVPanel:
     @common.threaded
     def run_search(self, widget):
         (c_id, msg_id) = self.statusbar.set_status('Searching...')
-        self.keyword = str(self.entry.get_text(), 'utf-8')
+        self.keyword = self.entry.get_text()
         self.books = LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)

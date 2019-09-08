@@ -59,7 +59,7 @@ class TrackDBIterator:
         return self
 
     def __next__(self):
-        return self.iter.next()[1]._track
+        return next(self.iter)[1]._track
 
 
 class TrackDB:
@@ -204,7 +204,7 @@ class TrackDB:
             try:
                 if 'tracks' == attr:
                     data = {}
-                    for k in (x for x in list(pdata.keys()) if x.startswith("tracks-")):
+                    for k in (x for x in pdata.keys() if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
                         loc = tr.get_loc_for_io()

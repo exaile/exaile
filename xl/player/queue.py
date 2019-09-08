@@ -156,7 +156,7 @@ class PlayQueue(playlist.Playlist):
         if track is None:
             if self.__queue_has_tracks:
                 if not self.__remove_item_on_playback:
-                    track = playlist.Playlist.next(self)
+                    track = super().next()
                 else:
                     try:
                         track = self.pop(0)

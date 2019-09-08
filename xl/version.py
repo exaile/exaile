@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os
-from . import xdg
-
 import logging
+import os
+from typing import Mapping
+
+from . import xdg
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +47,7 @@ def get_current_version():
         with open(os.devnull, 'w') as devnull:
             return subprocess.check_output(
                 ['git', 'describe', '--tags', '--abbrev=0'], stderr=devnull
-            ).strip()
+            ).strip().decode('utf-8')
     except (subprocess.CalledProcessError, OSError):
         return None
 
@@ -63,7 +64,7 @@ def get_current_revision():
         with open(os.devnull, 'w') as devnull:
             return subprocess.check_output(
                 ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=devnull
-            ).strip()
+            ).strip().decode('utf-8')
     except (subprocess.CalledProcessError, OSError):
         return None
 
@@ -78,7 +79,7 @@ elif os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
     if revision is not None:
         __version__ += "+" + revision
 
-__external_versions__ = {}
+__external_versions__: Mapping[str, str] = {}
 
 
 def register(name, version):

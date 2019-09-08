@@ -45,7 +45,7 @@ def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
     query_dictionary["AWSAccessKeyId"] = aws_access_key_id
     query_dictionary["Timestamp"] = generate_timestamp()
     query_pairs = sorted(
-        map(lambda k, v: (k + "=" + urllib.parse.quote(v)), list(query_dictionary.items()))
+        map(lambda k, v: (k + "=" + urllib.parse.quote(v)), query_dictionary.items())
     )
     # The Amazon specs require a sorted list of arguments
     query_string = "&".join(query_pairs)

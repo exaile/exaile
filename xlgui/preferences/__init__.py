@@ -24,12 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import inspect
+import locale
+import logging
+
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
-
-import inspect
-import logging
 
 import xl.unicode
 from xl import xdg
@@ -138,7 +139,7 @@ class PreferencesDialog:
                 except Exception:
                     logger.exception('Error loading preferences pane')
 
-        plugin_pages.sort(key=lambda x: xl.unicode.strxfrm(x.name))
+        plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
 
         for page in plugin_pages:
             icon = self.default_icon

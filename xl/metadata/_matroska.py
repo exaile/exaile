@@ -31,12 +31,11 @@
 # revision 858 (2004-10-03), under "/trunk/Perl.Parser/MatroskaParser.pm".
 
 
-from past.utils import old_div
 import sys
 from struct import pack, unpack
 from warnings import warn
 
-SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = list(range(8))
+SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
 
 class EbmlException(Exception):
@@ -374,7 +373,7 @@ def dump_tags(location):
         timecodescale = info['TimecodeScale'][0]
     except KeyError:
         timecodescale = 1000000
-    length = old_div(info['Duration'][0] * timecodescale, 1e9)
+    length = info['Duration'][0] * timecodescale / 1e9
     print("Length = %s seconds" % length)
     pprint(segment['Tags'][0]['Tag'])
 

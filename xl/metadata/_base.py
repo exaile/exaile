@@ -24,10 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.builtins import basestring
 from collections import namedtuple
 import copy
 import threading
+from typing import Any, ClassVar, Mapping, Sequence
 
 import logging
 
@@ -75,10 +75,15 @@ class BaseFormat:
     # is set to True. If others is True, then anything not in tag_mapping will
     # be written using the Exaile tag name
     # -> dict k: exaile tag name, v: native tag name
-    tag_mapping = {}
-    others = True
-    writable = False
-    case_sensitive = True
+    tag_mapping: ClassVar[Mapping[str, Any]] = {}
+    others: ClassVar[bool] = True
+    writable: ClassVar[bool] = False
+    case_sensitive: ClassVar[bool] = True
+
+    # Whether _compute_mappings has run
+    _computed: ClassVar[bool]
+    # Reverse of tag_mapping, populated in _compute_mappings
+    _reverse_mapping: ClassVar[Mapping[Any, str]]
 
     @classmethod
     def _compute_mappings(cls):
@@ -165,11 +170,11 @@ class BaseFormat:
         '''
         raw[tag] = value
 
-    def get_keys_disk(self):
+    def get_keys_disk(self) -> Sequence[str]:
         """
             Returns keys of all tags that can be read from disk
         """
-        return [self._reverse_mapping.get(k, k) for k in list(self._get_raw().keys())]
+        return [self._reverse_mapping.get(k, k) for k in self._get_raw().keys()]
 
     def read_all(self):
         """
@@ -185,7 +190,7 @@ class BaseFormat:
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if isinstance(t, basestring) and t.startswith("__"):
+            if t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -213,24 +218,21 @@ class BaseFormat:
             if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
-                    if type(t) in [str, str]:
+                    if isinstance(t, (str, bytes)):
                         t = [t]
                     elif isinstance(t, list):
                         pass
                     elif t is not None:
-                        try:
-                            t = [str(u) for u in list(t)]
-                        except UnicodeDecodeError:
-                            t = t
+                        t = [str(u) for u in t]
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
             if t is None and self.others and tag not in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, tag)
-                    if type(t) in [str, str]:
+                    if isinstance(t, (str, bytes)):
                         t = [t]
                     elif t is not None:
-                        t = [str(u) for u in list(t)]
+                        t = [str(u) for u in t]
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
 
@@ -273,10 +275,7 @@ class BaseFormat:
             # -> this covers INFO_TAGS, which also shouldn't be written
             for tag in list(tagdict.keys()):
                 if tag.startswith("__"):
-                    try:
-                        del tagdict[tag]
-                    except KeyError:
-                        pass
+                    del tagdict[tag]
 
             # Only modify the tags we were told to modify
             # -> if the value is None, delete the tag
@@ -330,7 +329,7 @@ class CaseInsensitveBaseFormat(BaseFormat):
         """
             Returns keys of all tags that can be read from disk
         """
-        return [self._reverse_mapping.get(k.lower(), k) for k in list(self._get_raw().keys())]
+        return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
 
 
 # vim: et sts=4 sw=4

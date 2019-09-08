@@ -24,12 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Callable, Iterable, List, Optional, TypeVar
+
 from gi.repository import Gio
 from gi.repository import GLib
 
 from xl import metadata
 from xl.trax.track import Track
 from xl.trax.search import search_tracks, TracksMatcher
+
+T = TypeVar('T')
 
 
 def is_valid_track(location):
@@ -96,20 +100,22 @@ def get_tracks_from_uri(uri):
     return tracks
 
 
-def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations=False):
+def sort_tracks(
+    fields: Iterable[str],
+    items: Iterable[T],
+    trackfunc: Optional[Callable[[T], Track]] = None,
+    reverse: bool = False,
+    artist_compilations: bool = False,
+) -> List[T]:
     """
         Sorts tracks.
 
         :param fields: tag names to sort by
-        :type fields: iterable
-        :param iter: the tracks to sort,
+        :param items: the tracks to sort,
             alternatively use *trackfunc*
-        :type iter: iterable
         :param trackfunc: function to get a *Track*
-            from an item in the iterable
-        :type trackfunc: function or None
+            from an item in the *items* iterable
         :param reverse: whether to sort in reversed order
-        :type reverse: boolean
     """
     fields = list(fields)  # we need the index method
     if trackfunc is None:
@@ -118,7 +124,7 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations
         trackfunc(tr).get_tag_sort(field, artist_compilations=artist_compilations)
         for field in fields
     ]
-    return sorted(iter, key=keyfunc, reverse=reverse)
+    return sorted(items, key=keyfunc, reverse=reverse)
 
 
 def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=False):
@@ -168,22 +174,20 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
     if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
         return []
-    matchers = list(map(
-        lambda t: TracksMatcher(
+    matchers = [
+        TracksMatcher(
             track.get_tag_search(t, artist_compilations=artist_compilations)
-        ),
-        ['artist', 'album'],
-    ))
+        )
+        for t in ('artist', 'album')
+    ]
     return (r.track for r in search_tracks(tracksiter, matchers))
 
 
-def recursive_tracks_from_file(gfile):
+def recursive_tracks_from_file(gfile: Gio.File) -> Iterable[Track]:
     """
         Get recursive tracks from Gio.File
         If it's a directory, expands
         Gets only valid tracks
-        :param gfile: Gio.File
-        :return: tracks iterable [Track]
     """
     ftype = gfile.query_info(
         'standard::type', Gio.FileQueryInfoFlags.NONE, None

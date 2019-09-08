@@ -190,7 +190,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
         items = {}
 
-        for key, x in list(self.services.items()):
+        for key, x in self.services.items():
             name = '{0} ({1})'.format(x.name, x.host)
             if x.protocol == avahi.PROTO_INET6:
                 if not show_ipv6:
@@ -430,7 +430,7 @@ class DaapManager:
         removes the panels from the UI.
         '''
         # disconnect active shares
-        for panel in list(self.panels.values()):
+        for panel in self.panels.values():
             panel.daap_share.disconnect()
 
             # there's no point in doing this if we're just shutting down, only on
@@ -560,7 +560,7 @@ class DaapConnection:
                 # Don't scan tracks because gio is slow!
                 temp = trax.Track(uri, scan=False)
 
-                for field in list(eqiv.keys()):
+                for field in eqiv.keys():
                     try:
                         tag = u'%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':

@@ -166,7 +166,7 @@ class IterableIPShell:
         '''
         Update self.IP namespace for autocompletion with sys.modules
         '''
-        for key, value in list(sys.modules.items()):
+        for key, value in sys.modules.items():
             if '.' not in key:
                 self.IP.user_ns.update({key: value})
 

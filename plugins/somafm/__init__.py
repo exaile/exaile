@@ -116,7 +116,7 @@ class SomaFMRadioStation(RadioStation):
             Saves cache data
         """
         channellist = ETree.Element('channellist')
-        for channel_id, channel_name in list(self.data.items()):
+        for channel_id, channel_name in self.data.items():
             ETree.SubElement(channellist, 'channel', id=channel_id, name=channel_name)
 
         with open(self.cache_file, 'w') as h:
@@ -144,7 +144,7 @@ class SomaFMRadioStation(RadioStation):
 
         rlists = []
 
-        for id, name in list(data.items()):
+        for id, name in data.items():
             rlist = RadioList(name, station=self)
             rlist.get_items = lambda no_cache, id=id: self._get_subrlists(
                 id=id, no_cache=no_cache

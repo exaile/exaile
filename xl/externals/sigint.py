@@ -9,6 +9,7 @@
 
 import sys
 import signal
+from typing import List
 
 from gi.repository import GLib
 
@@ -23,7 +24,7 @@ class InterruptibleLoopContext:
 
     #: Global stack context loops. This is added to per InterruptibleLoopContext
     #: instance and allows for context nesting using the same GLib signal handler.
-    _loop_contexts = []
+    _loop_contexts: List['InterruptibleLoopContext'] = []
 
     #: Single source id for the unix signal handler.
     _signal_source_id = None

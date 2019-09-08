@@ -23,17 +23,19 @@
 # exception to your version of the code, but you are not obligated to
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
+
 """
     General functions and classes shared in the codebase
 """
 
+from collections import deque
+import collections.abc
+from functools import wraps, partial
 import inspect
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
 import logging
 import os
 import os.path
+import pickle
 import shelve
 import subprocess
 import sys
@@ -41,22 +43,11 @@ import threading
 import urllib.parse
 import urllib.request
 import weakref
-from functools import wraps, partial
-from collections import deque
-from UserDict import DictMixin
+
+import bsddb3 as bsddb
+from gi.repository import Gio, GLib, GObject
 
 logger = logging.getLogger(__name__)
-
-# ArchLinux disabled bsddb in python2, so we have to use the external module
-# -> msys2 did also, so now we force using bsddb to simplify things
-try:
-    import bsddb3 as bsddb
-except ImportError:
-    try:
-        import bsddb
-    except ImportError:
-        logger.error("Exaile requires bsddb to be installed")
-        raise
 
 
 # TODO: get rid of this. only plugins/cd/ uses it.
@@ -245,7 +236,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
     id_by_obj = weakref.WeakKeyDictionary()
 
     def waiter(function):
-        # ensure this is only used on class methods
+        # ensure this is only used on instance methods
         callargs = inspect.getargspec(function)
         if len(callargs.args) == 0 or callargs.args[0] != 'self':
             raise RuntimeError("Must only use glib_wait* on instance methods!")
@@ -453,7 +444,7 @@ else:
             raise ctypes.WinError(ctypes.get_last_error())
 
 
-class LimitedCache(DictMixin):
+class LimitedCache(collections.abc.MutableMapping):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """
@@ -465,6 +456,9 @@ class LimitedCache(DictMixin):
 
     def __iter__(self):
         return self.cache.__iter__()
+
+    def __len__(self):
+        return self.cache.__len__()
 
     def __contains__(self, item):
         return self.cache.__contains__(item)
@@ -496,7 +490,7 @@ class LimitedCache(DictMixin):
         return str(self.cache)
 
     def keys(self):
-        return list(self.cache.keys())
+        return self.cache.keys()
 
 
 class cached:
@@ -512,7 +506,7 @@ class cached:
 
     @staticmethod
     def _freeze(d):
-        return frozenset(iter(d.items()))
+        return frozenset(d.items())
 
     def __call__(self, f):
         try:
@@ -905,7 +899,7 @@ def order_poset(items):
             else:
                 item.after.remove(after)
     result = []
-    next = [i[1] for i in list(items.items()) if not i[1].after]
+    next = [i[1] for i in items.items() if not i[1].after]
     while next:
         current = sorted([(i.priority, i.name, i) for i in next])
         result.extend([i[2] for i in current])
@@ -1032,7 +1026,7 @@ class GioFileOutputStream(_GioFileStream):
 
     def write(self, s):
         if isinstance(s, str):
-            s = s.encode('utf-8')
+            s = s.encode('utf-8', 'surrogateescape')
         return self.stream.write(s)
 
 

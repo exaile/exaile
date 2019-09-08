@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.builtins import basestring
-from past.utils import old_div
 import contextlib
 import logging
 import os.path
@@ -154,7 +152,7 @@ def gtk_widget_replace(widget, replacement):
     parent.remove(widget)
     parent.add(replacement)
 
-    for name, value in list(props.items()):
+    for name, value in props.items():
         parent.child_set_property(replacement, name, value)
     return replacement
 
@@ -281,7 +279,7 @@ class ScalableImageWidget(Gtk.Image):
         if not fill:
             origw = float(pixbuf.get_width())
             origh = float(pixbuf.get_height())
-            scale = min(old_div(width, origw), old_div(height, origh))
+            scale = min(width / origw, height / origh)
             width = int(origw * scale)
             height = int(origh * scale)
         self.width = width
@@ -442,7 +440,7 @@ def initialize_from_xml(this, other=None):
     '''
     builder = Gtk.Builder()
 
-    if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
+    if isinstance(this.ui_filename, str):
         builder.add_from_file(this.ui_filename)
     else:
         builder.add_from_file(xdg.get_data_path(*this.ui_filename))
@@ -505,7 +503,7 @@ def persist_selection(widget, key_col, setting_name):
 
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in range(0, len(model)):
+        for i in range(len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)
@@ -618,7 +616,7 @@ def css_from_pango_font_description(pango_font_str):
     variant = variant_name.split('_', 2)[2].lower().replace('_', '-')
 
     # Pango multiplies its font by Pango.SCALE
-    size = str(old_div(new_font.get_size(), Pango.SCALE)) + "pt"
+    size = str(new_font.get_size() / Pango.SCALE) + "pt"
 
     # See "GTK+ CSS" documentation page for the syntax
 

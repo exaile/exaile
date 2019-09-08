@@ -86,15 +86,8 @@ try:
 
     __setup_locale()
 
-    gettextfunc = gettextmod.gettext
-
-    def gettext(text):
-        return gettextfunc(text).decode("utf-8")
-
-    ngettextfunc = gettextmod.ngettext
-
-    def ngettext(singular, plural, n):
-        return ngettextfunc(singular, plural, n).decode('utf-8')
+    gettext = gettextmod.gettext
+    ngettext = gettextmod.ngettext
 
 
 except ImportError:

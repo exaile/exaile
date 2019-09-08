@@ -32,14 +32,15 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
+import urllib.parse
+from typing import Sequence
+
 from gi.types import GObjectMeta
 from gi.repository import Gtk
-import urllib.parse
-
-from xlgui.guiutil import GtkTemplate
-from xlgui.guiutil import gtk_widget_replace
 
 from xl.nls import gettext as _
+from xlgui.guiutil import GtkTemplate
+from xlgui.guiutil import gtk_widget_replace
 
 
 @GtkTemplate('ui', 'widgets', 'filter_dialog.ui')
@@ -140,7 +141,7 @@ class FilterDialog(Gtk.Dialog):
         """
             Returns the text in the name_entry
         """
-        return str(self.name_entry.get_text(), 'utf-8')
+        return self.name_entry.get_text()
 
     def set_name(self, name):
         """
@@ -386,7 +387,7 @@ class ComboEntryField(Gtk.Box):
         return self.combo.get_active_text()
 
     def set_state(self, state):
-        self.combo.get_child().set_text(str(state))
+        self.combo.get_child().set_text(state)
 
 
 class NullField(Gtk.Box):
@@ -428,15 +429,15 @@ class MultiEntryField(Gtk.Box):
             widget.show()
 
     def get_state(self):
-        return [str(e.get_text(), 'utf-8') for e in self.entries]
+        return [e.get_text() for e in self.entries]
 
     def set_state(self, state):
         entries = self.entries
         if isinstance(state, (list, tuple)):
             for i in range(min(len(entries), len(state))):
-                entries[i].set_text(str(state[i]))
+                entries[i].set_text(state[i])
         else:
-            entries[0].set_text(str(state))
+            entries[0].set_text(state)
 
 
 class EntryField(Gtk.Entry):
@@ -444,12 +445,12 @@ class EntryField(Gtk.Entry):
         Gtk.Entry.__init__(self)
 
     def get_state(self):
-        return str(self.get_text(), 'utf-8')
+        return self.get_text()
 
     def set_state(self, state):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
-        self.set_text(str(state))
+        self.set_text(state)
 
 
 class QuotedEntryField(Gtk.Entry):
@@ -457,12 +458,12 @@ class QuotedEntryField(Gtk.Entry):
         Gtk.Entry.__init__(self)
 
     def get_state(self):
-        return str(urllib.parse.quote(self.get_text()), 'utf-8')
+        return urllib.parse.quote(self.get_text())
 
     def set_state(self, state):
         if isinstance(state, list) or isinstance(state, tuple):
             state = state[0]
-        self.set_text(str(urllib.parse.unquote(str(state))))
+        self.set_text(urllib.parse.unquote(state))
 
 
 class EntryLabelEntryField(MultiEntryField):
@@ -494,7 +495,7 @@ class SpinLabelField(Gtk.Box):
 class SpinButtonAndComboField(Gtk.Box):
     def __init__(self, items=()):
         Gtk.Box.__init__(self, spacing=5)
-        self.items = items
+        self.items: Sequence[str] = items
 
         self.entry = Gtk.SpinButton.new_with_range(0, 999999, 1)
         self.entry.set_value(0)
@@ -526,8 +527,4 @@ class SpinButtonAndComboField(Gtk.Box):
 
     def get_state(self):
         active_item = self.items[self.combo.get_active()]
-
-        if not isinstance(active_item, str):
-            active_item = str(active_item, 'utf-8')
-
         return [self.entry.get_value(), active_item]

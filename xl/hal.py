@@ -429,7 +429,7 @@ class UDisksProvider:
         This API is subject to change.
     '''
 
-    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = list(range(0, 101, 25))
+    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
 
     def get_priority(self, obj, udisks):
         '''

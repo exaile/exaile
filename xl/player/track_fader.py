@@ -78,9 +78,9 @@ class TrackFader:
     def calculate_fades(self, track, fade_in, fade_out):
         ''' duration is in seconds'''
 
-        start_offset = track.get_tag_raw('__startoffset')
-        stop_offset = track.get_tag_raw('__stopoffset')
-        tracklen = track.get_tag_raw('__length')
+        start_offset = track.get_tag_raw('__startoffset') or 0
+        stop_offset = track.get_tag_raw('__stopoffset') or 0
+        tracklen = track.get_tag_raw('__length') or 0
 
         if stop_offset < 1:
             stop_offset = tracklen
@@ -212,7 +212,7 @@ class TrackFader:
         if has_fade:
             self.play(*self.calculate_fades(track, fade_in, fade_out))
         else:
-            stop_offset = track.get_tag_raw('__stopoffset')
+            stop_offset = track.get_tag_raw('__stopoffset') or 0
             if stop_offset > 0:
                 self.play(None, None, stop_offset, stop_offset, now=now)
             else:

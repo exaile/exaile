@@ -35,11 +35,8 @@ from gi.repository import Gio
 import logging
 import hashlib
 import os
-
-try:
-    import pickle as pickle
-except ImportError:
-    import pickle
+import pickle
+from typing import Optional
 
 from xl.nls import gettext as _
 import xl.unicode
@@ -189,11 +186,14 @@ class CoverManager(providers.ProviderHandler):
         return methods
 
     @staticmethod
-    def _get_track_key(track):
-        """Get a unique, hashable identifier for the track's album."""
+    def _get_track_key(track: trax.Track) -> Optional[str]:
+        """Get a unique, hashable identifier for the track's album.
+
+        If the track has no album identifier, this method returns None.
+        """
 
         # The output is in the form
-        #   u'tag1  \0  value1a \1 value1b  \0  tag2  \0  value2'
+        #   'tag1  \0  value1a \1 value1b  \0  tag2  \0  value2'
         # without the spaces.
         #
         # Possible tag combinations, in order of preference:
@@ -202,15 +202,12 @@ class CoverManager(providers.ProviderHandler):
         #   * __compilation [date]
         #   * album [artist] [date]
 
-        def _get_pair(tag):
+        def _get_pair(tag: str) -> Optional[str]:
             value = track.get_tag_raw(tag)
             if not value:
                 return None
-            value = u'\1'.join(
-                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
-            )
-            assert isinstance(tag, bytes)
-            return tag.decode('ascii') + u'\0' + value
+            value = '\1'.join(value)
+            return tag + '\0' + value
 
         albumid = _get_pair('musicbrainz_albumid')
         if albumid:
@@ -222,7 +219,7 @@ class CoverManager(providers.ProviderHandler):
 
         albumartist = _get_pair('albumartist')
         if albumartist:
-            dbkey = album + u'\0' + albumartist
+            dbkey = album + '\0' + albumartist
         else:
             compilation = _get_pair('__compilation')
             if compilation:
@@ -233,16 +230,16 @@ class CoverManager(providers.ProviderHandler):
                 dbkey = album
                 artist = _get_pair('artist')
                 if artist:
-                    dbkey += u'\0' + artist
+                    dbkey += '\0' + artist
         assert dbkey
 
         date = _get_pair('date')
         if date:
-            dbkey += u'\0' + date
+            dbkey += '\0' + date
 
         return dbkey
 
-    def get_db_string(self, track):
+    def get_db_string(self, track: trax.Track) -> Optional[str]:
         """
             Returns the internal string used to map the cover
             to a track
@@ -252,6 +249,8 @@ class CoverManager(providers.ProviderHandler):
             :returns: the internal identifier string
         """
         key = self._get_track_key(track)
+        if key is None:
+            return None
 
         return self.db.get(key)
 
@@ -307,12 +306,15 @@ class CoverManager(providers.ProviderHandler):
         if track is None:
             return
         key = self._get_track_key(track)
-        db_string = self.db.get(key)
-        if db_string:
-            del self.db[key]
-            self.__cache.remove(db_string)
-            self.timeout_save()
-            event.log_event('cover_removed', self, track)
+        if key is None:
+            return
+        db_string = self.get_db_string(track)
+        if db_string is None:
+            return
+        del self.db[key]
+        self.__cache.remove(db_string)
+        self.timeout_save()
+        event.log_event('cover_removed', self, track)
 
     def get_cover(self, track, save_cover=True, set_only=False, use_default=False):
         """

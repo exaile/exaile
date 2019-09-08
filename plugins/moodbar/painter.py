@@ -35,7 +35,7 @@ class NormalPainter(Painter):
         width = len(data) // 3
         surf = cairo.ImageSurface(cairo.FORMAT_RGB24, width, 1)
         arr = surf.get_data()
-        for index in range(0, width):
+        for index in range(width):
             index4 = index * 4
             index3 = index * 3
             # Cairo RGB24 is BGRX
@@ -67,7 +67,7 @@ class WaveformPainter(Painter):
             ystart = H - level
             yend = H + level
             rgb = self._scale_color(*rgb)
-            for ic in range(0, 3):
+            for ic in range(3):
                 # Cairo RGB24 is BGRX
                 val = rgb[2 - ic]
                 for i in range(
@@ -93,7 +93,7 @@ class WaveformPainter(Painter):
         def _clamp(x, low, high):
             return max(low, min(x, high))
 
-        r, g, b = list(map(ord, (r, g, b)))
+        r, g, b = map(ord, (r, g, b))
         h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
 
         # These numbers are pulled out of thin air

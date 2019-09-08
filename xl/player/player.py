@@ -26,7 +26,6 @@
 # from your version.
 
 
-from past.utils import old_div
 import time
 
 from gi.repository import GLib
@@ -153,9 +152,8 @@ class ExailePlayer:
             :param volume: the volume percentage
             :type volume: int
         """
-        volume = min(volume, 100)
-        volume = max(0, volume)
-        settings.set_option("%s/volume" % self._name, volume / 100.0)
+        volume = common.clamp(volume, 0, 100)
+        settings.set_option("%s/volume" % self._name, volume / 100)
 
     def modify_volume(self, diff):
         """
@@ -311,17 +309,16 @@ class ExailePlayer:
             :returns: the playback time in seconds
             :rtype: float
         """
-        return self.get_position() / 1000000000.0
+        return self.get_position() / 1e9
 
-    def get_progress(self):
+    def get_progress(self) -> float:
         """
             Gets the current playback progress
 
             :returns: the playback progress as [0..1]
-            :rtype: float
         """
         try:
-            progress = old_div(self.get_time(), self.current.get_tag_raw("__length"))
+            progress = self.get_time() / self.current.get_tag_raw("__length")
         except TypeError:  # track doesn't have duration info
             progress = 0
         except AttributeError:  # no current track
@@ -531,11 +528,9 @@ class ExailePlayer:
     #
 
     def _get_play_params(self, track, start_at, paused, autoadvance):
-        if start_at <= 0:
+        if start_at is None or start_at <= 0:
             start_at = None
-
-        if start_at is None:
-            start_offset = track.get_tag_raw('__startoffset')
+            start_offset = track.get_tag_raw('__startoffset') or 0
             if start_offset > 0:
                 start_at = start_offset
 

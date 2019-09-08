@@ -83,7 +83,7 @@ class MP4Format(BaseFormat):
             try:
                 f[name] = []
                 for val in value:
-                    tmp = list(map(int, val.split('/')))
+                    tmp = map(int, val.split('/'))
                     f[name].append(tuple(tmp))
             except (TypeError, ValueError):
                 pass

@@ -37,11 +37,11 @@ import weakref
 from gi.repository import Gio
 from gi.repository import GLib
 
-import xl.str
+import xl.unicode
 from xl import event, metadata, settings
 from xl.metadata.tags import disk_tags
 from xl.nls import gettext as _
-from xl.str import shave_marks
+from xl.unicode import shave_marks
 
 logger = logging.getLogger(__name__)
 
@@ -493,7 +493,7 @@ class Track:
         # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
             values = [
-                xl.str.to_unicode(v, self.__tags.get('__encoding'), 'replace')
+                xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
                 if isinstance(v, basestring)
                 else v
                 for v in values
@@ -729,9 +729,9 @@ class Track:
 
         # Convert value to unicode or List[unicode]
         if isinstance(value, list):
-            value = [xl.str.to_unicode(x, errors='replace') for x in value]
+            value = [xl.unicode.to_unicode(x, errors='replace') for x in value]
         else:
-            value = xl.str.to_unicode(value, errors='replace')
+            value = xl.unicode.to_unicode(value, errors='replace')
 
         if join:
             value = self.join_values(value, _JOINSTR)
@@ -932,7 +932,7 @@ class Track:
         """
         if type(values) in (str, str):
             return values
-        return glue.join(map(xl.str.to_unicode, values))
+        return glue.join(map(xl.unicode.to_unicode, values))
 
     @staticmethod
     def split_numerical(values):
@@ -969,7 +969,7 @@ class Track:
             stripping the chars leaves nothing the original field is
             returned with only whitespace removed.
         """
-        stripped = xl.str.to_unicode(value).lstrip(
+        stripped = xl.unicode.to_unicode(value).lstrip(
             " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./"
         )
         if stripped:

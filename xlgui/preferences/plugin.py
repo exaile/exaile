@@ -27,7 +27,7 @@
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import xl.str
+import xl.unicode
 from xl import event, main, plugins, xdg
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
@@ -152,12 +152,12 @@ class PluginManager:
         def categorykey(item):
             if item[0] == uncategorized:
                 return '\xff' * 10
-            return xl.str.strxfrm(item[0])
+            return xl.unicode.strxfrm(item[0])
 
         plugins_dict = sorted(iter(plugins_dict.items()), key=categorykey)
 
         for category, plugins_list in plugins_dict:
-            plugins_list.sort(key=lambda x: xl.str.strxfrm(x[1]))
+            plugins_list.sort(key=lambda x: xl.unicode.strxfrm(x[1]))
 
             it = self.model.append(
                 None, (None, category, '', False, '', False, True, False)

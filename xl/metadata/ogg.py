@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import xl.str
+import xl.unicode
 from xl.metadata._base import CaseInsensitveBaseFormat, CoverImage
 from mutagen import oggvorbis, oggopus
 from mutagen.flac import Picture
@@ -70,7 +70,7 @@ class OggFormat(CaseInsensitveBaseFormat):
             value = new_value
         else:
             # vorbis has text based attributes, so convert everything to unicode
-            value = [xl.str.to_unicode(v) for v in value]
+            value = [xl.unicode.to_unicode(v) for v in value]
         CaseInsensitveBaseFormat._set_tag(self, raw, tag, value)
 
 

@@ -30,7 +30,7 @@ import os
 
 from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango
 
-import xl.str
+import xl.unicode
 from xl import common, event, metadata, settings, trax
 from xl.nls import gettext as _
 from xl.trax.util import recursive_tracks_from_file
@@ -407,7 +407,7 @@ class FilesPanel(panel.Panel):
             f = directory.get_child(info.get_name())
 
             ftype = info.get_file_type()
-            sortname = xl.str.strxfrm(name)
+            sortname = xl.unicode.strxfrm(name)
             if ftype == Gio.FileType.DIRECTORY:
                 subdirs.append((sortname, name, f))
             elif any(low_name.endswith('.' + ext) for ext in metadata.formats):

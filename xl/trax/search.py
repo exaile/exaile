@@ -27,7 +27,7 @@
 import time
 import re
 
-from xl.str import shave_marks
+from xl.unicode import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 

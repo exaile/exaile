@@ -42,7 +42,7 @@ except ImportError:
     import pickle
 
 from xl.nls import gettext as _
-import xl.str
+import xl.unicode
 from xl import common, event, providers, settings, trax, xdg
 
 logger = logging.getLogger(__name__)
@@ -207,7 +207,7 @@ class CoverManager(providers.ProviderHandler):
             if not value:
                 return None
             value = u'\1'.join(
-                xl.str.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
+                xl.unicode.to_unicode(v, 'utf-8', 'surrogateescape') for v in value
             )
             assert isinstance(tag, bytes)
             return tag.decode('ascii') + u'\0' + value

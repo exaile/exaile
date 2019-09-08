@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from future import standard_library
-standard_library.install_aliases()
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,10 +21,7 @@ from urllib2 import urlparse
 import http.client
 import socket
 
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    import xml.etree.ElementTree as ETree
+import xml.etree.ElementTree as ETree
 from xl import event, main, playlist, xdg
 from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _

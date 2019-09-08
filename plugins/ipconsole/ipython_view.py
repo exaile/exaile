@@ -45,18 +45,12 @@ is available at U{https://www.opensource.org/licenses/bsd-license.php}
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import range
 import re
 import sys
 import os
 import subprocess
 
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 from functools import reduce
 
 from gi.repository import Gtk

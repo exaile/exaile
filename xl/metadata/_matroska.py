@@ -31,7 +31,6 @@
 # revision 858 (2004-10-03), under "/trunk/Perl.Parser/MatroskaParser.pm".
 
 
-from builtins import range
 from past.utils import old_div
 import sys
 from struct import pack, unpack

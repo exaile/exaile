@@ -24,13 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from future import standard_library
-standard_library.install_aliases()
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    import xml.etree.ElementTree as ETree
-
+import xml.etree.ElementTree as ETree
 import urllib.request, urllib.parse, urllib.error
 from xl.dynamic import DynamicSource
 from xl import providers

@@ -25,7 +25,6 @@
 # from your version.
 
 
-from builtins import str
 from past.utils import old_div
 from gi.repository import Gtk
 from gi.repository import Gdk

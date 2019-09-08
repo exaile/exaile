@@ -1,8 +1,5 @@
 # -*- coding: utf-8  -*-
 
-from builtins import str
-from builtins import bytes
-from builtins import range
 import os
 import unittest
 import logging

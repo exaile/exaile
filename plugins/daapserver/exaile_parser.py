@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <https://www.gnu.org/licenses/>.
 
-from builtins import str
 import spydaap.parser
 from spydaap.daap import do
 import logging

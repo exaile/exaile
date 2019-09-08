@@ -29,12 +29,6 @@ Provides the fundamental objects for handling a list of tracks contained
 in playlists as well as methods to import and export from various file formats.
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import hex
-from builtins import zip
-from builtins import str
-from builtins import range
 from past.utils import old_div
 from gi.repository import Gio
 

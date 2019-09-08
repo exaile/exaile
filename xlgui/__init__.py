@@ -24,9 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import map
 __all__ = ['main', 'panel', 'playlist']
 
 from gi.repository import Gdk

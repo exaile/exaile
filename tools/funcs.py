@@ -25,7 +25,6 @@
 # from your version.
 
 
-from builtins import range
 from past.utils import old_div
 import time
 

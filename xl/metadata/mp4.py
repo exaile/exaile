@@ -25,8 +25,6 @@
 # from your version.
 
 
-from builtins import str
-from builtins import map
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import mp4
 

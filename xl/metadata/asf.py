@@ -25,7 +25,6 @@
 # from your version.
 
 
-from builtins import str
 from xl.metadata._base import BaseFormat
 from mutagen import asf
 

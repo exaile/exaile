@@ -34,7 +34,6 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
-from builtins import str
 from past.builtins import basestring
 from past.utils import old_div
 from collections import deque

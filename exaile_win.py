@@ -5,9 +5,6 @@
 
 # Make file handles not inheritable, that way we can restart on the fly
 # -> From http://www.virtualroadside.com/blog/index.php/2013/02/06/problems-with-file-descriptors-being-inherited-by-default-in-python/
-from future import standard_library
-standard_library.install_aliases()
-from builtins import input
 import builtins
 import msvcrt
 import sys

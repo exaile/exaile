@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from future import standard_library
-standard_library.install_aliases()
 from past.utils import old_div
 from gi.repository import Gtk, Pango, GdkPixbuf
 

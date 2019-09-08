@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import zip
 from past.utils import old_div
 from gi.repository import Atk
 from gi.repository import Gdk

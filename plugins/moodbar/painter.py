@@ -15,9 +15,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from builtins import chr
-from builtins import map
-from builtins import range
 import cairo
 
 

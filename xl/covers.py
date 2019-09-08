@@ -30,9 +30,6 @@ Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import range
 from gi.repository import GLib
 from gi.repository import Gio
 import logging

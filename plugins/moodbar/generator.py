@@ -15,8 +15,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from future import standard_library
-standard_library.install_aliases()
 import os
 import subprocess
 import threading

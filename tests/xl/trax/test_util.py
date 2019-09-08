@@ -1,4 +1,3 @@
-from builtins import zip
 import unittest
 
 from mox3 import mox

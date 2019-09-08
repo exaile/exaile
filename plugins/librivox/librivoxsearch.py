@@ -14,8 +14,6 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-from future import standard_library
-standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 from xml.etree import ElementTree
 from xl import common

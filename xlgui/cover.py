@@ -24,9 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 from past.utils import old_div
 import logging
 import os

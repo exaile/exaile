@@ -27,9 +27,6 @@
     General functions and classes shared in the codebase
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 import inspect
 from gi.repository import Gio
 from gi.repository import GLib

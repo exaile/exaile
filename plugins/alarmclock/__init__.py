@@ -1,4 +1,3 @@
-from builtins import range
 import logging
 
 from gi.repository import GLib

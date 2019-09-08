@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from future import standard_library
-standard_library.install_aliases()
 from gi.repository import GObject
 from gi.repository import Gtk
 

@@ -2,9 +2,6 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 import urllib.request, urllib.parse, urllib.error
 import urllib.request, urllib.error, urllib.parse
 import logging

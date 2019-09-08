@@ -28,9 +28,6 @@
     Central storage of application and user settings
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 from configparser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os

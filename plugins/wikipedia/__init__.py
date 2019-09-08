@@ -14,8 +14,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from future import standard_library
-standard_library.install_aliases()
 import logging
 import os
 import urllib.request, urllib.error, urllib.parse

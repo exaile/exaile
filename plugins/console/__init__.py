@@ -21,8 +21,6 @@ For better development experience, please use the IPython console plugin. This
 plugin is meant as a basic alternative without the extra dependencies.
 """
 
-from future import standard_library
-standard_library.install_aliases()
 from gi.repository import Gtk
 
 import os

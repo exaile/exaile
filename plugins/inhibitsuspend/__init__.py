@@ -7,10 +7,8 @@
     TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
 
-from future import standard_library
-standard_library.install_aliases()
 try:
-    import _thread as _thread
+    import _thread
 except ImportError:
     import _dummy_thread as _thread
 import logging

@@ -1,6 +1,3 @@
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 try:
     from bs4 import BeautifulSoup
 except ImportError:

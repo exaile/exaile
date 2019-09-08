@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import zip
-from builtins import str
 import os
 
 from xl import settings, transcoder

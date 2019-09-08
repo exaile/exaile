@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import next
-from builtins import str
 import locale
 import logging
 import os

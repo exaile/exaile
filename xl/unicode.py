@@ -2,7 +2,6 @@
     Routines useful for dealing with unicode data
 '''
 
-from builtins import str
 import locale
 import unicodedata
 import string

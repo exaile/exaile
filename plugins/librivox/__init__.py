@@ -19,7 +19,6 @@
 #    Otherwise, (without threaded functions) UI is non responsive, while
 #    fetching that info...
 
-from builtins import str
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Gtk

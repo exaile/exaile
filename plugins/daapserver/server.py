@@ -15,9 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <https://www.gnu.org/licenses/>.
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 import http.server
 import socketserver
 import logging

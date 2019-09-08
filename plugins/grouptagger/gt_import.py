@@ -1,4 +1,3 @@
-from builtins import str
 from gi.repository import Gtk
 
 from xl.common import idle_add, SimpleProgressThread

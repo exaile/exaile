@@ -28,7 +28,6 @@
     Provides methods for convenient icons and image handling
 """
 
-from builtins import range
 import glob
 from gi.repository import GdkPixbuf, GLib, Gtk
 

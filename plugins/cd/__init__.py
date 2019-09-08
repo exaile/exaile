@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import str
-from builtins import range
 from past.utils import old_div
 import dbus
 from fcntl import ioctl

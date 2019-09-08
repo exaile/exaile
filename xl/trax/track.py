@@ -25,8 +25,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import str
-from builtins import map
 from past.builtins import basestring
 from past.utils import old_div
 from copy import deepcopy

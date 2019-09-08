@@ -24,9 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import zip
-from builtins import str
-from builtins import range
 from past.utils import old_div
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf

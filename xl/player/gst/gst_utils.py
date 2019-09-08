@@ -25,8 +25,6 @@
 # from your version.
 
 
-from builtins import str
-from builtins import range
 from gi.repository import Gst
 
 from xl.providers import ProviderHandler

@@ -25,8 +25,6 @@
 # from your version.
 
 
-from builtins import str
-from builtins import range
 from past.utils import old_div
 import logging
 import os

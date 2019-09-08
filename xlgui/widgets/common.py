@@ -27,8 +27,6 @@
 """
     Shared GUI widgets
 """
-from future import standard_library
-standard_library.install_aliases()
 from collections import namedtuple
 
 from gi.repository import Gio

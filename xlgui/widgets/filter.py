@@ -32,10 +32,6 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import range
 from gi.types import GObjectMeta
 from gi.repository import Gtk
 import urllib.request, urllib.parse, urllib.error

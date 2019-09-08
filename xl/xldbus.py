@@ -31,7 +31,6 @@
     implements the ``org.exaile.Exaile`` interface
 """
 
-from builtins import str
 from collections import namedtuple
 import logging
 import sys

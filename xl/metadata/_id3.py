@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import str
 from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import id3
 

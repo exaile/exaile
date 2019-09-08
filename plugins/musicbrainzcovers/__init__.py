@@ -14,7 +14,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-import urllib.request, urllib.error, urllib.parse
+import urllib.error
+import urllib.request
 
 from xl import common, covers, providers
 

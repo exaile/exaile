@@ -14,7 +14,7 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 from xml.etree import ElementTree
 from xl import common
 import logging

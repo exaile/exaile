@@ -16,7 +16,8 @@
 
 import logging
 import os
-import urllib.request, urllib.error, urllib.parse
+import urllib.error
+import urllib.parse
 
 from gi.repository import Gtk
 from gi.repository import GLib

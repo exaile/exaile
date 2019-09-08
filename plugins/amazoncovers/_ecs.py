@@ -14,7 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import urllib.request, urllib.error, urllib.parse
+import urllib.parse
+import urllib.request
 import hmac
 import hashlib
 import base64

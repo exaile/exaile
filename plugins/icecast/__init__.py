@@ -7,8 +7,7 @@ import logging
 import os
 import re
 import socket
-import urllib.request, urllib.parse, urllib.error
-from urllib2 import urlparse
+import urllib.parse
 from xml.dom import minidom
 
 from xl import common, event, playlist, xdg
@@ -114,7 +113,7 @@ class IcecastRadioStation(RadioStation):
 
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            hostinfo = urlparse.urlparse(self.genre_url)
+            hostinfo = urllib.parse.urlparse(self.genre_url)
             try:
                 c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
             except TypeError:  # python 2.5 doesnt have timeout=
@@ -205,7 +204,7 @@ class IcecastRadioStation(RadioStation):
     def _get_stations(self, url):
         from xlgui.panel import radio
 
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
         query = hostinfo.query
         items = []
         thisPage = -1

@@ -25,7 +25,8 @@
 # from your version.
 
 import xml.etree.ElementTree as ETree
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
+import urllib.request
 from xl.dynamic import DynamicSource
 from xl import providers
 

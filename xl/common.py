@@ -38,8 +38,8 @@ import shelve
 import subprocess
 import sys
 import threading
-import urllib.request, urllib.error, urllib.parse
 import urllib.parse
+import urllib.request
 import weakref
 from functools import wraps, partial
 from collections import deque
@@ -148,7 +148,7 @@ def get_url_contents(url, user_agent):
         Added in Exaile 3.4
 
         :returns: Contents of page located at URL
-        :raises: urllib2.URLError
+        :raises: urllib.error.URLError
     '''
 
     headers = {'User-Agent': user_agent}

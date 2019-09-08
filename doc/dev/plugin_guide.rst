@@ -329,7 +329,7 @@ and returns the path to the downloaded cover.
 
 .. code-block:: python
 
-    import urllib
+    import urllib.request
     import hashlib
     from xl.cover import CoverSearchMethod, NoCoverFoundException
     
@@ -357,7 +357,7 @@ and returns the path to the downloaded cover.
     
             local_name = hashlib.sha1(split[6]).hexdigest() + ".jpg"
             covername = os.path.join(cache_dir, local_name)
-            urllib.urlretrieve(image_url, covername)
+            urllib.request.urlretrieve(image_url, covername)
     
             return [covername]
 

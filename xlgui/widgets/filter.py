@@ -34,7 +34,7 @@ and Rhythmbox's automatic playlists.
 
 from gi.types import GObjectMeta
 from gi.repository import Gtk
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 from xlgui.guiutil import GtkTemplate
 from xlgui.guiutil import gtk_widget_replace

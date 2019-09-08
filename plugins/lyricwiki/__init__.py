@@ -4,7 +4,7 @@ except ImportError:
     BeautifulSoup = None
 import html.parser
 import re
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 from xl.lyrics import LyricSearchMethod, LyricsNotFoundException
 from xl import common, providers

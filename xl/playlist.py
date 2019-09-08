@@ -41,7 +41,7 @@ import random
 import re
 import time
 import urllib.parse
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
 
 try:
     import pickle as pickle

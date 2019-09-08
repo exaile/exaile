@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import division
 from past.utils import old_div
 from gi.repository import GdkPixbuf, GObject, Gtk, Gdk
 

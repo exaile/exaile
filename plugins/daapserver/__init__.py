@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import logging
 from xl import event, settings
 from . import exaile_parser

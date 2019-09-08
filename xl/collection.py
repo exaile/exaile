@@ -33,7 +33,6 @@ the ability to be linked with libraries.
 A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
-from __future__ import division
 
 from builtins import str
 from past.builtins import basestring

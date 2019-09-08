@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 # mpris2 - Support MPRIS 2 in Exaile
 # Copyright (C) 2015-2016  Johannes Sasongko <sasongko@gmail.com>
 #

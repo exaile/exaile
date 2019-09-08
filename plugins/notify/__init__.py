@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 # Copyright (C) 2009-2010
 #     Adam Olsen <arolsen@gmail.com>
 #     Abhishek Mukherjee <abhishek.mukher.g@gmail.com>

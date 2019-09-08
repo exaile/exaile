@@ -30,7 +30,6 @@
     Access through the ``/org/exaile/Exaile`` object which
     implements the ``org.exaile.Exaile`` interface
 """
-from __future__ import print_function
 
 from builtins import str
 from collections import namedtuple

@@ -1,5 +1,3 @@
-from __future__ import division
-from __future__ import absolute_import
 # Copyright (C) 2006-2007 Aren Olson
 #                    2011 Brian Parma
 #

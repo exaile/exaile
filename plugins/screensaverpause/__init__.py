@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 # screensaverpause - pauses Exaile playback on screensaver activation
 # Copyright (C) 2009-2011  Johannes Sasongko <sasongko@gmail.com>
 #

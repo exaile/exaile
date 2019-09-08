@@ -20,9 +20,6 @@
 # - The previous Moodbar plugin included in Exaile <4, by Solyanov Michael.
 
 
-from __future__ import division, print_function
-from __future__ import absolute_import
-
 import os.path
 
 from gi.repository import Gdk, GLib

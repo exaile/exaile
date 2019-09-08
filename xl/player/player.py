@@ -1,4 +1,3 @@
-from __future__ import division
 # Copyright (C) 2008-2010 Adam Olsen
 # Copyright (C) 2014-2015 Dustin Spicuzza
 #

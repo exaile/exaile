@@ -1,5 +1,3 @@
-from __future__ import print_function
-from __future__ import absolute_import
 # This file contains some code to test the DAAPClient as stand-alone application.
 
 import sys

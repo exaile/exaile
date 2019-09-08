@@ -2,7 +2,6 @@
 
 """Launcher for Exaile on Windows"""
 
-from __future__ import division, print_function, unicode_literals
 
 # Make file handles not inheritable, that way we can restart on the fly
 # -> From http://www.virtualroadside.com/blog/index.php/2013/02/06/problems-with-file-descriptors-being-inherited-by-default-in-python/

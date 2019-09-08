@@ -1,4 +1,3 @@
-from __future__ import division
 # Copyright (C) 2015 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify

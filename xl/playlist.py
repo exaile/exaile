@@ -28,7 +28,6 @@
 Provides the fundamental objects for handling a list of tracks contained
 in playlists as well as methods to import and export from various file formats.
 """
-from __future__ import division
 
 from future import standard_library
 standard_library.install_aliases()

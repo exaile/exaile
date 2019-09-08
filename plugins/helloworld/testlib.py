@@ -1,4 +1,3 @@
-from __future__ import print_function
 # Copyright (C) 2009-2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify

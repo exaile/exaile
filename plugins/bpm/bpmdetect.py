@@ -13,8 +13,6 @@
 '''
 
 
-from __future__ import print_function
-
 import inspect
 import sys
 from gi.repository import Gst, GObject, Gio

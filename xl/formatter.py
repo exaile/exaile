@@ -29,7 +29,6 @@
 Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
-from __future__ import division
 
 from past.utils import old_div
 from datetime import date

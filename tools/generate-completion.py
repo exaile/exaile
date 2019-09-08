@@ -16,9 +16,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from __future__ import division, print_function, unicode_literals
-
-
 from builtins import str
 def bash_completion(parser):
     """

@@ -24,9 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# support python 2.5
-from __future__ import with_statement
-from __future__ import division
 
 from builtins import str
 from builtins import range

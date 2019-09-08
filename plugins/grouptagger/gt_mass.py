@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 # Copyright (C) 2014 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify

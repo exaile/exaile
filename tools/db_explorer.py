@@ -21,7 +21,6 @@
 # This requires click to be installed, which is not an Exaile dependency
 #
 
-from __future__ import print_function
 
 from future import standard_library
 standard_library.install_aliases()

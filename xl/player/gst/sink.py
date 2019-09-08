@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 # Copyright (C) 2008-2010 Adam Olsen
 # Copyright (C) 2013-2015 Dustin Spicuzza
 #

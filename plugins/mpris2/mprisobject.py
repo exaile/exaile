@@ -25,8 +25,6 @@
 # from your version.
 
 
-from __future__ import division
-
 import tempfile
 
 from gi.repository import Gio, GLib

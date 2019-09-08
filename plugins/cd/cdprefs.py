@@ -26,7 +26,6 @@
 
 from builtins import zip
 from builtins import str
-from __future__ import with_statement
 import os
 
 from xl import settings, transcoder

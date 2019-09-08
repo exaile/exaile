@@ -1,5 +1,3 @@
-from __future__ import division
-from __future__ import absolute_import
 # Copyright (C) 2011  Mathias Brodala <info@noctus.net>
 #
 # This program is free software: you can redistribute it and/or modify

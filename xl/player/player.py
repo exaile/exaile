@@ -27,7 +27,6 @@ from __future__ import division
 # from your version.
 
 
-from builtins import object
 from past.utils import old_div
 import time
 
@@ -42,7 +41,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class ExailePlayer(object):
+class ExailePlayer:
     """
         This is the player object that everything in Exaile interacts with
         to control audio playback. The player object controls a playback

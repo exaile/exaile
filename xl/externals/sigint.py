@@ -7,14 +7,13 @@
 #
 
 
-from builtins import object
 import sys
 import signal
 
 from gi.repository import GLib
 
 
-class InterruptibleLoopContext(object):
+class InterruptibleLoopContext:
     """
     Context Manager for GLib/Gtk based loops.
 

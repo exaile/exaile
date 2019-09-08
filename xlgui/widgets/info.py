@@ -25,7 +25,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Pango
@@ -329,7 +328,7 @@ class TrackInfoPane(Gtk.Bin):
             self.set_track(track)
 
 
-class ToolTip(object):
+class ToolTip:
     """
         Custom tooltip class to allow for
         extended tooltip functionality
@@ -512,7 +511,7 @@ class StatusbarTextFormatter(formatter.Formatter):
         return formatter.LengthTagFormatter.format_value(duration, format)
 
 
-class Statusbar(object):
+class Statusbar:
     """
         Convenient access to multiple status labels
     """
@@ -571,7 +570,7 @@ class Statusbar(object):
 
 
 # TODO: Check if we can get a progress indicator in here somehow
-class Splash(object):
+class Splash:
     """
         A splash screen suitable for indicating startup;
         will automatically be destroyed after GUI startup

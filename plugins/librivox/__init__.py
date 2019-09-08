@@ -21,7 +21,6 @@ from __future__ import absolute_import
 #    fetching that info...
 
 from builtins import str
-from builtins import object
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Gtk
@@ -58,7 +57,7 @@ def disable(exaile):
     providers.unregister('main-panel', LVPANEL)
 
 
-class LVPanel(object):
+class LVPanel:
     def on_search(self, widget):
         self.run_search(widget)
 
@@ -371,7 +370,7 @@ class LVPanel(object):
         return self._panel
 
 
-class Status(object):
+class Status:
     '''Status bar'''
 
     def __init__(self):

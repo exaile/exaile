@@ -27,7 +27,6 @@
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gst
 
@@ -335,7 +334,7 @@ class ExaileGstEngine(ExaileEngine):
         self.player.engine_notify_track_start(track)
 
 
-class AudioStream(object):
+class AudioStream:
     '''
         An object that can play one or more tracks
     '''

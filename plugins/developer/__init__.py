@@ -16,7 +16,6 @@
 
 from __future__ import print_function
 
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -29,7 +28,7 @@ from xlgui.widgets import menu
 import threading
 
 
-class DeveloperPlugin(object):
+class DeveloperPlugin:
     '''
         Shows useful information for Exaile developers
     '''

@@ -28,7 +28,6 @@ from __future__ import division
 from future import standard_library
 standard_library.install_aliases()
 from builtins import str
-from builtins import object
 from past.utils import old_div
 import logging
 import os
@@ -773,7 +772,7 @@ class CoverWidget(Gtk.EventBox):
             self.filename = None
 
 
-class CoverWindow(object):
+class CoverWindow:
     """Shows the cover in a simple image viewer"""
 
     def __init__(self, parent, pixbuf, album=None, savedir=None):

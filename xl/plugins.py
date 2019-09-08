@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import str
-from builtins import object
 import imp
 import inspect
 import logging
@@ -45,7 +44,7 @@ class InvalidPluginError(Exception):
         return str(self.args[0])
 
 
-class PluginsManager(object):
+class PluginsManager:
     def __init__(self, exaile, load=True):
         self.plugindirs = [os.path.join(p, 'plugins') for p in xdg.get_data_dirs()]
         if xdg.local_hack:

@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import range
-from builtins import object
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -465,7 +464,7 @@ class NotebookPage(Gtk.Box):
         self.emit('name-changed')
 
 
-class NotebookAction(object):
+class NotebookAction:
     """
         A custom action to be placed to the left or right of tabs in a notebook
     """

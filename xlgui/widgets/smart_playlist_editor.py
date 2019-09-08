@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import str
-from builtins import object
 from gi.repository import Gtk
 
 from xl import main, playlist, settings
@@ -288,7 +287,7 @@ def __update_maps():
 __update_maps()
 
 
-class SmartPlaylistEditor(object):
+class SmartPlaylistEditor:
     @classmethod
     def create(cls, collection, smart_manager, parent=None):
         """

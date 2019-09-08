@@ -1,7 +1,6 @@
 from future import standard_library
 standard_library.install_aliases()
 from builtins import str
-from builtins import object
 import http.client
 import logging
 from io import StringIO
@@ -12,7 +11,7 @@ from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 log = logging.getLogger('daapclient')
 
 
-class DAAPClient(object):
+class DAAPClient:
     def __init__(self):
         self.socket = None
         self.request_id = 0
@@ -155,7 +154,7 @@ class DAAPClient(object):
         return DAAPSession(self, sessionid)
 
 
-class DAAPSession(object):
+class DAAPSession:
     def __init__(self, connection, sessionid):
         self.connection = connection
         self.sessionid = sessionid
@@ -193,7 +192,7 @@ class DAAPSession(object):
 daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songalbumartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber,daap.songdiscnumber"
 
 
-class DAAPDatabase(object):
+class DAAPDatabase:
     def __init__(self, session, atom):
         self.session = session
         self.name = atom.getAtom("minm")
@@ -214,7 +213,7 @@ class DAAPDatabase(object):
         return [DAAPPlaylist(self, d) for d in db_list]
 
 
-class DAAPPlaylist(object):
+class DAAPPlaylist:
     def __init__(self, database, atom):
         self.database = database
         self.id = atom.getAtom("miid")
@@ -231,7 +230,7 @@ class DAAPPlaylist(object):
         return [DAAPTrack(self.database, t) for t in track_list]
 
 
-class DAAPTrack(object):
+class DAAPTrack:
 
     attrmap = {
         'name': 'minm',

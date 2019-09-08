@@ -21,7 +21,6 @@ from __future__ import division
 from __future__ import absolute_import
 from builtins import range
 from past.utils import old_div
-from builtins import object
 from __future__ import with_statement
 
 from gi.repository import GLib
@@ -87,7 +86,7 @@ def idle_add(f):
 ###><><><### Alarm Clock Stuph ###><><><###
 
 
-class Alarm(object):
+class Alarm:
     '''
         Class for individual alarms.
     '''
@@ -117,7 +116,7 @@ class Alarm(object):
             self.on()
 
 
-class AlarmClock(object):
+class AlarmClock:
     '''
         Class that handles the TreeView interaction and keeps track of alarms.
     '''

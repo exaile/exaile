@@ -1,4 +1,3 @@
-from builtins import object
 from gi.repository import GLib
 import threading
 from xl import event
@@ -22,7 +21,7 @@ def glib_idle_add(fn, *args):
 GLib.idle_add = glib_idle_add
 
 
-class NormalCallback(object):
+class NormalCallback:
     def __init__(self):
         self.called = False
         event.add_callback(self.on_cb, 'test')
@@ -35,7 +34,7 @@ class NormalCallback(object):
         self.on_ui_thread = on_ui_thread[0]
 
 
-class UiCallback(object):
+class UiCallback:
     def __init__(self):
         self.called = False
         event.add_ui_callback(self.on_cb, 'test')

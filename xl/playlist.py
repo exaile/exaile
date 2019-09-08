@@ -37,7 +37,6 @@ from builtins import zip
 from builtins import str
 from builtins import range
 from past.utils import old_div
-from builtins import object
 from gi.repository import Gio
 
 import cgi
@@ -187,7 +186,7 @@ def export_playlist(playlist, path, options=None):
         raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 
 
-class FormatConverter(object):
+class FormatConverter:
     """
         Base class for all converters allowing to
         import from and export to a specific format
@@ -716,7 +715,7 @@ class ASXConverter(FormatConverter):
 
         return playlist
 
-    class ASXPlaylistParser(object):
+    class ASXPlaylistParser:
         """
             Target for xml.etree.ElementTree.XMLParser, allows
             for parsing ASX playlists case-insensitive
@@ -901,7 +900,7 @@ class XSPFConverter(FormatConverter):
 providers.register('playlist-format-converter', XSPFConverter())
 
 
-class Playlist(object):
+class Playlist:
     # TODO: how do we document events in sphinx?
     """
         Basic class for handling a list of tracks
@@ -1748,7 +1747,7 @@ class Playlist(object):
             self.__spat_position = -1
 
 
-class SmartPlaylist(object):
+class SmartPlaylist:
     """
         Represents a Smart Playlist.
         This will query a collection object using a set of parameters
@@ -2086,7 +2085,7 @@ class SmartPlaylist(object):
                 setattr(self, item, pdata[item])
 
 
-class PlaylistManager(object):
+class PlaylistManager:
     """
         Manages saving and loading of playlists
     """

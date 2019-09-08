@@ -24,12 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import Gtk
 from xl import providers
 
 
-class Accelerator(object):
+class Accelerator:
     __slots__ = ['name', 'keys', 'helptext', 'callback', 'key', 'mods']
 
     def __init__(self, keys, helptext, callback):

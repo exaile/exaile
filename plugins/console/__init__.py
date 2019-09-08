@@ -23,7 +23,6 @@ plugin is meant as a basic alternative without the extra dependencies.
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 from gi.repository import Gtk
 
 import os
@@ -32,7 +31,7 @@ import traceback
 from io import StringIO
 
 
-class PyConsole(object):
+class PyConsole:
     def __init__(self, dict, exaile):
         self.dict = dict
         self.buffer = StringIO()

@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 import logging
 
 from gi.repository import Gdk
@@ -125,7 +124,7 @@ def __create_tray_context_menu():
 __create_tray_context_menu()
 
 
-class BaseTrayIcon(object):
+class BaseTrayIcon:
     """
         Trayicon base, needs to be derived from
     """

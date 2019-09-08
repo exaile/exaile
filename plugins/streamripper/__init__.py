@@ -15,7 +15,6 @@ from __future__ import absolute_import
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from builtins import object
 import subprocess
 import logging
 import os
@@ -37,7 +36,7 @@ def get_preferences_pane():
     return srprefs
 
 
-class Streamripper(object):
+class Streamripper:
     def __init__(self):
         self.savedir = None
 

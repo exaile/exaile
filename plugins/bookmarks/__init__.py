@@ -20,7 +20,6 @@ from __future__ import division
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 from past.utils import old_div
 import copy
 import json
@@ -46,7 +45,7 @@ _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
 
-class Bookmark(object):
+class Bookmark:
     """
         Manages a bookmark and provides a method to create a menu item.
     """
@@ -159,7 +158,7 @@ class Bookmark(object):
         return (self.__path, self.__time)
 
 
-class BookmarksManager(object):
+class BookmarksManager:
     """
         Manages a list of bookmarks and the associated menu entries
     """
@@ -308,7 +307,7 @@ class BookmarksManager(object):
             LOGGER.debug('saved %d bookmarks', len(bookmarks))
 
 
-class BookmarksPlugin(object):
+class BookmarksPlugin:
     def __init__(self):
         self.__manager = None
 

@@ -17,7 +17,6 @@
 from __future__ import absolute_import
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 import logging
 import os
 import urllib.request, urllib.error, urllib.parse
@@ -57,7 +56,7 @@ LANGUAGES = ["ab", "aa", "af", "ak", "sq", "am", "ar", "an", "hy", "as", "av",
 # fmt: on
 
 
-class WikipediaPlugin(object):
+class WikipediaPlugin:
 
     __exaile = None
     __wiki_panel = None

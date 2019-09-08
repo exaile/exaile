@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import range
-from builtins import object
 import logging
 import threading
 import time
@@ -37,7 +36,7 @@ from xl.main import common
 logger = logging.getLogger(__name__)
 
 
-class UDisksPropertyWrapper(object):
+class UDisksPropertyWrapper:
     '''
         Wrapper around an org.freedesktop.DBus.Properties interface
 
@@ -61,7 +60,7 @@ class UDisksPropertyWrapper(object):
         return '<UDisksPropertyWrapper: %s>' % self.iface_type
 
 
-class UDisksDBusWrapper(object):
+class UDisksDBusWrapper:
     '''
         Simple wrapper to make life easier. Assume that we only are
         using this to get properties off the 'primary' interface.
@@ -402,7 +401,7 @@ class UDisks2(UDisksBase):
             self._add_device(path)
 
 
-class Handler(object):
+class Handler:
     '''
         The HAL provider interface
     '''
@@ -422,7 +421,7 @@ class Handler(object):
         pass
 
 
-class UDisksProvider(object):
+class UDisksProvider:
     '''
         The UDisksProvider interface. Works for UDisks 1 and 2, but you should
         implement separate providers for each, as the object types and

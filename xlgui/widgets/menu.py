@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import Gtk
 
 from xl import common, providers
@@ -177,7 +176,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func, callbac
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
 
-class MenuItem(object):
+class MenuItem:
     __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
 
     def __init__(self, name, factory, after):

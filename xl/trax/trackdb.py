@@ -26,7 +26,6 @@
 
 from __future__ import absolute_import
 
-from builtins import object
 import logging
 
 from copy import deepcopy
@@ -43,7 +42,7 @@ from time import time
 logger = logging.getLogger(__name__)
 
 
-class TrackHolder(object):
+class TrackHolder:
     def __init__(self, track, key, **kwargs):
         self._track = track
         self._key = key
@@ -53,7 +52,7 @@ class TrackHolder(object):
         return getattr(self._track, attr)
 
 
-class TrackDBIterator(object):
+class TrackDBIterator:
     def __init__(self, track_iterator):
         self.iter = track_iterator
 
@@ -64,7 +63,7 @@ class TrackDBIterator(object):
         return self.iter.next()[1]._track
 
 
-class TrackDB(object):
+class TrackDB:
     """
         Manages a track database.
 

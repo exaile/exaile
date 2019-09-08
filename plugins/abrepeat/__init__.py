@@ -16,7 +16,6 @@ from __future__ import division
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from past.utils import old_div
-from builtins import object
 from gi.repository import Gdk
 
 from xl import event, player, providers
@@ -24,7 +23,7 @@ from xl.nls import gettext as _
 from xlgui.widgets import playback
 
 
-class ABRepeatPlugin(object):
+class ABRepeatPlugin:
     def __init__(self):
         self.__menu_item = None
 

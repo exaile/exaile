@@ -33,7 +33,6 @@ as album art.
 from future import standard_library
 standard_library.install_aliases()
 from builtins import range
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gio
 import logging
@@ -54,7 +53,7 @@ logger = logging.getLogger(__name__)
 
 # TODO: maybe this could go into common.py instead? could be
 # useful in other areas.
-class Cacher(object):
+class Cacher:
     """
         Simple on-disk cache.
 
@@ -477,7 +476,7 @@ class CoverManager(providers.ProviderHandler):
         return None  # No cover found
 
 
-class CoverSearchMethod(object):
+class CoverSearchMethod:
     """
         Base class for creating cover search methods.
 

@@ -24,11 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from xl import event
 
 
-class PlaybackAdapter(object):
+class PlaybackAdapter:
     """
         Basic class which listens for playback changes
     """
@@ -83,7 +82,7 @@ class PlaybackAdapter(object):
         pass
 
 
-class QueueAdapter(object):
+class QueueAdapter:
     """
         Basic class which listens for queue changes
     """

@@ -1,5 +1,4 @@
 from builtins import zip
-from builtins import object
 import unittest
 
 from mox3 import mox
@@ -24,8 +23,8 @@ def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('http:///tmp')
 
 
-class TestGetTracksFromUri(object):
-    class DummyClass(object):
+class TestGetTracksFromUri:
+    class DummyClass:
         def __init__(self, parent, retval):
             self.parent = parent
             self.retval = retval
@@ -102,7 +101,7 @@ class TestGetTracksFromUri(object):
         self.mox.VerifyAll()
 
 
-class TestSortTracks(object):
+class TestSortTracks:
     def setup(self):
         self.tracks = [
             xl.trax.track.Track(url) for url in ('/tmp/foo', '/tmp/bar', '/tmp/baz')
@@ -123,7 +122,7 @@ class TestSortTracks(object):
         )
 
 
-class TestSortResultTracks(object):
+class TestSortResultTracks:
     def setup(self):
         tracks = [
             xl.trax.track.Track(url) for url in ('/tmp/foo', '/tmp/bar', '/tmp/baz')

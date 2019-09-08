@@ -27,7 +27,6 @@
 from future import standard_library
 standard_library.install_aliases()
 from builtins import map
-from builtins import object
 __all__ = ['main', 'panel', 'playlist']
 
 from gi.repository import Gdk
@@ -55,7 +54,7 @@ def get_controller():
     return Main._main
 
 
-class Main(object):
+class Main:
     """
         This is the main gui controller for exaile
     """

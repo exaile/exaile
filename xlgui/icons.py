@@ -29,7 +29,6 @@
 """
 
 from builtins import range
-from builtins import object
 import glob
 from gi.repository import GdkPixbuf, GLib, Gtk
 
@@ -42,7 +41,7 @@ from xlgui.guiutil import pixbuf_from_data
 logger = logging.getLogger(__name__)
 
 
-class ExtendedPixbuf(object):
+class ExtendedPixbuf:
     """
         A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
         interaction using standard operators
@@ -522,7 +521,7 @@ def extended_pixbuf_new_from_file(filename):
     return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_from_file(filename))
 
 
-class IconManager(object):
+class IconManager:
     """
         Provides convenience functions for
         managing icons and images in general

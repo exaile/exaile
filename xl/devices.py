@@ -30,11 +30,10 @@ Devices
 contains the DeviceManager and some generic Device classes
 """
 
-from builtins import object
 from xl import event, collection
 
 
-class DeviceManager(object):
+class DeviceManager:
     """
         manages devices
     """
@@ -71,7 +70,7 @@ class TransferNotSupportedError(Exception):
     pass
 
 
-class Device(object):
+class Device:
     """
         a device
 

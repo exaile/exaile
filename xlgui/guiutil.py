@@ -28,7 +28,6 @@ from __future__ import division
 from builtins import str
 from builtins import range
 from past.builtins import basestring
-from builtins import object
 from past.utils import old_div
 import contextlib
 import logging
@@ -296,7 +295,7 @@ class ScalableImageWidget(Gtk.Image):
         scaled = pixbuf = None
 
 
-class SearchEntry(object):
+class SearchEntry:
     """
         A Gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
@@ -367,7 +366,7 @@ class SearchEntry(object):
         return getattr(self.entry, attr)
 
 
-class ModifierType(object):
+class ModifierType:
     '''
         Common Gdk.ModifierType combinations that work in a cross platform way
     '''

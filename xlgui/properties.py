@@ -27,7 +27,6 @@ from __future__ import division
 
 from builtins import str
 from builtins import range
-from builtins import object
 from past.utils import old_div
 from collections import OrderedDict
 import datetime
@@ -598,7 +597,7 @@ class TrackPropertiesDialog(GObject.GObject):
         self.dialog.hide()
 
 
-class TagRow(object):
+class TagRow:
     def __init__(self, parent, parent_grid, field, tag_name, value, multi_id):
         self.parent = parent
         self.grid = parent_grid

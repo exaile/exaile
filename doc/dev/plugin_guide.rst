@@ -54,7 +54,7 @@ authors. We will use this model below:
 
 .. code-block:: python
 
-    class MyPlugin(object):
+    class MyPlugin:
     
         def enable(self, exaile):
             print('You enabled me!')
@@ -118,7 +118,7 @@ and the ``__init__.py`` is as follows
     
     # The main functionality of each plugin is generally defined in a class
     # This is by convention, and also makes programming easier
-    class TutorialPlugin(object):
+    class TutorialPlugin:
     
         def enable(self, exaile):
             '''This method is called when the plugin is loaded by exaile'''
@@ -232,7 +232,7 @@ example in a plugin might be:
 
     from xl import event, trax
     
-    class PlaylistExample(object):
+    class PlaylistExample:
    
         def enable(self, exaile):
             self.exaile = exaile

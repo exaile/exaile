@@ -27,7 +27,6 @@ from __future__ import absolute_import
 
 from builtins import str
 from builtins import range
-from builtins import object
 from gi.repository import GObject
 from gi.repository import Gtk
 
@@ -51,7 +50,7 @@ logger = logging.getLogger(__name__)
 from .presets import DEFAULT_PRESETS
 
 
-class AnalyzerDialog(object):
+class AnalyzerDialog:
     '''
         Provide super flexible interface to stuff. Hm.
 

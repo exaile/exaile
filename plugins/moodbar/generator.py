@@ -19,7 +19,6 @@ from __future__ import division, print_function, unicode_literals
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 import os
 import subprocess
 import threading
@@ -32,7 +31,7 @@ class MoodbarGeneratorError(Exception):
     pass
 
 
-class MoodbarGenerator(object):
+class MoodbarGenerator:
     def check(self):
         """Check whether the generator works.
 

@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import range
-from builtins import object
 import logging
 
 from xl.nls import gettext as _
@@ -38,7 +37,7 @@ from xlgui.panel import lyrics
 logger = logging.getLogger(__name__)
 
 
-class PanelData(object):
+class PanelData:
 
     __slots__ = ['tab', 'menuitem', 'panel', 'position', 'shown']
 

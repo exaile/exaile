@@ -26,7 +26,6 @@ from __future__ import absolute_import
 # from your version.
 
 from builtins import str
-from builtins import object
 from gi.repository import Gio
 
 from os.path import dirname, join
@@ -40,7 +39,7 @@ from xlgui.widgets import menu
 from .analyzer_dialog import AnalyzerDialog
 
 
-class PlaylistAnalyzerPlugin(object):
+class PlaylistAnalyzerPlugin:
     def __init__(self):
         self.menu_items = []
         self.dialog = None

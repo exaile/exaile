@@ -25,7 +25,6 @@ from __future__ import absolute_import
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import Gtk
 
 import os
@@ -46,7 +45,7 @@ from xlgui.widgets.playlist import PlaylistPageBase, PlaylistView
 from . import history_preferences
 
 
-class HistoryPlugin(object):
+class HistoryPlugin:
     '''Implements logic for plugin'''
 
     def get_preferences_pane(self):

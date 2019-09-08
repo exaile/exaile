@@ -1,4 +1,3 @@
-from builtins import object
 import collections
 import os
 import shutil
@@ -119,7 +118,7 @@ def test_tracks():
         Returns an object that can be used to retrieve test track data
     '''
 
-    class _TestTracks(object):
+    class _TestTracks:
         def get(self, ext):
             return [x for x in _all_tracks if x.filename.endswith(ext)][0]
 

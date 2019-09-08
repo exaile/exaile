@@ -25,7 +25,6 @@ from __future__ import division
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from past.utils import old_div
 from gi.repository import GLib
 
@@ -36,7 +35,7 @@ import logging
 FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
-class TrackFader(object):
+class TrackFader:
     '''
         This object manages the volume of a track, and fading it in/out via
         volume. As a bonus, this object can manage the start/stop offset of

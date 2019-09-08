@@ -5,11 +5,10 @@
     Derived from https://read-the-docs.readthedocs.org/en/latest/faq.html
 '''
 
-from builtins import object
 import sys
 
 
-class Mock(object):
+class Mock:
 
     __all__ = []
 
@@ -42,7 +41,7 @@ class Mock(object):
 
     # gtk/gdk mocks
 
-    class ModifierType(object):
+    class ModifierType:
         SHIFT_MASK = 0
 
     @classmethod

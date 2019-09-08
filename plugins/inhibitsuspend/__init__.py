@@ -10,7 +10,6 @@ from __future__ import print_function, with_statement
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 try:
     import _thread as _thread
 except ImportError:
@@ -61,7 +60,7 @@ def disable(exaile):
     logger.info('Suspend Inhibitor Disabled')
 
 
-class SuspendInhibit(object):
+class SuspendInhibit:
     """
         Attempt to detect desktop session and initialize appropriate adapter
     """

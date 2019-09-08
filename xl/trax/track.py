@@ -30,7 +30,6 @@ from builtins import str
 from builtins import map
 from past.builtins import basestring
 from past.utils import old_div
-from builtins import object
 from copy import deepcopy
 import logging
 import re
@@ -77,7 +76,7 @@ _no_set_raw = {'__basename', '__loc'} | disk_tags
 _unset = object()
 
 
-class _MetadataCacher(object):
+class _MetadataCacher:
     """
         Cache metadata Format objects to speed up get_tag_disk
     """
@@ -134,7 +133,7 @@ class _MetadataCacher(object):
 _CACHER = _MetadataCacher()
 
 
-class Track(object):
+class Track:
     """
         Represents a single track.
     """

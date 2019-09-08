@@ -18,7 +18,6 @@ from __future__ import division
 from __future__ import absolute_import
 
 from builtins import str
-from builtins import object
 from collections import namedtuple
 import logging
 import sys
@@ -87,7 +86,7 @@ def _sanitize_window_geometry(
     return newal
 
 
-class OSDPlugin(object):
+class OSDPlugin:
     """
         The plugin for showing an On-Screen Display.
         This object holds all the stuff which may live longer than the window.

@@ -49,7 +49,6 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 from builtins import range
-from builtins import object
 import re
 import sys
 import os
@@ -69,7 +68,7 @@ from gi.repository import Pango
 import IPython
 
 
-class IterableIPShell(object):
+class IterableIPShell:
     '''
     Create an IPython instance. Does not start a blocking event loop,
     instead allow single iterations. This allows embedding in GTK+

@@ -26,7 +26,6 @@
 
 from builtins import str
 from builtins import range
-from builtins import object
 import hashlib
 import logging
 import os
@@ -45,7 +44,7 @@ from xlgui.guiutil import GtkTemplate
 logger = logging.getLogger(__name__)
 
 
-class Preference(object):
+class Preference:
     """
         Representing a Gtk.Entry preferences item
     """
@@ -168,7 +167,7 @@ class Preference(object):
             self.label_widget.set_sensitive(value)
 
 
-class Conditional(object):
+class Conditional:
     """
         Allows for reactions on changes
         of other preference items
@@ -243,7 +242,7 @@ class CheckConditional(Conditional):
         return self.get_condition_value()
 
 
-class MultiConditional(object):
+class MultiConditional:
     """
         Allows for reactions on changes of multiple preference items
     """
@@ -508,7 +507,7 @@ class SelectionListPreference(Preference):
         * default: list of item ids
     """
 
-    class Item(object):
+    class Item:
         """
             Convenience class for preference item description
         """

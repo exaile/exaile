@@ -37,7 +37,6 @@ from __future__ import division
 
 from builtins import range
 from past.utils import old_div
-from builtins import object
 import sys
 from struct import pack, unpack
 from warnings import warn
@@ -63,7 +62,7 @@ def bchr(n):
     return pack('B', n)
 
 
-class Ebml(object):
+class Ebml:
     """EBML parser.
 
     Usage: Ebml(location, tags).parse()

@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from builtins import object
 import dbus
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -26,7 +25,7 @@ from xlgui.widgets import dialogs, menu
 SHUTDOWN = None
 
 
-class Shutdown(object):
+class Shutdown:
     def __init__(self, exaile):
         self.exaile = exaile
         self.do_shutdown = False

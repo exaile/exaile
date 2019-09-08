@@ -21,7 +21,6 @@ from future import standard_library
 standard_library.install_aliases()
 from builtins import str
 from past.utils import old_div
-from builtins import object
 import functools
 from gettext import gettext as _
 import http.client
@@ -303,7 +302,7 @@ class DaapHistory(common.LimitedCache):
             pickle.dump(self.cache, f, common.PICKLE_PROTOCOL)
 
 
-class DaapManager(object):
+class DaapManager:
     '''
         DaapManager is a class that manages DaapConnections, both manual
     and avahi-generated.
@@ -445,7 +444,7 @@ class DaapManager(object):
                 providers.unregister('main-panel', panel)
 
 
-class DaapConnection(object):
+class DaapConnection:
     """
         A connection to a DAAP share.
     """
@@ -775,7 +774,7 @@ class NetworkPanel(CollectionPanel):
 #                print "DAAP: saving track %s to %s."%(i.daapid, filename)
 
 
-class DaapClientPlugin(object):
+class DaapClientPlugin:
 
     __exaile = None
     __manager = None

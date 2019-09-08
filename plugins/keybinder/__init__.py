@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from builtins import object
 import logging
 
 import gi
@@ -40,7 +39,7 @@ KEYS = [
 ]
 
 
-class KeybinderPlugin(object):
+class KeybinderPlugin:
     def __init__(self):
         self.__exaile = None
 

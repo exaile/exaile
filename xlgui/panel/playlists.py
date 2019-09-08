@@ -28,7 +28,6 @@ from __future__ import division
 
 from builtins import str
 from past.utils import old_div
-from builtins import object
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -49,7 +48,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class TrackWrapper(object):
+class TrackWrapper:
     def __init__(self, track, playlist):
         self.track = track
         self.playlist = playlist

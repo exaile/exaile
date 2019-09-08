@@ -1,7 +1,6 @@
 # -*- coding: utf-8
 
 from past.builtins import basestring
-from builtins import object
 from mox3 import mox
 
 from xl.trax import search
@@ -20,7 +19,7 @@ def get_search_result_track():
     return search.SearchResultTrack(tr)
 
 
-class TestMatcher(object):
+class TestMatcher:
     def setup(self):
         self.mox = mox.Mox()
         self.strack = get_search_result_track()
@@ -61,7 +60,7 @@ class TestMatcher(object):
             matcher._matches('foo')
 
 
-class TestExactMatcher(object):
+class TestExactMatcher:
     def setup(self):
         self.str = get_search_result_track()
 
@@ -76,7 +75,7 @@ class TestExactMatcher(object):
         assert not matcher.match(self.str)
 
 
-class TestInMatcher(object):
+class TestInMatcher:
     def setup(self):
         self.str = get_search_result_track()
 
@@ -101,7 +100,7 @@ class TestInMatcher(object):
         assert not matcher.match(self.str)
 
 
-class TestGtLtMatchers(object):
+class TestGtLtMatchers:
     def setup(self):
         self.str = get_search_result_track()
 
@@ -126,8 +125,8 @@ class TestGtLtMatchers(object):
         assert not matcher.match(self.str)
 
 
-class TestMetaMatcherClasses(object):
-    class _Matcher(object):
+class TestMetaMatcherClasses:
+    class _Matcher:
         def __init__(self, val):
             self.val = val
 
@@ -204,7 +203,7 @@ class TestManyMultiMetaMatcher(TestMetaMatcherClasses):
         assert not matcher.match('foo')
 
 
-class TestTracksMatcher(object):
+class TestTracksMatcher:
     def setup(self):
         self.str = get_search_result_track()
 
@@ -357,7 +356,7 @@ class TestTracksMatcher(object):
         assert not matcher.match(self.str)
 
 
-class TestSearchTracks(object):
+class TestSearchTracks:
     def test_search_tracks(self):
         matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]

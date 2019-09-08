@@ -29,7 +29,6 @@ from __future__ import absolute_import
 from builtins import str
 from builtins import range
 from past.utils import old_div
-from builtins import object
 import dbus
 from fcntl import ioctl
 import logging
@@ -67,7 +66,7 @@ CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
 
-class CdPlugin(object):
+class CdPlugin:
     def enable(self, exaile):
         self.__exaile = exaile
         self.__udisks2 = None
@@ -94,7 +93,7 @@ class CdPlugin(object):
 plugin_class = CdPlugin
 
 
-class _CDTrack(object):
+class _CDTrack:
     """
         @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
         @ivar data: `True` if this "track" contains data, `False` if it is audio
@@ -120,7 +119,7 @@ class _CDTrack(object):
         return (self.minutes * 60 + self.seconds) * 75 + self.frames
 
 
-class CDTocParser(object):
+class CDTocParser:
     # based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
 
     def __init__(self, device):

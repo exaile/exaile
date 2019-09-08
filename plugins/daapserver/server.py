@@ -18,7 +18,6 @@
 from future import standard_library
 standard_library.install_aliases()
 from builtins import str
-from builtins import object
 import http.server
 import socketserver
 import logging
@@ -86,7 +85,7 @@ class MyThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
         http.server.HTTPServer.__init__(self, *args)
 
 
-class DaapServer(object):
+class DaapServer:
     def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
         #        Thread.__init__(self)
         self.host = host

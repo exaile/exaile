@@ -16,7 +16,6 @@
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
 import urllib.request, urllib.parse, urllib.error
 from xml.etree import ElementTree
 from xl import common
@@ -30,7 +29,7 @@ logger = logging.getLogger(__name__)
 search_url = 'https://librivox.org/api/feed/audiobooks/?title='
 
 
-class Book(object):
+class Book:
     def __init__(self, title, rssurl, user_agent):
         self.title = title
         self.rssurl = rssurl

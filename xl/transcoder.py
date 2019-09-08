@@ -25,7 +25,6 @@ from __future__ import division
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from past.utils import old_div
 from gi.repository import Gst
 
@@ -146,7 +145,7 @@ class TranscodeError(Exception):
     pass
 
 
-class Transcoder(object):
+class Transcoder:
     def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None

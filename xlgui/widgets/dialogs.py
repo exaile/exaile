@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import str
-from builtins import object
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
@@ -528,7 +527,7 @@ class ListDialog(Gtk.Dialog):
 # TODO: combine this and list dialog
 
 
-class ListBox(object):
+class ListBox:
     """
         Represents a list box
     """

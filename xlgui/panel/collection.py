@@ -27,7 +27,6 @@
 from builtins import map
 from builtins import str
 from builtins import range
-from builtins import object
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -61,7 +60,7 @@ def first_meaningful_char(s):
         return '_'
 
 
-class Order(object):
+class Order:
     """
         An Order represents a structure for arranging Tracks into the
         Collection tree.

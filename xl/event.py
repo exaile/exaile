@@ -37,7 +37,6 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
-from builtins import object
 from inspect import ismethod
 import logging
 import re
@@ -53,7 +52,7 @@ EVENT_MANAGER = None
 logger = logging.getLogger(__name__)
 
 
-class Nothing(object):
+class Nothing:
     pass
 
 
@@ -151,7 +150,7 @@ def remove_callback(function, evty=None, obj=None):
     EVENT_MANAGER.remove_callback(function, evty, obj)
 
 
-class Event(object):
+class Event:
     """
         Represents an Event
     """
@@ -169,7 +168,7 @@ class Event(object):
         self.data = data
 
 
-class Callback(object):
+class Callback:
     """
         Represents a callback
     """
@@ -190,7 +189,7 @@ class Callback(object):
         return '<Callback %s>' % self.wfunction()
 
 
-class _WeakMethod(object):
+class _WeakMethod:
     """Represent a weak bound method, i.e. a method doesn't keep alive the
     object that it is bound to. It uses WeakRef which, used on its own,
     produces weak methods that are dead on creation, not very useful.
@@ -259,7 +258,7 @@ def _getWeakRef(obj, notifyDead=None):
         return createRef(obj, notifyDead)
 
 
-class EventManager(object):
+class EventManager:
     """
         Manages all Events
     """

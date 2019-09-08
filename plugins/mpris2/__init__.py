@@ -26,7 +26,6 @@ from __future__ import absolute_import
 # from your version.
 
 
-from builtins import object
 from gi.repository import Gio
 
 from . import dbushelper
@@ -120,7 +119,7 @@ MPRIS_INTROSPECTION = '''\
 '''
 
 
-class MprisPlugin(object):
+class MprisPlugin:
     def enable(self, exaile):
         self.handler = MprisHandler(exaile)
 
@@ -135,7 +134,7 @@ class MprisPlugin(object):
 plugin_class = MprisPlugin
 
 
-class MprisHandler(object):
+class MprisHandler:
     root_interface = player_interface = None
 
     def __init__(self, exaile):

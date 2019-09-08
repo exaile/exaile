@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import str
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -42,7 +41,7 @@ name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
 
-class PluginManager(object):
+class PluginManager:
     """
         Gui to manage plugins
     """

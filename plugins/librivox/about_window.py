@@ -14,12 +14,11 @@
 #
 # Arunas Radzvilavicius, arunas.rv@gmail.com
 
-from builtins import object
 from gi.repository import Gtk
 from gi.repository import Pango
 
 
-class AboutWindow(object):
+class AboutWindow:
     def __init__(self):
 
         self.book = None

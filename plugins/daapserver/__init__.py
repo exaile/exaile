@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-from builtins import object
 import logging
 from xl import event, settings
 from . import exaile_parser
@@ -10,10 +9,10 @@ logger = logging.getLogger(__file__)
 
 
 # todo support multiple connections?
-class CollectionWrapper(object):
+class CollectionWrapper:
     '''Class to wrap Exaile's collection to make it spydaap compatible'''
 
-    class TrackWrapper(object):
+    class TrackWrapper:
         '''Wrap a single track for spydaap'''
 
         def __init__(self, id, track):
@@ -56,7 +55,7 @@ class CollectionWrapper(object):
         return len(self.collection)
 
 
-class DaapServerPlugin(object):
+class DaapServerPlugin:
     __exaile = None
     __daapserver = None
 

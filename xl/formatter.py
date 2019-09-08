@@ -31,7 +31,6 @@ preparation of data for display in various contexts.
 """
 from __future__ import division
 
-from builtins import object
 from past.utils import old_div
 from datetime import date
 from gi.repository import GLib
@@ -417,7 +416,7 @@ class TrackFormatter(Formatter):
         return Formatter.format(self)
 
 
-class TagFormatter(object):
+class TagFormatter:
     """
         A formatter provider for a tag of a track
     """

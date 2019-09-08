@@ -15,8 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from builtins import object
-class WinmmkeysPlugin(object):
+class WinmmkeysPlugin:
     def enable(self, exaile):
         self.exaile = exaile
 
@@ -36,7 +35,7 @@ class WinmmkeysPlugin(object):
 plugin_class = WinmmkeysPlugin
 
 
-class HotkeyHandler_PyHook(object):
+class HotkeyHandler_PyHook:
     def __init__(self, exaile):
         import pyHook
         from xl.player import PLAYER, QUEUE
@@ -72,7 +71,7 @@ class HotkeyHandler_PyHook(object):
             del self.hook_manager
 
 
-class HotkeyHandler_Keyboard(object):
+class HotkeyHandler_Keyboard:
     def __init__(self, exaile):
         import keyboard
         from xl.player import PLAYER, QUEUE

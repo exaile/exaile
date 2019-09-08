@@ -15,7 +15,6 @@ from __future__ import absolute_import
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from builtins import object
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -73,7 +72,7 @@ def get_preferences_pane():
     return asprefs
 
 
-class ExaileScrobbler(object):
+class ExaileScrobbler:
     def __init__(self, exaile):
         """
             Connects events to the player object, loads settings and cache

@@ -3,7 +3,6 @@
 from builtins import str
 from builtins import bytes
 from builtins import range
-from builtins import object
 import os
 import unittest
 import logging
@@ -22,7 +21,7 @@ import xl.settings as settings
 LOG = logging.getLogger(__name__)
 
 
-class Test_MetadataCacher(object):
+class Test_MetadataCacher:
 
     TIMEOUT = 2000
     MAX_ENTRIES = 2048
@@ -83,7 +82,7 @@ def random_str(l=8):
     return ''.join(random.choice(string.ascii_letters) for _ in range(l))
 
 
-class TestTrack(object):
+class TestTrack:
     def setup(self):
         self.mox = mox.Mox()
 

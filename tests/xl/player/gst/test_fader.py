@@ -1,5 +1,4 @@
 from __future__ import print_function
-from builtins import object
 from gi.repository import GLib
 import pytest
 
@@ -11,7 +10,7 @@ Normal = FadeState.Normal
 FadingOut = FadeState.FadingOut
 
 
-class FakeStream(object):
+class FakeStream:
     def __init__(self):
         self.reset()
 
@@ -34,7 +33,7 @@ class FakeStream(object):
         self.fadeout_begin = True
 
 
-class FakeTrack(object):
+class FakeTrack:
     def __init__(self, start_off, stop_off, tracklen):
         self.tags = {
             '__startoffset': start_off,

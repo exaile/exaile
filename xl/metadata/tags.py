@@ -1,4 +1,3 @@
-from builtins import object
 from xl.nls import gettext
 
 
@@ -6,7 +5,7 @@ def N_(x):
     return x
 
 
-class _TD(object):
+class _TD:
 
     __slots__ = [
         'name',  # descriptive name

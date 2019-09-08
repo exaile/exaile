@@ -18,7 +18,6 @@ from __future__ import absolute_import
 from future import standard_library
 standard_library.install_aliases()
 from past.utils import old_div
-from builtins import object
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 import logging
@@ -46,7 +45,7 @@ icons.MANAGER.add_icon_name_from_directory(
 )
 
 
-class LastFMPlugin(object):
+class LastFMPlugin:
     def enable(self, exaile):
         """
             Handles the deferred enable call
@@ -196,7 +195,7 @@ class LoveMenuItem(MenuItem):
         self.__lastfmlover.toggle_loved(track)
 
 
-class LastFMLover(object):
+class LastFMLover:
     """
         Allows for retrieval and setting
         of loved tracks via Last.fm

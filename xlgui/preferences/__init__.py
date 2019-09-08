@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -50,7 +49,7 @@ from . import (
 logger = logging.getLogger(__name__)
 
 
-class PreferencesDialog(object):
+class PreferencesDialog:
     """
         Preferences Dialog
     """

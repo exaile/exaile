@@ -21,7 +21,6 @@
 from __future__ import division
 from __future__ import absolute_import
 
-from builtins import object
 import logging
 import sys
 import site
@@ -45,7 +44,7 @@ SETTINGS_STRING = 'plugin_ipconsole_option_set'
 LOGGER = logging.getLogger(__name__)
 
 
-class Quitter(object):
+class Quitter:
     """Simple class to handle exit, similar to Python 2.5's.
 
        This Quitter is used to circumvent IPython's circumvention
@@ -186,7 +185,7 @@ class IPythonConsoleWindow(Gtk.Window):
             self.set_opacity(value)
 
 
-class IPConsolePlugin(object):
+class IPConsolePlugin:
     """
         This class holds the IPConsole plugin itself
     """

@@ -16,7 +16,6 @@ from __future__ import division
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from past.utils import old_div
-from builtins import object
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -183,7 +182,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 # Control definitions
 
 
-class BaseControl(object):
+class BaseControl:
     """
         Base control provider
     """

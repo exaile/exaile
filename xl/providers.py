@@ -30,14 +30,13 @@
     sources can offer the required data.
 """
 
-from builtins import object
 from xl import event
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-class ProviderManager(object):
+class ProviderManager:
     """
         The overall manager for services and providers for them
     """
@@ -177,7 +176,7 @@ get = MANAGER.get_providers
 get_provider = MANAGER.get_provider
 
 
-class ProviderHandler(object):
+class ProviderHandler:
     """
         Base class to handle providers
         for one specific service including
@@ -266,7 +265,7 @@ class ProviderHandler(object):
         return MANAGER.get_provider(self.servicename, providername, self.target)
 
 
-class MultiProviderHandler(object):
+class MultiProviderHandler:
     '''
         This is useful for listening to multiple provider types
 

@@ -38,7 +38,6 @@ from __future__ import division
 from builtins import str
 from past.builtins import basestring
 from past.utils import old_div
-from builtins import object
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -524,7 +523,7 @@ class LibraryMonitor(GObject.GObject):
                 self.emit('location-removed', directory)
 
 
-class Library(object):
+class Library:
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.
@@ -902,7 +901,7 @@ class Library(object):
         pass
 
 
-class TransferQueue(object):
+class TransferQueue:
     def __init__(self, library):
         self.library = library
         self.queue = []

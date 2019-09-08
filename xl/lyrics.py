@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from datetime import datetime, timedelta
 import os
 import re
@@ -39,7 +38,7 @@ class LyricsNotFoundException(Exception):
     pass
 
 
-class LyricsCache(object):
+class LyricsCache:
     '''
         Basically just a thread-safe shelf for convinience.
         Supports container syntax.
@@ -304,7 +303,7 @@ class LyricsManager(providers.ProviderHandler):
 MANAGER = LyricsManager()
 
 
-class LyricSearchMethod(object):
+class LyricSearchMethod:
     """
         Lyrics plugins will subclass this
     """

@@ -30,7 +30,6 @@ from __future__ import division
 
 from builtins import str
 from builtins import range
-from builtins import object
 from past.utils import old_div
 import logging
 import os
@@ -307,7 +306,7 @@ class EqualizerWindow(Gtk.Window):
                 self.presets.append(preset)
 
 
-class EqualizerPlugin(object):
+class EqualizerPlugin:
     """
     Equalizer plugin class
     """

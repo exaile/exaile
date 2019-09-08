@@ -32,7 +32,6 @@
 # Also takes care of parsing commandline options.
 
 from __future__ import print_function
-from builtins import object
 import os
 import platform
 import sys
@@ -439,7 +438,7 @@ def create_argument_parser():
     return p
 
 
-class Exaile(object):
+class Exaile:
     _exaile = None
 
     def __get_player(self):

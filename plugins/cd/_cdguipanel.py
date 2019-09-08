@@ -28,7 +28,6 @@ from __future__ import division
 from future import standard_library
 standard_library.install_aliases()
 from builtins import str
-from builtins import object
 from past.utils import old_div
 import logging
 import threading
@@ -109,7 +108,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         self.__importing = False
 
 
-class CDImporter(object):
+class CDImporter:
     def __init__(self, tracks):
         self.tracks = [t for t in tracks if t.get_loc_for_io().startswith("cdda")]
         self.duration = float(sum(t.get_tag_raw('__length') for t in self.tracks))

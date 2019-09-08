@@ -20,11 +20,10 @@ from __future__ import division, print_function, unicode_literals
 from builtins import chr
 from builtins import map
 from builtins import range
-from builtins import object
 import cairo
 
 
-class Painter(object):
+class Painter:
     def paint(data):
         """Paint moodbar to a Cairo surface.
 

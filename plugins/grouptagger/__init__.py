@@ -25,7 +25,6 @@ from __future__ import absolute_import
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -52,7 +51,7 @@ from . import gt_import
 from . import gt_mass
 
 
-class GroupTaggerPlugin(object):
+class GroupTaggerPlugin:
     '''Implements logic for plugin'''
 
     def get_preferences_pane(self):

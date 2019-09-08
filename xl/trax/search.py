@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 import time
 import re
 
@@ -33,7 +32,7 @@ from xl.str import shave_marks
 __all__ = ['TracksMatcher', 'search_tracks']
 
 
-class SearchResultTrack(object):
+class SearchResultTrack:
     """
         Holds a track with search result metadata included.
 
@@ -47,7 +46,7 @@ class SearchResultTrack(object):
         self.on_tags = []
 
 
-class _Matcher(object):
+class _Matcher:
     """
         Base class for match conditions
     """
@@ -163,7 +162,7 @@ class _LtMatcher(_Matcher):
         return value < content
 
 
-class _NotMetaMatcher(object):
+class _NotMetaMatcher:
     """
         Condition for boolean NOT
     """
@@ -178,7 +177,7 @@ class _NotMetaMatcher(object):
         return not self.matcher.match(srtrack)
 
 
-class _OrMetaMatcher(object):
+class _OrMetaMatcher:
     """
         Condition for boolean OR
     """
@@ -193,7 +192,7 @@ class _OrMetaMatcher(object):
         return self.left.match(srtrack) or self.right.match(srtrack)
 
 
-class _MultiMetaMatcher(object):
+class _MultiMetaMatcher:
     """
         Condition for boolean AND
     """
@@ -211,7 +210,7 @@ class _MultiMetaMatcher(object):
         return True
 
 
-class _ManyMultiMetaMatcher(object):
+class _ManyMultiMetaMatcher:
     """
         TODO: think of a proper docstring for this
 
@@ -241,7 +240,7 @@ class _ManyMultiMetaMatcher(object):
         return matched
 
 
-class TracksMatcher(object):
+class TracksMatcher:
     """
         Holds criteria and determines whether
         a given track matches those criteria.
@@ -497,7 +496,7 @@ class TracksMatcher(object):
         return tokens
 
 
-class TracksInList(object):
+class TracksInList:
     '''
         Matches tracks contained in a list/dict/set. Copies the list.
     '''

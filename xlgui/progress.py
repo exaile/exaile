@@ -25,7 +25,6 @@ from __future__ import division
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from builtins import object
 from past.utils import old_div
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -145,7 +144,7 @@ class ProgressMonitor(Gtk.Box):
         self.destroy()
 
 
-class ProgressManager(object):
+class ProgressManager:
     """
         Manages the [possibly multiple] progress bars that will allow the user
         to interact with different long running tasks that may occur in the

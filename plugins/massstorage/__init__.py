@@ -25,7 +25,6 @@
 # from your version.
 
 from builtins import str
-from builtins import object
 from xl import providers, collection
 from xl.hal import Handler
 from xl.devices import Device
@@ -81,7 +80,7 @@ class MassStorageDevice(Device):
         self.connected = False
 
 
-class HalMountpoint(object):
+class HalMountpoint:
     """
         Class to represent a mountpoint so we can delay HAL
         mountpoint resolution.

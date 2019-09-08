@@ -19,7 +19,6 @@ from __future__ import absolute_import
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from builtins import object
 import cgi
 import logging
 
@@ -52,7 +51,7 @@ BODY_ARTIST = _('by {artist}')
 BODY_ALBUM = _('by {album}')
 
 
-class NotifierSettings(object):
+class NotifierSettings:
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
 
@@ -268,7 +267,7 @@ class Notifier(PlaybackAdapter):
             LOGGER.exception("Failed to close notification")
 
 
-class NotifyPlugin(object):
+class NotifyPlugin:
     def __init__(self):
         self.__notifier = None
         self.__exaile = None

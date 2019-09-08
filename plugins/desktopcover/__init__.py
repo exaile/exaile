@@ -16,7 +16,6 @@
 
 from __future__ import division
 from __future__ import absolute_import
-from builtins import object
 import cairo
 
 from gi.repository import Gdk
@@ -33,7 +32,7 @@ from . import desktopcover_preferences
 DESKTOPCOVER = None
 
 
-class DesktopCoverPlugin(object):
+class DesktopCoverPlugin:
     def __init__(self):
         self.__desktop_cover = None
 

@@ -31,7 +31,6 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 from builtins import str
-from builtins import object
 import inspect
 from gi.repository import Gio
 from gi.repository import GLib
@@ -329,7 +328,7 @@ def profileit(func):
     return wrapper
 
 
-class classproperty(object):
+class classproperty:
     """
         Decorator allowing for class property access
     """
@@ -504,7 +503,7 @@ class LimitedCache(DictMixin):
         return list(self.cache.keys())
 
 
-class cached(object):
+class cached:
     """
         Decorator to make a function's results cached
         does not cache if there is an exception.
@@ -625,7 +624,7 @@ def walk_directories(root):
         )
 
 
-class TimeSpan(object):
+class TimeSpan:
     """
         Calculates the number of days, hours, minutes,
         and seconds in a time span
@@ -666,7 +665,7 @@ class TimeSpan(object):
         )
 
 
-class MetadataList(object):
+class MetadataList:
     """
         Like a list, but also associates an object of metadata
         with each entry.
@@ -878,7 +877,7 @@ class SimpleProgressThread(ProgressThread):
             self.emit('done')
 
 
-class PosetItem(object):
+class PosetItem:
     def __init__(self, name, after, priority, value=None):
         """
             :param name: unique identifier for this item
@@ -930,7 +929,7 @@ def order_poset(items):
     return result
 
 
-class LazyDict(object):
+class LazyDict:
     __slots__ = ['_dict', '_funcs', 'args', '_locks']
 
     def __init__(self, *args):
@@ -963,7 +962,7 @@ class LazyDict(object):
             return default
 
 
-class _GioFileStream(object):
+class _GioFileStream:
 
     __slots__ = ['stream']
 
@@ -1078,7 +1077,7 @@ def subscribe_for_settings(section, options, self):
     )
 
 
-class AsyncLoader(object):
+class AsyncLoader:
     """
         Async loader based on a generator
         Threaded, load it and put it in `result_list`

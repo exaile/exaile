@@ -631,7 +631,10 @@ class TimeSpan(object):
         self.days, self.hours = divmod(span, 24)
 
     def __repr__(self):
-        return str(self)
+        span = self.days * 24 + self.hours
+        span = span * 60 + self.minutes
+        span = span * 60 + self.seconds
+        return '%s(%s)' % (self.__class__.__name__, span)
 
     def __str__(self):
         return '%dd, %dh, %dm, %ds' % (

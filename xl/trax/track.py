@@ -31,6 +31,7 @@ from copy import deepcopy
 import logging
 import re
 import time
+from typing import List, Union
 import unicodedata
 import weakref
 
@@ -324,7 +325,7 @@ class Track:
 
         return gfile.get_basename()
 
-    def get_basename_display(self):
+    def get_basename_display(self) -> str:
         """
             Return the track basename for display purposes (invalid characters
             are replaced).
@@ -337,7 +338,7 @@ class Track:
             path = GLib.filename_display_basename(path)
         else:  # Non-local
             path = GLib.filename_display_name(gfile.get_basename())
-        return path.decode('utf-8')
+        return path
 
     def get_type(self):
         """
@@ -412,7 +413,7 @@ class Track:
             # the file format.
 
             nkeys = set(ntags.keys())
-            ekeys = {k for k in list(self.__tags.keys()) if not k.startswith('__')}
+            ekeys = {k for k in self.__tags if not k.startswith('__')}
 
             # delete anything that wasn't in the new tags
             to_del = ekeys - nkeys
@@ -459,7 +460,7 @@ class Track:
         """
             returns a string representing the track
         """
-        vals = list(map(self.get_tag_display, ('title', 'artist', 'album')))
+        vals = map(self.get_tag_display, ('title', 'artist', 'album'))
         return "<Track %r by %r from %r>" % tuple(vals)
 
     def _pickles(self):
@@ -588,7 +589,9 @@ class Track:
         """
         if tag == '__basename':
             value = self.get_basename()
-        elif tag == '__startoffset':  # necessary?
+        elif tag == '__startoffset':
+            # TODO: This is only necessary because some places that deal with
+            # __startoffset don't check for None. Those need to be fixed.
             value = self.__tags.get(tag, 0)
         else:
             value = self.__tags.get(tag)
@@ -675,7 +678,7 @@ class Track:
 
     def get_tag_display(
         self, tag, join=True, artist_compilations=False, extend_title=True
-    ):
+    ) -> Union[str, List[str]]:
         """
             Get a tag value in a form suitable for display.
 
@@ -689,8 +692,7 @@ class Track:
                 add some identifying information to it.
         """
         if tag == '__loc':
-            uri = Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
-            return uri.decode('utf-8')
+            return Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
 
         value = None
         if tag == "albumartist":
@@ -727,7 +729,7 @@ class Track:
                 basename = self.get_basename_display()
                 value = u"%s (%s)" % (_UNKNOWNSTR, basename)
 
-        # Convert value to unicode or List[unicode]
+        # Convert value to str or List[str]
         if isinstance(value, list):
             value = [xl.unicode.to_unicode(x, errors='replace') for x in value]
         else:
@@ -930,8 +932,11 @@ class Track:
         """
             Exaile's standard method to join tag values
         """
-        if type(values) in (str, str):
+        if isinstance(values, str):
             return values
+        if isinstance(values, bytes):
+            logger.warning("join_values with bytes object is deprecated", stack_info=True)
+            return xl.unicode.to_unicode(values)
         return glue.join(map(xl.unicode.to_unicode, values))
 
     @staticmethod

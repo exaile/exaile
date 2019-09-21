@@ -62,11 +62,11 @@ class AcceleratorManager(providers.ProviderHandler):
 
     ## Global accelerator enable/disable
     def disable_accelerators(self):
-        for provider in list(self.accelerators.values()):
+        for provider in self.accelerators.values():
             self.accelgroup.disconnect_key(provider.key, provider.mods)
 
     def enable_accelerators(self):
-        for provider in list(self.accelerators.values()):
+        for provider in self.accelerators.values():
             self.accelgroup.connect(
                 provider.key, provider.mods, Gtk.AccelFlags.VISIBLE, provider.callback
             )

@@ -269,7 +269,7 @@ class OSDPlugin:
             color_str,
             str(radius),
         )
-        self.__css_provider.load_from_data(data_str)
+        self.__css_provider.load_from_data(data_str.encode('utf-8'))
         return False
 
     def __on_playback_track_start(self, _event, _player, _track):

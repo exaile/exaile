@@ -63,7 +63,8 @@ class AudioSinkPreference(widgets.ComboPreference):
                 return -1
             return 1
 
-        for name, preset in sorted(iter(SINK_PRESETS.items()), _sink_cmp):
+        # TODO(py3): cmp doesn't exist anymore
+        for name, preset in sorted(SINK_PRESETS.items(), _sink_cmp):
             model.append((name, preset['name']))
         self._set_value()
 

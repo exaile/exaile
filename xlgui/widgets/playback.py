@@ -437,6 +437,8 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
+        POW_256_2 = 256 ** 2
+
         for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):
                 if i == 0:
@@ -455,9 +457,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
                     base = style.get_color(marker.props.state)
 
                 context.set_source_rgba(
-                    old_div(base.red, 256.0 ** 2),
-                    old_div(base.green, 256.0 ** 2),
-                    old_div(base.blue, 256.0 ** 2),
+                    base.red / POW_256_2,
+                    base.green / POW_256_2,
+                    base.blue / POW_256_2,
                     0.7,
                 )
             context.fill_preserve()
@@ -468,9 +470,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             else:
                 foreground = style.get_color(marker.props.state)
                 context.set_source_rgba(
-                    old_div(foreground.red, 256.0 ** 2),
-                    old_div(foreground.green, 256.0 ** 2),
-                    old_div(foreground.blue, 256.0 ** 2),
+                    foreground.red / POW_256_2,
+                    foreground.green / POW_256_2,
+                    foreground.blue / POW_256_2,
                     0.7,
                 )
             context.stroke()
@@ -718,7 +720,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             * *width*: the width of the box
             * *height*: the height of the box
         """
-        xs, ys = list(zip(*points))
+        xs, ys = zip(*points)
         return min(xs), min(ys), max(xs), max(ys)
 
     def seek(self, position):

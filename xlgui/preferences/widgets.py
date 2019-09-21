@@ -27,6 +27,7 @@
 import hashlib
 import logging
 import os
+from typing import Any
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -47,7 +48,7 @@ class Preference:
         Representing a Gtk.Entry preferences item
     """
 
-    default = ''
+    default: Any = ''
     restart_required = False
 
     def __init__(self, preferences, widget):

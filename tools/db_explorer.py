@@ -24,11 +24,11 @@
 
 import copy
 import datetime
+from dbm import whichdb
 import json
 import os.path
 import pprint
 import shelve
-from whichdb import whichdb
 
 try:
     import bsddb3 as bsddb

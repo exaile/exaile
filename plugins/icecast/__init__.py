@@ -97,7 +97,7 @@ class IcecastRadioStation(RadioStation):
         impl = minidom.getDOMImplementation()
         document = impl.createDocument(None, 'genrelist', None)
         genrelist = document.documentElement
-        for k, v in list(self.data.items()):
+        for k, v in self.data.items():
             genre = document.createElement('genre')
             genre.setAttribute('name', k)
             genre.setAttribute('location', v)
@@ -150,7 +150,7 @@ class IcecastRadioStation(RadioStation):
             data = self.data
         rlists = []
 
-        for item in list(data.keys()):
+        for item in data.keys():
             rlist = RadioList(item, station=self)
             rlist.get_items = lambda no_cache, name=item: self._get_subrlists(
                 name=name, no_cache=no_cache

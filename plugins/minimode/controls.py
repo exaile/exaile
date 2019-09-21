@@ -186,9 +186,9 @@ class BaseControl:
         Base control provider
     """
 
-    name = None
-    title = None
-    description = None
+    name: str
+    title: str
+    description: str
     fixed = False
 
 

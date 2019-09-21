@@ -26,6 +26,7 @@
 
 import time
 import re
+from typing import Sequence
 
 from xl.unicode import shave_marks
 
@@ -501,7 +502,7 @@ class TracksInList:
         Matches tracks contained in a list/dict/set. Copies the list.
     '''
 
-    __slots__ = ['_tracks', 'tag']
+    __slots__ = ['_tracks']
     tag = None
 
     def __init__(self, tracks):
@@ -523,7 +524,7 @@ class TracksNotInList(TracksInList):
         return track.track not in self._tracks
 
 
-def search_tracks(trackiter, trackmatchers):
+def search_tracks(trackiter, trackmatchers: Sequence[TracksMatcher]):
     """
         Search a set of tracks for those that match specified conditions.
 

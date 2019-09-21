@@ -133,7 +133,7 @@ class IPView(ip.IPythonView):
             self.__text_color_str,
             self.__font_str,
         )
-        self.__css_provider.load_from_data(data_str)
+        self.__css_provider.load_from_data(data_str.encode('utf-8'))
         return False
 
     def onKeyPressExtend(self, key_event):

@@ -69,6 +69,21 @@ PICKLE_PROTOCOL = 2
 BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
 
+class Utf8Unpickler(pickle.Unpickler):
+    def __init__(self, *args, **kwargs):
+        kwargs['encoding'] = 'utf-8'
+        super().__init__(*args, **kwargs)
+
+
+def ensure_shelve_compat():
+    """"Change shelve's unpickler to use UTF-8 when reading Python 2 shelves"""
+    shelve.Unpickler = Utf8Unpickler
+
+
+# TODO(py3): explain why this is needed, then see if the other shelve users need it
+ensure_shelve_compat()
+
+
 def clamp(value, minimum, maximum):
     """
         Clamps a value to the given boundaries
@@ -380,7 +395,7 @@ def open_shelf(path):
     # to see if whichdb returns a result before trying to open it with bsddb
     force_migrate = False
     if not os.path.exists(path):
-        from whichdb import whichdb
+        from dbm import whichdb
 
         if whichdb(path) is not None:
             force_migrate = True

@@ -33,20 +33,18 @@ from past.utils import old_div
 from gi.repository import Gio
 
 import cgi
-from collections import deque, namedtuple
+from collections import deque
 from datetime import datetime, timedelta
 import logging
+import operator
 import os
+import pickle
 import random
 import re
 import time
+from typing import NamedTuple
 import urllib.parse
 import urllib.request
-
-try:
-    import pickle as pickle
-except ImportError:
-    import pickle
 
 from xl import common, dynamic, event, main, providers, settings, trax, xdg
 from xl.common import GioFileInputStream, GioFileOutputStream, MetadataList
@@ -68,10 +66,11 @@ class UnknownPlaylistTrackError(Exception):
     pass
 
 
-PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
+class PlaylistExportOptions(NamedTuple):
+    relative: bool
 
 
-def encode_filename(filename):
+def encode_filename(filename: str):
     """
         Converts a file name into a valid filename most
         likely to not cause problems on any platform.
@@ -84,6 +83,7 @@ def encode_filename(filename):
     blacklist = r'<>:"/\|?*%'
 
     def encode_char(c):
+        # TODO(py3): This doesn't work right if c is non-ascii
         return '%' + hex(ord(c))[2:] if c in blacklist else c
 
     # encode any blacklisted chars
@@ -293,17 +293,16 @@ class FormatConverter:
 
         return track_uri
 
-    def get_track_export_path(self, playlist_path, track_path, options):
+    def get_track_export_path(
+        self, playlist_path: str, track_path: str, options: PlaylistExportOptions
+    ):
         """
             Retrieves the export path of a track,
             possibly influenced by options
 
             :param playlist_path: the export path of the playlist
-            :type playlist_path: string
             :param track_path: the path of the track
-            :type track_path: string
             :param options: options
-            :type options: :class:`PlaylistExportOptions`
         """
         if options is not None and options.relative:
             playlist_file = Gio.File.new_for_uri(playlist_path)
@@ -376,7 +375,7 @@ class M3UConverter(FormatConverter):
                 stream.write(
                     '#EXTINF:{length},{title}\n{path}\n'.format(
                         length=length,
-                        title=' - '.join(title).encode('utf-8'),
+                        title=' - '.join(title),
                         path=track_path,
                     )
                 )
@@ -1409,7 +1408,7 @@ class Playlist:
             random.shuffle(tracks)
 
         # Turn list of tuples into 2 tuples
-        self[:] = MetadataList(*list(zip(*tracks)))
+        self[:] = MetadataList(*zip(*tracks))
 
     def sort(self, tags, reverse=False):
         """
@@ -1420,8 +1419,8 @@ class Playlist:
             :param reverse: whether the sorting shall be reversed
             :type reverse: boolean
         """
-        data = list(zip(self.__tracks, self.__tracks.metadata))
-        data = trax.sort_tracks(tags, data, trackfunc=lambda tr: tr[0], reverse=reverse)
+        data = zip(self.__tracks, self.__tracks.metadata)
+        data = trax.sort_tracks(tags, data, trackfunc=operator.itemgetter(0), reverse=reverse)
         l = MetadataList()
         l.extend([x[0] for x in data])
         l.metadata = [x[1] for x in data]
@@ -1440,42 +1439,31 @@ class Playlist:
             :param location: the location to save to
             :type location: string
         """
-        if os.path.exists(location):
-            f = open(location + ".new", "w")
-        else:
-            f = open(location, "w")
-        for track in self.__tracks:
-            buffer = track.get_loc_for_io()
-            # write track metadata
-            meta = {}
-            items = ('artist', 'album', 'tracknumber', 'title', 'genre', 'date')
-            for item in items:
-                value = track.get_tag_raw(item)
-                if value is not None:
-                    # FIXME: This should join multiple values.
-                    v = value[0]
-                    if isinstance(v, str):
-                        v = v.encode('utf-8')
-                    meta[item] = v
-            buffer += '\t%s\n' % urllib.parse.urlencode(meta)
-            try:
-                f.write(buffer.encode('utf-8'))
-            except UnicodeDecodeError:
-                continue
+        new_location = location + ".new"
 
-        f.write("EOF\n")
-        for item in self.save_attrs:
-            val = getattr(self, item)
-            try:
-                strn = settings.MANAGER._val_to_str(val)
-            except ValueError:
-                strn = ""
+        with open(new_location, 'w') as f:
+            for track in self.__tracks:
+                loc = track.get_loc_for_io()
+                meta = {}
+                for tag in ('artist', 'album', 'tracknumber', 'title', 'genre', 'date'):
+                    value = track.get_tag_raw(tag, join=True)
+                    if value is not None:
+                        meta[tag] = value
+                meta = urllib.parse.urlencode(meta)
+                print(loc, meta, sep='\t', file=f)
 
-            f.write("%s=%s\n" % (item, strn))
-        f.close()
-        if os.path.exists(location + ".new"):
-            os.remove(location)
-            os.rename(location + ".new", location)
+            print('EOF', file=f)
+
+            for attr in self.save_attrs:
+                val = getattr(self, attr)
+                try:
+                    configstr = settings.MANAGER._val_to_str(val)
+                except ValueError:
+                    configstr = ''
+                print('%s=%s' % (attr, configstr), file=f)
+
+        os.replace(new_location, location)
+
         self.__needs_save = self.__dirty = False
 
     def load_from_location(self, location):
@@ -1623,12 +1611,12 @@ class Playlist:
                     raise ValueError("Extended slice assignment must match sizes.")
             self.__tracks.__setitem__(i, value)
             removed = MetadataList(
-                list(zip(list(range(start, end, step)), oldtracks)), oldtracks.metadata
+                zip(range(start, end, step), oldtracks), oldtracks.metadata
             )
             if step == 1:
                 end = start + len(value)
 
-            added = MetadataList(list(zip(list(range(start, end, step)), value)), metadata)
+            added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
                 raise ValueError("Need trax.Track object, got %r" % type(value))
@@ -1656,7 +1644,7 @@ class Playlist:
 
         if isinstance(i, slice):
             removed = MetadataList(
-                list(zip(range(start, end, step), oldtracks)), oldtracks.metadata
+                zip(range(start, end, step), oldtracks), oldtracks.metadata
             )
         else:
             removed = [(i, oldtracks)]
@@ -2230,7 +2218,7 @@ class PlaylistManager:
         else:
             f = open(location, "w")
         for playlist in self.playlists:
-            f.write(playlist.encode('utf-8'))
+            f.write(playlist)
             f.write('\n')
 
         f.write("EOF\n")
@@ -2260,7 +2248,7 @@ class PlaylistManager:
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            playlists.append(line[:-1].decode('utf-8'))
+            playlists.append(line[:-1])
         f.close()
         return playlists
 

@@ -66,7 +66,7 @@ class ID3Format(BaseFormat):
 
     def get_keys_disk(self):
         keys = []
-        for v in list(self._get_raw().values()):
+        for v in self._get_raw().values():
             # Have to use this because some ID3 tags have a colon
             # in them, and so self._get_raw().keys() doesn't return
             # the expected value
@@ -80,7 +80,7 @@ class ID3Format(BaseFormat):
     def _get_tag(self, raw, t):
         if not raw.tags:
             return []
-        if t not in iter(self.tag_mapping.values()):
+        if t not in self.tag_mapping.values():
             t = "TXXX:" + t
         field = raw.tags.getall(t)
         if len(field) <= 0:
@@ -117,7 +117,7 @@ class ID3Format(BaseFormat):
         return ret
 
     def _set_tag(self, raw, tag, data):
-        if tag not in iter(self.tag_mapping.values()):
+        if tag not in self.tag_mapping.values():
             tag = "TXXX:" + tag
 
         if raw.tags is not None:
@@ -152,7 +152,7 @@ class ID3Format(BaseFormat):
                 raw.tags.add(frame)
 
     def _del_tag(self, raw, tag):
-        if tag not in iter(self.tag_mapping.values()):
+        if tag not in self.tag_mapping.values():
             tag = "TXXX:" + tag
         if raw.tags is not None:
             raw.tags.delall(tag)

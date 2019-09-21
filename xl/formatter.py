@@ -30,7 +30,6 @@ Provides an extensible framework for processing and
 preparation of data for display in various contexts.
 """
 
-from past.utils import old_div
 from datetime import date
 from gi.repository import GLib
 from gi.repository import GObject
@@ -301,7 +300,7 @@ class Formatter(GObject.GObject):
                     # Decrease pad length by value length
                     pad = max(0, pad - len(substitute))
                     # Retrieve the maximum multiplier for the pad string
-                    padcount = old_div(pad, len(padstring)) + 1
+                    padcount = pad // len(padstring) + 1
                     # Generate pad string
                     padstring = padcount * padstring
                     # Clamp pad string
@@ -408,7 +407,7 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
+                substitute = GLib.markup_escape_text(substitute)
 
             self._substitutions[identifier] = substitute
 
@@ -695,8 +694,7 @@ class RatingTagFormatter(TagFormatter):
 
         filled = '★' * int(rating)
         empty = '☆' * int(maximum - rating)
-
-        return ('%s%s' % (filled, empty)).decode('utf-8')
+        return filled + empty
 
 
 providers.register('tag-formatting', RatingTagFormatter())

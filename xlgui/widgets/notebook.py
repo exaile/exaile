@@ -38,7 +38,7 @@ from xlgui.widgets import menu
 TAB_CSS = Gtk.CssProvider()
 if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
-        '''
+        b'''
         /* Most themes don't handle vertical notebooks well,
            so we override everything. */
         notebook.vertical tab {
@@ -64,7 +64,7 @@ if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     )
 else:
     TAB_CSS.load_from_data(
-        '''
+        b'''
         .notebook {
           /* Remove gap before first tab */
           -GtkNotebook-initial-gap: 0;

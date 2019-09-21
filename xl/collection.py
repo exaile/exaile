@@ -35,7 +35,6 @@ collection.
 """
 
 from past.builtins import basestring
-from past.utils import old_div
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -284,7 +283,7 @@ class Collection(trax.TrackDB):
     @common.threaded
     def __count_files(self):
         file_count = 0
-        for library in list(self.libraries.values()):
+        for library in self.libraries.values():
             if self._scan_stopped:
                 self._scanning = False
                 return
@@ -308,7 +307,7 @@ class Collection(trax.TrackDB):
             event.log_event(
                 'scan_progress_update',
                 self,
-                int((float(count) / float(self.file_count)) * 100),
+                count / self.file_count * 100,
             )
         except ZeroDivisionError:
             pass
@@ -834,7 +833,7 @@ class Library:
                 removals.append(tr)
 
         for tr in removals:
-            logger.debug(u"Removing %s", str(tr))
+            logger.debug("Removing %s", tr)
             self.collection.remove(tr)
 
         logger.info("Scan completed: %s", self.location)
@@ -937,7 +936,7 @@ class TransferQueue:
                 self.library.add(loc)
 
                 # TODO: make this be based on filesize not count
-                progress = old_div(self.current_pos * 100, len(self.queue))
+                progress = self.current_pos * 100 / len(self.queue)
                 event.log_event('track_transfer_progress', self, progress)
 
                 self.current_pos += 1

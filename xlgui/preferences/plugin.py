@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import locale
+
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -154,10 +156,10 @@ class PluginManager:
                 return '\xff' * 10
             return xl.unicode.strxfrm(item[0])
 
-        plugins_dict = sorted(iter(plugins_dict.items()), key=categorykey)
+        plugins_dict = sorted(plugins_dict.items(), key=categorykey)
 
         for category, plugins_list in plugins_dict:
-            plugins_list.sort(key=lambda x: xl.unicode.strxfrm(x[1]))
+            plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
 
             it = self.model.append(
                 None, (None, category, '', False, '', False, True, False)

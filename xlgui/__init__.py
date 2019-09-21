@@ -273,7 +273,8 @@ class Main:
                         if location not in new_locations:
                             removals += [library]
 
-                    list(map(collection.remove_library, removals))
+                    for removal in removals:
+                        collection.remove_library(removal)
 
                     self.on_rescan_collection()
 

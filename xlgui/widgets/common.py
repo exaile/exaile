@@ -27,15 +27,15 @@
 """
     Shared GUI widgets
 """
+
 from collections import namedtuple
+from urllib.parse import urlparse
 
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gtk
-
-from urllib2 import urlparse
 
 from xl import common, playlist as xl_playlist, trax
 

@@ -68,25 +68,6 @@ PICKLE_PROTOCOL = 2
 # TODO: make this a setting?
 BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
-# use this for general logging of exceptions
-
-
-def log_exception(log=logger, message="Exception caught!"):
-    """
-        Deprecated! Don't use this in newer code, use this instead::
-
-            import logging
-            logger = logging.getLogger(__name__)
-
-            ..
-
-            try:
-                ..
-            except Exception:
-                logger.exception("Some message: %s", param)
-    """
-    log.exception(message)
-
 
 def clamp(value, minimum, maximum):
     """

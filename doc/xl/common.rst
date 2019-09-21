@@ -5,8 +5,6 @@ Common utilities
 
 General functions
 *****************
-.. autofunction:: log_exception
-
 .. autofunction:: order_poset
 
 Filesystem

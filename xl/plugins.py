@@ -70,7 +70,7 @@ class PluginsManager:
         return None
 
     def load_plugin(self, pluginname, reload_plugin=False):
-        if not reload and pluginname in self.loaded_plugins:
+        if not reload_plugin and pluginname in self.loaded_plugins:
             return self.loaded_plugins[pluginname]
 
         path = self.__findplugin(pluginname)

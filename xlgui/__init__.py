@@ -246,10 +246,8 @@ class Main:
             collection.freeze_libraries()
 
             collection_libraries = sorted(
-                [
-                    (l.location, l.monitored, l.startup_scan)
-                    for l in collection.libraries.values()
-                ]
+                (l.location, l.monitored, l.startup_scan)
+                for l in collection.libraries.values()
             )
             new_libraries = sorted(dialog.get_items())
 

@@ -4,6 +4,7 @@ from gi.repository import Gtk
 
 import http.client
 import logging
+import operator
 import os
 import re
 import socket
@@ -157,8 +158,7 @@ class IcecastRadioStation(RadioStation):
             )
             rlists.append(rlist)
 
-        sort_list = sorted([(item.name, item) for item in rlists])
-        rlists = [item[1] for item in sort_list]
+        rlists.sort(key=operator.attrgetter('name'))
         self.rlists = rlists
         return rlists
 
@@ -172,9 +172,7 @@ class IcecastRadioStation(RadioStation):
         url = self.icecast_url + self.data[name]
 
         rlists = self._get_stations(url)
-
-        sort_list = sorted([(item.name, item) for item in rlists])
-        rlists = [item[1] for item in sort_list]
+        rlists.sort(key=operator.attrgetter('name'))
 
         self.subs[name] = rlists
         return rlists

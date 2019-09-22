@@ -14,6 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import logging
+import operator
 
 logger = logging.getLogger(__name__)
 import os
@@ -151,8 +152,7 @@ class SomaFMRadioStation(RadioStation):
             )
             rlists.append(rlist)
 
-        sort_list = sorted([(item.name, item) for item in rlists])
-        rlists = [item[1] for item in sort_list]
+        rlists.sort(key=operator.attrgetter('name'))
         self.rlists = rlists
 
         return rlists
@@ -164,9 +164,7 @@ class SomaFMRadioStation(RadioStation):
         if no_cache or id not in self.subs:
 
             rlists = self._get_stations(id)
-
-            sort_list = sorted([(item.name, item) for item in rlists])
-            rlists = [item[1] for item in sort_list]
+            rlists.sort(key=operator.attrgetter('name'))
 
             self.subs[id] = rlists
 

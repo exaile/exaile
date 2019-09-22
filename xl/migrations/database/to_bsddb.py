@@ -53,7 +53,7 @@ def migrate(path):
     old_shelf.close()
 
     try:
-        common.replace_file(bak_path, path)
+        os.replace(bak_path, path)
     except Exception:
         try:
             os.unlink(bak_path)

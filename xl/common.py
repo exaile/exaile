@@ -421,25 +421,6 @@ def open_shelf(path):
     return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
 
 
-if hasattr(os, 'replace'):
-    # introduced in python 3.3
-    replace_file = os.replace
-elif sys.platform != 'win32':
-    replace_file = os.rename
-else:
-    # https://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
-    import ctypes
-
-    _kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
-    _MoveFileEx = _kernel32.MoveFileExW
-    _MoveFileEx.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
-    _MoveFileEx.restype = ctypes.c_bool
-
-    def replace_file(src, dst):
-        if not _MoveFileEx(src, dst, 1):
-            raise ctypes.WinError(ctypes.get_last_error())
-
-
 class LimitedCache(collections.abc.MutableMapping):
     """
         Simple cache that acts much like a dict, but has a maximum # of items

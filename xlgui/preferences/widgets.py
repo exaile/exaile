@@ -107,7 +107,7 @@ class Preference:
         """
             Value to be stored into the settings file
         """
-        return str(self.widget.get_text(), 'utf-8')
+        return self.widget.get_text()
 
     def _set_value(self):
         """

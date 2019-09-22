@@ -704,7 +704,7 @@ class TagField(Gtk.Box):
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
-        return str(self.field.get_text(), 'utf-8')
+        return self.field.get_text()
 
     def register_update_func(self, f):
         tag = self.parent_row.tag

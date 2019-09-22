@@ -235,7 +235,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [str(a.get_text(), 'utf-8') for a in self.fields]
+        return [a.get_text() for a in self.fields]
 
     def run(self):
         """
@@ -323,7 +323,7 @@ class TextEntryDialog(Gtk.Dialog):
         """
             Returns the text value
         """
-        return str(self.entry.get_text(), 'utf-8')
+        return self.entry.get_text()
 
     def set_value(self, value):
         """

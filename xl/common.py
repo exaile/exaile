@@ -368,9 +368,7 @@ def open_file_directory(path_or_uri):
         import ctypes
 
         ctypes.windll.ole32.CoInitialize(None)
-        # Not sure why this is always UTF-8.
-        upath = f.get_path().decode('utf-8')
-        pidl = ctypes.windll.shell32.ILCreateFromPathW(upath)
+        pidl = ctypes.windll.shell32.ILCreateFromPathW(f.get_path())
         ctypes.windll.shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
         ctypes.windll.shell32.ILFree(pidl)
         ctypes.windll.ole32.CoUninitialize()

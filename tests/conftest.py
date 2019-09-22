@@ -24,7 +24,7 @@ def exaile_test_cleanup():
 
     Track._Track__the_cuts = ['the', 'a']
 
-    Track._Track__tracksdict.clear():
+    Track._Track__tracksdict.clear()
 
 
 #

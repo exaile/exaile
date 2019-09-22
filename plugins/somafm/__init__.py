@@ -18,7 +18,7 @@ import operator
 
 logger = logging.getLogger(__name__)
 import os
-from urllib2 import urlparse
+from urllib.parse import urlparse
 import http.client
 import socket
 
@@ -80,7 +80,7 @@ class SomaFMRadioStation(RadioStation):
             Connects to the server and retrieves the document
         """
         set_status(_('Contacting SomaFM server...'))
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urlparse(url)
 
         try:
             c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
@@ -122,7 +122,7 @@ class SomaFMRadioStation(RadioStation):
 
         with open(self.cache_file, 'w') as h:
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
-            h.write(ETree.tostring(channellist, 'utf-8'))
+            h.write(ETree.tostring(channellist, 'unicode'))
 
     def get_lists(self, no_cache=False):
         """

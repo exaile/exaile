@@ -1491,7 +1491,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             positions = self.get_selected_paths()
             if positions:
                 s = ",".join(str(i[0]) for i in positions)
-                selection.set(target_atom, 8, s)
+                selection.set(target_atom, 8, s.encode('utf-8'))
         elif target == "text/uri-list":
             tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)
@@ -1587,7 +1587,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
-            selection_data = selection.get_data()
+            selection_data = selection.get_data().decode('utf-8')
             if selection_data == '':  # Ignore drops from empty areas
                 # Restore state to `self.on_row_inserted` do not ignore inserted rows
                 # see https://github.com/exaile/exaile/issues/487

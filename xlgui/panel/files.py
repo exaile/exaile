@@ -446,7 +446,6 @@ class FilesPanel(panel.Panel):
                     // 1000
                 )
 
-                size = locale.format_string('%d', size, True)
                 # TRANSLATORS: File size (1 kB = 1000 bytes)
                 size = _('%s kB') % locale.format_string('%d', size, True)
 

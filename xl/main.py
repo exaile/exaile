@@ -487,12 +487,18 @@ class Exaile:
         # via environment variables
         if self.options.UseAllDataDir:
             alldatadir = self.options.UseAllDataDir
+
+            # TODO: is this still necessary? Python3 does not seem to
+            # have issue with UTF-8 characters in path (in contrast
+            # to Python2, os.path.join() does not fail).
+            # For now, we replace the UTF-8 characters with ? to keep
+            # the behavior consistent with the old version...
             if not os.path.supports_unicode_filenames:
                 try:
-                    alldatadir.decode('ascii')
-                except UnicodeDecodeError:
-                    # if we don't do this here, os.path.join() will fail later.
-                    alldatadir = alldatadir.decode('utf-8').encode('ascii', 'replace')
+                    alldatadir.encode('ascii')
+                except UnicodeEncodeError:
+                    # Replace non-ASCII characters with ?
+                    alldatadir = alldatadir.encode('ascii', 'replace').decode('ascii')
                     print(
                         "WARNING : converted non-ASCII data dir %s to ascii: %s"
                         % (self.options.UseAllDataDir, alldatadir)

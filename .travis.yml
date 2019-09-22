@@ -57,3 +57,5 @@ notifications:
     use_notice: false
     skip_join: false
     on_success: change
+    template:
+      - "%{repository_name} %{branch} | %{build_url} | %{compare_url} | %{message}"

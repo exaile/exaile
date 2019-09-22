@@ -1101,4 +1101,16 @@ class AsyncLoader:
         return self.__result_list[:]
 
 
+class LowestStr(str):
+    """String subclass that always sorts as the lowest value"""
+    def __lt__(self, _):
+        return True
+
+
+class HighestStr(str):
+    """String subclass that always sorts as the highest value"""
+    def __lt__(self, _):
+        return False
+
+
 # vim: et sts=4 sw=4

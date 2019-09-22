@@ -880,7 +880,7 @@ def order_poset(items):
         :param items: poset to order
         :type items: list of :class:`PosetItem`
     """
-    items = dict([(i.name, i) for i in items])
+    items = {item.name: item for item in items}
     for name, item in items.iteritems():
         for after in item.after:
             k = items.get(after)
@@ -891,8 +891,8 @@ def order_poset(items):
     result = []
     next = [i[1] for i in items.items() if not i[1].after]
     while next:
-        current = sorted([(i.priority, i.name, i) for i in next])
-        result.extend([i[2] for i in current])
+        current = sorted((i.priority, i.name, i) for i in next)
+        result.extend(i[2] for i in current)
         nextset = dict()
         for i in current:
             for c in i[2].children:

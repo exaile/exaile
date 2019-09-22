@@ -91,7 +91,7 @@ def set_track_groups(track, groups):
         Returns true if successful, false if there was an error
     '''
 
-    grouping = ' '.join(sorted(['_'.join(group.split()) for group in groups]))
+    grouping = ' '.join(sorted('_'.join(group.split()) for group in groups))
     track.set_tag_raw(get_tagname(), grouping)
 
     if not track.write_tags():

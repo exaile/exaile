@@ -272,7 +272,7 @@ def glib_wait(timeout):
 
         If the function returns a value that evaluates to True, it
         will be called again under the same timeout rules.
-        
+
         .. warning:: Can only be used with instance methods
     """
     return _glib_wait_inner(timeout, GLib.timeout_add)
@@ -976,16 +976,16 @@ class GioFileInputStream(_GioFileStream):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
-        return r
+        return r.decode('utf-8')
 
     def read(self, size=None):
         if size:
-            return self.stream.read_bytes(size).get_data()
+            return self.stream.read_bytes(size).get_data().decode('utf-8')
         else:
-            return self.gfile.load_contents()[1]
+            return self.gfile.load_contents()[1].decode('utf-8')
 
     def readline(self):
-        return self.stream.read_line()[0]
+        return self.stream.read_line()[0].decode('utf-8')
 
 
 class GioFileOutputStream(_GioFileStream):

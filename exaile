@@ -4,7 +4,7 @@
 ## Full path to Exaile bin dir
 #PROGRAM_DIR="/home/username/apps/exaile"
 ## Python command to run
-#PYTHON2=python2
+#PYTHON3=python3
 #######################################
 
 # get the app dir if not already defined
@@ -12,12 +12,12 @@ if [ -z "${PROGRAM_DIR}" ]; then
     PROGRAM_DIR=`dirname "$0"`
 fi
 
-if [ -z "${PYTHON2}" ]; then
-    if [ "`which python2 2> /dev/null`" ]; then
-        PYTHON2=python2
+if [ -z "${PYTHON3}" ]; then
+    if [ "`which python3 2> /dev/null`" ]; then
+        PYTHON3=python3
     else
-        PYTHON2=python
+        PYTHON3=python
     fi
 fi
 
-exec ${PYTHON2} -O ${PROGRAM_DIR}/exaile.py --startgui "$@"
+exec ${PYTHON3} -O ${PROGRAM_DIR}/exaile.py --startgui "$@"

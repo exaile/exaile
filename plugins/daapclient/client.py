@@ -1,6 +1,6 @@
 import http.client
 import logging
-from io import StringIO
+from io import BytesIO
 
 from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 
@@ -89,7 +89,7 @@ class DAAPClient:
         if response.getheader("Content-Encoding") == "gzip":
             log.debug("gunzipping data")
             old_len = len(content)
-            compressedstream = StringIO(content)
+            compressedstream = BytesIO(content)
             import gzip
 
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
@@ -118,7 +118,7 @@ class DAAPClient:
 
     def readResponse(self, data):
         """Convert binary response from a request to a DAAPObject"""
-        data_str = StringIO(data)
+        data_str = BytesIO(data)
         daapobj = DAAPObject()
         daapobj.processData(data_str)
         return daapobj

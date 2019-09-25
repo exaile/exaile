@@ -37,8 +37,8 @@ class LyricWiki(LyricSearchMethod):
     def find_lyrics(self, track):
         try:
             (artist, title) = (
-                track.get_tag_raw('artist')[0].encode("utf-8"),
-                track.get_tag_raw('title')[0].encode("utf-8"),
+                track.get_tag_raw('artist')[0],
+                track.get_tag_raw('title')[0],
             )
         except TypeError:
             raise LyricsNotFoundException
@@ -62,7 +62,7 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
-            with_div = lyrics[0].renderContents().replace('<br />', '\n')
+            with_div = lyrics[0].renderContents().decode('utf-8').replace('<br />', '\n')
             string = '\n'.join(
                 self.remove_div(with_div).replace('\n\n\n', '').split('\n')
             )

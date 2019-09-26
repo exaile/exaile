@@ -1,5 +1,5 @@
-PYTHON2_CMD   ?= python2
-PYTEST        ?= py.test
+PYTHON3_CMD   ?= python3
+PYTEST        ?= py.test-3
 BLACK         ?= black
 
 PREFIX         = /usr/local
@@ -47,8 +47,8 @@ builddir:
 	mkdir -p build
 
 compile:
-	$(PYTHON2_CMD) -m compileall -q xl xlgui
-	-$(PYTHON2_CMD) -O -m compileall -q xl xlgui
+	$(PYTHON3_CMD) -m compileall -q xl xlgui
+	-$(PYTHON3_CMD) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:
@@ -160,7 +160,7 @@ install-target: make-install-dirs
 	-install -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
-		"$(PYTHON2_CMD)" && \
+		"$(PYTHON3_CMD)" && \
 	  chmod 755 $(EXAILEBINDIR)/exaile
 	sed "s|\@bindir\@|$(EPREFIX)/bin|" data/org.exaile.Exaile.service.in > \
 		$(DESTDIR)$(DATADIR)/dbus-1/services/org.exaile.Exaile.service && \
@@ -201,8 +201,8 @@ manpage: builddir
 	  | gzip -9 > build/exaile.1.gz
 
 completion: builddir
-	$(PYTHON2_CMD) tools/generate-completion.py bash > build/exaile.bash-completion
-	$(PYTHON2_CMD) tools/generate-completion.py fish > build/exaile.fish-completion
+	$(PYTHON3_CMD) tools/generate-completion.py bash > build/exaile.bash-completion
+	$(PYTHON3_CMD) tools/generate-completion.py fish > build/exaile.fish-completion
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;

@@ -1,4 +1,3 @@
-plugins/currentsong/__init__.py
 plugins/daapclient/__init__.py
 plugins/desktopcover/__init__.py
 plugins/developer/__init__.py

@@ -325,13 +325,13 @@ def submit(
 
     SUBMIT_CACHE.append(
         {
-            'a': str(artist).encode('utf-8'),
-            't': str(track).encode('utf-8'),
+            'a': artist,
+            't': track,
             'i': time,
             'o': source,
             'r': rating,
             'l': length,
-            'b': str(album).encode('utf-8'),
+            'b': album,
             'n': trackno,
             'm': mbid,
         }
@@ -364,9 +364,9 @@ you login?'''
     values['s'] = SESSION_ID
 
     data = urllib.parse.urlencode(values)
-    req = urllib.request.Request(POST_URL, data, USER_AGENT_HEADERS)
+    req = urllib.request.Request(POST_URL, data.encode('utf-8'), USER_AGENT_HEADERS)
     response = urllib.request.urlopen(req)
-    result = response.read()
+    result = response.read().decode('utf-8')
     lines = result.split('\n')
 
     if lines[0] == "OK":

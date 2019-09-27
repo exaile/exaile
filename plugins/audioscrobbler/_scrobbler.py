@@ -93,11 +93,12 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
     url = post_url or POST_URL
 
     if hashpw is True:
-        __LOGIN['p'] = md5(password).hexdigest()
+        __LOGIN['p'] = md5(password.encode('utf-8')).hexdigest()
     else:
         __LOGIN['p'] = password
 
-    token = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
+    token = "%s%d" % (__LOGIN['p'], int(tstamp))
+    token = md5(token.encode('utf-8')).hexdigest()
     values = {
         'hs': 'true',
         'p': PROTOCOL_VERSION,
@@ -110,7 +111,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
     data = urllib.parse.urlencode(values)
     req = urllib.request.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
     response = urllib.request.urlopen(req)
-    result = response.read()
+    result = response.read().decode('utf-8')
     lines = result.split('\n')
 
     if lines[0] == 'BADAUTH':

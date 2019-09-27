@@ -1,4 +1,3 @@
-plugins/bpm/__init__.py
 plugins/cd/__init__.py
 plugins/cd/cdprefs.py
 plugins/currentsong/__init__.py

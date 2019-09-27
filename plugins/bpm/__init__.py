@@ -25,7 +25,6 @@
 # from your version.
 
 
-from past.utils import old_div
 import time
 
 from gi.repository import Gdk
@@ -310,7 +309,7 @@ class BPMWidget(Gtk.Frame):
             self.bpm = str(
                 int(
                     round(
-                        old_div(((len(self.taps) - 1) * 60.0), (self.taps[-1] - self.taps[0]))
+                        ((len(self.taps) - 1) * 60.0) / (self.taps[-1] - self.taps[0])
                     )
                 )
             )

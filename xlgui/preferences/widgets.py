@@ -373,7 +373,7 @@ class HashedPreference(Preference):
 
         if value != '':
             hashfunc = hashlib.new(self.type)
-            hashfunc.update(value)
+            hashfunc.update(value.encode('utf-8'))
             value = hashfunc.hexdigest()
 
         oldvalue = settings.get_option(self.name, self.default)

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-01-26 19:04+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"PO-Revision-Date: 2019-09-27 20:54+0000\n"
+"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -128,6 +128,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Inicia l'Exaile, afegint opcionalment pistes especificades per la UBICACIÓ a "
+"la llista de reproducció activa. Si l'Exaile ja es troba en execució, "
+"intentarà utilitzar la instància existent en comptes de crear-ne una de nova."
 
 #: ../xl/main.py:96
 msgid "Playback Options"
@@ -428,10 +431,8 @@ msgid "Artist"
 msgstr "Artista"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by {artist}"
 msgid "Album artist"
-msgstr "per {artist}"
+msgstr "Artista de l'àlbum"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -601,6 +602,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"No es troba un connector GStreamer 1.x per al %s. Sense això, l'Exaile no "
+"podrà reproduir el fitxer actual. Instal·leu el programari necessari en el "
+"vostre equip. Vegeu %s per a més detalls."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"

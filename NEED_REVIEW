@@ -1,6 +1,3 @@
-plugins/audioscrobbler/__init__.py
-plugins/audioscrobbler/_scrobbler.py
-plugins/audioscrobbler/asprefs.py
 plugins/bookmarks/__init__.py
 plugins/bpm/__init__.py
 plugins/cd/__init__.py

@@ -200,19 +200,18 @@ def now_playing(
 
     values = {
         's': SESSION_ID,
-        'a': str(artist).encode('utf-8'),
-        't': str(track).encode('utf-8'),
-        'b': str(album).encode('utf-8'),
+        'a': artist,
+        't': track,
+        'b': album,
         'l': length,
         'n': trackno,
         'm': mbid,
     }
-
     data = urllib.parse.urlencode(values)
 
-    req = urllib.request.Request(NOW_URL, data, USER_AGENT_HEADERS)
+    req = urllib.request.Request(NOW_URL, data.encode('utf-8'), USER_AGENT_HEADERS)
     response = urllib.request.urlopen(req)
-    result = response.read()
+    result = response.read().decode('utf-8')
 
     if result.strip() == "OK":
         logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")

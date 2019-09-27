@@ -261,13 +261,13 @@ class ExaileScrobbler:
 
     def save_cache(self):
         cache = scrobbler.SUBMIT_CACHE
-        f = open(self.cachefile, 'w')
+        f = open(self.cachefile, 'wb')
         pickle.dump(cache, f)
         f.close()
 
     def load_cache(self):
         try:
-            f = open(self.cachefile, 'r')
+            f = open(self.cachefile, 'rb')
             cache = pickle.load(f)
             f.close()
             scrobbler.SUBMIT_CACHE = cache

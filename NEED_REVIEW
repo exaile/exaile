@@ -1,4 +1,3 @@
-plugins/abrepeat/__init__.py
 plugins/audioscrobbler/__init__.py
 plugins/audioscrobbler/_scrobbler.py
 plugins/audioscrobbler/asprefs.py

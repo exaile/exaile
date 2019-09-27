@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from past.utils import old_div
 from gi.repository import Gdk
 
 from xl import event, player, providers
@@ -124,7 +123,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
         if event.button == Gdk.BUTTON_PRIMARY:
             if self.move_finish():
                 if providers.get_provider('playback-markers', 'repeat-end') is None:
-                    position = old_div(event.x, widget.get_allocation().width)
+                    position = event.x / widget.get_allocation().width
                     self.end_marker.props.position = position
                     providers.register('playback-markers', self.end_marker)
                     self.move_begin(self.end_marker)

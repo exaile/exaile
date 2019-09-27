@@ -399,7 +399,7 @@ class MarkerManager(providers.ProviderHandler):
         if track_length is None:
             return True
 
-        playback_time = player.get_time()
+        playback_time = int(player.get_time())
         reached_markers = (
             m
             for m in providers.get('playback-markers')

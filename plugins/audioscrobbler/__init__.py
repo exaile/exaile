@@ -247,7 +247,7 @@ class ExaileScrobbler:
                     track, track.get_tag_raw('__audioscrobbler_starttime'), playtime
                 )
 
-        track.set_tag_raw(
+        track.set_tags(
             __audioscrobbler_starttime=None, __audioscrobbler_playtime=None
         )
 

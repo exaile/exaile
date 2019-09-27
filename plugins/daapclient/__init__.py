@@ -15,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from past.utils import old_div
 import functools
 from gettext import gettext as _
 import http.client
@@ -573,7 +572,7 @@ class DaapConnection:
                 # TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw(
-                        "__length", old_div(tr.atom.getAtom('astm'), 1000), notify_changed=False
+                        "__length", tr.atom.getAtom('astm') // 1000, notify_changed=False
                     )
                 except Exception:
                     temp.set_tag_raw("__length", 0, notify_changed=False)

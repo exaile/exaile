@@ -24,9 +24,9 @@ class CollectionWrapper:
             if self.daap is None:
                 do = self.parser.parse(self.track)[0]
                 if do is not None:
-                    self.daap = ''.join([d.encode() for d in do])
+                    self.daap = b''.join([d.encode() for d in do])
                 else:
-                    self.daap = ''
+                    self.daap = b''
             return self.daap
 
         def get_original_filename(self):

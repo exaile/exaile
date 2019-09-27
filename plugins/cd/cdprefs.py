@@ -87,7 +87,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.widget.set_model(None)
         model.clear()
 
-        steps = list(zip(formatinfo['raw_steps'], formatinfo['kbs_steps']))
+        steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
 
         for item, title in steps:
             model.append([item, str(title)])

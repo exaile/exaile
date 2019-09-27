@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 import dbus
 from fcntl import ioctl
 import logging
@@ -129,6 +128,7 @@ class CDTocParser:
             toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
             start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
 
+            # All tracks plus leadout
             for trnum in list(range(start, end + 1)) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
@@ -143,7 +143,7 @@ class CDTocParser:
         lengths = []
         for track in self.__raw_tracks[1:]:
             frame_end = track.get_frame_count()
-            lengths.append(old_div((frame_end - offset), 75))
+            lengths.append((frame_end - offset) // 75)
             offset = frame_end
         return lengths
 

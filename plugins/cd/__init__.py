@@ -272,8 +272,9 @@ class UDisks2CdProvider(UDisksProvider):
             return self.PRIORITY
 
     def get_device(self, obj, udisks):
-        device = obj.props.Get('Device', byte_arrays=True).strip('\0')
-        return CDDevice(str(device))
+        device = obj.props.Get('Device', byte_arrays=True).decode('utf-8')
+        device = device.strip('\0')
+        return CDDevice(device)
 
     def on_device_changed(self, obj, udisks, device):
         if self._get_num_tracks(obj, udisks) is None:

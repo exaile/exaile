@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from past.utils import old_div
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 import logging
@@ -124,7 +123,7 @@ class LoveColumn(Column):
 
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(pixbuf.get_width() * (old_div(new_font, default))), 1)
+            s = max(int(pixbuf.get_width() * (new_font / default)), 1)
             pixbuf = pixbuf.scale_simple(s, s, t)
 
         return pixbuf

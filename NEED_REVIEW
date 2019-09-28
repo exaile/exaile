@@ -1,5 +1,3 @@
-plugins/lastfmlove/__init__.py
-plugins/lastfmlove/cellrenderertoggleimage.py
 plugins/massstorage/__init__.py
 plugins/multialarmclock/__init__.py
 plugins/multialarmclock/cellrenderers.py

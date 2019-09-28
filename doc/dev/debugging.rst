@@ -43,8 +43,7 @@ On Windows:
 Viewing stack traces when Exaile hangs
 --------------------------------------
 
-If you have the `faulthandler <https://github.com/haypo/faulthandler>`_ module
-installed, on Linux/OSX if you send SIGUSR2 to Exaile it will dump stacktraces
+On Linux/OSX if you send SIGUSR2 to Exaile it will dump stacktraces
 of all current Python threads to stderr.
 		
 GStreamer Debugging Techniques

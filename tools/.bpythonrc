@@ -5,4 +5,4 @@ import exaile
 exaile.main()
 exaile = exaile.exaile
 
-print ""
+print()

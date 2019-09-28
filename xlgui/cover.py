@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 import logging
 import os
 import os.path
@@ -352,7 +351,7 @@ class CoverManager(GObject.GObject):
 
         self.progress_bar.set_text(progress_text)
 
-        fraction = old_div(progress, self.progress_bar.outstanding_total)
+        fraction = progress / self.progress_bar.outstanding_total
         self.progress_bar.set_fraction(fraction)
 
     def do_cover_fetched(self, album, pixbuf):
@@ -845,10 +844,10 @@ class CoverWindow:
     def center_image(self):
         """Centers the image in the layout"""
         new_x = max(
-            0, int(old_div((self.available_image_width() - self.image_pixbuf.get_width()), 2))
+            0, (self.available_image_width() - self.image_pixbuf.get_width()) // 2
         )
         new_y = max(
-            0, int(old_div((self.available_image_height() - self.image_pixbuf.get_height()), 2))
+            0, (self.available_image_height() - self.image_pixbuf.get_height()) // 2
         )
         self.layout.move(self.image, new_x, new_y)
 
@@ -909,7 +908,7 @@ class CoverWindow:
             float(self.image_original_pixbuf.get_height())
             / self.available_image_height()
         )
-        self.image_ratio = old_div(1, max(1, width_ratio, height_ratio))
+        self.image_ratio = 1 / max(1, width_ratio, height_ratio)
 
     def on_key_press(self, widget, event, data=None):
         """
@@ -963,7 +962,7 @@ class CoverWindow:
             Zooms out of the image
         """
         self.image_fitted = False
-        self.image_ratio *= old_div(1, self.ratio)
+        self.image_ratio *= 1 / self.ratio
         self.update_widgets()
 
     def on_zoom_100_button_clicked(self, widget):

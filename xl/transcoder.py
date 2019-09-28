@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 from gi.repository import Gst
 
 from xl.nls import gettext as _
@@ -229,7 +228,7 @@ class Transcoder:
             return 0.0
         try:
             tim = self.pipe.query_position(Gst.Format.TIME)[0]
-            tim = old_div(tim, Gst.SECOND)
+            tim = tim / Gst.SECOND
             self.__last_time = tim
             return tim
         except Exception:

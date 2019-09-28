@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.builtins import cmp
 from xlgui.preferences import widgets
 from xl import common, xdg
 from xl.nls import gettext as _

@@ -822,7 +822,7 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return str(buf.get_text(start, end, True), 'utf-8')
+        return buf.get_text(start, end, True)
 
     def _set_value(self):
         """
@@ -850,19 +850,15 @@ class ListPreference(Preference):
     def _set_value(self):
         items = settings.get_option(self.name, default=self.default)
         try:
-            items = u" ".join(items)
+            items = " ".join(items)
         except TypeError:
-            items = u""
+            items = ""
         self.widget.set_text(items)
 
     def _get_value(self):
-        # shlex is broken with unicode, so we feed it UTF-8 and decode
-        # afterwards.
         import shlex
 
-        values = shlex.split(self.widget.get_text())
-        values = [str(value, 'utf-8') for value in values]
-        return values
+        return shlex.split(self.widget.get_text())
 
 
 class SpinPreference(Preference):

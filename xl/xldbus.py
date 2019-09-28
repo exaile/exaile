@@ -279,7 +279,7 @@ class DbusManager(dbus.service.Object):
             value = ''
 
         if isinstance(value, list):
-            return u"\n".join(value)
+            return "\n".join(value)
         return str(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')

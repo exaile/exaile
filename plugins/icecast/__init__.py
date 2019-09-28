@@ -1,4 +1,3 @@
-from past.utils import old_div
 from gi.repository import GLib
 from gi.repository import Gtk
 
@@ -268,7 +267,7 @@ class IcecastRadioStation(RadioStation):
                                         if quality[0] == 'Quality':
                                             sbitrate = self._calc_bitrate(quality[1])
                                         elif len(quality[0]) > 3:
-                                            sbitrate = str(old_div(int(quality[0]), 1024))
+                                            sbitrate = str(int(quality[0]) // 1024)
                                         else:
                                             sbitrate = quality[0]
                                         anchor = paragraph.getElementsByTagName(

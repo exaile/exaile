@@ -96,11 +96,10 @@ class AnalyzerDialog:
         self.window.show_all()
 
         def tag_data_key(td):
-            if td:
-                return td.translated_name
+            return td.translated_name
 
         # convenience
-        td = list(tag_data.values())
+        td = [x for x in tag_data.values() if x is not None]
 
         # Add grouptagger to the list
         gt = get_default_tagdata('__grouptagger')
@@ -178,8 +177,7 @@ class AnalyzerDialog:
         widget.add_attribute(cell, 'text', 0)
 
         for td in self.__sorted_tags:
-            if td:
-                model.append((td.translated_name, td, td.tag_name))
+            model.append((td.translated_name, td, td.tag_name))
 
         # show/hide the spin button when an integer is displayed
         def _on_changed(widget):

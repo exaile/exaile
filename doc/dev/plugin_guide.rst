@@ -383,7 +383,7 @@ following example shows how you can make a string translatable:
 .. code-block:: python
 
     from xl.nls import gettext as _
-    print _('translatable string')
+    print(_('translatable string'))
 
 
 Saving/Loading arbitrary settings
@@ -464,11 +464,13 @@ Here is a simple example how to use the D-Bus object:
 
 .. code-block:: python
 
-    #!/usr/bin/env python2
+    #!/usr/bin/env python3
     
-    import sys, dbus
+    from io import BytesIO
+    import sys
+
+    import dbus
     import Image
-    from StringIO import StringIO
     
     def test_dbus():
         bus = dbus.SessionBus()
@@ -477,22 +479,22 @@ Here is a simple example how to use the D-Bus object:
             iface = dbus.Interface(remote_object, "org.exaile.Exaile")
             if iface.IsPlaying():
                 title = iface.GetTrackAttr("title")
-                print 'Title: %s' % title
+                print('Title:', title)
                 album = iface.GetTrackAttr("album")
-                print 'Album: %s' % album
+                print('Album:', album)
                 artist = iface.GetTrackAttr("artist")
-                print 'Artist: %s' % artist
+                print('Artist:', artist)
                 genre = iface.GetTrackAttr("genre")
-                print 'Genre: %s' % genre
+                print('Genre:', genre)
                 dbusArray = iface.GetCoverData()
-                coverdata = "".join(chr(byte) for byte in dbusArray)
+                coverdata = bytes(dbusArray)
                 if coverdata:
-                    im = Image.open(StringIO(coverdata))
+                    im = Image.open(BytesIO(coverdata))
                     im.show()
             else:
-                print "Exaile is not playing."
+                print("Exaile is not playing.")
         except dbus.exceptions.DBusException:
-            print "Exaile is not running."
+            print("Exaile is not running.")
     
     if __name__ == "__main__":
         test_dbus()

@@ -111,7 +111,7 @@ GDB can be used to diagnose segfaults and other issues. To run GDB:
 
 .. code-block:: sh
 
-    gdb --args python2 exaile.py --startgui <other arguments here>
+    gdb --args python3 exaile.py --startgui <other arguments here>
 
 Refer to the `Python Documentation <https://wiki.python.org/moin/DebuggingWithGdb>`_,
 but especially useful here are:
@@ -142,7 +142,7 @@ and sometimes on older versions. See
 Eliminating Gtk-WARNING
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-1. run gdb with ``G_DEBUG=fatal-warnings gdb --args python2 exaile --startgui``
+1. run gdb with ``G_DEBUG=fatal-warnings gdb --args python3 exaile --startgui``
 2. run exaile from gdb with ``run``
 3. do whatever causes `Gtk-WARNING`. This will lead to a crash in exaile.
 4. debug this crash with gdb
@@ -172,7 +172,7 @@ Debugging segfaults (segmentation violations)
 1. Open a terminal.
 2. Use the ``cd`` command to change to the directory where you put Exaile source
    code or to its installation directory.
-3. Run ``gdb /usr/bin/python2``
+3. Run ``gdb /usr/bin/python3``
 4. In gdb, run ``set logging on exaile-segfault.txt`` to enable logging to that file.
 5. In gdb, run ``run ./exaile.py --startgui``. You might append other arguments if you need them.
 6. Use Exaile as you did before and try to reproduce the problem. At some point, exaile might freeze. This is when gdb catched the segmentation fault.

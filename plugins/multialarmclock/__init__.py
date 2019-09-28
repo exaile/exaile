@@ -288,7 +288,9 @@ class AlarmClock:
         path = os.path.join(xdg.get_data_dirs()[0], 'alarmlist.dat')
         try:
             # Load Alarm List from file.
-            with open(path, 'rb') as f:
+            # Open in non-binary mode, because we are reading json
+            # string.
+            with open(path, 'r') as f:
                 raw = f.read()
                 try:
                     alist = _read(raw)
@@ -344,7 +346,9 @@ class AlarmClock:
                 for row in self.model
             ]
 
-            with open(path, 'wb') as f:
+            # Open in non-binary mode, because we are writing json
+            # string.
+            with open(path, 'w') as f:
                 f.write(_write(alist))
                 logger.debug('saving {0} alarms.'.format(len(alist)))
 

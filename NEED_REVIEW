@@ -1,4 +1,3 @@
-plugins/developer/__init__.py
 plugins/equalizer/__init__.py
 plugins/grouptagger/gt_import.py
 plugins/icecast/__init__.py

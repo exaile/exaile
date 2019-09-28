@@ -1,4 +1,3 @@
-plugins/grouptagger/gt_import.py
 plugins/icecast/__init__.py
 plugins/lastfmlove/__init__.py
 plugins/lastfmlove/cellrenderertoggleimage.py

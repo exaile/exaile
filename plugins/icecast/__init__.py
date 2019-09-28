@@ -227,7 +227,7 @@ class IcecastRadioStation(RadioStation):
             if response.status != 200:
                 raise radio.RadioException(_('Error connecting to Icecast server.'))
 
-            body = response.read()
+            body = response.read().decode('utf-8', 'replace')
 
             # XML parser can't handle the audio tag
             body = re.sub('<audio.*?>.*?</audio>', '', body, flags=(re.M | re.DOTALL))

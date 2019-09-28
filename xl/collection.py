@@ -34,7 +34,6 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
-from past.builtins import basestring
 from collections import deque
 from gi.repository import GLib
 from gi.repository import GObject
@@ -670,13 +669,10 @@ class Library:
             return
 
         def joiner(value):
-            if not value or isinstance(value, basestring):
-                return value
+            if isinstance(value, list):
+                return "\0".join(value)
             else:
-                try:
-                    return u"\u0000".join(value)
-                except UnicodeDecodeError:
-                    return "\0".join(value)
+                return value
 
         try:
             basedir = joiner(tr.get_tag_raw('__basedir'))

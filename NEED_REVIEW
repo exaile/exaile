@@ -3,7 +3,6 @@ tests/xl/trax/test_search.py
 tests/xl/trax/test_track.py
 tools/db_explorer.py
 tools/funcs.py
-xl/collection.py
 xl/devices.py
 xl/event.py
 xl/formatter.py

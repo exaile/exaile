@@ -1,5 +1,3 @@
-plugins/multialarmclock/__init__.py
-plugins/multialarmclock/cellrenderers.py
 plugins/playlistanalyzer/analyzer_dialog.py
 plugins/playlistanalyzer/presets.py
 tests/xl/trax/test_migration.py

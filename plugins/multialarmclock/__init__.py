@@ -17,7 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from past.utils import old_div
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -370,9 +369,9 @@ def fade_in(main, exaile):
         settings.get_option('plugin/multialarmclock/fade_max_volume', 100) / 100.0
     )
     fade_inc = settings.get_option('plugin/multialarmclock/fade_increment', 1) / 100.0
-    time_per_inc = old_div(settings.get_option('plugin/multialarmclock/fade_time', 30), (
-        old_div((fade_max_volume - temp_volume), fade_inc)
-    ))
+    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time', 30) / (
+        (fade_max_volume - temp_volume) / fade_inc
+    )
 
     while temp_volume < fade_max_volume:
         logger.debug('set volume to {0}'.format(temp_volume))

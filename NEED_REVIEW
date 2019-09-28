@@ -1,5 +1,3 @@
-plugins/playlistanalyzer/analyzer_dialog.py
-plugins/playlistanalyzer/presets.py
 tests/xl/trax/test_migration.py
 tests/xl/trax/test_search.py
 tests/xl/trax/test_track.py

@@ -25,7 +25,6 @@
 # from your version.
 
 
-from past.utils import old_div
 import logging
 import os
 
@@ -145,7 +144,7 @@ class GSTEqualizer(ElementBin):
 
     @staticmethod
     def dB_to_percent(dB):
-        return 10 ** (old_div(dB, 10))
+        return 10 ** (dB / 10)
 
 
 @GtkTemplate('equalizer.ui', relto=__file__)

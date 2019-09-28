@@ -767,11 +767,8 @@ class TagTextField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return str(
-            self.buffer.get_text(
-                self.buffer.get_start_iter(), self.buffer.get_end_iter(), True
-            ),
-            'utf-8',
+        return self.buffer.get_text(
+            self.buffer.get_start_iter(), self.buffer.get_end_iter(), True
         )
 
     def register_update_func(self, f):

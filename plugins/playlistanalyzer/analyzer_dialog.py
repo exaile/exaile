@@ -139,7 +139,9 @@ class AnalyzerDialog:
                 'maxtags': 1,
             }
 
-            with open(fname, 'rb') as fp:
+            # Open in non-binary mode, because we are reading strings
+            # and not bytes
+            with open(fname, 'r') as fp:
                 for line in fp:
                     m = re.match(r'.*?<meta name="(.*?)" content="(.*?)"\s*/>.*?', line)
                     if m is not None:

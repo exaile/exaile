@@ -440,7 +440,7 @@ def check_alarms(main, exaile):
                     player.QUEUE.current_playlist.set_current_position(-1)
                 else:
                     player.QUEUE.set_current_playlist(
-                        exaile.gui.main.get_selected_page()
+                        exaile.gui.main.get_selected_page().playlist
                     )
 
             player.QUEUE.play()

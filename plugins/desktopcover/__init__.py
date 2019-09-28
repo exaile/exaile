@@ -60,6 +60,8 @@ class DesktopCoverPlugin:
         gravity_map = DesktopCover.gravity_map
 
         if gravity not in gravity_map:
+            # Convert to list so we can index it with the old integer
+            # setting value
             gravities = list(gravity_map.keys())
 
             try:

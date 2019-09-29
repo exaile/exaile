@@ -35,4 +35,3 @@ xlgui/widgets/menu.py
 xlgui/widgets/notebook.py
 xlgui/widgets/playback.py
 xlgui/widgets/playlist.py
-xlgui/widgets/rating.py

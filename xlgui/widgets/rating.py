@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -160,8 +159,8 @@ class RatingWidget(Gtk.EventBox):
         maximum = settings.get_option('rating/maximum', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
-        threshold = old_div((old_div(pixbuf_width, maximum)), 2)
-        position = old_div((event.x + threshold), allocation.width)
+        threshold = (pixbuf_width / maximum) / 2
+        position = (event.x + threshold) / allocation.width
         rating = int(position * maximum)
 
         self._image.set_from_pixbuf(icons.MANAGER.pixbuf_from_rating(rating).pixbuf)
@@ -188,8 +187,8 @@ class RatingWidget(Gtk.EventBox):
         maximum = settings.get_option('rating/maximum', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
-        threshold = old_div((old_div(pixbuf_width, maximum)), 2)
-        position = old_div((event.x + threshold), allocation.width)
+        threshold = (pixbuf_width / maximum) / 2
+        position = (event.x + threshold) / allocation.width
         self.props.rating = int(position * maximum)
 
     def do_key_press_event(self, event):
@@ -403,7 +402,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
         event.y -= cell_area.y + click_area.y
 
         if 0 <= event.x <= click_area.width:
-            fraction = old_div(event.x, click_area.width)
+            fraction = event.x / click_area.width
             maximum = settings.get_option('rating/maximum', 5)
             rating = fraction * maximum + 1
             self.emit('rating-changed', (int(path),), rating)

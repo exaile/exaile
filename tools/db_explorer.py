@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 # Copyright (C) 2016 Dustin Spicuzza
 #
@@ -69,7 +69,7 @@ def cli(ctx, db):
                 raise
             else:
                 raise click.ClickException("%s does not exist" % db)
-    
+
     ctx.obj = contents
 
 
@@ -81,10 +81,10 @@ def cvtdb(ctx, data, dbtype):
     '''
         Only used for testing purposes
     '''
-    
+
     db = ctx.parent.params['db']
     newdb = db + '.new'
-    
+
     if dbtype == 'gdbm':
         import dbm.gnu
         new_d = dbm.gnu.open(newdb, 'n')
@@ -101,12 +101,12 @@ def cvtdb(ctx, data, dbtype):
         new_d = dbm.dumb.open(newdb, 'n')
     else:
         raise click.ClickException("Invalid type %s" % dbtype)
-    
+
     new_data = shelve.Shelf(new_d, protocol=exaile_pickle_protocol)
-    
+
     for k, v in data.items():
         new_data[k] = v
-    
+
     new_data.sync()
     new_data.close()
 
@@ -118,7 +118,7 @@ def tojson(data, output):
     '''
         Export Exaile's database to JSON
     '''
-    
+
     # not really a db type, but useful?
     d = {}
     for k, v in data.items():

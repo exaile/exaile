@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-
 # Copyright (C) 2010 by Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify

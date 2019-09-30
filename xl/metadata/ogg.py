@@ -66,7 +66,9 @@ class OggFormat(CaseInsensitveBaseFormat):
                 picture.desc = v.desc
                 picture.mime = v.mime
                 picture.data = v.data
-                new_value.append(base64.b64encode(picture.write()))
+                tmp = base64.b64encode(picture.write())
+                tmp = xl.unicode.to_unicode(tmp) # needs to be a str
+                new_value.append(tmp)
             value = new_value
         else:
             # vorbis has text based attributes, so convert everything to unicode

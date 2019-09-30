@@ -284,6 +284,7 @@ class CoverManager(GObject.GObject):
             COVER_MANAGER.remove_cover(track)
             self.model[path][1] = self.default_cover_pixbuf
 
+    @common.idle_add()
     def do_prefetch_started(self):
         """
             Sets the widget states to prefetching
@@ -295,6 +296,7 @@ class CoverManager(GObject.GObject):
         self.progress_bar.set_fraction(0)
         GLib.source_remove(self.progress_bar.pulse_timeout)
 
+    @common.idle_add()
     def do_prefetch_completed(self, outstanding):
         """
             Sets the widget states to ready for fetching
@@ -307,6 +309,7 @@ class CoverManager(GObject.GObject):
             self.outstanding_text.format(outstanding=outstanding)
         )
 
+    @common.idle_add()
     def do_prefetch_progress(self, progress):
         """
             Updates the wiedgets to reflect the processed album
@@ -314,6 +317,7 @@ class CoverManager(GObject.GObject):
         fraction = progress / float(len(self.album_tracks))
         self.progress_bar.set_fraction(fraction)
 
+    @common.idle_add()
     def do_fetch_started(self, outstanding):
         """
             Sets the widget states to fetching
@@ -325,6 +329,7 @@ class CoverManager(GObject.GObject):
         # We need float for the fraction during progress
         self.progress_bar.outstanding_total = float(outstanding)
 
+    @common.idle_add()
     def do_fetch_completed(self, outstanding):
         """
             Sets the widget states to ready for fetching
@@ -338,6 +343,7 @@ class CoverManager(GObject.GObject):
 
         self.progress_bar.set_fraction(0)
 
+    @common.idle_add()
     def do_fetch_progress(self, progress):
         """
             Updates the widgets to reflect the processed album
@@ -354,6 +360,7 @@ class CoverManager(GObject.GObject):
         fraction = progress / self.progress_bar.outstanding_total
         self.progress_bar.set_fraction(fraction)
 
+    @common.idle_add()
     def do_cover_fetched(self, album, pixbuf):
         """
             Updates the widgets to reflect the newly fetched cover

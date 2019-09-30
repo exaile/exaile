@@ -49,7 +49,7 @@ class RatingWidget(Gtk.EventBox):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {
@@ -245,7 +245,7 @@ class RatingMenuItem(Gtk.MenuItem):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {
@@ -342,7 +342,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
             0,  # Minimum
             65535,  # Maximum
             0,  # Default
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {

@@ -60,7 +60,7 @@ class MainWindow(GObject.GObject):
             'Fullscreen',
             'Whether the window is fullscreen.',
             False,  # Default
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
 

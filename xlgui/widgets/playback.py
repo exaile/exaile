@@ -202,20 +202,20 @@ class Marker(GObject.GObject):
             Anchor.CENTER,
             Anchor.EAST,
             Anchor.SOUTH,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'color': (
             Gdk.RGBA,
             'marker color',
             'Override color of the marker',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'label': (
             GObject.TYPE_STRING,
             'marker label',
             'Textual description of the marker',
             None,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'position': (
             GObject.TYPE_FLOAT,
@@ -224,14 +224,14 @@ class Marker(GObject.GObject):
             0,
             1,
             0,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'state': (
             Gtk.StateType,
             'marker state',
             'The state of the marker',
             Gtk.StateType.NORMAL,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
     }
     __gsignals__ = {'reached': (GObject.SignalFlags.RUN_LAST, None, ())}
@@ -501,7 +501,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             0,
             1,
             0.7,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {

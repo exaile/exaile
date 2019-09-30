@@ -170,7 +170,7 @@ class Formatter(GObject.GObject):
             'format string',
             'String the formatting is based on',
             '',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
 

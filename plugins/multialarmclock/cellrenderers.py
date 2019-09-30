@@ -24,7 +24,7 @@ class CellRendererDays(Gtk.CellRendererText):
 
     __gtype_name__ = 'CellRendererDays'
     __gproperties__ = {
-        'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)
+        'days': (object, 'days', 'List of enabled days', GObject.ParamFlags.READWRITE)
     }
     __gsignals__ = {
         'days-changed': (GObject.SignalFlags.RUN_FIRST, None, (str, object))

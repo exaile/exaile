@@ -18,13 +18,13 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             'property only has an effect if not overridden '
             'the "pixbuf" property.',
             '',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'pixbuf': (
             GdkPixbuf.Pixbuf,
             'pixbuf',
             'The pixbuf to render.',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'icon-size': (
             GObject.TYPE_UINT,
@@ -33,14 +33,14 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             0,
             65535,
             Gtk.IconSize.SMALL_TOOLBAR,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'render-prelit': (
             GObject.TYPE_BOOLEAN,
             'render prelit',
             'Whether to render prelit states or not',
             True,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
     }
 

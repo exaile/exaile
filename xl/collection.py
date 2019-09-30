@@ -371,7 +371,7 @@ class LibraryMonitor(GObject.GObject):
             'monitoring state',
             'Whether to monitor this library',
             False,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {

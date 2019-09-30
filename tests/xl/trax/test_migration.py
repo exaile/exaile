@@ -1,17 +1,23 @@
+db_names = { 'dbm' : 'dbm.ndbm', 'gdbm' : 'dbm.gnu', 'dumbdbm' : 'dbm.dumb' } # Map of old db names to new module names
+available_dbs = set() # Set of available db's (old names)
+
 try:
     import dbm.ndbm
+    available_dbs.add('dbm')
 except ImportError:
-    dbm = None
+    pass
 
 try:
     import dbm.gnu
+    available_dbs.add('gdbm')
 except ImportError:
-    gdbm = None
+    pass
 
 try:
     import dbm.dumb
+    available_dbs.add('dumbdbm')
 except ImportError:
-    dumbdbm = None
+    pass
 
 import glob
 import os
@@ -31,11 +37,11 @@ def data(request, tmpdir):
     truth = {}
 
     # uses pickle instead of JSON because of unicode issues...
-    with open(join(base, 'music.db.pickle')) as fp:
+    with open(join(base, 'music.db.pickle'), 'rb') as fp:
         truth = pickle.load(fp)
 
-    if globals()[dbtype] is None:
-        pytest.skip('Module %s does not exist' % dbtype)
+    if dbtype not in available_dbs:
+        pytest.skip('Module %s (%s) does not exist' % (dbtype, db_names[dbtype]))
     else:
         # copy the test data to a tempdir
         loc = str(tmpdir.mkdir(dbtype))

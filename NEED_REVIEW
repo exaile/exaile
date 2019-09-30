@@ -1,6 +1,3 @@
-tests/xl/trax/test_migration.py
-tests/xl/trax/test_search.py
-tests/xl/trax/test_track.py
 tools/db_explorer.py
 tools/funcs.py
 xl/devices.py

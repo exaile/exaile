@@ -9,8 +9,6 @@ xl/metadata/asf.py
 xl/metadata/wav.py
 xl/player/gst/gst_utils.py
 #################### sjohannes: up to here
-xl/player/queue.py
-xl/player/track_fader.py
 xl/playlist.py
 xl/plugins.py
 xl/providers.py

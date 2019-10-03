@@ -25,11 +25,7 @@
 # from your version.
 
 import logging
-
-try:
-    import pickle as pickle
-except ImportError:
-    import pickle
+import pickle
 
 from xl import common, event, playlist, settings
 

@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
+from typing import Tuple
+
 from gi.repository import GLib
 
 from xl import common
@@ -118,7 +119,7 @@ class TrackFader:
             stop_offset,
         )
 
-    def calculate_user_volume(self, real_volume):
+    def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
         '''Given the 'real' output volume, calculate what the user
            volume should be and whether they are identical'''
 
@@ -131,7 +132,7 @@ class TrackFader:
         if self.fade_volume < 0.01:
             return real_volume, True
         else:
-            user_vol = old_div(real_volume, self.fade_volume)
+            user_vol = real_volume / self.fade_volume
             is_same = abs(user_vol - self.user_volume) < 0.01
             return user_vol, is_same
 
@@ -142,8 +143,8 @@ class TrackFader:
             self.stream.stop()
             return
 
-        self.now = (old_div(self.stream.get_position(), self.SECOND)) - 0.010
-        fade_len = float(self.fade_out_end - self.fade_out_start)
+        self.now = self.stream.get_position() / self.SECOND - 0.010
+        fade_len = self.fade_out_end - self.fade_out_start
 
         # If playing, and is not fading out, then force a fade out
         if self.state == FadeState.Normal:
@@ -273,7 +274,7 @@ class TrackFader:
             return
 
         if now is None:
-            now = old_div(self.stream.get_position(), self.SECOND)
+            now = self.stream.get_position() / self.SECOND
 
         msg = "Fade data: now: %.2f; in: %s,%s; out: %s,%s"
         self.logger.debug(
@@ -314,7 +315,7 @@ class TrackFader:
     def _on_fade_start(self, now=None):
 
         if now is None:
-            now = old_div(self.stream.get_position(), self.SECOND)
+            now = self.stream.get_position() / self.SECOND
 
         self.now = now - 0.010
 
@@ -352,7 +353,7 @@ class TrackFader:
         if fade_len < 0.01:
             volume = 0.0
         else:
-            volume = old_div((self.now - fade_start), fade_len)
+            volume = (self.now - fade_start) / fade_len
 
         if not fading_in:
             volume = 1.0 - volume

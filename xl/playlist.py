@@ -29,7 +29,6 @@ Provides the fundamental objects for handling a list of tracks contained
 in playlists as well as methods to import and export from various file formats.
 """
 
-from past.utils import old_div
 from gi.repository import Gio
 
 import cgi
@@ -83,11 +82,10 @@ def encode_filename(filename: str):
     blacklist = r'<>:"/\|?*%'
 
     def encode_char(c):
-        # TODO(py3): This doesn't work right if c is non-ascii
         return '%' + hex(ord(c))[2:] if c in blacklist else c
 
     # encode any blacklisted chars
-    filename = ''.join([encode_char(c) for c in filename]) + '.playlist'
+    filename = ''.join(map(encode_char, filename)) + '.playlist'
 
     return filename
 
@@ -728,7 +726,7 @@ class ASXConverter(FormatConverter):
             depth = len(self._stack)
             # Convert both tag and attributes to lowercase
             tag = tag.lower()
-            attributes = dict((k.lower(), v) for k, v in attributes.items())
+            attributes = {k.lower(): v for k, v in attributes.items()}
 
             if depth > 0:
                 if depth == 2 and self._stack[-1] == 'entry' and tag == 'ref':
@@ -1951,7 +1949,7 @@ class SmartPlaylist:
             s = ""
 
             if field == '__rating':
-                value = float(old_div((100.0 * value), maximum))
+                value = 100.0 * value / maximum
             elif field == '__playlist':
                 try:
                     pl = main.exaile().playlists.get_playlist(value)
@@ -1963,7 +1961,7 @@ class SmartPlaylist:
                             .get_playlist(collection)
                         )
                     except Exception as e:
-                        raise ValueError("Loading %s: %s" % (self.name, str(e)))
+                        raise ValueError("Loading %s: %s" % (self.name, e))
 
                 if op == 'pin':
                     matchers.append(trax.TracksInList(pl))
@@ -2071,7 +2069,7 @@ class PlaylistManager:
         Manages saving and loading of playlists
     """
 
-    def __init__(self, playlist_dir=u'playlists', playlist_class=Playlist):
+    def __init__(self, playlist_dir='playlists', playlist_class=Playlist):
         """
             Initializes the playlist manager
 
@@ -2079,7 +2077,7 @@ class PlaylistManager:
             @param playlist_class: the playlist class to use
         """
         self.playlist_class = playlist_class
-        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], str(playlist_dir))
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], playlist_dir)
         if not os.path.exists(self.playlist_dir):
             os.makedirs(self.playlist_dir)
         self.order_file = os.path.join(self.playlist_dir, 'order_file')

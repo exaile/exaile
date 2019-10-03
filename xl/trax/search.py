@@ -26,7 +26,7 @@
 
 import time
 import re
-from typing import Sequence
+from typing import Collection
 
 from xl.unicode import shave_marks
 
@@ -524,7 +524,7 @@ class TracksNotInList(TracksInList):
         return track.track not in self._tracks
 
 
-def search_tracks(trackiter, trackmatchers: Sequence[TracksMatcher]):
+def search_tracks(trackiter, trackmatchers: Collection[TracksMatcher]):
     """
         Search a set of tracks for those that match specified conditions.
 
@@ -534,10 +534,7 @@ def search_tracks(trackiter, trackmatchers: Sequence[TracksMatcher]):
     for srtr in trackiter:
         if not isinstance(srtr, SearchResultTrack):
             srtr = SearchResultTrack(srtr)
-        for tma in trackmatchers:
-            if not tma.match(srtr):
-                break
-        else:
+        if all(tma.match(srtr) for tma in trackmatchers):
             yield srtr
 
         # On large collections, searching can take a while. Due to

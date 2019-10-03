@@ -9,11 +9,6 @@ xl/metadata/asf.py
 xl/metadata/wav.py
 xl/player/gst/gst_utils.py
 #################### sjohannes: up to here
-xl/playlist.py
-xl/plugins.py
-xl/providers.py
-xl/radio.py
-xl/trax/search.py
 xl/trax/track.py
 xlgui/__init__.py
 xlgui/panel/collection.py

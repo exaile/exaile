@@ -72,6 +72,11 @@ def cli(ctx, db):
 
     ctx.obj = contents
 
+    def _on_close():
+        ctx.obj.close()
+
+    ctx.call_on_close(_on_close)
+
 
 @cli.command()
 @click.pass_obj

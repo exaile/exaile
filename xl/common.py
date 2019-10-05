@@ -47,6 +47,9 @@ import weakref
 import bsddb3 as bsddb
 from gi.repository import Gio, GLib, GObject
 
+from xl import shelve_compat
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -67,21 +70,6 @@ PICKLE_PROTOCOL = 2
 # otherwise, use this.
 # TODO: make this a setting?
 BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
-
-
-class Utf8Unpickler(pickle.Unpickler):
-    def __init__(self, *args, **kwargs):
-        kwargs['encoding'] = 'utf-8'
-        super().__init__(*args, **kwargs)
-
-
-def ensure_shelve_compat():
-    """"Change shelve's unpickler to use UTF-8 when reading Python 2 shelves"""
-    shelve.Unpickler = Utf8Unpickler
-
-
-# TODO(py3): explain why this is needed, then see if the other shelve users need it
-ensure_shelve_compat()
 
 
 def clamp(value, minimum, maximum):
@@ -382,6 +370,8 @@ def open_shelf(path):
     '''
         Opens a python shelf file, used to store various types of metadata
     '''
+    shelve_compat.ensure_shelve_compat()
+
     # As of Exaile 4, new DBs will only be created as Berkeley DB Hash databases
     # using either bsddb3 (external) or bsddb (stdlib but sometimes removed).
     # Existing DBs created with other backends will be migrated to Berkeley DB.

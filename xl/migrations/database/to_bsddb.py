@@ -29,12 +29,14 @@ import logging
 import os
 import shelve
 
-from xl import common
+from xl import common, shelve_compat
 
 logger = logging.getLogger(__name__)
 
 
 def migrate(path):
+    shelve_compat.ensure_shelve_compat()
+
     bak_path = path + os.extsep + 'tmp'
 
     try:

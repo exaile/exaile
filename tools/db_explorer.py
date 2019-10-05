@@ -27,6 +27,7 @@ import datetime
 from dbm import whichdb
 import json
 import os.path
+import pickle
 import pprint
 import shelve
 
@@ -37,6 +38,15 @@ except ImportError:
 
 import click
 
+
+class Utf8Unpickler(pickle.Unpickler):
+    def __init__(self, *args, **kwargs):
+        kwargs['encoding'] = 'utf-8'
+        super().__init__(*args, **kwargs)
+
+
+# For compatibility with Python 2 shelves
+shelve.Unpickler = Utf8Unpickler
 
 exaile_db = os.path.join(os.path.expanduser('~'), '.local', 'share', 'exaile',
                          'music.db')
@@ -224,12 +234,4 @@ def tags(data):
 
 
 if __name__ == '__main__':
-    # import xl.common to enable Utf8Unpickler for compatibility with
-    # python2-created music databases
-    import os
-    import sys
-    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-    sys.path.insert(1, root)
-    from xl import common
-
     cli()

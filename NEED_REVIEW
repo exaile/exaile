@@ -1,6 +1,5 @@
 xl/devices.py
 xl/event.py
-xl/formatter.py
 xl/lyrics.py
 xl/metadata/_id3.py
 xl/metadata/asf.py

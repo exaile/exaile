@@ -39,7 +39,6 @@ from string import Template, _TemplateMetaclass
 from xl import common, providers, settings, trax
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
-from future.utils import with_metaclass
 
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
@@ -77,7 +76,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
 
-class ParameterTemplate(with_metaclass(_ParameterTemplateMetaclass, Template)):
+class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
     """
         An extended template class which additionally
         accepts parameters assigned to identifiers.

@@ -1,5 +1,3 @@
-tools/db_explorer.py
-tools/funcs.py
 xl/devices.py
 xl/event.py
 xl/formatter.py

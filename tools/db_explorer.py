@@ -31,11 +31,7 @@ import pickle
 import pprint
 import shelve
 
-try:
-    import bsddb3 as bsddb
-except ImportError:
-    import bsddb
-
+import bsddb3 as bsddb
 import click
 
 

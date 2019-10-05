@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
@@ -1101,10 +1100,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if font is None:
             font = default_font
 
-        def_font_sz = float(default_font.get_size())
+        def_font_sz = default_font.get_size()
 
         # how much has the font deviated from normal?
-        ratio = old_div(font.get_size(), def_font_sz)
+        ratio = font.get_size() / def_font_sz
 
         # small fonts can be problematic..
         # -> TODO: perhaps default widths could be specified
@@ -1872,8 +1871,8 @@ class PlaylistModel(Gtk.ListStore):
             icons.MANAGER.pixbuf_from_icon_name('media-playback-stop')
         )
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
-            dest_width=old_div(self.stop_pixbuf.pixbuf.get_width(), 2),
-            dest_height=old_div(self.stop_pixbuf.pixbuf.get_height(), 2),
+            dest_width=self.stop_pixbuf.pixbuf.get_width() // 2,
+            dest_height=self.stop_pixbuf.pixbuf.get_height() // 2,
             interp_type=GdkPixbuf.InterpType.BILINEAR,
         )
         stop_overlay_pixbuf = stop_overlay_pixbuf.move(
@@ -1894,7 +1893,7 @@ class PlaylistModel(Gtk.ListStore):
 
             # scale pixbuf accordingly
             t = GdkPixbuf.InterpType.BILINEAR
-            s = max(int(self.play_pixbuf.get_width() * (old_div(new_font, default))), 1)
+            s = max(int(self.play_pixbuf.get_width() * (new_font / default)), 1)
 
             self.play_pixbuf = self.play_pixbuf.scale_simple(s, s, t)
             self.pause_pixbuf = self.pause_pixbuf.scale_simple(s, s, t)

@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 from gi.repository import Atk
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -120,7 +119,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         interval = settings.get_option('gui/progress_update_millisecs', 1000)
 
         if interval % 1000 == 0:
-            self.__timer_id = GLib.timeout_add_seconds(old_div(interval, 1000), self.on_timer)
+            self.__timer_id = GLib.timeout_add_seconds(interval // 1000, self.on_timer)
         else:
             self.__timer_id = GLib.timeout_add(interval, self.on_timer)
 
@@ -655,9 +654,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.NORTH:
             points = (
-                (position - offset, old_div(marker_scale, 2) + offset),
-                (position + old_div(marker_scale, 2) - offset, offset),
-                (position - old_div(marker_scale, 2) - offset, offset),
+                (position - offset, marker_scale // 2 + offset),
+                (position + marker_scale // 2 - offset, offset),
+                (position - marker_scale // 2 - offset, offset),
             )
         elif marker.props.anchor == Anchor.NORTH_EAST:
             points = (
@@ -667,9 +666,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.EAST:
             points = (
-                (position - old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
-                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
-                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
+                (position - marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_EAST:
             points = (
@@ -679,9 +678,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.SOUTH:
             points = (
-                (position - offset, height - old_div(marker_scale, 2) - offset),
-                (position + old_div(marker_scale, 2) - offset, height - offset),
-                (position - old_div(marker_scale, 2) - offset, height - offset),
+                (position - offset, height - marker_scale // 2 - offset),
+                (position + marker_scale // 2 - offset, height - offset),
+                (position - marker_scale // 2 - offset, height - offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_WEST:
             points = (
@@ -691,16 +690,16 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.WEST:
             points = (
-                (position + old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
-                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
-                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
+                (position + marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
             )
         elif marker.props.anchor == Anchor.CENTER:
             points = (
-                (position - offset, old_div(height, 2) - old_div(marker_scale, 2) + offset),
-                (position + old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
-                (position - offset, old_div(height, 2) + old_div(marker_scale, 2) + offset),
-                (position - old_div(marker_scale, 2) - offset, old_div(height, 2) + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position + marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
+                (position - marker_scale // 2 - offset, height // 2 + offset),
             )
 
         return points
@@ -813,9 +812,8 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             if len(hit_markers) > 0:
                 self.seek(hit_markers[0].props.position)
             else:
-                fraction = old_div(event.x, self.get_allocation().width)
-                fraction = max(0, fraction)
-                fraction = min(fraction, 1)
+                fraction = event.x / self.get_allocation().width
+                fraction = clamp(fraction, 0, 1)
 
                 self.__progressbar.set_fraction(fraction)
                 self.__progressbar.set_text(
@@ -842,9 +840,8 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 marker.props.state = Gtk.StateType.PRELIGHT
 
         if event.button == Gdk.BUTTON_PRIMARY and self.__progressbar._seeking:
-            fraction = old_div(event.x, self.get_allocation().width)
-            fraction = max(0, fraction)
-            fraction = min(fraction, 1)
+            fraction = event.x / self.get_allocation().width
+            fraction = clamp(fraction, 0, 1)
 
             self.seek(fraction)
             self.__progressbar._seeking = False
@@ -1096,7 +1093,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
             :param event: an event
             :type event: :class:`Gdk.Event`
         """
-        self._position = old_div(event.x, self._parent.get_allocation().width)
+        self._position = event.x / self._parent.get_allocation().width
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1160,7 +1157,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             :type markers: (:class:`Marker`, ...)
         """
         self._markers = markers
-        self._position = old_div(event.x, self._parent.get_allocation().width)
+        self._position = event.x / self._parent.get_allocation().width
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1297,7 +1294,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
             Moves markers
         """
-        position = old_div(event.x, widget.get_allocation().width)
+        position = event.x / widget.get_allocation().width
 
         return self.move_update(position)
 

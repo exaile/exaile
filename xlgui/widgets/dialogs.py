@@ -51,18 +51,6 @@ from threading import Thread
 logger = logging.getLogger(__name__)
 
 
-def force_unicode(obj):
-    if obj is None:
-        return None
-
-    try:
-        # Try this first because errors='replace' fails if the object is unicode
-        # or some other non-str object.
-        return str(obj)
-    except UnicodeDecodeError:
-        return str(obj, errors='replace')
-
-
 def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     """
         Shows an error dialog
@@ -677,9 +665,8 @@ class FileOperationDialog(Gtk.FileChooserDialog):
             @param extensions: a dictionary of extension:file type pairs
             i.e. { 'm3u':'M3U Playlist' }
         """
-        keys = list(extensions.keys())
-        for key in keys:
-            self.liststore.append([extensions[key], key])
+        for key, value in extensions.items():
+            self.liststore.append((value, key))
 
 
 class MediaOpenDialog(Gtk.FileChooserDialog):
@@ -1050,7 +1037,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = str(self.get_uri(), 'utf-8')
+            path = self.get_uri()
 
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path
@@ -1343,13 +1330,13 @@ class MessageBar(Gtk.InfoBar):
 
         self.set_message_type(message_type)
         if markup is None:
-            self.set_text(force_unicode(text))
+            self.set_text(text)
         else:
-            self.set_markup(force_unicode(markup))
+            self.set_markup(markup)
         if secondary_markup is None:
-            self.set_secondary_text(force_unicode(secondary_text))
+            self.set_secondary_text(secondary_text)
         else:
-            self.set_secondary_markup(force_unicode(secondary_markup))
+            self.set_secondary_markup(secondary_markup)
         self.show()
 
         if timeout > 0:

@@ -16,10 +16,3 @@ xlgui/panel/radio.py
 xlgui/panels.py
 xlgui/progress.py
 xlgui/properties.py
-xlgui/widgets/common.py
-xlgui/widgets/dialogs.py
-xlgui/widgets/info.py
-xlgui/widgets/menu.py
-xlgui/widgets/notebook.py
-xlgui/widgets/playback.py
-xlgui/widgets/playlist.py

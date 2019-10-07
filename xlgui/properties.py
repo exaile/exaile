@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.utils import old_div
 from collections import OrderedDict
 import datetime
 import io
@@ -359,7 +358,7 @@ class TrackPropertiesDialog(GObject.GObject):
             for child in grid.get_children():
                 grid.remove(child)
 
-            for i in range(old_div(row_count, 3 * 2), 0, -1):
+            for i in range((row_count // 3) * 2, 0, -1):
                 grid.remove_row(i)
 
     def _save_position(self):

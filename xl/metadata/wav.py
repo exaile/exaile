@@ -25,7 +25,6 @@
 # from your version.
 
 
-from past.utils import old_div
 import wave
 import sunau
 import os
@@ -50,7 +49,7 @@ class WavFormat(BaseFormat):
         try:
             with fp:
                 f = opener.open(fp)
-                length = old_div(f.getnframes(), f.getframerate())
+                length = f.getnframes() // f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
             self.mutagen = {'__bitrate': -1, '__length': -1}

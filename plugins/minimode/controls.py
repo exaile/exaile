@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from past.utils import old_div
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -567,7 +566,7 @@ class RatingControl(RatingWidget, BaseControl):
         if player.PLAYER.current is not None:
             player.PLAYER.current.set_rating(rating)
             maximum = settings.get_option('rating/maximum', 5)
-            event.log_event('rating_changed', self, old_div(rating, maximum * 100))
+            event.log_event('rating_changed', self, 100 * rating/maximum)
 
 
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):

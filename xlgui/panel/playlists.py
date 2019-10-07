@@ -25,7 +25,6 @@
 # from your version.
 
 
-from past.utils import old_div
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -189,7 +188,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             track.set_rating(rating)
 
         maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, old_div(rating, maximum * 100))
+        event.log_event('rating_changed', self, 100 * rating/maximum)
 
     def open_item(self, tree, path, col):
         """

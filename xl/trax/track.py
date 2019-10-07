@@ -26,7 +26,6 @@
 # from your version.
 
 from past.builtins import basestring
-from past.utils import old_div
 from copy import deepcopy
 import logging
 import re
@@ -377,7 +376,7 @@ class Track:
     def read_tags(self, force=True, notify_changed=True):
         """
             Reads tags from the file for this Track.
-            
+
             :param force: If not True, then only read the tags if the file has
                           be modified.
 
@@ -516,7 +515,7 @@ class Track:
                 parts of Exaile know there has been an update. Only set
                 this to False if you know that no other parts of Exaile
                 need to be updated.
-                
+
             .. note:: When setting more than one tag, prefer set_tags instead
 
             .. warning:: Covers and lyrics tags must be set via set_tag_disk
@@ -905,11 +904,10 @@ class Track:
 
             Returns the scaled rating
         """
-        rating = float(rating)
-        maximum = float(settings.get_option("rating/maximum", 5))
+        maximum = settings.get_option("rating/maximum", 5)
         rating = min(rating, maximum)
         rating = max(0, rating)
-        rating = float(old_div(rating * 100.0, maximum))
+        rating = 100 * rating/maximum
         self.set_tags(__rating=rating)
         return rating
 

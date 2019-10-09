@@ -26,7 +26,7 @@
 
 import logging
 import os
-from typing import Mapping
+from typing import Dict
 
 from . import xdg
 
@@ -79,7 +79,7 @@ elif os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
     if revision is not None:
         __version__ += "+" + revision
 
-__external_versions__: Mapping[str, str] = {}
+__external_versions__: Dict[str, str] = {}
 
 
 def register(name, version):

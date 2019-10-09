@@ -509,7 +509,7 @@ class DragTreeView(AutoScrollTreeView):
                 and the second is a list of playlist
         """
         filetype = None
-        info = urlparse.urlparse(loc)
+        info = urlparse(loc)
 
         # don't use gio to test the filetype if it's a non-local file
         # (otherwise gio will try to connect to every remote url passed in and

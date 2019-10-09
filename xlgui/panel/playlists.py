@@ -25,11 +25,13 @@
 # from your version.
 
 
+import logging
+from typing import Dict, Union
+
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
-
 
 from xl import common, event, radio, settings, trax
 from xl.nls import gettext as _
@@ -37,11 +39,8 @@ from xl.playlist import Playlist, SmartPlaylist
 from xlgui import icons, panel
 from xlgui.panel import menus
 from xlgui.widgets import dialogs
-
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.smart_playlist_editor import SmartPlaylistEditor
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -51,15 +50,15 @@ class TrackWrapper:
         self.track = track
         self.playlist = playlist
 
-    def __unicode__(self):
+    def __str__(self):
         text = self.track.get_tag_raw('title')
         if text is not None:
-            text = u' / '.join(text)
+            text = ' / '.join(text)
 
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:
-                text += u' - ' + u' / '.join(artists)
+                text += ' - ' + ' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
 
@@ -84,17 +83,21 @@ class BasePlaylistPanelMixin(GObject.GObject):
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
+    # Cache for custom playlists
+    playlist_nodes: Dict[Playlist, Gtk.TreeIter]
+
+    # Mapping to keep track of open "are you sure you want to delete" dialogs
+    deletion_dialogs: Dict[Union[Playlist, SmartPlaylist], Gtk.Dialog]
+
     def __init__(self):
         """
             Initializes the mixin
         """
         GObject.GObject.__init__(self)
-        self.playlist_nodes = {}  # {playlist: iter} cache for custom playlists
+        self.playlist_nodes = {}
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR
         )
-        # {Playlist: Gtk.Dialog} mapping to keep track of open "are you sure
-        # you want to delete" dialogs
         self.deletion_dialogs = {}
 
     def remove_playlist(self, ignored=None):
@@ -163,7 +166,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         if name in self.playlist_manager.playlists:
             # name is already in use
             dialogs.error(
-                self.parent, _("The " "playlist name you entered is already in use.")
+                self.parent, _("The playlist name you entered is already in use.")
             )
             return
 

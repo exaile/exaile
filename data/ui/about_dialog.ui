@@ -23,7 +23,7 @@ Fabiano Fidêncio
 Joseph S. Atkinson
 Christian Stadelmann
 Rok Mandeljc</property>
-    <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here. Separate translator names with newlines.">Unknown translator</property>
+    <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here. Separate translator names with newlines.">translator-credits</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg
 Josip Lisec</property>

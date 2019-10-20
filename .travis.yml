@@ -1,5 +1,4 @@
 
-sudo: required
 services:
   - docker
 language: python
@@ -20,7 +19,6 @@ script:
 jobs:
   include:
   - stage: format-check
-    sudo: false
     language: python
     python:
     - "3.6"

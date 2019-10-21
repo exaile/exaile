@@ -77,7 +77,7 @@ class Order:
 
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
-        self.__levels = list(map(self.__parse_level, levels))
+        self.__levels = [ self.__parse_level(l) for l in levels ]
         self.__formatters = [formatter.TrackFormatter(l[1]) for l in self.__levels]
         self.__use_compilations = use_compilations
 
@@ -453,7 +453,7 @@ class CollectionPanel(panel.Panel):
             Called when the user clicks on the tree
         """
         # selection = self.tree.get_selection()
-        (x, y) = list(map(int, event.get_coords()))
+        (x, y) = [ int(v) for v in event.get_coords() ]
         # path = self.tree.get_path_at_pos(x, y)
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-09-27 20:54+0000\n"
+"PO-Revision-Date: 2019-10-21 19:52+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.9.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -617,26 +617,26 @@ msgstr "Personalitzat"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "No s'ha pogut crear l'audiosink (dispositiu: %s, tipus:%s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "No s'ha especificat cap pipeline personalitzada."
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Error en crear l'audiosink personalitzat «%s»"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "El tipus de sink especificat «%s» no és vàlid"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "No s'ha pogut crear el sink tipus «%s»"
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -910,7 +910,7 @@ msgstr "Desa la llista de reproducció seleccionada actualment"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Desa la llista de reproducció seleccionada amb un nom personalitzat"
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
@@ -1141,20 +1141,16 @@ msgid "_About"
 msgstr "Qu_ant a"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Artista"
+msgstr "Artista de l'àlbum"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Gènere - artista"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Gènere - artista"
+msgstr "Gènere - Artista de l'àlbum"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1165,10 +1161,8 @@ msgid "Date - Artist"
 msgstr "Data - artista"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Data - artista"
+msgstr "Data - Artista de l'àlbum"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
@@ -1179,10 +1173,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Artista - (data - àlbum)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Artista - (data - àlbum)"
+msgstr "Artista de l'àlbum - (data - àlbum)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1774,7 +1766,7 @@ msgstr "Nova marca"
 
 #: ../xlgui/widgets/playback.py:1374
 msgid "_Jump to"
-msgstr ""
+msgstr "_Salta a"
 
 #: ../xlgui/widgets/playback.py:1382
 msgid "_Remove Marker"
@@ -2392,6 +2384,10 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Algunes plataformes no són compatibles amb les icones a la safata, en "
+"concret el Wayland. Al GNOME Shell 3.26+ sota Xorg, les icones a la safata "
+"només funcionen si teniu <a href=\"https://extensions.gnome.org/extension/"
+"495/topicons/\">l'extensió «TopIcons»</a> (o alguna similar) instal·lada."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -2556,15 +2552,15 @@ msgid "Playback engine: "
 msgstr "Motor de reproducció: "
 
 #: ../data/ui/preferences/playback.ui:367
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Repeteix la reproducció"
+msgstr "Activa la reproducció contínua"
 
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"La reproducció contínua significa reproduir les pistes sense inserir "
+"silencis entre elles."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2821,10 +2817,8 @@ msgid "Amazon Covers"
 msgstr "Cobertes d'Amazon"
 
 #: ../plugins/audioscrobbler/__init__.py:97
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
-msgstr "AudioScrobbler"
+msgstr "Commuta l'enviament a l'AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
@@ -3256,26 +3250,24 @@ msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
-msgstr ""
+msgstr "Preferida"
 
 #: ../plugins/lastfmlove/__init__.py:67
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Preferides del Last.fm"
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Loved Tracks"
 msgid "_Love This Track"
-msgstr "Peces preferides"
+msgstr "_Marca-la com a preferida"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Desmarca-la com a preferida"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Pistes preferides del Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
@@ -3511,7 +3503,7 @@ msgstr "Analitza la llista de reproducció"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 msgid "Modulus this number"
-msgstr ""
+msgstr "Valor absolut del número"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
@@ -3706,7 +3698,7 @@ msgstr "Increment:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Pas de temps:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -3726,6 +3718,12 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
+"<i>Per a registrar un compte de l'Amazon AWS i obtenir aquesta informació\n"
+"visiteu <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
+"\n"
+"Potser us cal també <a href=\"https://affiliate-program.amazon.com/gp/flex/"
+"advertising/api/sign-in.html\">activar l'API de promoció de "
+"productes</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -3783,7 +3781,7 @@ msgstr "Voleu establir les PPM?"
 #: ../plugins/bpm/msg.ui:63
 #, python-format
 msgid "Set autodetected BPM on %s?"
-msgstr ""
+msgstr "Voleu establir els BPM autodetectats en %s?"
 
 #: ../plugins/bpm/msg.ui:78 ../plugins/bpm/msg.ui:94 ../plugins/bpm/msg.ui:110
 msgid "0"
@@ -3924,10 +3922,8 @@ msgid "Exaile Developer Tools"
 msgstr "Eines de desenvolupador d'Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
-#, fuzzy
-#| msgid "BPM Counter"
 msgid "Count"
-msgstr "Comptador de PPM"
+msgstr "Compta"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
@@ -4054,6 +4050,8 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats."
 msgstr ""
+"«agrupar» i «commentar» són probablement les eleccions més compatibles. "
+"Altres eleccions podrien funcionar només amb alguns formats de fitxer."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4147,6 +4145,10 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Aneu a la pàgina <b><a href=\"http://www.last.fm/api/account\">Your API "
+"Account</a></b> per a obtenir una <b>clau API</b> i un <b>secret</b> i "
+"introduïu-los aquí. Després de fer-ho, <b>sol·liciteu permís d'accés</b> i "
+"confirmeu per a completar la configuració."
 
 #. TRANSLATORS: Minimode window decoration option
 #: ../plugins/minimode/minimode_preferences.ui:15
@@ -4199,14 +4201,12 @@ msgid "Options"
 msgstr "Opcions"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "Mostra els servidors ipv6 (experimental)"
+msgstr "Mostra la forma d'ona (experimental)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Tint del color (experimental)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4419,7 +4419,7 @@ msgstr "Port de retransmissió:"
 
 #: ../plugins/streamripper/streamripper.ui:60
 msgid "Rip to single file"
-msgstr ""
+msgstr "Exporta a un fitxer únic"
 
 #: ../plugins/streamripper/streamripper.ui:74
 msgid "Delete incomplete files"
@@ -4530,6 +4530,8 @@ msgid ""
 "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
 "and the bpmdetect plugin are installed"
 msgstr ""
+"Proporciona un comptador manual de BPM, i detecció automàtica de BPM quan "
+"els connectors gst-plugins-bad i bpmdetect estan instal·lats"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -4670,7 +4672,7 @@ msgstr "Suprimeix la veu de l'àudio"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
-msgstr ""
+msgstr "Tecles multimèdia basades en el Keybinder"
 
 #: ../plugins/keybinder/PLUGININFO:4
 msgid ""
@@ -4718,6 +4720,12 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
+"Mostra quines pistes s'han marcat com a preferides i permet marcar-ne.\n"
+"\n"
+"Comproveu que heu introduït una clau API i secret vàlids en les preferències "
+"del connector.\n"
+"\n"
+"Depén del connector «AudioScrobbler» per al nom d'usuari i la contrasenya."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4787,6 +4795,9 @@ msgid ""
 "\n"
 "Requires: moodbar"
 msgstr ""
+"Mostra una representació visual de la línia de temps de la música.\n"
+"\n"
+"Requereix: moodbar"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
@@ -4798,6 +4809,9 @@ msgid ""
 "2.2, allowing you to control Exaile from supporting clients, for example "
 "GNOME Shell"
 msgstr ""
+"Compatibilitat parcial amb el MPRIS (Media Player Remote Interfacing "
+"Specification) 2.2, cosa que permet controlar l'Exaile des de clients "
+"compatibles, com per exemple el GNOME Shell"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""

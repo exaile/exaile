@@ -86,15 +86,15 @@ class ID3Format(BaseFormat):
         if len(field) <= 0:
             return []
         ret = []
-        if t in ('TDRC', 'TDOR'):  # values are ID3TimeStamps
+        if t in ('TDRC', 'TDOR'):  # values are ID3TimeStamps, need str conversion
             for value in field:
                 ret.extend([str(x) for x in value.text])
-        elif t == 'USLT':  # Lyrics are stored in plain old strings
+        elif t == 'USLT':  # Lyrics are stored in a single str object
             for value in field:
-                ret.append(str(value.text))
-        elif t == 'WOAR':  # URLS are stored in url not text
+                ret.append(value.text)
+        elif t == 'WOAR':  # URLs are stored in url field instead of text field (as a single str object)
             for value in field:
-                ret.extend([str(value.url.replace('\n', '').replace('\r', ''))])
+                ret.append(value.url.replace('\n', '').replace('\r', ''))
         elif t == 'APIC':
             ret = [
                 CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data)
@@ -108,7 +108,7 @@ class ID3Format(BaseFormat):
                 try:
                     ret.extend(
                         [
-                            str(x.replace('\n', '').replace('\r', ''))
+                            x.replace('\n', '').replace('\r', '')
                             for x in value.text
                         ]
                     )

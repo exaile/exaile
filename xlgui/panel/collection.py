@@ -48,6 +48,8 @@ SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
 
 def first_meaningful_char(s):
+    # Keep explicit str() conversion in case we ever end up receiving
+    # a non-string sort tag (e.g. an int for track number)
     for c in str(s):
         if c.isdigit():
             return '0'
@@ -642,6 +644,9 @@ class CollectionPanel(panel.Panel):
         to_expand = []
 
         for srtr in srtrs:
+            # The value returned by get_tag_sort() may be of other
+            # typa than str (e.g., an int for track number), hence
+            # explicit conversion via str() is necessary.
             stagvals = [str(srtr.track.get_tag_sort(x)) for x in tags]
             stagval = " ".join(stagvals)
             if last_val != stagval or bottom:

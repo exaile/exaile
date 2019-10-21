@@ -269,7 +269,7 @@ class Main:
 
                     for location, library in collection.libraries.items():
                         if location not in new_locations:
-                            removals += [library]
+                            removals.append(library)
 
                     for removal in removals:
                         collection.remove_library(removal)

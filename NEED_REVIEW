@@ -4,5 +4,4 @@ xl/lyrics.py
 xl/player/gst/gst_utils.py
 #################### sjohannes: up to here
 xl/trax/track.py
-xlgui/panel/collection.py
 xlgui/panel/playlists.py

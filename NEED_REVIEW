@@ -6,5 +6,4 @@ xl/player/gst/gst_utils.py
 xl/trax/track.py
 xlgui/__init__.py
 xlgui/panel/collection.py
-xlgui/panel/lyrics.py
 xlgui/panel/playlists.py

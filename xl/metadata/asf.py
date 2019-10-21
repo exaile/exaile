@@ -50,7 +50,7 @@ class AsfFormat(BaseFormat):
     def _get_tag(self, raw, tag_name):
         # the mutagen container for ASF returns the WM/ fields in its own
         # wrappers which are *almost* like a string.. convert them to
-        # unicode so things don't break
+        # str so things don't break
         tag = super(AsfFormat, self)._get_tag(raw, tag_name)
         if isinstance(tag, list):
             attrs = [

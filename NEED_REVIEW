@@ -1,9 +1,6 @@
 xl/devices.py
 xl/event.py
 xl/lyrics.py
-xl/metadata/_id3.py
-xl/metadata/asf.py
-xl/metadata/wav.py
 xl/player/gst/gst_utils.py
 #################### sjohannes: up to here
 xl/trax/track.py

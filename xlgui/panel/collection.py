@@ -83,7 +83,7 @@ class Order:
 
     @staticmethod
     def __parse_level(val):
-        if type(val) in (str, str):
+        if isinstance(val, str):
             val = ((val,), "$%s" % val, (val,))
         return tuple(val)
 

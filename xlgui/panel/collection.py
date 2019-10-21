@@ -39,7 +39,6 @@ from xlgui import guiutil, icons, panel
 from xlgui.panel import menus
 from xlgui.widgets import menu
 from xlgui.widgets.common import DragTreeView
-from functools import reduce
 
 logger = logging.getLogger(__name__)
 
@@ -751,17 +750,17 @@ class CollectionDragTreeView(DragTreeView):
             Returns the currently selected tracks
         """
         model, paths = self.get_selection().get_selected_rows()
-        tracks = []
 
         if len(paths) == 0:
-            return tracks
+            return []
 
+        tracks = set()
         for path in paths:
             iter = model.get_iter(path)
             newset = self.container._find_tracks(iter)
-            tracks.append(newset)
+            tracks.update(newset)
 
-        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+        tracks = list(tracks)
 
         return trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
 

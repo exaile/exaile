@@ -918,9 +918,7 @@ class TagDblNumField(Gtk.Box):
                         self.all_button[i].set_active(False)
 
     def get_value(self):
-        f0 = str(int(self.field[0].get_value()))
-        f1 = str(int(self.field[1].get_value()))
-        return f0 + '/' + f1
+        return '%d/%d' % (self.field[0].get_value(), self.field[1].get_value())
 
     def register_update_func(self, f):
         tag = self.parent_row.tag

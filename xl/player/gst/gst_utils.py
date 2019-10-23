@@ -238,17 +238,17 @@ def parse_stream_tags(track, tag_list):
     if v:
         c = tags.get('track-count')
         if c:
-            etags['tracknumber'] = u'%d/%d' % (v[0], c[0])
+            etags['tracknumber'] = '%d/%d' % (v[0], c[0])
         else:
-            etags['tracknumber'] = u'%d' % (v[0])
+            etags['tracknumber'] = '%d' % (v[0])
 
     v = tags.get('album-disc-number')
     if v:
         c = tags.get('album-disc-count')
         if c:
-            etags['discnumber'] = u'%d/%d' % (v[0], c[0])
+            etags['discnumber'] = '%d/%d' % (v[0], c[0])
         else:
-            etags['discnumber'] = u'%d' % (v[0])
+            etags['discnumber'] = '%d' % (v[0])
 
     v = tags.get('album')
     if v:

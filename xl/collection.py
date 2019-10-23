@@ -200,7 +200,7 @@ class Collection(trax.TrackDB):
 
         to_rem = []
         if "://" not in library.location:
-            location = u"file://" + library.location
+            location = "file://" + library.location
         else:
             location = library.location
         for tr in self.tracks:

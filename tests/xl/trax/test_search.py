@@ -389,7 +389,7 @@ class TestSearchTracks:
         with pytest.raises(StopIteration):
             next(gen)
 
-    @pytest.mark.parametrize("sstr", ["motley crue", u"mötley crüe", u"motley crüe"])
+    @pytest.mark.parametrize("sstr", ["motley crue", "mötley crüe", "motley crüe"])
     def test_search_tracks_ignore_diacritic_from_string(self, sstr):
         '''Ensure that searching for tracks with diacritics return
            appropriately normalized results'''

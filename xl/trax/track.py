@@ -47,18 +47,18 @@ logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
-    u'ß': u'ss',  # U+00DF
-    u'æ': u'ae',  # U+00E6
-    u'ĳ': u'ij',  # U+0133
-    u'ŋ': u'ng',  # U+014B
-    u'œ': u'oe',  # U+0153
-    u'ƕ': u'hv',  # U+0195
-    u'ǆ': u'dz',  # U+01C6
-    u'ǉ': u'lj',  # U+01C9
-    u'ǌ': u'nj',  # U+01CC
-    u'ǳ': u'dz',  # U+01F3
-    u'ҥ': u'ng',  # U+04A5
-    u'ҵ': u'ts',  # U+04B5
+    'ß': 'ss',  # U+00DF
+    'æ': 'ae',  # U+00E6
+    'ĳ': 'ij',  # U+0133
+    'ŋ': 'ng',  # U+014B
+    'œ': 'oe',  # U+0153
+    'ƕ': 'hv',  # U+0195
+    'ǆ': 'dz',  # U+01C6
+    'ǉ': 'lj',  # U+01C9
+    'ǌ': 'nj',  # U+01CC
+    'ǳ': 'dz',  # U+01F3
+    'ҥ': 'ng',  # U+04A5
+    'ҵ': 'ts',  # U+04B5
 }
 
 # Cache these here because calling gettext inside get_tag_display
@@ -66,7 +66,7 @@ _sortcharmap = {
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
 # TRANSLATORS: String multiple tag values will be joined by
-_JOINSTR = _(u' / ')
+_JOINSTR = _(' / ')
 
 _no_set_raw = {'__basename', '__loc'} | disk_tags
 
@@ -624,14 +624,14 @@ class Track:
             value = sorttag
         elif tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist', u"\uffff\uffff\uffff\ufffe")
+                value = self.__tags.get('albumartist', "\uffff\uffff\uffff\ufffe")
             else:
                 value = self.__tags.get('albumartist')
                 if value is None:
-                    value = self.__tags.get('artist', u"\uffff\uffff\uffff\uffff")
+                    value = self.__tags.get('artist', "\uffff\uffff\uffff\uffff")
             if sorttag and value not in (
-                u"\uffff\uffff\uffff\ufffe",
-                u"\uffff\uffff\uffff\uffff",
+                "\uffff\uffff\uffff\ufffe",
+                "\uffff\uffff\uffff\uffff",
             ):
                 value = sorttag
             else:
@@ -654,10 +654,10 @@ class Track:
             value = self.__tags.get(tag)
 
         if value is None:
-            value = u"\uffff\uffff\uffff\uffff"  # unknown
+            value = "\uffff\uffff\uffff\uffff"  # unknown
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (value, basename)
+                value = "%s (%s)" % (value, basename)
         elif not tag.startswith("__") and tag not in (
             'tracknumber',
             'discnumber',
@@ -667,9 +667,9 @@ class Track:
                 value = self.format_sort(value)
             else:
                 if isinstance(value, list):
-                    value = [self.lower(v + u" " + v) for v in value]
+                    value = [self.lower(v + " " + v) for v in value]
                 else:
-                    value = self.lower(value + u" " + value)
+                    value = self.lower(value + " " + value)
             if join:
                 value = self.join_values(value)
 
@@ -702,21 +702,21 @@ class Track:
                 if value is None:
                     value = self.__tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            value = self.split_numerical(self.__tags.get(tag))[0] or u""
+            value = self.split_numerical(self.__tags.get(tag))[0] or ""
         elif tag in ('__length', '__startoffset', '__stopoffset'):
-            value = self.__tags.get(tag, u"")
+            value = self.__tags.get(tag, "")
         elif tag in ('__rating', '__playcount'):
-            value = self.__tags.get(tag, u"0")
+            value = self.__tags.get(tag, "0")
         elif tag == '__bitrate':
             try:
                 value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
-                    value = u""
+                    value = ""
                 else:
                     # TRANSLATORS: Bitrate (k here is short for kbps).
                     value = _("%dk") % value
             except (KeyError, ValueError):
-                value = u""
+                value = ""
         elif tag == '__basename':
             value = self.get_basename_display()
         else:
@@ -726,7 +726,7 @@ class Track:
             value = ''
             if tag == 'title':
                 basename = self.get_basename_display()
-                value = u"%s (%s)" % (_UNKNOWNSTR, basename)
+                value = "%s (%s)" % (_UNKNOWNSTR, basename)
 
         # Convert value to str or List[str]
         if isinstance(value, list):
@@ -926,7 +926,7 @@ class Track:
         return values
 
     @staticmethod
-    def join_values(values, glue=u" / "):
+    def join_values(values, glue=" / "):
         """
             Exaile's standard method to join tag values
         """
@@ -1005,8 +1005,8 @@ class Track:
         normalize = unicodedata.normalize
         category = unicodedata.category
         return (
-            u''.join([c for c in normalize('NFD', value) if category(c) != 'Mn'])
-            + u" "
+            ''.join([c for c in normalize('NFD', value) if category(c) != 'Mn'])
+            + " "
             + value
         )
 
@@ -1025,7 +1025,7 @@ class Track:
         return value
 
     # This is slower, don't use it!
-    #        return u''.join((_sortcharmap.get(c, c) for c in value))
+    #        return ''.join((_sortcharmap.get(c, c) for c in value))
 
     @staticmethod
     def lower(value):

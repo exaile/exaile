@@ -1741,7 +1741,7 @@ class SmartPlaylist:
         >>> sp.add_param("artist", "==", "Delerium")
         >>> p = sp.get_playlist()
         >>> p[1]['album'][0]
-        u'Chimera'
+        'Chimera'
         >>>
     """
 

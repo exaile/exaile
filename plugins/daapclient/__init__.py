@@ -561,7 +561,7 @@ class DaapConnection:
 
                 for field in eqiv.keys():
                     try:
-                        tag = u'%s' % tr.atom.getAtom(eqiv[field])
+                        tag = '%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 

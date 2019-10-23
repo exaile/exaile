@@ -191,7 +191,7 @@ class CoverManager(GObject.GObject):
                 thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
 
-            label = u'{0} - {1}'.format(*album)
+            label = '{0} - {1}'.format(*album)
             iter = self.model.append((album, thumbnail_pixbuf, label))
             self.model_path_cache[album] = self.model.get_path(iter)
 

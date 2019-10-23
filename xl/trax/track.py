@@ -25,7 +25,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from past.builtins import basestring
 from copy import deepcopy
 import logging
 import re
@@ -490,12 +489,10 @@ class Track:
             if not tag.startswith("__"):  # internal tags dont have to be lists
                 values = [values]
 
-        # For lists, filter out empty values and convert string values to Unicode
+        # For lists, filter out empty values
         if isinstance(values, list):
             values = [
-                xl.unicode.to_unicode(v, self.__tags.get('__encoding'), 'replace')
-                if isinstance(v, basestring)
-                else v
+                v
                 for v in values
                 if v not in (None, '')
             ]

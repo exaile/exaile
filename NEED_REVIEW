@@ -1,4 +1,3 @@
-xl/event.py
 xl/lyrics.py
 xl/player/gst/gst_utils.py
 #################### sjohannes: up to here

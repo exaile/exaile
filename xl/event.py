@@ -209,14 +209,10 @@ class _WeakMethod:
         else:
             self.objRef = weakref.ref(method.__self__, notifyDead)
         self.fun = method.__func__
-        # TODO(py3): See below
-        # self.cls = method.__self__.__class__
 
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            # TODO(py3): What's the last param?
-            # return types.MethodType(self.fun, objref, self.cls)
             return types.MethodType(self.fun, objref)
 
     def __eq__(self, method2):

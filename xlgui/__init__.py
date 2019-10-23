@@ -121,7 +121,7 @@ class Main:
         self.device_panels = {}
 
         # add the device panels
-        for device in self.exaile.devices.list_devices():
+        for device in self.exaile.devices.get_devices():
             if device.connected:
                 self.add_device_panel(None, None, device)
 

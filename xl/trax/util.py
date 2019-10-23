@@ -120,10 +120,15 @@ def sort_tracks(
     fields = list(fields)  # we need the index method
     if trackfunc is None:
         trackfunc = lambda tr: tr
+
+    # The value returned by get_tag_sort() may be of other
+    # type than str (e.g., an int for track number), hence
+    # explicit conversion via str() is necessary.
     keyfunc = lambda tr: [
-        trackfunc(tr).get_tag_sort(field, artist_compilations=artist_compilations)
+        str(trackfunc(tr).get_tag_sort(field, artist_compilations=artist_compilations))
         for field in fields
     ]
+
     return sorted(items, key=keyfunc, reverse=reverse)
 
 

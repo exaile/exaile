@@ -805,9 +805,9 @@ class Track:
             if extraformat:
                 value += extraformat
 
-        # Convert all return values to unicode
+        # Shave marks from strings
         if isinstance(value, list):
-            value = list(map(shave_marks, value))
+            value = [ shave_marks(v) for v in value ]
         else:
             value = shave_marks(value)
 

@@ -72,7 +72,7 @@ class LyricsCache:
         '''
             Return the shelve keys
         '''
-        return list(self.db.keys())
+        return self.db.keys()
 
     def _get(self, key, default=None):
         with self.lock:

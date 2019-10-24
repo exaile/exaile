@@ -221,7 +221,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
 
     def waiter(function):
         # ensure this is only used on instance methods
-        callargs = inspect.getargspec(function)
+        callargs = inspect.getfullargspec(function)
         if len(callargs.args) == 0 or callargs.args[0] != 'self':
             raise RuntimeError("Must only use glib_wait* on instance methods!")
 

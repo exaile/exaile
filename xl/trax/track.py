@@ -634,7 +634,7 @@ class Track:
             else:
                 sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
-            value = self.split_numerical(self.__tags.get(tag))[0]
+            value = self.split_numerical(self.__tags.get(tag))[0] or 0
         elif tag in ('__length', '__playcount'):
             value = self.__tags.get(tag, 0)
         elif tag == 'bpm':

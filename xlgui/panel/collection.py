@@ -642,7 +642,7 @@ class CollectionPanel(panel.Panel):
 
         for srtr in srtrs:
             # The value returned by get_tag_sort() may be of other
-            # type than str (e.g., an int for track number), hence
+            # typa than str (e.g., an int for track number), hence
             # explicit conversion via str() is necessary.
             stagvals = [str(srtr.track.get_tag_sort(x)) for x in tags]
             stagval = " ".join(stagvals)

@@ -30,31 +30,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d दिन "
-msgstr[1] "%d दिन "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} दिन "
+msgstr[1] "{} दिन "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d घंटा, "
-msgstr[1] "%d घंटे, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} घंटा, "
+msgstr[1] "{} घंटे, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d मिनट, "
-msgstr[1] "%d कार्यवृत्त, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} मिनट, "
+msgstr[1] "{} कार्यवृत्त, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d सेकंड"
-msgstr[1] "%d सेकंड्‌स"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} सेकंड"
+msgstr[1] "{} सेकंड्‌स"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

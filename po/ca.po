@@ -29,31 +29,31 @@ msgstr "Fitxer local"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dia, "
-msgstr[1] "%d dies, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dia, "
+msgstr[1] "{} dies, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hora, "
-msgstr[1] "%d hores, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} hora, "
+msgstr[1] "{} hores, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minut, "
-msgstr[1] "%d minuts, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minut, "
+msgstr[1] "{} minuts, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d segon"
-msgstr[1] "%d segons"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} segon"
+msgstr[1] "{} segons"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

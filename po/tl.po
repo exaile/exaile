@@ -26,29 +26,29 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
+msgid "{} day, "
+msgid_plural "{} days, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
+msgid "{} second"
+msgid_plural "{} seconds"
 msgstr[0] ""
 msgstr[1] ""
 

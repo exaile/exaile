@@ -32,35 +32,35 @@ msgstr "Vietinis failas"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d diena, "
-msgstr[1] "%d dienos, "
-msgstr[2] "%d dienų, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} diena, "
+msgstr[1] "{} dienos, "
+msgstr[2] "{} dienų, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d valanda, "
-msgstr[1] "%d valandos, "
-msgstr[2] "%d valandų, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} valanda, "
+msgstr[1] "{} valandos, "
+msgstr[2] "{} valandų, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minutė, "
-msgstr[1] "%d minutės, "
-msgstr[2] "%d minučių, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minutė, "
+msgstr[1] "{} minutės, "
+msgstr[2] "{} minučių, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekundė"
-msgstr[1] "%d sekundės"
-msgstr[2] "%d sekundžių"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekundė"
+msgstr[1] "{} sekundės"
+msgstr[2] "{} sekundžių"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

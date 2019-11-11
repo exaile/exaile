@@ -30,31 +30,31 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d ден, "
-msgstr[1] "%d дни, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} ден, "
+msgstr[1] "{} дни, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d час, "
-msgstr[1] "%d часа, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} час, "
+msgstr[1] "{} часа, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d минута, "
-msgstr[1] "%d минути, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} минута, "
+msgstr[1] "{} минути, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d секунда"
-msgstr[1] "%d секунди"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} секунда"
+msgstr[1] "{} секунди"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

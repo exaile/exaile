@@ -29,27 +29,27 @@ msgstr ""
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d วัน "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} วัน "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d ชั่วโมง "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} ชั่วโมง "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d นาที "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} นาที "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d วินาที"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} วินาที"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

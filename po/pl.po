@@ -31,35 +31,35 @@ msgstr "Plik lokalny"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dzień, "
-msgstr[1] "%d dni, "
-msgstr[2] "%d dni, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} dzień, "
+msgstr[1] "{} dni, "
+msgstr[2] "{} dni, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d godzina, "
-msgstr[1] "%d godziny, "
-msgstr[2] "%d godzin, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} godzina, "
+msgstr[1] "{} godziny, "
+msgstr[2] "{} godzin, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta, "
-msgstr[1] "%d minuty, "
-msgstr[2] "%d minut, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} minuta, "
+msgstr[1] "{} minuty, "
+msgstr[2] "{} minut, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunda"
-msgstr[1] "%d sekundy"
-msgstr[2] "%d sekund"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} sekunda"
+msgstr[1] "{} sekundy"
+msgstr[2] "{} sekund"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

@@ -30,31 +30,31 @@ msgstr "Lokale Datei"
 
 #: ../xl/formatter.py:597
 #, python-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d Tag, "
-msgstr[1] "%d Tage, "
+msgid "{} day, "
+msgid_plural "{} days, "
+msgstr[0] "{} Tag, "
+msgstr[1] "{} Tage, "
 
 #: ../xl/formatter.py:599
 #, python-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d Stunde, "
-msgstr[1] "%d Stunden, "
+msgid "{} hour, "
+msgid_plural "{} hours, "
+msgstr[0] "{} Stunde, "
+msgstr[1] "{} Stunden, "
 
 #: ../xl/formatter.py:600
 #, python-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d Minute, "
-msgstr[1] "%d Minuten, "
+msgid "{} minute, "
+msgid_plural "{} minutes, "
+msgstr[0] "{} Minute, "
+msgstr[1] "{} Minuten, "
 
 #: ../xl/formatter.py:601
 #, python-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d Sekunde"
-msgstr[1] "%d Sekunden"
+msgid "{} second"
+msgid_plural "{} seconds"
+msgstr[0] "{} Sekunde"
+msgstr[1] "{} Sekunden"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606

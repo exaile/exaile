@@ -660,7 +660,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
             to the selected extension
         """
         model, iter = selection.get_selected()
-        extension, = model.get(iter, 1)
+        (extension,) = model.get(iter, 1)
         filename = ""
         if self.get_filename():
             filename = os.path.basename(self.get_filename())

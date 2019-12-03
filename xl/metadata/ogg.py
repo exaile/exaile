@@ -67,7 +67,7 @@ class OggFormat(CaseInsensitveBaseFormat):
                 picture.mime = v.mime
                 picture.data = v.data
                 tmp = base64.b64encode(picture.write())
-                tmp = xl.unicode.to_unicode(tmp) # needs to be a str
+                tmp = tmp.decode('ascii')  # needs to be a str
                 new_value.append(tmp)
             value = new_value
         else:

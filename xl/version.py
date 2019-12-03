@@ -71,7 +71,7 @@ def get_current_revision():
 
 if "DIST_VERSION" in os.environ:
     __version__ = os.environ['DIST_VERSION']
-elif os.path.isdir(os.path.join(xdg.exaile_dir, ".git")):
+elif os.path.exists(os.path.join(xdg.exaile_dir, ".git")):
     version = get_current_version()
     if version is not None:
         __version__ = version

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-08-28 12:23+0000\n"
+"PO-Revision-Date: 2019-10-03 12:56+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -616,26 +616,26 @@ msgstr "Personalizado"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "No se pudo crear el receptor de audio (dispositivo: %s; tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "No se especificó la canalización personalizada."
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Error al crear el receptor de audio personalizado «%s»"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Se especificó el tipo de receptor «%s», que no es válido"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "No se pudo crear el receptor de tipo «%s»"
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -2469,7 +2469,7 @@ msgstr "GStreamer"
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
 msgid "Audio Sink:  "
-msgstr "Salida de audio:  "
+msgstr "Receptor de audio:  "
 
 #: ../data/ui/preferences/playback.ui:92
 msgid "Audio Device: "
@@ -2478,7 +2478,7 @@ msgstr "Dispositivo de audio: "
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
-msgstr "Tbería personalizada del objetivo:"
+msgstr "Tubería del receptor personalizado:"
 
 #: ../data/ui/preferences/playback.ui:142
 msgid "Resume playback on start"
@@ -2834,28 +2834,20 @@ msgid "Please make sure the entered data is correct."
 msgstr "Compruebe que la información introducida es correcta."
 
 #: ../plugins/bookmarks/__init__.py:210
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
-msgstr "Marcar esta pista"
+msgstr "_Marcar esta pista"
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Eliminar marcador"
+msgstr "_Eliminar marcador"
 
 #: ../plugins/bookmarks/__init__.py:220
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Limpiar marcadores"
+msgstr "_Limpiar marcadores"
 
 #: ../plugins/bookmarks/__init__.py:328
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Marcadores"
+msgstr "_Marcadores"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
@@ -2961,44 +2953,32 @@ msgid "Desktop Cover"
 msgstr "Carátula en escritorio"
 
 #: ../plugins/developer/__init__.py:64
-#, fuzzy
-#| msgid "Development"
 msgid "Developer Tools"
-msgstr "Desarrollo"
+msgstr "Herramientas de desarrollo"
 
 #: ../plugins/equalizer/__init__.py:364
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Ecualizador"
+msgstr "_Ecualizador"
 
 #: ../plugins/grouptagger/__init__.py:96
-#, fuzzy
-#| msgid "Get all tags from collection"
 msgid "_Get all tags from collection"
-msgstr "Obtener todas las etiquetas de la colección"
+msgstr "_Obtener todas las etiquetas de la fonoteca"
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Importar etiquetas del directorio"
+msgstr "_Importar etiquetas a partir de una carpeta"
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
-#| msgid "Mass rename/delete tags"
 msgid "_Mass rename/delete tags"
-msgstr "Renombrado/borrado masivo de etiquetas"
+msgstr "Cambiar nombre/eliminar etiquetas en _masa"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
 msgstr "E_xportar las etiquetas de la colección a JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
-#, fuzzy
-#| msgid "GroupTagger"
 msgid "_GroupTagger"
-msgstr "Organizador de grupos"
+msgstr "Organizador de _grupos"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -3010,17 +2990,13 @@ msgstr "Mostrar pistas con etiquetas (personalizado)"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
-#, fuzzy
-#| msgid "Yes to all"
 msgid "Add tags to all"
-msgstr "Sí a todo"
+msgstr "Añadir etiquetas a todo"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "_Eliminar etiqueta"
+msgstr "Quitar etiquetas de todo"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
@@ -3064,10 +3040,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "¿Reemplazar '%s' con '%s' en %s pistas?"
 
 #: ../plugins/grouptagger/gt_mass.py:136
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "¿Reemplazar '%s' con '%s' en %s pistas?"
+msgstr "¿Quiere eliminar «%s» de %s pistas?"
 
 #: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
@@ -3091,22 +3066,16 @@ msgid "Show tracks with all selected"
 msgstr "Mostrar pistas con todo seleccionado"
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Etiquetas"
+msgstr "Etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "Add new group"
 msgid "Add new tag"
-msgstr "Añadir grupo nuevo"
+msgstr "Añadir etiqueta nueva"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Borrar"
+msgstr "Eliminar etiqueta"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
@@ -3133,10 +3102,8 @@ msgid "New Category?"
 msgstr "¿Nueva categoría?"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
-#, fuzzy
-#| msgid "Enter new group category name"
 msgid "Enter new category name"
-msgstr "Escriba el nombre nuevo de la categoría de grupo"
+msgstr "Escriba el nombre de la categoría nueva"
 
 #: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
@@ -3192,10 +3159,8 @@ msgid "Save History"
 msgstr "Guardar el histórico"
 
 #: ../plugins/history/__init__.py:227
-#, fuzzy
-#| msgid "Clear History"
 msgid "_Clear History"
-msgstr "Limpiar el histórico"
+msgstr "_Vaciar histórico"
 
 #: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:189
 #: ../plugins/icecast/__init__.py:212
@@ -3237,10 +3202,8 @@ msgid "IPython Console - Exaile"
 msgstr "Consola IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:214
-#, fuzzy
-#| msgid "Show IPython Console"
 msgid "Show _IPython Console"
-msgstr "Mostrar consola IPython"
+msgstr "Mostrar consola de _IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3276,21 +3239,19 @@ msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:66
 msgid "Loved"
-msgstr "Favorito"
+msgstr "Favorita"
 
 #: ../plugins/lastfmlove/__init__.py:67
 msgid "Last.fm Loved"
-msgstr "Favoritos de Last.fm"
+msgstr "Favoritas de Last.fm"
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Love This Track"
 msgid "_Love This Track"
-msgstr "Añadir esta canción a favoritos"
+msgstr "Añadir esta canción a _favoritas"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
-msgstr "Eliminar esta canción de favoritos"
+msgstr "Quitar esta canción de favoritas"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
@@ -3315,10 +3276,8 @@ msgstr ""
 "<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
-#, fuzzy
-#| msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
 msgid "This plugin needs at least one visible panel"
-msgstr "Este complemento necesita por lo menos PyGTK 2.22 y GTK 2.20."
+msgstr "Este complemento necesita como mínimo un panel visible"
 
 #: ../plugins/mainmenubutton/__init__.py:83
 #: ../plugins/mainmenubutton/__init__.py:89
@@ -3487,16 +3446,14 @@ msgid "from {album} by {artist}"
 msgstr "de {album} por {artist}"
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "de %(artist)s"
+msgstr "de {artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Sólo el álbum:"
+msgstr "de {album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3656,10 +3613,8 @@ msgid "Error connecting to SomaFM server."
 msgstr "Error al conectar con el servidor SomaFM."
 
 #: ../plugins/somafm/__init__.py:187
-#, fuzzy
-#| msgid "Error loading smart playlist: %s"
 msgid "Error importing playlist"
-msgstr "Error en la carga de la lista de reproducción inteligente: %s"
+msgstr "Error al importar la lista de reproducción"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
@@ -3675,8 +3630,6 @@ msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarm time</b>"
 msgid "<b>Alarm Time</b>"
 msgstr "<b>Hora de alarma</b>"
 
@@ -3717,10 +3670,8 @@ msgid "Use Fading"
 msgstr "Usar desvanecimiento"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Preferencias"
+msgstr "<b>Preferencias de audio</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -3736,7 +3687,7 @@ msgstr "Incremento:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:344
 msgid "Time step:"
-msgstr ""
+msgstr "Incremento temporal:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:15
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:20
@@ -3785,10 +3736,8 @@ msgid "Password:"
 msgstr "Contraseña:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:143
-#, fuzzy
-#| msgid "Verify Login Data"
 msgid "_Verify Login Data"
-msgstr "Comprobar los datos de inicio de sesión"
+msgstr "_Verificar datos de acceso a cuenta"
 
 #: ../plugins/awn/awn_prefs_pane.ui:16
 msgid "Circle display"
@@ -3875,10 +3824,8 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
-#| msgid "Simple console"
 msgid "Simple Console"
-msgstr "Consola simple"
+msgstr "Consola sencilla"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show ipv6 servers (Experimental)"
@@ -3963,10 +3910,8 @@ msgid "Exaile Developer Tools"
 msgstr "Herramientas de programación de Exaile"
 
 #: ../plugins/developer/developer_window.ui:75
-#, fuzzy
-#| msgid "BPM Counter"
 msgid "Count"
-msgstr "Contador de PPM"
+msgstr "Recuento"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
@@ -4178,10 +4123,8 @@ msgid "Advanced"
 msgstr "Avanzadas"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
-#, fuzzy
-#| msgid "Request Access Permission"
 msgid "_Request Access Permission"
-msgstr "Solicitar permiso de acceso"
+msgstr "_Solicitar permiso de acceso"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
@@ -4247,10 +4190,8 @@ msgid "Options"
 msgstr "Opciones"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "Mostrar los servidores IPv6 (experimental)"
+msgstr "Vista de forma de onda (experimental)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"

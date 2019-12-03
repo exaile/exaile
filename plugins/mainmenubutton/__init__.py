@@ -93,7 +93,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = Gtk.Menu()
-        self.menu.attach_to_widget(self, lambda *args: False)
+        self.menu.attach_to_widget(self, None)
         self.menu.connect('deactivate', self.on_menu_deactivate)
 
         for menuitem in self.mainmenu:

@@ -564,7 +564,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for playlist in playlists:
                 self.add_new_playlist(playlist, playlist.name)
 
-        dialog = dialogs.PlaylistImportDialog()
+        dialog = dialogs.PlaylistImportDialog(parent=self.parent)
         dialog.connect('playlists-selected', _on_playlists_selected)
         dialog.show()
 

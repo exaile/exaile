@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-08-26 15:23+0000\n"
-"Last-Translator: leela <53352@protonmail.com>\n"
+"PO-Revision-Date: 2019-12-11 13:09+0000\n"
+"Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -26,7 +26,7 @@ msgstr "Tunnisteet"
 
 #: ../xl/covers.py:565
 msgid "Local file"
-msgstr "tiedosto"
+msgstr "Paikallinen tiedosto"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -121,7 +121,7 @@ msgstr "Paikallinen"
 
 #: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Käyttö: exaile [VALINTA]... [URI]"
+msgstr "Käyttö: exaile [VALINTA]... [SIJAINTI...]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -132,7 +132,7 @@ msgstr ""
 
 #: ../xl/main.py:96
 msgid "Playback Options"
-msgstr "Toiston asetukset"
+msgstr "Toistoasetukset"
 
 #: ../xl/main.py:103
 msgid "Play the next track"
@@ -181,10 +181,8 @@ msgid "Playlist Options"
 msgstr "Soittolistan asetukset"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "Export the current playlist to LOCATION"
-msgstr "Vie nykyinen soittolista"
+msgstr "Vie nykyinen soittolista sijaintiin"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -197,7 +195,7 @@ msgstr "Jonosoitin"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:179
 msgid "FORMAT"
-msgstr ""
+msgstr "MUOTO"
 
 #: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
@@ -206,7 +204,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
 msgid "TAGS"
-msgstr ""
+msgstr "TUNNISTEET"
 
 #: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
@@ -214,7 +212,7 @@ msgstr ""
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
-msgstr "Näytä ponnahdusikkuna jossa nykyisen raidan tiedot"
+msgstr "Näytä ponnahdusikkuna jossa on nykyisen raidan tiedot"
 
 #: ../xl/main.py:201
 msgid "Print the title of current track"
@@ -240,45 +238,39 @@ msgstr "N"
 
 #: ../xl/main.py:230
 msgid "Set rating for current track to N%"
-msgstr "Aseta arvostelu nykyiselle raidalle: N%"
+msgstr "Aseta arvostelu nykyiselle kappaleelle N%"
 
 #: ../xl/main.py:237
 msgid "Get rating for current track"
-msgstr "Hanki nykyisen raidan luokitus"
+msgstr "Hanki nykyisen kappaleen luokitus"
 
 #: ../xl/main.py:244
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Tulostaa nykyisen toistokohdan ajan"
 
 #: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Tulostaa nykyisen toiston etenemisen prosentteina"
 
 #: ../xl/main.py:254
 msgid "Volume Options"
 msgstr "Äänenvoimakkuuden asetukset"
 
 #: ../xl/main.py:262
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Kasvata äänenvoimakkuutta: N%:lla"
+msgstr "Kasvata äänenvoimakkuutta N%:lla"
 
 #: ../xl/main.py:271
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Laske äänenvoimakkuutta: N%:lla"
+msgstr "Laske äänenvoimakkuutta N%:lla"
 
 #: ../xl/main.py:279
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Vaimentaa tai palauttaa äänen"
+msgstr "Äänenvoimakkuuden mykistäminen tai mykistyksen poistaminen"
 
 #: ../xl/main.py:286
 msgid "Print the current volume percentage"
-msgstr "Näytä nykyinen äänenvoimakkuustaso"
+msgstr "Näytä nykyinen äänenvoimakkuustaso prosentteina"
 
 #: ../xl/main.py:289
 msgid "Other Options"
@@ -311,10 +303,9 @@ msgstr ""
 "kanssa"
 
 #: ../xl/main.py:335
-#, fuzzy
-#| msgid "Do not import old data from version 0.2.x"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
-msgstr "Älä tuo vanhoja tietoja versiosta 0.2.x"
+msgstr ""
+"Pakota vanhojen tietojen tuonti versiosta 0.2.x (korvaa nykyiset tiedot)"
 
 #: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
@@ -323,6 +314,7 @@ msgstr "Älä tuo vanhoja tietoja versiosta 0.2.x"
 #: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Tee ohjausvaihtoehtoja, kuten --play start Exaile, jos se ei ole käynnissä"
 
 #: ../xl/main.py:353
 msgid "Development/Debug Options"
@@ -338,7 +330,7 @@ msgstr "Aseta hakemisto"
 
 #: ../xl/main.py:364
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Määritä tiedot ja konfigurointihakemisto"
 
 #: ../xl/main.py:369
 msgid "MODULE"
@@ -346,7 +338,7 @@ msgstr "MODUULI"
 
 #: ../xl/main.py:370
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Rajoita lokin tuloste moduuliin"
 
 #: ../xl/main.py:375
 msgid "LEVEL"
@@ -354,27 +346,23 @@ msgstr "TASO"
 
 #: ../xl/main.py:376
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Rajoita lokin tuloste tasolle"
 
 #: ../xl/main.py:384
 msgid "Show debugging output"
 msgstr "Näytä vianjäljitystuloste"
 
 #: ../xl/main.py:391
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Käytä xl.event-vianjäljitystä. Saa aikaan PALJON tulostetta"
+msgstr "Ota käyttöön xl.event-vianjäljitys. Saa aikaan PALJON tulostetta"
 
 #: ../xl/main.py:398
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Käytä xl.event-vianjäljitystä. Saa aikaan PALJON tulostetta"
+msgstr "Ota käyttöön koko xl.event-vianjäljitys. Saa aikaan PALJON tulostetta"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Lisää säikeen nimi lokiviesteihin."
 
 #: ../xl/main.py:410
 msgid "TYPE"
@@ -411,11 +399,12 @@ msgid "Rating > %d"
 msgstr "Arvostelu > %d"
 
 #: ../xl/main.py:1001
-#, fuzzy
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr "Exaile ei ole lopettanut lattaamista."
+msgstr ""
+"Exaile ei ole lopettanut lataamista. Ehkä sinun pitäisi kuunnella "
+"exaile_loaded signaalia?"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
 #: ../xlgui/widgets/playlist_columns.py:224 ../plugins/cd/cdprefs.py:114
@@ -436,10 +425,8 @@ msgid "Artist"
 msgstr "Esittäjä"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:204
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "esittäjä %(artist)s"
+msgstr "Albumi esittäjä"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -456,7 +443,7 @@ msgstr "Tekijänoikeudet"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:541
 msgid "Comment"
-msgstr ""
+msgstr "Kommentti"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:214
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
@@ -492,7 +479,7 @@ msgstr "Tyylilaji"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:553
 msgid "Grouping"
-msgstr ""
+msgstr "Ryhmittely"
 
 #: ../xl/metadata/tags.py:62
 msgid "ISRC"
@@ -500,7 +487,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:380
 msgid "Language"
-msgstr ""
+msgstr "Kieli"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -583,7 +570,6 @@ msgid "Modified"
 msgstr "Muutettu"
 
 #: ../xl/metadata/tags.py:86
-#, fuzzy
 msgid "Play time"
 msgstr "Soittokertoja"
 
@@ -692,10 +678,8 @@ msgid "Shuffle _Albums"
 msgstr "Sekoita _albumit"
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Satunnaiset %d"
+msgstr "_Satunnainen"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -711,7 +695,7 @@ msgstr "Kertaa _yksi"
 
 #: ../xl/playlist.py:928
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Dynaaminen pois päältä"
 
 #: ../xl/playlist.py:928
 msgid "Dynamic by Similar _Artists"
@@ -854,11 +838,11 @@ msgstr ""
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
-msgstr ""
+msgstr "Kaikki kannet haettu"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Kerätään albumeja ja kansia..."
 
 #: ../xlgui/cover.py:494
 msgid "Show Cover"
@@ -879,7 +863,7 @@ msgstr "Kansi %s"
 
 #: ../xlgui/cover.py:927
 msgid "Save File"
-msgstr ""
+msgstr "Tallenna tiedosto"
 
 #: ../xlgui/cover.py:1025
 #, python-format
@@ -900,7 +884,7 @@ msgstr ""
 #: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} pikseliä"
 
 #: ../xlgui/main.py:95
 msgid "$title (by $artist)"
@@ -908,7 +892,7 @@ msgstr "$title ($artist)"
 
 #: ../xlgui/main.py:149
 msgid "Save currently selected playlist"
-msgstr ""
+msgstr "Tallenna valittu soittolista"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
@@ -916,17 +900,15 @@ msgstr ""
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Kohdista suodatin tällä hetkellä kohdistettuun paneeliin"
 
 #: ../xlgui/main.py:164
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Kohdista soittolistan hakuun"
 
 #: ../xlgui/main.py:169
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Näytä jono"
+msgstr "Tyhjennä jono"
 
 #: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
@@ -941,82 +923,76 @@ msgid "Seek to the left"
 msgstr ""
 
 #: ../xlgui/main.py:189
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Kasvata äänenvoimakkuutta: N%:lla"
+msgstr "Kasvata äänenvoimakkuutta"
 
 #: ../xlgui/main.py:194
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Laske äänenvoimakkuutta: N%:lla"
+msgstr "Laske äänenvoimakkuutta"
 
 #: ../xlgui/main.py:197
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Mene edelliseen kappaleeseen"
+msgstr "Siirry edelliseen välilehteen"
 
 #: ../xlgui/main.py:198
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Vaihda seuraavalle välilehdelle"
 
 #: ../xlgui/main.py:201
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Kohdista soittolistan säiliöön"
 
 #: ../xlgui/main.py:208
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Kohdista tiedostopaneeliin"
 
 #: ../xlgui/main.py:215
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Kohdista radiopaneeliin"
 
 #: ../xlgui/main.py:220
 msgid "Focus the playlists panel"
-msgstr ""
+msgstr "Kohdista soittolistapaneeliin"
 
 #: ../xlgui/main.py:223
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Kohdista ensimmäiseen välilehteen"
 
 #: ../xlgui/main.py:224
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Kohdista toiseen välilehteen"
 
 #: ../xlgui/main.py:225
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Kohdista kolmanteen välilehteen"
 
 #: ../xlgui/main.py:226
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Kohdista neljänteen välilehteen"
 
 #: ../xlgui/main.py:227
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Kohdista viidenteen välilehteen"
 
 #: ../xlgui/main.py:228
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Kohdista kuudenteen välilehteen"
 
 #: ../xlgui/main.py:229
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Kohdista seitsemänteen välilehteen"
 
 #: ../xlgui/main.py:230
 msgid "Focus the eighth tab"
-msgstr ""
+msgstr "Kohdista kahdeksanteen välilehteen"
 
 #: ../xlgui/main.py:231
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Kohdista yhdeksänteen välilehteen"
 
 #: ../xlgui/main.py:232
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Kohdista kymmenenteen välilehteen"
 
 #: ../xlgui/main.py:587
 msgid "Toggle: Stop after Selected Track"
@@ -1055,50 +1031,36 @@ msgid "_New Playlist"
 msgstr "_Uusi soittolista"
 
 #: ../xlgui/menu.py:75
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Avaa verkko-osoite"
+msgstr "_Avaa"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Avaa _osoite"
 
 #: ../xlgui/menu.py:114
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Avaa kansioita"
+msgstr "Avaa _Hakemisto"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "Smart Playlists"
 msgid "_Import Playlist"
-msgstr "Älykkäät soittolistat"
+msgstr "_Tuo soittolista"
 
 #: ../xlgui/menu.py:156
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
 msgstr "Vie nykyinen soittolista"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Sulje välilehti"
+msgstr "_Sulje välilehti"
 
 #: ../xlgui/menu.py:183
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
 msgstr "Käynnistä uudelleen"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "Tietoja Exailesta"
+msgstr "_Lopeta Exaile"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
@@ -1113,10 +1075,8 @@ msgid "C_overs"
 msgstr "_Levyjen kannet"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Asetukset"
+msgstr "_Asetukset"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1124,17 +1084,13 @@ msgstr "_Näytä soitattava kappale"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "_Soittolista apuohjelmapalkki"
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "_Sarakkeet"
+msgstr "S_arakkeet"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
 msgstr "_Tyhjennä soittolista"
 
@@ -1143,53 +1099,44 @@ msgid "_Device Manager"
 msgstr "_Laitehallinta"
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Tarkista kokoelma uudelleen"
+msgstr "_Skannaa kokoelma uudelleen"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
-#, fuzzy
 msgid "Rescan Collection (_slow)"
-msgstr "Tarkista kokoelma uudelleen"
+msgstr "Skannaa kokoelma uudelleen (hidas)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Käyttöopas (verkkosivusto)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Pikanäppäin"
+msgstr "Pikanäppäimet"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Ilmoita ongelmasta (GitHub)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Avaa virhelokit"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
-msgstr ""
+msgstr "_Tietoja"
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Esittäjä"
+msgstr "Albumi Esittäjä"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Tyylilaji - esittäjä"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Tyylilaji - esittäjä"
+msgstr "Tyylilaji - Albumi Esittäjä"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1197,25 +1144,23 @@ msgstr "Tyylilaji - albumi"
 
 #: ../xlgui/panel/collection.py:140
 msgid "Date - Artist"
-msgstr ""
+msgstr "Päiväys - Esittäjä"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Date - Album Artist"
-msgstr "Tyylilaji - esittäjä"
+msgstr "Päivämäärä - Albumi Esittäjä"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
-msgstr ""
+msgstr "Päiväys - Albumi"
 
 #: ../xlgui/panel/collection.py:149
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Esittäjä - (Päiväys - Albumi)"
 
 #: ../xlgui/panel/collection.py:153
 msgid "Album Artist - (Date - Album)"
-msgstr ""
+msgstr "Albumin esittäjä - (Päiväys - Albumi)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1248,7 +1193,7 @@ msgstr "Koko"
 #: ../xlgui/panel/files.py:455
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kt"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:173
@@ -1261,29 +1206,24 @@ msgstr "Lyriikoita ei löytynyt."
 
 #: ../xlgui/panel/lyrics.py:198
 msgid "Source: "
-msgstr ""
+msgstr "Lähde: "
 
 #: ../xlgui/panel/lyrics.py:226
 msgid "Any"
 msgstr "Mikä tahansa"
 
 #: ../xlgui/panel/menus.py:219
-#, fuzzy
-#| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
-msgstr "Uusi älykäs soittolista"
+msgstr "Uusi ä_lykäs soittolista"
 
 #: ../xlgui/panel/menus.py:325
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Uusi asema"
+msgstr "_Uusi asema"
 
 #: ../xlgui/panel/playlists.py:132
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Poista soittolista"
+msgstr "Poista soittolista \"%s\"?"
 
 #: ../xlgui/panel/playlists.py:148
 msgid "Enter the new name you want for your playlist"
@@ -1299,9 +1239,9 @@ msgid "The playlist name you entered is already in use."
 msgstr "Antamasi soittolistan nimi on jo käytössä."
 
 #: ../xlgui/panel/playlists.py:211
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Podcastia ladatessa tapahtui virhe."
+msgstr "Virhe ladattaessa älykästä soittolistaa: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1309,14 +1249,14 @@ msgstr "Podcastia ladatessa tapahtui virhe."
 #: ../xlgui/panel/playlists.py:304
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s ja toiset"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:278 ../xlgui/panel/playlists.py:294
 #: ../xlgui/panel/playlists.py:310
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s ja %(second)s"
 
 #: ../xlgui/panel/playlists.py:386 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
@@ -1374,27 +1314,23 @@ msgstr "Uusi soittolista"
 
 #: ../xlgui/panels.py:99
 msgid "P_anels"
-msgstr ""
+msgstr "P_aneelit"
 
 #: ../xlgui/playlist_container.py:69
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Pudota tähän luodaksesi uuden soittolistan"
 
 #: ../xlgui/playlist_container.py:129
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear Tab History"
-msgstr "_Tyhjennä soittolista"
+msgstr "_Tyhjennä välilehtihistoria"
 
 #: ../xlgui/playlist_container.py:141
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Sulje välilehti"
+msgstr "Äskettäin suljetut välilehdet"
 
 #: ../xlgui/playlist_container.py:161
 msgid "Restore closed tab"
-msgstr ""
+msgstr "Palauta suljettu välilehti"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
@@ -1405,15 +1341,17 @@ msgstr "Soittolista %d"
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
+"{playlist_name} ({track_count} kappaletta, suljettu {minutes} min sitten)"
 
 #: ../xlgui/playlist_container.py:392
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
+"{playlist_name} ({track_count} kappaletta, suljettu {seconds} sek sitten)"
 
 #: ../xlgui/playlist_container.py:544
 msgid "_Move to Other View"
-msgstr ""
+msgstr "_Siirrä toiseen näkymään"
 
 #: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:39
 msgid "Plugins"
@@ -1425,7 +1363,7 @@ msgstr "Ulkoasu"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Kuvakkeita ei tueta alustallasi"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1434,11 +1372,9 @@ msgstr ""
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:36
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:60
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
 msgstr "Palauta oletukset"
 
@@ -1450,7 +1386,7 @@ msgstr "Kansikuvat"
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Sanoitukset"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1459,7 +1395,7 @@ msgstr "Toisto"
 #: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
-msgstr ""
+msgstr "Luokittelematon"
 
 #: ../xlgui/preferences/plugin.py:178
 msgid "Could not load plugin info!"
@@ -1519,7 +1455,7 @@ msgstr "Pikanäppäin"
 
 #: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Tunnisteiden kirjoittaminen epäonnistui"
 
 #: ../xlgui/properties.py:258
 #, python-brace-format
@@ -1527,6 +1463,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Tunnisteita ei voitu kirjoittaa seuraaviin tiedostoihin:\n"
+"{files}"
 
 #: ../xlgui/properties.py:278
 #, python-format
@@ -1534,23 +1472,22 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Muokataan kappaletta %(current)d / %(total)d"
 
 #: ../xlgui/properties.py:401
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Oletko varma, että haluat pysyvästi poistaa valitut soittolistat?"
+msgstr "Haluatko varmasti kohdistaa muutokset kaikkiin kappaleisiin?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Otatko muutokset käyttöön ennen sulkemista?"
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Muutoksesi menetetään, jos et ota niitä käyttöön nyt."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1560,33 +1497,33 @@ msgstr "ja:"
 
 #: ../xlgui/properties.py:966
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG-kuva"
 
 #: ../xlgui/properties.py:971
 msgid "PNG image"
-msgstr ""
+msgstr "PNG-kuva"
 
 #: ../xlgui/properties.py:973
 msgid "Image"
-msgstr ""
+msgstr "Kuva"
 
 #: ../xlgui/properties.py:979
 msgid "Linked image"
-msgstr ""
+msgstr "Linkitetty kuva"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
 #: ../xlgui/properties.py:1114
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} pikseliä)"
 
 #: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Valitse kuva, joka asetetaan kansi kuvaksi"
 
 #: ../xlgui/properties.py:1141
 msgid "Supported image formats"
-msgstr ""
+msgstr "Tuetut kuvamuodot"
 
 #: ../xlgui/properties.py:1224
 msgid "Open Directory"
@@ -1639,7 +1576,7 @@ msgstr "Valitse avattava kansio"
 
 #: ../xlgui/widgets/dialogs.py:888
 msgid "Import Playlist"
-msgstr ""
+msgstr "Tuo soittolista"
 
 #: ../xlgui/widgets/dialogs.py:1000
 msgid "Export Current Playlist"
@@ -1647,7 +1584,7 @@ msgstr "Vie nykyinen soittolista"
 
 #: ../xlgui/widgets/dialogs.py:1013
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Käytä suhteellisia polkuja kappaleisiin"
 
 #: ../xlgui/widgets/dialogs.py:1070
 #, python-format
@@ -1674,29 +1611,29 @@ msgstr "Sulje tallentamatta"
 
 #: ../xlgui/widgets/dialogs.py:1487
 msgid "Yes to all"
-msgstr ""
+msgstr "Kyllä kaikille"
 
 #: ../xlgui/widgets/dialogs.py:1495
 msgid "No to all"
-msgstr ""
+msgstr "Ei kaikille"
 
 #: ../xlgui/widgets/dialogs.py:1667 ../xlgui/widgets/dialogs.py:1685
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Virhe kopioitaessa %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1696
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Tiedosto on olemassa, korvataanko %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1753
 msgid "Playlist name:"
-msgstr ""
+msgstr "Soittolistan nimi:"
 
 #: ../xlgui/widgets/dialogs.py:1754
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Lisää uusi soittolista..."
 
 #: ../xlgui/widgets/dialogs.py:1767
 #: ../xlgui/widgets/smart_playlist_editor.py:387
@@ -1705,16 +1642,16 @@ msgstr "Et antanut soittolistallesi nimeä"
 
 #: ../xlgui/widgets/dialogs.py:1776
 msgid "Save As"
-msgstr ""
+msgstr "Tallenna nimellä"
 
 #: ../xlgui/widgets/dialogs.py:1845
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Vie %s"
 
 #: ../xlgui/widgets/dialogs.py:1850
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Valitse hakemisto, johon tiedostot viedään"
 
 #: ../xlgui/widgets/info.py:59
 msgid ""
@@ -1746,34 +1683,24 @@ msgid "%d selected"
 msgstr "%d valittu"
 
 #: ../xlgui/widgets/menuitems.py:117
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
 msgstr "Aseta jonoon"
 
 #: ../xlgui/widgets/menuitems.py:153
-#, fuzzy
-#| msgid "Replace Current"
 msgid "_Replace Current"
 msgstr "Korvaa nykyinen"
 
 #: ../xlgui/widgets/menuitems.py:164
-#, fuzzy
-#| msgid "Append to Current"
 msgid "_Append to Current"
 msgstr "Lisää nykyiseen"
 
 #: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
-#, fuzzy
-#| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "Kappaleen tiedot"
 
 #: ../xlgui/widgets/menuitems.py:202
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Avaa kansio"
+msgstr "Avaa hakemisto"
 
 #: ../xlgui/widgets/menuitems.py:240
 msgid ""
@@ -1783,38 +1710,28 @@ msgstr ""
 "Tiedostoja ei voi siirtää roskakoriin. Poista ne pysyvästi kiintolevyltä?"
 
 #: ../xlgui/widgets/menuitems.py:270
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "Siirrä roskakoriin"
 
 #: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Uudelleennimeä"
+msgstr "_Uudelleennimeä"
 
 #: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Muokkaa"
 
 #: ../xlgui/widgets/menuitems.py:315
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Playlist"
-msgstr "Vie nykyinen soittolista"
+msgstr "V_ie soittolista"
 
 #: ../xlgui/widgets/menuitems.py:325
-#, fuzzy
-#| msgid "Supported Files"
 msgid "Export _Files"
-msgstr "Tuetut tiedostot"
+msgstr "Vie t_iedostot"
 
 #: ../xlgui/widgets/menuitems.py:335
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Poista soittolista"
+msgstr "_Poista soittolista"
 
 #: ../xlgui/widgets/notebook.py:263
 msgid "Close Tab"
@@ -1835,13 +1752,11 @@ msgstr "Uusi merkintä"
 
 #: ../xlgui/widgets/playback.py:1374
 msgid "_Jump to"
-msgstr ""
+msgstr "_Hyppää"
 
 #: ../xlgui/widgets/playback.py:1382
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
-msgstr "_Poista tunniste"
+msgstr "_Poista merkki"
 
 #: ../xlgui/widgets/playback.py:1425
 msgid "Muted"
@@ -1858,98 +1773,72 @@ msgid "Full Volume"
 msgstr "Täysi äänenvoimakkuus"
 
 #: ../xlgui/widgets/playback.py:1555
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Tauota"
+msgstr "_Tauko"
 
 #: ../xlgui/widgets/playback.py:1558
 msgid "P_lay"
-msgstr ""
+msgstr "S_oita"
 
 #: ../xlgui/widgets/playback.py:1570
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Seuraava kappale"
+msgstr "_Seuraava kappale"
 
 #: ../xlgui/widgets/playback.py:1580
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Edellinen kappale"
+msgstr "_Edellinen kappale"
 
 #: ../xlgui/widgets/playback.py:1590
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Pysäytä"
+msgstr "_Pysäytä"
 
 #: ../xlgui/widgets/playlist.py:118
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "Sekoita tiedostot"
+msgstr "Sek_oita"
 
 #: ../xlgui/widgets/playlist.py:123
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Toista"
+msgstr "Toisinto"
 
 #: ../xlgui/widgets/playlist.py:128
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dynaaminen"
+msgstr "_Dynaaminen"
 
 #: ../xlgui/widgets/playlist.py:146
-#, fuzzy
-#| msgid "Remove Current Track From Playlist"
 msgid "Remove _Current Track From Playlist"
 msgstr "Poista nykyinen kappale soittolistalta"
 
 #: ../xlgui/widgets/playlist.py:179
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "R_andomize Playlist"
-msgstr "Nimeä soittolista uudelleen"
+msgstr "Satunnaista soittolista"
 
 #: ../xlgui/widgets/playlist.py:182
-#, fuzzy
-#| msgid "Randomize results"
 msgid "R_andomize Selection"
-msgstr "Sekoita kappaleet"
+msgstr "Satunnaista valinta"
 
 #: ../xlgui/widgets/playlist.py:224
 msgid "_Save"
-msgstr ""
+msgstr "_Tallenna"
 
 #: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 msgid "Save _As"
-msgstr ""
+msgstr "Tallenna nimellä"
 
 #: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
-msgstr ""
+msgstr "_Tyhjennä"
 
 #: ../xlgui/widgets/playlist.py:325
-#, fuzzy
-#| msgid "Stop Playback After This Track"
 msgid "_Stop Playback After This Track"
 msgstr "Pysäytä soitto tämän kappaleen jälkeen"
 
 #: ../xlgui/widgets/playlist.py:332
-#, fuzzy
-#| msgid "Continue Playback After This Track"
 msgid "_Continue Playback After This Track"
 msgstr "Jatka toistoa tämän raidan jälkeen"
 
 #: ../xlgui/widgets/playlist.py:386
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
-msgstr "Nimeä soittolista uudelleen"
+msgstr "_Poista soittolistasta"
 
 #: ../xlgui/widgets/playlist.py:738
 msgid "Requires plugins providing dynamic playlists"
@@ -1960,10 +1849,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Lisää dynaamisesti samankaltaisia kappaleita soittolistalle"
 
 #: ../xlgui/widgets/playlist.py:798
-#, fuzzy
-#| msgid "Loading %s..."
 msgid "Loading"
-msgstr "Ladataan %s..."
+msgstr "Ladataan"
 
 #: ../xlgui/widgets/playlist_columns.py:174
 msgid "Track Number"
@@ -1991,16 +1878,15 @@ msgstr "Soittokerrat"
 
 #: ../xlgui/widgets/playlist_columns.py:408
 msgid "Schedule"
-msgstr ""
+msgstr "Ajasta"
 
 #: ../xlgui/widgets/playlist_columns.py:563
 msgid "Start Offset"
-msgstr ""
+msgstr "Aloita siirto"
 
 #: ../xlgui/widgets/playlist_columns.py:573
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X-siirtymä:"
+msgstr "Lopeta siirtymä"
 
 #: ../xlgui/widgets/playlist_columns.py:723
 msgid "_Resizable"
@@ -2012,7 +1898,7 @@ msgstr "_Automaattinen koko"
 
 #: ../xlgui/widgets/queue.py:81
 msgid "Queue"
-msgstr ""
+msgstr "Jono"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
@@ -2066,13 +1952,13 @@ msgstr "ei ole"
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:211
 msgid "is set"
-msgstr ""
+msgstr "on asetettu"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/widgets/smart_playlist_editor.py:214
 msgid "is not set"
-msgstr ""
+msgstr "ei ole asetettu"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/widgets/smart_playlist_editor.py:216
@@ -2086,27 +1972,23 @@ msgstr "ei sisällä"
 
 #. TRANSLATORS: True if haystack contains whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:220
-#, fuzzy
-#| msgid "contains"
 msgid "contains word"
-msgstr "sisältää"
+msgstr "sisältää sanan"
 
 #. TRANSLATORS: True if haystack does not contain whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:222
-#, fuzzy
-#| msgid "does not contain"
 msgid "does not contain word"
-msgstr "ei sisällä"
+msgstr "ei sisällä sanaa"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
-msgstr ""
+msgstr "säännöllinen lauseke"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
-msgstr ""
+msgstr "Ei ole säännöllinen lauseke"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:228
@@ -2153,15 +2035,13 @@ msgstr "ei viimeisenä"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:244
-#, fuzzy
 msgid "Track is in"
-msgstr "Kappaleen asetukset"
+msgstr "Kappale on"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:246
-#, fuzzy
 msgid "Track not in"
-msgstr "Kappaleen asetukset"
+msgstr "Kappale ei ole"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
@@ -2172,9 +2052,8 @@ msgid "Edit Smart Playlist"
 msgstr "Muokkaa älykästä soittolistaa"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:423
-#, fuzzy
 msgid "Sort by:"
-msgstr "Tuonnin polku: "
+msgstr "Lajittele:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:438
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2192,13 +2071,13 @@ msgstr "Tietoja Exailesta"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
-msgstr ""
+msgstr "© 2009-2019 Eri avustajat"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Tuntematon Kääntäjä"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2206,15 +2085,13 @@ msgstr "Kokoelman hallinta"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
-msgstr ""
+msgstr "Seurataan"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Skannaa käynnistyksen yhteydessä"
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "Rescan _Collection"
 msgstr "Tarkista kokoelma uudelleen"
 
@@ -2224,11 +2101,11 @@ msgstr "Kansikuvien etsijä"
 
 #: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Tämän kannen alkuperä"
 
 #: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Aseta kansi kuvaksi"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
@@ -2236,32 +2113,28 @@ msgstr "Kansikuvien hallinta"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Hae kansikuvat"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "Lähennä"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "Loitonna"
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original date"
 msgid "_Original Size"
-msgstr "Alkuperäinen päivämäärä"
+msgstr "_Alkuperäinen koko"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
+msgstr "Paras sovitus"
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
 msgid "_Close"
-msgstr "Sulje"
+msgstr "_Sulje"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
@@ -2334,10 +2207,8 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
-#, fuzzy
-#| msgid "Add Music"
 msgid "_Add Music"
-msgstr "Lisää musiikkia"
+msgstr "_Lisää musiikkia"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2357,11 +2228,11 @@ msgstr "Tyhjennä hakukenttä"
 
 #: ../data/ui/panel/files.ui:27
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Aiempi vierailuhakemisto"
 
 #: ../data/ui/panel/files.ui:49
 msgid "Next visited directory"
-msgstr ""
+msgstr "Seuraava vierailuhakemisto"
 
 #: ../data/ui/panel/files.ui:70
 msgid "Up one directory"
@@ -2385,13 +2256,11 @@ msgstr "Tuo CD"
 
 #: ../data/ui/panel/lyrics.ui:25
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Päivitä sanoitukset"
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Lisää asema"
+msgstr "Lisää _asema"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2431,7 +2300,7 @@ msgstr "Tietoalue sisältää kansikuvan ja kappaleen tiedot"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Näytä kansilehti tietoalueella"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
@@ -2443,12 +2312,12 @@ msgstr "Välilehtien sijoitus:"
 
 #: ../data/ui/preferences/appearance.ui:133
 msgid "Playlist font:"
-msgstr ""
+msgstr "Soittolistan kirjasin:"
 
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Palauta järjestelmän kirjasin"
 
 #: ../data/ui/preferences/appearance.ui:183
 msgid "Display track counts in collection"
@@ -2465,6 +2334,8 @@ msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Varoitus: tämä vaihtoehto voi aiheuttaa näyttö virheitä, jos sitä käytetään "
+"window managerissa ilman visuaalisten tehosteiden tukea."
 
 #: ../data/ui/preferences/appearance.ui:223
 msgid "Show tray icon"
@@ -2497,11 +2368,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
-msgstr ""
+msgstr "Huomautus:"
 
 #: ../data/ui/preferences/appearance.ui:331
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Suosi tummaa teemaa"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
 #: ../data/ui/preferences/appearance.ui:335
@@ -2538,7 +2409,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:30
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Halutut tiedostonimet:"
 
 #: ../data/ui/preferences/cover.ui:43
 msgid "A comma-separated list of file names without file extensions"
@@ -2558,18 +2429,16 @@ msgstr "(uudelleenjärjestä raahaamalla)"
 
 #: ../data/ui/preferences/cover.ui:114
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Käytä tunnisteisiin upotettuja kansia"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Sanoituksen kirjaisin:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
-#, fuzzy
-#| msgid "Streamripper"
 msgid "GStreamer"
-msgstr "Virranrepijä"
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2577,15 +2446,14 @@ msgid "Audio Sink:  "
 msgstr "Audio Sink:  "
 
 #: ../data/ui/preferences/playback.ui:92
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device: "
-msgstr "Lisää laite"
+msgstr "Äänilaite: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
+#, fuzzy
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Mukautettu Sink-putki:"
 
 #: ../data/ui/preferences/playback.ui:142
 msgid "Resume playback on start"
@@ -2615,15 +2483,15 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:219
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Siirry automaattisesti seuraavaan kappaleeseen"
 
 #: ../data/ui/preferences/playback.ui:236
 msgid "Delay between tracks (ms):"
-msgstr ""
+msgstr "Viive kappaleiden välillä (ms):"
 
 #: ../data/ui/preferences/playback.ui:247
 msgid "Only works when crossfading not enabled"
-msgstr ""
+msgstr "Toimii vain, kun ristihäivytys ei käytössä"
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
@@ -2636,7 +2504,7 @@ msgstr "Käytä ristiinhäivytystä (KOKEELLINEN)"
 
 #: ../data/ui/preferences/playback.ui:286
 msgid "Forces automatically advancing to the next track"
-msgstr ""
+msgstr "Pakottaa automaattisesti seuraavaan raitaan"
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
@@ -2653,15 +2521,15 @@ msgid "Playback engine: "
 msgstr "Toistomoottori "
 
 #: ../data/ui/preferences/playback.ui:367
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Toista toisto"
+msgstr "Ota tauoton toisto käyttöön"
 
 #: ../data/ui/preferences/playback.ui:371
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"Tauoton toisto tarkoittaa raitojen toistamista lisäämättä hiljaisuutta "
+"niiden väliin."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2708,7 +2576,7 @@ msgstr "Liitännäinen"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
-msgstr ""
+msgstr "Tila"
 
 #: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
@@ -2717,19 +2585,16 @@ msgid "Enabled"
 msgstr "Käytössä"
 
 #: ../data/ui/preferences/plugin.ui:110
-#, fuzzy
 msgid "Show incompatible plugins"
-msgstr "Liitännäistä ei voitu poistaa käytöstä!"
+msgstr "Näytä yhteensopimattomat laajennukset"
 
 #: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
 msgstr "Lisäosaa ei valittuna"
 
 #: ../data/ui/preferences/plugin.ui:177
-#, fuzzy
-#| msgid "Install Plugin File"
 msgid "Add _Plugin File"
-msgstr "Asenna lisäosa tiedosto"
+msgstr "Lisää _laajennustiedosto"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
@@ -2740,10 +2605,8 @@ msgid "Close"
 msgstr "Sulje"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Kuvaus:"
+msgstr "Kuvaus"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -2759,17 +2622,15 @@ msgstr "_Poista tunniste"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
-msgstr ""
+msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
 msgstr "Muuta kaikkien merkintöjen etukirjaimet isoiksi"
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Ominaisuudet"
+msgstr "Tiedoston ominaisuudet"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2781,83 +2642,84 @@ msgstr "Se_uraava"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
-msgstr ""
+msgstr "Muut"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 pikselin tiedostokuvake (vain PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
-msgstr ""
+msgstr "Muu tiedostokuvake"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
-msgstr ""
+msgstr "Kansi (edessä)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:36
 msgid "Cover (back)"
-msgstr ""
+msgstr "Kansi (takaa)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "Seloste sivu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Media (esim. CD-levyn etiketti puoli)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Johtava taiteilija/johtava esiintyjä/solisti"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr ""
+msgstr "Taiteilija/esiintyjä"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Yhtye/Orkesteri"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:68
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Sanoittaja/tekstikirjoittaja"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:72
 msgid "Recording Location"
-msgstr ""
+msgstr "Tallennuspaikka"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:76
 msgid "During recording"
-msgstr ""
+msgstr "Nauhoituksen aikana"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:80
 msgid "During performance"
-msgstr ""
+msgstr "Esityksen aikana"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:84
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Elokuva/video kuvakaappaus"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:88
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Kirkkaanväriset kalat"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:92
 msgid "Illustration"
-msgstr ""
+msgstr "Kuva"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
+#, fuzzy
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Bändi/artisti-logo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Julkaisija/Studio-logo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Napsauta tai vedä tiedostoja tähän, jos haluat vaihtaa kansi kuvan"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -2865,7 +2727,7 @@ msgstr "Kuvaus:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
-msgstr ""
+msgstr "Tyyppi:"
 
 #: ../data/ui/widgets/filter_dialog.ui:127
 msgid "Match any of the criteria"
@@ -2880,16 +2742,12 @@ msgid "Add"
 msgstr "Lisää"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
 msgid "Limit to:"
-msgstr "Rajoita: "
+msgstr "Rajoitettu:"
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
 msgid "tracks"
-msgstr " kappaleet"
+msgstr "kappaleet"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2897,15 +2755,15 @@ msgstr "Peruuta"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Toista segmentti"
 
 #: ../plugins/abrepeat/__init__.py:64
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Toista Alusta"
 
 #: ../plugins/abrepeat/__init__.py:68
 msgid "Repeat End"
-msgstr ""
+msgstr "Toista loppu"
 
 #: ../plugins/alarmclock/acprefs.py:21 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -2917,10 +2775,8 @@ msgid "Amazon Covers"
 msgstr "Amazon-kansikuvat"
 
 #: ../plugins/audioscrobbler/__init__.py:97
-#, fuzzy
-#| msgid "AudioScrobbler"
 msgid "Toggle AudioScrobbler submit"
-msgstr "AudioScrobbler"
+msgstr "Vaihda AudioScrobbler lähetys"
 
 #: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
@@ -2933,11 +2789,11 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
-msgstr ""
+msgstr "Todentaminen onnistui"
 
 #: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
-msgstr ""
+msgstr "Todentaminen epäonnistui"
 
 #: ../plugins/audioscrobbler/asprefs.py:116
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
@@ -2945,32 +2801,24 @@ msgid "Please make sure the entered data is correct."
 msgstr "Ota huomioon että lisätty tieto on oikein."
 
 #: ../plugins/bookmarks/__init__.py:210
-#, fuzzy
-#| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
 msgstr "Lisää kappale kirjanmerkkeihin"
 
 #: ../plugins/bookmarks/__init__.py:216
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
 msgstr "Poista kirjanmerkki"
 
 #: ../plugins/bookmarks/__init__.py:220
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Tyhjennä kirjanmerkit"
 
 #: ../plugins/bookmarks/__init__.py:328
-#, fuzzy
-#| msgid "Bookmarks"
 msgid "_Bookmarks"
-msgstr "Kirjanmerkit"
+msgstr "_Kirjanmerkit"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
-msgstr ""
+msgstr "Tunnista BPM automaattisesti"
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
@@ -2980,12 +2828,11 @@ msgstr ""
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "BPM-laskuri"
 
 #: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
-#, fuzzy
 msgid "Update"
-msgstr "Päivitykset"
+msgstr "Päivitä"
 
 #: ../plugins/cd/__init__.py:155 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
@@ -2997,7 +2844,7 @@ msgstr "Tuodaan CD-levyä..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
-msgstr ""
+msgstr "Virhe tiedostojen muuntamisessa CD:ltä."
 
 #: ../plugins/cd/cdprefs.py:34
 msgid "CD"
@@ -3019,15 +2866,16 @@ msgstr "Soittokertoja"
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr ""
+msgstr "Historia"
 
 #: ../plugins/daapclient/__init__.py:323
 msgid "Manually..."
 msgstr "Manuaalinen..."
 
 #: ../plugins/daapclient/__init__.py:378
+#, fuzzy
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Anna IP-osoite ja portti jakaaksesi"
 
 #: ../plugins/daapclient/__init__.py:378
 msgid "Enter IP address and port."
@@ -3038,10 +2886,12 @@ msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Tämä palvelin ei tue useita yhteyksiä.\n"
+"Toisto on lopetettava ennen kappaleiden lataamista."
 
 #: ../plugins/daapclient/__init__.py:708
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Päivitä palvelinluettelo"
 
 #: ../plugins/daapclient/__init__.py:716
 msgid "Disconnect from Server"
@@ -3049,7 +2899,7 @@ msgstr "Katkaistu palvelimelta"
 
 #: ../plugins/daapclient/__init__.py:737
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Valitse tallennettava sijainti"
 
 #: ../plugins/daapclient/__init__.py:791
 msgid "Connect to DAAP..."
@@ -3058,7 +2908,7 @@ msgstr "Yhdistetty DAAP..."
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP-asiakas"
 
 #: ../plugins/daapserver/daapserverprefs.py:5
 #: ../plugins/daapserver/PLUGININFO:3
@@ -3072,22 +2922,19 @@ msgstr "Työpöytäkansi"
 
 #: ../plugins/developer/__init__.py:64
 msgid "Developer Tools"
-msgstr ""
+msgstr "Kehittäjän työkalut"
 
 #: ../plugins/equalizer/__init__.py:364
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
 msgstr "Taajuuskorjain"
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
-msgstr ""
+msgstr "_Hae kaikki tunnisteet kokoelmasta"
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
 msgid "_Import tags from directory"
-msgstr "Aseta hakemisto"
+msgstr "Tuo tunnisteet hakemistosta"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
@@ -3103,25 +2950,21 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Näytä kappaleet kaikilla tunnisteilla"
 
 #: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Näytä kappaleet tunnisteilla (mukautettu)"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
-#, fuzzy
-#| msgid "Add Station"
 msgid "Add tags to all"
-msgstr "Lisää asema"
+msgstr "Lisää tunnisteet kaikkiin"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "_Poista tunniste"
+msgstr "Poista tunnisteet kaikista"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
@@ -3132,34 +2975,32 @@ msgstr ""
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "Valituista kappaleista ei löytynyt luokittelutunnisteita"
 
 #: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
-msgstr ""
+msgstr "Vie tunnisteet JSON:iin"
 
 #: ../plugins/grouptagger/gt_import.py:58
-#, fuzzy
 msgid "Importing tracks"
-msgstr "Tuodaan CD-levyä..."
+msgstr "Tuodaan kappaleita"
 
 #: ../plugins/grouptagger/gt_import.py:86
-#, fuzzy
 msgid "Importing groups"
-msgstr "Tuodaan CD-levyä..."
+msgstr "Tuodaan ryhmiä"
 
 #: ../plugins/grouptagger/gt_import.py:181
 msgid "Updating groups"
-msgstr ""
+msgstr "Päivitetään ryhmiä"
 
 #: ../plugins/grouptagger/gt_import.py:271
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Valitse hakemisto, josta haluat tuoda ryhmittelytunnisteet"
 
 #: ../plugins/grouptagger/gt_mass.py:119
-#, fuzzy, python-format
+#, python-format
 msgid "%s tracks found"
-msgstr "Lyriikoita ei löytynyt."
+msgstr "%s kappaletta löytynyt"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
@@ -3179,42 +3020,36 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Näytä valitut kappaleet"
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Näytä kappaleet, joihin on merkitty \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Tunnisteet"
+msgstr "Tunniste"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "A_dd tag"
 msgid "Add new tag"
-msgstr "_Lisää tunniste"
+msgstr "_Lisää uusi tunniste"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Poista"
+msgstr "Poista tunniste"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
-msgstr ""
+msgstr "Lisää uusi luokka"
 
 #: ../plugins/grouptagger/gt_widgets.py:196
 msgid "Remove category"
-msgstr ""
+msgstr "Poista luokka"
 
 #: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"
@@ -3222,36 +3057,36 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
-msgstr ""
+msgstr "Uusi tunnistearvo?"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Kirjoita uusi tunniste-arvo"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
-msgstr ""
+msgstr "Uusi luokka?"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "Enter new category name"
-msgstr ""
+msgstr "Kirjoita uuden luokan nimi"
 
 #: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
-msgstr ""
+msgstr "Lisää tunniste"
 
 #: ../plugins/grouptagger/gt_widgets.py:713
 #: ../plugins/grouptagger/gt_widgets.py:819
 msgid "Group"
-msgstr ""
+msgstr "Ryhmä"
 
 #: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Hae kaikki tunnisteet kokoelmasta"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Lisää valittu valintoihin"
 
 #: ../plugins/grouptagger/gt_widgets.py:796
 msgid "Show tracks with groups"
@@ -3271,81 +3106,70 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:811
 msgid "Ignored"
-msgstr ""
+msgstr "Älä huomioi"
 
 #: ../plugins/grouptagger/gt_widgets.py:820
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Valitut kappaleet"
 
 #: ../plugins/history/__init__.py:77
 msgid "Playback history"
-msgstr ""
+msgstr "Toistohistoria"
 
 #: ../plugins/history/__init__.py:117
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Poistetaanko tallennettu historia?"
 
 #: ../plugins/history/__init__.py:218
 msgid "Save History"
-msgstr ""
+msgstr "Tallenna historia"
 
 #: ../plugins/history/__init__.py:227
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear History"
-msgstr "_Tyhjennä soittolista"
+msgstr "_Tyhjennä historia"
 
 #: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:189
 #: ../plugins/icecast/__init__.py:212
-#, fuzzy
 msgid "Contacting Icecast server..."
-msgstr "Yhdistetään Shoutcast-palvelimelle..."
+msgstr "Yhdistetään Icecast-palvelimelle..."
 
 #: ../plugins/icecast/__init__.py:125 ../plugins/icecast/__init__.py:128
 #: ../plugins/icecast/__init__.py:227 ../plugins/icecast/__init__.py:230
-#, fuzzy
 msgid "Error connecting to Icecast server."
-msgstr "Virhe yhdistäessä Shoutcast-palvelimelle."
+msgstr "Virhe yhdistäessä Icecast-palvelimelle."
 
 #: ../plugins/icecast/__init__.py:332
 msgid "Enter the search keywords"
 msgstr "Kirjoita hakusanat"
 
 #: ../plugins/icecast/__init__.py:332
-#, fuzzy
 msgid "Icecast Search"
-msgstr "Shoutcast-haku"
+msgstr "Icecast-haku"
 
 #: ../plugins/icecast/__init__.py:356
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Uusi asema"
+msgstr "Asemia ei löytynyt"
 
 #: ../plugins/icecast/__init__.py:359
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Hakutulokset"
+msgstr "Icecast-haun tulokset"
 
 #: ../plugins/icecast/__init__.py:401
 #: ../plugins/developer/developer_window.ui:59
-#, fuzzy
 msgid "Name"
-msgstr "Nimi:"
+msgstr "Nimi"
 
 #: ../plugins/icecast/__init__.py:417
-#, fuzzy
 msgid "Format"
-msgstr "Normaali"
+msgstr "Muoto"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "IPython Console - Exaile"
 msgstr "IPython-konsoli - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:214
-#, fuzzy
-#| msgid "Show IPython Console"
 msgid "Show _IPython Console"
-msgstr "Näytä IPython-konsoli"
+msgstr "Näytä _IPython-konsoli"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
@@ -3386,10 +3210,8 @@ msgid "Last.fm Loved"
 msgstr "Lastfm Tykätty"
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Love This Track"
 msgid "_Love This Track"
-msgstr "Tykkää tästä kappaleesta"
+msgstr "_Tykkää tästä kappaleesta"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
@@ -3424,7 +3246,7 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:83
 #: ../plugins/mainmenubutton/__init__.py:89
 msgid "Main Menu"
-msgstr ""
+msgstr "Päävalikko"
 
 #: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
@@ -3529,7 +3351,7 @@ msgstr "Soittolistapainike"
 
 #: ../plugins/minimode/controls.py:728
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Käytä nykyistä soittolistaa"
 
 #: ../plugins/minimode/controls.py:1012
 msgid "$title ($current_time / $total_time)"
@@ -3580,7 +3402,7 @@ msgstr "Moodbar"
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Herätyskello"
 
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
@@ -3588,16 +3410,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "esittäjä %(artist)s"
+msgstr "{esittäjä}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Ainoastaan albumi:"
+msgstr "{albumi}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3605,7 +3425,7 @@ msgstr "Ilmoitus"
 
 #: ../plugins/osd/__init__.py:357
 msgid "No track played yet"
-msgstr ""
+msgstr "Kappaleita ei ole vielä soitettu"
 
 #: ../plugins/osd/__init__.py:397
 msgid "Move or resize OSD"
@@ -3621,31 +3441,31 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"$artist\n"
+"$album"
 
 #: ../plugins/playlistanalyzer/__init__.py:55
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "_Tyhjennä soittolista"
+msgstr "Analysoi soittolistat"
 
 #: ../plugins/playlistanalyzer/__init__.py:63
 #: ../plugins/playlistanalyzer/analyzer.ui:55
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "_Tyhjennä soittolista"
+msgstr "Analysoi soittolista"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
-#, fuzzy
 msgid "Modulus this number"
-msgstr "Levynumero"
+msgstr "Moduloi tämä numero"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Tunniste %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"
-msgstr ""
+msgstr "Tallenna analyysi"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3686,7 +3506,7 @@ msgstr "Ladataan Podcasteja..."
 
 #: ../plugins/podcasts/__init__.py:201
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Konfiguraatiota ei ole vielä olemassa"
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
@@ -3694,20 +3514,20 @@ msgstr "Podcastin tallennus ei onnistunut"
 
 #: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
-msgstr ""
+msgstr "Esikuuntelu"
 
 #: ../plugins/previewdevice/__init__.py:156
 msgid "Preview"
-msgstr ""
+msgstr "Esikatselu"
 
 #: ../plugins/previewdevice/__init__.py:341
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Toiston keskeyttäminen (kaksoisnapsauta lopettaaksesi)"
 
 #: ../plugins/previewdevice/previewprefs.py:32
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Esikatsele laitetta"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3721,47 +3541,44 @@ msgstr "Keskeytä toisto näytönsäästäjän ilmestyessä"
 
 #: ../plugins/shutdown/__init__.py:42 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr ""
+msgstr "Sammuta toiston jälkeen"
 
 #: ../plugins/shutdown/__init__.py:67
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Ajoitettu sammutus"
 
 #: ../plugins/shutdown/__init__.py:68
 msgid "Computer will be shutdown at the end of playback."
-msgstr ""
+msgstr "Tietokone sammutetaan toiston päätyttyä."
 
 #: ../plugins/shutdown/__init__.py:95
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Välitön sammutus"
 
 #: ../plugins/shutdown/__init__.py:119
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "Tietokone tulee sammuttaa %d sekunnin kuluttua."
 
 #: ../plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Sammutus epäonnistui"
 
 #: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "Tietokonetta ei voitu sammuttaa D-Bus-toiminnolla."
 
 #: ../plugins/somafm/__init__.py:84 ../plugins/somafm/__init__.py:183
-#, fuzzy
 msgid "Contacting SomaFM server..."
-msgstr "Yhdistetään Shoutcast-palvelimelle..."
+msgstr "Yhdistetään SomaFM-palvelimelle..."
 
 #: ../plugins/somafm/__init__.py:96 ../plugins/somafm/__init__.py:99
-#, fuzzy
 msgid "Error connecting to SomaFM server."
-msgstr "Virhe yhdistäessä Shoutcast-palvelimelle."
+msgstr "Virhe yhdistäessä SomaFM-palvelimelle."
 
 #: ../plugins/somafm/__init__.py:187
-#, fuzzy
 msgid "Error importing playlist"
-msgstr "Podcastia ladatessa tapahtui virhe."
+msgstr "Virhe soittolistan tuonnissa"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
@@ -3774,17 +3591,15 @@ msgstr "Virranrepijä"
 #: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
-#, fuzzy
-#| msgid "<b>Alarms</b>"
 msgid "<b>Alarm Time</b>"
-msgstr "<b>Hälytykset</b>"
+msgstr "<b>Hälytysaika</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:121
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Hälytyspäivät</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:132
 msgid "Monday"
@@ -3819,18 +3634,16 @@ msgid "Use Fading"
 msgstr "Käytä häivytystä"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Asetukset"
+msgstr "<b>Ääniasetukset</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Pienin voimakkuus:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:294
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Suurin voimakkuus:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:319
 msgid "Increment:"
@@ -3885,7 +3698,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui:16
 msgid "Circle display"
-msgstr ""
+msgstr "Ympyränäyttö"
 
 #: ../plugins/awn/awn_prefs_pane.ui:20
 msgid "Text percentage"
@@ -3897,7 +3710,7 @@ msgstr "Ei mitään"
 
 #: ../plugins/awn/awn_prefs_pane.ui:38
 msgid "Display overlay:"
-msgstr ""
+msgstr "Näyttöpeittokuva:"
 
 #: ../plugins/awn/awn_prefs_pane.ui:66
 msgid "Display covers"
@@ -3905,16 +3718,16 @@ msgstr "Näytä albumin kannet"
 
 #: ../plugins/bpm/bpm.ui:41
 msgid "Apply BPM"
-msgstr ""
+msgstr "Ota BPM käyttöön"
 
 #: ../plugins/bpm/msg.ui:7
 msgid "Set BPM?"
-msgstr ""
+msgstr "Aseta BPM?"
 
 #: ../plugins/bpm/msg.ui:63
 #, python-format
 msgid "Set autodetected BPM on %s?"
-msgstr ""
+msgstr "Määrittää automaattisesti BPM %s?"
 
 #: ../plugins/bpm/msg.ui:78 ../plugins/bpm/msg.ui:94 ../plugins/bpm/msg.ui:110
 msgid "0"
@@ -3966,17 +3779,16 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
 msgid "Simple Console"
-msgstr "Yksinkertainen"
+msgstr "Yksinkertainen konsoli"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Näytä IPv6-palvelimet (kokeellinen)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Muista viimeaikaiset DAAP-palvelimet"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:21
 msgid "Server name:"
@@ -3984,7 +3796,7 @@ msgstr "Palvelimen nimi:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:45
 msgid "Server host:"
-msgstr ""
+msgstr "Palvelimen isäntä:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:68
 msgid "Port:"
@@ -3992,7 +3804,7 @@ msgstr "Portti:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:90
 msgid "Server enabled"
-msgstr ""
+msgstr "Palvelin käytössä"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:35
 msgid "Top left"
@@ -4030,7 +3842,7 @@ msgstr "Y-siirtymä:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:172
 msgid "Override cover size"
-msgstr ""
+msgstr "Ohita kannen koko"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:190
 msgid "Size:"
@@ -4038,7 +3850,7 @@ msgstr "Koko:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "Use fading"
-msgstr ""
+msgstr "Käytä häivytystä"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:245
 msgid "Fading duration:"
@@ -4050,23 +3862,23 @@ msgstr "ms"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr ""
+msgstr "Exaile-kehittäjätyökalut"
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"
-msgstr ""
+msgstr "Laske"
 
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
-msgstr ""
+msgstr "Suodata tapahtumatyypit"
 
 #: ../plugins/developer/developer_window.ui:131
 msgid "Clear"
-msgstr ""
+msgstr "Tyhjennä"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
-msgstr ""
+msgstr "Tapahtumat"
 
 #: ../plugins/equalizer/equalizer.ui:109 ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
@@ -4117,37 +3929,32 @@ msgid "15K"
 msgstr "15K"
 
 #: ../plugins/grouptagger/gt_import.ui:19
-#, fuzzy
 msgid "Import Tags"
-msgstr "Tuo CD"
+msgstr "Tuo tunnisteet"
 
 #: ../plugins/grouptagger/gt_import.ui:55
-#, fuzzy
 msgid "Import"
-msgstr "Tuo CD"
+msgstr "Tuo"
 
 #: ../plugins/grouptagger/gt_import.ui:81
-#, fuzzy
 msgid "Current Groups"
-msgstr "Nykyinen kappale"
+msgstr "Nykyiset ryhmät"
 
 #: ../plugins/grouptagger/gt_import.ui:93
 msgid "New Groups"
-msgstr ""
+msgstr "Uudet ryhmät"
 
 #: ../plugins/grouptagger/gt_import.ui:119
-#, fuzzy
 msgid "Import Type:"
-msgstr "Tuonnin polku: "
+msgstr "Tuonnin tyyppi:"
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
-msgstr ""
+msgstr "Yhdistä"
 
 #: ../plugins/grouptagger/gt_import.ui:144
-#, fuzzy
 msgid "Replace"
-msgstr "Korvaa nykyinen"
+msgstr "Korvaa"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
@@ -4158,23 +3965,20 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:101
-#, fuzzy
 msgid "Search Tag"
-msgstr "Etsi: "
+msgstr "Etsi tunniste"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:114
-#, fuzzy
 msgid "Replace Tag"
-msgstr "Korvaa nykyinen"
+msgstr "Korvaa tunniste"
 
 #: ../plugins/grouptagger/gt_mass.ui:219
-#, fuzzy
 msgid "0 tracks found"
-msgstr " kappaleet"
+msgstr "0 kappaletta löytynyt"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
@@ -4215,9 +4019,8 @@ msgid "Background Color:"
 msgstr "Taustaväri:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
-#, fuzzy
 msgid "Launch IPython console when Exaile starts"
-msgstr "IPython-konsoli - Exaile"
+msgstr "Käynnistä IPython-konsoli, kun Exaile käynnistyy"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:40
 msgid "Release date"
@@ -4349,10 +4152,8 @@ msgid "_Add"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Poista"
+msgstr "_Poista"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4368,10 +4169,8 @@ msgstr ""
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Kuvakkeet</b>"
+msgstr "<b>Ääni</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4394,16 +4193,12 @@ msgid "Resize displayed covers"
 msgstr "Muuta näytettävän kansitaiteen kokoa"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "Näytä albumin kannet"
+msgstr "Näyttö"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Kuvake"
+msgstr "Kuvakkeet"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4464,18 +4259,16 @@ msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
-#, fuzzy
 msgid "<none selected>"
-msgstr "%d valittu"
+msgstr "<ei valintaa>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:420
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Soittolistapainike"
+msgstr "Analysoitavat soittolistat"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
@@ -4494,28 +4287,20 @@ msgid "Generate"
 msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "Lisää podcast"
+msgstr "Lisää Podcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
 msgstr "Häivytyksen kesto:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Crossfade duration (ms):"
 msgid "Crossfade duration:"
-msgstr "Ristiinhäivytyksen aika (ms):"
+msgstr "Ristiinhäivytyksen kesto:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device:"
-msgstr "Lisää laite"
+msgstr "Äänilaite:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4537,10 +4322,8 @@ msgstr ""
 
 #. This is an additional amplification applied to all files prior to correction.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:56
-#, fuzzy
-#| msgid "Additional amplification (dB):"
 msgid "Additional amplification:"
-msgstr "Lisävahvistus (dB):"
+msgstr "Lisävahvistus:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
@@ -4569,7 +4352,7 @@ msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui:15
 msgid "Language:"
-msgstr ""
+msgstr "Kieli:"
 
 #: ../plugins/wikipedia/data/preferences.ui:30
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
@@ -4578,19 +4361,19 @@ msgstr ""
 #: ../plugins/wikipedia/data/wikipanel.ui:24
 #: ../plugins/wikipedia/data/wikipanel.ui:25
 msgid "Home"
-msgstr ""
+msgstr "Koti"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:49
 msgid "Back"
-msgstr ""
+msgstr "Takaisin"
 
 #: ../plugins/wikipedia/data/wikipanel.ui:101
 msgid "Forward"
-msgstr ""
+msgstr "Eteenpäin"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "A-B Toistuvasti"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
@@ -4600,16 +4383,9 @@ msgstr ""
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Efekti"
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
@@ -4618,9 +4394,8 @@ msgid ""
 msgstr ""
 "Soittaa musiikkia annettuna aikana.\n"
 "\n"
-"Huomaa että kun annettu aika koittaa, Exaile käyttäytyy aivan kuin painaisit "
-"nappia \"toista\", joten varmista että sinulla on musiikki jonka haluat "
-"kuulla soittolistallasi"
+"Huomaa, että kun määritetty aika tulee, Exaile toistaa jonossa olevat "
+"kappaleet."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4628,7 +4403,7 @@ msgstr ""
 #: ../plugins/multialarmclock/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Apuohjelma"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4652,7 +4427,7 @@ msgstr ""
 #: ../plugins/audioscrobbler/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notify/PLUGININFO:5 ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Ilmoitukset"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -4662,7 +4437,7 @@ msgstr ""
 #: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "KÄYTTÖLIITTYMÄ"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
@@ -4693,12 +4468,11 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "Laitteet"
 
 #: ../plugins/console/PLUGININFO:3
-#, fuzzy
 msgid "Simple console"
-msgstr "Yksinkertainen"
+msgstr "Yksinkertainen konsoli"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
@@ -4707,13 +4481,11 @@ msgstr ""
 #: ../plugins/console/PLUGININFO:5 ../plugins/developer/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5 ../plugins/ipconsole/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Kehitys"
 
 #: ../plugins/currentsong/PLUGININFO:3
-#, fuzzy
-#| msgid "Current Song"
 msgid "Current Song in Pidgin"
-msgstr "Nykyinen kappale"
+msgstr "Nykyinen kappale Pidginissä"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4745,7 +4517,7 @@ msgstr "Näyttää soitettavan levyn kansikuvan työpöydällä"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr ""
+msgstr "Kehittäjä"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4859,22 +4631,24 @@ msgid "Browse and listen to audiobooks from Librivox.org."
 msgstr "Selaa ja kuuntele äänikirjoja Librivox.org-palvelusta."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
-msgstr "Liitännäinen, joka hakee sanoituksia lyricsfly.com-palvelusta"
+msgstr ""
+"Laajennos, joka hakee sanoituksia lyricsmania.com palvelusta\n"
+"Vaatii: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
 msgstr "Sanoitus-wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4"
-msgstr "Liitännäinen, joka hakee sanoituksia lyricsfly.com-palvelusta"
+msgstr ""
+"Laajennus, joka hakee sanoituksia lyrics.wikia.com palvelusta\n"
+"Vaatii: BeautifulSoup4"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4915,10 +4689,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/mpris2/PLUGININFO:3
-#, fuzzy
-#| msgid "MPRIS"
 msgid "MPRIS 2"
-msgstr "MPRIS"
+msgstr "MPRIS 2"
 
 #: ../plugins/mpris2/PLUGININFO:4
 msgid ""
@@ -4953,11 +4725,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Pops up a notification when playback of a track starts or (optionally) if it "
 "is paused/resumed/stopped. Requires libnotify and its typelib file"
-msgstr "Putkauttaa esiin tiedotteen kun raidan toisto alkaa"
+msgstr ""
+"Ponnahtaa ilmoitus, kun toistettava kappale alkaa tai (valinnainen) jos se "
+"on keskeytetty/jatkettu/pysäytetty. Vaatii libnotify ja typelib-tiedoston"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid ""
@@ -4966,9 +4739,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Soittolistatiedostot"
+msgstr "Soittolistan analysaattori"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -5011,9 +4783,8 @@ msgid "Allows for shutdown of the computer at the end of playback."
 msgstr ""
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "Shoutcast-radio"
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 #, python-format

@@ -7,77 +7,78 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Softastur <malditoastur@gmail.com>\n"
-"Language-Team: Asturian <ast@li.org>\n"
+"POT-Creation-Date: 2019-03-12 03:21+1000\n"
+"PO-Revision-Date: 2019-12-11 13:08+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Asturian <https://hosted.weblate.org/projects/exaile/master/"
+"ast/>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:23+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetes"
 
 #: ../xl/covers.py:565
 msgid "Local file"
-msgstr ""
+msgstr "Ficheru llocal"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d día, "
+msgstr[1] "%d díes, "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d hora, "
+msgstr[1] "%d hores, "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minutu, "
+msgstr[1] "%d minutos, "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d segundu"
+msgstr[1] "%d segundos"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%d d, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%d h, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%d min, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%d s"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
@@ -116,7 +117,7 @@ msgstr "Ayeri"
 
 #: ../xl/lyrics.py:351
 msgid "Local"
-msgstr ""
+msgstr "Llocal"
 
 #: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
@@ -203,7 +204,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
 msgid "TAGS"
-msgstr ""
+msgstr "ETIQUETES"
 
 #: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
@@ -317,7 +318,7 @@ msgstr ""
 
 #: ../xl/main.py:357 ../xl/main.py:363
 msgid "DIRECTORY"
-msgstr ""
+msgstr "DIREUTORIU"
 
 #: ../xl/main.py:358
 msgid "Set data directory"
@@ -329,7 +330,7 @@ msgstr ""
 
 #: ../xl/main.py:369
 msgid "MODULE"
-msgstr ""
+msgstr "MÓDULU"
 
 #: ../xl/main.py:370
 msgid "Limit log output to MODULE"
@@ -337,7 +338,7 @@ msgstr ""
 
 #: ../xl/main.py:375
 msgid "LEVEL"
-msgstr ""
+msgstr "NIVEL"
 
 #: ../xl/main.py:376
 msgid "Limit log output to LEVEL"
@@ -365,7 +366,7 @@ msgstr ""
 
 #: ../xl/main.py:410
 msgid "TYPE"
-msgstr ""
+msgstr "TRIBA"
 
 #: ../xl/main.py:411
 msgid "Limit xl.event debug to output of TYPE"
@@ -385,7 +386,7 @@ msgstr "Desactivar el sofitu pa HAL."
 
 #: ../xl/main.py:810
 msgid "Entire Library"
-msgstr "Llibrería Completa"
+msgstr "Tola biblioteca"
 
 #: ../xl/main.py:817
 #, python-format

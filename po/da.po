@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-05-19 06:48+0000\n"
+"PO-Revision-Date: 2019-12-12 13:10+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/"
-">\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
+"\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"X-Generator: Weblate 3.10-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -2082,9 +2082,10 @@ msgstr "© 2009-2019 diverse bidragydere"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
+#, fuzzy
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "scootergrisen"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"

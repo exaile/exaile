@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-12-12 13:10+0000\n"
+"PO-Revision-Date: 2019-12-12 22:05+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/exaile/master/da/>"
 "\n"
@@ -2082,10 +2082,11 @@ msgstr "© 2009-2019 diverse bidragydere"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
-#, fuzzy
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "scootergrisen"
+msgstr ""
+"Jan Madsen\n"
+"scootergrisen"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -3690,14 +3691,6 @@ msgid "Secret:"
 msgstr "Hemmelighed:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3706,7 +3699,7 @@ msgid ""
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
 "<i>Tilmeld en Amazon AWS-konto og få denne information ved at\n"
-"besøge <a href=\"http://aws.amazon.com/\"> http://aws.amazon.com/</a>.\n"
+"besøge <a href=\"https://aws.amazon.com/\"> https://aws.amazon.com/</a>.\n"
 "\n"
 "Du skal muligvis også <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">aktivere produktets reklame-API</a></i>."
@@ -4250,12 +4243,7 @@ msgid "When main window is focused"
 msgstr "Når hovedvinduet har fokus"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4264,8 +4252,8 @@ msgid ""
 msgstr ""
 "Hvert mærke kan bruges med <b>$tag</b> eller <b>${tag}</b>. Interne mærker, "
 "såsom <b>$__length</b> skal foranstilles med to understregningstegn.\n"
-"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> understøttes."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
+"Pango Text Attribute Markup</a> understøttes."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4478,28 +4466,19 @@ msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr "Tillader at gemme og genoptage fra bogmærkepositioner i lydfiler."
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
-"Giver en manuel BPM-tæller og BPM-automatisk registrering når gst-plugins-"
-"bad og bpmdetect-udvidelsesmodulet er installeret"
+"Giver en manuel BPM-tæller og BPM-automatisk registrering når bpmdetect-"
+"udvidelsesmodulet fra gst-plugins-bad er installeret"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "Cd-afspilning"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4508,7 +4487,7 @@ msgid ""
 msgstr ""
 "Tilføjer understøttelse for afspilning af lyd-cd'er.\n"
 "\n"
-"Kræver HAL, UDisks eller UDisks2 for automatisk registrering af cd'er\n"
+"Kræver UDisks2 for automatisk registrering af cd'er\n"
 "Kræver cddb-py (%s) for at opslå mærker."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4541,10 +4520,8 @@ msgstr ""
 "understøttede tjenester i Pidgins OSS."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Tillader afspilning af DAAP-musikdelinger."
+msgstr "Tillader afspilning af DAAP-musikdelinger med spydaap-biblioteket."
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5

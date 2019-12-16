@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-12-11 13:08+0000\n"
+"PO-Revision-Date: 2019-12-16 19:21+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Asturian <https://hosted.weblate.org/projects/exaile/master/"
 "ast/>\n"
@@ -349,16 +349,12 @@ msgid "Show debugging output"
 msgstr "Amosar la salida de la depuración"
 
 #: ../xl/main.py:391
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Activar la depuración de xl.event. Surde salida ABONDO"
+msgstr "Activar la depuración de xl.event. Surde salida abondo"
 
 #: ../xl/main.py:398
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Activar la depuración de xl.event. Surde salida ABONDO"
+msgstr "Activar la depuración completa de xl.event. Surde salida ABONDO"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
@@ -506,19 +502,19 @@ msgstr "Organización"
 
 #: ../xl/metadata/tags.py:67
 msgid "Original album"
-msgstr ""
+msgstr "Álbum orixinal"
 
 #: ../xl/metadata/tags.py:68
 msgid "Original artist"
-msgstr ""
+msgstr "Artista orixinal"
 
 #: ../xl/metadata/tags.py:69
 msgid "Original date"
-msgstr ""
+msgstr "Data orixinal"
 
 #: ../xl/metadata/tags.py:71
 msgid "Performer"
-msgstr "Realizador"
+msgstr "Intérprete"
 
 #: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
 #: ../xlgui/widgets/playlist_columns.py:282
@@ -549,7 +545,7 @@ msgstr "Tasa de bits"
 
 #: ../xl/metadata/tags.py:81 ../xlgui/widgets/playlist_columns.py:498
 msgid "Date added"
-msgstr ""
+msgstr "Data d'amiestu"
 
 #: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:489
 #: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
@@ -606,7 +602,7 @@ msgstr "Automáticu"
 
 #: ../xl/player/gst/sink.py:76
 msgid "Custom"
-msgstr ""
+msgstr "Personalizáu"
 
 #: ../xl/player/gst/sink.py:184
 #, python-format
@@ -634,21 +630,21 @@ msgstr ""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "La triba de la llista de reproducción nun ye válida."
 
 #: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
-msgstr ""
+msgstr "Llista de reproducción"
 
 #: ../xl/playlist.py:342
 msgid "M3U Playlist"
-msgstr ""
+msgstr "Llista de reproducción M3U"
 
 #: ../xl/playlist.py:457
 msgid "PLS Playlist"
-msgstr ""
+msgstr "Llista de reproducción PLS"
 
 #: ../xl/playlist.py:548 ../xl/playlist.py:563
 #, python-format
@@ -662,11 +658,11 @@ msgstr ""
 
 #: ../xl/playlist.py:618
 msgid "ASX Playlist"
-msgstr ""
+msgstr "Llista de reproducción ASX"
 
 #: ../xl/playlist.py:797
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "Llista de reproducción XSPF"
 
 #: ../xl/playlist.py:916
 msgid "Shuffle _Off"
@@ -681,10 +677,8 @@ msgid "Shuffle _Albums"
 msgstr ""
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "%d al debalu"
+msgstr "Al _debalu"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -780,7 +774,7 @@ msgstr ""
 
 #: ../xl/trax/track.py:64
 msgid "Various Artists"
-msgstr "Dellos Artistes"
+msgstr "Dellos artistes"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:67
@@ -962,43 +956,43 @@ msgstr ""
 
 #: ../xlgui/main.py:228
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Enfocar la 1ᵉʳ llingüeta"
 
 #: ../xlgui/main.py:229
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Enfocar la 2ª llingüeta"
 
 #: ../xlgui/main.py:230
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Enfocar la 3ᵉʳ llingüeta"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Enfocar la 4ª llingüeta"
 
 #: ../xlgui/main.py:232
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Enfocar la 5ª llingüeta"
 
 #: ../xlgui/main.py:233
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Enfocar la 6ª llingüeta"
 
 #: ../xlgui/main.py:234
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Enfocar la 7ª llingüeta"
 
 #: ../xlgui/main.py:235
 msgid "Focus the eighth tab"
-msgstr ""
+msgstr "Enfocar la 8ª llingüeta"
 
 #: ../xlgui/main.py:236
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Enfocar la 9ª llingüeta"
 
 #: ../xlgui/main.py:237
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Enfocar la 10ª llingüeta"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
@@ -1062,19 +1056,19 @@ msgstr ""
 
 #: ../xlgui/menu.py:183
 msgid "_Restart"
-msgstr ""
+msgstr "_Reaniciar"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
 msgid "_Quit Exaile"
-msgstr ""
+msgstr "_Colar d'Exaile"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
-msgstr ""
+msgstr "_Coleición"
 
 #: ../xlgui/menu.py:225
 msgid "_Queue"
-msgstr ""
+msgstr "_Cola"
 
 #: ../xlgui/menu.py:237
 msgid "C_overs"
@@ -1102,7 +1096,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
-msgstr ""
+msgstr "Xestor de _preseos"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
@@ -1118,7 +1112,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 msgid "Shortcuts"
-msgstr ""
+msgstr "Atayos"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -1185,7 +1179,7 @@ msgstr ""
 
 #: ../xlgui/panel/files.py:83
 msgid "Files"
-msgstr ""
+msgstr "Ficheros"
 
 #: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:448
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
@@ -1195,18 +1189,18 @@ msgstr ""
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:147
 msgid "Size"
-msgstr ""
+msgstr "Tamañu"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
 #: ../xlgui/panel/files.py:455
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:271
 msgid "#"
-msgstr ""
+msgstr "Nᵘ"
 
 #: ../xlgui/panel/lyrics.py:185
 msgid "No lyrics found."
@@ -2076,7 +2070,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui:8
 msgid "About Exaile"
-msgstr ""
+msgstr "Tocante a Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
@@ -2087,10 +2081,13 @@ msgstr ""
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
 msgstr ""
+"Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019\n"
+"Xuacu Saturio <xuacusk8@gmail.com>, 2009\n"
+"Iñigo Varela <malditoastur@gmail.com>, 2009-2010"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr ""
+msgstr "Xestor de la coleición"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2133,10 +2130,8 @@ msgid "Zoom _Out"
 msgstr ""
 
 #: ../data/ui/coverwindow.ui:68
-#, fuzzy
-#| msgid "Original Date"
 msgid "_Original Size"
-msgstr "Data orixinal"
+msgstr "Tamañu _orixinal"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
@@ -2145,59 +2140,59 @@ msgstr ""
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
 msgid "_Close"
-msgstr ""
+msgstr "_Zarrar"
 
 #: ../data/ui/device_manager.ui:48
 msgid "Add Device"
-msgstr ""
+msgstr "Amestar un preséu"
 
 #: ../data/ui/device_manager.ui:111
 msgid "Type of device:"
-msgstr ""
+msgstr "Triba de preséu:"
 
 #: ../data/ui/device_manager.ui:144
 msgid "Detected devices:"
-msgstr ""
+msgstr "Preseos deteutaos:"
 
 #: ../data/ui/device_manager.ui:175
 msgid "Custom: "
-msgstr ""
+msgstr "Personalizáu: "
 
 #: ../data/ui/device_manager.ui:239
 msgid "Device Manager"
-msgstr ""
+msgstr "Xestor de preseos"
 
 #: ../data/ui/device_manager.ui:264
 msgid "Icon"
-msgstr ""
+msgstr "Iconu"
 
 #: ../data/ui/device_manager.ui:276
 msgid "Device"
-msgstr ""
+msgstr "Preséu"
 
 #: ../data/ui/device_manager.ui:287
 msgid "Driver"
-msgstr ""
+msgstr "Controlador"
 
 #: ../data/ui/main.ui:24
 msgid "_File"
-msgstr ""
+msgstr "_Ficheru"
 
 #: ../data/ui/main.ui:45
 msgid "_View"
-msgstr ""
+msgstr "_Ver"
 
 #: ../data/ui/main.ui:58
 msgid "_Tools"
-msgstr ""
+msgstr "F_erramientes"
 
 #: ../data/ui/main.ui:71
 msgid "_Help"
-msgstr ""
+msgstr "_Ayuda"
 
 #: ../data/ui/main.ui:151
 msgid "Previous Track"
-msgstr ""
+msgstr "Pista anterior"
 
 #: ../data/ui/main.ui:197
 msgid ""
@@ -2208,7 +2203,7 @@ msgstr ""
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
-msgstr ""
+msgstr "Pista siguiente"
 
 #: ../data/ui/main.ui:246
 msgid "0:00 / 0:00"
@@ -2278,7 +2273,7 @@ msgstr ""
 
 #: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:391
 msgid "Search"
-msgstr ""
+msgstr "Guetar"
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
@@ -2440,7 +2435,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr ""
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -2449,7 +2444,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:92
 msgid "Audio Device: "
-msgstr ""
+msgstr "Preséu d'audiu: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2575,7 +2570,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
-msgstr ""
+msgstr "Estáu"
 
 #: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
@@ -2601,7 +2596,7 @@ msgstr ""
 
 #: ../data/ui/shortcuts_dialog.ui:39
 msgid "Close"
-msgstr ""
+msgstr "Zarrar"
 
 #: ../data/ui/shortcuts_dialog.ui:89
 msgid "Description"
@@ -2609,7 +2604,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
-msgstr ""
+msgstr "Propiedaes de la pista"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
@@ -2629,7 +2624,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"
-msgstr ""
+msgstr "Propiedaes del ficheru"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2725,7 +2720,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
-msgstr ""
+msgstr "Triba:"
 
 #: ../data/ui/widgets/filter_dialog.ui:127
 msgid "Match any of the criteria"
@@ -2737,21 +2732,19 @@ msgstr ""
 
 #: ../data/ui/widgets/filter_dialog.ui:155
 msgid "Add"
-msgstr ""
+msgstr "Amestar"
 
 #: ../data/ui/widgets/filter_dialog.ui:183
 msgid "Limit to:"
 msgstr ""
 
 #: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid "Track"
 msgid "tracks"
-msgstr "Pista"
+msgstr "pistes"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
-msgstr ""
+msgstr "Encaboxar"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"

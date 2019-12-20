@@ -666,7 +666,7 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
     def on_search_entry_activate(self, entry):
-        filter_string = entry.get_text().decode('utf-8')
+        filter_string = entry.get_text()
         self.view.filter_tracks(filter_string or None)
 
     def __show_toggle_menu(self, names, display_names, callback, attr, widget, event):

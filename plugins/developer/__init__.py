@@ -167,7 +167,7 @@ class DeveloperWindow(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_event_filter_entry_changed(self, widget):
-        self.event_filter_text = widget.get_text().decode('utf-8')
+        self.event_filter_text = widget.get_text()
         self.event_model_filter.refilter()
 
     def on_event_update(self):

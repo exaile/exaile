@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2015-01-09 09:35+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2020-01-01 05:21+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -125,10 +125,8 @@ msgid "Local"
 msgstr "Lokalno"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Upotreba: exaile [OPTION]... [URI]"
+msgstr "Upotreba: exaile [OPTION...] [LOCATION...]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -188,10 +186,8 @@ msgid "Playlist Options"
 msgstr "Mogućnosti popisa pjesama"
 
 #: ../xl/main.py:163
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
-msgstr "Izvozi trenutni popis pjesama na LOKACIJU"
+msgstr "Izvezi trenutačni popis pjesama na LOKACIJU"
 
 #: ../xl/main.py:166
 msgid "Track Options"
@@ -268,22 +264,16 @@ msgid "Volume Options"
 msgstr "Postavke glasnoće"
 
 #: ../xl/main.py:262
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Povećava glasnoću za N%"
+msgstr "Povećaj glasnoću za N%"
 
 #: ../xl/main.py:271
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Smanjuje glasnoću za N%"
+msgstr "Smanji glasnoću za N%"
 
 #: ../xl/main.py:279
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Isključuje ili uključuje zvuk"
+msgstr "Isključi ili uključi glasnoću"
 
 #: ../xl/main.py:286
 msgid "Print the current volume percentage"
@@ -319,12 +309,10 @@ msgstr ""
 "Pokreni u sigurnom načinu rada - ponekad korisno ako naiđete na probleme"
 
 #: ../xl/main.py:335
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
-"Prisilno uvedi stare podatke iz inačice 0.2.x (Prebrisat će trenutne podatke)"
+"Prisilno uvezi stare podatke iz verzije 0.2.x (prepisat će trenutačne "
+"podatke)"
 
 #: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
@@ -371,20 +359,17 @@ msgid "Show debugging output"
 msgstr "Prikaži izlaz otklanjanja grešaka"
 
 #: ../xl/main.py:391
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Omogući debuggiranje xl.događaja. Generira PUNO ispisa."
+msgstr "Omogući ispravljanje grešaka xl.događaja. Generira puno rezultata"
 
 #: ../xl/main.py:398
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Omogući debuggiranje xl.događaja. Generira PUNO ispisa."
+msgstr ""
+"Omogući potpuno ispravljanje grešaka xl.događaja. Generira puno rezultata"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
-msgstr "Dodaj ime Thread-a u poruke zapisa"
+msgstr "Dodaj ime razgovora u poruke log zapisa."
 
 #: ../xl/main.py:410
 msgid "TYPE"
@@ -404,7 +389,7 @@ msgstr "Onemogući D-Bus podršku"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
-msgstr "Onemogući HAL podršku"
+msgstr "Onemogući HAL podršku."
 
 #: ../xl/main.py:810
 msgid "Entire Library"
@@ -447,10 +432,8 @@ msgid "Artist"
 msgstr "Izvođač"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:302
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "od %(artist)s"
+msgstr "Izvođač albuma"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -594,23 +577,20 @@ msgid "Modified"
 msgstr "Promijenjeno"
 
 #: ../xl/metadata/tags.py:86
-#, fuzzy
 msgid "Play time"
-msgstr "Brojač"
+msgstr "Trajanje"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"
 msgstr "Broj reprodukcija"
 
 #: ../xl/metadata/tags.py:89
-#, fuzzy
 msgid "Start offset"
-msgstr "X ofset:"
+msgstr "Početni odmak"
 
 #: ../xl/metadata/tags.py:90
-#, fuzzy
 msgid "Stop offset"
-msgstr "X ofset:"
+msgstr "Završni odmak"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
@@ -658,7 +638,7 @@ msgstr ""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
-msgstr "Neodgovarajući tip popisa pjesama"
+msgstr "Neodgovarajuća vrsta popisa pjesama."
 
 #: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
@@ -705,10 +685,8 @@ msgid "Shuffle _Albums"
 msgstr ""
 
 #: ../xl/playlist.py:919
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Nasumično %d"
+msgstr "_Slučajno"
 
 #: ../xl/playlist.py:924
 msgid "Repeat _Off"
@@ -741,7 +719,7 @@ msgstr "Dodatak imenovan \"%s\" je već instaliran."
 
 #: ../xl/plugins.py:103
 msgid "Plugin archive contains an unsafe path."
-msgstr "Arhiva dodataka sadrži nesigurnu putanju"
+msgstr "Arhiva dodataka sadrži nesigurnu putanju."
 
 #: ../xl/settings.py:99
 msgid "Settings version is newer than current."
@@ -753,7 +731,7 @@ msgstr "Ne znamo kako pohraniti takvu vrstu postavki. "
 
 #: ../xl/settings.py:285
 msgid "An Unknown type of setting was found!"
-msgstr "Pronađen je nepoznati tip postavki."
+msgstr "Pronađena je nepoznata vrsta postavaka!"
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -846,7 +824,7 @@ msgstr "Pretražujem zbirku..."
 #: ../xlgui/__init__.py:396
 #, python-format
 msgid "Scanning %s..."
-msgstr "Skeniranje %s"
+msgstr "Skeniranje %s …"
 
 #: ../xlgui/collection.py:103
 msgid "Add a Directory"
@@ -905,7 +883,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:1129
 msgid "No covers found."
-msgstr "NIjedan omot nije nađen"
+msgstr "Nema omota."
 
 #: ../xlgui/cover.py:1131
 msgid ""
@@ -924,10 +902,8 @@ msgid "$title (by $artist)"
 msgstr "$title ($artist)"
 
 #: ../xlgui/main.py:149
-#, fuzzy
-#| msgid "Access the current playlist"
 msgid "Save currently selected playlist"
-msgstr "Pristupi trenutnom popisu izvođenja"
+msgstr "Spremi trenutačni popis pjesama"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
@@ -960,22 +936,16 @@ msgid "Seek to the left"
 msgstr ""
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Povećava glasnoću za N%"
+msgstr "Povećaj glasnoću"
 
 #: ../xlgui/main.py:199
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Smanjuje glasnoću za N%"
+msgstr "Smanji glasnoću"
 
 #: ../xlgui/main.py:202
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Idi na prethodnu pjesmu"
+msgstr "Prebaci na prethodnu karticu"
 
 #: ../xlgui/main.py:203
 msgid "Switch to next tab"
@@ -1074,50 +1044,36 @@ msgid "_New Playlist"
 msgstr "_Nova Lista izvođenja"
 
 #: ../xlgui/menu.py:75
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Otvori URL"
+msgstr "_Otvori"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Otvori _URL"
 
 #: ../xlgui/menu.py:114
-#, fuzzy
-#| msgid "Open Directory"
 msgid "Open _Directories"
-msgstr "Open Directory"
+msgstr "Otvori _direktorije"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "Smart Playlists"
 msgid "_Import Playlist"
-msgstr "Pametne liste pjesama"
+msgstr "_Uvezi popis pjesama"
 
 #: ../xlgui/menu.py:156
-#, fuzzy
-#| msgid "Export Current Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Izvoz trenutne liste pjesama"
+msgstr "I_zvezi trenutačni popis pjesama"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Zatvori karticu"
+msgstr "Za_tvori karticu"
 
 #: ../xlgui/menu.py:183
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Ponovo pokreni"
+msgstr "Pok_reni ponovo"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "About Exaile"
 msgid "_Quit Exaile"
-msgstr "O Exaileu"
+msgstr "_Zatvori Exaile"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
@@ -1132,10 +1088,8 @@ msgid "C_overs"
 msgstr "O_moti"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Postavke"
+msgstr "_Postavke"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
@@ -1146,41 +1100,32 @@ msgid "_Playlist Utilities Bar"
 msgstr ""
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
-msgstr "_Kolone"
+msgstr "_Stupci"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear playlist"
-msgstr "O_čisti listu izvođenja"
+msgstr "_Očisti popis pjesama"
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
 msgstr "Upravitelj _Uređaja"
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Rescan Collection"
 msgid "_Rescan Collection"
-msgstr "Ponovno skeniraj Kolekciju"
+msgstr "Ponovo skeni_raj zbirku"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
-#, fuzzy
 msgid "Rescan Collection (_slow)"
-msgstr "Ponovno skeniraj Kolekciju"
+msgstr "Ponovo skeniraj zbirku (_sporo)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
 msgstr ""
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Prečica"
+msgstr "Prečaci"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -1195,20 +1140,16 @@ msgid "_About"
 msgstr ""
 
 #: ../xlgui/panel/collection.py:125
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Izvođač"
+msgstr "Izvođač albuma"
 
 #: ../xlgui/panel/collection.py:131
 msgid "Genre - Artist"
 msgstr "Žanr - Izvođač"
 
 #: ../xlgui/panel/collection.py:134
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Žanr - Izvođač"
+msgstr "Žanr – Izvođač albuma"
 
 #: ../xlgui/panel/collection.py:137
 msgid "Genre - Album"
@@ -1219,10 +1160,8 @@ msgid "Date - Artist"
 msgstr "Datum - Umjetnik"
 
 #: ../xlgui/panel/collection.py:143
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Datum - Umjetnik"
+msgstr "Datum – Izvođač albuma"
 
 #: ../xlgui/panel/collection.py:146
 msgid "Date - Album"
@@ -1233,10 +1172,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Umjetnik - (Datum -Album)"
 
 #: ../xlgui/panel/collection.py:153
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Umjetnik - (Datum -Album)"
+msgstr "Izvođač albuma – (datum – album)"
 
 #: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1289,26 +1226,21 @@ msgid "Any"
 msgstr ""
 
 #: ../xlgui/panel/menus.py:219
-#, fuzzy
-#| msgid "New Smart Playlist"
 msgid "New _Smart Playlist"
-msgstr "Nova Pametna Lista izvođenja"
+msgstr "Novi _pametni popis pjesama"
 
 #: ../xlgui/panel/menus.py:325
-#, fuzzy
-#| msgid "New Station"
 msgid "_New Station"
-msgstr "Nova Stanica"
+msgstr "_Nova stanica"
 
 #: ../xlgui/panel/playlists.py:132
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Izbriši listu pjesama"
+msgstr "Izbrisati popis pjesama „%s”?"
 
 #: ../xlgui/panel/playlists.py:148
 msgid "Enter the new name you want for your playlist"
-msgstr "Unesite novo ime liste pjesama."
+msgstr "Upišite novo ime za popis pjesama"
 
 #: ../xlgui/panel/playlists.py:149
 msgid "Rename Playlist"
@@ -1320,9 +1252,9 @@ msgid "The playlist name you entered is already in use."
 msgstr "Naziv liste izvođenja koji ste unijeli je već u upotrebi."
 
 #: ../xlgui/panel/playlists.py:211
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Greška učitavanja podcaasta."
+msgstr "Greška pri učitavanju pametnog popisa pjesama: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1402,16 +1334,12 @@ msgid "Drop here to create a new playlist"
 msgstr ""
 
 #: ../xlgui/playlist_container.py:129
-#, fuzzy
-#| msgid "C_lear playlist"
 msgid "_Clear Tab History"
-msgstr "O_čisti listu izvođenja"
+msgstr "_Očisti kronologiju kartica"
 
 #: ../xlgui/playlist_container.py:141
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Zatvori karticu"
+msgstr "Nedavno zatvorene _kartice"
 
 #: ../xlgui/playlist_container.py:161
 msgid "Restore closed tab"
@@ -1458,10 +1386,8 @@ msgid "the"
 msgstr ""
 
 #: ../xlgui/preferences/collection.py:60
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
-msgstr "Vrati na Uobičajeno"
+msgstr "Vrati na _standardno"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1484,7 +1410,7 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:178
 msgid "Could not load plugin info!"
-msgstr "Ne mogu učitati informacije o priključku"
+msgstr "Nije bilo moguće učitati informacije o priključku!"
 
 #: ../xlgui/preferences/plugin.py:179
 #, python-format
@@ -1612,7 +1538,7 @@ msgstr "Podržani formati slika"
 
 #: ../xlgui/properties.py:1224
 msgid "Open Directory"
-msgstr "Open Directory"
+msgstr "Otvori direktorij"
 
 #: ../xlgui/properties.py:1274
 msgid "Apply current value to all tracks"
@@ -1625,7 +1551,7 @@ msgstr "Sačuvano %(count)s od %(total)s."
 
 #: ../xlgui/tray.py:203
 msgid "Exaile Music Player"
-msgstr "Exaile Music Player"
+msgstr "Program za sviranje muzike Exaile"
 
 #: ../xlgui/widgets/dialogs.py:361
 msgid "Enter the URL to open"
@@ -1688,7 +1614,7 @@ msgstr "<b>Da spremim promjene prije zatvaranja? (%s)</b>"
 
 #: ../xlgui/widgets/dialogs.py:1090
 msgid "Your changes will be lost if you don't save them"
-msgstr "Vaše će promjene nestati ako ih ne spremite."
+msgstr "Vaše će promjene nestati, ako ih ne spremite"
 
 #: ../xlgui/widgets/dialogs.py:1094
 msgid "Close Without Saving"
@@ -1714,7 +1640,7 @@ msgstr "Datoteka postoji, prebrisati %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1753
 msgid "Playlist name:"
-msgstr "Ime liste izvođenja"
+msgstr "Ime liste izvođenja:"
 
 #: ../xlgui/widgets/dialogs.py:1754
 msgid "Add new playlist..."
@@ -1723,7 +1649,7 @@ msgstr "Dodaj novu listu izvođenja..."
 #: ../xlgui/widgets/dialogs.py:1767
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
-msgstr "Niste unijeli ime za listu pjesama."
+msgstr "Niste unijeli ime za popis pjesama"
 
 #: ../xlgui/widgets/dialogs.py:1776
 msgid "Save As"
@@ -2018,12 +1944,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:676
 msgid "Start Offset"
-msgstr ""
+msgstr "Početni odmak"
 
 #: ../xlgui/widgets/playlist_columns.py:687
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X ofset:"
+msgstr "Završni odmak"
 
 #: ../xlgui/widgets/playlist_columns.py:838
 msgid "_Resizable"
@@ -2649,7 +2574,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:273
 msgid "Crossfade duration (ms):"
-msgstr "Trajanje prijelaznog slabljenja (ms)"
+msgstr "Trajanje međuprijelaza (ms):"
 
 #: ../data/ui/preferences/playback.ui:282
 #: ../plugins/previewdevice/previewprefs.ui:125
@@ -2662,7 +2587,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:313
 msgid "Fade duration (ms):"
-msgstr "Trajanje slabljenja (ms)"
+msgstr "Trajanje prijelaza (ms):"
 
 #: ../data/ui/preferences/playback.ui:322
 #: ../plugins/previewdevice/previewprefs.ui:85
@@ -3739,7 +3664,7 @@ msgstr ""
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "ReplayGain"
+msgstr "Uloži dobitak"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
@@ -4023,7 +3948,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:93
 msgid "X offset:"
-msgstr "X ofset:"
+msgstr "X odmak:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:122
 #: ../plugins/desktopcover/desktopcover_preferences.ui:162
@@ -4033,7 +3958,7 @@ msgstr "pikseli"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:135
 msgid "Y offset:"
-msgstr "Y ofset"
+msgstr "Y odmak:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:172
 msgid "Override cover size"
@@ -4219,7 +4144,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
-msgstr "Boja pozadine"
+msgstr "Boja pozadine:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
 #, fuzzy

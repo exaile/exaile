@@ -1261,10 +1261,8 @@ class Playlist:
 
         if shuffle_mode != 'disabled':
             shuffle_hist, prev_index = max(
-                [
-                    (self.__tracks.get_meta_key(i, 'playlist_shuffle_history'), i)
-                    for i in range(len(self))
-                ]
+                (self.__tracks.get_meta_key(i, 'playlist_shuffle_history', 0), i)
+                for i in range(len(self))
             )
 
             if shuffle_hist:

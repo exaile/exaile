@@ -7,7 +7,7 @@ language: python
 env:
   - IMGTAG=debian9
   - IMGTAG=debian10
-  - IMGTAG=fedora28
+  - IMGTAG=fedora31
   - IMGTAG=ubuntu18.04
   - IMGTAG=ubuntu19.04
 

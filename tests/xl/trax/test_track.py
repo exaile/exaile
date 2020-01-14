@@ -336,7 +336,7 @@ class TestTrack:
 
     def test_set_rating_invalid(self):
         tr = track.Track('/bar')
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             tr.set_rating('foo')
 
     ## Tag Getting helper methods

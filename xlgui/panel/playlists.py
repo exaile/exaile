@@ -192,7 +192,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             track.set_rating(rating)
 
         maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, 100 * rating/maximum)
+        event.log_event('rating_changed', self, 100 * rating / maximum)
 
     def open_item(self, tree, path, col):
         """

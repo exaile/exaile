@@ -566,7 +566,7 @@ class RatingControl(RatingWidget, BaseControl):
         if player.PLAYER.current is not None:
             player.PLAYER.current.set_rating(rating)
             maximum = settings.get_option('rating/maximum', 5)
-            event.log_event('rating_changed', self, 100 * rating/maximum)
+            event.log_event('rating_changed', self, 100 * rating / maximum)
 
 
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):

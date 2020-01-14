@@ -40,6 +40,7 @@ Created on 25.04.2017
 import logging
 
 import gi
+
 gi.require_version('GstPbutils', '1.0')
 from gi.repository import GstPbutils
 

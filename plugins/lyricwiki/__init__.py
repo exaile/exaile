@@ -62,7 +62,9 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
-            with_div = lyrics[0].renderContents().decode('utf-8').replace('<br />', '\n')
+            with_div = (
+                lyrics[0].renderContents().decode('utf-8').replace('<br />', '\n')
+            )
             string = '\n'.join(
                 self.remove_div(with_div).replace('\n\n\n', '').split('\n')
             )

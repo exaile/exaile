@@ -91,6 +91,7 @@ class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
         * ``${bar:parameter1, parameter2}``
         * ``${qux:parameter1=argument1, parameter2}``
     """
+
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):

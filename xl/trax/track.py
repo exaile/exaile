@@ -491,11 +491,7 @@ class Track:
 
         # For lists, filter out empty values
         if isinstance(values, list):
-            values = [
-                v
-                for v in values
-                if v not in (None, '')
-            ]
+            values = [v for v in values if v not in (None, '')]
 
         if values:
             return values
@@ -807,7 +803,7 @@ class Track:
 
         # Shave marks from strings
         if isinstance(value, list):
-            value = [ shave_marks(v) for v in value ]
+            value = [shave_marks(v) for v in value]
         else:
             value = shave_marks(value)
 
@@ -904,7 +900,7 @@ class Track:
         maximum = settings.get_option("rating/maximum", 5)
         rating = min(rating, maximum)
         rating = max(0, rating)
-        rating = 100 * rating/maximum
+        rating = 100 * rating / maximum
         self.set_tags(__rating=rating)
         return rating
 
@@ -930,7 +926,9 @@ class Track:
         if isinstance(values, str):
             return values
         if isinstance(values, bytes):
-            logger.warning("join_values with bytes object is deprecated", stack_info=True)
+            logger.warning(
+                "join_values with bytes object is deprecated", stack_info=True
+            )
             return xl.unicode.to_unicode(values)
         return glue.join(map(xl.unicode.to_unicode, values))
 

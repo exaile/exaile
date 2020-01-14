@@ -191,7 +191,9 @@ class PlaylistAnalyzerPlugin:
         with closing(
             outfile.replace(None, False, Gio.FileCreateFlags.NONE, None)
         ) as fp:
-            fp.write(contents.encode('utf-8')) # Gio.FileOutputStream.write() needs bytes argument
+            fp.write(
+                contents.encode('utf-8')
+            )  # Gio.FileOutputStream.write() needs bytes argument
 
         # copy d3 to the destination
         # -> TODO: add checkbox to indicate whether it should write d3 there or not

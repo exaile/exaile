@@ -572,7 +572,9 @@ class DaapConnection:
                 # TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw(
-                        "__length", tr.atom.getAtom('astm') // 1000, notify_changed=False
+                        "__length",
+                        tr.atom.getAtom('astm') // 1000,
+                        notify_changed=False,
                     )
                 except Exception:
                     temp.set_tag_raw("__length", 0, notify_changed=False)

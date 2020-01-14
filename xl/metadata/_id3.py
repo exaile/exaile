@@ -92,7 +92,9 @@ class ID3Format(BaseFormat):
         elif t == 'USLT':  # Lyrics are stored in a single str object
             for value in field:
                 ret.append(value.text)
-        elif t == 'WOAR':  # URLs are stored in url field instead of text field (as a single str object)
+        elif (
+            t == 'WOAR'
+        ):  # URLs are stored in url field instead of text field (as a single str object)
             for value in field:
                 ret.append(value.url.replace('\n', '').replace('\r', ''))
         elif t == 'APIC':
@@ -107,10 +109,7 @@ class ID3Format(BaseFormat):
             for value in field:
                 try:
                     ret.extend(
-                        [
-                            x.replace('\n', '').replace('\r', '')
-                            for x in value.text
-                        ]
+                        [x.replace('\n', '').replace('\r', '') for x in value.text]
                     )
                 except Exception:
                     pass

@@ -44,9 +44,13 @@ def get_current_version():
     import subprocess
 
     try:
-        return subprocess.check_output(
-            ['git', 'describe', '--tags', '--abbrev=0'], stderr=subprocess.DEVNULL
-        ).strip().decode('utf-8')
+        return (
+            subprocess.check_output(
+                ['git', 'describe', '--tags', '--abbrev=0'], stderr=subprocess.DEVNULL
+            )
+            .strip()
+            .decode('utf-8')
+        )
     except (subprocess.CalledProcessError, OSError):
         return None
 
@@ -60,9 +64,13 @@ def get_current_revision():
     import subprocess
 
     try:
-        return subprocess.check_output(
-            ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=subprocess.DEVNULL
-        ).strip().decode('utf-8')
+        return (
+            subprocess.check_output(
+                ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=subprocess.DEVNULL
+            )
+            .strip()
+            .decode('utf-8')
+        )
     except (subprocess.CalledProcessError, OSError):
         return None
 

@@ -247,9 +247,7 @@ class ExaileScrobbler:
                     track, track.get_tag_raw('__audioscrobbler_starttime'), playtime
                 )
 
-        track.set_tags(
-            __audioscrobbler_starttime=None, __audioscrobbler_playtime=None
-        )
+        track.set_tags(__audioscrobbler_starttime=None, __audioscrobbler_playtime=None)
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size

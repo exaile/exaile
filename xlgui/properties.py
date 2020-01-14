@@ -1066,8 +1066,8 @@ class TagImageField(Gtk.Box):
             gdk_pixbuf_save_func,
             None,
             mime['type'],
-            list(mime['options'].keys()), # must be a sequence (list)
-            list(mime['options'].values()), # must be a sequence (list)
+            list(mime['options'].keys()),  # must be a sequence (list)
+            list(mime['options'].values()),  # must be a sequence (list)
         )
 
         # Move to the beginning of the buffer to allow read operations

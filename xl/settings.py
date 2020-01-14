@@ -243,7 +243,11 @@ class SettingsManager(RawConfigParser):
         """
         for kind, type_ in (
             # bool is subclass of int so it must appear earlier
-            ('B', bool), ('I', int), ('F', float), ('L', list), ('D', dict)
+            ('B', bool),
+            ('I', int),
+            ('F', float),
+            ('L', list),
+            ('D', dict),
         ):
             if isinstance(value, type_):
                 return '%s: %r' % (kind, value)

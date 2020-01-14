@@ -47,9 +47,9 @@ class Test_MetadataCacher:
         timeout_id = 1
         self.mox.StubOutWithMock(GLib, 'timeout_add_seconds')
         self.mox.StubOutWithMock(GLib, 'source_remove')
-        GLib.timeout_add_seconds(
-            mox.IsA(int), mox.IsA(types.MethodType)
-        ).AndReturn(timeout_id)
+        GLib.timeout_add_seconds(mox.IsA(int), mox.IsA(types.MethodType)).AndReturn(
+            timeout_id
+        )
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -262,9 +262,13 @@ class TestTrack:
         if writeable_track.ext in ['aac', 'mp4']:
             from mutagen.mp4 import MP4Cover
 
-            newcover = CoverImage(None, None, 'image/jpeg', MP4Cover(random_str().encode('utf-8')))
+            newcover = CoverImage(
+                None, None, 'image/jpeg', MP4Cover(random_str().encode('utf-8'))
+            )
         else:
-            newcover = CoverImage(3, 'cover', 'image/jpeg', random_str().encode('utf-8'))
+            newcover = CoverImage(
+                3, 'cover', 'image/jpeg', random_str().encode('utf-8')
+            )
 
         tr = track.Track(writeable_track_name)
         assert tr.get_tag_raw('cover') is None

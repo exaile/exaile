@@ -372,9 +372,7 @@ class M3UConverter(FormatConverter):
 
                 stream.write(
                     '#EXTINF:{length},{title}\n{path}\n'.format(
-                        length=length,
-                        title=' - '.join(title),
-                        path=track_path,
+                        length=length, title=' - '.join(title), path=track_path,
                     )
                 )
 
@@ -1416,7 +1414,9 @@ class Playlist:
             :type reverse: boolean
         """
         data = zip(self.__tracks, self.__tracks.metadata)
-        data = trax.sort_tracks(tags, data, trackfunc=operator.itemgetter(0), reverse=reverse)
+        data = trax.sort_tracks(
+            tags, data, trackfunc=operator.itemgetter(0), reverse=reverse
+        )
         l = MetadataList()
         l.extend([x[0] for x in data])
         l.metadata = [x[1] for x in data]

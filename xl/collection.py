@@ -304,9 +304,7 @@ class Collection(trax.TrackDB):
 
         try:
             event.log_event(
-                'scan_progress_update',
-                self,
-                count / self.file_count * 100,
+                'scan_progress_update', self, count / self.file_count * 100,
             )
         except ZeroDivisionError:
             pass

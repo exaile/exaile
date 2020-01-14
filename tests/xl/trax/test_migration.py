@@ -1,20 +1,27 @@
-db_names = { 'dbm' : 'dbm.ndbm', 'gdbm' : 'dbm.gnu', 'dumbdbm' : 'dbm.dumb' } # Map of old db names to new module names
-available_dbs = set() # Set of available db's (old names)
+db_names = {
+    'dbm': 'dbm.ndbm',
+    'gdbm': 'dbm.gnu',
+    'dumbdbm': 'dbm.dumb',
+}  # Map of old db names to new module names
+available_dbs = set()  # Set of available db's (old names)
 
 try:
     import dbm.ndbm
+
     available_dbs.add('dbm')
 except ImportError:
     pass
 
 try:
     import dbm.gnu
+
     available_dbs.add('gdbm')
 except ImportError:
     pass
 
 try:
     import dbm.dumb
+
     available_dbs.add('dumbdbm')
 except ImportError:
     pass

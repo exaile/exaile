@@ -1091,12 +1091,14 @@ class AsyncLoader:
 
 class LowestStr(str):
     """String subclass that always sorts as the lowest value"""
+
     def __lt__(self, _):
         return True
 
 
 class HighestStr(str):
     """String subclass that always sorts as the highest value"""
+
     def __lt__(self, _):
         return False
 

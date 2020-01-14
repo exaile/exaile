@@ -184,9 +184,7 @@ class FilesPanel(panel.Panel):
         self.filter.connect(
             'activate',
             lambda *e: self.load_directory(
-                self.current,
-                history=False,
-                keyword=self.filter.get_text(),
+                self.current, history=False, keyword=self.filter.get_text(),
             ),
         )
 

@@ -362,7 +362,9 @@ def fade_in(main, exaile):
     logger.debug('fade_in() called.')
 
     # pull settings
-    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume', 0) / 100.0
+    temp_volume = (
+        settings.get_option('plugin/multialarmclock/fade_min_volume', 0) / 100.0
+    )
     fade_max_volume = (
         settings.get_option('plugin/multialarmclock/fade_max_volume', 100) / 100.0
     )

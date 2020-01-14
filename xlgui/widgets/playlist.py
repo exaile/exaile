@@ -1408,7 +1408,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             with guiutil.without_model(self):
-                if indexes and indexes == list(range(indexes[0], indexes[0] + len(indexes))):
+                if indexes and indexes == list(
+                    range(indexes[0], indexes[0] + len(indexes))
+                ):
                     del self.playlist[indexes[0] : indexes[0] + len(indexes)]
                 else:
                     for i in indexes[::-1]:

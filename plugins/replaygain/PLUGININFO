@@ -1,4 +1,4 @@
-Version='4.0.0'
+Version='4.0.2'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('ReplayGain')
 Description=_('Enables ReplayGain support')

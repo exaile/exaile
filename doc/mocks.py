@@ -18,6 +18,10 @@ class Mock:
     def __call__(self, *args, **kwargs):
         return Mock()
 
+    # Fix for python 3.7+ (issue #667)
+    def __mro_entries__ (self, bases):
+        return ()
+
     @classmethod
     def __getattr__(cls, name):
         if name in ('__file__', '__path__'):

@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import imp
 import importlib.util
 import inspect
 import logging
@@ -266,26 +265,6 @@ class PluginsManager:
                     return True
 
         return False
-
-    def get_plugin_default_preferences(self, pluginname):
-        """
-            Returns the default preferences for a plugin
-        """
-        preflist = {}
-        path = self.__findplugin(pluginname)
-        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
-        try:
-            preferences_pane = plugin.get_preferences_pane()
-            for c in dir(preferences_pane):
-                attr = getattr(preferences_pane, c)
-                if inspect.isclass(attr):
-                    try:
-                        preflist[attr.name] = attr.default
-                    except AttributeError:
-                        pass
-        except AttributeError:
-            pass
-        return preflist
 
     def save_enabled(self):
         if self.load:

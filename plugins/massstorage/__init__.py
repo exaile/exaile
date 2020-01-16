@@ -60,9 +60,7 @@ class MassStorageDevice(Device):
 
     def connect(self):
         self.mountpoints = [
-            str(x)
-            for x in self._mountpoints
-            if str(x) != "" and os.path.exists(str(x))
+            str(x) for x in self._mountpoints if str(x) != "" and os.path.exists(str(x))
         ]
         if self.mountpoints == []:
             raise IOError("Device is not mounted.")

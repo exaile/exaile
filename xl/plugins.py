@@ -25,6 +25,7 @@
 # from your version.
 
 import imp
+import importlib.util
 import inspect
 import logging
 import os
@@ -76,11 +77,22 @@ class PluginsManager:
         path = self.__findplugin(pluginname)
         if path is None:
             return False
-        sys.path.insert(0, path)
-        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
+
+        spec = importlib.util.spec_from_file_location(
+            pluginname, os.path.join(path, '__init__.py')
+        )
+        plugin = importlib.util.module_from_spec(spec)
+        # We need to temporarily add the plugin to sys.modules because otherwise the loader will fail to exec_module() if the plugin uses relative imports.
+        if pluginname in sys.modules:
+            raise InvalidPluginError(
+                _('Plugin is already loaded or has a conflicting name.')
+            )
+        sys.modules[pluginname] = plugin
+        spec.loader.exec_module(plugin)
+        sys.modules[pluginname] = None
+
         if hasattr(plugin, 'plugin_class'):
             plugin = plugin.plugin_class()
-        sys.path = sys.path[1:]
         self.loaded_plugins[pluginname] = plugin
         return plugin
 

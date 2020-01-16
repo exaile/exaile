@@ -31,7 +31,6 @@ in playlists as well as methods to import and export from various file formats.
 
 from gi.repository import Gio
 
-import cgi
 from collections import deque
 from datetime import datetime, timedelta
 import logging
@@ -1529,7 +1528,7 @@ class Playlist:
             if not track:
                 continue
             if not track.is_local() and meta is not None:
-                meta = cgi.parse_qs(meta)
+                meta = urllib.parse.parse_qs(meta)
                 for k, v in meta.items():
                     track.set_tag_raw(k, v[0], notify_changed=False)
 

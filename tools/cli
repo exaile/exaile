@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python -i ./exaile.py $*
+python3 -i ./exaile.py $*

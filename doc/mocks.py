@@ -78,7 +78,7 @@ class Mock:
             return Mock()
 
 MOCK_MODULES = [
-    'bsddb',
+    'bsddb3',
     'cairo',
 
     'dbus',

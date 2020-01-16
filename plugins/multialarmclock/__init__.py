@@ -28,16 +28,10 @@ import logging
 from . import macprefs
 from .cellrenderers import CellRendererDays
 
-# We want to use json to write alarms to files, cuz it's prettier
-# if we're on python 2.5 it's not available...
-try:
-    import json
+import json
 
-    _write = lambda x: json.dumps(x, indent=2)
-    _read = json.loads
-except ImportError:
-    _write = str
-    _read = lambda x: eval(x, {'__builtin__': None})
+write = lambda x: json.dumps(x, indent=2)
+read = json.loads
 
 logger = logging.getLogger(__name__)
 

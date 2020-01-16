@@ -114,10 +114,7 @@ class IcecastRadioStation(RadioStation):
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
             hostinfo = urllib.parse.urlparse(self.genre_url)
-            try:
-                c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
-            except TypeError:  # python 2.5 doesnt have timeout=
-                c = http.client.HTTPConnection(hostinfo.netloc)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
@@ -207,10 +204,7 @@ class IcecastRadioStation(RadioStation):
         thisPage = -1
         nextPage = 0
         set_status(_('Contacting Icecast server...'))
-        try:
-            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
-        except TypeError:  # python 2.5 doesnt have timeout=
-            c = http.client.HTTPConnection(hostinfo.netloc)
+        c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         while thisPage < nextPage:
             thisPage += 1
             try:

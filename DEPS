@@ -11,17 +11,25 @@ Core dependencies
 
 Essential:
 
-* python (== 2.7.x)
-* bsddb (distributed with stdlib) or bsddb3
-* gtk+ >= 3.10
-* gstreamer >= 1.4
-* gstreamer-plugins-base >= 1.6
-* gstreamer-plugins-good >= 1.4
-* mutagen (>= 1.10)
-* dbus-python
-* pygobject (>= 3.13.2)
-* python-cairo
-* GI typelib files for GTK+, GStreamer (including gstreamer-plugins-base) and cairo (python-gi-cairo on Ubuntu)
+* python3 >= 3.6
+* python3-bsddb3
+* gtk+ >= 3.22
+* gstreamer (>= 1.14)
+* gstreamer-plugins-base (>= 1.14)
+* gstreamer-plugins-good (>= 1.14)
+* python3-mutagen (>= 1.38)
+* python3-dbus
+* GI typelib files for GTK+, GStreamer (including gstreamer-plugins-base) and cairo and their python bindings
+  * Packages on Debian and Ubuntu:
+    * python3-gi >= 3.22
+    * python3-gi-cairo
+    * gir1.2-gtk-3.0
+    * gir1.2-gstreamer-1.0
+    * gir1.2-gst-plugins-base-1.0
+  * Packages on Fedora:
+    * python3-cairo
+    * python3-gobject >= 3.22
+    * python3-gstreamer1
 
 Optional dependencies
 ---------------------
@@ -40,33 +48,33 @@ Device detection:
 
 * udisks2
 
-CD info:
+CD info: (TODO: This is currently broken on python3, see #608 and #652)
 
 * cddb (python2), from http://cddb-py.sourceforge.net/
 
 DAAP plugins (daapserver and daapclient):
 
-* spydaap (python2), e.g. from https://github.com/exaile/spydaap or https://pypi.org/project/spydaap/
+* spydaap (python3), e.g. from https://github.com/exaile/spydaap or https://pypi.org/project/spydaap/
 
 Last.FM integration:
 
-* pylast (python2)
+* pylast (python3)
 
 Lyrics from lyricsmania.com (lyricsmania):
 
-* lxml (python2)
+* lxml (python3)
 
 Lyrics from lyrics.wikia.com (lyricwiki):
 
-* Beautifulsoup4 (python2)
+* Beautifulsoup4 (python3)
 
 Musicbrainz covers:
 
-* musicbrainzngs (python2)
+* musicbrainzngs (python3)
 
 Podcast plugin:
 
-* feedparser (python2)
+* feedparser (python3)
 
 Wikipedia info:
 
@@ -98,6 +106,6 @@ BPM Counter plugin:
 
 Test dependencies:
 
-* mox3 (python2)
-* pytest (python2)
+* mox3 (python3)
+* pytest (python3)
 

@@ -48,7 +48,7 @@ builddir:
 
 compile:
 	$(PYTHON3_CMD) -m compileall -q xl xlgui
-	-$(PYTHON3_CMD) -O -m compileall -q xl xlgui
+	$(PYTHON3_CMD) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:

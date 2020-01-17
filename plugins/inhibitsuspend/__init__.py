@@ -80,7 +80,7 @@ class SuspendInhibit:
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
         # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
-        elif session is '' and xdg_session is '':
+        elif session == '' and xdg_session == '':
             logger.warning(
                 'Could not detect Desktop Session, will try default \
                     Power Manager then Gnome'

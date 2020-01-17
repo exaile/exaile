@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import imp
+import importlib.util
 import inspect
 import logging
 import os
@@ -76,11 +76,22 @@ class PluginsManager:
         path = self.__findplugin(pluginname)
         if path is None:
             return False
-        sys.path.insert(0, path)
-        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
+
+        spec = importlib.util.spec_from_file_location(
+            pluginname, os.path.join(path, '__init__.py')
+        )
+        plugin = importlib.util.module_from_spec(spec)
+        # We need to temporarily add the plugin to sys.modules because otherwise the loader will fail to exec_module() if the plugin uses relative imports.
+        if pluginname in sys.modules:
+            raise InvalidPluginError(
+                _('Plugin is already loaded or has a conflicting name.')
+            )
+        sys.modules[pluginname] = plugin
+        spec.loader.exec_module(plugin)
+        sys.modules[pluginname] = None
+
         if hasattr(plugin, 'plugin_class'):
             plugin = plugin.plugin_class()
-        sys.path = sys.path[1:]
         self.loaded_plugins[pluginname] = plugin
         return plugin
 
@@ -200,15 +211,15 @@ class PluginsManager:
 
     def get_plugin_info(self, pluginname):
         path = os.path.join(self.__findplugin(pluginname), 'PLUGININFO')
-        f = open(path)
         infodict = {}
-        for line in f:
-            try:
-                key, val = line.split("=", 1)
-                # restricted eval - no bult-in funcs. marginally more secure.
-                infodict[key] = eval(val, {'__builtins__': None, '_': _}, {})
-            except ValueError:
-                pass  # this happens on blank lines
+        with open(path) as f:
+            for line in f:
+                try:
+                    key, val = line.split("=", 1)
+                    # restricted eval - no bult-in funcs. marginally more secure.
+                    infodict[key] = eval(val, {'__builtins__': None, '_': _}, {})
+                except ValueError:
+                    pass  # this happens on blank lines
         return infodict
 
     def is_compatible(self, info):
@@ -254,26 +265,6 @@ class PluginsManager:
                     return True
 
         return False
-
-    def get_plugin_default_preferences(self, pluginname):
-        """
-            Returns the default preferences for a plugin
-        """
-        preflist = {}
-        path = self.__findplugin(pluginname)
-        plugin = imp.load_source(pluginname, os.path.join(path, '__init__.py'))
-        try:
-            preferences_pane = plugin.get_preferences_pane()
-            for c in dir(preferences_pane):
-                attr = getattr(preferences_pane, c)
-                if inspect.isclass(attr):
-                    try:
-                        preflist[attr.name] = attr.default
-                    except AttributeError:
-                        pass
-        except AttributeError:
-            pass
-        return preflist
 
     def save_enabled(self):
         if self.load:

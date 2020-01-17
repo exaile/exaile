@@ -566,7 +566,7 @@ class DaapConnection:
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
                     except Exception:
-                        if field is 'tracknumber':
+                        if field == 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 
                 # TODO: convert year (asyr) here as well, what's the formula?

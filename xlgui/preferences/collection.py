@@ -34,7 +34,7 @@ def _get_default_strip_list():
     # If this practice is not common in your locale, simply
     # translate this to string with single space.
     default_strip_list = _("the")
-    return [v.lower() for v in default_strip_list.split(' ') if v is not '']
+    return [v.lower() for v in default_strip_list.split(' ') if v]
 
 
 class CollectionStripArtistPreference(widgets.ListPreference):
@@ -51,7 +51,7 @@ class CollectionStripArtistPreference(widgets.ListPreference):
             because we don't need shlex parsing. We actually
             want values like "l'" here.
         """
-        values = [v.lower() for v in self.widget.get_text().split(' ') if v is not '']
+        values = [v.lower() for v in self.widget.get_text().split(' ') if v]
         return values
 
     def _populate_popup_cb(self, entry, menu):

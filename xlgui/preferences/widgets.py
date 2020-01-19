@@ -27,7 +27,7 @@
 import hashlib
 import logging
 import os
-from typing import Any
+from typing import Any, List
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -246,7 +246,7 @@ class MultiConditional:
         Allows for reactions on changes of multiple preference items
     """
 
-    condition_preference_names = []
+    condition_preference_names: List[str] = []
     condition_widgets = {}
 
     def __init__(self):

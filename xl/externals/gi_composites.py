@@ -19,6 +19,7 @@
 from os.path import abspath, join
 
 import inspect
+from typing import List
 import warnings
 
 from gi.repository import Gio
@@ -152,7 +153,7 @@ class _Child:
         is called
     '''
 
-    __slots__ = []
+    __slots__: List[str] = []
 
     @staticmethod
     def widgets(count):

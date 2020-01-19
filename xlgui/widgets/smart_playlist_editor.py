@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Dict
+
 from gi.repository import Gtk
 
 from xl import main, playlist, settings
@@ -254,7 +256,7 @@ _NMAP = {
     N_('Playlist'): '__playlist',  # not a real tag
 }
 
-_REV_NMAP = {}
+_REV_NMAP: Dict[str, str] = {}
 
 
 # update the tables based on the globally stored tag list

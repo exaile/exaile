@@ -33,6 +33,7 @@ from gi.repository import Pango
 
 import logging
 import sys
+from typing import Any, Dict, Tuple
 
 from xl.nls import gettext as _
 from xl.playlist import Playlist, is_valid_playlist, import_playlist
@@ -826,7 +827,7 @@ class PlaylistPage(PlaylistPageBase):
 
 
 class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
-    __gsignals__ = {}
+    __gsignals__: Dict[str, Tuple[GObject.SignalFlags, Any, Any]] = {}
 
     def __init__(self, playlist, player):
         AutoScrollTreeView.__init__(self)

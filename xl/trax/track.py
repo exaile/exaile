@@ -29,7 +29,7 @@ from copy import deepcopy
 import logging
 import re
 import time
-from typing import List, Union
+from typing import List, MutableMapping, Union
 import unicodedata
 import weakref
 
@@ -137,7 +137,7 @@ class Track:
     # save a little memory this way
     __slots__ = ["__tags", "_scan_valid", "_dirty", "__weakref__", "_init"]
     # this is used to enforce the one-track-per-uri rule
-    __tracksdict = weakref.WeakValueDictionary()
+    __tracksdict: MutableMapping = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
     # seconds) (see _the_cuts_cb)
     __the_cuts = settings.get_option('collection/strip_list', [])

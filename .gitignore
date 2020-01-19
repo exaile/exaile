@@ -4,6 +4,7 @@
 *.ui#
 
 /tests/.cache
+/.mypy_cache
 
 /po/*/
 /po/POTFILES.in

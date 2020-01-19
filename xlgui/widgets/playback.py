@@ -39,6 +39,7 @@ from xlgui.widgets import menu
 from xlgui.guiutil import GtkTemplate
 
 import logging
+from enum import IntEnum
 
 logger = logging.getLogger(__name__)
 
@@ -178,14 +179,17 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         self.reset()
 
 
-class Anchor(int):
+class Anchor(IntEnum):
     __gtype__ = GObject.TYPE_INT
-
-
-for i, a in enumerate(
-    'CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()
-):
-    setattr(Anchor, a, Anchor(i))
+    CENTER = 0
+    NORTH = 1
+    NORTH_WEST = 2
+    NORTH_EAST = 3
+    SOUTH = 4
+    SOUTH_WEST = 5
+    SOUTH_EAST = 6
+    WEST = 7
+    EAST = 8
 
 
 class Marker(GObject.GObject):

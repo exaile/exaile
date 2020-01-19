@@ -36,7 +36,7 @@ import logging
 import hashlib
 import os
 import pickle
-from typing import Optional
+from typing import Optional, List
 
 from xl.nls import gettext as _
 import xl.unicode
@@ -567,7 +567,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
     title = _('Local file')
     uri_types = ['file', 'smb', 'sftp', 'nfs']
     extensions = ['.png', '.jpg', '.jpeg', '.gif']
-    preferred_names = []
+    preferred_names: List[str] = []
     fixed = True
     fixed_priority = 31
 

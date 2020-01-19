@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Optional
+
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -464,7 +466,7 @@ class NotebookAction:
         A custom action to be placed to the left or right of tabs in a notebook
     """
 
-    name = None
+    name: Optional[str] = None
     position = Gtk.PackType.END
 
     def __init__(self, notebook):

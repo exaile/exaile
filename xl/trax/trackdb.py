@@ -383,29 +383,5 @@ class TrackDB:
     def get_tracks(self):
         return list(self)
 
-    def search(self, query, sort_fields=[], return_lim=-1, tracks=None, reverse=False):
-        """
-            DEPRECATED, DO NOT USE IN NEW CODE
-        """
-        import warnings
-
-        warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
-        tracks = [
-            x.track
-            for x in search_tracks_from_string(
-                self,
-                query,
-                case_sensitive=False,
-                keyword_tags=['artist', 'albumartist', 'album', 'title'],
-            )
-        ]
-
-        if sort_fields:
-            tracks = sort_tracks(sort_fields, tracks, reverse)
-        if return_lim > 0:
-            tracks = tracks[:return_lim]
-
-        return tracks
-
 
 # vim: et sts=4 sw=4

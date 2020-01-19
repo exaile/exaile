@@ -1471,15 +1471,16 @@ class Playlist:
         # note - this is not guaranteed to fire events when it sets
         # attributes. It is intended ONLY for initial setup, not for
         # reloading a playlist inline.
-        f = None
         for loc in [location, location + ".new"]:
             try:
-                f = open(loc, 'r')
+                with open(loc, 'r') as fd:
+                    return self.__load_from_location_internal(fd)
                 break
             except Exception:
                 pass
-        if not f:
-            return
+        return
+
+    def __load_from_location_internal(self, f):
         locs = []
         while True:
             line = f.readline()
@@ -1510,7 +1511,6 @@ class Playlist:
             logger.warning(
                 "Playlist created on a newer Exaile version, some attributes may not be handled."
             )
-        f.close()
 
         trs = []
 
@@ -2209,15 +2209,15 @@ class PlaylistManager:
             used to restore their order
         """
         if os.path.exists(location):
-            f = open(location + ".new", "w")
+            destination = location + ".new"
         else:
-            f = open(location, "w")
-        for playlist in self.playlists:
-            f.write(playlist)
-            f.write('\n')
+            destination = location
+        with open(destination, 'w') as f:
+            for playlist in self.playlists:
+                f.write(playlist)
+                f.write('\n')
+            f.write("EOF\n")
 
-        f.write("EOF\n")
-        f.close()
         if os.path.exists(location + ".new"):
             os.remove(location)
             os.rename(location + ".new", location)
@@ -2229,22 +2229,21 @@ class PlaylistManager:
 
             @return: a list of the playlist names
         """
-        f = None
         for loc in [location, location + ".new"]:
             try:
-                f = open(loc, 'r')
-                break
+                with open(loc, 'r') as fd:
+                    return self.__load_from_location_internal(fd)
             except Exception:
                 pass
-        if f is None:
-            return []
+        return None
+
+    def __load_from_location_internal(self, fd):
         playlists = []
         while True:
-            line = f.readline()
+            line = fd.readline()
             if line == "EOF\n" or line == "":
                 break
             playlists.append(line[:-1])
-        f.close()
         return playlists
 
 

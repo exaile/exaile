@@ -42,14 +42,12 @@ class WavFormat(BaseFormat):
         opener = type_map[ext]
 
         try:
-            fp = open(self.loc, 'rb')
+            with open(self.loc, 'rb') as fp:
+                try:
+                    f = opener.open(fp)
+                    length = f.getnframes() // f.getframerate()
+                    self.mutagen = {'__bitrate': -1, '__length': length}
+                except (IOError, KeyError):
+                    self.mutagen = {'__bitrate': -1, '__length': -1}
         except IOError:
             raise NotReadable
-
-        try:
-            with fp:
-                f = opener.open(fp)
-                length = f.getnframes() // f.getframerate()
-            self.mutagen = {'__bitrate': -1, '__length': length}
-        except (IOError, KeyError):
-            self.mutagen = {'__bitrate': -1, '__length': -1}

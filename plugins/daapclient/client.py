@@ -267,14 +267,13 @@ class DAAPTrack:
     def save(self, filename):
         """saves the file to 'filename' on the local machine"""
         log.debug("saving to '%s'", filename)
-        mp3 = open(filename, "wb")
-        r = self.request()
-        # doing this all on one lump seems to explode a lot. TODO - what
-        # is a good block size here?
-        data = r.read(32 * 1024)
-        while data:
-            mp3.write(data)
+        with open(filename, "wb") as mp3:
+            r = self.request()
+            # doing this all on one lump seems to explode a lot. TODO - what
+            # is a good block size here?
             data = r.read(32 * 1024)
-        mp3.close()
-        r.close()
+            while data:
+                mp3.write(data)
+                data = r.read(32 * 1024)
+            r.close()
         log.debug("Done")

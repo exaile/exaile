@@ -48,12 +48,13 @@ class ModFormat(BaseFormat):
 
     def load(self):
         if modplug:
-            data = open(self.loc, "rb").read()
-            f = modplug.ModPlug_Load(data, len(data))
-            if f:
-                name = modplug.ModPlug_GetName(f) or os.path.split(self.loc)[-1]
-                length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
-                self.mutagen = {'title': name, '__length': length}
+            with open(self.loc, "rb") as mod_file:
+                data = mod_file.read()
+                f = modplug.ModPlug_Load(data, len(data))
+                if f:
+                    name = modplug.ModPlug_GetName(f) or os.path.split(self.loc)[-1]
+                    length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
+                    self.mutagen = {'title': name, '__length': length}
         else:
             self.mutagen = {}
 

@@ -67,14 +67,12 @@ class MoodbarGenerator:
 
                 cmd = (b'moodbar', b'-o', tmppath, path)
                 subprocess.check_call(cmd)
-                f = open(tmppath, 'rb')
-                data = f.read()
+                with open(tmppath, 'rb') as f:
+                    data = f.read()
             except Exception as e:
                 # TODO propagate this error to UI, make sure to install required GStreamer plugins
                 raise MoodbarGeneratorError(e)
             finally:
-                if f:
-                    f.close()
                 if tmppath and os.path.exists(tmppath):
                     os.remove(tmppath)
         if callback:

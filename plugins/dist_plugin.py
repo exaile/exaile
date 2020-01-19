@@ -81,17 +81,16 @@ for dir in args:
         print("ERROR: no valid info for %s, skipping..." % dir)
         continue
 
-    f = open(os.path.join(dir, "PLUGININFO"))
-    info = {}
-    for line in f:
-        try:
-            key, val = line.split("=", 1)
-        except ValueError:
-            continue
-        key = key.strip()
-        val = eval(val)
-        info[key] = val
-    f.close()
+    with open(os.path.join(dir, "PLUGININFO")) as f:
+        info = {}
+        for line in f:
+            try:
+                key, val = line.split("=", 1)
+            except ValueError:
+                continue
+            key = key.strip()
+            val = eval(val)
+            info[key] = val
 
     if "Version" not in info:
         print("ERROR: couldn't get version for %s, skipping..." % dir)

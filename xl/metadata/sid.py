@@ -32,14 +32,13 @@ class SidFormat(BaseFormat):
     writable = False
 
     def load(self):
-        f = open(self.loc, "rb")
-        f.seek(22)
-        data = {}
-        data['title'] = f.read(32).replace(chr(0), "")
-        data['artist'] = f.read(32).replace(chr(0), "")
-        data['copyright'] = f.read(32).replace(chr(0), "")
-        f.close()
-        self.mutagen = data
+        with open(self.loc, "rb") as f:
+            f.seek(22)
+            data = {}
+            data['title'] = f.read(32).replace(chr(0), "")
+            data['artist'] = f.read(32).replace(chr(0), "")
+            data['copyright'] = f.read(32).replace(chr(0), "")
+            self.mutagen = data
 
     def get_length(self):
         return -1

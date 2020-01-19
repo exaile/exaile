@@ -259,16 +259,14 @@ class ExaileScrobbler:
 
     def save_cache(self):
         cache = scrobbler.SUBMIT_CACHE
-        f = open(self.cachefile, 'wb')
-        pickle.dump(cache, f)
-        f.close()
+        with open(self.cachefile, 'wb') as f:
+            pickle.dump(cache, f)
 
     def load_cache(self):
         try:
-            f = open(self.cachefile, 'rb')
-            cache = pickle.load(f)
-            f.close()
-            scrobbler.SUBMIT_CACHE = cache
+            with open(self.cachefile, 'rb') as f:
+                cache = pickle.load(f)
+                scrobbler.SUBMIT_CACHE = cache
         except Exception:
             pass
 

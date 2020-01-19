@@ -2219,8 +2219,7 @@ class PlaylistManager:
             f.write("EOF\n")
 
         if os.path.exists(location + ".new"):
-            os.remove(location)
-            os.rename(location + ".new", location)
+            os.replace(location + ".new", location)
 
     def load_from_location(self, location):
         """

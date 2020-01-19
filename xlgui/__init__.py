@@ -138,7 +138,7 @@ class Main:
                 self.tray_icon = tray.TrayIcon(self.main)
             else:
                 settings.set_option('gui/use_tray', False)
-                logger.warn(
+                logger.warning(
                     "Tray icons are not supported on your platform. Disabling tray icon."
                 )
 
@@ -418,7 +418,7 @@ class Main:
             gi.require_version('GtkosxApplication', '1.0')
             from gi.repository import GtkosxApplication
         except (ValueError, ImportError):
-            logger.warn("importing GtkosxApplication failed, no native menus")
+            logger.warning("importing GtkosxApplication failed, no native menus")
         else:
             osx_app = GtkosxApplication.Application()
             # self.main.setup_osx(osx_app)

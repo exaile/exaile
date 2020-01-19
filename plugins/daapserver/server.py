@@ -171,7 +171,7 @@ class DaapServer:
 #                                         spydaap.port,
 #                                         stype="_daap._tcp")
 #    zeroconf.publish()
-#    logger.warn("Listening.")
+#    logger.warning("Listening.")
 #    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port),
 #                                 spydaap.server.makeDAAPHandlerClass(spydaap.server_name, cache, md_cache, container_cache))
 #
@@ -185,7 +185,7 @@ class DaapServer:
 #            pass
 #    except KeyboardInterrupt:
 #        httpd.force_stop()
-#    logger.warn("Shutting down.")
+#    logger.warning("Shutting down.")
 #    zeroconf.unpublish()
 
 # def main():

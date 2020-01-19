@@ -678,7 +678,7 @@ class AudioStream:
         elif message.type == Gst.MessageType.WARNING:
             # TODO there might be some useful warnings we ignore for now.
             gerror, debug_text = Gst.Message.parse_warning(message)
-            logger.warn(
+            logger.warning(
                 "Unhandled GStreamer warning received:\n\tGError: %s\n\tDebug text: %s",
                 gerror,
                 debug_text,

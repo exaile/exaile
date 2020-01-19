@@ -134,7 +134,9 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
     def on_provider_added(self, provider):
 
         if provider.name is None:
-            logger.warn("Ignoring improperly initialized panel provider: %s", provider)
+            logger.warning(
+                "Ignoring improperly initialized panel provider: %s", provider
+            )
             return
 
         panel = provider.get_panel()

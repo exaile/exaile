@@ -5,6 +5,7 @@ backend)
 import urllib.parse
 import urllib.request
 import logging
+from typing import Optional
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
@@ -12,12 +13,12 @@ from hashlib import md5
 logger = logging.getLogger(__name__)
 
 SESSION_ID = None
-INITIAL_URL = None
+INITIAL_URL: Optional[str] = None
 POST_URL = None
 POST_URL = None
 NOW_URL = None
 HARD_FAILS = 0
-LAST_HS = None  # Last handshake time
+LAST_HS: Optional[datetime] = None  # Last handshake time
 HS_DELAY = 0  # wait this many seconds until next handshake
 SUBMIT_CACHE = []
 MAX_CACHE = 5  # keep only this many songs in the cache

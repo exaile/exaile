@@ -103,7 +103,7 @@ def get_tracks_from_uri(uri):
 def sort_tracks(
     fields: Iterable[str],
     items: Iterable[T],
-    trackfunc: Optional[Callable[[T], Track]] = None,
+    trackfunc: Optional[Callable[[Track], Track]] = None,
     reverse: bool = False,
     artist_compilations: bool = False,
 ) -> List[T]:

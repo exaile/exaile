@@ -40,7 +40,7 @@ import pickle
 import random
 import re
 import time
-from typing import NamedTuple
+from typing import Callable, List, NamedTuple, Optional, Union
 import urllib.parse
 import urllib.request
 
@@ -183,8 +183,8 @@ class FormatConverter:
     """
 
     title = _('Playlist')
-    content_types = []
-    file_extensions = property(lambda self: [self.name])
+    content_types: List[str] = []
+    file_extensions: Union[List[str], property] = property(lambda self: [self.name])
 
     def __init__(self, name):
         self.name = name
@@ -291,7 +291,10 @@ class FormatConverter:
         return track_uri
 
     def get_track_export_path(
-        self, playlist_path: str, track_path: str, options: PlaylistExportOptions
+        self,
+        playlist_path: str,
+        track_path: str,
+        options: Optional[PlaylistExportOptions],
     ):
         """
             Retrieves the export path of a track,

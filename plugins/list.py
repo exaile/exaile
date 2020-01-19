@@ -1,13 +1,14 @@
 import os
 import sys
+from typing import List
 
 # - good = works
 #   - main = useful
 #   - extra = not very useful
 # - bad = doesn't work
 
-EXTRA = ['helloworld']
-BAD = []
+EXTRA: List[str] = ['helloworld']
+BAD: List[str] = []
 
 
 def scan():

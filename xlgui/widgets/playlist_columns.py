@@ -32,6 +32,7 @@ from gi.repository import Pango
 
 import logging
 import time
+from typing import Any, Type
 
 from xl import common, event, player, settings, providers
 from xl.common import classproperty
@@ -53,7 +54,7 @@ class Column(Gtk.TreeViewColumn):
     formatter = classproperty(lambda c: TrackFormatter('$%s' % c.name))
     size = 10  # default size
     autoexpand = False  # whether to expand to fit space in Autosize mode
-    datatype = str
+    datatype: Type[Any] = str
     dataproperty = 'text'
     cellproperties = {}
 

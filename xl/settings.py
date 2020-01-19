@@ -32,6 +32,7 @@ import ast
 from configparser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
+import stat
 import sys
 from typing import ClassVar
 
@@ -305,14 +306,13 @@ class SettingsManager(RawConfigParser):
         logger.debug("Saving settings...")
 
         with open(self.location + ".new", 'w') as f:
-            self.write(f)
-
             try:
-                # make it readable by current user only, to protect private data
-                os.fchmod(f.fileno(), 384)
+                # make it readable by current user only
+                os.fchmod(f.fileno(), stat.S_IRUSR | stat.S_IWUSR)
             except Exception:
-                pass  # fail gracefully, eg if on windows
+                pass  # fail gracefully, e.g. on Windows where fchmod is not supported
 
+            self.write(f)
             f.flush()
 
         try:

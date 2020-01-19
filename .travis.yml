@@ -50,6 +50,7 @@ jobs:
 
 notifications:
   irc:
+    if: fork = false
     channels:
     - "chat.freenode.net#exaile"
     use_notice: false

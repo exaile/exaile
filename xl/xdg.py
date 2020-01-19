@@ -26,6 +26,8 @@
 
 import os
 import sys
+from typing import List
+
 from gi.repository import GLib
 
 # We need the local hack for OSX bundled apps, so we depend on the main script
@@ -33,6 +35,10 @@ from gi.repository import GLib
 # absolute path
 # exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 exaile_dir = os.environ['EXAILE_DIR']
+local_hack = False
+# Detect if Exaile is not installed.
+if os.path.exists(os.path.join(exaile_dir, 'data')):
+    local_hack = True
 
 homedir = os.path.expanduser("~")
 lastdir = homedir
@@ -51,37 +57,51 @@ if sys.platform == 'win32':
 else:
     logs_home = os.path.join(cache_home, "logs")
 
-data_dirs = os.getenv("XDG_DATA_DIRS")
-if data_dirs is None:
-    if sys.platform == 'win32':
-        data_dirs = [exaile_dir]
+
+def __init_data_dirs() -> List[str]:
+    data_dirs_env = os.getenv("XDG_DATA_DIRS")
+    if data_dirs_env is None:
+        if sys.platform == 'win32':
+            data_dirs_list = [exaile_dir]
+        else:
+            data_dirs_list = ["/usr/local/share/exaile", "/usr/share/exaile"]
     else:
-        data_dirs = ["/usr/local/share/exaile", "/usr/share/exaile"]
-else:
-    data_dirs = [os.path.join(d, "exaile") for d in data_dirs.split(os.pathsep)]
+        data_dirs_list = [
+            os.path.join(d, "exaile") for d in data_dirs_env.split(os.pathsep)
+        ]
 
-config_dirs = os.getenv("XDG_CONFIG_DIRS")
-if config_dirs is None:
-    if sys.platform == 'win32':
-        config_dirs = [exaile_dir]
+    if local_hack:
+        # Insert the "data" directory to data_dirs_list.
+        data_dir = os.path.join(exaile_dir, 'data')
+        data_dirs_list.insert(0, data_dir)
+
+    data_dirs_list.insert(0, data_home)
+    return data_dirs_list
+
+
+data_dirs = __init_data_dirs()
+
+
+def __init_config_dirs() -> List[str]:
+    config_dirs_env = os.getenv("XDG_CONFIG_DIRS")
+    if config_dirs_env is None:
+        if sys.platform == 'win32':
+            config_dirs_list = [exaile_dir]
+        else:
+            config_dirs_list = ["/usr/local/etc/xdg/exaile", "/etc/xdg/exaile"]
     else:
-        config_dirs = ["/usr/local/etc/xdg/exaile", "/etc/xdg/exaile"]
-else:
-    config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(os.pathsep)]
+        config_dirs_list = [
+            os.path.join(d, "exaile") for d in config_dirs_env.split(os.pathsep)
+        ]
 
-local_hack = False
-# Detect if Exaile is not installed.
-if os.path.exists(os.path.join(exaile_dir, 'data')):
-    local_hack = True
-    # Insert the "data" directory to data_dirs.
-    data_dir = os.path.join(exaile_dir, 'data')
-    data_dirs.insert(0, data_dir)
-    # insert the config dir
-    config_dir = os.path.join(exaile_dir, 'data', 'config')
-    config_dirs.insert(0, config_dir)
+    if local_hack:
+        # insert the config dir
+        config_dir = os.path.join(exaile_dir, 'data', 'config')
+        config_dirs_list.insert(0, config_dir)
+    return config_dirs_list
 
 
-data_dirs.insert(0, data_home)
+config_dirs = __init_config_dirs()
 
 
 def get_config_dir():

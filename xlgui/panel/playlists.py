@@ -927,8 +927,6 @@ class PlaylistDragTreeView(DragTreeView):
         else:
             return [self.get_selected_track()]
 
-        return None
-
     def get_selected_page(self, raw=False):
         """
             Retrieves the currently selected playlist in

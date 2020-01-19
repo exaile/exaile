@@ -33,7 +33,6 @@ def enable(exaile):
         providers.register('lyrics', LyricsMania(exaile))
     else:
         raise NotImplementedError('LXML is not available.')
-        return False
 
 
 def disable(exaile):

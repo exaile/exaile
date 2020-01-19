@@ -152,7 +152,6 @@ def enable(exaile):
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:
         raise NotImplementedError('Streamripper is not available.')
-        return False
 
     if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')

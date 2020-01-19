@@ -19,7 +19,6 @@ def enable(exaile):
         providers.register('lyrics', LyricWiki(exaile))
     else:
         raise NotImplementedError('BeautifulSoup is not available.')
-        return False
 
 
 def disable(exaile):

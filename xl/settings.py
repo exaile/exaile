@@ -318,7 +318,7 @@ class SettingsManager(RawConfigParser):
         try:
             os.rename(self.location, self.location + ".old")
         except Exception:
-            pass  # if it doesn'texist we don't care
+            pass  # if it doesn't exist we don't care
 
         os.rename(self.location + ".new", self.location)
 

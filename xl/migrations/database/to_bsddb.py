@@ -42,7 +42,7 @@ def migrate(path):
     try:
         old_shelf = shelve.open(path, 'r', protocol=common.PICKLE_PROTOCOL)
     except Exception:
-        logger.warn("%s may be corrupt", path)
+        logger.warning("%s may be corrupt", path)
         raise
 
     db = common.bsddb.hashopen(bak_path, 'c')

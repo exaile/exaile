@@ -120,7 +120,7 @@ class OSDPlugin:
             # Setting opacity on Windows crashes with segfault,
             # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
             self.__options['use_alpha'] = False
-            LOGGER.warn(
+            LOGGER.warning(
                 "OSD: Disabling alpha channel because it is not supported on Windows."
             )
         else:
@@ -566,7 +566,7 @@ class OSDWindow(Gtk.Window):
             # does not support transparency
             visual = screen.get_system_visual()
             self.__options['use_alpha'] = False
-            LOGGER.warn(
+            LOGGER.warning(
                 "OSD: Disabling alpha channel because the Gtk+ "
                 "backend does not support it."
             )

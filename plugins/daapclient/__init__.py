@@ -805,7 +805,7 @@ class DaapClientPlugin:
                 logger.error('is avahi-daemon running?')
         else:
             avahi_interface = None
-            logger.warn(
+            logger.warning(
                 'AVAHI could not be imported, you will not see broadcast shares.'
             )
 

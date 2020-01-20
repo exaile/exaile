@@ -440,25 +440,6 @@ def create_argument_parser():
 class Exaile:
     _exaile = None
 
-    def __get_player(self):
-        raise DeprecationWarning(
-            'Using exaile.player is deprecated: ' 'import xl.player.PLAYER instead.'
-        )
-
-    def __get_queue(self):
-        raise DeprecationWarning(
-            'Using exaile.queue is deprecated: ' 'import xl.player.QUEUE instead.'
-        )
-
-    def __get_lyrics(self):
-        raise DeprecationWarning(
-            'Using exaile.lyrics is deprecated: ' 'import xl.lyrics.MANAGER instead.'
-        )
-
-    player = property(__get_player)
-    queue = property(__get_queue)
-    lyrics = property(__get_lyrics)
-
     def __init__(self):
         """
             Initializes Exaile.

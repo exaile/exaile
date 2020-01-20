@@ -291,20 +291,6 @@ class Track:
         """
         return self.__tags['__loc']
 
-    def local_file_name(self):
-        """
-            If the file is accessible on the local filesystem, returns a
-            standard path to it (e.g. "/home/foo/bar"), otherwise,
-            returns None.
-
-            If a path is returned, it is safe to use for IO operations.
-            Existence of a path does *not* guarantee file existence.
-        """
-        raise DeprecationWarning(
-            'get_local_path() is ' 'preferred over local_file_name()'
-        )
-        return self.get_local_path()
-
     def get_local_path(self):
         """
             If the file is accessible on a local filesystem, retrieves

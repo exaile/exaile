@@ -27,12 +27,17 @@
 
 from xl.metadata._base import BaseFormat
 
+import logging
 import os
+
+
+logger = logging.getLogger(__name__)
+
 
 try:
     import ctypes
 
-    modplug = ctypes.cdll.LoadLibrary("libmodplug.so.0")
+    modplug = ctypes.cdll.LoadLibrary("libmodplug.so.1")
     modplug.ModPlug_Load.restype = ctypes.c_void_p
     modplug.ModPlug_Load.argtypes = (ctypes.c_void_p, ctypes.c_int)
     modplug.ModPlug_GetName.restype = ctypes.c_char_p
@@ -40,6 +45,7 @@ try:
     modplug.ModPlug_GetLength.restype = ctypes.c_int
     modplug.ModPlug_GetLength.argtypes = (ctypes.c_void_p,)
 except (ImportError, OSError):
+    logger.debug('No support for Mod metadata because libmodplug could not be found.')
     modplug = None
 
 

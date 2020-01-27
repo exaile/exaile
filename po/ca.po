@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-12 03:21+1000\n"
-"PO-Revision-Date: 2019-10-21 19:52+0000\n"
+"PO-Revision-Date: 2020-01-27 17:21+0000\n"
 "Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1-dev\n"
+"X-Generator: Weblate 3.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -2093,7 +2093,7 @@ msgstr "© 2009-2019 diversos contribuïdors"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Artur Vicedo <artur@softcatala.org>, 2019"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -4267,22 +4267,17 @@ msgid "When main window is focused"
 msgstr "Quan la finestra principal rebi l'enfocament"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
 "<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
-"Cadascuna de les etiquetes es pot utilitzar amb<b>$tag</b> o bé amb <b>${tag}"
-"</b>. Les etiquetes internes com ara <b>$__length</b> cal que s'especifiquin "
-"amb dos subratllats inicials.\n"
-"S'admet el <a href=\"http://developer.gnome.org/pango/stable/"
+"Cadascuna de les etiquetes es pot utilitzar amb <b>$tag</b> o bé amb "
+"<b>${tag}</b>. Les etiquetes internes com ara <b>$__length</b> cal que "
+"s'especifiquin amb dos subratllats inicials.\n"
+"S'admet el <a href=\"https://developer.gnome.org/pango/stable/"
 "PangoMarkupFormat.html\">llenguatge de marques dels atributs de text de "
 "Pango</a>."
 
@@ -4512,12 +4507,7 @@ msgid "CD Playback"
 msgstr "Reproducció de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4526,7 +4516,7 @@ msgid ""
 msgstr ""
 "Afegeix compatibilitat per a la reproducció dels CD d'àudio.\n"
 "\n"
-"Requereix HAL, UDisks o UDisks2 per detectar automàticament els CD\n"
+"Requereix UDisks2 per a detectar automàticament els CD\n"
 "Requereix cddb-py (%s) per cercar etiquetes."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4559,10 +4549,10 @@ msgstr ""
 "Pidgin per trobar els serveis admesos."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Permet la reproducció de comparticions de música DAAP."
+msgstr ""
+"Permet la reproducció de comparticions de música DAAP fent ús de la "
+"biblioteca spydaap."
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5

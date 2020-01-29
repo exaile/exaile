@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-05-21 12:44+0000\n"
+"PO-Revision-Date: 2020-01-29 16:50+0000\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/exaile/master/"
 "sl/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 3.11-dev\n"
 "X-Launchpad-Export-Date: 2014-09-09 07:47+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -2096,7 +2096,7 @@ msgstr "© 2009-2019 Različni soavtorji"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Robert Hrovat"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -3696,14 +3696,6 @@ msgid "Secret:"
 msgstr "Tajno:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3715,8 +3707,8 @@ msgstr ""
 " obiščite <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>\n"
 "\n"
 "Morda boste potrebovali še <a href=\"https://affiliate-program.amazon.com/gp/"
-"flex/advertising/api/sign-in.html\">aktivacijo Product Advertising API</a></"
-"i>."
+"flex/advertising/api/sign-in.html\">aktivacijo Product Advertising "
+"API</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4258,12 +4250,7 @@ msgid "When main window is focused"
 msgstr "Ob postavitvi glavnega okna v žarišče"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4273,8 +4260,8 @@ msgstr ""
 "Vsaka značka je lahko uporabljena z <b>$tag</b> ali <b>${tag}</b>. Interne "
 "značke, kot je <b>$__length</b>, morajo biti določene z dvema začetnima "
 "podčrtajema. \n"
-"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> je podprt."
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
+"Pango Text Attribute Markup</a> je podprt."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4485,10 +4472,6 @@ msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr "Dovoli shranjevanje/nadaljevanje položajev v zvočnih datotekah."
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
@@ -4501,12 +4484,7 @@ msgid "CD Playback"
 msgstr "CD predvajanje"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4515,8 +4493,8 @@ msgid ""
 msgstr ""
 "Podpora za predvajanje avdio zgoščenk.\n"
 "\n"
-"Zahteva HAL, UDisks ali UDisk2 za samodejno zaznavanje zgoščenk\n"
-"Zahteva cddb-py (%s) za iskanje značk."
+"Za samodejno zaznavanje zgoščenk zahteva UDisk2\n"
+"Za iskanje značk zahteva cddb-py (%s)."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4547,10 +4525,8 @@ msgstr ""
 "Nastavi trenutno stanje predvajanja v Pidgin za storitve, ki ga podpirajo."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Dovoli predvajanje DAAP souporabo glasbe."
+msgstr "Dovoli predvajanje DAAP glasbe s podporo spydaap knjižnice."
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5

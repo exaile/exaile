@@ -25,8 +25,6 @@
 # from your version.
 
 
-from __future__ import division
-
 import tempfile
 
 from gi.repository import Gio, GLib
@@ -39,7 +37,7 @@ import xl.settings
 Variant = GLib.Variant
 
 
-class MprisObject(object):
+class MprisObject:
     def __init__(self, exaile, connection):
         self.exaile = exaile
         self.connection = connection

@@ -23,40 +23,34 @@
 # exception to your version of the code, but you are not obligated to
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
+
 """
     General functions and classes shared in the codebase
 """
 
+from collections import deque
+import collections.abc
+from functools import wraps, partial
 import inspect
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
 import logging
 import os
 import os.path
+import pickle
 import shelve
 import subprocess
 import sys
 import threading
-import urllib2
-import urlparse
+import urllib.parse
+import urllib.request
 import weakref
-from functools import wraps, partial
-from collections import deque
-from UserDict import DictMixin
+
+import bsddb3 as bsddb
+from gi.repository import Gio, GLib, GObject
+
+from xl import shelve_compat
+
 
 logger = logging.getLogger(__name__)
-
-# ArchLinux disabled bsddb in python2, so we have to use the external module
-# -> msys2 did also, so now we force using bsddb to simplify things
-try:
-    import bsddb3 as bsddb
-except ImportError:
-    try:
-        import bsddb
-    except ImportError:
-        logger.error("Exaile requires bsddb to be installed")
-        raise
 
 
 # TODO: get rid of this. only plugins/cd/ uses it.
@@ -107,7 +101,7 @@ def sanitize_url(url):
         :returns: the sanitized url
     """
     try:
-        components = list(urlparse.urlparse(url))
+        components = list(urllib.parse.urlparse(url))
         auth, host = components[1].split('@')
         username, password = auth.split(':')
     except (AttributeError, ValueError):
@@ -116,7 +110,7 @@ def sanitize_url(url):
         # Replace password with fixed amount of "*"
         auth = ':'.join((username, 5 * '*'))
         components[1] = '@'.join((auth, host))
-        url = urlparse.urlunparse(components)
+        url = urllib.parse.urlunparse(components)
 
     return url
 
@@ -129,12 +123,12 @@ def get_url_contents(url, user_agent):
         Added in Exaile 3.4
 
         :returns: Contents of page located at URL
-        :raises: urllib2.URLError
+        :raises: urllib.error.URLError
     '''
 
     headers = {'User-Agent': user_agent}
-    req = urllib2.Request(url, None, headers)
-    fp = urllib2.urlopen(req)
+    req = urllib.request.Request(url, None, headers)
+    fp = urllib.request.urlopen(req)
     data = fp.read()
     fp.close()
 
@@ -226,8 +220,8 @@ def _glib_wait_inner(timeout, glib_timeout_func):
     id_by_obj = weakref.WeakKeyDictionary()
 
     def waiter(function):
-        # ensure this is only used on class methods
-        callargs = inspect.getargspec(function)
+        # ensure this is only used on instance methods
+        callargs = inspect.getfullargspec(function)
         if len(callargs.args) == 0 or callargs.args[0] != 'self':
             raise RuntimeError("Must only use glib_wait* on instance methods!")
 
@@ -266,7 +260,7 @@ def glib_wait(timeout):
 
         If the function returns a value that evaluates to True, it
         will be called again under the same timeout rules.
-        
+
         .. warning:: Can only be used with instance methods
     """
     return _glib_wait_inner(timeout, GLib.timeout_add)
@@ -305,7 +299,7 @@ def profileit(func):
     return wrapper
 
 
-class classproperty(object):
+class classproperty:
     """
         Decorator allowing for class property access
     """
@@ -362,9 +356,7 @@ def open_file_directory(path_or_uri):
         import ctypes
 
         ctypes.windll.ole32.CoInitialize(None)
-        # Not sure why this is always UTF-8.
-        upath = f.get_path().decode('utf-8')
-        pidl = ctypes.windll.shell32.ILCreateFromPathW(upath)
+        pidl = ctypes.windll.shell32.ILCreateFromPathW(f.get_path())
         ctypes.windll.shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
         ctypes.windll.shell32.ILFree(pidl)
         ctypes.windll.ole32.CoUninitialize()
@@ -378,6 +370,8 @@ def open_shelf(path):
     '''
         Opens a python shelf file, used to store various types of metadata
     '''
+    shelve_compat.ensure_shelve_compat()
+
     # As of Exaile 4, new DBs will only be created as Berkeley DB Hash databases
     # using either bsddb3 (external) or bsddb (stdlib but sometimes removed).
     # Existing DBs created with other backends will be migrated to Berkeley DB.
@@ -389,7 +383,7 @@ def open_shelf(path):
     # to see if whichdb returns a result before trying to open it with bsddb
     force_migrate = False
     if not os.path.exists(path):
-        from whichdb import whichdb
+        from dbm import whichdb
 
         if whichdb(path) is not None:
             force_migrate = True
@@ -415,26 +409,7 @@ def open_shelf(path):
     return shelve.BsdDbShelf(db, protocol=PICKLE_PROTOCOL)
 
 
-if hasattr(os, 'replace'):
-    # introduced in python 3.3
-    replace_file = os.replace
-elif sys.platform != 'win32':
-    replace_file = os.rename
-else:
-    # https://stupidpythonideas.blogspot.com/2014/07/getting-atomic-writes-right.html
-    import ctypes
-
-    _kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
-    _MoveFileEx = _kernel32.MoveFileExW
-    _MoveFileEx.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
-    _MoveFileEx.restype = ctypes.c_bool
-
-    def replace_file(src, dst):
-        if not _MoveFileEx(src, dst, 1):
-            raise ctypes.WinError(ctypes.get_last_error())
-
-
-class LimitedCache(DictMixin):
+class LimitedCache(collections.abc.MutableMapping):
     """
         Simple cache that acts much like a dict, but has a maximum # of items
     """
@@ -446,6 +421,9 @@ class LimitedCache(DictMixin):
 
     def __iter__(self):
         return self.cache.__iter__()
+
+    def __len__(self):
+        return self.cache.__len__()
 
     def __contains__(self, item):
         return self.cache.__contains__(item)
@@ -480,7 +458,7 @@ class LimitedCache(DictMixin):
         return self.cache.keys()
 
 
-class cached(object):
+class cached:
     """
         Decorator to make a function's results cached
         does not cache if there is an exception.
@@ -493,7 +471,7 @@ class cached(object):
 
     @staticmethod
     def _freeze(d):
-        return frozenset(d.iteritems())
+        return frozenset(d.items())
 
     def __call__(self, f):
         try:
@@ -601,7 +579,7 @@ def walk_directories(root):
         )
 
 
-class TimeSpan(object):
+class TimeSpan:
     """
         Calculates the number of days, hours, minutes,
         and seconds in a time span
@@ -645,7 +623,7 @@ class TimeSpan(object):
         )
 
 
-class MetadataList(object):
+class MetadataList:
     """
         Like a list, but also associates an object of metadata
         with each entry.
@@ -857,7 +835,7 @@ class SimpleProgressThread(ProgressThread):
             self.emit('done')
 
 
-class PosetItem(object):
+class PosetItem:
     def __init__(self, name, after, priority, value=None):
         """
             :param name: unique identifier for this item
@@ -881,7 +859,7 @@ def order_poset(items):
         :type items: list of :class:`PosetItem`
     """
     items = {item.name: item for item in items}
-    for name, item in items.iteritems():
+    for name, item in items.items():
         for after in item.after:
             k = items.get(after)
             if k:
@@ -898,18 +876,18 @@ def order_poset(items):
             for c in i[2].children:
                 nextset[c.name] = c
         removals = []
-        for name, item in nextset.iteritems():
+        for name, item in nextset.items():
             for after in item.after:
                 if after in nextset:
                     removals.append(name)
                     break
         for r in removals:
             del nextset[r]
-        next = nextset.values()
+        next = list(nextset.values())
     return result
 
 
-class LazyDict(object):
+class LazyDict:
     __slots__ = ['_dict', '_funcs', 'args', '_locks']
 
     def __init__(self, *args):
@@ -942,7 +920,7 @@ class LazyDict(object):
             return default
 
 
-class _GioFileStream(object):
+class _GioFileStream:
 
     __slots__ = ['stream']
 
@@ -982,20 +960,20 @@ class GioFileInputStream(_GioFileStream):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         r = self.stream.read_line()[0]
         if not r:
             raise StopIteration()
-        return r
+        return r.decode('utf-8')
 
     def read(self, size=None):
         if size:
-            return self.stream.read_bytes(size).get_data()
+            return self.stream.read_bytes(size).get_data().decode('utf-8')
         else:
-            return self.gfile.load_contents()[1]
+            return self.gfile.load_contents()[1].decode('utf-8')
 
     def readline(self):
-        return self.stream.read_line()[0]
+        return self.stream.read_line()[0].decode('utf-8')
 
 
 class GioFileOutputStream(_GioFileStream):
@@ -1015,8 +993,8 @@ class GioFileOutputStream(_GioFileStream):
         self.stream.flush()
 
     def write(self, s):
-        if isinstance(s, unicode):
-            s = s.encode('utf-8')
+        if isinstance(s, str):
+            s = s.encode('utf-8', 'surrogateescape')
         return self.stream.write(s)
 
 
@@ -1109,6 +1087,20 @@ class AsyncLoader:
             :return: list
         """
         return self.__result_list[:]
+
+
+class LowestStr(str):
+    """String subclass that always sorts as the lowest value"""
+
+    def __lt__(self, _):
+        return True
+
+
+class HighestStr(str):
+    """String subclass that always sorts as the highest value"""
+
+    def __lt__(self, _):
+        return False
 
 
 # vim: et sts=4 sw=4

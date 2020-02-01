@@ -25,7 +25,7 @@
 # from your version.
 
 from xlgui.preferences import widgets
-from xl import xdg
+from xl import common, xdg
 from xl.nls import gettext as _
 
 # TODO: If we ever add another engine, need to make sure that
@@ -52,17 +52,16 @@ class AudioSinkPreference(widgets.ComboPreference):
         model = self.widget.get_model()
 
         # always list auto first, custom last
-        def _sink_cmp(x, y):
-            xy = (x[0], y[0])
-            if x[0] == y[0] or ('auto' not in xy and 'custom' not in xy):
-                return cmp(x[0], y[0])
-            if x[0] == 'auto':
-                return -1
-            if y[0] == 'custom':
-                return -1
-            return 1
+        def keyfunc(item):
+            name = item[0]
+            if name == 'auto':
+                return common.LowestStr(name)
+            elif name == 'custom':
+                return common.HighestStr(name)
+            else:
+                return name
 
-        for name, preset in sorted(SINK_PRESETS.iteritems(), _sink_cmp):
+        for name, preset in sorted(SINK_PRESETS.items(), key=keyfunc):
             model.append((name, preset['name']))
         self._set_value()
 

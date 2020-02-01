@@ -119,7 +119,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         interval = settings.get_option('gui/progress_update_millisecs', 1000)
 
         if interval % 1000 == 0:
-            self.__timer_id = GLib.timeout_add_seconds(interval / 1000, self.on_timer)
+            self.__timer_id = GLib.timeout_add_seconds(interval // 1000, self.on_timer)
         else:
             self.__timer_id = GLib.timeout_add(interval, self.on_timer)
 
@@ -201,20 +201,20 @@ class Marker(GObject.GObject):
             Anchor.CENTER,
             Anchor.EAST,
             Anchor.SOUTH,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'color': (
             Gdk.RGBA,
             'marker color',
             'Override color of the marker',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'label': (
             GObject.TYPE_STRING,
             'marker label',
             'Textual description of the marker',
             None,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'position': (
             GObject.TYPE_FLOAT,
@@ -223,14 +223,14 @@ class Marker(GObject.GObject):
             0,
             1,
             0,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'state': (
             Gtk.StateType,
             'marker state',
             'The state of the marker',
             Gtk.StateType.NORMAL,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
     }
     __gsignals__ = {'reached': (GObject.SignalFlags.RUN_LAST, None, ())}
@@ -398,7 +398,7 @@ class MarkerManager(providers.ProviderHandler):
         if track_length is None:
             return True
 
-        playback_time = player.get_time()
+        playback_time = int(player.get_time())
         reached_markers = (
             m
             for m in providers.get('playback-markers')
@@ -436,7 +436,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
         context.set_line_width(self._marker_scale / 0.9)
         style = self.get_style_context()
 
-        for marker, points in self._points.iteritems():
+        POW_256_2 = 256 ** 2
+
+        for marker, points in self._points.items():
             for i, (x, y) in enumerate(points):
                 if i == 0:
                     context.move_to(x, y)
@@ -454,9 +456,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
                     base = style.get_color(marker.props.state)
 
                 context.set_source_rgba(
-                    base.red / 256.0 ** 2,
-                    base.green / 256.0 ** 2,
-                    base.blue / 256.0 ** 2,
+                    base.red / POW_256_2,
+                    base.green / POW_256_2,
+                    base.blue / POW_256_2,
                     0.7,
                 )
             context.fill_preserve()
@@ -467,9 +469,9 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
             else:
                 foreground = style.get_color(marker.props.state)
                 context.set_source_rgba(
-                    foreground.red / 256.0 ** 2,
-                    foreground.green / 256.0 ** 2,
-                    foreground.blue / 256.0 ** 2,
+                    foreground.red / POW_256_2,
+                    foreground.green / POW_256_2,
+                    foreground.blue / POW_256_2,
                     0.7,
                 )
             context.stroke()
@@ -498,7 +500,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             0,
             1,
             0.7,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         )
     }
     __gsignals__ = {
@@ -652,9 +654,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.NORTH:
             points = (
-                (position - offset, marker_scale / 2 + offset),
-                (position + marker_scale / 2 - offset, offset),
-                (position - marker_scale / 2 - offset, offset),
+                (position - offset, marker_scale // 2 + offset),
+                (position + marker_scale // 2 - offset, offset),
+                (position - marker_scale // 2 - offset, offset),
             )
         elif marker.props.anchor == Anchor.NORTH_EAST:
             points = (
@@ -664,9 +666,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.EAST:
             points = (
-                (position - marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
+                (position - marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_EAST:
             points = (
@@ -676,9 +678,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.SOUTH:
             points = (
-                (position - offset, height - marker_scale / 2 - offset),
-                (position + marker_scale / 2 - offset, height - offset),
-                (position - marker_scale / 2 - offset, height - offset),
+                (position - offset, height - marker_scale // 2 - offset),
+                (position + marker_scale // 2 - offset, height - offset),
+                (position - marker_scale // 2 - offset, height - offset),
             )
         elif marker.props.anchor == Anchor.SOUTH_WEST:
             points = (
@@ -688,16 +690,16 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             )
         elif marker.props.anchor == Anchor.WEST:
             points = (
-                (position + marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
+                (position + marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
             )
         elif marker.props.anchor == Anchor.CENTER:
             points = (
-                (position - offset, height / 2 - marker_scale / 2 + offset),
-                (position + marker_scale / 2 - offset, height / 2 + offset),
-                (position - offset, height / 2 + marker_scale / 2 + offset),
-                (position - marker_scale / 2 - offset, height / 2 + offset),
+                (position - offset, height // 2 - marker_scale // 2 + offset),
+                (position + marker_scale // 2 - offset, height // 2 + offset),
+                (position - offset, height // 2 + marker_scale // 2 + offset),
+                (position - marker_scale // 2 - offset, height // 2 + offset),
             )
 
         return points
@@ -811,8 +813,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
                 self.seek(hit_markers[0].props.position)
             else:
                 fraction = event.x / self.get_allocation().width
-                fraction = max(0, fraction)
-                fraction = min(fraction, 1)
+                fraction = clamp(fraction, 0, 1)
 
                 self.__progressbar.set_fraction(fraction)
                 self.__progressbar.set_text(
@@ -840,8 +841,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
         if event.button == Gdk.BUTTON_PRIMARY and self.__progressbar._seeking:
             fraction = event.x / self.get_allocation().width
-            fraction = max(0, fraction)
-            fraction = min(fraction, 1)
+            fraction = clamp(fraction, 0, 1)
 
             self.seek(fraction)
             self.__progressbar._seeking = False

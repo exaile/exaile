@@ -124,7 +124,7 @@ def run_commands(options, iface):
         'GetLength': '__length',
     }
 
-    for command, attr in info_commands.iteritems():
+    for command, attr in info_commands.items():
         if getattr(options, command):
             value = iface.GetTrackAttr(attr)
             if value is None:
@@ -279,8 +279,8 @@ class DbusManager(dbus.service.Object):
             value = ''
 
         if isinstance(value, list):
-            return u"\n".join(value)
-        return unicode(value)
+            return "\n".join(value)
+        return str(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):

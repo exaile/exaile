@@ -24,7 +24,7 @@ from xl import event, player, settings
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs
 
-import srprefs
+from . import srprefs
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ def get_preferences_pane():
     return srprefs
 
 
-class Streamripper(object):
+class Streamripper:
     def __init__(self):
         self.savedir = None
 

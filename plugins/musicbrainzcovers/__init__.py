@@ -14,7 +14,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-import urllib2
+import urllib.error
+import urllib.request
 
 from xl import common, covers, providers
 
@@ -79,9 +80,9 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
                     url = self.__caa_url.format(mbid=mbid, size=250)
 
                     headers = {'User-Agent': self.user_agent}
-                    req = urllib2.Request(url, None, headers)
-                    response = urllib2.urlopen(req)
-                except urllib2.HTTPError:
+                    req = urllib.request.Request(url, None, headers)
+                    response = urllib.request.urlopen(req)
+                except urllib.error.HTTPError:
                     mbids.remove(mbid)
                 else:
                     response.close()
@@ -104,7 +105,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
         try:
             logger.debug('Fetching cover from {url}'.format(url=url))
             data = common.get_url_contents(url, self.user_agent)
-        except urllib2.HTTPError:
+        except urllib.error.HTTPError:
             pass
 
         return data

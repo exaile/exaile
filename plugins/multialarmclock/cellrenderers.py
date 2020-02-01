@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-
 # Copyright (C) 2010 by Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,12 +24,12 @@ class CellRendererDays(Gtk.CellRendererText):
 
     __gtype_name__ = 'CellRendererDays'
     __gproperties__ = {
-        'days': (object, 'days', 'List of enabled days', GObject.PARAM_READWRITE)
+        'days': (object, 'days', 'List of enabled days', GObject.ParamFlags.READWRITE)
     }
     __gsignals__ = {
         'days-changed': (GObject.SignalFlags.RUN_FIRST, None, (str, object))
     }
-    property_names = __gproperties__.keys()
+    property_names = list(__gproperties__.keys())
 
     def __init__(self):
         Gtk.CellRendererText.__init__(self)

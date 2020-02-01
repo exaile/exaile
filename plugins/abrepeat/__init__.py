@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 from xlgui.widgets import playback
 
 
-class ABRepeatPlugin(object):
+class ABRepeatPlugin:
     def __init__(self):
         self.__menu_item = None
 

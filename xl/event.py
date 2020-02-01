@@ -52,7 +52,7 @@ EVENT_MANAGER = None
 logger = logging.getLogger(__name__)
 
 
-class Nothing(object):
+class Nothing:
     pass
 
 
@@ -150,7 +150,7 @@ def remove_callback(function, evty=None, obj=None):
     EVENT_MANAGER.remove_callback(function, evty, obj)
 
 
-class Event(object):
+class Event:
     """
         Represents an Event
     """
@@ -168,7 +168,7 @@ class Event(object):
         self.data = data
 
 
-class Callback(object):
+class Callback:
     """
         Represents a callback
     """
@@ -189,7 +189,7 @@ class Callback(object):
         return '<Callback %s>' % self.wfunction()
 
 
-class _WeakMethod(object):
+class _WeakMethod:
     """Represent a weak bound method, i.e. a method doesn't keep alive the
     object that it is bound to. It uses WeakRef which, used on its own,
     produces weak methods that are dead on creation, not very useful.
@@ -202,19 +202,18 @@ class _WeakMethod(object):
             object that method is bound to dies.
         """
         assert ismethod(method)
-        if method.im_self is None:
+        if method.__self__ is None:
             raise ValueError("We need a bound method!")
         if notifyDead is None:
-            self.objRef = weakref.ref(method.im_self)
+            self.objRef = weakref.ref(method.__self__)
         else:
-            self.objRef = weakref.ref(method.im_self, notifyDead)
-        self.fun = method.im_func
-        self.cls = method.im_class
+            self.objRef = weakref.ref(method.__self__, notifyDead)
+        self.fun = method.__func__
 
     def __call__(self):
         objref = self.objRef()
         if objref is not None:
-            return types.MethodType(self.fun, objref, self.cls)
+            return types.MethodType(self.fun, objref)
 
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):
@@ -258,7 +257,7 @@ def _getWeakRef(obj, notifyDead=None):
         return createRef(obj, notifyDead)
 
 
-class EventManager(object):
+class EventManager:
     """
         Manages all Events
     """

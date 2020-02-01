@@ -30,7 +30,7 @@ from gi.repository import Gst
 
 import logging
 import os
-import urlparse
+import urllib.parse
 
 from xl import common
 from xl import event
@@ -332,7 +332,7 @@ class ExaileGstEngine(ExaileEngine):
         self.player.engine_notify_track_start(track)
 
 
-class AudioStream(object):
+class AudioStream:
     '''
         An object that can play one or more tracks
     '''
@@ -489,7 +489,7 @@ class AudioStream(object):
         # This is only set for gapless playback
         if not already_queued:
             self.playbin.set_property("uri", uri)
-            if urlparse.urlsplit(uri)[0] == "cdda":
+            if urllib.parse.urlsplit(uri)[0] == "cdda":
                 self.notify_id = self.playbin.connect(
                     'source-setup', self.on_source_setup, track
                 )
@@ -678,7 +678,7 @@ class AudioStream(object):
         elif message.type == Gst.MessageType.WARNING:
             # TODO there might be some useful warnings we ignore for now.
             gerror, debug_text = Gst.Message.parse_warning(message)
-            logger.warn(
+            logger.warning(
                 "Unhandled GStreamer warning received:\n\tGError: %s\n\tDebug text: %s",
                 gerror,
                 debug_text,

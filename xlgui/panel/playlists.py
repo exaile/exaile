@@ -25,40 +25,40 @@
 # from your version.
 
 
+import logging
+from typing import Dict, Union
+
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
 
-
-from xl import common, event, playlist as xl_playlist, radio, settings, trax
+from xl import common, event, radio, settings, trax
 from xl.nls import gettext as _
+from xl.playlist import Playlist, SmartPlaylist
 from xlgui import icons, panel
 from xlgui.panel import menus
 from xlgui.widgets import dialogs
-
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.smart_playlist_editor import SmartPlaylistEditor
-
-import logging
 
 logger = logging.getLogger(__name__)
 
 
-class TrackWrapper(object):
+class TrackWrapper:
     def __init__(self, track, playlist):
         self.track = track
         self.playlist = playlist
 
-    def __unicode__(self):
+    def __str__(self):
         text = self.track.get_tag_raw('title')
         if text is not None:
-            text = u' / '.join(text)
+            text = ' / '.join(text)
 
         if text:
             artists = self.track.get_tag_raw('artist')
             if artists:
-                text += u' - ' + u' / '.join(artists)
+                text += ' - ' + ' / '.join(artists)
             return text
         return self.track.get_loc_for_io()
 
@@ -83,17 +83,21 @@ class BasePlaylistPanelMixin(GObject.GObject):
         'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
+    # Cache for custom playlists
+    playlist_nodes: Dict[Playlist, Gtk.TreeIter]
+
+    # Mapping to keep track of open "are you sure you want to delete" dialogs
+    deletion_dialogs: Dict[Union[Playlist, SmartPlaylist], Gtk.Dialog]
+
     def __init__(self):
         """
             Initializes the mixin
         """
         GObject.GObject.__init__(self)
-        self.playlist_nodes = {}  # {playlist: iter} cache for custom playlists
+        self.playlist_nodes = {}
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR
         )
-        # {Playlist: Gtk.Dialog} mapping to keep track of open "are you sure
-        # you want to delete" dialogs
         self.deletion_dialogs = {}
 
     def remove_playlist(self, ignored=None):
@@ -111,7 +115,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.YES:
-                if isinstance(selected_playlist, xl_playlist.SmartPlaylist):
+                if isinstance(selected_playlist, SmartPlaylist):
                     self.smart_manager.remove_playlist(selected_playlist.name)
                 else:
                     self.playlist_manager.remove_playlist(selected_playlist.name)
@@ -162,7 +166,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         if name in self.playlist_manager.playlists:
             # name is already in use
             dialogs.error(
-                self.parent, _("The " "playlist name you entered is already in use.")
+                self.parent, _("The playlist name you entered is already in use.")
             )
             return
 
@@ -188,7 +192,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             track.set_rating(rating)
 
         maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
+        event.log_event('rating_changed', self, 100 * rating / maximum)
 
     def open_item(self, tree, path, col):
         """
@@ -200,7 +204,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
         if item is not None:
-            if isinstance(item, (xl_playlist.Playlist, xl_playlist.SmartPlaylist)):
+            if isinstance(item, (Playlist, SmartPlaylist)):
                 # for smart playlists
                 if hasattr(item, 'get_playlist'):
                     try:
@@ -320,7 +324,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
         if name is not None:
             # Create the playlist from all of the tracks
-            new_playlist = xl_playlist.Playlist(name)
+            new_playlist = Playlist(name)
             new_playlist.extend(tracks)
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist)
@@ -344,7 +348,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
             if not track:
                 continue
             wrapper = TrackWrapper(track, playlist)
-            row = (self.track_image, unicode(wrapper), wrapper)
+            row = (self.track_image, str(wrapper), wrapper)
             self.model.append(parent, row)
 
         if expanded:
@@ -458,9 +462,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         pl = model[it][2]
         return (
             self.playlist_menu
-            if isinstance(pl, xl_playlist.Playlist)
+            if isinstance(pl, Playlist)
             else self.smart_menu
-            if isinstance(pl, xl_playlist.SmartPlaylist)
+            if isinstance(pl, SmartPlaylist)
             else self.track_menu
             if isinstance(pl, TrackWrapper)
             else self.default_menu
@@ -476,7 +480,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _playlist_properties(self):
         pl = self.tree.get_selected_page(raw=True)
-        if isinstance(pl, xl_playlist.SmartPlaylist):
+        if isinstance(pl, SmartPlaylist):
             self.edit_selected_smart_playlist()
 
     def refresh_playlists(self, type, track, tags):
@@ -498,21 +502,29 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         if settings.get_option('gui/sync_on_tag_change', True):
             for playlist in self.playlist_nodes:
-                self.update_playlist_node(playlist)
+                self._load_playlist_nodes(playlist)
 
     def _on_playlist_added(self, type, object, playlist_name):
 
         new_playlist = self.playlist_manager.get_playlist(playlist_name)
 
-        for plx in self.playlist_nodes:
-            if plx.name == playlist_name:
-                self.update_playlist_node(new_playlist)
-                return
+        for oldpl in self.playlist_nodes:
+            if oldpl.name == playlist_name:  # Name already exists
+                if oldpl is not new_playlist:
+                    node = self.playlist_nodes[oldpl]
+                    # Replace the playlist object in {playlist: iter} cache.
+                    del self.playlist_nodes[oldpl]
+                    self.playlist_nodes[new_playlist] = node
+                    # Replace the playlist object in tree model.
+                    self.model[node][2] = new_playlist
+                break
+        else:  # Name doesn't exist yet
+            self.playlist_nodes[new_playlist] = self.model.append(
+                self.custom, [self.playlist_image, playlist_name, new_playlist]
+            )
+            self.tree.expand_row(self.model.get_path(self.custom), False)
 
-        self.playlist_nodes[new_playlist] = self.model.append(
-            self.custom, [self.playlist_image, playlist_name, new_playlist]
-        )
-        self.tree.expand_row(self.model.get_path(self.custom), False)
+        # Refresh the playlist subnodes.
         self._load_playlist_nodes(new_playlist)
 
     def _load_playlists(self):
@@ -542,26 +554,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         self.tree.expand_row(self.model.get_path(self.smart), False)
         self.tree.expand_row(self.model.get_path(self.custom), False)
-
-    def update_playlist_node(self, pl):
-        """
-            Updates the playlist node of the playlist
-            to reflect any changes in it (i.e. tracks
-            being added to the playlist)
-
-            @param pl: the playlist to be updated
-        """
-        playlists = self.playlist_nodes.keys()
-        for playlist in playlists:
-            if playlist.name == pl.name:
-                node = self.playlist_nodes[playlist]
-                # Replace the playlist object in {playlist: iter} cache.
-                del self.playlist_nodes[playlist]
-                self.playlist_nodes[pl] = node
-                # Replace the playlist object in tree model.
-                self.model[node][2] = pl
-                # Refresh the playlist subnodes.
-                self._load_playlist_nodes(pl)
 
     def import_playlist(self):
         """
@@ -724,13 +716,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             (tracks, playlists) = self.tree.get_drag_data(locs, False)
             # First see if they dragged any playlist files
             for new_playlist in playlists:
-                self.playlist_nodes[new_playlist] = self.model.append(
-                    self.custom, [self.playlist_image, new_playlist.name, new_playlist]
-                )
-                self._load_playlist_nodes(new_playlist)
-
                 # We are adding a completely new playlist with tracks so
-                # we save it
+                # we save it. This will trigger playlist_added.
                 self.playlist_manager.save_playlist(new_playlist, overwrite=True)
 
             # After processing playlist proceed to ask the user for the
@@ -799,7 +786,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             iter = self.model.get_iter(path)
             drop_target = self.model.get_value(iter, 2)
 
-            if isinstance(drop_target, xl_playlist.Playlist):
+            if isinstance(drop_target, Playlist):
                 if dragging_playlist:
                     # If we drag onto  we copy, if we drag between we move
                     if (
@@ -852,11 +839,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 pl = self.model.get_value(iter, 2)
                 # Based on what is selected determines what
                 # menu we will show
-                if isinstance(pl, xl_playlist.Playlist):
+                if isinstance(pl, Playlist):
                     Gtk.Menu.popup(
                         self.playlist_menu, None, None, None, None, 0, event.time
                     )
-                elif isinstance(pl, xl_playlist.SmartPlaylist):
+                elif isinstance(pl, SmartPlaylist):
                     Gtk.Menu.popup(
                         self.smart_menu, None, None, None, None, 0, event.time
                     )
@@ -889,9 +876,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 pl = self.model.get_value(iter, 2)
                 # Based on what is selected determines what
                 # menu we will show
-                if isinstance(pl, xl_playlist.Playlist) or isinstance(
-                    pl, xl_playlist.SmartPlaylist
-                ):
+                if isinstance(pl, (Playlist, SmartPlaylist)):
                     self.remove_playlist(pl)
                 elif isinstance(pl, TrackWrapper):
                     self.remove_selected_track()
@@ -928,7 +913,7 @@ class PlaylistDragTreeView(DragTreeView):
             Returns True if selection is a Smart Playlist
         """
         item = self.get_selected_item(raw=True)
-        return isinstance(item, xl_playlist.SmartPlaylist)
+        return isinstance(item, SmartPlaylist)
 
     def get_selected_tracks(self):
         """
@@ -954,7 +939,7 @@ class PlaylistDragTreeView(DragTreeView):
         """
         item = self.get_selected_item(raw=raw)
 
-        if isinstance(item, (xl_playlist.Playlist, xl_playlist.SmartPlaylist)):
+        if isinstance(item, (Playlist, SmartPlaylist)):
             return item
         else:
             return None
@@ -979,7 +964,7 @@ class PlaylistDragTreeView(DragTreeView):
         item = model.get_value(iter, 2)
 
         # for smart playlists
-        if isinstance(item, xl_playlist.SmartPlaylist):
+        if isinstance(item, SmartPlaylist):
             if raw:
                 return item
             try:
@@ -990,7 +975,7 @@ class PlaylistDragTreeView(DragTreeView):
             if raw:
                 return item
             return item.get_playlist()
-        elif isinstance(item, xl_playlist.Playlist):
+        elif isinstance(item, Playlist):
             return item
         elif isinstance(item, TrackWrapper):
             return item

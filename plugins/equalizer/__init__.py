@@ -24,8 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# support python 2.5
-from __future__ import with_statement
 
 import logging
 import os
@@ -302,7 +300,7 @@ class EqualizerWindow(Gtk.Window):
                 self.presets.append(preset)
 
 
-class EqualizerPlugin(object):
+class EqualizerPlugin:
     """
     Equalizer plugin class
     """

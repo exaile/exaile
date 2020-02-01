@@ -2,8 +2,8 @@
 A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
-import urllib
-import urllib2
+import urllib.parse
+import urllib.request
 import logging
 from time import mktime
 from datetime import datetime, timedelta
@@ -93,11 +93,12 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
     url = post_url or POST_URL
 
     if hashpw is True:
-        __LOGIN['p'] = md5(password).hexdigest()
+        __LOGIN['p'] = md5(password.encode('utf-8')).hexdigest()
     else:
         __LOGIN['p'] = password
 
-    token = md5("%s%d" % (__LOGIN['p'], int(tstamp))).hexdigest()
+    token = "%s%d" % (__LOGIN['p'], int(tstamp))
+    token = md5(token.encode('utf-8')).hexdigest()
     values = {
         'hs': 'true',
         'p': PROTOCOL_VERSION,
@@ -107,10 +108,10 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'), post_url=None):
         't': tstamp,
         'a': token,
     }
-    data = urllib.urlencode(values)
-    req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
-    result = response.read()
+    data = urllib.parse.urlencode(values)
+    req = urllib.request.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
+    result = response.read().decode('utf-8')
     lines = result.split('\n')
 
     if lines[0] == 'BADAUTH':
@@ -199,19 +200,18 @@ def now_playing(
 
     values = {
         's': SESSION_ID,
-        'a': unicode(artist).encode('utf-8'),
-        't': unicode(track).encode('utf-8'),
-        'b': unicode(album).encode('utf-8'),
+        'a': artist,
+        't': track,
+        'b': album,
         'l': length,
         'n': trackno,
         'm': mbid,
     }
+    data = urllib.parse.urlencode(values)
 
-    data = urllib.urlencode(values)
-
-    req = urllib2.Request(NOW_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
-    result = response.read()
+    req = urllib.request.Request(NOW_URL, data.encode('utf-8'), USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
+    result = response.read().decode('utf-8')
 
     if result.strip() == "OK":
         logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
@@ -325,13 +325,13 @@ def submit(
 
     SUBMIT_CACHE.append(
         {
-            'a': unicode(artist).encode('utf-8'),
-            't': unicode(track).encode('utf-8'),
+            'a': artist,
+            't': track,
             'i': time,
             'o': source,
             'r': rating,
             'l': length,
-            'b': unicode(album).encode('utf-8'),
+            'b': album,
             'n': trackno,
             'm': mbid,
         }
@@ -363,10 +363,10 @@ you login?'''
 
     values['s'] = SESSION_ID
 
-    data = urllib.urlencode(values)
-    req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
-    response = urllib2.urlopen(req)
-    result = response.read()
+    data = urllib.parse.urlencode(values)
+    req = urllib.request.Request(POST_URL, data.encode('utf-8'), USER_AGENT_HEADERS)
+    response = urllib.request.urlopen(req)
+    result = response.read().decode('utf-8')
     lines = result.split('\n')
 
     if lines[0] == "OK":

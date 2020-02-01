@@ -1,14 +1,13 @@
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import httplib
+import http.client
 import logging
 import operator
 import os
 import re
 import socket
-import urllib
-from urllib2 import urlparse
+import urllib.parse
 from xml.dom import minidom
 
 from xl import common, event, playlist, xdg
@@ -114,11 +113,8 @@ class IcecastRadioStation(RadioStation):
 
         if no_cache or not self.data:
             set_status(_('Contacting Icecast server...'))
-            hostinfo = urlparse.urlparse(self.genre_url)
-            try:
-                c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
-            except TypeError:  # python 2.5 doesnt have timeout=
-                c = httplib.HTTPConnection(hostinfo.netloc)
+            hostinfo = urllib.parse.urlparse(self.genre_url)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
                 response = c.getresponse()
@@ -196,22 +192,19 @@ class IcecastRadioStation(RadioStation):
 
             @param keyword: the keyword to search
         """
-        url = self.search_url_prefix + urllib.quote_plus(keyword)
+        url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
         return self._get_stations(url)
 
     def _get_stations(self, url):
         from xlgui.panel import radio
 
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urllib.parse.urlparse(url)
         query = hostinfo.query
         items = []
         thisPage = -1
         nextPage = 0
         set_status(_('Contacting Icecast server...'))
-        try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
-        except TypeError:  # python 2.5 doesnt have timeout=
-            c = httplib.HTTPConnection(hostinfo.netloc)
+        c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         while thisPage < nextPage:
             thisPage += 1
             try:
@@ -227,7 +220,7 @@ class IcecastRadioStation(RadioStation):
             if response.status != 200:
                 raise radio.RadioException(_('Error connecting to Icecast server.'))
 
-            body = response.read()
+            body = response.read().decode('utf-8', 'replace')
 
             # XML parser can't handle the audio tag
             body = re.sub('<audio.*?>.*?</audio>', '', body, flags=(re.M | re.DOTALL))
@@ -268,7 +261,7 @@ class IcecastRadioStation(RadioStation):
                                         if quality[0] == 'Quality':
                                             sbitrate = self._calc_bitrate(quality[1])
                                         elif len(quality[0]) > 3:
-                                            sbitrate = str(int(quality[0]) / 1024)
+                                            sbitrate = str(int(quality[0]) // 1024)
                                         else:
                                             sbitrate = quality[0]
                                         anchor = paragraph.getElementsByTagName(

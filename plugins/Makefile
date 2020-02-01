@@ -1,21 +1,21 @@
-PYTHON2_CMD	?= python2
+PYTHON3_CMD	?= python3
 PREFIX		?= /usr/local
 PLUGINSDIR	= /share/exaile/plugins/
 
-INSTALL_PLUGINS = `${PYTHON2_CMD} list.py main`
-EXTRA_PLUGINS = `${PYTHON2_CMD} list.py extra`
+INSTALL_PLUGINS = `${PYTHON3_CMD} list.py main`
+EXTRA_PLUGINS = `${PYTHON3_CMD} list.py extra`
 
-DIST_PLUGINS = `${PYTHON2_CMD} list.py all`
+DIST_PLUGINS = `${PYTHON3_CMD} list.py all`
 
 all: compile
 
 dist:
 	mkdir -p ../dist/plugins/ && \
-	${PYTHON2_CMD} dist_plugin.py --output ../dist/plugins/ ${DIST_PLUGINS}
+	${PYTHON3_CMD} dist_plugin.py --output ../dist/plugins/ ${DIST_PLUGINS}
 
 compile:
-	${PYTHON2_CMD} -m compileall -q .
-	-${PYTHON2_CMD} -O -m compileall -q .
+	${PYTHON3_CMD} -m compileall -q .
+	-${PYTHON3_CMD} -O -m compileall -q .
 
 install:
 	install -d -m 755 ${DESTDIR}${PREFIX}${PLUGINSDIR}

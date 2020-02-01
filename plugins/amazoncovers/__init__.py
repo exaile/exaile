@@ -19,8 +19,8 @@ import time
 
 from xl import common, covers, event, providers, settings
 
-import _ecs as ecs
-import amazonprefs
+from . import _ecs as ecs
+from . import amazonprefs
 
 logger = logging.getLogger(__name__)
 

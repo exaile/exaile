@@ -80,10 +80,10 @@ SINK_PRESETS = {
 
 
 def __filter_presets():
-    for preset in list(SINK_PRESETS.keys()):
-        pipe = SINK_PRESETS[preset].get('pipe')
+    for name, preset in list(SINK_PRESETS.items()):
+        pipe = preset.get('pipe')
         if pipe and not Gst.ElementFactory.make(pipe):
-            SINK_PRESETS.pop(preset)
+            del SINK_PRESETS[name]
 
 
 __filter_presets()
@@ -257,7 +257,7 @@ class CustomAudioSink(Gst.Bin):
 
 
 if sys.platform == 'win32':
-    import sink_windows
+    from . import sink_windows
 
     priority_boost = sink_windows.get_priority_booster()
 

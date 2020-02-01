@@ -46,7 +46,7 @@
     called 'plugin_class', which is a Python object with the following
     interface:
 
-    class Foo(object):
+    class Foo:
 
         def enable(self, exaile):
             pass
@@ -72,10 +72,10 @@
 '''
 
 
-import testlib
+from . import testlib
 
 
-class HelloWorld(object):
+class HelloWorld:
     def enable(self, exaile):
         print("Hello, world!")
         testlib.sucess()

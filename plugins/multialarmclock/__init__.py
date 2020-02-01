@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-
 # Copyright (C) 2010 by Brian Parma
 # Copyright (C) 2006 Adam Olsen
 #
@@ -17,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from __future__ import with_statement
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -28,19 +25,13 @@ from xlgui import guiutil
 from xl import event, player, settings, xdg, common
 from functools import wraps
 import logging
-import macprefs
-from cellrenderers import CellRendererDays
+from . import macprefs
+from .cellrenderers import CellRendererDays
 
-# We want to use json to write alarms to files, cuz it's prettier
-# if we're on python 2.5 it's not available...
-try:
-    import json
+import json
 
-    _write = lambda x: json.dumps(x, indent=2)
-    _read = json.loads
-except ImportError:
-    _write = str
-    _read = lambda x: eval(x, {'__builtin__': None})
+write = lambda x: json.dumps(x, indent=2)
+read = json.loads
 
 logger = logging.getLogger(__name__)
 
@@ -288,7 +279,9 @@ class AlarmClock:
         path = os.path.join(xdg.get_data_dirs()[0], 'alarmlist.dat')
         try:
             # Load Alarm List from file.
-            with open(path, 'rb') as f:
+            # Open in non-binary mode, because we are reading json
+            # string.
+            with open(path, 'r') as f:
                 raw = f.read()
                 try:
                     alist = _read(raw)
@@ -344,7 +337,9 @@ class AlarmClock:
                 for row in self.model
             ]
 
-            with open(path, 'wb') as f:
+            # Open in non-binary mode, because we are writing json
+            # string.
+            with open(path, 'w') as f:
                 f.write(_write(alist))
                 logger.debug('saving {0} alarms.'.format(len(alist)))
 
@@ -361,12 +356,14 @@ def fade_in(main, exaile):
     logger.debug('fade_in() called.')
 
     # pull settings
-    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume') / 100.0
-    fade_max_volume = (
-        settings.get_option('plugin/multialarmclock/fade_max_volume') / 100.0
+    temp_volume = (
+        settings.get_option('plugin/multialarmclock/fade_min_volume', 0) / 100.0
     )
-    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment') / 100.0
-    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / (
+    fade_max_volume = (
+        settings.get_option('plugin/multialarmclock/fade_max_volume', 100) / 100.0
+    )
+    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment', 1) / 100.0
+    time_per_inc = settings.get_option('plugin/multialarmclock/fade_time', 30) / (
         (fade_max_volume - temp_volume) / fade_inc
     )
 
@@ -436,7 +433,7 @@ def check_alarms(main, exaile):
                     player.QUEUE.current_playlist.set_current_position(-1)
                 else:
                     player.QUEUE.set_current_playlist(
-                        exaile.gui.main.get_selected_page()
+                        exaile.gui.main.get_selected_page().playlist
                     )
 
             player.QUEUE.play()

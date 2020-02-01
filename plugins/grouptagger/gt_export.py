@@ -35,7 +35,7 @@ from xl.trax import search
 
 from xlgui.widgets import dialogs
 
-from gt_common import get_track_groups
+from .gt_common import get_track_groups
 
 import logging
 

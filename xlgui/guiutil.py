@@ -290,7 +290,7 @@ class ScalableImageWidget(Gtk.Image):
         scaled = pixbuf = None
 
 
-class SearchEntry(object):
+class SearchEntry:
     """
         A Gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
@@ -440,7 +440,7 @@ def initialize_from_xml(this, other=None):
     '''
     builder = Gtk.Builder()
 
-    if isinstance(this.ui_filename, basestring) and os.path.exists(this.ui_filename):
+    if isinstance(this.ui_filename, str):
         builder.add_from_file(this.ui_filename)
     else:
         builder.add_from_file(xdg.get_data_path(*this.ui_filename))
@@ -503,7 +503,7 @@ def persist_selection(widget, key_col, setting_name):
 
     key = settings.get_option(setting_name)
     if key is not None:
-        for i in xrange(0, len(model)):
+        for i in range(len(model)):
             if model[i][key_col] == key:
                 if hasattr(widget, 'set_active'):
                     widget.set_active(i)

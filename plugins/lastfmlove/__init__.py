@@ -27,8 +27,8 @@ from xlgui import icons
 from xlgui.widgets.menu import MenuItem
 from xlgui.widgets.playlist_columns import Column, ColumnMenuItem
 
-import lastfmlove_preferences
-from cellrenderertoggleimage import CellRendererToggleImage
+from . import lastfmlove_preferences
+from .cellrenderertoggleimage import CellRendererToggleImage
 
 LASTFMLOVER = None
 logger = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ icons.MANAGER.add_icon_name_from_directory(
 )
 
 
-class LastFMPlugin(object):
+class LastFMPlugin:
     def enable(self, exaile):
         """
             Handles the deferred enable call
@@ -190,7 +190,7 @@ class LoveMenuItem(MenuItem):
         self.__lastfmlover.toggle_loved(track)
 
 
-class LastFMLover(object):
+class LastFMLover:
     """
         Allows for retrieval and setting
         of loved tracks via Last.fm

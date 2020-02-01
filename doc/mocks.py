@@ -8,25 +8,32 @@
 import sys
 
 
-class Mock(object):
-
-    __all__ = []
-
+class MockGiModule:
     def __init__(self, *args, **kwargs):
         pass
 
     def __call__(self, *args, **kwargs):
-        return Mock()
+        return MockGiModule()
 
     @classmethod
     def __getattr__(cls, name):
         if name in ('__file__', '__path__'):
             return '/dev/null'
+        elif name in '__mro_entries__':
+            raise AttributeError("'MockGiModule' object has no attribute '%s'" % (name))
+        elif name in 'GObject':
+            # This corresponds to GObject class in the GI (GObject)
+            # module - we need to return type instead of an instance!
+            #
+            # Note: we need to do this for each class that comes from
+            # a GI module AND is involved in multiple-inheritance in our
+            # codebase in order to avoid "TypeError: metaclass conflict"
+            # errors.
+            return MockGiModule
         else:
-            return Mock()
+            return MockGiModule()
 
     # glib mocks
-
     @classmethod
     def get_user_data_dir(cls):
         return '/tmp'
@@ -40,7 +47,6 @@ class Mock(object):
         return '/tmp'
 
     # gtk/gdk mocks
-
     class ModifierType:
         SHIFT_MASK = 0
 
@@ -48,9 +54,31 @@ class Mock(object):
     def accelerator_parse(cls, *args):
         return [0, 0]
 
+class Mock:
+    __all__ = []
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return Mock()
+
+    @classmethod
+    def __getattr__(cls, name):
+        if name in ('__file__', '__path__'):
+            return '/dev/null'
+        elif name in '__mro_entries__':
+            raise AttributeError("'Mock' object has no attribute '%s'" % (name))
+        elif name in ('Gio', 'GLib', 'GObject', 'Gst', 'Gtk', 'Gdk'):
+            # These are reached via 'from gi.repository import x' and
+            # correspond to GI sub-modules - need to return an instance
+            # of our mock GI module
+            return MockGiModule()
+        else:
+            return Mock()
 
 MOCK_MODULES = [
-    'bsddb',
+    'bsddb3',
     'cairo',
 
     'dbus',

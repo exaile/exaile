@@ -9,6 +9,9 @@
 # This means that Gst.init needs to be called before any plugins are loaded
 #
 
+import gi
+
+gi.require_version('Gst', '1.0')
 from gi.repository import Gst
 
 Gst.init(None)

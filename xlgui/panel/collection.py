@@ -47,7 +47,9 @@ SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
 
 def first_meaningful_char(s):
-    for c in unicode(s):
+    # Keep explicit str() conversion in case we ever end up receiving
+    # a non-string sort tag (e.g. an int for track number)
+    for c in str(s):
         if c.isdigit():
             return '0'
         elif c.isalpha():
@@ -56,7 +58,7 @@ def first_meaningful_char(s):
         return '_'
 
 
-class Order(object):
+class Order:
     """
         An Order represents a structure for arranging Tracks into the
         Collection tree.
@@ -74,13 +76,13 @@ class Order(object):
 
     def __init__(self, name, levels, use_compilations=True):
         self.__name = name
-        self.__levels = map(self.__parse_level, levels)
+        self.__levels = [self.__parse_level(l) for l in levels]
         self.__formatters = [formatter.TrackFormatter(l[1]) for l in self.__levels]
         self.__use_compilations = use_compilations
 
     @staticmethod
     def __parse_level(val):
-        if type(val) in (str, unicode):
+        if isinstance(val, str):
             val = ((val,), "$%s" % val, (val,))
         return tuple(val)
 
@@ -334,7 +336,7 @@ class CollectionPanel(panel.Panel):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = unicode(entry.get_text(), 'utf-8')
+        self.keyword = entry.get_text()
         self.start_count += 1
         self.load_tree()
 
@@ -450,7 +452,7 @@ class CollectionPanel(panel.Panel):
             Called when the user clicks on the tree
         """
         # selection = self.tree.get_selection()
-        (x, y) = map(int, event.get_coords())
+        (x, y) = [int(v) for v in event.get_coords()]
         # path = self.tree.get_path_at_pos(x, y)
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)
@@ -573,8 +575,6 @@ class CollectionPanel(panel.Panel):
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
-            if value:
-                value = unicode(value, 'utf-8')
 
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
@@ -641,7 +641,10 @@ class CollectionPanel(panel.Panel):
         to_expand = []
 
         for srtr in srtrs:
-            stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
+            # The value returned by get_tag_sort() may be of other
+            # typa than str (e.g., an int for track number), hence
+            # explicit conversion via str() is necessary.
+            stagvals = [str(srtr.track.get_tag_sort(x)) for x in tags]
             stagval = " ".join(stagvals)
             if last_val != stagval or bottom:
                 tagval = self.order.format_track(depth, srtr.track)
@@ -747,17 +750,17 @@ class CollectionDragTreeView(DragTreeView):
             Returns the currently selected tracks
         """
         model, paths = self.get_selection().get_selected_rows()
-        tracks = []
 
         if len(paths) == 0:
-            return tracks
+            return []
 
+        tracks = set()
         for path in paths:
             iter = model.get_iter(path)
             newset = self.container._find_tracks(iter)
-            tracks.append(newset)
+            tracks.update(newset)
 
-        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+        tracks = list(tracks)
 
         return trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
 

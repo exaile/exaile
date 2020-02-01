@@ -47,8 +47,8 @@ fi
 popd
 
 pushd "$COPYDIR"
-# Our Makefile relies on $PYTHON2_CMD to run Python commands
-export PYTHON2_CMD="${BUILD_ROOT}"/"${MINGW}"/bin/"${PYTHON_ID}".exe
+# Our Makefile relies on $PYTHON3_CMD to run Python commands
+export PYTHON3_CMD="${BUILD_ROOT}"/"${MINGW}"/bin/"${PYTHON_ID}".exe
 build_make compile locale
 build_make install PREFIX=/usr DESTDIR="$DESTDIR"
 

@@ -142,7 +142,7 @@ class ProgressMonitor(Gtk.Box):
         self.destroy()
 
 
-class ProgressManager(object):
+class ProgressManager:
     """
         Manages the [possibly multiple] progress bars that will allow the user
         to interact with different long running tasks that may occur in the

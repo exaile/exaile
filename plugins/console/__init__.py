@@ -26,7 +26,7 @@ from gi.repository import Gtk
 import os
 import sys
 import traceback
-from cStringIO import StringIO
+from io import StringIO
 
 
 class PyConsole:

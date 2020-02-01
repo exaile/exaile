@@ -18,13 +18,13 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             'property only has an effect if not overridden '
             'the "pixbuf" property.',
             '',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'pixbuf': (
             GdkPixbuf.Pixbuf,
             'pixbuf',
             'The pixbuf to render.',
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'icon-size': (
             GObject.TYPE_UINT,
@@ -33,14 +33,14 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             0,
             65535,
             Gtk.IconSize.SMALL_TOOLBAR,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
         'render-prelit': (
             GObject.TYPE_BOOLEAN,
             'render prelit',
             'Whether to render prelit states or not',
             True,
-            GObject.PARAM_READWRITE,
+            GObject.ParamFlags.READWRITE,
         ),
     }
 
@@ -155,9 +155,9 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
             )
 
             # Make sure to properly align the pixbuf
-            x = area_x + area_width * self.props.xalign - self.__pixbuf_width / 2
+            x = area_x + area_width * self.props.xalign - self.__pixbuf_width // 2
 
-            y = area_y + area_height * self.props.yalign - self.__pixbuf_height / 2
+            y = area_y + area_height * self.props.yalign - self.__pixbuf_height // 2
 
             Gdk.cairo_set_source_pixbuf(cairo_context, pixbuf, x, y)
             cairo_context.paint()

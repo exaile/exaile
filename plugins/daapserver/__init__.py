@@ -1,8 +1,8 @@
 import logging
 from xl import event, settings
-import exaile_parser
-from server import DaapServer
-import daapserverprefs
+from . import exaile_parser
+from .server import DaapServer
+from . import daapserverprefs
 
 logger = logging.getLogger(__file__)
 
@@ -24,9 +24,9 @@ class CollectionWrapper:
             if self.daap is None:
                 do = self.parser.parse(self.track)[0]
                 if do is not None:
-                    self.daap = ''.join([d.encode() for d in do])
+                    self.daap = b''.join([d.encode() for d in do])
                 else:
-                    self.daap = ''
+                    self.daap = b''
             return self.daap
 
         def get_original_filename(self):
@@ -54,7 +54,7 @@ class CollectionWrapper:
         return len(self.collection)
 
 
-class DaapServerPlugin(object):
+class DaapServerPlugin:
     __exaile = None
     __daapserver = None
 

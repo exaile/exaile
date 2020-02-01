@@ -15,7 +15,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from __future__ import with_statement
 
 import copy
 import json
@@ -105,7 +104,7 @@ class Bookmark:
         """
             Create menu entries for this bookmark.
         """
-        time = '%d:%02d' % (self.__time / 60, self.__time % 60)
+        time = '%d:%02d' % (self.__time // 60, self.__time % 60)
         label = '%s @ %s' % (self.__title, time)
 
         def factory(menu_, _parent, _context):
@@ -267,7 +266,10 @@ class BookmarksManager:
                 LOGGER.info('Bookmarks file does not exist yet.')
                 return
             try:
-                with open(self.__PATH, 'rb') as bm_file:
+                # NOTE: both binary and non-binary works here; use
+                # non-binary to be consistent with open() call in
+                # __do_save_db(), which needs to be non-binary
+                with open(self.__PATH, 'r') as bm_file:
                     bookmarks = json.load(bm_file)
                     self.__load_db_callback(bookmarks)
             except IOError as err:
@@ -296,14 +298,17 @@ class BookmarksManager:
 
     def __do_save_db(self, bookmarks):
         with self.__db_file_lock:
-            with open(self.__PATH, 'wb') as bm_file:
+            # NOTE: intentionally open in non-binary mode because
+            # otherwise json.dump() throws an error about trying to
+            # write an str instead of bytes
+            with open(self.__PATH, 'w') as bm_file:
                 json.dump(
                     bookmarks, bm_file, indent=2, default=Bookmark.serialize_bookmark
                 )
             LOGGER.debug('saved %d bookmarks', len(bookmarks))
 
 
-class BookmarksPlugin(object):
+class BookmarksPlugin:
     def __init__(self):
         self.__manager = None
 

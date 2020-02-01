@@ -2,9 +2,9 @@ try:
     from bs4 import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
-import HTMLParser
+import html.parser
 import re
-import urllib
+import urllib.parse
 
 from xl.lyrics import LyricSearchMethod, LyricsNotFoundException
 from xl import common, providers
@@ -37,8 +37,8 @@ class LyricWiki(LyricSearchMethod):
     def find_lyrics(self, track):
         try:
             (artist, title) = (
-                track.get_tag_raw('artist')[0].encode("utf-8"),
-                track.get_tag_raw('title')[0].encode("utf-8"),
+                track.get_tag_raw('artist')[0],
+                track.get_tag_raw('title')[0],
             )
         except TypeError:
             raise LyricsNotFoundException
@@ -46,8 +46,8 @@ class LyricWiki(LyricSearchMethod):
         if not artist or not title:
             raise LyricsNotFoundException
 
-        artist = urllib.quote(artist.replace(' ', '_'))
-        title = urllib.quote(title.replace(' ', '_'))
+        artist = urllib.parse.quote(artist.replace(' ', '_'))
+        title = urllib.parse.quote(title.replace(' ', '_'))
 
         url = 'https://lyrics.fandom.com/wiki/%s:%s' % (artist, title)
 
@@ -58,11 +58,13 @@ class LyricWiki(LyricSearchMethod):
 
         try:
             soup = BeautifulSoup(html, "lxml")
-        except HTMLParser.HTMLParseError:
+        except html.parser.HTMLParseError:
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs={"class": "lyricbox"})
         if lyrics:
-            with_div = lyrics[0].renderContents().replace('<br />', '\n')
+            with_div = (
+                lyrics[0].renderContents().decode('utf-8').replace('<br />', '\n')
+            )
             string = '\n'.join(
                 self.remove_div(with_div).replace('\n\n\n', '').split('\n')
             )
@@ -71,6 +73,6 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
 
         lyrics = self.remove_script(lyrics)
-        lyrics = self.remove_html_tags(unicode(BeautifulSoup(lyrics, "lxml")))
+        lyrics = self.remove_html_tags(str(BeautifulSoup(lyrics, "lxml")))
 
         return (lyrics, self.name, url)

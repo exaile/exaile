@@ -38,7 +38,7 @@ from xl.devices import Device, KeyedDevice
 from xl import playlist, trax, common
 import os.path
 
-import cdprefs
+from . import cdprefs
 
 try:
     import DiscID
@@ -61,7 +61,7 @@ CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
 
-class CdPlugin(object):
+class CdPlugin:
     def enable(self, exaile):
         self.__exaile = exaile
         self.__udisks2 = None
@@ -88,7 +88,7 @@ class CdPlugin(object):
 plugin_class = CdPlugin
 
 
-class _CDTrack(object):
+class _CDTrack:
     """
         @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
         @ivar data: `True` if this "track" contains data, `False` if it is audio
@@ -114,7 +114,7 @@ class _CDTrack(object):
         return (self.minutes * 60 + self.seconds) * 75 + self.frames
 
 
-class CDTocParser(object):
+class CDTocParser:
     # based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
 
     def __init__(self, device):
@@ -128,7 +128,8 @@ class CDTocParser(object):
             toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
             start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
 
-            for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
+            # All tracks plus leadout
+            for trnum in list(range(start, end + 1)) + [CDROM_LEADOUT]:
                 entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
                 entry = ioctl(fd, CDROMREADTOCENTRY, entry)
                 self.__raw_tracks.append(_CDTrack(entry))
@@ -142,7 +143,7 @@ class CDTocParser(object):
         lengths = []
         for track in self.__raw_tracks[1:]:
             frame_end = track.get_frame_count()
-            lengths.append((frame_end - offset) / 75)
+            lengths.append((frame_end - offset) // 75)
             offset = frame_end
         return lengths
 
@@ -271,8 +272,9 @@ class UDisks2CdProvider(UDisksProvider):
             return self.PRIORITY
 
     def get_device(self, obj, udisks):
-        device = obj.props.Get('Device', byte_arrays=True).strip('\0')
-        return CDDevice(str(device))
+        device = obj.props.Get('Device', byte_arrays=True).decode('utf-8')
+        device = device.strip('\0')
+        return CDDevice(device)
 
     def on_device_changed(self, obj, udisks, device):
         if self._get_num_tracks(obj, udisks) is None:

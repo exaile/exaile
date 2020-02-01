@@ -14,7 +14,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from __future__ import print_function
 
 from gi.repository import GLib
 from gi.repository import Gtk
@@ -28,7 +27,7 @@ from xlgui.widgets import menu
 import threading
 
 
-class DeveloperPlugin(object):
+class DeveloperPlugin:
     '''
         Shows useful information for Exaile developers
     '''
@@ -168,7 +167,7 @@ class DeveloperWindow(Gtk.Window):
 
     @GtkTemplate.Callback
     def on_event_filter_entry_changed(self, widget):
-        self.event_filter_text = widget.get_text().decode('utf-8')
+        self.event_filter_text = widget.get_text()
         self.event_model_filter.refilter()
 
     def on_event_update(self):
@@ -176,7 +175,7 @@ class DeveloperWindow(Gtk.Window):
         data = self.plugin.get_event_data(self.events_count)
         if data:
             events, self.events_count = data
-            for name, count in events.iteritems():
+            for name, count in events.items():
                 titer = self.event_model_idx.get(name)
                 if titer:
                     self.event_store[titer][1] = count

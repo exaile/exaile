@@ -98,9 +98,10 @@ for dir in args:
         continue
 
     tfile = tarfile.open(
-        options.output + dir + "-%s.exz" % info["Version"], "w:%s" % COMPRESSION
+        options.output + dir + "-%s.exz" % info["Version"],
+        "w:%s" % COMPRESSION,
+        format=tarfile.USTAR_FORMAT,
     )
-    tfile.posix = True  # we like being standards-compilant
 
     for fold, subdirs, files in os.walk(dir):
         for file in files:

@@ -76,7 +76,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
         """
             Cleanups
         """
-        for control in self.__controls.itervalues():
+        for control in self.__controls.values():
             control.destroy()
 
     def __contains__(self, item):
@@ -180,14 +180,14 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 # Control definitions
 
 
-class BaseControl(object):
+class BaseControl:
     """
         Base control provider
     """
 
-    name = None
-    title = None
-    description = None
+    name: str
+    title: str
+    description: str
     fixed = False
 
 
@@ -566,7 +566,7 @@ class RatingControl(RatingWidget, BaseControl):
         if player.PLAYER.current is not None:
             player.PLAYER.current.set_rating(rating)
             maximum = settings.get_option('rating/maximum', 5)
-            event.log_event('rating_changed', self, rating / maximum * 100)
+            event.log_event('rating_changed', self, 100 * rating / maximum)
 
 
 class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):

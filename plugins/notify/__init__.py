@@ -33,7 +33,7 @@ from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.guiutil import pixbuf_from_data
 
-import notifyprefs
+from . import notifyprefs
 
 
 # For documentation on libnotify see also the "Desktop Notifications Specification":
@@ -50,7 +50,7 @@ BODY_ARTIST = _('by {artist}')
 BODY_ALBUM = _('by {album}')
 
 
-class NotifierSettings(object):
+class NotifierSettings:
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
 
@@ -266,7 +266,7 @@ class Notifier(PlaybackAdapter):
             LOGGER.exception("Failed to close notification")
 
 
-class NotifyPlugin(object):
+class NotifyPlugin:
     def __init__(self):
         self.__notifier = None
         self.__exaile = None

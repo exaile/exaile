@@ -28,7 +28,7 @@ from gi.repository import Gtk
 from xl import providers
 
 
-class Accelerator(object):
+class Accelerator:
     __slots__ = ['name', 'keys', 'helptext', 'callback', 'key', 'mods']
 
     def __init__(self, keys, helptext, callback):

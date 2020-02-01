@@ -26,8 +26,6 @@
 # from your version.
 
 
-from __future__ import division
-
 from xl.metadata import _base, _matroska
 
 

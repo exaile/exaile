@@ -36,10 +36,10 @@ dependencies:
 .. code-block:: sh
 
     sudo apt-get install \
-      python-mutagen \
-      python-gi \
-      python-gi-cairo \
-      python-dbus \
+      python3-mutagen \
+      python3-gi \
+      python3-gi-cairo \
+      python3-dbus \
       gir1.2-gtk-3.0 \
       gir1.2-gstreamer-1.0 \
       gir1.2-gst-plugins-base-1.0 \
@@ -59,10 +59,10 @@ awhile):
 .. code-block:: sh
 
   pacman -S \
-    mingw-w64-i686-python2-gobject \
-    mingw-w64-i686-python2-cairo \
-    mingw-w64-i686-python2-pip \
-    mingw-w64-i686-python2-bsddb3 \
+    mingw-w64-i686-python3-gobject \
+    mingw-w64-i686-python3-cairo \
+    mingw-w64-i686-python3-pip \
+    mingw-w64-i686-python3-bsddb3 \
     mingw-w64-i686-gtk3 \
     mingw-w64-i686-gdk-pixbuf2 \
     mingw-w64-i686-gstreamer \
@@ -76,14 +76,14 @@ Once that is complete, you'll want to install mutagen:
 
 .. code-block:: sh
 
-    python -m pip install mutagen
+    python3 -m pip install mutagen
 
 And then you should be able to launch Exaile from the msys2 console:
 
 .. code-block:: sh
 
     cd exaile
-    python exaile_win.py 
+    python3 exaile_win.py
 
 OSX
 ~~~
@@ -113,7 +113,7 @@ Useful documentation
 Exaile is built upon Python, PyGObject, Gtk+, and GStreamer. Here is a bunch of
 documentation that you will find useful when working with these frameworks:
 
-* `Python 2 <https://docs.python.org/2.7/>`_
+* `Python 3 <https://docs.python.org/3/>`_
 * `PyGObject <https://pygobject.readthedocs.io>`_
 * `Python GI API Reference <https://lazka.github.io/pgi-docs>`_
 * `Python GTK+3 Tutorial <https://python-gtk-3-tutorial.readthedocs.io>`_

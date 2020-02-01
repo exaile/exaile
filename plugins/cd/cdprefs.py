@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import with_statement
 import os
 
 from xl import settings, transcoder

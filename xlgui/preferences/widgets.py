@@ -27,6 +27,7 @@
 import hashlib
 import logging
 import os
+from typing import Any
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -42,12 +43,12 @@ from xlgui.guiutil import GtkTemplate
 logger = logging.getLogger(__name__)
 
 
-class Preference(object):
+class Preference:
     """
         Representing a Gtk.Entry preferences item
     """
 
-    default = ''
+    default: Any = ''
     restart_required = False
 
     def __init__(self, preferences, widget):
@@ -106,7 +107,7 @@ class Preference(object):
         """
             Value to be stored into the settings file
         """
-        return unicode(self.widget.get_text(), 'utf-8')
+        return self.widget.get_text()
 
     def _set_value(self):
         """
@@ -165,7 +166,7 @@ class Preference(object):
             self.label_widget.set_sensitive(value)
 
 
-class Conditional(object):
+class Conditional:
     """
         Allows for reactions on changes
         of other preference items
@@ -240,7 +241,7 @@ class CheckConditional(Conditional):
         return self.get_condition_value()
 
 
-class MultiConditional(object):
+class MultiConditional:
     """
         Allows for reactions on changes of multiple preference items
     """
@@ -372,7 +373,7 @@ class HashedPreference(Preference):
 
         if value != '':
             hashfunc = hashlib.new(self.type)
-            hashfunc.update(value)
+            hashfunc.update(value.encode('utf-8'))
             value = hashfunc.hexdigest()
 
         oldvalue = settings.get_option(self.name, self.default)
@@ -505,7 +506,7 @@ class SelectionListPreference(Preference):
         * default: list of item ids
     """
 
-    class Item(object):
+    class Item:
         """
             Convenience class for preference item description
         """
@@ -792,7 +793,7 @@ class ShortcutListPreference(Preference):
             Updates the displayed items
         """
         self.list.clear()
-        for action in self.available_items.iterkeys():
+        for action in self.available_items.keys():
             try:
                 accel = items[action]
             except KeyError:
@@ -821,7 +822,7 @@ class TextViewPreference(Preference):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return unicode(buf.get_text(start, end, True), 'utf-8')
+        return buf.get_text(start, end, True)
 
     def _set_value(self):
         """
@@ -849,19 +850,15 @@ class ListPreference(Preference):
     def _set_value(self):
         items = settings.get_option(self.name, default=self.default)
         try:
-            items = u" ".join(items)
+            items = " ".join(items)
         except TypeError:
-            items = u""
+            items = ""
         self.widget.set_text(items)
 
     def _get_value(self):
-        # shlex is broken with unicode, so we feed it UTF-8 and decode
-        # afterwards.
         import shlex
 
-        values = shlex.split(self.widget.get_text())
-        values = [unicode(value, 'utf-8') for value in values]
-        return values
+        return shlex.split(self.widget.get_text())
 
 
 class SpinPreference(Preference):
@@ -1025,7 +1022,7 @@ class ComboEntryPreference(Preference):
 
         try:
             try:
-                preset_items = self.preset_items.items()
+                preset_items = list(self.preset_items.items())
                 self.list = Gtk.ListStore(str, str)
                 text_renderer = self.widget.get_cells()[0]
                 text_renderer.set_property('weight', Pango.Weight.BOLD)
@@ -1048,7 +1045,7 @@ class ComboEntryPreference(Preference):
             completion = Gtk.EntryCompletion()
 
             try:
-                completion_items = self.completion_items.items()
+                completion_items = list(self.completion_items.items())
                 self.completion_list = Gtk.ListStore(str, str)
 
                 title_renderer = Gtk.CellRendererText()

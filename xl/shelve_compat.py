@@ -1,9 +1,9 @@
-# Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2019  Johannes Sasongko <sasongko@gmail.com>
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,31 +25,16 @@
 # from your version.
 
 
-import wave
-import sunau
-import os
-
-from xl.metadata._base import BaseFormat, NotReadable
-
-type_map = {"au": sunau, "wav": wave}
+import pickle
+import shelve
 
 
-class WavFormat(BaseFormat):
-    writable = False
+class Utf8Unpickler(pickle.Unpickler):
+    def __init__(self, *args, **kwargs):
+        kwargs['encoding'] = 'utf-8'
+        super().__init__(*args, **kwargs)
 
-    def load(self):
-        ext = os.path.splitext(self.loc)[1][1:].lower()
-        opener = type_map[ext]
 
-        try:
-            fp = open(self.loc, 'rb')
-        except IOError:
-            raise NotReadable
-
-        try:
-            with fp:
-                f = opener.open(fp)
-                length = f.getnframes() // f.getframerate()
-            self.mutagen = {'__bitrate': -1, '__length': length}
-        except (IOError, KeyError):
-            self.mutagen = {'__bitrate': -1, '__length': -1}
+def ensure_shelve_compat():
+    """"Change shelve's unpickler to use UTF-8, for compatibility with Python 2 shelves"""
+    shelve.Unpickler = Utf8Unpickler

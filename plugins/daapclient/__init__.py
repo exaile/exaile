@@ -17,7 +17,7 @@
 
 import functools
 from gettext import gettext as _
-import httplib
+import http.client
 import logging
 import pickle
 import os
@@ -34,8 +34,8 @@ from xlgui.panel.collection import CollectionPanel
 from xlgui.widgets import dialogs, menu, menuitems
 from xlgui import main
 
-from client import DAAPClient
-import daapclientprefs
+from .client import DAAPClient
+from . import daapclientprefs
 
 
 logger = logging.getLogger(__name__)
@@ -438,7 +438,7 @@ class DaapManager:
                 providers.unregister('main-panel', panel)
 
 
-class DaapConnection(object):
+class DaapConnection:
     """
         A connection to a DAAP share.
     """
@@ -561,18 +561,20 @@ class DaapConnection(object):
 
                 for field in eqiv.keys():
                     try:
-                        tag = u'%s' % tr.atom.getAtom(eqiv[field])
+                        tag = '%s' % tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag], notify_changed=False)
 
                     except Exception:
-                        if field is 'tracknumber':
+                        if field == 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 
                 # TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw(
-                        "__length", tr.atom.getAtom('astm') / 1000, notify_changed=False
+                        "__length",
+                        tr.atom.getAtom('astm') // 1000,
+                        notify_changed=False,
                     )
                 except Exception:
                     temp.set_tag_raw("__length", 0, notify_changed=False)
@@ -588,7 +590,7 @@ class DaapConnection(object):
             if t.id == track_id:
                 try:
                     t.save(filename)
-                except httplib.CannotSendRequest:
+                except http.client.CannotSendRequest:
                     Gtk.MessageDialog(
                         main.mainwindow().window,
                         Gtk.DialogFlags.MODAL,
@@ -768,7 +770,7 @@ class NetworkPanel(CollectionPanel):
 #                print "DAAP: saving track %s to %s."%(i.daapid, filename)
 
 
-class DaapClientPlugin(object):
+class DaapClientPlugin:
 
     __exaile = None
     __manager = None
@@ -803,7 +805,7 @@ class DaapClientPlugin(object):
                 logger.error('is avahi-daemon running?')
         else:
             avahi_interface = None
-            logger.warn(
+            logger.warning(
                 'AVAHI could not be imported, you will not see broadcast shares.'
             )
 

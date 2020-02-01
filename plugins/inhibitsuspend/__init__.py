@@ -6,12 +6,11 @@
 
     TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
-from __future__ import print_function, with_statement
 
 try:
-    import thread as _thread
+    import _thread
 except ImportError:
-    import dummy_thread as _thread
+    import _dummy_thread as _thread
 import logging
 import os
 
@@ -58,7 +57,7 @@ def disable(exaile):
     logger.info('Suspend Inhibitor Disabled')
 
 
-class SuspendInhibit(object):
+class SuspendInhibit:
     """
         Attempt to detect desktop session and initialize appropriate adapter
     """
@@ -81,7 +80,7 @@ class SuspendInhibit(object):
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
         # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
-        elif session is '' and xdg_session is '':
+        elif session == '' and xdg_session == '':
             logger.warning(
                 'Could not detect Desktop Session, will try default \
                     Power Manager then Gnome'

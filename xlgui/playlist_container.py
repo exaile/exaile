@@ -447,7 +447,7 @@ class PlaylistNotebook(SmartNotebook):
         return ret
 
     def clear_closed_tabs(self, widget, name, parent, context):
-        for i in xrange(len(self.tab_history)):
+        for i in range(len(self.tab_history)):
             self.remove_closed_tab(0)
 
     def focus_tab(self, tab_nr):

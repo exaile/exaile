@@ -31,6 +31,7 @@ import zlib
 import threading
 
 from xl.nls import gettext as _
+from xl.trax import Track
 from xl import common, event, providers, settings, xdg
 
 
@@ -120,7 +121,7 @@ class LyricsManager(providers.ProviderHandler):
 
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
 
-    def __get_cache_key(self, track, provider):
+    def __get_cache_key(self, track: Track, provider) -> str:
         """
             Returns the cache key for a specific track and lyrics provider
 
@@ -130,9 +131,9 @@ class LyricsManager(providers.ProviderHandler):
         """
         return (
             track.get_loc_for_io()
-            + provider.display_name.encode('utf-8')
-            + track.get_tag_display('artist').encode('utf-8')
-            + track.get_tag_display('title').encode('utf-8')
+            + provider.display_name
+            + track.get_tag_display('artist')
+            + track.get_tag_display('title')
         )
 
     def set_preferred_order(self, order):
@@ -260,7 +261,7 @@ class LyricsManager(providers.ProviderHandler):
                 return (lyrics.decode('utf-8', errors='replace'), source, url)
 
         (lyrics, source, url) = method.find_lyrics(track)
-        assert isinstance(lyrics, unicode), (method, track)
+        assert isinstance(lyrics, str), (method, track)
 
         # update cache
         time = datetime.now()
@@ -303,7 +304,7 @@ class LyricsManager(providers.ProviderHandler):
 MANAGER = LyricsManager()
 
 
-class LyricSearchMethod(object):
+class LyricSearchMethod:
     """
         Lyrics plugins will subclass this
     """

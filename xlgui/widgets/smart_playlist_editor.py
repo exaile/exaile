@@ -262,7 +262,7 @@ def __update_maps():
 
     from xl.metadata.tags import tag_data
 
-    for tag, data in tag_data.iteritems():
+    for tag, data in tag_data.items():
 
         if data is None:
             continue
@@ -277,7 +277,7 @@ def __update_maps():
 
         _NMAP[data.name] = tag
 
-    for k, v in _NMAP.iteritems():
+    for k, v in _NMAP.items():
         if v in _REV_NMAP:
             raise ValueError("_REV_NMAP Internal error: '%s', '%s'" % (k, v))
         _REV_NMAP[v] = k
@@ -286,7 +286,7 @@ def __update_maps():
 __update_maps()
 
 
-class SmartPlaylistEditor(object):
+class SmartPlaylistEditor:
     @classmethod
     def create(cls, collection, smart_manager, parent=None):
         """
@@ -430,7 +430,7 @@ class SmartPlaylistEditor(object):
 
         dialog.sort_tags = sort_tags = Gtk.ComboBoxText.new()
         sort_tags.set_wrap_width(5)
-        for k, v in sorted(tag_data.iteritems()):
+        for k, v in sorted(tag_data.items()):
             if v:
                 sort_tags.append(k, v.translated_name)
 

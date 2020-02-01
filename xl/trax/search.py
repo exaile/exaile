@@ -26,13 +26,14 @@
 
 import time
 import re
+from typing import Collection
 
 from xl.unicode import shave_marks
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
 
-class SearchResultTrack(object):
+class SearchResultTrack:
     """
         Holds a track with search result metadata included.
 
@@ -46,7 +47,7 @@ class SearchResultTrack(object):
         self.on_tags = []
 
 
-class _Matcher(object):
+class _Matcher:
     """
         Base class for match conditions
     """
@@ -162,7 +163,7 @@ class _LtMatcher(_Matcher):
         return value < content
 
 
-class _NotMetaMatcher(object):
+class _NotMetaMatcher:
     """
         Condition for boolean NOT
     """
@@ -177,7 +178,7 @@ class _NotMetaMatcher(object):
         return not self.matcher.match(srtrack)
 
 
-class _OrMetaMatcher(object):
+class _OrMetaMatcher:
     """
         Condition for boolean OR
     """
@@ -192,7 +193,7 @@ class _OrMetaMatcher(object):
         return self.left.match(srtrack) or self.right.match(srtrack)
 
 
-class _MultiMetaMatcher(object):
+class _MultiMetaMatcher:
     """
         Condition for boolean AND
     """
@@ -210,7 +211,7 @@ class _MultiMetaMatcher(object):
         return True
 
 
-class _ManyMultiMetaMatcher(object):
+class _ManyMultiMetaMatcher:
     """
         TODO: think of a proper docstring for this
 
@@ -240,7 +241,7 @@ class _ManyMultiMetaMatcher(object):
         return matched
 
 
-class TracksMatcher(object):
+class TracksMatcher:
     """
         Holds criteria and determines whether
         a given track matches those criteria.
@@ -496,12 +497,12 @@ class TracksMatcher(object):
         return tokens
 
 
-class TracksInList(object):
+class TracksInList:
     '''
         Matches tracks contained in a list/dict/set. Copies the list.
     '''
 
-    __slots__ = ['_tracks', 'tag']
+    __slots__ = ['_tracks']
     tag = None
 
     def __init__(self, tracks):
@@ -523,7 +524,7 @@ class TracksNotInList(TracksInList):
         return track.track not in self._tracks
 
 
-def search_tracks(trackiter, trackmatchers):
+def search_tracks(trackiter, trackmatchers: Collection[TracksMatcher]):
     """
         Search a set of tracks for those that match specified conditions.
 
@@ -533,10 +534,7 @@ def search_tracks(trackiter, trackmatchers):
     for srtr in trackiter:
         if not isinstance(srtr, SearchResultTrack):
             srtr = SearchResultTrack(srtr)
-        for tma in trackmatchers:
-            if not tma.match(srtr):
-                break
-        else:
+        if all(tma.match(srtr) for tma in trackmatchers):
             yield srtr
 
         # On large collections, searching can take a while. Due to

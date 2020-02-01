@@ -27,6 +27,7 @@
 from collections import namedtuple
 import copy
 import threading
+from typing import Any, ClassVar, Mapping, Sequence
 
 import logging
 
@@ -58,7 +59,7 @@ class NotReadable(Exception):
     pass
 
 
-class BaseFormat(object):
+class BaseFormat:
     """
         Base class for handling loading of metadata from files.
 
@@ -74,10 +75,15 @@ class BaseFormat(object):
     # is set to True. If others is True, then anything not in tag_mapping will
     # be written using the Exaile tag name
     # -> dict k: exaile tag name, v: native tag name
-    tag_mapping = {}
-    others = True
-    writable = False
-    case_sensitive = True
+    tag_mapping: ClassVar[Mapping[str, Any]] = {}
+    others: ClassVar[bool] = True
+    writable: ClassVar[bool] = False
+    case_sensitive: ClassVar[bool] = True
+
+    # Whether _compute_mappings has run
+    _computed: ClassVar[bool]
+    # Reverse of tag_mapping, populated in _compute_mappings
+    _reverse_mapping: ClassVar[Mapping[Any, str]]
 
     @classmethod
     def _compute_mappings(cls):
@@ -87,10 +93,10 @@ class BaseFormat(object):
                 return
 
             if cls.case_sensitive:
-                cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.iteritems()}
+                cls._reverse_mapping = {v: k for k, v in cls.tag_mapping.items()}
             else:
                 cls._reverse_mapping = {
-                    v.lower(): k for k, v in cls.tag_mapping.iteritems()
+                    v.lower(): k for k, v in cls.tag_mapping.items()
                 }
 
             from .tags import disk_tags
@@ -164,7 +170,7 @@ class BaseFormat(object):
         '''
         raw[tag] = value
 
-    def get_keys_disk(self):
+    def get_keys_disk(self) -> Sequence[str]:
         """
             Returns keys of all tags that can be read from disk
         """
@@ -184,7 +190,7 @@ class BaseFormat(object):
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if isinstance(t, basestring) and t.startswith("__"):
+            if t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -212,24 +218,21 @@ class BaseFormat(object):
             if t is None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
-                    if type(t) in [str, unicode]:
+                    if isinstance(t, (str, bytes)):
                         t = [t]
                     elif isinstance(t, list):
                         pass
                     elif t is not None:
-                        try:
-                            t = [unicode(u) for u in list(t)]
-                        except UnicodeDecodeError:
-                            t = t
+                        t = [str(u) for u in t]
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
             if t is None and self.others and tag not in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, tag)
-                    if type(t) in [str, unicode]:
+                    if isinstance(t, (str, bytes)):
                         t = [t]
                     elif t is not None:
-                        t = [unicode(u) for u in list(t)]
+                        t = [str(u) for u in t]
                 except (KeyError, TypeError):
                     logger.debug("Unexpected error reading `%s`", tag, exc_info=True)
 
@@ -270,16 +273,13 @@ class BaseFormat(object):
 
             # tags starting with __ are internal and should not be written
             # -> this covers INFO_TAGS, which also shouldn't be written
-            for tag in tagdict.keys():
+            for tag in list(tagdict.keys()):
                 if tag.startswith("__"):
-                    try:
-                        del tagdict[tag]
-                    except KeyError:
-                        pass
+                    del tagdict[tag]
 
             # Only modify the tags we were told to modify
             # -> if the value is None, delete the tag
-            for tag, value in tagdict.iteritems():
+            for tag, value in tagdict.items():
                 rtag = self.tag_mapping.get(tag)
                 if rtag:
                     if value is not None:

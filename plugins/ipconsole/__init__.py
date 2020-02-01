@@ -18,7 +18,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from __future__ import division
 
 import logging
 import sys
@@ -35,15 +34,15 @@ from xl import providers
 from xlgui.widgets import menu
 from xlgui import guiutil
 
-import ipconsoleprefs
-import ipython_view as ip
+from . import ipconsoleprefs
+from . import ipython_view as ip
 
 FONT = "Luxi Mono 10"
 SETTINGS_STRING = 'plugin_ipconsole_option_set'
 LOGGER = logging.getLogger(__name__)
 
 
-class Quitter(object):
+class Quitter:
     """Simple class to handle exit, similar to Python 2.5's.
 
        This Quitter is used to circumvent IPython's circumvention
@@ -134,7 +133,7 @@ class IPView(ip.IPythonView):
             self.__text_color_str,
             self.__font_str,
         )
-        self.__css_provider.load_from_data(data_str)
+        self.__css_provider.load_from_data(data_str.encode('utf-8'))
         return False
 
     def onKeyPressExtend(self, key_event):
@@ -184,7 +183,7 @@ class IPythonConsoleWindow(Gtk.Window):
             self.set_opacity(value)
 
 
-class IPConsolePlugin(object):
+class IPConsolePlugin:
     """
         This class holds the IPConsole plugin itself
     """

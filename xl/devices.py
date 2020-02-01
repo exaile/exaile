@@ -30,47 +30,15 @@ Devices
 contains the DeviceManager and some generic Device classes
 """
 
+from typing import Iterable
 from xl import event, collection
-
-
-class DeviceManager(object):
-    """
-        manages devices
-    """
-
-    def __init__(self):
-        self.devices = {}
-
-    def add_device(self, device):
-        # make sure we don't overwrite existing devices
-        count = 3
-        if device.get_name() in self.devices:
-            device.name += " (2)"
-        while device.get_name() in self.devices:
-            device.name = device.name[:-4] + " (%s)" % count
-            count += 1
-
-        self.devices[device.get_name()] = device
-        event.log_event("device_added", self, device)
-
-    def remove_device(self, device):
-        try:
-            if device.connected:
-                device.disconnect()
-            del self.devices[device.get_name()]
-        except KeyError:
-            pass
-        event.log_event("device_removed", self, device)
-
-    def list_devices(self):
-        return self.devices.values()
 
 
 class TransferNotSupportedError(Exception):
     pass
 
 
-class Device(object):
+class Device:
     """
         a device
 
@@ -196,6 +164,39 @@ class KeyedDevice(Device):
             Call this to remove the device from the internal list
         '''
         del getattr(cls, '__devices')[device.__key]
+
+
+class DeviceManager:
+    """
+        manages devices
+    """
+
+    def __init__(self):
+        self.devices = {}
+
+    def add_device(self, device: Device):
+        # make sure we don't overwrite existing devices
+        count = 3
+        if device.get_name() in self.devices:
+            device.name += " (2)"
+        while device.get_name() in self.devices:
+            device.name = device.name[:-4] + " (%s)" % count
+            count += 1
+
+        self.devices[device.get_name()] = device
+        event.log_event("device_added", self, device)
+
+    def remove_device(self, device: Device):
+        try:
+            if device.connected:
+                device.disconnect()
+            del self.devices[device.get_name()]
+        except KeyError:
+            pass
+        event.log_event("device_removed", self, device)
+
+    def get_devices(self) -> Iterable[Device]:
+        return self.devices.values()
 
 
 # vim: et sts=4 sw=4

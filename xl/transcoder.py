@@ -122,7 +122,7 @@ FORMATS = {
 
 def get_formats():
     ret = {}
-    for name, val in FORMATS.iteritems():
+    for name, val in FORMATS.items():
         try:
             for plug in val['plugins']:
                 x = Gst.ElementFactory.find(plug)
@@ -143,7 +143,7 @@ class TranscodeError(Exception):
     pass
 
 
-class Transcoder(object):
+class Transcoder:
     def __init__(self, destformat, quality, error_callback, end_callback):
         self.src = None
         self.sink = None

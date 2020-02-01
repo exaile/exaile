@@ -89,7 +89,7 @@ class LyricsPanel(panel.Panel):
         style_context.add_provider(
             track_text_style, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
-        track_text_style.load_from_data("textview {font-weight: bold; }")
+        track_text_style.load_from_data(b"textview {font-weight: bold; }")
 
         style_context = self.__lyrics_text.get_style_context()
         style_context.add_provider(
@@ -109,7 +109,7 @@ class LyricsPanel(panel.Panel):
             pango_font_str = settings.get_option(option)
             css_from_pango = guiutil.css_from_pango_font_description(pango_font_str)
             data_str = "textview { " + css_from_pango + "; }\n"
-            self.__css_provider.load_from_data(data_str)
+            self.__css_provider.load_from_data(data_str.encode('utf-8'))
 
     def __on_lyrics_search_method_added(self, _eventtype, _lyrics, _provider):
         self.__update_lyrics()

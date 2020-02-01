@@ -39,7 +39,7 @@ KEYS = [
 ]
 
 
-class KeybinderPlugin(object):
+class KeybinderPlugin:
     def __init__(self):
         self.__exaile = None
 

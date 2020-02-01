@@ -18,14 +18,11 @@ import operator
 
 logger = logging.getLogger(__name__)
 import os
-from urllib2 import urlparse
-import httplib
+from urllib.parse import urlparse
+import http.client
 import socket
 
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    import xml.etree.ElementTree as ETree
+import xml.etree.ElementTree as ETree
 from xl import event, main, playlist, xdg
 from xl.radio import RadioStation, RadioList, RadioItem
 from xl.nls import gettext as _
@@ -83,12 +80,12 @@ class SomaFMRadioStation(RadioStation):
             Connects to the server and retrieves the document
         """
         set_status(_('Contacting SomaFM server...'))
-        hostinfo = urlparse.urlparse(url)
+        hostinfo = urlparse(url)
 
         try:
-            c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+            c = http.client.HTTPConnection(hostinfo.netloc, timeout=20)
         except TypeError:
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            c = http.client.HTTPConnection(hostinfo.netloc)
 
         try:
             c.request('GET', hostinfo.path, headers={'User-Agent': self.user_agent})
@@ -125,7 +122,7 @@ class SomaFMRadioStation(RadioStation):
 
         with open(self.cache_file, 'w') as h:
             h.write('<?xml version="1.0" encoding="UTF-8"?>')
-            h.write(ETree.tostring(channellist, 'utf-8'))
+            h.write(ETree.tostring(channellist, 'unicode'))
 
     def get_lists(self, no_cache=False):
         """

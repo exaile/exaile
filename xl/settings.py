@@ -92,12 +92,11 @@ class SettingsManager(RawConfigParser):
             except Exception:
                 pass
 
-        version = self.get_option('settings/version', 0)
-        if version is None:
-            # TODO: This never runs because of the default value (0) above!
-            self.set_option('settings/version', self.VERSION)
-        elif version > self.VERSION:
+        version = self.get_option('settings/version')
+        if version and version > self.VERSION:
             raise VersionError(_('Settings version is newer than current.'))
+        if version != self.VERSION:
+            self.set_option('settings/version', self.VERSION)
 
         # save settings every 30 seconds
         if location is not None:

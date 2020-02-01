@@ -49,7 +49,7 @@ class SettingsManager(RawConfigParser):
         Manages Exaile's settings
     """
 
-    VERSION: ClassVar[int] = 1
+    VERSION: ClassVar[int] = 2
 
     _last_serial: ClassVar[int] = 0
 

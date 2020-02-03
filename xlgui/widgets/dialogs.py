@@ -51,18 +51,6 @@ from threading import Thread
 logger = logging.getLogger(__name__)
 
 
-def force_unicode(obj):
-    if obj is None:
-        return None
-
-    try:
-        # Try this first because errors='replace' fails if the object is unicode
-        # or some other non-str object.
-        return unicode(obj)
-    except UnicodeDecodeError:
-        return unicode(obj, errors='replace')
-
-
 def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
     """
         Shows an error dialog
@@ -137,7 +125,7 @@ class AboutDialog(Gtk.AboutDialog):
         xl.version.__external_versions__["GTK+ theme"] = theme
 
         comments = []
-        for name, version in sorted(xl.version.__external_versions__.iteritems()):
+        for name, version in sorted(xl.version.__external_versions__.items()):
             comments.append('%s: %s' % (name, version))
 
         self.set_comments('\n'.join(comments))
@@ -235,7 +223,7 @@ class MultiTextEntryDialog(Gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [unicode(a.get_text(), 'utf-8') for a in self.fields]
+        return [a.get_text() for a in self.fields]
 
     def run(self):
         """
@@ -323,7 +311,7 @@ class TextEntryDialog(Gtk.Dialog):
         """
             Returns the text value
         """
-        return unicode(self.entry.get_text(), 'utf-8')
+        return self.entry.get_text()
 
     def set_value(self, value):
         """
@@ -526,7 +514,7 @@ class ListDialog(Gtk.Dialog):
 # TODO: combine this and list dialog
 
 
-class ListBox(object):
+class ListBox:
     """
         Represents a list box
     """
@@ -677,9 +665,8 @@ class FileOperationDialog(Gtk.FileChooserDialog):
             @param extensions: a dictionary of extension:file type pairs
             i.e. { 'm3u':'M3U Playlist' }
         """
-        keys = extensions.keys()
-        for key in keys:
-            self.liststore.append([extensions[key], key])
+        for key, value in extensions.items():
+            self.liststore.append((value, key))
 
 
 class MediaOpenDialog(Gtk.FileChooserDialog):
@@ -728,7 +715,7 @@ class MediaOpenDialog(Gtk.FileChooserDialog):
         all_filter.set_name(_('All Files'))
         all_filter.add_pattern('*')
 
-        for extension in metadata.formats.iterkeys():
+        for extension in metadata.formats.keys():
             pattern = '*.%s' % extension
             supported_filter.add_pattern(pattern)
             audio_filter.add_pattern(pattern)
@@ -1050,7 +1037,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = unicode(self.get_uri(), 'utf-8')
+            path = self.get_uri()
 
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path
@@ -1343,13 +1330,13 @@ class MessageBar(Gtk.InfoBar):
 
         self.set_message_type(message_type)
         if markup is None:
-            self.set_text(force_unicode(text))
+            self.set_text(text)
         else:
-            self.set_markup(force_unicode(markup))
+            self.set_markup(markup)
         if secondary_markup is None:
-            self.set_secondary_text(force_unicode(secondary_text))
+            self.set_secondary_text(secondary_text)
         else:
-            self.set_secondary_markup(force_unicode(secondary_markup))
+            self.set_secondary_markup(secondary_markup)
         self.show()
 
         if timeout > 0:

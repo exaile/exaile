@@ -54,7 +54,7 @@ authors. We will use this model below:
 
 .. code-block:: python
 
-    class MyPlugin(object):
+    class MyPlugin:
     
         def enable(self, exaile):
             print('You enabled me!')
@@ -118,7 +118,7 @@ and the ``__init__.py`` is as follows
     
     # The main functionality of each plugin is generally defined in a class
     # This is by convention, and also makes programming easier
-    class TutorialPlugin(object):
+    class TutorialPlugin:
     
         def enable(self, exaile):
             '''This method is called when the plugin is loaded by exaile'''
@@ -232,7 +232,7 @@ example in a plugin might be:
 
     from xl import event, trax
     
-    class PlaylistExample(object):
+    class PlaylistExample:
    
         def enable(self, exaile):
             self.exaile = exaile
@@ -329,7 +329,7 @@ and returns the path to the downloaded cover.
 
 .. code-block:: python
 
-    import urllib
+    import urllib.request
     import hashlib
     from xl.cover import CoverSearchMethod, NoCoverFoundException
     
@@ -357,7 +357,7 @@ and returns the path to the downloaded cover.
     
             local_name = hashlib.sha1(split[6]).hexdigest() + ".jpg"
             covername = os.path.join(cache_dir, local_name)
-            urllib.urlretrieve(image_url, covername)
+            urllib.request.urlretrieve(image_url, covername)
     
             return [covername]
 
@@ -383,7 +383,7 @@ following example shows how you can make a string translatable:
 .. code-block:: python
 
     from xl.nls import gettext as _
-    print _('translatable string')
+    print(_('translatable string'))
 
 
 Saving/Loading arbitrary settings
@@ -464,11 +464,13 @@ Here is a simple example how to use the D-Bus object:
 
 .. code-block:: python
 
-    #!/usr/bin/env python2
+    #!/usr/bin/env python3
     
-    import sys, dbus
+    from io import BytesIO
+    import sys
+
+    import dbus
     import Image
-    from StringIO import StringIO
     
     def test_dbus():
         bus = dbus.SessionBus()
@@ -477,22 +479,22 @@ Here is a simple example how to use the D-Bus object:
             iface = dbus.Interface(remote_object, "org.exaile.Exaile")
             if iface.IsPlaying():
                 title = iface.GetTrackAttr("title")
-                print 'Title: %s' % title
+                print('Title:', title)
                 album = iface.GetTrackAttr("album")
-                print 'Album: %s' % album
+                print('Album:', album)
                 artist = iface.GetTrackAttr("artist")
-                print 'Artist: %s' % artist
+                print('Artist:', artist)
                 genre = iface.GetTrackAttr("genre")
-                print 'Genre: %s' % genre
+                print('Genre:', genre)
                 dbusArray = iface.GetCoverData()
-                coverdata = "".join(chr(byte) for byte in dbusArray)
+                coverdata = bytes(dbusArray)
                 if coverdata:
-                    im = Image.open(StringIO(coverdata))
+                    im = Image.open(BytesIO(coverdata))
                     im.show()
             else:
-                print "Exaile is not playing."
+                print("Exaile is not playing.")
         except dbus.exceptions.DBusException:
-            print "Exaile is not running."
+            print("Exaile is not running.")
     
     if __name__ == "__main__":
         test_dbus()

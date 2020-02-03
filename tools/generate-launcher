@@ -8,7 +8,7 @@ DESTDIR=${1:-}
 PREFIX=${2:-/usr/local}
 EPREFIX=${3:-${PREFIX}}
 LIBDIR=${4:-${EPREFIX}/lib}
-PYTHON2_CMD=${5:-python2}
+PYTHON3_CMD=${5:-python3}
 
 cd ${DESTDIR}${EPREFIX}/bin && \
 cat <<EOF > exaile
@@ -25,7 +25,7 @@ if test -z "\${XDG_DATA_DIRS}"; then
 fi
 XDG_DATA_DIRS="\${EXAILE_PREFIX}/share/:\${XDG_DATA_DIRS}"
 export XDG_DATA_DIRS
-exec ${PYTHON2_CMD} \${EXAILE_LIBDIR}/exaile/exaile.py --datadir=\${EXAILE_PREFIX}/share/exaile/data --startgui ${DEFAULTARGS} "\$@"
+exec ${PYTHON3_CMD} \${EXAILE_LIBDIR}/exaile/exaile.py --datadir=\${EXAILE_PREFIX}/share/exaile/data --startgui ${DEFAULTARGS} "\$@"
 exit \$?
 
 EOF

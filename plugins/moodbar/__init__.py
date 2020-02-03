@@ -20,8 +20,6 @@
 # - The previous Moodbar plugin included in Exaile <4, by Solyanov Michael.
 
 
-from __future__ import division, print_function
-
 import os.path
 
 from gi.repository import Gdk, GLib
@@ -32,10 +30,10 @@ import xl.player
 import xl.xdg
 import xlgui.guiutil
 
-from cache import MoodbarCache
-from generator import MoodbarGenerator
-import prefs
-from widget import Moodbar
+from .cache import MoodbarCache
+from .generator import MoodbarGenerator
+from . import prefs
+from .widget import Moodbar
 
 
 class MoodbarPlugin:

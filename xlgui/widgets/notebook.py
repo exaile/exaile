@@ -38,7 +38,7 @@ from xlgui.widgets import menu
 TAB_CSS = Gtk.CssProvider()
 if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     TAB_CSS.load_from_data(
-        '''
+        b'''
         /* Most themes don't handle vertical notebooks well,
            so we override everything. */
         notebook.vertical tab {
@@ -64,7 +64,7 @@ if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
     )
 else:
     TAB_CSS.load_from_data(
-        '''
+        b'''
         .notebook {
           /* Remove gap before first tab */
           -GtkNotebook-initial-gap: 0;
@@ -181,7 +181,7 @@ class SmartNotebook(Gtk.Notebook):
     def __on_notify_tab_pos(self, _widget, _param):
         tab_pos = self.get_tab_pos()
         expand = tab_pos in (Gtk.PositionType.TOP, Gtk.PositionType.BOTTOM)
-        for i in xrange(self.get_n_pages()):
+        for i in range(self.get_n_pages()):
             page = self.get_nth_page(i)
             self.child_set_property(page, 'tab-expand', expand)
             tab = self.get_tab_label(page)  # type: NotebookTab
@@ -376,10 +376,6 @@ class NotebookTab(Gtk.EventBox):
             Finishes or cancels the renaming
         """
         name = self.entry.get_text()
-
-        if not isinstance(name, unicode):
-            name = name.decode('utf-8', errors='replace')
-
         if name.strip() != "" and not self.entry.props.editing_canceled:
             self.page.set_page_name(name)
             self.label.set_text(name)
@@ -463,7 +459,7 @@ class NotebookPage(Gtk.Box):
         self.emit('name-changed')
 
 
-class NotebookAction(object):
+class NotebookAction:
     """
         A custom action to be placed to the left or right of tabs in a notebook
     """

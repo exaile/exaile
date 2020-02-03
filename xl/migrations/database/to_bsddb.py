@@ -29,31 +29,33 @@ import logging
 import os
 import shelve
 
-from xl import common
+from xl import common, shelve_compat
 
 logger = logging.getLogger(__name__)
 
 
 def migrate(path):
+    shelve_compat.ensure_shelve_compat()
+
     bak_path = path + os.extsep + 'tmp'
 
     try:
         old_shelf = shelve.open(path, 'r', protocol=common.PICKLE_PROTOCOL)
     except Exception:
-        logger.warn("%s may be corrupt", path)
+        logger.warning("%s may be corrupt", path)
         raise
 
     db = common.bsddb.hashopen(bak_path, 'c')
     new_shelf = shelve.BsdDbShelf(db, protocol=common.PICKLE_PROTOCOL)
 
-    for k, v in old_shelf.iteritems():
+    for k, v in old_shelf.items():
         new_shelf[k] = v
 
     new_shelf.close()
     old_shelf.close()
 
     try:
-        common.replace_file(bak_path, path)
+        os.replace(bak_path, path)
     except Exception:
         try:
             os.unlink(bak_path)

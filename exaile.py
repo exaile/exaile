@@ -25,13 +25,13 @@ else:
     if uid == 0:
         sys.stderr.write('Error: running as root is not supported!\n')
 
-if sys.platform == 'linux2':
-    # Set process name.  Only works on Linux >= 2.1.57.
+if sys.platform == 'linux':
+    # Set process name
     try:
         import ctypes
 
         libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'exaile', 0, 0, 0)  # 15 = PR_SET_NAME
+        libc.prctl(15, b'exaile', 0, 0, 0)  # 15 = PR_SET_NAME
     except Exception:
         pass
 

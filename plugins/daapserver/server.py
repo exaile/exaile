@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Spydaap. If not, see <https://www.gnu.org/licenses/>.
 
-import BaseHTTPServer
-import SocketServer
+import http.server
+import socketserver
 import logging
 import select
 import socket
@@ -70,7 +70,7 @@ logger = logging.getLogger('daapserver')
 __all__ = ['DaapServer']
 
 
-class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class MyThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
 
     timeout = 1
@@ -79,7 +79,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     def __init__(self, *args):
         if ':' in args[0][0]:
             self.address_family = socket.AF_INET6
-        BaseHTTPServer.HTTPServer.__init__(self, *args)
+        http.server.HTTPServer.__init__(self, *args)
 
 
 class DaapServer:
@@ -171,7 +171,7 @@ class DaapServer:
 #                                         spydaap.port,
 #                                         stype="_daap._tcp")
 #    zeroconf.publish()
-#    logger.warn("Listening.")
+#    logger.warning("Listening.")
 #    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port),
 #                                 spydaap.server.makeDAAPHandlerClass(spydaap.server_name, cache, md_cache, container_cache))
 #
@@ -185,7 +185,7 @@ class DaapServer:
 #            pass
 #    except KeyboardInterrupt:
 #        httpd.force_stop()
-#    logger.warn("Shutting down.")
+#    logger.warning("Shutting down.")
 #    zeroconf.unpublish()
 
 # def main():

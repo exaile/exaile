@@ -24,12 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    import xml.etree.ElementTree as ETree
-
-import urllib
+import xml.etree.ElementTree as ETree
+import urllib.parse
+import urllib.request
 from xl.dynamic import DynamicSource
 from xl import providers
 
@@ -64,13 +61,13 @@ class LastfmSource(DynamicSource):
         DynamicSource.__init__(self)
 
     def get_results(self, artist):
-        ar = urllib.quote_plus(artist.encode('utf-8'))
+        ar = urllib.parse.quote_plus(artist.encode('utf-8'))
         url = (
             'https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key='
             + API_KEY
         )
         try:
-            f = urllib.urlopen(url % ar).read()
+            f = urllib.request.urlopen(url % ar).read()
         except IOError:
             logger.exception("Error retrieving results")
             return []

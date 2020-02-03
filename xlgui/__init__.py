@@ -51,7 +51,7 @@ def get_controller():
     return Main._main
 
 
-class Main(object):
+class Main:
     """
         This is the main gui controller for exaile
     """
@@ -121,7 +121,7 @@ class Main(object):
         self.device_panels = {}
 
         # add the device panels
-        for device in self.exaile.devices.list_devices():
+        for device in self.exaile.devices.get_devices():
             if device.connected:
                 self.add_device_panel(None, None, device)
 
@@ -138,7 +138,7 @@ class Main(object):
                 self.tray_icon = tray.TrayIcon(self.main)
             else:
                 settings.set_option('gui/use_tray', False)
-                logger.warn(
+                logger.warning(
                     "Tray icons are not supported on your platform. Disabling tray icon."
                 )
 
@@ -247,7 +247,7 @@ class Main(object):
 
             collection_libraries = sorted(
                 (l.location, l.monitored, l.startup_scan)
-                for l in collection.libraries.itervalues()
+                for l in collection.libraries.values()
             )
             new_libraries = sorted(dialog.get_items())
 
@@ -267,11 +267,12 @@ class Main(object):
 
                     removals = []
 
-                    for location, library in collection.libraries.iteritems():
+                    for location, library in collection.libraries.items():
                         if location not in new_locations:
-                            removals += [library]
+                            removals.append(library)
 
-                    map(collection.remove_library, removals)
+                    for removal in removals:
+                        collection.remove_library(removal)
 
                     self.on_rescan_collection()
 
@@ -417,7 +418,7 @@ class Main(object):
             gi.require_version('GtkosxApplication', '1.0')
             from gi.repository import GtkosxApplication
         except (ValueError, ImportError):
-            logger.warn("importing GtkosxApplication failed, no native menus")
+            logger.warning("importing GtkosxApplication failed, no native menus")
         else:
             osx_app = GtkosxApplication.Application()
             # self.main.setup_osx(osx_app)

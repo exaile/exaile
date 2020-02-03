@@ -34,10 +34,10 @@ from xl.nls import gettext as _
 from xl.metadata.tags import tag_data
 
 from xlgui.widgets import menu
-from analyzer_dialog import AnalyzerDialog
+from .analyzer_dialog import AnalyzerDialog
 
 
-class PlaylistAnalyzerPlugin(object):
+class PlaylistAnalyzerPlugin:
     def __init__(self):
         self.menu_items = []
         self.dialog = None
@@ -171,7 +171,9 @@ class PlaylistAnalyzerPlugin(object):
         '''
 
         # read the template file
-        with open(tmpl, 'rb') as fp:
+        # NOTE: must be opened in non-binary mode because we treat the
+        # contents as string
+        with open(tmpl, 'r') as fp:
             contents = fp.read()
 
         try:
@@ -189,11 +191,15 @@ class PlaylistAnalyzerPlugin(object):
         with closing(
             outfile.replace(None, False, Gio.FileCreateFlags.NONE, None)
         ) as fp:
-            fp.write(str(contents))
+            fp.write(
+                contents.encode('utf-8')
+            )  # Gio.FileOutputStream.write() needs bytes argument
 
         # copy d3 to the destination
         # -> TODO: add checkbox to indicate whether it should write d3 there or not
         if parent_dir:
+            # Open in binary mode, so that we can directly read bytes
+            # and write them via Gio.FileOutputStream.write()
             with open(self.d3_loc, 'rb') as d3fp:
                 with closing(
                     parent_dir.replace(None, False, Gio.FileCreateFlags.NONE, None)

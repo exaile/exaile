@@ -25,7 +25,7 @@
 # from your version.
 
 
-class TreeItem(object):
+class TreeItem:
     def __init__(self, id, name, has_been_expanded=False):
         self._id = id
         self._name = name

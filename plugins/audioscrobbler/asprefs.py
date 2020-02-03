@@ -18,7 +18,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 import os.path
-import _scrobbler
+from . import _scrobbler
 
 from xl import common, settings
 from xl.nls import gettext as _

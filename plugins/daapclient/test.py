@@ -3,7 +3,7 @@
 import sys
 import logging
 
-from client import DAAPClient
+from .client import DAAPClient
 
 log = logging.getLogger(__name__)
 

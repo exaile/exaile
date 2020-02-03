@@ -74,7 +74,7 @@ def migrate():
     old_db = man.db
     new_db = {'version': 2}
     for coll in xl.collection.COLLECTIONS:
-        for tr in coll.tracks.itervalues():
+        for tr in coll.tracks.values():
             key = old_get_track_key(tr._track)
             value = old_db.get(key)
             if value:

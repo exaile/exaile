@@ -176,7 +176,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func, callbac
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
 
-class MenuItem(object):
+class MenuItem:
     __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
 
     def __init__(self, name, factory, after):

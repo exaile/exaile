@@ -373,7 +373,7 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0] + len(positions)):
+        if positions == list(range(positions[0], positions[0] + len(positions))):
             del playlist[positions[0] : positions[0] + len(positions)]
         else:
             for position, track in tracks[::-1]:
@@ -666,7 +666,7 @@ class PlaylistPage(PlaylistPageBase):
             self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
     def on_search_entry_activate(self, entry):
-        filter_string = entry.get_text().decode('utf-8')
+        filter_string = entry.get_text()
         self.view.filter_tracks(filter_string or None)
 
     def __show_toggle_menu(self, names, display_names, callback, attr, widget, event):
@@ -1100,7 +1100,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if font is None:
             font = default_font
 
-        def_font_sz = float(default_font.get_size())
+        def_font_sz = default_font.get_size()
 
         # how much has the font deviated from normal?
         ratio = font.get_size() / def_font_sz
@@ -1408,7 +1408,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         elif event.keyval == Gdk.KEY_Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             with guiutil.without_model(self):
-                if indexes and indexes == range(indexes[0], indexes[0] + len(indexes)):
+                if indexes and indexes == list(
+                    range(indexes[0], indexes[0] + len(indexes))
+                ):
                     del self.playlist[indexes[0] : indexes[0] + len(indexes)]
                 else:
                     for i in indexes[::-1]:
@@ -1490,7 +1492,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             positions = self.get_selected_paths()
             if positions:
                 s = ",".join(str(i[0]) for i in positions)
-                selection.set(target_atom, 8, s)
+                selection.set(target_atom, 8, s.encode('utf-8'))
         elif target == "text/uri-list":
             tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)
@@ -1586,7 +1588,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
-            selection_data = selection.get_data()
+            selection_data = selection.get_data().decode('utf-8')
             if selection_data == '':  # Ignore drops from empty areas
                 # Restore state to `self.on_row_inserted` do not ignore inserted rows
                 # see https://github.com/exaile/exaile/issues/487
@@ -1871,8 +1873,8 @@ class PlaylistModel(Gtk.ListStore):
             icons.MANAGER.pixbuf_from_icon_name('media-playback-stop')
         )
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
-            dest_width=self.stop_pixbuf.pixbuf.get_width() / 2,
-            dest_height=self.stop_pixbuf.pixbuf.get_height() / 2,
+            dest_width=self.stop_pixbuf.pixbuf.get_width() // 2,
+            dest_height=self.stop_pixbuf.pixbuf.get_height() // 2,
             interp_type=GdkPixbuf.InterpType.BILINEAR,
         )
         stop_overlay_pixbuf = stop_overlay_pixbuf.move(

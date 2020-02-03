@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from typing import Tuple
+
 from gi.repository import GLib
 
 from xl import common
@@ -33,7 +35,7 @@ import logging
 FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
-class TrackFader(object):
+class TrackFader:
     '''
         This object manages the volume of a track, and fading it in/out via
         volume. As a bonus, this object can manage the start/stop offset of
@@ -77,9 +79,9 @@ class TrackFader(object):
     def calculate_fades(self, track, fade_in, fade_out):
         ''' duration is in seconds'''
 
-        start_offset = track.get_tag_raw('__startoffset')
-        stop_offset = track.get_tag_raw('__stopoffset')
-        tracklen = track.get_tag_raw('__length')
+        start_offset = track.get_tag_raw('__startoffset') or 0
+        stop_offset = track.get_tag_raw('__stopoffset') or 0
+        tracklen = track.get_tag_raw('__length') or 0
 
         if stop_offset < 1:
             stop_offset = tracklen
@@ -117,7 +119,7 @@ class TrackFader(object):
             stop_offset,
         )
 
-    def calculate_user_volume(self, real_volume):
+    def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
         '''Given the 'real' output volume, calculate what the user
            volume should be and whether they are identical'''
 
@@ -141,8 +143,8 @@ class TrackFader(object):
             self.stream.stop()
             return
 
-        self.now = (self.stream.get_position() / self.SECOND) - 0.010
-        fade_len = float(self.fade_out_end - self.fade_out_start)
+        self.now = self.stream.get_position() / self.SECOND - 0.010
+        fade_len = self.fade_out_end - self.fade_out_start
 
         # If playing, and is not fading out, then force a fade out
         if self.state == FadeState.Normal:
@@ -211,7 +213,7 @@ class TrackFader(object):
         if has_fade:
             self.play(*self.calculate_fades(track, fade_in, fade_out))
         else:
-            stop_offset = track.get_tag_raw('__stopoffset')
+            stop_offset = track.get_tag_raw('__stopoffset') or 0
             if stop_offset > 0:
                 self.play(None, None, stop_offset, stop_offset, now=now)
             else:

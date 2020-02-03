@@ -30,7 +30,6 @@ import os
 
 from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango
 
-import xl.unicode
 from xl import common, event, metadata, settings, trax
 from xl.nls import gettext as _
 from xl.trax.util import recursive_tracks_from_file
@@ -185,9 +184,7 @@ class FilesPanel(panel.Panel):
         self.filter.connect(
             'activate',
             lambda *e: self.load_directory(
-                self.current,
-                history=False,
-                keyword=unicode(self.filter.get_text(), 'utf-8'),
+                self.current, history=False, keyword=self.filter.get_text(),
             ),
         )
 
@@ -400,14 +397,14 @@ class FilesPanel(panel.Panel):
                 # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
-            name = unicode(info.get_display_name(), 'utf-8')
+            name = info.get_display_name()
             low_name = name.lower()
             if keyword and keyword.lower() not in low_name:
                 continue
             f = directory.get_child(info.get_name())
 
             ftype = info.get_file_type()
-            sortname = xl.unicode.strxfrm(name)
+            sortname = locale.strxfrm(name)
             if ftype == Gio.FileType.DIRECTORY:
                 subdirs.append((sortname, name, f))
             elif any(low_name.endswith('.' + ext) for ext in metadata.formats):
@@ -447,12 +444,8 @@ class FilesPanel(panel.Panel):
                     // 1000
                 )
 
-                # locale.format_string does not support unicode objects
-                # correctly, so we call it with an str and convert the
-                # locale-dependent output to unicode.
-                size = locale.format_string('%d', size, True)
                 # TRANSLATORS: File size (1 kB = 1000 bytes)
-                size = _('%s kB') % unicode(size, locale.getpreferredencoding())
+                size = _('%s kB') % locale.format_string('%d', size, True)
 
                 model.append((f, self.track, name, size, False))
                 if cursor_file and cursor_row == -1 and cursor_uri == f.get_uri():

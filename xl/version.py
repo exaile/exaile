@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os
-from . import xdg
-
 import logging
+import os
+from typing import Dict
+
+from . import xdg
 
 logger = logging.getLogger(__name__)
 
@@ -43,10 +44,13 @@ def get_current_version():
     import subprocess
 
     try:
-        with open(os.devnull, 'w') as devnull:
-            return subprocess.check_output(
-                ['git', 'describe', '--tags', '--abbrev=0'], stderr=devnull
-            ).strip()
+        return (
+            subprocess.check_output(
+                ['git', 'describe', '--tags', '--abbrev=0'], stderr=subprocess.DEVNULL
+            )
+            .strip()
+            .decode('utf-8')
+        )
     except (subprocess.CalledProcessError, OSError):
         return None
 
@@ -60,10 +64,13 @@ def get_current_revision():
     import subprocess
 
     try:
-        with open(os.devnull, 'w') as devnull:
-            return subprocess.check_output(
-                ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=devnull
-            ).strip()
+        return (
+            subprocess.check_output(
+                ['git', 'rev-parse', '--short=7', 'HEAD'], stderr=subprocess.DEVNULL
+            )
+            .strip()
+            .decode('utf-8')
+        )
     except (subprocess.CalledProcessError, OSError):
         return None
 
@@ -78,7 +85,7 @@ elif os.path.exists(os.path.join(xdg.exaile_dir, ".git")):
     if revision is not None:
         __version__ += "+" + revision
 
-__external_versions__ = {}
+__external_versions__: Dict[str, str] = {}
 
 
 def register(name, version):

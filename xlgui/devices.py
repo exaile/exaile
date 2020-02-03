@@ -66,7 +66,7 @@ class ManagerDialog(Gtk.Window):
 
     def populate_tree(self, *args):
         self.model.clear()
-        for d in self.device_manager.list_devices():
+        for d in self.device_manager.get_devices():
             self.model.append([d, None, d.get_name(), d.__class__.__name__])
 
     def _get_selected_devices(self):

@@ -210,7 +210,7 @@ class PodcastPanel(panel.Panel):
                 (url, title) = line.split('\t')
                 self.podcasts.append((title, url))
         except (IOError, OSError):
-            logger.warn('Could not open podcast file')
+            logger.warning('Could not open podcast file')
             self._set_status('')
             return
 

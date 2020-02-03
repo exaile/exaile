@@ -1,6 +1,6 @@
-import httplib
+import http.client
 import logging
-from cStringIO import StringIO
+from io import BytesIO
 
 from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 
@@ -8,7 +8,7 @@ from spydaap.daap import DAAPError, DAAPObject, DAAPParseCodeTypes
 log = logging.getLogger('daapclient')
 
 
-class DAAPClient(object):
+class DAAPClient:
     def __init__(self):
         self.socket = None
         self.request_id = 0
@@ -28,7 +28,7 @@ class DAAPClient(object):
         self.password = password
         self.user_agent = user_agent
         #        self.socket = httplib.HTTPConnection(hostname, port)
-        self.socket = httplib.HTTPConnection(hostname + ':' + str(port))
+        self.socket = http.client.HTTPConnection(hostname + ':' + str(port))
         self.getContentCodes()  # practically required
         self.getInfo()  # to determine the remote server version
 
@@ -36,7 +36,7 @@ class DAAPClient(object):
         """Makes a request, doing the right thing, returns the raw data"""
 
         if params:
-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
+            l = ['%s=%s' % (k, v) for k, v in params.items()]
             r = '%s?%s' % (r, '&'.join(l))
 
         log.debug('getting %s', r)
@@ -89,7 +89,7 @@ class DAAPClient(object):
         if response.getheader("Content-Encoding") == "gzip":
             log.debug("gunzipping data")
             old_len = len(content)
-            compressedstream = StringIO(content)
+            compressedstream = BytesIO(content)
             import gzip
 
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
@@ -118,7 +118,7 @@ class DAAPClient(object):
 
     def readResponse(self, data):
         """Convert binary response from a request to a DAAPObject"""
-        data_str = StringIO(data)
+        data_str = BytesIO(data)
         daapobj = DAAPObject()
         daapobj.processData(data_str)
         return daapobj
@@ -151,7 +151,7 @@ class DAAPClient(object):
         return DAAPSession(self, sessionid)
 
 
-class DAAPSession(object):
+class DAAPSession:
     def __init__(self, connection, sessionid):
         self.connection = connection
         self.sessionid = sessionid
@@ -189,7 +189,7 @@ class DAAPSession(object):
 daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songalbumartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber,daap.songdiscnumber"
 
 
-class DAAPDatabase(object):
+class DAAPDatabase:
     def __init__(self, session, atom):
         self.session = session
         self.name = atom.getAtom("minm")
@@ -210,7 +210,7 @@ class DAAPDatabase(object):
         return [DAAPPlaylist(self, d) for d in db_list]
 
 
-class DAAPPlaylist(object):
+class DAAPPlaylist:
     def __init__(self, database, atom):
         self.database = database
         self.id = atom.getAtom("miid")
@@ -227,7 +227,7 @@ class DAAPPlaylist(object):
         return [DAAPTrack(self.database, t) for t in track_list]
 
 
-class DAAPTrack(object):
+class DAAPTrack:
 
     attrmap = {
         'name': 'minm',

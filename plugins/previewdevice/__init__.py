@@ -36,14 +36,14 @@ from xl.nls import gettext as _
 from xlgui import main
 from xlgui.widgets import menu, playback
 
-import previewprefs
+from . import previewprefs
 
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-class SecondaryOutputPlugin(object):
+class SecondaryOutputPlugin:
     '''Implements logic for plugin'''
 
     __play_image = Gtk.Image.new_from_icon_name(

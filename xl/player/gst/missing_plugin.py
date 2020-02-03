@@ -39,6 +39,9 @@ Created on 25.04.2017
 
 import logging
 
+import gi
+
+gi.require_version('GstPbutils', '1.0')
 from gi.repository import GstPbutils
 
 from xl import event
@@ -80,7 +83,7 @@ def __handle_plugin_missing_message(message, engine):
 
     desc = GstPbutils.missing_plugin_message_get_description(message)
     installer_details = GstPbutils.missing_plugin_message_get_installer_detail(message)
-    LOGGER.warn("A plugin for %s is missing, stopping playback", desc)
+    LOGGER.warning("A plugin for %s is missing, stopping playback", desc)
 
     user_message = _(
         "A GStreamer 1.x plugin for %s is missing. "
@@ -94,7 +97,7 @@ def __handle_plugin_missing_message(message, engine):
     if GstPbutils.install_plugins_supported():
         if __run_installer_helper(installer_details):
             return
-    LOGGER.warn("Installation of GStreamer plugins not supported on this platform.")
+    LOGGER.warning("Installation of GStreamer plugins not supported on this platform.")
 
 
 def __notify_user_on_error(message_text, engine):
@@ -124,10 +127,10 @@ def __run_installer_helper(installer_details):
         return False
     elif start_result == GstPbutils.InstallPluginsReturn.HELPER_MISSING:
         # we expect that to happen on some platforms
-        LOGGER.warn("Helper missing for assisted installation of Gstreamer plugins")
+        LOGGER.warning("Helper missing for assisted installation of Gstreamer plugins")
         return False
     elif start_result == GstPbutils.InstallPluginsReturn.INSTALL_IN_PROGRESS:
-        LOGGER.warn("Another assisted plugin installation is already in progress")
+        LOGGER.warning("Another assisted plugin installation is already in progress")
         return False
     elif start_result == GstPbutils.InstallPluginsReturn.STARTED_OK:
         LOGGER.info("Successfully started assisted GStreamer plugin installation")
@@ -164,7 +167,7 @@ def __installer_finished_callback(result):
         # engine.initialize()
         pass
     elif result == GstPbutils.InstallPluginsReturn.NOT_FOUND:
-        LOGGER.warn("GStreamer helper was unable to install missing plugin.")
+        LOGGER.warning("GStreamer helper was unable to install missing plugin.")
         # we do not care about these, the user already got a notification how
         # to install plugins. There is nothing more we can do.
     elif (

@@ -27,7 +27,7 @@
 from xl import event
 
 
-class PlaybackAdapter(object):
+class PlaybackAdapter:
     """
         Basic class which listens for playback changes
     """
@@ -82,7 +82,7 @@ class PlaybackAdapter(object):
         pass
 
 
-class QueueAdapter(object):
+class QueueAdapter:
     """
         Basic class which listens for queue changes
     """

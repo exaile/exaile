@@ -44,10 +44,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from presets import DEFAULT_PRESETS
+from .presets import DEFAULT_PRESETS
 
 
-class AnalyzerDialog(object):
+class AnalyzerDialog:
     '''
         Provide super flexible interface to stuff. Hm.
 
@@ -96,11 +96,10 @@ class AnalyzerDialog(object):
         self.window.show_all()
 
         def tag_data_key(td):
-            if td:
-                return td.translated_name
+            return td.translated_name
 
         # convenience
-        td = tag_data.values()
+        td = [x for x in tag_data.values() if x is not None]
 
         # Add grouptagger to the list
         gt = get_default_tagdata('__grouptagger')
@@ -139,7 +138,9 @@ class AnalyzerDialog(object):
                 'maxtags': 1,
             }
 
-            with open(fname, 'rb') as fp:
+            # Open in non-binary mode, because we are reading strings
+            # and not bytes
+            with open(fname, 'r') as fp:
                 for line in fp:
                     m = re.match(r'.*?<meta name="(.*?)" content="(.*?)"\s*/>.*?', line)
                     if m is not None:
@@ -176,8 +177,7 @@ class AnalyzerDialog(object):
         widget.add_attribute(cell, 'text', 0)
 
         for td in self.__sorted_tags:
-            if td:
-                model.append((td.translated_name, td, td.tag_name))
+            model.append((td.translated_name, td, td.tag_name))
 
         # show/hide the spin button when an integer is displayed
         def _on_changed(widget):
@@ -215,7 +215,7 @@ class AnalyzerDialog(object):
         if tmpl is None:
             return
 
-        for i in xrange(0, tmpl['maxtags']):
+        for i in range(0, tmpl['maxtags']):
 
             label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
@@ -235,7 +235,7 @@ class AnalyzerDialog(object):
 
     def __set_tag_combo_active(self, cb, tag_name):
         model = cb.get_model()
-        for i in xrange(0, len(model)):
+        for i in range(0, len(model)):
             if model[i][1].tag_name == tag_name:
                 cb.set_active(i)
                 return
@@ -300,7 +300,7 @@ class AnalyzerDialog(object):
             settings.set_option('plugin/playlistanalyzer/tag%s' % i, td)
 
         # switch the template
-        for i in xrange(0, len(self.template_store)):
+        for i in range(0, len(self.template_store)):
             if tmpl == basename(self.template_store[i][1]['fname']):
                 self.template_list.set_cursor((i,))
                 break

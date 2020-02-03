@@ -124,7 +124,7 @@ def __create_tray_context_menu():
 __create_tray_context_menu()
 
 
-class BaseTrayIcon(object):
+class BaseTrayIcon:
     """
         Trayicon base, needs to be derived from
     """

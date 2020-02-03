@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import absolute_import
 
 import logging
 
@@ -42,7 +41,7 @@ from time import time
 logger = logging.getLogger(__name__)
 
 
-class TrackHolder(object):
+class TrackHolder:
     def __init__(self, track, key, **kwargs):
         self._track = track
         self._key = key
@@ -52,18 +51,18 @@ class TrackHolder(object):
         return getattr(self._track, attr)
 
 
-class TrackDBIterator(object):
+class TrackDBIterator:
     def __init__(self, track_iterator):
         self.iter = track_iterator
 
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.iter.next()[1]._track
+    def __next__(self):
+        return next(self.iter)[1]._track
 
 
-class TrackDB(object):
+class TrackDB:
     """
         Manages a track database.
 
@@ -121,7 +120,7 @@ class TrackDB(object):
             or removed during iteration, iteration will halt
             wuth a RuntimeError.
         """
-        track_iterator = self.tracks.iteritems()
+        track_iterator = iter(self.tracks.items())
         iterator = TrackDBIterator(track_iterator)
         return iterator
 
@@ -238,7 +237,7 @@ class TrackDB(object):
             :type location: string
         """
         if not self._dirty:
-            for track in self.tracks.itervalues():
+            for track in self.tracks.values():
                 if track._track._dirty:
                     self._dirty = True
                     break
@@ -268,7 +267,7 @@ class TrackDB(object):
         for attr in self.pickle_attrs:
             # bad hack to allow saving of lists/dicts of Tracks
             if 'tracks' == attr:
-                for k, track in self.tracks.iteritems():
+                for k, track in self.tracks.items():
                     key = "tracks-%s" % track._key
                     if track._track._dirty or key not in pdata:
                         pdata[key] = (
@@ -289,7 +288,7 @@ class TrackDB(object):
         pdata.sync()
         pdata.close()
 
-        for track in self.tracks.itervalues():
+        for track in self.tracks.values():
             track._track._dirty = False
 
         self._dirty = False
@@ -383,30 +382,6 @@ class TrackDB(object):
 
     def get_tracks(self):
         return list(self)
-
-    def search(self, query, sort_fields=[], return_lim=-1, tracks=None, reverse=False):
-        """
-            DEPRECATED, DO NOT USE IN NEW CODE
-        """
-        import warnings
-
-        warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
-        tracks = [
-            x.track
-            for x in search_tracks_from_string(
-                self,
-                query,
-                case_sensitive=False,
-                keyword_tags=['artist', 'albumartist', 'album', 'title'],
-            )
-        ]
-
-        if sort_fields:
-            tracks = sort_tracks(sort_fields, tracks, reverse)
-        if return_lim > 0:
-            tracks = tracks[:return_lim]
-
-        return tracks
 
 
 # vim: et sts=4 sw=4

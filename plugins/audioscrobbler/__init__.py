@@ -17,8 +17,8 @@
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import _scrobbler as scrobbler
-import asprefs
+from . import _scrobbler as scrobbler
+from . import asprefs
 from xl import common, event, xdg, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
@@ -71,7 +71,7 @@ def get_preferences_pane():
     return asprefs
 
 
-class ExaileScrobbler(object):
+class ExaileScrobbler:
     def __init__(self, exaile):
         """
             Connects events to the player object, loads settings and cache
@@ -247,9 +247,7 @@ class ExaileScrobbler(object):
                     track, track.get_tag_raw('__audioscrobbler_starttime'), playtime
                 )
 
-        track.set_tag_raw(
-            __audioscrobbler_starttime=None, __audioscrobbler_playtime=None
-        )
+        track.set_tags(__audioscrobbler_starttime=None, __audioscrobbler_playtime=None)
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size
@@ -261,13 +259,13 @@ class ExaileScrobbler(object):
 
     def save_cache(self):
         cache = scrobbler.SUBMIT_CACHE
-        f = open(self.cachefile, 'w')
+        f = open(self.cachefile, 'wb')
         pickle.dump(cache, f)
         f.close()
 
     def load_cache(self):
         try:
-            f = open(self.cachefile, 'r')
+            f = open(self.cachefile, 'rb')
             cache = pickle.load(f)
             f.close()
             scrobbler.SUBMIT_CACHE = cache

@@ -72,7 +72,7 @@ class ExaileParser(spydaap.parser.Parser):
                 try:
                     tag = [t.encode("utf-8", "replace") for t in md.get_tag_raw(k)]
                     tag = [t for t in tag if t != ""]
-                    daap.append(do(map[k], "/".join(tag)))
+                    daap.append(do(map[k], b"/".join(tag)))
                 except Exception:
                     logger.exception("error decoding tags")
 

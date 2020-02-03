@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # Copyright (C) 2015, 2017-2018  Johannes Sasongko <sasongko@gmail.com>
 #
@@ -14,9 +14,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-from __future__ import division, print_function, unicode_literals
 
 
 def bash_completion(parser):

@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from __future__ import division
 import cairo
 
 from gi.repository import Gdk
@@ -26,12 +25,12 @@ from xl import covers, event, player, settings
 
 from xlgui.guiutil import get_workarea_dimensions, pixbuf_from_data
 
-import desktopcover_preferences
+from . import desktopcover_preferences
 
 DESKTOPCOVER = None
 
 
-class DesktopCoverPlugin(object):
+class DesktopCoverPlugin:
     def __init__(self):
         self.__desktop_cover = None
 
@@ -61,7 +60,9 @@ class DesktopCoverPlugin(object):
         gravity_map = DesktopCover.gravity_map
 
         if gravity not in gravity_map:
-            gravities = gravity_map.keys()
+            # Convert to list so we can index it with the old integer
+            # setting value
+            gravities = list(gravity_map.keys())
 
             try:
                 gravity = gravities[gravity]

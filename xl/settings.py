@@ -28,26 +28,18 @@
     Central storage of application and user settings
 """
 
-from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
+import ast
+from configparser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
 import sys
+from typing import ClassVar
 
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
 from xl.common import VersionError, glib_wait, glib_wait_seconds
 from xl.nls import gettext as _
-
-TYPE_MAPPING = {
-    'I': int,
-    'S': str,
-    'F': float,
-    'B': bool,
-    'L': list,
-    'D': dict,
-    'U': unicode,
-}
 
 MANAGER = None
 
@@ -57,8 +49,14 @@ class SettingsManager(RawConfigParser):
         Manages Exaile's settings
     """
 
-    settings = None
-    __version__ = 1
+    VERSION: ClassVar[int] = 2
+
+    _last_serial: ClassVar[int] = 0
+
+    # xl.common.glib_wait needs instances of this class to be hashable to use
+    # as key in its WeakKeyDictionary. We simply use an increasing serial
+    # number as this hash.
+    _serial: int
 
     def __init__(self, location=None, default_location=None):
         """
@@ -78,6 +76,8 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
+        self._serial = self.__class__._last_serial = self.__class__._last_serial + 1
+
         if default_location is not None:
             try:
                 self.read(default_location)
@@ -92,15 +92,18 @@ class SettingsManager(RawConfigParser):
             except Exception:
                 pass
 
-        if self.get_option('settings/version', 0) is None:
-            self.set_option('settings/version', self.__version__)
-
-        if self.get_option('settings/version', 0) > self.__version__:
+        version = self.get_option('settings/version')
+        if version and version > self.VERSION:
             raise VersionError(_('Settings version is newer than current.'))
+        if version != self.VERSION:
+            self.set_option('settings/version', self.VERSION)
 
         # save settings every 30 seconds
         if location is not None:
             self._timeout_save()
+
+    def __hash__(self):
+        return self._serial
 
     @glib_wait_seconds(30)
     def _timeout_save(self):
@@ -237,52 +240,48 @@ class SettingsManager(RawConfigParser):
             Turns a value of some type into a string so it
             can be a configuration value.
         """
-        # Special treatment is needed for boolean values, as bool is a
-        # subclass of int.
-        if isinstance(value, bool):
-            return 'B: ' + str(value)
-        for k, v in TYPE_MAPPING.iteritems():
-            if isinstance(value, v):
-                if v is list:
-                    return k + ": " + repr(value)
-                elif v is unicode:
-                    return k + ": " + value.encode('utf-8')
-                else:
-                    return k + ": " + str(value)
+        for kind, type_ in (
+            # bool is subclass of int so it must appear earlier
+            ('B', bool),
+            ('I', int),
+            ('F', float),
+            ('L', list),
+            ('D', dict),
+        ):
+            if isinstance(value, type_):
+                return '%s: %r' % (kind, value)
+        if isinstance(value, str):
+            return 'S: %s' % value  # Not quoted, hence %s
 
         raise ValueError(
-            _("We don't know how to store that " "kind of setting: "), type(value)
+            "Don't know how to store setting %r of type %s" % (value, type(value))
         )
 
-    def _str_to_val(self, value):
+    def _str_to_val(self, configstr):
         """
             Convert setting strings back to normal values.
         """
         try:
-            kind, value = value.split(': ', 1)
+            kind, value = configstr.split(': ', 1)
         except ValueError:
             return ''
 
-        # Lists and dictionaries are special case
-        if kind in ('L', 'D'):
-            return eval(value)
-
-        if kind in TYPE_MAPPING.keys():
-            if kind == 'B':
-                if value != 'True':
-                    return False
-
-            try:
-                if kind == 'U':
-                    value = value.decode('utf-8')
-                else:
-                    value = TYPE_MAPPING[kind](value)
-            except Exception:
-                logger.exception("Failed decoding value %r of kind %r", value, kind)
-
+        if kind == 'B':  # Must appear before I
+            return value == 'True'
+        if kind in 'SU':  # U is for backwards compatibility (Python 2 unicode)
             return value
-        else:
-            raise ValueError(_("An Unknown type of setting was found!"))
+        try:
+            if kind == 'I':
+                return int(value)
+            if kind == 'F':
+                return float(value)
+            for kind in 'LD':
+                return ast.literal_eval(value)
+        except Exception:
+            logger.exception("Failed decoding value %r of kind %s", value, kind)
+            return value
+
+        raise ValueError("Unknown type of setting on: %s", configstr)
 
     @glib_wait(500)
     def delayed_save(self):

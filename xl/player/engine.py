@@ -26,7 +26,7 @@
 # from your version.
 
 
-class ExaileEngine(object):
+class ExaileEngine:
     '''
         Interface that the ExailePlayer uses to control the engines. Other
         parts of Exaile should never interact directly with the engines, but

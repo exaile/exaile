@@ -86,7 +86,7 @@ class Column(Gtk.TreeViewColumn):
         except TypeError:  # cellrenderer doesn't do ellipsize - eg. rating
             pass
 
-        for name, val in self.cellproperties.iteritems():
+        for name, val in self.cellproperties.items():
             self.cellrenderer.set_property(name, val)
 
         self.set_reorderable(True)
@@ -209,7 +209,7 @@ class EditableColumn(Column):
         self._reset_editable(cellrenderer)
 
         # Undo newline escaping
-        new_text = new_text.decode('unicode-escape')
+        new_text = new_text.replace('\\n', '\n')
 
         validate = getattr(self, 'validate', None)
         if validate:
@@ -248,7 +248,7 @@ class EditableColumn(Column):
         text = getattr(self, 'edit_formatter', self.formatter).format(track)
 
         # Escape newlines
-        text = text.encode('unicode-escape')
+        text = text.replace('\n', '\\n')
 
         # Set text
         editable.set_text(text)

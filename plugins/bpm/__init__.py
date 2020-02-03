@@ -37,14 +37,14 @@ from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import menu, dialogs
 
-import bpmdetect
+from . import bpmdetect
 
 autodetect_enabled = bpmdetect.autodetect_supported()
 
 menu_providers = ['track-panel-menu', 'playlist-context-menu']
 
 
-class BPMCounterPlugin(object):
+class BPMCounterPlugin:
     """
         Implements logic for plugin
     """

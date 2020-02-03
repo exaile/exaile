@@ -103,10 +103,10 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         self.__importing = False
 
 
-class CDImporter(object):
+class CDImporter:
     def __init__(self, tracks):
         self.tracks = [t for t in tracks if t.get_loc_for_io().startswith("cdda")]
-        self.duration = float(sum(t.get_tag_raw('__length') for t in self.tracks))
+        self.duration = sum(t.get_tag_raw('__length') for t in self.tracks)
         self.formatter = formatter.TrackFormatter(
             settings.get_option(
                 "cd_import/outpath",
@@ -124,7 +124,7 @@ class CDImporter(object):
 
     def __prepare_transcoder(self):
         formats = transcoder.get_formats()
-        default_format = formats.iterkeys().next()
+        default_format = next(formats.keys())
         self.format = settings.get_option("cd_import/format", default_format)
         default_quality = formats[default_format]['default']
         self.quality = settings.get_option("cd_import/quality", default_quality)
@@ -197,5 +197,5 @@ class CDImporter(object):
         if not self.current or not self.current_len:
             return self.progress
         incr = self.current_len / self.duration
-        pos = self.transcoder.get_time() / float(self.current_len)
+        pos = self.transcoder.get_time() / self.current_len
         return self.progress + pos * incr

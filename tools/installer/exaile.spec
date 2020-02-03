@@ -1,7 +1,5 @@
 # -*- mode: python -*-
 
-from __future__ import print_function
-
 import sys
 from PyInstaller.utils.hooks import collect_submodules
 

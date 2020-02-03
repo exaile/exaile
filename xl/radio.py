@@ -104,7 +104,7 @@ class RadioManager(providers.ProviderHandler):
             return None
 
 
-class RadioList(object):
+class RadioList:
     def __init__(self, name, station=None):
         """
             Initializes the rlist
@@ -131,7 +131,7 @@ class RadioList(object):
         return self.name
 
 
-class RadioItem(object):
+class RadioItem:
     """
         Radio Items
     """
@@ -157,7 +157,7 @@ class RadioItem(object):
         return self.name
 
 
-class RadioStation(object):
+class RadioStation:
     name = 'test_station'
 
     def __init__(self):

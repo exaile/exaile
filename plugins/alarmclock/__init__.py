@@ -1,18 +1,16 @@
-from __future__ import division
-
 import logging
 
 from gi.repository import GLib
 
 from xl import player, event
 from xl import settings as xl_settings
-import acprefs
+from . import acprefs
 
 
 LOGGER = logging.getLogger(__name__)
 
 
-class AlarmClock(object):
+class AlarmClock:
     def __init__(self):
         self.__timeout_id = None
         self.__fade_id = None
@@ -149,7 +147,7 @@ class AlarmClock(object):
             self.__update_timeout()
 
 
-class AlarmclockPlugin(object):
+class AlarmclockPlugin:
     def __init__(self):
         self.__alarm_clock = None
 

@@ -97,7 +97,7 @@ class DBusHelper:
 
         if meth and meth[0].isupper() and not meth.endswith('_'):
             classprop = getattr(self.object.__class__, meth, None)
-            if isinstance(classprop, types.MethodType):
+            if isinstance(classprop, types.FunctionType):
                 return
         raise AttributeError("Invalid method: " + meth)
 

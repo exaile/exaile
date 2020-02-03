@@ -15,8 +15,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from __future__ import division, print_function, unicode_literals
-
 import collections
 
 import gi
@@ -25,7 +23,7 @@ gi.require_version('PangoCairo', '1.0')
 
 from gi.repository import Gtk, Pango, PangoCairo
 
-import painter
+from . import painter
 
 
 Extents = collections.namedtuple(

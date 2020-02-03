@@ -170,7 +170,7 @@ class ProviderBin(ElementBin, ProviderHandler):
                     "Could not create %s element for %s.", provider, self.get_name()
                 )
 
-        for k, v in dups.iteritems():
+        for k, v in dups.items():
             logger.warning(
                 "Audio plugins %s are sharing index %s (may have unpredictable output!)",
                 v,
@@ -213,20 +213,14 @@ def parse_stream_tags(track, tag_list):
 
     # Build a dictionary first
     tags = {}
-    for i in xrange(tag_list.n_tags()):
+    for i in range(tag_list.n_tags()):
         k = tag_list.nth_tag_name(i)
         if k not in keep:
             continue
 
         values = [
-            tag_list.get_value_index(k, vi) for vi in xrange(tag_list.get_tag_size(k))
+            tag_list.get_value_index(k, vi) for vi in range(tag_list.get_tag_size(k))
         ]
-        if isinstance(values[0], str):
-            try:
-                values = [unicode(v, 'utf-8') for v in values]
-            except UnicodeDecodeError:
-                logger.debug("Can't decode: `%r`", values)
-                continue
 
         tags[k] = values
 
@@ -244,17 +238,17 @@ def parse_stream_tags(track, tag_list):
     if v:
         c = tags.get('track-count')
         if c:
-            etags['tracknumber'] = u'%d/%d' % (v[0], c[0])
+            etags['tracknumber'] = '%d/%d' % (v[0], c[0])
         else:
-            etags['tracknumber'] = u'%d' % (v[0])
+            etags['tracknumber'] = '%d' % (v[0])
 
     v = tags.get('album-disc-number')
     if v:
         c = tags.get('album-disc-count')
         if c:
-            etags['discnumber'] = u'%d/%d' % (v[0], c[0])
+            etags['discnumber'] = '%d/%d' % (v[0], c[0])
         else:
-            etags['discnumber'] = u'%d' % (v[0])
+            etags['discnumber'] = '%d' % (v[0])
 
     v = tags.get('album')
     if v:

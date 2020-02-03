@@ -15,8 +15,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from __future__ import division, print_function, unicode_literals
-
 import os
 import subprocess
 import threading
@@ -29,7 +27,7 @@ class MoodbarGeneratorError(Exception):
     pass
 
 
-class MoodbarGenerator(object):
+class MoodbarGenerator:
     def check(self):
         """Check whether the generator works.
 

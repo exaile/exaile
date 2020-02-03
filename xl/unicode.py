@@ -3,8 +3,11 @@
 '''
 
 import locale
-import unicodedata
+import logging
 import string
+import unicodedata
+
+logger = logging.getLogger(__name__)
 
 
 def shave_marks(text):
@@ -15,7 +18,7 @@ def shave_marks(text):
         :param text: Some input that will be converted to unicode string
         :returns: unicode string
     '''
-    text = unicode(text)
+    text = str(text)
     decomposed_text = unicodedata.normalize('NFD', text)
 
     # Don't look for decomposed characters if there aren't any..
@@ -33,28 +36,11 @@ def shave_marks(text):
     return unicodedata.normalize('NFC', shaved)
 
 
-def strxfrm(x):
-    """Like locale.strxfrm but also supports Unicode.
-
-    This works around a bug in Python 2 causing strxfrm to fail on unicode
-    objects that cannot be encoded with sys.getdefaultencoding (ASCII in most
-    cases): https://bugs.python.org/issue2481
-    """
-
-    if isinstance(x, unicode):
-        return locale.strxfrm(x.encode('utf-8', 'replace'))
-    return locale.strxfrm(x)
-
-
-def to_unicode(x, encoding=None, errors='strict'):
+def to_unicode(x, encoding='utf-8', errors='strict'):
     """Force getting a unicode string from any object."""
-    # unicode() only accepts "string or buffer", so check the type of x first.
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return x
     elif isinstance(x, bytes):
-        if encoding:
-            return unicode(x, encoding, errors)
-        else:
-            return unicode(x, errors=errors)
+        return str(x, encoding, errors)
     else:
-        return unicode(x)
+        return str(x)

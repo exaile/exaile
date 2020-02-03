@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 '''
 Provides IPython console widget.
 
@@ -44,17 +44,13 @@ is available at U{https://www.opensource.org/licenses/bsd-license.php}
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import print_function
 
 import re
 import sys
 import os
 import subprocess
 
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from io import StringIO
 from functools import reduce
 
 from gi.repository import Gtk
@@ -65,7 +61,7 @@ from gi.repository import Pango
 import IPython
 
 
-class IterableIPShell(object):
+class IterableIPShell:
     '''
     Create an IPython instance. Does not start a blocking event loop,
     instead allow single iterations. This allows embedding in GTK+
@@ -170,7 +166,7 @@ class IterableIPShell(object):
         '''
         Update self.IP namespace for autocompletion with sys.modules
         '''
-        for key, value in list(sys.modules.items()):
+        for key, value in sys.modules.items():
             if '.' not in key:
                 self.IP.user_ns.update({key: value})
 

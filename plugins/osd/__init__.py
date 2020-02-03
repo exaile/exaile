@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from __future__ import division
 
 from collections import namedtuple
 import logging
@@ -29,7 +28,7 @@ from xl.nls import gettext as _
 from xlgui.widgets import info
 from xlgui import guiutil
 
-import osd_preferences
+from . import osd_preferences
 
 
 LOGGER = logging.getLogger(__name__)
@@ -84,7 +83,7 @@ def _sanitize_window_geometry(
     return newal
 
 
-class OSDPlugin(object):
+class OSDPlugin:
     """
         The plugin for showing an On-Screen Display.
         This object holds all the stuff which may live longer than the window.
@@ -121,7 +120,7 @@ class OSDPlugin(object):
             # Setting opacity on Windows crashes with segfault,
             # see https://bugzilla.gnome.org/show_bug.cgi?id=674449
             self.__options['use_alpha'] = False
-            LOGGER.warn(
+            LOGGER.warning(
                 "OSD: Disabling alpha channel because it is not supported on Windows."
             )
         else:
@@ -270,7 +269,7 @@ class OSDPlugin(object):
             color_str,
             str(radius),
         )
-        self.__css_provider.load_from_data(data_str)
+        self.__css_provider.load_from_data(data_str.encode('utf-8'))
         return False
 
     def __on_playback_track_start(self, _event, _player, _track):
@@ -567,7 +566,7 @@ class OSDWindow(Gtk.Window):
             # does not support transparency
             visual = screen.get_system_visual()
             self.__options['use_alpha'] = False
-            LOGGER.warn(
+            LOGGER.warning(
                 "OSD: Disabling alpha channel because the Gtk+ "
                 "backend does not support it."
             )

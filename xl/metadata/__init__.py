@@ -26,10 +26,12 @@
 
 
 import os
+from typing import Optional
+import urllib.parse
+
 from gi.repository import Gio
 
 from xl.metadata._base import BaseFormat, CoverImage, NotWritable, NotReadable
-import urlparse
 
 from xl.metadata import (
     aiff,
@@ -100,7 +102,6 @@ formats = {
     # fmt: on
 }
 
-# pass get_loc_for_io() to this.
 
 # Dummy format class to use with unsupported format instead of directly
 # instantiating BaseFormat, which may cause issues with tag mapping
@@ -109,28 +110,17 @@ class DummyFormat(BaseFormat):
     pass
 
 
-def get_format(loc):
+def get_format(loc: str) -> Optional[BaseFormat]:
     """
         get a Format object appropriate for the file at loc.
         if no suitable object can be found, None is returned.
 
         :param loc: The location to read from as a Gio URI
+            (from Track.get_loc_for_io())
     """
     loc = Gio.File.new_for_uri(loc).get_path()
     if not loc:
         return None
-
-    # XXX: The path that we get from GIO is, for some reason, in UTF-8.
-    # Bug? Intended? No idea.
-
-    # Oddly enough, if you have a non-utf8 compatible filename (such as
-    # a file from windows), then it will just return that string without
-    # converting it (but in a form that os.path will handle). Go figure.
-
-    try:
-        loc = loc.decode('utf-8')
-    except UnicodeDecodeError:
-        pass
 
     ext = os.path.splitext(loc)[1]
     ext = ext[1:]  # remove the pesky .

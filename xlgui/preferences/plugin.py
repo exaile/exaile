@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import locale
+
 from gi.repository import GLib
 from gi.repository import Gtk
 
-import xl.unicode
 from xl import event, main, plugins, xdg
 from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
@@ -40,7 +41,7 @@ name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
 
-class PluginManager(object):
+class PluginManager:
     """
         Gui to manage plugins
     """
@@ -152,12 +153,12 @@ class PluginManager(object):
         def categorykey(item):
             if item[0] == uncategorized:
                 return '\xff' * 10
-            return xl.unicode.strxfrm(item[0])
+            return locale.strxfrm(item[0])
 
-        plugins_dict = sorted(plugins_dict.iteritems(), key=categorykey)
+        plugins_dict = sorted(plugins_dict.items(), key=categorykey)
 
         for category, plugins_list in plugins_dict:
-            plugins_list.sort(key=lambda x: xl.unicode.strxfrm(x[1]))
+            plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
 
             it = self.model.append(
                 None, (None, category, '', False, '', False, True, False)

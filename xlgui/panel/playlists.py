@@ -233,9 +233,10 @@ class BasePlaylistPanelMixin(GObject.GObject):
                     self.emit('playlist-selected', item)
             else:
                 if replace:
-                    self.emit('replace-items', [item.track]))
+                    self.emit('replace-items', [item.track])
                 else:             
-                    self.emit('append-items', [item.track], True)    
+                    self.emit('append-items', [item.track], True)  
+                      
     def add_new_playlist(self, tracks=[], name=None):
         """
             Adds a new playlist to the list of playlists. If name is

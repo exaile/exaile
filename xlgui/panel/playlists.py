@@ -211,7 +211,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
                 if replace:
                     # what we want to do if replace is true
                     selected_playlist = self.tree.get_selected_page()
-                    tracks = [track for track in playlist]
+                    tracks = [track for track in selected_playlist]
                     self.emit('replace-items', tracks)
                 else:
                     # for smart playlists

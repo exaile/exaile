@@ -210,10 +210,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
             if isinstance(item, (Playlist, SmartPlaylist)):
                 if replace:
                     # what we want to do if replace is true
-                    playlist = self.get_selected_item(raw=raw)
+                    selected_playlist = self.tree.get_selected_page()
                     tracks = [track for track in playlist]
                     self.emit('replace-items', tracks)
-        
                 else:
                     # for smart playlists
                     if hasattr(item, 'get_playlist'):

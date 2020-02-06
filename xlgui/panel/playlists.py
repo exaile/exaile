@@ -203,9 +203,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
-        
+
         replace = settings.get_option('playlist/replace_content', False)
-        
+
         if item is not None:
             if isinstance(item, (Playlist, SmartPlaylist)):
                 if replace:
@@ -221,7 +221,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
                         except Exception as e:
                             logger.exception("Error loading smart playlist")
                             dialogs.error(
-                                self.parent, _("Error loading smart playlist: %s") % str(e)
+                                self.parent,
+                                _("Error loading smart playlist: %s") % str(e),
                             )
                             return
                     else:
@@ -233,9 +234,9 @@ class BasePlaylistPanelMixin(GObject.GObject):
             else:
                 if replace:
                     self.emit('replace-items', [item.track])
-                else:             
-                    self.emit('append-items', [item.track], True)  
-                      
+                else:
+                    self.emit('append-items', [item.track], True)
+
     def add_new_playlist(self, tracks=[], name=None):
         """
             Adds a new playlist to the list of playlists. If name is

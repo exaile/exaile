@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2018-12-14 02:08+0000\n"
-"Last-Translator: Rodrigo souza teles <rodrigounderlinerodr1@gmail.com>\n"
+"PO-Revision-Date: 2020-02-07 20:50+0000\n"
+"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.11-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -120,13 +120,10 @@ msgid "Local"
 msgstr "Local"
 
 #: ../xl/main.py:83
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Uso: exaile [OPÇÃO]... [URI]"
+msgstr "Uso: exaile [OPÇÃO]... [LOCALIZAÇÃO...]"
 
 #: ../xl/main.py:85
-#, fuzzy
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
@@ -390,7 +387,7 @@ msgstr "Ativa debugging de xl.event. Produz MUITAS mensagens de saída"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
-msgstr "Adicionar o nome da Thread as mensagens de log"
+msgstr "Adicionar o nome da Thread nas mensagens de log."
 
 #: ../xl/main.py:410
 msgid "TYPE"
@@ -410,7 +407,7 @@ msgstr "Desabilitar suporte ao D-Bus"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
-msgstr "Disabilitar suporte ao HAL"
+msgstr "Desabilitar suporte ao HAL."
 
 #: ../xl/main.py:810
 msgid "Entire Library"
@@ -661,7 +658,7 @@ msgstr ""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
-msgstr "Tipo de lista inválido"
+msgstr "Tipo de lista de reprodução inválida."
 
 #: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
@@ -680,7 +677,7 @@ msgstr "Lista de reprodução PLS"
 #: ../xl/playlist.py:548 ../xl/playlist.py:563
 #, python-format
 msgid "Invalid format for %s."
-msgstr "Formato inválido para %s"
+msgstr "Formato inválido para %s."
 
 #: ../xl/playlist.py:558
 #, python-format
@@ -772,7 +769,7 @@ msgid ""
 "does not degrade audio quality."
 msgstr ""
 "Free Lossless Audio Codec (FLAC - Codec de Audio Livre com Perda) é um codec "
-"de código aberto que comprime mas não reduz a qualidade do audio"
+"de código aberto que comprime porém não reduz a qualidade do audio."
 
 #: ../xl/transcoder.py:80
 msgid ""
@@ -937,17 +934,15 @@ msgstr ""
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
-msgstr ""
+msgstr "Filtro de foco no painel atualmente focado"
 
 #: ../xlgui/main.py:164
 msgid "Focus playlist search"
-msgstr ""
+msgstr "Pesquisa de lista de reprodução focus"
 
 #: ../xlgui/main.py:169
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Clear queue"
-msgstr "Alterna fila"
+msgstr "Limpar fila"
 
 #: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
@@ -955,91 +950,83 @@ msgstr "Começar, pausar ou continuar a reprodução"
 
 #: ../xlgui/main.py:179
 msgid "Seek to the right"
-msgstr ""
+msgstr "Procure à direita"
 
 #: ../xlgui/main.py:184
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Redefinir para a fonte do sistema"
+msgstr "Procure à esquerda"
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Volume aumentado em N%"
+msgstr "Aumenta o volume"
 
 #: ../xlgui/main.py:199
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Diminuir volume em N%"
+msgstr "Diminui o volume"
 
 #: ../xlgui/main.py:202
-#, fuzzy
-#| msgid "Go to the previous track"
 msgid "Switch to previous tab"
-msgstr "Voltar para a ultima música"
+msgstr "Alternar para a guia anterior"
 
 #: ../xlgui/main.py:203
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Mude para a próxima guia"
 
 #: ../xlgui/main.py:206
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Concentrar no recipiente da lista de reprodução"
 
 #: ../xlgui/main.py:213
 msgid "Focus the files panel"
-msgstr ""
+msgstr "Concentrar no painel de arquivos"
 
 #: ../xlgui/main.py:220
 msgid "Focus the radio panel"
-msgstr ""
+msgstr "Concentrar no painel de rádio"
 
 #: ../xlgui/main.py:225
 msgid "Focus the playlists panel"
-msgstr ""
+msgstr "Concentrar no painel da lista de reprodução"
 
 #: ../xlgui/main.py:228
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Concentrar na primeira guia"
 
 #: ../xlgui/main.py:229
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Concentrar na segunda guia"
 
 #: ../xlgui/main.py:230
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Concentrar na terceira guia"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Concentrar na quarta guia"
 
 #: ../xlgui/main.py:232
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Concentrar na quinta guia"
 
 #: ../xlgui/main.py:233
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Concentrar na sexta guia"
 
 #: ../xlgui/main.py:234
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Concentrar na sétima guia"
 
 #: ../xlgui/main.py:235
 msgid "Focus the eighth tab"
-msgstr ""
+msgstr "Concentrar na oitava guia"
 
 #: ../xlgui/main.py:236
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Concentrar na nona guia"
 
 #: ../xlgui/main.py:237
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Concentrar na décima guia"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
@@ -1715,7 +1702,7 @@ msgstr "Não para todos"
 #: ../xlgui/widgets/dialogs.py:1667 ../xlgui/widgets/dialogs.py:1685
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr "Um erro ocorreu enquanto %s:%s são copiados."
+msgstr "Um erro ocorreu ao copiar %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1696
 #, python-format
@@ -2359,7 +2346,7 @@ msgid ""
 msgstr ""
 "Parar Reprodução\n"
 "\n"
-"Clique com o Botão Direito para Parar Depois da Reprodução da Faixa Atual."
+"Clique com o Botão Direito para Parar Depois da Reprodução da Faixa Atual"
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
@@ -2495,7 +2482,7 @@ msgstr "Mostrar contagens de faixa na coleção"
 #: ../data/ui/preferences/appearance.ui:197
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
-msgstr "Usar transparência alfa"
+msgstr "Usar transparência alfa:"
 
 #: ../data/ui/preferences/appearance.ui:201
 msgid ""
@@ -2593,7 +2580,7 @@ msgstr "Buscar capas automaticamente ao iniciar a lista"
 
 #: ../data/ui/preferences/cover.ui:70
 msgid "Cover Search Order:"
-msgstr "Ordenador de Busca de Capa"
+msgstr "Ordenador de Busca por Capa:"
 
 #: ../data/ui/preferences/cover.ui:105
 msgid "(drag to reorder)"
@@ -2628,7 +2615,7 @@ msgstr "Adicionar Dispositivo"
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
-msgstr "Personalizar encanamento"
+msgstr "Personalizar encanamento:"
 
 #: ../data/ui/preferences/playback.ui:142
 msgid "Resume playback on start"
@@ -3083,7 +3070,7 @@ msgstr "Entre o IP e a porta para o compartilhamento"
 
 #: ../plugins/daapclient/__init__.py:378
 msgid "Enter IP address and port."
-msgstr "Entre o IP e a porta"
+msgstr "Entre com o endereço IP e a porta."
 
 #: ../plugins/daapclient/__init__.py:598
 msgid ""
@@ -3122,7 +3109,7 @@ msgstr "Servidor DAAP"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Desktop Cover"
+msgstr "Cobertura da Área de Trabalho"
 
 #: ../plugins/developer/__init__.py:64
 msgid "Developer Tools"
@@ -3493,7 +3480,7 @@ msgstr "Menu principal"
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr "Mini Mode"
+msgstr "Modo de Miniatura"
 
 #: ../plugins/minimode/controls.py:224
 msgid "Previous"
@@ -3809,7 +3796,7 @@ msgstr "Falha ao desligar"
 
 #: ../plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
-msgstr "O computador não pode ser desligado utilizando D-Bus"
+msgstr "O computador não pode ser desligado utilizando D-Bus."
 
 #: ../plugins/somafm/__init__.py:85 ../plugins/somafm/__init__.py:181
 #, fuzzy
@@ -4035,7 +4022,7 @@ msgstr "Nome do Servidor:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:45
 msgid "Server host:"
-msgstr "Servidor"
+msgstr "Host do servidor:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:68
 msgid "Port:"
@@ -4254,7 +4241,7 @@ msgstr "Tamanho do Histórico:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:23
 msgid "Terminal opacity:"
-msgstr "Opacidade do terminal"
+msgstr "Opacidade do terminal:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:49
 msgid "Font:"
@@ -4360,7 +4347,7 @@ msgid ""
 "press Alt+Up/Down.)"
 msgstr ""
 "A ordem dos controles podem ser alteradas simplesmente arrastando-as para "
-"cima ou para baixo. (Ou pressione Alt + Up / Down)."
+"cima ou para baixo. (Ou pressione Alt+Up/Down.)"
 
 #: ../plugins/minimode/minimode_preferences.ui:84
 msgid "Controls"
@@ -4384,7 +4371,7 @@ msgstr "Exibir em todas as áreas de trabalho"
 
 #: ../plugins/minimode/minimode_preferences.ui:207
 msgid "Display window decorations:"
-msgstr "Exibir decorações da janela"
+msgstr "Exibir decorações de janela:"
 
 #: ../plugins/minimode/minimode_preferences.ui:263
 msgid "Show button in main window"
@@ -4447,7 +4434,7 @@ msgstr "Volume do desvanecimento final:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:272
 msgid "Fade Increment:"
-msgstr "Incrementar desvaneciento"
+msgstr "Incrementar desvanecimento:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
 #, fuzzy
@@ -4883,7 +4870,7 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr "Habilita acesso ao catálogo de músicas do Jamendo"
+msgstr "Habilita acesso ao catálogo de músicas do Jamendo."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
@@ -5035,10 +5022,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Reproduz música nas horas e dias específicados.\n"
+"Reproduz música nas horas e dias especificados.\n"
+"\n"
 "Note que quando chegar a hora especificada, o Exaile irá agir como se você "
 "tivesse pressionado o botão reproduzir. Então tenha certeza de que a música "
-"que quer ouvir está na sua lista de reprodução."
+"que quer ouvir está na sua lista de reprodução"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -5109,7 +5097,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "Desligar o computador ao terminar a reprodução"
+msgstr "Desligar o computador ao terminar a reprodução."
 
 #: ../plugins/somafm/PLUGININFO:3
 #, fuzzy

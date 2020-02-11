@@ -117,8 +117,7 @@ def main():
     except Exception:
         import traceback
 
-        traceback.print_exc()
-        input()
+        error("Error while running exaile.main()", traceback.format_exc())
 
 
 if __name__ == '__main__':

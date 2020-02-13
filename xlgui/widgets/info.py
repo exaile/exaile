@@ -525,7 +525,7 @@ class Statusbar:
             settings.get_option(
                 'gui/statusbar_info_format',
                 '${playlist_count:selection=override, suffix= }'
-                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
+                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\\, }'
                 '$collection_count',
             )
         )

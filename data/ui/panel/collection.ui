@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.2 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="collection_combo_model">
@@ -128,6 +128,7 @@
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_sensitive">False</property>
             <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
+            <property name="placeholder_text" translatable="yes">Search</property>
             <signal name="activate" handler="on_collection_search_entry_activate" swapped="no"/>
           </object>
           <packing>

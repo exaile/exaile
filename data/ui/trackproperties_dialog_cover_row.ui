@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="image">
@@ -137,6 +137,9 @@
             <property name="can_focus">False</property>
             <property name="halign">end</property>
             <property name="label" translatable="yes">Description:</property>
+            <accessibility>
+              <relation type="label-for" target="description_entry"/>
+            </accessibility>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -149,6 +152,9 @@
             <property name="can_focus">False</property>
             <property name="halign">end</property>
             <property name="label" translatable="yes">Type:</property>
+            <accessibility>
+              <relation type="label-for" target="type_selection"/>
+            </accessibility>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -162,6 +168,9 @@
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
             <signal name="changed" handler="_on_description_entry_changed" swapped="no"/>
+            <accessibility>
+              <relation type="labelled-by" target="label5"/>
+            </accessibility>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -182,6 +191,9 @@
                 <attribute name="text">1</attribute>
               </attributes>
             </child>
+            <accessibility>
+              <relation type="labelled-by" target="label4"/>
+            </accessibility>
           </object>
           <packing>
             <property name="left_attach">1</property>

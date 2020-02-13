@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.2 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkTextBuffer" id="lyrics_text_buffer"/>
@@ -21,7 +21,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="has_tooltip">True</property>
             <property name="tooltip_text" translatable="yes">Refresh Lyrics</property>
             <signal name="clicked" handler="on_refresh_button_clicked" swapped="no"/>
             <child>

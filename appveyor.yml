@@ -37,6 +37,7 @@ init:
 
 install:
   - cmd: |
+      %hostbash% -lc "pacman --noconfirm --noprogressbar -S zstd"
       cd %build_dir%
       git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
       %hostbash% -lc "[ -f $sdk_name-$sdk_ver.tar.zst ] || time curl -qfLo $sdk_name-$sdk_ver.tar.zst $sdk_url"

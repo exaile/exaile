@@ -8,8 +8,8 @@ environment:
   build_root: exaile\tools\installer\_build_root
   build_root_slash: exaile/tools/installer/_build_root
   sdk_name: exaile-sdk-win
-  sdk_ver: 22
-  sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.xz
+  sdk_ver: 23
+  sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.zst
 
 clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)
 
@@ -17,7 +17,7 @@ clone_depth: 1
 
 cache:
   - C:\msys64\var\cache\pacman\pkg
-  - '%build_dir%\%sdk_name%-%sdk_ver%.tar.xz'
+  - '%build_dir%\%sdk_name%-%sdk_ver%.tar.zst'
 
 init:
   - cmd: |
@@ -39,12 +39,12 @@ install:
   - cmd: |
       cd %build_dir%
       git clone --depth=1 https://github.com/exaile/python-gtk3-gst-sdk.git
-      %hostbash% -lc "[ -f $sdk_name-$sdk_ver.tar.xz ] || time curl -qfLo $sdk_name-$sdk_ver.tar.xz $sdk_url"
+      %hostbash% -lc "[ -f $sdk_name-$sdk_ver.tar.zst ] || time curl -qfLo $sdk_name-$sdk_ver.tar.zst $sdk_url"
 
 before_build:
   - cmd: |
       mkdir %build_root%
-      %hostbash% -lc "time tar -xf $sdk_name-$sdk_ver.tar.xz -C $build_root_slash"
+      %hostbash% -lc "time tar -xf $sdk_name-$sdk_ver.tar.zst -C $build_root_slash"
       %sdkbash% -lc exit
 
 build_script:

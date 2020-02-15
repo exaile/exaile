@@ -29,10 +29,11 @@
 """
 
 import glob
-from gi.repository import GdkPixbuf, GLib, Gtk
-
 import logging
 import os
+from typing import Optional, Union
+
+from gi.repository import GdkPixbuf, GLib, Gtk
 
 from xl import common, covers, settings
 from xlgui.guiutil import pixbuf_from_data
@@ -621,39 +622,41 @@ class IconManager:
 
         Gtk.IconTheme.add_builtin_icon(icon_name, size, pixbuf)
 
-    def pixbuf_from_icon_name(self, icon_name, size=Gtk.IconSize.BUTTON):
+    def pixbuf_from_icon_name(
+        self, icon_name: str, size: Union[int, Gtk.IconSize] = Gtk.IconSize.BUTTON
+    ) -> Optional[GdkPixbuf.Pixbuf]:
         """
             Generates a pixbuf from an icon name
 
             :param icon_name: an icon name
-            :type icon_name: string
             :param size: the size of the icon, will be
                 tried to converted to a GTK icon size
-            :type size: int or GtkIconSize
 
             :returns: the generated pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
         if isinstance(size, Gtk.IconSize):
             icon_size = Gtk.icon_size_lookup(size)
             size = icon_size[1]
 
-        try:
-            pixbuf = self.icon_theme.load_icon(
-                icon_name,
-                size,
-                Gtk.IconLookupFlags.NO_SVG | Gtk.IconLookupFlags.FORCE_SIZE,
-            )
-        except GLib.GError as e:
-            logger.warning(
-                'Failed to get pixbuf from "{icon_name}": {error}'.format(
-                    icon_name=icon_name, error=e.message
-                )
-            )
-            pixbuf = None
+        if icon_name.endswith('-symbolic'):
+            fallback_name = icon_name[:-9]
+        else:
+            fallback_name = icon_name + '-symbolic'
 
-        # TODO: Check if fallbacks are necessary
-        return pixbuf
+        icon_info = self.icon_theme.choose_icon(
+            [icon_name, fallback_name],
+            size,
+            Gtk.IconLookupFlags.USE_BUILTIN | Gtk.IconLookupFlags.FORCE_SIZE,
+        )
+        if icon_info:
+            try:
+                return icon_info.load_icon()
+            except GLib.GError as e:
+                logger.warning('Failed to load icon "%s": %s', icon_name, e.message)
+        else:
+            logger.warning('Icon "%s" not found', icon_name)
+
+        return None
 
     @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):

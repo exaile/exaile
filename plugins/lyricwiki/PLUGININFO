@@ -1,6 +1,6 @@
 Version='4.0.2'
 Authors=['Anthony Waters <awaters1@gmail.com>', 'Johannes Schwarz <johannes.schw@gmx.de>']
 Name=_('Lyrics Wiki')
-Description=_('Plugin to fetch lyrics from lyrics.wikia.com\nRequires: BeautifulSoup4')
+Description=_('Plugin to fetch lyrics from lyrics.wikia.com\nRequires: BeautifulSoup4, lxml')
 Category=_('Lyrics')
-RequiredModules=['bs4']
+RequiredModules=['bs4', 'lxml']

@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
-"Language-Team: Telugu <te@li.org>\n"
+"PO-Revision-Date: 2020-02-18 15:32+0000\n"
+"Last-Translator: lingala shailender goud <shailendergoudlingala@gmail.com>\n"
+"Language-Team: Telugu <https://hosted.weblate.org/projects/exaile/master/te/>"
+"\n"
 "Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -25,102 +26,102 @@ msgstr ""
 
 #: ../xl/covers.py:565
 msgid "Local file"
-msgstr ""
+msgstr "స్థానిక ౙాబితా"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d తేది "
+msgstr[1] "%d తేదీలు "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d గడియ "
+msgstr[1] "%d గడియలు "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d నిమిషము "
+msgstr[1] "%d నిమిషములు "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d సెకను"
+msgstr[1] "%d సెకనులు"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:624
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: ../xl/formatter.py:722 ../xl/main.py:633 ../xl/trax/track.py:65
 msgid "Unknown"
-msgstr ""
+msgstr "తెలియని"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:756 ../xl/formatter.py:761
 msgid "Never"
-msgstr ""
+msgstr "లేదు"
 
 #: ../xl/formatter.py:767
 msgid "Today"
-msgstr ""
+msgstr "ఈరొజు"
 
 #: ../xl/formatter.py:769
 msgid "Yesterday"
-msgstr ""
+msgstr "నిన్న"
 
 #: ../xl/lyrics.py:351
 msgid "Local"
-msgstr ""
+msgstr "స్థానికమైన"
 
 #: ../xl/main.py:83
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr ""
+msgstr "వాడిక:ప్రవాసి[ఇష్టం...] [స్థానము...]"
 
 #: ../xl/main.py:85
 msgid ""
@@ -152,11 +153,11 @@ msgstr "ఆడించు"
 
 #: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
-msgstr ""
+msgstr "విరామం"
 
 #: ../xl/main.py:138
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "విరామం లేదా పునఃప్రారంభం ప్లేబ్యాక్"
 
 #: ../xl/main.py:145 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
@@ -164,28 +165,28 @@ msgstr "పాడుతున్న పాట అవ్వగానే పాడ
 
 #: ../xl/main.py:148
 msgid "Collection Options"
-msgstr ""
+msgstr "సేకరణ ఎంపికలు"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:153 ../xl/main.py:162
 msgid "LOCATION"
-msgstr ""
+msgstr "స్థానం"
 
 #: ../xl/main.py:154
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "లొకేషన్ నుంచి కలెక్షన్ కు ట్రాక్ లను జోడించడం"
 
 #: ../xl/main.py:157
 msgid "Playlist Options"
-msgstr ""
+msgstr "ప్లేజాబితా ఎంపికలు"
 
 #: ../xl/main.py:163
 msgid "Export the current playlist to LOCATION"
-msgstr ""
+msgstr "ప్రస్తుత ప్లేజాబితాను  స్థానానికి ఎగుమతి చేయండి"
 
 #: ../xl/main.py:166
 msgid "Track Options"
-msgstr ""
+msgstr "ట్రాక్ ఎంపికలు"
 
 #: ../xl/main.py:173
 msgid "Query player"
@@ -194,24 +195,28 @@ msgstr "ప్లేయర్ ని అడుగు"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:179
 msgid "FORMAT"
-msgstr ""
+msgstr "ఆకారం"
 
 #: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
+"ప్రస్తుత ప్లేబ్యాక్ స్థితిని తిరిగి పొందండి మరియు సమాచారాన్ని ఆకారంగా ట్రాక్ "
+"చేయండి"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
 msgid "TAGS"
-msgstr ""
+msgstr "టాగ్లు"
 
 #: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
+"ప్రస్తుత ట్రాక్ నుంచి తిరిగి పొందడానికి ట్యాగ్ లు; --ఆకారం- ప్రశ్నలు "
+"ఉపయోగించండి"
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "ప్రస్తుత ట్రాక్ యొక్క డేటాతో ఒక పాప్ అప్ ని చూపించు"
 
 #: ../xl/main.py:201
 msgid "Print the title of current track"
@@ -233,39 +238,39 @@ msgstr "ప్రస్తుత పాట పొడవెంతో ముద్
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:230
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "ప్రస్తుత ట్రాక్ కొరకు రేటింగ్ ని N% కు సెట్ చేయండి"
 
 #: ../xl/main.py:237
 msgid "Get rating for current track"
-msgstr ""
+msgstr "ప్రస్తుత ట్రాక్ కు రేటింగ్ పొందండి"
 
 #: ../xl/main.py:244
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "ప్రస్తుత ప్లేబ్యాక్ స్థితిని ఎప్పటికప్పుడు ముద్రించు"
 
 #: ../xl/main.py:251
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "ప్రస్తుత ప్లేబ్యాక్ పురోగతిని శాతంగా ముద్రించండి"
 
 #: ../xl/main.py:254
 msgid "Volume Options"
-msgstr ""
+msgstr "శబ్దం ఎంపికలు"
 
 #: ../xl/main.py:262
 msgid "Increase the volume by N%"
-msgstr ""
+msgstr "N% ద్వారా ధ్వని పెంచండి"
 
 #: ../xl/main.py:271
 msgid "Decrease the volume by N%"
-msgstr ""
+msgstr "N% ద్వారా ధ్వని తగ్గించు"
 
 #: ../xl/main.py:279
 msgid "Mute or unmute the volume"
-msgstr ""
+msgstr "వాల్యూమ్‌ను మ్యూట్ చేయండి లేదా అన్‌మ్యూట్ చేయండి"
 
 #: ../xl/main.py:286
 msgid "Print the current volume percentage"
@@ -273,7 +278,7 @@ msgstr "ధ్వనిస్థాయి శాతం ముద్రించ�
 
 #: ../xl/main.py:289
 msgid "Other Options"
-msgstr ""
+msgstr "ఇతర ఎంపికలు"
 
 #: ../xl/main.py:295
 msgid "Start new instance"
@@ -281,11 +286,11 @@ msgstr "కొత్త దృష్టాంతాన్ని మొదలు�
 
 #: ../xl/main.py:298
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "ఈ సహాయ సందేశాన్ని చూపించు మరియు నిష్క్రమించు"
 
 #: ../xl/main.py:304
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "ప్రోగ్రాం సంస్కరణ సంఖ్య మరియు నిష్క్రమణను చూపు."
 
 #: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
@@ -293,7 +298,7 @@ msgstr "మినిమైజ్ చేసి ప్రారంభించు 
 
 #: ../xl/main.py:318
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "GUI యొక్క టోగుల్ విజిబిలిటీ (ఒకవేళ సాధ్యం అయితే)"
 
 #: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -302,22 +307,24 @@ msgstr "సురక్షిత విధంలో ప్రారంభిం�
 #: ../xl/main.py:335
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
+"వెర్షన్ 0.2. x (ప్రస్తుత డేటా ఓవర్ రైట్ చేయడం) నుంచి పాత డేటా యొక్క ఫోర్స్ "
+"ఇంపోర్ట్"
 
 #: ../xl/main.py:343
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "సంస్కరణ 0.2.x నుండి పాత డేటాను దిగుమతి చేయవద్దు"
 
 #: ../xl/main.py:350
 msgid "Make control options like --play start Exaile if it is not running"
-msgstr ""
+msgstr "నియంత్రణ ఎంపికలు ఇలా చేయండి--ఒకవేళ అమలు కాకపోతే ప్లే ప్రారంభం అవుతుంది"
 
 #: ../xl/main.py:353
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "సేకరణ ఎంపికలు"
 
 #: ../xl/main.py:357 ../xl/main.py:363
 msgid "DIRECTORY"
-msgstr ""
+msgstr "జాబితా"
 
 #: ../xl/main.py:358
 msgid "Set data directory"
@@ -325,86 +332,88 @@ msgstr "సమాచార సంచయాన్ని అమర్చు"
 
 #: ../xl/main.py:364
 msgid "Set data and config directory"
-msgstr ""
+msgstr "డేటా మరియు విన్యాస డైరెక్టరీని అమర్చండి"
 
 #: ../xl/main.py:369
 msgid "MODULE"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #: ../xl/main.py:370
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "లాగ్ అవుట్ పుట్ ని మాడ్యూల్ కు పరిమితం చేయండి"
 
 #: ../xl/main.py:375
 msgid "LEVEL"
-msgstr ""
+msgstr "స్థాయి"
 
 #: ../xl/main.py:376
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "పరిమితి లాగ్ అవుట్పుట్ స్థాయి"
 
 #: ../xl/main.py:384
 msgid "Show debugging output"
-msgstr ""
+msgstr "డీబగ్గింగ్ అవుట్ పుట్ చూపించు"
 
 #: ../xl/main.py:391
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr ""
+"Xl. ఈవెంట్ డీబగ్గింగ్ ప్రారంభించండి. బోలెడంత అవుట్ పుట్ జనరేట్ చేస్తుంది"
 
 #: ../xl/main.py:398
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr ""
+"Xl. ఈవెంట్ డీబగ్గింగ్ ప్రారంభించండి. బోలెడంత అవుట్ పుట్ జనరేట్ చేస్తుంది"
 
 #: ../xl/main.py:405
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "మీ స్వంత అనువర్తనాలు మరియు ఫైల్‌లను జోడించండి."
 
 #: ../xl/main.py:410
 msgid "TYPE"
-msgstr ""
+msgstr "రకం"
 
 #: ../xl/main.py:411
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "పరిమితి లాగ్ అవుట్పుట్ స్థాయి"
 
 #: ../xl/main.py:418
 msgid "Reduce level of output"
-msgstr ""
+msgstr "డీబగ్గింగ్ అవుట్ పుట్ చూపించు"
 
 #: ../xl/main.py:428
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "స్వయంచాలక నవీకరణలను నిలిపివేయండి"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
-msgstr ""
+msgstr "నిలిపివేయబడింది"
 
 #: ../xl/main.py:810
 msgid "Entire Library"
-msgstr ""
+msgstr "మొత్తం సంగ్రహకం"
 
 #: ../xl/main.py:817
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "యాదృచ్ఛిక% d"
 
 #: ../xl/main.py:826
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "రేటింగ్ >% d"
 
 #: ../xl/main.py:995
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr ""
+msgstr "Exaile ఇంకా పూర్తి లోడ్. బహుశా మీరు వినండి కోసం exaile_loaded సిగ్నల్?"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
 #: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
-msgstr ""
+msgstr "ఆల్బమ్"
 
 #: ../xl/metadata/tags.py:47
 msgid "Arranger"

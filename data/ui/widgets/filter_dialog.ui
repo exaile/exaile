@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.14"/>
   <object class="GtkImage" id="image1">
@@ -17,6 +17,9 @@
     <property name="can_focus">False</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -49,10 +52,13 @@
             <property name="can_focus">False</property>
             <property name="spacing">5</property>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="name_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Name:</property>
+                <accessibility>
+                  <relation type="label-for" target="name_entry"/>
+                </accessibility>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -65,6 +71,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="input_purpose">name</property>
+                <accessibility>
+                  <relation type="labelled-by" target="name_label"/>
+                </accessibility>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -122,6 +131,7 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="spacing">3</property>
             <child>
               <object class="GtkCheckButton" id="match_any">
                 <property name="label" translatable="yes">Match any of the criteria</property>
@@ -178,14 +188,18 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="spacing">3</property>
             <child>
               <object class="GtkCheckButton" id="lim_check">
-                <property name="label" translatable="yes">Limit to:</property>
+                <property name="label" translatable="yes" comments="This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.">Maximum number of tracks:</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="on_lim_check_toggled" swapped="no"/>
+                <accessibility>
+                  <relation type="label-for" target="lim_spin"/>
+                </accessibility>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -199,23 +213,14 @@
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="adjustment">lim_spin_adj</property>
+                <accessibility>
+                  <relation type="labelled-by" target="lim_check"/>
+                </accessibility>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">tracks</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
               </packing>
             </child>
           </object>

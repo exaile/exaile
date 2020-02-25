@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.2 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="covers_model">
@@ -29,6 +29,9 @@
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
+    <child>
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox" id="main_container">
         <property name="visible">True</property>
@@ -87,6 +90,10 @@
                     <child>
                       <placeholder/>
                     </child>
+                    <accessibility>
+                      <relation type="described-by" target="size_label"/>
+                      <relation type="described-by" target="source_label"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -102,6 +109,9 @@
                     <attributes>
                       <attribute name="size" value="8000"/>
                     </attributes>
+                    <accessibility>
+                      <relation type="description-for" target="cover_image_box"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -118,6 +128,9 @@
                       <attribute name="weight" value="bold"/>
                       <attribute name="size" value="8000"/>
                     </attributes>
+                    <accessibility>
+                      <relation type="description-for" target="cover_image_box"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

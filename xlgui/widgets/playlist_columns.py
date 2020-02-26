@@ -760,12 +760,6 @@ def __register_playlist_columns_menuitems():
         Registers standard menu items for playlist columns
     """
 
-    def is_column_selected(name, parent, context):
-        """
-            Returns whether a menu item should be checked
-        """
-        return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
-
     def is_resizable(name, parent, context):
         """
             Returns whether manual or automatic sizing is requested
@@ -776,19 +770,6 @@ def __register_playlist_columns_menuitems():
             return resizable
         elif name == 'autosize':
             return not resizable
-
-    def on_column_item_activate(menu_item, name, parent, context):
-        """
-            Updates columns setting
-        """
-        columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
-
-        if name in columns:
-            columns.remove(name)
-        else:
-            columns.append(name)
-
-        settings.set_option('gui/columns', columns)
 
     def on_sizing_item_activate(menu_item, name, parent, context):
         """

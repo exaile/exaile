@@ -42,7 +42,7 @@ class ManagerDialog(Gtk.Window):
 
     __gtype_name__ = 'DeviceManager'
 
-    btn_add, btn_edit, btn_remove, tree_devices, model = GtkTemplate.Child.widgets(5)
+    tree_devices, model = GtkTemplate.Child.widgets(5)
 
     def __init__(self, parent, main):
         Gtk.Window.__init__(self)
@@ -51,11 +51,6 @@ class ManagerDialog(Gtk.Window):
         self.main = main
         self.device_manager = self.main.exaile.devices
         self.set_transient_for(parent)
-
-        # TODO: make these actually work.  For now, they are hidden
-        self.btn_add.destroy()
-        self.btn_edit.destroy()
-        self.btn_remove.destroy()
 
         # GtkListStore self.model: first column (PyObject) should really be of
         # type devices.Device, but that doesn't work with GtkBuilder.
@@ -93,18 +88,6 @@ class ManagerDialog(Gtk.Window):
 
         for d in devices:
             d.disconnect()
-
-    @GtkTemplate.Callback
-    def on_btn_edit_clicked(self, *args):
-        logger.warning("NOT IMPLEMENTED")
-
-    @GtkTemplate.Callback
-    def on_btn_add_clicked(self, *args):
-        logger.warning("NOT IMPLEMENTED")
-
-    @GtkTemplate.Callback
-    def on_btn_remove_clicked(self, *args):
-        logger.warning("NOT IMPLEMENTED")
 
     @GtkTemplate.Callback
     def on_btn_close_clicked(self, *args):

@@ -39,7 +39,6 @@ import pickle
 from typing import Optional
 
 from xl.nls import gettext as _
-import xl.unicode
 from xl import common, event, providers, settings, trax, xdg
 
 logger = logging.getLogger(__name__)

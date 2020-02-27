@@ -1073,11 +1073,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             )
             playlist_column.connect('clicked', self.on_column_clicked)
 
-            playlist_column.set_attributes(
-                playlist_column.cellrenderer,
-                sensitive=PlaylistModel.COL_SENSITIVE,
-                weight=PlaylistModel.COL_WEIGHT,
-            )
+            if isinstance(playlist_column.cellrenderer, Gtk.CellRendererText):
+                playlist_column.set_attributes(
+                    playlist_column.cellrenderer,
+                    sensitive=PlaylistModel.COL_SENSITIVE,
+                    weight=PlaylistModel.COL_WEIGHT,
+                )
+            else:
+                playlist_column.set_attributes(
+                    playlist_column.cellrenderer, sensitive=PlaylistModel.COL_SENSITIVE
+                )
 
             self.append_column(playlist_column)
             header = playlist_column.get_widget()

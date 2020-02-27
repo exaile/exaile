@@ -97,6 +97,9 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="label" translatable="yes">Tab placement:</property>
+        <accessibility>
+          <relation type="label-for" target="gui/tab_placement"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -114,6 +117,9 @@
             <attribute name="text">1</attribute>
           </attributes>
         </child>
+        <accessibility>
+          <relation type="labelled-by" target="label1"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -131,6 +137,9 @@
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Playlist font:</property>
+            <accessibility>
+              <relation type="label-for" target="gui/playlist_font"/>
+            </accessibility>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -144,7 +153,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="has_tooltip">True</property>
             <property name="tooltip_text" translatable="yes">Reset to the system font</property>
             <property name="image">image1</property>
             <property name="use_underline">True</property>
@@ -163,6 +171,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="font">Sans 12</property>
+            <accessibility>
+              <relation type="labelled-by" target="font_label"/>
+            </accessibility>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -212,6 +223,11 @@
         <property name="can_focus">True</property>
         <property name="adjustment">transparency_adjustment</property>
         <property name="draw_value">False</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="gui/transparency-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Alpha transparency</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="left_attach">1</property>

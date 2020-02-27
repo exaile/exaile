@@ -178,14 +178,15 @@ def start_logging(debug, quiet, debugthreads, module_filter, level_filter):
 
     # Strictly speaking, this isn't logging, but it's useful for debugging
     # when Exaile hangs.
-    import faulthandler
+    if sys.stderr.isatty():
+        import faulthandler
 
-    # Windows doesn't allow custom fault handler registration
-    if hasattr(faulthandler, 'register'):
-        import signal
+        # Windows doesn't allow custom fault handler registration
+        if hasattr(faulthandler, 'register'):
+            import signal
 
-        faulthandler.register(signal.SIGUSR2)
-    faulthandler.enable()
+            faulthandler.register(signal.SIGUSR2)
+        faulthandler.enable()
 
 
 def stop_logging():

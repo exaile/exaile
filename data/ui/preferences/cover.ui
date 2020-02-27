@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkGrid" id="preferences_pane">
@@ -28,6 +28,9 @@ the same folder as the music file.</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Preferred file names:</property>
+        <accessibility>
+          <relation type="label-for" target="covers/localfile/preferred_names"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -41,6 +44,9 @@ the same folder as the music file.</property>
         <property name="secondary_icon_name">dialog-information</property>
         <property name="secondary_icon_activatable">False</property>
         <property name="secondary_icon_tooltip_text" translatable="yes">A comma-separated list of file names without file extensions</property>
+        <accessibility>
+          <relation type="labelled-by" target="label2"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -68,6 +74,9 @@ the same folder as the music file.</property>
         <property name="halign">start</property>
         <property name="valign">start</property>
         <property name="label" translatable="yes">Cover Search Order:</property>
+        <accessibility>
+          <relation type="label-for" target="covers/preferred_order"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -89,6 +98,9 @@ the same folder as the music file.</property>
             <child internal-child="selection">
               <object class="GtkTreeSelection" id="treeview-selection1"/>
             </child>
+            <accessibility>
+              <relation type="labelled-by" target="label1"/>
+            </accessibility>
           </object>
         </child>
       </object>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkGrid" id="preferences_pane">
@@ -13,6 +13,9 @@
         <property name="label" translatable="yes">Words to strip from the beginning of artist tags when sorting (space separated):</property>
         <property name="justify">fill</property>
         <property name="wrap">True</property>
+        <accessibility>
+          <relation type="label-for" target="collection/strip_list"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -22,6 +25,9 @@
     <child>
       <object class="GtkEntry" id="collection/strip_list">
         <property name="can_focus">True</property>
+        <accessibility>
+          <relation type="labelled-by" target="strip_list_label"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>

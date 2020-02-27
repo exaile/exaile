@@ -209,7 +209,8 @@ class MoodbarController:
         return True
 
     def _on_playback_track_end(self, event, player, track):
-        GLib.source_remove(self.timer)
+        if self.timer:
+            GLib.source_remove(self.timer)
         self.timer = None
         self.moodbar.set_mood(None)
         self.moodbar.seek_position = None

@@ -946,12 +946,15 @@ class PlaylistImportDialog(Gtk.FileChooserDialog):
                 try:
                     playlists.append(import_playlist(uri))
                 except InvalidPlaylistTypeError as e:
-                    error(None, 'Invalid playlist "%s": %s' % (uri, e))
+                    error(
+                        self.get_transient_for(), 'Invalid playlist "%s": %s' % (uri, e)
+                    )
                     self.destroy()
                     return
                 except Exception as e:
                     error(
-                        None, 'Invalid playlist "%s": (internal error): %s' % (uri, e)
+                        self.get_transient_for(),
+                        'Invalid playlist "%s": (internal error): %s' % (uri, e),
                     )
                     self.destroy()
                     return
@@ -1026,9 +1029,9 @@ class PlaylistExportDialog(FileOperationDialog):
             Displays simple dialogs on messages
         """
         if message_type == Gtk.MessageType.INFO:
-            info(None, markup=message)
+            info(self.get_transient_for(), markup=message)
         elif message_type == Gtk.MessageType.ERROR:
-            error(None, markup=message)
+            error(self.get_transient_for(), markup=message)
 
     def on_response(self, dialog, response):
         """
@@ -1751,10 +1754,10 @@ def ask_for_playlist_name(parent, playlist_manager, name=None):
         name = dialog.get_value()
 
         if name == '':
-            error(None, _("You did not enter a name for your playlist"))
+            error(parent, _("You did not enter a name for your playlist"))
         elif playlist_manager.has_playlist_name(name):
             # name is already in use
-            error(None, _("The playlist name you entered is already in use."))
+            error(parent, _("The playlist name you entered is already in use."))
         else:
             return name
 

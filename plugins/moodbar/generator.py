@@ -39,8 +39,7 @@ class MoodbarGenerator:
         :raise MoodbarGeneratorError: if the check fails
         """
         try:
-            with open(os.devnull, 'wb') as devnull:
-                subprocess.check_call(('moodbar', '--help'), stdout=devnull)
+            subprocess.check_call(('moodbar', '--help'), stdout=subprocess.DEVNULL)
         except subprocess.CalledProcessError:
             # executable exists but returned an error code
             pass

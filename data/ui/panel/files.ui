@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="liststore_libraries_location">
     <columns>
-      <!-- column-name value -->
+      <!-- column-name text -->
+      <column type="gchararray"/>
+      <!-- column-name uri -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -166,6 +168,7 @@
         <property name="primary_icon_activatable">False</property>
         <property name="secondary_icon_sensitive">False</property>
         <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
+        <property name="placeholder_text" translatable="yes">Search</property>
       </object>
       <packing>
         <property name="expand">False</property>

@@ -877,13 +877,10 @@ class CoverWindow:
                 Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC
             )
         percent = int(100 * self.image_ratio)
-        message = (
-            str(self.image_original_pixbuf.get_width())
-            + " x "
-            + str(self.image_original_pixbuf.get_height())
-            + " pixels "
-            + str(percent)
-            + '%'
+        message = _("{width}x{height} pixels ({zoom}%)").format(
+            width=self.image_original_pixbuf.get_width(),
+            height=self.image_original_pixbuf.get_height(),
+            zoom=percent,
         )
         self.zoom_in_button.set_sensitive(percent < self.max_percent)
         self.zoom_out_button.set_sensitive(percent > self.min_percent)

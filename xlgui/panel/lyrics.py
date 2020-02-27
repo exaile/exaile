@@ -223,7 +223,7 @@ class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
 
         self.model = self.get_model()
         # Default value, any registered lyrics provider
-        self.append_text(_("Any"))
+        self.append_text(_("Any source"))
 
         for provider in self.get_providers():
             self.append_text(provider.display_name)

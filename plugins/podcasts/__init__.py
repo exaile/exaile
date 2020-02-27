@@ -108,7 +108,9 @@ class PodcastPanel(panel.Panel):
             (title, _url) = item
             if _url == url:
                 self.podcasts.remove(item)
-                self.podcast_playlists.remove_playlist(md5(url).hexdigest())
+                self.podcast_playlists.remove_playlist(
+                    md5(url.encode('utf-8')).hexdigest()
+                )
                 break
 
         self._save_podcasts()
@@ -140,7 +142,9 @@ class PodcastPanel(panel.Panel):
         (url, title) = self.get_selected_podcast()
 
         try:
-            pl = self.podcast_playlists.get_playlist(md5(url).hexdigest())
+            pl = self.podcast_playlists.get_playlist(
+                md5(url.encode('utf-8')).hexdigest()
+            )
             self._open_podcast(pl, title)
         except ValueError:
             self._parse_podcast(url)
@@ -159,7 +163,7 @@ class PodcastPanel(panel.Panel):
             if add_to_db:
                 self._add_to_db(url, title)
 
-            pl = playlist.Playlist(md5(url).hexdigest())
+            pl = playlist.Playlist(md5(url.encode('utf-8')).hexdigest())
 
             tracks = []
             for e in entries:

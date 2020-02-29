@@ -927,6 +927,11 @@ class Playlist:
         'dynamic_mode',
         'current_position',
         'name',
+        # GUI
+        'global_playlist_columns',
+        'playlist_columns',
+        'resizable_cols',
+        'playlist_column_widths',
     ]
     __playlist_format_version = [2, 0]
 
@@ -960,6 +965,40 @@ class Playlist:
         self.__shuffle_history_counter = 1  # start positive so we can
         # just do an if directly on the value
         event.add_callback(self.on_playback_track_start, "playback_track_start")
+
+        # These are actually GUI properties, but are also stored here
+        # so that they get saved/restored using existing infrastructure
+        self.__global_playlist_columns = True
+        self.__playlist_columns = []
+        self.__resizable_cols = False
+        self.__playlist_column_widths = {}
+
+    def _set_global_playlist_columns(self, enable):
+        self.__dirty = self.__global_playlist_columns != enable
+        self.__global_playlist_columns = enable
+
+    def _set_playlist_columns(self, columns):
+        self.__dirty = self.__playlist_columns != columns
+        self.__playlist_columns = columns
+
+    def _set_resizable_cols(self, enable):
+        self.__dirty = self.__resizable_cols != enable
+        self.__resizable_cols = enable
+
+    def _set_playlist_column_widths(self, widths):
+        self.__dirty = self.__playlist_column_widths != widths
+        self.__playlist_column_widths = widths
+
+    global_playlist_columns = property(
+        lambda self: self.__global_playlist_columns, _set_global_playlist_columns
+    )
+    playlist_columns = property(
+        lambda self: self.__playlist_columns, _set_playlist_columns
+    )
+    resizable_cols = property(lambda self: self.__resizable_cols, _set_resizable_cols)
+    playlist_column_widths = property(
+        lambda self: self.__playlist_column_widths, _set_playlist_column_widths
+    )
 
     ### playlist-specific API ###
 

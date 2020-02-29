@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-10-03 12:56+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2020-02-29 17:32+0000\n"
+"Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -2093,7 +2093,7 @@ msgstr "© 2009-2019 de diversos contribuidores"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Traductores de Exaile al español"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -3700,14 +3700,6 @@ msgid "Secret:"
 msgstr "Secreto:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3715,12 +3707,12 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Para registrar una cuenta Amazon AWS y obtener \n"
+"<i>Para registrar una cuenta de Amazon AWS y obtener \n"
 "esta información visite <a href=\"http://aws.amazon.com/\">http://aws.amazon."
 "com/</a>.\n"
 "\n"
-"También puede necesitar <a href=\"https://affiliate-program.amazon.com/gp/"
-"flex/advertising/api/sign-in.html\">activar el API de publicidad de "
+"Es posible que también tenga que <a href=\"https://affiliate-program.amazon."
+"com/gp/flex/advertising/api/sign-in.html\">activar el API de publicidad de "
 "producto</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
@@ -4183,7 +4175,7 @@ msgstr "Vista de forma de onda (experimental)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Tinte del color (experimental)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4194,10 +4186,8 @@ msgid "_Add"
 msgstr "_Añadir"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Eliminar"
+msgstr "_Eliminar"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
@@ -4213,10 +4203,8 @@ msgstr "Activar aumento gradual de volumen"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Iconos</b>"
+msgstr "<b>Audio</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4231,26 +4219,20 @@ msgid "Fade Increment:"
 msgstr "Incremento de fundido:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
-#, fuzzy
-#| msgid "Fade Time (s):"
 msgid "Fade Time:"
-msgstr "Tiempo de fundido (s):"
+msgstr "Tiempo de fundido:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
 msgstr "Redimensionar las carátulas mostradas"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "Mostrar portadas"
+msgstr "Visualización"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Icono"
+msgstr "Iconos"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4261,10 +4243,8 @@ msgid "Use media icons for pause, stop and resume"
 msgstr "Usar iconos de medios para pausar, parar y continuar"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "Al iniciar reproducción, pausar o parar"
+msgstr "Al pausar, continuar o detener la reproducción"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
@@ -4275,12 +4255,7 @@ msgid "When main window is focused"
 msgstr "Cuando la ventana principal está activa"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4290,9 +4265,9 @@ msgstr ""
 "Puede utilizar cualquier etiqueta con <b>$tag</b> o <b>${tag}</b>. Las "
 "etiquetas internas como <b>$__length</b> deben tener dos guiones bajos al "
 "principio.\n"
-"Se admite el <a href=\"http://developer.gnome.org/pango/stable/"
-"PangoMarkupFormat.html\">lenguaje de etiquetas de formato de texto de Pango</"
-"a>."
+"Se admite el <a href=\"https://developer.gnome.org/pango/stable/"
+"PangoMarkupFormat.html\">lenguaje de etiquetas de formato de texto de "
+"Pango</a>."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4389,17 +4364,13 @@ msgstr "Proteger contra el ruido causado por el exceso de amplificación"
 
 #. This is an additional amplification applied to all files prior to correction.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:56
-#, fuzzy
-#| msgid "Additional amplification (dB):"
 msgid "Additional amplification:"
-msgstr "Amplificación adicional (dB):"
+msgstr "Amplificación adicional:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
-#, fuzzy
-#| msgid "Fallback correction level (dB):"
 msgid "Fallback correction level:"
-msgstr "Nivel de corrección seguro (dB):"
+msgstr "Nivel de corrección seguro:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
@@ -4457,24 +4428,16 @@ msgid "Effect"
 msgstr "Efecto"
 
 #: ../plugins/alarmclock/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plays music at a specific time.\n"
-#| "\n"
-#| "Note that when the specified time arrives, Exaile will just act like you "
-#| "pressed the play button, so be sure you have the music you want to hear "
-#| "in your playlist"
 msgid ""
 "Plays music at a specific time.\n"
 "\n"
 "Note that when the specified time arrives, Exaile will play the songs in the "
 "queue."
 msgstr ""
-"Reproduce música en un momento específico.\n"
+"Reproduce música a una hora determinada.\n"
 "\n"
-"Tenga en cuenta que cuando llega el tiempo especificado, Exaile actuará como "
-"si pulsara el botón de reproducción, así que asegúrese de tener la música "
-"que quieres escuchar en la lista de reproducción"
+"Tengan en cuenta que cuando llegue la hora especificada, Exaile reproducirá "
+"las canciones de la cola."
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4518,28 +4481,19 @@ msgstr ""
 "Permite guardar/reanudar las posiciones de marcador en los archivos de audio."
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
-"Proporciona un contador de PPM manual y detección automática de PPM cuando "
-"se instalan los complementos gst-plugins-bad y bpmdetect"
+"Proporciona un contador manual de PPMy detección automática de PPM cuando se "
+"instala el complemento bpmdetect de gst-plugins-bad"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "Reproducción de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4548,7 +4502,7 @@ msgid ""
 msgstr ""
 "Permite reproducir CD de audio.\n"
 "\n"
-"Requiere HAL/UDisks/UDisks2 para la detección automática de CDs.\n"
+"Requiere UDisks2 para la detección automática de los CD.\n"
 "Requiere cddb-py (%s) para buscar etiquetas."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4569,10 +4523,8 @@ msgid "Development"
 msgstr "Desarrollo"
 
 #: ../plugins/currentsong/PLUGININFO:3
-#, fuzzy
-#| msgid "Current Song"
 msgid "Current Song in Pidgin"
-msgstr "Canción actual"
+msgstr "Canción actual en Pidgin"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4583,10 +4535,10 @@ msgstr ""
 "frecuentes de Pidgin para averiguar los servicios soportados."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Permite la reproducción de recursos compartidos mediante DAAP."
+msgstr ""
+"Permite la reproducción de recursos compartidos de música DAAP usando la "
+"biblioteca spydaap."
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4596,16 +4548,13 @@ msgid "Media Sources"
 msgstr "Orígenes de medios"
 
 #: ../plugins/daapserver/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "This plugin integrates spydaap (%s) into Exaile so a collection can be "
-#| "shared over DAAP."
+#, python-format
 msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
-"Este complemento integra spydaap (%s) en Exaile de manera que se pueda "
-"compartir una colección a través de DAAP."
+"Este complemento integra Spydaap (%s) en Exaile, de este modo se puede "
+"compartir una colección por medio de DAAP."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
@@ -4617,10 +4566,8 @@ msgid "GUI"
 msgstr "IGU"
 
 #: ../plugins/developer/PLUGININFO:3
-#, fuzzy
-#| msgid "Development"
 msgid "Developer"
-msgstr "Desarrollo"
+msgstr "Desarrollador"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4688,7 +4635,7 @@ msgstr "Eliminar voces del audio"
 
 #: ../plugins/keybinder/PLUGININFO:2
 msgid "Keybinder-based multimedia keys"
-msgstr ""
+msgstr "Teclas multimedia basadas en combinaciones de teclas"
 
 #: ../plugins/keybinder/PLUGININFO:4
 msgid ""
@@ -4750,46 +4697,32 @@ msgid "Browse and listen to audiobooks from Librivox.org."
 msgstr "Busca y escucha libros de audio de Librivox.org."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from www.lyricsmania.com\n"
-#| "Depends: lxml"
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
 msgstr ""
-"Complemento para descargar letras desde www.lyricsmania.com↵\n"
-"Dependencia: lxml"
+"Complemento para descargar letras desde lyricsmania.com↵\n"
+"Requiere: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
 msgstr "Wiki de letras"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Depends: python-beautifulsoup"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4"
 msgstr ""
 "Complemento para descargar letras desde lyrics.wikia.com\n"
-"Dependencia: python-beautifulsoup"
+"Requiere: BeautifulSoup4"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
 msgstr "Botón del menú principal"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Moves the main menu into a button on top of the panels.\n"
-#| "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgid "Moves the main menu into a button on top of the panels."
-msgstr ""
-"Reduce el menú principal a un botón sobre los paneles.\n"
-"Depende de: PyGTK >= 2.22, GTK >= 2.20"
+msgstr "Mueve el menú principal a un botón en la parte superior de los paneles."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4868,25 +4801,21 @@ msgstr ""
 "Requiere musicbrainzngs"
 
 #: ../plugins/notify/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pops up a notification when playback of a track starts. Requires pynotify"
 msgid ""
 "Pops up a notification when playback of a track starts or (optionally) if it "
 "is paused/resumed/stopped. Requires libnotify and its typelib file"
 msgstr ""
-"Se despliega una notificación al comenzar la reproducción de una pista. "
-"Requiere de pynotify"
+"Muestra una notificación al comenzar la reproducción de una pista o bien "
+"(opcionalmente) al pausar/reanudar/detener la reproducción. Requiere "
+"libnotify y el archivo typelib"
 
 #: ../plugins/osd/PLUGININFO:4
-#, fuzzy
-#| msgid "A popup window showing information of the currently playing track."
 msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
-"Una ventana emergente mostrando información de la pista reproducida "
-"actualmente."
+"Una ventana emergente que muestra información de la pista en reproducción.\n"
+"Este complemento no está disponible en Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4926,12 +4855,6 @@ msgid "Enables ReplayGain support"
 msgstr "Activa el soporte ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME Screensaver or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -4941,8 +4864,7 @@ msgstr ""
 "Pausa (y opcionalmente reanuda) la reproducción basándose en el estado del "
 "salvapantallas.\n"
 "\n"
-"Requiere: GNOME Screensaver o KDE Screensaver (no soporta XScreenSaver ni "
-"XLockMore)"
+"Requiere: GNOME, MATE, Cinnamon o KDE (no admite XScreenSaver ni XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4966,16 +4888,12 @@ msgstr ""
 "Dependencias: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides Wikipedia information about the current artist.\n"
-#| "Depends: python-webkit"
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
-"Proporciona información de Wikipedia sobre el artista actual.\n"
-"Depende de: python-webkit"
+"Proporciona información de la Wikipedia sobre el artista actual.\n"
+"Requiere: webkit2gtk y el archivo typelib"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"

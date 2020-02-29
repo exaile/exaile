@@ -862,6 +862,17 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self._filter_matcher = None
 
+        self._global_playlist_columns = True
+        if self._global_playlist_columns:
+            self._playlist_columns = settings.get_option(
+                'gui/columns', playlist_columns.DEFAULT_COLUMNS
+            )
+            self._resizable_cols = settings.get_option('gui/resizable_cols', False)
+            self._playlist_column_widths = {}
+        else:
+            # FIXME
+            raise Exception("FIXME!")
+
         self._sort_columns = list(common.BASE_SORT_TAGS)  # Column sort order
 
         self._setup_models()
@@ -903,6 +914,72 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
+
+    def _set_playlist_columns(self, columns):
+        self._playlist_columns = columns
+
+        self._refresh_columns()
+
+        # Save to settings
+        if self._global_playlist_columns:
+            if columns != settings.get_option('gui/columns', []):
+                settings.set_option('gui/columns', columns)
+        else:
+            raise Exception("FIXME!")
+
+    def _set_resizable_cols(self, resizable):
+        if self._resizable_cols == resizable:
+            return
+
+        self._resizable_cols = resizable
+
+        # Save to settings
+        if self._global_playlist_columns:
+            if resizable != settings.get_option('gui/resizable_cols', False):
+                settings.set_option('gui/resizable_cols', resizable)
+        else:
+            raise Exception("FIXME!")
+
+        # Emit event
+        event.log_event("resizable_cols_changed", self, resizable)
+
+    playlist_columns = property(
+        lambda self: self._playlist_columns, _set_playlist_columns
+    )
+
+    resizable_cols = property(lambda self: self._resizable_cols, _set_resizable_cols)
+
+    def get_playlist_column_width(self, name, width=-1):
+        if self._global_playlist_columns:
+            # Global settings
+            option_name = "gui/col_width_%s" % name
+            width = settings.get_option(option_name, width)
+        else:
+            # Custom settings
+            if name in self._playlist_column_widths:
+                width = self._playlist_column_widths[name]
+
+        return width
+
+    def set_playlist_column_width(self, name, width):
+        if self._global_playlist_columns:
+            # Global settings
+            option_name = "gui/col_width_%s" % name
+            if width != settings.get_option(option_name, width):
+                settings.set_option(option_name, width)
+        else:
+            # Custom settings
+            if (
+                name not in self._playlist_column_widths
+                or width != self._playlist_column_widths[name]
+            ):
+                self._playlist_column_widths[name] = width
+
+            # FIXME: store column widths
+            raise Exception("FIXME!")
+
+        # Emit event
+        event.log_event("column_width_changed", self, name)
 
     def do_destroy(self):
         # if this isn't disconnected, then the columns are emptied out and
@@ -1053,9 +1130,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.player.queue.append(track)
 
     def _setup_columns(self):
-        columns = settings.get_option('gui/columns', playlist_columns.DEFAULT_COLUMNS)
         provider_names = [p.name for p in providers.get('playlist-columns')]
-        columns = [name for name in columns if name in provider_names]
+        columns = [name for name in self.playlist_columns if name in provider_names]
 
         if not columns:
             columns = playlist_columns.DEFAULT_COLUMNS
@@ -1190,8 +1266,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_columns_changed(self, widget):
         columns = [c.name for c in self.get_columns()[1:]]
-        if columns != settings.get_option('gui/columns', []):
-            settings.set_option('gui/columns', columns)
+        self.playlist_columns = columns  # Store via public property, so that setting also gets saved, if neccessary
 
     def on_column_clicked(self, column):
         if self.model.data_loading:
@@ -1227,7 +1302,20 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.playlist.sort(self._sort_columns, reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
-        if data == "gui/columns" or data == 'gui/playlist_font':
+        if self._global_playlist_columns:
+            column_width_prefix = 'gui/col_width_'
+            if data == 'gui/columns':
+                self.playlist_columns = settings.get_option(
+                    'gui/columns', playlist_columns.DEFAULT_COLUMNS
+                )
+            elif data == 'gui/resizable_cols':
+                self.resizable_cols = settings.get_option('gui/resizable_cols', False)
+            elif data.startswith(column_width_prefix):
+                name = data[len(column_width_prefix) :]
+                width = settings.get_option(data)
+                self.set_playlist_column_width(name, width)
+
+        if data == 'gui/playlist_font':
             self._refresh_columns()
 
     def on_playback_start(self, type, player, track):
@@ -1752,28 +1840,30 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
             Called when a column provider is removed
         """
-        columns = settings.get_option('gui/columns')
 
+        columns = self.playlist_columns
         if provider.name in columns:
             columns.remove(provider.name)
-            settings.set_option('gui/columns', columns)
+            self.playlist_columns = (
+                columns  # Commit change by explicitly setting the public property
+            )
 
 
 class PlaylistModel(Gtk.ListStore):
     '''
         This ListStore contains all the information needed to render a playlist
         via a PlaylistView. There are five columns:
-        
+
         * xl.trax.Track
         * dictionary (tag cache)
         * Gdk.Pixbuf (indicates whether track is playing or not)
         * boolean (indicates whether row is sensitive)
         * Pango.Weight (indicates if row is the playing track or not)
-        
+
         The cache keys correspond to the tags rendered by each column. When a
         track changes, the row's corresponding cache is cleared and the row
         change event is fired.
-        
+
         The cache keys are populated by the playlist columns. This arrangement
         ensures that we don't have to recreate the playlist model each time the
         columns are changed.

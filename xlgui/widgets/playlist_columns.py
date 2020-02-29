@@ -66,7 +66,6 @@ class Column(Gtk.TreeViewColumn):
         self._size_ratio = size_ratio
         self.container = container
         self.player = player
-        self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.destroyed = False
 
@@ -103,11 +102,23 @@ class Column(Gtk.TreeViewColumn):
         self._setup_sizing()
 
         event.add_ui_callback(
-            self.on_option_set, "gui_option_set", destroy_with=container
+            self.on_playlist_resizable_cols_changed,
+            "resizable_cols_changed",
+            container,
+            destroy_with=container,
+        )
+        event.add_ui_callback(
+            self.on_playlist_column_width_changed,
+            "column_width_changed",
+            container,
+            destroy_with=container,
         )
 
-    def on_option_set(self, typ, obj, data):
-        if data in ("gui/resizable_cols", self.settings_width_name):
+    def on_playlist_resizable_cols_changed(self, typ, obj, data):
+        self._setup_sizing()
+
+    def on_playlist_column_width_changed(self, typ, obj, data):
+        if data == self.name:
             self._setup_sizing()
 
     def on_width_changed(self, column, wid):
@@ -117,17 +128,17 @@ class Column(Gtk.TreeViewColumn):
 
     @common.glib_wait(100)
     def _delayed_width_changed(self, width):
-        if not self.destroyed and width != settings.get_option(
-            self.settings_width_name, -1
+        if not self.destroyed and width != self.container.get_playlist_column_width(
+            self.name
         ):
-            settings.set_option(self.settings_width_name, width)
+            self.container.set_playlist_column_width(self.name, width)
 
     def _setup_sizing(self):
         with self.handler_block(self._width_notify):
-            if settings.get_option('gui/resizable_cols', False):
+            if self.container.resizable_cols:
                 self.set_resizable(True)
                 self.set_expand(False)
-                width = settings.get_option(self.settings_width_name, self.size)
+                width = self.container.get_playlist_column_width(self.name, self.size)
                 self.set_fixed_width(width)
             else:
                 self.set_resizable(False)
@@ -739,20 +750,23 @@ class ColumnMenuItem(menu.MenuItem):
 
             :rtype: bool
         """
-        return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
+        return name in parent.playlist_columns
 
     def on_item_activate(self, menu_item, name, parent, context):
         """
             Updates the columns setting
         """
-        columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
+
+        columns = parent.playlist_columns
 
         if name in columns:
             columns.remove(name)
         else:
             columns.append(name)
 
-        settings.set_option('gui/columns', columns)
+        parent.playlist_columns = (
+            columns  # Commit change by explicitly setting the public property
+        )
 
 
 def __register_playlist_columns_menuitems():
@@ -764,12 +778,11 @@ def __register_playlist_columns_menuitems():
         """
             Returns whether manual or automatic sizing is requested
         """
-        resizable = settings.get_option('gui/resizable_cols', False)
 
         if name == 'resizable':
-            return resizable
+            return parent.resizable_cols
         elif name == 'autosize':
-            return not resizable
+            return not parent.resizable_cols
 
     def on_sizing_item_activate(menu_item, name, parent, context):
         """
@@ -781,9 +794,9 @@ def __register_playlist_columns_menuitems():
             return
 
         if name == 'resizable':
-            settings.set_option('gui/resizable_cols', True)
+            parent.resizable_cols = True
         elif name == 'autosize':
-            settings.set_option('gui/resizable_cols', False)
+            parent.resizable_cols = False
 
     columns = [
         'tracknumber',

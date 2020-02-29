@@ -862,7 +862,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self._filter_matcher = None
 
-        self._global_playlist_columns = True
+        # Global vs. custom playlist column settings
+        self._global_playlist_columns = playlist.global_playlist_columns
         if self._global_playlist_columns:
             self._playlist_columns = settings.get_option(
                 'gui/columns', playlist_columns.DEFAULT_COLUMNS
@@ -870,8 +871,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._resizable_cols = settings.get_option('gui/resizable_cols', False)
             self._playlist_column_widths = {}
         else:
-            # FIXME
-            raise Exception("FIXME!")
+            self._playlist_columns = playlist.playlist_columns
+            self._resizable_cols = playlist.resizable_cols
+            self._playlist_column_widths = playlist.playlist_column_widths
 
         self._sort_columns = list(common.BASE_SORT_TAGS)  # Column sort order
 
@@ -925,7 +927,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if columns != settings.get_option('gui/columns', []):
                 settings.set_option('gui/columns', columns)
         else:
-            raise Exception("FIXME!")
+            self.playlist.playlist_columns = columns
 
     def _set_resizable_cols(self, resizable):
         if self._resizable_cols == resizable:
@@ -938,16 +940,56 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if resizable != settings.get_option('gui/resizable_cols', False):
                 settings.set_option('gui/resizable_cols', resizable)
         else:
-            raise Exception("FIXME!")
+            self.playlist.resizable_cols = resizable
 
         # Emit event
         event.log_event("resizable_cols_changed", self, resizable)
+
+    def _set_global_playlist_columns(self, enable):
+        self._global_playlist_columns = enable
+
+        if self._global_playlist_columns:
+            # Global mode
+
+            # Clear the playlist column widths (unused in global mode)
+            self._playlist_column_widths = {}
+
+            # Sync remaining options with global settings - set the
+            # public property in order to signal changes
+            self.resizable_cols = settings.get_option('gui/resizable_cols', False)
+            self.playlist_columns = settings.get_option(
+                'gui/columns', playlist_columns.DEFAULT_COLUMNS
+            )
+        else:
+            # Custom mode
+
+            # In custom mode, we need to populate it with the initial
+            # settings for currently-active columns
+            self._playlist_column_widths = {}
+            if not self._global_playlist_columns:
+                for name in self._playlist_columns:
+                    option_name = "gui/col_width_%s" % name
+                    width = settings.get_option(option_name, -1)
+                    self._playlist_column_widths[name] = width
+
+            # The remaining options are kept as they were - to simulate
+            # a fork of the current global settings
+
+        # Sync the settings with underlying playlist
+        self.playlist.global_playlist_columns = self._global_playlist_columns
+        self.playlist.playlist_columns = self._playlist_columns
+        self.playlist.resizable_cols = self._resizable_cols
+        self.playlist.playlist_column_widths = self._playlist_column_widths
 
     playlist_columns = property(
         lambda self: self._playlist_columns, _set_playlist_columns
     )
 
     resizable_cols = property(lambda self: self._resizable_cols, _set_resizable_cols)
+
+    global_playlist_columns = property(
+        lambda self: self._global_playlist_columns, _set_global_playlist_columns
+    )
 
     def get_playlist_column_width(self, name, width=-1):
         if self._global_playlist_columns:
@@ -975,8 +1017,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             ):
                 self._playlist_column_widths[name] = width
 
-            # FIXME: store column widths
-            raise Exception("FIXME!")
+            # Store column widths
+            self.playlist.playlist_column_widths = self._playlist_column_widths
 
         # Emit event
         event.log_event("column_width_changed", self, name)

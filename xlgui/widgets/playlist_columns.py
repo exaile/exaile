@@ -798,6 +798,20 @@ def __register_playlist_columns_menuitems():
         elif name == 'autosize':
             parent.resizable_cols = False
 
+    def use_global_columns_settings(name, parent, context):
+        """
+            Returns whether playlist is using global columns settings.
+        """
+
+        return parent.global_playlist_columns
+
+    def on_global_columns_settings_activate(menu_item, name, parent, context):
+        """
+            Updates the flag for use of global columns settings.
+        """
+
+        parent.global_playlist_columns = menu_item.get_active()
+
     columns = [
         'tracknumber',
         'title',
@@ -815,6 +829,20 @@ def __register_playlist_columns_menuitems():
 
     menu_items = []
     after = []
+
+    global_columns_item = menu.check_menu_item(
+        'global-columns',
+        after,
+        _('Global columns settings'),
+        use_global_columns_settings,
+        on_global_columns_settings_activate,
+    )
+    menu_items += [global_columns_item]
+    after = [global_columns_item.name]
+
+    separator_item = menu.simple_separator('global_columns_separator', after)
+    menu_items += [separator_item]
+    after = [separator_item.name]
 
     for name in columns:
         column = providers.get_provider('playlist-columns', name)

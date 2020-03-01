@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-02-29 17:32+0000\n"
-"Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
+"PO-Revision-Date: 2020-03-01 19:58+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
 "Language: es\n"
@@ -462,7 +462,7 @@ msgstr "Director"
 
 #: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
 msgid "Cover"
-msgstr "Carátula"
+msgstr "Cubierta"
 
 #: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:400
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
@@ -846,53 +846,53 @@ msgstr ""
 #: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "{outstanding} carátulas por descargar"
+msgstr "{outstanding} cubiertas por descargar"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
-msgstr "Todas las portadas obtenidas"
+msgstr "Todas las cubiertas recuperadas"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
-msgstr "Recopilando álbumes y portadas..."
+msgstr "Recopilando álbumes y cubiertas…"
 
 #: ../xlgui/cover.py:494
 msgid "Show Cover"
-msgstr "Mostrar portada"
+msgstr "Mostrar cubierta"
 
 #: ../xlgui/cover.py:495
 msgid "Fetch Cover"
-msgstr "Obtener portada"
+msgstr "Recuperar cubierta"
 
 #: ../xlgui/cover.py:496
 msgid "Remove Cover"
-msgstr "Eliminar portada"
+msgstr "Quitar cubierta"
 
 #: ../xlgui/cover.py:805
 #, python-format
 msgid "Cover for %s"
-msgstr "Carátula para %s"
+msgstr "Cubierta para %s"
 
 #: ../xlgui/cover.py:927
 msgid "Save File"
-msgstr "Grabar fichero"
+msgstr "Guardar archivo"
 
 #: ../xlgui/cover.py:1025
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr "Opciones de portada para %(artist)s - %(album)s"
+msgstr "Opciones de cubierta para «%(album)s» de %(artist)s"
 
 #: ../xlgui/cover.py:1129
 msgid "No covers found."
-msgstr "No se encontraron carátulas."
+msgstr "No se encontró ninguna cubierta."
 
 #: ../xlgui/cover.py:1131
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
-"Ninguna de las fuentes activadas tiene una portada para esta pista, pruebe a "
-"activar más fuentes."
+"Ninguna de las fuentes activadas tiene una cubierta para esta pista; pruebe "
+"a activar más fuentes."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
@@ -1396,7 +1396,7 @@ msgstr "Restablecer valores pre_determinados"
 #: ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
 msgid "Covers"
-msgstr "Carátulas"
+msgstr "Cubiertas"
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
@@ -1487,11 +1487,11 @@ msgstr "Editando pista %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "¿Está seguro de que quiere aplicar los cambios a todas las pistas?"
+msgstr "¿Confirma que quiere aplicar los cambios a todas las pistas?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
-msgstr "¿Aplicar los cambios antes de cerrar?"
+msgstr "¿Quiere aplicar los cambios antes de cerrar?"
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
@@ -1533,7 +1533,7 @@ msgstr "{format} ({width}×{height} píxeles)"
 
 #: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
-msgstr "Selecciona la imagen para establecer como carátula"
+msgstr "Seleccione la imagen que se definirá como cubierta"
 
 #: ../xlgui/properties.py:1141
 msgid "Supported image formats"
@@ -2093,7 +2093,11 @@ msgstr "© 2009-2019 de diversos contribuidores"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr "Traductores de Exaile al español"
+msgstr ""
+"Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Toni Estévez <toni.estevez@gmail.com>\n"
+"Luis García Sevillano <floss.dev@gmail.com>\n"
+"Paco Molinero <paco@byasl.com>"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2105,7 +2109,7 @@ msgstr "Monitorizada"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
-msgstr "Escanear al inicio"
+msgstr "Analizar al inicio"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
@@ -2113,23 +2117,23 @@ msgstr "Reanalizar _fonoteca"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
-msgstr "Buscador de portadas"
+msgstr "Buscador de cubiertas"
 
 #: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
-msgstr "El origen de esta portada"
+msgstr "El origen de esta cubierta"
 
 #: ../data/ui/coverchooser.ui:164
 msgid "_Set as Cover"
-msgstr "E_stablecer como portada"
+msgstr "E_stablecer como cubierta"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
-msgstr "Gestor de carátulas"
+msgstr "Gestor de cubiertas"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr "_Obtener portadas"
+msgstr "_Recuperar cubiertas"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
@@ -2312,11 +2316,11 @@ msgstr "Mostrar área de información"
 
 #: ../data/ui/preferences/appearance.ui:54
 msgid "The info area contains the cover art and track information"
-msgstr "El área de información muestra la portada y los datos de la pista"
+msgstr "El área de información muestra la cubierta y los datos de la pista"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr "Mostrar la portada en el área de información"
+msgstr "Mostrar cubierta en el área de información"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
@@ -2413,7 +2417,8 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui:35
 msgid "(Right click to reset to defaults)"
-msgstr "(Pulse con el botón derecho para reiniciar a valores predeterminados)"
+msgstr ""
+"(Pulse con el botón secundario para restablecer los valores predeterminados)"
 
 #: ../data/ui/preferences/collection.ui:44
 msgid "Use file-based compilation detection"
@@ -2421,14 +2426,14 @@ msgstr "Utilizar detección de compilación basada en archivos"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
-msgstr "Usar portadas de archivos locales"
+msgstr "Utilizar cubiertas de archivos locales"
 
 #: ../data/ui/preferences/cover.ui:16
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
-"Esta opción buscará imágenes de portada en \n"
+"Esta opción buscará imágenes de cubierta en \n"
 "la misma carpeta que el archivo de música."
 
 #: ../data/ui/preferences/cover.ui:30
@@ -2443,11 +2448,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:52
 msgid "Fetch covers automatically on playback start"
-msgstr "Obtener portadas automáticamente al iniciar reproducción"
+msgstr "Obtener cubiertas automáticamente al iniciar reproducción"
 
 #: ../data/ui/preferences/cover.ui:70
 msgid "Cover Search Order:"
-msgstr "Orden de búsqueda para carátulas:"
+msgstr "Orden de búsqueda de cubiertas:"
 
 #: ../data/ui/preferences/cover.ui:105
 msgid "(drag to reorder)"
@@ -2455,7 +2460,7 @@ msgstr "(arrastre para reordenar)"
 
 #: ../data/ui/preferences/cover.ui:114
 msgid "Use covers embedded in tags"
-msgstr "Usar portadas empotradas en etiquetas"
+msgstr "Usar cubiertas incrustadas en etiquetas"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
@@ -2688,11 +2693,11 @@ msgstr "Otro archivo de icono"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
-msgstr "Portada (anverso)"
+msgstr "Cubierta (anverso)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:36
 msgid "Cover (back)"
-msgstr "Portada (reverso)"
+msgstr "Cubierta (reverso)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
@@ -2752,7 +2757,7 @@ msgstr "Logotipo del estudio/discográfica"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:115
 msgid "Click or drag files here to change the cover image"
-msgstr "Pulse o arrastre archivos aquí para cambiar la imagen de portada"
+msgstr "Pulse o arrastre archivos aquí para cambiar la imagen de cubierta"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
@@ -2805,7 +2810,7 @@ msgstr "Reloj despertador"
 #: ../plugins/amazoncovers/amazonprefs.py:21
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr "Carátulas de Amazon"
+msgstr "Cubiertas de Amazon"
 
 #: ../plugins/audioscrobbler/__init__.py:97
 msgid "Toggle AudioScrobbler submit"
@@ -2950,7 +2955,7 @@ msgstr "Servidor DAAP"
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Carátula en escritorio"
+msgstr "Cubierta en escritorio"
 
 #: ../plugins/developer/__init__.py:64
 msgid "Developer Tools"
@@ -3170,11 +3175,11 @@ msgstr "Conectando con el servidor Icecast..."
 #: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
 #: ../plugins/icecast/__init__.py:225 ../plugins/icecast/__init__.py:228
 msgid "Error connecting to Icecast server."
-msgstr "Error al conectar con el servidor Icecast ."
+msgstr "Error al conectar con el servidor de Icecast."
 
 #: ../plugins/icecast/__init__.py:330
 msgid "Enter the search keywords"
-msgstr "Introduzca los términos de búsqueda"
+msgstr "Escriba los términos de búsqueda"
 
 #: ../plugins/icecast/__init__.py:330
 msgid "Icecast Search"
@@ -3606,11 +3611,11 @@ msgstr "El equipo no ha podido apagarse usando D-Bus."
 
 #: ../plugins/somafm/__init__.py:85 ../plugins/somafm/__init__.py:181
 msgid "Contacting SomaFM server..."
-msgstr "Conectando con el servidor SomaFM..."
+msgstr "Conectando con el servidor de SomaFM…"
 
 #: ../plugins/somafm/__init__.py:97 ../plugins/somafm/__init__.py:100
 msgid "Error connecting to SomaFM server."
-msgstr "Error al conectar con el servidor SomaFM."
+msgstr "Error al conectar con el servidor de SomaFM."
 
 #: ../plugins/somafm/__init__.py:185
 msgid "Error importing playlist"
@@ -3867,7 +3872,7 @@ msgstr "Desplazamiento Y:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:172
 msgid "Override cover size"
-msgstr "Sobrescribir tamaño de portada"
+msgstr "Invalidar tamaño de cubierta"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:190
 msgid "Size:"
@@ -3967,7 +3972,7 @@ msgstr "Grupos actuales"
 
 #: ../plugins/grouptagger/gt_import.ui:93
 msgid "New Groups"
-msgstr "Nuevos grupos"
+msgstr "Grupos nuevos"
 
 #: ../plugins/grouptagger/gt_import.ui:119
 msgid "Import Type:"
@@ -4048,7 +4053,7 @@ msgstr "Color de fondo:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
 msgid "Launch IPython console when Exaile starts"
-msgstr "Lanzar consola IPython cuando se inicie Exaile"
+msgstr "Iniciar consola IPython al arrancar Exaile"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:40
 msgid "Release date"
@@ -4224,7 +4229,7 @@ msgstr "Tiempo de fundido:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
-msgstr "Redimensionar las carátulas mostradas"
+msgstr "Redimensionar cubiertas mostradas"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
 msgid "Display"
@@ -4236,7 +4241,7 @@ msgstr "Iconos"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
-msgstr "Usar portadas de álbumes como iconos"
+msgstr "Usar cubiertas de álbumes como iconos"
 
 #: ../plugins/notify/notifyprefs_pane.ui:89
 msgid "Use media icons for pause, stop and resume"
@@ -4310,7 +4315,7 @@ msgstr "Seleccionar análisis"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
 msgid "Playlist(s) to analyze"
-msgstr "Lista(s) de reproducción a analizar"
+msgstr "Lista(s) de reproducción que analizar"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
@@ -4419,7 +4424,7 @@ msgstr "Repetir A-B"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr "Continuamente se repite un segmento de una pista."
+msgstr "Continuamente repite un segmento de una pista."
 
 #: ../plugins/abrepeat/PLUGININFO:5 ../plugins/equalizer/PLUGININFO:5
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
@@ -4453,10 +4458,10 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
-"Buscar carátulas en Amazon\n"
+"Buscar cubiertas en Amazon\n"
 "\n"
-"Para poder utilizar este complemento, es necesario una clave y una clave "
-"secreta API AWS."
+"Para poder utilizar este complemento, necesita una clave de API de AWS y una "
+"clave secreta."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -4515,7 +4520,7 @@ msgstr "Consola simple"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr "Consola simple para interactuar con el API Exaile"
+msgstr "Consola simple para interactuar con la API de Exaile"
 
 #: ../plugins/console/PLUGININFO:5 ../plugins/developer/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5 ../plugins/ipconsole/PLUGININFO:5
@@ -4553,12 +4558,12 @@ msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
-"Este complemento integra Spydaap (%s) en Exaile, de este modo se puede "
-"compartir una colección por medio de DAAP."
+"Este complemento integra Spydaap (%s) en Exaile, de tal modo que pueda "
+"compartirse una colección mediante DAAP."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr "Muestra la carátula del álbum actual en el escritorio"
+msgstr "Muestra la cubierta del álbum actual en el escritorio"
 
 #: ../plugins/desktopcover/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
 #: ../plugins/minimode/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
@@ -4567,7 +4572,7 @@ msgstr "IGU"
 
 #: ../plugins/developer/PLUGININFO:3
 msgid "Developer"
-msgstr "Desarrollador"
+msgstr "Desarrollo"
 
 #: ../plugins/developer/PLUGININFO:4
 msgid "Provides diagnostic information for Exaile developers"
@@ -4654,11 +4659,11 @@ msgstr "Control externo"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr "Carátulas Last.fm"
+msgstr "Cubiertas de Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr "Busca carátulas en Last.fm"
+msgstr "Busca cubiertas en Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4694,7 +4699,7 @@ msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr "Busca y escucha libros de audio de Librivox.org."
+msgstr "Explore y escuche audiolibros de Librivox.org."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
 msgid ""
@@ -4788,7 +4793,7 @@ msgstr ""
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr "Carátulas MusicBrainz"
+msgstr "Cubiertas de MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid ""
@@ -4796,7 +4801,7 @@ msgid ""
 "\n"
 "Requires: musicbrainzngs"
 msgstr ""
-"Integra MusicBrainz para la búsqueda de carátulas.\n"
+"Integra MusicBrainz para la búsqueda de cubiertas.\n"
 "\n"
 "Requiere musicbrainzngs"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-03-03 03:32+0000\n"
+"PO-Revision-Date: 2020-03-04 03:32+0000\n"
 "Last-Translator: Prachi Joshi <josprachi@yahoo.com>\n"
 "Language-Team: Marathi <https://hosted.weblate.org/projects/exaile/master/mr/"
 ">\n"
@@ -1363,20 +1363,20 @@ msgstr ""
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "गीत दर्शक"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "प्लेबॅक"
 
 #: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
-msgstr ""
+msgstr "अवर्गीकृत"
 
 #: ../xlgui/preferences/plugin.py:178
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "प्लगइन माहिती लोड करू शकलो नाही!"
 
 #: ../xlgui/preferences/plugin.py:179
 #, python-format
@@ -1387,52 +1387,52 @@ msgstr[1] ""
 
 #: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "प्लगिन अक्षम करू शकलो नाही!"
 
 #: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "प्लगइन सक्षम करू शकलो नाही!"
 
 #: ../xlgui/preferences/plugin.py:230
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "एक प्लगइन निवडा"
 
 #: ../xlgui/preferences/plugin.py:241
 msgid "Plugin Archives"
-msgstr ""
+msgstr "प्लगइन संग्रहण"
 
 #: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:728
 #: ../xlgui/widgets/dialogs.py:905
 msgid "All Files"
-msgstr ""
+msgstr "सर्व फायली"
 
 #: ../xlgui/preferences/plugin.py:259
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "प्लगइन फाइल स्थापना अयशस्वी!"
 
 #: ../xlgui/preferences/widgets.py:70
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Exaile रीस्टार्ट करायचे?"
 
 #: ../xlgui/preferences/widgets.py:73
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "हा बदल प्रभावी होण्यासाठी रीस्टार्ट करणे आवश्यक आहे."
 
 #: ../xlgui/preferences/widgets.py:76
 msgid "Restart"
-msgstr ""
+msgstr "पुन्हा सुरू करा"
 
 #: ../xlgui/preferences/widgets.py:727
 msgid "Action"
-msgstr ""
+msgstr "कृती"
 
 #: ../xlgui/preferences/widgets.py:735 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
-msgstr ""
+msgstr "शॉर्टकट"
 
 #: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "टॅग लिहिणे अयशस्वी झाले"
 
 #: ../xlgui/properties.py:258
 #, python-brace-format
@@ -1448,11 +1448,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
+msgstr "आपणास खात्री आहे की आपण सर्व ट्रॅकमध्ये बदल लागू करू इच्छिता?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "बंद करण्यापूर्वी बदल लागू करायचे?"
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."

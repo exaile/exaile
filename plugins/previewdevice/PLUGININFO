@@ -1,4 +1,4 @@
-Version='4.0.2'
+Version='4.1.0'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name=_("Preview Device")
 Description=_("Allows playing audio over a secondary device (right click on playlist and select 'preview'). Useful for DJs.")

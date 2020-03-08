@@ -1,4 +1,4 @@
-Version='4.0.2'
+Version='4.1.0'
 Authors=['Rocco Aliberti <raliberti84@gmail.com>']
 Name='LyricsMania'
 Description=_('Plugin to fetch lyrics from lyricsmania.com\nRequires: lxml')

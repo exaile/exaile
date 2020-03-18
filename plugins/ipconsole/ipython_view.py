@@ -61,6 +61,9 @@ from gi.repository import Pango
 import IPython
 
 
+IPYTHON_VERSION = int(IPython.__version__.split('.', 1)[0])
+
+
 class IterableIPShell:
     '''
     Create an IPython instance. Does not start a blocking event loop,
@@ -151,7 +154,7 @@ class IterableIPShell:
         self.complete_sep = re.compile(r'[\s\{\}\[\]\(\)]')
         self.updateNamespace({'exit': lambda: None})
         self.updateNamespace({'quit': lambda: None})
-        if not IPython.__version__.startswith('5.'):  # HACK
+        if int(IPYTHON_VERSION) < 5:  # HACK
             self.IP.readline_startup_hook(self.IP.pre_readline)
         # Workaround for updating namespace with sys.modules
         #
@@ -231,7 +234,7 @@ class IterableIPShell:
         @rtype: string
 
         '''
-        if IPython.__version__.startswith('5.'):  # HACK
+        if IPYTHON_VERSION >= 5:  # HACK
             return '... ' if is_continuation else '>>> '
         if is_continuation:
             prompt = self.IP.prompt_manager.render('in2')

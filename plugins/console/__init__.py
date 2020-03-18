@@ -80,6 +80,7 @@ class PyConsole:
             result = buffer.getvalue()
             # Can't simply close and recreate later because help() stores and
             # reuses stdout.
+            buffer.seek(0)
             buffer.truncate(0)
         result = '>>> %s\n%s' % (code, result)
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)

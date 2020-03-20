@@ -224,13 +224,6 @@ class BaseTrayIcon:
         """
         pass
 
-    def get_menu_position(self, menu, icon):
-        """
-            Returns coordinates for
-            the best menu position
-        """
-        return (0, 0, False)
-
     def on_button_press_event(self, widget, event):
         """
             Toggles main window visibility and
@@ -241,9 +234,7 @@ class BaseTrayIcon:
         if event.button == Gdk.BUTTON_MIDDLE:
             playback.playpause(player.PLAYER)
         if event.triggers_context_menu():
-            self.menu.popup(
-                None, None, self.get_menu_position, self, event.button, event.time
-            )
+            self.menu.popup_at_pointer(event)
 
     def on_scroll_event(self, widget, event):
         """
@@ -284,14 +275,6 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     def __init__(self, main):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
-
-    def get_menu_position(self, *args):
-        """
-            Returns coordinates for
-            the best menu position
-        """
-        return Gtk.StatusIcon.position_menu(*args)
-
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip

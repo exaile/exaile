@@ -275,6 +275,7 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     def __init__(self, main):
         Gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
+
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-03-04 03:32+0000\n"
+"PO-Revision-Date: 2020-03-24 03:46+0000\n"
 "Last-Translator: Prachi Joshi <josprachi@yahoo.com>\n"
 "Language-Team: Marathi <https://hosted.weblate.org/projects/exaile/master/mr/"
 ">\n"
@@ -31,8 +31,8 @@ msgstr "स्थानिक फाइल"
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d दिवस, "
+msgstr[1] "%d दिवस, "
 
 #: ../xl/formatter.py:599
 #, python-format

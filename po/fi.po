@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-12-11 13:09+0000\n"
+"PO-Revision-Date: 2020-03-27 06:46+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -129,6 +129,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Käynnistä Exaile, valinnaisesti lisäämällä kappaleita, jotka on määritelty "
+"sijaintipaikan mukaan aktiiviseen soittolistaan. Jos Exaile on jo käynnissä, "
+"tämä yrittää käyttää olemassa olevan instanssin sijaan luoda uuden."
 
 #: ../xl/main.py:96
 msgid "Playback Options"
@@ -370,7 +373,7 @@ msgstr "TYYPPI"
 
 #: ../xl/main.py:411
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Rajoita xl.event-virheenkorjaus tyypin TYPE tulokseen"
 
 #: ../xl/main.py:418
 msgid "Reduce level of output"
@@ -587,7 +590,7 @@ msgstr "Lopetussiirtymä"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Mahdollinen äänilaitevirhe, onko se kytketty?"
 
 #: ../xl/player/gst/missing_plugin.py:86
 #, python-format

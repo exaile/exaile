@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-03-27 06:46+0000\n"
+"PO-Revision-Date: 2020-03-28 22:09+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -202,7 +202,7 @@ msgstr "MUOTO"
 
 #: ../xl/main.py:180
 msgid "Retrieve the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Nouda nykyinen toistotila ja raidan tiedot FORMAT-muodossa"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:186
@@ -212,6 +212,7 @@ msgstr "TUNNISTEET"
 #: ../xl/main.py:187
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
+"Tunnisteet, jotka haetaan nykyisestä raidasta; käytä --format-query muotoa"
 
 #: ../xl/main.py:194
 msgid "Show a popup with data of the current track"
@@ -599,6 +600,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"GStreamer 1.x- liitännäinen %s puuttuu. Ilman tätä ohjelmistoa Exaile ei "
+"pysty soittamaan nykyistä tiedostoa. Ole hyvä ja asenna tarvittava "
+"ohjelmisto tietokoneellesi. Katso kohdasta %s lisätietoja."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -611,26 +615,26 @@ msgstr "Mukautettu"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Ääninielua ei voitu luoda (laite: %s, tyyppi: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Mukautettua putkistoa ei ole määritetty!"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Virhe luotaessa mukautettua ääninielua '%s'"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Virheellinen nielutyyppi %s määritetty"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Ei voitu luoda nielutyyppiä '%s'"
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
@@ -702,16 +706,16 @@ msgstr "Dynaaminen pois päältä"
 
 #: ../xl/playlist.py:928
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dynaamisesti Samankaltaiset _Artistit"
 
 #: ../xl/plugins.py:91
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Laajennos arkisto ei ole oikeassa muodossa."
 
 #: ../xl/plugins.py:98
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Laajennus, jonka nimi on \"%s\", on jo asennettu."
 
 #: ../xl/plugins.py:103
 msgid "Plugin archive contains an unsafe path."
@@ -837,7 +841,7 @@ msgstr "Hakemisto on jo kokoelmassasi tai jossain sen alihakemistossa."
 #: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} kannet jotka noudetaan"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
@@ -882,6 +886,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Missään käytössä olevista lähteistä ei ole tämän raidan kantta, kokeile "
+"ottaa käyttöön lisää lähteitä."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
@@ -899,7 +905,7 @@ msgstr "Tallenna valittu soittolista"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Tallenna valittuna oleva soittolista mukautetulla nimellä"
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
@@ -919,11 +925,11 @@ msgstr "Aloita, tauota ja jatka toistamista"
 
 #: ../xlgui/main.py:179
 msgid "Seek to the right"
-msgstr ""
+msgstr "Etsi oikealta puolelta"
 
 #: ../xlgui/main.py:184
 msgid "Seek to the left"
-msgstr ""
+msgstr "Etsi vasemmalta puolelta"
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
 msgid "Increase the volume"
@@ -2368,6 +2374,10 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Lokerokuvakkeita ei tueta joillakin alustoilla, etenkin Waylandissa. Xorg-"
+"palvelun GNOME Shell 3.26+ -käyttöjärjestelmässä lokerokuvake toimii vain, "
+"jos sinulla on <a href=\"https://extensions.gnome.org/extension/495/topicons/"
+"\">\"TopIcons\"-laajennus</a> (tai samanlainen) asennettu."
 
 #: ../data/ui/preferences/appearance.ui:319
 msgid "Note:"
@@ -2383,12 +2393,16 @@ msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Jos tätä ei ole valittu, se ei määritä etusijaa GTK: lle. Ei välttämättä "
+"toimi joillakin alustoilla."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Sanat, jotka poistetaan artisti tunnisteiden lajittelun alussa ("
+"välilyönnillä erotetut):"
 
 #: ../data/ui/preferences/collection.ui:35
 msgid "(Right click to reset to defaults)"
@@ -2396,7 +2410,7 @@ msgstr "(Napsauta oikealla hiiren painikkeella palauttaaksesi oletusasetukset)"
 
 #: ../data/ui/preferences/collection.ui:44
 msgid "Use file-based compilation detection"
-msgstr ""
+msgstr "Käytä tiedostopohjaista kokoelman tunnistusta"
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
@@ -2416,7 +2430,7 @@ msgstr "Halutut tiedostonimet:"
 
 #: ../data/ui/preferences/cover.ui:43
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Pilkuilla erotettu tiedostonimien luettelo ilman tiedostotunnisteita"
 
 #: ../data/ui/preferences/cover.ui:52
 msgid "Fetch covers automatically on playback start"
@@ -2454,9 +2468,8 @@ msgstr "Äänilaite: "
 
 #: ../data/ui/preferences/playback.ui:122
 #: ../plugins/previewdevice/previewprefs.ui:254
-#, fuzzy
 msgid "Custom sink pipeline:"
-msgstr "Mukautettu Sink-putki:"
+msgstr "Mukautettu nielunputki:"
 
 #: ../data/ui/preferences/playback.ui:142
 msgid "Resume playback on start"
@@ -2468,21 +2481,23 @@ msgstr "Jatka toistoa pysähtyneessä tilassa"
 
 #: ../data/ui/preferences/playback.ui:173
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Kohteen lisääminen tyhjään jonoon aloittaa musiikin toistamisen"
 
 #: ../data/ui/preferences/playback.ui:188
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Raidan poistaminen jonosta toiston yhteydessä"
 
 #: ../data/ui/preferences/playback.ui:203
 msgid "Disallow playing new tracks when another track is playing"
-msgstr ""
+msgstr "Estä uusien kappaleiden toistaminen, kun toista kappaletta toistetaan"
 
 #: ../data/ui/preferences/playback.ui:207
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Jos kappaletta toistetaan parhaillaan, älä salli uusien raitojen "
+"käynnistämistä, paitsi kun toistosäätimiä napsautetaan"
 
 #: ../data/ui/preferences/playback.ui:219
 msgid "Automatically advance to the next track"
@@ -2540,7 +2555,7 @@ msgstr "Avaa viime kerran soittolistat alussa"
 
 #: ../data/ui/preferences/playlists.ui:25
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Pyydä tallentamaan mukautetut soittolistat sulkemisen yhteydessä"
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"

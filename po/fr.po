@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-03-12 07:03+0000\n"
-"Last-Translator: Xorg <xorgbreaker@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/"
-">\n"
+"PO-Revision-Date: 2020-03-28 22:09+0000\n"
+"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.5.1\n"
+"X-Generator: Weblate 4.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -2105,7 +2105,7 @@ msgstr "© 2009-2019 Différents contributeurs"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Traducteurs :"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -3723,14 +3723,6 @@ msgid "Secret:"
 msgstr "Mot de passe :"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3739,7 +3731,7 @@ msgid ""
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
 "<i>Pour vous inscrire à Amazon AWS et obtenir cette information↵\n"
-"visitez <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.↵\n"
+"visitez <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.↵\n"
 "↵\n"
 "Vous pouvez aussi avoir besoin <a href=\"https://affiliate-program.amazon."
 "com/gp/flex/advertising/api/sign-in.html\">d activer le Product Advertising "
@@ -4285,12 +4277,7 @@ msgid "When main window is focused"
 msgstr "Quand la fenêtre principale a le focus"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4300,9 +4287,9 @@ msgstr ""
 "Chaque étiquette peut être utilisée avec <b>$tag</b> ou bien <b>${tag}</b>. "
 "Des étiquettes internes comme <b>$__length</b> doivent être spécifiées avec "
 "deux tirets bas initiaux.\n"
-"Le <a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">balisage d'attributs de texte de Pango (lien en anglais)</a> est pris en "
-"charge."
+"Le <a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat."
+"html\">balisage d'attributs de texte de Pango (lien en anglais)</a> est pris "
+"en charge."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4518,28 +4505,19 @@ msgstr ""
 "fichiers audio."
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
-"Fournit un compteur BPM manuel et une détection automatique BPM lorsque gst-"
-"plugins-bad et le greffon bpmdetect sont installés"
+"Fournit un compteur BPM manuel et une détection automatique BPM lorsque et "
+"le plugin bpmdetect de gst-plugins-bad est installé"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "Lecture de CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4548,7 +4526,7 @@ msgid ""
 msgstr ""
 "Ajoute la prise en chatge de la lecture des CD audio.↵\n"
 "↵\n"
-"Nécessite HAL, UDisks ou UDisks2 pour détecter automatiquement les CD.↵\n"
+"Nécessite UDisks2 pour détecter automatiquement les CD.↵\n"
 "Nécessite cddb-py (%s) pour chercher des étiquettes."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
@@ -4581,10 +4559,10 @@ msgstr ""
 "pour y trouver les services supportés."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Autoriser la lecture de musiques partagées."
+msgstr ""
+"Autoriser la lecture de musiques partagées en utilisant la bibliothèque "
+"spydaap."
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5

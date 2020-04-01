@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-04-01 14:52+0000\n"
+"PO-Revision-Date: 2020-04-01 19:13+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -2566,10 +2566,12 @@ msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"Liittämisen sijasta ruutuihin kaksoisnapsautuksella lisätyt kappaleet "
+"korvaavat nykyisen soittolistan sisällön."
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
-msgstr ""
+msgstr "Lisäys/korvaus valikkokohteessa käynnistää toiston"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""

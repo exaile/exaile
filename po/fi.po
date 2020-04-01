@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-04-01 19:13+0000\n"
+"PO-Revision-Date: 2020-04-01 19:54+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -2729,9 +2729,8 @@ msgid "Illustration"
 msgstr "Kuva"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
-#, fuzzy
 msgid "Band/artist logotype"
-msgstr "Bändi/artisti-logo"
+msgstr "Bändi/artisti logotyyppi"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
@@ -2893,9 +2892,8 @@ msgid "Manually..."
 msgstr "Manuaalinen..."
 
 #: ../plugins/daapclient/__init__.py:378
-#, fuzzy
 msgid "Enter IP address and port for share"
-msgstr "Anna IP-osoite ja portti jakaaksesi"
+msgstr "Kirjoita jaettava IP-osoite ja portti"
 
 #: ../plugins/daapclient/__init__.py:378
 msgid "Enter IP address and port."
@@ -4427,7 +4425,7 @@ msgstr ""
 #: ../plugins/audioscrobbler/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notify/PLUGININFO:5 ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Ilmoitukset"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"

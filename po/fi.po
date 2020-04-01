@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-03-28 22:09+0000\n"
+"PO-Revision-Date: 2020-04-01 14:52+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -2086,7 +2086,7 @@ msgstr "© 2009-2019 Eri avustajat"
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Tuomas Lähteenmäki <lahtis@gmail.com>"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2559,7 +2559,7 @@ msgstr "Pyydä tallentamaan mukautetut soittolistat sulkemisen yhteydessä"
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Korvaa sivupaneelin sisältö kaksoisnapsauttamalla"
 
 #: ../data/ui/preferences/playlists.ui:42
 msgid ""

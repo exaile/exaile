@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-04-01 19:54+0000\n"
+"PO-Revision-Date: 2020-04-04 23:30+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -262,11 +262,11 @@ msgstr "Äänenvoimakkuuden asetukset"
 
 #: ../xl/main.py:262
 msgid "Increase the volume by N%"
-msgstr "Kasvata äänenvoimakkuutta N%:lla"
+msgstr "Kasvata äänenvoimakkuutta N%"
 
 #: ../xl/main.py:271
 msgid "Decrease the volume by N%"
-msgstr "Laske äänenvoimakkuutta N%:lla"
+msgstr "Laske äänenvoimakkuutta N%"
 
 #: ../xl/main.py:279
 msgid "Mute or unmute the volume"
@@ -1997,7 +1997,7 @@ msgstr "säännöllinen lauseke"
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
-msgstr "Ei ole säännöllinen lauseke"
+msgstr "ei ole säännöllinen lauseke"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:228
@@ -2460,7 +2460,7 @@ msgstr "GStreamer"
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
 msgid "Audio Sink:  "
-msgstr "Audio Sink:  "
+msgstr "Ääninielu:  "
 
 #: ../data/ui/preferences/playback.ui:92
 msgid "Audio Device: "
@@ -3233,7 +3233,7 @@ msgstr "_Tykkää tästä kappaleesta"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
-msgstr "poista tykkäys tästä kappaleesta"
+msgstr "Älä tykkää tästä kappaleesta"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
@@ -3425,17 +3425,17 @@ msgstr "Herätyskello"
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "{album} / {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, python-brace-format
 msgid "by {artist}"
-msgstr "{esittäjä}"
+msgstr "{artist}"
 
 #: ../plugins/notify/__init__.py:50
 #, python-brace-format
 msgid "by {album}"
-msgstr "{albumi}"
+msgstr "{album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3600,11 +3600,11 @@ msgstr "Virhe soittolistan tuonnissa"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
-msgstr "Virhe suoritettaessa virranrepijää (streamripper)"
+msgstr "Virhe suoritettaessa Streamripper"
 
 #: ../plugins/streamripper/srprefs.py:21 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Virranrepijä"
+msgstr "Streamripper"
 
 #: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -4010,7 +4010,7 @@ msgstr "Kirjasin:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
-msgstr ""
+msgstr "Tekstin väri:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
@@ -4200,7 +4200,7 @@ msgstr "Kuvakkeet"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
-msgstr ""
+msgstr "Käytä albumin kansiakuvia kuvakkeina"
 
 #: ../plugins/notify/notifyprefs_pane.ui:89
 msgid "Use media icons for pause, stop and resume"
@@ -4212,7 +4212,7 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
-msgstr ""
+msgstr "Häivytä tarjotinkuvake"
 
 #: ../plugins/notify/notifyprefs_pane.ui:134
 msgid "When main window is focused"
@@ -4245,7 +4245,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
-msgstr ""
+msgstr "Näytä edistymispalkki"
 
 #: ../plugins/osd/osd_preferences.ui:271
 msgid ""
@@ -4789,7 +4789,7 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
-"Antaa sinun nauhoittaa virtauksia virranrepijällä.\n"
+"Antaa sinun nauhoittaa virtauksia Streamripperillä.\n"
 "Riippuvainen: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4

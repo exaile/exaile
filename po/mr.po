@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2020-03-24 03:46+0000\n"
+"PO-Revision-Date: 2020-04-06 22:20+0000\n"
 "Last-Translator: Prachi Joshi <josprachi@yahoo.com>\n"
 "Language-Team: Marathi <https://hosted.weblate.org/projects/exaile/master/mr/"
 ">\n"
@@ -1456,7 +1456,7 @@ msgstr "बंद करण्यापूर्वी बदल लागू �
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "आपण ते लागू न केल्यास आपले बदल गमावले जातील."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:626
@@ -1472,41 +1472,41 @@ msgstr ""
 
 #: ../xlgui/properties.py:966
 msgid "JPEG image"
-msgstr ""
+msgstr "जेपीईजी प्रतिमा"
 
 #: ../xlgui/properties.py:971
 msgid "PNG image"
-msgstr ""
+msgstr "पीएनजी प्रतिमा"
 
 #: ../xlgui/properties.py:973
 msgid "Image"
-msgstr ""
+msgstr "प्रतिमा"
 
 #: ../xlgui/properties.py:979
 msgid "Linked image"
-msgstr ""
+msgstr "दुवा प्रतिमा"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
 #: ../xlgui/properties.py:1114
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} पिक्सल)"
 
 #: ../xlgui/properties.py:1128
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "कव्हर म्हणून सेट करण्यासाठी प्रतिमा निवडा"
 
 #: ../xlgui/properties.py:1141
 msgid "Supported image formats"
-msgstr ""
+msgstr "समर्थित प्रतिमा स्वरूप"
 
 #: ../xlgui/properties.py:1224
 msgid "Open Directory"
-msgstr ""
+msgstr "डिरेक्टरी उघडा"
 
 #: ../xlgui/properties.py:1274
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "सर्व ट्रॅकवर वर्तमान मूल्य लागू करा"
 
 #: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
 #, python-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-09 20:06-0500\n"
-"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"PO-Revision-Date: 2020-04-08 01:09+0000\n"
 "Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.7\n"
+"X-Generator: Weblate 4.0-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
@@ -296,7 +296,7 @@ msgstr "Bu yardım mesajını göster ve çık"
 
 #: ../xl/main.py:304
 msgid "Show program's version number and exit."
-msgstr "Program sürüm numarasını göster ve çık"
+msgstr "Programın sürüm numarasını göster ve çık."
 
 #: ../xl/main.py:311
 msgid "Start minimized (to tray, if possible)"
@@ -309,8 +309,7 @@ msgstr "Görsel arayüzün görünürlüğünü değiştir (eğer mümkünse)"
 #: ../xl/main.py:326
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
-"Güvenli kipte başlat - sorunlarla karşılaştığınızda bazen kullanışlı "
-"olabilir."
+"Güvenli kipte başlat - sorunlarla karşılaştığınızda bazen kullanışlı olabilir"
 
 #: ../xl/main.py:335
 #, fuzzy
@@ -401,7 +400,7 @@ msgstr "D-Bus desteğini etkisizleştir"
 
 #: ../xl/main.py:435
 msgid "Disable HAL support."
-msgstr "HAL desteğini etkisizleştir"
+msgstr "HAL desteğini devre dışı bırak."
 
 #: ../xl/main.py:810
 msgid "Entire Library"
@@ -655,7 +654,7 @@ msgstr ""
 
 #: ../xl/playlist.py:156 ../xl/playlist.py:178
 msgid "Invalid playlist type."
-msgstr "Geçersiz çalma listesi türü"
+msgstr "Geçersiz çalma listesi türü."
 
 #: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
@@ -729,7 +728,7 @@ msgstr "Benzer _Sanatçılara göre Dinamik"
 
 #: ../xl/plugins.py:91
 msgid "Plugin archive is not in the correct format."
-msgstr "Eklenti arşivi uygun formatta değil"
+msgstr "Eklenti arşivi uygun biçimde değil."
 
 #: ../xl/plugins.py:98
 #, python-format
@@ -750,7 +749,7 @@ msgstr "Bu tür ayarın nasıl saklanacağını bilmiyoruz. "
 
 #: ../xl/settings.py:285
 msgid "An Unknown type of setting was found!"
-msgstr "Ayarların bilinmeyen bir tipi bulundu."
+msgstr "Ayarların bilinmeyen bir tipi bulundu!"
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -813,7 +812,7 @@ msgstr "%dk"
 
 #: ../xl/trax/trackdb.py:183
 msgid "You did not specify a location to load the db from"
-msgstr "db yüklemenk için bir konum belirtmediniz."
+msgstr "db dosyasını yüklemek için bir konum belirtmediniz"
 
 #: ../xl/trax/trackdb.py:252
 msgid "You did not specify a location to save the db"
@@ -847,7 +846,7 @@ msgstr "Dizin Ekle"
 
 #: ../xlgui/collection.py:135
 msgid "Directory not added."
-msgstr "Dizin eklenmedi"
+msgstr "Dizin eklenmedi."
 
 #: ../xlgui/collection.py:137
 msgid ""
@@ -1354,7 +1353,7 @@ msgstr "Radyo"
 #: ../xlgui/panel/radio.py:147 ../xlgui/panel/radio.py:476
 #: ../xlgui/panel/radio.py:554
 msgid "Loading streams..."
-msgstr "Yayınlar yükleniyor"
+msgstr "Yayınlar yükleniyor..."
 
 #: ../xlgui/panel/radio.py:195
 msgid "Add Radio Station"
@@ -1489,6 +1488,7 @@ msgstr "Eklenti bilgisi yüklenemedi!"
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "Eklenti başarısız oldu: %s"
+msgstr[1] "Eklentiler başarısız oldu:%s"
 
 #: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
@@ -2168,7 +2168,7 @@ msgstr "son"
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/widgets/smart_playlist_editor.py:242
 msgid "not in the last"
-msgstr "şu süreden beri değil:"
+msgstr "süreden beri değil"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:244
@@ -2239,7 +2239,7 @@ msgstr "Koleksiyonu Yeniden Tara"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
-msgstr "Albüm Kapağı Bulucu:"
+msgstr "Albüm Kapağı Bulucu"
 
 #: ../data/ui/coverchooser.ui:115
 msgid "The origin of this cover"
@@ -2396,7 +2396,7 @@ msgstr "Başlangıç dizini"
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
-msgstr "Tüm parçaları çalma listesine ekle."
+msgstr "Tüm Parçaları Çalma Listesine Ekle"
 
 #: ../data/ui/panel/flatplaylist.ui:44
 msgid "Import CD"
@@ -2467,7 +2467,7 @@ msgstr "Çalma listesi yazı tipi:"
 #: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr "Sistem yazı tipine dön:"
+msgstr "Sistem yazı tipine dön"
 
 #: ../data/ui/preferences/appearance.ui:183
 msgid "Display track counts in collection"
@@ -2573,7 +2573,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:70
 msgid "Cover Search Order:"
-msgstr "Kapak Arama Düzeni"
+msgstr "Albüm Kapağı Arama Sırası:"
 
 #: ../data/ui/preferences/cover.ui:105
 msgid "(drag to reorder)"
@@ -2585,7 +2585,7 @@ msgstr "Etiketlerde gömülü kapakları kullan"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
-msgstr "Şarkı sözü yazı tipi"
+msgstr "Şarkı sözü yazı tipi:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
@@ -2884,7 +2884,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
-msgstr "Tanım"
+msgstr "Açıklama:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:151
 msgid "Type:"
@@ -3585,7 +3585,7 @@ msgstr ""
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
-msgstr "$title by $artist"
+msgstr "$sanatçıya göre $başlık"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128
@@ -3721,7 +3721,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:234
 msgid "Could not save podcast file"
-msgstr "Podcast dosyası kaydedilemedi."
+msgstr "Cepyayın dosyası kaydedilemedi"
 
 #: ../plugins/previewdevice/__init__.py:146
 msgid "Preview Player"

@@ -174,6 +174,7 @@ class IterableIPShell:
         # But it definitely does not work any more with >= 7.0.0
         self.no_input_splitter = IPYTHON_VERSION >= 5
         self.lines = []
+        self.indent_spaces = ''
 
     def __update_namespace(self):
         '''
@@ -218,7 +219,8 @@ class IterableIPShell:
         else:
             if self.no_input_splitter:
                 self.lines.append(line)
-                self.iter_more = self.IP.check_complete('\n'.join(self.lines))[0] == 'incomplete'
+                (status, self.indent_spaces) = self.IP.check_complete('\n'.join(self.lines))
+                self.iter_more = status == 'incomplete'
             else:
                 self.IP.input_splitter.push(line)
                 self.iter_more = self.IP.input_splitter.push_accepts_more()
@@ -555,7 +557,10 @@ class ConsoleView(Gtk.TextView):
         self.text_buffer.place_cursor(self.text_buffer.get_end_iter())
 
         if self.IP.rl_do_indent:
-            indentation = self.IP.input_splitter.indent_spaces * ' '
+            if self.no_input_splitter:
+                indentation = self.indent_spaces
+            else:
+                indentation = self.IP.input_splitter.indent_spaces * ' '
             self.text_buffer.insert_at_cursor(indentation)
 
     def onKeyPress(self, _widget, event):

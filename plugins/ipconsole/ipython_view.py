@@ -12,7 +12,7 @@ available under the terms of the BSD which accompanies this distribution, and
 is available at U{https://www.opensource.org/licenses/bsd-license.php}
 '''
 
-# Taken from [1] (rev 64b6e0c, 2014-03-18) with slight modifications.
+# Taken from [1] (rev 36e2742, 2019-07-27) with slight modifications.
 # The exact license [2] is reproduced below (3-clause BSD).
 #
 # [1] https://git.gnome.org/browse/accerciser/tree/plugins/ipython_view.py

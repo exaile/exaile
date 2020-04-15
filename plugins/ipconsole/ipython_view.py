@@ -435,9 +435,9 @@ class ConsoleView(Gtk.TextView):
             if name in ["Courier New", "Courier Mono"]:
                 chosen = name
                 break
-            if name in ["Liberation Sans"]:
-                chosen = name
-                # But prefer a monospace one if possible
+            # if name in ["Liberation Sans"]:
+            #    chosen = name
+            #    # But prefer a monospace one if possible
         if chosen == None:
             chosen = "Mono"
         self.modify_font(Pango.FontDescription(chosen))

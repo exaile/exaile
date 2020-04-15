@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2019-03-24 21:38+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"PO-Revision-Date: 2020-04-16 09:11+0000\n"
+"Last-Translator: Martin Beer <der_baer@yadim.dismail.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Weblate 4.0.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -710,7 +710,7 @@ msgstr "Dynamisch durch ähnliche _Künstler"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Plugin bereits geladen oder Namenskonflikt."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -868,10 +868,9 @@ msgid "Cover for %s"
 msgstr "Cover für %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} Pixel"
+msgstr "{width}x{height} Pixel ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1222,7 +1221,7 @@ msgstr "Quelle: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Beliebige Quelle"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2332,10 +2331,8 @@ msgstr ""
 "Composite-Unterstützung führen."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Alphatransparenz nutzen:"
+msgstr "Transparenz nutzen:"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2755,20 +2752,16 @@ msgstr "Hinzufügen"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Maximale Lautstärke:"
+msgstr "Höchstzahl an Titeln:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #: data/ui/widgets/volume_control.ui:20
-#, fuzzy
-#| msgid "Toggle Queue"
 msgid "Toggle mute"
-msgstr "Warteschlangenstatus umschalten"
+msgstr "Stummschalten"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -3671,14 +3664,6 @@ msgid "Secret:"
 msgstr "Geheimnis:"
 
 #: plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3687,11 +3672,11 @@ msgid ""
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
 "<i>Um diese Informationen zu erhalten ist die Registierung eines ↵\n"
-"Amazon AWS-Accounts auf <a href=\"http://aws.amazon.com/\">http://aws.amazon."
-"com/</a> erforderlich.↵\n"
+"Amazon AWS-Accounts auf <a href=\"https://aws.amazon.com/\""
+">https://aws.amazon.com/</a> erforderlich.↵\n"
 "↵\n"
 "Es kann sein, dass Sie auch die <a href=\"https://affiliate-program.amazon."
-"com/gp/flex/advertising/api/sign-in.html\">Product Advertising API</a>\n"
+"com/gp/flex/advertising/api/sign-in.html\">Product Advertising API</a> "
 "aktivieren müssen</i>."
 
 #: plugins/audioscrobbler/asprefs_pane.ui:17
@@ -4238,12 +4223,7 @@ msgid "When main window is focused"
 msgstr "Wenn das Hauptfenster fokussiert ist"
 
 #: plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
@@ -4253,8 +4233,8 @@ msgstr ""
 "Jeder Tag kann mittels <b>$tag</b> oder <b>${tag}</b> genutzt werden. "
 "Internen Tags wie <b>$__length</b> müssen zwei Unterstriche vorangestellt "
 "werden.\n"
-"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> wird unterstützt."
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
+"Pango Text Attribute Markup</a> wird unterstützt."
 
 #: plugins/osd/osd_preferences.ui:87
 msgid "Display Format"
@@ -4470,28 +4450,19 @@ msgstr ""
 "Positionen in Audiostücken."
 
 #: plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
 "Bietet einen manuellen BPM-Zähler und eine automatische BPM-Erkennung, wenn "
-"gst-plugins-bad und das bpmdetect-Plugin installiert sind."
+"das bpmdetect-Plugin aus dem Paket gst-plugins-bad installiert sind."
 
 #: plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "CD-Wiedergabe"
 
 #: plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4500,7 +4471,7 @@ msgid ""
 msgstr ""
 "Ermöglicht die Wiedergabe von Audio-CDs.\n"
 "\n"
-"Benötigt HAL, UDisks oder Udisks2 für die automatische Erkennung von CDs\n"
+"Benötigt udisks2 für die automatische Erkennung von CDs\n"
 "Benötigt cddb-py (%s) für die Suche nach Schlagwörtern."
 
 #: plugins/cd/PLUGININFO:5 plugins/massstorage/PLUGININFO:5
@@ -4533,10 +4504,10 @@ msgstr ""
 "Dienste werden in der Pidgin-FAQ genannt."
 
 #: plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
 msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Ermöglicht die Wiedergabe von DAAP-Musikshares."
+msgstr ""
+"Ermöglicht die Wiedergabe von DAAP-Musikfreigaben mithilfe der spydaap-"
+"Bibliothek."
 
 #: plugins/daapclient/PLUGININFO:5 plugins/daapserver/PLUGININFO:5
 #: plugins/icecast/PLUGININFO:5 plugins/jamendo/PLUGININFO:5
@@ -4704,16 +4675,12 @@ msgid "Lyrics Wiki"
 msgstr "Lyrics Wiki"
 
 #: plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Plugin zum Abrufen von Liedtexten von lyrics.wikia.com\n"
-"Benötigt: BeautifulSoup4"
+"Benötigt: BeautifulSoup4, lxml"
 
 #: plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4853,12 +4820,6 @@ msgid "Enables ReplayGain support"
 msgstr "Ermöglicht Wiedergabe-Verstärkung"
 
 #: plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -4868,8 +4829,8 @@ msgstr ""
 "Pausiert (und setzt optional die Wiedergabe fort), basierend auf dem "
 "Bildschirmschoner-Status.\n"
 "\n"
-"Benötigt: GNOME, MATE, Cinnamon oder KDE Screensaver (unterstützt weder "
-"XScreenSaver noch XLockMore)"
+"Benötigt: GNOME-, MATE-, Cinnamon-, XFCE- oder KDE-Screensaver (unterstützt "
+"weder XScreenSaver noch XLockMore)"
 
 #: plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

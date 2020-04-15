@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-01-27 17:21+0000\n"
-"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
+"PO-Revision-Date: 2020-04-16 09:11+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -392,7 +392,7 @@ msgstr "Inhabilita la compatibilitat amb HAL."
 
 #: xl/main.py:796
 msgid "Entire Library"
-msgstr "Tota la biblioteca"
+msgstr "Tota la col·lecció"
 
 #: xl/main.py:803
 #, python-format
@@ -712,7 +712,7 @@ msgstr "Dinàmic per _artistes similars"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Ja s'ha carregat el connector o el seu nom produeix conflictes."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -870,10 +870,9 @@ msgid "Cover for %s"
 msgstr "Coberta per %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} píxels"
+msgstr "{width} × {height} píxels ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1223,7 +1222,7 @@ msgstr "Origen: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Qualsevol origen"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2337,10 +2336,8 @@ msgstr ""
 "en un gestor de finestres sense compatibilitat per a la composició."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Utilitza la transparència alfa:"
+msgstr "Transparència alfa"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2768,10 +2765,8 @@ msgstr "Afegeix"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Volum màxim:"
+msgstr "Nombre màxim de peces:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2779,7 +2774,7 @@ msgstr "Cancel·la"
 
 #: data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Commuta el silenci"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -3033,7 +3028,7 @@ msgstr "Voleu substituir '%s' amb '%s' en %s pistes?"
 #: plugins/grouptagger/gt_mass.py:136
 #, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "Voleu suprimir '%s' de %s pistes?"
+msgstr "Voleu suprimir «%s» de %s pistes?"
 
 #: plugins/grouptagger/gt_mass.py:160
 msgid ""
@@ -3607,7 +3602,7 @@ msgstr "Streamripper"
 #: plugins/wikipedia/__init__.py:150 plugins/wikipedia/preferences.py:21
 #: plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr "Wikipedia"
+msgstr "Viquipèdia"
 
 #: plugins/alarmclock/acprefs_pane.ui:52
 msgid "<b>Alarm Time</b>"
@@ -4691,16 +4686,12 @@ msgid "Lyrics Wiki"
 msgstr "Wiki de lletres"
 
 #: plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Connector per capturar les lletres de les cançons de lyrics.wikia.com\n"
-"Requereix: BeautifulSoup4"
+"Requereix: BeautifulSoup4, lxml"
 
 #: plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4844,12 +4835,6 @@ msgid "Enables ReplayGain support"
 msgstr "Habilita la compatibilitat amb ReplayGain"
 
 #: plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -4859,8 +4844,8 @@ msgstr ""
 "Fa una pausa (i de manera opcional reprèn) en la reproducció basant-se amb "
 "l'estat de l'estalvi de pantalla.\n"
 "\n"
-"Requereix: L'estalvi de pantalla de GNOME, MATE, Cinnamon o KDE (no és "
-"compatible amb XScreenSaver ni tampoc amb XLockMore)"
+"Requereix: L'estalvi de pantalla de GNOME, MATE, Cinnamon, XFCE o KDE (no és "
+"compatible amb l'XScreenSaver ni tampoc amb l'XLockMore)"
 
 #: plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

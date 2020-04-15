@@ -222,7 +222,9 @@ class IterableIPShell:
         else:
             if self.no_input_splitter:
                 self.lines.append(line)
-                (status, self.indent_spaces) = self.IP.check_complete('\n'.join(self.lines))
+                (status, self.indent_spaces) = self.IP.check_complete(
+                    '\n'.join(self.lines)
+                )
                 self.iter_more = status == 'incomplete'
             else:
                 self.IP.input_splitter.push(line)
@@ -346,7 +348,9 @@ class IterableIPShell:
                 return str1
 
             if possibilities[1]:
-                common_prefix = reduce(_commonPrefix, possibilities[1]) or split_line[-1]
+                common_prefix = (
+                    reduce(_commonPrefix, possibilities[1]) or split_line[-1]
+                )
                 completed = line[: -len(split_line[-1])] + common_prefix
             else:
                 completed = line
@@ -428,10 +432,10 @@ class ConsoleView(Gtk.TextView):
         for f in pango_ctx.list_families():
             name = f.get_name()
             # These are known to show e.g U+FFFC
-            if name in [ "Courier New", "Courier Mono" ]:
+            if name in ["Courier New", "Courier Mono"]:
                 chosen = name
                 break
-            if name in [ "Liberation Sans" ]:
+            if name in ["Liberation Sans"]:
                 chosen = name
                 # But prefer a monospace one if possible
         if chosen == None:

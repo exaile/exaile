@@ -346,7 +346,7 @@ class IterableIPShell:
                 return str1
 
             if possibilities[1]:
-                common_prefix = reduce(_commonPrefix, possibilities[1]) or line[-1]
+                common_prefix = reduce(_commonPrefix, possibilities[1]) or split_line[-1]
                 completed = line[: -len(split_line[-1])] + common_prefix
             else:
                 completed = line

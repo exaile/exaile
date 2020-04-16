@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-03-01 19:58+0000\n"
+"PO-Revision-Date: 2020-04-16 09:11+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.0.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -683,7 +683,7 @@ msgstr "Pis_tas aleatorias"
 
 #: xl/playlist.py:913
 msgid "Shuffle _Albums"
-msgstr "Álbumes _aleatorios"
+msgstr "Álbumes al _azar"
 
 #: xl/playlist.py:914
 msgid "_Random"
@@ -699,7 +699,7 @@ msgstr "Repetir _todo"
 
 #: xl/playlist.py:919
 msgid "Repeat O_ne"
-msgstr "Repetir U_no"
+msgstr "Repetir u_na"
 
 #: xl/playlist.py:923
 msgid "Dynamic _Off"
@@ -711,7 +711,7 @@ msgstr "Dinámica por _artistas similares"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Ya se ha cargado el complemento o su nombre produce conflictos."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -870,10 +870,9 @@ msgid "Cover for %s"
 msgstr "Cubierta para %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}×{height} píxeles"
+msgstr "{width} × {height} píxeles ({zoom} %)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1223,7 +1222,7 @@ msgstr "Origen: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Cualquier origen"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2338,10 +2337,8 @@ msgstr ""
 "gestor de ventanas que no permita la composición de imagen."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Usar transparencia alpha:"
+msgstr "Transparencia alfa"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2763,10 +2760,8 @@ msgstr "Añadir"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Volumen máximo:"
+msgstr "Cantidad máxima de pistas:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2774,7 +2769,7 @@ msgstr "Cancelar"
 
 #: data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Alternar silencio"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -3481,40 +3476,40 @@ msgstr "Grabar análisis"
 
 #: plugins/podcasts/__init__.py:54 plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr "Podcasts"
+msgstr "Pódcast"
 
 #: plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pódcast"
 
 #: plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr "Actualizar Podcast"
+msgstr "Actualizar pódcast"
 
 #: plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Eliminar"
 
 #: plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
-msgstr "Introduzca la URL del podcast que quiere añadir"
+msgstr "Proporcione el URL del pódcast que quiere añadir"
 
 #: plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr "Abrir podcast"
+msgstr "Abrir pódcast"
 
 #: plugins/podcasts/__init__.py:157
 #, python-format
 msgid "Loading %s..."
-msgstr "Cargando %s..."
+msgstr "Cargando %s…"
 
 #: plugins/podcasts/__init__.py:187
 msgid "Error loading podcast."
-msgstr "Error en la carga del podcast."
+msgstr "Error al cargar el pódcast."
 
 #: plugins/podcasts/__init__.py:203
 msgid "Loading Podcasts..."
-msgstr "Cargando podcasts..."
+msgstr "Cargando pódcast…"
 
 #: plugins/podcasts/__init__.py:205
 msgid "No configuration present yet"
@@ -3522,7 +3517,7 @@ msgstr "Todavía no hay ninguna configuración"
 
 #: plugins/podcasts/__init__.py:238
 msgid "Could not save podcast file"
-msgstr "No se puede guardar el archivo podcast"
+msgstr "No se pudo guardar el archivo del pódcast"
 
 #: plugins/previewdevice/__init__.py:146
 msgid "Preview Player"
@@ -3546,7 +3541,7 @@ msgstr "ReplayGain"
 
 #: plugins/screensaverpause/prefs.py:5 plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Pausar el protector de pantalla"
+msgstr "Pausar al activarse el salvapantallas"
 
 #: plugins/shutdown/__init__.py:42 plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -3571,7 +3566,7 @@ msgstr "El equipo se apagará en %d segundos."
 
 #: plugins/shutdown/__init__.py:150
 msgid "Shutdown failed"
-msgstr "Hubo un error al apagar"
+msgstr "Falló el apagado"
 
 #: plugins/shutdown/__init__.py:151
 msgid "Computer could not be shutdown using D-Bus."
@@ -3591,7 +3586,7 @@ msgstr "Error al importar la lista de reproducción"
 
 #: plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
-msgstr "Error ejecutando Streamripper"
+msgstr "Error al ejecutar Streamripper"
 
 #: plugins/streamripper/srprefs.py:21 plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -3665,7 +3660,7 @@ msgstr "Incremento temporal:"
 #: plugins/amazoncovers/amazonprefs_pane.ui:15
 #: plugins/lastfmlove/lastfmlove_preferences.ui:20
 msgid "API key:"
-msgstr "Clave API:"
+msgstr "Clave de API:"
 
 #: plugins/amazoncovers/amazonprefs_pane.ui:39
 #: plugins/lastfmlove/lastfmlove_preferences.ui:43
@@ -4008,7 +4003,7 @@ msgstr "Opacidad del terminal:"
 
 #: plugins/ipconsole/ipconsole_prefs.ui:49
 msgid "Font:"
-msgstr "Fuente:"
+msgstr "Tipo de letra:"
 
 #: plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
@@ -4408,8 +4403,8 @@ msgid ""
 msgstr ""
 "Reproduce música a una hora determinada.\n"
 "\n"
-"Tengan en cuenta que cuando llegue la hora especificada, Exaile reproducirá "
-"las canciones de la cola."
+"Observe que, cuando llegue la hora especificada, Exaile reproducirá las "
+"canciones de la cola."
 
 #: plugins/alarmclock/PLUGININFO:5 plugins/bookmarks/PLUGININFO:5
 #: plugins/bpm/PLUGININFO:5 plugins/history/PLUGININFO:5
@@ -4508,7 +4503,7 @@ msgstr ""
 #: plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares using the spydaap library."
 msgstr ""
-"Permite la reproducción de recursos compartidos de música DAAP usando la "
+"Permite la reproducción de recursos compartidos musicales DAAP mediante la "
 "biblioteca spydaap."
 
 #: plugins/daapclient/PLUGININFO:5 plugins/daapserver/PLUGININFO:5
@@ -4680,16 +4675,12 @@ msgid "Lyrics Wiki"
 msgstr "Wiki de letras"
 
 #: plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Complemento para descargar letras desde lyrics.wikia.com\n"
-"Requiere: BeautifulSoup4"
+"Requiere: BeautifulSoup4, lxml"
 
 #: plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4811,7 +4802,7 @@ msgstr "Información"
 
 #: plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Añade soporte simple para Podcast"
+msgstr "Añade compatibilidad básica con pódcast"
 
 #: plugins/previewdevice/PLUGININFO:4
 msgid ""
@@ -4831,12 +4822,6 @@ msgid "Enables ReplayGain support"
 msgstr "Activa el soporte ReplayGain"
 
 #: plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -4846,7 +4831,8 @@ msgstr ""
 "Pausa (y opcionalmente reanuda) la reproducción basándose en el estado del "
 "salvapantallas.\n"
 "\n"
-"Requiere: GNOME, MATE, Cinnamon o KDE (no admite XScreenSaver ni XLockMore)"
+"Requiere: salvapantallas de GNOME, MATE, Cinnamon, XFCE o KDE (no admite "
+"XScreenSaver ni XLockMore)"
 
 #: plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

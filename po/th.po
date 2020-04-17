@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Thai <th@li.org>\n"
+"PO-Revision-Date: 2020-04-18 09:11+0000\n"
+"Last-Translator: AefghThreenine <aefgh39622@gmail.com>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/exaile/master/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
-msgstr ""
+msgstr "แท็ก"
 
 #: xl/covers.py:566
 msgid "Local file"
@@ -55,43 +55,43 @@ msgstr[0] "%d วินาที"
 #: xl/formatter.py:605
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dว "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: xl/formatter.py:608
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dช "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: xl/formatter.py:610
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dน "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: xl/formatter.py:612
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%dวิ"
 
 #. TRANSLATORS: Short form of an amount of days
 #: xl/formatter.py:617
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dว "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: xl/formatter.py:620
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: xl/formatter.py:623
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: xl/formatter.py:720 xl/main.py:619 xl/trax/track.py:66
 msgid "Unknown"
@@ -112,7 +112,7 @@ msgstr "เมื่อวาน"
 
 #: xl/lyrics.py:352
 msgid "Local"
-msgstr ""
+msgstr "ภายในเครื่อง"
 
 #: xl/main.py:82
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
@@ -148,7 +148,7 @@ msgstr "เล่น"
 
 #: xl/main.py:129 plugins/developer/developer_window.ui:117
 msgid "Pause"
-msgstr ""
+msgstr "พัก"
 
 #: xl/main.py:137
 msgid "Pause or resume playback"
@@ -185,7 +185,7 @@ msgstr "ตัวเลือกแทร็ค"
 
 #: xl/main.py:172
 msgid "Query player"
-msgstr ""
+msgstr "สอบถามตัวเล่น"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: xl/main.py:178
@@ -231,7 +231,7 @@ msgstr "แสดงความยาวของเพลงที่เล่
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: xl/main.py:228 xl/main.py:260 xl/main.py:269
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: xl/main.py:229
 msgid "Set rating for current track to N%"
@@ -239,7 +239,7 @@ msgstr "ให้คะแนนเพลงปัจจุบันเท่า
 
 #: xl/main.py:236
 msgid "Get rating for current track"
-msgstr "ด"
+msgstr "รับข้อมูลการให้คะแนนสำหรับแทร็คปัจจุบัน"
 
 #: xl/main.py:243
 msgid "Print the current playback position as time"
@@ -281,7 +281,7 @@ msgstr "ตัวเลือกอื่น ๆ"
 
 #: xl/main.py:294
 msgid "Start new instance"
-msgstr ""
+msgstr "เริ่มอินสแตนซ์ใหม่"
 
 #: xl/main.py:297
 msgid "Show this help message and exit"
@@ -319,7 +319,7 @@ msgstr ""
 
 #: xl/main.py:352
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "ตัวเลือกการพัฒนา/ดีบั๊ก"
 
 #: xl/main.py:356 xl/main.py:362
 msgid "DIRECTORY"
@@ -351,7 +351,7 @@ msgstr ""
 
 #: xl/main.py:383
 msgid "Show debugging output"
-msgstr ""
+msgstr "แสดงเอาต์พุตการดีบั๊ก"
 
 #: xl/main.py:390
 msgid "Enable debugging of xl.event. Generates lots of output"
@@ -375,19 +375,19 @@ msgstr ""
 
 #: xl/main.py:417
 msgid "Reduce level of output"
-msgstr ""
+msgstr "ลดระดับของเอาต์พุต"
 
 #: xl/main.py:427
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "ปิดใช้งานการรองรับ D-Bus"
 
 #: xl/main.py:434
 msgid "Disable HAL support."
-msgstr "ปิดการรองรับ HAL"
+msgstr "ปิดใช้งานการรองรับ HAL"
 
 #: xl/main.py:796
 msgid "Entire Library"
-msgstr ""
+msgstr "ทั้งไลบรารี"
 
 #: xl/main.py:803
 #, python-format
@@ -397,7 +397,7 @@ msgstr "สุ่ม %d"
 #: xl/main.py:812
 #, python-format
 msgid "Rating > %d"
-msgstr "ความนิยม > %d"
+msgstr "การให้คะแนน > %d"
 
 #: xl/main.py:981
 msgid ""
@@ -414,7 +414,7 @@ msgstr "อัลบั้ม"
 
 #: xl/metadata/tags.py:47
 msgid "Arranger"
-msgstr ""
+msgstr "ผู้เรียบเรียง"
 
 #: xl/metadata/tags.py:48 xlgui/panel/collection.py:124
 #: xlgui/widgets/playlist_columns.py:292 plugins/cd/cdprefs.py:111
@@ -448,7 +448,7 @@ msgstr ""
 #: data/ui/trackproperties_dialog_cover_row.ui:64 plugins/cd/cdprefs.py:112
 #: plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
-msgstr ""
+msgstr "ผู้ประพันธ์"
 
 #: xl/metadata/tags.py:55 data/ui/trackproperties_dialog_cover_row.ui:56
 msgid "Conductor"
@@ -482,7 +482,7 @@ msgstr ""
 
 #: xl/metadata/tags.py:62
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: xl/metadata/tags.py:63 xlgui/widgets/playlist_columns.py:479
 msgid "Language"
@@ -499,7 +499,7 @@ msgstr ""
 
 #: xl/metadata/tags.py:66
 msgid "Organization"
-msgstr ""
+msgstr "องค์กร"
 
 #: xl/metadata/tags.py:67
 msgid "Original album"
@@ -515,7 +515,7 @@ msgstr "เวลาต้นฉบับ"
 
 #: xl/metadata/tags.py:71
 msgid "Performer"
-msgstr ""
+msgstr "ผู้แสดง"
 
 #: xl/metadata/tags.py:72 xlgui/panel/flatplaylist.py:101
 #: xlgui/widgets/playlist_columns.py:282
@@ -523,7 +523,7 @@ msgstr ""
 #: plugins/cd/cdprefs.py:110 plugins/minimode/minimode_preferences.py:106
 #: plugins/grouptagger/gt_import.ui:69
 msgid "Title"
-msgstr ""
+msgstr "ชื่อเรื่อง"
 
 #: xl/metadata/tags.py:73 plugins/grouptagger/gt_mass.ui:162
 #: plugins/jamendo/ui/jamendo_panel.ui:98
@@ -542,7 +542,7 @@ msgstr "เว็บไซต์"
 #: plugins/cd/cdprefs.py:119 plugins/icecast/__init__.py:398
 #: plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
-msgstr ""
+msgstr "อัตราบิต"
 
 #: xl/metadata/tags.py:81 xlgui/widgets/playlist_columns.py:498
 msgid "Date added"
@@ -566,7 +566,7 @@ msgstr "ตำแหน่ง"
 
 #: xl/metadata/tags.py:85
 msgid "Modified"
-msgstr ""
+msgstr "ปรับเปลี่ยน"
 
 #: xl/metadata/tags.py:86
 #, fuzzy
@@ -637,15 +637,15 @@ msgstr ""
 #: xlgui/widgets/smart_playlist_editor.py:254
 #: plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
-msgstr ""
+msgstr "รายการเล่น"
 
 #: xl/playlist.py:339
 msgid "M3U Playlist"
-msgstr ""
+msgstr "รายการเล่น M3U"
 
 #: xl/playlist.py:452
 msgid "PLS Playlist"
-msgstr ""
+msgstr "รายการเล่น PLS"
 
 #: xl/playlist.py:543 xl/playlist.py:558
 #, python-format
@@ -659,11 +659,11 @@ msgstr "รุ่น%(version)s ไม่รองรับสำหรับ %(
 
 #: xl/playlist.py:613
 msgid "ASX Playlist"
-msgstr ""
+msgstr "รายการเล่น ASX"
 
 #: xl/playlist.py:792
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "รายการเล่น XSPF"
 
 #: xl/playlist.py:911
 msgid "Shuffle _Off"
@@ -760,12 +760,12 @@ msgstr ""
 
 #: xl/trax/track.py:65
 msgid "Various Artists"
-msgstr ""
+msgstr "หลายศิลปิน"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: xl/trax/track.py:696 xl/trax/track.py:762
@@ -834,16 +834,16 @@ msgstr "แสดงปกอัลบั้ม"
 
 #: xlgui/cover.py:502
 msgid "Fetch Cover"
-msgstr "โหลดปกอัลบั้ม"
+msgstr "ดึงข้อมูลปกอัลบั้ม"
 
 #: xlgui/cover.py:503
 msgid "Remove Cover"
-msgstr "ลบปกอัลบั้ม"
+msgstr "เอาปกอัลบั้มออก"
 
 #: xlgui/cover.py:812
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "ปกอัลบั้มสำหรับ %s"
 
 #: xlgui/cover.py:880
 #, python-brace-format
@@ -1008,7 +1008,7 @@ msgstr "เล่นต่อ"
 
 #: xlgui/main.py:756 xlgui/main.py:929 plugins/previewdevice/__init__.py:367
 msgid "Pause Playback"
-msgstr "หยุดเล่นชั่วคราว"
+msgstr "พักการเล่น"
 
 #: xlgui/main.py:885 xlgui/menu.py:145
 msgid "Playlist export failed!"
@@ -1020,7 +1020,7 @@ msgstr "เริ่มเล่น"
 
 #: xlgui/menu.py:62 xlgui/panel/menus.py:211 xlgui/widgets/playlist.py:213
 msgid "_New Playlist"
-msgstr ""
+msgstr "รายการเล่นให_ม่"
 
 #: xlgui/menu.py:75
 #, fuzzy
@@ -1166,11 +1166,11 @@ msgstr ""
 
 #: xlgui/panel/collection.py:183 xlgui/preferences/collection.py:21
 msgid "Collection"
-msgstr ""
+msgstr "ชุดรวม"
 
 #: xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr ""
+msgstr "สแกนชุดรวมใหม่"
 
 #: xlgui/panel/device.py:151
 #, python-format
@@ -1179,7 +1179,7 @@ msgstr ""
 
 #: xlgui/panel/files.py:82
 msgid "Files"
-msgstr ""
+msgstr "ไฟล์"
 
 #: xlgui/panel/files.py:122 xlgui/widgets/playlist_columns.py:448
 #: plugins/cd/cdprefs.py:121 plugins/minimode/minimode_preferences.py:117
@@ -1189,7 +1189,7 @@ msgstr "ชื่อไฟล์"
 #. TRANSLATORS: File size column in the file browser
 #: xlgui/panel/files.py:146
 msgid "Size"
-msgstr ""
+msgstr "ขนาด"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
 #: xlgui/panel/files.py:457
@@ -1200,7 +1200,7 @@ msgstr ""
 #. TRANSLATORS: Title of the track number column
 #: xlgui/panel/flatplaylist.py:93 xlgui/widgets/playlist_columns.py:271
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: xlgui/panel/lyrics.py:185
 msgid "No lyrics found."
@@ -1231,11 +1231,11 @@ msgstr ""
 
 #: xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "ใส่ชื่อที่คุณต้องการสำหรับรายการเล่นใหม่ของคุณ"
 
 #: xlgui/panel/playlists.py:153
 msgid "Rename Playlist"
-msgstr ""
+msgstr "เปลี่ยนชื่อรายการเล่น"
 
 #: xlgui/panel/playlists.py:169 xlgui/widgets/dialogs.py:1760
 #: xlgui/widgets/smart_playlist_editor.py:395
@@ -1264,23 +1264,23 @@ msgstr ""
 
 #: xlgui/panel/playlists.py:390 xlgui/preferences/playlists.py:31
 msgid "Playlists"
-msgstr ""
+msgstr "รายการเล่น"
 
 #: xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
-msgstr ""
+msgstr "รายการเล่นอัจฉริยะ"
 
 #: xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
-msgstr ""
+msgstr "รายการเล่นที่กำหนดเอง"
 
 #: xlgui/panel/radio.py:73
 msgid "Radio"
-msgstr ""
+msgstr "วิทยุ"
 
 #: xlgui/panel/radio.py:147 xlgui/panel/radio.py:476 xlgui/panel/radio.py:554
 msgid "Loading streams..."
-msgstr ""
+msgstr "กำลังโหลดสตรีม..."
 
 #: xlgui/panel/radio.py:195
 msgid "Add Radio Station"
@@ -1292,28 +1292,28 @@ msgstr "ชื่อ:"
 
 #: xlgui/panel/radio.py:198 plugins/audioscrobbler/asprefs_pane.ui:118
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: xlgui/panel/radio.py:274
 msgid "Saved Stations"
-msgstr ""
+msgstr "สถานีที่บันทึกไว้"
 
 #: xlgui/panel/radio.py:276
 msgid "Radio Streams"
-msgstr ""
+msgstr "สตรีมวิทยุ"
 
 #: xlgui/panel/radio.py:306 plugins/wikipedia/data/wikipanel.ui:75
 #: plugins/wikipedia/data/wikipanel.ui:76
 msgid "Refresh"
-msgstr ""
+msgstr "รีเฟรช"
 
 #: xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "ใส่ชื่อที่คุณต้องการสำหรับรายการเล่นใหม่ของคุณ"
 
 #: xlgui/panel/radio.py:417 xlgui/playlist_container.py:68
 msgid "New Playlist"
-msgstr ""
+msgstr "รายการเล่นใหม่"
 
 #: xlgui/panels.py:99
 msgid "P_anels"
@@ -1340,7 +1340,7 @@ msgstr ""
 #: xlgui/playlist_container.py:200
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "รายการเล่น %d"
 
 #: xlgui/playlist_container.py:384
 #, python-brace-format
@@ -1420,7 +1420,7 @@ msgstr ""
 
 #: xlgui/preferences/plugin.py:231
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "เลือกปลั๊กอิน"
 
 #: xlgui/preferences/plugin.py:242
 msgid "Plugin Archives"
@@ -1429,7 +1429,7 @@ msgstr ""
 #: xlgui/preferences/plugin.py:249 xlgui/widgets/dialogs.py:715
 #: xlgui/widgets/dialogs.py:892
 msgid "All Files"
-msgstr ""
+msgstr "ไฟล์ทั้งหมด"
 
 #: xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
@@ -1527,7 +1527,7 @@ msgstr ""
 
 #: xlgui/properties.py:1219
 msgid "Open Directory"
-msgstr "เปิดตำแหน่งไฟล์"
+msgstr "เปิดไดเรกทอรี"
 
 #: xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
@@ -1544,7 +1544,7 @@ msgstr ""
 
 #: xlgui/widgets/dialogs.py:349
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "ใส่ URL ที่จะเปิด"
 
 #: xlgui/widgets/dialogs.py:349
 msgid "Open URL"
@@ -1560,15 +1560,15 @@ msgstr ""
 
 #: xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
-msgstr ""
+msgstr "ไฟล์ที่รองรับ"
 
 #: xlgui/widgets/dialogs.py:711
 msgid "Music Files"
-msgstr ""
+msgstr "ไฟล์เพลง"
 
 #: xlgui/widgets/dialogs.py:713 xlgui/widgets/dialogs.py:890
 msgid "Playlist Files"
-msgstr ""
+msgstr "ไฟล์รายการเล่น"
 
 #: xlgui/widgets/dialogs.py:795
 msgid "Choose Directory to Open"
@@ -1599,7 +1599,7 @@ msgstr "ปิด %s"
 #: xlgui/widgets/dialogs.py:1078
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>บันทึกการเปลี่ยนแปลงไปยัง %s ก่อนปิดหรือไม่</b>"
 
 #: xlgui/widgets/dialogs.py:1080
 msgid "Your changes will be lost if you don't save them"
@@ -1607,7 +1607,7 @@ msgstr ""
 
 #: xlgui/widgets/dialogs.py:1084
 msgid "Close Without Saving"
-msgstr ""
+msgstr "ปิดโดยไม่บันทึก"
 
 #: xlgui/widgets/dialogs.py:1477
 msgid "Yes to all"
@@ -1722,7 +1722,7 @@ msgstr "เปลี่ยนชื่อ"
 
 #: xlgui/widgets/menuitems.py:302 data/ui/main.ui:32
 msgid "_Edit"
-msgstr ""
+msgstr "แ_ก้ไข"
 
 #: xlgui/widgets/menuitems.py:315
 msgid "E_xport Playlist"
@@ -1765,7 +1765,7 @@ msgstr "ลบปกอัลบั้ม"
 
 #: xlgui/widgets/playback.py:1425
 msgid "Muted"
-msgstr ""
+msgstr "ปิดเสียงอยู่"
 
 #. TRANSLATORS: Volume percentage
 #: xlgui/widgets/playback.py:1431
@@ -1871,11 +1871,11 @@ msgstr ""
 
 #: xlgui/widgets/playlist_columns.py:272
 msgid "Track Number"
-msgstr ""
+msgstr "หมายเลขแทร็ค"
 
 #: xlgui/widgets/playlist_columns.py:343
 msgid "Disc Number"
-msgstr ""
+msgstr "หมายเลขแผ่น"
 
 #: xlgui/widgets/playlist_columns.py:353
 #: xlgui/widgets/smart_playlist_editor.py:253 plugins/cd/cdprefs.py:116
@@ -1883,7 +1883,7 @@ msgstr ""
 #: plugins/minimode/minimode_preferences.py:112
 #: plugins/jamendo/ui/jamendo_panel.ui:44
 msgid "Rating"
-msgstr "การจัดอันดับ"
+msgstr "การให้คะแนน"
 
 #: xlgui/widgets/playlist_columns.py:409
 msgid "Year"
@@ -1891,7 +1891,7 @@ msgstr "ปี"
 
 #: xlgui/widgets/playlist_columns.py:458
 msgid "Playcount"
-msgstr ""
+msgstr "จำนวนครั้งที่เล่น"
 
 #: xlgui/widgets/playlist_columns.py:507
 msgid "Schedule"
@@ -1924,13 +1924,13 @@ msgstr ""
 
 #: xlgui/widgets/rating.py:266
 msgid "Rating:"
-msgstr ""
+msgstr "การให้คะแนน:"
 
 #: xlgui/widgets/smart_playlist_editor.py:56
 #: xlgui/widgets/smart_playlist_editor.py:79
 #: xlgui/widgets/smart_playlist_editor.py:89 plugins/osd/osd_preferences.ui:130
 msgid "seconds"
-msgstr ""
+msgstr "วินาที"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: xlgui/widgets/smart_playlist_editor.py:62
@@ -1957,7 +1957,7 @@ msgstr "สัปดาห์"
 #. TRANSLATORS: True if haystack is equal to needle
 #: xlgui/widgets/smart_playlist_editor.py:206
 msgid "is"
-msgstr ""
+msgstr "เป็น"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: xlgui/widgets/smart_playlist_editor.py:208
@@ -2009,12 +2009,12 @@ msgstr ""
 #. TRANSLATORS: Example: rating >= 5
 #: xlgui/widgets/smart_playlist_editor.py:228
 msgid "at least"
-msgstr ""
+msgstr "อย่างน้อย"
 
 #. TRANSLATORS: Example: rating <= 3
 #: xlgui/widgets/smart_playlist_editor.py:230
 msgid "at most"
-msgstr ""
+msgstr "อย่างมาก"
 
 #. TRANSLATORS: Example: year < 1999
 #: xlgui/widgets/smart_playlist_editor.py:232
@@ -2042,12 +2042,12 @@ msgstr "น้อยกว่า"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: xlgui/widgets/smart_playlist_editor.py:240
 msgid "in the last"
-msgstr ""
+msgstr "อยู่ในรายการล่าสุด"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: xlgui/widgets/smart_playlist_editor.py:242
 msgid "not in the last"
-msgstr ""
+msgstr "ไม่อยู่ในรายการล่าสุด"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: xlgui/widgets/smart_playlist_editor.py:244
@@ -2063,11 +2063,11 @@ msgstr "ตัวเลือกแทร็ค"
 
 #: xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
-msgstr ""
+msgstr "เพิ่มรายการเล่นอัจฉริยะ"
 
 #: xlgui/widgets/smart_playlist_editor.py:352
 msgid "Edit Smart Playlist"
-msgstr ""
+msgstr "แก้ไขรายการเล่นอัจฉริยะ"
 
 #: xlgui/widgets/smart_playlist_editor.py:423
 msgid "Sort by:"
@@ -2085,7 +2085,7 @@ msgstr ""
 
 #: data/ui/about_dialog.ui:8
 msgid "About Exaile"
-msgstr ""
+msgstr "เกี่ยวกับ Exaile"
 
 #: data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
@@ -2099,7 +2099,7 @@ msgstr ""
 
 #: data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr ""
+msgstr "ตัวจัดการชุดรวม"
 
 #: data/ui/collection_manager.ui:131
 msgid "Monitored"
@@ -2115,7 +2115,7 @@ msgstr ""
 
 #: data/ui/coverchooser.ui:28
 msgid "Cover Finder"
-msgstr ""
+msgstr "ตัวค้นหาปกอัลบั้ม"
 
 #: data/ui/coverchooser.ui:125
 msgid "The origin of this cover"
@@ -2160,15 +2160,15 @@ msgstr "ปิด %s"
 
 #: data/ui/device_manager.ui:37
 msgid "Device Manager"
-msgstr ""
+msgstr "ตัวจัดการอุปกรณ์"
 
 #: data/ui/device_manager.ui:65
 msgid "Icon"
-msgstr ""
+msgstr "ไอคอน"
 
 #: data/ui/device_manager.ui:77
 msgid "Device"
-msgstr ""
+msgstr "อุปกรณ์"
 
 #: data/ui/device_manager.ui:88
 msgid "Driver"
@@ -2176,23 +2176,23 @@ msgstr ""
 
 #: data/ui/main.ui:24
 msgid "_File"
-msgstr ""
+msgstr "ไ_ฟล์"
 
 #: data/ui/main.ui:45
 msgid "_View"
-msgstr ""
+msgstr "_มุมมอง"
 
 #: data/ui/main.ui:58
 msgid "_Tools"
-msgstr ""
+msgstr "เ_ครื่องมือ"
 
 #: data/ui/main.ui:71
 msgid "_Help"
-msgstr ""
+msgstr "_วิธีใช้"
 
 #: data/ui/main.ui:151
 msgid "Previous Track"
-msgstr ""
+msgstr "แทร็คก่อนหน้า"
 
 #: data/ui/main.ui:197
 msgid ""
@@ -2203,11 +2203,11 @@ msgstr ""
 
 #: data/ui/main.ui:221
 msgid "Next Track"
-msgstr ""
+msgstr "แทร็คถัดไป"
 
 #: data/ui/main.ui:246
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: data/ui/panel/collection.ui:28
 msgid "_Add Music"
@@ -2230,7 +2230,7 @@ msgstr ""
 #: data/ui/panel/collection.ui:131 data/ui/panel/files.ui:171
 #: data/ui/playlist.ui:128 plugins/icecast/__init__.py:384
 msgid "Search"
-msgstr ""
+msgstr "ค้นหา"
 
 #: data/ui/panel/files.ui:29
 msgid "Previous visited directory"
@@ -2250,7 +2250,7 @@ msgstr ""
 
 #: data/ui/panel/files.ui:114
 msgid "Home directory"
-msgstr ""
+msgstr "ไดเรกทอรีบ้าน"
 
 #: data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
@@ -2280,19 +2280,19 @@ msgstr ""
 
 #: data/ui/preferences/appearance.ui:20
 msgid "Left"
-msgstr ""
+msgstr "ซ้าย"
 
 #: data/ui/preferences/appearance.ui:24
 msgid "Right"
-msgstr ""
+msgstr "ขวา"
 
 #: data/ui/preferences/appearance.ui:28
 msgid "Top"
-msgstr ""
+msgstr "บน"
 
 #: data/ui/preferences/appearance.ui:32
 msgid "Bottom"
-msgstr ""
+msgstr "ล่าง"
 
 #: data/ui/preferences/appearance.ui:50
 msgid "Show info area"
@@ -2345,11 +2345,11 @@ msgstr ""
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
-msgstr ""
+msgstr "แสดงไอคอนถาด"
 
 #: data/ui/preferences/appearance.ui:257
 msgid "Minimize to tray"
-msgstr ""
+msgstr "ย่อเล็กสุดลงในถาด"
 
 #: data/ui/preferences/appearance.ui:271
 msgid "Close to tray"
@@ -2362,7 +2362,7 @@ msgstr ""
 
 #: data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
-msgstr ""
+msgstr "แสดงหน้าจอสแปลชเมื่อเริ่มทำงาน"
 
 #: data/ui/preferences/appearance.ui:328
 msgid ""
@@ -2569,7 +2569,7 @@ msgstr ""
 
 #: data/ui/preferences/plugin.ui:64
 msgid "Plugin"
-msgstr ""
+msgstr "ปลั๊กอิน"
 
 #: data/ui/preferences/plugin.ui:76
 msgid "Status"
@@ -2579,7 +2579,7 @@ msgstr ""
 #: data/ui/preferences/widgets/selection_list_preference.ui:38
 #: plugins/equalizer/equalizer.ui:166
 msgid "Enabled"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 #: data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
@@ -2587,7 +2587,7 @@ msgstr ""
 
 #: data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "ไม่ได้เลือกปลั๊กอินใด"
 
 #: data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
@@ -2595,7 +2595,7 @@ msgstr ""
 
 #: data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"
-msgstr ""
+msgstr "ค่ากำหนด"
 
 #: data/ui/shortcuts_dialog.ui:39
 #, fuzzy
@@ -2635,11 +2635,11 @@ msgstr "คุณสมบัติ"
 
 #: data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
-msgstr ""
+msgstr "_ก่อนหน้า"
 
 #: data/ui/trackproperties_dialog.ui:278
 msgid "_Next"
-msgstr ""
+msgstr "_ถัดไป"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
@@ -2723,7 +2723,7 @@ msgstr ""
 
 #: data/ui/trackproperties_dialog_cover_row.ui:139
 msgid "Description:"
-msgstr ""
+msgstr "คำอธิบาย:"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:154
 msgid "Type:"
@@ -2735,7 +2735,7 @@ msgstr "ตรงกับผลลัพธ์ทุกอย่าง"
 
 #: data/ui/widgets/filter_dialog.ui:151
 msgid "Randomize results"
-msgstr ""
+msgstr "แสดงผลลัพธ์แบบสุ่ม"
 
 #: data/ui/widgets/filter_dialog.ui:165
 msgid "Add"
@@ -2772,7 +2772,7 @@ msgstr ""
 
 #: plugins/alarmclock/acprefs.py:21 plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "นาฬิกาปลุก"
 
 #: plugins/amazoncovers/amazonprefs.py:21 plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
@@ -2850,7 +2850,7 @@ msgstr ""
 
 #: plugins/cd/cdprefs.py:33
 msgid "CD"
-msgstr ""
+msgstr "ซีดี"
 
 #: plugins/cd/cdprefs.py:109 plugins/minimode/minimode_preferences.py:105
 msgid "Track number"

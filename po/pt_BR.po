@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-02-23 23:32+0000\n"
-"Last-Translator: DanielDevBR <ferion11@gmail.com>\n"
+"PO-Revision-Date: 2020-04-21 10:11+0000\n"
+"Last-Translator: Lucas Araujo <lucassants2808@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -710,7 +710,7 @@ msgstr "Dinâmico por _Artistas Similares"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "O plug-in já está carregado ou tem um nome em conflito."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -866,10 +866,9 @@ msgid "Cover for %s"
 msgstr "Capa do %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} pixels"
+msgstr "{width}x{height} pixels ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1219,7 +1218,7 @@ msgstr "Origem: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Qualquer fonte"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2331,10 +2330,8 @@ msgstr ""
 "gerenciador de janelas sem suporte a composição."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Usar transparência alfa:"
+msgstr "Transparência alfa"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2757,10 +2754,8 @@ msgstr "Adicionar"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Volume máximo:"
+msgstr "Número máximo de faixas:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2768,7 +2763,7 @@ msgstr "Cancelar"
 
 #: data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Ativar / desativar som"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -4671,16 +4666,12 @@ msgid "Lyrics Wiki"
 msgstr "Lyrics Wiki"
 
 #: plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Plugin para obter letras do lyrics.wikia.com\n"
-"Requer: BeautifulSoup4"
+"Requer: BeautifulSoup4, lxml"
 
 #: plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4821,22 +4812,16 @@ msgid "Enables ReplayGain support"
 msgstr "Habilita o suporte ao ReplayGain"
 
 #: plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
 "Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
-"Pausa (e, opcionalmente, retoma) a reprodução com base no status do protetor "
-"de tela.\n"
+"Pausas (e, opcionalmente, retoma) nas reproduções com base no status do "
+"protetor de tela.\n"
 "\n"
-"Requer: Protetor de tela GNOME, MATE, Canela ou KDE (não suporta "
+"Requer: Protetor de tela GNOME, XFCE, MATE, Cinnamon ou KDE (não suporta "
 "XScreenSaver nem XLockMore)"
 
 #: plugins/shutdown/PLUGININFO:4

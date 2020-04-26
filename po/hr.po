@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-02-15 21:58+0000\n"
+"PO-Revision-Date: 2020-04-26 23:11+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -518,7 +518,7 @@ msgstr "Izvorni album"
 
 #: xl/metadata/tags.py:68
 msgid "Original artist"
-msgstr "Izvorni umjetnik"
+msgstr "Izvorni izvođač"
 
 #: xl/metadata/tags.py:69
 msgid "Original date"
@@ -712,11 +712,11 @@ msgstr "Dinimično _isključeno"
 
 #: xl/playlist.py:923
 msgid "Dynamic by Similar _Artists"
-msgstr "Dinimično prema sličnim _izvođaćima"
+msgstr "Dinimično prema sličnim _izvođačima"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Dodatak je već učitan ili nema jedinstveno ime."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -875,10 +875,9 @@ msgid "Cover for %s"
 msgstr "Omot za %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width} × {height} piksela"
+msgstr "{width} × {height} piksela ({zoom} %)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1228,7 +1227,7 @@ msgstr "Izvor: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Bilo koji izvor"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2339,10 +2338,8 @@ msgstr ""
 "upravljačem prozora bez podrške za sastavljanje."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Koristi alfa prozirnost:"
+msgstr "Alfa prozirnost"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2689,11 +2686,11 @@ msgstr "Medij (npr. oznaka na koricama CD-a)"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
-msgstr "Glavni umjetnik/glavni izvođač/solist"
+msgstr "Glavni izvođač/solist"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:52
 msgid "Artist/performer"
-msgstr "Umjetnik/izvođač"
+msgstr "Izvođač"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:60
 msgid "Band/Orchestra"
@@ -2729,7 +2726,7 @@ msgstr "Ilustracija"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr "Logotip grupe/umjetnika"
+msgstr "Logotip grupe/izvođača"
 
 #: data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
@@ -2761,10 +2758,8 @@ msgstr "Dodaj"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Maksimalna glasnoća:"
+msgstr "Maksimalni broj pjesama:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2772,7 +2767,7 @@ msgstr "Odustani"
 
 #: data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Uklj/Isklj zvuk"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -4665,16 +4660,12 @@ msgid "Lyrics Wiki"
 msgstr "Wiki za tekstove pjesama"
 
 #: plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Dodatak za preuzimanje tekstova pjesama s lyrics.wikia.com\n"
-"Zahtijeva: BeautifulSoup4"
+"Zahtijeva: BeautifulSoup4, lxml"
 
 #: plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4810,22 +4801,16 @@ msgid "Enables ReplayGain support"
 msgstr "Uključuje ReplayGain podršku"
 
 #: plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
 "Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
-"Zaustavlja (i ocionalno nastavlja) sviranje, ovisno o stanju zaštitnog "
+"Zaustavlja (i opcionalno nastavlja) sviranje, ovisno o stanju zaštitnog "
 "ekrana.\n"
 "\n"
-"Zahtijeva: GNOME, MATE, Cinnamon ili KDE Screensaver (ne podržava "
+"Zahtijeva: GNOME, MATE, Cinnamon, XFCE ili KDE Screensaver (ne podržava "
 "XScreenSaver niti XLockMore)"
 
 #: plugins/shutdown/PLUGININFO:4

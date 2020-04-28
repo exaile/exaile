@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2019-08-05 22:22+0000\n"
+"PO-Revision-Date: 2020-04-29 05:11+0000\n"
 "Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "exaile/master/zh_Hans/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Weblate 4.0.2\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -1289,9 +1289,9 @@ msgstr ""
 #. TRANSLATORS: Playlist title suggestion with two values
 #: xlgui/panel/playlists.py:282 xlgui/panel/playlists.py:298
 #: xlgui/panel/playlists.py:314
-#, fuzzy, python-format
+#, python-format
 msgid "%(first)s and %(second)s"
-msgstr "%(minutes)d:%(seconds)02d"
+msgstr "%(first)s和%(second)s"
 
 #: xlgui/panel/playlists.py:390 xlgui/preferences/playlists.py:31
 msgid "Playlists"
@@ -2353,10 +2353,8 @@ msgid ""
 msgstr "警告：此选项在不支持多缓冲区合成的窗口管理器下使用会造成显示错误。"
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "使用 Alpha 透明渲染："
+msgstr "Alpha 透明渲染"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"

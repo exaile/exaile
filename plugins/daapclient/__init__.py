@@ -208,7 +208,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         Fire away.
         '''
         x = self.services[key]
-        GObject.idle_add(self.emit, "connect", (x.name, x.address, x.port, x))
+        GObject.idle_add(self.emit, "connect", (x.name, x.address, x.port))
 
     def __init__(self, _exaile, _menu):
         """
@@ -325,7 +325,7 @@ class DaapManager:
         requests a track list.
             `args` is a tuple of (name, address, port, service)
         '''
-        name, address, port, _svc = args  # unpack tuple
+        name, address, port = args  # unpack tuple
         user_agent = self.exaile.get_user_agent_string(__name__)
         conn = DaapConnection(name, address, port, user_agent)
 

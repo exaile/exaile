@@ -164,7 +164,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         '''
         if self.menu:
             for item in self.menu._items:
-                if item.name == 'manual' or item.name == 'sep':
+                if item.name in ('manual', 'history', 'sep'):
                     continue
                 self.menu.remove_item(item)
 

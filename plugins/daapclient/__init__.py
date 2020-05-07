@@ -141,7 +141,6 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
         if nstr in self.services:
-            #            self.remove_share_menu_item(name)
             del self.services[nstr]
             self.rebuild_share_menu_items()
 
@@ -158,17 +157,6 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
                 name, ['sep'], name, callback=lambda *_x: self.clicked(key)
             )
             self.menu.add_item(menu_item)
-
-    def remove_share_menu_item(self, name):
-        '''
-            This function is called to remove a server from the connect menu.
-        '''
-
-        if self.menu:
-            for item in self.menu._items:
-                if item.name == name:
-                    self.menu.remove_item(item)
-                    break
 
     def clear_share_menu_items(self):
         '''

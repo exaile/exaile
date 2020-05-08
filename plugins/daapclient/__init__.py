@@ -163,9 +163,12 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
             This function is used to clear all the menu items out of a menu.
         '''
         if self.menu:
-            for item in self.menu._items:
-                if item.name in ('manual', 'history', 'sep'):
-                    continue
+            items_to_remove = [
+                item
+                for item in self.menu._items
+                if item.name not in ('manual', 'history', 'sep')
+            ]
+            for item in items_to_remove:
                 self.menu.remove_item(item)
 
     def rebuild_share_menu_items(self):

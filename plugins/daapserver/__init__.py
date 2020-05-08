@@ -90,7 +90,7 @@ class DaapServerPlugin:
         if option == 'plugin/daapserver/name':
             self.__daapserver.set(name=settings.get_option(option, 'Exaile Share'))
         if option == 'plugin/daapserver/port':
-            self.__daapserver.set(port=settings.get_option(option, 3689))
+            self.__daapserver.set(port=int(settings.get_option(option, 3689)))
         if option == 'plugin/daapserver/host':
             self.__daapserver.set(host=settings.get_option(option, '0.0.0.0'))
         if option == 'plugin/daapserver/enabled':

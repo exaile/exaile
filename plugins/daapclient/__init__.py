@@ -219,7 +219,7 @@ class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
     def clicked(self, key):
         '''
             This function is called in response to a menu_item click.
-        Fire away.
+            Fire away.
         '''
         x = self.services[key]
         GObject.idle_add(self.emit, "connect", (x.name, x.address, x.port))
@@ -340,7 +340,7 @@ class DaapZeroconfInterface(GObject.GObject):
     def clicked(self, service_name, address, port):
         '''
             This function is called in response to a menu_item click.
-        Fire away.
+            Fire away.
         '''
         GObject.idle_add(self.emit, "connect", (service_name, address, port))
 
@@ -468,8 +468,8 @@ class DaapManager:
     def connect_share(self, obj, args):
         '''
             This function is called when a user wants to connec to
-        a DAAP share.  It creates a new panel for the share, and
-        requests a track list.
+            a DAAP share.  It creates a new panel for the share, and
+            requests a track list.
             `args` is a tuple of (name, address, port, service)
         '''
         name, address, port = args  # unpack tuple
@@ -493,7 +493,7 @@ class DaapManager:
     def disconnect_share(self, name):
         '''
             This function is called to disconnect a previously connected
-        share.  It calls the DAAP disconnect, and removes the panel.
+            share.  It calls the DAAP disconnect, and removes the panel.
         '''
 
         panel = self.panels[name]
@@ -506,8 +506,8 @@ class DaapManager:
     def manual_connect(self, *_args):
         '''
             This function is called when the user selects the manual
-        connection option from the menu.  It requests a host/ip to connect
-        to.
+            connection option from the menu.  It requests a host/ip to
+            connect to.
         '''
         dialog = dialogs.TextEntryDialog(
             _("Enter IP address and port for share"), _("Enter IP address and port.")
@@ -561,7 +561,7 @@ class DaapManager:
     def close(self, remove=False):
         '''
             This function disconnects active DaapConnections, and optionally
-        removes the panels from the UI.
+            removes the panels from the UI.
         '''
         # disconnect active shares
         for panel in self.panels.values():
@@ -742,7 +742,7 @@ You must stop playback before downloading songs."""
 class DaapLibrary(collection.Library):
     '''
         Library subclass for better management of collection??
-    Or something to do with devices or somesuch.  Ask Aren.
+        Or something to do with devices or somesuch. Ask Aren.
     '''
 
     def __init__(self, daap_share, col=None):

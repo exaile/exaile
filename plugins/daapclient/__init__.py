@@ -57,6 +57,13 @@ try:
     import zeroconf
 
     ZEROCONF = True
+    ZEROCONF_VERSION = [int(v) for v in zeroconf.__version__.split('.')[:2]]
+
+    # ServiceInfo.parsed_addresses() and IPVersion enum were introduced
+    # in v.0.24
+    ZEROCONF_LEGACY = ZEROCONF_VERSION < [0, 24]
+    if ZEROCONF_LEGACY:
+        import socket  # for inet_ntoa
 except ImportError:
     ZEROCONF = False
 
@@ -300,13 +307,17 @@ class DaapZeroconfInterface(GObject.GObject):
             if service_name.endswith(info.type):
                 service_name = service_name[: -(len(info.type) + 1)]
 
-            # Retrieve IP address(es)
-            if show_ipv6:
-                # Both IPv4 and IPv6
-                addresses = info.parsed_addresses(zeroconf.IPVersion.All)
+            if ZEROCONF_LEGACY:
+                # Legacy mode: returns only a single IPv4 address
+                addresses = [socket.inet_ntoa(info.address)]
             else:
-                # IPv4 only
-                addresses = info.parsed_addresses(zeroconf.IPVersion.V4Only)
+                # Retrieve IP address(es)
+                if show_ipv6:
+                    # Both IPv4 and IPv6
+                    addresses = info.parsed_addresses(zeroconf.IPVersion.All)
+                else:
+                    # IPv4 only
+                    addresses = info.parsed_addresses(zeroconf.IPVersion.V4Only)
 
             # Generate one menu entry for each available address.
             # NOTE: in its current implementation (v.0.25.1), zeroconf
@@ -341,10 +352,12 @@ class DaapZeroconfInterface(GObject.GObject):
 
         logger.info("DAAP share '{0}': state changed to {1}".format(name, state_change))
 
-        if state_change in (
-            zeroconf.ServiceStateChange.Added,
-            zeroconf.ServiceStateChange.Updated,
-        ):
+        # zeroconf.ServiceStateChange.Updated was introduced in v.0.23
+        add_update_states = [zeroconf.ServiceStateChange.Added]
+        if hasattr(zeroconf.ServiceStateChange, 'Updated'):
+            add_update_states.append(zeroconf.ServiceStateChange.Updated)
+
+        if state_change in add_update_states:
             info = zc.get_service_info(service_type, name)
             if not info:
                 return
@@ -363,7 +376,13 @@ class DaapZeroconfInterface(GObject.GObject):
         self.services = {}
         self.menu = _menu
 
-        zc = zeroconf.Zeroconf(ip_version=zeroconf.IPVersion.All)
+        if ZEROCONF_LEGACY:
+            logger.info("Using zeroconf legacy API")
+            zc = zeroconf.Zeroconf()
+        else:
+            logger.info("Using zeroconf new API")
+            zc = zeroconf.Zeroconf(ip_version=zeroconf.IPVersion.All)
+
         self.browser = zeroconf.ServiceBrowser(
             zc, '_daap._tcp.local.', handlers=[self.on_service_state_change]
         )

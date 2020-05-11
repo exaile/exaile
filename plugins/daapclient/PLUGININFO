@@ -1,6 +1,6 @@
 Version='4.1.0'
-Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>']
+Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>','Rok Mandeljc <rok.mandeljc@gmail.com>']
 Name=_('DAAP Client')
-Description=_('Allows playing of DAAP music shares using the spydaap library.')
+Description=_('Enables access to DAAP music shares via the spydaap library. Share auto-discovery is optionally available via python-zeroconf.\nRequires: spydaap\nOptional: python-zeroconf')
 Category=_('Media Sources')
-RequiredModules=['dbus', 'spydaap']
+RequiredModules=['spydaap']

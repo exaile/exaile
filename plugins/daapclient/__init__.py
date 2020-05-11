@@ -1,5 +1,6 @@
 # Copyright (C) 2006-2007 Aren Olson
 #                    2011 Brian Parma
+#                    2020 Rok Mandeljc
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +24,6 @@ import pickle
 import os
 import time
 
-import dbus
-import dbus.exceptions
-
 from gi.repository import Gtk
 from gi.repository import GObject
 
@@ -44,15 +42,7 @@ _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
 
-# Check for AVAHI
-try:
-    import avahi
-
-    AVAHI = True
-except ImportError:
-    AVAHI = False
-
-# Check for zeroconf
+# Check for python-zeroconf
 try:
     import zeroconf
 
@@ -77,182 +67,6 @@ except TypeError:
     AUTH = False
 except Exception:
     AUTH = True
-
-
-class AttrDict(dict):
-    def __getattr__(self, name):
-        return self[name]
-
-
-# helper function to parse avahi info into a list of tuples (for dict())
-parse = functools.partial(
-    zip,
-    [
-        'interface',
-        'protocol',
-        'name',
-        'type',
-        'domain',
-        'host',
-        'aprotocol',
-        'address',
-        'port',
-        'txt',
-        'flags',
-    ],
-)
-
-
-class DaapAvahiInterface(GObject.GObject):  # derived from python-daap/examples
-    """
-        Handles detection of DAAP shares via Avahi and manages the menu
-        showing the shares.
-
-        Fires a "connect" signal when a menu item is clicked.
-    """
-
-    __gsignals__ = {
-        'connect': (GObject.SignalFlags.RUN_LAST, None, (GObject.TYPE_PYOBJECT,))
-    }
-
-    def new_service(self, interface, protocol, name, type, domain, flags):
-        """
-            Called when a new share is found.
-        """
-        x = self.server.ResolveService(
-            interface, protocol, name, type, domain, avahi.PROTO_UNSPEC, dbus.UInt32(0)
-        )
-
-        x = AttrDict(parse(x))
-
-        logger.info(
-            "DAAP share found: '{0}' at ({1},{2}).".format(x.name, x.address, x.port)
-        )
-
-        # gstreamer can't handle link-local ipv6
-        if 'fe80' in x.address:
-            return
-
-        # Use all available info in key to avoid name conflicts.
-        nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
-
-        if nstr in self.services:
-            return
-
-        self.services[nstr] = x
-        self.rebuild_share_menu_items()
-
-    #        self.new_share_menu_item(x)
-
-    def remove_service(self, interface, protocol, name, type, domain, flags):
-        """
-            Called when the connection to a share is lost.
-        """
-        logger.info("DAAP share lost: %s." % name)
-        nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
-
-        if nstr in self.services:
-            del self.services[nstr]
-            self.rebuild_share_menu_items()
-
-    def new_share_menu_item(self, name, key):
-        '''
-            This function is called to add a server to the connect menu.
-        '''
-
-        # check if the menu exist and check if it's ipv4 or we are allowing
-        # ipv6
-        logger.debug('adding menu %s: %s', name, key)
-        if self.menu:
-            menu_item = _smi(
-                name, ['sep'], name, callback=lambda *_x: self.clicked(key)
-            )
-            self.menu.add_item(menu_item)
-
-    def clear_share_menu_items(self):
-        '''
-            This function is used to clear all the menu items out of a menu.
-        '''
-        if self.menu:
-            items_to_remove = [
-                item
-                for item in self.menu._items
-                if item.name not in ('manual', 'history', 'sep')
-            ]
-            for item in items_to_remove:
-                self.menu.remove_item(item)
-
-    def rebuild_share_menu_items(self):
-        '''
-            This function fills the menu with known servers.
-        '''
-        self.clear_share_menu_items()
-
-        show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
-        items = {}
-
-        for key, x in self.services.items():
-            name = '{0} ({1})'.format(x.name, x.host)
-            if x.protocol == avahi.PROTO_INET6:
-                if not show_ipv6:
-                    continue
-                name += ' - ipv6'
-
-            if name not in items:
-                items[name] = (key, x)
-
-        # this dedups based on name-host, replacing ipv4 with ipv6
-        #        for key,x in self.services.items():
-        #            name = '{0} ({1})'.format(x.name,x.host)
-        #            if x.protocol == avahi.PROTO_INET6 and show_ipv6:
-        #                if name in items:
-        #                    # prefer ipv6
-        #                    if items[name][1].protocol == avahi.PROTO_INET:
-        #                        items[name] = (key,x)
-        #            elif x.protocol == avahi.PROTO_INET:
-        #                if name not in items:
-        #                    items[name] = (key,x)
-
-        for name in items:
-            self.new_share_menu_item(name, key=items[name][0])
-
-    def clicked(self, key):
-        '''
-            This function is called in response to a menu_item click.
-            Fire away.
-        '''
-        x = self.services[key]
-        GObject.idle_add(self.emit, "connect", (x.name, x.address, x.port))
-
-    def __init__(self, _exaile, _menu):
-        """
-            Sets up the avahi listener.
-        """
-        GObject.GObject.__init__(self)
-        self.services = {}
-        self.menu = _menu
-        self.bus = dbus.SystemBus()
-        self.server = dbus.Interface(
-            self.bus.get_object(avahi.DBUS_NAME, avahi.DBUS_PATH_SERVER),
-            avahi.DBUS_INTERFACE_SERVER,
-        )
-        self.stype = '_daap._tcp'
-        self.domain = 'local'
-        self.browser = dbus.Interface(
-            self.bus.get_object(
-                avahi.DBUS_NAME,
-                self.server.ServiceBrowserNew(
-                    avahi.IF_UNSPEC,
-                    avahi.PROTO_UNSPEC,
-                    self.stype,
-                    self.domain,
-                    dbus.UInt32(0),
-                ),
-            ),
-            avahi.DBUS_INTERFACE_SERVICE_BROWSER,
-        )
-        self.browser.connect_to_signal('ItemNew', self.new_service)
-        self.browser.connect_to_signal('ItemRemove', self.remove_service)
 
 
 class DaapZeroconfInterface(GObject.GObject):
@@ -929,24 +743,14 @@ class DaapClientPlugin:
         providers.register('menubar-tools-menu', item)
 
         autodiscover = None
-        if AVAHI:
-            try:
-                autodiscover = DaapAvahiInterface(self.__exaile, menu_)
-            except RuntimeError:  # no dbus?
-                logger.warning(
-                    'avahi auto-discover interface could not be initialized (no dbus?)'
-                )
-            except dbus.exceptions.DBusException as s:
-                logger.error('Got DBUS error: %s' % s)
-                logger.error('is avahi-daemon running?')
-        elif ZEROCONF:
+        if ZEROCONF:
             try:
                 autodiscover = DaapZeroconfInterface(self.__exaile, menu_)
             except RuntimeError:
                 logger.warning('zeroconf interface could not be initialized')
         else:
             logger.warning(
-                'Neither avahi nor zeroconf is available; disabling DAAP share auto-discovery!'
+                'python-zeroconf is not available; disabling DAAP share auto-discovery!'
             )
 
         self.__manager = DaapManager(self.__exaile, menu_, autodiscover)

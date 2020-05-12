@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2019-01-13 03:07+0000\n"
-"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/"
-">\n"
+"PO-Revision-Date: 2020-05-12 22:41+0000\n"
+"Last-Translator: Robert de Wolff <robert.de.wolff@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/>"
+"\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -884,10 +884,9 @@ msgid "Cover for %s"
 msgstr "Albumhoes voor %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} pixels"
+msgstr "{width}x{height} pixels ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -2481,10 +2480,8 @@ msgstr ""
 "een vensterbeheerder zonder compositie-ondersteuning."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Alfa-transparantie gebruiken:"
+msgstr "Alfa transparantie gebruiken"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"

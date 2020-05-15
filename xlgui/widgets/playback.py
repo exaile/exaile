@@ -492,6 +492,17 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
         and setting positional markers
     """
 
+    CSS = Gtk.CssProvider()
+    CSS.load_from_data(
+        b'''
+        /* Make the text easier to read on Adwaita */
+        progressbar {
+            color: unset;
+            font-size: unset;
+        }
+        '''
+    )
+
     __gproperties__ = {
         'marker-scale': (
             GObject.TYPE_FLOAT,
@@ -545,6 +556,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
             self._marker_menu.connect('deactivate', self.on_marker_menu_deactivate)
 
             providers.ProviderHandler.__init__(self, 'playback-markers')
+
+        sc = self.__progressbar.get_style_context()
+        sc.add_provider(self.CSS, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.add_events(
             Gdk.EventMask.BUTTON_PRESS_MASK

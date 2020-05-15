@@ -36,47 +36,31 @@ from xlgui.widgets import menu
 
 # Custom tab style; fixes some Adwaita ugliness
 TAB_CSS = Gtk.CssProvider()
-if (Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION) >= (3, 20):
-    TAB_CSS.load_from_data(
-        b'''
-        /* Most themes don't handle vertical notebooks well,
-           so we override everything. */
-        notebook.vertical tab {
-          padding: 3px 4px 3px 4px;
-        }
-        notebook.vertical tab * {
-          margin: 0;
-          padding: 0;
-        }
-        notebook.vertical tab label {
-          margin: 0 0 3px 0;
-        }
-        /* Remove gap between tabs */
-        header.top tab, header.bottom tab {
-          margin-left: -1px;
-          margin-right: -1px;
-        }
-        header.left tab, header.right tab {
-          margin-top: -1px;
-          margin-bottom: -1px;
-        }
-        '''
-    )
-else:
-    TAB_CSS.load_from_data(
-        b'''
-        .notebook {
-          /* Remove gap before first tab */
-          -GtkNotebook-initial-gap: 0;
-          /* Remove gap between tabs */
-          -GtkNotebook-tab-overlap: 1;
-        }
-        .notebook tab {
-          /* Make tabs smaller (or bigger on some other themes, unfortunately) */
-          padding: 6px;
-        }
-        '''
-    )
+TAB_CSS.load_from_data(
+    b'''
+    /* Most themes don't handle vertical notebooks well,
+        so we override everything. */
+    notebook.vertical tab {
+        padding: 3px 4px 3px 4px;
+    }
+    notebook.vertical tab * {
+        margin: 0;
+        padding: 0;
+    }
+    notebook.vertical tab label {
+        margin: 0 0 3px 0;
+    }
+    /* Remove gap between tabs */
+    header.top tab, header.bottom tab {
+        margin-left: -1px;
+        margin-right: -1px;
+    }
+    header.left tab, header.right tab {
+        margin-top: -1px;
+        margin-bottom: -1px;
+    }
+    '''
+)
 
 
 def apply_css(widget):

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-04-04 23:30+0000\n"
+"PO-Revision-Date: 2020-05-20 00:41+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/exaile/master/fi/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -710,7 +710,7 @@ msgstr "Dynaamisesti Samankaltaiset _Artistit"
 
 #: xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Laajennus on jo ladattu tai sen nimi on ristiriitainen."
 
 #: xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -865,10 +865,9 @@ msgid "Cover for %s"
 msgstr "Kansi %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} pikseliä"
+msgstr "{width}x{height} pikseliä ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1218,7 +1217,7 @@ msgstr "Lähde: "
 
 #: xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Mikä tahansa lähde"
 
 #: xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -2327,10 +2326,8 @@ msgstr ""
 "window managerissa ilman visuaalisten tehosteiden tukea."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Käytä alpha läpinäkyvyyttä:"
+msgstr "Alpha-läpinäkyvyys"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2561,16 +2558,21 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Kun käytät valikossa soittolistan raitojen lisäämiseen tai korvaamiseen, "
+"aloita toisto, jos toistoa toistetaan parhaillaan. Tämä asetus oli "
+"oletustoiminto Exaile 0.3.3"
 
 #: data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Jonoraidat oletusarvoisesti niiden toistamisen sijaan"
 
 #: data/ui/preferences/playlists.ui:70
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Kun kaksoisnapsautat tai painat enter-painiketta toistaaksesi kappaleen "
+"soittolistassa, aseta raita jonoon toiston sijasta"
 
 #: data/ui/preferences/plugin.ui:64
 msgid "Plugin"
@@ -2744,10 +2746,8 @@ msgstr "Lisää"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Suurin voimakkuus:"
+msgstr "Enimmäismäärä kappaleita:"
 
 #: data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2755,7 +2755,7 @@ msgstr "Peruuta"
 
 #: data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Mykistä"
 
 #: data/ui/widgets/volume_control.ui:51 plugins/minimode/controls.py:447
 msgid "Volume"
@@ -2829,7 +2829,7 @@ msgstr "Tunnista BPM automaattisesti"
 #: plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Aseta %d BPM %s?"
 
 #: plugins/bpm/__init__.py:183 plugins/bpm/bpm.ui:58 plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
@@ -2939,15 +2939,15 @@ msgstr "Tuo tunnisteet hakemistosta"
 
 #: plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
-msgstr ""
+msgstr "_Tunnisteiden massa uudelleen nimeäminen/poistaminen"
 
 #: plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "Vi_e tagit JSON:lle"
 
 #: plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
-msgstr ""
+msgstr "_Ryhmämerkki"
 
 #: plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
@@ -2969,7 +2969,7 @@ msgstr "Poista tunnisteet kaikista"
 #: plugins/grouptagger/gt_widgets.py:691
 #: plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr ""
+msgstr "Ryhmämerkki"
 
 #: plugins/grouptagger/__init__.py:325 plugins/grouptagger/__init__.py:340
 msgid "No categorization tags found in selected tracks"

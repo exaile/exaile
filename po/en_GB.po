@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-12 01:44+1000\n"
-"PO-Revision-Date: 2020-04-27 12:11+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-05-20 00:41+0000\n"
+"Last-Translator: Dwayne Bailey <dwayne@translate.org.za>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "exaile/master/en_GB/>\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-10-13 06:10+0000\n"
 
 #: xl/covers.py:523 data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Local"
 
 #: xl/main.py:82
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Usage: exaile [OPTION]... [URI]"
+msgstr "Usage: exaile [OPTION...] [LOCATION...]"
 
 #: xl/main.py:84
 msgid ""
@@ -882,10 +880,9 @@ msgid "Cover for %s"
 msgstr "Cover for %s"
 
 #: xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} pixels"
+msgstr "{width}x{height} pixels ({zoom}%)"
 
 #: xlgui/cover.py:931
 msgid "Save File"
@@ -1937,16 +1934,12 @@ msgid "Remove _Current Track From Playlist"
 msgstr "Remove Current Track From Playlist"
 
 #: xlgui/widgets/playlist.py:179
-#, fuzzy
-#| msgid "Randomize Playlist"
 msgid "R_andomize Playlist"
-msgstr "Randomise Playlist"
+msgstr "R_andomise Playlist"
 
 #: xlgui/widgets/playlist.py:182
-#, fuzzy
-#| msgid "Randomize Selection"
 msgid "R_andomize Selection"
-msgstr "Randomise Selection"
+msgstr "R_andomise Selection"
 
 #: xlgui/widgets/playlist.py:224
 #, fuzzy
@@ -2278,7 +2271,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Original date"
 msgid "_Original Size"
-msgstr "Original date"
+msgstr "_Original Size"
 
 #: data/ui/coverwindow.ui:82
 msgid "_Best Fit"
@@ -2482,10 +2475,8 @@ msgstr ""
 "without compositing support."
 
 #: data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Use alpha transparency:"
+msgstr "Alpha transparency"
 
 #: data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -3112,10 +3103,8 @@ msgid "Developer Tools"
 msgstr "Development"
 
 #: plugins/equalizer/__init__.py:362
-#, fuzzy
-#| msgid "Equalizer"
 msgid "_Equalizer"
-msgstr "Equaliser"
+msgstr "_Equaliser"
 
 #: plugins/grouptagger/__init__.py:96
 #, fuzzy
@@ -5059,7 +5048,7 @@ msgid ""
 "Optimized for Chrome."
 msgstr ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
-"Optimized for Chrome."
+"Optimised for Chrome."
 
 #: plugins/playlistanalyzer/PLUGININFO:5 plugins/wikipedia/PLUGININFO:5
 msgid "Information"

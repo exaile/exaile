@@ -220,14 +220,14 @@ po/messages.pot: pot
 # The "export LC_ALL=C" disables any locale-dependent sort behavior.
 pot:
 	( ( set -o pipefail 2> /dev/null ) && set -o pipefail ; \
-	  export LC_ALL=C && \
-	  { find xl xlgui -name "*.py" | sort && \
-	    find data/ui -name "*.ui" | sort && \
-	    find plugins -name "*.py" | sort && \
-	    find plugins -name "*.ui" | sort ; } \
-	  | xgettext --files-from=- --output=po/messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
-	  find plugins -name PLUGININFO | sort \
-	  | xgettext --files-from=- --output=po/messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
+	  export LC_ALL=C && cd po && \
+	  { find ../xl ../xlgui -name "*.py" | sort && \
+	    find ../data/ui -name "*.ui" | sort && \
+	    find ../plugins -name "*.py" | sort && \
+	    find ../plugins -name "*.ui" | sort ; } \
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --keyword=N_ && \
+	  find ../plugins -name PLUGININFO | sort \
+	  | xgettext --files-from=- --output=messages.pot --from-code=UTF-8 --add-comments=TRANSLATORS --join-existing --language=Python )
 	find po -name '*.po' -exec \
 	  msgmerge --previous --update {} po/messages.pot \;
 

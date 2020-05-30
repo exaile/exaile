@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-04-18 09:11+0000\n"
-"Last-Translator: AefghThreenine <aefgh39622@gmail.com>\n"
+"PO-Revision-Date: 2020-05-30 17:41+0000\n"
+"Last-Translator: Pratchaya Chatuphian <pratchaya.note@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/exaile/master/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -4706,8 +4706,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
+#, fuzzy
 msgid "Playlist Analyzer"
-msgstr ""
+msgstr "ตัววิเคราะห์เพลย์ลิสต์"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4717,7 +4718,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "ข้อมูล"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -4727,7 +4728,7 @@ msgstr ""
 msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
-msgstr ""
+msgstr "อนุญาต ทดสอบ"
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"

@@ -47,7 +47,7 @@ def _get_locale_path() -> Optional[str]:
     exaile_path = os.environ['EXAILE_DIR']
 
     # Check if running from source dir
-    locale_path = os.path.join(exaile_path, 'po')
+    locale_path = os.path.join(exaile_path, 'build', 'locale')
     if os.path.exists(locale_path):  # Equivalent to xl.xdg.local_hack
         return locale_path
 

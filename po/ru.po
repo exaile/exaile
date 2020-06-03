@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-05-09 22:12+0000\n"
-"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
+"PO-Revision-Date: 2020-06-04 08:41+0000\n"
+"Last-Translator: Konstantin <konstantin.pastbin@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
 "Language: ru\n"
@@ -365,10 +365,8 @@ msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Включить отладку xl.event. Создает огромное количество вывода"
 
 #: ../xl/main.py:397
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Включить отладку xl.event. Создает ОГРОМНОЕ количество вывода"
+msgstr "Включить полную отладку xl.event. Создает ОГРОМНОЕ количество вывода"
 
 #: ../xl/main.py:404
 msgid "Add thread name to logging messages."
@@ -629,17 +627,17 @@ msgstr "Не указан пользовательский конвейер!"
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Ошибка при создании пользовательского audiosink '%s'"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
 msgid "Invalid sink type '%s' specified"
-msgstr ""
+msgstr "Указан неверный тип приемника '%s'"
 
 #: ../xl/player/gst/sink.py:206
 #, python-format
 msgid "Could not create sink type '%s'"
-msgstr ""
+msgstr "Не удалось создать тип приемника '%s'"
 
 #: ../xl/playlist.py:154 ../xl/playlist.py:176
 msgid "Invalid playlist type."
@@ -690,10 +688,8 @@ msgid "Shuffle _Albums"
 msgstr "Перемешивать _альбомы"
 
 #: ../xl/playlist.py:914
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "%d случайных"
+msgstr "_Случайный"
 
 #: ../xl/playlist.py:919
 msgid "Repeat _Off"
@@ -717,7 +713,7 @@ msgstr "Динамический плейлист с похожими испол
 
 #: ../xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Плагин уже загружен или имеет конфликтующее имя."
 
 #: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -960,8 +956,9 @@ msgid "Switch to next tab"
 msgstr "На следующую вкладку"
 
 #: ../xlgui/main.py:206
+#, fuzzy
 msgid "Focus the playlist container"
-msgstr ""
+msgstr "Переход к контейнеру списка воспроизведения"
 
 #: ../xlgui/main.py:213
 msgid "Focus the files panel"
@@ -1148,20 +1145,16 @@ msgid "_About"
 msgstr "_О программе"
 
 #: ../xlgui/panel/collection.py:127
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Исполнитель"
+msgstr "Исполнитель альбома"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
 msgstr "Жанр - Исполнитель"
 
 #: ../xlgui/panel/collection.py:136
-#, fuzzy
-#| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
-msgstr "Жанр - Исполнитель"
+msgstr "Жанр - Исполнитель альбома"
 
 #: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
@@ -1172,10 +1165,8 @@ msgid "Date - Artist"
 msgstr "Дата - Исполнитель"
 
 #: ../xlgui/panel/collection.py:145
-#, fuzzy
-#| msgid "Date - Artist"
 msgid "Date - Album Artist"
-msgstr "Дата - Исполнитель"
+msgstr "Дата - Исполнитель альбома"
 
 #: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
@@ -1186,10 +1177,8 @@ msgid "Artist - (Date - Album)"
 msgstr "Исполнитель - (Дата - Альбом)"
 
 #: ../xlgui/panel/collection.py:155
-#, fuzzy
-#| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Исполнитель - (Дата - Альбом)"
+msgstr "Исполнитель альбома - (Дата - Альбом)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1239,7 +1228,7 @@ msgstr "Источник: "
 
 #: ../xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Любой источник"
 
 #: ../xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
@@ -1402,7 +1391,7 @@ msgstr "Значки уведомлений недоступны на вашей
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:36
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:60
 msgid "Reset to _Defaults"
@@ -2104,7 +2093,7 @@ msgstr "Об Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
-msgstr ""
+msgstr "© 2009-2019 разные участники"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
@@ -2356,10 +2345,8 @@ msgstr ""
 "менеджером окон, который не поддерживает совмещение."
 
 #: ../data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Использовать прозрачность:"
+msgstr "Прозрачность"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2380,7 +2367,7 @@ msgstr "Переходить к текущей дорожке в списке п
 
 #: ../data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
-msgstr "Показывать сплеш-заставку при загрузке"
+msgstr "Показывать заставку при запуске"
 
 #: ../data/ui/preferences/appearance.ui:328
 msgid ""
@@ -2389,6 +2376,10 @@ msgid ""
 "\"https://extensions.gnome.org/extension/495/topicons/\">\"TopIcons\" "
 "extension</a> (or a similar one) installed."
 msgstr ""
+"Иконки в трее не поддерживаются некоторыми платформами, в частности Wayland. "
+"В GNOME Shell 3.26+ на Xorg иконки в трее работают только если установлено "
+"<a href=\"https://extensions.gnome.org/extension/495/topicons/\">расширение "
+"\"TopIcons\"</a> или ему подобное."
 
 #: ../data/ui/preferences/appearance.ui:341
 msgid "Note:"
@@ -2532,10 +2523,8 @@ msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Использовать микширование (ЭКСПЕРИМЕНТАЛЬНО)"
 
 #: ../data/ui/preferences/playback.ui:316
-#, fuzzy
-#| msgid "Automatically advance to the next track"
 msgid "Forces automatically advancing to the next track"
-msgstr "Автоматически переходить на следующий трек"
+msgstr "Принудительный автоматический переход на следующий трек"
 
 #: ../data/ui/preferences/playback.ui:346
 msgid "Fade duration (ms):"
@@ -2552,15 +2541,15 @@ msgid "Playback engine: "
 msgstr "Устройство воспроизведения: "
 
 #: ../data/ui/preferences/playback.ui:409
-#, fuzzy
-#| msgid "Repeat playback"
 msgid "Enable gapless playback"
-msgstr "Повторить воспроизведение"
+msgstr "Включить воспроизведение без пауз"
 
 #: ../data/ui/preferences/playback.ui:413
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
+"Воспроизведение без пауз означает проигрывание дорожек без вставки пауз "
+"между ними."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2584,10 +2573,8 @@ msgstr ""
 "содержание текущего списка воспроизведения."
 
 #: ../data/ui/preferences/playlists.ui:52
-#, fuzzy
-#| msgid "Appending/Replacing via menu item triggers playback"
 msgid "Appending/replacing via menu item triggers playback"
-msgstr "Добавление/Замена через пункт меню \"запускает воспроизведение\""
+msgstr "Добавление/замена через пункт меню запускает воспроизведение"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2784,18 +2771,17 @@ msgstr "Добавить"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Максимальная громкость:"
+msgstr "Максимальное число дорожек:"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
 msgstr "Отмена"
 
 #: ../data/ui/widgets/volume_control.ui:20
+#, fuzzy
 msgid "Toggle mute"
-msgstr ""
+msgstr "Включить/выключить звук"
 
 #: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
 msgid "Volume"
@@ -2976,60 +2962,48 @@ msgid "_Equalizer"
 msgstr "_Эквалайзер"
 
 #: ../plugins/grouptagger/__init__.py:96
-#, fuzzy
-#| msgid "Get all tags from collection"
 msgid "_Get all tags from collection"
-msgstr "Получить все метки из коллекции"
+msgstr "_Получить все теги из коллекции"
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Импортировать теги из"
+msgstr "_Импортировать теги из директории"
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
-#| msgid "Mass rename/delete tags"
 msgid "_Mass rename/delete tags"
-msgstr "Групповое переименование/удаление тегов"
+msgstr "_Групповое переименование/удаление тегов"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
 msgstr "_Экспорт меток коллекции в JSON"
 
 #: ../plugins/grouptagger/__init__.py:130
-#, fuzzy
-#| msgid "GroupTagger"
 msgid "_GroupTagger"
-msgstr "Теги групп"
+msgstr "_Массовый установщик тегов"
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
-msgstr "Показать дорожки со всеми метками"
+msgstr "Показать дорожки со всеми тегами"
 
 #: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
-msgstr "Показать композиции с метками (настроено пользователем)"
+msgstr "Показать дорожки с тегами (выборочно)"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
-#, fuzzy
-#| msgid "Yes to all"
 msgid "Add tags to all"
-msgstr "Да для всех"
+msgstr "Добавить теги всем"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "_Удалить метку"
+msgstr "Удалить теги у всех"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr "Теги групп"
+msgstr "Массовый установщик тегов"
 
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340
@@ -3038,7 +3012,7 @@ msgstr "Теги для сортировки не найдены в выбран
 
 #: ../plugins/grouptagger/gt_export.py:54
 msgid "Export tags to JSON"
-msgstr "Экспорт меток в JSON"
+msgstr "Экспорт тегов в JSON"
 
 #: ../plugins/grouptagger/gt_import.py:58
 msgid "Importing tracks"
@@ -3067,10 +3041,9 @@ msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr "Заменить '%s' на '%s' в %s дорожках?"
 
 #: ../plugins/grouptagger/gt_mass.py:136
-#, fuzzy, python-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-format
 msgid "Delete '%s' from %s tracks?"
-msgstr "Заменить '%s' на '%s' в %s дорожках?"
+msgstr "Удалить '%s' в %s дорожках?"
 
 #: ../plugins/grouptagger/gt_mass.py:160
 msgid ""
@@ -3094,22 +3067,16 @@ msgid "Show tracks with all selected"
 msgstr "Показать дорожки со всеми выбранными"
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Метки"
+msgstr "Тег"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "Add new group"
 msgid "Add new tag"
-msgstr "Добавить новую группу"
+msgstr "Добавить новый тег"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Удалить"
+msgstr "Удалить тег"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
@@ -3136,10 +3103,8 @@ msgid "New Category?"
 msgstr "Новая категория?"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
-#, fuzzy
-#| msgid "Enter new group category name"
 msgid "Enter new category name"
-msgstr "Введите новое имя групповой категории"
+msgstr "Введите новое имя категории"
 
 #: ../plugins/grouptagger/gt_widgets.py:559
 msgid "Add Tag"
@@ -3449,7 +3414,7 @@ msgstr "$title - $artist"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128
 msgid "$title ($__length)"
-msgstr "$заголовок ($__длина)"
+msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
 #: ../plugins/moodbar/__init__.py:99
@@ -3461,7 +3426,7 @@ msgstr "{minutes}:{seconds:02}"
 #: ../plugins/moodbar/__init__.py:204
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current} / {remaining}"
 
 #: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
@@ -3497,7 +3462,7 @@ msgstr "Не воспроизводится ни одной дорожки"
 
 #: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
-msgstr ""
+msgstr "Переместить или изменить размер всплывающих уведомлений"
 
 #: ../plugins/osd/osd_preferences.py:24 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
@@ -3524,7 +3489,7 @@ msgstr "Анализировать список воспроизведения"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 msgid "Modulus this number"
-msgstr "Модулировать этот номер"
+msgstr "Абсолютное значение числа"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
@@ -3573,8 +3538,9 @@ msgid "Loading Podcasts..."
 msgstr "Загрузка Подкастов...."
 
 #: ../plugins/podcasts/__init__.py:205
+#, fuzzy
 msgid "No configuration present yet"
-msgstr ""
+msgstr "Конфигурация ещё не задана"
 
 #: ../plugins/podcasts/__init__.py:238
 msgid "Could not save podcast file"
@@ -3732,14 +3698,6 @@ msgid "Secret:"
 msgstr "Пароль:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui:62
-#, fuzzy
-#| msgid ""
-#| "<i>To sign up for an Amazon AWS account and get this information\n"
-#| "visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-#| "\n"
-#| "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/"
-#| "flex/advertising/api/sign-in.html\">activate the Product Advertising API</"
-#| "a></i>."
 msgid ""
 "<i>To sign up for an Amazon AWS account and get this information\n"
 "visit <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
@@ -3747,12 +3705,12 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Чтобы войти в учетную запись Amazon AWS и получить эту информацию, \n"
-"посетите <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
+"<i>Чтобы завести учетную запись Amazon AWS и получить эту информацию, \n"
+"посетите <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
 "\n"
-"Вам может понадобиться <a href=\"https://affiliate-program.amazon.com/gp/"
-"flex/advertising/api/sign-in.html\">активировать Product Advertising API</"
-"a></i>."
+"Вам может также понадобиться <a href=\"https://affiliate-program.amazon.com/"
+"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising "
+"API</a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -3775,10 +3733,8 @@ msgid "Password:"
 msgstr "Пароль:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:143
-#, fuzzy
-#| msgid "Verify Login Data"
 msgid "_Verify Login Data"
-msgstr "Проверить реквизиты входа"
+msgstr "_Проверить реквизиты входа"
 
 #: ../plugins/bpm/bpm.ui:41
 msgid "Apply BPM"
@@ -3791,7 +3747,7 @@ msgstr "Задать BPM?"
 #: ../plugins/bpm/msg.ui:63
 #, python-format
 msgid "Set autodetected BPM on %s?"
-msgstr ""
+msgstr "Задать автоопределённый BPM на %s?"
 
 #: ../plugins/bpm/msg.ui:78 ../plugins/bpm/msg.ui:94 ../plugins/bpm/msg.ui:110
 msgid "0"
@@ -3850,10 +3806,8 @@ msgid "Simple Console"
 msgstr "Простая консоль"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "Показать серверы ipv6 (Экспериментальная)"
+msgstr "Показать серверы IPv6"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
@@ -4146,10 +4100,8 @@ msgid "Advanced"
 msgstr "Дополнительно"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
-#, fuzzy
-#| msgid "Request Access Permission"
 msgid "_Request Access Permission"
-msgstr "Запрос доступа"
+msgstr "_Запрос доступа"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95
@@ -4215,14 +4167,12 @@ msgid "Options"
 msgstr "Настройки"
 
 #: ../plugins/moodbar/prefs.ui:11
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Waveform view (experimental)"
-msgstr "Показать серверы ipv6 (Экспериментальная)"
+msgstr "Отображение звуковой волны (экспериментально)"
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Цветовой оттенок (экспериментально)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4266,10 +4216,8 @@ msgid "Fade Increment:"
 msgstr "Инкремент нарастания:"
 
 #: ../plugins/multialarmclock/malrmclk.ui:297
-#, fuzzy
-#| msgid "Fade Time (s):"
 msgid "Fade Time:"
-msgstr "Время нарастания (с):"
+msgstr "Время нарастания:"
 
 #: ../plugins/notify/notifyprefs_pane.ui:12
 msgid "Resize displayed covers"
@@ -4279,7 +4227,7 @@ msgstr "Изменить размер отображаемых обложек"
 #, fuzzy
 #| msgid "Display covers"
 msgid "Display"
-msgstr "Показывать обложки"
+msgstr "Показывать"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
 msgid "Icons"
@@ -4290,14 +4238,13 @@ msgid "Use album covers as icons"
 msgstr "Использовать обложки как иконки"
 
 #: ../plugins/notify/notifyprefs_pane.ui:89
+#, fuzzy
 msgid "Use media icons for pause, stop and resume"
-msgstr "Использовать медиа значки для паузы, остановки и возобновления"
+msgstr "Использовать медиа иконки для паузы, остановки и возобновления"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
-#, fuzzy
-#| msgid "On playback start, pause or stop"
 msgid "On playback pause, resume and stop"
-msgstr "Во время запуска, паузы или остановки воспроизведения"
+msgstr "Во время паузы, возобновления и остановки воспроизведения"
 
 #: ../plugins/notify/notifyprefs_pane.ui:119
 msgid "On tray icon hover"
@@ -4308,22 +4255,16 @@ msgid "When main window is focused"
 msgstr "Когда главное окно в фокусе"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores.\n"
-#| "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-#| "\">Pango Text Attribute Markup</a> is supported."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
 "<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
-"Любая метка может быть использована с <b>$tag</b> или <b>${tag}</b>. "
-"Встроенные метки, такие как <b>$__length</b>, должны быть заданы двумя "
-"подчеркиваниями.\n"
-"Поддерживается <a href=\"http://developer.gnome.org/pango/stable/"
+"Любой тег может быть использован с <b>$tag</b> или <b>${tag}</b>. Встроенные "
+"теги, такие как <b>$__length</b>, должны начинаться двумя подчеркиваниями.\n"
+"Поддерживается <a href=\"https://developer.gnome.org/pango/stable/"
 "PangoMarkupFormat.html\">Pango Text Attribute Markup</a>."
 
 #: ../plugins/osd/osd_preferences.ui:87
@@ -4350,6 +4291,8 @@ msgstr "Показывать панель хода выполнения"
 msgid ""
 "As long as this preferences page is open, you can move and resize the OSD."
 msgstr ""
+"Вы можете перемещать и менять размер всплывающих уведомлений пока открыта "
+"эта страница настроек."
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
@@ -4388,16 +4331,12 @@ msgid "_Add Podcast"
 msgstr "_Добавить подкаст"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
 msgstr "Продолжительность затухания:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Crossfade duration (ms):"
 msgid "Crossfade duration:"
-msgstr "Время плавного микширования (мс):"
+msgstr "Продолжительность микширования:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
@@ -4428,10 +4367,8 @@ msgstr "Дополнительное усиление:"
 
 #. This is the fallback correction for files that don't contain ReplayGain information.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:90
-#, fuzzy
-#| msgid "Fallback correction level (dB):"
 msgid "Fallback correction level:"
-msgstr "Уровень восстанавливающей корректировки (дБ):"
+msgstr "Уровень корректировки по умолчанию:"
 
 #: ../plugins/screensaverpause/prefs.ui:12
 msgid "Unpause when screensaver ends"
@@ -4543,28 +4480,25 @@ msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
+"Предоставляет ручной счётчик BPM и автоопределение BPM, когда установлен "
+"плагин bpmdetect из gst-plugins-bad"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "Воспроизведение CD"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
 "Requires UDisks2 to autodetect CDs\n"
 "Requires cddb-py (%s) to look up tags."
 msgstr ""
-"Добавляет поддержку аудио компакт-дисков.\n"
+"Добавляет поддержку проигрывания аудио CD.\n"
 "\n"
-"Требует HAL, UDisks или UDisks2 для автоопределения диска\n"
-"Требует cddb-py (%s) для поиска метаданных."
+"Требует UDisks2 для автоопределения дисков\n"
+"Требует cddb-py (%s) для поиска тегов."
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
@@ -4602,6 +4536,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Даёт доступ к общим музыкальным DAAP-ресурсам посредством библиотеки "
+"spydaap. Авто-обнаружение общих ресурсов дополнительно доступно через python-"
+"zeroconf.\n"
+"Требуется: spydaap\n"
+"Опционально: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4642,17 +4581,20 @@ msgstr "10-ти полосный эквалайзер"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
-msgstr "Групповая маркировка"
+msgstr "Массовый установщик тегов"
 
 #: ../plugins/grouptagger/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Упрощает категоризацию вашей музыки с помощью управления тегами группировки/"
+"категорий в музыкальных файлах"
 
 #: ../plugins/grouptagger/PLUGININFO:5 ../plugins/lastfmlove/PLUGININFO:5
 msgid "Tagging"
-msgstr "Маркировка"
+msgstr "Установка тегов"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -4669,7 +4611,7 @@ msgstr "Отключить засыпание"
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
-"Предотвращает сеанс пользователя от перехода в режим ожидания во время "
+"Не даёт сеансу пользователя перейти в режим засыпания во время "
 "воспроизведения музыки"
 
 #: ../plugins/ipconsole/PLUGININFO:4
@@ -4704,6 +4646,9 @@ msgid ""
 "\n"
 "Requires: libkeybinder3 and its typelib file"
 msgstr ""
+"Добавляет поддержку мультимедийных клавиш с помощью libkeybinder3.\n"
+"\n"
+"Требуется: libkeybinder3 и его typelib файл"
 
 #: ../plugins/keybinder/PLUGININFO:5 ../plugins/mpris2/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
@@ -4765,16 +4710,12 @@ msgid "Lyrics Wiki"
 msgstr "Wiki Тексты Песен"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
-"Надстройка для загрузки текста песен с lyrics.wikia.com\n"
-"Требуется: BeautifulSoup4"
+"Плагин для загрузки текстов песен с lyrics.wikia.com\n"
+"Требуется: BeautifulSoup4, lxml"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4808,11 +4749,15 @@ msgid "Downmixes audio to one channel."
 msgstr "Смешивает каналы в один."
 
 #: ../plugins/moodbar/PLUGININFO:4
+#, fuzzy
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"
 "Requires: moodbar"
 msgstr ""
+"Визуальное представление течения музыки.\n"
+"\n"
+"Требуется: moodbar"
 
 #: ../plugins/mpris2/PLUGININFO:3
 msgid "MPRIS 2"
@@ -4861,14 +4806,18 @@ msgid ""
 "Pops up a notification when playback of a track starts or (optionally) if it "
 "is paused/resumed/stopped. Requires libnotify and its typelib file"
 msgstr ""
+"Выводит уведомление, когда начинается воспроизведение дорожки или "
+"(опционально) если воспроизведение продолжено/остановлено/поставлено на "
+"паузу. Требует libnotify и её typelib файл"
 
 #: ../plugins/osd/PLUGININFO:4
-#, fuzzy
-#| msgid "A popup window showing information of the currently playing track."
 msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
-msgstr "Показать всплывающее окно с данными о текущей дорожке."
+msgstr ""
+"Всплывающее окно, показывающее информацию о воспроизводимой в настоящий "
+"момент дорожке.\n"
+"Этот плагин недоступен в Wayland."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4879,6 +4828,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Инструмент для генерации HTML5 визуализаций ваших списков воспроизведения с "
+"помощью d3.js. Оптимизировано для Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
@@ -4906,23 +4857,17 @@ msgid "Enables ReplayGain support"
 msgstr "Включает поддержку ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
 "Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
-"Приостановка (или продолжение) воспроизведения при работе экранной "
-"заставки.\n"
+"Приостановка (или опционально продолжение) воспроизведения в зависимости от "
+"состояния экранной заставки.\n"
 "\n"
-"Требуется: Заставка GNOME, MATE, Cinnamon или KDE (XScreenSaver и XLockMore "
-"не поддерживаются)"
+"Требуется: экранная заставка GNOME, MATE, Cinnamon, XFCE или KDE ("
+"XScreenSaver и XLockMore не поддерживаются)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4946,16 +4891,12 @@ msgstr ""
 "Необходимы библиотеки: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides Wikipedia information about the current artist.\n"
-#| "Depends: python-webkit"
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Requires: webkit2gtk and its typelib file"
 msgstr ""
-"Предоставляет сведения о текущем исполнителе взятые из Wikipedia.\n"
-"Зависимость: python-webkit"
+"Предоставляет сведения о текущем исполнителе, взятые из Wikipedia.\n"
+"Требуется: webkit2gtk и его typelib файл"
 
 #: ../plugins/winmmkeys/PLUGININFO:2
 msgid "Multimedia keys for Windows"

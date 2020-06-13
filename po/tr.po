@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-04-08 01:09+0000\n"
-"Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
+"PO-Revision-Date: 2020-06-13 19:41+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
 ">\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Yerel"
 
 #: ../xl/main.py:82
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Kullanım: exaile [SEÇENEK]... [URI]"
+msgstr "Kullanım: exaile [SEÇENEK...] [KONUM...]"
 
 #: ../xl/main.py:84
 msgid ""
@@ -261,20 +259,14 @@ msgid "Volume Options"
 msgstr "Ses Ayarları"
 
 #: ../xl/main.py:261
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Sesi N% kadar artırır"
+msgstr "Sesi %N artır"
 
 #: ../xl/main.py:270
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Sesi N% azaltır"
+msgstr "Sesi %N azalt"
 
 #: ../xl/main.py:278
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Sesi kapat veya aç"
 
@@ -2463,7 +2455,7 @@ msgstr "Derlemede bulunan parça sayısını göster"
 #: ../data/ui/preferences/appearance.ui:208
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
-msgstr "Alpha şeffaflığını kullan:"
+msgstr "Alfa şeffaflığını kullan:"
 
 #: ../data/ui/preferences/appearance.ui:212
 msgid ""
@@ -2474,10 +2466,8 @@ msgstr ""
 "kullanılırsa görüntüleme hatalarına neden olabilir."
 
 #: ../data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Alpha şeffaflığını kullan:"
+msgstr "Alfa şeffaflığı"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -4857,22 +4847,24 @@ msgid "Browse and listen to audiobooks from Librivox.org."
 msgstr "Librivox.org adresinden sesli kitapları listele ve dinle."
 
 #: ../plugins/lyricsmania/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from lyricsmania.com\n"
 "Requires: lxml"
-msgstr "Lyricsfly.com dan şarkı sözü getiren bir eklenti"
+msgstr ""
+"lyricsmania.com adresinden şarkı sözleri almak için eklenti\n"
+"Gereklilikler: lxml"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
 msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
-msgstr "Lyricsfly.com dan şarkı sözü getiren bir eklenti"
+msgstr ""
+"lyrics.wikia.com adresinden şarkı sözleri almak için eklenti\n"
+"Gereklilikler: BeautifulSoup4, lxml"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"

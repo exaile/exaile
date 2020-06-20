@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-06-10 12:41+0000\n"
+"PO-Revision-Date: 2020-06-20 18:41+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -430,7 +430,7 @@ msgstr "Artist"
 #, fuzzy
 #| msgid "by {artist}"
 msgid "Album artist"
-msgstr "av {artist}"
+msgstr "Album-artist"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -869,10 +869,9 @@ msgid "Cover for %s"
 msgstr "Omslag for %s"
 
 #: ../xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} piksler"
+msgstr "{width}x{height} piksler ({zoom}%)"
 
 #: ../xlgui/cover.py:931
 msgid "Save File"
@@ -1152,7 +1151,7 @@ msgstr "_Om"
 #, fuzzy
 #| msgid "Artist"
 msgid "Album Artist"
-msgstr "Artist"
+msgstr "Album-Artist"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
@@ -1190,7 +1189,7 @@ msgstr "Artist - (Dato - Album)"
 #, fuzzy
 #| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
-msgstr "Artist - (Dato - Album)"
+msgstr "Album-Artist - (Dato - Album)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -2102,9 +2101,8 @@ msgid "About Exaile"
 msgstr "Om Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-#, fuzzy
 msgid "© 2009-2019 Various Contributors"
-msgstr "© 2009-2018 Forskjellige bidragsytere"
+msgstr "© 2009-2020 Forskjellige bidragsytere"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
@@ -2358,10 +2356,8 @@ msgstr ""
 "uten komposisjonsstøtte."
 
 #: ../data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Bruk alfagjennomsiktighet:"
+msgstr "Alfagjennomsiktighet:"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2789,10 +2785,8 @@ msgstr "Legg til"
 
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
-#, fuzzy
-#| msgid "Maximum volume:"
 msgid "Maximum number of tracks:"
-msgstr "Høyeste lydstyrke:"
+msgstr "Maksimalt antall spor:"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -4356,10 +4350,8 @@ msgid "_Add Podcast"
 msgstr "_Legg til nettradioopptak"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
-msgstr "Overgangsvarighet:"
+msgstr "Uttoningsvarighet:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
 #, fuzzy
@@ -4509,28 +4501,19 @@ msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr "Tillater lagring/gjenopptakelse av bokmerkede posisjoner i lydfiler."
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Provides a manual BPM counter, and BPM autodetection when gst-plugins-bad "
-#| "and the bpmdetect plugin are installed"
 msgid ""
 "Provides a manual BPM counter, and BPM autodetection when the bpmdetect "
 "plugin from gst-plugins-bad is installed"
 msgstr ""
-"Tilbyr manuell tempomåler, og automatisk tempooppdaging, når gst-plugins-bad "
-"og bpmdetect -programtilleggene er installert"
+"Tilbyr manuell tempomåler, og automatisk tempooppdaging, når bpmdetect-"
+"programtillegget fra  gst-plugins-bad er installert"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
 msgstr "CD-Avspilling"
 
 #: ../plugins/cd/PLUGININFO:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Adds support for playing audio CDs.\n"
-#| "\n"
-#| "Requires HAL, UDisks or UDisks2 to autodetect CDs\n"
-#| "Requires cddb-py (%s) to look up tags."
+#, python-format
 msgid ""
 "Adds support for playing audio CDs.\n"
 "\n"
@@ -4538,6 +4521,9 @@ msgid ""
 "Requires cddb-py (%s) to look up tags."
 msgstr ""
 "Legger til støtte for avspilling av lyd-CD-er.\n"
+"\n"
+"Krever UDisks2 for å oppdage CD-er automatisk\n"
+"Krever cddb-py (%s) for å se etter etiketter.\n"
 "\n"
 "Krever HAL, UDisks eller UDisks2 for automatisk oppdagelse av CD-er\n"
 "Krever cddb-py (%s) for oppslag av etiketter."
@@ -4750,16 +4736,12 @@ msgid "Lyrics Wiki"
 msgstr "Sangtekst-wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Plugin to fetch lyrics from lyrics.wikia.com\n"
-#| "Requires: BeautifulSoup4"
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
 "Programtillegg for å hente sangtekster fra lyrics.wikia.com\n"
-"Krever: BeautifulSoup4"
+"Krever: BeautifulSoup4, lxml"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4900,12 +4882,6 @@ msgid "Enables ReplayGain support"
 msgstr "Skrur på ReplayGain-støtte"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
-#, fuzzy
-#| msgid ""
-#| "Pauses (and optionally resumes) playback based on screensaver status.\n"
-#| "\n"
-#| "Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
-#| "XScreenSaver nor XLockMore)"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
@@ -4915,8 +4891,8 @@ msgstr ""
 "Utsetter (og alternativt fortsetter) avspilling, basert på "
 "skjermsparerstatus.\n"
 "\n"
-"Krever: GNOME, MATE, Cinnamon, eller KDE-skjermsparer (støtter ikke "
-"XScreenSaver, og heller ikke XLockMore)"
+"Krever: GNOME-, MATE, Cinnamon-, XFCE-, eller KDE-skjermsparer (støtter ikke "
+"XScreenSaver eller XLockMore)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

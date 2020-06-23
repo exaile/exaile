@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-04-16 09:11+0000\n"
-"Last-Translator: Martin Beer <der_baer@yadim.dismail.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"PO-Revision-Date: 2020-06-24 01:41+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2339,7 +2339,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:228
 msgid "Alpha transparency"
-msgstr "Transparenz nutzen:"
+msgstr "Alphatransparenz"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -3803,10 +3803,8 @@ msgid "Simple Console"
 msgstr "Einfache Konsole"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "IPv6-Server anzeigen (experimentell)"
+msgstr "IPv6-Server anzeigen"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
@@ -4542,6 +4540,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Ermöglicht den Zugriff auf DAAP-Musikfreigaben über die spydaap-Bibliothek. "
+"Die automatische Erkennung von Freigaben ist optional über python-zeroconf "
+"verfügbar.\n"
+"Benötigt: spydaap\n"
+"Optional: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5

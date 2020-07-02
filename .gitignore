@@ -5,7 +5,6 @@
 
 /tests/.cache
 
-/po/*/
 /po/POTFILES.in
 
 random/

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-06-02 04:41+0000\n"
-"Last-Translator: Alexandre Hô <xandrex_weblate@m4x.org>\n"
+"PO-Revision-Date: 2020-07-12 15:41+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -121,7 +121,7 @@ msgstr "Local"
 
 #: ../xl/main.py:82
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Usage: exaile [OPTION...] [EMPLACEMENT...]"
+msgstr "Usage : exaile [OPTION...] [EMPLACEMENT...]"
 
 #: ../xl/main.py:84
 msgid ""
@@ -1022,7 +1022,7 @@ msgstr "Focaliser le dixième onglet"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
-msgstr "Action: Arrêter après la piste sélectionnée"
+msgstr "Action : Arrêter après la piste sélectionnée"
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
@@ -1267,7 +1267,7 @@ msgstr "Le nom de liste de lecture que vous avez entré est déjà utilisé."
 #: ../xlgui/panel/playlists.py:215
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Erreur lors du chargement de la liste de lecture:  %s"
+msgstr "Erreur lors du chargement de la liste de lecture : %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -3620,7 +3620,7 @@ msgstr "L'ordinateur n'a pas pu être éteint en utilisant D-Bus."
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
 msgid "Contacting SomaFM server..."
-msgstr "Contact du serveur SomaFM  en cours..."
+msgstr "Contact du serveur SomaFM en cours..."
 
 #: ../plugins/somafm/__init__.py:94 ../plugins/somafm/__init__.py:97
 msgid "Error connecting to SomaFM server."
@@ -4932,7 +4932,7 @@ msgstr ""
 "Ajoute le support des touches multimédia (présentes sur la plupart des "
 "nouveaux claviers) lors de l'utilisation d'Exaile sous Microsoft Windows.↵\n"
 "↵\n"
-"Nécessite: pyHook (%s) (ou %s pour plus de versions)"
+"Nécessite : pyHook (%s) (ou %s pour plus de versions)"
 
 #~ msgid "Allows playing of DAAP music shares using the spydaap library."
 #~ msgstr ""

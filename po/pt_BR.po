@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-04-21 10:11+0000\n"
-"Last-Translator: Lucas Araujo <lucassants2808@gmail.com>\n"
+"PO-Revision-Date: 2020-07-13 21:41+0000\n"
+"Last-Translator: Samuel Carvalho de Araújo <samuelnegro12345@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3797,10 +3797,8 @@ msgid "Simple Console"
 msgstr "Console Simples"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "Exibir servidores IPV6 (Experimental)"
+msgstr "Exibir servidores IPv6"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"

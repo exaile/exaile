@@ -20,6 +20,8 @@ hiddenimports = collect_submodules('xl') + \
                 collect_submodules('mutagen') + \
                 collect_submodules('pylast')
 
+binaries = []
+
 # We don't use packaging directly, but this is required because something else
 # uses it and PyInstaller (tested with v3.4) fails to detect some of
 # packaging's subpackages.
@@ -30,6 +32,21 @@ datas =[
   ('_inst/usr/share/exaile/plugins', 'plugins'),
   ('_inst/usr/share/locale', 'share/locale')
 ]
+
+# Make sure we bundle the gspawn-*-helper.exe executable,
+# which is required for opening hyperlinks on Windows:
+# https://github.com/exaile/exaile/issues/712
+if True:
+    from PyInstaller.compat import is_win
+
+    if is_win:
+        import glob
+        from PyInstaller.utils.hooks import get_gi_libdir
+
+        libdir = get_gi_libdir('GLib', '2.0')
+        pattern = os.path.join(libdir, 'gspawn-*-helper.exe')
+        for f in glob.glob(pattern):
+            binaries.append( (f, '.') )
 
 # requires https://github.com/pyinstaller/pyinstaller/pull/3608
 def assemble_hook(analysis):
@@ -75,7 +92,7 @@ def assemble_hook(analysis):
 
 a = Analysis([afile],
              pathex=['_inst/usr/lib/exaile'],
-             binaries=None,
+             binaries=binaries,
              datas=datas,
              hiddenimports=hiddenimports,
              hookspath=[],

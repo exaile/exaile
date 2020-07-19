@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-02-23 23:33+0000\n"
-"Last-Translator: DanielDevBR <ferion11@gmail.com>\n"
+"PO-Revision-Date: 2020-07-20 03:41+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -614,7 +614,7 @@ msgstr "Personalizado"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr "Não foi possível criar destino para audio (dispositivo: %s, tipo: %s)"
+msgstr "Não foi possível criar destino para audio (aparelho: %s, tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
@@ -1121,7 +1121,7 @@ msgstr "Reanalisar coleção (_lento)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
-msgstr "Guia do usuário (website)"
+msgstr "Guia do Utilizador (website)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 msgid "Shortcuts"
@@ -2461,7 +2461,7 @@ msgstr "Contentor áudio:  "
 
 #: ../data/ui/preferences/playback.ui:98
 msgid "Audio Device: "
-msgstr "Dispositivo de áudio: "
+msgstr "Aparelho de áudio: "
 
 #: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -4194,7 +4194,7 @@ msgstr "Reiniciar a Lista de Reprodução"
 
 #: ../plugins/multialarmclock/malrmclk.ui:161
 msgid "Enable volume fade-in"
-msgstr "Habilitar desvanecimento de volume"
+msgstr "Ativar desvanecimento de volume"
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
@@ -4336,7 +4336,7 @@ msgstr "Duração da atenuação cruzada:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
-msgstr "Dispositivo de Áudio:"
+msgstr "Aparelho de Áudio:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4428,7 +4428,7 @@ msgid ""
 "Note that when the specified time arrives, Exaile will play the songs in the "
 "queue."
 msgstr ""
-"Reproduz música em um momento específico.\n"
+"Reproduz música num momento específico.\n"
 "\n"
 "Observe que, quando o tempo especificado chega, Exaile irá reproduzir as "
 "músicas na fila."
@@ -4501,7 +4501,7 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:5 ../plugins/massstorage/PLUGININFO:5
 msgid "Devices"
-msgstr "Dispositivos"
+msgstr "Aparellhos"
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
@@ -4604,7 +4604,7 @@ msgstr "Inibir suspensão"
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
-"Impede o usuário de suspender a sessão enquanto uma música estiver em "
+"Impede o utilizador de suspender a sessão enquanto uma música estiver em "
 "execução"
 
 #: ../plugins/ipconsole/PLUGININFO:4
@@ -4675,13 +4675,13 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
-"Mostra quais faixas foram marcadas como favoritas e permite que você marque "
+"Mostra quais faixas foram marcadas como favoritas e permite que marque "
 "faixas como favoritas.\n"
 "\n"
 "Tenha certeza que colocou uma chave API e segredo válidas nas preferências "
 "do plug-in.\n"
 "\n"
-"Depende do plugin \"AudioScrobbler\" para usuário e palavra-passe."
+"Depende do plugin \"AudioScrobbler\" para utilizador e palavra-passe."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4841,7 +4841,7 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
-"Permite a reprodução de áudio num dispositivo secundário (clique direito na "
+"Permite a reprodução de áudio num aparelho secundário (clique direito na "
 "lista de reprodução e selecione 'pré-visualização'). Útil para DJs."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5

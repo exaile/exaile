@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-04-16 09:11+0000\n"
+"PO-Revision-Date: 2020-07-22 23:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1575,7 +1575,7 @@ msgstr "Elegir Dispositivo para Abrir"
 
 #: ../xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
-msgstr "Archivos soportados"
+msgstr "Archivos admitidos"
 
 #: ../xlgui/widgets/dialogs.py:711
 msgid "Music Files"
@@ -2918,7 +2918,7 @@ msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
-"Este servidor no soporta conexiones múltiples.\n"
+"Este servidor no admite conexiones múltiples.\n"
 "Detenga la reproducción antes de descargar canciones."
 
 #: ../plugins/daapclient/__init__.py:659
@@ -3037,7 +3037,7 @@ msgstr "%s pistas encontradas"
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr "¿Reemplazar '%s' con '%s' en %s pistas?"
+msgstr "¿Quiere reemplazar «%s» por «%s» en %s pistas?"
 
 #: ../plugins/grouptagger/gt_mass.py:136
 #, python-format
@@ -3272,7 +3272,7 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
-"Copie la siguiente URL y ábrala con su navegador:\n"
+"Copie el URL siguiente y ábralo con su navegador:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
@@ -3778,15 +3778,15 @@ msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui:49
 msgid "Import format: "
-msgstr "Importar formato: "
+msgstr "Formato de importación: "
 
 #: ../plugins/cd/cdprefs_pane.ui:79
 msgid "Import quality: "
-msgstr "Importar calidad: "
+msgstr "Calidad de importación: "
 
 #: ../plugins/cd/cdprefs_pane.ui:108
 msgid "Import path: "
-msgstr "Importar ruta: "
+msgstr "Ruta de importación: "
 
 #: ../plugins/cd/cdprefs_pane.ui:149
 #: ../plugins/minimode/minimode_preferences.ui:131
@@ -3804,22 +3804,20 @@ msgid "Simple Console"
 msgstr "Consola sencilla"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-#, fuzzy
-#| msgid "Show ipv6 servers (Experimental)"
 msgid "Show IPv6 servers"
-msgstr "Mostrar los servidores IPv6 (experimental)"
+msgstr "Mostrar servidores IPv6"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
-msgstr "Recordar los servidores DAAP recientes"
+msgstr "Recordar servidores DAAP recientes"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:21
 msgid "Server name:"
-msgstr "Nombre del servidor:"
+msgstr "Nombre de servidor:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:45
 msgid "Server host:"
-msgstr "Servidor:"
+msgstr "Anfitrión de servidor:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:68
 msgid "Port:"
@@ -3827,7 +3825,7 @@ msgstr "Puerto:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:90
 msgid "Server enabled"
-msgstr "Servidor habilitado"
+msgstr "Servidor activado"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:35
 msgid "Top left"
@@ -3981,7 +3979,7 @@ msgstr "Reemplazar"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
-msgstr "Renombrado/Borrado masivo de etiquetas"
+msgstr "Cambiar nombre/eliminar etiquetas en masa"
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
@@ -4016,9 +4014,9 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats."
 msgstr ""
-"'agrupación' y 'comentatio' son problablemente las elecciones mejor "
-"soportadas. Otras elecciones podrían funcionar solo con ciertos formato de "
-"fichero."
+"«grouping» y «comment» son quizás las opciones con mejor compatibilidad. "
+"Puede que otras elecciones funcionen solo en determinados formatos de "
+"archivo."
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
@@ -4530,7 +4528,7 @@ msgid ""
 "out the suppported services."
 msgstr ""
 "Establece el estado de la reproducción en Pidgin. Consulte las preguntas "
-"frecuentes de Pidgin para averiguar los servicios soportados."
+"frecuentes de Pidgin para conocer los servicios admitidos."
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid ""
@@ -4539,6 +4537,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Permite el acceso a recursos compartidos musicales de DAAP a través de la "
+"biblioteca spydaap. El descubrimiento automático de recursos compartidos "
+"está disponible opcionalmente mediante python-zeroconf.\n"
+"Requiere: spydaap\n"
+"Opcional: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4596,11 +4599,11 @@ msgstr "Etiquetado"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr "Hola mundo"
+msgstr "Hola, mundo"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Un complemento simple para probar el sistema de complemento básico"
+msgstr "Un complemento simple para probar el sistema de complementos básico"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
@@ -4727,14 +4730,14 @@ msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr "Soporte para dispositivo de almacenamiento masivo USB"
+msgstr "Compatibilidad con dispositivos de almacenamiento masivo USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Soporte para el acceso a los reproductores portátiles utilizando el "
+"Compatibilidad para acceder a reproductores portátiles que utilizan el "
 "protocolo de almacenamiento masivo USB"
 
 #: ../plugins/minimode/PLUGININFO:4
@@ -4845,7 +4848,7 @@ msgid ""
 msgstr ""
 "Permite reproducir sonido en un dispositivo secundario (pulse con el botón "
 "derecho en una lista de reproducción y seleccione «Previsualizar». Útil para "
-"los DJ."
+"disyoqueis."
 
 #: ../plugins/previewdevice/PLUGININFO:5 ../plugins/streamripper/PLUGININFO:5
 msgid "Output"
@@ -4853,7 +4856,7 @@ msgstr "Salida"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr "Activa el soporte ReplayGain"
+msgstr "Activa la compatibilidad con ReplayGain"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""
@@ -4909,10 +4912,10 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
-"Añade soporte para teclas multimedia (presentes en la mayoría de los "
-"teclados nuevos) cuando se ejecuta Exaile en Microsoft Windows.\n"
+"Permite el uso de las teclas multimedia (presentes en la mayoría de los "
+"teclados nuevos) al ejecutar Exaile en Microsoft Windows.\n"
 "\n"
-"Requiere pyHook (%s) (or %s para más versiones)"
+"Requiere pyHook (%s) o keyboard (%s)"
 
 #~ msgid "Allows playing of DAAP music shares using the spydaap library."
 #~ msgstr ""

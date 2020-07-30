@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2019-08-26 15:23+0000\n"
-"Last-Translator: leela <53352@protonmail.com>\n"
+"PO-Revision-Date: 2020-07-30 20:41+0000\n"
+"Last-Translator: MIN UZ <varulv93@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
 ">\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -131,6 +131,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Avvia Exaile, aggiungendo facoltativamente le tracce specificate da "
+"POSIZIONE alla playlist attiva. Se Exaile è già in esecuzione, questo "
+"tenterà di utilizzare l'istanza esistente invece di crearne una nuova."
 
 #: ../xl/main.py:95
 msgid "Playback Options"
@@ -513,7 +516,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:479
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -616,7 +619,7 @@ msgstr "Scostamento X:"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possibile errore del dispositivo audio, è collegato?"
 
 #: ../xl/player/gst/missing_plugin.py:89
 #, python-format
@@ -625,6 +628,9 @@ msgid ""
 "Exaile will not be able to play the current file. Please install the "
 "required software on your computer. See %s for details."
 msgstr ""
+"Manca un plug-in GStreamer 1.x per %s. Senza questo software installato, "
+"Exaile non sarà in grado di riprodurre il file corrente. Installa il "
+"software richiesto sul tuo computer. Vedi %s per i dettagli."
 
 #: ../xl/player/gst/sink.py:48 ../xl/player/gst/sink.py:144
 msgid "Automatic"
@@ -637,7 +643,7 @@ msgstr "Personalizzato"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Impossibile creare audiosink (dispositivo: %s, tipo: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"

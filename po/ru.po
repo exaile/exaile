@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-07-29 20:11+0000\n"
+"PO-Revision-Date: 2020-08-01 06:41+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -122,7 +122,7 @@ msgstr "Вчера"
 
 #: ../xl/lyrics.py:352
 msgid "Local"
-msgstr "Локально"
+msgstr "Локальный"
 
 #: ../xl/main.py:82
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
@@ -220,23 +220,23 @@ msgstr "Метки, получаемые для текущей дорожки, �
 
 #: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
-msgstr "Показать всплывающее окно с данными о текущей дорожке"
+msgstr "Показать всплывающее окно с данными о текущем треке"
 
 #: ../xl/main.py:200
 msgid "Print the title of current track"
-msgstr "Показывать название текущей дорожки"
+msgstr "Показать название текущего трека"
 
 #: ../xl/main.py:207
 msgid "Print the album of current track"
-msgstr "Показывать название альбома для текущей дорожки"
+msgstr "Показать название альбома текущего трека"
 
 #: ../xl/main.py:214
 msgid "Print the artist of current track"
-msgstr "Показывать исполнителя текущей дорожки"
+msgstr "Показать исполнителя текущего трека"
 
 #: ../xl/main.py:221
 msgid "Print the length of current track"
-msgstr "Показывать продолжительность текущей дорожки"
+msgstr "Показать продолжительность текущего трека"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
@@ -246,19 +246,19 @@ msgstr "N"
 
 #: ../xl/main.py:229
 msgid "Set rating for current track to N%"
-msgstr "Установить рейтинг текущей дорожки в N%"
+msgstr "Установить рейтинг текущего трека в N%"
 
 #: ../xl/main.py:236
 msgid "Get rating for current track"
-msgstr "Получить рейтинг текущей дорожки"
+msgstr "Получить рейтинг текущего трека"
 
 #: ../xl/main.py:243
 msgid "Print the current playback position as time"
-msgstr "Показывать текущий прогресс воспроизведения как время"
+msgstr "Показать текущий прогресс воспроизведения как время"
 
 #: ../xl/main.py:250
 msgid "Print the current playback progress as percentage"
-msgstr "Показывать текущий прогресс воспроизведения в процентах"
+msgstr "Показать текущий прогресс воспроизведения в процентах"
 
 #: ../xl/main.py:253
 msgid "Volume Options"
@@ -278,7 +278,7 @@ msgstr "Отключить или включить звук"
 
 #: ../xl/main.py:285
 msgid "Print the current volume percentage"
-msgstr "Показывать текущий уровень громкости"
+msgstr "Показать текущий уровень громкости"
 
 #: ../xl/main.py:288
 msgid "Other Options"
@@ -358,7 +358,7 @@ msgstr "Ограничить журнал событий до УРОВНЯ"
 
 #: ../xl/main.py:383
 msgid "Show debugging output"
-msgstr "Показывать сообщения отладки"
+msgstr "Показать сообщения отладки"
 
 #: ../xl/main.py:390
 msgid "Enable debugging of xl.event. Generates lots of output"
@@ -477,7 +477,7 @@ msgstr "Диск"
 
 #: ../xl/metadata/tags.py:59
 msgid "Encoded by"
-msgstr "Кодирован"
+msgstr "Кодировщик"
 
 #: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:418
 #: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:114
@@ -536,7 +536,7 @@ msgstr "Название"
 #: ../xl/metadata/tags.py:73 ../plugins/grouptagger/gt_mass.ui:162
 #: ../plugins/jamendo/ui/jamendo_panel.ui:98
 msgid "Track"
-msgstr "Дорожка"
+msgstr "Трек"
 
 #: ../xl/metadata/tags.py:74
 msgid "Version"
@@ -681,7 +681,7 @@ msgstr "_Не перемешивать"
 
 #: ../xl/playlist.py:912
 msgid "Shuffle _Tracks"
-msgstr "Перемешивать _дорожки"
+msgstr "Перемешивать _треки"
 
 #: ../xl/playlist.py:913
 msgid "Shuffle _Albums"
@@ -689,7 +689,7 @@ msgstr "Перемешивать _альбомы"
 
 #: ../xl/playlist.py:914
 msgid "_Random"
-msgstr "_Случайный"
+msgstr "_Случайный выбор"
 
 #: ../xl/playlist.py:919
 msgid "Repeat _Off"
@@ -701,7 +701,7 @@ msgstr "Повторять _все"
 
 #: ../xl/playlist.py:919
 msgid "Repeat O_ne"
-msgstr "Повтор _один"
+msgstr "Повтор _один раз"
 
 #: ../xl/playlist.py:923
 msgid "Dynamic _Off"
@@ -717,16 +717,16 @@ msgstr "Плагин уже загружен или имеет конфликт�
 
 #: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
-msgstr "Неверный формат архива с дополнением."
+msgstr "Неверный формат архива с плагином."
 
 #: ../xl/plugins.py:109
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Модуль «%s» уже установлен."
+msgstr "Плагин «%s» уже установлен."
 
 #: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
-msgstr "Архив с дополнением содержит небезопасный путь."
+msgstr "Архив с плагином содержит небезопасный путь."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
@@ -753,8 +753,8 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Формат сжатия звука  принадлежащий Apple,  дающий более высокое качество на "
-"низких частотах, чем MP3."
+"Проприетарный аудиоформат сжатия звука от Apple, даёт лучшее качество даже "
+"при более низком битрейте, чем MP3."
 
 #: ../xl/transcoder.py:91
 msgid ""
@@ -838,7 +838,7 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
-"Каталог уже включен в вашу коллекцию или находится в одном из каталогов "
+"Каталог уже включен в вашу коллекцию или находится в одном из подкаталогов "
 "вашей коллекции."
 
 #: ../xlgui/cover.py:97
@@ -1014,7 +1014,7 @@ msgstr "На десятую вкладку"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
-msgstr "Переключатель: остановить после выбранной дорожки"
+msgstr "Переключатель: остановить после выбранного трека"
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
@@ -1118,7 +1118,7 @@ msgstr "_Менеджер устройств"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
-msgstr "_Заново просканировать фонотеку"
+msgstr "_Пересканировать фонотеку"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
@@ -1186,7 +1186,7 @@ msgstr "Коллекция"
 
 #: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr "Заново просканировать фонотеку"
+msgstr "Пересканировать фонотеку"
 
 #: ../xlgui/panel/device.py:151
 #, python-format
@@ -1245,7 +1245,7 @@ msgstr "Удалить список воспроизведения «%s»?"
 
 #: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
-msgstr "Введите новое имя для вашего списка воспроизведения"
+msgstr "Введите новое название вашего списка воспроизведения"
 
 #: ../xlgui/panel/playlists.py:153
 msgid "Rename Playlist"
@@ -1324,7 +1324,7 @@ msgstr "Обновить"
 
 #: ../xlgui/panel/radio.py:417
 msgid "Enter the name you want for your new playlist"
-msgstr "Введите новое имя для вашего списка воспроизведения"
+msgstr "Введите новое название вашего списка воспроизведения"
 
 #: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
 msgid "New Playlist"
@@ -1358,13 +1358,12 @@ msgstr "Список воспроизведения %d"
 #: ../xlgui/playlist_container.py:384
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr "{playlist_name} ({track_count} дорожек, закрыто {minutes} минут назад)"
+msgstr "{playlist_name} ({track_count} треков, закрыто {minutes} минут назад)"
 
 #: ../xlgui/playlist_container.py:392
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
-"{playlist_name} ({track_count} дорожек, закрыто {seconds} секунд назад)"
+msgstr "{playlist_name} ({track_count} треков, закрыто {seconds} секунд назад)"
 
 #: ../xlgui/playlist_container.py:544
 #, fuzzy
@@ -1374,7 +1373,7 @@ msgstr "Переместить на другую панель"
 
 #: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
-msgstr "Модули"
+msgstr "Плагины"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui:216
 msgid "Appearance"
@@ -1418,7 +1417,7 @@ msgstr "Не классифицированные"
 
 #: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
-msgstr "Не удалось загрузить информацию о модуле!"
+msgstr "Не удалось загрузить информацию о плагине!"
 
 #: ../xlgui/preferences/plugin.py:180
 #, python-format
@@ -1430,11 +1429,11 @@ msgstr[2] "Незагрузившиеся дополнения: %s"
 
 #: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
 msgid "Could not disable plugin!"
-msgstr "Не удалось включить модуль!"
+msgstr "Не удалось отключить плагин!"
 
 #: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
 msgid "Could not enable plugin!"
-msgstr "Невозможно активировать дополнение!"
+msgstr "Не удалось включить плагин!"
 
 #: ../xlgui/preferences/plugin.py:231
 msgid "Choose a Plugin"
@@ -1442,7 +1441,7 @@ msgstr "Выбрать плагин"
 
 #: ../xlgui/preferences/plugin.py:242
 msgid "Plugin Archives"
-msgstr "Архивы модулей"
+msgstr "Архивы плагинов"
 
 #: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
 #: ../xlgui/widgets/dialogs.py:892
@@ -1451,7 +1450,7 @@ msgstr "Все файлы"
 
 #: ../xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
-msgstr "Установка модуля не удалась!"
+msgstr "Установка плагина не удалась!"
 
 #: ../xlgui/preferences/widgets.py:71
 msgid "Restart Exaile?"
@@ -1489,11 +1488,11 @@ msgstr ""
 #: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "Редактируется дорожка %(current)d из %(total)d"
+msgstr "Редактируется трек %(current)d из %(total)d"
 
 #: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Вы действительно хотите применить изменения для всех дорожек?"
+msgstr "Вы действительно хотите применить изменения для всех треков?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
@@ -1551,7 +1550,7 @@ msgstr "Открыть каталог"
 
 #: ../xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
-msgstr "Применить эти значения ко всем дорожкам"
+msgstr "Применить эти значения ко всем трекам"
 
 #: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
 #, python-format
@@ -1576,7 +1575,7 @@ msgstr "Выберите тип файла"
 
 #: ../xlgui/widgets/dialogs.py:694
 msgid "Choose Media to Open"
-msgstr "Выберите медиафайл для открытия"
+msgstr "Выберите медиа для открытия"
 
 #: ../xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
@@ -1604,7 +1603,7 @@ msgstr "Экспорт текущего списка воспроизведен�
 
 #: ../xlgui/widgets/dialogs.py:1003
 msgid "Use relative paths to tracks"
-msgstr "Использовать относительные адреса к файлам"
+msgstr "Использовать относительные пути к файлам"
 
 #: ../xlgui/widgets/dialogs.py:1060
 #, python-format
@@ -1649,7 +1648,7 @@ msgstr "Файл существует, заменить %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1743
 msgid "Playlist name:"
-msgstr "Имя списка воспроизведения:"
+msgstr "Название списка воспроизведения:"
 
 #: ../xlgui/widgets/dialogs.py:1744
 msgid "Add new playlist..."
@@ -1658,7 +1657,7 @@ msgstr "Добавить новый список воспроизведения.
 #: ../xlgui/widgets/dialogs.py:1757
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
-msgstr "Вы не указали имя для вашего списка воспроизведения"
+msgstr "Вы не указали название вашего списка воспроизведения"
 
 #: ../xlgui/widgets/dialogs.py:1766
 msgid "Save As"
@@ -1716,7 +1715,7 @@ msgstr "_Добавить к текущему"
 
 #: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
 msgid "_Track Properties"
-msgstr "С_войства дорожки"
+msgstr "С_войства трека"
 
 #: ../xlgui/widgets/menuitems.py:202
 msgid "_Open Directory"
@@ -1780,7 +1779,7 @@ msgstr "_Удалить метку"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
-msgstr "звук выключен"
+msgstr "Звук выключен"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1445

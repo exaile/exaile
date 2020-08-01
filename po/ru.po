@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-08-01 06:41+0000\n"
+"PO-Revision-Date: 2020-08-02 05:41+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -1789,7 +1789,7 @@ msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1450
 msgid "Full Volume"
-msgstr "Полная громкость"
+msgstr "Максимальная громкость"
 
 #: ../xlgui/widgets/playback.py:1569
 msgid "_Pause"
@@ -1801,11 +1801,11 @@ msgstr "_Воспроизведение"
 
 #: ../xlgui/widgets/playback.py:1584
 msgid "_Next Track"
-msgstr "С_ледующая дорожка"
+msgstr "С_ледующий трек"
 
 #: ../xlgui/widgets/playback.py:1594
 msgid "_Previous Track"
-msgstr "Пре_дыдущая дорожка"
+msgstr "Пре_дыдущий трек"
 
 #: ../xlgui/widgets/playback.py:1604
 msgid "_Stop"
@@ -1829,11 +1829,11 @@ msgstr "Удалить т_екущую композицию из плейлис�
 
 #: ../xlgui/widgets/playlist.py:179
 msgid "R_andomize Playlist"
-msgstr "Переме_шать список воспроизведения"
+msgstr "С_лучайный плейлист"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "R_andomize Selection"
-msgstr "Сл_учайный порядок выбранного"
+msgstr "Слу_чайный выбор"
 
 #: ../xlgui/widgets/playlist.py:224
 msgid "_Save"
@@ -1849,11 +1849,11 @@ msgstr "О_чистить"
 
 #: ../xlgui/widgets/playlist.py:325
 msgid "_Stop Playback After This Track"
-msgstr "О_становить воспроизведение после текущей дорожки"
+msgstr "О_становить воспроизведение после этого трека"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
-msgstr "П_родолжить воспроизведение после этой дорожки"
+msgstr "П_родолжить воспроизведение после этого трека"
 
 #: ../xlgui/widgets/playlist.py:386
 msgid "_Remove from Playlist"
@@ -1875,7 +1875,7 @@ msgstr "Загрузка"
 
 #: ../xlgui/widgets/playlist_columns.py:272
 msgid "Track Number"
-msgstr "Номер дорожки"
+msgstr "Номер трека"
 
 #: ../xlgui/widgets/playlist_columns.py:343
 msgid "Disc Number"
@@ -1915,7 +1915,7 @@ msgstr "_Изменяемый размер"
 
 #: ../xlgui/widgets/playlist_columns.py:849
 msgid "_Autosize"
-msgstr "_Автоматический размер"
+msgstr "_Автоматический"
 
 #: ../xlgui/widgets/queue.py:81
 msgid "Queue"
@@ -2009,7 +2009,7 @@ msgstr "регулярное выражение"
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
-msgstr "не регулярное выражение"
+msgstr "нерегулярное выражение"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:228
@@ -2019,7 +2019,7 @@ msgstr "не менее"
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/widgets/smart_playlist_editor.py:230
 msgid "at most"
-msgstr "не больше"
+msgstr "не более"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/widgets/smart_playlist_editor.py:232
@@ -2057,12 +2057,12 @@ msgstr "не за последние"
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:244
 msgid "Track is in"
-msgstr "Дорожка в"
+msgstr "Трек в"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:246
 msgid "Track not in"
-msgstr "Дорожки нет в"
+msgstr "Трека нет в"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
@@ -2092,7 +2092,7 @@ msgstr "Об Exaile"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
-msgstr "© 2009-2019 разные участники"
+msgstr "© 2009-2019 различные участники"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
@@ -2114,7 +2114,7 @@ msgstr "Сканировать при запуске"
 
 #: ../data/ui/collection_manager.ui:209
 msgid "Rescan _Collection"
-msgstr "Заново про_сканировать"
+msgstr "Пере_сканировать коллекцию"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2191,7 +2191,7 @@ msgstr "_Помощь"
 
 #: ../data/ui/main.ui:151
 msgid "Previous Track"
-msgstr "Предыдущая дорожка"
+msgstr "Предыдущий трек"
 
 #: ../data/ui/main.ui:197
 msgid ""
@@ -2205,7 +2205,7 @@ msgstr ""
 
 #: ../data/ui/main.ui:221
 msgid "Next Track"
-msgstr "Следующая дорожка"
+msgstr "Следующий трек"
 
 #: ../data/ui/main.ui:246
 msgid "0:00 / 0:00"
@@ -2258,7 +2258,7 @@ msgstr "Домашний каталог"
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
-msgstr "Добавить все дорожки в список воспроизведения"
+msgstr "Добавить все треки в список воспроизведения"
 
 #: ../data/ui/panel/flatplaylist.ui:44
 msgid "Import CD"
@@ -2274,7 +2274,7 @@ msgstr "_Добавить радиостанцию"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
-msgstr "Проигрывать дорожки случайно"
+msgstr "Воспроизвести в случайном порядке"
 
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
@@ -2282,19 +2282,19 @@ msgstr "Повторить воспроизведение"
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
-msgstr "Лево"
+msgstr "Слева"
 
 #: ../data/ui/preferences/appearance.ui:24
 msgid "Right"
-msgstr "Право"
+msgstr "Справа"
 
 #: ../data/ui/preferences/appearance.ui:28
 msgid "Top"
-msgstr "Верх"
+msgstr "Вверху"
 
 #: ../data/ui/preferences/appearance.ui:32
 msgid "Bottom"
-msgstr "Низ"
+msgstr "Внизу"
 
 #: ../data/ui/preferences/appearance.ui:50
 msgid "Show info area"
@@ -2306,7 +2306,7 @@ msgstr "Панель информации содержит обложку аль
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr "Показать иллюстрации в области сведений"
+msgstr "Показать обложку в области информации"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
@@ -2327,7 +2327,7 @@ msgstr "Использовать системный шрифт"
 
 #: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
-msgstr "Отображать номера дорожек в коллекции"
+msgstr "Показать количество треков в коллекции"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:208
@@ -2362,7 +2362,7 @@ msgstr "Свернуть в трей"
 #. TRANSLATORS: Keep the current track visible in playlist
 #: ../data/ui/preferences/appearance.ui:285
 msgid "Jump to current song on track change"
-msgstr "Переходить к текущей дорожке в списке при смене"
+msgstr "Переводить указание на проигрываемый трек в списке"
 
 #: ../data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
@@ -2431,7 +2431,7 @@ msgstr "Предпочтительные имена файлов:"
 
 #: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
-msgstr "Разделенный запятыми список имен файлов без расширений"
+msgstr "Разделённый запятыми список имен файлов без расширений"
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"

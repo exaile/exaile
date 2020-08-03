@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-08-02 05:41+0000\n"
+"PO-Revision-Date: 2020-08-04 02:41+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -1232,7 +1232,7 @@ msgstr "Любой источник"
 
 #: ../xlgui/panel/menus.py:219
 msgid "New _Smart Playlist"
-msgstr "Но_вый «умный» список воспроизведения"
+msgstr "Н_овый «умный» список воспроизведения"
 
 #: ../xlgui/panel/menus.py:325
 msgid "_New Station"
@@ -1366,10 +1366,8 @@ msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr "{playlist_name} ({track_count} треков, закрыто {seconds} секунд назад)"
 
 #: ../xlgui/playlist_container.py:544
-#, fuzzy
-#| msgid "Move to other View"
 msgid "_Move to Other View"
-msgstr "Переместить на другую панель"
+msgstr "_Изменить вид вкладок"
 
 #: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
@@ -1734,7 +1732,7 @@ msgstr "Пере_местить в корзину"
 
 #: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
 msgid "_Rename"
-msgstr "Пере_именовать"
+msgstr "Пер_еименовать"
 
 #: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
@@ -2435,7 +2433,7 @@ msgstr "Разделённый запятыми список имен файло
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
-msgstr "Получать обложки автоматически при начале воспроизведения"
+msgstr "Получать обложки автоматически в начале воспроизведения"
 
 #: ../data/ui/preferences/cover.ui:76
 msgid "Cover Search Order:"
@@ -2461,16 +2459,16 @@ msgstr "GStreamer"
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
 msgid "Audio Sink:  "
-msgstr "Аудиоустройство:  "
+msgstr "Модуль вывода:  "
 
 #: ../data/ui/preferences/playback.ui:98
 msgid "Audio Device: "
-msgstr "Аудиоустройство: "
+msgstr "Устройство вывода: "
 
 #: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
-msgstr "Другой конвейер-приёмник:"
+msgstr "Другой канал вывода:"
 
 #: ../data/ui/preferences/playback.ui:160
 msgid "Resume playback on start"
@@ -2478,7 +2476,7 @@ msgstr "Возобновлять воспроизведение при запу�
 
 #: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback in paused state"
-msgstr "Возобновлять воспроизведение в приостановленном состоянии"
+msgstr "Не возобновлять воспроизведение при запуске программы"
 
 #: ../data/ui/preferences/playback.ui:191
 msgid "Adding an item to an empty queue begins playback"
@@ -2486,19 +2484,20 @@ msgstr "Добавление файла в пустую очередь начн�
 
 #: ../data/ui/preferences/playback.ui:206
 msgid "Remove track from queue upon playback"
-msgstr "Удалить трек из очереди после проигрывания"
+msgstr "Удалить трек из «Очереди» после воспроизведения"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Disallow playing new tracks when another track is playing"
-msgstr "Не проигрывать новые дорожки при начатом воспроизведении"
+msgstr ""
+"Запретить запуск других треков кнопкой мыши, при начатом воспроизведении"
 
 #: ../data/ui/preferences/playback.ui:225
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
-"Если дорожка уже проигрывается, не начинать воспроизводение новых, исключая "
-"случаев нажатия кнопок управления"
+"Если трек уже проигрывается, запуск другого осуществлять только кнопками "
+"управления"
 
 #: ../data/ui/preferences/playback.ui:237
 msgid "Automatically advance to the next track"
@@ -2506,7 +2505,7 @@ msgstr "Автоматически переходить на следующий 
 
 #: ../data/ui/preferences/playback.ui:254
 msgid "Delay between tracks (ms):"
-msgstr "Задержка между дорожками (мс):"
+msgstr "Задержка между треками (мс):"
 
 #: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
@@ -2523,7 +2522,7 @@ msgstr "Использовать микширование (ЭКСПЕРИМЕН�
 
 #: ../data/ui/preferences/playback.ui:316
 msgid "Forces automatically advancing to the next track"
-msgstr "Принудительный автоматический переход на следующий трек"
+msgstr "Принудительный автопереход на следующий трек"
 
 #: ../data/ui/preferences/playback.ui:346
 msgid "Fade duration (ms):"
@@ -2547,8 +2546,8 @@ msgstr "Включить воспроизведение без пауз"
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
-"Воспроизведение без пауз означает проигрывание дорожек без вставки пауз "
-"между ними."
+"Воспроизведение без пауз означает проигрывание треков без вставки пауз между "
+"ними."
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
@@ -2561,15 +2560,15 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"
-msgstr "Заменить содержание боковой панели двойным щелчком"
+msgstr "Заменять в плейлисте контент из боковой панели двойным щелчком"
 
 #: ../data/ui/preferences/playlists.ui:42
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
-"Вместо добавления, дорожки, добавленные двойным щелчком на панелях, заменят "
-"содержание текущего списка воспроизведения."
+"Двойным щелчком вместо добавления, заменять треки в текущем списке "
+"воспроизведения из боковой панели."
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
@@ -2587,7 +2586,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr "Поставить композиции в очередь не воспроизводя их"
+msgstr "Поставить композиции в «Очередь» не воспроизводя их"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-08-04 02:41+0000\n"
+"PO-Revision-Date: 2020-08-05 07:32+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -1118,7 +1118,7 @@ msgstr "_Менеджер устройств"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
-msgstr "_Пересканировать фонотеку"
+msgstr "_Пересканировать коллекцию"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
@@ -1186,7 +1186,7 @@ msgstr "Коллекция"
 
 #: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr "Пересканировать фонотеку"
+msgstr "Пересканировать коллекцию"
 
 #: ../xlgui/panel/device.py:151
 #, python-format
@@ -2567,12 +2567,12 @@ msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
-"Двойным щелчком вместо добавления, заменять треки в текущем списке "
+"Вместо добавления, двойным щелчком заменять треки в текущем списке "
 "воспроизведения из боковой панели."
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
-msgstr "Добавление/замена через пункт меню запускает воспроизведение"
+msgstr "Добавление/замена из пункта меню запускает воспроизведение"
 
 #: ../data/ui/preferences/playlists.ui:56
 msgid ""
@@ -2599,7 +2599,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui:64
 msgid "Plugin"
-msgstr "Модуль"
+msgstr "Плагин"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
@@ -2613,15 +2613,15 @@ msgstr "Включен"
 
 #: ../data/ui/preferences/plugin.ui:110
 msgid "Show incompatible plugins"
-msgstr "Показывать несовместимые дополнения"
+msgstr "Показывать несовместимые плагины"
 
 #: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
-msgstr "Модуль не выбран"
+msgstr "Плагин не выбран"
 
 #: ../data/ui/preferences/plugin.ui:177
 msgid "Add _Plugin File"
-msgstr "Установить файл _модуля"
+msgstr "Установить _локальный плагин"
 
 #: ../data/ui/preferences/preferences_dialog.ui:24
 msgid "Preferences"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-08-05 20:32+0000\n"
+"PO-Revision-Date: 2020-08-06 18:32+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -2567,8 +2567,8 @@ msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
-"Вместо добавления, заменять треки двойным щелчком в текущем списке "
-"воспроизведения из боковой панели."
+"Заменять текущий список воспроизведения при добавлении треков двойным "
+"щелчком контентом из боковой панели."
 
 #: ../data/ui/preferences/playlists.ui:52
 msgid "Appending/replacing via menu item triggers playback"
@@ -2580,9 +2580,9 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
-"При использовании меню для добавления/замены дорожки в списке "
-"воспроизведения, начать воспроизведение, если в настоящее время "
-"проигрывается трек. Эта было стандартное поведение в версии Exaile до 0.3.3"
+"Если из меню добавить/заменить трек в плейлист, то начнётся его "
+"воспроизведение, вместо предыдущего. Эта опция была поведением Exaile по "
+"умолчанию до версии 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
@@ -2637,15 +2637,15 @@ msgstr "Описание"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
-msgstr "Свойства дорожки"
+msgstr "Свойства трека"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
-msgstr "_Добавить метку"
+msgstr "_Добавить тег"
 
 #: ../data/ui/trackproperties_dialog.ui:100
 msgid "_Remove tag"
-msgstr "_Удалить метку"
+msgstr "_Удалить тег"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
@@ -2653,7 +2653,7 @@ msgstr "аб → А_б"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr "Большие первые буквы во всех метках"
+msgstr "Преобразовать первые буквы в тегах в заглавные"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"

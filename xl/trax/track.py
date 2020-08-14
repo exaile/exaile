@@ -395,10 +395,11 @@ class Track:
 
             # Retrieve file specific metadata
             gloc = Gio.File.new_for_uri(loc)
-            mtime = gloc.query_info(
-                "time::modified", Gio.FileQueryInfoFlags.NONE, None
-            ).get_modification_time()
-            mtime = mtime.tv_sec + (mtime.tv_usec / 100000.0)
+            mtime = (
+                gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None)
+                .get_modification_date_time()
+                .to_unix()
+            )
 
             if not force and self.__tags.get('__modified', 0) >= mtime:
                 return f

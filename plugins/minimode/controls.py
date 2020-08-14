@@ -43,7 +43,7 @@ def suppress(signal):
     def wrapper(function):
         def wrapped_function(self, *args, **kwargs):
             def on_event(sender, *args):
-                sender.stop_emission(signal)
+                sender.stop_emission_by_name(signal)
                 return True
 
             handler_id = self.connect(signal, on_event)

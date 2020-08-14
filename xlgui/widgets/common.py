@@ -267,7 +267,7 @@ class DragTreeView(AutoScrollTreeView):
 
         if source:
             self.connect('drag-data-get', self.container.drag_get_data)
-            self.drag_source_set_icon_stock(Gtk.STOCK_DND)
+            self.drag_source_set_icon_name('gtk-dnd')
 
     def get_selected_tracks(self):
         """

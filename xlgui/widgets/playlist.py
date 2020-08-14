@@ -484,7 +484,8 @@ class PlaylistPage(PlaylistPageBase):
 
         for child in playlist_page.get_children():
             packing = playlist_page.query_child_packing(child)
-            child.reparent(self)
+            playlist_page.remove(child)
+            self.add(child)
             self.set_child_packing(child, *packing)
 
         self.shuffle_button = self.builder.get_object("shuffle_button")
@@ -855,7 +856,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.dragdrop_copyonly = False
 
         self.set_fixed_height_mode(True)  # MASSIVE speedup - don't disable this!
-        self.set_rules_hint(True)
         self.set_enable_search(True)
         self.selection = self.get_selection()
         self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
@@ -1508,7 +1508,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         Stops the default handler from running, all
         processing occurs in the drag-data-received handler
         """
-        self.stop_emission('drag-data-delete')
+        self.stop_emission_by_name('drag-data-delete')
 
     def on_drag_end(self, widget, context):
         """
@@ -1529,7 +1529,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         external URIs and inserts or appends them to the playlist
         """
         # Stop default handler from running
-        self.stop_emission('drag-data-received')
+        self.stop_emission_by_name('drag-data-received')
 
         # Makes `self.on_row_inserted` to ignore inserted rows
         # see https://github.com/exaile/exaile/issues/487

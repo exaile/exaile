@@ -51,14 +51,17 @@ from threading import Thread
 logger = logging.getLogger(__name__)
 
 
-def error(parent, message=None, markup=None, _flags=Gtk.DialogFlags.MODAL):
+def error(parent, message=None, markup=None):
     """
     Shows an error dialog
     """
     if message is markup is None:
         raise ValueError("message or markup must be specified")
     dialog = Gtk.MessageDialog(
-        parent, _flags, Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE
+        buttons=Gtk.ButtonsType.CLOSE,
+        message_type=Gtk.MessageType.ERROR,
+        modal=True,
+        transient_for=parent,
     )
     if markup is None:
         dialog.props.text = message
@@ -75,7 +78,10 @@ def info(parent, message=None, markup=None):
     if message is markup is None:
         raise ValueError("message or markup must be specified")
     dialog = Gtk.MessageDialog(
-        parent, Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO, Gtk.ButtonsType.OK
+        buttons=Gtk.ButtonsType.OK,
+        message_type=Gtk.MessageType.INFO,
+        modal=True,
+        transient_for=parent,
     )
     if markup is None:
         dialog.props.text = message
@@ -88,10 +94,10 @@ def info(parent, message=None, markup=None):
 def yesno(parent, message):
     '''Gets a Yes/No response from a user'''
     dlg = Gtk.MessageDialog(
-        parent=parent,
-        type=Gtk.MessageType.QUESTION,
         buttons=Gtk.ButtonsType.YES_NO,
-        message_format=message,
+        message_type=Gtk.MessageType.QUESTION,
+        text=message,
+        transient_for=parent,
     )
     response = dlg.run()
     dlg.destroy()
@@ -1098,10 +1104,10 @@ class ConfirmCloseDialog(Gtk.MessageDialog):
 
 class MessageBar(Gtk.InfoBar):
     type_map = {
-        Gtk.MessageType.INFO: Gtk.STOCK_DIALOG_INFO,
-        Gtk.MessageType.QUESTION: Gtk.STOCK_DIALOG_QUESTION,
-        Gtk.MessageType.WARNING: Gtk.STOCK_DIALOG_WARNING,
-        Gtk.MessageType.ERROR: Gtk.STOCK_DIALOG_ERROR,
+        Gtk.MessageType.INFO: 'dialog-information',
+        Gtk.MessageType.QUESTION: 'dialog-question',
+        Gtk.MessageType.WARNING: 'dialog-warning',
+        Gtk.MessageType.ERROR: 'dialog-error',
     }
     buttons_map = {
         Gtk.ButtonsType.OK: [(Gtk.STOCK_OK, Gtk.ResponseType.OK)],
@@ -1311,7 +1317,7 @@ class MessageBar(Gtk.InfoBar):
             Gtk.MessageType.ERROR.
         """
         if type != Gtk.MessageType.OTHER:
-            self.image.set_from_stock(self.type_map[type], Gtk.IconSize.DIALOG)
+            self.image.set_from_icon_name(self.type_map[type], Gtk.IconSize.DIALOG)
 
         Gtk.InfoBar.set_message_type(self, type)
 

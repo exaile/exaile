@@ -1,11 +1,4 @@
-*.pyc
-*.pyo
-*~
-*.ui#
-
 /tests/.cache
-
-/po/POTFILES.in
 
 random/
 /exaile-dist.tar.bz2
@@ -43,18 +36,34 @@ random/
 /tools/installer/clean_osx.sh
 /tools/installer/clean_win32.sh
 
-.DS_Store/
-
-# Eclipse settings
+# Eclipse
 .project
 .pydevproject
 
-# PyCharm settings
+# Glade
+*.ui#
+
+# macOS
+.DS_Store/
+
+# MyPy
+.mypy_cache/
+
+# PyCharm
 .idea/
 
-# Vim Pymode settings
+# pytest
+.pytest_cache/
+
+# Python
+__pycache__/
+
+# Various
+*~
+
+# Vim
 .ropeproject
 *.swp
 
-# VS Code settings
+# VSCode
 .vscode/

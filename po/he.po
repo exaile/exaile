@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-08-31 04:46-0500\n"
 "PO-Revision-Date: 2018-07-14 14:27+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/"
@@ -1289,35 +1289,35 @@ msgstr "שינוי שם לרשימת השמעה"
 msgid "The playlist name you entered is already in use."
 msgstr "שם רשימת הנגינה שהכנסת כבר נמצא בשימוש."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:225
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "עריכת רשימת השמעה חכמה"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:288 ../xlgui/panel/playlists.py:304
+#: ../xlgui/panel/playlists.py:320
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr ""
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:294 ../xlgui/panel/playlists.py:310
+#: ../xlgui/panel/playlists.py:326
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:402 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "רשימות השמעה"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:546
 msgid "Smart Playlists"
 msgstr "רשימות השמעה חכמות"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:549
 msgid "Custom Playlists"
 msgstr "רשימות השמעה אישיות"
 
@@ -2183,7 +2183,7 @@ msgid "About Exaile"
 msgstr "אודות Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-08-31 04:46-0500\n"
 "PO-Revision-Date: 2015-04-24 19:19+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/exaile/master/"
@@ -1334,35 +1334,35 @@ msgstr "Пераназваць спіс прайгравання"
 msgid "The playlist name you entered is already in use."
 msgstr "Уведзенае вамі назва спісу прайгравання ўжо выкарыстоўваецца."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:225
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Памылка пры загрузка разумнага спісу прайгравання: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:288 ../xlgui/panel/playlists.py:304
+#: ../xlgui/panel/playlists.py:320
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s і іншыя"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:294 ../xlgui/panel/playlists.py:310
+#: ../xlgui/panel/playlists.py:326
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s і %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:402 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Спісы прайгравання"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:546
 msgid "Smart Playlists"
 msgstr "'Разумныя' спісы прайгравання"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:549
 msgid "Custom Playlists"
 msgstr "Бягучы спіс прайгравання"
 
@@ -2239,7 +2239,7 @@ msgid "About Exaile"
 msgstr "Пра Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.

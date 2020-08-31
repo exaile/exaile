@@ -242,6 +242,9 @@
         <property name="receives_default">False</property>
         <property name="use_underline">True</property>
         <property name="draw_indicator">True</property>
+        <accessibility>
+          <relation type="described-by" target="explain_tray_support_issues"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -325,6 +328,9 @@
             <property name="label" translatable="yes">Tray icons are not supported on some platforms, most notably on Wayland. On GNOME Shell 3.26+ on Xorg, tray icons only work if you have the &lt;a href="https://extensions.gnome.org/extension/495/topicons/"&gt;"TopIcons" extension&lt;/a&gt; (or a similar one) installed.</property>
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
+            <accessibility>
+              <relation type="description-for" target="gui/use_tray"/>
+            </accessibility>
           </object>
         </child>
         <child type="label">

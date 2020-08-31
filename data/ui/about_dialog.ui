@@ -10,7 +10,7 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Exaile</property>
-    <property name="copyright" translatable="yes">© 2009-2019 Various Contributors</property>
+    <property name="copyright" translatable="yes">© 2009–2020 Various Contributors</property>
     <property name="website">https://www.exaile.org</property>
     <property name="authors">Adam Olsen 
 Johannes Sasongko 

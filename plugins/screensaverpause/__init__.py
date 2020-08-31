@@ -45,6 +45,11 @@ SERVICES = [
         path='/org/cinnamon/ScreenSaver',
         dbus_interface='org.cinnamon.ScreenSaver',
     ),
+    dict(  # XFCE
+        bus_name='org.xfce.ScreenSaver',
+        path='/org/xfce/ScreenSaver',
+        dbus_interface='org.xfce.ScreenSaver',
+    ),
     dict(  # KDE
         bus_name='org.freedesktop.ScreenSaver',
         path='/',

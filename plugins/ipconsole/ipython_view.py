@@ -12,7 +12,7 @@ available under the terms of the BSD which accompanies this distribution, and
 is available at U{https://www.opensource.org/licenses/bsd-license.php}
 '''
 
-# Taken from [1] (rev 64b6e0c, 2014-03-18) with slight modifications.
+# Taken from [1] (rev 36e2742, 2019-07-27) with slight modifications.
 # The exact license [2] is reproduced below (3-clause BSD).
 #
 # [1] https://git.gnome.org/browse/accerciser/tree/plugins/ipython_view.py
@@ -59,6 +59,9 @@ from gi.repository import GLib
 from gi.repository import Pango
 
 import IPython
+
+
+IPYTHON_VERSION = int(IPython.__version__.split('.', 1)[0])
 
 
 class IterableIPShell:
@@ -118,10 +121,14 @@ class IterableIPShell:
         os.environ['TERM'] = 'dumb'
         excepthook = sys.excepthook
 
-        from IPython.config.loader import Config
+        if IPYTHON_VERSION >= 4:
+            from traitlets.config.loader import Config
+        else:
+            from IPython.config.loader import Config
 
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"
+        cfg.Completer.use_jedi = False
 
         # InteractiveShell's __init__ overwrites ip_io.stdout,ip_io.stderr with
         # sys.stdout, sys.stderr, this makes sure they are right
@@ -151,7 +158,7 @@ class IterableIPShell:
         self.complete_sep = re.compile(r'[\s\{\}\[\]\(\)]')
         self.updateNamespace({'exit': lambda: None})
         self.updateNamespace({'quit': lambda: None})
-        if not IPython.__version__.startswith('5.'):  # HACK
+        if int(IPYTHON_VERSION) < 5:  # HACK
             self.IP.readline_startup_hook(self.IP.pre_readline)
         # Workaround for updating namespace with sys.modules
         #
@@ -161,6 +168,13 @@ class IterableIPShell:
         import pydoc
 
         self.updateNamespace({'help': pydoc.doc})
+
+        # Avoid using input splitter when not really needed.
+        # Perhaps it could work even before 5.8.0
+        # But it definitely does not work any more with >= 7.0.0
+        self.no_input_splitter = IPYTHON_VERSION >= 5
+        self.lines = []
+        self.indent_spaces = ''
 
     def __update_namespace(self):
         '''
@@ -199,17 +213,29 @@ class IterableIPShell:
             line = self.IP.raw_input(self.prompt)
         except KeyboardInterrupt:
             self.IP.write('\nKeyboardInterrupt\n')
-            self.IP.input_splitter.reset()
+            if self.no_input_splitter:
+                self.lines = []
+            else:
+                self.IP.input_splitter.reset()
         except:
             self.IP.showtraceback()
         else:
-            self.IP.input_splitter.push(line)
-            self.iter_more = self.IP.input_splitter.push_accepts_more()
+            if self.no_input_splitter:
+                self.lines.append(line)
+                (status, self.indent_spaces) = self.IP.check_complete(
+                    '\n'.join(self.lines)
+                )
+                self.iter_more = status == 'incomplete'
+            else:
+                self.IP.input_splitter.push(line)
+                self.iter_more = self.IP.input_splitter.push_accepts_more()
             self.prompt = self.generatePrompt(self.iter_more)
-            if self.IP.SyntaxTB.last_syntax_error and self.IP.autoedit_syntax:
-                self.IP.edit_syntax_error()
             if not self.iter_more:
-                source_raw = self.IP.input_splitter.raw_reset()
+                if self.no_input_splitter:
+                    source_raw = '\n'.join(self.lines)
+                    self.lines = []
+                else:
+                    source_raw = self.IP.input_splitter.raw_reset()
                 self.IP.run_cell(source_raw, store_history=True)
                 self.IP.rl_do_indent = False
             else:
@@ -231,7 +257,7 @@ class IterableIPShell:
         @rtype: string
 
         '''
-        if IPython.__version__.startswith('5.'):  # HACK
+        if IPYTHON_VERSION >= 5:  # HACK
             return '... ' if is_continuation else '>>> '
         if is_continuation:
             prompt = self.IP.prompt_manager.render('in2')
@@ -322,7 +348,9 @@ class IterableIPShell:
                 return str1
 
             if possibilities[1]:
-                common_prefix = reduce(_commonPrefix, possibilities[1]) or line[-1]
+                common_prefix = (
+                    reduce(_commonPrefix, possibilities[1]) or split_line[-1]
+                )
                 completed = line[: -len(split_line[-1])] + common_prefix
             else:
                 completed = line
@@ -399,7 +427,20 @@ class ConsoleView(Gtk.TextView):
         Initialize console view.
         '''
         Gtk.TextView.__init__(self)
-        self.modify_font(Pango.FontDescription('Mono'))
+        pango_ctx = self.get_pango_context()
+        chosen = None
+        for f in pango_ctx.list_families():
+            name = f.get_name()
+            # These are known to show e.g U+FFFC
+            if name in ["Courier New", "Courier Mono"]:
+                chosen = name
+                break
+            # if name in ["Liberation Sans"]:
+            #    chosen = name
+            #    # But prefer a monospace one if possible
+        if chosen == None:
+            chosen = "Mono"
+        self.modify_font(Pango.FontDescription(chosen))
         self.set_cursor_visible(True)
         self.text_buffer = self.get_buffer()
         self.mark = self.text_buffer.create_mark(
@@ -521,7 +562,10 @@ class ConsoleView(Gtk.TextView):
         self.text_buffer.place_cursor(self.text_buffer.get_end_iter())
 
         if self.IP.rl_do_indent:
-            indentation = self.IP.input_splitter.indent_spaces * ' '
+            if self.no_input_splitter:
+                indentation = self.indent_spaces
+            else:
+                indentation = self.IP.input_splitter.indent_spaces * ' '
             self.text_buffer.insert_at_cursor(indentation)
 
     def onKeyPress(self, _widget, event):

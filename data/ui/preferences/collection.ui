@@ -27,6 +27,7 @@
         <property name="can_focus">True</property>
         <accessibility>
           <relation type="labelled-by" target="strip_list_label"/>
+          <relation type="described-by" target="collection/strip_list_label2"/>
         </accessibility>
       </object>
       <packing>
@@ -39,6 +40,9 @@
         <property name="can_focus">False</property>
         <property name="halign">center</property>
         <property name="label" translatable="yes">(Right click to reset to defaults)</property>
+        <accessibility>
+          <relation type="description-for" target="collection/strip_list"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">0</property>

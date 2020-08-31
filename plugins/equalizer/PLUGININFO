@@ -1,4 +1,4 @@
-Version='4.0.2'
+Version='4.1.0'
 Authors=['Dave Aitken <dave.aitken@gmail.com>']
 Name=_('Equalizer')
 Description=_('A 10-band equalizer')

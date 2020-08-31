@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-09 20:06-0500\n"
+"POT-Creation-Date: 2020-05-24 01:16+1000\n"
 "PO-Revision-Date: 2016-09-27 11:08+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/exaile/master/"
@@ -22,15 +22,15 @@ msgstr ""
 "X-Generator: Weblate 2.9-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
-#: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Gairės"
 
-#: ../xl/covers.py:565
+#: ../xl/covers.py:566
 msgid "Local file"
 msgstr "Vietinis failas"
 
-#: ../xl/formatter.py:597
+#: ../xl/formatter.py:596
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
@@ -38,7 +38,7 @@ msgstr[0] "%d diena, "
 msgstr[1] "%d dienos, "
 msgstr[2] "%d dienų, "
 
-#: ../xl/formatter.py:599
+#: ../xl/formatter.py:598
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
@@ -46,7 +46,7 @@ msgstr[0] "%d valanda, "
 msgstr[1] "%d valandos, "
 msgstr[2] "%d valandų, "
 
-#: ../xl/formatter.py:600
+#: ../xl/formatter.py:599
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
@@ -54,7 +54,7 @@ msgstr[0] "%d minutė, "
 msgstr[1] "%d minutės, "
 msgstr[2] "%d minučių, "
 
-#: ../xl/formatter.py:601
+#: ../xl/formatter.py:600
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -63,263 +63,263 @@ msgstr[1] "%d sekundės"
 msgstr[2] "%d sekundžių"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:606
+#: ../xl/formatter.py:605
 #, python-format
 msgid "%dd, "
 msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:609
+#: ../xl/formatter.py:608
 #, python-format
 msgid "%dh, "
 msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:611
+#: ../xl/formatter.py:610
 #, python-format
 msgid "%dm, "
 msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:613
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%ds"
 msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:618
+#: ../xl/formatter.py:617
 #, python-format
 msgid "%dd "
 msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:621
+#: ../xl/formatter.py:620
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:624
+#: ../xl/formatter.py:623
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:722 ../xl/main.py:633 ../xl/trax/track.py:65
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
 msgid "Unknown"
 msgstr "Nežinomas"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:756 ../xl/formatter.py:761
+#: ../xl/formatter.py:754 ../xl/formatter.py:759
 msgid "Never"
 msgstr "Niekada"
 
-#: ../xl/formatter.py:767
+#: ../xl/formatter.py:765
 msgid "Today"
 msgstr "Šiandien"
 
-#: ../xl/formatter.py:769
+#: ../xl/formatter.py:767
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: ../xl/lyrics.py:351
+#: ../xl/lyrics.py:352
 msgid "Local"
 msgstr "Vietinis"
 
-#: ../xl/main.py:83
+#: ../xl/main.py:82
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Naudojimas: exaile [PASIRINKTIS]... [URI]"
 
-#: ../xl/main.py:85
+#: ../xl/main.py:84
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:96
+#: ../xl/main.py:95
 msgid "Playback Options"
 msgstr "Grojimo parinktys"
 
-#: ../xl/main.py:103
+#: ../xl/main.py:102
 msgid "Play the next track"
 msgstr "Groti kitą takelį"
 
-#: ../xl/main.py:111
+#: ../xl/main.py:110
 msgid "Play the previous track"
 msgstr "Groti ankstesnį takelį"
 
-#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Sustabdyti grojimą"
 
-#: ../xl/main.py:122
+#: ../xl/main.py:121
 msgid "Play"
 msgstr "Groti"
 
-#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Sustabdyti"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:137
 msgid "Pause or resume playback"
 msgstr "Pristabdyti arba tęsti grojimą"
 
-#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Po dabartinio takelio sustabdyti grojimą"
 
-#: ../xl/main.py:148
+#: ../xl/main.py:147
 msgid "Collection Options"
 msgstr "Kolekcijos parinktys"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:153 ../xl/main.py:162
+#: ../xl/main.py:152 ../xl/main.py:161
 msgid "LOCATION"
 msgstr "LOCATION"
 
-#: ../xl/main.py:154
+#: ../xl/main.py:153
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Pridėti į kolekciją takelius iš LOCATION"
 
-#: ../xl/main.py:157
+#: ../xl/main.py:156
 msgid "Playlist Options"
 msgstr "Grojaraščio parinktys"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:162
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Eksportuoti esamą grojaraštį į LOCATION"
 
-#: ../xl/main.py:166
+#: ../xl/main.py:165
 msgid "Track Options"
 msgstr "Takelio parinktys"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:172
 msgid "Query player"
 msgstr "Grojimo eilė"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:179
+#: ../xl/main.py:178
 msgid "FORMAT"
 msgstr "FORMATAS"
 
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 #, fuzzy
 #| msgid "Print the current playback position as time"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Parodyti grojamo takelio poziciją kaip laiką"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:186
+#: ../xl/main.py:185
 msgid "TAGS"
 msgstr "ŽYMOS"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 msgid "Tags to retrieve from the current track; use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:194
+#: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
 msgstr "Rodyti pranešimus su grojamo takelio informacija"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:200
 msgid "Print the title of current track"
 msgstr "Rodyti grojamo takelio pavadinimą"
 
-#: ../xl/main.py:208
+#: ../xl/main.py:207
 msgid "Print the album of current track"
 msgstr "Rodyti grojamo takelio albumo pavadinimą"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:214
 msgid "Print the artist of current track"
 msgstr "Rodyti grojamo takelio atlikėjo vardą"
 
-#: ../xl/main.py:222
+#: ../xl/main.py:221
 msgid "Print the length of current track"
 msgstr "Rodyti grojamo takelio trukmę"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
+#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:230
+#: ../xl/main.py:229
 msgid "Set rating for current track to N%"
 msgstr "Nustatyti grojamo takelio reitingą N%"
 
-#: ../xl/main.py:237
+#: ../xl/main.py:236
 msgid "Get rating for current track"
 msgstr "Gauti grojamo takelio reitingą"
 
-#: ../xl/main.py:244
+#: ../xl/main.py:243
 msgid "Print the current playback position as time"
 msgstr "Parodyti grojamo takelio poziciją kaip laiką"
 
-#: ../xl/main.py:251
+#: ../xl/main.py:250
 msgid "Print the current playback progress as percentage"
 msgstr "Rodyti grojamo takelio poziciją kaip procentinį lygį"
 
-#: ../xl/main.py:254
+#: ../xl/main.py:253
 msgid "Volume Options"
 msgstr "Garsumo lygio parinktys"
 
-#: ../xl/main.py:262
+#: ../xl/main.py:261
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Pagarsina N%"
 
-#: ../xl/main.py:271
+#: ../xl/main.py:270
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Patildo N%"
 
-#: ../xl/main.py:279
+#: ../xl/main.py:278
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Įjungia arba išjungia garsą"
 
-#: ../xl/main.py:286
+#: ../xl/main.py:285
 msgid "Print the current volume percentage"
 msgstr "Parodyti garsumo lygį procentais"
 
-#: ../xl/main.py:289
+#: ../xl/main.py:288
 msgid "Other Options"
 msgstr "Kitos parinktys"
 
-#: ../xl/main.py:295
+#: ../xl/main.py:294
 msgid "Start new instance"
 msgstr "Paleisti naują kopiją"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:297
 msgid "Show this help message and exit"
 msgstr "Parodyti šį pagalbos pranešimą ir užverti programą"
 
-#: ../xl/main.py:304
+#: ../xl/main.py:303
 msgid "Show program's version number and exit."
 msgstr "Parodyti programos versijos numerį ir užverti programą."
 
-#: ../xl/main.py:311
+#: ../xl/main.py:310
 msgid "Start minimized (to tray, if possible)"
 msgstr "Pradėti sumažinta (programų dėkle, jei įmanoma)"
 
-#: ../xl/main.py:318
+#: ../xl/main.py:317
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Perjungti grafinės sąsajos matomumą (jei įmanoma)"
 
-#: ../xl/main.py:326
+#: ../xl/main.py:325
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Pradėti saugiu režimu - kartais naudinga, jei susiduriate su problemomis"
 
-#: ../xl/main.py:335
+#: ../xl/main.py:334
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -328,111 +328,111 @@ msgstr ""
 "Priverstinis senų duomenų iš 0.2.x versijos importas (perrašo dabartinius "
 "duomenis)"
 
-#: ../xl/main.py:343
+#: ../xl/main.py:342
 msgid "Do not import old data from version 0.2.x"
 msgstr "Neimportuoti senų duomenų iš 0.2.x versijos"
 
-#: ../xl/main.py:350
+#: ../xl/main.py:349
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Nurodyti, kad kontrolinės parinktys kaip --play paleistų Exaile (jeigu ji "
 "dar nepaleista)"
 
-#: ../xl/main.py:353
+#: ../xl/main.py:352
 msgid "Development/Debug Options"
 msgstr "Plėtojimo/Derinimo parinktys"
 
-#: ../xl/main.py:357 ../xl/main.py:363
+#: ../xl/main.py:356 ../xl/main.py:362
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:358
+#: ../xl/main.py:357
 msgid "Set data directory"
 msgstr "Nustatyti duomenų aplanką"
 
-#: ../xl/main.py:364
+#: ../xl/main.py:363
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:369
+#: ../xl/main.py:368
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:370
+#: ../xl/main.py:369
 msgid "Limit log output to MODULE"
 msgstr "Riboti informacijos į MODULE išvestį"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:374
 msgid "LEVEL"
 msgstr "LEVEL"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "Limit log output to LEVEL"
 msgstr "Riboti informacijos į LEVEL išvestį"
 
-#: ../xl/main.py:384
+#: ../xl/main.py:383
 msgid "Show debugging output"
 msgstr "Rodyti derinimo išvestį"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Įjungti xl.event derinimą. Generuoja DAUG išvesties"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Įjungti xl.event derinimą. Generuoja DAUG išvesties"
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Add thread name to logging messages."
 msgstr "Prie žurnalo pranešimų pridėti ir giją."
 
-#: ../xl/main.py:410
+#: ../xl/main.py:409
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:411
+#: ../xl/main.py:410
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Riboti xl.event derinimo į TYPE išvestį"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Reduce level of output"
 msgstr "Sumažinti išvesties lygį"
 
-#: ../xl/main.py:428
+#: ../xl/main.py:427
 msgid "Disable D-Bus support"
 msgstr "Išjungti D-Bus palaikymą"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable HAL support."
 msgstr "Išjungti HAL palaikymą."
 
-#: ../xl/main.py:810
+#: ../xl/main.py:796
 msgid "Entire Library"
 msgstr "Visa biblioteka"
 
-#: ../xl/main.py:817
+#: ../xl/main.py:803
 #, python-format
 msgid "Random %d"
 msgstr "Atsitiktinis %d"
 
-#: ../xl/main.py:826
+#: ../xl/main.py:812
 #, python-format
 msgid "Rating > %d"
 msgstr "Reitingas > %d"
 
-#: ../xl/main.py:995
+#: ../xl/main.py:981
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
 "Exaile dar nebaigė įsikelti. Gal jums reikėtų klausyti exaile_loaded signalo?"
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
-#: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:114
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:130
+#: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
@@ -442,8 +442,8 @@ msgstr "Albumas"
 msgid "Arranger"
 msgstr "Organizatorius"
 
-#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
-#: ../xlgui/widgets/playlist_columns.py:292 ../plugins/cd/cdprefs.py:112
+#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:124
+#: ../xlgui/widgets/playlist_columns.py:292 ../plugins/cd/cdprefs.py:111
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
@@ -460,7 +460,7 @@ msgid "Author"
 msgstr "Autorius"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:468
-#: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
+#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
@@ -474,7 +474,7 @@ msgstr "Komentaras"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:312
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
-#: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
+#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Kompozitorius"
 
@@ -482,12 +482,12 @@ msgstr "Kompozitorius"
 msgid "Conductor"
 msgstr "Dirigentas"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
 msgid "Cover"
 msgstr "Viršelis"
 
 #: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:400
-#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
+#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Data"
 
@@ -500,7 +500,7 @@ msgid "Encoded by"
 msgstr "Koduota pasinaudojus"
 
 #: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:418
-#: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
+#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Žanras"
 
@@ -548,7 +548,7 @@ msgstr "Atlikėjas"
 #: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
 #: ../xlgui/widgets/playlist_columns.py:282
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
-#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Pavadinimas"
@@ -567,7 +567,7 @@ msgid "Website"
 msgstr "Tinklalapis"
 
 #: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:428
-#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:405
+#: ../plugins/cd/cdprefs.py:119 ../plugins/icecast/__init__.py:398
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Duomenų srautas"
@@ -577,17 +577,17 @@ msgid "Date added"
 msgstr "Pridėjimo data"
 
 #: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:489
-#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
+#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Paskutinį kartą grota"
 
 #: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:332
-#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
+#: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Trukmė"
 
 #: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:438
-#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
+#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Vieta"
@@ -619,7 +619,7 @@ msgstr "X poslinkis:"
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ""
 
-#: ../xl/player/gst/missing_plugin.py:86
+#: ../xl/player/gst/missing_plugin.py:89
 #, python-format
 msgid ""
 "A GStreamer 1.x plugin for %s is missing. Without this software installed, "
@@ -659,104 +659,100 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:156 ../xl/playlist.py:178
+#: ../xl/playlist.py:154 ../xl/playlist.py:176
 msgid "Invalid playlist type."
 msgstr "Netinkamas grojaraščio tipas."
 
-#: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Grojaraštis"
 
-#: ../xl/playlist.py:342
+#: ../xl/playlist.py:339
 msgid "M3U Playlist"
 msgstr "M3U grojaraštis"
 
-#: ../xl/playlist.py:457
+#: ../xl/playlist.py:452
 msgid "PLS Playlist"
 msgstr "PLS grojaraštis"
 
-#: ../xl/playlist.py:548 ../xl/playlist.py:563
+#: ../xl/playlist.py:543 ../xl/playlist.py:558
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Netinkamas %s formatas."
 
-#: ../xl/playlist.py:558
+#: ../xl/playlist.py:553
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Nepalaikoma versija %(version)s šio %(type)s"
 
-#: ../xl/playlist.py:618
+#: ../xl/playlist.py:613
 msgid "ASX Playlist"
 msgstr "ASX grojaraštis"
 
-#: ../xl/playlist.py:797
+#: ../xl/playlist.py:792
 msgid "XSPF Playlist"
 msgstr "XSPF grojaraštis"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:911
 msgid "Shuffle _Off"
 msgstr "Maišymas _išjungtas"
 
-#: ../xl/playlist.py:917
+#: ../xl/playlist.py:912
 msgid "Shuffle _Tracks"
 msgstr "Maišyti _takelius"
 
-#: ../xl/playlist.py:918
+#: ../xl/playlist.py:913
 msgid "Shuffle _Albums"
 msgstr "Maišyti _albumus"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:914
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "Atsitiktinis %d"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat _Off"
 msgstr "Kartojimas _išjungtas"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat _All"
 msgstr "Kartoti _visus"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat O_ne"
 msgstr "Kartoti vie_ną"
 
-#: ../xl/playlist.py:928
+#: ../xl/playlist.py:923
 msgid "Dynamic _Off"
 msgstr "Dinaminis _išjungtas"
 
-#: ../xl/playlist.py:928
+#: ../xl/playlist.py:923
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinaminis pagal susijusius _atlikėjus"
 
-#: ../xl/plugins.py:91
+#: ../xl/plugins.py:87
+msgid "Plugin is already loaded or has a conflicting name."
+msgstr ""
+
+#: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
 msgstr "Įskiepio archyvas yra pateiktas netinkamu formatu."
 
-#: ../xl/plugins.py:98
+#: ../xl/plugins.py:109
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
 msgstr "Įskiepis pavadinimu \"%s\" jau yra įdiegtas."
 
-#: ../xl/plugins.py:103
+#: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
 msgstr "Įskiepio archyve yra nurodytas nesaugus kelias."
 
-#: ../xl/settings.py:99
+#: ../xl/settings.py:97
 msgid "Settings version is newer than current."
 msgstr "Nustatymų versija naujesnė nei dabartinė."
-
-#: ../xl/settings.py:254
-msgid "We don't know how to store that kind of setting: "
-msgstr "Nežinome kaip saugoti tokį nustatymų tipą: "
-
-#: ../xl/settings.py:285
-msgid "An Unknown type of setting was found!"
-msgstr "Rastas nežinomas nustatymų tipas!"
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -804,26 +800,26 @@ msgstr ""
 "Labai greitas laisvasis ir kokybės neprarandantis garso formatas su geru "
 "duomenų suspaudimu."
 
-#: ../xl/trax/track.py:64
+#: ../xl/trax/track.py:65
 msgid "Various Artists"
 msgstr "Įvairūs atlikėjai"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:67
+#: ../xl/trax/track.py:68
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
+#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:183
+#: ../xl/trax/trackdb.py:182
 msgid "You did not specify a location to load the db from"
 msgstr "Nenurodėte vietos, iš kurios įkelti db"
 
-#: ../xl/trax/trackdb.py:252
+#: ../xl/trax/trackdb.py:251
 msgid "You did not specify a location to save the db"
 msgstr "Nenurodėte vietos db saugojimui"
 
@@ -841,11 +837,11 @@ msgstr ""
 "albumas: %(album)s, trukmė: %(length)s, pozicija: %(progress)s%% "
 "[%(position)s]"
 
-#: ../xlgui/__init__.py:317
+#: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
 msgstr "Skenuojama kolekcija..."
 
-#: ../xlgui/__init__.py:396
+#: ../xlgui/__init__.py:397
 #, python-format
 msgid "Scanning %s..."
 msgstr "Skenuojama %s..."
@@ -879,44 +875,49 @@ msgstr ""
 msgid "Collecting albums and covers..."
 msgstr ""
 
-#: ../xlgui/cover.py:494
+#: ../xlgui/cover.py:501
 msgid "Show Cover"
 msgstr "Rodyti viršelį"
 
-#: ../xlgui/cover.py:495
+#: ../xlgui/cover.py:502
 msgid "Fetch Cover"
 msgstr "Atsisiųsti viršelį"
 
-#: ../xlgui/cover.py:496
+#: ../xlgui/cover.py:503
 msgid "Remove Cover"
 msgstr "Pašalinti viršelį"
 
-#: ../xlgui/cover.py:805
+#: ../xlgui/cover.py:812
 #, python-format
 msgid "Cover for %s"
 msgstr "%s viršelis"
 
-#: ../xlgui/cover.py:927
+#: ../xlgui/cover.py:880
+#, python-brace-format
+msgid "{width}x{height} pixels ({zoom}%)"
+msgstr ""
+
+#: ../xlgui/cover.py:931
 msgid "Save File"
 msgstr ""
 
-#: ../xlgui/cover.py:1025
+#: ../xlgui/cover.py:1029
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "%(artist)s - %(album)s viršelio parinktys"
 
-#: ../xlgui/cover.py:1129
+#: ../xlgui/cover.py:1133
 msgid "No covers found."
 msgstr "Viršelių nerasta."
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1135
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
@@ -1198,55 +1199,55 @@ msgstr ""
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:125
+#: ../xlgui/panel/collection.py:127
 #, fuzzy
 #| msgid "Artist"
 msgid "Album Artist"
 msgstr "Atlikėjas"
 
-#: ../xlgui/panel/collection.py:131
+#: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
 msgstr "Žanras - Atlikėjas"
 
-#: ../xlgui/panel/collection.py:134
+#: ../xlgui/panel/collection.py:136
 #, fuzzy
 #| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
 msgstr "Žanras - Atlikėjas"
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
 msgstr "Žanras - Albumas"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:142
 msgid "Date - Artist"
 msgstr "Data - Atlikėjas"
 
-#: ../xlgui/panel/collection.py:143
+#: ../xlgui/panel/collection.py:145
 #, fuzzy
 #| msgid "Date - Artist"
 msgid "Date - Album Artist"
 msgstr "Data - Atlikėjas"
 
-#: ../xlgui/panel/collection.py:146
+#: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
 msgstr "Data - Albumas"
 
-#: ../xlgui/panel/collection.py:149
+#: ../xlgui/panel/collection.py:151
 msgid "Artist - (Date - Album)"
 msgstr "Atlikėjas - (Data - Albumas)"
 
-#: ../xlgui/panel/collection.py:153
+#: ../xlgui/panel/collection.py:155
 #, fuzzy
 #| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
 msgstr "Atlikėjas - (Data - Albumas)"
 
-#: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Kolekcija"
 
-#: ../xlgui/panel/collection.py:284
+#: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
 msgstr "Skenuoti kolekciją iš naujo"
 
@@ -1255,22 +1256,22 @@ msgstr "Skenuoti kolekciją iš naujo"
 msgid "Transferring to %s..."
 msgstr "Perduodama į %s..."
 
-#: ../xlgui/panel/files.py:83
+#: ../xlgui/panel/files.py:82
 msgid "Files"
 msgstr "Failai"
 
-#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:448
-#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
+#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:448
+#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Failo pavadinimas"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:147
+#: ../xlgui/panel/files.py:146
 msgid "Size"
 msgstr "Dydis"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:455
+#: ../xlgui/panel/files.py:457
 #, python-format
 msgid "%s kB"
 msgstr "%s kB"
@@ -1289,8 +1290,8 @@ msgid "Source: "
 msgstr ""
 
 #: ../xlgui/panel/lyrics.py:226
-msgid "Any"
-msgstr "Bet kuris"
+msgid "Any source"
+msgstr ""
 
 #: ../xlgui/panel/menus.py:219
 #, fuzzy
@@ -1304,54 +1305,54 @@ msgstr "Naujas gudrusis grojaraštis"
 msgid "_New Station"
 msgstr "Nauja stotis"
 
-#: ../xlgui/panel/playlists.py:132
+#: ../xlgui/panel/playlists.py:136
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "Ištrinti grojaraštį"
 
-#: ../xlgui/panel/playlists.py:148
+#: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
 msgstr "Įveskite naują norimą grojaraščio pavadinimą"
 
-#: ../xlgui/panel/playlists.py:149
+#: ../xlgui/panel/playlists.py:153
 msgid "Rename Playlist"
 msgstr "Pervadinti grojaraštį"
 
-#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
+#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Toks grojaraščio pavadinimas jau užimtas."
 
-#: ../xlgui/panel/playlists.py:211
+#: ../xlgui/panel/playlists.py:215
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Nepavyko įkelti Podcast kanalo."
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:272 ../xlgui/panel/playlists.py:288
-#: ../xlgui/panel/playlists.py:304
+#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
+#: ../xlgui/panel/playlists.py:308
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s ir kiti"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:278 ../xlgui/panel/playlists.py:294
-#: ../xlgui/panel/playlists.py:310
+#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
+#: ../xlgui/panel/playlists.py:314
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s ir %(second)s"
 
-#: ../xlgui/panel/playlists.py:386 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Grojaraščiai"
 
-#: ../xlgui/panel/playlists.py:522
+#: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
 msgstr "Gudrieji grojaraščiai"
 
-#: ../xlgui/panel/playlists.py:525
+#: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
 msgstr "Pasirinktiniai grojaraščiai"
 
@@ -1368,7 +1369,7 @@ msgstr "Įkeliami kanalai..."
 msgid "Add Radio Station"
 msgstr "Pridėti radijo stotį"
 
-#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
 msgid "Name:"
 msgstr "Pavadinimas:"
 
@@ -1440,7 +1441,7 @@ msgstr ""
 msgid "_Move to Other View"
 msgstr ""
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:39
+#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Įskiepiai"
 
@@ -1481,16 +1482,16 @@ msgstr "Dainos žodžių peržiūra"
 msgid "Playback"
 msgstr "Grojimas"
 
-#: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
+#: ../xlgui/preferences/plugin.py:107 ../plugins/grouptagger/gt_common.py:60
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:178
+#: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
 msgstr "Nepavyko įkelti įskiepio informacijos!"
 
-#: ../xlgui/preferences/plugin.py:179
+#: ../xlgui/preferences/plugin.py:180
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
@@ -1498,48 +1499,48 @@ msgstr[0] "Neveikiantis įskiepis: %s"
 msgstr[1] "Neveikiantys įskiepiai: %s"
 msgstr[2] "Neveikiančių įskiepių: %s"
 
-#: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
+#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
 msgid "Could not disable plugin!"
 msgstr "Nepavyko išjungti įskiepio!"
 
-#: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
 msgid "Could not enable plugin!"
 msgstr "Nepavyko įjungti įskiepio!"
 
-#: ../xlgui/preferences/plugin.py:230
+#: ../xlgui/preferences/plugin.py:231
 msgid "Choose a Plugin"
 msgstr "Pasirinkite įskiepį"
 
-#: ../xlgui/preferences/plugin.py:241
+#: ../xlgui/preferences/plugin.py:242
 msgid "Plugin Archives"
 msgstr "Įskiepių archyvai"
 
-#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:728
-#: ../xlgui/widgets/dialogs.py:905
+#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
+#: ../xlgui/widgets/dialogs.py:892
 msgid "All Files"
 msgstr "Visi failai"
 
-#: ../xlgui/preferences/plugin.py:259
+#: ../xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
 msgstr "Įskiepio įdiegimas nepavyko!"
 
-#: ../xlgui/preferences/widgets.py:70
+#: ../xlgui/preferences/widgets.py:71
 msgid "Restart Exaile?"
 msgstr "Paleisti Exaile iš naujo?"
 
-#: ../xlgui/preferences/widgets.py:73
+#: ../xlgui/preferences/widgets.py:74
 msgid "A restart is required for this change to take effect."
 msgstr "Pokyčių įsigaliojimui būtinas paleidimas iš naujo."
 
-#: ../xlgui/preferences/widgets.py:76
+#: ../xlgui/preferences/widgets.py:77
 msgid "Restart"
 msgstr "Paleisti iš naujo"
 
-#: ../xlgui/preferences/widgets.py:727
+#: ../xlgui/preferences/widgets.py:728
 msgid "Action"
 msgstr "Veiksmas"
 
-#: ../xlgui/preferences/widgets.py:735 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:736 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Nuoroda"
 
@@ -1580,49 +1581,49 @@ msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:857
+#: ../xlgui/properties.py:854
 msgid "of:"
 msgstr "iš:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:961
 msgid "JPEG image"
 msgstr ""
 
-#: ../xlgui/properties.py:971
+#: ../xlgui/properties.py:966
 msgid "PNG image"
 msgstr ""
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:968
 msgid "Image"
 msgstr ""
 
-#: ../xlgui/properties.py:979
+#: ../xlgui/properties.py:974
 msgid "Linked image"
 msgstr ""
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1114
+#: ../xlgui/properties.py:1109
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../xlgui/properties.py:1128
+#: ../xlgui/properties.py:1123
 msgid "Select image to set as cover"
 msgstr ""
 
-#: ../xlgui/properties.py:1141
+#: ../xlgui/properties.py:1136
 msgid "Supported image formats"
 msgstr ""
 
-#: ../xlgui/properties.py:1224
+#: ../xlgui/properties.py:1219
 msgid "Open Directory"
 msgstr "Atverti aplanką"
 
-#: ../xlgui/properties.py:1274
+#: ../xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
 msgstr "Pritaikyti dabartinę reikšmę visiems takeliams"
 
-#: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
+#: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Išsaugota %(count)s iš %(total)s."
@@ -1631,114 +1632,114 @@ msgstr "Išsaugota %(count)s iš %(total)s."
 msgid "Exaile Music Player"
 msgstr "Muzikos grotuvas Exaile"
 
-#: ../xlgui/widgets/dialogs.py:361
+#: ../xlgui/widgets/dialogs.py:349
 msgid "Enter the URL to open"
 msgstr "Įveskite URL"
 
-#: ../xlgui/widgets/dialogs.py:361
+#: ../xlgui/widgets/dialogs.py:349
 msgid "Open URL"
 msgstr "Atverti URL"
 
-#: ../xlgui/widgets/dialogs.py:648
+#: ../xlgui/widgets/dialogs.py:636
 msgid "Select File Type (by Extension)"
 msgstr "Pasirinkite failo tipą (pagal plėtinį)"
 
-#: ../xlgui/widgets/dialogs.py:707
+#: ../xlgui/widgets/dialogs.py:694
 msgid "Choose Media to Open"
 msgstr "Pasirinkite Mediją"
 
-#: ../xlgui/widgets/dialogs.py:722
+#: ../xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
 msgstr "Palaikomi failų formatai"
 
-#: ../xlgui/widgets/dialogs.py:724
+#: ../xlgui/widgets/dialogs.py:711
 msgid "Music Files"
 msgstr "Muzikos failai"
 
-#: ../xlgui/widgets/dialogs.py:726 ../xlgui/widgets/dialogs.py:903
+#: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
 msgid "Playlist Files"
 msgstr "Grojaraščių failai"
 
-#: ../xlgui/widgets/dialogs.py:808
+#: ../xlgui/widgets/dialogs.py:795
 msgid "Choose Directory to Open"
 msgstr "Pasirinkite aplanką"
 
-#: ../xlgui/widgets/dialogs.py:888
+#: ../xlgui/widgets/dialogs.py:875
 msgid "Import Playlist"
 msgstr "Importuoti grojaraštį"
 
-#: ../xlgui/widgets/dialogs.py:1000
+#: ../xlgui/widgets/dialogs.py:990
 msgid "Export Current Playlist"
 msgstr "Eksportuoti dabartinį grojaraštį"
 
-#: ../xlgui/widgets/dialogs.py:1013
+#: ../xlgui/widgets/dialogs.py:1003
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1070
+#: ../xlgui/widgets/dialogs.py:1060
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Grojaraštis išsaugotas kaip <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1087
+#: ../xlgui/widgets/dialogs.py:1077
 #, python-format
 msgid "Close %s"
 msgstr "Užverti %s"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1078
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Prieš užveriant išsaugoti pakeitimus į %s?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1080
 msgid "Your changes will be lost if you don't save them"
 msgstr "Jeigu neišsaugosite, pakeitimai bus prarasti"
 
-#: ../xlgui/widgets/dialogs.py:1094
+#: ../xlgui/widgets/dialogs.py:1084
 msgid "Close Without Saving"
 msgstr "Užverti neišsaugant"
 
-#: ../xlgui/widgets/dialogs.py:1487
+#: ../xlgui/widgets/dialogs.py:1477
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1495
+#: ../xlgui/widgets/dialogs.py:1485
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1667 ../xlgui/widgets/dialogs.py:1685
+#: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Kopijuojant %s: %s, įvyko klaida"
 
-#: ../xlgui/widgets/dialogs.py:1696
+#: ../xlgui/widgets/dialogs.py:1686
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Failas yra, perrašyti %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1753
+#: ../xlgui/widgets/dialogs.py:1743
 msgid "Playlist name:"
 msgstr "Grojaraščio pavadinimas:"
 
-#: ../xlgui/widgets/dialogs.py:1754
+#: ../xlgui/widgets/dialogs.py:1744
 msgid "Add new playlist..."
 msgstr "Pridėti naują grojaraštį..."
 
-#: ../xlgui/widgets/dialogs.py:1767
+#: ../xlgui/widgets/dialogs.py:1757
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Neįvedėte grojaraščio pavadinimo"
 
-#: ../xlgui/widgets/dialogs.py:1776
+#: ../xlgui/widgets/dialogs.py:1766
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1845
+#: ../xlgui/widgets/dialogs.py:1835
 #, python-format
 msgid "Exporting %s"
 msgstr "Eksportuojama %s"
 
-#: ../xlgui/widgets/dialogs.py:1850
+#: ../xlgui/widgets/dialogs.py:1840
 msgid "Choose directory to export files to"
 msgstr ""
 
@@ -1841,70 +1842,70 @@ msgstr "Palaikomi failų formatai"
 msgid "_Delete Playlist"
 msgstr "Ištrinti grojaraštį"
 
-#: ../xlgui/widgets/notebook.py:263
+#: ../xlgui/widgets/notebook.py:247
 msgid "Close Tab"
 msgstr "Užverti kortelę"
 
-#: ../xlgui/widgets/playback.py:819
+#: ../xlgui/widgets/playback.py:834
 #, python-format
 msgid "Seeking: %s"
 msgstr "Sekama: %s"
 
-#: ../xlgui/widgets/playback.py:1170
+#: ../xlgui/widgets/playback.py:1184
 msgid "Move"
 msgstr "Perkelti"
 
-#: ../xlgui/widgets/playback.py:1315
+#: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
 msgstr "Naujas žymeklis"
 
-#: ../xlgui/widgets/playback.py:1374
+#: ../xlgui/widgets/playback.py:1388
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1382
+#: ../xlgui/widgets/playback.py:1396
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Pašalinti gairę"
 
-#: ../xlgui/widgets/playback.py:1425
+#: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
 msgstr "Nutildyta"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1431
+#: ../xlgui/widgets/playback.py:1445
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/widgets/playback.py:1436
+#: ../xlgui/widgets/playback.py:1450
 msgid "Full Volume"
 msgstr "Maksimalus garsumas"
 
-#: ../xlgui/widgets/playback.py:1555
+#: ../xlgui/widgets/playback.py:1569
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Sustabdyti"
 
-#: ../xlgui/widgets/playback.py:1558
+#: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1570
+#: ../xlgui/widgets/playback.py:1584
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Kitas takelis"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1594
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Ankstesnis takelis"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1604
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -1999,7 +2000,7 @@ msgid "Disc Number"
 msgstr "Disko numeris"
 
 #: ../xlgui/widgets/playlist_columns.py:353
-#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
+#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
@@ -2247,11 +2248,11 @@ msgstr "Skenuoti kolekciją iš naujo"
 msgid "Cover Finder"
 msgstr "Viršelių paieška"
 
-#: ../data/ui/coverchooser.ui:115
+#: ../data/ui/coverchooser.ui:125
 msgid "The origin of this cover"
 msgstr ""
 
-#: ../data/ui/coverchooser.ui:164
+#: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Nustatyti kaip viršelį"
 
@@ -2288,35 +2289,19 @@ msgstr ""
 msgid "_Close"
 msgstr "Užverti"
 
-#: ../data/ui/device_manager.ui:48
-msgid "Add Device"
-msgstr "Pridėti įrenginį"
-
-#: ../data/ui/device_manager.ui:111
-msgid "Type of device:"
-msgstr "Įrenginio tipas:"
-
-#: ../data/ui/device_manager.ui:144
-msgid "Detected devices:"
-msgstr "Aptikti įrenginiai:"
-
-#: ../data/ui/device_manager.ui:175
-msgid "Custom: "
-msgstr "Pasirinktinis: "
-
-#: ../data/ui/device_manager.ui:239
+#: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
 msgstr "Įrenginių tvarkyklė"
 
-#: ../data/ui/device_manager.ui:264
+#: ../data/ui/device_manager.ui:65
 msgid "Icon"
 msgstr "Piktograma"
 
-#: ../data/ui/device_manager.ui:276
+#: ../data/ui/device_manager.ui:77
 msgid "Device"
 msgstr "Įrenginys"
 
-#: ../data/ui/device_manager.ui:287
+#: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Tvarkyklė"
 
@@ -2377,27 +2362,32 @@ msgstr ""
 "Atnaujinti kolekcijos vaizdą\n"
 "(laikykite nuspaudę Shift mygtuką)"
 
-#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:168
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:170
 msgid "Clear search field"
 msgstr "Išvalyti paieškos laukelį"
 
-#: ../data/ui/panel/files.ui:27
+#: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:384
+msgid "Search"
+msgstr "Ieškoti"
+
+#: ../data/ui/panel/files.ui:29
 msgid "Previous visited directory"
 msgstr "Ankstesnis lankytas aplankas"
 
-#: ../data/ui/panel/files.ui:49
+#: ../data/ui/panel/files.ui:51
 msgid "Next visited directory"
 msgstr "Kitas lankytas aplankas"
 
-#: ../data/ui/panel/files.ui:70
+#: ../data/ui/panel/files.ui:72
 msgid "Up one directory"
 msgstr "Grįžti aplanku atgal"
 
-#: ../data/ui/panel/files.ui:91
+#: ../data/ui/panel/files.ui:93
 msgid "Refresh directory listing"
 msgstr "Atnaujinti aplankų sąrašą"
 
-#: ../data/ui/panel/files.ui:112
+#: ../data/ui/panel/files.ui:114
 msgid "Home directory"
 msgstr "Namų aplankas"
 
@@ -2409,7 +2399,7 @@ msgstr "Priskirti grojaraščiui visus takelius"
 msgid "Import CD"
 msgstr "Importuoti CD"
 
-#: ../data/ui/panel/lyrics.ui:25
+#: ../data/ui/panel/lyrics.ui:24
 msgid "Refresh Lyrics"
 msgstr "Atnaujinti dainos žodžius"
 
@@ -2426,10 +2416,6 @@ msgstr "Maišymo veiksena"
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
 msgstr "Kartoti grojimą"
-
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:391
-msgid "Search"
-msgstr "Ieškoti"
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
@@ -2467,26 +2453,26 @@ msgstr "Visada rodyti kortelių juostą"
 msgid "Tab placement:"
 msgstr "Kortelių išsidėstymas:"
 
-#: ../data/ui/preferences/appearance.ui:133
+#: ../data/ui/preferences/appearance.ui:139
 msgid "Playlist font:"
 msgstr "Grojaraščio šriftas:"
 
-#: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
+#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr "Atstatyti į sistemos šriftą"
 
-#: ../data/ui/preferences/appearance.ui:183
+#: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
 msgstr "Kolekcijoje rodyti takelių skaičius"
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:197
+#: ../data/ui/preferences/appearance.ui:208
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr "Naudoti alfa permatomumą:"
 
-#: ../data/ui/preferences/appearance.ui:201
+#: ../data/ui/preferences/appearance.ui:212
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
@@ -2494,28 +2480,34 @@ msgstr ""
 "Perspėjimas: ši parinktis, jei yra naudojama su langų tvarkykle, "
 "nepalaikančia langų komponavimo, gali sukelti vaizdo problemų."
 
-#: ../data/ui/preferences/appearance.ui:223
+#: ../data/ui/preferences/appearance.ui:228
+#, fuzzy
+#| msgid "Use alpha transparency:"
+msgid "Alpha transparency"
+msgstr "Naudoti alfa permatomumą:"
+
+#: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
 msgstr "Rodyti piktogramą programų dėkle"
 
-#: ../data/ui/preferences/appearance.ui:238
+#: ../data/ui/preferences/appearance.ui:257
 msgid "Minimize to tray"
 msgstr "Sumažinti į programų dėklą"
 
-#: ../data/ui/preferences/appearance.ui:252
+#: ../data/ui/preferences/appearance.ui:271
 msgid "Close to tray"
 msgstr "Užverti į programų dėklą"
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:266
+#: ../data/ui/preferences/appearance.ui:285
 msgid "Jump to current song on track change"
 msgstr "Takelio keitimo metu pereiti į dabartinę dainą"
 
-#: ../data/ui/preferences/appearance.ui:282
+#: ../data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
 msgstr "Programos paleidimo metu rodyti pristatymo langą"
 
-#: ../data/ui/preferences/appearance.ui:309
+#: ../data/ui/preferences/appearance.ui:328
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2523,16 +2515,16 @@ msgid ""
 "extension</a> (or a similar one) installed."
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:319
+#: ../data/ui/preferences/appearance.ui:341
 msgid "Note:"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:331
+#: ../data/ui/preferences/appearance.ui:353
 msgid "Prefer dark theme"
 msgstr ""
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:335
+#: ../data/ui/preferences/appearance.ui:357
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
@@ -2545,11 +2537,11 @@ msgid ""
 msgstr ""
 "Ignoruotini žodžiai, kai rūšiuojama pagal atlikėjo gaires (atskirti tarpais):"
 
-#: ../data/ui/preferences/collection.ui:35
+#: ../data/ui/preferences/collection.ui:42
 msgid "(Right click to reset to defaults)"
 msgstr "(Numatytųjų nustatymų atkūrimui spustelėkite dešinį pelės klavišą)"
 
-#: ../data/ui/preferences/collection.ui:44
+#: ../data/ui/preferences/collection.ui:54
 #, fuzzy
 #| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
@@ -2571,23 +2563,23 @@ msgstr ""
 msgid "Preferred file names:"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui:43
+#: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui:52
+#: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
 msgstr "Prasidėjus grojimui automatiškai atsisiųsti viršelius"
 
-#: ../data/ui/preferences/cover.ui:70
+#: ../data/ui/preferences/cover.ui:76
 msgid "Cover Search Order:"
 msgstr "Viršelių paieškos tvarka:"
 
-#: ../data/ui/preferences/cover.ui:105
+#: ../data/ui/preferences/cover.ui:118
 msgid "(drag to reorder)"
 msgstr "(tempkite eiliškumo keitimui)"
 
-#: ../data/ui/preferences/cover.ui:114
+#: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
 msgstr "Naudoti į gaires įterptus viršelius"
 
@@ -2607,89 +2599,89 @@ msgstr "Streamripper (srautų įrašymas)"
 msgid "Audio Sink:  "
 msgstr "Audio Sink:  "
 
-#: ../data/ui/preferences/playback.ui:92
+#: ../data/ui/preferences/playback.ui:98
 #, fuzzy
 #| msgid "Add Device"
 msgid "Audio Device: "
 msgstr "Pridėti įrenginį"
 
-#: ../data/ui/preferences/playback.ui:122
+#: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:142
+#: ../data/ui/preferences/playback.ui:160
 msgid "Resume playback on start"
 msgstr "Paleidus programą iš naujo tęsti grojimą"
 
-#: ../data/ui/preferences/playback.ui:158
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback in paused state"
 msgstr "Tęsti grojimą iš pristabdytos padėties"
 
-#: ../data/ui/preferences/playback.ui:173
+#: ../data/ui/preferences/playback.ui:191
 msgid "Adding an item to an empty queue begins playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:188
+#: ../data/ui/preferences/playback.ui:206
 msgid "Remove track from queue upon playback"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:203
+#: ../data/ui/preferences/playback.ui:221
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:207
+#: ../data/ui/preferences/playback.ui:225
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:219
+#: ../data/ui/preferences/playback.ui:237
 msgid "Automatically advance to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:254
 msgid "Delay between tracks (ms):"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:247
+#: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:273
+#: ../data/ui/preferences/playback.ui:300
 msgid "Crossfade duration (ms):"
 msgstr "Perėjimo trukmė (ms):"
 
-#: ../data/ui/preferences/playback.ui:282
+#: ../data/ui/preferences/playback.ui:312
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Naudoti perėjimą (EKSPERIMENTINIS)"
 
-#: ../data/ui/preferences/playback.ui:286
+#: ../data/ui/preferences/playback.ui:316
 msgid "Forces automatically advancing to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:313
+#: ../data/ui/preferences/playback.ui:346
 msgid "Fade duration (ms):"
 msgstr "Išblukimo trukmė (ms):"
 
-#: ../data/ui/preferences/playback.ui:322
+#: ../data/ui/preferences/playback.ui:358
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "Naudotojo veiksmų metu naudoti išblukimo perėjimus"
 
-#: ../data/ui/preferences/playback.ui:340
+#: ../data/ui/preferences/playback.ui:376
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "Atkūrimo variklis: "
 
-#: ../data/ui/preferences/playback.ui:367
+#: ../data/ui/preferences/playback.ui:409
 #, fuzzy
 #| msgid "Repeat playback"
 msgid "Enable gapless playback"
 msgstr "Kartoti grojimą"
 
-#: ../data/ui/preferences/playback.ui:371
+#: ../data/ui/preferences/playback.ui:413
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
@@ -2896,37 +2888,38 @@ msgstr ""
 msgid "Description:"
 msgstr "Aprašymas:"
 
-#: ../data/ui/trackproperties_dialog_cover_row.ui:151
+#: ../data/ui/trackproperties_dialog_cover_row.ui:154
 msgid "Type:"
 msgstr "Tipas:"
 
-#: ../data/ui/widgets/filter_dialog.ui:127
+#: ../data/ui/widgets/filter_dialog.ui:137
 msgid "Match any of the criteria"
 msgstr "Turi atitikti bet kurį iš kriterijų"
 
-#: ../data/ui/widgets/filter_dialog.ui:141
+#: ../data/ui/widgets/filter_dialog.ui:151
 msgid "Randomize results"
 msgstr "Maišyti rezultatus"
 
-#: ../data/ui/widgets/filter_dialog.ui:155
+#: ../data/ui/widgets/filter_dialog.ui:165
 msgid "Add"
 msgstr "Pridėti"
 
-#: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
-msgid "Limit to:"
-msgstr "Riboti iki: "
-
-#: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
-msgid "tracks"
-msgstr " takeliai"
+#. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
+#: ../data/ui/widgets/filter_dialog.ui:194
+msgid "Maximum number of tracks:"
+msgstr ""
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
 msgstr "Atšaukti"
+
+#: ../data/ui/widgets/volume_control.ui:20
+msgid "Toggle mute"
+msgstr ""
+
+#: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
+msgid "Volume"
+msgstr "Garsumo lygis"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
@@ -2977,25 +2970,25 @@ msgstr ""
 msgid "Please make sure the entered data is correct."
 msgstr "Prašome patikrinti ar įvesti duomenys yra teisingi."
 
-#: ../plugins/bookmarks/__init__.py:210
+#: ../plugins/bookmarks/__init__.py:209
 #, fuzzy
 #| msgid "Bookmark This Track"
 msgid "_Bookmark This Track"
 msgstr "Pridėti šį takelį į žymes"
 
-#: ../plugins/bookmarks/__init__.py:216
+#: ../plugins/bookmarks/__init__.py:215
 #, fuzzy
 #| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
 msgstr "Ištrinti žymę"
 
-#: ../plugins/bookmarks/__init__.py:220
+#: ../plugins/bookmarks/__init__.py:219
 #, fuzzy
 #| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
 msgstr "Išvalyti žymes"
 
-#: ../plugins/bookmarks/__init__.py:328
+#: ../plugins/bookmarks/__init__.py:333
 #, fuzzy
 #| msgid "Bookmarks"
 msgid "_Bookmarks"
@@ -3020,7 +3013,7 @@ msgstr ""
 msgid "Update"
 msgstr "Atnaujinimai"
 
-#: ../plugins/cd/__init__.py:151 ../plugins/cd/__init__.py:222
+#: ../plugins/cd/__init__.py:152 ../plugins/cd/__init__.py:223
 msgid "Audio Disc"
 msgstr "Audio diskas"
 
@@ -3032,41 +3025,41 @@ msgstr "Importuojamas CD..."
 msgid "Error transcoding files from CD."
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:34
+#: ../plugins/cd/cdprefs.py:33
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:105
+#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
 msgstr "Takelio numeris"
 
-#: ../plugins/cd/cdprefs.py:116 ../plugins/minimode/minimode_preferences.py:111
+#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
 msgstr "Disko numeris"
 
-#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
 msgstr "Grojimų skaičius"
 
-#: ../plugins/daapclient/__init__.py:316 ../plugins/history/__init__.py:187
+#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:187
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:323
+#: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
 msgstr "Rankiniu būdu..."
 
-#: ../plugins/daapclient/__init__.py:378
+#: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port for share"
 msgstr "Viešinimui įveskite IP adresą ir prievadą"
 
-#: ../plugins/daapclient/__init__.py:378
+#: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port."
 msgstr "Įveskite IP adresą ir prievadą."
 
-#: ../plugins/daapclient/__init__.py:598
+#: ../plugins/daapclient/__init__.py:549
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3074,19 +3067,19 @@ msgstr ""
 "Šis serveris nepalaiko kelių prisijungimų vienu metu.\n"
 "Prieš parsisiunčiant dainas jūs privalote sustabdyti grojimą."
 
-#: ../plugins/daapclient/__init__.py:708
+#: ../plugins/daapclient/__init__.py:659
 msgid "Refresh Server List"
 msgstr "Atnaujinti serverio sąrašą"
 
-#: ../plugins/daapclient/__init__.py:716
+#: ../plugins/daapclient/__init__.py:667
 msgid "Disconnect from Server"
 msgstr "Atsijungti nuo serverio"
 
-#: ../plugins/daapclient/__init__.py:737
+#: ../plugins/daapclient/__init__.py:688
 msgid "Select a Location for Saving"
 msgstr "Pasirinkite išsaugojimo vietą"
 
-#: ../plugins/daapclient/__init__.py:791
+#: ../plugins/daapclient/__init__.py:742
 msgid "Connect to DAAP..."
 msgstr "Prisijungti prie DAAP..."
 
@@ -3105,11 +3098,11 @@ msgstr "DAAP serveris"
 msgid "Desktop Cover"
 msgstr "Darbastalio viršeliai"
 
-#: ../plugins/developer/__init__.py:64
+#: ../plugins/developer/__init__.py:63
 msgid "Developer Tools"
 msgstr ""
 
-#: ../plugins/equalizer/__init__.py:364
+#: ../plugins/equalizer/__init__.py:362
 #, fuzzy
 #| msgid "Equalizer"
 msgid "_Equalizer"
@@ -3160,7 +3153,7 @@ msgstr "_Pašalinti gairę"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:107
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
 msgstr ""
 
@@ -3328,50 +3321,50 @@ msgstr ""
 msgid "_Clear History"
 msgstr "Iš_valyti grojaraštį"
 
-#: ../plugins/icecast/__init__.py:116 ../plugins/icecast/__init__.py:187
-#: ../plugins/icecast/__init__.py:210
+#: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:183
+#: ../plugins/icecast/__init__.py:206
 #, fuzzy
 msgid "Contacting Icecast server..."
 msgstr "Jungiamasi prie Shoutcast serverio..."
 
-#: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
-#: ../plugins/icecast/__init__.py:225 ../plugins/icecast/__init__.py:228
+#: ../plugins/icecast/__init__.py:122 ../plugins/icecast/__init__.py:125
+#: ../plugins/icecast/__init__.py:218 ../plugins/icecast/__init__.py:221
 #, fuzzy
 msgid "Error connecting to Icecast server."
 msgstr "Nepavyko prisijungti prie Shoutcast serverio."
 
-#: ../plugins/icecast/__init__.py:330
+#: ../plugins/icecast/__init__.py:323
 msgid "Enter the search keywords"
 msgstr "Įveskite paieškos raktažodžius"
 
-#: ../plugins/icecast/__init__.py:330
+#: ../plugins/icecast/__init__.py:323
 #, fuzzy
 msgid "Icecast Search"
 msgstr "Shoutcast paieška"
 
-#: ../plugins/icecast/__init__.py:354
+#: ../plugins/icecast/__init__.py:347
 msgid "No Stations Found"
 msgstr "Nerasta jokių stočių"
 
-#: ../plugins/icecast/__init__.py:357
+#: ../plugins/icecast/__init__.py:350
 msgid "Icecast Search Results"
 msgstr "Icecast paieškos rezultatai"
 
-#: ../plugins/icecast/__init__.py:399
+#: ../plugins/icecast/__init__.py:392
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../plugins/icecast/__init__.py:415
+#: ../plugins/icecast/__init__.py:408
 #, fuzzy
 msgid "Format"
 msgstr "Normalus"
 
-#: ../plugins/ipconsole/__init__.py:156
+#: ../plugins/ipconsole/__init__.py:155
 msgid "IPython Console - Exaile"
 msgstr "IPython konsolė - Exaile"
 
-#: ../plugins/ipconsole/__init__.py:214
+#: ../plugins/ipconsole/__init__.py:213
 #, fuzzy
 #| msgid "Show IPython Console"
 msgid "Show _IPython Console"
@@ -3514,10 +3507,6 @@ msgstr "Sustabdyti grojimą"
 msgid "Continue playback after current track"
 msgstr "Tęsti grojimą po dabartinio takelio"
 
-#: ../plugins/minimode/controls.py:447
-msgid "Volume"
-msgstr "Garsumo lygis"
-
 #: ../plugins/minimode/controls.py:448
 msgid "Change the volume"
 msgstr "Keisti garsumo lygį"
@@ -3592,18 +3581,18 @@ msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:101
+#: ../plugins/moodbar/__init__.py:99
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:206
+#: ../plugins/moodbar/__init__.py:204
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr ""
 
-#: ../plugins/moodbar/prefs.py:28 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Nuotaikų juosta"
 
@@ -3633,11 +3622,11 @@ msgstr "Tik albumas:"
 msgid "Notify"
 msgstr "Pranešti"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr ""
 
@@ -3693,32 +3682,32 @@ msgstr "Atnaujinti Podcast kanalą"
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: ../plugins/podcasts/__init__.py:119
+#: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
 msgstr "Įveskite Podcast kanalo URL"
 
-#: ../plugins/podcasts/__init__.py:119
+#: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
 msgstr "Atverti Podcast"
 
-#: ../plugins/podcasts/__init__.py:153
+#: ../plugins/podcasts/__init__.py:157
 #, python-format
 msgid "Loading %s..."
 msgstr "Įkeliama %s..."
 
-#: ../plugins/podcasts/__init__.py:183
+#: ../plugins/podcasts/__init__.py:187
 msgid "Error loading podcast."
 msgstr "Nepavyko įkelti Podcast kanalo."
 
-#: ../plugins/podcasts/__init__.py:199
+#: ../plugins/podcasts/__init__.py:203
 msgid "Loading Podcasts..."
 msgstr "Įkeliami Podcast kanalai..."
 
-#: ../plugins/podcasts/__init__.py:201
+#: ../plugins/podcasts/__init__.py:205
 msgid "No configuration present yet"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:234
+#: ../plugins/podcasts/__init__.py:238
 msgid "Could not save podcast file"
 msgstr "Nepavyko išsaugoti Podcast failo"
 
@@ -3778,17 +3767,17 @@ msgstr "Išjungti nepavyko"
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "Kompiuteris negali būti išjungtas naudojantis D-Bus."
 
-#: ../plugins/somafm/__init__.py:85 ../plugins/somafm/__init__.py:181
+#: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
 #, fuzzy
 msgid "Contacting SomaFM server..."
 msgstr "Jungiamasi prie Shoutcast serverio..."
 
-#: ../plugins/somafm/__init__.py:97 ../plugins/somafm/__init__.py:100
+#: ../plugins/somafm/__init__.py:94 ../plugins/somafm/__init__.py:97
 #, fuzzy
 msgid "Error connecting to SomaFM server."
 msgstr "Nepavyko prisijungti prie Shoutcast serverio."
 
-#: ../plugins/somafm/__init__.py:185
+#: ../plugins/somafm/__init__.py:182
 #, fuzzy
 msgid "Error importing playlist"
 msgstr "Nepavyko įkelti Podcast kanalo."
@@ -3801,7 +3790,7 @@ msgstr "Nepavyko paleisti streamripper"
 msgid "Streamripper"
 msgstr "Streamripper (srautų įrašymas)"
 
-#: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Vikipedija"
@@ -3988,7 +3977,7 @@ msgid "Simple Console"
 msgstr "Paprastas"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-msgid "Show ipv6 servers (Experimental)"
+msgid "Show IPv6 servers"
 msgstr ""
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
@@ -4752,10 +4741,12 @@ msgstr ""
 "palaikomas tarnybas, peržiūrėkite Pidgin DUK (angl. FAQ)."
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
-msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
+msgid ""
+"Enables access to DAAP music shares via the spydaap library. Share auto-"
+"discovery is optionally available via python-zeroconf.\n"
+"Requires: spydaap\n"
+"Optional: python-zeroconf"
+msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4922,7 +4913,7 @@ msgstr "Dainų žodžių Wiki"
 #, fuzzy
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
-"Requires: BeautifulSoup4"
+"Requires: BeautifulSoup4, lxml"
 msgstr "Įskiepis dainų žodžių iš lyricsfly.com atsisiuntimui"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
@@ -5048,7 +5039,7 @@ msgstr "Įjungia ReplayGain palaikymą"
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
-"Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
+"Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
 
@@ -5096,6 +5087,42 @@ msgstr ""
 "klavišų palaikymą (kurie yra daugumoje naujų klaviatūrų).\n"
 "\n"
 "Reikia: pyHook (%s)"
+
+#, fuzzy
+#~| msgid "Allows playing of DAAP music shares."
+#~ msgid "Allows playing of DAAP music shares using the spydaap library."
+#~ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
+
+#~ msgid "We don't know how to store that kind of setting: "
+#~ msgstr "Nežinome kaip saugoti tokį nustatymų tipą: "
+
+#~ msgid "An Unknown type of setting was found!"
+#~ msgstr "Rastas nežinomas nustatymų tipas!"
+
+#~ msgid "Any"
+#~ msgstr "Bet kuris"
+
+#~ msgid "Add Device"
+#~ msgstr "Pridėti įrenginį"
+
+#~ msgid "Type of device:"
+#~ msgstr "Įrenginio tipas:"
+
+#~ msgid "Detected devices:"
+#~ msgstr "Aptikti įrenginiai:"
+
+#~ msgid "Custom: "
+#~ msgstr "Pasirinktinis: "
+
+#, fuzzy
+#~| msgid "Limit to: "
+#~ msgid "Limit to:"
+#~ msgstr "Riboti iki: "
+
+#, fuzzy
+#~| msgid " tracks"
+#~ msgid "tracks"
+#~ msgstr " takeliai"
 
 #~ msgctxt "About dialog translator credits"
 #~ msgid "Unknown translator"

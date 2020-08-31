@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-09 20:06-0500\n"
+"POT-Creation-Date: 2020-05-24 01:16+1000\n"
 "PO-Revision-Date: 2017-11-25 20:44+0000\n"
 "Last-Translator: Viktar Vauchkevich <victorenator@gmail.com>\n"
 "Language-Team: Belarusian (latin) <https://hosted.weblate.org/projects/"
@@ -20,15 +20,15 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.18-dev\n"
 
-#: ../xl/covers.py:522 ../data/ui/trackproperties_dialog.ui:183
+#: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
 msgstr "Paznakі"
 
-#: ../xl/covers.py:565
+#: ../xl/covers.py:566
 msgid "Local file"
 msgstr "Lakaĺny fajl"
 
-#: ../xl/formatter.py:597
+#: ../xl/formatter.py:596
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
@@ -36,7 +36,7 @@ msgstr[0] "%d dzień, "
 msgstr[1] "%d dni, "
 msgstr[2] "%d dzion, "
 
-#: ../xl/formatter.py:599
+#: ../xl/formatter.py:598
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
@@ -44,7 +44,7 @@ msgstr[0] "%d hadzina, "
 msgstr[1] "%d hadziny, "
 msgstr[2] "%d hadzin, "
 
-#: ../xl/formatter.py:600
+#: ../xl/formatter.py:599
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
@@ -52,7 +52,7 @@ msgstr[0] "%d chvilina, "
 msgstr[1] "%d chviliny, "
 msgstr[2] "%d chvilin, "
 
-#: ../xl/formatter.py:601
+#: ../xl/formatter.py:600
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -61,162 +61,162 @@ msgstr[1] "%d siekundy,"
 msgstr[2] "%d siekund,"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:606
+#: ../xl/formatter.py:605
 #, python-format
 msgid "%dd, "
 msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:609
+#: ../xl/formatter.py:608
 #, python-format
 msgid "%dh, "
 msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:611
+#: ../xl/formatter.py:610
 #, python-format
 msgid "%dm, "
 msgstr "%dch, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:613
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%ds"
 msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:618
+#: ../xl/formatter.py:617
 #, python-format
 msgid "%dd "
 msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:621
+#: ../xl/formatter.py:620
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:624
+#: ../xl/formatter.py:623
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:722 ../xl/main.py:633 ../xl/trax/track.py:65
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
 msgid "Unknown"
 msgstr "Nieviadoma"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:756 ../xl/formatter.py:761
+#: ../xl/formatter.py:754 ../xl/formatter.py:759
 msgid "Never"
 msgstr "Nіkolі"
 
-#: ../xl/formatter.py:767
+#: ../xl/formatter.py:765
 msgid "Today"
 msgstr "Sionnia"
 
-#: ../xl/formatter.py:769
+#: ../xl/formatter.py:767
 msgid "Yesterday"
 msgstr "Učora"
 
-#: ../xl/lyrics.py:351
+#: ../xl/lyrics.py:352
 msgid "Local"
 msgstr "Lakaĺna"
 
-#: ../xl/main.py:83
+#: ../xl/main.py:82
 #, fuzzy
 #| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
 msgstr "Vykarystannie: exaile [PARAMIETRY]... [URI]"
 
-#: ../xl/main.py:85
+#: ../xl/main.py:84
 msgid ""
 "Launch Exaile, optionally adding tracks specified by LOCATION to the active "
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
 
-#: ../xl/main.py:96
+#: ../xl/main.py:95
 msgid "Playback Options"
 msgstr "Nalady prajhravannia"
 
-#: ../xl/main.py:103
+#: ../xl/main.py:102
 msgid "Play the next track"
 msgstr "Prajhrać nastupnuju kampazіcyju"
 
-#: ../xl/main.py:111
+#: ../xl/main.py:110
 msgid "Play the previous track"
 msgstr "Prajhrać papiaredniuju kampazіcyju"
 
-#: ../xl/main.py:119 ../plugins/minimode/controls.py:351
+#: ../xl/main.py:118 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
 msgid "Stop playback"
 msgstr "Spynіć prajhravannie"
 
-#: ../xl/main.py:122
+#: ../xl/main.py:121
 msgid "Play"
 msgstr "Prajhrać"
 
-#: ../xl/main.py:130 ../plugins/developer/developer_window.ui:117
+#: ../xl/main.py:129 ../plugins/developer/developer_window.ui:117
 msgid "Pause"
 msgstr "Prypynіć"
 
-#: ../xl/main.py:138
+#: ../xl/main.py:137
 msgid "Pause or resume playback"
 msgstr "Prypynіć cі praciahnuć prajhravannie"
 
-#: ../xl/main.py:145 ../plugins/minimode/controls.py:376
+#: ../xl/main.py:144 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
 msgstr "Spynіć prajhravannie paslia biahučaj darožkі"
 
-#: ../xl/main.py:148
+#: ../xl/main.py:147
 msgid "Collection Options"
 msgstr "Paramietry kaliekcyі"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:153 ../xl/main.py:162
+#: ../xl/main.py:152 ../xl/main.py:161
 msgid "LOCATION"
 msgstr "RAZMIAŠČENNIe"
 
-#: ../xl/main.py:154
+#: ../xl/main.py:153
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Dadać darožkі z RAZMIAŠČENNIa ŭ kaliekcyju"
 
-#: ../xl/main.py:157
+#: ../xl/main.py:156
 msgid "Playlist Options"
 msgstr "Paramietry spіsu prajhravannia"
 
-#: ../xl/main.py:163
+#: ../xl/main.py:162
 #, fuzzy
 #| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Ekspart biahučaha spіsu prajhravannia ŭ RAZMIAŠČENNIe"
 
-#: ../xl/main.py:166
+#: ../xl/main.py:165
 msgid "Track Options"
 msgstr "Ulascіvascі darožkі"
 
-#: ../xl/main.py:173
+#: ../xl/main.py:172
 msgid "Query player"
 msgstr "Apytać prajhravaĺnіk"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:179
+#: ../xl/main.py:178
 msgid "FORMAT"
 msgstr "FARMAT"
 
-#: ../xl/main.py:180
+#: ../xl/main.py:179
 #, fuzzy
 #| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr "Atrymlіvaje biahučy stan prajhravannia, vykarystoŭvajučy FARMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:186
+#: ../xl/main.py:185
 msgid "TAGS"
 msgstr "PAZNAKІ"
 
-#: ../xl/main.py:187
+#: ../xl/main.py:186
 #, fuzzy
 #| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
@@ -224,103 +224,103 @@ msgstr ""
 "PAZNAKІ, jakіja atrymlіvajucca dlia biahučaj darožkі, vykarystoŭvać z --"
 "format-query"
 
-#: ../xl/main.py:194
+#: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
 msgstr "Pakazać usplyvaĺnaje akno z dadzienymі pra biahučuju darožku"
 
-#: ../xl/main.py:201
+#: ../xl/main.py:200
 msgid "Print the title of current track"
 msgstr "Pakazvać nazvu biahučaj darožkі"
 
-#: ../xl/main.py:208
+#: ../xl/main.py:207
 msgid "Print the album of current track"
 msgstr "Pakazvać nazvu aĺboma dlia biahučaj darožkі"
 
-#: ../xl/main.py:215
+#: ../xl/main.py:214
 msgid "Print the artist of current track"
 msgstr "Pakazvać vykanaŭca biahučaj darožkі"
 
-#: ../xl/main.py:222
+#: ../xl/main.py:221
 msgid "Print the length of current track"
 msgstr "Pakazvać praciahlasć biahučaj darožkі"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:229 ../xl/main.py:261 ../xl/main.py:270
+#: ../xl/main.py:228 ../xl/main.py:260 ../xl/main.py:269
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:230
+#: ../xl/main.py:229
 msgid "Set rating for current track to N%"
 msgstr "Ustaliavać rejtynh biahučaj darožkі ŭ N%"
 
-#: ../xl/main.py:237
+#: ../xl/main.py:236
 msgid "Get rating for current track"
 msgstr "Atrymać rejtynh biahučaj darožkі"
 
-#: ../xl/main.py:244
+#: ../xl/main.py:243
 msgid "Print the current playback position as time"
 msgstr "Pakazvać biahučy prahres prajhravannia jak čas"
 
-#: ../xl/main.py:251
+#: ../xl/main.py:250
 msgid "Print the current playback progress as percentage"
 msgstr "Pakazvać biahučy prahres prajhravannia ŭ adsotkach"
 
-#: ../xl/main.py:254
+#: ../xl/main.py:253
 msgid "Volume Options"
 msgstr "Nalady huku"
 
-#: ../xl/main.py:262
+#: ../xl/main.py:261
 #, fuzzy
 #| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Pavialіčyć hučnasć na N%"
 
-#: ../xl/main.py:271
+#: ../xl/main.py:270
 #, fuzzy
 #| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Pamienšyć hučnasć na N%"
 
-#: ../xl/main.py:279
+#: ../xl/main.py:278
 #, fuzzy
 #| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Pryhlušyć cі ŭkliučyć hučnasć"
 
-#: ../xl/main.py:286
+#: ../xl/main.py:285
 msgid "Print the current volume percentage"
 msgstr "Pakazvać biahučy ŭzrovień hučnascі"
 
-#: ../xl/main.py:289
+#: ../xl/main.py:288
 msgid "Other Options"
 msgstr "Іnšyja nalady"
 
-#: ../xl/main.py:295
+#: ../xl/main.py:294
 msgid "Start new instance"
 msgstr "Zapuscіć novy asobnіk"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:297
 msgid "Show this help message and exit"
 msgstr "Pakazać heta daviedkavaje paviedamliennie і vyjscі"
 
-#: ../xl/main.py:304
+#: ../xl/main.py:303
 msgid "Show program's version number and exit."
 msgstr "Pakazać numar viersii prahramy i vyjsci."
 
-#: ../xl/main.py:311
+#: ../xl/main.py:310
 msgid "Start minimized (to tray, if possible)"
 msgstr "Zapuskać zhornutym (u voblascі apaviaščenniaŭ, kalі mahčyma)"
 
-#: ../xl/main.py:318
+#: ../xl/main.py:317
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Pierakliučyć bačnasć hrafіčnaha іnterfiejsu (kalі mahčyma)"
 
-#: ../xl/main.py:326
+#: ../xl/main.py:325
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Zapuskać u biaspiečnym režymie — karysna pry ŭzniknienni prabliem"
 
-#: ../xl/main.py:335
+#: ../xl/main.py:334
 #, fuzzy
 #| msgid ""
 #| "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -329,103 +329,103 @@ msgstr ""
 "Prymusova іmpartavać staryja dadzienyja z viersіі 0.2.x (Pierazapіša "
 "biahučyja dadzienyja)"
 
-#: ../xl/main.py:343
+#: ../xl/main.py:342
 msgid "Do not import old data from version 0.2.x"
 msgstr "Nie іmpartavać staryja dadzienyja z viersіі 0.2.x"
 
-#: ../xl/main.py:350
+#: ../xl/main.py:349
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Zapuskać Exaile pry vykarystannі takіch paramietraŭ, jak --play, kalі jon "
 "jašče nie zapuščany"
 
-#: ../xl/main.py:353
+#: ../xl/main.py:352
 msgid "Development/Debug Options"
 msgstr "Nalady raspracoŭkі і adladkі"
 
-#: ../xl/main.py:357 ../xl/main.py:363
+#: ../xl/main.py:356 ../xl/main.py:362
 msgid "DIRECTORY"
 msgstr "KATALOH"
 
-#: ../xl/main.py:358
+#: ../xl/main.py:357
 msgid "Set data directory"
 msgstr "Zadać kataloh z dadzienymі"
 
-#: ../xl/main.py:364
+#: ../xl/main.py:363
 msgid "Set data and config directory"
 msgstr "Zadać kataloh dlia zachoŭvannia dadzienych і nalad"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:368
 msgid "MODULE"
 msgstr "MODUĹ"
 
-#: ../xl/main.py:370
+#: ../xl/main.py:369
 msgid "Limit log output to MODULE"
 msgstr "Abmiežavać časopіs padziej da MODULIa"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:374
 msgid "LEVEL"
 msgstr "UZROVIEŃ"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "Limit log output to LEVEL"
 msgstr "Abmiežavać časopіs padziej da ŬZROŬNIa"
 
-#: ../xl/main.py:384
+#: ../xl/main.py:383
 msgid "Show debugging output"
 msgstr "Pakazvać paviedamliennі adladkі"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Ukliučyć adladku xl.event. Stvaraje VIELІZARNUJu koĺkasć vyvadu"
 
-#: ../xl/main.py:398
+#: ../xl/main.py:397
 #, fuzzy
 #| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
 msgstr "Ukliučyć adladku xl.event. Stvaraje VIELІZARNUJu koĺkasć vyvadu"
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Add thread name to logging messages."
 msgstr "Dadać imia patoka da rehistracyi paviedamlienniaŭ."
 
-#: ../xl/main.py:410
+#: ../xl/main.py:409
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../xl/main.py:411
+#: ../xl/main.py:410
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Abmiežavać vyvad adladkavaj іnfarmacyі xl.event TYPAM"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:417
 msgid "Reduce level of output"
 msgstr "Pamienšyć uzrovień vyvadu"
 
-#: ../xl/main.py:428
+#: ../xl/main.py:427
 msgid "Disable D-Bus support"
 msgstr "Adkliučyć padtrymku D-Bus"
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "Disable HAL support."
 msgstr "Adkliučyć padtrymku HAL."
 
-#: ../xl/main.py:810
+#: ../xl/main.py:796
 msgid "Entire Library"
 msgstr "Usia fanateka"
 
-#: ../xl/main.py:817
+#: ../xl/main.py:803
 #, python-format
 msgid "Random %d"
 msgstr "%d vypadkovych"
 
-#: ../xl/main.py:826
+#: ../xl/main.py:812
 #, python-format
 msgid "Rating > %d"
 msgstr "Rejtynh > %d"
 
-#: ../xl/main.py:995
+#: ../xl/main.py:981
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -433,8 +433,8 @@ msgstr ""
 "Exaile jašče nie zapusciŭsia. Mahčyma, vam varta dačakacca sihnalu "
 "exaile_loaded?"
 
-#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:128
-#: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:114
+#: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:130
+#: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui:90
 msgid "Album"
@@ -444,8 +444,8 @@ msgstr "Aĺbom"
 msgid "Arranger"
 msgstr "Apracoŭka"
 
-#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:122
-#: ../xlgui/widgets/playlist_columns.py:292 ../plugins/cd/cdprefs.py:112
+#: ../xl/metadata/tags.py:48 ../xlgui/panel/collection.py:124
+#: ../xlgui/widgets/playlist_columns.py:292 ../plugins/cd/cdprefs.py:111
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui:86
 msgid "Artist"
@@ -462,7 +462,7 @@ msgid "Author"
 msgstr "Aŭtar"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:468
-#: ../plugins/cd/cdprefs.py:125 ../plugins/minimode/minimode_preferences.py:120
+#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:120
 msgid "BPM"
 msgstr "BPM"
 
@@ -476,7 +476,7 @@ msgstr "Apіsannie"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:312
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
-#: ../plugins/cd/cdprefs.py:113 ../plugins/minimode/minimode_preferences.py:108
+#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:108
 msgid "Composer"
 msgstr "Kampazіtar"
 
@@ -484,12 +484,12 @@ msgstr "Kampazіtar"
 msgid "Conductor"
 msgstr "Dyryžor"
 
-#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:807
+#: ../xl/metadata/tags.py:56 ../xlgui/cover.py:814
 msgid "Cover"
 msgstr "Vokladka"
 
 #: ../xl/metadata/tags.py:57 ../xlgui/widgets/playlist_columns.py:400
-#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:113
+#: ../plugins/cd/cdprefs.py:117 ../plugins/minimode/minimode_preferences.py:113
 msgid "Date"
 msgstr "Data"
 
@@ -502,7 +502,7 @@ msgid "Encoded by"
 msgstr "Kadavany"
 
 #: ../xl/metadata/tags.py:60 ../xlgui/widgets/playlist_columns.py:418
-#: ../plugins/cd/cdprefs.py:119 ../plugins/minimode/minimode_preferences.py:114
+#: ../plugins/cd/cdprefs.py:118 ../plugins/minimode/minimode_preferences.py:114
 msgid "Genre"
 msgstr "Žanr"
 
@@ -550,7 +550,7 @@ msgstr "Vykanaviec"
 #: ../xl/metadata/tags.py:72 ../xlgui/panel/flatplaylist.py:101
 #: ../xlgui/widgets/playlist_columns.py:282
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:51
-#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/grouptagger/gt_import.ui:69
 msgid "Title"
 msgstr "Nazva"
@@ -569,7 +569,7 @@ msgid "Website"
 msgstr "Sajt"
 
 #: ../xl/metadata/tags.py:79 ../xlgui/widgets/playlist_columns.py:428
-#: ../plugins/cd/cdprefs.py:120 ../plugins/icecast/__init__.py:405
+#: ../plugins/cd/cdprefs.py:119 ../plugins/icecast/__init__.py:398
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "Bitrate"
 msgstr "Bіtrejt"
@@ -579,17 +579,17 @@ msgid "Date added"
 msgstr "Data dadannia"
 
 #: ../xl/metadata/tags.py:82 ../xlgui/widgets/playlist_columns.py:489
-#: ../plugins/cd/cdprefs.py:124 ../plugins/minimode/minimode_preferences.py:119
+#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:119
 msgid "Last played"
 msgstr "Apošniaje prajhravannie"
 
 #: ../xl/metadata/tags.py:83 ../xlgui/widgets/playlist_columns.py:332
-#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:110
+#: ../plugins/cd/cdprefs.py:114 ../plugins/minimode/minimode_preferences.py:110
 msgid "Length"
 msgstr "Čas"
 
 #: ../xl/metadata/tags.py:84 ../xlgui/widgets/playlist_columns.py:438
-#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:121
+#: ../data/ui/collection_manager.ui:119 ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:116
 msgid "Location"
 msgstr "Miescaznachodžannie"
@@ -618,7 +618,7 @@ msgstr "Zruch kanca"
 msgid ": Possible audio device error, is it plugged in?"
 msgstr ": Mahčyma pamylka aŭdyjoprylady, ci padkliučana jana?"
 
-#: ../xl/player/gst/missing_plugin.py:86
+#: ../xl/player/gst/missing_plugin.py:89
 #, python-format
 msgid ""
 "A GStreamer 1.x plugin for %s is missing. Without this software installed, "
@@ -658,104 +658,100 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:156 ../xl/playlist.py:178
+#: ../xl/playlist.py:154 ../xl/playlist.py:176
 msgid "Invalid playlist type."
 msgstr "Niekarektny typ spіsu prajhravannia."
 
-#: ../xl/playlist.py:187 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Spis prajhravannia"
 
-#: ../xl/playlist.py:342
+#: ../xl/playlist.py:339
 msgid "M3U Playlist"
 msgstr "Spіs prajhravannia M3U"
 
-#: ../xl/playlist.py:457
+#: ../xl/playlist.py:452
 msgid "PLS Playlist"
 msgstr "Cpіs prajhravannia PLS"
 
-#: ../xl/playlist.py:548 ../xl/playlist.py:563
+#: ../xl/playlist.py:543 ../xl/playlist.py:558
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Niekarektny farmat dlia %s."
 
-#: ../xl/playlist.py:558
+#: ../xl/playlist.py:553
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Niepadtrymlіvajemaja viersіja %(version)s dlia %(type)s"
 
-#: ../xl/playlist.py:618
+#: ../xl/playlist.py:613
 msgid "ASX Playlist"
 msgstr "Spіs prajhravannia ASX"
 
-#: ../xl/playlist.py:797
+#: ../xl/playlist.py:792
 msgid "XSPF Playlist"
 msgstr "Cpіs prajhravannia XSPF"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:911
 msgid "Shuffle _Off"
 msgstr "_Nie zmiešvać"
 
-#: ../xl/playlist.py:917
+#: ../xl/playlist.py:912
 msgid "Shuffle _Tracks"
 msgstr "Zmiešvać _darožkі"
 
-#: ../xl/playlist.py:918
+#: ../xl/playlist.py:913
 msgid "Shuffle _Albums"
 msgstr "Zmiešvać _aĺbomy"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:914
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "%d vypadkovych"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat _Off"
 msgstr "_Nie paŭtarać"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat _All"
 msgstr "Paŭtarać _usio"
 
-#: ../xl/playlist.py:924
+#: ../xl/playlist.py:919
 msgid "Repeat O_ne"
 msgstr "Paŭtarać _adzіn"
 
-#: ../xl/playlist.py:928
+#: ../xl/playlist.py:923
 msgid "Dynamic _Off"
 msgstr "Vykliučyć dynamіčny plejlіst"
 
-#: ../xl/playlist.py:928
+#: ../xl/playlist.py:923
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamіčny plejlіst z padobnymі vykanaŭcamі"
 
-#: ../xl/plugins.py:91
+#: ../xl/plugins.py:87
+msgid "Plugin is already loaded or has a conflicting name."
+msgstr ""
+
+#: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
 msgstr "Niaslušny farmat archіva z dadatkam."
 
-#: ../xl/plugins.py:98
+#: ../xl/plugins.py:109
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
 msgstr "Moduĺ «%s» užo ŭstaliavany."
 
-#: ../xl/plugins.py:103
+#: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
 msgstr "Archіŭ z dadatkam utrymoŭvaje niebiaspiečny šliach."
 
-#: ../xl/settings.py:99
+#: ../xl/settings.py:97
 msgid "Settings version is newer than current."
 msgstr "Viersіja paramietraŭ naviej biahučaj."
-
-#: ../xl/settings.py:254
-msgid "We don't know how to store that kind of setting: "
-msgstr "Nam nieviadoma, jak zachavać hety typ paramietraŭ: "
-
-#: ../xl/settings.py:285
-msgid "An Unknown type of setting was found!"
-msgstr "Vyjaŭlieny nieviadomy typ paramietraŭ!"
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -805,26 +801,26 @@ msgstr ""
 "Cvobodnyj farmat scіsku huku biez straty jakascі z vysokaj chutkasciu і "
 "dobraj kampresіjaj."
 
-#: ../xl/trax/track.py:64
+#: ../xl/trax/track.py:65
 msgid "Various Artists"
 msgstr "Roznyja vykanaŭcy"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:67
+#: ../xl/trax/track.py:68
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
+#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:183
+#: ../xl/trax/trackdb.py:182
 msgid "You did not specify a location to load the db from"
 msgstr "Vy nie pakazalі miescaznachodžannie bazy dadzienych"
 
-#: ../xl/trax/trackdb.py:252
+#: ../xl/trax/trackdb.py:251
 msgid "You did not specify a location to save the db"
 msgstr "Vy nie pakazalі miesca dlia zachavannia bazy dadzienych"
 
@@ -841,11 +837,11 @@ msgstr ""
 "stan: %(status)s, nazva: %(title)s, vykanaviec: %(artist)s, aĺbom: "
 "%(album)s, daŭžynia: %(length)s, pazіcyja: %(progress)s%% [%(position)s]"
 
-#: ../xlgui/__init__.py:317
+#: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
 msgstr "Skanavannie fanateki..."
 
-#: ../xlgui/__init__.py:396
+#: ../xlgui/__init__.py:397
 #, python-format
 msgid "Scanning %s..."
 msgstr "Skanavannie %s..."
@@ -879,37 +875,43 @@ msgstr "Usie vokladki pryniaty"
 msgid "Collecting albums and covers..."
 msgstr "Zbor aĺbomaŭ i vokladak..."
 
-#: ../xlgui/cover.py:494
+#: ../xlgui/cover.py:501
 msgid "Show Cover"
 msgstr "Pakazać vokladku"
 
-#: ../xlgui/cover.py:495
+#: ../xlgui/cover.py:502
 msgid "Fetch Cover"
 msgstr "Zahruzić Vokladku"
 
-#: ../xlgui/cover.py:496
+#: ../xlgui/cover.py:503
 msgid "Remove Cover"
 msgstr "Vydalić vokladku"
 
-#: ../xlgui/cover.py:805
+#: ../xlgui/cover.py:812
 #, python-format
 msgid "Cover for %s"
 msgstr "Vokladka dlia %s"
 
-#: ../xlgui/cover.py:927
+#: ../xlgui/cover.py:880
+#, fuzzy, python-brace-format
+#| msgid "{width}x{height} pixels"
+msgid "{width}x{height} pixels ({zoom}%)"
+msgstr "{width}x{height} piksieliaŭ"
+
+#: ../xlgui/cover.py:931
 msgid "Save File"
 msgstr "Zachavać fajl"
 
-#: ../xlgui/cover.py:1025
+#: ../xlgui/cover.py:1029
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Opcyi vokladki aĺboma dlia %(artist)s - %(album)s"
 
-#: ../xlgui/cover.py:1129
+#: ../xlgui/cover.py:1133
 msgid "No covers found."
 msgstr "Vokladki nie znojdzieny."
 
-#: ../xlgui/cover.py:1131
+#: ../xlgui/cover.py:1135
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
@@ -918,7 +920,7 @@ msgstr ""
 "kampazicyi, pasprabujcie zadziejničać dadatkovyja krynicy."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1174 ../xlgui/properties.py:1111
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} piksieliaŭ"
@@ -1199,55 +1201,55 @@ msgstr ""
 msgid "_About"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:125
+#: ../xlgui/panel/collection.py:127
 #, fuzzy
 #| msgid "Artist"
 msgid "Album Artist"
 msgstr "Vykanaviec"
 
-#: ../xlgui/panel/collection.py:131
+#: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
 msgstr "Žanr - Vykanaviec"
 
-#: ../xlgui/panel/collection.py:134
+#: ../xlgui/panel/collection.py:136
 #, fuzzy
 #| msgid "Genre - Artist"
 msgid "Genre - Album Artist"
 msgstr "Žanr - Vykanaviec"
 
-#: ../xlgui/panel/collection.py:137
+#: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
 msgstr "Zanr - Aĺbom"
 
-#: ../xlgui/panel/collection.py:140
+#: ../xlgui/panel/collection.py:142
 msgid "Date - Artist"
 msgstr "Data - Vykanaviec"
 
-#: ../xlgui/panel/collection.py:143
+#: ../xlgui/panel/collection.py:145
 #, fuzzy
 #| msgid "Date - Artist"
 msgid "Date - Album Artist"
 msgstr "Data - Vykanaviec"
 
-#: ../xlgui/panel/collection.py:146
+#: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
 msgstr "Data - Aĺbom"
 
-#: ../xlgui/panel/collection.py:149
+#: ../xlgui/panel/collection.py:151
 msgid "Artist - (Date - Album)"
 msgstr "Vykanaviec - (Data - Aĺbom)"
 
-#: ../xlgui/panel/collection.py:153
+#: ../xlgui/panel/collection.py:155
 #, fuzzy
 #| msgid "Artist - (Date - Album)"
 msgid "Album Artist - (Date - Album)"
 msgstr "Vykanaviec - (Data - Aĺbom)"
 
-#: ../xlgui/panel/collection.py:181 ../xlgui/preferences/collection.py:21
+#: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
 msgstr "Kaliekcyja"
 
-#: ../xlgui/panel/collection.py:284
+#: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
 msgstr "Nanova praskanavać fanateku"
 
@@ -1256,22 +1258,22 @@ msgstr "Nanova praskanavać fanateku"
 msgid "Transferring to %s..."
 msgstr "Pieradača ŭ %s..."
 
-#: ../xlgui/panel/files.py:83
+#: ../xlgui/panel/files.py:82
 msgid "Files"
 msgstr "Fajly"
 
-#: ../xlgui/panel/files.py:123 ../xlgui/widgets/playlist_columns.py:448
-#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:117
+#: ../xlgui/panel/files.py:122 ../xlgui/widgets/playlist_columns.py:448
+#: ../plugins/cd/cdprefs.py:121 ../plugins/minimode/minimode_preferences.py:117
 msgid "Filename"
 msgstr "Nazva fajla"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:147
+#: ../xlgui/panel/files.py:146
 msgid "Size"
 msgstr "Pamier"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:455
+#: ../xlgui/panel/files.py:457
 #, python-format
 msgid "%s kB"
 msgstr "%s KB"
@@ -1290,8 +1292,8 @@ msgid "Source: "
 msgstr ""
 
 #: ../xlgui/panel/lyrics.py:226
-msgid "Any"
-msgstr "Liuby"
+msgid "Any source"
+msgstr ""
 
 #: ../xlgui/panel/menus.py:219
 #, fuzzy
@@ -1305,54 +1307,54 @@ msgstr "Novy razumny spis prajhravannia"
 msgid "_New Station"
 msgstr "Novaja Stancyja"
 
-#: ../xlgui/panel/playlists.py:132
+#: ../xlgui/panel/playlists.py:136
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "Vydalіć spіs prajhravannia"
 
-#: ../xlgui/panel/playlists.py:148
+#: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
 msgstr "Uviadzicie novaje imia dlia vašaha spisu prajhravannia"
 
-#: ../xlgui/panel/playlists.py:149
+#: ../xlgui/panel/playlists.py:153
 msgid "Rename Playlist"
 msgstr "Pieranazvać spis prajhravannia"
 
-#: ../xlgui/panel/playlists.py:165 ../xlgui/widgets/dialogs.py:1770
+#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Uviedzienaje vami nazva spisu prajhravannia ŭžo vykarystoŭvajecca."
 
-#: ../xlgui/panel/playlists.py:211
+#: ../xlgui/panel/playlists.py:215
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Pamylka pry zahruzka razumnaha spisu prajhravannia: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:272 ../xlgui/panel/playlists.py:288
-#: ../xlgui/panel/playlists.py:304
+#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
+#: ../xlgui/panel/playlists.py:308
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s i inšyja"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:278 ../xlgui/panel/playlists.py:294
-#: ../xlgui/panel/playlists.py:310
+#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
+#: ../xlgui/panel/playlists.py:314
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s i %(second)s"
 
-#: ../xlgui/panel/playlists.py:386 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Spisy prajhravannia"
 
-#: ../xlgui/panel/playlists.py:522
+#: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
 msgstr "«Razumnyja» spisy prajhravannia"
 
-#: ../xlgui/panel/playlists.py:525
+#: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
 msgstr "Biahučy spis prajhravannia"
 
@@ -1369,7 +1371,7 @@ msgstr "Zahruzka strumieniaŭ..."
 msgid "Add Radio Station"
 msgstr "Dadać radyjostancyju"
 
-#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:55
+#: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
 msgid "Name:"
 msgstr "Nazva:"
 
@@ -1449,7 +1451,7 @@ msgstr ""
 msgid "_Move to Other View"
 msgstr "Pieraniesci ŭ inšy vidok"
 
-#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:39
+#: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
 msgstr "Moduli"
 
@@ -1490,16 +1492,16 @@ msgstr "Ahliadaĺnik tekstaŭ piesień"
 msgid "Playback"
 msgstr "Prajhravannie"
 
-#: ../xlgui/preferences/plugin.py:106 ../plugins/grouptagger/gt_common.py:60
+#: ../xlgui/preferences/plugin.py:107 ../plugins/grouptagger/gt_common.py:60
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
 msgstr "Nie klasifikavanyja"
 
-#: ../xlgui/preferences/plugin.py:178
+#: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
 msgstr "Nie atrymalasia zahruzić infarmacyju pra moduĺ!"
 
-#: ../xlgui/preferences/plugin.py:179
+#: ../xlgui/preferences/plugin.py:180
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
@@ -1507,48 +1509,48 @@ msgstr[0] "Pamylka ŭ moduli: %s"
 msgstr[1] "Pamylki ŭ moduli: %s"
 msgstr[2] "Pamylak ŭ moduli: %s"
 
-#: ../xlgui/preferences/plugin.py:211 ../xlgui/preferences/plugin.py:312
+#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
 msgid "Could not disable plugin!"
 msgstr "Nie atrymalasia ŭkliučyć moduĺ!"
 
-#: ../xlgui/preferences/plugin.py:221 ../xlgui/preferences/plugin.py:306
+#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
 msgid "Could not enable plugin!"
 msgstr "Niemahčyma aktyvavać dadatak!"
 
-#: ../xlgui/preferences/plugin.py:230
+#: ../xlgui/preferences/plugin.py:231
 msgid "Choose a Plugin"
 msgstr "Abrać ubudovu"
 
-#: ../xlgui/preferences/plugin.py:241
+#: ../xlgui/preferences/plugin.py:242
 msgid "Plugin Archives"
 msgstr "Archivy moduliaŭ"
 
-#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:728
-#: ../xlgui/widgets/dialogs.py:905
+#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
+#: ../xlgui/widgets/dialogs.py:892
 msgid "All Files"
 msgstr "Usie fajly"
 
-#: ../xlgui/preferences/plugin.py:259
+#: ../xlgui/preferences/plugin.py:260
 msgid "Plugin file installation failed!"
 msgstr "Ustalioŭka modulia nie atrymalasia!"
 
-#: ../xlgui/preferences/widgets.py:70
+#: ../xlgui/preferences/widgets.py:71
 msgid "Restart Exaile?"
 msgstr "Pierazapuscić Exaile?"
 
-#: ../xlgui/preferences/widgets.py:73
+#: ../xlgui/preferences/widgets.py:74
 msgid "A restart is required for this change to take effect."
 msgstr "Nieabchodzien pierazapusk dlia taho kab zmieny nabyli moc."
 
-#: ../xlgui/preferences/widgets.py:76
+#: ../xlgui/preferences/widgets.py:77
 msgid "Restart"
 msgstr "Pierazapuscić"
 
-#: ../xlgui/preferences/widgets.py:727
+#: ../xlgui/preferences/widgets.py:728
 msgid "Action"
 msgstr "Dziejannie"
 
-#: ../xlgui/preferences/widgets.py:735 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:736 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Kambinacyja klaviš"
 
@@ -1590,49 +1592,49 @@ msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:857
+#: ../xlgui/properties.py:854
 msgid "of:"
 msgstr "z:"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:961
 msgid "JPEG image"
 msgstr "Maliunak JPEG"
 
-#: ../xlgui/properties.py:971
+#: ../xlgui/properties.py:966
 msgid "PNG image"
 msgstr "Maliunak PNG"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:968
 msgid "Image"
 msgstr "Maliunak"
 
-#: ../xlgui/properties.py:979
+#: ../xlgui/properties.py:974
 msgid "Linked image"
 msgstr "Adpaviedny maliunak"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1114
+#: ../xlgui/properties.py:1109
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} piksieliaŭ)"
 
-#: ../xlgui/properties.py:1128
+#: ../xlgui/properties.py:1123
 msgid "Select image to set as cover"
 msgstr "Abiarycie maliunak dlia vykarystannia ŭ jakasci vokladki"
 
-#: ../xlgui/properties.py:1141
+#: ../xlgui/properties.py:1136
 msgid "Supported image formats"
 msgstr "Padtrymoŭvanyja farmaty maliunkaŭ"
 
-#: ../xlgui/properties.py:1224
+#: ../xlgui/properties.py:1219
 msgid "Open Directory"
 msgstr "Adkryć kataloh"
 
-#: ../xlgui/properties.py:1274
+#: ../xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
 msgstr "Užyć hetyja značenni da ŭsich darožak"
 
-#: ../xlgui/properties.py:1294 ../xlgui/widgets/dialogs.py:1547
+#: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Zachavana %(count)s z %(total)s."
@@ -1641,114 +1643,114 @@ msgstr "Zachavana %(count)s z %(total)s."
 msgid "Exaile Music Player"
 msgstr "Muzyčny prajhravaĺnik Exaile"
 
-#: ../xlgui/widgets/dialogs.py:361
+#: ../xlgui/widgets/dialogs.py:349
 msgid "Enter the URL to open"
 msgstr "Uviadzicie URL dlia adkryccia"
 
-#: ../xlgui/widgets/dialogs.py:361
+#: ../xlgui/widgets/dialogs.py:349
 msgid "Open URL"
 msgstr "Adkryć URL"
 
-#: ../xlgui/widgets/dialogs.py:648
+#: ../xlgui/widgets/dialogs.py:636
 msgid "Select File Type (by Extension)"
 msgstr "Abiarycie typ fajla"
 
-#: ../xlgui/widgets/dialogs.py:707
+#: ../xlgui/widgets/dialogs.py:694
 msgid "Choose Media to Open"
 msgstr "Abiarycie miedyjafajl dlia adkryccia"
 
-#: ../xlgui/widgets/dialogs.py:722
+#: ../xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
 msgstr "Padtrymoŭvajemyja typy fajlaŭ"
 
-#: ../xlgui/widgets/dialogs.py:724
+#: ../xlgui/widgets/dialogs.py:711
 msgid "Music Files"
 msgstr "Muzyčnyja fajly"
 
-#: ../xlgui/widgets/dialogs.py:726 ../xlgui/widgets/dialogs.py:903
+#: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
 msgid "Playlist Files"
 msgstr "Fajly spisaŭ prajhravannia"
 
-#: ../xlgui/widgets/dialogs.py:808
+#: ../xlgui/widgets/dialogs.py:795
 msgid "Choose Directory to Open"
 msgstr "Abiarycie tečku dlia adkryccia"
 
-#: ../xlgui/widgets/dialogs.py:888
+#: ../xlgui/widgets/dialogs.py:875
 msgid "Import Playlist"
 msgstr "Impartavać spis prajhravannia"
 
-#: ../xlgui/widgets/dialogs.py:1000
+#: ../xlgui/widgets/dialogs.py:990
 msgid "Export Current Playlist"
 msgstr "Ekspart dziejučaha spisu prajhravannia"
 
-#: ../xlgui/widgets/dialogs.py:1013
+#: ../xlgui/widgets/dialogs.py:1003
 msgid "Use relative paths to tracks"
 msgstr "Vykarystoŭvać adnosnyja adrasy da fajlaŭ"
 
-#: ../xlgui/widgets/dialogs.py:1070
+#: ../xlgui/widgets/dialogs.py:1060
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Plejlist zachavany jak <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1087
+#: ../xlgui/widgets/dialogs.py:1077
 #, python-format
 msgid "Close %s"
 msgstr "Začynić %s"
 
-#: ../xlgui/widgets/dialogs.py:1088
+#: ../xlgui/widgets/dialogs.py:1078
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Zachavać zmieny ŭ %s pierad vyjsciem?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1080
 msgid "Your changes will be lost if you don't save them"
 msgstr "Vašy zmieny buduć stračany, kali vy ich nie zachavajecie"
 
-#: ../xlgui/widgets/dialogs.py:1094
+#: ../xlgui/widgets/dialogs.py:1084
 msgid "Close Without Saving"
 msgstr "Začynić biez zachavannia"
 
-#: ../xlgui/widgets/dialogs.py:1487
+#: ../xlgui/widgets/dialogs.py:1477
 msgid "Yes to all"
 msgstr "Tak dlia ŭsich"
 
-#: ../xlgui/widgets/dialogs.py:1495
+#: ../xlgui/widgets/dialogs.py:1485
 msgid "No to all"
 msgstr "Nie dlia ŭsich"
 
-#: ../xlgui/widgets/dialogs.py:1667 ../xlgui/widgets/dialogs.py:1685
+#: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Adbylasia pamylka padčas kapijavannia %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1696
+#: ../xlgui/widgets/dialogs.py:1686
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Fajl isnuje, zamianić %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1753
+#: ../xlgui/widgets/dialogs.py:1743
 msgid "Playlist name:"
 msgstr "Imia spisu prajhravannia:"
 
-#: ../xlgui/widgets/dialogs.py:1754
+#: ../xlgui/widgets/dialogs.py:1744
 msgid "Add new playlist..."
 msgstr "Dadać novy spis prajhravannia..."
 
-#: ../xlgui/widgets/dialogs.py:1767
+#: ../xlgui/widgets/dialogs.py:1757
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Vy nie pakazali imia dlia vašaha spisu prajhravannia"
 
-#: ../xlgui/widgets/dialogs.py:1776
+#: ../xlgui/widgets/dialogs.py:1766
 msgid "Save As"
 msgstr "Zachavać jak"
 
-#: ../xlgui/widgets/dialogs.py:1845
+#: ../xlgui/widgets/dialogs.py:1835
 #, python-format
 msgid "Exporting %s"
 msgstr "Ekspartavannie %s"
 
-#: ../xlgui/widgets/dialogs.py:1850
+#: ../xlgui/widgets/dialogs.py:1840
 msgid "Choose directory to export files to"
 msgstr "Abiarycie tečku, u jakuju buduć ekspartavany fajly"
 
@@ -1851,70 +1853,70 @@ msgstr "Ekspartavać fajly"
 msgid "_Delete Playlist"
 msgstr "Vydalіć spіs prajhravannia"
 
-#: ../xlgui/widgets/notebook.py:263
+#: ../xlgui/widgets/notebook.py:247
 msgid "Close Tab"
 msgstr "Začynić ukladku"
 
-#: ../xlgui/widgets/playback.py:819
+#: ../xlgui/widgets/playback.py:834
 #, python-format
 msgid "Seeking: %s"
 msgstr "Pošuk: %s"
 
-#: ../xlgui/widgets/playback.py:1170
+#: ../xlgui/widgets/playback.py:1184
 msgid "Move"
 msgstr "Pieramiascіć"
 
-#: ../xlgui/widgets/playback.py:1315
+#: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
 msgstr "Novaja paznaka"
 
-#: ../xlgui/widgets/playback.py:1374
+#: ../xlgui/widgets/playback.py:1388
 msgid "_Jump to"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1382
+#: ../xlgui/widgets/playback.py:1396
 #, fuzzy
 #| msgid "_Remove tag"
 msgid "_Remove Marker"
 msgstr "_Vydalić paznaku"
 
-#: ../xlgui/widgets/playback.py:1425
+#: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
 msgstr "huk vykliučany"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1431
+#: ../xlgui/widgets/playback.py:1445
 #, python-format
 msgid "%d%%"
 msgstr "%d %%"
 
-#: ../xlgui/widgets/playback.py:1436
+#: ../xlgui/widgets/playback.py:1450
 msgid "Full Volume"
 msgstr "Poŭnaja hučnasć"
 
-#: ../xlgui/widgets/playback.py:1555
+#: ../xlgui/widgets/playback.py:1569
 #, fuzzy
 #| msgid "Pause"
 msgid "_Pause"
 msgstr "Prypynіć"
 
-#: ../xlgui/widgets/playback.py:1558
+#: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
 msgstr ""
 
-#: ../xlgui/widgets/playback.py:1570
+#: ../xlgui/widgets/playback.py:1584
 #, fuzzy
 #| msgid "Next Track"
 msgid "_Next Track"
 msgstr "Nastupnaja darožka"
 
-#: ../xlgui/widgets/playback.py:1580
+#: ../xlgui/widgets/playback.py:1594
 #, fuzzy
 #| msgid "Previous Track"
 msgid "_Previous Track"
 msgstr "Papiaredniaja darožka"
 
-#: ../xlgui/widgets/playback.py:1590
+#: ../xlgui/widgets/playback.py:1604
 #, fuzzy
 #| msgid "Stop"
 msgid "_Stop"
@@ -2015,7 +2017,7 @@ msgid "Disc Number"
 msgstr "Numar dyska"
 
 #: ../xlgui/widgets/playlist_columns.py:353
-#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:117
+#: ../xlgui/widgets/smart_playlist_editor.py:253 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/controls.py:555
 #: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui:44
@@ -2259,11 +2261,11 @@ msgstr "Nanova praskanavać fanateku"
 msgid "Cover Finder"
 msgstr "Pašukavik vokladak"
 
-#: ../data/ui/coverchooser.ui:115
+#: ../data/ui/coverchooser.ui:125
 msgid "The origin of this cover"
 msgstr "Pachodžannie vokladki"
 
-#: ../data/ui/coverchooser.ui:164
+#: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
 msgstr "_Vykarystoŭvać u jakasci vokladki aĺboma"
 
@@ -2300,35 +2302,19 @@ msgstr ""
 msgid "_Close"
 msgstr "Začynić %s"
 
-#: ../data/ui/device_manager.ui:48
-msgid "Add Device"
-msgstr "Dadać pryladu"
-
-#: ../data/ui/device_manager.ui:111
-msgid "Type of device:"
-msgstr "Typ prylady:"
-
-#: ../data/ui/device_manager.ui:144
-msgid "Detected devices:"
-msgstr "Vyjaŭlienyja prylady:"
-
-#: ../data/ui/device_manager.ui:175
-msgid "Custom: "
-msgstr "Biahučy: "
-
-#: ../data/ui/device_manager.ui:239
+#: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
 msgstr "Menedžar prylad"
 
-#: ../data/ui/device_manager.ui:264
+#: ../data/ui/device_manager.ui:65
 msgid "Icon"
 msgstr "Značka"
 
-#: ../data/ui/device_manager.ui:276
+#: ../data/ui/device_manager.ui:77
 msgid "Device"
 msgstr "Prylada"
 
-#: ../data/ui/device_manager.ui:287
+#: ../data/ui/device_manager.ui:88
 msgid "Driver"
 msgstr "Drajvier"
 
@@ -2388,27 +2374,32 @@ msgstr ""
 "Abnavić paneĺ fanateki\n"
 "(Zacisnicie Shift dlia paŭtornaha skanavannia fanateki)"
 
-#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:168
+#: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:170
 msgid "Clear search field"
 msgstr "Ačyscić polie pošuku"
 
-#: ../data/ui/panel/files.ui:27
+#: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
+#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:384
+msgid "Search"
+msgstr "Pošuk"
+
+#: ../data/ui/panel/files.ui:29
 msgid "Previous visited directory"
 msgstr "Papiaredni naviedany kataloh"
 
-#: ../data/ui/panel/files.ui:49
+#: ../data/ui/panel/files.ui:51
 msgid "Next visited directory"
 msgstr "Nastupny naviedany kataloh"
 
-#: ../data/ui/panel/files.ui:70
+#: ../data/ui/panel/files.ui:72
 msgid "Up one directory"
 msgstr "Uharu na adzin kataloh"
 
-#: ../data/ui/panel/files.ui:91
+#: ../data/ui/panel/files.ui:93
 msgid "Refresh directory listing"
 msgstr "Abnavić zmiesciva kataloha"
 
-#: ../data/ui/panel/files.ui:112
+#: ../data/ui/panel/files.ui:114
 msgid "Home directory"
 msgstr "Chatni kataloh"
 
@@ -2420,7 +2411,7 @@ msgstr "Dadać usie darožki ŭ spis prajhravannia"
 msgid "Import CD"
 msgstr "Impart CD"
 
-#: ../data/ui/panel/lyrics.ui:25
+#: ../data/ui/panel/lyrics.ui:24
 msgid "Refresh Lyrics"
 msgstr ""
 
@@ -2437,10 +2428,6 @@ msgstr "Prajhravać darožki vypadkova"
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
 msgstr "Paŭtaryć prajhravannie"
-
-#: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:391
-msgid "Search"
-msgstr "Pošuk"
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
@@ -2478,26 +2465,26 @@ msgstr "Zaŭsiody pakazvać palasu ŭkladak"
 msgid "Tab placement:"
 msgstr "Miescaznachodžannie ŭkladki:"
 
-#: ../data/ui/preferences/appearance.ui:133
+#: ../data/ui/preferences/appearance.ui:139
 msgid "Playlist font:"
 msgstr "Šryft spisu prajhravannia:"
 
-#: ../data/ui/preferences/appearance.ui:148 ../data/ui/preferences/lyrics.ui:42
+#: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
 msgstr "Vykarystoŭvać sistemny šryft"
 
-#: ../data/ui/preferences/appearance.ui:183
+#: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
 msgstr "Adliustroŭvać numary darožak u kaliekcyi"
 
 #. TRANSLATORS: Remark at the alpha transparency option
-#: ../data/ui/preferences/appearance.ui:197
+#: ../data/ui/preferences/appearance.ui:208
 #: ../plugins/minimode/minimode_preferences.ui:237
 msgid "Use alpha transparency:"
 msgstr "Vykarystoŭvać prazrystasć:"
 
-#: ../data/ui/preferences/appearance.ui:201
+#: ../data/ui/preferences/appearance.ui:212
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
@@ -2505,28 +2492,34 @@ msgstr ""
 "Uvaha: hety paramietr moža vyklikać pamylki adliustravannia pry vykarystanni "
 "z menedžaram voknaŭ, jaki nie padtrymlivaje sumiaščennie."
 
-#: ../data/ui/preferences/appearance.ui:223
+#: ../data/ui/preferences/appearance.ui:228
+#, fuzzy
+#| msgid "Use alpha transparency:"
+msgid "Alpha transparency"
+msgstr "Vykarystoŭvać prazrystasć:"
+
+#: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
 msgstr "Adliustroŭvać abrazok u sistemnym trei"
 
-#: ../data/ui/preferences/appearance.ui:238
+#: ../data/ui/preferences/appearance.ui:257
 msgid "Minimize to tray"
 msgstr "Zharnuć u trej"
 
-#: ../data/ui/preferences/appearance.ui:252
+#: ../data/ui/preferences/appearance.ui:271
 msgid "Close to tray"
 msgstr "Zharnuć u trej"
 
 #. TRANSLATORS: Keep the current track visible in playlist
-#: ../data/ui/preferences/appearance.ui:266
+#: ../data/ui/preferences/appearance.ui:285
 msgid "Jump to current song on track change"
 msgstr "Pierachodzić da biahučaj darožki ŭ spisie pry zmienie"
 
-#: ../data/ui/preferences/appearance.ui:282
+#: ../data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
 msgstr "Pakazvać zastaŭku pry zahruzcy"
 
-#: ../data/ui/preferences/appearance.ui:309
+#: ../data/ui/preferences/appearance.ui:328
 msgid ""
 "Tray icons are not supported on some platforms, most notably on Wayland. On "
 "GNOME Shell 3.26+ on Xorg, tray icons only work if you have the <a href="
@@ -2534,16 +2527,16 @@ msgid ""
 "extension</a> (or a similar one) installed."
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:319
+#: ../data/ui/preferences/appearance.ui:341
 msgid "Note:"
 msgstr ""
 
-#: ../data/ui/preferences/appearance.ui:331
+#: ../data/ui/preferences/appearance.ui:353
 msgid "Prefer dark theme"
 msgstr ""
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
-#: ../data/ui/preferences/appearance.ui:335
+#: ../data/ui/preferences/appearance.ui:357
 msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
@@ -2556,11 +2549,11 @@ msgid ""
 msgstr ""
 "Slovy, jakija treba prybrać z tehaŭ vykanaŭca pry sartavanni (praz prabiel):"
 
-#: ../data/ui/preferences/collection.ui:35
+#: ../data/ui/preferences/collection.ui:42
 msgid "(Right click to reset to defaults)"
 msgstr "(Pstryknicie pravaj knopkaj myšy dlia skidu da nalad pa zmaŭčanni)"
 
-#: ../data/ui/preferences/collection.ui:44
+#: ../data/ui/preferences/collection.ui:54
 #, fuzzy
 #| msgid "Use file based compilation detection"
 msgid "Use file-based compilation detection"
@@ -2582,23 +2575,23 @@ msgstr ""
 msgid "Preferred file names:"
 msgstr "Pieravažnyja imiony fajlaŭ:"
 
-#: ../data/ui/preferences/cover.ui:43
+#: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
 msgstr "Padzielieny koskami spis imionaŭ fajlaŭ biez pašyrenniaŭ"
 
-#: ../data/ui/preferences/cover.ui:52
+#: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
 msgstr "Atrymlivać vokladki aŭtamatyčna pry pačatku prajhravannia"
 
-#: ../data/ui/preferences/cover.ui:70
+#: ../data/ui/preferences/cover.ui:76
 msgid "Cover Search Order:"
 msgstr "Paradak pošuku vokladak:"
 
-#: ../data/ui/preferences/cover.ui:105
+#: ../data/ui/preferences/cover.ui:118
 msgid "(drag to reorder)"
 msgstr "(pieramiascicie dlia zmieny paradku)"
 
-#: ../data/ui/preferences/cover.ui:114
+#: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
 msgstr "Vykarystoŭvać vokladki, pakazanyja ŭ tehu"
 
@@ -2618,38 +2611,38 @@ msgstr "Zapis aŭdyjostrumieniu"
 msgid "Audio Sink:  "
 msgstr "Aŭdyjoprylada:  "
 
-#: ../data/ui/preferences/playback.ui:92
+#: ../data/ui/preferences/playback.ui:98
 #, fuzzy
 #| msgid "Add Device"
 msgid "Audio Device: "
 msgstr "Dadać pryladu"
 
-#: ../data/ui/preferences/playback.ui:122
+#: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
 msgid "Custom sink pipeline:"
 msgstr "Inšy kanviejer-prymač:"
 
-#: ../data/ui/preferences/playback.ui:142
+#: ../data/ui/preferences/playback.ui:160
 msgid "Resume playback on start"
 msgstr "Adnaŭliać prajhravannie pry zapusku prahramy"
 
-#: ../data/ui/preferences/playback.ui:158
+#: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback in paused state"
 msgstr "Adnaŭliać prajhravannie ŭ prypynienym stanie"
 
-#: ../data/ui/preferences/playback.ui:173
+#: ../data/ui/preferences/playback.ui:191
 msgid "Adding an item to an empty queue begins playback"
 msgstr "Dadannie fajla ŭ pustuju čarhu pačnie jaho prajhravannie"
 
-#: ../data/ui/preferences/playback.ui:188
+#: ../data/ui/preferences/playback.ui:206
 msgid "Remove track from queue upon playback"
 msgstr "Vydalić trek z čarhi paslia prajhravannia"
 
-#: ../data/ui/preferences/playback.ui:203
+#: ../data/ui/preferences/playback.ui:221
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "Nie prajhravać novyja darožki pry pačatym prajhravanni"
 
-#: ../data/ui/preferences/playback.ui:207
+#: ../data/ui/preferences/playback.ui:225
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
@@ -2657,56 +2650,56 @@ msgstr ""
 "Kali darožka ŭžo prajhravajecca, nie pačynać prajhravannie novych, "
 "vykliučajučy vypadki nacisku knopak kiravannia"
 
-#: ../data/ui/preferences/playback.ui:219
+#: ../data/ui/preferences/playback.ui:237
 msgid "Automatically advance to the next track"
 msgstr "Aŭtamatyčna pierachodzić na nastupny trek"
 
-#: ../data/ui/preferences/playback.ui:236
+#: ../data/ui/preferences/playback.ui:254
 #, fuzzy
 #| msgid "Delay between tracks (ms)"
 msgid "Delay between tracks (ms):"
 msgstr "Zatrymka pamiž darožkami (ms)"
 
-#: ../data/ui/preferences/playback.ui:247
+#: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui:273
+#: ../data/ui/preferences/playback.ui:300
 msgid "Crossfade duration (ms):"
 msgstr "Čas plaŭnaha miksavannia (ms):"
 
-#: ../data/ui/preferences/playback.ui:282
+#: ../data/ui/preferences/playback.ui:312
 #: ../plugins/previewdevice/previewprefs.ui:125
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Vykarystoŭvać miksavannie (EKSPIeRYMIeNTALNA)"
 
-#: ../data/ui/preferences/playback.ui:286
+#: ../data/ui/preferences/playback.ui:316
 #, fuzzy
 #| msgid "Automatically advance to the next track"
 msgid "Forces automatically advancing to the next track"
 msgstr "Aŭtamatyčna pierachodzić na nastupny trek"
 
-#: ../data/ui/preferences/playback.ui:313
+#: ../data/ui/preferences/playback.ui:346
 msgid "Fade duration (ms):"
 msgstr "Čas plaŭnaha zhasannia (ms):"
 
-#: ../data/ui/preferences/playback.ui:322
+#: ../data/ui/preferences/playback.ui:358
 #: ../plugins/previewdevice/previewprefs.ui:85
 msgid "Use fade transitions on user actions"
 msgstr "Vykarystoŭvać plaŭnyja pierachody pry dziejanniach karystača"
 
-#: ../data/ui/preferences/playback.ui:340
+#: ../data/ui/preferences/playback.ui:376
 #: ../plugins/previewdevice/previewprefs.ui:57
 msgid "Playback engine: "
 msgstr "Prylada prajhravannia: "
 
-#: ../data/ui/preferences/playback.ui:367
+#: ../data/ui/preferences/playback.ui:409
 #, fuzzy
 #| msgid "Repeat playback"
 msgid "Enable gapless playback"
 msgstr "Paŭtaryć prajhravannie"
 
-#: ../data/ui/preferences/playback.ui:371
+#: ../data/ui/preferences/playback.ui:413
 msgid ""
 "Gapless playback means to play tracks without inserting silence between them."
 msgstr ""
@@ -2923,37 +2916,38 @@ msgstr "Pstryknicie ci pieraciahnicie fajly siudy, kab zmianić vokladku"
 msgid "Description:"
 msgstr "Apisannie:"
 
-#: ../data/ui/trackproperties_dialog_cover_row.ui:151
+#: ../data/ui/trackproperties_dialog_cover_row.ui:154
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../data/ui/widgets/filter_dialog.ui:127
+#: ../data/ui/widgets/filter_dialog.ui:137
 msgid "Match any of the criteria"
 msgstr "Dadać usio pa krytery"
 
-#: ../data/ui/widgets/filter_dialog.ui:141
+#: ../data/ui/widgets/filter_dialog.ui:151
 msgid "Randomize results"
 msgstr "Vypadkovyja vynіkі"
 
-#: ../data/ui/widgets/filter_dialog.ui:155
+#: ../data/ui/widgets/filter_dialog.ui:165
 msgid "Add"
 msgstr ""
 
-#: ../data/ui/widgets/filter_dialog.ui:183
-#, fuzzy
-#| msgid "Limit to: "
-msgid "Limit to:"
-msgstr "Abmiežavany da: "
-
-#: ../data/ui/widgets/filter_dialog.ui:213
-#, fuzzy
-#| msgid " tracks"
-msgid "tracks"
-msgstr " darožkі"
+#. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
+#: ../data/ui/widgets/filter_dialog.ui:194
+msgid "Maximum number of tracks:"
+msgstr ""
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
 msgstr "Admiena"
+
+#: ../data/ui/widgets/volume_control.ui:20
+msgid "Toggle mute"
+msgstr ""
+
+#: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
+msgid "Volume"
+msgstr "Hučnasć"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Segment"
@@ -3004,21 +2998,21 @@ msgstr "Pravierka nie atrymalasia"
 msgid "Please make sure the entered data is correct."
 msgstr "Kali laska praviercie praviĺnasć uviedzienych dadzienych."
 
-#: ../plugins/bookmarks/__init__.py:210
+#: ../plugins/bookmarks/__init__.py:209
 #, fuzzy
 #| msgid "Love This Track"
 msgid "_Bookmark This Track"
 msgstr "Mnie padabacca hety trek"
 
-#: ../plugins/bookmarks/__init__.py:216
+#: ../plugins/bookmarks/__init__.py:215
 msgid "_Delete Bookmark"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:220
+#: ../plugins/bookmarks/__init__.py:219
 msgid "_Clear Bookmarks"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:328
+#: ../plugins/bookmarks/__init__.py:333
 msgid "_Bookmarks"
 msgstr ""
 
@@ -3040,7 +3034,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ../plugins/cd/__init__.py:151 ../plugins/cd/__init__.py:222
+#: ../plugins/cd/__init__.py:152 ../plugins/cd/__init__.py:223
 msgid "Audio Disc"
 msgstr "Hukavy dysk"
 
@@ -3052,59 +3046,59 @@ msgstr "Impartavannie CD..."
 msgid "Error transcoding files from CD."
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:34
+#: ../plugins/cd/cdprefs.py:33
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:105
+#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
 msgstr "Numar darožki"
 
-#: ../plugins/cd/cdprefs.py:116 ../plugins/minimode/minimode_preferences.py:111
+#: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
 msgstr "Numar dyska"
 
-#: ../plugins/cd/cdprefs.py:123 ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
 msgstr "Prasluchoŭvanniaŭ"
 
-#: ../plugins/daapclient/__init__.py:316 ../plugins/history/__init__.py:187
+#: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:187
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:323
+#: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:378
+#: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port for share"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:378
+#: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:598
+#: ../plugins/daapclient/__init__.py:549
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:708
+#: ../plugins/daapclient/__init__.py:659
 msgid "Refresh Server List"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:716
+#: ../plugins/daapclient/__init__.py:667
 msgid "Disconnect from Server"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:737
+#: ../plugins/daapclient/__init__.py:688
 msgid "Select a Location for Saving"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:791
+#: ../plugins/daapclient/__init__.py:742
 msgid "Connect to DAAP..."
 msgstr ""
 
@@ -3123,11 +3117,11 @@ msgstr ""
 msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/developer/__init__.py:64
+#: ../plugins/developer/__init__.py:63
 msgid "Developer Tools"
 msgstr ""
 
-#: ../plugins/equalizer/__init__.py:364
+#: ../plugins/equalizer/__init__.py:362
 #, fuzzy
 #| msgid "Equalizer"
 msgid "_Equalizer"
@@ -3181,7 +3175,7 @@ msgstr "_Vydalić paznaku"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:107
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
 msgstr ""
 
@@ -3349,46 +3343,46 @@ msgstr ""
 msgid "_Clear History"
 msgstr "Ačyscić plejlist"
 
-#: ../plugins/icecast/__init__.py:116 ../plugins/icecast/__init__.py:187
-#: ../plugins/icecast/__init__.py:210
+#: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:183
+#: ../plugins/icecast/__init__.py:206
 msgid "Contacting Icecast server..."
 msgstr "Padkliučennie da sierviera Icecast..."
 
-#: ../plugins/icecast/__init__.py:126 ../plugins/icecast/__init__.py:129
-#: ../plugins/icecast/__init__.py:225 ../plugins/icecast/__init__.py:228
+#: ../plugins/icecast/__init__.py:122 ../plugins/icecast/__init__.py:125
+#: ../plugins/icecast/__init__.py:218 ../plugins/icecast/__init__.py:221
 msgid "Error connecting to Icecast server."
 msgstr "Pamylka padlučennia da sierviera Icecast."
 
-#: ../plugins/icecast/__init__.py:330
+#: ../plugins/icecast/__init__.py:323
 msgid "Enter the search keywords"
 msgstr "Uviadzicie kliučavyja slovy dlia pošuku"
 
-#: ../plugins/icecast/__init__.py:330
+#: ../plugins/icecast/__init__.py:323
 msgid "Icecast Search"
 msgstr "Pošuk Icecast"
 
-#: ../plugins/icecast/__init__.py:354
+#: ../plugins/icecast/__init__.py:347
 msgid "No Stations Found"
 msgstr "Stancyi nie znojdzieny"
 
-#: ../plugins/icecast/__init__.py:357
+#: ../plugins/icecast/__init__.py:350
 msgid "Icecast Search Results"
 msgstr "Vyniki pošuku Icecast"
 
-#: ../plugins/icecast/__init__.py:399
+#: ../plugins/icecast/__init__.py:392
 #: ../plugins/developer/developer_window.ui:59
 msgid "Name"
 msgstr "Nazva"
 
-#: ../plugins/icecast/__init__.py:415
+#: ../plugins/icecast/__init__.py:408
 msgid "Format"
 msgstr "Farmat"
 
-#: ../plugins/ipconsole/__init__.py:156
+#: ../plugins/ipconsole/__init__.py:155
 msgid "IPython Console - Exaile"
 msgstr "Kansoĺ IPython - Exaile"
 
-#: ../plugins/ipconsole/__init__.py:214
+#: ../plugins/ipconsole/__init__.py:213
 #, fuzzy
 #| msgid "Show IPython Console"
 msgid "Show _IPython Console"
@@ -3534,10 +3528,6 @@ msgstr "Spynić prajhravannie"
 msgid "Continue playback after current track"
 msgstr "Praciahnuć prajhravannie paslia biahučaj darožki"
 
-#: ../plugins/minimode/controls.py:447
-msgid "Volume"
-msgstr "Hučnasć"
-
 #: ../plugins/minimode/controls.py:448
 msgid "Change the volume"
 msgstr "Kiravannie hučnasciu"
@@ -3612,18 +3602,18 @@ msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
 #. TRANSLATORS: Time format for playback progress
-#: ../plugins/moodbar/__init__.py:101
+#: ../plugins/moodbar/__init__.py:99
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
 msgstr ""
 
 #. TRANSLATORS: Format for playback progress text
-#: ../plugins/moodbar/__init__.py:206
+#: ../plugins/moodbar/__init__.py:204
 #, python-brace-format
 msgid "{current} / {remaining}"
 msgstr ""
 
-#: ../plugins/moodbar/prefs.py:28 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Radok nastroju"
 
@@ -3652,11 +3642,11 @@ msgstr ""
 msgid "Notify"
 msgstr "Apaviaščennie"
 
-#: ../plugins/osd/__init__.py:357
+#: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:397
+#: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
 msgstr ""
 
@@ -3709,32 +3699,32 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:119
+#: ../plugins/podcasts/__init__.py:121
 msgid "Enter the URL of the podcast to add"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:119
+#: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:153
+#: ../plugins/podcasts/__init__.py:157
 #, python-format
 msgid "Loading %s..."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:183
+#: ../plugins/podcasts/__init__.py:187
 msgid "Error loading podcast."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:199
+#: ../plugins/podcasts/__init__.py:203
 msgid "Loading Podcasts..."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:201
+#: ../plugins/podcasts/__init__.py:205
 msgid "No configuration present yet"
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:234
+#: ../plugins/podcasts/__init__.py:238
 msgid "Could not save podcast file"
 msgstr ""
 
@@ -3794,15 +3784,15 @@ msgstr "Vykliučennie nie atrymalasia"
 msgid "Computer could not be shutdown using D-Bus."
 msgstr "Kamputar nie moža być vykliučany praz D-Bus."
 
-#: ../plugins/somafm/__init__.py:85 ../plugins/somafm/__init__.py:181
+#: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:178
 msgid "Contacting SomaFM server..."
 msgstr ""
 
-#: ../plugins/somafm/__init__.py:97 ../plugins/somafm/__init__.py:100
+#: ../plugins/somafm/__init__.py:94 ../plugins/somafm/__init__.py:97
 msgid "Error connecting to SomaFM server."
 msgstr ""
 
-#: ../plugins/somafm/__init__.py:185
+#: ../plugins/somafm/__init__.py:182
 #, fuzzy
 #| msgid "Error loading smart playlist: %s"
 msgid "Error importing playlist"
@@ -3816,7 +3806,7 @@ msgstr "Pamylka vykanannia zapisu strumieniaŭ"
 msgid "Streamripper"
 msgstr "Zapis aŭdyjostrumieniu"
 
-#: ../plugins/wikipedia/__init__.py:149 ../plugins/wikipedia/preferences.py:21
+#: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
 msgstr "Vikipiedyja"
@@ -3993,7 +3983,7 @@ msgid "Simple Console"
 msgstr ""
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
-msgid "Show ipv6 servers (Experimental)"
+msgid "Show IPv6 servers"
 msgstr ""
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
@@ -4696,10 +4686,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
-#, fuzzy
-#| msgid "Allows playing of DAAP music shares."
-msgid "Allows playing of DAAP music shares using the spydaap library."
-msgstr "Dazvolіć prajhravannie muzykі z DAAP."
+msgid ""
+"Enables access to DAAP music shares via the spydaap library. Share auto-"
+"discovery is optionally available via python-zeroconf.\n"
+"Requires: spydaap\n"
+"Optional: python-zeroconf"
+msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4852,7 +4844,7 @@ msgstr ""
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
-"Requires: BeautifulSoup4"
+"Requires: BeautifulSoup4, lxml"
 msgstr ""
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
@@ -4971,7 +4963,7 @@ msgstr ""
 msgid ""
 "Pauses (and optionally resumes) playback based on screensaver status.\n"
 "\n"
-"Requires: GNOME, MATE, Cinnamon, or KDE Screensaver (does not support "
+"Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
 
@@ -5012,6 +5004,42 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Allows playing of DAAP music shares."
+#~ msgid "Allows playing of DAAP music shares using the spydaap library."
+#~ msgstr "Dazvolіć prajhravannie muzykі z DAAP."
+
+#~ msgid "We don't know how to store that kind of setting: "
+#~ msgstr "Nam nieviadoma, jak zachavać hety typ paramietraŭ: "
+
+#~ msgid "An Unknown type of setting was found!"
+#~ msgstr "Vyjaŭlieny nieviadomy typ paramietraŭ!"
+
+#~ msgid "Any"
+#~ msgstr "Liuby"
+
+#~ msgid "Add Device"
+#~ msgstr "Dadać pryladu"
+
+#~ msgid "Type of device:"
+#~ msgstr "Typ prylady:"
+
+#~ msgid "Detected devices:"
+#~ msgstr "Vyjaŭlienyja prylady:"
+
+#~ msgid "Custom: "
+#~ msgstr "Biahučy: "
+
+#, fuzzy
+#~| msgid "Limit to: "
+#~ msgid "Limit to:"
+#~ msgstr "Abmiežavany da: "
+
+#, fuzzy
+#~| msgid " tracks"
+#~ msgid "tracks"
+#~ msgstr " darožkі"
 
 #~ msgctxt "About dialog translator credits"
 #~ msgid "Unknown translator"

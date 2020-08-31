@@ -55,6 +55,7 @@ CD info: (TODO: This is currently broken on python3, see #608 and #652)
 DAAP plugins (daapserver and daapclient):
 
 * spydaap (python3), e.g. from https://github.com/exaile/spydaap or https://pypi.org/project/spydaap/
+* python-zeroconf is an optional dependency of daapclient to enable share auto-discovery
 
 Last.FM integration:
 

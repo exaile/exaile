@@ -100,6 +100,7 @@ the same folder as the music file.</property>
             </child>
             <accessibility>
               <relation type="labelled-by" target="label1"/>
+              <relation type="described-by" target="label3"/>
             </accessibility>
           </object>
         </child>
@@ -115,6 +116,9 @@ the same folder as the music file.</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
         <property name="label" translatable="yes">(drag to reorder)</property>
+        <accessibility>
+          <relation type="description-for" target="covers/preferred_order"/>
+        </accessibility>
       </object>
       <packing>
         <property name="left_attach">1</property>

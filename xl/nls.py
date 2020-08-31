@@ -1,4 +1,5 @@
 # Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2020 Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,9 +30,56 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
-import sys
 import locale
 import os.path
+import sys
+from typing import Optional
+
+try:
+    import gettext as gettextmod
+except ImportError:
+    gettextmod = None
+
+
+def _get_locale_path() -> Optional[str]:
+    # This is the same as xl.xdg.exaile_path. We don't want to import xl.xdg
+    # here because it's a heavy import (it pulls in GLib).
+    exaile_path = os.environ['EXAILE_DIR']
+
+    # Check if running from source dir
+    locale_path = os.path.join(exaile_path, 'build', 'locale')
+    if os.path.exists(locale_path):  # Equivalent to xl.xdg.local_hack
+        return locale_path
+
+    # Check if installed
+    lib_suffix = os.path.join('lib', 'exaile')
+    if exaile_path.endswith(lib_suffix):
+        prefix = exaile_path[: -len(lib_suffix)]
+        locale_path = os.path.join(prefix, 'share', 'locale')
+        if os.path.exists(locale_path):
+            return locale_path
+
+    return None
+
+
+def _setup_locale() -> None:
+    try:
+        # Required for Gtk.Builder messages
+        locale.textdomain('exaile')
+    except AttributeError:  # E.g. Windows
+        pass
+
+    # Required for dynamically added messages
+    gettextmod.textdomain('exaile')
+
+    locale_path = _get_locale_path()
+    if locale_path is not None:
+        try:
+            locale.bindtextdomain('exaile', locale_path)
+        except AttributeError:  # E.g. Windows
+            pass
+        gettextmod.bindtextdomain('exaile', locale_path)
+
 
 try:
     # Set to user default, gracefully fallback on C otherwise
@@ -45,53 +93,14 @@ except locale.Error as e:
         '  issue, look at the output of the locale tool.\n' % e
     )
 
-try:
-    import gettext as gettextmod
 
-    def __setup_locale():
-
-        # Required for Gtk.Builder messages
-        try:
-            locale.textdomain('exaile')
-        except AttributeError:  # E.g. Windows
-            pass
-
-        # Required for dynamically added messages
-        gettextmod.textdomain('exaile')
-
-        locale_path = None
-
-        # this is the same as xl.nls.exaile_path, but importing xl.nls would
-        # pull in GLib, which is a heavy import for xl.main.
-        exaile_path = os.environ['EXAILE_DIR']
-
-        # If running from source dir, we have to set the paths.
-        # (The test is equivalent to xdg.local_hack but without the xdg import,
-        # which pulls in GLib.)
-        if os.path.exists(os.path.join(exaile_path, 'po')):
-            locale_path = os.path.join(exaile_path, 'po')
-
-        # Detect the prefix, to see if we need to correct the locale path
-        elif exaile_path.endswith(os.path.join('lib', 'exaile')):
-            exaile_prefix = exaile_path[: -len(os.path.join('lib', 'exaile'))]
-            if os.path.exists(os.path.join(exaile_prefix, 'share', 'locale')):
-                locale_path = os.path.join(exaile_prefix, 'share', 'locale')
-
-        if locale_path is not None:
-            try:
-                locale.bindtextdomain('exaile', locale_path)
-            except AttributeError:  # E.g. Windows
-                pass
-            gettextmod.bindtextdomain('exaile', locale_path)
-
-    __setup_locale()
-
+if gettextmod:
+    _setup_locale()
     gettext = gettextmod.gettext
     ngettext = gettextmod.ngettext
+else:
+    # gettext is not available; provide dummy functions instead
 
-
-except ImportError:
-    # gettext is not available.  Provide a dummy function instead
     def gettext(text):
         return text
 
@@ -100,6 +109,3 @@ except ImportError:
             return singular
         else:
             return plural
-
-
-# vim: et sts=4 sw=4

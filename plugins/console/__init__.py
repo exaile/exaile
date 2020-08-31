@@ -23,10 +23,11 @@ plugin is meant as a basic alternative without the extra dependencies.
 
 from gi.repository import Gtk
 
+from contextlib import redirect_stdout
+from io import StringIO
 import os
 import sys
 import traceback
-from io import StringIO
 
 
 class PyConsole:
@@ -66,22 +67,21 @@ class PyConsole:
         """
             Executes some Python code.
         """
-        stdout = sys.stdout
+        buffer = self.buffer
         try:
             pycode = compile(code, '<console>', 'single')
-            sys.stdout = self.buffer
-            exec(pycode, self.dict)
+            with redirect_stdout(buffer):
+                exec(pycode, self.dict)
         except Exception:
-            sys.stdout = stdout
             exc = traceback.format_exception(*sys.exc_info())
             del exc[1]  # Remove our function.
             result = ''.join(exc)
         else:
-            sys.stdout = stdout
-            result = self.buffer.getvalue()
+            result = buffer.getvalue()
             # Can't simply close and recreate later because help() stores and
             # reuses stdout.
-            self.buffer.truncate(0)
+            buffer.seek(0)
+            buffer.truncate(0)
         result = '>>> %s\n%s' % (code, result)
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)
         # Can't use iter; won't scroll correctly.

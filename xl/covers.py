@@ -48,17 +48,17 @@ logger = logging.getLogger(__name__)
 # useful in other areas.
 class Cacher:
     """
-        Simple on-disk cache.
+    Simple on-disk cache.
 
-        Note that as entries are stored as
-        individual files, the data being stored should be of significant
-        size (several KB) or a lot of disk space will likely be wasted.
+    Note that as entries are stored as
+    individual files, the data being stored should be of significant
+    size (several KB) or a lot of disk space will likely be wasted.
     """
 
     def __init__(self, cache_dir):
         """
-            :param cache_dir: directory to use for the cache. will be
-                created if it does not exist.
+        :param cache_dir: directory to use for the cache. will be
+            created if it does not exist.
         """
         try:
             os.makedirs(cache_dir)
@@ -68,10 +68,10 @@ class Cacher:
 
     def add(self, data):
         """
-            Adds an entry to the cache.  Returns a key that can be used
-            to retrieve the data from the cache.
+        Adds an entry to the cache.  Returns a key that can be used
+        to retrieve the data from the cache.
 
-            :param data: The data to store, as a bytestring.
+        :param data: The data to store, as a bytestring.
         """
         # FIXME: this doesnt handle hash collisions at all. with
         # 2^256 possible keys its unlikely that we'll have a collision,
@@ -86,9 +86,9 @@ class Cacher:
 
     def remove(self, key):
         """
-            Remove an entry from the cache.
+        Remove an entry from the cache.
 
-            :param key: The key to remove data for.
+        :param key: The key to remove data for.
         """
         path = os.path.join(self.cache_dir, key)
         try:
@@ -98,10 +98,10 @@ class Cacher:
 
     def get(self, key):
         """
-            Retrieve an entry from the cache.  Returns None if the given
-            key does not exist.
+        Retrieve an entry from the cache.  Returns None if the given
+        key does not exist.
 
-            :param key: The key to retrieve data for.
+        :param key: The key to retrieve data for.
         """
         path = os.path.join(self.cache_dir, key)
         if os.path.exists(path):
@@ -112,14 +112,14 @@ class Cacher:
 
 class CoverManager(providers.ProviderHandler):
     """
-        Handles finding covers from various sources.
+    Handles finding covers from various sources.
     """
 
     DB_VERSION = 2
 
     def __init__(self, location):
         """
-            :param location: The directory to load and store data in.
+        :param location: The directory to load and store data in.
         """
         providers.ProviderHandler.__init__(self, "covers")
         self.__cache = Cacher(os.path.join(location, 'cache'))
@@ -158,10 +158,10 @@ class CoverManager(providers.ProviderHandler):
 
     def _get_methods(self, fixed=False):
         """
-            Returns a list of Methods, sorted by preference
+        Returns a list of Methods, sorted by preference
 
-            :param fixed: If true, include fixed-position backends in the
-                    returned list.
+        :param fixed: If true, include fixed-position backends in the
+                returned list.
         """
         methods = []
         for name in self.order:
@@ -240,12 +240,12 @@ class CoverManager(providers.ProviderHandler):
 
     def get_db_string(self, track: trax.Track) -> Optional[str]:
         """
-            Returns the internal string used to map the cover
-            to a track
+        Returns the internal string used to map the cover
+        to a track
 
-            :param track: the track to retrieve the string for
-            :type track: :class:`xl.trax.Track`
-            :returns: the internal identifier string
+        :param track: the track to retrieve the string for
+        :type track: :class:`xl.trax.Track`
+        :returns: the internal identifier string
         """
         key = self._get_track_key(track)
         if key is None:
@@ -257,12 +257,12 @@ class CoverManager(providers.ProviderHandler):
     @common.cached(5)
     def find_covers(self, track, limit=-1, local_only=False):
         """
-            Find all covers for a track
+        Find all covers for a track
 
-            :param track: The track to find covers for
-            :param limit: maximum number of covers to return. -1=unlimited.
-            :param local_only: If True, will only return results from local
-                    sources.
+        :param track: The track to find covers for
+        :param limit: maximum number of covers to return. -1=unlimited.
+        :param local_only: If True, will only return results from local
+                sources.
         """
         if track is None:
             return
@@ -279,14 +279,14 @@ class CoverManager(providers.ProviderHandler):
 
     def set_cover(self, track, db_string, data=None):
         """
-            Sets the cover for a track. This will overwrite any existing
-            entry.
+        Sets the cover for a track. This will overwrite any existing
+        entry.
 
-            :param track: The track to set the cover for
-            :param db_string: the string identifying the source of the
-                    cover, in "method:key" format.
-            :param data: The raw cover data to store for the track.  Will
-                    only be stored if the method has use_cache=True
+        :param track: The track to set the cover for
+        :param db_string: the string identifying the source of the
+                cover, in "method:key" format.
+        :param data: The raw cover data to store for the track.  Will
+                only be stored if the method has use_cache=True
         """
         name = db_string.split(":", 1)[0]
         method = self.methods.get(name)
@@ -300,7 +300,7 @@ class CoverManager(providers.ProviderHandler):
 
     def remove_cover(self, track):
         """
-            Remove the saved cover entry for a track, if it exists.
+        Remove the saved cover entry for a track, if it exists.
         """
         if track is None:
             return
@@ -317,17 +317,17 @@ class CoverManager(providers.ProviderHandler):
 
     def get_cover(self, track, save_cover=True, set_only=False, use_default=False):
         """
-            get the cover for a given track.
-            if the track has no set cover, backends are
-            searched until a cover is found or we run out of backends.
+        get the cover for a given track.
+        if the track has no set cover, backends are
+        searched until a cover is found or we run out of backends.
 
-            :param track: the Track to get the cover for.
-            :param save_cover: if True, a set_cover call will be made
-                    to store the cover for later use.
-            :param set_only: Only retrieve covers that have been set
-                    in the db.
-            :param use_default: If True, returns the default cover instead
-                    of None when no covers are found.
+        :param track: the Track to get the cover for.
+        :param save_cover: if True, a set_cover call will be made
+                to store the cover for later use.
+        :param set_only: Only retrieve covers that have been set
+                in the db.
+        :param use_default: If True, returns the default cover instead
+                of None when no covers are found.
         """
         if track is None:
             return self.get_default_cover() if use_default else None
@@ -353,11 +353,11 @@ class CoverManager(providers.ProviderHandler):
 
     def get_cover_data(self, db_string, use_default=False):
         """
-            Get the raw image data for a cover.
+        Get the raw image data for a cover.
 
-            :param db_string: The db_string identifying the cover to get.
-            :param use_default: If True, returns the default cover instead
-                    of None when no covers are found.
+        :param db_string: The db_string identifying the cover to get.
+        :param use_default: If True, returns the default cover instead
+                of None when no covers are found.
         """
         source, data = db_string.split(":", 1)
         ret = None
@@ -373,15 +373,15 @@ class CoverManager(providers.ProviderHandler):
 
     def get_default_cover(self):
         """
-            Get the raw image data for the cover to show if there is no
-            cover to display.
+        Get the raw image data for the cover to show if there is no
+        cover to display.
         """
         # TODO: wrap this into get_cover_data and get_cover somehow?
         return self.default_cover_data
 
     def load(self):
         """
-            Load the saved db
+        Load the saved db
         """
         path = os.path.join(self.location, 'covers.db')
         data = None
@@ -414,7 +414,7 @@ class CoverManager(providers.ProviderHandler):
 
     def save(self):
         """
-            Save the db
+        Save the db
         """
         path = os.path.join(self.location, 'covers.db')
         try:
@@ -447,10 +447,10 @@ class CoverManager(providers.ProviderHandler):
 
     def set_preferred_order(self, order):
         """
-            Sets the preferred search order
+        Sets the preferred search order
 
-            :param order: a list containing the order you'd like to search
-                first
+        :param order: a list containing the order you'd like to search
+            first
         """
         if not type(order) in (list, tuple):
             raise TypeError("order must be a list or tuple")
@@ -459,11 +459,11 @@ class CoverManager(providers.ProviderHandler):
 
     def get_cover_for_tracks(self, tracks, db_strings_to_ignore):
         """
-            For tracks, try to find a cover
-            Basically returns the first cover found
-            :param tracks: list of tracks [xl.trax.Track]
-            :param db_strings_to_ignore: list [str]
-            :return: GdkPixbuf.Pixbuf or None if no cover found
+        For tracks, try to find a cover
+        Basically returns the first cover found
+        :param tracks: list of tracks [xl.trax.Track]
+        :param db_strings_to_ignore: list [str]
+        :return: GdkPixbuf.Pixbuf or None if no cover found
         """
         for track in tracks:
             db_string = self.get_db_string(track)
@@ -476,10 +476,10 @@ class CoverManager(providers.ProviderHandler):
 
 class CoverSearchMethod:
     """
-        Base class for creating cover search methods.
+    Base class for creating cover search methods.
 
-        Search methods do not have to inherit from this class, it's
-        intended more as a template to demonstrate the needed interface.
+    Search methods do not have to inherit from this class, it's
+    intended more as a template to demonstrate the needed interface.
     """
 
     #: If true, cover results will be cached for faster lookup
@@ -495,27 +495,27 @@ class CoverSearchMethod:
 
     def find_covers(self, track, limit=-1):
         """
-            Find the covers for a given track.
+        Find the covers for a given track.
 
-            :param track: The track to find covers for.
-            :param limit: Maximal number of covers to return.
-            :returns: A list of strings that can be passed to get_cover_data.
+        :param track: The track to find covers for.
+        :param limit: Maximal number of covers to return.
+        :returns: A list of strings that can be passed to get_cover_data.
         """
         raise NotImplementedError
 
     def get_cover_data(self, db_string):
         """
-            Get the image data for a cover
+        Get the image data for a cover
 
-            :param db_string: A method-dependent string that identifies the
-                    cover to get.
+        :param db_string: A method-dependent string that identifies the
+                cover to get.
         """
         raise NotImplementedError
 
 
 class TagCoverFetcher(CoverSearchMethod):
     """
-        Cover source that looks for images embedded in tags.
+    Cover source that looks for images embedded in tags.
     """
 
     use_cache = False
@@ -557,8 +557,8 @@ class TagCoverFetcher(CoverSearchMethod):
 
 class LocalFileCoverFetcher(CoverSearchMethod):
     """
-        Cover source that looks for images in the same directory as the
-        Track.
+    Cover source that looks for images in the same directory as the
+    Track.
     """
 
     use_cache = False
@@ -624,7 +624,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
     def on_option_set(self, e, settings, option):
         """
-            Updates the internal settings upon option change
+        Updates the internal settings upon option change
         """
         if option == 'covers/localfile/preferred_names':
             self.preferred_names = settings.get_option(option, ['album', 'cover'])

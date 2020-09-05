@@ -47,9 +47,9 @@ class CollectionStripArtistPreference(widgets.ListPreference):
 
     def _get_value(self):
         """
-            Get the value, overrides the base class function
-            because we don't need shlex parsing. We actually
-            want values like "l'" here.
+        Get the value, overrides the base class function
+        because we don't need shlex parsing. We actually
+        want values like "l'" here.
         """
         values = [v.lower() for v in self.widget.get_text().split(' ') if v]
         return values

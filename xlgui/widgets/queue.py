@@ -88,7 +88,7 @@ class QueuePage(PlaylistPageBase):
 
     def do_closing(self):
         """
-            Allows closing only if the queue is empty
+        Allows closing only if the queue is empty
         """
         return len(self.player.queue) != 0
 

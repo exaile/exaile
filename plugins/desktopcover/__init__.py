@@ -36,7 +36,7 @@ class DesktopCoverPlugin:
 
     def enable(self, _exaile):
         """
-            Enables the plugin
+        Enables the plugin
         """
         self.__migrate_anchor_setting()
 
@@ -45,7 +45,7 @@ class DesktopCoverPlugin:
 
     def disable(self, _exaile):
         """
-            Disables the desktop cover plugin
+        Disables the desktop cover plugin
         """
         self.__desktop_cover.destroy()
         self.__desktop_cover = None
@@ -53,8 +53,8 @@ class DesktopCoverPlugin:
     @staticmethod
     def __migrate_anchor_setting():
         """
-            Migrates gravity setting from the old
-            integer values to the new string values
+        Migrates gravity setting from the old
+        integer values to the new string values
         """
         gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
         gravity_map = DesktopCover.gravity_map
@@ -137,7 +137,7 @@ class DesktopCover(Gtk.Window):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         for e in self._events:
             if 'playback' in e:
@@ -151,7 +151,7 @@ class DesktopCover(Gtk.Window):
 
     def set_cover_from_track(self, track):
         """
-            Updates the cover image and triggers cross-fading
+        Updates the cover image and triggers cross-fading
         """
         cover_data = covers.MANAGER.get_cover(track, set_only=True)
 
@@ -184,8 +184,8 @@ class DesktopCover(Gtk.Window):
 
     def update_position(self):
         """
-            Updates the position based
-            on gravity and offsets
+        Updates the position based
+        on gravity and offsets
         """
         gravity = self.gravity_map[
             settings.get_option('plugin/desktopcover/anchor', 'topleft')
@@ -211,7 +211,7 @@ class DesktopCover(Gtk.Window):
 
     def show(self):
         """
-            Override for fade-in
+        Override for fade-in
         """
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
@@ -226,7 +226,7 @@ class DesktopCover(Gtk.Window):
 
     def hide(self):
         """
-            Override for fade-out
+        Override for fade-out
         """
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
@@ -239,7 +239,7 @@ class DesktopCover(Gtk.Window):
 
     def fade_in(self):
         """
-            Increases opacity until completely opaque
+        Increases opacity until completely opaque
         """
         opacity = self.get_opacity()
 
@@ -254,7 +254,7 @@ class DesktopCover(Gtk.Window):
 
     def fade_out(self):
         """
-            Decreases opacity until transparent
+        Decreases opacity until transparent
         """
         opacity = self.get_opacity()
 
@@ -271,14 +271,14 @@ class DesktopCover(Gtk.Window):
 
     def cross_fade(self, pixbuf, next_pixbuf, duration):
         """
-            Fades between two cover images
+        Fades between two cover images
 
-            :param pixbuf: the current cover image pixbuf
-            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
-            :param next_pixbuf: the cover image pixbuf to fade to
-            :type next_pixbuf: :class:`GdkPixbuf.Pixbuf`
-            :param duration: the overall time for the fading
-            :type duration: int
+        :param pixbuf: the current cover image pixbuf
+        :type pixbuf: :class:`GdkPixbuf.Pixbuf`
+        :param next_pixbuf: the cover image pixbuf to fade to
+        :type next_pixbuf: :class:`GdkPixbuf.Pixbuf`
+        :param duration: the overall time for the fading
+        :type duration: int
         """
         if self._cross_fade_step < duration:
             width, height = pixbuf.get_width(), pixbuf.get_height()
@@ -310,8 +310,8 @@ class DesktopCover(Gtk.Window):
 
     def on_draw(self, widget, context):
         """
-            Takes care of drawing the window
-            transparently, if possible
+        Takes care of drawing the window
+        transparently, if possible
         """
 
         context.set_source_rgba(1, 1, 1, 0)
@@ -321,7 +321,7 @@ class DesktopCover(Gtk.Window):
 
     def on_screen_changed(self, widget, event):
         """
-            Updates the colormap
+        Updates the colormap
         """
         screen = widget.get_screen()
         visual = screen.get_rgba_visual() or screen.get_rgb_visual()
@@ -329,33 +329,33 @@ class DesktopCover(Gtk.Window):
 
     def on_playback_track_start(self, type, player, track):
         """
-            Updates the cover image and shows the window
+        Updates the cover image and shows the window
         """
         self.set_cover_from_track(track)
         self.update_position()
 
     def on_playback_player_end(self, type, player, track):
         """
-            Hides the window at the end of playback
+        Hides the window at the end of playback
         """
         self.hide()
 
     def on_cover_set(self, type, covers, track):
         """
-           Updates the cover image after cover selection
+        Updates the cover image after cover selection
         """
         self.set_cover_from_track(track)
         self.update_position()
 
     def on_cover_removed(self, type, covers, track):
         """
-            Hides the window after cover removal
+        Hides the window after cover removal
         """
         self.hide()
 
     def on_option_set(self, type, settings, option):
         """
-            Updates the appearance
+        Updates the appearance
         """
         if option in (
             'plugin/desktopcover/anchor',

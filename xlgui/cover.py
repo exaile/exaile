@@ -66,7 +66,7 @@ def save_pixbuf(pixbuf, path, type_):
 
 class CoverManager(GObject.GObject):
     """
-        Cover manager window
+    Cover manager window
     """
 
     __gsignals__ = {
@@ -85,7 +85,7 @@ class CoverManager(GObject.GObject):
 
     def __init__(self, parent, collection):
         """
-            Initializes the window
+        Initializes the window
         """
         GObject.GObject.__init__(self)
 
@@ -140,7 +140,7 @@ class CoverManager(GObject.GObject):
 
     def prefetch(self, collection):
         """
-            Collects all albums and sets the list of outstanding items
+        Collects all albums and sets the list of outstanding items
         """
         albums = set()
 
@@ -202,7 +202,7 @@ class CoverManager(GObject.GObject):
 
     def fetch(self):
         """
-            Collects covers for all outstanding items
+        Collects covers for all outstanding items
         """
         self.emit('fetch-started', len(self.outstanding))
 
@@ -237,7 +237,7 @@ class CoverManager(GObject.GObject):
 
     def show_cover(self):
         """
-            Shows the currently selected cover
+        Shows the currently selected cover
         """
         paths = self.previews_box.get_selected_items()
 
@@ -258,7 +258,7 @@ class CoverManager(GObject.GObject):
 
     def fetch_cover(self):
         """
-            Shows the cover chooser for the currently selected album
+        Shows the cover chooser for the currently selected album
         """
         paths = self.previews_box.get_selected_items()
 
@@ -273,7 +273,7 @@ class CoverManager(GObject.GObject):
 
     def remove_cover(self):
         """
-            Removes the cover of the currently selected album
+        Removes the cover of the currently selected album
         """
         paths = self.previews_box.get_selected_items()
 
@@ -287,7 +287,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_prefetch_started(self):
         """
-            Sets the widget states to prefetching
+        Sets the widget states to prefetching
         """
         self.previews_box.set_model(None)
         self.model.clear()
@@ -299,7 +299,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_prefetch_completed(self, outstanding):
         """
-            Sets the widget states to ready for fetching
+        Sets the widget states to ready for fetching
         """
         self.previews_box.set_sensitive(True)
         self.previews_box.set_model(self.model)
@@ -312,7 +312,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_prefetch_progress(self, progress):
         """
-            Updates the wiedgets to reflect the processed album
+        Updates the wiedgets to reflect the processed album
         """
         fraction = progress / float(len(self.album_tracks))
         self.progress_bar.set_fraction(fraction)
@@ -320,7 +320,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_fetch_started(self, outstanding):
         """
-            Sets the widget states to fetching
+        Sets the widget states to fetching
         """
         self.previews_box.set_sensitive(False)
         self.stop_button.set_sensitive(True)
@@ -332,7 +332,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_fetch_completed(self, outstanding):
         """
-            Sets the widget states to ready for fetching
+        Sets the widget states to ready for fetching
         """
         self.previews_box.set_sensitive(True)
         self.stop_button.set_sensitive(False)
@@ -346,7 +346,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_fetch_progress(self, progress):
         """
-            Updates the widgets to reflect the processed album
+        Updates the widgets to reflect the processed album
         """
         outstanding = len(self.outstanding)
 
@@ -363,7 +363,7 @@ class CoverManager(GObject.GObject):
     @common.idle_add()
     def do_cover_fetched(self, album, pixbuf):
         """
-            Updates the widgets to reflect the newly fetched cover
+        Updates the widgets to reflect the newly fetched cover
         """
         path = self.model_path_cache[album]
         self.model[path][1] = pixbuf.scale_simple(
@@ -372,7 +372,7 @@ class CoverManager(GObject.GObject):
 
     def on_cover_chosen(self, cover_chooser, track, cover_data):
         """
-            Updates the cover of the current album after user selection
+        Updates the cover of the current album after user selection
         """
         path = cover_chooser.path
 
@@ -400,13 +400,13 @@ class CoverManager(GObject.GObject):
 
     def on_previews_box_item_activated(self, iconview, path):
         """
-            Shows the currently selected cover
+        Shows the currently selected cover
         """
         self.show_cover()
 
     def on_previews_box_button_press_event(self, widget, e):
         """
-            Shows the cover menu upon click
+        Shows the cover menu upon click
         """
         path = self.previews_box.get_path_at_pos(int(e.x), int(e.y))
 
@@ -418,7 +418,7 @@ class CoverManager(GObject.GObject):
 
     def on_previews_box_popup_menu(self, menu):
         """
-            Shows the cover menu upon keyboard interaction
+        Shows the cover menu upon keyboard interaction
         """
         paths = self.previews_box.get_selected_items()
 
@@ -427,8 +427,8 @@ class CoverManager(GObject.GObject):
 
     def on_previews_box_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
         """
-            Custom tooltip display to prevent markup errors
-            (e.g. due to album names containing "<")
+        Custom tooltip display to prevent markup errors
+        (e.g. due to album names containing "<")
         """
         x, y = self.previews_box.convert_widget_to_bin_window_coords(x, y)
         path = self.previews_box.get_path_at_pos(x, y)
@@ -443,7 +443,7 @@ class CoverManager(GObject.GObject):
 
     def on_progress_pulse_timeout(self):
         """
-            Updates the progress during prefetching
+        Updates the progress during prefetching
         """
         self.progress_bar.pulse()
 
@@ -451,7 +451,7 @@ class CoverManager(GObject.GObject):
 
     def on_close_button_clicked(self, button):
         """
-            Stops the current fetching process and closes the dialog
+        Stops the current fetching process and closes the dialog
         """
         self.stopper.set()
         self.window.destroy()
@@ -464,13 +464,13 @@ class CoverManager(GObject.GObject):
 
     def on_stop_button_clicked(self, button):
         """
-            Stops the current fetching process
+        Stops the current fetching process
         """
         self.stopper.set()
 
     def on_fetch_button_clicked(self, button):
         """
-            Starts the cover fetching process
+        Starts the cover fetching process
         """
         self.stopper.clear()
         thread = threading.Thread(target=self.fetch, name='CoverFetch')
@@ -479,7 +479,7 @@ class CoverManager(GObject.GObject):
 
     def on_window_delete_event(self, window, e):
         """
-            Stops the current fetching process and closes the dialog
+        Stops the current fetching process and closes the dialog
         """
         self.close_button.clicked()
 
@@ -488,12 +488,12 @@ class CoverManager(GObject.GObject):
 
 class CoverMenu(menu.Menu):
     """
-        Cover menu
+    Cover menu
     """
 
     def __init__(self, widget):
         """
-            Initializes the menu
+        Initializes the menu
         """
         menu.Menu.__init__(self, widget)
         self.w = widget
@@ -504,7 +504,7 @@ class CoverMenu(menu.Menu):
 
     def on_show_clicked(self, *e):
         """
-            Shows the current cover
+        Shows the current cover
         """
         self.w.show_cover()
 
@@ -517,17 +517,17 @@ class CoverMenu(menu.Menu):
 
 class CoverWidget(Gtk.EventBox):
     """
-        Represents the cover widget displayed by the track information
+    Represents the cover widget displayed by the track information
     """
 
     __gsignals__ = {'cover-found': (GObject.SignalFlags.RUN_LAST, None, (object,))}
 
     def __init__(self, image):
         """
-            Initializes the widget
+        Initializes the widget
 
-            :param image: the image to wrap
-            :type image: :class:`Gtk.Image`
+        :param image: the image to wrap
+        :type image: :class:`Gtk.Image`
         """
         GObject.GObject.__init__(self)
 
@@ -550,7 +550,7 @@ class CoverWidget(Gtk.EventBox):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         if self.filename is not None and os.path.exists(self.filename):
             os.remove(self.filename)
@@ -560,7 +560,7 @@ class CoverWidget(Gtk.EventBox):
 
     def set_track(self, track):
         """
-            Fetches album covers, and displays them
+        Fetches album covers, and displays them
         """
 
         self.__track = track
@@ -588,7 +588,7 @@ class CoverWidget(Gtk.EventBox):
 
     def show_cover(self):
         """
-            Shows the current cover
+        Shows the current cover
         """
         if not self.cover_data:
             return
@@ -609,7 +609,7 @@ class CoverWidget(Gtk.EventBox):
 
     def fetch_cover(self):
         """
-            Fetches a cover for the current track
+        Fetches a cover for the current track
         """
         if not self.__track:
             return
@@ -619,14 +619,14 @@ class CoverWidget(Gtk.EventBox):
 
     def remove_cover(self):
         """
-            Removes the cover for the current track from the database
+        Removes the cover for the current track from the database
         """
         COVER_MANAGER.remove_cover(self.__track)
         self.set_blank()
 
     def set_blank(self):
         """
-            Sets the default cover to display
+        Sets the default cover to display
         """
 
         self.drag_dest_unset()
@@ -640,11 +640,11 @@ class CoverWidget(Gtk.EventBox):
 
     def set_drag_source_enabled(self, enabled):
         """
-            Changes the behavior for drag and drop
+        Changes the behavior for drag and drop
 
-            :param drag_enabled: Whether to  allow
-                drag to other applications
-            :type enabled: bool
+        :param drag_enabled: Whether to  allow
+            drag to other applications
+        :type enabled: bool
         """
         if enabled == getattr(self, '__drag_source_enabled', None):
             return
@@ -662,7 +662,7 @@ class CoverWidget(Gtk.EventBox):
 
     def do_button_press_event(self, event):
         """
-            Called when someone clicks on the cover widget
+        Called when someone clicks on the cover widget
         """
         if self.__track is None or self.get_toplevel() is None:
             return
@@ -674,7 +674,7 @@ class CoverWidget(Gtk.EventBox):
 
     def do_expose_event(self, event):
         """
-            Paints alpha transparency
+        Paints alpha transparency
         """
         opacity = 1 - settings.get_option('gui/transparency', 0.3)
         context = self.props.window.cairo_create()
@@ -692,13 +692,13 @@ class CoverWidget(Gtk.EventBox):
 
     def do_drag_begin(self, context):
         """
-            Sets the cover as drag icon
+        Sets the cover as drag icon
         """
         self.drag_source_set_icon_pixbuf(self.image.get_pixbuf())
 
     def do_drag_data_get(self, context, selection, info, time):
         """
-            Fills the selection with the current cover
+        Fills the selection with the current cover
         """
         if self.filename is None:
             self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
@@ -709,7 +709,7 @@ class CoverWidget(Gtk.EventBox):
 
     def do_drag_data_delete(self, context):
         """
-            Cleans up after drag from cover widget
+        Cleans up after drag from cover widget
         """
         if self.filename is not None and os.path.exists(self.filename):
             os.remove(self.filename)
@@ -717,7 +717,7 @@ class CoverWidget(Gtk.EventBox):
 
     def do_drag_data_received(self, context, x, y, selection, info, time):
         """
-            Sets the cover based on the dragged data
+        Sets the cover based on the dragged data
         """
         if self.__track is not None:
             uri = selection.get_uris()[0]
@@ -738,8 +738,8 @@ class CoverWidget(Gtk.EventBox):
 
     def on_cover_chosen(self, object, track, cover_data):
         """
-            Called when a cover is selected
-            from the coverchooser
+        Called when a cover is selected
+        from the coverchooser
         """
 
         if self.__track != track:
@@ -755,7 +755,7 @@ class CoverWidget(Gtk.EventBox):
 
     def on_track_tags_changed(self, e, track, tags):
         """
-            Updates the displayed cover upon tag changes
+        Updates the displayed cover upon tag changes
         """
         if self.__track == track:
             cover_data = COVER_MANAGER.get_cover(track)
@@ -767,7 +767,7 @@ class CoverWidget(Gtk.EventBox):
 
     def on_quit_application(self, type, exaile, nothing):
         """
-            Cleans up temporary files
+        Cleans up temporary files
         """
         if self.filename is not None and os.path.exists(self.filename):
             os.remove(self.filename)
@@ -916,7 +916,7 @@ class CoverWindow:
 
     def on_key_press(self, widget, event, data=None):
         """
-            Closes the cover window when Escape or Ctrl+W is pressed
+        Closes the cover window when Escape or Ctrl+W is pressed
         """
         if event.keyval == Gdk.KEY_Escape or (
             event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval == Gdk.KEY_w
@@ -925,7 +925,7 @@ class CoverWindow:
 
     def on_save_as_button_clicked(self, widget):
         """
-            Saves image to user-specified location
+        Saves image to user-specified location
         """
         dialog = Gtk.FileChooserDialog(
             _("Save File"),
@@ -955,7 +955,7 @@ class CoverWindow:
 
     def on_zoom_in_button_clicked(self, widget):
         """
-            Zooms into the image
+        Zooms into the image
         """
         self.image_fitted = False
         self.image_ratio *= self.ratio
@@ -963,7 +963,7 @@ class CoverWindow:
 
     def on_zoom_out_button_clicked(self, widget):
         """
-            Zooms out of the image
+        Zooms out of the image
         """
         self.image_fitted = False
         self.image_ratio *= 1 / self.ratio
@@ -971,7 +971,7 @@ class CoverWindow:
 
     def on_zoom_100_button_clicked(self, widget):
         """
-            Restores the original image zoom
+        Restores the original image zoom
         """
         self.image_fitted = False
         self.image_ratio = 1
@@ -979,7 +979,7 @@ class CoverWindow:
 
     def on_zoom_fit_button_clicked(self, widget):
         """
-            Zooms the image to fit the window width
+        Zooms the image to fit the window width
         """
         self.image_fitted = True
         self.set_ratio_to_fit()
@@ -987,7 +987,7 @@ class CoverWindow:
 
     def on_close_button_clicked(self, widget):
         """
-            Hides the window
+        Hides the window
         """
         self.cover_window.hide()
 
@@ -1005,8 +1005,8 @@ class CoverWindow:
 
 class CoverChooser(GObject.GObject):
     """
-        Fetches all album covers for a string, and allows the user to choose
-        one out of the list
+    Fetches all album covers for a string, and allows the user to choose
+    one out of the list
     """
 
     __gsignals__ = {
@@ -1016,7 +1016,7 @@ class CoverChooser(GObject.GObject):
 
     def __init__(self, parent, track, search=None):
         """
-            Expects the parent control, a track, an an optional search string
+        Expects the parent control, a track, an an optional search string
         """
         GObject.GObject.__init__(self)
         self.parent = parent
@@ -1074,7 +1074,7 @@ class CoverChooser(GObject.GObject):
 
     def fetch_cover(self):
         """
-            Searches for covers for the current track
+        Searches for covers for the current track
         """
         db_strings = COVER_MANAGER.find_covers(self.track)
 
@@ -1100,7 +1100,7 @@ class CoverChooser(GObject.GObject):
 
     def do_covers_fetched(self, db_strings):
         """
-            Finishes the dialog setup after all covers have been fetched
+        Finishes the dialog setup after all covers have been fetched
         """
         if self.stopper.is_set():
             return
@@ -1138,7 +1138,7 @@ class CoverChooser(GObject.GObject):
 
     def on_cancel_button_clicked(self, button):
         """
-            Closes the cover chooser
+        Closes the cover chooser
         """
         # Notify the fetcher thread to stop
         self.stopper.set()
@@ -1147,7 +1147,7 @@ class CoverChooser(GObject.GObject):
 
     def on_set_button_clicked(self, button):
         """
-            Chooses the current cover and saves it to the database
+        Chooses the current cover and saves it to the database
         """
         paths = self.previews_box.get_selected_items()
 
@@ -1162,7 +1162,7 @@ class CoverChooser(GObject.GObject):
 
     def on_previews_box_selection_changed(self, iconview):
         """
-            Switches the currently displayed cover
+        Switches the currently displayed cover
         """
         paths = self.previews_box.get_selected_items()
 
@@ -1188,13 +1188,13 @@ class CoverChooser(GObject.GObject):
 
     def on_previews_box_item_activated(self, iconview, path):
         """
-            Triggers selecting the current cover
+        Triggers selecting the current cover
         """
         self.set_button.clicked()
 
     def on_message_response(self, widget, response):
         """
-            Handles the response for closing
+        Handles the response for closing
         """
         if response == Gtk.ResponseType.CLOSE:
             self.window.destroy()

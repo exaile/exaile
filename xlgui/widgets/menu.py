@@ -66,22 +66,22 @@ def simple_menu_item(
     sensitive_cb=None,
 ):
     """
-        Factory function that should handle most cases for menus
+    Factory function that should handle most cases for menus
 
-        :param name: Internal name for the item. must be unique within the menu.
-        :param after: List of ids which come before this item, this item will
-                be placed after the lowest of these.
-        :param display_name: Name as is to appear in the menu.
-        :param icon_name: Name of the icon to display, or None for no icon.
-        :param callback: The function to call when the menu item is activated OR
-                         an xlgui accelerator object.
-                signature: callback(widget, name, parent, context)
-        :param submenu: The Gtk.Menu that is to be the submenu of this item
-        :param condition_fn: A function to call when the menu is displayed. If
-                the function returns False, the menu item is not shown
-                signature: condition_fn(name, parent, context)
-        :param sensitive_cb: A function that if it returns False, the menu item
-                             will be disabled
+    :param name: Internal name for the item. must be unique within the menu.
+    :param after: List of ids which come before this item, this item will
+            be placed after the lowest of these.
+    :param display_name: Name as is to appear in the menu.
+    :param icon_name: Name of the icon to display, or None for no icon.
+    :param callback: The function to call when the menu item is activated OR
+                     an xlgui accelerator object.
+            signature: callback(widget, name, parent, context)
+    :param submenu: The Gtk.Menu that is to be the submenu of this item
+    :param condition_fn: A function to call when the menu is displayed. If
+            the function returns False, the menu item is not shown
+            signature: condition_fn(name, parent, context)
+    :param sensitive_cb: A function that if it returns False, the menu item
+                         will be disabled
     """
     accelerator, callback, display_name = _get_accel(callback, display_name)
 
@@ -191,24 +191,24 @@ class MenuItem:
 
     def factory(self, menu, parent, context):
         """
-            The factory function is called when the menu is shown, and
-            should return a menu item. If it returns None, the item is
-            not shown.
+        The factory function is called when the menu is shown, and
+        should return a menu item. If it returns None, the item is
+        not shown.
         """
         return self._factory(menu, parent, context)
 
     def register(self, servicename, target=None):
-        '''
-            Shortcut for providers.register(), allows registration
-            for use with a ProviderMenu
-        '''
+        """
+        Shortcut for providers.register(), allows registration
+        for use with a ProviderMenu
+        """
         self._provider_data = (servicename, target)
         return providers.register(servicename, self, target=target)
 
     def unregister(self):
-        '''
-            Shortcut for providers.unregister()
-        '''
+        """
+        Shortcut for providers.unregister()
+        """
         servicename, target = self._provider_data
         return providers.unregister(servicename, self, target)
 
@@ -226,17 +226,17 @@ class RadioMenuItem(MenuItem):
 
 class Menu(Gtk.Menu):
     """
-        Generic flexible menu with reliable
-        menu item order and context handling
+    Generic flexible menu with reliable
+    menu item order and context handling
     """
 
     def __init__(self, parent, context_func=None, inherit_context=False):
         """
-            :param parent: the parent for this menu
-            :param context_func: a function for context
-                retrieval
-            :param inherit_context: If a submenu, inherit context function from
-                                    parent menu
+        :param parent: the parent for this menu
+        :param context_func: a function for context
+            retrieval
+        :param inherit_context: If a submenu, inherit context function from
+                                parent menu
         """
         Gtk.Menu.__init__(self)
         self._parent = parent
@@ -250,11 +250,11 @@ class Menu(Gtk.Menu):
 
     def get_context(self):
         """
-            Retrieves the menu context which
-            can contain various data
+        Retrieves the menu context which
+        can contain various data
 
-            :returns: {'key1': 'value1', ...}
-            :rtype: dictionary
+        :returns: {'key1': 'value1', ...}
+        :rtype: dictionary
         """
         if self._inherit_context:
             return self.get_parent_shell().get_context()
@@ -265,24 +265,24 @@ class Menu(Gtk.Menu):
 
     def add_item(self, item):
         """
-            Adds a menu item and triggers reordering
+        Adds a menu item and triggers reordering
 
-            :param item: the menu item
-            :type item: :class:`MenuItem`
+        :param item: the menu item
+        :type item: :class:`MenuItem`
         """
         self._items.append(item)
         self.reorder_items()
 
     def add_simple(self, label, callback, icon_name=None):
         """
-            Provide a simple mechanism to add menu items without a lot of hassle
-            
-            :param label: Label to display
-            :param callback: Callback that will be called on click
-            :param icon_name: GTK mostly ignores this, and it will go away
-            
-            .. note:: If you use this API, you should generally only use this 
-                      API to add items to that menu
+        Provide a simple mechanism to add menu items without a lot of hassle
+
+        :param label: Label to display
+        :param callback: Callback that will be called on click
+        :param icon_name: GTK mostly ignores this, and it will go away
+
+        .. note:: If you use this API, you should generally only use this
+                  API to add items to that menu
         """
         self.add_item(
             simple_menu_item(
@@ -296,17 +296,17 @@ class Menu(Gtk.Menu):
 
     def remove_item(self, item):
         """
-            Removes a menu item
+        Removes a menu item
 
-            :param item: the menu item
-            :type item: :class:`MenuItem`
+        :param item: the menu item
+        :type item: :class:`MenuItem`
         """
         self._items.remove(item)
 
     def clear_menu(self):
         """
-            Removes all menu items and submenus to prevent
-            references sticking around due to saved contexts
+        Removes all menu items and submenus to prevent
+        references sticking around due to saved contexts
         """
         self.append(self.placeholder)
         children = self.get_children()
@@ -318,7 +318,7 @@ class Menu(Gtk.Menu):
 
     def reorder_items(self):
         """
-            Reorders all menu items
+        Reorders all menu items
         """
         pmap = {'first': 0, 'normal': 1, 'last': 2}
         items = [
@@ -330,9 +330,9 @@ class Menu(Gtk.Menu):
 
     def regenerate_menu(self):
         """
-            Regenerates the menu by retrieving
-            the context and calling the factory
-            method of all menu items
+        Regenerates the menu by retrieving
+        the context and calling the factory
+        method of all menu items
         """
         context = self.get_context()
         if self.placeholder in self.get_children():
@@ -345,8 +345,8 @@ class Menu(Gtk.Menu):
 
     def popup(self, *args):
         """
-            Pops out the menu (Only if
-            there are items to show)
+        Pops out the menu (Only if
+        there are items to show)
         """
         if len(self._items) > 0:
             if len(args) == 1:
@@ -357,11 +357,11 @@ class Menu(Gtk.Menu):
 
 
 class ProviderMenu(providers.ProviderHandler, Menu):
-    '''
-        A menu that can be added to by registering a menu item with
-        the providers system. If desired, a menu item can be targeted
-        towards a specific parent widget.
-    '''
+    """
+    A menu that can be added to by registering a menu item with
+    the providers system. If desired, a menu item can be targeted
+    towards a specific parent widget.
+    """
 
     def __init__(self, name, parent):
         providers.ProviderHandler.__init__(self, name, parent)
@@ -377,13 +377,13 @@ class ProviderMenu(providers.ProviderHandler, Menu):
 
 
 class MultiProviderMenu(providers.MultiProviderHandler, Menu):
-    '''
-        A menu that can be added to by registering a menu item with
-        the providers system. If desired, a menu item can be targeted
-        towards a specific parent widget.
+    """
+    A menu that can be added to by registering a menu item with
+    the providers system. If desired, a menu item can be targeted
+    towards a specific parent widget.
 
-        Supports retrieving menu items from multiple providers
-    '''
+    Supports retrieving menu items from multiple providers
+    """
 
     def __init__(self, names, parent):
         providers.MultiProviderHandler.__init__(self, names, parent)

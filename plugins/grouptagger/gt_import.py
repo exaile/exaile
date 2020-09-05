@@ -19,10 +19,10 @@ logger = logging.getLogger(__name__)
 
 @GtkTemplate('gt_import.ui', relto=__file__)
 class GtImporter(Gtk.Window):
-    '''
-        Shows a dialog that allows importing of grouping tags
-        from a directory not included in the current collection.
-    '''
+    """
+    Shows a dialog that allows importing of grouping tags
+    from a directory not included in the current collection.
+    """
 
     __gtype_name__ = 'GtImporter'
 
@@ -186,10 +186,10 @@ class GtImporter(Gtk.Window):
 
 
 def track_import_thread(import_collection, user_collection, track_data):
-    '''
-        Reads grouping information from tracks in a collection, and matches
-        them with tracks contained in a separate collection.
-    '''
+    """
+    Reads grouping information from tracks in a collection, and matches
+    them with tracks contained in a separate collection.
+    """
 
     total = float(len(import_collection))
 
@@ -241,9 +241,9 @@ def track_import_thread(import_collection, user_collection, track_data):
 
 
 def track_update_thread(trackdata, replace):
-    '''
-        Sets new groups on a set of tracks
-    '''
+    """
+    Sets new groups on a set of tracks
+    """
     total = len(trackdata)
 
     for i, (curtrack, newgroups) in enumerate(trackdata):
@@ -258,10 +258,10 @@ def track_update_thread(trackdata, replace):
 
 
 def import_tags(exaile):
-    '''
-        Function to show a dialog that allows the user to import grouping
-        tags from a directory of their choosing.
-    '''
+    """
+    Function to show a dialog that allows the user to import grouping
+    tags from a directory of their choosing.
+    """
 
     def _on_uris_selected(widget, uris):
         import_dialog = GtImporter(exaile, uris)

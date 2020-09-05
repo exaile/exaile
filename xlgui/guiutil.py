@@ -47,38 +47,38 @@ logger = logging.getLogger(__name__)
 
 
 class GtkTemplate(_GtkTemplate):
-    '''
-        Use this class decorator in conjunction with :class:`.GtkCallback`
-        and :class:`GtkChild` to construct widgets from a GtkBuilder UI
-        file.
+    """
+    Use this class decorator in conjunction with :class:`.GtkCallback`
+    and :class:`GtkChild` to construct widgets from a GtkBuilder UI
+    file.
 
-        This is an exaile-specific wrapper around the :class:`.GtkTemplate`
-        object to allow loading the UI template file in an Exaile-specific
-        way.
+    This is an exaile-specific wrapper around the :class:`.GtkTemplate`
+    object to allow loading the UI template file in an Exaile-specific
+    way.
 
-        :param *path: Path components to specify UI file
-        :param relto: If keyword arg 'relto' is specified, path will be
-                      relative to this. Otherwise, it will be relative to
-                      the Exaile data directory
+    :param *path: Path components to specify UI file
+    :param relto: If keyword arg 'relto' is specified, path will be
+                  relative to this. Otherwise, it will be relative to
+                  the Exaile data directory
 
-        .. versionadded:: 3.5.0
-    '''
+    .. versionadded:: 3.5.0
+    """
 
     def __init__(self, *path, **kwargs):
         super(GtkTemplate, self).__init__(ui=ui_path(*path, **kwargs))
 
 
 def ui_path(*path, **kwargs):
-    '''
-        Returns absolute path to a UI file. Each arg will be concatenated
-        to construct the final path.
+    """
+    Returns absolute path to a UI file. Each arg will be concatenated
+    to construct the final path.
 
-        :param relto: If keyword arg 'relto' is specified, path will be
-                      relative to this. Otherwise, it will be relative to
-                      the Exaile data directory
+    :param relto: If keyword arg 'relto' is specified, path will be
+                  relative to this. Otherwise, it will be relative to
+                  the Exaile data directory
 
-        .. versionadded:: 3.5.0
-    '''
+    .. versionadded:: 3.5.0
+    """
 
     relto = kwargs.pop('relto', None)
     if len(kwargs):
@@ -92,7 +92,7 @@ def ui_path(*path, **kwargs):
 
 def get_workarea_size():
     """
-        Returns the width and height of the work area
+    Returns the width and height of the work area
     """
     d = get_workarea_dimensions()
     return (d.width, d.height)
@@ -100,13 +100,13 @@ def get_workarea_size():
 
 def get_workarea_dimensions(window=None):
     """
-        Returns the x-offset, y-offset, width and height of the work area
-        for a given window or for the default screen if no window is given.
-        Falls back to the screen dimensions if not available.
+    Returns the x-offset, y-offset, width and height of the work area
+    for a given window or for the default screen if no window is given.
+    Falls back to the screen dimensions if not available.
 
-        :param window: class: `Gtk.Window`, optional
+    :param window: class: `Gtk.Window`, optional
 
-        :returns: :class:`CairoRectangleInt`
+    :returns: :class:`CairoRectangleInt`
     """
     if window is None:
         screen = Gdk.Screen.get_default()
@@ -129,15 +129,15 @@ def get_workarea_dimensions(window=None):
 
 def gtk_widget_replace(widget, replacement):
     """
-        Replaces one widget with another and places it exactly at the
-        original position, keeping child properties
+    Replaces one widget with another and places it exactly at the
+    original position, keeping child properties
 
-        :param widget: The original widget
-        :type widget: :class:`Gtk.Widget`
-        :param replacement: The new widget
-        :type widget: :class:`Gtk.Widget`
+    :param widget: The original widget
+    :type widget: :class:`Gtk.Widget`
+    :param replacement: The new widget
+    :type widget: :class:`Gtk.Widget`
 
-        :returns: replacement widget if successful
+    :returns: replacement widget if successful
     """
     parent = widget.get_parent()
 
@@ -159,22 +159,22 @@ def gtk_widget_replace(widget, replacement):
 
 def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
     """
-        Generates a pixbuf from arbitrary image data
+    Generates a pixbuf from arbitrary image data
 
-        :param data: The raw image data
-        :type data: byte
-        :param size: Size to scale to; if not specified,
-            the image will render to its native size
-        :type size: tuple of int
-        :param keep_ratio: Whether to keep the original
-            image ratio on resizing operations
-        :type keep_ratio: bool
-        :param upscale: Whether to upscale if the requested
-            size exceeds the native size
-        :type upscale: bool
+    :param data: The raw image data
+    :type data: byte
+    :param size: Size to scale to; if not specified,
+        the image will render to its native size
+    :type size: tuple of int
+    :param keep_ratio: Whether to keep the original
+        image ratio on resizing operations
+    :type keep_ratio: bool
+    :param upscale: Whether to upscale if the requested
+        size exceeds the native size
+    :type upscale: bool
 
-        :returns: the generated pixbuf
-        :rtype: :class:`GdkPixbuf.Pixbuf` or None
+    :returns: the generated pixbuf
+    :rtype: :class:`GdkPixbuf.Pixbuf` or None
     """
     if not data:
         return None
@@ -186,7 +186,7 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
 
         def on_size_prepared(loader, width, height):
             """
-                Keeps the ratio if requested
+            Keeps the ratio if requested
             """
             if keep_ratio:
                 scale = min(size[0] / float(width), size[1] / float(height))
@@ -222,30 +222,30 @@ def pixbuf_from_data(data, size=None, keep_ratio=True, upscale=False):
 
 class ScalableImageWidget(Gtk.Image):
     """
-        Custom resizeable image widget
+    Custom resizeable image widget
     """
 
     def __init__(self):
         """
-            Initializes the image
+        Initializes the image
         """
         Gtk.Image.__init__(self)
 
     def set_image_size(self, width, height):
         """
-            Scales the size of the image
+        Scales the size of the image
         """
         self.size = (width, height)
         self.set_size_request(width, height)
 
     def set_image(self, location, fill=False):
         """
-            Sets the image from a location
+        Sets the image from a location
 
-            :param location: the location to load the image from
-            :type location: string
-            :param fill: True to expand the image, False to keep its ratio
-            :type fill: boolean
+        :param location: the location to load the image from
+        :type location: string
+        :param fill: True to expand the image, False to keep its ratio
+        :type fill: boolean
         """
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(
             Gio.File.new_for_uri(location).get_path()
@@ -254,12 +254,12 @@ class ScalableImageWidget(Gtk.Image):
 
     def set_image_data(self, data, fill=False):
         """
-            Sets the image from binary data
+        Sets the image from binary data
 
-            :param data: the binary data
-            :type data: string
-            :param fill: True to expand the image, False to keep its ratio
-            :type fill: boolean
+        :param data: the binary data
+        :type data: string
+        :param fill: True to expand the image, False to keep its ratio
+        :type fill: boolean
         """
         if not data:
             return
@@ -268,12 +268,12 @@ class ScalableImageWidget(Gtk.Image):
 
     def set_image_pixbuf(self, pixbuf, fill=False):
         """
-            Sets the image from a pixbuf
+        Sets the image from a pixbuf
 
-            :param data: the pixbuf
-            :type data: :class:`GdkPixbuf.Pixbuf`
-            :param fill: True to expand the image, False to keep its ratio
-            :type fill: boolean
+        :param data: the pixbuf
+        :type data: :class:`GdkPixbuf.Pixbuf`
+        :param fill: True to expand the image, False to keep its ratio
+        :type fill: boolean
         """
         width, height = self.size
         if not fill:
@@ -292,13 +292,13 @@ class ScalableImageWidget(Gtk.Image):
 
 class SearchEntry:
     """
-        A Gtk.Entry that emits the "activated" signal when something has
-        changed after the specified timeout
+    A Gtk.Entry that emits the "activated" signal when something has
+    changed after the specified timeout
     """
 
     def __init__(self, entry=None, timeout=500):
         """
-            Initializes the entry
+        Initializes the entry
         """
         self.entry = entry
         self.timeout = timeout
@@ -326,7 +326,7 @@ class SearchEntry:
 
     def on_entry_changed(self, entry):
         """
-            Called when the entry changes
+        Called when the entry changes
         """
         empty_search = entry.get_text() == ''
         entry.props.secondary_icon_sensitive = not empty_search
@@ -337,7 +337,7 @@ class SearchEntry:
 
     def on_entry_icon_press(self, entry, icon_pos, event):
         """
-            Clears the entry
+        Clears the entry
         """
         self.entry.set_text('')
         self.entry_activate()
@@ -347,7 +347,7 @@ class SearchEntry:
 
     def entry_activate(self, *e):
         """
-            Emit the activate signal
+        Emit the activate signal
         """
         self.change_id = None
         if self.entry.get_text() != self._last_text:
@@ -355,16 +355,16 @@ class SearchEntry:
 
     def __getattr__(self, attr):
         """
-            Tries to pass attribute requests
-            to the internal entry item
+        Tries to pass attribute requests
+        to the internal entry item
         """
         return getattr(self.entry, attr)
 
 
 class ModifierType:
-    '''
-        Common Gdk.ModifierType combinations that work in a cross platform way
-    '''
+    """
+    Common Gdk.ModifierType combinations that work in a cross platform way
+    """
 
     #
     # Missing from Gdk.ModifierType
@@ -385,14 +385,14 @@ class ModifierType:
 
 
 def position_menu(menu, *args):
-    '''
-        A function that will position a menu near a particular widget. This
-        should be specified as the third argument to menu.popup(), with the
-        user data being the widget.
+    """
+    A function that will position a menu near a particular widget. This
+    should be specified as the third argument to menu.popup(), with the
+    user data being the widget.
 
-            menu.popup_menu(None, None, guiutil.position_menu, widget,
-                            0, 0)
-    '''
+        menu.popup_menu(None, None, guiutil.position_menu, widget,
+                        0, 0)
+    """
     # Prior to GTK+ 3.16, args contains only our user data.
     # Since 3.16, we get (orig_x, orig_y, data).
     # See https://git.gnome.org/browse/gtk+/commit/?id=8463d0ee62b4b22fa
@@ -411,7 +411,7 @@ def position_menu(menu, *args):
 
 def finish(repeat=True):
     """
-        Waits for current pending gtk events to finish
+    Waits for current pending gtk events to finish
     """
     while Gtk.events_pending():
         Gtk.main_iteration()
@@ -420,24 +420,24 @@ def finish(repeat=True):
 
 
 def initialize_from_xml(this, other=None):
-    '''
-        DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
+    """
+    DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
 
-        Initializes the widgets and signals from a GtkBuilder XML file. Looks
-        for the following attributes in the instance you pass:
+    Initializes the widgets and signals from a GtkBuilder XML file. Looks
+    for the following attributes in the instance you pass:
 
-        ui_filename = builder filename -- either an absolute path, or a tuple
-                      with the path relative to the xdg data directory.
-        ui_widgets = [list of widget names]
-        ui_signals = [list of function names to connect to a signal]
+    ui_filename = builder filename -- either an absolute path, or a tuple
+                  with the path relative to the xdg data directory.
+    ui_widgets = [list of widget names]
+    ui_signals = [list of function names to connect to a signal]
 
-        For each widget in ui_widgets, it will be retrieved from the builder
-        object and set as an attribute on the object you pass in.
+    For each widget in ui_widgets, it will be retrieved from the builder
+    object and set as an attribute on the object you pass in.
 
-        other is a list of widgets to also initialize with the same file
+    other is a list of widgets to also initialize with the same file
 
-        Returns the builder object when done
-    '''
+    Returns the builder object when done
+    """
     builder = Gtk.Builder()
 
     if isinstance(this.ui_filename, str):
@@ -486,18 +486,18 @@ def initialize_from_xml(this, other=None):
 
 
 def persist_selection(widget, key_col, setting_name):
-    '''
-        Given a widget that is using a Gtk.ListStore, it will restore the
-        selected index given the contents of a setting. When the widget
-        changes, it will save the choice.
+    """
+    Given a widget that is using a Gtk.ListStore, it will restore the
+    selected index given the contents of a setting. When the widget
+    changes, it will save the choice.
 
-        Call this on the widget after you have loaded data
-        into the widget.
+    Call this on the widget after you have loaded data
+    into the widget.
 
-        :param widget:         Gtk.ComboBox or Gtk.TreeView
-        :param col:            Integer column with unique key
-        :param setting_name:   Setting to save key to/from
-    '''
+    :param widget:         Gtk.ComboBox or Gtk.TreeView
+    :param col:            Integer column with unique key
+    :param setting_name:   Setting to save key to/from
+    """
 
     model = widget.get_model()
 
@@ -531,12 +531,12 @@ def persist_selection(widget, key_col, setting_name):
 
 def platform_is_wayland():
     """
-        This function checks whether Exaile has been started on a Wayland display.
+    This function checks whether Exaile has been started on a Wayland display.
 
-        This function has been tested on both GNOME and Weston Wayland compositors
+    This function has been tested on both GNOME and Weston Wayland compositors
 
-        :returns: `True` if the display used by Exaile is using a Wayland compositor,
-                    ` False` otherwise.
+    :returns: `True` if the display used by Exaile is using a Wayland compositor,
+                ` False` otherwise.
     """
     display_name = Gdk.Display.get_default().get_name().lower()
     return 'wayland' in display_name
@@ -544,10 +544,10 @@ def platform_is_wayland():
 
 def platform_is_x11():
     """
-        This function checks whether Exaile has been started on a X11 Gdk backend.
+    This function checks whether Exaile has been started on a X11 Gdk backend.
 
-        :returns: `True` if the display used by Exaile is realized on a X11 server,
-                    ` False` otherwise.
+    :returns: `True` if the display used by Exaile is realized on a X11 server,
+                ` False` otherwise.
     """
     display_name = Gdk.Display.get_default().get_name().lower()
     return 'x11' in display_name
@@ -555,7 +555,7 @@ def platform_is_x11():
 
 def css_from_rgba(rgba):
     """
-        Convert a Gdk.RGBA to a CSS color string
+    Convert a Gdk.RGBA to a CSS color string
     """
     color_css_str = "rgba(%s, %s, %s, %s)" % (
         str(int(rgba.red * 255)),
@@ -568,7 +568,7 @@ def css_from_rgba(rgba):
 
 def css_from_rgba_without_alpha(rgba):
     """
-        Convert a Gdk.RGBA to a CSS color string removing the alpha channel
+    Convert a Gdk.RGBA to a CSS color string removing the alpha channel
     """
     color_css_str = "rgb(%s, %s, %s)" % (
         str(int(rgba.red * 255)),
@@ -580,7 +580,7 @@ def css_from_rgba_without_alpha(rgba):
 
 def css_from_pango_font_description(pango_font_str):
     """
-        Convert a Pango.FontDescription string to a CSS font string
+    Convert a Pango.FontDescription string to a CSS font string
     """
     if pango_font_str is None:
         return ""
@@ -659,17 +659,17 @@ def _get_closest_visible(model, child_path):
 
 @contextlib.contextmanager
 def without_model(tv):
-    '''
-        Context manager that removes the model from a treeview and restores the
-        view position and selection when finished.
+    """
+    Context manager that removes the model from a treeview and restores the
+    view position and selection when finished.
 
-        Issue #199: Anytime a large number of changes are made to the model,
-        it's better to just remove it before making the changes, as the UI
-        will freeze if you don't. However, that messes up the visible view, so
-        this saves/restores the view information.
+    Issue #199: Anytime a large number of changes are made to the model,
+    it's better to just remove it before making the changes, as the UI
+    will freeze if you don't. However, that messes up the visible view, so
+    this saves/restores the view information.
 
-        .. note:: Assumes the model is a Gtk.TreeModelFilter
-    '''
+    .. note:: Assumes the model is a Gtk.TreeModelFilter
+    """
     model = tv.get_model()
     child_model = model.get_model()
     selection = tv.get_selection()

@@ -170,7 +170,7 @@ class GaplessPlayback(widgets.CheckPreference):
 
 class EngineConditional(widgets.Conditional):
     """
-        True if the specified engine is selected
+    True if the specified engine is selected
     """
 
     condition_preference_name = 'player/engine'

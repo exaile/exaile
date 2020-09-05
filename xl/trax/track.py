@@ -74,13 +74,13 @@ _unset = object()
 
 class _MetadataCacher:
     """
-        Cache metadata Format objects to speed up get_tag_disk
+    Cache metadata Format objects to speed up get_tag_disk
     """
 
     def __init__(self, timeout=10, maxentries=20):
         """
-            :param timeout: time (in s) until the cached obj gets removed.
-            :param maxentries: maximum number of format objs to cache
+        :param timeout: time (in s) until the cached obj gets removed.
+        :param maxentries: maximum number of format objs to cache
         """
         self._cache = []
         self.timeout = timeout
@@ -131,7 +131,7 @@ _CACHER = _MetadataCacher()
 
 class Track:
     """
-        Represents a single track.
+    Represents a single track.
     """
 
     # save a little memory this way
@@ -144,9 +144,9 @@ class Track:
 
     def __new__(cls, *args, **kwargs):
         """
-            override the construction of new Track objects so that
-            if there is already a Track for a given uri, we just return
-            that Track instance instead of creating a new one.
+        override the construction of new Track objects so that
+        if there is already a Track for a given uri, we just return
+        that Track instance instead of creating a new one.
         """
         # subclassing interferes with the one-track-per-uri scheme and
         # with save and restore of tracks, so we disallow it.
@@ -215,13 +215,13 @@ class Track:
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            :param uri: the location, as either a uri or a file path.
-            :param scan: Whether to try to read tags from the given uri.
-                  Use only if the tags need to be set by a
-                  different source.
+        :param uri: the location, as either a uri or a file path.
+        :param scan: Whether to try to read tags from the given uri.
+              Use only if the tags need to be set by a
+              different source.
 
-            :param _unpickles: used internally to restore from a pickled
-                state. not for normal use.
+        :param _unpickles: used internally to restore from a pickled
+            state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
         if self._init is False:
@@ -247,15 +247,15 @@ class Track:
 
     def __register(self):
         """
-            Register this instance into the global registry of Track
-            objects.
+        Register this instance into the global registry of Track
+        objects.
         """
         self.__tracksdict[self.__tags['__loc']] = self
 
     def __unregister(self):
         """
-            Unregister this instance from the global registry of
-            Track objects.
+        Unregister this instance from the global registry of
+        Track objects.
         """
         try:
             del self.__tracksdict[self.__tags['__loc']]
@@ -264,9 +264,9 @@ class Track:
 
     def set_loc(self, loc, notify_changed=True):
         """
-            Sets the location.
+        Sets the location.
 
-            :param loc: the location, as either a uri or a file path.
+        :param loc: the location, as either a uri or a file path.
         """
         self.__unregister()
         gloc = Gio.File.new_for_commandline_arg(loc)
@@ -277,33 +277,33 @@ class Track:
 
     def exists(self):
         """
-            Returns whether the file exists
-            This can be very slow, use with caution!
+        Returns whether the file exists
+        This can be very slow, use with caution!
         """
         return Gio.File.new_for_uri(self.get_loc_for_io()).query_exists(None)
 
     def get_loc_for_io(self):
         """
-            Gets the location as a full uri.
+        Gets the location as a full uri.
 
-            Safe for IO operations via gio, not suitable for display to users
-            as it may be in non-utf-8 encodings.
+        Safe for IO operations via gio, not suitable for display to users
+        as it may be in non-utf-8 encodings.
         """
         return self.__tags['__loc']
 
     def get_local_path(self):
         """
-            If the file is accessible on a local filesystem, retrieves
-            the full path to it, otherwise nothing.
+        If the file is accessible on a local filesystem, retrieves
+        the full path to it, otherwise nothing.
 
-            :returns: the file path or None
-            :rtype: string or NoneType
+        :returns: the file path or None
+        :rtype: string or NoneType
         """
         return Gio.File.new_for_uri(self.get_loc_for_io()).get_path()
 
     def get_basename(self):
         """
-            Returns the base name of a resource
+        Returns the base name of a resource
         """
         gfile = Gio.File.new_for_uri(self.get_loc_for_io())
 
@@ -311,10 +311,10 @@ class Track:
 
     def get_basename_display(self) -> str:
         """
-            Return the track basename for display purposes (invalid characters
-            are replaced).
+        Return the track basename for display purposes (invalid characters
+        are replaced).
 
-            :rtype: unicode
+        :rtype: unicode
         """
         gfile = Gio.File.new_for_uri(self.get_loc_for_io())
         path = gfile.get_path()
@@ -326,16 +326,16 @@ class Track:
 
     def get_type(self):
         """
-            Get the URI schema the file uses, e.g. file, http, smb.
+        Get the URI schema the file uses, e.g. file, http, smb.
         """
         return Gio.File.new_for_uri(self.get_loc_for_io()).get_uri_scheme()
 
     def write_tags(self):
         """
-            Writes tags to the file for this Track.
+        Writes tags to the file for this Track.
 
-            Returns False if unsuccessful, and a Format object from
-            `xl.metadata` otherwise.
+        Returns False if unsuccessful, and a Format object from
+        `xl.metadata` otherwise.
         """
         try:
             f = metadata.get_format(self.get_loc_for_io())
@@ -360,13 +360,13 @@ class Track:
 
     def read_tags(self, force=True, notify_changed=True):
         """
-            Reads tags from the file for this Track.
+        Reads tags from the file for this Track.
 
-            :param force: If not True, then only read the tags if the file has
-                          be modified.
+        :param force: If not True, then only read the tags if the file has
+                      be modified.
 
-            Returns False if unsuccessful, and a Format object from
-            `xl.metadata` otherwise.
+        Returns False if unsuccessful, and a Format object from
+        `xl.metadata` otherwise.
         """
         loc = self.get_loc_for_io()
         try:
@@ -420,7 +420,7 @@ class Track:
 
     def is_local(self):
         """
-            Determines whether a file is accessible on the local filesystem.
+        Determines whether a file is accessible on the local filesystem.
         """
         # TODO: determine this better
         # Maybe use Gio.File.is_native()?
@@ -430,7 +430,7 @@ class Track:
 
     def get_size(self):
         """
-            Get the raw size of the file. Potentially slow.
+        Get the raw size of the file. Potentially slow.
         """
         f = Gio.File.new_for_uri(self.get_loc_for_io())
         return f.query_info(
@@ -442,30 +442,30 @@ class Track:
 
     def __str__(self):
         """
-            returns a string representing the track
+        returns a string representing the track
         """
         vals = map(self.get_tag_display, ('title', 'artist', 'album'))
         return "<Track %r by %r from %r>" % tuple(vals)
 
     def _pickles(self):
         """
-            returns a data repr of the track suitable for pickling
+        returns a data repr of the track suitable for pickling
 
-            internal use only please
+        internal use only please
         """
         return deepcopy(self.__tags)
 
     def _unpickles(self, pickle_obj):
         """
-            restores the state from the pickle-able repr
+        restores the state from the pickle-able repr
 
-            internal use only please
+        internal use only please
         """
         self.__tags = deepcopy(pickle_obj)
 
     def list_tags(self):
         """
-            Returns a list of the names of all tags present in this Track.
+        Returns a list of the names of all tags present in this Track.
         """
         return [k for k, v in self.__tags.items() if v is not None] + ['__basename']
 
@@ -486,39 +486,39 @@ class Track:
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
-            Set the raw value of a tag.
+        Set the raw value of a tag.
 
-            :param tag: The name of the tag to set.
-            :param values: The value or values to set the tag to.
-            :param notify_changed: whether to send a signal to let other
-                parts of Exaile know there has been an update. Only set
-                this to False if you know that no other parts of Exaile
-                need to be updated.
+        :param tag: The name of the tag to set.
+        :param values: The value or values to set the tag to.
+        :param notify_changed: whether to send a signal to let other
+            parts of Exaile know there has been an update. Only set
+            this to False if you know that no other parts of Exaile
+            need to be updated.
 
-            .. note:: When setting more than one tag, prefer set_tags instead
+        .. note:: When setting more than one tag, prefer set_tags instead
 
-            .. warning:: Covers and lyrics tags must be set via set_tag_disk
+        .. warning:: Covers and lyrics tags must be set via set_tag_disk
 
-            :returns: True if changed, False otherwise
+        :returns: True if changed, False otherwise
         """
         changed = self.set_tags(notify_changed=notify_changed, **{tag: values})
         return bool(changed)
 
     def set_tags(self, notify_changed=True, **kwargs):
         """
-            Set multiple tags on a track.
+        Set multiple tags on a track.
 
-            :param notify_changed: whether to send a signal to let other
-                parts of Exaile know there has been an update. Only set
-                this to False if you know that no other parts of Exaile
-                need to be updated.
+        :param notify_changed: whether to send a signal to let other
+            parts of Exaile know there has been an update. Only set
+            this to False if you know that no other parts of Exaile
+            need to be updated.
 
-            Prefer this method over calling set_tag_raw multiple times, as this
-            method will be more efficient.
+        Prefer this method over calling set_tag_raw multiple times, as this
+        method will be more efficient.
 
-            .. warning:: Covers and lyrics tags must be set via set_tag_disk
+        .. warning:: Covers and lyrics tags must be set via set_tag_disk
 
-            :returns: Set of tags that have changed
+        :returns: Set of tags that have changed
         """
 
         # tag changes can cause expensive UI updates, so don't emit the event
@@ -556,14 +556,14 @@ class Track:
 
     def get_tag_raw(self, tag, join=False):
         """
-            Get the raw value of a tag.  For non-internal tags, the
-            result will always be a list of unicode strings.
+        Get the raw value of a tag.  For non-internal tags, the
+        result will always be a list of unicode strings.
 
-            :param tag: The name of the tag to get
-            :param join: If True, joins lists of values into a
-                single value.
+        :param tag: The name of the tag to get
+        :param join: If True, joins lists of values into a
+            single value.
 
-            :returns: None if the tag is not present
+        :returns: None if the tag is not present
         """
         if tag == '__basename':
             value = self.get_basename()
@@ -583,16 +583,16 @@ class Track:
         self, tag, join=True, artist_compilations=False, extend_title=True
     ):
         """
-            Get a tag value in a form suitable for sorting.
+        Get a tag value in a form suitable for sorting.
 
-            :param tag: The name of the tag to get
-            :param join: If True, joins lists of values into a
-                single value.
-            :param artist_compilations: If True, automatically handle
-                albumartist and other compilations detections when
-                tag=="albumartist".
-            :param extend_title: If the title tag is unknown, try to
-                add some identifying information to it.
+        :param tag: The name of the tag to get
+        :param join: If True, joins lists of values into a
+            single value.
+        :param artist_compilations: If True, automatically handle
+            albumartist and other compilations detections when
+            tag=="albumartist".
+        :param extend_title: If the title tag is unknown, try to
+            add some identifying information to it.
         """
         # The two magic values here are to ensure that compilations
         # and unknown values are always sorted below all normal
@@ -658,16 +658,16 @@ class Track:
         self, tag, join=True, artist_compilations=False, extend_title=True
     ) -> Union[str, List[str]]:
         """
-            Get a tag value in a form suitable for display.
+        Get a tag value in a form suitable for display.
 
-            :param tag: The name of the tag to get
-            :param join: If True, joins lists of values into a
-                single value.
-            :param artist_compilations: If True, automatically handle
-                albumartist and other compilations detections when
-                tag=="albumartist".
-            :param extend_title: If the title tag is unknown, try to
-                add some identifying information to it.
+        :param tag: The name of the tag to get
+        :param join: If True, joins lists of values into a
+            single value.
+        :param artist_compilations: If True, automatically handle
+            albumartist and other compilations detections when
+            tag=="albumartist".
+        :param extend_title: If the title tag is unknown, try to
+            add some identifying information to it.
         """
         if tag == '__loc':
             return Gio.File.new_for_uri(self.__tags['__loc']).get_parse_name()
@@ -722,17 +722,17 @@ class Track:
         self, tag, format=True, artist_compilations=False, extend_title=True
     ):
         """
-            Get a tag value suitable for passing to the search system.
-            This includes quoting and list joining.
+        Get a tag value suitable for passing to the search system.
+        This includes quoting and list joining.
 
-            :param format: pre-format into a search query.
-            :param artist_compilations: If True, automatically handle
-                albumartist and other compilations detections when
-                tag=="albumartist".
-            :param extend_title: If the title tag is unknown, try to
-                add some identifying information to it.
+        :param format: pre-format into a search query.
+        :param artist_compilations: If True, automatically handle
+            albumartist and other compilations detections when
+            tag=="albumartist".
+        :param extend_title: If the title tag is unknown, try to
+            add some identifying information to it.
 
-            :returns: unicode string that is used for searching
+        :returns: unicode string that is used for searching
         """
         extraformat = ""
         if tag == "albumartist":
@@ -809,14 +809,14 @@ class Track:
 
     def get_tag_disk(self, tag):
         """
-            Read a tag directly from disk. Can be slow, use with caution.
+        Read a tag directly from disk. Can be slow, use with caution.
 
-            Intended for use with large fields like covers and
-            lyrics that shouldn't be loaded to the in-mem db.
+        Intended for use with large fields like covers and
+        lyrics that shouldn't be loaded to the in-mem db.
 
-            .. warning:: The track instance will not be updated with the new tag
+        .. warning:: The track instance will not be updated with the new tag
 
-            :returns: None if the tag does not exist
+        :returns: None if the tag does not exist
         """
         f = self._get_format_obj()
         if f:
@@ -827,14 +827,14 @@ class Track:
 
     def set_tag_disk(self, tag, values):
         """
-            Set a tag directly to disk. Can be slow, use with caution.
+        Set a tag directly to disk. Can be slow, use with caution.
 
-            Intended for use with large fields like covers and
-            lyrics that shouldn't be loaded to the in-mem db.
+        Intended for use with large fields like covers and
+        lyrics that shouldn't be loaded to the in-mem db.
 
-            .. warning:: The track instance will not be updated with the new tag
+        .. warning:: The track instance will not be updated with the new tag
 
-            :returns: None if the tag does not exist
+        :returns: None if the tag does not exist
         """
         f = self._get_format_obj()
         if f:
@@ -843,8 +843,8 @@ class Track:
 
     def list_tags_disk(self):
         """
-            List all the tags directly from file metadata. Can be slow,
-            use with caution.
+        List all the tags directly from file metadata. Can be slow,
+        use with caution.
         """
         f = self._get_format_obj()
         if f:
@@ -856,10 +856,10 @@ class Track:
 
     def get_rating(self):
         """
-            Returns the current track rating as an integer, as
-            determined by the ``rating/maximum`` setting.
+        Returns the current track rating as an integer, as
+        determined by the ``rating/maximum`` setting.
 
-            :rtype: int
+        :rtype: int
         """
         try:
             rating = float(self.get_tag_raw('__rating'))
@@ -878,10 +878,10 @@ class Track:
 
     def set_rating(self, rating):
         """
-            Sets the current track rating from an integer, on the
-            scale determined by the ``rating/maximum`` setting.
+        Sets the current track rating from an integer, on the
+        scale determined by the ``rating/maximum`` setting.
 
-            Returns the scaled rating
+        Returns the scaled rating
         """
         maximum = settings.get_option("rating/maximum", 5)
         rating = min(rating, maximum)
@@ -907,7 +907,7 @@ class Track:
     @staticmethod
     def join_values(values, glue=" / "):
         """
-            Exaile's standard method to join tag values
+        Exaile's standard method to join tag values
         """
         if isinstance(values, str):
             return values
@@ -921,11 +921,11 @@ class Track:
     @staticmethod
     def split_numerical(values):
         """
-            this is used to split a tag like tracknumber that is in int/int
-            format into its separate parts.
+        this is used to split a tag like tracknumber that is in int/int
+        format into its separate parts.
 
-            input should be a string of the content, and may also
-            be wrapped in a list.
+        input should be a string of the content, and may also
+        be wrapped in a list.
         """
         if not values:
             return None, 0
@@ -949,9 +949,9 @@ class Track:
     @staticmethod
     def strip_leading(value):
         """
-            Strip special chars off the beginning of a field. If
-            stripping the chars leaves nothing the original field is
-            returned with only whitespace removed.
+        Strip special chars off the beginning of a field. If
+        stripping the chars leaves nothing the original field is
+        returned with only whitespace removed.
         """
         stripped = xl.unicode.to_unicode(value).lstrip(
             " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./"
@@ -964,8 +964,8 @@ class Track:
     @staticmethod
     def the_cutter(value):
         """
-            Cut common words like 'the' from the beginning of a tag so that
-            they sort properly.
+        Cut common words like 'the' from the beginning of a tag so that
+        they sort properly.
         """
         lowered = value.lower()
         for word in Track.__the_cuts:
@@ -979,7 +979,7 @@ class Track:
     @staticmethod
     def strip_marks(value):
         """
-            Remove accents, diacritics, etc.
+        Remove accents, diacritics, etc.
         """
         # value is appended afterwards so that like-accented values
         # will sort together.
@@ -994,12 +994,12 @@ class Track:
     @staticmethod
     def expand_doubles(value):
         """
-            turns characters like æ into values suitable for sorting,
-            like 'ae'. see _sortcharmap for the mapping.
+        turns characters like æ into values suitable for sorting,
+        like 'ae'. see _sortcharmap for the mapping.
 
-            value must be a unicode object or this wont replace anything.
+        value must be a unicode object or this wont replace anything.
 
-            value must be in lower-case
+        value must be in lower-case
         """
         for k, v in _sortcharmap.items():
             value = value.replace(k, v)
@@ -1011,7 +1011,7 @@ class Track:
     @staticmethod
     def lower(value):
         """
-            Make tag value lower-case.
+        Make tag value lower-case.
         """
         # add the original string after the lowered val so that
         # we sort case-sensitively if the case-insensitive value
@@ -1021,10 +1021,10 @@ class Track:
     @classmethod
     def quoter(cls, value):
         """
-            Escape quotes so that it's safe to put the value inside a
-            "" literal for searches.
+        Escape quotes so that it's safe to put the value inside a
+        "" literal for searches.
 
-            Has no effect on non-string values.
+        Has no effect on non-string values.
         """
         try:
             return value.replace('"', '\\\"')
@@ -1034,9 +1034,9 @@ class Track:
     @classmethod
     def _the_cuts_cb(cls, name, obj, data):
         """
-            PRIVATE
+        PRIVATE
 
-            update the cached the_cutter values
+        update the cached the_cutter values
         """
         if data == "collection/strip_list":
             cls._Track__the_cuts = settings.get_option('collection/strip_list', [])

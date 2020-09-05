@@ -290,13 +290,13 @@ class SmartPlaylistEditor:
     @classmethod
     def create(cls, collection, smart_manager, parent=None):
         """
-            Shows a dialog to create a new smart playlist
+        Shows a dialog to create a new smart playlist
 
-            :param collection:    Collection object
-            :param smart_manager: SmartPlaylistManager object
-            :param parent:        Dialog parent
+        :param collection:    Collection object
+        :param smart_manager: SmartPlaylistManager object
+        :param parent:        Dialog parent
 
-            :returns: New smart playlist, or None
+        :returns: New smart playlist, or None
         """
         dialog = FilterDialog(_('Add Smart Playlist'), parent, CRITERIA)
         dialog.set_transient_for(parent)
@@ -310,13 +310,13 @@ class SmartPlaylistEditor:
     @classmethod
     def edit(cls, pl, collection, smart_manager, parent=None):
         """
-            Shows a dialog to edit a smart playlist
+        Shows a dialog to edit a smart playlist
 
-            :param collection:    Collection object
-            :param smart_manager: SmartPlaylistManager object
-            :param parent:        Dialog parent
+        :param collection:    Collection object
+        :param smart_manager: SmartPlaylistManager object
+        :param parent:        Dialog parent
 
-            :returns: New smart playlist, or None
+        :returns: New smart playlist, or None
         """
         if not isinstance(pl, playlist.SmartPlaylist):
             return

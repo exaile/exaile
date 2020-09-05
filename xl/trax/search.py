@@ -35,9 +35,9 @@ __all__ = ['TracksMatcher', 'search_tracks']
 
 class SearchResultTrack:
     """
-        Holds a track with search result metadata included.
+    Holds a track with search result metadata included.
 
-        :param track: The Track object
+    :param track: The Track object
     """
 
     __slots__ = ['track', 'on_tags']
@@ -49,7 +49,7 @@ class SearchResultTrack:
 
 class _Matcher:
     """
-        Base class for match conditions
+    Base class for match conditions
     """
 
     __slots__ = ['tag', 'content', 'lower']
@@ -82,7 +82,7 @@ class _Matcher:
 
 class _ExactMatcher(_Matcher):
     """
-        Condition for exact matches
+    Condition for exact matches
     """
 
     def _matches(self, value):
@@ -102,7 +102,7 @@ class _ExactMatcher(_Matcher):
 
 class _InMatcher(_Matcher):
     """
-        Condition for inexact (ie. containing) matches
+    Condition for inexact (ie. containing) matches
     """
 
     def _matches(self, value):
@@ -116,7 +116,7 @@ class _InMatcher(_Matcher):
 
 class _RegexMatcher(_Matcher):
     """
-        Condition for regular expression matches
+    Condition for regular expression matches
     """
 
     def __init__(self, tag, content, lower):
@@ -134,7 +134,7 @@ class _RegexMatcher(_Matcher):
 
 class _GtMatcher(_Matcher):
     """
-        Condition for greater than matches.
+    Condition for greater than matches.
     """
 
     def _matches(self, value):
@@ -148,7 +148,7 @@ class _GtMatcher(_Matcher):
 
 class _LtMatcher(_Matcher):
     """
-        Condition for less than matches.
+    Condition for less than matches.
     """
 
     def _matches(self, value):
@@ -165,7 +165,7 @@ class _LtMatcher(_Matcher):
 
 class _NotMetaMatcher:
     """
-        Condition for boolean NOT
+    Condition for boolean NOT
     """
 
     __slots__ = ['matcher']
@@ -180,7 +180,7 @@ class _NotMetaMatcher:
 
 class _OrMetaMatcher:
     """
-        Condition for boolean OR
+    Condition for boolean OR
     """
 
     __slots__ = ['left', 'right']
@@ -195,7 +195,7 @@ class _OrMetaMatcher:
 
 class _MultiMetaMatcher:
     """
-        Condition for boolean AND
+    Condition for boolean AND
     """
 
     __slots__ = ['matchers']
@@ -213,11 +213,11 @@ class _MultiMetaMatcher:
 
 class _ManyMultiMetaMatcher:
     """
-        TODO: think of a proper docstring for this
+    TODO: think of a proper docstring for this
 
-        This handles the case where we want to match in an OR-like
-        fashion, but also know which tags were matched. Useful for
-        the collection panel expansion.
+    This handles the case where we want to match in an OR-like
+    fashion, but also know which tags were matched. Useful for
+    the collection panel expansion.
     """
 
     __slots__ = ['matchers', 'tags']
@@ -243,19 +243,19 @@ class _ManyMultiMetaMatcher:
 
 class TracksMatcher:
     """
-        Holds criteria and determines whether
-        a given track matches those criteria.
+    Holds criteria and determines whether
+    a given track matches those criteria.
     """
 
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
 
     def __init__(self, search_string, case_sensitive=True, keyword_tags=None):
         """
-            :param search_string: a string describing the match conditions
-            :param case_sensitive: whether to search in a case-sensitive
-                manner.
-            :param keyword_tags: a list of tags to match search keywords
-                in.
+        :param search_string: a string describing the match conditions
+        :param case_sensitive: whether to search in a case-sensitive
+            manner.
+        :param keyword_tags: a list of tags to match search keywords
+            in.
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags or []
@@ -281,8 +281,8 @@ class TracksMatcher:
 
     def match(self, srtrack):
         """
-            Determine whether a given SearchResultTrack's internal
-            Track object matches this search condition.
+        Determine whether a given SearchResultTrack's internal
+        Track object matches this search condition.
         """
         for ma in self.matchers:
             if not ma.match(srtrack):
@@ -300,7 +300,7 @@ class TracksMatcher:
 
     def __tokens_to_matchers(self, tokens, matchers=None):
         """
-            Converts a token hierarchy to a list of matchers
+        Converts a token hierarchy to a list of matchers
         """
         if not matchers:
             matchers = []
@@ -393,7 +393,7 @@ class TracksMatcher:
 
     def __tokenize_query(self, search):
         """
-            Turns a search string into a list of tokens.
+        Turns a search string into a list of tokens.
         """
         search = " " + search + " "
 
@@ -432,8 +432,8 @@ class TracksMatcher:
 
     def __red(self, tokens):
         """
-            Turn the token list into a token list hierarchy that is
-            easier to parse.
+        Turn the token list into a token list hierarchy that is
+        easier to parse.
         """
         # base case since we use recursion
         if tokens == []:
@@ -489,7 +489,7 @@ class TracksMatcher:
 
     def __optimize_tokens(self, tokens):
         """
-            Attempt to optimize tokens, to speed up matching.
+        Attempt to optimize tokens, to speed up matching.
         """
         # longer queries tend to reject more tracks, which speeds up
         # processing, so we put them first.
@@ -498,9 +498,9 @@ class TracksMatcher:
 
 
 class TracksInList:
-    '''
-        Matches tracks contained in a list/dict/set. Copies the list.
-    '''
+    """
+    Matches tracks contained in a list/dict/set. Copies the list.
+    """
 
     __slots__ = ['_tracks']
     tag = None
@@ -516,9 +516,9 @@ class TracksInList:
 
 
 class TracksNotInList(TracksInList):
-    '''
-        Matches tracks not in a list/dict/set
-    '''
+    """
+    Matches tracks not in a list/dict/set
+    """
 
     def match(self, track):
         return track.track not in self._tracks
@@ -526,10 +526,10 @@ class TracksNotInList(TracksInList):
 
 def search_tracks(trackiter, trackmatchers: Collection[TracksMatcher]):
     """
-        Search a set of tracks for those that match specified conditions.
+    Search a set of tracks for those that match specified conditions.
 
-        :param trackiter: An iterable object returning Track objects
-        :param trackmatchers: A list of TrackMatcher objects
+    :param trackiter: An iterable object returning Track objects
+    :param trackmatchers: A list of TrackMatcher objects
     """
     for srtr in trackiter:
         if not isinstance(srtr, SearchResultTrack):
@@ -550,11 +550,11 @@ def search_tracks_from_string(
     trackiter, search_string, case_sensitive=True, keyword_tags=None
 ):
     """
-        Convenience wrapper around search_tracks that builds matchers
-        automatically from the search string.
+    Convenience wrapper around search_tracks that builds matchers
+    automatically from the search string.
 
-        Arguments have the same meaning as the corresponding arguments on
-        on :class:`search_tracks` and :class:`TracksMatcher`.
+    Arguments have the same meaning as the corresponding arguments on
+    on :class:`search_tracks` and :class:`TracksMatcher`.
     """
     matchers = [
         TracksMatcher(

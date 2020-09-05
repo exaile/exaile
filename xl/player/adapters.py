@@ -29,7 +29,7 @@ from xl import event
 
 class PlaybackAdapter:
     """
-        Basic class which listens for playback changes
+    Basic class which listens for playback changes
     """
 
     def __init__(self, player):
@@ -56,7 +56,7 @@ class PlaybackAdapter:
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         for e in self.__events:
             event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
@@ -84,7 +84,7 @@ class PlaybackAdapter:
 
 class QueueAdapter:
     """
-        Basic class which listens for queue changes
+    Basic class which listens for queue changes
     """
 
     def __init__(self, queue):
@@ -104,7 +104,7 @@ class QueueAdapter:
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         event.remove_callback(
             self.on_queue_current_playlist_changed,
@@ -122,21 +122,21 @@ class QueueAdapter:
 
     def __on_playlist_current_position_changed(self, event, playlist, positions):
         """
-            Forwards the event if emitted by the queue
+        Forwards the event if emitted by the queue
         """
         if playlist is self.__queue.current_playlist:
             self.on_queue_current_position_changed(event, playlist, positions)
 
     def __on_playlist_tracks_added(self, event, playlist, tracks):
         """
-            Forwards the event if emitted by the queue
+        Forwards the event if emitted by the queue
         """
         if playlist is self.__queue.current_playlist:
             self.on_queue_tracks_added(event, playlist, tracks)
 
     def __on_playlist_tracks_removed(self, event, playlist, tracks):
         """
-            Forwards the event if emitted by the queue
+        Forwards the event if emitted by the queue
         """
         if playlist is self.__queue.current_playlist:
             self.on_queue_tracks_removed(event, playlist, tracks)

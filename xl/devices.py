@@ -40,9 +40,9 @@ class TransferNotSupportedError(Exception):
 
 class Device:
     """
-        a device
+    a device
 
-        must be subclassed for use
+    must be subclassed for use
     """
 
     class_autoconnect = False
@@ -82,32 +82,32 @@ class Device:
 
     def connect(self):
         """
-            connects to the device, creating Collections and Playlists
-            as appropriate
+        connects to the device, creating Collections and Playlists
+        as appropriate
         """
         raise NotImplementedError
 
     def disconnect(self):
         """
-            disconnect from the device. should clear all stored metadata
+        disconnect from the device. should clear all stored metadata
         """
         raise NotImplementedError
 
     def get_collection(self):
         """
-            returns the device's collection, if applicable
+        returns the device's collection, if applicable
         """
         return self.collection
 
     def get_playlists(self):
         """
-            returns a list of all playlists on the device, if any
+        returns a list of all playlists on the device, if any
         """
         return self.playlists
 
     def add_tracks(self, tracks):
         """
-            Send tracks to the device
+        Send tracks to the device
         """
         if not self.transfer:
             raise TransferNotSupportedError(
@@ -124,16 +124,16 @@ class Device:
 
 
 class KeyedDevice(Device):
-    '''
-        A utility class to inherit from that will return cached instances
-        of your device if the device object is created with the same key.
+    """
+    A utility class to inherit from that will return cached instances
+    of your device if the device object is created with the same key.
 
-        A device that inherits from this MUST have the key as the first
-        argument to the __init__ function.
+    A device that inherits from this MUST have the key as the first
+    argument to the __init__ function.
 
-        @warning The __init__ function will be called again for devices
-        that are created multiple times.
-    '''
+    @warning The __init__ function will be called again for devices
+    that are created multiple times.
+    """
 
     @staticmethod
     def __new__(cls, key):
@@ -160,15 +160,15 @@ class KeyedDevice(Device):
 
     @classmethod
     def destroy(cls, device):
-        '''
-            Call this to remove the device from the internal list
-        '''
+        """
+        Call this to remove the device from the internal list
+        """
         del getattr(cls, '__devices')[device.__key]
 
 
 class DeviceManager:
     """
-        manages devices
+    manages devices
     """
 
     def __init__(self):

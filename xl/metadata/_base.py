@@ -61,12 +61,12 @@ class NotReadable(Exception):
 
 class BaseFormat:
     """
-        Base class for handling loading of metadata from files.
+    Base class for handling loading of metadata from files.
 
-        subclasses using mutagen should set MutagenType and overload
-        the _get_tag, _set_tag, and _del_tag methods as needed.
+    subclasses using mutagen should set MutagenType and overload
+    the _get_tag, _set_tag, and _del_tag methods as needed.
 
-        subclasses not using mutagen should leave MutagenType as None
+    subclasses not using mutagen should leave MutagenType as None
     """
 
     MutagenType = None
@@ -108,11 +108,11 @@ class BaseFormat:
 
     def __init__(self, loc):
         """
-            Raises :class:`NotReadable` if the file cannot be
-            opened for some reason.
+        Raises :class:`NotReadable` if the file cannot be
+        opened for some reason.
 
-            :param loc: absolute path to the file to read
-                (note - this may change to accept gio uris in the future)
+        :param loc: absolute path to the file to read
+            (note - this may change to accept gio uris in the future)
         """
         self.loc = loc
         self.open = False
@@ -126,7 +126,7 @@ class BaseFormat:
 
     def load(self):
         """
-            Loads the tags from the file.
+        Loads the tags from the file.
         """
         if self.MutagenType:
             try:
@@ -136,15 +136,15 @@ class BaseFormat:
 
     def save(self):
         """
-            Saves any changes to the tags.
+        Saves any changes to the tags.
         """
         if self.writable and self.mutagen:
             self.mutagen.save()
 
     def _del_tag(self, raw, tag):
-        '''
-            :param tag: The native tag name
-        '''
+        """
+        :param tag: The native tag name
+        """
         if tag in raw:
             del raw[tag]
 
@@ -155,33 +155,33 @@ class BaseFormat:
             return {}
 
     def _get_tag(self, raw, tag):
-        '''
-            :param tag: The native tag name
-        '''
+        """
+        :param tag: The native tag name
+        """
         try:
             return raw[tag]
         except KeyError:
             return None
 
     def _set_tag(self, raw, tag, value):
-        '''
-            :param tag: The native tag name
-            :param value: If None, delete the tag
-        '''
+        """
+        :param tag: The native tag name
+        :param value: If None, delete the tag
+        """
         raw[tag] = value
 
     def get_keys_disk(self) -> Sequence[str]:
         """
-            Returns keys of all tags that can be read from disk
+        Returns keys of all tags that can be read from disk
         """
         return [self._reverse_mapping.get(k, k) for k in self._get_raw().keys()]
 
     def read_all(self):
         """
-            Reads all non-blacklisted tags from the file.
+        Reads all non-blacklisted tags from the file.
 
-            Blacklisted tags include lyrics, covers, and any field starting
-            with __. If you need to read these, call read_tags directly.
+        Blacklisted tags include lyrics, covers, and any field starting
+        with __. If you need to read these, call read_tags directly.
         """
         tags = INFO_TAGS[:]
         for t in self.get_keys_disk():
@@ -198,13 +198,13 @@ class BaseFormat:
 
     def read_tags(self, tags):
         """
-            get the values for the specified tags.
+        get the values for the specified tags.
 
-            returns a dict of the found values. if no value was found for a
-            requested tag it will not exist in the returned dict.
+        returns a dict of the found values. if no value was found for a
+        requested tag it will not exist in the returned dict.
 
-            :param tags: a list of exaile tag names to read
-            :returns: a dictionary of tag/value pairs.
+        :param tags: a list of exaile tag names to read
+        :returns: a dictionary of tag/value pairs.
         """
         raw = self._get_raw()
         td = {}
@@ -242,19 +242,19 @@ class BaseFormat:
 
     def write_tags(self, tagdict):
         """
-            Write a set of tags to the file. Raises a NotWritable exception
-            if the format does not support writing tags.
+        Write a set of tags to the file. Raises a NotWritable exception
+        if the format does not support writing tags.
 
-            When calling this function, we assume the following:
+        When calling this function, we assume the following:
 
-            * tagdict has all keys that you wish to write, keys are exaile tag
-              names or custom tag names and values are the tags to write (lists
-              of unicode strings)
-            * if a value is None, then that tag will be deleted from the file
-            * Will not modify/delete tags that are NOT in tagdict
-            * Will not write tags that start with '__'
+        * tagdict has all keys that you wish to write, keys are exaile tag
+          names or custom tag names and values are the tags to write (lists
+          of unicode strings)
+        * if a value is None, then that tag will be deleted from the file
+        * Will not modify/delete tags that are NOT in tagdict
+        * Will not write tags that start with '__'
 
-            :param tagdict: A dictionary of tag/value pairs to write.
+        :param tagdict: A dictionary of tag/value pairs to write.
         """
         if not self.MutagenType or not self.writable:
             raise NotWritable
@@ -327,7 +327,7 @@ class CaseInsensitveBaseFormat(BaseFormat):
 
     def get_keys_disk(self):
         """
-            Returns keys of all tags that can be read from disk
+        Returns keys of all tags that can be read from disk
         """
         return [self._reverse_mapping.get(k.lower(), k) for k in self._get_raw().keys()]
 

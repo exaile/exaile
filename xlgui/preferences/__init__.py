@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 
 class PreferencesDialog:
     """
-        Preferences Dialog
+    Preferences Dialog
     """
 
     PAGES = (playlists, appearance, playback, collection, cover, lyrics)
@@ -59,7 +59,7 @@ class PreferencesDialog:
 
     def __init__(self, parent, main):
         """
-            Initializes the preferences dialog
+        Initializes the preferences dialog
         """
         self.main = main
         self.last_child = None
@@ -167,13 +167,13 @@ class PreferencesDialog:
 
     def on_close_button_clicked(self, widget):
         """
-            Called when the user clicks 'ok'
+        Called when the user clicks 'ok'
         """
         self.close()
 
     def close(self):
         """
-            Closes the preferences dialog
+        Closes the preferences dialog
         """
         if hasattr(self.last_page, 'page_leave'):
             self.last_page.page_leave(self)
@@ -183,7 +183,7 @@ class PreferencesDialog:
 
     def switch_pane(self, selection):
         """
-            Switches a pane
+        Switches a pane
         """
         (model, iter) = selection.get_selected()
         if not iter:
@@ -230,7 +230,7 @@ class PreferencesDialog:
 
     def _populate_fields(self, page, builder):
         """
-            Populates field pages
+        Populates field pages
         """
         self.fields[page] = []
 
@@ -267,7 +267,7 @@ class PreferencesDialog:
 
     def run(self):
         """
-            Runs the dialog
+        Runs the dialog
         """
         if PreferencesDialog.PREFERENCES_DIALOG:
             self = PreferencesDialog.PREFERENCES_DIALOG

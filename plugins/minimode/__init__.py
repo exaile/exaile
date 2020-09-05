@@ -29,8 +29,8 @@ MINIMODE = None
 
 def __migrate_fixed_controls():
     """
-        Makes sure fixed controls are selected,
-        mostly for migration from older versions
+    Makes sure fixed controls are selected,
+    mostly for migration from older versions
     """
     option_name = 'plugin/minimode/selected_controls'
 
@@ -44,7 +44,7 @@ def __migrate_fixed_controls():
 
 def enable(exaile):
     """
-        Enables the mini mode plugin
+    Enables the mini mode plugin
     """
     __migrate_fixed_controls()
 
@@ -56,7 +56,7 @@ def enable(exaile):
 
 def _enable(event, exaile, nothing):
     """
-        Handles the deferred enable call
+    Handles the deferred enable call
     """
     global MINIMODE
     MINIMODE = MiniMode(exaile)
@@ -64,7 +64,7 @@ def _enable(event, exaile, nothing):
 
 def disable(exaile):
     """
-        Disables the mini mode plugin
+    Disables the mini mode plugin
     """
     global MINIMODE
     MINIMODE.destroy()
@@ -77,15 +77,15 @@ def get_preferences_pane():
 
 class MiniMode(Gtk.Window):
     """
-        Mini Mode main window
+    Mini Mode main window
     """
 
     __gsignals__ = {'show': 'override'}
 
     def __init__(self, exaile):
         """
-            Sets up the mini mode main window and
-            options to access it
+        Sets up the mini mode main window and
+        options to access it
         """
         Gtk.Window.__init__(self)
         self.set_title('Exaile Mini Mode')
@@ -148,7 +148,7 @@ class MiniMode(Gtk.Window):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         providers.unregister('mainwindow-accelerators', self.accelerator)
         providers.unregister('menubar-view-menu', self.menuitem)
@@ -162,7 +162,7 @@ class MiniMode(Gtk.Window):
 
     def set_active(self, active):
         """
-            Enables or disables the Mini Mode window
+        Enables or disables the Mini Mode window
         """
         if active == self.__active:
             return
@@ -178,8 +178,8 @@ class MiniMode(Gtk.Window):
 
     def do_show(self):
         """
-            Updates the appearance if
-            settings have been changed
+        Updates the appearance if
+        settings have been changed
         """
         h = None
         v = None
@@ -244,14 +244,14 @@ class MiniMode(Gtk.Window):
 
     def do_configure_event(self, event):
         """
-            Stores the window position upon window movement
+        Stores the window position upon window movement
         """
         settings.set_option('plugin/minimode/horizontal_position', event.x)
         settings.set_option('plugin/minimode/vertical_position', event.y)
 
     def do_delete_event(self, event):
         """
-            Takes care of restoring Exaile's main window
+        Takes care of restoring Exaile's main window
         """
         self.set_active(False)
 
@@ -259,20 +259,20 @@ class MiniMode(Gtk.Window):
 
     def on_menuitem_activate(self, menuitem, name, parent, context):
         """
-            Shows the Mini Mode window
+        Shows the Mini Mode window
         """
         self.set_active(True)
 
     def on_mainbutton_clicked(self, button):
         """
-            Shows the Mini Mode window
+        Shows the Mini Mode window
         """
         self.set_active(True)
 
     def on_main_visible_toggle(self, main):
         """
-            Handles visiblity toggles in
-            Exaile's main window stead
+        Handles visiblity toggles in
+        Exaile's main window stead
         """
         if self.__active:
             if self.props.visible:
@@ -286,7 +286,7 @@ class MiniMode(Gtk.Window):
 
     def on_option_set(self, event, settings, option):
         """
-            Queues updates upon setting change
+        Queues updates upon setting change
         """
         self.__dirty = True
 

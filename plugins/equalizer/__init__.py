@@ -42,7 +42,7 @@ logger = logging.getLogger('equalizer')
 
 def isclose(float_a, float_b, rel_tol=1e-09, abs_tol=0.0):
     """
-        copied from python 3.5, where this function was introduced to the math module
+    copied from python 3.5, where this function was introduced to the math module
     """
     return abs(float_a - float_b) <= max(
         rel_tol * max(abs(float_a), abs(float_b)), abs_tol
@@ -353,7 +353,7 @@ class EqualizerPlugin:
 
     def on_gui_loaded(self):
         """
-            Called when the player is loaded.
+        Called when the player is loaded.
         """
         # add menu item to tools menu
         self.__menu_item = menu.simple_menu_item(

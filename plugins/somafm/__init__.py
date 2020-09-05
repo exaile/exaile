@@ -61,7 +61,7 @@ class SomaFMRadioStation(RadioStation):
 
     def __init__(self):
         """
-            Initializes the somafm radio station
+        Initializes the somafm radio station
         """
         self.user_agent = main.exaile().get_user_agent_string('somafm')
         self.somafm_url = 'https://somafm.com/'
@@ -77,7 +77,7 @@ class SomaFMRadioStation(RadioStation):
 
     def get_document(self, url):
         """
-            Connects to the server and retrieves the document
+        Connects to the server and retrieves the document
         """
         set_status(_('Contacting SomaFM server...'))
         hostinfo = urlparse(url)
@@ -104,7 +104,7 @@ class SomaFMRadioStation(RadioStation):
 
     def _load_cache(self):
         """
-            Loads somafm data from cache
+        Loads somafm data from cache
         """
         self.data = {}
         if os.path.isfile(self.cache_file):
@@ -114,7 +114,7 @@ class SomaFMRadioStation(RadioStation):
 
     def _save_cache(self):
         """
-            Saves cache data
+        Saves cache data
         """
         channellist = ETree.Element('channellist')
         for channel_id, channel_name in self.data.items():
@@ -126,7 +126,7 @@ class SomaFMRadioStation(RadioStation):
 
     def get_lists(self, no_cache=False):
         """
-            Returns the rlists for somafm
+        Returns the rlists for somafm
         """
         if no_cache or not self.data:
             self.channellist = self.get_document(self.channels_xml_url)
@@ -159,7 +159,7 @@ class SomaFMRadioStation(RadioStation):
 
     def _get_subrlists(self, id, no_cache=False):
         """
-            Gets the subrlists for a rlist
+        Gets the subrlists for a rlist
         """
         if no_cache or id not in self.subs:
 
@@ -172,7 +172,7 @@ class SomaFMRadioStation(RadioStation):
 
     def _get_playlist(self, url, playlist_id):
         """
-            Gets the playlist for the given url and id
+        Gets the playlist for the given url and id
         """
         if playlist_id not in self.playlists:
             set_status(_('Contacting SomaFM server...'))
@@ -202,8 +202,10 @@ class SomaFMRadioStation(RadioStation):
 
             rlist = RadioItem(display_name, station=self)
             rlist.format = format
-            rlist.get_playlist = lambda url=url, playlist_id=self.playlist_id: self._get_playlist(
-                url, playlist_id
+            rlist.get_playlist = (
+                lambda url=url, playlist_id=self.playlist_id: self._get_playlist(
+                    url, playlist_id
+                )
             )
 
             self.playlist_id += 1

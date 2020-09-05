@@ -79,8 +79,8 @@ class MassStorageDevice(Device):
 
 class HalMountpoint:
     """
-        Class to represent a mountpoint so we can delay HAL
-        mountpoint resolution.
+    Class to represent a mountpoint so we can delay HAL
+    mountpoint resolution.
     """
 
     def __init__(self, hal, udi):

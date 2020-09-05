@@ -48,7 +48,7 @@ class RequestAccessPermissionButton(widgets.Button):
 
     def __init__(self, preferences, widget):
         """
-            Sets up the message
+        Sets up the message
         """
         widgets.Button.__init__(self, preferences, widget)
 
@@ -61,8 +61,8 @@ class RequestAccessPermissionButton(widgets.Button):
     @common.threaded
     def check_connection(self):
         """
-            Checks API key and secret for validity
-            and opens the URI for access permission
+        Checks API key and secret for validity
+        and opens the URI for access permission
         """
         api_key = settings.get_option('plugin/lastfmlove/api_key', 'K')
 
@@ -100,6 +100,6 @@ class RequestAccessPermissionButton(widgets.Button):
 
     def on_clicked(self, button):
         """
-            Initiates the check for validity
+        Initiates the check for validity
         """
         self.check_connection()

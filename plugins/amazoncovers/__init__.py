@@ -52,7 +52,7 @@ def get_preferences_pane():
 
 class AmazonCoverSearch(covers.CoverSearchMethod):
     """
-        Searches amazon for an album cover
+    Searches amazon for an album cover
     """
 
     name = 'amazon'
@@ -63,7 +63,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         """
-            Searches amazon for album covers
+        Searches amazon for album covers
         """
         try:
             artist = track.get_tag_raw('artist')[0]

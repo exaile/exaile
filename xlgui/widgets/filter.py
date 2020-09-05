@@ -96,7 +96,7 @@ class FilterDialog(Gtk.Dialog):
 
     def set_limit(self, limit):
         """
-            Sets the limit for the number of items that should be returned
+        Sets the limit for the number of items that should be returned
         """
         if limit > -1:
             self.lim_check.set_active(True)
@@ -106,7 +106,7 @@ class FilterDialog(Gtk.Dialog):
 
     def get_limit(self):
         """
-            Get the limit value
+        Get the limit value
         """
         if self.lim_check.get_active():
             return int(self.lim_spin.get_value())
@@ -115,37 +115,37 @@ class FilterDialog(Gtk.Dialog):
 
     def get_random(self):
         """
-            Returns if the playlist should be random
+        Returns if the playlist should be random
         """
         return self.random.get_active()
 
     def set_random(self, random):
         """
-            Sets if this playlist should be random
+        Sets if this playlist should be random
         """
         self.random.set_active(random)
 
     def get_match_any(self):
         """
-            Returns true if this dialog should match any of the criteria
+        Returns true if this dialog should match any of the criteria
         """
         return self.match_any.get_active()
 
     def set_match_any(self, any):
         """
-            Sets whether this dialog should match any of the criteria or not
+        Sets whether this dialog should match any of the criteria or not
         """
         self.match_any.set_active(any)
 
     def get_name(self):
         """
-            Returns the text in the name_entry
+        Returns the text in the name_entry
         """
         return self.name_entry.get_text()
 
     def set_name(self, name):
         """
-            Sets the text in the name_entry
+        Sets the text in the name_entry
         """
         self.name_entry.set_text(name)
 
@@ -402,7 +402,7 @@ class NullField(Gtk.Box):
 
 class MultiEntryField(Gtk.Box):
     """Helper field that can be subclassed to get fields with multiple
-       GtkEntry widgets and multiple labels."""
+    GtkEntry widgets and multiple labels."""
 
     def __init__(self, labels):
         """Create a field with the specified labels and widths.

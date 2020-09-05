@@ -36,11 +36,11 @@ logger = logging.getLogger(__name__)
 
 
 def get_priority_booster():
-    '''
-        This hack allows us to boost the priority of GStreamer task threads on
-        Windows. See https://github.com/exaile/exaile/issues/76 and
-        https://bugzilla.gnome.org/show_bug.cgi?id=781998
-    '''
+    """
+    This hack allows us to boost the priority of GStreamer task threads on
+    Windows. See https://github.com/exaile/exaile/issues/76 and
+    https://bugzilla.gnome.org/show_bug.cgi?id=781998
+    """
     avrt_dll = ctypes.windll.LoadLibrary("avrt.dll")
     AvSetMmThreadCharacteristics = avrt_dll.AvSetMmThreadCharacteristicsW
     AvSetMmThreadCharacteristics.argtypes = [cwin.LPCWSTR, ctypes.POINTER(cwin.DWORD)]
@@ -51,10 +51,10 @@ def get_priority_booster():
     AvRevertMmThreadCharacteristics.restype = cwin.BOOL
 
     def on_stream_status(bus, message):
-        '''
-            Called synchronously from GStreamer processing threads -- do what
-            we need to do and then get out ASAP
-        '''
+        """
+        Called synchronously from GStreamer processing threads -- do what
+        we need to do and then get out ASAP
+        """
         status = message.parse_stream_status()
 
         # A gstreamer thread starts

@@ -45,8 +45,8 @@ LOGGER = logging.getLogger(__name__)
 class Quitter:
     """Simple class to handle exit, similar to Python 2.5's.
 
-       This Quitter is used to circumvent IPython's circumvention
-       of the builtin Quitter, since it prevents exaile form closing."""
+    This Quitter is used to circumvent IPython's circumvention
+    of the builtin Quitter, since it prevents exaile form closing."""
 
     def __init__(self, exit_function, name):
         self.exit_function = exit_function
@@ -145,7 +145,7 @@ class IPView(ip.IPythonView):
 
 class IPythonConsoleWindow(Gtk.Window):
     """
-        A Gtk Window with an embedded IPython Console.
+    A Gtk Window with an embedded IPython Console.
     """
 
     __ipv = None
@@ -185,7 +185,7 @@ class IPythonConsoleWindow(Gtk.Window):
 
 class IPConsolePlugin:
     """
-        This class holds the IPConsole plugin itself
+    This class holds the IPConsole plugin itself
     """
 
     __console_window = None
@@ -193,14 +193,14 @@ class IPConsolePlugin:
 
     def enable(self, exaile):
         """
-            Called when plugin is enabled, or when exaile is loaded with the plugin
-            on by default.
+        Called when plugin is enabled, or when exaile is loaded with the plugin
+        on by default.
         """
         self.__exaile = exaile
 
     def on_gui_loaded(self):
         """
-            Called when Exaile finished loading its GUI
+        Called when Exaile finished loading its GUI
         """
         # Trigger initial setup through options:
         if xl_settings.get_option('plugin/ipconsole/autostart', False):
@@ -217,7 +217,7 @@ class IPConsolePlugin:
 
     def teardown(self, _exaile):
         """
-            Called when Exaile is shutting down
+        Called when Exaile is shutting down
         """
         # if window is open, kill it
         if self.__console_window is not None:
@@ -225,7 +225,7 @@ class IPConsolePlugin:
 
     def disable(self, exaile):
         """
-            Called when the plugin is disabled
+        Called when the plugin is disabled
         """
         for item in providers.get('menubar-tools-menu'):
             if item.name == 'ipconsole':
@@ -235,7 +235,7 @@ class IPConsolePlugin:
 
     def __show_console(self):
         """
-            Display window when the menu item is clicked.
+        Display window when the menu item is clicked.
         """
         if self.__console_window is None:
             import xl
@@ -253,13 +253,13 @@ class IPConsolePlugin:
 
     def __console_destroyed(self, *_args):
         """
-            Called when the window is closed.
+        Called when the window is closed.
         """
         self.__console_window = None
 
     def get_preferences_pane(self):
         """
-            Called by Exaile when ipconsole preferences pane should be shown
+        Called by Exaile when ipconsole preferences pane should be shown
         """
         return ipconsoleprefs
 

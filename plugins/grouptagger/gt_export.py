@@ -43,9 +43,9 @@ logger = logging.getLogger(__name__)
 
 
 def export_tags(exaile):
-    '''
-        Exports all tags to a user specified JSON file
-    '''
+    """
+    Exports all tags to a user specified JSON file
+    """
 
     uri = dialogs.save(
         parent=exaile.gui.main.window,

@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 def enable(exaile):
     """
-        Called when the plugin is enabled
+    Called when the plugin is enabled
     """
     global SUSPEND_PLUGIN
 
@@ -46,7 +46,7 @@ def enable(exaile):
 
 def disable(exaile):
     """
-        Called when the plugin is disabled
+    Called when the plugin is disabled
     """
     global SUSPEND_PLUGIN
 
@@ -59,7 +59,7 @@ def disable(exaile):
 
 class SuspendInhibit:
     """
-        Attempt to detect desktop session and initialize appropriate adapter
+    Attempt to detect desktop session and initialize appropriate adapter
     """
 
     def __init__(self):
@@ -99,11 +99,11 @@ class SuspendInhibit:
 
 class SuspendAdapter(adapters.PlaybackAdapter):
     """
-        Base class for Desktop Session suspend inhibitors
+    Base class for Desktop Session suspend inhibitors
 
-        Subclasses will have to override the DBus call methods
+    Subclasses will have to override the DBus call methods
 
-        Thread safe
+    Thread safe
     """
 
     PROGRAM = 'exaile'
@@ -130,14 +130,14 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def inhibit(self):
         """
-            Inhibit user session suspension.
+        Inhibit user session suspension.
 
-            Make DBus call to inhibit session suspension if
-            session suspension not already inhibited.
+        Make DBus call to inhibit session suspension if
+        session suspension not already inhibited.
 
-            If suspending already inhibited call does nothing.
+        If suspending already inhibited call does nothing.
 
-            DBus call returns unique cookie used to later uninhibit.
+        DBus call returns unique cookie used to later uninhibit.
         """
 
         with self.lock:
@@ -148,14 +148,14 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def uninhibit(self):
         """
-            Uninhibit user session suspension.
+        Uninhibit user session suspension.
 
-            Make DBus call to uninhibit session suspension if
-            session suspension not already uninhibited.
+        Make DBus call to uninhibit session suspension if
+        session suspension not already uninhibited.
 
-            If suspending already uninhibited call does nothing.
+        If suspending already uninhibited call does nothing.
 
-            DBus call Requires cookie returned from original inhibit.
+        DBus call Requires cookie returned from original inhibit.
         """
 
         with self.lock:
@@ -197,27 +197,27 @@ class SuspendAdapter(adapters.PlaybackAdapter):
 
     def _dbus_inhibit_call(self):
         """
-            Override, overriding method must set self.inhibited value
-            Make DBus call to inhibit suspend
-            Must not block
+        Override, overriding method must set self.inhibited value
+        Make DBus call to inhibit suspend
+        Must not block
         """
         raise NotImplementedError('Method not Overridden')
 
     def _dbus_uninhibit_call(self):
         """
-            Override, overriding method must set self.inhibited value
-            Make DBus call to uninhibit suspend
-            Must not block
+        Override, overriding method must set self.inhibited value
+        Make DBus call to uninhibit suspend
+        Must not block
         """
         raise NotImplementedError('Method not Overridden')
 
 
 class PowerManagerAdapter(SuspendAdapter):
     """
-        Default Adapter, implemented by most desktop sessions
-        Adapter for org.freedesktop.PowerManagement.Inhibit Interface
-        Some desktop sesssions use different bus names for this interface
-        and have other small variances
+    Default Adapter, implemented by most desktop sessions
+    Adapter for org.freedesktop.PowerManagement.Inhibit Interface
+    Some desktop sesssions use different bus names for this interface
+    and have other small variances
     """
 
     def __init__(
@@ -237,9 +237,9 @@ class PowerManagerAdapter(SuspendAdapter):
 
 class GnomeAdapter(SuspendAdapter):
     """
-        Gnome uses a similar interface to org.freedesktop.PowerManagement
-        but is has different bus name, object path and interface name
-        The inhibit and uninhibit method signatures are also different
+    Gnome uses a similar interface to org.freedesktop.PowerManagement
+    but is has different bus name, object path and interface name
+    The inhibit and uninhibit method signatures are also different
     """
 
     SUSPEND_FLAG = 8
@@ -254,7 +254,7 @@ class GnomeAdapter(SuspendAdapter):
 
     def _dbus_inhibit_call(self):
         """
-            Gnome Interface has more paramters
+        Gnome Interface has more paramters
         """
         self.cookie = self.iface.Inhibit(
             self.PROGRAM, 1, self.ACTIVITY, self.SUSPEND_FLAG
@@ -262,15 +262,15 @@ class GnomeAdapter(SuspendAdapter):
 
     def _dbus_uninhibit_call(self):
         """
-            Gnome Interface has different case
+        Gnome Interface has different case
         """
         self.iface.Uninhibit(self.cookie)
 
 
 class KdeAdapter(PowerManagerAdapter):
     """
-        Adapter for when org.freedesktop.PowerManager interface
-        located at bus org.kde.powerdevil
+    Adapter for when org.freedesktop.PowerManager interface
+    located at bus org.kde.powerdevil
     """
 
     def __init__(self):
@@ -283,8 +283,8 @@ class KdeAdapter(PowerManagerAdapter):
 
 class XfceAdapter(PowerManagerAdapter):
     """
-        Adapter for org.freedesktop.PowerManagement interface at bus name
-        org.xfce.PowerManager
+    Adapter for org.freedesktop.PowerManagement interface at bus name
+    org.xfce.PowerManager
     """
 
     def __init__(self):

@@ -146,11 +146,11 @@ def _init_template(self, cls, base_init_template):
 
 # TODO: Make it easier for IDE to introspect this
 class _Child:
-    '''
-        Assign this to an attribute in your class definition and it will
-        be replaced with a widget defined in the UI file when init_template
-        is called
-    '''
+    """
+    Assign this to an attribute in your class definition and it will
+    be replaced with a widget defined in the UI file when init_template
+    is called
+    """
 
     __slots__ = []
 
@@ -167,58 +167,58 @@ class _Child:
 
 
 class _GtkTemplate:
-    '''
-        Use this class decorator to signify that a class is a composite
-        widget which will receive widgets and connect to signals as
-        defined in a UI template. You must call init_template to
-        cause the widgets/signals to be initialized from the template::
+    """
+    Use this class decorator to signify that a class is a composite
+    widget which will receive widgets and connect to signals as
+    defined in a UI template. You must call init_template to
+    cause the widgets/signals to be initialized from the template::
 
-            @GtkTemplate(ui='foo.ui')
-            class Foo(Gtk.Box):
+        @GtkTemplate(ui='foo.ui')
+        class Foo(Gtk.Box):
 
-                def __init__(self):
-                    super(Foo, self).__init__()
-                    self.init_template()
+            def __init__(self):
+                super(Foo, self).__init__()
+                self.init_template()
 
-        The 'ui' parameter can either be a file path or a GResource resource
-        path::
+    The 'ui' parameter can either be a file path or a GResource resource
+    path::
 
-            @GtkTemplate(ui='/org/example/foo.ui')
-            class Foo(Gtk.Box):
-                pass
+        @GtkTemplate(ui='/org/example/foo.ui')
+        class Foo(Gtk.Box):
+            pass
 
-        To connect a signal to a method on your instance, do::
+    To connect a signal to a method on your instance, do::
 
-            @GtkTemplate.Callback
-            def on_thing_happened(self, widget):
-                pass
+        @GtkTemplate.Callback
+        def on_thing_happened(self, widget):
+            pass
 
-        To create a child attribute that is retrieved from your template,
-        add this to your class definition::
+    To create a child attribute that is retrieved from your template,
+    add this to your class definition::
 
-            @GtkTemplate(ui='foo.ui')
-            class Foo(Gtk.Box):
+        @GtkTemplate(ui='foo.ui')
+        class Foo(Gtk.Box):
 
-                widget = GtkTemplate.Child()
+            widget = GtkTemplate.Child()
 
 
-        Note: This is implemented as a class decorator, but if it were
-        included with PyGI I suspect it might be better to do this
-        in the GObject metaclass (or similar) so that init_template
-        can be called automatically instead of forcing the user to do it.
+    Note: This is implemented as a class decorator, but if it were
+    included with PyGI I suspect it might be better to do this
+    in the GObject metaclass (or similar) so that init_template
+    can be called automatically instead of forcing the user to do it.
 
-        .. note:: Due to limitations in PyGObject, you may not inherit from
-                  python objects that use the GtkTemplate decorator.
-    '''
+    .. note:: Due to limitations in PyGObject, you may not inherit from
+              python objects that use the GtkTemplate decorator.
+    """
 
     __ui_path__ = None
 
     @staticmethod
     def Callback(f):
-        '''
-            Decorator that designates a method to be attached to a signal from
-            the template
-        '''
+        """
+        Decorator that designates a method to be attached to a signal from
+        the template
+        """
         f._gtk_callback = True
         return f
 
@@ -226,17 +226,17 @@ class _GtkTemplate:
 
     @staticmethod
     def set_ui_path(*path):
-        '''
-            If using file paths instead of resources, call this *before*
-            loading anything that uses GtkTemplate, or it will fail to load
-            your template file
+        """
+        If using file paths instead of resources, call this *before*
+        loading anything that uses GtkTemplate, or it will fail to load
+        your template file
 
-            :param path: one or more path elements, will be joined together
-                         to create the final path
+        :param path: one or more path elements, will be joined together
+                     to create the final path
 
-            TODO: Alternatively, could wait until first class instantiation
-                  before registering templates? Would need a metaclass...
-        '''
+        TODO: Alternatively, could wait until first class instantiation
+              before registering templates? Would need a metaclass...
+        """
         _GtkTemplate.__ui_path__ = abspath(join(*path))
 
     def __init__(self, ui):

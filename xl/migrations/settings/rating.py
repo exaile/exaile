@@ -29,8 +29,8 @@ from xl import settings
 
 def migrate():
     """
-        Migrates the old 'miscellaneous/rating_*'
-        to the new 'rating/*' settings
+    Migrates the old 'miscellaneous/rating_*'
+    to the new 'rating/*' settings
     """
     if settings.MANAGER.has_option('miscellaneous/rating_steps'):
         value = settings.get_option('miscellaneous/rating_steps', 5)

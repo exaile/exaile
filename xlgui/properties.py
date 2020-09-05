@@ -55,16 +55,16 @@ logger = logging.getLogger(__name__)
 class TrackPropertiesDialog(GObject.GObject):
     def __init__(self, parent, tracks, current_position=0, with_extras=False):
         """
-            :param parent: the parent window for modal operation
-            :type parent: :class:`Gtk.Window`
-            :param tracks: the tracks to process
-            :type tracks: list of :class:`xl.trax.Track` objects
-            :param current_position: the position of the currently
-                selected track in the list
-            :type current_position: int
-            :param with_extras: whether there are extra, non-selected tracks in
-                `tracks` (currently happens when only 1 track is selected)
-            :type with_extras: bool
+        :param parent: the parent window for modal operation
+        :type parent: :class:`Gtk.Window`
+        :param tracks: the tracks to process
+        :type tracks: list of :class:`xl.trax.Track` objects
+        :param current_position: the position of the currently
+            selected track in the list
+        :type current_position: int
+        :param with_extras: whether there are extra, non-selected tracks in
+            `tracks` (currently happens when only 1 track is selected)
+        :type with_extras: bool
         """
         GObject.GObject.__init__(self)
 
@@ -427,7 +427,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
             def on_response(message, response):
                 """
-                    Applies changes before closing if requested
+                Applies changes before closing if requested
                 """
                 if response == Gtk.ResponseType.APPLY:
                     self.apply_button.clicked()
@@ -473,8 +473,8 @@ class TrackPropertiesDialog(GObject.GObject):
 
     def on_new_tag_entry_changed(self, entry):
         """
-            Enables or disables the button for adding tags,
-            effectively preventing empty tag names
+        Enables or disables the button for adding tags,
+        effectively preventing empty tag names
         """
         self.add_tag_button.set_sensitive(len(entry.get_text()) > 0)
 
@@ -687,7 +687,7 @@ class TagField(Gtk.Box):
 
     def grab_focus(self):
         """
-            Gives focus to the internal widget
+        Gives focus to the internal widget
         """
         self.field.grab_focus()
 
@@ -866,7 +866,7 @@ class TagDblNumField(Gtk.Box):
 
     def grab_focus(self):
         """
-            Gives focus to the internal widget
+        Gives focus to the internal widget
         """
         self.field[0].grab_focus()
 
@@ -986,7 +986,7 @@ class TagImageField(Gtk.Box):
 
     def grab_focus(self):
         """
-            Gives focus to the internal widget
+        Gives focus to the internal widget
         """
         self.image.grab_focus()
 
@@ -1077,7 +1077,7 @@ class TagImageField(Gtk.Box):
 
     def call_update_func(self):
         """
-            Wrapper around the update function
+        Wrapper around the update function
         """
         if not self.update_func or self.batch_update:
             return
@@ -1088,7 +1088,7 @@ class TagImageField(Gtk.Box):
 
     def set_pixbuf(self, pixbuf, mime=None):
         """
-            Updates the displayed cover image and info values
+        Updates the displayed cover image and info values
         """
         self.pixbuf = pixbuf
 
@@ -1117,7 +1117,7 @@ class TagImageField(Gtk.Box):
 
     def _on_button_clicked(self, button):
         """
-            Allows setting the cover image using a file selection dialog
+        Allows setting the cover image using a file selection dialog
         """
         dialog = dialogs.FileOperationDialog(
             title=_('Select image to set as cover'),
@@ -1165,7 +1165,7 @@ class TagImageField(Gtk.Box):
         self, widget, context, x, y, selection, info, time
     ):
         """
-            Allows setting the cover image via drag and drop
+        Allows setting the cover image via drag and drop
         """
         if selection.target.name() == 'text/uri-list':
             filename = Gio.File.new_for_uri(selection.get_uris()[0]).get_path()
@@ -1189,14 +1189,14 @@ class TagImageField(Gtk.Box):
 
     def _on_type_selection_changed(self, combobox):
         """
-            Notifies about changes in the cover type
+        Notifies about changes in the cover type
         """
         self.info = self.info._replace(type=self.type_model[combobox.get_active()][0])
         self.call_update_func()
 
     def _on_description_entry_changed(self, entry):
         """
-            Notifies about changes in the cover description
+        Notifies about changes in the cover description
         """
         self.info = self.info._replace(desc=entry.get_text())
         self.call_update_func()

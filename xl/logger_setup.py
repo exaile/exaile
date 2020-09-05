@@ -73,9 +73,9 @@ class SafePrettyPrinter(PrettyPrinter):
 
 
 class VerboseExceptionFormatter(logging.Formatter):
-    '''
-        Taken from https://word.bitly.com/post/69080588278/logging-locals
-    '''
+    """
+    Taken from https://word.bitly.com/post/69080588278/logging-locals
+    """
 
     def __init__(self, log_locals_on_exception=True, *args, **kwargs):
         self._log_locals = log_locals_on_exception
@@ -108,9 +108,9 @@ class VerboseExceptionFormatter(logging.Formatter):
 
 
 def start_logging(debug, quiet, debugthreads, module_filter, level_filter):
-    '''
-        Starts logging, only should be called from xl.main
-    '''
+    """
+    Starts logging, only should be called from xl.main
+    """
 
     console_format = "%(levelname)-8s: %(message)s"
     console_loglevel = logging.INFO

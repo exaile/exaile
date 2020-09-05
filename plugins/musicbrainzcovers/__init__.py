@@ -30,21 +30,21 @@ musicbrainzngs.set_useragent(
 
 def enable(exaile):
     """
-        Enables the plugin
+    Enables the plugin
     """
     providers.register('covers', MusicBrainzCoverSearch(exaile))
 
 
 def disable(exaile):
     """
-        Disables the plugin
+    Disables the plugin
     """
     providers.unregister('covers', providers.get_provider('covers', 'musicbrainz'))
 
 
 class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
-        Searches MusicBrainz for an album cover
+    Searches MusicBrainz for an album cover
     """
 
     name = 'musicbrainz'
@@ -56,7 +56,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         """
-            Performs the search
+        Performs the search
         """
         try:
             artist = track.get_tag_raw('artist')[0]
@@ -96,7 +96,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
 
     def get_cover_data(self, db_string):
         """
-            Get the image data
+        Get the image data
         """
         data = None
         mbid, size = db_string.split(':')

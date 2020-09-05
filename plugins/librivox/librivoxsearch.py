@@ -40,10 +40,10 @@ class Book:
         self.user_agent = user_agent
 
     def get_all(self):
-        '''
-            Unified function for getting chapters and info at the same
-            time.
-        '''
+        """
+        Unified function for getting chapters and info at the same
+        time.
+        """
         if self.loaded:
             return
 
@@ -79,9 +79,9 @@ class Book:
 
 
 def find_books(keyword, user_agent):
-    '''
-        Returns a list of Book instances, with unknown chapters...
-    '''
+    """
+    Returns a list of Book instances, with unknown chapters...
+    """
 
     # urlencode the search string
     url = search_url + urllib.parse.quote_plus(keyword)

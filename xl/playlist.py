@@ -70,11 +70,11 @@ class PlaylistExportOptions(NamedTuple):
 
 def encode_filename(filename: str):
     """
-        Converts a file name into a valid filename most
-        likely to not cause problems on any platform.
+    Converts a file name into a valid filename most
+    likely to not cause problems on any platform.
 
-        :param filename: the name of the file
-        :type filename: string
+    :param filename: the name of the file
+    :type filename: string
     """
     # list of invalid chars that need to be encoded
     # Note: '%' is the prefix for encoded chars so blacklist it too
@@ -91,12 +91,12 @@ def encode_filename(filename: str):
 
 def is_valid_playlist(path):
     """
-        Returns whether the file at a given path is a valid
-        playlist. Checks for content type and falls back to
-        file extension if unknown.
+    Returns whether the file at a given path is a valid
+    playlist. Checks for content type and falls back to
+    file extension if unknown.
 
-        :param path: the source path
-        :type path: string
+    :param path: the source path
+    :type path: string
     """
     content_type = Gio.content_type_guess(path)[0]
 
@@ -116,13 +116,13 @@ def is_valid_playlist(path):
 
 def import_playlist(path):
     """
-        Determines the type of playlist and creates
-        a playlist from it
+    Determines the type of playlist and creates
+    a playlist from it
 
-        :param path: the source path
-        :type path: string
-        :returns: the playlist
-        :rtype: :class:`Playlist`
+    :param path: the source path
+    :type path: string
+    :returns: the playlist
+    :rtype: :class:`Playlist`
     """
     # First try the cheap Gio way
     content_type = Gio.content_type_guess(path)[0]
@@ -156,8 +156,8 @@ def import_playlist(path):
 
 def export_playlist(playlist, path, options=None):
     """
-        Exact same as @see import_playlist except
-        it exports
+    Exact same as @see import_playlist except
+    it exports
     """
     file_extension = path.split('.')[-1]
 
@@ -178,8 +178,8 @@ def export_playlist(playlist, path, options=None):
 
 class FormatConverter:
     """
-        Base class for all converters allowing to
-        import from and export to a specific format
+    Base class for all converters allowing to
+    import from and export to a specific format
     """
 
     title = _('Playlist')
@@ -191,37 +191,37 @@ class FormatConverter:
 
     def export_to_file(self, playlist, path, options=None):
         """
-            Export a playlist to a given path
+        Export a playlist to a given path
 
-            :param playlist: the playlist
-            :type playlist: :class:`Playlist`
-            :param path: the target path
-            :type path: string
-            :param options: exporting options
-            :type options: :class:`PlaylistExportOptions`
+        :param playlist: the playlist
+        :type playlist: :class:`Playlist`
+        :param path: the target path
+        :type path: string
+        :param options: exporting options
+        :type options: :class:`PlaylistExportOptions`
         """
         pass
 
     def import_from_file(self, path):
         """
-            Import a playlist from a given path
+        Import a playlist from a given path
 
-            :param path: the source path
-            :type path: string
-            :returns: the playlist
-            :rtype: :class:`Playlist`
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
         """
         pass
 
     def name_from_path(self, path):
         """
-            Convenience method to retrieve a sane
-            name from a path
+        Convenience method to retrieve a sane
+        name from a path
 
-            :param path: the source path
-            :type path: string
-            :returns: a name
-            :rtype: string
+        :param path: the source path
+        :type path: string
+        :returns: a name
+        :rtype: string
         """
         gfile = Gio.File.new_for_uri(path)
         name = gfile.get_basename()
@@ -234,12 +234,12 @@ class FormatConverter:
 
     def get_track_import_path(self, playlist_path, track_path):
         """
-            Retrieves the import path of a track
+        Retrieves the import path of a track
 
-            :param playlist_path: the import path of the playlist
-            :type playlist_path: string
-            :param track_path: the path of the track
-            :type track_path: string
+        :param playlist_path: the import path of the playlist
+        :type playlist_path: string
+        :param track_path: the path of the track
+        :type track_path: string
         """
         playlist_uri = Gio.File.new_for_uri(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
@@ -294,12 +294,12 @@ class FormatConverter:
         self, playlist_path: str, track_path: str, options: PlaylistExportOptions
     ):
         """
-            Retrieves the export path of a track,
-            possibly influenced by options
+        Retrieves the export path of a track,
+        possibly influenced by options
 
-            :param playlist_path: the export path of the playlist
-            :param track_path: the path of the track
-            :param options: options
+        :param playlist_path: the export path of the playlist
+        :param track_path: the path of the track
+        :param options: options
         """
         if options is not None and options.relative:
             playlist_file = Gio.File.new_for_uri(playlist_path)
@@ -333,7 +333,7 @@ class FormatConverter:
 
 class M3UConverter(FormatConverter):
     """
-        Import from and export to M3U format
+    Import from and export to M3U format
     """
 
     title = _('M3U Playlist')
@@ -344,14 +344,14 @@ class M3UConverter(FormatConverter):
 
     def export_to_file(self, playlist, path, options=None):
         """
-            Export a playlist to a given path
+        Export a playlist to a given path
 
-            :param playlist: the playlist
-            :type playlist: :class:`Playlist`
-            :param path: the target path
-            :type path: string
-            :param options: exporting options
-            :type options: :class:`PlaylistExportOptions`
+        :param playlist: the playlist
+        :type playlist: :class:`Playlist`
+        :param path: the target path
+        :type path: string
+        :param options: exporting options
+        :type options: :class:`PlaylistExportOptions`
         """
         with GioFileOutputStream(Gio.File.new_for_uri(path)) as stream:
             stream.write('#EXTM3U\n')
@@ -371,18 +371,20 @@ class M3UConverter(FormatConverter):
 
                 stream.write(
                     '#EXTINF:{length},{title}\n{path}\n'.format(
-                        length=length, title=' - '.join(title), path=track_path,
+                        length=length,
+                        title=' - '.join(title),
+                        path=track_path,
                     )
                 )
 
     def import_from_file(self, path):
         """
-            Import a playlist from a given path
+        Import a playlist from a given path
 
-            :param path: the source path
-            :type path: string
-            :returns: the playlist
-            :rtype: :class:`Playlist`
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
         """
         playlist = Playlist(name=self.name_from_path(path))
         extinf = {}
@@ -446,7 +448,7 @@ providers.register('playlist-format-converter', M3UConverter())
 
 class PLSConverter(FormatConverter):
     """
-        Import from and export to PLS format
+    Import from and export to PLS format
     """
 
     title = _('PLS Playlist')
@@ -457,14 +459,14 @@ class PLSConverter(FormatConverter):
 
     def export_to_file(self, playlist, path, options=None):
         """
-            Export a playlist to a given path
+        Export a playlist to a given path
 
-            :param playlist: the playlist
-            :type playlist: :class:`Playlist`
-            :param path: the target path
-            :type path: string
-            :param options: exporting options
-            :type options: :class:`PlaylistExportOptions`
+        :param playlist: the playlist
+        :type playlist: :class:`Playlist`
+        :param path: the target path
+        :type path: string
+        :param options: exporting options
+        :type options: :class:`PlaylistExportOptions`
         """
         from configparser import RawConfigParser
 
@@ -495,12 +497,12 @@ class PLSConverter(FormatConverter):
 
     def import_from_file(self, path):
         """
-            Import a playlist from a given path
+        Import a playlist from a given path
 
-            :param path: the source path
-            :type path: string
-            :returns: the playlist
-            :rtype: :class:`Playlist`
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
         """
         from configparser import (
             RawConfigParser,
@@ -607,7 +609,7 @@ providers.register('playlist-format-converter', PLSConverter())
 
 class ASXConverter(FormatConverter):
     """
-        Import from and export to ASX format
+    Import from and export to ASX format
     """
 
     title = _('ASX Playlist')
@@ -624,14 +626,14 @@ class ASXConverter(FormatConverter):
 
     def export_to_file(self, playlist, path, options=None):
         """
-            Export a playlist to a given path
+        Export a playlist to a given path
 
-            :param playlist: the playlist
-            :type playlist: :class:`Playlist`
-            :param path: the target path
-            :type path: string
-            :param options: exporting options
-            :type options: :class:`PlaylistExportOptions`
+        :param playlist: the playlist
+        :type playlist: :class:`Playlist`
+        :param path: the target path
+        :type path: string
+        :param options: exporting options
+        :type options: :class:`PlaylistExportOptions`
         """
         from xml.sax.saxutils import escape
 
@@ -661,12 +663,12 @@ class ASXConverter(FormatConverter):
 
     def import_from_file(self, path):
         """
-            Import a playlist from a given path
+        Import a playlist from a given path
 
-            :param path: the source path
-            :type path: string
-            :returns: the playlist
-            :rtype: :class:`Playlist`
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
         """
         from xml.etree.cElementTree import XMLParser
 
@@ -704,8 +706,8 @@ class ASXConverter(FormatConverter):
 
     class ASXPlaylistParser:
         """
-            Target for xml.etree.ElementTree.XMLParser, allows
-            for parsing ASX playlists case-insensitive
+        Target for xml.etree.ElementTree.XMLParser, allows
+        for parsing ASX playlists case-insensitive
         """
 
         def __init__(self):
@@ -717,8 +719,8 @@ class ASXConverter(FormatConverter):
 
         def start(self, tag, attributes):
             """
-                Checks the ASX version and stores
-                the URI of the current track
+            Checks the ASX version and stores
+            the URI of the current track
             """
             depth = len(self._stack)
             # Convert both tag and attributes to lowercase
@@ -736,7 +738,7 @@ class ASXConverter(FormatConverter):
 
         def data(self, data):
             """
-                Stores track data and playlist name
+            Stores track data and playlist name
             """
             depth = len(self._stack)
 
@@ -754,7 +756,7 @@ class ASXConverter(FormatConverter):
 
         def end(self, tag):
             """
-                Appends track data
+            Appends track data
             """
             try:
                 self._stack.pop()
@@ -773,10 +775,10 @@ class ASXConverter(FormatConverter):
 
         def close(self):
             """
-                Returns the playlist data including
-                data of all successfully read tracks
+            Returns the playlist data including
+            data of all successfully read tracks
 
-                :rtype: dict
+            :rtype: dict
             """
             return self._playlistdata
 
@@ -786,7 +788,7 @@ providers.register('playlist-format-converter', ASXConverter())
 
 class XSPFConverter(FormatConverter):
     """
-        Import from and export to XSPF format
+    Import from and export to XSPF format
     """
 
     title = _('XSPF Playlist')
@@ -805,14 +807,14 @@ class XSPFConverter(FormatConverter):
 
     def export_to_file(self, playlist, path, options=None):
         """
-            Export a playlist to a given path
+        Export a playlist to a given path
 
-            :param playlist: the playlist
-            :type playlist: :class:`Playlist`
-            :param path: the target path
-            :type path: string
-            :param options: exporting options
-            :type options: :class:`PlaylistExportOptions`
+        :param playlist: the playlist
+        :type playlist: :class:`Playlist`
+        :param path: the target path
+        :type path: string
+        :param options: exporting options
+        :type options: :class:`PlaylistExportOptions`
         """
         from xml.sax.saxutils import escape
 
@@ -846,12 +848,12 @@ class XSPFConverter(FormatConverter):
 
     def import_from_file(self, path):
         """
-            Import a playlist from a given path
+        Import a playlist from a given path
 
-            :param path: the source path
-            :type path: string
-            :returns: the playlist
-            :rtype: :class:`Playlist`
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
         """
         # TODO: support content resolution
         import xml.etree.cElementTree as ETree
@@ -890,19 +892,19 @@ providers.register('playlist-format-converter', XSPFConverter())
 class Playlist:
     # TODO: how do we document events in sphinx?
     """
-        Basic class for handling a list of tracks
+    Basic class for handling a list of tracks
 
-        EVENTS: (all events are synchronous)
-            * playlist_tracks_added
-                * fired: after tracks are added
-                * data: list of tuples of (index, track)
-            * playlist_tracks_removed
-                * fired: after tracks are removed
-                * data: list of tuples of (index, track)
-            * playlist_current_position_changed
-            * playlist_shuffle_mode_changed
-            * playlist_random_mode_changed
-            * playlist_dynamic_mode_changed
+    EVENTS: (all events are synchronous)
+        * playlist_tracks_added
+            * fired: after tracks are added
+            * data: list of tuples of (index, track)
+        * playlist_tracks_removed
+            * fired: after tracks are removed
+            * data: list of tuples of (index, track)
+        * playlist_current_position_changed
+        * playlist_shuffle_mode_changed
+        * playlist_random_mode_changed
+        * playlist_dynamic_mode_changed
     """
     #: Valid shuffle modes (list of string)
     shuffle_modes = ['disabled', 'track', 'album', 'random']
@@ -932,11 +934,11 @@ class Playlist:
 
     def __init__(self, name, initial_tracks=[]):
         """
-            :param name: the initial name of the playlist
-            :type name: string
-            :param initial_tracks: the tracks which shall
-                populate the playlist initially
-            :type initial_tracks: list of :class:`xl.trax.Track`
+        :param name: the initial name of the playlist
+        :type name: string
+        :param initial_tracks: the tracks which shall
+            populate the playlist initially
+        :type initial_tracks: list of :class:`xl.trax.Track`
         """
         self.__tracks = MetadataList()
         for track in initial_tracks:
@@ -975,25 +977,25 @@ class Playlist:
 
     def clear(self):
         """
-            Removes all contained tracks
+        Removes all contained tracks
         """
         del self[:]
 
     def get_current_position(self):
         """
-            Retrieves the current position within the playlist
+        Retrieves the current position within the playlist
 
-            :returns: the position
-            :rtype: int
+        :returns: the position
+        :rtype: int
         """
         return self.__current_position
 
     def set_current_position(self, position):
         """
-            Sets the current position within the playlist
+        Sets the current position within the playlist
 
-            :param position: the new position
-            :type position: int
+        :param position: the new position
+        :type position: int
         """
         self.__next_data = None
         oldposition = self.__current_position
@@ -1019,21 +1021,21 @@ class Playlist:
 
     def get_spat_position(self):
         """
-            Retrieves the current position within the playlist
-            after which progressing shall be stopped
+        Retrieves the current position within the playlist
+        after which progressing shall be stopped
 
-            :returns: the position
-            :rtype: int
+        :returns: the position
+        :rtype: int
         """
         return self.__spat_position
 
     def set_spat_position(self, position):
         """
-            Sets the current position within the playlist
-            after which progressing shall be stopped
+        Sets the current position within the playlist
+        after which progressing shall be stopped
 
-            :param position: the new position
-            :type position: int
+        :param position: the new position
+        :type position: int
         """
         self.__next_data = None
         oldposition = self.spat_position
@@ -1052,10 +1054,10 @@ class Playlist:
 
     def get_current(self):
         """
-            Retrieves the track at the current position
+        Retrieves the track at the current position
 
-            :returns: the track
-            :rtype: :class:`xl.trax.Track` or None
+        :returns: the track
+        :rtype: :class:`xl.trax.Track` or None
         """
         if self.current_position == -1:
             return None
@@ -1065,11 +1067,11 @@ class Playlist:
 
     def get_shuffle_history(self):
         """
-            Retrieves the history of played
-            tracks from a shuffle run
+        Retrieves the history of played
+        tracks from a shuffle run
 
-            :returns: the tracks
-            :rtype: list
+        :returns: the tracks
+        :rtype: list
         """
         return [
             (i, self.__tracks[i])
@@ -1079,8 +1081,8 @@ class Playlist:
 
     def clear_shuffle_history(self):
         """
-            Clear the history of played
-            tracks from a shuffle run
+        Clear the history of played
+        tracks from a shuffle run
         """
         for i in range(len(self)):
             try:
@@ -1094,8 +1096,8 @@ class Playlist:
 
     def __next_random_track(self, current_position, mode="track"):
         """
-            Returns a valid next track if shuffle is activated based
-            on random_mode
+        Returns a valid next track if shuffle is activated based
+        on random_mode
         """
         if mode == "album":
             # TODO: we really need proper album-level operations in
@@ -1203,26 +1205,26 @@ class Playlist:
         return next
 
     def get_next(self):
-        '''
-            Retrieves the next track that will be played. Does not
-            actually set the position. When you call next(), it should
-            return the same track, even in random shuffle modes.
+        """
+        Retrieves the next track that will be played. Does not
+        actually set the position. When you call next(), it should
+        return the same track, even in random shuffle modes.
 
-            This exists to support retrieving a track before it actually
-            needs to be played, such as for pre-buffering.
+        This exists to support retrieving a track before it actually
+        needs to be played, such as for pre-buffering.
 
-            :returns: the next track to be played
-            :rtype: :class:`xl.trax.Track` or None
-        '''
+        :returns: the next track to be played
+        :rtype: :class:`xl.trax.Track` or None
+        """
         return self.__get_next(self.current_position)
 
     def next(self):
         """
-            Progresses to the next track within the playlist
-            and takes shuffle and repeat modes into account
+        Progresses to the next track within the playlist
+        and takes shuffle and repeat modes into account
 
-            :returns: the new current track
-            :rtype: :class:`xl.trax.Track` or None
+        :returns: the new current track
+        :rtype: :class:`xl.trax.Track` or None
         """
 
         if not self.__next_data:
@@ -1245,11 +1247,11 @@ class Playlist:
 
     def prev(self):
         """
-            Progresses to the previous track within the playlist
-            and takes shuffle and repeat modes into account
+        Progresses to the previous track within the playlist
+        and takes shuffle and repeat modes into account
 
-            :returns: the new current track
-            :rtype: :class:`xl.trax.Track` or None
+        :returns: the new current track
+        :rtype: :class:`xl.trax.Track` or None
         """
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
@@ -1303,19 +1305,19 @@ class Playlist:
 
     def get_shuffle_mode(self):
         """
-            Retrieves the current shuffle mode
+        Retrieves the current shuffle mode
 
-            :returns: the shuffle mode
-            :rtype: string
+        :returns: the shuffle mode
+        :rtype: string
         """
         return self.__get_mode("shuffle")
 
     def set_shuffle_mode(self, mode):
         """
-            Sets the current shuffle mode
+        Sets the current shuffle mode
 
-            :param mode: the new shuffle mode
-            :type mode: string
+        :param mode: the new shuffle mode
+        :type mode: string
         """
         self.__set_mode("shuffle", mode)
         if mode == 'disabled':
@@ -1326,19 +1328,19 @@ class Playlist:
 
     def get_repeat_mode(self):
         """
-            Retrieves the current repeat mode
+        Retrieves the current repeat mode
 
-            :returns: the repeat mode
-            :rtype: string
+        :returns: the repeat mode
+        :rtype: string
         """
         return self.__get_mode('repeat')
 
     def set_repeat_mode(self, mode):
         """
-            Sets the current repeat mode
+        Sets the current repeat mode
 
-            :param mode: the new repeat mode
-            :type mode: string
+        :param mode: the new repeat mode
+        :type mode: string
         """
         self.__set_mode("repeat", mode)
 
@@ -1347,19 +1349,19 @@ class Playlist:
 
     def get_dynamic_mode(self):
         """
-            Retrieves the current dynamic mode
+        Retrieves the current dynamic mode
 
-            :returns: the dynamic mode
-            :rtype: string
+        :returns: the dynamic mode
+        :rtype: string
         """
         return self.__get_mode("dynamic")
 
     def set_dynamic_mode(self, mode):
         """
-            Sets the current dynamic mode
+        Sets the current dynamic mode
 
-            :param mode: the new dynamic mode
-            :type mode: string
+        :param mode: the new dynamic mode
+        :type mode: string
         """
         self.__set_mode("dynamic", mode)
 
@@ -1368,16 +1370,16 @@ class Playlist:
 
     def randomize(self, positions=None):
         """
-            Randomizes the content of the playlist contrary to
-            shuffle which affects only the progressing order
+        Randomizes the content of the playlist contrary to
+        shuffle which affects only the progressing order
 
-            By default all tracks in the playlist are randomized,
-            but a list of positions can be passed. The tracks on
-            these positions will be randomized, all other tracks
-            will keep their positions.
+        By default all tracks in the playlist are randomized,
+        but a list of positions can be passed. The tracks on
+        these positions will be randomized, all other tracks
+        will keep their positions.
 
-            :param positions: list of track positions to randomize
-            :type positions: iterable
+        :param positions: list of track positions to randomize
+        :type positions: iterable
         """
         # Turn 2 lists into a list of tuples
         tracks = list(zip(self.__tracks, self.__tracks.metadata))
@@ -1405,12 +1407,12 @@ class Playlist:
 
     def sort(self, tags, reverse=False):
         """
-            Sorts the content of the playlist
+        Sorts the content of the playlist
 
-            :param tags: tags to sort by
-            :type tags: list of strings
-            :param reverse: whether the sorting shall be reversed
-            :type reverse: boolean
+        :param tags: tags to sort by
+        :type tags: list of strings
+        :param reverse: whether the sorting shall be reversed
+        :type reverse: boolean
         """
         data = zip(self.__tracks, self.__tracks.metadata)
         data = trax.sort_tracks(
@@ -1429,10 +1431,10 @@ class Playlist:
 
     def save_to_location(self, location):
         """
-            Writes the content of the playlist to a given location
+        Writes the content of the playlist to a given location
 
-            :param location: the location to save to
-            :type location: string
+        :param location: the location to save to
+        :type location: string
         """
         new_location = location + ".new"
 
@@ -1463,10 +1465,10 @@ class Playlist:
 
     def load_from_location(self, location):
         """
-            Loads the content of the playlist from a given location
+        Loads the content of the playlist from a given location
 
-            :param location: the location to load from
-            :type location: string
+        :param location: the location to load from
+        :type location: string
         """
         # note - this is not guaranteed to fire events when it sets
         # attributes. It is intended ONLY for initial setup, not for
@@ -1563,7 +1565,7 @@ class Playlist:
 
     def __tuple_from_slice(self, i):
         """
-            Get (start, end, step) tuple from slice object.
+        Get (start, end, step) tuple from slice object.
         """
         (start, end, step) = i.indices(len(self))
         if i.step is None:
@@ -1651,38 +1653,38 @@ class Playlist:
 
     def append(self, other):
         """
-            Appends a single track to the playlist
+        Appends a single track to the playlist
 
-            Prefer extend() for batch updates, so that
-            playlist_tracks_added is not emitted excessively.
+        Prefer extend() for batch updates, so that
+        playlist_tracks_added is not emitted excessively.
 
-            :param other: a :class:`xl.trax.Track`
+        :param other: a :class:`xl.trax.Track`
         """
         self[len(self) : len(self)] = [other]
 
     def extend(self, other):
         """
-            Extends the playlist by another playlist
+        Extends the playlist by another playlist
 
-            :param other: list of :class:`xl.trax.Track`
+        :param other: list of :class:`xl.trax.Track`
         """
         self[len(self) : len(self)] = other
 
     def count(self, other):
         """
-            Returns the count of contained tracks
+        Returns the count of contained tracks
 
-            :returns: the count
-            :rtype: int
+        :returns: the count
+        :rtype: int
         """
         return self.__tracks.count(other)
 
     def index(self, item, start=0, end=None):
         """
-            Retrieves the index of a track within the playlist
+        Retrieves the index of a track within the playlist
 
-            :returns: the index
-            :rtype: int
+        :returns: the index
+        :rtype: int
         """
         if end is None:
             return self.__tracks.index(item, start)
@@ -1691,12 +1693,12 @@ class Playlist:
 
     def pop(self, i=-1):
         """
-            Pops a track from the playlist
+        Pops a track from the playlist
 
-            :param i: the index
-            :type i: int
-            :returns: the track
-            :rtype: :class:`xl.trax.Track`
+        :param i: the index
+        :type i: int
+        :returns: the track
+        :rtype: :class:`xl.trax.Track`
         """
         item = self[i]
         del self[i]
@@ -1725,28 +1727,28 @@ class Playlist:
 
 class SmartPlaylist:
     """
-        Represents a Smart Playlist.
-        This will query a collection object using a set of parameters
+    Represents a Smart Playlist.
+    This will query a collection object using a set of parameters
 
-        Simple usage:
+    Simple usage:
 
-        >>> import xl.collection
-        >>> col = xl.collection.Collection("Test Collection")
-        >>> col.add_library(xl.collection.Library("./tests/data"))
-        >>> col.rescan_libraries()
-        >>> sp = SmartPlaylist(collection=col)
-        >>> sp.add_param("artist", "==", "Delerium")
-        >>> p = sp.get_playlist()
-        >>> p[1]['album'][0]
-        'Chimera'
-        >>>
+    >>> import xl.collection
+    >>> col = xl.collection.Collection("Test Collection")
+    >>> col.add_library(xl.collection.Library("./tests/data"))
+    >>> col.rescan_libraries()
+    >>> sp = SmartPlaylist(collection=col)
+    >>> sp.add_param("artist", "==", "Delerium")
+    >>> p = sp.get_playlist()
+    >>> p[1]['album'][0]
+    'Chimera'
+    >>>
     """
 
     def __init__(self, name="", collection=None):
         """
-            Sets up a smart playlist
+        Sets up a smart playlist
 
-            @param collection: a reference to a TrackDB object.
+        @param collection: a reference to a TrackDB object.
         """
         self.search_params = []
         self.custom_params = []
@@ -1769,85 +1771,85 @@ class SmartPlaylist:
 
     def set_collection(self, collection):
         """
-            change the collection backing this playlist
+        change the collection backing this playlist
 
-            collection: the collection to use [Collection]
+        collection: the collection to use [Collection]
         """
         self.collection = collection
 
     def set_random_sort(self, sort):
         """
-            If True, the tracks added during update() will be randomized
+        If True, the tracks added during update() will be randomized
 
-            @param sort: bool
+        @param sort: bool
         """
         self.random_sort = sort
         self._dirty = True
 
     def get_random_sort(self):
         """
-            Returns True if this playlist will randomly be sorted
+        Returns True if this playlist will randomly be sorted
         """
         return self.random_sort
 
     def set_return_limit(self, count):
         """
-            Sets the max number of tracks to return.
+        Sets the max number of tracks to return.
 
-            @param count:  number of tracks to return.  Set to -1 to return
-                all matched
+        @param count:  number of tracks to return.  Set to -1 to return
+            all matched
         """
         self.track_count = count
         self._dirty = True
 
     def get_return_limit(self):
         """
-            Returns the track count setting
+        Returns the track count setting
         """
         return self.track_count
 
     def set_sort_tags(self, tags, reverse):
         """
-            Control playlist sorting
+        Control playlist sorting
 
-            :param tags: List of tags to sort by
-            :param reverse: Reverse the tracks after sorting
+        :param tags: List of tags to sort by
+        :param reverse: Reverse the tracks after sorting
         """
         self.sort_tags = tags
         self.sort_order = reverse
 
     def get_sort_tags(self):
         """
-            :returns: (list of tags, reverse)
+        :returns: (list of tags, reverse)
         """
         return self.sort_tags, self.sort_order
 
     def set_or_match(self, value):
         """
-            Set to True to make this an or match: match any of the
-            parameters
+        Set to True to make this an or match: match any of the
+        parameters
 
-            value: True to match any, False to match all params
+        value: True to match any, False to match all params
         """
         self.or_match = value
         self._dirty = True
 
     def get_or_match(self):
         """
-            Return if this is an any or and playlist
+        Return if this is an any or and playlist
         """
         return self.or_match
 
     def add_param(self, field, op, value, index=-1):
         """
-            Adds a search parameter.
+        Adds a search parameter.
 
-            @param field:  The field to operate on. [string]
-            @param op:     The operator.  Valid operators are:
-                    >,<,>=,<=,=,!=,==,!==,>< (between) [string]
-            @param value:  The value to match against [string]
-            @param index:  Where to insert the parameter in the search
-                    order.  -1 to append [int]
+        @param field:  The field to operate on. [string]
+        @param op:     The operator.  Valid operators are:
+                >,<,>=,<=,=,!=,==,!==,>< (between) [string]
+        @param value:  The value to match against [string]
+        @param index:  Where to insert the parameter in the search
+                order.  -1 to append [int]
         """
         if index:
             self.search_params.insert(index, [field, op, value])
@@ -1857,11 +1859,11 @@ class SmartPlaylist:
 
     def set_custom_param(self, param, index=-1):
         """
-            Adds an arbitrary search parameter, exposing the full power
-            of the new search system to the user.
+        Adds an arbitrary search parameter, exposing the full power
+        of the new search system to the user.
 
-            param:  the search query to use. [string]
-            index:  the index to insert at. default is append [int]
+        param:  the search query to use. [string]
+        index:  the index to insert at. default is append [int]
         """
         if index:
             self.search_params.insert(index, param)
@@ -1871,19 +1873,19 @@ class SmartPlaylist:
 
     def remove_param(self, index):
         """
-            Removes a parameter at the speficied index
+        Removes a parameter at the speficied index
 
-            index:  the index of the parameter to remove
+        index:  the index of the parameter to remove
         """
         self._dirty = True
         return self.search_params.pop(index)
 
     def get_playlist(self, collection=None):
         """
-            Generates a playlist by querying the collection
+        Generates a playlist by querying the collection
 
-            @param collection: the collection to search (leave None to
-                    search internal ref)
+        @param collection: the collection to search (leave None to
+                search internal ref)
         """
         pl = Playlist(name=self.name)
         if not collection:
@@ -1920,7 +1922,7 @@ class SmartPlaylist:
 
     def _create_search_data(self, collection):
         """
-            Creates a search string + matchers based on the internal params
+        Creates a search string + matchers based on the internal params
         """
 
         params = []  # parameter list
@@ -2063,15 +2065,15 @@ class SmartPlaylist:
 
 class PlaylistManager:
     """
-        Manages saving and loading of playlists
+    Manages saving and loading of playlists
     """
 
     def __init__(self, playlist_dir='playlists', playlist_class=Playlist):
         """
-            Initializes the playlist manager
+        Initializes the playlist manager
 
-            @param playlist_dir: the data dir to save playlists to
-            @param playlist_class: the playlist class to use
+        @param playlist_dir: the data dir to save playlists to
+        @param playlist_class: the playlist class to use
         """
         self.playlist_class = playlist_class
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0], playlist_dir)
@@ -2086,17 +2088,17 @@ class PlaylistManager:
 
     def has_playlist_name(self, playlist_name):
         """
-            Returns true if the manager has a playlist with the same name
+        Returns true if the manager has a playlist with the same name
         """
         return playlist_name in self.playlists
 
     def save_playlist(self, pl, overwrite=False):
         """
-            Saves a playlist
+        Saves a playlist
 
-            @param pl: the playlist
-            @param overwrite: Set to [True] if you wish to overwrite a
-                playlist should it happen to already exist
+        @param pl: the playlist
+        @param overwrite: Set to [True] if you wish to overwrite a
+            playlist should it happen to already exist
         """
         name = pl.name
         if overwrite or name not in self.playlists:
@@ -2113,10 +2115,10 @@ class PlaylistManager:
 
     def remove_playlist(self, name):
         """
-            Removes a playlist from the manager, also
-            physically deletes its
+        Removes a playlist from the manager, also
+        physically deletes its
 
-            @param name: the name of the playlist to remove
+        @param name: the name of the playlist to remove
         """
         if name in self.playlists:
             try:
@@ -2128,7 +2130,7 @@ class PlaylistManager:
 
     def rename_playlist(self, playlist, new_name):
         """
-            Renames the playlist to new_name
+        Renames the playlist to new_name
         """
         old_name = playlist.name
         if old_name in self.playlists:
@@ -2138,7 +2140,7 @@ class PlaylistManager:
 
     def load_names(self):
         """
-            Loads the names of the playlists from the order file
+        Loads the names of the playlists from the order file
         """
         # collect the names of all playlists in playlist_dir
         existing = []
@@ -2165,9 +2167,9 @@ class PlaylistManager:
 
     def get_playlist(self, name):
         """
-            Gets a playlist by name
+        Gets a playlist by name
 
-            @param name: the name of the playlist you wish to retrieve
+        @param name: the name of the playlist you wish to retrieve
         """
         if name in self.playlists:
             pl = self._create_playlist(name)
@@ -2180,13 +2182,13 @@ class PlaylistManager:
 
     def list_playlists(self):
         """
-            Returns all the contained playlist names
+        Returns all the contained playlist names
         """
         return self.playlists[:]
 
     def move(self, playlist, position, after=True):
         """
-            Moves the playlist to where position is
+        Moves the playlist to where position is
         """
         # Remove the playlist first
         playlist_index = self.playlists.index(playlist)
@@ -2199,14 +2201,14 @@ class PlaylistManager:
 
     def save_order(self):
         """
-            Saves the order to the order file
+        Saves the order to the order file
         """
         self.save_to_location(self.order_file)
 
     def save_to_location(self, location):
         """
-            Saves the names of the playlist to a file that is
-            used to restore their order
+        Saves the names of the playlist to a file that is
+        used to restore their order
         """
         if os.path.exists(location):
             f = open(location + ".new", "w")
@@ -2224,10 +2226,10 @@ class PlaylistManager:
 
     def load_from_location(self, location):
         """
-            Loads the names of the playlist from a file.
-            Their load order is their view order
+        Loads the names of the playlist from a file.
+        Their load order is their view order
 
-            @return: a list of the playlist names
+        @return: a list of the playlist names
         """
         f = None
         for loc in [location, location + ".new"]:
@@ -2250,16 +2252,16 @@ class PlaylistManager:
 
 class SmartPlaylistManager(PlaylistManager):
     """
-        Manages saving and loading of smart playlists
+    Manages saving and loading of smart playlists
     """
 
     def __init__(self, playlist_dir, playlist_class=SmartPlaylist, collection=None):
         """
-            Initializes a smart playlist manager
+        Initializes a smart playlist manager
 
-            @param playlist_dir: the data dir to save playlists to
-            @param playlist_class: the playlist class to use
-            @param collection: the default collection to use for searching
+        @param playlist_dir: the data dir to save playlists to
+        @param playlist_class: the playlist class to use
+        @param collection: the default collection to use for searching
         """
         self.collection = collection
         PlaylistManager.__init__(

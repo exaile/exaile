@@ -126,13 +126,13 @@ class LyricsPanel(panel.Panel):
 
     def __on_refresh_button_clicked(self, _button):
         """
-            Called when the refresh button is clicked
+        Called when the refresh button is clicked
         """
         self.__update_lyrics(refresh=True)
 
     def __on_combo_active_changed(self, _combobox):
         """
-            Catches when the user selects an item of the combo.
+        Catches when the user selects an item of the combo.
         """
         if self.__lyrics_found:
             self.__update_lyrics_text()
@@ -213,8 +213,8 @@ class LyricsPanel(panel.Panel):
 
 class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
     """
-        An extended Gtk.ComboBox class.
-        Shows lyrics methods search registered
+    An extended Gtk.ComboBox class.
+    Shows lyrics methods search registered
     """
 
     def __init__(self):

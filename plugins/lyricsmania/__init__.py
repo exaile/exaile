@@ -26,8 +26,8 @@ from xl import common, providers
 
 def enable(exaile):
     """
-        Enables the lyrics mania plugin that fetches track lyrics
-        from lyricsmania.com
+    Enables the lyrics mania plugin that fetches track lyrics
+    from lyricsmania.com
     """
     if lxml:
         providers.register('lyrics', LyricsMania(exaile))

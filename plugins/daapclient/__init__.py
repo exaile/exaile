@@ -75,9 +75,9 @@ class DaapZeroconfInterface(GObject.GObject):
     }
 
     def new_share_menu_item(self, menu_name, service_name, address, port):
-        '''
-            This function is called to add a server to the connect menu.
-        '''
+        """
+        This function is called to add a server to the connect menu.
+        """
 
         if not self.menu:
             return
@@ -91,9 +91,9 @@ class DaapZeroconfInterface(GObject.GObject):
         self.menu.add_item(menu_item)
 
     def clear_share_menu_items(self):
-        '''
-            This function is used to clear all the menu items out of a menu.
-        '''
+        """
+        This function is used to clear all the menu items out of a menu.
+        """
 
         if not self.menu:
             return
@@ -107,9 +107,9 @@ class DaapZeroconfInterface(GObject.GObject):
             self.menu.remove_item(item)
 
     def rebuild_share_menu_items(self):
-        '''
-            This function fills the menu with known servers.
-        '''
+        """
+        This function fills the menu with known servers.
+        """
         self.clear_share_menu_items()
 
         show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
@@ -152,10 +152,10 @@ class DaapZeroconfInterface(GObject.GObject):
             self.new_share_menu_item(*item)
 
     def clicked(self, service_name, address, port):
-        '''
-            This function is called in response to a menu_item click.
-            Fire away.
-        '''
+        """
+        This function is called in response to a menu_item click.
+        Fire away.
+        """
         GObject.idle_add(self.emit, "connect", (service_name, address, port))
 
     def on_service_state_change(self, service_type, name, state_change, **kwargs):
@@ -184,7 +184,7 @@ class DaapZeroconfInterface(GObject.GObject):
 
     def __init__(self, _exaile, _menu):
         """
-            Sets up the zeroconf listener.
+        Sets up the zeroconf listener.
         """
         GObject.GObject.__init__(self)
         self.services = {}
@@ -246,15 +246,15 @@ class DaapHistory(common.LimitedCache):
 
 
 class DaapManager:
-    '''
+    """
         DaapManager is a class that manages DaapConnections, both manual
     and auto-discovered.
-    '''
+    """
 
     def __init__(self, exaile, _menu, autodiscover):
-        '''
-            Init!  Create manual menu item, and connect to interface signal.
-        '''
+        """
+        Init!  Create manual menu item, and connect to interface signal.
+        """
         self.exaile = exaile
         self.autodiscover = autodiscover
         self.panels = {}
@@ -280,12 +280,12 @@ class DaapManager:
         self.history = DaapHistory(5, menu=hmenu, callback=self.connect_share)
 
     def connect_share(self, obj, args):
-        '''
-            This function is called when a user wants to connec to
-            a DAAP share.  It creates a new panel for the share, and
-            requests a track list.
-            `args` is a tuple of (name, address, port, service)
-        '''
+        """
+        This function is called when a user wants to connec to
+        a DAAP share.  It creates a new panel for the share, and
+        requests a track list.
+        `args` is a tuple of (name, address, port, service)
+        """
         name, address, port = args  # unpack tuple
         user_agent = self.exaile.get_user_agent_string(__name__)
         conn = DaapConnection(name, address, port, user_agent)
@@ -305,10 +305,10 @@ class DaapManager:
             self.history.save()
 
     def disconnect_share(self, name):
-        '''
-            This function is called to disconnect a previously connected
-            share.  It calls the DAAP disconnect, and removes the panel.
-        '''
+        """
+        This function is called to disconnect a previously connected
+        share.  It calls the DAAP disconnect, and removes the panel.
+        """
 
         panel = self.panels[name]
         #    panel.library.daap_share.disconnect()
@@ -318,11 +318,11 @@ class DaapManager:
         del self.panels[name]
 
     def manual_connect(self, *_args):
-        '''
-            This function is called when the user selects the manual
-            connection option from the menu.  It requests a host/ip to
-            connect to.
-        '''
+        """
+        This function is called when the user selects the manual
+        connection option from the menu.  It requests a host/ip to
+        connect to.
+        """
         dialog = dialogs.TextEntryDialog(
             _("Enter IP address and port for share"), _("Enter IP address and port.")
         )
@@ -373,10 +373,10 @@ class DaapManager:
             panel.refresh()
 
     def close(self, remove=False):
-        '''
-            This function disconnects active DaapConnections, and optionally
-            removes the panels from the UI.
-        '''
+        """
+        This function disconnects active DaapConnections, and optionally
+        removes the panels from the UI.
+        """
         # disconnect active shares
         for panel in self.panels.values():
             panel.daap_share.disconnect()
@@ -389,7 +389,7 @@ class DaapManager:
 
 class DaapConnection:
     """
-        A connection to a DAAP share.
+    A connection to a DAAP share.
     """
 
     def __init__(self, name, server, port, user_agent):
@@ -410,7 +410,7 @@ class DaapConnection:
 
     def connect(self, password=None):
         """
-            Connect, login, and retrieve the track list.
+        Connect, login, and retrieve the track list.
         """
         try:
             client = DAAPClient()
@@ -432,7 +432,7 @@ class DaapConnection:
 
     def disconnect(self):
         """
-            Disconnect, clean up.
+        Disconnect, clean up.
         """
         try:
             self.session.logout()
@@ -446,7 +446,7 @@ class DaapConnection:
 
     def reload(self):
         """
-            Reload the tracks from the server
+        Reload the tracks from the server
         """
         self.tracks = None
         self.database = None
@@ -459,7 +459,7 @@ class DaapConnection:
 
     def get_database(self):
         """
-            Get a DAAP database and its track list.
+        Get a DAAP database and its track list.
         """
         if self.session:
             self.database = self.session.library()
@@ -467,7 +467,7 @@ class DaapConnection:
 
     def get_tracks(self, reset=False):
         """
-            Get the track list from a DAAP database
+        Get the track list from a DAAP database
         """
         if reset or self.tracks is None:
             if self.database is None:
@@ -478,7 +478,7 @@ class DaapConnection:
 
     def convert_list(self):
         """
-            Converts the DAAP track database into Exaile Tracks.
+        Converts the DAAP track database into Exaile Tracks.
         """
         # Convert DAAPTrack's attributes to Tracks.
         eqiv = {
@@ -533,7 +533,7 @@ class DaapConnection:
     @common.threaded
     def get_track(self, track_id, filename):
         """
-            Save the track with track_id to filename
+        Save the track with track_id to filename
         """
         for t in self.tracks:
             if t.id == track_id:
@@ -554,10 +554,10 @@ You must stop playback before downloading songs."""
 
 
 class DaapLibrary(collection.Library):
-    '''
-        Library subclass for better management of collection??
-        Or something to do with devices or somesuch. Ask Aren.
-    '''
+    """
+    Library subclass for better management of collection??
+    Or something to do with devices or somesuch. Ask Aren.
+    """
 
     def __init__(self, daap_share, col=None):
         #        location = "http://%s:%s/databasese/%s/items/" % (daap_share.server, daap_share.port, daap_share.database.id)
@@ -568,11 +568,11 @@ class DaapLibrary(collection.Library):
         # self.collection = col
 
     def rescan(self, notify_interval=None, force_update=False):
-        '''
-            Called when a library needs to refresh its track list.
+        """
+        Called when a library needs to refresh its track list.
 
-            The force_update parameter is not applicable and is ignored.
-        '''
+        The force_update parameter is not applicable and is ignored.
+        """
         if self.collection is None:
             return True
 
@@ -614,12 +614,12 @@ class DaapLibrary(collection.Library):
 
 class NetworkPanel(CollectionPanel):
     """
-        A panel that displays a collection of tracks from the DAAP share.
+    A panel that displays a collection of tracks from the DAAP share.
     """
 
     def __init__(self, parent, library, mgr):
         """
-            Expects a parent Gtk.Window, and a daap connection.
+        Expects a parent Gtk.Window, and a daap connection.
         """
 
         self.name = str(library.daap_share.name)
@@ -671,9 +671,9 @@ class NetworkPanel(CollectionPanel):
 
     @common.threaded
     def refresh(self):
-        '''
-            This is called to refresh the track list.
-        '''
+        """
+        This is called to refresh the track list.
+        """
         # Since we don't use a ProgressManager/Thingy, we have to call these w/out
         #  a ScanThread
         self.net_collection.rescan_libraries()
@@ -681,7 +681,7 @@ class NetworkPanel(CollectionPanel):
 
     def save_selected(self, widget=None, event=None):
         """
-            Save the selected tracks to disk.
+        Save the selected tracks to disk.
         """
         items = self.get_selected_items()
         dialog = Gtk.FileChooserDialog(
@@ -725,9 +725,9 @@ class DaapClientPlugin:
     __manager = None
 
     def enable(self, exaile):
-        '''
-            Plugin Enabled.
-        '''
+        """
+        Plugin Enabled.
+        """
         self.__exaile = exaile
 
     def on_gui_loaded(self):
@@ -756,18 +756,18 @@ class DaapClientPlugin:
         self.__manager = DaapManager(self.__exaile, menu_, autodiscover)
 
     def teardown(self, exaile):
-        '''
-            Exaile Shutdown.
-        '''
+        """
+        Exaile Shutdown.
+        """
         # disconnect from active shares
         if self.__manager is not None:
             self.__manager.close()
             self.__manager = None
 
     def disable(self, exaile):
-        '''
-            Plugin Disabled.
-        '''
+        """
+        Plugin Disabled.
+        """
         self.teardown(exaile)
 
         for item in providers.get('menubar-tools-menu'):

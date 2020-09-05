@@ -57,10 +57,10 @@ def disable(exaile):
 
 class ReplaygainVolume(ElementBin):
     """
-        Handles replaygain volume adjustment and pre-amp.
+    Handles replaygain volume adjustment and pre-amp.
 
-        Placed at 20 in the pipeline, since most elements should do their
-        processing after it.
+    Placed at 20 in the pipeline, since most elements should do their
+    processing after it.
     """
 
     index = 20
@@ -97,10 +97,10 @@ class ReplaygainVolume(ElementBin):
 
 class ReplaygainLimiter(ElementBin):
     """
-        Implements clipping protection.
+    Implements clipping protection.
 
-        Placed at 80 in the pipeline so that other elements can come
-        before it if necessary.
+    Placed at 80 in the pipeline so that other elements can come
+    before it if necessary.
     """
 
     index = 80

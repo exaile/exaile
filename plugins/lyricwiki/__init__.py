@@ -12,8 +12,8 @@ from xl import common, providers
 
 def enable(exaile):
     """
-        Enables the lyric wiki plugin that fetches track lyrics
-        from lyrics.wikia.com
+    Enables the lyric wiki plugin that fetches track lyrics
+    from lyrics.wikia.com
     """
     if BeautifulSoup:
         providers.register('lyrics', LyricWiki(exaile))

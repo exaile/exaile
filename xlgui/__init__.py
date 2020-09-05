@@ -53,16 +53,16 @@ def get_controller():
 
 class Main:
     """
-        This is the main gui controller for exaile
+    This is the main gui controller for exaile
     """
 
     _main = None
 
     def __init__(self, exaile):
         """
-            Initializes the GUI
+        Initializes the GUI
 
-            @param exaile: The Exaile instance
+        @param exaile: The Exaile instance
         """
         from xlgui import icons, main, panels, tray, progress
 
@@ -163,8 +163,8 @@ class Main:
 
     def open_uri(self, uri, play=True):
         """
-            Determines the type of a uri, imports it into a playlist, and
-            starts playing it
+        Determines the type of a uri, imports it into a playlist, and
+        starts playing it
         """
         from xl import playlist, trax
 
@@ -206,7 +206,7 @@ class Main:
 
     def show_cover_manager(self, *e):
         """
-            Shows the cover manager
+        Shows the cover manager
         """
         from xlgui.cover import CoverManager
 
@@ -214,7 +214,7 @@ class Main:
 
     def show_preferences(self):
         """
-            Shows the preferences dialog
+        Shows the preferences dialog
         """
         from xlgui.preferences import PreferencesDialog
 
@@ -232,7 +232,7 @@ class Main:
 
     def collection_manager(self, *e):
         """
-            Invokes the collection manager dialog
+        Invokes the collection manager dialog
         """
         from xl.collection import Library
         from xlgui.collection import CollectionManagerDialog
@@ -294,13 +294,13 @@ class Main:
 
     def on_rescan_collection(self, *e):
         """
-            Called when the user wishes to rescan the collection
+        Called when the user wishes to rescan the collection
         """
         self.rescan_collection_with_progress()
 
     def on_rescan_collection_forced(self, *e):
         """
-            Called when the user wishes to rescan the collection slowly
+        Called when the user wishes to rescan the collection slowly
         """
         self.rescan_collection_with_progress(force_update=True)
 
@@ -320,7 +320,7 @@ class Main:
 
     def on_rescan_done(self, thread):
         """
-            Called when the rescan has finished
+        Called when the rescan has finished
         """
         GLib.idle_add(self.get_panel('collection').load_tree)
 
@@ -329,27 +329,27 @@ class Main:
         pl.view.show_properties_dialog()
 
     def get_active_panel(self):
-        '''
-            Returns the provider object associated with the currently shown
-            panel in the sidebar. May return None.
-        '''
+        """
+        Returns the provider object associated with the currently shown
+        panel in the sidebar. May return None.
+        """
         return self.panel_notebook.get_active_panel()
 
     def focus_panel(self, panel_name):
-        '''
-            Focuses on a panel in the sidebar
-        '''
+        """
+        Focuses on a panel in the sidebar
+        """
         self.panel_notebook.focus_panel(panel_name)
 
     def get_panel(self, panel_name):
-        '''
-            Returns the provider object associated with a panel in the sidebar
-        '''
+        """
+        Returns the provider object associated with a panel in the sidebar
+        """
         return self.panel_notebook.panels[panel_name].panel
 
     def quit(self):
         """
-            Quits the gui, saving anything that needs to be saved
+        Quits the gui, saving anything that needs to be saved
         """
 
         # save open tabs
@@ -405,9 +405,9 @@ class Main:
         del self.device_panels[device.get_name()]
 
     def _setup_osx(self):
-        '''
-            Copied from Quod Libet, GPL v2 or later
-        '''
+        """
+        Copied from Quod Libet, GPL v2 or later
+        """
 
         from AppKit import NSObject, NSApplication
         import objc

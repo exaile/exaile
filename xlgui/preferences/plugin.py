@@ -43,12 +43,12 @@ ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
 class PluginManager:
     """
-        Gui to manage plugins
+    Gui to manage plugins
     """
 
     def __init__(self, preferences, builder):
         """
-            Initializes the manager
+        Initializes the manager
         """
         self.preferences = preferences
         builder.connect_signals(self)
@@ -101,7 +101,7 @@ class PluginManager:
 
     def _load_plugin_list(self):
         """
-            Loads the plugin list
+        Loads the plugin list
         """
         plugins = self.plugins.list_installed_plugins()
         uncategorized = _('Uncategorized')
@@ -187,20 +187,20 @@ class PluginManager:
 
     def on_messagebar_response(self, widget, response):
         """
-            Hides the messagebar if requested
+        Hides the messagebar if requested
         """
         if response == Gtk.ResponseType.CLOSE:
             widget.hide()
 
     def on_plugin_tree_row_activated(self, tree, path, column):
         """
-            Enables or disables the selected plugin
+        Enables or disables the selected plugin
         """
         self.enabled_cellrenderer.emit('toggled', path[0])
 
     def on_reload_cellrenderer_clicked(self, cellrenderer, path):
         """
-            Reloads a plugin from scratch
+        Reloads a plugin from scratch
         """
         plugin_name = self.filter_model[path][0]
         enabled = self.filter_model[path][3]
@@ -224,8 +224,8 @@ class PluginManager:
 
     def on_install_plugin_button_clicked(self, button):
         """
-            Shows a dialog allowing the user to choose a plugin to install
-            from the filesystem
+        Shows a dialog allowing the user to choose a plugin to install
+        from the filesystem
         """
         dialog = Gtk.FileChooserDialog(
             _('Choose a Plugin'),
@@ -265,7 +265,7 @@ class PluginManager:
 
     def on_selection_changed(self, selection, user_data=None):
         """
-            Called when a row is selected
+        Called when a row is selected
         """
         model, paths = selection.get_selected_rows()
         if not paths:
@@ -291,7 +291,7 @@ class PluginManager:
 
     def on_enabled_cellrenderer_toggled(self, cellrenderer, path):
         """
-            Called when the checkbox is toggled
+        Called when the checkbox is toggled
         """
         path = Gtk.TreePath.new_from_string(path)
         plugin_name = self.filter_model[path][0]

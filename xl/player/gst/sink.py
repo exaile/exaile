@@ -135,10 +135,10 @@ def _gst_device_autodetect():
 
 
 def get_devices():
-    '''
-        Generator that yields (display_name, internal_name, fn(name)) where
-        fn is a function that will create the audiosink when called
-    '''
+    """
+    Generator that yields (display_name, internal_name, fn(name)) where
+    fn is a function that will create the audiosink when called
+    """
 
     yield (
         _('Automatic'),
@@ -151,18 +151,18 @@ def get_devices():
 
 
 def create_device(player_name, return_errorsink=True):
-    '''
-        Creates an audiosink based on the current settings. This will always
-        return an audiosink, but sometimes it will return an audiosink that
-        only sends error messages to the bus.
+    """
+    Creates an audiosink based on the current settings. This will always
+    return an audiosink, but sometimes it will return an audiosink that
+    only sends error messages to the bus.
 
-        ..note:: Only attempts to autoselect if the user has never specified a
-                 setting manually. Otherwise, they may be confused when it
-                 switches to a new output. For example, if they specified a USB
-                 device, and it is removed -- when restarting the program, they
-                 would not expect to automatically start playing on the builtin
-                 sound.
-    '''
+    ..note:: Only attempts to autoselect if the user has never specified a
+             setting manually. Otherwise, they may be confused when it
+             switches to a new output. For example, if they specified a USB
+             device, and it is removed -- when restarting the program, they
+             would not expect to automatically start playing on the builtin
+             sound.
+    """
 
     sink_type = settings.get_option('%s/audiosink' % player_name, 'auto')
     name = '%s-audiosink' % player_name
@@ -237,8 +237,8 @@ def _get_error_audiosink(msg):
 
 class CustomAudioSink(Gst.Bin):
     """
-        A bin that holds the audio output sink element(s) for a custom
-        defined sink
+    A bin that holds the audio output sink element(s) for a custom
+    defined sink
     """
 
     def __init__(self, pipeline, name):

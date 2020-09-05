@@ -28,9 +28,9 @@ import threading
 
 
 class DeveloperPlugin:
-    '''
-        Shows useful information for Exaile developers
-    '''
+    """
+    Shows useful information for Exaile developers
+    """
 
     def enable(self, exaile):
         self.lock = threading.RLock()

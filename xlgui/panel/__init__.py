@@ -39,22 +39,22 @@ LOGGER = logging.getLogger(__name__)
 
 class Panel(GObject.GObject):
     """
-        The base panel class.
+    The base panel class.
 
-        This class is abstract and should be subclassed.  All subclasses
-        should define a 'ui_info' and 'name' variables.
+    This class is abstract and should be subclassed.  All subclasses
+    should define a 'ui_info' and 'name' variables.
     """
 
     ui_info = ('panel.ui', 'PanelWindow')
 
     def __init__(self, parent, name, label=None):
         """
-            Intializes the panel
+        Intializes the panel
 
-            @param parent: the main window
-            @type parent: Gtk.Window
-            @param name: the name of the panel. should be unique.
-            @param label: text of the label displayed to the user
+        @param parent: the main window
+        @type parent: Gtk.Window
+        @param name: the name of the panel. should be unique.
+        @param label: text of the label displayed to the user
         """
         GObject.GObject.__init__(self)
         self.name = name  # panel id
@@ -73,18 +73,18 @@ class Panel(GObject.GObject):
 
     def focus(self):
         """
-            Makes this panel grab the keyboard focus
-            Subclasses can override this to give focus to a particular widget
-            or perform another action.
+        Makes this panel grab the keyboard focus
+        Subclasses can override this to give focus to a particular widget
+        or perform another action.
         """
         self._child.grab_focus()
 
     def get_panel(self):
-        '''
-            Returns a NotebookPage object that will be used as the panel
+        """
+        Returns a NotebookPage object that will be used as the panel
 
-            :returns: NotebookPage object
-        '''
+        :returns: NotebookPage object
+        """
         if not self._child:
             widget = self.builder.get_object(self.ui_info[1])
             if isinstance(widget, Gtk.Window):

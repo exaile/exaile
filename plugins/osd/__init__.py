@@ -39,7 +39,7 @@ Point = namedtuple('Point', 'x y')
 
 def do_assert(is_bool):
     """
-        Simulates the `assert` statement
+    Simulates the `assert` statement
     """
     if not is_bool:
         raise AssertionError()
@@ -49,12 +49,12 @@ def _sanitize_window_geometry(
     window, current_allocation, padding, width_fill, height_fill
 ):
     """
-        Sanitizes (x-offset, y-offset, width, height) of the given window,
-        to make the window show on the screen.
+    Sanitizes (x-offset, y-offset, width, height) of the given window,
+    to make the window show on the screen.
 
-        :param width_fill, height_fill: specifies the maximum width or height
-            of a monitor to fill. 1.0 means "fill the whole monitor"
-        :param padding: specifies the padding (from workarea border) to leave empty
+    :param width_fill, height_fill: specifies the maximum width or height
+        of a monitor to fill. 1.0 means "fill the whole monitor"
+    :param padding: specifies the padding (from workarea border) to leave empty
     """
     work_area = guiutil.get_workarea_dimensions(window)
     cural = current_allocation
@@ -85,10 +85,10 @@ def _sanitize_window_geometry(
 
 class OSDPlugin:
     """
-        The plugin for showing an On-Screen Display.
-        This object holds all the stuff which may live longer than the window.
-        Please note that the window has to be destroyed during plugin runtime,
-        see the OSDWindow docstring below for details.
+    The plugin for showing an On-Screen Display.
+    This object holds all the stuff which may live longer than the window.
+    Please note that the window has to be destroyed during plugin runtime,
+    see the OSDWindow docstring below for details.
     """
 
     __window = None
@@ -97,7 +97,7 @@ class OSDPlugin:
 
     def enable(self, _exaile):
         """
-            Enables the on screen display plugin
+        Enables the on screen display plugin
         """
         do_assert(self.__window is None)
 
@@ -128,7 +128,7 @@ class OSDPlugin:
 
     def teardown(self, _exaile):
         """
-            Shuts down the on screen display plugin
+        Shuts down the on screen display plugin
         """
         do_assert(self.__window is not None)
         self.__window.destroy_osd()
@@ -141,13 +141,13 @@ class OSDPlugin:
 
     def disable(self, _exaile):
         """
-            Disables the on screen display plugin
+        Disables the on screen display plugin
         """
         self.teardown(_exaile)
 
     def on_gui_loaded(self):
         """
-            Called when Exaile mostly finished loading
+        Called when Exaile mostly finished loading
         """
         do_assert(self.__window is None)
         event.add_callback(self.__on_option_set, 'plugin_osd_option_set')
@@ -161,14 +161,14 @@ class OSDPlugin:
 
     def get_preferences_pane(self):
         """
-            Called when the user wants to see the preferences pane for this plugin
+        Called when the user wants to see the preferences pane for this plugin
         """
         osd_preferences.OSDPLUGIN = self
         return osd_preferences
 
     def make_osd_editable(self, be_editable):
         """
-            Rebuilds the OSD to make it movable and resizable
+        Rebuilds the OSD to make it movable and resizable
         """
         do_assert(self.__window is not None)
         self.__window.destroy_osd()
@@ -199,7 +199,7 @@ class OSDPlugin:
 
     def __on_option_set(self, _event, settings, option):
         """
-            Updates appearance on setting change
+        Updates appearance on setting change
         """
         if option == 'plugin/osd/format':
             self.__window.info_area.set_info_format(
@@ -294,22 +294,22 @@ plugin_class = OSDPlugin
 
 class OSDWindow(Gtk.Window):
     """
-        A popup window showing information of the currently playing track
+    A popup window showing information of the currently playing track
 
-        Due to the way, the Gtk+ API and some of the many different window managers work,
-        the OSD cannot be resizable and movable and have no keyboard focus nor decorations
-        at the same time.
-        Additionally, in some cases the Gtk+ API specifies that functions may not
-        be called after the window has been realized (). In some other cases, Gtk+ API does
-        not guarantee that a function works after Gtk.Window.show() is called
-        (e.g. Gtk.Window.set_decorated(), set_deletable(), set_titlebar()).
-        For these reasons, we need to destroy and rebuild the OSD when we want it to be
-        resizable and movable by simple drag operations.
+    Due to the way, the Gtk+ API and some of the many different window managers work,
+    the OSD cannot be resizable and movable and have no keyboard focus nor decorations
+    at the same time.
+    Additionally, in some cases the Gtk+ API specifies that functions may not
+    be called after the window has been realized (). In some other cases, Gtk+ API does
+    not guarantee that a function works after Gtk.Window.show() is called
+    (e.g. Gtk.Window.set_decorated(), set_deletable(), set_titlebar()).
+    For these reasons, we need to destroy and rebuild the OSD when we want it to be
+    resizable and movable by simple drag operations.
 
-        Another related bug report:
-        https://bugzilla.gnome.org/show_bug.cgi?id=782117:
-             If a window was initially shown undecorated and set_decorated(True) is called,
-             titlebar is drawn inside the window
+    Another related bug report:
+    https://bugzilla.gnome.org/show_bug.cgi?id=782117:
+         If a window was initially shown undecorated and set_decorated(True) is called,
+         titlebar is drawn inside the window
     """
 
     __hide_id = None
@@ -320,12 +320,12 @@ class OSDWindow(Gtk.Window):
 
     def __init__(self, css_provider, options, allow_resize_move):
         """
-            Initializes the OSD Window.
-            Important: Do not call this constructor before Exaile finished loading,
-                otherwise the internal TrackInfoPane will re-render label and icon on each
-                `track_tags_changed` event, which causes unnecessary CPU load and delays startup.
+        Initializes the OSD Window.
+        Important: Do not call this constructor before Exaile finished loading,
+            otherwise the internal TrackInfoPane will re-render label and icon on each
+            `track_tags_changed` event, which causes unnecessary CPU load and delays startup.
 
-            Apply the options after this object was initialized.
+        Apply the options after this object was initialized.
         """
         Gtk.Window.__init__(self, type=Gtk.WindowType.TOPLEVEL)
         self.__options = options
@@ -433,7 +433,7 @@ class OSDWindow(Gtk.Window):
 
     def destroy_osd(self):
         """
-            Cleanups
+        Cleanups
         """
         # Getting the position can only work on a window being shown on screen
         # This is no problem since the window will be shown permanently during configuration.
@@ -459,8 +459,8 @@ class OSDWindow(Gtk.Window):
 
     def __start_fadeout(self):
         """
-            Starts fadeout of the window.
-            Hides the window it immediately if fadeout is disabled
+        Starts fadeout of the window.
+        Hides the window it immediately if fadeout is disabled
         """
         self.__hide_id = None
 
@@ -490,10 +490,10 @@ class OSDWindow(Gtk.Window):
 
     def show_for_a_while(self):
         """
-            This method makes sure that the OSD is shown. Any previous hiding
-            timers or fading transitions will be stopped.
-            If hiding is allowed through self.__autohide, a new hiding timer
-            will be started.
+        This method makes sure that the OSD is shown. Any previous hiding
+        timers or fading transitions will be stopped.
+        If hiding is allowed through self.__autohide, a new hiding timer
+        will be started.
         """
         # unset potential fadeout process
         if self.__fadeout_id:
@@ -515,7 +515,7 @@ class OSDWindow(Gtk.Window):
 
     def restore_geometry_and_show(self):
         """
-            Restores window geometry from options and shows the window afterwards.
+        Restores window geometry from options and shows the window afterwards.
         """
         geo = self.geometry
         # automatically resizes to minimum required size
@@ -533,8 +533,8 @@ class OSDWindow(Gtk.Window):
 
     def set_autohide(self, do_autohide):
         """
-            Permanently shows the OSD during configuration.
-            This method should only be used from osd_preferences.
+        Permanently shows the OSD during configuration.
+        This method should only be used from osd_preferences.
         """
         self.__autohide = do_autohide
         if do_autohide:
@@ -544,7 +544,7 @@ class OSDWindow(Gtk.Window):
 
     def __do_fadeout_step(self):
         """
-            Constantly decreases the opacity to fade out the window
+        Constantly decreases the opacity to fade out the window
         """
         do_assert(self.__hide_id is None)
         if Gtk.Widget.get_opacity(self) > 0.001:
@@ -557,7 +557,7 @@ class OSDWindow(Gtk.Window):
 
     def __on_screen_changed(self, _widget, _oldscreen):
         """
-            Updates the used colormap
+        Updates the used colormap
         """
         screen = self.get_screen()
         visual = screen.get_rgba_visual()
@@ -624,7 +624,7 @@ class OSDWindow(Gtk.Window):
 
     def hide_immediately(self):
         """
-            Immediately hides the OSD and removes all remaining timers or transitions
+        Immediately hides the OSD and removes all remaining timers or transitions
         """
         if self.__fadeout_id:
             GLib.source_remove(self.__fadeout_id)

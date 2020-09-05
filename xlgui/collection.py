@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 @GtkTemplate('ui', 'collection_manager.ui')
 class CollectionManagerDialog(Gtk.Dialog):
     """
-        Allows you to choose which directories are in your library
+    Allows you to choose which directories are in your library
     """
 
     __gtype_name__ = 'CollectionManager'
@@ -48,7 +48,7 @@ class CollectionManagerDialog(Gtk.Dialog):
 
     def __init__(self, parent, collection):
         """
-            Initializes the dialog
+        Initializes the dialog
         """
         Gtk.Dialog.__init__(self)
         self.init_template()
@@ -66,7 +66,7 @@ class CollectionManagerDialog(Gtk.Dialog):
 
     def get_items(self):
         """
-            Returns the items in the dialog
+        Returns the items in the dialog
         """
         items = []
 
@@ -78,7 +78,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_monitored_cellrenderer_toggled(self, cell, path):
         """
-            Enables or disables monitoring
+        Enables or disables monitoring
         """
         monitored = not cell.get_active()
         cell.set_active(monitored)
@@ -87,7 +87,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_startup_cellrenderer_toggled(self, cell, path):
         """
-            Enables or disables scanning on startup
+        Enables or disables scanning on startup
         """
         if self.model[path][1]:
             scan_on_startup = not cell.get_active()
@@ -97,7 +97,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_add_button_clicked(self, widget):
         """
-            Adds a path to the list
+        Adds a path to the list
         """
         dialog = Gtk.FileChooserDialog(
             _("Add a Directory"),
@@ -153,7 +153,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_remove_button_clicked(self, widget):
         """
-            removes a path from the list
+        removes a path from the list
         """
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
@@ -162,7 +162,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_rescan_button_clicked(self, widget):
         """
-            Triggers rescanning the collection
+        Triggers rescanning the collection
         """
 
         from xlgui import main
@@ -172,7 +172,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_force_rescan_button_clicked(self, widget):
         """
-            Triggers a slow rescan of the collection
+        Triggers a slow rescan of the collection
         """
 
         from xlgui import main
@@ -182,7 +182,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     @GtkTemplate.Callback
     def on_selection_changed(self, selection):
         """
-            Enables or disables the "Remove" button
+        Enables or disables the "Remove" button
         """
         rows_selected = selection.count_selected_rows() > 0
         self.remove_button.set_sensitive(rows_selected)

@@ -43,18 +43,18 @@ logger = logging.getLogger(__name__)
 
 class ExtendedPixbuf:
     """
-        A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
-        interaction using standard operators
+    A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
+    interaction using standard operators
 
-        Thus you can do the following:
+    Thus you can do the following:
 
-        * ``pixbuf1 + pixbuf2`` (horizontally appends ``pixbuf2`` to ``pixbuf1``)
-        * ``pixbuf * 5`` (multiplies the content of ``pixbuf``)
-        * ``pixbuf1 & pixbuf2`` (simple composition of ``pixbuf2`` on ``pixbuf1``, the desired alpha value has to be included in the pixbufs themselves)
-        * ``pixbuf1 < pixbuf2``, ``pixbuf1 > pixbuf2`` (compares the pixbuf dimensions)
-        * ``pixbuf1 == pixbuf2`` (compares the pixel data, use the *is* operator to check for identity)
+    * ``pixbuf1 + pixbuf2`` (horizontally appends ``pixbuf2`` to ``pixbuf1``)
+    * ``pixbuf * 5`` (multiplies the content of ``pixbuf``)
+    * ``pixbuf1 & pixbuf2`` (simple composition of ``pixbuf2`` on ``pixbuf1``, the desired alpha value has to be included in the pixbufs themselves)
+    * ``pixbuf1 < pixbuf2``, ``pixbuf1 > pixbuf2`` (compares the pixbuf dimensions)
+    * ``pixbuf1 == pixbuf2`` (compares the pixel data, use the *is* operator to check for identity)
 
-        Even more is possible with the provided verbose methods
+    Even more is possible with the provided verbose methods
     """
 
     def __init__(self, pixbuf):
@@ -83,43 +83,43 @@ class ExtendedPixbuf:
 
     def __add__(self, other):
         """
-            Horizontally appends a pixbuf to the current
+        Horizontally appends a pixbuf to the current
 
-            :param other: the pixbuf to append
-            :type other: :class:`GdkPixbuf.Pixbuf`
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param other: the pixbuf to append
+        :type other: :class:`GdkPixbuf.Pixbuf`
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         return self.add_horizontal(other)
 
     def __mul__(self, multiplier):
         """
-            Horizontally multiplies the current pixbuf content
+        Horizontally multiplies the current pixbuf content
 
-            :param multiplier: How often the pixbuf
-                shall be multiplied
-            :type multiplier: int
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param multiplier: How often the pixbuf
+            shall be multiplied
+        :type multiplier: int
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         return self.multiply_horizontal(multiplier)
 
     def __and__(self, other):
         """
-            Composites a pixbuf on the current
-            pixbuf at the location (0, 0)
+        Composites a pixbuf on the current
+        pixbuf at the location (0, 0)
 
-            :param other: the pixbuf to composite
-            :type other: :class:`GdkPixbuf.Pixbuf`
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param other: the pixbuf to composite
+        :type other: :class:`GdkPixbuf.Pixbuf`
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         return self.composite_simple(other)
 
     def __lt__(self, other):
         """
-            True if the size (width * height) of the current
-            pixbuf is lower than the size of the other pixbuf
+        True if the size (width * height) of the current
+        pixbuf is lower than the size of the other pixbuf
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -130,9 +130,9 @@ class ExtendedPixbuf:
 
     def __le__(self, other):
         """
-            True if the size (width * height) of the current
-            pixbuf is lower than or equal to the size of the
-            other pixbuf
+        True if the size (width * height) of the current
+        pixbuf is lower than or equal to the size of the
+        other pixbuf
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -143,8 +143,8 @@ class ExtendedPixbuf:
 
     def __gt__(self, other):
         """
-            True if the size (width * height) of the current
-            pixbuf is higher than the size of the other pixbuf
+        True if the size (width * height) of the current
+        pixbuf is higher than the size of the other pixbuf
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -155,9 +155,9 @@ class ExtendedPixbuf:
 
     def __ge__(self, other):
         """
-            True if the size (width * height) of the current
-            pixbuf is higher than or equal to the size of the
-            other pixbuf
+        True if the size (width * height) of the current
+        pixbuf is higher than or equal to the size of the
+        other pixbuf
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -168,8 +168,8 @@ class ExtendedPixbuf:
 
     def __eq__(self, other):
         """
-            True if the pixels of the current pixbuf are
-            the same as the pixels from the other pixbuf
+        True if the pixels of the current pixbuf are
+        the same as the pixels from the other pixbuf
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -177,21 +177,21 @@ class ExtendedPixbuf:
 
     def __ne__(self, other):
         """
-            True if the pixels of the current pixbuf are
-            not the same as the pixels from the other pixbuf
+        True if the pixels of the current pixbuf are
+        not the same as the pixels from the other pixbuf
         """
         return not self.__eq__(other)
 
     def add_horizontal(self, other, spacing=0):
         """
-            Horizontally appends a pixbuf to the current
+        Horizontally appends a pixbuf to the current
 
-            :param other: the pixbuf to append
-            :type other: :class:`GdkPixbuf.Pixbuf`
-            :param spacing: amount of pixels between the pixbufs
-            :type spacing: int
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param other: the pixbuf to append
+        :type other: :class:`GdkPixbuf.Pixbuf`
+        :param spacing: amount of pixels between the pixbufs
+        :type spacing: int
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -231,14 +231,14 @@ class ExtendedPixbuf:
 
     def add_vertical(self, other, spacing=0):
         """
-            Vertically appends a pixbuf to the current
+        Vertically appends a pixbuf to the current
 
-            :param other: the pixbuf to append
-            :type other: :class:`GdkPixbuf.Pixbuf`
-            :param spacing: amount of pixels between the pixbufs
-            :type spacing: int
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param other: the pixbuf to append
+        :type other: :class:`GdkPixbuf.Pixbuf`
+        :param spacing: amount of pixels between the pixbufs
+        :type spacing: int
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -278,15 +278,15 @@ class ExtendedPixbuf:
 
     def multiply_horizontal(self, multiplier, spacing=0):
         """
-            Horizontally multiplies the current pixbuf content
+        Horizontally multiplies the current pixbuf content
 
-            :param multiplier: How often the pixbuf
-                shall be multiplied
-            :type multiplier: int
-            :param spacing: amount of pixels between the pixbufs
-            :type spacing: int
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param multiplier: How often the pixbuf
+            shall be multiplied
+        :type multiplier: int
+        :param spacing: amount of pixels between the pixbufs
+        :type spacing: int
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = GdkPixbuf.Pixbuf.new(
@@ -313,15 +313,15 @@ class ExtendedPixbuf:
 
     def multiply_vertical(self, multiplier, spacing=0):
         """
-            Vertically multiplies the current pixbuf content
+        Vertically multiplies the current pixbuf content
 
-            :param multiplier: How often the pixbuf
-                shall be multiplied
-            :type multiplier: int
-            :param spacing: amount of pixels between the pixbufs
-            :type spacing: int
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param multiplier: How often the pixbuf
+            shall be multiplied
+        :type multiplier: int
+        :param spacing: amount of pixels between the pixbufs
+        :type spacing: int
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = GdkPixbuf.Pixbuf.new(
@@ -348,13 +348,13 @@ class ExtendedPixbuf:
 
     def composite_simple(self, other):
         """
-            Composites a pixbuf on the current
-            pixbuf at the location (0, 0)
+        Composites a pixbuf on the current
+        pixbuf at the location (0, 0)
 
-            :param other: the pixbuf to composite
-            :type other: :class:`GdkPixbuf.Pixbuf`
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param other: the pixbuf to composite
+        :type other: :class:`GdkPixbuf.Pixbuf`
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         if isinstance(other, ExtendedPixbuf):
             other = other.pixbuf
@@ -391,22 +391,22 @@ class ExtendedPixbuf:
 
     def move(self, offset_x, offset_y, resize=False):
         """
-            Moves the content of the current pixbuf within
-            its boundaries (clips overlapping data) and
-            optionally resizes the pixbuf to contain the
-            movement
+        Moves the content of the current pixbuf within
+        its boundaries (clips overlapping data) and
+        optionally resizes the pixbuf to contain the
+        movement
 
-            :param offset_x: the amount of pixels to move
-                in horizontal direction
-            :type offset_x: int
-            :param offset_y: the amount of pixels to move
-                in vertical direction
-            :type offset_y: int
-            :param resize: whether to resize the pixbuf
-                on movement
-            :type resize: bool
-            :returns: a new pixbuf
-            :rtype: :class:`ExtendedPixbuf`
+        :param offset_x: the amount of pixels to move
+            in horizontal direction
+        :type offset_x: int
+        :param offset_y: the amount of pixels to move
+            in vertical direction
+        :type offset_y: int
+        :param resize: whether to resize the pixbuf
+            on movement
+        :type resize: bool
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
         """
         width = self.pixbuf.get_width()
         height = self.pixbuf.get_height()
@@ -438,13 +438,13 @@ class ExtendedPixbuf:
 
     def copy(self):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(GdkPixbuf.Pixbuf.copy(self.pixbuf))
 
     def add_alpha(self, substitute_color, r, g, b):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(
             GdkPixbuf.Pixbuf.add_alpha(self.pixbuf, substitute_color, r, g, b)
@@ -452,7 +452,7 @@ class ExtendedPixbuf:
 
     def scale_simple(self, dest_width, dest_height, interp_type):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(
             GdkPixbuf.Pixbuf.scale_simple(
@@ -471,7 +471,7 @@ class ExtendedPixbuf:
         color2,
     ):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(
             GdkPixbuf.Pixbuf.composite_color_simple(
@@ -488,7 +488,7 @@ class ExtendedPixbuf:
 
     def new_subpixbuf(self, src_x, src_y, width, height):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(
             GdkPixbuf.Pixbuf.new_subpixbuf(self.pixbuf, src_x, src_y, width, height)
@@ -496,35 +496,35 @@ class ExtendedPixbuf:
 
     def rotate_simple(self, angle):
         """
-            Override to return same type
+        Override to return same type
         """
         return ExtendedPixbuf(GdkPixbuf.Pixbuf.rotate_simple(self.pixbuf, angle))
 
     def flip(self, horizontal):
         """
-            Override to return sampe type
+        Override to return sampe type
         """
         return ExtendedPixbuf(GdkPixbuf.Pixbuf.flip(self.pixbuf, horizontal))
 
 
 def extended_pixbuf_new_from_file(filename):
     """
-        Returns a new :class:`ExtendedPixbuf` containing
-        an image loaded from the specified file
+    Returns a new :class:`ExtendedPixbuf` containing
+    an image loaded from the specified file
 
-        :param filename: the name of the file
-            containing the image to load
-        :type filename: string
-        :returns: a new pixbuf
-        :rtype: :class:`ExtendedPixbuf`
+    :param filename: the name of the file
+        containing the image to load
+    :type filename: string
+    :returns: a new pixbuf
+    :rtype: :class:`ExtendedPixbuf`
     """
     return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_from_file(filename))
 
 
 class IconManager:
     """
-        Provides convenience functions for
-        managing icons and images in general
+    Provides convenience functions for
+    managing icons and images in general
     """
 
     def __init__(self):
@@ -545,15 +545,15 @@ class IconManager:
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
-            Registers an icon name from files found in a directory
+        Registers an icon name from files found in a directory
 
-            :param icon_name: the name for the icon
-            :type icon_name: string
-            :param directory: the location to search for icons
-            :type directory: string
-            :return: filesystem location of the highest-quality icon of this
-                name, or None if not found
-            :rtype: Optional[str]
+        :param icon_name: the name for the icon
+        :type icon_name: string
+        :param directory: the location to search for icons
+        :type directory: string
+        :return: filesystem location of the highest-quality icon of this
+            name, or None if not found
+        :rtype: Optional[str]
         """
         path = None
         for size in self._sizes:
@@ -584,14 +584,14 @@ class IconManager:
 
     def add_icon_name_from_file(self, icon_name, filename, size=None):
         """
-            Registers an icon name from a filename
+        Registers an icon name from a filename
 
-            :param icon_name: the name for the icon
-            :type icon_name: string
-            :param filename: the filename of an image
-            :type filename: string
-            :param size: the size the icon shall be registered for
-            :type size: int
+        :param icon_name: the name for the icon
+        :type icon_name: string
+        :param filename: the filename of an image
+        :type filename: string
+        :param size: the size the icon shall be registered for
+        :type size: int
         """
         try:
             pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
@@ -608,14 +608,14 @@ class IconManager:
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
         """
-            Registers an icon name from a pixbuf
+        Registers an icon name from a pixbuf
 
-            :param icon_name: the name for the icon
-            :type icon_name: string
-            :param pixbuf: the pixbuf of an image
-            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
-            :param size: the size the icon shall be registered for
-            :type size: int
+        :param icon_name: the name for the icon
+        :type icon_name: string
+        :param pixbuf: the pixbuf of an image
+        :type pixbuf: :class:`GdkPixbuf.Pixbuf`
+        :param size: the size the icon shall be registered for
+        :type size: int
         """
         if size is None:
             size = pixbuf.get_width()
@@ -626,13 +626,13 @@ class IconManager:
         self, icon_name: str, size: Union[int, Gtk.IconSize] = Gtk.IconSize.BUTTON
     ) -> Optional[GdkPixbuf.Pixbuf]:
         """
-            Generates a pixbuf from an icon name
+        Generates a pixbuf from an icon name
 
-            :param icon_name: an icon name
-            :param size: the size of the icon, will be
-                tried to converted to a GTK icon size
+        :param icon_name: an icon name
+        :param size: the size of the icon, will be
+            tried to converted to a GTK icon size
 
-            :returns: the generated pixbuf
+        :returns: the generated pixbuf
         """
         if isinstance(size, Gtk.IconSize):
             icon_size = Gtk.icon_size_lookup(size)
@@ -661,13 +661,13 @@ class IconManager:
     @common.cached(limit=settings.get_option('rating/maximum', 5) * 3)
     def pixbuf_from_rating(self, rating, size_ratio=1):
         """
-            Returns a pixbuf representing a rating
+        Returns a pixbuf representing a rating
 
-            :param rating: the rating
-            :type rating: int
+        :param rating: the rating
+        :type rating: int
 
-            :returns: the rating pixbuf
-            :rtype: :class:`GdkPixbuf.Pixbuf`
+        :returns: the rating pixbuf
+        :rtype: :class:`GdkPixbuf.Pixbuf`
         """
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
@@ -697,11 +697,11 @@ class IconManager:
 
     def __create_drag_cover_icon(self, pixbuf_list, cover_width):
         """
-            Creates a stacked covers effect
-            Put a transparent frame on it (look for `border`)
-            :param pixbuf_list: list of GdkPixbuf.Pixbuf (covers)
-            :param cover_width: int
-            :return: GdkPixbuf.Pixbuf or None (if len(:param pixbuf_list:) == 0)
+        Creates a stacked covers effect
+        Put a transparent frame on it (look for `border`)
+        :param pixbuf_list: list of GdkPixbuf.Pixbuf (covers)
+        :param cover_width: int
+        :return: GdkPixbuf.Pixbuf or None (if len(:param pixbuf_list:) == 0)
         """
         if len(pixbuf_list) == 0:
             return None
@@ -736,10 +736,10 @@ class IconManager:
 
     def get_drag_cover_icon(self, tracks):
         """
-            Get drag cover icon (stacked covers pixbuf)
-            Asynchronous load covers for tracks taking at most 0.333 seconds
-            :param tracks: iterable for tracks (xl.trax.Track)
-            :return: GdkPixbuf.Pixbuf or None if none found
+        Get drag cover icon (stacked covers pixbuf)
+        Asynchronous load covers for tracks taking at most 0.333 seconds
+        :param tracks: iterable for tracks (xl.trax.Track)
+        :return: GdkPixbuf.Pixbuf or None if none found
         """
         cover_width = settings.get_option('gui/cover_width', 100)
         as_pixbuf = lambda data: pixbuf_from_data(

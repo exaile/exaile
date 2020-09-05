@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 class DynamicManager(providers.ProviderHandler):
     """
-        handles matching of songs for dynamic playlists
+    handles matching of songs for dynamic playlists
     """
 
     def __init__(self, collection=[]):
@@ -50,14 +50,14 @@ class DynamicManager(providers.ProviderHandler):
 
     def find_similar_tracks(self, track, limit=-1, exclude=[]):
         """
-            finds tracks from the collection that are similar
-            to the passed track.
+        finds tracks from the collection that are similar
+        to the passed track.
 
-            @param track: the track to find similar tracks to
-            @param limit: limit the returned list to this many
-                tracks. If there are more tracks than this
-                found, a random selection of those tracks is
-                returned.
+        @param track: the track to find similar tracks to
+        @param limit: limit the returned list to this many
+            tracks. If there are more tracks than this
+            found, a random selection of those tracks is
+            returned.
         """
         logger.debug("Searching for %s tracks related to %s", limit, track)
         artists = self.find_similar_artists(track)
@@ -141,8 +141,8 @@ class DynamicManager(providers.ProviderHandler):
 
     def populate_playlist(self, playlist):
         """
-            adds tracks to playlists as needed.
-            called when the position of a playlist changes.
+        adds tracks to playlists as needed.
+        called when the position of a playlist changes.
         """
         if not playlist:
             return

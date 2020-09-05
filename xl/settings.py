@@ -46,7 +46,7 @@ MANAGER = None
 
 class SettingsManager(RawConfigParser):
     """
-        Manages Exaile's settings
+    Manages Exaile's settings
     """
 
     VERSION: ClassVar[int] = 2
@@ -60,15 +60,15 @@ class SettingsManager(RawConfigParser):
 
     def __init__(self, location=None, default_location=None):
         """
-            Sets up the settings manager. Expects a location
-            to a file where settings will be stored. Also sets up
-            periodic saves to disk.
+        Sets up the settings manager. Expects a location
+        to a file where settings will be stored. Also sets up
+        periodic saves to disk.
 
-            :param location: the location to save the settings to,
-                settings will never be stored if this is None
-            :type location: str or None
-            :param default_location: the default location to
-                initialize settings from
+        :param location: the location to save the settings to,
+            settings will never be stored if this is None
+        :type location: str or None
+        :param default_location: the default location to
+            initialize settings from
         """
         RawConfigParser.__init__(self)
 
@@ -113,11 +113,11 @@ class SettingsManager(RawConfigParser):
 
     def copy_settings(self, settings):
         """
-            Copies one all of the settings contained
-            in this instance to another
+        Copies one all of the settings contained
+        in this instance to another
 
-            :param settings: the settings object to copy to
-            :type settings: :class:`xl.settings.SettingsManager`
+        :param settings: the settings object to copy to
+        :type settings: :class:`xl.settings.SettingsManager`
         """
         for section in self.sections():
             for (key, value) in self.items(section):
@@ -125,7 +125,7 @@ class SettingsManager(RawConfigParser):
 
     def clone(self):
         """
-            Creates a copy of this settings object
+        Creates a copy of this settings object
         """
         settings = SettingsManager(None)
         self.copy_settings(settings)
@@ -133,13 +133,13 @@ class SettingsManager(RawConfigParser):
 
     def set_option(self, option, value, save=True):
         """
-            Set an option (in ``section/key`` syntax) to the specified value
+        Set an option (in ``section/key`` syntax) to the specified value
 
-            :param option: the full path to an option
-            :type option: string
-            :param value: the value the option should be assigned
-            :type value: any
-            :param save: If True, cause the settings to be written to file
+        :param option: the full path to an option
+        :type option: string
+        :param value: the value the option should be assigned
+        :type value: any
+        :param save: If True, cause the settings to be written to file
         """
         value = self._val_to_str(value)
         splitvals = option.split('/')
@@ -163,15 +163,15 @@ class SettingsManager(RawConfigParser):
 
     def get_option(self, option, default=None):
         """
-            Get the value of an option (in ``section/key`` syntax),
-            returning *default* if the key does not exist yet
+        Get the value of an option (in ``section/key`` syntax),
+        returning *default* if the key does not exist yet
 
-            :param option: the full path to an option
-            :type option: string
-            :param default: a default value to use as fallback
-            :type default: any
-            :returns: the option value or *default*
-            :rtype: any
+        :param option: the full path to an option
+        :type option: string
+        :param default: a default value to use as fallback
+        :type default: any
+        :returns: the option value or *default*
+        :rtype: any
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -188,13 +188,13 @@ class SettingsManager(RawConfigParser):
 
     def has_option(self, option):
         """
-            Returns information about the existence
-            of a particular option
+        Returns information about the existence
+        of a particular option
 
-            :param option: the option path
-            :type option: string
-            :returns: whether the option exists or not
-            :rtype: bool
+        :param option: the option path
+        :type option: string
+        :returns: whether the option exists or not
+        :rtype: bool
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -203,11 +203,11 @@ class SettingsManager(RawConfigParser):
 
     def remove_option(self, option):
         """
-            Removes an option (in ``section/key`` syntax),
-            thus will not be saved anymore
+        Removes an option (in ``section/key`` syntax),
+        thus will not be saved anymore
 
-            :param option: the option path
-            :type option: string
+        :param option: the option path
+        :type option: string
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -216,13 +216,13 @@ class SettingsManager(RawConfigParser):
 
     def _set_direct(self, option, value):
         """
-            Sets the option directly to the value,
-            only for use in copying settings.
+        Sets the option directly to the value,
+        only for use in copying settings.
 
-            :param option: the option path
-            :type option: string
-            :param value: the value to set
-            :type value: any
+        :param option: the option path
+        :type option: string
+        :param value: the value to set
+        :type value: any
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -237,8 +237,8 @@ class SettingsManager(RawConfigParser):
 
     def _val_to_str(self, value):
         """
-            Turns a value of some type into a string so it
-            can be a configuration value.
+        Turns a value of some type into a string so it
+        can be a configuration value.
         """
         for kind, type_ in (
             # bool is subclass of int so it must appear earlier
@@ -259,7 +259,7 @@ class SettingsManager(RawConfigParser):
 
     def _str_to_val(self, configstr):
         """
-            Convert setting strings back to normal values.
+        Convert setting strings back to normal values.
         """
         try:
             kind, value = configstr.split(': ', 1)
@@ -290,7 +290,7 @@ class SettingsManager(RawConfigParser):
 
     def save(self):
         """
-            Save the settings to disk
+        Save the settings to disk
         """
         if self.location is None:
             logger.debug("Save requested but not saving settings, " "location is None")

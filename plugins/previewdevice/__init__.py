@@ -190,13 +190,13 @@ class SecondaryOutputPlugin:
         setup(self._on_toggle_pause, 'playback_toggle_pause', self.player)
 
     def _init_gui_hooks(self):
-        '''
-            Initializes any hooks into the main Exaile GUI
+        """
+        Initializes any hooks into the main Exaile GUI
 
-            Note that this is rather ugly, but currently exaile doesn't really
-            have a better way to do this, and there isn't a better place to
-            stick our gui objects.
-        '''
+        Note that this is rather ugly, but currently exaile doesn't really
+        have a better way to do this, and there isn't a better place to
+        stick our gui objects.
+        """
 
         if self.hooked:
             return
@@ -236,9 +236,9 @@ class SecondaryOutputPlugin:
         event.log_event('preview_device_enabled', self, None)
 
     def _destroy_gui_hooks(self):
-        '''
-            Removes any hooks from the main Exaile GUI
-        '''
+        """
+        Removes any hooks from the main Exaile GUI
+        """
 
         if not self.hooked:
             return
@@ -291,7 +291,7 @@ class SecondaryOutputPlugin:
 
     def _on_playpause_button_clicked(self, widget, event):
         """
-            Called when the play button is clicked
+        Called when the play button is clicked
         """
 
         if event.button == Gdk.BUTTON_PRIMARY:
@@ -304,7 +304,7 @@ class SecondaryOutputPlugin:
 
     def _on_option_set(self, name, object, option):
         """
-           Handles changes of settings
+        Handles changes of settings
         """
         if option == 'gui/show_info_area':
             self.info_area.set_no_show_all(False)
@@ -328,9 +328,9 @@ class SecondaryOutputPlugin:
 
     def _on_playback_start(self, type, player, object):
         """
-            Called when playback starts
-            Sets the currently playing track visible in the currently selected
-            playlist if the user has chosen this setting
+        Called when playback starts
+        Sets the currently playing track visible in the currently selected
+        playlist if the user has chosen this setting
         """
         if self.resuming:
             self.resuming = False
@@ -343,21 +343,21 @@ class SecondaryOutputPlugin:
 
     def _on_playback_end(self, type, player, object):
         """
-            Called when playback ends
+        Called when playback ends
         """
         self.playpause_button.set_image(self.__play_image)
         self.playpause_button.set_tooltip_text(_('Start Playback'))
 
     def _on_playback_error(self, type, player, message):
         """
-            Called when there has been a playback error
+        Called when there has been a playback error
         """
         main.mainwindow().message.show_error(_('Playback error encountered!'), message)
 
     def _on_toggle_pause(self, type, player, object):
         """
-            Called when the user clicks the play button after playback has
-            already begun
+        Called when the user clicks the play button after playback has
+        already begun
         """
         if player.is_paused():
             image = self.__play_image

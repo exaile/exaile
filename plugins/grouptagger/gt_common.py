@@ -69,9 +69,9 @@ def get_tagname():
 
 
 def get_track_groups(track):
-    '''
-        Returns a set() of groups present in this track
-    '''
+    """
+    Returns a set() of groups present in this track
+    """
     return _get_track_groups(track, get_tagname())
 
 
@@ -85,11 +85,11 @@ def _get_track_groups(track, tagname):
 
 
 def set_track_groups(track, groups):
-    '''
-        Given an array of groups, sets them on a track
+    """
+    Given an array of groups, sets them on a track
 
-        Returns true if successful, false if there was an error
-    '''
+    Returns true if successful, false if there was an error
+    """
 
     grouping = ' '.join(sorted('_'.join(group.split()) for group in groups))
     track.set_tag_raw(get_tagname(), grouping)
@@ -106,12 +106,12 @@ def set_track_groups(track, groups):
 
 
 def get_group_categories():
-    '''
-        Returns a dictionary that contains a mapping of default groups
-        to categories.
+    """
+    Returns a dictionary that contains a mapping of default groups
+    to categories.
 
-        Structure: { category: [expanded, [group, ... ]], ... }
-    '''
+    Structure: { category: [expanded, [group, ... ]], ... }
+    """
 
     return settings.get_option(group_categories_option, dict())
 
@@ -127,17 +127,17 @@ def get_groups_from_categories():
 
 
 def set_group_categories(group_categories):
-    '''
-        Set the mapping of default groups to categories
-    '''
+    """
+    Set the mapping of default groups to categories
+    """
     settings.set_option(group_categories_option, group_categories)
 
 
 def get_all_collection_groups(collection):
-    '''
-        For a given collection of tracks, return all groups
-        used within that collection
-    '''
+    """
+    For a given collection of tracks, return all groups
+    used within that collection
+    """
     groups = set()
     for track in collection:
         groups |= get_track_groups(track)

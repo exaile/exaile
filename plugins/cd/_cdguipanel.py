@@ -47,14 +47,14 @@ class CDImportThread(common.ProgressThread):
 
     def stop(self):
         """
-            Stops the thread
+        Stops the thread
         """
         self.cd_importer.stop()
         common.ProgressThread.stop(self)
 
     def on_progress_update(self, progress=None):
         """
-            Notifies about progress changes
+        Notifies about progress changes
         """
         if progress is None:
             progress = self.cd_importer.get_progress() * 100
@@ -65,7 +65,7 @@ class CDImportThread(common.ProgressThread):
 
     def run(self):
         """
-            Runs the thread
+        Runs the thread
         """
         progress_id = GLib.timeout_add_seconds(1, self.on_progress_update)
         self.cd_importer.do_import()

@@ -64,27 +64,27 @@ class TrackDBIterator:
 
 class TrackDB:
     """
-        Manages a track database.
+    Manages a track database.
 
-        Allows you to add, remove, retrieve, search, save and load
-        Track objects.
+    Allows you to add, remove, retrieve, search, save and load
+    Track objects.
 
-        :param name:   The name of this :class:`TrackDB`.
-        :param location:   Path to a file where this :class:`TrackDB`
-                should be stored.
-        :param pickle_attrs:   A list of attributes to store in the
-                pickled representation of this object. All
-                attributes listed must be built-in types, with
-                one exception: If the object contains the phrase
-                'tracks' in its name it may be a list or dict
-                of :class:`Track` objects.
-        :param load_first: Set to True if this collection should be
-                loaded before any tracks are created.
+    :param name:   The name of this :class:`TrackDB`.
+    :param location:   Path to a file where this :class:`TrackDB`
+            should be stored.
+    :param pickle_attrs:   A list of attributes to store in the
+            pickled representation of this object. All
+            attributes listed must be built-in types, with
+            one exception: If the object contains the phrase
+            'tracks' in its name it may be a list or dict
+            of :class:`Track` objects.
+    :param load_first: Set to True if this collection should be
+            loaded before any tracks are created.
     """
 
     def __init__(self, name="", location="", pickle_attrs=[], loadfirst=False):
         """
-            Sets up the trackDB.
+        Sets up the trackDB.
         """
 
         # ensure that the DB is always loaded before any tracks are,
@@ -115,10 +115,10 @@ class TrackDB:
 
     def __iter__(self):
         """
-            Provide the ability to iterate over a TrackDB.
-            Just as with a dictionary, if tracks are added
-            or removed during iteration, iteration will halt
-            wuth a RuntimeError.
+        Provide the ability to iterate over a TrackDB.
+        Just as with a dictionary, if tracks are added
+        or removed during iteration, iteration will halt
+        wuth a RuntimeError.
         """
         track_iterator = iter(self.tracks.items())
         iterator = TrackDBIterator(track_iterator)
@@ -126,42 +126,42 @@ class TrackDB:
 
     def __len__(self):
         """
-            Obtain a count of how many items are in the TrackDB
+        Obtain a count of how many items are in the TrackDB
         """
         return len(self.tracks)
 
     @common.glib_wait_seconds(300)
     def _timeout_save(self):
         """
-            Callback for auto-saving.
+        Callback for auto-saving.
         """
         self.save_to_location()
         return True
 
     def set_name(self, name):
         """
-            Sets the name of this :class:`TrackDB`
+        Sets the name of this :class:`TrackDB`
 
-            :param name:   The new name.
-            :type name: string
+        :param name:   The new name.
+        :type name: string
         """
         self.name = name
         self._dirty = True
 
     def get_name(self):
         """
-            Gets the name of this :class:`TrackDB`
+        Gets the name of this :class:`TrackDB`
 
-            :return: The name.
-            :rtype: string
+        :return: The name.
+        :rtype: string
         """
         return self.name
 
     def set_location(self, location):
         """
-            Sets the location to save to
+        Sets the location to save to
 
-            :param location: the location to save to
+        :param location: the location to save to
         """
         self.location = location
         self._dirty = True
@@ -169,11 +169,11 @@ class TrackDB:
     @common.synchronized
     def load_from_location(self, location=None):
         """
-            Restores :class:`TrackDB` state from the pickled representation
-            stored at the specified location.
+        Restores :class:`TrackDB` state from the pickled representation
+        stored at the specified location.
 
-            :param location: the location to load the data from
-            :type location: string
+        :param location: the location to load the data from
+        :type location: string
         """
         if not location:
             location = self.location
@@ -230,11 +230,11 @@ class TrackDB:
     @common.synchronized
     def save_to_location(self, location=None):
         """
-            Saves a pickled representation of this :class:`TrackDB` to the
-            specified location.
+        Saves a pickled representation of this :class:`TrackDB` to the
+        specified location.
 
-            :param location: the location to save the data to
-            :type location: string
+        :param location: the location to save the data to
+        :type location: string
         """
         if not self._dirty:
             for track in self.tracks.values():
@@ -296,8 +296,8 @@ class TrackDB:
 
     def get_track_by_loc(self, loc, raw=False):
         """
-            returns the track having the given loc. if no such track exists,
-            returns None
+        returns the track having the given loc. if no such track exists,
+        returns None
         """
         try:
             return self.tracks[loc]._track
@@ -306,37 +306,37 @@ class TrackDB:
 
     def get_tracks_by_locs(self, locs):
         """
-            returns the track having the given loc. if no such track exists,
-            returns None
+        returns the track having the given loc. if no such track exists,
+        returns None
         """
         return [self.get_track_by_loc(loc) for loc in locs]
 
     def loc_is_member(self, loc):
         """
-            Returns True if loc is a track in this collection, False
-            if it is not
+        Returns True if loc is a track in this collection, False
+        if it is not
         """
         return loc in self.tracks
 
     def get_count(self):
         """
-            Returns the number of tracks stored in this database
+        Returns the number of tracks stored in this database
         """
         count = len(self.tracks)
         return count
 
     def add(self, track):
         """
-            Adds a track to the database of tracks
+        Adds a track to the database of tracks
 
-            :param track: The :class:`xl.trax.Track` to add
+        :param track: The :class:`xl.trax.Track` to add
         """
         self.add_tracks([track])
 
     @common.synchronized
     def add_tracks(self, tracks):
         """
-            Like add(), but takes a list of :class:`xl.trax.Track`
+        Like add(), but takes a list of :class:`xl.trax.Track`
         """
         locations = []
         now = time()
@@ -357,16 +357,16 @@ class TrackDB:
 
     def remove(self, track):
         """
-            Removes a track from the database
+        Removes a track from the database
 
-            :param track: the :class:`xl.trax.Track` to remove
+        :param track: the :class:`xl.trax.Track` to remove
         """
         self.remove_tracks([track])
 
     @common.synchronized
     def remove_tracks(self, tracks):
         """
-            Like remove(), but takes a list of :class:`xl.trax.Track`
+        Like remove(), but takes a list of :class:`xl.trax.Track`
         """
         locations = []
 

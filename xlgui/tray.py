@@ -126,7 +126,7 @@ __create_tray_context_menu()
 
 class BaseTrayIcon:
     """
-        Trayicon base, needs to be derived from
+    Trayicon base, needs to be derived from
     """
 
     def __init__(self, main):
@@ -144,7 +144,7 @@ class BaseTrayIcon:
 
     def destroy(self):
         """
-            Unhides the window and removes the tray icon
+        Unhides the window and removes the tray icon
         """
         # FIXME: Allow other windows too
         if not self.main.window.get_property('visible'):
@@ -158,7 +158,7 @@ class BaseTrayIcon:
 
     def connect_events(self):
         """
-            Connects various callbacks with events
+        Connects various callbacks with events
         """
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
@@ -178,7 +178,7 @@ class BaseTrayIcon:
 
     def disconnect_events(self):
         """
-            Disconnects various callbacks from events
+        Disconnects various callbacks from events
         """
         event.remove_callback(
             self.on_playback_change_state, 'playback_player_end', player.PLAYER
@@ -195,8 +195,8 @@ class BaseTrayIcon:
 
     def update_icon(self):
         """
-            Updates icon appearance based
-            on current playback state
+        Updates icon appearance based
+        on current playback state
         """
         if player.PLAYER.current is None:
             self.set_from_icon_name('exaile')
@@ -208,26 +208,26 @@ class BaseTrayIcon:
 
     def set_from_icon_name(self, icon_name):
         """
-            Updates the tray icon
+        Updates the tray icon
         """
         pass
 
     def set_tooltip(self, tooltip_text):
         """
-            Updates the tray icon tooltip
+        Updates the tray icon tooltip
         """
         pass
 
     def set_visible(self, visible):
         """
-            Shows or hides the tray icon
+        Shows or hides the tray icon
         """
         pass
 
     def on_button_press_event(self, widget, event):
         """
-            Toggles main window visibility and
-            pause as well as opens the context menu
+        Toggles main window visibility and
+        pause as well as opens the context menu
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             self.main.toggle_visible(bringtofront=True)
@@ -238,7 +238,7 @@ class BaseTrayIcon:
 
     def on_scroll_event(self, widget, event):
         """
-            Changes volume and skips tracks on scroll
+        Changes volume and skips tracks on scroll
         """
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
             if event.direction == Gdk.ScrollDirection.UP:
@@ -261,15 +261,15 @@ class BaseTrayIcon:
 
     def on_playback_change_state(self, event, player, current):
         """
-            Updates tray icon appearance
-            on playback state change
+        Updates tray icon appearance
+        on playback state change
         """
         self.update_icon()
 
 
 class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
     """
-        Wrapper around GtkStatusIcon
+    Wrapper around GtkStatusIcon
     """
 
     def __init__(self, main):
@@ -278,6 +278,6 @@ class TrayIcon(Gtk.StatusIcon, BaseTrayIcon):
 
     def set_tooltip(self, tooltip_text):
         """
-            Updates the tray icon tooltip
+        Updates the tray icon tooltip
         """
         self.set_tooltip_text(tooltip_text)

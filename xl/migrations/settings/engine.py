@@ -19,7 +19,7 @@ from xl import settings
 
 def migrate():
     """
-        Migrate normal/unified engine users to gstreamer
+    Migrate normal/unified engine users to gstreamer
     """
     engine = settings.get_option('player/engine', None)
     if engine in ['normal', 'unified']:

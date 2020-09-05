@@ -35,8 +35,8 @@ from xlgui.guiutil import GtkTemplate
 @GtkTemplate('ui', 'widgets', 'progress.ui')
 class ProgressMonitor(Gtk.Box):
     """
-        A graphical progress monitor designed to work with
-        :class:`xl.common.ProgressThread`
+    A graphical progress monitor designed to work with
+    :class:`xl.common.ProgressThread`
     """
 
     __gtype_name__ = 'ProgressMonitor'
@@ -45,14 +45,14 @@ class ProgressMonitor(Gtk.Box):
 
     def __init__(self, manager, thread, description, image=None):
         """
-            Initializes the monitor
+        Initializes the monitor
 
-            :param manager: the parent manager
-            :type manager: :class:`ProgressManager`
-            :param thread: the thread to run
-            :type thread: :class:`xl.common.ProgressThread`
-            :param description: the description for this process
-            :type description: string
+        :param manager: the parent manager
+        :type manager: :class:`ProgressManager`
+        :param thread: the thread to run
+        :type thread: :class:`xl.common.ProgressThread`
+        :param description: the description for this process
+        :type description: string
         """
         super(ProgressMonitor, self).__init__()
         self.init_template()
@@ -77,7 +77,7 @@ class ProgressMonitor(Gtk.Box):
 
     def destroy(self):
         """
-            Cleans up
+        Cleans up
         """
 
         self._progress_updated = True
@@ -91,8 +91,8 @@ class ProgressMonitor(Gtk.Box):
 
     def pulsate_progress(self):
         """
-            Pulses the progress indicator until
-            the first status update is received
+        Pulses the progress indicator until
+        the first status update is received
         """
         if self._progress_updated:
             return False
@@ -104,7 +104,7 @@ class ProgressMonitor(Gtk.Box):
     @idle_add()
     def on_progress_update(self, thread, progress):
         """
-            Called when the progress has been updated
+        Called when the progress has been updated
         """
 
         if progress is None:
@@ -128,14 +128,14 @@ class ProgressMonitor(Gtk.Box):
     @idle_add()
     def on_done(self, thread):
         """
-            Called when the thread is finished
+        Called when the thread is finished
         """
         self.manager.remove_monitor(self)
 
     @GtkTemplate.Callback
     def on_cancel_button_clicked(self, widget):
         """
-            Stops the running thread
+        Stops the running thread
         """
         self.hide()
         self.thread.stop()
@@ -144,31 +144,31 @@ class ProgressMonitor(Gtk.Box):
 
 class ProgressManager:
     """
-        Manages the [possibly multiple] progress bars that will allow the user
-        to interact with different long running tasks that may occur in the
-        application.
+    Manages the [possibly multiple] progress bars that will allow the user
+    to interact with different long running tasks that may occur in the
+    application.
 
-        The user should be able to see what task is running, the description,
-        the current progress, and also be able to stop the task if they wish.
+    The user should be able to see what task is running, the description,
+    the current progress, and also be able to stop the task if they wish.
     """
 
     def __init__(self, container):
         """
-            Initializes the manager
+        Initializes the manager
 
-            :param container: the vertical Gtk.Box that will be holding the
-            different progress indicators
+        :param container: the vertical Gtk.Box that will be holding the
+        different progress indicators
         """
         self.box = container
 
     def add_monitor(self, thread, description, icon_name):
         """
-            Adds a progress box
+        Adds a progress box
 
-            :param thread: the ProgressThread that should be run once the
-                monitor is started
-            :param description: a description of the event
-            :param icon_name: the name of an icon to display
+        :param thread: the ProgressThread that should be run once the
+            monitor is started
+        :param description: a description of the event
+        :param icon_name: the name of an icon to display
         """
         image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
         monitor = ProgressMonitor(self, thread, description, image)
@@ -178,7 +178,7 @@ class ProgressManager:
 
     def remove_monitor(self, monitor):
         """
-            Removes a monitor from the manager
+        Removes a monitor from the manager
         """
         monitor.hide()
         monitor.destroy()

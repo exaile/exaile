@@ -45,8 +45,8 @@ from xlgui.guiutil import get_workarea_size
 
 class AttachedWindow(Gtk.Window):
     """
-        A window attachable to arbitrary widgets,
-        follows the movement of its parent
+    A window attachable to arbitrary widgets,
+    follows the movement of its parent
     """
 
     __gsignals__ = {'show': 'override'}
@@ -68,8 +68,8 @@ class AttachedWindow(Gtk.Window):
 
     def update_location(self):
         """
-            Makes sure the window is
-            always fully visible
+        Makes sure the window is
+        always fully visible
         """
         workarea = Gdk.Rectangle()
         workarea.x = workarea.y = 0
@@ -101,7 +101,7 @@ class AttachedWindow(Gtk.Window):
 
     def do_show(self):
         """
-            Updates the location upon show
+        Updates the location upon show
         """
         Gtk.Window.do_show(self)
         self.update_location()
@@ -138,7 +138,7 @@ class AttachedWindow(Gtk.Window):
 
 class AutoScrollTreeView(Gtk.TreeView):
     """
-        A TreeView which handles autoscrolling upon DnD operations
+    A TreeView which handles autoscrolling upon DnD operations
     """
 
     def __init__(self):
@@ -152,7 +152,7 @@ class AutoScrollTreeView(Gtk.TreeView):
 
     def _on_drag_motion(self, widget, context, x, y, timestamp):
         """
-            Initiates automatic scrolling
+        Initiates automatic scrolling
         """
         if not self.__autoscroll_timeout_id:
             self.__autoscroll_timeout_id = GLib.timeout_add(
@@ -161,7 +161,7 @@ class AutoScrollTreeView(Gtk.TreeView):
 
     def _on_drag_leave(self, widget, context, timestamp):
         """
-            Stops automatic scrolling
+        Stops automatic scrolling
         """
         autoscroll_timeout_id = self.__autoscroll_timeout_id
 
@@ -171,9 +171,9 @@ class AutoScrollTreeView(Gtk.TreeView):
 
     def _on_autoscroll_timeout(self):
         """
-            Automatically scrolls during drag operations
+        Automatically scrolls during drag operations
 
-            Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
+        Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
         """
         _, x, y, _ = self.props.window.get_pointer()
         x, y = self.convert_widget_to_tree_coords(x, y)
@@ -207,21 +207,21 @@ class AutoScrollTreeView(Gtk.TreeView):
 
 class DragTreeView(AutoScrollTreeView):
     """
-        A TextView that does easy dragging/selecting/popup menu
+    A TextView that does easy dragging/selecting/popup menu
     """
 
     class EventData(
         namedtuple('DragTreeView_EventData', 'event modifier triggers_menu target')
     ):
         """
-            Objects that goes inside pending events list
+        Objects that goes inside pending events list
         """
 
         class Target(
             namedtuple('DragTreeView_EventData_Target', 'path column is_selected')
         ):
             """
-                Contains target path info
+            Contains target path info
             """
 
     targets = [Gtk.TargetEntry.new("text/uri-list", 0, 0)]
@@ -229,12 +229,12 @@ class DragTreeView(AutoScrollTreeView):
 
     def __init__(self, container, receive=True, source=True, drop_pos=None):
         """
-            Initializes the tree and sets up the various callbacks
-            :param container: The container to place the TreeView into
-            :param receive: True if the TreeView should receive drag events
-            :param source: True if the TreeView should send drag events
-            :param drop_pos: Indicates where a drop operation should occur
-                    w.r.t. existing entries: 'into', 'between', or None (both).
+        Initializes the tree and sets up the various callbacks
+        :param container: The container to place the TreeView into
+        :param receive: True if the TreeView should receive drag events
+        :param source: True if the TreeView should send drag events
+        :param drop_pos: Indicates where a drop operation should occur
+                w.r.t. existing entries: 'into', 'between', or None (both).
         """
         AutoScrollTreeView.__init__(self)
         self.container = container
@@ -271,16 +271,16 @@ class DragTreeView(AutoScrollTreeView):
 
     def get_selected_tracks(self):
         """
-            Returns the currently selected tracks (stub)
+        Returns the currently selected tracks (stub)
         """
         pass
 
     def get_target_for(self, event):
         """
-            Gets target
-            :see: Gtk.TreeView.get_path_at_pos
-            :param event: Gdk.Event
-            :return: DragTreeView.EventData.Target or None if no target path
+        Gets target
+        :see: Gtk.TreeView.get_path_at_pos
+        :param event: Gdk.Event
+        :return: DragTreeView.EventData.Target or None if no target path
         """
         target = self.get_path_at_pos(int(event.x), int(event.y))
         if target:
@@ -292,31 +292,31 @@ class DragTreeView(AutoScrollTreeView):
 
     def set_cursor_at(self, target):
         """
-            Sets the cursor at target
-            :param target: DragTreeView.EventData.Target
-            :return: None
+        Sets the cursor at target
+        :param target: DragTreeView.EventData.Target
+        :return: None
         """
         self.set_cursor(target.path, target.column, False)
 
     def set_selection_status(self, enabled):
         """
-            Change the set selection function
-            :param enabled: bool
-            :return: None
+        Change the set selection function
+        :param enabled: bool
+        :return: None
         """
         self.get_selection().set_select_function(lambda *args: enabled, None)
 
     def reset_selection_status(self):
         """
-            Reset
-            :return: None
+        Reset
+        :return: None
         """
         self.set_selection_status(True)
         del self.pending_events[:]
 
     def on_drag_end(self, list, context):
         """
-            Called when the dnd is ended
+        Called when the dnd is ended
         """
         self.drag_context = None
         self.unset_rows_drag_dest()
@@ -328,7 +328,7 @@ class DragTreeView(AutoScrollTreeView):
 
     def on_drag_begin(self, widget, context):
         """
-            Sets the cover of dragged tracks as drag icon
+        Sets the cover of dragged tracks as drag icon
         """
         self.drag_context = context
         Gdk.drag_abort(context, Gtk.get_current_event_time())
@@ -357,7 +357,7 @@ class DragTreeView(AutoScrollTreeView):
 
     def on_drag_motion(self, treeview, context, x, y, timestamp):
         """
-            Called when a row is dragged over this treeview
+        Called when a row is dragged over this treeview
         """
         if not self.receive:
             return False
@@ -386,7 +386,7 @@ class DragTreeView(AutoScrollTreeView):
 
     def on_button_press(self, button, event):
         """
-            Called when a button is pressed
+        Called when a button is pressed
         """
         # Always grab focus is a workaround to do not loose first click
         self.grab_focus()
@@ -429,12 +429,12 @@ class DragTreeView(AutoScrollTreeView):
 
     def on_button_release(self, button, event):
         """
-                Called when a button is released
-                Treats the pending events added at button press event
+        Called when a button is released
+        Treats the pending events added at button press event
 
-                Handles the popup menu that is displayed when you right click in
-                the TreeView list (calls `container.menu` if present)
-            """
+        Handles the popup menu that is displayed when you right click in
+        the TreeView list (calls `container.menu` if present)
+        """
         self.drag_context = None
 
         # Get pending event
@@ -463,20 +463,20 @@ class DragTreeView(AutoScrollTreeView):
     # TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks=True, existing_tracks=[]):
         """
-            Handles the locations from drag data
+        Handles the locations from drag data
 
-            @param locs: locations we are dealing with (can
-                be anything from a file to a folder)
-            @param compile_tracks: if true any tracks in the playlists
-                that are not found as tracks are added to the list of tracks
-            @param existing_tracks: a list of tracks that have already
-                been loaded from files (used to skip loading the dragged
-                tracks from the filesystem)
+        @param locs: locations we are dealing with (can
+            be anything from a file to a folder)
+        @param compile_tracks: if true any tracks in the playlists
+            that are not found as tracks are added to the list of tracks
+        @param existing_tracks: a list of tracks that have already
+            been loaded from files (used to skip loading the dragged
+            tracks from the filesystem)
 
-            @returns: a 2 tuple in which the first part is a list of tracks
-                and the second is a list of playlist (note: any files that are
-                in a playlist are not added to the list of tracks, but a track could
-                be both in as a found track and part of a playlist)
+        @returns: a 2 tuple in which the first part is a list of tracks
+            and the second is a list of playlist (note: any files that are
+            in a playlist are not added to the list of tracks, but a track could
+            be both in as a found track and part of a playlist)
         """
         # TODO handle if they pass in existing tracks
         trs = []
@@ -497,16 +497,16 @@ class DragTreeView(AutoScrollTreeView):
 
     def _handle_unknown_drag_data(self, loc):
         """
-            Handles unknown drag data that has been recieved by
-            drag_data_received.  Unknown drag data is classified as
-            any loc (location) that is not in the collection of tracks
-            (i.e. a new song, or a new playlist)
+        Handles unknown drag data that has been recieved by
+        drag_data_received.  Unknown drag data is classified as
+        any loc (location) that is not in the collection of tracks
+        (i.e. a new song, or a new playlist)
 
-            @param loc:
-                the location of the unknown drag data
+        @param loc:
+            the location of the unknown drag data
 
-            @returns: a 2 tuple in which the first part is a list of tracks
-                and the second is a list of playlist
+        @returns: a 2 tuple in which the first part is a list of tracks
+            and the second is a list of playlist
         """
         filetype = None
         info = urlparse(loc)
@@ -541,8 +541,8 @@ class DragTreeView(AutoScrollTreeView):
 
 class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
     """
-        Custom :class:`Gtk.CellRendererPixbuf` emitting
-        an *clicked* signal upon activation of the pixbuf
+    Custom :class:`Gtk.CellRendererPixbuf` emitting
+    an *clicked* signal upon activation of the pixbuf
     """
 
     __gsignals__ = {
@@ -560,7 +560,7 @@ class ClickableCellRendererPixbuf(Gtk.CellRendererPixbuf):
 
     def do_activate(self, event, widget, path, background_area, cell_area, flags):
         """
-            Emits the *clicked* signal
+        Emits the *clicked* signal
         """
         self.emit('clicked', path)
         return

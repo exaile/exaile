@@ -29,31 +29,31 @@ from xl import playlist, event, providers, trax
 
 class RadioManager(providers.ProviderHandler):
     """
-        Radio Station Manager
+    Radio Station Manager
 
-        Simple usage:
+    Simple usage:
 
-        >>> manager = RadioManager()
-        >>> manager.add_station(RadioStation())
-        >>> lists = manager.get_lists('test_station')
-        >>> pl = lists[0].get_playlist()
-        >>> print(pl.get_tracks()[0]['title'][0])
-        Test Track
-        >>>
+    >>> manager = RadioManager()
+    >>> manager.add_station(RadioStation())
+    >>> lists = manager.get_lists('test_station')
+    >>> pl = lists[0].get_playlist()
+    >>> print(pl.get_tracks()[0]['title'][0])
+    Test Track
+    >>>
     """
 
     def __init__(self):
         """
-            Initializes the radio manager
+        Initializes the radio manager
         """
         providers.ProviderHandler.__init__(self, "radio")
         self.stations = {}
 
     def add_station(self, station):
         """
-            Adds a station to the manager
+        Adds a station to the manager
 
-            @param station: The station to add
+        @param station: The station to add
         """
         providers.register(self.servicename, station)
 
@@ -64,9 +64,9 @@ class RadioManager(providers.ProviderHandler):
 
     def remove_station(self, station):
         """
-            Removes a station from the manager
+        Removes a station from the manager
 
-            @param station: The station to remvoe
+        @param station: The station to remvoe
         """
         providers.unregister(self.servicename, station)
 
@@ -83,9 +83,9 @@ class RadioManager(providers.ProviderHandler):
 
     def get_lists(self, station, no_cache=False):
         """
-            Loads the lists for the specified station
+        Loads the lists for the specified station
 
-            @param station: The name of the station
+        @param station: The name of the station
         """
         if station in self.stations:
             return self.stations[station].get_lists(no_cache=no_cache)
@@ -94,9 +94,9 @@ class RadioManager(providers.ProviderHandler):
 
     def load_lists(self, station):
         """
-            Gets the rlists for the specified station
+        Gets the rlists for the specified station
 
-            @param station:  The name of the station
+        @param station:  The name of the station
         """
         if station in self.stations:
             return self.stations[station].load_lists()
@@ -107,7 +107,7 @@ class RadioManager(providers.ProviderHandler):
 class RadioList:
     def __init__(self, name, station=None):
         """
-            Initializes the rlist
+        Initializes the rlist
         """
         self.name = name
         self.station = station
@@ -120,25 +120,25 @@ class RadioList:
 
     def get_items(self, no_cache=False):
         """
-            Returns subrlists
+        Returns subrlists
         """
         return []
 
     def __str__(self):
         """
-            Returns a string representation of the list
+        Returns a string representation of the list
         """
         return self.name
 
 
 class RadioItem:
     """
-        Radio Items
+    Radio Items
     """
 
     def __init__(self, name, station=None):
         """
-            Initializes the radio item
+        Initializes the radio item
         """
         self.name = name
         self.station = station
@@ -152,7 +152,7 @@ class RadioItem:
 
     def __str__(self):
         """
-            Returns a string representation of the item
+        Returns a string representation of the item
         """
         return self.name
 
@@ -162,13 +162,13 @@ class RadioStation:
 
     def __init__(self):
         """
-            Initialize the radio station
+        Initialize the radio station
         """
         pass
 
     def get_lists(self, no_cache=False):
         """
-            Returns the rlists for this radio station
+        Returns the rlists for this radio station
         """
         return [RadioItem('TestCategory')]
 
@@ -177,7 +177,7 @@ class RadioStation:
 
     def __str__(self):
         """
-            Returns a stream representation of this station
+        Returns a stream representation of this station
         """
         name = self.__class__.__name__
         name = name.replace('RadioStation', ' Radio')

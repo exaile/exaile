@@ -52,9 +52,9 @@ def default_get_playlist_func(parent, context):
 
 class ModesMenuItem(menu.MenuItem):
     """
-        A menu item having a submenu containing entries for shuffle modes.
+    A menu item having a submenu containing entries for shuffle modes.
 
-        Defaults to adjusting the currently-playing playlist.
+    Defaults to adjusting the currently-playing playlist.
     """
 
     modetype = ''
@@ -130,8 +130,8 @@ class DynamicModesMenuItem(ModesMenuItem):
 
 class RemoveCurrentMenuItem(menu.MenuItem):
     """
-        Allows for removing the currently playing
-        track from the current playlist
+    Allows for removing the currently playing
+    track from the current playlist
     """
 
     def __init__(self, after, get_playlist_func=default_get_playlist_func):
@@ -140,7 +140,7 @@ class RemoveCurrentMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         """
-            Sets up the menu item
+        Sets up the menu item
         """
         item = Gtk.ImageMenuItem.new_with_mnemonic(
             _('Remove _Current Track From Playlist')
@@ -155,7 +155,7 @@ class RemoveCurrentMenuItem(menu.MenuItem):
 
     def on_activate(self, menuitem, parent, context):
         """
-            Removes the currently playing track from the current playlist
+        Removes the currently playing track from the current playlist
         """
         playlist = self.get_playlist_func(parent, context)
 
@@ -165,8 +165,8 @@ class RemoveCurrentMenuItem(menu.MenuItem):
 
 class RandomizeMenuItem(menu.MenuItem):
     """
-        A menu item which randomizes the full
-        playlist or the current selection
+    A menu item which randomizes the full
+    playlist or the current selection
     """
 
     def __init__(self, after):
@@ -174,7 +174,7 @@ class RandomizeMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         """
-            Sets up the menu item
+        Sets up the menu item
         """
         label = _('R_andomize Playlist')
 
@@ -188,7 +188,7 @@ class RandomizeMenuItem(menu.MenuItem):
 
     def on_activate(self, menuitem, parent, context):
         """
-            Randomizes the playlist or the selection
+        Randomizes the playlist or the selection
         """
         positions = [path[0] for path in context['selected-paths']]
         # Randomize the full playlist if only one track was selected
@@ -290,8 +290,8 @@ __create_playlist_tab_context_menu()
 class PlaylistContextMenu(menu.ProviderMenu):
     def __init__(self, page):
         """
-            :param page: The :class:`PlaylistPage` this menu is
-                associated with.
+        :param page: The :class:`PlaylistPage` this menu is
+            associated with.
         """
         menu.ProviderMenu.__init__(self, 'playlist-context-menu', page)
         self.attach_to_widget(page, None)
@@ -311,8 +311,8 @@ class PlaylistContextMenu(menu.ProviderMenu):
 
 class SPATMenuItem(menu.MenuItem):
     """
-        Menu item allowing for toggling playback
-        stop after the selected track (SPAT)
+    Menu item allowing for toggling playback
+    stop after the selected track (SPAT)
     """
 
     def __init__(self, name, after):
@@ -320,7 +320,7 @@ class SPATMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         """
-            Generates the menu item
+        Generates the menu item
         """
         display_name = _('_Stop Playback After This Track')
         icon_name = 'media-playback-stop'
@@ -340,7 +340,7 @@ class SPATMenuItem(menu.MenuItem):
 
     def on_menuitem_activate(self, menuitem, parent, context):
         """
-            Toggles the SPAT state
+        Toggles the SPAT state
         """
         selection_position = context['selected-items'][0][0]
 
@@ -393,7 +393,7 @@ def __create_playlist_context_menu():
 
     def playlist_menu_condition(name, parent, context):
         """
-            Returns True if the containing notebook's tab bar is hidden
+        Returns True if the containing notebook's tab bar is hidden
         """
         scrolledwindow = parent.get_parent()
         page = scrolledwindow.get_parent()
@@ -429,16 +429,16 @@ __create_playlist_context_menu()
 
 
 class PlaylistPageBase(NotebookPage):
-    '''
-        Base class for playlist pages. Subclasses can indicate that
-        they support the following operations:
+    """
+    Base class for playlist pages. Subclasses can indicate that
+    they support the following operations:
 
-        save:
-            - Define a function called 'on_save'
+    save:
+        - Define a function called 'on_save'
 
-        save as:
-            - Define a function called 'on_saveas'
-    '''
+    save as:
+        - Define a function called 'on_saveas'
+    """
 
     menu_provider_name = 'playlist-tab-context-menu'
 
@@ -451,16 +451,16 @@ class PlaylistPageBase(NotebookPage):
 
 class PlaylistPage(PlaylistPageBase):
     """
-        Displays a playlist and associated controls.
+    Displays a playlist and associated controls.
     """
 
     def __init__(self, playlist, player):
         """
-            :param playlist: The :class:`xl.playlist.Playlist` to display
-                in this page.
-            :param player: The :class:`xl.player._base.ExailePlayer` that
-                this page is associated with
-            :param queue:
+        :param playlist: The :class:`xl.playlist.Playlist` to display
+            in this page.
+        :param player: The :class:`xl.player._base.ExailePlayer` that
+            this page is associated with
+        :param queue:
         """
         NotebookPage.__init__(self)
 
@@ -671,17 +671,17 @@ class PlaylistPage(PlaylistPageBase):
 
     def __show_toggle_menu(self, names, display_names, callback, attr, widget, event):
         """
-            Display the menu on the shuffle/repeat toggle buttons
+        Display the menu on the shuffle/repeat toggle buttons
 
-            :param names: The list of names of the menu entries
-            :param display_names: The list of names to display on
-                each menu entry.
-            :param callback: The function to call when a menu item is
-                activated. It will be passed the name of the activated item.
-            :param attr: The attribute of self.playlist to look at to
-                determine the currently-selected item.
-            :param widget: The ToggleButton to display the menu on
-            :param event: The gtk event that triggered the menu display
+        :param names: The list of names of the menu entries
+        :param display_names: The list of names to display on
+            each menu entry.
+        :param callback: The function to call when a menu item is
+            activated. It will be passed the name of the activated item.
+        :param attr: The attribute of self.playlist to look at to
+            determine the currently-selected item.
+        :param widget: The ToggleButton to display the menu on
+        :param event: The gtk event that triggered the menu display
         """
         widget.set_active(True)
         menu = Gtk.Menu()
@@ -714,14 +714,14 @@ class PlaylistPage(PlaylistPageBase):
 
     def on_shuffle_mode_set(self, widget, mode):
         """
-            Callback for the Shuffle mode menu
+        Callback for the Shuffle mode menu
         """
         if widget.get_active():
             self.playlist.shuffle_mode = mode
 
     def on_repeat_mode_set(self, widget, mode):
         """
-            Callback for the Repeat mode menu
+        Callback for the Repeat mode menu
         """
         if widget.get_active():
             self.playlist.repeat_mode = mode
@@ -731,7 +731,7 @@ class PlaylistPage(PlaylistPageBase):
 
     def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
         """
-            Updates the dynamic button on provider changes
+        Updates the dynamic button on provider changes
         """
         providers_available = len(providers.get('dynamic_playlists')) > 0
         sensitive = False
@@ -746,7 +746,7 @@ class PlaylistPage(PlaylistPageBase):
 
     def on_option_set(self, evtype, settings, option):
         """
-            Handles option changes
+        Handles option changes
         """
         if option == 'gui/playlist_utilities_bar_visible':
             visible = settings.get_option(option, True)
@@ -756,7 +756,7 @@ class PlaylistPage(PlaylistPageBase):
 
     def on_playback_state_change(self, typ, player, track):
         """
-            Sets the tab icon to reflect the playback status
+        Sets the tab icon to reflect the playback status
         """
         if player.queue.current_playlist != self.playlist:
             self.tab.set_icon(None)
@@ -810,8 +810,8 @@ class PlaylistPage(PlaylistPageBase):
 
     def on_view_button_press_event(self, view, e):
         """
-            Displays the tab context menu upon
-            clicks in the contained view
+        Displays the tab context menu upon
+        clicks in the contained view
         """
         path = view.get_path_at_pos(int(e.x), int(e.y))
         # We only need the tree path if present
@@ -915,13 +915,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.modelfilter.refilter()
 
     def filter_tracks(self, filter_string):
-        '''
-            Only show tracks that match the filter. If filter is None, then
-            clear any existing filters.
+        """
+        Only show tracks that match the filter. If filter is None, then
+        clear any existing filters.
 
-            The filter will search any currently enabled columns AND the
-            default columns.
-        '''
+        The filter will search any currently enabled columns AND the
+        default columns.
+        """
 
         if filter_string is None:
             self._filter_matcher = None
@@ -946,28 +946,28 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             )
 
     def get_selection_count(self):
-        '''
-            Returns the number of items currently selected in the
-            playlist. Prefer this to len(get_selected_tracks()) et al
-            if you will discard the actual track list
-        '''
+        """
+        Returns the number of items currently selected in the
+        playlist. Prefer this to len(get_selected_tracks()) et al
+        if you will discard the actual track list
+        """
         return self.get_selection().count_selected_rows()
 
     def get_selected_tracks(self):
         """
-            Returns a list of :class:`xl.trax.Track`
-            which are currently selected in the playlist.
+        Returns a list of :class:`xl.trax.Track`
+        which are currently selected in the playlist.
         """
         return [x[1] for x in self.get_selected_items()]
 
     def get_selected_paths(self):
         """
-            Returns a list of pairs of treepaths which are currently
-            selected in the playlist.
+        Returns a list of pairs of treepaths which are currently
+        selected in the playlist.
 
-            The treepaths are returned for the base model, so they are
-            indices that can be used with the playlist currently
-            associated with this view.
+        The treepaths are returned for the base model, so they are
+        indices that can be used with the playlist currently
+        associated with this view.
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
@@ -979,11 +979,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def get_selected_items(self):
         """
-            Returns a list of pairs of indices and :class:`xl.trax.Track`
-            which are currently selected in the playlist.
+        Returns a list of pairs of indices and :class:`xl.trax.Track`
+        which are currently selected in the playlist.
 
-            The indices can be used with the playlist currently associated
-            with this view.
+        The indices can be used with the playlist currently associated
+        with this view.
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
@@ -1020,10 +1020,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         return (self._sort_columns, reverse)
 
     def play_track_at(self, position, track):
-        '''
-            When called, this will begin playback of a track at a given
-            position in the internal playlist
-        '''
+        """
+        When called, this will begin playback of a track at a given
+        position in the internal playlist
+        """
         self._play_track_at(position, track)
 
     def _play_track_at(
@@ -1270,10 +1270,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self._play_track_at(position, track, True, True)
 
     def on_row_inserted(self, model, path, iter):
-        '''
-            When something is inserted into the playlist, focus on it. If
-            there are multiple things inserted, focus only on the first.
-        '''
+        """
+        When something is inserted into the playlist, focus on it. If
+        there are multiple things inserted, focus only on the first.
+        """
         if not self._insert_focusing:
             self._insert_focusing = True
             # HACK: GI: We get a segfault if we don't do this, because the
@@ -1288,17 +1288,17 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def do_button_press_event(self, e):
         """
-            Adds some custom selection work to
-            1) unselect all rows if clicking an empty area,
-            2) updating the selection upon right click and
-            3) popping up the context menu upon right click
+        Adds some custom selection work to
+        1) unselect all rows if clicking an empty area,
+        2) updating the selection upon right click and
+        3) popping up the context menu upon right click
 
-            Also sets the internal state for button pressed
+        Also sets the internal state for button pressed
 
-            Taken from the following sources:
+        Taken from the following sources:
 
-            * thunar_details_view_button_press_event() of thunar-details-view.c
-            * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
+        * thunar_details_view_button_press_event() of thunar-details-view.c
+        * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
         """
 
         # need this to workaround bug in GTK+ on OSX when dragging/dropping
@@ -1365,7 +1365,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def do_button_release_event(self, e):
         """
-            Unsets the internal state for button press
+        Unsets the internal state for button press
         """
         self._hack_osx_control_mask = False
 
@@ -1479,7 +1479,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     # Source
     def on_drag_begin(self, widget, context):
         """
-            Activates the dragging state
+        Activates the dragging state
         """
         # TODO: set drag icon
         self.dragging = True
@@ -1489,7 +1489,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         """
-            Stores indices and URIs of the selected items in the drag selection
+        Stores indices and URIs of the selected items in the drag selection
         """
         target_atom = selection.get_target()
         target = target_atom.name()
@@ -1505,28 +1505,28 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_drag_data_delete(self, widget, context):
         """
-            Stops the default handler from running, all
-            processing occurs in the drag-data-received handler
+        Stops the default handler from running, all
+        processing occurs in the drag-data-received handler
         """
         self.stop_emission('drag-data-delete')
 
     def on_drag_end(self, widget, context):
         """
-            Deactivates the dragging state
+        Deactivates the dragging state
         """
         self.dragging = False
 
     # Dest
     def on_drag_drop(self, widget, context, x, y, etime):
         """
-            Always allows processing of drop operations
+        Always allows processing of drop operations
         """
         return True
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, etime):
         """
-            Builds a list of tracks either from internal indices or
-            external URIs and inserts or appends them to the playlist
+        Builds a list of tracks either from internal indices or
+        external URIs and inserts or appends them to the playlist
         """
         # Stop default handler from running
         self.stop_emission('drag-data-received')
@@ -1686,9 +1686,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_drag_motion(self, widget, context, x, y, etime):
         """
-            Makes sure tracks can only be inserted before or after tracks
-            and sets the drop action to move or copy depending on target
-            and user interaction (e.g. Ctrl key)
+        Makes sure tracks can only be inserted before or after tracks
+        and sets the drop action to move or copy depending on target
+        and user interaction (e.g. Ctrl key)
         """
         drop_info = self.get_dest_row_at_pos(x, y)
 
@@ -1750,7 +1750,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def on_provider_removed(self, provider):
         """
-            Called when a column provider is removed
+        Called when a column provider is removed
         """
         columns = settings.get_option('gui/columns')
 
@@ -1760,24 +1760,24 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
 
 class PlaylistModel(Gtk.ListStore):
-    '''
-        This ListStore contains all the information needed to render a playlist
-        via a PlaylistView. There are five columns:
-        
-        * xl.trax.Track
-        * dictionary (tag cache)
-        * Gdk.Pixbuf (indicates whether track is playing or not)
-        * boolean (indicates whether row is sensitive)
-        * Pango.Weight (indicates if row is the playing track or not)
-        
-        The cache keys correspond to the tags rendered by each column. When a
-        track changes, the row's corresponding cache is cleared and the row
-        change event is fired.
-        
-        The cache keys are populated by the playlist columns. This arrangement
-        ensures that we don't have to recreate the playlist model each time the
-        columns are changed.
-    '''
+    """
+    This ListStore contains all the information needed to render a playlist
+    via a PlaylistView. There are five columns:
+
+    * xl.trax.Track
+    * dictionary (tag cache)
+    * Gdk.Pixbuf (indicates whether track is playing or not)
+    * boolean (indicates whether row is sensitive)
+    * Pango.Weight (indicates if row is the playing track or not)
+
+    The cache keys correspond to the tags rendered by each column. When a
+    track changes, the row's corresponding cache is cleared and the row
+    change event is fired.
+
+    The cache keys are populated by the playlist columns. This arrangement
+    ensures that we don't have to recreate the playlist model each time the
+    columns are changed.
+    """
 
     __gsignals__ = {
         # Called with true indicates starting operation, False ends op
@@ -1923,9 +1923,9 @@ class PlaylistModel(Gtk.ListStore):
             self._refresh_icons()
 
     def _compute_row_params(self, rowidx):
-        '''
-            :returns: pixbuf, sensitive, weight
-        '''
+        """
+        :returns: pixbuf, sensitive, weight
+        """
 
         pixbuf = self.clear_pixbuf.pixbuf
         weight = Pango.Weight.NORMAL

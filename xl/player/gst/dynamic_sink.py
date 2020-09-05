@@ -38,10 +38,10 @@ logger = logging.getLogger(__name__)
 
 class DynamicAudioSink(Gst.Bin):
     """
-        An audio sink that can dynamically switch its output
+    An audio sink that can dynamically switch its output
 
-        TODO: When switching outputs rapidly, sometimes it tends to seek
-              ahead quite a bit. Not sure why.
+    TODO: When switching outputs rapidly, sometimes it tends to seek
+          ahead quite a bit. Not sure why.
     """
 
     def __init__(self, name):

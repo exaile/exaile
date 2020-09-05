@@ -65,9 +65,9 @@ class TrackWrapper:
 
 class BasePlaylistPanelMixin(GObject.GObject):
     """
-        Base playlist tree object.
+    Base playlist tree object.
 
-        Used by the radio and playlists panels to display playlists
+    Used by the radio and playlists panels to display playlists
     """
 
     # HACK: Notice that this is not __gsignals__; descendants need to manually
@@ -91,7 +91,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def __init__(self):
         """
-            Initializes the mixin
+        Initializes the mixin
         """
         GObject.GObject.__init__(self)
         self.playlist_nodes = {}
@@ -102,8 +102,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def remove_playlist(self, ignored=None):
         """
-            Removes the selected playlist from the UI
-            and from the underlying manager
+        Removes the selected playlist from the UI
+        and from the underlying manager
         """
         selected_playlist = self.tree.get_selected_page(raw=True)
         if selected_playlist is None:
@@ -141,7 +141,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def rename_playlist(self, playlist):
         """
-            Renames the playlist
+        Renames the playlist
         """
 
         if playlist is None:
@@ -184,7 +184,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def on_rating_changed(self, widget, rating):
         """
-            Updates the rating of the selected tracks
+        Updates the rating of the selected tracks
         """
         tracks = self.get_selected_tracks()
 
@@ -196,10 +196,10 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def open_item(self, tree, path, col):
         """
-            Called when the user double clicks on a playlist,
-            also called when the user double clicks on a track beneath
-            a playlist.  When they active a track it opens the playlist
-            and starts playing that track
+        Called when the user double clicks on a playlist,
+        also called when the user double clicks on a track beneath
+        a playlist.  When they active a track it opens the playlist
+        and starts playing that track
         """
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
@@ -227,12 +227,12 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def add_new_playlist(self, tracks=[], name=None):
         """
-            Adds a new playlist to the list of playlists. If name is
-            None or the name conflicts with an existing playlist, the
-            user will be queried for a new name.
+        Adds a new playlist to the list of playlists. If name is
+        None or the name conflicts with an existing playlist, the
+        user will be queried for a new name.
 
-            Returns the name of the new playlist, or None if it was
-            not added.
+        Returns the name of the new playlist, or None if it was
+        not added.
         """
         if name:
             if name in self.playlist_manager.playlists:
@@ -333,7 +333,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def _load_playlist_nodes(self, playlist):
         """
-            Loads the playlist tracks into the node for the specified playlist
+        Loads the playlist tracks into the node for the specified playlist
         """
         if playlist not in self.playlist_nodes:
             return
@@ -358,8 +358,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
     def remove_selected_track(self):
         """
-            Removes the selected track from its playlist
-            and saves the playlist
+        Removes the selected track from its playlist
+        and saves the playlist
         """
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
@@ -374,7 +374,7 @@ class BasePlaylistPanelMixin(GObject.GObject):
 
 class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
-        The playlists panel
+    The playlists panel
     """
 
     __gsignals__ = BasePlaylistPanelMixin._gsignals_
@@ -383,9 +383,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def __init__(self, parent, playlist_manager, smart_manager, collection, name):
         """
-            Intializes the playlists panel
+        Intializes the playlists panel
 
-            @param playlist_manager:  The playlist manager
+        @param playlist_manager:  The playlist manager
         """
         panel.Panel.__init__(self, parent, name, _('Playlists'))
         BasePlaylistPanelMixin.__init__(self)
@@ -455,8 +455,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     @property
     def menu(self):
         """
-            Gets a menu for the selected item
-            :return: xlgui.widgets.menu.Menu or None if do not have it
+        Gets a menu for the selected item
+        :return: xlgui.widgets.menu.Menu or None if do not have it
         """
         model, it = self.tree.get_selection().get_selected()
         pl = model[it][2]
@@ -485,8 +485,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def refresh_playlists(self, type, track, tags):
         """
-            wrapper so that multiple events dont cause multiple
-            reloads in quick succession
+        wrapper so that multiple events dont cause multiple
+        reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and tags & {
             'title',
@@ -497,8 +497,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     @common.glib_wait(500)
     def _refresh_playlists(self):
         """
-            Callback for when tags have changed and the playlists
-            need refreshing.
+        Callback for when tags have changed and the playlists
+        need refreshing.
         """
         if settings.get_option('gui/sync_on_tag_change', True):
             for playlist in self.playlist_nodes:
@@ -529,7 +529,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _load_playlists(self):
         """
-            Loads the currently saved playlists
+        Loads the currently saved playlists
         """
         self.smart = self.model.append(None, [self.folder, _("Smart Playlists"), None])
 
@@ -557,7 +557,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def import_playlist(self):
         """
-            Shows a dialog to ask the user to import a new playlist
+        Shows a dialog to ask the user to import a new playlist
         """
 
         def _on_playlists_selected(dialog, playlists):
@@ -570,7 +570,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def add_smart_playlist(self):
         """
-            Shows a dialog for adding a new smart playlist
+        Shows a dialog for adding a new smart playlist
         """
         pl = SmartPlaylistEditor.create(
             self.collection, self.smart_manager, self.parent
@@ -580,14 +580,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def edit_selected_smart_playlist(self):
         """
-            Shows a dialog for editing the currently selected smart playlist
+        Shows a dialog for editing the currently selected smart playlist
         """
         pl = self.tree.get_selected_page(raw=True)
         self.edit_smart_playlist(pl)
 
     def edit_smart_playlist(self, pl):
         """
-            Shows a dialog for editing a smart playlist
+        Shows a dialog for editing a smart playlist
         """
         pl = SmartPlaylistEditor.edit(
             pl, self.collection, self.smart_manager, self.parent
@@ -600,7 +600,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
-            Called when someone drags some thing onto the playlist panel
+        Called when someone drags some thing onto the playlist panel
         """
         if info == self.playlist_name_info:
             # We are being dragged a playlist so
@@ -637,7 +637,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _drag_data_received_uris(self, tv, context, x, y, selection, info, etime):
         """
-            Called by drag_data_received when the user drags URIs onto us
+        Called by drag_data_received when the user drags URIs onto us
         """
         locs = list(selection.get_uris())
         drop_info = tv.get_dest_row_at_pos(x, y)
@@ -727,15 +727,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def drag_data_delete(self, tv, context):
         """
-            Called after a drag data operation is complete
-            and we want to delete the source data
+        Called after a drag data operation is complete
+        and we want to delete the source data
         """
         if Gdk.drag_drop_succeeded(context):
             self.remove_selected_track()
 
     def drag_get_data(self, tv, context, selection_data, info, time):
         """
-            Called when someone drags something from the playlist
+        Called when someone drags something from the playlist
         """
         # TODO based on info determine what we set in selection_data
         if info == self.playlist_name_info:
@@ -760,15 +760,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def drag_motion(self, tv, context, x, y, time):
         """
-            Sets the appropriate drag action based on what we are hovering over
+        Sets the appropriate drag action based on what we are hovering over
 
-            hovering over playlists causes the copy action to occur
-            hovering over tracks within the same playlist causes the move
-                action to occur
-            hovering over tracks within different playlist causes the move
-                action to occur
+        hovering over playlists causes the copy action to occur
+        hovering over tracks within the same playlist causes the move
+            action to occur
+        hovering over tracks within different playlist causes the move
+            action to occur
 
-            Called on the destination widget
+        Called on the destination widget
         """
         # Reset any target to be default to moving tracks
         self.tree.enable_model_drag_dest([self.track_target], Gdk.DragAction.DEFAULT)
@@ -830,7 +830,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def on_key_released(self, widget, event):
         """
-            Called when a key is released in the tree
+        Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
             (mods, paths) = self.tree.get_selection().get_selected_rows()
@@ -885,7 +885,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _clear_node(self, node):
         """
-            Clears a node of all children
+        Clears a node of all children
         """
         iter = self.model.iter_children(node)
         while True:
@@ -897,7 +897,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
 class PlaylistDragTreeView(DragTreeView):
     """
-        Custom DragTreeView to retrieve data from playlists
+    Custom DragTreeView to retrieve data from playlists
     """
 
     def __init__(self, container, receive=True, source=True):
@@ -910,15 +910,15 @@ class PlaylistDragTreeView(DragTreeView):
 
     def get_selection_is_computed(self):
         """
-            Returns True if selection is a Smart Playlist
+        Returns True if selection is a Smart Playlist
         """
         item = self.get_selected_item(raw=True)
         return isinstance(item, SmartPlaylist)
 
     def get_selected_tracks(self):
         """
-            Used by the menu, just basically gets the selected
-            playlist and returns the tracks in it
+        Used by the menu, just basically gets the selected
+        playlist and returns the tracks in it
         """
         playlist = self.get_selected_page()
 
@@ -931,11 +931,11 @@ class PlaylistDragTreeView(DragTreeView):
 
     def get_selected_page(self, raw=False):
         """
-            Retrieves the currently selected playlist in
-            the playlists panel.  If a non-playlist is
-            selected it returns None
+        Retrieves the currently selected playlist in
+        the playlists panel.  If a non-playlist is
+        selected it returns None
 
-            @return: the playlist
+        @return: the playlist
         """
         item = self.get_selected_item(raw=raw)
 

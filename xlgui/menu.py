@@ -137,7 +137,7 @@ def __create_file_menu():
 
         def on_message(dialog, message_type, message):
             """
-                Show messages in the main window message area
+            Show messages in the main window message area
             """
             if message_type == Gtk.MessageType.INFO:
                 main.message.show_info(markup=message)

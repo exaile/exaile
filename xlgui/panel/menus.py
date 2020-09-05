@@ -75,11 +75,11 @@ __create_track_panel_menus()
 
 
 class TrackPanelMenu(menu.ProviderMenu):
-    '''
-        Context menu when a track is clicked on a panel
+    """
+    Context menu when a track is clicked on a panel
 
-        Provider key: track-panel-menu
-    '''
+    Provider key: track-panel-menu
+    """
 
     def __init__(self, parent):
         menu.ProviderMenu.__init__(self, 'track-panel-menu', parent)
@@ -123,11 +123,11 @@ __create_collection_panel_context_menu()
 
 
 class CollectionContextMenu(menu.MultiProviderMenu):
-    '''
-        Context menu when a collection track is clicked
+    """
+    Context menu when a collection track is clicked
 
-        Provider keys: track-panel-menu, collection-panel-context-menu
-    '''
+    Provider keys: track-panel-menu, collection-panel-context-menu
+    """
 
     def __init__(self, panel):
         menu.MultiProviderMenu.__init__(
@@ -172,11 +172,11 @@ __create_files_panel_context_menu()
 
 
 class FilesContextMenu(menu.MultiProviderMenu):
-    '''
-        Context menu when a files panel track is clicked
+    """
+    Context menu when a files panel track is clicked
 
-        Provider keys: track-panel-menu, files-panel-context-menu
-    '''
+    Provider keys: track-panel-menu, files-panel-context-menu
+    """
 
     def __init__(self, panel):
         menu.MultiProviderMenu.__init__(
@@ -238,12 +238,12 @@ __create_playlist_panel_menus()
 
 
 class PlaylistPanelMenu(menu.ProviderMenu):
-    '''
-        Menu for xlgui.panel.playlists.PlaylistsPanel, for when the
-        user does not click on a playlist/track.  The default menu.
+    """
+    Menu for xlgui.panel.playlists.PlaylistsPanel, for when the
+    user does not click on a playlist/track.  The default menu.
 
-        Provider key: playlist-panel-menu
-    '''
+    Provider key: playlist-panel-menu
+    """
 
     def __init__(self, parent):
         menu.ProviderMenu.__init__(self, 'playlist-panel-menu', parent)
@@ -282,11 +282,11 @@ __create_playlist_panel_playlist_menus()
 
 
 class PlaylistsPanelPlaylistMenu(menu.MultiProviderMenu):
-    '''
-        Context menu when a playlist is clicked
+    """
+    Context menu when a playlist is clicked
 
-        Provider keys: playlist-panel-menu, track-panel-menu, playlist-panel-context-menu
-    '''
+    Provider keys: playlist-panel-menu, track-panel-menu, playlist-panel-context-menu
+    """
 
     def __init__(self, parent):
         menu.MultiProviderMenu.__init__(
@@ -332,9 +332,9 @@ __create_radio_panel_menus()
 
 
 class RadioPanelPlaylistMenu(menu.MultiProviderMenu):
-    '''
-        Context menu when a playlist is clicked
-    '''
+    """
+    Context menu when a playlist is clicked
+    """
 
     def __init__(self, parent):
         menu.MultiProviderMenu.__init__(

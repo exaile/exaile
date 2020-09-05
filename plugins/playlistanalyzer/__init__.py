@@ -105,9 +105,9 @@ class PlaylistAnalyzerPlugin:
     #
 
     def on_analyze_playlist(self, widget, name, parent, context):
-        '''
-            :param parent: The PlaylistsPanel that triggered this callback
-        '''
+        """
+        :param parent: The PlaylistsPanel that triggered this callback
+        """
 
         if self.dialog is None:
             self.dialog = AnalyzerDialog(
@@ -115,9 +115,9 @@ class PlaylistAnalyzerPlugin:
             )
 
     def on_analyze_playlists(self, widget, name, parent, context):
-        '''
-            :param parent: The Exaile MainWindow object
-        '''
+        """
+        :param parent: The Exaile MainWindow object
+        """
 
         if self.dialog is None:
             self.dialog = AnalyzerDialog(self, parent.window)
@@ -161,14 +161,14 @@ class PlaylistAnalyzerPlugin:
         return data
 
     def write_to_file(self, tmpl, uri, **kwargs):
-        '''
-            Opens a template file, performs substitution, writes it to the
-            output URI, and also writes d3.min.js to the output directory.
+        """
+        Opens a template file, performs substitution, writes it to the
+        output URI, and also writes d3.min.js to the output directory.
 
-            :param tmpl: Local pathname to template file
-            :param uri: URI of output file suitable for passing to Gio.File
-            :param kwargs: Named parameters to substitute in template
-        '''
+        :param tmpl: Local pathname to template file
+        :param uri: URI of output file suitable for passing to Gio.File
+        :param kwargs: Named parameters to substitute in template
+        """
 
         # read the template file
         # NOTE: must be opened in non-binary mode because we treat the

@@ -55,10 +55,10 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
 
     def on_check_condition(self):
         """
-            Specifies the condition to meet
+        Specifies the condition to meet
 
-            :returns: Whether the condition is met or not
-            :rtype: bool
+        :returns: Whether the condition is met or not
+        :rtype: bool
         """
         model = self.widget.get_model()
         if not model:  # happens if preferences window is shut down on close

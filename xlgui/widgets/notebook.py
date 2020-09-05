@@ -91,14 +91,14 @@ class SmartNotebook(Gtk.Notebook):
 
     def add_tab(self, tab, page, position=-1, switch=True):
         """
-            Add a tab to the notebook. It will be given focus.
+        Add a tab to the notebook. It will be given focus.
 
-            :param tab: The tab to use
-            :type tab: NotebookTab
-            :param page: The page to use
-            :type page: NotebookPage
-            :param position: index to insert page at, or -1 for append
-            :type position: int
+        :param tab: The tab to use
+        :type tab: NotebookTab
+        :param page: The page to use
+        :type page: NotebookPage
+        :param position: index to insert page at, or -1 for append
+        :type position: int
         """
         self.insert_page(page, tab, position=position)
         tab.notebook = self
@@ -112,18 +112,18 @@ class SmartNotebook(Gtk.Notebook):
 
     def add_default_tab(self):
         """
-            Action taken when a generic "new tab" option is triggered.
-            Subclasses need to override this if they want new tab
-            functionality to work automatically.
+        Action taken when a generic "new tab" option is triggered.
+        Subclasses need to override this if they want new tab
+        functionality to work automatically.
 
-            :return: The NotebookTab created, or None
+        :return: The NotebookTab created, or None
         """
         pass
 
     def remove_page(self, page_num):
-        '''
-            Overrides Gtk.Notebook.remove_page
-        '''
+        """
+        Overrides Gtk.Notebook.remove_page
+        """
         if page_num == -1:
             page_num = self.get_n_pages() - 1
         tab = self.get_tab_label(self.get_nth_page(page_num))
@@ -135,18 +135,18 @@ class SmartNotebook(Gtk.Notebook):
             self.add_default_tab()
 
     def remove_tab(self, tab):
-        '''
-            Remove a specific NotebookTab from the notebook
-        '''
+        """
+        Remove a specific NotebookTab from the notebook
+        """
         page_num = self.page_num(tab.page)
         if page_num >= 0:
             self.remove_page(page_num)
 
     def set_add_tab_on_empty(self, add_tab_on_empty):
-        '''
-            If set True, the SmartNotebook will always maintain at
-            least one tab in the notebook
-        '''
+        """
+        If set True, the SmartNotebook will always maintain at
+        least one tab in the notebook
+        """
         self._add_tab_on_empty = add_tab_on_empty
 
     def on_button_press(self, widget, event):
@@ -174,19 +174,19 @@ class SmartNotebook(Gtk.Notebook):
 
 class NotebookTab(Gtk.EventBox):
     """
-        Class to represent a generic tab in a Gtk.Notebook.
+    Class to represent a generic tab in a Gtk.Notebook.
     """
 
     reorderable = True
 
     def __init__(self, notebook, page, vertical=False):
         """
-            :param notebook: The notebook this tab will belong to
-            :type notebook: SmartNotebook
-            :param page: The page this tab will be associated with
-            :type page: NotebookPage
-            :param vertical: Whether the tab contents are to be laid out vertically
-            :type vertical: bool
+        :param notebook: The notebook this tab will belong to
+        :type notebook: SmartNotebook
+        :param page: The page this tab will be associated with
+        :type page: NotebookPage
+        :param vertical: Whether the tab contents are to be laid out vertically
+        :type vertical: bool
         """
         Gtk.EventBox.__init__(self)
         self.set_visible_window(False)
@@ -284,10 +284,10 @@ class NotebookTab(Gtk.EventBox):
 
     def set_icon(self, pixbuf):
         """
-            Set the primary icon for the tab.
+        Set the primary icon for the tab.
 
-            :param pixbuf: The icon to use, or None to hide
-            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
+        :param pixbuf: The icon to use, or None to hide
+        :type pixbuf: :class:`GdkPixbuf.Pixbuf`
         """
         if pixbuf is None:
             self.icon.set_property("visible", False)
@@ -301,9 +301,9 @@ class NotebookTab(Gtk.EventBox):
 
     def on_button_press(self, widget, event):
         """
-            Handles mouse button events on the tab.
+        Handles mouse button events on the tab.
 
-            Typically triggers renaming, closing and menu.
+        Typically triggers renaming, closing and menu.
         """
         if (
             event.button == Gdk.BUTTON_PRIMARY
@@ -318,21 +318,21 @@ class NotebookTab(Gtk.EventBox):
 
     def on_entry_activate(self, entry):
         """
-            Handles end of editing and triggers the actual rename.
+        Handles end of editing and triggers the actual rename.
         """
         self.entry.props.editing_canceled = False
         self.end_rename()
 
     def on_entry_focus_out_event(self, widget, event):
         """
-            Make defocusing the rename box equivalent to activating it.
+        Make defocusing the rename box equivalent to activating it.
         """
         if not self.entry.props.editing_canceled:
             widget.activate()
 
     def on_entry_key_press_event(self, widget, event):
         """
-            Cancel rename if Escape is pressed
+        Cancel rename if Escape is pressed
         """
         if event.keyval == Gdk.KEY_Escape:
             self.entry.props.editing_canceled = True
@@ -344,7 +344,7 @@ class NotebookTab(Gtk.EventBox):
 
     def start_rename(self):
         """
-            Initiates the renaming of a tab, if the page supports this.
+        Initiates the renaming of a tab, if the page supports this.
         """
         if not self.can_rename():
             return
@@ -357,7 +357,7 @@ class NotebookTab(Gtk.EventBox):
 
     def end_rename(self, cancel=False):
         """
-            Finishes or cancels the renaming
+        Finishes or cancels the renaming
         """
         name = self.entry.get_text()
         if name.strip() != "" and not self.entry.props.editing_canceled:
@@ -381,7 +381,7 @@ class NotebookTab(Gtk.EventBox):
 
 class NotebookPage(Gtk.Box):
     """
-        Base class representing a page. Should never be used directly.
+    Base class representing a page. Should never be used directly.
     """
 
     menu_provider_name = 'tab-context'  # override this in subclasses
@@ -408,17 +408,17 @@ class NotebookPage(Gtk.Box):
             self.page_name = page_name
 
     def focus(self):
-        '''
-            Grabs focus for this page. Should be overriden in subclasses.
-        '''
+        """
+        Grabs focus for this page. Should be overriden in subclasses.
+        """
         self.grab_focus()
 
     def get_page_name(self):
         """
-            Returns the name of this tab. Should be overriden in subclasses.
+        Returns the name of this tab. Should be overriden in subclasses.
 
-            Subclasses can also implement set_page_name(self, name) to allow
-            renaming, but this is not mandatory.
+        Subclasses can also implement set_page_name(self, name) to allow
+        renaming, but this is not mandatory.
         """
         if hasattr(self, 'page_name'):
             return self.page_name
@@ -426,16 +426,16 @@ class NotebookPage(Gtk.Box):
 
     def set_tab(self, tab):
         """
-            Set the tab that holds this page.  This will be called directly
-            from the tab itself when it is created, and should not be used
-            outside of that.
+        Set the tab that holds this page.  This will be called directly
+        from the tab itself when it is created, and should not be used
+        outside of that.
         """
         self.tab = tab
 
     def is_current_page(self):
         """
-            Returns True if this page is the currently-visible page in
-            the Notebook.
+        Returns True if this page is the currently-visible page in
+        the Notebook.
         """
         return self.tab.get_nth_page(self.tab.get_current_page()) == self
 
@@ -445,7 +445,7 @@ class NotebookPage(Gtk.Box):
 
 class NotebookAction:
     """
-        A custom action to be placed to the left or right of tabs in a notebook
+    A custom action to be placed to the left or right of tabs in a notebook
     """
 
     name = None
@@ -456,18 +456,18 @@ class NotebookAction:
 
 
 class NotebookActionService(providers.ProviderHandler):
-    '''
-        Provides interface for action widgets to be dynamically attached
-        detached from notebooks.
+    """
+    Provides interface for action widgets to be dynamically attached
+    detached from notebooks.
 
-        Actions are widgets placed to the left or right of tabs on a notebook.
-    '''
+    Actions are widgets placed to the left or right of tabs on a notebook.
+    """
 
     def __init__(self, notebook, servicename):
-        '''
-            :param notebook:     Notebook to attach to
-            :param servicename:  Provider service name to use
-        '''
+        """
+        :param notebook:     Notebook to attach to
+        :param servicename:  Provider service name to use
+        """
 
         providers.ProviderHandler.__init__(self, servicename, notebook)
 
@@ -488,7 +488,7 @@ class NotebookActionService(providers.ProviderHandler):
 
     def on_provider_added(self, provider):
         """
-            Adds actions on provider addition
+        Adds actions on provider addition
         """
         try:
             actions_box = self.notebook.get_action_widget(provider.position)
@@ -501,7 +501,7 @@ class NotebookActionService(providers.ProviderHandler):
 
     def on_provider_removed(self, provider):
         """
-            Removes actions on provider removal
+        Removes actions on provider removal
         """
         try:
             actions_box = self.notebook.get_action_widget(provider.position)

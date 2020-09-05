@@ -64,14 +64,14 @@ _UiThread = threading.current_thread()
 
 def log_event(evty, obj, data):
     """
-        Sends an event.
+    Sends an event.
 
-        :param evty: the *type* or *name* of the event.
-        :type evty: string
-        :param obj: the object sending the event.
-        :type obj: object
-        :param data: some data about the event, None if not required
-        :type data: object
+    :param evty: the *type* or *name* of the event.
+    :type evty: string
+    :param obj: the object sending the event.
+    :type obj: object
+    :param data: some data about the event, None if not required
+    :type data: object
     """
     global EVENT_MANAGER
     e = Event(evty, obj, data)
@@ -80,29 +80,29 @@ def log_event(evty, obj, data):
 
 def add_callback(function, evty=None, obj=None, *args, **kwargs):
     """
-        Adds a callback to an event
+    Adds a callback to an event
 
-        You should ALWAYS specify one of the two options on what to listen
-        for. While not forbidden to listen to all events, doing so will
-        cause your callback to be called very frequently, and possibly may
-        cause slowness within the player itself.
+    You should ALWAYS specify one of the two options on what to listen
+    for. While not forbidden to listen to all events, doing so will
+    cause your callback to be called very frequently, and possibly may
+    cause slowness within the player itself.
 
-        :param function: the function to call when the event happens
-        :type function: callable
-        :param evty: the *type* or *name* of the event to listen for, eg
-                `tracks_added`, `cover_changed`. Defaults to any event if
-                not specified.
-        :type evty: string
-        :param obj: the object to listen to events from, e.g. `exaile.collection`
-                or `xl.covers.MANAGER`. Defaults to any object if not
-                specified.
-        :type obj: object
-        :param destroy_with: (keyword arg only) If specified, this event will be
-                             detached when the specified Gtk widget is destroyed
+    :param function: the function to call when the event happens
+    :type function: callable
+    :param evty: the *type* or *name* of the event to listen for, eg
+            `tracks_added`, `cover_changed`. Defaults to any event if
+            not specified.
+    :type evty: string
+    :param obj: the object to listen to events from, e.g. `exaile.collection`
+            or `xl.covers.MANAGER`. Defaults to any object if not
+            specified.
+    :type obj: object
+    :param destroy_with: (keyword arg only) If specified, this event will be
+                         detached when the specified Gtk widget is destroyed
 
-        Any additional parameters will be passed to the callback.
+    Any additional parameters will be passed to the callback.
 
-        :returns: a convenience function that you can call to remove the callback.
+    :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs)
@@ -110,30 +110,30 @@ def add_callback(function, evty=None, obj=None, *args, **kwargs):
 
 def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
     """
-        Adds a callback to an event. The callback is guaranteed to
-        always be called on the UI thread.
+    Adds a callback to an event. The callback is guaranteed to
+    always be called on the UI thread.
 
-        You should ALWAYS specify one of the two options on what to listen
-        for. While not forbidden to listen to all events, doing so will
-        cause your callback to be called very frequently, and possibly may
-        cause slowness within the player itself.
+    You should ALWAYS specify one of the two options on what to listen
+    for. While not forbidden to listen to all events, doing so will
+    cause your callback to be called very frequently, and possibly may
+    cause slowness within the player itself.
 
-        :param function: the function to call when the event happens
-        :type function: callable
-        :param evty: the *type* or *name* of the event to listen for, eg
-                `tracks_added`, `cover_changed`. Defaults to any event if
-                not specified.
-        :type evty: string
-        :param obj: the object to listen to events from, e.g. `exaile.collection`
-                or `xl.covers.MANAGER`. Defaults to any object if not
-                specified.
-        :type obj: object
-        :param destroy_with: (keyword arg only) If specified, this event will be
-                             detached when the specified Gtk widget is destroyed
+    :param function: the function to call when the event happens
+    :type function: callable
+    :param evty: the *type* or *name* of the event to listen for, eg
+            `tracks_added`, `cover_changed`. Defaults to any event if
+            not specified.
+    :type evty: string
+    :param obj: the object to listen to events from, e.g. `exaile.collection`
+            or `xl.covers.MANAGER`. Defaults to any object if not
+            specified.
+    :type obj: object
+    :param destroy_with: (keyword arg only) If specified, this event will be
+                         detached when the specified Gtk widget is destroyed
 
-        Any additional parameters will be passed to the callback.
+    Any additional parameters will be passed to the callback.
 
-        :returns: a convenience function that you can call to remove the callback.
+    :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
     return EVENT_MANAGER.add_callback(function, evty, obj, args, kwargs, ui=True)
@@ -141,10 +141,10 @@ def add_ui_callback(function, evty=None, obj=None, *args, **kwargs):
 
 def remove_callback(function, evty=None, obj=None):
     """
-        Removes a callback. Can remove both ui and non-ui callbacks.
+    Removes a callback. Can remove both ui and non-ui callbacks.
 
-        The parameters passed should match those that were passed when adding
-        the callback
+    The parameters passed should match those that were passed when adding
+    the callback
     """
     global EVENT_MANAGER
     EVENT_MANAGER.remove_callback(function, evty, obj)
@@ -152,16 +152,16 @@ def remove_callback(function, evty=None, obj=None):
 
 class Event:
     """
-        Represents an Event
+    Represents an Event
     """
 
     __slots__ = ['type', 'object', 'data']
 
     def __init__(self, evty, obj, data):
         """
-            evty: the 'type' or 'name' for this Event [string]
-            obj: the object emitting the Event [object]
-            data: some piece of data relevant to the Event [object]
+        evty: the 'type' or 'name' for this Event [string]
+        obj: the object emitting the Event [object]
+        data: some piece of data relevant to the Event [object]
         """
         self.type = evty
         self.object = obj
@@ -170,15 +170,15 @@ class Event:
 
 class Callback:
     """
-        Represents a callback
+    Represents a callback
     """
 
     __slots__ = ['wfunction', 'time', 'args', 'kwargs']
 
     def __init__(self, function, time, args, kwargs):
         """
-            @param function: the function to call
-            @param time: the time this callback was added
+        @param function: the function to call
+        @param time: the time this callback was added
         """
         self.wfunction = _getWeakRef(function)
         self.time = time
@@ -194,12 +194,12 @@ class _WeakMethod:
     object that it is bound to. It uses WeakRef which, used on its own,
     produces weak methods that are dead on creation, not very useful.
     Typically, you will use the getRef() function instead of using
-    this class directly. """
+    this class directly."""
 
     def __init__(self, method, notifyDead=None):
         """
-            The method must be bound. notifyDead will be called when
-            object that method is bound to dies.
+        The method must be bound. notifyDead will be called when
+        object that method is bound to dies.
         """
         assert ismethod(method)
         if method.__self__ is None:
@@ -241,10 +241,10 @@ class _WeakMethod:
 
 def _getWeakRef(obj, notifyDead=None):
     """
-        Get a weak reference to obj. If obj is a bound method, a _WeakMethod
-        object, that behaves like a WeakRef, is returned, if it is
-        anything else a WeakRef is returned. If obj is an unbound method,
-        a ValueError will be raised.
+    Get a weak reference to obj. If obj is a bound method, a _WeakMethod
+    object, that behaves like a WeakRef, is returned, if it is
+    anything else a WeakRef is returned. If obj is an unbound method,
+    a ValueError will be raised.
     """
     if ismethod(obj):
         createRef = _WeakMethod
@@ -259,7 +259,7 @@ def _getWeakRef(obj, notifyDead=None):
 
 class EventManager:
     """
-        Manages all Events
+    Manages all Events
     """
 
     def __init__(self, use_logger=False, logger_filter=None, verbose=False):
@@ -280,9 +280,9 @@ class EventManager:
 
     def emit(self, event):
         """
-            Emits an Event, calling any registered callbacks.
+        Emits an Event, calling any registered callbacks.
 
-            event: the Event to emit [Event]
+        event: the Event to emit [Event]
         """
 
         emit_logmsg = self.use_logger and (
@@ -374,23 +374,23 @@ class EventManager:
 
     def emit_async(self, event):
         """
-            Same as emit(), but does not block.
+        Same as emit(), but does not block.
         """
         GLib.idle_add(self.emit, event)
 
     def add_callback(self, function, evty, obj, args, kwargs, ui=False):
         """
-            Registers a callback.
-            You should always specify at least one of event type or object.
+        Registers a callback.
+        You should always specify at least one of event type or object.
 
-            @param function: The function to call [function]
-            @param evty: The 'type' or 'name' of event to listen for. Defaults
-                to any. [string]
-            @param obj: The object to listen to events from. Defaults
-                to any. [string]
+        @param function: The function to call [function]
+        @param evty: The 'type' or 'name' of event to listen for. Defaults
+            to any. [string]
+        @param obj: The object to listen to events from. Defaults
+            to any. [string]
 
-            Returns a convenience function that you can call to
-            remove the callback.
+        Returns a convenience function that you can call to
+        remove the callback.
         """
 
         if ui:
@@ -437,10 +437,10 @@ class EventManager:
 
     def remove_callback(self, function, evty=None, obj=None):
         """
-            Unsets a callback
+        Unsets a callback
 
-            The parameters must match those given when the callback was
-            registered. (minus any additional args)
+        The parameters must match those given when the callback was
+        registered. (minus any additional args)
         """
         if evty is None:
             evty = _NONE

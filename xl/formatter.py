@@ -78,31 +78,31 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
 
 class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
     """
-        An extended template class which additionally
-        accepts parameters assigned to identifiers.
+    An extended template class which additionally
+    accepts parameters assigned to identifiers.
 
-        This introduces another pattern group named
-        "parameters" in addition to the groups
-        created by :class:`string.Template`
+    This introduces another pattern group named
+    "parameters" in addition to the groups
+    created by :class:`string.Template`
 
-        Examples:
+    Examples:
 
-        * ``${foo:parameter1}``
-        * ``${bar:parameter1, parameter2}``
-        * ``${qux:parameter1=argument1, parameter2}``
+    * ``${foo:parameter1}``
+    * ``${bar:parameter1, parameter2}``
+    * ``${qux:parameter1=argument1, parameter2}``
     """
 
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):
         """
-            :param template: the template string
+        :param template: the template string
         """
         Template.__init__(self, template)
 
     def safe_substitute(self, *args):
         """
-            Overridden to allow for parametrized identifiers
+        Overridden to allow for parametrized identifiers
         """
         if len(args) > 1:
             raise TypeError('Too many positional arguments')
@@ -151,17 +151,17 @@ class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
 
 class Formatter(GObject.GObject):
     """
-        A generic text formatter based on a format string
+    A generic text formatter based on a format string
 
-        By default the following parameters are provided
-        to each identifier:
+    By default the following parameters are provided
+    to each identifier:
 
-        * ``prefix``, ``suffix``: a string to put before or after the formatted string if that string is not empty
-            * Whitespace will be not be touched and transferred as is
-            * The characters ``,``, ``}`` and ``=`` need to be escaped like ``\,``, ``\}`` and ``\=`` respectively
-        * ``pad``: desired length the formatted string should have, will be achieved using the ``padstring``
-        * ``padstring``: a string to use for padding, will be repeated as often as possible to achieve the desired length specified by ``pad``
-            * Example: ``${identifier:pad=4, padstring=XY}`` for *identifier* having the value *a* will become *XYXa*
+    * ``prefix``, ``suffix``: a string to put before or after the formatted string if that string is not empty
+        * Whitespace will be not be touched and transferred as is
+        * The characters ``,``, ``}`` and ``=`` need to be escaped like ``\,``, ``\}`` and ``\=`` respectively
+    * ``pad``: desired length the formatted string should have, will be achieved using the ``padstring``
+    * ``padstring``: a string to use for padding, will be repeated as often as possible to achieve the desired length specified by ``pad``
+        * Example: ``${identifier:pad=4, padstring=XY}`` for *identifier* having the value *a* will become *XYXa*
     """
 
     __gproperties__ = {
@@ -176,9 +176,9 @@ class Formatter(GObject.GObject):
 
     def __init__(self, format):
         """
-            :param format: the initial format, see the documentation
-                of :class:`string.Template` for details
-            :type format: string
+        :param format: the initial format, see the documentation
+            of :class:`string.Template` for details
+        :type format: string
         """
         GObject.GObject.__init__(self)
 
@@ -187,7 +187,7 @@ class Formatter(GObject.GObject):
 
     def do_get_property(self, property):
         """
-            Gets GObject properties
+        Gets GObject properties
         """
         if property.name == 'format':
             return self._template.template
@@ -196,7 +196,7 @@ class Formatter(GObject.GObject):
 
     def do_set_property(self, property, value):
         """
-            Sets GObject properties
+        Sets GObject properties
         """
         if property.name == 'format':
             if value != self._template.template:
@@ -206,21 +206,21 @@ class Formatter(GObject.GObject):
 
     def extract(self):
         """
-            Retrieves the identifiers and their optional parameters
+        Retrieves the identifiers and their optional parameters
 
-            Example of the returned dictionary::
+        Example of the returned dictionary::
 
-                extractions = {
-                    'identifier1': (
-                        'identifier1', {}),
-                    'identifier2:parameter': (
-                        'identifier2', {'parameter': True}),
-                    'identifier3:parameter=argument': (
-                        'identifier3', {'parameter': 'argument'})
-                }
+            extractions = {
+                'identifier1': (
+                    'identifier1', {}),
+                'identifier2:parameter': (
+                    'identifier2', {'parameter': True}),
+                'identifier3:parameter=argument': (
+                    'identifier3', {'parameter': 'argument'})
+            }
 
-            :returns: the extractions
-            :rtype: dict
+        :returns: the extractions
+        :rtype: dict
         """
         matches = self._template.pattern.finditer(self._template.template)
         extractions = {}
@@ -270,11 +270,11 @@ class Formatter(GObject.GObject):
 
     def format(self, *args):
         """
-            Returns a string by formatting the passed data
+        Returns a string by formatting the passed data
 
-            :param args: data to base the formatting on
-            :returns: the formatted text
-            :rtype: string
+        :param args: data to base the formatting on
+        :returns: the formatted text
+        :rtype: string
         """
         extractions = self.extract()
         substitutions = {}
@@ -317,7 +317,7 @@ class Formatter(GObject.GObject):
 
 class ProgressTextFormatter(Formatter):
     """
-        A text formatter for progress indicators
+    A text formatter for progress indicators
     """
 
     def __init__(self, format, player):
@@ -326,14 +326,14 @@ class ProgressTextFormatter(Formatter):
 
     def format(self, current_time=None, total_time=None):
         """
-            Returns a string suitable for progress indicators
+        Returns a string suitable for progress indicators
 
-            :param current_time: the current progress, taken from the current playback if not set
-            :type current_time: float
-            :param total_time: the total length of a track, taken from the current playback if not set
-            :type total_time: float
-            :returns: The formatted text
-            :rtype: string
+        :param current_time: the current progress, taken from the current playback if not set
+        :type current_time: float
+        :param total_time: the total length of a track, taken from the current playback if not set
+        :type total_time: float
+        :returns: The formatted text
+        :rtype: string
         """
         total_remaining_time = 0
 
@@ -374,21 +374,21 @@ class ProgressTextFormatter(Formatter):
 
 class TrackFormatter(Formatter):
     """
-        A formatter for track data
+    A formatter for track data
     """
 
     def format(self, track, markup_escape=False):
         """
-            Returns a string for places where
-            track data is presented to the user
+        Returns a string for places where
+        track data is presented to the user
 
-            :param track: a single track to take data from
-            :type track: :class:`xl.trax.Track`
-            :param markup_escape: whether to escape markup-like
-                characters in tag values
-            :type markup_escape: bool
-            :returns: the formatted text
-            :rtype: string
+        :param track: a single track to take data from
+        :type track: :class:`xl.trax.Track`
+        :param markup_escape: whether to escape markup-like
+            characters in tag values
+        :type markup_escape: bool
+        :returns: the formatted text
+        :rtype: string
         """
         if not isinstance(track, trax.Track):
             raise TypeError(
@@ -416,56 +416,56 @@ class TrackFormatter(Formatter):
 
 class TagFormatter:
     """
-        A formatter provider for a tag of a track
+    A formatter provider for a tag of a track
     """
 
     def __init__(self, name):
         """
-            :param name: the name of the tag
-            :type name: string
+        :param name: the name of the tag
+        :type name: string
         """
         self.name = name
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value. Accepts optional
-            parameters to manipulate the formatting
-            process.
+        Formats a raw tag value. Accepts optional
+        parameters to manipulate the formatting
+        process.
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         pass
 
 
 class NumberTagFormatter(TagFormatter):
     """
-        A generic formatter for numeric formatting
+    A generic formatter for numeric formatting
 
-        Removes count values, e.g. "b" in "a/b"
+    Removes count values, e.g. "b" in "a/b"
     """
 
     def __init__(self, name):
         """
-            :param name: the name of the tag
-            :type name: string
+        :param name: the name of the tag
+        :type name: string
         """
         TagFormatter.__init__(self, name)
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         value = track.get_tag_raw(self.name, join=True)
 
@@ -490,7 +490,7 @@ class NumberTagFormatter(TagFormatter):
 
 class TrackNumberTagFormatter(NumberTagFormatter):
     """
-        A formatter for the tracknumber of a track
+    A formatter for the tracknumber of a track
     """
 
     def __init__(self):
@@ -502,7 +502,7 @@ providers.register('tag-formatting', TrackNumberTagFormatter())
 
 class DiscNumberTagFormatter(NumberTagFormatter):
     """
-        A formatter for the discnumber of a track
+    A formatter for the discnumber of a track
     """
 
     def __init__(self):
@@ -514,7 +514,7 @@ providers.register('tag-formatting', DiscNumberTagFormatter())
 
 class ArtistTagFormatter(TagFormatter):
     """
-        A formatter for the artist of a track
+    A formatter for the artist of a track
     """
 
     def __init__(self):
@@ -522,19 +522,19 @@ class ArtistTagFormatter(TagFormatter):
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-                Possible values are:
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+            Possible values are:
 
-                * compilate:
-                  Allows for proper handling of compilations,
-                  either via albumartist tag, a fallback value,
-                  or simply all artists
-            :returns: the formatted value
-            :rtype: string
+            * compilate:
+              Allows for proper handling of compilations,
+              either via albumartist tag, a fallback value,
+              or simply all artists
+        :returns: the formatted value
+        :rtype: string
         """
         compilate = parameters.get('compilate', False)
         value = track.get_tag_display(self.name, artist_compilations=compilate)
@@ -547,24 +547,24 @@ providers.register('tag-formatting', ArtistTagFormatter())
 
 class TimeTagFormatter(TagFormatter):
     """
-        A formatter for a time period
+    A formatter for a time period
     """
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: Verbosity of the output,
-                possible values for "format" are:
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: Verbosity of the output,
+            possible values for "format" are:
 
-                * short: "1:02:42"
-                * long: "1h, 2m, 42s"
-                * verbose: "1 hour, 2 minutes, 42 seconds"
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+            * short: "1:02:42"
+            * long: "1h, 2m, 42s"
+            * verbose: "1 hour, 2 minutes, 42 seconds"
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         value = track.get_tag_raw(self.name)
         format = parameters.get('format', 'short')
@@ -574,19 +574,19 @@ class TimeTagFormatter(TagFormatter):
     @staticmethod
     def format_value(value, format='short'):
         """
-            Formats a length value
+        Formats a length value
 
-            :param value: the length in seconds
-            :type value: float
-            :param format: verbosity of the output,
-                possible values are:
+        :param value: the length in seconds
+        :type value: float
+        :param format: verbosity of the output,
+            possible values are:
 
-                * short: "1:02:42"
-                * long: "1h, 2m, 42s"
-                * verbose: "1 hour, 2 minutes, 42 seconds"
-            :type format: string
-            :returns: the formatted value
-            :rtype: string
+            * short: "1:02:42"
+            * long: "1h, 2m, 42s"
+            * verbose: "1 hour, 2 minutes, 42 seconds"
+        :type format: string
+        :returns: the formatted value
+        :rtype: string
         """
         span = TimeSpan(value)
         text = ''
@@ -634,7 +634,7 @@ class TimeTagFormatter(TagFormatter):
 
 class LengthTagFormatter(TimeTagFormatter):
     """
-        A formatter for the length of a track
+    A formatter for the length of a track
     """
 
     def __init__(self):
@@ -646,7 +646,7 @@ providers.register('tag-formatting', LengthTagFormatter())
 
 class StartOffsetTagFormatter(TimeTagFormatter):
     """
-        A formatter for the track's start offset
+    A formatter for the track's start offset
     """
 
     def __init__(self):
@@ -658,7 +658,7 @@ providers.register('tag-formatting', StartOffsetTagFormatter())
 
 class StopOffsetTagFormatter(TimeTagFormatter):
     """
-        A formatter for the track's stop offset
+    A formatter for the track's stop offset
     """
 
     def __init__(self):
@@ -670,9 +670,9 @@ providers.register('tag-formatting', StopOffsetTagFormatter())
 
 class RatingTagFormatter(TagFormatter):
     """
-        A formatter for the rating of a track
+    A formatter for the rating of a track
 
-        Will return glyphs representing the rating like ★★★☆☆
+    Will return glyphs representing the rating like ★★★☆☆
     """
 
     def __init__(self):
@@ -680,14 +680,14 @@ class RatingTagFormatter(TagFormatter):
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         rating = track.get_rating()
         maximum = settings.get_option('rating/maximum', 5)
@@ -702,7 +702,7 @@ providers.register('tag-formatting', RatingTagFormatter())
 
 class YearTagFormatter(TagFormatter):
     """
-        A pseudo-tag that computes the year from the date column
+    A pseudo-tag that computes the year from the date column
     """
 
     def __init__(self):
@@ -725,29 +725,29 @@ providers.register('tag-formatting', YearTagFormatter())
 
 class DateTagFormatter(TagFormatter):
     """
-        A generic formatter for timestamp formatting
+    A generic formatter for timestamp formatting
 
-        Will return the localized string for *Today*, *Yesterday*
-        or the respective localized date for earlier dates
+    Will return the localized string for *Today*, *Yesterday*
+    or the respective localized date for earlier dates
     """
 
     def __init__(self, name):
         """
-            :param name: the name of the tag
-            :type name: string
+        :param name: the name of the tag
+        :type name: string
         """
         TagFormatter.__init__(self, name)
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         value = track.get_tag_raw(self.name)
         # TRANSLATORS: Indicates that a track has never been played before
@@ -773,7 +773,7 @@ class DateTagFormatter(TagFormatter):
 
 class LastPlayedTagFormatter(DateTagFormatter):
     """
-        A formatter for the last time a track was played
+    A formatter for the last time a track was played
     """
 
     def __init__(self):
@@ -785,8 +785,8 @@ providers.register('tag-formatting', LastPlayedTagFormatter())
 
 class DateAddedTagFormatter(DateTagFormatter):
     """
-        A formatter for the date a track
-        was added to the collection
+    A formatter for the date a track
+    was added to the collection
     """
 
     def __init__(self):
@@ -798,8 +798,8 @@ providers.register('tag-formatting', DateAddedTagFormatter())
 
 class LocationTagFormatter(TagFormatter):
     """
-        A formatter for the location of a track,
-        properly sanitized if necessary
+    A formatter for the location of a track,
+    properly sanitized if necessary
     """
 
     def __init__(self):
@@ -807,14 +807,14 @@ class LocationTagFormatter(TagFormatter):
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: optionally passed parameters
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         path = track.get_local_path()
         if path is not None:
@@ -827,7 +827,7 @@ providers.register('tag-formatting', LocationTagFormatter())
 
 class CommentTagFormatter(TagFormatter):
     """
-        A formatter for comments embedded in tracks
+    A formatter for comments embedded in tracks
     """
 
     def __init__(self):
@@ -835,18 +835,18 @@ class CommentTagFormatter(TagFormatter):
 
     def format(self, track, parameters):
         """
-            Formats a raw tag value
+        Formats a raw tag value
 
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: whether to keep newlines,
-                possible values for "newlines" are:
+        :param track: the track to get the tag from
+        :type track: :class:`xl.trax.Track`
+        :param parameters: whether to keep newlines,
+            possible values for "newlines" are:
 
-                * keep: do not strip newlines (default)
-                * strip: strip newlines
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
+            * keep: do not strip newlines (default)
+            * strip: strip newlines
+        :type parameters: dictionary
+        :returns: the formatted value
+        :rtype: string
         """
         value = track.get_tag_raw(self.name)
 
@@ -861,19 +861,19 @@ class CommentTagFormatter(TagFormatter):
     @staticmethod
     def format_value(value, newlines='keep'):
         """
-            Formats a comment value
+        Formats a comment value
 
-            :param value: the comment text
-            :type value: string
-            :param newlines: whether to keep newlines,
-                possible values are:
+        :param value: the comment text
+        :type value: string
+        :param newlines: whether to keep newlines,
+            possible values are:
 
-                * keep: do not strip newlines (default)
-                * strip: strip newlines
+            * keep: do not strip newlines (default)
+            * strip: strip newlines
 
-            :type newlines: string
-            :returns: the formatted value
-            :rtype: string
+        :type newlines: string
+        :returns: the formatted value
+        :rtype: string
         """
         if newlines == 'strip':
             value = ' '.join(value.splitlines())

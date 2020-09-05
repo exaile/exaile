@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 def suppress(signal):
     """
-        Decorator which prevents the emission of a GObject signal
+    Decorator which prevents the emission of a GObject signal
     """
 
     def wrapper(function):
@@ -57,8 +57,8 @@ def suppress(signal):
 
 class ControlBox(Gtk.Box, providers.ProviderHandler):
     """
-        A box for minimode controls which
-        updates itself based on settings
+    A box for minimode controls which
+    updates itself based on settings
     """
 
     __gsignals__ = {'show': 'override'}
@@ -74,14 +74,14 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         for control in self.__controls.values():
             control.destroy()
 
     def __contains__(self, item):
         """
-            Allows for checking for control ids
+        Allows for checking for control ids
         """
         if item in self.__controls:
             return True
@@ -90,13 +90,13 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
     def __getitem__(self, name):
         """
-            Returns the control specified by name
+        Returns the control specified by name
         """
         return self.__controls[name]
 
     def __setitem__(self, name, control):
         """
-            Sets the control specified by name
+        Sets the control specified by name
         """
         if name in self.__controls:
             self.remove(self.__controls[name])
@@ -108,14 +108,14 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
     def __delitem__(self, name):
         """
-            Destroys the control specified by name
+        Destroys the control specified by name
         """
         self.__controls[name].destroy()
         del self.__controls[name]
 
     def update(self):
         """
-            Updates the controls to display
+        Updates the controls to display
         """
         selected_controls = settings.get_option(
             'plugin/minimode/selected_controls',
@@ -150,8 +150,8 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
     def do_show(self):
         """
-            Updates the appearance if
-            settings have been changed
+        Updates the appearance if
+        settings have been changed
         """
         if self.__dirty:
             self.update()
@@ -161,14 +161,14 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
     def on_provider_removed(self, provider):
         """
-            Removes controls on provider removal
+        Removes controls on provider removal
         """
         if provider.name in self:
             del self[provider.name]
 
     def on_option_set(self, event, settings, option):
         """
-            Flags changes
+        Flags changes
         """
         if option == 'plugin/minimode/selected_controls':
             if self.props.visible:
@@ -182,7 +182,7 @@ class ControlBox(Gtk.Box, providers.ProviderHandler):
 
 class BaseControl:
     """
-        Base control provider
+    Base control provider
     """
 
     name: str
@@ -193,7 +193,7 @@ class BaseControl:
 
 class ButtonControl(Gtk.Button, BaseControl):
     """
-        Basic button control
+    Basic button control
     """
 
     __gsignals__ = {'clicked': 'override'}
@@ -208,16 +208,16 @@ class ButtonControl(Gtk.Button, BaseControl):
 
     def set_image_from_icon_name(self, icon_name):
         """
-            Sets the image to the specified icon
+        Sets the image to the specified icon
 
-            :param icon_name:
+        :param icon_name:
         """
         self.props.image.set_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
 
 
 class PreviousButtonControl(ButtonControl):
     """
-        Button which allows for going to the previous track
+    Button which allows for going to the previous track
     """
 
     name = 'previous'
@@ -232,14 +232,14 @@ class PreviousButtonControl(ButtonControl):
 
     def do_clicked(self):
         """
-            Goes to the previous track
+        Goes to the previous track
         """
         player.QUEUE.prev()
 
 
 class NextButtonControl(ButtonControl):
     """
-        Button which allows for going to the next track
+    Button which allows for going to the next track
     """
 
     name = 'next'
@@ -254,15 +254,15 @@ class NextButtonControl(ButtonControl):
 
     def do_clicked(self):
         """
-            Goes to the next track
+        Goes to the next track
         """
         player.QUEUE.next()
 
 
 class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
     """
-        Button which allows for starting,
-        pausing and resuming of playback
+    Button which allows for starting,
+    pausing and resuming of playback
     """
 
     name = 'play_pause'
@@ -277,14 +277,14 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         PlaybackAdapter.destroy(self)
         ButtonControl.destroy(self)
 
     def update_state(self):
         """
-            Updates the appearance of this button
+        Updates the appearance of this button
         """
         icon_name = 'media-playback-start'
         tooltip_text = _('Start playback')
@@ -301,7 +301,7 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
 
     def do_clicked(self):
         """
-            Starts, pauses or resumes the playback
+        Starts, pauses or resumes the playback
         """
         if player.PLAYER.is_stopped():
             player.QUEUE.play()
@@ -310,27 +310,27 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
 
     def on_playback_track_start(self, event, player, track):
         """
-            Updates state
+        Updates state
         """
         self.update_state()
 
     def on_playback_player_end(self, event, player, track):
         """
-            Updates state
+        Updates state
         """
         self.update_state()
 
     def on_playback_toggle_pause(self, event, player, track):
         """
-            Updates state
+        Updates state
         """
         self.update_state()
 
 
 class StopButtonControl(ButtonControl):
     """
-        Button which allows for stopping the playback
-        and toggling the SPAT feature
+    Button which allows for stopping the playback
+    and toggling the SPAT feature
     """
 
     name = 'stop'
@@ -362,7 +362,7 @@ class StopButtonControl(ButtonControl):
 
     def update_state(self):
         """
-            Updates the appearance of this button
+        Updates the appearance of this button
         """
         icon_name = 'media-playback-stop'
         tooltip_text = _('Stop playback')
@@ -380,7 +380,7 @@ class StopButtonControl(ButtonControl):
 
     def do_clicked(self):
         """
-            Stops the playback
+        Stops the playback
         """
         if self._queue_spat:
             p = player.QUEUE.current_playlist
@@ -392,7 +392,7 @@ class StopButtonControl(ButtonControl):
 
     def do_motion_notify_event(self, event):
         """
-            Indicates SPAT
+        Indicates SPAT
         """
         _, state = event.get_state()
         if state & Gdk.ModifierType.SHIFT_MASK:
@@ -403,7 +403,7 @@ class StopButtonControl(ButtonControl):
 
     def do_leave_notify_event(self, event):
         """
-            Returns to regular state
+        Returns to regular state
         """
         if self._queue_spat and not self.is_focus():
             self._queue_spat = False
@@ -415,7 +415,7 @@ class StopButtonControl(ButtonControl):
 
     def do_focus_out_event(self, event):
         """
-            Returns to regular state
+        Returns to regular state
         """
         if not self._hovered:
             self._queue_spat = False
@@ -423,7 +423,7 @@ class StopButtonControl(ButtonControl):
 
     def do_key_press_event(self, event):
         """
-            Indicates SPAT
+        Indicates SPAT
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             self._queue_spat = True
@@ -431,7 +431,7 @@ class StopButtonControl(ButtonControl):
 
     def do_key_release_event(self, event):
         """
-            Returns to regular state
+        Returns to regular state
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             self._queue_spat = False
@@ -440,7 +440,7 @@ class StopButtonControl(ButtonControl):
 
 class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
     """
-        Button which allows for changing the volume
+    Button which allows for changing the volume
     """
 
     name = 'volume'
@@ -474,7 +474,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         event.remove_callback(self.on_option_set, 'player_option_set')
 
@@ -483,8 +483,8 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
 
     def set_value(self, value):
         """
-            Override to take care of preventing
-            signal handling and endless loops
+        Override to take care of preventing
+        signal handling and endless loops
         """
         self.updating = True
         Gtk.VolumeButton.set_value(self, value)
@@ -492,14 +492,14 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
 
     def do_value_changed(self, value):
         """
-            Changes the volume except if done internally
+        Changes the volume except if done internally
         """
         if not self.updating:
             settings.set_option('player/volume', value)
 
     def on_option_set(self, event, settings, option):
         """
-            Reflects external volume changes
+        Reflects external volume changes
         """
         if option == 'player/volume':
             self.set_value(float(settings.get_option(option)))
@@ -507,7 +507,7 @@ class VolumeButtonControl(Gtk.VolumeButton, BaseControl):
 
 class RestoreButtonControl(ButtonControl):
     """
-        Button which allows for restoring the main window
+    Button which allows for restoring the main window
     """
 
     name = 'restore'
@@ -524,13 +524,13 @@ class RestoreButtonControl(ButtonControl):
 
     def do_clicked(self):
         """
-            Restores the main window
+        Restores the main window
         """
         self.get_toplevel().set_active(False)
 
     def do_hierarchy_changed(self, previous_toplevel):
         """
-            Sets up accelerators
+        Sets up accelerators
         """
         accel_group = Gtk.AccelGroup()
 
@@ -547,8 +547,8 @@ class RestoreButtonControl(ButtonControl):
 
 class RatingControl(RatingWidget, BaseControl):
     """
-        Control which allows for viewing and
-        changing the rating of the current track
+    Control which allows for viewing and
+    changing the rating of the current track
     """
 
     name = 'rating'
@@ -561,7 +561,7 @@ class RatingControl(RatingWidget, BaseControl):
 
     def do_rating_changed(self, rating):
         """
-            Updates the rating of the currently playing track
+        Updates the rating of the currently playing track
         """
         if player.PLAYER.current is not None:
             player.PLAYER.current.set_rating(rating)
@@ -598,15 +598,15 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         QueueAdapter.destroy(self)
         Gtk.ComboBox.destroy(self)
 
     def data_func(self, column, cell, model, iter, user_data):
         """
-            Updates track titles and highlights
-            the current track if the popup is shown
+        Updates track titles and highlights
+        the current track if the popup is shown
         """
         track = model.get_value(iter, 0)
 
@@ -629,8 +629,8 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
     @suppress('changed')
     def synchronize(self):
         """
-            Synchronizes the model data with
-            the current content of the queue
+        Synchronizes the model data with
+        the current content of the queue
         """
         self.set_model(None)
         self.model.clear()
@@ -646,8 +646,8 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def do_changed(self):
         """
-            Starts playing the selected track. Should only be
-            triggered by user action to prevent race conditions
+        Starts playing the selected track. Should only be
+        triggered by user action to prevent race conditions
         """
         active_index = self.get_active()
 
@@ -657,7 +657,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def add_tracks(self, tracks):
         """
-            Adds tracks to the internal storage
+        Adds tracks to the internal storage
         """
         if not tracks:
             return
@@ -671,7 +671,7 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def remove_tracks(self, tracks):
         """
-            Removes tracks from the internal storage
+        Removes tracks from the internal storage
         """
         if not tracks:
             return
@@ -686,14 +686,14 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def on_queue_current_playlist_changed(self, event, queue, playlist):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         self.synchronize()
 
     @suppress('changed')
     def on_queue_current_position_changed(self, event, playlist, positions):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         if positions[0] < 0:
             return
@@ -702,19 +702,19 @@ class TrackSelectorControl(Gtk.ComboBox, BaseControl, QueueAdapter):
 
     def on_queue_tracks_added(self, event, queue, tracks):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         GLib.idle_add(self.add_tracks, tracks)
 
     def on_queue_tracks_removed(self, event, queue, tracks):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         GLib.idle_add(self.remove_tracks, tracks)
 
     def on_option_set(self, event, settings, option):
         """
-            Updates control upon setting change
+        Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
             self.formatter.set_property(
@@ -799,7 +799,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         self.tooltip.destroy()
         QueueAdapter.destroy(self)
@@ -807,7 +807,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def update_playlist(self, playlist):
         """
-            Updates the internally stored playlist
+        Updates the internally stored playlist
         """
         columns = self.view.model.column_names
         model = PlaylistModel(playlist, columns, player.PLAYER, self.view)
@@ -815,7 +815,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def do_scroll_event(self, event):
         """
-            Changes the current track
+        Changes the current track
         """
         if event.direction == Gdk.ScrollDirection.UP:
             self.view.playlist.prev()
@@ -835,7 +835,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def do_toggled(self):
         """
-            Shows or hides the playlist
+        Shows or hides the playlist
         """
         if self.get_active():
             self.arrow.props.arrow_type = Gtk.ArrowType.DOWN
@@ -846,14 +846,14 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_accelerator_activate(self, accel_group, acceleratable, keyval, modifier):
         """
-            Shows the current track
+        Shows the current track
         """
         self.view.scroll_to_cell(self.view.playlist.current_position)
         self.view.set_cursor(self.view.playlist.current_position)
 
     def on_drag_motion(self, widget, context, x, y, time):
         """
-            Prepares to show the playlist
+        Prepares to show the playlist
         """
         # Defer display of the playlist
         if self._drag_motion_timeout_id is None:
@@ -868,7 +868,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_drag_leave(self, widget, context, time):
         """
-            Prepares to hide the playlist
+        Prepares to hide the playlist
         """
         # Enable display of the playlist on re-enter
         if self._drag_motion_timeout_id is not None:
@@ -885,7 +885,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
-            Handles dropped data
+        Handles dropped data
         """
         # Enable display of the playlist on re-enter
         if self._drag_motion_timeout_id is not None:
@@ -909,7 +909,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_popup_configure_event(self, widget, event):
         """
-            Saves the window size after resizing
+        Saves the window size after resizing
         """
         width = settings.get_option(
             'plugin/minimode/' 'playlist_button_popup_width', 350
@@ -930,13 +930,13 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_queue_current_playlist_changed(self, event, queue, playlist):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         GLib.idle_add(self.update_playlist, playlist)
 
     def on_queue_current_position_changed(self, event, playlist, positions):
         """
-            Updates the list on queue changes
+        Updates the list on queue changes
         """
         try:
             track = playlist[positions[0]]
@@ -949,7 +949,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_track_tags_changed(self, event, track, tags):
         """
-            Updates the button on tag changes
+        Updates the button on tag changes
         """
         playlist = self.view.playlist
 
@@ -962,7 +962,7 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
     def on_option_set(self, event, settings, option):
         """
-            Updates control upon setting change
+        Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
             self.formatter.set_property(
@@ -972,8 +972,8 @@ class PlaylistButtonControl(Gtk.ToggleButton, BaseControl, QueueAdapter):
 
 class ProgressButtonFormatter(Formatter):
     """
-        Formatter which allows both for display of
-        tag data as well as progress information
+    Formatter which allows both for display of
+    tag data as well as progress information
     """
 
     def __init__(self):
@@ -988,14 +988,14 @@ class ProgressButtonFormatter(Formatter):
 
     def format(self, current_time=None, total_time=None):
         """
-            Returns a string suitable for progress buttons
+        Returns a string suitable for progress buttons
 
-            :param current_time: the current progress
-            :type current_time: float
-            :param total_time: the total length of a track
-            :type total_time: float
-            :returns: The formatted text
-            :rtype: string
+        :param current_time: the current progress
+        :type current_time: float
+        :param total_time: the total length of a track
+        :type total_time: float
+        :returns: The formatted text
+        :rtype: string
         """
         text = self.progress_formatter.format()
         self.track_formatter.props.format = text
@@ -1005,7 +1005,7 @@ class ProgressButtonFormatter(Formatter):
 
     def get_option_value(self):
         """
-            Retrieves the current user format
+        Retrieves the current user format
         """
         return settings.get_option(
             'plugin/minimode/progress_button_title_format',
@@ -1014,7 +1014,7 @@ class ProgressButtonFormatter(Formatter):
 
     def on_option_set(self, event, settings, option):
         """
-            Updates the internal format on setting change
+        Updates the internal format on setting change
         """
         if option == 'gui/progress_bar_text_format':
             GLib.idle_add(self.set_property, 'format', self.get_option_value())
@@ -1062,14 +1062,14 @@ class ProgressButtonControl(PlaylistButtonControl):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         self.tooltip.destroy()
         PlaylistButtonControl.destroy(self)
 
     def do_button_press_event(self, event):
         """
-            Trigger normal toggle action or seek
+        Trigger normal toggle action or seek
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             PlaylistButtonControl.do_button_press_event(self, event)
@@ -1148,7 +1148,7 @@ control_types = [
 
 def register():
     """
-        Registers all control providers
+    Registers all control providers
     """
     for control_type in control_types:
         providers.register('minimode-controls', control_type)
@@ -1156,7 +1156,7 @@ def register():
 
 def unregister():
     """
-        Unregisters all control providers
+    Unregisters all control providers
     """
     for control_type in control_types:
         providers.unregister('minimode-controls', control_type)

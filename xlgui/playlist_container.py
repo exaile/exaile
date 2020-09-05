@@ -50,8 +50,8 @@ logger = logging.getLogger(__name__)
 
 class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
     """
-        Playlist notebook action which allows for creating new playlists
-        regularly as well as by dropping tracks, files and directories on it
+    Playlist notebook action which allows for creating new playlists
+    regularly as well as by dropping tracks, files and directories on it
     """
 
     __gsignals__ = {'clicked': 'override'}
@@ -78,25 +78,25 @@ class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
 
     def do_clicked(self):
         """
-            Triggers creation of a new playlist
+        Triggers creation of a new playlist
         """
         self.notebook.create_new_playlist()
 
     def on_drag_motion(self, widget, context, x, y, time):
         """
-            Updates the tooltip during drag operations
+        Updates the tooltip during drag operations
         """
         self.set_tooltip_text(self.__drag_tooltip_text)
 
     def on_drag_leave(self, widget, context, time):
         """
-            Restores the original tooltip
+        Restores the original tooltip
         """
         self.set_tooltip_text(self.__default_tooltip_text)
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
-            Handles dropped data
+        Handles dropped data
         """
         tab = self.notebook.create_new_playlist()
         # Forward signal to the PlaylistView in the newly added tab
@@ -181,10 +181,10 @@ class PlaylistNotebook(SmartNotebook):
 
     def create_tab_from_playlist(self, playlist):
         """
-            Create a tab that will contain the passed-in playlist
+        Create a tab that will contain the passed-in playlist
 
-            :param playlist: The playlist to create tab from
-            :type playlist: :class:`xl.playlist.Playlist`
+        :param playlist: The playlist to create tab from
+        :type playlist: :class:`xl.playlist.Playlist`
         """
         page = PlaylistPage(playlist, self.player)
         tab = NotebookTab(self, page)
@@ -193,8 +193,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def create_new_playlist(self):
         """
-            Create a new tab containing a blank playlist.
-            The tab will be automatically given a unique name.
+        Create a new tab containing a blank playlist.
+        The tab will be automatically given a unique name.
         """
         seen = []
         default_playlist_name = _('Playlist %d')
@@ -287,7 +287,7 @@ class PlaylistNotebook(SmartNotebook):
 
     def save_current_tabs(self):
         """
-            Saves the open tabs
+        Saves the open tabs
         """
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
@@ -319,8 +319,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def show_current_track(self):
         """
-            Tries to find the currently playing track
-            and selects it and its containing tab page
+        Tries to find the currently playing track
+        and selects it and its containing tab page
         """
         for n, page in enumerate(self):
             if not isinstance(page, PlaylistPage):
@@ -336,7 +336,7 @@ class PlaylistNotebook(SmartNotebook):
 
     def on_page_added(self, notebook, child, page_number):
         """
-            Updates appearance on page add
+        Updates appearance on page add
         """
         if self.get_n_pages() > 1:
             # Enforce tabbar visibility
@@ -344,7 +344,7 @@ class PlaylistNotebook(SmartNotebook):
 
     def on_page_removed(self, notebook, child, page_number):
         """
-            Updates appearance on page removal
+        Updates appearance on page removal
         """
         if self.get_n_pages() == 1:
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
@@ -452,8 +452,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def focus_tab(self, tab_nr):
         """
-            Selects the playlist notebook tab tab_nr, and gives it the keyboard
-            focus.
+        Selects the playlist notebook tab tab_nr, and gives it the keyboard
+        focus.
         """
         if tab_nr < self.get_n_pages():
             self.set_current_page(tab_nr)
@@ -461,8 +461,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def select_next_tab(self):
         """
-            Selects the previous playlist notebook tab, warping around if the
-            first page is currently displayed.
+        Selects the previous playlist notebook tab, warping around if the
+        first page is currently displayed.
         """
         tab_nr = self.get_current_page()
         tab_nr += 1
@@ -471,8 +471,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def select_prev_tab(self):
         """
-            Selects the next playlist notebook tab, warping around if the last
-            page is currently displayed.
+        Selects the next playlist notebook tab, warping around if the last
+        page is currently displayed.
         """
         tab_nr = self.get_current_page()
         tab_nr -= 1
@@ -481,7 +481,7 @@ class PlaylistNotebook(SmartNotebook):
 
     def on_option_set(self, event, settings, option):
         """
-            Updates appearance on setting change
+        Updates appearance on setting change
         """
         if option == 'gui/show_tabbar':
             show_tabbar = settings.get_option(option, True)
@@ -497,15 +497,15 @@ class PlaylistNotebook(SmartNotebook):
 
 
 class PlaylistContainer(Gtk.Box):
-    '''
-        Contains two playlist notebooks that can contain playlists.
-        Playlists can be moved between the two notebooks.
+    """
+    Contains two playlist notebooks that can contain playlists.
+    Playlists can be moved between the two notebooks.
 
-        TODO: Does it make sense to support more than two notebooks?
-        I think with this implementation it does not -- we would need to
-        move to a different UI design that allowed arbitrary placement
-        of UI elements if that was the case.
-    '''
+    TODO: Does it make sense to support more than two notebooks?
+    I think with this implementation it does not -- we would need to
+    move to a different UI design that allowed arbitrary placement
+    of UI elements if that was the case.
+    """
 
     def __init__(self, manager_name, player):
         Gtk.Box.__init__(self)
@@ -601,25 +601,25 @@ class PlaylistContainer(Gtk.Box):
 
     def create_new_playlist(self):
         """
-            Create a new tab in the primary notebook containing a blank
-            playlist. The tab will be automatically given a unique name.
+        Create a new tab in the primary notebook containing a blank
+        playlist. The tab will be automatically given a unique name.
         """
         return self.notebooks[0].create_new_playlist()
 
     def create_tab_from_playlist(self, pl):
         """
-            Create a tab that will contain the passed-in playlist
+        Create a tab that will contain the passed-in playlist
 
-            :param playlist: The playlist to create tab from
-            :type playlist: :class:`xl.playlist.Playlist`
+        :param playlist: The playlist to create tab from
+        :type playlist: :class:`xl.playlist.Playlist`
         """
         return self.notebooks[0].create_tab_from_playlist(pl)
 
     def get_current_notebook(self):
-        '''
-            Returns the last focused notebook, or the
-            primary notebook
-        '''
+        """
+        Returns the last focused notebook, or the
+        primary notebook
+        """
         if self.paned.get_parent() is not None:
             focus = self.paned.get_focus_child()
             if focus is not None:
@@ -627,16 +627,16 @@ class PlaylistContainer(Gtk.Box):
         return self.notebooks[0]
 
     def get_current_tab(self):
-        '''
-            Returns the currently showing tab on the current notebook
-        '''
+        """
+        Returns the currently showing tab on the current notebook
+        """
         notebook = self.get_current_notebook()
         return notebook.get_current_tab()
 
     def focus(self):
-        '''
-            Gives keyboard focus to the currently selected tab
-        '''
+        """
+        Gives keyboard focus to the currently selected tab
+        """
         self.get_current_tab().focus()
 
     def on_page_reordered(self, notebook, child, page_number):
@@ -648,17 +648,17 @@ class PlaylistContainer(Gtk.Box):
 
     def save_current_tabs(self):
         """
-            Saves the open tabs
+        Saves the open tabs
         """
         for notebook in self.notebooks:
             notebook.save_current_tabs()
 
     def show_queue(self, switch=True):
         """
-            Shows the queue page in the last notebook that
-            the queue was located.
+        Shows the queue page in the last notebook that
+        the queue was located.
 
-            :param switch: If True, switch focus to the queue page
+        :param switch: If True, switch focus to the queue page
         """
         if self.queuepage.tab.notebook is None:
             # ensure the queue is restored in the last place the user had it
@@ -673,8 +673,8 @@ class PlaylistContainer(Gtk.Box):
 
     def show_current_track(self):
         """
-            Tries to find the currently playing track
-            and selects it and its containing tab page
+        Tries to find the currently playing track
+        and selects it and its containing tab page
         """
         for notebook in self.notebooks:
             if notebook.show_current_track():

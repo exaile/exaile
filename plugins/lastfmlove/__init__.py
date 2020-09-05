@@ -43,13 +43,13 @@ icons.MANAGER.add_icon_name_from_directory(
 class LastFMPlugin:
     def enable(self, exaile):
         """
-            Handles the deferred enable call
+        Handles the deferred enable call
         """
         self.__lastfmlover = LastFMLover()
 
     def disable(self, exaile):
         """
-            Disables the desktop cover plugin
+        Disables the desktop cover plugin
         """
         self.__lastfmlover.destroy()
         self.__lastfmlover = None
@@ -84,7 +84,7 @@ class LoveColumn(Column):
 
     def data_func(self, column, cellrenderer, model, iter, user_data):
         """
-            Displays the loved state
+        Displays the loved state
         """
         track = model.get_value(iter, 0)
         lastfm_track = pylast.Track(
@@ -105,7 +105,7 @@ class LoveColumn(Column):
 
     def on_toggled(self, cellrenderer, path):
         """
-            Loves or unloves the selected track
+        Loves or unloves the selected track
         """
         if cellrenderer.props.sensitive and self.last_fm_lover.network is not None:
             track = self.model.get_value(self.model.get_iter(path), 0)
@@ -130,7 +130,7 @@ class LoveColumn(Column):
 
     def on_option_set(self, typ, obj, data):
         """
-            Refresh playlist love icon size on playlist font option set
+        Refresh playlist love icon size on playlist font option set
         """
         if data == "gui/playlist_font":
             self.cellrenderer.props.pixbuf = self._set_icon_size(
@@ -140,8 +140,8 @@ class LoveColumn(Column):
 
 class LoveMenuItem(MenuItem):
     """
-        A menu item representing the loved state of a
-        track and allowing for loving and unloving it
+    A menu item representing the loved state of a
+    track and allowing for loving and unloving it
     """
 
     def __init__(self, last_fm_lover, after, get_tracks_function=None):
@@ -152,7 +152,7 @@ class LoveMenuItem(MenuItem):
 
     def factory(self, menu, parent, context):
         """
-            Sets up the menu item
+        Sets up the menu item
         """
         item = Gtk.ImageMenuItem.new_with_mnemonic(_('_Love This Track'))
         item.set_image(Gtk.Image.new_from_icon_name('love', Gtk.IconSize.MENU))
@@ -185,21 +185,21 @@ class LoveMenuItem(MenuItem):
 
     def on_activate(self, menuitem, track):
         """
-            Loves or unloves the selected track
+        Loves or unloves the selected track
         """
         self.__lastfmlover.toggle_loved(track)
 
 
 class LastFMLover:
     """
-        Allows for retrieval and setting
-        of loved tracks via Last.fm
+    Allows for retrieval and setting
+    of loved tracks via Last.fm
     """
 
     def __init__(self):
         """
-            Sets up the connection to Last.fm
-            as well as the graphical interface
+        Sets up the connection to Last.fm
+        as well as the graphical interface
         """
         self.network = None
         self.user = None
@@ -210,8 +210,8 @@ class LastFMLover:
 
         def get_tracks_function():
             """
-                Drop in replacement for menu item context
-                to retrieve the currently playing track
+            Drop in replacement for menu item context
+            to retrieve the currently playing track
             """
             current_track = player.PLAYER.current
 
@@ -235,7 +235,7 @@ class LastFMLover:
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         event.remove_callback(self.on_option_set, 'plugin_lastfmlove_option_set')
 
@@ -249,8 +249,8 @@ class LastFMLover:
 
     def setup_network(self):
         """
-            Tries to set up the network, retrieve the user
-            and the initial list of loved tracks
+        Tries to set up the network, retrieve the user
+        and the initial list of loved tracks
         """
         try:
             self.network = pylast.LastFMNetwork(
@@ -277,7 +277,7 @@ class LastFMLover:
 
     def restart_timer(self):
         """
-            Restarts the timer which starts the retrieval of tracks
+        Restarts the timer which starts the retrieval of tracks
         """
         if self.timer is not None and self.timer.is_alive():
             self.timer.cancel()
@@ -291,7 +291,7 @@ class LastFMLover:
 
     def get_loved_tracks(self):
         """
-            Updates the list of loved tracks
+        Updates the list of loved tracks
         """
         logger.debug('Retrieving list of loved tracks...')
 
@@ -306,10 +306,10 @@ class LastFMLover:
 
     def toggle_loved(self, track):
         """
-            Toggles the loved state of a track
+        Toggles the loved state of a track
 
-            :param track: the track to love/unlove
-            :type track: `xl.trax.Track`
+        :param track: the track to love/unlove
+        :type track: `xl.trax.Track`
         """
         lastfm_track = pylast.Track(
             track.get_tag_display('artist'),
@@ -325,10 +325,10 @@ class LastFMLover:
     @common.threaded
     def love_track(self, track):
         """
-            Loves a track
+        Loves a track
 
-            :param track: the track to love
-            :type track: `pylast.Track`
+        :param track: the track to love
+        :type track: `pylast.Track`
         """
         try:
             track.love()
@@ -341,10 +341,10 @@ class LastFMLover:
     @common.threaded
     def unlove_track(self, track):
         """
-            Unloves a track
+        Unloves a track
 
-            :param track: the track to unlove
-            :type track: `pylast.Track`
+        :param track: the track to unlove
+        :type track: `pylast.Track`
         """
         try:
             track.unlove()
@@ -356,7 +356,7 @@ class LastFMLover:
 
     def on_option_set(self, event, settings, option):
         """
-            Takes action upon setting changes
+        Takes action upon setting changes
         """
         if option in ('plugin/lastfmlove/api_key', 'plugin/lastfmlove/api_secret'):
             self.setup_network()

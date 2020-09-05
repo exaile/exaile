@@ -57,7 +57,7 @@ class Shutdown:
 
     def on_toggled(self, menuitem):
         """
-            Enables or disables defered shutdown
+        Enables or disables defered shutdown
         """
         if menuitem.get_active():
             self.do_shutdown = True
@@ -89,7 +89,7 @@ class Shutdown:
 
     def on_playback_player_end(self, event, player, track):
         """
-            Tries to shutdown the computer
+        Tries to shutdown the computer
         """
         self.message.set_message_type(Gtk.MessageType.INFO)
         self.message.set_markup(_('Imminent Shutdown'))
@@ -104,14 +104,14 @@ class Shutdown:
 
     def on_response(self, widget, response):
         """
-            Cancels shutdown if requested
+        Cancels shutdown if requested
         """
         if response == Gtk.ResponseType.CANCEL:
             self.disable_shutdown()
 
     def on_timeout(self):
         """
-            Tries to shutdown the computer
+        Tries to shutdown the computer
         """
         self.countdown = None
         if self.counter > 0:
@@ -153,7 +153,7 @@ class Shutdown:
 
     def destroy(self):
         """
-            Cleans up
+        Cleans up
         """
         if self.countdown is not None:
             GLib.source_remove(self.countdown)

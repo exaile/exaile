@@ -47,7 +47,7 @@ def disable(exaile):
 
 class LastFMCoverSearch(covers.CoverSearchMethod):
     """
-        Searches Last.fm for covers
+    Searches Last.fm for covers
     """
 
     name = 'lastfm'
@@ -61,7 +61,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         """
-            Searches last.fm for album covers
+        Searches last.fm for album covers
         """
         # TODO: handle multi-valued fields better
         try:

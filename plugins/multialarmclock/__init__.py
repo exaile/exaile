@@ -74,9 +74,9 @@ def idle_add(f):
 
 
 class Alarm:
-    '''
-        Class for individual alarms.
-    '''
+    """
+    Class for individual alarms.
+    """
 
     def __init__(self, time="09:00", days=None, name="New Alarm", active=True, dict={}):
         self.active = active
@@ -104,9 +104,9 @@ class Alarm:
 
 
 class AlarmClock:
-    '''
-        Class that handles the TreeView interaction and keeps track of alarms.
-    '''
+    """
+    Class that handles the TreeView interaction and keeps track of alarms.
+    """
 
     def __init__(self, exaile):
         self.RANG = {}  # Keep track of alarms that have gone off
@@ -381,9 +381,9 @@ def fade_in(main, exaile):
 
 def check_alarms(main, exaile):
     """
-        Called every timeout.  If the plugin is not enabled, it does
-        nothing.  If the current time matches the time specified and the
-        current day is selected, it starts playing
+    Called every timeout.  If the plugin is not enabled, it does
+    nothing.  If the current time matches the time specified and the
+    current day is selected, it starts playing
     """
     if not main:
         return True  # TODO: new way?
@@ -457,9 +457,9 @@ def enable(exaile):
 
 @idle_add
 def _enable(stuff, exaile, junk):
-    '''
-        Enable plugin.  Start timer and create class.
-    '''
+    """
+    Enable plugin.  Start timer and create class.
+    """
     logger.debug('_enable called')
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN, MY_BUILDER
 
@@ -476,9 +476,9 @@ def _enable(stuff, exaile, junk):
 
 
 def disable(exaile):
-    '''
-        Called when plugin is unloaded.  Stop timer.
-    '''
+    """
+    Called when plugin is unloaded.  Stop timer.
+    """
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN, MY_BUILDER
 
     # Cleanup

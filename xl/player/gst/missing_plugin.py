@@ -57,20 +57,20 @@ MISSING_PLUGIN_URL = "https://exaile.readthedocs.io/en/stable/user/faq.html"
 
 def handle_message(message, engine):
     """
-        Handles `message` by checking whether it is a "missing plugin" message.
-        If it is, takes all required steps to make sure that
-            * playback is paused
-            * the user is notified of the issue
-            * the user gets a hint on which software to install
+    Handles `message` by checking whether it is a "missing plugin" message.
+    If it is, takes all required steps to make sure that
+        * playback is paused
+        * the user is notified of the issue
+        * the user gets a hint on which software to install
 
-        @param message: a Gst.Message of type Gst.MessageType.Element
-        @param engine: an instance of xl.player.gst.engine.ExaileGstEngine
+    @param message: a Gst.Message of type Gst.MessageType.Element
+    @param engine: an instance of xl.player.gst.engine.ExaileGstEngine
 
-        @return: True if the message was a "missing plugin" message and was
-                    being handled. This does not mean that the plugin installed
-                    successfully.
-                 False if the message should be handled by some other code
-                    because it is not related to a missing plugin.
+    @return: True if the message was a "missing plugin" message and was
+                being handled. This does not mean that the plugin installed
+                successfully.
+             False if the message should be handled by some other code
+                because it is not related to a missing plugin.
     """
     if not GstPbutils.is_missing_plugin_message(message):
         return False
@@ -107,8 +107,8 @@ def __notify_user_on_error(message_text, engine):
 def __run_installer_helper(installer_details):
     """
 
-        @return True if the helper might have run. False if did not run for
-                    sure.
+    @return True if the helper might have run. False if did not run for
+                sure.
     """
     cntxt = __create_context()
 

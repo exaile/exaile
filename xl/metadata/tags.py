@@ -101,7 +101,7 @@ for k, v in tag_data.items():
 
 
 def get_default_tagdata(tag):
-    '''If the tagname is not in tag_data, you can use this function
-       to get a _TD object for it'''
+    """If the tagname is not in tag_data, you can use this function
+    to get a _TD object for it"""
 
     return _TD(tag, 'text', editable=(not tag.startswith('__')), tag_name=tag)

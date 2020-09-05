@@ -54,21 +54,21 @@ class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditi
 
     def _get_value(self):
         """
-            Converts the string value to a list
+        Converts the string value to a list
         """
         return [v.strip() for v in widgets.Preference._get_value(self).split(',')]
 
     def _set_value(self):
         """
-            Converts the list to a string value
+        Converts the list to a string value
         """
         self.widget.set_text(', '.join(settings.get_option(self.name, self.default)))
 
 
 class CoverOrderPreference(widgets.OrderListPreference):
     """
-        This little preference item shows kind of a complicated preference
-        widget in action.  The defaults are dynamic.
+    This little preference item shows kind of a complicated preference
+    widget in action.  The defaults are dynamic.
     """
 
     name = 'covers/preferred_order'

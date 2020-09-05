@@ -223,12 +223,12 @@ class PluginsManager:
         return infodict
 
     def is_compatible(self, info):
-        '''
-            Returns True if the plugin claims to be compatible with the
-            current platform.
+        """
+        Returns True if the plugin claims to be compatible with the
+        current platform.
 
-            :param info: The data returned from get_plugin_info()
-        '''
+        :param info: The data returned from get_plugin_info()
+        """
         platforms = info.get('Platforms', [])
         if len(platforms) == 0:
             platforms = [sys.platform]
@@ -240,12 +240,12 @@ class PluginsManager:
         return False
 
     def is_potentially_broken(self, info):
-        '''
-            Returns True if one of the modules that the plugin requires is
-            not detected as available.
+        """
+        Returns True if one of the modules that the plugin requires is
+        not detected as available.
 
-            :param info: The data returned from get_plugin_info()
-        '''
+        :param info: The data returned from get_plugin_info()
+        """
         import pkgutil
         from gi.repository import GIRepository
 
@@ -280,7 +280,7 @@ class PluginsManager:
 
     def teardown(self, main):
         """
-            Tears down all enabled plugins
+        Tears down all enabled plugins
         """
         for plugin_name, plugin in self.enabled_plugins.items():
             if hasattr(plugin, 'teardown'):

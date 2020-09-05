@@ -37,8 +37,8 @@ from xlgui import icons
 
 class RatingWidget(Gtk.EventBox):
     """
-        A rating widget which displays a row of
-        images and allows for selecting the rating
+    A rating widget which displays a row of
+    images and allows for selecting the rating
     """
 
     __gproperties__ = {
@@ -58,11 +58,11 @@ class RatingWidget(Gtk.EventBox):
 
     def __init__(self, rating=0, player=None):
         """
-            :param rating: the optional initial rating
-            :type rating: int
-            :param player: If not None, this rating widget will automatically
-                           update to reflect the rating of the current song
-            :type player: xl.player.ExailePlayer
+        :param rating: the optional initial rating
+        :type rating: int
+        :param player: If not None, this rating widget will automatically
+                       update to reflect the rating of the current song
+        :type player: xl.player.ExailePlayer
         """
         Gtk.EventBox.__init__(self)
         self._player = player
@@ -92,7 +92,7 @@ class RatingWidget(Gtk.EventBox):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         if self._player is not None:
             event.remove_callback(
@@ -105,7 +105,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_get_property(self, property):
         """
-            Getter for custom properties
+        Getter for custom properties
         """
         if property.name == 'rating':
             return self._rating
@@ -114,7 +114,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_set_property(self, property, value):
         """
-            Setter for custom properties
+        Setter for custom properties
         """
         if property.name == 'rating':
             if value == self._rating:
@@ -131,7 +131,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_expose_event(self, event):
         """
-            Takes care of painting the focus indicator
+        Takes care of painting the focus indicator
         """
         if self.is_focus():
             self.style.paint_focus(
@@ -150,7 +150,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_motion_notify_event(self, event):
         """
-            Temporarily updates the displayed rating
+        Temporarily updates the displayed rating
         """
         if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
@@ -167,7 +167,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_leave_notify_event(self, event):
         """
-            Restores the original rating
+        Restores the original rating
         """
         if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
@@ -178,7 +178,7 @@ class RatingWidget(Gtk.EventBox):
 
     def do_button_release_event(self, event):
         """
-            Applies the selected rating
+        Applies the selected rating
         """
         if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
@@ -193,9 +193,9 @@ class RatingWidget(Gtk.EventBox):
 
     def do_key_press_event(self, event):
         """
-            Changes the rating on keyboard interaction
-            * Alt+Up/Right: increases the rating
-            * Alt+Down/Left: decreases the rating
+        Changes the rating on keyboard interaction
+        * Alt+Up/Right: increases the rating
+        * Alt+Down/Left: decreases the rating
         """
         if self.get_state_flags() & Gtk.StateType.INSENSITIVE:
             return
@@ -220,7 +220,7 @@ class RatingWidget(Gtk.EventBox):
 
     def on_rating_update(self, event_type, sender, data):
         """
-            Updates the rating from the current track
+        Updates the rating from the current track
         """
         if self._player.current is not None:
             self._rating = self._player.current.get_rating()
@@ -234,7 +234,7 @@ class RatingWidget(Gtk.EventBox):
 
 class RatingMenuItem(Gtk.MenuItem):
     """
-        A menuitem containing a rating widget
+    A menuitem containing a rating widget
     """
 
     __gproperties__ = {
@@ -254,11 +254,11 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def __init__(self, rating=0, player=None):
         """
-            :param rating: the optional initial rating
-            :type rating: int
-            :param player: If not None, this rating widget will automatically
-                           update to reflect the rating of the current song
-            :type player: xl.player.ExailePlayer
+        :param rating: the optional initial rating
+        :type rating: int
+        :param player: If not None, this rating widget will automatically
+                       update to reflect the rating of the current song
+        :type player: xl.player.ExailePlayer
         """
         Gtk.MenuItem.__init__(self)
 
@@ -273,7 +273,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def do_get_property(self, property):
         """
-            Getter for custom properties
+        Getter for custom properties
         """
         if property.name == 'rating':
             return self.rating_widget.props.rating
@@ -282,7 +282,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def do_set_property(self, property, value):
         """
-            Setter for custom properties
+        Setter for custom properties
         """
         if property.name == 'rating':
             self.rating_widget.props.rating = value
@@ -291,7 +291,7 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def do_motion_notify_event(self, event):
         """
-            Forwards the event to the rating widget
+        Forwards the event to the rating widget
         """
         allocation = self.rating_widget.get_allocation()
 
@@ -304,13 +304,13 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def do_leave_notify_event(self, event):
         """
-            Forwards the event to the rating widget
+        Forwards the event to the rating widget
         """
         self.rating_widget.emit('leave-notify-event', event.copy())
 
     def do_button_release_event(self, event):
         """
-            Forwards the event to the rating widget
+        Forwards the event to the rating widget
         """
         allocation = self.rating_widget.get_allocation()
 
@@ -323,15 +323,15 @@ class RatingMenuItem(Gtk.MenuItem):
 
     def on_rating_changed(self, widget, rating):
         """
-            Forwards the event
+        Forwards the event
         """
         self.emit('rating-changed', rating)
 
 
 class RatingCellRenderer(Gtk.CellRendererPixbuf):
     """
-        A cell renderer drawing rating images
-        and allowing for selection of ratings
+    A cell renderer drawing rating images
+    and allowing for selection of ratings
     """
 
     __gproperties__ = {
@@ -363,7 +363,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
 
     def do_get_property(self, property):
         """
-            Getter for GObject properties
+        Getter for GObject properties
         """
         if property.name == 'rating':
             return self.rating
@@ -372,7 +372,7 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
 
     def do_set_property(self, property, value):
         """
-            Setter for GObject properties
+        Setter for GObject properties
         """
         if property.name == 'rating':
             self.rating = value
@@ -384,8 +384,8 @@ class RatingCellRenderer(Gtk.CellRendererPixbuf):
 
     def do_activate(self, event, widget, path, background_area, cell_area, flags):
         """
-            Checks if a button press event did occur
-            within the clickable rating image area
+        Checks if a button press event did occur
+        within the clickable rating image area
         """
         if event is None:  # Keyboard activation
             return

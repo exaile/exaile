@@ -42,7 +42,7 @@ _sep = menu.simple_separator
 
 class Bookmark:
     """
-        Manages a bookmark and provides a method to create a menu item.
+    Manages a bookmark and provides a method to create a menu item.
     """
 
     __counter = 0
@@ -51,8 +51,8 @@ class Bookmark:
         self, bookmarks_menu, delete_menu, delete_bookmark_callback, path, time
     ):
         """
-            Creates a bookmark for current track/position if path or time are
-            None. Creates a bookmark for the given track/positon otherwise.
+        Creates a bookmark for current track/position if path or time are
+        None. Creates a bookmark for the given track/positon otherwise.
         """
         if not path:
             # get currently playing track
@@ -102,7 +102,7 @@ class Bookmark:
 
     def __create_menu_item(self, bookmarks_menu, delete_menu, delete_bookmark_callback):
         """
-            Create menu entries for this bookmark.
+        Create menu entries for this bookmark.
         """
         time = '%d:%02d' % (self.__time // 60, self.__time % 60)
         label = '%s @ %s' % (self.__title, time)
@@ -128,7 +128,7 @@ class Bookmark:
 
     def __on_bookmark_activated(self, _widget):
         """
-            This is called to resume a bookmark.
+        This is called to resume a bookmark.
         """
         # check if it's already playing
         track = player.PLAYER.current
@@ -144,9 +144,9 @@ class Bookmark:
 
     def serialize_bookmark(self):
         """
-            Serializes a bookmark object for json.dump().
-            This function assumes that a bookmark argument can be used as if
-            it was given as self. This assumption might be wrong in the future.
+        Serializes a bookmark object for json.dump().
+        This function assumes that a bookmark argument can be used as if
+        it was given as self. This assumption might be wrong in the future.
         """
         if not isinstance(self, Bookmark):
             raise ValueError()
@@ -155,7 +155,7 @@ class Bookmark:
 
 class BookmarksManager:
     """
-        Manages a list of bookmarks and the associated menu entries
+    Manages a list of bookmarks and the associated menu entries
     """
 
     __PATH = os.path.join(xdg.get_data_dirs()[0], 'bookmarklist.dat')
@@ -239,7 +239,7 @@ class BookmarksManager:
 
     def __clear_bookmarks(self, _widget):
         """
-            Delete all bookmarks.
+        Delete all bookmarks.
         """
         for bookmark in self.__bookmarks:
             self.delete_menu.remove_item(bookmark.get_menu_item())
@@ -249,7 +249,7 @@ class BookmarksManager:
 
     def __delete_bookmark(self, _widget, bookmark):
         """
-            Delete a bookmark.
+        Delete a bookmark.
         """
         self.__bookmarks.remove(bookmark)
         self.delete_menu.remove_item(bookmark.get_menu_item())
@@ -259,7 +259,7 @@ class BookmarksManager:
     @common.threaded
     def __load_db(self):
         """
-            Load previously saved bookmarks from a file.
+        Load previously saved bookmarks from a file.
         """
         with self.__db_file_lock:
             if not os.path.exists(self.__PATH):
@@ -285,7 +285,7 @@ class BookmarksManager:
 
     def __save_db(self):
         """
-            Save list of bookmarks to a file.
+        Save list of bookmarks to a file.
         """
         # lists are not thread-safe, so we need a copy.
         # we don't need a deep copy because keys and values are not mutated.
@@ -317,8 +317,8 @@ class BookmarksPlugin:
 
     def on_gui_loaded(self):
         """
-            Called when plugin is enabled.  Set up the menus, create the bookmark class, and
-            load any saved bookmarks.
+        Called when plugin is enabled.  Set up the menus, create the bookmark class, and
+        load any saved bookmarks.
         """
 
         self.__manager = BookmarksManager()
@@ -338,7 +338,7 @@ class BookmarksPlugin:
 
     def disable(self, _exaile):
         """
-            Called when the plugin is disabled.  Destroy menu.
+        Called when the plugin is disabled.  Destroy menu.
         """
         self.__manager.menu = None  # used to mark plugin shutdown to display_bookmark
         for item in providers.get('menubar-tools-menu'):

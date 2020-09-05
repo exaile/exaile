@@ -36,7 +36,7 @@ from xlgui.widgets.common import DragTreeView
 
 class FlatPlaylistPanel(panel.Panel):
     """
-        Flat playlist panel; represents a single playlist
+    Flat playlist panel; represents a single playlist
     """
 
     __gsignals__ = {
@@ -121,19 +121,19 @@ class FlatPlaylistPanel(panel.Panel):
 
     def drag_data_received(self, *e):
         """
-            stub
+        stub
         """
         pass
 
     def drag_data_delete(self, *e):
         """
-            stub
+        stub
         """
         pass
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
-            Called when a drag source wants data for this drag operation
+        Called when a drag source wants data for this drag operation
         """
         tracks = self.tree.get_selected_tracks()
         if not tracks:
@@ -146,18 +146,18 @@ class FlatPlaylistPanel(panel.Panel):
 
 class FlatPlaylistDragTreeView(DragTreeView):
     """
-        Custom DragTreeView to retrieve data from playlists
+    Custom DragTreeView to retrieve data from playlists
     """
 
     def get_selected_tracks_count(self):
-        '''
-            Returns the count of selected tracks
-        '''
+        """
+        Returns the count of selected tracks
+        """
         return self.get_selection().count_selected_rows()
 
     def get_selected_tracks(self):
         """
-            Returns the currently selected tracks
+        Returns the currently selected tracks
         """
         (model, paths) = self.get_selection().get_selected_rows()
         tracks = []

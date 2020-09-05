@@ -368,7 +368,7 @@ class RatingColumn(Column):
 
     def __get_size(self):
         """
-            Retrieves the optimal size
+        Retrieves the optimal size
         """
         size = icons.MANAGER.pixbuf_from_rating(0, self.get_size_ratio()).get_width()
         size += 2  # FIXME: Find the source of this
@@ -379,7 +379,7 @@ class RatingColumn(Column):
 
     def on_rating_changed(self, widget, path, rating):
         """
-            Updates the rating of the selected track
+        Updates the rating of the selected track
         """
         iter = self.saved_model.get_iter(path)
         track = self.saved_model.get_value(iter, 0)
@@ -525,7 +525,7 @@ class ScheduleTimeColumn(Column):
 
     def data_func(self, col, cell, model, iter, user_data):
         """
-            Sets the schedule time if appropriate
+        Sets the schedule time if appropriate
         """
         text = None
         playlist = self.container.playlist
@@ -569,7 +569,7 @@ class ScheduleTimeColumn(Column):
 
     def start_timer(self):
         """
-            Enables realtime updates
+        Enables realtime updates
         """
         timeout_id = self.timeout_id
 
@@ -581,7 +581,7 @@ class ScheduleTimeColumn(Column):
 
     def stop_timer(self):
         """
-            Disables realtime updates
+        Disables realtime updates
         """
         timeout_id = self.timeout_id
 
@@ -594,7 +594,7 @@ class ScheduleTimeColumn(Column):
 
     def on_timeout(self):
         """
-            Makes sure schedule times are updated in realtime
+        Makes sure schedule times are updated in realtime
         """
         self.queue_resize()
         view = self.get_tree_view()
@@ -607,8 +607,8 @@ class ScheduleTimeColumn(Column):
 
     def on_queue_current_playlist_changed(self, e, queue, current_playlist):
         """
-            Disables realtime updates for all playlists
-            and re-enables them for the current playlist
+        Disables realtime updates for all playlists
+        and re-enables them for the current playlist
         """
         self.stop_timer()
 
@@ -617,7 +617,7 @@ class ScheduleTimeColumn(Column):
 
     def on_playback_player_start(self, e, player, track):
         """
-            Enables realtime updates for the current playlist
+        Enables realtime updates for the current playlist
         """
         self.stop_timer()
 
@@ -627,7 +627,7 @@ class ScheduleTimeColumn(Column):
 
     def on_playback_player_end(self, e, player, track):
         """
-            Disables realtime updates for all playlists
+        Disables realtime updates for all playlists
         """
         self.stop_timer()
 
@@ -705,26 +705,26 @@ providers.register('playlist-columns', WebsiteColumn)
 
 class ColumnMenuItem(menu.MenuItem):
     """
-        A menu item dedicated to display the
-        status of a column and change it
+    A menu item dedicated to display the
+    status of a column and change it
     """
 
     def __init__(self, column, after=None):
         """
-            Sets up the menu item from a column description
+        Sets up the menu item from a column description
 
-            :param column: the playlist column
-            :type column: :class:`Column`
-            :param after: enumeration of menu
-                items before this one
-            :type after: list of strings
+        :param column: the playlist column
+        :type column: :class:`Column`
+        :param after: enumeration of menu
+            items before this one
+        :type after: list of strings
         """
         menu.MenuItem.__init__(self, column.name, self.factory, after)
         self.title = column.menu_title
 
     def factory(self, menu, parent, context):
         """
-            Creates the menu item
+        Creates the menu item
         """
         item = Gtk.CheckMenuItem.new_with_label(self.title)
         active = self.is_selected(self.name, parent, context)
@@ -735,15 +735,15 @@ class ColumnMenuItem(menu.MenuItem):
 
     def is_selected(self, name, parent, context):
         """
-            Returns whether a column is selected
+        Returns whether a column is selected
 
-            :rtype: bool
+        :rtype: bool
         """
         return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
     def on_item_activate(self, menu_item, name, parent, context):
         """
-            Updates the columns setting
+        Updates the columns setting
         """
         columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
@@ -757,18 +757,18 @@ class ColumnMenuItem(menu.MenuItem):
 
 def __register_playlist_columns_menuitems():
     """
-        Registers standard menu items for playlist columns
+    Registers standard menu items for playlist columns
     """
 
     def is_column_selected(name, parent, context):
         """
-            Returns whether a menu item should be checked
+        Returns whether a menu item should be checked
         """
         return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
     def is_resizable(name, parent, context):
         """
-            Returns whether manual or automatic sizing is requested
+        Returns whether manual or automatic sizing is requested
         """
         resizable = settings.get_option('gui/resizable_cols', False)
 
@@ -779,7 +779,7 @@ def __register_playlist_columns_menuitems():
 
     def on_column_item_activate(menu_item, name, parent, context):
         """
-            Updates columns setting
+        Updates columns setting
         """
         columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
@@ -792,7 +792,7 @@ def __register_playlist_columns_menuitems():
 
     def on_sizing_item_activate(menu_item, name, parent, context):
         """
-            Updates column sizing setting
+        Updates column sizing setting
         """
 
         # Ignore the activation if the menu item is not actually active

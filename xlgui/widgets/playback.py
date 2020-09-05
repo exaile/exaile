@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 
 class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
-        A formatter for progress bars
+    A formatter for progress bars
     """
 
     def __init__(self, player):
@@ -56,7 +56,7 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
 
     def on_option_set(self, event, settings, option):
         """
-            Updates the internal format on setting change
+        Updates the internal format on setting change
         """
         if option == 'gui/progress_bar_text_format':
             self.props.format = settings.get_option(
@@ -66,7 +66,7 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
 
 class PlaybackProgressBar(Gtk.ProgressBar):
     """
-        Progress bar which automatically follows playback
+    Progress bar which automatically follows playback
     """
 
     def __init__(self, player):
@@ -97,21 +97,21 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         for e in self.__events:
             event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def reset(self):
         """
-            Resets the progress bar appearance
+        Resets the progress bar appearance
         """
         self.set_fraction(0)
         self.set_text(_('Not Playing'))
 
     def __enable_timer(self):
         """
-            Enables the update timer
+        Enables the update timer
         """
         if self.__timer_id is not None:
             return
@@ -127,7 +127,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
     def __disable_timer(self):
         """
-            Disables the update timer
+        Disables the update timer
         """
         if self.__timer_id is not None:
             GLib.source_remove(self.__timer_id)
@@ -135,7 +135,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
     def on_timer(self):
         """
-            Updates progress bar appearance
+        Updates progress bar appearance
         """
         if self.__player.current is None:
             self.__disable_timer()
@@ -149,21 +149,21 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
     def on_playback_track_start(self, event_type, player, track):
         """
-            Starts update timer
+        Starts update timer
         """
         self.reset()
         self.__enable_timer()
 
     def on_playback_player_end(self, event_type, player, track):
         """
-            Stops update timer
+        Stops update timer
         """
         self.__disable_timer()
         self.reset()
 
     def on_playback_toggle_pause(self, event_type, player, track):
         """
-            Starts or stops update timer
+        Starts or stops update timer
         """
         if player.is_playing():
             self.__enable_timer()
@@ -172,7 +172,7 @@ class PlaybackProgressBar(Gtk.ProgressBar):
 
     def on_playback_error(self, event_type, player, message):
         """
-            Stops update timer
+        Stops update timer
         """
         self.__disable_timer()
         self.reset()
@@ -190,7 +190,7 @@ for i, a in enumerate(
 
 class Marker(GObject.GObject):
     """
-        A marker pointing to a playback position
+    A marker pointing to a playback position
     """
 
     __gproperties__ = {
@@ -250,7 +250,7 @@ class Marker(GObject.GObject):
 
     def __str__(self):
         """
-            Informal representation
+        Informal representation
         """
         if self.props.label is not None:
             text = '%s (%g)' % (self.props.label, self.props.position)
@@ -261,19 +261,19 @@ class Marker(GObject.GObject):
 
     def __lt__(self, other):
         """
-            Compares positions
+        Compares positions
         """
         return self.props.position < other.props.position
 
     def __gt__(self, other):
         """
-            Compares positions
+        Compares positions
         """
         return self.props.position > other.props.position
 
     def do_get_property(self, gproperty):
         """
-            Gets a GObject property
+        Gets a GObject property
         """
         try:
             return self.__values[gproperty.name]
@@ -282,7 +282,7 @@ class Marker(GObject.GObject):
 
     def do_set_property(self, gproperty, value):
         """
-            Sets a GObject property
+        Sets a GObject property
         """
         try:
             self.__values[gproperty.name] = value
@@ -292,15 +292,15 @@ class Marker(GObject.GObject):
 
 class MarkerManager(providers.ProviderHandler):
     """
-        Enables management of playback markers; namely simple
-        adding, removing and finding. It also takes care of
-        emitting signals when a marker is reached during playback.
+    Enables management of playback markers; namely simple
+    adding, removing and finding. It also takes care of
+    emitting signals when a marker is reached during playback.
 
-        TODO: This presumes there is only one player object present
-        in exaile, and that markers can only be associated with
-        the single player object. This class should probably be
-        changed to be associated with a particular player (which
-        requires some changes to the marker class)
+    TODO: This presumes there is only one player object present
+    in exaile, and that markers can only be associated with
+    the single player object. This class should probably be
+    changed to be associated with a particular player (which
+    requires some changes to the marker class)
     """
 
     def __init__(self):
@@ -314,19 +314,19 @@ class MarkerManager(providers.ProviderHandler):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         for e in self.__events:
             event.remove_callback(getattr(self, 'on_%s' % e), e)
 
     def add_marker(self, position):
         """
-            Creates a new marker for a playback position
+        Creates a new marker for a playback position
 
-            :param position: the playback position [0..1]
-            :type position: float
-            :returns: the new marker
-            :rtype: :class:`Marker`
+        :param position: the playback position [0..1]
+        :type position: float
+        :returns: the new marker
+        :rtype: :class:`Marker`
         """
         marker = Marker(position)
         # Provider compatibility
@@ -337,25 +337,25 @@ class MarkerManager(providers.ProviderHandler):
 
     def remove_marker(self, marker):
         """
-            Removes a playback marker
+        Removes a playback marker
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
+        :param marker: the marker
+        :type marker: :class:`Marker`
         """
         providers.unregister('playback-markers', marker)
 
     def get_markers_at(self, position):
         """
-            Gets all markers located at a position
+        Gets all markers located at a position
 
-            :param position: the mark position
-            :type position: float
-            :returns: (m1, m2, ...)
-            :rtype: (:class:`Marker`, ...)
+        :param position: the mark position
+        :type position: float
+        :returns: (m1, m2, ...)
+        :rtype: (:class:`Marker`, ...)
 
-            * *m1*: the first marker
-            * *m2*: the second marker
-            * ...
+        * *m1*: the first marker
+        * *m2*: the second marker
+        * ...
         """
         # Reproduce value modifications
         position = Marker(position).props.position
@@ -369,7 +369,7 @@ class MarkerManager(providers.ProviderHandler):
 
     def on_playback_track_start(self, event, player, track):
         """
-            Starts marker watching
+        Starts marker watching
         """
         if self.__timeout_id is not None:
             GLib.source_remove(self.__timeout_id)
@@ -378,7 +378,7 @@ class MarkerManager(providers.ProviderHandler):
 
     def on_playback_track_end(self, event, player, track):
         """
-            Stops marker watching
+        Stops marker watching
         """
         if self.__timeout_id is not None:
             GLib.source_remove(self.__timeout_id)
@@ -386,7 +386,7 @@ class MarkerManager(providers.ProviderHandler):
 
     def on_timeout(self, player):
         """
-            Triggers "reached" signal of markers
+        Triggers "reached" signal of markers
         """
 
         if player.current is None:
@@ -426,7 +426,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
 
     def do_draw(self, context):
         """
-            Draws markers on top of the progress bar
+        Draws markers on top of the progress bar
         """
         Gtk.ProgressBar.do_draw(self, context)
 
@@ -478,7 +478,7 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
 
     def on_timer(self):
         """
-            Prevents update while seeking
+        Prevents update while seeking
         """
         if self._seeking:
             return True
@@ -488,8 +488,8 @@ class _SeekInternalProgressBar(PlaybackProgressBar):
 
 class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
     """
-        Playback progress bar which allows for seeking
-        and setting positional markers
+    Playback progress bar which allows for seeking
+    and setting positional markers
     """
 
     CSS = Gtk.CssProvider()
@@ -531,10 +531,10 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
     }
 
     def __init__(self, player, use_markers=True):
-        '''
-            TODO: markers aren't designed for more than one player, once
-            they are we can get rid of the use_markers option
-        '''
+        """
+        TODO: markers aren't designed for more than one player, once
+        they are we can get rid of the use_markers option
+        """
 
         Gtk.EventBox.__init__(self)
 
@@ -578,13 +578,13 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def get_label(self, marker):
         """
-            Builds the most appropriate label
-            markup to describe a marker
+        Builds the most appropriate label
+        markup to describe a marker
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :returns: the label
-            :rtype: string
+        :param marker: the marker
+        :type marker: :class:`Marker`
+        :returns: the label
+        :rtype: string
         """
         markup = None
 
@@ -612,16 +612,16 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def _is_marker_hit(self, marker, check_x, check_y):
         """
-            Checks whether a marker is hit by a point
+        Checks whether a marker is hit by a point
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :param check_x: the x location to check
-            :type check_x: float
-            :param check_y: the y location to check
-            :type check_y: float
-            :returns: whether the marker was hit
-            :rtype: bool
+        :param marker: the marker
+        :type marker: :class:`Marker`
+        :param check_x: the x location to check
+        :type check_x: float
+        :param check_y: the y location to check
+        :type check_y: float
+        :returns: whether the marker was hit
+        :rtype: bool
         """
         points = self._points[marker]
         x, y, width, height = self._get_bounding_box(points)
@@ -633,23 +633,23 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def _get_points(self, marker, width=None, height=None):
         """
-            Calculates the points necessary
-            to represent a marker
+        Calculates the points necessary
+        to represent a marker
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :param width: area width override
-            :type width: int
-            :param height: area height override
-            :type height: int
-            :returns: ((x1, y1), (x2, y2), ...)
-            :rtype: ((float, float), ...)
+        :param marker: the marker
+        :type marker: :class:`Marker`
+        :param width: area width override
+        :type width: int
+        :param height: area height override
+        :type height: int
+        :returns: ((x1, y1), (x2, y2), ...)
+        :rtype: ((float, float), ...)
 
-            * *x1*: the x coordinate of the first point
-            * *y1*: the y coordinate of the first point
-            * *x2*: the x coordinate of the second point
-            * *y2*: the y coordinate of the second point
-            * ...
+        * *x1*: the x coordinate of the first point
+        * *y1*: the y coordinate of the first point
+        * *x2*: the x coordinate of the second point
+        * *y2*: the y coordinate of the second point
+        * ...
         """
         points = ()
         alloc = self.get_allocation()
@@ -720,34 +720,34 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def _get_bounding_box(self, points):
         """
-            Calculates the axis aligned bounding box
-            of a sequence of points
+        Calculates the axis aligned bounding box
+        of a sequence of points
 
-            :param points: ((x1, y1), (x2, y2), ...)
-            :type points: ((float, float), ...)
-            :returns: (x, y, width, height)
-            :rtype: (float, float, float, float)
+        :param points: ((x1, y1), (x2, y2), ...)
+        :type points: ((float, float), ...)
+        :returns: (x, y, width, height)
+        :rtype: (float, float, float, float)
 
-            * *x*: the x coordinate of the box
-            * *y*: the y coordinate of the box
-            * *width*: the width of the box
-            * *height*: the height of the box
+        * *x*: the x coordinate of the box
+        * *y*: the y coordinate of the box
+        * *width*: the width of the box
+        * *height*: the height of the box
         """
         xs, ys = zip(*points)
         return min(xs), min(ys), max(xs), max(ys)
 
     def seek(self, position):
         """
-            Seeks within the current track
+        Seeks within the current track
         """
         if self.__player.current:
             self.__player.set_progress(position)
             self.update_progress()
 
     def update_progress(self):
-        '''
-            Updates the progress bar and the time with data from the player
-        '''
+        """
+        Updates the progress bar and the time with data from the player
+        """
 
         if self.__player.current:
             length = self.__player.current.get_tag_raw('__length')
@@ -761,7 +761,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_get_property(self, gproperty):
         """
-            Gets a GObject property
+        Gets a GObject property
         """
         try:
             return self.__values[gproperty.name]
@@ -770,7 +770,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_set_property(self, gproperty, value):
         """
-            Sets a GObject property
+        Sets a GObject property
         """
         try:
             self.__values[gproperty.name] = value
@@ -779,7 +779,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_notify(self, gproperty):
         """
-            Reacts to GObject property changes
+        Reacts to GObject property changes
         """
         if gproperty.name == 'marker-scale':
             for marker in self._points:
@@ -789,7 +789,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_size_allocate(self, allocation):
         """
-            Recalculates the marker points
+        Recalculates the marker points
         """
         oldallocation = self.get_allocation()
 
@@ -801,7 +801,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_button_press_event(self, event):
         """
-            Prepares seeking
+        Prepares seeking
         """
         event = event.button
         hit_markers = []
@@ -845,7 +845,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_button_release_event(self, event):
         """
-            Completes seeking
+        Completes seeking
         """
         event = event.button
 
@@ -862,8 +862,8 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_motion_notify_event(self, event):
         """
-            Updates progress bar while seeking
-            and updates marker states on hover
+        Updates progress bar while seeking
+        and updates marker states on hover
         """
         self.set_tooltip_markup(None)
 
@@ -894,7 +894,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_leave_notify_event(self, event):
         """
-            Resets marker states
+        Resets marker states
         """
         for marker in self._points:
             # Leave other states intact
@@ -903,9 +903,9 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_key_press_event(self, event):
         """
-            Prepares seeking via keyboard interaction
-            * Alt+Up/Right: seek 1% forward
-            * Alt+Down/Left: seek 1% backward
+        Prepares seeking via keyboard interaction
+        * Alt+Up/Right: seek 1% forward
+        * Alt+Down/Left: seek 1% backward
         """
         _, state = event.get_state()
         if state & Gtk.StateType.INSENSITIVE:
@@ -931,7 +931,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def do_key_release_event(self, event):
         """
-            Completes seeking via keyboard interaction
+        Completes seeking via keyboard interaction
         """
         _, state = event.get_state()
         if not state & Gdk.ModifierType.MOD1_MASK:
@@ -955,7 +955,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_scroll_event(self, widget, event):
         """
-            Seek on scroll as VLC does
+        Seek on scroll as VLC does
         """
         if not self.__player.current:
             return True
@@ -997,7 +997,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_hierarchy_changed(self, widget, old_toplevel):
         """
-            Sets up editing cancel on toplevel focus out
+        Sets up editing cancel on toplevel focus out
         """
         # Disconnect from previous toplevel.
         prev_conn = getattr(self, '_SeekProgressBar__prev_focus_out_conn', None)
@@ -1016,8 +1016,8 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_marker_menu_deactivate(self, menu):
         """
-            Makes sure to reset states of
-            previously selected markers
+        Makes sure to reset states of
+        previously selected markers
         """
         for marker in self._points:
             marker.props.state = Gtk.StateType.NORMAL
@@ -1025,7 +1025,7 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_marker_notify(self, marker, gproperty):
         """
-            Recalculates marker points on position changes
+        Recalculates marker points on position changes
         """
         if gproperty.name in ('anchor', 'position'):
             self._points[marker] = self._get_points(marker)
@@ -1033,10 +1033,10 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_provider_added(self, marker):
         """
-            Calculates points after marker addition
+        Calculates points after marker addition
 
-            :param marker: the new marker
-            :type marker: :class:`Marker`
+        :param marker: the new marker
+        :type marker: :class:`Marker`
         """
         notify_id = marker.connect('notify', self.on_marker_notify)
         setattr(marker, '%s_notify_id' % id(self), notify_id)
@@ -1045,10 +1045,10 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
     def on_provider_removed(self, marker):
         """
-            Removes points from internal cache
+        Removes points from internal cache
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
+        :param marker: the marker
+        :type marker: :class:`Marker`
         """
         notify_id = getattr(marker, '%s_notify_id' % id(self))
         if notify_id is not None:
@@ -1080,13 +1080,13 @@ class SeekProgressBar(Gtk.EventBox, providers.ProviderHandler):
 
 class ProgressBarContextMenu(menu.ProviderMenu):
     """
-        Progress bar specific context menu
+    Progress bar specific context menu
     """
 
     def __init__(self, progressbar):
         """
-            :param progressbar: the progress bar
-            :type progressbar: :class:`PlaybackProgressBar`
+        :param progressbar: the progress bar
+        :type progressbar: :class:`PlaybackProgressBar`
         """
         menu.ProviderMenu.__init__(self, 'progressbar-context-menu', progressbar)
 
@@ -1094,7 +1094,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
 
     def get_context(self):
         """
-            Retrieves the context
+        Retrieves the context
         """
         context = {'current-position': self._position}
 
@@ -1102,10 +1102,10 @@ class ProgressBarContextMenu(menu.ProviderMenu):
 
     def popup(self, event):
         """
-            Pops up the menu
+        Pops up the menu
 
-            :param event: an event
-            :type event: :class:`Gdk.Event`
+        :param event: an event
+        :type event: :class:`Gdk.Event`
         """
         self._position = event.x / self._parent.get_allocation().width
 
@@ -1114,13 +1114,13 @@ class ProgressBarContextMenu(menu.ProviderMenu):
 
 class MarkerContextMenu(menu.ProviderMenu):
     """
-        Marker specific context menu
+    Marker specific context menu
     """
 
     def __init__(self, markerbar):
         """
-            :param markerbar: the marker capable progress bar
-            :type markerbar: :class:`SeekProgressBar`
+        :param markerbar: the marker capable progress bar
+        :type markerbar: :class:`SeekProgressBar`
         """
         menu.ProviderMenu.__init__(self, 'playback-marker-context-menu', markerbar)
 
@@ -1129,7 +1129,7 @@ class MarkerContextMenu(menu.ProviderMenu):
 
     def regenerate_menu(self):
         """
-            Builds the menu, with submenu if appropriate
+        Builds the menu, with submenu if appropriate
         """
         for marker in self._markers:
             label = self._parent.get_label(marker)
@@ -1163,12 +1163,12 @@ class MarkerContextMenu(menu.ProviderMenu):
 
     def popup(self, event, markers):
         """
-            Pops up the menu
+        Pops up the menu
 
-            :param event: an event
-            :type event: :class:`Gdk.Event`
-            :param markers: (m1, m2, ...)
-            :type markers: (:class:`Marker`, ...)
+        :param event: an event
+        :type event: :class:`Gdk.Event`
+        :param markers: (m1, m2, ...)
+        :type markers: (:class:`Marker`, ...)
         """
         self._markers = markers
         self._position = event.x / self._parent.get_allocation().width
@@ -1178,7 +1178,7 @@ class MarkerContextMenu(menu.ProviderMenu):
 
 class MoveMarkerMenuItem(menu.MenuItem):
     """
-        Menu item allowing for movement of markers
+    Menu item allowing for movement of markers
     """
 
     def __init__(self, name, after, display_name=_('Move'), icon_name=None):
@@ -1192,7 +1192,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def factory(self, menu, parent, context):
         """
-            Generates the menu item
+        Generates the menu item
         """
         self._parent = parent
 
@@ -1213,12 +1213,12 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def move_begin(self, marker):
         """
-            Captures the current marker for movement
+        Captures the current marker for movement
 
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :returns: whether a marker could be captured
-            :rtype: bool
+        :param marker: the marker
+        :type marker: :class:`Marker`
+        :returns: whether a marker could be captured
+        :rtype: bool
         """
         self.move_cancel()
 
@@ -1236,12 +1236,12 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def move_update(self, position):
         """
-            Moves the marker
+        Moves the marker
 
-            :param position: the current marker position
-            :type position: float
-            :returns: whether a marker could be moved
-            :rtype: bool
+        :param position: the current marker position
+        :type position: float
+        :returns: whether a marker could be moved
+        :rtype: bool
         """
         if self._marker is not None:
             self._marker.props.position = position
@@ -1254,10 +1254,10 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def move_finish(self):
         """
-            Finishes movement and releases the marker
+        Finishes movement and releases the marker
 
-            :returns: whether the movement could be finished
-            :rtype: bool
+        :returns: whether the movement could be finished
+        :rtype: bool
         """
         if self._marker is not None:
             self._marker.props.state = Gtk.StateType.NORMAL
@@ -1271,10 +1271,10 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def move_cancel(self):
         """
-            Cancels movement and releases the marker
+        Cancels movement and releases the marker
 
-            :returns: whether the movement could be cancelled
-            :rtype: bool
+        :returns: whether the movement could be cancelled
+        :rtype: bool
         """
         if self._marker is not None:
             self._marker.props.position = self._reset_position
@@ -1289,13 +1289,13 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def on_activate(self, widget, parent, context):
         """
-            Starts movement of markers
+        Starts movement of markers
         """
         self.move_begin(context.get('current-marker', None))
 
     def on_parent_button_press_event(self, widget, event):
         """
-            Finishes or cancels movement of markers
+        Finishes or cancels movement of markers
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             return self.move_finish()
@@ -1306,7 +1306,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def on_parent_motion_notify_event(self, widget, event):
         """
-            Moves markers
+        Moves markers
         """
         position = event.x / widget.get_allocation().width
 
@@ -1314,15 +1314,15 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
     def on_parent_focus_out_event(self, widget, event):
         """
-            Cancels movement of markers
+        Cancels movement of markers
         """
         self.move_cancel()
 
 
 class NewMarkerMenuItem(MoveMarkerMenuItem):
     """
-        Menu item allowing for insertion
-        and instant movement of a marker
+    Menu item allowing for insertion
+    and instant movement of a marker
     """
 
     def __init__(self, name, after):
@@ -1330,12 +1330,12 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
 
     def move_cancel(self):
         """
-            Cancels movement and insertion of the marker
+        Cancels movement and insertion of the marker
 
-            :param parent: the parent
-            :type parent: :class:`SeekProgressBar`
-            :returns: whether the movement could be cancelled
-            :rtype: bool
+        :param parent: the parent
+        :type parent: :class:`SeekProgressBar`
+        :returns: whether the movement could be cancelled
+        :rtype: bool
         """
         if self._marker is not None:
             remove_marker(self._marker)
@@ -1349,7 +1349,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
 
     def on_activate(self, widget, parent, context):
         """
-            Inserts a new marker and starts movement
+        Inserts a new marker and starts movement
         """
         context['current-marker'] = add_marker(context['current-position'])
         MoveMarkerMenuItem.on_activate(self, widget, parent, context)
@@ -1409,9 +1409,9 @@ __create_marker_context_menu()
 @GtkTemplate('ui', 'widgets', 'volume_control.ui')
 class VolumeControl(Gtk.Box):
     """
-        Encapsulates a button and a slider to
-        control the volume indicating the current
-        status via icon and tooltip
+    Encapsulates a button and a slider to
+    control the volume indicating the current
+    status via icon and tooltip
     """
 
     __gtype_name__ = 'VolumeControl'
@@ -1433,7 +1433,7 @@ class VolumeControl(Gtk.Box):
 
     def __update(self, volume):
         """
-            Sets the volume level indicator
+        Sets the volume level indicator
         """
         icon_name = 'audio-volume-muted'
         tooltip = _('Muted')
@@ -1460,7 +1460,7 @@ class VolumeControl(Gtk.Box):
     @GtkTemplate.Callback
     def on_scroll_event(self, widget, event):
         """
-            Changes the volume on scrolling
+        Changes the volume on scrolling
         """
         page_increment = self.slider_adjustment.props.page_increment
         step_increment = self.slider_adjustment.props.step_increment
@@ -1491,7 +1491,7 @@ class VolumeControl(Gtk.Box):
     @GtkTemplate.Callback
     def on_button_toggled(self, button):
         """
-            Mutes or unmutes the volume
+        Mutes or unmutes the volume
         """
         if button.get_active():
             self.restore_volume = settings.get_option(self.__volume_setting, 1)
@@ -1505,15 +1505,15 @@ class VolumeControl(Gtk.Box):
     @GtkTemplate.Callback
     def on_slider_value_changed(self, slider):
         """
-            Stores the preferred volume
+        Stores the preferred volume
         """
         settings.set_option(self.__volume_setting, slider.get_value())
 
     @GtkTemplate.Callback
     def on_slider_key_press_event(self, slider, event):
         """
-            Changes the volume on key press
-            while the slider is focused
+        Changes the volume on key press
+        while the slider is focused
         """
         page_increment = slider.get_adjustment().props.page_increment
         step_increment = slider.get_adjustment().props.step_increment
@@ -1536,7 +1536,7 @@ class VolumeControl(Gtk.Box):
 
     def on_option_set(self, event, sender, option):
         """
-            Updates the volume indication
+        Updates the volume indication
         """
         if option == self.__volume_setting:
             self.__update(settings.get_option(option, 1))

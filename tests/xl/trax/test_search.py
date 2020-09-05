@@ -391,8 +391,8 @@ class TestSearchTracks:
 
     @pytest.mark.parametrize("sstr", ["motley crue", "mötley crüe", "motley crüe"])
     def test_search_tracks_ignore_diacritic_from_string(self, sstr):
-        '''Ensure that searching for tracks with diacritics return
-           appropriately normalized results'''
+        """Ensure that searching for tracks with diacritics return
+        appropriately normalized results"""
         tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
         tracks[0].set_tag_raw('artist', 'motley crue')
         tracks[1].set_tag_raw('artist', 'rubbish')

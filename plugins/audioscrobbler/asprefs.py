@@ -73,7 +73,7 @@ class VerifyLoginButton(widgets.Button):
 
     def __init__(self, preferences, widget):
         """
-            Sets up the message
+        Sets up the message
         """
         widgets.Button.__init__(self, preferences, widget)
 
@@ -85,8 +85,8 @@ class VerifyLoginButton(widgets.Button):
     @common.threaded
     def check_login(self):
         """
-            Tries to connect to the AudioScrobbler
-            service with the existing login data
+        Tries to connect to the AudioScrobbler
+        service with the existing login data
         """
         username = settings.get_option('plugin/ascrobbler/user', '')
         password = settings.get_option('plugin/ascrobbler/password', '')
@@ -120,7 +120,7 @@ class VerifyLoginButton(widgets.Button):
 
     def on_clicked(self, button):
         """
-            Initiates verification of the login data
+        Initiates verification of the login data
         """
         self.widget.set_sensitive(False)
         self.check_login()

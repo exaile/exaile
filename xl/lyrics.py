@@ -40,18 +40,18 @@ class LyricsNotFoundException(Exception):
 
 
 class LyricsCache:
-    '''
-        Basically just a thread-safe shelf for convinience.
-        Supports container syntax.
-    '''
+    """
+    Basically just a thread-safe shelf for convinience.
+    Supports container syntax.
+    """
 
     def __init__(self, location, default=None):
-        '''
-            @param location: specify the shelve file location
+        """
+        @param location: specify the shelve file location
 
-            @param default: can specify a default to return from getter when
-                there is nothing in the shelve
-        '''
+        @param default: can specify a default to return from getter when
+            there is nothing in the shelve
+        """
         self.location = location
         self.db = common.open_shelf(location)
         self.lock = threading.Lock()
@@ -62,16 +62,16 @@ class LyricsCache:
 
     def on_quit_application(self, *args):
         """
-            Closes db on quit application
-            Gets the lock/wait operations
+        Closes db on quit application
+        Gets the lock/wait operations
         """
         with self.lock:
             self.db.close()
 
     def keys(self):
-        '''
-            Return the shelve keys
-        '''
+        """
+        Return the shelve keys
+        """
         return self.db.keys()
 
     def _get(self, key, default=None):
@@ -109,9 +109,9 @@ class LyricsCache:
 
 class LyricsManager(providers.ProviderHandler):
     """
-        Lyrics Manager
+    Lyrics Manager
 
-        Manages talking to the lyrics plugins and updating the track
+    Manages talking to the lyrics plugins and updating the track
     """
 
     def __init__(self):
@@ -123,11 +123,11 @@ class LyricsManager(providers.ProviderHandler):
 
     def __get_cache_key(self, track: Track, provider) -> str:
         """
-            Returns the cache key for a specific track and lyrics provider
+        Returns the cache key for a specific track and lyrics provider
 
-            :param track: a track
-            :param provider: a lyrics provider
-            :return: the appropriate cache key
+        :param track: a track
+        :param provider: a lyrics provider
+        :return: the appropriate cache key
         """
         return (
             track.get_loc_for_io()
@@ -138,10 +138,10 @@ class LyricsManager(providers.ProviderHandler):
 
     def set_preferred_order(self, order):
         """
-            Sets the preferred search order
+        Sets the preferred search order
 
-            :param order: a list containing the order you'd like to search
-                first
+        :param order: a list containing the order you'd like to search
+            first
         """
         if not type(order) in (list, tuple):
             raise AttributeError("order must be a list or tuple")
@@ -150,24 +150,24 @@ class LyricsManager(providers.ProviderHandler):
 
     def find_lyrics(self, track, refresh=False):
         """
-            Fetches lyrics for a track either from
-                1. a backend lyric plugin
-                2. the actual tags in the track
+        Fetches lyrics for a track either from
+            1. a backend lyric plugin
+            2. the actual tags in the track
 
-            :param track: the track we want lyrics for, it
-                must have artist/title tags
+        :param track: the track we want lyrics for, it
+            must have artist/title tags
 
-            :param refresh: if True, try to refresh cached data even if
-                not expired
+        :param refresh: if True, try to refresh cached data even if
+            not expired
 
-            :return: tuple of the following format (lyrics, source, url)
-                where lyrics are the lyrics to the track
-                source is where it came from (file, lyrics wiki,
-                lyrics fly, etc.)
-                url is a link to the lyrics (where applicable)
+        :return: tuple of the following format (lyrics, source, url)
+            where lyrics are the lyrics to the track
+            source is where it came from (file, lyrics wiki,
+            lyrics fly, etc.)
+            url is a link to the lyrics (where applicable)
 
-            :raise LyricsNotFoundException: when lyrics are not
-                found
+        :raise LyricsNotFoundException: when lyrics are not
+            found
         """
         lyrics = None
         source = None
@@ -189,20 +189,20 @@ class LyricsManager(providers.ProviderHandler):
 
     def find_all_lyrics(self, track, refresh=False):
         """
-            Like find_lyrics but fetches all sources and returns
-            a list of lyrics.
+        Like find_lyrics but fetches all sources and returns
+        a list of lyrics.
 
-            :param track: the track we want lyrics for, it
-                must have artist/title tags
+        :param track: the track we want lyrics for, it
+            must have artist/title tags
 
-            :param refresh: if True, try to refresh cached data even if
-                not expired
+        :param refresh: if True, try to refresh cached data even if
+            not expired
 
-            :return: list of tuples in the same format as
-                find_lyrics's return value
+        :return: list of tuples in the same format as
+            find_lyrics's return value
 
-            :raise LyricsNotFoundException: when lyrics are not
-                found from all sources.
+        :raise LyricsNotFoundException: when lyrics are not
+            found from all sources.
         """
         lyrics_found = []
 
@@ -225,22 +225,22 @@ class LyricsManager(providers.ProviderHandler):
 
     def _find_cached_lyrics(self, method, track, refresh=False):
         """
-            Checks the cache for lyrics.  If found and not expired, returns
-            cached results, otherwise tries to fetch from method.
+        Checks the cache for lyrics.  If found and not expired, returns
+        cached results, otherwise tries to fetch from method.
 
-            :param method: the LyricSearchMethod to fetch lyrics from.
+        :param method: the LyricSearchMethod to fetch lyrics from.
 
-            :param track: the track we want lyrics for, it
-                must have artist/title tags
+        :param track: the track we want lyrics for, it
+            must have artist/title tags
 
-            :param refresh: if True, try to refresh cached data even if
-                not expired
+        :param refresh: if True, try to refresh cached data even if
+            not expired
 
-            :return: list of tuples in the same format as
-                find_lyric's return value
+        :return: list of tuples in the same format as
+            find_lyric's return value
 
-            :raise LyricsNotFoundException: when lyrics are not found
-                in cache or fetched from method
+        :raise LyricsNotFoundException: when lyrics are not found
+            in cache or fetched from method
         """
         lyrics = None
         source = None
@@ -271,10 +271,10 @@ class LyricsManager(providers.ProviderHandler):
 
     def on_provider_removed(self, provider):
         """
-            Remove the provider from the methods dict, and the
-            preferred_order dict if needed.
+        Remove the provider from the methods dict, and the
+        preferred_order dict if needed.
 
-            :param provider: the provider instance being removed.
+        :param provider: the provider instance being removed.
         """
         try:
             self.preferred_order.remove(provider.name)
@@ -283,7 +283,7 @@ class LyricsManager(providers.ProviderHandler):
 
     def on_track_tags_changed(self, e, track, tags):
         """
-            Updates the internal cache upon lyric tag changes
+        Updates the internal cache upon lyric tag changes
         """
         if 'lyrics' in tags:
             local_provider = self.get_provider('__local')
@@ -306,27 +306,27 @@ MANAGER = LyricsManager()
 
 class LyricSearchMethod:
     """
-        Lyrics plugins will subclass this
+    Lyrics plugins will subclass this
     """
 
     def find_lyrics(self, track):
         """
-            Called by LyricsManager when lyrics are requested
+        Called by LyricsManager when lyrics are requested
 
-            :param track: the track that we want lyrics for
-            :return: tuple of lyrics text, provider name, URL
-            :rtype: Tuple[unicode, basestring, basestring]
-            :raise: LyricsNotFoundException if not found
+        :param track: the track that we want lyrics for
+        :return: tuple of lyrics text, provider name, URL
+        :rtype: Tuple[unicode, basestring, basestring]
+        :raise: LyricsNotFoundException if not found
         """
         raise NotImplementedError
 
     def _set_manager(self, manager):
         """
-            Sets the lyrics manager.
+        Sets the lyrics manager.
 
-            Called when this method is added to the lyrics manager.
+        Called when this method is added to the lyrics manager.
 
-            :param manager: the lyrics manager
+        :param manager: the lyrics manager
         """
         self.manager = manager
 

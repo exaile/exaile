@@ -39,7 +39,7 @@ from xlgui.widgets.playback import PlaybackProgressBar
 
 class TrackInfoPane(Gtk.Bin):
     """
-        Displays cover art and track data
+    Displays cover art and track data
     """
 
     def __init__(self, player):
@@ -85,7 +85,7 @@ class TrackInfoPane(Gtk.Bin):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         # Make sure to disconnect callbacks
         self.set_auto_update(False)
@@ -94,21 +94,21 @@ class TrackInfoPane(Gtk.Bin):
 
     def get_auto_update(self):
         """
-            Gets whether the info pane shall
-            be automatically updated or not
+        Gets whether the info pane shall
+        be automatically updated or not
 
-            :rtype: bool
+        :rtype: bool
         """
         return self.__auto_update
 
     def set_auto_update(self, auto_update):
         """
-            Sets whether the info pane shall
-            be automatically updated or not
+        Sets whether the info pane shall
+        be automatically updated or not
 
-            :param auto_update: enable or disable
-                automatic updating
-            :type auto_update: bool
+        :param auto_update: enable or disable
+            automatic updating
+        :type auto_update: bool
         """
         if auto_update != self.__auto_update:
             self.__auto_update = auto_update
@@ -136,89 +136,89 @@ class TrackInfoPane(Gtk.Bin):
 
     def get_cover_size(self):
         """
-            Gets the preferred cover size
+        Gets the preferred cover size
 
-            :rtype: int
+        :rtype: int
         """
         return self.__cover_size or settings.get_option('gui/cover_width', 100)
 
     def set_cover_size(self, cover_size):
         """
-            Overrides the cover size to display,
-            set to None to use global default
+        Overrides the cover size to display,
+        set to None to use global default
 
-            :param cover_size: the preferred cover size
-            :type cover_size: int
+        :param cover_size: the preferred cover size
+        :type cover_size: int
         """
         self.__cover_size = cover_size
 
     def get_default_text(self):
         """
-            Gets the default text displayed
-            when the playback is stopped
+        Gets the default text displayed
+        when the playback is stopped
 
-            :rtype: string
+        :rtype: string
         """
         return self.__default_text
 
     def set_default_text(self, default_text):
         """
-            Sets the default text displayed
-            when the playback is stopped
+        Sets the default text displayed
+        when the playback is stopped
 
-            :param default_text: the new default text
-            :type default_text: string
+        :param default_text: the new default text
+        :type default_text: string
         """
         self.__default_text = default_text
 
     def get_display_progress(self):
         """
-            Returns whether the progress indicator
-            is currently visible or not
+        Returns whether the progress indicator
+        is currently visible or not
 
-            :rtype: bool
+        :rtype: bool
         """
         return self.__display_progress
 
     def set_display_progress(self, display_progress):
         """
-            Shows or hides the progress indicator. The
-            indicator will not be displayed if the
-            currently displayed track is not playing.
+        Shows or hides the progress indicator. The
+        indicator will not be displayed if the
+        currently displayed track is not playing.
 
-            :param display_progress: Whether to show
-                or hide the progress indicator
-            :type display_progress: bool
+        :param display_progress: Whether to show
+            or hide the progress indicator
+        :type display_progress: bool
         """
         self.__display_progress = display_progress
         self.__update_widget_state()
 
     def get_info_format(self):
         """
-            Gets the current format used
-            to display the track data
+        Gets the current format used
+        to display the track data
 
-            :rtype: string
+        :rtype: string
         """
         return self.__formatter.props.format
 
     def set_info_format(self, format):
         """
-            Sets the format used to display the track data
+        Sets the format used to display the track data
 
-            :param format: the format, see the documentation
-                of :class:`string.Template` for details
-            :type format: string
+        :param format: the format, see the documentation
+            of :class:`string.Template` for details
+        :type format: string
         """
         self.__formatter.props.format = format
 
     def set_track(self, track):
         """
-            Updates the data displayed in the info pane
+        Updates the data displayed in the info pane
 
-            :param track: A track to take the data from,
-                clears the info pane if track is None
-            :type track: :class:`xl.trax.Track`
+        :param track: A track to take the data from,
+            clears the info pane if track is None
+        :type track: :class:`xl.trax.Track`
         """
         if track is None:
             self.clear()
@@ -253,7 +253,7 @@ class TrackInfoPane(Gtk.Bin):
 
     def clear(self):
         """
-            Resets the info pane
+        Resets the info pane
         """
 
         self.cover.set_track(None)
@@ -264,47 +264,47 @@ class TrackInfoPane(Gtk.Bin):
 
     def get_action_area(self):
         """
-            Retrieves the action area
-            at the end of the pane
+        Retrieves the action area
+        at the end of the pane
 
-            :rtype: :class:`Gtk.Box`
+        :rtype: :class:`Gtk.Box`
         """
         return self.action_area
 
     def on_notify_format(self, formatter, format):
         """
-            Updates the displayed data after format changes
+        Updates the displayed data after format changes
         """
         if self.__track is not None:
             self.set_track(self.__track)
 
     def on_playback_player_end(self, event, player, track):
         """
-            Clears the info pane on playback end
+        Clears the info pane on playback end
         """
         self.clear()
 
     def on_playback_track_start(self, event, player, track):
         """
-            Updates the info pane on track start
+        Updates the info pane on track start
         """
         self.set_track(track)
 
     def on_playback_toggle_pause(self, event, player, track):
         """
-            Updates the info pane on playback pause/resume
+        Updates the info pane on playback pause/resume
         """
         self.set_track(track)
 
     def on_playback_error(self, event, player, message):
         """
-            Clears the info pane on playback errors
+        Clears the info pane on playback errors
         """
         self.clear()
 
     def on_track_tags_changed(self, event, track, tags):
         """
-            Updates the info pane on tag changes
+        Updates the info pane on tag changes
         """
         if (
             self.__player is not None
@@ -315,14 +315,14 @@ class TrackInfoPane(Gtk.Bin):
 
     def on_cover_set(self, event, covers, track):
         """
-            Updates the info pane on cover set
+        Updates the info pane on cover set
         """
         if track is self.__track:
             self.set_track(track)
 
     def on_cover_removed(self, event, covers, track):
         """
-            Updates the info pane on cover removal
+        Updates the info pane on cover removal
         """
         if track is self.__track:
             self.set_track(track)
@@ -330,16 +330,16 @@ class TrackInfoPane(Gtk.Bin):
 
 class ToolTip:
     """
-        Custom tooltip class to allow for
-        extended tooltip functionality
+    Custom tooltip class to allow for
+    extended tooltip functionality
     """
 
     def __init__(self, parent, widget):
         """
-            :param parent: the parent widget the tooltip
-                should be attached to
-            :param widget: the tooltip widget to be used
-                for the tooltip
+        :param parent: the parent widget the tooltip
+            should be attached to
+        :param widget: the tooltip widget to be used
+            for the tooltip
         """
         if self.__class__.__name__ == 'ToolTip':
             raise TypeError(
@@ -355,7 +355,7 @@ class ToolTip:
 
     def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
         """
-            Puts the custom widget into the tooltip
+        Puts the custom widget into the tooltip
         """
         tooltip.set_custom(self.__widget)
 
@@ -364,14 +364,14 @@ class ToolTip:
 
 class TrackToolTip(TrackInfoPane, ToolTip):
     """
-        Track specific tooltip class, displays
-        track data and progress indicators
+    Track specific tooltip class, displays
+    track data and progress indicators
     """
 
     def __init__(self, parent, player):
         """
-            :param parent: the parent widget the tooltip
-                should be attached to
+        :param parent: the parent widget the tooltip
+            should be attached to
         """
         TrackInfoPane.__init__(self, player)
         ToolTip.__init__(self, parent, self)
@@ -383,21 +383,21 @@ class TrackToolTip(TrackInfoPane, ToolTip):
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         TrackInfoPane.destroy(self)
 
 
 class StatusbarTextFormatter(formatter.Formatter):
     """
-        A text formatter for status indicators
+    A text formatter for status indicators
     """
 
     def __init__(self, format):
         """
-            :param format: The initial format, see the documentation
-                of string.Template for details
-            :type format: string
+        :param format: The initial format, see the documentation
+            of string.Template for details
+        :type format: string
         """
         formatter.Formatter.__init__(self, format)
 
@@ -409,19 +409,19 @@ class StatusbarTextFormatter(formatter.Formatter):
 
     def get_collection_count(self):
         """
-            Retrieves the collection count
+        Retrieves the collection count
         """
         return _('%d in collection') % main.exaile().collection.get_count()
 
     def get_playlist_count(self, selection='none'):
         """
-            Retrieves the count of tracks in either the
-            full playlist or the current selection
+        Retrieves the count of tracks in either the
+        full playlist or the current selection
 
-            :param selection: 'none' for playlist count only,
-                'override' for selection count if tracks are selected,
-                playlist count otherwise, 'only' for selection count only
-            :type selection: string
+        :param selection: 'none' for playlist count only,
+            'override' for selection count if tracks are selected,
+            playlist count otherwise, 'only' for selection count only
+        :type selection: string
         """
         page = xlgui.main.get_selected_page()
 
@@ -461,18 +461,18 @@ class StatusbarTextFormatter(formatter.Formatter):
 
     def get_playlist_duration(self, format='short', selection='none'):
         """
-            Retrieves the duration of all tracks in
-            the playlist or within the selection
+        Retrieves the duration of all tracks in
+        the playlist or within the selection
 
-            :param format: Verbosity of the output
-                Possible values are short, long or verbose
-                yielding "1:02:42", "1h, 2m, 42s" or
-                "1 hour, 2 minutes, 42 seconds"
-            :type format: string
-            :param selection: 'none' for playlist count only,
-                'override' for selection count if tracks are selected,
-                playlist count otherwise, 'only' for selection count only
-            :type selection: string
+        :param format: Verbosity of the output
+            Possible values are short, long or verbose
+            yielding "1:02:42", "1h, 2m, 42s" or
+            "1 hour, 2 minutes, 42 seconds"
+        :type format: string
+        :param selection: 'none' for playlist count only,
+            'override' for selection count if tracks are selected,
+            playlist count otherwise, 'only' for selection count only
+        :type selection: string
         """
         page = xlgui.main.get_selected_page()
 
@@ -513,12 +513,12 @@ class StatusbarTextFormatter(formatter.Formatter):
 
 class Statusbar:
     """
-        Convenient access to multiple status labels
+    Convenient access to multiple status labels
     """
 
     def __init__(self, status_bar):
         """
-            Initialises the status bar
+        Initialises the status bar
         """
         self.status_bar = status_bar
         self.formatter = StatusbarTextFormatter(
@@ -541,7 +541,7 @@ class Statusbar:
 
     def set_status(self, status, timeout=0):
         """
-            Sets the status message
+        Sets the status message
         """
         self.message_ids += [self.status_bar.push(self.context_id, status)]
 
@@ -550,7 +550,7 @@ class Statusbar:
 
     def clear_status(self):
         """
-            Clears the status message
+        Clears the status message
         """
         try:
             for message_id in self.message_ids:
@@ -564,7 +564,7 @@ class Statusbar:
 
     def update_info(self):
         """
-            Updates the info label text
+        Updates the info label text
         """
         self.info_label.set_label(self.formatter.format())
 
@@ -572,8 +572,8 @@ class Statusbar:
 # TODO: Check if we can get a progress indicator in here somehow
 class Splash:
     """
-        A splash screen suitable for indicating startup;
-        will automatically be destroyed after GUI startup
+    A splash screen suitable for indicating startup;
+    will automatically be destroyed after GUI startup
     """
 
     def __init__(self):
@@ -587,13 +587,13 @@ class Splash:
 
     def destroy(self):
         """
-            Destroys the splash screen
+        Destroys the splash screen
         """
         self.window.destroy()
 
     def show(self):
         """
-            Shows the splash screen
+        Shows the splash screen
         """
         # Show the splash screen without causing startup notification.
         Gtk.Window.set_auto_startup_notification(False)
@@ -606,6 +606,6 @@ class Splash:
 
     def hide(self):
         """
-            Hides the splash screen
+        Hides the splash screen
         """
         self.window.hide()

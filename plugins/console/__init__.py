@@ -58,14 +58,14 @@ class PyConsole:
 
     def entry_activated(self, entry, user_data=None):
         """
-            Called when the user presses Return on the GtkEntry.
+        Called when the user presses Return on the GtkEntry.
         """
         self.execute(entry.get_text())
         entry.select_region(0, -1)
 
     def execute(self, code):
         """
-            Executes some Python code.
+        Executes some Python code.
         """
         buffer = self.buffer
         try:

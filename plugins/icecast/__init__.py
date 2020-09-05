@@ -48,24 +48,24 @@ def set_status(message, timeout=0):
 
 class IcecastRadioStation(RadioStation):
     """
-        Icecast Radio
+    Icecast Radio
 
-        Simple usage:
+    Simple usage:
 
-        >>> manager = RadioManager()
-        >>> manager.add_station(IcecastRadioStation())
-        >>> stations = manager.search('icecast', 'ravetrax')
-        >>> tracks = stations[0].get_playlist().get_tracks()
-        >>> len(tracks) > 0
-        True
-        >>>
+    >>> manager = RadioManager()
+    >>> manager.add_station(IcecastRadioStation())
+    >>> stations = manager.search('icecast', 'ravetrax')
+    >>> tracks = stations[0].get_playlist().get_tracks()
+    >>> len(tracks) > 0
+    True
+    >>>
     """
 
     name = 'icecast'
 
     def __init__(self, exaile):
         """
-            Initializes the icecast radio station
+        Initializes the icecast radio station
         """
         self.exaile = exaile
         self.user_agent = exaile.get_user_agent_string('icecast')
@@ -82,7 +82,7 @@ class IcecastRadioStation(RadioStation):
 
     def _load_cache(self):
         """
-            Loads icecast data from cache
+        Loads icecast data from cache
         """
         self.data = {}
         if os.path.isfile(self.cache_file):
@@ -92,7 +92,7 @@ class IcecastRadioStation(RadioStation):
 
     def _save_cache(self):
         """
-            Saves cache data
+        Saves cache data
         """
         impl = minidom.getDOMImplementation()
         document = impl.createDocument(None, 'genrelist', None)
@@ -107,7 +107,7 @@ class IcecastRadioStation(RadioStation):
 
     def get_lists(self, no_cache=False):
         """
-            Returns the rlists for icecast
+        Returns the rlists for icecast
         """
         from xlgui.panel import radio
 
@@ -160,7 +160,7 @@ class IcecastRadioStation(RadioStation):
 
     def _get_subrlists(self, name, no_cache=False):
         """
-            Gets the subrlists for a rlist
+        Gets the subrlists for a rlist
         """
         if name in self.subs and not no_cache:
             return self.subs[name]
@@ -175,7 +175,7 @@ class IcecastRadioStation(RadioStation):
 
     def _get_playlist(self, name, station_id):
         """
-            Gets the playlist for the given name and id
+        Gets the playlist for the given name and id
         """
         if station_id in self.playlists:
             return self.playlists[station_id]
@@ -188,9 +188,9 @@ class IcecastRadioStation(RadioStation):
 
     def search(self, keyword):
         """
-            Searches the station for a specified keyword
+        Searches the station for a specified keyword
 
-            @param keyword: the keyword to search
+        @param keyword: the keyword to search
         """
         url = self.search_url_prefix + urllib.parse.quote_plus(keyword)
         return self._get_stations(url)
@@ -317,7 +317,7 @@ class IcecastRadioStation(RadioStation):
 
     def on_search(self):
         """
-            Called when the user wants to search for a specific stream
+        Called when the user wants to search for a specific stream
         """
         dialog = dialogs.TextEntryDialog(
             _("Enter the search keywords"), _("Icecast Search")
@@ -332,7 +332,7 @@ class IcecastRadioStation(RadioStation):
     @common.threaded
     def do_search(self, keyword):
         """
-            Actually performs the search in a separate thread
+        Actually performs the search in a separate thread
         """
         lists = self.search(keyword)
 
@@ -341,7 +341,7 @@ class IcecastRadioStation(RadioStation):
     @common.idle_add()
     def search_done(self, keyword, lists):
         """
-            Called when the search is finished
+        Called when the search is finished
         """
         if not lists:
             dialogs.info(self.exaile.gui.main.window, _('No Stations Found'))
@@ -377,7 +377,7 @@ class IcecastRadioStation(RadioStation):
 
     def get_menu(self, parent):
         """
-            Returns a menu that works for icecast radio
+        Returns a menu that works for icecast radio
         """
         self._parent = parent
         menu = parent.get_menu()

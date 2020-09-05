@@ -36,7 +36,7 @@ from xlgui.panel.flatplaylist import FlatPlaylistPanel
 
 class DeviceTransferThread(common.ProgressThread):
     """
-        Transfers tracks from devices
+    Transfers tracks from devices
     """
 
     def __init__(self, device):
@@ -46,14 +46,14 @@ class DeviceTransferThread(common.ProgressThread):
 
     def stop(self):
         """
-            Stops the thread
+        Stops the thread
         """
         self.device.transfer.cancel()
         common.ProgressThread.stop(self)
 
     def on_track_transfer_progress(self, type, transfer, progress):
         """
-            Notifies about progress changes
+        Notifies about progress changes
         """
         if progress < 100:
             self.emit('progress-update', progress)
@@ -62,7 +62,7 @@ class DeviceTransferThread(common.ProgressThread):
 
     def run(self):
         """
-            Runs the thread
+        Runs the thread
         """
         event.add_ui_callback(
             self.on_track_transfer_progress,
@@ -104,7 +104,7 @@ class ReceptiveCollectionPanel(CollectionPanel):
 
 class DevicePanel(panel.Panel):
     """
-        generic panel for devices
+    generic panel for devices
     """
 
     __gsignals__ = {

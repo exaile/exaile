@@ -38,12 +38,12 @@ T = TypeVar('T')
 
 def is_valid_track(location):
     """
-        Returns whether the file at the given location is a valid track
+    Returns whether the file at the given location is a valid track
 
-        :param location: the location to check
-        :type location: string
-        :returns: whether the file is a valid track
-        :rtype: boolean
+    :param location: the location to check
+    :type location: string
+    :returns: whether the file is a valid track
+    :rtype: boolean
     """
     extension = Gio.File.new_for_uri(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
@@ -51,24 +51,24 @@ def is_valid_track(location):
 
 def get_uris_from_tracks(tracks):
     """
-        Returns all URIs for tracks
+    Returns all URIs for tracks
 
-        :param tracks: the tracks to retrieve the URIs from
-        :type tracks: list of :class:`xl.trax.Track`
-        :returns: the uris
-        :rtype: list of string
+    :param tracks: the tracks to retrieve the URIs from
+    :type tracks: list of :class:`xl.trax.Track`
+    :returns: the uris
+    :rtype: list of string
     """
     return [track.get_loc_for_io() for track in tracks]
 
 
 def get_tracks_from_uri(uri):
     """
-        Returns all valid tracks located at uri
+    Returns all valid tracks located at uri
 
-        :param uri: the uri to retrieve the tracks from
-        :type uri: string
-        :returns: the retrieved tracks
-        :rtype: list of :class:`xl.trax.Track`
+    :param uri: the uri to retrieve the tracks from
+    :type uri: string
+    :returns: the retrieved tracks
+    :rtype: list of :class:`xl.trax.Track`
     """
     tracks = []
 
@@ -108,14 +108,14 @@ def sort_tracks(
     artist_compilations: bool = False,
 ) -> List[T]:
     """
-        Sorts tracks.
+    Sorts tracks.
 
-        :param fields: tag names to sort by
-        :param items: the tracks to sort,
-            alternatively use *trackfunc*
-        :param trackfunc: function to get a *Track*
-            from an item in the *items* iterable
-        :param reverse: whether to sort in reversed order
+    :param fields: tag names to sort by
+    :param items: the tracks to sort,
+        alternatively use *trackfunc*
+    :param trackfunc: function to get a *Track*
+        from an item in the *items* iterable
+    :param reverse: whether to sort in reversed order
     """
     fields = list(fields)  # we need the index method
     if trackfunc is None:
@@ -129,9 +129,9 @@ def sort_tracks(
 
 def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=False):
     """
-        Sorts SearchResultTracks, ie. the output from a search.
+    Sorts SearchResultTracks, ie. the output from a search.
 
-        Same params as sort_tracks.
+    Same params as sort_tracks.
     """
     return sort_tracks(
         fields, trackiter, lambda tr: tr.track, reverse, artist_compilations
@@ -140,13 +140,13 @@ def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=Fal
 
 def get_rating_from_tracks(tracks):
     """
-        Returns the common rating for all tracks or
-        simply 0 if not all tracks have the same
-        rating. Same goes if the amount of tracks
-        is 0 or more than the internal limit.
+    Returns the common rating for all tracks or
+    simply 0 if not all tracks have the same
+    rating. Same goes if the amount of tracks
+    is 0 or more than the internal limit.
 
-        :param tracks: the tracks to retrieve the rating from
-        :type tracks: iterable
+    :param tracks: the tracks to retrieve the rating from
+    :type tracks: iterable
     """
     if len(tracks) < 1:
         return 0
@@ -166,11 +166,11 @@ def get_rating_from_tracks(tracks):
 
 def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
-        Get any tracks from the given iterable that appear to be part of
-        the same album as track. If track is in the iterable, it will be
-        included in the result. If there is insufficient information to
-        determine the album, the empty list will be returned, even if the
-        track is in the iterable.
+    Get any tracks from the given iterable that appear to be part of
+    the same album as track. If track is in the iterable, it will be
+    included in the result. If there is insufficient information to
+    determine the album, the empty list will be returned, even if the
+    track is in the iterable.
     """
     if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
         return []
@@ -183,9 +183,9 @@ def get_album_tracks(tracksiter, track, artist_compilations=False):
 
 def recursive_tracks_from_file(gfile: Gio.File) -> Iterable[Track]:
     """
-        Get recursive tracks from Gio.File
-        If it's a directory, expands
-        Gets only valid tracks
+    Get recursive tracks from Gio.File
+    If it's a directory, expands
+    Gets only valid tracks
     """
     ftype = gfile.query_info(
         'standard::type', Gio.FileQueryInfoFlags.NONE, None

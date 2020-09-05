@@ -52,15 +52,15 @@ def disable_video_text(bin):
 
 class ElementBin(Gst.Bin):
     """
-        A bin for easily containing elements
+    A bin for easily containing elements
 
-        elements are added to the elements dictionary in the form of
-            elements[position] = element
-        where position is a value from 0-100 indicating its position
-        in the resulting bin, and element is the Gst.Element itself.
+    elements are added to the elements dictionary in the form of
+        elements[position] = element
+    where position is a value from 0-100 indicating its position
+    in the resulting bin, and element is the Gst.Element itself.
 
-        changes made to elements do not apply until setup_elements()
-        is called
+    changes made to elements do not apply until setup_elements()
+    is called
     """
 
     def __init__(self, name=None):
@@ -77,11 +77,11 @@ class ElementBin(Gst.Bin):
         self.sink = None
 
     def setup_elements(self):
-        '''
-            This function should only be called when state is NULL
+        """
+        This function should only be called when state is NULL
 
-            :returns: True if there are elements, False otherwise
-        '''
+        :returns: True if there are elements, False otherwise
+        """
         name = self.get_name()
         logger.debug("%s: Removing all elements", name)
 
@@ -133,18 +133,18 @@ class ElementBin(Gst.Bin):
 
 class ProviderBin(ElementBin, ProviderHandler):
     """
-        A ProviderBin is a Gst.Bin that adds and removes elements from itself
-        using the providers system. Providers should be a subclass of
-        Gst.Element and provide the following attributes:
-            name  - name to use for this element
-            index - priority within the pipeline. range [0-100] integer.
-                    lower numbers are higher priority. elements must
-                    choose a unique number.
+    A ProviderBin is a Gst.Bin that adds and removes elements from itself
+    using the providers system. Providers should be a subclass of
+    Gst.Element and provide the following attributes:
+        name  - name to use for this element
+        index - priority within the pipeline. range [0-100] integer.
+                lower numbers are higher priority. elements must
+                choose a unique number.
     """
 
     def __init__(self, servicename, name=None):
         """
-            :param servicename: the Provider name to listen for
+        :param servicename: the Provider name to listen for
         """
         if name is None:
             name = servicename
@@ -186,12 +186,12 @@ class ProviderBin(ElementBin, ProviderHandler):
 
 def parse_stream_tags(track, tag_list):
     """
-        Called when a tag is found in a stream.
+    Called when a tag is found in a stream.
 
-        :type track:    xl.trax.Track
-        :type tag_list: Gst.TagList
+    :type track:    xl.trax.Track
+    :type tag_list: Gst.TagList
 
-        Gst.TagList guarantees that all strings are either ASCII or UTF8
+    Gst.TagList guarantees that all strings are either ASCII or UTF8
     """
 
     newsong = False

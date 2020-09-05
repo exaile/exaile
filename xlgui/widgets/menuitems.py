@@ -57,8 +57,8 @@ def generic_get_tracks_func(parent, context):
 
 class RatingMenuItem(menu.MenuItem):
     """
-        A menu item displaying rating images
-        and allowing for selection of ratings
+    A menu item displaying rating images
+    and allowing for selection of ratings
     """
 
     def __init__(self, name, after, get_tracks_func=generic_get_tracks_func):
@@ -86,7 +86,7 @@ class RatingMenuItem(menu.MenuItem):
     # most of this function isn't safe to use from a (interacts with UI elements)
     def on_show(self, widget, menu, parent, context):
         """
-            Updates the menu item on show
+        Updates the menu item on show
         """
         tracks = self.get_tracks_func(parent, context)
         rating = trax.util.get_rating_from_tracks(tracks)
@@ -98,7 +98,7 @@ class RatingMenuItem(menu.MenuItem):
 
     def on_rating_changed(self, widget, rating, menu, parent, context):
         """
-            Passes the 'rating-changed' signal
+        Passes the 'rating-changed' signal
         """
         tracks = self.get_tracks_func(parent, context)
         for track in tracks:

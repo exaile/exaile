@@ -35,7 +35,7 @@ SCROBBLER = None
 
 def enable(exaile):
     """
-        Enables the AudioScrobbler plugin
+    Enables the AudioScrobbler plugin
     """
     global SCROBBLER
 
@@ -58,7 +58,7 @@ def _enable(exaile):
 
 def disable(exaile):
     """
-        Disables the AudioScrobbler plugin
+    Disables the AudioScrobbler plugin
     """
     global SCROBBLER
 
@@ -74,7 +74,7 @@ def get_preferences_pane():
 class ExaileScrobbler:
     def __init__(self, exaile):
         """
-            Connects events to the player object, loads settings and cache
+        Connects events to the player object, loads settings and cache
         """
         scrobbler.set_user_agent(exaile.get_user_agent_string('audioscrobbler'))
         self.connected = False
@@ -167,7 +167,7 @@ class ExaileScrobbler:
 
     def stop(self):
         """
-            Stops submitting
+        Stops submitting
         """
         logger.info("Stopping AudioScrobbler submissions")
         if self.use_menu:

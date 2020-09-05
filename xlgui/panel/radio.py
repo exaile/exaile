@@ -52,7 +52,7 @@ class ConnectionException(RadioException):
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
-        The Radio Panel
+    The Radio Panel
     """
 
     __gsignals__ = {
@@ -68,7 +68,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def __init__(self, parent, collection, radio_manager, station_manager, name):
         """
-            Initializes the radio panel
+        Initializes the radio panel
         """
         panel.Panel.__init__(self, parent, name, _('Radio'))
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
@@ -98,8 +98,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     @property
     def menu(self):
         """
-            Gets a menu for the selected item
-            :return: xlgui.widgets.menu.Menu or None if do not have it
+        Gets a menu for the selected item
+        :return: xlgui.widgets.menu.Menu or None if do not have it
         """
         model, it = self.tree.get_selection().get_selected()
         item = model[it][2]
@@ -120,7 +120,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def load_streams(self):
         """
-            Loads radio streams from plugins
+        Loads radio streams from plugins
         """
         for name in self.playlist_manager.playlists:
             pl = self.playlist_manager.get_playlist(name)
@@ -139,7 +139,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def add_driver(self, driver):
         """
-            Adds a driver to the radio panel
+        Adds a driver to the radio panel
         """
         node = self.model.append(self.radio_root, [self.folder, str(driver), driver])
         self.nodes[driver] = node
@@ -156,7 +156,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def remove_driver(self, driver):
         """
-            Removes a driver from the radio panel
+        Removes a driver from the radio panel
         """
         if driver in self.nodes:
             self.model.remove(self.nodes[driver])
@@ -164,7 +164,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _setup_widgets(self):
         """
-            Sets up the various widgets required for this panel
+        Sets up the various widgets required for this panel
         """
         self.status = self.builder.get_object('status_label')
 
@@ -177,7 +177,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _connect_events(self):
         """
-            Connects events used in this panel
+        Connects events used in this panel
         """
 
         self.builder.connect_signals(
@@ -237,7 +237,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _setup_tree(self):
         """
-            Sets up the tree that displays the radio panel
+        Sets up the tree that displays the radio panel
         """
         box = self.builder.get_object('RadioPanel')
         self.tree = playlistpanel.PlaylistDragTreeView(self, True, True)
@@ -294,13 +294,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def open_station(self, playlist):
         """
-            Opens a saved station
+        Opens a saved station
         """
         self.emit('playlist-selected', playlist)
 
     def get_menu(self):
         """
-            Returns the menu that all radio stations use
+        Returns the menu that all radio stations use
         """
         m = menu.Menu(None)
         m.add_simple(_("Refresh"), self.on_reload, Gtk.STOCK_REFRESH)
@@ -308,7 +308,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def on_key_released(self, widget, event):
         """
-            Called when a key is released in the tree
+        Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
             (mods, paths) = self.tree.get_selection().get_selected_rows()
@@ -353,14 +353,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def cell_data_func(self, column, cell, model, iter, user_data):
         """
-            Called when the tree needs a value for column 1
+        Called when the tree needs a value for column 1
         """
         object = model.get_value(iter, 1)
         cell.set_property('text', str(object))
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
-            Called when someone drags some thing onto the playlist panel
+        Called when someone drags some thing onto the playlist panel
         """
         # if the drag originated from radio view deny it
         # TODO this might change if we are allowed to change the order of radio
@@ -394,7 +394,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _add_new_station(self, locs):
         """
-            Add a new station
+        Add a new station
         """
         # If the user dragged files prompt for a new playlist name
         # else if they dragged a playlist add the playlist
@@ -434,7 +434,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def drag_get_data(self, tv, context, selection_data, info, time):
         """
-            Called when the user drags a playlist from the radio panel
+        Called when the user drags a playlist from the radio panel
         """
         tracks = self.tree.get_selected_tracks()
 
@@ -449,13 +449,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def drag_data_delete(self, *e):
         """
-            stub
+        stub
         """
         pass
 
     def on_reload(self, *e):
         """
-            Called when the refresh button is clicked
+        Called when the refresh button is clicked
         """
         selection = self.tree.get_selection()
         info = selection.get_selected_rows()
@@ -485,7 +485,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def on_row_expand(self, tree, iter, path):
         """
-            Called when a user expands a row in the tree
+        Called when a user expands a row in the tree
         """
         driver = self.model.get_value(iter, 2)
 
@@ -503,7 +503,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def on_collapsed(self, tree, iter, path):
         """
-            Called when someone collapses a tree item
+        Called when someone collapses a tree item
         """
         driver = self.model.get_value(iter, 2)
 
@@ -516,7 +516,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     @common.threaded
     def _load_station(self, iter, driver):
         """
-            Loads a radio station
+        Loads a radio station
         """
         lists = None
         no_cache = False
@@ -541,7 +541,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _done_loading(self, iter, object, items):
         """
-            Called when an item is done loading.  Adds items to the tree
+        Called when an item is done loading.  Adds items to the tree
         """
         self.loaded_nodes.append(self.nodes[object])
         for item in items:
@@ -564,7 +564,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def _clear_node(self, node):
         """
-            Clears a node of all children
+        Clears a node of all children
         """
         remove = []
         iter = self.model.iter_children(node)

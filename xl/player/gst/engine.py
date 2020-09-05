@@ -50,45 +50,45 @@ logger = logging.getLogger(__name__)
 
 
 class ExaileGstEngine(ExaileEngine):
-    '''
-        Super shiny GStreamer-based engine that does all the things!
+    """
+    Super shiny GStreamer-based engine that does all the things!
 
-        * Audio plugins to modify the output stream
-        * gapless playback
-        * crossfading (requires gst-plugins-bad)
-        * Dynamic audio device switching at runtime
+    * Audio plugins to modify the output stream
+    * gapless playback
+    * crossfading (requires gst-plugins-bad)
+    * Dynamic audio device switching at runtime
 
-        Notes about crossfading:
+    Notes about crossfading:
 
-        The big change from previous attempts at crossfading is that unlike
-        the former unified engine, this tries to depend solely on the playbin
-        element to play audio files. The reason for this is that playbin
-        is 5000+ lines of battle-hardened C code that handles all of the
-        weird edges cases in gstreamer, and we don't wish to duplicate that in
-        Exaile if we can avoid it.
+    The big change from previous attempts at crossfading is that unlike
+    the former unified engine, this tries to depend solely on the playbin
+    element to play audio files. The reason for this is that playbin
+    is 5000+ lines of battle-hardened C code that handles all of the
+    weird edges cases in gstreamer, and we don't wish to duplicate that in
+    Exaile if we can avoid it.
 
-        Instead, we can use multiple playbin instances that have duplicate
-        output audio devices. This makes crossfading a significantly simpler
-        proposition.
+    Instead, we can use multiple playbin instances that have duplicate
+    output audio devices. This makes crossfading a significantly simpler
+    proposition.
 
-        There are two modes for this thing:
+    There are two modes for this thing:
 
-        * One is normal/gapless mode (no crossfade), and it uses a normal
-          playbin element and controls that directly. The playbin is wrapped
-          by the AudioStream object, and it's audio sink is a DynamicAudioSink
-          element with the
+    * One is normal/gapless mode (no crossfade), and it uses a normal
+      playbin element and controls that directly. The playbin is wrapped
+      by the AudioStream object, and it's audio sink is a DynamicAudioSink
+      element with the
 
-        * The other is crossfading mode (which requires gst-plugins-bad to be
-          installed). Create multiple AudioStream objects, and they have a
-          DynamicAudioSink object hooked up to an interaudiosink.
+    * The other is crossfading mode (which requires gst-plugins-bad to be
+      installed). Create multiple AudioStream objects, and they have a
+      DynamicAudioSink object hooked up to an interaudiosink.
 
-        You can register plugins to modify the output audio via the following
-        providers:
+    You can register plugins to modify the output audio via the following
+    providers:
 
-        * gst_audio_filter: Multiple instances of this can be created, as they
-                            get applied to each stream. It is recommended that
-                            plugins inherit from :class:`.ElementBin`
-    '''
+    * gst_audio_filter: Multiple instances of this can be created, as they
+                        get applied to each stream. It is recommended that
+                        plugins inherit from :class:`.ElementBin`
+    """
 
     def __init__(self, name, player, disable_autoswitch):
         ExaileEngine.__init__(self, name, player)
@@ -333,9 +333,9 @@ class ExaileGstEngine(ExaileEngine):
 
 
 class AudioStream:
-    '''
-        An object that can play one or more tracks
-    '''
+    """
+    An object that can play one or more tracks
+    """
 
     idx = 0
 
@@ -579,14 +579,14 @@ class AudioStream:
     #
 
     def on_about_to_finish(self, *args):
-        '''
-            This function exists solely to allow gapless playback for audio
-            formats that support it. Setting the URI property of the playbin
-            will queue the track for playback immediately after the previous
-            track.
+        """
+        This function exists solely to allow gapless playback for audio
+        formats that support it. Setting the URI property of the playbin
+        will queue the track for playback immediately after the previous
+        track.
 
-            .. note:: This is called from the gstreamer thread
-        '''
+        .. note:: This is called from the gstreamer thread
+        """
 
         if self.engine.crossfade_enabled:
             return
@@ -607,9 +607,9 @@ class AudioStream:
             self.engine._autoadvance_track(still_fading=True)
 
     def on_message(self, bus, message):
-        '''
-            This is called on the main thread
-        '''
+        """
+        This is called on the main thread
+        """
 
         if message.type == Gst.MessageType.BUFFERING:
             percent = message.parse_buffering()
@@ -619,8 +619,8 @@ class AudioStream:
                 event.log_event('playback_buffering', self.engine.player, percent)
 
         elif message.type == Gst.MessageType.TAG:
-            """ Update track length and optionally metadata from gstreamer's parser.
-                Useful for streams and files mutagen doesn't understand. """
+            """Update track length and optionally metadata from gstreamer's parser.
+            Useful for streams and files mutagen doesn't understand."""
 
             current = self.current_track
 

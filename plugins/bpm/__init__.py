@@ -46,7 +46,7 @@ menu_providers = ['track-panel-menu', 'playlist-context-menu']
 
 class BPMCounterPlugin:
     """
-        Implements logic for plugin
+    Implements logic for plugin
     """
 
     # Provider API requirement
@@ -73,7 +73,7 @@ class BPMCounterPlugin:
 
     def disable(self, exaile):
         """
-            Called when the plugin is disabled
+        Called when the plugin is disabled
         """
         providers.unregister('mainwindow-info-area-widget', self)
 
@@ -83,7 +83,7 @@ class BPMCounterPlugin:
 
     def create_widget(self, info_area):
         """
-            mainwindow-info-area-widget provider API method
+        mainwindow-info-area-widget provider API method
         """
         return BPMWidget(info_area.get_player(), self)
 

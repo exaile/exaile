@@ -19,7 +19,7 @@ from xl import settings
 
 def migrate():
     """
-        Enables the OSD plugin if the builtin OSD was originally enabled
+    Enables the OSD plugin if the builtin OSD was originally enabled
     """
     plugins = settings.get_option('plugins/enabled', [])
 

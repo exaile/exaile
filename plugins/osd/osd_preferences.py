@@ -32,14 +32,14 @@ OSDPLUGIN = None
 
 def page_enter(_preferencesdialog):
     """
-        Shows a preview of the OSD
+    Shows a preview of the OSD
     """
     OSDPLUGIN.make_osd_editable(True)
 
 
 def page_leave(_preferencesdialog):
     """
-        Hides the OSD preview
+    Hides the OSD preview
     """
     OSDPLUGIN.make_osd_editable(False)
 

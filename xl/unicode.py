@@ -11,13 +11,13 @@ logger = logging.getLogger(__name__)
 
 
 def shave_marks(text):
-    '''
-        Removes diacritics from Latin characters and replaces them with their
-        base characters
+    """
+    Removes diacritics from Latin characters and replaces them with their
+    base characters
 
-        :param text: Some input that will be converted to unicode string
-        :returns: unicode string
-    '''
+    :param text: Some input that will be converted to unicode string
+    :returns: unicode string
+    """
     text = str(text)
     decomposed_text = unicodedata.normalize('NFD', text)
 

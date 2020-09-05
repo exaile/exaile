@@ -442,7 +442,7 @@ class Exaile:
 
     def __init__(self):
         """
-            Initializes Exaile.
+        Initializes Exaile.
         """
         self.quitting = False
         self.loading = True
@@ -588,7 +588,7 @@ class Exaile:
 
     def __init(self):
         """
-            Initializes Exaile
+        Initializes Exaile
         """
 
         logger.info("Loading Exaile %s...", __version__)
@@ -787,7 +787,7 @@ class Exaile:
 
     def _add_default_playlists(self):
         """
-            Adds some default smart playlists to the playlist manager
+        Adds some default smart playlists to the playlist manager
         """
         from xl import playlist
 
@@ -853,21 +853,21 @@ class Exaile:
 
     def get_version(self):
         """
-            Returns the current version
+        Returns the current version
         """
         return __version__
 
     def get_user_agent_string(self, plugin_name=None):
-        '''
-            Returns an appropriately formatted User-agent string for
-            web requests. When possible, plugins should use this to
-            format user agent strings.
+        """
+        Returns an appropriately formatted User-agent string for
+        web requests. When possible, plugins should use this to
+        format user agent strings.
 
-            Users can control this agent string by manually setting
-            general/user_agent and general/user_agent_w_plugin in settings.ini
+        Users can control this agent string by manually setting
+        general/user_agent and general/user_agent_w_plugin in settings.ini
 
-            :param plugin_name: the name of the plugin
-        '''
+        :param plugin_name: the name of the plugin
+        """
 
         version = __version__
         if '+' in version:  # strip out revision identifier
@@ -901,11 +901,11 @@ class Exaile:
 
     def quit(self, restart=False):
         """
-            Exits Exaile normally. Takes care of saving
-            preferences, databases, etc.
+        Exits Exaile normally. Takes care of saving
+        preferences, databases, etc.
 
-            :param restart: Whether to directly restart
-            :type restart: bool
+        :param restart: Whether to directly restart
+        :type restart: bool
         """
         if self.quitting:
             return

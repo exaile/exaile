@@ -7,7 +7,7 @@ from xlgui import icons
 
 class CellRendererToggleImage(Gtk.CellRendererToggle):
     """
-        Renders a toggleable state as an image
+    Renders a toggleable state as an image
     """
 
     __gproperties__ = {
@@ -64,7 +64,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
     def do_get_property(self, property):
         """
-            Getter for custom properties
+        Getter for custom properties
         """
         if property.name == 'icon-name':
             return self.__icon_name
@@ -79,7 +79,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
     def do_set_property(self, property, value):
         """
-            Setter for custom properties
+        Setter for custom properties
         """
         if property.name == 'icon-name':
             self.__icon_name = value
@@ -96,7 +96,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
     def __render_pixbufs(self):
         """
-            Pre-renders all required pixbufs and caches them
+        Pre-renders all required pixbufs and caches them
         """
         # Get pixbuf from raw or name in that order
         if self.__pixbuf is None:
@@ -126,7 +126,7 @@ class CellRendererToggleImage(Gtk.CellRendererToggle):
 
     def do_render(self, cairo_context, widget, background_area, cell_area, flags):
         """
-            Renders a custom toggle image
+        Renders a custom toggle image
         """
         # Ensure pixbufs are rendered
         if self.__pixbuf is None:

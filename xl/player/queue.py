@@ -34,23 +34,23 @@ logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
     """
-        Manages the queue of songs to be played
+    Manages the queue of songs to be played
 
-        The content of the queue are processed before processing
-        the content of the assigned playlist.
+    The content of the queue are processed before processing
+    the content of the assigned playlist.
 
-        When the remove_item_when_played option is enabled, the queue
-        removes items from itself as they are played.
+    When the remove_item_when_played option is enabled, the queue
+    removes items from itself as they are played.
 
-        When not enabled, the queue acts like a regular playlist, and
-        moves the position as tracks are played.
+    When not enabled, the queue acts like a regular playlist, and
+    moves the position as tracks are played.
 
-        In this mode, when a new track is queued, the position is set
-        to play that track, and play will continue with that track
-        until the queue is exhausted, and then the assigned playlist
-        will be continued.
+    In this mode, when a new track is queued, the position is set
+    to play that track, and play will continue with that track
+    until the queue is exhausted, and then the assigned playlist
+    will be continued.
 
-        TODO: Queue needs to be threadsafe!
+    TODO: Queue needs to be threadsafe!
     """
 
     def __init__(self, player, name, location=None):
@@ -88,14 +88,14 @@ class PlayQueue(playlist.Playlist):
 
     def set_current_playlist(self, playlist):
         """
-            Sets the playlist to be processed in the queue
+        Sets the playlist to be processed in the queue
 
-            :param playlist: the playlist to process
-            :type playlist: :class:`xl.playlist.Playlist`
+        :param playlist: the playlist to process
+        :type playlist: :class:`xl.playlist.Playlist`
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `queue_current_playlist_changed`: indicates that the queue playlist has been changed
+            * `queue_current_playlist_changed`: indicates that the queue playlist has been changed
         """
         if playlist is self.__current_playlist:
             return
@@ -114,17 +114,17 @@ class PlayQueue(playlist.Playlist):
     )
 
     def get_next(self):
-        '''
-            Retrieves the next track that will be played. Does not
-            actually set the position. When you call next(), it should
-            return the same track.
+        """
+        Retrieves the next track that will be played. Does not
+        actually set the position. When you call next(), it should
+        return the same track.
 
-            This exists to support retrieving a track before it actually
-            needs to be played, such as for pre-buffering.
+        This exists to support retrieving a track before it actually
+        needs to be played, such as for pre-buffering.
 
-            :returns: the next track to be played
-            :rtype: :class:`xl.trax.Track` or None
-        '''
+        :returns: the next track to be played
+        :rtype: :class:`xl.trax.Track` or None
+        """
         if self.__queue_has_tracks and len(self):
             if self.__remove_item_on_playback:
                 return self[0]
@@ -137,17 +137,17 @@ class PlayQueue(playlist.Playlist):
 
     def next(self, autoplay=True, track=None):
         """
-            Goes to the next track, either in the queue, or in the current
-            playlist.  If a track is passed in, that track is played
+        Goes to the next track, either in the queue, or in the current
+        playlist.  If a track is passed in, that track is played
 
-            :param autoplay: play the track in addition to returning it
-            :type autoplay: bool
-            :param track: if passed, play this track
-            :type track: :class:`xl.trax.Track`
+        :param autoplay: play the track in addition to returning it
+        :type autoplay: bool
+        :param track: if passed, play this track
+        :type track: :class:`xl.trax.Track`
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_playlist_end`: indicates that the end of the queue has been reached
+            * `playback_playlist_end`: indicates that the end of the queue has been reached
         """
         if track is None:
             if self.__queue_has_tracks:
@@ -175,7 +175,7 @@ class PlayQueue(playlist.Playlist):
 
     def prev(self):
         """
-            Goes to the previous track
+        Goes to the previous track
         """
         track = None
         if self.player.current:
@@ -199,10 +199,10 @@ class PlayQueue(playlist.Playlist):
 
     def get_current(self):
         """
-            Gets the current track
+        Gets the current track
 
-            :returns: the current track
-            :type: :class:`xl.trax.Track`
+        :returns: the current track
+        :type: :class:`xl.trax.Track`
         """
         if self.player.current and self.current_position > 0:
             current = self.player.current
@@ -228,11 +228,11 @@ class PlayQueue(playlist.Playlist):
 
     def play(self, track=None):
         """
-            Starts queue processing with the given
-            track preceding the queue content
+        Starts queue processing with the given
+        track preceding the queue content
 
-            :param track: the track to play
-            :type track: :class:`xl.trax.Track`
+        :param track: the track to play
+        :type track: :class:`xl.trax.Track`
         """
         if self.player.is_playing():
             if not track or self.__disable_new_track_when_playing:
@@ -250,10 +250,10 @@ class PlayQueue(playlist.Playlist):
             self.next()
 
     def queue_length(self):
-        '''
-            Returns the number of tracks left to play in the queue's
-            internal playlist.
-        '''
+        """
+        Returns the number of tracks left to play in the queue's
+        internal playlist.
+        """
         if self.__remove_item_on_playback:
             return len(self)
         else:
@@ -278,12 +278,12 @@ class PlayQueue(playlist.Playlist):
     )
 
     def __setitem__(self, i, value):
-        '''
-            Overrides the playlist.Playlist list API.
+        """
+        Overrides the playlist.Playlist list API.
 
-            Allows us to ensure that when a track is added to an empty queue,
-            we play it. Or not, depending on what the user wants.
-        '''
+        Allows us to ensure that when a track is added to an empty queue,
+        we play it. Or not, depending on what the user wants.
+        """
         old_len = playlist.Playlist.__len__(self)
         playlist.Playlist.__setitem__(self, i, value)
 

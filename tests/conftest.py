@@ -16,9 +16,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 @pytest.yield_fixture(autouse=True)
 def exaile_test_cleanup():
-    '''
-        Teardown/setup of various Exaile globals
-    '''
+    """
+    Teardown/setup of various Exaile globals
+    """
 
     yield
 
@@ -113,9 +113,9 @@ def writeable_track_name(writeable_track):
 
 @pytest.fixture
 def test_tracks():
-    '''
-        Returns an object that can be used to retrieve test track data
-    '''
+    """
+    Returns an object that can be used to retrieve test track data
+    """
 
     class _TestTracks:
         def get(self, ext):

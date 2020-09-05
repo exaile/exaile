@@ -48,11 +48,11 @@ from .presets import DEFAULT_PRESETS
 
 
 class AnalyzerDialog:
-    '''
-        Provide super flexible interface to stuff. Hm.
+    """
+    Provide super flexible interface to stuff. Hm.
 
-        Need to define stuff before interface makes sense.
-    '''
+    Need to define stuff before interface makes sense.
+    """
 
     ui_filename = join(dirname(__file__), 'analyzer.ui')
 

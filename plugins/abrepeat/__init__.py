@@ -27,7 +27,7 @@ class ABRepeatPlugin:
 
     def enable(self, _exaile):
         """
-            Enables the plugin
+        Enables the plugin
         """
         pass  # needs to be implemented, otherwise xl.plugins will break
 
@@ -37,7 +37,7 @@ class ABRepeatPlugin:
 
     def disable(self, _exaile):
         """
-            Disables the plugin
+        Disables the plugin
         """
         self.__menu_item.destroy()
         providers.unregister('progressbar-context-menu', self.__menu_item)
@@ -48,8 +48,8 @@ plugin_class = ABRepeatPlugin
 
 class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandler):
     """
-        Menu item allowing for insertion of two markers
-        to signify beginning and end of the segment to repeat
+    Menu item allowing for insertion of two markers
+    to signify beginning and end of the segment to repeat
     """
 
     def __init__(self):
@@ -72,14 +72,14 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def destroy(self):
         """
-            Cleanups
+        Cleanups
         """
         event.remove_callback(self.on_playback_track_end, 'playback_track_end')
         self.clear_markers()
 
     def factory(self, menu, parent, context):
         """
-            Generates the menu item
+        Generates the menu item
         """
         item = playback.MoveMarkerMenuItem.factory(self, menu, parent, context)
 
@@ -98,7 +98,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def clear_markers(self):
         """
-            Removes both markers
+        Removes both markers
         """
         for name in ('repeat-beginning', 'repeat-end'):
             marker = providers.get_provider('playback-markers', name)
@@ -108,7 +108,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def on_activate(self, widget, parent, context):
         """
-            Inserts the beginning (A) marker
+        Inserts the beginning (A) marker
         """
         self.beginning_marker.props.position = context['current-position']
         providers.register('playback-markers', self.beginning_marker)
@@ -118,7 +118,7 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def on_parent_button_press_event(self, widget, event):
         """
-            Finishes or cancels insertion of markers
+        Finishes or cancels insertion of markers
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             if self.move_finish():
@@ -139,14 +139,14 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def on_end_marker_reached(self, marker):
         """
-            Seeks to the beginning marker
+        Seeks to the beginning marker
         """
         player.PLAYER.set_progress(self.beginning_marker.props.position)
 
     def on_provider_removed(self, provider):
         """
-            Removes the opposite marker if one
-            of the two markers is removed
+        Removes the opposite marker if one
+        of the two markers is removed
         """
         names = ('repeat-beginning', 'repeat-end')
 
@@ -155,6 +155,6 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem, providers.ProviderHandl
 
     def on_playback_track_end(self, event_type, player, track):
         """
-            Removes both markers
+        Removes both markers
         """
         self.clear_markers()

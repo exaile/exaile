@@ -74,31 +74,31 @@ BASE_SORT_TAGS = ('albumartist', 'date', 'album', 'discnumber', 'tracknumber', '
 
 def clamp(value, minimum, maximum):
     """
-        Clamps a value to the given boundaries
+    Clamps a value to the given boundaries
 
-        :param value: the value to clamp
-        :param minimum: the minimum value to return
-        :param maximum: the maximum value to return
+    :param value: the value to clamp
+    :param minimum: the minimum value to return
+    :param maximum: the maximum value to return
     """
     return max(minimum, min(value, maximum))
 
 
 def enum(**enums):
     """
-        Creates an enum type
+    Creates an enum type
 
-        :see: https://stackoverflow.com/a/1695250
+    :see: https://stackoverflow.com/a/1695250
     """
     return type('Enum', (), enums)
 
 
 def sanitize_url(url):
     """
-        Removes the password part from an url
+    Removes the password part from an url
 
-        :param url: the URL to sanitize
-        :type url: string
-        :returns: the sanitized url
+    :param url: the URL to sanitize
+    :type url: string
+    :returns: the sanitized url
     """
     try:
         components = list(urllib.parse.urlparse(url))
@@ -116,15 +116,15 @@ def sanitize_url(url):
 
 
 def get_url_contents(url, user_agent):
-    '''
-        Retrieves data from a URL and sticks a user-agent on it. You can use
-        exaile.get_user_agent_string(pluginname) to get this.
+    """
+    Retrieves data from a URL and sticks a user-agent on it. You can use
+    exaile.get_user_agent_string(pluginname) to get this.
 
-        Added in Exaile 3.4
+    Added in Exaile 3.4
 
-        :returns: Contents of page located at URL
-        :raises: urllib.error.URLError
-    '''
+    :returns: Contents of page located at URL
+    :raises: urllib.error.URLError
+    """
 
     headers = {'User-Agent': user_agent}
     req = urllib.request.Request(url, None, headers)
@@ -137,9 +137,9 @@ def get_url_contents(url, user_agent):
 
 def threaded(func):
     """
-        A decorator that will make any function run in a new thread
+    A decorator that will make any function run in a new thread
 
-        :param func: the function to run threaded
+    :param func: the function to run threaded
     """
 
     @wraps(func)
@@ -153,14 +153,14 @@ def threaded(func):
 
 def synchronized(func):
     """
-        A decorator to make a function synchronized - which means only one
-        thread is allowed to access it at a time.
+    A decorator to make a function synchronized - which means only one
+    thread is allowed to access it at a time.
 
-        This only works on class functions, and creates a variable in
-        the instance called _sync_lock.
+    This only works on class functions, and creates a variable in
+    the instance called _sync_lock.
 
-        If this function is used on multiple functions in an object, they
-        will be locked with respect to each other. The lock is re-entrant.
+    If this function is used on multiple functions in an object, they
+    will be locked with respect to each other. The lock is re-entrant.
     """
 
     @wraps(func)
@@ -188,16 +188,16 @@ def _idle_callback(func, callback, *args, **kwargs):
 
 def idle_add(callback=None):
     """
-        A decorator that will wrap the function in a GLib.idle_add call
+    A decorator that will wrap the function in a GLib.idle_add call
 
-        NOTE: Although this decorator will probably work in more cases than
-        the gtkrun decorator does, you CANNOT expect to get a return value
-        from the function that calls a function with this decorator.  Instead,
-        you must use the callback parameter.  If the wrapped function returns
-        a value, it will be passed in as a parameter to the callback function.
+    NOTE: Although this decorator will probably work in more cases than
+    the gtkrun decorator does, you CANNOT expect to get a return value
+    from the function that calls a function with this decorator.  Instead,
+    you must use the callback parameter.  If the wrapped function returns
+    a value, it will be passed in as a parameter to the callback function.
 
-        @param callback: optional callback that will be called when the
-            wrapped function is done running
+    @param callback: optional callback that will be called when the
+        wrapped function is done running
     """
 
     def wrap(f):
@@ -247,38 +247,38 @@ def _glib_wait_inner(timeout, glib_timeout_func):
 
 def glib_wait(timeout):
     """
-        Decorator to make a function run only after 'timeout'
-        milliseconds have elapsed since the most recent call to the
-        function.
+    Decorator to make a function run only after 'timeout'
+    milliseconds have elapsed since the most recent call to the
+    function.
 
-        For example, if a function was given a timeout of 1000 and
-        called once, then again half a second later, it would run
-        only once, 1.5 seconds after the first call to it.
+    For example, if a function was given a timeout of 1000 and
+    called once, then again half a second later, it would run
+    only once, 1.5 seconds after the first call to it.
 
-        If arguments are given to the function, only the last call's set
-        of arguments will be used.
+    If arguments are given to the function, only the last call's set
+    of arguments will be used.
 
-        If the function returns a value that evaluates to True, it
-        will be called again under the same timeout rules.
+    If the function returns a value that evaluates to True, it
+    will be called again under the same timeout rules.
 
-        .. warning:: Can only be used with instance methods
+    .. warning:: Can only be used with instance methods
     """
     return _glib_wait_inner(timeout, GLib.timeout_add)
 
 
 def glib_wait_seconds(timeout):
     """
-        Same as glib_wait, but uses GLib.timeout_add_seconds instead
-        of GLib.timeout_add and takes its timeout in seconds. See the
-        glib documention for why you might want to use one over the
-        other.
+    Same as glib_wait, but uses GLib.timeout_add_seconds instead
+    of GLib.timeout_add and takes its timeout in seconds. See the
+    glib documention for why you might want to use one over the
+    other.
     """
     return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
 
 
 def profileit(func):
     """
-        Decorator to profile a function
+    Decorator to profile a function
     """
     import cProfile
     import pstats
@@ -301,7 +301,7 @@ def profileit(func):
 
 class classproperty:
     """
-        Decorator allowing for class property access
+    Decorator allowing for class property access
     """
 
     def __init__(self, function):
@@ -313,7 +313,7 @@ class classproperty:
 
 class VersionError(Exception):
     """
-       Represents version discrepancies
+    Represents version discrepancies
     """
 
     #: the error message
@@ -329,7 +329,7 @@ class VersionError(Exception):
 
 def open_file(path):
     """
-        Opens a file or folder using the system configured program
+    Opens a file or folder using the system configured program
     """
     platform = sys.platform
     if platform == 'win32':
@@ -345,7 +345,7 @@ def open_file(path):
 
 def open_file_directory(path_or_uri):
     """
-        Opens the parent directory of a file, selecting the file if possible.
+    Opens the parent directory of a file, selecting the file if possible.
     """
     f = Gio.File.new_for_commandline_arg(path_or_uri)
     platform = sys.platform
@@ -367,9 +367,9 @@ def open_file_directory(path_or_uri):
 
 
 def open_shelf(path):
-    '''
-        Opens a python shelf file, used to store various types of metadata
-    '''
+    """
+    Opens a python shelf file, used to store various types of metadata
+    """
     shelve_compat.ensure_shelve_compat()
 
     # As of Exaile 4, new DBs will only be created as Berkeley DB Hash databases
@@ -411,7 +411,7 @@ def open_shelf(path):
 
 class LimitedCache(collections.abc.MutableMapping):
     """
-        Simple cache that acts much like a dict, but has a maximum # of items
+    Simple cache that acts much like a dict, but has a maximum # of items
     """
 
     def __init__(self, limit):
@@ -460,10 +460,10 @@ class LimitedCache(collections.abc.MutableMapping):
 
 class cached:
     """
-        Decorator to make a function's results cached
-        does not cache if there is an exception.
+    Decorator to make a function's results cached
+    does not cache if there is an exception.
 
-        .. note:: This probably breaks on functions that modify their arguments
+    .. note:: This probably breaks on functions that modify their arguments
     """
 
     def __init__(self, limit):
@@ -501,18 +501,18 @@ class cached:
 
 def walk(root):
     """
-        Walk through a Gio directory, yielding each file
+    Walk through a Gio directory, yielding each file
 
-        Files are enumerated in the following order: first the
-        directory, then the files in that directory. Once one
-        directory's files have all been listed, it moves on to
-        the next directory. Order of files within a directory
-        and order of directory traversal is not specified.
+    Files are enumerated in the following order: first the
+    directory, then the files in that directory. Once one
+    directory's files have all been listed, it moves on to
+    the next directory. Order of files within a directory
+    and order of directory traversal is not specified.
 
-        :param root: a :class:`Gio.File` representing the
-            directory to walk through
-        :returns: a generator object
-        :rtype: :class:`Gio.File`
+    :param root: a :class:`Gio.File` representing the
+        directory to walk through
+    :returns: a generator object
+    :rtype: :class:`Gio.File`
     """
     queue = deque()
     queue.append(root)
@@ -550,12 +550,12 @@ def walk(root):
 
 def walk_directories(root):
     """
-        Walk through a Gio directory, yielding each subdirectory
+    Walk through a Gio directory, yielding each subdirectory
 
-        :param root: a :class:`Gio.File` representing the
-            directory to walk through
-        :returns: a generator object
-        :rtype: :class:`Gio.File`
+    :param root: a :class:`Gio.File` representing the
+        directory to walk through
+    :returns: a generator object
+    :rtype: :class:`Gio.File`
     """
     yield root
     directory = None
@@ -581,8 +581,8 @@ def walk_directories(root):
 
 class TimeSpan:
     """
-        Calculates the number of days, hours, minutes,
-        and seconds in a time span
+    Calculates the number of days, hours, minutes,
+    and seconds in a time span
     """
 
     #: number of days
@@ -596,8 +596,8 @@ class TimeSpan:
 
     def __init__(self, span):
         """
-            :param span: Time span in seconds
-            :type span: float
+        :param span: Time span in seconds
+        :type span: float
         """
         try:
             span = float(span)
@@ -625,17 +625,17 @@ class TimeSpan:
 
 class MetadataList:
     """
-        Like a list, but also associates an object of metadata
-        with each entry.
+    Like a list, but also associates an object of metadata
+    with each entry.
 
-        ``(get|set|del)_meta_key`` are the metadata interface - they
-        allow the metadata to act much like a dictionary, with a few
-        optimizations.
+    ``(get|set|del)_meta_key`` are the metadata interface - they
+    allow the metadata to act much like a dictionary, with a few
+    optimizations.
 
-        List aspects that are not supported:
-            * sort
-            * comparisons other than equality
-            * multiply
+    List aspects that are not supported:
+        * sort
+        * comparisons other than equality
+        * multiply
     """
 
     __slots__ = ['__list', 'metadata']
@@ -747,10 +747,10 @@ class MetadataList:
 
 class ProgressThread(GObject.GObject, threading.Thread):
     """
-        A basic thread with progress updates. The thread should emit
-        the progress-update signal periodically. The contents must
-        be number between 0 and 100, or a tuple of (n, total) where
-        n is the current step.
+    A basic thread with progress updates. The thread should emit
+    the progress-update signal periodically. The contents must
+    be number between 0 and 100, or a tuple of (n, total) where
+    n is the current step.
     """
 
     __gsignals__ = {
@@ -770,40 +770,40 @@ class ProgressThread(GObject.GObject, threading.Thread):
 
     def stop(self):
         """
-            Stops the thread
+        Stops the thread
         """
         self.emit('done')
 
     def run(self):
         """
-            Override and make sure that the 'progress-update'
-            signal is emitted regularly with the progress
+        Override and make sure that the 'progress-update'
+        signal is emitted regularly with the progress
         """
         pass
 
 
 class SimpleProgressThread(ProgressThread):
-    '''
-        Simpler version of ProgressThread that uses a generator to
-        manage the thread and its progress. Instead of overriding
-        run, just pass a callable that returns a generator to
-        the constructor.
+    """
+    Simpler version of ProgressThread that uses a generator to
+    manage the thread and its progress. Instead of overriding
+    run, just pass a callable that returns a generator to
+    the constructor.
 
-        The callable must either yield a number between 0 and 100,
-        or yield a tuple of (n, total) where n is the current step.
+    The callable must either yield a number between 0 and 100,
+    or yield a tuple of (n, total) where n is the current step.
 
-        ::
+    ::
 
-            def long_running_thing():
-                l = len(stuff)
-                try:
-                    for i in stuff:
-                        yield (i, l)
-                finally:
-                    # if the thread is stopped, GeneratorExit will
-                    # be raised the next time yield is called
-                    pass
-    '''
+        def long_running_thing():
+            l = len(stuff)
+            try:
+                for i in stuff:
+                    yield (i, l)
+            finally:
+                # if the thread is stopped, GeneratorExit will
+                # be raised the next time yield is called
+                pass
+    """
 
     def __init__(self, target, *args, **kwargs):
         ProgressThread.__init__(self)
@@ -811,15 +811,15 @@ class SimpleProgressThread(ProgressThread):
         self.__stop = False
 
     def stop(self):
-        '''
-            Causes the thread to stop at the next yield point
-        '''
+        """
+        Causes the thread to stop at the next yield point
+        """
         self.__stop = True
 
     def run(self):
-        '''
-            Runs a generator
-        '''
+        """
+        Runs a generator
+        """
         target, args, kwargs = self.__target
 
         try:
@@ -838,13 +838,13 @@ class SimpleProgressThread(ProgressThread):
 class PosetItem:
     def __init__(self, name, after, priority, value=None):
         """
-            :param name: unique identifier for this item
-            :type name: string
-            :param after: which items this item comes after
-            :type after: list of string
-            :param priority: tiebreaker, higher values come later
-            :type priority: int
-            :param value: arbitrary data associated with the item
+        :param name: unique identifier for this item
+        :type name: string
+        :param after: which items this item comes after
+        :type after: list of string
+        :param priority: tiebreaker, higher values come later
+        :type priority: int
+        :param value: arbitrary data associated with the item
         """
         self.name = name
         self.after = list(after)
@@ -855,8 +855,8 @@ class PosetItem:
 
 def order_poset(items):
     """
-        :param items: poset to order
-        :type items: list of :class:`PosetItem`
+    :param items: poset to order
+    :type items: list of :class:`PosetItem`
     """
     items = {item.name: item for item in items}
     for name, item in items.items():
@@ -945,11 +945,11 @@ class _GioFileStream:
 
 
 class GioFileInputStream(_GioFileStream):
-    '''
-        Wrap a Gio.File so it looks like a python file object for reading.
+    """
+    Wrap a Gio.File so it looks like a python file object for reading.
 
-        TODO: More complete wrapper
-    '''
+    TODO: More complete wrapper
+    """
 
     __slots__ = ['stream', 'gfile']
 
@@ -977,9 +977,9 @@ class GioFileInputStream(_GioFileStream):
 
 
 class GioFileOutputStream(_GioFileStream):
-    '''
-        Wrapper around Gio.File for writing like a python file object
-    '''
+    """
+    Wrapper around Gio.File for writing like a python file object
+    """
 
     __slots__ = ['stream']
 
@@ -999,23 +999,23 @@ class GioFileOutputStream(_GioFileStream):
 
 
 def subscribe_for_settings(section, options, self):
-    '''
-        Allows you designate attributes on an object to be dynamically
-        updated when a particular setting changes. If you want to be
-        notified of a setting update, use a @property for the attribute.
+    """
+    Allows you designate attributes on an object to be dynamically
+    updated when a particular setting changes. If you want to be
+    notified of a setting update, use a @property for the attribute.
 
-        Only works for a options in a single section
+    Only works for a options in a single section
 
-        :param section: Settings section
-        :param options: Dictionary of key: option name, value: attribute on
-                        'self' to set when the setting has been updated. The
-                        attribute must already have a default value in it
-        :param self:    Object to set attribute values on
+    :param section: Settings section
+    :param options: Dictionary of key: option name, value: attribute on
+                    'self' to set when the setting has been updated. The
+                    attribute must already have a default value in it
+    :param self:    Object to set attribute values on
 
-        :returns: A function that can be called to unsubscribe
+    :returns: A function that can be called to unsubscribe
 
-        .. versionadded:: 3.5.0
-    '''
+    .. versionadded:: 3.5.0
+    """
 
     from xl import event
     from xl import settings
@@ -1037,14 +1037,14 @@ def subscribe_for_settings(section, options, self):
 
 class AsyncLoader:
     """
-        Async loader based on a generator
-        Threaded, load it and put it in `result_list`
+    Async loader based on a generator
+    Threaded, load it and put it in `result_list`
     """
 
     def __init__(self, item_generator):
         """
-            Constructs and already start processing (starts thread)
-            :param item_generator: iterable
+        Constructs and already start processing (starts thread)
+        :param item_generator: iterable
         """
         self.__end = False
         self.__result_list = []
@@ -1053,9 +1053,9 @@ class AsyncLoader:
 
     def run(self, item_generator):
         """
-            Process items putting in `result_list`
-            :param item_generator: iterable
-            :return: None
+        Process items putting in `result_list`
+        :param item_generator: iterable
+        :return: None
         """
         for i in item_generator:
             if self.__end:
@@ -1066,25 +1066,25 @@ class AsyncLoader:
 
     def end(self, timeout=None):
         """
-            Request process ending if it doesn't occurs in timeout
-            :param timeout: float representing seconds or None to wait infinitely (default)
-            :return: None
+        Request process ending if it doesn't occurs in timeout
+        :param timeout: float representing seconds or None to wait infinitely (default)
+        :return: None
         """
         self.__thread.join(timeout)
         self.__end = True
 
     def ended(self):
         """
-            If it has ended
-            :return: bool
+        If it has ended
+        :return: bool
         """
         return not self.__thread.is_alive()
 
     @property
     def result(self):
         """
-            Gets the result
-            :return: list
+        Gets the result
+        :return: list
         """
         return self.__result_list[:]
 

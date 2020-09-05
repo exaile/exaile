@@ -387,14 +387,14 @@ class GroupTaggerView(Gtk.TreeView):
 
 
 class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
-    '''
-        The tree model for grouptagger
+    """
+    The tree model for grouptagger
 
-        Rows for categories:
-            [expanded, category name, False]
-        Rows for groups:
-            [selected, group name, True]
-    '''
+    Rows for categories:
+        [expanded, category name, False]
+    Rows for groups:
+        [selected, group name, True]
+    """
 
     def __init__(self):
         super(GroupTaggerTreeStore, self).__init__(
@@ -521,11 +521,11 @@ class GroupTaggerTreeStore(Gtk.TreeStore, Gtk.TreeDragSource, Gtk.TreeDragDest):
     #    return False
 
     def load(self, group_categories):
-        '''
-            input format:
+        """
+        input format:
 
-            { category: [expanded, [(active, group), ... ]], ... }
-        '''
+        { category: [expanded, [(active, group), ... ]], ... }
+        """
         for category, (expanded, groups) in group_categories.items():
             cat = self.append(None, [expanded, category, False, Pango.Weight.BOLD])
             for active, group in groups:
@@ -633,10 +633,10 @@ class GroupTaggerWidget(Gtk.Box):
         self.view.thaw_child_notify()
 
     def set_categories(self, groups, group_categories):
-        '''
-            groups: iterable
-            group_categories: dict: key is category, value is (visible, list of groups)
-        '''
+        """
+        groups: iterable
+        group_categories: dict: key is category, value is (visible, list of groups)
+        """
 
         defaults = {}
         set_groups = set()  # this holds all groups that were found
@@ -786,10 +786,10 @@ class AllTagsDialog(Gtk.Window):
 
 
 class GroupTaggerQueryDialog(Gtk.Dialog):
-    '''
-        Dialog used to allow the user to select the behavior of the query
-        used to filter out tracks that match a particular characteristic
-    '''
+    """
+    Dialog used to allow the user to select the behavior of the query
+    used to filter out tracks that match a particular characteristic
+    """
 
     def __init__(self, groups):
 

@@ -41,16 +41,16 @@ logger = logging.getLogger(__name__)
 
 class ExailePlayer:
     """
-        This is the player object that everything in Exaile interacts with
-        to control audio playback. The player object controls a playback
-        engine, which actually controls audio playback. Nothing in this
-        object should be specific to a particular engine. Examples of engines
-        could be GStreamer, Xine, etc. Currently only the GStreamer engine
-        is actually implemented.
+    This is the player object that everything in Exaile interacts with
+    to control audio playback. The player object controls a playback
+    engine, which actually controls audio playback. Nothing in this
+    object should be specific to a particular engine. Examples of engines
+    could be GStreamer, Xine, etc. Currently only the GStreamer engine
+    is actually implemented.
 
-        All public functions are assumed to be called from the Glib main
-        thread, or bad things will happen. This includes most engine functions,
-        with one or two noted exceptions.
+    All public functions are assumed to be called from the Glib main
+    thread, or bad things will happen. This includes most engine functions,
+    with one or two noted exceptions.
     """
 
     def __init__(self, name, disable_autoswitch=False):
@@ -125,8 +125,8 @@ class ExailePlayer:
 
     def destroy(self):
         """
-            Destroys the engine and other resources for this player object.
-            Unless you own the object, you probably should never call this.
+        Destroys the engine and other resources for this player object.
+        Unless you own the object, you probably should never call this.
         """
         if self._settings_unsub is not None:
             self._settings_unsub()
@@ -138,29 +138,29 @@ class ExailePlayer:
 
     def get_volume(self):
         """
-            Gets the current user volume
+        Gets the current user volume
 
-            :returns: the volume percentage
-            :type: int
+        :returns: the volume percentage
+        :type: int
         """
         return self._volume * 100
 
     def set_volume(self, volume):
         """
-            Sets the current user volume
+        Sets the current user volume
 
-            :param volume: the volume percentage
-            :type volume: int
+        :param volume: the volume percentage
+        :type volume: int
         """
         volume = common.clamp(volume, 0, 100)
         settings.set_option("%s/volume" % self._name, volume / 100)
 
     def modify_volume(self, diff):
         """
-            Changes the current user volume
+        Changes the current user volume
 
-            :param diff: the volume difference (pos or neg) percentage units
-            :type volume: int
+        :param diff: the volume difference (pos or neg) percentage units
+        :type volume: int
         """
         v = self.get_volume()
         self.set_volume(v + diff)
@@ -171,18 +171,18 @@ class ExailePlayer:
 
     def play(self, track, start_at=None, paused=False):
         """
-            Starts the playback with the provided track
-            or stops the playback it immediately if none
+        Starts the playback with the provided track
+        or stops the playback it immediately if none
 
-            :param track: the track to play or None
-            :type track: :class:`xl.trax.Track`
-            :param start_at: The offset to start playback at, in seconds
-            :param paused: If True, start the track in 'paused' mode
+        :param track: the track to play or None
+        :type track: :class:`xl.trax.Track`
+        :param start_at: The offset to start playback at, in seconds
+        :param paused: If True, start the track in 'paused' mode
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_player_start`: indicates the start of playback overall
-                * `playback_track_start`: indicates playback start of a track
+            * `playback_player_start`: indicates the start of playback overall
+            * `playback_track_start`: indicates playback start of a track
         """
         if track is None:
             self.stop()
@@ -198,12 +198,12 @@ class ExailePlayer:
 
     def stop(self):
         """
-            Stops the playback
+        Stops the playback
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_player_end`: indicates the end of playback overall
-                * `playback_track_end`: indicates playback end of a track
+            * `playback_player_end`: indicates the end of playback overall
+            * `playback_track_end`: indicates playback end of a track
         """
         state = self.get_state()
 
@@ -218,14 +218,14 @@ class ExailePlayer:
 
     def pause(self):
         """
-            Pauses the playback if playing, does not toggle it
+        Pauses the playback if playing, does not toggle it
 
-            :returns: True if paused, False otherwise
+        :returns: True if paused, False otherwise
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_player_pause`: indicates that the playback has been paused
-                * `playback_toggle_pause`: indicates that the playback has been paused or resumed
+            * `playback_player_pause`: indicates that the playback has been paused
+            * `playback_toggle_pause`: indicates that the playback has been paused or resumed
         """
         self._cancel_delayed_start()
         if self.is_playing():
@@ -243,14 +243,14 @@ class ExailePlayer:
 
     def unpause(self):
         """
-            Resumes the playback if it is paused, does not toggle it
+        Resumes the playback if it is paused, does not toggle it
 
-            :returns: True if paused, False otherwise
+        :returns: True if paused, False otherwise
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_player_resume`: indicates that the playback has been resumed
-                * `playback_toggle_pause`: indicates that the playback has been paused or resumed
+            * `playback_player_resume`: indicates that the playback has been resumed
+            * `playback_toggle_pause`: indicates that the playback has been paused or resumed
         """
         self._cancel_delayed_start()
         if self.is_paused():
@@ -266,14 +266,14 @@ class ExailePlayer:
 
     def toggle_pause(self):
         """
-            Toggles between playing and paused state. Only valid when playback
-            is not stopped.
+        Toggles between playing and paused state. Only valid when playback
+        is not stopped.
 
-            :returns: True if toggled, false otherwise
+        :returns: True if toggled, false otherwise
 
-            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+        .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
-                * `playback_toggle_pause`: indicates that the playback has been paused or resumed
+            * `playback_toggle_pause`: indicates that the playback has been paused or resumed
         """
         state = self.get_state()
         if state == 'paused':
@@ -285,37 +285,37 @@ class ExailePlayer:
 
     def seek(self, value):
         """
-            Seek to a position in the currently playing stream
+        Seek to a position in the currently playing stream
 
-            :param value: the position in seconds
-            :type value: int
+        :param value: the position in seconds
+        :type value: int
         """
         if self._engine.seek(value):
             event.log_event('playback_seeked', self, value)
 
     def get_position(self):
         """
-            Gets the current playback position of the playing track
+        Gets the current playback position of the playing track
 
-            :returns: the playback position in nanoseconds
-            :rtype: int
+        :returns: the playback position in nanoseconds
+        :rtype: int
         """
         return self._engine.get_position()
 
     def get_time(self):
         """
-            Gets the current playback time
+        Gets the current playback time
 
-            :returns: the playback time in seconds
-            :rtype: float
+        :returns: the playback time in seconds
+        :rtype: float
         """
         return self.get_position() / 1e9
 
     def get_progress(self) -> float:
         """
-            Gets the current playback progress
+        Gets the current playback progress
 
-            :returns: the playback progress as [0..1]
+        :returns: the playback progress as [0..1]
         """
         try:
             progress = self.get_time() / self.current.get_tag_raw("__length")
@@ -332,10 +332,10 @@ class ExailePlayer:
 
     def set_progress(self, progress):
         """
-            Seeks to the progress position
+        Seeks to the progress position
 
-            :param progress: value ranged at [0..1]
-            :type progress: float
+        :param progress: value ranged at [0..1]
+        :type progress: float
         """
         seek_position = 0
 
@@ -349,13 +349,13 @@ class ExailePlayer:
 
     def modify_time(self, diff):
         """
-            Modifies the current position backwards or forwards.
+        Modifies the current position backwards or forwards.
 
-            If position ends up after the end or before the start of the track
-            it is truncated to lay inside the track.
+        If position ends up after the end or before the start of the track
+        it is truncated to lay inside the track.
 
-            :param diff: value in seconds
-            :type diff: int
+        :param diff: value in seconds
+        :type diff: int
         """
         try:
             length = self.current.get_tag_raw('__length')
@@ -377,37 +377,37 @@ class ExailePlayer:
 
     def get_state(self):
         """
-            Gets the player state
+        Gets the player state
 
-            :returns: one of *playing*, *paused* or *stopped*
-            :rtype: string
+        :returns: one of *playing*, *paused* or *stopped*
+        :rtype: string
         """
         return self._engine.get_state()
 
     def is_playing(self):
         """
-            Convenience method to find out if the player is currently playing
+        Convenience method to find out if the player is currently playing
 
-            :returns: whether the player is currently playing
-            :rtype: bool
+        :returns: whether the player is currently playing
+        :rtype: bool
         """
         return self._engine.get_state() == 'playing'
 
     def is_paused(self):
         """
-            Convenience method to find out if the player is currently paused
+        Convenience method to find out if the player is currently paused
 
-            :returns: whether the player is currently paused
-            :rtype: bool
+        :returns: whether the player is currently paused
+        :rtype: bool
         """
         return self._engine.get_state() == 'paused'
 
     def is_stopped(self):
         """
-            Convenience method to find out if the player is currently stopped
+        Convenience method to find out if the player is currently stopped
 
-            :returns: whether the player is currently stopped
-            :rtype: bool
+        :returns: whether the player is currently stopped
+        :rtype: bool
         """
         return self._engine.get_state() == 'stopped'
 
@@ -417,48 +417,48 @@ class ExailePlayer:
 
     def engine_load_volume(self):
         """
-            Load volume from settings, this function will call set_volume
-            on the engine
+        Load volume from settings, this function will call set_volume
+        on the engine
 
-            .. note:: Only to be called from engine
+        .. note:: Only to be called from engine
         """
         self._engine.set_volume(self._volume)
 
     def engine_notify_user_volume_change(self, vol):
-        '''
-            Engine calls this when something inside the engine changes
-            the user volume.
+        """
+        Engine calls this when something inside the engine changes
+        the user volume.
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
         settings.set_option('%s/volume' % self._name, vol)
 
     def engine_notify_track_start(self, track):
-        '''
-            Called when a track has just entered the playing state
+        """
+        Called when a track has just entered the playing state
 
-            :param track: Track that is being played now
+        :param track: Track that is being played now
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
 
         self._reset_playtime_stamp()
         event.log_event('playback_track_start', self, track)
 
     def engine_notify_track_end(self, track, done):
-        '''
-            Called when a track has been stopped. Either:
+        """
+        Called when a track has been stopped. Either:
 
-            - stop() was called
-            - play() was called and the prior track was stopped
+        - stop() was called
+        - play() was called and the prior track was stopped
 
-            :param track: Must be the track that was just playing, and must
-                          never be None
+        :param track: Must be the track that was just playing, and must
+                      never be None
 
-            :param done:  If True, no further tracks will be played
+        :param done:  If True, no further tracks will be played
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
 
         self._update_playtime(track)
         event.log_event('playback_track_end', self, track)
@@ -469,33 +469,33 @@ class ExailePlayer:
 
     @common.idle_add()
     def engine_notify_error(self, msg):
-        '''
-            Notification that some kind of error has occurred. If the error
-            is not recoverable, the engine is expected to stop playback and
-            reset itself to a state where playback can begin again.
+        """
+        Notification that some kind of error has occurred. If the error
+        is not recoverable, the engine is expected to stop playback and
+        reset itself to a state where playback can begin again.
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
         event.log_event('playback_error', self, msg)
 
     def engine_autoadvance_get_next_track(self, gapless=False):
-        '''
-            Engine calls this when it wants to see what the next track
-            to play is. The track may or may not actually get played.
-            If the track gets played, then the engine must call
-            engine_autoadvance_notify_next, engine_notify_playback_stop,
-            and engine_notify_playback_start
+        """
+        Engine calls this when it wants to see what the next track
+        to play is. The track may or may not actually get played.
+        If the track gets played, then the engine must call
+        engine_autoadvance_notify_next, engine_notify_playback_stop,
+        and engine_notify_playback_start
 
-            May be called on another thread.
+        May be called on another thread.
 
-            :param gapless: Set to True if the autoadvance is part of a gapless
-                            playback attempt
+        :param gapless: Set to True if the autoadvance is part of a gapless
+                        playback attempt
 
-            :returns: The next track, or None if the engine should not try
-                      to play another track immediately
+        :returns: The next track, or None if the engine should not try
+                  to play another track immediately
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
 
         if not self._auto_advance:
             return
@@ -507,17 +507,17 @@ class ExailePlayer:
         return self.queue.get_next()
 
     def engine_autoadvance_notify_next(self, track):
-        '''
-            Engine calls this when it has started playing the next track as
-            part of an auto advance action.
+        """
+        Engine calls this when it has started playing the next track as
+        part of an auto advance action.
 
-            :param track: The track that will be played
+        :param track: The track that will be played
 
-            :returns: (track, start_at, paused) parameters that can be passed
-                      to the 'play' function of the engine.
+        :returns: (track, start_at, paused) parameters that can be passed
+                  to the 'play' function of the engine.
 
-            .. note:: Only to be called from engine
-        '''
+        .. note:: Only to be called from engine
+        """
 
         self.queue.next(autoplay=False)
 
@@ -552,9 +552,9 @@ class ExailePlayer:
 
     def _update_playtime(self, track):
         """
-            updates the total playtime for the currently playing track
+        updates the total playtime for the currently playing track
 
-            .. should be called whenever a pause/stop event occurs
+        .. should be called whenever a pause/stop event occurs
         """
         if track and self._playtime_stamp:
             last = track.get_tag_raw('__playtime')

@@ -37,9 +37,9 @@ __version__ = "devel"
 
 def get_current_version():
     """
-        Get the latest version identifier for the branch contained in the
-        current directory. Returns None if the directory is not a branch or
-        the version identifier cannot be found.
+    Get the latest version identifier for the branch contained in the
+    current directory. Returns None if the directory is not a branch or
+    the version identifier cannot be found.
     """
     import subprocess
 
@@ -57,9 +57,9 @@ def get_current_version():
 
 def get_current_revision():
     """
-        Get the latest revision identifier for the branch contained in the
-        current directory. Returns None if the directory is not a branch or
-        the revision identifier cannot be found.
+    Get the latest revision identifier for the branch contained in the
+    current directory. Returns None if the directory is not a branch or
+    the revision identifier cannot be found.
     """
     import subprocess
 

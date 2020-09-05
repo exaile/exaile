@@ -25,15 +25,15 @@ from xl import event, player
 class Pidgin:
     def __init__(self, dbusInterface):
         """
-            Constructor
+        Constructor
         """
         self.purple = dbusInterface
 
     def listAccounts(self):
         """
-            Purple merges all accounts, so we return a default one
-            Each account is associated with:
-                * A boolean -> True if the status of this account was changed on the previous track change
+        Purple merges all accounts, so we return a default one
+        Each account is associated with:
+            * A boolean -> True if the status of this account was changed on the previous track change
         """
         return {'GenericAccount': False}
 
@@ -46,8 +46,8 @@ class Pidgin:
 
     def setTune(self, artist, title, album):
         """
-            Change the tune status
-            Return True if the message is successfully updated
+        Change the tune status
+        Return True if the message is successfully updated
         """
         accounts = self.purple.PurpleAccountsGetAll()
 

@@ -36,11 +36,11 @@ logger = logging.getLogger(__name__)
 
 
 class UDisksPropertyWrapper:
-    '''
-        Wrapper around an org.freedesktop.DBus.Properties interface
+    """
+    Wrapper around an org.freedesktop.DBus.Properties interface
 
-        You shouldn't need to create this, use UDisksDBusWrapper.props
-    '''
+    You shouldn't need to create this, use UDisksDBusWrapper.props
+    """
 
     def __init__(self, obj, iface_type):
         self.obj = obj  # properties object
@@ -60,20 +60,20 @@ class UDisksPropertyWrapper:
 
 
 class UDisksDBusWrapper:
-    '''
-        Simple wrapper to make life easier. Assume that we only are
-        using this to get properties off the 'primary' interface.
+    """
+    Simple wrapper to make life easier. Assume that we only are
+    using this to get properties off the 'primary' interface.
 
-        Assumes that you are only asking for properties on the interface
-        associated with the object path.
+    Assumes that you are only asking for properties on the interface
+    associated with the object path.
 
-        Example usage:
+    Example usage:
 
-            obj = get_object_by_path('/org/freedesktop/UDisks2/drives/foo')
-            print(obj.props.Get('Device'))
+        obj = get_object_by_path('/org/freedesktop/UDisks2/drives/foo')
+        print(obj.props.Get('Device'))
 
-        You shouldn't need to create this, use get_object_py_path.
-    '''
+    You shouldn't need to create this, use get_object_py_path.
+    """
 
     __slots__ = ['obj', 'iface_type', '_iface', '_props_iface', 'path']
 
@@ -115,15 +115,15 @@ class UDisksDBusWrapper:
 
 class UDisksBase(providers.ProviderHandler):
     """
-        Provides support for UDisks (1 and 2) devices. To get properties
-        of devices, the get_object_for_path function will return a convenient
-        wrapper to use for accessing properties and such on it.
+    Provides support for UDisks (1 and 2) devices. To get properties
+    of devices, the get_object_for_path function will return a convenient
+    wrapper to use for accessing properties and such on it.
 
-        Implements the udisks and udisks2 service for providers. Providers
-        should override the UDisksProvider interface.
+    Implements the udisks and udisks2 service for providers. Providers
+    should override the UDisksProvider interface.
 
-        Plugins should not try to connect to UDisks until exaile has finished
-        loading.
+    Plugins should not try to connect to UDisks until exaile has finished
+    loading.
     """
 
     # States: start -> init -> addremove <-> listening -> end.
@@ -167,15 +167,15 @@ class UDisksBase(providers.ProviderHandler):
     #
 
     def get_object_by_path(self, path):
-        '''
-            Call this to retrieve a UDisksDBusWrapper object for the path
-            of the object you want to retrieve.
+        """
+        Call this to retrieve a UDisksDBusWrapper object for the path
+        of the object you want to retrieve.
 
-            :param path: The udisks path of the object you want to retrieve
+        :param path: The udisks path of the object you want to retrieve
 
-            :returns: UDisksDBusWrapper object
-            :raises: KeyError if the object path/type is not supported
-        '''
+        :returns: UDisksDBusWrapper object
+        :raises: KeyError if the object path/type is not supported
+        """
 
         for p, iface_type in self.paths:
             if path.startswith(p):
@@ -199,7 +199,7 @@ class UDisksBase(providers.ProviderHandler):
 
     def _add_device(self, path, obj=None):
         """
-            Call with either path or obj (obj gets priority). Not thread-safe.
+        Call with either path or obj (obj gets priority). Not thread-safe.
         """
         assert self._state == 'addremove'
 
@@ -256,8 +256,8 @@ class UDisksBase(providers.ProviderHandler):
 
     def _get_provider_for(self, obj):
         """
-            Return (old_provider, old_priority), (new_provider, new_priority).
-            Not thread-safe.
+        Return (old_provider, old_priority), (new_provider, new_priority).
+        Not thread-safe.
         """
         assert self._state == 'addremove'
         highest_prio = -1
@@ -338,9 +338,9 @@ class UDisksBase(providers.ProviderHandler):
 
     def _addremove(self):
         """
-            Helper to transition safely from listening to addremove state.
+        Helper to transition safely from listening to addremove state.
 
-            Returns whether the transition happens.
+        Returns whether the transition happens.
         """
         i = 0
         while True:
@@ -401,9 +401,9 @@ class UDisks2(UDisksBase):
 
 
 class Handler:
-    '''
-        The HAL provider interface
-    '''
+    """
+    The HAL provider interface
+    """
 
     name = 'base'
 
@@ -421,53 +421,53 @@ class Handler:
 
 
 class UDisksProvider:
-    '''
-        The UDisksProvider interface. Works for UDisks 1 and 2, but you should
-        implement separate providers for each, as the object types and
-        properties are different.
+    """
+    The UDisksProvider interface. Works for UDisks 1 and 2, but you should
+    implement separate providers for each, as the object types and
+    properties are different.
 
-        This API is subject to change.
-    '''
+    This API is subject to change.
+    """
 
     VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
 
     def get_priority(self, obj, udisks):
-        '''
-            Called on initial connect of a device. The provider should
-            return a priority value indicating its interest in handling
-            the device.
+        """
+        Called on initial connect of a device. The provider should
+        return a priority value indicating its interest in handling
+        the device.
 
-            :param obj: A UDisksPropertyWrapper object for the device path
-            :param udisks: The UDisksBase object
+        :param obj: A UDisksPropertyWrapper object for the device path
+        :param udisks: The UDisksBase object
 
-            :returns: An integer [0..100] indicating priority, or None if it
-                      cannot handle the device
-        '''
+        :returns: An integer [0..100] indicating priority, or None if it
+                  cannot handle the device
+        """
 
     def get_device(self, obj, udisks):
-        '''
-            Called when the device is assigned to the provider (e.g., it
-            indicated the highest priority).
+        """
+        Called when the device is assigned to the provider (e.g., it
+        indicated the highest priority).
 
-            :param obj: A UDisksPropertyWrapper object for the device path
-            :param udisks: The UDisksBase object
+        :param obj: A UDisksPropertyWrapper object for the device path
+        :param udisks: The UDisksBase object
 
-            :returns: xl.devices.Device derived object for the device
-        '''
+        :returns: xl.devices.Device derived object for the device
+        """
 
     def on_device_changed(self, obj, udisks, device):
-        '''
-            Called when UDisks indicates that a property of the device has
-            changed. If useful, the provider should forward relevant change
-            actions to its device object.
+        """
+        Called when UDisks indicates that a property of the device has
+        changed. If useful, the provider should forward relevant change
+        actions to its device object.
 
-            :param obj: A UDisksPropertyWrapper object for the device path
-            :param udisks: The UDisksBase object
-            :param device: Object returned from get_device
+        :param obj: A UDisksPropertyWrapper object for the device path
+        :param udisks: The UDisksBase object
+        :param device: Object returned from get_device
 
-            :returns: 'remove' to remove the device from the provider, other
-                      values ignored.
-        '''
+        :returns: 'remove' to remove the device from the provider, other
+                  values ignored.
+        """
 
 
 # vim: et sts=4 sw=4

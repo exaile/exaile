@@ -64,7 +64,7 @@ def gfile_enumerate_children(gfile, attributes, follow_symlinks=True):
 
 class FilesPanel(panel.Panel):
     """
-        The Files panel
+    The Files panel
     """
 
     __gsignals__ = {
@@ -77,7 +77,7 @@ class FilesPanel(panel.Panel):
 
     def __init__(self, parent, collection, name):
         """
-            Initializes the files panel
+        Initializes the files panel
         """
         panel.Panel.__init__(self, parent, name, _('Files'))
         self.collection = collection
@@ -101,7 +101,7 @@ class FilesPanel(panel.Panel):
 
     def _setup_tree(self):
         """
-            Sets up tree widget for the files panel
+        Sets up tree widget for the files panel
         """
         self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str, bool)
         self.tree = tree = FilesDragTreeView(self, receive=False, source=True)
@@ -152,7 +152,7 @@ class FilesPanel(panel.Panel):
 
     def _setup_widgets(self):
         """
-            Sets up the widgets for the files panel
+        Sets up the widgets for the files panel
         """
         self.directory = icons.MANAGER.pixbuf_from_icon_name(
             'folder', Gtk.IconSize.SMALL_TOOLBAR
@@ -185,7 +185,9 @@ class FilesPanel(panel.Panel):
         self.filter.connect(
             'activate',
             lambda *e: self.load_directory(
-                self.current, history=False, keyword=self.filter.get_text(),
+                self.current,
+                history=False,
+                keyword=self.filter.get_text(),
             ),
         )
 
@@ -224,7 +226,7 @@ class FilesPanel(panel.Panel):
 
     def on_key_released(self, widget, event):
         """
-            Called when a key is released in the tree
+        Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
             Gtk.Menu.popup(self.menu, None, None, None, None, 0, event.time)
@@ -262,7 +264,7 @@ class FilesPanel(panel.Panel):
 
     def row_activated(self, *i):
         """
-            Called when someone double clicks a row
+        Called when someone double clicks a row
         """
         selection = self.tree.get_selection()
         model, paths = selection.get_selected_rows()
@@ -275,7 +277,7 @@ class FilesPanel(panel.Panel):
 
     def refresh(self, widget):
         """
-            Refreshes the current view
+        Refreshes the current view
         """
         treepath = self.tree.get_cursor()[0]
         cursorf = self.model[treepath][0] if treepath else None
@@ -284,7 +286,7 @@ class FilesPanel(panel.Panel):
 
     def entry_activate(self, widget, event=None):
         """
-            Called when the user presses enter in the entry box
+        Called when the user presses enter in the entry box
         """
         path = self.entry.get_text()
         if path.startswith('~'):
@@ -307,7 +309,7 @@ class FilesPanel(panel.Panel):
 
     def go_forward(self, widget):
         """
-            Goes to the next entry in history
+        Goes to the next entry in history
         """
         assert 0 <= self.i < len(self.history)
         if self.i == len(self.history) - 1:
@@ -323,7 +325,7 @@ class FilesPanel(panel.Panel):
 
     def go_back(self, widget):
         """
-            Goes to the previous entry in history
+        Goes to the previous entry in history
         """
         assert 0 <= self.i < len(self.history)
         if self.i == 0:
@@ -339,7 +341,7 @@ class FilesPanel(panel.Panel):
 
     def go_up(self, widget):
         """
-            Moves up one directory
+        Moves up one directory
         """
         parent = self.current.get_parent()
         if parent:
@@ -347,7 +349,7 @@ class FilesPanel(panel.Panel):
 
     def go_home(self, widget):
         """
-            Goes to the user's home directory
+        Goes to the user's home directory
         """
         home = Gio.File.new_for_commandline_arg(xdg.homedir)
         if home.get_uri() == self.current.get_uri():
@@ -357,7 +359,7 @@ class FilesPanel(panel.Panel):
 
     def set_column_width(self, col, stuff=None):
         """
-            Called when the user resizes a column
+        Called when the user resizes a column
         """
         name = {self.colname: 'filename', self.colsize: 'size'}[col]
         name = "gui/files_%s_col_width" % name
@@ -371,12 +373,12 @@ class FilesPanel(panel.Panel):
     @common.threaded
     def load_directory(self, directory, history=True, keyword=None, cursor_file=None):
         """
-            Load a directory into the files view.
+        Load a directory into the files view.
 
-            :param history: whether to record in history
-            :param keyword: filter string
-            :param cursor_file: file to (attempt to) put the cursor on.
-                Will put the cursor on a subdirectory if the file is under it.
+        :param history: whether to record in history
+        :param keyword: filter string
+        :param cursor_file: file to (attempt to) put the cursor on.
+            Will put the cursor on a subdirectory if the file is under it.
         """
         self.current = directory
         try:
@@ -480,7 +482,7 @@ class FilesPanel(panel.Panel):
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
-            Called when a drag source wants data for this drag operation
+        Called when a drag source wants data for this drag operation
         """
         tracks = self.tree.get_selected_tracks()
         if not tracks:
@@ -493,7 +495,7 @@ class FilesPanel(panel.Panel):
 
 class FilesDragTreeView(DragTreeView):
     """
-        Custom DragTreeView to retrieve data from files
+    Custom DragTreeView to retrieve data from files
     """
 
     def get_selection_empty(self):
@@ -502,7 +504,7 @@ class FilesDragTreeView(DragTreeView):
 
     def get_selection_is_computed(self):
         """
-            Returns True if anything in the selection is a directory
+        Returns True if anything in the selection is a directory
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
@@ -515,7 +517,7 @@ class FilesDragTreeView(DragTreeView):
 
     def get_selected_tracks(self):
         """
-            Returns the currently selected tracks
+        Returns the currently selected tracks
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
@@ -529,7 +531,7 @@ class FilesDragTreeView(DragTreeView):
 
     def append_recursive(self, songs, f):
         """
-            Appends recursively
+        Appends recursively
         """
         ftype = f.query_info(
             'standard::type', Gio.FileQueryInfoFlags.NONE, None
@@ -546,7 +548,7 @@ class FilesDragTreeView(DragTreeView):
 
     def get_track(self, f):
         """
-            Returns a single track from a Gio.File
+        Returns a single track from a Gio.File
         """
         uri = f.get_uri()
         if not trax.is_valid_track(uri):
@@ -556,8 +558,8 @@ class FilesDragTreeView(DragTreeView):
 
     def get_tracks_for_path(self, path):
         """
-            Get tracks for a path from model (expand item)
-            :param path: Gtk.TreePath
-            :return: list of tracks [xl.trax.Track]
+        Get tracks for a path from model (expand item)
+        :param path: Gtk.TreePath
+        :return: list of tracks [xl.trax.Track]
         """
         return recursive_tracks_from_file(self.get_model()[path][0])

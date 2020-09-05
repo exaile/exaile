@@ -112,11 +112,11 @@ class DummyFormat(BaseFormat):
 
 def get_format(loc: str) -> Optional[BaseFormat]:
     """
-        get a Format object appropriate for the file at loc.
-        if no suitable object can be found, None is returned.
+    get a Format object appropriate for the file at loc.
+    if no suitable object can be found, None is returned.
 
-        :param loc: The location to read from as a Gio URI
-            (from Track.get_loc_for_io())
+    :param loc: The location to read from as a Gio URI
+        (from Track.get_loc_for_io())
     """
     loc = Gio.File.new_for_uri(loc).get_path()
     if not loc:

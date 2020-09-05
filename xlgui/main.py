@@ -51,7 +51,7 @@ VOLUME_STEP_DEFAULT = 0.1
 
 class MainWindow(GObject.GObject):
     """
-        Main Exaile Window
+    Main Exaile Window
     """
 
     __gproperties__ = {
@@ -70,9 +70,9 @@ class MainWindow(GObject.GObject):
 
     def __init__(self, controller, builder, collection):
         """
-            Initializes the main window
+        Initializes the main window
 
-            @param controller: the main gui controller
+        @param controller: the main gui controller
         """
         GObject.GObject.__init__(self)
 
@@ -134,7 +134,7 @@ class MainWindow(GObject.GObject):
 
     def _setup_hotkeys(self):
         """
-            Sets up accelerators that haven't been set up in UI designer
+        Sets up accelerators that haven't been set up in UI designer
         """
 
         def factory(integer, description):
@@ -243,7 +243,7 @@ class MainWindow(GObject.GObject):
 
     def _setup_widgets(self):
         """
-            Sets up the various widgets
+        Sets up the various widgets
         """
         # TODO: Maybe make this stackable
         self.message = dialogs.MessageBar(
@@ -351,7 +351,7 @@ class MainWindow(GObject.GObject):
 
     def _connect_events(self):
         """
-            Connects the various events to their handlers
+        Connects the various events to their handlers
         """
         self.builder.connect_signals(
             {
@@ -398,7 +398,7 @@ class MainWindow(GObject.GObject):
 
     def _connect_panel_events(self):
         """
-            Sets up panel events
+        Sets up panel events
         """
 
         # When there's nothing in the notebook, hide it
@@ -501,7 +501,7 @@ class MainWindow(GObject.GObject):
 
     def on_screen_changed(self, widget, event):
         """
-            Updates the colormap on screen change
+        Updates the colormap on screen change
         """
         screen = widget.get_screen()
         visual = screen.get_rgba_visual() or screen.get_rgb_visual()
@@ -520,7 +520,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_motion_notify_event(self, widget, event):
         """
-            Sets the hover state and shows SPAT icon
+        Sets the hover state and shows SPAT icon
         """
         widget.__hovered = True
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
@@ -534,7 +534,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_leave_notify_event(self, widget, event):
         """
-            Unsets the hover state and resets the button icon
+        Unsets the hover state and resets the button icon
         """
         widget.__hovered = False
         if not widget.is_focus() and ~(event.get_state() & Gdk.ModifierType.SHIFT_MASK):
@@ -544,7 +544,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_key_press_event(self, widget, event):
         """
-            Shows SPAT icon on Shift key press
+        Shows SPAT icon on Shift key press
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             widget.set_image(
@@ -560,7 +560,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_key_release_event(self, widget, event):
         """
-            Resets the button icon
+        Resets the button icon
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
             widget.set_image(
@@ -570,8 +570,8 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_focus_out_event(self, widget, event):
         """
-            Resets the button icon unless
-            the button is still hovered
+        Resets the button icon unless
+        the button is still hovered
         """
         if not getattr(widget, '__hovered', False):
             widget.set_image(
@@ -580,7 +580,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_press_event(self, widget, event):
         """
-            Called when the user clicks on the stop button
+        Called when the user clicks on the stop button
         """
         if event.button == Gdk.BUTTON_PRIMARY:
             if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
@@ -597,7 +597,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_release_event(self, widget, event):
         """
-            Called when the user releases the mouse from the stop button
+        Called when the user releases the mouse from the stop button
         """
         rect = widget.get_allocation()
         if 0 <= event.x < rect.width and 0 <= event.y < rect.height:
@@ -605,7 +605,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_drag_motion(self, widget, context, x, y, time):
         """
-            Indicates possible SPAT during drag motion of tracks
+        Indicates possible SPAT during drag motion of tracks
         """
         target = widget.drag_dest_find_target(context, None).name()
         if target == 'exaile-index-list':
@@ -615,7 +615,7 @@ class MainWindow(GObject.GObject):
 
     def on_stop_button_drag_leave(self, widget, context, time):
         """
-            Resets the stop button
+        Resets the stop button
         """
         widget.set_image(
             Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
@@ -625,8 +625,8 @@ class MainWindow(GObject.GObject):
         self, widget, context, x, y, selection, info, time
     ):
         """
-            Allows for triggering the SPAT feature
-            by dropping tracks on the stop button
+        Allows for triggering the SPAT feature
+        by dropping tracks on the stop button
         """
         source_widget = Gtk.drag_get_source_widget(context)
 
@@ -643,7 +643,7 @@ class MainWindow(GObject.GObject):
 
     def on_spat_clicked(self, *e):
         """
-            Called when the user clicks on the SPAT item
+        Called when the user clicks on the SPAT item
         """
         trs = self.get_selected_page().view.get_selected_items()
         if not trs:
@@ -661,17 +661,17 @@ class MainWindow(GObject.GObject):
         self, tracks, force_play=False, queue=False, sort=False, replace=False
     ):
         """
-            Called when a panel (or other component)
-            has tracks to append and possibly queue
+        Called when a panel (or other component)
+        has tracks to append and possibly queue
 
-            :param tracks: The tracks to append
-            :param force_play: Force playing the first track if there
-                                is no track currently playing. Otherwise
-                                check a setting to determine whether the
-                                track should be played
-            :param queue: Additionally queue tracks
-            :param sort: Sort before adding
-            :param replace: Clear playlist before adding
+        :param tracks: The tracks to append
+        :param force_play: Force playing the first track if there
+                            is no track currently playing. Otherwise
+                            check a setting to determine whether the
+                            track should be played
+        :param queue: Additionally queue tracks
+        :param sort: Sort before adding
+        :param replace: Clear playlist before adding
         """
         if len(tracks) == 0:
             return
@@ -700,53 +700,53 @@ class MainWindow(GObject.GObject):
 
     def on_playback_error(self, type, player, message):
         """
-            Called when there has been a playback error
+        Called when there has been a playback error
         """
         self.message.show_error(_('Playback error encountered!'), message)
 
     def on_buffering(self, type, player, percent):
         """
-            Called when a stream is buffering
+        Called when a stream is buffering
         """
         percent = min(percent, 100)
         self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
 
     def on_track_tags_changed(self, type, track, tags):
         """
-            Called when tags are changed
+        Called when tags are changed
         """
         if track is player.PLAYER.current:
             self._update_track_information()
 
     def on_collection_tree_loaded(self, tree):
         """
-            Updates information on collection tree load
+        Updates information on collection tree load
         """
         self.statusbar.update_info()
 
     def on_exaile_loaded(self, event_type, exaile, nothing):
         """
-            Updates information on exaile load
+        Updates information on exaile load
         """
         self.statusbar.update_info()
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_playlist_tracks_added(self, type, playlist, tracks):
         """
-            Updates information on track add
+        Updates information on track add
         """
         self.statusbar.update_info()
 
     def on_playlist_tracks_removed(self, type, playlist, tracks):
         """
-            Updates information on track removal
+        Updates information on track removal
         """
         self.statusbar.update_info()
 
     def on_toggle_pause(self, type, player, object):
         """
-            Called when the user clicks the play button after playback has
-            already begun
+        Called when the user clicks the play button after playback has
+        already begun
         """
         if player.is_paused():
             image = self.play_image
@@ -761,7 +761,7 @@ class MainWindow(GObject.GObject):
 
     def on_playlist_container_switch_page(self, notebook, page, page_num):
         """
-            Updates info after notebook page switch
+        Updates info after notebook page switch
         """
         page = notebook.get_nth_page(page_num)
         selection = page.view.get_selection()
@@ -770,13 +770,13 @@ class MainWindow(GObject.GObject):
 
     def on_playlist_view_selection_changed(self, selection):
         """
-            Updates info after playlist page selection change
+        Updates info after playlist page selection change
         """
         self.statusbar.update_info()
 
     def on_panel_filter_focus(self, *e):
         """
-            Gives focus to the filter field of the current panel
+        Gives focus to the filter field of the current panel
         """
         try:
             self.controller.get_active_panel().filter.grab_focus()
@@ -785,7 +785,7 @@ class MainWindow(GObject.GObject):
 
     def on_search_playlist_focus(self, *e):
         """
-            Gives focus to the playlist search bar
+        Gives focus to the playlist search bar
         """
         plpage = get_selected_playlist()
         if plpage:
@@ -793,7 +793,7 @@ class MainWindow(GObject.GObject):
 
     def on_save_playlist(self, *e):
         """
-            Called when the user presses Ctrl+S
+        Called when the user presses Ctrl+S
         """
         page = self.get_selected_playlist()
         if page:
@@ -801,8 +801,8 @@ class MainWindow(GObject.GObject):
 
     def on_save_playlist_as(self, *e):
         """
-            Called when the user presses Ctrl+S
-            Spawns the save as dialog of the current playlist tab
+        Called when the user presses Ctrl+S
+        Spawns the save as dialog of the current playlist tab
         """
         page = self.get_selected_playlist()
         if page:
@@ -810,7 +810,7 @@ class MainWindow(GObject.GObject):
 
     def on_clear_playlist(self, *e):
         """
-            Clears the current playlist tab
+        Clears the current playlist tab
         """
         page = self.get_selected_page()
         if page:
@@ -818,7 +818,7 @@ class MainWindow(GObject.GObject):
 
     def on_open_item_activate(self, menuitem):
         """
-            Shows a dialog to open media
+        Shows a dialog to open media
         """
 
         def on_uris_selected(dialog, uris):
@@ -836,7 +836,7 @@ class MainWindow(GObject.GObject):
 
     def on_open_url_item_activate(self, menuitem):
         """
-            Shows a dialog to open an URI
+        Shows a dialog to open an URI
         """
 
         def on_uri_selected(dialog, uri):
@@ -848,7 +848,7 @@ class MainWindow(GObject.GObject):
 
     def on_open_directories_item_activate(self, menuitem):
         """
-            Shows a dialog to open directories
+        Shows a dialog to open directories
         """
 
         def on_uris_selected(dialog, uris):
@@ -868,7 +868,7 @@ class MainWindow(GObject.GObject):
 
     def on_export_current_playlist_activate(self, menuitem):
         """
-            Shows a dialog to export the current playlist
+        Shows a dialog to export the current playlist
         """
         page = self.get_selected_page()
 
@@ -877,7 +877,7 @@ class MainWindow(GObject.GObject):
 
         def on_message(dialog, message_type, message):
             """
-                Show messages in the main window message area
+            Show messages in the main window message area
             """
             if message_type == Gtk.MessageType.INFO:
                 self.message.show_info(markup=message)
@@ -892,7 +892,7 @@ class MainWindow(GObject.GObject):
 
     def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
         """
-            Shows or hides the playlist utilities bar
+        Shows or hides the playlist utilities bar
         """
         settings.set_option(
             'gui/playlist_utilities_bar_visible', checkmenuitem.get_active()
@@ -900,13 +900,13 @@ class MainWindow(GObject.GObject):
 
     def on_show_playing_track_item_activate(self, menuitem):
         """
-            Tries to show the currently playing track
+        Tries to show the currently playing track
         """
         self.playlist_container.show_current_track()
 
     def on_about_item_activate(self, menuitem):
         """
-            Shows the about dialog
+        Shows the about dialog
         """
         dialog = dialogs.AboutDialog(self.window)
         dialog.show()
@@ -916,9 +916,9 @@ class MainWindow(GObject.GObject):
 
     def on_playback_start(self, type, player, object):
         """
-            Called when playback starts
-            Sets the currently playing track visible in the currently selected
-            playlist if the user has chosen this setting
+        Called when playback starts
+        Sets the currently playing track visible in the currently selected
+        playlist if the user has chosen this setting
         """
         if self.resuming:
             self.resuming = False
@@ -930,7 +930,7 @@ class MainWindow(GObject.GObject):
 
     def on_playback_end(self, type, player, object):
         """
-            Called when playback ends
+        Called when playback ends
         """
         self.window.set_title('Exaile')
 
@@ -939,7 +939,7 @@ class MainWindow(GObject.GObject):
 
     def _on_option_set(self, name, object, option):
         """
-           Handles changes of settings
+        Handles changes of settings
         """
         if option == 'gui/main_window_title_format':
             self.title_formatter.props.format = settings.get_option(
@@ -1020,7 +1020,7 @@ class MainWindow(GObject.GObject):
 
     def _update_track_information(self):
         """
-            Sets track information
+        Sets track information
         """
         track = player.PLAYER.current
 
@@ -1031,8 +1031,8 @@ class MainWindow(GObject.GObject):
 
     def playpause(self):
         """
-            Pauses the playlist if it is playing, starts playing if it is
-            paused. If stopped, try to start playing the next suitable track.
+        Pauses the playlist if it is playing, starts playing if it is
+        paused. If stopped, try to start playing the next suitable track.
         """
         if player.PLAYER.is_paused() or player.PLAYER.is_playing():
             player.PLAYER.toggle_pause()
@@ -1048,8 +1048,8 @@ class MainWindow(GObject.GObject):
 
     def _setup_position(self):
         """
-            Sets up the position and sized based on the size the window was
-            when it was last moved or resized
+        Sets up the position and sized based on the size the window was
+        when it was last moved or resized
         """
         if settings.get_option('gui/mainw_maximized', False):
             self.window.maximize()
@@ -1067,7 +1067,7 @@ class MainWindow(GObject.GObject):
 
     def on_delete_event(self, *e):
         """
-            Called when the user attempts to close the window
+        Called when the user attempts to close the window
         """
         sash_pos = self.splitter.get_position()
         if sash_pos > 10:
@@ -1083,7 +1083,7 @@ class MainWindow(GObject.GObject):
 
     def quit(self, *e):
         """
-            Quits Exaile
+        Quits Exaile
         """
         self.window.hide()
         GLib.idle_add(self.controller.exaile.quit)
@@ -1091,14 +1091,14 @@ class MainWindow(GObject.GObject):
 
     def on_restart_item_activate(self, menuitem):
         """
-            Restarts Exaile
+        Restarts Exaile
         """
         self.window.hide()
         GLib.idle_add(self.controller.exaile.quit, True)
 
     def toggle_visible(self, bringtofront=False):
         """
-            Toggles visibility of the main window
+        Toggles visibility of the main window
         """
         toggle_handled = self.emit('main-visible-toggle')
 
@@ -1118,7 +1118,7 @@ class MainWindow(GObject.GObject):
 
     def configure_event(self, *e):
         """
-            Called when the window is resized or moved
+        Called when the window is resized or moved
         """
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or self._fullscreen:
@@ -1141,8 +1141,8 @@ class MainWindow(GObject.GObject):
 
     def window_state_change_event(self, window, event):
         """
-            Saves the current maximized and fullscreen
-            states and minimizes to tray if requested
+        Saves the current maximized and fullscreen
+        states and minimizes to tray if requested
         """
         if event.changed_mask & Gdk.WindowState.MAXIMIZED:
             settings.set_option(
@@ -1208,7 +1208,7 @@ class MainWindow(GObject.GObject):
 
     def get_selected_page(self):
         """
-            Returns the currently displayed playlist notebook page
+        Returns the currently displayed playlist notebook page
         """
         return self.playlist_container.get_current_tab()
 
@@ -1224,14 +1224,14 @@ class MainWindow(GObject.GObject):
 
 class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
     """
-        Extends the regular track info pane by an area for custom widgets
+    Extends the regular track info pane by an area for custom widgets
 
-        The mainwindow-info-area-widget provider is used to show widgets
-        on the right of the info area. They should be small. The registered
-        provider should provide a method 'create_widget' that takes the info
-        area instance as a parameter, and that returns a Gtk.Widget to be
-        inserted into the widget_area of the info area, and an attribute
-        'name' that will be used when removing the provider.
+    The mainwindow-info-area-widget provider is used to show widgets
+    on the right of the info area. They should be small. The registered
+    provider should provide a method 'create_widget' that takes the info
+    area instance as a parameter, and that returns a Gtk.Widget to be
+    inserted into the widget_area of the info area, and an attribute
+    'name' that will be used when removing the provider.
     """
 
     def __init__(self, player):
@@ -1250,10 +1250,10 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         )
 
     def get_player(self):
-        '''
-            Retrieves the player object that this info area
-            is associated with
-        '''
+        """
+        Retrieves the player object that this info area
+        is associated with
+        """
         return self._TrackInfoPane__player
 
     def on_provider_added(self, provider):

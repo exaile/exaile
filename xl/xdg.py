@@ -143,9 +143,9 @@ def get_plugin_data_dir():
 
 def _make_missing_dirs():
     """
-        Make any missing base XDG directories
+    Make any missing base XDG directories
 
-        called by the main Exaile object, should not be used elsewhere.
+    called by the main Exaile object, should not be used elsewhere.
     """
     if not os.path.exists(data_home):
         os.makedirs(data_home)

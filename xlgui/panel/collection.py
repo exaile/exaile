@@ -60,18 +60,18 @@ def first_meaningful_char(s):
 
 class Order:
     """
-        An Order represents a structure for arranging Tracks into the
-        Collection tree.
+    An Order represents a structure for arranging Tracks into the
+    Collection tree.
 
-        It is based on a list of levels, which each take the form (("sort1",
-        "sort2"), "$displaytag - $displaytag", ("search1", "search2")) wherin
-        the first entry is a tuple of tags to use for sorting, the second a
-        format string for xl.formatter, and the third a tuple of tags to use
-        for searching.
+    It is based on a list of levels, which each take the form (("sort1",
+    "sort2"), "$displaytag - $displaytag", ("search1", "search2")) wherin
+    the first entry is a tuple of tags to use for sorting, the second a
+    format string for xl.formatter, and the third a tuple of tags to use
+    for searching.
 
-        When passed in the parameters, a level can also be a single string
-        instead of a tuple, and it will be treated equivalently to (("foo",),
-        "$foo", ("foo",)) for some string "foo".
+    When passed in the parameters, a level can also be a single string
+    instead of a tuple, and it will be treated equivalently to (("foo",),
+    "$foo", ("foo",)) for some string "foo".
     """
 
     def __init__(self, name, levels, use_compilations=True):
@@ -162,7 +162,7 @@ DEFAULT_ORDERS = [
 
 class CollectionPanel(panel.Panel):
     """
-        The collection panel
+    The collection panel
     """
 
     __gsignals__ = {
@@ -183,11 +183,11 @@ class CollectionPanel(panel.Panel):
         label=_('Collection'),
     ):
         """
-            Initializes the collection panel
+        Initializes the collection panel
 
-            @param parent: the parent dialog
-            @param collection: the xl.collection.Collection instance
-            @param name: an optional name for this panel
+        @param parent: the parent dialog
+        @param collection: the xl.collection.Collection instance
+        @param name: an optional name for this panel
         """
         panel.Panel.__init__(self, parent, name, label)
 
@@ -222,7 +222,7 @@ class CollectionPanel(panel.Panel):
 
     def _setup_widgets(self):
         """
-            Sets up the various widgets to be used in this panel
+        Sets up the various widgets to be used in this panel
         """
         self.choice = self.builder.get_object('collection_combo_box')
         self.choicemodel = self.builder.get_object('collection_combo_model')
@@ -255,7 +255,7 @@ class CollectionPanel(panel.Panel):
 
     def _connect_events(self):
         """
-            Uses signal_autoconnect to connect the various events
+        Uses signal_autoconnect to connect the various events
         """
         self.builder.connect_signals(
             {
@@ -277,7 +277,7 @@ class CollectionPanel(panel.Panel):
 
     def on_refresh_button_press_event(self, button, event):
         """
-            Called on mouse activation of the refresh button
+        Called on mouse activation of the refresh button
         """
         if event.triggers_context_menu():
             m = menu.Menu(None)
@@ -297,7 +297,7 @@ class CollectionPanel(panel.Panel):
 
     def on_refresh_button_key_press_event(self, widget, event):
         """
-            Called on key presses on the refresh button
+        Called on key presses on the refresh button
         """
         if event.keyval != Gdk.KEY_Return:
             return False
@@ -309,7 +309,7 @@ class CollectionPanel(panel.Panel):
 
     def on_key_released(self, widget, event):
         """
-            Called when a key is released in the tree
+        Called when a key is released in the tree
         """
         if event.keyval == Gdk.KEY_Menu:
             Gtk.Menu.popup(self.menu, None, None, None, None, 0, event.time)
@@ -334,7 +334,7 @@ class CollectionPanel(panel.Panel):
 
     def on_collection_search_entry_activate(self, entry):
         """
-            Searches tracks and reloads the tree
+        Searches tracks and reloads the tree
         """
         self.keyword = entry.get_text()
         self.start_count += 1
@@ -345,7 +345,7 @@ class CollectionPanel(panel.Panel):
 
     def _setup_images(self):
         """
-            Sets up the various images that will be used in the tree
+        Sets up the various images that will be used in the tree
         """
         self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
             'artist', Gtk.IconSize.SMALL_TOOLBAR
@@ -368,19 +368,19 @@ class CollectionPanel(panel.Panel):
 
     def drag_data_received(self, *e):
         """
-            stub
+        stub
         """
         pass
 
     def drag_data_delete(self, *e):
         """
-            stub
+        stub
         """
         pass
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
-            Called when a drag source wants data for this drag operation
+        Called when a drag source wants data for this drag operation
         """
         tracks = treeview.get_selected_tracks()
 
@@ -392,7 +392,7 @@ class CollectionPanel(panel.Panel):
 
     def _setup_tree(self):
         """
-            Sets up the tree widget
+        Sets up the tree widget
         """
         self.tree = CollectionDragTreeView(self)
         self.tree.set_headers_visible(False)
@@ -430,7 +430,7 @@ class CollectionPanel(panel.Panel):
 
     def _find_tracks(self, iter):
         """
-            finds tracks matching a given iter.
+        finds tracks matching a given iter.
         """
         self.load_subtree(iter)
         search = self.get_node_search_terms(iter)
@@ -440,7 +440,7 @@ class CollectionPanel(panel.Panel):
 
     def append_to_playlist(self, item=None, event=None, replace=False):
         """
-            Adds items to the current playlist
+        Adds items to the current playlist
         """
         if replace:
             self.emit('replace-items', self.tree.get_selected_tracks())
@@ -449,7 +449,7 @@ class CollectionPanel(panel.Panel):
 
     def button_press(self, widget, event):
         """
-            Called when the user clicks on the tree
+        Called when the user clicks on the tree
         """
         # selection = self.tree.get_selection()
         (x, y) = [int(v) for v in event.get_coords()]
@@ -464,16 +464,16 @@ class CollectionPanel(panel.Panel):
 
     def on_expanded(self, tree, iter, path):
         """
-            Called when a user expands a tree item.
+        Called when a user expands a tree item.
 
-            Loads the various nodes that belong under this node.
+        Loads the various nodes that belong under this node.
         """
         self.load_subtree(iter)
 
     def get_node_search_terms(self, node):
         """
-            Finds all the related search terms for a particular node
-            @param node: the node you wish to create search terms
+        Finds all the related search terms for a particular node
+        @param node: the node you wish to create search terms
         """
         if not node:
             return ""
@@ -499,8 +499,8 @@ class CollectionPanel(panel.Panel):
     @common.glib_wait(500)
     def _refresh_tags_in_tree(self):
         """
-            Callback for when tags have changed and the tree
-            needs reloading.
+        Callback for when tags have changed and the tree
+        needs reloading.
         """
         # Trying to reload while we're rescanning is really inefficient,
         # so we delay it until we're done scanning.
@@ -520,10 +520,10 @@ class CollectionPanel(panel.Panel):
 
     def load_tree(self):
         """
-            Loads the Gtk.TreeView for this collection panel.
+        Loads the Gtk.TreeView for this collection panel.
 
-            Loads tracks based on the current keyword, or all the tracks in
-            the collection associated with this panel
+        Loads tracks based on the current keyword, or all the tracks in
+        the collection associated with this panel
         """
         logger.debug("Reloading collection tree")
         self.current_start_count = self.start_count
@@ -559,13 +559,13 @@ class CollectionPanel(panel.Panel):
 
     def _expand_node_by_name(self, search_num, parent, name, rest=None):
         """
-            Recursive function to expand all nodes in a hierarchical list of
-            names.
+        Recursive function to expand all nodes in a hierarchical list of
+        names.
 
-            @param search_num: the current search number
-            @param parent: the parent node
-            @param name: the name of the node to expand
-            @param rest: the list of the nodes to expand after this one
+        @param search_num: the current search number
+        @param parent: the parent node
+        @param name: the name of the node to expand
+        @param rest: the list of the nodes to expand after this one
         """
         iter = self.model.iter_children(parent)
 
@@ -589,9 +589,9 @@ class CollectionPanel(panel.Panel):
 
     def load_subtree(self, parent):
         """
-            Loads all the sub nodes for a specified node
+        Loads all the sub nodes for a specified node
 
-            @param node: the node
+        @param node: the node
         """
         previously_loaded = False  # was the subtree already loaded
         iter_sep = None
@@ -726,15 +726,15 @@ class CollectionPanel(panel.Panel):
 
 class CollectionDragTreeView(DragTreeView):
     """
-        Custom DragTreeView to retrieve data
-        from collection tracks
+    Custom DragTreeView to retrieve data
+    from collection tracks
     """
 
     def __init__(self, container, receive=False, source=True):
         """
-            :param container: The container to place the TreeView into
-            :param receive: True if the TreeView should receive drag events
-            :param source: True if the TreeView should send drag events
+        :param container: The container to place the TreeView into
+        :param receive: True if the TreeView should receive drag events
+        :param source: True if the TreeView should send drag events
         """
         DragTreeView.__init__(self, container, receive, source)
 
@@ -747,7 +747,7 @@ class CollectionDragTreeView(DragTreeView):
 
     def get_selected_tracks(self):
         """
-            Returns the currently selected tracks
+        Returns the currently selected tracks
         """
         model, paths = self.get_selection().get_selected_rows()
 
@@ -766,8 +766,8 @@ class CollectionDragTreeView(DragTreeView):
 
     def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
         """
-            Sets up a basic tooltip
-            Required to have "&" in tooltips working
+        Sets up a basic tooltip
+        Required to have "&" in tooltips working
         """
         if not widget.get_tooltip_context(x, y, keyboard_mode):
             return False
@@ -786,9 +786,9 @@ class CollectionDragTreeView(DragTreeView):
 
     def get_tracks_for_path(self, path):
         """
-            Get tracks for a path from model (expand item)
-            :param path: Gtk.TreePath
-            :return: list of tracks [xl.trax.Track]
+        Get tracks for a path from model (expand item)
+        :param path: Gtk.TreePath
+        :return: list of tracks [xl.trax.Track]
         """
         it = self.get_model().get_iter(path)
         search = self.container.get_node_search_terms(it)

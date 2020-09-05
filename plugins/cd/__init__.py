@@ -90,11 +90,11 @@ plugin_class = CdPlugin
 
 class _CDTrack:
     """
-        @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
-        @ivar data: `True` if this "track" contains data, `False` if it is audio
-        @ivar minutes: Minutes from begin of CD
-        @ivar seconds: Seconds after `minutes`, from begin of CD
-        @ivar frames: Frames after `seconds`, from begin of CD
+    @ivar track: Track number. Starts with 1, which is used for the TOC and contains data.
+    @ivar data: `True` if this "track" contains data, `False` if it is audio
+    @ivar minutes: Minutes from begin of CD
+    @ivar seconds: Seconds after `minutes`, from begin of CD
+    @ivar frames: Frames after `seconds`, from begin of CD
     """
 
     def __init__(self, entry):
@@ -213,7 +213,7 @@ class CDPlaylist(playlist.Playlist):
 
 class CDDevice(KeyedDevice):
     """
-        represents a CD
+    represents a CD
     """
 
     class_autoconnect = True

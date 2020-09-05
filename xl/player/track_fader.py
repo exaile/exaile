@@ -36,27 +36,27 @@ FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
 class TrackFader:
-    '''
-        This object manages the volume of a track, and fading it in/out via
-        volume. As a bonus, this object can manage the start/stop offset of
-        a track also.
+    """
+    This object manages the volume of a track, and fading it in/out via
+    volume. As a bonus, this object can manage the start/stop offset of
+    a track also.
 
-        * Fade in only happens once per track play
-        * Fade out can happen multiple times
+    * Fade in only happens once per track play
+    * Fade out can happen multiple times
 
-        This fader can be used on any engine, as long as it implements the
-        following functions:
+    This fader can be used on any engine, as long as it implements the
+    following functions:
 
-        * get_position: return current track position in nanoseconds
-        * get_volume/set_volume: volume is 0 to 1.0
-        * stop: stops playback
+    * get_position: return current track position in nanoseconds
+    * get_volume/set_volume: volume is 0 to 1.0
+    * stop: stops playback
 
-        There is a user volume and a fade volume. The fade volume is used
-        internally and the output volume is set by multiplying both of
-        them together.
+    There is a user volume and a fade volume. The fade volume is used
+    internally and the output volume is set by multiplying both of
+    them together.
 
-        .. note:: Only intended to be used by engine implementations
-    '''
+    .. note:: Only intended to be used by engine implementations
+    """
 
     SECOND = 1000000000.0
 
@@ -120,8 +120,8 @@ class TrackFader:
         )
 
     def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
-        '''Given the 'real' output volume, calculate what the user
-           volume should be and whether they are identical'''
+        """Given the 'real' output volume, calculate what the user
+        volume should be and whether they are identical"""
 
         vol = self.user_volume * self.fade_volume
         real_is_same = abs(real_volume - vol) < 0.01
@@ -177,17 +177,17 @@ class TrackFader:
         return self.state == FadeState.FadingOut
 
     def setup_track(self, track, fade_in, fade_out, is_update=False, now=None):
-        '''
-            Call this function either when a track first starts, or if the
-            crossfade period has been updated.
+        """
+        Call this function either when a track first starts, or if the
+        crossfade period has been updated.
 
-            As a bonus, calling this function with crossfade_duration=None
-            will automatically stop the track at its stop_offset
+        As a bonus, calling this function with crossfade_duration=None
+        will automatically stop the track at its stop_offset
 
-            :param fade_in: Set to None or fade duration in seconds
-            :param fade_out: Set to None or fade duration in seconds
-            :param is_update: Set True if this is a settings update
-        '''
+        :param fade_in: Set to None or fade duration in seconds
+        :param fade_out: Set to None or fade duration in seconds
+        :param is_update: Set True if this is a settings update
+        """
 
         # If user disables crossfade during a transition, then don't
         # cancel the transition
@@ -339,12 +339,12 @@ class TrackFader:
         return False
 
     def _execute_fade(self, fade_start, fade_len):
-        '''
-            Executes a fade for a period of time, then ends
+        """
+        Executes a fade for a period of time, then ends
 
-            :param fade_start:  When the fade should have started
-            :param fade_len:    _total_ length of fade, regardless of start
-        '''
+        :param fade_start:  When the fade should have started
+        :param fade_len:    _total_ length of fade, regardless of start
+        """
 
         # Don't query the stream, just assume this is close enough
         self.now += 0.010

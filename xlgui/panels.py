@@ -61,20 +61,20 @@ class PanelData:
 
 
 class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
-    '''
-        This notebook holds the panels shown on the left side of the main
-        UI. Do not directly add things to this panel, but instead register
-        a provider.
+    """
+    This notebook holds the panels shown on the left side of the main
+    UI. Do not directly add things to this panel, but instead register
+    a provider.
 
-        The provider object must have the following attributes:
+    The provider object must have the following attributes:
 
-            name: the name of the provider
+        name: the name of the provider
 
-        The provider object must have the following methods:
+    The provider object must have the following methods:
 
-            get_panel: This must return a widget that is derived from
-                       xlgui.widgets.notebook.NotebookPage
-    '''
+        get_panel: This must return a widget that is derived from
+                   xlgui.widgets.notebook.NotebookPage
+    """
 
     def __init__(self, exaile, gui):
         notebook.SmartNotebook.__init__(self, vertical=True)
@@ -199,7 +199,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
 
     def on_panel_switch(self, notebook, page, pagenum):
         """
-            Saves the currently selected panel
+        Saves the currently selected panel
         """
         if self.exaile.loading:
             return

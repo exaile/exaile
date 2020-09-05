@@ -27,6 +27,7 @@
 
 from copy import deepcopy
 import logging
+import operator
 import re
 import time
 from typing import List, Union
@@ -108,7 +109,7 @@ class _MetadataCacher:
         item = [trackobj, formatobj, time.time()]
         self._cache.append(item)
         if len(self._cache) > self.maxentries:
-            least = min((i[2], i) for i in self._cache)[1]
+            least = min(self._cache, key=operator.itemgetter(2))
             self._cache.remove(least)
         if not self._cleanup_id:
             self._cleanup_id = GLib.timeout_add_seconds(self.timeout, self.__cleanup)

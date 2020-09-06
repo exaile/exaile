@@ -472,10 +472,15 @@ class TestTrack:
 
     ## Display Tags
     def test_get_display_tag_loc(self):
-        tr = track.Track('/foo')
-        assert tr.get_tag_display('__loc') == '/foo'
-        tr = track.Track('http://foo')
-        assert tr.get_tag_display('__loc') == 'http://foo'
+        import sys
+        if sys.platform == 'win32':
+            tr = track.Track('C:\\foo')
+            assert tr.get_tag_display('__loc') == 'C:\\foo'
+        else:
+            tr = track.Track('/foo')
+            assert tr.get_tag_display('__loc') == '/foo'
+        tr = track.Track('http://foo/bar')
+        assert tr.get_tag_display('__loc') == 'http://foo/bar'
 
     @unittest.skip("TODO")
     def test_get_display_tag_compilation(self):

@@ -26,7 +26,6 @@
 # from your version.
 
 from copy import deepcopy
-from dataclasses import dataclass
 import logging
 import operator
 import re
@@ -81,10 +80,13 @@ _unset = object()
 class _MetadataCacher(Generic[_K, _V]):
     """Time- and size-limited LRU cache"""
 
-    @dataclass
     class Entry:
         value: _V
         time: float
+
+        def __init__(self, value: _V, time: float):
+            self.value = value
+            self.time = time
 
         def __lt__(self, other: 'Entry'):
             return self.time < other.time

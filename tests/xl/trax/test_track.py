@@ -1,5 +1,6 @@
 # -*- coding: utf-8  -*-
 
+import itertools
 import os
 import unittest
 import logging
@@ -21,7 +22,7 @@ LOG = logging.getLogger(__name__)
 class Test_MetadataCacher:
 
     TIMEOUT = 2000
-    MAX_ENTRIES = 2048
+    MAX_ENTRIES = 2
 
     def setup(self):
         self.mc: track._MetadataCacher[str, str] = track._MetadataCacher(
@@ -48,6 +49,24 @@ class Test_MetadataCacher:
             GLib.timeout_add_seconds.assert_called_once_with(
                 self.TIMEOUT, self.mc._MetadataCacher__cleanup
             )
+
+    def test_overflow(self):
+        """
+        When the cache overflows, the least-recently used entry is removed
+        """
+        assert self.MAX_ENTRIES == 2
+        increasing_time = patch('time.time', Mock(side_effect=itertools.count(1)))
+        with self.patched_glib, increasing_time:
+            self.mc.add('k1', 'v1')  # [entry1(time=1)]
+            self.mc.add('k2', 'v2')  # [entry1(time=1), entry2(time=2)]
+            assert self.mc.get('k2')  # [entry1(time=1), entry2(time=3)]
+            assert self.mc.get('k1')  # [entry1(time=4), entry2(time=3)]
+            # Adding another entry should remove entry2 because it has the
+            # smallest time value
+            self.mc.add('k3', 'v3')  # [entry1(time=4), entry3(time=5)]
+            assert not self.mc.get('k2')
+            assert self.mc.get('k1')
+            assert self.mc.get('k3')
 
     def test_remove(self):
         with self.patched_glib:

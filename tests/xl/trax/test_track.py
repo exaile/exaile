@@ -473,6 +473,7 @@ class TestTrack:
     ## Display Tags
     def test_get_display_tag_loc(self):
         import sys
+
         if sys.platform == 'win32':
             tr = track.Track('C:\\foo')
             assert tr.get_tag_display('__loc') == 'C:\\foo'

@@ -25,8 +25,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import annotations
-
 from copy import deepcopy
 from dataclasses import dataclass
 import logging
@@ -88,10 +86,10 @@ class _MetadataCacher(Generic[_K, _V]):
         value: _V
         time: float
 
-        def __lt__(self, other: Entry):
+        def __lt__(self, other: 'Entry'):
             return self.time < other.time
 
-    _cache: Dict[Track, _MetadataCacher.Entry]
+    _cache: Dict['Track', '_MetadataCacher.Entry']
     timeout: float
     maxentries: int
     _cleanup_id: Optional[int]
@@ -144,7 +142,7 @@ class _MetadataCacher(Generic[_K, _V]):
 
 
 #: Cache of metadata format objects to speed up get_tag_disk
-_CACHER: _MetadataCacher[Track, BaseFormat] = _MetadataCacher()
+_CACHER: _MetadataCacher['Track', BaseFormat] = _MetadataCacher()
 
 
 class Track:

@@ -33,7 +33,7 @@ from configparser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
 import sys
-from typing import ClassVar
+from typing import Any, ClassVar
 
 logger = logging.getLogger(__name__)
 
@@ -161,17 +161,14 @@ class SettingsManager(RawConfigParser):
         event.log_event('option_set', self, option)
         event.log_event('%s_option_set' % section, self, option)
 
-    def get_option(self, option, default=None):
+    def get_option(self, option: str, default: Any = None) -> Any:
         """
         Get the value of an option (in ``section/key`` syntax),
         returning *default* if the key does not exist yet
 
         :param option: the full path to an option
-        :type option: string
         :param default: a default value to use as fallback
-        :type default: any
         :returns: the option value or *default*
-        :rtype: any
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]

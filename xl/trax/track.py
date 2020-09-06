@@ -25,18 +25,22 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import annotations
+
 from copy import deepcopy
+from dataclasses import dataclass
 import logging
 import operator
 import re
 import time
-from typing import List, Union
+from typing import Dict, Generic, List, Optional, TypeVar, Union
 import unicodedata
 import weakref
 
 from gi.repository import Gio
 from gi.repository import GLib
 
+from xl.metadata._base import BaseFormat
 import xl.unicode
 from xl import event, metadata, settings
 from xl.metadata.tags import disk_tags
@@ -44,6 +48,9 @@ from xl.nls import gettext as _
 from xl.unicode import shave_marks
 
 logger = logging.getLogger(__name__)
+
+_K = TypeVar('_K')
+_V = TypeVar('_V')
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
@@ -73,61 +80,71 @@ _no_set_raw = {'__basename', '__loc'} | disk_tags
 _unset = object()
 
 
-class _MetadataCacher:
-    """
-    Cache metadata Format objects to speed up get_tag_disk
-    """
+class _MetadataCacher(Generic[_K, _V]):
+    """Time- and size-limited LRU cache"""
 
-    def __init__(self, timeout=10, maxentries=20):
+    @dataclass
+    class Entry:
+        value: _V
+        time: float
+
+        def __lt__(self, other: Entry):
+            return self.time < other.time
+
+    _cache: Dict[Track, _MetadataCacher.Entry]
+    timeout: float
+    maxentries: int
+    _cleanup_id: Optional[int]
+
+    def __init__(self, timeout: float = 10, maxentries: int = 20):
         """
         :param timeout: time (in s) until the cached obj gets removed.
-        :param maxentries: maximum number of format objs to cache
+        :param maxentries: maximum number of objects to cache
         """
-        self._cache = []
+        self._cache = {}
         self.timeout = timeout
         self.maxentries = maxentries
         self._cleanup_id = None
 
     def __cleanup(self):
-        if self._cleanup_id:
+        if self._cleanup_id is not None:
             GLib.source_remove(self._cleanup_id)
             self._cleanup_id = None
         current = time.time()
         thresh = current - self.timeout
-        for item in self._cache[:]:
-            if item[2] < thresh:
-                self._cache.remove(item)
+        self._cache = {k: v for k, v in self._cache.items() if v.time >= thresh}
         if self._cache:
-            next_expiry = min(i[2] for i in self._cache)
+            next_expiry = min(self._cache.values()).time
             timeout = int((next_expiry + self.timeout) - current)
             self._cleanup_id = GLib.timeout_add_seconds(timeout, self.__cleanup)
 
-    def add(self, trackobj, formatobj):
-        for item in self._cache:
-            if item[0] == trackobj:
-                return
-        item = [trackobj, formatobj, time.time()]
-        self._cache.append(item)
+    def add(self, key: _K, value: _V) -> None:
+        if key in self._cache:
+            return
+        item = self.Entry(value, time.time())
+        self._cache[key] = item
         if len(self._cache) > self.maxentries:
-            least = min(self._cache, key=operator.itemgetter(2))
-            self._cache.remove(least)
-        if not self._cleanup_id:
+            oldest_key = min(self._cache.items(), key=operator.itemgetter(1))[0]
+            del self._cache[oldest_key]
+        if self._cleanup_id is None:
             self._cleanup_id = GLib.timeout_add_seconds(self.timeout, self.__cleanup)
 
-    def remove(self, trackobj):
-        for item in self._cache:
-            if item[0] == trackobj:
-                self._cache.remove(item)
-                break
+    def remove(self, key: _K) -> None:
+        try:
+            del self._cache[key]
+        except KeyError:
+            pass
 
-    def get(self, trackobj):
-        for item in self._cache:
-            if item[0] == trackobj:
-                item[2] = time.time()
-                return item[1]
+    def get(self, key: _K) -> Optional[_V]:
+        item = self._cache.get(key)
+        if item is None:
+            return None
+        item.time = time.time()
+        return item.value
 
 
-_CACHER = _MetadataCacher()
+#: Cache of metadata format objects to speed up get_tag_disk
+_CACHER: _MetadataCacher[Track, BaseFormat] = _MetadataCacher()
 
 
 class Track:

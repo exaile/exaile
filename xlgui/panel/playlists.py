@@ -203,27 +203,39 @@ class BasePlaylistPanelMixin(GObject.GObject):
         """
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
+
+        replace = settings.get_option('playlist/replace_content', False)
+
         if item is not None:
             if isinstance(item, (Playlist, SmartPlaylist)):
-                # for smart playlists
-                if hasattr(item, 'get_playlist'):
-                    try:
-                        item = item.get_playlist(self.collection)
-                    except Exception as e:
-                        logger.exception("Error loading smart playlist")
-                        dialogs.error(
-                            self.parent, _("Error loading smart playlist: %s") % str(e)
-                        )
-                        return
+                if replace:
+                    # what we want to do if replace is true
+                    selected_playlist = self.tree.get_selected_page()
+                    tracks = [track for track in selected_playlist]
+                    self.emit('replace-items', tracks)
                 else:
-                    # Get an up to date copy
-                    item = self.playlist_manager.get_playlist(item.name)
-                    # item.set_is_custom(True)
-
-                #                self.controller.main.add_playlist(item)
-                self.emit('playlist-selected', item)
+                    # for smart playlists
+                    if hasattr(item, 'get_playlist'):
+                        try:
+                            item = item.get_playlist(self.collection)
+                        except Exception as e:
+                            logger.exception("Error loading smart playlist")
+                            dialogs.error(
+                                self.parent,
+                                _("Error loading smart playlist: %s") % str(e),
+                            )
+                            return
+                    else:
+                        # Get an up to date copy
+                        item = self.playlist_manager.get_playlist(item.name)
+                        # item.set_is_custom(True)
+                    #                self.controller.main.add_playlist(item)
+                    self.emit('playlist-selected', item)
             else:
-                self.emit('append-items', [item.track], True)
+                if replace:
+                    self.emit('replace-items', [item.track])
+                else:
+                    self.emit('append-items', [item.track], True)
 
     def add_new_playlist(self, tracks=[], name=None):
         """

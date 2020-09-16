@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-08-31 04:46-0500\n"
 "PO-Revision-Date: 2020-08-06 18:32+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
@@ -1256,35 +1256,35 @@ msgstr "Переименовать список воспроизведения"
 msgid "The playlist name you entered is already in use."
 msgstr "Введённое вами название списка воспроизведения уже используется."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:225
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Ошибка при загрузка умного списка воспроизведения: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:288 ../xlgui/panel/playlists.py:304
+#: ../xlgui/panel/playlists.py:320
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s и другие"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:294 ../xlgui/panel/playlists.py:310
+#: ../xlgui/panel/playlists.py:326
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s и %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:402 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Списки воспроизведения"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:546
 msgid "Smart Playlists"
 msgstr "'Умные' списки воспроизведения"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:549
 msgid "Custom Playlists"
 msgstr "Текущий список воспроизведения"
 
@@ -2089,7 +2089,9 @@ msgid "About Exaile"
 msgstr "Об Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+#, fuzzy
+#| msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr "© 2009-2019 различные участники"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
@@ -3707,8 +3709,8 @@ msgstr ""
 "посетите <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
 "\n"
 "Вам может также понадобиться <a href=\"https://affiliate-program.amazon.com/"
-"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising "
-"API</a></i>."
+"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising API</"
+"a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4864,8 +4866,8 @@ msgstr ""
 "Приостановка (или опционально продолжение) воспроизведения в зависимости от "
 "состояния экранной заставки.\n"
 "\n"
-"Требуется: экранная заставка GNOME, MATE, Cinnamon, XFCE или KDE ("
-"XScreenSaver и XLockMore не поддерживаются)"
+"Требуется: экранная заставка GNOME, MATE, Cinnamon, XFCE или KDE "
+"(XScreenSaver и XLockMore не поддерживаются)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

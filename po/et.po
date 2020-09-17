@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-17 19:36+0000\n"
+"PO-Revision-Date: 2020-09-18 05:36+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -182,7 +182,7 @@ msgstr "Esitlusloendi valikud"
 
 #: ../xl/main.py:162
 msgid "Export the current playlist to LOCATION"
-msgstr ""
+msgstr "Ekspordi praegune esitusloend ASUKOHTA"
 
 #: ../xl/main.py:165
 msgid "Track Options"
@@ -195,26 +195,24 @@ msgstr "Päringu mängimine"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:178
 msgid "FORMAT"
-msgstr ""
+msgstr "VORMING"
 
 #: ../xl/main.py:179
-#, fuzzy
-#| msgid "Print the current playback position as time"
 msgid "Retrieve the current playback state and track information as FORMAT"
-msgstr "Näitab praeguse taasesituse positsiooni ajana"
+msgstr "Näita praeguse taasesituse olekut ja loo teavet FORMAT vormingus"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:185
 msgid "TAGS"
-msgstr ""
+msgstr "SILDID"
 
 #: ../xl/main.py:186
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr ""
+msgstr "Praegusest helifailist laetavad sildid; kasuta --format-query võtmega"
 
 #: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Näita hüpikakent esitatava pala andmetega"
 
 #: ../xl/main.py:200
 msgid "Print the title of current track"
@@ -252,29 +250,23 @@ msgstr "Näitab praeguse taasesituse positsiooni ajana"
 
 #: ../xl/main.py:250
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Kuva taasesituse edenemine protsentides"
 
 #: ../xl/main.py:253
 msgid "Volume Options"
 msgstr "Heliseaded"
 
 #: ../xl/main.py:261
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
-msgstr "Lisab helivaljust N% võrra"
+msgstr "Lisa helivaljust N% võrra"
 
 #: ../xl/main.py:270
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
-msgstr "Vähendab helivaljust N% võrra"
+msgstr "Vähenda helivaljust N% võrra"
 
 #: ../xl/main.py:278
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
-msgstr "Vaigistab või lubab heli"
+msgstr "Summuta või luba heli"
 
 #: ../xl/main.py:285
 msgid "Print the current volume percentage"
@@ -309,9 +301,6 @@ msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Käivita turvarežiimis - probleemide korral võib mõnikord aidata"
 
 #: ../xl/main.py:334
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Sunni vanade andmete importimist versioonist 0.2.x (kirjutab praegused "
@@ -685,10 +674,8 @@ msgid "Shuffle _Albums"
 msgstr ""
 
 #: ../xl/playlist.py:914
-#, fuzzy
-#| msgid "Random %d"
 msgid "_Random"
-msgstr "Juhuslik %d"
+msgstr "_Juhuslik"
 
 #: ../xl/playlist.py:919
 msgid "Repeat _Off"
@@ -712,7 +699,7 @@ msgstr ""
 
 #: ../xl/plugins.py:87
 msgid "Plugin is already loaded or has a conflicting name."
-msgstr ""
+msgstr "Pistikprogramm on juba laetud või selle nimi on vastuoluline."
 
 #: ../xl/plugins.py:102
 msgid "Plugin archive is not in the correct format."
@@ -865,7 +852,7 @@ msgstr ""
 #: ../xlgui/cover.py:880
 #, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr ""
+msgstr "{width}x{height} pikslit ({zoom}%)"
 
 #: ../xlgui/cover.py:931
 msgid "Save File"
@@ -931,16 +918,12 @@ msgid "Seek to the left"
 msgstr ""
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume"
-msgstr "Lisab helivaljust N% võrra"
+msgstr "Keera valjemaks"
 
 #: ../xlgui/main.py:199
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume"
-msgstr "Vähendab helivaljust N% võrra"
+msgstr "Keera vaiksemaks"
 
 #: ../xlgui/main.py:202
 #, fuzzy
@@ -1045,32 +1028,24 @@ msgid "_New Playlist"
 msgstr "_Uus esitusloend"
 
 #: ../xlgui/menu.py:75
-#, fuzzy
-#| msgid "Open URL"
 msgid "_Open"
-msgstr "Ava URL"
+msgstr "_Ava"
 
 #: ../xlgui/menu.py:92
 msgid "Open _URL"
 msgstr "Ava _URL"
 
 #: ../xlgui/menu.py:114
-#, fuzzy
-#| msgid "Open Directories"
 msgid "Open _Directories"
-msgstr "Ava kataloogid"
+msgstr "Ava _kaustad"
 
 #: ../xlgui/menu.py:126 ../xlgui/panel/menus.py:227
-#, fuzzy
-#| msgid "Smart Playlists"
 msgid "_Import Playlist"
-msgstr "Nutikad esitusnimekirjad"
+msgstr "_Impordi esitusloend"
 
 #: ../xlgui/menu.py:156
-#, fuzzy
-#| msgid "Edit Smart Playlist"
 msgid "E_xport Current Playlist"
-msgstr "Nutika esitusnimekirja muutmine"
+msgstr "E_kspordi praegune esitusloend"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
 #, fuzzy
@@ -1196,11 +1171,11 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:151
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Esitaja - (Kuupäev - Album)"
 
 #: ../xlgui/panel/collection.py:155
 msgid "Album Artist - (Date - Album)"
-msgstr ""
+msgstr "Albumi esitaja - (Kuupäev - Album)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
@@ -1233,7 +1208,7 @@ msgstr "Suurus"
 #: ../xlgui/panel/files.py:457
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:93 ../xlgui/widgets/playlist_columns.py:271
@@ -1242,15 +1217,15 @@ msgstr "#"
 
 #: ../xlgui/panel/lyrics.py:185
 msgid "No lyrics found."
-msgstr ""
+msgstr "Laulusõnu ei leidunud."
 
 #: ../xlgui/panel/lyrics.py:198
 msgid "Source: "
-msgstr ""
+msgstr "Allikas: "
 
 #: ../xlgui/panel/lyrics.py:226
 msgid "Any source"
-msgstr ""
+msgstr "Mis iganes allikas"
 
 #: ../xlgui/panel/menus.py:219
 #, fuzzy
@@ -1271,7 +1246,7 @@ msgstr "Kas kustutame „%s“ esitusloendi?"
 
 #: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Sisesta oma esitusloendile uus nimi"
 
 #: ../xlgui/panel/playlists.py:153
 msgid "Rename Playlist"
@@ -1280,7 +1255,7 @@ msgstr "Esitusnimekirja ümbernimetamine"
 #: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Sisestatud esitusloendi nimi on juba kasutusel."
 
 #: ../xlgui/panel/playlists.py:215
 #, python-format
@@ -1293,14 +1268,14 @@ msgstr "Viga nutika esitusnimekirja laadimisel: %s"
 #: ../xlgui/panel/playlists.py:308
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s ja muud"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
 #: ../xlgui/panel/playlists.py:314
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s ja %(second)s"
 
 #: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
@@ -1312,7 +1287,7 @@ msgstr "Nutikad esitusnimekirjad"
 
 #: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
-msgstr ""
+msgstr "Kohandatud esitusloendid"
 
 #: ../xlgui/panel/radio.py:73
 msgid "Radio"
@@ -1325,7 +1300,7 @@ msgstr "Voogud laadimine..."
 
 #: ../xlgui/panel/radio.py:195
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Lisa raadiojaam"
 
 #: ../xlgui/panel/radio.py:197 ../data/ui/widgets/filter_dialog.ui:58
 msgid "Name:"
@@ -2165,11 +2140,11 @@ msgstr ""
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
-msgstr ""
+msgstr "Muusikakogu haldus"
 
 #: ../data/ui/collection_manager.ui:131
 msgid "Monitored"
-msgstr ""
+msgstr "Jälgitakse"
 
 #: ../data/ui/collection_manager.ui:144
 msgid "Scan At Startup"
@@ -2719,23 +2694,23 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
-msgstr ""
+msgstr "Muu failiikoon"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:32
 msgid "Cover (front)"
-msgstr ""
+msgstr "Kaas (esikülg)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:36
 msgid "Cover (back)"
-msgstr ""
+msgstr "Kaas (tagakülg)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:40
 msgid "Leaflet page"
-msgstr ""
+msgstr "Vaheleht"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:44
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Andmekandja (nt CD-plaadi sildiga pool)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:48
 msgid "Lead artist/lead performer/soloist"
@@ -3226,7 +3201,7 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:323
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Sisesta otsingusõnad"
 
 #: ../plugins/icecast/__init__.py:323
 msgid "Icecast Search"
@@ -3251,19 +3226,19 @@ msgstr ""
 
 #: ../plugins/ipconsole/__init__.py:155
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPython konsool - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:213
 msgid "Show _IPython Console"
-msgstr ""
+msgstr "Näita _IPython konsooli"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:23 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython konsool"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:40
 msgid "Opacity cannot be set on Windows due to a bug in Gtk+"
-msgstr ""
+msgstr "Läbipaistmatust ei saa Windowsis seadistada Gtk+ vea tõttu"
 
 #: ../plugins/jamendo/__init__.py:86 ../plugins/jamendo/ui/jamendo_panel.ui:294
 msgid "Ready"
@@ -3271,15 +3246,15 @@ msgstr "Valmis"
 
 #: ../plugins/jamendo/__init__.py:87
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Otsin Jamendo kataloogist..."
 
 #: ../plugins/jamendo/__init__.py:88
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Loo andmete laadimine..."
 
 #: ../plugins/jamendo/menu.py:13
 msgid "Append to Current"
-msgstr ""
+msgstr "Lisa praegusele juurde"
 
 #: ../plugins/keybinder/__init__.py:58
 msgid ""
@@ -3913,7 +3888,7 @@ msgstr "Suurus:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:227
 msgid "Use fading"
-msgstr ""
+msgstr "Kasuta hajumist"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:245
 msgid "Fading duration:"
@@ -3925,7 +3900,7 @@ msgstr "ms"
 
 #: ../plugins/developer/developer_window.ui:21
 msgid "Exaile Developer Tools"
-msgstr ""
+msgstr "Exaile'i arendaja tööriistad"
 
 #: ../plugins/developer/developer_window.ui:75
 msgid "Count"

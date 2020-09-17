@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2018-02-18 15:44+0000\n"
-"Last-Translator: Kristjan Räts <kristjanrats@gmail.com>\n"
+"PO-Revision-Date: 2020-09-17 19:36+0000\n"
+"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
 "Language: et\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19\n"
+"X-Generator: Weblate 4.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -26,7 +26,7 @@ msgstr "Sildid"
 
 #: ../xl/covers.py:566
 msgid "Local file"
-msgstr ""
+msgstr "Kohalik fail"
 
 #: ../xl/formatter.py:596
 #, python-format
@@ -96,7 +96,7 @@ msgstr "%d:%02d:%02d"
 #: ../xl/formatter.py:623
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
 msgid "Unknown"
@@ -178,7 +178,7 @@ msgstr "Lisa kogusse lugusid asukohast LOCATION"
 
 #: ../xl/main.py:156
 msgid "Playlist Options"
-msgstr ""
+msgstr "Esitlusloendi valikud"
 
 #: ../xl/main.py:162
 msgid "Export the current playlist to LOCATION"
@@ -432,10 +432,8 @@ msgid "Artist"
 msgstr "Esitaja"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:302
-#, fuzzy
-#| msgid "Only artist:"
 msgid "Album artist"
-msgstr "Ainult esitaja:"
+msgstr "Albumi esitaja"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -1267,10 +1265,9 @@ msgid "_New Station"
 msgstr "Lisa jaam"
 
 #: ../xlgui/panel/playlists.py:136
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Kustuta nimekiri"
+msgstr "Kas kustutame „%s“ esitusloendi?"
 
 #: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
@@ -1932,10 +1929,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:798
-#, fuzzy
-#| msgid "Loading %s..."
 msgid "Loading"
-msgstr "%s laadimine..."
+msgstr "Laen"
 
 #: ../xlgui/widgets/playlist_columns.py:272
 msgid "Track Number"
@@ -2521,10 +2516,8 @@ msgid "Audio Sink:  "
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:98
-#, fuzzy
-#| msgid "Device"
 msgid "Audio Device: "
-msgstr "Seade"
+msgstr "Heliseade: "
 
 #: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2679,10 +2672,8 @@ msgid "Close"
 msgstr "Sulge"
 
 #: ../data/ui/shortcuts_dialog.ui:89
-#, fuzzy
-#| msgid "Description:"
 msgid "Description"
-msgstr "Kirjeldus:"
+msgstr "Kirjeldus"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
@@ -3501,16 +3492,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "Only artist:"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "Ainult esitaja:"
+msgstr "{artist}"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Ainult album:"
+msgstr "{album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3726,10 +3715,8 @@ msgid "Use Fading"
 msgstr "Kasuta hajumist"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Eelistused"
+msgstr "<b>Audio eelistused</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4389,10 +4376,8 @@ msgid "Crossfade duration:"
 msgstr "Hajumise kestus:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Device"
 msgid "Audio Device:"
-msgstr "Seade"
+msgstr "Heliseade:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24

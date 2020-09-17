@@ -8,7 +8,7 @@ environment:
   build_root: exaile\tools\installer\_build_root
   build_root_slash: exaile/tools/installer/_build_root
   sdk_name: exaile-sdk-win
-  sdk_ver: 28
+  sdk_ver: 30
   sdk_url: https://github.com/exaile/$(sdk_name)/releases/download/$(sdk_name)-$(sdk_ver)/$(sdk_name)-$(sdk_ver).tar.zst
 
 clone_folder: $(build_dir)\$(APPVEYOR_PROJECT_NAME)

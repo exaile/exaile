@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-18 05:36+0000\n"
+"PO-Revision-Date: 2020-09-19 07:36+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -900,10 +900,8 @@ msgid "Focus playlist search"
 msgstr ""
 
 #: ../xlgui/main.py:169
-#, fuzzy
-#| msgid "Clear"
 msgid "Clear queue"
-msgstr "Puhasta"
+msgstr "Tühjenda esitusjärjekord"
 
 #: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
@@ -3385,26 +3383,26 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:556
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Hinda hetkel esitatavat lugu"
 
 #: ../plugins/minimode/controls.py:574
 msgid "Track selector"
-msgstr ""
+msgstr "Lugude valija"
 
 #: ../plugins/minimode/controls.py:575
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Lihtne lugude valija"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/controls.py:721 ../plugins/minimode/controls.py:969
 #: ../plugins/minimode/minimode_preferences.py:124
 #: ../plugins/minimode/minimode_preferences.py:130
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #: ../plugins/minimode/controls.py:727
 msgid "Playlist button"
-msgstr ""
+msgstr "Esitusloendi nupp"
 
 #: ../plugins/minimode/controls.py:728
 msgid "Access the current playlist"

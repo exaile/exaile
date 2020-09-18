@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-06-13 19:41+0000\n"
+"PO-Revision-Date: 2020-09-19 07:36+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -178,7 +178,7 @@ msgstr "KONUM dan koleksiyona parçaları ekle"
 
 #: ../xl/main.py:156
 msgid "Playlist Options"
-msgstr "Çalmalistesi Seçenekleri"
+msgstr "Çalma Listesi Seçenekleri"
 
 #: ../xl/main.py:162
 msgid "Export the current playlist to LOCATION"
@@ -591,14 +591,12 @@ msgid "Times played"
 msgstr "Çalma sayısı"
 
 #: ../xl/metadata/tags.py:89
-#, fuzzy
 msgid "Start offset"
-msgstr "X yerleşimi:"
+msgstr "Başlama konumu"
 
 #: ../xl/metadata/tags.py:90
-#, fuzzy
 msgid "Stop offset"
-msgstr "X yerleşimi:"
+msgstr "Durma konumu"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
@@ -941,10 +939,8 @@ msgid "Seek to the right"
 msgstr ""
 
 #: ../xlgui/main.py:184
-#, fuzzy
-#| msgid "Reset to the system font"
 msgid "Seek to the left"
-msgstr "Sistem yazı tipine dön:"
+msgstr "Sola doğru ara"
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
 #, fuzzy
@@ -1289,10 +1285,9 @@ msgid "_New Station"
 msgstr "Yeni İstasyon Ekle"
 
 #: ../xlgui/panel/playlists.py:136
-#, fuzzy, python-format
-#| msgid "Delete Playlist"
+#, python-format
 msgid "Delete the playlist \"%s\"?"
-msgstr "Çalma Listesini Sil"
+msgstr "\"%s\" çalma listesi silinsin mi?"
 
 #: ../xlgui/panel/playlists.py:152
 msgid "Enter the new name you want for your playlist"
@@ -1308,9 +1303,9 @@ msgid "The playlist name you entered is already in use."
 msgstr "Girilen çalma listesi ismi şuan kullanımda."
 
 #: ../xlgui/panel/playlists.py:215
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Podcast yüklenirken hata oluştu."
+msgstr "Akıllı çalma listesi yüklenirken hata oluştu: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1972,10 +1967,8 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Çalma listesine benzer parça ekle"
 
 #: ../xlgui/widgets/playlist.py:798
-#, fuzzy
-#| msgid "Loading..."
 msgid "Loading"
-msgstr "Yükleniyor..."
+msgstr "Yükleniyor"
 
 #: ../xlgui/widgets/playlist_columns.py:272
 msgid "Track Number"
@@ -2010,9 +2003,8 @@ msgid "Start Offset"
 msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:687
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X yerleşimi:"
+msgstr "Durma Konumu"
 
 #: ../xlgui/widgets/playlist_columns.py:838
 msgid "_Resizable"
@@ -2184,9 +2176,8 @@ msgid "Edit Smart Playlist"
 msgstr "Akıllı Çalma Listesi Düzenle"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:423
-#, fuzzy
 msgid "Sort by:"
-msgstr "İçe aktarım yolu: "
+msgstr "Sıralama ölçütü:"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:438
 #: ../plugins/jamendo/ui/jamendo_panel.ui:26
@@ -2210,7 +2201,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui:26
 msgctxt "About dialog translator credits"
 msgid "translator-credits"
-msgstr ""
+msgstr "Oğuz Ersen <oguzersen@protonmail.com>"
 
 #: ../data/ui/collection_manager.ui:39
 msgid "Collection Manager"
@@ -2580,10 +2571,8 @@ msgid "Audio Sink:  "
 msgstr "Ses Alıcı:  "
 
 #: ../data/ui/preferences/playback.ui:98
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device: "
-msgstr "Aygıt Ekle"
+msgstr "Ses Aygıtı: "
 
 #: ../data/ui/preferences/playback.ui:134
 #: ../plugins/previewdevice/previewprefs.ui:254
@@ -2720,9 +2709,8 @@ msgid "Enabled"
 msgstr "Aktif"
 
 #: ../data/ui/preferences/plugin.ui:110
-#, fuzzy
 msgid "Show incompatible plugins"
-msgstr "Eklenti devre dışı bırakılamadı!"
+msgstr "Uyumsuz eklentileri göster"
 
 #: ../data/ui/preferences/plugin.ui:128
 msgid "No Plugin Selected"
@@ -3153,14 +3141,12 @@ msgid "Export tags to JSON"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:58
-#, fuzzy
 msgid "Importing tracks"
-msgstr "CD alınıyor..."
+msgstr "Parçalar içe aktarılıyor"
 
 #: ../plugins/grouptagger/gt_import.py:86
-#, fuzzy
 msgid "Importing groups"
-msgstr "CD alınıyor..."
+msgstr "Gruplar içe aktarılıyor"
 
 #: ../plugins/grouptagger/gt_import.py:181
 msgid "Updating groups"
@@ -3171,9 +3157,9 @@ msgid "Select directory to import grouping tags from"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.py:119
-#, fuzzy, python-format
+#, python-format
 msgid "%s tracks found"
-msgstr "Hiçbir şarkı sözü bulunamadı."
+msgstr "%s parça bulundu"
 
 #: ../plugins/grouptagger/gt_mass.py:130
 #, python-format
@@ -3344,9 +3330,8 @@ msgstr "Arama Sonuçları"
 
 #: ../plugins/icecast/__init__.py:392
 #: ../plugins/developer/developer_window.ui:59
-#, fuzzy
 msgid "Name"
-msgstr "İsim:"
+msgstr "İsim"
 
 #: ../plugins/icecast/__init__.py:408
 #, fuzzy
@@ -3600,16 +3585,14 @@ msgid "from {album} by {artist}"
 msgstr ""
 
 #: ../plugins/notify/__init__.py:49
-#, fuzzy, python-brace-format
-#| msgid "by %(artist)s"
+#, python-brace-format
 msgid "by {artist}"
-msgstr "Yazar %(artist)s"
+msgstr "{artist} tarafından"
 
 #: ../plugins/notify/__init__.py:50
-#, fuzzy, python-brace-format
-#| msgid "Only album:"
+#, python-brace-format
 msgid "by {album}"
-msgstr "Sadece albüm:"
+msgstr "{album} albümünden"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
@@ -3635,15 +3618,13 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:55
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "Çalma li_stesini temizle"
+msgstr "Çalma listelerini çözümle"
 
 #: ../plugins/playlistanalyzer/__init__.py:63
 #: ../plugins/playlistanalyzer/analyzer.ui:55
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "Çalma li_stesini temizle"
+msgstr "Çalma listesini çözümle"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:200
 #, fuzzy
@@ -3771,9 +3752,8 @@ msgid "Error connecting to SomaFM server."
 msgstr "Shoutcast sunucusuna bağlanırken hata oluştu."
 
 #: ../plugins/somafm/__init__.py:182
-#, fuzzy
 msgid "Error importing playlist"
-msgstr "Podcast yüklenirken hata oluştu."
+msgstr "Çalma listesi içe aktarılırken hata oluştu"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
@@ -3831,10 +3811,8 @@ msgid "Use Fading"
 msgstr "Sesi Alçaltarak Geç"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Tercihler"
+msgstr "<b>Ses Tercihleri</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"
@@ -4131,9 +4109,8 @@ msgid "New Groups"
 msgstr "Grubu"
 
 #: ../plugins/grouptagger/gt_import.ui:119
-#, fuzzy
 msgid "Import Type:"
-msgstr "İçe aktarım yolu: "
+msgstr "İçe Aktarma Türü:"
 
 #: ../plugins/grouptagger/gt_import.ui:129
 msgid "Merge"
@@ -4153,9 +4130,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:101
-#, fuzzy
 msgid "Search Tag"
-msgstr "Ara: "
+msgstr "Etiket Ara"
 
 #: ../plugins/grouptagger/gt_mass.ui:112
 msgid "Use the empty string to delete the tag"
@@ -4167,9 +4143,8 @@ msgid "Replace Tag"
 msgstr "Şimdikiyle Değiştir"
 
 #: ../plugins/grouptagger/gt_mass.ui:219
-#, fuzzy
 msgid "0 tracks found"
-msgstr " parçalar"
+msgstr "0 parça bulundu"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
@@ -4471,9 +4446,8 @@ msgid "Select analysis"
 msgstr "Seçili Parçalar"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:438
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Çalma listesi adı:"
+msgstr "Çözümlenecek çalma liste(ler)i"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:490
 msgid "Output Title"
@@ -4510,10 +4484,8 @@ msgid "Crossfade duration:"
 msgstr "Şarkı geçişi süresi (ms):"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
-#, fuzzy
-#| msgid "Add Device"
 msgid "Audio Device:"
-msgstr "Aygıt Ekle"
+msgstr "Ses Aygıtı:"
 
 #. Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.
 #: ../plugins/replaygain/replaygainprefs_pane.ui:24
@@ -4948,9 +4920,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Çalma listesi adı:"
+msgstr "Çalma Listesi Çözümleyici"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""

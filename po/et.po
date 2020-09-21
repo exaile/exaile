@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-19 07:36+0000\n"
+"PO-Revision-Date: 2020-09-22 03:39+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -924,14 +924,12 @@ msgid "Decrease the volume"
 msgstr "Keera vaiksemaks"
 
 #: ../xlgui/main.py:202
-#, fuzzy
-#| msgid "Play the previous track"
 msgid "Switch to previous tab"
-msgstr "Esita eelmist lugu"
+msgstr "Siirdu eelmise kaardi juurde"
 
 #: ../xlgui/main.py:203
 msgid "Switch to next tab"
-msgstr ""
+msgstr "Siirdu järgmise kaardi juurde"
 
 #: ../xlgui/main.py:206
 msgid "Focus the playlist container"
@@ -951,43 +949,43 @@ msgstr ""
 
 #: ../xlgui/main.py:228
 msgid "Focus the first tab"
-msgstr ""
+msgstr "Fookus esimesele kaardile"
 
 #: ../xlgui/main.py:229
 msgid "Focus the second tab"
-msgstr ""
+msgstr "Fookus teisele kaardile"
 
 #: ../xlgui/main.py:230
 msgid "Focus the third tab"
-msgstr ""
+msgstr "Fookus kolmandale kaardile"
 
 #: ../xlgui/main.py:231
 msgid "Focus the fourth tab"
-msgstr ""
+msgstr "Fookus neljandale kaardile"
 
 #: ../xlgui/main.py:232
 msgid "Focus the fifth tab"
-msgstr ""
+msgstr "Fookus viiendale kaardile"
 
 #: ../xlgui/main.py:233
 msgid "Focus the sixth tab"
-msgstr ""
+msgstr "Fookus kuuendale kaardile"
 
 #: ../xlgui/main.py:234
 msgid "Focus the seventh tab"
-msgstr ""
+msgstr "Fookus seitsmendale kaardile"
 
 #: ../xlgui/main.py:235
 msgid "Focus the eighth tab"
-msgstr ""
+msgstr "Fookus kaheksandale kaardile"
 
 #: ../xlgui/main.py:236
 msgid "Focus the ninth tab"
-msgstr ""
+msgstr "Fookus üheksandale kaardile"
 
 #: ../xlgui/main.py:237
 msgid "Focus the tenth tab"
-msgstr ""
+msgstr "Fookus kümnendale kaardile"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
@@ -995,7 +993,7 @@ msgstr ""
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "Loo esitamisel tekkis viga!"
 
 #: ../xlgui/main.py:712
 #, python-format
@@ -1004,16 +1002,16 @@ msgstr "Puhverdamine: %d%%..."
 
 #: ../xlgui/main.py:753 ../plugins/previewdevice/__init__.py:364
 msgid "Continue Playback"
-msgstr ""
+msgstr "Jätka esitust"
 
 #: ../xlgui/main.py:756 ../xlgui/main.py:929
 #: ../plugins/previewdevice/__init__.py:367
 msgid "Pause Playback"
-msgstr ""
+msgstr "Peata loo esitamine"
 
 #: ../xlgui/main.py:885 ../xlgui/menu.py:145
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "Esitusloendi eksport ei õnnestunud!"
 
 #: ../xlgui/main.py:938 ../data/ui/main.ui:174
 #: ../plugins/previewdevice/__init__.py:349
@@ -1046,22 +1044,16 @@ msgid "E_xport Current Playlist"
 msgstr "E_kspordi praegune esitusloend"
 
 #: ../xlgui/menu.py:166 ../xlgui/widgets/playlist.py:278
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Close _Tab"
-msgstr "Sulge kaart"
+msgstr "Sulge kaar_t"
 
 #: ../xlgui/menu.py:183
-#, fuzzy
-#| msgid "Restart"
 msgid "_Restart"
-msgstr "Taaskäivita"
+msgstr "_Taaskäivita"
 
 #: ../xlgui/menu.py:193 ../xlgui/tray.py:115
-#, fuzzy
-#| msgid "Exaile"
 msgid "_Quit Exaile"
-msgstr "Exaile"
+msgstr "_Välju Exailest"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
@@ -1073,43 +1065,35 @@ msgstr "_Järjekord"
 
 #: ../xlgui/menu.py:237
 msgid "C_overs"
-msgstr ""
+msgstr "_Plaadiümbrised"
 
 #: ../xlgui/menu.py:253
-#, fuzzy
-#| msgid "Preferences"
 msgid "_Preferences"
-msgstr "Eelistused"
+msgstr "_Eelistused"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "_Näita esitatavat pala"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
 msgstr ""
 
 #: ../xlgui/menu.py:312
-#, fuzzy
-#| msgid "_Columns"
 msgid "C_olumns"
 msgstr "_Veerud"
 
 #: ../xlgui/menu.py:323
-#, fuzzy
-#| msgid "_New Playlist"
 msgid "_Clear playlist"
-msgstr "_Uus esitusloend"
+msgstr "_Tühjenda esitusloend"
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Seadmehaldur"
 
 #: ../xlgui/menu.py:362
-#, fuzzy
-#| msgid "Collection"
 msgid "_Rescan Collection"
-msgstr "Kogumik"
+msgstr "_Analüüsi muusikakogu uuesti"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
@@ -1120,10 +1104,8 @@ msgid "User's Guide (website)"
 msgstr ""
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
-#, fuzzy
-#| msgid "Shortcut"
 msgid "Shortcuts"
-msgstr "Kiirklahv"
+msgstr "Kiirklahvid"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
@@ -1138,10 +1120,8 @@ msgid "_About"
 msgstr ""
 
 #: ../xlgui/panel/collection.py:127
-#, fuzzy
-#| msgid "Artist"
 msgid "Album Artist"
-msgstr "Esitaja"
+msgstr "Albumi esitaja"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
@@ -1226,16 +1206,12 @@ msgid "Any source"
 msgstr "Mis iganes allikas"
 
 #: ../xlgui/panel/menus.py:219
-#, fuzzy
-#| msgid "Smart Playlists"
 msgid "New _Smart Playlist"
-msgstr "Nutikad esitusnimekirjad"
+msgstr "Uus nutika_s esitusnimekiri"
 
 #: ../xlgui/panel/menus.py:325
-#, fuzzy
-#| msgid "Add Station"
 msgid "_New Station"
-msgstr "Lisa jaam"
+msgstr "Uus _jaam"
 
 #: ../xlgui/panel/playlists.py:136
 #, python-format
@@ -1339,17 +1315,15 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:129
 msgid "_Clear Tab History"
-msgstr ""
+msgstr "_Eemalda kaartide ajalugu"
 
 #: ../xlgui/playlist_container.py:141
-#, fuzzy
-#| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
-msgstr "Sulge kaart"
+msgstr "Hiljuti sule_tud kaardid"
 
 #: ../xlgui/playlist_container.py:161
 msgid "Restore closed tab"
-msgstr ""
+msgstr "Taasta suletud kaart"
 
 #: ../xlgui/playlist_container.py:200
 #, python-format
@@ -1389,13 +1363,11 @@ msgstr ""
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:36
 msgid "the"
-msgstr ""
+msgstr "the"
 
 #: ../xlgui/preferences/collection.py:60
-#, fuzzy
-#| msgid "Reset to Defaults"
 msgid "Reset to _Defaults"
-msgstr "Lähtesta vaikeväärtustele"
+msgstr "Lähtesta _vaikeväärtusteks"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5
@@ -1405,7 +1377,7 @@ msgstr "Ümbrised"
 
 #: ../xlgui/preferences/lyrics.py:20
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Laulusõnad"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1414,7 +1386,7 @@ msgstr "Taasesitus"
 #: ../xlgui/preferences/plugin.py:107 ../plugins/grouptagger/gt_common.py:60
 #: ../plugins/grouptagger/gt_widgets.py:60
 msgid "Uncategorized"
-msgstr ""
+msgstr "Liigitamata"
 
 #: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
@@ -1454,11 +1426,11 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:71
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Kas käivitame Exaile uuesti?"
 
 #: ../xlgui/preferences/widgets.py:74
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Selle muudatuse jõustamiseks pead programmi uuesti käivitama."
 
 #: ../xlgui/preferences/widgets.py:77
 msgid "Restart"
@@ -1474,7 +1446,7 @@ msgstr "Kiirklahv"
 
 #: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Siltide kirjutamine ei õnnestunud"
 
 #: ../xlgui/properties.py:258
 #, python-brace-format
@@ -1482,29 +1454,31 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Siltide kirjutamine järgmistesse failidesse ei õnnestunud:\n"
+"{files}"
 
 #: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Muudan lugu %(current)d / %(total)d"
 
 #: ../xlgui/properties.py:401
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
+msgstr "Kas sa oled kindel, et soovid seda muudatust teha kõikidesse lugudesse?"
 
 #: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Kas võtame sinu tehtud muudatused enne sulgemist kasutusele?"
 
 #: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Sinu tehtud muudatused lähevad kaotsi, kui sa neid praegu ei rakenda."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
 #: ../xlgui/properties.py:626
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1697,10 +1671,8 @@ msgid "%d selected"
 msgstr "%d valitud"
 
 #: ../xlgui/widgets/menuitems.py:117
-#, fuzzy
-#| msgid "Enqueue"
 msgid "En_queue"
-msgstr "Sea järjekorda"
+msgstr "Lisa _järjekorda"
 
 #: ../xlgui/widgets/menuitems.py:153
 msgid "_Replace Current"
@@ -1711,56 +1683,43 @@ msgid "_Append to Current"
 msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
-#, fuzzy
-#| msgid "Properties"
 msgid "_Track Properties"
-msgstr "Omadused"
+msgstr "_Pala omadused"
 
 #: ../xlgui/widgets/menuitems.py:202
-#, fuzzy
-#| msgid "Open Directory"
 msgid "_Open Directory"
-msgstr "Ava kataloog"
+msgstr "_Ava kaust"
 
 #: ../xlgui/widgets/menuitems.py:240
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
+"Faile ei saa prügikasti visata. Kas kustutame nad andmekandjalt jäädavalt?"
 
 #: ../xlgui/widgets/menuitems.py:270
-#, fuzzy
-#| msgid "Move to Trash"
 msgid "_Move to Trash"
-msgstr "Viska prügikasti"
+msgstr "_Viska prügikasti"
 
 #: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
-#, fuzzy
-#| msgid "Rename"
 msgid "_Rename"
-msgstr "Nimeta ümber"
+msgstr "Nimeta ümbe_r"
 
 #: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Muuda"
 
 #: ../xlgui/widgets/menuitems.py:315
-#, fuzzy
-#| msgid "Smart Playlists"
 msgid "E_xport Playlist"
-msgstr "Nutikad esitusnimekirjad"
+msgstr "E_kspordi esitusloend"
 
 #: ../xlgui/widgets/menuitems.py:325
-#, fuzzy
-#| msgid "Supported Files"
 msgid "Export _Files"
-msgstr "Toetatud failid"
+msgstr "Ekspordi _failid"
 
 #: ../xlgui/widgets/menuitems.py:335
-#, fuzzy
-#| msgid "Delete Playlist"
 msgid "_Delete Playlist"
-msgstr "Kustuta nimekiri"
+msgstr "_Kustuta esitusloend"
 
 #: ../xlgui/widgets/notebook.py:247
 msgid "Close Tab"
@@ -1804,60 +1763,44 @@ msgid "Full Volume"
 msgstr "Täisvaljus"
 
 #: ../xlgui/widgets/playback.py:1569
-#, fuzzy
-#| msgid "Pause"
 msgid "_Pause"
-msgstr "Paus"
+msgstr "_Paus"
 
 #: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1584
-#, fuzzy
-#| msgid "Next Track"
 msgid "_Next Track"
-msgstr "Järgmine rada"
+msgstr "_Järgmine lugu"
 
 #: ../xlgui/widgets/playback.py:1594
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Previous Track"
-msgstr "Eelmine lugu"
+msgstr "_Eelmine lugu"
 
 #: ../xlgui/widgets/playback.py:1604
-#, fuzzy
-#| msgid "Stop"
 msgid "_Stop"
-msgstr "Peata"
+msgstr "_Peata"
 
 #: ../xlgui/widgets/playlist.py:118
-#, fuzzy
-#| msgid "Shuffle"
 msgid "S_huffle"
-msgstr "Sega"
+msgstr "Se_ga"
 
 #: ../xlgui/widgets/playlist.py:123
-#, fuzzy
-#| msgid "Repeat"
 msgid "R_epeat"
-msgstr "Kordus"
+msgstr "K_orda"
 
 #: ../xlgui/widgets/playlist.py:128
-#, fuzzy
-#| msgid "Dynamic"
 msgid "_Dynamic"
-msgstr "Dünaamiline"
+msgstr "_Dünaamiline"
 
 #: ../xlgui/widgets/playlist.py:146
 msgid "Remove _Current Track From Playlist"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:179
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "R_andomize Playlist"
-msgstr "Esitusnimekirja ümbernimetamine"
+msgstr "Säti esitusloend _juhuslikuks"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "R_andomize Selection"
@@ -1872,26 +1815,20 @@ msgid "Save _As"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:257
-#, fuzzy
-#| msgid "Clear"
 msgid "_Clear"
-msgstr "Puhasta"
+msgstr "_Tühjenda"
 
 #: ../xlgui/widgets/playlist.py:325
-#, fuzzy
-#| msgid "Stop playback after current track"
 msgid "_Stop Playback After This Track"
-msgstr "Lõpeta taasesitus peale praegust lugu"
+msgstr "Lõpeta taase_situs peale praegust lugu"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:386
-#, fuzzy
-#| msgid "Rename Playlist"
 msgid "_Remove from Playlist"
-msgstr "Esitusnimekirja ümbernimetamine"
+msgstr "_Eemalda esitusloendist"
 
 #: ../xlgui/widgets/playlist.py:738
 msgid "Requires plugins providing dynamic playlists"
@@ -2025,17 +1962,13 @@ msgstr "ei sisalda"
 
 #. TRANSLATORS: True if haystack contains whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:220
-#, fuzzy
-#| msgid "contains"
 msgid "contains word"
-msgstr "sisaldab"
+msgstr "sisaldab sõna"
 
 #. TRANSLATORS: True if haystack does not contain whole word
 #: ../xlgui/widgets/smart_playlist_editor.py:222
-#, fuzzy
-#| msgid "does not contain"
 msgid "does not contain word"
-msgstr "ei sisalda"
+msgstr "ei sisalda sõna"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
@@ -2149,10 +2082,8 @@ msgid "Scan At Startup"
 msgstr ""
 
 #: ../data/ui/collection_manager.ui:209
-#, fuzzy
-#| msgid "Collection"
 msgid "Rescan _Collection"
-msgstr "Kogumik"
+msgstr "Analüüsi muusika_kogu uuesti"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
@@ -2192,10 +2123,8 @@ msgstr ""
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
-#, fuzzy
-#| msgid "Close"
 msgid "_Close"
-msgstr "Sulge"
+msgstr "_Sulge"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
@@ -2304,10 +2233,8 @@ msgid "Refresh Lyrics"
 msgstr ""
 
 #: ../data/ui/panel/radio.ui:18
-#, fuzzy
-#| msgid "Add Station"
 msgid "_Add Station"
-msgstr "Lisa jaam"
+msgstr "_Lisa jaam"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
@@ -2315,23 +2242,23 @@ msgstr ""
 
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
-msgstr ""
+msgstr "Korda taasesitust"
 
 #: ../data/ui/preferences/appearance.ui:20
 msgid "Left"
-msgstr ""
+msgstr "Vasakul"
 
 #: ../data/ui/preferences/appearance.ui:24
 msgid "Right"
-msgstr ""
+msgstr "Paremal"
 
 #: ../data/ui/preferences/appearance.ui:28
 msgid "Top"
-msgstr ""
+msgstr "Üleval"
 
 #: ../data/ui/preferences/appearance.ui:32
 msgid "Bottom"
-msgstr ""
+msgstr "All"
 
 #: ../data/ui/preferences/appearance.ui:50
 msgid "Show info area"
@@ -2347,11 +2274,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Näita alati kaardiriba"
 
 #: ../data/ui/preferences/appearance.ui:99
 msgid "Tab placement:"
-msgstr ""
+msgstr "Kaartide asetus:"
 
 #: ../data/ui/preferences/appearance.ui:139
 msgid "Playlist font:"
@@ -2669,10 +2596,8 @@ msgid "Uppercase first letter of all tags"
 msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:228
-#, fuzzy
-#| msgid "Properties"
 msgid "File Properties"
-msgstr "Omadused"
+msgstr "Faili omadused"
 
 #: ../data/ui/trackproperties_dialog.ui:249
 msgid "_Previous"
@@ -2851,22 +2776,16 @@ msgid "_Bookmark This Track"
 msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:215
-#, fuzzy
-#| msgid "Delete Bookmark"
 msgid "_Delete Bookmark"
-msgstr "Järjehoidja kustutamine"
+msgstr "_Kustuta järjehoidja"
 
 #: ../plugins/bookmarks/__init__.py:219
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Clear Bookmarks"
-msgstr "Eemalda järjehoidjad"
+msgstr "_Eemalda järjehoidjad"
 
 #: ../plugins/bookmarks/__init__.py:333
-#, fuzzy
-#| msgid "Clear Bookmarks"
 msgid "_Bookmarks"
-msgstr "Eemalda järjehoidjad"
+msgstr "_Järjehoidjad"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
@@ -2908,21 +2827,21 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
-msgstr ""
+msgstr "Plaadi number"
 
 #: ../plugins/cd/cdprefs.py:122 ../plugins/minimode/minimode_preferences.py:118
 msgid "Play count"
-msgstr ""
+msgstr "Esituskordi"
 
 #: ../plugins/daapclient/__init__.py:265 ../plugins/history/__init__.py:187
 #: ../plugins/history/__init__.py:236
 #: ../plugins/history/history_preferences.py:34
 msgid "History"
-msgstr ""
+msgstr "Ajalugu"
 
 #: ../plugins/daapclient/__init__.py:272
 msgid "Manually..."
-msgstr ""
+msgstr "Käsitsi..."
 
 #: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port for share"
@@ -2982,10 +2901,8 @@ msgid "_Get all tags from collection"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:105
-#, fuzzy
-#| msgid "Import tags from directory"
 msgid "_Import tags from directory"
-msgstr "Impordi sildid kataloogist"
+msgstr "_Impordi sildid kaustast"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
@@ -3009,10 +2926,8 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
-#, fuzzy
-#| msgid "Add Station"
 msgid "Add tags to all"
-msgstr "Lisa jaam"
+msgstr "Lisa sildid kõikidele"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
@@ -3085,22 +3000,16 @@ msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Sildid"
+msgstr "Silt"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "A_dd tag"
 msgid "Add new tag"
-msgstr "Lis_a silt"
+msgstr "Lisa uus silt"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete tag"
-msgstr "Kustuta"
+msgstr "Kustuta silt"
 
 #: ../plugins/grouptagger/gt_widgets.py:188
 msgid "Add new category"
@@ -3269,10 +3178,8 @@ msgid "Last.fm Loved"
 msgstr ""
 
 #: ../plugins/lastfmlove/__init__.py:157
-#, fuzzy
-#| msgid "Previous Track"
 msgid "_Love This Track"
-msgstr "Eelmine lugu"
+msgstr "Mu_lle meeldib see lugu"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
@@ -3442,13 +3349,13 @@ msgstr ""
 #: ../plugins/moodbar/__init__.py:99
 #, python-brace-format
 msgid "{minutes}:{seconds:02}"
-msgstr ""
+msgstr "{minutes}:{seconds:02}"
 
 #. TRANSLATORS: Format for playback progress text
 #: ../plugins/moodbar/__init__.py:204
 #, python-brace-format
 msgid "{current} / {remaining}"
-msgstr ""
+msgstr "{current} / {remaining}"
 
 #: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
@@ -3457,12 +3364,12 @@ msgstr ""
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Äratuskell"
 
 #: ../plugins/notify/__init__.py:48
 #, python-brace-format
 msgid "from {album} by {artist}"
-msgstr ""
+msgstr "albumilt {album} esitaja {artist}"
 
 #: ../plugins/notify/__init__.py:49
 #, python-brace-format
@@ -3480,7 +3387,7 @@ msgstr ""
 
 #: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
-msgstr ""
+msgstr "Ühtegi lugu pole veel esitatud"
 
 #: ../plugins/osd/__init__.py:396
 msgid "Move or resize OSD"
@@ -3629,10 +3536,8 @@ msgid "Error connecting to SomaFM server."
 msgstr ""
 
 #: ../plugins/somafm/__init__.py:182
-#, fuzzy
-#| msgid "Error loading smart playlist: %s"
 msgid "Error importing playlist"
-msgstr "Viga nutika esitusnimekirja laadimisel: %s"
+msgstr "Viga esitusloendi importimisel"
 
 #: ../plugins/streamripper/__init__.py:73
 msgid "Error executing streamripper"
@@ -3813,8 +3718,6 @@ msgstr ""
 
 #. Window title
 #: ../plugins/console/console_window.ui:8
-#, fuzzy
-#| msgid "Simple console"
 msgid "Simple Console"
 msgstr "Lihtne konsool"
 
@@ -4177,7 +4080,7 @@ msgstr ""
 
 #: ../plugins/moodbar/prefs.ui:25
 msgid "Color tint (experimental)"
-msgstr ""
+msgstr "Värvitoon (eksperimentaalne)"
 
 #: ../plugins/multialarmclock/malrmclk.ui:59
 msgid "<b>Alarms</b>"
@@ -4185,17 +4088,15 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui:94
 msgid "_Add"
-msgstr ""
+msgstr "_Lisa"
 
 #: ../plugins/multialarmclock/malrmclk.ui:110
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
-msgstr "Kustuta"
+msgstr "_Kustuta"
 
 #: ../plugins/multialarmclock/malrmclk.ui:136
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Taasesitus</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:147
 msgid "Restart playlist"
@@ -4207,10 +4108,8 @@ msgstr ""
 
 #. Audio settings for alarm
 #: ../plugins/multialarmclock/malrmclk.ui:178
-#, fuzzy
-#| msgid "<b>Icons</b>"
 msgid "<b>Audio</b>"
-msgstr "<b>Ikoonid</b>"
+msgstr "<b>Audio</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui:192
 msgid "Fade start volume:"
@@ -4239,10 +4138,8 @@ msgid "Display"
 msgstr "Kuva ümbriseid"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
-#, fuzzy
-#| msgid "Icon"
 msgid "Icons"
-msgstr "Ikoon"
+msgstr "Ikoonid"
 
 #: ../plugins/notify/notifyprefs_pane.ui:74
 msgid "Use album covers as icons"
@@ -4291,7 +4188,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui:188
 msgid "Show progress bar"
-msgstr ""
+msgstr "Näita edenemist"
 
 #: ../plugins/osd/osd_preferences.ui:271
 msgid ""
@@ -4300,7 +4197,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui:73
 msgid "Presets"
-msgstr ""
+msgstr "Eelseadistused"
 
 #: ../plugins/playlistanalyzer/analyzer.ui:199
 msgid "<none selected>"
@@ -4331,22 +4228,16 @@ msgid "Generate"
 msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui:18
-#, fuzzy
-#| msgid "Add Podcast"
 msgid "_Add Podcast"
-msgstr "Podcasti lisamine"
+msgstr "Lis_a podcast"
 
 #: ../plugins/previewdevice/previewprefs.ui:103
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Fade duration:"
 msgstr "Hajumise kestus:"
 
 #: ../plugins/previewdevice/previewprefs.ui:143
-#, fuzzy
-#| msgid "Fading duration:"
 msgid "Crossfade duration:"
-msgstr "Hajumise kestus:"
+msgstr "Risthajumise kestus:"
 
 #: ../plugins/previewdevice/previewprefs.ui:223
 msgid "Audio Device:"
@@ -4467,11 +4358,11 @@ msgstr ""
 #: ../plugins/audioscrobbler/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notify/PLUGININFO:5 ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Teavitused"
 
 #: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Järjehoidjad"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."

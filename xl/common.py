@@ -350,16 +350,38 @@ def open_file_directory(path_or_uri):
     f = Gio.File.new_for_commandline_arg(path_or_uri)
     platform = sys.platform
     if platform == 'win32':
-        # Normally we can just run `explorer /select, filename`, but Python 2
-        # always calls CreateProcessA, which doesn't support Unicode. We could
-        # call CreateProcessW with ctypes, but the following is more robust.
+        # We could run `explorer /select,filename`, but that doesn't support
+        # reusing an existing Explorer window when selecting a file in a
+        # directory that is already open.
+
         import ctypes
 
-        ctypes.windll.ole32.CoInitialize(None)
-        pidl = ctypes.windll.shell32.ILCreateFromPathW(f.get_path())
-        ctypes.windll.shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
-        ctypes.windll.shell32.ILFree(pidl)
-        ctypes.windll.ole32.CoUninitialize()
+        CoInitialize = ctypes.windll.ole32.CoInitialize
+        CoInitialize.argtypes = [ctypes.c_void_p]
+        CoInitialize.restype = ctypes.HRESULT
+        CoUninitialize = ctypes.windll.ole32.CoUninitialize
+        CoUninitialize.argtypes = []
+        CoUninitialize.restype = None
+        ILCreateFromPath = ctypes.windll.shell32.ILCreateFromPathW
+        ILCreateFromPath.argtypes = [ctypes.c_wchar_p]
+        ILCreateFromPath.restype = ctypes.c_void_p
+        ILFree = ctypes.windll.shell32.ILFree
+        ILFree.argtypes = [ctypes.c_void_p]
+        ILFree.restype = None
+        SHOpenFolderAndSelectItems = ctypes.windll.shell32.SHOpenFolderAndSelectItems
+        SHOpenFolderAndSelectItems.argtypes = [
+            ctypes.c_void_p,
+            ctypes.c_uint,
+            ctypes.c_void_p,
+            ctypes.c_ulong,
+        ]
+        SHOpenFolderAndSelectItems.restype = ctypes.HRESULT
+
+        CoInitialize(None)
+        pidl = ILCreateFromPath(f.get_path())
+        SHOpenFolderAndSelectItems(pidl, 0, None, 0)
+        ILFree(pidl)
+        CoUninitialize()
     elif platform == 'darwin':
         subprocess.Popen(["open", f.get_parent().get_parse_name()])
     else:

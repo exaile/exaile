@@ -56,14 +56,3 @@ class AppendStartsPlaybackPreference(widgets.CheckPreference):
 class EnqueueTrackByDefaultPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/enqueue_by_default'
-
-
-# FIXME: Is this still relevant?
-# class QueueSavePreferences(widgets.CheckPreference):
-#    default = True
-#    name = 'playlist/save_queue'
-
-#    def change(self, *e):
-#        dialogs.error(self.preferences.window, "Doesn't work yet")
-
-# vim: et sts=4 sw=4

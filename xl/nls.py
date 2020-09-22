@@ -101,10 +101,10 @@ if gettextmod:
 else:
     # gettext is not available; provide dummy functions instead
 
-    def gettext(text):
+    def gettext(text: str) -> str:
         return text
 
-    def ngettext(singular, plural, n):
+    def ngettext(singular: str, plural: str, n: int) -> str:
         if n == 1:
             return singular
         else:

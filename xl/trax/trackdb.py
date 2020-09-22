@@ -306,13 +306,6 @@ class TrackDB:
         except KeyError:
             return None
 
-    def get_tracks_by_locs(self, locs):
-        """
-        returns the track having the given loc. if no such track exists,
-        returns None
-        """
-        return [self.get_track_by_loc(loc) for loc in locs]
-
     def loc_is_member(self, loc: str) -> bool:
         """
         Returns True if loc is a track in this collection, False

@@ -27,7 +27,7 @@
 import hashlib
 import logging
 import os
-from typing import Any
+from typing import Any, Callable, Optional
 
 from gi.repository import Gdk
 from gi.repository import GLib
@@ -49,6 +49,9 @@ class Preference:
     """
 
     default: Any = ''
+    done: Callable[[], bool]
+    label_widget: Optional[Gtk.Widget]
+    name: str
     restart_required = False
 
     def __init__(self, preferences, widget):

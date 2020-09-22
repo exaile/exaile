@@ -30,8 +30,6 @@ __all__ = ['migrate']
 import logging
 import os
 
-from gi.repository import Gio
-
 import xl.collection
 import xl.covers
 

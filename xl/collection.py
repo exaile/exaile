@@ -876,30 +876,6 @@ class Library:
             if not file.delete():
                 logger.warning("Could not delete file %s.", loc)
 
-    # the below are not essential for 0.3.0, should be implemented only
-    # if time allows for it
-
-    def set_layout(self, layout, default="Unknown"):
-        pass
-
-    def organize(self):
-        pass
-
-    def keep_organized(self, bool):
-        pass
-
-    def get_freespace(self):
-        pass
-
-    def get_totalspace(self):
-        pass
-
-    def get_usedspace(self):
-        pass
-
-    def get_usedspace_percent(self):
-        pass
-
 
 class TransferQueue:
     def __init__(self, library: Library):

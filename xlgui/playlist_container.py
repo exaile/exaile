@@ -29,6 +29,8 @@ from gi.repository import Gtk
 
 import re
 from datetime import datetime
+from typing import List
+
 from xl.nls import gettext as _
 from xl import event, providers, settings
 from xl.playlist import Playlist, PlaylistManager
@@ -510,7 +512,7 @@ class PlaylistContainer(Gtk.Box):
     def __init__(self, manager_name, player):
         Gtk.Box.__init__(self)
 
-        self.notebooks = []
+        self.notebooks: List[PlaylistNotebook] = []
         self.notebooks.append(
             PlaylistNotebook(manager_name, player, '<Primary><Shift>t')
         )

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-21 05:39+0000\n"
+"PO-Revision-Date: 2020-09-23 04:40+0000\n"
 "Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
@@ -2472,11 +2472,11 @@ msgstr "Другой канал вывода:"
 
 #: ../data/ui/preferences/playback.ui:160
 msgid "Resume playback on start"
-msgstr "Продолжить воспроизведение после запуска программы"
+msgstr "Продолжить воспроизведение после запуска"
 
 #: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback in paused state"
-msgstr "При запуске программы ставить проигрывание на паузу"
+msgstr "При запуске ставить проигрывание на паузу"
 
 #: ../data/ui/preferences/playback.ui:191
 msgid "Adding an item to an empty queue begins playback"

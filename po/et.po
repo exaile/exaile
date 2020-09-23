@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-22 03:39+0000\n"
+"PO-Revision-Date: 2020-09-24 00:40+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -2307,7 +2307,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:228
 msgid "Alpha transparency"
-msgstr ""
+msgstr "Alfa läbipaistvus"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2710,7 +2710,7 @@ msgstr "Lisamine"
 #. This is a check box in the Add Smart Playlist dialog. If checked, a numeric text entry becomes active and it specifies a limit on the number of tracks the resulting playlist contains.
 #: ../data/ui/widgets/filter_dialog.ui:194
 msgid "Maximum number of tracks:"
-msgstr ""
+msgstr "Suurim lugude arv:"
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
@@ -2718,7 +2718,7 @@ msgstr "Tühista"
 
 #: ../data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Lülita summutamine sisse või välja"
 
 #: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
 msgid "Volume"
@@ -3723,7 +3723,7 @@ msgstr "Lihtne konsool"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:12
 msgid "Show IPv6 servers"
-msgstr ""
+msgstr "Näita IPv6 servereid"
 
 #: ../plugins/daapclient/daapclient_prefs.ui:27
 msgid "Remember recent DAAP servers"
@@ -4421,6 +4421,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Võimaldab spydaap teegi abil ligipääsu DAAP võrgukaustadele. Kui python-"
+"zeroconf on paigaldatud, siis lisaks on võimalik ka nende võrgukaustade "
+"automaatne tuvastamine.\n"
+"Vajalik: spydaap\n"
+"Valikuline: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4575,6 +4580,8 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Requires: BeautifulSoup4, lxml"
 msgstr ""
+"Pistikprogramm laulusõnade laadimiseks lyrics.wikia.com saidist\n"
+"Eeldused: BeautifulSoup4, lxml"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
@@ -4695,6 +4702,10 @@ msgid ""
 "Requires: GNOME, MATE, Cinnamon, XFCE, or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Sõltuvalt ekraanisäästja olekust peatab muusika esitamist või jätkab seda.\n"
+"\n"
+"Eeldab GNOME, MATE, Cinnamoni, XFCE või KDE ekraanisäästja kasutamist (ei "
+"tööta XScreenSaver ega XLockMore kasutamisel)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

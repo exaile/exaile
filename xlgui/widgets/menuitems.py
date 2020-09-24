@@ -39,7 +39,7 @@ from gi.repository import Gtk
 from xl import common, player, playlist, settings, trax
 from xl.nls import gettext as _
 from xlgui.widgets import dialogs, rating, menu
-from xlgui import properties
+from xlgui import panel, properties
 
 ### TRACKS ITEMS ###
 # These items act on a set of Tracks, by default 'selected-tracks' from
@@ -168,14 +168,15 @@ def AppendMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     )
 
 
-def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent):
+def _properties_cb(widget, name, parent, context, get_tracks_func):
     tracks = get_tracks_func(parent, context)
     if tracks:
-        properties.TrackPropertiesDialog(dialog_parent, tracks)
+        assert isinstance(parent, panel.Panel)
+        properties.TrackPropertiesDialog(parent.parent, tracks)
 
 
 def PropertiesMenuItem(
-    name, after, get_tracks_func=generic_get_tracks_func, dialog_parent=None
+    name, after, get_tracks_func=generic_get_tracks_func
 ):
     return menu.simple_menu_item(
         name,
@@ -183,7 +184,7 @@ def PropertiesMenuItem(
         _("_Track Properties"),
         'document-properties',
         _properties_cb,
-        callback_args=[get_tracks_func, dialog_parent],
+        callback_args=[get_tracks_func],
     )
 
 

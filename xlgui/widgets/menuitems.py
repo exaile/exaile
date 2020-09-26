@@ -175,9 +175,7 @@ def _properties_cb(widget, name, parent, context, get_tracks_func):
         properties.TrackPropertiesDialog(parent.parent, tracks)
 
 
-def PropertiesMenuItem(
-    name, after, get_tracks_func=generic_get_tracks_func
-):
+def PropertiesMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(
         name,
         after,

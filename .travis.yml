@@ -54,6 +54,6 @@ notifications:
     - "chat.freenode.net#exaile"
     use_notice: false
     skip_join: false
-    # on_success: change
+    on_success: change
     template:
       - "%{repository_name} %{branch} | %{build_url} | %{compare_url} | %{message}"

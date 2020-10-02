@@ -1673,12 +1673,15 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         delete = context.get_selected_action() == Gdk.DragAction.MOVE
         context.finish(True, delete, etime)
 
-        scroll_when_appending_tracks = settings.get_option(
-            'gui/scroll_when_appending_tracks', False
-        )
-
-        if scroll_when_appending_tracks and tracks:
-            self.scroll_to_cell(self.playlist.index(tracks[-1]))
+        if tracks:
+            # HACK: If we don't do this, the view always scrolls to the top.
+            # https://github.com/exaile/exaile/issues/685
+            self.scroll_to_cell(
+                self.playlist.index(tracks[0]),
+                use_align=True,
+                row_align=0.25,
+                col_align=0,  # Not used
+            )
 
         # Restore state to `self.on_row_inserted` do not ignore inserted rows
         # see https://github.com/exaile/exaile/issues/487

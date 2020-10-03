@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-09-24 00:40+0000\n"
+"PO-Revision-Date: 2020-10-04 05:40+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -830,7 +830,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Kogun albumeid ja kaanepilte..."
 
 #: ../xlgui/cover.py:501
 msgid "Show Cover"
@@ -847,7 +847,7 @@ msgstr "Eemalda kaanepilt"
 #: ../xlgui/cover.py:812
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "%s kaanepilt"
 
 #: ../xlgui/cover.py:880
 #, python-brace-format
@@ -856,12 +856,12 @@ msgstr "{width}x{height} pikslit ({zoom}%)"
 
 #: ../xlgui/cover.py:931
 msgid "Save File"
-msgstr ""
+msgstr "Salvesta fail"
 
 #: ../xlgui/cover.py:1029
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "Kaanepiltide valikud: %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1133
 msgid "No covers found."

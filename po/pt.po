@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-10-02 04:40+0000\n"
+"PO-Revision-Date: 2020-10-04 16:41+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -2963,7 +2963,7 @@ msgstr "Importar etiquetas do diretório"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "_Mass rename/delete tags"
-msgstr "Renomear/excluir etiquetas em _massa"
+msgstr "Renomear/apagar etiquetas em _massa"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
@@ -3971,7 +3971,7 @@ msgstr "Substituir"
 
 #: ../plugins/grouptagger/gt_mass.ui:35
 msgid "Mass Rename/Delete Tags"
-msgstr "Renomear/excluir Etiquetas em Massa"
+msgstr "Renomear/apagar etiquetas em massa"
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
@@ -4518,7 +4518,7 @@ msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
-"Define o status atual da reprodução no Pidgin. Verifique a FAQ do Pidgin "
+"Define o estado atual da reprodução no Pidgin. Verifique a FAQ do Pidgin "
 "para encontrar os serviços suportados."
 
 #: ../plugins/daapclient/PLUGININFO:4

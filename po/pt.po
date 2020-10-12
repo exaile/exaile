@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-10-04 16:41+0000\n"
+"PO-Revision-Date: 2020-10-12 22:26+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -3817,7 +3817,7 @@ msgstr "Porta:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui:90
 msgid "Server enabled"
-msgstr "Servidor habilitado"
+msgstr "Servidor ativado"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui:35
 msgid "Top left"

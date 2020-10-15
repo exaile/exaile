@@ -142,7 +142,9 @@ class CollectionManagerDialog(Gtk.Dialog):
                 # monitored = row[1]
                 # scan_on_startup = row[2]
 
-                if location.has_prefix(library_location):
+                if location.equal(library_location) or location.has_prefix(
+                    library_location
+                ):
                     self.message.show_warning(
                         _('Directory not added.'),
                         _(

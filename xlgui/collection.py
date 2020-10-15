@@ -45,6 +45,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     __gtype_name__ = 'CollectionManager'
 
     view, model, remove_button, content_area = GtkTemplate.Child.widgets(4)
+    location_column, location_cellrenderer = GtkTemplate.Child.widgets(2)
 
     def __init__(self, parent, collection):
         """
@@ -63,6 +64,17 @@ class CollectionManagerDialog(Gtk.Dialog):
 
         for location, library in collection.libraries.items():
             self.model.append([location, library.monitored, library.startup_scan])
+
+        # Override the data function for location_column, so that it
+        # displays parsed location names instead of escaped URIs
+        def display_parsed_location(column, cell, model, iter, *data):
+            location_uri = model.get(iter, 0)[0]  # first column
+            location = Gio.File.new_for_uri(location_uri)
+            cell.set_property("text", location.get_parse_name())
+
+        self.location_column.set_cell_data_func(
+            self.location_cellrenderer, display_parsed_location
+        )
 
     def get_items(self):
         """

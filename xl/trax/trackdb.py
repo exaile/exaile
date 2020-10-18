@@ -25,18 +25,14 @@
 # from your version.
 
 
-import logging
-
 from copy import deepcopy
+import logging
+from time import time
+from typing import Dict, Iterable, Iterator, List, Optional, Tuple
 
 from xl import common, event
 from xl.nls import gettext as _
-
 from xl.trax.track import Track
-from xl.trax.util import sort_tracks
-from xl.trax.search import search_tracks_from_string
-
-from time import time
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +48,7 @@ class TrackHolder:
 
 
 class TrackDBIterator:
-    def __init__(self, track_iterator):
+    def __init__(self, track_iterator: Iterator[Tuple[str, TrackHolder]]):
         self.iter = track_iterator
 
     def __iter__(self):
@@ -82,7 +78,13 @@ class TrackDB:
             loaded before any tracks are created.
     """
 
-    def __init__(self, name="", location="", pickle_attrs=[], loadfirst=False):
+    def __init__(
+        self,
+        name: str = "",
+        location: str = "",
+        pickle_attrs: List[str] = [],
+        loadfirst: bool = False,
+    ):
         """
         Sets up the trackDB.
         """
@@ -101,7 +103,7 @@ class TrackDB:
         self.name = name
         self.location = location
         self._dirty = False
-        self.tracks = {}  # key is always URI of the track
+        self.tracks: Dict[str, TrackHolder] = {}  # key is URI of the track
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
@@ -294,7 +296,7 @@ class TrackDB:
         self._dirty = False
         self._saving = False
 
-    def get_track_by_loc(self, loc, raw=False):
+    def get_track_by_loc(self, loc: str, raw=False) -> Optional[Track]:
         """
         returns the track having the given loc. if no such track exists,
         returns None
@@ -311,21 +313,20 @@ class TrackDB:
         """
         return [self.get_track_by_loc(loc) for loc in locs]
 
-    def loc_is_member(self, loc):
+    def loc_is_member(self, loc: str) -> bool:
         """
         Returns True if loc is a track in this collection, False
         if it is not
         """
         return loc in self.tracks
 
-    def get_count(self):
+    def get_count(self) -> int:
         """
         Returns the number of tracks stored in this database
         """
-        count = len(self.tracks)
-        return count
+        return len(self.tracks)
 
-    def add(self, track):
+    def add(self, track: Track) -> None:
         """
         Adds a track to the database of tracks
 
@@ -334,7 +335,7 @@ class TrackDB:
         self.add_tracks([track])
 
     @common.synchronized
-    def add_tracks(self, tracks):
+    def add_tracks(self, tracks: Iterable[Track]) -> None:
         """
         Like add(), but takes a list of :class:`xl.trax.Track`
         """
@@ -355,7 +356,7 @@ class TrackDB:
             event.log_event('tracks_added', self, locations)
             self._dirty = True
 
-    def remove(self, track):
+    def remove(self, track: Track) -> None:
         """
         Removes a track from the database
 
@@ -364,7 +365,7 @@ class TrackDB:
         self.remove_tracks([track])
 
     @common.synchronized
-    def remove_tracks(self, tracks):
+    def remove_tracks(self, tracks: Iterable[Track]) -> None:
         """
         Like remove(), but takes a list of :class:`xl.trax.Track`
         """
@@ -380,8 +381,5 @@ class TrackDB:
 
         self._dirty = True
 
-    def get_tracks(self):
+    def get_tracks(self) -> List[Track]:
         return list(self)
-
-
-# vim: et sts=4 sw=4

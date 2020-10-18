@@ -28,6 +28,7 @@ from gi.repository import Gio
 from gi.repository import Gtk
 import logging
 
+import xl.collection
 from xl.nls import gettext as _
 from xl import xdg
 from xlgui.widgets import dialogs
@@ -47,7 +48,7 @@ class CollectionManagerDialog(Gtk.Dialog):
     view, model, remove_button, content_area = GtkTemplate.Child.widgets(4)
     location_column, location_cellrenderer = GtkTemplate.Child.widgets(2)
 
-    def __init__(self, parent, collection):
+    def __init__(self, parent, collection: xl.collection.Collection):
         """
         Initializes the dialog
         """

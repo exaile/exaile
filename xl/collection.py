@@ -35,26 +35,29 @@ collection.
 """
 
 from collections import deque
-from gi.repository import GLib
-from gi.repository import GObject
-from gi.repository import Gio
 import logging
 import threading
+from typing import Deque, Dict, Iterable, List, MutableSequence, Optional, Set, Tuple
+
+from gi.repository import (
+    GLib,
+    GObject,
+    Gio,
+)
 
 from xl import common, event, settings, trax
 
 logger = logging.getLogger(__name__)
 
-COLLECTIONS = set()
+COLLECTIONS: Set['Collection'] = set()
 
 
-def get_collection_by_loc(loc):
+def get_collection_by_loc(loc: str) -> Optional['Collection']:
     """
     gets the collection by a location.
 
     :param loc: Location of the collection
     :return: collection at location or None
-    :rtype: :class:`Collection`
     """
     for c in COLLECTIONS:
         if c.loc_is_member(loc):
@@ -132,7 +135,7 @@ class Collection(trax.TrackDB):
 
     def __init__(self, name, location=None, pickle_attrs=[]):
         global COLLECTIONS
-        self.libraries = {}
+        self.libraries: Dict[str, Library] = {}
         self._scanning = False
         self._scan_stopped = False
         self._running_count = 0
@@ -143,7 +146,7 @@ class Collection(trax.TrackDB):
         trax.TrackDB.__init__(self, name, location=location, pickle_attrs=pickle_attrs)
         COLLECTIONS.add(self)
 
-    def freeze_libraries(self):
+    def freeze_libraries(self) -> None:
         """
         Prevents "libraries_modified" events from being sent from individual
         add and remove library calls.
@@ -154,7 +157,7 @@ class Collection(trax.TrackDB):
         """
         self._frozen = True
 
-    def thaw_libraries(self):
+    def thaw_libraries(self) -> None:
         """
         Re-allow "libraries_modified" events from being sent from individual
         add and remove library calls. Also sends a "libraries_modified"
@@ -167,12 +170,11 @@ class Collection(trax.TrackDB):
             self._libraries_dirty = False
             event.log_event('libraries_modified', self, None)
 
-    def add_library(self, library):
+    def add_library(self, library: 'Library') -> None:
         """
         Add this library to the collection
 
         :param library: the library to add
-        :type library: :class:`Library`
         """
         loc = library.get_location()
         if loc not in self.libraries:
@@ -186,12 +188,11 @@ class Collection(trax.TrackDB):
         else:
             event.log_event('libraries_modified', self, None)
 
-    def remove_library(self, library):
+    def remove_library(self, library: 'Library') -> None:
         """
         Remove a library from the collection
 
         :param library: the library to remove
-        :type library: :class:`Library`
         """
         for k, v in self.libraries.items():
             if v == library:
@@ -222,12 +223,10 @@ class Collection(trax.TrackDB):
         """
         self._scan_stopped = True
 
-    def get_libraries(self):
+    def get_libraries(self) -> List['Library']:
         """
         Gets a list of all the Libraries associated with this
         Collection
-
-        :rtype: list of :class:`Library`
         """
         return list(self.libraries.values())
 
@@ -354,7 +353,7 @@ class Collection(trax.TrackDB):
         # TODO: make close() part of trackdb
         COLLECTIONS.remove(self)
 
-    def delete_tracks(self, tracks):
+    def delete_tracks(self, tracks: Iterable[trax.Track]) -> None:
         for tr in tracks:
             for prefix, lib in self.libraries.items():
                 lib.delete(tr.get_loc_for_io())
@@ -539,17 +538,20 @@ class Library:
     >>>
     """
 
-    def __init__(self, location, monitored=False, scan_interval=0, startup_scan=False):
+    def __init__(
+        self,
+        location: str,
+        monitored: bool = False,
+        scan_interval: int = 0,
+        startup_scan: bool = False,
+    ):
         """
         Sets up the Library
 
         :param location: the directory this library will scan
-        :type location: string
         :param monitored: whether the library should update its
             collection at changes within the library's path
-        :type monitored: bool
         :param scan_interval: the interval for automatic rescanning
-        :type scan_interval: int
         """
         self.location = location
         self.scan_interval = scan_interval
@@ -559,38 +561,35 @@ class Library:
         self.monitor = LibraryMonitor(self)
         self.monitor.props.monitored = monitored
 
-        self.collection = None
+        self.collection: Optional[Collection] = None
         self.set_rescan_interval(scan_interval)
 
-    def set_location(self, location):
+    def set_location(self, location: str) -> None:
         """
         Changes the location of this Library
 
         :param location: the new location to use
-        :type location: string
         """
         self.location = location
 
-    def get_location(self):
+    def get_location(self) -> str:
         """
         Gets the current location associated with this Library
 
         :return: the current location
-        :rtype: string
         """
         return self.location
 
-    def set_collection(self, collection):
-
+    def set_collection(self, collection) -> None:
         self.collection = collection
 
-    def get_monitored(self):
+    def get_monitored(self) -> bool:
         """
         Whether the library should be monitored for changes
         """
         return self.monitor.props.monitored
 
-    def set_monitored(self, monitored):
+    def set_monitored(self, monitored: bool) -> None:
         """
         Enables or disables monitoring of the library
 
@@ -603,19 +602,18 @@ class Library:
 
     monitored = property(get_monitored, set_monitored)
 
-    def get_rescan_interval(self):
+    def get_rescan_interval(self) -> int:
         """
         :return: the scan interval in seconds
         """
         return self.scan_interval
 
-    def set_rescan_interval(self, interval):
+    def set_rescan_interval(self, interval: int) -> None:
         """
         Sets the scan interval in seconds.  If the interval is 0 seconds,
         the scan interval is stopped
 
         :param interval: scan interval in seconds
-        :type interval: int
         """
 
         if self.scan_id:
@@ -627,17 +625,17 @@ class Library:
 
         self.scan_interval = interval
 
-    def get_startup_scan(self):
+    def get_startup_scan(self) -> bool:
         return self._startup_scan
 
-    def set_startup_scan(self, value):
+    def set_startup_scan(self, value: bool) -> None:
         self._startup_scan = value
         self.collection.serialize_libraries()
         self.collection._dirty = True
 
     startup_scan = property(get_startup_scan, set_startup_scan)
 
-    def _count_files(self):
+    def _count_files(self) -> int:
         """
         Counts the number of files present in this directory
         """
@@ -650,7 +648,12 @@ class Library:
 
         return count
 
-    def _check_compilation(self, ccheck, compilations, tr):
+    def _check_compilation(
+        self,
+        ccheck: Dict[str, Dict[str, Deque[str]]],
+        compilations: MutableSequence[Tuple[str, str]],
+        tr: trax.Track,
+    ) -> None:
         """
         This is the hacky way to test to see if a particular track is a
         part of a compilation.
@@ -702,7 +705,9 @@ class Library:
 
         ccheck[basedir][album].append(artist)
 
-    def update_track(self, gloc, force_update=False):
+    def update_track(
+        self, gloc: Gio.File, force_update: bool = False
+    ) -> Optional[trax.Track]:
         """
         Rescan the track at a given location
 
@@ -731,7 +736,9 @@ class Library:
                 self.collection.add(tr)
         return tr
 
-    def rescan(self, notify_interval=None, force_update=False):
+    def rescan(
+        self, notify_interval: Optional[int] = None, force_update: bool = False
+    ):  # TODO: What return type?
         """
         Rescan the associated folder and add the contained files
         to the Collection
@@ -835,7 +842,7 @@ class Library:
         logger.info("Scan completed: %s", self.location)
         self.scanning = False
 
-    def add(self, loc, move=False):
+    def add(self, loc: str, move: bool = False) -> None:
         """
         Copies (or moves) a file into the library and adds it to the
         collection
@@ -854,7 +861,7 @@ class Library:
         if tr._scan_valid:
             self.collection.add(tr)
 
-    def delete(self, loc):
+    def delete(self, loc: str) -> None:
         """
         Deletes a file from the disk
 
@@ -895,17 +902,17 @@ class Library:
 
 
 class TransferQueue:
-    def __init__(self, library):
+    def __init__(self, library: Library):
         self.library = library
-        self.queue = []
+        self.queue: List[trax.Track] = []
         self.current_pos = -1
         self.transferring = False
         self._stop = False
 
-    def enqueue(self, tracks):
+    def enqueue(self, tracks: Iterable[trax.Track]) -> None:
         self.queue.extend(tracks)
 
-    def dequeue(self, tracks):
+    def dequeue(self, tracks: Iterable[trax.Track]) -> None:
         if self.transferring:
             # FIXME: use a proper exception, and make this only error on
             # tracks that have already been transferred
@@ -917,7 +924,7 @@ class TransferQueue:
             except ValueError:
                 pass
 
-    def transfer(self):
+    def transfer(self) -> None:
         """
         Tranfer the queued tracks to the library.
 
@@ -943,12 +950,9 @@ class TransferQueue:
             self._stop = False
             event.log_event('track_transfer_progress', self, 100)
 
-    def cancel(self):
+    def cancel(self) -> None:
         """
         Cancel the current transfer
         """
         # TODO: make this stop mid-file as well?
         self._stop = True
-
-
-# vim: et sts=4 sw=4

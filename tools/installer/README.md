@@ -13,12 +13,18 @@ Requirements
 
 First, download the python-gtk3-gst-sdk somewhere:
 
-  git clone https://github.com/exaile/python-gtk3-gst-sdk
+    git clone https://github.com/exaile/python-gtk3-gst-sdk
 
 Next install the SDK links by running this from inside this directory:
 
-  /path/to/python-gtk3-gst-sdk/create_links.sh windows
-  /path/to/python-gtk3-gst-sdk/create_links.sh osx
+    /path/to/python-gtk3-gst-sdk/create_links.sh windows
+    /path/to/python-gtk3-gst-sdk/create_links.sh osx
+
+For linux (ubuntu, fedora, etc.) -- manually install dependencies listed in the DEPS file
+
+    # (only mandatory packages; see DEPS for optionals)
+    sudo apt install -y  python3-bsddb3  python3-mutagen python3-dbus python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0
+
 
 Building Windows installer
 --------------------------

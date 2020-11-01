@@ -34,14 +34,19 @@ from datetime import date
 from gi.repository import GLib
 from gi.repository import GObject
 import re
-from string import Template, _TemplateMetaclass
 
 from xl import common, providers, settings, trax
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
 
 
-class _ParameterTemplateMetaclass(_TemplateMetaclass):
+# NOTE: the following two classes used to subclass string._TemplateMetaclass
+# and string.Template from string module. However, python 3.9 reorganized
+# the string.Template class and removed the string._TemplateMetaclass. It
+# also turned out that our implementation's overridden functionality is
+# self-sufficient, so these are stand-alone classes now (and contain
+# partial copy of the corresponding base classes from python 3.8 and earlier).
+class _ParameterTemplateMetaclass(type):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
     pattern = r"""
     %(delim)s(?:
@@ -76,7 +81,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
 
-class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
+class ParameterTemplate(metaclass=_ParameterTemplateMetaclass):
     """
     An extended template class which additionally
     accepts parameters assigned to identifiers.
@@ -92,13 +97,15 @@ class ParameterTemplate(Template, metaclass=_ParameterTemplateMetaclass):
     * ``${qux:parameter1=argument1, parameter2}``
     """
 
+    delimiter = '$'
+    idpattern = r'(?a:[_a-z][_a-z0-9]*)'
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):
         """
         :param template: the template string
         """
-        Template.__init__(self, template)
+        self.template = template
 
     def safe_substitute(self, *args):
         """

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-24 01:16+1000\n"
-"PO-Revision-Date: 2020-10-04 05:40+0000\n"
+"PO-Revision-Date: 2020-11-01 21:26+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2057,11 +2057,11 @@ msgstr "Kahanev"
 
 #: ../data/ui/about_dialog.ui:8
 msgid "About Exaile"
-msgstr ""
+msgstr "Teave Exaile kohta"
 
 #: ../data/ui/about_dialog.ui:13
 msgid "© 2009-2019 Various Contributors"
-msgstr ""
+msgstr "© 2009-2019 Erinevad kaasautorid"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
@@ -2743,37 +2743,37 @@ msgstr "Alarmkell"
 #: ../plugins/amazoncovers/amazonprefs.py:21
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Kaanepildid Amazonist"
 
 #: ../plugins/audioscrobbler/__init__.py:97
 msgid "Toggle AudioScrobbler submit"
-msgstr ""
+msgstr "Lülita kraasimisandmete saatmist"
 
 #: ../plugins/audioscrobbler/__init__.py:145
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Võta kraasimine kasutusele"
 
 #: ../plugins/audioscrobbler/asprefs.py:29
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "Kraasimine"
 
 #: ../plugins/audioscrobbler/asprefs.py:111
 msgid "Verification successful"
-msgstr ""
+msgstr "Tuvastamine õnnestus"
 
 #: ../plugins/audioscrobbler/asprefs.py:115
 msgid "Verification failed"
-msgstr ""
+msgstr "Tuvastamine ei õnnestunud"
 
 #: ../plugins/audioscrobbler/asprefs.py:116
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Palun kontrolli, et sisestatud andmes oleks õiged."
 
 #: ../plugins/bookmarks/__init__.py:209
 msgid "_Bookmark This Track"
-msgstr ""
+msgstr "Lisa see lugu _järjehoidjaks"
 
 #: ../plugins/bookmarks/__init__.py:215
 msgid "_Delete Bookmark"
@@ -2789,17 +2789,17 @@ msgstr "_Järjehoidjad"
 
 #: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
 msgid "Autodetect BPM"
-msgstr ""
+msgstr "Tuvasta tempo automaatselt"
 
 #: ../plugins/bpm/__init__.py:131
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Kas seadistame tempoks %d/%s?"
 
 #: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Tempoloendur"
 
 #: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
 msgid "Update"
@@ -2807,11 +2807,11 @@ msgstr "Uuenda"
 
 #: ../plugins/cd/__init__.py:152 ../plugins/cd/__init__.py:223
 msgid "Audio Disc"
-msgstr ""
+msgstr "Heliplaat"
 
 #: ../plugins/cd/_cdguipanel.py:99
 msgid "Importing CD..."
-msgstr ""
+msgstr "Impordi lood heliplaadilt..."
 
 #: ../plugins/cd/_cdguipanel.py:178
 msgid "Error transcoding files from CD."
@@ -3104,7 +3104,7 @@ msgstr ""
 #: ../plugins/icecast/__init__.py:122 ../plugins/icecast/__init__.py:125
 #: ../plugins/icecast/__init__.py:218 ../plugins/icecast/__init__.py:221
 msgid "Error connecting to Icecast server."
-msgstr ""
+msgstr "Viga ühendamisel Icecasti serveriga."
 
 #: ../plugins/icecast/__init__.py:323
 msgid "Enter the search keywords"
@@ -3129,7 +3129,7 @@ msgstr "Nimi"
 
 #: ../plugins/icecast/__init__.py:408
 msgid "Format"
-msgstr ""
+msgstr "Vorming"
 
 #: ../plugins/ipconsole/__init__.py:155
 msgid "IPython Console - Exaile"
@@ -3192,11 +3192,11 @@ msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
-msgstr ""
+msgstr "Vigane API võti."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Veebibrauseri avamine ei õnnestunud"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:95
 #, python-brace-format
@@ -3204,6 +3204,8 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Palun kopeeri järgnev aadress ning ava see oma veebibrauseris:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/mainmenubutton/__init__.py:60
 msgid "This plugin needs at least one visible panel"

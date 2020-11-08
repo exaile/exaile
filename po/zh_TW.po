@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-11-08 16:25+1000\n"
 "PO-Revision-Date: 2018-09-09 19:15+0000\n"
 "Last-Translator: Retia Adolf <retia@protonmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -94,7 +94,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "無標題"
 
@@ -658,63 +658,63 @@ msgstr "播放清單"
 msgid "M3U Playlist"
 msgstr "M3U 播放清單"
 
-#: ../xl/playlist.py:452
+#: ../xl/playlist.py:454
 msgid "PLS Playlist"
 msgstr "PLS 播放清單"
 
-#: ../xl/playlist.py:543 ../xl/playlist.py:558
+#: ../xl/playlist.py:545 ../xl/playlist.py:560
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s的格式不正確。"
 
-#: ../xl/playlist.py:553
+#: ../xl/playlist.py:555
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "尚未支援 %(type)s 的 %(version)s 版本"
 
-#: ../xl/playlist.py:613
+#: ../xl/playlist.py:615
 msgid "ASX Playlist"
 msgstr "ASX 播放清單"
 
-#: ../xl/playlist.py:792
+#: ../xl/playlist.py:794
 msgid "XSPF Playlist"
 msgstr "XSPF 播放清單"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:913
 msgid "Shuffle _Off"
 msgstr "關閉隨機 (_O)"
 
-#: ../xl/playlist.py:912
+#: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
 msgstr "隨機播放歌曲(_T)"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr "隨機播放專輯 (_A)"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:916
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "隨機 %d"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _Off"
 msgstr "關閉重複 (_O)"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _All"
 msgstr "重複全部 (_A)"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat O_ne"
 msgstr "重複一次"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic _Off"
 msgstr ""
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic by Similar _Artists"
 msgstr ""
 
@@ -782,26 +782,26 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "一個非常快速、具優秀壓縮率的開放式無失真音效格式。"
 
-#: ../xl/trax/track.py:65
+#: ../xl/trax/track.py:70
 msgid "Various Artists"
 msgstr "各類演出者"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:68
+#: ../xl/trax/track.py:73
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
+#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:182
+#: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
 msgstr "您未提供一個載入資料庫的位置"
 
-#: ../xl/trax/trackdb.py:251
+#: ../xl/trax/trackdb.py:253
 msgid "You did not specify a location to save the db"
 msgstr "您沒有指定資料庫的儲存位置"
 
@@ -827,15 +827,15 @@ msgstr "掃描音樂庫..."
 msgid "Scanning %s..."
 msgstr "掃描 %s..."
 
-#: ../xlgui/collection.py:103
+#: ../xlgui/collection.py:116
 msgid "Add a Directory"
 msgstr "新增一個目錄"
 
-#: ../xlgui/collection.py:135
+#: ../xlgui/collection.py:150
 msgid "Directory not added."
 msgstr "目錄未新增。"
 
-#: ../xlgui/collection.py:137
+#: ../xlgui/collection.py:152
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -1251,7 +1251,7 @@ msgid "Size"
 msgstr "檔案大小"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:457
+#: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1774,53 +1774,53 @@ msgstr "取代現有的"
 msgid "_Append to Current"
 msgstr "附加於目前之後"
 
-#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
+#: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "歌曲屬性"
 
-#: ../xlgui/widgets/menuitems.py:202
+#: ../xlgui/widgets/menuitems.py:201
 #, fuzzy
 #| msgid "Open Directory"
 msgid "_Open Directory"
 msgstr "開啟目錄"
 
-#: ../xlgui/widgets/menuitems.py:240
+#: ../xlgui/widgets/menuitems.py:239
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr "檔案無法移到垃圾桶。要永久刪除嗎？"
 
-#: ../xlgui/widgets/menuitems.py:270
+#: ../xlgui/widgets/menuitems.py:269
 #, fuzzy
 #| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "移至垃圾桶"
 
-#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
+#: ../xlgui/widgets/menuitems.py:288 ../xlgui/widgets/playlist.py:247
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
 msgstr "重新命名"
 
-#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:301 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "編輯 (_E)"
 
-#: ../xlgui/widgets/menuitems.py:315
+#: ../xlgui/widgets/menuitems.py:314
 #, fuzzy
 #| msgid "Export Playlist"
 msgid "E_xport Playlist"
 msgstr "匯出播放清單"
 
-#: ../xlgui/widgets/menuitems.py:325
+#: ../xlgui/widgets/menuitems.py:324
 #, fuzzy
 #| msgid "Export Files"
 msgid "Export _Files"
 msgstr "匯出檔案"
 
-#: ../xlgui/widgets/menuitems.py:335
+#: ../xlgui/widgets/menuitems.py:334
 #, fuzzy
 #| msgid "Delete Playlist"
 msgid "_Delete Playlist"
@@ -2205,7 +2205,7 @@ msgid "About Exaile"
 msgstr "關於 Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
@@ -3443,8 +3443,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:83
-#: ../plugins/mainmenubutton/__init__.py:89
+#: ../plugins/mainmenubutton/__init__.py:82
+#: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
 msgstr "主選單"
 

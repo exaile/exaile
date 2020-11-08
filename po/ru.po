@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-11-08 16:25+1000\n"
 "PO-Revision-Date: 2020-10-22 08:26+0000\n"
 "Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
@@ -103,7 +103,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -653,61 +653,61 @@ msgstr "Список воспроизведения"
 msgid "M3U Playlist"
 msgstr "Список воспроизведения M3U"
 
-#: ../xl/playlist.py:452
+#: ../xl/playlist.py:454
 msgid "PLS Playlist"
 msgstr "Cписок воспроизведения PLS"
 
-#: ../xl/playlist.py:543 ../xl/playlist.py:558
+#: ../xl/playlist.py:545 ../xl/playlist.py:560
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Некорректный формат для %s."
 
-#: ../xl/playlist.py:553
+#: ../xl/playlist.py:555
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Неподдерживаемая версия %(version)s для %(type)s"
 
-#: ../xl/playlist.py:613
+#: ../xl/playlist.py:615
 msgid "ASX Playlist"
 msgstr "Список воспроизведения ASX"
 
-#: ../xl/playlist.py:792
+#: ../xl/playlist.py:794
 msgid "XSPF Playlist"
 msgstr "Cписок воспроизведения XSPF"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:913
 msgid "Shuffle _Off"
 msgstr "_Не перемешивать"
 
-#: ../xl/playlist.py:912
+#: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
 msgstr "Перемешивать _треки"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr "Перемешивать _альбомы"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:916
 msgid "_Random"
 msgstr "_Случайный выбор"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _Off"
 msgstr "_Не повторять"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _All"
 msgstr "Повторять _все"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat O_ne"
 msgstr "Повтор _один раз"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic _Off"
 msgstr "Выключить динамический плейлист"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic by Similar _Artists"
 msgstr "Динамический плейлист с похожими исполнителями"
 
@@ -780,26 +780,26 @@ msgstr ""
 "Cвободный формат сжатия звука без потери качества с высокой скоростью и "
 "хорошей компрессией."
 
-#: ../xl/trax/track.py:65
+#: ../xl/trax/track.py:70
 msgid "Various Artists"
 msgstr "Разные исполнители"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:68
+#: ../xl/trax/track.py:73
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
+#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:182
+#: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
 msgstr "Вы не указали местоположение базы данных"
 
-#: ../xl/trax/trackdb.py:251
+#: ../xl/trax/trackdb.py:253
 msgid "You did not specify a location to save the db"
 msgstr "Вы не указали место для сохранения базы данных"
 
@@ -825,15 +825,15 @@ msgstr "Сканирование фонотеки..."
 msgid "Scanning %s..."
 msgstr "Сканирование %s..."
 
-#: ../xlgui/collection.py:103
+#: ../xlgui/collection.py:116
 msgid "Add a Directory"
 msgstr "Добавить каталог"
 
-#: ../xlgui/collection.py:135
+#: ../xlgui/collection.py:150
 msgid "Directory not added."
 msgstr "Каталог не добавлен."
 
-#: ../xlgui/collection.py:137
+#: ../xlgui/collection.py:152
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -1208,7 +1208,7 @@ msgid "Size"
 msgstr "Размер"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:457
+#: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
 msgstr "%s КБ"
@@ -1711,42 +1711,42 @@ msgstr "За_менить текущий"
 msgid "_Append to Current"
 msgstr "_Добавить к текущему"
 
-#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
+#: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 msgid "_Track Properties"
 msgstr "С_войства трека"
 
-#: ../xlgui/widgets/menuitems.py:202
+#: ../xlgui/widgets/menuitems.py:201
 msgid "_Open Directory"
 msgstr "_Открыть каталог"
 
-#: ../xlgui/widgets/menuitems.py:240
+#: ../xlgui/widgets/menuitems.py:239
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
 "Файл невозможно переместить в корзину. Удалить файл с диска окончательно?"
 
-#: ../xlgui/widgets/menuitems.py:270
+#: ../xlgui/widgets/menuitems.py:269
 msgid "_Move to Trash"
 msgstr "Пере_местить в корзину"
 
-#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
+#: ../xlgui/widgets/menuitems.py:288 ../xlgui/widgets/playlist.py:247
 msgid "_Rename"
 msgstr "Пер_еименовать"
 
-#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:301 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Правка"
 
-#: ../xlgui/widgets/menuitems.py:315
+#: ../xlgui/widgets/menuitems.py:314
 msgid "E_xport Playlist"
 msgstr "_Экспорт списка воспроизведения"
 
-#: ../xlgui/widgets/menuitems.py:325
+#: ../xlgui/widgets/menuitems.py:324
 msgid "Export _Files"
 msgstr "Экспорт _файлов"
 
-#: ../xlgui/widgets/menuitems.py:335
+#: ../xlgui/widgets/menuitems.py:334
 msgid "_Delete Playlist"
 msgstr "_Удалить список воспроизведения"
 
@@ -2089,8 +2089,8 @@ msgid "About Exaile"
 msgstr "Об Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
-msgstr "© 2009-2019 различные участники"
+msgid "© 2009–2020 Various Contributors"
+msgstr "© 2009–2020 различные участники"
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
 #: ../data/ui/about_dialog.ui:26
@@ -3278,8 +3278,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr "Модулю необходима хотя бы одна видимая панель"
 
-#: ../plugins/mainmenubutton/__init__.py:83
-#: ../plugins/mainmenubutton/__init__.py:89
+#: ../plugins/mainmenubutton/__init__.py:82
+#: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
 msgstr "Главное меню"
 
@@ -3707,8 +3707,8 @@ msgstr ""
 "посетите <a href=\"https://aws.amazon.com/\">https://aws.amazon.com/</a>.\n"
 "\n"
 "Вам может также понадобиться <a href=\"https://affiliate-program.amazon.com/"
-"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising "
-"API</a></i>."
+"gp/flex/advertising/api/sign-in.html\">активировать Product Advertising API</"
+"a></i>."
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
@@ -4864,8 +4864,8 @@ msgstr ""
 "Приостановка (или опционально продолжение) воспроизведения в зависимости от "
 "состояния экранной заставки.\n"
 "\n"
-"Требуется: экранная заставка GNOME, MATE, Cinnamon, XFCE или KDE ("
-"XScreenSaver и XLockMore не поддерживаются)"
+"Требуется: экранная заставка GNOME, MATE, Cinnamon, XFCE или KDE "
+"(XScreenSaver и XLockMore не поддерживаются)"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."

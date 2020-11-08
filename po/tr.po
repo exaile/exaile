@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-11-08 16:25+1000\n"
 "PO-Revision-Date: 2020-09-19 07:36+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/exaile/master/tr/"
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Bilinmeyen"
 
@@ -656,63 +656,63 @@ msgstr "Çalma Listesi"
 msgid "M3U Playlist"
 msgstr "M3U Çalma Listesi"
 
-#: ../xl/playlist.py:452
+#: ../xl/playlist.py:454
 msgid "PLS Playlist"
 msgstr "PLS Çalma Listesi"
 
-#: ../xl/playlist.py:543 ../xl/playlist.py:558
+#: ../xl/playlist.py:545 ../xl/playlist.py:560
 #, python-format
 msgid "Invalid format for %s."
 msgstr "%s için geçersiz biçim."
 
-#: ../xl/playlist.py:553
+#: ../xl/playlist.py:555
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "%(type)s için %(version)s versiyonu desteklenmiyor"
 
-#: ../xl/playlist.py:613
+#: ../xl/playlist.py:615
 msgid "ASX Playlist"
 msgstr "ASX Çalma Listesi"
 
-#: ../xl/playlist.py:792
+#: ../xl/playlist.py:794
 msgid "XSPF Playlist"
 msgstr "XSPF Çalma Listesi"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:913
 msgid "Shuffle _Off"
 msgstr "Karışık _Kapalı"
 
-#: ../xl/playlist.py:912
+#: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
 msgstr "Karışık _Parçalar"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr "Karışık _Albümler"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:916
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "Rasgele %d"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _Off"
 msgstr "Tekrar _Kapalı"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _All"
 msgstr "_Hepsini Tekrarla"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat O_ne"
 msgstr "_Birini Tekrarla"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic _Off"
 msgstr "Dinamik_Kapalı"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic by Similar _Artists"
 msgstr "Benzer _Sanatçılara göre Dinamik"
 
@@ -781,26 +781,26 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Çok hızlı ve kayıpsız iyi sıkıştırmaya sahip bir Özgür ses biçimi."
 
-#: ../xl/trax/track.py:65
+#: ../xl/trax/track.py:70
 msgid "Various Artists"
 msgstr "Çeşitli Sanatçılar"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:68
+#: ../xl/trax/track.py:73
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
+#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:182
+#: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
 msgstr "db dosyasını yüklemek için bir konum belirtmediniz"
 
-#: ../xl/trax/trackdb.py:251
+#: ../xl/trax/trackdb.py:253
 msgid "You did not specify a location to save the db"
 msgstr "Veritabanına aktarım yapmak için bir yer belirtilmediniz"
 
@@ -826,15 +826,15 @@ msgstr "Kolleksiyon taranıyor..."
 msgid "Scanning %s..."
 msgstr "%s taranıyor..."
 
-#: ../xlgui/collection.py:103
+#: ../xlgui/collection.py:116
 msgid "Add a Directory"
 msgstr "Dizin Ekle"
 
-#: ../xlgui/collection.py:135
+#: ../xlgui/collection.py:150
 msgid "Directory not added."
 msgstr "Dizin eklenmedi."
 
-#: ../xlgui/collection.py:137
+#: ../xlgui/collection.py:152
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -1250,7 +1250,7 @@ msgid "Size"
 msgstr "Boyut"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:457
+#: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1766,54 +1766,54 @@ msgstr "Şimdikiyle Değiştir"
 msgid "_Append to Current"
 msgstr "Geçerli Listeye Ekle"
 
-#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
+#: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "Parça Özellikleri"
 
-#: ../xlgui/widgets/menuitems.py:202
+#: ../xlgui/widgets/menuitems.py:201
 #, fuzzy
 #| msgid "Open Directory"
 msgid "_Open Directory"
 msgstr "Dizini Aç"
 
-#: ../xlgui/widgets/menuitems.py:240
+#: ../xlgui/widgets/menuitems.py:239
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
 "Dosyalar çöp kutusuna taşınamadı. Dosyalar diskten tamamen silinsin mi?"
 
-#: ../xlgui/widgets/menuitems.py:270
+#: ../xlgui/widgets/menuitems.py:269
 #, fuzzy
 #| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "Çöp Kutusuna Taşı"
 
-#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
+#: ../xlgui/widgets/menuitems.py:288 ../xlgui/widgets/playlist.py:247
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
 msgstr "Yeniden Adlandır"
 
-#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:301 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: ../xlgui/widgets/menuitems.py:315
+#: ../xlgui/widgets/menuitems.py:314
 #, fuzzy
 #| msgid "Export Playlist"
 msgid "E_xport Playlist"
 msgstr "Çalma Listesini Farklı Kaydet"
 
-#: ../xlgui/widgets/menuitems.py:325
+#: ../xlgui/widgets/menuitems.py:324
 #, fuzzy
 #| msgid "Export Files"
 msgid "Export _Files"
 msgstr "Dosyaları Dışa Aktar"
 
-#: ../xlgui/widgets/menuitems.py:335
+#: ../xlgui/widgets/menuitems.py:334
 #, fuzzy
 #| msgid "Delete Playlist"
 msgid "_Delete Playlist"
@@ -2194,7 +2194,7 @@ msgid "About Exaile"
 msgstr "Exaile Hakkında"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
@@ -3422,8 +3422,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:83
-#: ../plugins/mainmenubutton/__init__.py:89
+#: ../plugins/mainmenubutton/__init__.py:82
+#: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
 msgstr "Ana Menü"
 

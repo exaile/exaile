@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 01:16+1000\n"
+"POT-Creation-Date: 2020-11-08 16:25+1000\n"
 "PO-Revision-Date: 2016-03-11 22:32+0000\n"
 "Last-Translator: Cédric Valmary <cvalmary@yahoo.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/exaile/master/oc/"
@@ -98,7 +98,7 @@ msgstr "%d:%02d:%02d"
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:66
+#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -667,63 +667,63 @@ msgstr "Lista de lectura"
 msgid "M3U Playlist"
 msgstr "Lista de lectura M3U"
 
-#: ../xl/playlist.py:452
+#: ../xl/playlist.py:454
 msgid "PLS Playlist"
 msgstr "Lista de lectura PLS"
 
-#: ../xl/playlist.py:543 ../xl/playlist.py:558
+#: ../xl/playlist.py:545 ../xl/playlist.py:560
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Format invalid per %s."
 
-#: ../xl/playlist.py:553
+#: ../xl/playlist.py:555
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Version %(version)s pas presa en carga per %(type)s"
 
-#: ../xl/playlist.py:613
+#: ../xl/playlist.py:615
 msgid "ASX Playlist"
 msgstr "Lista de lectura ASX"
 
-#: ../xl/playlist.py:792
+#: ../xl/playlist.py:794
 msgid "XSPF Playlist"
 msgstr "Lista de lectura XSPF"
 
-#: ../xl/playlist.py:911
+#: ../xl/playlist.py:913
 msgid "Shuffle _Off"
 msgstr "Mòde aleatòri _desactivat"
 
-#: ../xl/playlist.py:912
+#: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
 msgstr "Aleatòri per _Pista"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
 msgstr "Aleatòri per _Album"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:916
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "%d aleatòriament"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _Off"
 msgstr "Repeticion _desactivada"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat _All"
 msgstr "Repetir _tot"
 
-#: ../xl/playlist.py:919
+#: ../xl/playlist.py:921
 msgid "Repeat O_ne"
 msgstr "Repetar U_na"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic _Off"
 msgstr "Lectura dinamica _desactivada"
 
-#: ../xl/playlist.py:923
+#: ../xl/playlist.py:925
 msgid "Dynamic by Similar _Artists"
 msgstr "Lectura dinamica per _artistas similars"
 
@@ -796,28 +796,28 @@ msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 "Un format àudio liure sens pèrda fòrça rapid amb un bon taus de compression."
 
-#: ../xl/trax/track.py:65
+#: ../xl/trax/track.py:70
 msgid "Various Artists"
 msgstr "Artistas divèrses"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:68
+#: ../xl/trax/track.py:73
 msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:696 ../xl/trax/track.py:762
+#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
 #, python-format
 msgid "%dk"
 msgstr "%dk"
 
-#: ../xl/trax/trackdb.py:182
+#: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
 msgstr ""
 "Avètz pas especificat cap d'emplaçament dempuèi lo qual cal cargar la banca "
 "de donadas"
 
-#: ../xl/trax/trackdb.py:251
+#: ../xl/trax/trackdb.py:253
 msgid "You did not specify a location to save the db"
 msgstr "Avètz pas precisat cap d'emplaçament per salvar la banca de donadas"
 
@@ -843,15 +843,15 @@ msgstr "Analisi de la bibliotèca..."
 msgid "Scanning %s..."
 msgstr "Analisi en cors de %s..."
 
-#: ../xlgui/collection.py:103
+#: ../xlgui/collection.py:116
 msgid "Add a Directory"
 msgstr "Apondre un repertòri"
 
-#: ../xlgui/collection.py:135
+#: ../xlgui/collection.py:150
 msgid "Directory not added."
 msgstr "Repertòri pas apondut."
 
-#: ../xlgui/collection.py:137
+#: ../xlgui/collection.py:152
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
@@ -1265,7 +1265,7 @@ msgid "Size"
 msgstr "Talha"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:457
+#: ../xlgui/panel/files.py:459
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1787,19 +1787,19 @@ msgstr "Remplaçar l'actual"
 msgid "_Append to Current"
 msgstr "Apondre a la lista de lectura en cors"
 
-#: ../xlgui/widgets/menuitems.py:183 ../xlgui/widgets/playlist.py:418
+#: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 #, fuzzy
 #| msgid "Track Properties"
 msgid "_Track Properties"
 msgstr "Proprietats de la Pista"
 
-#: ../xlgui/widgets/menuitems.py:202
+#: ../xlgui/widgets/menuitems.py:201
 #, fuzzy
 #| msgid "Open Directory"
 msgid "_Open Directory"
 msgstr "Dobrir un repertòri"
 
-#: ../xlgui/widgets/menuitems.py:240
+#: ../xlgui/widgets/menuitems.py:239
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
@@ -1807,35 +1807,35 @@ msgstr ""
 "Aqueles fichièrs pòdon pas èsser meses a l'escobilhièr. Los volètz suprimir "
 "definitivament ?"
 
-#: ../xlgui/widgets/menuitems.py:270
+#: ../xlgui/widgets/menuitems.py:269
 #, fuzzy
 #| msgid "Move to Trash"
 msgid "_Move to Trash"
 msgstr "Metre dins l'escobilhièr"
 
-#: ../xlgui/widgets/menuitems.py:289 ../xlgui/widgets/playlist.py:247
+#: ../xlgui/widgets/menuitems.py:288 ../xlgui/widgets/playlist.py:247
 #, fuzzy
 #| msgid "Rename"
 msgid "_Rename"
 msgstr "Renommar"
 
-#: ../xlgui/widgets/menuitems.py:302 ../data/ui/main.ui:32
+#: ../xlgui/widgets/menuitems.py:301 ../data/ui/main.ui:32
 msgid "_Edit"
 msgstr "_Edicion"
 
-#: ../xlgui/widgets/menuitems.py:315
+#: ../xlgui/widgets/menuitems.py:314
 #, fuzzy
 #| msgid "Export Playlist"
 msgid "E_xport Playlist"
 msgstr "Exportar la lista de lectura"
 
-#: ../xlgui/widgets/menuitems.py:325
+#: ../xlgui/widgets/menuitems.py:324
 #, fuzzy
 #| msgid "Supported Files"
 msgid "Export _Files"
 msgstr "Formats preses en carga"
 
-#: ../xlgui/widgets/menuitems.py:335
+#: ../xlgui/widgets/menuitems.py:334
 #, fuzzy
 #| msgid "Delete Playlist"
 msgid "_Delete Playlist"
@@ -2217,7 +2217,7 @@ msgid "About Exaile"
 msgstr "A prepaus d'Exaile"
 
 #: ../data/ui/about_dialog.ui:13
-msgid "© 2009-2019 Various Contributors"
+msgid "© 2009–2020 Various Contributors"
 msgstr ""
 
 #. TRANSLATORS: Add your own name here. Separate translator names with newlines.
@@ -3444,8 +3444,8 @@ msgstr ""
 msgid "This plugin needs at least one visible panel"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:83
-#: ../plugins/mainmenubutton/__init__.py:89
+#: ../plugins/mainmenubutton/__init__.py:82
+#: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
 msgstr "Menú principal"
 

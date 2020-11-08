@@ -6,6 +6,20 @@ This is an attempt to document what needs to be done in order to create a
 release for Exaile.
 
 
+Step 0: Upgrading the Exaile SDK for Windows (if needed)
+--------------------------------------------------------
+
+If you want to generate a new SDK, go to the `exaile-sdk-win project on AppVeyor
+<https://ci.appveyor.com/project/ExaileDevelopmentTeam/exaile-sdk-win>`_
+and click "New Build". Once the build is done, you can update the ``sdk_ver``
+variable on ``appveyor.yml`` to the new SDK build number.
+
+Note that new SDK versions can come with issues. It's better to do this step
+well in advance and test the result to make sure nothing breaks. In fact it's
+better to do this regularly, so that if something does break, we can revert to a
+not-too-old SDK version.
+
+
 Step 1: Translations
 --------------------
 
@@ -33,13 +47,16 @@ If they're equivalent, then we're all set. If not, then figure out what needs
 to be done to get them merged.
 
 
-Step 2: gather release notes
-----------------------------
+Step 2: Gather and update release notes
+---------------------------------------
 
 There's a lot of ways to go about this. I find that the easiest way to see
 what has changed is go to GitHub releases page, find the last release, and
 click on XXX commits since this release. Then you can browse the list of
 commits and pick out anything worth noting there.
+
+If there is an actively-maintained changelog / release notes page, update it.
+This may include updating the release date, preferably in UTC.
 
 
 Step 3: Tag the release locally

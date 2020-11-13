@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-07-30 20:41+0000\n"
-"Last-Translator: MIN UZ <varulv93@outlook.com>\n"
+"PO-Revision-Date: 2020-11-13 20:28+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
 ">\n"
 "Language: it\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
-msgstr "Tag"
+msgstr "Etichetta"
 
 #: ../xl/covers.py:566
 msgid "Local file"
@@ -120,10 +120,8 @@ msgid "Local"
 msgstr "Locale"
 
 #: ../xl/main.py:82
-#, fuzzy
-#| msgid "Usage: exaile [OPTION]... [URI]"
 msgid "Usage: exaile [OPTION...] [LOCATION...]"
-msgstr "Uso: exaile [OPZIONE]... [URI]"
+msgstr "Uso: exaile [OPZIONE]... [POSIZIONE...]"
 
 #: ../xl/main.py:84
 msgid ""
@@ -186,8 +184,6 @@ msgid "Playlist Options"
 msgstr "Opzioni della scaletta"
 
 #: ../xl/main.py:162
-#, fuzzy
-#| msgid "Exports the current playlist to LOCATION"
 msgid "Export the current playlist to LOCATION"
 msgstr "Esporta la scaletta corrente nel PERCORSO"
 
@@ -205,8 +201,6 @@ msgid "FORMAT"
 msgstr "FORMAT"
 
 #: ../xl/main.py:179
-#, fuzzy
-#| msgid "Retrieves the current playback state and track information as FORMAT"
 msgid "Retrieve the current playback state and track information as FORMAT"
 msgstr ""
 "Recupera le informazioni sullo stato di riproduzione attuale e sulla traccia "
@@ -218,10 +212,9 @@ msgid "TAGS"
 msgstr "ETICHETTE"
 
 #: ../xl/main.py:186
-#, fuzzy
-#| msgid "TAGS to retrieve from the current track, use with --format-query"
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "TAGS da recuperare dalla traccia corrente, usare con --format-query"
+msgstr ""
+"Etichette da recuperare dalla traccia corrente, usare con --format-query"
 
 #: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
@@ -1554,7 +1547,7 @@ msgstr "Scorciatoia"
 
 #: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
-msgstr "Scrittura dei tag fallita"
+msgstr "Scrittura delle etichette fallita"
 
 #: ../xlgui/properties.py:258
 #, python-brace-format
@@ -1562,7 +1555,7 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
-"Impossibile scrivere i tags dei seguenti files:\n"
+"Impossibile scrivere le etichette dei seguenti files:\n"
 "{files}"
 
 #: ../xlgui/properties.py:278
@@ -1876,10 +1869,8 @@ msgid "_Jump to"
 msgstr ""
 
 #: ../xlgui/widgets/playback.py:1396
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "_Remove Marker"
-msgstr "_Rimuovi tag"
+msgstr "_Rimuovi marcatore"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
@@ -2547,8 +2538,8 @@ msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
-"Parole da eliminare dall'inizio dei tag artista durante l'ordinamento "
-"(separate da spazi)"
+"Parole da eliminare dall'inizio delle etichette artista durante "
+"l'ordinamento (separate da spazi)"
 
 #: ../data/ui/preferences/collection.ui:42
 msgid "(Right click to reset to defaults)"
@@ -2790,11 +2781,11 @@ msgstr "Proprietà traccia"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
-msgstr "A_ggiungi tag"
+msgstr "A_ggiungi etichetta"
 
 #: ../data/ui/trackproperties_dialog.ui:100
 msgid "_Remove tag"
-msgstr "_Rimuovi tag"
+msgstr "_Rimuovi etichetta"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
@@ -2802,7 +2793,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr "La prima lettera di tutti i tag in maiuscolo"
+msgstr "La prima lettera di tutti le etichette in maiuscolo"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 #, fuzzy
@@ -3162,10 +3153,8 @@ msgstr "Sì a tutti"
 
 #: ../plugins/grouptagger/__init__.py:175
 #: ../plugins/grouptagger/gt_widgets.py:948
-#, fuzzy
-#| msgid "_Remove tag"
 msgid "Remove tags from all"
-msgstr "_Rimuovi tag"
+msgstr "Rimuovi le etichette da tutti"
 
 #: ../plugins/grouptagger/__init__.py:184 ../plugins/grouptagger/gt_prefs.py:20
 #: ../plugins/grouptagger/gt_widgets.py:691
@@ -3235,16 +3224,12 @@ msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:155
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Tag"
+msgstr "Etichetta"
 
 #: ../plugins/grouptagger/gt_widgets.py:171
-#, fuzzy
-#| msgid "A_dd tag"
 msgid "Add new tag"
-msgstr "A_ggiungi tag"
+msgstr "Aggiungi una nuova etichetta"
 
 #: ../plugins/grouptagger/gt_widgets.py:177
 #, fuzzy
@@ -4199,9 +4184,8 @@ msgid "Replace Tag"
 msgstr "Sostituisci attuale"
 
 #: ../plugins/grouptagger/gt_mass.ui:219
-#, fuzzy
 msgid "0 tracks found"
-msgstr " tracce"
+msgstr "0 traccia trovata"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
@@ -4280,7 +4264,7 @@ msgstr "Data della votazione"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:94
 msgid "Genre/Tags"
-msgstr "Genere/Tag"
+msgstr "Genere/Etichetta"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:176
 msgid "Order by:"
@@ -4465,19 +4449,18 @@ msgid "When main window is focused"
 msgstr "Quando la finestra principale è selezionata"
 
 #: ../plugins/osd/osd_preferences.ui:69
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags "
-#| "like <b>$__length</b> need to be specified with two leading underscores."
+#, python-brace-format
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
 "<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
-"Ogni etichetta può essere usata con <b>$tag</b> o <b>${tag}</b>. Etichette "
-"interne come <b>$__length</b> devono essere specificate con due trattini "
-"bassi."
+"Ogni etichetta può essere utilizzata con <b>${tag}</b>o<b>${tag}</b>. Le "
+"etichette interne come <b>$ __ length</b> devono essere specificati con due "
+"trattini bassi iniziali.\n"
+"<a href=\"https://developer.gnome.org/pango/stable/PangoMarkupFormat.html\""
+">Pango Text Attribute Markup</a> è supportato."
 
 #: ../plugins/osd/osd_preferences.ui:87
 msgid "Display Format"

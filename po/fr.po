@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-07-12 15:41+0000\n"
+"PO-Revision-Date: 2020-11-13 20:28+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/"
-">\n"
+"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -2458,7 +2458,7 @@ msgstr "(glisser pour réorganiser)"
 
 #: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
-msgstr "Utiliser les jaquettes inclues dans les tags"
+msgstr "Utiliser les jaquettes inclues dans les étiquettes"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
@@ -2657,11 +2657,11 @@ msgstr "Propriétés de la Piste"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
-msgstr "A_jouter un tag"
+msgstr "A_jouter une étiquette"
 
 #: ../data/ui/trackproperties_dialog.ui:100
 msgid "_Remove tag"
-msgstr "_Supprimer le tag"
+msgstr "_Supprimer l'étiquette"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
@@ -2669,7 +2669,7 @@ msgstr "ab → A_b"
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr "Mettre en majuscule la première lettre de tous les tags"
+msgstr "Mettre en majuscule la première lettre de tous les étiquettes"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"
@@ -3018,7 +3018,7 @@ msgstr "Supprimer les étiquettes de tous"
 #: ../plugins/grouptagger/gt_widgets.py:691
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:106
 msgid "GroupTagger"
-msgstr "GroupeTaggeur"
+msgstr "Étiqueteur de groupe"
 
 #: ../plugins/grouptagger/__init__.py:325
 #: ../plugins/grouptagger/__init__.py:340

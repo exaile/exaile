@@ -26,7 +26,7 @@
 
 from gi.repository import Gtk
 
-from xl.nls import gettext as _
+from xl.nls import gettext as _, ngettext
 
 from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import dialogs
@@ -116,7 +116,11 @@ class GtMassRename(Gtk.Window):
         self.tracks_list.set_model(model)
         self.tracks_list.thaw_child_notify()
 
-        self.found_label.set_text(_('%s tracks found') % len(model))
+        self.found_label.set_text(
+            ngettext(
+                '{amount} track found', '{amount} tracks found', len(model)
+            ).format(amount=len(model))
+        )
 
         self.replace.set_sensitive(len(model) != 0)
 
@@ -127,13 +131,21 @@ class GtMassRename(Gtk.Window):
         replace_str = self.replace_entry.get_text().strip()
 
         if replace_str:
-            query = _("Replace '%s' with '%s' on %s tracks?") % (
-                self.search_str,
-                replace_str,
+            query = ngettext(
+                "Replace '{old_tag}' with '{new_tag}' on {amount} track?",
+                "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?",
                 len(tracks),
+            ).format(
+                old_tag=self.search_str,
+                new_tag=replace_str,
+                amount=len(tracks),
             )
         else:
-            query = _("Delete '%s' from %s tracks?") % (self.search_str, len(tracks))
+            query = ngettext(
+                "Delete '{tag}' from {amount} track?",
+                "Delete '{tag}' from {amount} tracks?",
+                len(tracks),
+            ).format(tag=self.search_str, amount=len(tracks))
 
         if dialogs.yesno(self, query) != Gtk.ResponseType.YES:
             return

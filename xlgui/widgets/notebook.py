@@ -232,7 +232,6 @@ class NotebookTab(Gtk.EventBox):
             border = Gtk.Border.new()
             border.left = 1
             border.right = 1
-            entry.set_inner_border(border)
             entry.connect('activate', self.on_entry_activate)
             entry.connect('focus-out-event', self.on_entry_focus_out_event)
             entry.connect('key-press-event', self.on_entry_key_press_event)

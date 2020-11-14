@@ -90,15 +90,16 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         builder = main.mainwindow().builder
 
         # Move menu items of the main menu to the internal menu
-        self.mainmenu = builder.get_object('mainmenu')
-        self.menu = Gtk.Menu()
-        self.menu.attach_to_widget(self, None)
-        self.menu.connect('deactivate', self.on_menu_deactivate)
+        self.mainmenu = mainmenu = builder.get_object('mainmenu')
+        self.menu = menu = Gtk.Menu()
+        menu.attach_to_widget(self, None)
+        menu.connect('deactivate', self.on_menu_deactivate)
 
-        for menuitem in self.mainmenu:
-            menuitem.reparent(self.menu)
+        for menuitem in mainmenu:
+            mainmenu.remove(menuitem)
+            menu.add(menuitem)
 
-        self.menu.show_all()
+        menu.show_all()
         self.show_all()
 
         self.connect('toggled', self.on_toggled)
@@ -114,8 +115,11 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         """
         self.notebook.disconnect(self.notebook_page_removed_connection)
 
-        for menuitem in self.menu:
-            menuitem.reparent(self.mainmenu)
+        menu = self.menu
+        mainmenu = self.mainmenu
+        for menuitem in menu:
+            menu.remove(menuitem)
+            mainmenu.add(menuitem)
 
         self.unparent()
         Gtk.Button.destroy(self)

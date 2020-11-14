@@ -50,7 +50,8 @@ class TrackInfoPane(Gtk.Bin):
         builder.add_from_file(xdg.get_data_path('ui', 'widgets', 'track_info.ui'))
 
         info_box = builder.get_object('info_box')
-        info_box.reparent(self)
+        info_box.get_parent().remove(info_box)
+        self.add(info_box)
 
         self.__auto_update = False
         self.__display_progress = False

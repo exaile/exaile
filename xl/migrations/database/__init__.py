@@ -24,17 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import imp
-import os
 from xl import common
 
 
 def handle_migration(db, pdata, oldversion, newversion):
     if oldversion == 1 and newversion == 2:
-        migrator = imp.load_source(
-            "from1to2", os.path.join(os.path.dirname(__file__), "from1to2.py")
-        )
-        migrator.migrate(db, pdata, oldversion, newversion)
+        from . import from1to2
+
+        from1to2.migrate(db, pdata, oldversion, newversion)
     else:
         raise common.VersionError(
             "Don't know how to handle upgrade from "

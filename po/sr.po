@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2015-06-10 13:19+0200\n"
-"Last-Translator: Slobodan Simić, Слободан Симић <slsimic@gmail.com>\n"
+"PO-Revision-Date: 2020-11-15 08:28+0000\n"
+"Last-Translator: Pera Petrovic <srdjan.todorovic.872019@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/exaile/master/sr/"
 ">\n"
 "Language: sr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3661,10 +3661,8 @@ msgid "Use Fading"
 msgstr "Постепено појачај"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:255
-#, fuzzy
-#| msgid "Preferences"
 msgid "<b>Audio Preferences</b>"
-msgstr "Поставке"
+msgstr "<b>Аудио поставке</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:269
 msgid "Minimum volume:"

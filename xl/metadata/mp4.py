@@ -51,6 +51,7 @@ class MP4Format(BaseFormat):
         'originaldate': '----:com.apple.iTunes:ORIGYEAR',
         'cover':       'covr',
         'language':    '----:com.apple.iTunes:LANGUAGE',
+        'isrc':        '----:com.apple.iTunes:ISRC',
         'musicbrainz_albumartistid': '----:com.apple.iTunes:MusicBrainz Album Artist Id',
         'musicbrainz_albumid': '----:com.apple.iTunes:MusicBrainz Album Id',
         'musicbrainz_artistid': '----:com.apple.iTunes:MusicBrainz Artist Id',

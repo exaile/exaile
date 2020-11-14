@@ -617,13 +617,14 @@ class TagRow:
                 name = self.tag[2:]
             else:
                 name = self.tag
+            name = name.capitalize()
 
         self.name = name
         self.label = Gtk.Label(halign=Gtk.Align.START, margin_top=5)
 
         if multi_id == 0:
             # TRANSLATORS: Label for a tag on the Track Properties dialog
-            self.label.set_text(_('%s:') % name.capitalize())
+            self.label.set_text(_('%s:') % name)
             self.label.create_pango_context()
 
         self.clear_button = Gtk.Button()

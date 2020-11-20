@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2018-11-26 21:07+0000\n"
+"PO-Revision-Date: 2020-11-20 20:28+0000\n"
 "Last-Translator: Ajeje Brazorf <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian <https://hosted.weblate.org/projects/exaile/master/"
 "sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
 msgid "Tags"
@@ -871,10 +871,9 @@ msgid "Cover for %s"
 msgstr "Cobertedda pro %s"
 
 #: ../xlgui/cover.py:880
-#, fuzzy, python-brace-format
-#| msgid "{width}x{height} pixels"
+#, python-brace-format
 msgid "{width}x{height} pixels ({zoom}%)"
-msgstr "{width}x{height} pixels"
+msgstr "{width}x{height} pixels ({zoom}%)"
 
 #: ../xlgui/cover.py:931
 msgid "Save File"
@@ -2352,10 +2351,8 @@ msgstr ""
 "cumponidura."
 
 #: ../data/ui/preferences/appearance.ui:228
-#, fuzzy
-#| msgid "Use alpha transparency:"
 msgid "Alpha transparency"
-msgstr "Imprea sa trasparèntzia alfa:"
+msgstr "Trasparèntzia alfa"
 
 #: ../data/ui/preferences/appearance.ui:239
 msgid "Show tray icon"
@@ -2746,7 +2743,7 @@ msgstr "Illustratzione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr "Logo de de su grupu/artista"
+msgstr "Logo de su grupu/artista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
@@ -4832,7 +4829,7 @@ msgid ""
 msgstr ""
 "Faghet cumpàrrere una notìfica cando incumentzat sa riprodutzione de una "
 "rasta o (optzionalmente) si est posta in pàusa/fata sighire/firmada. Tenet "
-"bisòngiu de de libnotify e de su documentu suo typelib"
+"bisòngiu de libnotify e de su documentu suo typelib"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid ""

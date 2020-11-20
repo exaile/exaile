@@ -1,0 +1,102 @@
+name: Exaile CI
+
+on: [push, pull_request]
+
+jobs:
+
+  lint:
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install black
+      - name: Check format
+        run: make check_format
+
+  test:
+    strategy:
+      matrix:
+        imgtag:
+          - debian10-python3
+          - fedora31-python3
+          - ubuntu18.04-python3
+          - ubuntu19.10-python3
+    timeout-minutes: 4
+    runs-on: ubuntu-latest
+    container: exaile/exaile-testimg:${{ matrix.imgtag }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and run tests
+        # The container always runs as root regardless of how we set it up in
+        # the Dockerfile. Exaile has tests for file permissions that fail in
+        # that setup, so we de-escalate manually here.
+        run: |
+          useradd -MN exaile
+          chown -R exaile .
+          export HOME=/tmp/home
+          su -m exaile -c "make BUILDDIR=/tmp/build test test_compile check-doc"
+
+  deploy:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [lint, test]
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt-get install -y --no-install-recommends python3-gi
+      - id: dist
+        name: Create source dist archive
+        run: |
+          version=${GITHUB_REF#refs/*/}
+          printf '::set-output name=version::%s\n' "${version}"
+          make DIST_VERSION="$version" dist
+          checksum=$(cd dist && sha256sum --tag *)
+          printf '::set-output name=checksum::%s\n' "${checksum}"
+      - name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version='${{ steps.dist.outputs.version }}'
+          notes='```
+          ${{ steps.dist.outputs.checksum }}
+          ```'
+          gh release create \
+            "${version}" \
+            "dist/exaile-${version}.tar.gz" \
+            --draft \
+            --title "Exaile ${version}" \
+            --notes "${notes}"
+
+  notify:
+    if: always() && github.repository_owner == 'exaile'
+    needs: [lint, test, deploy]
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send IRC notification
+        # This uses Bash's /dev/tcp <https://tldp.org/LDP/abs/html/devref1.html>.
+        # The char1 stuff reads one char to make sure that the server is ready
+        # before we start sending things, which hopefully fixes some flakiness
+        # that happens otherwise.
+        run: |
+          exec 3<> /dev/tcp/chat.freenode.net/6667
+          LANG=C IFS= read -r -N 1 -u 3 char1
+          printf '%c' "${char1}"
+          printf \
+              'NICK exaile-ci\r\n'\
+              'USER exaile-ci 0 * :#exaile CI bot\r\n'\
+              'JOIN #exaile\r\n'\
+              'PRIVMSG #exaile :%s | lint %s | test %s | deploy %s | %s\r\n'\
+              'QUIT\r\n' \
+            "${GITHUB_REF#refs/*/}" \
+            '${{ needs.lint.result }}' \
+            '${{ needs.test.result }}' \
+            '${{ needs.lint.result }}' \
+            'http://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}' \
+            >&3
+          cat <&3

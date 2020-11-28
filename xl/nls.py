@@ -104,7 +104,7 @@ else:
     def gettext(text: str) -> str:
         return text
 
-    def ngettext(singular: str, plural: str, n: int) -> str:
+    def ngettext(singular: str, plural: str, n: float) -> str:
         if n == 1:
             return singular
         else:

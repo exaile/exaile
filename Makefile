@@ -253,7 +253,7 @@ test_compile:
 	$(MAKE) -C $(BUILD_DIR) all
 
 test:
-	EXAILE_DIR=$(shell pwd) PYTHONPATH=$(shell pwd) $(PYTEST) tests
+	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) tests
 
 test_coverage:
 	rm -rf coverage/

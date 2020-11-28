@@ -91,6 +91,8 @@ need to do this step again for version a.b.c.
 
 Commit the changes and re-tag the release:
 
+.. code-block:: sh
+
     $ git add plugins/*/PLUGININFO
     $ git commit
     $ git tag -d RELEASE_VERSION

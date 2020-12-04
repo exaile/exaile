@@ -1738,15 +1738,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if len(items) == 1 and len(self.playlist) < 100:
             tracks = self.playlist[:]
             current_position = items[0][0]
-            with_extras = True
         else:
             tracks = [i[1] for i in items]
             current_position = 0
-            with_extras = False
 
-        properties.TrackPropertiesDialog(
-            self.get_toplevel(), tracks, current_position, with_extras
-        )
+        properties.TrackPropertiesDialog(self.get_toplevel(), tracks, current_position)
 
     def on_provider_removed(self, provider):
         """

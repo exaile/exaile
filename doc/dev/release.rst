@@ -63,7 +63,7 @@ Step 3: Tag the release locally
 -------------------------------
 
 Make sure you have the correct thing checked out in your git tree, and then
-tag the release. 
+tag the release.
 
 .. code-block:: sh
 
@@ -120,10 +120,17 @@ then re-tag and re-push.
 Step 6: Release the release
 ---------------------------
 
-Once the tag is in GitHub, Travis CI will build a Linux dist and AppVeyor
-will build a Windows installer and upload it to GitHub releases as a draft.
-Once the assets are uploaded, you can edit the draft release and paste in
-your release notes, then click 'Publish Release'.
+Once the tag is in the GitHub repository, GitHub Actions will build a source
+tarball and AppVeyor will build a Windows installer.
+They will create a draft release on GitHub containing those files.
+Edit the draft, paste in your release notes, then click 'Publish Release'.
+
+Ideally, the release notes should include a checksum for each release artifact.
+This can be created (for the format we usually use) with
+
+.. code-block:: sh
+
+    sha256sum --tag FILENAME
 
 
 Final steps
@@ -143,7 +150,7 @@ After a release, we should:
 
   - Update versions in ``_config.yml``
   - Add a new post to ``_posts``
- 
+
 * Send email to exaile-dev and exaile-users mailing lists with the release notes
 
 * Update the channel topic on IRC (``/msg ChanServ topic #exaile ...``)

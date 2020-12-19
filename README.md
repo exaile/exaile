@@ -1,7 +1,7 @@
 Exaile
 ======
 
-[![Build Status](https://travis-ci.org/exaile/exaile.svg?branch=master)](https://travis-ci.org/exaile/exaile)
+[![Build Status](https://github.com/exaile/exaile/workflows/Exaile%20CI/badge.svg)](https://github.com/exaile/exaile/actions?query=workflow%3A%22Exaile+CI%22+branch%3Amaster)
 [![Translate with Weblate](https://hosted.weblate.org/widgets/exaile/-/svg-badge.svg)](https://hosted.weblate.org/engage/exaile/)
 
 Exaile is a music player with a simple interface and powerful

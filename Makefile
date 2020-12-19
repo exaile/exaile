@@ -242,7 +242,6 @@ dist:
 	./tools/dist.sh
 	rm -rf dist/copy
 
-# See .travis.yml for details on how tests are ran by Travis CI
 check-doc: clean
 	$(MAKE) -C doc html
 

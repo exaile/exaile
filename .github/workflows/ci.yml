@@ -41,7 +41,7 @@ jobs:
           su -m exaile -c "make BUILDDIR=/tmp/build test test_compile check-doc"
 
   deploy:
-    if: startsWith(github.ref, 'refs/tags/')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     needs: [lint, test]
     timeout-minutes: 2
     runs-on: ubuntu-latest

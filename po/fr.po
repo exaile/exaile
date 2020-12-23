@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-11-13 20:28+0000\n"
+"PO-Revision-Date: 2020-12-23 13:29+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -264,15 +264,15 @@ msgstr "Options du volume"
 
 #: ../xl/main.py:261
 msgid "Increase the volume by N%"
-msgstr "Augmente le volume de %N"
+msgstr "Augmenter le volume de %N"
 
 #: ../xl/main.py:270
 msgid "Decrease the volume by N%"
-msgstr "Diminue le volume de %N"
+msgstr "Diminuer le volume de %N"
 
 #: ../xl/main.py:278
 msgid "Mute or unmute the volume"
-msgstr "Rend le volume muet ou non muet"
+msgstr "Activer ou désactiver la sourdine"
 
 #: ../xl/main.py:285
 msgid "Print the current volume percentage"

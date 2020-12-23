@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-11-13 20:28+0000\n"
+"PO-Revision-Date: 2020-12-23 13:29+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/exaile/master/it/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -263,20 +263,14 @@ msgid "Volume Options"
 msgstr "Opzioni del volume"
 
 #: ../xl/main.py:261
-#, fuzzy
-#| msgid "Increases the volume by N%"
 msgid "Increase the volume by N%"
 msgstr "Aumenta il volume di N%"
 
 #: ../xl/main.py:270
-#, fuzzy
-#| msgid "Decreases the volume by N%"
 msgid "Decrease the volume by N%"
 msgstr "Riduce il volume di N%"
 
 #: ../xl/main.py:278
-#, fuzzy
-#| msgid "Mutes or unmutes the volume"
 msgid "Mute or unmute the volume"
 msgstr "Attiva o disattiva il volume"
 
@@ -314,9 +308,6 @@ msgstr ""
 "Avvia in modalità sicura - alcune volte è utile quando capitano dei problemi"
 
 #: ../xl/main.py:334
-#, fuzzy
-#| msgid ""
-#| "Force import of old data from version 0.2.x (Overwrites current data)"
 msgid "Force import of old data from version 0.2.x (overwrites current data)"
 msgstr ""
 "Forza l'importazione dei dati dalla versione 0.2.x (sovrascrive i dati "
@@ -369,16 +360,12 @@ msgid "Show debugging output"
 msgstr "Mostra l'output di debug"
 
 #: ../xl/main.py:390
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable debugging of xl.event. Generates lots of output"
 msgstr "Abilita il debug di xl.event. Genera MOLTO output"
 
 #: ../xl/main.py:397
-#, fuzzy
-#| msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Abilita il debug di xl.event. Genera MOLTO output"
+msgstr "Abilita il debug completo di xl.event. Genera MOLTO output"
 
 #: ../xl/main.py:404
 msgid "Add thread name to logging messages."
@@ -445,10 +432,8 @@ msgid "Artist"
 msgstr "Artista"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/widgets/playlist_columns.py:302
-#, fuzzy
-#| msgid "by %(artist)s"
 msgid "Album artist"
-msgstr "artista %(artist)s"
+msgstr "Artista dell'album"
 
 #: ../xl/metadata/tags.py:50
 msgid "Author"
@@ -592,9 +577,8 @@ msgid "Modified"
 msgstr "Modificata"
 
 #: ../xl/metadata/tags.py:86
-#, fuzzy
 msgid "Play time"
-msgstr "Numero di riproduzioni"
+msgstr "Tempo di riproduzione"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"

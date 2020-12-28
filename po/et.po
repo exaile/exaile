@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-11-01 21:26+0000\n"
+"PO-Revision-Date: 2020-12-28 17:29+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -129,6 +129,9 @@ msgid ""
 "playlist. If Exaile is already running, this attempts to use the existing "
 "instance instead of creating a new one."
 msgstr ""
+"Käivita Exaile ning soovi korral lisa ASUKOHAST palasid hetkel aktiivsesse "
+"esitusloendisse. Kui Exaile juba töötab, siis me proovime kasutada juba seda "
+"töötavat programmi, ega loo uut instantsi."
 
 #: ../xl/main.py:95
 msgid "Playback Options"
@@ -313,6 +316,8 @@ msgstr "Ära impordi vanu andmeid versioonist 0.2.x"
 #: ../xl/main.py:349
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Seadista, et käsureavõtmed nagu --play käivitavad Exaile, kui ta juba ei "
+"tööta"
 
 #: ../xl/main.py:352
 msgid "Development/Debug Options"
@@ -328,7 +333,7 @@ msgstr "Määra andmete kataloog"
 
 #: ../xl/main.py:363
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Määra andmete ja seadistuste kaust"
 
 #: ../xl/main.py:368
 msgid "MODULE"
@@ -336,7 +341,7 @@ msgstr "MOODUL"
 
 #: ../xl/main.py:369
 msgid "Limit log output to MODULE"
-msgstr "Piira logi väljastusi moodulini MODULE"
+msgstr "Piira logiväljundit moodulini MODULE"
 
 #: ../xl/main.py:374
 msgid "LEVEL"
@@ -344,23 +349,23 @@ msgstr "TASE"
 
 #: ../xl/main.py:375
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Piira logiväljundit TASEMENI"
 
 #: ../xl/main.py:383
 msgid "Show debugging output"
-msgstr "Silumisväljundi näitamine"
+msgstr "Näita silumisväljundit"
 
 #: ../xl/main.py:390
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr ""
+msgstr "Luba xl.event silumine. Tulemuseks on palju väljundit"
 
 #: ../xl/main.py:397
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Luba täismahuline xl.event silumine. Tulemuseks on VÄGA palju väljundit"
 
 #: ../xl/main.py:404
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Lisa logitud sõnumitele lõime nimi."
 
 #: ../xl/main.py:409
 msgid "TYPE"
@@ -368,11 +373,11 @@ msgstr "LIIK"
 
 #: ../xl/main.py:410
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Piira xl.event silumise väljund vaid TÜÜBIGA"
 
 #: ../xl/main.py:417
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Vähenda väljundi mahtu"
 
 #: ../xl/main.py:427
 msgid "Disable D-Bus support"
@@ -401,6 +406,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile käivitamine pole veel lõppenud. Kas sa sooviksid kuulata "
+"exaile_loaded märguannet?"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/panel/collection.py:130
 #: ../xlgui/widgets/playlist_columns.py:322 ../plugins/cd/cdprefs.py:113
@@ -439,7 +446,7 @@ msgstr "Autoriõigused"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:640
 msgid "Comment"
-msgstr ""
+msgstr "Kommentaarid"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:312
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
@@ -475,7 +482,7 @@ msgstr "Stiil"
 
 #: ../xl/metadata/tags.py:61 ../xlgui/widgets/playlist_columns.py:654
 msgid "Grouping"
-msgstr ""
+msgstr "Rühmitamine"
 
 #: ../xl/metadata/tags.py:62
 msgid "ISRC"
@@ -483,7 +490,7 @@ msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:63 ../xlgui/widgets/playlist_columns.py:479
 msgid "Language"
-msgstr ""
+msgstr "Keel"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/lyrics.py:44
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricwiki/PLUGININFO:5
@@ -500,15 +507,15 @@ msgstr "Organisatsioon"
 
 #: ../xl/metadata/tags.py:67
 msgid "Original album"
-msgstr ""
+msgstr "Algupärane album"
 
 #: ../xl/metadata/tags.py:68
 msgid "Original artist"
-msgstr ""
+msgstr "Algupärane esitaja"
 
 #: ../xl/metadata/tags.py:69
 msgid "Original date"
-msgstr ""
+msgstr "Algupärane kuupäev"
 
 #: ../xl/metadata/tags.py:71
 msgid "Performer"
@@ -571,7 +578,7 @@ msgstr "Esituse kestus"
 
 #: ../xl/metadata/tags.py:87
 msgid "Times played"
-msgstr ""
+msgstr "Esituskordade arv"
 
 #: ../xl/metadata/tags.py:89
 msgid "Start offset"
@@ -583,7 +590,7 @@ msgstr "Lõpu nihe"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Võimalik heliseadme viga. Kas ta ikka on ühendatud?"
 
 #: ../xl/player/gst/missing_plugin.py:89
 #, python-format
@@ -637,29 +644,29 @@ msgstr "Esitusloend"
 
 #: ../xl/playlist.py:339
 msgid "M3U Playlist"
-msgstr "M3U esitusnimekiri"
+msgstr "M3U esitusloend"
 
 #: ../xl/playlist.py:454
 msgid "PLS Playlist"
-msgstr "PLS esitusnimekiri"
+msgstr "PLS esitusloend"
 
 #: ../xl/playlist.py:545 ../xl/playlist.py:560
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "Vigane vorming %s jaoks."
 
 #: ../xl/playlist.py:555
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "%(type)s versioon %(version)s ei ole toetatud"
 
 #: ../xl/playlist.py:615
 msgid "ASX Playlist"
-msgstr "ASX esitusnimekiri"
+msgstr "ASX esitusloend"
 
 #: ../xl/playlist.py:794
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "XSPF esitusloend"
 
 #: ../xl/playlist.py:913
 msgid "Shuffle _Off"
@@ -1489,33 +1496,33 @@ msgstr ""
 
 #: ../xlgui/properties.py:961
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG pilt"
 
 #: ../xlgui/properties.py:966
 msgid "PNG image"
-msgstr ""
+msgstr "PNG pilt"
 
 #: ../xlgui/properties.py:968
 msgid "Image"
-msgstr ""
+msgstr "Pilt"
 
 #: ../xlgui/properties.py:974
 msgid "Linked image"
-msgstr ""
+msgstr "Lingitud pilt"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
 #: ../xlgui/properties.py:1109
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} pixels)"
 
 #: ../xlgui/properties.py:1123
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Vali kaanepildina kasutatav fail"
 
 #: ../xlgui/properties.py:1136
 msgid "Supported image formats"
-msgstr ""
+msgstr "Toetatud pildivormingud"
 
 #: ../xlgui/properties.py:1219
 msgid "Open Directory"
@@ -1523,20 +1530,20 @@ msgstr "Ava kataloog"
 
 #: ../xlgui/properties.py:1269
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Kasuta seda väärtust kõikide palade puhul"
 
 #: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr ""
+msgstr "Salvestasin %(count)s/%(total)s."
 
 #: ../xlgui/tray.py:203
 msgid "Exaile Music Player"
-msgstr "Exaile muusikapleier"
+msgstr "Exaile muusikamängija"
 
 #: ../xlgui/widgets/dialogs.py:349
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Sisesta avatav võrguaadress ehk URL"
 
 #: ../xlgui/widgets/dialogs.py:349
 msgid "Open URL"
@@ -1544,11 +1551,11 @@ msgstr "Ava URL"
 
 #: ../xlgui/widgets/dialogs.py:636
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Vali fail tüübi alusel (laiendi alusel)"
 
 #: ../xlgui/widgets/dialogs.py:694
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Vali avatav meedia"
 
 #: ../xlgui/widgets/dialogs.py:709
 msgid "Supported Files"
@@ -1556,32 +1563,32 @@ msgstr "Toetatud failid"
 
 #: ../xlgui/widgets/dialogs.py:711
 msgid "Music Files"
-msgstr ""
+msgstr "Muusikafailid"
 
 #: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
 msgid "Playlist Files"
-msgstr "Esituskoendi failid"
+msgstr "Esitusloendi failid"
 
 #: ../xlgui/widgets/dialogs.py:795
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Vali avatav kaust"
 
 #: ../xlgui/widgets/dialogs.py:875
 msgid "Import Playlist"
-msgstr ""
+msgstr "Impordi esitusloend"
 
 #: ../xlgui/widgets/dialogs.py:990
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Ekspordi praegune esitusloend"
 
 #: ../xlgui/widgets/dialogs.py:1003
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Palade salvestamisel kasuta suhelisi otsiteesid"
 
 #: ../xlgui/widgets/dialogs.py:1060
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Salvestasin esitusloendid nimega <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:1077
 #, python-format
@@ -1591,11 +1598,11 @@ msgstr "Sulge %s"
 #: ../xlgui/widgets/dialogs.py:1078
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Kas enne sulgemist salvestame %s muudatused?</b>"
 
 #: ../xlgui/widgets/dialogs.py:1080
 msgid "Your changes will be lost if you don't save them"
-msgstr ""
+msgstr "Kui sa muudatusi ei salvesta, siis lähevad nad kaotsi"
 
 #: ../xlgui/widgets/dialogs.py:1084
 msgid "Close Without Saving"
@@ -1603,47 +1610,47 @@ msgstr "Sulge salvestamata"
 
 #: ../xlgui/widgets/dialogs.py:1477
 msgid "Yes to all"
-msgstr ""
+msgstr "Vasta kõigele jaatavalt"
 
 #: ../xlgui/widgets/dialogs.py:1485
 msgid "No to all"
-msgstr ""
+msgstr "Vasta kõigele eitavalt"
 
 #: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "%s kopeerimisel tekkis viga: %s"
 
 #: ../xlgui/widgets/dialogs.py:1686
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Fail on olemas, kas kirjutan %s üle?"
 
 #: ../xlgui/widgets/dialogs.py:1743
 msgid "Playlist name:"
-msgstr ""
+msgstr "Esitusloendi nimi:"
 
 #: ../xlgui/widgets/dialogs.py:1744
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Lisa uus esitusloend..."
 
 #: ../xlgui/widgets/dialogs.py:1757
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
-msgstr "Nimekirja nimi on puudu"
+msgstr "Sinu esitusloendi nimi on puudu"
 
 #: ../xlgui/widgets/dialogs.py:1766
 msgid "Save As"
-msgstr ""
+msgstr "Salvesta kui"
 
 #: ../xlgui/widgets/dialogs.py:1835
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Ekspordin %s"
 
 #: ../xlgui/widgets/dialogs.py:1840
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Vali kaust, kuhu soovid faile eksportida"
 
 #: ../xlgui/widgets/info.py:59
 msgid ""
@@ -1651,6 +1658,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"esitajalt $artist\n"
+"albumilt $album"
 
 #: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
@@ -1677,11 +1687,11 @@ msgstr "Lisa _järjekorda"
 
 #: ../xlgui/widgets/menuitems.py:153
 msgid "_Replace Current"
-msgstr ""
+msgstr "_Asenda praegune"
 
 #: ../xlgui/widgets/menuitems.py:164
 msgid "_Append to Current"
-msgstr ""
+msgstr "_Lisa praegusele juurde"
 
 #: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 msgid "_Track Properties"
@@ -1729,29 +1739,27 @@ msgstr "Sulge kaart"
 #: ../xlgui/widgets/playback.py:834
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Otsin: %s"
 
 #: ../xlgui/widgets/playback.py:1184
 msgid "Move"
-msgstr "Liiguta"
+msgstr "Tõsta"
 
 #: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
-msgstr ""
+msgstr "Uus märge"
 
 #: ../xlgui/widgets/playback.py:1388
 msgid "_Jump to"
-msgstr ""
+msgstr "_Hüppa asukohta"
 
 #: ../xlgui/widgets/playback.py:1396
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Marker"
-msgstr "Eemalda kaanepilt"
+msgstr "Eemalda märge"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
-msgstr "Tumm"
+msgstr "Summutatud"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1445
@@ -1769,7 +1777,7 @@ msgstr "_Paus"
 
 #: ../xlgui/widgets/playback.py:1572
 msgid "P_lay"
-msgstr ""
+msgstr "_Esita"
 
 #: ../xlgui/widgets/playback.py:1584
 msgid "_Next Track"
@@ -1797,7 +1805,7 @@ msgstr "_Dünaamiline"
 
 #: ../xlgui/widgets/playlist.py:146
 msgid "Remove _Current Track From Playlist"
-msgstr ""
+msgstr "Eemalda _see pala esitusloendist"
 
 #: ../xlgui/widgets/playlist.py:179
 msgid "R_andomize Playlist"
@@ -1825,7 +1833,7 @@ msgstr "Lõpeta taase_situs peale praegust lugu"
 
 #: ../xlgui/widgets/playlist.py:332
 msgid "_Continue Playback After This Track"
-msgstr ""
+msgstr "_Jätka taasesitust peale praegust lugu"
 
 #: ../xlgui/widgets/playlist.py:386
 msgid "_Remove from Playlist"
@@ -2400,16 +2408,16 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Kasuta failidesse lisatud kaanepilte"
 
 #: ../data/ui/preferences/lyrics.ui:15
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Laulusõnade kirjatüüp:"
 
 #: ../data/ui/preferences/playback.ui:32
 #: ../plugins/previewdevice/previewprefs.ui:27
 msgid "GStreamer"
-msgstr ""
+msgstr "GStreamer"
 
 #: ../data/ui/preferences/playback.ui:62
 #: ../plugins/previewdevice/previewprefs.ui:192
@@ -4135,10 +4143,8 @@ msgid "Resize displayed covers"
 msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
-msgstr "Kuva ümbriseid"
+msgstr "Kuva kaanepilte"
 
 #: ../plugins/notify/notifyprefs_pane.ui:61
 msgid "Icons"

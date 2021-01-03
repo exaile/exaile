@@ -28,11 +28,9 @@ import os
 import sys
 from gi.repository import GLib
 
-# We need the local hack for OSX bundled apps, so we depend on the main script
-# to set the environment variable correctly instead of trying to infer an
-# absolute path
-# exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
-exaile_dir = os.environ['EXAILE_DIR']
+# exaile_dir is now defined in xl.version, but most of the codebase
+# still accessed it via xl.xdg.exaile_dir
+from .version import exaile_dir
 
 homedir = os.path.expanduser("~")
 lastdir = homedir

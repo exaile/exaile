@@ -28,11 +28,15 @@ import logging
 import os
 from typing import Dict
 
-from . import xdg
-
 logger = logging.getLogger(__name__)
 
 __version__ = "devel"
+
+# We need the local hack for OSX bundled apps, so we depend on the main script
+# to set the environment variable correctly instead of trying to infer an
+# absolute path
+# exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+exaile_dir = os.environ['EXAILE_DIR']
 
 
 def get_current_version():
@@ -77,7 +81,7 @@ def get_current_revision():
 
 if "DIST_VERSION" in os.environ:
     __version__ = os.environ['DIST_VERSION']
-elif os.path.exists(os.path.join(xdg.exaile_dir, ".git")):
+elif os.path.exists(os.path.join(exaile_dir, ".git")):
     version = get_current_version()
     if version is not None:
         __version__ = version

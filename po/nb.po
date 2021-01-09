@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-08-10 19:32+0000\n"
+"PO-Revision-Date: 2021-01-09 09:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/exaile/"
 "master/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1617,7 +1617,7 @@ msgstr "Bruk relative søkestier til spor"
 #: ../xlgui/widgets/dialogs.py:1060
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Spilleliste lagret som  <b>%s</b>."
+msgstr "Spilleliste lagret som <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:1077
 #, python-format
@@ -4183,7 +4183,7 @@ msgstr "Vis knapp i hovedvinduet"
 
 #: ../plugins/minimode/minimode_preferences.ui:284
 msgid "Options"
-msgstr "Instillinger"
+msgstr "Innstillinger"
 
 #: ../plugins/moodbar/prefs.ui:11
 #, fuzzy
@@ -4506,7 +4506,7 @@ msgid ""
 "plugin from gst-plugins-bad is installed"
 msgstr ""
 "Tilbyr manuell tempomåler, og automatisk tempooppdaging, når bpmdetect-"
-"programtillegget fra  gst-plugins-bad er installert"
+"programtillegget fra gst-plugins-bad er installert"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"

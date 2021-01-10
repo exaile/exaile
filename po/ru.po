@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-10-22 08:26+0000\n"
-"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
+"PO-Revision-Date: 2021-01-10 21:32+0000\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3.1\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -956,7 +956,6 @@ msgid "Switch to next tab"
 msgstr "На следующую вкладку"
 
 #: ../xlgui/main.py:206
-#, fuzzy
 msgid "Focus the playlist container"
 msgstr "Переход к контейнеру списка воспроизведения"
 
@@ -2777,7 +2776,6 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: ../data/ui/widgets/volume_control.ui:20
-#, fuzzy
 msgid "Toggle mute"
 msgstr "Включить/выключить звук"
 
@@ -3536,7 +3534,6 @@ msgid "Loading Podcasts..."
 msgstr "Загрузка Подкастов...."
 
 #: ../plugins/podcasts/__init__.py:205
-#, fuzzy
 msgid "No configuration present yet"
 msgstr "Конфигурация ещё не задана"
 
@@ -4222,8 +4219,6 @@ msgid "Resize displayed covers"
 msgstr "Изменить размер отображаемых обложек"
 
 #: ../plugins/notify/notifyprefs_pane.ui:33
-#, fuzzy
-#| msgid "Display covers"
 msgid "Display"
 msgstr "Показывать"
 
@@ -4236,9 +4231,8 @@ msgid "Use album covers as icons"
 msgstr "Использовать обложки как иконки"
 
 #: ../plugins/notify/notifyprefs_pane.ui:89
-#, fuzzy
 msgid "Use media icons for pause, stop and resume"
-msgstr "Использовать медиа иконки для паузы, остановки и возобновления"
+msgstr "Использовать значки для паузы, остановки и возобновления"
 
 #: ../plugins/notify/notifyprefs_pane.ui:104
 msgid "On playback pause, resume and stop"
@@ -4582,7 +4576,6 @@ msgid "Group Tagger"
 msgstr "Массовый установщик тегов"
 
 #: ../plugins/grouptagger/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
@@ -4747,7 +4740,6 @@ msgid "Downmixes audio to one channel."
 msgstr "Смешивает каналы в один."
 
 #: ../plugins/moodbar/PLUGININFO:4
-#, fuzzy
 msgid ""
 "Show visual representation of the music timeline.\n"
 "\n"

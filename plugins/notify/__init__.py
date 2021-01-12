@@ -18,7 +18,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import cgi
+import html
 import logging
 
 import gi
@@ -201,10 +201,10 @@ class Notifier(PlaybackAdapter):
                 self.__exaile.plugins.disable_plugin(__name__)
 
     def __get_body_str(self, track):
-        artist_str = cgi.escape(
+        artist_str = html.escape(
             track.get_tag_display('artist', artist_compilations=False)
         )
-        album_str = cgi.escape(track.get_tag_display('album'))
+        album_str = html.escape(track.get_tag_display('album'))
 
         if self.settings.can_show_markup:
             if artist_str:
@@ -238,7 +238,7 @@ class Notifier(PlaybackAdapter):
 
     def update_track_notify(self, _player, track, media_icon=None):
         # TODO: notification.add_action(): previous, play/pause, next ?
-        title = cgi.escape(track.get_tag_display('title'))
+        title = html.escape(track.get_tag_display('title'))
 
         summary = title
         body = self.__get_body_str(track)

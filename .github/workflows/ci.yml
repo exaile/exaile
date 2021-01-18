@@ -72,31 +72,26 @@ jobs:
             --title "Exaile ${version}" \
             --notes "${notes}"
 
-  notify:
-    if: always() && github.repository_owner == 'exaile'
-    needs: [lint, test, deploy]
-    timeout-minutes: 1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send IRC notification
-        # This uses Bash's /dev/tcp <https://tldp.org/LDP/abs/html/devref1.html>.
-        # The char1 stuff reads one char to make sure that the server is ready
-        # before we start sending things, which hopefully fixes some flakiness
-        # that happens otherwise.
-        run: |
-          exec 3<> /dev/tcp/chat.freenode.net/6667
-          LANG=C IFS= read -r -N 1 -u 3 char1
-          printf '%c' "${char1}"
-          printf \
-              'NICK exaile-ci\r\n'\
-              'USER exaile-ci 0 * :#exaile CI bot\r\n'\
-              'JOIN #exaile\r\n'\
-              'PRIVMSG #exaile :%s | lint %s | test %s | deploy %s | %s\r\n'\
-              'QUIT\r\n' \
-            "${GITHUB_REF#refs/*/}" \
-            '${{ needs.lint.result }}' \
-            '${{ needs.test.result }}' \
-            '${{ needs.lint.result }}' \
-            'http://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}' \
-            >&3
-          cat <&3
+  # TODO: Waiting for https://github.com/Shizmob/pydle/issues/151
+  # notify:
+  #   if: always() && github.repository_owner == 'exaile'
+  #   needs: [lint, test, deploy]
+  #   timeout-minutes: 1
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Install dependencies
+  #       run: pip3 install pydle
+  #     - name: Send IRC notification
+  #       run: |
+  #         printf '%s | lint %s | test %s | deploy %s | %s' \
+  #           "${GITHUB_REF#refs/*/}" \
+  #           '${{ needs.lint.result }}' \
+  #           '${{ needs.test.result }}' \
+  #           '${{ needs.deploy.result }}' \
+  #           'http://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}' \
+  #         | python3 -m pydle.utils.irccat \
+  #           --port 6697 \
+  #           --tls --verify-tls \
+  #           --nickname 'exaile-ci' \
+  #           --channel '#exaile' \
+  #           chat.freenode.net

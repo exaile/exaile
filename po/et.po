@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2020-12-28 17:29+0000\n"
+"PO-Revision-Date: 2021-01-22 14:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -168,7 +168,7 @@ msgstr "Lõpeta taasesitus peale praegust lugu"
 
 #: ../xl/main.py:147
 msgid "Collection Options"
-msgstr "Kogumiku seaded"
+msgstr "Muusikakogu seaded"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:152 ../xl/main.py:161
@@ -177,7 +177,7 @@ msgstr "ASUKOHT"
 
 #: ../xl/main.py:153
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Lisa kogusse lugusid asukohast LOCATION"
+msgstr "Lisa muusikakogusse lugusid asukohast LOCATION"
 
 #: ../xl/main.py:156
 msgid "Playlist Options"
@@ -715,11 +715,11 @@ msgstr ""
 #: ../xl/plugins.py:109
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Plugin nimega \"%s\" on juba installeeritud."
+msgstr "Pistikprogramm nimega „%s“ on juba paigaldatud."
 
 #: ../xl/plugins.py:114
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "Pakitud pistikprogrammis leidub ohtlik otsitee."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
@@ -805,7 +805,7 @@ msgstr ""
 
 #: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
-msgstr ""
+msgstr "Loen muusikakogu..."
 
 #: ../xlgui/__init__.py:397
 #, python-format
@@ -825,6 +825,8 @@ msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"See kaust on juba osa sinu muusikakogust või on mõne sisalduva kausta "
+"alamkaust."
 
 #: ../xlgui/cover.py:97
 #, python-brace-format
@@ -833,7 +835,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
-msgstr ""
+msgstr "Kõik kaanepildid on allalaaditud"
 
 #: ../xlgui/cover.py:123
 msgid "Collecting albums and covers..."
@@ -879,24 +881,26 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Kasutusel saitidelt ei leidu selle pala jaoks kaanepilte. Proov lisada veel "
+"algallikaid, kust neid otsida."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} pikslit"
 
 #: ../xlgui/main.py:95
 msgid "$title (by $artist)"
-msgstr ""
+msgstr "$title (esitajaks $artist)"
 
 #: ../xlgui/main.py:149
 msgid "Save currently selected playlist"
-msgstr ""
+msgstr "Salvesta parajasti valitud esitusloend"
 
 #: ../xlgui/main.py:154
 msgid "Save currently selected playlist under a custom name"
-msgstr ""
+msgstr "Salvesta parajasti valitud esitusloend uue nime all"
 
 #: ../xlgui/main.py:159
 msgid "Focus filter in currently focused panel"
@@ -912,15 +916,15 @@ msgstr "Tühjenda esitusjärjekord"
 
 #: ../xlgui/main.py:174 ../plugins/minimode/controls.py:270
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Alusta, peate või jätka esitamist"
 
 #: ../xlgui/main.py:179
 msgid "Seek to the right"
-msgstr ""
+msgstr "Sirvi paremale"
 
 #: ../xlgui/main.py:184
 msgid "Seek to the left"
-msgstr ""
+msgstr "Sirvi vasakule"
 
 #: ../xlgui/main.py:189 ../xlgui/main.py:194
 msgid "Increase the volume"
@@ -1064,7 +1068,7 @@ msgstr "_Välju Exailest"
 
 #: ../xlgui/menu.py:219
 msgid "_Collection"
-msgstr ""
+msgstr "_Muusikakogu"
 
 #: ../xlgui/menu.py:225
 msgid "_Queue"
@@ -1104,7 +1108,7 @@ msgstr "_Analüüsi muusikakogu uuesti"
 
 #: ../xlgui/menu.py:372 ../data/ui/collection_manager.ui:226
 msgid "Rescan Collection (_slow)"
-msgstr ""
+msgstr "Analüüsi muusikakogu uuesti (aegla_selt)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
@@ -1164,11 +1168,11 @@ msgstr "Albumi esitaja - (Kuupäev - Album)"
 
 #: ../xlgui/panel/collection.py:183 ../xlgui/preferences/collection.py:21
 msgid "Collection"
-msgstr "Kogumik"
+msgstr "Muusikakogu"
 
 #: ../xlgui/panel/collection.py:286
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Analüüsi muusikakogu uuesti"
 
 #: ../xlgui/panel/device.py:151
 #, python-format
@@ -1353,7 +1357,7 @@ msgstr ""
 
 #: ../xlgui/preferences/__init__.py:115 ../xlgui/preferences/plugin.py:40
 msgid "Plugins"
-msgstr "Pluginad"
+msgstr "Pistikprogrammid"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui:216
 msgid "Appearance"
@@ -1397,7 +1401,7 @@ msgstr "Liigitamata"
 
 #: ../xlgui/preferences/plugin.py:179
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Pistikprogrammi teavet ei õnnestunud laadida!"
 
 #: ../xlgui/preferences/plugin.py:180
 #, python-format
@@ -1669,7 +1673,7 @@ msgstr "Ei Mängi"
 #: ../xlgui/widgets/info.py:414
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "muusikakogus %d"
 
 #: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
 #, python-format
@@ -1897,12 +1901,12 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:81
 msgid "Queue"
-msgstr ""
+msgstr "Järjekord"
 
 #: ../xlgui/widgets/queue.py:83
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "Järjekord (%d)"
 
 #: ../xlgui/widgets/rating.py:266
 msgid "Rating:"
@@ -1982,12 +1986,12 @@ msgstr "ei sisalda sõna"
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:224
 msgid "regex"
-msgstr ""
+msgstr "regulaaravaldis"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/widgets/smart_playlist_editor.py:226
 msgid "not regex"
-msgstr ""
+msgstr "ei ole regulaaravaldis"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/widgets/smart_playlist_editor.py:228
@@ -2124,11 +2128,11 @@ msgstr ""
 
 #: ../data/ui/coverwindow.ui:68
 msgid "_Original Size"
-msgstr ""
+msgstr "_Algne suurus"
 
 #: ../data/ui/coverwindow.ui:82
 msgid "_Best Fit"
-msgstr ""
+msgstr "_Parim sobivus"
 
 #. Closes the preferences dialog
 #: ../data/ui/coverwindow.ui:96 ../data/ui/preferences/preferences_dialog.ui:39
@@ -2192,13 +2196,15 @@ msgstr ""
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Muusikakogu on tühi.</b>"
 
 #: ../data/ui/panel/collection.ui:96
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Värskenda muusikakogu vaade\n"
+"(Shift klavi vajutades analüüsid muusikakogu uuesti)"
 
 #: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:170
 msgid "Clear search field"
@@ -2300,7 +2306,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Näita palade arvu muusikakogus"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:208
@@ -2907,7 +2913,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
-msgstr ""
+msgstr "_Lae muusikakogust kõik sildid"
 
 #: ../plugins/grouptagger/__init__.py:105
 msgid "_Import tags from directory"
@@ -2994,6 +3000,8 @@ msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Enne paljude lugude siltide korraga muutmist peaksid muusikakogu uuesti "
+"värskendama. Kas teeme seda nüüd?"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
@@ -3059,7 +3067,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:749
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Lae muusikakogust kõik sildid"
 
 #: ../plugins/grouptagger/gt_widgets.py:770
 msgid "Add selected to choices"
@@ -3370,7 +3378,7 @@ msgstr "{current} / {remaining}"
 
 #: ../plugins/moodbar/prefs.py:26 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Meeleoluriba"
 
 #: ../plugins/multialarmclock/macprefs.py:22
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3394,7 +3402,7 @@ msgstr "{album}"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Teavita"
 
 #: ../plugins/osd/__init__.py:356
 msgid "No track played yet"
@@ -3946,15 +3954,15 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui:18
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Peale väljumist säilita ajalugu"
 
 #: ../plugins/history/history_preferences.ui:36
 msgid "History length:"
-msgstr ""
+msgstr "Ajaloo pikkus:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:23
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Terminali läbipaistmatus:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:49
 msgid "Font:"
@@ -3962,7 +3970,7 @@ msgstr "Font:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:74
 msgid "Text Color:"
-msgstr ""
+msgstr "Teksti värv:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:99
 msgid "Background Color:"
@@ -3970,7 +3978,7 @@ msgstr "Taustavärv:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui:121
 msgid "Launch IPython console when Exaile starts"
-msgstr ""
+msgstr "Exaile käivitamisel ava IPython'i konsool"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:40
 msgid "Release date"
@@ -3978,23 +3986,23 @@ msgstr "Avaldamise kuupäev"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:48
 msgid "Rating this week"
-msgstr ""
+msgstr "Hinnang sellel nädalal"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:52
 msgid "Rating this month"
-msgstr ""
+msgstr "Hinnang sellel kuul"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:56
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Lisamisi esitusloendisse"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:60
 msgid "Number of downloads"
-msgstr ""
+msgstr "Allalaadimiste arv"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:64
 msgid "Number of listens"
-msgstr ""
+msgstr "Kuulamiste arv"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:68
 msgid "Starred"
@@ -4449,6 +4457,8 @@ msgid ""
 "This plugin integrates Spydaap (%s) into Exaile, so that a collection can be "
 "shared over DAAP."
 msgstr ""
+"See pistikprogramm lisab Exailesse Spydaap-liidestuse (%s) ja see võimaldab "
+"muusikakogu jagada DAAP-protokolli vahendusel."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"

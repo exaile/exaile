@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2021-01-22 14:32+0000\n"
+"PO-Revision-Date: 2021-01-28 04:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -3569,7 +3569,7 @@ msgstr ""
 #: ../plugins/wikipedia/__init__.py:150 ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/alarmclock/acprefs_pane.ui:52
 msgid "<b>Alarm Time</b>"

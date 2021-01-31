@@ -61,10 +61,10 @@ class MoodbarGenerator:
             tmppath = f = None
             try:
                 # Reserve a temporary file.
-                fd, tmppath = tempfile.mkstemp(prefix=b'moodbar.')
+                fd, tmppath = tempfile.mkstemp(prefix='moodbar.')
                 os.close(fd)
 
-                cmd = (b'moodbar', b'-o', tmppath, path)
+                cmd = ['moodbar', '-o', tmppath, path]
                 subprocess.check_call(cmd)
                 f = open(tmppath, 'rb')
                 data = f.read()

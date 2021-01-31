@@ -53,14 +53,14 @@ class MoodbarPlugin:
         xl.event.add_ui_callback(
             self._on_preview_device_disabling, 'preview_device_disabling'
         )
-        previewdevice = exaile.plugins.enabled_plugins.get('previewdevice', None)
-        if previewdevice:
-            self.on_preview_device_enabled('', previewdevice)
 
     def on_gui_loaded(self):
         self.main_controller = MoodbarController(
             self, xl.player.PLAYER, self.exaile.gui.main.progress_bar
         )
+        previewdevice = self.exaile.plugins.enabled_plugins.get('previewdevice', None)
+        if previewdevice:
+            self._on_preview_device_enabled('', previewdevice)
 
     def get_preferences_pane(self):
         return prefs

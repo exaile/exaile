@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2021-02-05 01:42+0000\n"
+"PO-Revision-Date: 2021-02-07 20:50+0000\n"
 "Last-Translator: Michalis <michalisntovas@yahoo.gr>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/exaile/master/el/>"
 "\n"
@@ -3830,11 +3830,11 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:70
 msgid "Username:"
-msgstr "Όνομα Χρήστη:"
+msgstr "Όνομα χρήστη:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:94
 msgid "Password:"
-msgstr "Κωδικός:"
+msgstr "Κωδικός πρόσβασης:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:143
 msgid "_Verify Login Data"

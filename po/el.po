@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-08 16:25+1000\n"
-"PO-Revision-Date: 2021-02-07 20:50+0000\n"
+"PO-Revision-Date: 2021-02-09 05:50+0000\n"
 "Last-Translator: Michalis <michalisntovas@yahoo.gr>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/exaile/master/el/>"
 "\n"
@@ -1824,21 +1824,19 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1184
 msgid "Move"
-msgstr "Μεταφορά"
+msgstr "Μετακίνηση"
 
 #: ../xlgui/widgets/playback.py:1329
 msgid "New Marker"
-msgstr ""
+msgstr "Νέος δείκτης"
 
 #: ../xlgui/widgets/playback.py:1388
 msgid "_Jump to"
-msgstr ""
+msgstr "_Μετάβαση σε"
 
 #: ../xlgui/widgets/playback.py:1396
-#, fuzzy
-#| msgid "Remove Cover"
 msgid "_Remove Marker"
-msgstr "Αφαίρεση Εξώφυλλου"
+msgstr "_Αφαίρεση του δείκτη"
 
 #: ../xlgui/widgets/playback.py:1439
 msgid "Muted"
@@ -2860,11 +2858,11 @@ msgstr ""
 
 #: ../data/ui/widgets/progress.ui:20
 msgid "Cancel"
-msgstr "Ακύρωση"
+msgstr "Άκυρο"
 
 #: ../data/ui/widgets/volume_control.ui:20
 msgid "Toggle mute"
-msgstr ""
+msgstr "Εναλλαγή σίγασης"
 
 #: ../data/ui/widgets/volume_control.ui:51 ../plugins/minimode/controls.py:447
 msgid "Volume"

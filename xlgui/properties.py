@@ -624,11 +624,12 @@ class TagRow:
             self.label.set_text(_('%s:') % name)
             self.label.create_pango_context()
 
-        self.clear_button = Gtk.Button()
-        self.clear_button.set_image(
-            Gtk.Image.new_from_icon_name('edit-clear', Gtk.IconSize.BUTTON)
+        self.clear_button = Gtk.Button(
+            image=Gtk.Image.new_from_icon_name('edit-clear', Gtk.IconSize.BUTTON),
+            relief=Gtk.ReliefStyle.NONE,
+            # TRANSLATORS: Remove tag value
+            tooltip_text=_("Clear"),
         )
-        self.clear_button.set_relief(Gtk.ReliefStyle.NONE)
         self.clear_button.connect("clicked", self.clear)
 
         if not isinstance(field, PropertyField):

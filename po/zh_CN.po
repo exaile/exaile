@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 16:25+1000\n"
+"POT-Creation-Date: 2021-03-10 20:00+1000\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: Phil <yalongbay@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
@@ -28,86 +28,86 @@ msgstr "标签"
 msgid "Local file"
 msgstr ""
 
-#: ../xl/formatter.py:596
+#: ../xl/formatter.py:603
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] "%d 天, "
 
-#: ../xl/formatter.py:598
+#: ../xl/formatter.py:605
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] "%d 时, "
 
-#: ../xl/formatter.py:599
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d 分, "
 
-#: ../xl/formatter.py:600
+#: ../xl/formatter.py:607
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d 秒"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:605
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%dd, "
 msgstr "%d 天， "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:608
+#: ../xl/formatter.py:615
 #, python-format
 msgid "%dh, "
 msgstr "%d 小时， "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:610
+#: ../xl/formatter.py:617
 #, python-format
 msgid "%dm, "
 msgstr "%d 分钟， "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:612
+#: ../xl/formatter.py:619
 #, python-format
 msgid "%ds"
 msgstr "%d 秒"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:617
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%dd "
 msgstr "%d 天 "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:620
+#: ../xl/formatter.py:627
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr ""
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:623
+#: ../xl/formatter.py:630
 #, python-format
 msgid "%d:%02d"
 msgstr ""
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "未知"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:754 ../xl/formatter.py:759
+#: ../xl/formatter.py:761 ../xl/formatter.py:766
 msgid "Never"
 msgstr "未曾播放"
 
-#: ../xl/formatter.py:765
+#: ../xl/formatter.py:772
 msgid "Today"
 msgstr "今天"
 
-#: ../xl/formatter.py:767
+#: ../xl/formatter.py:774
 msgid "Yesterday"
 msgstr "昨天"
 
@@ -788,7 +788,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
+#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -892,7 +892,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr ""
@@ -1288,7 +1288,7 @@ msgstr "输入新的播放列表名称"
 msgid "Rename Playlist"
 msgstr "重命名播放列表"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
+#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "您输入的播放列表名称已经被使用。"
@@ -1363,7 +1363,7 @@ msgstr "刷新"
 msgid "Enter the name you want for your new playlist"
 msgstr "为您的新播放列表命名"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
 msgstr "新建播放列表"
 
@@ -1371,42 +1371,42 @@ msgstr "新建播放列表"
 msgid "P_anels"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:69
+#: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:129
+#: ../xlgui/playlist_container.py:131
 #, fuzzy
 #| msgid "C_lear playlist"
 msgid "_Clear Tab History"
 msgstr "清空播放列表(_C)"
 
-#: ../xlgui/playlist_container.py:141
+#: ../xlgui/playlist_container.py:143
 #, fuzzy
 #| msgid "Close Tab"
 msgid "Recently Closed _Tabs"
 msgstr "关闭标签"
 
-#: ../xlgui/playlist_container.py:161
+#: ../xlgui/playlist_container.py:163
 msgid "Restore closed tab"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:200
+#: ../xlgui/playlist_container.py:202
 #, python-format
 msgid "Playlist %d"
 msgstr "播放列表 %d"
 
-#: ../xlgui/playlist_container.py:384
+#: ../xlgui/playlist_container.py:386
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:392
+#: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:544
+#: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
 msgstr ""
 
@@ -1482,8 +1482,8 @@ msgstr "选择一个插件"
 msgid "Plugin Archives"
 msgstr "插件包"
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
-#: ../xlgui/widgets/dialogs.py:892
+#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/widgets/dialogs.py:898
 msgid "All Files"
 msgstr "所有文件"
 
@@ -1491,106 +1491,111 @@ msgstr "所有文件"
 msgid "Plugin file installation failed!"
 msgstr "插件安装失败"
 
-#: ../xlgui/preferences/widgets.py:71
+#: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
 msgstr "重新启动Exaile？"
 
-#: ../xlgui/preferences/widgets.py:74
+#: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
 msgstr "重起后改变后生效。"
 
-#: ../xlgui/preferences/widgets.py:77
+#: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
 msgstr "重启"
 
-#: ../xlgui/preferences/widgets.py:728
+#: ../xlgui/preferences/widgets.py:731
 msgid "Action"
 msgstr "动作"
 
-#: ../xlgui/preferences/widgets.py:736 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "快捷方式"
 
-#: ../xlgui/properties.py:256
+#: ../xlgui/properties.py:253
 msgid "Writing of tags failed"
 msgstr ""
 
-#: ../xlgui/properties.py:258
+#: ../xlgui/properties.py:255
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
 
-#: ../xlgui/properties.py:278
+#: ../xlgui/properties.py:275
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "正在编辑音轨 %(current)d ，共 %(total)d"
 
-#: ../xlgui/properties.py:401
+#: ../xlgui/properties.py:398
 #, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "您确定要永久删除选定的播放列表吗？"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:440
 msgid "Apply changes before closing?"
 msgstr ""
 
-#: ../xlgui/properties.py:444
+#: ../xlgui/properties.py:441
 msgid "Your changes will be lost if you do not apply them now."
 msgstr ""
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:626
+#: ../xlgui/properties.py:624
 #, python-format
 msgid "%s:"
 msgstr ""
 
+#. TRANSLATORS: Remove tag value
+#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+msgid "Clear"
+msgstr "清空"
+
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:854
+#: ../xlgui/properties.py:853
 msgid "of:"
 msgstr ""
 
-#: ../xlgui/properties.py:961
+#: ../xlgui/properties.py:960
 msgid "JPEG image"
 msgstr ""
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:965
 msgid "PNG image"
 msgstr ""
 
-#: ../xlgui/properties.py:968
+#: ../xlgui/properties.py:967
 msgid "Image"
 msgstr ""
 
-#: ../xlgui/properties.py:974
+#: ../xlgui/properties.py:973
 msgid "Linked image"
 msgstr ""
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1109
+#: ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../xlgui/properties.py:1123
+#: ../xlgui/properties.py:1122
 msgid "Select image to set as cover"
 msgstr ""
 
-#: ../xlgui/properties.py:1136
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr ""
 
-#: ../xlgui/properties.py:1219
+#: ../xlgui/properties.py:1218
 msgid "Open Directory"
 msgstr "打开文件夹"
 
-#: ../xlgui/properties.py:1269
+#: ../xlgui/properties.py:1268
 msgid "Apply current value to all tracks"
 msgstr "将当前音量应用于所有音轨"
 
-#: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "已保存 %(count)s 总共 %(total)s."
@@ -1599,118 +1604,118 @@ msgstr "已保存 %(count)s 总共 %(total)s."
 msgid "Exaile Music Player"
 msgstr "Exaile 音乐播放器"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Enter the URL to open"
 msgstr "输入要打开的网址"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Open URL"
 msgstr "打开网址"
 
-#: ../xlgui/widgets/dialogs.py:636
+#: ../xlgui/widgets/dialogs.py:642
 msgid "Select File Type (by Extension)"
 msgstr "选择文件类型 (高级)"
 
-#: ../xlgui/widgets/dialogs.py:694
+#: ../xlgui/widgets/dialogs.py:700
 msgid "Choose Media to Open"
 msgstr "选择要打开的媒体"
 
-#: ../xlgui/widgets/dialogs.py:709
+#: ../xlgui/widgets/dialogs.py:715
 msgid "Supported Files"
 msgstr "支持的文件"
 
-#: ../xlgui/widgets/dialogs.py:711
+#: ../xlgui/widgets/dialogs.py:717
 msgid "Music Files"
 msgstr "音乐文件"
 
-#: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
+#: ../xlgui/widgets/dialogs.py:719 ../xlgui/widgets/dialogs.py:896
 msgid "Playlist Files"
 msgstr "播放列表文件"
 
-#: ../xlgui/widgets/dialogs.py:795
+#: ../xlgui/widgets/dialogs.py:801
 msgid "Choose Directory to Open"
 msgstr "选择要打开的目录"
 
-#: ../xlgui/widgets/dialogs.py:875
+#: ../xlgui/widgets/dialogs.py:881
 msgid "Import Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:990
+#: ../xlgui/widgets/dialogs.py:996
 msgid "Export Current Playlist"
 msgstr "导出目前的播放列表"
 
-#: ../xlgui/widgets/dialogs.py:1003
+#: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1060
+#: ../xlgui/widgets/dialogs.py:1066
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "播放列表已存为 <b>%s</b>。"
 
-#: ../xlgui/widgets/dialogs.py:1077
+#: ../xlgui/widgets/dialogs.py:1083
 #, python-format
 msgid "Close %s"
 msgstr "关闭 %s"
 
-#: ../xlgui/widgets/dialogs.py:1078
+#: ../xlgui/widgets/dialogs.py:1084
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>关闭之前保存更改到%s?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1080
+#: ../xlgui/widgets/dialogs.py:1086
 msgid "Your changes will be lost if you don't save them"
 msgstr "如果不保存，您的更改将会丢失。"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Close Without Saving"
 msgstr "不保存直接关闭"
 
-#: ../xlgui/widgets/dialogs.py:1477
+#: ../xlgui/widgets/dialogs.py:1483
 msgid "Yes to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1485
+#: ../xlgui/widgets/dialogs.py:1491
 msgid "No to all"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
+#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1686
+#: ../xlgui/widgets/dialogs.py:1692
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1743
+#: ../xlgui/widgets/dialogs.py:1749
 msgid "Playlist name:"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1744
+#: ../xlgui/widgets/dialogs.py:1750
 msgid "Add new playlist..."
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1757
+#: ../xlgui/widgets/dialogs.py:1763
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "您未给播放列表命名"
 
-#: ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/dialogs.py:1772
 msgid "Save As"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1835
+#: ../xlgui/widgets/dialogs.py:1841
 #, python-format
 msgid "Exporting %s"
 msgstr ""
 
-#: ../xlgui/widgets/dialogs.py:1840
+#: ../xlgui/widgets/dialogs.py:1846
 msgid "Choose directory to export files to"
 msgstr ""
 
-#: ../xlgui/widgets/info.py:59
+#: ../xlgui/widgets/info.py:60
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1720,21 +1725,21 @@ msgstr ""
 "通过 $artist\n"
 "来自 $album"
 
-#: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:67 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "未播放"
 
-#: ../xlgui/widgets/info.py:414
+#: ../xlgui/widgets/info.py:415
 #, python-format
 msgid "%d in collection"
 msgstr "总计 %d 个"
 
-#: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
+#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
 #, python-format
 msgid "%d showing"
 msgstr "显示 %d 个"
 
-#: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
+#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
 #, python-format
 msgid "%d selected"
 msgstr ""
@@ -1809,7 +1814,7 @@ msgstr "支持的文件"
 msgid "_Delete Playlist"
 msgstr "删除播放列表"
 
-#: ../xlgui/widgets/notebook.py:247
+#: ../xlgui/widgets/notebook.py:246
 msgid "Close Tab"
 msgstr "关闭标签"
 
@@ -1946,15 +1951,15 @@ msgstr "继续回放"
 msgid "_Remove from Playlist"
 msgstr "重命名播放列表"
 
-#: ../xlgui/widgets/playlist.py:738
+#: ../xlgui/widgets/playlist.py:739
 msgid "Requires plugins providing dynamic playlists"
 msgstr "需要有动态列表功能的插件"
 
-#: ../xlgui/widgets/playlist.py:742 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "动态添加相似音轨到播放列表"
 
-#: ../xlgui/widgets/playlist.py:798
+#: ../xlgui/widgets/playlist.py:799
 #, fuzzy
 #| msgid "Loading %s..."
 msgid "Loading"
@@ -3147,22 +3152,25 @@ msgstr ""
 msgid "Select directory to import grouping tags from"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.py:119
-#, fuzzy, python-format
-msgid "%s tracks found"
-msgstr " 音轨"
+#: ../plugins/grouptagger/gt_mass.py:121
+#, fuzzy, python-brace-format
+msgid "{amount} track found"
+msgid_plural "{amount} tracks found"
+msgstr[0] " 音轨"
 
-#: ../plugins/grouptagger/gt_mass.py:130
-#, python-format
-msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+#: ../plugins/grouptagger/gt_mass.py:135
+#, python-brace-format
+msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
+msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
+msgstr[0] ""
 
-#: ../plugins/grouptagger/gt_mass.py:136
-#, python-format
-msgid "Delete '%s' from %s tracks?"
-msgstr ""
+#: ../plugins/grouptagger/gt_mass.py:145
+#, python-brace-format
+msgid "Delete '{tag}' from {amount} track?"
+msgid_plural "Delete '{tag}' from {amount} tracks?"
+msgstr[0] ""
 
-#: ../plugins/grouptagger/gt_mass.py:160
+#: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
@@ -4021,10 +4029,6 @@ msgstr ""
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
 msgstr ""
-
-#: ../plugins/developer/developer_window.ui:131
-msgid "Clear"
-msgstr "清空"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
@@ -4996,6 +5000,10 @@ msgid ""
 "\n"
 "Requires: pyHook (%s) or keyboard (%s)"
 msgstr ""
+
+#, fuzzy, python-format
+#~ msgid "%s tracks found"
+#~ msgstr " 音轨"
 
 #, fuzzy
 #~| msgid "Allows playing of DAAP music shares."

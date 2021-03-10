@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 16:25+1000\n"
+"POT-Creation-Date: 2021-03-10 20:00+1000\n"
 "PO-Revision-Date: 2020-10-23 00:03+0000\n"
 "Last-Translator: Radek Stastny <dedkus@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/"
@@ -28,7 +28,7 @@ msgstr "Značky"
 msgid "Local file"
 msgstr "Místní soubor"
 
-#: ../xl/formatter.py:596
+#: ../xl/formatter.py:603
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
@@ -36,7 +36,7 @@ msgstr[0] "%d den, "
 msgstr[1] "%d dny, "
 msgstr[2] "%d dnů, "
 
-#: ../xl/formatter.py:598
+#: ../xl/formatter.py:605
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
@@ -44,7 +44,7 @@ msgstr[0] "%d hodina, "
 msgstr[1] "%d hodiny, "
 msgstr[2] "%d hodin, "
 
-#: ../xl/formatter.py:599
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
@@ -52,7 +52,7 @@ msgstr[0] "%d minuta, "
 msgstr[1] "%d minuty, "
 msgstr[2] "%d minut, "
 
-#: ../xl/formatter.py:600
+#: ../xl/formatter.py:607
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -61,61 +61,61 @@ msgstr[1] "%d sekundy"
 msgstr[2] "%d sekund"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:605
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%dd, "
 msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:608
+#: ../xl/formatter.py:615
 #, python-format
 msgid "%dh, "
 msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:610
+#: ../xl/formatter.py:617
 #, python-format
 msgid "%dm, "
 msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:612
+#: ../xl/formatter.py:619
 #, python-format
 msgid "%ds"
 msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:617
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%dd "
 msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:620
+#: ../xl/formatter.py:627
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:623
+#: ../xl/formatter.py:630
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Neznámé"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:754 ../xl/formatter.py:759
+#: ../xl/formatter.py:761 ../xl/formatter.py:766
 msgid "Never"
 msgstr "Nikdy"
 
-#: ../xl/formatter.py:765
+#: ../xl/formatter.py:772
 msgid "Today"
 msgstr "Dnes"
 
-#: ../xl/formatter.py:767
+#: ../xl/formatter.py:774
 msgid "Yesterday"
 msgstr "Včera"
 
@@ -782,7 +782,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
+#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -890,7 +890,7 @@ msgstr ""
 "zdroje."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixelů"
@@ -1242,7 +1242,7 @@ msgstr "Zadejte nový název pro Váš seznam skladeb"
 msgid "Rename Playlist"
 msgstr "Přejmenovat seznam skladeb"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
+#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Takto pojmenovaný seznam skladeb se už používá."
@@ -1317,7 +1317,7 @@ msgstr "Obnovit"
 msgid "Enter the name you want for your new playlist"
 msgstr "Napiš jméno nového playlistu"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
 msgstr "Nový seznam skladeb"
 
@@ -1325,40 +1325,40 @@ msgstr "Nový seznam skladeb"
 msgid "P_anels"
 msgstr "P_anely"
 
-#: ../xlgui/playlist_container.py:69
+#: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
 msgstr "Pro vytvoření nového seznamu skladeb upusťte zde"
 
-#: ../xlgui/playlist_container.py:129
+#: ../xlgui/playlist_container.py:131
 msgid "_Clear Tab History"
 msgstr "Vymazat historii"
 
-#: ../xlgui/playlist_container.py:141
+#: ../xlgui/playlist_container.py:143
 msgid "Recently Closed _Tabs"
 msgstr "Naposledy zavřené _karty"
 
-#: ../xlgui/playlist_container.py:161
+#: ../xlgui/playlist_container.py:163
 msgid "Restore closed tab"
 msgstr "Obnovení zavřených karet"
 
-#: ../xlgui/playlist_container.py:200
+#: ../xlgui/playlist_container.py:202
 #, python-format
 msgid "Playlist %d"
 msgstr "Seznam skladeb %d"
 
-#: ../xlgui/playlist_container.py:384
+#: ../xlgui/playlist_container.py:386
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 "{playlist_name} ({track_count} písniček, zavřeno před {minutes} minutami)"
 
-#: ../xlgui/playlist_container.py:392
+#: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 "{playlist_name} ({track_count} písniček, zavřeno před {seconds} sekundami)"
 
-#: ../xlgui/playlist_container.py:544
+#: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
 msgstr "_Přesunout do jiného pohledu"
 
@@ -1434,8 +1434,8 @@ msgstr "Vybrat zásuvný modul"
 msgid "Plugin Archives"
 msgstr "Modul Archiv"
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
-#: ../xlgui/widgets/dialogs.py:892
+#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/widgets/dialogs.py:898
 msgid "All Files"
 msgstr "Všechny soubory"
 
@@ -1443,31 +1443,31 @@ msgstr "Všechny soubory"
 msgid "Plugin file installation failed!"
 msgstr "Instalace zásuvného modulu selhala!"
 
-#: ../xlgui/preferences/widgets.py:71
+#: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
 msgstr "Restartovat Exaile?"
 
-#: ../xlgui/preferences/widgets.py:74
+#: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
 msgstr "Chcete-li uplatnit změny, restartujte aplikaci."
 
-#: ../xlgui/preferences/widgets.py:77
+#: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
 msgstr "Restartovat"
 
-#: ../xlgui/preferences/widgets.py:728
+#: ../xlgui/preferences/widgets.py:731
 msgid "Action"
 msgstr "Akce"
 
-#: ../xlgui/preferences/widgets.py:736 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Zkratka"
 
-#: ../xlgui/properties.py:256
+#: ../xlgui/properties.py:253
 msgid "Writing of tags failed"
 msgstr "Zápis štítků selhal"
 
-#: ../xlgui/properties.py:258
+#: ../xlgui/properties.py:255
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1476,74 +1476,79 @@ msgstr ""
 "Nepodařilo se zapsat štítky pro následující soubory:\n"
 "{files}"
 
-#: ../xlgui/properties.py:278
+#: ../xlgui/properties.py:275
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Upravuji stopu %(current)d z %(total)d"
 
-#: ../xlgui/properties.py:401
+#: ../xlgui/properties.py:398
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Jste si jisti, že chcete uložit změny do všech skladeb?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:440
 msgid "Apply changes before closing?"
 msgstr "Alikovat všechny změny před zavřením?"
 
-#: ../xlgui/properties.py:444
+#: ../xlgui/properties.py:441
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Všechny vaše změny budou ztraceny pokud je teď nepotvrdíte."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:626
+#: ../xlgui/properties.py:624
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
+#. TRANSLATORS: Remove tag value
+#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+msgid "Clear"
+msgstr "Vyčistit"
+
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:854
+#: ../xlgui/properties.py:853
 msgid "of:"
 msgstr "z:"
 
-#: ../xlgui/properties.py:961
+#: ../xlgui/properties.py:960
 msgid "JPEG image"
 msgstr "Obrázek JPEG"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:965
 msgid "PNG image"
 msgstr "PNG obrázek"
 
-#: ../xlgui/properties.py:968
+#: ../xlgui/properties.py:967
 msgid "Image"
 msgstr "Obrázek"
 
-#: ../xlgui/properties.py:974
+#: ../xlgui/properties.py:973
 msgid "Linked image"
 msgstr "Připojený obrázek"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1109
+#: ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixelů)"
 
-#: ../xlgui/properties.py:1123
+#: ../xlgui/properties.py:1122
 msgid "Select image to set as cover"
 msgstr "Vyberte obrázek pro obal"
 
-#: ../xlgui/properties.py:1136
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "Podporované formáty obrázků"
 
-#: ../xlgui/properties.py:1219
+#: ../xlgui/properties.py:1218
 msgid "Open Directory"
 msgstr "Otevřít adresář"
 
-#: ../xlgui/properties.py:1269
+#: ../xlgui/properties.py:1268
 msgid "Apply current value to all tracks"
 msgstr "Použít aktuální hodnotu na všechny stopy"
 
-#: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Uloženo %(count)s ze %(total)s."
@@ -1552,118 +1557,118 @@ msgstr "Uloženo %(count)s ze %(total)s."
 msgid "Exaile Music Player"
 msgstr "Hudební přehrávač Exaile"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Enter the URL to open"
 msgstr "Zadejte URL pro otevření"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Open URL"
 msgstr "Otevřít URL"
 
-#: ../xlgui/widgets/dialogs.py:636
+#: ../xlgui/widgets/dialogs.py:642
 msgid "Select File Type (by Extension)"
 msgstr "Vyber typ souboru (dle přípony)"
 
-#: ../xlgui/widgets/dialogs.py:694
+#: ../xlgui/widgets/dialogs.py:700
 msgid "Choose Media to Open"
 msgstr "Zvolte soubor k otevření"
 
-#: ../xlgui/widgets/dialogs.py:709
+#: ../xlgui/widgets/dialogs.py:715
 msgid "Supported Files"
 msgstr "Podporované soubory"
 
-#: ../xlgui/widgets/dialogs.py:711
+#: ../xlgui/widgets/dialogs.py:717
 msgid "Music Files"
 msgstr "Hudební soubory"
 
-#: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
+#: ../xlgui/widgets/dialogs.py:719 ../xlgui/widgets/dialogs.py:896
 msgid "Playlist Files"
 msgstr "Soubory se seznamy skladeb"
 
-#: ../xlgui/widgets/dialogs.py:795
+#: ../xlgui/widgets/dialogs.py:801
 msgid "Choose Directory to Open"
 msgstr "Zvolte adresář k otevření"
 
-#: ../xlgui/widgets/dialogs.py:875
+#: ../xlgui/widgets/dialogs.py:881
 msgid "Import Playlist"
 msgstr "Importovat seznam skladeb"
 
-#: ../xlgui/widgets/dialogs.py:990
+#: ../xlgui/widgets/dialogs.py:996
 msgid "Export Current Playlist"
 msgstr "Exportovat stávající playlist"
 
-#: ../xlgui/widgets/dialogs.py:1003
+#: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
 msgstr "Použít relativní cestu k souborům"
 
-#: ../xlgui/widgets/dialogs.py:1060
+#: ../xlgui/widgets/dialogs.py:1066
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Seznam skladeb uložen jako <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1077
+#: ../xlgui/widgets/dialogs.py:1083
 #, python-format
 msgid "Close %s"
 msgstr "Zavřít %s"
 
-#: ../xlgui/widgets/dialogs.py:1078
+#: ../xlgui/widgets/dialogs.py:1084
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Uložit změny do %s před uzavřením?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1080
+#: ../xlgui/widgets/dialogs.py:1086
 msgid "Your changes will be lost if you don't save them"
 msgstr "Vaše změny budou ztraceny, pokud je neuložíte"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Close Without Saving"
 msgstr "Zavřít bez uložení"
 
-#: ../xlgui/widgets/dialogs.py:1477
+#: ../xlgui/widgets/dialogs.py:1483
 msgid "Yes to all"
 msgstr "Ano všem"
 
-#: ../xlgui/widgets/dialogs.py:1485
+#: ../xlgui/widgets/dialogs.py:1491
 msgid "No to all"
 msgstr "Ne všem"
 
-#: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
+#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Během kopírování %s nastala chyba: %s"
 
-#: ../xlgui/widgets/dialogs.py:1686
+#: ../xlgui/widgets/dialogs.py:1692
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Soubor %s již existuje, přepsat?"
 
-#: ../xlgui/widgets/dialogs.py:1743
+#: ../xlgui/widgets/dialogs.py:1749
 msgid "Playlist name:"
 msgstr "Název seznamu skladeb:"
 
-#: ../xlgui/widgets/dialogs.py:1744
+#: ../xlgui/widgets/dialogs.py:1750
 msgid "Add new playlist..."
 msgstr "Přidat nový seznam skladeb..."
 
-#: ../xlgui/widgets/dialogs.py:1757
+#: ../xlgui/widgets/dialogs.py:1763
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Nebylo napsáno jméno seznamu skladeb"
 
-#: ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/dialogs.py:1772
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: ../xlgui/widgets/dialogs.py:1835
+#: ../xlgui/widgets/dialogs.py:1841
 #, python-format
 msgid "Exporting %s"
 msgstr "Exportuji %s"
 
-#: ../xlgui/widgets/dialogs.py:1840
+#: ../xlgui/widgets/dialogs.py:1846
 msgid "Choose directory to export files to"
 msgstr "Vybrte adresář kam se mají soubory vyexportovat"
 
-#: ../xlgui/widgets/info.py:59
+#: ../xlgui/widgets/info.py:60
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1673,21 +1678,21 @@ msgstr ""
 "od $artist\n"
 "z $album"
 
-#: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:67 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "Nepřehrává se"
 
-#: ../xlgui/widgets/info.py:414
+#: ../xlgui/widgets/info.py:415
 #, python-format
 msgid "%d in collection"
 msgstr "%d v kolekci"
 
-#: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
+#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
 #, python-format
 msgid "%d showing"
 msgstr "%d zobrazeno"
 
-#: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
+#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
 #, python-format
 msgid "%d selected"
 msgstr "%d vybráno"
@@ -1742,7 +1747,7 @@ msgstr "Export souborů"
 msgid "_Delete Playlist"
 msgstr "Smazat seznam skladeb"
 
-#: ../xlgui/widgets/notebook.py:247
+#: ../xlgui/widgets/notebook.py:246
 msgid "Close Tab"
 msgstr "Zavřít kartu"
 
@@ -1849,15 +1854,15 @@ msgstr "_Pokračovat přehrávání po této skladbě"
 msgid "_Remove from Playlist"
 msgstr "Odst_ranit ze seznamu skladeb"
 
-#: ../xlgui/widgets/playlist.py:738
+#: ../xlgui/widgets/playlist.py:739
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Vyžaduje modul poskytující dynamické seznamy skladeb"
 
-#: ../xlgui/widgets/playlist.py:742 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamicky přidávat podobné skladby do seznamu skladeb"
 
-#: ../xlgui/widgets/playlist.py:798
+#: ../xlgui/widgets/playlist.py:799
 msgid "Loading"
 msgstr "Načítání"
 
@@ -3015,22 +3020,33 @@ msgstr "Aktualizace skupin"
 msgid "Select directory to import grouping tags from"
 msgstr "Vyberte adresář odkud importovat Skupiny značek"
 
-#: ../plugins/grouptagger/gt_mass.py:119
-#, python-format
-msgid "%s tracks found"
-msgstr "%s skladeb nalezeno"
+#: ../plugins/grouptagger/gt_mass.py:121
+#, fuzzy, python-brace-format
+#| msgid "0 tracks found"
+msgid "{amount} track found"
+msgid_plural "{amount} tracks found"
+msgstr[0] "Nalezeno 0 skladeb"
+msgstr[1] "Nalezeno 0 skladeb"
+msgstr[2] "Nalezeno 0 skladeb"
 
-#: ../plugins/grouptagger/gt_mass.py:130
-#, fuzzy, python-format
-msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr "Nahradit '%s' za '%s' v %s skladbách?"
+#: ../plugins/grouptagger/gt_mass.py:135
+#, fuzzy, python-brace-format
+msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
+msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
+msgstr[0] "Nahradit '%s' za '%s' v %s skladbách?"
+msgstr[1] "Nahradit '%s' za '%s' v %s skladbách?"
+msgstr[2] "Nahradit '%s' za '%s' v %s skladbách?"
 
-#: ../plugins/grouptagger/gt_mass.py:136
-#, python-format
-msgid "Delete '%s' from %s tracks?"
-msgstr "Smazat '%s' z %s skladeb?"
+#: ../plugins/grouptagger/gt_mass.py:145
+#, fuzzy, python-brace-format
+#| msgid "Delete '%s' from %s tracks?"
+msgid "Delete '{tag}' from {amount} track?"
+msgid_plural "Delete '{tag}' from {amount} tracks?"
+msgstr[0] "Smazat '%s' z %s skladeb?"
+msgstr[1] "Smazat '%s' z %s skladeb?"
+msgstr[2] "Smazat '%s' z %s skladeb?"
 
-#: ../plugins/grouptagger/gt_mass.py:160
+#: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
@@ -3881,10 +3897,6 @@ msgstr "Počet"
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
 msgstr "Filtrovat typy událostí"
-
-#: ../plugins/developer/developer_window.ui:131
-msgid "Clear"
-msgstr "Vyčistit"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
@@ -4894,6 +4906,10 @@ msgstr ""
 "klávesnic) pro Exaile v Microsoft Windows.\n"
 "\n"
 "Vyžaduje: pyHook (%s) nebo klávesnici (%s)"
+
+#, python-format
+#~ msgid "%s tracks found"
+#~ msgstr "%s skladeb nalezeno"
 
 #, fuzzy
 #~| msgid "Allows playing of DAAP music shares."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 16:25+1000\n"
+"POT-Creation-Date: 2021-03-10 20:00+1000\n"
 "PO-Revision-Date: 2020-07-22 23:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/exaile/master/es/"
@@ -28,28 +28,28 @@ msgstr "Etiquetas"
 msgid "Local file"
 msgstr "Archivo local"
 
-#: ../xl/formatter.py:596
+#: ../xl/formatter.py:603
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] "%d día, "
 msgstr[1] "%d días, "
 
-#: ../xl/formatter.py:598
+#: ../xl/formatter.py:605
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] "%d hora, "
 msgstr[1] "%d horas, "
 
-#: ../xl/formatter.py:599
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d minuto, "
 msgstr[1] "%d minutos, "
 
-#: ../xl/formatter.py:600
+#: ../xl/formatter.py:607
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -57,61 +57,61 @@ msgstr[0] "%d segundo"
 msgstr[1] "%d segundos"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:605
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%dd, "
 msgstr "%d d, "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:608
+#: ../xl/formatter.py:615
 #, python-format
 msgid "%dh, "
 msgstr "%d h, "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:610
+#: ../xl/formatter.py:617
 #, python-format
 msgid "%dm, "
 msgstr "%d m, "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:612
+#: ../xl/formatter.py:619
 #, python-format
 msgid "%ds"
 msgstr "%d s"
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:617
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%dd "
 msgstr "%d d "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
-#: ../xl/formatter.py:620
+#: ../xl/formatter.py:627
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
-#: ../xl/formatter.py:623
+#: ../xl/formatter.py:630
 #, python-format
 msgid "%d:%02d"
 msgstr "%d:%02d"
 
-#: ../xl/formatter.py:720 ../xl/main.py:619 ../xl/trax/track.py:71
+#: ../xl/formatter.py:727 ../xl/main.py:619 ../xl/trax/track.py:71
 msgid "Unknown"
 msgstr "Desconocido"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:754 ../xl/formatter.py:759
+#: ../xl/formatter.py:761 ../xl/formatter.py:766
 msgid "Never"
 msgstr "Nunca"
 
-#: ../xl/formatter.py:765
+#: ../xl/formatter.py:772
 msgid "Today"
 msgstr "Hoy"
 
-#: ../xl/formatter.py:767
+#: ../xl/formatter.py:774
 msgid "Yesterday"
 msgstr "Ayer"
 
@@ -788,7 +788,7 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:714 ../xl/trax/track.py:780
+#: ../xl/trax/track.py:721 ../xl/trax/track.py:787
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -896,7 +896,7 @@ msgstr ""
 "a activar más fuentes."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1106
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}×{height} píxeles"
@@ -1248,7 +1248,7 @@ msgstr "Introduzca el nuevo nombre para su lista de reproducción"
 msgid "Rename Playlist"
 msgstr "Renombrar lista de reproducción"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1760
+#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "El nombre de la lista que ha introducido ya está en uso."
@@ -1323,7 +1323,7 @@ msgstr "Actualizar"
 msgid "Enter the name you want for your new playlist"
 msgstr "Introduzca el nombre que desea para su nueva lista de reproducción"
 
-#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:68
+#: ../xlgui/panel/radio.py:417 ../xlgui/playlist_container.py:70
 msgid "New Playlist"
 msgstr "Lista de reproducción nueva"
 
@@ -1331,40 +1331,40 @@ msgstr "Lista de reproducción nueva"
 msgid "P_anels"
 msgstr "Pa_neles"
 
-#: ../xlgui/playlist_container.py:69
+#: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
 msgstr "Soltar aqui para crear una nueva lista de reproducción"
 
-#: ../xlgui/playlist_container.py:129
+#: ../xlgui/playlist_container.py:131
 msgid "_Clear Tab History"
 msgstr "_Vaciar historial de pestañas"
 
-#: ../xlgui/playlist_container.py:141
+#: ../xlgui/playlist_container.py:143
 msgid "Recently Closed _Tabs"
 msgstr "Pes_tañas cerradas recientemente"
 
-#: ../xlgui/playlist_container.py:161
+#: ../xlgui/playlist_container.py:163
 msgid "Restore closed tab"
 msgstr "Restaurar pestaña cerrada"
 
-#: ../xlgui/playlist_container.py:200
+#: ../xlgui/playlist_container.py:202
 #, python-format
 msgid "Playlist %d"
 msgstr "Lista de reproducción %d"
 
-#: ../xlgui/playlist_container.py:384
+#: ../xlgui/playlist_container.py:386
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 "{playlist_name} ({track_count} canciones, cerradas hace {minutes} minutos)"
 
-#: ../xlgui/playlist_container.py:392
+#: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 "{playlist_name} ({track_count} canciones, cerradas hace {seconds} segundos)"
 
-#: ../xlgui/playlist_container.py:544
+#: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
 msgstr "_Mover a otra vista"
 
@@ -1439,8 +1439,8 @@ msgstr "Seleccione un complemento"
 msgid "Plugin Archives"
 msgstr "Archivos de extensiones"
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:715
-#: ../xlgui/widgets/dialogs.py:892
+#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/widgets/dialogs.py:898
 msgid "All Files"
 msgstr "Todos los Archivos"
 
@@ -1448,31 +1448,31 @@ msgstr "Todos los Archivos"
 msgid "Plugin file installation failed!"
 msgstr "¡La instalación del archivo de complemento falló!"
 
-#: ../xlgui/preferences/widgets.py:71
+#: ../xlgui/preferences/widgets.py:74
 msgid "Restart Exaile?"
 msgstr "¿Reiniciar Exaile?"
 
-#: ../xlgui/preferences/widgets.py:74
+#: ../xlgui/preferences/widgets.py:77
 msgid "A restart is required for this change to take effect."
 msgstr "Es necesario reiniciar para que este cambio surta efecto."
 
-#: ../xlgui/preferences/widgets.py:77
+#: ../xlgui/preferences/widgets.py:80
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../xlgui/preferences/widgets.py:728
+#: ../xlgui/preferences/widgets.py:731
 msgid "Action"
 msgstr "Acción"
 
-#: ../xlgui/preferences/widgets.py:736 ../data/ui/shortcuts_dialog.ui:78
+#: ../xlgui/preferences/widgets.py:739 ../data/ui/shortcuts_dialog.ui:78
 msgid "Shortcut"
 msgstr "Atajo"
 
-#: ../xlgui/properties.py:256
+#: ../xlgui/properties.py:253
 msgid "Writing of tags failed"
 msgstr "Falló la escritura de las etiquetas"
 
-#: ../xlgui/properties.py:258
+#: ../xlgui/properties.py:255
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1481,74 +1481,79 @@ msgstr ""
 "No se pudieron escribir las etiquetas en los siguientes archivos:\n"
 "{files}"
 
-#: ../xlgui/properties.py:278
+#: ../xlgui/properties.py:275
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Editando pista %(current)d de %(total)d"
 
-#: ../xlgui/properties.py:401
+#: ../xlgui/properties.py:398
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "¿Confirma que quiere aplicar los cambios a todas las pistas?"
 
-#: ../xlgui/properties.py:443
+#: ../xlgui/properties.py:440
 msgid "Apply changes before closing?"
 msgstr "¿Quiere aplicar los cambios antes de cerrar?"
 
-#: ../xlgui/properties.py:444
+#: ../xlgui/properties.py:441
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Se perderán sus cambios si no los aplica ahora."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:626
+#: ../xlgui/properties.py:624
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
+#. TRANSLATORS: Remove tag value
+#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+msgid "Clear"
+msgstr "Vaciar"
+
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:854
+#: ../xlgui/properties.py:853
 msgid "of:"
 msgstr "de:"
 
-#: ../xlgui/properties.py:961
+#: ../xlgui/properties.py:960
 msgid "JPEG image"
 msgstr "Imagen JPEG"
 
-#: ../xlgui/properties.py:966
+#: ../xlgui/properties.py:965
 msgid "PNG image"
 msgstr "Imagen PNG"
 
-#: ../xlgui/properties.py:968
+#: ../xlgui/properties.py:967
 msgid "Image"
 msgstr "Imagen"
 
-#: ../xlgui/properties.py:974
+#: ../xlgui/properties.py:973
 msgid "Linked image"
 msgstr "Imagen vinculada"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1109
+#: ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}×{height} píxeles)"
 
-#: ../xlgui/properties.py:1123
+#: ../xlgui/properties.py:1122
 msgid "Select image to set as cover"
 msgstr "Seleccione la imagen que se definirá como cubierta"
 
-#: ../xlgui/properties.py:1136
+#: ../xlgui/properties.py:1135
 msgid "Supported image formats"
 msgstr "Formatos de imagen compatibles"
 
-#: ../xlgui/properties.py:1219
+#: ../xlgui/properties.py:1218
 msgid "Open Directory"
 msgstr "Abrir directorio"
 
-#: ../xlgui/properties.py:1269
+#: ../xlgui/properties.py:1268
 msgid "Apply current value to all tracks"
 msgstr "Aplicar el valor actual a todas las pistas"
 
-#: ../xlgui/properties.py:1289 ../xlgui/widgets/dialogs.py:1537
+#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Guardados %(count)s de %(total)s."
@@ -1557,118 +1562,118 @@ msgstr "Guardados %(count)s de %(total)s."
 msgid "Exaile Music Player"
 msgstr "Reproductor de música Exaile"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Enter the URL to open"
 msgstr "Introduzca la dirección URL a abrir"
 
-#: ../xlgui/widgets/dialogs.py:349
+#: ../xlgui/widgets/dialogs.py:355
 msgid "Open URL"
 msgstr "Abrir dirección URL"
 
-#: ../xlgui/widgets/dialogs.py:636
+#: ../xlgui/widgets/dialogs.py:642
 msgid "Select File Type (by Extension)"
 msgstr "Seleccione el tipo de archivo (por extensión)"
 
-#: ../xlgui/widgets/dialogs.py:694
+#: ../xlgui/widgets/dialogs.py:700
 msgid "Choose Media to Open"
 msgstr "Elegir Dispositivo para Abrir"
 
-#: ../xlgui/widgets/dialogs.py:709
+#: ../xlgui/widgets/dialogs.py:715
 msgid "Supported Files"
 msgstr "Archivos admitidos"
 
-#: ../xlgui/widgets/dialogs.py:711
+#: ../xlgui/widgets/dialogs.py:717
 msgid "Music Files"
 msgstr "Archivos de música"
 
-#: ../xlgui/widgets/dialogs.py:713 ../xlgui/widgets/dialogs.py:890
+#: ../xlgui/widgets/dialogs.py:719 ../xlgui/widgets/dialogs.py:896
 msgid "Playlist Files"
 msgstr "Archivos de listas de reproducción"
 
-#: ../xlgui/widgets/dialogs.py:795
+#: ../xlgui/widgets/dialogs.py:801
 msgid "Choose Directory to Open"
 msgstr "Seleccione directorio para abrir"
 
-#: ../xlgui/widgets/dialogs.py:875
+#: ../xlgui/widgets/dialogs.py:881
 msgid "Import Playlist"
 msgstr "Importar lista de reproducción"
 
-#: ../xlgui/widgets/dialogs.py:990
+#: ../xlgui/widgets/dialogs.py:996
 msgid "Export Current Playlist"
 msgstr "Exportar lista de reproducción actual"
 
-#: ../xlgui/widgets/dialogs.py:1003
+#: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
 msgstr "Usar rutas relativas a las pistas"
 
-#: ../xlgui/widgets/dialogs.py:1060
+#: ../xlgui/widgets/dialogs.py:1066
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Lista de reproducción guardada como <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1077
+#: ../xlgui/widgets/dialogs.py:1083
 #, python-format
 msgid "Close %s"
 msgstr "Cerrar %s"
 
-#: ../xlgui/widgets/dialogs.py:1078
+#: ../xlgui/widgets/dialogs.py:1084
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>¿Guardar los cambios en %s antes de cerrar?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1080
+#: ../xlgui/widgets/dialogs.py:1086
 msgid "Your changes will be lost if you don't save them"
 msgstr "Sus cambios se perderán si no los guarda"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1090
 msgid "Close Without Saving"
 msgstr "Cerrar Sin Guardar"
 
-#: ../xlgui/widgets/dialogs.py:1477
+#: ../xlgui/widgets/dialogs.py:1483
 msgid "Yes to all"
 msgstr "Sí a todo"
 
-#: ../xlgui/widgets/dialogs.py:1485
+#: ../xlgui/widgets/dialogs.py:1491
 msgid "No to all"
 msgstr "No a todo"
 
-#: ../xlgui/widgets/dialogs.py:1657 ../xlgui/widgets/dialogs.py:1675
+#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Ocurrió un error al copiar %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1686
+#: ../xlgui/widgets/dialogs.py:1692
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "El archivo existe, ¿sobreescribir %s?"
 
-#: ../xlgui/widgets/dialogs.py:1743
+#: ../xlgui/widgets/dialogs.py:1749
 msgid "Playlist name:"
 msgstr "Nombre de la lista de reproducción:"
 
-#: ../xlgui/widgets/dialogs.py:1744
+#: ../xlgui/widgets/dialogs.py:1750
 msgid "Add new playlist..."
 msgstr "Añadir lista de reproducción nueva…"
 
-#: ../xlgui/widgets/dialogs.py:1757
+#: ../xlgui/widgets/dialogs.py:1763
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "No introdujo ningún nombre para su lista de reproducción"
 
-#: ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/widgets/dialogs.py:1772
 msgid "Save As"
 msgstr "Guardar como"
 
-#: ../xlgui/widgets/dialogs.py:1835
+#: ../xlgui/widgets/dialogs.py:1841
 #, python-format
 msgid "Exporting %s"
 msgstr "Exportando %s"
 
-#: ../xlgui/widgets/dialogs.py:1840
+#: ../xlgui/widgets/dialogs.py:1846
 msgid "Choose directory to export files to"
 msgstr "Seleccionar directorio para exportar archivos"
 
-#: ../xlgui/widgets/info.py:59
+#: ../xlgui/widgets/info.py:60
 msgid ""
 "<span size=\"x-large\" weight=\"bold\">$title</span>\n"
 "by $artist\n"
@@ -1678,21 +1683,21 @@ msgstr ""
 "por $artist\n"
 "de $album"
 
-#: ../xlgui/widgets/info.py:66 ../xlgui/widgets/playback.py:110
+#: ../xlgui/widgets/info.py:67 ../xlgui/widgets/playback.py:110
 msgid "Not Playing"
 msgstr "No reproduciendo"
 
-#: ../xlgui/widgets/info.py:414
+#: ../xlgui/widgets/info.py:415
 #, python-format
 msgid "%d in collection"
 msgstr "%d en la colección"
 
-#: ../xlgui/widgets/info.py:436 ../xlgui/widgets/info.py:443
+#: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
 #, python-format
 msgid "%d showing"
 msgstr "mostrando %d"
 
-#: ../xlgui/widgets/info.py:440 ../xlgui/widgets/info.py:447
+#: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
 #, python-format
 msgid "%d selected"
 msgstr "%d seleccionada"
@@ -1749,7 +1754,7 @@ msgstr "Exportar arc_hivos"
 msgid "_Delete Playlist"
 msgstr "_Eliminar lista de reproducción"
 
-#: ../xlgui/widgets/notebook.py:247
+#: ../xlgui/widgets/notebook.py:246
 msgid "Close Tab"
 msgstr "Cerrar pestaña"
 
@@ -1856,16 +1861,16 @@ msgstr "_Continuar reproducción después de esta pista"
 msgid "_Remove from Playlist"
 msgstr "Cambia_r nombre de lista de reproducción"
 
-#: ../xlgui/widgets/playlist.py:738
+#: ../xlgui/widgets/playlist.py:739
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 "Necesita complementos para proporcionar listas de reproducción dinámicas"
 
-#: ../xlgui/widgets/playlist.py:742 ../data/ui/playlist.ui:99
+#: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Añadir pistas similares a la lista de forma dinámica"
 
-#: ../xlgui/widgets/playlist.py:798
+#: ../xlgui/widgets/playlist.py:799
 msgid "Loading"
 msgstr "Cargando"
 
@@ -3029,22 +3034,31 @@ msgstr "Actualizando grupos"
 msgid "Select directory to import grouping tags from"
 msgstr "Seleccionar directorio del cual importar etiquetas agrupadoras"
 
-#: ../plugins/grouptagger/gt_mass.py:119
-#, python-format
-msgid "%s tracks found"
-msgstr "%s pistas encontradas"
+#: ../plugins/grouptagger/gt_mass.py:121
+#, fuzzy, python-brace-format
+#| msgid "0 tracks found"
+msgid "{amount} track found"
+msgid_plural "{amount} tracks found"
+msgstr[0] "0 pistas encontradas"
+msgstr[1] "0 pistas encontradas"
 
-#: ../plugins/grouptagger/gt_mass.py:130
-#, python-format
-msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr "¿Quiere reemplazar «%s» por «%s» en %s pistas?"
+#: ../plugins/grouptagger/gt_mass.py:135
+#, fuzzy, python-brace-format
+#| msgid "Replace '%s' with '%s' on %s tracks?"
+msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
+msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
+msgstr[0] "¿Quiere reemplazar «%s» por «%s» en %s pistas?"
+msgstr[1] "¿Quiere reemplazar «%s» por «%s» en %s pistas?"
 
-#: ../plugins/grouptagger/gt_mass.py:136
-#, python-format
-msgid "Delete '%s' from %s tracks?"
-msgstr "¿Quiere eliminar «%s» de %s pistas?"
+#: ../plugins/grouptagger/gt_mass.py:145
+#, fuzzy, python-brace-format
+#| msgid "Delete '%s' from %s tracks?"
+msgid "Delete '{tag}' from {amount} track?"
+msgid_plural "Delete '{tag}' from {amount} tracks?"
+msgstr[0] "¿Quiere eliminar «%s» de %s pistas?"
+msgstr[1] "¿Quiere eliminar «%s» de %s pistas?"
 
-#: ../plugins/grouptagger/gt_mass.py:160
+#: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
@@ -3892,10 +3906,6 @@ msgstr "Recuento"
 #: ../plugins/developer/developer_window.ui:106
 msgid "Filter event types"
 msgstr "Filtrar tipos de eventos"
-
-#: ../plugins/developer/developer_window.ui:131
-msgid "Clear"
-msgstr "Vaciar"
 
 #: ../plugins/developer/developer_window.ui:156
 msgid "Events"
@@ -4916,6 +4926,10 @@ msgstr ""
 "teclados nuevos) al ejecutar Exaile en Microsoft Windows.\n"
 "\n"
 "Requiere pyHook (%s) o keyboard (%s)"
+
+#, python-format
+#~ msgid "%s tracks found"
+#~ msgstr "%s pistas encontradas"
 
 #~ msgid "Allows playing of DAAP music shares using the spydaap library."
 #~ msgstr ""

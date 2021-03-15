@@ -1004,6 +1004,11 @@ class PlaylistExportDialog(FileOperationDialog):
             ),
         )
 
+        self.set_current_folder_uri(
+            settings.get_option('gui/playlist_export_dir')
+            or GLib.filename_to_uri(xdg.homedir, None)
+        )
+
         self.set_local_only(False)
 
         self.relative_checkbox = Gtk.CheckButton(_('Use relative paths to tracks'))
@@ -1046,8 +1051,10 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == Gtk.ResponseType.OK:
-            path = self.get_uri()
+            gfile = self.get_file()
+            settings.set_option('gui/playlist_export_dir', gfile.get_parent().get_uri())
 
+            path = gfile.get_uri()
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path
 

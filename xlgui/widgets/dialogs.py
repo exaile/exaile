@@ -1718,10 +1718,11 @@ class FileCopyDialog(Gtk.Dialog):
         self.hide()
 
         dialog = Gtk.MessageDialog(
-            self.parent,
-            Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.ERROR,
-            Gtk.ButtonsType.CLOSE,
+            buttons=Gtk.ButtonsType.CLOSE,
+            message_type=Gtk.MessageType.ERROR,
+            modal=True,
+            text=message,
+            transient_for=self.parent,
         )
         dialog.set_markup(message)
         dialog.connect('response', self._on_error_response, dialog)

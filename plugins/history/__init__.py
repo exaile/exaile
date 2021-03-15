@@ -110,11 +110,11 @@ class HistoryPlugin:
             # TODO: The parent should be the Preferences window, but we don't
             # have access to it, so this just uses the main window.
             dialog = Gtk.MessageDialog(
-                exaile.gui.main.window,
-                Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.QUESTION,
-                Gtk.ButtonsType.YES_NO,
-                _('Erase stored history?'),
+                buttons=Gtk.ButtonsType.YES_NO,
+                message_type=Gtk.MessageType.QUESTION,
+                modal=True,
+                text=_('Erase stored history?'),
+                transient_for=exaile.gui.main.window,
             )
 
             if dialog.run() == Gtk.ResponseType.YES:

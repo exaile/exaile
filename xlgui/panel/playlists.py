@@ -129,11 +129,10 @@ class BasePlaylistPanelMixin(GObject.GObject):
             dialog.destroy()
 
         dialog = Gtk.MessageDialog(
-            self.parent,
-            Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION,
-            Gtk.ButtonsType.YES_NO,
-            _('Delete the playlist "%s"?') % selected_playlist.name,
+            buttons=Gtk.ButtonsType.YES_NO,
+            message_type=Gtk.MessageType.QUESTION,
+            text=_('Delete the playlist "%s"?') % selected_playlist.name,
+            transient_for=self.parent,
         )
         dialog.connect('response', on_response)
         self.deletion_dialogs[selected_playlist] = dialog

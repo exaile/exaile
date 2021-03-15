@@ -541,14 +541,14 @@ class DaapConnection:
                     t.save(filename)
                 except http.client.CannotSendRequest:
                     Gtk.MessageDialog(
-                        main.mainwindow().window,
-                        Gtk.DialogFlags.MODAL,
-                        Gtk.MessageType.INFO,
-                        Gtk.ButtonsType.OK,
-                        _(
+                        buttons=Gtk.ButtonsType.OK,
+                        message_type=Gtk.MessageType.INFO,
+                        modal=True,
+                        text=_(
                             """This server does not support multiple connections.
 You must stop playback before downloading songs."""
                         ),
+                        transient_for=main.mainwindow().window,
                     )
                     return
 

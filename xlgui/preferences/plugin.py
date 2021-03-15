@@ -228,14 +228,14 @@ class PluginManager:
         from the filesystem
         """
         dialog = Gtk.FileChooserDialog(
-            _('Choose a Plugin'),
-            self.preferences.parent,
-            buttons=(
-                Gtk.STOCK_CANCEL,
-                Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_ADD,
-                Gtk.ResponseType.OK,
-            ),
+            title=_('Choose a Plugin'),
+            transient_for=self.preferences.parent,
+        )
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_ADD,
+            Gtk.ResponseType.OK,
         )
 
         filter = Gtk.FileFilter()

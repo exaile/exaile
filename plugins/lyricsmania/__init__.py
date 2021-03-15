@@ -78,7 +78,7 @@ class LyricsMania(LyricSearchMethod):
         try:
             lyrics_body = lyrics_html.find_class('lyrics-body')[0]
             lyrics_body.remove(lyrics_body.get_element_by_id('video-musictory'))
-            lyrics = re.sub('^\s+Lyrics to .+', '', lyrics_body.text_content())
+            lyrics = re.sub(r'^\s+Lyrics to .+', '', lyrics_body.text_content())
             lyrics = lyrics.replace('\t', '')
             lyrics = self.remove_script(lyrics)
             lyrics = self.remove_html_tags(lyrics)

@@ -28,13 +28,14 @@
 import time
 
 from gi.repository import Gdk
+from gi.repository import GLib
 from gi.repository import Gtk
-from gi.repository import GObject
 
 from xl import event, providers, settings
 
 from xl.nls import gettext as _
 from xlgui.guiutil import GtkTemplate
+import xlgui.main
 from xlgui.widgets import menu, dialogs
 
 from . import bpmdetect
@@ -81,7 +82,7 @@ class BPMCounterPlugin:
             for p in menu_providers:
                 providers.unregister(p, self.menuitem)
 
-    def create_widget(self, info_area):
+    def create_widget(self, info_area: xlgui.main.MainWindowTrackInfoPane):
         """
         mainwindow-info-area-widget provider API method
         """

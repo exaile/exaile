@@ -90,6 +90,3 @@ class MoodbarGenerator:
         )
         thread.daemon = True
         thread.start()
-
-
-# vi: et sts=4 sw=4 tw=99

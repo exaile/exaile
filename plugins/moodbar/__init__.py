@@ -256,6 +256,3 @@ class MoodbarController:
             self._update_tint()
         else:
             assert False
-
-
-# vi: et sts=4 sw=4 tw=99

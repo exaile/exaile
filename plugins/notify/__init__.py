@@ -51,6 +51,7 @@ BODY_ALBUM = _('by {album}')
 
 
 class NotifierSettings:
+    @staticmethod
     def __inner_preference(klass):
         """Function will make a property for a given subclass of Preference"""
 
@@ -332,7 +333,7 @@ class NotifyPlugin:
         else:
             LOGGER.warning("Disabling NotifyPlugin.")
             exaile.plugins.disable_plugin(__name__)
-            if exaile.loading is not True:
+            if not exaile.loading:
                 # TODO: send error to GUI
                 pass
 

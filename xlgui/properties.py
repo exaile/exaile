@@ -30,6 +30,7 @@ import io
 import os
 import string
 import re
+from typing import Iterable, Sequence
 
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -53,15 +54,17 @@ logger = logging.getLogger(__name__)
 
 
 class TrackPropertiesDialog(GObject.GObject):
-    def __init__(self, parent, tracks, current_position=0):
+    def __init__(
+        self,
+        parent: Gtk.Window,
+        tracks: Sequence[trax.Track],
+        current_position: int = 0,
+    ):
         """
         :param parent: the parent window for modal operation
-        :type parent: :class:`Gtk.Window`
         :param tracks: the tracks to process
-        :type tracks: list of :class:`xl.trax.Track` objects
         :param current_position: the position of the currently
             selected track in the list
-        :type current_position: int
         """
         GObject.GObject.__init__(self)
 
@@ -149,7 +152,7 @@ class TrackPropertiesDialog(GObject.GObject):
 
         return field
 
-    def _tags_copy(self, tracks):
+    def _tags_copy(self, tracks: Iterable[trax.Track]):
         l = []
         for track in tracks:
             t = {}

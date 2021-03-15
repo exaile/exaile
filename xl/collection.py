@@ -117,8 +117,6 @@ class Collection(trax.TrackDB):
     """
     Manages a persistent track database.
 
-    :param args: see :class:`xl.trax.trackdb.TrackDB`
-
     Simple usage:
 
     >>> from xl.collection import *
@@ -130,7 +128,6 @@ class Collection(trax.TrackDB):
     ...     collection, ('artist==TestArtist'))]
     >>> print(len(tracks))
     5
-    >>>
     """
 
     def __init__(self, name, location=None, pickle_attrs=[]):

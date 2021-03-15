@@ -46,6 +46,3 @@ class MoodbarCache:
     def _get_cache_path(self, uri: str) -> str:
         hex_str = hashlib.sha256(uri.encode('utf-8')).hexdigest()
         return os.path.join(self.__loc, hex_str + '.mood')
-
-
-# vi: et sts=4 sw=4 tw=99

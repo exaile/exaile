@@ -68,13 +68,12 @@ class PlaylistExportOptions(NamedTuple):
     relative: bool
 
 
-def encode_filename(filename: str):
+def encode_filename(filename: str) -> str:
     """
     Converts a file name into a valid filename most
     likely to not cause problems on any platform.
 
     :param filename: the name of the file
-    :type filename: string
     """
     # list of invalid chars that need to be encoded
     # Note: '%' is the prefix for encoded chars so blacklist it too

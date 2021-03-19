@@ -98,7 +98,7 @@ class ParameterTemplate(metaclass=_ParameterTemplateMetaclass):
     """
 
     delimiter = '$'
-    idpattern = r'(?a:[_a-z][_a-z0-9]*)'
+    idpattern = r'[_a-z][_a-z0-9]*'
     argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):

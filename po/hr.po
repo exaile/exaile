@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2020-11-18 10:28+0000\n"
+"PO-Revision-Date: 2021-03-19 20:18+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/exaile/master/"
 "hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3033,31 +3033,28 @@ msgid "Select directory to import grouping tags from"
 msgstr "Odaberi direktorij za uvoz grupnih oznaka"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 pjesama pronađeno"
-msgstr[1] "0 pjesama pronađeno"
-msgstr[2] "0 pjesama pronađeno"
+msgstr[0] "Pronađena je {amount} pjesma"
+msgstr[1] "Pronađene su {amount} pjesme"
+msgstr[2] "Pronađeno je {amount} pjesama"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Zamijeniti „%s” s „%s” u %s pjesama?"
-msgstr[1] "Zamijeniti „%s” s „%s” u %s pjesama?"
-msgstr[2] "Zamijeniti „%s” s „%s” u %s pjesama?"
+msgstr[0] "Zamijeniti „{old_tag}” s „{new_tag}” u {amount} pjesmi?"
+msgstr[1] "Zamijeniti „{old_tag}” s „{new_tag}” u {amount} pjesme?"
+msgstr[2] "Zamijeniti „{old_tag}” s „{new_tag}” u {amount} pjesama?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Izbrisati „%s” iz %s pjesama?"
-msgstr[1] "Izbrisati „%s” iz %s pjesama?"
-msgstr[2] "Izbrisati „%s” iz %s pjesama?"
+msgstr[0] "Izbrisati „{tag}” iz {amount} pjesme?"
+msgstr[1] "Izbrisati „{tag}” iz {amount} pjesme?"
+msgstr[2] "Izbrisati „{tag}” iz {amount} pjesama?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""

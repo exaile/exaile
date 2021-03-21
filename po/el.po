@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-02-09 05:50+0000\n"
+"PO-Revision-Date: 2021-03-22 02:29+0000\n"
 "Last-Translator: Michalis <michalisntovas@yahoo.gr>\n"
-"Language-Team: Greek <https://hosted.weblate.org/projects/exaile/master/el/"
-">\n"
+"Language-Team: Greek <https://hosted.weblate.org/projects/exaile/master/el/>"
+"\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -4210,11 +4210,11 @@ msgstr "Αποτελέσματα:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui:264
 msgid "Advanced"
-msgstr "Προχωρημένες Ρυθμίσεις"
+msgstr "Για προχωρημένους"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:63
 msgid "_Request Access Permission"
-msgstr ""
+msgstr "_Αίτηση άδειας πρόσβασης"
 
 #. TRANSLATORS: Get the link title from the Last.fm page title
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui:95

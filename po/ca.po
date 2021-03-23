@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2020-06-02 04:41+0000\n"
-"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
+"PO-Revision-Date: 2021-03-23 16:29+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
 ">\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3041,28 +3041,25 @@ msgid "Select directory to import grouping tags from"
 msgstr "Seleccioneu el directori des d'on importar les etiquetes d'agrupament"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 pistes trobades"
-msgstr[1] "0 pistes trobades"
+msgstr[0] "{amount} pista trobada"
+msgstr[1] "{amount} pistes trobades"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Voleu substituir '%s' amb '%s' en %s pistes?"
-msgstr[1] "Voleu substituir '%s' amb '%s' en %s pistes?"
+msgstr[0] "Voleu substituir «{old_tag}» amb «{new_tag}» en {amount} pista?"
+msgstr[1] "Voleu substituir «{old_tag}» amb «{new_tag}» en {amount} pistes?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Voleu suprimir «%s» de %s pistes?"
-msgstr[1] "Voleu suprimir «%s» de %s pistes?"
+msgstr[0] "Voleu suprimir «{tag}» de {amount} pista?"
+msgstr[1] "Voleu suprimir «{tag}» de {amount} pistes?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
@@ -3080,7 +3077,7 @@ msgstr "Mostra les pistes amb la selecció"
 #: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr "Mostra les pistes etiquetades amb \"%s\""
+msgstr "Mostra les pistes etiquetades amb «%s»"
 
 #: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"

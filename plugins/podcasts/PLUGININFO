@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Adam Olsen <arolsen@gmail.com>']
 Name=_('Podcasts')
 Description=_('Adds Simple Podcast Support')

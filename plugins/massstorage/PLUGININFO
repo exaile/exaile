@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('USB Mass Storage Media Player Support')
 Description=_('Support for accessing portable media players using the USB Mass Storage protocol')

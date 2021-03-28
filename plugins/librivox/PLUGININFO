@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Arunas Radzvilavicius <arunas.rv@gmail.com>']
 Name=_('Librivox')
 Description=_('Browse and listen to audiobooks from Librivox.org.')

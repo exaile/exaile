@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Mathias Brodala <info@noctus.net>']
 Name=_('On Screen Display')
 Description=_('A popup window showing information of the currently playing track.\nThis plugin is not available on Wayland.')

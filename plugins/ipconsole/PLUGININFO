@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('IPython Console')
 Description=_('Provides an IPython console that can be used to manipulate Exaile.')

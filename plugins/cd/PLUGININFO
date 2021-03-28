@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('CD Playback')
 Description=_('Adds support for playing audio CDs.\n\nRequires UDisks2 to autodetect CDs\nRequires cddb-py (%s) to look up tags.') % 'http://cddb-py.sourceforge.net/'

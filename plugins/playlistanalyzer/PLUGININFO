@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name=_("Playlist Analyzer")
 Description=_("Tool to help generate HTML5 visualizations of your playlists using d3.js. Optimized for Chrome.")

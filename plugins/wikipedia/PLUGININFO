@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['JC Brand <jc@opkode.com>']
 Name=_('Wikipedia')
 Description=_('Provides Wikipedia information about the current artist.\nRequires: webkit2gtk and its typelib file')

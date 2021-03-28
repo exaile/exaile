@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name="History"
 Description="Keeps a history of tracks played, which can be saved to a playlist" 

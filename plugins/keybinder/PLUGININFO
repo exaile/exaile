@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Name=_('Keybinder-based multimedia keys')
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Description=_('Adds support for multimedia keys using libkeybinder3.\n\nRequires: libkeybinder3 and its typelib file')

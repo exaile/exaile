@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Adam Olsen <arolsen@gmail.com>', 'François Martorello <francois.martorello@gmail.com>']
 Name=_('Alarm Clock')
 Description=_('Plays music at a specific time.\n\nNote that when the specified time arrives, Exaile will play the songs in the queue.')

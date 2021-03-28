@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('MPRIS 2')
 Description=_('Partial support for MPRIS (Media Player Remote Interfacing Specification) 2.2, allowing you to control Exaile from supporting clients, for example GNOME Shell')

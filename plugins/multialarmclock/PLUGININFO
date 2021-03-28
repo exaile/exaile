@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('Multi-Alarm Clock')
 Description=_('Plays music at specific times and days.\n\nNote that when the specified time arrives, Exaile will just act like you pressed the play button, so be sure you have the music you want to hear in your playlist')

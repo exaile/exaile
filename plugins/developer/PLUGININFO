@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=["Dustin Spicuzza <dustin@virtualroadside.com>"]
 Name=_("Developer")
 Description=_("Provides diagnostic information for Exaile developers")

@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Aly Hirani <alyhirani@gmail.com>', 'Jorge Villaseñor <salinasv@gmail.com']
 Name=_('Current Song in Pidgin')
 Description=_('Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find out the suppported services.')

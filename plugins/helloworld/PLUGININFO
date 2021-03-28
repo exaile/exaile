@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('Hello World')
 Description=_('A simple plugin for testing the basic plugin system')

@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Brian Parma <execrable@gmail.com>, Steve Dodier <sidnioulz@gmail.com>']
 Name=_('Bookmarks')
 Description=_('Allows saving/resuming bookmark positions in audio files.')

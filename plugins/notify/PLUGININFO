@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>', 'Adam Olsen <arolsen@gmail.com>', 'Steve Dodier <sidnioulz@gmail.com>', 'Christian Stadelmann']
 Name=_('Notify')
 Description=_('Pops up a notification when playback of a track starts or (optionally) if it is paused/resumed/stopped. Requires libnotify and its typelib file')

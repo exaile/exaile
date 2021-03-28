@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Mathias Brodala <info@noctus.net>']
 Name=_('Last.fm Loved Tracks')
 Description=_('Shows which tracks have been loved and allows for loving tracks.\n\nMake sure to enter a valid API key and secret in the plugin preferences.\n\nDepends on the plugin "AudioScrobbler" for username and password.')

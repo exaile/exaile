@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Mono')
 Description=_('Downmixes audio to one channel.')

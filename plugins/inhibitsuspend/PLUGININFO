@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=['Ciaran Liedeman ciaranliedeman@gmail.com']
 Name=_('Inhibit Suspend')
 Description=_("""Prevents User Session from suspending while music is playing""")

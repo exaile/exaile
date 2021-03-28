@@ -1,4 +1,4 @@
-Version='4.1.0'
+Version='4.1.1'
 Authors=["Johannes Sasongko <sasongko@gmail.com>"]
 Name=_("Simple console")
 Description=_("Simple console to interact with the Exaile API")

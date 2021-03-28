@@ -54,7 +54,7 @@ if __name__ == '__main__':
     sys.path.insert(0, exaile_dir)
 
     import xl.version
-    v = '%s' % (xl.version.__version__.split("-")[0])
+    v = '%s' % (xl.version.__version__.split("-")[0].split("+")[0])
 
     arg = sys.argv[1] if len(sys.argv) > 1 else ''
 

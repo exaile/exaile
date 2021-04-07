@@ -95,8 +95,6 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         for e in self.__events:
             event.add_ui_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
-        # event.add_callback(self.on_progress_wait_for_start, 'playback_wait_for_start', self.__player)
-
     def on_progress_wait_for_start(self, event_type, player, seconds):
         logger.info(str(seconds));
         self.set_fraction(0)

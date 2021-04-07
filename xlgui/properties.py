@@ -828,7 +828,7 @@ class TagNumField(Gtk.Box):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return str(int(self.field.get_value()))
+        return int(self.field.get_value())
 
     def register_update_func(self, f):
         tag = self.parent_row.tag

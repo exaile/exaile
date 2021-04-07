@@ -95,11 +95,6 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         for e in self.__events:
             event.add_ui_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
-    def on_progress_wait_for_start(self, event_type, player, seconds):
-        logger.info(str(seconds));
-        self.set_fraction(0)
-        self.set_text(self.formatter.format(seconds))
-
     def destroy(self):
         """
         Cleanups
@@ -143,7 +138,6 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         Updates progress bar appearance
         """
         if self.__player.current is None:
-            logger.info('player.currrent is None')
             self.__disable_timer()
             self.reset()
             return False
@@ -171,12 +165,9 @@ class PlaybackProgressBar(Gtk.ProgressBar):
         """
         Starts or stops update timer
         """
-        logger.info('on_playback_toggle_pause')
         if player.is_playing():
-            logger.info('enable_timer')
             self.__enable_timer()
         elif player.is_paused():
-            logger.info('disable_timer')
             self.__disable_timer()
 
     def on_playback_error(self, event_type, player, message):

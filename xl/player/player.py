@@ -67,6 +67,8 @@ class ExailePlayer:
         self._auto_advance = True
         self._gapless_enabled = True
         self.__volume = 1.0
+        self._start_timestamp = 0
+        self._track = None
 
         options = {
             '%s/auto_advance_delay' % name: '_auto_advance_delay',
@@ -167,6 +169,8 @@ class ExailePlayer:
 
     @property
     def current(self):
+        if self._track:
+            return self._track
         return self._engine.get_current_track()
 
     def play(self, track, start_at=None, paused=False):
@@ -187,14 +191,39 @@ class ExailePlayer:
         if track is None:
             self.stop()
         else:
+            self.stop()
             if self.is_stopped():
                 event.log_event('playback_player_start', self, track)
 
             play_args = self._get_play_params(track, start_at, paused, False)
-            self._engine.play(*play_args)
+
+            self._start_timestamp = 0
+            self._track = track
+            start_at = play_args[1]
+
+            if start_at < 0:
+                self._start_timestamp = -1 * start_at + time.time()
+                # event.log_event('playback_wait_for_start', self, start_at)
+                self.engine_notify_track_start(track)
+                self._delay_id = GLib.timeout_add_seconds(1, self._play_engine, play_args)
+            else:
+                self._play_engine(play_args)
+
             if play_args[2]:
                 event.log_event('playback_player_pause', self, track)
                 event.log_event("playback_toggle_pause", self, track)
+
+    def _play_engine(self, play_args):
+        curr_time = time.time()
+        if curr_time < self._start_timestamp:
+            logger.info('waiting ' + str(self._start_timestamp - curr_time))
+            return True
+
+        self._start_timestamp = 0
+        self._track = None
+        self._engine.play(*play_args)
+
+        return False
 
     def stop(self):
         """
@@ -209,6 +238,8 @@ class ExailePlayer:
 
         if state == 'playing' or state == 'paused':
 
+            self._start_timestamp = 0
+            self._track = None
             self._engine.stop()
             return True
         else:
@@ -309,6 +340,10 @@ class ExailePlayer:
         :returns: the playback time in seconds
         :rtype: float
         """
+
+        if self._start_timestamp > 0:
+            return time.time() - self._start_timestamp
+
         return self.get_position() / 1e9
 
     def get_progress(self) -> float:
@@ -391,6 +426,10 @@ class ExailePlayer:
         :returns: whether the player is currently playing
         :rtype: bool
         """
+
+        if self._start_timestamp >= time.time():
+            return True
+
         return self._engine.get_state() == 'playing'
 
     def is_paused(self):
@@ -528,8 +567,7 @@ class ExailePlayer:
     #
 
     def _get_play_params(self, track, start_at, paused, autoadvance):
-        if start_at is None or start_at <= 0:
-            start_at = None
+        if start_at is None:
             start_at = track.get_tag_raw('__startoffset') or 0
 
         # Once playback has started, if there's a delay, pause the stream
@@ -542,27 +580,11 @@ class ExailePlayer:
             self._delay_id = GLib.timeout_add(delay, self._delayed_start)
             paused = True
 
-        if start_at < 0:
-            start = -1 * start_at + time.time()
-            event.log_event('playback_wait_for_start', self, start_at)
-            self._delay_id = GLib.timeout_add_seconds(1, self._delayed_start_by_track, start)
-            paused = True
-            # start_at = 0
-
         return track, start_at, paused
 
     def _delayed_start(self):
         logger.debug("Resuming playback after delayed start")
         self.unpause()
-
-    def _delayed_start_by_track(self, start):
-        if time.time() < start:
-            logger.info('waiting')
-            event.log_event('playback_wait_for_start', self, time.time() - start)
-            return True
-
-        self.unpause()
-        return False
 
     def _update_playtime(self, track):
         """

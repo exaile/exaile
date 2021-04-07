@@ -575,7 +575,7 @@ class ExailePlayer:
 
         if not paused and autoadvance and self._auto_advance_delay > 0:
             delay = int(self._auto_advance_delay)
-            logger.info("Delaying start for %sms", delay)
+            logger.debug("Delaying start for %sms", delay)
             self._delay_id = GLib.timeout_add(delay, self._delayed_start)
             paused = True
 

@@ -355,15 +355,18 @@ class ProgressTextFormatter(Formatter):
 
         if total_time is None:
             total_time = remaining_time = 0
-        else:
+        elif current_time >= 0:
             remaining_time = total_time - current_time
+        else:
+            remaining_time = total_time
 
         playlist = self._player.queue.current_playlist
 
         if playlist and playlist.current_position >= 0:
             tracks = playlist[playlist.current_position :]
             total_remaining_time = sum(t.get_tag_raw('__length') or 0 for t in tracks)
-            total_remaining_time -= current_time
+            if current_time >= 0:
+                total_remaining_time -= current_time
 
         self._substitutions['current_time'] = LengthTagFormatter.format_value(
             current_time
@@ -595,6 +598,13 @@ class TimeTagFormatter(TagFormatter):
         :returns: the formatted value
         :rtype: string
         """
+
+        if value < 0:
+            negative = True
+            value *= -1
+        else:
+            negative = False
+
         span = TimeSpan(value)
         text = ''
 
@@ -636,6 +646,8 @@ class TimeTagFormatter(TagFormatter):
                 '"short", "long" and "verbose"' % format
             )
 
+        if negative:
+            return '-' + text
         return text
 
 

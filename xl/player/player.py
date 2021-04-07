@@ -530,9 +530,7 @@ class ExailePlayer:
     def _get_play_params(self, track, start_at, paused, autoadvance):
         if start_at is None or start_at <= 0:
             start_at = None
-            start_offset = track.get_tag_raw('__startoffset') or 0
-            if start_offset > 0:
-                start_at = start_offset
+            start_at = track.get_tag_raw('__startoffset') or 0
 
         # Once playback has started, if there's a delay, pause the stream
         # for delay number of seconds
@@ -540,15 +538,31 @@ class ExailePlayer:
 
         if not paused and autoadvance and self._auto_advance_delay > 0:
             delay = int(self._auto_advance_delay)
-            logger.debug("Delaying start for %sms", delay)
+            logger.info("Delaying start for %sms", delay)
             self._delay_id = GLib.timeout_add(delay, self._delayed_start)
             paused = True
+
+        if start_at < 0:
+            start = -1 * start_at + time.time()
+            event.log_event('playback_wait_for_start', self, start_at)
+            self._delay_id = GLib.timeout_add_seconds(1, self._delayed_start_by_track, start)
+            paused = True
+            # start_at = 0
 
         return track, start_at, paused
 
     def _delayed_start(self):
         logger.debug("Resuming playback after delayed start")
         self.unpause()
+
+    def _delayed_start_by_track(self, start):
+        if time.time() < start:
+            logger.info('waiting')
+            event.log_event('playback_wait_for_start', self, time.time() - start)
+            return True
+
+        self.unpause()
+        return False
 
     def _update_playtime(self, track):
         """

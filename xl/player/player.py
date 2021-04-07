@@ -215,7 +215,7 @@ class ExailePlayer:
     def _play_engine(self, play_args):
         curr_time = time.time()
         if curr_time < self._delayed_until:
-            logger.info('waiting ' + str(self._delayed_until - curr_time))
+            logger.debug('delayed for ' + str(self._delayed_until - curr_time))
             return True
 
         self._delayed_until = 0

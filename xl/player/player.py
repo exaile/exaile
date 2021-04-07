@@ -67,7 +67,7 @@ class ExailePlayer:
         self._auto_advance = True
         self._gapless_enabled = True
         self.__volume = 1.0
-        self._start_timestamp = 0
+        self._delayed_until = 0
         self._track = None
 
         options = {
@@ -197,13 +197,12 @@ class ExailePlayer:
 
             play_args = self._get_play_params(track, start_at, paused, False)
 
-            self._start_timestamp = 0
+            self._delayed_until = 0
             self._track = track
             start_at = play_args[1]
 
             if start_at < 0:
-                self._start_timestamp = -1 * start_at + time.time()
-                # event.log_event('playback_wait_for_start', self, start_at)
+                self._delayed_until = -1 * start_at + time.time()
                 self.engine_notify_track_start(track)
                 self._delay_id = GLib.timeout_add_seconds(1, self._play_engine, play_args)
             else:
@@ -215,11 +214,11 @@ class ExailePlayer:
 
     def _play_engine(self, play_args):
         curr_time = time.time()
-        if curr_time < self._start_timestamp:
-            logger.info('waiting ' + str(self._start_timestamp - curr_time))
+        if curr_time < self._delayed_until:
+            logger.info('waiting ' + str(self._delayed_until - curr_time))
             return True
 
-        self._start_timestamp = 0
+        self._delayed_until = 0
         self._track = None
         self._engine.play(*play_args)
 
@@ -238,7 +237,7 @@ class ExailePlayer:
 
         if state == 'playing' or state == 'paused':
 
-            self._start_timestamp = 0
+            self._delayed_until = 0
             self._track = None
             self._engine.stop()
             return True
@@ -341,8 +340,8 @@ class ExailePlayer:
         :rtype: float
         """
 
-        if self._start_timestamp > 0:
-            return time.time() - self._start_timestamp
+        if self._delayed_until > 0:
+            return time.time() - self._delayed_until
 
         return self.get_position() / 1e9
 
@@ -427,7 +426,7 @@ class ExailePlayer:
         :rtype: bool
         """
 
-        if self._start_timestamp >= time.time():
+        if self._delayed_until >= time.time():
             return True
 
         return self._engine.get_state() == 'playing'

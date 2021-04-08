@@ -204,7 +204,9 @@ class ExailePlayer:
             if start_at < 0:
                 self._delayed_until = -1 * start_at + time.time()
                 self.engine_notify_track_start(track)
-                self._delay_id = GLib.timeout_add_seconds(1, self._play_engine, play_args)
+                self._delay_id = GLib.timeout_add_seconds(
+                    1, self._play_engine, play_args
+                )
             else:
                 self._play_engine(play_args)
 

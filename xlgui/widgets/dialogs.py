@@ -24,15 +24,20 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import Gdk
-from gi.repository import GdkPixbuf
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
-from gi.repository import Gtk
 import logging
-from gi.repository import Pango
 import os.path
+from threading import Thread
+from typing import Iterable, Optional, Union
+
+from gi.repository import (
+    Gdk,
+    GdkPixbuf,
+    Gio,
+    GLib,
+    GObject,
+    Gtk,
+    Pango,
+)
 
 from xl import metadata, providers, settings, xdg
 from xl.common import clamp
@@ -44,9 +49,7 @@ from xl.playlist import (
     PlaylistExportOptions,
 )
 from xl.nls import gettext as _
-
 from xlgui.guiutil import GtkTemplate
-from threading import Thread
 
 logger = logging.getLogger(__name__)
 
@@ -603,10 +606,10 @@ class FileOperationDialog(Gtk.FileChooserDialog):
 
     def __init__(
         self,
-        title=None,
-        parent=None,
-        action=Gtk.FileChooserAction.OPEN,
-        buttons=None,
+        title: str = None,
+        parent: Optional[Gtk.Window] = None,
+        action: Gtk.FileChooserAction = Gtk.FileChooserAction.OPEN,
+        buttons: Optional[Iterable[Union[str, int]]] = None,
         backend=None,
     ):
         """
@@ -798,7 +801,10 @@ class DirectoryOpenDialog(Gtk.FileChooserDialog):
     _last_location = None
 
     def __init__(
-        self, parent=None, title=_('Choose Directory to Open'), select_multiple=True
+        self,
+        parent: Optional[Gtk.Window] = None,
+        title: str = _('Choose Directory to Open'),
+        select_multiple: bool = True,
     ):
         Gtk.FileChooserDialog.__init__(
             self,

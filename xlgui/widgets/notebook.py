@@ -24,10 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from gi.repository import GObject
-from gi.repository import Gdk
-from gi.repository import Gtk
-from gi.repository import Pango
+from typing import Optional
+
+from gi.repository import (
+    Gdk,
+    GdkPixbuf,
+    GObject,
+    Gtk,
+    Pango,
+)
 
 from xl.nls import gettext as _
 from xl import providers
@@ -70,7 +75,7 @@ def apply_css(widget):
 
 
 class SmartNotebook(Gtk.Notebook):
-    def __init__(self, vertical=False):
+    def __init__(self, vertical: bool = False):
         Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
@@ -89,16 +94,20 @@ class SmartNotebook(Gtk.Notebook):
             return None
         return self.get_nth_page(current_page)
 
-    def add_tab(self, tab, page, position=-1, switch=True):
+    def add_tab(
+        self,
+        tab: 'NotebookTab',
+        page: 'NotebookPage',
+        position: int = -1,
+        switch: bool = True,
+    ) -> None:
         """
-        Add a tab to the notebook. It will be given focus.
+        Add a tab to the notebook.
 
         :param tab: The tab to use
-        :type tab: NotebookTab
         :param page: The page to use
-        :type page: NotebookPage
-        :param position: index to insert page at, or -1 for append
-        :type position: int
+        :param position: Index to insert page at, or -1 for append
+        :param switch: Switch focus to the new tab
         """
         self.insert_page(page, tab, position=position)
         tab.notebook = self
@@ -120,7 +129,7 @@ class SmartNotebook(Gtk.Notebook):
         """
         pass
 
-    def remove_page(self, page_num):
+    def remove_page(self, page_num: int) -> None:
         """
         Overrides Gtk.Notebook.remove_page
         """
@@ -134,7 +143,7 @@ class SmartNotebook(Gtk.Notebook):
         if self._add_tab_on_empty and self.get_n_pages() == 0:
             self.add_default_tab()
 
-    def remove_tab(self, tab):
+    def remove_tab(self, tab: 'NotebookTab') -> None:
         """
         Remove a specific NotebookTab from the notebook
         """
@@ -142,7 +151,7 @@ class SmartNotebook(Gtk.Notebook):
         if page_num >= 0:
             self.remove_page(page_num)
 
-    def set_add_tab_on_empty(self, add_tab_on_empty):
+    def set_add_tab_on_empty(self, add_tab_on_empty: bool) -> None:
         """
         If set True, the SmartNotebook will always maintain at
         least one tab in the notebook
@@ -179,14 +188,13 @@ class NotebookTab(Gtk.EventBox):
 
     reorderable = True
 
-    def __init__(self, notebook, page, vertical=False):
+    def __init__(
+        self, notebook: SmartNotebook, page: 'NotebookPage', vertical: bool = False
+    ):
         """
         :param notebook: The notebook this tab will belong to
-        :type notebook: SmartNotebook
         :param page: The page this tab will be associated with
-        :type page: NotebookPage
         :param vertical: Whether the tab contents are to be laid out vertically
-        :type vertical: bool
         """
         Gtk.EventBox.__init__(self)
         self.set_visible_window(False)
@@ -269,7 +277,7 @@ class NotebookTab(Gtk.EventBox):
 
         box.show_all()
 
-    def adjust_label_width(self, tab_pos):
+    def adjust_label_width(self, tab_pos: Gtk.PositionType) -> None:
         """Change the label's minimum width according to tab position"""
         if self.vertical:
             # Vertical tabs don't care about tab position.
@@ -281,12 +289,11 @@ class NotebookTab(Gtk.EventBox):
         else:
             self.label.set_width_chars(20)
 
-    def set_icon(self, pixbuf):
+    def set_icon(self, pixbuf: Optional[GdkPixbuf.Pixbuf]) -> None:
         """
         Set the primary icon for the tab.
 
         :param pixbuf: The icon to use, or None to hide
-        :type pixbuf: :class:`GdkPixbuf.Pixbuf`
         """
         if pixbuf is None:
             self.icon.set_property("visible", False)
@@ -294,7 +301,7 @@ class NotebookTab(Gtk.EventBox):
             self.icon.set_from_pixbuf(pixbuf)
             self.icon.set_property("visible", True)
 
-    def set_closable(self, closable):
+    def set_closable(self, closable: bool) -> None:
         self.closable = closable
         self.button.set_sensitive(closable)
 

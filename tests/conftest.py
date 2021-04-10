@@ -2,6 +2,7 @@ import collections
 import os
 import shutil
 import tempfile
+from typing import NamedTuple, Tuple
 
 from gi.repository import Gio
 
@@ -32,13 +33,17 @@ def exaile_test_cleanup():
 #
 
 
-TrackData = collections.namedtuple(
-    'TrackData',
-    ['ext', 'filename', 'uri', 'size', 'writeable', 'has_cover', 'has_tags'],
-)
+class TrackData(NamedTuple):
+    ext: str
+    filename: str
+    uri: str
+    size: int
+    writeable: bool
+    has_cover: bool
+    has_tags: bool
 
 
-def _fname(ext):
+def _fname(ext: str) -> Tuple[str, str, str]:
     local_path = os.path.abspath(
         os.path.join(
             os.path.dirname(__file__),

@@ -113,15 +113,13 @@ def is_valid_playlist(path):
     return False
 
 
-def import_playlist(path):
+def import_playlist(path: str) -> 'Playlist':
     """
     Determines the type of playlist and creates
     a playlist from it
 
     :param path: the source path
-    :type path: string
     :returns: the playlist
-    :rtype: :class:`Playlist`
     """
     # First try the cheap Gio way
     content_type = Gio.content_type_guess(path)[0]
@@ -153,7 +151,7 @@ def import_playlist(path):
     raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 
 
-def export_playlist(playlist, path, options=None):
+def export_playlist(playlist, path: str, options=None) -> None:
     """
     Exact same as @see import_playlist except
     it exports

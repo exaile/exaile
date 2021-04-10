@@ -35,11 +35,11 @@ import inspect
 import logging
 import os
 import os.path
-import pickle
 import shelve
 import subprocess
 import sys
 import threading
+from typing import Deque, Generic, Iterable, List, TypeVar
 import urllib.parse
 import urllib.request
 import weakref
@@ -51,6 +51,8 @@ from xl import shelve_compat
 
 
 logger = logging.getLogger(__name__)
+
+_T = TypeVar("_T")
 
 
 # TODO: get rid of this. only plugins/cd/ uses it.
@@ -92,12 +94,11 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-def sanitize_url(url):
+def sanitize_url(url: str) -> str:
     """
-    Removes the password part from an url
+    Removes the password part from a URL
 
     :param url: the URL to sanitize
-    :type url: string
     :returns: the sanitized url
     """
     try:
@@ -115,7 +116,7 @@ def sanitize_url(url):
     return url
 
 
-def get_url_contents(url, user_agent):
+def get_url_contents(url, user_agent: str) -> bytes:
     """
     Retrieves data from a URL and sticks a user-agent on it. You can use
     exaile.get_user_agent_string(pluginname) to get this.
@@ -343,7 +344,7 @@ def open_file(path):
         subprocess.Popen(["xdg-open", path])
 
 
-def open_file_directory(path_or_uri):
+def open_file_directory(path_or_uri: str) -> None:
     """
     Opens the parent directory of a file, selecting the file if possible.
     """
@@ -521,7 +522,7 @@ class cached:
         return partial(self.__call__, obj)
 
 
-def walk(root):
+def walk(root: Gio.File) -> Iterable[Gio.File]:
     """
     Walk through a Gio directory, yielding each file
 
@@ -534,9 +535,8 @@ def walk(root):
     :param root: a :class:`Gio.File` representing the
         directory to walk through
     :returns: a generator object
-    :rtype: :class:`Gio.File`
     """
-    queue = deque()
+    queue: Deque[Gio.File] = deque()
     queue.append(root)
 
     while len(queue) > 0:
@@ -570,14 +570,13 @@ def walk(root):
             logger.exception("Unhandled exception while walking on %s.", dir)
 
 
-def walk_directories(root):
+def walk_directories(root: Gio.File) -> Iterable[Gio.File]:
     """
     Walk through a Gio directory, yielding each subdirectory
 
     :param root: a :class:`Gio.File` representing the
         directory to walk through
     :returns: a generator object
-    :rtype: :class:`Gio.File`
     """
     yield root
     directory = None
@@ -767,7 +766,7 @@ class MetadataList:
             self.metadata[index] = None
 
 
-class ProgressThread(GObject.GObject, threading.Thread):
+class ProgressThread(GObject.Object, threading.Thread):
     """
     A basic thread with progress updates. The thread should emit
     the progress-update signal periodically. The contents must
@@ -786,7 +785,7 @@ class ProgressThread(GObject.GObject, threading.Thread):
     }
 
     def __init__(self):
-        GObject.GObject.__init__(self)
+        GObject.Object.__init__(self)
         threading.Thread.__init__(self)
         self.setDaemon(True)
 
@@ -857,39 +856,35 @@ class SimpleProgressThread(ProgressThread):
             self.emit('done')
 
 
-class PosetItem:
-    def __init__(self, name, after, priority, value=None):
+class PosetItem(Generic[_T]):
+    def __init__(self, name: str, after: List[str], priority: int, value: _T):
         """
         :param name: unique identifier for this item
-        :type name: string
         :param after: which items this item comes after
-        :type after: list of string
         :param priority: tiebreaker, higher values come later
-        :type priority: int
         :param value: arbitrary data associated with the item
         """
         self.name = name
         self.after = list(after)
         self.priority = priority
-        self.children = []
+        self.children: List[PosetItem[_T]] = []
         self.value = value
 
 
-def order_poset(items):
+def order_poset(items: Iterable[PosetItem[_T]]) -> List[PosetItem[_T]]:
     """
     :param items: poset to order
-    :type items: list of :class:`PosetItem`
     """
-    items = {item.name: item for item in items}
-    for name, item in items.items():
+    items_dict = {item.name: item for item in items}
+    for name, item in items_dict.items():
         for after in item.after:
-            k = items.get(after)
+            k = items_dict.get(after)
             if k:
                 k.children.append(item)
             else:
                 item.after.remove(after)
     result = []
-    next = [i[1] for i in items.items() if not i[1].after]
+    next = [i[1] for i in items_dict.items() if not i[1].after]
     while next:
         current = sorted((i.priority, i.name, i) for i in next)
         result.extend(i[2] for i in current)
@@ -1026,7 +1021,7 @@ def subscribe_for_settings(section, options, self):
     updated when a particular setting changes. If you want to be
     notified of a setting update, use a @property for the attribute.
 
-    Only works for a options in a single section
+    Only works for options in a single section
 
     :param section: Settings section
     :param options: Dictionary of key: option name, value: attribute on
@@ -1123,6 +1118,3 @@ class HighestStr(str):
 
     def __lt__(self, _):
         return False
-
-
-# vim: et sts=4 sw=4

@@ -48,6 +48,7 @@ logger = logging.getLogger(__name__)
 
 _K = TypeVar('_K')
 _V = TypeVar('_V')
+_V1 = TypeVar('_V1')
 
 # map chars to appropriate subsitutes for sorting
 _sortcharmap = {
@@ -80,23 +81,23 @@ _unset = object()
 class _MetadataCacher(Generic[_K, _V]):
     """Time- and size-limited LRU cache"""
 
-    class Entry:
-        value: _V
+    class Entry(Generic[_V1]):
+        value: _V1
         time: float
 
-        def __init__(self, value: _V, time: float):
+        def __init__(self, value: _V1, time: float):
             self.value = value
             self.time = time
 
-        def __lt__(self, other: 'Entry'):
+        def __lt__(self, other: '_MetadataCacher.Entry'):
             return self.time < other.time
 
-    _cache: Dict['Track', '_MetadataCacher.Entry']
-    timeout: float
+    _cache: Dict[_K, Entry[_V]]
+    timeout: int
     maxentries: int
     _cleanup_id: Optional[int]
 
-    def __init__(self, timeout: float = 10, maxentries: int = 20):
+    def __init__(self, timeout: int = 10, maxentries: int = 20):
         """
         :param timeout: time (in s) until the cached obj gets removed.
         :param maxentries: maximum number of objects to cache
@@ -106,7 +107,7 @@ class _MetadataCacher(Generic[_K, _V]):
         self.maxentries = maxentries
         self._cleanup_id = None
 
-    def __cleanup(self):
+    def __cleanup(self) -> bool:
         if self._cleanup_id is not None:
             GLib.source_remove(self._cleanup_id)
             self._cleanup_id = None
@@ -117,6 +118,7 @@ class _MetadataCacher(Generic[_K, _V]):
             next_expiry = min(self._cache.values()).time
             timeout = int((next_expiry + self.timeout) - current)
             self._cleanup_id = GLib.timeout_add_seconds(timeout, self.__cleanup)
+        return False
 
     def add(self, key: _K, value: _V) -> None:
         if key in self._cache:
@@ -231,7 +233,7 @@ class Track:
             tr._init = True
             return tr
 
-    def __init__(self, uri=None, scan=True, _unpickles=None):
+    def __init__(self, uri: Optional[str] = None, scan: bool = True, _unpickles=None):
         """
         :param uri: the location, as either a uri or a file path.
         :param scan: Whether to try to read tags from the given uri.
@@ -280,7 +282,7 @@ class Track:
         except KeyError:
             pass
 
-    def set_loc(self, loc, notify_changed=True):
+    def set_loc(self, loc: str, notify_changed: bool = True) -> None:
         """
         Sets the location.
 
@@ -300,7 +302,7 @@ class Track:
         """
         return Gio.File.new_for_uri(self.get_loc_for_io()).query_exists(None)
 
-    def get_loc_for_io(self):
+    def get_loc_for_io(self) -> str:
         """
         Gets the location as a full uri.
 

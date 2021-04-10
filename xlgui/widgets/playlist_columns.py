@@ -26,7 +26,6 @@
 
 
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Pango
 
@@ -60,7 +59,7 @@ class Column(Gtk.TreeViewColumn):
     def __init__(self, container, player, font, size_ratio):
         if self.__class__ == Column:
             raise NotImplementedError(
-                "Can't instantiate " "abstract class %s" % repr(self.__class__)
+                "Can't instantiate abstract class %r" % self.__class__
             )
 
         self._size_ratio = size_ratio
@@ -235,7 +234,7 @@ class EditableColumn(Column):
             dialogs.error(
                 None,
                 "Error writing tags to %s"
-                % GObject.markup_escape_text(track.get_loc_for_io()),
+                % GLib.markup_escape_text(track.get_loc_for_io()),
             )
 
     def on_editing_started(self, cellrenderer, editable, path):

@@ -599,7 +599,7 @@ class TimeTagFormatter(TagFormatter):
         :rtype: string
         """
 
-        if value < 0:
+        if value != None and value < 0:
             negative = True
             value *= -1
         else:

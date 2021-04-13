@@ -196,7 +196,9 @@ class ExailePlayer:
             if self.is_stopped():
                 event.log_event('playback_player_start', self, track)
 
-            self._current_play_args = self._get_play_params(track, start_at, paused, False)
+            self._current_play_args = self._get_play_params(
+                track, start_at, paused, False
+            )
 
             self._delayed_until = 0
             self._track = track

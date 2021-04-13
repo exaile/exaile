@@ -69,6 +69,7 @@ class ExailePlayer:
         self.__volume = 1.0
         self._delayed_until = 0
         self._track = None
+        self._current_play_args = None
 
         options = {
             '%s/auto_advance_delay' % name: '_auto_advance_delay',
@@ -195,26 +196,28 @@ class ExailePlayer:
             if self.is_stopped():
                 event.log_event('playback_player_start', self, track)
 
-            play_args = self._get_play_params(track, start_at, paused, False)
+            self._current_play_args = self._get_play_params(track, start_at, paused, False)
 
             self._delayed_until = 0
             self._track = track
-            start_at = play_args[1]
+            start_at = self._current_play_args[1]
 
             if start_at < 0:
                 self._delayed_until = -1 * start_at + time.time()
                 self.engine_notify_track_start(track)
-                self._delay_id = GLib.timeout_add_seconds(
-                    1, self._play_engine, play_args
-                )
+                self._delay_id = GLib.timeout_add_seconds(1, self._play_engine)
             else:
-                self._play_engine(play_args)
+                self._play_engine()
 
-            if play_args[2]:
+            if self._current_play_args[2]:
                 event.log_event('playback_player_pause', self, track)
                 event.log_event("playback_toggle_pause", self, track)
 
-    def _play_engine(self, play_args):
+    def _play_engine(self):
+
+        if self.get_state() == 'playing':
+            return False
+
         curr_time = time.time()
         if curr_time < self._delayed_until:
             logger.debug('delayed for ' + str(self._delayed_until - curr_time))
@@ -222,7 +225,9 @@ class ExailePlayer:
 
         self._delayed_until = 0
         self._track = None
-        self._engine.play(*play_args)
+        self._engine.play(*self._current_play_args)
+        # self._current_play_args = None
+        self._delay_id = None
 
         return False
 
@@ -322,6 +327,11 @@ class ExailePlayer:
         :param value: the position in seconds
         :type value: int
         """
+
+        if self._delayed_until > 0:
+            self._delayed_until = 0;
+            self._play_engine()
+
         if self._engine.seek(value):
             event.log_event('playback_seeked', self, value)
 

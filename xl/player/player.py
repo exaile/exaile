@@ -329,7 +329,7 @@ class ExailePlayer:
         """
 
         if self._delayed_until > 0:
-            self._delayed_until = 0;
+            self._delayed_until = 0
             self._play_engine()
 
         if self._engine.seek(value):

@@ -15,9 +15,20 @@ class QuickButtons:
 
         newtb = Gtk.ToggleToolButton()
         newtb.set_label('test')
-
         newtb.show()
         area.insert(newtb, 0)
+
+        '''
+        Buttons
+        
+    Queue tracks by default instead of playing them
+    Disallow playing new tracks when another track is playing
+    Remove track from queue upon playback
+    Automatically advance to the next track
+    Delay between tracks (ms)
+
+        '''
+
         area.show()
 
         status_bar.pack_start(area, False, True, 0)

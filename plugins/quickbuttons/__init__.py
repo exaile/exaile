@@ -34,19 +34,27 @@ class QuickButtons:
     def _on_toggle(self, widget, setting):
         settings.set_option(setting, widget.get_active())
 
+    def _on_spin(self, widget, setting):
+        pass
+
+    def _get_delay_value(self):
+        value = 1
+
     def _add_button(self, setting):
         if self._options[setting]['type'] == 'toggle':
-            tb = Gtk.ToggleToolButton()
-            tb.set_label(self._options[setting]['label'])
-            tb.set_active(self._options[setting]['value'])
-            tb.connect('toggled', self._on_toggle, setting)
+            tbs = Gtk.ToggleButton()
+            tbs.set_label(self._options[setting]['label'])
+            tbs.set_active(self._options[setting]['value'])
+            tbs.connect('toggled', self._on_toggle, setting)
 
-        if self._options[setting]['type'] == 'spin':
+        elif self._options[setting]['type'] == 'spin':
             tbs = Gtk.SpinButton()
-            tbs.set_adjustment(Gtk.Adjustment(value=float(self._options[setting]['value']), lower=0, upper=10, step_incr=1, page_incr=1, page_size=0))
-            tbs.show()
-            tb = Gtk.ToolItem()
-            tb.add(tbs)
+            tbs.set_adjustment(Gtk.Adjustment(value=self._get_delay_value(), lower=0, upper=10, step_incr=1, page_incr=1, page_size=0))
+            tbs.connect('value-changed', self._on_spin, setting)
+
+        tbs.show()
+        tb = Gtk.ToolItem()
+        tb.add(tbs)
 
         self._options[setting]['widget'] = tb
         tb.show()

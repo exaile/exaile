@@ -537,10 +537,6 @@ class Statusbar:
 
         box.pack_end(self.info_label, False, True, 0)
 
-        btn = Gtk.Button('test')
-        box.pack_end(btn, False, True, 0)
-
-
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
 

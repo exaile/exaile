@@ -1,0 +1,5 @@
+Version='0.1'
+Authors=['']
+Name=_("Quick Settings Buttons")
+Description=_("Provides a manual BPM counter, and BPM autodetection when the bpmdetect plugin from gst-plugins-bad is installed")
+Category=_('Utility')

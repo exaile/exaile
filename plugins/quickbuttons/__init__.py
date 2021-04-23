@@ -1,7 +1,7 @@
-
 from gi.repository import Gtk
 from xl import event, settings
 from xl.nls import gettext as _
+
 
 class QuickButtons:
     """
@@ -16,16 +16,41 @@ class QuickButtons:
     """
 
     _options = {
-        'playlist/enqueue_by_default': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'enq',
-                                        'tooltip': 'Queue tracks by default instead of playing them'},
-        'queue/disable_new_track_when_playing': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'dis',
-                                                 'tooltip': 'Disallow playing new tracks when another track is playing'},
-        'queue/remove_item_when_played': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'rem',
-                                          'tooltip': 'Remove track from queue upon playback'},
-        'player/auto_advance': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'auto',
-                                'tooltip': 'Automatically advance to the next track'},
-        'player/auto_advance_delay': {'value': None, 'widget': None, 'type': 'spin', 'label': 'delay',
-                                      'tooltip': 'Delay between tracks (ms):'}
+        'playlist/enqueue_by_default': {
+            'value': None,
+            'widget': None,
+            'type': 'toggle',
+            'label': _('Enqueue'),
+            'tooltip': _('Queue tracks by default instead of playing them'),
+        },
+        'queue/disable_new_track_when_playing': {
+            'value': None,
+            'widget': None,
+            'type': 'toggle',
+            'label': 'Keep playing',
+            'tooltip': _('Disallow playing new tracks when another track is playing'),
+        },
+        'queue/remove_item_when_played': {
+            'value': None,
+            'widget': None,
+            'type': 'toggle',
+            'label': _('Auto-Remove'),
+            'tooltip': _('Remove track from queue upon playback'),
+        },
+        'player/auto_advance': {
+            'value': None,
+            'widget': None,
+            'type': 'toggle',
+            'label': _('Auto-Advance'),
+            'tooltip': _('Automatically advance to the next track'),
+        },
+        'player/auto_advance_delay': {
+            'value': None,
+            'widget': None,
+            'type': 'spin',
+            'label': _('Delay'),
+            'tooltip': _('Delay between tracks (ms):'),
+        },
     }
     """
     Usable options
@@ -57,7 +82,9 @@ class QuickButtons:
         if self._options[option]['type'] == 'toggle':
             self._options[option]['widget'].set_active(self._options[option]['value'])
         elif self._options[option]['type'] == 'spin':
-            self._options[option]['widget'].get_children()[0].set_value(self._options[option]['value'])
+            self._options[option]['widget'].get_children()[0].set_value(
+                self._options[option]['value']
+            )
 
     def _on_toggle(self, widget, setting: str):
         """
@@ -102,7 +129,7 @@ class QuickButtons:
             tbs.set_adjustment(Gtk.Adjustment(self._get_delay_value(), 0, 60, 1, 0, 0))
             tbs.connect('value-changed', self._on_spin, setting)
 
-        tbs.set_tooltip_text(_(self._options[setting]['tooltip']))
+        tbs.set_tooltip_text(self._options[setting]['tooltip'])
         tbs.show()
         tb = Gtk.ToolItem()
         tb.add(tbs)
@@ -129,5 +156,6 @@ class QuickButtons:
 
     def on_exaile_loaded(self):
         pass
+
 
 plugin_class = QuickButtons

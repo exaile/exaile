@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
+"POT-Creation-Date: 2021-04-23 13:11+0200\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -655,77 +655,77 @@ msgstr ""
 msgid "Could not create sink type '%s'"
 msgstr ""
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:153 ../xl/playlist.py:175
 msgid "Invalid playlist type."
 msgstr "jenis senarai main tidak sah."
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:184 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Senarai Main"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:338
 msgid "M3U Playlist"
 msgstr "Senarai Main M3U"
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:451
 msgid "PLS Playlist"
 msgstr "Senarai Main PLS"
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:542 ../xl/playlist.py:557
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Format tidak sah untuk %s"
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:552
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Versi tidak disokong %(version)s untuk %(type)s"
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:612
 msgid "ASX Playlist"
 msgstr "Senarai Main ASX"
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:791
 msgid "XSPF Playlist"
 msgstr "Senarai Main XSPF"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:910
 msgid "Shuffle _Off"
 msgstr "Kocok _Mati"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:911
 msgid "Shuffle _Tracks"
 msgstr "Kocok _Trek"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:912
 msgid "Shuffle _Albums"
 msgstr "Kocok _Album"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:913
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "Rawak %d"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat _Off"
 msgstr "Ulang _Mati"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat _All"
 msgstr "Ulang _Semua"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat O_ne"
 msgstr "Ulang _Sekali"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:922
 msgid "Dynamic _Off"
 msgstr "Dinamik _Mati"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:922
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinamik berdasarkan _Artis yang Serupa"
 
@@ -916,7 +916,7 @@ msgstr ""
 "benarkan sumber lain."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} piksel"
@@ -1270,7 +1270,7 @@ msgid "Size"
 msgstr "Saiz"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:457
 #, python-format
 msgid "%s kB"
 msgstr ""
@@ -1304,54 +1304,54 @@ msgstr "Senarai Main Pintar Baru"
 msgid "_New Station"
 msgstr "Stesen Baru"
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, fuzzy, python-format
 #| msgid "Delete Playlist"
 msgid "Delete the playlist \"%s\"?"
 msgstr "Padam Senarai Main"
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr "Masukkan nama baru untuk senarai main anda"
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr "Namakan Semula Senarai Main"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1774
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "Nama senarai main yang anda masukkan telah gunakan."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, fuzzy, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Ralat memuatkan podcast."
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s dan lain-lain"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s dan %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Senarai main"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
 msgstr "Senarai Main Pintar"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:536
 msgid "Custom Playlists"
 msgstr "Senarai Main Suai"
 
@@ -1499,11 +1499,11 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Pemalam gagal: %s"
 msgstr[1] "Pemalam gagal: %s"
 
-#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
+#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
 msgstr "Tidak dapat lumpuhkan pemalam!"
 
-#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
+#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
 msgstr "Tidak dapat membenarkan pemalam!"
 
@@ -1511,16 +1511,16 @@ msgstr "Tidak dapat membenarkan pemalam!"
 msgid "Choose a Plugin"
 msgstr "Pilih Pemalam"
 
-#: ../xlgui/preferences/plugin.py:242
+#: ../xlgui/preferences/plugin.py:241
 msgid "Plugin Archives"
 msgstr "Arkib Pemalam"
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:721
 #: ../xlgui/widgets/dialogs.py:898
 msgid "All Files"
 msgstr "Semua Fail"
 
-#: ../xlgui/preferences/plugin.py:260
+#: ../xlgui/preferences/plugin.py:259
 msgid "Plugin file installation failed!"
 msgstr "Pemasangan fail pemalam telah gagal!"
 
@@ -1544,11 +1544,11 @@ msgstr "Tindakan"
 msgid "Shortcut"
 msgstr "Pintasan"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr "Penulisan tag gagal"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1557,80 +1557,80 @@ msgstr ""
 "Tag tidak dapat ditulis ke fail berikut:\n"
 "{files}"
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Menyunting trek %(current)d dari %(total)d"
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:400
 #, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Anda pasti ingin memadam senarai main yang dipilih?"
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr "Laksana perubahan sebelum menutup?"
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Perubahan akan hilang jika anda tidak laksana ia sekarang."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:627
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:634 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:856
 msgid "of:"
 msgstr "dari:"
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:963
 msgid "JPEG image"
 msgstr "Imej JPEG"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:968
 msgid "PNG image"
 msgstr "Imej PNG"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:970
 msgid "Image"
 msgstr "Imej"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:976
 msgid "Linked image"
 msgstr "Imej terpaut"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} piksel)"
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1125
 msgid "Select image to set as cover"
 msgstr "Pilih imej untuk ditetapkan sebagai kulit album"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1138
 msgid "Supported image formats"
 msgstr "Format imej disokong"
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1221
 msgid "Open Directory"
 msgstr "Buka Direktori"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1271
 msgid "Apply current value to all tracks"
 msgstr "Laksana nilai semasa ke semua trek"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1291 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s disimpan dari %(total)s."
@@ -1679,75 +1679,75 @@ msgstr "Import Senarai Main"
 msgid "Export Current Playlist"
 msgstr "Eksport Senarai Main Semasa"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1014
 msgid "Use relative paths to tracks"
 msgstr "Guna laluan relatif ke trek"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1073
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Simpan senarai main sebagai <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Close %s"
 msgstr "Tutup %s"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1091
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Simpan perubahan ke %s sebelum tutup?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1093
 msgid "Your changes will be lost if you don't save them"
 msgstr "Perubahan anda akan hilang jika anda tidak simpankannya"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1097
 msgid "Close Without Saving"
 msgstr "Tutup Tanpa Simpan"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1490
 msgid "Yes to all"
 msgstr "Ya untuk semua"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1498
 msgid "No to all"
 msgstr "Bukan untuk semua"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1670 ../xlgui/widgets/dialogs.py:1688
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Ralat berlaku semasa menyalin %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1699
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "Fail wujud, tulis ganti %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1757
 msgid "Playlist name:"
 msgstr "Nama senarai main:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1758
 msgid "Add new playlist..."
 msgstr "Tambah senarai main baru..."
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1771
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "Anda tidak masukkan nama untuk senarai main anda"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1780
 #, fuzzy
 msgid "Save As"
 msgstr "Simpan Sejarah"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1849
 #, python-format
 msgid "Exporting %s"
 msgstr "Mengeksport %s"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1854
 msgid "Choose directory to export files to"
 msgstr "Pilih direktori untuk mengeksport fail"
 
@@ -2632,10 +2632,12 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr "Menambah item pada baris gilir kosong akan mulakan main balik"
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:38
 msgid "Remove track from queue upon playback"
 msgstr "Buang trek dari baris gilir semasa main balik"
 
 #: ../data/ui/preferences/playback.ui:221
+#: ../plugins/quickbuttons/__init__.py:31
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
 
@@ -2646,10 +2648,12 @@ msgid ""
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui:237
+#: ../plugins/quickbuttons/__init__.py:45
 msgid "Automatically advance to the next track"
 msgstr "Lanjut ke trek berikut secara automatik"
 
 #: ../data/ui/preferences/playback.ui:254
+#: ../plugins/quickbuttons/__init__.py:52
 msgid "Delay between tracks (ms):"
 msgstr ""
 
@@ -2734,6 +2738,7 @@ msgstr ""
 "kelakuan lalai sebelum Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:24
 msgid "Queue tracks by default instead of playing them"
 msgstr "Baris gilir trek secara lalai selain dari memainkannya"
 
@@ -3014,7 +3019,7 @@ msgstr "Kosongkan Tanda Buku"
 msgid "_Bookmarks"
 msgstr "Tanda Buku"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:206
 msgid "Autodetect BPM"
 msgstr ""
 
@@ -3023,12 +3028,12 @@ msgstr ""
 msgid "Set BPM of %d on %s?"
 msgstr "Tetapkan BPM %d pada %s?"
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr "Kiraan BPM"
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 #, fuzzy
 msgid "Update"
 msgstr "Kemaskini"
@@ -3079,7 +3084,7 @@ msgstr "Masukkan alamat dan port alamat untuk dikongsikan"
 msgid "Enter IP address and port."
 msgstr "Masukkan alamat dan port IP."
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3226,14 +3231,14 @@ msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../plugins/grouptagger/gt_mass.py:145
+#: ../plugins/grouptagger/gt_mass.py:141
 #, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../plugins/grouptagger/gt_mass.py:172
+#: ../plugins/grouptagger/gt_mass.py:168
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
@@ -3345,7 +3350,7 @@ msgstr "Trek Terpilih"
 msgid "Playback history"
 msgstr "Sejarah main balik"
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr "Padam sejarah tersimpan?"
 
@@ -3774,6 +3779,28 @@ msgstr ""
 msgid "Preview Device"
 msgstr "Pratonton Peranti"
 
+#: ../plugins/quickbuttons/__init__.py:23
+#, fuzzy
+#| msgid "Enqueue"
+msgid "Enqueue"
+msgstr "Baris Gilir"
+
+#: ../plugins/quickbuttons/__init__.py:37
+#, fuzzy
+#| msgid "Remove"
+msgid "Auto-Remove"
+msgstr "Buang"
+
+#: ../plugins/quickbuttons/__init__.py:44
+#, fuzzy
+#| msgid "Advanced"
+msgid "Auto-Advance"
+msgstr "Lanjutan"
+
+#: ../plugins/quickbuttons/__init__.py:51
+msgid "Delay"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
@@ -3954,7 +3981,7 @@ msgstr "Kata laluan:"
 msgid "_Verify Login Data"
 msgstr "Sahkan Data Daftar Masuk"
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr ""
 
@@ -4708,7 +4735,7 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
 msgstr "Utiliti"
@@ -5115,6 +5142,15 @@ msgstr ""
 msgid "Output"
 msgstr "Output"
 
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
+msgstr ""
+
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
 msgstr "Enable sokongan Gandaan Main Semula"
@@ -5190,7 +5226,7 @@ msgstr ""
 "\n"
 "Perlukan: pyHook (%s)"
 
-#, fuzzy, python-format
+#, fuzzy
 #~ msgid "%s tracks found"
 #~ msgstr "Tiada lirik ditemui."
 

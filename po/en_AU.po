@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 20:00+1000\n"
+"POT-Creation-Date: 2021-04-23 13:11+0200\n"
 "PO-Revision-Date: 2018-06-17 11:37+0000\n"
 "Last-Translator: Johannes Sasongko <sasongko@gmail.com>\n"
 "Language-Team: English (Australia) <https://hosted.weblate.org/projects/"
@@ -634,77 +634,77 @@ msgstr "Invalid sink type '%s' specified"
 msgid "Could not create sink type '%s'"
 msgstr "Could not create sink type '%s'"
 
-#: ../xl/playlist.py:154 ../xl/playlist.py:176
+#: ../xl/playlist.py:153 ../xl/playlist.py:175
 msgid "Invalid playlist type."
 msgstr "Invalid playlist type."
 
-#: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
+#: ../xl/playlist.py:184 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
 #: ../plugins/grouptagger/gt_mass.ui:126
 msgid "Playlist"
 msgstr "Playlist"
 
-#: ../xl/playlist.py:339
+#: ../xl/playlist.py:338
 msgid "M3U Playlist"
 msgstr "M3U Playlist"
 
-#: ../xl/playlist.py:454
+#: ../xl/playlist.py:451
 msgid "PLS Playlist"
 msgstr "PLS Playlist"
 
-#: ../xl/playlist.py:545 ../xl/playlist.py:560
+#: ../xl/playlist.py:542 ../xl/playlist.py:557
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Invalid format for %s."
 
-#: ../xl/playlist.py:555
+#: ../xl/playlist.py:552
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Unsupported version %(version)s for %(type)s"
 
-#: ../xl/playlist.py:615
+#: ../xl/playlist.py:612
 msgid "ASX Playlist"
 msgstr "ASX Playlist"
 
-#: ../xl/playlist.py:794
+#: ../xl/playlist.py:791
 msgid "XSPF Playlist"
 msgstr "XSPF Playlist"
 
-#: ../xl/playlist.py:913
+#: ../xl/playlist.py:910
 msgid "Shuffle _Off"
 msgstr "Shuffle _Off"
 
-#: ../xl/playlist.py:914
+#: ../xl/playlist.py:911
 msgid "Shuffle _Tracks"
 msgstr "Shuffle _Tracks"
 
-#: ../xl/playlist.py:915
+#: ../xl/playlist.py:912
 msgid "Shuffle _Albums"
 msgstr "Shuffle _Albums"
 
-#: ../xl/playlist.py:916
+#: ../xl/playlist.py:913
 #, fuzzy
 #| msgid "Random %d"
 msgid "_Random"
 msgstr "Random %d"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat _Off"
 msgstr "Repeat _Off"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat _All"
 msgstr "Repeat _All"
 
-#: ../xl/playlist.py:921
+#: ../xl/playlist.py:918
 msgid "Repeat O_ne"
 msgstr "Repeat O_ne"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:922
 msgid "Dynamic _Off"
 msgstr "Dynamic _Off"
 
-#: ../xl/playlist.py:925
+#: ../xl/playlist.py:922
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamic by Similar _Artists"
 
@@ -892,7 +892,7 @@ msgstr ""
 "sources."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
-#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1105
+#: ../xlgui/cover.py:1178 ../xlgui/properties.py:1108
 #, python-brace-format
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} pixels"
@@ -1211,7 +1211,7 @@ msgid "Size"
 msgstr "Size"
 
 #. TRANSLATORS: File size (1 kB = 1000 bytes)
-#: ../xlgui/panel/files.py:459
+#: ../xlgui/panel/files.py:457
 #, python-format
 msgid "%s kB"
 msgstr "%s kB"
@@ -1241,53 +1241,53 @@ msgstr "New _Smart Playlist"
 msgid "_New Station"
 msgstr "_New Station"
 
-#: ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:134
 #, python-format
 msgid "Delete the playlist \"%s\"?"
 msgstr "Delete the playlist \"%s\"?"
 
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:151
 msgid "Enter the new name you want for your playlist"
 msgstr "Enter the new name you want for your playlist"
 
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:152
 msgid "Rename Playlist"
 msgstr "Rename Playlist"
 
-#: ../xlgui/panel/playlists.py:169 ../xlgui/widgets/dialogs.py:1766
+#: ../xlgui/panel/playlists.py:168 ../xlgui/widgets/dialogs.py:1774
 #: ../xlgui/widgets/smart_playlist_editor.py:395
 msgid "The playlist name you entered is already in use."
 msgstr "The playlist name you entered is already in use."
 
-#: ../xlgui/panel/playlists.py:215
+#: ../xlgui/panel/playlists.py:214
 #, python-format
 msgid "Error loading smart playlist: %s"
 msgstr "Error loading smart playlist: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:276 ../xlgui/panel/playlists.py:292
-#: ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/playlists.py:275 ../xlgui/panel/playlists.py:291
+#: ../xlgui/panel/playlists.py:307
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s and others"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:282 ../xlgui/panel/playlists.py:298
-#: ../xlgui/panel/playlists.py:314
+#: ../xlgui/panel/playlists.py:281 ../xlgui/panel/playlists.py:297
+#: ../xlgui/panel/playlists.py:313
 #, python-format
 msgid "%(first)s and %(second)s"
 msgstr "%(first)s and %(second)s"
 
-#: ../xlgui/panel/playlists.py:390 ../xlgui/preferences/playlists.py:31
+#: ../xlgui/panel/playlists.py:389 ../xlgui/preferences/playlists.py:31
 msgid "Playlists"
 msgstr "Playlists"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:533
 msgid "Smart Playlists"
 msgstr "Smart Playlists"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:536
 msgid "Custom Playlists"
 msgstr "Custom Playlists"
 
@@ -1427,11 +1427,11 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Failed plugin: %s"
 msgstr[1] "Failed plugins: %s"
 
-#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:313
+#: ../xlgui/preferences/plugin.py:212 ../xlgui/preferences/plugin.py:312
 msgid "Could not disable plugin!"
 msgstr "Could not disable plugin!"
 
-#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:307
+#: ../xlgui/preferences/plugin.py:222 ../xlgui/preferences/plugin.py:306
 msgid "Could not enable plugin!"
 msgstr "Could not enable plugin!"
 
@@ -1439,16 +1439,16 @@ msgstr "Could not enable plugin!"
 msgid "Choose a Plugin"
 msgstr "Choose a Plug-in"
 
-#: ../xlgui/preferences/plugin.py:242
+#: ../xlgui/preferences/plugin.py:241
 msgid "Plugin Archives"
 msgstr "Plug-in Archives"
 
-#: ../xlgui/preferences/plugin.py:249 ../xlgui/widgets/dialogs.py:721
+#: ../xlgui/preferences/plugin.py:248 ../xlgui/widgets/dialogs.py:721
 #: ../xlgui/widgets/dialogs.py:898
 msgid "All Files"
 msgstr "All Files"
 
-#: ../xlgui/preferences/plugin.py:260
+#: ../xlgui/preferences/plugin.py:259
 msgid "Plugin file installation failed!"
 msgstr "Plugin file installation failed!"
 
@@ -1472,11 +1472,11 @@ msgstr "Action"
 msgid "Shortcut"
 msgstr "Shortcut"
 
-#: ../xlgui/properties.py:253
+#: ../xlgui/properties.py:256
 msgid "Writing of tags failed"
 msgstr "Writing of tags failed"
 
-#: ../xlgui/properties.py:255
+#: ../xlgui/properties.py:258
 #, python-brace-format
 msgid ""
 "Tags could not be written to the following files:\n"
@@ -1485,79 +1485,79 @@ msgstr ""
 "Tags could not be written to the following files:\n"
 "{files}"
 
-#: ../xlgui/properties.py:275
+#: ../xlgui/properties.py:278
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Editing track %(current)d of %(total)d"
 
-#: ../xlgui/properties.py:398
+#: ../xlgui/properties.py:400
 msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr "Are you sure you want to apply the changes to all tracks?"
 
-#: ../xlgui/properties.py:440
+#: ../xlgui/properties.py:443
 msgid "Apply changes before closing?"
 msgstr "Apply changes before closing?"
 
-#: ../xlgui/properties.py:441
+#: ../xlgui/properties.py:444
 msgid "Your changes will be lost if you do not apply them now."
 msgstr "Your changes will be lost if you do not apply them now."
 
 #. TRANSLATORS: Label for a tag on the Track Properties dialog
-#: ../xlgui/properties.py:624
+#: ../xlgui/properties.py:627
 #, python-format
 msgid "%s:"
 msgstr "%s:"
 
 #. TRANSLATORS: Remove tag value
-#: ../xlgui/properties.py:631 ../plugins/developer/developer_window.ui:131
+#: ../xlgui/properties.py:634 ../plugins/developer/developer_window.ui:131
 msgid "Clear"
 msgstr ""
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:853
+#: ../xlgui/properties.py:856
 msgid "of:"
 msgstr "of:"
 
-#: ../xlgui/properties.py:960
+#: ../xlgui/properties.py:963
 msgid "JPEG image"
 msgstr "JPEG image"
 
-#: ../xlgui/properties.py:965
+#: ../xlgui/properties.py:968
 msgid "PNG image"
 msgstr "PNG image"
 
-#: ../xlgui/properties.py:967
+#: ../xlgui/properties.py:970
 msgid "Image"
 msgstr "Image"
 
-#: ../xlgui/properties.py:973
+#: ../xlgui/properties.py:976
 msgid "Linked image"
 msgstr "Linked image"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
-#: ../xlgui/properties.py:1108
+#: ../xlgui/properties.py:1111
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
 msgstr "{format} ({width}x{height} pixels)"
 
-#: ../xlgui/properties.py:1122
+#: ../xlgui/properties.py:1125
 msgid "Select image to set as cover"
 msgstr "Select image to set as cover"
 
-#: ../xlgui/properties.py:1135
+#: ../xlgui/properties.py:1138
 msgid "Supported image formats"
 msgstr "Supported image formats"
 
-#: ../xlgui/properties.py:1218
+#: ../xlgui/properties.py:1221
 msgid "Open Directory"
 msgstr "Open Directory"
 
-#: ../xlgui/properties.py:1268
+#: ../xlgui/properties.py:1271
 msgid "Apply current value to all tracks"
 msgstr "Apply current value to all tracks"
 
-#: ../xlgui/properties.py:1288 ../xlgui/widgets/dialogs.py:1543
+#: ../xlgui/properties.py:1291 ../xlgui/widgets/dialogs.py:1550
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Saved %(count)s of %(total)s."
@@ -1606,74 +1606,74 @@ msgstr "Import Playlist"
 msgid "Export Current Playlist"
 msgstr "Export Current Playlist"
 
-#: ../xlgui/widgets/dialogs.py:1009
+#: ../xlgui/widgets/dialogs.py:1014
 msgid "Use relative paths to tracks"
 msgstr "Use relative paths to tracks"
 
-#: ../xlgui/widgets/dialogs.py:1066
+#: ../xlgui/widgets/dialogs.py:1073
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
 msgstr "Playlist saved as <b>%s</b>."
 
-#: ../xlgui/widgets/dialogs.py:1083
+#: ../xlgui/widgets/dialogs.py:1090
 #, python-format
 msgid "Close %s"
 msgstr "Close %s"
 
-#: ../xlgui/widgets/dialogs.py:1084
+#: ../xlgui/widgets/dialogs.py:1091
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Save changes to %s before closing?</b>"
 
-#: ../xlgui/widgets/dialogs.py:1086
+#: ../xlgui/widgets/dialogs.py:1093
 msgid "Your changes will be lost if you don't save them"
 msgstr "Your changes will be lost if you don't save them"
 
-#: ../xlgui/widgets/dialogs.py:1090
+#: ../xlgui/widgets/dialogs.py:1097
 msgid "Close Without Saving"
 msgstr "Close Without Saving"
 
-#: ../xlgui/widgets/dialogs.py:1483
+#: ../xlgui/widgets/dialogs.py:1490
 msgid "Yes to all"
 msgstr "Yes to all"
 
-#: ../xlgui/widgets/dialogs.py:1491
+#: ../xlgui/widgets/dialogs.py:1498
 msgid "No to all"
 msgstr "No to all"
 
-#: ../xlgui/widgets/dialogs.py:1663 ../xlgui/widgets/dialogs.py:1681
+#: ../xlgui/widgets/dialogs.py:1670 ../xlgui/widgets/dialogs.py:1688
 #, python-format
 msgid "Error occurred while copying %s: %s"
 msgstr "Error occurred while copying %s: %s"
 
-#: ../xlgui/widgets/dialogs.py:1692
+#: ../xlgui/widgets/dialogs.py:1699
 #, python-format
 msgid "File exists, overwrite %s ?"
 msgstr "File exists, overwrite %s ?"
 
-#: ../xlgui/widgets/dialogs.py:1749
+#: ../xlgui/widgets/dialogs.py:1757
 msgid "Playlist name:"
 msgstr "Playlist name:"
 
-#: ../xlgui/widgets/dialogs.py:1750
+#: ../xlgui/widgets/dialogs.py:1758
 msgid "Add new playlist..."
 msgstr "Add new playlist..."
 
-#: ../xlgui/widgets/dialogs.py:1763
+#: ../xlgui/widgets/dialogs.py:1771
 #: ../xlgui/widgets/smart_playlist_editor.py:387
 msgid "You did not enter a name for your playlist"
 msgstr "You did not enter a name for your playlist"
 
-#: ../xlgui/widgets/dialogs.py:1772
+#: ../xlgui/widgets/dialogs.py:1780
 msgid "Save As"
 msgstr "Save As"
 
-#: ../xlgui/widgets/dialogs.py:1841
+#: ../xlgui/widgets/dialogs.py:1849
 #, python-format
 msgid "Exporting %s"
 msgstr "Exporting %s"
 
-#: ../xlgui/widgets/dialogs.py:1846
+#: ../xlgui/widgets/dialogs.py:1854
 msgid "Choose directory to export files to"
 msgstr "Choose directory to export files to"
 
@@ -2497,10 +2497,12 @@ msgid "Adding an item to an empty queue begins playback"
 msgstr "Adding an item to an empty queue begins playback"
 
 #: ../data/ui/preferences/playback.ui:206
+#: ../plugins/quickbuttons/__init__.py:38
 msgid "Remove track from queue upon playback"
 msgstr "Remove track from queue upon playback"
 
 #: ../data/ui/preferences/playback.ui:221
+#: ../plugins/quickbuttons/__init__.py:31
 msgid "Disallow playing new tracks when another track is playing"
 msgstr "Disallow playing new tracks when another track is playing"
 
@@ -2513,10 +2515,12 @@ msgstr ""
 "except when clicking the playback controls"
 
 #: ../data/ui/preferences/playback.ui:237
+#: ../plugins/quickbuttons/__init__.py:45
 msgid "Automatically advance to the next track"
 msgstr "Automatically advance to the next track"
 
 #: ../data/ui/preferences/playback.ui:254
+#: ../plugins/quickbuttons/__init__.py:52
 msgid "Delay between tracks (ms):"
 msgstr "Delay between tracks (ms):"
 
@@ -2596,6 +2600,7 @@ msgstr ""
 "before Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui:66
+#: ../plugins/quickbuttons/__init__.py:24
 msgid "Queue tracks by default instead of playing them"
 msgstr "Queue tracks by default instead of playing them"
 
@@ -2859,7 +2864,7 @@ msgstr "_Clear Bookmarks"
 msgid "_Bookmarks"
 msgstr "_Bookmarks"
 
-#: ../plugins/bpm/__init__.py:66 ../plugins/bpm/__init__.py:205
+#: ../plugins/bpm/__init__.py:67 ../plugins/bpm/__init__.py:206
 msgid "Autodetect BPM"
 msgstr ""
 
@@ -2868,12 +2873,12 @@ msgstr ""
 msgid "Set BPM of %d on %s?"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:183 ../plugins/bpm/bpm.ui:58
+#: ../plugins/bpm/__init__.py:184 ../plugins/bpm/bpm.ui:59
 #: ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:335 ../plugins/bpm/bpm.ui:30
+#: ../plugins/bpm/__init__.py:336 ../plugins/bpm/bpm.ui:31
 msgid "Update"
 msgstr "Update"
 
@@ -2923,7 +2928,7 @@ msgstr "Enter IP address and port for share"
 msgid "Enter IP address and port."
 msgstr "Enter IP address and port."
 
-#: ../plugins/daapclient/__init__.py:549
+#: ../plugins/daapclient/__init__.py:548
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -3063,14 +3068,14 @@ msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../plugins/grouptagger/gt_mass.py:145
+#: ../plugins/grouptagger/gt_mass.py:141
 #, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../plugins/grouptagger/gt_mass.py:172
+#: ../plugins/grouptagger/gt_mass.py:168
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
@@ -3180,7 +3185,7 @@ msgstr ""
 msgid "Playback history"
 msgstr ""
 
-#: ../plugins/history/__init__.py:117
+#: ../plugins/history/__init__.py:116
 msgid "Erase stored history?"
 msgstr ""
 
@@ -3594,6 +3599,28 @@ msgstr ""
 msgid "Preview Device"
 msgstr ""
 
+#: ../plugins/quickbuttons/__init__.py:23
+#, fuzzy
+#| msgid "En_queue"
+msgid "Enqueue"
+msgstr "En_queue"
+
+#: ../plugins/quickbuttons/__init__.py:37
+#, fuzzy
+#| msgid "Remove"
+msgid "Auto-Remove"
+msgstr "Remove"
+
+#: ../plugins/quickbuttons/__init__.py:44
+#, fuzzy
+#| msgid "Advanced"
+msgid "Auto-Advance"
+msgstr "Advanced"
+
+#: ../plugins/quickbuttons/__init__.py:51
+msgid "Delay"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
@@ -3771,7 +3798,7 @@ msgstr "Password:"
 msgid "_Verify Login Data"
 msgstr ""
 
-#: ../plugins/bpm/bpm.ui:41
+#: ../plugins/bpm/bpm.ui:42
 msgid "Apply BPM"
 msgstr ""
 
@@ -4509,7 +4536,7 @@ msgstr ""
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/bookmarks/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5 ../plugins/history/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/quickbuttons/PLUGININFO:5
 #: ../plugins/screensaverpause/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 msgid "Utility"
 msgstr ""
@@ -4887,6 +4914,15 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
+#: ../plugins/quickbuttons/PLUGININFO:3
+msgid "Quick Settings Buttons"
+msgstr ""
+
+#: ../plugins/quickbuttons/PLUGININFO:4
+msgid ""
+"Provides buttons on bottom of the playlist to quickly change some settings"
+msgstr ""
+
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
 msgstr "Enables ReplayGain support"
@@ -4943,7 +4979,6 @@ msgstr ""
 "\n"
 "Requires: pyHook (%s)"
 
-#, python-format
 #~ msgid "%s tracks found"
 #~ msgstr "%s tracks found"
 

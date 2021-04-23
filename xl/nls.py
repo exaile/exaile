@@ -51,6 +51,10 @@ def _get_locale_path() -> Optional[str]:
     if os.path.exists(locale_path):  # Equivalent to xl.xdg.local_hack
         return locale_path
 
+    locale_path = os.path.join(exaile_path, 'po')
+    if os.path.exists(locale_path):  # Equivalent to xl.xdg.local_hack
+        return locale_path
+
     # Check if installed
     lib_suffix = os.path.join('lib', 'exaile')
     if exaile_path.endswith(lib_suffix):

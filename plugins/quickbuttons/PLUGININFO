@@ -1,5 +1,5 @@
 Version='0.1'
 Authors=['']
 Name=_("Quick Settings Buttons")
-Description=_("Provides a manual BPM counter, and BPM autodetection when the bpmdetect plugin from gst-plugins-bad is installed")
+Description=_("Provides buttons on bottom of the playlist to quickly change some settings")
 Category=_('Utility')

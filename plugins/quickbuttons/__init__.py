@@ -4,32 +4,52 @@ from xl import event, settings
 from xl.nls import gettext as _
 
 class QuickButtons:
+    """
+    Plugin adds some buttons on the bottom line of the playlists grid to
+    change some settings quickly
+    """
+
+    _self_triggered = False
+    """
+    Don't repeat yourself
+    """
+
+    _options = {
+        'playlist/enqueue_by_default': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'enq',
+                                        'tooltip': 'Queue tracks by default instead of playing them'},
+        'queue/disable_new_track_when_playing': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'dis',
+                                                 'tooltip': 'Disallow playing new tracks when another track is playing'},
+        'queue/remove_item_when_played': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'rem',
+                                          'tooltip': 'Remove track from queue upon playback'},
+        'player/auto_advance': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'auto',
+                                'tooltip': 'Automatically advance to the next track'},
+        'player/auto_advance_delay': {'value': None, 'widget': None, 'type': 'spin', 'label': 'delay',
+                                      'tooltip': 'Delay between tracks (ms):'}
+    }
+    """
+    Usable options
+    """
 
     def enable(self, exaile):
+        """
+        Called on startup of exaile
+        """
         self._exaile = exaile
-        self._options = {
-            'playlist/enqueue_by_default': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'enq', 'tooltip': 'Queue tracks by default instead of playing them'},
-            'queue/disable_new_track_when_playing': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'dis', 'tooltip': 'Disallow playing new tracks when another track is playing'},
-            'queue/remove_item_when_played': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'rem', 'tooltip': 'Remove track from queue upon playback'},
-            'player/auto_advance': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'auto', 'tooltip': 'Automatically advance to the next track'},
-            'player/auto_advance_delay': {'value': None, 'widget': None, 'type': 'spin', 'label': 'delay', 'tooltip': 'Delay between tracks (ms):'}
-        }
 
         event.add_callback(self._on_option_set, 'playlist_option_set')
         event.add_callback(self._on_option_set, 'queue_option_set')
         event.add_callback(self._on_option_set, 'player_option_set')
 
-        self._own_change = False
-
     def disable(self, exaile):
+        # TODO successfull disabling
         pass
 
-    def _on_option_set(self, event_name, event_source, option):
-        if not option in self._options:
+    def _on_option_set(self, event_name, event_source, option: str) -> None:
+        if option not in self._options:
             return
 
-        if self._own_change:
-            self._own_change = False
+        if self._self_triggered:
+            self._self_triggered = False
             return
 
         self._options[option]['value'] = settings.get_option(option)
@@ -38,22 +58,25 @@ class QuickButtons:
         elif self._options[option]['type'] == 'spin':
             self._options[option]['widget'].get_children()[0].set_value(self._options[option]['value'])
 
-    def _on_toggle(self, widget, setting):
-        self._own_change = True
+    def _on_toggle(self, widget, setting: str):
+        self._self_triggered = True
         settings.set_option(setting, widget.get_active())
 
-    def _on_spin(self, widget, setting):
-        self._own_change = True
+    def _on_spin(self, widget, setting: str):
+        self._self_triggered = True
         self._set_delay_value(widget.get_value_as_int())
 
-    def _get_delay_value(self):
+    def _get_delay_value(self) -> int:
+        """
+        Get the current delay value in seconds as int
+        """
         value = settings.get_option('player/auto_advance_delay')
         if value == None:
             value = 0
         value = value / 1000
         return int(value)
 
-    def _set_delay_value(self, value):
+    def _set_delay_value(self, value: int) -> None:
         value = value * 1000
         settings.set_option('player/auto_advance_delay', value)
 
@@ -79,7 +102,10 @@ class QuickButtons:
         self._toolbar.insert(tb, -1)
 
     def on_gui_loaded(self):
-
+        """
+        Called when the gui is loaded
+        Before that there is no status bar
+        """
         self._status_bar = self._exaile.gui.builder.get_object('status_bar')
         self._toolbar = Gtk.Toolbar()
 

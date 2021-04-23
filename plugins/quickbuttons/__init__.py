@@ -1,22 +1,25 @@
 
 from gi.repository import Gtk
 from xl import event, settings
+from xl.nls import gettext as _
 
 class QuickButtons:
 
     def enable(self, exaile):
         self._exaile = exaile
         self._options = {
-            'playlist/enqueue_by_default': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'enq'},
-            'player/auto_advance_delay': {'value': None, 'widget': None, 'type': 'spin', 'label': 'delay'},
-            'queue/disable_new_track_when_playing': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'dis'},
-            'queue/remove_item_when_played': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'rem'},
-            'player/auto_advance': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'auto'}
+            'playlist/enqueue_by_default': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'enq', 'tooltip': 'Queue tracks by default instead of playing them'},
+            'queue/disable_new_track_when_playing': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'dis', 'tooltip': 'Disallow playing new tracks when another track is playing'},
+            'queue/remove_item_when_played': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'rem', 'tooltip': 'Remove track from queue upon playback'},
+            'player/auto_advance': {'value': None, 'widget': None, 'type': 'toggle', 'label': 'auto', 'tooltip': 'Automatically advance to the next track'},
+            'player/auto_advance_delay': {'value': None, 'widget': None, 'type': 'spin', 'label': 'delay', 'tooltip': 'Delay between tracks (ms):'}
         }
 
         event.add_callback(self._on_option_set, 'playlist_option_set')
         event.add_callback(self._on_option_set, 'queue_option_set')
         event.add_callback(self._on_option_set, 'player_option_set')
+
+        self._own_change = False
 
     def disable(self, exaile):
         pass
@@ -25,20 +28,34 @@ class QuickButtons:
         if not option in self._options:
             return
 
+        if self._own_change:
+            self._own_change = False
+            return
+
         self._options[option]['value'] = settings.get_option(option)
         if self._options[option]['type'] == 'toggle':
             self._options[option]['widget'].set_active(self._options[option]['value'])
-        if self._options[option]['type'] == 'spin':
+        elif self._options[option]['type'] == 'spin':
             self._options[option]['widget'].get_children()[0].set_value(self._options[option]['value'])
 
     def _on_toggle(self, widget, setting):
         settings.set_option(setting, widget.get_active())
+        self._own_change = True
 
     def _on_spin(self, widget, setting):
-        pass
+        self._set_delay_value(widget.get_value_as_int())
+        self._own_change = True
 
     def _get_delay_value(self):
-        value = 1
+        value = settings.get_option('player/auto_advance_delay')
+        if value == None:
+            value = 0
+        value = value / 1000
+        return value
+
+    def _set_delay_value(self, value):
+        value = value * 1000
+        settings.set_option('player/auto_advance_delay', value)
 
     def _add_button(self, setting):
         if self._options[setting]['type'] == 'toggle':
@@ -52,12 +69,13 @@ class QuickButtons:
             tbs.set_adjustment(Gtk.Adjustment(value=self._get_delay_value(), lower=0, upper=10, step_incr=1, page_incr=1, page_size=0))
             tbs.connect('value-changed', self._on_spin, setting)
 
+        tbs.set_tooltip_text(_(self._options[setting]['tooltip']))
         tbs.show()
         tb = Gtk.ToolItem()
         tb.add(tbs)
+        tb.show()
 
         self._options[setting]['widget'] = tb
-        tb.show()
         self._toolbar.insert(tb, -1)
 
     def on_gui_loaded(self):

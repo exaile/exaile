@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-01-28 04:32+0000\n"
+"PO-Revision-Date: 2021-04-22 06:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -219,15 +219,15 @@ msgstr "Näita hüpikakent esitatava pala andmetega"
 
 #: ../xl/main.py:200
 msgid "Print the title of current track"
-msgstr "Näitab praeguse loo pealkirja"
+msgstr "Näita praeguse loo pealkirja"
 
 #: ../xl/main.py:207
 msgid "Print the album of current track"
-msgstr "Näitab praeguse loo albumit"
+msgstr "Näita praeguse loo albumit"
 
 #: ../xl/main.py:214
 msgid "Print the artist of current track"
-msgstr "Näitab praeguse loo esitajat"
+msgstr "Näita praeguse loo esitajat"
 
 #: ../xl/main.py:221
 msgid "Print the length of current track"
@@ -616,7 +616,7 @@ msgstr ""
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
-msgstr ""
+msgstr "Kohandatud konveier on määratlemata!"
 
 #: ../xl/player/gst/sink.py:196
 #, python-format
@@ -635,7 +635,7 @@ msgstr ""
 
 #: ../xl/playlist.py:154 ../xl/playlist.py:176
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "Vigane esitusloendi tüüp."
 
 #: ../xl/playlist.py:185 ../xlgui/widgets/playlist.py:406
 #: ../xlgui/widgets/smart_playlist_editor.py:254
@@ -675,7 +675,7 @@ msgstr ""
 
 #: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Sega _lood"
 
 #: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
@@ -687,15 +687,15 @@ msgstr "_Juhuslik"
 
 #: ../xl/playlist.py:921
 msgid "Repeat _Off"
-msgstr ""
+msgstr "Ära korda _midagi"
 
 #: ../xl/playlist.py:921
 msgid "Repeat _All"
-msgstr ""
+msgstr "Korda _kõiki"
 
 #: ../xl/playlist.py:921
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Korda _üht lugu"
 
 #: ../xl/playlist.py:925
 msgid "Dynamic _Off"
@@ -787,11 +787,11 @@ msgstr ""
 
 #: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Sa pole määratlenud asukohta, kust peaksime andmebaasi laadima"
 
 #: ../xl/trax/trackdb.py:253
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "Sa pole määratlenud asukohta, kuhu peaksime andmebaasi salvestama"
 
 #: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
 msgid "Not playing."
@@ -811,7 +811,7 @@ msgstr "Loen muusikakogu..."
 #: ../xlgui/__init__.py:397
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Uurime hoolega %s..."
 
 #: ../xlgui/collection.py:116
 msgid "Add a Directory"
@@ -832,7 +832,7 @@ msgstr ""
 #: ../xlgui/cover.py:97
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} kaanepilti on veel laadimata"
 
 #: ../xlgui/cover.py:98
 msgid "All covers fetched"
@@ -1085,7 +1085,7 @@ msgstr "_Eelistused"
 
 #: ../xlgui/menu.py:278
 msgid "_Show Playing Track"
-msgstr "_Näita esitatavat pala"
+msgstr "_Näita esitatavat lugu"
 
 #: ../xlgui/menu.py:302
 msgid "_Playlist Utilities Bar"
@@ -1113,7 +1113,7 @@ msgstr "Analüüsi muusikakogu uuesti (aegla_selt)"
 
 #: ../xlgui/menu.py:405
 msgid "User's Guide (website)"
-msgstr ""
+msgstr "Kasutusjuhend (veebisait)"
 
 #: ../xlgui/menu.py:408 ../data/ui/shortcuts_dialog.ui:21
 msgid "Shortcuts"
@@ -1121,15 +1121,15 @@ msgstr "Kiirklahvid"
 
 #: ../xlgui/menu.py:415
 msgid "Report an issue (GitHub)"
-msgstr ""
+msgstr "Teata veast (GitHub'is)"
 
 #: ../xlgui/menu.py:421
 msgid "Open error logs"
-msgstr ""
+msgstr "Vaata vigade logisid"
 
 #: ../xlgui/menu.py:425
 msgid "_About"
-msgstr ""
+msgstr "Rakenduse _teave"
 
 #: ../xlgui/panel/collection.py:127
 msgid "Album Artist"
@@ -1346,11 +1346,13 @@ msgstr "Esitusloend %d"
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
+"{playlist_name} ({track_count} lugu, suletud {minutes} minut(it) tagasi)"
 
 #: ../xlgui/playlist_container.py:394
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
+"{playlist_name} ({track_count} lugu, suletud {seconds} sekund(it) tagasi)"
 
 #: ../xlgui/playlist_container.py:546
 msgid "_Move to Other View"
@@ -1593,7 +1595,7 @@ msgstr "Ekspordi praegune esitusloend"
 
 #: ../xlgui/widgets/dialogs.py:1009
 msgid "Use relative paths to tracks"
-msgstr "Palade salvestamisel kasuta suhelisi otsiteesid"
+msgstr "Lugude salvestamisel kasuta suhelisi otseteid"
 
 #: ../xlgui/widgets/dialogs.py:1066
 #, python-format
@@ -1705,7 +1707,7 @@ msgstr "_Lisa praegusele juurde"
 
 #: ../xlgui/widgets/menuitems.py:182 ../xlgui/widgets/playlist.py:418
 msgid "_Track Properties"
-msgstr "_Pala omadused"
+msgstr "_Loo omadused"
 
 #: ../xlgui/widgets/menuitems.py:201
 msgid "_Open Directory"
@@ -1815,7 +1817,7 @@ msgstr "_Dünaamiline"
 
 #: ../xlgui/widgets/playlist.py:146
 msgid "Remove _Current Track From Playlist"
-msgstr "Eemalda _see pala esitusloendist"
+msgstr "Eemalda _see lugu esitusloendist"
 
 #: ../xlgui/widgets/playlist.py:179
 msgid "R_andomize Playlist"
@@ -1827,11 +1829,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:224
 msgid "_Save"
-msgstr ""
+msgstr "_Salvesta"
 
 #: ../xlgui/widgets/playlist.py:237 ../data/ui/coverwindow.ui:26
 msgid "Save _As"
-msgstr ""
+msgstr "Salvesta _kui"
 
 #: ../xlgui/widgets/playlist.py:257
 msgid "_Clear"
@@ -1855,7 +1857,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:743 ../data/ui/playlist.ui:99
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Lisa sarnaseid lugusid dünaamiliselt esitusloendisse"
 
 #: ../xlgui/widgets/playlist.py:799
 msgid "Loading"
@@ -1899,11 +1901,11 @@ msgstr "Lõpu nihe"
 
 #: ../xlgui/widgets/playlist_columns.py:838
 msgid "_Resizable"
-msgstr ""
+msgstr "_Muudetav laius"
 
 #: ../xlgui/widgets/playlist_columns.py:849
 msgid "_Autosize"
-msgstr ""
+msgstr "_Automaatne laius"
 
 #: ../xlgui/widgets/queue.py:81
 msgid "Queue"
@@ -2045,12 +2047,12 @@ msgstr "mitte viimase"
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:244
 msgid "Track is in"
-msgstr "Rada on kaasatud"
+msgstr "Lugu on kaasatud"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/widgets/smart_playlist_editor.py:246
 msgid "Track not in"
-msgstr "Rada ei ole kaasatud"
+msgstr "Lugu ei ole kaasatud"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:301
 msgid "Add Smart Playlist"
@@ -2243,7 +2245,7 @@ msgstr ""
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Lisa kõik lood esitusloendile"
 
 #: ../data/ui/panel/flatplaylist.ui:44
 msgid "Import CD"
@@ -2287,7 +2289,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:54
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Infovormil leidub kaanepilt ja loo teave"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
@@ -2312,7 +2314,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
-msgstr "Näita palade arvu muusikakogus"
+msgstr "Näita lugude arvu muusikakogus"
 
 #. TRANSLATORS: Remark at the alpha transparency option
 #: ../data/ui/preferences/appearance.ui:208
@@ -2459,25 +2461,28 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:206
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Peale esitamist eemalda lugu esitusloendist"
 
 #: ../data/ui/preferences/playback.ui:221
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
+"Kui lugu parasjagu on esitamisel, siis ära luba teise loo esitamist alustada"
 
 #: ../data/ui/preferences/playback.ui:225
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Kui lugu parasjagu on esitamisel, siis ära luba teise loo esitamist alustada;"
+" erandiks on juhud kui klõpsid esitusnuppe"
 
 #: ../data/ui/preferences/playback.ui:237
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Liigu automaatselt järgmise loo juurde"
 
 #: ../data/ui/preferences/playback.ui:254
 msgid "Delay between tracks (ms):"
-msgstr ""
+msgstr "Viivitus millisekundites lugude vahel:"
 
 #: ../data/ui/preferences/playback.ui:268
 msgid "Only works when crossfading not enabled"
@@ -2844,7 +2849,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:105
 msgid "Track number"
-msgstr ""
+msgstr "Loo number"
 
 #: ../plugins/cd/cdprefs.py:115 ../plugins/minimode/minimode_preferences.py:111
 msgid "Disc number"
@@ -2939,11 +2944,11 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:142
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Näita lugusid koos kõikide siltidega"
 
 #: ../plugins/grouptagger/__init__.py:152
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Näita lugusid koos valitud siltidega"
 
 #: ../plugins/grouptagger/__init__.py:164
 #: ../plugins/grouptagger/gt_widgets.py:946
@@ -2972,7 +2977,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:58
 msgid "Importing tracks"
-msgstr ""
+msgstr "Impordin lugusid"
 
 #: ../plugins/grouptagger/gt_import.py:86
 msgid "Importing groups"
@@ -2987,26 +2992,25 @@ msgid "Select directory to import grouping tags from"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 rada leitud"
-msgstr[1] "0 rada leitud"
+msgstr[0] "leidsin {amount} loo"
+msgstr[1] "leidsin {amount} lugu"
 
 #: ../plugins/grouptagger/gt_mass.py:135
 #, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kas „{old_tag}“ asemel muudame sildiks „{new_tag}“ {amount} loos?"
+msgstr[1] "Kas „{old_tag}“ asemel muudame sildiks „{new_tag}“ {amount} loos?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
 #, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kas eemaldame „{tag}“ sildi {amount}-st loost?"
+msgstr[1] "Kas eemaldame „{tag}“ sildi {amount}-st loost?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
@@ -3018,16 +3022,16 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 msgid "Show tracks with selected"
-msgstr "Näita radu valikuga"
+msgstr "Näita lugusid valikuga"
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Näita „%s“ sildiga lugusid"
 
 #: ../plugins/grouptagger/gt_widgets.py:76
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Näita lugusid kõikide valikutega"
 
 #: ../plugins/grouptagger/gt_widgets.py:155
 msgid "Tag"
@@ -3051,7 +3055,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:211
 msgid "Show tracks with selected (custom)"
-msgstr "Näita radu valikuga (kohandatud)"
+msgstr "Näita lugusid valikuga (kohandatud)"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
@@ -3108,7 +3112,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:820
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Valitud lood"
 
 #: ../plugins/history/__init__.py:77
 msgid "Playback history"
@@ -3213,12 +3217,12 @@ msgstr "Mu_lle meeldib see lugu"
 
 #: ../plugins/lastfmlove/__init__.py:178
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Mulle enam ei meeldi see lugu"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Last.fm'is meeldivaks märgitud lood"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:59
 msgid "The API key is invalid."
@@ -3258,11 +3262,11 @@ msgstr "Eelmine"
 
 #: ../plugins/minimode/controls.py:225
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Mine eelmise loo juurde"
 
 #: ../plugins/minimode/controls.py:231
 msgid "Previous track"
-msgstr ""
+msgstr "Eelmine lugu"
 
 #: ../plugins/minimode/controls.py:246
 msgid "Next"
@@ -3270,11 +3274,11 @@ msgstr "Järgmine"
 
 #: ../plugins/minimode/controls.py:247
 msgid "Go to the next track"
-msgstr ""
+msgstr "Mine järgmise loo juurde"
 
 #: ../plugins/minimode/controls.py:253
 msgid "Next track"
-msgstr ""
+msgstr "Järgmine lugu"
 
 #: ../plugins/minimode/controls.py:269
 msgid "Play/Pause"
@@ -3302,7 +3306,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:374
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Jätka esitust peale praegust lugu"
 
 #: ../plugins/minimode/controls.py:448
 msgid "Change the volume"
@@ -3665,7 +3669,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:17
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Saada lugusid Last.fm kraasijale"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:34
 msgid "Show menuitem to toggle submission"
@@ -3673,7 +3677,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:51
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
-msgstr ""
+msgstr "Saada ka voogedastatud lugusid (näiteks DAAP, Shoutcast, jne)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui:70
 msgid "Username:"
@@ -3929,7 +3933,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:99
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Tühi väärtus tähistab kõiki lugusid"
 
 #: ../plugins/grouptagger/gt_mass.ui:101
 msgid "Search Tag"
@@ -3945,7 +3949,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui:219
 msgid "0 tracks found"
-msgstr "0 rada leitud"
+msgstr "leidsin 0 lugu"
 
 #: ../plugins/grouptagger/gt_prefs.ui:41
 msgid "Group/categories font:"
@@ -4076,7 +4080,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui:149
 msgid "Track Title Format"
-msgstr ""
+msgstr "Loo pealkirja vorming"
 
 #: ../plugins/minimode/minimode_preferences.ui:165
 msgid "Always on top"
@@ -4344,7 +4348,7 @@ msgstr ""
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Esita pidevalt ühte lõiku loost."
 
 #: ../plugins/abrepeat/PLUGININFO:5 ../plugins/equalizer/PLUGININFO:5
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
@@ -4690,6 +4694,8 @@ msgid ""
 "A popup window showing information of the currently playing track.\n"
 "This plugin is not available on Wayland."
 msgstr ""
+"Hüpikaken hetkel esitatava loo teabega.\n"
+"Pole kasutatav Wayland'i puhul."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"

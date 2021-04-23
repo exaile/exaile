@@ -39,19 +39,19 @@ class QuickButtons:
             self._options[option]['widget'].get_children()[0].set_value(self._options[option]['value'])
 
     def _on_toggle(self, widget, setting):
-        settings.set_option(setting, widget.get_active())
         self._own_change = True
+        settings.set_option(setting, widget.get_active())
 
     def _on_spin(self, widget, setting):
-        self._set_delay_value(widget.get_value_as_int())
         self._own_change = True
+        self._set_delay_value(widget.get_value_as_int())
 
     def _get_delay_value(self):
         value = settings.get_option('player/auto_advance_delay')
         if value == None:
             value = 0
         value = value / 1000
-        return value
+        return int(value)
 
     def _set_delay_value(self, value):
         value = value * 1000
@@ -66,7 +66,7 @@ class QuickButtons:
 
         elif self._options[setting]['type'] == 'spin':
             tbs = Gtk.SpinButton()
-            tbs.set_adjustment(Gtk.Adjustment(value=self._get_delay_value(), lower=0, upper=10, step_incr=1, page_incr=1, page_size=0))
+            tbs.set_adjustment(Gtk.Adjustment(self._get_delay_value(), 0, 60, 1, 0, 0))
             tbs.connect('value-changed', self._on_spin, setting)
 
         tbs.set_tooltip_text(_(self._options[setting]['tooltip']))

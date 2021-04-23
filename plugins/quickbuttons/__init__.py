@@ -11,7 +11,8 @@ class QuickButtons:
 
     _self_triggered = False
     """
-    Don't repeat yourself
+    Don't repeat yourself.
+    Is set to True to prevent resetting from settings.set_option
     """
 
     _options = {
@@ -59,10 +60,16 @@ class QuickButtons:
             self._options[option]['widget'].get_children()[0].set_value(self._options[option]['value'])
 
     def _on_toggle(self, widget, setting: str):
+        """
+        Called when toggling a button
+        """
         self._self_triggered = True
         settings.set_option(setting, widget.get_active())
 
     def _on_spin(self, widget, setting: str):
+        """
+        Called when changing the value from spinbutton
+        """
         self._self_triggered = True
         self._set_delay_value(widget.get_value_as_int())
 
@@ -77,6 +84,9 @@ class QuickButtons:
         return int(value)
 
     def _set_delay_value(self, value: int) -> None:
+        """
+        Set the delay value in ms
+        """
         value = value * 1000
         settings.set_option('player/auto_advance_delay', value)
 

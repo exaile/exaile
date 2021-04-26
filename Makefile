@@ -272,11 +272,17 @@ format:
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
 
+DESTDIR=/tmp/exaile-4.1.1p1
 deb:
-	export DESTDIR=/tmp/exaile
+	echo $(DESTDIR)
+	rm -rf $(DESTDIR)
+	mkdir $(DESTDIR)
 	$(MAKE) clean
 	$(MAKE) all
 	$(MAKE) install
-	cd /tmp/exaile && dh_make -i && dpkg-buildpackage -S -rfakeroot
+	mkdir $(DESTDIR)/DEBIAN
+	cp -r tools/debian/* $(DESTDIR)/DEBIAN
+	dpkg -b $(DESTDIR) exaile.deb
+	#cd $(DESTDIR) && dpkg-buildpackage -S -rfakeroot
 
 #dput ppa:f-launchpad-luzip-de/ppa

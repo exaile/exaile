@@ -271,3 +271,9 @@ format:
 
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
+
+deb:
+	export DESTDIR=/tmp/exaile
+	$(MAKE) clean
+	$(MAKE) all
+	$(MAKE) install

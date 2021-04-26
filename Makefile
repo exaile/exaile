@@ -277,3 +277,6 @@ deb:
 	$(MAKE) clean
 	$(MAKE) all
 	$(MAKE) install
+	cd /tmp/exaile && dh_make -i && dpkg-buildpackage -S -rfakeroot
+
+#dput ppa:f-launchpad-luzip-de/ppa

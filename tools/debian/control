@@ -1,0 +1,25 @@
+Source: exaile
+Package: exaile
+Section: multimedia
+Priority: optional
+Standards-Version: 3.5.2
+Version: 4.1.1p1
+Architecture: all
+Build-Depends:
+Depends: python3 (>= 3.6), python3-bsddb3, libgtk-3-0 (>= 3.16.2), gstreamer1.0-plugins-good (>=1.16.2), python3-mutagen (>=1.44)
+Recommends:
+Maintainer: js <exaile-users@googlegroups.com>
+Homepage: https://exaile.org/
+Description: Exaile is a music player with a simple interface
+ Exaile is a music player with a simple interface and powerful
+ music management capabilities. Features include automatic fetching of album art,
+ lyrics fetching, streaming internet radio, tabbed playlists, smart playlists
+ with extensive filtering/search capabilities, and much more.
+ .
+ Exaile is written using Python and GTK+ and is easily extensible via plugins.
+ There are over 50 plugins distributed with Exaile that include advanced track
+ tagging, last.fm scrobbling, support for portable media players, podcasts,
+ internet radio such as icecast and Soma.FM, ReplayGain, output via a secondary
+ output device (great for DJs!), and much more.
+ .
+ For more information see https://www.exaile.org/

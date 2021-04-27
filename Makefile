@@ -272,8 +272,8 @@ format:
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
 
-DESTDIR=/tmp/exaile-4.1.1p1
 deb:
+	export DESTDIR=/tmp/exaile-4.1.1p1
 	echo $(DESTDIR)
 	rm -rf $(DESTDIR)
 	mkdir $(DESTDIR)

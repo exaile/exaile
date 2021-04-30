@@ -45,7 +45,7 @@ def is_valid_track(location):
     :returns: whether the file is a valid track
     :rtype: boolean
     """
-    extension = Gio.File.new_for_uri(location).get_basename().split(".")[-1]
+    extension = Gio.File.new_for_commandline_arg(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
 

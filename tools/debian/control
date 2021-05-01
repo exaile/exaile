@@ -1,14 +1,15 @@
 Source: exaile
-Package: exaile
 Section: multimedia
 Priority: optional
-Standards-Version: 3.5.2
-Version: 4.1.1p1
-Architecture: all
+Maintainer: js <exaile-users@googlegroups.com>
 Build-Depends:
+Standards-Version: 3.5.2
+
+Package: exaile
+Version: 4.1.1-0ubuntu1
+Architecture: all
 Depends: python3 (>= 3.6), python3-bsddb3, libgtk-3-0 (>= 3.16.2), gstreamer1.0-plugins-good (>=1.16.2), python3-mutagen (>=1.44)
 Recommends:
-Maintainer: js <exaile-users@googlegroups.com>
 Homepage: https://exaile.org/
 Description: Exaile is a music player with a simple interface
  Exaile is a music player with a simple interface and powerful

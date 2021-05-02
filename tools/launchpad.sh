@@ -2,7 +2,7 @@
 
 PKG_NAME="exaile"
 PKG_VERSION="4.1.1"
-DEB_VERSION="0ubuntu7"
+DEB_VERSION="0ubuntu8"
 ARCH="all"
 
 TMP_DIR="/tmp/ex_build/"
@@ -29,12 +29,14 @@ rm debian/control
 mv debian/changelog1 debian/changelog
 mv debian/control1 debian/control
 
+cp debian/readme README
+
 ## This happens on launchpad build server
 # dpkg-buildpackage
 #
 ##
 
-#dpkg-source -b .
-#dpkg-genchanges > $CHANGESFILE
-#debsign -k Launchpad $CHANGESFILE
-#dput ppa:luzip665/ppa $CHANGESFILE
+dpkg-source -b .
+dpkg-genchanges > $CHANGESFILE
+debsign -k Launchpad $CHANGESFILE
+dput ppa:luzip665/ppa $CHANGESFILE

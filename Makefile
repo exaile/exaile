@@ -104,8 +104,7 @@ uninstall:
 	$(MAKE) -C plugins uninstall
 	find $(DESTDIR)$(DATADIR)/locale -name "exaile.mo" -exec rm -f {} \;
 
-#install: install-target install-locale
-install: install-target
+install: install-target install-locale
 
 install_no_locale: install-target
 

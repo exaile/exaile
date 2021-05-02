@@ -2,7 +2,8 @@ PYTHON3_CMD   ?= python3
 PYTEST        ?= py.test-3
 BLACK         ?= black
 
-PREFIX         = /usr/local
+#PREFIX         = /usr/local
+PREFIX         = /usr
 EPREFIX        = $(PREFIX)
 
 LIBINSTALLDIR  = $(EPREFIX)/lib

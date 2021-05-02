@@ -6,7 +6,7 @@ Build-Depends: debhelper-compat (= 12), python3 (>= 3.6), python3-sphinx (>= 1.8
 Standards-Version: 3.5.2
 
 Package: exaile
-Section: multimedia
+Section: sound
 Architecture: all
 Depends: python3 (>= 3.6), python3-bsddb3, libgtk-3-0 (>= 3.16.2), gstreamer1.0-plugins-good (>=1.16.2), python3-mutagen (>=1.44)
 Recommends:

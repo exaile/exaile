@@ -1,5 +1,5 @@
 PYTHON3_CMD	?= python3
-PREFIX		?= /usr/local
+PREFIX		?= /usr
 PLUGINSDIR	= /share/exaile/plugins/
 
 INSTALL_PLUGINS = `${PYTHON3_CMD} list.py main`

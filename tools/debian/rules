@@ -4,3 +4,4 @@
 	dh $@
 
 override_dh_usrlocal:
+override_dh_auto_test:

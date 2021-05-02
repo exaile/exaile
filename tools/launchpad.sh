@@ -34,7 +34,7 @@ mv debian/control1 debian/control
 #
 ##
 
-dpkg-source -b .
-dpkg-genchanges > $CHANGESFILE
-debsign -k Launchpad $CHANGESFILE
-dput ppa:luzip665/ppa $CHANGESFILE
+#dpkg-source -b .
+#dpkg-genchanges > $CHANGESFILE
+#debsign -k Launchpad $CHANGESFILE
+#dput ppa:luzip665/ppa $CHANGESFILE

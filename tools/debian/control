@@ -2,7 +2,7 @@ Source: exaile
 Section: python
 Priority: optional
 Maintainer: js <exaile-users@googlegroups.com>
-Build-Depends: debhelper-compat (= 12), python3 (>= 3.6)
+Build-Depends: debhelper-compat (= 12), python3 (>= 3.6), python3-sphinx (>= 1.8), python3-gi (>=3.36), python3-gi-cairo (>=3.36), help2man
 Standards-Version: 3.5.2
 
 Package: exaile

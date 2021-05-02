@@ -272,7 +272,6 @@ format:
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
 
-export DESTDIR=/tmp/exaile-4.1.1-0ubuntu1
 deb:
 	echo $(DESTDIR)
 	rm -rf $(DESTDIR)
@@ -282,23 +281,4 @@ deb:
 	$(MAKE) install
 	mkdir $(DESTDIR)/DEBIAN
 	cp -r tools/debian/* $(DESTDIR)/DEBIAN
-	dpkg -b $(DESTDIR) exaile.deb
-	#cd $(DESTDIR) && dpkg-buildpackage -S -rfakeroot
-
-launchpad:
-	echo $(DESTDIR)
-#	rm -rf $(DESTDIR)
-#	mkdir $(DESTDIR)
-#	$(MAKE) clean
-#	$(MAKE) all
-#	$(MAKE) install
-#	mkdir $(DESTDIR)/debian
-#	cp -r tools/debian/* $(DESTDIR)/debian
 	#dpkg -b $(DESTDIR) exaile.deb
-	#cd $(DESTDIR)
-	#dh_make -i
-	#dpkg-buildpackage -mluzi_p@users.sourceforge.net -eluzi_p@users.sourceforge.net -S -rfakeroot
-	cd $(DESTDIR) && dpkg-source -b .
-	cd $(DESTDIR) && dpkg-genchanges > $(DESTDIR).changes
-	dput ppa:luzip665/ppa
-

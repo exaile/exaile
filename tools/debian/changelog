@@ -1,5 +1,5 @@
-exaile (4.1.1-0ubuntu1) focal; urgency=low
+exaile (<#VERSION#>) focal; urgency=low
 
-  * Final release
+  * First release on launchpad
 
- -- André Flechs <luzi_p@users.sourceforge.net>  Thu, 23 Sep 2010 21:36:01 +0200
+ -- js <exaile-users@googlegroups.com>  Thu, 23 Sep 2010 21:36:01 +0200

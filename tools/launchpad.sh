@@ -29,10 +29,10 @@ rm debian/control
 mv debian/changelog1 debian/changelog
 mv debian/control1 debian/control
 
-cp debian/readme README
-
 ## This happens on launchpad build server
-# dpkg-buildpackage
+
+#dpkg-buildpackage
+#exit 0;
 #
 ##
 

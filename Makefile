@@ -272,6 +272,7 @@ format:
 check_format:
 	$(BLACK) --check --diff -S *.py plugins/ xl/ xlgui/ tests/
 
+DESTDIR ?= /tmp/exaile
 deb:
 	echo $(DESTDIR)
 	rm -rf $(DESTDIR)
@@ -281,4 +282,4 @@ deb:
 	$(MAKE) install
 	mkdir $(DESTDIR)/DEBIAN
 	cp -r tools/debian/* $(DESTDIR)/DEBIAN
-	#dpkg -b $(DESTDIR) exaile.deb
+	dpkg -b $(DESTDIR) exaile.deb

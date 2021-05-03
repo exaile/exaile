@@ -2,7 +2,7 @@
 
 PKG_NAME="exaile"
 PKG_VERSION="4.1.1"
-DEB_VERSION="0ubuntu12"
+DEB_VERSION="0ubuntu13"
 ARCH="all"
 
 TMP_DIR="/tmp/ex_build/"

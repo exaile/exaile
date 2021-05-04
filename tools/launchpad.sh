@@ -2,7 +2,7 @@
 
 PKG_NAME="exaile"
 PKG_VERSION="4.1.1"
-DEB_VERSION="0ubuntu15"
+DEB_VERSION="0ubuntu16"
 ARCH="all"
 
 TMP_DIR="/tmp/ex_build/"
@@ -22,18 +22,11 @@ cp -r * $DESTDIR
 cd $DESTDIR
 cp -r tools/debian .
 
-cat debian/changelog | sed "s/<#VERSION#>/$VER_STRING/g" > debian/changelog1
-cat debian/control   | sed "s/<#VERSION#>/$VER_STRING/g" > debian/control1
-rm debian/changelog
-rm debian/control
-mv debian/changelog1 debian/changelog
-mv debian/control1 debian/control
+sed -i "s/<#VERSION#>/$VER_STRING/g" debian/changelog
 
 ## This happens on launchpad build server
-
 #dpkg-buildpackage
 #exit 0;
-#
 ##
 
 dpkg-source -b .

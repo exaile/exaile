@@ -274,7 +274,6 @@ check_format:
 
 DESTDIR ?= /tmp/exaile
 deb:
-	echo $(DESTDIR)
 	rm -rf $(DESTDIR)
 	mkdir $(DESTDIR)
 	$(MAKE) clean

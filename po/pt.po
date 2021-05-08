@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2020-10-12 22:26+0000\n"
+"PO-Revision-Date: 2021-05-08 21:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -590,7 +590,7 @@ msgstr "Desvio final"
 
 #: ../xl/player/gst/engine.py:708
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ": Erro potencial do dispositivo áudio. O dispositivo está ligado?"
+msgstr ": Erro potencial do aparelho áudio. O aparelho está ligado?"
 
 #: ../xl/player/gst/missing_plugin.py:89
 #, python-format
@@ -1108,7 +1108,7 @@ msgstr "_Limpar lista de reprodução"
 
 #: ../xlgui/menu.py:352
 msgid "_Device Manager"
-msgstr "Gestor de _dispositivos"
+msgstr "Gestor de _aparelhos"
 
 #: ../xlgui/menu.py:362
 msgid "_Rescan Collection"
@@ -2155,7 +2155,7 @@ msgstr "Fe_char"
 
 #: ../data/ui/device_manager.ui:37
 msgid "Device Manager"
-msgstr "Gestor de dispositivos"
+msgstr "Gestor de aparelhos"
 
 #: ../data/ui/device_manager.ui:65
 msgid "Icon"
@@ -2163,7 +2163,7 @@ msgstr "Ícone"
 
 #: ../data/ui/device_manager.ui:77
 msgid "Device"
-msgstr "Dispositivo"
+msgstr "Aparelho"
 
 #: ../data/ui/device_manager.ui:88
 msgid "Driver"
@@ -3566,7 +3566,7 @@ msgstr "Interromper a Reprodução (clique duas vezes para parar)"
 #: ../plugins/previewdevice/previewprefs.py:32
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr "Pré-visualizar Dispositivo"
+msgstr "Pré-visualizar aparelho"
 
 #: ../plugins/replaygain/replaygainprefs.py:31
 #: ../plugins/replaygain/PLUGININFO:3

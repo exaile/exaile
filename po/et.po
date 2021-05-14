@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-05-14 04:32+0000\n"
+"PO-Revision-Date: 2021-05-14 16:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -2607,7 +2607,7 @@ msgstr "Kirjeldus"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
-msgstr ""
+msgstr "Loo omadused"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
@@ -2615,7 +2615,7 @@ msgstr "Lis_a silt"
 
 #: ../data/ui/trackproperties_dialog.ui:100
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Kustuta silt"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
@@ -2639,7 +2639,7 @@ msgstr "_Järgmine"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
-msgstr ""
+msgstr "Muud"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
@@ -3252,13 +3252,13 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:82
 #: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
-msgstr ""
+msgstr "Põhimenüü"
 
 #: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Vähendatud vaade"
 
 #: ../plugins/minimode/controls.py:224
 msgid "Previous"
@@ -3290,15 +3290,15 @@ msgstr "Esita/paus"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Start playback"
-msgstr ""
+msgstr "Alusta esitamist"
 
 #: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
-msgstr ""
+msgstr "Jätka esitamist"
 
 #: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
-msgstr ""
+msgstr "Peata esitamine"
 
 #: ../plugins/minimode/controls.py:337
 msgid "Stop"
@@ -3306,7 +3306,7 @@ msgstr "Peata"
 
 #: ../plugins/minimode/controls.py:338
 msgid "Stop the playback"
-msgstr ""
+msgstr "Lõpeta esitamine"
 
 #: ../plugins/minimode/controls.py:374
 msgid "Continue playback after current track"
@@ -3463,7 +3463,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Silt %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"

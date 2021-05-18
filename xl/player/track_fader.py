@@ -77,7 +77,7 @@ class TrackFader:
         self.fade_out_start = None
 
     def calculate_fades(self, track, fade_in, fade_out):
-        ''' duration is in seconds'''
+        '''duration is in seconds'''
 
         start_offset = track.get_tag_raw('__startoffset') or 0
         stop_offset = track.get_tag_raw('__stopoffset') or 0

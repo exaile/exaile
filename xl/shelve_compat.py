@@ -36,5 +36,5 @@ class Utf8Unpickler(pickle.Unpickler):
 
 
 def ensure_shelve_compat():
-    """"Change shelve's unpickler to use UTF-8, for compatibility with Python 2 shelves"""
+    """Change shelve's unpickler to use UTF-8, for compatibility with Python 2 shelves"""
     shelve.Unpickler = Utf8Unpickler

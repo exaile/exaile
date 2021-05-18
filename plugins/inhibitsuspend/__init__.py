@@ -169,11 +169,11 @@ class SuspendAdapter(adapters.PlaybackAdapter):
                     logger.error('Cannot Unihibit Suspend without cookie')
 
     def is_inhibited(self):
-        """ Inhibit Status """
+        """Inhibit Status"""
         return self.inhibited
 
     def destroy(self):
-        """ Cleanup """
+        """Cleanup"""
         # Make sure to uninhibit when exiting
         self.uninhibit()
         adapters.PlaybackAdapter.destroy(self)

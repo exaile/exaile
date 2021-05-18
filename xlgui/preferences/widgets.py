@@ -326,7 +326,7 @@ class Button(Preference):
         return False
 
     def on_clicked(self, button):
-        """ Override """
+        """Override"""
         pass
 
 

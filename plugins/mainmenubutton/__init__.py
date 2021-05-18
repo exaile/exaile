@@ -63,8 +63,6 @@ def on_gui_loaded(*args):
 
 
 class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
-    """"""
-
     __gsignals__ = {}
 
     name = 'main-menu'

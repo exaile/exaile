@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-04-22 06:32+0000\n"
+"PO-Revision-Date: 2021-05-14 16:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -679,7 +679,7 @@ msgstr "Sega _lood"
 
 #: ../xl/playlist.py:915
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Sega _albumid"
 
 #: ../xl/playlist.py:916
 msgid "_Random"
@@ -1137,27 +1137,27 @@ msgstr "Albumi esitaja"
 
 #: ../xlgui/panel/collection.py:133
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Žanr - Esitaja"
 
 #: ../xlgui/panel/collection.py:136
 msgid "Genre - Album Artist"
-msgstr ""
+msgstr "Žanr - Albumi esitaja"
 
 #: ../xlgui/panel/collection.py:139
 msgid "Genre - Album"
-msgstr ""
+msgstr "Žanr - Album"
 
 #: ../xlgui/panel/collection.py:142
 msgid "Date - Artist"
-msgstr ""
+msgstr "Kuupäev - Esitaja"
 
 #: ../xlgui/panel/collection.py:145
 msgid "Date - Album Artist"
-msgstr ""
+msgstr "Kuupäev - Albumi esitaja"
 
 #: ../xlgui/panel/collection.py:148
 msgid "Date - Album"
-msgstr ""
+msgstr "Kuupäev - Album"
 
 #: ../xlgui/panel/collection.py:151
 msgid "Artist - (Date - Album)"
@@ -2108,15 +2108,15 @@ msgstr "Analüüsi muusika_kogu uuesti"
 
 #: ../data/ui/coverchooser.ui:28
 msgid "Cover Finder"
-msgstr ""
+msgstr "Kaanepiltide otsija"
 
 #: ../data/ui/coverchooser.ui:125
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Selle kaanepildi algupära"
 
 #: ../data/ui/coverchooser.ui:177
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Määra kaanepildiks"
 
 #: ../data/ui/covermanager.ui:36
 msgid "Cover Manager"
@@ -2124,15 +2124,15 @@ msgstr "Plaadiümbriste haldur"
 
 #: ../data/ui/covermanager.ui:150
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Laadi kaanepildid"
 
 #: ../data/ui/coverwindow.ui:40
 msgid "Zoom _In"
-msgstr ""
+msgstr "_Suurenda"
 
 #: ../data/ui/coverwindow.ui:54
 msgid "Zoom _Out"
-msgstr ""
+msgstr "_Vähenda"
 
 #: ../data/ui/coverwindow.ui:68
 msgid "_Original Size"
@@ -2200,7 +2200,7 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/panel/collection.ui:28
 msgid "_Add Music"
-msgstr ""
+msgstr "Lisa muusik_at"
 
 #: ../data/ui/panel/collection.ui:46
 msgid "<b>Collection is empty.</b>"
@@ -2216,7 +2216,7 @@ msgstr ""
 
 #: ../data/ui/panel/collection.ui:130 ../data/ui/panel/files.ui:170
 msgid "Clear search field"
-msgstr ""
+msgstr "Tühjenda otsingiväli"
 
 #: ../data/ui/panel/collection.ui:131 ../data/ui/panel/files.ui:171
 #: ../data/ui/playlist.ui:128 ../plugins/icecast/__init__.py:384
@@ -2225,23 +2225,23 @@ msgstr "Otsi"
 
 #: ../data/ui/panel/files.ui:29
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Eelmine kaust, mida oled vaadanud"
 
 #: ../data/ui/panel/files.ui:51
 msgid "Next visited directory"
-msgstr ""
+msgstr "Järgmine kaust, mida oled vaadanud"
 
 #: ../data/ui/panel/files.ui:72
 msgid "Up one directory"
-msgstr ""
+msgstr "Üks kaust üles"
 
 #: ../data/ui/panel/files.ui:93
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Laadi kaustade loend uuesti"
 
 #: ../data/ui/panel/files.ui:114
 msgid "Home directory"
-msgstr ""
+msgstr "Kodukausst"
 
 #: ../data/ui/panel/flatplaylist.ui:21
 msgid "Append All Tracks to Playlist"
@@ -2249,11 +2249,11 @@ msgstr "Lisa kõik lood esitusloendile"
 
 #: ../data/ui/panel/flatplaylist.ui:44
 msgid "Import CD"
-msgstr ""
+msgstr "Loe palad CD-plaadilt"
 
 #: ../data/ui/panel/lyrics.ui:24
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Värskenda laulusõnu"
 
 #: ../data/ui/panel/radio.ui:18
 msgid "_Add Station"
@@ -2261,7 +2261,7 @@ msgstr "_Lisa jaam"
 
 #: ../data/ui/playlist.ui:53
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Sega esitusloend"
 
 #: ../data/ui/playlist.ui:76
 msgid "Repeat playback"
@@ -2285,7 +2285,7 @@ msgstr "All"
 
 #: ../data/ui/preferences/appearance.ui:50
 msgid "Show info area"
-msgstr ""
+msgstr "Näita infovaadet"
 
 #: ../data/ui/preferences/appearance.ui:54
 msgid "The info area contains the cover art and track information"
@@ -2293,7 +2293,7 @@ msgstr "Infovormil leidub kaanepilt ja loo teave"
 
 #: ../data/ui/preferences/appearance.ui:66
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Infovaates näita kaanepilti"
 
 #: ../data/ui/preferences/appearance.ui:81
 msgid "Always show tab bar"
@@ -2305,12 +2305,12 @@ msgstr "Kaartide asetus:"
 
 #: ../data/ui/preferences/appearance.ui:139
 msgid "Playlist font:"
-msgstr ""
+msgstr "Esitusloendi font:"
 
 #: ../data/ui/preferences/appearance.ui:156 ../data/ui/preferences/lyrics.ui:47
 #: ../plugins/grouptagger/gt_prefs.ui:67
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Kasuta süsteemi määratud fonte"
 
 #: ../data/ui/preferences/appearance.ui:194
 msgid "Display track counts in collection"
@@ -2363,11 +2363,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:341
 msgid "Note:"
-msgstr ""
+msgstr "Märkus:"
 
 #: ../data/ui/preferences/appearance.ui:353
 msgid "Prefer dark theme"
-msgstr ""
+msgstr "Eelista tumedat teemat"
 
 #. TRANSLATORS: "Checked" here refers to checkbox state.
 #: ../data/ui/preferences/appearance.ui:357
@@ -2375,6 +2375,8 @@ msgid ""
 "If not checked, will not specify a preference to GTK. May not work on some "
 "platforms."
 msgstr ""
+"Kui see valik pole kasutusel, siis jääb eelistus GTK'le teatamata. Niisugune "
+"lahendus ei pruugi kõikides süsteemides toimida."
 
 #: ../data/ui/preferences/collection.ui:13
 msgid ""
@@ -2392,21 +2394,23 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:12
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Kasuta kohalikest failidest laaditud kaanepilte"
 
 #: ../data/ui/preferences/cover.ui:16
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Selle valikuga määrad, et kaanepilte otsime\n"
+"samast kaustast, kus asub muusika."
 
 #: ../data/ui/preferences/cover.ui:30
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Eelistatud failinimed:"
 
 #: ../data/ui/preferences/cover.ui:46
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Komadega eraldatud loend failinimedest ilma laiendita"
 
 #: ../data/ui/preferences/cover.ui:58
 msgid "Fetch covers automatically on playback start"
@@ -2414,11 +2418,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui:76
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Kaanepiltide otsimise järjekord:"
 
 #: ../data/ui/preferences/cover.ui:118
 msgid "(drag to reorder)"
-msgstr ""
+msgstr "(järjekorra muutmiseks lohista)"
 
 #: ../data/ui/preferences/cover.ui:130
 msgid "Use covers embedded in tags"
@@ -2449,15 +2453,15 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui:160
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Exaile käivitumisel jätka esitust"
 
 #: ../data/ui/preferences/playback.ui:176
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Jätka esitamist ka siis, kui esitamine oli enne peatatud"
 
 #: ../data/ui/preferences/playback.ui:191
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Loo lisamisel tühja esitusjärjekorda alustab kohe ka esitamist"
 
 #: ../data/ui/preferences/playback.ui:206
 msgid "Remove track from queue upon playback"
@@ -2603,7 +2607,7 @@ msgstr "Kirjeldus"
 
 #: ../data/ui/trackproperties_dialog.ui:37
 msgid "Track Properties"
-msgstr ""
+msgstr "Loo omadused"
 
 #: ../data/ui/trackproperties_dialog.ui:83
 msgid "A_dd tag"
@@ -2611,7 +2615,7 @@ msgstr "Lis_a silt"
 
 #: ../data/ui/trackproperties_dialog.ui:100
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Kustuta silt"
 
 #: ../data/ui/trackproperties_dialog.ui:127
 msgid "ab → A_b"
@@ -2635,7 +2639,7 @@ msgstr "_Järgmine"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:20
 msgid "Other"
-msgstr ""
+msgstr "Muud"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
@@ -2703,7 +2707,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:96
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Ansambli või esitaja logo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:100
 msgid "Publisher/Studio logotype"
@@ -3248,13 +3252,13 @@ msgstr ""
 #: ../plugins/mainmenubutton/__init__.py:82
 #: ../plugins/mainmenubutton/__init__.py:88
 msgid "Main Menu"
-msgstr ""
+msgstr "Põhimenüü"
 
 #: ../plugins/minimode/__init__.py:105 ../plugins/minimode/__init__.py:118
 #: ../plugins/minimode/minimode_preferences.py:24
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Vähendatud vaade"
 
 #: ../plugins/minimode/controls.py:224
 msgid "Previous"
@@ -3286,15 +3290,15 @@ msgstr "Esita/paus"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Start playback"
-msgstr ""
+msgstr "Alusta esitamist"
 
 #: ../plugins/minimode/controls.py:294
 msgid "Continue playback"
-msgstr ""
+msgstr "Jätka esitamist"
 
 #: ../plugins/minimode/controls.py:297
 msgid "Pause playback"
-msgstr ""
+msgstr "Peata esitamine"
 
 #: ../plugins/minimode/controls.py:337
 msgid "Stop"
@@ -3302,7 +3306,7 @@ msgstr "Peata"
 
 #: ../plugins/minimode/controls.py:338
 msgid "Stop the playback"
-msgstr ""
+msgstr "Lõpeta esitamine"
 
 #: ../plugins/minimode/controls.py:374
 msgid "Continue playback after current track"
@@ -3374,7 +3378,7 @@ msgstr ""
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:126
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title, esitajaks $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:128
@@ -3439,6 +3443,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"esitajalt $artist\n"
+"albumilt $album"
 
 #: ../plugins/playlistanalyzer/__init__.py:55
 msgid "Analyze playlists"
@@ -3456,7 +3463,7 @@ msgstr ""
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:220
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Silt %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:348
 msgid "Save analysis"

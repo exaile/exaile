@@ -32,7 +32,7 @@ class AlarmClock:
 
     @staticmethod
     def __is_weekday_enabled(day_nr):
-        " day_nr starts with 1=Monday, 2=Tuesday, ..., 7=Sunday"
+        "day_nr starts with 1=Monday, 2=Tuesday, ..., 7=Sunday"
         if day_nr < 1 or day_nr > 7:
             raise ValueError
 

@@ -137,7 +137,7 @@ class CDTocParser:
             os.close(fd)
 
     def _get_track_lengths(self):
-        """ returns track length in seconds """
+        """returns track length in seconds"""
         track = self.__raw_tracks[0]
         offset = track.get_frame_count()
         lengths = []

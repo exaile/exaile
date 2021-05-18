@@ -62,23 +62,23 @@ class PlaybackAdapter:
             event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def on_playback_track_start(self, event, player, track):
-        """ Override """
+        """Override"""
         pass
 
     def on_playback_track_end(self, event, player, track):
-        """ Override """
+        """Override"""
         pass
 
     def on_playback_player_end(self, event, player, track):
-        """ Override """
+        """Override"""
         pass
 
     def on_playback_toggle_pause(self, event, player, track):
-        """ Override """
+        """Override"""
         pass
 
     def on_playback_error(self, event, player, message):
-        """ Override """
+        """Override"""
         pass
 
 
@@ -142,17 +142,17 @@ class QueueAdapter:
             self.on_queue_tracks_removed(event, playlist, tracks)
 
     def on_queue_current_playlist_changed(self, event, queue, playlist):
-        """ Override """
+        """Override"""
         pass
 
     def on_queue_current_position_changed(self, event, playlist, positions):
-        """ Override """
+        """Override"""
         pass
 
     def on_queue_tracks_added(self, event, queue, tracks):
-        """ Override """
+        """Override"""
         pass
 
     def on_queue_tracks_removed(self, event, queue, tracks):
-        """ Override """
+        """Override"""
         pass

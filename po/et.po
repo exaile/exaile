@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-05-14 16:32+0000\n"
+"PO-Revision-Date: 2021-05-21 15:33+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -1001,7 +1001,7 @@ msgstr "Fookus kümnendale kaardile"
 
 #: ../xlgui/main.py:592
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Peata esitamine peale valitud lugu"
 
 #: ../xlgui/main.py:705 ../plugins/previewdevice/__init__.py:355
 msgid "Playback error encountered!"
@@ -1368,7 +1368,7 @@ msgstr "Välimus"
 
 #: ../xlgui/preferences/appearance.py:118
 msgid "Tray icons are not supported on your platform"
-msgstr ""
+msgstr "Süsteemisalve ikoonid ei ole sinu operatsioonisüsteemis hetkel toetatud"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1889,7 +1889,7 @@ msgstr "Esitamiste arv"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Schedule"
-msgstr ""
+msgstr "Ajasta"
 
 #: ../xlgui/widgets/playlist_columns.py:676
 msgid "Start Offset"
@@ -2338,11 +2338,11 @@ msgstr "Näita salve ikooni"
 
 #: ../data/ui/preferences/appearance.ui:257
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Saada süsteemisalve"
 
 #: ../data/ui/preferences/appearance.ui:271
 msgid "Close to tray"
-msgstr ""
+msgstr "Sulge süsteemisalve"
 
 #. TRANSLATORS: Keep the current track visible in playlist
 #: ../data/ui/preferences/appearance.ui:285
@@ -2351,7 +2351,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui:301
 msgid "Show splash screen on startup"
-msgstr ""
+msgstr "Rakenduse käivitamisel näita logovaadet"
 
 #: ../data/ui/preferences/appearance.ui:328
 msgid ""
@@ -2530,11 +2530,11 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:12
 msgid "Open last playlists on startup"
-msgstr ""
+msgstr "Rakenduse käivitamisel ava viimatikasutatud esitusloend(id)"
 
 #: ../data/ui/preferences/playlists.ui:25
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Sulgemisel küsi, kas soovid esitusloend(id) salvestada"
 
 #: ../data/ui/preferences/playlists.ui:38
 msgid "Replace content on side pane double click"
@@ -2559,7 +2559,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui:66
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Vaikimisi lisa uued lood esitamise asemel esituse järjekorda"
 
 #: ../data/ui/preferences/playlists.ui:70
 msgid ""
@@ -2573,7 +2573,7 @@ msgstr "Lisand"
 
 #: ../data/ui/preferences/plugin.ui:76
 msgid "Status"
-msgstr ""
+msgstr "Olek"
 
 #: ../data/ui/preferences/plugin.ui:88
 #: ../data/ui/preferences/widgets/selection_list_preference.ui:38
@@ -2623,7 +2623,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui:131
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Muuda kõikides siltides esimesed tähed suurtähtedeks"
 
 #: ../data/ui/trackproperties_dialog.ui:228
 msgid "File Properties"
@@ -2906,12 +2906,12 @@ msgstr ""
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP-klient"
 
 #: ../plugins/daapserver/daapserverprefs.py:5
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "DAAP-server"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3

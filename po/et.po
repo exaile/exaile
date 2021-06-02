@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-05-21 15:33+0000\n"
+"PO-Revision-Date: 2021-06-03 02:32+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -612,7 +612,7 @@ msgstr "Kohandatud"
 #: ../xl/player/gst/sink.py:184
 #, python-format
 msgid "Could not create audiosink (device: %s, type: %s)"
-msgstr ""
+msgstr "Helineelu loomine ei õnnestunud (seade: %s, tüüp: %s)"
 
 #: ../xl/player/gst/sink.py:191
 msgid "No custom pipeline specified!"
@@ -621,7 +621,7 @@ msgstr "Kohandatud konveier on määratlemata!"
 #: ../xl/player/gst/sink.py:196
 #, python-format
 msgid "Error creating custom audiosink '%s'"
-msgstr ""
+msgstr "Kohandatud „%s“ helineelu loomisel tekkis viga"
 
 #: ../xl/player/gst/sink.py:202
 #, python-format
@@ -671,7 +671,7 @@ msgstr "XSPF esitusloend"
 
 #: ../xl/playlist.py:913
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Lülita lugude segamine _välja"
 
 #: ../xl/playlist.py:914
 msgid "Shuffle _Tracks"
@@ -724,7 +724,7 @@ msgstr "Pakitud pistikprogrammis leidub ohtlik otsitee."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Seadistuste versioon on praegu kasutusel olevast suurem."
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -795,7 +795,7 @@ msgstr "Sa pole määratlenud asukohta, kuhu peaksime andmebaasi salvestama"
 
 #: ../xl/xldbus.py:131 ../xl/xldbus.py:523 ../xlgui/panel/lyrics.py:149
 msgid "Not playing."
-msgstr ""
+msgstr "Mitte midagi pole esitamisel."
 
 #: ../xl/xldbus.py:526
 #, python-format
@@ -2643,7 +2643,7 @@ msgstr "Muud"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:24
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32-piksline ikoon (vaid PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui:28
 msgid "Other file icon"
@@ -2875,33 +2875,35 @@ msgstr "Käsitsi..."
 
 #: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Sisesta DAAP-teenuse IP-aadress ja pordi number"
 
 #: ../plugins/daapclient/__init__.py:327
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Sisesta IP-aadress ja pordi number."
 
 #: ../plugins/daapclient/__init__.py:549
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"See server ei toeta mitut samaaegset ühendust.\n"
+"Enne lugude allalaadimist peata nende esitamine."
 
 #: ../plugins/daapclient/__init__.py:659
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Värskenda serverite loend"
 
 #: ../plugins/daapclient/__init__.py:667
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "katkesta ühendus serveriga"
 
 #: ../plugins/daapclient/__init__.py:688
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Vali kaust failide salvestamiseks"
 
 #: ../plugins/daapclient/__init__.py:742
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Ühenda DAAP-teenusega..."
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -2920,11 +2922,11 @@ msgstr ""
 
 #: ../plugins/developer/__init__.py:63
 msgid "Developer Tools"
-msgstr ""
+msgstr "Arendaja tööriistad"
 
 #: ../plugins/equalizer/__init__.py:362
 msgid "_Equalizer"
-msgstr ""
+msgstr "_Ekvalaiser"
 
 #: ../plugins/grouptagger/__init__.py:96
 msgid "_Get all tags from collection"
@@ -2940,7 +2942,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "E_xport collecton tags to JSON"
-msgstr ""
+msgstr "Salvesta muusikakogu sildid JSON-faili"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "_GroupTagger"
@@ -3063,11 +3065,11 @@ msgstr "Näita lugusid valikuga (kohandatud)"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "New tag value?"
-msgstr ""
+msgstr "Sildi uus väärtus?"
 
 #: ../plugins/grouptagger/gt_widgets.py:308
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Sisesta sildi uus väärtus"
 
 #: ../plugins/grouptagger/gt_widgets.py:341
 msgid "New Category?"
@@ -3120,24 +3122,24 @@ msgstr "Valitud lood"
 
 #: ../plugins/history/__init__.py:77
 msgid "Playback history"
-msgstr ""
+msgstr "Esitamiste ajalugu"
 
 #: ../plugins/history/__init__.py:117
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Kas kustutame salvestatud ajaloo?"
 
 #: ../plugins/history/__init__.py:218
 msgid "Save History"
-msgstr ""
+msgstr "Salvesta ajalugu"
 
 #: ../plugins/history/__init__.py:227
 msgid "_Clear History"
-msgstr ""
+msgstr "_Kustuta ajalugu"
 
 #: ../plugins/icecast/__init__.py:115 ../plugins/icecast/__init__.py:183
 #: ../plugins/icecast/__init__.py:206
 msgid "Contacting Icecast server..."
-msgstr ""
+msgstr "Ühendan Icecast'i serveriga..."
 
 #: ../plugins/icecast/__init__.py:122 ../plugins/icecast/__init__.py:125
 #: ../plugins/icecast/__init__.py:218 ../plugins/icecast/__init__.py:221

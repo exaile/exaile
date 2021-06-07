@@ -23,7 +23,7 @@ jobs:
         imgtag:
           - debian-10
           - debian-stable
-          - fedora-32
+          - fedora-33
           - fedora-latest
           - ubuntu-18.04
           - ubuntu-rolling

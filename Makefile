@@ -109,56 +109,56 @@ install: install-target install-locale
 install_no_locale: install-target
 
 install-target: make-install-dirs
-	install -m 644 exaile.py $(EXAILELIBDIR)
-	-install -m 644 xl/*.py[co] $(EXAILELIBDIR)/xl
-	install -m 644 xl/*.py $(EXAILELIBDIR)/xl
-	-install -m 644 xl/externals/*.py[co] $(EXAILELIBDIR)/xl/externals
-	install -m 644 xl/externals/*.py $(EXAILELIBDIR)/xl/externals
-	-install -m 644 xl/metadata/*.py[co] $(EXAILELIBDIR)/xl/metadata
-	install -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
-	-install -m 644 xl/player/*.py[co] $(EXAILELIBDIR)/xl/player
-	install -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
-	-install -m 644 xl/player/gst/*.py[co] $(EXAILELIBDIR)/xl/player/gst
-	install -m 644 xl/player/gst/*.py $(EXAILELIBDIR)/xl/player/gst
-	-install -m 644 xl/migrations/*.py[co] $(EXAILELIBDIR)/xl/migrations
-	install -m 644 xl/migrations/*.py $(EXAILELIBDIR)/xl/migrations
-	-install -m 644 xl/migrations/database/*.py[co] $(EXAILELIBDIR)/xl/migrations/database/
-	install -m 644 xl/migrations/database/*.py $(EXAILELIBDIR)/xl/migrations/database/
-	-install -m 644 xl/migrations/settings/*.py[co] $(EXAILELIBDIR)/xl/migrations/settings/
-	install -m 644 xl/migrations/settings/*.py $(EXAILELIBDIR)/xl/migrations/settings/
-	-install -m 644 xl/trax/*.py[co] $(EXAILELIBDIR)/xl/trax
-	install -m 644 xl/trax/*.py $(EXAILELIBDIR)/xl/trax
-	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
-	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
-	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
-	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
-	-install -m 644 xlgui/preferences/*.py[co] $(EXAILELIBDIR)/xlgui/preferences
-	install -m 644 xlgui/preferences/*.py $(EXAILELIBDIR)/xlgui/preferences
-	-install -m 644 xlgui/widgets/*.py[co] $(EXAILELIBDIR)/xlgui/widgets
-	install -m 644 xlgui/widgets/*.py $(EXAILELIBDIR)/xlgui/widgets
-	install -m 644 data/images/16x16/*.png $(EXAILESHAREDIR)/data/images/16x16
-	install -m 644 data/images/22x22/*.png $(EXAILESHAREDIR)/data/images/22x22
-	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
-	install -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
-	install -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
-	install -m 644 data/images/128x128/*.png $(EXAILESHAREDIR)/data/images/128x128
-	install -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
-	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
-	install -m 644 data/images/128x128/exaile.png \
+	install -p -m 644 exaile.py $(EXAILELIBDIR)
+	-install -p -m 644 xl/*.py[co] $(EXAILELIBDIR)/xl
+	install -p -m 644 xl/*.py $(EXAILELIBDIR)/xl
+	-install -p -m 644 xl/externals/*.py[co] $(EXAILELIBDIR)/xl/externals
+	install -p -m 644 xl/externals/*.py $(EXAILELIBDIR)/xl/externals
+	-install -p -m 644 xl/metadata/*.py[co] $(EXAILELIBDIR)/xl/metadata
+	install -p -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
+	-install -p -m 644 xl/player/*.py[co] $(EXAILELIBDIR)/xl/player
+	install -p -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
+	-install -p -m 644 xl/player/gst/*.py[co] $(EXAILELIBDIR)/xl/player/gst
+	install -p -m 644 xl/player/gst/*.py $(EXAILELIBDIR)/xl/player/gst
+	-install -p -m 644 xl/migrations/*.py[co] $(EXAILELIBDIR)/xl/migrations
+	install -p -m 644 xl/migrations/*.py $(EXAILELIBDIR)/xl/migrations
+	-install -p -m 644 xl/migrations/database/*.py[co] $(EXAILELIBDIR)/xl/migrations/database/
+	install -p -m 644 xl/migrations/database/*.py $(EXAILELIBDIR)/xl/migrations/database/
+	-install -p -m 644 xl/migrations/settings/*.py[co] $(EXAILELIBDIR)/xl/migrations/settings/
+	install -p -m 644 xl/migrations/settings/*.py $(EXAILELIBDIR)/xl/migrations/settings/
+	-install -p -m 644 xl/trax/*.py[co] $(EXAILELIBDIR)/xl/trax
+	install -p -m 644 xl/trax/*.py $(EXAILELIBDIR)/xl/trax
+	-install -p -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
+	install -p -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
+	-install -p -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
+	install -p -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
+	-install -p -m 644 xlgui/preferences/*.py[co] $(EXAILELIBDIR)/xlgui/preferences
+	install -p -m 644 xlgui/preferences/*.py $(EXAILELIBDIR)/xlgui/preferences
+	-install -p -m 644 xlgui/widgets/*.py[co] $(EXAILELIBDIR)/xlgui/widgets
+	install -p -m 644 xlgui/widgets/*.py $(EXAILELIBDIR)/xlgui/widgets
+	install -p -m 644 data/images/16x16/*.png $(EXAILESHAREDIR)/data/images/16x16
+	install -p -m 644 data/images/22x22/*.png $(EXAILESHAREDIR)/data/images/22x22
+	install -p -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
+	install -p -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
+	install -p -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
+	install -p -m 644 data/images/128x128/*.png $(EXAILESHAREDIR)/data/images/128x128
+	install -p -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
+	install -p -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
+	install -p -m 644 data/images/128x128/exaile.png \
 		$(DESTDIR)$(DATADIR)/pixmaps/exaile.png
-	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
-	install -m 644 data/ui/panel/*.ui $(EXAILESHAREDIR)/data/ui/panel
-	install -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
-	install -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
-	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
-	install -m 644 data/exaile.desktop \
+	install -p -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
+	install -p -m 644 data/ui/panel/*.ui $(EXAILESHAREDIR)/data/ui/panel
+	install -p -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
+	install -p -m 644 data/ui/preferences/widgets/*.ui $(EXAILESHAREDIR)/data/ui/preferences/widgets
+	install -p -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
+	install -p -m 644 data/exaile.desktop \
 		$(DESTDIR)$(DATADIR)/applications/
-	install -m 644 data/exaile.appdata.xml \
+	install -p -m 644 data/exaile.appdata.xml \
 		$(DESTDIR)$(DATADIR)/appdata/
-	-install -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
-	-install -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
-	-install -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
-	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
+	-install -p -m 644 build/exaile.1.gz $(EXAILEMANDIR)/man1/
+	-install -p -m 644 build/exaile.bash-completion $(DESTDIR)$(BASHCOMPDIR)/exaile
+	-install -p -m 644 build/exaile.fish-completion $(DESTDIR)$(FISHCOMPDIR)/exaile.fish
+	install -p -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(EPREFIX)" "$(LIBINSTALLDIR)" \
 		"$(PYTHON3_CMD)" && \
 	  chmod 755 $(EXAILEBINDIR)/exaile
@@ -188,7 +188,7 @@ install-locale:
 	  install -d -m 755 \
 	    `echo $$f | sed "s|^build|$(DESTDIR)$(DATADIR)|" | \
 	      xargs dirname` && \
-	  install -m 644 $$f \
+	  install -p -m 644 $$f \
 	    `echo $$f | sed "s|^build|$(DESTDIR)$(DATADIR)|"` ; \
 	  done
 

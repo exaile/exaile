@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-03-06 09:50+0000\n"
+"PO-Revision-Date: 2021-07-10 10:33+0000\n"
 "Last-Translator: HelaBasa <R45XvezA@protonmail.ch>\n"
 "Language-Team: Sinhala <https://hosted.weblate.org/projects/exaile/master/si/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.1\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -1980,7 +1980,7 @@ msgstr "දින"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "minutes"
-msgstr "මිනිත්තු"
+msgstr "විනාඩි"
 
 #: ../xlgui/widgets/smart_playlist_editor.py:79
 msgid "hours"

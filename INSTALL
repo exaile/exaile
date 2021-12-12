@@ -18,6 +18,9 @@ install Exaile via Homebrew. For more details, see the
 Linux/\*nix
 -----------
 
+.. note:: First you should install dependencies that are listed in the
+          :ref:`DEPS file <deps>`.
+
 On \*nix-based systems (but not OSX), run the following command from the
 source code directory to install:
 

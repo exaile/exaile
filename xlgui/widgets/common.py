@@ -146,9 +146,11 @@ class AutoScrollTreeView(Gtk.TreeView):
 
         self._SCROLL_EDGE_SIZE = 15  # As in gtktreeview.c
         self.__autoscroll_timeout_id = None
+        self.__current_vertical_scroll = None
 
         self.connect("drag-motion", self._on_drag_motion)
         self.connect("drag-leave", self._on_drag_leave)
+        self.connect("size-allocate", self._on_size_allocate)
 
     def _on_drag_motion(self, widget, context, x, y, timestamp):
         """
@@ -168,6 +170,15 @@ class AutoScrollTreeView(Gtk.TreeView):
         if autoscroll_timeout_id:
             GLib.source_remove(autoscroll_timeout_id)
             self.__autoscroll_timeout_id = None
+
+        self.__current_vertical_scroll = self.get_vadjustment().get_value()
+
+    def _on_size_allocate(self, plView, selection):
+        if self.__current_vertical_scroll:
+            # correction of vertical scroll
+            adj = self.get_vadjustment()
+            adj.set_value(self.__current_vertical_scroll)
+            self.__current_vertical_scroll = None
 
     def _on_autoscroll_timeout(self):
         """

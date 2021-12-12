@@ -1,8 +1,6 @@
 """
-    This plugin will make a dbus call to prevent the computer from suspending
+    This plugin will make an IPC call to prevent the computer from suspending
     during music playback
-
-    It uses the gnome SessionManager interface via dbus
 
     TODO: use Gtk.Application.inhibit() for less error prone inhibition.
 """
@@ -15,6 +13,7 @@ import logging
 import os
 
 import dbus
+import subprocess
 
 from xl.player import adapters, PLAYER
 
@@ -79,6 +78,8 @@ class SuspendInhibit:
                 self.adapter = KdeAdapter()
         elif 'xfce' in session or 'xfce' in xdg_session:
             self.adapter = XfceAdapter()
+        elif 'sway' in session or 'sway' in xdg_session:
+            self.adapter = SwayAdapter()
         # TODO implement for LXDE, X-Cinnamon, Unity; systemd-inhibit
         elif session == '' and xdg_session == '':
             logger.warning(
@@ -109,20 +110,12 @@ class SuspendAdapter(adapters.PlaybackAdapter):
     PROGRAM = 'exaile'
     ACTIVITY = 'playing-music'
 
-    def __init__(self, bus_name, object_path, interface):
-        try:
-            bus = dbus.SessionBus()
-            obj = bus.get_object(bus_name, object_path)
-            self.iface = dbus.Interface(obj, interface)
-            logger.info('Suspend Bus Acquired')
-        except dbus.DBusException:
-            raise EnvironmentError(bus_name + ' bus not available')
-
+    def __init__(self):
         self.inhibited = False
         self.lock = _thread.allocate_lock()
 
         # Initialize parent object
-        adapters.PlaybackAdapter.__init__(self, PLAYER)
+        super().__init__(PLAYER)
 
         # Inhibit if player currently playing
         if PLAYER.is_playing():
@@ -136,13 +129,11 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         session suspension not already inhibited.
 
         If suspending already inhibited call does nothing.
-
-        DBus call returns unique cookie used to later uninhibit.
         """
 
         with self.lock:
             if not self.inhibited:
-                self._dbus_inhibit_call()
+                self._inhibit_call()
                 self.inhibited = True
                 logger.info('Inhibited Suspend')
 
@@ -150,23 +141,14 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         """
         Uninhibit user session suspension.
 
-        Make DBus call to uninhibit session suspension if
-        session suspension not already uninhibited.
-
         If suspending already uninhibited call does nothing.
-
-        DBus call Requires cookie returned from original inhibit.
         """
 
         with self.lock:
             if self.inhibited:
-                if self.cookie is not None:
-                    self._dbus_uninhibit_call()
-                    self.cookie = None
-                    self.inhibited = False
-                    logger.info('Unihibited Suspend')
-                else:
-                    logger.error('Cannot Unihibit Suspend without cookie')
+                self._uninhibit_call()
+                self.inhibited = False
+                logger.info('Uninhibited Suspend')
 
     def is_inhibited(self):
         """Inhibit Status"""
@@ -195,24 +177,55 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         else:
             self.uninhibit()
 
-    def _dbus_inhibit_call(self):
+    def _inhibit_call(self):
         """
         Override, overriding method must set self.inhibited value
-        Make DBus call to inhibit suspend
         Must not block
         """
         raise NotImplementedError('Method not Overridden')
 
-    def _dbus_uninhibit_call(self):
+    def _uninhibit_call(self):
         """
         Override, overriding method must set self.inhibited value
-        Make DBus call to uninhibit suspend
         Must not block
         """
         raise NotImplementedError('Method not Overridden')
 
 
-class PowerManagerAdapter(SuspendAdapter):
+class DbusSuspendAdapter(SuspendAdapter):
+    def __init__(self, bus_name, object_path, interface):
+        try:
+            bus = dbus.SessionBus()
+            obj = bus.get_object(bus_name, object_path)
+            self.iface = dbus.Interface(obj, interface)
+            logger.info('Suspend Bus Acquired')
+        except dbus.DBusException:
+            raise EnvironmentError(bus_name + ' bus not available')
+
+        super().__init__()
+
+    def uninhibit(self):
+        """
+        Uninhibit user session suspension.
+
+        Make DBus call to uninhibit session suspension if
+        session suspension not already uninhibited.
+
+        If suspending already uninhibited call does nothing.
+        """
+
+        with self.lock:
+            if self.inhibited:
+                if self.cookie is not None:
+                    self._uninhibit_call()
+                    self.cookie = None
+                    self.inhibited = False
+                    logger.info('Unihibited Suspend')
+                else:
+                    logger.error('Cannot Uninhibit Suspend without cookie')
+
+
+class PowerManagerAdapter(DbusSuspendAdapter):
     """
     Default Adapter, implemented by most desktop sessions
     Adapter for org.freedesktop.PowerManagement.Inhibit Interface
@@ -226,7 +239,7 @@ class PowerManagerAdapter(SuspendAdapter):
         object_name='/org/freedesktop/PowerManagement/Inhibit',
         interface_name='org.freedesktop.PowerManagement.Inhibit',
     ):
-        SuspendAdapter.__init__(self, bus_name, object_name, interface_name)
+        super().__init__(bus_name, object_name, interface_name)
 
     def _dbus_inhibit_call(self):
         self.cookie = self.iface.Inhibit(self.PROGRAM, self.ACTIVITY)
@@ -235,7 +248,7 @@ class PowerManagerAdapter(SuspendAdapter):
         self.iface.UnInhibit(self.cookie)
 
 
-class GnomeAdapter(SuspendAdapter):
+class GnomeAdapter(DbusSuspendAdapter):
     """
     Gnome uses a similar interface to org.freedesktop.PowerManagement
     but is has different bus name, object path and interface name
@@ -245,8 +258,7 @@ class GnomeAdapter(SuspendAdapter):
     SUSPEND_FLAG = 8
 
     def __init__(self):
-        SuspendAdapter.__init__(
-            self,
+        super().__init__(
             'org.gnome.SessionManager',
             '/org/gnome/SessionManager',
             'org.gnome.SessionManager',
@@ -275,10 +287,10 @@ class KdeAdapter(PowerManagerAdapter):
 
     def __init__(self):
         try:
-            PowerManagerAdapter.__init__(self)
+            super().__init__()
         except EnvironmentError:
             # Fall back to other bus name
-            PowerManagerAdapter.__init__(self, bus_name='org.kde.powerdevil')
+            super().__init__(bus_name='org.kde.powerdevil')
 
 
 class XfceAdapter(PowerManagerAdapter):
@@ -289,7 +301,22 @@ class XfceAdapter(PowerManagerAdapter):
 
     def __init__(self):
         try:
-            PowerManagerAdapter.__init__(self)
+            super().__init__()
         except EnvironmentError:
             # Fall back to other bus name
-            PowerManagerAdapter.__init(self, bus_name='org.xfce.PowerManager')
+            super().__init__(bus_name='org.xfce.PowerManager')
+
+
+class SwayAdapter(SuspendAdapter):
+    """
+    Adapter for sway's IPC protocol/tool.
+    """
+
+    def _sway_inhibit_idle(self, status):
+        subprocess.run(['swaymsg', '[app_id="exaile"]', 'inhibit_idle', status])
+
+    def _inhibit_call(self):
+        self._sway_inhibit_idle('open')
+
+    def _uninhibit_call(self):
+        self._sway_inhibit_idle('none')

@@ -1,0 +1,5 @@
+Version='0.4'
+Authors=['']
+Name=_("Quick Settings Buttons")
+Description=_("Provides buttons on bottom of the playlist to quickly change some settings")
+Category=_('Utility')

@@ -35,7 +35,6 @@ try:
     def get_preferences_pane():
         return replaygainprefs
 
-
 except Exception:  # fail gracefully if we cant set up the UI
     pass
 

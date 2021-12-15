@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-05-10 00:42+0000\n"
+"PO-Revision-Date: 2021-08-07 06:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/exaile/master/"
 "pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -3028,28 +3028,25 @@ msgid "Select directory to import grouping tags from"
 msgstr "Escolha um diretório de onde importar as etiquetas de grupos"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 faixas encontradas"
-msgstr[1] "0 faixas encontradas"
+msgstr[0] "{amount} faixa encontrada"
+msgstr[1] "{amount} faixas encontradas"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Substituir '%s' com '%s' nas faixas %s?"
-msgstr[1] "Substituir '%s' com '%s' nas faixas %s?"
+msgstr[0] "Substituir '{old_tag}' com '{new_tag}' em {amount} faixa?"
+msgstr[1] "Substituir '{old_tag}' com '{new_tag}' em {amount} faixas?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Apagar '%s' das faixas %s?"
-msgstr[1] "Apagar '%s' das faixas %s?"
+msgstr[0] "Apagar '{tag}' em {amount} faixa?"
+msgstr[1] "Apagar '{tag}' em {amount} faixas?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""

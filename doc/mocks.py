@@ -67,7 +67,9 @@ class Mock:
     def __getattr__(cls, name):
         if name in ('__file__', '__path__'):
             return '/dev/null'
-        elif name in '__mro_entries__':
+        elif name in ('__qualname__',):
+            return ""
+        elif name in ('__mro_entries__',):
             raise AttributeError("'Mock' object has no attribute '%s'" % (name))
         elif name in ('Gio', 'GLib', 'GObject', 'Gst', 'Gtk', 'Gdk'):
             # These are reached via 'from gi.repository import x' and

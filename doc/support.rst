@@ -33,13 +33,5 @@ We run mailing lists for various purposes.
 IRC
 ---
 
-Exaile developers can be reached on #exaile channel on 
-`Freenode <https://webchat.freenode.net/>`_. The channel is not
-very active, but if you stick around long enough someone will probably
-answer your question -- think in terms of email response time.
-
-.. note:: Response time in #exaile is typically measured in days. If you ask a
-          question and leave in an hour, you probably won't get an answer to
-          your question. If you stay there, someone will eventually answer it!
-          Or use email.
-
+We used to maintain the #exaile channel on freenode, but have abandoned it.
+Please use the other communication avenues.

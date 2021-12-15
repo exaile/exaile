@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2020-07-13 21:41+0000\n"
-"Last-Translator: Samuel Carvalho de Araújo <samuelnegro12345@gmail.com>\n"
+"PO-Revision-Date: 2021-06-14 17:33+0000\n"
+"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "exaile/master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -727,7 +727,7 @@ msgstr "Plugin arquivo contém um caminho perigoso."
 
 #: ../xl/settings.py:97
 msgid "Settings version is newer than current."
-msgstr "A versão das configurações  é mais nova que a atual."
+msgstr "A versão das configurações é mais nova que a atual."
 
 #: ../xl/transcoder.py:58
 msgid ""
@@ -3029,28 +3029,25 @@ msgid "Select directory to import grouping tags from"
 msgstr "Escolha uma pasta para importar grupos de tags"
 
 #: ../plugins/grouptagger/gt_mass.py:121
-#, fuzzy, python-brace-format
-#| msgid "0 tracks found"
+#, python-brace-format
 msgid "{amount} track found"
 msgid_plural "{amount} tracks found"
-msgstr[0] "0 faixas encontradas"
-msgstr[1] "0 faixas encontradas"
+msgstr[0] "{amount} faixa encontrada"
+msgstr[1] "{amount} faixas encontradas"
 
 #: ../plugins/grouptagger/gt_mass.py:135
-#, fuzzy, python-brace-format
-#| msgid "Replace '%s' with '%s' on %s tracks?"
+#, python-brace-format
 msgid "Replace '{old_tag}' with '{new_tag}' on {amount} track?"
 msgid_plural "Replace '{old_tag}' with '{new_tag}' on {amount} tracks?"
-msgstr[0] "Substituir '%s' por '%s' nas faixas %s?"
-msgstr[1] "Substituir '%s' por '%s' nas faixas %s?"
+msgstr[0] "Substitua '{old_tag}' pela '{new_tag}' na {amount} pista?"
+msgstr[1] "Substitua '{old_tag}' pelas '{new_tag}' nas {amount} pistas?"
 
 #: ../plugins/grouptagger/gt_mass.py:145
-#, fuzzy, python-brace-format
-#| msgid "Delete '%s' from %s tracks?"
+#, python-brace-format
 msgid "Delete '{tag}' from {amount} track?"
 msgid_plural "Delete '{tag}' from {amount} tracks?"
-msgstr[0] "Excluir '%s' de %s faixas?"
-msgstr[1] "Excluir '%s' de %s faixas?"
+msgstr[0] "Exclua '{tag}' da faixa {amount}?"
+msgstr[1] "Exclua '{tag}' das faixas {amount}?"
 
 #: ../plugins/grouptagger/gt_mass.py:172
 msgid ""
@@ -4113,7 +4110,7 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
-"Vá para  <b><a href=\"http://www.last.fm/api/account\">Sua conta API</a></b> "
+"Vá para <b><a href=\"http://www.last.fm/api/account\">Sua conta API</a></b> "
 "para obter uma <b>chave API</b> e uma <b>senha</b> e coloque-as aqui. Depois "
 "de colocá-las, <b>solicite permissão de acesso</b> e confirme para completar "
 "a configuração."
@@ -4539,6 +4536,11 @@ msgid ""
 "Requires: spydaap\n"
 "Optional: python-zeroconf"
 msgstr ""
+"Permite o acesso ao compartilhamentos de música DAAP através da biblioteca "
+"spydaap. Compartilhe a auto-descoberta está opcionalmente disponível via "
+"python-zeroconf.\n"
+"Requer: spydaap\n"
+"Opcional: python-zeroconf"
 
 #: ../plugins/daapclient/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
@@ -4884,7 +4886,8 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
-"Permite que você grave stream com o streamripper.Dependência: streamripper"
+"Permite que você grave stream com o streamripper.\n"
+"Dependência: streamripper"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""

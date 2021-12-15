@@ -431,10 +431,11 @@ class LibraryMonitor(GObject.GObject):
 
     def __process_change_queue(self, gfile):
         if gfile in self.__queue:
-            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
-            for tr in added_tracks:
-                tr.read_tags()
-            self.__library.collection.add_tracks(added_tracks)
+            if gfile.query_exists():  # Make sure path still exists.
+                added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+                for tr in added_tracks:
+                    tr.read_tags()
+                self.__library.collection.add_tracks(added_tracks)
             del self.__queue[gfile]
 
     def on_location_changed(self, monitor, gfile, other_gfile, event):
@@ -448,6 +449,15 @@ class LibraryMonitor(GObject.GObject):
             event == Gio.FileMonitorEvent.CREATED
             or event == Gio.FileMonitorEvent.CHANGED
         ):
+            # Query info to determine if the path is a directory. The path
+            # might have been removed already (quickly after it was created),
+            # in which case the call raises an exception.
+            try:
+                fileinfo = gfile.query_info(
+                    'standard::type', Gio.FileQueryInfoFlags.NONE, None
+                )
+            except GLib.Error:
+                return
 
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
@@ -459,10 +469,6 @@ class LibraryMonitor(GObject.GObject):
                 GLib.timeout_add(500, self.__process_change_queue, gfile)
 
             # Set up new monitor if directory
-            fileinfo = gfile.query_info(
-                'standard::type', Gio.FileQueryInfoFlags.NONE, None
-            )
-
             if (
                 fileinfo.get_file_type() == Gio.FileType.DIRECTORY
                 and gfile not in self.__monitors

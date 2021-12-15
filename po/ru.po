@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-01-10 21:32+0000\n"
-"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"PO-Revision-Date: 2021-11-17 04:51+0000\n"
+"Last-Translator: algri14 <algri14@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/exaile/master/ru/"
 ">\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.9.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -144,11 +144,11 @@ msgstr "Настройки воспроизведения"
 
 #: ../xl/main.py:102
 msgid "Play the next track"
-msgstr "Воспроизвести следующую композицию"
+msgstr "Воспроизвести следующий трек"
 
 #: ../xl/main.py:110
 msgid "Play the previous track"
-msgstr "Воспроизвести предыдущую композицию"
+msgstr "Воспроизвести предыдущий трек"
 
 #: ../xl/main.py:118 ../plugins/minimode/controls.py:351
 #: ../plugins/minimode/controls.py:368
@@ -169,7 +169,7 @@ msgstr "Приостановить или продолжить воспроиз�
 
 #: ../xl/main.py:144 ../plugins/minimode/controls.py:376
 msgid "Stop playback after current track"
-msgstr "Остановить воспроизведение после текущей дорожки"
+msgstr "Остановить воспроизведение после текущего трека"
 
 #: ../xl/main.py:147
 msgid "Collection Options"
@@ -182,7 +182,7 @@ msgstr "РАСПОЛОЖЕНИЕ"
 
 #: ../xl/main.py:153
 msgid "Add tracks from LOCATION to the collection"
-msgstr "Добавить дорожки из РАСПОЛОЖЕНИЯ в коллекцию"
+msgstr "Добавить треки из РАСПОЛОЖЕНИЯ в коллекцию"
 
 #: ../xl/main.py:156
 msgid "Playlist Options"
@@ -194,7 +194,7 @@ msgstr "Экспорт текущего списка воспроизведен�
 
 #: ../xl/main.py:165
 msgid "Track Options"
-msgstr "Свойства дорожки"
+msgstr "Свойства трека"
 
 #: ../xl/main.py:172
 msgid "Query player"
@@ -212,11 +212,11 @@ msgstr "Получить текущее состояние воспроизве�
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:185
 msgid "TAGS"
-msgstr "МЕТКИ"
+msgstr "ТЕГИ"
 
 #: ../xl/main.py:186
 msgid "Tags to retrieve from the current track; use with --format-query"
-msgstr "Метки, получаемые для текущей дорожки, используется с --format-query"
+msgstr "Теги, получаемые для текущего трека, используется с --format-query"
 
 #: ../xl/main.py:193
 msgid "Show a popup with data of the current track"
@@ -362,11 +362,11 @@ msgstr "Показать сообщения отладки"
 
 #: ../xl/main.py:390
 msgid "Enable debugging of xl.event. Generates lots of output"
-msgstr "Включить отладку xl.event. Создает огромное количество вывода"
+msgstr "Включить отладку xl.event. Генерирует много выходных данных"
 
 #: ../xl/main.py:397
 msgid "Enable full debugging of xl.event. Generates LOTS of output"
-msgstr "Включить полную отладку xl.event. Создает ОГРОМНОЕ количество вывода"
+msgstr "Включить полную отладку xl.event. Генерирует ОГРОМНОЕ количество вывода"
 
 #: ../xl/main.py:404
 msgid "Add thread name to logging messages."
@@ -450,7 +450,7 @@ msgstr "Авторские права"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:640
 msgid "Comment"
-msgstr "Описание"
+msgstr "Комментарии"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:312
 #: ../data/ui/trackproperties_dialog_cover_row.ui:64
@@ -753,26 +753,26 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Проприетарный аудиоформат сжатия звука от Apple, даёт лучшее качество даже "
-"при более низком битрейте, чем MP3."
+"Проприетарный аудиоформат сжатия звука от Apple, даёт качество лучше, чем "
+"MP3, даже при более низком битрейте."
 
 #: ../xl/transcoder.py:91
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Закрытый, устаревший, но всё ещё популярный формат сжатия звука с потерями. "
-"VBR дает более высокое качество звука, чем CBR, но может оказаться "
-"несовместимым с некоторыми плеерами."
+"Проприетарный и устаревший, но всё ещё популярный формат сжатия звука с "
+"потерями. VBR дает более высокое качество звука, чем CBR, но может оказаться "
+"несовместим с некоторыми плеерами."
 
 #: ../xl/transcoder.py:102
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Закрытый, устаревший, но всё ещё популярный формат сжатия звука с потерями. "
-"CBR дает более низкое качество звука, чем VBR, но совместим с любыми "
-"плеерами."
+"Проприетарный и устаревший, но всё ещё популярный формат сжатия звука с "
+"потерями. CBR дает более низкое качество звука, чем VBR, но совместим с "
+"любыми плеерами."
 
 #: ../xl/transcoder.py:113
 msgid "A very fast Free lossless audio format with good compression."
@@ -1285,7 +1285,7 @@ msgstr "'Умные' списки воспроизведения"
 
 #: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
-msgstr "Текущий список воспроизведения"
+msgstr "Плейлисты пользователя"
 
 #: ../xlgui/panel/radio.py:73
 msgid "Radio"
@@ -1391,7 +1391,7 @@ msgstr " "
 
 #: ../xlgui/preferences/collection.py:60
 msgid "Reset to _Defaults"
-msgstr "_Установить настройки по умолчанию"
+msgstr "_Восстановить настройки по умолчанию"
 
 #: ../xlgui/preferences/cover.py:31 ../plugins/amazoncovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5

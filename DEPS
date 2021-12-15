@@ -20,13 +20,17 @@ Essential:
 * python3-mutagen (>= 1.38)
 * python3-dbus
 * GI typelib files for GTK+, GStreamer (including gstreamer-plugins-base) and cairo and their python bindings
+
   * Packages on Debian and Ubuntu:
+
     * python3-gi >= 3.22
     * python3-gi-cairo
     * gir1.2-gtk-3.0
     * gir1.2-gstreamer-1.0
     * gir1.2-gst-plugins-base-1.0
+
   * Packages on Fedora:
+
     * python3-cairo
     * python3-gobject >= 3.22
     * python3-gstreamer1

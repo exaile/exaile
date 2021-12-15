@@ -154,5 +154,3 @@ After a release, we should:
   - Add a new post to ``_posts``
 
 * Send email to exaile-dev and exaile-users mailing lists with the release notes
-
-* Update the channel topic on IRC (``/msg ChanServ topic #exaile ...``)

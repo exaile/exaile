@@ -654,6 +654,8 @@ class Track:
         elif tag == '__basename':
             # TODO: Check if unicode() is required
             value = self.get_basename()
+        elif tag == '__rating':
+            value = self.get_rating()
         else:
             value = self.__tags.get(tag)
 

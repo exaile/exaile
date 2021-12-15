@@ -836,6 +836,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.playlist = playlist
         self.player = player
 
+        self._current_vertical_scroll = 0
+        self._insert_row = -1
+        self._insert_count = 0
+
         self.menu = PlaylistContextMenu(self)
         self.header_menu = menu.ProviderMenu('playlist-columns-menu', self)
         self.header_menu.attach_to_widget(self)
@@ -903,6 +907,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
+        self.connect("size-allocate", self.on_size_allocate)
 
     def do_destroy(self):
         # if this isn't disconnected, then the columns are emptied out and
@@ -1146,13 +1151,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if not selection:  # The widget has been destroyed
             return
 
-        info = selection.get_selected_rows()
-        # grab the first visible raw of the treeview
-        firstpath = self.get_path_at_pos(4, 4)
-        topindex = None
-        if firstpath:
-            topindex = firstpath[0][0]
-
         with self.handler_block(self.columns_changed_id):
             columns = self.get_columns()
             for col in columns:
@@ -1162,12 +1160,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._setup_columns()
 
         self.queue_draw()
-
-        if firstpath:
-            self.scroll_to_cell(topindex)
-        if info:
-            for path in info[1]:
-                selection.select_path(path)
 
     def _setup_models(self):
         self.model = PlaylistModel(self.playlist, [], self.player, self)
@@ -1590,6 +1582,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         tracks = []
         playlist = []
         positions = []
+        pos = 0
+        source_playlist_view = None
 
         target = selection.get_target().name()
         if target == "exaile-index-list":
@@ -1654,17 +1648,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 self.playlist.extend(tracks)
                 insert_position = len(self.playlist) - len(tracks)
 
-        # Select inserted items
-        if 0 <= insert_position < len(self.playlist) and 0 < len(tracks) <= 500:
-            # More than 500 songs are loaded threaded, so ignore it
-            self.selection.unselect_all()
-            self.selection.select_range(
-                self.model.get_path(self.model.iter_nth_child(None, insert_position)),
-                self.model.get_path(
-                    self.model.iter_nth_child(None, insert_position + len(tracks) - 1)
-                ),
-            )
-
         # Remove tracks from the source playlist if moved
         if context.get_selected_action() == Gdk.DragAction.MOVE:
             for i in positions[::-1]:
@@ -1679,6 +1662,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if scroll_when_appending_tracks and tracks:
             self.scroll_to_cell(self.playlist.index(tracks[-1]))
+        elif 0 < len(tracks) <= 500:
+            # Keep insert position and length of selection for restoring after updating the playlist view
+            if (
+                0 < pos < insert_position
+                and source_playlist_view is self
+                and context.get_selected_action() == Gdk.DragAction.MOVE
+            ):
+                insert_position -= len(tracks)
+            self._insert_row = insert_position
+            self._insert_count = len(tracks)
 
         # Restore state to `self.on_row_inserted` do not ignore inserted rows
         # see https://github.com/exaile/exaile/issues/487
@@ -1722,6 +1715,15 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         return True
 
+    def on_size_allocate(self, plView, selection):
+        if self._insert_row > -1:
+            # correction of selected rows
+            self.select_rows(
+                self._insert_row, self._insert_row + self._insert_count - 1
+            )
+            self._insert_row = -1
+            self._insert_count = 0
+
     def show_properties_dialog(self):
         from xlgui import properties
 
@@ -1753,6 +1755,17 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if provider.name in columns:
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
+
+    def select_rows(self, start, stop):
+        self.selection.unselect_all()
+        if self.model.iter_nth_child(None, start) == None:
+            return
+        if self.model.iter_nth_child(None, stop) == None:
+            return
+        self.selection.select_range(
+            self.model.get_path(self.model.iter_nth_child(None, start)),
+            self.model.get_path(self.model.iter_nth_child(None, stop)),
+        )
 
 
 class PlaylistModel(Gtk.ListStore):

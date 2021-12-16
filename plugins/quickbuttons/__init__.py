@@ -207,10 +207,11 @@ class QuickButtons:
             #       gstreamer-specific stuff doesn't accidentally get loaded
             from xl.player.gst.sink import get_devices
             devices = get_devices()
+            tbs.remove_all()
             for name, device_id, _unused in list(get_devices()):
                 tbs.append(device_id, name)
 
-            tbs.set_active(self._options[setting]["value"])
+            # tbs.set_active(self._options[setting]["value"])
             # tbs.set_label(_("EQ"))
             # tbs.connect("clicked", self.__on_equalizer_press)
 

@@ -75,6 +75,24 @@ class QuickButtons:
             "label": _("EQ"),
             "tooltip": _("Equalizer"),
         },
+        "player/audiosink_device": {
+            "show_button": "quickbuttons/btn_audio_device",
+            "value": None,
+            "default": 'auto',
+            "widget": None,
+            "type": "audio_device_selection",
+            "label": _("EQ"),
+            "tooltip": _("Equalizer"),
+        },
+        # "preview_device/audiosink_device": {
+        #     "show_button": "quickbuttons/btn_audio_device_preview",
+        #     "value": None,
+        #     "default": None,
+        #     "widget": None,
+        #     "type": "audio_device_selection",
+        #     "label": _("EQ"),
+        #     "tooltip": _("Equalizer"),
+        # },
     }
     """
     Usable options
@@ -178,6 +196,23 @@ class QuickButtons:
             tbs = Gtk.Button()
             tbs.set_label(_("EQ"))
             tbs.connect("clicked", self.__on_equalizer_press)
+
+        elif self._options[setting]["type"] == "audio_device_selection":
+            if "equalizer" not in self._exaile.plugins.enabled_plugins:
+                return None
+
+            tbs = Gtk.ComboBoxText()
+
+            # TODO: If we ever add another engine, need to make sure that
+            #       gstreamer-specific stuff doesn't accidentally get loaded
+            from xl.player.gst.sink import get_devices
+            devices = get_devices()
+            for name, device_id, _unused in list(get_devices()):
+                tbs.append(device_id, name)
+
+            tbs.set_active(self._options[setting]["value"])
+            # tbs.set_label(_("EQ"))
+            # tbs.connect("clicked", self.__on_equalizer_press)
 
         return self._add_button_to_toolbar(tbs, setting)
 

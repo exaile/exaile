@@ -178,15 +178,19 @@ class QuickButtons:
         eq_win.show_all()
 
     def _on_cb_changed(self, combo, setting):
-        text = combo.get_active_id()
-        settings.set_option(setting, text)
+        active = combo.get_active_id()
+        if active == None:
+            return
+        settings.set_option(setting, active)
 
     def _on_cb_popup(self, combo, setting, dummy):
-        self._set_devices(combo, dummy)
+        if combo.get_property('popup_shown'):
+            self._set_devices(combo, dummy)
 
     def _set_devices(self, tbs, setting):
         # @see plugins/previewdevice/previewprefs.py:65
         from xl.player.gst.sink import get_devices
+        tbs.remove_all()
         for device_name, device_id, _unused in list(get_devices()):
             tbs.append(device_id, device_name)
 
@@ -237,7 +241,12 @@ class QuickButtons:
             val = self._options[setting]["value"]
 
             tbs.set_active_id(val)
+            tbs.set_sensitive(True)
+            tbs.set_property('active', True)
+            tbs.set_property('can-focus', 0)
+
             tbs.connect("notify::popup-shown", self._on_cb_popup, setting)
+            tbs.connect("changed", self._on_cb_changed, setting)
 
         return self._add_button_to_toolbar(tbs, setting)
 

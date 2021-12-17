@@ -181,6 +181,15 @@ class QuickButtons:
         text = combo.get_active_id()
         settings.set_option(setting, text)
 
+    def _on_cb_popup(self, combo, setting, dummy):
+        self._set_devices(combo, dummy)
+
+    def _set_devices(self, tbs, setting):
+        # @see plugins/previewdevice/previewprefs.py:65
+        from xl.player.gst.sink import get_devices
+        for device_name, device_id, _unused in list(get_devices()):
+            tbs.append(device_id, device_name)
+
     def _get_delay_value(self) -> int:
         """
         Get the current delay value in seconds as int
@@ -222,17 +231,13 @@ class QuickButtons:
             tbs.connect("clicked", self._on_equalizer_press)
 
         elif self._options[setting]["type"] == "audio_device_selection":
-            # @see plugins/previewdevice/previewprefs.py:65
-            from xl.player.gst.sink import get_devices
 
             tbs = Gtk.ComboBoxText()
+            self._set_devices(tbs, setting)
             val = self._options[setting]["value"]
-            for device_name, device_id, _unused in list(get_devices()):
-                tbs.append(device_id, device_name)
 
             tbs.set_active_id(val)
-            # tbs.set_label(_("EQ"))
-            tbs.connect("changed", self._on_cb_changed, setting)
+            tbs.connect("notify::popup-shown", self._on_cb_popup, setting)
 
         return self._add_button_to_toolbar(tbs, setting)
 

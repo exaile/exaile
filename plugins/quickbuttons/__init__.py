@@ -184,8 +184,9 @@ class QuickButtons:
         settings.set_option(setting, active)
 
     def _on_cb_popup(self, combo, setting, dummy):
-        if combo.get_property('popup_shown'):
-            self._set_devices(combo, dummy)
+        # if combo.get_property('popup_shown'):
+        #     self._set_devices(combo, dummy)
+        pass
 
     def _set_devices(self, tbs, setting):
         # @see plugins/previewdevice/previewprefs.py:65
@@ -193,6 +194,8 @@ class QuickButtons:
         tbs.remove_all()
         for device_name, device_id, _unused in list(get_devices()):
             tbs.append(device_id, device_name)
+
+        GObject.timeout_add(1000, self._set_devices, tbs, setting)
 
     def _get_delay_value(self) -> int:
         """
@@ -245,7 +248,9 @@ class QuickButtons:
             tbs.set_property('active', True)
             tbs.set_property('can-focus', 0)
 
-            tbs.connect("notify::popup-shown", self._on_cb_popup, setting)
+            GObject.timeout_add(1000, self._set_devices, tbs, setting)
+
+            # tbs.connect("notify::popup-shown", self._on_cb_popup, setting)
             tbs.connect("changed", self._on_cb_changed, setting)
 
         return self._add_button_to_toolbar(tbs, setting)

@@ -201,21 +201,29 @@ class QuickButtons:
             if "equalizer" not in self._exaile.plugins.enabled_plugins:
                 return None
 
-            tbs = Gtk.ComboBoxText()
-
             # TODO: If we ever add another engine, need to make sure that
             #       gstreamer-specific stuff doesn't accidentally get loaded
             from xl.player.gst.sink import get_devices
             devices = get_devices()
-            tbs.remove_all()
-            for name, device_id, _unused in list(get_devices()):
-                tbs.append(device_id, name)
+            devices_list = Gtk.ListStore(str, str);
 
-            # tbs.set_active(self._options[setting]["value"])
+            tbs = Gtk.ComboBoxText()
+            val = self._options[setting]["value"]
+            for device_name, device_id, _unused in list(get_devices()):
+                tbs.append(device_id, device_name)
+
+            tbs.set_active_id(val)
             # tbs.set_label(_("EQ"))
-            # tbs.connect("clicked", self.__on_equalizer_press)
+            tbs.connect("changed", self.__on_cb_changed, setting)
 
         return self._add_button_to_toolbar(tbs, setting)
+
+    def __on_cb_changed(self, combo, setting):
+        text = combo.get_active_id()
+
+        settings.set_option(setting, text)
+
+        pass
 
     def _add_button_to_toolbar(self, tbs, setting) -> None:
         tbs.set_tooltip_text(self._options[setting]["tooltip"])

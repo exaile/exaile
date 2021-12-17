@@ -74,6 +74,7 @@ class QuickButtons:
             "type": "equalizer",
             "label": _("EQ"),
             "tooltip": _("Equalizer"),
+            "depends_on": "equalizer"
         },
         "player/audiosink_device": {
             "show_button": "quickbuttons/btn_audio_device",
@@ -157,6 +158,29 @@ class QuickButtons:
         self._self_triggered = True
         self._set_delay_value(widget.get_value_as_int())
 
+    def _on_equalizer_press(self, widget) -> None:
+
+        if "equalizer" not in self._exaile.plugins.enabled_plugins:
+            return None
+
+        eq_plugin_win = self._exaile.plugins.enabled_plugins["equalizer"].window
+        if not eq_plugin_win:
+            eq_win = GObject.new("EqualizerWindow")
+            eq_win.set_transient_for(self._exaile.gui.main.window)
+            self._exaile.plugins.enabled_plugins["equalizer"].window = eq_win
+            self._equalizer_win = eq_win
+
+        def _destroy(w):
+            self._equalizer_win = None
+            self._exaile.plugins.enabled_plugins["equalizer"].window = None
+
+        eq_win.connect("destroy", _destroy)
+        eq_win.show_all()
+
+    def _on_cb_changed(self, combo, setting):
+        text = combo.get_active_id()
+        settings.set_option(setting, text)
+
     def _get_delay_value(self) -> int:
         """
         Get the current delay value in seconds as int
@@ -195,17 +219,11 @@ class QuickButtons:
                 return None
             tbs = Gtk.Button()
             tbs.set_label(_("EQ"))
-            tbs.connect("clicked", self.__on_equalizer_press)
+            tbs.connect("clicked", self._on_equalizer_press)
 
         elif self._options[setting]["type"] == "audio_device_selection":
-            if "equalizer" not in self._exaile.plugins.enabled_plugins:
-                return None
-
-            # TODO: If we ever add another engine, need to make sure that
-            #       gstreamer-specific stuff doesn't accidentally get loaded
+            # @see plugins/previewdevice/previewprefs.py:65
             from xl.player.gst.sink import get_devices
-            devices = get_devices()
-            devices_list = Gtk.ListStore(str, str);
 
             tbs = Gtk.ComboBoxText()
             val = self._options[setting]["value"]
@@ -214,16 +232,9 @@ class QuickButtons:
 
             tbs.set_active_id(val)
             # tbs.set_label(_("EQ"))
-            tbs.connect("changed", self.__on_cb_changed, setting)
+            tbs.connect("changed", self._on_cb_changed, setting)
 
         return self._add_button_to_toolbar(tbs, setting)
-
-    def __on_cb_changed(self, combo, setting):
-        text = combo.get_active_id()
-
-        settings.set_option(setting, text)
-
-        pass
 
     def _add_button_to_toolbar(self, tbs, setting) -> None:
         tbs.set_tooltip_text(self._options[setting]["tooltip"])
@@ -235,25 +246,6 @@ class QuickButtons:
 
         self._options[setting]["widget"] = tbs
         self._toolbar.pack_start(tbs, False, True, 0)
-
-    def __on_equalizer_press(self, widget) -> None:
-
-        if "equalizer" not in self._exaile.plugins.enabled_plugins:
-            return None
-
-        eq_plugin_win = self._exaile.plugins.enabled_plugins["equalizer"].window
-        if not eq_plugin_win:
-            eq_win = GObject.new("EqualizerWindow")
-            eq_win.set_transient_for(self._exaile.gui.main.window)
-            self._exaile.plugins.enabled_plugins["equalizer"].window = eq_win
-            self._equalizer_win = eq_win
-
-        def _destroy(w):
-            self._equalizer_win = None
-            self._exaile.plugins.enabled_plugins["equalizer"].window = None
-
-        eq_win.connect("destroy", _destroy)
-        eq_win.show_all()
 
     def on_gui_loaded(self):
         """

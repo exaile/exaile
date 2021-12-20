@@ -11,7 +11,7 @@ class QuickButtons:
     change some settings quickly
     """
 
-    _self_triggered = False
+    self_triggered = False
     """
     Don't repeat yourself.
     Is set to True to prevent resetting from settings.set_option
@@ -85,15 +85,16 @@ class QuickButtons:
             "label": _("Main Device"),
             "tooltip": _("Select main audio device"),
         },
-        # "preview_device/audiosink_device": {
-        #     "show_button": "quickbuttons/btn_audio_device_preview",
-        #     "value": None,
-        #     "default": None,
-        #     "widget": None,
-        #     "type": "audio_device_selection",
-        #     "label": _("EQ"),
-        #     "tooltip": _("Equalizer"),
-        # },
+        "preview_device/audiosink_device": {
+            "show_button": "quickbuttons/btn_audio_device_preview",
+            "value": None,
+            "default": None,
+            "widget": None,
+            "type": "audio_device_selection",
+            "label": _("Preview Device"),
+            "tooltip": _("Select preview audio device"),
+            "depends_on": "previewdevice"
+        },
     }
     """
     Usable options
@@ -103,7 +104,7 @@ class QuickButtons:
         """
         Called on startup of exaile
         """
-        self._exaile = exaile
+        self.exaile = exaile
 
         event.add_callback(self._on_option_set, "playlist_option_set")
         event.add_callback(self._on_option_set, "queue_option_set")
@@ -132,10 +133,10 @@ class QuickButtons:
         if option not in self.options:
             return
 
-        if self._self_triggered:
-            self._self_triggered = False
+        if self.self_triggered:
+            self.self_triggered = False
             return
-
+        print('self setting')
         self.options[option]["value"] = settings.get_option(option)
         if self.options[option]["type"] == "toggle":
             self.options[option]["widget"].set_active(self.options[option]["value"])
@@ -147,16 +148,16 @@ class QuickButtons:
     def _add_button(self, setting: str) -> None:
 
         if self.options[setting]["type"] == "toggle":
-            tbs = qb_toggle(setting)
+            tbs = qb_toggle(setting, self)
 
         elif self.options[setting]["type"] == "spin":
-            tbs = qb_spinner(setting)
+            tbs = qb_spinner(setting, self)
 
         elif self.options[setting]["type"] == "equalizer":
-            tbs = qb_equalizer(setting, self._exaile)
+            tbs = qb_equalizer(setting, self)
 
         elif self.options[setting]["type"] == "audio_device_selection":
-            tbs = qb_audio_device(setting)
+            tbs = qb_audio_device(setting, self)
 
         return self._add_button_to_toolbar(tbs, setting)
 
@@ -179,7 +180,7 @@ class QuickButtons:
             self._toolbar.show_all()
             return
 
-        self._status_bar = self._exaile.gui.builder.get_object("status_bar")
+        self._status_bar = self.exaile.gui.builder.get_object("status_bar")
         self._toolbar = Gtk.Box()
 
         for k in self.options:
@@ -203,9 +204,11 @@ plugin_class = QuickButtons
 
 class qb_audio_device(Gtk.MenuButton):
 
-    def __init__(self, setting):
+    def __init__(self, setting, qb_instance):
         self._setting = setting
+        self._qb      = qb_instance
         self._settings = QuickButtons.options[setting]
+
 
         self.popover = Gtk.Popover()
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -218,13 +221,13 @@ class qb_audio_device(Gtk.MenuButton):
         self.connect('toggled', self._on_cb_popup)
 
     def _set_audio_device(self, button):
-        if button.get_active():
-            for child in self.vbox.get_children():
-                if button == child:
-                    settings.set_option(self._setting, button.device_id)
-                    continue
-                child.set_active(False)
-            # button.set_active(True)
+        if button.get_active() and button.device_id != self._current_device:
+            settings.set_option(self._setting, button.device_id)
+            # for child in self.vbox.get_children():
+            #     if button == child:
+            #         settings.set_option(self._setting, button.device_id)
+            #         continue
+            #     child.set_active(False)
 
     def _on_cb_popup(self, widget):
         if widget.get_active():
@@ -233,19 +236,25 @@ class qb_audio_device(Gtk.MenuButton):
             GObject.source_remove(self._devices_to)
 
     def _set_devices(self):
+        self._qb.self_triggered = True
         current = settings.get_option(self._setting, self._settings['default'])
         for child in self.vbox.get_children():
             self.vbox.remove(child)
 
+        first_btn = None
         # @see plugins/previewdevice/previewprefs.py:65
         from xl.player.gst.sink import get_devices
         for name, device_id, _unused in reversed(list(get_devices())):
-            btn = Gtk.ToggleButton(label=name)
+            btn = Gtk.RadioButton(label=name)
+            btn.connect('toggled', self._set_audio_device)
             btn.device_id = device_id
+            if first_btn:
+                btn.join_group(first_btn)
             if device_id == current:
+                self._current_device = device_id
                 btn.set_active(True)
 
-            btn.connect('toggled', self._set_audio_device)
+            first_btn = btn
             self.vbox.pack_end(btn, False, True, 10)
         self.vbox.show_all()
         self.vbox.queue_draw()
@@ -254,10 +263,11 @@ class qb_audio_device(Gtk.MenuButton):
 
 class qb_equalizer(Gtk.Button):
 
-    def __init__(self, setting, exaile):
+    def __init__(self, setting, qb_instance):
         self._setting = setting
+        self._qb = qb_instance
         self._settings = QuickButtons.options[setting]
-        self._exaile = exaile
+        self._exaile = qb_instance.exaile
         super().__init__()
         self.set_label(self._settings['label'])
         self.set_tooltip_text(self._settings["tooltip"])
@@ -284,8 +294,10 @@ class qb_equalizer(Gtk.Button):
 
 class qb_spinner(Gtk.SpinButton):
 
-    def __init__(self, setting):
+    def __init__(self, setting, qb_instance: QuickButtons):
+
         self._setting = setting
+        self._qb      = qb_instance
         self._settings = QuickButtons.options[setting]
         super().__init__()
         self.set_tooltip_text(self._settings["tooltip"])
@@ -296,7 +308,7 @@ class qb_spinner(Gtk.SpinButton):
         """
         Called when changing the value from spinbutton
         """
-        self._self_triggered = True
+        self._qb.self_triggered = True
         self._set_delay_value(widget.get_value_as_int())
 
     def _get_delay_value(self) -> int:
@@ -318,8 +330,9 @@ class qb_spinner(Gtk.SpinButton):
 
 class qb_toggle(Gtk.ToggleButton):
 
-    def __init__(self, setting):
+    def __init__(self, setting, qb_instance):
         self._setting = setting
+        self._qb      = qb_instance
         self._settings = QuickButtons.options[setting]
         active = self._settings["value"]
         if active != True:
@@ -334,4 +347,5 @@ class qb_toggle(Gtk.ToggleButton):
         """
         Called when toggling a button
         """
+        self._qb.self_triggered = True
         settings.set_option(setting, widget.get_active())

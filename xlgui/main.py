@@ -81,7 +81,6 @@ class MainWindow(GObject.GObject):
         self.playlist_manager = controller.exaile.playlists
         self.current_page = -1
         self._fullscreen = False
-        self.resuming = False
 
         self.window_state = 0
         self.minimized = False
@@ -303,12 +302,25 @@ class MainWindow(GObject.GObject):
         )
         self.pause_image.set_direction(controls_direction)
 
+        self.stop_image = Gtk.Image.new_from_icon_name(
+            'media-playback-stop', Gtk.IconSize.BUTTON
+        )
+        self.stop_image.set_direction(controls_direction)
+        self.spat_image = Gtk.Image.new_from_icon_name(
+            'process-stop', Gtk.IconSize.BUTTON
+        )
+        self.spat_image.set_direction(controls_direction)
+
         play_toolbar = self.builder.get_object('play_toolbar')
         play_toolbar.set_direction(controls_direction)
         for button in ('playpause', 'next', 'prev', 'stop'):
             widget = self.builder.get_object('%s_button' % button)
             setattr(self, '%s_button' % button, widget)
             widget.get_child().set_direction(controls_direction)
+
+        """Set the button icon size here to prevent resizing later"""
+        self.playpause_button.set_image(self.play_image)
+        self.stop_button.set_image(self.stop_image)
 
         self.progress_bar = playback.SeekProgressBar(player.PLAYER)
         self.progress_bar.get_child().set_direction(controls_direction)
@@ -369,9 +381,6 @@ class MainWindow(GObject.GObject):
             }
         )
 
-        event.add_ui_callback(
-            self.on_playback_resume, 'playback_player_resume', player.PLAYER
-        )
         event.add_ui_callback(
             self.on_playback_end, 'playback_player_end', player.PLAYER
         )
@@ -524,13 +533,9 @@ class MainWindow(GObject.GObject):
         """
         widget.__hovered = True
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('process-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.spat_image)
         else:
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_leave_notify_event(self, widget, event):
         """
@@ -538,9 +543,7 @@ class MainWindow(GObject.GObject):
         """
         widget.__hovered = False
         if not widget.is_focus() and ~(event.get_state() & Gdk.ModifierType.SHIFT_MASK):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_key_press_event(self, widget, event):
         """
@@ -563,9 +566,7 @@ class MainWindow(GObject.GObject):
         Resets the button icon
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
             widget.toggle_spat = False
 
     def on_stop_button_focus_out_event(self, widget, event):
@@ -574,9 +575,7 @@ class MainWindow(GObject.GObject):
         the button is still hovered
         """
         if not getattr(widget, '__hovered', False):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_press_event(self, widget, event):
         """
@@ -609,17 +608,13 @@ class MainWindow(GObject.GObject):
         """
         target = widget.drag_dest_find_target(context, None).name()
         if target == 'exaile-index-list':
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('process-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.spat_image)
 
     def on_stop_button_drag_leave(self, widget, context, time):
         """
         Resets the stop button
         """
-        widget.set_image(
-            Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-        )
+        widget.set_image(self.stop_image)
 
     def on_stop_button_drag_data_received(
         self, widget, context, x, y, selection, info, time
@@ -911,19 +906,12 @@ class MainWindow(GObject.GObject):
         dialog = dialogs.AboutDialog(self.window)
         dialog.show()
 
-    def on_playback_resume(self, type, player, data):
-        self.resuming = True
-
     def on_playback_start(self, type, player, object):
         """
         Called when playback starts
         Sets the currently playing track visible in the currently selected
         playlist if the user has chosen this setting
         """
-        if self.resuming:
-            self.resuming = False
-            return
-
         self._update_track_information()
         self.playpause_button.set_image(self.pause_image)
         self.playpause_button.set_tooltip_text(_('Pause Playback'))

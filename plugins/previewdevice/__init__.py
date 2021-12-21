@@ -62,7 +62,6 @@ class SecondaryOutputPlugin:
     def on_gui_loaded(self):
 
         self.hooked = False
-        self.resuming = False
 
         #
         # Initialize the player objects needed
@@ -183,7 +182,6 @@ class SecondaryOutputPlugin:
         self.pane.destroy()
 
     def _setup_events(self, setup):
-        setup(self._on_playback_resume, 'playback_player_resume', self.player)
         setup(self._on_playback_end, 'playback_player_end', self.player)
         setup(self._on_playback_error, 'playback_error', self.player)
         setup(self._on_playback_start, 'playback_track_start', self.player)
@@ -323,19 +321,12 @@ class SecondaryOutputPlugin:
                 cover.hide()
             cover.set_no_show_all(True)
 
-    def _on_playback_resume(self, type, player, data):
-        self.resuming = True
-
     def _on_playback_start(self, type, player, object):
         """
         Called when playback starts
         Sets the currently playing track visible in the currently selected
         playlist if the user has chosen this setting
         """
-        if self.resuming:
-            self.resuming = False
-            return
-
         self.playpause_button.set_image(self.__pause_image)
         self.playpause_button.set_tooltip_text(
             _('Pause Playback (double click to stop)')

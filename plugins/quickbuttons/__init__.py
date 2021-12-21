@@ -74,7 +74,7 @@ class QuickButtons:
             "type": "equalizer",
             "label": _("EQ"),
             "tooltip": _("Equalizer"),
-            "depends_on": "equalizer"
+            "depends_on": "equalizer",
         },
         "player/audiosink_device": {
             "show_button": "quickbuttons/btn_audio_device",
@@ -93,7 +93,7 @@ class QuickButtons:
             "type": "audio_device_selection",
             "label": _("Preview Device"),
             "tooltip": _("Select preview audio device"),
-            "depends_on": "previewdevice"
+            "depends_on": "previewdevice",
         },
     }
     """
@@ -204,7 +204,6 @@ plugin_class = QuickButtons
 
 
 class qb_audio_device(Gtk.MenuButton):
-
     def __init__(self, setting, qb_instance):
         self._setting = setting
         self._qb = qb_instance
@@ -243,11 +242,14 @@ class qb_audio_device(Gtk.MenuButton):
             GObject.source_remove(self._devices_to)
 
     def _set_devices(self):
-        self._current_device = settings.get_option(self._setting, self._settings['default'])
+        self._current_device = settings.get_option(
+            self._setting, self._settings['default']
+        )
         actual_devices = {}
 
         # @see plugins/previewdevice/previewprefs.py:65
         from xl.player.gst.sink import get_devices
+
         for name, device_id, _unused in reversed(list(get_devices())):
             actual_devices[device_id] = name
             if device_id not in self._devices:
@@ -281,15 +283,17 @@ class qb_audio_device(Gtk.MenuButton):
         return btn
 
     def show_all(self):
-        if "depends_on" in self._settings and \
-                self._settings['depends_on'] not in self._qb.exaile.plugins.enabled_plugins:
+        if (
+            "depends_on" in self._settings
+            and self._settings['depends_on']
+            not in self._qb.exaile.plugins.enabled_plugins
+        ):
             super().hide()
         else:
             super().show_all()
 
 
 class qb_equalizer(Gtk.Button):
-
     def __init__(self, setting, qb_instance):
         self._setting = setting
         self._qb = qb_instance
@@ -319,15 +323,17 @@ class qb_equalizer(Gtk.Button):
         eq_win.show_all()
 
     def show_all(self):
-        if "depends_on" in self._settings and \
-                self._settings['depends_on'] not in self._qb.exaile.plugins.enabled_plugins:
+        if (
+            "depends_on" in self._settings
+            and self._settings['depends_on']
+            not in self._qb.exaile.plugins.enabled_plugins
+        ):
             super().hide()
         else:
             super().show_all()
 
 
 class qb_spinner(Gtk.SpinButton):
-
     def __init__(self, setting, qb_instance: QuickButtons):
         self._setting = setting
         self._qb = qb_instance
@@ -363,7 +369,6 @@ class qb_spinner(Gtk.SpinButton):
 
 
 class qb_toggle(Gtk.ToggleButton):
-
     def __init__(self, setting, qb_instance):
         self._setting = setting
         self._qb = qb_instance

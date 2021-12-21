@@ -183,16 +183,14 @@ class QuickButtons:
 
     def _add_button_to_toolbar(self, tbs, setting) -> None:
         tbs.set_tooltip_text(self._options[setting]["tooltip"])
-        tb = Gtk.ToolItem()
-        tb.add(tbs)
 
         show_btn_option = self._options[setting]["show_button"]
         show_btn = settings.get_option(show_btn_option, True)
         if show_btn:
-            tb.show_all()
+            tbs.show_all()
 
-        self._options[setting]["widget"] = tb
-        self._toolbar.insert(tb, -1)
+        self._options[setting]["widget"] = tbs
+        self._toolbar.pack_start(tbs, False, True, 0)
 
     def __on_equalizer_press(self, widget) -> None:
 
@@ -224,7 +222,7 @@ class QuickButtons:
             return
 
         self._status_bar = self._exaile.gui.builder.get_object("status_bar")
-        self._toolbar = Gtk.Toolbar()
+        self._toolbar = Gtk.Box()
 
         for k in self._options:
             self._options[k]["value"] = settings.get_option(
@@ -232,7 +230,7 @@ class QuickButtons:
             )
             self._add_button(k)
 
-        self._toolbar.show()
+        self._toolbar.show_all()
         self._status_bar.pack_start(self._toolbar, False, True, 0)
         self._status_bar.reorder_child(self._toolbar, 0)
 

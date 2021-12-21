@@ -136,7 +136,7 @@ class QuickButtons:
         if self.self_triggered:
             self.self_triggered = False
             return
-        print('self setting')
+
         self.options[option]["value"] = settings.get_option(option)
         if self.options[option]["type"] == "toggle":
             self.options[option]["widget"].set_active(self.options[option]["value"])
@@ -189,7 +189,7 @@ class QuickButtons:
             )
             self._add_button(k)
 
-        self._toolbar.show_all()
+        self._toolbar.show()
         self._status_bar.pack_start(self._toolbar, False, True, 0)
         self._status_bar.reorder_child(self._toolbar, 0)
 
@@ -202,32 +202,39 @@ class QuickButtons:
 
 plugin_class = QuickButtons
 
+
 class qb_audio_device(Gtk.MenuButton):
 
     def __init__(self, setting, qb_instance):
         self._setting = setting
-        self._qb      = qb_instance
+        self._qb = qb_instance
         self._settings = QuickButtons.options[setting]
 
+        self._devices = {}
+        """List of all known devices"""
+
+        self._current_device = None
+        """Currently selected device"""
+
+        self._button_group = None
+        """Button group of the radios"""
+
+        self._devices_to = None
+        """Timeout for _set_devices"""
 
         self.popover = Gtk.Popover()
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.vbox.show_all()
         self.popover.add(self.vbox)
-        self.popover.set_position(Gtk.PositionType.BOTTOM)
 
         super().__init__(label=self._settings['label'], popover=self.popover)
         self.set_tooltip_text(self._settings["tooltip"])
         self.connect('toggled', self._on_cb_popup)
 
     def _set_audio_device(self, button):
+        self._qb.self_triggered = True
         if button.get_active() and button.device_id != self._current_device:
             settings.set_option(self._setting, button.device_id)
-            # for child in self.vbox.get_children():
-            #     if button == child:
-            #         settings.set_option(self._setting, button.device_id)
-            #         continue
-            #     child.set_active(False)
 
     def _on_cb_popup(self, widget):
         if widget.get_active():
@@ -236,30 +243,50 @@ class qb_audio_device(Gtk.MenuButton):
             GObject.source_remove(self._devices_to)
 
     def _set_devices(self):
-        self._qb.self_triggered = True
-        current = settings.get_option(self._setting, self._settings['default'])
-        for child in self.vbox.get_children():
-            self.vbox.remove(child)
+        self._current_device = settings.get_option(self._setting, self._settings['default'])
+        actual_devices = {}
 
-        first_btn = None
         # @see plugins/previewdevice/previewprefs.py:65
         from xl.player.gst.sink import get_devices
         for name, device_id, _unused in reversed(list(get_devices())):
-            btn = Gtk.RadioButton(label=name)
-            btn.connect('toggled', self._set_audio_device)
-            btn.device_id = device_id
-            if first_btn:
-                btn.join_group(first_btn)
-            if device_id == current:
-                self._current_device = device_id
-                btn.set_active(True)
+            actual_devices[device_id] = name
+            if device_id not in self._devices:
+                widget = self._add_toggle(name, device_id)
+                self._devices[device_id] = {'name': name, 'widget': widget}
 
-            first_btn = btn
-            self.vbox.pack_end(btn, False, True, 10)
+        for child in self.vbox.get_children():
+            if child.device_id not in actual_devices:
+                self._devices.pop(child.device_id, None)
+                self.vbox.remove(child)
+
+        if self._current_device not in actual_devices:
+            self._current_device = 'auto'
+
+        self._devices[self._current_device]["widget"].set_active(True)
+
         self.vbox.show_all()
-        self.vbox.queue_draw()
+        self.vbox.reorder_child(self._devices['auto']['widget'], -1)
 
         self._devices_to = GObject.timeout_add(1000, self._set_devices)
+
+    def _add_toggle(self, label, device_id):
+        btn = Gtk.RadioButton(label=label)
+        btn.connect('toggled', self._set_audio_device)
+        btn.device_id = device_id
+        if self._button_group:
+            btn.join_group(self._button_group)
+
+        self._button_group = btn
+        self.vbox.pack_start(btn, False, True, 10)
+        return btn
+
+    def show_all(self):
+        if "depends_on" in self._settings and \
+                self._settings['depends_on'] not in self._qb.exaile.plugins.enabled_plugins:
+            super().hide()
+        else:
+            super().show_all()
+
 
 class qb_equalizer(Gtk.Button):
 
@@ -267,7 +294,6 @@ class qb_equalizer(Gtk.Button):
         self._setting = setting
         self._qb = qb_instance
         self._settings = QuickButtons.options[setting]
-        self._exaile = qb_instance.exaile
         super().__init__()
         self.set_label(self._settings['label'])
         self.set_tooltip_text(self._settings["tooltip"])
@@ -275,29 +301,36 @@ class qb_equalizer(Gtk.Button):
 
     def _on_equalizer_press(self, widget) -> None:
 
-        if "equalizer" not in self._exaile.plugins.enabled_plugins:
+        if "equalizer" not in self._qb.exaile.plugins.enabled_plugins:
             return None
 
-        eq_plugin_win = self._exaile.plugins.enabled_plugins["equalizer"].window
+        eq_plugin_win = self._qb.exaile.plugins.enabled_plugins["equalizer"].window
         if not eq_plugin_win:
             eq_win = GObject.new("EqualizerWindow")
-            eq_win.set_transient_for(self._exaile.gui.main.window)
-            self._exaile.plugins.enabled_plugins["equalizer"].window = eq_win
+            eq_win.set_transient_for(self._qb.exaile.gui.main.window)
+            self._qb.exaile.plugins.enabled_plugins["equalizer"].window = eq_win
             self._equalizer_win = eq_win
 
         def _destroy(w):
             self._equalizer_win = None
-            self._exaile.plugins.enabled_plugins["equalizer"].window = None
+            self._qb.exaile.plugins.enabled_plugins["equalizer"].window = None
 
         eq_win.connect("destroy", _destroy)
         eq_win.show_all()
 
+    def show_all(self):
+        if "depends_on" in self._settings and \
+                self._settings['depends_on'] not in self._qb.exaile.plugins.enabled_plugins:
+            super().hide()
+        else:
+            super().show_all()
+
+
 class qb_spinner(Gtk.SpinButton):
 
     def __init__(self, setting, qb_instance: QuickButtons):
-
         self._setting = setting
-        self._qb      = qb_instance
+        self._qb = qb_instance
         self._settings = QuickButtons.options[setting]
         super().__init__()
         self.set_tooltip_text(self._settings["tooltip"])
@@ -328,11 +361,12 @@ class qb_spinner(Gtk.SpinButton):
         value = value * 1000
         settings.set_option("player/auto_advance_delay", value)
 
+
 class qb_toggle(Gtk.ToggleButton):
 
     def __init__(self, setting, qb_instance):
         self._setting = setting
-        self._qb      = qb_instance
+        self._qb = qb_instance
         self._settings = QuickButtons.options[setting]
         active = self._settings["value"]
         if active != True:

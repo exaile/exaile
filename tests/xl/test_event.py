@@ -57,7 +57,7 @@ def _finish_events():
     assert len(event.EVENT_MANAGER.ui_callbacks) == 0
 
 
-def atest_ui_events():
+def test_ui_events():
     _init_events()
     ucb = UiCallback()
     ncb = NormalCallback()
@@ -75,7 +75,7 @@ def atest_ui_events():
     _finish_events()
 
 
-def atest_thread_events():
+def test_thread_events():
 
     _init_events()
     ucb = UiCallback()

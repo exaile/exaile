@@ -195,7 +195,7 @@ def check_fader(test):
         assert stream.volume == volume
 
 
-def atest_calculate_fades():
+def test_calculate_fades():
     fader = TrackFader(None, None, None)
 
     # fin, fout, start_off, stop_off, tracklen;

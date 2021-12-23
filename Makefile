@@ -253,7 +253,7 @@ test_compile:
 
 test:
 	#EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) --ignore=tests/xl/player tests
-	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) PYTEST_DEBUG=true python3 -m pytest tests
+	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) PYTEST_DEBUG=true $(PYTEST) tests
 
 test_coverage:
 	rm -rf coverage/

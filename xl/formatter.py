@@ -355,6 +355,8 @@ class ProgressTextFormatter(Formatter):
 
         if total_time is None:
             total_time = remaining_time = 0
+        elif current_time > total_time:
+            remaining_time = 0
         elif current_time >= 0:
             remaining_time = total_time - current_time
         else:

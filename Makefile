@@ -252,8 +252,8 @@ test_compile:
 	$(MAKE) -C $(BUILD_DIR) all
 
 test:
-	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) python3 -m pytest --ignore=tests/xl/player tests
-#	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) tests
+	#EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) python3 -m pytest --ignore=tests/xl/player tests
+	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) --ignore=tests/xl/player tests
 
 test_coverage:
 	rm -rf coverage/

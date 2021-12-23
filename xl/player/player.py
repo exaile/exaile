@@ -60,6 +60,7 @@ class ExailePlayer:
         self._playtime_stamp = None
 
         self._delay_id = None
+        self._delayed_stop_id = None
         self._stop_id = None
         self._engine = None
 
@@ -68,6 +69,8 @@ class ExailePlayer:
         self._gapless_enabled = True
         self.__volume = 1.0
         self._delayed_until = 0
+        self._paused_until = 0
+        self._paused_start = 0
         self._track = None
         self._current_play_args = None
 
@@ -201,10 +204,12 @@ class ExailePlayer:
             )
 
             self._delayed_until = 0
+            self._cancel_delayed_stop()
             self._track = track
             start_at = self._current_play_args[1]
 
             if start_at < 0:
+                logger.debug('entering delayed start')
                 self._delayed_until = -1 * start_at + time.time()
                 self.engine_notify_track_start(track)
                 self._delay_id = GLib.timeout_add_seconds(1, self._play_engine)
@@ -222,14 +227,13 @@ class ExailePlayer:
 
         curr_time = time.time()
         if curr_time < self._delayed_until:
-            logger.debug('delayed for ' + str(self._delayed_until - curr_time))
+            logger.debug('delayed start for ' + str(self._delayed_until - curr_time))
             return True
 
         self._delayed_until = 0
-        self._track = None
         self._engine.play(*self._current_play_args)
-        # self._current_play_args = None
-        self._delay_id = None
+        self._cancel_delayed_start()
+        self._cancel_delayed_stop()
 
         return False
 
@@ -247,6 +251,7 @@ class ExailePlayer:
         if state == 'playing' or state == 'paused':
 
             self._delayed_until = 0
+            self._cancel_delayed_stop()
             self._track = None
             self._engine.stop()
             return True
@@ -356,6 +361,9 @@ class ExailePlayer:
 
         if self._delayed_until > 0:
             return time.time() - self._delayed_until
+        if self._paused_until > 0:
+            track_len = self._track.get_tag_raw('__length') or 0
+            return time.time() - self._paused_start + track_len
 
         return self.get_position() / 1e9
 
@@ -442,6 +450,8 @@ class ExailePlayer:
 
         if self._delayed_until >= time.time():
             return True
+        if self._paused_until >= time.time():
+            return True
 
         return self._engine.get_state() == 'playing'
 
@@ -514,9 +524,14 @@ class ExailePlayer:
 
         self._update_playtime(track)
         event.log_event('playback_track_end', self, track)
+        if not self._paused_until:
+            """Need to keep the track for the progress bar display"""
+            self._track = None
 
         if done:
             self._cancel_delayed_start()
+            if self._paused_until:
+                return
             event.log_event('playback_player_end', self, track)
 
     @common.idle_add()
@@ -556,7 +571,30 @@ class ExailePlayer:
             if self._auto_advance_delay != 0 or not self._gapless_enabled:
                 return
 
+        track = self._track
+        stop_at = track.get_tag_raw('__stopoffset') or 0
+        track_len = track.get_tag_raw('__length') or 0
+
+        if stop_at > track_len:
+            logger.debug('entering delayed stop')
+            diff = stop_at - track_len
+            self._paused_start = time.time()
+            self._paused_until = diff + self._paused_start
+            self._delayed_stop_id = GLib.timeout_add_seconds(1, self._wait_for_end)
+            self._engine.pause()
+            return None
+
         return self.queue.get_next()
+
+    def _wait_for_end(self):
+        curr_time = time.time()
+        if self._paused_until >= curr_time:
+            logger.debug('delayed stop for ' + str(self._paused_until - curr_time))
+            return True
+
+        self._track = None
+        self._cancel_delayed_stop()
+        self.queue.next()
 
     def engine_autoadvance_notify_next(self, track):
         """
@@ -630,3 +668,10 @@ class ExailePlayer:
         if self._delay_id is not None:
             GLib.source_remove(self._delay_id)
             self._delay_id = None
+
+    def _cancel_delayed_stop(self):
+        if self._delayed_stop_id is not None:
+            GLib.source_remove(self._delayed_stop_id)
+            self._delayed_stop_id = None
+        self._paused_until = 0
+        self._paused_start = 0

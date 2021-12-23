@@ -228,8 +228,7 @@ class PluginManager:
         from the filesystem
         """
         dialog = Gtk.FileChooserDialog(
-            title=_('Choose a Plugin'),
-            transient_for=self.preferences.parent,
+            title=_('Choose a Plugin'), transient_for=self.preferences.parent
         )
         dialog.add_buttons(
             Gtk.STOCK_CANCEL,

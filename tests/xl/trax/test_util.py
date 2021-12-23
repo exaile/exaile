@@ -10,12 +10,12 @@ import xl.trax.track
 import xl.trax.util
 
 
-def atest_is_valid_track_valid(test_track):
+def test_is_valid_track_valid(test_track):
     fname = test_track.filename
     assert xl.trax.util.is_valid_track(fname), fname
 
 
-def atest_is_valid_track_invalid():
+def test_is_valid_track_invalid():
     assert not xl.trax.util.is_valid_track('/')
     assert not xl.trax.util.is_valid_track('/tmp')
     assert not xl.trax.util.is_valid_track(__file__)
@@ -60,7 +60,7 @@ class TestGetTracksFromUri:
         return anything
 
     @unittest.skip("Test is borken because of moxing out error")
-    def atest_invalid(self):
+    def test_invalid(self):
         loc = '/tmp/foo'
         self.mox.StubOutWithMock(Gio, 'File')
         f_anything = self.get_anything('n')
@@ -70,7 +70,7 @@ class TestGetTracksFromUri:
         self.mox.VerifyAll()
 
     @unittest.skip("Test is borken because of moxing out error")
-    def atest_single(self):
+    def test_single(self):
         loc = '/tmp/foo'
         self.mox.StubOutWithMock(Gio, 'FileInfo')
         f_anything = self.mox.CreateMockAnything()
@@ -81,7 +81,7 @@ class TestGetTracksFromUri:
         self.mox.VerifyAll()
 
     @unittest.skip("Test is borken because of moxing out error")
-    def atest_directory(self):
+    def test_directory(self):
         loc = '/tmp/foo'
         retval = ['foo', 'bar', 'baz']
         # Gio call to find type
@@ -112,10 +112,10 @@ class TestSortTracks:
         self.fields = ('artist', 'discnumber')
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
-    def atest_sorted(self):
+    def test_sorted(self):
         assert xl.trax.util.sort_tracks(self.fields, self.tracks) == self.result
 
-    def atest_reversed(self):
+    def test_reversed(self):
         assert xl.trax.util.sort_tracks(self.fields, self.tracks, reverse=True) == list(
             reversed(self.result)
         )
@@ -134,10 +134,10 @@ class TestSortResultTracks:
         self.fields = ('artist', 'discnumber')
         self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
 
-    def atest_sorted(self):
+    def test_sorted(self):
         assert xl.trax.util.sort_result_tracks(self.fields, self.tracks) == self.result
 
-    def atest_reversed(self):
+    def test_reversed(self):
         assert xl.trax.util.sort_result_tracks(self.fields, self.tracks, True) == list(
             reversed(self.result)
         )

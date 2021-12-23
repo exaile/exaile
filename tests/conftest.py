@@ -77,7 +77,7 @@ _writeable_tracks = [t for t in _all_tracks if t.writeable]
 
 
 @pytest.fixture(params=_all_tracks)
-def test_track(request):
+def atest_track(request):
     '''Provides TrackData objects for each test track'''
     return request.param
 
@@ -89,7 +89,7 @@ def writeable_track(request):
 
 
 @pytest.fixture()
-def test_track_fp(test_track):
+def atest_track_fp(test_track):
     with tempfile.NamedTemporaryFile(suffix='.' + test_track.ext) as tfp:
         with open(test_track.filename, 'rb') as fp:
             shutil.copyfileobj(fp, tfp)
@@ -112,7 +112,7 @@ def writeable_track_name(writeable_track):
 
 
 @pytest.fixture
-def test_tracks():
+def atest_tracks():
     """
     Returns an object that can be used to retrieve test track data
     """

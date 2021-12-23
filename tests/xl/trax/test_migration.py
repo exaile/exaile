@@ -59,7 +59,7 @@ def data(request, tmpdir):
         return truth, loc, dbtype
 
 
-def test_migration(data):
+def atest_migration(data):
     truth, loc, dbtype = data
 
     print(os.listdir(loc))

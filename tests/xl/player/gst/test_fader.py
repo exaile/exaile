@@ -141,7 +141,7 @@ TmEx = 2
     # ],
 ])
 # fmt: on
-def test_fader(test):
+def atest_fader(test):
 
     # Test fade_out_on_play
 
@@ -195,7 +195,7 @@ def check_fader(test):
         assert stream.volume == volume
 
 
-def test_calculate_fades():
+def atest_calculate_fades():
     fader = TrackFader(None, None, None)
 
     # fin, fout, start_off, stop_off, tracklen;

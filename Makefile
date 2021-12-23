@@ -1,5 +1,5 @@
 PYTHON3_CMD   ?= python3
-PYTEST        ?= py.test-3
+PYTEST        ?= py.test-3 -v
 BLACK         ?= black
 
 PREFIX         = /usr/local
@@ -252,7 +252,8 @@ test_compile:
 	$(MAKE) -C $(BUILD_DIR) all
 
 test:
-	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) tests
+	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) python3 -m pytest tests
+#	EXAILE_DIR=$(shell pwd) LC_ALL=C PYTHONPATH=$(shell pwd) $(PYTEST) tests
 
 test_coverage:
 	rm -rf coverage/

@@ -141,7 +141,7 @@ TmEx = 2
     # ],
 ])
 # fmt: on
-def test_fader(test):
+def atest_fader(test):
 
     # Test fade_out_on_play
 

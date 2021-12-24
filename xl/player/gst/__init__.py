@@ -26,10 +26,10 @@ except AttributeError:
     # Old version of GStreamer < 1.3.3
     # https://bugzilla.gnome.org/show_bug.cgi?id=703021
     __gst_version__ = '**unknown version < 1.3.3**'
-#
-#
-# from xl.version import register
-#
-# register('GStreamer', __gst_version__)
-#
-# del register
+
+
+from xl.version import register
+
+register('GStreamer', __gst_version__)
+
+del register

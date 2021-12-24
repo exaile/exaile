@@ -1,8 +1,8 @@
-from gi.repository import GLib
+# from gi.repository import GLib
 import pytest
 
 # from xl.player.track_fader import TrackFader
-# from xl.player.track_fader import FadeState
+from xl.player.track_fader import FadeState
 
 #
 # NoFade = FadeState.NoFade

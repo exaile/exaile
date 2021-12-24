@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from typing import Tuple
+# from typing import Tuple
 
 # from gi.repository import GLib
 

@@ -77,7 +77,7 @@ class ExailePlayer:
 
         self._settings_unsub = common.subscribe_for_settings(name, options, self)
 
-        self._setup_engine(disable_autoswitch)
+        # self._setup_engine(disable_autoswitch)
 
         event.add_callback(self._on_track_end, 'playback_track_end', self)
         event.add_callback(self._on_track_tags_changed, 'track_tags_changed')

@@ -1,4 +1,4 @@
-from gi.repository import GLib
+# from gi.repository import GLib
 import pytest
 
 # from xl.player.track_fader import TrackFader

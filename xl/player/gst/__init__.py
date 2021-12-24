@@ -18,7 +18,7 @@ from gi.repository import GLib
 
 # Gst.init(None)
 try:
-    Gst.init_check(None)
+    Gst.init_check([])
 except GLib.Error as e:
     print(e)
 

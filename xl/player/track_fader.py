@@ -26,7 +26,7 @@
 
 from typing import Tuple
 
-from gi.repository import GLib
+# from gi.repository import GLib
 
 from xl import common
 

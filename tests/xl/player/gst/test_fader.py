@@ -1,7 +1,7 @@
 from gi.repository import GLib
 import pytest
 
-from xl.player.track_fader import TrackFader
+# from xl.player.track_fader import TrackFader
 # from xl.player.track_fader import FadeState
 
 #

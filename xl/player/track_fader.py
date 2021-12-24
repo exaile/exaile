@@ -28,11 +28,11 @@
 
 # from gi.repository import GLib
 
-from xl import common
+# from xl import common
 
 import logging
 
-FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
+# FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
 class TrackFader:

@@ -57,8 +57,8 @@ def glib_source_remove(src_id):
     pass
 
 
-GLib.timeout_add = glib_timeout_add
-GLib.source_remove = glib_source_remove
+# GLib.timeout_add = glib_timeout_add
+# GLib.source_remove = glib_source_remove
 
 TmSt = 1
 TmEx = 2
@@ -141,7 +141,7 @@ TmEx = 2
     # ],
 ])
 # fmt: on
-def test_fader(test):
+def atest_fader(test):
 
     # Test fade_out_on_play
 

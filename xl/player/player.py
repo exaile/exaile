@@ -94,7 +94,7 @@ class ExailePlayer:
             return None
 
         # TODO: support other engines
-        # from .gst.engine import ExaileGstEngine
+        from .gst.engine import ExaileGstEngine
 
         # self._engine = ExaileGstEngine(self._name, self, disable_autoswitch)
         # self._engine.initialize()

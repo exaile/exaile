@@ -13,9 +13,14 @@ import gi
 
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
+from gi.repository import GLib
+
 
 # Gst.init(None)
-Gst.init_check(None)
+try:
+    Gst.init_check(None)
+except GLib.Error as e:
+    print(e)
 
 try:
     __gst_version__ = '%s.%s.%s' % (

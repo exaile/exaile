@@ -24,15 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# from typing import Tuple
+from typing import Tuple
 
-# from gi.repository import GLib
+from gi.repository import GLib
 
-# from xl import common
+from xl import common
 
 import logging
 
-# FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
+FadeState = common.enum(NoFade=1, FadingIn=2, Normal=3, FadingOut=4)
 
 
 class TrackFader:
@@ -119,8 +119,7 @@ class TrackFader:
             stop_offset,
         )
 
-    # def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
-    def calculate_user_volume(self, real_volume):
+    def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
         """Given the 'real' output volume, calculate what the user
         volume should be and whether they are identical"""
 

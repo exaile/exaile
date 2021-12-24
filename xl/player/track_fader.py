@@ -119,7 +119,8 @@ class TrackFader:
             stop_offset,
         )
 
-    def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
+    # def calculate_user_volume(self, real_volume) -> Tuple[float, bool]:
+    def calculate_user_volume(self, real_volume):
         """Given the 'real' output volume, calculate what the user
         volume should be and whether they are identical"""
 

@@ -1,17 +1,12 @@
-# from gi.repository import GLib
+from gi.repository import GLib
 import pytest
 
+from xl.player.track_fader import TrackFader, FadeState
 
-from xl import player
-# from xl.player import track_fader
-# from xl.player.track_fader import TrackFader
-# from xl.player.track_fader import FadeState
-
-#
-# NoFade = FadeState.NoFade
-# FadingIn = FadeState.FadingIn
-# Normal = FadeState.Normal
-# FadingOut = FadeState.FadingOut
+NoFade = FadeState.NoFade
+FadingIn = FadeState.FadingIn
+Normal = FadeState.Normal
+FadingOut = FadeState.FadingOut
 
 
 class FakeStream:
@@ -62,8 +57,8 @@ def glib_source_remove(src_id):
     pass
 
 
-# GLib.timeout_add = glib_timeout_add
-# GLib.source_remove = glib_source_remove
+GLib.timeout_add = glib_timeout_add
+GLib.source_remove = glib_source_remove
 
 TmSt = 1
 TmEx = 2
@@ -76,67 +71,67 @@ TmEx = 2
 @pytest.mark.parametrize('test', [
 
     # Test don't manage the volume
-    # [
-    #     (0, 100, NoFade, None, 'play', None, None, None, None),
-    #     (1, 100, NoFade, None, 'pause'),
-    #     (2, 100, NoFade, None, 'unpause'),
-    #     (3, 100, NoFade, None, 'seek', 4),
-    #     (4, 100, NoFade, None, 'stop'),
-    #     (5, 100, NoFade, None),
-    # ],
-    #
-    # # Test fading in
-    # [
-    #     (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
-    #     (1, 50, FadingIn, TmEx, 'execute'),
-    #     (3, 100, NoFade,  None, 'execute'),
-    #     (4, 100, NoFade,  None),
-    #     (5, 100, NoFade,  None, 'stop'),
-    #     (6, 100, NoFade,  None),
-    # ],
-    #
-    # # Test fading in: pause in middle
-    # [
-    #     (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
-    #     (1, 50, FadingIn, TmEx, 'execute'),
-    #     (1, 50, FadingIn, None, 'pause'),
-    #     (1, 50, FadingIn, TmEx, 'unpause'),
-    #     (1, 50, FadingIn, TmEx, 'execute'),
-    #     (3, 100, NoFade,  None, 'execute'),
-    #     (4, 100, NoFade,  None),
-    #     (5, 100, NoFade,  None, 'stop'),
-    #     (6, 100, NoFade,  None),
-    # ],
-    #
-    # # Test fading in past the fade point
-    # [
-    #     (3, 100, NoFade, None, 'play', 0, 2, None, None),
-    #     (4, 100, NoFade, None),
-    #     (5, 100, NoFade, None, 'stop'),
-    #     (6, 100, NoFade, None),
-    # ],
-    #
-    # # Test fading out
-    # [
-    #     (3, 100, Normal,    TmSt, 'play', None, None, 4, 6),
-    #     (4, 100, FadingOut, TmEx, 'start'),
-    #     (5, 50,  FadingOut, TmEx, 'execute'),
-    #     (6, 0,   FadingOut, TmEx, 'execute'),
-    #     (6.1, 0, NoFade,    None, 'execute'),
-    #     (7,   0, NoFade,    None),
-    # ],
-    #
-    # # Test all of them
-    # [
-    #     (0, 0,  FadingIn,   TmEx, 'play', 0, 2, 4, 6),
-    #     (1, 50, FadingIn,   TmEx, 'execute'),
-    #     (3, 100, Normal,    TmSt, 'execute'),
-    #     (4, 100, FadingOut, TmEx, 'start'),
-    #     (5, 50,  FadingOut, TmEx, 'execute'),
-    #     (6, 0,   FadingOut, TmEx, 'execute'),
-    #     (6.1, 0, NoFade,    None, 'execute'),
-    #     (7,   0, NoFade,    None),
-    # ],
+    [
+        (0, 100, NoFade, None, 'play', None, None, None, None),
+        (1, 100, NoFade, None, 'pause'),
+        (2, 100, NoFade, None, 'unpause'),
+        (3, 100, NoFade, None, 'seek', 4),
+        (4, 100, NoFade, None, 'stop'),
+        (5, 100, NoFade, None),
+    ],
+
+    # Test fading in
+    [
+        (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
+        (1, 50, FadingIn, TmEx, 'execute'),
+        (3, 100, NoFade,  None, 'execute'),
+        (4, 100, NoFade,  None),
+        (5, 100, NoFade,  None, 'stop'),
+        (6, 100, NoFade,  None),
+    ],
+
+    # Test fading in: pause in middle
+    [
+        (0, 0,  FadingIn, TmEx, 'play', 0, 2, None, None),
+        (1, 50, FadingIn, TmEx, 'execute'),
+        (1, 50, FadingIn, None, 'pause'),
+        (1, 50, FadingIn, TmEx, 'unpause'),
+        (1, 50, FadingIn, TmEx, 'execute'),
+        (3, 100, NoFade,  None, 'execute'),
+        (4, 100, NoFade,  None),
+        (5, 100, NoFade,  None, 'stop'),
+        (6, 100, NoFade,  None),
+    ],
+
+    # Test fading in past the fade point
+    [
+        (3, 100, NoFade, None, 'play', 0, 2, None, None),
+        (4, 100, NoFade, None),
+        (5, 100, NoFade, None, 'stop'),
+        (6, 100, NoFade, None),
+    ],
+
+    # Test fading out
+    [
+        (3, 100, Normal,    TmSt, 'play', None, None, 4, 6),
+        (4, 100, FadingOut, TmEx, 'start'),
+        (5, 50,  FadingOut, TmEx, 'execute'),
+        (6, 0,   FadingOut, TmEx, 'execute'),
+        (6.1, 0, NoFade,    None, 'execute'),
+        (7,   0, NoFade,    None),
+    ],
+
+    # Test all of them
+    [
+        (0, 0,  FadingIn,   TmEx, 'play', 0, 2, 4, 6),
+        (1, 50, FadingIn,   TmEx, 'execute'),
+        (3, 100, Normal,    TmSt, 'execute'),
+        (4, 100, FadingOut, TmEx, 'start'),
+        (5, 50,  FadingOut, TmEx, 'execute'),
+        (6, 0,   FadingOut, TmEx, 'execute'),
+        (6.1, 0, NoFade,    None, 'execute'),
+        (7,   0, NoFade,    None),
+    ],
 
     # Test fading in with startoffset
     # [
@@ -146,7 +141,7 @@ TmEx = 2
     # ],
 ])
 # fmt: on
-def atest_fader(test):
+def test_fader(test):
 
     # Test fade_out_on_play
 
@@ -200,7 +195,7 @@ def check_fader(test):
         assert stream.volume == volume
 
 
-def atest_calculate_fades():
+def test_calculate_fades():
     fader = TrackFader(None, None, None)
 
     # fin, fout, start_off, stop_off, tracklen;

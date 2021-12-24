@@ -38,6 +38,6 @@ from . import player
 from . import queue
 
 PLAYER = player.ExailePlayer('player')
-# QUEUE = queue.PlayQueue(
-#     PLAYER, 'queue', location=os.path.join(xdg.get_data_dir(), 'queue.state')
-# )
+QUEUE = queue.PlayQueue(
+    PLAYER, 'queue', location=os.path.join(xdg.get_data_dir(), 'queue.state')
+)

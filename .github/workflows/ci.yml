@@ -24,9 +24,9 @@ jobs:
           - debian-10
           - debian-stable
           - fedora-34
-          - fedora-latest
+          # - fedora-latest
           - ubuntu-18.04
-          - ubuntu-rolling
+          # - ubuntu-rolling
     timeout-minutes: 4
     runs-on: ubuntu-latest
     container: ghcr.io/exaile/exaile-testimg:${{ matrix.imgtag }}

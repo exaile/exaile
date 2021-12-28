@@ -58,6 +58,7 @@ if data_dirs is None:
 else:
     data_dirs = [os.path.join(d, "exaile") for d in data_dirs.split(os.pathsep)]
 
+
 config_dirs = os.getenv("XDG_CONFIG_DIRS")
 if config_dirs is None:
     if sys.platform == 'win32':
@@ -67,17 +68,16 @@ if config_dirs is None:
 else:
     config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(os.pathsep)]
 
-local_hack = False
+fhs_compliant = True
 # Detect if Exaile is not installed.
 if os.path.exists(os.path.join(exaile_dir, 'data')):
-    local_hack = True
+    fhs_compliant = False
     # Insert the "data" directory to data_dirs.
     data_dir = os.path.join(exaile_dir, 'data')
     data_dirs.insert(0, data_dir)
     # insert the config dir
     config_dir = os.path.join(exaile_dir, 'data', 'config')
     config_dirs.insert(0, config_dir)
-
 
 data_dirs.insert(0, data_home)
 
@@ -153,6 +153,26 @@ def _make_missing_dirs():
         os.makedirs(cache_home)
     if not os.path.exists(logs_home):
         os.makedirs(logs_home)
+
+
+plugin_dirs = [os.path.join(p, 'plugins') for p in get_data_dirs()]
+if not fhs_compliant:
+    plugin_dirs.insert(1, os.path.join(exaile_dir, 'plugins'))
+
+try:
+    os.makedirs(plugin_dirs[0])
+except Exception:
+    pass
+
+plugin_dirs = [x for x in plugin_dirs if os.path.exists(x)]
+
+
+def get_user_plugin_dir():
+    return plugin_dirs[0]
+
+
+def get_plugin_dirs():
+    return plugin_dirs
 
 
 # vim: et sts=4 sw=4

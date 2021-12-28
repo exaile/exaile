@@ -160,7 +160,7 @@ def start_logging(debug, quiet, debugthreads, module_filter, level_filter):
 
     # Logging to file; this also automatically rotates the logs
     logfile = logging.handlers.RotatingFileHandler(
-        os.path.join(logdir, 'exaile.log'), mode='a', backupCount=5
+        os.path.join(logdir, 'exaile.log'), mode='a', backupCount=5, delay=True
     )
     logfile.doRollover()  # each session gets its own file
     logfile.setLevel(file_loglevel)

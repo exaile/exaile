@@ -1,4 +1,6 @@
 from gi.repository import Gtk, GObject
+
+import xl.main
 from xl import event, settings, providers
 from xl.nls import gettext as _
 
@@ -11,14 +13,13 @@ class QuickButtons:
     change some settings quickly
     """
 
-    self_triggered = False
+    self_triggered: bool = False
     """
     Don't repeat yourself.
     Is set to True to prevent resetting from settings.set_option
     """
 
-    _toolbar = None
-    _equalizer_win = None
+    _toolbar: Gtk.Box = None
 
     options = {
         "playlist/enqueue_by_default": {
@@ -100,7 +101,7 @@ class QuickButtons:
     Usable options
     """
 
-    def enable(self, exaile):
+    def enable(self, exaile: xl.main.Exaile):
         """
         Called on startup of exaile
         """
@@ -111,7 +112,7 @@ class QuickButtons:
         event.add_callback(self._on_option_set, "player_option_set")
         event.add_callback(self._on_button_activate, "quickbuttons_option_set")
 
-    def disable(self, exaile):
+    def disable(self, exaile: xl.main.Exaile):
         self._toolbar.hide()
         event.remove_callback(self._on_option_set, "playlist_option_set")
         event.remove_callback(self._on_option_set, "queue_option_set")
@@ -161,7 +162,7 @@ class QuickButtons:
 
         return self._add_button_to_toolbar(tbs, setting)
 
-    def _add_button_to_toolbar(self, tbs, setting) -> None:
+    def _add_button_to_toolbar(self, tbs: Gtk.Button, setting: str) -> None:
         show_btn_option = self.options[setting]["show_button"]
         show_btn = settings.get_option(show_btn_option, True)
         if show_btn:
@@ -230,18 +231,18 @@ class qb_audio_device(Gtk.MenuButton):
         self.set_tooltip_text(self._settings["tooltip"])
         self.connect('toggled', self._on_cb_popup)
 
-    def _set_audio_device(self, button):
+    def _set_audio_device(self, button: Gtk.RadioButton) -> None:
         self._qb.self_triggered = True
         if button.get_active() and button.device_id != self._current_device:
             settings.set_option(self._setting, button.device_id)
 
-    def _on_cb_popup(self, widget):
+    def _on_cb_popup(self, widget: Gtk.RadioButton) -> None:
         if widget.get_active():
             self._set_devices()
         elif self._devices_to:
             GObject.source_remove(self._devices_to)
 
-    def _set_devices(self):
+    def _set_devices(self) -> None:
         self._current_device = settings.get_option(
             self._setting, self._settings['default']
         )
@@ -271,7 +272,7 @@ class qb_audio_device(Gtk.MenuButton):
 
         self._devices_to = GObject.timeout_add(1000, self._set_devices)
 
-    def _add_toggle(self, label, device_id):
+    def _add_toggle(self, label: str, device_id: str) -> None:
         btn = Gtk.RadioButton(label=label)
         btn.connect('toggled', self._set_audio_device)
         btn.device_id = device_id
@@ -282,7 +283,7 @@ class qb_audio_device(Gtk.MenuButton):
         self.vbox.pack_start(btn, False, True, 10)
         return btn
 
-    def show_all(self):
+    def show_all(self) -> None:
         if (
             "depends_on" in self._settings
             and self._settings['depends_on']

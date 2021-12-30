@@ -37,7 +37,7 @@ class QuickButtons:
             "default": False,
             "widget": None,
             "type": "toggle",
-            "label": "Keep playing",
+            "label": _("Keep playing"),
             "tooltip": _("Disallow playing new tracks when another track is playing"),
         },
         "queue/remove_item_when_played": {
@@ -64,7 +64,7 @@ class QuickButtons:
             "default": 0,
             "widget": None,
             "type": "spin",
-            "label": _("Delay"),
+            "label": _("Delay between tracks (in seconds):"),
             "tooltip": _("Delay between tracks (in seconds):"),
         },
         "equalizer": {

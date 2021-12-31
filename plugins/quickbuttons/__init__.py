@@ -178,7 +178,7 @@ class QuickButtons:
         """
 
         if self._toolbar != None:
-            self._toolbar.show_all()
+            self._toolbar.show()
             return
 
         self._status_bar = self.exaile.gui.builder.get_object("status_bar")

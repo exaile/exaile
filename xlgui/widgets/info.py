@@ -33,7 +33,7 @@ from xl import event, formatter, main, settings, xdg
 from xl.nls import gettext as _
 import xlgui
 from xlgui import cover, guiutil
-from xlgui.widgets import playlist
+from xlgui.widgets import playlist, queue
 from xlgui.widgets.playback import PlaybackProgressBar
 
 
@@ -412,6 +412,8 @@ class StatusbarTextFormatter(formatter.Formatter):
         """
         Retrieves the collection count
         """
+        if not settings.get_option('gui/show_status_bar_collection_count', True):
+            return ''
         return _('%d in collection') % main.exaile().collection.get_count()
 
     def get_playlist_count(self, selection='none'):
@@ -424,9 +426,16 @@ class StatusbarTextFormatter(formatter.Formatter):
             playlist count otherwise, 'only' for selection count only
         :type selection: string
         """
+        if not settings.get_option(
+            'gui/show_status_bar_count_tracks_in_playlist', True
+        ):
+            return ''
+
         page = xlgui.main.get_selected_page()
 
-        if not isinstance(page, playlist.PlaylistPage):
+        if not isinstance(page, playlist.PlaylistPage) and not isinstance(
+            page, queue.QueuePage
+        ):
             return ''
 
         playlist_count = len(page.playlist)
@@ -475,9 +484,14 @@ class StatusbarTextFormatter(formatter.Formatter):
             playlist count otherwise, 'only' for selection count only
         :type selection: string
         """
+        if not settings.get_option('gui/show_status_bar_time_in_playlist', True):
+            return ''
+
         page = xlgui.main.get_selected_page()
 
-        if not isinstance(page, playlist.PlaylistPage):
+        if not isinstance(page, playlist.PlaylistPage) and not isinstance(
+            page, queue.QueuePage
+        ):
             return ''
 
         playlist_duration = sum(t.get_tag_raw('__length') or 0 for t in page.playlist)
@@ -522,14 +536,8 @@ class Statusbar:
         Initialises the status bar
         """
         self.status_bar = status_bar
-        self.formatter = StatusbarTextFormatter(
-            settings.get_option(
-                'gui/statusbar_info_format',
-                '${playlist_count:selection=override, suffix= }'
-                '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\\, }'
-                '$collection_count',
-            )
-        )
+
+        self.formatter = StatusbarTextFormatter(self._get_substitutions())
 
         self.info_label = Gtk.Label()
 
@@ -539,6 +547,57 @@ class Statusbar:
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
+
+        event.add_callback(self._on_option_set, "gui_option_set")
+
+    def _get_substitutions(self) -> str:
+
+        sub = settings.get_option('gui/statusbar_info_format', '')
+
+        if sub:
+            return sub
+
+        show_playlist_count = settings.get_option(
+            'gui/show_status_bar_count_tracks_in_playlist', True
+        )
+        show_playlist_duration = settings.get_option(
+            'gui/show_status_bar_time_in_playlist', True
+        )
+        show_collection_count = settings.get_option(
+            'gui/show_status_bar_collection_count', True
+        )
+
+        if show_playlist_count:
+            sub = sub + '${playlist_count:selection=override}'
+
+        if show_playlist_count and show_playlist_duration:
+            sub = (
+                sub
+                + ' ${playlist_duration:selection=override, format=long, prefix=(, suffix=), pad=0 }'
+            )
+
+        elif not show_playlist_count and show_playlist_duration:
+            sub = sub + '${playlist_duration:selection=override, format=long, pad=0 }'
+
+        if show_collection_count and (show_playlist_count or show_playlist_duration):
+            sub = sub.rstrip() + ', '
+
+        if show_collection_count:
+            sub = sub + '$collection_count'
+
+        return sub
+
+    def _on_option_set(self, name, object, option: str):
+        if not option in [
+            'gui/show_status_bar_collection_count',
+            'gui/show_status_bar_count_tracks_in_playlist',
+            'gui/show_status_bar_time_in_playlist',
+        ]:
+            return
+
+        self.formatter = StatusbarTextFormatter(self._get_substitutions())
+
+        self.update_info()
 
     def set_status(self, status, timeout=0):
         """
@@ -567,7 +626,18 @@ class Statusbar:
         """
         Updates the info label text
         """
+        if settings.get_option('gui/show_status_bar', True):
+            self.status_bar.show()
+        else:
+            self.status_bar.hide()
+
         self.info_label.set_label(self.formatter.format())
+
+    def show(self):
+        self.status_bar.show()
+
+    def hide(self):
+        self.status_bar.hide()
 
 
 # TODO: Check if we can get a progress indicator in here somehow

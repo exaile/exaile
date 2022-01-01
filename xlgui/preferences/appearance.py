@@ -155,6 +155,43 @@ class TabPlacementPreference(widgets.ComboPreference):
         widgets.ComboPreference.__init__(self, preferences, widget)
 
 
+class ShowStatusBar(widgets.CheckPreference):
+    default = True
+    name = 'gui/show_status_bar'
+
+
+class ShowStatusBarCollectionCount(widgets.CheckPreference, widgets.CheckConditional):
+    default = True
+    name = 'gui/show_status_bar_collection_count'
+    condition_preference_name = 'gui/show_status_bar'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+
+class ShowStatusBarCountTracksInPlaylist(
+    widgets.CheckPreference, widgets.CheckConditional
+):
+    default = True
+    name = 'gui/show_status_bar_count_tracks_in_playlist'
+    condition_preference_name = 'gui/show_status_bar'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+
+class ShowStatusBarTimeInPlaylist(widgets.CheckPreference, widgets.CheckConditional):
+    default = True
+    name = 'gui/show_status_bar_time_in_playlist'
+    condition_preference_name = 'gui/show_status_bar'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+
 """
 class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     name = 'gui/progress_bar_text_format'

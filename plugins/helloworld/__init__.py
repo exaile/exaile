@@ -76,12 +76,20 @@ from . import testlib
 
 
 class HelloWorld:
+    def on_plugin_installed(self):
+        '''Optional function'''
+        print('Install Hello World')
+
     def enable(self, exaile):
         print("Hello, world!")
         testlib.sucess()
 
     def disable(self, exaile):
         print("Goodbye. :(")
+
+    def on_plugin_uninstalled(self):
+        '''Optional function'''
+        print('Uninstall Hello World')
 
     def teardown(self, exaile):
         '''Optional function'''
@@ -90,6 +98,10 @@ class HelloWorld:
     def on_exaile_loaded(self):
         '''Optional function'''
         print('Exaile loaded!')
+
+    def on_gui_loaded(self):
+        '''Optional function'''
+        print('Exaile Gui loaded!')
 
 
 plugin_class = HelloWorld

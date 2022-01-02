@@ -154,11 +154,15 @@ class PluginsManager:
                 pass
         return False
 
-    def enable_plugin(self, pluginname):
+    def enable_plugin(self, pluginname, installation: bool = False):
         try:
             plugin = self.load_plugin(pluginname)
             if not plugin:
                 raise Exception("Error loading plugin")
+
+            if installation and hasattr(plugin, 'on_plugin_installed'):
+                plugin.on_plugin_installed()
+
             plugin.enable(self.exaile)
             if not inspect.ismodule(plugin):
                 self.__enable_new_plugin(plugin)
@@ -179,6 +183,8 @@ class PluginsManager:
             return False
         try:
             plugin.disable(self.exaile)
+            if hasattr(plugin, 'on_plugin_uninstalled'):
+                plugin.on_plugin_uninstalled()
             logger.debug("Unloaded plugin %s", pluginname)
             self.save_enabled()
         except Exception as e:

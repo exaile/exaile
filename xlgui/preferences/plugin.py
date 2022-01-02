@@ -302,7 +302,7 @@ class PluginManager:
 
         if enable:
             try:
-                self.plugins.enable_plugin(plugin_name)
+                self.plugins.enable_plugin(plugin_name, True)
             except Exception as e:
                 self.message.show_error(_('Could not enable plugin!'), str(e))
                 return

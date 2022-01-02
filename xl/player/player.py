@@ -209,10 +209,11 @@ class ExailePlayer:
             start_at = self._current_play_args[1]
 
             if start_at < 0:
-                logger.debug('entering delayed start')
-                self._delayed_until = -1 * start_at + time.time()
+                logger.debug('Entering delayed start')
+                delay = -1 * start_at
+                self._delayed_until = delay + time.time()
                 self.engine_notify_track_start(track)
-                self._delay_id = GLib.timeout_add_seconds(1, self._play_engine)
+                self._delay_id = GLib.timeout_add_seconds(delay, self._play_engine)
             else:
                 self._play_engine()
 
@@ -224,11 +225,6 @@ class ExailePlayer:
 
         if self.get_state() == 'playing':
             return False
-
-        curr_time = time.time()
-        if curr_time < self._delayed_until:
-            logger.debug('delayed start for ' + str(self._delayed_until - curr_time))
-            return True
 
         self._delayed_until = 0
         self._engine.play(*self._current_play_args)
@@ -580,18 +576,13 @@ class ExailePlayer:
             diff = stop_at - track_len
             self._paused_start = time.time()
             self._paused_until = diff + self._paused_start
-            self._delayed_stop_id = GLib.timeout_add_seconds(1, self._wait_for_end)
+            self._delayed_stop_id = GLib.timeout_add_seconds(diff, self._wait_for_end)
             self._engine.pause()
             return None
 
         return self.queue.get_next()
 
     def _wait_for_end(self):
-        curr_time = time.time()
-        if self._paused_until >= curr_time:
-            logger.debug('delayed stop for ' + str(self._paused_until - curr_time))
-            return True
-
         self._track = None
         self._cancel_delayed_stop()
         self.queue.next()

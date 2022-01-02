@@ -98,6 +98,9 @@ class SecondaryOutputPlugin:
 
         logger.debug('Preview Device Disabled')
 
+    def on_plugin_installed(self):
+        settings.set_option('plugin/previewdevice/shown', True)
+
     def _init_gui(self):
         self.pane = Gtk.Paned()
 
@@ -144,7 +147,7 @@ class SecondaryOutputPlugin:
             '',
             _('Preview Player'),
             lambda *e: self.hooked,
-            self._on_view,
+            self._on_view_setting_changed,
         )
 
         providers.register('menubar-view-menu', self.menu)
@@ -228,7 +231,6 @@ class SecondaryOutputPlugin:
         self._setup_events(event.add_ui_callback)
 
         self.hooked = True
-        settings.set_option('plugin/previewdevice/shown', True)
 
         logger.debug("Preview device gui hooked")
         event.log_event('preview_device_enabled', self, None)
@@ -264,18 +266,19 @@ class SecondaryOutputPlugin:
         self._setup_events(event.remove_callback)
 
         self.hooked = False
-        settings.set_option('plugin/previewdevice/shown', False)
         logger.debug('Preview device unhooked')
 
     #
     # Menu events
     #
 
-    def _on_view(self, menu, name, parent, context):
+    def _on_view_setting_changed(self, menu, name, parent, context):
         if self.hooked:
             self._destroy_gui_hooks()
+            settings.set_option('plugin/previewdevice/shown', False)
         else:
             self._init_gui_hooks()
+            settings.set_option('plugin/previewdevice/shown', True)
 
     def _on_preview(self, menu, display_name, playlist_view, context):
         self._init_gui_hooks()

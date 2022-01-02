@@ -87,10 +87,6 @@ class HelloWorld:
     def disable(self, exaile):
         print("Goodbye. :(")
 
-    def on_plugin_uninstalled(self):
-        '''Optional function'''
-        print('Uninstall Hello World')
-
     def teardown(self, exaile):
         '''Optional function'''
         print("Unhello, World!")

@@ -183,8 +183,6 @@ class PluginsManager:
             return False
         try:
             plugin.disable(self.exaile)
-            if hasattr(plugin, 'on_plugin_uninstalled'):
-                plugin.on_plugin_uninstalled()
             logger.debug("Unloaded plugin %s", pluginname)
             self.save_enabled()
         except Exception as e:

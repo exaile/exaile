@@ -345,5 +345,6 @@ MANAGER = SettingsManager(
 
 get_option = MANAGER.get_option
 set_option = MANAGER.set_option
+remove_option = MANAGER.remove_option
 
 # vim: et sts=4 sw=4

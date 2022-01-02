@@ -1,5 +1,6 @@
 from gi.repository import Gtk, GObject
 
+import xlgui.main
 import xl.main
 from xl import event, settings, providers
 from xl.nls import gettext as _
@@ -11,6 +12,11 @@ class QuickButtons:
     """
     Plugin adds some buttons on the bottom line of the playlists grid to
     change some settings quickly
+    """
+
+    name: str = 'QuickButtons'
+    """
+    Needed for MainWindowStatusBarPane
     """
 
     self_triggered: bool = False
@@ -107,11 +113,6 @@ class QuickButtons:
         """
         self.exaile = exaile
 
-        event.add_callback(self._on_option_set, "playlist_option_set")
-        event.add_callback(self._on_option_set, "queue_option_set")
-        event.add_callback(self._on_option_set, "player_option_set")
-        event.add_callback(self._on_button_activate, "quickbuttons_option_set")
-
     def disable(self, exaile: xl.main.Exaile):
         self._toolbar.hide()
         event.remove_callback(self._on_option_set, "playlist_option_set")
@@ -174,14 +175,12 @@ class QuickButtons:
     def on_gui_loaded(self):
         """
         Called when the gui is loaded
-        Before that there is no status bar
         """
-
         if self._toolbar != None:
             self._toolbar.show()
             return
 
-        self._status_bar = self.exaile.gui.builder.get_object("status_bar")
+    def create_widget(self, info_area: xlgui.main.MainWindowStatusBarPane):
         self._toolbar = Gtk.Box()
 
         for k in self.options:
@@ -191,11 +190,14 @@ class QuickButtons:
             self._add_button(k)
 
         self._toolbar.show()
-        self._status_bar.pack_start(self._toolbar, False, True, 0)
-        self._status_bar.reorder_child(self._toolbar, 0)
+        return self._toolbar
 
     def on_exaile_loaded(self):
-        pass
+        providers.register('mainwindow-statusbar-widget', self)
+        event.add_callback(self._on_option_set, "playlist_option_set")
+        event.add_callback(self._on_option_set, "queue_option_set")
+        event.add_callback(self._on_option_set, "player_option_set")
+        event.add_callback(self._on_button_activate, "quickbuttons_option_set")
 
     def get_preferences_pane(self):
         return qb_prefs

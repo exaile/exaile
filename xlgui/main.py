@@ -256,6 +256,11 @@ class MainWindow(GObject.GObject):
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
+        self.statusbar = MainWindowStatusBarPane(player.PLAYER)
+        guiutil.gtk_widget_replace(
+            self.builder.get_object('status_bar'), self.statusbar
+        )
+
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_end(self.volume_control, False, False, 0)
 
@@ -358,7 +363,6 @@ class MainWindow(GObject.GObject):
             'drag-data-received', self.on_stop_button_drag_data_received
         )
 
-        self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
         event.add_ui_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def _connect_events(self):
@@ -403,6 +407,7 @@ class MainWindow(GObject.GObject):
         # Settings
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area_covers')
+        self._on_option_set('gui_option_set', settings, 'gui/show_status_bar')
         event.add_ui_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):
@@ -965,6 +970,12 @@ class MainWindow(GObject.GObject):
         elif option == 'gui/gtk_dark_hint':
             self._update_dark_hint()
 
+        elif option == 'gui/show_status_bar':
+            if not settings.get_option('gui/show_status_bar', True):
+                self.statusbar.hide()
+            else:
+                self.statusbar.show()
+
     def _on_volume_key(self, is_up):
         diff = int(
             100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT)
@@ -1256,6 +1267,63 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         self.__widget_area_widgets[name] = widget
         self.widget_area.pack_start(widget, False, False, 0)
         widget.show_all()
+
+    def on_provider_removed(self, provider):
+        widget = self.__widget_area_widgets.pop(provider.name, None)
+        if widget is not None:
+            self.widget_area.remove(widget)
+            widget.destroy()
+
+
+class MainWindowStatusBarPane(Gtk.Statusbar, info.Statusbar, providers.ProviderHandler):
+    """
+    Extends the regular track info pane by an area for custom widgets
+
+    The mainwindow-info-area-widget provider is used to show widgets
+    on the right of the info area. They should be small. The registered
+    provider should provide a method 'create_widget' that takes the info
+    area instance as a parameter, and that returns a Gtk.Widget to be
+    inserted into the widget_area of the info area, and an attribute
+    'name' that will be used when removing the provider.
+    """
+
+    def __init__(self, player):
+
+        Gtk.Statusbar.__init__(self)
+        info.Statusbar.__init__(self, self)
+        self.__player = player
+        self.widget_area = Gtk.Box()
+
+        self.set_halign(Gtk.Align.END)
+        self.pack_start(self.widget_area, False, True, 0)
+        self.reorder_child(self.widget_area, 0)
+
+        self.__widget_area_widgets = {}
+
+        # call this last if we're using simple_init=True
+        providers.ProviderHandler.__init__(
+            self, 'mainwindow-statusbar-widget', target=player, simple_init=True
+        )
+
+    def get_player(self):
+        """
+        Retrieves the player object that this info area
+        is associated with
+        """
+        return self._TrackInfoPane__player
+
+    def on_provider_added(self, provider):
+        name = provider.name
+        widget = provider.create_widget(self)
+
+        old_widget = self.__widget_area_widgets.get(name)
+        if old_widget is not None:
+            self.widget_area.remove(old_widget)
+            old_widget.destroy()
+
+        self.__widget_area_widgets[name] = widget
+        self.widget_area.pack_start(widget, False, True, 0)
+        self.widget_area.show()
 
     def on_provider_removed(self, provider):
         widget = self.__widget_area_widgets.pop(provider.name, None)

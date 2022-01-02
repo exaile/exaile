@@ -62,7 +62,6 @@ class SecondaryOutputPlugin:
     def on_gui_loaded(self):
 
         self.hooked = False
-        self.resuming = False
 
         #
         # Initialize the player objects needed
@@ -98,6 +97,9 @@ class SecondaryOutputPlugin:
         self.queue = None
 
         logger.debug('Preview Device Disabled')
+
+    def on_plugin_installed(self):
+        settings.set_option('plugin/previewdevice/shown', True)
 
     def _init_gui(self):
         self.pane = Gtk.Paned()
@@ -145,7 +147,7 @@ class SecondaryOutputPlugin:
             '',
             _('Preview Player'),
             lambda *e: self.hooked,
-            self._on_view,
+            self._on_view_setting_changed,
         )
 
         providers.register('menubar-view-menu', self.menu)
@@ -183,7 +185,6 @@ class SecondaryOutputPlugin:
         self.pane.destroy()
 
     def _setup_events(self, setup):
-        setup(self._on_playback_resume, 'playback_player_resume', self.player)
         setup(self._on_playback_end, 'playback_player_end', self.player)
         setup(self._on_playback_error, 'playback_error', self.player)
         setup(self._on_playback_start, 'playback_track_start', self.player)
@@ -230,7 +231,6 @@ class SecondaryOutputPlugin:
         self._setup_events(event.add_ui_callback)
 
         self.hooked = True
-        settings.set_option('plugin/previewdevice/shown', True)
 
         logger.debug("Preview device gui hooked")
         event.log_event('preview_device_enabled', self, None)
@@ -266,18 +266,19 @@ class SecondaryOutputPlugin:
         self._setup_events(event.remove_callback)
 
         self.hooked = False
-        settings.set_option('plugin/previewdevice/shown', False)
         logger.debug('Preview device unhooked')
 
     #
     # Menu events
     #
 
-    def _on_view(self, menu, name, parent, context):
+    def _on_view_setting_changed(self, menu, name, parent, context):
         if self.hooked:
             self._destroy_gui_hooks()
+            settings.set_option('plugin/previewdevice/shown', False)
         else:
             self._init_gui_hooks()
+            settings.set_option('plugin/previewdevice/shown', True)
 
     def _on_preview(self, menu, display_name, playlist_view, context):
         self._init_gui_hooks()
@@ -323,19 +324,12 @@ class SecondaryOutputPlugin:
                 cover.hide()
             cover.set_no_show_all(True)
 
-    def _on_playback_resume(self, type, player, data):
-        self.resuming = True
-
     def _on_playback_start(self, type, player, object):
         """
         Called when playback starts
         Sets the currently playing track visible in the currently selected
         playlist if the user has chosen this setting
         """
-        if self.resuming:
-            self.resuming = False
-            return
-
         self.playpause_button.set_image(self.__pause_image)
         self.playpause_button.set_tooltip_text(
             _('Pause Playback (double click to stop)')

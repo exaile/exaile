@@ -9,11 +9,11 @@
     <property name="column_spacing">2</property>
     <child>
       <object class="GtkCheckButton" id="quickbuttons/btn_enqueue_by_default">
-        <property name="label" translatable="yes">Enqueue by default</property>
+        <property name="label" translatable="yes">Queue tracks by default instead of playing them</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Level 1 - Genre, Level 2 - Artist, Ordered by track date</property>
+        <property name="tooltip_text" translatable="yes"></property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -24,11 +24,11 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="quickbuttons/btn_disable_new_track_when_playing">
-        <property name="label" translatable="yes">Disable new track when playing</property>
+        <property name="label" translatable="yes">Disallow playing new tracks when another track is playing</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Level 1 - Genre, Level 2 - Artist, Ordered by track date</property>
+        <property name="tooltip_text" translatable="yes"></property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -39,11 +39,11 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="quickbuttons/btn_remove_item_when_played">
-        <property name="label" translatable="yes">remove item when played</property>
+        <property name="label" translatable="yes">Remove track from queue upon playback</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Level 1 - Genre, Level 2 - Artist, Ordered by track date</property>
+        <property name="tooltip_text" translatable="yes"></property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -54,11 +54,11 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="quickbuttons/btn_auto_advance">
-        <property name="label" translatable="yes">Auto advance</property>
+        <property name="label" translatable="yes">Automatically advance to the next track</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Level 1 - Genre, Level 2 - Artist, Ordered by track date</property>
+        <property name="tooltip_text" translatable="yes"></property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -69,11 +69,11 @@
     </child>
     <child>
       <object class="GtkCheckButton" id="quickbuttons/btn_auto_advance_delay">
-        <property name="label" translatable="yes">Auto advance delay (in seconds)</property>
+        <property name="label" translatable="yes">Delay between tracks (in seconds)</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Level 1 - Genre, Level 2 - Artist, Ordered by track date</property>
+        <property name="tooltip_text" translatable="yes"></property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -93,6 +93,34 @@
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">5</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="quickbuttons/btn_audio_device">
+        <property name="label" translatable="yes">Select main audio device</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="quickbuttons/btn_audio_device_preview">
+        <property name="label" translatable="yes">Select preview audio device (depends on previewdevice plugin)</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
         <property name="width">3</property>
       </packing>
     </child>

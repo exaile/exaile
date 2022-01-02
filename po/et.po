@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-10 20:00+1000\n"
-"PO-Revision-Date: 2021-06-03 02:32+0000\n"
+"PO-Revision-Date: 2021-12-28 06:51+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
 "et/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/covers.py:523 ../data/ui/trackproperties_dialog.ui:183
@@ -783,7 +783,7 @@ msgstr " / "
 #: ../xl/trax/track.py:721 ../xl/trax/track.py:787
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/trax/trackdb.py:184
 msgid "You did not specify a location to load the db from"
@@ -803,6 +803,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"olek: %(status)s, nimi: %(title)s, esitaja: %(artist)s, album: %(album)s, "
+"pikkus: %(length)s, asukoht: %(progress)s%% [%(position)s]"
 
 #: ../xlgui/__init__.py:318
 msgid "Scanning collection..."
@@ -1178,7 +1180,7 @@ msgstr "Analüüsi muusikakogu uuesti"
 #: ../xlgui/panel/device.py:151
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Teisaldame asukohta %s..."
 
 #: ../xlgui/panel/files.py:82
 msgid "Files"
@@ -1323,7 +1325,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:71
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Uue esitusloendi loomiseks lohista siia"
 
 #: ../xlgui/playlist_container.py:131
 msgid "_Clear Tab History"
@@ -1686,7 +1688,7 @@ msgstr "muusikakogus %d"
 #: ../xlgui/widgets/info.py:437 ../xlgui/widgets/info.py:444
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "kuvame %d"
 
 #: ../xlgui/widgets/info.py:441 ../xlgui/widgets/info.py:448
 #, python-format

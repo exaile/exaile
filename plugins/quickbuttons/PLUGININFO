@@ -1,5 +1,5 @@
-Version='0.4.1'
-Authors=['']
+Version='0.5'
+Authors=['luzip665@github']
 Name=_("Quick Settings Buttons")
 Description=_("Provides buttons on bottom of the playlist to quickly change some settings")
 Category=_('Utility')

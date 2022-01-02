@@ -14,7 +14,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-@pytest.yield_fixture(autouse=True)
+@pytest.fixture(autouse=True)
 def exaile_test_cleanup():
     """
     Teardown/setup of various Exaile globals
@@ -88,7 +88,7 @@ def writeable_track(request):
     return request.param
 
 
-@pytest.yield_fixture()
+@pytest.fixture()
 def test_track_fp(test_track):
     with tempfile.NamedTemporaryFile(suffix='.' + test_track.ext) as tfp:
         with open(test_track.filename, 'rb') as fp:
@@ -99,7 +99,7 @@ def test_track_fp(test_track):
         yield tfp
 
 
-@pytest.yield_fixture()
+@pytest.fixture()
 def writeable_track_name(writeable_track):
     '''Fixture that returns names of temporary copies of writeable tracks'''
     with tempfile.NamedTemporaryFile(suffix='.' + writeable_track.ext) as tfp:

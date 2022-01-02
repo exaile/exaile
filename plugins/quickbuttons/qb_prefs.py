@@ -35,3 +35,13 @@ class AutoAdvanceDelay(widgets.CheckPreference):
 class Equalizer(widgets.CheckPreference):
     default = True
     name = "quickbuttons/btn_equalizer"
+
+
+class AudioDevice(widgets.CheckPreference):
+    default = True
+    name = "quickbuttons/btn_audio_device"
+
+
+class AudioDevicePreview(widgets.CheckPreference):
+    default = True
+    name = "quickbuttons/btn_audio_device_preview"

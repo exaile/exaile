@@ -39,329 +39,394 @@
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">0.20000000000000001</property>
   </object>
-  <object class="GtkGrid" id="preferences_pane">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="orientation">vertical</property>
-    <property name="row_spacing">4</property>
-    <property name="column_spacing">2</property>
+  <object class="GtkScrolledWindow" id="preferences_pane">
     <child>
-      <object class="GtkCheckButton" id="gui/show_info_area">
-        <property name="label" translatable="yes">Show info area</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">The info area contains the cover art and track information</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/show_info_area_covers">
-        <property name="label" translatable="yes">Show cover art in info area</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/show_tabbar">
-        <property name="label" translatable="yes">Always show tab bar</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label1">
+      <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Tab placement:</property>
-        <accessibility>
-          <relation type="label-for" target="gui/tab_placement"/>
-        </accessibility>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="gui/tab_placement">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="model">model1</property>
+        <property name="orientation">vertical</property>
+        <property name="row_spacing">4</property>
+        <property name="column_spacing">2</property>
         <child>
-          <object class="GtkCellRendererText" id="renderer1"/>
-          <attributes>
-            <attribute name="text">1</attribute>
-          </attributes>
+          <object class="GtkCheckButton" id="gui/show_info_area">
+            <property name="label" translatable="yes">Show info area</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">The info area contains the cover art and track information</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
+          </packing>
         </child>
-        <accessibility>
-          <relation type="labelled-by" target="label1"/>
-        </accessibility>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkBox" id="font_hbox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="spacing">6</property>
         <child>
-          <object class="GtkLabel" id="font_label">
+          <object class="GtkCheckButton" id="gui/show_info_area_covers">
+            <property name="label" translatable="yes">Show cover art in info area</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/show_tabbar">
+            <property name="label" translatable="yes">Always show tab bar</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
-            <property name="label" translatable="yes">Playlist font:</property>
+            <property name="label" translatable="yes">Tab placement:</property>
             <accessibility>
-              <relation type="label-for" target="gui/playlist_font"/>
+              <relation type="label-for" target="gui/tab_placement"/>
             </accessibility>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="gui/playlist_font_reset_button">
-            <property name="label">_Revert</property>
+          <object class="GtkComboBox" id="gui/tab_placement">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Reset to the system font</property>
-            <property name="image">image1</property>
+            <property name="model">model1</property>
+            <child>
+              <object class="GtkCellRendererText" id="renderer1"/>
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
+            </child>
+            <accessibility>
+              <relation type="labelled-by" target="label1"/>
+            </accessibility>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="font_hbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="font_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Playlist font:</property>
+                <accessibility>
+                  <relation type="label-for" target="gui/playlist_font"/>
+                </accessibility>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="gui/playlist_font_reset_button">
+                <property name="label">_Revert</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Reset to the system font</property>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFontButton" id="gui/playlist_font">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="font">Sans 12</property>
+                <accessibility>
+                  <relation type="labelled-by" target="font_label"/>
+                </accessibility>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">4</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/display_track_counts">
+            <property name="label" translatable="yes">Display track counts in collection</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">5</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/use_alpha">
+            <property name="label" translatable="yes" comments="TRANSLATORS: Remark at the alpha transparency option">Use alpha transparency:</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Warning: this option can cause display errors if used with a window manager without compositing support.</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScale" id="gui/transparency">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="adjustment">transparency_adjustment</property>
+            <property name="draw_value">False</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="gui/transparency-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Alpha transparency</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/use_tray">
+            <property name="label" translatable="yes">Show tray icon</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
+            <property name="draw_indicator">True</property>
+            <accessibility>
+              <relation type="described-by" target="explain_tray_support_issues"/>
+            </accessibility>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
+            <property name="left_attach">0</property>
+            <property name="top_attach">11</property>
+            <property name="width">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkFontButton" id="gui/playlist_font">
+          <object class="GtkCheckButton" id="gui/minimize_to_tray">
+            <property name="label" translatable="yes">Minimize to tray</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="font">Sans 12</property>
-            <accessibility>
-              <relation type="labelled-by" target="font_label"/>
-            </accessibility>
+            <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
+            <property name="left_attach">0</property>
+            <property name="top_attach">12</property>
+            <property name="width">2</property>
           </packing>
         </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/display_track_counts">
-        <property name="label" translatable="yes">Display track counts in collection</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/use_alpha">
-        <property name="label" translatable="yes" comments="TRANSLATORS: Remark at the alpha transparency option">Use alpha transparency:</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Warning: this option can cause display errors if used with a window manager without compositing support.</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkScale" id="gui/transparency">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="adjustment">transparency_adjustment</property>
-        <property name="draw_value">False</property>
-        <child internal-child="accessible">
-          <object class="AtkObject" id="gui/transparency-atkobject">
-            <property name="AtkObject::accessible-name" translatable="yes">Alpha transparency</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/use_tray">
-        <property name="label" translatable="yes">Show tray icon</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-        <accessibility>
-          <relation type="described-by" target="explain_tray_support_issues"/>
-        </accessibility>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">11</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/minimize_to_tray">
-        <property name="label" translatable="yes">Minimize to tray</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">12</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/close_to_tray">
-        <property name="label" translatable="yes">Close to tray</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">13</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/ensure_visible">
-        <property name="label" translatable="yes" comments="TRANSLATORS: Keep the current track visible in playlist">Jump to current song on track change</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="hexpand">True</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">8</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/use_splash">
-        <property name="label" translatable="yes">Show splash screen on startup</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="use_underline">True</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">9</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkFrame">
-        <property name="name">frame_tray_hint</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="label_xalign">0</property>
-        <property name="shadow_type">in</property>
         <child>
-          <object class="GtkLabel" id="explain_tray_support_issues">
+          <object class="GtkCheckButton" id="gui/close_to_tray">
+            <property name="label" translatable="yes">Close to tray</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">13</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/ensure_visible">
+            <property name="label" translatable="yes" comments="TRANSLATORS: Keep the current track visible in playlist">Jump to current song on track change</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="hexpand">True</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">8</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/use_splash">
+            <property name="label" translatable="yes">Show splash screen on startup</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">9</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame">
+            <property name="name">frame_tray_hint</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Tray icons are not supported on some platforms, most notably on Wayland. On GNOME Shell 3.26+ on Xorg, tray icons only work if you have the &lt;a href="https://extensions.gnome.org/extension/495/topicons/"&gt;"TopIcons" extension&lt;/a&gt; (or a similar one) installed.</property>
-            <property name="use_markup">True</property>
-            <property name="wrap">True</property>
-            <accessibility>
-              <relation type="description-for" target="gui/use_tray"/>
-            </accessibility>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkLabel" id="explain_tray_support_issues">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Tray icons are not supported on some platforms, most notably on Wayland. On GNOME Shell 3.26+ on Xorg, tray icons only work if you have the &lt;a href="https://extensions.gnome.org/extension/495/topicons/"&gt;"TopIcons" extension&lt;/a&gt; (or a similar one) installed.</property>
+                <property name="use_markup">True</property>
+                <property name="wrap">True</property>
+                <accessibility>
+                  <relation type="description-for" target="gui/use_tray"/>
+                </accessibility>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel">
+                <property name="name">frame_title</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Note:</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">10</property>
+            <property name="width">2</property>
+          </packing>
         </child>
-        <child type="label">
-          <object class="GtkLabel">
-            <property name="name">frame_title</property>
+        <child>
+          <object class="GtkCheckButton" id="gui/gtk_dark_hint">
+            <property name="label" translatable="yes">Prefer dark theme</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Note:</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="draw_indicator">True</property>
           </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">6</property>
+            <property name="width">2</property>
+          </packing>
         </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/show_status_bar">
+            <property name="label" translatable="yes">Show Status Bar</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">14</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/show_status_bar_collection_count">
+            <property name="label" translatable="yes">Show total count of tracks in collection</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">15</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/show_status_bar_count_tracks_in_playlist">
+            <property name="label" translatable="yes">Show playlist track count</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">16</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/show_status_bar_time_in_playlist">
+            <property name="label" translatable="yes">Show playlist duration</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">17</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+
       </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">10</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="gui/gtk_dark_hint">
-        <property name="label" translatable="yes">Prefer dark theme</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes" comments="TRANSLATORS: &quot;Checked&quot; here refers to checkbox state.">If not checked, will not specify a preference to GTK. May not work on some platforms.</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
-        <property name="width">2</property>
-      </packing>
     </child>
   </object>
 </interface>

@@ -81,7 +81,6 @@ class MainWindow(GObject.GObject):
         self.playlist_manager = controller.exaile.playlists
         self.current_page = -1
         self._fullscreen = False
-        self.resuming = False
 
         self.window_state = 0
         self.minimized = False
@@ -257,6 +256,11 @@ class MainWindow(GObject.GObject):
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
+        self.statusbar = MainWindowStatusBarPane(player.PLAYER)
+        guiutil.gtk_widget_replace(
+            self.builder.get_object('status_bar'), self.statusbar
+        )
+
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_end(self.volume_control, False, False, 0)
 
@@ -303,12 +307,25 @@ class MainWindow(GObject.GObject):
         )
         self.pause_image.set_direction(controls_direction)
 
+        self.stop_image = Gtk.Image.new_from_icon_name(
+            'media-playback-stop', Gtk.IconSize.BUTTON
+        )
+        self.stop_image.set_direction(controls_direction)
+        self.spat_image = Gtk.Image.new_from_icon_name(
+            'process-stop', Gtk.IconSize.BUTTON
+        )
+        self.spat_image.set_direction(controls_direction)
+
         play_toolbar = self.builder.get_object('play_toolbar')
         play_toolbar.set_direction(controls_direction)
         for button in ('playpause', 'next', 'prev', 'stop'):
             widget = self.builder.get_object('%s_button' % button)
             setattr(self, '%s_button' % button, widget)
             widget.get_child().set_direction(controls_direction)
+
+        """Set the button icon size here to prevent resizing later"""
+        self.playpause_button.set_image(self.play_image)
+        self.stop_button.set_image(self.stop_image)
 
         self.progress_bar = playback.SeekProgressBar(player.PLAYER)
         self.progress_bar.get_child().set_direction(controls_direction)
@@ -346,7 +363,6 @@ class MainWindow(GObject.GObject):
             'drag-data-received', self.on_stop_button_drag_data_received
         )
 
-        self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
         event.add_ui_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def _connect_events(self):
@@ -370,9 +386,6 @@ class MainWindow(GObject.GObject):
         )
 
         event.add_ui_callback(
-            self.on_playback_resume, 'playback_player_resume', player.PLAYER
-        )
-        event.add_ui_callback(
             self.on_playback_end, 'playback_player_end', player.PLAYER
         )
         event.add_ui_callback(self.on_playback_end, 'playback_error', player.PLAYER)
@@ -394,6 +407,7 @@ class MainWindow(GObject.GObject):
         # Settings
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area_covers')
+        self._on_option_set('gui_option_set', settings, 'gui/show_status_bar')
         event.add_ui_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):
@@ -524,13 +538,9 @@ class MainWindow(GObject.GObject):
         """
         widget.__hovered = True
         if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('process-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.spat_image)
         else:
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_leave_notify_event(self, widget, event):
         """
@@ -538,9 +548,7 @@ class MainWindow(GObject.GObject):
         """
         widget.__hovered = False
         if not widget.is_focus() and ~(event.get_state() & Gdk.ModifierType.SHIFT_MASK):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_key_press_event(self, widget, event):
         """
@@ -563,9 +571,7 @@ class MainWindow(GObject.GObject):
         Resets the button icon
         """
         if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
             widget.toggle_spat = False
 
     def on_stop_button_focus_out_event(self, widget, event):
@@ -574,9 +580,7 @@ class MainWindow(GObject.GObject):
         the button is still hovered
         """
         if not getattr(widget, '__hovered', False):
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.stop_image)
 
     def on_stop_button_press_event(self, widget, event):
         """
@@ -609,17 +613,13 @@ class MainWindow(GObject.GObject):
         """
         target = widget.drag_dest_find_target(context, None).name()
         if target == 'exaile-index-list':
-            widget.set_image(
-                Gtk.Image.new_from_icon_name('process-stop', Gtk.IconSize.BUTTON)
-            )
+            widget.set_image(self.spat_image)
 
     def on_stop_button_drag_leave(self, widget, context, time):
         """
         Resets the stop button
         """
-        widget.set_image(
-            Gtk.Image.new_from_icon_name('media-playback-stop', Gtk.IconSize.BUTTON)
-        )
+        widget.set_image(self.stop_image)
 
     def on_stop_button_drag_data_received(
         self, widget, context, x, y, selection, info, time
@@ -911,19 +911,12 @@ class MainWindow(GObject.GObject):
         dialog = dialogs.AboutDialog(self.window)
         dialog.show()
 
-    def on_playback_resume(self, type, player, data):
-        self.resuming = True
-
     def on_playback_start(self, type, player, object):
         """
         Called when playback starts
         Sets the currently playing track visible in the currently selected
         playlist if the user has chosen this setting
         """
-        if self.resuming:
-            self.resuming = False
-            return
-
         self._update_track_information()
         self.playpause_button.set_image(self.pause_image)
         self.playpause_button.set_tooltip_text(_('Pause Playback'))
@@ -976,6 +969,12 @@ class MainWindow(GObject.GObject):
 
         elif option == 'gui/gtk_dark_hint':
             self._update_dark_hint()
+
+        elif option == 'gui/show_status_bar':
+            if not settings.get_option('gui/show_status_bar', True):
+                self.statusbar.hide()
+            else:
+                self.statusbar.show()
 
     def _on_volume_key(self, is_up):
         diff = int(
@@ -1268,6 +1267,63 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         self.__widget_area_widgets[name] = widget
         self.widget_area.pack_start(widget, False, False, 0)
         widget.show_all()
+
+    def on_provider_removed(self, provider):
+        widget = self.__widget_area_widgets.pop(provider.name, None)
+        if widget is not None:
+            self.widget_area.remove(widget)
+            widget.destroy()
+
+
+class MainWindowStatusBarPane(Gtk.Statusbar, info.Statusbar, providers.ProviderHandler):
+    """
+    Extends the regular track info pane by an area for custom widgets
+
+    The mainwindow-info-area-widget provider is used to show widgets
+    on the right of the info area. They should be small. The registered
+    provider should provide a method 'create_widget' that takes the info
+    area instance as a parameter, and that returns a Gtk.Widget to be
+    inserted into the widget_area of the info area, and an attribute
+    'name' that will be used when removing the provider.
+    """
+
+    def __init__(self, player):
+
+        Gtk.Statusbar.__init__(self)
+        info.Statusbar.__init__(self, self)
+        self.__player = player
+        self.widget_area = Gtk.Box()
+
+        self.set_halign(Gtk.Align.END)
+        self.pack_start(self.widget_area, False, True, 0)
+        self.reorder_child(self.widget_area, 0)
+
+        self.__widget_area_widgets = {}
+
+        # call this last if we're using simple_init=True
+        providers.ProviderHandler.__init__(
+            self, 'mainwindow-statusbar-widget', target=player, simple_init=True
+        )
+
+    def get_player(self):
+        """
+        Retrieves the player object that this info area
+        is associated with
+        """
+        return self._TrackInfoPane__player
+
+    def on_provider_added(self, provider):
+        name = provider.name
+        widget = provider.create_widget(self)
+
+        old_widget = self.__widget_area_widgets.get(name)
+        if old_widget is not None:
+            self.widget_area.remove(old_widget)
+            old_widget.destroy()
+
+        self.__widget_area_widgets[name] = widget
+        self.widget_area.pack_start(widget, False, True, 0)
+        self.widget_area.show()
 
     def on_provider_removed(self, provider):
         widget = self.__widget_area_widgets.pop(provider.name, None)

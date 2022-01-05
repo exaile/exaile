@@ -69,6 +69,7 @@ class ExailePlayer:
         self._gapless_enabled = True
         self.__volume = 1.0
         self._play_delayed_until = 0
+        self._play_delay = 0
         self._paused_until = 0
         self._paused_start = 0
         self._track = None
@@ -177,7 +178,7 @@ class ExailePlayer:
             return self._track
         return self._engine.get_current_track()
 
-    def play(self, track, start_at=None, paused=False):
+    def play(self, track, start_at=None, paused=False, play_args=None):
         """
         Starts the playback with the provided track
         or stops the playback it immediately if none
@@ -198,34 +199,31 @@ class ExailePlayer:
             if self.is_stopped():
                 event.log_event('playback_player_start', self, track)
 
-            self._current_play_args = self._get_play_params(
-                track, start_at, paused, False
-            )
+            if not play_args:
+                self._current_play_args = self._get_play_params(
+                    track, start_at, paused, False
+                )
+            else:
+                self._current_play_args = play_args
 
             self._play_delayed_until = 0
             self._cancel_delayed_stop()
             self._track = track
-            start_at = self._current_play_args[1]
-            self.engine_notify_track_start(track)
-            self._engine.play(*self._current_play_args)
-            self._engine.pause()
 
-            if start_at < 0:
+            if self._play_delay > 0:
+                self._engine.play(*self._current_play_args)
+                self._engine.pause()
                 logger.debug('Entering delayed start')
-                delay = -1 * start_at
-                self._play_delayed_until = (delay/1000) + time.time()
-                self._delay_id = GLib.timeout_add(delay, self._play_engine)
+                self._play_delayed_until = (self._play_delay / 1000) + time.time()
+                self._delay_id = GLib.timeout_add(self._play_delay, self._play_engine)
             else:
-                self._play_engine()
+                self._engine.play(*self._current_play_args)
 
             if self._current_play_args[2]:
                 event.log_event('playback_player_pause', self, track)
                 event.log_event("playback_toggle_pause", self, track)
 
     def _play_engine(self):
-
-
-        self._play_delayed_until = 0
         self._cancel_delayed_start()
         self._cancel_delayed_stop()
         self._engine.unpause()
@@ -246,7 +244,6 @@ class ExailePlayer:
 
         if state == 'playing' or state == 'paused':
 
-            self._play_delayed_until = 0
             self._cancel_delayed_stop()
             self._track = None
             self._engine.stop()
@@ -564,11 +561,11 @@ class ExailePlayer:
             if self._auto_advance_delay != 0 or not self._gapless_enabled:
                 return
 
+        self._next_track = self.queue.get_next()
+
         track = self._track
         stop_at = track.get_tag_raw('__stopoffset') or 0
         track_len = track.get_tag_raw('__length') or 0
-
-        self._next_track = self.queue.get_next()
 
         if stop_at > track_len:
             logger.debug('entering delayed stop')
@@ -583,10 +580,8 @@ class ExailePlayer:
 
     def _wait_for_end(self):
         self._cancel_delayed_stop()
-
         play_args = self.engine_autoadvance_notify_next(self._next_track)
-        self.play(*play_args)
-
+        self.play(track=self._next_track, play_args=play_args)
         self._next_track = None
 
     def engine_autoadvance_notify_next(self, track):
@@ -612,22 +607,20 @@ class ExailePlayer:
 
     def _get_play_params(self, track, start_at, paused, autoadvance):
         if start_at is None:
-            start_at = (track.get_tag_raw('__startoffset') or 0) * 1000
+            start_at = (track.get_tag_raw('__startoffset') or 0)
 
         # Once playback has started, if there's a delay, pause the stream
         # for delay number of seconds
         self._cancel_delayed_start()
 
+        delay = 0
         if not paused and autoadvance and self._auto_advance_delay > 0:
             delay = int(self._auto_advance_delay)
 
-            start_at = start_at - delay
-            # logger.debug("Delaying start for %sms", delay)
-            # self._delay_id = GLib.timeout_add(delay, self._delayed_start)
-            # paused = True
-
-        self._start_offset = start_at
-        self._stop_offset = track.get_tag_raw('__stopoffset') or 0
+        if start_at < 0:
+            self._play_delay = (start_at * -1000) + delay
+        elif delay > 0:
+            self._play_delay = delay
 
         return track, start_at, paused
 
@@ -663,6 +656,8 @@ class ExailePlayer:
     #
 
     def _cancel_delayed_start(self):
+        self._play_delayed_until = 0
+        self._play_delay = 0
         if self._delay_id is not None:
             GLib.source_remove(self._delay_id)
             self._delay_id = None

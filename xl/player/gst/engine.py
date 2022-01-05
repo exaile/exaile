@@ -276,8 +276,13 @@ class ExaileGstEngine(ExaileEngine):
         track = self.player.engine_autoadvance_get_next_track()
 
         if track:
-            play_args = self.player.engine_autoadvance_notify_next(track)
-            self.player.play(*play_args)
+            play_args = self.player.engine_autoadvance_notify_next(track) + (
+                False,
+                True,
+            )
+            self._next_track(*play_args)
+            # play_args = self.player.engine_autoadvance_notify_next(track)
+            # self.player.play(*play_args)
 
         # If still fading, don't stop
         elif not still_fading:
